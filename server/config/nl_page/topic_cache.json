@@ -15781,8 +15781,8 @@
         "Maternal Mortality"
       ],
       "relevantVariableList": [
-        "WHO/MORT_MATERNALNUM",
-        "sdg/SH_STA_MORT.SEX--F"
+        "sdg/SH_STA_MORT.SEX--F",
+        "WHO/MORT_MATERNALNUM"
       ],
       "typeOf": [
         "Topic"

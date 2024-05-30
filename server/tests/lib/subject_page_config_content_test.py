@@ -32,6 +32,8 @@ BLOCK_TYPE_ALLOWED_TILES = {
         TileType.PLACE_OVERVIEW: "",
         TileType.GAUGE: "",
         TileType.DONUT: "",
+        TileType.ANSWER_MESSAGE: "",
+        TileType.ANSWER_TABLE: "",
     },
     BlockType.DISASTER_EVENT: {
         TileType.DISASTER_EVENT_MAP: "",
