@@ -16,6 +16,7 @@
 
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import React, { useEffect, useState } from "react";
+import { Button } from "reactstrap";
 
 import {
   DC_CALL_SHEET,
@@ -24,37 +25,74 @@ import {
   DC_STAT_COL,
   LLM_STAT_COL,
 } from "./constants";
+import { EvalInfo, FeedbackForm } from "./feedback_form";
 
-export interface EvalSectionProps {
-  doc: GoogleSpreadsheet;
+export interface DcCall {
+  callId: string;
   rowIdx: number;
 }
 
+export interface EvalSectionProps {
+  doc: GoogleSpreadsheet;
+  calls: DcCall[];
+}
+
 export function EvalSection(props: EvalSectionProps): JSX.Element {
-  const [dcQuestion, setDcQuestion] = useState<string>("");
-  const [dcAnswer, setDcAnswer] = useState<string>("");
-  const [llmStat, setLlmStat] = useState<string>("");
-  const [dcStat, setDcStat] = useState<string>("");
+  const [evalInfo, setEvalInfo] = useState<EvalInfo | null>(null);
+  const [callIdx, setCallIdx] = useState<number>(0);
 
   useEffect(() => {
     const sheet = props.doc.sheetsByTitle[DC_CALL_SHEET];
-    sheet.getRows({ offset: props.rowIdx - 1, limit: 1 }).then((rows) => {
+    const rowIdx = props.calls[callIdx].rowIdx;
+    sheet.getRows({ offset: rowIdx - 1, limit: 1 }).then((rows) => {
       const row = rows[0];
       if (row) {
-        setDcQuestion(row.get(DC_QUESTION_COL));
-        setDcAnswer(row.get(DC_RESPONSE_COL));
-        setLlmStat(row.get(LLM_STAT_COL));
-        setDcStat(row.get(DC_STAT_COL));
+        setEvalInfo({
+          question: row.get(DC_QUESTION_COL),
+          dcResponse: row.get(DC_RESPONSE_COL),
+          llmResponse: row.get(LLM_STAT_COL),
+          dcStat: row.get(DC_STAT_COL),
+        });
       }
     });
-  }, [props.doc, props.rowIdx]);
+  }, [props.doc, props.calls, callIdx]);
+
+  const previous = () => {
+    if (callIdx > 0) {
+      setCallIdx(callIdx - 1);
+    }
+  };
+
+  const next = () => {
+    if (callIdx < props.calls.length - 1) {
+      setCallIdx(callIdx + 1);
+    }
+  };
 
   return (
-    <div className="eval-section">
-      <p>dcQuestion: {dcQuestion}</p>
-      <p>dcAnswer: {dcAnswer}</p>
-      <p>llmStat: {llmStat}</p>
-      <p>dcStat: {dcStat}</p>
-    </div>
+    <>
+      {evalInfo && <FeedbackForm evalInfo={evalInfo} />}
+      <div>
+        <span>
+          {callIdx + 1} / {props.calls.length} ITEMS IN THIS QUERY
+        </span>
+        <Button
+          className={callIdx === 0 ? "disabled" : ""}
+          onClick={() => {
+            previous();
+          }}
+        >
+          Previous
+        </Button>
+        <Button
+          className={callIdx === props.calls.length - 1 ? "disabled" : ""}
+          onClick={() => {
+            next();
+          }}
+        >
+          Next
+        </Button>
+      </div>
+    </>
   );
 }

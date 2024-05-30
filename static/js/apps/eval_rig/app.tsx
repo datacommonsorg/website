@@ -27,6 +27,7 @@ import {
   QUERY_ID_COL,
   USER_COL,
 } from "./constants";
+import { DcCall } from "./eval_section";
 import { Query, QuerySection } from "./query_section";
 
 // Map from sheet name to column name to column index
@@ -40,9 +41,7 @@ export function App(props: AppPropType): JSX.Element {
   const [user, setUser] = useState<User | null>(null);
   const [doc, setDoc] = useState<GoogleSpreadsheet>();
   const [allQuery, setAllQuery] = useState<Record<string, Query>>({});
-  const [allCall, setAllCall] = useState<
-    Record<string, Record<string, number>>
-  >({});
+  const [allCall, setAllCall] = useState<Record<string, DcCall[]>>({});
 
   async function loadHeader(doc: GoogleSpreadsheet): Promise<HeaderInfo> {
     const result: HeaderInfo = {};
@@ -98,15 +97,15 @@ export function App(props: AppPropType): JSX.Element {
       );
     }
     Promise.all(loadPromises).then(() => {
-      const allCall: Record<string, Record<string, number>> = {};
+      const allCall: Record<string, DcCall[]> = {};
       for (let i = 1; i < numRows; i++) {
         const rowIdx = i;
         const queryId = sheet.getCell(i, header[QUERY_ID_COL]).value as string;
         const callId = sheet.getCell(i, header[CALL_ID_COL]).value as string;
         if (!allCall[queryId]) {
-          allCall[queryId] = {};
+          allCall[queryId] = [];
         }
-        allCall[queryId][callId] = rowIdx;
+        allCall[queryId].push({ callId, rowIdx });
       }
       setAllCall(allCall);
     });
@@ -138,7 +137,7 @@ export function App(props: AppPropType): JSX.Element {
         )}
         {user && <p>Signed in as {user.email}</p>}
         {allQuery["1"] && allCall["1"] && (
-          <QuerySection doc={doc} query={allQuery["1"]} call={allCall["1"]} />
+          <QuerySection doc={doc} query={allQuery["1"]} calls={allCall["1"]} />
         )}
       </div>
     </>
