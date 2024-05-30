@@ -23,10 +23,9 @@ if [[ $ENV == "" || $REGION == "" ]]; then
   exit 1
 fi
 
-PROJECT_ID=$(yq eval '.project' ../deploy/gke/$ENV.yaml)
-if [[ $REGION == "" ]]; then
-  REGION=$(yq eval '.region.primary' config.yaml)
-fi
+CONFIG_YAML="../deploy/helm_charts/envs/$1.yaml"
+
+PROJECT_ID=$(yq eval '.project' $CONFIG_YAML)
 
 gcloud config set project $PROJECT_ID
 

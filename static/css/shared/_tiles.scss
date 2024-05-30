@@ -20,6 +20,7 @@
 
 @forward "ranking_unit";
 @forward "chart_embed";
+@forward "metadata_modal";
 @forward "../draw_scatter";
 @use "../base";
 
@@ -126,7 +127,11 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
 }
 
 .chart-container.ranking-tile {
-  padding-top: 15.5px;
+  padding: 0;
+  .loading {
+    flex-grow: 1;
+    padding: 24px 24px 16px;
+  }
 }
 
 .svg-container,
@@ -144,7 +149,7 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
 }
 
 .initial-loading-placeholder {
-  background-color: var(--light);
+  background-color: var(--loading-background) !important;
 }
 
 /** footnotes */
@@ -283,19 +288,15 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
     font-weight: 600;
     font-size: 0.8rem;
   }
-
-  footer {
-    padding: 16px 0;
-  }
 }
 
 .ranking-unit-container {
-  padding: 0 0.5rem;
   display: flex;
   flex-direction: column;
 
   .ranking-list {
     flex-grow: 1;
+    padding: 24px 24px 16px 24px;
   }
 }
 

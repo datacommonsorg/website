@@ -40,6 +40,11 @@ website and mixer changes.
   python3 --version
   ```
 
+  Set up your Python environment and update packages with:
+  ```bash
+  ./run_test.sh --setup_python
+  ```
+
 - Node.js 18.4.0
 
   Install [`nodejs`](https://nodejs.org/en/download/) and
@@ -127,6 +132,14 @@ to be brought up locally (in a separate process):
 ```
 
 By default the NL server runs on port 6060.
+
+If you run into problems starting the server, try running these commands before restarting the server:
+```bash
+./run_test.sh --setup_python
+rm -rf ~/.datacommons
+rm -rf /tmp/datcom-nl-models
+rm -rf /tmp/datcom-nl-models-dev
+```
 
 ### Use Local Mixer
 
@@ -225,7 +238,7 @@ data. For this to happen in other dev/demo instance, in a clean git checkout,
 simply run:
 
 ```bash
-./script/deploy_latest.sh <ENV_NAME>
+./script/deploy_latest.sh <ENV_NAME> <REGION>
 ```
 
 ### Debug Flask in Visual Studio Code
@@ -330,4 +343,3 @@ the same region.
 ### Testing cloudbuild changes
 
 To test .yaml cloudbuild files, you can use cloud-build-local to dry run the file before actually pushing. Find documentation for how to install and use cloud-build-local [here](https://github.com/GoogleCloudPlatform/cloud-build-local).
-

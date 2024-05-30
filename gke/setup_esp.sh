@@ -15,7 +15,9 @@
 
 set -e
 
-PROJECT_ID=$(yq eval '.project' config.yaml)
+CONFIG_YAML="../deploy/helm_charts/envs/$1.yaml"
+
+PROJECT_ID=$(yq eval '.project' $CONFIG_YAML)
 
 export SERVICE_NAME="website-esp.endpoints.$PROJECT_ID.cloud.goog"
 export API_TITLE=$SERVICE_NAME

@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# DNS
+ip: 34.120.161.85
+domain: datacommons.org
+
 # Helm config
 project: "datcom-website-prod"
 cluster_prefix: "website"
@@ -41,14 +45,20 @@ serviceAccount:
 
 nl:
   enabled: true
-  embeddingsSpec:
-    defaultIndex: "medium_ft"
-    enabledIndexes: [
-      "bio_ft"
-      "medium_ft",
-      "sdg_ft",
-      "undata_ft",
-    ]
+  env:
+    default_indexes:
+      - base_uae_mem
+    enabled_indexes:
+      - base_uae_mem
+      - medium_ft
+      - sdg_ft
+      - undata_ft
+    vertex_ai_models:
+      uae-large-v1-model:
+        project_id: datcom-nl
+        location: us-central1
+        prediction_endpoint_id: "430892009855647744"
+    enable_reranking: false
 
 serviceGroups:
   recon: null

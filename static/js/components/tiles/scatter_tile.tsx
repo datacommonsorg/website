@@ -35,7 +35,6 @@ import { ChartQuadrant } from "../../constants/scatter_chart_constants";
 import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
-import { loadSpinner, removeSpinner } from "../../shared/util";
 import { SHOW_POPULATION_OFF } from "../../tools/scatter/context";
 import { getStatWithinPlace } from "../../tools/scatter/util";
 import { ScatterTileSpec } from "../../types/subject_page_proto_types";
@@ -77,8 +76,6 @@ export interface ScatterTilePropType {
   apiRoot?: string;
   // Whether or not to show the explore more button.
   showExploreMore?: boolean;
-  // Whether or not to show a loading spinner when fetching data.
-  showLoadingSpinner?: boolean;
   // Text to show in footer
   footnote?: string;
   // The property to use to get place names.
@@ -119,17 +116,22 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
   const [scatterChartData, setScatterChartData] = useState<
     ScatterChartData | undefined
   >(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (scatterChartData && areDataPropsEqual()) {
       // only re-fetch if the props that affect data fetch are not equal
       return;
     }
-    loadSpinner(getSpinnerId());
     (async () => {
-      const data = await fetchData(props);
-      if (props && data && _.isEqual(data.props, props)) {
-        setScatterChartData(data);
+      setIsLoading(true);
+      try {
+        const data = await fetchData(props);
+        if (props && data && _.isEqual(data.props, props)) {
+          setScatterChartData(data);
+        }
+      } finally {
+        setIsLoading(false);
       }
     })();
   }, [props, scatterChartData]);
@@ -145,25 +147,27 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
       tooltip.current,
       props.scatterTileSpec || {}
     );
-    removeSpinner(getSpinnerId());
   }, [props.svgChartHeight, props.scatterTileSpec, scatterChartData]);
 
   useDrawOnResize(drawFn, svgContainer.current);
 
   return (
     <ChartTileContainer
-      id={props.id}
-      title={props.title}
-      subtitle={props.subtitle}
-      sources={props.sources || (scatterChartData && scatterChartData.sources)}
-      replacementStrings={getReplacementStrings(props, scatterChartData)}
-      className={`${props.className} scatter-chart`}
       allowEmbed={true}
-      getDataCsv={getDataCsvCallback(props, scatterChartData)}
-      isInitialLoading={_.isNull(scatterChartData)}
+      apiRoot={props.apiRoot}
+      className={`${props.className} scatter-chart`}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
-      hasErrorMsg={scatterChartData && !!scatterChartData.errorMsg}
       footnote={props.footnote}
+      getDataCsv={getDataCsvCallback(props, scatterChartData)}
+      hasErrorMsg={scatterChartData && !!scatterChartData.errorMsg}
+      id={props.id}
+      isInitialLoading={_.isNull(scatterChartData)}
+      isLoading={isLoading}
+      replacementStrings={getReplacementStrings(props, scatterChartData)}
+      sources={props.sources || (scatterChartData && scatterChartData.sources)}
+      subtitle={props.subtitle}
+      title={props.title}
+      statVarSpecs={props.statVarSpec}
     >
       <div className="scatter-tile-content">
         <div
@@ -178,19 +182,8 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
           style={{ visibility: "hidden" }}
         />
       </div>
-      {props.showLoadingSpinner && (
-        <div id={getSpinnerId()}>
-          <div className="screen">
-            <div id="spinner"></div>
-          </div>
-        </div>
-      )}
     </ChartTileContainer>
   );
-
-  function getSpinnerId(): string {
-    return `scatter-spinner-${props.id}`;
-  }
 
   function areDataPropsEqual(): boolean {
     const oldDataProps = [

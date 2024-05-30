@@ -18,7 +18,9 @@ import tempfile
 import unittest
 
 from sentence_transformers import SentenceTransformer
+import yaml
 
+from nl_server.config import LocalModelConfig
 from tools.nl.embeddings import utils
 from tools.nl.embeddings.build_custom_dc_embeddings import \
     EMBEDDINGS_CSV_FILENAME_PREFIX
@@ -28,7 +30,6 @@ import tools.nl.embeddings.build_custom_dc_embeddings as builder
 from tools.nl.embeddings.file_util import create_file_handler
 
 MODEL_NAME = "all-MiniLM-L6-v2"
-
 INPUT_DIR = Path(__file__).parent / "testdata/custom_dc/input"
 EXPECTED_DIR = Path(__file__).parent / "testdata/custom_dc/expected"
 
@@ -39,6 +40,13 @@ def _compare_files(test: unittest.TestCase, output_path, expected_path):
     with open(expected_path) as wantf:
       want = wantf.read()
       test.assertEqual(got, want)
+
+
+def _compare_yaml(test: unittest.TestCase, output_path, expected_path):
+  with open(output_path) as gotf, open(expected_path) as wantf:
+    got = yaml.safe_load(gotf)
+    want = yaml.safe_load(wantf)
+    test.assertDictEqual(got, want)
 
 
 class TestEndToEnd(unittest.TestCase):
@@ -88,16 +96,14 @@ class TestEndToEnd(unittest.TestCase):
       actual_embeddings_yaml_path = os.path.join(temp_dir,
                                                  EMBEDDINGS_YAML_FILE_NAME)
 
-      model_info = utils.ModelConfig(name='FooModel',
-                                     info={
-                                         'type': 'LOCAL',
-                                         'gcs_folder': 'fooModelFolder',
-                                         'usage': 'EMBEDDINGS',
-                                         'score_threshold': 0.5,
-                                     })
+      model_config = LocalModelConfig(type='LOCAL',
+                                      gcs_folder='fooModelFolder',
+                                      usage='EMBEDDINGS',
+                                      score_threshold=0.5)
       builder.generate_embeddings_yaml(
-          model_info, create_file_handler(fake_embeddings_csv_path),
+          'FooModel', model_config,
+          create_file_handler(fake_embeddings_csv_path),
           create_file_handler(actual_embeddings_yaml_path))
 
-      _compare_files(self, actual_embeddings_yaml_path,
-                     expected_embeddings_yaml_path)
+      _compare_yaml(self, actual_embeddings_yaml_path,
+                    expected_embeddings_yaml_path)

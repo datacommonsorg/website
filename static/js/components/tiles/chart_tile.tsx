@@ -20,11 +20,11 @@
 
 import _ from "lodash";
 import React, { useRef } from "react";
-import { Spinner } from "reactstrap";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { INITIAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
+import { StatVarSpec } from "../../shared/types";
 import {
   formatString,
   getChartTitle,
@@ -34,6 +34,7 @@ import {
 } from "../../utils/tile_utils";
 import { NlChartFeedback } from "../nl_feedback";
 import { ChartFooter } from "./chart_footer";
+import { LoadingHeader } from "./loading_header";
 interface ChartTileContainerProp {
   id: string;
   isLoading?: boolean;
@@ -58,6 +59,10 @@ interface ChartTileContainerProp {
   footnote?: string;
   // Subtitle text
   subtitle?: string;
+  // Stat Vars for metadata rendering.
+  statVarSpecs?: StatVarSpec[];
+  // API root used for DC tool links.
+  apiRoot?: string;
 }
 
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
@@ -84,27 +89,20 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
         }`}
       >
         <div className="chart-headers">
-          {
-            /* We want to render this header element even if title is empty
-            to keep the space on the page */
-            props.title && (
-              <h4 {...{ part: "header" }}>
-                {props.isLoading ? (
-                  <>
-                    <Spinner color="secondary" size="sm" className="pr-1" />
-                    {title ? "" : " Loading..."}
-                  </>
-                ) : null}{" "}
-                {title}
-              </h4>
-            )
-          }
+          <LoadingHeader isLoading={props.isLoading} title={title} />
           <slot name="subheader" {...{ part: "subheader" }}>
             {props.subtitle && !props.isInitialLoading ? (
               <div className="subheader">{props.subtitle}</div>
             ) : null}
           </slot>
-          {showSources && <TileSources sources={props.sources} />}
+          {showSources && (
+            <TileSources
+              apiRoot={props.apiRoot}
+              containerRef={containerRef}
+              sources={props.sources}
+              statVarSpecs={props.statVarSpecs}
+            />
+          )}
         </div>
         {props.children}
       </div>

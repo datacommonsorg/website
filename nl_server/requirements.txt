@@ -1,3 +1,4 @@
+dacite==1.8.1
 datasets==2.18.0
 diskcache==5.4.0
 Flask==2.3.2

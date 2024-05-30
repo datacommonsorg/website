@@ -29,11 +29,7 @@ import {
 import { ChartEmbed } from "../../place/chart_embed";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { StatVarSpec } from "../../shared/types";
-import {
-  getCappedStatVarDate,
-  loadSpinner,
-  removeSpinner,
-} from "../../shared/util";
+import { getCappedStatVarDate } from "../../shared/util";
 import {
   RankingData,
   RankingGroup,
@@ -51,6 +47,7 @@ import {
   getStatVarName,
   transformCsvHeader,
 } from "../../utils/tile_utils";
+import { LoadingHeader } from "./loading_header";
 import { SvRankingUnits } from "./sv_ranking_units";
 import { ContainedInPlaceMultiVariableTileProp } from "./tile_types";
 
@@ -66,7 +63,6 @@ export interface RankingTilePropType
   hideFooter?: boolean;
   onHoverToggled?: (placeDcid: string, hover: boolean) => void;
   rankingMetadata: RankingTileSpec;
-  showLoadingSpinner?: boolean;
   footnote?: string;
   // Optional: Override sources for this tile
   sources?: string[];
@@ -77,13 +73,18 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
   const [rankingData, setRankingData] = useState<RankingData | undefined>(null);
   const embedModalElement = useRef<ChartEmbed>(null);
   const chartContainer = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    loadSpinner(getSpinnerId());
-    fetchData(props).then((rankingData) => {
-      setRankingData(rankingData);
-      removeSpinner(getSpinnerId());
-    });
+    (async () => {
+      setIsLoading(true);
+      try {
+        const rankingData = await fetchData(props);
+        setRankingData(rankingData);
+      } finally {
+        setIsLoading(false);
+      }
+    })();
   }, [props]);
 
   const numRankingLists = getNumRankingLists(
@@ -136,7 +137,9 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
   }
   return (
     <div
-      className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS} ranking-tile ${props.className}`}
+      className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS} ranking-tile ${
+        props.className
+      } ${isLoading ? `loading ${INITIAL_LOADING_CLASS}` : ""}`}
       ref={chartContainer}
       style={{
         gridTemplateColumns:
@@ -146,11 +149,12 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
       {!rankingData &&
         placeHolderArray.map((_, i) => {
           return (
-            <div
-              key={`ranking-placeholder-${i}`}
-              className={INITIAL_LOADING_CLASS}
-              style={{ minHeight: placeHolderHeight }}
-            ></div>
+            <div className="loading" key={`ranking-placeholder-${i}`}>
+              <div className="chart-headers">
+                <LoadingHeader isLoading={true} />
+              </div>
+              <div style={{ minHeight: placeHolderHeight }}></div>
+            </div>
           );
         })}
       {rankingData &&
@@ -162,38 +166,30 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
               : "";
           return (
             <SvRankingUnits
+              apiRoot={props.apiRoot}
+              containerRef={chartContainer}
+              entityType={props.enclosedPlaceType}
+              errorMsg={errorMsg}
+              footnote={props.footnote}
+              hideFooter={props.hideFooter}
+              isLoading={isLoading}
               key={statVar}
+              onHoverToggled={props.onHoverToggled}
               rankingData={rankingData}
               rankingMetadata={props.rankingMetadata}
               showChartEmbed={showChartEmbed}
+              showExploreMore={props.showExploreMore}
               sources={props.sources}
               statVar={statVar}
-              entityType={props.enclosedPlaceType}
-              title={props.title}
-              showExploreMore={props.showExploreMore}
-              apiRoot={props.apiRoot}
-              hideFooter={props.hideFooter}
-              onHoverToggled={props.onHoverToggled}
               tileId={props.id}
-              errorMsg={errorMsg}
-              footnote={props.footnote}
+              title={props.title}
+              statVarSpecs={props.variables}
             />
           );
         })}
       <ChartEmbed container={chartContainer.current} ref={embedModalElement} />
-      {props.showLoadingSpinner && (
-        <div id={getSpinnerId()}>
-          <div className="screen">
-            <div id="spinner"></div>
-          </div>
-        </div>
-      )}
     </div>
   );
-
-  function getSpinnerId(): string {
-    return `ranking-spinner-${props.id}`;
-  }
 }
 
 export async function fetchData(

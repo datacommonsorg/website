@@ -25,7 +25,8 @@ if [[ $ENV == "" ]]; then
   exit 1
 fi
 
-PROJECT_ID=$(yq eval '.project' config.yaml)
+CONFIG_YAML="../deploy/helm_charts/envs/$ENV.yaml"
+PROJECT_ID=$(yq eval '.project' $CONFIG_YAML)
 AUTH="$(gcloud auth print-access-token)"
 ENVIRONMENT_NAME=website-environment
 APIGEE_CONFIG_PATH=../deploy/apigee

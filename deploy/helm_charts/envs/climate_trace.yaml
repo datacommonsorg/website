@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# DNS
+ip: 34.107.228.109
+domain: climatetrace.datacommons.org
+
 # Helm config
 project: datcom-mixer-encode
 cluster_prefix: datacommons
@@ -34,14 +38,11 @@ serviceAccount:
 
 nl:
   enabled: true
-  embeddingsSpec:
-    defaultIndex: "medium_ft"
-    enabledIndexes: [
-      "bio_ft"
-      "medium_ft",
-      "sdg_ft",
-      "undata_ft",
-    ]
+  env:
+    default_indexes:
+      - medium_ft
+    enabled_indexes:
+      - medium_ft
 
 serviceGroups:
   recon: null
