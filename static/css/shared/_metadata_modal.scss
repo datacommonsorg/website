@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,8 @@
  * Styling for chart metadata modal.
  */
 
-@use "./modal.scss" as modal;
+@use "./modal.scss";
+@use "../base";
 
 
 .metadata-modal {
@@ -41,7 +42,7 @@
     color: var(--gm-3-sys-light-on-surface);
 
     /* title/medium */
-    font-family: "Google Sans Text";
+    font-family: var(--dc-headings-font-family, base.$headings-font-family);
     font-size: 1.1rem;
     font-weight: 500;
     line-height: 1.5;
@@ -52,7 +53,6 @@
     padding: 0 24px 12px;
 
     /* body/medium */
-    font-family: "Google Sans Text";
     font-size: .9rem;
     font-weight: 400;
     line-height: 1.4;
@@ -65,7 +65,6 @@
     color: var(--gm-3-sys-light-primary);
 
     /* label/large */
-    font-family: "Google Sans Text";
     font-size: .9rem;
     font-style: normal;
     font-weight: 500;
@@ -92,7 +91,6 @@
 
       a {
         /* button/button */
-        font-family: "Google Sans Text";
         font-size: .9rem;
         font-style: normal;
         font-weight: 500;

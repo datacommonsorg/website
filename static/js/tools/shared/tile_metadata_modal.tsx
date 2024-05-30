@@ -31,20 +31,20 @@ interface TileMetadataModalPropType {
   statVarSpecs: StatVarSpec[];
 }
 
-type Dcid = string;
-type Name = string;
-type DcidNameTuple = [Dcid, Name];
+// [dcid, name]
+type DcidNameTuple = [string, string];
 
-function buildMetadataRow(dcid: Dcid, name: Name, key: number): JSX.Element {
+function MetadataRow(props: {
+  dcid: string, name: string}): JSX.Element {
   return (
-    <div className="metadata-modal-link" key={key}>
+    <div className="metadata-modal-link">
       <span className="material-icons-outlined">arrow_forward</span>
       <a
-        href={SV_EXPLORER_REDIRECT_PREFIX + dcid}
+        href={SV_EXPLORER_REDIRECT_PREFIX + props.dcid}
         target="_blank"
         rel="noreferrer"
       >
-        {name}
+        {props.name}
       </a>
     </div>
   );
@@ -115,10 +115,11 @@ export function TileMetadataModal(
             <div className="metadata-modal-links">
               {statVarNames.length
                 ? statVarNames.map((dcidName, i) =>
-                    buildMetadataRow(dcidName[0], dcidName[1], i)
+                    <MetadataRow dcid={dcidName[0]} name={dcidName[1]} key={i} />
                   )
                 : // Use DCID as display name as a fallback. Note, might not be displayed in order.
-                  [...dcids].map((dcid, i) => buildMetadataRow(dcid, dcid, i))}
+                  [...dcids].map((dcid, i) => 
+                    <MetadataRow dcid={dcid} name={dcid} key={i} />)}
             </div>
           </ModalBody>
           <ModalFooter>
