@@ -19,7 +19,7 @@ import React, { useEffect, useState } from "react";
 import { Col, Row } from "reactstrap";
 
 import { ANSWER_COL, QA_SHEET } from "./constants";
-import { EvalSection } from "./eval_section";
+import { DcCall, EvalSection } from "./eval_section";
 
 export interface Query {
   rowIdx: number;
@@ -31,7 +31,7 @@ export interface QuerySectionProps {
   doc: GoogleSpreadsheet;
   query: Query;
   // call id to row index map
-  call: Record<string, number>;
+  calls: DcCall[];
 }
 
 export function QuerySection(props: QuerySectionProps): JSX.Element {
@@ -46,8 +46,6 @@ export function QuerySection(props: QuerySectionProps): JSX.Element {
       }
     });
   };
-
-  const firstCall = Object.keys(props.call)[0];
 
   useEffect(() => {
     loadAnswer(props.doc, props.query.rowIdx);
@@ -64,8 +62,7 @@ export function QuerySection(props: QuerySectionProps): JSX.Element {
           <p>{answer}</p>
         </Col>
         <Col>
-          <h1>This is the first Call</h1>
-          <EvalSection doc={props.doc} rowIdx={props.call[firstCall]} />
+          <EvalSection doc={props.doc} calls={props.calls} />
         </Col>
       </Row>
     </div>
