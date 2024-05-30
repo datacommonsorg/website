@@ -345,6 +345,7 @@ export function getRankingUnit(
       headerChild={
         errorMsg ? null : (
           <TileSources
+            apiRoot={apiRoot}
             containerRef={containerRef}
             sources={sources || rankingGroup.sources}
             statVarSpecs={statVarSpecs}

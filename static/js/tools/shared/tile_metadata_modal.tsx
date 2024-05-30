@@ -24,23 +24,25 @@ import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
 import { StatVarSpec } from "../../shared/types";
 import { datacommonsClient } from "../../utils/datacommons_client";
+import { apiRootToHostname } from "../../utils/url_utils";
 
 const SV_EXPLORER_REDIRECT_PREFIX = "/tools/statvar#sv=";
 
 interface TileMetadataModalPropType {
   statVarSpecs: StatVarSpec[];
   containerRef?: React.RefObject<HTMLElement>;
+  apiRoot?: string;
 }
 
 // [dcid, name]
 type DcidNameTuple = [string, string];
 
-function MetadataRow(props: { dcid: string; name: string }): JSX.Element {
+function MetadataRow(props: { dcid: string; name: string; apiRoot?: string }): JSX.Element {
   return (
     <div className="metadata-modal-link">
       <span className="material-icons-outlined">arrow_forward</span>
       <a
-        href={SV_EXPLORER_REDIRECT_PREFIX + props.dcid}
+        href={apiRootToHostname(props.apiRoot) + SV_EXPLORER_REDIRECT_PREFIX + props.dcid}
         target="_blank"
         rel="noreferrer"
       >
@@ -53,7 +55,6 @@ function MetadataRow(props: { dcid: string; name: string }): JSX.Element {
 export function TileMetadataModal(
   props: TileMetadataModalPropType
 ): JSX.Element {
-  // const { statVarSpecs } = props;
   const [modalOpen, setModalOpen] = useState(false);
   const [statVarNames, setStatVarNames] = useState<DcidNameTuple[]>([]);
   const dcids = new Set<string>();
@@ -122,12 +123,13 @@ export function TileMetadataModal(
                     <MetadataRow
                       dcid={dcidName[0]}
                       name={dcidName[1]}
+                      apiRoot={props.apiRoot}
                       key={i}
                     />
                   ))
                 : // Use DCID as display name as a fallback. Note, might not be displayed in order.
                   [...dcids].map((dcid, i) => (
-                    <MetadataRow dcid={dcid} name={dcid} key={i} />
+                    <MetadataRow dcid={dcid} name={dcid} apiRoot={props.apiRoot} key={i} />
                   ))}
             </div>
           </ModalBody>

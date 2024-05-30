@@ -154,6 +154,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
   return (
     <ChartTileContainer
       allowEmbed={true}
+      apiRoot={props.apiRoot}
       className={`${props.className} scatter-chart`}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       footnote={props.footnote}

@@ -113,6 +113,7 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
       id={props.id}
       title={props.title}
       subtitle={props.subtitle}
+      apiRoot={props.apiRoot}
       sources={props.sources || (donutChartData && donutChartData.sources)}
       replacementStrings={getReplacementStrings(props, donutChartData)}
       className={`${props.className} bar-chart`}

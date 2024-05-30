@@ -61,6 +61,8 @@ interface ChartTileContainerProp {
   subtitle?: string;
   // Stat Vars for metadata rendering.
   statVarSpecs?: StatVarSpec[];
+  // API root used for DC tool links.
+  apiRoot?: string;
 }
 
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
@@ -95,6 +97,7 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
           </slot>
           {showSources && (
             <TileSources
+              apiRoot={props.apiRoot}
               containerRef={containerRef}
               sources={props.sources}
               statVarSpecs={props.statVarSpecs}

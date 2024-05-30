@@ -289,6 +289,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       isLoading={isLoading}
       title={props.title}
       subtitle={props.subtitle}
+      apiRoot={props.apiRoot}
       sources={props.sources || (mapChartData && mapChartData.sources)}
       replacementStrings={
         mapChartData && getReplacementStrings(props, mapChartData)

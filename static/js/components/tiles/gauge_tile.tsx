@@ -116,6 +116,7 @@ export function GaugeTile(props: GaugeTilePropType): JSX.Element {
       id={props.id}
       title={props.title}
       subtitle={props.subtitle}
+      apiRoot={props.apiRoot}
       sources={props.sources || (gaugeData && gaugeData.sources)}
       replacementStrings={replacementStrings}
       allowEmbed={true}

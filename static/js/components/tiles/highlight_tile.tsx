@@ -128,6 +128,7 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
       )}
       {!_.isEmpty(highlightData.sources) && !highlightData.errorMsg && (
         <TileSources
+          apiRoot={props.apiRoot}
           containerRef={containerRef}
           sources={props.sources || highlightData.sources}
           statVarSpecs={[props.statVarSpec]}
