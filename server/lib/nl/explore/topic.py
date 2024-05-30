@@ -16,7 +16,7 @@
 from collections import OrderedDict
 from dataclasses import dataclass
 import time
-from typing import List
+from typing import List, Set, Tuple
 
 import server.lib.nl.common.topic as topic
 import server.lib.nl.common.utils as cutils
@@ -100,11 +100,14 @@ def compute_correlation_chart_vars(
 
   # To not go crazy with api calls, don't handle more than one topic on each
   # side.
+  added_pairs = set()
   found_lhs_topic = False
   found_rhs_topic = False
+  lhs_svs, rhs_svs = _match_lists(lhs_svs, rhs_svs)
   for lsv, rsv in zip(lhs_svs, rhs_svs):
-    cvlist = _compute_correlation_chart_vars_for_pair(state, lsv, rsv)
-    chart_vars_map[lsv] = cvlist
+    cvlist = _compute_correlation_chart_vars_for_pair(state, lsv, rsv,
+                                                      added_pairs)
+    chart_vars_map.setdefault(lsv, []).extend(cvlist)
 
     found_lhs_topic |= cutils.is_topic(lsv)
     found_rhs_topic |= cutils.is_topic(rsv)
@@ -114,12 +117,24 @@ def compute_correlation_chart_vars(
   return chart_vars_map
 
 
+# Matches lists by repeating the first entry of the shorter list.
+def _match_lists(l1: List[str], l2: List[str]) -> Tuple[List[str], List[str]]:
+  if len(l1) < len(l2):
+    new_l1 = l1 + [l1[0]] * (len(l2) - len(l1))
+    return new_l1, l2
+  if len(l2) < len(l1):
+    new_l2 = l2 + [l2[0]] * (len(l1) - len(l2))
+    return l1, new_l2
+  return l1, l2
+
+
 #
 # Compute correlation chart-vars for a given pair of LHS and RHS var
 # that are user-provided. Note that either/both of them can be a topic.
 #
 def _compute_correlation_chart_vars_for_pair(state: ftypes.PopulateState,
-                                             lhs_orig: str, rhs_orig: str):
+                                             lhs_orig: str, rhs_orig: str,
+                                             added_pairs: Set[str]):
   dc = state.uttr.insight_ctx.get(Params.DC.value, DCNames.MAIN_DC.value)
 
   # Get vars.
@@ -135,15 +150,14 @@ def _compute_correlation_chart_vars_for_pair(state: ftypes.PopulateState,
   rhs_svs = _vars(rhs_orig)
 
   # Mix and match them.
-  added = set()
   chart_vars = []
 
   def _add(lsv, rsv):
     # Ensure sv1,sv2 vs. sv2,sv1 are deduped
     k = ''.join(sorted([lsv, rsv]))
-    if lsv == rsv or k in added:
+    if lsv == rsv or k in added_pairs:
       return
-    added.add(k)
+    added_pairs.add(k)
     chart_vars.append(
         ftypes.ChartVars(svs=[lsv, rsv],
                          orig_sv_map={
