@@ -28,22 +28,23 @@ import {
 import { EvalInfo, FeedbackForm } from "./feedback_form";
 
 export interface DcCall {
-  callId: string;
-  rowIdx: number;
+  id: string;
+  row: number;
 }
 
 export interface EvalSectionProps {
+  queryId: string;
   doc: GoogleSpreadsheet;
   calls: DcCall[];
 }
 
 export function EvalSection(props: EvalSectionProps): JSX.Element {
   const [evalInfo, setEvalInfo] = useState<EvalInfo | null>(null);
-  const [callIdx, setCallIdx] = useState<number>(0);
+  const [callPos, setCallPos] = useState<number>(0);
 
   useEffect(() => {
     const sheet = props.doc.sheetsByTitle[DC_CALL_SHEET];
-    const rowIdx = props.calls[callIdx].rowIdx;
+    const rowIdx = props.calls[callPos].row;
     sheet.getRows({ offset: rowIdx - 1, limit: 1 }).then((rows) => {
       const row = rows[0];
       if (row) {
@@ -55,29 +56,35 @@ export function EvalSection(props: EvalSectionProps): JSX.Element {
         });
       }
     });
-  }, [props.doc, props.calls, callIdx]);
+  }, [props.doc, props.calls, callPos]);
 
   const previous = () => {
-    if (callIdx > 0) {
-      setCallIdx(callIdx - 1);
+    if (callPos > 0) {
+      setCallPos(callPos - 1);
     }
   };
 
   const next = () => {
-    if (callIdx < props.calls.length - 1) {
-      setCallIdx(callIdx + 1);
+    if (callPos < props.calls.length - 1) {
+      setCallPos(callPos + 1);
     }
   };
 
   return (
     <>
-      {evalInfo && <FeedbackForm evalInfo={evalInfo} />}
+      {evalInfo && (
+        <FeedbackForm
+          queryId={props.queryId}
+          callId={props.calls[callPos].id}
+          evalInfo={evalInfo}
+        />
+      )}
       <div>
         <span>
-          {callIdx + 1} / {props.calls.length} ITEMS IN THIS QUERY
+          {callPos + 1} / {props.calls.length} ITEMS IN THIS QUERY
         </span>
         <Button
-          className={callIdx === 0 ? "disabled" : ""}
+          className={callPos === 0 ? "disabled" : ""}
           onClick={() => {
             previous();
           }}
@@ -85,7 +92,7 @@ export function EvalSection(props: EvalSectionProps): JSX.Element {
           Previous
         </Button>
         <Button
-          className={callIdx === props.calls.length - 1 ? "disabled" : ""}
+          className={callPos === props.calls.length - 1 ? "disabled" : ""}
           onClick={() => {
             next();
           }}
