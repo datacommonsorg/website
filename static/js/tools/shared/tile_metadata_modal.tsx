@@ -56,6 +56,7 @@ export function TileMetadataModal(
   const [modalOpen, setModalOpen] = useState(false);
   const [statVarNames, setStatVarNames] = useState<DcidNameTuple[]>([]);
   const dcids = new Set<string>();
+  const toggleModal = () => setModalOpen(!modalOpen);
 
   if (statVarSpecs) {
     for (const spec of statVarSpecs) {
@@ -100,10 +101,10 @@ export function TileMetadataModal(
         <Modal
           isOpen={modalOpen}
           scrollable
-          keyboard
+          toggle={toggleModal}
           className="metadata-modal modal-dialog-centered modal-lg"
         >
-          <ModalHeader toggle={() => setModalOpen(false)} close={<></>}>
+          <ModalHeader toggle={toggleModal} close={<></>}>
             Choose a variable to view its metadata
           </ModalHeader>
           <div className="modal-subtitle">
