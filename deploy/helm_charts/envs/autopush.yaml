@@ -104,4 +104,4 @@ cronTesting:
   enabled: true
   screenshotDomain: "autopush.datacommons.org"
   nodePool: "pool-1"
-  schedule: "0 */4 * * *"
+  schedule: "0 */12 * * *"

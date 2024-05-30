@@ -84,4 +84,4 @@ cronTesting:
   enabled: true
   enableSanity: false
   enableAdversarial: false
-  schedule: "0 */4 * * *"
+  schedule: "0 */12 * * *"
