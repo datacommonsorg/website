@@ -34,8 +34,7 @@ interface TileMetadataModalPropType {
 // [dcid, name]
 type DcidNameTuple = [string, string];
 
-function MetadataRow(props: {
-  dcid: string, name: string}): JSX.Element {
+function MetadataRow(props: { dcid: string; name: string }): JSX.Element {
   return (
     <div className="metadata-modal-link">
       <span className="material-icons-outlined">arrow_forward</span>
@@ -114,12 +113,17 @@ export function TileMetadataModal(
           <ModalBody>
             <div className="metadata-modal-links">
               {statVarNames.length
-                ? statVarNames.map((dcidName, i) =>
-                    <MetadataRow dcid={dcidName[0]} name={dcidName[1]} key={i} />
-                  )
+                ? statVarNames.map((dcidName, i) => (
+                    <MetadataRow
+                      dcid={dcidName[0]}
+                      name={dcidName[1]}
+                      key={i}
+                    />
+                  ))
                 : // Use DCID as display name as a fallback. Note, might not be displayed in order.
-                  [...dcids].map((dcid, i) => 
-                    <MetadataRow dcid={dcid} name={dcid} key={i} />)}
+                  [...dcids].map((dcid, i) => (
+                    <MetadataRow dcid={dcid} name={dcid} key={i} />
+                  ))}
             </div>
           </ModalBody>
           <ModalFooter>
