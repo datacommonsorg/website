@@ -27,6 +27,7 @@ import {
   QUERY_ID_COL,
   USER_COL,
 } from "./constants";
+import { AppContext } from "./context";
 import { DcCall } from "./eval_section";
 import { Query, QuerySection } from "./query_section";
 
@@ -73,10 +74,12 @@ export function App(props: AppPropType): JSX.Element {
     Promise.all(loadPromises).then(() => {
       const allQuery: Record<string, Query> = {};
       for (let i = 1; i < numRows; i++) {
-        allQuery[sheet.getCell(i, header[QUERY_ID_COL]).value as string] = {
-          rowIdx: i,
-          text: sheet.getCell(i, header[QUERY_COL]).value as string,
-          user: sheet.getCell(i, header[USER_COL]).value as string,
+        const id = String(sheet.getCell(i, header[QUERY_ID_COL]).value);
+        allQuery[id] = {
+          id,
+          row: i,
+          text: String(sheet.getCell(i, header[QUERY_COL]).value),
+          user: String(sheet.getCell(i, header[USER_COL]).value),
         };
       }
       setAllQuery(allQuery);
@@ -99,13 +102,13 @@ export function App(props: AppPropType): JSX.Element {
     Promise.all(loadPromises).then(() => {
       const allCall: Record<string, DcCall[]> = {};
       for (let i = 1; i < numRows; i++) {
-        const rowIdx = i;
-        const queryId = sheet.getCell(i, header[QUERY_ID_COL]).value as string;
-        const callId = sheet.getCell(i, header[CALL_ID_COL]).value as string;
+        const row = i;
+        const queryId = String(sheet.getCell(i, header[QUERY_ID_COL]).value);
+        const callId = String(sheet.getCell(i, header[CALL_ID_COL]).value);
         if (!allCall[queryId]) {
           allCall[queryId] = [];
         }
-        allCall[queryId].push({ callId, rowIdx });
+        allCall[queryId].push({ id: callId, row });
       }
       setAllCall(allCall);
     });
@@ -136,8 +139,16 @@ export function App(props: AppPropType): JSX.Element {
           />
         )}
         {user && <p>Signed in as {user.email}</p>}
-        {allQuery["1"] && allCall["1"] && (
-          <QuerySection doc={doc} query={allQuery["1"]} calls={allCall["1"]} />
+        {user && allQuery["1"] && allCall["1"] && (
+          <AppContext.Provider
+            value={{ sheetId: props.sheetId, userEmail: user.email }}
+          >
+            <QuerySection
+              doc={doc}
+              query={allQuery["1"]}
+              calls={allCall["1"]}
+            />
+          </AppContext.Provider>
         )}
       </div>
     </>

@@ -14,8 +14,20 @@
  * limitations under the License.
  */
 
-import React, { useEffect, useState } from "react";
+import { doc, setDoc } from "firebase/firestore";
+import React, { useContext, useEffect, useState } from "react";
 
+import { db } from "../../utils/firebase";
+import { AppContext } from "./context";
+import { OneQuestion } from "./one_question";
+
+const initialResponse = {
+  overall: "",
+  question: "",
+  llmResponse: "",
+  dcResponse: "",
+  dcStat: "",
+};
 export interface EvalInfo {
   question: string;
   llmResponse: string;
@@ -23,29 +35,28 @@ export interface EvalInfo {
   dcStat: string;
 }
 
+interface Response extends EvalInfo {
+  overall: string;
+  userEmail?: string;
+}
+
 export interface FeedbackFormProps {
+  queryId: string;
+  callId: string;
   evalInfo: EvalInfo;
 }
 
-const initialState = {
-  overall: "",
-  question: "",
-  llmResponse: "",
-  dcResponse: "",
-  dcStat: "",
-};
-
 export function FeedbackForm(props: FeedbackFormProps): JSX.Element {
-  const [responses, setResponses] = useState(initialState);
+  const { sheetId, userEmail } = useContext(AppContext);
+  const [response, setResponse] = useState<Response>(initialResponse);
 
   useEffect(() => {
-    // Reset responses whenever evalInfo changes
-    setResponses(initialState);
+    setResponse(initialResponse);
   }, [props.evalInfo]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setResponses((prevState) => ({
+    setResponse((prevState) => ({
       ...prevState,
       [name]: value,
     }));
@@ -53,7 +64,8 @@ export function FeedbackForm(props: FeedbackFormProps): JSX.Element {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    saveResponses(responses);
+    response.userEmail = userEmail;
+    saveResponse(sheetId, props.queryId, props.callId, response);
   };
 
   return (
@@ -61,134 +73,106 @@ export function FeedbackForm(props: FeedbackFormProps): JSX.Element {
       <fieldset>
         <div>
           <h2>OVERALL EVALUATION</h2>
-          <h3>Are there any hallucinations?</h3>
-          <label>
-            <input
-              type="radio"
-              name="overall"
-              value="0"
-              checked={responses.overall === "0"}
-              onChange={handleChange}
-            />
-            Yes
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="overall"
-              value="1"
-              checked={responses.overall === "1"}
-              onChange={handleChange}
-            />
-            No
-          </label>
+          <OneQuestion
+            question="Are there any hallucinations?"
+            name="overall"
+            values={{
+              LLM_ANSWER_HALLUCINATION: "Found factual inaccuracies",
+              LLM_ANSWER_OKAY: "No obvious factual inaccuracies",
+            }}
+            handleChange={handleChange}
+            responseField={response.overall}
+          />
         </div>
 
         <div>
           <h2>GEMMA MODEL EVALUATION</h2>
           <h3>{props.evalInfo.question}</h3>
           <h3>{props.evalInfo.llmResponse}</h3>
-          <h3>Question from the model</h3>
-          <label>
-            <input
-              type="radio"
-              name="question"
-              value="0"
-              checked={responses.question === "0"}
-              onChange={handleChange}
-            />
-            Well Formulated
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="question"
-              value="1"
-              checked={responses.question === "1"}
-              onChange={handleChange}
-            />
-            Irrelevant
-          </label>
-
-          <h3>Model response quality</h3>
-          <label>
-            <input
-              type="radio"
-              name="llmResponse"
-              value="0"
-              checked={responses.llmResponse === "0"}
-              onChange={handleChange}
-            />
-            Stats Seem Accurate
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="llmResponse"
-              value="1"
-              checked={responses.llmResponse === "1"}
-              onChange={handleChange}
-            />
-            Stat values seem off
-          </label>
+          <OneQuestion
+            question="Question from the model"
+            name="question"
+            values={{
+              DC_QUESTION_RELEVANT: "Well formulated & relevant",
+              DC_QUESTION_IRRELEVANT: "Irrelevant, vague, requires editing",
+            }}
+            handleChange={handleChange}
+            responseField={response.question}
+          />
+          <OneQuestion
+            question="Model response quality"
+            name="llmResponse"
+            values={{
+              LLM_STAT_ACCURATE: "Stats seem accurate",
+              LLM_STAT_INACCURATE: "Stats seem accurate",
+            }}
+            handleChange={handleChange}
+            responseField={response.llmResponse}
+          />
         </div>
 
         <div>
           <h2>DATA COMMONS EVALUATION</h2>
           <h3>{props.evalInfo.dcResponse}</h3>
           <h3>{props.evalInfo.dcStat}</h3>
-          <h3>Response from Data Commons</h3>
-          <label>
-            <input
-              type="radio"
-              name="dcResponse"
-              value="0"
-              checked={responses.dcResponse === "0"}
-              onChange={handleChange}
-            />
-            Relevant and direct
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="dcResponse"
-              value="1"
-              checked={responses.dcResponse === "1"}
-              onChange={handleChange}
-            />
-            Doesn&apos;t match the question
-          </label>
+          <OneQuestion
+            question="Response from Data Commons"
+            name="dcResponse"
+            values={{
+              DC_ANSWER_RELEVANT: "Relevant and direct",
+              DC_ANSWER_IRRELEVANT: "Doesn't match the question",
+              DC_ANSWER_EMPTY_BADNL: "Data exists, but NL fails to respond",
+              DC_ANSWER_EMPTY_NODATA:
+                "Query asks for data that doesn't exist in DC",
+              DC_ANSWER_EMPTY_OUTOFSCOPE:
+                "Query asks for data that is out-of-scope for DC",
+            }}
+            handleChange={handleChange}
+            responseField={response.dcResponse}
+          />
 
-          <h3>Data Commons stat quality</h3>
-          <label>
-            <input
-              type="radio"
-              name="dcStat"
-              value="0"
-              checked={responses.dcStat === "0"}
-              onChange={handleChange}
-            />
-            Stats Seem Accurate
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="dcStat"
-              value="1"
-              checked={responses.dcStat === "1"}
-              onChange={handleChange}
-            />
-            Stat values seem off
-          </label>
+          <OneQuestion
+            question="Response from Data Commons"
+            name="dcStat"
+            values={{
+              DC_STAT_ACCURATE: "Stats seem accurate",
+              DC_STAT_INACCURATE: "Stats seem accurate",
+            }}
+            handleChange={handleChange}
+            responseField={response.dcStat}
+          />
         </div>
 
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={Object.values(response).includes("")}>
+          Submit
+        </button>
       </fieldset>
     </form>
   );
 }
 
 // Mock function to simulate API call to save responses
-function saveResponses(responses) {
-  console.log("API Call to save responses:", responses);
+async function saveResponse(
+  sheetId: string,
+  queryId: string,
+  callId: string,
+  response: Response
+) {
+  try {
+    // Define the document reference
+    const docRef = doc(
+      db,
+      "sheets",
+      sheetId,
+      "queries",
+      queryId,
+      "calls",
+      callId
+    );
+    // Save the data to Firestore
+    await setDoc(docRef, response);
+    console.log("API Call data saved successfully");
+  } catch (error) {
+    console.error("Error writing document: ", error);
+  }
 }
