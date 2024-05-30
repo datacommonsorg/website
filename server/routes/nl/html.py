@@ -20,6 +20,7 @@ import flask
 from flask import Blueprint
 from flask import current_app
 from flask import render_template
+from flask import request
 
 import server.services.datacommons as dc
 
@@ -43,4 +44,5 @@ def eval_embeddings():
 def eval_rig():
   if os.environ.get('FLASK_ENV') not in ['local', 'autopush']:
     flask.abort(404)
-  return render_template('/eval_rig.html')
+  sheet_id = request.args.get('sheet_id')
+  return render_template('/eval_rig.html', sheet_id=sheet_id)

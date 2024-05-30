@@ -17,7 +17,7 @@
 
 {% set main_id = 'eval-rig' %}
 {% set page_id = 'eval-rig' %}
-{% set title = 'DC Gemma Eval Tool' %}
+{% set title = 'DC RIG Eval Tool' %}
 
 {% block head %}
 <link rel="stylesheet" href={{url_for('static', filename='css/eval_rig.min.css', t=config['VERSION'])}} >
@@ -25,6 +25,7 @@
 {% endblock %}
 
 {% block content %}
+<div id="metadata" class="d-none" data-sheet-id="{{ sheet_id }}"></div>
 <div id="dc-eval-rig"></div>
 {% endblock %}
 

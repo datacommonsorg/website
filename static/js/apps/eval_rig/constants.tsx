@@ -14,23 +14,16 @@
  * limitations under the License.
  */
 
-/**
- * Entrypoint for RIG Eval page.
- */
+export const QA_SHEET = "query_and_answer";
+export const DC_CALL_SHEET = "dc_calls";
 
-import React from "react";
-import ReactDOM from "react-dom";
+export const QUERY_ID_COL = "query_id";
+export const USER_COL = "user";
+export const QUERY_COL = "query";
+export const ANSWER_COL = "answer";
 
-import { App } from "./app";
-
-window.onload = () => {
-  renderPage();
-};
-
-function renderPage(): void {
-  const sheetId = document.getElementById("metadata").dataset.sheetId;
-  ReactDOM.render(
-    React.createElement(App, { sheetId }),
-    document.getElementById("dc-eval-rig")
-  );
-}
+export const CALL_ID_COL = "call_id";
+export const DC_QUESTION_COL = "dc_question";
+export const DC_RESPONSE_COL = "dc_response";
+export const LLM_STAT_COL = "llm_stat";
+export const DC_STAT_COL = "dc_stat";
