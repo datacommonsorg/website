@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { doc, setDoc } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
 
 import { db } from "../../utils/firebase";
@@ -69,13 +69,27 @@ export function FeedbackForm(props: FeedbackFormProps): JSX.Element {
     saveResponse(sheetId, props.queryId, props.callId, response);
   };
 
+  let dcResponseOptions;
+  if (props.evalInfo.dcStat) {
+    dcResponseOptions = {
+      DC_ANSWER_IRRELEVANT: "Doesn't match the question",
+      DC_ANSWER_RELEVANT: "Relevant and direct",
+    };
+  } else {
+    dcResponseOptions = {
+      DC_ANSWER_EMPTY_BADNL: "Data exists, but NL fails to respond",
+      DC_ANSWER_EMPTY_NODATA: "Query asks for data that doesn't exist in DC",
+      DC_ANSWER_EMPTY_OUTOFSCOPE:
+        "Query asks for data that is out-of-scope for DC",
+    };
+  }
   return (
     <form onSubmit={handleSubmit}>
       <fieldset>
         <div>
           <h2>OVERALL EVALUATION</h2>
           <OneQuestion
-            question="Are there any hallucinations?"
+            question="How is the overall answer?"
             name="overall"
             options={{
               LLM_ANSWER_HALLUCINATION: "Found factual inaccuracies",
@@ -119,15 +133,7 @@ export function FeedbackForm(props: FeedbackFormProps): JSX.Element {
           <OneQuestion
             question="Response from Data Commons"
             name="dcResponse"
-            options={{
-              DC_ANSWER_EMPTY_BADNL: "Data exists, but NL fails to respond",
-              DC_ANSWER_EMPTY_NODATA:
-                "Query asks for data that doesn't exist in DC",
-              DC_ANSWER_EMPTY_OUTOFSCOPE:
-                "Query asks for data that is out-of-scope for DC",
-              DC_ANSWER_IRRELEVANT: "Doesn't match the question",
-              DC_ANSWER_RELEVANT: "Relevant and direct",
-            }}
+            options={dcResponseOptions}
             handleChange={handleChange}
             responseField={response.dcResponse}
           />
@@ -161,17 +167,18 @@ async function saveResponse(
 ): Promise<void> {
   try {
     // Define the document reference
-    const docRef = doc(
+    const docRef = collection(
       db,
       "sheets",
       sheetId,
       "queries",
       queryId,
       "calls",
-      callId
+      callId,
+      "responses"
     );
     // Save the data to Firestore
-    await setDoc(docRef, response);
+    await addDoc(docRef, response);
     console.log("API Call data saved successfully");
   } catch (error) {
     console.error("Error writing document: ", error);
