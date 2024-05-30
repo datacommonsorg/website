@@ -85,6 +85,23 @@
               }
             ],
             "title": "Diabetes in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/NCD_BMI_30A",
+                      "Percent_Person_WithDiabetes"
+                    ],
+                    "title": "% Obesity Among Adults, BMI >= 30 and Diabetes in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "% Obesity Among Adults, BMI >= 30 and Diabetes"
           }
         ],
         "statVarSpec": {
@@ -109,6 +126,10 @@
             "noPerCapita": true,
             "statVar": "Percent_Person_WithDiabetes",
             "unit": "%"
+          },
+          "WHO/NCD_BMI_30A": {
+            "name": "% Obesity Among Adults, BMI >= 30",
+            "statVar": "WHO/NCD_BMI_30A"
           }
         }
       }
