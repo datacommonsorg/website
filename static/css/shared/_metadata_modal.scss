@@ -1,0 +1,103 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Styling for chart metadata modal.
+ */
+
+@use "./modal.scss";
+@use "../base";
+
+
+.metadata-modal {
+  // TODO(beets): Apply these styles to all modals.
+  .modal-content {
+    border-radius: 28px;
+  }
+  .modal-header {
+    border-bottom: none;
+    padding: 24px 24px 8px 24px;
+  }
+  .modal-body {
+    padding: 8px 24px;
+  }
+  .modal-footer {
+    border-top: none;
+    padding: 24px;
+  }
+  .modal-title {
+    color: var(--gm-3-sys-light-on-surface);
+
+    /* title/medium */
+    font-family: var(--dc-headings-font-family, base.$headings-font-family);
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  .modal-subtitle {
+    color: var(--gm-3-sys-light-on-surface);
+    padding: 0 24px 12px;
+
+    /* body/medium */
+    font-size: .9rem;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+  button.modal-close {
+    background: none;
+    border-radius: 100px;
+    border: 1px solid var(--gm-3-sys-light-outline);
+    padding: 10px 24px;
+    color: var(--gm-3-sys-light-primary);
+
+    /* label/large */
+    font-size: .9rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  .metadata-modal-links {
+    width: 100%;
+
+    .metadata-modal-link {
+      display: flex;
+      padding: 10px 16px;
+      justify-content: left;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+
+      color: var(--link-color);
+      text-align: center;
+
+      .material-icons-outlined {
+        font-size: 1rem;
+      }
+
+      a {
+        /* button/button */
+        font-size: .9rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1.4;
+
+        text-align: left;
+      }
+    }
+  }
+}

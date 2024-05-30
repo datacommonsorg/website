@@ -258,6 +258,9 @@ class ExploreTest(NLWebServerTestCase):
 
     self.assertTrue(success, f"wanted: {i18n_lang}, got {detected}")
 
+
+class ExploreTestDetectionFulfillment(ExploreTest):
+
   def test_detection_basic(self):
     self.run_detection('detection_api_basic', ['Commute in California'],
                        test='unittest')
@@ -486,6 +489,9 @@ class ExploreTest(NLWebServerTestCase):
     }
     self.run_fulfillment('fulfillment_api_nl_size', req)
 
+
+class ExploreTestEE1(ExploreTest):
+
   def test_e2e_answer_places(self):
     self.run_detect_and_fulfill('e2e_answer_places', [
         'California counties with the highest asthma levels',
@@ -603,6 +609,9 @@ class ExploreTest(NLWebServerTestCase):
         'Hunger in Nigeria',
         'Compare progress on poverty in Mexico, Nigeria and Pakistan'
     ])
+
+
+class ExploreTestEE2(ExploreTest):
 
   def test_e2e_fallbacks(self):
     self.run_detect_and_fulfill(

@@ -405,6 +405,7 @@ function renderTiles(
       : props.place;
     const comparisonPlaces = getComparisonPlaces(tile, place);
     const className = classNameList.join(" ");
+    // TODO(beets): Fix this for ranking tiles with highest/lowest title set.
     let title = blockDenom ? addPerCapitaToTitle(tile.title) : tile.title;
     switch (tile.type) {
       case "HIGHLIGHT": {
@@ -707,6 +708,7 @@ function renderWebComponents(
       : props.place;
     const comparisonPlaces = getComparisonPlaces(tile, place);
     const className = classNameList.join(" ");
+    // TODO(beets): Fix this for ranking tiles with highest/lowest title set.
     const title = blockDenom ? addPerCapitaToTitle(tile.title) : tile.title;
     switch (tile.type) {
       case "HIGHLIGHT": {

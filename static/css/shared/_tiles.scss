@@ -20,6 +20,7 @@
 
 @forward "ranking_unit";
 @forward "chart_embed";
+@forward "metadata_modal";
 @forward "../draw_scatter";
 @use "../base";
 
@@ -122,7 +123,6 @@ $box-shadow-8dp: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
 .chart-container.disaster-event-map-tile {
   border: var(--border-primary);
   border-radius: var(--border-radius-primary);
-  overflow: hidden;
   padding: 0;
 }
 

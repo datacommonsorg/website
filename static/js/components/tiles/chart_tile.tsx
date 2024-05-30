@@ -24,6 +24,7 @@ import React, { useRef } from "react";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { INITIAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
+import { StatVarSpec } from "../../shared/types";
 import {
   formatString,
   getChartTitle,
@@ -58,6 +59,10 @@ interface ChartTileContainerProp {
   footnote?: string;
   // Subtitle text
   subtitle?: string;
+  // Stat Vars for metadata rendering.
+  statVarSpecs?: StatVarSpec[];
+  // API root used for DC tool links.
+  apiRoot?: string;
 }
 
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
@@ -90,7 +95,14 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
               <div className="subheader">{props.subtitle}</div>
             ) : null}
           </slot>
-          {showSources && <TileSources sources={props.sources} />}
+          {showSources && (
+            <TileSources
+              apiRoot={props.apiRoot}
+              containerRef={containerRef}
+              sources={props.sources}
+              statVarSpecs={props.statVarSpecs}
+            />
+          )}
         </div>
         {props.children}
       </div>
