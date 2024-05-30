@@ -40,6 +40,11 @@ website and mixer changes.
   python3 --version
   ```
 
+  Set up your Python environment and update packages with:
+  ```bash
+  ./run_test.sh --setup_python
+  ```
+
 - Node.js 18.4.0
 
   Install [`nodejs`](https://nodejs.org/en/download/) and
@@ -127,6 +132,14 @@ to be brought up locally (in a separate process):
 ```
 
 By default the NL server runs on port 6060.
+
+If you run into problems starting the server, try running these commands before restarting the server:
+```bash
+./run_test.sh --setup_python
+rm -rf ~/.datacommons
+rm -rf /tmp/datcom-nl-models
+rm -rf /tmp/datcom-nl-models-dev
+```
 
 ### Use Local Mixer
 
