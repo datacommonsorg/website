@@ -16,6 +16,7 @@
 
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import React, { useEffect, useState } from "react";
+import ReactMarkdown from "react-markdown";
 import { Col, Row } from "reactstrap";
 
 import { ANSWER_COL, QA_SHEET } from "./constants";
@@ -59,7 +60,7 @@ export function QuerySection(props: QuerySectionProps): JSX.Element {
           <h3>Question</h3>
           <p>{props.query.text}</p>
           <h3>Answer</h3>
-          <p>{answer}</p>
+          <ReactMarkdown>{answer}</ReactMarkdown>
         </Col>
         <Col>
           <EvalSection

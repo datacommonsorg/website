@@ -26,6 +26,7 @@ interface OneQuestionProps {
   options: Record<string, string>; // Map from ENUM to displayed string
   handleChange: (event: ChangeEvent) => void;
   responseField: string;
+  disabled: boolean;
 }
 
 export function OneQuestion(props: OneQuestionProps): JSX.Element {
@@ -42,6 +43,7 @@ export function OneQuestion(props: OneQuestionProps): JSX.Element {
               value={key}
               checked={props.responseField === key}
               onChange={props.handleChange}
+              disabled={props.disabled}
             />
             {value}
           </label>
