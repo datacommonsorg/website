@@ -164,10 +164,14 @@ export function FeedbackForm(props: FeedbackFormProps): JSX.Element {
               disabled={completed}
             />
           </div>
-
-          <button type="submit" disabled={Object.values(response).includes("")}>
-            Submit
-          </button>
+          {!completed && (
+            <button
+              type="submit"
+              disabled={Object.values(response).includes("")}
+            >
+              Submit
+            </button>
+          )}
         </fieldset>
       </form>
     </>
