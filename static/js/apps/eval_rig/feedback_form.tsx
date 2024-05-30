@@ -36,6 +36,7 @@ export interface EvalInfo {
 }
 
 interface Response extends EvalInfo {
+  // overall evaluation of all the aspects
   overall: string;
   userEmail?: string;
 }
@@ -76,7 +77,7 @@ export function FeedbackForm(props: FeedbackFormProps): JSX.Element {
           <OneQuestion
             question="Are there any hallucinations?"
             name="overall"
-            values={{
+            options={{
               LLM_ANSWER_HALLUCINATION: "Found factual inaccuracies",
               LLM_ANSWER_OKAY: "No obvious factual inaccuracies",
             }}
@@ -92,9 +93,9 @@ export function FeedbackForm(props: FeedbackFormProps): JSX.Element {
           <OneQuestion
             question="Question from the model"
             name="question"
-            values={{
-              DC_QUESTION_RELEVANT: "Well formulated & relevant",
+            options={{
               DC_QUESTION_IRRELEVANT: "Irrelevant, vague, requires editing",
+              DC_QUESTION_RELEVANT: "Well formulated & relevant",
             }}
             handleChange={handleChange}
             responseField={response.question}
@@ -102,9 +103,9 @@ export function FeedbackForm(props: FeedbackFormProps): JSX.Element {
           <OneQuestion
             question="Model response quality"
             name="llmResponse"
-            values={{
+            options={{
               LLM_STAT_ACCURATE: "Stats seem accurate",
-              LLM_STAT_INACCURATE: "Stats seem accurate",
+              LLM_STAT_INACCURATE: "Stats seem inaccurate",
             }}
             handleChange={handleChange}
             responseField={response.llmResponse}
@@ -118,14 +119,14 @@ export function FeedbackForm(props: FeedbackFormProps): JSX.Element {
           <OneQuestion
             question="Response from Data Commons"
             name="dcResponse"
-            values={{
-              DC_ANSWER_RELEVANT: "Relevant and direct",
-              DC_ANSWER_IRRELEVANT: "Doesn't match the question",
+            options={{
               DC_ANSWER_EMPTY_BADNL: "Data exists, but NL fails to respond",
               DC_ANSWER_EMPTY_NODATA:
                 "Query asks for data that doesn't exist in DC",
               DC_ANSWER_EMPTY_OUTOFSCOPE:
                 "Query asks for data that is out-of-scope for DC",
+              DC_ANSWER_IRRELEVANT: "Doesn't match the question",
+              DC_ANSWER_RELEVANT: "Relevant and direct",
             }}
             handleChange={handleChange}
             responseField={response.dcResponse}
@@ -134,9 +135,9 @@ export function FeedbackForm(props: FeedbackFormProps): JSX.Element {
           <OneQuestion
             question="Response from Data Commons"
             name="dcStat"
-            values={{
+            options={{
               DC_STAT_ACCURATE: "Stats seem accurate",
-              DC_STAT_INACCURATE: "Stats seem accurate",
+              DC_STAT_INACCURATE: "Stats seem inaccurate",
             }}
             handleChange={handleChange}
             responseField={response.dcStat}
@@ -151,13 +152,13 @@ export function FeedbackForm(props: FeedbackFormProps): JSX.Element {
   );
 }
 
-// Mock function to simulate API call to save responses
+// Save response to Firestore
 async function saveResponse(
   sheetId: string,
   queryId: string,
   callId: string,
   response: Response
-) {
+): Promise<void> {
   try {
     // Define the document reference
     const docRef = doc(

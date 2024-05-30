@@ -14,13 +14,17 @@
  * limitations under the License.
  */
 
-import React from "react";
+/**
+ * Component for rendering one question (with radio buttons)
+ */
+
+import React, { ChangeEvent } from "react";
 
 interface OneQuestionProps {
   name: string;
   question: string;
-  values: Record<string, string>; // Map from ENUM to displayed string
-  handleChange: (event) => void;
+  options: Record<string, string>; // Map from ENUM to displayed string
+  handleChange: (event: ChangeEvent) => void;
   responseField: string;
 }
 
@@ -28,8 +32,8 @@ export function OneQuestion(props: OneQuestionProps): JSX.Element {
   return (
     <div>
       <h3>{props.question}</h3>
-      {Object.keys(props.values).map((key) => {
-        const value = props.values[key];
+      {Object.keys(props.options).map((key) => {
+        const value = props.options[key];
         return (
           <label key={key}>
             <input
