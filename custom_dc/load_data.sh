@@ -1,9 +1,9 @@
 #!/bin/bash
-# Script to load data into custom dc using simple importer.
+# Script to load data into custom Data Commons using simple importer.
 # Defaults
 MODE="customdc"
 OUTPUT_DIR=".data/output_$MODE"
-USAGE="Script to load data into custom dc using simple importer.
+USAGE="Script to load data into custom Data Commons using simple importer.
 Usage: $(basename $0) [Options]
 Options:
   -c <file>       JSON config file for stats importer
