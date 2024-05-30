@@ -82,7 +82,8 @@ class Config:
   # /server/templates/custom_dc/<CUSTOM_DC_TEMPLATE_FOLDER>/
   # Defaults to the custom DC application environment name (Config.ENV value)
   CUSTOM_DC_TEMPLATE_FOLDER = ''
-  # Optional: Whether to hide stat vars with low geographic coverage from
-  # the map and scatter tools. Enabling this filtering prevents users from
-  # encountering almost-empty maps and sparse scatter plots.
-  USE_STAT_VAR_FILTERING = True
+  # Optional: Minimum number of entities a stat var needs to have data for to
+  # be included in the map and scatter plot tools. Setting a value of 1 shows
+  # all stat vars available for a given entity. Setting a value > 1 prevents
+  # users from encountering almost-empty maps and sparse scatter plots.
+  MIN_STAT_VAR_GEO_COVERAGE = 10

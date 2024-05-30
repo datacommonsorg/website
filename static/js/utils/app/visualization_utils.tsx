@@ -382,10 +382,6 @@ export function getHash(
  * showing users stat vars with low geographic coverage that lead to sparse
  * charts.
  *
- * If globalThis.useStatVarFiltering is not set, defaults to 1. Otherwise,
- * calculates the value to use based on the number of places used for
- * existence checks and the visualization type's settings.
- *
  * @param samplePlaces list of places used to determine available stat vars
  * @param visTypeConfig config for the chart type being plotted
  * @returns minimum number of entities to use for stat var filtering
@@ -394,10 +390,8 @@ export function getNumEntitiesExistence(
   samplePlaces: NamedNode[],
   visTypeConfig: VisTypeConfig
 ): number {
-  return globalThis.useStatVarFiltering
-    ? Math.min(
-        Math.max(samplePlaces.length, 1),
-        visTypeConfig.svHierarchyNumExistence || 1
-      )
-    : 1;
+  return Math.min(
+    Math.max(samplePlaces.length, 1),
+    visTypeConfig.svHierarchyNumExistence || 1
+  );
 }

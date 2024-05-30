@@ -400,7 +400,7 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   # Set whether to filter stat vars with low geographic coverage in the
   # map and scatter tools.
-  app.config['USE_STAT_VAR_FILTERING'] = cfg.USE_STAT_VAR_FILTERING
+  app.config['MIN_STAT_VAR_GEO_COVERAGE'] = cfg.MIN_STAT_VAR_GEO_COVERAGE
 
   if not cfg.TEST:
     urls = get_health_check_urls()

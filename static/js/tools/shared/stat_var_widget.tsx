@@ -186,8 +186,9 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
    * @returns minimum number of entities to use for stat var filtering
    */
   function getNumEntitiesExistence(): number {
-    return globalThis.useStatVarFiltering
-      ? Math.min(NUM_ENTITIES_EXISTENCE, props.sampleEntities.length)
-      : 1;
+    return Math.min(
+      globalThis.minStatVarGeoCoverage || 1,
+      props.sampleEntities.length
+    );
   }
 }
