@@ -16,7 +16,7 @@
 set -e
 
 # Delete GCS folders that are older than this many days
-MAX_DAYS_OLD=30
+MAX_DAYS_OLD=90
 PARENT_FOLDERS=("gs://datcom-website-periodic-testing/bard" "gs://datcom-website-periodic-testing/autopush" "gs://datcom-website-screenshot/autopush.datacommons.org/")
 CURRENT_TS=$(TZ="America/Los_Angeles" date +"%s")
 
