@@ -29,6 +29,7 @@ const SV_EXPLORER_REDIRECT_PREFIX = "/tools/statvar#sv=";
 
 interface TileMetadataModalPropType {
   statVarSpecs: StatVarSpec[];
+  containerRef?: React.RefObject<HTMLElement>;
 }
 
 // [dcid, name]
@@ -52,20 +53,22 @@ function MetadataRow(props: { dcid: string; name: string }): JSX.Element {
 export function TileMetadataModal(
   props: TileMetadataModalPropType
 ): JSX.Element {
-  const { statVarSpecs } = props;
+  // const { statVarSpecs } = props;
   const [modalOpen, setModalOpen] = useState(false);
   const [statVarNames, setStatVarNames] = useState<DcidNameTuple[]>([]);
   const dcids = new Set<string>();
   const toggleModal = () => setModalOpen(!modalOpen);
 
-  if (statVarSpecs) {
-    for (const spec of statVarSpecs) {
+  console.log(props);
+  if (props.statVarSpecs) {
+    for (const spec of props.statVarSpecs) {
       dcids.add(spec.statVar);
       if (spec.denom) {
         dcids.add(spec.denom);
       }
     }
   }
+  console.log(props.statVarSpecs);
 
   useEffect(() => {
     // Only fetch data once the modal is opened.
@@ -101,6 +104,7 @@ export function TileMetadataModal(
         <Modal
           isOpen={modalOpen}
           scrollable
+          container={props.containerRef.current}
           toggle={toggleModal}
           className="metadata-modal modal-dialog-centered modal-lg"
         >

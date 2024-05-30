@@ -95,6 +95,7 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
           </slot>
           {showSources && (
             <TileSources
+              containerRef={containerRef}
               sources={props.sources}
               statVarSpecs={props.statVarSpecs}
             />

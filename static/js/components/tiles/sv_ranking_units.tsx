@@ -60,6 +60,7 @@ interface SvRankingUnitsProps {
   sources?: string[];
   isLoading?: boolean;
   statVarSpecs: StatVarSpec[];
+  containerRef: React.RefObject<HTMLElement>;
 }
 
 /**
@@ -112,6 +113,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
             true,
             props.apiRoot,
             props.statVarSpecs,
+            props.containerRef,
             highestRankingUnitRef,
             props.onHoverToggled,
             props.errorMsg,
@@ -147,6 +149,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                 true,
                 props.apiRoot,
                 props.statVarSpecs,
+                props.containerRef,
                 highestRankingUnitRef,
                 props.onHoverToggled,
                 undefined,
@@ -177,6 +180,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                 false,
                 props.apiRoot,
                 props.statVarSpecs,
+                props.containerRef,
                 lowestRankingUnitRef,
                 props.onHoverToggled,
                 undefined,
@@ -303,11 +307,12 @@ export function getRankingUnit(
   isHighest: boolean,
   apiRoot: string,
   statVarSpecs: StatVarSpec[],
+  containerRef: React.RefObject<HTMLElement>,
   rankingUnitRef?: RefObject<HTMLDivElement>,
   onHoverToggled?: (placeDcid: string, hover: boolean) => void,
   errorMsg?: string,
   sources?: string[],
-  isLoading?: boolean
+  isLoading?: boolean,
 ): JSX.Element {
   const { topPoints, bottomPoints } = getRankingUnitPoints(
     rankingMetadata,
@@ -340,6 +345,7 @@ export function getRankingUnit(
       headerChild={
         errorMsg ? null : (
           <TileSources
+            containerRef={containerRef}
             sources={sources || rankingGroup.sources}
             statVarSpecs={statVarSpecs}
           />

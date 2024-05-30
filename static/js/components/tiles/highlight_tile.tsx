@@ -19,7 +19,7 @@
  */
 
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import {
   ASYNC_ELEMENT_CLASS,
@@ -64,6 +64,7 @@ interface HighlightData extends Observation {
 }
 
 export function HighlightTile(props: HighlightTilePropType): JSX.Element {
+  const containerRef = useRef(null);
   const [highlightData, setHighlightData] = useState<HighlightData | undefined>(
     null
   );
@@ -104,6 +105,7 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
     <div
       className={`chart-container highlight-tile ${ASYNC_ELEMENT_HOLDER_CLASS}`}
       {...{ part: "container" }}
+      ref={containerRef}
     >
       {highlightData && !highlightData.errorMsg && (
         <>
@@ -126,6 +128,7 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
       )}
       {!_.isEmpty(highlightData.sources) && !highlightData.errorMsg && (
         <TileSources
+          containerRef={containerRef}
           sources={props.sources || highlightData.sources}
           statVarSpecs={[props.statVarSpec]}
         />

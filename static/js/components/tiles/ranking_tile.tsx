@@ -167,6 +167,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
           return (
             <SvRankingUnits
               apiRoot={props.apiRoot}
+              containerRef={chartContainer}
               entityType={props.enclosedPlaceType}
               errorMsg={errorMsg}
               footnote={props.footnote}

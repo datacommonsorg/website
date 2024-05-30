@@ -339,6 +339,7 @@ export function TileSources(props: {
   sources: Set<string> | string[];
   // If available, the stat vars to link to.
   statVarSpecs?: StatVarSpec[];
+  containerRef?: React.RefObject<HTMLElement>;
 }): JSX.Element {
   const { sources, statVarSpecs } = props;
   if (!sources) {
@@ -381,7 +382,7 @@ export function TileSources(props: {
       {statVarSpecs && statVarSpecs.length > 0 && (
         <>
           {" "}
-          • <TileMetadataModal statVarSpecs={statVarSpecs}></TileMetadataModal>
+          • <TileMetadataModal containerRef={props.containerRef} statVarSpecs={statVarSpecs}></TileMetadataModal>
         </>
       )}
     </div>
