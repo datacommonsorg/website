@@ -14,16 +14,19 @@
  * limitations under the License.
  */
 
+import { GoogleSpreadsheet } from "google-spreadsheet";
 import { createContext } from "react";
 
 interface Context {
   sheetId: string;
   userEmail: string;
+  doc: GoogleSpreadsheet;
 }
 
 const defaultContext: Context = {
   sheetId: "",
   userEmail: "",
+  doc: null,
 };
 
 export const AppContext = createContext<Context>(defaultContext);

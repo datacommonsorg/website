@@ -17,19 +17,19 @@
 import React, { useContext, useEffect, useState } from "react";
 
 import { AppContext } from "./context";
-import { getCallData, saveResponse } from "./data_store";
+import { getCallData, saveToSheet, saveToStore } from "./data_store";
 import { OneQuestion } from "./one_question";
 
 const initialResponse = {
   overall: "",
   question: "",
-  llmResponse: "",
+  llmStat: "",
   dcResponse: "",
   dcStat: "",
 };
 export interface EvalInfo {
   question: string;
-  llmResponse: string;
+  llmStat: string;
   dcResponse: string;
   dcStat: string;
 }
@@ -47,7 +47,7 @@ export interface FeedbackFormProps {
 }
 
 export function FeedbackForm(props: FeedbackFormProps): JSX.Element {
-  const { sheetId, userEmail } = useContext(AppContext);
+  const { doc, sheetId, userEmail } = useContext(AppContext);
   const [response, setResponse] = useState<Response>(initialResponse);
   const [completed, SetCompleted] = useState(false);
 
@@ -74,7 +74,8 @@ export function FeedbackForm(props: FeedbackFormProps): JSX.Element {
   const handleSubmit = (event) => {
     event.preventDefault();
     response.userEmail = userEmail;
-    saveResponse(sheetId, props.queryId, props.callId, response);
+    saveToStore(sheetId, props.queryId, props.callId, response);
+    saveToSheet(doc, props.queryId, props.callId, response);
   };
 
   let dcResponseOptions;
@@ -114,7 +115,7 @@ export function FeedbackForm(props: FeedbackFormProps): JSX.Element {
           <div>
             <h2>GEMMA MODEL EVALUATION</h2>
             <h3>{props.evalInfo.question}</h3>
-            <h3>{props.evalInfo.llmResponse}</h3>
+            <h3>{props.evalInfo.llmStat}</h3>
             <OneQuestion
               question="Question from the model"
               name="question"
@@ -128,13 +129,13 @@ export function FeedbackForm(props: FeedbackFormProps): JSX.Element {
             />
             <OneQuestion
               question="Model response quality"
-              name="llmResponse"
+              name="llmStat"
               options={{
                 LLM_STAT_ACCURATE: "Stats seem accurate",
                 LLM_STAT_INACCURATE: "Stats seem inaccurate",
               }}
               handleChange={handleChange}
-              responseField={response.llmResponse}
+              responseField={response.llmStat}
               disabled={completed}
             />
           </div>

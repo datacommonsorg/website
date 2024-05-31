@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-import { GoogleSpreadsheet } from "google-spreadsheet";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button } from "reactstrap";
 
 import {
@@ -25,6 +24,7 @@ import {
   DC_STAT_COL,
   LLM_STAT_COL,
 } from "./constants";
+import { AppContext } from "./context";
 import { EvalInfo, FeedbackForm } from "./feedback_form";
 
 export interface DcCall {
@@ -34,16 +34,17 @@ export interface DcCall {
 
 export interface EvalSectionProps {
   queryId: string;
-  doc: GoogleSpreadsheet;
   calls: DcCall[];
 }
 
 export function EvalSection(props: EvalSectionProps): JSX.Element {
+  const { doc } = useContext(AppContext);
+
   const [evalInfo, setEvalInfo] = useState<EvalInfo | null>(null);
   const [callPos, setCallPos] = useState<number>(0);
 
   useEffect(() => {
-    const sheet = props.doc.sheetsByTitle[DC_CALL_SHEET];
+    const sheet = doc.sheetsByTitle[DC_CALL_SHEET];
     const rowIdx = props.calls[callPos].row;
     sheet.getRows({ offset: rowIdx - 1, limit: 1 }).then((rows) => {
       const row = rows[0];
@@ -51,12 +52,12 @@ export function EvalSection(props: EvalSectionProps): JSX.Element {
         setEvalInfo({
           question: row.get(DC_QUESTION_COL),
           dcResponse: row.get(DC_RESPONSE_COL),
-          llmResponse: row.get(LLM_STAT_COL),
+          llmStat: row.get(LLM_STAT_COL),
           dcStat: row.get(DC_STAT_COL),
         });
       }
     });
-  }, [props.doc, props.calls, callPos]);
+  }, [doc, props.calls, callPos]);
 
   const previous = () => {
     if (callPos > 0) {

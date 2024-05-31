@@ -141,13 +141,9 @@ export function App(props: AppPropType): JSX.Element {
         {user && <p>Signed in as {user.email}</p>}
         {user && allQuery["1"] && allCall["1"] && (
           <AppContext.Provider
-            value={{ sheetId: props.sheetId, userEmail: user.email }}
+            value={{ doc, sheetId: props.sheetId, userEmail: user.email }}
           >
-            <QuerySection
-              doc={doc}
-              query={allQuery["1"]}
-              calls={allCall["1"]}
-            />
+            <QuerySection query={allQuery["1"]} calls={allCall["1"]} />
           </AppContext.Provider>
         )}
       </div>
