@@ -15,35 +15,39 @@
  */
 
 import { addDoc, collection, DocumentData, getDocs } from "firebase/firestore";
+import { GoogleSpreadsheet } from "google-spreadsheet";
 
 import { db } from "../../utils/firebase";
+import {
+  CALL_ID_COL,
+  DC_FEEDBACK_SHEET,
+  DC_QUESTION_FEEDBACK_COL,
+  DC_RESPONSE_FEEDBACK_COL,
+  DC_STAT_FEEDBACK_COL,
+  LLM_STAT_FEEDBACK_COL,
+  QUERY_ID_COL,
+  USER_COL,
+} from "./constants";
 import { Response } from "./feedback_form";
 
 // Save response to Firestore
-export async function saveResponse(
+export async function saveToStore(
   sheetId: string,
   queryId: string,
   callId: string,
   response: Response
 ): Promise<void> {
-  try {
-    // Define the document reference
-    const docRef = collection(
-      db,
-      "sheets",
-      sheetId,
-      "queries",
-      queryId,
-      "calls",
-      callId,
-      "responses"
-    );
-    // Save the data to Firestore
-    await addDoc(docRef, response);
-    console.log("API Call data saved successfully");
-  } catch (error) {
-    console.error("Error writing document: ", error);
-  }
+  const docRef = collection(
+    db,
+    "sheets",
+    sheetId,
+    "queries",
+    queryId,
+    "calls",
+    callId,
+    "responses"
+  );
+  addDoc(docRef, response);
 }
 
 export async function getCallData(
@@ -68,4 +72,22 @@ export async function getCallData(
     return null;
   }
   return snapshot.docs[numDocs - 1].data();
+}
+
+export async function saveToSheet(
+  doc: GoogleSpreadsheet,
+  queryId: string,
+  callId: string,
+  response: Response
+): Promise<void> {
+  const sheet = doc.sheetsByTitle[DC_FEEDBACK_SHEET];
+  sheet.addRow({
+    [QUERY_ID_COL]: queryId,
+    [CALL_ID_COL]: callId,
+    [USER_COL]: response.userEmail,
+    [DC_QUESTION_FEEDBACK_COL]: response.question,
+    [DC_RESPONSE_FEEDBACK_COL]: response.dcResponse,
+    [LLM_STAT_FEEDBACK_COL]: response.llmStat,
+    [DC_STAT_FEEDBACK_COL]: response.dcStat,
+  });
 }

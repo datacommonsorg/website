@@ -15,11 +15,12 @@
  */
 
 import { GoogleSpreadsheet } from "google-spreadsheet";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { Col, Row } from "reactstrap";
 
 import { ANSWER_COL, QA_SHEET } from "./constants";
+import { AppContext } from "./context";
 import { DcCall, EvalSection } from "./eval_section";
 
 export interface Query {
@@ -30,12 +31,13 @@ export interface Query {
 }
 
 export interface QuerySectionProps {
-  doc: GoogleSpreadsheet;
   query: Query;
   calls: DcCall[]; // call id to row index map
 }
 
 export function QuerySection(props: QuerySectionProps): JSX.Element {
+  const { doc } = useContext(AppContext);
+
   const [answer, setAnswer] = useState<string>("");
 
   const loadAnswer = (doc: GoogleSpreadsheet, rowIdx: number) => {
@@ -49,8 +51,8 @@ export function QuerySection(props: QuerySectionProps): JSX.Element {
   };
 
   useEffect(() => {
-    loadAnswer(props.doc, props.query.row);
-  }, [props.doc, props.query.row]);
+    loadAnswer(doc, props.query.row);
+  }, [doc, props.query.row]);
 
   return (
     <div className="query-section">
@@ -63,11 +65,7 @@ export function QuerySection(props: QuerySectionProps): JSX.Element {
           <ReactMarkdown>{answer}</ReactMarkdown>
         </Col>
         <Col>
-          <EvalSection
-            queryId={props.query.id}
-            doc={props.doc}
-            calls={props.calls}
-          />
+          <EvalSection queryId={props.query.id} calls={props.calls} />
         </Col>
       </Row>
     </div>
