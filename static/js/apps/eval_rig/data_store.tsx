@@ -14,7 +14,14 @@
  * limitations under the License.
  */
 
-import { addDoc, collection, DocumentData, getDocs } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  DocumentData,
+  getCountFromServer,
+  getDocs,
+  query,
+} from "firebase/firestore";
 import { GoogleSpreadsheet } from "google-spreadsheet";
 
 import { db } from "../../utils/firebase";
@@ -90,4 +97,30 @@ export async function saveToSheet(
     [LLM_STAT_FEEDBACK_COL]: response.llmStat,
     [DC_STAT_FEEDBACK_COL]: response.dcStat,
   });
+}
+
+/**
+ * Gets whether records for a call exists
+ * @param sheetId the sheet id
+ * @param queryId the query id
+ * @param callId the call id
+ */
+export async function getCallExistence(
+  sheetId: string,
+  queryId: string,
+  callId: string
+): Promise<boolean> {
+  // Define the document reference
+  const collectionRef = collection(
+    db,
+    "sheets",
+    sheetId,
+    "queries",
+    queryId,
+    "calls",
+    callId,
+    "responses"
+  );
+  const snapshot = await getCountFromServer(collectionRef);
+  return !!snapshot.data().count;
 }

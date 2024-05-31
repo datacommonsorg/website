@@ -23,3 +23,96 @@
 label {
   display: block;
 }
+
+
+.modal-dialog.eval-list-modal {
+  height: 80%;
+  max-width: none;
+  width: 80%;
+
+  .modal-content {
+    border-radius: 28px;
+    height: 100%;
+  }
+
+  .modal-content .header {
+    border-bottom: solid 1px var(--gm-3-sys-light-outline-variant);
+    flex-grow: 0;
+    padding: 24px 24px 8px 24px;
+    
+    .title {
+      font-size: 24px;
+      font-weight: 500;
+    }
+
+    .subtitle {
+      display: flex;
+      flex-wrap: wrap;
+      font-size: 14px;
+      font-weight: 400;
+      justify-content: space-between;
+    }
+  }
+
+  .modal-content .body {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 8px 24px 0 24px;
+
+    .eval-list-query.completed {
+      .material-icons-outlined, .query-name {
+        color: #146c2e;
+      }
+    }
+
+    .eval-list-query {
+      align-items: center;
+      border-bottom: solid 1px var(--gm-3-sys-light-outline-variant);
+      display: flex;
+      padding: 14px 0;
+
+      .material-icons-outlined, .user {
+        flex-grow: 0;
+        padding: 0 16px;
+      }
+
+      .query-name {
+        flex-grow: 1;
+      }
+
+      .query-name, .user {
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .material-icons-outlined, .query-name {
+        color: var(--link-color);
+      }
+    }
+
+    .eval-list-query:hover {
+      cursor: pointer;
+    }
+  }
+
+  .modal-content .footer {
+    display: flex;
+    flex-grow: 0;
+    justify-content: flex-end;
+    padding: 24px;
+
+    .btn {
+      background-color: white;
+      border-color: var(--gm-3-sys-light-outline);
+      border-radius: 100px;
+      color: var(--link-color);
+      font-size: 14px;
+      height: 40px;
+      width: 86px;
+    }
+
+    .btn:hover {
+      background-color: rgba(#0B57D0, 0.08);
+    }
+  }
+}

@@ -28,6 +28,7 @@ import {
   USER_COL,
 } from "./constants";
 import { AppContext } from "./context";
+import { EvalList } from "./eval_list";
 import { DcCall } from "./eval_section";
 import { Query, QuerySection } from "./query_section";
 
@@ -43,6 +44,7 @@ export function App(props: AppPropType): JSX.Element {
   const [doc, setDoc] = useState<GoogleSpreadsheet>();
   const [allQuery, setAllQuery] = useState<Record<string, Query>>({});
   const [allCall, setAllCall] = useState<Record<string, DcCall[]>>({});
+  const [selectedQuery, setSelectedQuery] = useState("1");
 
   async function loadHeader(doc: GoogleSpreadsheet): Promise<HeaderInfo> {
     const result: HeaderInfo = {};
@@ -139,12 +141,24 @@ export function App(props: AppPropType): JSX.Element {
           />
         )}
         {user && <p>Signed in as {user.email}</p>}
-        {user && allQuery["1"] && allCall["1"] && (
-          <AppContext.Provider
-            value={{ doc, sheetId: props.sheetId, userEmail: user.email }}
-          >
-            <QuerySection query={allQuery["1"]} calls={allCall["1"]} />
-          </AppContext.Provider>
+        {user && allQuery[selectedQuery] && allCall[selectedQuery] && (
+          <>
+            <EvalList
+              sheetId={props.sheetId}
+              user={user}
+              queries={allQuery}
+              calls={allCall}
+              onQuerySelected={(q) => setSelectedQuery(q.id)}
+            />
+            <AppContext.Provider
+              value={{ doc, sheetId: props.sheetId, userEmail: user.email }}
+            >
+              <QuerySection
+                query={allQuery[selectedQuery]}
+                calls={allCall[selectedQuery]}
+              />
+            </AppContext.Provider>
+          </>
         )}
       </div>
     </>
