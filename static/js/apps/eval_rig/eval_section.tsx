@@ -43,7 +43,18 @@ export function EvalSection(props: EvalSectionProps): JSX.Element {
   const [evalInfo, setEvalInfo] = useState<EvalInfo | null>(null);
   const [callPos, setCallPos] = useState<number>(0);
 
+  // When list of calls change, update callPos if callPos is invalid.
   useEffect(() => {
+    if (props.calls[callPos]) {
+      return;
+    }
+    setCallPos(0);
+  }, [props.calls]);
+
+  useEffect(() => {
+    if (!props.calls[callPos]) {
+      return;
+    }
     const sheet = doc.sheetsByTitle[DC_CALL_SHEET];
     const rowIdx = props.calls[callPos].row;
     sheet.getRows({ offset: rowIdx - 1, limit: 1 }).then((rows) => {
@@ -90,7 +101,7 @@ export function EvalSection(props: EvalSectionProps): JSX.Element {
 
   return (
     <>
-      {evalInfo && (
+      {evalInfo && props.calls[callPos] && (
         <FeedbackForm
           queryId={props.queryId}
           callId={props.calls[callPos].id}
