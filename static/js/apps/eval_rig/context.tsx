@@ -18,15 +18,15 @@ import { GoogleSpreadsheet } from "google-spreadsheet";
 import { createContext } from "react";
 
 interface Context {
+  doc: GoogleSpreadsheet;
   sheetId: string;
   userEmail: string;
-  doc: GoogleSpreadsheet;
 }
 
 const defaultContext: Context = {
+  doc: null,
   sheetId: "",
   userEmail: "",
-  doc: null,
 };
 
 export const AppContext = createContext<Context>(defaultContext);

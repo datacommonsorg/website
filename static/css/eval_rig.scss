@@ -116,3 +116,11 @@ label {
     }
   }
 }
+
+.annotation {
+  background-color: lightyellow;
+}
+
+.annotation.highlight {
+  background-color: yellow;
+}
