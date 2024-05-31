@@ -48,8 +48,8 @@ async function addCallToStore(
     collection(db, "sheets", sheetId, "queries", queryId, "calls"),
     callId
   );
-  // Need to set fields in a document in order to create the document
-  setDoc(docRef, { dummy: "dummy" });
+  // Need to set a field in order to create the document
+  setDoc(docRef, { id: callId });
 }
 
 // Save response to Firestore
