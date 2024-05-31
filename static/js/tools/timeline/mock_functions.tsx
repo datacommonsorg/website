@@ -371,7 +371,7 @@ export function axiosMock(): void {
     .calledWith("/api/variable-group/info", {
       dcid: "dc/g/Root",
       entities: [],
-      numEntitiesExistence: undefined,
+      numEntitiesExistence: 0,
     })
     .mockResolvedValue({
       data: {

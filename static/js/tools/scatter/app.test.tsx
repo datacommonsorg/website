@@ -493,14 +493,6 @@ function mockAxios(): void {
   when(axios.post)
     .calledWith("/api/variable-group/info", {
       dcid: "dc/g/Root",
-      entities: [],
-      numEntitiesExistence: 1,
-    })
-    .mockResolvedValue(rootGroupsData);
-
-  when(axios.post)
-    .calledWith("/api/variable-group/info", {
-      dcid: "dc/g/Root",
       entities: ["geoId/10001", "geoId/10003", "geoId/10005"],
       numEntitiesExistence: 1,
     })
@@ -694,7 +686,7 @@ test("all functionalities", async () => {
     expect(axios.post).toHaveBeenCalledWith("/api/variable-group/info", {
       dcid: "dc/g/Root",
       entities: [],
-      numEntitiesExistence: 1,
+      numEntitiesExistence: 0,
     });
   });
   await app.update();

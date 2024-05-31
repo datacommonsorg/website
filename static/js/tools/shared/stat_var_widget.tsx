@@ -29,9 +29,6 @@ import { DrawerResize } from "../../stat_var_hierarchy/drawer_resize";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 import { StatVarInfo } from "../timeline/chart_region";
 
-// Default number of entities to use for stat var filtering
-const NUM_ENTITIES_EXISTENCE = 10;
-
 interface StatVarWidgetPropsType {
   // Whether or not modal version of sv hierarchy is opened
   openSvHierarchyModal: boolean;
