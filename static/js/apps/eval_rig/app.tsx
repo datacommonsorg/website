@@ -155,16 +155,14 @@ export function App(props: AppPropType): JSX.Element {
         )}
         {user && allQuery[selectedQuery] && allCall[selectedQuery] && (
           <>
-            <EvalList
-              sheetId={props.sheetId}
-              user={user}
-              queries={allQuery}
-              calls={allCall}
-              onQuerySelected={(q) => setSelectedQuery(q.id)}
-            />
             <AppContext.Provider
               value={{ doc, sheetId: props.sheetId, userEmail: user.email }}
             >
+              <EvalList
+                queries={allQuery}
+                calls={allCall}
+                onQuerySelected={(q) => setSelectedQuery(q.id)}
+              />
               <QuerySection
                 query={allQuery[selectedQuery]}
                 calls={allCall[selectedQuery]}

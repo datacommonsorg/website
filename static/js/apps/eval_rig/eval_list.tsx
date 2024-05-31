@@ -16,28 +16,26 @@
 
 /* Component to show the full list of evaluation queries */
 
-import { User } from "firebase/auth";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Input, Modal } from "reactstrap";
 
+import { AppContext } from "./context";
 import { getCallExistence } from "./data_store";
 import { DcCall } from "./eval_section";
 import { Query } from "./query_section";
 
 interface EvalListPropType {
-  user: User;
-  sheetId: string;
   queries: Record<string, Query>;
   calls: Record<string, DcCall[]>;
   onQuerySelected: (query: Query) => void;
 }
 
 export function EvalList(props: EvalListPropType): JSX.Element {
+  const { userEmail, sheetId } = useContext(AppContext);
   const [userEvalsOnly, setUserEvalsOnly] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [queryCompletionStatus, setQueryCompletionStatus] = useState({});
 
-  const userLdap = props.user.email.split("@")[0];
   const orderedQueries = Object.keys(props.queries)
     .sort()
     .map((queryId) => props.queries[queryId]);
@@ -47,7 +45,7 @@ export function EvalList(props: EvalListPropType): JSX.Element {
     const existPromises = orderedQueries.map((query) => {
       return Promise.all(
         props.calls[query.id].map((call) => {
-          return getCallExistence(props.sheetId, query.id, call.id);
+          return getCallExistence(sheetId, query.id, call.id);
         })
       );
     });
@@ -92,7 +90,7 @@ export function EvalList(props: EvalListPropType): JSX.Element {
         </div>
         <div className="body">
           {orderedQueries.map((query) => {
-            if (userEvalsOnly && query.user !== userLdap) {
+            if (userEvalsOnly && query.user !== userEmail) {
               return null;
             }
             const completed = queryCompletionStatus[query.id];
