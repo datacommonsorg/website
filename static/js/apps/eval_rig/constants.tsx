@@ -29,7 +29,9 @@ export const DC_RESPONSE_COL = "dc_response";
 export const LLM_STAT_COL = "llm_stat";
 export const DC_STAT_COL = "dc_stat";
 
-export const DC_QUESTION_FEEDBACK_COL = "dc_question_feedback";
-export const DC_RESPONSE_FEEDBACK_COL = "dc_response_feedback";
-export const LLM_STAT_FEEDBACK_COL = "llm_stat_feedback";
-export const DC_STAT_FEEDBACK_COL = "dc_stat_feedback";
+const FB_SUFFIX = "_feedback";
+
+export const DC_QUESTION_FEEDBACK_COL = DC_QUESTION_COL + FB_SUFFIX;
+export const DC_RESPONSE_FEEDBACK_COL = DC_RESPONSE_COL + FB_SUFFIX;
+export const LLM_STAT_FEEDBACK_COL = LLM_STAT_COL + FB_SUFFIX;
+export const DC_STAT_FEEDBACK_COL = DC_STAT_COL + FB_SUFFIX;
