@@ -14,8 +14,19 @@
  * limitations under the License.
  */
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
+import { AppContext } from "./context";
+import { getCallData, saveResponse } from "./data_store";
+import { OneQuestion } from "./one_question";
+
+const initialResponse = {
+  overall: "",
+  question: "",
+  llmResponse: "",
+  dcResponse: "",
+  dcStat: "",
+};
 export interface EvalInfo {
   question: string;
   llmResponse: string;
@@ -23,29 +34,38 @@ export interface EvalInfo {
   dcStat: string;
 }
 
+export interface Response extends EvalInfo {
+  // overall evaluation of all the aspects
+  overall: string;
+  userEmail?: string;
+}
+
 export interface FeedbackFormProps {
+  queryId: string;
+  callId: string;
   evalInfo: EvalInfo;
 }
 
-const initialState = {
-  overall: "",
-  question: "",
-  llmResponse: "",
-  dcResponse: "",
-  dcStat: "",
-};
-
 export function FeedbackForm(props: FeedbackFormProps): JSX.Element {
-  const [responses, setResponses] = useState(initialState);
+  const { sheetId, userEmail } = useContext(AppContext);
+  const [response, setResponse] = useState<Response>(initialResponse);
+  const [completed, SetCompleted] = useState(false);
 
   useEffect(() => {
-    // Reset responses whenever evalInfo changes
-    setResponses(initialState);
-  }, [props.evalInfo]);
+    getCallData(sheetId, props.queryId, props.callId).then((data) => {
+      if (data) {
+        setResponse(data as Response);
+        SetCompleted(true);
+      } else {
+        setResponse(initialResponse);
+        SetCompleted(false);
+      }
+    });
+  }, [sheetId, props.queryId, props.callId]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setResponses((prevState) => ({
+    setResponse((prevState) => ({
       ...prevState,
       [name]: value,
     }));
@@ -53,142 +73,107 @@ export function FeedbackForm(props: FeedbackFormProps): JSX.Element {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    saveResponses(responses);
+    response.userEmail = userEmail;
+    saveResponse(sheetId, props.queryId, props.callId, response);
   };
 
+  let dcResponseOptions;
+  if (props.evalInfo.dcStat) {
+    dcResponseOptions = {
+      DC_ANSWER_IRRELEVANT: "Doesn't match the question",
+      DC_ANSWER_RELEVANT: "Relevant and direct",
+    };
+  } else {
+    dcResponseOptions = {
+      DC_ANSWER_EMPTY_BADNL: "Data exists, but NL fails to respond",
+      DC_ANSWER_EMPTY_NODATA: "Query asks for data that doesn't exist in DC",
+      DC_ANSWER_EMPTY_OUTOFSCOPE:
+        "Query asks for data that is out-of-scope for DC",
+    };
+  }
   return (
-    <form onSubmit={handleSubmit}>
-      <fieldset>
-        <div>
-          <h2>OVERALL EVALUATION</h2>
-          <h3>Are there any hallucinations?</h3>
-          <label>
-            <input
-              type="radio"
+    <>
+      {completed && <h1>This question has already been completed.</h1>}
+      <form onSubmit={handleSubmit}>
+        <fieldset>
+          <div>
+            <h2>OVERALL EVALUATION</h2>
+            <OneQuestion
+              question="How is the overall answer?"
               name="overall"
-              value="0"
-              checked={responses.overall === "0"}
-              onChange={handleChange}
+              options={{
+                LLM_ANSWER_HALLUCINATION: "Found factual inaccuracies",
+                LLM_ANSWER_OKAY: "No obvious factual inaccuracies",
+              }}
+              handleChange={handleChange}
+              responseField={response.overall}
+              disabled={completed}
             />
-            Yes
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="overall"
-              value="1"
-              checked={responses.overall === "1"}
-              onChange={handleChange}
-            />
-            No
-          </label>
-        </div>
+          </div>
 
-        <div>
-          <h2>GEMMA MODEL EVALUATION</h2>
-          <h3>{props.evalInfo.question}</h3>
-          <h3>{props.evalInfo.llmResponse}</h3>
-          <h3>Question from the model</h3>
-          <label>
-            <input
-              type="radio"
+          <div>
+            <h2>GEMMA MODEL EVALUATION</h2>
+            <h3>{props.evalInfo.question}</h3>
+            <h3>{props.evalInfo.llmResponse}</h3>
+            <OneQuestion
+              question="Question from the model"
               name="question"
-              value="0"
-              checked={responses.question === "0"}
-              onChange={handleChange}
+              options={{
+                DC_QUESTION_IRRELEVANT: "Irrelevant, vague, requires editing",
+                DC_QUESTION_RELEVANT: "Well formulated & relevant",
+              }}
+              handleChange={handleChange}
+              responseField={response.question}
+              disabled={completed}
             />
-            Well Formulated
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="question"
-              value="1"
-              checked={responses.question === "1"}
-              onChange={handleChange}
-            />
-            Irrelevant
-          </label>
-
-          <h3>Model response quality</h3>
-          <label>
-            <input
-              type="radio"
+            <OneQuestion
+              question="Model response quality"
               name="llmResponse"
-              value="0"
-              checked={responses.llmResponse === "0"}
-              onChange={handleChange}
+              options={{
+                LLM_STAT_ACCURATE: "Stats seem accurate",
+                LLM_STAT_INACCURATE: "Stats seem inaccurate",
+              }}
+              handleChange={handleChange}
+              responseField={response.llmResponse}
+              disabled={completed}
             />
-            Stats Seem Accurate
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="llmResponse"
-              value="1"
-              checked={responses.llmResponse === "1"}
-              onChange={handleChange}
-            />
-            Stat values seem off
-          </label>
-        </div>
+          </div>
 
-        <div>
-          <h2>DATA COMMONS EVALUATION</h2>
-          <h3>{props.evalInfo.dcResponse}</h3>
-          <h3>{props.evalInfo.dcStat}</h3>
-          <h3>Response from Data Commons</h3>
-          <label>
-            <input
-              type="radio"
+          <div>
+            <h2>DATA COMMONS EVALUATION</h2>
+            <h3>{props.evalInfo.dcResponse}</h3>
+            <h3>{props.evalInfo.dcStat}</h3>
+            <OneQuestion
+              question="Response from Data Commons"
               name="dcResponse"
-              value="0"
-              checked={responses.dcResponse === "0"}
-              onChange={handleChange}
+              options={dcResponseOptions}
+              handleChange={handleChange}
+              responseField={response.dcResponse}
+              disabled={completed}
             />
-            Relevant and direct
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="dcResponse"
-              value="1"
-              checked={responses.dcResponse === "1"}
-              onChange={handleChange}
-            />
-            Doesn&apos;t match the question
-          </label>
 
-          <h3>Data Commons stat quality</h3>
-          <label>
-            <input
-              type="radio"
+            <OneQuestion
+              question="Response from Data Commons"
               name="dcStat"
-              value="0"
-              checked={responses.dcStat === "0"}
-              onChange={handleChange}
+              options={{
+                DC_STAT_ACCURATE: "Stats seem accurate",
+                DC_STAT_INACCURATE: "Stats seem inaccurate",
+              }}
+              handleChange={handleChange}
+              responseField={response.dcStat}
+              disabled={completed}
             />
-            Stats Seem Accurate
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="dcStat"
-              value="1"
-              checked={responses.dcStat === "1"}
-              onChange={handleChange}
-            />
-            Stat values seem off
-          </label>
-        </div>
-
-        <button type="submit">Submit</button>
-      </fieldset>
-    </form>
+          </div>
+          {!completed && (
+            <button
+              type="submit"
+              disabled={Object.values(response).includes("")}
+            >
+              Submit
+            </button>
+          )}
+        </fieldset>
+      </form>
+    </>
   );
-}
-
-// Mock function to simulate API call to save responses
-function saveResponses(responses) {
-  console.log("API Call to save responses:", responses);
 }
