@@ -77,6 +77,11 @@ export function QuerySection(props: QuerySectionProps): JSX.Element {
   );
 }
 
+/**
+ * Replace [__DC__#(id)(text)] to just text with css class for highlighting.
+ * @param text
+ * @returns
+ */
 const processText = (text: string): string => {
   return text.replace(
     /\[\s*__DC__#(\d+)\(([^)]+)\)\s*\]/g,

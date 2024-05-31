@@ -59,7 +59,7 @@ export function EvalSection(props: EvalSectionProps): JSX.Element {
     });
   }, [doc, props.calls, callPos]);
 
-  // Used to highlight the current DC Call in the answer section.
+  // Highlight the current DC Call in the answer section.
   useEffect(() => {
     // Remove highlight from previous annotation
     if (prevHighlightedRef.current) {
