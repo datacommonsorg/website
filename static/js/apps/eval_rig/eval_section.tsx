@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Button } from "reactstrap";
 
 import {
@@ -39,7 +39,7 @@ export interface EvalSectionProps {
 
 export function EvalSection(props: EvalSectionProps): JSX.Element {
   const { doc } = useContext(AppContext);
-
+  const prevHighlightedRef = useRef<HTMLSpanElement | null>(null);
   const [evalInfo, setEvalInfo] = useState<EvalInfo | null>(null);
   const [callPos, setCallPos] = useState<number>(0);
 
@@ -58,6 +58,23 @@ export function EvalSection(props: EvalSectionProps): JSX.Element {
       }
     });
   }, [doc, props.calls, callPos]);
+
+  // Used to highlight the current DC Call in the answer section.
+  useEffect(() => {
+    // Remove highlight from previous annotation
+    if (prevHighlightedRef.current) {
+      prevHighlightedRef.current.classList.remove("highlight");
+    }
+
+    // Highlight the new annotation. Note the display index is 1 based.
+    const newHighlighted = document.querySelector(
+      `.annotation-${callPos + 1}`
+    ) as HTMLSpanElement;
+    if (newHighlighted) {
+      newHighlighted.classList.add("highlight");
+      prevHighlightedRef.current = newHighlighted;
+    }
+  }, [callPos]);
 
   const previous = () => {
     if (callPos > 0) {

@@ -138,7 +138,19 @@ export function App(props: AppPropType): JSX.Element {
             scopes={["https://www.googleapis.com/auth/spreadsheets"]}
           />
         )}
-        {user && <p>Signed in as {user.email}</p>}
+
+        {user && (
+          <div>
+            <a
+              href={`https://docs.google.com/spreadsheets/d/${props.sheetId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Google Sheet Link
+            </a>
+            <p>Signed in as {user.email}</p>
+          </div>
+        )}
         {user && allQuery["1"] && allCall["1"] && (
           <AppContext.Provider
             value={{ doc, sheetId: props.sheetId, userEmail: user.email }}
