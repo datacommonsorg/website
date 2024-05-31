@@ -20,7 +20,7 @@ import React, { useContext, useState } from "react";
 import { Button, Input, Modal } from "reactstrap";
 
 import { AppContext } from "./context";
-import { getCallExistence } from "./data_store";
+import { getCallCount } from "./data_store";
 import { DcCall } from "./eval_section";
 import { Query } from "./query_section";
 
@@ -42,18 +42,14 @@ export function EvalList(props: EvalListPropType): JSX.Element {
 
   const openModal = () => {
     setModalOpen(true);
-    const existPromises = orderedQueries.map((query) => {
-      return Promise.all(
-        props.calls[query.id].map((call) => {
-          return getCallExistence(sheetId, query.id, call.id);
-        })
-      );
-    });
+    const existPromises = orderedQueries.map((query) =>
+      getCallCount(sheetId, query.id)
+    );
     const queryCompletionStatus = {};
     Promise.all(existPromises)
       .then((results) => {
         orderedQueries.forEach((query, i) => {
-          const completed = results[i].every(Boolean);
+          const completed = results[i] === (props.calls[query.id] || []).length;
           queryCompletionStatus[query.id] = completed;
         });
         setQueryCompletionStatus(queryCompletionStatus);

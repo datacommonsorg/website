@@ -17,10 +17,11 @@
 import {
   addDoc,
   collection,
+  doc,
   DocumentData,
   getCountFromServer,
   getDocs,
-  query,
+  setDoc,
 } from "firebase/firestore";
 import { GoogleSpreadsheet } from "google-spreadsheet";
 
@@ -37,6 +38,20 @@ import {
 } from "./constants";
 import { Response } from "./feedback_form";
 
+// Add a new doc for a call
+async function addCallToStore(
+  sheetId: string,
+  queryId: string,
+  callId: string
+): Promise<void> {
+  const docRef = doc(
+    collection(db, "sheets", sheetId, "queries", queryId, "calls"),
+    callId
+  );
+  // Need to set fields in a document in order to create the document
+  setDoc(docRef, { dummy: "dummy" });
+}
+
 // Save response to Firestore
 export async function saveToStore(
   sheetId: string,
@@ -44,6 +59,7 @@ export async function saveToStore(
   callId: string,
   response: Response
 ): Promise<void> {
+  await addCallToStore(sheetId, queryId, callId);
   const docRef = collection(
     db,
     "sheets",
@@ -100,16 +116,14 @@ export async function saveToSheet(
 }
 
 /**
- * Gets whether records for a call exists
+ * Gets the number of calls for a query
  * @param sheetId the sheet id
  * @param queryId the query id
- * @param callId the call id
  */
-export async function getCallExistence(
+export async function getCallCount(
   sheetId: string,
-  queryId: string,
-  callId: string
-): Promise<boolean> {
+  queryId: string
+): Promise<number> {
   // Define the document reference
   const collectionRef = collection(
     db,
@@ -117,10 +131,8 @@ export async function getCallExistence(
     sheetId,
     "queries",
     queryId,
-    "calls",
-    callId,
-    "responses"
+    "calls"
   );
   const snapshot = await getCountFromServer(collectionRef);
-  return !!snapshot.data().count;
+  return snapshot.data().count;
 }
