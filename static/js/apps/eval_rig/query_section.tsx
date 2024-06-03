@@ -24,13 +24,6 @@ import { ANSWER_COL, QA_SHEET } from "./constants";
 import { AppContext, SessionContext } from "./context";
 import { EvalSection } from "./eval_section";
 
-export interface Query {
-  id: number;
-  text: string;
-  user: string;
-  row: number;
-}
-
 export function QuerySection(): JSX.Element {
   const { allQuery, doc } = useContext(AppContext);
   const { sessionQueryId, sessionCallId } = useContext(SessionContext);

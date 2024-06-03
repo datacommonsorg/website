@@ -29,7 +29,8 @@ import {
 } from "./constants";
 import { AppContext } from "./context";
 import { EvalList } from "./eval_list";
-import { Query, QuerySection } from "./query_section";
+import { QuerySection } from "./query_section";
+import { DcCall, Query } from "./types";
 
 // Map from sheet name to column name to column index
 type HeaderInfo = Record<string, Record<string, number>>;
@@ -42,8 +43,7 @@ export function App(props: AppPropType): JSX.Element {
   const [user, setUser] = useState<User | null>(null);
   const [doc, setDoc] = useState<GoogleSpreadsheet>(null);
   const [allQuery, setAllQuery] = useState<Record<number, Query>>(null);
-  const [allCall, setAllCall] =
-    useState<Record<number, Record<number, number>>>(null);
+  const [allCall, setAllCall] = useState<Record<number, DcCall>>(null);
 
   async function loadHeader(doc: GoogleSpreadsheet): Promise<HeaderInfo> {
     const result: HeaderInfo = {};
@@ -101,7 +101,7 @@ export function App(props: AppPropType): JSX.Element {
       );
     }
     Promise.all(loadPromises).then(() => {
-      const tmp: Record<number, Record<number, number>> = {};
+      const tmp: Record<number, DcCall> = {};
       for (let i = 1; i < numRows; i++) {
         const row = i;
         const queryId = Number(sheet.getCell(i, header[QUERY_ID_COL]).value);

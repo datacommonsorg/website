@@ -36,7 +36,7 @@ import {
   QUERY_ID_COL,
   USER_COL,
 } from "./constants";
-import { Response } from "./feedback_form";
+import { Response } from "./types";
 
 // Add a new doc for a call
 async function addCallToStore(

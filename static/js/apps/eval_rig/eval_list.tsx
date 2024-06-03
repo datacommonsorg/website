@@ -21,7 +21,7 @@ import { Button, Input, Modal } from "reactstrap";
 
 import { AppContext, SessionContext } from "./context";
 import { getCallCount } from "./data_store";
-import { Query } from "./query_section";
+import { Query } from "./types";
 
 export function EvalList(): JSX.Element {
   const { allCall, allQuery, userEmail, sheetId } = useContext(AppContext);

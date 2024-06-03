@@ -17,14 +17,16 @@
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import React, { createContext, useState } from "react";
 
-import { Query } from "./query_section";
+import { DcCall, Query } from "./types";
 
 interface AppContextType {
   doc: GoogleSpreadsheet;
   sheetId: string;
   userEmail: string;
+  // Key is query id, value is the query object.
   allQuery: Record<number, Query>;
-  allCall: Record<number, Record<number, number>>;
+  // Key is call id, value is the call mapping (call id to call row index).
+  allCall: Record<number, DcCall>;
 }
 
 export const AppContext = createContext<AppContextType>({
@@ -45,10 +47,8 @@ interface SessionContextType {
 export const SessionContext = createContext<SessionContextType>({
   sessionCallId: 1,
   sessionQueryId: 1,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  setSessionCallId: () => {},
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  setSessionQueryId: () => {},
+  setSessionCallId: () => void {},
+  setSessionQueryId: () => void {},
 });
 
 export function SessionContextProvider({
