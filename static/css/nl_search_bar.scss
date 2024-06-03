@@ -132,7 +132,7 @@
         box-shadow: none !important;
       }
     }
-    
+
     input:focus::-webkit-input-placeholder {
       color: transparent;
     }
@@ -146,7 +146,8 @@
     }
   }
 
-  .search-bar:active, .search-bar:focus-within {
+  .search-bar:active,
+  .search-bar:focus-within {
     border-color: var(--gm-3-sys-light-primary);
     background: var(--gm-3-ref-primary-primary-99);
 
