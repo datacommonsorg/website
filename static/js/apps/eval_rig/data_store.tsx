@@ -14,7 +14,15 @@
  * limitations under the License.
  */
 
-import { addDoc, collection, DocumentData, getDocs } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  DocumentData,
+  getCountFromServer,
+  getDocs,
+  setDoc,
+} from "firebase/firestore";
 import { GoogleSpreadsheet } from "google-spreadsheet";
 
 import { db } from "../../utils/firebase";
@@ -30,6 +38,20 @@ import {
 } from "./constants";
 import { Response } from "./feedback_form";
 
+// Add a new doc for a call
+async function addCallToStore(
+  sheetId: string,
+  queryId: string,
+  callId: string
+): Promise<void> {
+  const docRef = doc(
+    collection(db, "sheets", sheetId, "queries", queryId, "calls"),
+    callId
+  );
+  // Need to set a field in order to create the document
+  setDoc(docRef, { id: callId });
+}
+
 // Save response to Firestore
 export async function saveToStore(
   sheetId: string,
@@ -37,6 +59,7 @@ export async function saveToStore(
   callId: string,
   response: Response
 ): Promise<void> {
+  await addCallToStore(sheetId, queryId, callId);
   const docRef = collection(
     db,
     "sheets",
@@ -90,4 +113,26 @@ export async function saveToSheet(
     [LLM_STAT_FEEDBACK_COL]: response.llmStat,
     [DC_STAT_FEEDBACK_COL]: response.dcStat,
   });
+}
+
+/**
+ * Gets the number of calls for a query
+ * @param sheetId the sheet id
+ * @param queryId the query id
+ */
+export async function getCallCount(
+  sheetId: string,
+  queryId: string
+): Promise<number> {
+  // Define the document reference
+  const collectionRef = collection(
+    db,
+    "sheets",
+    sheetId,
+    "queries",
+    queryId,
+    "calls"
+  );
+  const snapshot = await getCountFromServer(collectionRef);
+  return snapshot.data().count;
 }
