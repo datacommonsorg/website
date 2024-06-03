@@ -21,10 +21,10 @@ import pandas as pd
 from sentence_transformers import SentenceTransformer
 import yaml
 
-from nl_server import config
 from nl_server import config_reader
 from nl_server.config import Catalog
 from nl_server.config import MemoryIndexConfig
+from nl_server.config import ModelConfig
 from nl_server.registry import Registry
 from tools.nl.embeddings import utils
 from tools.nl.embeddings.file_util import create_file_handler
@@ -126,7 +126,7 @@ def _build_embeddings_dataframe(
   return utils.build_embeddings(text2sv_dict, model=model)
 
 
-def generate_embeddings_yaml(model_name: str, model_config: config.ModelConfig,
+def generate_embeddings_yaml(model_name: str, model_config: ModelConfig,
                              embeddings_csv_handler: FileHandler,
                              embeddings_yaml_handler: FileHandler):
   # Right now Custom DC only supports LOCAL mode.
