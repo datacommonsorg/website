@@ -29,8 +29,8 @@ import {
 } from "./constants";
 import { AppContext } from "./context";
 import { EvalList } from "./eval_list";
-import { DcCall } from "./eval_section";
-import { Query, QuerySection } from "./query_section";
+import { QuerySection } from "./query_section";
+import { DcCall, Query } from "./types";
 
 // Map from sheet name to column name to column index
 type HeaderInfo = Record<string, Record<string, number>>;
@@ -41,10 +41,9 @@ interface AppPropType {
 
 export function App(props: AppPropType): JSX.Element {
   const [user, setUser] = useState<User | null>(null);
-  const [doc, setDoc] = useState<GoogleSpreadsheet>();
-  const [allQuery, setAllQuery] = useState<Record<string, Query>>({});
-  const [allCall, setAllCall] = useState<Record<string, DcCall[]>>({});
-  const [selectedQuery, setSelectedQuery] = useState("1");
+  const [doc, setDoc] = useState<GoogleSpreadsheet>(null);
+  const [allQuery, setAllQuery] = useState<Record<number, Query>>(null);
+  const [allCall, setAllCall] = useState<Record<number, DcCall>>(null);
 
   async function loadHeader(doc: GoogleSpreadsheet): Promise<HeaderInfo> {
     const result: HeaderInfo = {};
@@ -74,9 +73,9 @@ export function App(props: AppPropType): JSX.Element {
       );
     }
     Promise.all(loadPromises).then(() => {
-      const allQuery: Record<string, Query> = {};
+      const allQuery: Record<number, Query> = {};
       for (let i = 1; i < numRows; i++) {
-        const id = String(sheet.getCell(i, header[QUERY_ID_COL]).value);
+        const id = Number(sheet.getCell(i, header[QUERY_ID_COL]).value);
         allQuery[id] = {
           id,
           row: i,
@@ -102,17 +101,17 @@ export function App(props: AppPropType): JSX.Element {
       );
     }
     Promise.all(loadPromises).then(() => {
-      const allCall: Record<string, DcCall[]> = {};
+      const tmp: Record<number, DcCall> = {};
       for (let i = 1; i < numRows; i++) {
         const row = i;
-        const queryId = String(sheet.getCell(i, header[QUERY_ID_COL]).value);
-        const callId = String(sheet.getCell(i, header[CALL_ID_COL]).value);
-        if (!allCall[queryId]) {
-          allCall[queryId] = [];
+        const queryId = Number(sheet.getCell(i, header[QUERY_ID_COL]).value);
+        const callId = Number(sheet.getCell(i, header[CALL_ID_COL]).value);
+        if (!tmp[queryId]) {
+          tmp[queryId] = {};
         }
-        allCall[queryId].push({ id: callId, row });
+        tmp[queryId][callId] = row;
       }
-      setAllCall(allCall);
+      setAllCall(tmp);
     });
   };
 
@@ -132,45 +131,40 @@ export function App(props: AppPropType): JSX.Element {
   }
 
   return (
-    <>
-      <div>
-        {!user && (
-          <GoogleSignIn
-            onSignIn={handleUserSignIn}
-            scopes={["https://www.googleapis.com/auth/spreadsheets"]}
-          />
-        )}
+    <div>
+      {!user && (
+        <GoogleSignIn
+          onSignIn={handleUserSignIn}
+          scopes={["https://www.googleapis.com/auth/spreadsheets"]}
+        />
+      )}
 
-        {user && (
-          <div>
-            <a
-              href={`https://docs.google.com/spreadsheets/d/${props.sheetId}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Google Sheet Link
-            </a>
-            <p>Signed in as {user.email}</p>
-          </div>
-        )}
-        {user && allQuery[selectedQuery] && allCall[selectedQuery] && (
-          <>
+      {user && (
+        <div>
+          <a
+            href={`https://docs.google.com/spreadsheets/d/${props.sheetId}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Google Sheet Link
+          </a>
+          <p>Signed in as {user.email}</p>
+          {allQuery && allCall && doc && (
             <AppContext.Provider
-              value={{ doc, sheetId: props.sheetId, userEmail: user.email }}
+              value={{
+                allCall,
+                allQuery,
+                doc,
+                sheetId: props.sheetId,
+                userEmail: user.email,
+              }}
             >
-              <EvalList
-                queries={allQuery}
-                calls={allCall}
-                onQuerySelected={(q) => setSelectedQuery(q.id)}
-              />
-              <QuerySection
-                query={allQuery[selectedQuery]}
-                calls={allCall[selectedQuery]}
-              />
+              <EvalList />
+              <QuerySection />
             </AppContext.Provider>
-          </>
-        )}
-      </div>
-    </>
+          )}
+        </div>
+      )}
+    </div>
   );
 }

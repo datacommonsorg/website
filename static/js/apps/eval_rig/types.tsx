@@ -14,30 +14,24 @@
  * limitations under the License.
  */
 
-/**
- * Entrypoint for RIG Eval page.
- */
-
-import React from "react";
-import ReactDOM from "react-dom";
-
-import { App } from "./app";
-import { SessionContextProvider } from "./context";
-
-window.onload = () => {
-  renderPage();
-};
-
-function renderPage(): void {
-  const sheetId = document.getElementById("metadata").dataset.sheetId;
-  ReactDOM.render(
-    React.createElement(
-      SessionContextProvider,
-      null,
-      React.createElement(App, {
-        sheetId,
-      })
-    ),
-    document.getElementById("dc-eval-rig")
-  );
+export interface EvalInfo {
+  question: string;
+  llmStat: string;
+  dcResponse: string;
+  dcStat: string;
 }
+
+export interface Response extends EvalInfo {
+  // overall evaluation of all the aspects
+  overall: string;
+}
+
+export interface Query {
+  id: number;
+  text: string;
+  user: string;
+  row: number;
+}
+
+// Key is the call id, value is the row index in the sheet.
+export type DcCall = Record<number, number>;
