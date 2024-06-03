@@ -51,9 +51,9 @@ function renderPage(): void {
       inputId: "query-search-input",
       onSearch,
       placeholder: intl.formatMessage({
+        defaultMessage: "Enter a question to explore",
         description:
           "Text inviting user to search for data using a question in natural language",
-        defaultMessage: "Enter a question to explore",
         id: "nl-search-bar-placeholder-text",
       }),
       shouldAutoFocus: false,
