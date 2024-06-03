@@ -29,6 +29,10 @@ interface AppContextType {
   allCall: Record<number, DcCall>;
 }
 
+/**
+ * The AppContext contains static state that does not change when using the
+ * tool. This includes the doc, sheet id, and the user email.
+ */
 export const AppContext = createContext<AppContextType>({
   allCall: null,
   allQuery: null,
@@ -37,6 +41,10 @@ export const AppContext = createContext<AppContextType>({
   userEmail: "",
 });
 
+/**
+ * Session context contains fields that can be set within child components and
+ * are changed when the user interacts with the tool.
+ */
 interface SessionContextType {
   sessionQueryId: number;
   sessionCallId: number;
