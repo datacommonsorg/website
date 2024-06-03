@@ -20,10 +20,15 @@
   padding: 20px;
 }
 
+#query-section .col {
+  max-width: 50%;
+  text-wrap: wrap;
+  word-break: break-word;
+}
+
 label {
   display: block;
 }
-
 
 .modal-dialog.eval-list-modal {
   height: 80%;
@@ -39,7 +44,7 @@ label {
     border-bottom: solid 1px var(--gm-3-sys-light-outline-variant);
     flex-grow: 0;
     padding: 24px 24px 8px 24px;
-    
+
     .title {
       font-size: 24px;
       font-weight: 500;
@@ -65,7 +70,8 @@ label {
       display: flex;
       padding: 14px 0;
 
-      .material-icons-outlined, .user {
+      .material-icons-outlined,
+      .user {
         flex-grow: 0;
         padding: 0 16px;
       }
@@ -74,12 +80,14 @@ label {
         flex-grow: 1;
       }
 
-      .query-name, .user {
+      .query-name,
+      .user {
         font-size: 14px;
         font-weight: 500;
       }
 
-      .material-icons-outlined, .query-name {
+      .material-icons-outlined,
+      .query-name {
         color: var(--link-color);
       }
     }
@@ -89,7 +97,8 @@ label {
     }
 
     .eval-list-query.completed {
-      .material-icons-outlined, .query-name {
+      .material-icons-outlined,
+      .query-name {
         color: #146c2e;
       }
     }
@@ -112,7 +121,7 @@ label {
     }
 
     .btn:hover {
-      background-color: rgba(#0B57D0, 0.08);
+      background-color: rgba(#0b57d0, 0.08);
     }
   }
 }
@@ -123,4 +132,15 @@ label {
 
 .annotation.highlight {
   background-color: yellow;
+}
+
+#page-screen {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0);
+  z-index: 100;
+  width: 100%;
+  height: 100%;
 }

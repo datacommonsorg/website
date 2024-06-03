@@ -15,31 +15,28 @@
  */
 
 import { GoogleSpreadsheet } from "google-spreadsheet";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { Col, Row } from "reactstrap";
 import rehypeRaw from "rehype-raw";
 
 import { ANSWER_COL, QA_SHEET } from "./constants";
-import { AppContext } from "./context";
-import { DcCall, EvalSection } from "./eval_section";
+import { AppContext, SessionContext } from "./context";
+import { EvalSection } from "./eval_section";
 
 export interface Query {
-  id: string;
+  id: number;
   text: string;
   user: string;
   row: number;
 }
 
-export interface QuerySectionProps {
-  query: Query;
-  calls: DcCall[]; // call id to row index map
-}
-
-export function QuerySection(props: QuerySectionProps): JSX.Element {
-  const { doc } = useContext(AppContext);
+export function QuerySection(): JSX.Element {
+  const { allQuery, doc } = useContext(AppContext);
+  const { sessionQueryId, sessionCallId } = useContext(SessionContext);
 
   const [answer, setAnswer] = useState<string>("");
+  const prevHighlightedRef = useRef<HTMLSpanElement | null>(null);
 
   const loadAnswer = (doc: GoogleSpreadsheet, rowIdx: number) => {
     const sheet = doc.sheetsByTitle[QA_SHEET];
@@ -52,25 +49,39 @@ export function QuerySection(props: QuerySectionProps): JSX.Element {
   };
 
   useEffect(() => {
-    loadAnswer(doc, props.query.row);
-  }, [doc, props.query.row]);
+    // Remove highlight from previous annotation
+    if (prevHighlightedRef.current) {
+      prevHighlightedRef.current.classList.remove("highlight");
+    }
+
+    // Highlight the new annotation. Note the display index is 1 based.
+    const newHighlighted = document.querySelector(
+      `.annotation-${sessionCallId}`
+    ) as HTMLSpanElement;
+    if (newHighlighted) {
+      newHighlighted.classList.add("highlight");
+      prevHighlightedRef.current = newHighlighted;
+    }
+  }, [sessionCallId]);
+
+  useEffect(() => {
+    loadAnswer(doc, allQuery[sessionQueryId].row);
+  }, [doc, allQuery, sessionQueryId]);
 
   return (
-    <div className="query-section">
+    <div id="query-section">
       <Row>
         <Col>
-          <h1>This is the first Query</h1>
+          <h3>Q: {sessionQueryId}</h3>
           <h3>Question</h3>
-          <p>{props.query.text}</p>
+          <p>{allQuery[sessionQueryId].text}</p>
           <h3>Answer</h3>
           <ReactMarkdown rehypePlugins={[rehypeRaw] as any}>
             {processText(answer)}
           </ReactMarkdown>
         </Col>
         <Col>
-          {answer && (
-            <EvalSection queryId={props.query.id} calls={props.calls} />
-          )}
+          <EvalSection />
         </Col>
       </Row>
     </div>

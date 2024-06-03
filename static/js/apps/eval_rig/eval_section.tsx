@@ -14,121 +14,143 @@
  * limitations under the License.
  */
 
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useRef } from "react";
 import { Button } from "reactstrap";
 
-import {
-  DC_CALL_SHEET,
-  DC_QUESTION_COL,
-  DC_RESPONSE_COL,
-  DC_STAT_COL,
-  LLM_STAT_COL,
-} from "./constants";
-import { AppContext } from "./context";
-import { EvalInfo, FeedbackForm } from "./feedback_form";
+import { AppContext, SessionContext } from "./context";
+import FeedbackForm, { FormStatus } from "./feedback_form";
 
-export interface DcCall {
-  id: string;
-  row: number;
-}
+export function EvalSection(): JSX.Element {
+  const { allQuery, allCall } = useContext(AppContext);
+  const { sessionQueryId, setSessionQueryId, sessionCallId, setSessionCallId } =
+    useContext(SessionContext);
 
-export interface EvalSectionProps {
-  queryId: string;
-  calls: DcCall[];
-}
+  const formRef = useRef(null);
 
-export function EvalSection(props: EvalSectionProps): JSX.Element {
-  const { doc } = useContext(AppContext);
-  const prevHighlightedRef = useRef<HTMLSpanElement | null>(null);
-  const [evalInfo, setEvalInfo] = useState<EvalInfo | null>(null);
-  const [callPos, setCallPos] = useState<number>(0);
+  const submitForm = async (): Promise<boolean> => {
+    return formRef.current.submitForm();
+  };
 
-  // When list of calls change, update callPos if callPos is invalid.
-  useEffect(() => {
-    if (props.calls[callPos]) {
-      return;
+  const checkAndSubmit = async (): Promise<boolean> => {
+    const formStatus = formRef.current.status();
+    if (formStatus === FormStatus.InProgress) {
+      alert("Please fill in all fields");
+      return false;
     }
-    setCallPos(0);
-  }, [props.calls]);
-
-  useEffect(() => {
-    if (!props.calls[callPos]) {
-      return;
+    if (formStatus === FormStatus.Completed) {
+      return submitForm();
     }
-    const sheet = doc.sheetsByTitle[DC_CALL_SHEET];
-    const rowIdx = props.calls[callPos].row;
-    sheet.getRows({ offset: rowIdx - 1, limit: 1 }).then((rows) => {
-      const row = rows[0];
-      if (row) {
-        setEvalInfo({
-          question: row.get(DC_QUESTION_COL),
-          dcResponse: row.get(DC_RESPONSE_COL),
-          llmStat: row.get(LLM_STAT_COL),
-          dcStat: row.get(DC_STAT_COL),
-        });
+    // Otherwise form status is Submitted or NotStarted. Just proceed with
+    // any action.
+    return true;
+  };
+
+  const numCalls = () => {
+    // Not all queries have calls.
+    return Object.keys(allCall[sessionQueryId] || {}).length;
+  };
+
+  // Button Actions
+  const prevQuery = async () => {
+    if (await checkAndSubmit()) {
+      let targetId = sessionQueryId - 1;
+      while (!(targetId in allQuery)) {
+        targetId -= 1;
       }
-    });
-  }, [doc, props.calls, callPos]);
-
-  // Highlight the current DC Call in the answer section.
-  useEffect(() => {
-    // Remove highlight from previous annotation
-    if (prevHighlightedRef.current) {
-      prevHighlightedRef.current.classList.remove("highlight");
+      setSessionQueryId(targetId);
+      setSessionCallId(1);
     }
-
-    // Highlight the new annotation. Note the display index is 1 based.
-    const newHighlighted = document.querySelector(
-      `.annotation-${callPos + 1}`
-    ) as HTMLSpanElement;
-    if (newHighlighted) {
-      newHighlighted.classList.add("highlight");
-      prevHighlightedRef.current = newHighlighted;
+  };
+  const prev = async () => {
+    if (await checkAndSubmit()) {
+      if (sessionCallId > 1) {
+        setSessionCallId(sessionCallId - 1);
+      }
     }
-  }, [callPos]);
-
-  const previous = () => {
-    if (callPos > 0) {
-      setCallPos(callPos - 1);
+  };
+  const next = async () => {
+    if (await checkAndSubmit()) {
+      if (sessionCallId < numCalls()) {
+        setSessionCallId(sessionCallId + 1);
+      }
+    }
+  };
+  const nextQuery = async () => {
+    if (await checkAndSubmit()) {
+      let targetId = sessionQueryId + 1;
+      while (!(targetId in allQuery)) {
+        targetId += 1;
+      }
+      setSessionQueryId(targetId);
+      setSessionCallId(1);
     }
   };
 
-  const next = () => {
-    if (callPos < props.calls.length - 1) {
-      setCallPos(callPos + 1);
-    }
+  // Button Conditions
+  const showPrevQuery = (): boolean => {
+    return sessionCallId == 1 && sessionQueryId > 1;
+  };
+  const showPrev = (): boolean => {
+    return sessionCallId > 1;
+  };
+  const showNext = (): boolean => {
+    return sessionCallId < numCalls();
+  };
+  const showNextQuery = (): boolean => {
+    return (
+      // When a query does not have any calls, the call id is 1 and num calls
+      // is 0.
+      sessionCallId >= numCalls() &&
+      sessionQueryId < Object.keys(allQuery).length
+    );
   };
 
   return (
     <>
-      {evalInfo && props.calls[callPos] && (
-        <FeedbackForm
-          queryId={props.queryId}
-          callId={props.calls[callPos].id}
-          evalInfo={evalInfo}
-        />
+      <FeedbackForm ref={formRef} />
+      {formRef.current && (
+        <div>
+          <span>
+            {sessionCallId} / {numCalls()} ITEMS IN THIS QUERY
+          </span>
+          {showPrevQuery() && (
+            <Button
+              onClick={() => {
+                prevQuery();
+              }}
+            >
+              Previous Query
+            </Button>
+          )}
+          {showPrev() && (
+            <Button
+              onClick={() => {
+                prev();
+              }}
+            >
+              Previous
+            </Button>
+          )}
+          {showNext() && (
+            <Button
+              onClick={() => {
+                next();
+              }}
+            >
+              Next
+            </Button>
+          )}
+          {showNextQuery() && (
+            <Button
+              onClick={() => {
+                nextQuery();
+              }}
+            >
+              Continue to next query
+            </Button>
+          )}
+        </div>
       )}
-      <div>
-        <span>
-          {callPos + 1} / {props.calls.length} ITEMS IN THIS QUERY
-        </span>
-        <Button
-          className={callPos === 0 ? "disabled" : ""}
-          onClick={() => {
-            previous();
-          }}
-        >
-          Previous
-        </Button>
-        <Button
-          className={callPos === props.calls.length - 1 ? "disabled" : ""}
-          onClick={() => {
-            next();
-          }}
-        >
-          Next
-        </Button>
-      </div>
     </>
   );
 }

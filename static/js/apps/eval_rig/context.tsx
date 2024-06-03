@@ -15,18 +15,59 @@
  */
 
 import { GoogleSpreadsheet } from "google-spreadsheet";
-import { createContext } from "react";
+import React, { createContext, useState } from "react";
 
-interface Context {
+import { Query } from "./query_section";
+
+interface AppContextType {
   doc: GoogleSpreadsheet;
   sheetId: string;
   userEmail: string;
+  allQuery: Record<number, Query>;
+  allCall: Record<number, Record<number, number>>;
 }
 
-const defaultContext: Context = {
+export const AppContext = createContext<AppContextType>({
   doc: null,
   sheetId: "",
   userEmail: "",
-};
+  allQuery: null,
+  allCall: null,
+});
 
-export const AppContext = createContext<Context>(defaultContext);
+interface SessionContextType {
+  sessionQueryId: number;
+  sessionCallId: number;
+  setSessionQueryId: (queryId: number) => void;
+  setSessionCallId: (callId: number) => void;
+}
+
+export const SessionContext = createContext<SessionContextType>({
+  sessionQueryId: 1,
+  sessionCallId: 1,
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  setSessionQueryId: () => {},
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  setSessionCallId: () => {},
+});
+
+export function SessionContextProvider({
+  children,
+}: {
+  children: JSX.Element;
+}): JSX.Element {
+  const [sessionQueryId, setSessionQueryId] = useState(1);
+  const [sessionCallId, setSessionCallId] = useState(1);
+  return (
+    <SessionContext.Provider
+      value={{
+        sessionQueryId,
+        sessionCallId,
+        setSessionQueryId,
+        setSessionCallId,
+      }}
+    >
+      {children}
+    </SessionContext.Provider>
+  );
+}

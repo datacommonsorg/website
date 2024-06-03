@@ -41,12 +41,17 @@ import { Response } from "./feedback_form";
 // Add a new doc for a call
 async function addCallToStore(
   sheetId: string,
-  queryId: string,
-  callId: string
+  queryId: number,
+  callId: number
 ): Promise<void> {
   const docRef = doc(
-    collection(db, "sheets", sheetId, "queries", queryId, "calls"),
-    callId
+    db,
+    "sheets",
+    sheetId,
+    "queries",
+    String(queryId),
+    "calls",
+    String(callId)
   );
   // Need to set a field in order to create the document
   setDoc(docRef, { id: callId });
@@ -54,9 +59,10 @@ async function addCallToStore(
 
 // Save response to Firestore
 export async function saveToStore(
+  userEmail: string,
   sheetId: string,
-  queryId: string,
-  callId: string,
+  queryId: number,
+  callId: number,
   response: Response
 ): Promise<void> {
   await addCallToStore(sheetId, queryId, callId);
@@ -65,18 +71,19 @@ export async function saveToStore(
     "sheets",
     sheetId,
     "queries",
-    queryId,
+    String(queryId),
     "calls",
-    callId,
+    String(callId),
     "responses"
   );
-  addDoc(docRef, response);
+  const savedResponse = { ...response, userEmail, timestamp: new Date() };
+  addDoc(docRef, savedResponse);
 }
 
 export async function getCallData(
   sheetId: string,
-  queryId: string,
-  callId: string
+  queryId: number,
+  callId: number
 ): Promise<DocumentData | null> {
   // Define the document reference
   const collectionRef = collection(
@@ -84,9 +91,9 @@ export async function getCallData(
     "sheets",
     sheetId,
     "queries",
-    queryId,
+    String(queryId),
     "calls",
-    callId,
+    String(callId),
     "responses"
   );
   const snapshot = await getDocs(collectionRef);
@@ -98,16 +105,17 @@ export async function getCallData(
 }
 
 export async function saveToSheet(
+  userEmail: string,
   doc: GoogleSpreadsheet,
-  queryId: string,
-  callId: string,
+  queryId: number,
+  callId: number,
   response: Response
 ): Promise<void> {
   const sheet = doc.sheetsByTitle[DC_FEEDBACK_SHEET];
   sheet.addRow({
     [QUERY_ID_COL]: queryId,
     [CALL_ID_COL]: callId,
-    [USER_COL]: response.userEmail,
+    [USER_COL]: userEmail,
     [DC_QUESTION_FEEDBACK_COL]: response.question,
     [DC_RESPONSE_FEEDBACK_COL]: response.dcResponse,
     [LLM_STAT_FEEDBACK_COL]: response.llmStat,
@@ -122,7 +130,7 @@ export async function saveToSheet(
  */
 export async function getCallCount(
   sheetId: string,
-  queryId: string
+  queryId: number
 ): Promise<number> {
   // Define the document reference
   const collectionRef = collection(
@@ -130,7 +138,7 @@ export async function getCallCount(
     "sheets",
     sheetId,
     "queries",
-    queryId,
+    String(queryId),
     "calls"
   );
   const snapshot = await getCountFromServer(collectionRef);
