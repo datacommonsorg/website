@@ -30,7 +30,6 @@ from shared.lib.place_summaries import get_shard_filename_by_dcid
 from shared.lib.place_summaries import get_shard_name
 
 bp = flask.Blueprint('place', __name__, url_prefix='/place')
-dev_bp = flask.Blueprint('dev_place', __name__, url_prefix='/dev-place')
 
 CATEGORIES = {
     "Economics",
@@ -152,40 +151,14 @@ def is_canonical_domain(url: str) -> bool:
   return re.match(regex, url) is not None
 
 
-def get_place_html_link(place_dcid: str,
-                        place_name: str,
-                        use_dev_url=False) -> str:
-  """Get <a href-place page url> tag linking to the place page for a place
-  
-  Args:
-    place_dcid: dcid of the place to get the url for
-    place_name: name of the place to use as the link's text
-    use_dev_url: whether to link to the dev place pages instead of the
-                 production place pages
-  
-  Returns:
-    An html anchor tag linking to a place page.
-  """
-  if use_dev_url:
-    url = flask.url_for('dev_place.dev_place', place_dcid=place_dcid)
-  else:
-    url = flask.url_for('place.place', place_dcid=place_dcid)
+def get_place_html_link(place_dcid: str, place_name: str) -> str:
+  """Get <a href-place page url> tag linking to the place page for a place"""
+  url = flask.url_for('place.place', place_dcid=place_dcid)
   return f'<a href="{url}">{place_name}</a>'
 
 
-def get_place_type_with_parent_places_links(dcid: str,
-                                            use_dev_url=False) -> str:
-  """Get '<place type> in <parent places>' with html links for a given DCID
-  
-  Args:
-    dcid: dcid of the place to get links for
-    use_dev_url: whether to link to the dev place pages instead of the
-                 production place pages.
-  
-  Returns:
-    A descriptor of the given place which includes the place's type and links
-    to the place pages of its containing places.
-  """
+def get_place_type_with_parent_places_links(dcid: str) -> str:
+  """Get '<place type> in <parent places>' with html links for a given DCID"""
   # Get place type in localized, human-readable format
   place_type = place_api.api_place_type(dcid)
   place_type_display_name = place_api.get_place_type_i18n_name(place_type)
@@ -206,8 +179,7 @@ def get_place_type_with_parent_places_links(dcid: str,
   # Generate <a href=place page url> tag for each parent place
   links = [
       get_place_html_link(place_dcid=parent['dcid'],
-                          place_name=localized_names.get(parent['dcid']),
-                          use_dev_url=use_dev_url)
+                          place_name=localized_names.get(parent['dcid']))
       if parent['type'] != 'Continent' else localized_names.get(parent['dcid'])
       for parent in places_with_names
   ]
@@ -339,25 +311,3 @@ def place_landing(error_msg=''):
         error_msg=error_msg,
         place_names=place_names,
         maps_api_key=current_app.config['MAPS_API_KEY'])
-
-
-# Temporary route to hold the new, revamped place page while in development
-# TODO(juliawu): Move this to the default place route once development is done.
-@dev_bp.route('/<path:place_dcid>')
-def dev_place(place_dcid=None):
-  if os.environ.get('FLASK_ENV') not in ['local', 'autopush', 'dev'
-                                        ] or not place_dcid:
-    flask.abort(404)
-
-  place_type_with_parent_places_links = get_place_type_with_parent_places_links(
-      place_dcid, use_dev_url=True)
-  place_names = place_api.get_i18n_name([place_dcid]) or {}
-  place_name = place_names.get(place_dcid, place_dcid)
-
-  return flask.render_template(
-      'dev_place.html',
-      maps_api_key=current_app.config['MAPS_API_KEY'],
-      place_dcid=place_dcid,
-      place_name=place_name,
-      place_type_with_parent_places_links=place_type_with_parent_places_links,
-  )
