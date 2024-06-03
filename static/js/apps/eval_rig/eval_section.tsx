@@ -18,7 +18,7 @@ import React, { useContext, useRef } from "react";
 import { Button } from "reactstrap";
 
 import { AppContext, SessionContext } from "./context";
-import FeedbackForm, { FormStatus } from "./feedback_form";
+import { FeedbackForm, FormStatus } from "./feedback_form";
 
 export function EvalSection(): JSX.Element {
   const { allQuery, allCall } = useContext(AppContext);

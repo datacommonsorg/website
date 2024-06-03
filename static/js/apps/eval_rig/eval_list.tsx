@@ -25,7 +25,7 @@ import { Query } from "./query_section";
 
 export function EvalList(): JSX.Element {
   const { allCall, allQuery, userEmail, sheetId } = useContext(AppContext);
-  const { setSessionQueryId } = useContext(SessionContext);
+  const { setSessionCallId, setSessionQueryId } = useContext(SessionContext);
 
   const [userEvalsOnly, setUserEvalsOnly] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -95,6 +95,7 @@ export function EvalList(): JSX.Element {
                 onClick={() => {
                   setModalOpen(false);
                   setSessionQueryId(query.id);
+                  setSessionCallId(1);
                 }}
                 key={query.id}
               >

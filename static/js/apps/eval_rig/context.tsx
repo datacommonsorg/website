@@ -28,11 +28,11 @@ interface AppContextType {
 }
 
 export const AppContext = createContext<AppContextType>({
+  allCall: null,
+  allQuery: null,
   doc: null,
   sheetId: "",
   userEmail: "",
-  allQuery: null,
-  allCall: null,
 });
 
 interface SessionContextType {
@@ -43,12 +43,12 @@ interface SessionContextType {
 }
 
 export const SessionContext = createContext<SessionContextType>({
-  sessionQueryId: 1,
   sessionCallId: 1,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  setSessionQueryId: () => {},
+  sessionQueryId: 1,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   setSessionCallId: () => {},
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  setSessionQueryId: () => {},
 });
 
 export function SessionContextProvider({

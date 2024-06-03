@@ -63,7 +63,7 @@ const emptyResponse = {
   dcStat: "",
 };
 
-function FeedbackForm(_, ref): JSX.Element {
+const FeedbackForm = forwardRef((_, ref) => {
   const { allCall, doc, sheetId, userEmail } = useContext(AppContext);
   const { sessionQueryId, sessionCallId, setSessionCallId } =
     useContext(SessionContext);
@@ -95,10 +95,10 @@ function FeedbackForm(_, ref): JSX.Element {
       const row = rows[0];
       if (row) {
         setEvalInfo({
-          question: row.get(DC_QUESTION_COL),
           dcResponse: row.get(DC_RESPONSE_COL),
-          llmStat: row.get(LLM_STAT_COL),
           dcStat: row.get(DC_STAT_COL),
+          llmStat: row.get(LLM_STAT_COL),
+          question: row.get(DC_QUESTION_COL),
         });
       }
     });
@@ -143,11 +143,11 @@ function FeedbackForm(_, ref): JSX.Element {
   };
 
   useImperativeHandle(ref, () => ({
-    submitForm: async (): Promise<boolean> => {
-      return handleSubmit(new Event("submit"));
-    },
     status: () => {
       return status;
+    },
+    submitForm: async (): Promise<boolean> => {
+      return handleSubmit(new Event("submit"));
     },
   }));
 
@@ -248,6 +248,7 @@ function FeedbackForm(_, ref): JSX.Element {
       </div>
     </div>
   );
-}
+});
 
-export default forwardRef(FeedbackForm);
+FeedbackForm.displayName = "FeedbackForm";
+export { FeedbackForm };
