@@ -17,7 +17,6 @@ import os
 
 import flask
 from flask import current_app
-from flask_babel import gettext
 
 import server.routes.dev_place.utils as utils
 import server.routes.shared_api.place as place_api
