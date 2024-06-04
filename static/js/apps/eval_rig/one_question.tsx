@@ -31,24 +31,26 @@ interface OneQuestionProps {
 
 export function OneQuestion(props: OneQuestionProps): JSX.Element {
   return (
-    <div>
-      <h3>{props.question}</h3>
-      {Object.keys(props.options).map((key) => {
-        const value = props.options[key];
-        return (
-          <label key={key}>
-            <input
-              type="radio"
-              name={props.name}
-              value={key}
-              checked={props.responseField === key}
-              onChange={props.handleChange}
-              disabled={props.disabled}
-            />
-            {value}
-          </label>
-        );
-      })}
+    <div className="one-question">
+      <div className="question">{props.question}</div>
+      <div className="options">
+        {Object.keys(props.options).map((key) => {
+          const value = props.options[key];
+          return (
+            <label key={key}>
+              <input
+                type="radio"
+                name={props.name}
+                value={key}
+                checked={props.responseField === key}
+                onChange={props.handleChange}
+                disabled={props.disabled}
+              />
+              {value}
+            </label>
+          );
+        })}
+      </div>
     </div>
   );
 }
