@@ -1,6 +1,12 @@
-FLASK_ENV=custom
+# API key for accessing the base Data Commons API.
+DC_API_KEY=
+# API key for accessing Maps and Places APIs for exploration tools.
+MAPS_API_KEY=
+# Use local SQLite as the database.
 USE_SQLITE=true
-ENABLE_MODEL=true
-DC_API_KEY=AIzaSyCnBLQK-ODEklqXc99yo7G8vKmoBYW_2wo
-MAPS_API_KEY=AIzaSyDiONhHg-Rl20d_9rQJB25pymO9S9aTmMY
+# (Optional) Secret token to authorize users to perform /admin page operations.
 ADMIN_SECRET=
+# Enable embeddings generation and natural language querying.
+ENABLE_MODEL=true
+# The name of the parent directory for custom CSS, JS, HTML and image files.
+FLASK_ENV=custom
