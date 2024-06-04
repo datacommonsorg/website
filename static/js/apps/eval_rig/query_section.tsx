@@ -23,6 +23,7 @@ import rehypeRaw from "rehype-raw";
 import { ANSWER_COL, QA_SHEET } from "./constants";
 import { AppContext, SessionContext } from "./context";
 import { EvalSection } from "./eval_section";
+import { processText } from "./util";
 
 export function QuerySection(): JSX.Element {
   const { allQuery, doc } = useContext(AppContext);
@@ -55,7 +56,7 @@ export function QuerySection(): JSX.Element {
       newHighlighted.classList.add("highlight");
       prevHighlightedRef.current = newHighlighted;
     }
-  }, [sessionCallId]);
+  }, [answer, sessionCallId]);
 
   useEffect(() => {
     loadAnswer(doc, allQuery[sessionQueryId].row);
@@ -80,15 +81,3 @@ export function QuerySection(): JSX.Element {
     </div>
   );
 }
-
-/**
- * Replace [__DC__#(id)(text)] to just text with css class for highlighting.
- * @param text
- * @returns
- */
-const processText = (text: string): string => {
-  return text.replace(
-    /\[\s*__DC__#(\d+)\(([^)]+)\)\s*\]/g,
-    '<span class="annotation annotation-$1">$2</span>'
-  );
-};
