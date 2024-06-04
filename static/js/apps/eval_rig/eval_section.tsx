@@ -55,6 +55,7 @@ export function EvalSection(): JSX.Element {
   const [evalInfo, setEvalInfo] = useState<EvalInfo | null>(null);
   const [response, setResponse] = useState<Response>(emptyResponse);
   const [status, setStatus] = useState<FormStatus>(null);
+  const [applyToNext, setApplyToNext] = useState(false);
 
   useEffect(() => {
     getCallData(sheetId, sessionQueryId, sessionCallId).then((data) => {
@@ -62,11 +63,15 @@ export function EvalSection(): JSX.Element {
         setResponse(data as Response);
         setStatus(FormStatus.Submitted);
       } else {
+        if (applyToNext) {
+          setStatus(FormStatus.Completed);
+          return;
+        }
         setResponse(emptyResponse);
         setStatus(FormStatus.NotStarted);
       }
     });
-  }, [sheetId, sessionQueryId, sessionCallId]);
+  }, [sheetId, sessionQueryId, sessionCallId, applyToNext]);
 
   useEffect(() => {
     const sheet = doc.sheetsByTitle[DC_CALL_SHEET];
@@ -124,6 +129,10 @@ export function EvalSection(): JSX.Element {
   const numCalls = () => {
     // Not all queries have calls.
     return Object.keys(allCall[sessionQueryId] || {}).length;
+  };
+
+  const handleApplyToNextChange = () => {
+    setApplyToNext(!applyToNext);
   };
 
   const handleChange = (event) => {
@@ -219,6 +228,17 @@ export function EvalSection(): JSX.Element {
 
   return (
     <>
+      <div>
+        <label id="apply-to-next">
+          <input
+            type="checkbox"
+            checked={applyToNext}
+            onChange={handleApplyToNextChange}
+            disabled={status === FormStatus.Submitted}
+          />
+          Apply the response to the next question
+        </label>
+      </div>
       <div id="form-container">
         {evalInfo && (
           <form>

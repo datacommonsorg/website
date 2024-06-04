@@ -85,6 +85,7 @@ export async function getCallData(
   queryId: number,
   callId: number
 ): Promise<DocumentData | null> {
+  console.log("database: get call data");
   // Define the document reference
   const collectionRef = collection(
     db,
