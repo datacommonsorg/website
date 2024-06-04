@@ -19,26 +19,23 @@
 import React, { useContext, useState } from "react";
 import { Button, Input, Modal } from "reactstrap";
 
-import { AppContext } from "./context";
+import { AppContext, SessionContext } from "./context";
 import { getCallCount } from "./data_store";
-import { DcCall } from "./eval_section";
-import { Query } from "./query_section";
+import { Query } from "./types";
 
-interface EvalListPropType {
-  queries: Record<string, Query>;
-  calls: Record<string, DcCall[]>;
-  onQuerySelected: (query: Query) => void;
-}
+export function EvalList(): JSX.Element {
+  const { allCall, allQuery, userEmail, sheetId } = useContext(AppContext);
+  const { setSessionCallId, setSessionQueryId } = useContext(SessionContext);
 
-export function EvalList(props: EvalListPropType): JSX.Element {
-  const { userEmail, sheetId } = useContext(AppContext);
   const [userEvalsOnly, setUserEvalsOnly] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [queryCompletionStatus, setQueryCompletionStatus] = useState({});
 
-  const orderedQueries = Object.keys(props.queries)
-    .sort()
-    .map((queryId) => props.queries[queryId]);
+  const orderedQueries: Query[] = Object.keys(allQuery)
+    .sort((a, b) => {
+      return Number(a) - Number(b);
+    })
+    .map((queryId) => allQuery[queryId]);
 
   const openModal = () => {
     setModalOpen(true);
@@ -49,7 +46,9 @@ export function EvalList(props: EvalListPropType): JSX.Element {
     Promise.all(existPromises)
       .then((results) => {
         orderedQueries.forEach((query, i) => {
-          const completed = results[i] === (props.calls[query.id] || []).length;
+          // A query might not have any calls.
+          const calls = allCall[query.id] || {};
+          const completed = results[i] === Object.keys(calls).length;
           queryCompletionStatus[query.id] = completed;
         });
         setQueryCompletionStatus(queryCompletionStatus);
@@ -95,7 +94,8 @@ export function EvalList(props: EvalListPropType): JSX.Element {
                 className={`eval-list-query${completed ? " completed" : ""}`}
                 onClick={() => {
                   setModalOpen(false);
-                  props.onQuerySelected(query);
+                  setSessionQueryId(query.id);
+                  setSessionCallId(1);
                 }}
                 key={query.id}
               >

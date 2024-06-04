@@ -15,18 +15,67 @@
  */
 
 import { GoogleSpreadsheet } from "google-spreadsheet";
-import { createContext } from "react";
+import React, { createContext, useState } from "react";
 
-interface Context {
+import { DcCall, Query } from "./types";
+
+interface AppContextType {
   doc: GoogleSpreadsheet;
   sheetId: string;
   userEmail: string;
+  // Key is query id, value is the query object.
+  allQuery: Record<number, Query>;
+  // Key is call id, value is the call mapping (call id to call row index).
+  allCall: Record<number, DcCall>;
 }
 
-const defaultContext: Context = {
+/**
+ * The AppContext contains static state that does not change when using the
+ * tool. This includes the doc, sheet id, and the user email.
+ */
+export const AppContext = createContext<AppContextType>({
+  allCall: null,
+  allQuery: null,
   doc: null,
   sheetId: "",
   userEmail: "",
-};
+});
 
-export const AppContext = createContext<Context>(defaultContext);
+/**
+ * Session context contains fields that can be set within child components and
+ * are changed when the user interacts with the tool.
+ */
+interface SessionContextType {
+  sessionQueryId: number;
+  sessionCallId: number;
+  setSessionQueryId: (queryId: number) => void;
+  setSessionCallId: (callId: number) => void;
+}
+
+export const SessionContext = createContext<SessionContextType>({
+  sessionCallId: 1,
+  sessionQueryId: 1,
+  setSessionCallId: () => void {},
+  setSessionQueryId: () => void {},
+});
+
+export function SessionContextProvider({
+  children,
+}: {
+  children: JSX.Element;
+}): JSX.Element {
+  const [sessionQueryId, setSessionQueryId] = useState(1);
+  const [sessionCallId, setSessionCallId] = useState(1);
+  return (
+    <SessionContext.Provider
+      value={{
+        sessionQueryId,
+        sessionCallId,
+        setSessionQueryId,
+        setSessionCallId,
+      }}
+    >
+      {children}
+    </SessionContext.Provider>
+  );
+}
