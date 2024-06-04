@@ -42,7 +42,7 @@ class Params(str, Enum):
   #    Ex, if multiple verbs present, treat as action query and do not fulfill.
   MODE = 'mode'
   CLIENT = 'client'
-  # If set then we don't stripping of stop-words for variable match.
+  # If set then we don't strip stop-words for mono-variable match.
   DISABLE_STOP_WORDS = 'disableStopWords'
 
 
