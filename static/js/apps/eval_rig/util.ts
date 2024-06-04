@@ -16,12 +16,18 @@
 
 export const processText = (text: string): string => {
   return text.replace(
-    // Replace [__DC__#(id)(text)] to just text with css class for highlighting.
-    // Note here we want to keep the inner () and [] in the text.
-    /\[\s*__DC__#(\d+)\(((?:[^)(]+|\([^)]*\))*)\)\s*\]/g,
-    (match, p1, p2) => {
+    // Replace [__DC__#1(dc stat text||llm stat text)] to
+    // dc stat text||llm stat text with html and css annotations.
+    /\[\s*__DC__#(\d+)(.*)\]/g,
+    (match, callId, content) => {
       // Split the second capturing group by "||"
-      const parts = p2.split("||");
+      if (content[0] === "(") {
+        content = content.slice(1);
+      }
+      if (content[content.length - 1] === ")") {
+        content = content.slice(0, -1);
+      }
+      const parts = content.split("||");
       let dcStat: string;
       let llmStat: string;
       if (parts.length === 2) {
@@ -33,7 +39,7 @@ export const processText = (text: string): string => {
       let innerHtml = "";
       innerHtml += `<span class="dc-stat">${dcStat || "&nbsp;&nbsp;"}</span>||`;
       innerHtml += `<span class="llm-stat">${llmStat || "&nbsp;&nbsp;"}</span>`;
-      return `<span class="annotation annotation-${p1}">${innerHtml}</span>`;
+      return `<span class="annotation annotation-${callId}">${innerHtml}</span>`;
     }
   );
 };
