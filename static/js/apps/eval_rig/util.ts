@@ -19,8 +19,9 @@ export const processText = (text: string): string => {
     // Replace [__DC__#1(dc stat text||llm stat text)] to
     // dc stat text||llm stat text with html and css annotations.
     /\[\s*__DC__#(\d+)(.*)\]/g,
-    (match, callId, content) => {
+    (match, callId, rawContent) => {
       // Split the second capturing group by "||"
+      let content = rawContent;
       if (content[0] === "(") {
         content = content.slice(1);
       }

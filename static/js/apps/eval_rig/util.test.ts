@@ -16,13 +16,17 @@
 import { processText } from "./util";
 
 test("processText", () => {
-  const testCases = {
-    "Median household income:** [__DC__#1(116068 USD [1]* || $98,588)]":
+  const testCases = [
+    [
+      "Median household income:** [__DC__#1(116068 USD [1]* || $98,588)]",
       'Median household income:** <span class="annotation annotation-1"><span class="dc-stat">116068 USD [1]* </span>||<span class="llm-stat"> $98,588</span></span>',
-    "Average household income:** [__DC__#2(128184 Infl. adj. USD (CY) [2]* || $108,748)]":
+    ],
+    [
+      "Average household income:** [__DC__#2(128184 Infl. adj. USD (CY) [2]* || $108,748)]",
       'Average household income:** <span class="annotation annotation-2"><span class="dc-stat">128184 Infl. adj. USD (CY) [2]* </span>||<span class="llm-stat"> $108,748</span></span>',
-  };
-  for (const text in testCases) {
-    expect(processText(text)).toEqual(testCases[text]);
+    ],
+  ];
+  for (const testCase of testCases) {
+    expect(processText(testCase[0])).toEqual(testCase[1]);
   }
 });
