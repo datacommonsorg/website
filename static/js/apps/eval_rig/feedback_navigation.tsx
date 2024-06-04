@@ -108,10 +108,12 @@ export function FeedbackNavigation(
   };
 
   return (
-      <div className="feedback-nav-section">
-        {(sessionCallId !== QUERY_FEEDBACK_CALL_ID) && <span>
+    <div className="feedback-nav-section">
+      {sessionCallId !== QUERY_FEEDBACK_CALL_ID && (
+        <span>
           {sessionCallId} / {numCalls()} ITEMS IN THIS QUERY
-        </span>}
+        </span>
+      )}
       <div className="nav-buttons">
         {showPrev() && (
           <Button
@@ -159,6 +161,6 @@ export function FeedbackNavigation(
           </Button>
         )}
       </div>
-      </div>
+    </div>
   );
 }
