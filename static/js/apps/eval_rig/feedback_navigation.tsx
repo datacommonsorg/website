@@ -37,7 +37,7 @@ export function FeedbackNavigation(
     useContext(SessionContext);
   const sortedQueryIds = Object.keys(allQuery)
     .map((qKey) => Number(qKey))
-    .sort();
+    .sort((a, b) => a - b);
 
   const numCalls = () => {
     // Not all queries have calls.

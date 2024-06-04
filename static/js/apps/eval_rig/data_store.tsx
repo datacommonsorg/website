@@ -45,7 +45,7 @@ export function getPath(
   sheetId: string,
   queryId?: number,
   callId?: number
-): string[] {
+): string {
   const path = ["sheets", sheetId];
   if (queryId) {
     path.push(...["queries", String(queryId)]);
@@ -53,25 +53,25 @@ export function getPath(
   if (callId) {
     path.push(...["calls", String(callId)]);
   }
-  return path;
+  return path.join("/");
 }
 
 // Sets a field in a doc at the specified path
 export async function setField(
-  path: string[],
+  path: string,
   fieldKey: string,
   fieldValue: string
 ): Promise<void> {
-  const docRef = doc(db, path.shift(), ...path);
+  const docRef = doc(db, path);
   setDoc(docRef, { [fieldKey]: fieldValue }, { merge: true });
 }
 
 // Gets a field from a doc at the specified path
 export async function getField(
-  path: string[],
+  path: string,
   fieldKey: string
 ): Promise<string> {
-  const docRef = doc(db, path.shift(), ...path);
+  const docRef = doc(db, path);
   const snapshot = await getDoc(docRef);
   const docData = snapshot.data();
   return docData ? docData[fieldKey] : "";
