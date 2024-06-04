@@ -34,10 +34,10 @@ import { EvalInfo, Response } from "./types";
 
 const LOADING_CONTAINER_ID = "form-container";
 const EMPTY_RESPONSE = {
-  question: "",
-  llmStat: "",
   dcResponse: "",
   dcStat: "",
+  llmStat: "",
+  question: "",
 };
 
 export enum FormStatus {
