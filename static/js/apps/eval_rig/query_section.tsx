@@ -17,12 +17,10 @@
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
-import { Col, Row } from "reactstrap";
 import rehypeRaw from "rehype-raw";
 
 import { ANSWER_COL, QA_SHEET } from "./constants";
 import { AppContext, SessionContext } from "./context";
-import { EvalSection } from "./eval_section";
 
 export function QuerySection(): JSX.Element {
   const { allQuery, doc } = useContext(AppContext);
@@ -63,20 +61,13 @@ export function QuerySection(): JSX.Element {
 
   return (
     <div id="query-section">
-      <Row>
-        <Col>
-          <h3>Q: {sessionQueryId}</h3>
-          <h3>Question</h3>
-          <p>{allQuery[sessionQueryId].text}</p>
-          <h3>Answer</h3>
-          <ReactMarkdown rehypePlugins={[rehypeRaw] as any}>
-            {processText(answer)}
-          </ReactMarkdown>
-        </Col>
-        <Col>
-          <EvalSection />
-        </Col>
-      </Row>
+      <h3>Q: {sessionQueryId}</h3>
+      <h3>Question</h3>
+      <p>{allQuery[sessionQueryId].text}</p>
+      <h3>Answer</h3>
+      <ReactMarkdown rehypePlugins={[rehypeRaw] as any}>
+        {processText(answer)}
+      </ReactMarkdown>
     </div>
   );
 }

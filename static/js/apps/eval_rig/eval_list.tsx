@@ -19,8 +19,9 @@
 import React, { useContext, useState } from "react";
 import { Button, Input, Modal } from "reactstrap";
 
+import { QUERY_FEEDBACK_CALL_ID } from "./constants";
 import { AppContext, SessionContext } from "./context";
-import { getCallCount } from "./data_store";
+import { getCallCount, getField, getPath } from "./data_store";
 import { Query } from "./types";
 
 export function EvalList(): JSX.Element {
@@ -39,17 +40,28 @@ export function EvalList(): JSX.Element {
 
   const openModal = () => {
     setModalOpen(true);
-    const existPromises = orderedQueries.map((query) =>
-      getCallCount(sheetId, query.id)
+    const queryFeedbackPromises = Promise.all(
+      orderedQueries.map((query) =>
+        getField(getPath(sheetId, query.id), "overall")
+      )
+    );
+    const callCountPromises = Promise.all(
+      orderedQueries.map((query) => getCallCount(sheetId, query.id))
     );
     const queryCompletionStatus = {};
-    Promise.all(existPromises)
-      .then((results) => {
+    Promise.all([callCountPromises, queryFeedbackPromises])
+      .then(([callCountResults, queryFeedbackResults]) => {
         orderedQueries.forEach((query, i) => {
-          // A query might not have any calls.
-          const calls = allCall[query.id] || {};
-          const completed = results[i] === Object.keys(calls).length;
-          queryCompletionStatus[query.id] = completed;
+          // If a query is marked as hallucination, it won't have any feedback
+          // on its calls and is considered completed.
+          if (queryFeedbackResults[i] === "LLM_ANSWER_HALLUCINATION") {
+            queryCompletionStatus[query.id] = true;
+          } else {
+            // A query might not have any calls.
+            const calls = allCall[query.id] || {};
+            const completed = callCountResults[i] === Object.keys(calls).length;
+            queryCompletionStatus[query.id] = completed;
+          }
         });
         setQueryCompletionStatus(queryCompletionStatus);
       })
@@ -60,9 +72,11 @@ export function EvalList(): JSX.Element {
 
   return (
     <>
-      <Button className="eval-list-button" onClick={openModal}>
-        Evaluation list
-      </Button>
+      <div className="eval-list-section">
+        <Button className="eval-list-button" onClick={openModal}>
+          Evaluation list
+        </Button>
+      </div>
       <Modal isOpen={modalOpen} className="eval-list-modal">
         <div className="header">
           <div className="title">Choose a query to start evaluating from</div>
@@ -95,7 +109,7 @@ export function EvalList(): JSX.Element {
                 onClick={() => {
                   setModalOpen(false);
                   setSessionQueryId(query.id);
-                  setSessionCallId(1);
+                  setSessionCallId(QUERY_FEEDBACK_CALL_ID);
                 }}
                 key={query.id}
               >

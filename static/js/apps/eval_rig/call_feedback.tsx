@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
+/* Component to record feedback for a call within a query */
+
 import React, { useContext, useEffect, useState } from "react";
-import { Button } from "reactstrap";
 
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import {
@@ -27,10 +28,17 @@ import {
 } from "./constants";
 import { AppContext, SessionContext } from "./context";
 import { getCallData, saveToSheet, saveToStore } from "./data_store";
+import { FeedbackNavigation } from "./feedback_navigation";
 import { OneQuestion } from "./one_question";
 import { EvalInfo, Response } from "./types";
 
 const LOADING_CONTAINER_ID = "form-container";
+const EMPTY_RESPONSE = {
+  question: "",
+  llmStat: "",
+  dcResponse: "",
+  dcStat: "",
+};
 
 export enum FormStatus {
   NotStarted = 1,
@@ -39,21 +47,12 @@ export enum FormStatus {
   Submitted = 4,
 }
 
-const emptyResponse = {
-  overall: "",
-  question: "",
-  llmStat: "",
-  dcResponse: "",
-  dcStat: "",
-};
-
-export function EvalSection(): JSX.Element {
-  const { allQuery, allCall, doc, sheetId, userEmail } = useContext(AppContext);
-  const { sessionQueryId, setSessionQueryId, sessionCallId, setSessionCallId } =
-    useContext(SessionContext);
+export function CallFeedback(): JSX.Element {
+  const { allCall, doc, sheetId, userEmail } = useContext(AppContext);
+  const { sessionQueryId, sessionCallId } = useContext(SessionContext);
 
   const [evalInfo, setEvalInfo] = useState<EvalInfo | null>(null);
-  const [response, setResponse] = useState<Response>(emptyResponse);
+  const [response, setResponse] = useState<Response>(EMPTY_RESPONSE);
   const [status, setStatus] = useState<FormStatus>(null);
 
   useEffect(() => {
@@ -62,7 +61,7 @@ export function EvalSection(): JSX.Element {
         setResponse(data as Response);
         setStatus(FormStatus.Submitted);
       } else {
-        setResponse(emptyResponse);
+        setResponse(EMPTY_RESPONSE);
         setStatus(FormStatus.NotStarted);
       }
     });
@@ -86,7 +85,7 @@ export function EvalSection(): JSX.Element {
         });
       }
     });
-  }, [doc, allCall, sessionQueryId, sessionCallId, setSessionCallId]);
+  }, [doc, allCall, sessionQueryId, sessionCallId]);
 
   const checkAndSubmit = async (): Promise<boolean> => {
     if (status === FormStatus.InProgress) {
@@ -121,11 +120,6 @@ export function EvalSection(): JSX.Element {
     return true;
   };
 
-  const numCalls = () => {
-    // Not all queries have calls.
-    return Object.keys(allCall[sessionQueryId] || {}).length;
-  };
-
   const handleChange = (event) => {
     const { name, value } = event.target;
     setResponse((prevState) => {
@@ -143,61 +137,6 @@ export function EvalSection(): JSX.Element {
       setStatus(tmpStatus);
       return newState;
     });
-  };
-
-  // Button Actions
-  const prevQuery = async () => {
-    if (await checkAndSubmit()) {
-      let targetId = sessionQueryId - 1;
-      while (!(targetId in allQuery)) {
-        targetId -= 1;
-      }
-      setSessionQueryId(targetId);
-      setSessionCallId(1);
-    }
-  };
-  const prev = async () => {
-    if (await checkAndSubmit()) {
-      if (sessionCallId > 1) {
-        setSessionCallId(sessionCallId - 1);
-      }
-    }
-  };
-  const next = async () => {
-    if (await checkAndSubmit()) {
-      if (sessionCallId < numCalls()) {
-        setSessionCallId(sessionCallId + 1);
-      }
-    }
-  };
-  const nextQuery = async () => {
-    if (await checkAndSubmit()) {
-      let targetId = sessionQueryId + 1;
-      while (!(targetId in allQuery)) {
-        targetId += 1;
-      }
-      setSessionQueryId(targetId);
-      setSessionCallId(1);
-    }
-  };
-
-  // Button Conditions
-  const showPrevQuery = (): boolean => {
-    return sessionCallId == 1 && sessionQueryId > 1;
-  };
-  const showPrev = (): boolean => {
-    return sessionCallId > 1;
-  };
-  const showNext = (): boolean => {
-    return sessionCallId < numCalls();
-  };
-  const showNextQuery = (): boolean => {
-    return (
-      // When a query does not have any calls, the call id is 1 and num calls
-      // is 0.
-      sessionCallId >= numCalls() &&
-      sessionQueryId < Object.keys(allQuery).length
-    );
   };
 
   let dcResponseOptions;
@@ -219,25 +158,10 @@ export function EvalSection(): JSX.Element {
 
   return (
     <>
-      <div id="form-container">
+      <div id={LOADING_CONTAINER_ID}>
         {evalInfo && (
           <form>
             <fieldset>
-              <div>
-                <h2>OVERALL EVALUATION</h2>
-                <OneQuestion
-                  question="How is the overall answer?"
-                  name="overall"
-                  options={{
-                    LLM_ANSWER_HALLUCINATION: "Found factual inaccuracies",
-                    LLM_ANSWER_OKAY: "No obvious factual inaccuracies",
-                  }}
-                  handleChange={handleChange}
-                  responseField={response.overall}
-                  disabled={status === FormStatus.Submitted}
-                />
-              </div>
-
               <div>
                 <h2>GEMMA MODEL EVALUATION</h2>
                 <h3>{evalInfo.question}</h3>
@@ -296,47 +220,7 @@ export function EvalSection(): JSX.Element {
           </form>
         )}
       </div>
-      <div>
-        <span>
-          {sessionCallId} / {numCalls()} ITEMS IN THIS QUERY
-        </span>
-        {showPrevQuery() && (
-          <Button
-            onClick={() => {
-              prevQuery();
-            }}
-          >
-            Previous Query
-          </Button>
-        )}
-        {showPrev() && (
-          <Button
-            onClick={() => {
-              prev();
-            }}
-          >
-            Previous
-          </Button>
-        )}
-        {showNext() && (
-          <Button
-            onClick={() => {
-              next();
-            }}
-          >
-            Next
-          </Button>
-        )}
-        {showNextQuery() && (
-          <Button
-            onClick={() => {
-              nextQuery();
-            }}
-          >
-            Continue to next query
-          </Button>
-        )}
-      </div>
+      <FeedbackNavigation checkAndSubmit={checkAndSubmit} />
       <div id="page-screen" className="screen">
         <div id="spinner"></div>
       </div>

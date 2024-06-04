@@ -21,10 +21,10 @@ export interface EvalInfo {
   dcStat: string;
 }
 
-export interface Response extends EvalInfo {
-  // overall evaluation of all the aspects
-  overall: string;
-}
+// the response will have the same keys and value types as eval info, but the
+// values will be the response for each key, while EvalInfo holds the actual
+// value for each key.
+export type Response = EvalInfo;
 
 export interface Query {
   id: number;
