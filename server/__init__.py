@@ -157,6 +157,9 @@ def register_routes_common(app):
   from server.routes.place import html as place_html
   app.register_blueprint(place_html.bp)
 
+  from server.routes.dev_place import html as dev_place_html
+  app.register_blueprint(dev_place_html.bp)
+
   from server.routes.ranking import html as ranking_html
   app.register_blueprint(ranking_html.bp)
 

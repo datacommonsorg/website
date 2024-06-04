@@ -20,7 +20,7 @@ import warnings
 
 from flask_testing import LiveServerTestCase
 
-from nl_server.__init__ import create_app as create_nl_app
+from nl_server.flask import create_app as create_nl_app
 from server.__init__ import create_app as create_web_app
 import server.lib.util as libutil
 
