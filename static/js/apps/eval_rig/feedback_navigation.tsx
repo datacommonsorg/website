@@ -110,9 +110,10 @@ export function FeedbackNavigation(
   return (
     <div className="feedback-nav-section">
       {sessionCallId !== QUERY_FEEDBACK_CALL_ID && (
-        <span>
-          {sessionCallId} / {numCalls()} ITEMS IN THIS QUERY
-        </span>
+        <div className="item-num">
+          <span className="highlight">{sessionCallId}</span>
+          <span className="regular">/ {numCalls()} ITEMS IN THIS QUERY</span>
+        </div>
       )}
       <div className="nav-buttons">
         {showPrev() && (
@@ -120,8 +121,14 @@ export function FeedbackNavigation(
             onClick={() => {
               prev();
             }}
+            className="btn-transparent"
           >
-            Previous
+            <div>
+              <span className="material-icons-outlined">
+                keyboard_arrow_left
+              </span>
+              Previous
+            </div>
           </Button>
         )}
         {showPrevQuery() && (
@@ -129,8 +136,9 @@ export function FeedbackNavigation(
             onClick={() => {
               prevQuery();
             }}
+            className="btn-transparent"
           >
-            Previous Query
+            <div>Previous query</div>
           </Button>
         )}
         {showNext() && (
@@ -138,8 +146,14 @@ export function FeedbackNavigation(
             onClick={() => {
               next();
             }}
+            className="btn-blue"
           >
-            Next
+            <div>
+              <span className="material-icons-outlined">
+                keyboard_arrow_right
+              </span>
+              Next
+            </div>
           </Button>
         )}
         {showNextQuery() && (
@@ -147,8 +161,9 @@ export function FeedbackNavigation(
             onClick={() => {
               nextQuery();
             }}
+            className="btn-blue"
           >
-            Continue to next query
+            <div>Continue to next query</div>
           </Button>
         )}
         {!showNext() && !showNextQuery() && (
@@ -156,8 +171,9 @@ export function FeedbackNavigation(
             onClick={() => {
               props.checkAndSubmit();
             }}
+            className="btn-blue"
           >
-            Finish
+            <div>Finish</div>
           </Button>
         )}
       </div>
