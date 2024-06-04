@@ -30,6 +30,45 @@ label {
   display: block;
 }
 
+.app-content {
+  display: flex;
+}
+
+#query-section {
+  width: 50%;
+  padding: 16px;
+}
+
+.feedback-pane {
+  display: flex;
+  flex-direction: column;
+  background-color: #F8FAFD;
+  border-left: solid 1px var(--gm-3-sys-light-outline-variant);
+  width: 50%;
+  padding: 16px 0;
+
+  .eval-list-section, #form-container, .feedback-nav-section {
+    padding: 0 16px;
+  }
+
+  .eval-list-section {
+    padding-bottom: 12px;
+  }
+
+  #form-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-top: solid 1px var(--gm-3-sys-light-outline-variant);
+    border-bottom: solid 1px var(--gm-3-sys-light-outline-variant);
+  }
+
+  .feedback-nav-section {
+    padding-top: 24px;
+  }
+}
+
 .modal-dialog.eval-list-modal {
   height: 80%;
   max-width: none;
@@ -148,4 +187,29 @@ label {
   z-index: 100;
   width: 100%;
   height: 100%;
+}
+
+.one-question {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+
+  .question {
+    width: 107px;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    padding: 20px 0;
+  }
+
+  .options {
+    font-weight: 400;
+    padding: 0 8px;
+
+    input {
+      margin-right: 8px;
+    }
+  }
+
+
 }

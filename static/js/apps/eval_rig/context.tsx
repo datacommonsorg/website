@@ -17,6 +17,7 @@
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import React, { createContext, useState } from "react";
 
+import { QUERY_FEEDBACK_CALL_ID } from "./constants";
 import { DcCall, Query } from "./types";
 
 interface AppContextType {
@@ -65,7 +66,7 @@ export function SessionContextProvider({
   children: JSX.Element;
 }): JSX.Element {
   const [sessionQueryId, setSessionQueryId] = useState(1);
-  const [sessionCallId, setSessionCallId] = useState(1);
+  const [sessionCallId, setSessionCallId] = useState(QUERY_FEEDBACK_CALL_ID);
   return (
     <SessionContext.Provider
       value={{
