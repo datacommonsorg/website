@@ -37,7 +37,6 @@ steps:
         git submodule foreach git pull origin master
         git submodule update --init --recursive
 
-        # Bundle container with website, esp and mixer.
         docker build -f build/web_compose/Dockerfile \
           --tag gcr.io/datcom-ci/datacommons-website-compose:${SHORT_SHA} \
           --tag gcr.io/datcom-ci/datacommons-website-compose:latest \
@@ -59,7 +58,6 @@ steps:
         git clone https://github.com/datacommonsorg/mixer.git
         git clone https://github.com/datacommonsorg/import.git
 
-        # Bundle container with website, esp and mixer.
         docker build -f build/web_compose/Dockerfile \
           --tag gcr.io/datcom-ci/datacommons-website-compose:${SHORT_SHA}-autopush \
           --tag gcr.io/datcom-ci/datacommons-website-compose:latest-autopush \
