@@ -163,6 +163,7 @@ export function EvalSection(): JSX.Element {
       }
       setSessionQueryId(targetId);
       setSessionCallId(1);
+      setApplyToNext(false);
     }
   };
   const prev = async () => {
@@ -187,6 +188,7 @@ export function EvalSection(): JSX.Element {
       }
       setSessionQueryId(targetId);
       setSessionCallId(1);
+      setApplyToNext(false);
     }
   };
 
