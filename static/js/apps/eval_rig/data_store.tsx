@@ -41,7 +41,11 @@ import {
 import { Response } from "./types";
 
 // Gets the document path for a specific query or call
-export function getPath(sheetId: string, queryId?: number, callId?: number): string[] {
+export function getPath(
+  sheetId: string,
+  queryId?: number,
+  callId?: number
+): string[] {
   const path = ["sheets", sheetId];
   if (queryId) {
     path.push(...["queries", String(queryId)]);
