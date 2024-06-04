@@ -34,8 +34,8 @@ export const processText = (text: string): string => {
         llmStat = parts[0];
       }
       let innerHtml = "";
-      innerHtml += `<span class="dc-stat">${dcStat || " "}</span>||`;
-      innerHtml += `<span class="llm-stat">${llmStat || " "}</span>`;
+      innerHtml += `<span class="dc-stat">${dcStat || "&nbsp;&nbsp;"}</span>||`;
+      innerHtml += `<span class="llm-stat">${llmStat || "&nbsp;&nbsp;"}</span>`;
       return `<span class="annotation annotation-${p1}">${innerHtml}</span>`;
     }
   );
