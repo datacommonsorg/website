@@ -126,12 +126,17 @@ label {
   }
 }
 
-.annotation {
-  background-color: lightyellow;
+.dc-stat {
+  background-color: lightblue;
+}
+
+.llm-stat {
+  background-color: lightsalmon;
 }
 
 .annotation.highlight {
-  background-color: yellow;
+  font-size: 22px;
+  font-weight: 500;
 }
 
 #page-screen {
