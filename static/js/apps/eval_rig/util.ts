@@ -14,13 +14,10 @@
  * limitations under the License.
  */
 
-/**
- * Replace [__DC__#(id)(text)] to just text with css class for highlighting.
- * @param text
- * @returns
- */
 export const processText = (text: string): string => {
   return text.replace(
+    // Replace [__DC__#(id)(text)] to just text with css class for highlighting.
+    // Note here we want to keep the inner () and [] in the text.
     /\[\s*__DC__#(\d+)\(((?:[^)(]+|\([^)]*\))*)\)\s*\]/g,
     (match, p1, p2) => {
       // Split the second capturing group by "||"
