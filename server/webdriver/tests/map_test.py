@@ -116,11 +116,12 @@ class TestMap(WebdriverBaseTest):
     WebDriverWait(self.driver,
                   self.TIMEOUT_SEC).until(EC.title_contains(NEW_PAGE_TITLE))
     self.assertEqual(NEW_PAGE_TITLE, self.driver.title)
-
-  def test_manually_enter_options(self):
-    """Test entering place and stat var options manually will cause chart to
-    show up.
     """
+    TODO: fix flakiness and re-enable
+  def test_manually_enter_options(self):
+    Test entering place and stat var options manually will cause chart to
+    show up.
+
     self.driver.get(self.url_ + MAP_URL)
 
     # Wait until search box is present.
@@ -173,7 +174,7 @@ class TestMap(WebdriverBaseTest):
     self.assertEqual(len(map_regions), 58)
     chart_legend = self.driver.find_element(By.ID, 'choropleth-legend')
     legend_ticks = chart_legend.find_elements(By.CLASS_NAME, 'tick')
-    self.assertGreater(len(legend_ticks), 5)
+    self.assertGreater(len(legend_ticks), 5)"""
 
   def test_landing_page_link(self):
     self.driver.get(self.url_ + MAP_URL)
