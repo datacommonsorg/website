@@ -53,6 +53,7 @@ export function CallFeedback(): JSX.Element {
   const [evalInfo, setEvalInfo] = useState<EvalInfo | null>(null);
   const [response, setResponse] = useState<Response>(EMPTY_RESPONSE);
   const [status, setStatus] = useState<FormStatus>(null);
+  const [applyToNext, setApplyToNext] = useState(false);
 
   useEffect(() => {
     getCallData(sheetId, sessionQueryId, sessionCallId).then((data) => {
@@ -60,11 +61,15 @@ export function CallFeedback(): JSX.Element {
         setResponse(data as Response);
         setStatus(FormStatus.Submitted);
       } else {
+        if (applyToNext) {
+          setStatus(FormStatus.Completed);
+          return;
+        }
         setResponse(EMPTY_RESPONSE);
         setStatus(FormStatus.NotStarted);
       }
     });
-  }, [sheetId, sessionQueryId, sessionCallId]);
+  }, [sheetId, sessionQueryId, sessionCallId, applyToNext]);
 
   useEffect(() => {
     const sheet = doc.sheetsByTitle[DC_CALL_SHEET];
@@ -119,6 +124,10 @@ export function CallFeedback(): JSX.Element {
     return true;
   };
 
+  const handleApplyToNextChange = () => {
+    setApplyToNext(!applyToNext);
+  };
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setResponse((prevState) => {
@@ -160,6 +169,17 @@ export function CallFeedback(): JSX.Element {
   return (
     <>
       <div id={LOADING_CONTAINER_ID}>
+        <div>
+          <label id="apply-to-next">
+            <input
+              type="checkbox"
+              checked={applyToNext}
+              onChange={handleApplyToNextChange}
+              disabled={status === FormStatus.Submitted}
+            />
+            Apply the response to the next question
+          </label>
+        </div>
         {evalInfo && (
           <form>
             <fieldset>
