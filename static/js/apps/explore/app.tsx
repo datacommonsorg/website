@@ -274,6 +274,9 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     const detector = getSingleParam(hashParams[URL_HASH_PARAMS.DETECTOR]);
     const testMode = getSingleParam(hashParams[URL_HASH_PARAMS.TEST_MODE]);
     const i18n = getSingleParam(hashParams[URL_HASH_PARAMS.I18N]);
+    const includeStopWords = getSingleParam(
+      hashParams[URL_HASH_PARAMS.INCLUDE_STOP_WORDS]
+    );
     const defaultPlace = getSingleParam(
       hashParams[URL_HASH_PARAMS.DEFAULT_PLACE]
     );
@@ -306,7 +309,8 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         client,
         defaultPlace,
         mode,
-        reranker
+        reranker,
+        includeStopWords
       )
         .then((resp) => {
           processFulfillData(resp, false);
@@ -417,7 +421,8 @@ const fetchDetectAndFufillData = async (
   client: string,
   defaultPlace: string,
   mode: string,
-  reranker: string
+  reranker: string,
+  includeStopWords: string
 ) => {
   const argsMap = new Map<string, string>();
   if (detector) {
@@ -440,6 +445,9 @@ const fetchDetectAndFufillData = async (
   }
   if (reranker) {
     argsMap.set(URL_HASH_PARAMS.RERANKER, reranker);
+  }
+  if (includeStopWords) {
+    argsMap.set(URL_HASH_PARAMS.INCLUDE_STOP_WORDS, includeStopWords);
   }
   if (idx) {
     argsMap.set(URL_HASH_PARAMS.IDX, idx);

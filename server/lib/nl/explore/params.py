@@ -42,6 +42,8 @@ class Params(str, Enum):
   #    Ex, if multiple verbs present, treat as action query and do not fulfill.
   MODE = 'mode'
   CLIENT = 'client'
+  # If set then we don't strip stop-words for mono-variable match.
+  INCLUDE_STOP_WORDS = 'includeStopWords'
 
 
 class DCNames(str, Enum):
