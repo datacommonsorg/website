@@ -43,7 +43,7 @@ class Params(str, Enum):
   MODE = 'mode'
   CLIENT = 'client'
   # If set then we don't strip stop-words for mono-variable match.
-  DISABLE_STOP_WORDS = 'disableStopWords'
+  INCLUDE_STOP_WORDS = 'includeStopWords'
 
 
 class DCNames(str, Enum):
