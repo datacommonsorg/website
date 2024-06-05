@@ -15,7 +15,11 @@
  */
 
 export const processText = (text: string): string => {
-  return text.replace(
+  // If "Answer" is in the text, remove it
+  let processedText = text.replace("Answer:", "");
+  // If "FOOTNOTES" in all caps is in the text, convert it to lower case
+  processedText = processedText.replace("FOOTNOTES", "Footnotes");
+  return processedText.replace(
     // Replace [__DC__#1(dc stat text||llm stat text)] to
     // dc stat text||llm stat text with html and css annotations.
     /\[\s*__DC__#(\d+)\((.*?)\)\]/g,
