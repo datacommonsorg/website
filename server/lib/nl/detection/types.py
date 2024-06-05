@@ -429,3 +429,17 @@ class Detection:
   classifications: List[NLClassifier]
   llm_resp: Dict = field(default_factory=dict)
   detector: ActualDetectorType = ActualDetectorType.HybridHeuristic
+
+
+@dataclass
+class DetectionArgs:
+  # Name of the embeddings index type to override ENV default
+  embeddings_index_type: str
+  # Query mode. e.g., `strict`, `toolformer`
+  mode: str
+  # Reranker model name
+  reranker: str
+  # Enable entities/triples detection (e.g., for biomed DC)
+  allow_triples: bool
+  # Include stop-words for query detection
+  include_stop_words: bool
