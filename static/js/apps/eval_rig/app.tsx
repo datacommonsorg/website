@@ -166,7 +166,6 @@ export function App(props: AppPropType): JSX.Element {
               <div className="app-content">
                 <QuerySection />
                 <div className="feedback-pane">
-                  <EvalList />
                   {sessionCallId === QUERY_FEEDBACK_CALL_ID ? (
                     <QueryFeedback />
                   ) : (
