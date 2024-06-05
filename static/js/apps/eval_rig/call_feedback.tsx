@@ -35,7 +35,6 @@ import { EvalInfo, Response } from "./types";
 const LOADING_CONTAINER_ID = "form-container";
 const EMPTY_RESPONSE = {
   dcResponse: "",
-  dcStat: "",
   llmStat: "",
   question: "",
 };
@@ -153,7 +152,9 @@ export function CallFeedback(): JSX.Element {
     if (evalInfo.dcStat) {
       dcResponseOptions = {
         DC_ANSWER_IRRELEVANT: "Doesn't match the question",
-        DC_ANSWER_RELEVANT: "Relevant and direct",
+        DC_ANSWER_RELEVANT_INACCURATE: "Relevant, but inaccurate",
+        DC_ANSWER_RELEVANT_UNSURE: "Relevant, but unsure if it is accurate",
+        DC_ANSWER_RELEVANT_ACCURATE: "Relevant and accurate",
       };
     } else {
       dcResponseOptions = {
@@ -182,10 +183,11 @@ export function CallFeedback(): JSX.Element {
         {evalInfo && (
           <form>
             <fieldset>
-              <div>
-                <h2>GEMMA MODEL EVALUATION</h2>
-                <h3>{evalInfo.question}</h3>
-                <h3>{evalInfo.llmStat}</h3>
+              <div className="question-section">
+                <div className="title">GEMMA MODEL QUESTION EVALUATION</div>
+                <div className="subtitle">
+                  <span>{evalInfo.question}</span>
+                </div>
                 <OneQuestion
                   question="Question from the model"
                   name="question"
@@ -198,6 +200,12 @@ export function CallFeedback(): JSX.Element {
                   responseField={response.question}
                   disabled={status === FormStatus.Submitted}
                 />
+              </div>
+              <div className="question-section">
+                <div className="title">GEMMA MODEL STAT EVALUATION</div>
+                <div className="subtitle">
+                  <span className="llm-stat">{evalInfo.llmStat}</span>
+                </div>
                 <OneQuestion
                   question="Model response quality"
                   name="llmStat"
@@ -211,28 +219,18 @@ export function CallFeedback(): JSX.Element {
                 />
               </div>
 
-              <div>
-                <h2>DATA COMMONS EVALUATION</h2>
-                <h3>{evalInfo.dcResponse}</h3>
-                <h3>{evalInfo.dcStat}</h3>
+              <div className="question-section">
+                <div className="title">DATA COMMONS EVALUATION</div>
+                <div className="subtitle">
+                  <span>{evalInfo.dcResponse}</span>
+                  <span className="dc-stat">{evalInfo.dcStat}</span>
+                </div>
                 <OneQuestion
                   question="Response from Data Commons"
                   name="dcResponse"
                   options={dcResponseOptions}
                   handleChange={handleChange}
                   responseField={response.dcResponse}
-                  disabled={status === FormStatus.Submitted}
-                />
-
-                <OneQuestion
-                  question="Response from Data Commons"
-                  name="dcStat"
-                  options={{
-                    DC_STAT_ACCURATE: "Stats seem accurate",
-                    DC_STAT_INACCURATE: "Stats seem inaccurate",
-                  }}
-                  handleChange={handleChange}
-                  responseField={response.dcStat}
                   disabled={status === FormStatus.Submitted}
                 />
               </div>

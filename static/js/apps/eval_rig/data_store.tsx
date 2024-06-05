@@ -160,7 +160,6 @@ export async function saveToSheet(
     [DC_QUESTION_FEEDBACK_COL]: response?.question || "",
     [DC_RESPONSE_FEEDBACK_COL]: response?.dcResponse || "",
     [LLM_STAT_FEEDBACK_COL]: response?.llmStat || "",
-    [DC_STAT_FEEDBACK_COL]: response?.dcStat || "",
     [QUERY_OVERALL_FEEDBACK_COL]: overallFeedback || "",
   });
 }

@@ -104,8 +104,8 @@ export function QueryFeedback(): JSX.Element {
       <div id={LOADING_CONTAINER_ID}>
         <form>
           <fieldset>
-            <div>
-              <h2>OVERALL EVALUATION</h2>
+            <div className="question-section">
+              <div className="title">OVERALL EVALUATION</div>
               <OneQuestion
                 question="How is the overall answer?"
                 name="overall"
