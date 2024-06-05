@@ -96,7 +96,7 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
   i18n = i18n_str and i18n_str.lower() == 'true'
 
   # Index-type default is in nl_server.
-  embeddings_index_type = request.args.get('idx', '')
+  embeddings_index_type = request.args.get(params.Params.INDEX.value, '')
   original_query = request.args.get('q')
   if not original_query:
     err_json = helpers.abort(
@@ -111,7 +111,7 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
   dc = request.get_json().get('dc', '')
   embeddings_index_type = params.dc_to_embedding_type(dc, embeddings_index_type)
 
-  detector_type = request.args.get('detector',
+  detector_type = request.args.get(params.Params.DETECTOR.value,
                                    default=RequestedDetectorType.Hybrid.value,
                                    type=str)
 
@@ -173,7 +173,12 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
     use_default_place = False
 
   # See if we have a variable reranker model specified.
-  reranker = request.args.get('reranker')
+  reranker = request.args.get(params.Params.RERANKER.value)
+
+  # Get sv threshold as a float if it was passed in the request
+  sv_threshold = request.args.get(params.Params.SV_THRESHOLD.value)
+  if sv_threshold:
+    sv_threshold = float(sv_threshold)
 
   # StopWords handling
   include_stop_words_str = request.args.get(
@@ -184,7 +189,8 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
       mode=mode,
       reranker=reranker,
       allow_triples=allow_triples,
-      include_stop_words=include_stop_words_str.lower() == 'true')
+      include_stop_words=include_stop_words_str.lower() == 'true',
+      sv_threshold=sv_threshold)
 
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.

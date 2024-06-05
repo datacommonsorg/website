@@ -44,6 +44,10 @@ class Params(str, Enum):
   CLIENT = 'client'
   # If set then we don't strip stop-words for mono-variable match.
   INCLUDE_STOP_WORDS = 'includeStopWords'
+  SV_THRESHOLD = 'svThreshold'
+  DETECTOR = 'detector'
+  INDEX = 'idx'
+  RERANKER = 'reranker'
 
 
 class DCNames(str, Enum):
@@ -82,7 +86,7 @@ SPECIAL_DC_LIST = SDG_DC_LIST + UNDATA_DC_LIST
 
 
 # Get the SV score threshold for the given mode.
-def sv_threshold_override(mode: str) -> bool | None:
+def sv_threshold_override(mode: str) -> float | None:
   if mode == QueryMode.STRICT:
     return constants.SV_SCORE_HIGH_CONFIDENCE_THRESHOLD
   elif mode == QueryMode.TOOLFORMER:
