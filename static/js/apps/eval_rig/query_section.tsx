@@ -62,8 +62,7 @@ export function QuerySection(): JSX.Element {
 
   return (
     <div id="query-section">
-      <h3>Q: {sessionQueryId}</h3>
-      <h3>Question</h3>
+      <h3>Query {sessionQueryId}</h3>
       <p>{allQuery[sessionQueryId].text}</p>
       <h3>Answer</h3>
       <ReactMarkdown rehypePlugins={[rehypeRaw] as any}>

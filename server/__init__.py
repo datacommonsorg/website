@@ -37,8 +37,8 @@ import server.lib.util as libutil
 import server.services.bigtable as bt
 from server.services.discovery import configure_endpoints_from_ingress
 from server.services.discovery import get_health_check_urls
-import shared.lib.gcp as lib_gcp
-from shared.lib.utils import is_debug_mode
+from shared.lib import gcp as lib_gcp
+from shared.lib import utils as lib_utils
 
 BLOCKLIST_SVG_FILE = "/datacommons/svg/blocklist_svg.json"
 
@@ -238,7 +238,7 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   cfg = lib_config.get_config()
 
-  if lib_gcp.in_google_network():
+  if lib_gcp.in_google_network() and not lib_utils.is_test_env():
     client = google.cloud.logging.Client()
     client.setup_logging()
   else:
@@ -250,7 +250,7 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     )
 
   log_level = logging.WARNING
-  if is_debug_mode():
+  if lib_utils.is_debug_mode():
     log_level = logging.INFO
   logging.getLogger('werkzeug').setLevel(log_level)
 
