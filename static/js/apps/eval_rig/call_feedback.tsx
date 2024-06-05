@@ -226,7 +226,7 @@ export function CallFeedback(): JSX.Element {
                   options={{
                     LLM_STAT_ACCURATE: "Stats seem accurate",
                     LLM_STAT_INACCURATE: "Stats seem inaccurate",
-                    LLM_STAT_NOTSURE: "Not sure",
+                    LLM_STAT_NOTSURE: "Unsure about accuracy",
                   }}
                   handleChange={handleChange}
                   responseField={response.llmStat}
