@@ -83,4 +83,5 @@ export interface QueryResult {
   charts?: TileResult[];
   err?: string;
   debug?: DebugInfo;
+  relatedQuestions?: string[];
 }

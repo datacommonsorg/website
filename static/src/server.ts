@@ -92,8 +92,6 @@ const CHART_URL_PARAM_SVG = "0";
 const URL_PARAM_VALUE_TRUTHY = "1";
 // Size of the PNG to return for the chart query
 const PNG_WIDTH = 1600;
-// Default mode to use when making nl calls
-const DEFAULT_NL_MODE = "strict";
 
 const dom = new JSDOM(
   `<html><body><div id="dom-id" style="width:500px"></div></body></html>`,
@@ -306,7 +304,8 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
   const apikey = (req.query.apikey as string) || "";
   const urlRoot = `${protocol}://${host}`;
   const client = (req.query.client as string) || BARD_CLIENT_URL_PARAM;
-  const mode = (req.query.mode as string) || DEFAULT_NL_MODE;
+  const mode = (req.query.mode as string) || "";
+  const svThreshold = (req.query.svThreshold as string) || "";
   getQueryResult(
     query,
     useChartUrl,
@@ -315,7 +314,8 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
     apikey,
     urlRoot,
     client,
-    mode
+    mode,
+    svThreshold
   ).then((result) => {
     res.setHeader("Content-Type", "application/json");
     if (result.err) {
