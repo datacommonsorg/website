@@ -21,9 +21,10 @@ export interface EvalInfo {
   dcStat: string;
 }
 
-export interface Response extends EvalInfo {
-  // overall evaluation of all the aspects
-  overall: string;
+export interface Response {
+  question: string;
+  llmStat: string;
+  dcResponse: string;
 }
 
 export interface Query {
