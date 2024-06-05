@@ -57,16 +57,6 @@ def create_app():
     # Build the registry before creating the Flask app to make sure all resources
     # are loaded.
     reg = registry.build()
-
-    # Below is a safe check to ensure that the model and embedding is loaded.
-    server_config = reg.server_config()
-    idx_type = server_config.default_indexes[0]
-    embeddings = reg.get_index(idx_type)
-    query = server_config.indexes[idx_type].healthcheck_query
-    result = search.search_vars([embeddings], [query]).get(query)
-    if not result or not result.svs:
-      raise Exception(f'Registry does not have default index {idx_type}')
-
     app = Flask(__name__)
     app.register_blueprint(routes.bp)
     app.config[registry.REGISTRY_KEY] = reg
