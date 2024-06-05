@@ -43,7 +43,7 @@ interface AppPropType {
 }
 
 export function App(props: AppPropType): JSX.Element {
-  const { sessionCallId } = useContext(SessionContext);
+  const { setSessionQueryId, sessionCallId } = useContext(SessionContext);
   const [user, setUser] = useState<User | null>(null);
   const [doc, setDoc] = useState<GoogleSpreadsheet>(null);
   const [allQuery, setAllQuery] = useState<Record<number, Query>>(null);
@@ -63,7 +63,11 @@ export function App(props: AppPropType): JSX.Element {
     return result;
   }
 
-  const loadQuery = (doc: GoogleSpreadsheet, allHeader: HeaderInfo) => {
+  const loadQuery = (
+    doc: GoogleSpreadsheet,
+    allHeader: HeaderInfo,
+    userEmail: string
+  ) => {
     const sheet = doc.sheetsByTitle[QA_SHEET];
     const header = allHeader[QA_SHEET];
     const numRows = sheet.rowCount;
@@ -88,6 +92,27 @@ export function App(props: AppPropType): JSX.Element {
         };
       }
       setAllQuery(allQuery);
+      // Jump to the first question of this user or a question with no user.
+      let queryId: number = null;
+      let nullQueryId: number = null;
+      const sortedQueryIds = Object.keys(allQuery)
+        .map((qKey) => Number(qKey))
+        .sort((a, b) => a - b);
+      for (const qId of sortedQueryIds) {
+        if (allQuery[qId].user === userEmail) {
+          queryId = qId;
+          break;
+        }
+        if (nullQueryId === null && allQuery[qId].user === null) {
+          nullQueryId = qId;
+        }
+      }
+      if (queryId === null && nullQueryId !== null) {
+        queryId = nullQueryId;
+      }
+      if (queryId !== null) {
+        setSessionQueryId(queryId);
+      }
     });
   };
 
@@ -128,7 +153,7 @@ export function App(props: AppPropType): JSX.Element {
       await doc.loadInfo();
       setDoc(doc);
       loadHeader(doc).then((allHeader) => {
-        loadQuery(doc, allHeader);
+        loadQuery(doc, allHeader, user.email);
         loadCall(doc, allHeader);
       });
     }
