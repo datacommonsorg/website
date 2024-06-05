@@ -39,6 +39,7 @@ import server.lib.nl.detection.context as context
 import server.lib.nl.detection.detector as detector
 from server.lib.nl.detection.place import get_place_from_dcids
 from server.lib.nl.detection.types import Detection
+from server.lib.nl.detection.types import DetectionArgs
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RequestedDetectorType
 from server.lib.nl.detection.utils import create_utterance
@@ -174,6 +175,17 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
   # See if we have a variable reranker model specified.
   reranker = request.args.get('reranker')
 
+  # StopWords handling
+  include_stop_words_str = request.args.get(
+      params.Params.INCLUDE_STOP_WORDS.value, '')
+
+  detection_args = DetectionArgs(
+      embeddings_index_type=embeddings_index_type,
+      mode=mode,
+      reranker=reranker,
+      allow_triples=allow_triples,
+      include_stop_words=include_stop_words_str.lower() == 'true')
+
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
   start = time.time()
@@ -181,12 +193,9 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
                                     original_query=original_query,
                                     no_punct_query=query,
                                     prev_utterance=prev_utterance,
-                                    embeddings_index_type=embeddings_index_type,
                                     query_detection_debug_logs=debug_logs,
-                                    mode=mode,
                                     counters=counters,
-                                    reranker=reranker,
-                                    allow_triples=allow_triples)
+                                    dargs=detection_args)
   if not query_detection:
     err_json = helpers.abort('Sorry, could not complete your request.',
                              original_query,
