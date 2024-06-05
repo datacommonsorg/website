@@ -57,11 +57,11 @@ def detect_vars(orig_query: str, debug_logs: Dict,
   # the potential areas for improvement. For now, this removal blanket removes
   # any words in ALL_STOP_WORDS which includes contained_in places and their
   # plurals and any other query attribution/classification trigger words.
-  if dargs.disable_stop_words:
-    query_monovar = orig_query
-  else:
+  if dargs.include_stop_words:
     query_monovar = shared_utils.remove_stop_words(orig_query,
                                                    query_util.ALL_STOP_WORDS)
+  else:
+    query_monovar = orig_query
   if not query_monovar.strip():
     # Empty user query!  Return empty results
     return dutils.empty_var_detection_result()
