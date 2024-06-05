@@ -24,7 +24,7 @@ import {
 } from "../../constants/app/explore_constants";
 import { DATE_HIGHEST_COVERAGE, DATE_LATEST } from "../../shared/constants";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
-import { datacommonsWebClient } from "../datacommons_client";
+import { defaultDataCommonsWebClient } from "../data_commons_client";
 import { getUpdatedHash } from "../url_utils";
 
 /**
@@ -81,14 +81,14 @@ export async function highestCoverageDatesEqualLatestDates(
   variables: string[]
 ): Promise<boolean> {
   const highestCoverageObservations =
-    await datacommonsWebClient.getObservationsPointWithin({
+    await defaultDataCommonsWebClient.getObservationsPointWithin({
       parentEntity,
       childType,
       variables,
       date: DATE_HIGHEST_COVERAGE,
     });
   const latestObservations =
-    await datacommonsWebClient.getObservationsPointWithin({
+    await defaultDataCommonsWebClient.getObservationsPointWithin({
       parentEntity,
       childType,
       variables,

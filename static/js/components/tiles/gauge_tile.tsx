@@ -18,6 +18,7 @@
  * Component for rendering a gauge tile.
  */
 
+import { DataCommonsClient } from "@datacommonsorg/client";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
@@ -26,7 +27,6 @@ import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { getPoint, getSeries } from "../../utils/data_fetch_utils";
-import { datacommonsClient } from "../../utils/datacommons_client";
 import {
   getDenomInfo,
   getNoDataErrorMsg,
@@ -205,8 +205,9 @@ const fetchData = async (props: GaugeTilePropType) => {
  * @returns Async function for fetching chart CSV
  */
 function getDataCsvCallback(props: GaugeTilePropType): () => Promise<string> {
+  const dataCommonsClient = new DataCommonsClient({ apiRoot: props.apiRoot });
   return () => {
-    return datacommonsClient.getCsv({
+    return dataCommonsClient.getCsv({
       date: props.statVarSpec.date,
       entities: [props.place.dcid],
       fieldDelimiter: CSV_FIELD_DELIMITER,

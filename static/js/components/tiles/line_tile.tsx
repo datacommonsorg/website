@@ -18,7 +18,11 @@
  * Component for rendering a line type tile.
  */
 
-import { isDateInRange, ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
+import {
+  DataCommonsClient,
+  isDateInRange,
+  ISO_CODE_ATTRIBUTE,
+} from "@datacommonsorg/client";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
@@ -40,7 +44,6 @@ import {
   getSeries,
   getSeriesWithin,
 } from "../../utils/data_fetch_utils";
-import { datacommonsClient } from "../../utils/datacommons_client";
 import { getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import {
@@ -173,6 +176,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
  * @returns Async function for fetching chart CSV
  */
 function getDataCsvCallback(props: LineTilePropType): () => Promise<string> {
+  const dataCommonsClient = new DataCommonsClient({ apiRoot: props.apiRoot });
   return () => {
     const perCapitaVariables = props.statVarSpec
       .filter((v) => v.denom)
@@ -181,7 +185,7 @@ function getDataCsvCallback(props: LineTilePropType): () => Promise<string> {
       ? [props.placeNameProp, ISO_CODE_ATTRIBUTE]
       : undefined;
     if (props.enclosedPlaceType) {
-      return datacommonsClient.getCsvSeries({
+      return dataCommonsClient.getCsvSeries({
         childType: props.enclosedPlaceType,
         endDate: props.endDate,
         entityProps,
@@ -194,7 +198,7 @@ function getDataCsvCallback(props: LineTilePropType): () => Promise<string> {
       });
     } else {
       const entities = getPlaceDcids(props);
-      return datacommonsClient.getCsvSeries({
+      return dataCommonsClient.getCsvSeries({
         endDate: props.endDate,
         entities,
         entityProps,

@@ -18,6 +18,7 @@
  * Component for rendering a ranking tile.
  */
 
+import { DataCommonsClient } from "@datacommonsorg/client";
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -37,7 +38,6 @@ import {
 } from "../../types/ranking_unit_types";
 import { RankingTileSpec } from "../../types/subject_page_proto_types";
 import { getPointWithin, getSeriesWithin } from "../../utils/data_fetch_utils";
-import { datacommonsClient } from "../../utils/datacommons_client";
 import { getDateRange } from "../../utils/string_utils";
 import {
   getDenomInfo,
@@ -97,6 +97,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
   const placeHolderHeight =
     PER_RANKING_HEIGHT * rankingCount + FOOTER_HEIGHT + HEADING_HEIGHT;
   const placeHolderArray = Array(numRankingLists).fill("");
+  const dataCommonsClient = new DataCommonsClient({ apiRoot: props.apiRoot });
 
   /**
    * Opens export modal window
@@ -117,7 +118,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
         const perCapitaVariables = props.variables
           .filter((v) => v.denom)
           .map((v) => v.statVar);
-        return datacommonsClient.getCsv({
+        return dataCommonsClient.getCsv({
           childType: props.enclosedPlaceType,
           date,
           fieldDelimiter: CSV_FIELD_DELIMITER,

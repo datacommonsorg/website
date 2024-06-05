@@ -78,7 +78,7 @@ class DataCommonsClient {
       ? p.apiRoot.replace(/\/$/, "")
       : "https://datacommons.org";
     this.webClient = new DataCommonsWebClient({
-      apiRoot: this.apiRoot,
+      apiRoot: p.apiRoot,
     });
     if (p.facetOverride === undefined) {
       this.facetOverride = DEFAULT_FACET_OVERRIDE;
