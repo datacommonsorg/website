@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import logging
-import os
 import sys
 
 from flask import Flask
@@ -23,17 +22,13 @@ import torch
 from nl_server import registry
 from nl_server import routes
 from nl_server import search
-import shared.lib.gcp as lib_gcp
-from shared.lib.utils import is_debug_mode
-
-
-def _not_test() -> bool:
-  return os.environ.get('FLASK_ENV') != 'integration_test'
+from shared.lib import gcp as lib_gcp
+from shared.lib import utils as lib_utils
 
 
 def create_app():
 
-  if lib_gcp.in_google_network() and _not_test():
+  if lib_gcp.in_google_network() and not lib_utils.is_test_env():
     client = google.cloud.logging.Client()
     client.setup_logging()
   else:
@@ -45,7 +40,7 @@ def create_app():
     )
 
   log_level = logging.WARNING
-  if is_debug_mode():
+  if lib_utils.is_debug_mode():
     log_level = logging.INFO
   logging.getLogger('werkzeug').setLevel(log_level)
 
@@ -58,7 +53,7 @@ def create_app():
     # are loaded.
     reg = registry.build()
 
-    if _not_test():
+    if not lib_utils.is_test_env():
       # Below is a safe check to ensure that the model and embedding is loaded.
       server_config = reg.server_config()
       idx_type = server_config.default_indexes[0]
