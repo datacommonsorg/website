@@ -441,5 +441,5 @@ class DetectionArgs:
   reranker: str
   # Enable entities/triples detection (e.g., for biomed DC)
   allow_triples: bool
-  # Remove stop-words for query detection
+  # Include stop-words for query detection
   include_stop_words: bool

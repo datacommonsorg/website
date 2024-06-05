@@ -184,7 +184,7 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
       mode=mode,
       reranker=reranker,
       allow_triples=allow_triples,
-      include_stop_words=include_stop_words_str.lower() != 'true')
+      include_stop_words=include_stop_words_str.lower() == 'true')
 
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
