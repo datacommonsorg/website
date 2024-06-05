@@ -16,19 +16,22 @@
 
 import { OAuthCredential, User } from "firebase/auth";
 import { GoogleSpreadsheet } from "google-spreadsheet";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import { GoogleSignIn } from "../../utils/google_signin";
+import { CallFeedback } from "./call_feedback";
 import {
   CALL_ID_COL,
   DC_CALL_SHEET,
   QA_SHEET,
   QUERY_COL,
+  QUERY_FEEDBACK_CALL_ID,
   QUERY_ID_COL,
   USER_COL,
 } from "./constants";
-import { AppContext } from "./context";
+import { AppContext, SessionContext } from "./context";
 import { EvalList } from "./eval_list";
+import { QueryFeedback } from "./query_feedback";
 import { QuerySection } from "./query_section";
 import { DcCall, Query } from "./types";
 
@@ -40,6 +43,7 @@ interface AppPropType {
 }
 
 export function App(props: AppPropType): JSX.Element {
+  const { sessionCallId } = useContext(SessionContext);
   const [user, setUser] = useState<User | null>(null);
   const [doc, setDoc] = useState<GoogleSpreadsheet>(null);
   const [allQuery, setAllQuery] = useState<Record<number, Query>>(null);
@@ -159,8 +163,17 @@ export function App(props: AppPropType): JSX.Element {
                 userEmail: user.email,
               }}
             >
-              <EvalList />
-              <QuerySection />
+              <div className="app-content">
+                <QuerySection />
+                <div className="feedback-pane">
+                  <EvalList />
+                  {sessionCallId === QUERY_FEEDBACK_CALL_ID ? (
+                    <QueryFeedback />
+                  ) : (
+                    <CallFeedback />
+                  )}
+                </div>
+              </div>
             </AppContext.Provider>
           )}
         </div>

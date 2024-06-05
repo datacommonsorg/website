@@ -35,3 +35,12 @@ export const DC_QUESTION_FEEDBACK_COL = DC_QUESTION_COL + FB_SUFFIX;
 export const DC_RESPONSE_FEEDBACK_COL = DC_RESPONSE_COL + FB_SUFFIX;
 export const LLM_STAT_FEEDBACK_COL = LLM_STAT_COL + FB_SUFFIX;
 export const DC_STAT_FEEDBACK_COL = DC_STAT_COL + FB_SUFFIX;
+export const QUERY_OVERALL_FEEDBACK_COL = "overall" + FB_SUFFIX;
+
+// Call Id to use for the query feedback
+export const QUERY_FEEDBACK_CALL_ID = 0;
+// The key used in firestore to save the query overall feedback
+export const QUERY_OVERALL_FEEDBACK_KEY = "overall";
+// Options for the query overall feedback
+export const QUERY_OVERALL_OPTION_HALLUCINATION = "LLM_ANSWER_HALLUCINATION";
+export const QUERY_OVERALL_OPTION_OK = "LLM_ANSWER_OKAY";
