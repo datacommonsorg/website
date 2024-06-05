@@ -21,10 +21,11 @@ export interface EvalInfo {
   dcStat: string;
 }
 
-// the response will have the same keys and value types as eval info, but the
-// values will be the response for each key, while EvalInfo holds the actual
-// value for each key.
-export type Response = EvalInfo;
+export interface Response {
+  question: string;
+  llmStat: string;
+  dcResponse: string;
+}
 
 export interface Query {
   id: number;
