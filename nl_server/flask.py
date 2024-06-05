@@ -27,13 +27,13 @@ import shared.lib.gcp as lib_gcp
 from shared.lib.utils import is_debug_mode
 
 
-def _is_test() -> bool:
-  return os.environ.get('FLASK_ENV') == 'integration_test'
+def _not_test() -> bool:
+  return os.environ.get('FLASK_ENV') != 'integration_test'
 
 
 def create_app():
 
-  if lib_gcp.in_google_network() and not _is_test():
+  if lib_gcp.in_google_network() and _not_test():
     client = google.cloud.logging.Client()
     client.setup_logging()
   else:
@@ -57,6 +57,17 @@ def create_app():
     # Build the registry before creating the Flask app to make sure all resources
     # are loaded.
     reg = registry.build()
+
+    if _not_test():
+      # Below is a safe check to ensure that the model and embedding is loaded.
+      server_config = reg.server_config()
+      idx_type = server_config.default_indexes[0]
+      embeddings = reg.get_index(idx_type)
+      query = server_config.indexes[idx_type].healthcheck_query
+      result = search.search_vars([embeddings], [query]).get(query)
+      if not result or not result.svs:
+        raise Exception(f'Registry does not have default index {idx_type}')
+
     app = Flask(__name__)
     app.register_blueprint(routes.bp)
     app.config[registry.REGISTRY_KEY] = reg
