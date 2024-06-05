@@ -389,7 +389,7 @@ SV_DISPLAY_NAME_OVERRIDE = {
     "dc/0gettc3bc60cb":
         "Drive alone",
     "dc/vt2q292eme79f":
-        "Others (incl. Taxcab, Motorcyle, Bicycle)",
+        "Others (incl. Taxicab, Motorcycle, Bicycle)",
     "Count_Student":
         "Number of Students",
     "Count_Teacher":
@@ -427,7 +427,7 @@ SV_DISPLAY_NAME_OVERRIDE = {
     "Annual_Emissions_CarbonDioxide_FuelCombustionInBuildings":
         "CO₂ Emissions from Fuel Combustion in Buildings",
     "Annual_Emissions_CarbonDioxide_FlourinatedGases":
-        "CO₂ Emissions from Flourinated Gases",
+        "CO₂ Emissions from Fluorinated Gases",
     "Annual_Emissions_CarbonDioxide_FossilFuelOperations":
         "CO₂ Emissions from Fossil Fuel Operations",
     "Annual_Emissions_CarbonDioxide_ForestryAndLandUse":
