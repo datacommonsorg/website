@@ -72,7 +72,7 @@ export function EvalList(): JSX.Element {
 
   return (
     <>
-      <div className="eval-list-section">
+      <div className="button-section">
         <Button className="eval-list-button" onClick={openModal}>
           <div>
             <span className="material-icons-outlined">list_alt</span>

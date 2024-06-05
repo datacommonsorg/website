@@ -16,6 +16,7 @@
 
 /* Component to record feedback for a query */
 import React, { useContext, useEffect, useState } from "react";
+import { Button } from "reactstrap";
 
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import {
@@ -92,6 +93,11 @@ export function QueryFeedback(): JSX.Element {
     setResponse(value);
   };
 
+  const enableReeval = () => {
+    setResponse("");
+    setIsSubmitted(false);
+  };
+
   const showNext = (): boolean => {
     return (
       Object.keys(allCall[sessionQueryId] || {}).length > 0 &&
@@ -101,6 +107,14 @@ export function QueryFeedback(): JSX.Element {
 
   return (
     <>
+      <div className="button-section">
+        <Button className="reeval-button" onClick={enableReeval}>
+          <div>
+            <span className="material-icons-outlined">redo</span>
+            Re-Eval
+          </div>
+        </Button>
+      </div>
       <div id={LOADING_CONTAINER_ID}>
         <form>
           <fieldset>

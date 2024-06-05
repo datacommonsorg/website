@@ -22,6 +22,8 @@ import {
   getCountFromServer,
   getDoc,
   getDocs,
+  orderBy,
+  query,
   setDoc,
 } from "firebase/firestore";
 import { GoogleSpreadsheet } from "google-spreadsheet";
@@ -32,7 +34,6 @@ import {
   DC_FEEDBACK_SHEET,
   DC_QUESTION_FEEDBACK_COL,
   DC_RESPONSE_FEEDBACK_COL,
-  DC_STAT_FEEDBACK_COL,
   LLM_STAT_FEEDBACK_COL,
   QUERY_ID_COL,
   QUERY_OVERALL_FEEDBACK_COL,
@@ -136,12 +137,15 @@ export async function getCallData(
     String(callId),
     "responses"
   );
-  const snapshot = await getDocs(collectionRef);
+  // Get the latest response.
+  const snapshot = await getDocs(
+    query(collectionRef, orderBy("timestamp", "desc"))
+  );
   const numDocs = snapshot.docs.length;
   if (numDocs === 0) {
     return null;
   }
-  return snapshot.docs[numDocs - 1].data();
+  return snapshot.docs[0].data();
 }
 
 export async function saveToSheet(

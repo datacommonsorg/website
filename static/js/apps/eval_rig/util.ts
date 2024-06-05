@@ -18,16 +18,9 @@ export const processText = (text: string): string => {
   return text.replace(
     // Replace [__DC__#1(dc stat text||llm stat text)] to
     // dc stat text||llm stat text with html and css annotations.
-    /\[\s*__DC__#(\d+)(.*)\]/g,
-    (match, callId, rawContent) => {
+    /\[\s*__DC__#(\d+)\((.*?)\)\]/g,
+    (match, callId, content) => {
       // Split the second capturing group by "||"
-      let content = rawContent;
-      if (content[0] === "(") {
-        content = content.slice(1);
-      }
-      if (content[content.length - 1] === ")") {
-        content = content.slice(0, -1);
-      }
       const parts = content.split("||");
       let dcStat: string;
       let llmStat: string;

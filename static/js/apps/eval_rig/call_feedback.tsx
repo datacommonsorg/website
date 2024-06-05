@@ -17,6 +17,7 @@
 /* Component to record feedback for a call within a query */
 
 import React, { useContext, useEffect, useState } from "react";
+import { Button } from "reactstrap";
 
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import {
@@ -147,6 +148,11 @@ export function CallFeedback(): JSX.Element {
     });
   };
 
+  const enableReeval = () => {
+    setResponse(EMPTY_RESPONSE);
+    setStatus(FormStatus.NotStarted);
+  };
+
   let dcResponseOptions;
   if (evalInfo) {
     if (evalInfo.dcStat) {
@@ -168,6 +174,14 @@ export function CallFeedback(): JSX.Element {
 
   return (
     <>
+      <div className="button-section">
+        <Button className="reeval-button" onClick={enableReeval}>
+          <div>
+            <span className="material-icons-outlined">redo</span>
+            Re-Eval
+          </div>
+        </Button>
+      </div>
       <div id={LOADING_CONTAINER_ID}>
         <div>
           <label id="apply-to-next">
@@ -212,6 +226,7 @@ export function CallFeedback(): JSX.Element {
                   options={{
                     LLM_STAT_ACCURATE: "Stats seem accurate",
                     LLM_STAT_INACCURATE: "Stats seem inaccurate",
+                    LLM_STAT_NOTSURE: "Not sure",
                   }}
                   handleChange={handleChange}
                   responseField={response.llmStat}
