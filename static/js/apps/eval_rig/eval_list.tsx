@@ -74,7 +74,10 @@ export function EvalList(): JSX.Element {
     <>
       <div className="eval-list-section">
         <Button className="eval-list-button" onClick={openModal}>
-          Evaluation list
+          <div>
+            <span className="material-icons-outlined">list_alt</span>
+            Evaluation list
+          </div>
         </Button>
       </div>
       <Modal isOpen={modalOpen} className="eval-list-modal">
@@ -125,7 +128,12 @@ export function EvalList(): JSX.Element {
           })}
         </div>
         <div className="footer">
-          <Button onClick={() => setModalOpen(false)}>Close</Button>
+          <Button
+            onClick={() => setModalOpen(false)}
+            className="btn-transparent"
+          >
+            <div>Close</div>
+          </Button>
         </div>
       </Modal>
     </>
