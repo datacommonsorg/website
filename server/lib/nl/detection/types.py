@@ -443,5 +443,5 @@ class DetectionArgs:
   allow_triples: bool
   # Include stop-words for query detection
   include_stop_words: bool
-  # Sv threshold to use
-  sv_threshold: float
+  # variable threshold to use
+  var_threshold: float

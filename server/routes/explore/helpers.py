@@ -176,13 +176,13 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
   reranker = request.args.get(params.Params.RERANKER.value)
 
   # Get sv threshold as a float if it was passed in the request
-  sv_threshold = request.args.get(params.Params.SV_THRESHOLD.value)
-  if sv_threshold:
+  var_threshold = request.args.get(params.Params.VAR_THRESHOLD.value)
+  if var_threshold:
     # if sv_threshold is not a float, don't set sv_threshold
     try:
-      sv_threshold = float(sv_threshold)
+      var_threshold = float(var_threshold)
     except:
-      sv_threshold = None
+      var_threshold = None
 
   # StopWords handling
   include_stop_words_str = request.args.get(
@@ -194,7 +194,7 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
       reranker=reranker,
       allow_triples=allow_triples,
       include_stop_words=include_stop_words_str.lower() == 'true',
-      sv_threshold=sv_threshold)
+      var_threshold=var_threshold)
 
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.

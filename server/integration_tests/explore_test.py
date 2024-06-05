@@ -76,12 +76,12 @@ class ExploreTest(NLWebServerTestCase):
                              mode='',
                              default_place='',
                              idx='',
-                             sv_threshold=''):
+                             var_threshold=''):
     ctx = []
     for (index, q) in enumerate(queries):
       resp = requests.post(
           self.get_server_url() +
-          f'/api/explore/detect-and-fulfill?q={q}&test={test}&i18n={i18n}&mode={mode}&client=test_detect-and-fulfill&default_place={default_place}&idx={idx}&svThreshold={sv_threshold}',
+          f'/api/explore/detect-and-fulfill?q={q}&test={test}&i18n={i18n}&mode={mode}&client=test_detect-and-fulfill&default_place={default_place}&idx={idx}&varThreshold={var_threshold}',
           json={
               'contextHistory': ctx,
               'dc': dc,
@@ -758,7 +758,7 @@ class ExploreTestEE2(ExploreTest):
     self.run_detect_and_fulfill(
         'e2e_high_sv_threshold',
         ['what is the infant mortality rate in massachusetts'],
-        sv_threshold='0.8')
+        var_threshold='0.8')
 
 
 # Helper function to delete x.y.z path in a dict.
