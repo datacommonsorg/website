@@ -444,4 +444,4 @@ class DetectionArgs:
   # Include stop-words for query detection
   include_stop_words: bool
   # Sv threshold to use
-  sv_threshold: str
+  sv_threshold: float

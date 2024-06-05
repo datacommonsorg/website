@@ -178,7 +178,11 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
   # Get sv threshold as a float if it was passed in the request
   sv_threshold = request.args.get(params.Params.SV_THRESHOLD.value)
   if sv_threshold:
-    sv_threshold = float(sv_threshold)
+    # if sv_threshold is not a float, don't set sv_threshold
+    try:
+      sv_threshold = float(sv_threshold)
+    except:
+      sv_threshold = None
 
   # StopWords handling
   include_stop_words_str = request.args.get(

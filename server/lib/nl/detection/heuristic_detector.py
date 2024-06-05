@@ -87,8 +87,7 @@ def detect(orig_query: str, cleaned_query: str,
         'err': str(e)
     })
   # Set the SVDetection.
-  sv_threshold_override = dargs.sv_threshold or params.sv_threshold_override(
-      dargs.mode)
+  sv_threshold_override = params.sv_threshold_override(dargs)
   sv_detection = dutils.create_sv_detection(sv_detection_query,
                                             sv_detection_result,
                                             sv_threshold_override,
