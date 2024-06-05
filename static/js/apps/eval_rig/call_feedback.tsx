@@ -17,6 +17,7 @@
 /* Component to record feedback for a call within a query */
 
 import React, { useContext, useEffect, useState } from "react";
+import { Button } from "reactstrap";
 
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import {
@@ -53,6 +54,7 @@ export function CallFeedback(): JSX.Element {
   const [evalInfo, setEvalInfo] = useState<EvalInfo | null>(null);
   const [response, setResponse] = useState<Response>(EMPTY_RESPONSE);
   const [status, setStatus] = useState<FormStatus>(null);
+  const [applyToNext, setApplyToNext] = useState(false);
 
   useEffect(() => {
     getCallData(sheetId, sessionQueryId, sessionCallId).then((data) => {
@@ -60,11 +62,15 @@ export function CallFeedback(): JSX.Element {
         setResponse(data as Response);
         setStatus(FormStatus.Submitted);
       } else {
+        if (applyToNext) {
+          setStatus(FormStatus.Completed);
+          return;
+        }
         setResponse(EMPTY_RESPONSE);
         setStatus(FormStatus.NotStarted);
       }
     });
-  }, [sheetId, sessionQueryId, sessionCallId]);
+  }, [sheetId, sessionQueryId, sessionCallId, applyToNext]);
 
   useEffect(() => {
     const sheet = doc.sheetsByTitle[DC_CALL_SHEET];
@@ -119,6 +125,10 @@ export function CallFeedback(): JSX.Element {
     return true;
   };
 
+  const handleApplyToNextChange = () => {
+    setApplyToNext(!applyToNext);
+  };
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setResponse((prevState) => {
@@ -136,6 +146,11 @@ export function CallFeedback(): JSX.Element {
       setStatus(tmpStatus);
       return newState;
     });
+  };
+
+  const enableReeval = () => {
+    setResponse(EMPTY_RESPONSE);
+    setStatus(FormStatus.NotStarted);
   };
 
   let dcResponseOptions;
@@ -159,7 +174,26 @@ export function CallFeedback(): JSX.Element {
 
   return (
     <>
+      <div className="button-section">
+        <Button className="reeval-button" onClick={enableReeval}>
+          <div>
+            <span className="material-icons-outlined">redo</span>
+            Re-Eval
+          </div>
+        </Button>
+      </div>
       <div id={LOADING_CONTAINER_ID}>
+        <div>
+          <label id="apply-to-next">
+            <input
+              type="checkbox"
+              checked={applyToNext}
+              onChange={handleApplyToNextChange}
+              disabled={status === FormStatus.Submitted}
+            />
+            Apply the response to the next question
+          </label>
+        </div>
         {evalInfo && (
           <form>
             <fieldset>
@@ -192,6 +226,7 @@ export function CallFeedback(): JSX.Element {
                   options={{
                     LLM_STAT_ACCURATE: "Stats seem accurate",
                     LLM_STAT_INACCURATE: "Stats seem inaccurate",
+                    LLM_STAT_NOTSURE: "Unsure about accuracy",
                   }}
                   handleChange={handleChange}
                   responseField={response.llmStat}
