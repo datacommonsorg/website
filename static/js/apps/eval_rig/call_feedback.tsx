@@ -154,8 +154,10 @@ export function CallFeedback(): JSX.Element {
   };
 
   let dcResponseOptions;
+  let dcResponseQuestion;
   if (evalInfo) {
     if (evalInfo.dcStat) {
+      dcResponseQuestion = "Response from Data Commons";
       dcResponseOptions = {
         DC_ANSWER_IRRELEVANT: "Doesn't match the question",
         DC_ANSWER_RELEVANT_INACCURATE: "Relevant, but inaccurate",
@@ -163,6 +165,7 @@ export function CallFeedback(): JSX.Element {
         DC_ANSWER_RELEVANT_ACCURATE: "Relevant and accurate",
       };
     } else {
+      dcResponseQuestion = "Reason for empty Data Commons response";
       dcResponseOptions = {
         DC_ANSWER_EMPTY_BADNL: "Data exists, but NL fails to respond",
         DC_ANSWER_EMPTY_NODATA: "Query asks for data that doesn't exist in DC",
@@ -241,7 +244,7 @@ export function CallFeedback(): JSX.Element {
                   <span className="dc-stat">{evalInfo.dcStat}</span>
                 </div>
                 <OneQuestion
-                  question="Response from Data Commons"
+                  question={dcResponseQuestion}
                   name="dcResponse"
                   options={dcResponseOptions}
                   handleChange={handleChange}
