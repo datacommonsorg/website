@@ -30,7 +30,6 @@ import {
   USER_COL,
 } from "./constants";
 import { AppContext, SessionContext } from "./context";
-import { EvalList } from "./eval_list";
 import { QueryFeedback } from "./query_feedback";
 import { QuerySection } from "./query_section";
 import { DcCall, Query } from "./types";
