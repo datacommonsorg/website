@@ -27,6 +27,13 @@ footer {
 
 #dc-eval-rig {
   padding: 20px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.sign-in {
+  width: fit-content;
 }
 
 #query-section {
@@ -42,11 +49,12 @@ label {
 
 .app-content {
   display: flex;
+  flex-grow: 1;
+  overflow: auto;
 }
 
 #query-section {
   width: 50%;
-  height: 800px;
   padding: 16px;
   overflow: auto; /* This allows the div to scroll */
 
@@ -131,6 +139,7 @@ label {
     gap: 16px;
     padding: 16px 24px;
     flex-grow: 1;
+    overflow: auto;
 
     .question-section .title {
       font-size: 11px;
