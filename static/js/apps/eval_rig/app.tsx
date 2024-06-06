@@ -162,11 +162,10 @@ export function App(props: AppPropType): JSX.Element {
     <>
       {!user && (
         <div className="sign-in">
-        <GoogleSignIn
-          onSignIn={handleUserSignIn}
-          scopes={["https://www.googleapis.com/auth/spreadsheets"]}
-        />
-
+          <GoogleSignIn
+            onSignIn={handleUserSignIn}
+            scopes={["https://www.googleapis.com/auth/spreadsheets"]}
+          />
         </div>
       )}
 
