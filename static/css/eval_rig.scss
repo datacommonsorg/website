@@ -16,7 +16,8 @@
 
 @import "base";
 
-header, footer {
+header,
+footer {
   display: none;
 }
 
@@ -52,7 +53,7 @@ label {
   /* hack: markdown converts the footnotes title into h4 but we want it to be
          the same as all our other titles */
   h4 {
-    font-size: $h3-font-size
+    font-size: $h3-font-size;
   }
 
   hr {
@@ -151,6 +152,7 @@ label {
   }
 
   .feedback-nav-section {
+    margin-top: auto;
     padding-top: 24px;
     display: flex;
     align-items: center;
@@ -271,11 +273,13 @@ label {
   font-weight: 500;
 }
 
-.question-section .dc-stat, .highlight .dc-stat {
+.question-section .dc-stat,
+.highlight .dc-stat {
   background-color: lightblue;
 }
 
-.question-section .llm-stat, .highlight .llm-stat {
+.question-section .llm-stat,
+.highlight .llm-stat {
   background-color: lightsalmon;
 }
 
