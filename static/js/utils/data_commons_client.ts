@@ -21,7 +21,7 @@ import {
 
 /**
  * Default @datacommonsorg/client apiRoot value is "/", meaning the current
- * local host in the browser
+ * hostname in the browser
  */
 export const DEFAULT_CLIENT_API_ROOT = "/";
 
