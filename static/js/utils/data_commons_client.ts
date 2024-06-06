@@ -19,5 +19,15 @@ import {
   DataCommonsWebClient,
 } from "@datacommonsorg/client";
 
-export const datacommonsWebClient = new DataCommonsWebClient({ apiRoot: "/" });
-export const datacommonsClient = new DataCommonsClient({ apiRoot: "/" });
+/**
+ * Default @datacommonsorg/client apiRoot value is "/", meaning the current
+ * hostname in the browser
+ */
+export const DEFAULT_CLIENT_API_ROOT = "/";
+
+export const defaultDataCommonsWebClient = new DataCommonsWebClient({
+  apiRoot: DEFAULT_CLIENT_API_ROOT,
+});
+export const defaultDataCommonsClient = new DataCommonsClient({
+  apiRoot: DEFAULT_CLIENT_API_ROOT,
+});

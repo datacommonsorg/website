@@ -58,6 +58,7 @@ import {
   dataRowsToCsv,
   flattenNestedObject,
   isDateInRange,
+  parseWebsiteApiRoot,
 } from "./utils";
 
 export interface DatacommonsClientParams {
@@ -68,17 +69,18 @@ export interface DatacommonsClientParams {
 }
 
 class DataCommonsClient {
+  /** Website API Root */
   apiRoot?: string;
   webClient: DataCommonsWebClient;
   facetOverride: FacetOverride;
 
   constructor(params?: DatacommonsClientParams) {
     const p = params || {};
-    this.apiRoot = p.apiRoot
-      ? p.apiRoot.replace(/\/$/, "")
-      : "https://datacommons.org";
+    this.apiRoot = parseWebsiteApiRoot(p.apiRoot);
+    // Initialize DataCommonsWebClient with p.apiRoot since the client will call
+    // parseWebsiteApiRoot on its own
     this.webClient = new DataCommonsWebClient({
-      apiRoot: this.apiRoot,
+      apiRoot: p.apiRoot,
     });
     if (p.facetOverride === undefined) {
       this.facetOverride = DEFAULT_FACET_OVERRIDE;

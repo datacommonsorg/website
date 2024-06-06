@@ -18,7 +18,7 @@
  * Component for rendering a scatter type tile.
  */
 
-import { ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
+import { DataCommonsClient, ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
 import axios from "axios";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
@@ -44,7 +44,6 @@ import {
 } from "../../utils/app/visualization_utils";
 import { stringifyFn } from "../../utils/axios";
 import { getSeriesWithin } from "../../utils/data_fetch_utils";
-import { datacommonsClient } from "../../utils/datacommons_client";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import { getDateRange } from "../../utils/string_utils";
@@ -210,6 +209,7 @@ function getDataCsvCallback(
   scatterChartData: ScatterChartData
 ): () => Promise<string> {
   return () => {
+    const dataCommonsClient = new DataCommonsClient({ apiRoot: props.apiRoot });
     // Assume both variables will have the same date
     // TODO: Update getCsv to handle different dates for different variables
     const date = getFirstCappedStatVarSpecDate(props.statVarSpec);
@@ -220,7 +220,7 @@ function getDataCsvCallback(
     const entityProps = props.placeNameProp
       ? [props.placeNameProp, ISO_CODE_ATTRIBUTE]
       : undefined;
-    return datacommonsClient.getCsv({
+    return dataCommonsClient.getCsv({
       childType: props.enclosedPlaceType,
       date,
       entityProps,

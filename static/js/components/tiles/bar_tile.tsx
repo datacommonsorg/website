@@ -18,7 +18,7 @@
  * Component for rendering a bar tile.
  */
 
-import { ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
+import { DataCommonsClient, ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
 import { ChartSortOption } from "@datacommonsorg/web-components";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
@@ -45,7 +45,6 @@ import {
   getSeries,
   getSeriesWithin,
 } from "../../utils/data_fetch_utils";
-import { datacommonsClient } from "../../utils/datacommons_client";
 import { getPlaceNames, getPlaceType } from "../../utils/place_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
@@ -177,6 +176,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
  */
 function getDataCsvCallback(props: BarTilePropType): () => Promise<string> {
   return () => {
+    const dataCommonsClient = new DataCommonsClient({ apiRoot: props.apiRoot });
     // Assume all variables will have the same date
     // TODO: Handle different dates for different variables
     const date = getFirstCappedStatVarSpecDate(props.variables);
@@ -188,8 +188,18 @@ function getDataCsvCallback(props: BarTilePropType): () => Promise<string> {
       : undefined;
     // Check for !("places" in props) because parentPlace can be set even if
     // "places" is also set
-    if (!("places" in props)) {
-      return datacommonsClient.getCsv({
+    if ("places" in props && !_.isEmpty(props.places)) {
+      return dataCommonsClient.getCsv({
+        date,
+        entityProps,
+        entities: props.places,
+        fieldDelimiter: CSV_FIELD_DELIMITER,
+        perCapitaVariables,
+        transformHeader: transformCsvHeader,
+        variables: props.variables.map((v) => v.statVar),
+      });
+    } else if ("enclosedPlaceType" in props && "parentPlace" in props) {
+      return dataCommonsClient.getCsv({
         childType: props.enclosedPlaceType,
         date,
         entityProps,
@@ -199,17 +209,8 @@ function getDataCsvCallback(props: BarTilePropType): () => Promise<string> {
         transformHeader: transformCsvHeader,
         variables: props.variables.map((v) => v.statVar),
       });
-    } else {
-      return datacommonsClient.getCsv({
-        date,
-        entityProps,
-        entities: props.places,
-        fieldDelimiter: CSV_FIELD_DELIMITER,
-        perCapitaVariables,
-        transformHeader: transformCsvHeader,
-        variables: props.variables.map((v) => v.statVar),
-      });
     }
+    return new Promise(() => "Error fetching CSV");
   };
 }
 
