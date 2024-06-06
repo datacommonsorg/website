@@ -242,7 +242,7 @@ function getDisasterBlockTileResults(
 
 // Takes related things and constructs related questions
 function getRelatedQuestions(
-  relatedThings: Record<string, any>,
+  relatedThings: Record<string, Array<any>>,
   place: NamedTypedNode
 ): string[] {
   const relatedQuestions = [];
