@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+// Check the firestore rules in https://firebase.corp.google.com/project/datcom-website-autopush/firestore/databases/-default-/rules
+
 import {
   addDoc,
   collection,
