@@ -55,8 +55,10 @@ const BARD_ALLOWED_CHARTS = new Set(["LINE", "BAR", "RANKING", "SCATTER"]);
 // The root to use to form the dc link in the tile results
 // TODO: update this to use bard.datacommons.org
 const DC_URL_ROOT = "https://datacommons.org/explore#q=";
-// detector to use when handling nl queries
+// Detector to use when handling nl queries
 const QUERY_DETECTOR = "heuristic";
+// Index to use when handling nl queries
+const QUERY_IDX = "medium_ft";
 // Number of related questions to return
 const NUM_RELATED_QUESTIONS = 6;
 
@@ -260,7 +262,8 @@ function getRelatedQuestions(
     if (!("name" in topic)) {
       continue;
     }
-    relatedQuestions.push(`Tell me about ${topic["name"]} in ${place.name}`);
+    const topicString = (topic["name"] as string).toLowerCase();
+    relatedQuestions.push(`Tell me about ${topicString} in ${place.name}`);
     getFromFront = !getFromFront;
   }
   return relatedQuestions;
@@ -284,10 +287,11 @@ export async function getQueryResult(
     client === BARD_CLIENT_URL_PARAM ? BARD_ALLOWED_CHARTS : null;
 
   // Get the nl detect-and-fulfill result for the query
+  // TODO: only generate related things when we need to generate related question
   let nlResp = null;
   try {
     nlResp = await axios.post(
-      `${apiRoot}/api/explore/detect-and-fulfill?q=${query}&mode=${mode}&client=${client}&detector=${QUERY_DETECTOR}&varThreshold=${varThreshold}`,
+      `${apiRoot}/api/explore/detect-and-fulfill?q=${query}&mode=${mode}&client=${client}&detector=${QUERY_DETECTOR}&varThreshold=${varThreshold}&idx=${QUERY_IDX}`,
       {}
     );
   } catch (e) {
