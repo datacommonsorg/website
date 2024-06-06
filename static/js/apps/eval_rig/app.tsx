@@ -159,16 +159,18 @@ export function App(props: AppPropType): JSX.Element {
   }
 
   return (
-    <div>
+    <>
       {!user && (
-        <GoogleSignIn
-          onSignIn={handleUserSignIn}
-          scopes={["https://www.googleapis.com/auth/spreadsheets"]}
-        />
+        <div className="sign-in">
+          <GoogleSignIn
+            onSignIn={handleUserSignIn}
+            scopes={["https://www.googleapis.com/auth/spreadsheets"]}
+          />
+        </div>
       )}
 
       {user && (
-        <div>
+        <>
           <a
             href={`https://docs.google.com/spreadsheets/d/${props.sheetId}`}
             target="_blank"
@@ -199,8 +201,8 @@ export function App(props: AppPropType): JSX.Element {
               </div>
             </AppContext.Provider>
           )}
-        </div>
+        </>
       )}
-    </div>
+    </>
   );
 }
