@@ -24,21 +24,19 @@ import {
   PointApiResponse,
   SeriesApiResponse,
 } from "./data_commons_web_client_types";
-import { toURLSearchParams } from "./utils";
+import { parseWebsiteApiRoot, toURLSearchParams } from "./utils";
 
 export interface DatacommonsWebClientParams {
-  /** Web api root endpoint. Default: `"https://datacommons.org/"` */
   apiRoot?: string;
 }
 
 class DataCommonsWebClient {
+  /** Website API root */
   apiRoot?: string;
 
   constructor(params?: DatacommonsWebClientParams) {
     const p = params || {};
-    this.apiRoot = p.apiRoot
-      ? p.apiRoot.replace(/\/$/, "")
-      : "https://datacommons.org";
+    this.apiRoot = parseWebsiteApiRoot(p.apiRoot);
   }
 
   /**
