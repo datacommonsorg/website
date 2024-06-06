@@ -72,14 +72,12 @@ export function EvalList(): JSX.Element {
 
   return (
     <>
-      <div className="button-section">
-        <Button className="eval-list-button" onClick={openModal}>
-          <div>
-            <span className="material-icons-outlined">list_alt</span>
-            Evaluation list
-          </div>
-        </Button>
-      </div>
+      <Button className="eval-list-button" onClick={openModal}>
+        <div>
+          <span className="material-icons-outlined">list_alt</span>
+          Evaluation list
+        </div>
+      </Button>
       <Modal isOpen={modalOpen} className="eval-list-modal">
         <div className="header">
           <div className="title">Choose a query to start evaluating from</div>
