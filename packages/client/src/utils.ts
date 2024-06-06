@@ -324,7 +324,7 @@ export function isDateInRange(
  * stripped
  *
  * @param apiRoot Data Commons Website API root
- * @returns
+ * @returns API root URL
  */
 export function parseWebsiteApiRoot(apiRoot?: string): string {
   return apiRoot ? apiRoot.replace(/\/$/, "") : DEFAULT_WEB_API_ROOT;
