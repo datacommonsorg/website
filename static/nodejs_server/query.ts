@@ -24,7 +24,11 @@ import {
   getBlockEventTypeSpecs,
 } from "../js/components/subject_page/disaster_event_block";
 import { StatVarProvider } from "../js/components/subject_page/stat_var_provider";
-import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
+import {
+  NamedTypedNode,
+  NamedTypedPlace,
+  StatVarSpec,
+} from "../js/shared/types";
 import {
   BlockConfig,
   EventTypeSpec,
@@ -51,6 +55,12 @@ const BARD_ALLOWED_CHARTS = new Set(["LINE", "BAR", "RANKING", "SCATTER"]);
 // The root to use to form the dc link in the tile results
 // TODO: update this to use bard.datacommons.org
 const DC_URL_ROOT = "https://datacommons.org/explore#q=";
+// Detector to use when handling nl queries
+const QUERY_DETECTOR = "heuristic";
+// Index to use when handling nl queries
+const QUERY_IDX = "medium_ft";
+// Number of related questions to return
+const NUM_RELATED_QUESTIONS = 6;
 
 // Get the elapsed time in seconds given the start and end times in nanoseconds.
 function getElapsedTime(startTime: bigint, endTime: bigint): number {
@@ -230,6 +240,35 @@ function getDisasterBlockTileResults(
   return tilePromises;
 }
 
+// Takes related things and constructs related questions
+function getRelatedQuestions(
+  relatedThings: Record<string, Array<any>>,
+  place: NamedTypedNode
+): string[] {
+  const relatedQuestions = [];
+  const relatedTopics = [
+    ...(relatedThings["childTopics"] || []),
+    ...(relatedThings["peerTopics"] || []),
+  ];
+
+  // Alternate getting topics from the front and the end of the list to get a
+  // mix of questions using child and peer topics.
+  let getFromFront = true;
+  while (
+    !_.isEmpty(relatedTopics) &&
+    relatedQuestions.length < NUM_RELATED_QUESTIONS
+  ) {
+    const topic = getFromFront ? relatedTopics.shift() : relatedTopics.pop();
+    if (!("name" in topic)) {
+      continue;
+    }
+    const topicString = (topic["name"] as string).toLowerCase();
+    relatedQuestions.push(`Tell me about ${topicString} in ${place.name}`);
+    getFromFront = !getFromFront;
+  }
+  return relatedQuestions;
+}
+
 // The handler that gets the result for the /nodejs/query endpoint
 export async function getQueryResult(
   query: string,
@@ -239,22 +278,22 @@ export async function getQueryResult(
   apikey: string,
   urlRoot: string,
   client: string,
-  mode: string
+  mode: string,
+  varThreshold: string,
+  wantRelatedQuestions: boolean
 ): Promise<QueryResult> {
   const startTime = process.hrtime.bigint();
   const allowedTileTypes =
     client === BARD_CLIENT_URL_PARAM ? BARD_ALLOWED_CHARTS : null;
 
   // Get the nl detect-and-fulfill result for the query
+  // TODO: only generate related things when we need to generate related question
   let nlResp = null;
   try {
-    nlResp = await axios
-      // Set "mode=strict" to use heuristic detector, disable using default place,
-      // use a higher SV threshold and avoid multi-verb queries
-      .post(
-        `${apiRoot}/api/explore/detect-and-fulfill?q=${query}&mode=${mode}&client=${client}`,
-        {}
-      );
+    nlResp = await axios.post(
+      `${apiRoot}/api/explore/detect-and-fulfill?q=${query}&mode=${mode}&client=${client}&detector=${QUERY_DETECTOR}&varThreshold=${varThreshold}&idx=${QUERY_IDX}`,
+      {}
+    );
   } catch (e) {
     console.error("Error making request:\n", e.message);
     return { err: "Error fetching data." };
@@ -279,6 +318,7 @@ export async function getQueryResult(
       config["metadata"]["containedPlaceTypes"][place.types[0]] ||
       enclosedPlaceType;
   }
+  const relatedThings = nlResp.data["relatedThings"] || {};
 
   // If no place, return here
   if (!place.dcid) {
@@ -365,6 +405,9 @@ export async function getQueryResult(
       total: getElapsedTime(startTime, endTime),
     },
   };
-
-  return { charts: processedResults, debug };
+  const result: QueryResult = { charts: processedResults, debug };
+  if (wantRelatedQuestions) {
+    result.relatedQuestions = getRelatedQuestions(relatedThings, place);
+  }
+  return result;
 }
