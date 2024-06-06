@@ -32,10 +32,20 @@ interface FeedbackNavigationPropType {
 export function FeedbackNavigation(
   props: FeedbackNavigationPropType
 ): JSX.Element {
-  const { allQuery, allCall } = useContext(AppContext);
+  const { allQuery, allCall, userEmail } = useContext(AppContext);
   const { sessionQueryId, setSessionQueryId, sessionCallId, setSessionCallId } =
     useContext(SessionContext);
-  const sortedQueryIds = Object.keys(allQuery)
+
+  const userQuery = Object.keys(allQuery)
+    .filter(
+      (qId) => allQuery[qId].user === userEmail || allQuery[qId].user === null
+    )
+    .reduce((obj, qId) => {
+      obj[qId] = allQuery[qId];
+      return obj;
+    }, {});
+
+  const sortedQueryIds = Object.keys(userQuery)
     .map((qKey) => Number(qKey))
     .sort((a, b) => a - b);
 
@@ -48,7 +58,7 @@ export function FeedbackNavigation(
   const prevQuery = async () => {
     if (await props.checkAndSubmit()) {
       let targetId = sessionQueryId - 1;
-      while (!(targetId in allQuery)) {
+      while (!(targetId in userQuery)) {
         targetId -= 1;
       }
       setSessionQueryId(targetId);
@@ -70,7 +80,7 @@ export function FeedbackNavigation(
   const nextQuery = async () => {
     if (await props.checkAndSubmit()) {
       let targetId = sessionQueryId + 1;
-      while (!(targetId in allQuery)) {
+      while (!(targetId in userQuery)) {
         targetId += 1;
       }
       setSessionQueryId(targetId);

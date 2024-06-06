@@ -57,13 +57,12 @@ def detect(orig_query: str, cleaned_query: str,
       heuristic_classifiers.general(query, ClassificationType.PER_CAPITA,
                                     "PerCapita"),
       heuristic_classifiers.date(query, counters),
+      heuristic_classifiers.general(query, ClassificationType.TEMPORAL,
+                                    "Temporal")
   ]
 
   if dargs.mode == QueryMode.STRICT:
     classifications.append(heuristic_classifiers.detailed_action(query))
-    classifications.append(
-        heuristic_classifiers.general(query, ClassificationType.TEMPORAL,
-                                      "Temporal"))
 
   # Set the Classifications list.
   classifications = [c for c in classifications if c is not None]
@@ -88,7 +87,7 @@ def detect(orig_query: str, cleaned_query: str,
         'err': str(e)
     })
   # Set the SVDetection.
-  sv_threshold_override = params.sv_threshold_override(dargs.mode)
+  sv_threshold_override = params.sv_threshold_override(dargs)
   sv_detection = dutils.create_sv_detection(sv_detection_query,
                                             sv_detection_result,
                                             sv_threshold_override,

@@ -26,6 +26,7 @@ import {
 } from "./constants";
 import { AppContext, SessionContext } from "./context";
 import { getField, getPath, saveToSheet, setField } from "./data_store";
+import { EvalList } from "./eval_list";
 import { FeedbackNavigation } from "./feedback_navigation";
 import { OneQuestion } from "./one_question";
 
@@ -114,6 +115,7 @@ export function QueryFeedback(): JSX.Element {
             Re-Eval
           </div>
         </Button>
+        <EvalList />
       </div>
       <div id={LOADING_CONTAINER_ID}>
         <form>

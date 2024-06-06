@@ -29,6 +29,7 @@ import {
 } from "./constants";
 import { AppContext, SessionContext } from "./context";
 import { getCallData, saveToSheet, saveToStore } from "./data_store";
+import { EvalList } from "./eval_list";
 import { FeedbackNavigation } from "./feedback_navigation";
 import { OneQuestion } from "./one_question";
 import { EvalInfo, Response } from "./types";
@@ -184,76 +185,80 @@ export function CallFeedback(): JSX.Element {
             Re-Eval
           </div>
         </Button>
+        <EvalList />
       </div>
       <div id={LOADING_CONTAINER_ID}>
-        <div>
-          <label id="apply-to-next">
-            <input
-              type="checkbox"
-              checked={applyToNext}
-              onChange={handleApplyToNextChange}
-              disabled={status === FormStatus.Submitted}
-            />
-            Apply the response to the next question
-          </label>
-        </div>
         {evalInfo && (
-          <form>
-            <fieldset>
-              <div className="question-section">
-                <div className="title">GEMMA MODEL QUESTION EVALUATION</div>
-                <div className="subtitle">
-                  <span>{evalInfo.question}</span>
+          <>
+            <form>
+              <fieldset>
+                <div className="question-section">
+                  <div className="title">GEMMA MODEL QUESTION EVALUATION</div>
+                  <div className="subtitle">
+                    <span>{evalInfo.question}</span>
+                  </div>
+                  <OneQuestion
+                    question="Question from the model"
+                    name="question"
+                    options={{
+                      DC_QUESTION_IRRELEVANT:
+                        "Irrelevant, vague, requires editing",
+                      DC_QUESTION_RELEVANT: "Well formulated & relevant",
+                    }}
+                    handleChange={handleChange}
+                    responseField={response.question}
+                    disabled={status === FormStatus.Submitted}
+                  />
                 </div>
-                <OneQuestion
-                  question="Question from the model"
-                  name="question"
-                  options={{
-                    DC_QUESTION_IRRELEVANT:
-                      "Irrelevant, vague, requires editing",
-                    DC_QUESTION_RELEVANT: "Well formulated & relevant",
-                  }}
-                  handleChange={handleChange}
-                  responseField={response.question}
-                  disabled={status === FormStatus.Submitted}
-                />
-              </div>
-              <div className="question-section">
-                <div className="title">GEMMA MODEL STAT EVALUATION</div>
-                <div className="subtitle">
-                  <span className="llm-stat">{evalInfo.llmStat}</span>
+                <div className="question-section">
+                  <div className="title">GEMMA MODEL STAT EVALUATION</div>
+                  <div className="subtitle">
+                    <span className="llm-stat">{evalInfo.llmStat}</span>
+                  </div>
+                  <OneQuestion
+                    question="Model response quality"
+                    name="llmStat"
+                    options={{
+                      LLM_STAT_ACCURATE: "Stats seem accurate",
+                      LLM_STAT_INACCURATE: "Stats seem inaccurate",
+                      LLM_STAT_NOTSURE: "Unsure about accuracy",
+                    }}
+                    handleChange={handleChange}
+                    responseField={response.llmStat}
+                    disabled={status === FormStatus.Submitted}
+                  />
                 </div>
-                <OneQuestion
-                  question="Model response quality"
-                  name="llmStat"
-                  options={{
-                    LLM_STAT_ACCURATE: "Stats seem accurate",
-                    LLM_STAT_INACCURATE: "Stats seem inaccurate",
-                    LLM_STAT_NOTSURE: "Unsure about accuracy",
-                  }}
-                  handleChange={handleChange}
-                  responseField={response.llmStat}
-                  disabled={status === FormStatus.Submitted}
-                />
-              </div>
 
-              <div className="question-section">
-                <div className="title">DATA COMMONS EVALUATION</div>
-                <div className="subtitle">
-                  <span>{evalInfo.dcResponse}</span>
-                  <span className="dc-stat">{evalInfo.dcStat}</span>
+                <div className="question-section">
+                  <div className="title">DATA COMMONS EVALUATION</div>
+                  <div className="subtitle">
+                    <span>{evalInfo.dcResponse}</span>
+                    <span className="dc-stat">{evalInfo.dcStat}</span>
+                  </div>
+                  <OneQuestion
+                    question={dcResponseQuestion}
+                    name="dcResponse"
+                    options={dcResponseOptions}
+                    handleChange={handleChange}
+                    responseField={response.dcResponse}
+                    disabled={status === FormStatus.Submitted}
+                  />
                 </div>
-                <OneQuestion
-                  question={dcResponseQuestion}
-                  name="dcResponse"
-                  options={dcResponseOptions}
-                  handleChange={handleChange}
-                  responseField={response.dcResponse}
+              </fieldset>
+            </form>
+
+            <div className="apply-to-next">
+              <label>
+                <input
+                  type="checkbox"
+                  checked={applyToNext}
+                  onChange={handleApplyToNextChange}
                   disabled={status === FormStatus.Submitted}
                 />
-              </div>
-            </fieldset>
-          </form>
+                Apply the same evaluation to the next item
+              </label>
+            </div>
+          </>
         )}
       </div>
       <FeedbackNavigation checkAndSubmit={checkAndSubmit} />

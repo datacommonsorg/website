@@ -16,6 +16,15 @@
 
 @import "base";
 
+header,
+footer {
+  display: none;
+}
+
+.main-content {
+  margin: 0;
+}
+
 #dc-eval-rig {
   padding: 20px;
 }
@@ -40,6 +49,16 @@ label {
   height: 800px;
   padding: 16px;
   overflow: auto; /* This allows the div to scroll */
+
+  /* hack: markdown converts the footnotes title into h4 but we want it to be
+         the same as all our other titles */
+  h4 {
+    font-size: $h3-font-size;
+  }
+
+  hr {
+    display: none;
+  }
 }
 
 .btn {
@@ -91,7 +110,9 @@ label {
   .button-section {
     padding-bottom: 12px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
 
     .btn {
       background-color: #d3e3fd;
@@ -131,6 +152,7 @@ label {
   }
 
   .feedback-nav-section {
+    margin-top: auto;
     padding-top: 24px;
     display: flex;
     align-items: center;
@@ -239,16 +261,26 @@ label {
 }
 
 .dc-stat {
-  background-color: lightblue;
+  background-color: #e2f6fd;
 }
 
 .llm-stat {
-  background-color: lightsalmon;
+  background-color: #fccab6;
 }
 
 .annotation.highlight {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 500;
+}
+
+.question-section .dc-stat,
+.highlight .dc-stat {
+  background-color: lightblue;
+}
+
+.question-section .llm-stat,
+.highlight .llm-stat {
+  background-color: lightsalmon;
 }
 
 #page-screen {
@@ -282,5 +314,14 @@ label {
     input {
       margin-right: 8px;
     }
+  }
+}
+
+.apply-to-next {
+  font-size: 14px;
+  font-weight: 400;
+
+  input {
+    margin-right: 8px;
   }
 }
