@@ -15,6 +15,7 @@
 from enum import Enum
 from typing import Dict
 
+from server.lib.nl.detection.types import DetectionArgs
 from shared.lib import constants
 
 
@@ -44,6 +45,10 @@ class Params(str, Enum):
   CLIENT = 'client'
   # If set then we don't strip stop-words for mono-variable match.
   INCLUDE_STOP_WORDS = 'includeStopWords'
+  VAR_THRESHOLD = 'varThreshold'
+  DETECTOR = 'detector'
+  INDEX = 'idx'
+  RERANKER = 'reranker'
 
 
 class DCNames(str, Enum):
@@ -82,10 +87,12 @@ SPECIAL_DC_LIST = SDG_DC_LIST + UNDATA_DC_LIST
 
 
 # Get the SV score threshold for the given mode.
-def sv_threshold_override(mode: str) -> bool | None:
-  if mode == QueryMode.STRICT:
+def sv_threshold_override(dargs: DetectionArgs) -> float | None:
+  if dargs.var_threshold:
+    return dargs.var_threshold
+  elif dargs.mode == QueryMode.STRICT:
     return constants.SV_SCORE_HIGH_CONFIDENCE_THRESHOLD
-  elif mode == QueryMode.TOOLFORMER:
+  elif dargs.mode == QueryMode.TOOLFORMER:
     return constants.SV_SCORE_TOOLFORMER_THRESHOLD
   # The default is 0, so model-score will be used.
   return 0.0

@@ -90,7 +90,7 @@ def detect_vars(orig_query: str, debug_logs: Dict,
   # 3. Prepare result candidates.
   #
   # If caller had an overriden threshold bump, apply that.
-  threshold_override = params.sv_threshold_override(dargs.mode)
+  threshold_override = params.sv_threshold_override(dargs)
   multi_var_threshold = dutils.compute_final_threshold(model_threshold,
                                                        threshold_override)
   result_monovar = query2results[query_monovar]
