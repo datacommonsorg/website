@@ -219,9 +219,9 @@ export function CallFeedback(): JSX.Element {
                     question="Model response quality"
                     name="llmStat"
                     options={{
-                      LLM_STAT_ACCURATE: "Stats seem accurate",
                       LLM_STAT_INACCURATE: "Stats seem inaccurate",
                       LLM_STAT_NOTSURE: "Unsure about accuracy",
+                      LLM_STAT_ACCURATE: "Stats seem accurate",
                     }}
                     handleChange={handleChange}
                     responseField={response.llmStat}
