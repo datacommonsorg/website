@@ -276,7 +276,8 @@ export async function getQueryResult(
   urlRoot: string,
   client: string,
   mode: string,
-  svThreshold: string
+  varThreshold: string,
+  wantRelatedQuestions: boolean
 ): Promise<QueryResult> {
   const startTime = process.hrtime.bigint();
   const allowedTileTypes =
@@ -286,7 +287,7 @@ export async function getQueryResult(
   let nlResp = null;
   try {
     nlResp = await axios.post(
-      `${apiRoot}/api/explore/detect-and-fulfill?q=${query}&mode=${mode}&client=${client}&detector=${QUERY_DETECTOR}&svThreshold=${svThreshold}`,
+      `${apiRoot}/api/explore/detect-and-fulfill?q=${query}&mode=${mode}&client=${client}&detector=${QUERY_DETECTOR}&varThreshold=${varThreshold}`,
       {}
     );
   } catch (e) {
@@ -400,6 +401,9 @@ export async function getQueryResult(
       total: getElapsedTime(startTime, endTime),
     },
   };
-  const relatedQuestions = getRelatedQuestions(relatedThings, place);
-  return { charts: processedResults, debug, relatedQuestions };
+  const result: QueryResult = { charts: processedResults, debug };
+  if (wantRelatedQuestions) {
+    result.relatedQuestions = getRelatedQuestions(relatedThings, place);
+  }
+  return result;
 }
