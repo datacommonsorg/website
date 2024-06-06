@@ -181,7 +181,7 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
     # if sv_threshold is not a float, don't set sv_threshold
     try:
       var_threshold = float(var_threshold)
-    except:
+    except Exception:
       var_threshold = None
 
   # StopWords handling
