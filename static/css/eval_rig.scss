@@ -130,6 +130,7 @@ label {
     border-bottom: solid 1px var(--gm-3-sys-light-outline-variant);
     gap: 16px;
     padding: 16px 24px;
+    flex-grow: 1;
 
     .question-section .title {
       font-size: 11px;
@@ -152,7 +153,6 @@ label {
   }
 
   .feedback-nav-section {
-    margin-top: auto;
     padding-top: 24px;
     display: flex;
     align-items: center;
