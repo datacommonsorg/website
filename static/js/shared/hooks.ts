@@ -16,13 +16,14 @@
 
 import { MutableRefObject, useEffect, useMemo, useRef, useState } from "react";
 
+// By default will lazy load components that are within 1000px of the viewport
+const DEFAULT_LAZY_LOAD_ROOT_MARGIN = "1000px";
+
 /**
- * Custom React hook that tracks whether a referenced element is in the viewport.
- * When the element comes into view, it sets a flag (`shouldLoad`) to true.
- *
- * @returns {Object} An object containing:
- *   - {boolean} shouldLoad: A boolean flag indicating whether the element is in view and should trigger loading.
- *   - {React.MutableRefObject<HTMLDivElement | null>} elementRef: A ref to be assigned to the element to be observed.
+ * Custom React hook that tracks whether a referenced element is in close
+ * proximity to the viewport.
+ * When the element comes close to the view (within 1000px by default) view, it
+ * sets a flag (`shouldLoad`) to true.
  *
  * Usage:
  * const { shouldLoad, elementRef } = useInView();
@@ -30,19 +31,33 @@ import { MutableRefObject, useEffect, useMemo, useRef, useState } from "react";
  * <div ref={elementRef}>
  *   {shouldLoad ? <YourContent /> : 'Loading...'}
  * </div>
+ *
+ * @param {string} rootMargin - Optional root margin configuration for the IntersectionObserver. Will lazy load the
+ * component when it is within this margin of the viewport (Default: "1000px")
+ *
+ * @returns {Object} An object containing:
+ *   - {boolean} shouldLoad: A boolean flag indicating whether the element is in view and should trigger loading.
+ *   - {React.MutableRefObject<HTMLDivElement | null>} elementRef: A ref to be assigned to the element to be observed.
+ *
  */
-const useLazyLoad = (): {
+export const useLazyLoad = (
+  rootMargin?: string
+): {
   shouldLoad: boolean;
   containerRef: MutableRefObject<HTMLDivElement | null>;
 } => {
   const [isIntersecting, setIntersecting] = useState(false);
   const [shouldLoad, setShouldLoad] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-
   const observer = useMemo(
     () =>
-      new IntersectionObserver(([entry]) =>
-        setIntersecting(entry.isIntersecting)
+      new IntersectionObserver(
+        ([entry]) => {
+          setIntersecting(entry.isIntersecting);
+        },
+        {
+          rootMargin: rootMargin || DEFAULT_LAZY_LOAD_ROOT_MARGIN,
+        }
       ),
     []
   );
@@ -63,8 +78,5 @@ const useLazyLoad = (): {
       }
     };
   }, [observer]);
-
   return { shouldLoad, containerRef };
 };
-
-export default useLazyLoad;

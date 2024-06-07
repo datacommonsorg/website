@@ -463,6 +463,7 @@ function renderTiles(
           <LineTile
             key={id}
             id={id}
+            lazyLoad={true}
             title={title}
             subtitle={tile.subtitle}
             place={place}
@@ -493,6 +494,7 @@ function renderTiles(
           <RankingTile
             key={id}
             id={id}
+            lazyLoad={true}
             title={title}
             parentPlace={place.dcid}
             enclosedPlaceType={enclosedPlaceType}
@@ -524,6 +526,7 @@ function renderTiles(
             horizontal={tile.barTileSpec?.horizontal}
             id={id}
             key={id}
+            lazyLoad={true}
             maxPlaces={tile.barTileSpec?.maxPlaces}
             maxVariables={tile.barTileSpec?.maxVariables}
             parentPlace={place.dcid}
@@ -561,6 +564,7 @@ function renderTiles(
           <ScatterTile
             key={id}
             id={id}
+            lazyLoad={true}
             title={title}
             subtitle={tile.subtitle}
             place={place}
@@ -590,6 +594,7 @@ function renderTiles(
           <BivariateTile
             key={id}
             id={id}
+            lazyLoad={true}
             title={title}
             place={place}
             enclosedPlaceType={enclosedPlaceType}
@@ -607,6 +612,7 @@ function renderTiles(
             footnote={props.footnote}
             key={id}
             id={id}
+            lazyLoad={true}
             place={place}
             /* "min: 0" value are stripped out when loading text protobufs, so add them back in here */
             range={{
@@ -627,8 +633,9 @@ function renderTiles(
           <DonutTile
             colors={tile.donutTileSpec?.colors}
             footnote={props.footnote}
-            key={`${id}-2`}
             id={id}
+            lazyLoad={true}
+            key={`${id}-2`}
             pie={tile.donutTileSpec?.pie}
             place={place}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey, {
