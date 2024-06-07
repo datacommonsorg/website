@@ -10,6 +10,38 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Death"
+                    ],
+                    "title": "Deaths in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death"
+                    ],
+                    "title": "Deaths in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Deaths in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Count_Death_AsAFractionOfCount_Person"
                     ],
                     "title": "Deaths Per Capita in the World",
@@ -793,6 +825,10 @@
           }
         ],
         "statVarSpec": {
+          "Count_Death": {
+            "name": "Deaths",
+            "statVar": "Count_Death"
+          },
           "Count_Death_AsAFractionOfCount_Person": {
             "name": "Deaths Per Capita",
             "statVar": "Count_Death_AsAFractionOfCount_Person"

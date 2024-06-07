@@ -103,8 +103,8 @@
           "Parts": [
             {
               "CosineScore": [
-                0.8433716893196106,
-                0.8265037536621094
+                0.8433717489242554,
+                0.8265038728713989
               ],
               "QueryPart": "number poor hispanic women",
               "SV": [
@@ -137,7 +137,7 @@
           "Parts": [
             {
               "CosineScore": [
-                0.7890844345092773
+                0.7890843749046326
               ],
               "QueryPart": "number poor",
               "SV": [

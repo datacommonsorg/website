@@ -12,38 +12,6 @@
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
                     ],
-                    "title": "GDP (Nominal Value) in Eurostat Nuts 3 Places of United Kingdom (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
-                    ],
-                    "title": "GDP (Nominal Value) in Eurostat Nuts 3 Places of United Kingdom (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "GDP (Nominal Value) in Eurostat Nuts 3 Places of United Kingdom"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
-                    ],
                     "title": "GDP (Nominal Value) in United Kingdom",
                     "type": "LINE"
                   }
@@ -269,9 +237,6 @@
       }
     ],
     "metadata": {
-      "containedPlaceTypes": {
-        "Country": "EurostatNUTS3"
-      },
       "placeDcid": [
         "country/GBR"
       ]
@@ -286,7 +251,23 @@
     "name": "United Kingdom",
     "place_type": "Country"
   },
-  "placeFallback": {},
+  "placeFallback": {
+    "newPlace": {
+      "country": "country/GBR",
+      "dcid": "country/GBR",
+      "name": "United Kingdom",
+      "place_type": "Country"
+    },
+    "newStr": "United Kingdom",
+    "origPlace": {
+      "country": "country/GBR",
+      "dcid": "country/GBR",
+      "name": "United Kingdom",
+      "place_type": "Country"
+    },
+    "origStr": "eurostat nuts 3 places in United Kingdom",
+    "origType": "EurostatNUTS3"
+  },
   "placeSource": "CURRENT_QUERY",
   "places": [
     {
@@ -296,360 +277,7 @@
     }
   ],
   "relatedThings": {
-    "childPlaces": {
-      "EurostatNUTS3": [
-        {
-          "dcid": "nuts/UKC11",
-          "name": "Hartlepool and Stockton-on-Tees",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKC12",
-          "name": "South Teesside",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKC13",
-          "name": "Darlington",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKC14",
-          "name": "County Durham",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKC21",
-          "name": "Northumberland",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKC22",
-          "name": "Tyneside",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKC23",
-          "name": "City of Sunderland",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKD11",
-          "name": "West Cumbria",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKD12",
-          "name": "East Cumbria",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKD32",
-          "name": "Wigan",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKD33",
-          "name": "Manchester",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKD34",
-          "name": "Greater Manchester South West",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKD35",
-          "name": "Greater Manchester South East",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKD36",
-          "name": "Greater Manchester North West",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKD37",
-          "name": "Greater Manchester North East",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKD41",
-          "name": "Blackburn with Darwen",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKD42",
-          "name": "Blackpool",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKD44",
-          "name": "Lancaster and Wyre",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKD45",
-          "name": "Mid Lancashire",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKD46",
-          "name": "East Lancashire",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKD47",
-          "name": "Chorley and West Lancashire",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKD61",
-          "name": "Warrington",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKD62",
-          "name": "Cheshire East",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKD63",
-          "name": "Cheshire West and Chester",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKD71",
-          "name": "East Merseyside",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKD72",
-          "name": "Liverpool",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKD73",
-          "name": "Sefton",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKD74",
-          "name": "Wirral",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKE11",
-          "name": "Kingston upon Hull",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKE12",
-          "name": "East Riding of Yorkshire",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKE13",
-          "name": "North and North East Lincolnshire",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKE21",
-          "name": "York",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKE22",
-          "name": "North Yorkshire CC",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKE31",
-          "name": "Barnsley, Doncaster and Rotherham",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKE32",
-          "name": "Sheffield",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKE41",
-          "name": "Bradford",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKE42",
-          "name": "Leeds",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKE44",
-          "name": "Calderdale and Kirklees",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKE45",
-          "name": "Wakefield",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKF11",
-          "name": "Derby",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKF12",
-          "name": "East Derbyshire",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKF13",
-          "name": "South and West Derbyshire",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKF14",
-          "name": "Nottingham",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKF15",
-          "name": "North Nottinghamshire",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKF16",
-          "name": "South Nottinghamshire",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKF21",
-          "name": "Leicester",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKF22",
-          "name": "Leicestershire CC and Rutland",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKF24",
-          "name": "West Northamptonshire",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKF25",
-          "name": "North Northamptonshire",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        },
-        {
-          "dcid": "nuts/UKF30",
-          "name": "Lincolnshire",
-          "types": [
-            "EurostatNUTS3"
-          ]
-        }
-      ]
-    },
+    "childPlaces": {},
     "childTopics": [],
     "exploreMore": {
       "UnemploymentRate_Person_Female": {
@@ -678,106 +306,7 @@
         ]
       }
     ],
-    "peerPlaces": [
-      {
-        "dcid": "country/BRA",
-        "name": "Brazil",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/CAN",
-        "name": "Canada",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/CHN",
-        "name": "China",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/EGY",
-        "name": "Egypt",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/FRA",
-        "name": "France",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/DEU",
-        "name": "Germany",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/IND",
-        "name": "India",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/JPN",
-        "name": "Japan",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/MYS",
-        "name": "Malaysia",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/NZL",
-        "name": "New Zealand",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/NGA",
-        "name": "Nigeria",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/PER",
-        "name": "Peru",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/RUS",
-        "name": "Russia",
-        "types": [
-          "Country"
-        ]
-      },
-      {
-        "dcid": "country/USA",
-        "name": "United States",
-        "types": [
-          "Country"
-        ]
-      }
-    ],
+    "peerPlaces": [],
     "peerTopics": [
       {
         "dcid": "dc/topic/Debt",
@@ -810,6 +339,8 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "",
-  "userMessages": []
+  "userMessage": "Sorry, there were no relevant statistics for eurostat nuts 3 places in United Kingdom. See results for United Kingdom.",
+  "userMessages": [
+    "Sorry, there were no relevant statistics for eurostat nuts 3 places in United Kingdom. See results for United Kingdom."
+  ]
 }

@@ -100,6 +100,34 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_BirthEvent_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Count of Birth Event (Per Capita) in Turkey",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Birth Event (Per Capita) in Turkey",
+                    "statVarKey": [
+                      "Count_BirthEvent_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Count of Birth Event (Per Capita) in Turkey",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Birth Event (Per Capita)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
                     ],
                     "title": "Crude Birth Rate in Turkey",
@@ -153,6 +181,34 @@
               }
             ],
             "title": "Count of Birth Event in Eurostat Nuts 3 Places of Turkey"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_BirthEvent"
+                    ],
+                    "title": "Count of Birth Event in Turkey",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Birth Event in Turkey",
+                    "statVarKey": [
+                      "Count_BirthEvent"
+                    ],
+                    "title": "Count of Birth Event in Turkey",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Birth Event"
           },
           {
             "columns": [
@@ -317,6 +373,34 @@
               }
             ],
             "title": "Population Change in Eurostat Nuts 3 Places of Turkey"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "IncrementalCount_Person"
+                    ],
+                    "title": "Population Change in Turkey",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population Change in Turkey",
+                    "statVarKey": [
+                      "IncrementalCount_Person"
+                    ],
+                    "title": "Population Change in Turkey",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Change"
           },
           {
             "columns": [
