@@ -755,6 +755,13 @@
           ]
         },
         {
+          "dcid": "wikidataId/Q2893890",
+          "name": "Kamtapur",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
           "dcid": "wikidataId/Q40888",
           "name": "Andaman and Nicobar Islands",
           "types": [
@@ -790,8 +797,22 @@
           ]
         },
         {
+          "dcid": "wikidataId/Q66743",
+          "name": "Puducherry",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
           "dcid": "wikidataId/Q677037",
           "name": "Telangana",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q77997266",
+          "name": "Dadra and Nagar Haveli and Daman and Diu",
           "types": [
             "AdministrativeArea1"
           ]
@@ -808,6 +829,12 @@
       }
     ],
     "exploreMore": {
+      "Count_Person_BelowPovertyLevelInThePast12Months": {
+        "placeOfResidenceClassification": [
+          "Count_Person_Rural_BelowPovertyLevelInThePast12Months",
+          "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
+        ]
+      },
       "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person": {
         "placeOfResidenceClassification": [
           "Count_Person_Rural_BelowPovertyLevelInThePast12Months_AsAFractionOf_Count_Person",
