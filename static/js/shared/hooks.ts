@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-/**
- * Component to edit the facet for a list of stat vars.
- */
-
 import { MutableRefObject, useEffect, useMemo, useRef, useState } from "react";
 
 /**
