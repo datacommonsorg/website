@@ -278,7 +278,7 @@ class NLTestMisc(NLTest):
     self.run_sequence('international', [
         'Where are the most rural districts in India',
         'Life expectancy across provinces of China',
-        'GDP of counties in the United Kingdom',
+        'GDP of counties in Spain',
         'Districts in Turkey with the highest fertility rate',
         'Floods in Brazil',
         'Drought in Africa',
