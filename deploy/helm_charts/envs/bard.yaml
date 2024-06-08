@@ -47,7 +47,7 @@ ingress:
 nl:
   enabled: true
   memory: "10G"
-  workers: 3
+  workers: 1
   env:
     default_indexes:
       - medium_ft
@@ -69,7 +69,7 @@ serviceGroups:
   node:
     replicas: 25
     # Use a machine with more CPU for node pods
-    nodePool: "pool-e2-cpu"
+    nodePool: "default-pool"
   observation:
     replicas: 15
     nodePool: "default-pool"
