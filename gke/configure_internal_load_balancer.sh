@@ -28,28 +28,28 @@ PROJECT_ID=$(yq eval '.project' $CONFIG_YAML)
 echo $PROJECT_ID
 gcloud config set project $PROJECT_ID
 
+# Note make sure the IP address is not used by GKE VMs
 IP_ADDRESS=""
 if [ "$REGION" == "us-central1" ]; then
-  IP_ADDRESS="10.128.0.42"
+  IP_ADDRESS="10.128.14.10"
 elif [ "$REGION" == "us-west1" ]; then
-  IP_ADDRESS="10.138.0.42"
+  IP_ADDRESS="10.138.14.10"
 elif [ "$REGION" == "us-west2" ]; then
-  IP_ADDRESS="10.168.0.42"
+  IP_ADDRESS="10.168.14.10"
 else
   echo "IP address not specified for region $REGION"
   exit 1
 fi
 
 # Create proxy-only subnet (required for internal load balancers)
-if gcloud compute networks subnets describe website-internal-lb-proxy-subnet > /dev/null 2>&1; then
-  gcloud compute networks subnets delete website-internal-lb-proxy-subnet
-fi
+# `gcloud compute networks subnets delete website-internal-lb-proxy-subnet --region $REGION`
+# to delete the subnet if it already exists
 gcloud compute networks subnets create website-internal-lb-proxy-subnet \
     --purpose=REGIONAL_MANAGED_PROXY \
     --role=ACTIVE \
     --region=$REGION \
     --network=default \
-    --range=10.1.0.0/24
+    --range=10.1.0.0/20
 
 # Create self-signed certificate for internal load balancer SSL communication
 openssl req \
@@ -61,32 +61,22 @@ openssl req \
     -days 365 \
     -nodes
 
-if gcloud compute ssl-certificates describe website-ilb --region "$REGION" > /dev/null 2>&1; then
-  gcloud compute ssl-certificates delete website-ilb --region "$REGION"
-fi
 gcloud compute ssl-certificates create website-ilb \
     --certificate website-ilb.crt \
     --private-key website-ilb.key \
     --region $REGION
 
 # Reserve internal static IP address for the internal load balancer
-if gcloud compute addresses describe website-ilb-ip --region "$REGION" > /dev/null 2>&1; then
-  gcloud compute addresses delete website-ilb-ip --region "$REGION"
-fi
 gcloud compute addresses create website-ilb-ip \
     --region $REGION --subnet default \
     --addresses $IP_ADDRESS
 
 # Create DNS record for internal load balancer
-if gcloud dns managed-zones describe dc-zone > /dev/null 2>&1; then
-  echo "Managed zone already exists. Skipping creation."
-else
-  gcloud dns managed-zones create dc-zone \
-      --dns-name=website.internal \
-      --networks=default \
-      --description="Data Commons private dns zone" \
-      --visibility=private
-fi
+gcloud dns managed-zones create dc-zone \
+    --dns-name=website.internal \
+    --networks=default \
+    --description="Data Commons private dns zone" \
+    --visibility=private
 gcloud dns record-sets transaction start --zone=dc-zone
 gcloud dns record-sets transaction add $IP_ADDRESS \
    --name=website-ilb.website.internal \
