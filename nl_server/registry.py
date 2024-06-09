@@ -36,6 +36,17 @@ from shared.lib.custom_dc_util import is_custom_dc
 REGISTRY_KEY: str = 'REGISTRY'
 
 
+def create_model(model_config: ModelConfig) -> EmbeddingsModel:
+  if model_config.type == ModelType.VERTEXAI:
+    if model_config.usage == ModelUsage.EMBEDDINGS:
+      return VertexAIEmbeddingsModel(model_config)
+    elif model_config.usage == ModelUsage.RERANKING:
+      return VertexAIRerankingModel(model_config)
+  elif model_config.type == ModelType.LOCAL:
+    return LocalSentenceTransformerModel(model_config)
+  raise ValueError(f'Unknown model type: {model_config.type}')
+
+
 class Registry:
   """
   A class to hold runtime model handle/client objects and embeddings stores.
@@ -82,16 +93,7 @@ class Registry:
 
       # try creating a model object from the model info
       try:
-        if model_config.type == ModelType.VERTEXAI:
-          if model_config.usage == ModelUsage.EMBEDDINGS:
-            model = VertexAIEmbeddingsModel(model_config)
-            self.name_to_emb_model[model_name] = model
-          elif model_config.usage == ModelUsage.RERANKING:
-            model = VertexAIRerankingModel(model_config)
-            self.name_to_rank_model[model_name] = model
-        elif model_config.type == ModelType.LOCAL:
-          model = LocalSentenceTransformerModel(model_config)
-          self.name_to_emb_model[model_name] = model
+        self.name_to_emb_model[model_name] = create_model(model_config)
       except Exception as e:
         logging.error(f'error loading model {model_name}: {str(e)} ')
         raise e
