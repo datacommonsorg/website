@@ -135,7 +135,7 @@ metadata:
     {{- if .Values.ingress.internal }}
     ingress.gcp.kubernetes.io/pre-shared-cert: "website-ilb"
     kubernetes.io/ingress.regional-static-ip-name: "website-ilb-ip"
-    kubernetes.io/spec.ingressClassName: "gce-internal"
+    kubernetes.io/ingress.class: "gce-internal"
     kubernetes.io/ingress.allow-http: "false"
     {{- else }}
     kubernetes.io/ingress.global-static-ip-name: {{ .Values.ingress.ipName }}
