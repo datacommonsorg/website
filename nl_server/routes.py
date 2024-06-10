@@ -24,7 +24,6 @@ from markupsafe import escape
 
 from nl_server import registry
 from nl_server import search
-from nl_server.config import ModelUsage
 from nl_server.embeddings import Embeddings
 from nl_server.registry import Registry
 from nl_server.registry import REGISTRY_KEY
