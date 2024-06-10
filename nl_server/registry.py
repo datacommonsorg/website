@@ -63,14 +63,20 @@ class Registry:
   def get_index(self, index_type: str) -> Embeddings:
     return self.name_to_emb.get(index_type)
 
+  def get_reranking_model(self, model_name: str) -> RerankingModel:
+    if (model_name not in self.name_to_model or
+        self._server_config.models[model_name].usage != ModelUsage.RERANKING):
+      raise ValueError(f'Invalid model name: {model_name}')
+    return self.name_to_model.get(model_name)
+
   def get_attribute_model(self) -> AttributeModel:
     return self._attribute_model
 
-  def get_model(
-      self,
-      model_name: str) -> tuple[(EmbeddingsModel | RerankingModel, ModelUsage)]:
-    return (self.name_to_model.get(model_name),
-            self._server_config.models.get(model_name).usage)
+  def get_embedding_model(self, model_name: str) -> EmbeddingsModel:
+    if (model_name not in self.name_to_model or
+        self._server_config.models[model_name].usage != ModelUsage.EMBEDDINGS):
+      raise ValueError(f'Invalid model name: {model_name}')
+    return self.name_to_model.get(model_name)
 
   def server_config(self) -> ServerConfig:
     return self._server_config
