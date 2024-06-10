@@ -54,8 +54,7 @@ class Registry:
 
   def __init__(self, server_config: ServerConfig):
     self.name_to_emb: dict[str, Embeddings] = {}
-    self.name_to_emb_model: Dict[str, EmbeddingsModel] = {}
-    self.name_to_rank_model: Dict[str, RerankingModel] = {}
+    self.name_to_model: Dict[str, EmbeddingsModel | RerankingModel] = {}
     self._attribute_model = AttributeModel()
     self.load(server_config)
 
@@ -64,14 +63,14 @@ class Registry:
   def get_index(self, index_type: str) -> Embeddings:
     return self.name_to_emb.get(index_type)
 
-  def get_reranking_model(self, model_name: str) -> RerankingModel:
-    return self.name_to_rank_model.get(model_name)
-
   def get_attribute_model(self) -> AttributeModel:
     return self._attribute_model
 
-  def get_embedding_model(self, model_name: str) -> EmbeddingsModel:
-    return self.name_to_emb_model.get(model_name)
+  def get_model(
+      self,
+      model_name: str) -> tuple[(EmbeddingsModel | RerankingModel, ModelUsage)]:
+    return (self.name_to_model.get(model_name),
+            self._server_config.models.get(model_name).usage)
 
   def server_config(self) -> ServerConfig:
     return self._server_config
@@ -87,13 +86,12 @@ class Registry:
   def _load_models(self, models: dict[str, ModelConfig]):
     for model_name, model_config in models.items():
       # if model has already been loaded, continue
-      if (model_name in self.name_to_emb_model or
-          model_name in self.name_to_rank_model):
+      if model_name in self.name_to_model:
         continue
 
       # try creating a model object from the model info
       try:
-        self.name_to_emb_model[model_name] = create_model(model_config)
+        self.name_to_model[model_name] = create_model(model_config)
       except Exception as e:
         logging.error(f'error loading model {model_name}: {str(e)} ')
         raise e
@@ -123,9 +121,9 @@ class Registry:
       raise e
 
     # if store successfully created, set it in name_to_emb
-    if store and idx_info.model in self.name_to_emb_model:
+    if store and idx_info.model in self.name_to_model:
       self.name_to_emb[idx_name] = Embeddings(
-          model=self.name_to_emb_model[idx_info.model], store=store)
+          model=self.name_to_model[idx_info.model], store=store)
 
 
 def build() -> Registry:

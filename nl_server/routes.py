@@ -24,6 +24,7 @@ from markupsafe import escape
 
 from nl_server import registry
 from nl_server import search
+from nl_server.config import ModelUsage
 from nl_server.embeddings import Embeddings
 from nl_server.registry import Registry
 from nl_server.registry import REGISTRY_KEY
@@ -54,7 +55,9 @@ def encode():
   queries = request.json.get('queries', [])
   queries = [str(escape(q)) for q in queries]
   reg: Registry = current_app.config[REGISTRY_KEY]
-  model = reg.get_embedding_model(model_name)
+  model, usage = reg.get_model(model_name)
+  if usage != ModelUsage.EMBEDDINGS:
+    raise ValueError(f'Invalid model name: {model_name}')
   query_embeddings = model.encode(queries)
   if model.returns_tensor:
     query_embeddings = query_embeddings.tolist()
@@ -81,8 +84,12 @@ def search_vars():
   reg: Registry = current_app.config[REGISTRY_KEY]
 
   reranker_name = str(escape(request.args.get('reranker', '')))
-  reranker_model = reg.get_reranking_model(
-      reranker_name) if reranker_name else None
+  if reranker_name:
+    reranker_model, usage = reg.get_model(reranker_name)
+    if usage != ModelUsage.RERANKING:
+      raise ValueError(f'Invalid reranker model: {reranker_name}')
+  else:
+    reranker_model = None
 
   default_indexes = reg.server_config().default_indexes
   idx_type_str = str(escape(request.args.get('idx', '')))
