@@ -20,12 +20,10 @@ import json
 import os
 import urllib.parse
 
-from dateutil.relativedelta import relativedelta
 import flask
-from flask import current_app
+from flask import redirect
 from flask import request
-from github import Github
-from google.cloud import secretmanager
+from flask import url_for
 from google.cloud import storage
 from markupsafe import escape
 
@@ -35,6 +33,7 @@ from server.lib.gcs import read_blob
 from server.routes import TIMEOUT
 from server.routes.screenshot.diff import img_diff
 
+DEFAULT_DOMAIN = 'autopush.datacommons.org'
 SCREENSHOT_BUCKET = 'datcom-website-screenshot'
 GCS_IMAGE_URL = 'https://storage.mtls.cloud.google.com/'
 
@@ -111,65 +110,28 @@ def home():
   """
   if not env_valid():
     flask.abort(404)
-  domain = request.args.get('domain', '')
+  domain = request.args.get('domain')
+  if not domain:
+    return redirect(url_for('screenshot.home', domain=DEFAULT_DOMAIN), code=302)
 
-  if domain:
-    base_date = request.args.get('base_date', '')
+  base_date = request.args.get('base_date')
+  start_date = request.args.get('start_date')
+  end_date = request.args.get('end_date')
+  if not start_date:
     one_month_ago = datetime.now() - timedelta(days=30)
-    start_offset = one_month_ago.strftime("%Y_%m_%d")
-    folders = list_folder(SCREENSHOT_BUCKET, domain, start_offset)
-    data = []
-    prev_date = ''
-    for date in folders:
-      item = {'date': date, 'prev_date': prev_date, 'base_date': base_date}
-      prev_date = date
-      data.append(item)
-    # Change back the item order from new to old
-    data.reverse()
-    return flask.render_template('screenshot/home.html',
-                                 domain=domain,
-                                 data=data)
-
-  base_sha = request.args.get('base_sha', '')
-  # Secret generated from Github account 'dc-org2018'
-  secret_client = secretmanager.SecretManagerServiceClient()
-  secret_name = secret_client.secret_version_path(
-      current_app.config['SECRET_PROJECT'], 'github-token', 'latest')
-  secret_response = secret_client.access_secret_version(name=secret_name)
-  token = secret_response.payload.data.decode('UTF-8')
-  g = Github(token)
-  # Then, get the repository:
-  repo = g.get_repo("datacommonsorg/website")
-  one_month_ago = datetime.now() - relativedelta(months=1)
-  # Get the most recent commits:
-  commits = repo.get_commits(since=one_month_ago)
+    start_date = one_month_ago.strftime("%Y_%m_%d")
+  if not end_date:
+    end_date = datetime.now().strftime("%Y_%m_%d")
+  folders = list_folder(SCREENSHOT_BUCKET, domain, start_date, end_date)
   data = []
-  prev_sha = ''
-  for c in commits.reversed:
-    item = {}
-    commit = c.commit
-    raw_message = commit.message
-    message = raw_message
-    ready = False
-    for i in range(0, len(raw_message) - 1):
-      if raw_message[i] == '(' and raw_message[i + 1] == '#':
-        ready = True
-      if ready and raw_message[i] == ')':
-        message = raw_message[0:i + 1]
-        break
-    sha = c.sha[0:7]
-    item = {
-        'message': message,
-        'url': c.html_url,
-        'sha': sha,
-        'prev_sha': prev_sha,
-        'base_sha': base_sha,
-    }
-    prev_sha = sha
+  prev_date = ''
+  for date in folders:
+    item = {'date': date, 'prev_date': prev_date, 'base_date': base_date}
+    prev_date = date
     data.append(item)
   # Change back the item order from new to old
   data.reverse()
-  return flask.render_template('screenshot/home.html', data=data)
+  return flask.render_template('screenshot/home.html', domain=domain, data=data)
 
 
 @bp.route('/commit/<path:sha>')

@@ -1494,6 +1494,58 @@
     },
     "childTopics": [],
     "exploreMore": {
+      "Count_Person_0To4Years_Female": {
+        "race": [
+          "Count_Person_0To4Years_Female_AmericanIndianAndAlaskaNativeAlone",
+          "Count_Person_0To4Years_Female_AsianAlone",
+          "Count_Person_0To4Years_Female_BlackOrAfricanAmericanAlone",
+          "Count_Person_0To4Years_Female_HispanicOrLatino",
+          "Count_Person_0To4Years_Female_HispanicOrLatino_AmericanIndianAndAlaskaNativeAlone",
+          "Count_Person_0To4Years_Female_HispanicOrLatino_AsianAlone",
+          "Count_Person_0To4Years_Female_HispanicOrLatino_AsianOrPacificIslander",
+          "Count_Person_0To4Years_Female_HispanicOrLatino_BlackOrAfricanAmericanAlone",
+          "Count_Person_0To4Years_Female_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAlone",
+          "Count_Person_0To4Years_Female_HispanicOrLatino_TwoOrMoreRaces",
+          "Count_Person_0To4Years_Female_HispanicOrLatino_WhiteAlone",
+          "Count_Person_0To4Years_Female_NativeHawaiianAndOtherPacificIslanderAlone",
+          "Count_Person_0To4Years_Female_NotHispanicOrLatino",
+          "Count_Person_0To4Years_Female_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAlone",
+          "Count_Person_0To4Years_Female_NotHispanicOrLatino_AsianAlone",
+          "Count_Person_0To4Years_Female_NotHispanicOrLatino_AsianOrPacificIslander",
+          "Count_Person_0To4Years_Female_NotHispanicOrLatino_BlackOrAfricanAmericanAlone",
+          "Count_Person_0To4Years_Female_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAlone",
+          "Count_Person_0To4Years_Female_NotHispanicOrLatino_TwoOrMoreRaces",
+          "Count_Person_0To4Years_Female_TwoOrMoreRaces",
+          "Count_Person_0To4Years_Female_WhiteAlone",
+          "Count_Person_0To4Years_Female_WhiteAloneNotHispanicOrLatino"
+        ]
+      },
+      "Count_Person_0To4Years_Male": {
+        "race": [
+          "Count_Person_0To4Years_Male_AmericanIndianAndAlaskaNativeAlone",
+          "Count_Person_0To4Years_Male_AsianAlone",
+          "Count_Person_0To4Years_Male_BlackOrAfricanAmericanAlone",
+          "Count_Person_0To4Years_Male_HispanicOrLatino",
+          "Count_Person_0To4Years_Male_HispanicOrLatino_AmericanIndianAndAlaskaNativeAlone",
+          "Count_Person_0To4Years_Male_HispanicOrLatino_AsianAlone",
+          "Count_Person_0To4Years_Male_HispanicOrLatino_AsianOrPacificIslander",
+          "Count_Person_0To4Years_Male_HispanicOrLatino_BlackOrAfricanAmericanAlone",
+          "Count_Person_0To4Years_Male_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAlone",
+          "Count_Person_0To4Years_Male_HispanicOrLatino_TwoOrMoreRaces",
+          "Count_Person_0To4Years_Male_HispanicOrLatino_WhiteAlone",
+          "Count_Person_0To4Years_Male_NativeHawaiianAndOtherPacificIslanderAlone",
+          "Count_Person_0To4Years_Male_NotHispanicOrLatino",
+          "Count_Person_0To4Years_Male_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAlone",
+          "Count_Person_0To4Years_Male_NotHispanicOrLatino_AsianAlone",
+          "Count_Person_0To4Years_Male_NotHispanicOrLatino_AsianOrPacificIslander",
+          "Count_Person_0To4Years_Male_NotHispanicOrLatino_BlackOrAfricanAmericanAlone",
+          "Count_Person_0To4Years_Male_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAlone",
+          "Count_Person_0To4Years_Male_NotHispanicOrLatino_TwoOrMoreRaces",
+          "Count_Person_0To4Years_Male_TwoOrMoreRaces",
+          "Count_Person_0To4Years_Male_WhiteAlone",
+          "Count_Person_0To4Years_Male_WhiteAloneNotHispanicOrLatino"
+        ]
+      },
       "Median_Age_Person": {
         "gender": [
           "Median_Age_Person_Female",
