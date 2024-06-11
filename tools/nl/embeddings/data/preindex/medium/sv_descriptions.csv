@@ -1686,7 +1686,7 @@ Count_HousingUnit_IncompletePlumbingFacilities_OccupiedHousingUnit,Number of Occ
 Count_HousingUnit_NoCashRent,Number of Renter-Occupied Housing Units with No Cash Rent
 Count_HousingUnit_OccupiedHousingUnit,Number of Occupied Housing Units
 Count_HousingUnit_OwnerOccupied,Number of Owner-Occupied Housing Units
-Count_HousingUnit_RenterOccupied,Number of Renter-Occupied Housing Units
+Count_HousingUnit_RenterOccupied,Number of rented houses
 Count_HousingUnit_VacantHousingUnit,Number of Vacant Housing Units
 Count_HousingUnit_WithCashRent,Number of rental Housing Units with Cash Rent
 Count_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied,Number of Owner-Occupied Housing Units with a Mortgage
@@ -3482,8 +3482,8 @@ dc/topic/EducationEquity,Education Equity;education fairness;education opportuni
 dc/topic/EducationExpenditure,Education Expenditure
 dc/topic/EducationFaculty,Education Faculty
 dc/topic/EducationalAttainment,Educational Attainment
-dc/topic/EducationalAttainmentByGenderAndLevel,population breakdown by educational attainment and gender
-dc/topic/EducationalAttainmentByRaceAndLevel,population breakdown by education attainment and race
+dc/topic/EducationalAttainmentByGenderAndLevel,Educational attainment by gender
+dc/topic/EducationalAttainmentByRaceAndLevel,Educational attainment by race
 dc/topic/Electricity_Consumption,consumption of electricity
 dc/topic/Emissions,Emissions
 dc/topic/Emissions_FlourinatedGases,Flourinated Gasses Emissions by Source;flourinated gas emissions by source;source of flourinated gas emissions
@@ -3860,7 +3860,7 @@ dc/topic/sdg_12.a.1,sdg 12 a 1;sdg 12.a.1;sdg 12a1;sdg12a1
 dc/topic/sdg_12.b,Develop and implement tools to monitor sustainable development impacts for sustainable tourism that creates jobs and promotes local culture and products;sdg 12 b;sdg 12.b;sdg 12b;sdg Develop and implement tools to monitor sustainable development impacts for sustainable tourism that creates jobs and promotes local culture and products;sdg12b;sustainable development goal Develop and implement tools to monitor sustainable development impacts for sustainable tourism that creates jobs and promotes local culture and products
 dc/topic/sdg_12.c,"Rationalize inefficient fossil-fuel subsidies that encourage wasteful consumption by removing market distortions, in accordance with national circumstances, including by restructuring taxation and phasing out those harmful subsidies, where they exist, to reflect their environmental impacts, taking fully into account the specific needs and conditions of developing countries and minimizing the possible adverse impacts on their development in a manner that protects the poor and the affected communities;sdg 12 c;sdg 12.c;sdg 12c;sdg Rationalize inefficient fossil-fuel subsidies that encourage wasteful consumption by removing market distortions, in accordance with national circumstances, including by restructuring taxation and phasing out those harmful subsidies, where they exist, to reflect their environmental impacts, taking fully into account the specific needs and conditions of developing countries and minimizing the possible adverse impacts on their development in a manner that protects the poor and the affected communities;sdg12c;sustainable development goal Rationalize inefficient fossil-fuel subsidies that encourage wasteful consumption by removing market distortions, in accordance with national circumstances, including by restructuring taxation and phasing out those harmful subsidies, where they exist, to reflect their environmental impacts, taking fully into account the specific needs and conditions of developing countries and minimizing the possible adverse impacts on their development in a manner that protects the poor and the affected communities"
 dc/topic/sdg_12.c.1,Amount of fossil-fuel subsidies (production and consumption) per unit of GDP;sdg 12 c 1;sdg 12.c.1;sdg 12c1;sdg Amount of fossil-fuel subsidies (production and consumption) per unit of GDP;sdg12c1;sustainable development goal Amount of fossil-fuel subsidies (production and consumption) per unit of GDP
-dc/topic/sdg_13,SDG Climate Action;sdg 13;sdg Climate Action;sdg13;sustainable development goal Climate Action
+dc/topic/sdg_13,SDG Climate Action;sdg 13;sdg goals Climate Action;sdg13;sustainable development goal Climate Action
 dc/topic/sdg_13.1,Strengthen resilience and adaptive capacity to climate-related hazards and natural disasters in all countries;sdg 13 1;sdg 13.1;sdg 131;sdg Strengthen resilience and adaptive capacity to climate-related hazards and natural disasters in all countries;sdg131;sustainable development goal Strengthen resilience and adaptive capacity to climate-related hazards and natural disasters in all countries
 dc/topic/sdg_13.1.1,sdg 13 1 1;sdg 13.1.1;sdg 1311;sdg1311
 dc/topic/sdg_13.1.2,sdg 13 1 2;sdg 13.1.2;sdg 1312;sdg1312

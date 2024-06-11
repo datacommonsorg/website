@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ set -e
 cd ../../..
 python3 -m venv .env
 source .env/bin/activate
-pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
-pip3 install -r tools/nl/embeddings/requirements.txt
+pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu -q
+pip3 install -r tools/nl/embeddings/requirements.txt -q
 
 python3 -m tools.nl.embeddings.build_custom_dc_embeddings "$@"

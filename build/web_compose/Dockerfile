@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-FROM gcr.io/datcom-ci/python-node-go-protoc-envoy:2023-10-05
+FROM gcr.io/datcom-ci/python-node-go-protoc-envoy-gcloud:2024-06-08
 
 ARG ENV
 ARG PIP_DISABLE_PIP_VERSION_CHECK=1
@@ -118,11 +118,10 @@ COPY import/. /workspace/import/
 COPY tools/nl/embeddings/. /workspace/tools/nl/embeddings/
 
 # Download model and embeddings
-ENV IS_CUSTOM_DC=true
-RUN python -m tools.nl.embeddings.build_custom_dc_embeddings --mode=download
+RUN mkdir -p /tmp/datcom-nl-models
+RUN gsutil cp -R gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2/ /tmp/datcom-nl-models/
 
 WORKDIR /workspace
-
 
 # Env that should not change
 ENV USE_LOCAL_MIXER=true
