@@ -70,9 +70,15 @@ class DCNames(str, Enum):
 class QueryMode(str, Enum):
   # NOTE: This mode is incompatible with LLM detector
   STRICT = 'strict'
-  # This is a special mode to be used for toolformer experiments.
-  # This mode does not detect topics and has a sv score threshold of 0.8.
-  TOOLFORMER = 'toolformer'
+  # These are special modes used for toolformer experiments.
+
+  # The point mode returns exact variable's values and used by RIG.
+  # It does not detect topics and has a higher sv score threshold of 0.8.
+  TOOLFORMER_POINT = 'toolformer_point'
+  # The table mode includes topics, has lower threshold and tries harder
+  # to return tables with fuller data (e.g., answer places have no limits).
+  # Used by RAG.
+  TOOLFORMER_TABLE = 'toolformer_table'
 
 
 class Clients(str, Enum):
@@ -92,7 +98,7 @@ def sv_threshold_override(dargs: DetectionArgs) -> float | None:
     return dargs.var_threshold
   elif dargs.mode == QueryMode.STRICT:
     return constants.SV_SCORE_HIGH_CONFIDENCE_THRESHOLD
-  elif dargs.mode == QueryMode.TOOLFORMER:
+  elif dargs.mode == QueryMode.TOOLFORMER_POINT:
     return constants.SV_SCORE_TOOLFORMER_THRESHOLD
   # The default is 0, so model-score will be used.
   return 0.0
@@ -130,3 +136,7 @@ def dc_to_embedding_type(dc: str, embeddings_type: str) -> str:
   elif dc == DCNames.BIO_DC.value:
     return 'bio_ft'
   return embeddings_type
+
+
+def is_toolformer_mode(mode: QueryMode) -> bool:
+  return mode == QueryMode.TOOLFORMER_POINT or mode == QueryMode.TOOLFORMER_TABLE
