@@ -98,6 +98,9 @@ def merge_vertex_ai_configs(m: ModelConfig,
   return VertexAIModelConfig(**merged)
 
 
+# TODO: should accept a list of catalog paths because custom DC path won't be
+# constant. i.e., we want this function to be:
+# read_catalog(catalog_paths: [] = DEFAULT_PATHS, catalog_dict: Dict = None)
 def read_catalog(catalog_dict: Dict = None) -> Catalog:
   """
   Reads the catalog from the config files and merges them together.
