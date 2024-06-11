@@ -290,10 +290,10 @@ export async function getQueryResult(
   let nlResp = null;
   let url = `${apiRoot}/api/explore/detect-and-fulfill?q=${query}&detector=${QUERY_DETECTOR}`;
   const params = {
-    mode,
     client,
-    varThreshold,
     idx,
+    mode,
+    varThreshold,
   };
   Object.keys(params)
     .sort()
