@@ -22,28 +22,15 @@ from sentence_transformers import SentenceTransformer
 import yaml
 
 from nl_server import config_reader
+from nl_server import registry
 from nl_server.config import Catalog
 from nl_server.config import MemoryIndexConfig
 from nl_server.config import ModelConfig
-from nl_server.registry import Registry
 from tools.nl.embeddings import utils
 from tools.nl.embeddings.file_util import create_file_handler
 from tools.nl.embeddings.file_util import FileHandler
 
-
-class Mode:
-  BUILD = "build"
-  DOWNLOAD = "download"
-
-
 FLAGS = flags.FLAGS
-
-flags.DEFINE_enum(
-    "mode",
-    Mode.BUILD,
-    [Mode.BUILD, Mode.DOWNLOAD],
-    "Mode of operation",
-)
 
 flags.DEFINE_string(
     "model_version", None,
@@ -61,37 +48,25 @@ EMBEDDINGS_YAML_FILE_NAME = "custom_catalog.yaml"
 DEFAULT_EMBEDDINGS_INDEX_TYPE = "medium_ft"
 
 
-def build_registry():
-  """Downloads the default model and embeddings."""
-  # Only use the default model.
-  env = config_reader.read_env()
-  env.default_indexes = [DEFAULT_EMBEDDINGS_INDEX_TYPE]
-  env.enabled_indexes = [DEFAULT_EMBEDDINGS_INDEX_TYPE]
-  env.enable_reranking = False
-
-  # Construct server_config
+def build(sv_sentences_csv_path: str, output_dir: str):
   catalog = config_reader.read_catalog()
-  server_config = config_reader.get_server_config(catalog, env)
-  # Build registry, this will download the models and embeddings to the local
-  # tmp dir.
-  return Registry(server_config)
+  index_config = catalog.indexes[DEFAULT_EMBEDDINGS_INDEX_TYPE]
+  model_name = index_config.model
+  model_config = catalog.models[model_name]
+  env = config_reader.read_env()
+  if model_name in env.vertex_ai_models:
+    vertex_ai_config = env.vertex_ai_models[model_name]
+    model_config = config_reader.merge_vertex_ai_configs(
+        model_config, vertex_ai_config)
+  model = registry.create_model(model_config)
 
-
-def build(r: Registry, sv_sentences_csv_path: str, output_dir: str):
   print(
       f"Generating embeddings dataframe from SV sentences CSV: {sv_sentences_csv_path}"
   )
   sv_sentences_csv_handler = create_file_handler(sv_sentences_csv_path)
 
-  server_config = r.server_config()
-  index_config = server_config.indexes[DEFAULT_EMBEDDINGS_INDEX_TYPE]
-  model_name = index_config.model
-  model_info = server_config.models[model_name]
-
   print("Building custom DC embeddings")
-
-  embeddings_df = _build_embeddings_dataframe(r.get_embedding_model(model_name),
-                                              sv_sentences_csv_handler)
+  embeddings_df = _build_embeddings_dataframe(model, sv_sentences_csv_handler)
 
   print("Validating embeddings.")
   utils.validate_embeddings(embeddings_df, sv_sentences_csv_path)
@@ -108,7 +83,7 @@ def build(r: Registry, sv_sentences_csv_path: str, output_dir: str):
   embeddings_csv_handler.write_string(embeddings_csv)
 
   print(f"Saving embeddings yaml: {embeddings_yaml_handler.path}")
-  generate_embeddings_yaml(model_name, model_info, embeddings_csv_handler,
+  generate_embeddings_yaml(model_name, model_config, embeddings_csv_handler,
                            embeddings_yaml_handler)
 
   print("Done building custom DC embeddings.")
@@ -147,12 +122,9 @@ def generate_embeddings_yaml(model_name: str, model_config: ModelConfig,
 
 
 def main(_):
-  # build registry will download models.
-  r = build_registry()
-  if FLAGS.mode == Mode.BUILD:
-    assert FLAGS.sv_sentences_csv_path
-    assert FLAGS.output_dir
-    build(r, FLAGS.sv_sentences_csv_path, FLAGS.output_dir)
+  assert FLAGS.sv_sentences_csv_path
+  assert FLAGS.output_dir
+  build(FLAGS.sv_sentences_csv_path, FLAGS.output_dir)
 
 
 if __name__ == "__main__":

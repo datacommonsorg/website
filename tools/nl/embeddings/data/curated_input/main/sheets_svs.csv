@@ -1755,7 +1755,7 @@ Count_HousingUnit_IncompletePlumbingFacilities_OccupiedHousingUnit,Number of Occ
 Count_HousingUnit_NoCashRent,Number of Renter-Occupied Housing Units with No Cash Rent,,,
 Count_HousingUnit_OccupiedHousingUnit,Number of Occupied Housing Units,,,
 Count_HousingUnit_OwnerOccupied,Number of Owner-Occupied Housing Units,,,
-Count_HousingUnit_RenterOccupied,Number of Renter-Occupied Housing Units,,,
+Count_HousingUnit_RenterOccupied,Number of rented houses,,,
 Count_HousingUnit_VacantHousingUnit,Number of Vacant Housing Units,,,
 Count_HousingUnit_WithCashRent,Number of rental Housing Units with Cash Rent,,,
 Count_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied,Number of Owner-Occupied Housing Units with a Mortgage,,,

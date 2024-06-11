@@ -2,7 +2,7 @@
 
 ## Description
 
-This is a Docker image that has Python, Node, Go and Protoc. It can be used
+This is a Docker image that has Python, Node, Go, protoc and gcloud. It can be used
 as the base image for the website compose container.
 
 ## How to update the Docker image
