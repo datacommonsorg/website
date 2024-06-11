@@ -88,6 +88,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
     }
     (async () => {
       try {
+        setIsLoading(true);
         const rankingData = await fetchData(props);
         setRankingData(rankingData);
       } finally {

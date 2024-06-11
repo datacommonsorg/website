@@ -135,6 +135,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
     }
     (async () => {
       try {
+        setIsLoading(true);
         const data = await fetchData(props);
         if (props && data && _.isEqual(data.props, props)) {
           setScatterChartData(data);

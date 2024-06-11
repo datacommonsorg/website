@@ -133,6 +133,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
     if (!chartData || !_.isEqual(chartData.props, props)) {
       (async () => {
         try {
+          setIsLoading(true);
           const data = await fetchData(props);
           if (props && _.isEqual(data.props, props)) {
             setChartData(data);

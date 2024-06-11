@@ -49,12 +49,12 @@ import {
 import { getPlaceNames, getPlaceType } from "../../utils/place_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
+  ReplacementStrings,
   getDenomInfo,
   getFirstCappedStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
-  ReplacementStrings,
   showError,
   transformCsvHeader,
 } from "../../utils/tile_utils";
@@ -135,6 +135,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
     if (!barChartData || !_.isEqual(barChartData.props, props)) {
       (async () => {
         try {
+          setIsLoading(true);
           const data = await fetchData(props);
           setBarChartData(data);
         } finally {

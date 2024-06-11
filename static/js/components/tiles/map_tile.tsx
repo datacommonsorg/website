@@ -221,6 +221,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
     ) {
       (async () => {
         try {
+          setIsLoading(true);
           const data = await fetchData(props, dateOverride);
           if (
             data &&
