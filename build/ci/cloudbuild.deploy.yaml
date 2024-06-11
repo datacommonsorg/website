@@ -37,13 +37,33 @@ steps:
         git submodule foreach git pull origin master
         git submodule update --init --recursive
 
-        # Bundle container with website, esp and mixer.
         docker build -f build/web_compose/Dockerfile \
           --tag gcr.io/datcom-ci/datacommons-website-compose:${SHORT_SHA} \
           --tag gcr.io/datcom-ci/datacommons-website-compose:latest \
           .
         docker push gcr.io/datcom-ci/datacommons-website-compose:${SHORT_SHA}
         docker push gcr.io/datcom-ci/datacommons-website-compose:latest
+    waitFor: ["-"]
+
+  - id: push-web-compose-autopush
+    name: gcr.io/cloud-builders/docker
+    entrypoint: "bash"
+    args:
+      - -c
+      - |
+        set -e
+        # Builds an autopush image with the latest mixer and import code
+        # instead of what the submodules reflect.
+        # This is to catch any breaking changes in those repos early.
+        git clone https://github.com/datacommonsorg/mixer.git
+        git clone https://github.com/datacommonsorg/import.git
+
+        docker build -f build/web_compose/Dockerfile \
+          --tag gcr.io/datcom-ci/datacommons-website-compose:${SHORT_SHA}-autopush \
+          --tag gcr.io/datcom-ci/datacommons-website-compose:latest-autopush \
+          .
+        docker push gcr.io/datcom-ci/datacommons-website-compose:${SHORT_SHA}-autopush
+        docker push gcr.io/datcom-ci/datacommons-website-compose:latest-autopush
     waitFor: ["-"]
 
   - id: push-nl-server
