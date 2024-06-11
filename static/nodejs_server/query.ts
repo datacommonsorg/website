@@ -57,8 +57,6 @@ const BARD_ALLOWED_CHARTS = new Set(["LINE", "BAR", "RANKING", "SCATTER"]);
 const DC_URL_ROOT = "https://datacommons.org/explore#q=";
 // Detector to use when handling nl queries
 const QUERY_DETECTOR = "heuristic";
-// Index to use when handling nl queries
-const QUERY_IDX = "medium_ft";
 // Number of related questions to return
 const NUM_RELATED_QUESTIONS = 6;
 
@@ -280,7 +278,8 @@ export async function getQueryResult(
   client: string,
   mode: string,
   varThreshold: string,
-  wantRelatedQuestions: boolean
+  wantRelatedQuestions: boolean,
+  idx?: string
 ): Promise<QueryResult> {
   const startTime = process.hrtime.bigint();
   const allowedTileTypes =
@@ -289,11 +288,23 @@ export async function getQueryResult(
   // Get the nl detect-and-fulfill result for the query
   // TODO: only generate related things when we need to generate related question
   let nlResp = null;
+  let url = `${apiRoot}/api/explore/detect-and-fulfill?q=${query}&detector=${QUERY_DETECTOR}`;
+  const params = {
+    client,
+    idx,
+    mode,
+    varThreshold,
+  };
+  Object.keys(params)
+    .sort()
+    .forEach((urlKey) => {
+      if (!params[urlKey]) {
+        return;
+      }
+      url += `&${urlKey}=${params[urlKey]}`;
+    });
   try {
-    nlResp = await axios.post(
-      `${apiRoot}/api/explore/detect-and-fulfill?q=${query}&mode=${mode}&client=${client}&detector=${QUERY_DETECTOR}&varThreshold=${varThreshold}&idx=${QUERY_IDX}`,
-      {}
-    );
+    nlResp = await axios.post(url, {});
   } catch (e) {
     console.error("Error making request:\n", e.message);
     return { err: "Error fetching data." };
