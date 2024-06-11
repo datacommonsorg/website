@@ -15,7 +15,7 @@
  */
 
 /* Component to record feedback for a query */
-import React, { useContext, useEffect, useState } from "react";
+import React, { FormEvent, useContext, useEffect, useState } from "react";
 import { Button } from "reactstrap";
 
 import { loadSpinner, removeSpinner } from "../../shared/util";
@@ -89,8 +89,8 @@ export function QueryFeedback(): JSX.Element {
       });
   };
 
-  const handleChange = (event) => {
-    const { value } = event.target;
+  const handleChange = (event: FormEvent<HTMLInputElement>) => {
+    const { value } = event.target as HTMLInputElement;
     setResponse(value);
   };
 
@@ -100,10 +100,7 @@ export function QueryFeedback(): JSX.Element {
   };
 
   const showNext = (): boolean => {
-    return (
-      Object.keys(allCall[sessionQueryId] || {}).length > 0 &&
-      response !== QUERY_OVERALL_OPTION_HALLUCINATION
-    );
+    return Object.keys(allCall[sessionQueryId] || {}).length > 0;
   };
 
   return (
