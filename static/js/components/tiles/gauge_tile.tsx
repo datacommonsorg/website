@@ -29,11 +29,11 @@ import { useLazyLoad } from "../../shared/hooks";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { getPoint, getSeries } from "../../utils/data_fetch_utils";
 import {
-  ReplacementStrings,
   getDenomInfo,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
+  ReplacementStrings,
   showError,
   transformCsvHeader,
 } from "../../utils/tile_utils";

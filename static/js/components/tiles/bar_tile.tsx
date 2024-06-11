@@ -49,12 +49,12 @@ import {
 import { getPlaceNames, getPlaceType } from "../../utils/place_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
-  ReplacementStrings,
   getDenomInfo,
   getFirstCappedStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
+  ReplacementStrings,
   showError,
   transformCsvHeader,
 } from "../../utils/tile_utils";
