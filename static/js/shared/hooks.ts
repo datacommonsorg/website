@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import "intersection-observer";
+
 import { MutableRefObject, useEffect, useMemo, useRef, useState } from "react";
 
 // By default will lazy load components that overlap the viewport
