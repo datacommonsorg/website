@@ -90,6 +90,14 @@ def _log_asdict(
   logging.info('%s:\n%s', msg_prefix, obj_str)
 
 
+def merge_vertex_ai_configs(m: ModelConfig,
+                            v: VertexAIModelConfig) -> VertexAIModelConfig:
+  m_dict, v_dict = asdict(m), asdict(v)
+  # Merge vertex AI config from catalog and env. Prefer env if both exist.
+  merged = _merge_dicts(m_dict, v_dict)
+  return VertexAIModelConfig(**merged)
+
+
 def read_catalog() -> Catalog:
   """
   Reads the catalog from the config files and merges them together.
@@ -234,12 +242,8 @@ def get_server_config(catalog: Catalog, env: Env) -> ServerConfig:
     if model_config.type == ModelType.VERTEXAI:
       if model_name not in env.vertex_ai_models:
         raise ValueError(f'Vertex AI Model {model_name} not found in env')
-      m: ModelConfig = models[model_name]
-      v: VertexAIModelConfig = env.vertex_ai_models[model_name]
-      m_dict, v_dict = asdict(m), asdict(v)
-      # Merge vertex AI config from catalog and env. Prefer env if both exist.
-      merged = _merge_dicts(m_dict, v_dict)
-      models[model_name] = VertexAIModelConfig(**merged)
+      models[model_name] = merge_vertex_ai_configs(
+          models[model_name], env.vertex_ai_models[model_name])
 
   server_config = ServerConfig(
       version=catalog.version,
