@@ -16,7 +16,7 @@
 
 /* Component to record feedback for a call within a query */
 
-import React, { useContext, useEffect, useState } from "react";
+import React, { FormEvent, useContext, useEffect, useState } from "react";
 import { Button } from "reactstrap";
 
 import { loadSpinner, removeSpinner } from "../../shared/util";
@@ -130,8 +130,8 @@ export function CallFeedback(): JSX.Element {
     setApplyToNext(!applyToNext);
   };
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
+  const handleChange = (event: FormEvent<HTMLInputElement>) => {
+    const { name, value } = event.target as HTMLInputElement;
     setResponse((prevState) => {
       const newState = {
         ...prevState,
