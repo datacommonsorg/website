@@ -1016,6 +1016,13 @@
           ]
         },
         {
+          "dcid": "wikidataId/Q10752928",
+          "name": "Dadra & Nagar Haveli",
+          "types": [
+            "AdministrativeArea2"
+          ]
+        },
+        {
           "dcid": "wikidataId/Q10784153",
           "name": "Lakshadweep District",
           "types": [
@@ -1158,13 +1165,6 @@
         {
           "dcid": "wikidataId/Q110714863",
           "name": "Sri Sathya Sai",
-          "types": [
-            "AdministrativeArea2"
-          ]
-        },
-        {
-          "dcid": "wikidataId/Q110876712",
-          "name": "Bapatla",
           "types": [
             "AdministrativeArea2"
           ]

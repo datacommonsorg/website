@@ -1013,6 +1013,10 @@
           "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
           "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
           "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
+        ],
+        "gender": [
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_Male_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
         ]
       },
       "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": {
@@ -1023,6 +1027,57 @@
           "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
           "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
           "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
+        ]
+      },
+      "Count_Person_Female_AbovePovertyLevelInThePast12Months_HispanicOrLatino": {
+        "age": [
+          "dc/09v28v6bwqt0c",
+          "dc/5811pl3dnbwf6",
+          "dc/80jslqrjzz46b",
+          "dc/b81mz72elhl79",
+          "dc/cz34prg08c4wd",
+          "dc/dcg7es0zw2xp",
+          "dc/erhgxzkr3bkjb",
+          "dc/esztqf9cp5l34",
+          "dc/fcr8wpnnwtj31",
+          "dc/s6by0ncnxtml5",
+          "dc/vterxg0m029p1",
+          "dc/w3zfjp242w1k",
+          "dc/zdkmf9qhzd7d4"
+        ]
+      },
+      "Count_Person_Female_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
+        "age": [
+          "dc/0e0rhv10mvyz2",
+          "dc/0glkmemye63gh",
+          "dc/11z3hsgqr7vw4",
+          "dc/5yg3snkxnt092",
+          "dc/9mcn0b1c4l47g",
+          "dc/c96zj23rptsz5",
+          "dc/cez5brv97kfbg",
+          "dc/gghgv7y2sd8l1",
+          "dc/r9s37py1wdkff",
+          "dc/snkj3xy7mm2p",
+          "dc/tb6gtjjj78d84",
+          "dc/x6q5lcvc2kyxc",
+          "dc/xy3ffl1mwzwzf"
+        ]
+      },
+      "Count_Person_Male_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": {
+        "age": [
+          "dc/0wy4k5nysf0j5",
+          "dc/373mb03w1v0f5",
+          "dc/5tw4en9vb3bg9",
+          "dc/bfjdlvjmdtqm8",
+          "dc/bldbxpc4btk22",
+          "dc/dltjjp23jpvyg",
+          "dc/dvkzftnypxff8",
+          "dc/fcfx5scj403h4",
+          "dc/fqdksqd7qn2cb",
+          "dc/g0jnegn6fy7n4",
+          "dc/hz6qwxns3rn9",
+          "dc/j2qz1hcm2wrcg",
+          "dc/xr4kfwtm6pcx"
         ]
       },
       "Count_Person_Male_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {

@@ -19,7 +19,7 @@
  */
 
 import _ from "lodash";
-import React, { useRef } from "react";
+import React, { MutableRefObject, useRef } from "react";
 
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { INITIAL_LOADING_CLASS } from "../../constants/tile_constants";
@@ -63,10 +63,12 @@ interface ChartTileContainerProp {
   statVarSpecs?: StatVarSpec[];
   // API root used for DC tool links.
   apiRoot?: string;
+  // Optional ref for tile container element
+  forwardRef?: MutableRefObject<HTMLDivElement | null>;
 }
 
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const embedModalElement = useRef<ChartEmbed>(null);
   // on initial loading, hide the title text
   const title = !props.isInitialLoading
@@ -87,6 +89,7 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
         className={`chart-content ${
           props.isInitialLoading ? INITIAL_LOADING_CLASS : ""
         }`}
+        ref={props.forwardRef}
       >
         <div className="chart-headers">
           <LoadingHeader isLoading={props.isLoading} title={title} />

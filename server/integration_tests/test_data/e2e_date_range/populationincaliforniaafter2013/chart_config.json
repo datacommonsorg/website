@@ -2090,15 +2090,21 @@
     "exploreMore": {
       "Count_Person": {
         "age": [
+          "Count_Person_10To19Years",
           "Count_Person_18To24Years",
           "Count_Person_1To4Years",
+          "Count_Person_20To29Years",
           "Count_Person_25To34Years",
           "Count_Person_35To44Years",
           "Count_Person_45To54Years",
+          "Count_Person_50To59Years",
           "Count_Person_55To64Years",
           "Count_Person_5To17Years",
+          "Count_Person_5To19Years",
+          "Count_Person_60To69Years",
           "Count_Person_65To74Years",
-          "Count_Person_75OrMoreYears"
+          "Count_Person_75OrMoreYears",
+          "Count_Person_Upto9Years"
         ],
         "gender": [
           "Count_Person_Female",
@@ -2144,6 +2150,14 @@
           "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
           "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
           "Count_Person_NotHispanicOrLatino_AsianAlone"
+        ]
+      },
+      "Count_Person_18To24Years": {
+        "placeOfBirth": [
+          "Count_Person_18To24Years_BornInOtherStateInTheUnitedStates",
+          "Count_Person_18To24Years_BornInStateOfResidence",
+          "Count_Person_18To24Years_ForeignBorn",
+          "Count_Person_18To24Years_NativeBornOutsideTheUnitedStates"
         ]
       },
       "Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome": {
