@@ -57,8 +57,6 @@ const BARD_ALLOWED_CHARTS = new Set(["LINE", "BAR", "RANKING", "SCATTER"]);
 const DC_URL_ROOT = "https://datacommons.org/explore#q=";
 // Detector to use when handling nl queries
 const QUERY_DETECTOR = "heuristic";
-// default index to use when handling nl queries
-const DEFAULT_QUERY_IDX = "base_uae_mem";
 // Number of related questions to return
 const NUM_RELATED_QUESTIONS = 6;
 
@@ -290,12 +288,23 @@ export async function getQueryResult(
   // Get the nl detect-and-fulfill result for the query
   // TODO: only generate related things when we need to generate related question
   let nlResp = null;
-  const queryIdx = idx || DEFAULT_QUERY_IDX;
+  let url = `${apiRoot}/api/explore/detect-and-fulfill?q=${query}&detector=${QUERY_DETECTOR}`;
+  const params = {
+    mode,
+    client,
+    varThreshold,
+    idx,
+  };
+  Object.keys(params)
+    .sort()
+    .forEach((urlKey) => {
+      if (!params[urlKey]) {
+        return;
+      }
+      url += `&${urlKey}=${params[urlKey]}`;
+    });
   try {
-    nlResp = await axios.post(
-      `${apiRoot}/api/explore/detect-and-fulfill?q=${query}&mode=${mode}&client=${client}&detector=${QUERY_DETECTOR}&varThreshold=${varThreshold}&idx=${queryIdx}`,
-      {}
-    );
+    nlResp = await axios.post(url, {});
   } catch (e) {
     console.error("Error making request:\n", e.message);
     return { err: "Error fetching data." };
