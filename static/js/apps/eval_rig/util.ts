@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+const httpPattern = /https:\/\/[^\s]+/g;
+
 export const processText = (text: string): string => {
   // If "Answer" is in the text, remove it
   let processedText = text.replace("Answer:", "");
@@ -40,8 +42,6 @@ export const processText = (text: string): string => {
       return `<span class="annotation annotation-${callId}">${innerHtml}</span>`;
     }
   );
-  // Format the links
-  const httpPattern = /https:\/\/[^\s]+/g;
   // Replace each link with the desired HTML format
   return processedText.replace(
     httpPattern,
