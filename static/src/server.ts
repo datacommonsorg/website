@@ -306,7 +306,9 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
   const client = (req.query.client as string) || BARD_CLIENT_URL_PARAM;
   const mode = (req.query.mode as string) || "";
   const varThreshold = (req.query.varThreshold as string) || "";
-  const wantRelatedQuestions = req.query.relatedQ === URL_PARAM_VALUE_TRUTHY;
+  const wantRelatedQuestions =
+    req.query.relatedQuestions === URL_PARAM_VALUE_TRUTHY;
+  const idx = (req.query.idx as string) || "";
   getQueryResult(
     query,
     useChartUrl,
@@ -317,7 +319,8 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
     client,
     mode,
     varThreshold,
-    wantRelatedQuestions
+    wantRelatedQuestions,
+    idx
   ).then((result) => {
     res.setHeader("Content-Type", "application/json");
     if (result.err) {
