@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,17 +13,17 @@
 # limitations under the License.
 
 substitutions:
-  _VERS: "2024-01-29"
+  _VERS: "2024-06-08"
 
 steps:
   - name: "gcr.io/cloud-builders/docker"
     args:
       - build
       - "--build-arg=VERS=${_VERS}"
-      - --tag=gcr.io/datcom-ci/python-node-go-protoc-envoy:${_VERS}
-      - --tag=gcr.io/datcom-ci/python-node-go-protoc-envoy:latest
+      - --tag=gcr.io/datcom-ci/python-node-go-protoc-envoy-gcloud:${_VERS}
+      - --tag=gcr.io/datcom-ci/python-node-go-protoc-envoy-gcloud:latest
       - "."
 
 images:
-  - "gcr.io/datcom-ci/python-node-go-protoc-envoy:${_VERS}"
-  - "gcr.io/datcom-ci/python-node-go-protoc-envoy:latest"
+  - "gcr.io/datcom-ci/python-node-go-protoc-envoy-gcloud:${_VERS}"
+  - "gcr.io/datcom-ci/python-node-go-protoc-envoy-gcloud:latest"
