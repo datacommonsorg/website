@@ -128,8 +128,13 @@ export interface MapTilePropType {
   sources?: string[];
   // Optional: listen for property value changes with this event name
   subscribe?: string;
-  // Optional: only load this component when it enters the viewport
+  // Optional: Only load this component when it enters the viewport
   lazyLoad?: boolean;
+  /**
+   * Optional: If lazy loading is enabled, load the component when it is within
+   * this margin of the viewport. Default: "0px"
+   */
+  lazyLoadMargin?: string;
 }
 
 // Api responses associated with a single layer of the map
@@ -194,7 +199,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
   const [isLoading, setIsLoading] = useState(true);
   const [svgHeight, setSvgHeight] = useState(null);
   const [dateOverride, setDateOverride] = useState(null);
-  const { shouldLoad, containerRef } = useLazyLoad("0px");
+  const { shouldLoad, containerRef } = useLazyLoad(props.lazyLoadMargin);
   const zoomParams = props.allowZoom
     ? {
         zoomInButtonId: `${ZOOM_IN_BUTTON_ID}-${props.id}`,

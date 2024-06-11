@@ -74,6 +74,11 @@ interface BivariateTilePropType {
   apiRoot?: string;
   // Optional: only load this component when it's near the viewport
   lazyLoad?: boolean;
+  /**
+   * Optional: If lazy loading is enabled, load the component when it is within
+   * this margin of the viewport. Default: "0px"
+   */
+  lazyLoadMargin?: string;
 }
 
 interface RawData {
@@ -102,7 +107,7 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
   const [bivariateChartData, setBivariateChartData] = useState<
     BivariateChartData | undefined
   >(null);
-  const { shouldLoad, containerRef } = useLazyLoad();
+  const { shouldLoad, containerRef } = useLazyLoad(props.lazyLoadMargin);
   useEffect(() => {
     if (props.lazyLoad && !shouldLoad) {
       return;

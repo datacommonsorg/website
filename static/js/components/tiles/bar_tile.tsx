@@ -98,6 +98,11 @@ interface BarTileSpecificSpec {
   yAxisMargin?: number;
   // Optional: only load this component when it's near the viewport
   lazyLoad?: boolean;
+  /**
+   * Optional: If lazy loading is enabled, load the component when it is within
+   * this margin of the viewport. Default: "0px"
+   */
+  lazyLoadMargin?: string;
 }
 
 export type BarTilePropType = MultiOrContainedInPlaceMultiVariableTileType &
@@ -122,7 +127,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
     null
   );
   const [isLoading, setIsLoading] = useState(true);
-  const { shouldLoad, containerRef } = useLazyLoad();
+  const { shouldLoad, containerRef } = useLazyLoad(props.lazyLoadMargin);
   useEffect(() => {
     if (props.lazyLoad && !shouldLoad) {
       return;

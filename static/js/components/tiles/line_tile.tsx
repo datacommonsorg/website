@@ -105,6 +105,11 @@ export interface LineTilePropType {
   sources?: string[];
   // Optional: only load this component when it's near the viewport
   lazyLoad?: boolean;
+  /**
+   * Optional: If lazy loading is enabled, load the component when it is within
+   * this margin of the viewport. Default: "0px"
+   */
+  lazyLoadMargin?: string;
 }
 
 export interface LineChartData {
@@ -120,7 +125,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
   const svgContainer = useRef(null);
   const [chartData, setChartData] = useState<LineChartData | undefined>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const { shouldLoad, containerRef } = useLazyLoad();
+  const { shouldLoad, containerRef } = useLazyLoad(props.lazyLoadMargin);
   useEffect(() => {
     if (props.lazyLoad && !shouldLoad) {
       return;

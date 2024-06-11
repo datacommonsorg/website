@@ -69,6 +69,13 @@ import { ScatterTile } from "../tiles/scatter_tile";
 import { Column } from "./column";
 import { StatVarProvider } from "./stat_var_provider";
 
+// Lazy load tiles (except map) when they are within 1000px of the viewport
+const EXPLORE_LAZY_LOAD_MARGIN = "1000px";
+
+// Lazy load the map tile can be slow, so only load when it directly overlaps
+// the viewport
+const EXPLORE_LAZY_LOAD_MARGIN_MAP = "0px";
+
 /**
  * Translates the line tile's timeScale enum to the TimeScaleOption type
  */
@@ -434,6 +441,7 @@ function renderTiles(
             key={id}
             id={id}
             lazyLoad={true}
+            lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN_MAP}
             title={title}
             subtitle={tile.subtitle}
             place={place}
@@ -464,6 +472,7 @@ function renderTiles(
             key={id}
             id={id}
             lazyLoad={true}
+            lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN}
             title={title}
             subtitle={tile.subtitle}
             place={place}
@@ -495,6 +504,7 @@ function renderTiles(
             key={id}
             id={id}
             lazyLoad={true}
+            lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN}
             title={title}
             parentPlace={place.dcid}
             enclosedPlaceType={enclosedPlaceType}
@@ -527,6 +537,7 @@ function renderTiles(
             id={id}
             key={id}
             lazyLoad={true}
+            lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN}
             maxPlaces={tile.barTileSpec?.maxPlaces}
             maxVariables={tile.barTileSpec?.maxVariables}
             parentPlace={place.dcid}
@@ -565,6 +576,7 @@ function renderTiles(
             key={id}
             id={id}
             lazyLoad={true}
+            lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN}
             title={title}
             subtitle={tile.subtitle}
             place={place}
@@ -595,6 +607,7 @@ function renderTiles(
             key={id}
             id={id}
             lazyLoad={true}
+            lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN}
             title={title}
             place={place}
             enclosedPlaceType={enclosedPlaceType}
@@ -613,6 +626,7 @@ function renderTiles(
             key={id}
             id={id}
             lazyLoad={true}
+            lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN}
             place={place}
             /* "min: 0" value are stripped out when loading text protobufs, so add them back in here */
             range={{
@@ -635,6 +649,7 @@ function renderTiles(
             footnote={props.footnote}
             id={id}
             lazyLoad={true}
+            lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN}
             key={`${id}-2`}
             pie={tile.donutTileSpec?.pie}
             place={place}

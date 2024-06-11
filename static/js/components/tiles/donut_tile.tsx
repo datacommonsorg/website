@@ -77,6 +77,11 @@ export interface DonutTilePropType {
   sources?: string[];
   // Optional: only load this component when it's near the viewport
   lazyLoad?: boolean;
+  /**
+   * Optional: If lazy loading is enabled, load the component when it is within
+   * this margin of the viewport. Default: "0px"
+   */
+  lazyLoadMargin?: string;
 }
 
 interface DonutChartData {
@@ -92,7 +97,7 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
   const [donutChartData, setDonutChartData] = useState<
     DonutChartData | undefined
   >(null);
-  const { shouldLoad, containerRef } = useLazyLoad();
+  const { shouldLoad, containerRef } = useLazyLoad(props.lazyLoadMargin);
   useEffect(() => {
     if (props.lazyLoad && !shouldLoad) {
       return;
