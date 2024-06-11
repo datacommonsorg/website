@@ -255,7 +255,7 @@ class TestBrowser(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(loading_finished)
     first_result = self.driver.find_element(
         By.XPATH,
-        '//*[@id="stat-var-hierarchy-section"]/div[1]/div[1]/div[1]/div/div[2]/div[1]'
+        '//*[@id="stat-var-hierarchy-section"]//div[contains(@class, "statvar-hierarchy-search-results")]/div[2]/div[1]'
     )
     first_result.click()
 
