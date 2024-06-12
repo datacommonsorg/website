@@ -55,6 +55,7 @@ nl:
       - medium_ft
       - sdg_ft
       - undata_ft
+      - base_uae_mem
     vertex_ai_models:
       uae-large-v1-model:
         project_id: datcom-nl
