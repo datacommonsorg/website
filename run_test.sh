@@ -138,7 +138,7 @@ function run_webdriver_test {
   fi
   export FLASK_ENV=webdriver
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
-  python3 -m pytest -n 10 --reruns 2 server/webdriver/tests/ ${@}
+  python3 -m pytest -n 5 --reruns 2 server/webdriver/tests/ ${@}
   deactivate
 }
 

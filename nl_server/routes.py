@@ -96,7 +96,7 @@ def search_vars():
 
   embeddings = _get_indexes(reg, idx_types)
 
-  debug_logs = {'sv_detection_query_index_type': idx_types}
+  debug_logs = {'sv_detection_query_index_types': idx_types}
   results = search.search_vars(embeddings, queries, skip_topics, reranker_model,
                                debug_logs)
   q2result = {q: var_candidates_to_dict(result) for q, result in results.items()}

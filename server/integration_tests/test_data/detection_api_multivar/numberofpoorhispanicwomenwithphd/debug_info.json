@@ -87,7 +87,7 @@
             {
               "CosineScore": [
                 0.8318253755569458,
-                0.8029918670654297
+                0.8029919862747192
               ],
               "QueryPart": "women phd",
               "SV": [
@@ -137,7 +137,7 @@
           "Parts": [
             {
               "CosineScore": [
-                0.7890845537185669
+                0.7890843152999878
               ],
               "QueryPart": "number poor",
               "SV": [
@@ -146,10 +146,10 @@
             },
             {
               "CosineScore": [
-                0.815150260925293,
-                0.7885990142822266,
+                0.8151501417160034,
+                0.7885989546775818,
                 0.7775551080703735,
-                0.7752050757408142
+                0.7752050161361694
               ],
               "QueryPart": "hispanic women phd",
               "SV": [
@@ -224,7 +224,9 @@
     "place_resolution": "Place resolution did not trigger (no place dcids found).",
     "places_found_str": [],
     "query_transformations": {
-      "sv_detection_query_index_type": ""
+      "sv_detection_query_index_types": [
+        ""
+      ]
     }
   }
 }

@@ -113,7 +113,7 @@
     "query_transformations": {
       "place_detection_input": "What types of genes are FGFR1, APOE, and ACHE",
       "place_detection_with_places_removed": "what types of genes are and",
-      "sv_detection_query_index_type": [
+      "sv_detection_query_index_types": [
         "bio_ft"
       ],
       "sv_detection_query_input": "what types of genes are and",
