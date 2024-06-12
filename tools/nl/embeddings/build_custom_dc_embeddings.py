@@ -35,28 +35,28 @@ from tools.nl.embeddings import utils
 
 FLAGS = flags.FLAGS
 
-flags.DEFINE_string("sv_sentences_csv_path", None,
-                    "Path to the custom DC SV sentences path.")
+flags.DEFINE_string("input_file_path", None, "Path to the SV sentences path.")
 flags.DEFINE_string(
     "output_dir", None,
     "Output directory where the generated embeddings will be saved.")
 
-EMBEDDINGS_FILE_NAME = "embeddings.yaml"
+EMBEDDINGS_FILE_NAME = "embeddings.csv"
 CATALOG_FILE_NAME = "custom_catalog.yaml"
 DEFAULT_EMBEDDINGS_INDEX_TYPE = "medium_ft"
 
 
 class FileManager(object):
 
-  def __init__(self, input_csv_path: str, output_dir: str):
-    self.input_csv_path = input_csv_path
+  def __init__(self, input_file_path: str, output_dir: str):
+    self.input_file_path = input_file_path
     self.output_dir = output_dir
     self.local_dir = tempfile.mkdtemp()
-    if gcs.is_gcs_path(input_csv_path):
-      self.local_csv_path = os.path.join(self.local_dir, 'sv_sentences.csv')
-      gcs.download_blob_by_path(input_csv_path, self.local_csv_path)
+    if gcs.is_gcs_path(input_file_path):
+      self.local_input_file_path = os.path.join(self.local_dir,
+                                                'sv_sentences.csv')
+      gcs.download_blob_by_path(input_file_path, self.local_input_file_path)
     else:
-      self.local_csv_path = input_csv_path
+      self.local_input_file_path = input_file_path
 
     self.local_embeddings_path = os.path.join(self.local_dir,
                                               EMBEDDINGS_FILE_NAME)
@@ -123,7 +123,7 @@ def build(model: EmbeddingsModel, local_csv_path: str,
 
 
 def main(_):
-  assert FLAGS.sv_sentences_csv_path
+  assert FLAGS.input_file_path
   assert FLAGS.output_dir
 
   # Prepare the model
@@ -139,8 +139,9 @@ def main(_):
   model = registry.create_model(model_config)
 
   # Build the embeddings
-  file_manager = FileManager(FLAGS.sv_sentences_csv_path, FLAGS.output_dir)
-  build(model, file_manager.local_csv_path, file_manager.local_embeddings_path)
+  file_manager = FileManager(FLAGS.input_file_path, FLAGS.output_dir)
+  build(model, file_manager.local_input_file_path,
+        file_manager.local_embeddings_path)
   file_manager.save_output()
 
   # Do custom DC specific stuff
