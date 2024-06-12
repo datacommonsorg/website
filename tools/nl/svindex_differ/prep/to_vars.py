@@ -30,7 +30,7 @@ _ALL_STOP_WORDS = shared_utils.combine_stop_words()
 
 
 def _url():
-  return f'{FLAGS.endpoint}/api/nl/data?q='
+  return f'{FLAGS.endpoint}/api/explore/detect?q='
 
 
 def clean_vars(query_file, output_file):

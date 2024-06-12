@@ -96,53 +96,8 @@
                     "statVarKey": [
                       "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
                     ],
-                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Massachusetts",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Massachusetts",
-                    "statVarKey": [
-                      "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
-                    ],
-                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Massachusetts",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "startWithDenom": true,
-            "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
-                    ],
                     "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of Massachusetts (${date})",
                     "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
-                    ],
-                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of Massachusetts (${date})",
-                    "type": "RANKING"
                   }
                 ]
               }
