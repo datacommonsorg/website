@@ -224,7 +224,7 @@
     "query_transformations": {
       "place_detection_input": "how are factors like obesity, blood pressure and asthma impacted by climate change",
       "place_detection_with_places_removed": "how are factors like obesity , blood pressure and asthma impacted by climate change",
-      "sv_detection_query_index_type": [
+      "sv_detection_query_index_types": [
         "base_uae_mem"
       ],
       "sv_detection_query_input": "how are factors like obesity , blood pressure and asthma impacted by climate change",
