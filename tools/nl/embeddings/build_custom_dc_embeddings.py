@@ -52,10 +52,12 @@ class FileManager(object):
     self.input_csv_path = input_csv_path
     self.output_dir = output_dir
     self.local_dir = tempfile.mkdtemp()
-    self.local_csv_path = input_csv_path
     if gcs.is_gcs_path(input_csv_path):
       self.local_csv_path = os.path.join(self.local_dir, 'sv_sentences.csv')
       gcs.download_blob_by_path(input_csv_path, self.local_csv_path)
+    else:
+      self.local_csv_path = input_csv_path
+
     self.local_embeddings_path = os.path.join(self.local_dir,
                                               EMBEDDINGS_FILE_NAME)
     self.final_embeddings_path = os.path.join(output_dir, EMBEDDINGS_FILE_NAME)
