@@ -190,11 +190,7 @@ export function getSeries(
     params["facetIds"] = facetIds;
   }
   return axios
-    .post(`${apiRoot || ""}/api/observations/series`, {
-      entities,
-      variables,
-      facetIds,
-    })
+    .post(`${apiRoot || ""}/api/observations/series`, params)
     .then((resp) => resp.data);
 }
 
