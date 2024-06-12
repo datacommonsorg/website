@@ -31,6 +31,7 @@ import { GeoJsonData } from "../../chart/types";
 import { URL_PATH } from "../../constants/app/visualization_constants";
 import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { USA_PLACE_DCID } from "../../shared/constants";
+import { useLazyLoad } from "../../shared/hooks";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { getStatWithinPlace } from "../../tools/scatter/util";
@@ -71,6 +72,13 @@ interface BivariateTilePropType {
   showExploreMore?: boolean;
   // API root
   apiRoot?: string;
+  // Optional: only load this component when it's near the viewport
+  lazyLoad?: boolean;
+  /**
+   * Optional: If lazy loading is enabled, load the component when it is within
+   * this margin of the viewport. Default: "0px"
+   */
+  lazyLoadMargin?: string;
 }
 
 interface RawData {
@@ -99,15 +107,18 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
   const [bivariateChartData, setBivariateChartData] = useState<
     BivariateChartData | undefined
   >(null);
-
+  const { shouldLoad, containerRef } = useLazyLoad(props.lazyLoadMargin);
   useEffect(() => {
+    if (props.lazyLoad && !shouldLoad) {
+      return;
+    }
     if (!bivariateChartData || !_.isEqual(bivariateChartData.props, props)) {
       (async () => {
         const data = await fetchData(props);
         setBivariateChartData(data);
       })();
     }
-  }, [props, bivariateChartData]);
+  }, [props, bivariateChartData, shouldLoad]);
 
   const drawFn = useCallback(() => {
     if (_.isEmpty(bivariateChartData)) {
@@ -135,6 +146,7 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       hasErrorMsg={bivariateChartData && !!bivariateChartData.errorMsg}
       statVarSpecs={props.statVarSpec}
+      forwardRef={containerRef}
     >
       <div
         id={props.id}

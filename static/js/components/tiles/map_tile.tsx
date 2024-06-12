@@ -42,7 +42,7 @@ import { GeoJsonData } from "../../chart/types";
 import { URL_PATH } from "../../constants/app/visualization_constants";
 import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { USA_PLACE_DCID } from "../../shared/constants";
-import useLazyLoad from "../../shared/hooks";
+import { useLazyLoad } from "../../shared/hooks";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import {
   DataPointMetadata,
@@ -128,8 +128,13 @@ export interface MapTilePropType {
   sources?: string[];
   // Optional: listen for property value changes with this event name
   subscribe?: string;
-  // Optional: only load the component when it enters the viewport
+  // Optional: Only load this component when it enters the viewport
   lazyLoad?: boolean;
+  /**
+   * Optional: If lazy loading is enabled, load the component when it is within
+   * this margin of the viewport. Default: "0px"
+   */
+  lazyLoadMargin?: string;
 }
 
 // Api responses associated with a single layer of the map
@@ -194,7 +199,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
   const [isLoading, setIsLoading] = useState(true);
   const [svgHeight, setSvgHeight] = useState(null);
   const [dateOverride, setDateOverride] = useState(null);
-  const { shouldLoad, containerRef } = useLazyLoad();
+  const { shouldLoad, containerRef } = useLazyLoad(props.lazyLoadMargin);
   const zoomParams = props.allowZoom
     ? {
         zoomInButtonId: `${ZOOM_IN_BUTTON_ID}-${props.id}`,
@@ -216,6 +221,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
     ) {
       (async () => {
         try {
+          setIsLoading(true);
           const data = await fetchData(props, dateOverride);
           if (
             data &&
