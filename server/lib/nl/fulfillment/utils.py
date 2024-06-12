@@ -272,7 +272,7 @@ def get_places_as_string(places: List[str]) -> str:
 
 
 def get_max_ans_places(places: List[Place], uttr: Utterance) -> List[Place]:
-  if uttr.mode == params.QueryMode.TOOLFORMER_TABLE:
+  if uttr.mode == params.QueryMode.TOOLFORMER_RAG:
     # In toolformer table mode there is very large limit.
     return places[:constants.ABSOLUTE_MAX_PLACES_FOR_TABLES]
 

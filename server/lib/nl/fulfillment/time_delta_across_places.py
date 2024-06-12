@@ -54,7 +54,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
         'time-delta-across-places_failed_cb_notimedeltatypes', 1)
     return False
   if (len(chart_vars.svs) > 1 and chart_vars.is_topic_peer_group and
-      not state.uttr.mode != params.QueryMode.TOOLFORMER_TABLE):
+      not state.uttr.mode != params.QueryMode.TOOLFORMER_RAG):
     # In toolformer-table mode we process this even on peer-groups to get some
     # tables.
     state.uttr.counters.err('time-delta-across-places_failed_cb_peergroupsvs',

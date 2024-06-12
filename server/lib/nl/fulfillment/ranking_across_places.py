@@ -131,6 +131,6 @@ def _compute_answer_places(state: PopulateState, place: List[Place], sv: str):
 
 def _maybe_override_ranking_count(state: PopulateState,
                                   ranking_count: int) -> int:
-  if state.uttr == params.QueryMode.TOOLFORMER_TABLE:
+  if state.uttr == params.QueryMode.TOOLFORMER_RAG:
     return constants.ABSOLUTE_MAX_PLACES_FOR_TABLES
   return ranking_count

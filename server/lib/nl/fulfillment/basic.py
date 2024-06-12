@@ -63,13 +63,15 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
                             [p.dcid for p in places])
     return False
 
-  if (chart_vars.source_topic != PROJECTED_TEMP_TOPIC and
-      not params.is_toolformer_mode(state.uttr.mode)):
-    return _populate_explore(state, chart_vars, places, chart_origin, rank)
-  else:
-    # This could be toolformer mode where we return focussed charts based
-    # on query.
+  if (chart_vars.source_topic == PROJECTED_TEMP_TOPIC or
+      params.is_toolformer_mode(state.uttr.mode)):
+    # PROJECTED_TEMP_TOPIC has some very custom handling in config-builder,
+    # that needs to be deprecated.
+    # For toolformer mode, where we return focussed charts based
+    # on query, additional charts are not very useful.
     return _populate_specific(state, chart_vars, places, chart_origin, rank)
+  else:
+    return _populate_explore(state, chart_vars, places, chart_origin, rank)
 
 
 def _populate_explore(state: PopulateState, chart_vars: ChartVars,

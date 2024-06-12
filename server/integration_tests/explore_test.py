@@ -720,19 +720,19 @@ class ExploreTestEE2(ExploreTest):
             'Native born vs. Median income in Sunnyvale',
         ])
 
-  def test_e2e_toolformer_point_mode(self):
+  def test_e2e_toolformer_rig_mode(self):
     self.run_detect_and_fulfill(
-        'e2e_toolformer_mode',
+        'e2e_toolformer_rig_mode',
         ['what is the infant mortality rate in massachusetts'],
-        mode='toolformer_point')
+        mode='toolformer_rig')
 
-  def test_e2e_toolformer_table_mode(self):
+  def test_e2e_toolformer_rag_mode(self):
     # The answer places (states) would typically be truncated to 10, but here
     # we should all the 50+ states.
     self.run_detect_and_fulfill(
-        'e2e_toolformer_table_mode',
+        'e2e_toolformer_rag_mode',
         ['how has life expectancy changed over time across US states?'],
-        mode='toolformer_table')
+        mode='toolformer_rag')
 
   def test_e2e_triple(self):
     self.run_detect_and_fulfill(
