@@ -120,7 +120,7 @@
     "query_transformations": {
       "place_detection_input": "What is the phylum of volvox",
       "place_detection_with_places_removed": "what is the phylum of",
-      "sv_detection_query_index_type": [
+      "sv_detection_query_index_types": [
         "bio_ft"
       ],
       "sv_detection_query_input": "what is the phylum of",
