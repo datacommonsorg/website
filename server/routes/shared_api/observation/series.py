@@ -71,8 +71,8 @@ def series():
 @cache.cached(timeout=TIMEOUT, query_string=True)
 def series_all():
   """Handler to get all the time series given multiple stat vars and places."""
-  entities = list(filter(lambda x: x != "", request.args.getlist('entities')))
-  variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
+  entities = _get_filtered_arg_list(request.args.getlist('entities'))
+  variables = _get_filtered_arg_list(request.args.getlist('variables'))
   if not entities:
     return 'error: must provide a `entities` field', 400
   if not variables:
@@ -96,11 +96,11 @@ def series_within():
   if not child_type:
     return 'error: must provide a `childType` field', 400
 
-  variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
+  variables = _get_filtered_arg_list(request.args.getlist('variables'))
   if not variables:
     return 'error: must provide a `variables` field', 400
 
-  facet_ids = list(filter(lambda x: x != "", request.args.getlist('facetIds')))
+  facet_ids = _get_filtered_arg_list(request.args.getlist('facetIds'))
 
   # Make batched calls there are too many child places for server to handle
   # Mixer checks num_places * num_variables and stop processing if the number is
@@ -139,7 +139,7 @@ def series_within_all():
   if not child_type:
     return 'error: must provide a `childType` field', 400
 
-  variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
+  variables = _get_filtered_arg_list(request.args.getlist('variables'))
   if not variables:
     return 'error: must provide a `variables` field', 400
 
