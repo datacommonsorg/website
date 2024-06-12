@@ -21,4 +21,5 @@ source .env/bin/activate
 pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu -q
 pip3 install -r tools/nl/embeddings/requirements.txt -q
 
+export TOKENIZERS_PARALLELISM=false
 python3 -m tools.nl.embeddings.build_custom_dc_embeddings "$@"

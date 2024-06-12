@@ -23,7 +23,6 @@ To use a different model version, specify the `--model-version` flag.
 
 ```bash
 ./run_custom.sh \
---model_version=ft_final_v20230717230459.all-MiniLM-L6-v2 \
 --sv_sentences_csv_path=$PWD/testdata/custom_dc/input/dcids_sentences.csv \
 --output_dir=/tmp
 ```
