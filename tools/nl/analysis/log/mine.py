@@ -136,7 +136,7 @@ def _write_all_rows(key, data, env, out_rows):
     detection = _midx(ditem, ['debug', 'detection_type'])
     index = _midx(ditem, [
         'debug', 'query_detection_debug_logs', 'query_transformations',
-        'sv_detection_query_index_type'
+        'sv_detection_query_index_types'
     ])
     output_row = {
         'Time': time,
@@ -200,7 +200,7 @@ def _write_feedback_rows(key, data, env, out_rows):
     detection = _midx(ditem, ['debug', 'detection_type'])
     index = _midx(ditem, [
         'debug', 'query_detection_debug_logs', 'query_transformations',
-        'sv_detection_query_index_type'
+        'sv_detection_query_index_types'
     ])
     output_row = {
         'Time':

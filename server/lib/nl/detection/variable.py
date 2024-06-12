@@ -77,7 +77,7 @@ def detect_vars(orig_query: str, debug_logs: Dict,
   # 2. Lookup embeddings with both single-var and multi-var queries.
   #
   # Make API call to the NL models/embeddings server.
-  skip_topics = dargs.mode == params.QueryMode.TOOLFORMER
+  skip_topics = dargs.mode == params.QueryMode.TOOLFORMER_RIG
   resp = dc.nl_search_vars(all_queries, dargs.embeddings_index_type,
                            skip_topics, dargs.reranker)
   query2results = {

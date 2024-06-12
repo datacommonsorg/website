@@ -25,6 +25,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { DataGroup, DataPoint } from "../../chart/base";
 import { drawDonutChart } from "../../chart/draw_donut";
 import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
+import { useLazyLoad } from "../../shared/hooks";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { RankingPoint } from "../../types/ranking_unit_types";
@@ -74,6 +75,13 @@ export interface DonutTilePropType {
   subtitle?: string;
   // Optional: Override sources for this tile
   sources?: string[];
+  // Optional: only load this component when it's near the viewport
+  lazyLoad?: boolean;
+  /**
+   * Optional: If lazy loading is enabled, load the component when it is within
+   * this margin of the viewport. Default: "0px"
+   */
+  lazyLoadMargin?: string;
 }
 
 interface DonutChartData {
@@ -89,15 +97,18 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
   const [donutChartData, setDonutChartData] = useState<
     DonutChartData | undefined
   >(null);
-
+  const { shouldLoad, containerRef } = useLazyLoad(props.lazyLoadMargin);
   useEffect(() => {
+    if (props.lazyLoad && !shouldLoad) {
+      return;
+    }
     if (!donutChartData) {
       (async () => {
         const data = await fetchData(props);
         setDonutChartData(data);
       })();
     }
-  }, [props, donutChartData]);
+  }, [props, donutChartData, shouldLoad]);
 
   const drawFn = useCallback(() => {
     if (_.isEmpty(donutChartData)) {
@@ -122,6 +133,7 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
       isInitialLoading={_.isNull(donutChartData)}
       hasErrorMsg={donutChartData && !!donutChartData.errorMsg}
       footnote={props.footnote}
+      forwardRef={containerRef}
       statVarSpecs={props.statVarSpec}
     >
       <div

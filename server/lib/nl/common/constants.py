@@ -842,6 +842,9 @@ SV_BLOCKS_MAP = {
 # Max number of answer places
 MAX_ANSWER_PLACES = 10
 
+# This is used in TOOLFORMER_TABLE mode.  Set to allow "counties in US".
+ABSOLUTE_MAX_PLACES_FOR_TABLES = 3250
+
 ROOT_TOPIC = 'dc/topic/Root'
 
 PROJECTED_TEMP_TOPIC = 'dc/topic/ProjectedClimateExtremes'

@@ -18,13 +18,13 @@
  * Component for rendering one question (with radio buttons)
  */
 
-import React, { ChangeEvent } from "react";
+import React, { FormEvent } from "react";
 
 interface OneQuestionProps {
   name: string;
   question: string;
   options: Record<string, string>; // Map from ENUM to displayed string
-  handleChange: (event: ChangeEvent) => void;
+  handleChange: (event: FormEvent<HTMLInputElement>) => void;
   responseField: string;
   disabled: boolean;
 }

@@ -25,6 +25,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { drawGaugeChart } from "../../chart/draw_gauge";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
+import { useLazyLoad } from "../../shared/hooks";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { getPoint, getSeries } from "../../utils/data_fetch_utils";
 import {
@@ -65,6 +66,13 @@ export interface GaugeTilePropType {
   subtitle?: string;
   // Optional: Override sources for this tile
   sources?: string[];
+  // Optional: only load this component when it's near the viewport
+  lazyLoad?: boolean;
+  /**
+   * Optional: If lazy loading is enabled, load the component when it is within
+   * this margin of the viewport. Default: "0px"
+   */
+  lazyLoadMargin?: string;
 }
 
 export interface GaugeChartData {
@@ -84,8 +92,11 @@ export interface GaugeChartData {
 export function GaugeTile(props: GaugeTilePropType): JSX.Element {
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const [gaugeData, setGaugeData] = useState<GaugeChartData | undefined>(null);
-
+  const { shouldLoad, containerRef } = useLazyLoad(props.lazyLoadMargin);
   useEffect(() => {
+    if (props.lazyLoad && !shouldLoad) {
+      return;
+    }
     // fetch data
     if (!gaugeData || !_.isEqual(gaugeData.props, props)) {
       (async () => {
@@ -93,7 +104,7 @@ export function GaugeTile(props: GaugeTilePropType): JSX.Element {
         setGaugeData(data);
       })();
     }
-  }, [props, gaugeData]);
+  }, [props, gaugeData, shouldLoad]);
 
   const drawFn = useCallback(() => {
     // draw if data is available
@@ -125,6 +136,7 @@ export function GaugeTile(props: GaugeTilePropType): JSX.Element {
       hasErrorMsg={gaugeData && !!gaugeData.errorMsg}
       footnote={props.footnote}
       statVarSpecs={[props.statVarSpec]}
+      forwardRef={containerRef}
     >
       <div
         className={`svg-container ${ASYNC_ELEMENT_HOLDER_CLASS}`}

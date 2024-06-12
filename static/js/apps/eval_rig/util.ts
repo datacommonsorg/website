@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
+const httpPattern = /https:\/\/[^\s]+/g;
+
 export const processText = (text: string): string => {
   // If "Answer" is in the text, remove it
   let processedText = text.replace("Answer:", "");
   // If "FOOTNOTES" in all caps is in the text, convert it to lower case
   processedText = processedText.replace("FOOTNOTES", "Footnotes");
-  return processedText.replace(
+  processedText = processedText.replace(
     // Replace [__DC__#1(dc stat text||llm stat text)] to
     // dc stat text||llm stat text with html and css annotations.
     /\[\s*__DC__#(\d+)\((.*?)\)\]/g,
@@ -39,5 +41,10 @@ export const processText = (text: string): string => {
       innerHtml += `<span class="llm-stat">${llmStat || "&nbsp;&nbsp;"}</span>`;
       return `<span class="annotation annotation-${callId}">${innerHtml}</span>`;
     }
+  );
+  // Replace each link with the desired HTML format
+  return processedText.replace(
+    httpPattern,
+    (match) => `<a href="${match}" target="_blank">Explore Page</a><br> `
   );
 };

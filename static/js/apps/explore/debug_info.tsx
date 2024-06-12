@@ -198,7 +198,7 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
     entitiesResolved: props.debugData["entities_resolved"] || [],
     mainPlaceDCID: props.debugData["main_place_dcid"],
     mainPlaceName: props.debugData["main_place_name"],
-    queryIndexType: props.debugData["query_index_type"],
+    queryIndexTypes: props.debugData["query_index_types"],
     queryWithoutPlaces: props.debugData["query_with_places_removed"],
     queryWithoutStopWords: props.debugData["query_with_stop_words_removal"],
     queryDetectionDebugLogs: props.debugData["query_detection_debug_logs"],
@@ -262,8 +262,10 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             <span className="highlight">{debugInfo.blocked.toString()}</span>
           </Row>
           <Row>
-            <b>Query index type: </b>
-            <span className="highlight">{debugInfo.queryIndexType}</span>
+            <b>Query index types: </b>
+            <span className="highlight">
+              {debugInfo.queryIndexTypes.join(", ")}
+            </span>
           </Row>
           <Row>
             <b>Query without places: </b>

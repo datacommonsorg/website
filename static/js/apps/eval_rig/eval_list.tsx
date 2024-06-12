@@ -50,18 +50,12 @@ export function EvalList(): JSX.Element {
     );
     const queryCompletionStatus = {};
     Promise.all([callCountPromises, queryFeedbackPromises])
-      .then(([callCountResults, queryFeedbackResults]) => {
+      .then(([callCountResults]) => {
         orderedQueries.forEach((query, i) => {
-          // If a query is marked as hallucination, it won't have any feedback
-          // on its calls and is considered completed.
-          if (queryFeedbackResults[i] === "LLM_ANSWER_HALLUCINATION") {
-            queryCompletionStatus[query.id] = true;
-          } else {
-            // A query might not have any calls.
-            const calls = allCall[query.id] || {};
-            const completed = callCountResults[i] === Object.keys(calls).length;
-            queryCompletionStatus[query.id] = completed;
-          }
+          // A query might not have any calls.
+          const calls = allCall[query.id] || {};
+          const completed = callCountResults[i] === Object.keys(calls).length;
+          queryCompletionStatus[query.id] = completed;
         });
         setQueryCompletionStatus(queryCompletionStatus);
       })

@@ -98,7 +98,10 @@ def merge_vertex_ai_configs(m: ModelConfig,
   return VertexAIModelConfig(**merged)
 
 
-def read_catalog() -> Catalog:
+# TODO: should accept a list of catalog paths because custom DC path won't be
+# constant. i.e., we want this function to be:
+# read_catalog(catalog_paths: [] = DEFAULT_PATHS, catalog_dict: Dict = None)
+def read_catalog(catalog_dict: Dict = None) -> Catalog:
   """
   Reads the catalog from the config files and merges them together.
 
@@ -110,32 +113,42 @@ def read_catalog() -> Catalog:
 
   Note here ${USER_DATA_PATH} could be a local path or a GCS path (gcs://)
   """
-  # Note the check order here is (somewhat) important. The later config could
-  # overwrite the earlier config.
+  partial_catalogs = []
 
-  all_paths = []
-  # Check the codebase config file
-  if os.path.exists(_CATALOG_CODE_PATH):
-    all_paths.append(_CATALOG_CODE_PATH)
-
-  # Check mounted config file
-  if os.path.exists(_CATALOG_MOUNT_PATH):
-    all_paths.append(_CATALOG_MOUNT_PATH)
-
-  # Then check user set config file
-  # TODO: make this generic and independent of custom DC.
-  # Currently this depends on the assumption of custom DC user sub path.
-  user_data_path = custom_dc_util.get_custom_dc_user_data_path()
-
-  if gcs.is_gcs_path(user_data_path):
-    full_gcs_path = os.path.join(user_data_path, _CATALOG_USER_PATH_SUFFIX)
-    local_user_catalog_path = gcs.maybe_download(full_gcs_path)
-    if local_user_catalog_path:
-      all_paths.append(local_user_catalog_path)
+  if catalog_dict:
+    partial_catalogs = [catalog_dict]
   else:
-    full_user_path = os.path.join(user_data_path, _CATALOG_USER_PATH_SUFFIX)
-    if os.path.exists(full_user_path):
-      all_paths.append(full_user_path)
+    # Note the check order here is (somewhat) important. The later config could
+    # overwrite the earlier config.
+
+    all_paths = []
+    # Check the codebase config file
+    if os.path.exists(_CATALOG_CODE_PATH):
+      all_paths.append(_CATALOG_CODE_PATH)
+
+    # Check mounted config file
+    if os.path.exists(_CATALOG_MOUNT_PATH):
+      all_paths.append(_CATALOG_MOUNT_PATH)
+
+    # Then check user set config file
+    # TODO: make this generic and independent of custom DC.
+    # Currently this depends on the assumption of custom DC user sub path.
+    user_data_path = custom_dc_util.get_custom_dc_user_data_path()
+
+    if gcs.is_gcs_path(user_data_path):
+      full_gcs_path = os.path.join(user_data_path, _CATALOG_USER_PATH_SUFFIX)
+      local_user_catalog_path = gcs.maybe_download(full_gcs_path)
+      if local_user_catalog_path:
+        all_paths.append(local_user_catalog_path)
+    else:
+      full_user_path = os.path.join(user_data_path, _CATALOG_USER_PATH_SUFFIX)
+      if os.path.exists(full_user_path):
+        all_paths.append(full_user_path)
+
+    for p in all_paths:
+      logging.info('Loading index and model catalog from: %s', p)
+      with open(p) as f:
+        partial_catalogs.append(yaml.safe_load(f.read()))
 
   # Now load and merge all the catalog config files
   catalog = Catalog(
@@ -143,50 +156,47 @@ def read_catalog() -> Catalog:
       indexes={},
       models={},
   )
-  for p in all_paths:
-    logging.info('Loading index and model catalog from: %s', p)
-    with open(p) as f:
-      partial_catalog = yaml.safe_load(f.read())
-      # read version
-      ver = catalog.version
-      this_ver = partial_catalog['version']
-      if (ver and this_ver and ver != this_ver):
-        raise ValueError(
-            f'Inconsistent version in config file {p}: {ver} and {this_ver}')
+  for partial_catalog in partial_catalogs:
+    # read version
+    ver = catalog.version
+    this_ver = partial_catalog['version']
+    if (ver and this_ver and ver != this_ver):
+      raise ValueError(
+          f'Inconsistent version in config file {p}: {ver} and {this_ver}')
 
-      if this_ver not in _SUPPORTED_VERSIONS:
-        raise ValueError(f'Unsupported version: {this_ver} in file {p}')
-      catalog.version = this_ver
+    if this_ver not in _SUPPORTED_VERSIONS:
+      raise ValueError(f'Unsupported version: {this_ver} in file {p}')
+    catalog.version = this_ver
 
-      indexes = catalog.indexes
-      models = catalog.models
+    indexes = catalog.indexes
+    models = catalog.models
 
-      # TODO: when another version is added, extract separate version read as
-      # a function.
-      if this_ver == _CONFIG_V1:
-        # read indexes
-        for index_name, index_config in partial_catalog['indexes'].items():
-          store_type = index_config['store_type']
-          match store_type:
-            case StoreType.MEMORY:
-              indexes[index_name] = MemoryIndexConfig(**index_config)
-            case StoreType.LANCEDB:
-              indexes[index_name] = LanceDBIndexConfig(**index_config)
-            case StoreType.VERTEXAI:
-              indexes[index_name] = VertexAIIndexConfig(**index_config)
-            case _:
-              raise ValueError(f'Unknown store type: {store_type}')
+    # TODO: when another version is added, extract separate version read as
+    # a function.
+    if this_ver == _CONFIG_V1:
+      # read indexes
+      for index_name, index_config in partial_catalog['indexes'].items():
+        store_type = index_config['store_type']
+        match store_type:
+          case StoreType.MEMORY:
+            indexes[index_name] = MemoryIndexConfig(**index_config)
+          case StoreType.LANCEDB:
+            indexes[index_name] = LanceDBIndexConfig(**index_config)
+          case StoreType.VERTEXAI:
+            indexes[index_name] = VertexAIIndexConfig(**index_config)
+          case _:
+            raise ValueError(f'Unknown store type: {store_type}')
 
-        # read models
-        for model_name, model_config in partial_catalog['models'].items():
-          model_type = model_config['type']
-          match model_type:
-            case ModelType.LOCAL:
-              models[model_name] = LocalModelConfig(**model_config)
-            case ModelType.VERTEXAI:
-              models[model_name] = VertexAIModelConfig(**model_config)
-            case _:
-              raise ValueError(f'Unknown model type: {model_type}')
+      # read models
+      for model_name, model_config in partial_catalog['models'].items():
+        model_type = model_config['type']
+        match model_type:
+          case ModelType.LOCAL:
+            models[model_name] = LocalModelConfig(**model_config)
+          case ModelType.VERTEXAI:
+            models[model_name] = VertexAIModelConfig(**model_config)
+          case _:
+            raise ValueError(f'Unknown model type: {model_type}')
   _log_asdict(catalog, 'NL catalog')
   return catalog
 
