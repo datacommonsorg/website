@@ -18,6 +18,7 @@ import { GoogleSpreadsheet } from "google-spreadsheet";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
+import remarkGfm from "remark-gfm";
 
 import { ANSWER_COL, QA_SHEET } from "./constants";
 import { AppContext, SessionContext } from "./context";
@@ -65,7 +66,10 @@ export function QuerySection(): JSX.Element {
       <h3>Query {sessionQueryId}</h3>
       <p>{allQuery[sessionQueryId].text}</p>
       <h3>Answer</h3>
-      <ReactMarkdown rehypePlugins={[rehypeRaw] as any}>
+      <ReactMarkdown
+        rehypePlugins={[rehypeRaw as any]}
+        remarkPlugins={[remarkGfm]}
+      >
         {processText(answer)}
       </ReactMarkdown>
     </div>

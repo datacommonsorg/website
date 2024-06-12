@@ -27,7 +27,6 @@ from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import ContainedInPlaceType
-from server.lib.nl.detection.types import Date
 from server.lib.nl.detection.types import Entity
 from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import Place
@@ -270,3 +269,11 @@ def get_places_as_string(places: List[str]) -> str:
     return places[0]
   else:
     return ', '.join(places[0:len(places) - 1]) + f' and {places[-1]}'
+
+
+def get_max_ans_places(places: List[Place], uttr: Utterance) -> List[Place]:
+  if uttr.mode == params.QueryMode.TOOLFORMER_RAG:
+    # In toolformer table mode there is very large limit.
+    return places[:constants.ABSOLUTE_MAX_PLACES_FOR_TABLES]
+
+  return places[:constants.MAX_ANSWER_PLACES]
