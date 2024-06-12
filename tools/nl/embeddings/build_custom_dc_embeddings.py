@@ -14,11 +14,14 @@
 """Build embeddings for custom DCs."""
 
 from dataclasses import asdict
+import os
+from pathlib import Path
+import shutil
+import tempfile
 
 from absl import app
 from absl import flags
 import pandas as pd
-from sentence_transformers import SentenceTransformer
 import yaml
 
 from nl_server import config_reader
@@ -26,29 +29,102 @@ from nl_server import registry
 from nl_server.config import Catalog
 from nl_server.config import MemoryIndexConfig
 from nl_server.config import ModelConfig
+from nl_server.embeddings import EmbeddingsModel
+from shared.lib import gcs
 from tools.nl.embeddings import utils
-from tools.nl.embeddings.file_util import create_file_handler
-from tools.nl.embeddings.file_util import FileHandler
 
 FLAGS = flags.FLAGS
 
-flags.DEFINE_string(
-    "model_version", None,
-    "Existing finetuned model folder name on GCS (e.g. 'ft_final_v20230717230459.all-MiniLM-L6-v2'). If not specified, the version will be parsed from catalog.yaml."
-)
 flags.DEFINE_string("sv_sentences_csv_path", None,
                     "Path to the custom DC SV sentences path.")
 flags.DEFINE_string(
     "output_dir", None,
     "Output directory where the generated embeddings will be saved.")
 
-EMBEDDINGS_CSV_FILENAME_PREFIX = "custom_embeddings"
-EMBEDDINGS_YAML_FILE_NAME = "custom_catalog.yaml"
-
+EMBEDDINGS_FILE_NAME = "embeddings.yaml"
+CATALOG_FILE_NAME = "custom_catalog.yaml"
 DEFAULT_EMBEDDINGS_INDEX_TYPE = "medium_ft"
 
 
-def build(sv_sentences_csv_path: str, output_dir: str):
+class FileManager(object):
+
+  def __init__(self, input_csv_path: str, output_dir: str):
+    self.input_csv_path = input_csv_path
+    self.output_dir = output_dir
+    self.local_dir = tempfile.mkdtemp()
+    self.local_csv_path = input_csv_path
+    if gcs.is_gcs_path(input_csv_path):
+      self.local_csv_path = os.path.join(self.local_dir, 'sv_sentences.csv')
+      gcs.download_blob_by_path(input_csv_path, self.local_csv_path)
+    self.local_embeddings_path = os.path.join(self.local_dir,
+                                              EMBEDDINGS_FILE_NAME)
+    self.final_embeddings_path = os.path.join(output_dir, EMBEDDINGS_FILE_NAME)
+
+  def save_output(self):
+    if gcs.is_gcs_path(self.output_dir):
+      gcs.upload_blob_by_path(
+          self.local_embeddings_path,
+          self.final_embeddings_path,
+      )
+    else:
+      Path(self.output_dir).mkdir(parents=True, exist_ok=True)
+      shutil.copy(self.local_embeddings_path, self.final_embeddings_path)
+
+
+def save_custom_dc_artifacts(model_name: str, model_config: ModelConfig,
+                             file_manager: FileManager):
+  catalog = Catalog(
+      version="1",
+      indexes={
+          "custom_ft":
+              MemoryIndexConfig(
+                  embeddings_path=file_manager.final_embeddings_path,
+                  model=model_name,
+                  store_type="MEMORY")
+      },
+      models={
+          model_name: model_config,
+      })
+  local_catalog_path = os.path.join(file_manager.local_dir, CATALOG_FILE_NAME)
+  final_catalog_path = os.path.join(file_manager.output_dir, CATALOG_FILE_NAME)
+  with open(local_catalog_path, 'w') as f:
+    yaml.dump(asdict(catalog), f)
+  if gcs.is_gcs_path(file_manager.output_dir):
+    gcs.upload_blob_by_path(local_catalog_path, final_catalog_path)
+  else:
+    shutil.copy(local_catalog_path, final_catalog_path)
+
+
+def build(model: EmbeddingsModel, local_csv_path: str,
+          local_embeddings_path: str):
+
+  print(
+      f"Generating embeddings dataframe from SV sentences CSV: {local_csv_path}"
+  )
+
+  print("Building custom DC embeddings")
+  sv_sentences_df = pd.read_csv(local_csv_path)
+
+  # Dedupe texts
+  (text2sv_dict, _) = utils.dedup_texts(sv_sentences_df)
+
+  print("Building custom DC embeddings")
+  embeddings_df = utils.build_embeddings(text2sv_dict, model=model)
+
+  print("Validating embeddings.")
+  utils.validate_embeddings(embeddings_df, local_csv_path)
+
+  print(f"Saving embeddings CSV")
+  embeddings_df.to_csv(local_embeddings_path, index=False)
+
+  print("Done building custom DC embeddings.")
+
+
+def main(_):
+  assert FLAGS.sv_sentences_csv_path
+  assert FLAGS.output_dir
+
+  # Prepare the model
   catalog = config_reader.read_catalog()
   index_config = catalog.indexes[DEFAULT_EMBEDDINGS_INDEX_TYPE]
   model_name = index_config.model
@@ -60,71 +136,16 @@ def build(sv_sentences_csv_path: str, output_dir: str):
         model_config, vertex_ai_config)
   model = registry.create_model(model_config)
 
-  print(
-      f"Generating embeddings dataframe from SV sentences CSV: {sv_sentences_csv_path}"
-  )
-  sv_sentences_csv_handler = create_file_handler(sv_sentences_csv_path)
+  # Build the embeddings
+  file_manager = FileManager(FLAGS.sv_sentences_csv_path, FLAGS.output_dir)
+  build(model, file_manager.local_csv_path, file_manager.local_embeddings_path)
+  file_manager.save_output()
 
-  print("Building custom DC embeddings")
-  embeddings_df = _build_embeddings_dataframe(model, sv_sentences_csv_handler)
+  # Do custom DC specific stuff
+  save_custom_dc_artifacts(model_name, model_config, file_manager)
 
-  print("Validating embeddings.")
-  utils.validate_embeddings(embeddings_df, sv_sentences_csv_path)
-
-  output_dir_handler = create_file_handler(output_dir)
-  embeddings_csv_handler = create_file_handler(
-      output_dir_handler.join(
-          f"{EMBEDDINGS_CSV_FILENAME_PREFIX}.{model_name}.csv"))
-  embeddings_yaml_handler = create_file_handler(
-      output_dir_handler.join(EMBEDDINGS_YAML_FILE_NAME))
-
-  print(f"Saving embeddings CSV: {embeddings_csv_handler.path}")
-  embeddings_csv = embeddings_df.to_csv(index=False)
-  embeddings_csv_handler.write_string(embeddings_csv)
-
-  print(f"Saving embeddings yaml: {embeddings_yaml_handler.path}")
-  generate_embeddings_yaml(model_name, model_config, embeddings_csv_handler,
-                           embeddings_yaml_handler)
-
-  print("Done building custom DC embeddings.")
-
-
-def _build_embeddings_dataframe(
-    model: SentenceTransformer,
-    sv_sentences_csv_handler: FileHandler) -> pd.DataFrame:
-  sv_sentences_df = pd.read_csv(sv_sentences_csv_handler.read_string_io())
-
-  # Dedupe texts
-  (text2sv_dict, _) = utils.dedup_texts(sv_sentences_df)
-
-  print("Building custom DC embeddings")
-  return utils.build_embeddings(text2sv_dict, model=model)
-
-
-def generate_embeddings_yaml(model_name: str, model_config: ModelConfig,
-                             embeddings_csv_handler: FileHandler,
-                             embeddings_yaml_handler: FileHandler):
-  # Right now Custom DC only supports LOCAL mode.
-  assert model_config.type == 'LOCAL'
-
-  data = Catalog(version="1",
-                 indexes={
-                     "custom_ft":
-                         MemoryIndexConfig(
-                             embeddings_path=embeddings_csv_handler.abspath(),
-                             model=model_name,
-                             store_type="MEMORY")
-                 },
-                 models={
-                     model_name: model_config,
-                 })
-  embeddings_yaml_handler.write_string(yaml.dump(asdict(data)))
-
-
-def main(_):
-  assert FLAGS.sv_sentences_csv_path
-  assert FLAGS.output_dir
-  build(FLAGS.sv_sentences_csv_path, FLAGS.output_dir)
+  # Copy the embeddings to the output directory
+  print(f"Copying embeddings csv to output dir")
 
 
 if __name__ == "__main__":
