@@ -28,6 +28,7 @@ import {
   INITIAL_LOADING_CLASS,
 } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
+import { useLazyLoad } from "../../shared/hooks";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { StatVarSpec } from "../../shared/types";
 import { getCappedStatVarDate } from "../../shared/util";
@@ -66,26 +67,35 @@ export interface RankingTilePropType
   footnote?: string;
   // Optional: Override sources for this tile
   sources?: string[];
+  // Optional: only load this component when it's near the viewport
+  lazyLoad?: boolean;
+  /**
+   * Optional: If lazy loading is enabled, load the component when it is within
+   * this margin of the viewport. Default: "0px"
+   */
+  lazyLoadMargin?: string;
 }
 
 // TODO: Use ChartTileContainer like other tiles.
 export function RankingTile(props: RankingTilePropType): JSX.Element {
   const [rankingData, setRankingData] = useState<RankingData | undefined>(null);
   const embedModalElement = useRef<ChartEmbed>(null);
-  const chartContainer = useRef(null);
-  const [isLoading, setIsLoading] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(true);
+  const { shouldLoad, containerRef } = useLazyLoad(props.lazyLoadMargin);
   useEffect(() => {
+    if (props.lazyLoad && !shouldLoad) {
+      return;
+    }
     (async () => {
-      setIsLoading(true);
       try {
+        setIsLoading(true);
         const rankingData = await fetchData(props);
         setRankingData(rankingData);
       } finally {
         setIsLoading(false);
       }
     })();
-  }, [props]);
+  }, [props, shouldLoad]);
 
   const numRankingLists = getNumRankingLists(
     props.rankingMetadata,
@@ -141,7 +151,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
       className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS} ranking-tile ${
         props.className
       } ${isLoading ? `loading ${INITIAL_LOADING_CLASS}` : ""}`}
-      ref={chartContainer}
+      ref={containerRef}
       style={{
         gridTemplateColumns:
           numRankingLists > 1 ? "repeat(2, 1fr)" : "repeat(1, 1fr)",
@@ -168,7 +178,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
           return (
             <SvRankingUnits
               apiRoot={props.apiRoot}
-              containerRef={chartContainer}
+              containerRef={containerRef}
               entityType={props.enclosedPlaceType}
               errorMsg={errorMsg}
               footnote={props.footnote}
@@ -188,7 +198,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
             />
           );
         })}
-      <ChartEmbed container={chartContainer.current} ref={embedModalElement} />
+      <ChartEmbed container={containerRef.current} ref={embedModalElement} />
     </div>
   );
 }

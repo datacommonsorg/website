@@ -117,7 +117,7 @@
     "query_transformations": {
       "place_detection_input": "compare obesity vs poverty",
       "place_detection_with_places_removed": "compare obesity vs poverty",
-      "sv_detection_query_index_type": [
+      "sv_detection_query_index_types": [
         "base_uae_mem"
       ],
       "sv_detection_query_input": "compare obesity vs poverty",
