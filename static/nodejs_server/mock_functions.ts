@@ -65,22 +65,16 @@ export function queryAxiosMock(): void {
       paramsSerializer: stringifyFn,
     })
     .mockResolvedValue(HOUSEHOLD_INCOME_LATEST_POINTS_RESP);
-  when(axios.get)
+  when(axios.post)
     .calledWith("/api/observations/series", {
-      params: {
-        entities: ["geoId/38"],
-        variables: ["Mean_Income_Household_FamilyHousehold"],
-      },
-      paramsSerializer: stringifyFn,
+      entities: ["geoId/38"],
+      variables: ["Mean_Income_Household_FamilyHousehold"],
     })
     .mockResolvedValue(MEAN_HOUSEHOLD_INCOME_SERIES_RESP);
-  when(axios.get)
+  when(axios.post)
     .calledWith("/api/observations/series", {
-      params: {
-        entities: ["geoId/38"],
-        variables: ["Median_Income_Household_FamilyHousehold"],
-      },
-      paramsSerializer: stringifyFn,
+      entities: ["geoId/38"],
+      variables: ["Median_Income_Household_FamilyHousehold"],
     })
     .mockResolvedValue(MEDIAN_HOUSEHOLD_INCOME_SERIES_RESP);
   when(axios.post)

@@ -42,17 +42,23 @@ _BATCHED_CALL_PLACES = {
 bp = Blueprint("series", __name__, url_prefix='/api/observations/series')
 
 
-@bp.route('', strict_slashes=False)
+@bp.route('', strict_slashes=False, methods=['GET', 'POST'])
 @cache.cached(timeout=TIMEOUT, query_string=True)
 def series():
   """Handler to get preferred time series given multiple stat vars and entities."""
   entities = list(filter(lambda x: x != "", request.args.getlist('entities')))
+  if not entities:
+    entities = request.json.get('entities')
   variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
+  if not variables:
+    variables = request.json.get('variables')
   if not entities:
     return 'error: must provide a `entities` field', 400
   if not variables:
     return 'error: must provide a `variables` field', 400
   facet_ids = list(filter(lambda x: x != "", request.args.getlist('facetIds')))
+  if not facet_ids:
+    facet_ids = request.json.get('facetIds')
   return fetch.series_core(entities, variables, False, facet_ids)
 
 
