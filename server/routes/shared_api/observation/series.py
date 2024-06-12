@@ -44,6 +44,7 @@ bp = Blueprint("series", __name__, url_prefix='/api/observations/series')
 
 
 # Filters a list for non empty values
+# TODO: use request directly in this function and pass in arg name
 def _get_filtered_arg_list(arg_list: List[str]) -> List[str]:
   return list(filter(lambda x: x != "", arg_list))
 
