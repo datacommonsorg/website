@@ -33,6 +33,7 @@ import {
 import { URL_PATH } from "../../constants/app/visualization_constants";
 import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { PLACE_TYPES } from "../../shared/constants";
+import { useLazyLoad } from "../../shared/hooks";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { RankingPoint } from "../../types/ranking_unit_types";
 import {
@@ -95,6 +96,13 @@ interface BarTileSpecificSpec {
   xLabelLinkRoot?: string;
   // Y-axis margin / text width
   yAxisMargin?: number;
+  // Optional: only load this component when it's near the viewport
+  lazyLoad?: boolean;
+  /**
+   * Optional: If lazy loading is enabled, load the component when it is within
+   * this margin of the viewport. Default: "0px"
+   */
+  lazyLoadMargin?: string;
 }
 
 export type BarTilePropType = MultiOrContainedInPlaceMultiVariableTileType &
@@ -118,12 +126,16 @@ export function BarTile(props: BarTilePropType): JSX.Element {
   const [barChartData, setBarChartData] = useState<BarChartData | undefined>(
     null
   );
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const { shouldLoad, containerRef } = useLazyLoad(props.lazyLoadMargin);
   useEffect(() => {
+    if (props.lazyLoad && !shouldLoad) {
+      return;
+    }
     if (!barChartData || !_.isEqual(barChartData.props, props)) {
       (async () => {
-        setIsLoading(true);
         try {
+          setIsLoading(true);
           const data = await fetchData(props);
           setBarChartData(data);
         } finally {
@@ -131,8 +143,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
         }
       })();
     }
-  }, [props, barChartData]);
-
+  }, [props, barChartData, shouldLoad]);
   const drawFn = useCallback(() => {
     if (_.isEmpty(barChartData)) {
       return;
@@ -158,6 +169,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
       subtitle={props.subtitle}
       title={props.title}
       statVarSpecs={props.variables}
+      forwardRef={containerRef}
     >
       <div
         id={props.id}
