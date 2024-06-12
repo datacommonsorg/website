@@ -24,6 +24,36 @@
                       "geoId/06005"
                     ],
                     "statVarKey": [
+                      "Median_Age_Person_multiple_place_bar_block"
+                    ],
+                    "title": "Median Age of Population (${date}) - Top 7 of 24",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06091",
+                      "geoId/06105",
+                      "geoId/06063",
+                      "geoId/06009",
+                      "geoId/06043",
+                      "geoId/06057",
+                      "geoId/06005"
+                    ],
+                    "statVarKey": [
                       "Median_Age_Person_Female_multiple_place_bar_block"
                     ],
                     "title": "Women's Median Age (${date}) - Top 7 of 24",
@@ -63,36 +93,6 @@
               }
             ],
             "title": "Men's Median Age"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06091",
-                      "geoId/06105",
-                      "geoId/06063",
-                      "geoId/06009",
-                      "geoId/06043",
-                      "geoId/06057",
-                      "geoId/06005"
-                    ],
-                    "statVarKey": [
-                      "Median_Age_Person_multiple_place_bar_block"
-                    ],
-                    "title": "Median Age of Population (${date}) - Top 7 of 24",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Age of Population"
           }
         ],
         "statVarSpec": {
