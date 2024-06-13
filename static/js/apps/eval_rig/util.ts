@@ -44,7 +44,6 @@ export const processText = (text: string): string => {
       return `<span class="annotation annotation-${callId}">${innerHtml}</span>`;
     }
   );
-  console.log(processedText);
   // Replace each link with the desired HTML format
   return processedText.replace(
     httpPattern,
