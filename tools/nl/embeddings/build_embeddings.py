@@ -34,6 +34,7 @@ import pandas as pd
 from sentence_transformers import SentenceTransformer
 
 from tools.nl.embeddings import utils
+from shared.lib import gcs
 
 VERTEX_AI_PROJECT = 'datcom-nl'
 VERTEX_AI_PROJECT_LOCATION = 'us-central1'
@@ -124,7 +125,7 @@ def get_embeddings(model: SentenceTransformer,
   alternate_descriptions = []
   for _, row in df_svs.iterrows():
     alternatives = []
-    if row[utils.OVERRIDE_COL]:
+    if utils.OVERRIDE_COL in row and row[utils.OVERRIDE_COL]:
       # Override takes precendence over everything else.
       alternatives += utils.split_alt_string(row[utils.OVERRIDE_COL])
     else:
@@ -167,7 +168,8 @@ def build(model: SentenceTransformer, model_endpoint: aiplatform.Endpoint,
   curated_input_df_list = list()
   # Read curated sv info.
   for curated_input_dir in curated_input_dirs:
-    for file_path in glob.glob(curated_input_dir + "/*.csv"):
+    for file_path in glob.glob(
+        str(Path(__file__).parent / curated_input_dir / "*.csv")):
       try:
         print(f"Reading the curated input file: {file_path}")
         file_df = pd.read_csv(file_path, na_filter=False)
@@ -178,13 +180,14 @@ def build(model: SentenceTransformer, model_endpoint: aiplatform.Endpoint,
   if curated_input_df_list:
     # Use inner join to only add rows that have the same headings (which all
     # curated inputs should have the same headings)
-    df_svs = pd.concat(curated_input_df_list, join="inner")
+    df_svs = pd.concat(curated_input_df_list).fillna('')
   else:
     df_svs = pd.DataFrame()
 
   # Get alternatives and add to the dataframe.
   if alternative_filepattern:
-    for alt_fp in sorted(glob.glob(alternative_filepattern)):
+    for alt_fp in sorted(
+        glob.glob(str(Path(__file__).parent / alternative_filepattern))):
       df_alts = utils.get_local_alternatives(
           alt_fp, [utils.DCID_COL, utils.ALTERNATIVES_COL])
       df_svs = utils.merge_dataframes(df_svs, df_alts)
@@ -254,7 +257,9 @@ def main(_):
   model_endpoint = None
 
   if use_finetuned_model:
-    model = utils.get_ft_model_from_gcs(model_version)
+    model_path = gcs.maybe_download(
+        gcs.make_path("datcom-nl-models", model_version))
+    model = SentenceTransformer(model_path)
   elif use_local_model:
     logging.info("Use the local model at: %s", FLAGS.existing_model_path)
     logging.info("Extracted model version: %s", model_version)

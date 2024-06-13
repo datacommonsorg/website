@@ -1,86 +1,86 @@
-dcid,Name,Description,Override_Alternatives,Curated_Alternatives
-dc/topic/ILOCPINCYRRT,"Consumer Price Index CPI, Percentage Change From Previous Year",,,
-dc/topic/ILOCPINWGTRT,"National Consumer Price Index CPI, Country Weights",,,
-dc/topic/ILOCPIXCPIRT,National Consumer Price Index CPI,,,
-dc/topic/ILOEAP2EAPNB,Labour Force ILO Modelled Estimates,,,
-dc/topic/ILOEAP2WAPRT,Labour Force Participation Rate ILO Modelled Estimates,,,
-dc/topic/ILOEAP3EAPNB,Youth Labour Force,,,
-dc/topic/ILOEAP3WAPRT,Youth Labour Force Participation Rate,,,
-dc/topic/ILOEAR4MMNNB,Monthly Minimum Wage,,,
-dc/topic/ILOEARXTLPRT,Low Pay Rate,,,
-dc/topic/ILOEES3EESNB,Youth Employees,,,
-dc/topic/ILOEESXTMPRT,Share of Temporary Employees,,,
-dc/topic/ILOEIP2EIPNB,Persons Outside The Labour Force ILO Modelled Estimates,,,
-dc/topic/ILOEIP2JOBNB,"Potential Labour Force And Willing Non-jobseekers ILO Modelled Estimates, as Of Nov. 2023",,,
-dc/topic/ILOEIP2JOBRT,"Potential Labour Force And Willing Non-jobseekers Rate ILO Modelled Estimates, as Of Nov. 2023",,,
-dc/topic/ILOEIP2PLFRT,Potential Labour Force Rate ILO Modelled Estimates,,,
-dc/topic/ILOEIP2WAPRT,"Number of Persons of Working Age Outside The Labour Force, as A Percentage of The Working-age Population Inactivity Rate, ILO Modelled Estimates",,,
-dc/topic/ILOEIP3EIPNB,Youth Outside The Labour Force,,,
-dc/topic/ILOEIP3WAPRT,"Number of Young Persons of Working Age Outside The Labour Force, as A Percentage of The Working-age Population Youth Inactivity Rate",,,
-dc/topic/ILOEIP5EETNB,"Youth Not in Employment, Education or Training NEET According To Standards Adopted At The 19th International Conference of Labour Statisticians ICLS",,,
-dc/topic/ILOEIP5EETRT,"Share of Youth Not in Employment, Education or Training NEET, According To Standards Adopted At The 19th International Conference of Labour Statisticians ICLS",,,
-dc/topic/ILOEIP5EIPNB,"Persons Outside The Labour Force, According To Standards Adopted At The 19th International Conference of Labour Statisticians ICLS",,,
-dc/topic/ILOEIP5PLFNB,"Potential Labour Force, According To Standards Adopted At The 19th International Conference of Labour Statisticians ICLS",,,
-dc/topic/ILOEMP2FTENB,Full-time Equivalent Employment,,,
-dc/topic/ILOEMP2NIFNB,"Informal Employment ILO Modelled Estimates, as Of Nov. 2023",,,
-dc/topic/ILOEMP2NIFRT,"Informal Employment Rate ILO Modelled Estimates, as Of Nov. 2023",,,
-dc/topic/ILOEMP2TRURT,Time-related Underemployment Rate ILO Modelled Estimates,,,
-dc/topic/ILOEMP2WAPRT,Employment-to-population Ratio ILO Modelled Estimates,,,
-dc/topic/ILOEMP3EMPNB,Youth Employment,,,
-dc/topic/ILOEMP3WAPRT,Youth Employment-to-population Ratio,,,
-dc/topic/ILOEMP5NIFNB,"Informal Employment, According To Standards Adopted At The 19th International Conference of Labour Statisticians ICLS",,,
-dc/topic/ILOEMP5NIFRT,"Informal Employment Rate, According To Standards Adopted At The 19th International Conference of Labour Statisticians ICLS",,,
-dc/topic/ILOEMP5PIFNB,"Employment Outside The Formal Sector, According To Standards Adopted At The 19th International Conference of Labour Statisticians ICLS",,,
-dc/topic/ILOEMP5PIFRT,"Share of Employment Outside The Formal Secto, According To Standards Adopted At The 19th International Conference of Labour Statisticians ICLS",,,
-dc/topic/ILOEMPNIFLNB,Informal Employment,,,
-dc/topic/ILOEMPNIFLRT,Informal Employment Rate,,,
-dc/topic/ILOEMPNORMNB,"Employment, Normative Approach",,,
-dc/topic/ILOEMPPIFLNB,Employment Outside The Formal Sector,,,
-dc/topic/ILOEMPPIFLRT,Share of Employment Outside The Formal Sector,,,
-dc/topic/ILOEMPSTATNB,"Employment, Statistical Approach",,,
-dc/topic/ILOGED2LFPNB,Prime-age Labour Force of Couple Households With Children Under 6 ILO Modelled Estimates,,,
-dc/topic/ILOGED2LFPRT,Prime-age Labour Force Participation Rate of Couple Households With Children Under Age 6 ILO Modelled Estimates,,,
-dc/topic/ILOHOW2EMPNB,"Mean Weekly Hours Actually Worked Per Employed PersonILO Modelled Estimates, as Of Nov. 2023",,,
-dc/topic/ILOHOW2TDPRT,Ratio of Total Weekly Hours Worked To Population Aged 15-64 ILO Modelled Estimates,,,
-dc/topic/ILOHOW2TOTNB,Total Weekly Hours Worked of Employed Persons ILO Modelled Estimates,,,
-dc/topic/ILOINJDAYSNB,Days Lost Due To Cases of Occupational Injury With Temporary Incapacity for Work,,,
-dc/topic/ILOINJFATLNB,Cases of Fatal Occupational Injury,,,
-dc/topic/ILOINJFATLRT,Fatal Occupational Injuries Per 100'000 Workers,,,
-dc/topic/ILOINJNFTLNB,Cases of Non-fatal Occupational Injury,,,
-dc/topic/ILOINJNFTLRT,Non-fatal Occupational Injuries Per 100'000 Workers,,,
-dc/topic/ILOLAC4HRLNB,Mean Nominal Hourly Labour Cost Per Employee,,,
-dc/topic/ILOLAIINSPNB,Number of Labour Inspectors,,,
-dc/topic/ILOLAP2LIDRT,Labour Income Distribution  ILO Modelled Estimates,,,
-dc/topic/ILOLUU2LU4NB,Composite Measure of Labour Underutilization LU4  ILO Modelled Estimates,,,
-dc/topic/ILOLUU2LUXNB,"Jobs GapILO Modelled Estimates, as Of Nov. 2023",,,
-dc/topic/ILOLUU2LUXRT,"Jobs Gap RateILO Modelled Estimates, as Of Nov. 2023",,,
-dc/topic/ILOLUU5LU2RT,"Combined Rate of Time-related Underemployment And Unemployment LU2, According To Standards Adopted At The 19th International Conference of Labour Statisticians ICLS",,,
-dc/topic/ILOLUU5LU3RT,"Combined Rate of Unemployment And Potential Labour Force LU3, According To Standards Adopted At The 19th International Conference of Labour Statisticians ICLS",,,
-dc/topic/ILOLUU5LU4RT,"Composite Rate of Labour Underutilization LU4, According To Standards Adopted At The 19th International Conference of Labour Statisticians ICLS",,,
-dc/topic/ILOLUUXLU2RT,Combined Rate of Time-related Underemployment And Unemployment LU2,,,
-dc/topic/ILOLUUXLUXNB,Jobs Gap,,,
-dc/topic/ILOLUUXLUXRT,Jobs Gap Rate,,,
-dc/topic/ILOPOP3FORNB,Youth Working-age Population thousands,,,
-dc/topic/ILOPOP3STGNB,Youth Working-age Population thousands,,,
-dc/topic/ILOPOP3TEDNB,"Youth Transited To Stable Employment, Satisfactory Temporary Employment, or Satisfactory Self-employment",,,
-dc/topic/ILOPOP3WAPNB,Youth Working-age Population,,,
-dc/topic/ILOPSETPSENB,Public Sector Employment,,,
-dc/topic/ILOSDG0111RT,Proportion of Population Below The International Poverty Line SDG Indicator 1.1.1,,,
-dc/topic/ILOSDG0831RT,Proportion of Informal Employment in Total Employment SDG Indicator 8.3.1,,,
-dc/topic/ILOSDG0861RT,"Proportion of Youth aged 15-24 Years Not in Education, Employment or Training SDG Indicator 8.6.1",,,
-dc/topic/ILOSDGF881RT,Fatal Occupational Injuries Per 100'000 Workers SDG Indicator 8.8.1,,,
-dc/topic/ILOSDGN881RT,Non-fatal Occupational Injuries Per 100'000 Workers SDG Indicator 8.8.1,,,
-dc/topic/ILOSTRDAYSNB,Days Not Worked Due To Strikes And Lockouts,,,
-dc/topic/ILOSTRDAYSRT,Rates of Days Not Worked Due To Strikes And Lockouts,,,
-dc/topic/ILOSTRTSTRNB,Strikes And Lockouts,,,
-dc/topic/ILOSTRWORKNB,Workers Involved in Strikes And Lockouts,,,
-dc/topic/ILOTRU3TRUNB,Youth Time-related Underemployment,,,
-dc/topic/ILOTRU5EMPRT,"Time-related Underemployment Rate, According To Standards Adopted At The 19th International Conference of Labour Statisticians ICLS",,,
-dc/topic/ILOTRU5TRUNB,"Time-related Underemployment, According To Standards Adopted At The 19th International Conference of Labour Statisticians ICLS",,,
-dc/topic/ILOUNE2EAPRT,Unemployment Rate ILO Modelled Estimates,,,
-dc/topic/ILOUNE2UNENB,Unemployment ILO Modelled Estimates,,,
-dc/topic/ILOUNE3EAPRT,Youth Unemployment Rate,,,
-dc/topic/ILOUNE3UNENB,Youth Unemployment,,,
-dc/topic/ILOUNE3WAPRT,Youth Unemployment-to-population Ratio,,,
-dc/topic/ILOUNE5EAPRT,"Unemployment Rate, According To Standards Adopted At The 19th International Conference of Labour Statisticians ICLS",,,
-dc/topic/ILOUNETUNENB,"Unemployment Labour Force Statistics, LFS",,,
+dcid,sentence
+dc/topic/ILOCPINCYRRT,"Consumer Price Index CPI, Percentage Change From Previous Year"
+dc/topic/ILOCPINWGTRT,"National Consumer Price Index CPI, Country Weights"
+dc/topic/ILOCPIXCPIRT,National Consumer Price Index CPI
+dc/topic/ILOEAP2EAPNB,Labour Force ILO Modelled Estimates
+dc/topic/ILOEAP2WAPRT,Labour Force Participation Rate ILO Modelled Estimates
+dc/topic/ILOEAP3EAPNB,Youth Labour Force
+dc/topic/ILOEAP3WAPRT,Youth Labour Force Participation Rate
+dc/topic/ILOEAR4MMNNB,Monthly Minimum Wage
+dc/topic/ILOEARXTLPRT,Low Pay Rate
+dc/topic/ILOEES3EESNB,Youth Employees
+dc/topic/ILOEESXTMPRT,Share of Temporary Employees
+dc/topic/ILOEIP2EIPNB,Persons Outside The Labour Force ILO Modelled Estimates
+dc/topic/ILOEIP2JOBNB,"Potential Labour Force And Willing Non-jobseekers ILO Modelled Estimates, as Of Nov. 2023"
+dc/topic/ILOEIP2JOBRT,"Potential Labour Force And Willing Non-jobseekers Rate ILO Modelled Estimates, as Of Nov. 2023"
+dc/topic/ILOEIP2PLFRT,Potential Labour Force Rate ILO Modelled Estimates
+dc/topic/ILOEIP2WAPRT,"Number of Persons of Working Age Outside The Labour Force, as A Percentage of The Working-age Population Inactivity Rate, ILO Modelled Estimates"
+dc/topic/ILOEIP3EIPNB,Youth Outside The Labour Force
+dc/topic/ILOEIP3WAPRT,"Number of Young Persons of Working Age Outside The Labour Force, as A Percentage of The Working-age Population Youth Inactivity Rate"
+dc/topic/ILOEIP5EETNB,"Youth Not in Employment, Education or Training NEET According To Standards Adopted At The 19th International Conference of Labour Statisticians ICLS"
+dc/topic/ILOEIP5EETRT,"Share of Youth Not in Employment, Education or Training NEET, According To Standards Adopted At The 19th International Conference of Labour Statisticians ICLS"
+dc/topic/ILOEIP5EIPNB,"Persons Outside The Labour Force, According To Standards Adopted At The 19th International Conference of Labour Statisticians ICLS"
+dc/topic/ILOEIP5PLFNB,"Potential Labour Force, According To Standards Adopted At The 19th International Conference of Labour Statisticians ICLS"
+dc/topic/ILOEMP2FTENB,Full-time Equivalent Employment
+dc/topic/ILOEMP2NIFNB,"Informal Employment ILO Modelled Estimates, as Of Nov. 2023"
+dc/topic/ILOEMP2NIFRT,"Informal Employment Rate ILO Modelled Estimates, as Of Nov. 2023"
+dc/topic/ILOEMP2TRURT,Time-related Underemployment Rate ILO Modelled Estimates
+dc/topic/ILOEMP2WAPRT,Employment-to-population Ratio ILO Modelled Estimates
+dc/topic/ILOEMP3EMPNB,Youth Employment
+dc/topic/ILOEMP3WAPRT,Youth Employment-to-population Ratio
+dc/topic/ILOEMP5NIFNB,"Informal Employment, According To Standards Adopted At The 19th International Conference of Labour Statisticians ICLS"
+dc/topic/ILOEMP5NIFRT,"Informal Employment Rate, According To Standards Adopted At The 19th International Conference of Labour Statisticians ICLS"
+dc/topic/ILOEMP5PIFNB,"Employment Outside The Formal Sector, According To Standards Adopted At The 19th International Conference of Labour Statisticians ICLS"
+dc/topic/ILOEMP5PIFRT,"Share of Employment Outside The Formal Secto, According To Standards Adopted At The 19th International Conference of Labour Statisticians ICLS"
+dc/topic/ILOEMPNIFLNB,Informal Employment
+dc/topic/ILOEMPNIFLRT,Informal Employment Rate
+dc/topic/ILOEMPNORMNB,"Employment, Normative Approach"
+dc/topic/ILOEMPPIFLNB,Employment Outside The Formal Sector
+dc/topic/ILOEMPPIFLRT,Share of Employment Outside The Formal Sector
+dc/topic/ILOEMPSTATNB,"Employment, Statistical Approach"
+dc/topic/ILOGED2LFPNB,Prime-age Labour Force of Couple Households With Children Under 6 ILO Modelled Estimates
+dc/topic/ILOGED2LFPRT,Prime-age Labour Force Participation Rate of Couple Households With Children Under Age 6 ILO Modelled Estimates
+dc/topic/ILOHOW2EMPNB,"Mean Weekly Hours Actually Worked Per Employed PersonILO Modelled Estimates, as Of Nov. 2023"
+dc/topic/ILOHOW2TDPRT,Ratio of Total Weekly Hours Worked To Population Aged 15-64 ILO Modelled Estimates
+dc/topic/ILOHOW2TOTNB,Total Weekly Hours Worked of Employed Persons ILO Modelled Estimates
+dc/topic/ILOINJDAYSNB,Days Lost Due To Cases of Occupational Injury With Temporary Incapacity for Work
+dc/topic/ILOINJFATLNB,Cases of Fatal Occupational Injury
+dc/topic/ILOINJFATLRT,Fatal Occupational Injuries Per 100'000 Workers
+dc/topic/ILOINJNFTLNB,Cases of Non-fatal Occupational Injury
+dc/topic/ILOINJNFTLRT,Non-fatal Occupational Injuries Per 100'000 Workers
+dc/topic/ILOLAC4HRLNB,Mean Nominal Hourly Labour Cost Per Employee
+dc/topic/ILOLAIINSPNB,Number of Labour Inspectors
+dc/topic/ILOLAP2LIDRT,Labour Income Distribution  ILO Modelled Estimates
+dc/topic/ILOLUU2LU4NB,Composite Measure of Labour Underutilization LU4  ILO Modelled Estimates
+dc/topic/ILOLUU2LUXNB,"Jobs GapILO Modelled Estimates, as Of Nov. 2023"
+dc/topic/ILOLUU2LUXRT,"Jobs Gap RateILO Modelled Estimates, as Of Nov. 2023"
+dc/topic/ILOLUU5LU2RT,"Combined Rate of Time-related Underemployment And Unemployment LU2, According To Standards Adopted At The 19th International Conference of Labour Statisticians ICLS"
+dc/topic/ILOLUU5LU3RT,"Combined Rate of Unemployment And Potential Labour Force LU3, According To Standards Adopted At The 19th International Conference of Labour Statisticians ICLS"
+dc/topic/ILOLUU5LU4RT,"Composite Rate of Labour Underutilization LU4, According To Standards Adopted At The 19th International Conference of Labour Statisticians ICLS"
+dc/topic/ILOLUUXLU2RT,Combined Rate of Time-related Underemployment And Unemployment LU2
+dc/topic/ILOLUUXLUXNB,Jobs Gap
+dc/topic/ILOLUUXLUXRT,Jobs Gap Rate
+dc/topic/ILOPOP3FORNB,Youth Working-age Population thousands
+dc/topic/ILOPOP3STGNB,Youth Working-age Population thousands
+dc/topic/ILOPOP3TEDNB,"Youth Transited To Stable Employment, Satisfactory Temporary Employment, or Satisfactory Self-employment"
+dc/topic/ILOPOP3WAPNB,Youth Working-age Population
+dc/topic/ILOPSETPSENB,Public Sector Employment
+dc/topic/ILOSDG0111RT,Proportion of Population Below The International Poverty Line SDG Indicator 1.1.1
+dc/topic/ILOSDG0831RT,Proportion of Informal Employment in Total Employment SDG Indicator 8.3.1
+dc/topic/ILOSDG0861RT,"Proportion of Youth aged 15-24 Years Not in Education, Employment or Training SDG Indicator 8.6.1"
+dc/topic/ILOSDGF881RT,Fatal Occupational Injuries Per 100'000 Workers SDG Indicator 8.8.1
+dc/topic/ILOSDGN881RT,Non-fatal Occupational Injuries Per 100'000 Workers SDG Indicator 8.8.1
+dc/topic/ILOSTRDAYSNB,Days Not Worked Due To Strikes And Lockouts
+dc/topic/ILOSTRDAYSRT,Rates of Days Not Worked Due To Strikes And Lockouts
+dc/topic/ILOSTRTSTRNB,Strikes And Lockouts
+dc/topic/ILOSTRWORKNB,Workers Involved in Strikes And Lockouts
+dc/topic/ILOTRU3TRUNB,Youth Time-related Underemployment
+dc/topic/ILOTRU5EMPRT,"Time-related Underemployment Rate, According To Standards Adopted At The 19th International Conference of Labour Statisticians ICLS"
+dc/topic/ILOTRU5TRUNB,"Time-related Underemployment, According To Standards Adopted At The 19th International Conference of Labour Statisticians ICLS"
+dc/topic/ILOUNE2EAPRT,Unemployment Rate ILO Modelled Estimates
+dc/topic/ILOUNE2UNENB,Unemployment ILO Modelled Estimates
+dc/topic/ILOUNE3EAPRT,Youth Unemployment Rate
+dc/topic/ILOUNE3UNENB,Youth Unemployment
+dc/topic/ILOUNE3WAPRT,Youth Unemployment-to-population Ratio
+dc/topic/ILOUNE5EAPRT,"Unemployment Rate, According To Standards Adopted At The 19th International Conference of Labour Statisticians ICLS"
+dc/topic/ILOUNETUNENB,"Unemployment Labour Force Statistics, LFS"
