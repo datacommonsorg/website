@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import logging
+from typing import List
 
 from flask import Blueprint
 from flask import request
@@ -42,17 +43,28 @@ _BATCHED_CALL_PLACES = {
 bp = Blueprint("series", __name__, url_prefix='/api/observations/series')
 
 
-@bp.route('', strict_slashes=False)
+# Filters a list for non empty values
+# TODO: use request directly in this function and pass in arg name
+def _get_filtered_arg_list(arg_list: List[str]) -> List[str]:
+  return list(filter(lambda x: x != "", arg_list))
+
+
+@bp.route('', strict_slashes=False, methods=['GET', 'POST'])
 @cache.cached(timeout=TIMEOUT, query_string=True)
 def series():
   """Handler to get preferred time series given multiple stat vars and entities."""
-  entities = list(filter(lambda x: x != "", request.args.getlist('entities')))
-  variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
+  if request.method == 'POST':
+    entities = request.json.get('entities')
+    variables = request.json.get('variables')
+    facet_ids = request.json.get('facetIds')
+  else:
+    entities = _get_filtered_arg_list(request.args.getlist('entities'))
+    variables = _get_filtered_arg_list(request.args.getlist('variables'))
+    facet_ids = _get_filtered_arg_list(request.args.getlist('facetIds'))
   if not entities:
     return 'error: must provide a `entities` field', 400
   if not variables:
     return 'error: must provide a `variables` field', 400
-  facet_ids = list(filter(lambda x: x != "", request.args.getlist('facetIds')))
   return fetch.series_core(entities, variables, False, facet_ids)
 
 
@@ -60,8 +72,8 @@ def series():
 @cache.cached(timeout=TIMEOUT, query_string=True)
 def series_all():
   """Handler to get all the time series given multiple stat vars and places."""
-  entities = list(filter(lambda x: x != "", request.args.getlist('entities')))
-  variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
+  entities = _get_filtered_arg_list(request.args.getlist('entities'))
+  variables = _get_filtered_arg_list(request.args.getlist('variables'))
   if not entities:
     return 'error: must provide a `entities` field', 400
   if not variables:
@@ -85,11 +97,11 @@ def series_within():
   if not child_type:
     return 'error: must provide a `childType` field', 400
 
-  variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
+  variables = _get_filtered_arg_list(request.args.getlist('variables'))
   if not variables:
     return 'error: must provide a `variables` field', 400
 
-  facet_ids = list(filter(lambda x: x != "", request.args.getlist('facetIds')))
+  facet_ids = _get_filtered_arg_list(request.args.getlist('facetIds'))
 
   # Make batched calls there are too many child places for server to handle
   # Mixer checks num_places * num_variables and stop processing if the number is
@@ -128,7 +140,7 @@ def series_within_all():
   if not child_type:
     return 'error: must provide a `childType` field', 400
 
-  variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
+  variables = _get_filtered_arg_list(request.args.getlist('variables'))
   if not variables:
     return 'error: must provide a `variables` field', 400
 
