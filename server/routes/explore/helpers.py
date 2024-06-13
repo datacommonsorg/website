@@ -96,7 +96,8 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
   i18n = i18n_str and i18n_str.lower() == 'true'
 
   # Index-type default is in nl_server.
-  embeddings_index_type = request.args.get(params.Params.INDEX.value, '')
+  idx_param_str = request.args.get(params.Params.INDEX.value, '')
+  embeddings_index_types = idx_param_str.split(',')
   original_query = request.args.get('q')
   if not original_query:
     err_json = helpers.abort(
@@ -109,7 +110,8 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
   if request.get_json():
     context_history = request.get_json().get('contextHistory', [])
   dc = request.get_json().get('dc', '')
-  embeddings_index_type = params.dc_to_embedding_type(dc, embeddings_index_type)
+  embeddings_index_types = params.dc_to_embedding_types(dc,
+                                                        embeddings_index_types)
 
   detector_type = request.args.get(params.Params.DETECTOR.value,
                                    default=RequestedDetectorType.Hybrid.value,
@@ -189,7 +191,7 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
       params.Params.INCLUDE_STOP_WORDS.value, '')
 
   detection_args = DetectionArgs(
-      embeddings_index_type=embeddings_index_type,
+      embeddings_index_types=embeddings_index_types,
       mode=mode,
       reranker=reranker,
       allow_triples=allow_triples,
