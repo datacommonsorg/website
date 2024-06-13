@@ -16,6 +16,8 @@
 
 const httpPattern = /https:\/\/[^\s]+/g;
 
+const longSpaces = "&nbsp;&nbsp;&nbsp;&nbsp;";
+
 export const processText = (text: string): string => {
   // If "Answer" is in the text, remove it
   let processedText = text.replace("Answer:", "");
@@ -26,7 +28,6 @@ export const processText = (text: string): string => {
     // dc stat text||llm stat text with html and css annotations.
     /\[\s*__DC__#(\d+)\((.*?)\)\]/g,
     (match, callId, content) => {
-      console.log(content);
       // Split the second capturing group by "||"
       const parts = content.split("||");
       let dcStat: string;
@@ -38,8 +39,8 @@ export const processText = (text: string): string => {
         llmStat = parts[0];
       }
       let innerHtml = "";
-      innerHtml += `<span class="dc-stat">${dcStat || "&nbsp;&nbsp;"}</span>`;
-      innerHtml += `<span class="llm-stat">${llmStat || "&nbsp;&nbsp;"}</span>`;
+      innerHtml += `<span class="dc-stat">${dcStat || longSpaces}</span>`;
+      innerHtml += `<span class="llm-stat">${llmStat || longSpaces}</span>`;
       return `<span class="annotation annotation-${callId}">${innerHtml}</span>`;
     }
   );
