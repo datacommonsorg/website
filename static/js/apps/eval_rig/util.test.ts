@@ -29,6 +29,10 @@ test("processText", () => {
       "the amount of new credit issued increasing from [__DC__#1($1.8 trillion)] to [__DC__#2($27 trillion)] in 2023. This represents a [__DC__#3(133%)] increase over the past two decades",
       'the amount of new credit issued increasing from <span class="annotation annotation-1"><span class="dc-stat">&nbsp;&nbsp;</span>||<span class="llm-stat">$1.8 trillion</span></span> to <span class="annotation annotation-2"><span class="dc-stat">&nbsp;&nbsp;</span>||<span class="llm-stat">$27 trillion</span></span> in 2023. This represents a <span class="annotation annotation-3"><span class="dc-stat">&nbsp;&nbsp;</span>||<span class="llm-stat">133%</span></span> increase over the past two decades',
     ],
+    [
+      "China ([__DC__#1(245 billion kWh)])",
+      `China (<span class="annotation annotation-1"><span class="dc-stat">&nbsp;&nbsp;</span>||<span class="llm-stat">245 billion kWh</span></span>)`,
+    ],
   ];
   for (const testCase of testCases) {
     expect(processText(testCase[0])).toEqual(testCase[1]);

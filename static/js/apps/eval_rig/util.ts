@@ -26,6 +26,7 @@ export const processText = (text: string): string => {
     // dc stat text||llm stat text with html and css annotations.
     /\[\s*__DC__#(\d+)\((.*?)\)\]/g,
     (match, callId, content) => {
+      console.log(content);
       // Split the second capturing group by "||"
       const parts = content.split("||");
       let dcStat: string;
@@ -37,11 +38,12 @@ export const processText = (text: string): string => {
         llmStat = parts[0];
       }
       let innerHtml = "";
-      innerHtml += `<span class="dc-stat">${dcStat || "&nbsp;&nbsp;"}</span>||`;
+      innerHtml += `<span class="dc-stat">${dcStat || "&nbsp;&nbsp;"}</span>`;
       innerHtml += `<span class="llm-stat">${llmStat || "&nbsp;&nbsp;"}</span>`;
       return `<span class="annotation annotation-${callId}">${innerHtml}</span>`;
     }
   );
+  console.log(processedText);
   // Replace each link with the desired HTML format
   return processedText.replace(
     httpPattern,
