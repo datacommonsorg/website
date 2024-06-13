@@ -33,8 +33,8 @@ import lancedb
 import pandas as pd
 from sentence_transformers import SentenceTransformer
 
-from tools.nl.embeddings import utils
 from shared.lib import gcs
+from tools.nl.embeddings import utils
 
 VERTEX_AI_PROJECT = 'datcom-nl'
 VERTEX_AI_PROJECT_LOCATION = 'us-central1'
