@@ -75,7 +75,7 @@ while getopts beflc OPTION; do
       else
         echo "Using the following local filenames as curated input: $CURATED_INPUT_DIRS"
       fi
-      FINETUNED_MODEL=$(curl -s https://raw.githubusercontent.com/datacommonsorg/website/master/deploy/nl/models.yaml | awk '$1=="tuned_model:"{ print $2; }')
+      FINETUNED_MODEL=ft_final_v20230717230459.all-MiniLM-L6-v2
       if [[ "$FINETUNED_MODEL" == "" ]]; then
         echo "Using option -c but could not retrieve an existing finetuned model from prod."
         exit 1
@@ -97,20 +97,28 @@ done
 cd ../../..
 python3 -m venv .env
 source .env/bin/activate
-pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
-pip3 install -r tools/nl/embeddings/requirements.txt
+pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu -q
+pip3 install -r tools/nl/embeddings/requirements.txt -q
 
 if [[ "$MODEL_ENDPOINT_ID" != "" ]];then
   python3 -m tools.nl.embeddings.build_embeddings \
     --embeddings_size=medium \
     --vertex_ai_prediction_endpoint_id=$MODEL_ENDPOINT_ID \
-    --curated_input_dirs=$PWD/tools/nl/embeddings/data/curated_input/main \
+    --curated_input_dirs=data/curated_input/main \
     --alternatives_filepattern=""
 
 elif [[ "$CURATED_INPUT_DIRS" != "" ]]; then
-  python3 -m tools.nl.embeddings.build_embeddings --embeddings_size=$2 --finetuned_model_gcs=$FINETUNED_MODEL --curated_input_dirs=$CURATED_INPUT_DIRS --alternatives_filepattern=$ALTERNATIVES_FILE_PATTERN
+  python3 -m tools.nl.embeddings.build_embeddings \
+    --embeddings_size=$2 \
+    --finetuned_model_gcs=$FINETUNED_MODEL \
+    --curated_input_dirs=$CURATED_INPUT_DIRS \
+    --alternatives_filepattern=$ALTERNATIVES_FILE_PATTERN
 elif [[ "$LANCEDB_OUTPUT_PATH" != "" ]]; then
-  python3 -m tools.nl.embeddings.build_embeddings --embeddings_size=$2 --finetuned_model_gcs=$FINETUNED_MODEL --lancedb_output_path=$LANCEDB_OUTPUT_PATH --dry_run=True
+  python3 -m tools.nl.embeddings.build_embeddings \
+    --embeddings_size=$2 \
+    --finetuned_model_gcs=$FINETUNED_MODEL \
+    --lancedb_output_path=$LANCEDB_OUTPUT_PATH \
+    --dry_run=True
 elif [[ "$FINETUNED_MODEL" != "" ]]; then
   python3 -m tools.nl.embeddings.build_embeddings --embeddings_size=$2 --finetuned_model_gcs=$FINETUNED_MODEL
 else
