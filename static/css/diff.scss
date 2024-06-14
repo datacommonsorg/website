@@ -1,0 +1,30 @@
+body,
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevents the main window from scrolling */
+}
+.iframe-container {
+  display: flex;
+  height: 90%; /* Reduced height to accommodate the input box */
+}
+iframe {
+  flex: 1;
+  width: 50%;
+  height: 100%;
+  border: none;
+  overflow: auto; /* Enables scrolling within iframes */
+}
+input {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box; /* Ensures the padding doesn't affect the width */
+  margin-bottom: 10px; /* Adds space between the input and the iframes */
+}
+
+.domain-input {
+  display: inline-block;
+  width: 50%;
+  margin-bottom: 2px; /* Adds space between the input and the iframes */
+}

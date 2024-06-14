@@ -25,3 +25,10 @@ def dev():
   if os.environ.get('FLASK_ENV') == 'production':
     flask.abort(404)
   return flask.render_template('dev/dev.html')
+
+
+@bp.route('/diff')
+def dev_diff():
+  if os.environ.get('FLASK_ENV') not in ['local', 'autopush']:
+    flask.abort(404)
+  return flask.render_template('dev/diff.html')
