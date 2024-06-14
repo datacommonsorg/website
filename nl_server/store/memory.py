@@ -24,6 +24,7 @@ from nl_server.config import MemoryIndexConfig
 from nl_server.embeddings import EmbeddingsMatch
 from nl_server.embeddings import EmbeddingsResult
 from nl_server.embeddings import EmbeddingsStore
+from nl_server.embeddings import get_download_root
 from shared.lib.custom_dc_util import use_anonymous_gcs_client
 from shared.lib.gcs import is_gcs_path
 from shared.lib.gcs import maybe_download
@@ -40,7 +41,8 @@ class MemoryEmbeddingsStore(EmbeddingsStore):
       embeddings_path = idx_info.embeddings_path
     elif is_gcs_path(idx_info.embeddings_path):
       embeddings_path = maybe_download(
-          idx_info.embeddings_path,
+          gcs_path=idx_info.embeddings_path,
+          local_path_root=get_download_root(),
           use_anonymous_client=use_anonymous_gcs_client())
       if not embeddings_path:
         raise AssertionError(

@@ -30,6 +30,7 @@ class LocalSentenceTransformerModel(embeddings.EmbeddingsModel):
 
     # Download model from gcs if there is a gcs folder specified
     model_path = gcs.maybe_download(model_info.gcs_folder,
+                                    embeddings.get_download_root(),
                                     use_anonymous_client=True)
     self.model = SentenceTransformer(model_path)
 

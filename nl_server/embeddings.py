@@ -16,9 +16,22 @@
 from abc import ABC
 from abc import abstractmethod
 from dataclasses import dataclass
+import os
 from typing import Dict, List
 
 import torch
+
+DOCKER_DATA_FOLDER_PATH = os.path.join(os.path.dirname(__file__), './data')
+
+
+# Get the root folder path to download files to
+def get_download_root() -> str:
+  # When running on docker, use the docker path
+  if os.path.exists(DOCKER_DATA_FOLDER_PATH):
+    return DOCKER_DATA_FOLDER_PATH
+  # otherwise, use tmp folder
+  else:
+    return '/tmp'
 
 
 # A single match from Embeddings result.

@@ -17,6 +17,7 @@
 from nl_server import config_reader
 from nl_server.config import ModelType
 from nl_server.config import StoreType
+from nl_server.embeddings import DOCKER_DATA_FOLDER_PATH
 from shared.lib import gcs
 
 
@@ -34,14 +35,14 @@ def main(_):
   for model_info in catalog.models.values():
     if model_info.type != ModelType.LOCAL:
       continue
-    gcs.maybe_download(model_info.gcs_folder, use_anonymous_client=True)
+    gcs.maybe_download(model_info.gcs_folder, DOCKER_DATA_FOLDER_PATH, use_anonymous_client=True)
 
   # Download all the indexes that are MEMORY or LANCEDB store type
   for index_info in catalog.indexes.values():
     if not index_info.store_type in [StoreType.MEMORY, StoreType.LANCEDB]:
       continue
     if gcs.is_gcs_path(index_info.embeddings_path):
-      gcs.maybe_download(index_info.embeddings_path, use_anonymous_client=True)
+      gcs.maybe_download(index_info.embeddings_path, DOCKER_DATA_FOLDER_PATH, use_anonymous_client=True)
 
 
 if __name__ == '__main__':
