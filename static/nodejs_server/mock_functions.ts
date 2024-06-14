@@ -49,7 +49,7 @@ export function queryAxiosMock(): void {
 
   when(axios.post)
     .calledWith(
-      "/api/explore/detect-and-fulfill?q=family earnings in north dakota&detector=heuristic&client=bard&mode=strict",
+      "/api/explore/detect-and-fulfill?q=family earnings in north dakota&detector=heuristic&client=bard&mode=strict&skipRelatedThings=true",
       {}
     )
     .mockResolvedValue(TIMELINE_NL_RESP);
@@ -150,7 +150,7 @@ export function queryAxiosMock(): void {
    */
   when(axios.post)
     .calledWith(
-      "/api/explore/detect-and-fulfill?q=top jobs in santa clara county&detector=heuristic&client=bard&mode=strict",
+      "/api/explore/detect-and-fulfill?q=top jobs in santa clara county&detector=heuristic&client=bard&mode=strict&skipRelatedThings=true",
       {}
     )
     .mockResolvedValue(BAR_NL_RESP);
@@ -207,7 +207,7 @@ export function queryAxiosMock(): void {
    */
   when(axios.post)
     .calledWith(
-      "/api/explore/detect-and-fulfill?q=obesity vs. poverty in counties of california&detector=heuristic&client=bard&mode=strict",
+      "/api/explore/detect-and-fulfill?q=obesity vs. poverty in counties of california&detector=heuristic&client=bard&mode=strict&skipRelatedThings=true",
       {}
     )
     .mockResolvedValue(SCATTER_NL_RESP);

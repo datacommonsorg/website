@@ -293,6 +293,7 @@ export async function getQueryResult(
     client,
     idx,
     mode,
+    skipRelatedThings: wantRelatedQuestions ? "" : "true",
     varThreshold,
   };
   Object.keys(params)

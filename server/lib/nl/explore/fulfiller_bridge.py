@@ -51,8 +51,10 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config) -> FulfillResp:
                        related_things={},
                        user_message=builder_result.page_msg)
 
-  if uttr.mode == params.QueryMode.STRICT:
-    # No related things for strict mode.
+  if uttr.mode == params.QueryMode.STRICT or state.uttr.insight_ctx.get(
+      params.Params.SKIP_RELATED_THINGS):
+    # Skip getting related things if skip related things param is set or if in
+    # strict mode.
     return FulfillResp(chart_pb=builder_result.page_config,
                        related_things={},
                        user_message=builder_result.page_msg)
