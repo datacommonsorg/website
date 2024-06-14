@@ -49,6 +49,8 @@ class Params(str, Enum):
   DETECTOR = 'detector'
   INDEX = 'idx'
   RERANKER = 'reranker'
+  # If set, then don't get related things
+  SKIP_RELATED_THINGS = 'skipRelatedThings'
 
 
 class DCNames(str, Enum):
