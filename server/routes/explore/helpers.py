@@ -97,7 +97,7 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
 
   # Index-type default is in nl_server.
   idx_param_str = request.args.get(params.Params.INDEX.value, '')
-  embeddings_index_types = idx_param_str.split(',')
+  embeddings_index_types = [x.strip() for x in idx_param_str.split(',')]
   original_query = request.args.get('q')
   if not original_query:
     err_json = helpers.abort(
