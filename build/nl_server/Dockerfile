@@ -31,6 +31,13 @@ RUN pip3 install --no-cache-dir -r /workspace/nl_server/requirements.txt
 COPY nl_server/. /workspace/nl_server/
 COPY shared/. /workspace/shared/
 
+# Download nl files from gcs
+COPY deploy/nl/catalog.yaml .
+COPY build/nl_server/requirements.txt /workspace/build/nl_server/requirements.txt
+COPY build/nl_server/download_nl_files.py .
+RUN pip3 install -r /workspace/build/nl_server/requirements.txt
+RUN python3 download_nl_files.py
+
 # Run server
 WORKDIR /workspace
 # Use a large timeout because when there are more workers, NL server will take
