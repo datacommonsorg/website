@@ -119,7 +119,7 @@ def detect_and_fulfill():
           Params.EXP_MORE_DISABLED, "")
   utterance.insight_ctx[Params.DC.value] = dc_name
   utterance.insight_ctx[Params.SKIP_RELATED_THINGS] = request.args.get(
-      Params.SKIP_RELATED_THINGS.value, '')
+      Params.SKIP_RELATED_THINGS.value, '') == 'true'
 
   # Important to setup utterance for explore flow (this is really the only difference
   # between NL and Explore).

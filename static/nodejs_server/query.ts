@@ -294,7 +294,7 @@ export async function getQueryResult(
     idx,
     mode,
     varThreshold,
-    skipRelatedThings: wantRelatedQuestions ? "" : "True",
+    skipRelatedThings: wantRelatedQuestions ? "" : "true",
   };
   Object.keys(params)
     .sort()
@@ -331,7 +331,6 @@ export async function getQueryResult(
       enclosedPlaceType;
   }
   const relatedThings = nlResp.data["relatedThings"] || {};
-  console.log(relatedThings);
 
   // If no place, return here
   if (!place.dcid) {
