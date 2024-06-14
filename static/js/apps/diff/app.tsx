@@ -61,7 +61,7 @@ export function App(): JSX.Element {
     <>
       <div className="domain-input">
         <label>
-          <h3>Domain 1</h3>
+          <div className="label-text">Domain 1</div>
         </label>
         <input
           type="text"
@@ -74,7 +74,7 @@ export function App(): JSX.Element {
       </div>
       <div className="domain-input">
         <label>
-          <h3>Domain 2</h3>
+          <div className="label-text">Domain 2</div>
         </label>
         <input
           type="text"
@@ -85,6 +85,9 @@ export function App(): JSX.Element {
           onKeyDown={onKeyDown}
         />
       </div>
+      <label>
+        <div className="label-text">Path (url without domain)</div>
+      </label>
       <input
         type="text"
         ref={ref}
