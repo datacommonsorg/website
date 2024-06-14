@@ -44,13 +44,13 @@ variables.
    To generate the `sdg_ft` embeddings:
 
    ```bash
-   ./run.sh -c sdg data/curated_input/sdg data/alternatives/sdg/*.csv
+   ./run.sh -c sdg data/curated_input/sdg
    ```
 
    To generate the `undata_ft` embeddings:
 
    ```bash
-   ./run.sh -c undata data/curated_input/undata data/alternatives/undata/*.csv
+   ./run.sh -c undata data/curated_input/undata
    ```
 
    To generate the `undata_ilo_ft` embeddings:
@@ -59,16 +59,10 @@ variables.
    ./run.sh -c undata_ilo data/curated_input/undata_ilo
    ```
 
-   To generate the `undata_dev_ft` embeddings:
-
-   ```bash
-   ./run.sh -c undata_dev data/curated_input/undata_ilo,data/curated_input/undata data/alternatives/undata/*.csv
-   ```
-
    To generate the `bio_ft` embeddings:
 
    ```bash
-   ./run.sh -c bio data/curated_input/bio,data/curated_input/main
+   ./run.sh -c bio data/curated_input/bio
    ```
 
    Note: Bio embeddings uses the alternatives from main dc for now.

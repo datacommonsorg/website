@@ -17,10 +17,6 @@ indexes:
     store: MEMORY
     embeddings: gs://datcom-nl-models/embeddings_undata_ilo_2024_05_15_11_18_05.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
-  undata_dev_ft:
-    store: MEMORY
-    embeddings: gs://datcom-nl-models/embeddings_undata_dev_2024_05_21_15_37_51.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
-    model: ft-final-v20230717230459-all-MiniLM-L6-v2
   bio_ft:
     store: MEMORY
     embeddings: gs://datcom-nl-models/embeddings_bio_2024_03_19_16_39_03.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
