@@ -41,18 +41,6 @@ variables.
 4. Run the command below which will generate a new embeddings csv in
    `gs://datcom-nl-models`. Note down the embeddings file version printed at the end of the run. As of 2023 Q3, there are 3 embeddings used in PROD and the following are the commands to generate each of them:
 
-   To generate the `small` embeddings:
-
-   ```bash
-   ./run.sh -f small
-   ```
-
-   To generate the `medium_ft` embeddings:
-
-   ```bash
-   ./run.sh -f medium
-   ```
-
    To generate the `sdg_ft` embeddings:
 
    ```bash
@@ -80,7 +68,7 @@ variables.
    To generate the `bio_ft` embeddings:
 
    ```bash
-   ./run.sh -c bio data/curated_input/bio,data/curated_input/main data/alternatives/main/*.csv
+   ./run.sh -c bio data/curated_input/bio,data/curated_input/main
    ```
 
    Note: Bio embeddings uses the alternatives from main dc for now.

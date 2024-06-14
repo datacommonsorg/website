@@ -145,7 +145,7 @@ class TestEndToEnd(unittest.TestCase):
 
 class TestEndToEndActualDataFiles(unittest.TestCase):
 
-  @parameterized.expand(["small", "medium"])
+  @parameterized.expand(["medium"])
   def testInputFilesValidations(self, sz):
     # Verify that the required files exist.
     sheets_filepath = Path(
@@ -168,17 +168,14 @@ class TestEndToEndActualDataFiles(unittest.TestCase):
     # The input data files should not have the same sentence/description map to
     # different SV dcids.
     sheets_df = pd.read_csv(sheets_filepath).fillna("")
-    expected_cols = [
-        "dcid", "Name", "Description", "Override_Alternatives",
-        "Curated_Alternatives"
-    ]
+    expected_cols = ["dcid", "sentence"]
     sheets_sentence_cols = expected_cols[1:]
 
     self.assertCountEqual(expected_cols, sheets_df.columns.values)
     _validate_sentence_to_dcid_map(self, sheets_df, "dcid",
                                    sheets_sentence_cols)
 
-    expected_cols = ["dcid", "Alternatives"]
+    expected_cols = ["dcid", "sentence"]
     alt_sentence_cols = expected_cols[1:]
 
     for alt_file in glob.glob(input_alternatives_filepattern):
@@ -186,7 +183,7 @@ class TestEndToEndActualDataFiles(unittest.TestCase):
       self.assertTrue(all(x in alts_df.columns.values for x in expected_cols))
       _validate_sentence_to_dcid_map(self, alts_df, "dcid", alt_sentence_cols)
 
-  @parameterized.expand(["small", "medium"])
+  @parameterized.expand(["medium"])
   def testOutputFileValidations(self, sz):
     output_dcid_sentences_filepath = Path(
         __file__).parent / f'data/preindex/{sz}/sv_descriptions.csv'
