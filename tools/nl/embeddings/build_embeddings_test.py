@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import glob
 import os
 from pathlib import Path
 import tempfile
@@ -100,8 +99,7 @@ class TestEndToEnd(unittest.TestCase):
 
     with tempfile.TemporaryDirectory() as tmp_dir, self.assertRaises(KeyError):
       tmp_local_merged_filepath = os.path.join(tmp_dir, "merged_data.csv")
-      be.build(model, None, input_sheets_svs, tmp_local_merged_filepath, "",
-               input_alternatives_filepattern)
+      be.build(model, None, input_sheets_svs, tmp_local_merged_filepath, "")
 
   def testSuccess(self):
     self.maxDiff = None
@@ -116,9 +114,7 @@ class TestEndToEnd(unittest.TestCase):
     # Filepaths all correspond to the testdata folder.
     input_dir = Path(__file__).parent / "testdata/input"
     expected_dir = Path(__file__).parent / "testdata/expected"
-    input_alternatives_filepattern = os.path.join(input_dir,
-                                                  "*_alternatives.csv")
-    input_sheets_csv_dirs = [os.path.join(input_dir, "curated")]
+    input_sheets_csv_dirs = [input_dir]
     expected_local_merged_filepath = os.path.join(expected_dir,
                                                   "merged_data.csv")
     expected_dcid_sentence_csv_filepath = os.path.join(
@@ -130,8 +126,7 @@ class TestEndToEnd(unittest.TestCase):
                                            "final_dcid_sentences_csv.csv")
 
       embeddings_df = be.build(model, None, input_sheets_csv_dirs,
-                               tmp_local_merged_filepath, "",
-                               input_alternatives_filepattern)
+                               tmp_local_merged_filepath, "")
 
       # Write dcids, sentences to temp directory.
       embeddings_df[['dcid', 'sentence']].to_csv(tmp_dcid_sentence_csv)
@@ -154,8 +149,6 @@ class TestEndToEndActualDataFiles(unittest.TestCase):
     # descriptions.  Its technically okay since build_embeddings will take
     # care of dups.
     parent_folder = str(Path(__file__).parent)
-    input_alternatives_filepattern = os.path.join(
-        parent_folder, "data/alternatives/(palm|other)_alternaties.csv")
     output_dcid_sentences_filepath = os.path.join(
         parent_folder, f'data/preindex/{sz}/sv_descriptions.csv')
 
@@ -177,11 +170,6 @@ class TestEndToEndActualDataFiles(unittest.TestCase):
 
     expected_cols = ["dcid", "sentence"]
     alt_sentence_cols = expected_cols[1:]
-
-    for alt_file in glob.glob(input_alternatives_filepattern):
-      alts_df = pd.read_csv(alt_file).fillna("")
-      self.assertTrue(all(x in alts_df.columns.values for x in expected_cols))
-      _validate_sentence_to_dcid_map(self, alts_df, "dcid", alt_sentence_cols)
 
   @parameterized.expand(["medium"])
   def testOutputFileValidations(self, sz):
