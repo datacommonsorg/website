@@ -15,7 +15,8 @@
 
 import os
 
-DOCKER_DATA_FOLDER_PATH = os.path.join(os.path.dirname(__file__), './data')
+# the path in the docker image where nl models and indices will be cached
+DOCKER_DATA_FOLDER_PATH = '/workspace/nl_cache'
 
 
 # Get the root folder path to download files to
