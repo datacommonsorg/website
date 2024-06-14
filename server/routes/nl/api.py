@@ -44,7 +44,7 @@ def search_vector():
   query = request.args.get('query')
   idx = request.args.get('idx')
   if not query:
-    flask.abort(400, 'Must provde a `query`')
+    flask.abort(400, 'Must provide a `query`')
   if not idx:
-    flask.abort(400, 'Must provde an `idx`')
+    flask.abort(400, 'Must provide an `idx`')
   return dc.nl_search_vars([query], idx.split(','))

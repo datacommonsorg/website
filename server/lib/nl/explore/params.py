@@ -124,7 +124,7 @@ def is_bio(insight_ctx: Dict) -> bool:
   return insight_ctx.get(Params.DC.value) == DCNames.BIO_DC.value
 
 
-def dc_to_embedding_types(dc: str, embeddings_types: List[str]) -> str:
+def dc_to_embedding_types(dc: str, embeddings_types: List[str]) -> List[str]:
   if dc in SDG_DC_LIST:
     return ['sdg_ft']
   elif dc == DCNames.UNDATA_DC.value:

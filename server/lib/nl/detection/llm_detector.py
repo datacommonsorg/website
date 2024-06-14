@@ -149,7 +149,7 @@ def detect(query: str, prev_utterance: utterance.Utterance,
 
   query_detection_debug_logs["llm_response"] = llm_resp
   query_detection_debug_logs["query_transformations"] = {
-      "sv_detection_query_index_types": [dargs.embeddings_index_types]
+      "sv_detection_query_index_types": dargs.embeddings_index_types
   }
 
   # SV Detection.
