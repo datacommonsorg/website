@@ -19,6 +19,7 @@ from sentence_transformers import SentenceTransformer
 import torch
 
 from nl_server import embeddings
+from nl_server.cache import get_cache_root
 from nl_server.config import LocalModelConfig
 from shared.lib import gcs
 
@@ -30,7 +31,7 @@ class LocalSentenceTransformerModel(embeddings.EmbeddingsModel):
 
     # Download model from gcs if there is a gcs folder specified
     model_path = gcs.maybe_download(model_info.gcs_folder,
-                                    embeddings.get_download_root(),
+                                    get_cache_root(),
                                     use_anonymous_client=True)
     self.model = SentenceTransformer(model_path)
 

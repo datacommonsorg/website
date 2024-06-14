@@ -17,7 +17,7 @@
 from nl_server import config_reader
 from nl_server.config import ModelType
 from nl_server.config import StoreType
-from nl_server.embeddings import DOCKER_DATA_FOLDER_PATH
+from nl_server.cache import DOCKER_DATA_FOLDER_PATH
 from shared.lib import gcs
 
 
