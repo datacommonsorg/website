@@ -75,7 +75,7 @@ serviceGroups:
   node:
     replicas: 5
     # Use a machine with more CPU for node pods
-    nodePool: "pool-e2-cpu"
+    nodePool: "default-pool"
   observation:
     replicas: 3
     nodePool: "default-pool"
