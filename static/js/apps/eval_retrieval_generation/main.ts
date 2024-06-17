@@ -15,7 +15,7 @@
  */
 
 /**
- * Entrypoint for RIG Eval page.
+ * Entrypoint for retrieval generation eval page.
  */
 
 import React from "react";
@@ -38,6 +38,6 @@ function renderPage(): void {
         sheetId,
       })
     ),
-    document.getElementById("dc-eval-rig")
+    document.getElementById("dc-eval-retrieval-generation")
   );
 }
