@@ -115,7 +115,7 @@ metadata:
 data:
   webApiRoot: {{ .Values.cronTesting.webApiRoot | quote }}
   nodejsApiRoot: {{ .Values.cronTesting.nodejsApiRoot | quote }}
-  screenshotDomain: {{ .Values.cronTesting.screenshotDomain | quote }}
+  screenshotDomain: {{ .Values.cronTesting.screenshotDomain | quote | default "" }}
   enableSanity: {{ .Values.cronTesting.enableSanity | quote }}
   enableAdversarial: {{ .Values.cronTesting.enableAdversarial | quote }}
 {{- end }}
