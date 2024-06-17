@@ -158,10 +158,10 @@ def build_embeddings(
   return embeddings
 
 
-def validate_embeddings(embeddings_df: pd.DataFrame,
-                        output_dcid_sentences_filepath: str) -> None:
+def validate_embeddings(embeddings_df: pd.DataFrame, preindex_dir: str) -> None:
   # Verify that embeddings were created for all DCIDs and Sentences.
-  dcid_sentence_df = pd.read_csv(output_dcid_sentences_filepath).fillna("")
+  dcid_sentence_df = pd.read_csv(f'{preindex_dir}/sv_descriptions.csv').fillna(
+      "")
   sentences = set()
   for alts in dcid_sentence_df["sentence"].values:
     for s in alts.split(";"):
