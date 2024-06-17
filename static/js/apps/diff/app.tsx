@@ -16,11 +16,17 @@
 
 import React, { useRef, useState } from "react";
 
-const INIT_URL = [
-  "https://datacommons.org",
-  "https://autopush.datacommons.org",
-  "",
-];
+interface AppUrl {
+  domain1: string;
+  domain2: string;
+  path: string;
+}
+
+const INIT_URL: AppUrl = {
+  domain1: "https://datacommons.org",
+  domain2: "https://autopush.datacommons.org",
+  path: "",
+};
 
 function splitUrl(url: string) {
   const urlObj = new URL(url);
@@ -33,27 +39,27 @@ export function App(): JSX.Element {
   const ref = useRef<HTMLInputElement>(null);
   const iframeRef1 = useRef<HTMLIFrameElement>(null);
   const iframeRef2 = useRef<HTMLIFrameElement>(null);
-  const [url, setUrl] = useState<string[]>(INIT_URL);
-  const [tmpUrl, setTmpUrl] = useState<string[]>(INIT_URL);
+  const [url, setUrl] = useState<AppUrl>(INIT_URL);
+  const [inputUrl, setInputUrl] = useState<AppUrl>(INIT_URL);
 
   const onKeyDown = (e) => {
     if (e.key === "Enter") {
       {
-        const { domain, rest } = splitUrl(tmpUrl[0]);
+        const { domain, rest } = splitUrl(inputUrl.domain1);
         if (rest !== "/") {
-          tmpUrl[0] = domain;
-          tmpUrl[2] = rest;
+          inputUrl.domain1 = domain;
+          inputUrl.path = rest;
         }
       }
       {
-        const { domain, rest } = splitUrl(tmpUrl[1]);
+        const { domain, rest } = splitUrl(inputUrl.domain2);
         if (rest !== "/") {
-          tmpUrl[1] = domain;
-          tmpUrl[2] = rest;
+          inputUrl.domain2 = domain;
+          inputUrl.path = rest;
         }
       }
-      setTmpUrl(tmpUrl);
-      setUrl(tmpUrl);
+      setInputUrl(inputUrl);
+      setUrl(inputUrl);
     }
   };
 
@@ -65,9 +71,13 @@ export function App(): JSX.Element {
         </label>
         <input
           type="text"
-          value={tmpUrl[0]}
+          value={inputUrl.domain1}
           onChange={(e) => {
-            setTmpUrl([e.target.value, tmpUrl[1], tmpUrl[2]]);
+            setInputUrl({
+              domain1: e.target.value,
+              domain2: inputUrl.domain2,
+              path: inputUrl.path,
+            });
           }}
           onKeyDown={onKeyDown}
         />
@@ -78,9 +88,13 @@ export function App(): JSX.Element {
         </label>
         <input
           type="text"
-          value={tmpUrl[1]}
+          value={inputUrl.domain2}
           onChange={(e) => {
-            setTmpUrl([tmpUrl[0], e.target.value, tmpUrl[2]]);
+            setInputUrl({
+              domain1: inputUrl.domain1,
+              domain2: e.target.value,
+              path: inputUrl.path,
+            });
           }}
           onKeyDown={onKeyDown}
         />
@@ -91,10 +105,14 @@ export function App(): JSX.Element {
       <input
         type="text"
         ref={ref}
-        value={tmpUrl[2]}
-        placeholder="Enter Path or full URL"
+        value={inputUrl.path}
+        placeholder="Enter path starting with /"
         onChange={(e) => {
-          setTmpUrl([tmpUrl[0], tmpUrl[1], e.target.value]);
+          setInputUrl({
+            domain1: inputUrl.domain1,
+            domain2: inputUrl.domain2,
+            path: e.target.value,
+          });
         }}
         onKeyDown={onKeyDown}
       />
@@ -102,12 +120,12 @@ export function App(): JSX.Element {
         <iframe
           ref={iframeRef1}
           id="iframe1"
-          src={`${url[0]}${url[2]}`}
+          src={`${url.domain1}${url.path}`}
         ></iframe>
         <iframe
           ref={iframeRef2}
           id="iframe2"
-          src={`${url[1]}${url[2]}`}
+          src={`${url.domain2}${url.path}`}
         ></iframe>
       </div>
     </>
