@@ -91,3 +91,4 @@ cronTesting:
   enableSanity: false
   enableAdversarial: false
   schedule: "0 */12 * * *"
+  nodePool: "default-pool"
