@@ -61,7 +61,6 @@ nl:
       - sdg_ft
       - undata_ft
       - undata_ilo_ft
-      - undata_dev_ft
     vertex_ai_models:
       dc-all-minilm-l6-v2-model:
         project_id: datcom-website-dev

@@ -134,9 +134,9 @@ def dc_to_embedding_types(dc: str, embeddings_types: List[str]) -> List[str]:
   elif dc == DCNames.UNDATA_ILO_DC.value:
     return ['undata_ilo_ft']
   elif dc == DCNames.UNDATA_DEV_DC.value:
-    return ['undata_dev_ft']
+    return ['undata_ft', 'undata_ilo_ft']
   elif dc == DCNames.BIO_DC.value:
-    return ['bio_ft']
+    return ['medium_ft', 'bio_ft']
   return embeddings_types
 
 

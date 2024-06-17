@@ -62,13 +62,10 @@ flags.DEFINE_string('embeddings_size', '', 'Embeddings size')
 flags.DEFINE_list('curated_input_dirs', None,
                   'Curated input csv (relative) directory list')
 
-flags.DEFINE_string('alternatives_filepattern', 'data/alternatives/main/*.csv',
-                    'File pattern (relative) for CSVs with alternatives')
-
 flags.DEFINE_bool('dry_run', False, 'Dry run')
 
 #
-# curated_input/ + alternatives/ => preindex/ => embeddings
+# curated_input/ => preindex/ => embeddings
 #
 
 # Setting to a very high number right for now.
@@ -121,24 +118,16 @@ def get_embeddings(model: SentenceTransformer,
                    model_endpoint: aiplatform.Endpoint, df_svs: pd.DataFrame,
                    local_merged_filepath: str,
                    dup_names_filepath: str) -> pd.DataFrame:
-  print(f"Concatenate all alternative sentences for descriptions.")
   alternate_descriptions = []
   for _, row in df_svs.iterrows():
     alternatives = []
-    if utils.OVERRIDE_COL in row and row[utils.OVERRIDE_COL]:
-      # Override takes precendence over everything else.
-      alternatives += utils.split_alt_string(row[utils.OVERRIDE_COL])
-    else:
-      for col_name in [
-          utils.NAME_COL,
-          utils.DESCRIPTION_COL,
-          utils.CURATED_ALTERNATIVES_COL,
-          utils.ALTERNATIVES_COL,
-      ]:
-        if col_name not in row:
-          continue
-        # In order of preference, traverse the various alternative descriptions.
-        alternatives += utils.split_alt_string(row[col_name])
+    for col_name in [
+        utils.DESCRIPTION_COL,
+    ]:
+      if col_name not in row:
+        continue
+      # In order of preference, traverse the various alternative descriptions.
+      alternatives += utils.split_alt_string(row[col_name])
 
     alt_str = utils.concat_alternatives(alternatives, MAX_ALTERNATIVES_LIMIT)
     alternate_descriptions.append(alt_str)
@@ -163,8 +152,7 @@ def get_embeddings(model: SentenceTransformer,
 
 def build(model: SentenceTransformer, model_endpoint: aiplatform.Endpoint,
           curated_input_dirs: List[str], local_merged_filepath: str,
-          dup_names_filepath: str,
-          alternative_filepattern: str) -> pd.DataFrame:
+          dup_names_filepath: str) -> pd.DataFrame:
   curated_input_df_list = list()
   # Read curated sv info.
   for curated_input_dir in curated_input_dirs:
@@ -183,14 +171,6 @@ def build(model: SentenceTransformer, model_endpoint: aiplatform.Endpoint,
     df_svs = pd.concat(curated_input_df_list).fillna('')
   else:
     df_svs = pd.DataFrame()
-
-  # Get alternatives and add to the dataframe.
-  if alternative_filepattern:
-    for alt_fp in sorted(
-        glob.glob(str(Path(__file__).parent / alternative_filepattern))):
-      df_alts = utils.get_local_alternatives(
-          alt_fp, [utils.DCID_COL, utils.ALTERNATIVES_COL])
-      df_svs = utils.merge_dataframes(df_svs, df_alts)
 
   return get_embeddings(model, model_endpoint, df_svs, local_merged_filepath,
                         dup_names_filepath)
@@ -288,8 +268,7 @@ def main(_):
   # During this process, the downloaded latest SVs and Descriptions data and the
   # final dataframe with SVs and Alternates are also written to local_merged_dir.
   embeddings_df = build(model, model_endpoint, FLAGS.curated_input_dirs,
-                        local_merged_filepath, dup_names_filepath,
-                        FLAGS.alternatives_filepattern)
+                        local_merged_filepath, dup_names_filepath)
 
   print(f"Saving locally to {gcs_tmp_out_path}")
   embeddings_df.to_csv(gcs_tmp_out_path, index=False)

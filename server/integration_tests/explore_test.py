@@ -291,12 +291,12 @@ class ExploreTestDetection(ExploreTest):
     self.run_detection('detection_api_undata_dev_idx',
                        ['Employment in the world'],
                        test='unittest',
-                       idx='undata_dev_ft')
+                       idx='undata_ft,undata_ilo_ft')
 
   def test_detection_basic_bio(self):
     self.run_detection('detection_api_bio_idx', ['Commute in California'],
                        test='unittest',
-                       idx='bio_ft')
+                       idx='bio_ft,medium_ft')
 
   def test_detection_basic_vertex(self):
     self.run_detection('detection_api_vertex_ft_idx', ['Commute in California'],

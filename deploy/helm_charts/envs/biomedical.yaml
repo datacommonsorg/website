@@ -49,6 +49,7 @@ nl:
   env:
     default_indexes:
       - bio_ft
+      - medium_ft
     enabled_indexes:
       - bio_ft
       - medium_ft

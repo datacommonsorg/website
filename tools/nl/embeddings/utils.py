@@ -23,11 +23,7 @@ from sentence_transformers import SentenceTransformer
 
 # Col names in the input files/sheets.
 DCID_COL = 'dcid'
-NAME_COL = 'Name'
 DESCRIPTION_COL = 'sentence'
-CURATED_ALTERNATIVES_COL = 'Curated_Alternatives'
-OVERRIDE_COL = 'Override_Alternatives'
-ALTERNATIVES_COL = 'sentence'
 
 # Col names in the concatenated dataframe.
 COL_ALTERNATIVES = 'sentence'
