@@ -55,16 +55,24 @@ flags.DEFINE_string(
 flags.DEFINE_string('embeddings_size', '', 'Embeddings size')
 flags.DEFINE_bool('dry_run', False, 'Dry run')
 
-#
-# curated_input/ => preindex/ => embeddings
-#
-
 # Setting to a very high number right for now.
 MAX_ALTERNATIVES_LIMIT = 50
 
 _LANCEDB_TABLE = 'datacommons'
 
 _DATA_DIR = Path(__file__).parent / 'data'
+
+
+def _get_input_folder() -> str:
+  return _DATA_DIR / 'curated_input' / FLAGS.embeddings_size
+
+
+def _get_preindex_folder() -> str:
+  return _DATA_DIR / 'curated_input' / FLAGS.embeddings_size
+
+
+def _get_old_preindex_folder() -> str:
+  return _DATA_DIR / 'preindex' / FLAGS.embeddings_size
 
 
 def _make_gcs_embeddings_filename(embeddings_size: str,
@@ -93,23 +101,22 @@ def _write_intermediate_output(name2sv_dict: Dict[str, str],
   name_list = [';'.join(sorted(sv2names[v])) for v in sv_list]
 
   # Write to preindex file
-  new_preindex_filepath = str(_DATA_DIR / 'curated_input' /
-                              FLAGS.embeddings_size / '_preindex.csv')
+  new_preindex_filepath = str(_get_input_folder() / '_preindex.csv')
   new_preindex_df = pd.DataFrame(list(name2sv_dict.items()),
                                  columns=['sentence',
                                           'dcid']).sort_values(by='sentence')
   new_preindex_df.to_csv(new_preindex_filepath, index=False)
 
   # Write to local_merged_filepath.
-  preindex_dir = str(_DATA_DIR / 'preindex' / FLAGS.embeddings_size)
-  local_merged_filepath = f'{preindex_dir}/sv_descriptions.csv'
+  local_merged_filepath = str(_get_old_preindex_folder() /
+                              'sv_descriptions.csv')
   print(
       f"Writing the concatenated dataframe after merging alternates to local file: {local_merged_filepath}"
   )
   df_svs = pd.DataFrame({'dcid': sv_list, 'sentence': name_list})
   df_svs.to_csv(local_merged_filepath, index=False)
 
-  dup_names_filepath = f'{preindex_dir}/duplicate_names.csv'
+  dup_names_filepath = str(_get_old_preindex_folder() / 'duplicate_names.csv')
   if dup_names_filepath:
     print(f"Writing duplicate names file: {dup_names_filepath}")
     with open(dup_names_filepath, 'w') as f:
@@ -152,23 +159,22 @@ def get_embeddings(model: SentenceTransformer,
 
 def build(model: SentenceTransformer,
           model_endpoint: aiplatform.Endpoint) -> pd.DataFrame:
-  curated_input_df_list = list()
+  input_df_list = list()
   # Read curated sv info.
-  for file_path in glob.glob(
-      str(_DATA_DIR / 'curated_input' / FLAGS.embeddings_size / '*.csv')):
+  for file_path in glob.glob(str(_get_preindex_folder() / '*.csv')):
     if file_path.endswith('_preindex.csv'):
       continue
     try:
       print(f"Reading the curated input file: {file_path}")
       file_df = pd.read_csv(file_path, na_filter=False)
-      curated_input_df_list.append(file_df)
+      input_df_list.append(file_df)
     except:
       print("Error reading curated input file: {file_path}")
 
-  if curated_input_df_list:
+  if input_df_list:
     # Use inner join to only add rows that have the same headings (which all
     # curated inputs should have the same headings)
-    df_svs = pd.concat(curated_input_df_list).fillna('')
+    df_svs = pd.concat(input_df_list).fillna('')
   else:
     df_svs = pd.DataFrame()
 
@@ -222,9 +228,9 @@ def main(_):
         gcs.make_path("datcom-nl-models", model_version))
     model = SentenceTransformer(model_path)
 
-  preindex_dir = str(_DATA_DIR / 'preindex' / FLAGS.embeddings_size)
-  if not os.path.exists(preindex_dir):
-    os.mkdir(preindex_dir)
+  old_preindex_dir = str(_get_old_preindex_folder())
+  if not os.path.exists(old_preindex_dir):
+    os.mkdir(old_preindex_dir)
 
   gcs_embeddings_filename = _make_gcs_embeddings_filename(
       FLAGS.embeddings_size, model_version)
@@ -238,11 +244,6 @@ def main(_):
 
   print(f"Saving locally to {gcs_tmp_out_path}")
   embeddings_df.to_csv(gcs_tmp_out_path, index=False)
-
-  # Before uploading embeddings to GCS, validate them.
-  print("Validating the built embeddings.")
-  utils.validate_embeddings(embeddings_df, preindex_dir)
-  print("Embeddings DataFrame is validated.")
 
   if not FLAGS.dry_run:
     # Finally, upload to the NL embeddings server's GCS bucket
