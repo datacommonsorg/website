@@ -91,8 +91,18 @@ done
 cd ../../..
 python3 -m venv .env
 source .env/bin/activate
-pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu -q
-pip3 install -r tools/nl/embeddings/requirements.txt -q
+# pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu -q
+# pip3 install -r tools/nl/embeddings/requirements.txt -q
+
+
+folders=("base" "bio" "sdg" "undata" "undata_ilo")
+for subdir in "${folders[@]}"; do
+  echo $subdir
+  python3 -m tools.nl.embeddings.build_preindex --input_dir=$PWD/tools/nl/embeddings/data/curated_input/$subdir
+done
+
+exit 0
+
 
 if [[ "$MODEL_ENDPOINT_ID" != "" ]];then
   python3 -m tools.nl.embeddings.build_embeddings \

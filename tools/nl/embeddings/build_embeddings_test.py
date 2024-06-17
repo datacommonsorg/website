@@ -11,16 +11,18 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+import logging
 import os
 from pathlib import Path
 import tempfile
 import unittest
 from unittest import mock
-
+import pytest
+from shared.lib import gcs
 import pandas as pd
 from parameterized import parameterized
 from sentence_transformers import SentenceTransformer
+from nl_server import config_reader
 
 import tools.nl.embeddings.build_embeddings as be
 
@@ -94,8 +96,6 @@ class TestEndToEnd(unittest.TestCase):
 
     # Filepaths all correspond to the testdata folder.
     input_dir = Path(__file__).parent / "testdata/input"
-    input_alternatives_filepattern = os.path.join(input_dir,
-                                                  "*_alternatives.csv")
 
     with tempfile.TemporaryDirectory() as tmp_dir, self.assertRaises(KeyError):
       tmp_local_merged_filepath = os.path.join(tmp_dir, "merged_data.csv")
@@ -140,11 +140,11 @@ class TestEndToEnd(unittest.TestCase):
 
 class TestEndToEndActualDataFiles(unittest.TestCase):
 
-  @parameterized.expand(["medium"])
+  @parameterized.expand(["base"])
   def testInputFilesValidations(self, sz):
     # Verify that the required files exist.
     sheets_filepath = Path(
-        __file__).parent / "data/curated_input/main/sheets_svs.csv"
+        __file__).parent / "data/curated_input/base/sheets_svs.csv"
     # TODO: Fix palm_batch13k_alternatives.csv to not have duplicate
     # descriptions.  Its technically okay since build_embeddings will take
     # care of dups.
@@ -171,7 +171,7 @@ class TestEndToEndActualDataFiles(unittest.TestCase):
     expected_cols = ["dcid", "sentence"]
     alt_sentence_cols = expected_cols[1:]
 
-  @parameterized.expand(["medium"])
+  @parameterized.expand(["base"])
   def testOutputFileValidations(self, sz):
     output_dcid_sentences_filepath = Path(
         __file__).parent / f'data/preindex/{sz}/sv_descriptions.csv'
@@ -198,3 +198,31 @@ class TestEndToEndActualDataFiles(unittest.TestCase):
           print(err_msg)
         # self.assertFalse(s in sentences, err_msg)
         sentences[s] = (sv_dcid, row_index)
+
+
+class TestPreindex(unittest.TestCase):
+
+  @pytest.fixture(autouse=True)
+  def _inject_fixtures(self, tmp_path):
+    self.tmp_path = tmp_path
+
+  def setUp(self):
+    self.catalog = config_reader.read_catalog()
+
+  @parameterized.expand([
+      ['base_uae_mem', 'base'],
+  ])
+  def test_preindex_content(self, index_name, input_folder):
+    embeddings_path = self.catalog.indexes[index_name].embeddings_path
+    local_path = self.tmp_path / 'local_file_path'
+    gcs.download_blob_by_path(embeddings_path, local_path)
+    # embeddings_df = pd.read_csv(local_path)
+    preindex_path = (Path(__file__).parent / "data/curated_input" /
+                     input_folder / "_preindex.csv")
+    print(preindex_path)
+    preindex_df = pd.read_csv(str(preindex_path),
+                              delimiter=',',
+                              names=['dcid', 'sentence'],
+                              header=None)
+    logging.error(preindex_df)
+    # print(preindex_df.head)
