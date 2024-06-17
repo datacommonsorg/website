@@ -46,9 +46,16 @@ def eval_embeddings():
 
 @bp.route('/eval/rig')
 def eval_rig():
+  return redirect(url_for('nl.eval_retrieval_generation'), code=302)
+
+
+@bp.route('/eval/retrieval_generation')
+def eval_retrieval_generation():
   if os.environ.get('FLASK_ENV') not in ['local', 'autopush']:
     flask.abort(404)
   sheet_id = request.args.get('sheet_id')
   if not sheet_id:
-    return redirect(url_for('nl.eval_rig', sheet_id=_TEST_SHEET_ID), code=302)
-  return render_template('/eval_rig.html', sheet_id=sheet_id)
+    return redirect(url_for('nl.eval_retrieval_generation',
+                            sheet_id=_TEST_SHEET_ID),
+                    code=302)
+  return render_template('/eval_retrieval_generation.html', sheet_id=sheet_id)
