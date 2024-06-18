@@ -45,7 +45,6 @@ export function App(): JSX.Element {
   useEffect(() => {
     const handleMessage = (event) => {
       if (event.data.type === "URLResponse") {
-        console.log(url);
         const iframeURL = event.data.url;
         const { domain, path } = splitUrl(iframeURL);
         console.log(domain, path);

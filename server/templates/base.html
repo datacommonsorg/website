@@ -77,13 +77,13 @@
     // Post the iframe's URL to the parent
     window.addEventListener('message', function(event) {
       // MUST verify the origin to be autopush DC
-      // TODO: remove localhost after verification
-      if (event.origin === 'https://autopush.datacommons.org' || event.origin === 'http://localhost:8080') {
-        console.log('Message received from parent:', event.data);
+      if (event.origin === 'https://autopush.datacommons.org') {
         // Send the iframe's URL back to the parent
         if (event.data === 'Request URL') {
-          console.log('Message from parent:', event.data);
-          event.source.postMessage({ type: 'URLResponse', url: window.location.href }, event.origin);
+          event.source.postMessage(
+            { type: 'URLResponse', url: window.location.href },
+            event.origin
+          );
         }
       }
     });
