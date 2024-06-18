@@ -42,7 +42,8 @@ interface AppPropType {
 }
 
 export function App(props: AppPropType): JSX.Element {
-  const { setSessionQueryId, sessionCallId } = useContext(SessionContext);
+  const { setSessionQueryId, sessionCallId, sessionQueryId } =
+    useContext(SessionContext);
   const [user, setUser] = useState<User | null>(null);
   const [doc, setDoc] = useState<GoogleSpreadsheet>(null);
   const [allQuery, setAllQuery] = useState<Record<number, Query>>(null);
@@ -111,6 +112,8 @@ export function App(props: AppPropType): JSX.Element {
       }
       if (queryId !== null) {
         setSessionQueryId(queryId);
+      } else {
+        setSessionQueryId(sortedQueryIds[0]);
       }
     });
   };
@@ -179,7 +182,7 @@ export function App(props: AppPropType): JSX.Element {
             Google Sheet Link
           </a>
           <p>Signed in as {user.email}</p>
-          {allQuery && allCall && doc && (
+          {allQuery && allCall && doc && sessionQueryId && (
             <AppContext.Provider
               value={{
                 allCall,
