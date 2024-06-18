@@ -42,7 +42,7 @@ interface AppPropType {
 }
 
 export function App(props: AppPropType): JSX.Element {
-  const { setSessionQueryId, sessionQueryId, sessionCallId } =
+  const { setSessionQueryId, sessionCallId, sessionQueryId } =
     useContext(SessionContext);
   const [user, setUser] = useState<User | null>(null);
   const [doc, setDoc] = useState<GoogleSpreadsheet>(null);
