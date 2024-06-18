@@ -14,11 +14,9 @@
 # limitations under the License.
 
 function help {
-  echo "Usage: -bflce <embeddings-size>"
-  echo "$0 -b <embeddings-size> # 'small' or 'medium'. This option uses the base default sentence_transformer model."
-  echo "$0 -f <embeddings-size> # 'small' or 'medium'. This option uses the finetuned model on PROD."
+  echo "Usage: -lce <embeddings-size>"
+  echo "$0 -c <embeddings-size> # This option creates custom embeddings (using the finetuned model in PROD)."
   echo "$0 -l <embeddings-size> <lancedb_output_path> # This option is used to generate the lanceDB index."
-  echo "$0 -c <embeddings-size> <curated_input_dirs> # This option creates custom embeddings (using the finetuned model in PROD)."
   echo "$0 -e <embeddings-size> <vertex_ai_endpoint_id> # This option creates embeddings using a Vertex AI model endpoint."
 }
 
@@ -27,35 +25,21 @@ if [[ $# -le 1 ]]; then
   exit 1
 fi
 
-while getopts beflc OPTION; do
+FINETUNED_MODEL=ft_final_v20230717230459.all-MiniLM-L6-v2
+EMBEDDINGS_SIZE=$2
+
+while getopts elc OPTION; do
   case $OPTION in
-    b)
-        echo -e "### Using the base default sentence_transformer model"
-        FINETUNED_MODEL=""
-        ;;
     e)
-        MODEL_ENDPOINT_ID="$2"
-        echo -e "### Using Vertex AI model endpoint $MODEL_ENDPOINT_ID"
-        ;;
-    f)
-        echo -e "### Using the finetuned model from prod"
-        FINETUNED_MODEL=$(curl -s https://raw.githubusercontent.com/datacommonsorg/website/master/deploy/nl/models.yaml | awk '$1=="tuned_model:"{ print $2; }')
-        if [[ "$FINETUNED_MODEL" == "" ]]; then
-          echo "Using option -f but could not retrieve an existing finetuned model from prod."
+        MODEL_ENDPOINT_ID="$3"
+        if [[ "$MODEL_ENDPOINT_ID" == "" ]]; then
+          help
           exit 1
         else
-          echo "Found finetuned model on prod: $FINETUNED_MODEL"
+          echo -e "### Using Vertex AI model endpoint $MODEL_ENDPOINT_ID"
         fi
         ;;
     l)
-        FINETUNED_MODEL=$(curl -s https://raw.githubusercontent.com/datacommonsorg/website/master/deploy/nl/models.yaml | awk '$1=="tuned_model:"{ print $2; }')
-        if [[ "$FINETUNED_MODEL" == "" ]]; then
-          echo "Using option -l but could not retrieve an existing finetuned model from prod."
-          exit 1
-        else
-          echo "Found finetuned model on prod: $FINETUNED_MODEL"
-        fi
-
         echo -e "### Generating LanceDB index"
         LANCEDB_OUTPUT_PATH="$3"
         if [[ "$LANCEDB_OUTPUT_PATH" == "" ]]; then
@@ -65,24 +49,9 @@ while getopts beflc OPTION; do
           echo "Generating LanceDB index inside: $LANCEDB_OUTPUT_PATH"
         fi
         ;;
-
     c)
-      echo -e "### Using the finetuned model from prod with custom embeddings-size"
-      CURATED_INPUT_DIRS="$3"
-      if [[ "$CURATED_INPUT_DIRS" == "" ]]; then
-        help
-        exit 1
-      else
-        echo "Using the following local filenames as curated input: $CURATED_INPUT_DIRS"
-      fi
-      FINETUNED_MODEL=ft_final_v20230717230459.all-MiniLM-L6-v2
-      if [[ "$FINETUNED_MODEL" == "" ]]; then
-        echo "Using option -c but could not retrieve an existing finetuned model from prod."
-        exit 1
-      else
-        echo "Found finetuned model on prod: $FINETUNED_MODEL"
-      fi
-      ;;
+        echo -e "### Using the finetuned model from prod with custom embeddings-size"
+        ;;
     *)
         help
     esac
@@ -104,27 +73,22 @@ done
 exit 0
 
 
+export TOKENIZERS_PARALLELISM=false
+
 if [[ "$MODEL_ENDPOINT_ID" != "" ]];then
   python3 -m tools.nl.embeddings.build_embeddings \
-    --embeddings_size=medium \
-    --vertex_ai_prediction_endpoint_id=$MODEL_ENDPOINT_ID \
-    --curated_input_dirs=data/curated_input/main
-
-elif [[ "$CURATED_INPUT_DIRS" != "" ]]; then
-  python3 -m tools.nl.embeddings.build_embeddings \
-    --embeddings_size=$2 \
-    --finetuned_model_gcs=$FINETUNED_MODEL \
-    --curated_input_dirs=$CURATED_INPUT_DIRS
+    --embeddings_size=$EMBEDDINGS_SIZE \
+    --vertex_ai_prediction_endpoint_id=$MODEL_ENDPOINT_ID
 elif [[ "$LANCEDB_OUTPUT_PATH" != "" ]]; then
   python3 -m tools.nl.embeddings.build_embeddings \
-    --embeddings_size=$2 \
+    --embeddings_size=$EMBEDDINGS_SIZE \
     --finetuned_model_gcs=$FINETUNED_MODEL \
     --lancedb_output_path=$LANCEDB_OUTPUT_PATH \
     --dry_run=True
-elif [[ "$FINETUNED_MODEL" != "" ]]; then
-  python3 -m tools.nl.embeddings.build_embeddings --embeddings_size=$2 --finetuned_model_gcs=$FINETUNED_MODEL
 else
-  python3 -m tools.nl.embeddings.build_embeddings --embeddings_size=$2
+  python3 -m tools.nl.embeddings.build_embeddings \
+    --embeddings_size=$EMBEDDINGS_SIZE \
+    --finetuned_model_gcs=$FINETUNED_MODEL
 fi
 
 cd tools/nl/embeddings
