@@ -20,7 +20,6 @@ import csv
 import datetime as datetime
 import glob
 import json
-import logging
 import os
 from pathlib import Path
 from typing import Dict, List
@@ -45,8 +44,6 @@ FLAGS = flags.FLAGS
 # between local and GCS path.
 flags.DEFINE_string('finetuned_model_gcs', '',
                     'Existing finetuned model folder name on GCS')
-flags.DEFINE_string('existing_model_path', '',
-                    'Path to an existing model (local)')
 flags.DEFINE_string(
     'vertex_ai_prediction_endpoint_id', '',
     'The ID of vertex AI prediction endpoint.' +
@@ -55,23 +52,31 @@ flags.DEFINE_string(
 flags.DEFINE_string(
     'lancedb_output_path', '', 'The output path to produce LanceDB index. ' +
     'Currently always uses SentenceTransformer model.')
-flags.DEFINE_string('model_name_v2', 'all-MiniLM-L6-v2', 'Model name')
-flags.DEFINE_string('bucket_name_v2', 'datcom-nl-models', 'Storage bucket')
 flags.DEFINE_string('embeddings_size', '', 'Embeddings size')
-
-flags.DEFINE_list('curated_input_dirs', None,
-                  'Curated input csv (relative) directory list')
-
 flags.DEFINE_bool('dry_run', False, 'Dry run')
-
-#
-# curated_input/ => preindex/ => embeddings
-#
 
 # Setting to a very high number right for now.
 MAX_ALTERNATIVES_LIMIT = 50
 
 _LANCEDB_TABLE = 'datacommons'
+
+_DATA_DIR = Path(__file__).parent / 'data'
+
+_PREINDEX_CSV = '_preindex.csv'
+
+_MODEL_BUCKET = 'datcom-nl-models'
+
+
+def _get_input_folder() -> str:
+  return _DATA_DIR / 'curated_input' / FLAGS.embeddings_size
+
+
+def _get_preindex_folder() -> str:
+  return _DATA_DIR / 'curated_input' / FLAGS.embeddings_size
+
+
+def _get_old_preindex_folder() -> str:
+  return _DATA_DIR / 'preindex' / FLAGS.embeddings_size
 
 
 def _make_gcs_embeddings_filename(embeddings_size: str,
@@ -89,9 +94,7 @@ def _make_embeddings_index_filename(embeddings_size: str,
 
 
 def _write_intermediate_output(name2sv_dict: Dict[str, str],
-                               dup_sv_rows: List[List[str]],
-                               local_merged_filepath: str,
-                               dup_names_filepath: str) -> None:
+                               dup_sv_rows: List[List[str]]) -> None:
   sv2names = {}
   for name, sv in name2sv_dict.items():
     if sv not in sv2names:
@@ -101,13 +104,23 @@ def _write_intermediate_output(name2sv_dict: Dict[str, str],
   sv_list = sorted(list(sv2names.keys()))
   name_list = [';'.join(sorted(sv2names[v])) for v in sv_list]
 
+  # Write to preindex file
+  new_preindex_filepath = str(_get_input_folder() / _PREINDEX_CSV)
+  new_preindex_df = pd.DataFrame(list(name2sv_dict.items()),
+                                 columns=['sentence',
+                                          'dcid']).sort_values(by='sentence')
+  new_preindex_df.to_csv(new_preindex_filepath, index=False)
+
   # Write to local_merged_filepath.
+  local_merged_filepath = str(_get_old_preindex_folder() /
+                              'sv_descriptions.csv')
   print(
       f"Writing the concatenated dataframe after merging alternates to local file: {local_merged_filepath}"
   )
   df_svs = pd.DataFrame({'dcid': sv_list, 'sentence': name_list})
   df_svs.to_csv(local_merged_filepath, index=False)
 
+  dup_names_filepath = str(_get_old_preindex_folder() / 'duplicate_names.csv')
   if dup_names_filepath:
     print(f"Writing duplicate names file: {dup_names_filepath}")
     with open(dup_names_filepath, 'w') as f:
@@ -115,9 +128,8 @@ def _write_intermediate_output(name2sv_dict: Dict[str, str],
 
 
 def get_embeddings(model: SentenceTransformer,
-                   model_endpoint: aiplatform.Endpoint, df_svs: pd.DataFrame,
-                   local_merged_filepath: str,
-                   dup_names_filepath: str) -> pd.DataFrame:
+                   model_endpoint: aiplatform.Endpoint,
+                   df_svs: pd.DataFrame) -> pd.DataFrame:
   alternate_descriptions = []
   for _, row in df_svs.iterrows():
     alternatives = []
@@ -141,8 +153,7 @@ def get_embeddings(model: SentenceTransformer,
   (text2sv_dict, dup_sv_rows) = utils.dedup_texts(df_svs)
 
   # Write dcid -> texts and dups to intermediate files.
-  _write_intermediate_output(text2sv_dict, dup_sv_rows, local_merged_filepath,
-                             dup_names_filepath)
+  _write_intermediate_output(text2sv_dict, dup_sv_rows)
 
   print("Building embeddings")
   return utils.build_embeddings(text2sv_dict,
@@ -150,30 +161,28 @@ def get_embeddings(model: SentenceTransformer,
                                 model_endpoint=model_endpoint)
 
 
-def build(model: SentenceTransformer, model_endpoint: aiplatform.Endpoint,
-          curated_input_dirs: List[str], local_merged_filepath: str,
-          dup_names_filepath: str) -> pd.DataFrame:
-  curated_input_df_list = list()
+def build(model: SentenceTransformer,
+          model_endpoint: aiplatform.Endpoint) -> pd.DataFrame:
+  input_df_list = list()
   # Read curated sv info.
-  for curated_input_dir in curated_input_dirs:
-    for file_path in glob.glob(
-        str(Path(__file__).parent / curated_input_dir / "*.csv")):
-      try:
-        print(f"Reading the curated input file: {file_path}")
-        file_df = pd.read_csv(file_path, na_filter=False)
-        curated_input_df_list.append(file_df)
-      except:
-        print("Error reading curated input file: {file_path}")
+  for file_path in glob.glob(str(_get_preindex_folder() / '*.csv')):
+    if file_path.endswith(_PREINDEX_CSV):
+      continue
+    try:
+      print(f"Reading the curated input file: {file_path}")
+      file_df = pd.read_csv(file_path, na_filter=False)
+      input_df_list.append(file_df)
+    except:
+      print("Error reading curated input file: {file_path}")
 
-  if curated_input_df_list:
+  if input_df_list:
     # Use inner join to only add rows that have the same headings (which all
     # curated inputs should have the same headings)
-    df_svs = pd.concat(curated_input_df_list).fillna('')
+    df_svs = pd.concat(input_df_list).fillna('')
   else:
     df_svs = pd.DataFrame()
 
-  return get_embeddings(model, model_endpoint, df_svs, local_merged_filepath,
-                        dup_names_filepath)
+  return get_embeddings(model, model_endpoint, df_svs)
 
 
 def write_row_to_jsonl(f, row):
@@ -206,58 +215,25 @@ def get_lancedb_records(df) -> List[Dict]:
 
 
 def main(_):
-  assert FLAGS.vertex_ai_prediction_endpoint_id or (FLAGS.model_name_v2 and
-                                                    FLAGS.bucket_name_v2 and
-                                                    FLAGS.curated_input_dirs)
-
-  if FLAGS.existing_model_path:
-    assert os.path.exists(FLAGS.existing_model_path)
-
-  use_finetuned_model = False
-  use_local_model = False
-  if not FLAGS.vertex_ai_prediction_endpoint_id:
-    model_version = FLAGS.model_name_v2
-    if FLAGS.finetuned_model_gcs:
-      use_finetuned_model = True
-      model_version = FLAGS.finetuned_model_gcs
-    elif FLAGS.existing_model_path:
-      use_local_model = True
-      model_version = os.path.basename(FLAGS.existing_model_path)
-
-  preindex_dir = str(
-      Path(__file__).parent / f'data/preindex/{FLAGS.embeddings_size}')
-  if not os.path.exists(preindex_dir):
-    os.mkdir(preindex_dir)
-
-  local_merged_filepath = f'{preindex_dir}/sv_descriptions.csv'
-  dup_names_filepath = f'{preindex_dir}/duplicate_names.csv'
-
-  sc = storage.Client()
-  bucket = sc.bucket(FLAGS.bucket_name_v2)
-  model_endpoint = None
-
-  if use_finetuned_model:
-    model_path = gcs.maybe_download(
-        gcs.make_path("datcom-nl-models", model_version))
-    model = SentenceTransformer(model_path)
-  elif use_local_model:
-    logging.info("Use the local model at: %s", FLAGS.existing_model_path)
-    logging.info("Extracted model version: %s", model_version)
-    model = SentenceTransformer(FLAGS.existing_model_path)
-  elif FLAGS.vertex_ai_prediction_endpoint_id:
+  if FLAGS.vertex_ai_prediction_endpoint_id:
     model = None
     aiplatform.init(project=VERTEX_AI_PROJECT,
                     location=VERTEX_AI_PROJECT_LOCATION)
     model_endpoint = aiplatform.Endpoint(FLAGS.vertex_ai_prediction_endpoint_id)
-  else:
-    model = SentenceTransformer(FLAGS.model_name_v2)
-
-  if FLAGS.vertex_ai_prediction_endpoint_id:
     model_version = FLAGS.vertex_ai_prediction_endpoint_id
     embeddings_index_json_filename = _make_embeddings_index_filename(
         FLAGS.embeddings_size, FLAGS.vertex_ai_prediction_endpoint_id)
     embeddings_index_tmp_out_path = os.path.join(
         '/tmp', embeddings_index_json_filename)
+  else:
+    model_endpoint = None
+    model_version = FLAGS.finetuned_model_gcs
+    model_path = gcs.maybe_download(gcs.make_path(_MODEL_BUCKET, model_version))
+    model = SentenceTransformer(model_path)
+
+  old_preindex_dir = str(_get_old_preindex_folder())
+  if not os.path.exists(old_preindex_dir):
+    os.mkdir(old_preindex_dir)
 
   gcs_embeddings_filename = _make_gcs_embeddings_filename(
       FLAGS.embeddings_size, model_version)
@@ -267,21 +243,16 @@ def main(_):
   # return the embeddings dataframe.
   # During this process, the downloaded latest SVs and Descriptions data and the
   # final dataframe with SVs and Alternates are also written to local_merged_dir.
-  embeddings_df = build(model, model_endpoint, FLAGS.curated_input_dirs,
-                        local_merged_filepath, dup_names_filepath)
+  embeddings_df = build(model, model_endpoint)
 
   print(f"Saving locally to {gcs_tmp_out_path}")
   embeddings_df.to_csv(gcs_tmp_out_path, index=False)
 
-  # Before uploading embeddings to GCS, validate them.
-  print("Validating the built embeddings.")
-  utils.validate_embeddings(embeddings_df, local_merged_filepath)
-  print("Embeddings DataFrame is validated.")
-
   if not FLAGS.dry_run:
     # Finally, upload to the NL embeddings server's GCS bucket
     print("Attempting to write to GCS")
-    print(f"\t GCS Path: gs://{FLAGS.bucket_name_v2}/{gcs_embeddings_filename}")
+    print(f"\t GCS Path: gs://datcom-nl-models/{gcs_embeddings_filename}")
+    bucket = storage.Client().bucket('datcom-nl-models')
     blob = bucket.blob(gcs_embeddings_filename)
     # Since the files can be fairly large, use a 10min timeout to be safe.
     blob.upload_from_filename(gcs_tmp_out_path, timeout=600)

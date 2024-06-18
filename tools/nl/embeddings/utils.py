@@ -156,33 +156,3 @@ def build_embeddings(
   embeddings[DCID_COL] = [text2sv[t] for t in texts]
   embeddings[COL_ALTERNATIVES] = texts
   return embeddings
-
-
-def validate_embeddings(embeddings_df: pd.DataFrame,
-                        output_dcid_sentences_filepath: str) -> None:
-  # Verify that embeddings were created for all DCIDs and Sentences.
-  dcid_sentence_df = pd.read_csv(output_dcid_sentences_filepath).fillna("")
-  sentences = set()
-  for alts in dcid_sentence_df["sentence"].values:
-    for s in alts.split(";"):
-      s = s.strip()
-      if not s:
-        continue
-      sentences.add(s)
-
-  # Verify that each of the texts in the embeddings_df is in the sentences set
-  # and that all the sentences in the set are in the embeddings_df. Finally, also
-  # verify that embeddings_df has no duplicate sentences.
-  embeddings_sentences = embeddings_df['sentence'].values
-  embeddings_sentences_unique = set()
-  for s in embeddings_sentences:
-    assert s in sentences, f"Embeddings sentence not found in processed output file. Sentence: {s}"
-    assert s not in embeddings_sentences_unique, f"Found multiple instances of sentence in embeddings. Sentence: {s}."
-    embeddings_sentences_unique.add(s)
-
-  for s in sentences:
-    assert s in embeddings_sentences_unique, f"Output File sentence not found in Embeddings. Sentence: {s}"
-
-  # Verify that the number of columns = length of the embeddings vector + one each for the
-  # dcid and sentence columns.
-  assert len(embeddings_df.columns), 384 + 2
