@@ -62,6 +62,7 @@ export function App(): JSX.Element {
       setUrl(inputUrl);
     }
   };
+
   return (
     <>
       <div className="domain-input">
@@ -120,10 +121,6 @@ export function App(): JSX.Element {
           ref={iframeRef1}
           id="iframe1"
           src={`${url.domain1}${url.path}`}
-          onLoad={() => {
-            const tmp = document.getElementById("iframe1") as HTMLIFrameElement;
-            console.log(tmp.contentDocument);
-          }}
         ></iframe>
         <iframe
           ref={iframeRef2}
