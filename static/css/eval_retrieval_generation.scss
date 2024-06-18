@@ -334,3 +334,53 @@ label {
     margin-right: 8px;
   }
 }
+
+.block-evaluation {
+  text-align: center;
+
+  .counter {
+    justify-content: center;
+    margin-top: 20px;
+
+    .claims-count,
+    .false-claims-count {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-left: auto;
+      margin-right: auto;
+
+      button {
+        border: none;
+        background-color: white;
+        padding: 5px 5px;
+        cursor: pointer;
+        font-size: 2em;
+      }
+
+      span {
+        font-size: 2em;
+        margin: 10px;
+        color: white;
+        width: 40px;
+      }
+
+      p {
+        margin: 0 10px;
+        font-weight: bold;
+      }
+    }
+
+    .claims-count {
+      span {
+        background-color: #007bff;
+      }
+    }
+
+    .false-claims-count {
+      span {
+        background-color: #ff5722;
+      }
+    }
+  }
+}
