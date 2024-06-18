@@ -23,6 +23,10 @@ import { CallFeedback } from "./call_feedback";
 import {
   CALL_ID_COL,
   DC_CALL_SHEET,
+  DC_METADATA_SHEET,
+  METADATA_KEY_COL,
+  METADATA_KEY_TYPE,
+  METADATA_VAL_COL,
   QA_SHEET,
   QUERY_COL,
   QUERY_FEEDBACK_CALL_ID,
@@ -32,7 +36,7 @@ import {
 import { AppContext, SessionContext } from "./context";
 import { QueryFeedback } from "./query_feedback";
 import { QuerySection } from "./query_section";
-import { DcCall, Query } from "./types";
+import { DcCall, EvalType, Query } from "./types";
 
 // Map from sheet name to column name to column index
 type HeaderInfo = Record<string, Record<string, number>>;
@@ -47,10 +51,11 @@ export function App(props: AppPropType): JSX.Element {
   const [doc, setDoc] = useState<GoogleSpreadsheet>(null);
   const [allQuery, setAllQuery] = useState<Record<number, Query>>(null);
   const [allCall, setAllCall] = useState<Record<number, DcCall>>(null);
+  const [evalType, setEvalType] = useState<EvalType>(null);
 
   async function loadHeader(doc: GoogleSpreadsheet): Promise<HeaderInfo> {
     const result: HeaderInfo = {};
-    for (const sheetName of [QA_SHEET, DC_CALL_SHEET]) {
+    for (const sheetName of [QA_SHEET, DC_CALL_SHEET, DC_METADATA_SHEET]) {
       result[sheetName] = {};
       const sheet = doc.sheetsByTitle[sheetName];
       await sheet.loadHeaderRow();
@@ -143,6 +148,34 @@ export function App(props: AppPropType): JSX.Element {
     });
   };
 
+  const loadMetadata = (doc: GoogleSpreadsheet, allHeader: HeaderInfo) => {
+    const sheet = doc.sheetsByTitle[DC_METADATA_SHEET];
+    const header = allHeader[DC_METADATA_SHEET];
+    const loadPromises = [];
+    for (const col of [METADATA_KEY_COL, METADATA_VAL_COL]) {
+      loadPromises.push(
+        sheet.loadCells({
+          startColumnIndex: header[col],
+          endColumnIndex: header[col] + 1,
+        })
+      );
+    }
+    const numRows = sheet.rowCount;
+    Promise.all(loadPromises).then(() => {
+      for (let i = 1; i < numRows; i++) {
+        const metadataKey = sheet.getCell(i, header[METADATA_KEY_COL]).value;
+        if (metadataKey === METADATA_KEY_TYPE) {
+          setEvalType(
+            sheet.getCell(i, header[METADATA_VAL_COL]).value as EvalType
+          );
+          return;
+        }
+      }
+      // by default, set eval type as RIG
+      setEvalType(EvalType.RIG);
+    });
+  };
+
   async function handleUserSignIn(user: User, credential: OAuthCredential) {
     if (credential.accessToken) {
       setUser(user); // Set the user state to the signed-in user
@@ -154,6 +187,7 @@ export function App(props: AppPropType): JSX.Element {
       loadHeader(doc).then((allHeader) => {
         loadQuery(doc, allHeader, user.email);
         loadCall(doc, allHeader);
+        loadMetadata(doc, allHeader);
       });
     }
   }
@@ -179,7 +213,7 @@ export function App(props: AppPropType): JSX.Element {
             Google Sheet Link
           </a>
           <p>Signed in as {user.email}</p>
-          {allQuery && allCall && doc && (
+          {allQuery && allCall && doc && evalType && (
             <AppContext.Provider
               value={{
                 allCall,
@@ -187,6 +221,7 @@ export function App(props: AppPropType): JSX.Element {
                 doc,
                 sheetId: props.sheetId,
                 userEmail: user.email,
+                evalType,
               }}
             >
               <div className="app-content">
