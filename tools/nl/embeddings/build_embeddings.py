@@ -62,6 +62,10 @@ _LANCEDB_TABLE = 'datacommons'
 
 _DATA_DIR = Path(__file__).parent / 'data'
 
+_PREINDEX_CSV = '_preindex.csv'
+
+_MODEL_BUCKET = 'datcom-nl-models'
+
 
 def _get_input_folder() -> str:
   return _DATA_DIR / 'curated_input' / FLAGS.embeddings_size
@@ -101,7 +105,7 @@ def _write_intermediate_output(name2sv_dict: Dict[str, str],
   name_list = [';'.join(sorted(sv2names[v])) for v in sv_list]
 
   # Write to preindex file
-  new_preindex_filepath = str(_get_input_folder() / '_preindex.csv')
+  new_preindex_filepath = str(_get_input_folder() / _PREINDEX_CSV)
   new_preindex_df = pd.DataFrame(list(name2sv_dict.items()),
                                  columns=['sentence',
                                           'dcid']).sort_values(by='sentence')
@@ -162,7 +166,7 @@ def build(model: SentenceTransformer,
   input_df_list = list()
   # Read curated sv info.
   for file_path in glob.glob(str(_get_preindex_folder() / '*.csv')):
-    if file_path.endswith('_preindex.csv'):
+    if file_path.endswith(_PREINDEX_CSV):
       continue
     try:
       print(f"Reading the curated input file: {file_path}")
@@ -224,8 +228,7 @@ def main(_):
   else:
     model_endpoint = None
     model_version = FLAGS.finetuned_model_gcs
-    model_path = gcs.maybe_download(
-        gcs.make_path("datcom-nl-models", model_version))
+    model_path = gcs.maybe_download(gcs.make_path(_MODEL_BUCKET, model_version))
     model = SentenceTransformer(model_path)
 
   old_preindex_dir = str(_get_old_preindex_folder())
