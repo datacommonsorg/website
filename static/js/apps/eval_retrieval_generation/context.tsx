@@ -54,8 +54,8 @@ interface SessionContextType {
 }
 
 export const SessionContext = createContext<SessionContextType>({
-  sessionCallId: 1,
-  sessionQueryId: 1,
+  sessionCallId: 0,
+  sessionQueryId: null,
   setSessionCallId: () => void {},
   setSessionQueryId: () => void {},
 });
