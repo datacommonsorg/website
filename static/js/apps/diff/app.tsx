@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 interface AppUrl {
   domain1: string;
@@ -31,8 +31,8 @@ const INIT_URL: AppUrl = {
 function splitUrl(url: string) {
   const urlObj = new URL(url);
   const domain = `${urlObj.protocol}//${urlObj.host}`;
-  const rest = `${urlObj.pathname}${urlObj.search}${urlObj.hash}`;
-  return { domain, rest };
+  const path = `${urlObj.pathname}${urlObj.search}${urlObj.hash}`;
+  return { domain, path };
 }
 
 export function App(): JSX.Element {
@@ -42,20 +42,36 @@ export function App(): JSX.Element {
   const [url, setUrl] = useState<AppUrl>(INIT_URL);
   const [inputUrl, setInputUrl] = useState<AppUrl>(INIT_URL);
 
+  useEffect(() => {
+    const handleMessage = (event) => {
+      if (event.data.type === "URLResponse") {
+        console.log(url);
+        const iframeURL = event.data.url;
+        const { domain, path } = splitUrl(iframeURL);
+        console.log(domain, path);
+        setUrl({ ...url, path });
+      }
+    };
+    window.addEventListener("message", handleMessage);
+    return () => {
+      window.removeEventListener("message", handleMessage);
+    };
+  }, [url]);
+
   const onKeyDown = (e) => {
     if (e.key === "Enter") {
       {
-        const { domain, rest } = splitUrl(inputUrl.domain1);
-        if (rest !== "/") {
+        const { domain, path } = splitUrl(inputUrl.domain1);
+        if (path !== "/") {
           inputUrl.domain1 = domain;
-          inputUrl.path = rest;
+          inputUrl.path = path;
         }
       }
       {
-        const { domain, rest } = splitUrl(inputUrl.domain2);
-        if (rest !== "/") {
+        const { domain, path } = splitUrl(inputUrl.domain2);
+        if (path !== "/") {
           inputUrl.domain2 = domain;
-          inputUrl.path = rest;
+          inputUrl.path = path;
         }
       }
       setInputUrl(inputUrl);
@@ -121,11 +137,23 @@ export function App(): JSX.Element {
           ref={iframeRef1}
           id="iframe1"
           src={`${url.domain1}${url.path}`}
+          onLoad={() => {
+            iframeRef1.current.contentWindow.postMessage(
+              "Request URL",
+              url.domain1
+            );
+          }}
         ></iframe>
         <iframe
           ref={iframeRef2}
           id="iframe2"
           src={`${url.domain2}${url.path}`}
+          onLoad={() => {
+            iframeRef2.current.contentWindow.postMessage(
+              "Request URL",
+              url.domain2
+            );
+          }}
         ></iframe>
       </div>
     </>
