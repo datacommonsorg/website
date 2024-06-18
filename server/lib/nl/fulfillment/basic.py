@@ -140,7 +140,7 @@ def _populate_specific(state: PopulateState, chart_vars: ChartVars,
                        rank: int) -> bool:
   if state.ranking_types:
     # Ranking query
-    if state.place_type and not state.had_default_place_type:
+    if state.place_type:
       # This is ranking across places.
       if ranking_across_places.populate(state, chart_vars, places, chart_origin,
                                         rank):
@@ -152,7 +152,7 @@ def _populate_specific(state: PopulateState, chart_vars: ChartVars,
                                       rank):
         return True
 
-  if state.place_type and not state.had_default_place_type:
+  if state.place_type:
     if containedin.populate(state, chart_vars, places, chart_origin, rank):
       _maybe_set_place_type_existence(state, rank)
       return True
