@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AssignMessage continueOnError="false" enabled="true" name="forward-host">
+  <DisplayName>forward-host</DisplayName>
+  <Set>
+    <Headers>
+      <Header name="x-forwarded-host">{request.header.host}</Header>
+    </Headers>
+  </Set>
+</AssignMessage>
