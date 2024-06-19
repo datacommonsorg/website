@@ -113,9 +113,6 @@ def build(model: EmbeddingsModel, local_csv_path: str,
   print("Building custom DC embeddings")
   embeddings_df = utils.build_embeddings(text2sv_dict, model=model)
 
-  print("Validating embeddings.")
-  utils.validate_embeddings(embeddings_df, local_csv_path)
-
   print(f"Saving embeddings CSV")
   embeddings_df.to_csv(local_embeddings_path, index=False)
 

@@ -1,0 +1,106 @@
+sentence,dcid
+"""UMLS CUI""",unifiedMedicalLanguageSystemConceptUniqueIdentifier
+A specific organism or taxonomic group of organisms that are susceptible to be infected by a virus,virusHost
+A unique ID for a Medical Subject Heading Descriptor record,medicalSubjectHeadingDescriptorID
+A unique ID for a Medical Subject Heading supplementary record,medicalSubjectHeadingSupplementaryRecordID
+An ID for a Medical Subject Heading descriptor record,medicalSubjectHeadingDescriptorID
+An ID for a Medical Subject Heading supplementary record,medicalSubjectHeadingSupplementaryRecordID
+ChEMBL identifier,chemblID
+Disease associated with a gene,<-geneID{typeOf:DiseaseGeneAssociation}->diseaseOntologyID
+DiseaseGeneAssociation,<-diseaseOntologyID{typeOf:DiseaseGeneAssociation}->geneID
+Ensembl ID,ensemblID
+Functional category of the genetic variant,geneticVariantFunctionalCategory
+Gene associated with a disease,<-diseaseOntologyID{typeOf:DiseaseGeneAssociation}->geneID
+Gene associated with a genetic variant,<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol
+GeneticVariantGeneAssociation,<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol
+MeSH descriptor record ID,medicalSubjectHeadingDescriptorID
+MeSH supplementary record ID,medicalSubjectHeadingSupplementaryRecordID
+NCBI Taxonomy database identifier,ncbiTaxonID
+NCBI defined segment of DNA sequence name,ncbiDNASequenceName
+NCBI protein accession number,ncbiProteinAccessionNumber
+Name used by NIH NCBI to refer to a segment of DNA sequence,ncbiDNASequenceName
+OMIM database identifier,omimID
+Origin of variant allele,alleleOrigin
+RNA transcript that a gene has,hasRNATranscript
+Recorded transcript,hasRNATranscript
+Reference genomic sequence from dbSNP,referenceAlleleNCBI
+Simplified Molecular Input Line Entry System (SMILE),simplifiedMolecularInputLineEntrySystem
+Size of chromosome,chromosomeSize
+Systematiized Nomenclature of Medicine (SNOMED) clinical terms (CT) code,snomedCT
+The allele of a genetic variant observed within a population,alleleType
+"The disease diagnosis code for version 10 of the International Classification of Diseases (ICD), Clinical Modification",icd10CMCode
+The genomic location of a genetic variant using the hg19 assembly,hg19GenomicLocation
+The genomic location of a genetic variant using the hg38 assembly,hg38GenomicLocation
+The genomic position of a genetic variant using the hg19 assembly,hg19GenomicPosition
+The genomic position of a genetic variant using the hg38 assembly,hg38GenomicPosition
+The method by which a drug is administered,administrationRoute
+The name of the disease,diseaseName
+The orientation of the strand on which an annotation is located,strandOrientation
+The sequences of the observed alleles from rs-fasta files.,observedAllele
+The species of a virus isolate,ofVirusSpecies
+The strand on which a given annotation is located,strandOrientation
+The type of gene,typeOfGene
+Type of allele,alleleType
+Unified Medical Language System (UMLS) Concept Unique Identifier (CUI),unifiedMedicalLanguageSystemConceptUniqueIdentifier
+Variant allele origin,alleleOrigin
+activeIngredient,activeIngredient
+administrationRoute,administrationRoute
+alleleOrigin,alleleOrigin
+alleleType,alleleType
+antibodyType,antibodyType
+antigenType,antigenType
+availableStrength,availableStrength
+chemblID,chemblID
+chromosomeSize,chromosomeSize
+class,class
+"component that provides pharmacological activity or other direct effect in the diagnosis, cure, mitigation, treatment, or prevention of disease, or to affect the structure or any function of the body of man or animals",activeIngredient
+diseaseName,diseaseName
+dosageForm,dosageForm
+dose approved for a drug,availableStrength
+ensemblID,ensemblID
+full name of the gene,fullName
+fullName,fullName
+gene id,geneID
+geneID,geneID
+genetic variant associated with a gene,<-geneSymbol{typeOf:GeneticVariantGeneAssociation}->referenceSNPClusterID
+geneticVariantFunctionalCategory,geneticVariantFunctionalCategory
+genomic coordinates,genomicCoordinates
+genomicCoordinates,genomicCoordinates
+genus of a virus species,virusGenus
+hasRNATranscript,hasRNATranscript
+hg19GenomicLocation,hg19GenomicLocation
+hg19GenomicPosition,hg19GenomicPosition
+hg38GenomicLocation,hg38GenomicLocation
+hg38GenomicPosition,hg38GenomicPosition
+host of a virus,virusHost
+icd10CMCode,icd10CMCode
+imageUrl,imageUrl
+medicalSubjectHeadingDescriptorID,medicalSubjectHeadingDescriptorID
+medicalSubjectHeadingSupplementaryRecordID,medicalSubjectHeadingSupplementaryRecordID
+ncbiDNASequenceName,ncbiDNASequenceName
+ncbiProteinAccessionNumber,ncbiProteinAccessionNumber
+ncbiTaxonID,ncbiTaxonID
+number of nucleotides in a chromosome,chromosomeSize
+observedAllele,observedAllele
+ofVirusSpecies,ofVirusSpecies
+omimID,omimID
+phylum,phylum
+physical form in which a drug is produced and dispensed,dosageForm
+preferred disease name for the concept specified by disease identifiers,diseaseName
+reference allele,referenceAlleleNCBI
+referenceAlleleNCBI,referenceAlleleNCBI
+simplifiedMolecularInputLineEntrySystem,simplifiedMolecularInputLineEntrySystem
+snomedCT,snomedCT
+specialization of,specializationOf
+specializationOf,specializationOf
+strandOrientation,strandOrientation
+subClassificationOf,subClassificationOf
+subclassification of,subClassificationOf
+type of antibody,antibodyType
+type of antigen,antigenType
+typeOfGene,typeOfGene
+unifiedMedicalLanguageSystemConceptUniqueIdentifier,unifiedMedicalLanguageSystemConceptUniqueIdentifier
+url to an image of what the biological specimen looks like,imageUrl
+virusGenus,virusGenus
+virusHost,virusHost
+what the entity looks like,imageUrl
