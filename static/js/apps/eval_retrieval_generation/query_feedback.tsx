@@ -29,6 +29,7 @@ import { getField, getPath, saveToSheet, setField } from "./data_store";
 import { EvalList } from "./eval_list";
 import { FeedbackNavigation } from "./feedback_navigation";
 import { OneQuestion } from "./one_question";
+import { TablePane } from "./table_pane";
 
 const LOADING_CONTAINER_ID = "form-container";
 const RESPONSE_OPTIONS = {
@@ -131,6 +132,7 @@ export function QueryFeedback(): JSX.Element {
           </fieldset>
         </form>
       </div>
+      <TablePane />
       <FeedbackNavigation
         checkAndSubmit={checkAndSubmit}
         showNextOverride={showNext()}

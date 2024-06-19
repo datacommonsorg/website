@@ -32,6 +32,7 @@ import { getCallData, saveToSheet, saveToStore } from "./data_store";
 import { EvalList } from "./eval_list";
 import { FeedbackNavigation } from "./feedback_navigation";
 import { OneQuestion } from "./one_question";
+import { TablePane } from "./table_pane";
 import { EvalInfo, Response } from "./types";
 
 const LOADING_CONTAINER_ID = "form-container";
@@ -260,6 +261,7 @@ export function CallFeedback(): JSX.Element {
             </div>
           </>
         )}
+        <TablePane />
       </div>
       <FeedbackNavigation checkAndSubmit={checkAndSubmit} />
       <div id="page-screen" className="screen">
