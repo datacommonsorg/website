@@ -143,7 +143,8 @@ Use [Apigee](https://cloud.google.com/apigee) for API key management, throttling
 
 - Open GCP console
 - Navigate to Apigee console
-- Click "Enable" button (wait ~1 hour to complete)
+- Click "Customize your setup" button
+- Follow steps, ensuring that apigee is configured to run in the same region as your GKE cluster (setup takes ~1 hour to complete)
 - Use the apigee console to create a new "Instance" in the same region as your GKE cluster. Ensure logging is enabled for the instance.
 - Use the apigee console to create a new "Environment Group" (navigate to "Environment" section the choose "Environment Group"). Add applicable hostnames to the environment.
 - Use the apigee console to create a new "Environment" for the website named "website-environment" with pricing type "Intermediate". Associate this environment with the above instance.
