@@ -39,9 +39,9 @@ export const AppContext = createContext<AppContextType>({
   allCall: null,
   allQuery: null,
   doc: null,
+  evalType: null,
   sheetId: "",
   userEmail: "",
-  evalType: null,
 });
 
 /**

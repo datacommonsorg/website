@@ -174,8 +174,9 @@ export function App(props: AppPropType): JSX.Element {
           return;
         }
       }
-      // by default, set eval type as RIG
-      setEvalType(EvalType.RIG);
+      alert(
+        "Could not find an eval type in the sheet metadata. Please update the sheet and try again."
+      );
     });
   };
 
@@ -222,9 +223,9 @@ export function App(props: AppPropType): JSX.Element {
                 allCall,
                 allQuery,
                 doc,
+                evalType,
                 sheetId: props.sheetId,
                 userEmail: user.email,
-                evalType,
               }}
             >
               <div className="app-content">
