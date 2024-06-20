@@ -234,7 +234,9 @@ export function CallFeedback(): JSX.Element {
                   <div className="title">DATA COMMONS EVALUATION</div>
                   <div className="subtitle">
                     <span>{evalInfo.dcResponse}</span>
-                    <span className="dc-stat">{evalInfo.dcStat}</span>
+                    {evalType === EvalType.RIG && (
+                      <span className="dc-stat">{evalInfo.dcStat}</span>
+                    )}
                   </div>
                   <OneQuestion
                     question={dcResponseQuestion}

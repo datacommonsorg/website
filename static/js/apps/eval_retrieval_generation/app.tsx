@@ -29,14 +29,14 @@ import {
   METADATA_VAL_COL,
   QA_SHEET,
   QUERY_COL,
-  QUERY_FEEDBACK_CALL_ID,
   QUERY_ID_COL,
   USER_COL,
 } from "./constants";
 import { AppContext, SessionContext } from "./context";
-import { QueryFeedback } from "./query_feedback";
+import { OverallFeedback } from "./overall_feedback";
 import { QuerySection } from "./query_section";
-import { DcCall, EvalType, Query } from "./types";
+import { DcCall, EvalType, FeedbackStage, Query } from "./types";
+import { getFirstFeedbackStage } from "./util";
 
 // Map from sheet name to column name to column index
 type HeaderInfo = Record<string, Record<string, number>>;
@@ -46,7 +46,7 @@ interface AppPropType {
 }
 
 export function App(props: AppPropType): JSX.Element {
-  const { setSessionQueryId, sessionCallId, sessionQueryId } =
+  const { setSessionQueryId, setFeedbackStage, feedbackStage, sessionQueryId } =
     useContext(SessionContext);
   const [user, setUser] = useState<User | null>(null);
   const [doc, setDoc] = useState<GoogleSpreadsheet>(null);
@@ -168,9 +168,10 @@ export function App(props: AppPropType): JSX.Element {
       for (let i = 1; i < numRows; i++) {
         const metadataKey = sheet.getCell(i, header[METADATA_KEY_COL]).value;
         if (metadataKey === METADATA_KEY_TYPE) {
-          setEvalType(
-            sheet.getCell(i, header[METADATA_VAL_COL]).value as EvalType
-          );
+          const evalType = sheet.getCell(i, header[METADATA_VAL_COL])
+            .value as EvalType;
+          setFeedbackStage(getFirstFeedbackStage(evalType));
+          setEvalType(evalType);
           return;
         }
       }
@@ -231,11 +232,10 @@ export function App(props: AppPropType): JSX.Element {
               <div className="app-content">
                 <QuerySection />
                 <div className="feedback-pane">
-                  {sessionCallId === QUERY_FEEDBACK_CALL_ID ? (
-                    <QueryFeedback />
-                  ) : (
-                    <CallFeedback />
+                  {feedbackStage === FeedbackStage.OVERALL && (
+                    <OverallFeedback />
                   )}
+                  {feedbackStage === FeedbackStage.CALLS && <CallFeedback />}
                 </div>
               </div>
             </AppContext.Provider>

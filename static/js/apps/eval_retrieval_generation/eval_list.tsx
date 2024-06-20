@@ -19,14 +19,17 @@
 import React, { useContext, useState } from "react";
 import { Button, Input, Modal } from "reactstrap";
 
-import { QUERY_FEEDBACK_CALL_ID } from "./constants";
+import { NEW_QUERY_CALL_ID } from "./constants";
 import { AppContext, SessionContext } from "./context";
 import { getCallCount, getField, getPath } from "./data_store";
 import { Query } from "./types";
+import { getFirstFeedbackStage } from "./util";
 
 export function EvalList(): JSX.Element {
-  const { allCall, allQuery, userEmail, sheetId } = useContext(AppContext);
-  const { setSessionCallId, setSessionQueryId } = useContext(SessionContext);
+  const { allCall, allQuery, userEmail, sheetId, evalType } =
+    useContext(AppContext);
+  const { setSessionCallId, setSessionQueryId, setFeedbackStage } =
+    useContext(SessionContext);
 
   const [userEvalsOnly, setUserEvalsOnly] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -102,9 +105,10 @@ export function EvalList(): JSX.Element {
               <div
                 className={`eval-list-query${completed ? " completed" : ""}`}
                 onClick={() => {
-                  setModalOpen(false);
+                  setFeedbackStage(getFirstFeedbackStage(evalType));
                   setSessionQueryId(query.id);
-                  setSessionCallId(QUERY_FEEDBACK_CALL_ID);
+                  setSessionCallId(NEW_QUERY_CALL_ID);
+                  setModalOpen(false);
                 }}
                 key={query.id}
               >
