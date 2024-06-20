@@ -274,7 +274,7 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
         "AnswerPlacesReference": ["these", "those"],
         "PerCapita": [
             "fraction", "percent", "percentage", "per capita", "percapita",
-            "rate", "rates"
+            "per person", "rate", "rates"
         ],
         "Temporal": [
             # Day of week
