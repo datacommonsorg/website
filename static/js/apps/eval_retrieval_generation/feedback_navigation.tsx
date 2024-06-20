@@ -96,14 +96,16 @@ function isEndOfStage(
 }
 
 // Whether or not we are at the first page of a feedback stage
-function isStartOfStage(feedbackStage: FeedbackStage, sessionCallId: number): boolean {
+function isStartOfStage(
+  feedbackStage: FeedbackStage,
+  sessionCallId: number
+): boolean {
   if (feedbackStage === FeedbackStage.CALLS) {
     return sessionCallId === NEW_QUERY_CALL_ID;
   }
   // feedback stages besides CALLS only have one page
   return true;
 }
-
 
 // Whether or not to include a stage in the list of stages to show
 function includeStage(feedbackStage: FeedbackStage, numCalls: number) {
