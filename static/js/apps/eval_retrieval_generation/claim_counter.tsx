@@ -32,19 +32,19 @@ export const ClaimCounter = () => {
       <div className="counter">
         <div className="claims-count">
           <button onClick={() => setClaimsCount(claimsCount - 1)}>-</button>
-          <span>{claimsCount}</span>
+          <span className="count-text">{claimsCount}</span>
           <button onClick={() => setClaimsCount(claimsCount + 1)}>+</button>
-          <p>Number of claims found</p>
+          <p className="claim-text">Number of claims found</p>
         </div>
         <div className="false-claims-count">
           <button onClick={() => setFalseClaimsCount(falseClaimsCount - 1)}>
             -
           </button>
-          <span>{falseClaimsCount}</span>
+          <span className="count-text">{falseClaimsCount}</span>
           <button onClick={() => setFalseClaimsCount(falseClaimsCount + 1)}>
             +
           </button>
-          <p>False claims found</p>
+          <p className="claim-text">False claims found</p>
         </div>
       </div>
     </div>

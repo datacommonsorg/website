@@ -50,10 +50,10 @@ footer {
   width: 100%;
 
   .Collapsible__trigger.is-open + .Collapsible__contentOuter {
-      overflow-x: visible !important;
-      overflow-y: hidden !important;
-      width: fit-content;
-      min-width: 100%;
+    overflow-x: visible !important;
+    overflow-y: hidden !important;
+    width: fit-content;
+    min-width: 100%;
   }
 
   .table-title {
@@ -409,27 +409,27 @@ label {
         font-size: 2em;
       }
 
-      span {
+      .count-text {
         font-size: 2em;
         margin: 10px;
         color: white;
         width: 40px;
       }
 
-      p {
+      .claim-text {
         margin: 0 10px;
         font-weight: bold;
       }
     }
 
     .claims-count {
-      span {
+      .count-text {
         background-color: #007bff;
       }
     }
 
     .false-claims-count {
-      span {
+      .count-text {
         background-color: #ff5722;
       }
     }
