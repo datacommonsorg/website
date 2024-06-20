@@ -19,8 +19,8 @@ import os
 from absl import app
 from absl import flags
 import yaml
-from nl_server import config_reader
 
+from nl_server import config_reader
 from nl_server.config import Catalog
 from nl_server.config import MemoryIndexConfig
 from tools.nl.embeddings import utils

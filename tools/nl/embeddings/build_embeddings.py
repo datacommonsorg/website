@@ -19,8 +19,8 @@ from pathlib import Path
 from absl import app
 from absl import flags
 
-from tools.nl.embeddings import utils
 from nl_server import config_reader
+from tools.nl.embeddings import utils
 
 FLAGS = flags.FLAGS
 

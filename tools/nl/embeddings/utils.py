@@ -19,8 +19,9 @@ import glob
 import itertools
 import logging
 import os
-from typing import Dict, List, Tuple
 import shutil
+import tempfile
+from typing import Dict, List, Tuple
 
 import lancedb
 import pandas as pd
@@ -31,7 +32,6 @@ from nl_server.config import Catalog
 from nl_server.config import Env
 from nl_server.embeddings import EmbeddingsModel
 from shared.lib import gcs
-import tempfile
 
 EMBEDDINGS_FILE_NAME = 'embeddings.csv'
 
