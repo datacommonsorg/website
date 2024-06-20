@@ -55,9 +55,9 @@ const BUTTON_CONFIGS: Record<string, ButtonConfig> = {
     themeClassName: "btn-transparent",
   },
   [ButtonType.PREV]: {
+    icon: "keyboard_arrow_left",
     text: "Previous",
     themeClassName: "btn-transparent",
-    icon: "keyboard_arrow_left",
   },
   [ButtonType.PREV_EVAL_STAGE]: {
     text: "Previous eval stage",
@@ -68,9 +68,9 @@ const BUTTON_CONFIGS: Record<string, ButtonConfig> = {
     themeClassName: "btn-blue",
   },
   [ButtonType.NEXT]: {
+    icon: "keyboard_arrow_right",
     text: "Next",
     themeClassName: "btn-blue",
-    icon: "keyboard_arrow_right",
   },
   [ButtonType.NEXT_EVAL_STAGE]: {
     text: "Next eval stage",
@@ -108,7 +108,10 @@ function isStartOfStage(
 }
 
 // Whether or not to include a stage in the list of stages to show
-function includeStage(feedbackStage: FeedbackStage, numCalls: number) {
+function shouldIncludeStage(
+  feedbackStage: FeedbackStage,
+  numCalls: number
+): boolean {
   if (feedbackStage === FeedbackStage.CALLS) {
     return numCalls > 0;
   }
@@ -147,7 +150,7 @@ export function FeedbackNavigation(
 
   const numCalls = Object.keys(allCall[sessionQueryId] || {}).length;
   const feedbackStageList = FEEDBACK_STAGE_LIST[evalType].filter((stage) =>
-    includeStage(stage, numCalls)
+    shouldIncludeStage(stage, numCalls)
   );
   const currStageIdx = feedbackStageList.indexOf(feedbackStage);
 
@@ -234,7 +237,7 @@ export function FeedbackNavigation(
     }
   }
 
-  function getOnClickFunction(buttonType: ButtonType) {
+  function getOnClickFunction(buttonType: ButtonType): () => void {
     switch (buttonType) {
       case ButtonType.PREV_QUERY:
         return prevQuery;
@@ -250,6 +253,8 @@ export function FeedbackNavigation(
         return nextEvalStage;
       case ButtonType.FINISH:
         return props.checkAndSubmit;
+      default:
+        return _.noop;
     }
   }
   const prevButtonType = getPrevButtonType();

@@ -31,6 +31,16 @@ import { AppContext, SessionContext } from "./context";
 import { EvalType, FeedbackStage } from "./types";
 import { processText } from "./util";
 
+function getFormattedRagCallAnswer(
+  dcQuestion: string,
+  dcStat: string,
+  tableId: string
+): string {
+  const formattedQuestion = `<span class="dc-question">**${dcQuestion}**</span>`;
+  const formattedStat = `<span class="dc-stat">${dcStat} \xb7 Table ${tableId}</span>`;
+  return `<span class="annotation annotation-rag annotation-${tableId}">${formattedQuestion}<br/>${formattedStat}</span>`;
+}
+
 export function QuerySection(): JSX.Element {
   const { allCall, allQuery, doc, evalType } = useContext(AppContext);
   const { sessionQueryId, sessionCallId, feedbackStage } =
@@ -66,14 +76,10 @@ export function QuerySection(): JSX.Element {
       const answers = [];
       rowsList.forEach((rows, i) => {
         const row = rows[0];
-        const rowQ = `<span class="dc-question">**${row.get(
-          DC_QUESTION_COL
-        )}**</span>`;
-        const rowA = `<span class="dc-stat">${row.get(
-          DC_RESPONSE_COL
-        )} \xb7 Table ${tableIds[i]}</span>`;
+        const dcQuestion = row.get(DC_QUESTION_COL);
+        const dcStat = row.get(DC_RESPONSE_COL);
         answers.push(
-          `<span class="annotation annotation-rag annotation-${tableIds[i]}">${rowQ}<br/>${rowA}</span>`
+          getFormattedRagCallAnswer(dcQuestion, dcStat, tableIds[i])
         );
       });
       setAnswer(answers.join("\n\n"));
