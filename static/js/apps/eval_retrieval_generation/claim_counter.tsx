@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-/* Component to conut the number of claims */
+/* Component to count the number of claims */
 
 import React, { useState } from "react";
 
