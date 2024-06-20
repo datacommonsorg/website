@@ -17,6 +17,7 @@
 export const QA_SHEET = "query_and_answer";
 export const DC_CALL_SHEET = "dc_calls";
 export const DC_FEEDBACK_SHEET = "feedback";
+export const DC_METADATA_SHEET = "metadata";
 
 export const QUERY_ID_COL = "query_id";
 export const USER_COL = "user";
@@ -28,6 +29,10 @@ export const DC_QUESTION_COL = "dc_question";
 export const DC_RESPONSE_COL = "dc_response";
 export const LLM_STAT_COL = "llm_stat";
 export const DC_STAT_COL = "dc_stat";
+
+export const METADATA_KEY_COL = "metadata_key";
+export const METADATA_VAL_COL = "metadata_value";
+export const METADATA_KEY_TYPE = "type";
 
 const FB_SUFFIX = "_feedback";
 
