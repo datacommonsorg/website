@@ -197,7 +197,6 @@ def read_catalog(catalog_dict: Dict = None) -> Catalog:
             models[model_name] = VertexAIModelConfig(**model_config)
           case _:
             raise ValueError(f'Unknown model type: {model_type}')
-  _log_asdict(catalog, 'NL catalog')
   return catalog
 
 
@@ -215,7 +214,6 @@ def read_env() -> Env:
     with open(_ENV_CODE_PATH) as f:
       full_nl_config = yaml.safe_load(f.read())
       e = Env.from_dict(full_nl_config['nl']['env'])
-  _log_asdict(e, 'NL env')
   return e
 
 
