@@ -16,6 +16,8 @@
 
 import _ from "lodash";
 
+import { EvalType, FeedbackStage } from "./types";
+
 const HTTP_PATTERN = /https:\/\/[^\s]+/g;
 const LONG_SPACES = "&nbsp;&nbsp;&nbsp;&nbsp;";
 const TABLE_DIVIDER_PATTERN = /[--][-]+/g;
@@ -65,4 +67,13 @@ export function processTableText(text: string): string {
   // Replace the table divider that's originally in the text with the one just
   // created
   return text.replace(TABLE_DIVIDER_PATTERN, tableDivider);
+}
+
+// Get the first feedback stage to show for an eval type
+export function getFirstFeedbackStage(evalType: EvalType): FeedbackStage {
+  if (evalType === EvalType.RAG) {
+    return FeedbackStage.CALLS;
+  } else {
+    return FeedbackStage.OVERALL;
+  }
 }
