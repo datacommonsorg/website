@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,82 +13,49 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-function help {
-  echo "Usage: -lce <embeddings-size>"
-  echo "$0 -c <embeddings-size> # This option creates custom embeddings (using the finetuned model in PROD)."
-  echo "$0 -l <embeddings-size> <lancedb_output_path> # This option is used to generate the lanceDB index."
-  echo "$0 -e <embeddings-size> <vertex_ai_endpoint_id> # This option creates embeddings using a Vertex AI model endpoint."
+# Usage function
+usage() {
+  echo "Usage: $0 --embeddings_name <embeddings-name> --gcs_root <gcs-root>"
+  exit 1
 }
 
-if [[ $# -le 1 ]]; then
-  help
-  exit 1
-fi
-
-FINETUNED_MODEL=ft_final_v20230717230459.all-MiniLM-L6-v2
-EMBEDDINGS_SIZE=$2
-
-while getopts elc OPTION; do
-  case $OPTION in
-    e)
-        MODEL_ENDPOINT_ID="$3"
-        if [[ "$MODEL_ENDPOINT_ID" == "" ]]; then
-          help
-          exit 1
-        else
-          echo -e "### Using Vertex AI model endpoint $MODEL_ENDPOINT_ID"
-        fi
+# Parse options
+while [[ "$#" -gt 0 ]]; do
+  case $1 in
+    --embeddings_name)
+        embeddings_name="$2"
+        shift 2
         ;;
-    l)
-        echo -e "### Generating LanceDB index"
-        LANCEDB_OUTPUT_PATH="$3"
-        if [[ "$LANCEDB_OUTPUT_PATH" == "" ]]; then
-          help
-          exit 1
-        else
-          echo "Generating LanceDB index inside: $LANCEDB_OUTPUT_PATH"
-        fi
-        ;;
-    c)
-        echo -e "### Using the finetuned model from prod with custom embeddings-size"
+    --gcs_root)
+        gcs_root="$2"
+        shift 2
         ;;
     *)
-        help
-    esac
+        echo "Unknown option: $1"
+        usage
+        ;;
+  esac
 done
+
+if [ -z "$gcs_root" ]; then
+  gcs_root="gs://datcom-nl-models"
+fi
+
+# Print options
+echo "Embeddings name: $embeddings_name"
+echo "GCS root: $gcs_root"
 
 cd ../../..
 python3 -m venv .env
 source .env/bin/activate
-# pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu -q
-# pip3 install -r tools/nl/embeddings/requirements.txt -q
-
-
-folders=("base" "bio" "sdg" "undata" "undata_ilo")
-for subdir in "${folders[@]}"; do
-  echo $subdir
-  python3 -m tools.nl.embeddings.build_preindex --input_dir=$PWD/tools/nl/embeddings/data/curated_input/$subdir
-done
-
-exit 0
-
+pip3 install -r nl_server/requirements.txt -q
+pip3 install -r tools/nl/embeddings/requirements.txt -q
 
 export TOKENIZERS_PARALLELISM=false
 
-if [[ "$MODEL_ENDPOINT_ID" != "" ]];then
-  python3 -m tools.nl.embeddings.build_embeddings \
-    --embeddings_size=$EMBEDDINGS_SIZE \
-    --vertex_ai_prediction_endpoint_id=$MODEL_ENDPOINT_ID
-elif [[ "$LANCEDB_OUTPUT_PATH" != "" ]]; then
-  python3 -m tools.nl.embeddings.build_embeddings \
-    --embeddings_size=$EMBEDDINGS_SIZE \
-    --finetuned_model_gcs=$FINETUNED_MODEL \
-    --lancedb_output_path=$LANCEDB_OUTPUT_PATH \
-    --dry_run=True
-else
-  python3 -m tools.nl.embeddings.build_embeddings \
-    --embeddings_size=$EMBEDDINGS_SIZE \
-    --finetuned_model_gcs=$FINETUNED_MODEL
-fi
+python3 -m tools.nl.embeddings.build_embeddings \
+  --embeddings_name=$embeddings_name \
+  --gcs_root=$gcs_root
 
+deactivate
 cd tools/nl/embeddings

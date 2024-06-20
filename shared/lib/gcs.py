@@ -129,19 +129,34 @@ def maybe_download(gcs_path: str,
   return None
 
 
-def upload_blob_by_path(local_path: str, gcs_path: str, timeout: int = 60):
+def upload_by_path(local_path: str, gcs_path: str, timeout: int = 60):
   """Uploads the content of a local path to a GCS blob.
 
   Args:
-    local_path: The local path to upload the blob from.
+    local_path: The local directory or file to upload.
     gcs_path: The full GCS path (i.e. gs://bucket/path/to/file/).
   """
   if not is_gcs_path(gcs_path):
     raise ValueError(f"Invalid GCS path: {gcs_path}")
-  bucket_name, blob_name = get_path_parts(gcs_path)
   if not os.path.exists(local_path):
     raise ValueError(f"Invalid local path: {local_path}")
+
+  bucket_name, base_blob_name = get_path_parts(gcs_path)
   bucket = storage.Client().bucket(bucket_name)
-  blob = bucket.blob(blob_name)
-  blob.upload_from_filename(local_path, timeout=timeout)
-  logging.info("Uploaded %s to gs://%s/%s", local_path, bucket_name, blob_name)
+
+  if os.path.isfile(local_path):
+    blob = bucket.blob(base_blob_name)
+    blob.upload_from_filename(local_path, timeout=timeout)
+    logging.info("Uploaded %s to gs://%s/%s", local_path, bucket_name,
+                 base_blob_name)
+  else:
+    for root, _, files in os.walk(local_path):
+      for file in files:
+        file_path = os.path.join(root, file)
+        relative_path = os.path.relpath(file_path, local_path)
+        blob_name = os.path.join(base_blob_name,
+                                 relative_path).replace("\\", "/")
+        blob = bucket.blob(blob_name)
+        blob.upload_from_filename(file_path, timeout=timeout)
+        logging.info("Uploaded %s to gs://%s/%s", file_path, bucket_name,
+                     blob_name)
