@@ -66,9 +66,15 @@ export function QuerySection(): JSX.Element {
       const answers = [];
       rowsList.forEach((rows, i) => {
         const row = rows[0];
-        const rowQ = `**${row.get(DC_QUESTION_COL)}**`;
-        const rowA = `${row.get(DC_RESPONSE_COL)} \xb7 Table ${tableIds[i]}`;
-        answers.push(`${rowQ}\n\n${rowA}`);
+        const rowQ = `<span class="dc-question">**${row.get(
+          DC_QUESTION_COL
+        )}**</span>`;
+        const rowA = `<span class="dc-stat">${row.get(
+          DC_RESPONSE_COL
+        )} \xb7 Table ${tableIds[i]}</span>`;
+        answers.push(
+          `<span class="annotation annotation-rag annotation-${tableIds[i]}">${rowQ}<br/>${rowA}</span>`
+        );
       });
       setAnswer(answers.join("\n\n"));
     });
@@ -109,11 +115,16 @@ export function QuerySection(): JSX.Element {
     }
   }, [doc, allQuery, sessionQueryId, evalType, feedbackStage]);
 
+  const answerHeading =
+    feedbackStage === FeedbackStage.CALLS && evalType === EvalType.RAG
+      ? "Questions to Data Commons"
+      : "Answer";
+
   return (
     <div id="query-section">
       <h3>Query {sessionQueryId}</h3>
       <p>{allQuery[sessionQueryId].text}</p>
-      <h3>Answer</h3>
+      <h3>{answerHeading}</h3>
       <ReactMarkdown
         rehypePlugins={[rehypeRaw as any]}
         remarkPlugins={[remarkGfm]}
