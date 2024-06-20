@@ -41,3 +41,9 @@ export enum EvalType {
   RIG = "RIG",
   RAG = "RAG",
 }
+
+export enum FeedbackStage {
+  OVERALL = "OVERALL",
+  CALLS = "CALLS",
+  RAG_ANS = "RAG_ANS",
+}

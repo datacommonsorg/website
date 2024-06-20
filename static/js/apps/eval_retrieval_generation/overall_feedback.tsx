@@ -38,7 +38,7 @@ const RESPONSE_OPTIONS = {
   [QUERY_OVERALL_OPTION_OK]: "No obvious factual inaccuracies",
 };
 
-export function QueryFeedback(): JSX.Element {
+export function OverallFeedback(): JSX.Element {
   const { doc, sheetId, userEmail, allCall, evalType } = useContext(AppContext);
   const { sessionQueryId, sessionCallId } = useContext(SessionContext);
   const [response, setResponse] = useState<string>("");

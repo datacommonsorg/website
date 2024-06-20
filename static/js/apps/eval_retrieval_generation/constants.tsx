@@ -42,8 +42,8 @@ export const LLM_STAT_FEEDBACK_COL = LLM_STAT_COL + FB_SUFFIX;
 export const DC_STAT_FEEDBACK_COL = DC_STAT_COL + FB_SUFFIX;
 export const QUERY_OVERALL_FEEDBACK_COL = "overall" + FB_SUFFIX;
 
-// Call Id to use for the query feedback
-export const QUERY_FEEDBACK_CALL_ID = 0;
+// Call Id to use for a new query
+export const NEW_QUERY_CALL_ID = 1;
 // The key used in firestore to save the query overall feedback
 export const QUERY_OVERALL_FEEDBACK_KEY = "overall";
 // Options for the query overall feedback
