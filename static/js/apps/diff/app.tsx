@@ -46,8 +46,7 @@ export function App(): JSX.Element {
     const handleMessage = (event) => {
       if (event.data.type === "URLResponse") {
         const iframeURL = event.data.url;
-        const { domain, path } = splitUrl(iframeURL);
-        console.log(domain, path);
+        const { path } = splitUrl(iframeURL);
         setUrl({ ...url, path });
       }
     };
