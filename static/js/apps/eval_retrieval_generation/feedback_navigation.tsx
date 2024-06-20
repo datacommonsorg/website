@@ -80,6 +80,8 @@ export function FeedbackNavigation(
       if (evalType === EvalType.RIG) {
         if (sessionCallId === 1) {
           setFeedbackStage(FeedbackStage.OVERALL);
+        } else {
+          setSessionCallId(sessionCallId - 1);
         }
       }
     }
