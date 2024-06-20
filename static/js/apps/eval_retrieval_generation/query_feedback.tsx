@@ -30,6 +30,7 @@ import { EvalList } from "./eval_list";
 import { FeedbackNavigation } from "./feedback_navigation";
 import { OneQuestion } from "./one_question";
 import { TablePane } from "./table_pane";
+import { EvalType } from "./types";
 
 const LOADING_CONTAINER_ID = "form-container";
 const RESPONSE_OPTIONS = {
@@ -38,7 +39,7 @@ const RESPONSE_OPTIONS = {
 };
 
 export function QueryFeedback(): JSX.Element {
-  const { doc, sheetId, userEmail, allCall } = useContext(AppContext);
+  const { doc, sheetId, userEmail, allCall, evalType } = useContext(AppContext);
   const { sessionQueryId, sessionCallId } = useContext(SessionContext);
   const [response, setResponse] = useState<string>("");
   const [isSubmitted, setIsSubmitted] = useState<boolean>(null);
@@ -132,7 +133,7 @@ export function QueryFeedback(): JSX.Element {
           </fieldset>
         </form>
       </div>
-      <TablePane />
+      {evalType === EvalType.RAG && <TablePane />}
       <FeedbackNavigation
         checkAndSubmit={checkAndSubmit}
         showNextOverride={showNext()}

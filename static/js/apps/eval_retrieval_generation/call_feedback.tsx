@@ -33,7 +33,7 @@ import { EvalList } from "./eval_list";
 import { FeedbackNavigation } from "./feedback_navigation";
 import { OneQuestion } from "./one_question";
 import { TablePane } from "./table_pane";
-import { EvalInfo, Response } from "./types";
+import { EvalInfo, EvalType, Response } from "./types";
 
 const LOADING_CONTAINER_ID = "form-container";
 const EMPTY_RESPONSE = {
@@ -50,7 +50,7 @@ export enum FormStatus {
 }
 
 export function CallFeedback(): JSX.Element {
-  const { allCall, doc, sheetId, userEmail } = useContext(AppContext);
+  const { allCall, doc, sheetId, userEmail, evalType } = useContext(AppContext);
   const { sessionQueryId, sessionCallId } = useContext(SessionContext);
 
   const [evalInfo, setEvalInfo] = useState<EvalInfo | null>(null);
@@ -261,7 +261,7 @@ export function CallFeedback(): JSX.Element {
             </div>
           </>
         )}
-        <TablePane />
+        {evalType === EvalType.RAG && <TablePane />}
       </div>
       <FeedbackNavigation checkAndSubmit={checkAndSubmit} />
       <div id="page-screen" className="screen">
