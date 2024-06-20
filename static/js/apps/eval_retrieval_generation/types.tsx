@@ -36,3 +36,8 @@ export interface Query {
 
 // Key is the call id, value is the row index in the sheet.
 export type DcCall = Record<number, number>;
+
+export enum EvalType {
+  RIG = "RIG",
+  RAG = "RAG",
+}

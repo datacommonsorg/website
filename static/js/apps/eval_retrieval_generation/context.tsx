@@ -18,7 +18,7 @@ import { GoogleSpreadsheet } from "google-spreadsheet";
 import React, { createContext, useState } from "react";
 
 import { QUERY_FEEDBACK_CALL_ID } from "./constants";
-import { DcCall, Query } from "./types";
+import { DcCall, EvalType, Query } from "./types";
 
 interface AppContextType {
   doc: GoogleSpreadsheet;
@@ -26,8 +26,9 @@ interface AppContextType {
   userEmail: string;
   // Key is query id, value is the query object.
   allQuery: Record<number, Query>;
-  // Key is call id, value is the call mapping (call id to call row index).
+  // Key is query id, value is the call mapping (call id to call row index).
   allCall: Record<number, DcCall>;
+  evalType: EvalType;
 }
 
 /**
@@ -38,6 +39,7 @@ export const AppContext = createContext<AppContextType>({
   allCall: null,
   allQuery: null,
   doc: null,
+  evalType: null,
   sheetId: "",
   userEmail: "",
 });
