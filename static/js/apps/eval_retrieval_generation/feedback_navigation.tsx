@@ -20,8 +20,10 @@ import _ from "lodash";
 import React, { useContext } from "react";
 import { Button } from "reactstrap";
 
-import { QUERY_FEEDBACK_CALL_ID } from "./constants";
+import { NEW_QUERY_CALL_ID } from "./constants";
 import { AppContext, SessionContext } from "./context";
+import { EvalType, FeedbackStage } from "./types";
+import { getFirstFeedbackStage } from "./util";
 
 interface FeedbackNavigationPropType {
   checkAndSubmit: () => Promise<boolean>;
@@ -32,9 +34,15 @@ interface FeedbackNavigationPropType {
 export function FeedbackNavigation(
   props: FeedbackNavigationPropType
 ): JSX.Element {
-  const { allQuery, allCall, userEmail } = useContext(AppContext);
-  const { sessionQueryId, setSessionQueryId, sessionCallId, setSessionCallId } =
-    useContext(SessionContext);
+  const { allQuery, allCall, userEmail, evalType } = useContext(AppContext);
+  const {
+    sessionQueryId,
+    setSessionQueryId,
+    sessionCallId,
+    setSessionCallId,
+    feedbackStage,
+    setFeedbackStage,
+  } = useContext(SessionContext);
 
   const userQuery = Object.keys(allQuery)
     .filter(
@@ -62,19 +70,32 @@ export function FeedbackNavigation(
         targetId -= 1;
       }
       setSessionQueryId(targetId);
-      setSessionCallId(QUERY_FEEDBACK_CALL_ID);
+      setFeedbackStage(getFirstFeedbackStage(evalType));
+      setSessionCallId(NEW_QUERY_CALL_ID);
     }
   };
 
   const prev = async () => {
     if (await props.checkAndSubmit()) {
-      setSessionCallId(sessionCallId - 1);
+      if (evalType === EvalType.RIG) {
+        if (sessionCallId === 1) {
+          setFeedbackStage(FeedbackStage.OVERALL);
+        } else {
+          setSessionCallId(sessionCallId - 1);
+        }
+      }
     }
   };
 
   const next = async () => {
     if (await props.checkAndSubmit()) {
-      setSessionCallId(sessionCallId + 1);
+      if (evalType === EvalType.RIG) {
+        if (feedbackStage === FeedbackStage.OVERALL) {
+          setFeedbackStage(FeedbackStage.CALLS);
+        } else {
+          setSessionCallId(sessionCallId + 1);
+        }
+      }
     }
   };
   const nextQuery = async () => {
@@ -84,7 +105,8 @@ export function FeedbackNavigation(
         targetId += 1;
       }
       setSessionQueryId(targetId);
-      setSessionCallId(QUERY_FEEDBACK_CALL_ID);
+      setFeedbackStage(getFirstFeedbackStage(evalType));
+      setSessionCallId(NEW_QUERY_CALL_ID);
     }
   };
 
@@ -95,12 +117,12 @@ export function FeedbackNavigation(
     }
     return (
       sessionQueryId > sortedQueryIds[0] &&
-      sessionCallId === QUERY_FEEDBACK_CALL_ID
+      feedbackStage === FeedbackStage.OVERALL
     );
   };
 
   const showPrev = (): boolean => {
-    return sessionCallId > QUERY_FEEDBACK_CALL_ID;
+    return feedbackStage === FeedbackStage.CALLS;
   };
 
   const showNext = (): boolean => {
@@ -119,7 +141,7 @@ export function FeedbackNavigation(
 
   return (
     <div className="feedback-nav-section">
-      {sessionCallId !== QUERY_FEEDBACK_CALL_ID && (
+      {feedbackStage === FeedbackStage.CALLS && (
         <div className="item-num">
           <span className="highlight">{sessionCallId}</span>
           <span className="regular">/ {numCalls()} ITEMS IN THIS QUERY</span>

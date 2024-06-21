@@ -364,67 +364,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Married Couple Family Households Below Poverty Line in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Married Couple Family Households Below Poverty Line in California",
-                    "statVarKey": [
-                      "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Married Couple Family Households Below Poverty Line in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Married Couple Family Households Below Poverty Line"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Married Couple Family Households Below Poverty Line in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Married Couple Family Households Below Poverty Line in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Married Couple Family Households Below Poverty Line in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
                     ],
                     "title": "Family Households Below the Poverty Line in California",
@@ -479,6 +418,67 @@
             ],
             "denom": "Count_Person",
             "title": "Family Households Below the Poverty Line in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Married Couple Family Households Below Poverty Line in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Married Couple Family Households Below Poverty Line in California",
+                    "statVarKey": [
+                      "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Married Couple Family Households Below Poverty Line in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Married Couple Family Households Below Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Married Couple Family Households Below Poverty Line in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Married Couple Family Households Below Poverty Line in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Married Couple Family Households Below Poverty Line in Counties of California"
           },
           {
             "columns": [

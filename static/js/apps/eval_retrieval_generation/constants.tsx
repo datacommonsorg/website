@@ -17,6 +17,7 @@
 export const QA_SHEET = "query_and_answer";
 export const DC_CALL_SHEET = "dc_calls";
 export const DC_FEEDBACK_SHEET = "feedback";
+export const DC_METADATA_SHEET = "metadata";
 
 export const QUERY_ID_COL = "query_id";
 export const USER_COL = "user";
@@ -29,6 +30,10 @@ export const DC_RESPONSE_COL = "dc_response";
 export const LLM_STAT_COL = "llm_stat";
 export const DC_STAT_COL = "dc_stat";
 
+export const METADATA_KEY_COL = "metadata_key";
+export const METADATA_VAL_COL = "metadata_value";
+export const METADATA_KEY_TYPE = "type";
+
 const FB_SUFFIX = "_feedback";
 
 export const DC_QUESTION_FEEDBACK_COL = DC_QUESTION_COL + FB_SUFFIX;
@@ -37,8 +42,8 @@ export const LLM_STAT_FEEDBACK_COL = LLM_STAT_COL + FB_SUFFIX;
 export const DC_STAT_FEEDBACK_COL = DC_STAT_COL + FB_SUFFIX;
 export const QUERY_OVERALL_FEEDBACK_COL = "overall" + FB_SUFFIX;
 
-// Call Id to use for the query feedback
-export const QUERY_FEEDBACK_CALL_ID = 0;
+// Call Id to use for a new query
+export const NEW_QUERY_CALL_ID = 1;
 // The key used in firestore to save the query overall feedback
 export const QUERY_OVERALL_FEEDBACK_KEY = "overall";
 // Options for the query overall feedback
