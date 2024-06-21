@@ -17,8 +17,8 @@
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import React, { createContext, useState } from "react";
 
-import { QUERY_FEEDBACK_CALL_ID } from "./constants";
-import { DcCall, Query } from "./types";
+import { NEW_QUERY_CALL_ID } from "./constants";
+import { DcCall, EvalType, FeedbackStage, Query } from "./types";
 
 interface AppContextType {
   doc: GoogleSpreadsheet;
@@ -26,8 +26,9 @@ interface AppContextType {
   userEmail: string;
   // Key is query id, value is the query object.
   allQuery: Record<number, Query>;
-  // Key is call id, value is the call mapping (call id to call row index).
+  // Key is query id, value is the call mapping (call id to call row index).
   allCall: Record<number, DcCall>;
+  evalType: EvalType;
 }
 
 /**
@@ -38,6 +39,7 @@ export const AppContext = createContext<AppContextType>({
   allCall: null,
   allQuery: null,
   doc: null,
+  evalType: null,
   sheetId: "",
   userEmail: "",
 });
@@ -49,15 +51,19 @@ export const AppContext = createContext<AppContextType>({
 interface SessionContextType {
   sessionQueryId: number;
   sessionCallId: number;
+  feedbackStage: FeedbackStage;
   setSessionQueryId: (queryId: number) => void;
   setSessionCallId: (callId: number) => void;
+  setFeedbackStage: (FeedbackStage: FeedbackStage) => void;
 }
 
 export const SessionContext = createContext<SessionContextType>({
   sessionCallId: 1,
   sessionQueryId: null,
+  feedbackStage: null,
   setSessionCallId: () => void {},
   setSessionQueryId: () => void {},
+  setFeedbackStage: () => void {},
 });
 
 export function SessionContextProvider({
@@ -66,14 +72,17 @@ export function SessionContextProvider({
   children: JSX.Element;
 }): JSX.Element {
   const [sessionQueryId, setSessionQueryId] = useState(1);
-  const [sessionCallId, setSessionCallId] = useState(QUERY_FEEDBACK_CALL_ID);
+  const [sessionCallId, setSessionCallId] = useState(NEW_QUERY_CALL_ID);
+  const [feedbackStage, setFeedbackStage] = useState(null);
   return (
     <SessionContext.Provider
       value={{
         sessionQueryId,
         sessionCallId,
+        feedbackStage,
         setSessionQueryId,
         setSessionCallId,
+        setFeedbackStage,
       }}
     >
       {children}

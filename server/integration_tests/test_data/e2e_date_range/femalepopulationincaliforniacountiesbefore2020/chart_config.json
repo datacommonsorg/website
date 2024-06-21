@@ -127,9 +127,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_NowMarried_2019"
+                      "Count_Person_Female_MarriedAndNotSeparated_2019"
                     ],
-                    "title": "Population: Female, Now Married in Counties of California (${date})",
+                    "title": "Non-Separated Married Women in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -142,16 +142,16 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Person_NowMarried_2019"
+                      "Count_Person_Female_MarriedAndNotSeparated_2019"
                     ],
-                    "title": "Population: Female, Now Married in Counties of California (${date})",
+                    "title": "Non-Separated Married Women in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Female, Now Married in Counties of California"
+            "title": "Non-Separated Married Women in Counties of California"
           },
           {
             "columns": [
@@ -162,9 +162,9 @@
                       "endDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_NowMarried_1145703171"
+                      "Count_Person_Female_MarriedAndNotSeparated_2369573279"
                     ],
-                    "title": "Population: Female, Now Married in California",
+                    "title": "Non-Separated Married Women in California",
                     "type": "LINE"
                   }
                 ]
@@ -172,18 +172,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Female, Now Married in California",
+                    "description": "Non-Separated Married Women in California",
                     "statVarKey": [
-                      "Count_Person_NowMarried_2019"
+                      "Count_Person_Female_MarriedAndNotSeparated_2019"
                     ],
-                    "title": "Population: Female, Now Married in California",
+                    "title": "Non-Separated Married Women in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Female, Now Married"
+            "title": "Non-Separated Married Women"
           },
           {
             "columns": [
@@ -963,6 +963,16 @@
             "name": "Population: 16 - 64 Years, Female, Full Time Year Round Worker",
             "statVar": "Count_Person_Female_FullTimeYearRoundWorker"
           },
+          "Count_Person_Female_MarriedAndNotSeparated_2019": {
+            "date": "2019",
+            "name": "Non-Separated Married Women",
+            "statVar": "Count_Person_Female_MarriedAndNotSeparated"
+          },
+          "Count_Person_Female_MarriedAndNotSeparated_2369573279": {
+            "facetId": "2369573279",
+            "name": "Non-Separated Married Women",
+            "statVar": "Count_Person_Female_MarriedAndNotSeparated"
+          },
           "Count_Person_Female_TwoOrMoreRaces_1145703171": {
             "facetId": "1145703171",
             "name": "Women Identifying as Multiracial",
@@ -1002,16 +1012,6 @@
             "date": "2019",
             "name": "Men",
             "statVar": "Count_Person_Male"
-          },
-          "Count_Person_NowMarried_1145703171": {
-            "facetId": "1145703171",
-            "name": "Population: Female, Now Married",
-            "statVar": "Count_Person_NowMarried"
-          },
-          "Count_Person_NowMarried_2019": {
-            "date": "2019",
-            "name": "Population: Female, Now Married",
-            "statVar": "Count_Person_NowMarried"
           },
           "Count_Person_WithDisability_Female_2019": {
             "date": "2019",
@@ -1588,6 +1588,15 @@
           "Count_Person_85OrMoreYears_Female_AsianAlone",
           "Count_Person_8Years_Female_AsianAlone",
           "Count_Person_9Years_Female_AsianAlone"
+        ]
+      },
+      "Count_Person_Female_MarriedAndNotSeparated": {
+        "age": [
+          "Count_Person_15To19Years_Female_MarriedAndNotSeparated",
+          "Count_Person_20To34Years_Female_MarriedAndNotSeparated",
+          "Count_Person_35To44Years_Female_MarriedAndNotSeparated",
+          "Count_Person_45To54Years_Female_MarriedAndNotSeparated",
+          "Count_Person_55To64Years_Female_MarriedAndNotSeparated"
         ]
       },
       "Count_Person_Female_TwoOrMoreRaces": {

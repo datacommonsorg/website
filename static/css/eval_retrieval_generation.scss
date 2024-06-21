@@ -43,6 +43,57 @@ footer {
   font-size: 14px;
 }
 
+.table-pane {
+  overflow: auto;
+  height: 30%;
+  padding: 11px 24px;
+  width: 100%;
+
+  .Collapsible__trigger.is-open + .Collapsible__contentOuter {
+    overflow-x: visible !important;
+    overflow-y: hidden !important;
+    width: fit-content;
+    min-width: 100%;
+  }
+
+  .table-title {
+    display: flex;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  .table-content {
+    height: 100%;
+    margin: 16px 0;
+    border-top: 1px solid var(--gm-3-ref-neutral-neutral-70);
+
+    table {
+      height: 100%;
+      width: 100%;
+      font-size: 14px;
+
+      thead {
+        border-bottom: 1px solid var(--gm-3-ref-neutral-neutral-20);
+      }
+
+      th {
+        padding: 8px 0;
+        font-weight: 500;
+        line-height: 20px;
+      }
+
+      td {
+        line-height: 30px;
+        font-weight: 400;
+      }
+
+      tr:not(:first-child) {
+        border-top: 1px solid var(--gm-3-ref-neutral-neutral-90);
+      }
+    }
+  }
+}
+
 label {
   display: block;
 }
@@ -282,13 +333,20 @@ label {
   font-weight: 500;
 }
 
+.annotation-rag .dc-stat,
+.annotation-rag .dc-question {
+  background-color: transparent;
+}
+
 .question-section .dc-stat,
 .highlight .dc-stat {
   background-color: lightblue;
 }
 
 .question-section .llm-stat,
-.highlight .llm-stat {
+.highlight .llm-stat,
+.question-section .dc-question,
+.highlight .dc-question {
   background-color: lightsalmon;
 }
 
@@ -332,5 +390,70 @@ label {
 
   input {
     margin-right: 8px;
+  }
+}
+
+.block-evaluation {
+  .disabled {
+    opacity: 0.5;
+  }
+
+  .counter {
+    justify-content: center;
+    margin-top: 20px;
+
+    .claims-count,
+    .false-claims-count {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      font-size: 16px;
+      margin-bottom: 24px;
+
+      button {
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        font-size: 48px;
+        width: 44px;
+      }
+
+      .count-text {
+        font-size: 2em;
+        color: white;
+        width: 55px;
+        height: 41px;
+        border-radius: 8px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+      }
+
+      .claim-text {
+        margin: 0 10px;
+        font-weight: 500;
+      }
+    }
+
+    .claims-count {
+      .count-text {
+        background-color: #007bff;
+      }
+
+      button {
+        color: #007bff;
+      }
+
+    }
+
+    .false-claims-count {
+      .count-text {
+        background-color: #ff5722;
+      }
+
+      button {
+        color: #ff5722;
+      }
+    }
   }
 }
