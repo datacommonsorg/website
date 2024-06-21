@@ -63,7 +63,7 @@ export function EvalList(): JSX.Element {
           let completed = callCountResults[i] === Object.keys(calls).length;
           // If no overall feedback value, set completed to false
           if (!queryFeedbackResults[i][QUERY_OVERALL_FEEDBACK_KEY]) {
-            completed = false
+            completed = false;
           }
           // For RAG eval type, also check that total and false claims are
           // completed

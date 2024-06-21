@@ -87,4 +87,4 @@ export function ClaimCounter(props: ClaimCounterPropType): JSX.Element {
       </div>
     </div>
   );
-};
+}
