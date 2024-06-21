@@ -8,36 +8,36 @@
   "query_with_places_removed": "compare obesity vs poverty",
   "sv_matching": {
     "CosineScore": [
-      0.8778441548347473,
-      0.8041589260101318,
-      0.7967697381973267,
-      0.7624962329864502,
-      0.7490016222000122,
-      0.7484045624732971,
-      0.7442891597747803,
-      0.7357535362243652,
-      0.7350345849990845,
-      0.7310352325439453,
-      0.7266256809234619,
-      0.72642582654953,
-      0.7230073809623718,
-      0.7192580103874207,
-      0.7148402333259583,
-      0.7139471769332886,
-      0.7126944065093994,
-      0.7112095355987549,
-      0.7085545063018799,
-      0.7085545063018799,
-      0.7080712914466858,
-      0.7078816890716553,
-      0.7053747177124023,
-      0.7033880949020386,
-      0.702430009841919,
-      0.7004527449607849,
-      0.6995818018913269,
-      0.6994994878768921,
-      0.6956697702407837,
-      0.6947900652885437
+      0.8778442740440369,
+      0.8041591644287109,
+      0.7967699766159058,
+      0.762496829032898,
+      0.7490020394325256,
+      0.7484047412872314,
+      0.7442895174026489,
+      0.7357541918754578,
+      0.7350349426269531,
+      0.731035590171814,
+      0.7266261577606201,
+      0.7264261841773987,
+      0.725391685962677,
+      0.7230079174041748,
+      0.7139475345611572,
+      0.7126950621604919,
+      0.7112098932266235,
+      0.7085550427436829,
+      0.7085549831390381,
+      0.7080719470977783,
+      0.707882285118103,
+      0.7053750157356262,
+      0.7045387029647827,
+      0.7033883929252625,
+      0.7024303674697876,
+      0.7004534602165222,
+      0.6995822191238403,
+      0.6994997262954712,
+      0.6956703662872314,
+      0.6947906613349915
     ],
     "MultiSV": {
       "Candidates": [
@@ -47,8 +47,8 @@
           "Parts": [
             {
               "CosineScore": [
-                0.8955401182174683,
-                0.8525744676589966
+                0.8955404162406921,
+                0.8525748252868652
               ],
               "QueryPart": "obesity",
               "SV": [
@@ -58,7 +58,7 @@
             },
             {
               "CosineScore": [
-                1.0000001192092896
+                1.0
               ],
               "QueryPart": "poverty",
               "SV": [
@@ -83,9 +83,8 @@
       "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months",
       "dc/topic/Malnutrition",
       "sdg/SN_ITK_DEFC",
-      "dc/topic/PovertyByResidency",
       "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months",
-      "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+      "dc/topic/PovertyByResidency",
       "dc/topic/sdg_1",
       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months",
       "dc/4lvmzr1h1ylk1",
@@ -94,6 +93,7 @@
       "WHO/NCD_BMI_18A",
       "Count_Household_WithoutFoodStampsInThePast12Months_AbovePovertyLevelInThePast12Months",
       "WHO/NUTOVERWEIGHTPREV",
+      "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
       "dc/x13tvt8jsgrm4",
       "Count_Household_WithFoodStampsInThePast12Months_AbovePovertyLevelInThePast12Months",
       "dc/topic/HealthEquity",

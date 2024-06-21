@@ -327,8 +327,8 @@ Average Cash Assistance for Households with foreign born people from northameric
 Average Cash Assistance for Households with foreign born people from south america,Mean_CashAssistance_Household_ForeignBorn_PlaceOfBirthSouthamerica
 Average Diesel PM Particle Concentration,Mean_Concentration_AirPollutant_DieselPM
 Average OE Gestational Age,Mean_OeGestationalAge_BirthEvent_LiveBirth
-Average PM 10 Particle Concentration,Mean_Concentration_AirPollutant_PM10
-Average PM 2.5 Particle Concentration,Mean_Concentration_AirPollutant_PM2.5
+Average PM10 Particle Concentration,Mean_Concentration_AirPollutant_PM10
+Average PM2.5 Particle Concentration,Mean_Concentration_AirPollutant_PM2.5
 Average Pre pregnancy BMI,Mean_PrePregnancyBMI_BirthEvent_LiveBirth
 Average Time Since Last Live Birth,Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth
 Average amount of Precipitable Water,Mean_PrecipitableWater_Atmosphere
@@ -356,7 +356,7 @@ Average proportion of Marine Key Biodiversity Areas covered by protected areas,s
 Average proportion of Mountain Key Biodiversity Areas covered by protected areas,sdg/ER_PTD_MTN
 Average proportion of Terrestrial Key Biodiversity Areas covered by protected areas,sdg/ER_PTD_TERR
 "Average share of the built-up area of cities that is open space for public use for all, by sex, age and persons with disabilities",dc/topic/sdg_11.7.1
-Average smoke PM 2.5 Particle Concentration,Mean_Concentration_AirPollutant_SmokePM25
+Average smoke PM2.5 Particle Concentration,Mean_Concentration_AirPollutant_SmokePM25
 Aviation Gasoline consumption by Transport Industry,Annual_Consumption_Fuel_TransportIndustry_AviationGasoline
 Banking Access,dc/topic/BankingAccess
 Beach litter originating from national land-based sources that ends in the beach,sdg/EN_MAR_BEALIT_BP
@@ -596,9 +596,8 @@ Count of Earthquake Event: 7 - 8 Magnitude,Count_EarthquakeEvent_M7To8
 Count of Earthquake Event: 8 - 9 Magnitude,Count_EarthquakeEvent_M8To9
 Count of Earthquake Event: 9 Magnitude or More,Count_EarthquakeEvent_M9Onwards
 Count of Establishment,Count_Establishment
-Count of households,Count_Household
-Count of households with people over 60 receiving food stamps last year,Count_Household_WithFoodStampsInThePast12Months_WithPeopleOver60
-Count of households without people over 60 receiving food stamps last year,Count_Household_WithFoodStampsInThePast12Months_WithoutPeopleOver60
+Count of households with people over 60 receiving food stamps in the last 12 months,Count_Household_WithFoodStampsInThePast12Months_WithPeopleOver60
+Count of households without people over 60 receiving food stamps in the last 12 months,Count_Household_WithFoodStampsInThePast12Months_WithoutPeopleOver60
 Count of live births of married mothers,Count_BirthEvent_LiveBirth_MotherNowMarried
 Count of live births where mothers Education is Associates Degree,Count_BirthEvent_LiveBirth_MotherAssociatesDegree
 Count of live births where mothers Education is Bachelors Degree,Count_BirthEvent_LiveBirth_MotherBachelorsDegree
@@ -854,7 +853,7 @@ Female Population With Poor Mental Health By Age,dc/topic/MentalHealthNotGoodFem
 Female Population With Stroke By Age,dc/topic/StrokeFemalePopulationByAge
 Female death rate,Count_Death_Female_AsAFractionOf_Count_Person_Female
 Female deaths,dc/topic/FemaleMortality
-Female labor force participation rate,Count_Person_15OrMoreYears_InLaborForce_Female_AsFractionOf_Count_Person_InLaborForce
+Female labor force participation rate,Count_Person_15To64Years_Female_InLaborForce_AsFractionOf_Count_Person_15To64Years_Female
 Female mortality,dc/topic/FemaleMortality
 Fertility rate,FertilityRate_Person_Female
 Financial Soundness Indicators,dc/topic/sdg_10.5.1
@@ -879,12 +878,11 @@ GDP,dc/topic/GDP
 GDP By Industry,dc/topic/GDPByIndustry
 GDP change rate,GrowthRate_Amount_EconomicActivity_GrossDomesticProduction
 GDP contribution by industries,dc/topic/IndustriesByGDP
-GDP per capita,dc/topic/sdg_8.1.1
 Gender,dc/topic/Gender
 Gini Index,GiniIndex_EconomicActivity
-Global  Child Immunization by urban or rural,dc/topic/WHOChildImmunizationsByUrbanRural
 Global Child Immunization,dc/topic/WHOChildImmunization
 Global Child Immunization by gender,dc/topic/WHOChildImmunizationsByGender
+Global Child Immunization by urban or rural,dc/topic/WHOChildImmunizationsByUrbanRural
 Global Child Mortality,dc/topic/WHOChildMortality
 Global Childen with Non Communicable Diseases,dc/topic/WHOChildrenNonCommunicableDiseases
 Global DALY causes,dc/topic/WHODALYByCauses
@@ -967,7 +965,6 @@ Household Kerosene Consumption,Annual_Consumption_Fuel_Households_Kerosene
 Household Liquefied Petroleum Gas Consumption,Annual_Consumption_Fuel_Households_LiquifiedPetroleumGas
 Household Natural Gas Consumption,Annual_Consumption_Fuel_Households_NaturalGas
 Household Vegetal Waste Consumption,Annual_Consumption_Fuel_Households_VegetalWaste
-Households with food stamps last year that are below poverty level,Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months
 Houses by Date Built,dc/topic/HousesByDateofBuild
 Houses by Educational Attainment of Owner,dc/topic/HousesByHouseholderEducationalAttainment
 Houses by Facilities,dc/topic/HousesByFacilities
@@ -1370,7 +1367,8 @@ Number of Aggravated Assaults,Count_CriminalActivities_AggravatedAssault
 Number of Agricultural Facility,Count_CivicStructure_AgriculturalFacility
 "Number of Agriculture, Forestry, Fishing And Hunting establishments",Count_Establishment_NAICSAgricultureForestryFishingHunting
 Number of American Indian Or Alaska Native females with some college education,dc/mqxdr821c7kw3
-Number of American Indian Or Alaska NativeAlone people with disabilities,Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone
+Number of American Indian Or Alaska Native people with disabilities,Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone
+Number of American Indian and Alaska Native people,Count_Person_AmericanIndianAndAlaskaNativeAlone
 Number of American Indian or Alaska Native households not receiving Food Stamps in the 12 months,Count_Household_WithoutFoodStampsInThePast12Months_AmericanIndianOrAlaskaNativeAlone
 Number of American Indian or Alaska Native males live Above Poverty Level In The Past 12 Months,Count_Person_Male_AbovePovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone
 Number of American Indian or Alaska Native males living Below Poverty Level In The Past 12 Months,Count_Person_Male_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone
@@ -1378,6 +1376,7 @@ Number of American Indian or Alaska Native people,Count_Person_AmericanIndianOrA
 Number of American Indian or Alaska Native people below poverty level in the past 12 months,Count_Person_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone
 Number of American Indian or Alaska Native people currently enrolled in school,dc/5qnjtqc0w783b
 Number of American Indian or Alaska Native people living above the poverty level in the past 12 months,Count_Person_AbovePovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone
+Number of American Indian or Alaska Native people not enrolled in school,dc/x4jl7c411edy9
 Number of American Indian or Alaska Native people who reside in college or university student housing,Count_Person_AmericanIndianOrAlaskaNativeAlone_ResidesInCollegeOrUniversityStudentHousing
 Number of American Indian or Alaska Native people who reside in group quarters,Count_Person_AmericanIndianOrAlaskaNativeAlone_ResidesInGroupQuarters
 Number of American Indian or Alaska Native people who reside in military quarters or military ships,Count_Person_AmericanIndianOrAlaskaNativeAlone_ResidesInMilitaryQuartersOrMilitaryShips
@@ -1389,7 +1388,7 @@ Number of American Indian or Alaska Native students enrolled in graduate or prof
 Number of American Indian or Alaska Native students enrolled in high school,dc/fh4td3znm3l4g
 Number of American Indian or Alaska Native students enrolled in kindergarten,dc/qnphlls92tvs9
 Number of American Indian or Alaska Native students enrolled in primary school,dc/p4jzvj8q1lnmd
-Number of American Indian or Alaskan farmers,Count_Person_Producer_AmericanIndianOrAlaskaNativeAlone
+Number of American Indian or Alaska native farmers,Count_Person_Producer_AmericanIndianOrAlaskaNativeAlone
 Number of Arson crimes,Count_CriminalActivities_Arson
 "Number of Arts, Entertainment And Recreation establishments",Count_Establishment_NAICSArtsEntertainmentRecreation
 Number of Asian females who have attended some college,dc/whn99h1l0xgth
@@ -1652,7 +1651,6 @@ Number of Hate Crimes Motivated by Sexual Orientation,Count_CriminalIncidents_Bi
 Number of Health Care and Social Assistance establishments,Count_Establishment_NAICSHealthCareSocialAssistance
 Number of Heat Temperature Events,Count_HeatTemperatureEvent
 Number of Heat Wave days in a year,NumberOfDays_HeatWaveEvent
-Number of Heat Waves,Count_HeatEvent
 Number of Heavy Civil Engineering Construction establishments,dc/ltwqwtxcq9l23
 Number of Heavy Rains,Count_HeavyRainEvent
 Number of Heavy Snows,Count_HeavySnowEvent
@@ -1805,15 +1803,11 @@ Number of Marine Thunderstorm Wind Events,Count_MarineThunderstormWindEvent
 Number of Marine Tropical Storms,Count_MarineTropicalStormEvent
 Number of Married Couple Family Households With a Householder Holding a Bachelor's Degree or Higher,Count_Household_HouseholderEducationalAttainmentBachelorsDegreeOrHigher_MarriedCoupleFamilyHousehold
 Number of Married Couple Family Households with Hispanic or Latino Householder,Count_Household_HouseholderRaceHispanicOrLatino_MarriedCoupleFamilyHousehold
-Number of Married Couple Family Households with Three Or More Workers,Count_Household_MarriedCoupleFamilyHousehold_With3OrMoreWorker
+Number of Married Couple Family Households with Native Hawaiian or Other Pacific Islander Householder,Count_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_MarriedCoupleFamilyHousehold
 Number of Married Couple Family Households with a Householder without a High School Diploma,Count_Household_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_MarriedCoupleFamilyHousehold
-Number of Married Couple Family Households with a white Householder,Count_Household_HouseholderRaceWhiteAlone_MarriedCoupleFamilyHousehold
-Number of Married-Couple Family Households with American Indian or Alaska Native Householder,Count_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_MarriedCoupleFamilyHousehold
-Number of Married-Couple Family Households with Native Hawaiian or Other Pacific Islander Householder,Count_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_MarriedCoupleFamilyHousehold
-Number of Married-Couple Family Households with a Householder Holding a Bachelor’s Degree or Higher,Count_Household_HouseholderEducationalAttainmentBachelorsDegreeOrHigher_FamilyHousehold_BelowPovertyLevelInThePast12Months
-Number of Married-Couple Family Households with a Householder who is a High School Graduate or Equivalent,Count_Household_HouseholderEducationalAttainmentHighSchoolGraduateIncludesEquivalency_FamilyHousehold_BelowPovertyLevelInThePast12Months
-Number of Married-Couple Family Households with asian Householder,Count_Household_HouseholderRaceAsianAlone_MarriedCoupleFamilyHousehold
-Number of Married-Couple Households with a muti-races Householder,Count_Household_HouseholderRaceTwoOrMoreRaces_MarriedCoupleFamilyHousehold
+Number of Married Couple Family Households with a white householder,Count_Household_HouseholderRaceWhiteAlone_MarriedCoupleFamilyHousehold
+Number of Married Couple Family Households with asian householder,Count_Household_HouseholderRaceAsianAlone_MarriedCoupleFamilyHousehold
+Number of Married Couple Households with a muti-races Householder,Count_Household_HouseholderRaceTwoOrMoreRaces_MarriedCoupleFamilyHousehold
 Number of Measles Cases,Count_MedicalConditionIncident_ConditionMeasles
 Number of Medical Facility,Count_CivicStructure_MedicalFacility
 Number of Meningococcal Meningitis Cases,Count_MedicalConditionIncident_ConditionMeningococcalMeningitis
@@ -1836,7 +1830,10 @@ Number of Muslims living in urban areas,indianCensus/Count_Person_Religion_Musli
 Number of Native Hawaiian Or Other Pacific Islander males live Above Poverty Level In The Past 12 Months,Count_Person_Male_AbovePovertyLevelInThePast12Months_HispanicOrLatino
 Number of Native Hawaiian Or Other Pacific Islander males living Below Poverty Level In The Past 12 Months,Count_Person_Male_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone
 Number of Native Hawaiian Or Other Pacific IslanderAlone people below poverty level in the past 12 months,Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone
+Number of Native Hawaiian and Other Pacific Islander females,Count_Person_Female_NativeHawaiianAndOtherPacificIslanderAlone
+Number of Native Hawaiian and Other Pacific Islander people,Count_Person_NativeHawaiianAndOtherPacificIslanderAlone
 Number of Native Hawaiian or Other Pacific Islander farmers,Count_Person_Producer_NativeHawaiianOrOtherPacificIslanderAlone
+Number of Native Hawaiian or Other Pacific Islander females,Count_Person_Female_NativeHawaiianOrOtherPacificIslanderAlone
 Number of Native Hawaiian or Other Pacific Islander females who have attended some college,dc/kpcfmb6lp3zpd
 Number of Native Hawaiian or Other Pacific Islander households not receiving Food Stamps in the past 12 months,Count_Household_WithoutFoodStampsInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone
 Number of Native Hawaiian or Other Pacific Islander people,Count_Person_NativeHawaiianOrOtherPacificIslanderAlone
@@ -1852,7 +1849,6 @@ Number of Native Hawaiian or other Pacific Islander students enrolled in graduat
 Number of Native Hawaiian or other Pacific Islander students enrolled in high school,dc/dxsxcw009pdm4
 Number of Native Hawaiian or other Pacific Islander students enrolled in kindergarten,dc/556pqlh586bmc
 Number of Neuroinvasive West Nile Virus Disease Cases,Count_MedicalConditionIncident_ConditionWestNileVirusDisease_NeuroinvasiveDisease
-Number of Non Hispanic or Latino White People With Disabilities,Count_Person_WithDisability_WhiteAloneNotHispanicOrLatino
 Number of Non-Family Households living in Single Unit,Count_Household_NonfamilyHousehold_SingleUnit
 Number of Non-Family Households living in Two Or More Units,Count_Household_NonfamilyHousehold_TwoOrMoreUnits
 Number of NonCongenital Zika Virus Disease Cases,Count_MedicalConditionIncident_ConditionZikaVirusDisease_NonCongenitalDisease
@@ -2003,7 +1999,6 @@ Number of Single Mother Family Households with Native Hawaiian or Other Pacific 
 Number of Single Mother Family Households with a Householder Holding Some College or Associates Degree,Count_Household_HouseholderEducationalAttainmentSomeCollegeOrAssociatesDegree_SingleMotherFamilyHousehold
 Number of Single Mother Family Households with a Householder Holding a Bachelor's Degree or Higher,Count_Household_HouseholderEducationalAttainmentBachelorsDegreeOrHigher_SingleMotherFamilyHousehold
 Number of Single Mother Family Households with a Householder holding High School Graduate or Equivalency Degree,Count_Household_HouseholderEducationalAttainmentHighSchoolGraduateIncludesEquivalency_SingleMotherFamilyHousehold
-Number of Single Mother Family Households with a Householder who is a High School Graduate or Equivalent,Count_Household_HouseholderEducationalAttainmentHighSchoolGraduateIncludesEquivalency_MarriedCoupleFamilyHousehold
 Number of Single Mother Family Households with a muti-races Householder,Count_Household_HouseholderRaceTwoOrMoreRaces_SingleMotherFamilyHousehold
 Number of Single Mother Family Households with a white Householder,Count_Household_HouseholderRaceWhiteAlone_SingleMotherFamilyHousehold
 Number of Single Mother Family Households with asian Householder,Count_Household_HouseholderRaceAsianAlone_SingleMotherFamilyHousehold
@@ -2070,7 +2065,6 @@ Number of asian students enrolled in graduate or professional school,dc/zmp6qzgz
 Number of asian students enrolled in high school,dc/1kt512ynvpmc2
 Number of asian students enrolled in kindergarten,dc/1c4zcyw02n71g
 Number of asian students enrolled in primary school,dc/x9e7150515yt7
-"Number of below poverty-level, owner-occupied, married-couple family households",Count_Household_MarriedCoupleFamilyHousehold_OwnerOccupied
 Number of black or African American Households that don't Received Food Stamps in the Last Year,Count_Household_WithoutFoodStampsInThePast12Months_BlackOrAfricanAmericanAlone
 Number of black or african american people with disabilities,Count_Person_WithDisability_BlackOrAfricanAmericanAlone
 Number of boys under 4 years old,Count_Person_0To4Years_Male
@@ -2206,8 +2200,6 @@ Number of females living in urban areas,Count_Person_Urban_Female
 Number of females married in the past 12 months and below poverty level in the past 12 months,Count_Person_Female_MarriedInThePast12Months_BelowPovertyLevelInThePast12Months
 Number of females married in the past 12 months residing in a household,Count_Person_Female_MarriedInThePast12Months_ResidesInHousehold
 Number of females married in the past 12 months with poverty status determined,Count_Person_Female_MarriedInThePast12Months_PovertyStatusDetermined
-Number of females of Native Hawaiian and Other Pacific Islander race,Count_Person_Female_NativeHawaiianAndOtherPacificIslanderAlone
-Number of females of Native Hawaiian or Other Pacific Islander race,Count_Person_Female_NativeHawaiianOrOtherPacificIslanderAlone
 Number of females of some other race who have attended some college,dc/epw58ne8mytn5
 Number of females older than 85,Count_Person_85OrMoreYears_Female
 Number of females residing in Adult Correctional Facilities,Count_Person_Female_ResidesInAdultCorrectionalFacilities
@@ -2292,6 +2284,8 @@ Number of full time year round workers with earnings,Count_Person_WithEarnings_F
 Number of gambling establishments in gambling industries,dc/3jr0p7yjw06z9
 Number of girls under 4 years old,Count_Person_0To4Years_Female
 Number of hate crime incidents,Count_CriminalIncidents_IsHateCrime
+Number of heat events,Count_HeatEvent
+Number of heat waves,Count_HeatWaveEvent
 Number of hispanic or latino people who reside in college or university student housing,Count_Person_HispanicOrLatino_ResidesInCollegeOrUniversityStudentHousing
 Number of hispanic or latino people who reside in group quarters,Count_Person_HispanicOrLatino_ResidesInGroupQuarters
 Number of hispanic or latino people who reside in military quarters or military ships,Count_Person_HispanicOrLatino_ResidesInMilitaryQuartersOrMilitaryShips
@@ -2302,18 +2296,18 @@ Number of hispanic or latino students enrolled in primary school,dc/68cg2z97cpl7
 Number of homicides of incarcerated females,dc/q2pgyz35p79l4
 Number of homicides of incarcerated males,dc/z29z7w7ldnwl4
 Number of homicides of incarcerated people,dc/jtf63bh66k41g
-Number of households collecting Food Stamps (SNAP) with someone in the household having a disability in the past 12 months,Count_Household_WithFoodStampsInThePast12Months_WithDisability
 Number of households receive food stamps (SNAP) in the past 12 months and live above poverty level,Count_Household_WithFoodStampsInThePast12Months_AbovePovertyLevelInThePast12Months
+Number of households receiving food stamps last year and live below poverty level,Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months
 Number of households receiving food stamps last year who identify as American Indian or Alaska native only,Count_Household_WithFoodStampsInThePast12Months_AmericanIndianOrAlaskaNativeAlone
 Number of households receiving food stamps last year who identify as Asian,Count_Household_WithFoodStampsInThePast12Months_AsianAlone
 Number of households receiving food stamps last year who identify as Black or African American,Count_Household_WithFoodStampsInThePast12Months_BlackOrAfricanAmericanAlone
 Number of households that are multi-race and received food stamps last year,Count_Household_WithoutFoodStampsInThePast12Months_TwoOrMoreRaces
-Number of households that are not disabled and received food stamps last year,Count_Household_WithFoodStampsInThePast12Months_NoDisability
-Number of households that are two or more races and received food stamps last year,Count_Household_WithFoodStampsInThePast12Months_TwoOrMoreRaces
-Number of households that are white and received food stamps last year,Count_Household_WithFoodStampsInThePast12Months_WhiteAlone
+Number of households that are not disabled and received food stamps in the past 12 months,Count_Household_WithFoodStampsInThePast12Months_NoDisability
+Number of households that are two or more races and received food stamps in the past 12 months,Count_Household_WithFoodStampsInThePast12Months_TwoOrMoreRaces
+Number of households that are white and received food stamps in the past 12 months,Count_Household_WithFoodStampsInThePast12Months_WhiteAlone
 Number of households that don't have children and have received food stamps in the past 12 months,Count_Household_WithFoodStampsInThePast12Months_WithoutChildrenUnder18
 Number of households that have been below the poverty level in the past 12 months but have not received food stamps in the past 12 months,Count_Household_WithoutFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months
-Number of households that have children under 18 and received food stamps last year,Count_Household_WithFoodStampsInThePast12Months_WithChildrenUnder18
+Number of households that have children under 18 and received food stamps in the past 12 months,Count_Household_WithFoodStampsInThePast12Months_WithChildrenUnder18
 Number of households that have not received food stamps in the past 12 months,Count_Household_WithoutFoodStampsInThePast12Months
 Number of households that have received Social Security income in the past 12 months and that have householders born in Africa,Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthAfrica
 Number of households that have received Social Security income in the past 12 months and that have householders born in Asia,Count_Household_WithSocialSecurityIncomeInThePast12Months_ForeignBorn_PlaceOfBirthAsia
@@ -2354,6 +2348,7 @@ Number of households with an internet subscription,Count_Household_WithInternetS
 Number of households with children who did not receive Food Stamps in the past 12 months,Count_Household_WithoutFoodStampsInThePast12Months_WithChildrenUnder18
 Number of households with householders over 60 years old that did not receive food stamps in the past 12 months,Count_Household_WithoutFoodStampsInThePast12Months_WithPeopleOver60
 Number of households with householders with disability that have not received food stamps in the past 12 months,Count_Household_WithoutFoodStampsInThePast12Months_WithDisability
+Number of households with someone having a disability that received food stamps in the past 12 months,Count_Household_WithFoodStampsInThePast12Months_WithDisability
 Number of households without children that did not receive food stamps in the past 12 months,Count_Household_WithoutFoodStampsInThePast12Months_WithoutChildrenUnder18
 Number of households without householders over 60 years old that did not receive food stamps in the past 12 months,Count_Household_WithoutFoodStampsInThePast12Months_WithoutPeopleOver60
 Number of households without internet subscription,Count_Household_InternetWithoutSubscription
@@ -2515,20 +2510,28 @@ Number of males that have heart Diseases,Count_Person_Male_ConditionDiseasesOfHe
 Number of males who are married,dc/70zj83ev915f8
 Number of males who do not work,Count_Person_NonWorker_Male
 Number of males who have worked before,Count_Person_WorkedFullTime
-Number of married American Indian or Alaska Native people,Count_Person_15OrMoreYears_MarriedAndNotSeparated_AmericanIndianAndAlaskaNativeAlone
+Number of married (including separated) people,Count_Person_NowMarried
+Number of married American Indian and Alaska Native people,Count_Person_15OrMoreYears_MarriedAndNotSeparated_AmericanIndianAndAlaskaNativeAlone
 Number of married Black or African American people,Count_Person_15OrMoreYears_MarriedAndNotSeparated_BlackOrAfricanAmericanAlone
 Number of married Hispanic or Latino people,Count_Person_15OrMoreYears_MarriedAndNotSeparated_HispanicOrLatino
 Number of married Native Hawaiian and Other Pacific Islander people,Count_Person_15OrMoreYears_MarriedAndNotSeparated_NativeHawaiianAndOtherPacificIslanderAlone
 Number of married asian people,Count_Person_15OrMoreYears_MarriedAndNotSeparated_AsianAlone
+Number of married couple Family Households with American Indian or Alaska Native Householder,Count_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_MarriedCoupleFamilyHousehold
+Number of married couple Family Households with a Householder who is a High School Graduate or Equivalent,Count_Household_HouseholderEducationalAttainmentHighSchoolGraduateIncludesEquivalency_MarriedCoupleFamilyHousehold
 Number of married couple Households,Count_Household_MarriedCoupleFamilyHousehold
-Number of married couple family households Without Children Under 18 and receiving Food Stamps over the last year,Count_Household_WithFoodStampsInThePast12Months_WithoutChildrenUnder18_MarriedCoupleFamilyHousehold
-Number of married couple family households that received food stamps last year,Count_Household_WithFoodStampsInThePast12Months_MarriedCoupleFamilyHousehold
+Number of married couple families living in poverty over the last year,Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months
+Number of married couple family households not receiving food stamps in the past 12 months,Count_Household_WithoutFoodStampsInThePast12Months_MarriedCoupleFamilyHousehold
+Number of married couple family households that received food stamps in the past 12 months,Count_Household_WithFoodStampsInThePast12Months_MarriedCoupleFamilyHousehold
 Number of married couple family households with 1 worker,Count_Household_MarriedCoupleFamilyHousehold_With1Worker
-Number of married couple family households with 2 worker,Count_Household_MarriedCoupleFamilyHousehold_With2Worker
+Number of married couple family households with 2 workers,Count_Household_MarriedCoupleFamilyHousehold_With2Worker
+Number of married couple family households with 3 or more workers,Count_Household_MarriedCoupleFamilyHousehold_With3OrMoreWorker
+Number of married couple family households with Black or African American Householder,Count_Household_HouseholderRaceBlackOrAfricanAmericanAlone_MarriedCoupleFamilyHousehold
+Number of married couple family households with householder age 65 or more years,Count_Household_HouseholderAge65OrMoreYears_MarriedCoupleFamilyHousehold
 Number of married couple family households with no worker,Count_Household_MarriedCoupleFamilyHousehold_With0Worker
+Number of married couple family households without children and received food stamps in the last 12 months,Count_Household_WithFoodStampsInThePast12Months_WithoutChildrenUnder18_MarriedCoupleFamilyHousehold
 Number of married couple households that have received social security income in the past 12 months,Count_Household_WithSocialSecurityIncomeInThePast12Months_MarriedCoupleFamilyHousehold
 Number of married couple households with a householder with some college or an associate's degree,Count_Household_HouseholderEducationalAttainmentSomeCollegeOrAssociatesDegree_MarriedCoupleFamilyHousehold
-Number of married females,Count_Person_NowMarried
+Number of married females,Count_Person_Female_MarriedAndNotSeparated
 Number of married foreign born people,Count_Person_15OrMoreYears_MarriedAndNotSeparated_ForeignBorn
 Number of married native people,Count_Person_15OrMoreYears_MarriedAndNotSeparated_Native
 Number of married people,Count_Person_MarriedAndNotSeparated
@@ -2542,9 +2545,6 @@ Number of married people who reside in institutionalized group quarters,Count_Pe
 Number of married people who reside in noninstitutionalized group quarters,Count_Person_MarriedAndNotSeparated_ResidesInNoninstitutionalizedGroupQuarters
 Number of married people who reside in nursing facilities,Count_Person_MarriedAndNotSeparated_ResidesInNursingFacilities
 Number of married white people,Count_Person_15OrMoreYears_MarriedAndNotSeparated_WhiteAlone
-Number of married-couple families living in poverty over the last year,Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months
-Number of married-couple family households with householder age 65 or more years,Count_Household_HouseholderAge65OrMoreYears_MarriedCoupleFamilyHousehold
-Number of married-couple households not receiving Food Stamps in the past 12 months,Count_Household_WithoutFoodStampsInThePast12Months_MarriedCoupleFamilyHousehold
 Number of mobile phone subscriptions per person,Count_Product_MobileCellularSubscription_AsFractionOf_Count_Person
 Number of multi race people with disabilities,Count_Person_WithDisability_TwoOrMoreRaces
 Number of multi races farmers,Count_Person_Producer_TwoOrMoreRaces
@@ -2561,13 +2561,14 @@ Number of murders and non-negligent manslaughters,Count_CriminalActivities_Murde
 Number of muti races females who have attended some college,dc/q98jxycvs422f
 Number of muti-race females,Count_Person_Female_TwoOrMoreRaces
 Number of native born people who speak Asian and Pacific Island languages at home,dc/wbjmvkyqf6dm3
+Number of native hawaiian or other pacific islander households that have received food stamps in the past 12 months,Count_Household_WithFoodStampsInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone
 Number of native hawaiian or other pacific islander people currently enrolled in school,dc/8cnhmxe67qddf
 Number of native hawaiian or other pacific islander people not currently enrolled in school,dc/7nqp2vc6y6fef
 Number of native hawaiian or other pacific islander people with disabilities,Count_Person_WithDisability_NativeHawaiianOrOtherPacificIslanderAlone
 Number of native hawaiian or other pacific islander students enrolled in middle school,dc/c57vzg7l74577
 Number of native hawaiian or other pacific islander students enrolled in primary school,dc/wk2vjrzfgyq5d
 Number of native people,Count_Person_Native
-Number of never married American Indian or Alaska Native people,Count_Person_15OrMoreYears_NeverMarried_AmericanIndianAndAlaskaNativeAlone
+Number of never married American Indian and Alaska Native people,Count_Person_15OrMoreYears_NeverMarried_AmericanIndianAndAlaskaNativeAlone
 Number of never married Black or African American people,Count_Person_15OrMoreYears_NeverMarried_BlackOrAfricanAmericanAlone
 Number of never married Hispanic or Latino people,Count_Person_15OrMoreYears_NeverMarried_HispanicOrLatino
 Number of never married Native Hawaiian and Other Pacific Islander people,Count_Person_15OrMoreYears_NeverMarried_NativeHawaiianAndOtherPacificIslanderAlone
@@ -2583,10 +2584,11 @@ Number of non family households that have not received food stamps in the past 1
 Number of non white females,Count_Person_Female_NonWhite
 Number of non white people,Count_Person_NonWhite
 Number of non-family households,Count_Household_NonfamilyHousehold
-Number of nonfamily households Without Children Under 18 and receiving Food Stamps over the last year,Count_Household_WithFoodStampsInThePast12Months_WithoutChildrenUnder18_NonfamilyHousehold
-Number of nonfamily households that have received food stamps (SNAP) in the past 12 months,Count_Household_WithFoodStampsInThePast12Months_NonfamilyHousehold
+Number of nonfamily households that received food stamps in the past 12 months,Count_Household_WithFoodStampsInThePast12Months_NonfamilyHousehold
+Number of nonfamily households without children and received food stamps in the last 12 months,Count_Household_WithFoodStampsInThePast12Months_WithoutChildrenUnder18_NonfamilyHousehold
 Number of one race people with disabilities,Count_Person_WithDisability_OneRace
 Number of owner occupied family households,Count_Household_FamilyHousehold_OwnerOccupied
+Number of owner occupied married couple family households,Count_Household_MarriedCoupleFamilyHousehold_OwnerOccupied
 Number of owner occupied married couple family households below poverty in the past 12 months,Count_Household_MarriedCoupleFamilyHousehold_OwnerOccupied_BelowPovertyLevelInThePast12Months
 "Number of parties to international multilateral environmental agreements on hazardous waste, and other chemicals that meet their commitments and obligations in transmitting information as required by each relevant agreement",dc/topic/sdg_12.4.1
 Number of peole who drive to work,dc/0gettc3bc60cb
@@ -2769,7 +2771,7 @@ Number of scheduled tribe people below 6 years,Count_Person_ScheduledTribe_Years
 Number of scheduled tribe workers,Count_Person_ScheduledTribe_Workers
 Number of secondary school teachers,Count_Teacher_SecondaryTeacher
 Number of senior secondary schools with grades 1 to 10,Count_School_SeniorSecondarySchool_Grade1To10
-Number of separated American Indian or Alaska Native people,Count_Person_15OrMoreYears_Separated_AmericanIndianAndAlaskaNativeAlone
+Number of separated American Indian and Alaska Native people,Count_Person_15OrMoreYears_Separated_AmericanIndianAndAlaskaNativeAlone
 Number of separated Black or African American people,Count_Person_15OrMoreYears_Separated_BlackOrAfricanAmericanAlone
 Number of separated Foreign Born people,Count_Person_15OrMoreYears_Separated_ForeignBorn
 Number of separated Hispanic or Latino people,Count_Person_15OrMoreYears_Separated_HispanicOrLatino
@@ -2780,9 +2782,9 @@ Number of separated Two Or More Races people,Count_Person_15OrMoreYears_Separate
 Number of separated asian people,Count_Person_15OrMoreYears_Separated_AsianAlone
 Number of separated white people,Count_Person_15OrMoreYears_Separated_WhiteAlone
 Number of single father family households that have not received food stamps in the past 12 months,Count_Household_WithoutFoodStampsInThePast12Months_SingleFatherFamilyHousehold
-Number of single father family households that received food stamps last year,Count_Household_WithFoodStampsInThePast12Months_SingleFatherFamilyHousehold
+Number of single father family households that received food stamps in the past 12 months,Count_Household_WithFoodStampsInThePast12Months_SingleFatherFamilyHousehold
 Number of single mother family households that have not received food stamps in the past 12 months,Count_Household_WithoutFoodStampsInThePast12Months_SingleMotherFamilyHousehold
-Number of single mother family households that received food stamps last year,Count_Household_WithFoodStampsInThePast12Months_SingleMotherFamilyHousehold
+Number of single mother family households that received food stamps in the past 12 months,Count_Household_WithFoodStampsInThePast12Months_SingleMotherFamilyHousehold
 Number of single mother family households with householder age 65 or more years,Count_Household_HouseholderAge65OrMoreYears_SingleMotherFamilyHousehold
 Number of single mother households that have received social security income in the past 12 months,Count_Household_WithSocialSecurityIncomeInThePast12Months_SingleMotherFamilyHousehold
 Number of single unit married couple family households,Count_Household_MarriedCoupleFamilyHousehold_SingleUnit
@@ -2797,7 +2799,6 @@ Number of students,Count_Student
 Number of students Enrolled in College or Graduate School,Count_Person_EnrolledInCollegeOrGraduateSchool
 Number of students Enrolled in Grade 1,Count_Person_DetailedEnrolledInGrade1
 Number of students Enrolled in Grade 10,Count_Person_DetailedEnrolledInGrade10
-Number of students enrolled in College Undergraduate Years,Count_Person_EnrolledInCollegeUndergraduateYears
 Number of students enrolled in Grade 11,Count_Person_DetailedEnrolledInGrade11
 Number of students enrolled in Grade 12,Count_Person_DetailedEnrolledInGrade12
 Number of students enrolled in Grade 2,Count_Person_DetailedEnrolledInGrade2
@@ -2810,7 +2811,7 @@ Number of students enrolled in Grade 8,Count_Person_DetailedEnrolledInGrade8
 Number of students enrolled in Grade 9,Count_Person_DetailedEnrolledInGrade9
 Number of students enrolled in Graduate Or Professional School,Count_Person_DetailedGraduateOrProfessionalSchool
 Number of students enrolled in High School,Count_Person_DetailedHighSchool
-Number of students enrolled in Kindergarten,Count_Person_EnrolledInKindergarten
+Number of students enrolled in Kindergarten,Count_Person_DetailedEnrolledInKindergarten
 Number of students enrolled in Middle School,Count_Person_DetailedMiddleSchool
 Number of students enrolled in Nursery School Preschool,Count_Person_DetailedEnrolledInNurserySchoolPreschool
 Number of students enrolled in Primary School,Count_Person_DetailedPrimarySchool
@@ -2859,7 +2860,7 @@ Number of white students enrolled in high school,dc/4hzyqndyzntm
 Number of white students enrolled in kindergarten,dc/gr3zem8shyhbf
 Number of white students enrolled in middle school,dc/qvf1yrhwzp8rd
 Number of white students enrolled in primary school,dc/bf85zc6wypd2h
-Number of widowed American Indian or Alaska Native people,Count_Person_15OrMoreYears_Widowed_AmericanIndianAndAlaskaNativeAlone
+Number of widowed American Indian and Alaska Native people,Count_Person_15OrMoreYears_Widowed_AmericanIndianAndAlaskaNativeAlone
 Number of widowed Black or African American people,Count_Person_15OrMoreYears_Widowed_BlackOrAfricanAmericanAlone
 Number of widowed Hispanic or Latino people,Count_Person_15OrMoreYears_Widowed_HispanicOrLatino
 Number of widowed Native Hawaiian and Other Pacific Islander people,Count_Person_15OrMoreYears_Widowed_NativeHawaiianAndOtherPacificIslanderAlone
@@ -2986,6 +2987,7 @@ Percentage of people with a Bachelor's or higher Degree,Count_Person_25OrMoreYea
 Percentage of people with a Doctorate Degree,Count_Person_25OrMoreYears_DoctorateDegree_AsFractionOf_Count_Person_25OrMoreYears
 Percentage of renewable electricity capacity,Capacity_Electricity_Renewables_AsAFractionOf_Capacity_Electricity
 Percentage of the population who receive an annual checkup,Percent_Person_ReceivedAnnualCheckup
+Percentage of the workforce that is female,Count_Person_15OrMoreYears_InLaborForce_Female_AsFractionOf_Count_Person_InLaborForce
 Percentage of waste generated that are processed,Count_WasteGenerated_Processed_AsAFractionOf_Count_WasteGenerated
 Percentage of working age females Without Health Insurance,Percent_Person_18To64Years_Female_NoHealthInsurance
 Percentage of working age males Without Health Insurance,Percent_Person_18To64Years_Male_NoHealthInsurance
@@ -3462,10 +3464,9 @@ acces to credit for industries,dc/topic/sdg_9.3.2
 access to electricity,dc/topic/sdg_7.1.1
 access to finance,dc/topic/sdg_9.3.2
 access to food,dc/topic/FoodInsecurity
-amount of Ammonia emissions from On Road Vehicles,Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_PM2.5
+amount of Ammonia emissions from On Road Vehicles,Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_Ammonia
 amount of Ammonia emissions from Petroleum And Related Industries,Annual_Amount_Emissions_PetroleumAndRelatedIndustries_NonBiogenicEmissionSource_Ammonia
 amount of Ammonia emissions from prescribed fire,Annual_Amount_Emissions_PrescribedFire_NonBiogenicEmissionSource_Ammonia
-amount of Ammonia emissions from solvent utilization,Annual_Amount_Emissions_SolventUtilization_NonBiogenicEmissionSource_Ammonia
 amount of Ammonia emissions from stationary fuel combustion,Annual_Amount_Emissions_StationaryFuelCombustion_NonBiogenicEmissionSource_Ammonia
 amount of Ammonia emissions from storage and transport,Annual_Amount_Emissions_StorageAndTransport_NonBiogenicEmissionSource_Ammonia
 amount of Ammonia emissions from transportation,Annual_Amount_Emissions_Transportation_NonBiogenicEmissionSource_Ammonia
@@ -3476,7 +3477,6 @@ amount of Carbon Monoxide emissions from Non Road Engines And Vehicles,Annual_Am
 amount of Carbon Monoxide emissions from On Road Vehicles,Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_CarbonMonoxide
 amount of Carbon Monoxide emissions from Petroleum And Related Industries,Annual_Amount_Emissions_PetroleumAndRelatedIndustries_NonBiogenicEmissionSource_CarbonMonoxide
 amount of Carbon Monoxide emissions from prescribed fire,Annual_Amount_Emissions_PrescribedFire_NonBiogenicEmissionSource_CarbonMonoxide
-amount of Carbon Monoxide emissions from solvent utilization,Annual_Amount_Emissions_SolventUtilization_NonBiogenicEmissionSource_CarbonMonoxide
 amount of Carbon Monoxide emissions from stationary fuel combustion,Annual_Amount_Emissions_StationaryFuelCombustion_NonBiogenicEmissionSource_CarbonMonoxide
 amount of Carbon Monoxide emissions from storage and transport,Annual_Amount_Emissions_StorageAndTransport_NonBiogenicEmissionSource_CarbonMonoxide
 amount of Carbon Monoxide emissions from transportation,Annual_Amount_Emissions_Transportation_NonBiogenicEmissionSource_CarbonMonoxide
@@ -3577,6 +3577,7 @@ amount of PM10 emissions from waste disposal and recycling,Annual_Amount_Emissio
 amount of PM10 emissions from wildfire,Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_PM10
 amount of PM2.5 emissions from MACT source categories,Annual_Amount_Emissions_PM2.5_SCC_6_MACTSourceCategories
 amount of PM2.5 emissions from Non Road Engines And Vehicles,Annual_Amount_Emissions_NonRoadEnginesAndVehicles_NonBiogenicEmissionSource_PM2.5
+amount of PM2.5 emissions from On Road Vehicles,Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_PM2.5
 amount of PM2.5 emissions from Petroleum And Related Industries,Annual_Amount_Emissions_PetroleumAndRelatedIndustries_NonBiogenicEmissionSource_PM2.5
 amount of PM2.5 emissions from external combustion,Annual_Amount_Emissions_PM2.5_SCC_1_ExternalCombustion
 amount of PM2.5 emissions from industrial fuel combustion,Annual_Amount_Emissions_FuelCombustionIndustrial_NonBiogenicEmissionSource_PM2.5
@@ -3599,7 +3600,6 @@ amount of Sulfur Dioxide emissions from Non Road Engines And Vehicles,Annual_Amo
 amount of Sulfur Dioxide emissions from On Road Vehicles,Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_SulfurDioxide
 amount of Sulfur Dioxide emissions from Petroleum And Related Industries,Annual_Amount_Emissions_PetroleumAndRelatedIndustries_NonBiogenicEmissionSource_SulfurDioxide
 amount of Sulfur Dioxide emissions from prescribed fire,Annual_Amount_Emissions_PrescribedFire_NonBiogenicEmissionSource_SulfurDioxide
-amount of Sulfur Dioxide emissions from solvent utilization,Annual_Amount_Emissions_SolventUtilization_NonBiogenicEmissionSource_SulfurDioxide
 amount of Sulfur Dioxide emissions from stationary fuel combustion,Annual_Amount_Emissions_StationaryFuelCombustion_NonBiogenicEmissionSource_SulfurDioxide
 amount of Sulfur Dioxide emissions from storage and transport,Annual_Amount_Emissions_StorageAndTransport_NonBiogenicEmissionSource_SulfurDioxide
 amount of Sulfur Dioxide emissions from transportation,Annual_Amount_Emissions_Transportation_NonBiogenicEmissionSource_SulfurDioxide
@@ -3608,7 +3608,6 @@ amount of Sulfur Dioxide emissions from wildfire,Annual_Amount_Emissions_Wildfir
 amount of Volatile Organic Compound emissions from On Road Vehicles,Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_VolatileOrganicCompound
 amount of Volatile Organic Compound emissions from Petroleum And Related Industries,Annual_Amount_Emissions_PetroleumAndRelatedIndustries_NonBiogenicEmissionSource_VolatileOrganicCompound
 amount of Volatile Organic Compound emissions from prescribed fire,Annual_Amount_Emissions_PrescribedFire_NonBiogenicEmissionSource_VolatileOrganicCompound
-amount of Volatile Organic Compound emissions from solvent utilization,Annual_Amount_Emissions_SolventUtilization_NonBiogenicEmissionSource_VolatileOrganicCompound
 amount of Volatile Organic Compound emissions from stationary fuel combustion,Annual_Amount_Emissions_StationaryFuelCombustion_NonBiogenicEmissionSource_VolatileOrganicCompound
 amount of Volatile Organic Compound emissions from storage and transport,Annual_Amount_Emissions_StorageAndTransport_NonBiogenicEmissionSource_VolatileOrganicCompound
 amount of Volatile Organic Compound emissions from transportation,Annual_Amount_Emissions_Transportation_NonBiogenicEmissionSource_VolatileOrganicCompound
@@ -3935,7 +3934,7 @@ amount of pyrene emissions from miscellaneous area sources,Annual_Amount_Emissio
 amount of pyrene emissions from mobile sources,Annual_Amount_Emissions_Pyrene_SCC_22_MobileSources
 amount of pyrene emissions from petroleum and solvent evaporation,Annual_Amount_Emissions_Pyrene_SCC_4_PetroleumAndSolventEvaporation
 amount of pyrene emissions from stationary source fuel combustion,Annual_Amount_Emissions_Pyrene_SCC_21_StationarySourceFuelCombustion
-amount of retail drug purchase of Amobarbital,RetailDrugDistribution_DrugDistribution_dea/9809
+amount of retail drug purchase of Amobarbital,RetailDrugDistribution_DrugDistribution_Amobarbital
 amount of retail drug purchase of Amphetamine,RetailDrugDistribution_DrugDistribution_Amphetamine
 amount of retail drug purchase of Anabolic Steroids,RetailDrugDistribution_DrugDistribution_AnabolicSteroids
 amount of retail drug purchase of Barbituric Acid Derivative Or Salt,RetailDrugDistribution_DrugDistribution_BarbituricAcidDerivativeOrSalt
@@ -3962,6 +3961,7 @@ amount of retail drug purchase of Morphine,RetailDrugDistribution_DrugDistributi
 amount of retail drug purchase of Nabilone,RetailDrugDistribution_DrugDistribution_Nabilone
 amount of retail drug purchase of Naloxone,RetailDrugDistribution_DrugDistribution_Naloxone
 amount of retail drug purchase of Noroxymorphone,RetailDrugDistribution_DrugDistribution_Noroxymorphone
+amount of retail drug purchase of Opium combination product,RetailDrugDistribution_DrugDistribution_dea/9809
 amount of retail drug purchase of Oxycodone,RetailDrugDistribution_DrugDistribution_Oxycodone
 amount of retail drug purchase of Oxymorphone,RetailDrugDistribution_DrugDistribution_Oxymorphone
 amount of retail drug purchase of Paregoric,RetailDrugDistribution_DrugDistribution_Paregoric
@@ -4459,6 +4459,7 @@ number of females who are enrolled in school,Count_Person_3OrMoreYears_Female_En
 number of hispanic or latino females living below poverty level in the past 12 months,Count_Person_Female_BelowPovertyLevelInThePast12Months_HispanicOrLatino
 number of hispanic or latino living Above Poverty Level in the Past 12 months,Count_Person_Female_AbovePovertyLevelInThePast12Months_HispanicOrLatino
 number of hispanic or latino people,Count_Person_HispanicOrLatino
+number of households,Count_Household
 number of males,Count_Person_Male
 number of males aged 65 Years or More and reside in Nursing Facilities,Count_Person_65OrMoreYears_Male_ResidesInNursingFacilities
 number of males who are actively enrolled in any educational institution,Count_Person_3OrMoreYears_Male_EnrolledInSchool
@@ -4474,7 +4475,6 @@ number of males with earnings who reside in nursing facilities,Count_Person_Male
 number of males with health insurance,Count_Person_Male_WithHealthInsurance
 number of multi race females living Above Poverty Level in the past 12 months,Count_Person_Female_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces
 number of multi races females living below poverty level in the past 12 months,Count_Person_Female_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces
-number of multi-race Native Hawaiian and other Pacific Islander males,Count_Person_Male_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces
 number of multi-race males,Count_Person_Male_TwoOrMoreRaces
 number of native hawaiian or other pacific islander females living Above Poverty Level in the Past 12 months,Count_Person_Female_AbovePovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone
 number of native hawaiian or other pacific islander females living below poverty level in the past 12 months,Count_Person_Female_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone
