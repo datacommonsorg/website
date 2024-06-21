@@ -36,7 +36,6 @@
   "variables": [
     "dc/topic/GDP",
     "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
-    "dc/topic/sdg_8.1.1",
     "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction",
     "Amount_EconomicActivity_GrossDomesticProduction_RealValue",
     "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita",
@@ -45,6 +44,7 @@
     "InflationAdjustedGDP",
     "USStateQuarterlyIndustryGDP_NAICS_23",
     "USStateQuarterlyIndustryGDP_NAICS_51",
+    "dc/topic/sdg_8.1.1",
     "USStateQuarterlyIndustryGDP_NAICS_311_316&322_326",
     "dc/topic/IndustriesByGDP",
     "dc/topic/sdg_8.2.1",

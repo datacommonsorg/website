@@ -99,35 +99,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/NY_GDP_PCAP"
-                    ],
-                    "title": "Annual Growth Rate of Real GDP Per Capita in Spain",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Annual Growth Rate of Real GDP Per Capita in Spain",
-                    "statVarKey": [
-                      "sdg/NY_GDP_PCAP"
-                    ],
-                    "title": "Annual Growth Rate of Real GDP Per Capita in Spain",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: united nations, department of economic and social affairs, statistics division (AMA).",
-            "title": "Annual Growth Rate of Real GDP Per Capita"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
                     ],
                     "title": "Growth Rate of GDP in Spain",
@@ -260,10 +231,6 @@
           "sdg/EN_MAT_DOMCMPG": {
             "name": "Domestic material consumption per unit of GDP",
             "statVar": "sdg/EN_MAT_DOMCMPG"
-          },
-          "sdg/NY_GDP_PCAP": {
-            "name": "Annual growth rate of real GDP per capita",
-            "statVar": "sdg/NY_GDP_PCAP"
           }
         }
       }
