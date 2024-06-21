@@ -23,8 +23,8 @@ export interface EvalInfo {
 
 export interface Response {
   question: string;
-  llmStat: string;
   dcResponse: string;
+  llmStat?: string;
 }
 
 export interface Query {

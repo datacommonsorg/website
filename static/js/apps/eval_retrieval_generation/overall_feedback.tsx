@@ -39,7 +39,7 @@ const RESPONSE_OPTIONS = {
 };
 
 export function OverallFeedback(): JSX.Element {
-  const { doc, sheetId, userEmail, allCall, evalType } = useContext(AppContext);
+  const { doc, sheetId, userEmail, evalType } = useContext(AppContext);
   const { sessionQueryId, sessionCallId } = useContext(SessionContext);
   const [response, setResponse] = useState<string>("");
   const [isSubmitted, setIsSubmitted] = useState<boolean>(null);
@@ -101,10 +101,6 @@ export function OverallFeedback(): JSX.Element {
     setIsSubmitted(false);
   };
 
-  const showNext = (): boolean => {
-    return Object.keys(allCall[sessionQueryId] || {}).length > 0;
-  };
-
   return (
     <>
       <div className="button-section">
@@ -134,10 +130,7 @@ export function OverallFeedback(): JSX.Element {
         </form>
       </div>
       {evalType === EvalType.RAG && <TablePane />}
-      <FeedbackNavigation
-        checkAndSubmit={checkAndSubmit}
-        showNextOverride={showNext()}
-      />
+      <FeedbackNavigation checkAndSubmit={checkAndSubmit} />
       <div id="page-screen" className="screen">
         <div id="spinner"></div>
       </div>

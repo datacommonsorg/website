@@ -45,7 +45,7 @@ footer {
 
 .table-pane {
   overflow: auto;
-  height: 50%;
+  height: 30%;
   padding: 11px 24px;
   width: 100%;
 
@@ -333,13 +333,20 @@ label {
   font-weight: 500;
 }
 
+.annotation-rag .dc-stat,
+.annotation-rag .dc-question {
+  background-color: transparent;
+}
+
 .question-section .dc-stat,
 .highlight .dc-stat {
   background-color: lightblue;
 }
 
 .question-section .llm-stat,
-.highlight .llm-stat {
+.highlight .llm-stat,
+.question-section .dc-question,
+.highlight .dc-question {
   background-color: lightsalmon;
 }
 
