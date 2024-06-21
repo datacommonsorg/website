@@ -650,8 +650,11 @@ def post_body_cache_key():
   Builds flask cache key for POST requests using the request path and
   JSON-encoded post body
   """
-  body_object = request.get_json()
   full_path = request.full_path
-  post_body = json.dumps(body_object, sort_keys=True)
-  cache_key = f'{full_path},{post_body}'
+  if request.method == 'POST':
+    body_object = request.get_json()
+    post_body = json.dumps(body_object, sort_keys=True)
+    cache_key = f'{full_path},{post_body}'
+  else:
+    cache_key = full_path
   return cache_key
