@@ -16,32 +16,70 @@
 
 /* Component to count the number of claims */
 
-import React, { useState } from "react";
+import _ from "lodash";
+import React from "react";
 
-export const ClaimCounter = () => {
-  const [claimsCount, setClaimsCount] = useState(0);
-  const [falseClaimsCount, setFalseClaimsCount] = useState(0);
+interface ClaimCounterPropType {
+  claimsCount: number;
+  setClaimsCount: (count: number) => void;
+  falseClaimsCount: number;
+  setFalseClaimsCount: (count: number) => void;
+  disabled: boolean;
+}
 
+export function ClaimCounter(props: ClaimCounterPropType): JSX.Element {
   return (
-    <div className="block-evaluation">
-      <h2>BLOCK EVALUATION</h2>
-      <p>
+    <div className="block-evaluation question-section">
+      <div className="title">BLOCK EVALUATION</div>
+      <div className="subtitle">
         Count the number of claims (statistical or logical) made by the model in
         the highlighted text.
-      </p>
-      <div className="counter">
+      </div>
+      <div className={`counter${props.disabled ? " disabled" : ""}`}>
         <div className="claims-count">
-          <button onClick={() => setClaimsCount(claimsCount - 1)}>-</button>
-          <span className="count-text">{claimsCount}</span>
-          <button onClick={() => setClaimsCount(claimsCount + 1)}>+</button>
+          <button
+            className="btn-count"
+            onClick={() =>
+              props.disabled
+                ? _.noop()
+                : props.setClaimsCount(props.claimsCount - 1)
+            }
+          >
+            -
+          </button>
+          <span className="count-text">{props.claimsCount}</span>
+          <button
+            className="btn-count"
+            onClick={() =>
+              props.disabled
+                ? _.noop()
+                : props.setClaimsCount(props.claimsCount + 1)
+            }
+          >
+            +
+          </button>
           <p className="claim-text">Number of claims found</p>
         </div>
         <div className="false-claims-count">
-          <button onClick={() => setFalseClaimsCount(falseClaimsCount - 1)}>
+          <button
+            className="btn-count"
+            onClick={() =>
+              props.disabled
+                ? _.noop()
+                : props.setFalseClaimsCount(props.falseClaimsCount - 1)
+            }
+          >
             -
           </button>
-          <span className="count-text">{falseClaimsCount}</span>
-          <button onClick={() => setFalseClaimsCount(falseClaimsCount + 1)}>
+          <span className="count-text">{props.falseClaimsCount}</span>
+          <button
+            className="btn-count"
+            onClick={() =>
+              props.disabled
+                ? _.noop()
+                : props.setFalseClaimsCount(props.falseClaimsCount + 1)
+            }
+          >
             +
           </button>
           <p className="claim-text">False claims found</p>

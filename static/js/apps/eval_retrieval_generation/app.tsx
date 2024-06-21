@@ -35,6 +35,7 @@ import {
 import { AppContext, SessionContext } from "./context";
 import { OverallFeedback } from "./overall_feedback";
 import { QuerySection } from "./query_section";
+import { RagAnsFeedback } from "./rag_ans_feedback";
 import { DcCall, EvalType, FeedbackStage, Query } from "./types";
 import { getFirstFeedbackStage } from "./util";
 
@@ -236,6 +237,9 @@ export function App(props: AppPropType): JSX.Element {
                     <OverallFeedback />
                   )}
                   {feedbackStage === FeedbackStage.CALLS && <CallFeedback />}
+                  {feedbackStage === FeedbackStage.RAG_ANS && (
+                    <RagAnsFeedback />
+                  )}
                 </div>
               </div>
             </AppContext.Provider>
