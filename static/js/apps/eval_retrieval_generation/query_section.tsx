@@ -31,6 +31,16 @@ import { AppContext, SessionContext } from "./context";
 import { EvalType, FeedbackStage } from "./types";
 import { processText } from "./util";
 
+function getFormattedRagCallAnswer(
+  dcQuestion: string,
+  dcStat: string,
+  tableId: string
+): string {
+  const formattedQuestion = `<span class="dc-question">**${dcQuestion}**</span>`;
+  const formattedStat = `<span class="dc-stat">${dcStat} \xb7 Table ${tableId}</span>`;
+  return `<span class="annotation annotation-rag annotation-${tableId}">${formattedQuestion}<br/>${formattedStat}</span>`;
+}
+
 export function QuerySection(): JSX.Element {
   const { allCall, allQuery, doc, evalType } = useContext(AppContext);
   const { sessionQueryId, sessionCallId, feedbackStage } =
@@ -66,9 +76,11 @@ export function QuerySection(): JSX.Element {
       const answers = [];
       rowsList.forEach((rows, i) => {
         const row = rows[0];
-        const rowQ = `**${row.get(DC_QUESTION_COL)}**`;
-        const rowA = `${row.get(DC_RESPONSE_COL)} \xb7 Table ${tableIds[i]}`;
-        answers.push(`${rowQ}\n\n${rowA}`);
+        const dcQuestion = row.get(DC_QUESTION_COL);
+        const dcStat = row.get(DC_RESPONSE_COL);
+        answers.push(
+          getFormattedRagCallAnswer(dcQuestion, dcStat, tableIds[i])
+        );
       });
       setAnswer(answers.join("\n\n"));
     });
@@ -109,11 +121,16 @@ export function QuerySection(): JSX.Element {
     }
   }, [doc, allQuery, sessionQueryId, evalType, feedbackStage]);
 
+  const answerHeading =
+    feedbackStage === FeedbackStage.CALLS && evalType === EvalType.RAG
+      ? "Questions to Data Commons"
+      : "Answer";
+
   return (
     <div id="query-section">
       <h3>Query {sessionQueryId}</h3>
       <p>{allQuery[sessionQueryId].text}</p>
-      <h3>Answer</h3>
+      <h3>{answerHeading}</h3>
       <ReactMarkdown
         rehypePlugins={[rehypeRaw as any]}
         remarkPlugins={[remarkGfm]}

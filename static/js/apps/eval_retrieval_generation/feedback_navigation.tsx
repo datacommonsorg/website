@@ -25,10 +25,101 @@ import { AppContext, SessionContext } from "./context";
 import { EvalType, FeedbackStage } from "./types";
 import { getFirstFeedbackStage } from "./util";
 
+const FEEDBACK_STAGE_LIST: Record<EvalType, FeedbackStage[]> = {
+  [EvalType.RIG]: [FeedbackStage.OVERALL, FeedbackStage.CALLS],
+  // TODO: add RAG_ANS feedback stage
+  [EvalType.RAG]: [FeedbackStage.CALLS, FeedbackStage.OVERALL],
+};
+
+enum ButtonType {
+  PREV_QUERY = "PREV_QUERY",
+  PREV = "PREV",
+  PREV_EVAL_STAGE = "PREV_EVAL_STAGE",
+  NEXT_QUERY = "NEXT_QUERY",
+  NEXT = "NEXT",
+  NEXT_EVAL_STAGE = "NEXT_EVAL_STAGE",
+  FINISH = "FINISH",
+  EMPTY = "EMPTY",
+}
+
+interface ButtonConfig {
+  text: string;
+  themeClassName: string;
+  icon?: string;
+}
+
+// button type to its config
+const BUTTON_CONFIGS: Record<string, ButtonConfig> = {
+  [ButtonType.PREV_QUERY]: {
+    text: "Previous query",
+    themeClassName: "btn-transparent",
+  },
+  [ButtonType.PREV]: {
+    icon: "keyboard_arrow_left",
+    text: "Previous",
+    themeClassName: "btn-transparent",
+  },
+  [ButtonType.PREV_EVAL_STAGE]: {
+    text: "Previous eval stage",
+    themeClassName: "btn-transparent",
+  },
+  [ButtonType.NEXT_QUERY]: {
+    text: "Continue to next query",
+    themeClassName: "btn-blue",
+  },
+  [ButtonType.NEXT]: {
+    icon: "keyboard_arrow_right",
+    text: "Next",
+    themeClassName: "btn-blue",
+  },
+  [ButtonType.NEXT_EVAL_STAGE]: {
+    text: "Next eval stage",
+    themeClassName: "btn-blue",
+  },
+  [ButtonType.FINISH]: {
+    text: "Finish",
+    themeClassName: "btn-blue",
+  },
+};
+
+// Whether or not we are at the last page of a feedback stage
+function isEndOfStage(
+  feedbackStage: FeedbackStage,
+  sessionCallId: number,
+  numCalls: number
+): boolean {
+  if (feedbackStage === FeedbackStage.CALLS) {
+    return sessionCallId === numCalls;
+  }
+  // feedback stages besides CALLS only have one page
+  return true;
+}
+
+// Whether or not we are at the first page of a feedback stage
+function isStartOfStage(
+  feedbackStage: FeedbackStage,
+  sessionCallId: number
+): boolean {
+  if (feedbackStage === FeedbackStage.CALLS) {
+    return sessionCallId === NEW_QUERY_CALL_ID;
+  }
+  // feedback stages besides CALLS only have one page
+  return true;
+}
+
+// Whether or not to include a stage in the list of stages to show
+function shouldIncludeStage(
+  feedbackStage: FeedbackStage,
+  numCalls: number
+): boolean {
+  if (feedbackStage === FeedbackStage.CALLS) {
+    return numCalls > 0;
+  }
+  return true;
+}
+
 interface FeedbackNavigationPropType {
   checkAndSubmit: () => Promise<boolean>;
-  // This overrides the logic for whether or not to show the "next" button
-  showNextOverride?: boolean;
 }
 
 export function FeedbackNavigation(
@@ -57,10 +148,11 @@ export function FeedbackNavigation(
     .map((qKey) => Number(qKey))
     .sort((a, b) => a - b);
 
-  const numCalls = () => {
-    // Not all queries have calls.
-    return Object.keys(allCall[sessionQueryId] || {}).length;
-  };
+  const numCalls = Object.keys(allCall[sessionQueryId] || {}).length;
+  const feedbackStageList = FEEDBACK_STAGE_LIST[evalType].filter((stage) =>
+    shouldIncludeStage(stage, numCalls)
+  );
+  const currStageIdx = feedbackStageList.indexOf(feedbackStage);
 
   // Button Actions
   const prevQuery = async () => {
@@ -77,27 +169,26 @@ export function FeedbackNavigation(
 
   const prev = async () => {
     if (await props.checkAndSubmit()) {
-      if (evalType === EvalType.RIG) {
-        if (sessionCallId === 1) {
-          setFeedbackStage(FeedbackStage.OVERALL);
-        } else {
-          setSessionCallId(sessionCallId - 1);
-        }
+      if (feedbackStage === FeedbackStage.CALLS) {
+        setSessionCallId(sessionCallId - 1);
       }
+    }
+  };
+
+  const prevEvalStage = async () => {
+    if (await props.checkAndSubmit()) {
+      setFeedbackStage(feedbackStageList[currStageIdx - 1]);
     }
   };
 
   const next = async () => {
     if (await props.checkAndSubmit()) {
-      if (evalType === EvalType.RIG) {
-        if (feedbackStage === FeedbackStage.OVERALL) {
-          setFeedbackStage(FeedbackStage.CALLS);
-        } else {
-          setSessionCallId(sessionCallId + 1);
-        }
+      if (feedbackStage === FeedbackStage.CALLS) {
+        setSessionCallId(sessionCallId + 1);
       }
     }
   };
+
   const nextQuery = async () => {
     if (await props.checkAndSubmit()) {
       let targetId = sessionQueryId + 1;
@@ -110,102 +201,102 @@ export function FeedbackNavigation(
     }
   };
 
+  const nextEvalStage = async () => {
+    if (await props.checkAndSubmit()) {
+      setFeedbackStage(feedbackStageList[currStageIdx + 1]);
+      setSessionCallId(NEW_QUERY_CALL_ID);
+    }
+  };
+
   // Button Conditions
-  const showPrevQuery = (): boolean => {
-    if (_.isEmpty(sortedQueryIds)) {
-      return false;
-    }
-    return (
-      sessionQueryId > sortedQueryIds[0] &&
-      feedbackStage === FeedbackStage.OVERALL
-    );
-  };
 
-  const showPrev = (): boolean => {
-    return feedbackStage === FeedbackStage.CALLS;
-  };
-
-  const showNext = (): boolean => {
-    if (props.showNextOverride !== undefined) {
-      return props.showNextOverride;
+  function getNextButtonType(): ButtonType {
+    if (isEndOfStage(feedbackStage, sessionCallId, numCalls)) {
+      if (currStageIdx < feedbackStageList.length - 1) {
+        return ButtonType.NEXT_EVAL_STAGE;
+      }
+      const hasMoreQueries =
+        !_.isEmpty(sortedQueryIds) &&
+        sessionQueryId < sortedQueryIds[sortedQueryIds.length - 1];
+      return hasMoreQueries ? ButtonType.NEXT_QUERY : ButtonType.FINISH;
+    } else {
+      return ButtonType.NEXT;
     }
-    return sessionCallId < numCalls();
-  };
+  }
 
-  const showNextQuery = (): boolean => {
-    if (_.isEmpty(sortedQueryIds) || showNext()) {
-      return false;
+  function getPrevButtonType(): ButtonType {
+    if (isStartOfStage(feedbackStage, sessionCallId)) {
+      if (currStageIdx > 0) {
+        return ButtonType.PREV_EVAL_STAGE;
+      }
+      const hasPrevQuery =
+        !_.isEmpty(sortedQueryIds) && sessionQueryId > sortedQueryIds[0];
+      return hasPrevQuery ? ButtonType.PREV_QUERY : ButtonType.EMPTY;
+    } else {
+      return ButtonType.PREV;
     }
-    return sessionQueryId < sortedQueryIds[sortedQueryIds.length - 1];
-  };
+  }
+
+  function getOnClickFunction(buttonType: ButtonType): () => void {
+    switch (buttonType) {
+      case ButtonType.PREV_QUERY:
+        return prevQuery;
+      case ButtonType.PREV:
+        return prev;
+      case ButtonType.PREV_EVAL_STAGE:
+        return prevEvalStage;
+      case ButtonType.NEXT_QUERY:
+        return nextQuery;
+      case ButtonType.NEXT:
+        return next;
+      case ButtonType.NEXT_EVAL_STAGE:
+        return nextEvalStage;
+      case ButtonType.FINISH:
+        return props.checkAndSubmit;
+      default:
+        return _.noop;
+    }
+  }
+  const prevButtonType = getPrevButtonType();
+  const nextButtonType = getNextButtonType();
 
   return (
     <div className="feedback-nav-section">
       {feedbackStage === FeedbackStage.CALLS && (
         <div className="item-num">
           <span className="highlight">{sessionCallId}</span>
-          <span className="regular">/ {numCalls()} ITEMS IN THIS QUERY</span>
+          <span className="regular">/ {numCalls} ITEMS IN THIS QUERY</span>
         </div>
       )}
       <div className="nav-buttons">
-        {showPrev() && (
+        {prevButtonType !== ButtonType.EMPTY && (
           <Button
-            onClick={() => {
-              prev();
-            }}
-            className="btn-transparent"
+            onClick={getOnClickFunction(prevButtonType)}
+            className={BUTTON_CONFIGS[prevButtonType].themeClassName}
           >
             <div>
-              <span className="material-icons-outlined">
-                keyboard_arrow_left
-              </span>
-              Previous
+              {BUTTON_CONFIGS[prevButtonType].icon && (
+                <span className="material-icons-outlined">
+                  {BUTTON_CONFIGS[prevButtonType].icon}
+                </span>
+              )}
+              {BUTTON_CONFIGS[prevButtonType].text}
             </div>
           </Button>
         )}
-        {showPrevQuery() && (
+        {nextButtonType !== ButtonType.EMPTY && (
           <Button
-            onClick={() => {
-              prevQuery();
-            }}
-            className="btn-transparent"
-          >
-            <div>Previous query</div>
-          </Button>
-        )}
-        {showNext() && (
-          <Button
-            onClick={() => {
-              next();
-            }}
-            className="btn-blue"
+            onClick={getOnClickFunction(nextButtonType)}
+            className={BUTTON_CONFIGS[nextButtonType].themeClassName}
           >
             <div>
-              <span className="material-icons-outlined">
-                keyboard_arrow_right
-              </span>
-              Next
+              {BUTTON_CONFIGS[nextButtonType].icon && (
+                <span className="material-icons-outlined">
+                  {BUTTON_CONFIGS[nextButtonType].icon}
+                </span>
+              )}
+              {BUTTON_CONFIGS[nextButtonType].text}
             </div>
-          </Button>
-        )}
-        {showNextQuery() && (
-          <Button
-            onClick={() => {
-              nextQuery();
-            }}
-            className="btn-blue"
-          >
-            <div>Continue to next query</div>
-          </Button>
-        )}
-        {!showNext() && !showNextQuery() && (
-          <Button
-            onClick={() => {
-              props.checkAndSubmit();
-            }}
-            className="btn-blue"
-          >
-            <div>Finish</div>
           </Button>
         )}
       </div>
