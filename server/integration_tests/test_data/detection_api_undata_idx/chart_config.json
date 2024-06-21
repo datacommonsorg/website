@@ -1,10 +1,6 @@
 {
   "childEntityType": "",
-  "classifications": [
-    {
-      "type": 100
-    }
-  ],
+  "classifications": [],
   "client": "test_detect",
   "comparisonEntities": [],
   "comparisonVariables": [],
@@ -17,26 +13,5 @@
   "properties": [],
   "sessionId": "007_999999999",
   "test": "unittest",
-  "variables": [
-    "dc/topic/sdg_3",
-    "dc/topic/UN_THEME_2",
-    "dc/topic/sdg_3.8",
-    "dc/topic/UN_SUB_THEME_21",
-    "dc/topic/sdg_3.8.1",
-    "dc/topic/UN_SUB_THEME_22",
-    "dc/topic/sdg_3.d.1",
-    "dc/topic/sdg_3.c.1",
-    "dc/topic/WHO_GhecausesEnum_GHE110",
-    "dc/topic/WHOWHS2126",
-    "dc/topic/WHO_GhecausesEnum_GHE060",
-    "dc/topic/sdg_3.b.3",
-    "dc/topic/sdg_3.d",
-    "dc/topic/UN_SUB_THEME_19",
-    "dc/topic/sdg_3.4.1",
-    "who/HWF_0001",
-    "dc/topic/UN_SUB_THEME_56",
-    "dc/topic/sdg_3.c",
-    "dc/topic/sdg_3.4",
-    "who/DEVICES01"
-  ]
+  "variables": []
 }

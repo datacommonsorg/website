@@ -59,13 +59,13 @@ indexes:
   sdg_ft:
     store_type: MEMORY
     source_folder: sdg
-    embeddings_path: gs://datcom-nl-models/sdg_ft-final-v20230717230459-all-MiniLM-L6-v2_2024_06_18_22_15_36/embeddings.csv
+    embeddings_path: gs://datcom-nl-models/sdg_ft-final-v20230717230459-all-MiniLM-L6-v2_2024_06_20_23_15_52/embeddings.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
     healthcheck_query: "Hunger"
   undata_ft:
     store_type: MEMORY
     source_folder: undata
-    embeddings_path: gs://datcom-nl-models/undata_ft-final-v20230717230459-all-MiniLM-L6-v2_2024_06_18_22_14_17/embeddings.csv
+    embeddings_path: gs://datcom-nl-models/undata_ft-final-v20230717230459-all-MiniLM-L6-v2_2024_06_20_23_13_04/embeddings.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
     healthcheck_query: "Hunger"
   undata_ilo_ft:
@@ -89,7 +89,7 @@ indexes:
   base_uae_mem:
     store_type: MEMORY
     source_folder: base
-    embeddings_path: gs://datcom-nl-models/base_uae-large-v1-model_2024_06_18_22_41_00/embeddings.csv
+    embeddings_path: gs://datcom-nl-models/base_uae-large-v1-model_2024_06_20_23_00_18/embeddings.csv
     model: uae-large-v1-model
     healthcheck_query: "Life expectancy"
   base_mistral_mem:

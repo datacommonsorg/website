@@ -47,8 +47,9 @@ def main(_):
   # Construct a file manager
   input_dir = os.path.join(_THIS_DIR, 'data', 'curated_input',
                            index_config.source_folder)
-  output_dir = utils.make_local_dir(index_config.source_folder,
-                                    index_config.model)
+  output_dir = utils.make_output_path(FLAGS.gcs_root or '/tmp',
+                                      index_config.source_folder,
+                                      index_config.model)
   fm = utils.FileManager(input_dir, output_dir)
 
   # Build and save preindex

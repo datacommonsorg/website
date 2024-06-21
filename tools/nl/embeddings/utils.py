@@ -92,13 +92,12 @@ def _chunk_list(data, chunk_size):
   return iter(lambda: tuple(itertools.islice(it, chunk_size)), ())
 
 
-def make_local_dir(source_folder: str, model_name: str) -> str:
+def make_output_path(output_root: str, source_folder: str,
+                     model_name: str) -> str:
   now = datetime.datetime.now()
   date_string = now.strftime('%Y_%m_%d_%H_%M_%S')
-  local_folder_name = f'{source_folder}_{model_name}_{date_string}'
-  local_dir_path = os.path.join('/tmp', local_folder_name)
-  os.makedirs(local_dir_path, exist_ok=True)
-  return local_dir_path
+  folder_name = f'{source_folder}_{model_name}_{date_string}'
+  return os.path.join(output_root, folder_name)
 
 
 def get_model(catalog: Catalog, env: Env, model_name: str) -> EmbeddingsModel:
