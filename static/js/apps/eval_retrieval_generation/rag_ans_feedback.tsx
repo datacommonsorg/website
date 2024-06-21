@@ -75,6 +75,9 @@ export function RagAnsFeedback(): JSX.Element {
   }, [sheetId, sessionQueryId, sessionCallId]);
 
   const checkAndSubmit = async (): Promise<boolean> => {
+    if (response === null) {
+      return Promise.resolve(false);
+    }
     if (response.isSubmitted) {
       return Promise.resolve(true);
     }
