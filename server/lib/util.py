@@ -647,8 +647,12 @@ def _get_highest_coverage_date(observation_entity_counts_by_date,
 
 def post_body_cache_key():
   """
-  Builds flask cache key for POST requests using the request path and
-  JSON-encoded post body
+  Builds flask cache key for GET and POST requests.
+  
+  GET: Key is URL path + query string parameters. Example: '/test?key=value'
+  POST: (Requires Content-Type:application/json): Key is URL path + query string
+  + JSON body. Example: '/test?key=value,{"jsonkey":"jsonvalue"}'
+  
   """
   full_path = request.full_path
   if request.method == 'POST':
