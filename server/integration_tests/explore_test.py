@@ -721,10 +721,11 @@ class ExploreTestEE2(ExploreTest):
         ])
 
   def test_e2e_toolformer_rig_mode(self):
-    self.run_detect_and_fulfill(
-        'e2e_toolformer_rig_mode',
-        ['what is the infant mortality rate in massachusetts'],
-        mode='toolformer_rig')
+    self.run_detect_and_fulfill('e2e_toolformer_rig_mode', [
+        'what is the infant mortality rate in massachusetts',
+        'how many construction workers are in Orlando, Florida?'
+    ],
+                                mode='toolformer_rig')
 
   def test_e2e_toolformer_rag_mode(self):
     # The answer places (states) would typically be truncated to 10, but here
