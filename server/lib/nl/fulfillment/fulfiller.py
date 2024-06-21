@@ -131,6 +131,10 @@ def fulfill(uttr: Utterance) -> PopulateState:
   if params.is_special_dc(state.uttr.insight_ctx):
     _prune_non_country_special_dc_vars(state)
 
+  # No fallback for toolformer mode!
+  if params.is_toolformer_mode(state.uttr.mode):
+    state.disable_fallback = True
+
   # Call populate_charts.
   if not base.populate_charts(state):
     # If that failed, try OVERVIEW.
