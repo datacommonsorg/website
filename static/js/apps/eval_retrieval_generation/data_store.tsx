@@ -37,8 +37,10 @@ import {
   DC_QUESTION_FEEDBACK_COL,
   DC_RESPONSE_FEEDBACK_COL,
   LLM_STAT_FEEDBACK_COL,
+  QUERY_FALSE_CLAIMS_FEEDBACK_COL,
   QUERY_ID_COL,
   QUERY_OVERALL_FEEDBACK_COL,
+  QUERY_TOTAL_CLAIMS_FEEDBACK_COL,
   USER_COL,
 } from "./constants";
 import { Response } from "./types";
@@ -69,14 +71,19 @@ export async function setField(
   setDoc(docRef, { [fieldKey]: fieldValue }, { merge: true });
 }
 
+// Gets all the fields for a specified path
+export async function getAllFields(path: string): Promise<DocumentData> {
+  const docRef = doc(db, path);
+  const snapshot = await getDoc(docRef);
+  return snapshot.data() || {};
+}
+
 // Gets a field from a doc at the specified path
 export async function getField(
   path: string,
   fieldKey: string
 ): Promise<string> {
-  const docRef = doc(db, path);
-  const snapshot = await getDoc(docRef);
-  const docData = snapshot.data();
+  const docData = await getAllFields(path);
   return docData ? docData[fieldKey] : "";
 }
 
@@ -156,7 +163,9 @@ export async function saveToSheet(
   queryId: number,
   callId: number,
   response?: Response,
-  overallFeedback?: string
+  overallFeedback?: string,
+  totalClaims?: number,
+  falseClaims?: number
 ): Promise<void> {
   const sheet = doc.sheetsByTitle[DC_FEEDBACK_SHEET];
   sheet.addRow({
@@ -167,6 +176,8 @@ export async function saveToSheet(
     [DC_RESPONSE_FEEDBACK_COL]: response?.dcResponse || "",
     [LLM_STAT_FEEDBACK_COL]: response?.llmStat || "",
     [QUERY_OVERALL_FEEDBACK_COL]: overallFeedback || "",
+    [QUERY_TOTAL_CLAIMS_FEEDBACK_COL]: totalClaims || "",
+    [QUERY_FALSE_CLAIMS_FEEDBACK_COL]: falseClaims || "",
   });
 }
 
