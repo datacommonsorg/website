@@ -34,12 +34,16 @@ import { EvalType } from "./types";
 
 const LOADING_CONTAINER_ID = "form-container";
 
+interface RagAnsResponse {
+  claimsCount: number;
+  falseClaimsCount: number;
+  isSubmitted: boolean;
+}
+
 export function RagAnsFeedback(): JSX.Element {
   const { doc, sheetId, userEmail, evalType } = useContext(AppContext);
   const { sessionQueryId, sessionCallId } = useContext(SessionContext);
-  const [claimsCount, setClaimsCount] = useState<number>(0);
-  const [falseClaimsCount, setFalseClaimsCount] = useState<number>(0);
-  const [isSubmitted, setIsSubmitted] = useState<boolean>(null);
+  const [response, setResponse] = useState<RagAnsResponse>(null);
 
   useEffect(() => {
     loadSpinner(LOADING_CONTAINER_ID);
@@ -54,20 +58,24 @@ export function RagAnsFeedback(): JSX.Element {
     Promise.all([claimsCountPromise, falseClaimsCountPromise]).then(
       ([claimsCountData, falseClaimsCountData]) => {
         if (claimsCountData && falseClaimsCountData) {
-          setClaimsCount(Number(claimsCountData.toString()));
-          setFalseClaimsCount(Number(falseClaimsCountData.toString()));
-          setIsSubmitted(true);
+          setResponse({
+            claimsCount: Number(claimsCountData.toString()),
+            falseClaimsCount: Number(falseClaimsCountData.toString()),
+            isSubmitted: true,
+          });
         } else {
-          setClaimsCount(0);
-          setFalseClaimsCount(0);
-          setIsSubmitted(false);
+          setResponse({
+            claimsCount: 0,
+            falseClaimsCount: 0,
+            isSubmitted: false,
+          });
         }
       }
     );
   }, [sheetId, sessionQueryId, sessionCallId]);
 
   const checkAndSubmit = async (): Promise<boolean> => {
-    if (isSubmitted) {
+    if (response.isSubmitted) {
       return Promise.resolve(true);
     }
     loadSpinner(LOADING_CONTAINER_ID);
@@ -75,12 +83,12 @@ export function RagAnsFeedback(): JSX.Element {
       setField(
         getPath(sheetId, sessionQueryId),
         QUERY_TOTAL_CLAIMS_FEEDBACK_KEY,
-        String(claimsCount)
+        String(response.claimsCount)
       ),
       setField(
         getPath(sheetId, sessionQueryId),
         QUERY_FALSE_CLAIMS_FEEDBACK_KEY,
-        String(falseClaimsCount)
+        String(response.falseClaimsCount)
       ),
       saveToSheet(
         userEmail,
@@ -89,8 +97,8 @@ export function RagAnsFeedback(): JSX.Element {
         sessionCallId,
         null,
         "",
-        claimsCount,
-        falseClaimsCount
+        response.claimsCount,
+        response.falseClaimsCount
       ),
     ])
       .then(() => {
@@ -106,10 +114,16 @@ export function RagAnsFeedback(): JSX.Element {
   };
 
   const enableReeval = () => {
-    setClaimsCount(0);
-    setFalseClaimsCount(0);
-    setIsSubmitted(false);
+    setResponse({
+      claimsCount: 0,
+      falseClaimsCount: 0,
+      isSubmitted: false,
+    });
   };
+
+  if (response === null) {
+    return null;
+  }
 
   return (
     <>
@@ -124,11 +138,19 @@ export function RagAnsFeedback(): JSX.Element {
       </div>
       <div id={LOADING_CONTAINER_ID}>
         <ClaimCounter
-          claimsCount={claimsCount}
-          setClaimsCount={setClaimsCount}
-          falseClaimsCount={falseClaimsCount}
-          setFalseClaimsCount={setFalseClaimsCount}
-          disabled={isSubmitted}
+          claimsCount={response.claimsCount}
+          setClaimsCount={(count: number) => {
+            setResponse((prevState) => {
+              return { ...prevState, claimsCount: count };
+            });
+          }}
+          falseClaimsCount={response.falseClaimsCount}
+          setFalseClaimsCount={(count: number) => {
+            setResponse((prevState) => {
+              return { ...prevState, falseClaimsCount: count };
+            });
+          }}
+          disabled={response.isSubmitted}
         />
       </div>
       {evalType === EvalType.RAG && <TablePane />}
