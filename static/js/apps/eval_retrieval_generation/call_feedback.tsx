@@ -37,9 +37,15 @@ import { EvalInfo, EvalType, Response } from "./types";
 
 const LOADING_CONTAINER_ID = "form-container";
 const EMPTY_RESPONSE = {
-  dcResponse: "",
-  llmStat: "",
-  question: "",
+  [EvalType.RIG]: {
+    dcResponse: "",
+    llmStat: "",
+    question: "",
+  },
+  [EvalType.RAG]: {
+    dcResponse: "",
+    question: "",
+  },
 };
 
 export enum FormStatus {
@@ -54,7 +60,7 @@ export function CallFeedback(): JSX.Element {
   const { sessionQueryId, sessionCallId } = useContext(SessionContext);
 
   const [evalInfo, setEvalInfo] = useState<EvalInfo | null>(null);
-  const [response, setResponse] = useState<Response>(EMPTY_RESPONSE);
+  const [response, setResponse] = useState<Response>(EMPTY_RESPONSE[evalType]);
   const [status, setStatus] = useState<FormStatus>(null);
   const [applyToNext, setApplyToNext] = useState(false);
 
@@ -68,7 +74,7 @@ export function CallFeedback(): JSX.Element {
           setStatus(FormStatus.Completed);
           return;
         }
-        setResponse(EMPTY_RESPONSE);
+        setResponse(EMPTY_RESPONSE[evalType]);
         setStatus(FormStatus.NotStarted);
       }
     });
@@ -84,8 +90,10 @@ export function CallFeedback(): JSX.Element {
     sheet.getRows({ offset: rowIdx - 1, limit: 1 }).then((rows) => {
       const row = rows[0];
       if (row) {
+        const tableResponse =
+          evalType === EvalType.RIG ? "" : ` \xb7 Table ${sessionCallId}`;
         setEvalInfo({
-          dcResponse: row.get(DC_RESPONSE_COL),
+          dcResponse: `${row.get(DC_RESPONSE_COL)}${tableResponse}`,
           dcStat: row.get(DC_STAT_COL),
           llmStat: row.get(LLM_STAT_COL),
           question: row.get(DC_QUESTION_COL),
@@ -151,7 +159,7 @@ export function CallFeedback(): JSX.Element {
   };
 
   const enableReeval = () => {
-    setResponse(EMPTY_RESPONSE);
+    setResponse(EMPTY_RESPONSE[evalType]);
     setStatus(FormStatus.NotStarted);
   };
 
@@ -196,7 +204,13 @@ export function CallFeedback(): JSX.Element {
                 <div className="question-section">
                   <div className="title">GEMMA MODEL QUESTION EVALUATION</div>
                   <div className="subtitle">
-                    <span>{evalInfo.question}</span>
+                    <span
+                      className={`${
+                        evalType === EvalType.RAG ? "dc-question" : ""
+                      }`}
+                    >
+                      {evalInfo.question}
+                    </span>
                   </div>
                   <OneQuestion
                     question="Question from the model"
@@ -211,29 +225,37 @@ export function CallFeedback(): JSX.Element {
                     disabled={status === FormStatus.Submitted}
                   />
                 </div>
-                <div className="question-section">
-                  <div className="title">GEMMA MODEL STAT EVALUATION</div>
-                  <div className="subtitle">
-                    <span className="llm-stat">{evalInfo.llmStat}</span>
+                {evalType === EvalType.RIG && (
+                  <div className="question-section">
+                    <div className="title">GEMMA MODEL STAT EVALUATION</div>
+                    <div className="subtitle">
+                      <span className="llm-stat">{evalInfo.llmStat}</span>
+                    </div>
+                    <OneQuestion
+                      question="Model response quality"
+                      name="llmStat"
+                      options={{
+                        LLM_STAT_INACCURATE: "Stats seem inaccurate",
+                        LLM_STAT_NOTSURE: "Unsure about accuracy",
+                        LLM_STAT_ACCURATE: "Stats seem accurate",
+                      }}
+                      handleChange={handleChange}
+                      responseField={response.llmStat}
+                      disabled={status === FormStatus.Submitted}
+                    />
                   </div>
-                  <OneQuestion
-                    question="Model response quality"
-                    name="llmStat"
-                    options={{
-                      LLM_STAT_INACCURATE: "Stats seem inaccurate",
-                      LLM_STAT_NOTSURE: "Unsure about accuracy",
-                      LLM_STAT_ACCURATE: "Stats seem accurate",
-                    }}
-                    handleChange={handleChange}
-                    responseField={response.llmStat}
-                    disabled={status === FormStatus.Submitted}
-                  />
-                </div>
+                )}
 
                 <div className="question-section">
                   <div className="title">DATA COMMONS EVALUATION</div>
                   <div className="subtitle">
-                    <span>{evalInfo.dcResponse}</span>
+                    <span
+                      className={`${
+                        evalType === EvalType.RAG ? "dc-stat" : ""
+                      }`}
+                    >
+                      {evalInfo.dcResponse}
+                    </span>
                     {evalType === EvalType.RIG && (
                       <span className="dc-stat">{evalInfo.dcStat}</span>
                     )}
@@ -263,8 +285,8 @@ export function CallFeedback(): JSX.Element {
             </div>
           </>
         )}
-        {evalType === EvalType.RAG && <TablePane />}
       </div>
+      {evalType === EvalType.RAG && <TablePane />}
       <FeedbackNavigation checkAndSubmit={checkAndSubmit} />
       <div id="page-screen" className="screen">
         <div id="spinner"></div>
