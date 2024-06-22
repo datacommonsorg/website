@@ -10,7 +10,7 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_EnrolledInKindergarten"
+                      "Count_Person_DetailedEnrolledInKindergarten"
                     ],
                     "title": "Population: Enrolled in Kindergarten in Colorado",
                     "type": "LINE"
@@ -22,7 +22,7 @@
                   {
                     "description": "Population: Enrolled in Kindergarten in Colorado",
                     "statVarKey": [
-                      "Count_Person_EnrolledInKindergarten"
+                      "Count_Person_DetailedEnrolledInKindergarten"
                     ],
                     "title": "Population: Enrolled in Kindergarten in Colorado",
                     "type": "HIGHLIGHT"
@@ -122,6 +122,10 @@
           }
         ],
         "statVarSpec": {
+          "Count_Person_DetailedEnrolledInKindergarten": {
+            "name": "Population: Enrolled in Kindergarten",
+            "statVar": "Count_Person_DetailedEnrolledInKindergarten"
+          },
           "Count_Person_DetailedHighSchool": {
             "name": "High School Students",
             "statVar": "Count_Person_DetailedHighSchool"
@@ -133,10 +137,6 @@
           "Count_Person_DetailedPrimarySchool": {
             "name": "Elementary School Students",
             "statVar": "Count_Person_DetailedPrimarySchool"
-          },
-          "Count_Person_EnrolledInKindergarten": {
-            "name": "Population: Enrolled in Kindergarten",
-            "statVar": "Count_Person_EnrolledInKindergarten"
           }
         }
       }
@@ -177,6 +177,19 @@
       }
     ],
     "exploreMore": {
+      "Count_Person_DetailedEnrolledInKindergarten": {
+        "race": [
+          "dc/1c4zcyw02n71g",
+          "dc/3n8g9we5yv7th",
+          "dc/556pqlh586bmc",
+          "dc/7g77dy8hfb1rg",
+          "dc/c6n2z7vh9sy31",
+          "dc/gr3zem8shyhbf",
+          "dc/ns1rqx6wy9909",
+          "dc/nt9cq96phw6nf",
+          "dc/qnphlls92tvs9"
+        ]
+      },
       "Count_Person_DetailedHighSchool": {
         "race": [
           "dc/1kt512ynvpmc2",
@@ -214,12 +227,6 @@
           "dc/p4jzvj8q1lnmd",
           "dc/wk2vjrzfgyq5d",
           "dc/x9e7150515yt7"
-        ]
-      },
-      "Count_Person_EnrolledInKindergarten": {
-        "gender": [
-          "dc/g8kg52zcxzw9f",
-          "dc/p34mhcpgtth76"
         ]
       }
     },

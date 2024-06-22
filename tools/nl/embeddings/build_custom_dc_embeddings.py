@@ -30,11 +30,12 @@ FLAGS = flags.FLAGS
 flags.DEFINE_string('input_dir', '', 'Input directory with CSVs')
 flags.DEFINE_string('output_dir', '', "Output directory to save embeddings.")
 
+# This is a key of `models` in catalog.yaml
 _MODEL_NAME = 'ft-final-v20230717230459-all-MiniLM-L6-v2'
 _CATALOG_FILE_NAME = "custom_catalog.yaml"
 
 
-def save_custom_dc_artifacts(catalog: Catalog, fm: utils.FileManager):
+def create_custom_catalog_yaml(catalog: Catalog, fm: utils.FileManager):
   embeddings_file_path = os.path.join(fm.output_dir(),
                                       utils.EMBEDDINGS_FILE_NAME)
   catalog = Catalog(version="1",
@@ -48,6 +49,7 @@ def save_custom_dc_artifacts(catalog: Catalog, fm: utils.FileManager):
                     models={
                         _MODEL_NAME: catalog.models[_MODEL_NAME],
                     })
+  # TODO:
   # There is an assumption that the custom_catalog.yaml is saved under the
   # input_dir.
   # config_reader.py makes this assumption as well. Really need to improve this!
@@ -69,7 +71,7 @@ def main(_):
   fm = utils.FileManager(FLAGS.input_dir, FLAGS.output_dir)
 
   # Build preindex
-  texts, dcids = utils.build_preindex(fm, save=True)
+  texts, dcids = utils.build_preindex(fm)
 
   # Compute embeddings
   embeddings = utils.compute_embeddings(texts, model)
@@ -78,7 +80,7 @@ def main(_):
   utils.save_embeddings_memory(fm.local_output_dir(), texts, dcids, embeddings)
 
   # Do custom DC specific stuff
-  save_custom_dc_artifacts(catalog, fm)
+  create_custom_catalog_yaml(catalog, fm)
 
   fm.maybe_upload_to_gcs()
 

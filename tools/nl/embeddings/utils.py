@@ -21,6 +21,7 @@ import logging
 import os
 import shutil
 import tempfile
+import time
 from typing import Dict, List, Tuple
 
 import lancedb
@@ -47,21 +48,24 @@ _PREINDEX_CSV = '_preindex.csv'
 class FileManager(object):
 
   def __init__(self, input_dir: str, output_dir: str):
-    self._input_dir = input_dir
-    self._output_dir = output_dir
+    # Add trailing '/' if not present
+    self._input_dir = os.path.join(input_dir, '')
+    self._output_dir = os.path.join(output_dir, '')
     # Create a local dir to hold local input and output files
     self._local_dir = tempfile.mkdtemp()
-    os.mkdir(os.path.join(self._local_dir, 'input'))
-    os.mkdir(os.path.join(self._local_dir, 'output'))
-    # Local input directory
-    if gcs.is_gcs_path(input_dir):
+
+    # Set local input directory
+    if gcs.is_gcs_path(self._input_dir):
       self._local_input_dir = os.path.join(self._local_dir, 'input')
-      gcs.download_blob_by_path(input_dir, self._local_input_dir)
+      os.mkdir(self._local_input_dir)
+      gcs.download_blob_by_path(self._input_dir, self._local_input_dir)
     else:
-      self._local_input_dir = input_dir
-    # Local output directory
+      self._local_input_dir = self._input_dir
+
+    # Set local output directory
     if gcs.is_gcs_path(output_dir):
       self._local_output_dir = os.path.join(self._local_dir, 'output')
+      os.mkdir(self._local_output_dir)
     else:
       self._local_output_dir = output_dir
 
@@ -77,11 +81,15 @@ class FileManager(object):
   def output_dir(self):
     return self._output_dir
 
-  def preindex_csv(self):
+  def preindex_csv_path(self):
     return os.path.join(self._local_input_dir, _PREINDEX_CSV)
 
   def maybe_upload_to_gcs(self):
+    """
+    Upload the generated files to GCS if the input or output paths are GCS.
+    """
     if gcs.is_gcs_path(self._input_dir):
+      # This is to upload any generated files in the input directory to GCS
       gcs.upload_by_path(self._local_input_dir, self._input_dir)
     if gcs.is_gcs_path(self._output_dir):
       gcs.upload_by_path(self._local_output_dir, self._output_dir)
@@ -111,8 +119,7 @@ def get_model(catalog: Catalog, env: Env, model_name: str) -> EmbeddingsModel:
   return model
 
 
-def build_preindex(fm: FileManager,
-                   save: bool = False) -> Tuple[List[str], List[str]]:
+def build_preindex(fm: FileManager) -> Tuple[List[str], List[str]]:
   """
   Build preindex records (sentence -> dcid) from a directory of CSV files.
   """
@@ -128,16 +135,14 @@ def build_preindex(fm: FileManager,
           text2sv[sentence].add(row[_COL_DCID])
   texts = []
   dcids = []
-  with open(fm.preindex_csv(), 'w+') as csvfile:
-    if save:
-      csv_writer = csv.writer(csvfile, delimiter=',')
-      csv_writer.writerow([_COL_SENTENCE, _COL_DCID])
+  with open(fm.preindex_csv_path(), 'w') as csvfile:
+    csv_writer = csv.writer(csvfile, delimiter=',')
+    csv_writer.writerow([_COL_SENTENCE, _COL_DCID])
     for sentence in sorted(text2sv.keys()):
       dcids_str = ';'.join(sorted(text2sv[sentence]))
       texts.append(sentence)
       dcids.append(dcids_str)
-      if save:
-        csv_writer.writerow([sentence, dcids_str])
+      csv_writer.writerow([sentence, dcids_str])
   return texts, dcids
 
 
@@ -147,18 +152,20 @@ def compute_embeddings(texts: List[str],
   Compute embeddings for a list of text strings.
   """
   logging.info("Compute embeddings")
+  start = time.time()
   embeddings = []
-  for i, chuck in enumerate(_chunk_list(texts, _CHUNK_SIZE)):
+  for i, chunk in enumerate(_chunk_list(texts, _CHUNK_SIZE)):
     logging.info('texts %d to %d', i * _CHUNK_SIZE, (i + 1) * _CHUNK_SIZE - 1)
     for i in range(_NUM_RETRIES):
       try:
-        resp = model.encode(chuck)
-        if len(resp) != len(chuck):
-          raise Exception(f'Expected {len(chuck)} but got {len(resp)}')
+        resp = model.encode(chunk)
+        if len(resp) != len(chunk):
+          raise Exception(f'Expected {len(chunk)} but got {len(resp)}')
         embeddings.extend(resp)
         break
       except Exception as e:
         logging.error('Exception %s', e)
+  logging.info(f'Computing embeddings took {time.time() - start} seconds')
   return embeddings
 
 
@@ -167,6 +174,8 @@ def save_embeddings_memory(local_dir: str, sentences: List[str],
   """
   Save embeddings as csv file.
   """
+  # All the input should have the same length and with elements index aligned.
+  assert len(embeddings) == len(dcids) == len(sentences)
   df = pd.DataFrame(embeddings)
   df[_COL_DCID] = dcids
   df[_COL_SENTENCE] = sentences
@@ -177,6 +186,8 @@ def save_embeddings_memory(local_dir: str, sentences: List[str],
 
 def save_embeddings_lancedb(local_dir: str, sentences: List[str],
                             dcids: List[str], embeddings: List[List[float]]):
+  # All the input should have the same length and with elements index aligned.
+  assert len(embeddings) == len(dcids) == len(sentences)
   db = lancedb.connect(local_dir)
   records = []
   for d, s, v in zip(dcids, sentences, embeddings):

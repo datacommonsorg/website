@@ -1,6 +1,10 @@
 {
   "childEntityType": "",
-  "classifications": [],
+  "classifications": [
+    {
+      "type": 100
+    }
+  ],
   "client": "test_detect",
   "comparisonEntities": [],
   "comparisonVariables": [],
@@ -13,5 +17,26 @@
   "properties": [],
   "sessionId": "007_999999999",
   "test": "unittest",
-  "variables": []
+  "variables": [
+    "dc/topic/sdg_8.5.2",
+    "dc/topic/UN_SUB_THEME_42",
+    "dc/topic/ILOEMPPIFLNB",
+    "dc/topic/ILOEMPNORMNB",
+    "dc/topic/ILOEMPNIFLNB",
+    "dc/topic/ILOEMPSTATNB",
+    "dc/topic/ILOEMPPIFLRT",
+    "dc/topic/ILOEMP2FTENB",
+    "dc/topic/UN_SUB_THEME_68",
+    "dc/topic/ILOPSETPSENB",
+    "dc/topic/ILOLUUXLUXNB",
+    "dc/topic/sdg_9.2.2",
+    "dc/topic/ILOEMPNIFLRT",
+    "dc/topic/sdg_8",
+    "dc/topic/ILOEMP3EMPNB",
+    "dc/topic/ILOPOP3TEDNB",
+    "dc/topic/ILOEMP2NIFNB",
+    "dc/topic/sdg_8.3.1",
+    "dc/topic/sdg_8.8.2",
+    "dc/topic/ILOEMP2WAPRT"
+  ]
 }

@@ -29,6 +29,7 @@
 #               Can be a local absolute path or GCS (gs://) path.
 # - healthcheck_query: if this index were the default index, what is
 #                      the query to use for health-checking the index?
+# - source_folder: the name of the input csv folder under `tools/nl/embeddings/data/curated_input/`
 # - Additional params specific to VERTEXAI:
 #   - project_id
 #   - location

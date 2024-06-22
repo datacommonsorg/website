@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Build the embeddings index from stat var descriptions."""
+"""Build the embeddings index from variable and topic descriptions."""
 
 import os
 from pathlib import Path
@@ -41,6 +41,7 @@ def main(_):
   # Prepare the model
   catalog = config_reader.read_catalog()
   index_config = catalog.indexes[embeddings_name]
+  # Use default env config: autopush for base DCs and custom env for custom DCs.
   env = config_reader.read_env()
   model = utils.get_model(catalog, env, index_config.model)
 
@@ -53,7 +54,7 @@ def main(_):
   fm = utils.FileManager(input_dir, output_dir)
 
   # Build and save preindex
-  texts, dcids = utils.build_preindex(fm, save=True)
+  texts, dcids = utils.build_preindex(fm)
 
   # Compute embeddings
   embeddings = utils.compute_embeddings(texts, model)
