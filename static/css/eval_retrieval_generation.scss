@@ -45,7 +45,7 @@ footer {
 
 .table-pane {
   overflow: auto;
-  height: 50%;
+  height: 30%;
   padding: 11px 24px;
   width: 100%;
 
@@ -333,13 +333,20 @@ label {
   font-weight: 500;
 }
 
+.annotation-rag .dc-stat,
+.annotation-rag .dc-question {
+  background-color: transparent;
+}
+
 .question-section .dc-stat,
 .highlight .dc-stat {
   background-color: lightblue;
 }
 
 .question-section .llm-stat,
-.highlight .llm-stat {
+.highlight .llm-stat,
+.question-section .dc-question,
+.highlight .dc-question {
   background-color: lightsalmon;
 }
 
@@ -387,7 +394,9 @@ label {
 }
 
 .block-evaluation {
-  text-align: center;
+  .disabled {
+    opacity: 0.5;
+  }
 
   .counter {
     justify-content: center;
@@ -398,27 +407,31 @@ label {
       display: flex;
       flex-direction: row;
       align-items: center;
-      margin-left: auto;
-      margin-right: auto;
+      font-size: 16px;
+      margin-bottom: 24px;
 
       button {
         border: none;
-        background-color: white;
-        padding: 5px 5px;
+        background-color: transparent;
         cursor: pointer;
-        font-size: 2em;
+        font-size: 48px;
+        width: 44px;
       }
 
       .count-text {
         font-size: 2em;
-        margin: 10px;
         color: white;
-        width: 40px;
+        width: 55px;
+        height: 41px;
+        border-radius: 8px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
       }
 
       .claim-text {
         margin: 0 10px;
-        font-weight: bold;
+        font-weight: 500;
       }
     }
 
@@ -426,11 +439,20 @@ label {
       .count-text {
         background-color: #007bff;
       }
+
+      button {
+        color: #007bff;
+      }
+
     }
 
     .false-claims-count {
       .count-text {
         background-color: #ff5722;
+      }
+
+      button {
+        color: #ff5722;
       }
     }
   }

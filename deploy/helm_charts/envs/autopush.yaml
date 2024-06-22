@@ -42,6 +42,7 @@ website:
 mixer:
   hostProject:
   serviceName:
+  cacheSVFormula: true
 
 serviceAccount:
   name: website-ksa

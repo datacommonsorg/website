@@ -21,6 +21,7 @@ from flask import request
 from server.lib import fetch
 from server.lib import shared
 from server.lib.cache import cache
+import server.lib.util as lib_util
 from server.routes import TIMEOUT
 
 # Maximum number of concurrent series the server will fetch
@@ -50,7 +51,9 @@ def _get_filtered_arg_list(arg_list: List[str]) -> List[str]:
 
 
 @bp.route('', strict_slashes=False, methods=['GET', 'POST'])
-@cache.cached(timeout=TIMEOUT, query_string=True)
+@cache.cached(timeout=TIMEOUT,
+              query_string=True,
+              make_cache_key=lib_util.post_body_cache_key)
 def series():
   """Handler to get preferred time series given multiple stat vars and entities."""
   if request.method == 'POST':
