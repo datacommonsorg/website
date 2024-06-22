@@ -27,8 +27,11 @@ import { getFirstFeedbackStage } from "./util";
 
 const FEEDBACK_STAGE_LIST: Record<EvalType, FeedbackStage[]> = {
   [EvalType.RIG]: [FeedbackStage.OVERALL, FeedbackStage.CALLS],
-  // TODO: add RAG_ANS feedback stage
-  [EvalType.RAG]: [FeedbackStage.CALLS, FeedbackStage.OVERALL],
+  [EvalType.RAG]: [
+    FeedbackStage.CALLS,
+    FeedbackStage.OVERALL,
+    FeedbackStage.RAG_ANS,
+  ],
 };
 
 enum ButtonType {

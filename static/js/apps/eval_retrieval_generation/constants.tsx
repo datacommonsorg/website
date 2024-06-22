@@ -41,11 +41,17 @@ export const DC_RESPONSE_FEEDBACK_COL = DC_RESPONSE_COL + FB_SUFFIX;
 export const LLM_STAT_FEEDBACK_COL = LLM_STAT_COL + FB_SUFFIX;
 export const DC_STAT_FEEDBACK_COL = DC_STAT_COL + FB_SUFFIX;
 export const QUERY_OVERALL_FEEDBACK_COL = "overall" + FB_SUFFIX;
+export const QUERY_TOTAL_CLAIMS_FEEDBACK_COL = "total_claims" + FB_SUFFIX;
+export const QUERY_FALSE_CLAIMS_FEEDBACK_COL = "false_claims" + FB_SUFFIX;
 
 // Call Id to use for a new query
 export const NEW_QUERY_CALL_ID = 1;
 // The key used in firestore to save the query overall feedback
 export const QUERY_OVERALL_FEEDBACK_KEY = "overall";
+// The key used in firestore to save the query total claims feedback
+export const QUERY_TOTAL_CLAIMS_FEEDBACK_KEY = "totalClaims";
+// The key used in firestore to save the query total false claims feedback
+export const QUERY_FALSE_CLAIMS_FEEDBACK_KEY = "falseClaims";
 // Options for the query overall feedback
 export const QUERY_OVERALL_OPTION_HALLUCINATION = "LLM_ANSWER_HALLUCINATION";
 export const QUERY_OVERALL_OPTION_OK = "LLM_ANSWER_OKAY";
