@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-/* Component to record feedback for a query */
+/* Component to record overall feedback for a query */
+
 import React, { FormEvent, useContext, useEffect, useState } from "react";
 import { Button } from "reactstrap";
 
@@ -29,6 +30,8 @@ import { getField, getPath, saveToSheet, setField } from "./data_store";
 import { EvalList } from "./eval_list";
 import { FeedbackNavigation } from "./feedback_navigation";
 import { OneQuestion } from "./one_question";
+import { TablePane } from "./table_pane";
+import { EvalType } from "./types";
 
 const LOADING_CONTAINER_ID = "form-container";
 const RESPONSE_OPTIONS = {
@@ -36,8 +39,8 @@ const RESPONSE_OPTIONS = {
   [QUERY_OVERALL_OPTION_OK]: "No obvious factual inaccuracies",
 };
 
-export function QueryFeedback(): JSX.Element {
-  const { doc, sheetId, userEmail, allCall } = useContext(AppContext);
+export function OverallFeedback(): JSX.Element {
+  const { doc, sheetId, userEmail, evalType } = useContext(AppContext);
   const { sessionQueryId, sessionCallId } = useContext(SessionContext);
   const [response, setResponse] = useState<string>("");
   const [isSubmitted, setIsSubmitted] = useState<boolean>(null);
@@ -99,10 +102,6 @@ export function QueryFeedback(): JSX.Element {
     setIsSubmitted(false);
   };
 
-  const showNext = (): boolean => {
-    return Object.keys(allCall[sessionQueryId] || {}).length > 0;
-  };
-
   return (
     <>
       <div className="button-section">
@@ -131,10 +130,8 @@ export function QueryFeedback(): JSX.Element {
           </fieldset>
         </form>
       </div>
-      <FeedbackNavigation
-        checkAndSubmit={checkAndSubmit}
-        showNextOverride={showNext()}
-      />
+      {evalType === EvalType.RAG && <TablePane />}
+      <FeedbackNavigation checkAndSubmit={checkAndSubmit} />
       <div id="page-screen" className="screen">
         <div id="spinner"></div>
       </div>

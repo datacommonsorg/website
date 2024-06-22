@@ -92,7 +92,7 @@ indexes:
     healthcheck_query: "Life expectancy"
   base_uae_mem:
     store_type: MEMORY
-    embeddings_path: gs://datcom-nl-models/embeddings_medium_2024_06_11_09_48_09.8110162693219942400.csv
+    embeddings_path: gs://datcom-nl-models/embeddings_base_2024_06_20_21_39_15.430892009855647744.csv
     model: uae-large-v1-model
     healthcheck_query: "Life expectancy"
   medium_vertex_mistral:

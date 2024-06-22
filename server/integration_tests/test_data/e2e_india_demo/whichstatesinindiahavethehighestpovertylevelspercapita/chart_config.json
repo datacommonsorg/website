@@ -297,32 +297,18 @@
               {
                 "tiles": [
                   {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
                     "statVarKey": [
-                      "sdg/NY_GDP_PCAP"
+                      "sdg/SI_POV_EMP1.AGE--Y15T24",
+                      "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F",
+                      "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M"
                     ],
-                    "title": "Annual Growth Rate of Real GDP Per Capita in Administrative Area 1 Places of India (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/NY_GDP_PCAP"
-                    ],
-                    "title": "Annual Growth Rate of Real GDP Per Capita in Administrative Area 1 Places of India (${date})",
-                    "type": "MAP"
+                    "title": "Employed Population 15 to 24 Years Old Below International Poverty Line, by Sex (%) in India",
+                    "type": "LINE"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: united nations, department of economic and social affairs, statistics division (AMA).",
-            "title": "Annual Growth Rate of Real GDP Per Capita in Administrative Area 1 Places of India"
+            "title": "Employed Population 15 to 24 Years Old Below International Poverty Line, by Sex (%)"
           },
           {
             "columns": [
@@ -330,28 +316,35 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/NY_GDP_PCAP"
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15",
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F",
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
                     ],
-                    "title": "Annual Growth Rate of Real GDP Per Capita in India",
+                    "title": "Employed Population 15 Years Old and Over Below International Poverty Line, by Sex (%) in India",
                     "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Annual Growth Rate of Real GDP Per Capita in India",
-                    "statVarKey": [
-                      "sdg/NY_GDP_PCAP"
-                    ],
-                    "title": "Annual Growth Rate of Real GDP Per Capita in India",
-                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: united nations, department of economic and social affairs, statistics division (AMA).",
-            "title": "Annual Growth Rate of Real GDP Per Capita"
+            "title": "Employed Population 15 Years Old and Over Below International Poverty Line, by Sex (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y_GE25",
+                      "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F",
+                      "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M"
+                    ],
+                    "title": "Employed Population 25 Years Old and Over Below International Poverty Line, by Sex (%) in India",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Employed Population 25 Years Old and Over Below International Poverty Line, by Sex (%)"
           },
           {
             "columns": [
@@ -380,35 +373,6 @@
               }
             ],
             "title": "Nominal GDP Per Capita"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
-                    ],
-                    "title": "Employed Population Aged 15 or Over Below International Poverty Line in India",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Employed Population Aged 15 or Over Below International Poverty Line in India",
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
-                    ],
-                    "title": "Employed Population Aged 15 or Over Below International Poverty Line in India",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: source = ILO modelled estimates, nov.2022.",
-            "title": "Employed Population Aged 15 or Over Below International Poverty Line"
           },
           {
             "columns": [
@@ -464,10 +428,6 @@
             "name": "Urban residents, Below Poverty Line",
             "statVar": "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
           },
-          "sdg/NY_GDP_PCAP": {
-            "name": "Annual growth rate of real GDP per capita",
-            "statVar": "sdg/NY_GDP_PCAP"
-          },
           "sdg/SI_POV_DAY1": {
             "name": "Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1"
@@ -500,9 +460,41 @@
             "name": "Urban Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1.URBANISATION--U"
           },
+          "sdg/SI_POV_EMP1.AGE--Y15T24": {
+            "name": "Employed Population Age 15 to 24 Below International Poverty Line",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y15T24"
+          },
+          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F": {
+            "name": "Employed Women Age 15 to 24 Below International Poverty Line",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F"
+          },
+          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M": {
+            "name": "Employed Men Age 14 to 24 Below International Poverty Line",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M"
+          },
           "sdg/SI_POV_EMP1.AGE--Y_GE15": {
             "name": "Employed Population Aged 15 or Over Below International Poverty Line",
             "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15"
+          },
+          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F": {
+            "name": "Employed Women Aged 15 or Over Below International Poverty Line",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F"
+          },
+          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M": {
+            "name": "Employed Men Aged 15 or Over Below International Poverty Line",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
+          },
+          "sdg/SI_POV_EMP1.AGE--Y_GE25": {
+            "name": "Employed Population Aged 25 or Over Below International Poverty Line",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE25"
+          },
+          "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F": {
+            "name": "Employed Women Aged 25 or Over Below International Poverty Line",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F"
+          },
+          "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M": {
+            "name": "Employed Men Aged 25 or Over Below International Poverty Line",
+            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M"
           }
         }
       }
@@ -856,10 +848,22 @@
           "sdg/SI_POV_DAY1.URBANISATION--U"
         ]
       },
+      "sdg/SI_POV_EMP1.AGE--Y15T24": {
+        "sdg_sex": [
+          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F",
+          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M"
+        ]
+      },
       "sdg/SI_POV_EMP1.AGE--Y_GE15": {
         "sdg_sex": [
           "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F",
           "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
+        ]
+      },
+      "sdg/SI_POV_EMP1.AGE--Y_GE25": {
+        "sdg_sex": [
+          "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F",
+          "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M"
         ]
       }
     },

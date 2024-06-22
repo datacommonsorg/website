@@ -20,13 +20,31 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 
-import { ANSWER_COL, QA_SHEET } from "./constants";
+import {
+  ANSWER_COL,
+  DC_CALL_SHEET,
+  DC_QUESTION_COL,
+  DC_RESPONSE_COL,
+  QA_SHEET,
+} from "./constants";
 import { AppContext, SessionContext } from "./context";
+import { EvalType, FeedbackStage } from "./types";
 import { processText } from "./util";
 
+function getFormattedRagCallAnswer(
+  dcQuestion: string,
+  dcStat: string,
+  tableId: string
+): string {
+  const formattedQuestion = `<span class="dc-question">**${dcQuestion}**</span>`;
+  const formattedStat = `<span class="dc-stat">${dcStat} \xb7 Table ${tableId}</span>`;
+  return `<span class="annotation annotation-rag annotation-${tableId}">${formattedQuestion}<br/>${formattedStat}</span>`;
+}
+
 export function QuerySection(): JSX.Element {
-  const { allQuery, doc } = useContext(AppContext);
-  const { sessionQueryId, sessionCallId } = useContext(SessionContext);
+  const { allCall, allQuery, doc, evalType } = useContext(AppContext);
+  const { sessionQueryId, sessionCallId, feedbackStage } =
+    useContext(SessionContext);
 
   const [answer, setAnswer] = useState<string>("");
   const prevHighlightedRef = useRef<HTMLSpanElement | null>(null);
@@ -41,10 +59,42 @@ export function QuerySection(): JSX.Element {
     });
   };
 
+  const loadRagCalls = () => {
+    if (!allCall[sessionQueryId]) {
+      setAnswer("");
+      return;
+    }
+    const sheet = doc.sheetsByTitle[DC_CALL_SHEET];
+    const tableIds = Object.keys(allCall[sessionQueryId]).sort(
+      (a, b) => Number(a) - Number(b)
+    );
+    const rowPromises = tableIds.map((tableId) => {
+      const rowIdx = allCall[sessionQueryId][tableId];
+      return sheet.getRows({ offset: rowIdx - 1, limit: 1 });
+    });
+    Promise.all(rowPromises).then((rowsList) => {
+      const answers = [];
+      rowsList.forEach((rows, i) => {
+        const row = rows[0];
+        const dcQuestion = row.get(DC_QUESTION_COL);
+        const dcStat = row.get(DC_RESPONSE_COL);
+        answers.push(
+          getFormattedRagCallAnswer(dcQuestion, dcStat, tableIds[i])
+        );
+      });
+      setAnswer(answers.join("\n\n"));
+    });
+  };
+
   useEffect(() => {
     // Remove highlight from previous annotation
     if (prevHighlightedRef.current) {
       prevHighlightedRef.current.classList.remove("highlight");
+    }
+
+    // Only highlight calls in call stage
+    if (feedbackStage !== FeedbackStage.CALLS) {
+      return;
     }
 
     // Highlight the new annotation. Note the display index is 1 based.
@@ -58,14 +108,29 @@ export function QuerySection(): JSX.Element {
   }, [answer, sessionCallId]);
 
   useEffect(() => {
-    loadAnswer(doc, allQuery[sessionQueryId].row);
-  }, [doc, allQuery, sessionQueryId]);
+    if (evalType === EvalType.RIG) {
+      loadAnswer(doc, allQuery[sessionQueryId].row);
+    } else {
+      // RAG eval type has different things that should be shown in this section
+      // depending on the feedback stage
+      if (feedbackStage === FeedbackStage.CALLS) {
+        loadRagCalls();
+      } else {
+        loadAnswer(doc, allQuery[sessionQueryId].row);
+      }
+    }
+  }, [doc, allQuery, sessionQueryId, evalType, feedbackStage]);
+
+  const answerHeading =
+    feedbackStage === FeedbackStage.CALLS && evalType === EvalType.RAG
+      ? "Questions to Data Commons"
+      : "Answer";
 
   return (
     <div id="query-section">
       <h3>Query {sessionQueryId}</h3>
       <p>{allQuery[sessionQueryId].text}</p>
-      <h3>Answer</h3>
+      <h3>{answerHeading}</h3>
       <ReactMarkdown
         rehypePlugins={[rehypeRaw as any]}
         remarkPlugins={[remarkGfm]}

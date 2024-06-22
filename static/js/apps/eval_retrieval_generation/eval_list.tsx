@@ -19,14 +19,22 @@
 import React, { useContext, useState } from "react";
 import { Button, Input, Modal } from "reactstrap";
 
-import { QUERY_FEEDBACK_CALL_ID } from "./constants";
+import {
+  NEW_QUERY_CALL_ID,
+  QUERY_FALSE_CLAIMS_FEEDBACK_KEY,
+  QUERY_OVERALL_FEEDBACK_KEY,
+  QUERY_TOTAL_CLAIMS_FEEDBACK_KEY,
+} from "./constants";
 import { AppContext, SessionContext } from "./context";
-import { getCallCount, getField, getPath } from "./data_store";
-import { Query } from "./types";
+import { getAllFields, getCallCount, getPath } from "./data_store";
+import { EvalType, Query } from "./types";
+import { getFirstFeedbackStage } from "./util";
 
 export function EvalList(): JSX.Element {
-  const { allCall, allQuery, userEmail, sheetId } = useContext(AppContext);
-  const { setSessionCallId, setSessionQueryId } = useContext(SessionContext);
+  const { allCall, allQuery, userEmail, sheetId, evalType } =
+    useContext(AppContext);
+  const { setSessionCallId, setSessionQueryId, setFeedbackStage } =
+    useContext(SessionContext);
 
   const [userEvalsOnly, setUserEvalsOnly] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -41,20 +49,37 @@ export function EvalList(): JSX.Element {
   const openModal = () => {
     setModalOpen(true);
     const queryFeedbackPromises = Promise.all(
-      orderedQueries.map((query) =>
-        getField(getPath(sheetId, query.id), "overall")
-      )
+      orderedQueries.map((query) => getAllFields(getPath(sheetId, query.id)))
     );
     const callCountPromises = Promise.all(
       orderedQueries.map((query) => getCallCount(sheetId, query.id))
     );
     const queryCompletionStatus = {};
     Promise.all([callCountPromises, queryFeedbackPromises])
-      .then(([callCountResults]) => {
+      .then(([callCountResults, queryFeedbackResults]) => {
         orderedQueries.forEach((query, i) => {
           // A query might not have any calls.
           const calls = allCall[query.id] || {};
-          const completed = callCountResults[i] === Object.keys(calls).length;
+          let completed = callCountResults[i] === Object.keys(calls).length;
+          // If no overall feedback value, set completed to false
+          if (!queryFeedbackResults[i][QUERY_OVERALL_FEEDBACK_KEY]) {
+            completed = false;
+          }
+          // For RAG eval type, also check that total and false claims are
+          // completed
+          if (evalType === EvalType.RAG) {
+            [
+              QUERY_TOTAL_CLAIMS_FEEDBACK_KEY,
+              QUERY_FALSE_CLAIMS_FEEDBACK_KEY,
+            ].forEach((key) => {
+              if (
+                queryFeedbackResults[i][key] !== "0" &&
+                !queryFeedbackResults[i][key]
+              ) {
+                completed = false;
+              }
+            });
+          }
           queryCompletionStatus[query.id] = completed;
         });
         setQueryCompletionStatus(queryCompletionStatus);
@@ -102,9 +127,10 @@ export function EvalList(): JSX.Element {
               <div
                 className={`eval-list-query${completed ? " completed" : ""}`}
                 onClick={() => {
-                  setModalOpen(false);
+                  setFeedbackStage(getFirstFeedbackStage(evalType));
                   setSessionQueryId(query.id);
-                  setSessionCallId(QUERY_FEEDBACK_CALL_ID);
+                  setSessionCallId(NEW_QUERY_CALL_ID);
+                  setModalOpen(false);
                 }}
                 key={query.id}
               >

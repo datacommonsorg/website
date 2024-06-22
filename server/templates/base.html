@@ -1,5 +1,5 @@
 {#-
-  Copyright 2020 Google LLC
+  Copyright 2024 Google LLC
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -72,6 +72,23 @@
   <script>
     globalThis.isCustomDC = {{ config['CUSTOM']|int }};
     globalThis.STAT_VAR_HIERARCHY_CONFIG = {{ config['STAT_VAR_HIERARCHY_CONFIG'] | tojson }};
+  </script>
+  <script>
+    // This script is to allow embedding the website as an iframe and allow the
+    // parent to request the iframe's URL. This is used by the /dev/diff tool.
+    window.addEventListener('message', function(event) {
+      // The parent should send a postMessage event.
+      // MUST verify the origin to be autopush DC
+      if (event.origin === 'https://autopush.datacommons.org') {
+        // Send the iframe's URL back to the parent
+        if (event.data === 'Request URL') {
+          event.source.postMessage(
+            { type: 'URLResponse', url: window.location.href },
+            event.origin
+          );
+        }
+      }
+    });
   </script>
 </head>
 
