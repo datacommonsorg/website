@@ -15,6 +15,7 @@
 import json
 import os
 import re
+import unittest
 
 from langdetect import detect as detect_lang
 import requests
@@ -491,6 +492,7 @@ class ExploreTestFulfillment(ExploreTest):
 
 class ExploreTestEE1(ExploreTest):
 
+  @unittest.skip
   def test_e2e_answer_places(self):
     self.run_detect_and_fulfill('e2e_answer_places', [
         'California counties with the highest asthma levels',

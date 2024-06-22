@@ -48,7 +48,7 @@ def main(_):
   # Construct a file manager
   input_dir = os.path.join(_THIS_DIR, 'data', 'curated_input',
                            index_config.source_folder)
-  output_dir = utils.make_output_path(FLAGS.gcs_root or '/tmp',
+  output_dir = utils.make_output_path(FLAGS.gcs_root,
                                       index_config.source_folder,
                                       index_config.model)
   fm = utils.FileManager(input_dir, output_dir)

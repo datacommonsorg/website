@@ -102,6 +102,8 @@ def _chunk_list(data, chunk_size):
 
 def make_output_path(output_root: str, source_folder: str,
                      model_name: str) -> str:
+  if not output_root:
+    output_root = tempfile.mkdtemp()
   now = datetime.datetime.now()
   date_string = now.strftime('%Y_%m_%d_%H_%M_%S')
   folder_name = f'{source_folder}_{model_name}_{date_string}'
