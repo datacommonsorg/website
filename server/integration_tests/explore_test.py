@@ -492,6 +492,7 @@ class ExploreTestFulfillment(ExploreTest):
 
 class ExploreTestEE1(ExploreTest):
 
+  # TODO (boxu): fix the flaky test and reenable it.
   @unittest.skip
   def test_e2e_answer_places(self):
     self.run_detect_and_fulfill('e2e_answer_places', [
