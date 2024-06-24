@@ -222,7 +222,7 @@ function generate_embeddings {
   local cwd="$PWD"
   cd $WEBSITE_DIR
   run_cmd python -m tools.nl.embeddings.build_custom_dc_embeddings \
-    --input_file_path=$NL_DIR --output_dir=$NL_DIR
+    --input_file_path=$NL_DIR/sentences.csv --output_dir=$NL_DIR
   cd "$cwd"
 }
 
