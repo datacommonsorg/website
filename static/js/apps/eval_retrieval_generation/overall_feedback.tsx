@@ -23,7 +23,10 @@ import { loadSpinner, removeSpinner } from "../../shared/util";
 import {
   QUERY_OVERALL_FEEDBACK_KEY,
   QUERY_OVERALL_OPTION_HALLUCINATION,
+  QUERY_OVERALL_OPTION_IRRELEVANT,
   QUERY_OVERALL_OPTION_OK,
+  QUERY_OVERALL_OPTION_RELEVANT,
+  QUERY_OVERALL_OPTION_SOMEWHAT_RELEVANT,
 } from "./constants";
 import { AppContext, SessionContext } from "./context";
 import { getField, getPath, saveToSheet, setField } from "./data_store";
@@ -35,8 +38,15 @@ import { EvalType } from "./types";
 
 const LOADING_CONTAINER_ID = "form-container";
 const RESPONSE_OPTIONS = {
-  [QUERY_OVERALL_OPTION_HALLUCINATION]: "Found factual inaccuracies",
-  [QUERY_OVERALL_OPTION_OK]: "No obvious factual inaccuracies",
+  [EvalType.RIG]: {
+    [QUERY_OVERALL_OPTION_HALLUCINATION]: "Found factual inaccuracies",
+    [QUERY_OVERALL_OPTION_OK]: "No obvious factual inaccuracies",
+  },
+  [EvalType.RAG]: {
+    [QUERY_OVERALL_OPTION_IRRELEVANT]: "Not at all relevant",
+    [QUERY_OVERALL_OPTION_SOMEWHAT_RELEVANT]: "Somewhat relevant",
+    [QUERY_OVERALL_OPTION_RELEVANT]: "Relevant",
+  },
 };
 
 export function OverallFeedback(): JSX.Element {
@@ -121,7 +131,7 @@ export function OverallFeedback(): JSX.Element {
               <OneQuestion
                 question="How is the overall answer?"
                 name="overall"
-                options={RESPONSE_OPTIONS}
+                options={RESPONSE_OPTIONS[evalType]}
                 handleChange={handleChange}
                 responseField={response}
                 disabled={isSubmitted}

@@ -48,6 +48,7 @@ footer {
   height: 30%;
   padding: 11px 24px;
   width: 100%;
+  border-top: solid 1px var(--gm-3-sys-light-outline-variant);
 
   .Collapsible__trigger.is-open + .Collapsible__contentOuter {
     overflow-x: visible !important;
@@ -186,7 +187,6 @@ label {
 
   #form-container {
     border-top: solid 1px var(--gm-3-sys-light-outline-variant);
-    border-bottom: solid 1px var(--gm-3-sys-light-outline-variant);
     gap: 16px;
     padding: 16px 24px;
     flex-grow: 1;
@@ -216,14 +216,15 @@ label {
     padding-top: 24px;
     display: flex;
     align-items: center;
+    border-top: solid 1px var(--gm-3-sys-light-outline-variant);
 
-    .item-num .highlight {
+    .nav-info .highlight {
       font-size: 22px;
       line-height: 28px;
       color: #5e5e5e;
     }
 
-    .item-num .regular {
+    .nav-info .regular {
       font-size: 11px;
       line-height: 16px;
       color: #757575;
