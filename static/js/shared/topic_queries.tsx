@@ -97,21 +97,18 @@ interface QueryLinkProps {
 
 function QueryLink(props: QueryLinkProps): JSX.Element {
   const { query } = props;
-  let url = "";
   const cliParam = `client=${CLIENT_TYPES.LANDING}`;
+  let url = `${window.location.origin}/${props.appName}#${cliParam}`;
   if (props.appName == "explore") {
     if (query.url) {
-      url = `/${props.appName}#${cliParam}&${query.url}`;
+      url += `&${query.url}`;
     } else {
-      url = `/${props.appName}#${cliParam}&oq=${encodeURIComponent(
-        query.title
-      )}`;
+      url += `&oq=${encodeURIComponent(query.title)}`;
     }
   } else {
     // NL
-    url = `/${props.appName}#${cliParam}&q=${encodeURIComponent(
-      query.title
-    )}&a=True`;
+    url += `&q=${encodeURIComponent(query.title)}&a=True`;
   }
+  console.log(url);
   return <a href={url}>{query.title}</a>;
 }
