@@ -15,17 +15,31 @@
 # limitations under the License.
 
 
-# Deploys the latest custom dc image to autopush.
-# The script also updates a RESTART_TIMESTAMP env var 
+# Creates a new custom DC image, tags it latest, and deploys it to autopush.
+# The script also updates a RESTART_TIMESTAMP env var
 # to easily identify the restart time of a given revision.
 
-# latest image = gcr.io/datcom-ci/datacommons-website-compose:latest
+# Usage: From root, ./scripts/build_and_deploy_custom_dc_autopush.sh
+
+# The latest image = gcr.io/datcom-ci/datacommons-website-compose:latest
 # autopush service: https://pantheon.corp.google.com/run/detail/us-central1/dc-dev/revisions?project=datcom-website-dev
 # autopush URL: https://dc-dev-kqb7thiuka-uc.a.run.app
 
 set -e
 set -x
 
+# Get the latest versions of all submodules (maybe newer than pinned versions)
+./scripts/merge_git_submodules.sh
+
+# Build a new image and push it to Container Registry, tagging it as latest
+docker build -f build/web_compose/Dockerfile \
+          --tag gcr.io/datcom-ci/datacommons-website-compose:${SHORT_SHA} \
+          --tag gcr.io/datcom-ci/datacommons-website-compose:latest \
+          .
+docker push gcr.io/datcom-ci/datacommons-website-compose:${SHORT_SHA}
+docker push gcr.io/datcom-ci/datacommons-website-compose:latest
+
+# Deploy latest image to dc-autopush Cloud Run service
 gcloud run deploy dc-autopush \
     --project datcom-website-dev \
     --image gcr.io/datcom-ci/datacommons-website-compose:latest \
