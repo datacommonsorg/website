@@ -5,7 +5,7 @@ sentence,dcid
 (a) Index of coastal eutrophication,dc/topic/sdg_14.1.1
 (a) Number of commercial bank branches per 100K adults and (b) number of automated teller machines (ATMs) per 100K adults,dc/topic/sdg_8.10.1
 (a) Number of countries that have established national targets in accordance with or similar to Aichi Biodiversity Target 2 of the Strategic Plan for Biodiversity 2011–2020 in their national biodiversity strategy and action plans and the progress reported towards these targets,dc/topic/sdg_15.9.1
-(a) Official development assistance on conservation and sustainable use of biodiversity,dc/topic/sdg_15.a.1
+(a) Official development assistance on conservation and sustainable use of biodiversity,dc/topic/sdg_15.a.1;dc/topic/sdg_15.b.1
 "(a) Proportion of total agricultural population with ownership or secure rights over agricultural land, by sex",dc/topic/sdg_5.a.1
 "(a) damage to critical infrastructure and (b) number of disruptions to basic services, attributed to disasters",dc/topic/sdg_11.5.3
 "(a) how many countries have set national targets in line with or similar to aichi biodiversity target 2 of the strategic plan for biodiversity 2011–2020 in their national biodiversity strategy and action plans, and what progress has been reported towards these targets?",dc/topic/sdg_15.9.1
@@ -18,7 +18,7 @@ sentence,dcid
 "(a) what percentage of the agricultural population in the united states owns or has secure rights to agricultural land, by sex?",dc/topic/sdg_5.a.1
 (b) amount of plastic debris in the coastal environment,dc/topic/sdg_14.1.1
 (b) at the end of primary,dc/topic/sdg_4.1.1
-(b) curricula,dc/topic/sdg_4.7.1
+(b) curricula,dc/topic/sdg_12.8.1;dc/topic/sdg_13.3.1;dc/topic/sdg_4.7.1
 (b) ensure balanced territorial development,dc/topic/sdg_11.a.1
 "(b) how many countries have integrated biodiversity into their national accounting and reporting systems, defined as implementation of the system of environmental-economic accounting?",dc/topic/sdg_15.9.1
 "(b) the number of atms per 100,000 adults in the united states",dc/topic/sdg_8.10.1
@@ -28,7 +28,7 @@ sentence,dcid
 (b) the public service,dc/topic/sdg_16.7.1
 "(b) what percentage of women in the united states are owners or rights-bearers of agricultural land, by type of tenure?",dc/topic/sdg_5.a.1
 (c) concentration of plastic debris in the coastal environment,dc/topic/sdg_14.1.1
-(c) teacher education,dc/topic/sdg_4.7.1
+(c) teacher education,dc/topic/sdg_12.8.1;dc/topic/sdg_13.3.1;dc/topic/sdg_4.7.1
 (c) the density of commercial bank branches in the united states,dc/topic/sdg_8.10.1
 (c) the rate of food loss or waste in the united states,dc/topic/sdg_12.3.1
 (c) what proportion of the agricultural population in the united states is female and owns or has secure rights to agricultural land?,dc/topic/sdg_5.a.1
@@ -79,7 +79,7 @@ Ambient Air Pollution Attributable Deaths,dc/topic/WHOAIR41
 Ambient Air Pollution Attributable Deaths in Children Under 15 Years,dc/topic/WHOAIR72
 Ambient Air Pollution Attributable Deaths in Children Under 5 Years,dc/topic/WHOAIR4
 Ambient Air Pollution Attributable Disability-adjusted Life Years  Per 100'000 Children Under 5 Years,dc/topic/WHOAIR10
-Ambient Air Pollution Attributable Number of Disability-adjusted Life Years,dc/topic/WHOAIR7
+Ambient Air Pollution Attributable Number of Disability-adjusted Life Years,dc/topic/WHOAIR43;dc/topic/WHOAIR7
 Ambient Air Pollution Attributable Number of Disability-adjusted Life Years  in Children Under 15 Years,dc/topic/WHOAIR71
 Ambient Air Pollution Attributable Number of Disability-adjusted Life Years  in Children Under 5 Years,dc/topic/WHOAIR8
 Ambient Air Pollution Attributable Number of Disability-adjusted Life Years  per 100 000 Population,dc/topic/WHOAIR9
@@ -333,7 +333,7 @@ Digestive diseases,dc/topic/WHO_GhecausesEnum_GHE121
 Diphtheria,dc/topic/WHO_GhecausesEnum_GHE014
 Diphtheria - number of reported cases,who/WHS3_41
 Diphtheria tetanus toxoid and pertussis DTP3 immunization coverage among 1-year-olds %,who/WHS4_100
-Direct economic loss attributed to disasters in relation to global gross domestic product (GDP),dc/topic/sdg_1.5.2
+Direct economic loss attributed to disasters in relation to global gross domestic product (GDP),dc/topic/sdg_1.5.2;dc/topic/sdg_11.5.2
 Disaster loss,dc/topic/UN_SUB_THEME_72
 Disaster risk,dc/topic/UN_SUB_THEME_71
 Disasters and humanitarian action,dc/topic/UN_THEME_11
@@ -352,7 +352,7 @@ Domestic general government health expenditure GGHE-D as percentage of current h
 Domestic general government health expenditure GGHE-D as percentage of general government expenditure GGE %,who/GHED_GGHE-DGGE_SHA2011
 Domestic general government health expenditure GGHE-D as percentage of gross domestic product GDP %,who/GHED_GGHE-DGDP_SHA2011
 Domestic general government health expenditure GGHE-D per capita in US$,who/GHED_GGHE-D_pc_US_SHA2011
-"Domestic material consumption, domestic material consumption per capita, and domestic material consumption per GDP",dc/topic/sdg_8.4.2
+"Domestic material consumption, domestic material consumption per capita, and domestic material consumption per GDP",dc/topic/sdg_12.2.2;dc/topic/sdg_8.4.2
 Domestic private health expenditure PVT-D as percentage of current health expenditure CHE %,who/GHED_PVT-DCHE_SHA2011
 Domestic private health expenditure PVT-D per capita in US$,who/GHED_PVT-D_pc_US_SHA2011
 Down's syndrome,dc/topic/WHO_GhecausesEnum_GHE143
@@ -439,7 +439,7 @@ Exposure Limit for Electromagnetic Field: Specific Absorption Rate SAR W/kg,dc/t
 Exposure Limit for Electromagnetic Fields: Electric Field kV/m,dc/topic/WHOEMFLIMITELECTRIC
 Exposure to forces of nature,dc/topic/WHO_GhecausesEnum_GHE158
 Extent of use of country-owned results frameworks and planning tools by providers of development cooperation,dc/topic/sdg_17.15.1
-Extent to which (i) global citizenship education and (ii) education for sustainable development are mainstreamed in (a) national education policies,dc/topic/sdg_4.7.1
+Extent to which (i) global citizenship education and (ii) education for sustainable development are mainstreamed in (a) national education policies,dc/topic/sdg_12.8.1;dc/topic/sdg_13.3.1;dc/topic/sdg_4.7.1
 External health expenditure EXT as percentage of current health expenditure CHE %,who/GHED_EXTCHE_SHA2011
 External health expenditure EXT per capita in US$,who/GHED_EXT_pc_US_SHA2011
 "Facilitate orderly, safe, regular and responsible migration and mobility of people, including through the implementation of planned and well-managed migration policies",dc/topic/sdg_10.7
@@ -625,7 +625,7 @@ Infertility,dc/topic/WHO_GhecausesEnum_GHE131
 Infrastructure,dc/topic/UN_SUB_THEME_43
 Injuries,dc/topic/WHO_GhecausesEnum_GHE151
 "Injuries, Expressed as Percentage of Total of Years of Life Lost.",dc/topic/WHOWHS2126
-Installed renewable energy-generating capacity in developing countries (in watts per capita),dc/topic/sdg_7.b.1
+Installed renewable energy-generating capacity in developing countries (in watts per capita),dc/topic/sdg_12.a.1;dc/topic/sdg_7.b.1
 "Integrate climate change measures into national policies, strategies and planning",dc/topic/sdg_13.2
 Intentional injuries,dc/topic/WHO_GhecausesEnum_GHE160
 International Health Regulations (IHR) capacity and health emergency preparedness,dc/topic/sdg_3.d.1
@@ -691,7 +691,7 @@ Male or Female Nurses as Percentage of All Nurses At National Level %,dc/topic/W
 Malignant neoplasms,dc/topic/WHO_GhecausesEnum_GHE061
 Manufacturing employment as a proportion of total employment,dc/topic/sdg_9.2.2
 Manufacturing value added as a proportion of GDP and per capita,dc/topic/sdg_9.2.1
-"Material footprint, material footprint per capita, and material footprint per GDP",dc/topic/sdg_8.4.1
+"Material footprint, material footprint per capita, and material footprint per GDP",dc/topic/sdg_12.2.1;dc/topic/sdg_8.4.1
 Maternal conditions,dc/topic/WHO_GhecausesEnum_GHE042
 Maternal mortality ratio,dc/topic/sdg_3.1.1
 "Mean High-density Lipoprotein HDL Cholesterol, Age-standardized Estimate",dc/topic/WHONCDCHOLMEANHDLA
@@ -790,8 +790,8 @@ Number of confirmed malaria cases,who/MALARIA_CONF_CASES
 Number of countries reporting progress in multi-stakeholder development effectiveness monitoring frameworks that support the achievement of the sustainable development goals,dc/topic/sdg_17.16.1
 "Number of countries that adopt and implement constitutional, statutory and/or policy guarantees for public access to information",dc/topic/sdg_16.10.2
 "Number of countries that adopt and implement investment promotion regimes for developing countries, including the least developed countries",dc/topic/sdg_17.5.1
-Number of countries that adopt and implement national disaster risk reduction strategies in line with the Sendai Framework for Disaster Risk Reduction 2015-2030,dc/topic/sdg_1.5.3
-"Number of countries that have adopted legislative, administrative and policy frameworks to ensure fair and equitable sharing of benefits",dc/topic/sdg_15.8
+Number of countries that adopt and implement national disaster risk reduction strategies in line with the Sendai Framework for Disaster Risk Reduction 2015-2030,dc/topic/sdg_1.5.3;dc/topic/sdg_11.b.1;dc/topic/sdg_13.1.2
+"Number of countries that have adopted legislative, administrative and policy frameworks to ensure fair and equitable sharing of benefits",dc/topic/sdg_15.6.1;dc/topic/sdg_15.8
 Number of countries that have national statistical legislation that complies with the Fundamental Principles of Official Statistics,dc/topic/sdg_17.18.2
 Number of countries that have national urban policies or regional development plans that (a) respond to population dynamics,dc/topic/sdg_11.a.1
 Number of countries using ecosystem-based approaches to managing marine areas,dc/topic/sdg_14.2.1
@@ -802,7 +802,7 @@ Number of countries with mechanisms in place to enhance policy coherence of sust
 "Number of countries with nationally determined contributions, long-term strategies, national adaptation plans and adaptation communications, as reported to the secretariat of the United Nations Framework Convention on Climate Change",dc/topic/sdg_13.2.1
 Number of deaths attributable to exposure to lead,who/LEAD_5
 Number of deaths attributable to exposure to lead per 100K population,who/LEAD_7
-"Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",dc/topic/sdg_1.5.1
+"Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",dc/topic/sdg_1.5.1;dc/topic/sdg_11.5.1;dc/topic/sdg_13.1.1
 Number of disability-adjusted life years  attributable to ambient air pollution age-standardized,who/AIR_44
 Number of geriatricians or psychogeriatricians per 100K,who/GDO_q6x1_3
 Number of imported malaria cases,who/MALARIA_IMPORTED
@@ -1043,9 +1043,9 @@ Proportion of isolates with resistance to ciprofloxacin reported to Gonococcal A
 Proportion of land that is degraded over total land area,dc/topic/sdg_15.3.1
 Proportion of local administrative units with established and operational policies and procedures for participation of local communities in water and sanitation management,dc/topic/sdg_6.b.1
 Proportion of local breeds classified as being at risk of extinction,dc/topic/sdg_2.5.2
-Proportion of local governments that adopt and implement local disaster risk reduction strategies in line with national disaster risk reduction strategies,dc/topic/sdg_1.5.4
+Proportion of local governments that adopt and implement local disaster risk reduction strategies in line with national disaster risk reduction strategies,dc/topic/sdg_1.5.4;dc/topic/sdg_11.b.2;dc/topic/sdg_13.1.3
 Proportion of medium and high-tech industry value added in total value added,dc/topic/sdg_9.b.1
-Proportion of members and voting rights of developing countries in international organizations,dc/topic/sdg_10.6.1
+Proportion of members and voting rights of developing countries in international organizations,dc/topic/sdg_10.6.1;dc/topic/sdg_16.8.1
 "Proportion of men, women and children of all ages living in poverty in all its dimensions according to national definitions",dc/topic/sdg_1.2.2
 "Proportion of municipal solid waste collected and managed in controlled facilities out of total municipal waste generated, by cities",dc/topic/sdg_11.6.1
 "Proportion of people living below 50 per cent of median income, by sex, age and persons with disabilities",dc/topic/sdg_10.2.1
@@ -1056,7 +1056,7 @@ Proportion of members and voting rights of developing countries in international
 "Proportion of population in a given age group achieving at least a fixed level of proficiency in functional (a) literacy and (b) numeracy skills, by sex",dc/topic/sdg_4.6.1
 "Proportion of population living below the national poverty line, by sex and age",dc/topic/sdg_1.2.1
 Proportion of population living in households with access to basic services,dc/topic/sdg_1.4.1
-Proportion of population reporting having personally felt discriminated against or harassed in the previous 12 months on the basis of a ground of discrimination prohibited under international human rights law,dc/topic/sdg_10.3.1
+Proportion of population reporting having personally felt discriminated against or harassed in the previous 12 months on the basis of a ground of discrimination prohibited under international human rights law,dc/topic/sdg_10.3.1;dc/topic/sdg_16.b.1
 Proportion of population satisfied with their last experience of public services,dc/topic/sdg_16.6.2
 "Proportion of population subjected to (a) physical violence, (b) psychological violence and (c) sexual violence in the previous 12 months",dc/topic/sdg_16.1.3
 Proportion of population that feel safe walking alone around the area they live after dark,dc/topic/sdg_16.1.4
@@ -1125,7 +1125,7 @@ Reported number of children living with HIV who are currently receiving antiretr
 "Reported number of children living with HIV who are currently receiving antiretroviral therapy, month and year of report",who/HIV_0000000012
 Reported number of people living with HIV who are currently receiving antiretroviral therapy,who/HIV_0000000009
 Reproductive and maternal health,dc/topic/UN_SUB_THEME_24
-"Reproductive, Maternal, Newborn And Child Health Interventions RMNCH, Combined: Composite Coverage Index %",dc/topic/WHOcci
+"Reproductive, Maternal, Newborn And Child Health Interventions RMNCH, Combined: Composite Coverage Index %",dc/topic/WHOcci;dc/topic/WHOcci2030
 Research and development expenditure as a proportion of GDP,dc/topic/sdg_9.5.1
 Researchers (in full-time equivalent) per million inhabitants,dc/topic/sdg_9.5.2
 Residential long-term care beds per 10 000 population,who/GDO_q9x2_2
@@ -1328,7 +1328,7 @@ allow each country to develop its own policies for poverty eradication and susta
 allow least developed countries to sell their goods in the us without paying taxes or having to meet certain requirements,dc/topic/sdg_17.12
 allow small-scale artisanal fishers to access marine resources and markets,dc/topic/sdg_14.b
 ambient air pollution attributable  dalys per 100'000 children under 5 years,dc/topic/WHOAIR10
-ambient air pollution attributable number of  dalys,dc/topic/WHOAIR7
+ambient air pollution attributable number of  dalys,dc/topic/WHOAIR43;dc/topic/WHOAIR7
 ambient air pollution attributable number of  dalys in children under 15 years,dc/topic/WHOAIR71
 ambient air pollution attributable number of  dalys in children under 5 years,dc/topic/WHOAIR8
 ambient air pollution attributable number of  dalys per 100 000 population,dc/topic/WHOAIR9
@@ -1341,14 +1341,14 @@ an excellent education,dc/topic/sdg_4
 "and (b) integration of biodiversity into national accounting and reporting systems, defined as implementation of the System of Environmental-Economic Accounting",dc/topic/sdg_15.9.1
 and (b) plastic debris density,dc/topic/sdg_14.1.1
 "and (b) proportion of hazardous waste treated, by type of treatment",dc/topic/sdg_12.4.2
-and (b) revenue generated and finance mobilized from biodiversity-relevant economic instruments,dc/topic/sdg_15.a.1
+and (b) revenue generated and finance mobilized from biodiversity-relevant economic instruments,dc/topic/sdg_15.a.1;dc/topic/sdg_15.b.1
 "and (b) share of women among owners or rights-bearers of agricultural land, by type of tenure",dc/topic/sdg_5.a.1
 "and (c) at the end of lower secondary achieving at least a minimum proficiency level in (i) reading and (ii) mathematics, by sex",dc/topic/sdg_4.1.1
 and (c) increase local fiscal space,dc/topic/sdg_11.a.1
 and (c) increase local fiscal space?,dc/topic/sdg_11.a.1
 "and (c) the judiciary, compared to national distributions, by sex, age, persons with disabilities and population groups",dc/topic/sdg_16.7.1
 "and (c) the judiciary, who are of different sexes, ages, have disabilities, or belong to different population groups",dc/topic/sdg_16.7.1
-and (d) student assessment,dc/topic/sdg_4.7.1
+and (d) student assessment,dc/topic/sdg_12.8.1;dc/topic/sdg_13.3.1;dc/topic/sdg_4.7.1
 annual greenhouse gas emissions,dc/topic/sdg_13.2.2
 "are there laws and regulations in place to promote, enforce, and monitor equality and non-discrimination on the basis of sex?",dc/topic/sdg_5.1.1
 "are there laws in place to promote, enforce, and monitor equality and non-discrimination on the basis of sex?",dc/topic/sdg_5.1.1
@@ -1740,7 +1740,7 @@ fossil fuel subsidies per unit of gdp,dc/topic/sdg_12.c.1
 fossil fuel subsidies per unit of gross domestic product,dc/topic/sdg_12.c.1
 "funding from developed countries to developing countries to help them invest in clean energy, including hybrid systems",dc/topic/sdg_7.a.1
 "gather a lot of money from all over and at all levels to pay for sustainable forest management and give developing countries enough motivation to do the same, including for conservation and reforestation",dc/topic/sdg_15.b
-gender equality,dc/topic/sdg_5
+gender equality,dc/topic/UN_THEME_5;dc/topic/sdg_5
 gender inequality,dc/topic/sdg_5
 "generate a lot of money from all over and at all levels to pay for sustainable forest management and give developing countries enough motivation to do the same, including for conservation and reforestation",dc/topic/sdg_15.b
 generate more financial support for developing countries from a variety of sources,dc/topic/sdg_17.3
@@ -2219,7 +2219,7 @@ percentage of total disease burden that is attributable to environmental risk fa
 "percentage of women aged 15 to 49 years with anemia, by pregnancy status",dc/topic/sdg_2.2.3
 percentage of women aged 15-49 who have their need for family planning met with modern methods,dc/topic/sdg_3.7.1
 percentage of women aged 20-24 years who were married or in a union before the age of 15 and before the age of 18 in the united states,dc/topic/sdg_5.3.1
-population trends,dc/topic/UN_THEME_7
+population trends,dc/topic/UN_THEME_10;dc/topic/UN_THEME_7
 population with internet access,dc/topic/sdg_17.8.1
 portion of cities in the us with a direct participation structure of civil society in urban planning and management that operate regularly and democratically,dc/topic/sdg_11.3.2
 potable water and hygiene,dc/topic/sdg_6
@@ -2343,7 +2343,7 @@ sdg (a) Food loss index and (b) food waste index,dc/topic/sdg_12.3.1
 sdg (a) Hazardous waste generated per capita,dc/topic/sdg_12.4.2
 sdg (a) Index of coastal eutrophication,dc/topic/sdg_14.1.1
 sdg (a) Number of countries that have established national targets in accordance with or similar to Aichi Biodiversity Target 2 of the Strategic Plan for Biodiversity 2011–2020 in their national biodiversity strategy and action plans and the progress reported towards these targets,dc/topic/sdg_15.9.1
-sdg (a) Official development assistance on conservation and sustainable use of biodiversity,dc/topic/sdg_15.a.1
+sdg (a) Official development assistance on conservation and sustainable use of biodiversity,dc/topic/sdg_15.a.1;dc/topic/sdg_15.b.1
 "sdg (a) Proportion of total agricultural population with ownership or secure rights over agricultural land, by sex",dc/topic/sdg_5.a.1
 sdg 1,dc/topic/sdg_1
 sdg 1 1,dc/topic/sdg_1.1
@@ -2455,7 +2455,7 @@ sdg 10b,dc/topic/sdg_10.b
 sdg 10b1,dc/topic/sdg_10.b.1
 sdg 10c,dc/topic/sdg_10.c
 sdg 10c1,dc/topic/sdg_10.c.1
-sdg 11,dc/topic/sdg_11
+sdg 11,dc/topic/sdg_1.1;dc/topic/sdg_11
 sdg 11 1,dc/topic/sdg_11.1
 sdg 11 1 1,dc/topic/sdg_11.1.1
 sdg 11 2,dc/topic/sdg_11.2
@@ -2506,7 +2506,7 @@ sdg 11.b,dc/topic/sdg_11.b
 sdg 11.b.1,dc/topic/sdg_11.b.1
 sdg 11.b.2,dc/topic/sdg_11.b.2
 sdg 11.c,dc/topic/sdg_11.c
-sdg 111,dc/topic/sdg_11.1
+sdg 111,dc/topic/sdg_1.1.1;dc/topic/sdg_11.1
 sdg 1111,dc/topic/sdg_11.1.1
 sdg 112,dc/topic/sdg_11.2
 sdg 1121,dc/topic/sdg_11.2.1
@@ -2531,7 +2531,7 @@ sdg 11b,dc/topic/sdg_11.b
 sdg 11b1,dc/topic/sdg_11.b.1
 sdg 11b2,dc/topic/sdg_11.b.2
 sdg 11c,dc/topic/sdg_11.c
-sdg 12,dc/topic/sdg_12
+sdg 12,dc/topic/sdg_1.2;dc/topic/sdg_12
 sdg 12 1,dc/topic/sdg_12.1
 sdg 12 1 1,dc/topic/sdg_12.1.1
 sdg 12 2,dc/topic/sdg_12.2
@@ -2580,9 +2580,9 @@ sdg 12.b,dc/topic/sdg_12.b
 sdg 12.b.1,dc/topic/sdg_12.b.1
 sdg 12.c,dc/topic/sdg_12.c
 sdg 12.c.1,dc/topic/sdg_12.c.1
-sdg 121,dc/topic/sdg_12.1
+sdg 121,dc/topic/sdg_1.2.1;dc/topic/sdg_12.1
 sdg 1211,dc/topic/sdg_12.1.1
-sdg 122,dc/topic/sdg_12.2
+sdg 122,dc/topic/sdg_1.2.2;dc/topic/sdg_12.2
 sdg 1221,dc/topic/sdg_12.2.1
 sdg 1222,dc/topic/sdg_12.2.2
 sdg 123,dc/topic/sdg_12.3
@@ -2604,7 +2604,7 @@ sdg 12b,dc/topic/sdg_12.b
 sdg 12b1,dc/topic/sdg_12.b.1
 sdg 12c,dc/topic/sdg_12.c
 sdg 12c1,dc/topic/sdg_12.c.1
-sdg 13,dc/topic/sdg_13
+sdg 13,dc/topic/sdg_1.3;dc/topic/sdg_13
 sdg 13 1,dc/topic/sdg_13.1
 sdg 13 1 1,dc/topic/sdg_13.1.1
 sdg 13 1 2,dc/topic/sdg_13.1.2
@@ -2631,7 +2631,7 @@ sdg 13.a,dc/topic/sdg_13.a
 sdg 13.a.1,dc/topic/sdg_13.a.1
 sdg 13.b,dc/topic/sdg_13.b
 sdg 13.b.1,dc/topic/sdg_13.b.1
-sdg 131,dc/topic/sdg_13.1
+sdg 131,dc/topic/sdg_1.3.1;dc/topic/sdg_13.1
 sdg 1311,dc/topic/sdg_13.1.1
 sdg 1312,dc/topic/sdg_13.1.2
 sdg 1313,dc/topic/sdg_13.1.3
@@ -2644,7 +2644,7 @@ sdg 13a,dc/topic/sdg_13.a
 sdg 13a1,dc/topic/sdg_13.a.1
 sdg 13b,dc/topic/sdg_13.b
 sdg 13b1,dc/topic/sdg_13.b.1
-sdg 14,dc/topic/sdg_14
+sdg 14,dc/topic/sdg_1.4;dc/topic/sdg_14
 sdg 14 1,dc/topic/sdg_14.1
 sdg 14 1 1,dc/topic/sdg_14.1.1
 sdg 14 2,dc/topic/sdg_14.2
@@ -2685,9 +2685,9 @@ sdg 14.b,dc/topic/sdg_14.b
 sdg 14.b.1,dc/topic/sdg_14.b.1
 sdg 14.c,dc/topic/sdg_14.c
 sdg 14.c.1,dc/topic/sdg_14.c.1
-sdg 141,dc/topic/sdg_14.1
+sdg 141,dc/topic/sdg_1.4.1;dc/topic/sdg_14.1
 sdg 1411,dc/topic/sdg_14.1.1
-sdg 142,dc/topic/sdg_14.2
+sdg 142,dc/topic/sdg_1.4.2;dc/topic/sdg_14.2
 sdg 1421,dc/topic/sdg_14.2.1
 sdg 143,dc/topic/sdg_14.3
 sdg 1431,dc/topic/sdg_14.3.1
@@ -2705,7 +2705,7 @@ sdg 14b,dc/topic/sdg_14.b
 sdg 14b1,dc/topic/sdg_14.b.1
 sdg 14c,dc/topic/sdg_14.c
 sdg 14c1,dc/topic/sdg_14.c.1
-sdg 15,dc/topic/sdg_15
+sdg 15,dc/topic/sdg_1.5;dc/topic/sdg_15
 sdg 15 1,dc/topic/sdg_15.1
 sdg 15 1 1,dc/topic/sdg_15.1.1
 sdg 15 1 2,dc/topic/sdg_15.1.2
@@ -2750,14 +2750,14 @@ sdg 15.a,dc/topic/sdg_15.a
 sdg 15.a.1,dc/topic/sdg_15.a.1
 sdg 15.b,dc/topic/sdg_15.b
 sdg 15.b.1,dc/topic/sdg_15.b.1
-sdg 151,dc/topic/sdg_15.1
+sdg 151,dc/topic/sdg_1.5.1;dc/topic/sdg_15.1
 sdg 1511,dc/topic/sdg_15.1.1
 sdg 1512,dc/topic/sdg_15.1.2
-sdg 152,dc/topic/sdg_15.2
+sdg 152,dc/topic/sdg_1.5.2;dc/topic/sdg_15.2
 sdg 1521,dc/topic/sdg_15.2.1
-sdg 153,dc/topic/sdg_15.3
+sdg 153,dc/topic/sdg_1.5.3;dc/topic/sdg_15.3
 sdg 1531,dc/topic/sdg_15.3.1
-sdg 154,dc/topic/sdg_15.4
+sdg 154,dc/topic/sdg_1.5.4;dc/topic/sdg_15.4
 sdg 1541,dc/topic/sdg_15.4.1
 sdg 1542,dc/topic/sdg_15.4.2
 sdg 155,dc/topic/sdg_15.5
@@ -2969,8 +2969,8 @@ sdg 17.9.1,dc/topic/sdg_17.9.1
 sdg 171,dc/topic/sdg_17.1
 sdg 1710,dc/topic/sdg_17.10
 sdg 17101,dc/topic/sdg_17.10.1
-sdg 1711,dc/topic/sdg_17.11
-sdg 1712,dc/topic/sdg_17.12
+sdg 1711,dc/topic/sdg_17.1.1;dc/topic/sdg_17.11
+sdg 1712,dc/topic/sdg_17.1.2;dc/topic/sdg_17.12
 sdg 17121,dc/topic/sdg_17.12.1
 sdg 1713,dc/topic/sdg_17.13
 sdg 17131,dc/topic/sdg_17.13.1
@@ -3426,7 +3426,7 @@ sdg 7b1,dc/topic/sdg_7.b.1
 sdg 8,dc/topic/sdg_8
 sdg 8 1,dc/topic/sdg_8.1
 sdg 8 1 1,dc/topic/sdg_8.1.1
-sdg 8 10,dc/topic/sdg_8.10
+sdg 8 10,dc/topic/sdg_8.10;dc/topic/sdg_8.10.1
 sdg 8 10 2,dc/topic/sdg_8.10.2
 sdg 8 2,dc/topic/sdg_8.2
 sdg 8 2 1,dc/topic/sdg_8.2.1
@@ -3453,7 +3453,7 @@ sdg 8 b,dc/topic/sdg_8.b
 sdg 8 b 1,dc/topic/sdg_8.b.1
 sdg 8.1,dc/topic/sdg_8.1
 sdg 8.1.1,dc/topic/sdg_8.1.1
-sdg 8.10,dc/topic/sdg_8.10
+sdg 8.10,dc/topic/sdg_8.10;dc/topic/sdg_8.10.1
 sdg 8.10.2,dc/topic/sdg_8.10.2
 sdg 8.2,dc/topic/sdg_8.2
 sdg 8.2.1,dc/topic/sdg_8.2.1
@@ -3479,7 +3479,7 @@ sdg 8.a.1,dc/topic/sdg_8.a.1
 sdg 8.b,dc/topic/sdg_8.b
 sdg 8.b.1,dc/topic/sdg_8.b.1
 sdg 81,dc/topic/sdg_8.1
-sdg 810,dc/topic/sdg_8.10
+sdg 810,dc/topic/sdg_8.10;dc/topic/sdg_8.10.1
 sdg 8102,dc/topic/sdg_8.10.2
 sdg 811,dc/topic/sdg_8.1.1
 sdg 82,dc/topic/sdg_8.2
@@ -3687,10 +3687,10 @@ sdg Develop and implement tools to monitor sustainable development impacts for s
 "sdg Develop effective, accountable and transparent institutions at all levels",dc/topic/sdg_16.6
 "sdg Develop quality, reliable, sustainable and resilient infrastructure, including regional and trans-border infrastructure, to support economic development and human well-being, with a focus on affordable and equitable access for all",dc/topic/sdg_9.1
 "sdg Developed countries to implement fully their official development assistance commitments, including the commitment by many developed countries to achieve the target of 0.7 per cent of gross national income for official development assistance (ODA/GNI) to developing countries and 0.15 to 0.20 per cent of ODA/GNI to least developed countries",dc/topic/sdg_17.2
-sdg Direct economic loss attributed to disasters in relation to global gross domestic product (GDP),dc/topic/sdg_1.5.2
+sdg Direct economic loss attributed to disasters in relation to global gross domestic product (GDP),dc/topic/sdg_1.5.2;dc/topic/sdg_11.5.2
 sdg Dollar value of all resources made available to strengthen statistical capacity in developing countries,dc/topic/sdg_17.19.1
 "sdg Dollar value of financial and technical assistance (including through North-South, South-South and triangular cooperation) committed to developing countries",dc/topic/sdg_17.9.1
-"sdg Domestic material consumption, domestic material consumption per capita, and domestic material consumption per GDP",dc/topic/sdg_8.4.2
+"sdg Domestic material consumption, domestic material consumption per capita, and domestic material consumption per GDP",dc/topic/sdg_12.2.2;dc/topic/sdg_8.4.2
 "sdg Eliminate all forms of violence against all women and girls in the public and private spheres, including trafficking and sexual and other types of exploitation",dc/topic/sdg_5.2
 "sdg Eliminate all harmful practices, such as child, early and forced marriage and female genital mutilation",dc/topic/sdg_5.3
 "sdg Encourage and promote effective public, public-private and civil society partnerships, building on the experience and resourcing strategies of partnerships",dc/topic/sdg_17.17
@@ -3717,7 +3717,7 @@ sdg Ensure universal access to sexual and reproductive health and reproductive r
 "sdg Existence of a developed and operationalized national strategy for youth employment, as a distinct strategy or as part of a national employment strategy",dc/topic/sdg_8.b.1
 sdg Existence of independent national human rights institutions in compliance with the Paris Principles,dc/topic/sdg_16.a.1
 sdg Extent of use of country-owned results frameworks and planning tools by providers of development cooperation,dc/topic/sdg_17.15.1
-sdg Extent to which (i) global citizenship education and (ii) education for sustainable development are mainstreamed in (a) national education policies,dc/topic/sdg_4.7.1
+sdg Extent to which (i) global citizenship education and (ii) education for sustainable development are mainstreamed in (a) national education policies,dc/topic/sdg_12.8.1;dc/topic/sdg_13.3.1;dc/topic/sdg_4.7.1
 "sdg Facilitate orderly, safe, regular and responsible migration and mobility of people, including through the implementation of planned and well-managed migration policies",dc/topic/sdg_10.7
 "sdg Facilitate sustainable and resilient infrastructure development in developing countries through enhanced financial, technological and technical support to African countries, least developed countries, landlocked developing countries and small island developing States",dc/topic/sdg_9.a
 "sdg Fatal and non-fatal occupational injuries per 100K workers, by sex and migrant status",dc/topic/sdg_8.8.1
@@ -3744,7 +3744,7 @@ sdg Improve the regulation and monitoring of global financial markets and instit
 "sdg Increase the access of small-scale industrial and other enterprises, in particular in developing countries, to financial services, including affordable credit, and their integration into value chains and markets",dc/topic/sdg_9.3
 sdg Indicator of food price anomalies,dc/topic/sdg_2.c.1
 "sdg Industry, Innovation and Infrastructure",dc/topic/sdg_9
-sdg Installed renewable energy-generating capacity in developing countries (in watts per capita),dc/topic/sdg_7.b.1
+sdg Installed renewable energy-generating capacity in developing countries (in watts per capita),dc/topic/sdg_12.a.1;dc/topic/sdg_7.b.1
 "sdg Integrate climate change measures into national policies, strategies and planning",dc/topic/sdg_13.2
 sdg International Health Regulations (IHR) capacity and health emergency preparedness,dc/topic/sdg_3.d.1
 "sdg International financial flows to developing countries in support of clean energy research and development and renewable energy production, including in hybrid systems",dc/topic/sdg_7.a.1
@@ -3757,7 +3757,7 @@ sdg Macroeconomic Dashboard,dc/topic/sdg_17.13.1
 "sdg Malaria incidence per 1,000 population",dc/topic/sdg_3.3.3
 sdg Manufacturing employment as a proportion of total employment,dc/topic/sdg_9.2.2
 sdg Manufacturing value added as a proportion of GDP and per capita,dc/topic/sdg_9.2.1
-"sdg Material footprint, material footprint per capita, and material footprint per GDP",dc/topic/sdg_8.4.1
+"sdg Material footprint, material footprint per capita, and material footprint per GDP",dc/topic/sdg_12.2.1;dc/topic/sdg_8.4.1
 sdg Maternal mortality ratio,dc/topic/sdg_3.1.1
 "sdg Minimize and address the impacts of ocean acidification, including through enhanced scientific cooperation at all levels",dc/topic/sdg_14.3
 sdg Mobilize additional financial resources for developing countries from multiple sources,dc/topic/sdg_17.3
@@ -3779,7 +3779,7 @@ sdg Number of companies publishing sustainability reports,dc/topic/sdg_12.6.1
 sdg Number of countries reporting progress in multi-stakeholder development effectiveness monitoring frameworks that support the achievement of the sustainable development goals,dc/topic/sdg_17.16.1
 "sdg Number of countries that adopt and implement constitutional, statutory and/or policy guarantees for public access to information",dc/topic/sdg_16.10.2
 "sdg Number of countries that adopt and implement investment promotion regimes for developing countries, including the least developed countries",dc/topic/sdg_17.5.1
-sdg Number of countries that adopt and implement national disaster risk reduction strategies in line with the Sendai Framework for Disaster Risk Reduction 2015-2030,dc/topic/sdg_1.5.3
+sdg Number of countries that adopt and implement national disaster risk reduction strategies in line with the Sendai Framework for Disaster Risk Reduction 2015-2030,dc/topic/sdg_1.5.3;dc/topic/sdg_11.b.1;dc/topic/sdg_13.1.2
 "sdg Number of countries that have adopted legislative, administrative and policy frameworks to ensure fair and equitable sharing of benefits",dc/topic/sdg_15.6.1
 sdg Number of countries that have national statistical legislation that complies with the Fundamental Principles of Official Statistics,dc/topic/sdg_17.18.2
 sdg Number of countries that have national urban policies or regional development plans that (a) respond to population dynamics,dc/topic/sdg_11.a.1
@@ -3789,7 +3789,7 @@ sdg Number of countries using ecosystem-based approaches to managing marine area
 sdg Number of countries with mechanisms in place to enhance policy coherence of sustainable development,dc/topic/sdg_17.14.1
 "sdg Number of countries with migration policies that facilitate orderly, safe, regular and responsible migration and mobility of people",dc/topic/sdg_10.7.2
 "sdg Number of countries with nationally determined contributions, long-term strategies, national adaptation plans and adaptation communications, as reported to the secretariat of the United Nations Framework Convention on Climate Change",dc/topic/sdg_13.2.1
-"sdg Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",dc/topic/sdg_1.5.1
+"sdg Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",dc/topic/sdg_1.5.1;dc/topic/sdg_11.5.1;dc/topic/sdg_13.1.1
 "sdg Number of least developed countries and small island developing States with nationally determined contributions, long-term strategies, national adaptation plans and adaptation communications, as reported to the secretariat of the United Nations Framework Convention on Climate Change",dc/topic/sdg_13.b.1
 "sdg Number of new HIV infections per 1,000 uninfected population, by sex, age and key populations",dc/topic/sdg_3.3.1
 "sdg Number of parties to international multilateral environmental agreements on hazardous waste, and other chemicals that meet their commitments and obligations in transmitting information as required by each relevant agreement",dc/topic/sdg_12.4.1
@@ -3848,9 +3848,9 @@ sdg Proportion of individuals using the Internet,dc/topic/sdg_17.8.1
 sdg Proportion of land that is degraded over total land area,dc/topic/sdg_15.3.1
 sdg Proportion of local administrative units with established and operational policies and procedures for participation of local communities in water and sanitation management,dc/topic/sdg_6.b.1
 sdg Proportion of local breeds classified as being at risk of extinction,dc/topic/sdg_2.5.2
-sdg Proportion of local governments that adopt and implement local disaster risk reduction strategies in line with national disaster risk reduction strategies,dc/topic/sdg_1.5.4
+sdg Proportion of local governments that adopt and implement local disaster risk reduction strategies in line with national disaster risk reduction strategies,dc/topic/sdg_1.5.4;dc/topic/sdg_11.b.2;dc/topic/sdg_13.1.3
 sdg Proportion of medium and high-tech industry value added in total value added,dc/topic/sdg_9.b.1
-sdg Proportion of members and voting rights of developing countries in international organizations,dc/topic/sdg_10.6.1
+sdg Proportion of members and voting rights of developing countries in international organizations,dc/topic/sdg_10.6.1;dc/topic/sdg_16.8.1
 "sdg Proportion of men, women and children of all ages living in poverty in all its dimensions according to national definitions",dc/topic/sdg_1.2.2
 "sdg Proportion of municipal solid waste collected and managed in controlled facilities out of total municipal waste generated, by cities",dc/topic/sdg_11.6.1
 "sdg Proportion of people living below 50 per cent of median income, by sex, age and persons with disabilities",dc/topic/sdg_10.2.1
@@ -3861,7 +3861,7 @@ sdg Proportion of members and voting rights of developing countries in internati
 "sdg Proportion of population in a given age group achieving at least a fixed level of proficiency in functional (a) literacy and (b) numeracy skills, by sex",dc/topic/sdg_4.6.1
 "sdg Proportion of population living below the national poverty line, by sex and age",dc/topic/sdg_1.2.1
 sdg Proportion of population living in households with access to basic services,dc/topic/sdg_1.4.1
-sdg Proportion of population reporting having personally felt discriminated against or harassed in the previous 12 months on the basis of a ground of discrimination prohibited under international human rights law,dc/topic/sdg_10.3.1
+sdg Proportion of population reporting having personally felt discriminated against or harassed in the previous 12 months on the basis of a ground of discrimination prohibited under international human rights law,dc/topic/sdg_10.3.1;dc/topic/sdg_16.b.1
 sdg Proportion of population satisfied with their last experience of public services,dc/topic/sdg_16.6.2
 "sdg Proportion of population subjected to (a) physical violence, (b) psychological violence and (c) sexual violence in the previous 12 months",dc/topic/sdg_16.1.3
 sdg Proportion of population that feel safe walking alone around the area they live after dark,dc/topic/sdg_16.1.4
@@ -3926,7 +3926,7 @@ sdg Strengthen efforts to protect and safeguard the world's cultural and natural
 "sdg Strengthen relevant national institutions, including through international cooperation, for building capacity at all levels, in particular in developing countries, to prevent violence and combat terrorism and crime",dc/topic/sdg_16.a
 sdg Strengthen resilience and adaptive capacity to climate-related hazards and natural disasters in all countries,dc/topic/sdg_13.1
 "sdg Strengthen the capacity of all countries, in particular developing countries, for early warning, risk reduction and management of national and global health risks",dc/topic/sdg_3.d
-"sdg Strengthen the capacity of domestic financial institutions to encourage and expand access to banking, insurance and financial services for all",dc/topic/sdg_8.10
+"sdg Strengthen the capacity of domestic financial institutions to encourage and expand access to banking, insurance and financial services for all",dc/topic/sdg_8.10;dc/topic/sdg_8.10.1
 "sdg Strengthen the implementation of the World Health Organization Framework Convention on Tobacco Control in all countries, as appropriate",dc/topic/sdg_3.a
 "sdg Strengthen the prevention and treatment of substance abuse, including narcotic drug abuse and harmful use of alcohol",dc/topic/sdg_3.5
 "sdg Substantially increase health financing and the recruitment, development, training and retention of the health workforce in developing countries, especially in least developed countries and small island developing States",dc/topic/sdg_3.c
@@ -3994,8 +3994,8 @@ sdg10b,dc/topic/sdg_10.b
 sdg10b1,dc/topic/sdg_10.b.1
 sdg10c,dc/topic/sdg_10.c
 sdg10c1,dc/topic/sdg_10.c.1
-sdg11,dc/topic/sdg_11
-sdg111,dc/topic/sdg_11.1
+sdg11,dc/topic/sdg_1.1;dc/topic/sdg_11
+sdg111,dc/topic/sdg_1.1.1;dc/topic/sdg_11.1
 sdg1111,dc/topic/sdg_11.1.1
 sdg112,dc/topic/sdg_11.2
 sdg1121,dc/topic/sdg_11.2.1
@@ -4020,10 +4020,10 @@ sdg11b,dc/topic/sdg_11.b
 sdg11b1,dc/topic/sdg_11.b.1
 sdg11b2,dc/topic/sdg_11.b.2
 sdg11c,dc/topic/sdg_11.c
-sdg12,dc/topic/sdg_12
-sdg121,dc/topic/sdg_12.1
+sdg12,dc/topic/sdg_1.2;dc/topic/sdg_12
+sdg121,dc/topic/sdg_1.2.1;dc/topic/sdg_12.1
 sdg1211,dc/topic/sdg_12.1.1
-sdg122,dc/topic/sdg_12.2
+sdg122,dc/topic/sdg_1.2.2;dc/topic/sdg_12.2
 sdg1221,dc/topic/sdg_12.2.1
 sdg1222,dc/topic/sdg_12.2.2
 sdg123,dc/topic/sdg_12.3
@@ -4045,8 +4045,8 @@ sdg12b,dc/topic/sdg_12.b
 sdg12b1,dc/topic/sdg_12.b.1
 sdg12c,dc/topic/sdg_12.c
 sdg12c1,dc/topic/sdg_12.c.1
-sdg13,dc/topic/sdg_13
-sdg131,dc/topic/sdg_13.1
+sdg13,dc/topic/sdg_1.3;dc/topic/sdg_13
+sdg131,dc/topic/sdg_1.3.1;dc/topic/sdg_13.1
 sdg1311,dc/topic/sdg_13.1.1
 sdg1312,dc/topic/sdg_13.1.2
 sdg1313,dc/topic/sdg_13.1.3
@@ -4059,10 +4059,10 @@ sdg13a,dc/topic/sdg_13.a
 sdg13a1,dc/topic/sdg_13.a.1
 sdg13b,dc/topic/sdg_13.b
 sdg13b1,dc/topic/sdg_13.b.1
-sdg14,dc/topic/sdg_14
-sdg141,dc/topic/sdg_14.1
+sdg14,dc/topic/sdg_1.4;dc/topic/sdg_14
+sdg141,dc/topic/sdg_1.4.1;dc/topic/sdg_14.1
 sdg1411,dc/topic/sdg_14.1.1
-sdg142,dc/topic/sdg_14.2
+sdg142,dc/topic/sdg_1.4.2;dc/topic/sdg_14.2
 sdg1421,dc/topic/sdg_14.2.1
 sdg143,dc/topic/sdg_14.3
 sdg1431,dc/topic/sdg_14.3.1
@@ -4080,15 +4080,15 @@ sdg14b,dc/topic/sdg_14.b
 sdg14b1,dc/topic/sdg_14.b.1
 sdg14c,dc/topic/sdg_14.c
 sdg14c1,dc/topic/sdg_14.c.1
-sdg15,dc/topic/sdg_15
-sdg151,dc/topic/sdg_15.1
+sdg15,dc/topic/sdg_1.5;dc/topic/sdg_15
+sdg151,dc/topic/sdg_1.5.1;dc/topic/sdg_15.1
 sdg1511,dc/topic/sdg_15.1.1
 sdg1512,dc/topic/sdg_15.1.2
-sdg152,dc/topic/sdg_15.2
+sdg152,dc/topic/sdg_1.5.2;dc/topic/sdg_15.2
 sdg1521,dc/topic/sdg_15.2.1
-sdg153,dc/topic/sdg_15.3
+sdg153,dc/topic/sdg_1.5.3;dc/topic/sdg_15.3
 sdg1531,dc/topic/sdg_15.3.1
-sdg154,dc/topic/sdg_15.4
+sdg154,dc/topic/sdg_1.5.4;dc/topic/sdg_15.4
 sdg1541,dc/topic/sdg_15.4.1
 sdg1542,dc/topic/sdg_15.4.2
 sdg155,dc/topic/sdg_15.5
@@ -4144,8 +4144,8 @@ sdg17,dc/topic/sdg_17
 sdg171,dc/topic/sdg_17.1
 sdg1710,dc/topic/sdg_17.10
 sdg17101,dc/topic/sdg_17.10.1
-sdg1711,dc/topic/sdg_17.11
-sdg1712,dc/topic/sdg_17.12
+sdg1711,dc/topic/sdg_17.1.1;dc/topic/sdg_17.11
+sdg1712,dc/topic/sdg_17.1.2;dc/topic/sdg_17.12
 sdg17121,dc/topic/sdg_17.12.1
 sdg1713,dc/topic/sdg_17.13
 sdg17131,dc/topic/sdg_17.13.1
@@ -4328,7 +4328,7 @@ sdg7b,dc/topic/sdg_7.b
 sdg7b1,dc/topic/sdg_7.b.1
 sdg8,dc/topic/sdg_8
 sdg81,dc/topic/sdg_8.1
-sdg810,dc/topic/sdg_8.10
+sdg810,dc/topic/sdg_8.10;dc/topic/sdg_8.10.1
 sdg8102,dc/topic/sdg_8.10.2
 sdg811,dc/topic/sdg_8.1.1
 sdg82,dc/topic/sdg_8.2
@@ -4453,7 +4453,7 @@ sustainable development goal (a) Food loss index and (b) food waste index,dc/top
 sustainable development goal (a) Hazardous waste generated per capita,dc/topic/sdg_12.4.2
 sustainable development goal (a) Index of coastal eutrophication,dc/topic/sdg_14.1.1
 sustainable development goal (a) Number of countries that have established national targets in accordance with or similar to Aichi Biodiversity Target 2 of the Strategic Plan for Biodiversity 2011–2020 in their national biodiversity strategy and action plans and the progress reported towards these targets,dc/topic/sdg_15.9.1
-sustainable development goal (a) Official development assistance on conservation and sustainable use of biodiversity,dc/topic/sdg_15.a.1
+sustainable development goal (a) Official development assistance on conservation and sustainable use of biodiversity,dc/topic/sdg_15.a.1;dc/topic/sdg_15.b.1
 "sustainable development goal (a) Proportion of total agricultural population with ownership or secure rights over agricultural land, by sex",dc/topic/sdg_5.a.1
 "sustainable development goal Achieve higher levels of economic productivity through diversification, technological upgrading and innovation, including through a focus on high-value added and labour-intensive sectors",dc/topic/sdg_8.2
 "sustainable development goal Achieve universal health coverage, including financial risk protection, access to quality essential health-care services and access to safe, effective, quality and affordable essential medicines and vaccines for all",dc/topic/sdg_3.8
@@ -4576,10 +4576,10 @@ sustainable development goal Develop and implement tools to monitor sustainable 
 "sustainable development goal Develop effective, accountable and transparent institutions at all levels",dc/topic/sdg_16.6
 "sustainable development goal Develop quality, reliable, sustainable and resilient infrastructure, including regional and trans-border infrastructure, to support economic development and human well-being, with a focus on affordable and equitable access for all",dc/topic/sdg_9.1
 "sustainable development goal Developed countries to implement fully their official development assistance commitments, including the commitment by many developed countries to achieve the target of 0.7 per cent of gross national income for official development assistance (ODA/GNI) to developing countries and 0.15 to 0.20 per cent of ODA/GNI to least developed countries",dc/topic/sdg_17.2
-sustainable development goal Direct economic loss attributed to disasters in relation to global gross domestic product (GDP),dc/topic/sdg_1.5.2
+sustainable development goal Direct economic loss attributed to disasters in relation to global gross domestic product (GDP),dc/topic/sdg_1.5.2;dc/topic/sdg_11.5.2
 sustainable development goal Dollar value of all resources made available to strengthen statistical capacity in developing countries,dc/topic/sdg_17.19.1
 "sustainable development goal Dollar value of financial and technical assistance (including through North-South, South-South and triangular cooperation) committed to developing countries",dc/topic/sdg_17.9.1
-"sustainable development goal Domestic material consumption, domestic material consumption per capita, and domestic material consumption per GDP",dc/topic/sdg_8.4.2
+"sustainable development goal Domestic material consumption, domestic material consumption per capita, and domestic material consumption per GDP",dc/topic/sdg_12.2.2;dc/topic/sdg_8.4.2
 "sustainable development goal Eliminate all forms of violence against all women and girls in the public and private spheres, including trafficking and sexual and other types of exploitation",dc/topic/sdg_5.2
 "sustainable development goal Eliminate all harmful practices, such as child, early and forced marriage and female genital mutilation",dc/topic/sdg_5.3
 "sustainable development goal Encourage and promote effective public, public-private and civil society partnerships, building on the experience and resourcing strategies of partnerships",dc/topic/sdg_17.17
@@ -4606,7 +4606,7 @@ sustainable development goal Ensure universal access to sexual and reproductive 
 "sustainable development goal Existence of a developed and operationalized national strategy for youth employment, as a distinct strategy or as part of a national employment strategy",dc/topic/sdg_8.b.1
 sustainable development goal Existence of independent national human rights institutions in compliance with the Paris Principles,dc/topic/sdg_16.a.1
 sustainable development goal Extent of use of country-owned results frameworks and planning tools by providers of development cooperation,dc/topic/sdg_17.15.1
-sustainable development goal Extent to which (i) global citizenship education and (ii) education for sustainable development are mainstreamed in (a) national education policies,dc/topic/sdg_4.7.1
+sustainable development goal Extent to which (i) global citizenship education and (ii) education for sustainable development are mainstreamed in (a) national education policies,dc/topic/sdg_12.8.1;dc/topic/sdg_13.3.1;dc/topic/sdg_4.7.1
 "sustainable development goal Facilitate orderly, safe, regular and responsible migration and mobility of people, including through the implementation of planned and well-managed migration policies",dc/topic/sdg_10.7
 "sustainable development goal Facilitate sustainable and resilient infrastructure development in developing countries through enhanced financial, technological and technical support to African countries, least developed countries, landlocked developing countries and small island developing States",dc/topic/sdg_9.a
 "sustainable development goal Fatal and non-fatal occupational injuries per 100K workers, by sex and migrant status",dc/topic/sdg_8.8.1
@@ -4633,7 +4633,7 @@ sustainable development goal Improve the regulation and monitoring of global fin
 "sustainable development goal Increase the access of small-scale industrial and other enterprises, in particular in developing countries, to financial services, including affordable credit, and their integration into value chains and markets",dc/topic/sdg_9.3
 sustainable development goal Indicator of food price anomalies,dc/topic/sdg_2.c.1
 "sustainable development goal Industry, Innovation and Infrastructure",dc/topic/sdg_9
-sustainable development goal Installed renewable energy-generating capacity in developing countries (in watts per capita),dc/topic/sdg_7.b.1
+sustainable development goal Installed renewable energy-generating capacity in developing countries (in watts per capita),dc/topic/sdg_12.a.1;dc/topic/sdg_7.b.1
 "sustainable development goal Integrate climate change measures into national policies, strategies and planning",dc/topic/sdg_13.2
 sustainable development goal International Health Regulations (IHR) capacity and health emergency preparedness,dc/topic/sdg_3.d.1
 "sustainable development goal International financial flows to developing countries in support of clean energy research and development and renewable energy production, including in hybrid systems",dc/topic/sdg_7.a.1
@@ -4646,7 +4646,7 @@ sustainable development goal Macroeconomic Dashboard,dc/topic/sdg_17.13.1
 "sustainable development goal Malaria incidence per 1,000 population",dc/topic/sdg_3.3.3
 sustainable development goal Manufacturing employment as a proportion of total employment,dc/topic/sdg_9.2.2
 sustainable development goal Manufacturing value added as a proportion of GDP and per capita,dc/topic/sdg_9.2.1
-"sustainable development goal Material footprint, material footprint per capita, and material footprint per GDP",dc/topic/sdg_8.4.1
+"sustainable development goal Material footprint, material footprint per capita, and material footprint per GDP",dc/topic/sdg_12.2.1;dc/topic/sdg_8.4.1
 sustainable development goal Maternal mortality ratio,dc/topic/sdg_3.1.1
 "sustainable development goal Minimize and address the impacts of ocean acidification, including through enhanced scientific cooperation at all levels",dc/topic/sdg_14.3
 sustainable development goal Mobilize additional financial resources for developing countries from multiple sources,dc/topic/sdg_17.3
@@ -4668,7 +4668,7 @@ sustainable development goal Number of companies publishing sustainability repor
 sustainable development goal Number of countries reporting progress in multi-stakeholder development effectiveness monitoring frameworks that support the achievement of the sustainable development goals,dc/topic/sdg_17.16.1
 "sustainable development goal Number of countries that adopt and implement constitutional, statutory and/or policy guarantees for public access to information",dc/topic/sdg_16.10.2
 "sustainable development goal Number of countries that adopt and implement investment promotion regimes for developing countries, including the least developed countries",dc/topic/sdg_17.5.1
-sustainable development goal Number of countries that adopt and implement national disaster risk reduction strategies in line with the Sendai Framework for Disaster Risk Reduction 2015-2030,dc/topic/sdg_1.5.3
+sustainable development goal Number of countries that adopt and implement national disaster risk reduction strategies in line with the Sendai Framework for Disaster Risk Reduction 2015-2030,dc/topic/sdg_1.5.3;dc/topic/sdg_11.b.1;dc/topic/sdg_13.1.2
 "sustainable development goal Number of countries that have adopted legislative, administrative and policy frameworks to ensure fair and equitable sharing of benefits",dc/topic/sdg_15.6.1
 sustainable development goal Number of countries that have national statistical legislation that complies with the Fundamental Principles of Official Statistics,dc/topic/sdg_17.18.2
 sustainable development goal Number of countries that have national urban policies or regional development plans that (a) respond to population dynamics,dc/topic/sdg_11.a.1
@@ -4678,7 +4678,7 @@ sustainable development goal Number of countries using ecosystem-based approache
 sustainable development goal Number of countries with mechanisms in place to enhance policy coherence of sustainable development,dc/topic/sdg_17.14.1
 "sustainable development goal Number of countries with migration policies that facilitate orderly, safe, regular and responsible migration and mobility of people",dc/topic/sdg_10.7.2
 "sustainable development goal Number of countries with nationally determined contributions, long-term strategies, national adaptation plans and adaptation communications, as reported to the secretariat of the United Nations Framework Convention on Climate Change",dc/topic/sdg_13.2.1
-"sustainable development goal Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",dc/topic/sdg_1.5.1
+"sustainable development goal Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",dc/topic/sdg_1.5.1;dc/topic/sdg_11.5.1;dc/topic/sdg_13.1.1
 "sustainable development goal Number of least developed countries and small island developing States with nationally determined contributions, long-term strategies, national adaptation plans and adaptation communications, as reported to the secretariat of the United Nations Framework Convention on Climate Change",dc/topic/sdg_13.b.1
 "sustainable development goal Number of new AIDS cases per 1,000 uninfected population, by sex, age and key populations",dc/topic/sdg_3.3.1
 "sustainable development goal Number of parties to international multilateral environmental agreements on hazardous waste, and other chemicals that meet their commitments and obligations in transmitting information as required by each relevant agreement",dc/topic/sdg_12.4.1
@@ -4737,9 +4737,9 @@ sustainable development goal Proportion of individuals using the Internet,dc/top
 sustainable development goal Proportion of land that is degraded over total land area,dc/topic/sdg_15.3.1
 sustainable development goal Proportion of local administrative units with established and operational policies and procedures for participation of local communities in water and sanitation management,dc/topic/sdg_6.b.1
 sustainable development goal Proportion of local breeds classified as being at risk of extinction,dc/topic/sdg_2.5.2
-sustainable development goal Proportion of local governments that adopt and implement local disaster risk reduction strategies in line with national disaster risk reduction strategies,dc/topic/sdg_1.5.4
+sustainable development goal Proportion of local governments that adopt and implement local disaster risk reduction strategies in line with national disaster risk reduction strategies,dc/topic/sdg_1.5.4;dc/topic/sdg_11.b.2;dc/topic/sdg_13.1.3
 sustainable development goal Proportion of medium and high-tech industry value added in total value added,dc/topic/sdg_9.b.1
-sustainable development goal Proportion of members and voting rights of developing countries in international organizations,dc/topic/sdg_10.6.1
+sustainable development goal Proportion of members and voting rights of developing countries in international organizations,dc/topic/sdg_10.6.1;dc/topic/sdg_16.8.1
 "sustainable development goal Proportion of men, women and children of all ages living in poverty in all its dimensions according to national definitions",dc/topic/sdg_1.2.2
 "sustainable development goal Proportion of municipal solid waste collected and managed in controlled facilities out of total municipal waste generated, by cities",dc/topic/sdg_11.6.1
 "sustainable development goal Proportion of people living below 50 per cent of median income, by sex, age and persons with disabilities",dc/topic/sdg_10.2.1
@@ -4750,7 +4750,7 @@ sustainable development goal Proportion of members and voting rights of developi
 "sustainable development goal Proportion of population in a given age group achieving at least a fixed level of proficiency in functional (a) literacy and (b) numeracy skills, by sex",dc/topic/sdg_4.6.1
 "sustainable development goal Proportion of population living below the national poverty line, by sex and age",dc/topic/sdg_1.2.1
 sustainable development goal Proportion of population living in households with access to basic services,dc/topic/sdg_1.4.1
-sustainable development goal Proportion of population reporting having personally felt discriminated against or harassed in the previous 12 months on the basis of a ground of discrimination prohibited under international human rights law,dc/topic/sdg_10.3.1
+sustainable development goal Proportion of population reporting having personally felt discriminated against or harassed in the previous 12 months on the basis of a ground of discrimination prohibited under international human rights law,dc/topic/sdg_10.3.1;dc/topic/sdg_16.b.1
 sustainable development goal Proportion of population satisfied with their last experience of public services,dc/topic/sdg_16.6.2
 "sustainable development goal Proportion of population subjected to (a) physical violence, (b) psychological violence and (c) sexual violence in the previous 12 months",dc/topic/sdg_16.1.3
 sustainable development goal Proportion of population that feel safe walking alone around the area they live after dark,dc/topic/sdg_16.1.4
@@ -4815,7 +4815,7 @@ sustainable development goal Strengthen efforts to protect and safeguard the wor
 "sustainable development goal Strengthen relevant national institutions, including through international cooperation, for building capacity at all levels, in particular in developing countries, to prevent violence and combat terrorism and crime",dc/topic/sdg_16.a
 sustainable development goal Strengthen resilience and adaptive capacity to climate-related hazards and natural disasters in all countries,dc/topic/sdg_13.1
 "sustainable development goal Strengthen the capacity of all countries, in particular developing countries, for early warning, risk reduction and management of national and global health risks",dc/topic/sdg_3.d
-"sustainable development goal Strengthen the capacity of domestic financial institutions to encourage and expand access to banking, insurance and financial services for all",dc/topic/sdg_8.10
+"sustainable development goal Strengthen the capacity of domestic financial institutions to encourage and expand access to banking, insurance and financial services for all",dc/topic/sdg_8.10;dc/topic/sdg_8.10.1
 "sustainable development goal Strengthen the implementation of the World Health Organization Framework Convention on Tobacco Control in all countries, as appropriate",dc/topic/sdg_3.a
 "sustainable development goal Strengthen the prevention and treatment of substance abuse, including narcotic drug abuse and harmful use of alcohol",dc/topic/sdg_3.5
 "sustainable development goal Substantially increase health financing and the recruitment, development, training and retention of the health workforce in developing countries, especially in least developed countries and small island developing States",dc/topic/sdg_3.c

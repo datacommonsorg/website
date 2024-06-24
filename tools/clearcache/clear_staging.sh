@@ -13,16 +13,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-set -e
-
-cd ../../..
-python3 -m venv .env
-source .env/bin/activate
-pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu -q
-pip3 install -r tools/nl/embeddings/requirements.txt -q
-
-export TOKENIZERS_PARALLELISM=false
-python3 -m tools.nl.embeddings.build_custom_dc_embeddings "$@"
-
-deactivate
-cd tools/nl/embeddings
+SCRIPT_PATH=`dirname $0`
+$SCRIPT_PATH/run.sh datcom-website-staging website-us-central1 us-central1

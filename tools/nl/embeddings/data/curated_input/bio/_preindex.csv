@@ -7,12 +7,12 @@ An ID for a Medical Subject Heading descriptor record,medicalSubjectHeadingDescr
 An ID for a Medical Subject Heading supplementary record,medicalSubjectHeadingSupplementaryRecordID
 ChEMBL identifier,chemblID
 Disease associated with a gene,<-geneID{typeOf:DiseaseGeneAssociation}->diseaseOntologyID
-DiseaseGeneAssociation,<-diseaseOntologyID{typeOf:DiseaseGeneAssociation}->geneID
+DiseaseGeneAssociation,<-diseaseOntologyID{typeOf:DiseaseGeneAssociation}->geneID;<-geneID{typeOf:DiseaseGeneAssociation}->diseaseOntologyID
 Ensembl ID,ensemblID
 Functional category of the genetic variant,geneticVariantFunctionalCategory
 Gene associated with a disease,<-diseaseOntologyID{typeOf:DiseaseGeneAssociation}->geneID
 Gene associated with a genetic variant,<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol
-GeneticVariantGeneAssociation,<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol
+GeneticVariantGeneAssociation,<-geneSymbol{typeOf:GeneticVariantGeneAssociation}->referenceSNPClusterID;<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol
 MeSH descriptor record ID,medicalSubjectHeadingDescriptorID
 MeSH supplementary record ID,medicalSubjectHeadingSupplementaryRecordID
 NCBI Taxonomy database identifier,ncbiTaxonID

@@ -45,9 +45,10 @@ footer {
 
 .table-pane {
   overflow: auto;
-  height: 50%;
+  height: 30%;
   padding: 11px 24px;
   width: 100%;
+  border-top: solid 1px var(--gm-3-sys-light-outline-variant);
 
   .Collapsible__trigger.is-open + .Collapsible__contentOuter {
     overflow-x: visible !important;
@@ -186,7 +187,6 @@ label {
 
   #form-container {
     border-top: solid 1px var(--gm-3-sys-light-outline-variant);
-    border-bottom: solid 1px var(--gm-3-sys-light-outline-variant);
     gap: 16px;
     padding: 16px 24px;
     flex-grow: 1;
@@ -216,14 +216,15 @@ label {
     padding-top: 24px;
     display: flex;
     align-items: center;
+    border-top: solid 1px var(--gm-3-sys-light-outline-variant);
 
-    .item-num .highlight {
+    .nav-info .highlight {
       font-size: 22px;
       line-height: 28px;
       color: #5e5e5e;
     }
 
-    .item-num .regular {
+    .nav-info .regular {
       font-size: 11px;
       line-height: 16px;
       color: #757575;
@@ -333,13 +334,20 @@ label {
   font-weight: 500;
 }
 
+.annotation-rag .dc-stat,
+.annotation-rag .dc-question {
+  background-color: transparent;
+}
+
 .question-section .dc-stat,
 .highlight .dc-stat {
   background-color: lightblue;
 }
 
 .question-section .llm-stat,
-.highlight .llm-stat {
+.highlight .llm-stat,
+.question-section .dc-question,
+.highlight .dc-question {
   background-color: lightsalmon;
 }
 
@@ -387,7 +395,9 @@ label {
 }
 
 .block-evaluation {
-  text-align: center;
+  .disabled {
+    opacity: 0.5;
+  }
 
   .counter {
     justify-content: center;
@@ -398,27 +408,31 @@ label {
       display: flex;
       flex-direction: row;
       align-items: center;
-      margin-left: auto;
-      margin-right: auto;
+      font-size: 16px;
+      margin-bottom: 24px;
 
       button {
         border: none;
-        background-color: white;
-        padding: 5px 5px;
+        background-color: transparent;
         cursor: pointer;
-        font-size: 2em;
+        font-size: 48px;
+        width: 44px;
       }
 
       .count-text {
         font-size: 2em;
-        margin: 10px;
         color: white;
-        width: 40px;
+        width: 55px;
+        height: 41px;
+        border-radius: 8px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
       }
 
       .claim-text {
         margin: 0 10px;
-        font-weight: bold;
+        font-weight: 500;
       }
     }
 
@@ -426,11 +440,20 @@ label {
       .count-text {
         background-color: #007bff;
       }
+
+      button {
+        color: #007bff;
+      }
+
     }
 
     .false-claims-count {
       .count-text {
         background-color: #ff5722;
+      }
+
+      button {
+        color: #ff5722;
       }
     }
   }
