@@ -1,4 +1,5 @@
-# Copyright 2023 Google LLC
+#!/bin/bash
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,10 +13,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from server.app_env import _base
-
-
-class Config(_base.Config):
-  GA_ACCOUNT = 'G-HV2XYYS1JD'
-  USE_LLM = True
-  LOG_QUERY = True
+SCRIPT_PATH=`dirname $0`
+$SCRIPT_PATH/run.sh datcom-website-staging website-us-central1 us-central1
