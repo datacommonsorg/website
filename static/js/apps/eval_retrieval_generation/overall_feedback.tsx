@@ -21,6 +21,7 @@ import { Button } from "reactstrap";
 
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import {
+  QUERY_OVERALL_FEEDBACK_COL,
   QUERY_OVERALL_FEEDBACK_KEY,
   QUERY_OVERALL_OPTION_HALLUCINATION,
   QUERY_OVERALL_OPTION_IRRELEVANT,
@@ -29,7 +30,7 @@ import {
   QUERY_OVERALL_OPTION_SOMEWHAT_RELEVANT,
 } from "./constants";
 import { AppContext, SessionContext } from "./context";
-import { getField, getPath, saveToSheet, setField } from "./data_store";
+import { getField, getPath, saveToSheet, setFields } from "./data_store";
 import { EvalList } from "./eval_list";
 import { FeedbackNavigation } from "./feedback_navigation";
 import { OneQuestion } from "./one_question";
@@ -76,19 +77,12 @@ export function OverallFeedback(): JSX.Element {
     }
     loadSpinner(LOADING_CONTAINER_ID);
     return Promise.all([
-      setField(
-        getPath(sheetId, sessionQueryId),
-        QUERY_OVERALL_FEEDBACK_KEY,
-        response
-      ),
-      saveToSheet(
-        userEmail,
-        doc,
-        sessionQueryId,
-        sessionCallId,
-        null,
-        response
-      ),
+      setFields(getPath(sheetId, sessionQueryId), {
+        [QUERY_OVERALL_FEEDBACK_KEY]: response,
+      }),
+      saveToSheet(userEmail, doc, sessionQueryId, sessionCallId, {
+        [QUERY_OVERALL_FEEDBACK_COL]: response,
+      }),
     ])
       .then(() => {
         return true;

@@ -23,9 +23,12 @@ import { loadSpinner, removeSpinner } from "../../shared/util";
 import {
   DC_CALL_SHEET,
   DC_QUESTION_COL,
+  DC_QUESTION_FEEDBACK_COL,
   DC_RESPONSE_COL,
+  DC_RESPONSE_FEEDBACK_COL,
   DC_STAT_COL,
   LLM_STAT_COL,
+  LLM_STAT_FEEDBACK_COL,
 } from "./constants";
 import { AppContext, SessionContext } from "./context";
 import { getCallData, saveToSheet, saveToStore } from "./data_store";
@@ -121,6 +124,11 @@ export function CallFeedback(): JSX.Element {
     }
     if (status === FormStatus.Completed) {
       loadSpinner(LOADING_CONTAINER_ID);
+      const sheetValues = {
+        [DC_QUESTION_FEEDBACK_COL]: response.question,
+        [DC_RESPONSE_FEEDBACK_COL]: response.dcResponse,
+        [LLM_STAT_FEEDBACK_COL]: response.llmStat || "",
+      };
       return Promise.all([
         saveToStore(
           userEmail,
@@ -129,7 +137,7 @@ export function CallFeedback(): JSX.Element {
           sessionCallId,
           response
         ),
-        saveToSheet(userEmail, doc, sessionQueryId, sessionCallId, response),
+        saveToSheet(userEmail, doc, sessionQueryId, sessionCallId, sheetValues),
       ])
         .then(() => {
           return true;
