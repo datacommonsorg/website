@@ -143,6 +143,5 @@ def build(additional_catalog: dict = None) -> Registry:
   """
   catalog = config_reader.read_catalog(catalog_dict=additional_catalog)
   env = config_reader.read_env()
-  logging.info(env)
   server_config = config_reader.get_server_config(catalog, env)
   return Registry(server_config)
