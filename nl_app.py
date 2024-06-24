@@ -17,7 +17,7 @@ import sys
 
 import logging
 
-from nl_server.__init__ import create_app
+from nl_server.flask import create_app
 
 app = create_app()
 

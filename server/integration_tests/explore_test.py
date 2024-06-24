@@ -75,12 +75,13 @@ class ExploreTest(NLWebServerTestCase):
                              i18n_lang='',
                              mode='',
                              default_place='',
-                             idx=''):
+                             idx='',
+                             var_threshold=''):
     ctx = []
     for (index, q) in enumerate(queries):
       resp = requests.post(
           self.get_server_url() +
-          f'/api/explore/detect-and-fulfill?q={q}&test={test}&i18n={i18n}&mode={mode}&client=test_detect-and-fulfill&default_place={default_place}&idx={idx}',
+          f'/api/explore/detect-and-fulfill?q={q}&test={test}&i18n={i18n}&mode={mode}&client=test_detect-and-fulfill&default_place={default_place}&idx={idx}&varThreshold={var_threshold}',
           json={
               'contextHistory': ctx,
               'dc': dc,
@@ -259,7 +260,7 @@ class ExploreTest(NLWebServerTestCase):
     self.assertTrue(success, f"wanted: {i18n_lang}, got {detected}")
 
 
-class ExploreTestDetectionFulfillment(ExploreTest):
+class ExploreTestDetection(ExploreTest):
 
   def test_detection_basic(self):
     self.run_detection('detection_api_basic', ['Commute in California'],
@@ -290,12 +291,12 @@ class ExploreTestDetectionFulfillment(ExploreTest):
     self.run_detection('detection_api_undata_dev_idx',
                        ['Employment in the world'],
                        test='unittest',
-                       idx='undata_dev_ft')
+                       idx='undata_ft,undata_ilo_ft')
 
   def test_detection_basic_bio(self):
     self.run_detection('detection_api_bio_idx', ['Commute in California'],
                        test='unittest',
-                       idx='bio_ft')
+                       idx='bio_ft,medium_ft')
 
   def test_detection_basic_vertex(self):
     self.run_detection('detection_api_vertex_ft_idx', ['Commute in California'],
@@ -368,6 +369,9 @@ class ExploreTestDetectionFulfillment(ExploreTest):
   #       ],
   #       check_detection=True,
   #       reranker='cross-encoder-mxbai-rerank-base-v1')
+
+
+class ExploreTestFulfillment(ExploreTest):
 
   def test_fulfillment_basic(self):
     req = {
@@ -716,11 +720,20 @@ class ExploreTestEE2(ExploreTest):
             'Native born vs. Median income in Sunnyvale',
         ])
 
-  def test_e2e_toolformer_mode(self):
+  def test_e2e_toolformer_rig_mode(self):
+    self.run_detect_and_fulfill('e2e_toolformer_rig_mode', [
+        'what is the infant mortality rate in massachusetts',
+        'how many construction workers are in Orlando, Florida?'
+    ],
+                                mode='toolformer_rig')
+
+  def test_e2e_toolformer_rag_mode(self):
+    # The answer places (states) would typically be truncated to 10, but here
+    # we should all the 50+ states.
     self.run_detect_and_fulfill(
-        'e2e_toolformer_mode',
-        ['what is the infant mortality rate in massachusetts'],
-        mode='toolformer')
+        'e2e_toolformer_rag_mode',
+        ['how has life expectancy changed over time across US states?'],
+        mode='toolformer_rag')
 
   def test_e2e_triple(self):
     self.run_detect_and_fulfill(
@@ -749,6 +762,12 @@ class ExploreTestEE2(ExploreTest):
             'tell me about heart disease'
         ],
         dc='bio')
+
+  def test_e2e_high_sv_threshold(self):
+    self.run_detect_and_fulfill(
+        'e2e_high_sv_threshold',
+        ['what is the infant mortality rate in massachusetts'],
+        var_threshold='0.8')
 
 
 # Helper function to delete x.y.z path in a dict.

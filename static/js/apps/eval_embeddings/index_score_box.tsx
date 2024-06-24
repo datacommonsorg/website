@@ -190,7 +190,7 @@ export function IndexScoreBox(props: IndexScoreBoxProps): JSX.Element {
 const searchVector = async (sentence: string, indexName: string) => {
   return axios
     .get(`/api/nl/search-vector`, {
-      params: { query: sentence, index: indexName },
+      params: { query: sentence, idx: [indexName] },
       paramsSerializer: stringifyFn,
     })
     .then((resp) => {

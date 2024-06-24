@@ -19,7 +19,9 @@ from typing import Dict, List
 
 import server.lib.nl.common.counters as ctr
 from server.lib.nl.detection import query_util
+from server.lib.nl.detection.types import DetectionArgs
 import server.lib.nl.detection.utils as dutils
+from server.lib.nl.explore import params
 from server.services import datacommons as dc
 from shared.lib import constants
 import shared.lib.detected_variables as vars
@@ -45,13 +47,8 @@ _MAX_MULTIVAR_PARTS = 2
 # calls the NL Server and returns a dict with both single-SV and multi-SV
 # (if relevant) detections.  For more details see create_sv_detection().
 #
-def detect_vars(orig_query: str,
-                index_type: str,
-                counters: ctr.Counters,
-                debug_logs: Dict,
-                threshold_override: float = 0,
-                reranker: str = '',
-                skip_topics: bool = False) -> vars.VarDetectionResult:
+def detect_vars(orig_query: str, debug_logs: Dict,
+                dargs: DetectionArgs) -> vars.VarDetectionResult:
   #
   # 1. Prepare all the queries for embeddings lookup, both mono-var and multi-var.
   #
@@ -60,8 +57,11 @@ def detect_vars(orig_query: str,
   # the potential areas for improvement. For now, this removal blanket removes
   # any words in ALL_STOP_WORDS which includes contained_in places and their
   # plurals and any other query attribution/classification trigger words.
-  query_monovar = shared_utils.remove_stop_words(orig_query,
-                                                 query_util.ALL_STOP_WORDS)
+  if dargs.include_stop_words:
+    query_monovar = orig_query
+  else:
+    query_monovar = shared_utils.remove_stop_words(orig_query,
+                                                   query_util.ALL_STOP_WORDS)
   if not query_monovar.strip():
     # Empty user query!  Return empty results
     return dutils.empty_var_detection_result()
@@ -77,7 +77,9 @@ def detect_vars(orig_query: str,
   # 2. Lookup embeddings with both single-var and multi-var queries.
   #
   # Make API call to the NL models/embeddings server.
-  resp = dc.nl_search_vars(all_queries, index_type, skip_topics, reranker)
+  skip_topics = dargs.mode == params.QueryMode.TOOLFORMER_RIG
+  resp = dc.nl_search_vars(all_queries, dargs.embeddings_index_types,
+                           skip_topics, dargs.reranker)
   query2results = {
       q: vars.dict_to_var_candidates(r) for q, r in resp['queryResults'].items()
   }
@@ -88,6 +90,7 @@ def detect_vars(orig_query: str,
   # 3. Prepare result candidates.
   #
   # If caller had an overriden threshold bump, apply that.
+  threshold_override = params.sv_threshold_override(dargs)
   multi_var_threshold = dutils.compute_final_threshold(model_threshold,
                                                        threshold_override)
   result_monovar = query2results[query_monovar]

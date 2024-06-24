@@ -127,3 +127,21 @@ def maybe_download(gcs_path: str,
   if download_blob(bucket_name, blob_name, local_path, use_anonymous_client):
     return local_path
   return None
+
+
+def upload_blob_by_path(local_path: str, gcs_path: str, timeout: int = 60):
+  """Uploads the content of a local path to a GCS blob.
+
+  Args:
+    local_path: The local path to upload the blob from.
+    gcs_path: The full GCS path (i.e. gs://bucket/path/to/file/).
+  """
+  if not is_gcs_path(gcs_path):
+    raise ValueError(f"Invalid GCS path: {gcs_path}")
+  bucket_name, blob_name = get_path_parts(gcs_path)
+  if not os.path.exists(local_path):
+    raise ValueError(f"Invalid local path: {local_path}")
+  bucket = storage.Client().bucket(bucket_name)
+  blob = bucket.blob(blob_name)
+  blob.upload_from_filename(local_path, timeout=timeout)
+  logging.info("Uploaded %s to gs://%s/%s", local_path, bucket_name, blob_name)

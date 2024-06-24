@@ -19,11 +19,16 @@ import os
 import flask
 from flask import Blueprint
 from flask import current_app
+from flask import redirect
 from flask import render_template
+from flask import request
+from flask import url_for
 
 import server.services.datacommons as dc
 
 bp = Blueprint('nl', __name__, url_prefix='/nl')
+
+_TEST_SHEET_ID = '1egx7AzQ47wxxQL_7oawWnnD-oIblx1i9xGmjslabZic'
 
 
 @bp.route('/eval/embeddings')
@@ -41,6 +46,16 @@ def eval_embeddings():
 
 @bp.route('/eval/rig')
 def eval_rig():
+  return redirect(url_for('nl.eval_retrieval_generation'), code=302)
+
+
+@bp.route('/eval/retrieval_generation')
+def eval_retrieval_generation():
   if os.environ.get('FLASK_ENV') not in ['local', 'autopush']:
     flask.abort(404)
-  return render_template('/eval_rig.html')
+  sheet_id = request.args.get('sheet_id')
+  if not sheet_id:
+    return redirect(url_for('nl.eval_retrieval_generation',
+                            sheet_id=_TEST_SHEET_ID),
+                    code=302)
+  return render_template('/eval_retrieval_generation.html', sheet_id=sheet_id)

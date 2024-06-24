@@ -224,7 +224,7 @@ function getInfoContent(): JSX.Element {
 export const SCATTER_CONFIG = {
   displayName: "Scatter Plot",
   svHierarchyType: StatVarHierarchyType.SCATTER,
-  svHierarchyNumExistence: 10,
+  svHierarchyNumExistence: globalThis.minStatVarGeoCoverage,
   singlePlace: true,
   numSv: 2,
   getChartArea,

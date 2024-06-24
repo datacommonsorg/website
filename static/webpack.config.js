@@ -37,6 +37,7 @@ const config = {
       __dirname + "/css/tools/stat_var.scss",
     ],
     dev: [__dirname + "/js/dev.ts", __dirname + "/css/dev.scss"],
+    diff: [__dirname + "/js/apps/diff/main.ts", __dirname + "/css/diff.scss"],
     timeline: [
       __dirname + "/js/tools/timeline/timeline.ts",
       __dirname + "/css/tools/timeline.scss",
@@ -50,6 +51,10 @@ const config = {
     place_landing: [
       __dirname + "/js/place/place_landing.ts",
       __dirname + "/css/place/place_landing.scss",
+    ],
+    dev_place: [
+      __dirname + "/js/place/dev_place.ts",
+      __dirname + "/css/place/dev_place_page.scss",
     ],
     topic_page: [
       __dirname + "/js/apps/topic_page/main.ts",
@@ -67,9 +72,9 @@ const config = {
       __dirname + "/js/apps/eval_embeddings/main.ts",
       __dirname + "/css/eval_embeddings.scss",
     ],
-    eval_rig: [
-      __dirname + "/js/apps/eval_rig/main.ts",
-      __dirname + "/css/eval_rig.scss",
+    eval_retrieval_generation: [
+      __dirname + "/js/apps/eval_retrieval_generation/main.ts",
+      __dirname + "/css/eval_retrieval_generation.scss",
     ],
     ranking: [
       __dirname + "/js/ranking/ranking.ts",

@@ -114,7 +114,7 @@ export function axiosMock(): void {
     .calledWith("/api/variable-group/info", {
       dcid: "dc/g/Root",
       entities: [],
-      numEntitiesExistence: undefined,
+      numEntitiesExistence: 0,
     })
     .mockResolvedValue(rootGroupsData);
 
@@ -123,7 +123,7 @@ export function axiosMock(): void {
     .calledWith("/api/variable-group/info", {
       dcid: "dc/g/Root",
       entities: ["geoId/06001", "geoId/06002"],
-      numEntitiesExistence: undefined,
+      numEntitiesExistence: 1,
     })
     .mockResolvedValue(rootGroupsData);
 
@@ -131,7 +131,7 @@ export function axiosMock(): void {
     .calledWith("/api/variable-group/info", {
       dcid: "dc/g/Root",
       entities: ["geoId/06002", "geoId/06001"],
-      numEntitiesExistence: undefined,
+      numEntitiesExistence: 1,
     })
     .mockResolvedValue(rootGroupsData);
 
@@ -140,7 +140,7 @@ export function axiosMock(): void {
     .calledWith("/api/variable-group/info", {
       dcid: "dc/g/Demographics",
       entities: ["geoId/06001", "geoId/06002"],
-      numEntitiesExistence: undefined,
+      numEntitiesExistence: 1,
     })
     .mockResolvedValue(demographicsGroupsData);
 
@@ -148,7 +148,7 @@ export function axiosMock(): void {
     .calledWith("/api/variable-group/info", {
       dcid: "dc/g/Demographics",
       entities: ["geoId/06002", "geoId/06001"],
-      numEntitiesExistence: undefined,
+      numEntitiesExistence: 1,
     })
     .mockResolvedValue(demographicsGroupsData);
 

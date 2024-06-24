@@ -31,6 +31,7 @@
 <div id="main-pane"></div>
 <script>
   infoConfig = {{info_json|tojson|safe}};
+  globalThis.minStatVarGeoCoverage = {{ config['MIN_STAT_VAR_GEO_COVERAGE'] | int(1) }};
 </script>
 {% endblock %}
 

@@ -23,7 +23,7 @@ steps:
       - |
         ./run_test.sh --setup_python
 
-  - id: explore_test_detection_fulfillment
+  - id: explore_test_detection
     name: python:3.11.3
     entrypoint: /bin/sh
     waitFor:
@@ -31,7 +31,17 @@ steps:
     args:
       - -c
       - |
-        ./run_test.sh --explore -k 'ExploreTestDetectionFulfillment'
+        ./run_test.sh --explore -k 'ExploreTestDetection'
+
+  - id: explore_test_fulfillment
+    name: python:3.11.3
+    entrypoint: /bin/sh
+    waitFor:
+      - setup_python
+    args:
+      - -c
+      - |
+        ./run_test.sh --explore -k 'ExploreTestFulfillment'
 
   - id: explore_test_e2e_1
     name: python:3.11.3
@@ -53,7 +63,7 @@ steps:
       - |
         ./run_test.sh --explore -k 'ExploreTestEE2'
 
-  - id: nl_test
+  - id: nl_test_demo
     name: python:3.11.3
     entrypoint: /bin/sh
     waitFor:
@@ -61,6 +71,17 @@ steps:
     args:
       - -c
       - |
-        ./run_test.sh --nl
+        ./run_test.sh --nl -k 'NLTestDemo'
+
+  - id: nl_test_misc
+    name: python:3.11.3
+    entrypoint: /bin/sh
+    waitFor:
+      - setup_python
+    args:
+      - -c
+      - |
+        ./run_test.sh --nl -k 'NLTestMisc'
+
 options:
   machineType: "E2_HIGHCPU_32"

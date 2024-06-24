@@ -20,6 +20,7 @@ from datasets import load_dataset
 from sentence_transformers.util import semantic_search
 import torch
 
+from nl_server.cache import get_cache_root
 from nl_server.config import MemoryIndexConfig
 from nl_server.embeddings import EmbeddingsMatch
 from nl_server.embeddings import EmbeddingsResult
@@ -40,7 +41,8 @@ class MemoryEmbeddingsStore(EmbeddingsStore):
       embeddings_path = idx_info.embeddings_path
     elif is_gcs_path(idx_info.embeddings_path):
       embeddings_path = maybe_download(
-          idx_info.embeddings_path,
+          gcs_path=idx_info.embeddings_path,
+          local_path_root=get_cache_root(),
           use_anonymous_client=use_anonymous_gcs_client())
       if not embeddings_path:
         raise AssertionError(

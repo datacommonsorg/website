@@ -218,7 +218,9 @@ test("getQueryResult", async () => {
       "",
       "",
       "bard",
-      "strict"
+      "strict",
+      "",
+      false
     );
     try {
       expect(result.charts).toStrictEqual(c.expectedCharts);

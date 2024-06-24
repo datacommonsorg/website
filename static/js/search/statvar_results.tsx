@@ -25,7 +25,7 @@ import { getStatVarInfo } from "../shared/stat_var";
 import { NamedNode } from "../shared/types";
 
 const NUM_EXAMPLE_SV = 10;
-const SV_EXPLORER_REDIRECT_PREFIX = "/tools/statvar#";
+const SV_EXPLORER_REDIRECT_PREFIX = "/tools/statvar#sv=";
 const BROWSER_REDIRECT_PREFIX = "/browser/";
 
 interface StatVarResultsProps {

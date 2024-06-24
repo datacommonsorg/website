@@ -146,3 +146,8 @@ def escape_strings(data):
     # Otherwise, assume data is of a type that doesn't need escaping and just
     # return it as is.
     return data
+
+
+def is_test_env() -> bool:
+  env = os.environ.get('FLASK_ENV', '')
+  return env in ['integration_test', 'test', 'webdriver']

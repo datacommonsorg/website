@@ -18,7 +18,7 @@
  * Component for rendering a scatter type tile.
  */
 
-import { ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
+import { DataCommonsClient, ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
 import axios from "axios";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
@@ -33,6 +33,7 @@ import {
 import { URL_PATH } from "../../constants/app/visualization_constants";
 import { ChartQuadrant } from "../../constants/scatter_chart_constants";
 import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
+import { useLazyLoad } from "../../shared/hooks";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { SHOW_POPULATION_OFF } from "../../tools/scatter/context";
@@ -44,7 +45,6 @@ import {
 } from "../../utils/app/visualization_utils";
 import { stringifyFn } from "../../utils/axios";
 import { getSeriesWithin } from "../../utils/data_fetch_utils";
-import { datacommonsClient } from "../../utils/datacommons_client";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import { getDateRange } from "../../utils/string_utils";
@@ -84,6 +84,13 @@ export interface ScatterTilePropType {
   subtitle?: string;
   // Optional: Override sources for this tile
   sources?: string[];
+  // Optional: only load this component when it's near the viewport
+  lazyLoad?: boolean;
+  /**
+   * Optional: If lazy loading is enabled, load the component when it is within
+   * this margin of the viewport. Default: "0px"
+   */
+  lazyLoadMargin?: string;
 }
 
 interface RawData {
@@ -116,16 +123,19 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
   const [scatterChartData, setScatterChartData] = useState<
     ScatterChartData | undefined
   >(null);
-  const [isLoading, setIsLoading] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(true);
+  const { shouldLoad, containerRef } = useLazyLoad(props.lazyLoadMargin);
   useEffect(() => {
+    if (props.lazyLoad && !shouldLoad) {
+      return;
+    }
     if (scatterChartData && areDataPropsEqual()) {
       // only re-fetch if the props that affect data fetch are not equal
       return;
     }
     (async () => {
-      setIsLoading(true);
       try {
+        setIsLoading(true);
         const data = await fetchData(props);
         if (props && data && _.isEqual(data.props, props)) {
           setScatterChartData(data);
@@ -134,7 +144,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
         setIsLoading(false);
       }
     })();
-  }, [props, scatterChartData]);
+  }, [props, scatterChartData, shouldLoad]);
 
   const drawFn = useCallback(() => {
     if (!scatterChartData || !areDataPropsEqual()) {
@@ -147,13 +157,19 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
       tooltip.current,
       props.scatterTileSpec || {}
     );
-  }, [props.svgChartHeight, props.scatterTileSpec, scatterChartData]);
+  }, [
+    props.svgChartHeight,
+    props.scatterTileSpec,
+    scatterChartData,
+    shouldLoad,
+  ]);
 
   useDrawOnResize(drawFn, svgContainer.current);
 
   return (
     <ChartTileContainer
       allowEmbed={true}
+      apiRoot={props.apiRoot}
       className={`${props.className} scatter-chart`}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       footnote={props.footnote}
@@ -166,6 +182,8 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
       sources={props.sources || (scatterChartData && scatterChartData.sources)}
       subtitle={props.subtitle}
       title={props.title}
+      statVarSpecs={props.statVarSpec}
+      forwardRef={containerRef}
     >
       <div className="scatter-tile-content">
         <div
@@ -208,6 +226,7 @@ function getDataCsvCallback(
   scatterChartData: ScatterChartData
 ): () => Promise<string> {
   return () => {
+    const dataCommonsClient = new DataCommonsClient({ apiRoot: props.apiRoot });
     // Assume both variables will have the same date
     // TODO: Update getCsv to handle different dates for different variables
     const date = getFirstCappedStatVarSpecDate(props.statVarSpec);
@@ -218,7 +237,7 @@ function getDataCsvCallback(
     const entityProps = props.placeNameProp
       ? [props.placeNameProp, ISO_CODE_ATTRIBUTE]
       : undefined;
-    return datacommonsClient.getCsv({
+    return dataCommonsClient.getCsv({
       childType: props.enclosedPlaceType,
       date,
       entityProps,

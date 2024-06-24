@@ -1,5 +1,5 @@
 absl-py==1.4.0
-requests==2.31.0
+requests==2.32.2
 selenium==4.21.0
 webdriver-manager==4.0.0
 deepdiff==6.7.1

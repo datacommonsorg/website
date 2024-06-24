@@ -58,27 +58,22 @@ indexes:
     healthcheck_query: "Life expectancy"
   sdg_ft:
     store_type: MEMORY
-    embeddings_path: gs://datcom-nl-models/embeddings_sdg_2023_12_26_10_03_03.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
+    embeddings_path: gs://datcom-nl-models/embeddings_sdg_2024_06_13_18_37_38.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
     healthcheck_query: "Hunger"
   undata_ft:
     store_type: MEMORY
-    embeddings_path: gs://datcom-nl-models/embeddings_undata_2024_03_20_11_01_12.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
+    embeddings_path: gs://datcom-nl-models/embeddings_undata_2024_06_13_18_31_43.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
     healthcheck_query: "Hunger"
   undata_ilo_ft:
     store_type: MEMORY
-    embeddings_path: gs://datcom-nl-models/embeddings_undata_ilo_2024_05_15_11_18_05.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
-    model: ft-final-v20230717230459-all-MiniLM-L6-v2
-    healthcheck_query: "Employment"
-  undata_dev_ft:
-    store_type: MEMORY
-    embeddings_path: gs://datcom-nl-models/embeddings_undata_dev_2024_05_21_15_37_51.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
+    embeddings_path: gs://datcom-nl-models/embeddings_undata_ilo_2024_06_13_18_36_15.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
     healthcheck_query: "Employment"
   bio_ft:
     store_type: MEMORY
-    embeddings_path: gs://datcom-nl-models/embeddings_bio_2024_03_19_16_39_03.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
+    embeddings_path: gs://datcom-nl-models/embeddings_bio_2024_06_13_18_39_14.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
     healthcheck_query: "Gene"
   medium_lance_ft:
@@ -97,7 +92,7 @@ indexes:
     healthcheck_query: "Life expectancy"
   base_uae_mem:
     store_type: MEMORY
-    embeddings_path: gs://datcom-nl-models/embeddings_medium_2024_05_22_12_06_51.8110162693219942400.csv
+    embeddings_path: gs://datcom-nl-models/embeddings_base_2024_06_20_21_39_15.430892009855647744.csv
     model: uae-large-v1-model
     healthcheck_query: "Life expectancy"
   medium_vertex_mistral:

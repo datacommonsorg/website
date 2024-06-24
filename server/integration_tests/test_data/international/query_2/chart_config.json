@@ -361,34 +361,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "WHO/MORT_MATERNALNUM"
-                    ],
-                    "title": "Number of Maternal Deaths in China",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Number of Maternal Deaths in China",
-                    "statVarKey": [
-                      "WHO/MORT_MATERNALNUM"
-                    ],
-                    "title": "Number of Maternal Deaths in China",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Number of Maternal Deaths"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "sdg/SH_STA_MORT.SEX--F"
                     ],
                     "title": "Maternal Mortality Ratio in China",
@@ -411,6 +383,34 @@
             ],
             "footnote": "Includes data from the following sources: estimates by WHO, UNICEF, UNFPA, world bank group and UNDESA/Population division. Geneva: world health organization; 2023.",
             "title": "Maternal Mortality Ratio"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/MORT_MATERNALNUM"
+                    ],
+                    "title": "Number of Maternal Deaths in China",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Number of Maternal Deaths in China",
+                    "statVarKey": [
+                      "WHO/MORT_MATERNALNUM"
+                    ],
+                    "title": "Number of Maternal Deaths in China",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Number of Maternal Deaths"
           },
           {
             "columns": [

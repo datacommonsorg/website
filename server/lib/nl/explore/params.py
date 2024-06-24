@@ -13,8 +13,9 @@
 # limitations under the License.
 
 from enum import Enum
-from typing import Dict
+from typing import Dict, List
 
+from server.lib.nl.detection.types import DetectionArgs
 from shared.lib import constants
 
 
@@ -42,6 +43,14 @@ class Params(str, Enum):
   #    Ex, if multiple verbs present, treat as action query and do not fulfill.
   MODE = 'mode'
   CLIENT = 'client'
+  # If set then we don't strip stop-words for mono-variable match.
+  INCLUDE_STOP_WORDS = 'includeStopWords'
+  VAR_THRESHOLD = 'varThreshold'
+  DETECTOR = 'detector'
+  INDEX = 'idx'
+  RERANKER = 'reranker'
+  # If set, then don't get related things
+  SKIP_RELATED_THINGS = 'skipRelatedThings'
 
 
 class DCNames(str, Enum):
@@ -63,9 +72,15 @@ class DCNames(str, Enum):
 class QueryMode(str, Enum):
   # NOTE: This mode is incompatible with LLM detector
   STRICT = 'strict'
-  # This is a special mode to be used for toolformer experiments.
-  # This mode does not detect topics and has a sv score threshold of 0.8.
-  TOOLFORMER = 'toolformer'
+  # These are special modes used for toolformer experiments.
+
+  # The point mode returns exact variable's values and used by RIG.
+  # It does not detect topics and has a higher sv score threshold of 0.8.
+  TOOLFORMER_RIG = 'toolformer_rig'
+  # The table mode includes topics, has lower threshold and tries harder
+  # to return tables with fuller data (e.g., answer places have no limits).
+  # Used by RAG.
+  TOOLFORMER_RAG = 'toolformer_rag'
 
 
 class Clients(str, Enum):
@@ -80,10 +95,12 @@ SPECIAL_DC_LIST = SDG_DC_LIST + UNDATA_DC_LIST
 
 
 # Get the SV score threshold for the given mode.
-def sv_threshold_override(mode: str) -> bool | None:
-  if mode == QueryMode.STRICT:
+def sv_threshold_override(dargs: DetectionArgs) -> float | None:
+  if dargs.var_threshold:
+    return dargs.var_threshold
+  elif dargs.mode == QueryMode.STRICT:
     return constants.SV_SCORE_HIGH_CONFIDENCE_THRESHOLD
-  elif mode == QueryMode.TOOLFORMER:
+  elif dargs.mode == QueryMode.TOOLFORMER_RIG:
     return constants.SV_SCORE_TOOLFORMER_THRESHOLD
   # The default is 0, so model-score will be used.
   return 0.0
@@ -109,15 +126,19 @@ def is_bio(insight_ctx: Dict) -> bool:
   return insight_ctx.get(Params.DC.value) == DCNames.BIO_DC.value
 
 
-def dc_to_embedding_type(dc: str, embeddings_type: str) -> str:
+def dc_to_embedding_types(dc: str, embeddings_types: List[str]) -> List[str]:
   if dc in SDG_DC_LIST:
-    return 'sdg_ft'
+    return ['sdg_ft']
   elif dc == DCNames.UNDATA_DC.value:
-    return 'undata_ft'
+    return ['undata_ft']
   elif dc == DCNames.UNDATA_ILO_DC.value:
-    return 'undata_ilo_ft'
+    return ['undata_ilo_ft']
   elif dc == DCNames.UNDATA_DEV_DC.value:
-    return 'undata_dev_ft'
+    return ['undata_ft', 'undata_ilo_ft']
   elif dc == DCNames.BIO_DC.value:
-    return 'bio_ft'
-  return embeddings_type
+    return ['medium_ft', 'bio_ft']
+  return embeddings_types
+
+
+def is_toolformer_mode(mode: QueryMode) -> bool:
+  return mode == QueryMode.TOOLFORMER_RIG or mode == QueryMode.TOOLFORMER_RAG

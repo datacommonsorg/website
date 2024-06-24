@@ -368,6 +368,35 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Person_15OrMoreYears_InLaborForce_Female_AsFractionOf_Count_Person_InLaborForce"
+                    ],
+                    "title": "Percent of 15+ Years Old Males in the Labor Force in India",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Percent of 15+ Years Old Males in the Labor Force in India",
+                    "statVarKey": [
+                      "Count_Person_15OrMoreYears_InLaborForce_Female_AsFractionOf_Count_Person_InLaborForce"
+                    ],
+                    "title": "Percent of 15+ Years Old Males in the Labor Force in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "description": "Female labor force as a percentage of the total show the extent to which women are active in the labor force. Labor force comprises people ages 15 and older who supply labor for the production of goods and services during a specified period. Derived using data from international labour organization, ILOSTAT database. The data retrieved in march 1, 2020.",
+            "title": "Percent of 15+ Years Old Males in the Labor Force"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "LifeExpectancy_Person_Female"
                     ],
                     "title": "Female Life Expectancy in India",
@@ -429,9 +458,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_15OrMoreYears_InLaborForce_Female_AsFractionOf_Count_Person_InLaborForce"
+                      "Count_Person_15To64Years_Female_InLaborForce_AsFractionOf_Count_Person_15To64Years_Female"
                     ],
-                    "title": "Percent of 15+ Years Old Males in the Labor Force in India",
+                    "title": "Percent of Females Working Age Population in the Labor Force in India",
                     "type": "LINE"
                   }
                 ]
@@ -439,24 +468,28 @@
               {
                 "tiles": [
                   {
-                    "description": "Percent of 15+ Years Old Males in the Labor Force in India",
+                    "description": "Percent of Females Working Age Population in the Labor Force in India",
                     "statVarKey": [
-                      "Count_Person_15OrMoreYears_InLaborForce_Female_AsFractionOf_Count_Person_InLaborForce"
+                      "Count_Person_15To64Years_Female_InLaborForce_AsFractionOf_Count_Person_15To64Years_Female"
                     ],
-                    "title": "Percent of 15+ Years Old Males in the Labor Force in India",
+                    "title": "Percent of Females Working Age Population in the Labor Force in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "description": "Female labor force as a percentage of the total show the extent to which women are active in the labor force. Labor force comprises people ages 15 and older who supply labor for the production of goods and services during a specified period. Derived using data from international labour organization, ILOSTAT database. The data retrieved in march 1, 2020.",
-            "title": "Percent of 15+ Years Old Males in the Labor Force"
+            "description": "Labor force participation rate is the proportion of the population ages 15-64 that is economically active: all people who supply labor for the production of goods and services during a specified period. International labour organization, ILOSTAT database. Data retrieved in march 1, 2020.",
+            "title": "Percent of Females Working Age Population in the Labor Force"
           }
         ],
         "statVarSpec": {
           "Count_Person_15OrMoreYears_InLaborForce_Female_AsFractionOf_Count_Person_InLaborForce": {
             "name": "Percent of 15+ Years Old Males in the Labor Force",
             "statVar": "Count_Person_15OrMoreYears_InLaborForce_Female_AsFractionOf_Count_Person_InLaborForce"
+          },
+          "Count_Person_15To64Years_Female_InLaborForce_AsFractionOf_Count_Person_15To64Years_Female": {
+            "name": "Percent of Females Working Age Population in the Labor Force",
+            "statVar": "Count_Person_15To64Years_Female_InLaborForce_AsFractionOf_Count_Person_15To64Years_Female"
           },
           "Count_Person_Female": {
             "name": "Women",
@@ -749,6 +782,13 @@
           ]
         },
         {
+          "dcid": "wikidataId/Q2893890",
+          "name": "Kamtapur",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
           "dcid": "wikidataId/Q40888",
           "name": "Andaman and Nicobar Islands",
           "types": [
@@ -784,8 +824,22 @@
           ]
         },
         {
+          "dcid": "wikidataId/Q66743",
+          "name": "Puducherry",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
           "dcid": "wikidataId/Q677037",
           "name": "Telangana",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q77997266",
+          "name": "Dadra and Nagar Haveli and Daman and Diu",
           "types": [
             "AdministrativeArea1"
           ]

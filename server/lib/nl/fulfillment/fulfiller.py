@@ -43,7 +43,7 @@ def fulfill(uttr: Utterance) -> PopulateState:
   # Construct a common PopulateState
   state = PopulateState(uttr=uttr)
 
-  if not _perform_strict_mode_checks(uttr):
+  if not _perform_classification_checks(uttr):
     return state
 
   # IMPORTANT: Do this as the very first thing before
@@ -131,6 +131,10 @@ def fulfill(uttr: Utterance) -> PopulateState:
   if params.is_special_dc(state.uttr.insight_ctx):
     _prune_non_country_special_dc_vars(state)
 
+  # No fallback for toolformer mode!
+  if params.is_toolformer_mode(state.uttr.mode):
+    state.disable_fallback = True
+
   # Call populate_charts.
   if not base.populate_charts(state):
     # If that failed, try OVERVIEW.
@@ -152,7 +156,7 @@ def fulfill(uttr: Utterance) -> PopulateState:
 
 
 # Returns False if the checks fail (aka should not proceed).
-def _perform_strict_mode_checks(uttr: Utterance) -> bool:
+def _perform_classification_checks(uttr: Utterance) -> bool:
   detailed_action = utils.get_action_verbs(uttr)
   if detailed_action:
     uttr.counters.info('fulfill_detailed_action_querytypes', detailed_action)

@@ -17,17 +17,10 @@ from pathlib import Path
 import tempfile
 import unittest
 
+import pandas as pd
 from sentence_transformers import SentenceTransformer
-import yaml
 
-from nl_server.config import LocalModelConfig
-from tools.nl.embeddings import utils
-from tools.nl.embeddings.build_custom_dc_embeddings import \
-    EMBEDDINGS_CSV_FILENAME_PREFIX
-from tools.nl.embeddings.build_custom_dc_embeddings import \
-    EMBEDDINGS_YAML_FILE_NAME
-import tools.nl.embeddings.build_custom_dc_embeddings as builder
-from tools.nl.embeddings.file_util import create_file_handler
+from tools.nl.embeddings import build_custom_dc_embeddings as builder
 
 MODEL_NAME = "all-MiniLM-L6-v2"
 INPUT_DIR = Path(__file__).parent / "testdata/custom_dc/input"
@@ -35,75 +28,24 @@ EXPECTED_DIR = Path(__file__).parent / "testdata/custom_dc/expected"
 
 
 def _compare_files(test: unittest.TestCase, output_path, expected_path):
-  with open(output_path) as gotf:
-    got = gotf.read()
-    with open(expected_path) as wantf:
-      want = wantf.read()
-      test.assertEqual(got, want)
-
-
-def _compare_yaml(test: unittest.TestCase, output_path, expected_path):
-  with open(output_path) as gotf, open(expected_path) as wantf:
-    got = yaml.safe_load(gotf)
-    want = yaml.safe_load(wantf)
-    test.assertDictEqual(got, want)
+  df1 = pd.read_csv(output_path)
+  df2 = pd.read_csv(expected_path)
+  test.assertEqual(df1['dcid'].tolist(), df2['dcid'].tolist())
+  test.assertEqual(df1['sentence'].tolist(), df2['sentence'].tolist())
 
 
 class TestEndToEnd(unittest.TestCase):
 
-  def test_build_embeddings_dataframe(self):
+  def setUp(self):
     self.maxDiff = None
+    self.model = SentenceTransformer(MODEL_NAME)
+    self.input_file_path = os.path.join(INPUT_DIR, "dcids_sentences.csv")
 
-    model = SentenceTransformer(MODEL_NAME)
-
-    input_dcids_sentences_csv_path = os.path.join(INPUT_DIR,
-                                                  "dcids_sentences.csv")
-    expected_dcids_sentences_csv_path = os.path.join(
-        EXPECTED_DIR, "final_dcids_sentences.csv")
-
-    with tempfile.TemporaryDirectory() as temp_dir:
-      actual_dcids_sentences_csv_path = os.path.join(
-          temp_dir, "final_dcids_sentences.csv")
-
-      embeddings_df = builder._build_embeddings_dataframe(
-          model, create_file_handler(input_dcids_sentences_csv_path))
-
-      embeddings_df[['dcid',
-                     'sentence']].to_csv(actual_dcids_sentences_csv_path,
-                                         index=False)
-
-      _compare_files(self, actual_dcids_sentences_csv_path,
-                     expected_dcids_sentences_csv_path)
-
-  def test_build_embeddings_dataframe_and_validate(self):
-    model = SentenceTransformer(MODEL_NAME)
-
-    input_dcids_sentences_csv_path = os.path.join(INPUT_DIR,
-                                                  "dcids_sentences.csv")
-
-    embeddings_df = builder._build_embeddings_dataframe(
-        model, create_file_handler(input_dcids_sentences_csv_path))
-
-    # Test success == no failures during validation
-    utils.validate_embeddings(embeddings_df, input_dcids_sentences_csv_path)
-
-  def test_generate_yaml(self):
-    expected_embeddings_yaml_path = os.path.join(EXPECTED_DIR,
-                                                 EMBEDDINGS_YAML_FILE_NAME)
-    fake_embeddings_csv_path = f"/fake/path/to/{EMBEDDINGS_CSV_FILENAME_PREFIX}.csv"
+  def test_build_embeddings_dataframe(self):
+    expected_embeddings_path = os.path.join(EXPECTED_DIR,
+                                            builder.EMBEDDINGS_FILE_NAME)
 
     with tempfile.TemporaryDirectory() as temp_dir:
-      actual_embeddings_yaml_path = os.path.join(temp_dir,
-                                                 EMBEDDINGS_YAML_FILE_NAME)
-
-      model_config = LocalModelConfig(type='LOCAL',
-                                      gcs_folder='fooModelFolder',
-                                      usage='EMBEDDINGS',
-                                      score_threshold=0.5)
-      builder.generate_embeddings_yaml(
-          'FooModel', model_config,
-          create_file_handler(fake_embeddings_csv_path),
-          create_file_handler(actual_embeddings_yaml_path))
-
-      _compare_yaml(self, actual_embeddings_yaml_path,
-                    expected_embeddings_yaml_path)
+      actual_embeddings_path = os.path.join(temp_dir, "embeddings.csv")
+      builder.build(self.model, self.input_file_path, actual_embeddings_path)
+      _compare_files(self, expected_embeddings_path, actual_embeddings_path)

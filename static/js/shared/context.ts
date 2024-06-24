@@ -22,6 +22,7 @@
 
 import { createContext } from "react";
 
+import { apiRootToHostname } from "../utils/url_utils";
 import { PLACE_TYPES } from "./constants";
 
 // Global app state
@@ -50,7 +51,7 @@ export const RankingUnitUrlFuncContext = createContext(
       !placeType || PLACE_TYPES.has(placeType)
         ? `/place/${dcid}`
         : `/browser/${dcid}`;
-    return `${formattedApiRoot || ""}${path}`;
+    return `${apiRootToHostname(apiRoot)}${path}`;
   }
 );
 

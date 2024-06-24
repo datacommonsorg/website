@@ -190,10 +190,7 @@ export function getSeries(
     params["facetIds"] = facetIds;
   }
   return axios
-    .get(`${apiRoot || ""}/api/observations/series`, {
-      params,
-      paramsSerializer: stringifyFn,
-    })
+    .post(`${apiRoot || ""}/api/observations/series`, params)
     .then((resp) => resp.data);
 }
 

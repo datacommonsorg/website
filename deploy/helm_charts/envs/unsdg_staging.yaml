@@ -49,7 +49,6 @@ nl:
       - sdg_ft
       - undata_ft
       - undata_ilo_ft
-      - undata_dev_ft
 
 serviceGroups:
   recon: null
@@ -68,7 +67,7 @@ kgStoreConfig:
     project: datcom-un-staging
     instance: dc-graph
     tables:
-      - ilo_2024_05_15_14_43_26
-
+      - ilo_2024_06_20_16_32_08
+      - sdg_2024_06_20_16_29_49
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]

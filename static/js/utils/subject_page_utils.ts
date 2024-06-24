@@ -259,7 +259,7 @@ export function addPerCapitaToTitle(
   dateString = "date"
 ): string {
   const dateStringPattern = `(\${${dateString}})`;
-  if (title.includes(dateStringPattern)) {
+  if (title && title.includes(dateStringPattern)) {
     // title includes date
     // extract part before ${date} to pass into formatMessage
     const statVarName = title.slice(0, title.indexOf(dateStringPattern));

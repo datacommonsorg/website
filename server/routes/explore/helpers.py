@@ -39,6 +39,7 @@ import server.lib.nl.detection.context as context
 import server.lib.nl.detection.detector as detector
 from server.lib.nl.detection.place import get_place_from_dcids
 from server.lib.nl.detection.types import Detection
+from server.lib.nl.detection.types import DetectionArgs
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RequestedDetectorType
 from server.lib.nl.detection.utils import create_utterance
@@ -95,7 +96,8 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
   i18n = i18n_str and i18n_str.lower() == 'true'
 
   # Index-type default is in nl_server.
-  embeddings_index_type = request.args.get('idx', '')
+  idx_param_str = request.args.get(params.Params.INDEX.value, '')
+  embeddings_index_types = [x.strip() for x in idx_param_str.split(',')]
   original_query = request.args.get('q')
   if not original_query:
     err_json = helpers.abort(
@@ -108,9 +110,10 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
   if request.get_json():
     context_history = request.get_json().get('contextHistory', [])
   dc = request.get_json().get('dc', '')
-  embeddings_index_type = params.dc_to_embedding_type(dc, embeddings_index_type)
+  embeddings_index_types = params.dc_to_embedding_types(dc,
+                                                        embeddings_index_types)
 
-  detector_type = request.args.get('detector',
+  detector_type = request.args.get(params.Params.DETECTOR.value,
                                    default=RequestedDetectorType.Hybrid.value,
                                    type=str)
 
@@ -172,7 +175,28 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
     use_default_place = False
 
   # See if we have a variable reranker model specified.
-  reranker = request.args.get('reranker')
+  reranker = request.args.get(params.Params.RERANKER.value)
+
+  # Get sv threshold as a float if it was passed in the request
+  var_threshold = request.args.get(params.Params.VAR_THRESHOLD.value)
+  if var_threshold:
+    # if sv_threshold is not a float, don't set sv_threshold
+    try:
+      var_threshold = float(var_threshold)
+    except Exception:
+      var_threshold = None
+
+  # StopWords handling
+  include_stop_words_str = request.args.get(
+      params.Params.INCLUDE_STOP_WORDS.value, '')
+
+  detection_args = DetectionArgs(
+      embeddings_index_types=embeddings_index_types,
+      mode=mode,
+      reranker=reranker,
+      allow_triples=allow_triples,
+      include_stop_words=include_stop_words_str.lower() == 'true',
+      var_threshold=var_threshold)
 
   # Query detection routine:
   # Returns detection for Place, SVs and Query Classifications.
@@ -181,12 +205,9 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
                                     original_query=original_query,
                                     no_punct_query=query,
                                     prev_utterance=prev_utterance,
-                                    embeddings_index_type=embeddings_index_type,
                                     query_detection_debug_logs=debug_logs,
-                                    mode=mode,
                                     counters=counters,
-                                    reranker=reranker,
-                                    allow_triples=allow_triples)
+                                    dargs=detection_args)
   if not query_detection:
     err_json = helpers.abort('Sorry, could not complete your request.',
                              original_query,

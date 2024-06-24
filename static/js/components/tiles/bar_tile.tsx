@@ -18,7 +18,7 @@
  * Component for rendering a bar tile.
  */
 
-import { ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
+import { DataCommonsClient, ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
 import { ChartSortOption } from "@datacommonsorg/web-components";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
@@ -33,6 +33,7 @@ import {
 import { URL_PATH } from "../../constants/app/visualization_constants";
 import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { PLACE_TYPES } from "../../shared/constants";
+import { useLazyLoad } from "../../shared/hooks";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { RankingPoint } from "../../types/ranking_unit_types";
 import {
@@ -45,7 +46,6 @@ import {
   getSeries,
   getSeriesWithin,
 } from "../../utils/data_fetch_utils";
-import { datacommonsClient } from "../../utils/datacommons_client";
 import { getPlaceNames, getPlaceType } from "../../utils/place_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
@@ -96,6 +96,13 @@ interface BarTileSpecificSpec {
   xLabelLinkRoot?: string;
   // Y-axis margin / text width
   yAxisMargin?: number;
+  // Optional: only load this component when it's near the viewport
+  lazyLoad?: boolean;
+  /**
+   * Optional: If lazy loading is enabled, load the component when it is within
+   * this margin of the viewport. Default: "0px"
+   */
+  lazyLoadMargin?: string;
 }
 
 export type BarTilePropType = MultiOrContainedInPlaceMultiVariableTileType &
@@ -119,12 +126,16 @@ export function BarTile(props: BarTilePropType): JSX.Element {
   const [barChartData, setBarChartData] = useState<BarChartData | undefined>(
     null
   );
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const { shouldLoad, containerRef } = useLazyLoad(props.lazyLoadMargin);
   useEffect(() => {
+    if (props.lazyLoad && !shouldLoad) {
+      return;
+    }
     if (!barChartData || !_.isEqual(barChartData.props, props)) {
       (async () => {
-        setIsLoading(true);
         try {
+          setIsLoading(true);
           const data = await fetchData(props);
           setBarChartData(data);
         } finally {
@@ -132,8 +143,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
         }
       })();
     }
-  }, [props, barChartData]);
-
+  }, [props, barChartData, shouldLoad]);
   const drawFn = useCallback(() => {
     if (_.isEmpty(barChartData)) {
       return;
@@ -145,6 +155,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
   return (
     <ChartTileContainer
       allowEmbed={true}
+      apiRoot={props.apiRoot}
       className={`${props.className} bar-chart`}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       footnote={props.footnote}
@@ -157,6 +168,8 @@ export function BarTile(props: BarTilePropType): JSX.Element {
       sources={props.sources || (barChartData && barChartData.sources)}
       subtitle={props.subtitle}
       title={props.title}
+      statVarSpecs={props.variables}
+      forwardRef={containerRef}
     >
       <div
         id={props.id}
@@ -175,6 +188,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
  */
 function getDataCsvCallback(props: BarTilePropType): () => Promise<string> {
   return () => {
+    const dataCommonsClient = new DataCommonsClient({ apiRoot: props.apiRoot });
     // Assume all variables will have the same date
     // TODO: Handle different dates for different variables
     const date = getFirstCappedStatVarSpecDate(props.variables);
@@ -186,8 +200,18 @@ function getDataCsvCallback(props: BarTilePropType): () => Promise<string> {
       : undefined;
     // Check for !("places" in props) because parentPlace can be set even if
     // "places" is also set
-    if (!("places" in props)) {
-      return datacommonsClient.getCsv({
+    if ("places" in props && !_.isEmpty(props.places)) {
+      return dataCommonsClient.getCsv({
+        date,
+        entityProps,
+        entities: props.places,
+        fieldDelimiter: CSV_FIELD_DELIMITER,
+        perCapitaVariables,
+        transformHeader: transformCsvHeader,
+        variables: props.variables.map((v) => v.statVar),
+      });
+    } else if ("enclosedPlaceType" in props && "parentPlace" in props) {
+      return dataCommonsClient.getCsv({
         childType: props.enclosedPlaceType,
         date,
         entityProps,
@@ -197,17 +221,8 @@ function getDataCsvCallback(props: BarTilePropType): () => Promise<string> {
         transformHeader: transformCsvHeader,
         variables: props.variables.map((v) => v.statVar),
       });
-    } else {
-      return datacommonsClient.getCsv({
-        date,
-        entityProps,
-        entities: props.places,
-        fieldDelimiter: CSV_FIELD_DELIMITER,
-        perCapitaVariables,
-        transformHeader: transformCsvHeader,
-        variables: props.variables.map((v) => v.statVar),
-      });
     }
+    return new Promise(() => "Error fetching CSV");
   };
 }
 
