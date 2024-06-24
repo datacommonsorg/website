@@ -25,7 +25,7 @@ following fields:
 ### Create New Index Config
 
 To create a new index type, add an entry under `indexes`, fill in `store_type`,
-`mode`, `source_folder`. This is sufficient to build the index as indicated in
+`model`, `source_folder`. This is sufficient to build the index as indicated in
 the steps below.
 
 ## Input CSV Format
@@ -79,7 +79,7 @@ Available options for <EMBEDDINGS_NAME> are:
 - bio_ft
 - uae_base_mem
 
-## Valid Embeddings index
+## Validate Embeddings Index
 
 1. Validate the CSV diffs, update
    [`catalog.yaml`](../../../deploy/nl/catalog.yaml) with the generated

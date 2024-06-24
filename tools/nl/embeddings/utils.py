@@ -171,6 +171,7 @@ def compute_embeddings(texts: List[str],
   return embeddings
 
 
+# TODO(shifucun): Put sentence, dcid and embeddings in one object
 def save_embeddings_memory(local_dir: str, sentences: List[str],
                            dcids: List[str], embeddings: List[List[float]]):
   """
