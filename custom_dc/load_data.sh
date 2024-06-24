@@ -125,14 +125,15 @@ function setup {
       OUTPUT_DIR=$(dirname $INPUT_DIR)"/output"
     fi
   fi
-  if ! is_local_dir "$OUTPUT_DIR"; then
-    GCS_DATA_PATH=$OUTPUT_DIR
-    OUTPUT_DIR=""
-  fi
+  # TODO(ajaits): confirm if GCS_DATA_PATH can overrite OUTPUT_DIR
+  #if ! is_local_dir "$OUTPUT_DIR"; then
+  #  GCS_DATA_PATH=$OUTPUT_DIR
+  #  OUTPUT_DIR=""
+  #fi
 
-  if [[ -n "$GCS_DATA_PATH" ]]; then
-    OUTPUT_DIR=""
-  fi
+  #if [[ -n "$GCS_DATA_PATH" ]]; then
+  #  OUTPUT_DIR=""
+  #fi
 
   if is_local_dir $OUTPUT_DIR; then
     mkdir -p $OUTPUT_DIR
@@ -217,7 +218,14 @@ function simple_import {
 # Generate embeddings for sentences
 function generate_embeddings {
   setup_python
-  NL_DIR=${NL_DIR:-"$OUTPUT_DIR$GCS_DATA_PATH/nl"}
+  if [[ -z "$NL_DIR" ]]; then
+    if [[ -n "$OUTPUT_DIR" ]]; then
+      NL_DIR="$OUTPUT_DIR/nl"
+    fi
+    if [[ -n "$GCS_DATA_PATH" ]]; then
+      NL_DIR="$GCS_DATA_PATH/nl"
+    fi
+  fi
   echo_log "Building embeddings for sentences in $NL_DIR"
   local cwd="$PWD"
   cd $WEBSITE_DIR
