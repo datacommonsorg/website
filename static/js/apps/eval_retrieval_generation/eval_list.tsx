@@ -34,6 +34,16 @@ import { getAllFields, getCallCount, getPath } from "./data_store";
 import { EvalType, Query } from "./types";
 import { getFirstFeedbackStage } from "./util";
 
+// feedback keys used specifically for RAG evals
+const RAG_FEEDBACK_KEYS = [
+  QUERY_TOTAL_STAT_CLAIMS_KEY,
+  QUERY_FALSE_STAT_CLAIMS_KEY,
+  QUERY_TOTAL_INF_CLAIMS_KEY,
+  QUERY_FALSE_INF_CLAIMS_KEY,
+  QUERY_UNSUB_INF_CLAIMS_KEY,
+  QUERY_TABLES_USED_KEY,
+];
+
 export function EvalList(): JSX.Element {
   const { allCall, allQuery, userEmail, sheetId, evalType } =
     useContext(AppContext);
@@ -71,14 +81,7 @@ export function EvalList(): JSX.Element {
           }
           // For RAG eval type, also check that claim counts are completed
           if (evalType === EvalType.RAG) {
-            [
-              QUERY_TOTAL_STAT_CLAIMS_KEY,
-              QUERY_FALSE_STAT_CLAIMS_KEY,
-              QUERY_TOTAL_INF_CLAIMS_KEY,
-              QUERY_FALSE_INF_CLAIMS_KEY,
-              QUERY_UNSUB_INF_CLAIMS_KEY,
-              QUERY_TABLES_USED_KEY,
-            ].forEach((countKey) => {
+            RAG_FEEDBACK_KEYS.forEach((countKey) => {
               if (!(countKey in queryFeedbackResults)) {
                 completed = false;
               }
