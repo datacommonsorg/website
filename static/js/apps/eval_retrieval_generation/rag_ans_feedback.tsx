@@ -21,15 +21,7 @@ import { Button } from "reactstrap";
 
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { ClaimCounter } from "./claim_counter";
-import {
-  QUERY_FALSE_INF_CLAIMS_KEY,
-  QUERY_FALSE_STAT_CLAIMS_KEY,
-  QUERY_TABLES_USED_KEY,
-  QUERY_TOTAL_INF_CLAIMS_KEY,
-  QUERY_TOTAL_STAT_CLAIMS_KEY,
-  QUERY_UNSUB_INF_CLAIMS_KEY,
-  RAG_CLAIM_KEYS,
-} from "./constants";
+import { RAG_CLAIM_KEYS } from "./constants";
 import { AppContext, SessionContext } from "./context";
 import { getAllFields, getPath, saveToSheet, setFields } from "./data_store";
 import { EvalList } from "./eval_list";
@@ -161,9 +153,9 @@ export function RagAnsFeedback(): JSX.Element {
             Count the number of STATISTICAL claims made by the model.
           </div>
           {[
-            QUERY_TOTAL_STAT_CLAIMS_KEY,
-            QUERY_FALSE_STAT_CLAIMS_KEY,
-            QUERY_TABLES_USED_KEY,
+            RAG_CLAIM_KEYS.QUERY_TOTAL_STAT_CLAIMS_KEY,
+            RAG_CLAIM_KEYS.QUERY_FALSE_STAT_CLAIMS_KEY,
+            RAG_CLAIM_KEYS.QUERY_TABLES_USED_KEY,
           ].map((cntKey) => {
             return (
               <div
@@ -185,9 +177,9 @@ export function RagAnsFeedback(): JSX.Element {
             Count the number of INFERRED claims made by the model.
           </div>
           {[
-            QUERY_TOTAL_INF_CLAIMS_KEY,
-            QUERY_FALSE_INF_CLAIMS_KEY,
-            QUERY_UNSUB_INF_CLAIMS_KEY,
+            RAG_CLAIM_KEYS.QUERY_TOTAL_INF_CLAIMS_KEY,
+            RAG_CLAIM_KEYS.QUERY_FALSE_INF_CLAIMS_KEY,
+            RAG_CLAIM_KEYS.QUERY_UNSUB_INF_CLAIMS_KEY,
           ].map((cntKey) => {
             return (
               <div

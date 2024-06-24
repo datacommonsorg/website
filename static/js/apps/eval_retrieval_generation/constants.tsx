@@ -61,18 +61,6 @@ export const RAG_CLAIM_KEYS = {
   // total tables used in claims
   QUERY_TABLES_USED_KEY: "tablesUsed",
 };
-// The key used in firestore to save the query total stat claims feedback
-export const QUERY_TOTAL_STAT_CLAIMS_KEY = "totalStatClaims";
-// The key used in firestore to save the query false stat claims feedback
-export const QUERY_FALSE_STAT_CLAIMS_KEY = "falseStatClaims";
-// The key used in firestore to save the query total inferred claims feedback
-export const QUERY_TOTAL_INF_CLAIMS_KEY = "totalInferredClaims";
-// The key used in firestore to save the query false inferred claims feedback
-export const QUERY_FALSE_INF_CLAIMS_KEY = "falseInferredClaims";
-// The key used in firestore to save the query unsubstantiated inferred claims feedback
-export const QUERY_UNSUB_INF_CLAIMS_KEY = "unsubInferredClaims";
-// The key used in firestore to save the query total tables used feedback
-export const QUERY_TABLES_USED_KEY = "tablesUsed";
 // Options for the query overall feedback
 export const QUERY_OVERALL_OPTION_HALLUCINATION = "LLM_ANSWER_HALLUCINATION";
 export const QUERY_OVERALL_OPTION_OK = "LLM_ANSWER_OKAY";
