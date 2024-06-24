@@ -132,13 +132,17 @@ class Registry:
           model=self.name_to_model[idx_info.model], store=store)
 
 
-def build() -> Registry:
+def build(additional_catalog: dict = None) -> Registry:
   """
   Build the registry based on available catalog and environment config files.
-
   This also get all the model/index resources downloaded and ready to use.
+
+  Args:
+    additional_catalog: additional catalog config to be merged with the default
+    catalog.
   """
-  catalog = config_reader.read_catalog()
+  catalog = config_reader.read_catalog(catalog_dict=additional_catalog)
   env = config_reader.read_env()
+  logging.info(env)
   server_config = config_reader.get_server_config(catalog, env)
   return Registry(server_config)

@@ -109,7 +109,7 @@ COPY shared/. /workspace/shared/
 
 # NL Server
 COPY nl_server/. /workspace/nl_server/
-COPY deploy/nl/. /workspace/deploy/nl/
+COPY deploy/nl/catalog.yaml /datacommons/nl/catalog.yaml
 
 # Import Tool
 COPY import/. /workspace/import/

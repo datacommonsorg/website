@@ -58,7 +58,7 @@ class LocalModelConfig(ModelConfig):
 @dataclass(kw_only=True)
 class IndexConfig:
   store_type: str = None
-  source_folder: str = None
+  source_path: str = None
   model: str = None
   healthcheck_query: str = 'health'
 

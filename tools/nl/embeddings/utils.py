@@ -100,16 +100,6 @@ def _chunk_list(data, chunk_size):
   return iter(lambda: tuple(itertools.islice(it, chunk_size)), ())
 
 
-def make_output_path(output_root: str, source_folder: str,
-                     model_name: str) -> str:
-  if not output_root:
-    output_root = tempfile.mkdtemp()
-  now = datetime.datetime.now()
-  date_string = now.strftime('%Y_%m_%d_%H_%M_%S')
-  folder_name = f'{source_folder}_{model_name}_{date_string}'
-  return os.path.join(output_root, folder_name)
-
-
 def get_model(catalog: Catalog, env: Env, model_name: str) -> EmbeddingsModel:
   logging.info("Loading model")
   model_config = catalog.models[model_name]
@@ -197,9 +187,3 @@ def save_embeddings_lancedb(local_dir: str, sentences: List[str],
     records.append({_COL_DCID: d, _COL_SENTENCE: s, 'vector': v})
   db.create_table(_LANCEDB_TABLE, records)
   logging.info("Saved embeddings as lancedb file in %s", local_dir)
-
-
-def upload_to_gcs(local_dir: str, gcs_root: str):
-  folder_name = os.path.basename(local_dir)
-  gcs_path = os.path.join(gcs_root, folder_name)
-  gcs.upload_by_path(local_dir, gcs_path)
