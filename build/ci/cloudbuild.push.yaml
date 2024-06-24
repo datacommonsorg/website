@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,6 +13,18 @@
 # limitations under the License.
 
 steps:
+  - id: update-repo-version
+    name: "gcr.io/cloud-builders/git"
+    entrypoint: /bin/bash
+    args:
+      - -c
+      - |
+        set -e
+        gcloud source repos clone deployment /tmp/deployment --project=datcom-ci
+        cd /tmp/deployment
+        ./scripts/update_external_repo_version.sh $REPO_NAME $SHORT_SHA
+    waitFor: ["-"]
+
   - id: push-web-server
     name: gcr.io/cloud-builders/docker
     entrypoint: "bash"
@@ -26,25 +38,6 @@ steps:
           .
         docker push gcr.io/datcom-ci/datacommons-website:$SHORT_SHA
         docker push gcr.io/datcom-ci/datacommons-website:latest
-
-  - id: push-web-compose
-    name: gcr.io/cloud-builders/docker
-    entrypoint: "bash"
-    args:
-      - -c
-      - |
-        set -e
-        git submodule foreach git pull origin master
-        git submodule update --init --recursive
-
-        # Bundle container with website, esp and mixer.
-        docker build -f build/web_compose/Dockerfile \
-          --tag gcr.io/datcom-ci/datacommons-website-compose:${SHORT_SHA} \
-          --tag gcr.io/datcom-ci/datacommons-website-compose:latest \
-          .
-        docker push gcr.io/datcom-ci/datacommons-website-compose:${SHORT_SHA}
-        docker push gcr.io/datcom-ci/datacommons-website-compose:latest
-    waitFor: ["-"]
 
   - id: push-nl-server
     name: gcr.io/cloud-builders/docker
