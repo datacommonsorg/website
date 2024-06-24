@@ -77,10 +77,10 @@ export function EvalList(): JSX.Element {
               QUERY_TOTAL_INF_CLAIMS_KEY,
               QUERY_FALSE_INF_CLAIMS_KEY,
               QUERY_UNSUB_INF_CLAIMS_KEY,
-              QUERY_TABLES_USED_KEY
+              QUERY_TABLES_USED_KEY,
             ].forEach((countKey) => {
               if (!(countKey in queryFeedbackResults)) {
-                completed = false
+                completed = false;
               }
             });
           }

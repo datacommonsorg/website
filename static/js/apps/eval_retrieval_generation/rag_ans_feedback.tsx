@@ -165,13 +165,15 @@ export function RagAnsFeedback(): JSX.Element {
             QUERY_TABLES_USED_KEY,
           ].map((cntKey) => {
             return (
-              <div className={`counter${response.isSubmitted ? " disabled" : ""}`}>
-              <ClaimCounter
+              <div
+                className={`counter${response.isSubmitted ? " disabled" : ""}`}
                 key={cntKey}
-                count={response.counts[cntKey]}
-                onCountUpdated={(count) => onCountUpdated(count, cntKey)}
-                label={COUNTER_LABELS[cntKey]}
-              />
+              >
+                <ClaimCounter
+                  count={response.counts[cntKey]}
+                  onCountUpdated={(count) => onCountUpdated(count, cntKey)}
+                  label={COUNTER_LABELS[cntKey]}
+                />
               </div>
             );
           })}
@@ -187,13 +189,15 @@ export function RagAnsFeedback(): JSX.Element {
             QUERY_UNSUB_INF_CLAIMS_KEY,
           ].map((cntKey) => {
             return (
-              <div className={`counter${response.isSubmitted ? " disabled" : ""}`}>
-              <ClaimCounter
+              <div
+                className={`counter${response.isSubmitted ? " disabled" : ""}`}
                 key={cntKey}
-                count={response.counts[cntKey]}
-                onCountUpdated={(count) => onCountUpdated(count, cntKey)}
-                label={COUNTER_LABELS[cntKey]}
-              />
+              >
+                <ClaimCounter
+                  count={response.counts[cntKey]}
+                  onCountUpdated={(count) => onCountUpdated(count, cntKey)}
+                  label={COUNTER_LABELS[cntKey]}
+                />
               </div>
             );
           })}

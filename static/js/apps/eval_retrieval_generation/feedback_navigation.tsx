@@ -216,7 +216,7 @@ export function FeedbackNavigation(
 
   const finish = async () => {
     if (await props.checkAndSubmit()) {
-      alert("All evaluations completed.")
+      alert("All evaluations completed.");
     }
   };
 
