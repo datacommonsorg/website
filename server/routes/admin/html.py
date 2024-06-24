@@ -47,8 +47,12 @@ def load_data():
 
   # TODO: dynamically create the output dir.
   output_dir = os.path.join(user_data_path, 'datacommons')
+  # TODO: (now very brittle) Should make this NL path globally sharable by
+  # - nl server
+  # - web server (admin portal)
+  # - build embeddings tool
   nl_dir = os.path.join(output_dir, 'nl')
-  sentences_path = os.path.join(nl_dir, 'sentences.csv')
+  nl_embeddings_dir = os.path.join(nl_dir, 'embeddings')
   load_nl = os.environ.get('ENABLE_MODEL', '').lower() == 'true'
 
   # This will add a trailing "/" if the path does not end in one.
@@ -69,10 +73,10 @@ def load_data():
       'python',
       '-m',
       'tools.nl.embeddings.build_custom_dc_embeddings',
-      '--sv_sentences_csv_path',
-      f'{sentences_path}',
-      '--output_dir',
+      '--input_dir',
       f'{nl_dir}',
+      '--output_dir',
+      f'{nl_embeddings_dir}',
   ]
   # Update mixer in-memory cache.
   command3 = [

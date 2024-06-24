@@ -23,11 +23,7 @@ import ReactDOM from "react-dom";
 
 import { App } from "./app";
 
-const EVAL_INDEXES = new Set([
-  "base_uae_mem",
-  "medium_ft",
-  "medium_vertex_mistral",
-]);
+const EVAL_INDEXES = new Set(["base_uae_mem", "medium_ft", "base_mistral_mem"]);
 
 window.onload = () => {
   renderPage();

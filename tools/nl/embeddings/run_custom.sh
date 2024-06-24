@@ -23,3 +23,6 @@ pip3 install -r tools/nl/embeddings/requirements.txt -q
 
 export TOKENIZERS_PARALLELISM=false
 python3 -m tools.nl.embeddings.build_custom_dc_embeddings "$@"
+
+deactivate
+cd tools/nl/embeddings

@@ -1,92 +1,96 @@
 # Tools and Data for Stat Var Embeddings Index
 
 This directory contains the data CSV (containing StatVar DCID and
-descriptions) and script used to construct the Stat Var Embeddings Index that
-is loaded into the NL Server in Website.
+descriptions) and script used to construct the stat var embeddings index that
+is loaded into the NL Server.
 
-There are multiple sizes of indexes: small, medium.
+There are multiple embeddings index types. Each index holds the stat var
+descriptions for a particular domain or use case. The input stat var
+description csvs for one index type are saved in one folder under
+`data/curated_input/`.
 
-As of May 2023, the small index has ~1.3K variables and medium index has 5.3K
-variables.
+## Embeddings Index Config
 
-## Making a change to the embeddings
+Embeddings index is configured in
+[`catalog.yaml`](../../../deploy/nl/catalog.yaml), under `indexes` field. The
+keys are index names (specified as `idx=` param value). Each value contains the
+following fields:
 
-1. For any carefully curated SVs/topics, make edits to the [curated input CSVs](data/curated_input/)<a name="curated-input"></a>.
+- `store_type`: what type of embeddings store? (MEMORY, LANCEDB, VERTEXAI)
+- `model`: the name of the associated model from `models` section
+- `embeddings_path`: For MEMORY/LANCEDB, the path to the index files. Can be a
+  local absolute path or GCS (gs://) path.
+- `source_folder`: the name of the input csv folder under `data/curated_input/`
 
-   - The columns in this csv are:
+### Create New Index Config
 
-     - `dcid`: the StatVar DCID.
-     - `sentence`: the description(s) of the StatVar. Multiple descriptions are acceptable. If multiple description strings are provided, they must be semi-colon delimited. This column can be expected to be used as part of any automated alternative generation processed, e.g. using an LLM.
+To create a new index type, add an entry under `indexes`, fill in `store_type`,
+`model`, `source_folder`. This is sufficient to build the index as indicated in
+the steps below.
 
-   - To easily edit the curated csv in Google sheets, you can go use the sheets command-line tools [here](../../sheets/).
-     - E.g., To copy the curated input for the base embeddings to a google sheet, go to the sheets command line tools folder and run:
-     ```bash
-     ./run.sh -m csv2sheet -l ../nl/embeddings/data/curated_input/base/sheets_svs.csv [-s <sheets_url>] [-w <worksheet_name>]
-     ```
-     - E.g., To copy the contents of the google sheet back as the curated input for the base embeddings, go to the sheets command line tools folder and run:
-     ```bash
-     ./run.sh -m sheet2csv -l ../nl/embeddings/data/curated_input/base/sheets_svs.csv -s <sheets_url> -w <worksheet_name>
-     ```
+## Input CSV Format
 
-2. Run the command below which will generate a new embeddings csv in
-   `gs://datcom-nl-models`. Note down the embeddings file version printed at the end of the run.
+Curated stat var and topics description should be saved in csv files. Each csv
+file should have two columns:
 
-   To generate the `sdg_ft` embeddings:
+- `dcid`: the StatVar DCID.
+- `sentence`: the description(s) of the StatVar. Multiple descriptions are
+  acceptable. If multiple description strings are provided, they must be
+  semi-colon delimited.
 
-   ```bash
-   ./run.sh -c sdg
-   ```
+## Update Stat Var Descriptions
 
-   To generate the `undata_ft` embeddings:
+To easily edit the curated csv in Google sheets, you can go use the sheets
+command-line tools [here](../../sheets/).
 
-   ```bash
-   ./run.sh -c undata
-   ```
+- E.g., To copy the curated input for the base embeddings to a google sheet, go
+  to the sheets command line tools folder and run:
 
-   To generate the `undata_ilo_ft` embeddings:
+  ```bash
+  ./run.sh -m csv2sheet -l ../nl/embeddings/data/curated_input/base/sheets_svs.csv [-s <sheets_url>] [-w <worksheet_name>]
+  ```
 
-   ```bash
-   ./run.sh -c undata_ilo
-   ```
+- E.g., To copy the contents of the google sheet back as the curated input for
+  the base embeddings, go to the sheets command line tools folder and run:
 
-   To generate the `bio_ft` embeddings:
+  ```bash
+  ./run.sh -m sheet2csv -l ../nl/embeddings/data/curated_input/base/sheets_svs.csv -s <sheets_url> -w <worksheet_name>
+  ```
 
-   ```bash
-   ./run.sh -c bio
-   ```
+## Build Embeddings Index
 
-   Note: Bio embeddings uses the alternatives from main dc for now.
+Identify the index name from [catalog.yaml](../../../deploy/nl/catalog.yaml),
+within `indexes`. If the index is newly created, add a new entry as described
+above.
 
-   To generate the embeddings using vertex AI model endpoint for base embeddings:
+Run the command below which will generate a new embeddings csv in
+`gs://datcom-nl-models`. Note down the embeddings file version printed at the
+end of the run.
 
-   ```bash
-   ./run.sh -e base <vertex_ai_endpoint_id>
-   ```
+```bash
+./run.sh --embeddings_name <EMBEDDINGS_NAME>
+```
 
-   All the endpoints can be found in this [page](https://pantheon.corp.google.com/vertex-ai/online-prediction/endpoints?mods=-monitoring_api_staging&project=datcom-website-dev).
+Available options for <EMBEDDINGS_NAME> are:
 
-   TODO: Add improved alternative descriptions to undata topics
+- sdg_ft
+- undata_ft
+- undata_ilo_ft
+- bio_ft
+- uae_base_mem
 
-   Notes:
+## Validate Embeddings Index
 
-   - curated_input_dirs is a list of directories separated by `,` which contains the CSVs with the curated inputs to use. The format of the CSVs should follow the description of [point 1](#curated-input).
+1. Validate the CSV diffs, update
+   [`catalog.yaml`](../../../deploy/nl/catalog.yaml) with the generated
+   embeddings path and test out locally.
 
-3. Validate the CSV diffs, update [`catalog.yaml`](../../../deploy/nl/embeddings.yaml) with the generated embeddings version and test out locally.
+1. Generate an SV embeddings differ report by following the process under the
+   [`sv_index_differ`](../svindex_differ/README.md) folder. Look
+   at the diffs and evaluate whether they make sense.
 
-4. Generate an SV embeddings differ report by following the process under the [`sv_index_differ`](../svindex_differ/README.md) folder (one level up). Look at the diffs and evaluate whether they make sense.
+1. Update goldens by running `./run_test.sh -g` from the repo root.
 
-5. Update goldens by running `./run_test.sh -g` from the repo root.
-
-6. If everything looks good, send out a PR with the `catalog.yaml`, the
+1. If everything looks good, send out a PR with the `catalog.yaml`, the
    `differ_report.html` file (as a linked attachement), CSV changes, and updated
    goldens.
-
-## Production Config Files
-
-### [`catalog.yaml`](../../../deploy/nl/catalog.yaml)
-
-Lists the embeddings CSV files (generated using the steps above).
-
-The keys are index names (specified as `idx=` param value), and the values are file names (with the assumption that the files are stored in gs://datcom-nl-models/).
-
-These files, generated from a fine-tuned model (as of Q2 2023), have the following structure: `<version>.<fine-tuned-model-version>.<base-model-name>.csv` (e.g., `datcom-nl-models/embeddings_sdg_2023_09_12_16_38_04.ft_final_v20230717230459.all-MiniLM-L6-v2.csv`).

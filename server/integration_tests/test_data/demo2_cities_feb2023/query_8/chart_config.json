@@ -101,11 +101,11 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_EnrolledInKindergarten",
+                      "Count_Person_DetailedEnrolledInKindergarten",
                       "Count_Person_DetailedPrimarySchool",
                       "Count_Person_DetailedMiddleSchool",
                       "Count_Person_DetailedHighSchool",
-                      "Count_Person_EnrolledInCollegeUndergraduateYears"
+                      "Count_Person_DetailedEnrolledInCollegeUndergraduateYears"
                     ],
                     "title": "Student Population by Enrollment Level in Sunnyvale",
                     "type": "LINE"
@@ -262,6 +262,14 @@
           }
         ],
         "statVarSpec": {
+          "Count_Person_DetailedEnrolledInCollegeUndergraduateYears": {
+            "name": "Population: Enrolled in College Undergraduate Years",
+            "statVar": "Count_Person_DetailedEnrolledInCollegeUndergraduateYears"
+          },
+          "Count_Person_DetailedEnrolledInKindergarten": {
+            "name": "Population: Enrolled in Kindergarten",
+            "statVar": "Count_Person_DetailedEnrolledInKindergarten"
+          },
           "Count_Person_DetailedHighSchool": {
             "name": "High School Students",
             "statVar": "Count_Person_DetailedHighSchool"
@@ -273,14 +281,6 @@
           "Count_Person_DetailedPrimarySchool": {
             "name": "Elementary School Students",
             "statVar": "Count_Person_DetailedPrimarySchool"
-          },
-          "Count_Person_EnrolledInCollegeUndergraduateYears": {
-            "name": "Population: Enrolled in College Undergraduate Years",
-            "statVar": "Count_Person_EnrolledInCollegeUndergraduateYears"
-          },
-          "Count_Person_EnrolledInKindergarten": {
-            "name": "Population: Enrolled in Kindergarten",
-            "statVar": "Count_Person_EnrolledInKindergarten"
           },
           "Count_Student_DirectCertificationLunch": {
             "name": "Count of Student: Direct Certification Lunch",
@@ -449,6 +449,32 @@
     "childPlaces": {},
     "childTopics": [],
     "exploreMore": {
+      "Count_Person_DetailedEnrolledInCollegeUndergraduateYears": {
+        "race": [
+          "dc/0jtctjm33mgh1",
+          "dc/1t989xd1tn701",
+          "dc/4wkzsq23w6reb",
+          "dc/50yq5l3ek70t7",
+          "dc/55d9n710f1l43",
+          "dc/mwbmxs2q9zcgd",
+          "dc/nhmjhp72kjr48",
+          "dc/wjtdrd9wq4m2g",
+          "dc/zv5g19y8dl9r1"
+        ]
+      },
+      "Count_Person_DetailedEnrolledInKindergarten": {
+        "race": [
+          "dc/1c4zcyw02n71g",
+          "dc/3n8g9we5yv7th",
+          "dc/556pqlh586bmc",
+          "dc/7g77dy8hfb1rg",
+          "dc/c6n2z7vh9sy31",
+          "dc/gr3zem8shyhbf",
+          "dc/ns1rqx6wy9909",
+          "dc/nt9cq96phw6nf",
+          "dc/qnphlls92tvs9"
+        ]
+      },
       "Count_Person_DetailedHighSchool": {
         "race": [
           "dc/1kt512ynvpmc2",
@@ -486,18 +512,6 @@
           "dc/p4jzvj8q1lnmd",
           "dc/wk2vjrzfgyq5d",
           "dc/x9e7150515yt7"
-        ]
-      },
-      "Count_Person_EnrolledInCollegeUndergraduateYears": {
-        "gender": [
-          "dc/0yv0ry7tjmwzc",
-          "dc/pltrqb2ng8dp8"
-        ]
-      },
-      "Count_Person_EnrolledInKindergarten": {
-        "gender": [
-          "dc/g8kg52zcxzw9f",
-          "dc/p34mhcpgtth76"
         ]
       },
       "dc/g8kg52zcxzw9f": {

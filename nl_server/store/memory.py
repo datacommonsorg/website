@@ -90,7 +90,7 @@ class MemoryEmbeddingsStore(EmbeddingsStore):
       matches: List[EmbeddingsMatch] = []
       for ent in hit:
         score = ent['score']
-        vars = self.dcids[ent['corpus_id']].split(',')
+        vars = self.dcids[ent['corpus_id']].split(';')
         sentence = ''
         if ent['corpus_id'] < len(self.sentences):
           sentence = self.sentences[ent['corpus_id']]
