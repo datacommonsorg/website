@@ -40,5 +40,5 @@ gcloud container clusters get-credentials $CLUSTER_NAME \
 
 POD_NAME=$(kubectl get pods -n website -l app=website-app -o=jsonpath='{.items[0].metadata.name}')
 HOST=$(gcloud redis instances describe webserver-cache --region="$REDIS_REGION" --format="get(host)")
-script="import redis; redis_client = redis.StrictRedis(host=\"$HOST\", port=6379); resp = redis_client.flushall(asynchronous=True); print(\"Clearing cache for host $PROJECT_ID/$CLUSTER_NAME/$LOCATION, redis host $HOST:\",resp)"
+script="import redis; redis_client = redis.StrictRedis(host=\"$HOST\", port=6379); resp = redis_client.flushall(asynchronous=True); print(\"Clearing cache for $PROJECT_ID/$CLUSTER_NAME/$LOCATION, redis host $HOST:\",resp)"
 kubectl exec -it $POD_NAME -n website -- /bin/bash -c "python -c '$script'"
