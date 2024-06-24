@@ -44,15 +44,12 @@ def _path_from_current_file(rel_path: str) -> str:
   return os.path.join(os.path.dirname(__file__), rel_path)
 
 
-# catalog paths
 # Note the order here is (somewhat) important. The later config could
 # overwrite the earlier config.
-_DEFAULT_CATALOG_PATHS = [
-    # catalog from checked in file
-    _path_from_current_file('../deploy/nl/catalog.yaml'),
-    # catalog from mounted file, this is for GKE deployments
-    '/datacommons/nl/catalog.yaml'
-]
+# 1) read catalog from checked in file
+# 2) read catalog from mounted file, this is for GKE deployments
+_DEFAULT_CATALOG_PATHS = (_path_from_current_file('../deploy/nl/catalog.yaml'),
+                          '/datacommons/nl/catalog.yaml')
 
 # env paths
 
