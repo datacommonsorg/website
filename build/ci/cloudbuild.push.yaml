@@ -13,6 +13,8 @@
 # limitations under the License.
 
 steps:
+
+  # Trigger downstream builds that listen for changes to multiple repos.
   - id: update-repo-version
     name: "gcr.io/cloud-builders/git"
     entrypoint: /bin/bash
@@ -38,6 +40,7 @@ steps:
           .
         docker push gcr.io/datcom-ci/datacommons-website:$SHORT_SHA
         docker push gcr.io/datcom-ci/datacommons-website:latest
+    waitFor: ["-"]
 
   - id: push-nl-server
     name: gcr.io/cloud-builders/docker
@@ -84,7 +87,10 @@ steps:
         docker push gcr.io/datcom-ci/website-cron-testing:latest\
     waitFor: ["-"]
 
-  - id: update version
+  # Trigger website autopush deployment by bumping the website autopush version
+  # file after new images are pushed. This step is separate from the repo
+  # version bump because it needs to wait for steps that create new images.
+  - id: update-autopush-version
     name: "gcr.io/cloud-builders/git"
     entrypoint: /bin/bash
     args:
