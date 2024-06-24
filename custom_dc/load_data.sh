@@ -83,6 +83,7 @@ function setup_python {
       run_cmd pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
       echo_log "Installing Python requirements from $embeddings_req"
       run_cmd pip3 install -r "$embeddings_req"
+      # TODO: remove install once embeddings doesn't need nl_server/requirements.txt
       nlserver_req=$WEBSITE_DIR/nl_server/requirements.txt
       echo_log "Installing Python requirements from $nlserver_req"
       run_cmd pip3 install -r "$nlserver_req"
@@ -190,10 +191,10 @@ function simple_import {
   setup_python
 
   # Build options for simple importer
-  local importer_options=""
-  [[ -n "$INPUT_DIR" ]] && importer_options="$importer_options --input_dir=$INPUT_DIR"
-  [[ -n "$CONFIG" ]] && importer_options="$importer_options --config_file=$CONFIG"
-  [[ -n "$OUTPUT_DIR" ]] && importer_options="$importer_options --output_dir=$OUTPUT_DIR"
+  cmd=("python" "-m stats.main")
+  [[ -n "$INPUT_DIR" ]] && cmd+=("--input_dir=$INPUT_DIR")
+  [[ -n "$CONFIG" ]] && cmd+=("--config_file=$CONFIG")
+  [[ -n "$OUTPUT_DIR" ]] && cmd+=("--output_dir=$OUTPUT_DIR")
 
   # Clear state from old run
   report_json=$OUTPUT_DIR/process/report.json
@@ -202,8 +203,7 @@ function simple_import {
   # Run the simple importer
   local cwd="$PWD"
   cd "$SIMPLE_DIR"
-  cmd="python -m stats.main $importer_options"
-  run_cmd $cmd
+  run_cmd "${cmd[@]}"
   cmd_status=$?
   cd "$cwd"
   if [[ "$cmd_status" != "0" ]]; then
@@ -222,7 +222,7 @@ function generate_embeddings {
   local cwd="$PWD"
   cd $WEBSITE_DIR
   run_cmd python -m tools.nl.embeddings.build_custom_dc_embeddings \
-    --input_file_path=$NL_DIR/sentences.csv --output_dir=$NL_DIR
+    --input_file_path="$NL_DIR/sentences.csv" --output_dir="$NL_DIR"
   cd "$cwd"
 }
 
