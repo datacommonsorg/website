@@ -214,6 +214,12 @@ export function FeedbackNavigation(
     }
   };
 
+  const finish = async () => {
+    if (await props.checkAndSubmit()) {
+      alert("All evaluations completed.")
+    }
+  };
+
   // Button Conditions
 
   function getNextButtonType(): ButtonType {
@@ -258,7 +264,7 @@ export function FeedbackNavigation(
       case ButtonType.NEXT_EVAL_STAGE:
         return nextEvalStage;
       case ButtonType.FINISH:
-        return props.checkAndSubmit;
+        return finish;
       default:
         return _.noop;
     }

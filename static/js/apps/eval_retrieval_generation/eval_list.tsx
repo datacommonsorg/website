@@ -21,9 +21,13 @@ import { Button, Input, Modal } from "reactstrap";
 
 import {
   NEW_QUERY_CALL_ID,
-  QUERY_FALSE_CLAIMS_FEEDBACK_KEY,
+  QUERY_FALSE_INF_CLAIMS_KEY,
+  QUERY_FALSE_STAT_CLAIMS_KEY,
   QUERY_OVERALL_FEEDBACK_KEY,
-  QUERY_TOTAL_CLAIMS_FEEDBACK_KEY,
+  QUERY_TABLES_USED_KEY,
+  QUERY_TOTAL_INF_CLAIMS_KEY,
+  QUERY_TOTAL_STAT_CLAIMS_KEY,
+  QUERY_UNSUB_INF_CLAIMS_KEY,
 } from "./constants";
 import { AppContext, SessionContext } from "./context";
 import { getAllFields, getCallCount, getPath } from "./data_store";
@@ -65,18 +69,18 @@ export function EvalList(): JSX.Element {
           if (!queryFeedbackResults[i][QUERY_OVERALL_FEEDBACK_KEY]) {
             completed = false;
           }
-          // For RAG eval type, also check that total and false claims are
-          // completed
+          // For RAG eval type, also check that claim counts are completed
           if (evalType === EvalType.RAG) {
             [
-              QUERY_TOTAL_CLAIMS_FEEDBACK_KEY,
-              QUERY_FALSE_CLAIMS_FEEDBACK_KEY,
-            ].forEach((key) => {
-              if (
-                queryFeedbackResults[i][key] !== "0" &&
-                !queryFeedbackResults[i][key]
-              ) {
-                completed = false;
+              QUERY_TOTAL_STAT_CLAIMS_KEY,
+              QUERY_FALSE_STAT_CLAIMS_KEY,
+              QUERY_TOTAL_INF_CLAIMS_KEY,
+              QUERY_FALSE_INF_CLAIMS_KEY,
+              QUERY_UNSUB_INF_CLAIMS_KEY,
+              QUERY_TABLES_USED_KEY
+            ].forEach((countKey) => {
+              if (!(countKey in queryFeedbackResults)) {
+                completed = false
               }
             });
           }
