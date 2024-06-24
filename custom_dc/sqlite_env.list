@@ -6,7 +6,7 @@ MAPS_API_KEY=
 USE_SQLITE=true
 # (Optional) Secret token to authorize users to perform /admin page operations.
 ADMIN_SECRET=
-# Enable embeddings generation and natural language querying. 
+# Enable embeddings generation and natural language querying.
 ENABLE_MODEL=true
 # The name of the parent directory for custom CSS, JS, HTML and image files.
 FLASK_ENV=custom

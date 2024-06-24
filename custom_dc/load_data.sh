@@ -1,30 +1,20 @@
 #!/bin/bash
 # Script to load data into custom Data Commons using simple importer.
 # Defaults
-MODE="customdc"
-OUTPUT_DIR=".data/output_$MODE"
+OUTPUT_DIR=".data/output"
 USAGE="Script to load data into custom Data Commons using simple importer.
-Usage: $(basename $0) [Options]
+Usage: $(basename $0) [Options] <env-file>
 Options:
-  -c <file>       JSON config file for stats importer
-  -e <file>       Load environment variables from file.
-  -i <dir>        Input directory to process
-  -k <api-key>    Data Commons API Key
-  -o <dir>        Output folder for stats importer. Default: $OUTPUT_DIR
-  -j <jar>        Data Commons Import java JAR file.
-                    Download latest from https://github.com/datacommonsorg/import/releases/
+  -e <file>       Load environment variables from file. Example: env.list
   -r <steps>      Steps to run. Can be one or more of the following:
-                    stats, validate, embeddings
-  -s <cloud_sql>  Cloud SQL instance. Also set DB_USER and DB_PASS with -u, -p
-  -u <username>   DB username for cloud SQL. Default: $DB_USER.
-  -p <password>   DB password for cloud SQL. Default: $DB_PASS.
+                    stats, embeddings
+  -h              Display this help string.
 
 For more, please refer to https://github.com/datacommonsorg/import/tree/master/simple
 "
 TMP_DIR=${TMP_DIR:-"/tmp"}
 LOG=$TMP_DIR/log-stats-$(date +%Y%m%d).log
-DC_IMPORT_JAR=${DC_IMPORT_JAR:-"$TMP_DIR/dc-import-tool.jar"}
-RUN_STEPS="stats,validate,embeddings"
+RUN_STEPS="stats,embeddings"
 
 function echo_log {
   echo -e "[$(date +%Y-%m-%d:%H:%M:%S)] $@" >> $LOG
@@ -57,22 +47,18 @@ function parse_options {
     case $1 in
       -i) shift; INPUT_DIR=$(readlink -f "$1");;
       -c) shift; CONFIG=$(readlink -f "$1");;
-      -k) shift; DC_API_KEY="$1";;
-      -o) shift; OUTPUT_DIR="$1";;
-      -m) shift; MODE="$1";;
-      -j) shift; DC_IMPORT_JAR="$1";;
+      -k) shift; export DC_API_KEY="$1";;
+      -o) shift; export OUTPUT_DIR="$1";;
       -r) shift; RUN_STEPS="$1";;
-      -s) shift; USE_CLOUDSQL=true; CLOUDSQL_INSTANCE="$1";;
-      -u) shift; DB_USER="$1";;
-      -p) shift; DB_PASS="$1";;
-      -e) shift; ENV_FILE=$1;
-          echo_log "Loading env variables from $ENV_FILE"
-          set -a; source $ENV_FILE; set +a
-          ;;
+      -s) shift; export USE_CLOUDSQL=true; export CLOUDSQL_INSTANCE="$1";;
+      -u) shift; export DB_USER="$1";;
+      -p) shift; export DB_PASS="$1";;
+      -e) shift; ENV_FILE="$1"; load_env_file "$ENV_FILE";;
       -q) QUIET="1";;
       -h) echo -e "$USAGE" >&2 && exit 0;;
       -x) set -x;;
-      *) echo "Unknown option '$1'" && exit 1;;
+      -*) echo "Unknown option '$1'" && exit 1;;
+      *) ENV_FILE="$1"; load_env_file "$ENV_FILE";;
     esac
     shift
   done
@@ -104,26 +90,6 @@ function setup_python {
   fi
 }
 
-function setup_dc_import {
-  # Get the datacommons import jar
-  if [[ -f "$DC_IMPORT_JAR" ]]; then
-    echo_log "Using existing dc-import jar: $DC_IMPORT_JAR"
-  else
-    # Download the latest jar
-    echo_log "Getting latest version of dc-import jar file..."
-    # Get URL to the latest release
-    jar_url=$(curl -vs  "https://api.github.com/repos/datacommonsorg/import/releases/latest" | \
-      grep browser_download_url | cut -d\" -f4)
-    [[ -z "$jar_url" ]] && echo_fatal "Unable to get latest jar for https://github.com/datacommonsorg/import/releases.
-Please download manually and set command line option '-j'"
-    jar=$(basename $jar_url)
-    u[ -z "$DC_IMPORT_JAR" ]] && DC_IMPORT_JAR="$TMP_DIR/jar"
-    echo_log "Downloading dc-import jar from $jar_url into $DC_IMPORT_JAR..."
-    curl -Ls "$jar_url" -o $DC_IMPORT_JAR
-    [[ -f "$DC_IMPORT_JAR" ]] || echo_fatal "Failed to download $jar_url"
-  fi
-}
-
 # Setup submodules
 # import module is used for stats loading.
 function setup_submodules {
@@ -152,6 +118,20 @@ function setup {
 
   setup_submodules
 
+  # Set output dir if not provided.
+  if [[ -z "$OUTPUT_DIR" ]]; then
+    if [[ -n "$INPUT_DIR" ]]; then
+      OUTPUT_DIR=$(dirname $INPUT_DIR)"/output"
+    fi
+  fi
+  if ! is_local_dir "$OUTPUT_DIR"; then
+    GCS_DATA_PATH=$OUTPUT_DIR
+    OUTPUT_DIR=""
+  fi
+
+  if [[ -n "$GCS_DATA_PATH" ]]; then
+    OUTPUT_DIR=""
+  fi
 
   if is_local_dir $OUTPUT_DIR; then
     mkdir -p $OUTPUT_DIR
@@ -178,6 +158,16 @@ function cleanup {
   exit $exit_status
 }
 
+# Load envronment variables from a file.
+function load_env_file {
+  local env_file="$1"; shift
+  [[ -f "$env_file" ]] || echo_fatal "Unable to load env file: $env_file"
+  echo_log "Loading env variables from $ENV_FILE"
+  set -a
+  source "$env_file"
+  set +a
+}
+
 # Check parameters for simple_import
 function check_simple_import {
   if [[ "$INPUT_DIR$CONFIG" == "" ]]; then
@@ -194,28 +184,20 @@ To get a key, please refer to https://docs.datacommons.org/api/rest/v2/getting_s
 }
 
 # Run the simple import on the specified config/input files.
-# Geneates output into OUTPUT_DIR
+# Generates output into OUTPUT_DIR
 function simple_import {
   check_simple_import
   setup_python
-
-  # Export env variables for simple stats importer
-  export DC_API_KEY=${DC_API_KEY}
-  export USE_CLOUDSQL=${USE_CLOUDSQL}
-  export CLOUDSQL_INSTANCE=${CLOUDSQL_INSTANCE}
-  export DB_USER=${DB_USER}
-  export DB_PASS=${DB_PASS}
 
   # Build options for simple importer
   local importer_options=""
   [[ -n "$INPUT_DIR" ]] && importer_options="$importer_options --input_dir=$INPUT_DIR"
   [[ -n "$CONFIG" ]] && importer_options="$importer_options --config_file=$CONFIG"
-  [[ -n "$MODE" ]] && importer_options="$importer_options --mode=$MODE"
   [[ -n "$OUTPUT_DIR" ]] && importer_options="$importer_options --output_dir=$OUTPUT_DIR"
 
   # Clear state from old run
   report_json=$OUTPUT_DIR/process/report.json
-  rm $report_json
+  [[ -f $report_json ]] && rm $report_json
 
   # Run the simple importer
   local cwd="$PWD"
@@ -232,62 +214,15 @@ function simple_import {
   echo_log "simple importer: $status"
 }
 
-# Generate tmcf for a csv file in dir
-function get_or_generate_tmcf {
-  set -x
-  local dir="$1"; shift
-
-  tmcf=$(ls $dir/*.tmcf | head -1)
-  [[ -n "$tmcf" ]] && echo "$tmcf" && return
-
-  # Create a new tmcf for columns in csv
-  csv=$(ls $dir/*.csv | head -1)
-  tmcf=$(echo "$csv" | sed -e 's/.csv$/.tmcf/')
-  # TODO: generate tmcf based on csv columns
-  cat <<END_TMCF > $tmcf
-Node: E:Stats->E0
-typeOf: dcs:StatVarObservation
-observationAbout: C:Stats->entity
-observationDate: C:Stats->date
-variableMeasured: C:Stats->variable
-value: C:Stats->value
-END_TMCF
-  echo "$tmcf"
-  set +x
-}
-
-# Run dc-import genmcf to validate generated csv/mcf files.
-function validate_output {
-  #TODO: For customdc validate data in sql triples db and observations db
-  # get output csv if any.
-  local output_csv=$(ls $OUTPUT_DIR/*.csv 2>/dev/null)
-  if [[ -z "$output_csv" ]]; then
-    echo_log "Skipping validate as there are no csv files in $OUTPUT_DIR"
-    return
-  fi
-  setup_dc_import
-  echo_log "Validating output in $OUTPUT_DIR"
-
-  # Get the tmcf file to validate csv stats.
-  tmcf=$(get_or_generate_tmcf "$OUTPUT_DIR")
-
-  # Run dc-import
-  DC_IMPORT_CMD="genmcf"
-  [[ "$MODE" == "customdc" ]] && DC_IMPORT_CMD="lint"
-  cmd="java -jar $DC_IMPORT_JAR $DC_IMPORT_CMD -n 20 -r FULL $OUTPUT_DIR/*.csv $tmcf -o $OUTPUT_DIR/dc_generated"
-  run_cmd $cmd
-  echo_log "Output of validation in $OUTPUT_DIR/dc_generated/report.json"
-}
-
 # Generate embeddings for sentences
 function generate_embeddings {
   setup_python
-  NL_DIR=${NL_DIR:-"$OUTPUT_DIR/nl"}
+  NL_DIR=${NL_DIR:-"$OUTPUT_DIR$GCS_DATA_PATH/nl"}
   echo_log "Building embeddings for sentences in $NL_DIR"
   local cwd="$PWD"
   cd $WEBSITE_DIR
   run_cmd python -m tools.nl.embeddings.build_custom_dc_embeddings \
-    --sv_sentences_csv_path=$NL_DIR/sentences.csv --output_dir=$NL_DIR
+    --input_file_path=$NL_DIR --output_dir=$NL_DIR
   cd "$cwd"
 }
 
@@ -300,13 +235,12 @@ function run_step {
   local step_fn="$1"; shift
 
   has_stage=$(echo "$RUN_STEPS" | egrep -i "$step_name")
-  [[ -n "$has_stage" ]] && $step_fn
+  [[ -n "$has_stage" ]] && $step_fn $@
 }
 
 function main {
   setup "$@"
   run_step "stats|simple" simple_import
-  run_step "validate" validate_output
   run_step "embeddings" generate_embeddings
 }
 
