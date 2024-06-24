@@ -28,6 +28,7 @@ import {
   QUERY_TOTAL_INF_CLAIMS_KEY,
   QUERY_TOTAL_STAT_CLAIMS_KEY,
   QUERY_UNSUB_INF_CLAIMS_KEY,
+  RAG_CLAIM_KEYS,
 } from "./constants";
 import { AppContext, SessionContext } from "./context";
 import { getAllFields, getPath, saveToSheet, setFields } from "./data_store";
@@ -38,20 +39,20 @@ import { EvalType } from "./types";
 
 const LOADING_CONTAINER_ID = "form-container";
 const EMPTY_COUNTS = {
-  [QUERY_TOTAL_STAT_CLAIMS_KEY]: 0,
-  [QUERY_FALSE_STAT_CLAIMS_KEY]: 0,
-  [QUERY_TOTAL_INF_CLAIMS_KEY]: 0,
-  [QUERY_FALSE_INF_CLAIMS_KEY]: 0,
-  [QUERY_UNSUB_INF_CLAIMS_KEY]: 0,
-  [QUERY_TABLES_USED_KEY]: 0,
+  [RAG_CLAIM_KEYS.QUERY_TOTAL_STAT_CLAIMS_KEY]: 0,
+  [RAG_CLAIM_KEYS.QUERY_FALSE_STAT_CLAIMS_KEY]: 0,
+  [RAG_CLAIM_KEYS.QUERY_TOTAL_INF_CLAIMS_KEY]: 0,
+  [RAG_CLAIM_KEYS.QUERY_FALSE_INF_CLAIMS_KEY]: 0,
+  [RAG_CLAIM_KEYS.QUERY_UNSUB_INF_CLAIMS_KEY]: 0,
+  [RAG_CLAIM_KEYS.QUERY_TABLES_USED_KEY]: 0,
 };
 const COUNTER_LABELS = {
-  [QUERY_TOTAL_STAT_CLAIMS_KEY]: "Total claims",
-  [QUERY_FALSE_STAT_CLAIMS_KEY]: "False claims",
-  [QUERY_TOTAL_INF_CLAIMS_KEY]: "Total claims",
-  [QUERY_FALSE_INF_CLAIMS_KEY]: "False claims",
-  [QUERY_UNSUB_INF_CLAIMS_KEY]: "Unsubstantiated claims",
-  [QUERY_TABLES_USED_KEY]: "Unique tables used",
+  [RAG_CLAIM_KEYS.QUERY_TOTAL_STAT_CLAIMS_KEY]: "Total claims",
+  [RAG_CLAIM_KEYS.QUERY_FALSE_STAT_CLAIMS_KEY]: "False claims",
+  [RAG_CLAIM_KEYS.QUERY_TOTAL_INF_CLAIMS_KEY]: "Total claims",
+  [RAG_CLAIM_KEYS.QUERY_FALSE_INF_CLAIMS_KEY]: "False claims",
+  [RAG_CLAIM_KEYS.QUERY_UNSUB_INF_CLAIMS_KEY]: "Unsubstantiated claims",
+  [RAG_CLAIM_KEYS.QUERY_TABLES_USED_KEY]: "Unique tables used",
 };
 
 interface RagAnsResponse {

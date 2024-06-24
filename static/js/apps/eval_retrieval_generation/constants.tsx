@@ -46,6 +46,21 @@ export const QUERY_OVERALL_FEEDBACK_COL = "overall" + FB_SUFFIX;
 export const NEW_QUERY_CALL_ID = 1;
 // The key used in firestore to save the query overall feedback
 export const QUERY_OVERALL_FEEDBACK_KEY = "overall";
+// Firestore keys used to save claims feedback
+export const RAG_CLAIM_KEYS = {
+  // total stat claims
+  QUERY_TOTAL_STAT_CLAIMS_KEY: "totalStatClaims",
+  // false stat claims
+  QUERY_FALSE_STAT_CLAIMS_KEY: "falseStatClaims",
+  // total inferred claims
+  QUERY_TOTAL_INF_CLAIMS_KEY: "totalInferredClaims",
+  // false inferred claims
+  QUERY_FALSE_INF_CLAIMS_KEY: "falseInferredClaims",
+  // unsubstantiated inferred claims
+  QUERY_UNSUB_INF_CLAIMS_KEY: "unsubInferredClaims",
+  // total tables used in claims
+  QUERY_TABLES_USED_KEY: "tablesUsed",
+};
 // The key used in firestore to save the query total stat claims feedback
 export const QUERY_TOTAL_STAT_CLAIMS_KEY = "totalStatClaims";
 // The key used in firestore to save the query false stat claims feedback
