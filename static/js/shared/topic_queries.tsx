@@ -109,6 +109,5 @@ function QueryLink(props: QueryLinkProps): JSX.Element {
     // NL
     url += `&q=${encodeURIComponent(query.title)}&a=True`;
   }
-  console.log(url);
   return <a href={url}>{query.title}</a>;
 }
