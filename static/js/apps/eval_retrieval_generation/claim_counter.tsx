@@ -32,8 +32,7 @@ export function ClaimCounter(props: ClaimCounterPropType): JSX.Element {
     <div className="block-evaluation question-section">
       <div className="title">BLOCK EVALUATION</div>
       <div className="subtitle">
-        Count the number of claims (statistical or logical) made by the model in
-        the highlighted text.
+        Count the number of claims (statistical or logical) made by the model.
       </div>
       <div className={`counter${props.disabled ? " disabled" : ""}`}>
         <div className="claims-count">

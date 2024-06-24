@@ -47,6 +47,18 @@ const EMPTY_RESPONSE = {
     question: "",
   },
 };
+const DC_RESPONSE_OPTIONS = {
+  [EvalType.RIG]: {
+    DC_ANSWER_IRRELEVANT: "Does not match the question",
+    DC_ANSWER_RELEVANT_INACCURATE: "Relevant, but inaccurate",
+    DC_ANSWER_RELEVANT_UNSURE: "Relevant, but unsure if it is accurate",
+    DC_ANSWER_RELEVANT_ACCURATE: "Relevant and accurate",
+  },
+  [EvalType.RAG]: {
+    DC_ANSWER_IRRELEVANT: "Does not match the question",
+    DC_ANSWER_RELEVANT: "Matches the question",
+  },
+};
 
 export enum FormStatus {
   NotStarted = 1,
@@ -168,12 +180,7 @@ export function CallFeedback(): JSX.Element {
   if (evalInfo) {
     if (evalInfo.dcStat) {
       dcResponseQuestion = "Response from Data Commons";
-      dcResponseOptions = {
-        DC_ANSWER_IRRELEVANT: "Doesn't match the question",
-        DC_ANSWER_RELEVANT_INACCURATE: "Relevant, but inaccurate",
-        DC_ANSWER_RELEVANT_UNSURE: "Relevant, but unsure if it is accurate",
-        DC_ANSWER_RELEVANT_ACCURATE: "Relevant and accurate",
-      };
+      dcResponseOptions = DC_RESPONSE_OPTIONS[evalType];
     } else {
       dcResponseQuestion = "Reason for empty Data Commons response";
       dcResponseOptions = {
@@ -216,8 +223,7 @@ export function CallFeedback(): JSX.Element {
                     question="Question from the model"
                     name="question"
                     options={{
-                      DC_QUESTION_IRRELEVANT:
-                        "Irrelevant, vague, requires editing",
+                      DC_QUESTION_IRRELEVANT: "Irrelevant, vague",
                       DC_QUESTION_RELEVANT: "Well formulated & relevant",
                     }}
                     handleChange={handleChange}
