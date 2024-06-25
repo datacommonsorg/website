@@ -41,35 +41,46 @@ import { TablePane } from "./table_pane";
 import { EvalType, FeedbackStage } from "./types";
 
 const LOADING_CONTAINER_ID = "form-container";
-// Dictionary of feedback stage -> eval type -> response options
-const RESPONSE_OPTIONS = {
+
+// object to hold information about a question
+interface QuestionConfig {
+  title: string;
+  question: string;
+  responseOptions: Record<string, string>;
+}
+
+// Dictionary of feedback stage -> eval type -> question config
+const QUESTION_CONFIG: Record<string, Record<string, QuestionConfig>> = {
   [FeedbackStage.OVERALL_QUESTIONS]: {
     [EvalType.RAG]: {
-      [OVERALL_QUESTIONS_OPTION_HAS_MISSING]: "Missing obvious questions",
-      [OVERALL_QUESTIONS_OPTION_NONE_MISSING]: "No obvious questions missing",
+      title: "QUESTIONS EVALUATION",
+      question:
+        "Do the generated questions seem sufficient to answer the query?",
+      responseOptions: {
+        [OVERALL_QUESTIONS_OPTION_HAS_MISSING]: "Missing obvious questions",
+        [OVERALL_QUESTIONS_OPTION_NONE_MISSING]: "No obvious questions missing",
+      },
     },
   },
   [FeedbackStage.OVERALL_ANS]: {
     [EvalType.RIG]: {
-      [QUERY_OVERALL_OPTION_HALLUCINATION]: "Found factual inaccuracies",
-      [QUERY_OVERALL_OPTION_OK]: "No obvious factual inaccuracies",
+      title: "OVERALL EVALUATION",
+      question: "How is the overall answer?",
+      responseOptions: {
+        [QUERY_OVERALL_OPTION_HALLUCINATION]: "Found factual inaccuracies",
+        [QUERY_OVERALL_OPTION_OK]: "No obvious factual inaccuracies",
+      },
     },
     [EvalType.RAG]: {
-      [QUERY_OVERALL_OPTION_IRRELEVANT]: "Not at all relevant",
-      [QUERY_OVERALL_OPTION_SOMEWHAT_RELEVANT]: "Somewhat relevant",
-      [QUERY_OVERALL_OPTION_RELEVANT]: "Relevant",
+      title: "OVERALL EVALUATION",
+      question: "How relevant is the overall answer to the query?",
+      responseOptions: {
+        [QUERY_OVERALL_OPTION_IRRELEVANT]: "Not at all relevant",
+        [QUERY_OVERALL_OPTION_SOMEWHAT_RELEVANT]: "Somewhat relevant",
+        [QUERY_OVERALL_OPTION_RELEVANT]: "Relevant",
+      },
     },
   },
-};
-// Dictionary of feedback stage -> title
-const QUESTION_TITLE = {
-  [FeedbackStage.OVERALL_ANS]: "OVERALL EVALUATION",
-  [FeedbackStage.OVERALL_QUESTIONS]: "QUESTIONS EVALUATION",
-};
-// Dictionary of feedback stage -> question
-const QUESTION = {
-  [FeedbackStage.OVERALL_ANS]: "How is the overall answer?",
-  [FeedbackStage.OVERALL_QUESTIONS]: "Are there any questions missing?",
 };
 
 // Get firestore key to use for this feedback stage
@@ -147,6 +158,8 @@ export function OverallFeedback(): JSX.Element {
     setIsSubmitted(false);
   };
 
+  const questionConfig = QUESTION_CONFIG[feedbackStage][evalType];
+
   return (
     <>
       <div className="button-section">
@@ -162,11 +175,11 @@ export function OverallFeedback(): JSX.Element {
         <form>
           <fieldset>
             <div className="question-section">
-              <div className="title">{QUESTION_TITLE[feedbackStage]}</div>
+              <div className="title">{questionConfig.title}</div>
               <OneQuestion
-                question={QUESTION[feedbackStage]}
+                question={questionConfig.question}
                 name="overall"
-                options={RESPONSE_OPTIONS[feedbackStage][evalType]}
+                options={questionConfig.responseOptions}
                 handleChange={handleChange}
                 responseField={response}
                 disabled={isSubmitted}

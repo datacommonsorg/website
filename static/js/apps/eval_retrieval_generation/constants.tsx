@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+// TODO: think about cleaning up all these constants
+
 export const QA_SHEET = "query_and_answer";
 export const DC_CALL_SHEET = "dc_calls";
 export const DC_FEEDBACK_SHEET = "feedback";
