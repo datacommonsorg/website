@@ -26,10 +26,11 @@ import { EvalType, FeedbackStage } from "./types";
 import { getFirstFeedbackStage } from "./util";
 
 const FEEDBACK_STAGE_LIST: Record<EvalType, FeedbackStage[]> = {
-  [EvalType.RIG]: [FeedbackStage.OVERALL, FeedbackStage.CALLS],
+  [EvalType.RIG]: [FeedbackStage.OVERALL_ANS, FeedbackStage.CALLS],
   [EvalType.RAG]: [
     FeedbackStage.CALLS,
-    FeedbackStage.OVERALL,
+    FeedbackStage.OVERALL_QUESTIONS,
+    FeedbackStage.OVERALL_ANS,
     FeedbackStage.RAG_ANS,
   ],
 };
