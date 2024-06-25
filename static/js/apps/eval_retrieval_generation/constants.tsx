@@ -45,7 +45,9 @@ export const QUERY_OVERALL_FEEDBACK_COL = "overall" + FB_SUFFIX;
 // Call Id to use for a new query
 export const NEW_QUERY_CALL_ID = 1;
 // The key used in firestore to save the query overall feedback
-export const QUERY_OVERALL_FEEDBACK_KEY = "overall";
+export const QUERY_OVERALL_ANS_KEY = "overall";
+// The key used in firestore to save the query overall questions feedback
+export const QUERY_OVERALL_QUESTIONS_KEY = "overallQuestions";
 // Firestore keys used to save claims feedback
 export const RAG_CLAIM_KEYS = {
   // total stat claims
@@ -68,3 +70,7 @@ export const QUERY_OVERALL_OPTION_IRRELEVANT = "LLM_ANSWER_IRRELEVANT";
 export const QUERY_OVERALL_OPTION_SOMEWHAT_RELEVANT =
   "LLM_ANSWER_SOMEWHAT_RELEVANT";
 export const QUERY_OVERALL_OPTION_RELEVANT = "LLM_ANSWER_RELEVANT";
+// Options for the query calls overall feedback
+export const OVERALL_QUESTIONS_OPTION_HAS_MISSING = "LLM_QUESTIONS_MISSING";
+export const OVERALL_QUESTIONS_OPTION_NONE_MISSING =
+  "LLM_QUESTIONS_NONE_MISSING";
