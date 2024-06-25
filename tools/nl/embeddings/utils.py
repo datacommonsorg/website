@@ -14,8 +14,10 @@
 """Common Utility functions for Embeddings."""
 
 import csv
+from dataclasses import asdict
 import datetime as datetime
 import glob
+import hashlib
 import itertools
 import logging
 import os
@@ -26,11 +28,13 @@ from typing import Dict, List, Tuple
 
 import lancedb
 import pandas as pd
+import yaml
 
 from nl_server import config_reader
 from nl_server import registry
 from nl_server.config import Catalog
 from nl_server.config import Env
+from nl_server.config import IndexConfig
 from nl_server.embeddings import EmbeddingsModel
 from shared.lib import constants
 from shared.lib import gcs
@@ -42,6 +46,7 @@ _CHUNK_SIZE = 100
 _NUM_RETRIES = 3
 _LANCEDB_TABLE = 'datacommons'
 _PREINDEX_CSV = '_preindex.csv'
+_INDEX_CONFIG_YAML = 'index_config.yaml'
 
 
 class FileManager(object):
@@ -83,6 +88,9 @@ class FileManager(object):
   def preindex_csv_path(self):
     return os.path.join(self._local_input_dir, _PREINDEX_CSV)
 
+  def index_config_path(self):
+    return os.path.join(self._local_output_dir, _INDEX_CONFIG_YAML)
+
   def maybe_upload_to_gcs(self):
     """
     Upload the generated files to GCS if the input or output paths are GCS.
@@ -110,7 +118,7 @@ def get_model(catalog: Catalog, env: Env, model_name: str) -> EmbeddingsModel:
   return model
 
 
-def build_preindex(fm: FileManager) -> Tuple[List[str], List[str]]:
+def build_and_save_preindex(fm: FileManager) -> Tuple[List[str], List[str]]:
   """
   Build preindex records (sentence -> dcid) from a directory of CSV files.
   """
@@ -126,6 +134,7 @@ def build_preindex(fm: FileManager) -> Tuple[List[str], List[str]]:
           text2sv[sentence].add(row[_COL_DCID])
   texts = []
   dcids = []
+  # Write preindex as CSV
   with open(fm.preindex_csv_path(), 'w') as csvfile:
     csv_writer = csv.writer(csvfile, delimiter=',')
     csv_writer.writerow([_COL_SENTENCE, _COL_DCID])
@@ -134,6 +143,10 @@ def build_preindex(fm: FileManager) -> Tuple[List[str], List[str]]:
       texts.append(sentence)
       dcids.append(dcids_str)
       csv_writer.writerow([sentence, dcids_str])
+  # Write md5sum of preindex as a file
+  with open(fm.preindex_csv_path()) as fin:
+    with open(os.path.join(fm.local_output_dir(), 'md5sum.txt'), 'w') as fout:
+      fout.write(hashlib.md5(fin.read().encode('utf-8')).hexdigest())
   return texts, dcids
 
 
@@ -186,3 +199,8 @@ def save_embeddings_lancedb(local_dir: str, sentences: List[str],
     records.append({_COL_DCID: d, _COL_SENTENCE: s, 'vector': v})
   db.create_table(_LANCEDB_TABLE, records)
   logging.info("Saved embeddings as lancedb file in %s", local_dir)
+
+
+def save_index_config(fm: FileManager, index_config: IndexConfig):
+  with open(fm.index_config_path(), 'w') as f:
+    yaml.dump(asdict(index_config), f)

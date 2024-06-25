@@ -158,17 +158,16 @@ def read_catalog(catalog_paths: List[str] = _DEFAULT_CATALOG_PATHS,
             raise ValueError(f'Unknown model type: {model_type}')
 
       def _get_abs_path(path: str) -> str:
-        if path:
-          path = os.path.expandvars(path)
-          if not gcs.is_gcs_path(path) and not os.path.isabs(path):
-            path = os.path.join(catalog_dir, path)
+        if not gcs.is_gcs_path(path) and not os.path.isabs(path):
+          path = os.path.join(catalog_dir, path)
         return path
 
       # Process to get absolute paths
-      for idx_name in indexes:
-        source_path = indexes[idx_name].source_path
-        if source_path:
-          indexes[idx_name].source_path = _get_abs_path(source_path)
+      if catalog_dir:
+        for idx_name in indexes:
+          source_path = indexes[idx_name].source_path
+          if source_path:
+            indexes[idx_name].source_path = _get_abs_path(source_path)
 
   return catalog
 
