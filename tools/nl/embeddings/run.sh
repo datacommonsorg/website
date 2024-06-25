@@ -15,7 +15,7 @@
 
 # Usage function
 usage() {
-  echo "Usage: $0 --embeddings_name <embeddings-name> --gcs_root <gcs-root>"
+  echo "Usage: $0 --embeddings_name <embeddings-name> --output_dir <output_dir>"
   exit 1
 }
 
@@ -26,8 +26,8 @@ while [[ "$#" -gt 0 ]]; do
         embeddings_name="$2"
         shift 2
         ;;
-    --gcs_root)
-        gcs_root="$2"
+    --output_dir)
+        output_dir="$2"
         shift 2
         ;;
     *)
@@ -37,13 +37,13 @@ while [[ "$#" -gt 0 ]]; do
   esac
 done
 
-if [ -z "$gcs_root" ]; then
-  gcs_root="gs://datcom-nl-models"
+if [ -z "$output_dir" ]; then
+  output_dir="gs://datcom-nl-models/${embeddings_name}_$(date +'%Y_%m_%d_%H_%M_%S')/"
 fi
 
 # Print options
 echo "Embeddings name: $embeddings_name"
-echo "GCS root: $gcs_root"
+echo "Output directory: $output_dir"
 
 cd ../../..
 python3 -m venv .env
@@ -55,7 +55,7 @@ export TOKENIZERS_PARALLELISM=false
 
 python3 -m tools.nl.embeddings.build_embeddings \
   --embeddings_name=$embeddings_name \
-  --gcs_root=$gcs_root
+  --output_dir=$output_dir
 
 deactivate
 cd tools/nl/embeddings

@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+// TODO: think about cleaning up all these constants
+
 export const QA_SHEET = "query_and_answer";
 export const DC_CALL_SHEET = "dc_calls";
 export const DC_FEEDBACK_SHEET = "feedback";
@@ -41,17 +43,28 @@ export const DC_RESPONSE_FEEDBACK_COL = DC_RESPONSE_COL + FB_SUFFIX;
 export const LLM_STAT_FEEDBACK_COL = LLM_STAT_COL + FB_SUFFIX;
 export const DC_STAT_FEEDBACK_COL = DC_STAT_COL + FB_SUFFIX;
 export const QUERY_OVERALL_FEEDBACK_COL = "overall" + FB_SUFFIX;
-export const QUERY_TOTAL_CLAIMS_FEEDBACK_COL = "total_claims" + FB_SUFFIX;
-export const QUERY_FALSE_CLAIMS_FEEDBACK_COL = "false_claims" + FB_SUFFIX;
 
 // Call Id to use for a new query
 export const NEW_QUERY_CALL_ID = 1;
 // The key used in firestore to save the query overall feedback
-export const QUERY_OVERALL_FEEDBACK_KEY = "overall";
-// The key used in firestore to save the query total claims feedback
-export const QUERY_TOTAL_CLAIMS_FEEDBACK_KEY = "totalClaims";
-// The key used in firestore to save the query total false claims feedback
-export const QUERY_FALSE_CLAIMS_FEEDBACK_KEY = "falseClaims";
+export const QUERY_OVERALL_ANS_KEY = "overall";
+// The key used in firestore to save the query overall questions feedback
+export const QUERY_OVERALL_QUESTIONS_KEY = "overallQuestions";
+// Firestore keys used to save claims feedback
+export const RAG_CLAIM_KEYS = {
+  // total stat claims
+  QUERY_TOTAL_STAT_CLAIMS_KEY: "totalStatClaims",
+  // false stat claims
+  QUERY_FALSE_STAT_CLAIMS_KEY: "falseStatClaims",
+  // total inferred claims
+  QUERY_TOTAL_INF_CLAIMS_KEY: "totalInferredClaims",
+  // false inferred claims
+  QUERY_FALSE_INF_CLAIMS_KEY: "falseInferredClaims",
+  // unsubstantiated inferred claims
+  QUERY_UNSUB_INF_CLAIMS_KEY: "unsubInferredClaims",
+  // total tables used in claims
+  QUERY_TABLES_USED_KEY: "tablesUsed",
+};
 // Options for the query overall feedback
 export const QUERY_OVERALL_OPTION_HALLUCINATION = "LLM_ANSWER_HALLUCINATION";
 export const QUERY_OVERALL_OPTION_OK = "LLM_ANSWER_OKAY";
@@ -59,3 +72,7 @@ export const QUERY_OVERALL_OPTION_IRRELEVANT = "LLM_ANSWER_IRRELEVANT";
 export const QUERY_OVERALL_OPTION_SOMEWHAT_RELEVANT =
   "LLM_ANSWER_SOMEWHAT_RELEVANT";
 export const QUERY_OVERALL_OPTION_RELEVANT = "LLM_ANSWER_RELEVANT";
+// Options for the query calls overall feedback
+export const OVERALL_QUESTIONS_OPTION_HAS_MISSING = "LLM_QUESTIONS_MISSING";
+export const OVERALL_QUESTIONS_OPTION_NONE_MISSING =
+  "LLM_QUESTIONS_NONE_MISSING";

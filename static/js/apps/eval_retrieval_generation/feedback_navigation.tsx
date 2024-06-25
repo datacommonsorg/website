@@ -26,10 +26,11 @@ import { EvalType, FeedbackStage } from "./types";
 import { getFirstFeedbackStage } from "./util";
 
 const FEEDBACK_STAGE_LIST: Record<EvalType, FeedbackStage[]> = {
-  [EvalType.RIG]: [FeedbackStage.OVERALL, FeedbackStage.CALLS],
+  [EvalType.RIG]: [FeedbackStage.OVERALL_ANS, FeedbackStage.CALLS],
   [EvalType.RAG]: [
     FeedbackStage.CALLS,
-    FeedbackStage.OVERALL,
+    FeedbackStage.OVERALL_QUESTIONS,
+    FeedbackStage.OVERALL_ANS,
     FeedbackStage.RAG_ANS,
   ],
 };
@@ -214,6 +215,12 @@ export function FeedbackNavigation(
     }
   };
 
+  const finish = async () => {
+    if (await props.checkAndSubmit()) {
+      alert("All evaluations completed.");
+    }
+  };
+
   // Button Conditions
 
   function getNextButtonType(): ButtonType {
@@ -258,7 +265,7 @@ export function FeedbackNavigation(
       case ButtonType.NEXT_EVAL_STAGE:
         return nextEvalStage;
       case ButtonType.FINISH:
-        return props.checkAndSubmit;
+        return finish;
       default:
         return _.noop;
     }

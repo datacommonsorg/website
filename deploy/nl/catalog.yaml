@@ -29,7 +29,7 @@
 #               Can be a local absolute path or GCS (gs://) path.
 # - healthcheck_query: if this index were the default index, what is
 #                      the query to use for health-checking the index?
-# - source_folder: the name of the input csv folder under `tools/nl/embeddings/data/curated_input/`
+# - source_path: the input csv path.
 # - Additional params specific to VERTEXAI:
 #   - project_id
 #   - location
@@ -59,43 +59,43 @@ indexes:
     healthcheck_query: "Life expectancy"
   sdg_ft:
     store_type: MEMORY
-    source_folder: sdg
+    source_path: ../../tools/nl/embeddings/data/curated_input/sdg
     embeddings_path: gs://datcom-nl-models/sdg_ft-final-v20230717230459-all-MiniLM-L6-v2_2024_06_20_23_15_52/embeddings.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
     healthcheck_query: "Hunger"
   undata_ft:
     store_type: MEMORY
-    source_folder: undata
+    source_path: ../../tools/nl/embeddings/data/curated_input/undata
     embeddings_path: gs://datcom-nl-models/undata_ft-final-v20230717230459-all-MiniLM-L6-v2_2024_06_20_23_13_04/embeddings.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
     healthcheck_query: "Hunger"
   undata_ilo_ft:
     store_type: MEMORY
-    source_folder: undata_ilo
+    source_path: ../../tools/nl/embeddings/data/curated_input/undata_ilo
     embeddings_path: gs://datcom-nl-models/undata_ilo_ft-final-v20230717230459-all-MiniLM-L6-v2_2024_06_18_22_12_37/embeddings.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
     healthcheck_query: "Employment"
   bio_ft:
     store_type: MEMORY
-    source_folder: bio
+    source_path: ../../tools/nl/embeddings/data/curated_input/bio
     embeddings_path: gs://datcom-nl-models/bio_ft-final-v20230717230459-all-MiniLM-L6-v2_2024_06_18_21_21_09/embeddings.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
     healthcheck_query: "Gene"
   base_uae_lance:
     store_type: LANCEDB
-    source_folder: base
+    source_path: ../../tools/nl/embeddings/data/curated_input/base
     embeddings_path: gs://datcom-nl-models/base_uae-large-v1-model_2024_06_18_22_27_05
     model: uae-large-v1-model
     healthcheck_query: "Life expectancy"
   base_uae_mem:
     store_type: MEMORY
-    source_folder: base
+    source_path: ../../tools/nl/embeddings/data/curated_input/base
     embeddings_path: gs://datcom-nl-models/base_uae-large-v1-model_2024_06_20_23_00_18/embeddings.csv
     model: uae-large-v1-model
     healthcheck_query: "Life expectancy"
   base_mistral_mem:
     store_type: MEMORY
-    source_folder: base
+    source_path: ../../tools/nl/embeddings/data/curated_input/base
     embeddings_path: gs://datcom-nl-models/base_sfr-embedding-mistral-model_2024_06_18_23_08_20/embeddings.csv
     model: sfr-embedding-mistral-model
     healthcheck_query: "Life expectancy"

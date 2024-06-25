@@ -166,12 +166,14 @@ def run_diff(base_idx: str, test_idx: str, base_dict: dict[str, dict[str, str]],
   nl_env.default_indexes = [base_idx, test_idx]
   nl_env.enabled_indexes = [base_idx, test_idx]
 
-  base_catalog = config_reader.read_catalog(base_dict)
+  base_catalog = config_reader.read_catalog(catalog_dict=base_dict,
+                                            catalog_paths=[])
   base_server_config = config_reader.get_server_config(base_catalog, nl_env)
   base_registry = Registry(base_server_config)
   base = base_registry.get_index(base_idx)
 
-  test_catalog = config_reader.read_catalog(test_dict)
+  test_catalog = config_reader.read_catalog(catalog_dict=test_dict,
+                                            catalog_paths=[])
   test_server_config = config_reader.get_server_config(test_catalog, nl_env)
   test_registry = Registry(test_server_config)
   test = test_registry.get_index(test_idx)
