@@ -20,12 +20,12 @@ following fields:
 - `model`: the name of the associated model from `models` section
 - `embeddings_path`: For MEMORY/LANCEDB, the path to the index files. Can be a
   local absolute path or GCS (gs://) path.
-- `source_folder`: the name of the input csv folder under `data/curated_input/`
+- `source_path`: the input csv folder path.
 
 ### Create New Index Config
 
 To create a new index type, add an entry under `indexes`, fill in `store_type`,
-`model`, `source_folder`. This is sufficient to build the index as indicated in
+`model`, `source_path`. This is sufficient to build the index as indicated in
 the steps below.
 
 ## Input CSV Format

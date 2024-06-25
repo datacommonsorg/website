@@ -407,3 +407,6 @@ DATE_LATEST = 'LATEST'
 # Observations for a particular variable and place will always have the same
 # date
 DATE_HIGHEST_COVERAGE = 'HIGHEST_COVERAGE'
+
+# The name of the embeddings CSV file.
+EMBEDDINGS_FILE_NAME = 'embeddings.csv'

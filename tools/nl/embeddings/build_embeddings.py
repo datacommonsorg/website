@@ -13,11 +13,9 @@
 # limitations under the License.
 """Build the embeddings index from variable and topic descriptions."""
 
-import os
-from pathlib import Path
-
 from absl import app
 from absl import flags
+import yaml
 
 from nl_server import config_reader
 from tools.nl.embeddings import utils
@@ -27,30 +25,32 @@ FLAGS = flags.FLAGS
 flags.DEFINE_string('embeddings_name', '',
                     'Embeddings name as specified in catalog.yaml')
 
-flags.DEFINE_string('gcs_root', '',
-                    'The output GCS path root to save the embeddings files/db')
+flags.DEFINE_string('output_dir', '',
+                    'The output directory to save the embeddings files/db')
 
-_THIS_DIR = Path(__file__).parent.resolve()
+flags.DEFINE_string('catalog', '',
+                    'A dict of user provided embeddings/model catalog')
 
 
 def main(_):
   # Get embeddings_name
   embeddings_name = FLAGS.embeddings_name
-  assert embeddings_name
+  output_dir = FLAGS.output_dir
+  assert embeddings_name, output_dir
 
   # Prepare the model
-  catalog = config_reader.read_catalog()
+  if FLAGS.catalog:
+    catalog = yaml.safe_load(FLAGS.catalog)
+  else:
+    catalog = None
+  catalog = config_reader.read_catalog(catalog_dict=catalog)
   index_config = catalog.indexes[embeddings_name]
   # Use default env config: autopush for base DCs and custom env for custom DCs.
   env = config_reader.read_env()
   model = utils.get_model(catalog, env, index_config.model)
 
   # Construct a file manager
-  input_dir = os.path.join(_THIS_DIR, 'data', 'curated_input',
-                           index_config.source_folder)
-  output_dir = utils.make_output_path(FLAGS.gcs_root,
-                                      index_config.source_folder,
-                                      index_config.model)
+  input_dir = index_config.source_path
   fm = utils.FileManager(input_dir, output_dir)
 
   # Build and save preindex
