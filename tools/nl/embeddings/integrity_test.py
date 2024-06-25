@@ -33,7 +33,12 @@ class TestIntegrity(unittest.TestCase):
     for embeddings_name, index_config in catalog().indexes.items():
       if embeddings_name == 'medium_ft':
         continue
-      embeddings_dir = os.path.dirname(index_config.embeddings_path)
+      if index_config.store_type == 'MEMORY':
+        embeddings_dir = os.path.dirname(index_config.embeddings_path)
+      elif index_config.store_type == 'LANCEDB':
+        embeddings_dir = index_config.embeddings_path
+      else:
+        raise ValueError('Unsupported store type: %s' % index_config.store_type)
       md5sum_path = os.path.join(embeddings_dir, 'md5sum.txt')
       if gcs.is_gcs_path(md5sum_path):
         md5sum_path = gcs.maybe_download(md5sum_path)

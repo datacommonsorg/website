@@ -47,6 +47,7 @@ _NUM_RETRIES = 3
 _LANCEDB_TABLE = 'datacommons'
 _PREINDEX_CSV = '_preindex.csv'
 _INDEX_CONFIG_YAML = 'index_config.yaml'
+_MD5_SUM_FILE = 'md5sum.txt'
 
 
 class FileManager(object):
@@ -145,7 +146,7 @@ def build_and_save_preindex(fm: FileManager) -> Tuple[List[str], List[str]]:
       csv_writer.writerow([sentence, dcids_str])
   # Write md5sum of preindex as a file
   with open(fm.preindex_csv_path()) as fin:
-    with open(os.path.join(fm.local_output_dir(), 'md5sum.txt'), 'w') as fout:
+    with open(os.path.join(fm.local_output_dir(), _MD5_SUM_FILE), 'w') as fout:
       fout.write(hashlib.md5(fin.read().encode('utf-8')).hexdigest())
   return texts, dcids
 

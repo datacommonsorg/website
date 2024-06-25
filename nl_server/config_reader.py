@@ -162,7 +162,7 @@ def read_catalog(catalog_paths: List[str] = _DEFAULT_CATALOG_PATHS,
 
       def _get_abs_path(path: str) -> str:
         if not gcs.is_gcs_path(path) and not os.path.isabs(path):
-          path = os.path.join(catalog_dir, path)
+          path = os.path.realpath(os.path.join(catalog_dir, path))
         return path
 
       # Process to get absolute paths

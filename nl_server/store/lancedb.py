@@ -13,7 +13,6 @@
 # limitations under the License.
 """LanceDB Embeddings store."""
 
-import logging
 from typing import List
 
 import lancedb
