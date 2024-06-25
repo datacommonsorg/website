@@ -21,12 +21,16 @@ import { Button } from "reactstrap";
 
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import {
+  QUERY_OVERALL_FEEDBACK_COL,
   QUERY_OVERALL_FEEDBACK_KEY,
   QUERY_OVERALL_OPTION_HALLUCINATION,
+  QUERY_OVERALL_OPTION_IRRELEVANT,
   QUERY_OVERALL_OPTION_OK,
+  QUERY_OVERALL_OPTION_RELEVANT,
+  QUERY_OVERALL_OPTION_SOMEWHAT_RELEVANT,
 } from "./constants";
 import { AppContext, SessionContext } from "./context";
-import { getField, getPath, saveToSheet, setField } from "./data_store";
+import { getField, getPath, saveToSheet, setFields } from "./data_store";
 import { EvalList } from "./eval_list";
 import { FeedbackNavigation } from "./feedback_navigation";
 import { OneQuestion } from "./one_question";
@@ -35,8 +39,15 @@ import { EvalType } from "./types";
 
 const LOADING_CONTAINER_ID = "form-container";
 const RESPONSE_OPTIONS = {
-  [QUERY_OVERALL_OPTION_HALLUCINATION]: "Found factual inaccuracies",
-  [QUERY_OVERALL_OPTION_OK]: "No obvious factual inaccuracies",
+  [EvalType.RIG]: {
+    [QUERY_OVERALL_OPTION_HALLUCINATION]: "Found factual inaccuracies",
+    [QUERY_OVERALL_OPTION_OK]: "No obvious factual inaccuracies",
+  },
+  [EvalType.RAG]: {
+    [QUERY_OVERALL_OPTION_IRRELEVANT]: "Not at all relevant",
+    [QUERY_OVERALL_OPTION_SOMEWHAT_RELEVANT]: "Somewhat relevant",
+    [QUERY_OVERALL_OPTION_RELEVANT]: "Relevant",
+  },
 };
 
 export function OverallFeedback(): JSX.Element {
@@ -66,19 +77,12 @@ export function OverallFeedback(): JSX.Element {
     }
     loadSpinner(LOADING_CONTAINER_ID);
     return Promise.all([
-      setField(
-        getPath(sheetId, sessionQueryId),
-        QUERY_OVERALL_FEEDBACK_KEY,
-        response
-      ),
-      saveToSheet(
-        userEmail,
-        doc,
-        sessionQueryId,
-        sessionCallId,
-        null,
-        response
-      ),
+      setFields(getPath(sheetId, sessionQueryId), {
+        [QUERY_OVERALL_FEEDBACK_KEY]: response,
+      }),
+      saveToSheet(userEmail, doc, sessionQueryId, sessionCallId, {
+        [QUERY_OVERALL_FEEDBACK_COL]: response,
+      }),
     ])
       .then(() => {
         return true;
@@ -121,7 +125,7 @@ export function OverallFeedback(): JSX.Element {
               <OneQuestion
                 question="How is the overall answer?"
                 name="overall"
-                options={RESPONSE_OPTIONS}
+                options={RESPONSE_OPTIONS[evalType]}
                 handleChange={handleChange}
                 responseField={response}
                 disabled={isSubmitted}

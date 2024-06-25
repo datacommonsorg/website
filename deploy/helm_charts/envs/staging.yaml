@@ -27,6 +27,15 @@ website:
   flaskEnv: staging
   replicas: 6
   enableModel: true
+  redis:
+    enabled: true
+    configFile: |
+      {
+        "us-central1": {
+          "host": "10.127.249.59",
+          "port": "6379"
+        }
+      }
 
 ingress:
   enabled: false

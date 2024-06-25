@@ -29,6 +29,7 @@
 #               Can be a local absolute path or GCS (gs://) path.
 # - healthcheck_query: if this index were the default index, what is
 #                      the query to use for health-checking the index?
+# - source_path: the input csv path.
 # - Additional params specific to VERTEXAI:
 #   - project_id
 #   - location
@@ -58,58 +59,48 @@ indexes:
     healthcheck_query: "Life expectancy"
   sdg_ft:
     store_type: MEMORY
-    embeddings_path: gs://datcom-nl-models/embeddings_sdg_2024_06_13_18_37_38.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
+    source_path: ../../tools/nl/embeddings/data/curated_input/sdg
+    embeddings_path: gs://datcom-nl-models/sdg_ft-final-v20230717230459-all-MiniLM-L6-v2_2024_06_20_23_15_52/embeddings.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
     healthcheck_query: "Hunger"
   undata_ft:
     store_type: MEMORY
-    embeddings_path: gs://datcom-nl-models/embeddings_undata_2024_06_13_18_31_43.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
+    source_path: ../../tools/nl/embeddings/data/curated_input/undata
+    embeddings_path: gs://datcom-nl-models/undata_ft-final-v20230717230459-all-MiniLM-L6-v2_2024_06_20_23_13_04/embeddings.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
     healthcheck_query: "Hunger"
   undata_ilo_ft:
     store_type: MEMORY
-    embeddings_path: gs://datcom-nl-models/embeddings_undata_ilo_2024_06_13_18_36_15.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
+    source_path: ../../tools/nl/embeddings/data/curated_input/undata_ilo
+    embeddings_path: gs://datcom-nl-models/undata_ilo_ft-final-v20230717230459-all-MiniLM-L6-v2_2024_06_18_22_12_37/embeddings.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
     healthcheck_query: "Employment"
   bio_ft:
     store_type: MEMORY
-    embeddings_path: gs://datcom-nl-models/embeddings_bio_2024_06_13_18_39_14.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
+    source_path: ../../tools/nl/embeddings/data/curated_input/bio
+    embeddings_path: gs://datcom-nl-models/bio_ft-final-v20230717230459-all-MiniLM-L6-v2_2024_06_18_21_21_09/embeddings.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
     healthcheck_query: "Gene"
-  medium_lance_ft:
+  base_uae_lance:
     store_type: LANCEDB
-    embeddings_path: gs://datcom-nl-models-dev/lancedb/lancedb_embeddings_medium_2024_04_09_07_22_21.ft_final_v20230717230459.all-MiniLM-L6-v2
-    model: ft-final-v20230717230459-all-MiniLM-L6-v2
-    healthcheck_query: "Life expectancy"
-  medium_vertex_ft:
-    store_type: VERTEXAI
-    project_id: datcom-website-dev
-    location: us-central1
-    index_endpoint_root: 302175072.us-central1-496370955550.vdb.vertexai.goog
-    index_endpoint: projects/496370955550/locations/us-central1/indexEndpoints/8500794985312944128
-    index_id: dc_all_minilm_l6_v2_ft_1709655496660
-    model: dc-all-minilm-l6-v2-model
+    source_path: ../../tools/nl/embeddings/data/curated_input/base
+    embeddings_path: gs://datcom-nl-models/base_uae-large-v1-model_2024_06_18_22_27_05
+    model: uae-large-v1-model
     healthcheck_query: "Life expectancy"
   base_uae_mem:
     store_type: MEMORY
-    embeddings_path: gs://datcom-nl-models/embeddings_base_2024_06_20_21_39_15.430892009855647744.csv
+    source_path: ../../tools/nl/embeddings/data/curated_input/base
+    embeddings_path: gs://datcom-nl-models/base_uae-large-v1-model_2024_06_20_23_00_18/embeddings.csv
     model: uae-large-v1-model
     healthcheck_query: "Life expectancy"
-  medium_vertex_mistral:
-    store_type: VERTEXAI
-    project_id: datcom-website-dev
-    location: us-central1
-    index_endpoint_root: 302175072.us-central1-496370955550.vdb.vertexai.goog
-    index_endpoint: projects/496370955550/locations/us-central1/indexEndpoints/8500794985312944128
-    index_id: sfr_embedding_mistral_1709682235285
+  base_mistral_mem:
+    store_type: MEMORY
+    source_path: ../../tools/nl/embeddings/data/curated_input/base
+    embeddings_path: gs://datcom-nl-models/base_sfr-embedding-mistral-model_2024_06_18_23_08_20/embeddings.csv
     model: sfr-embedding-mistral-model
     healthcheck_query: "Life expectancy"
 
 models:
-  dc-all-minilm-l6-v2-model:
-    type: VERTEXAI
-    usage: EMBEDDINGS
-    score_threshold: 0.5
   uae-large-v1-model:
     type: VERTEXAI
     usage: EMBEDDINGS

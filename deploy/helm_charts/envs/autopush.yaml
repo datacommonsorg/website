@@ -56,17 +56,12 @@ nl:
       - base_uae_mem
       - bio_ft
       - medium_ft
-      - medium_lance_ft
-      - medium_vertex_ft
-      - medium_vertex_mistral
+      - base_uae_lance
+      - base_mistral_mem
       - sdg_ft
       - undata_ft
       - undata_ilo_ft
     vertex_ai_models:
-      dc-all-minilm-l6-v2-model:
-        project_id: datcom-website-dev
-        location: us-central1
-        prediction_endpoint_id: "8518340991868993536"
       uae-large-v1-model:
         project_id: datcom-nl
         location: us-central1

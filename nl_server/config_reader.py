@@ -16,7 +16,7 @@ from dataclasses import asdict
 import json
 import logging
 import os
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 import yaml
 
@@ -44,17 +44,9 @@ def _path_from_current_file(rel_path: str) -> str:
   return os.path.join(os.path.dirname(__file__), rel_path)
 
 
-# catalog paths
-
-# catalog from checked in file
-_CATALOG_CODE_PATH = _path_from_current_file('../deploy/nl/catalog.yaml')
-# catalog from mounted file, this is for GKE deployments
-_CATALOG_MOUNT_PATH = '/datacommons/nl/catalog.yaml'
-# catalog from user provided file, this is for custom DCs
-# TODO: use absolute path set by user.
-_CATALOG_USER_PATH_SUFFIX = 'datacommons/nl/custom_catalog.yaml'
-
-# env paths
+# Default catalog paths to load from
+_DEFAULT_CATALOG_PATHS = (_path_from_current_file('../deploy/nl/catalog.yaml'),
+                          '/datacommons/nl/catalog.yaml')
 
 # env from checked in file for autopush instance. Used for local and testing.
 _ENV_CODE_PATH = _path_from_current_file(
@@ -98,57 +90,21 @@ def merge_vertex_ai_configs(m: ModelConfig,
   return VertexAIModelConfig(**merged)
 
 
-# TODO: should accept a list of catalog paths because custom DC path won't be
-# constant. i.e., we want this function to be:
-# read_catalog(catalog_paths: [] = DEFAULT_PATHS, catalog_dict: Dict = None)
-def read_catalog(catalog_dict: Dict = None) -> Catalog:
-  """
-  Reads the catalog from the config files and merges them together.
-
-  One Config file could exist in several places depending on the environment.
-
-  - `../../deploy/nl/catalog.yaml`
-  - `/datacommons/nl/catalog.yaml`
-  - `${USER_DATA_PATH}/datacommons/nl/custom_catalog.yaml`
-
-  Note here ${USER_DATA_PATH} could be a local path or a GCS path (gcs://)
+def read_catalog(catalog_paths: List[str] = _DEFAULT_CATALOG_PATHS,
+                 catalog_dict: Dict = None) -> Catalog:
+  """Reads the catalog from the config files and merges them together.
   """
   partial_catalogs = []
-
-  if catalog_dict:
-    partial_catalogs = [catalog_dict]
-  else:
-    # Note the check order here is (somewhat) important. The later config could
-    # overwrite the earlier config.
-
+  for p in catalog_paths:
     all_paths = []
-    # Check the codebase config file
-    if os.path.exists(_CATALOG_CODE_PATH):
-      all_paths.append(_CATALOG_CODE_PATH)
-
-    # Check mounted config file
-    if os.path.exists(_CATALOG_MOUNT_PATH):
-      all_paths.append(_CATALOG_MOUNT_PATH)
-
-    # Then check user set config file
-    # TODO: make this generic and independent of custom DC.
-    # Currently this depends on the assumption of custom DC user sub path.
-    user_data_path = custom_dc_util.get_custom_dc_user_data_path()
-
-    if gcs.is_gcs_path(user_data_path):
-      full_gcs_path = os.path.join(user_data_path, _CATALOG_USER_PATH_SUFFIX)
-      local_user_catalog_path = gcs.maybe_download(full_gcs_path)
-      if local_user_catalog_path:
-        all_paths.append(local_user_catalog_path)
-    else:
-      full_user_path = os.path.join(user_data_path, _CATALOG_USER_PATH_SUFFIX)
-      if os.path.exists(full_user_path):
-        all_paths.append(full_user_path)
-
+    if os.path.exists(p):
+      all_paths.append(p)
     for p in all_paths:
       logging.info('Loading index and model catalog from: %s', p)
       with open(p) as f:
-        partial_catalogs.append(yaml.safe_load(f.read()))
+        partial_catalogs.append((os.path.dirname(p), yaml.safe_load(f.read())))
+  if catalog_dict:
+    partial_catalogs.append((None, catalog_dict))
 
   # Now load and merge all the catalog config files
   catalog = Catalog(
@@ -156,7 +112,10 @@ def read_catalog(catalog_dict: Dict = None) -> Catalog:
       indexes={},
       models={},
   )
-  for partial_catalog in partial_catalogs:
+
+  # Later catalog may override earlier.
+  # TODO:See if should throw error.
+  for (catalog_dir, partial_catalog) in partial_catalogs:
     # read version
     ver = catalog.version
     this_ver = partial_catalog['version']
@@ -197,7 +156,20 @@ def read_catalog(catalog_dict: Dict = None) -> Catalog:
             models[model_name] = VertexAIModelConfig(**model_config)
           case _:
             raise ValueError(f'Unknown model type: {model_type}')
-  _log_asdict(catalog, 'NL catalog')
+
+      def _get_abs_path(path: str) -> str:
+        if path:
+          path = os.path.expandvars(path)
+          if not gcs.is_gcs_path(path) and not os.path.isabs(path):
+            path = os.path.join(catalog_dir, path)
+        return path
+
+      # Process to get absolute paths
+      for idx_name in indexes:
+        source_path = indexes[idx_name].source_path
+        if source_path:
+          indexes[idx_name].source_path = _get_abs_path(source_path)
+
   return catalog
 
 
@@ -215,7 +187,6 @@ def read_env() -> Env:
     with open(_ENV_CODE_PATH) as f:
       full_nl_config = yaml.safe_load(f.read())
       e = Env.from_dict(full_nl_config['nl']['env'])
-  _log_asdict(e, 'NL env')
   return e
 
 

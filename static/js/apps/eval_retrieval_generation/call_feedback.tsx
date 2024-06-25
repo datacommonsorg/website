@@ -23,9 +23,12 @@ import { loadSpinner, removeSpinner } from "../../shared/util";
 import {
   DC_CALL_SHEET,
   DC_QUESTION_COL,
+  DC_QUESTION_FEEDBACK_COL,
   DC_RESPONSE_COL,
+  DC_RESPONSE_FEEDBACK_COL,
   DC_STAT_COL,
   LLM_STAT_COL,
+  LLM_STAT_FEEDBACK_COL,
 } from "./constants";
 import { AppContext, SessionContext } from "./context";
 import { getCallData, saveToSheet, saveToStore } from "./data_store";
@@ -45,6 +48,18 @@ const EMPTY_RESPONSE = {
   [EvalType.RAG]: {
     dcResponse: "",
     question: "",
+  },
+};
+const DC_RESPONSE_OPTIONS = {
+  [EvalType.RIG]: {
+    DC_ANSWER_IRRELEVANT: "Does not match the question",
+    DC_ANSWER_RELEVANT_INACCURATE: "Relevant, but inaccurate",
+    DC_ANSWER_RELEVANT_UNSURE: "Relevant, but unsure if it is accurate",
+    DC_ANSWER_RELEVANT_ACCURATE: "Relevant and accurate",
+  },
+  [EvalType.RAG]: {
+    DC_ANSWER_IRRELEVANT: "Does not match the question",
+    DC_ANSWER_RELEVANT: "Matches the question",
   },
 };
 
@@ -109,6 +124,11 @@ export function CallFeedback(): JSX.Element {
     }
     if (status === FormStatus.Completed) {
       loadSpinner(LOADING_CONTAINER_ID);
+      const sheetValues = {
+        [DC_QUESTION_FEEDBACK_COL]: response.question,
+        [DC_RESPONSE_FEEDBACK_COL]: response.dcResponse,
+        [LLM_STAT_FEEDBACK_COL]: response.llmStat || "",
+      };
       return Promise.all([
         saveToStore(
           userEmail,
@@ -117,7 +137,7 @@ export function CallFeedback(): JSX.Element {
           sessionCallId,
           response
         ),
-        saveToSheet(userEmail, doc, sessionQueryId, sessionCallId, response),
+        saveToSheet(userEmail, doc, sessionQueryId, sessionCallId, sheetValues),
       ])
         .then(() => {
           return true;
@@ -168,12 +188,7 @@ export function CallFeedback(): JSX.Element {
   if (evalInfo) {
     if (evalInfo.dcStat) {
       dcResponseQuestion = "Response from Data Commons";
-      dcResponseOptions = {
-        DC_ANSWER_IRRELEVANT: "Doesn't match the question",
-        DC_ANSWER_RELEVANT_INACCURATE: "Relevant, but inaccurate",
-        DC_ANSWER_RELEVANT_UNSURE: "Relevant, but unsure if it is accurate",
-        DC_ANSWER_RELEVANT_ACCURATE: "Relevant and accurate",
-      };
+      dcResponseOptions = DC_RESPONSE_OPTIONS[evalType];
     } else {
       dcResponseQuestion = "Reason for empty Data Commons response";
       dcResponseOptions = {
@@ -216,8 +231,7 @@ export function CallFeedback(): JSX.Element {
                     question="Question from the model"
                     name="question"
                     options={{
-                      DC_QUESTION_IRRELEVANT:
-                        "Irrelevant, vague, requires editing",
+                      DC_QUESTION_IRRELEVANT: "Irrelevant, vague",
                       DC_QUESTION_RELEVANT: "Well formulated & relevant",
                     }}
                     handleChange={handleChange}

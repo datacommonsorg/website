@@ -127,6 +127,65 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person"
+                    ],
+                    "title": "Economic Activity: Nominal GDP (Nominal, Per Capita) in Eurostat Nuts 3 Places of Spain (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person"
+                    ],
+                    "title": "Economic Activity: Nominal GDP (Nominal, Per Capita) in Eurostat Nuts 3 Places of Spain (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Economic Activity: Nominal GDP (Nominal, Per Capita) in Eurostat Nuts 3 Places of Spain"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person"
+                    ],
+                    "title": "Economic Activity: Nominal GDP (Nominal, Per Capita) in Spain",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Economic Activity: Nominal GDP (Nominal, Per Capita) in Spain",
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person"
+                    ],
+                    "title": "Economic Activity: Nominal GDP (Nominal, Per Capita) in Spain",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Economic Activity: Nominal GDP (Nominal, Per Capita)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "UnemploymentRate_Person"
                     ],
                     "title": "Unemployment Rate in Spain",
@@ -211,6 +270,10 @@
           "Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
             "name": "GDP (Nominal Value)",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+          },
+          "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person": {
+            "name": "Economic Activity: Nominal GDP (Nominal, Per Capita)",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person"
           },
           "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": {
             "name": "Nominal GDP Per Capita",

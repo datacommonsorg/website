@@ -13,146 +13,176 @@
 # limitations under the License.
 """Common Utility functions for Embeddings."""
 
+import csv
+import datetime as datetime
+import glob
 import itertools
 import logging
+import os
+import shutil
+import tempfile
+import time
 from typing import Dict, List, Tuple
 
-from google.cloud import aiplatform
+import lancedb
 import pandas as pd
-from sentence_transformers import SentenceTransformer
 
-# Col names in the input files/sheets.
-DCID_COL = 'dcid'
-DESCRIPTION_COL = 'sentence'
+from nl_server import config_reader
+from nl_server import registry
+from nl_server.config import Catalog
+from nl_server.config import Env
+from nl_server.embeddings import EmbeddingsModel
+from shared.lib import constants
+from shared.lib import gcs
 
-# Col names in the concatenated dataframe.
-COL_ALTERNATIVES = 'sentence'
+_COL_DCID = 'dcid'
+_COL_SENTENCE = 'sentence'
 
 _CHUNK_SIZE = 100
+_NUM_RETRIES = 3
+_LANCEDB_TABLE = 'datacommons'
+_PREINDEX_CSV = '_preindex.csv'
 
-_MODEL_ENDPOINT_RETRIES = 3
+
+class FileManager(object):
+
+  def __init__(self, input_dir: str, output_dir: str):
+    # Add trailing '/' if not present
+    self._input_dir = os.path.join(input_dir, '')
+    self._output_dir = os.path.join(output_dir, '')
+    # Create a local dir to hold local input and output files
+    self._local_dir = tempfile.mkdtemp()
+
+    # Set local input directory
+    if gcs.is_gcs_path(self._input_dir):
+      self._local_input_dir = os.path.join(self._local_dir, 'input')
+      os.mkdir(self._local_input_dir)
+      gcs.download_blob_by_path(self._input_dir, self._local_input_dir)
+    else:
+      self._local_input_dir = self._input_dir
+
+    # Set local output directory
+    if gcs.is_gcs_path(output_dir):
+      self._local_output_dir = os.path.join(self._local_dir, 'output')
+      os.mkdir(self._local_output_dir)
+    else:
+      self._local_output_dir = output_dir
+
+  def __del__(self):
+    shutil.rmtree(self._local_dir)
+
+  def local_input_dir(self):
+    return self._local_input_dir
+
+  def local_output_dir(self):
+    return self._local_output_dir
+
+  def output_dir(self):
+    return self._output_dir
+
+  def preindex_csv_path(self):
+    return os.path.join(self._local_input_dir, _PREINDEX_CSV)
+
+  def maybe_upload_to_gcs(self):
+    """
+    Upload the generated files to GCS if the input or output paths are GCS.
+    """
+    if gcs.is_gcs_path(self._input_dir):
+      # This is to upload any generated files in the input directory to GCS
+      gcs.upload_by_path(self._local_input_dir, self._input_dir)
+    if gcs.is_gcs_path(self._output_dir):
+      gcs.upload_by_path(self._local_output_dir, self._output_dir)
 
 
-def chunk_list(data, chunk_size):
+def _chunk_list(data, chunk_size):
   it = iter(data)
   return iter(lambda: tuple(itertools.islice(it, chunk_size)), ())
 
 
-def get_local_alternatives(local_filename: str,
-                           local_col_names: List[str]) -> pd.DataFrame:
-  df = pd.read_csv(local_filename).fillna("")
-  df = df[local_col_names]
-  return df
+def get_model(catalog: Catalog, env: Env, model_name: str) -> EmbeddingsModel:
+  logging.info("Loading model")
+  model_config = catalog.models[model_name]
+  if model_name in env.vertex_ai_models:
+    vertex_ai_config = env.vertex_ai_models[model_name]
+    model_config = config_reader.merge_vertex_ai_configs(
+        model_config, vertex_ai_config)
+  model = registry.create_model(model_config)
+  return model
 
 
-def merge_dataframes(df_1: pd.DataFrame, df_2: pd.DataFrame) -> pd.DataFrame:
-  # In case there is a column (besides DCID_COL) which is common, the merged copy
-  # will contain two columns (one with a postfix _x and one with a postfix _y.
-  # Concatenate the two to produce a final version.
-  df_1 = df_1.merge(df_2, how='left', on=DCID_COL,
-                    suffixes=("_x", "_y")).fillna("")
-
-  # Determine the columns which were common.
-  common_cols = set()
-  for col in df_1.columns:
-    if col.endswith("_x") or col.endswith("_y"):
-      common_cols.add(col.replace("_x", "").replace("_y", ""))
-
-  # Replace the common columns with their concatenation.
-  for col in common_cols:
-    df_1[col] = df_1[f"{col}_x"].str.cat(df_1[f"{col}_y"], sep=";")
-    df_1[col] = df_1[col].replace(to_replace="^;", value="", regex=True)
-    df_1 = df_1.drop(columns=[f"{col}_x", f"{col}_y"])
-
-  return df_1
-
-
-def concat_alternatives(alternatives: List[str],
-                        max_alternatives,
-                        delimiter=";") -> str:
-  alts = set(alternatives[0:max_alternatives])
-  return f"{delimiter}".join(sorted(alts))
-
-
-def split_alt_string(alt_string: str) -> List[str]:
-  alts = []
-  for alt in alt_string.split(";"):
-    if alt:
-      alts.append(alt.strip())
-  return alts
-
-
-def add_sv(name: str, sv: str, text2sv: Dict[str, str],
-           dup_svs: List[List[str]]) -> None:
-  osv = text2sv.get(name)
-  if not osv or osv == sv:
-    text2sv[name] = sv
-    return
-
-  # This is a case of duplicate SV.  Prefer the non sdg, human-curated, shorter SV.
-  # Track it.
-  pref, drop = sv, osv
-  if sv.startswith('dc/topic/sdg'):
-    # sv is an sdg topic. Prefer osv if osv is not an sdg topic. Otherwise, go
-    # by dcid len.
-    if not osv.startswith('dc/topic/sdg') or len(osv) <= len(sv):
-      pref, drop = osv, sv
-  elif ((osv.startswith('dc/') and sv.startswith('dc/')) or
-        (not osv.startswith('dc/') and not sv.startswith('dc/'))):
-    # Both SVs are autogen or both aren't. Go by dcid len.
-    if len(osv) <= len(sv):
-      pref, drop = osv, sv
-  elif sv.startswith('dc/'):
-    # sv is autogen, prefer osv.
-    pref, drop = osv, sv
-
-  text2sv[name] = pref
-  dup_svs.append([pref, drop, name])
-
-
-def dedup_texts(df: pd.DataFrame) -> Tuple[Dict[str, str], List[List[str]]]:
-  """Dedup multiple texts mapped to the same DCID and return a list."""
-  text2sv_dict = {}
-  dup_sv_rows = [['PreferredSV', 'DroppedSV', 'DuplicateName']]
-  for _, row in df.iterrows():
-    sv = row[DCID_COL].strip()
-
-    # All alternative sentences are retrieved from COL_ALTERNATIVES, which
-    # are expected to be delimited by ";" (semi-colon).
-    if COL_ALTERNATIVES in row:
-      alternatives = row[COL_ALTERNATIVES].split(';')
-      alternatives = [a.strip() for a in alternatives if a.strip()]
-      for alt in alternatives:
-        add_sv(alt, sv, text2sv_dict, dup_sv_rows)
-
-  return (text2sv_dict, dup_sv_rows)
-
-
-def build_embeddings(
-    text2sv: Dict[str, str],
-    model: SentenceTransformer = None,
-    model_endpoint: aiplatform.Endpoint = None) -> pd.DataFrame:
-  """Builds the embeddings dataframe.
-
-  The output dataframe contains the embeddings columns (typically 384) + dcid + sentence.
+def build_preindex(fm: FileManager) -> Tuple[List[str], List[str]]:
   """
-  texts = sorted(list(text2sv.keys()))
+  Build preindex records (sentence -> dcid) from a directory of CSV files.
+  """
+  text2sv: Dict[str, set[str]] = {}
+  for file_name in glob.glob(fm.local_input_dir() + "/[!_]*.csv"):
+    with open(file_name) as f:
+      reader = csv.DictReader(f)
+      for row in reader:
+        sentences = row[_COL_SENTENCE].split(';')
+        for sentence in sentences:
+          if sentence not in text2sv:
+            text2sv[sentence] = set()
+          text2sv[sentence].add(row[_COL_DCID])
+  texts = []
+  dcids = []
+  with open(fm.preindex_csv_path(), 'w') as csvfile:
+    csv_writer = csv.writer(csvfile, delimiter=',')
+    csv_writer.writerow([_COL_SENTENCE, _COL_DCID])
+    for sentence in sorted(text2sv.keys()):
+      dcids_str = ';'.join(sorted(text2sv[sentence]))
+      texts.append(sentence)
+      dcids.append(dcids_str)
+      csv_writer.writerow([sentence, dcids_str])
+  return texts, dcids
 
-  if model:
-    embeddings = model.encode(texts, show_progress_bar=True)
-  else:
-    embeddings = []
-    for i, chuck in enumerate(chunk_list(texts, _CHUNK_SIZE)):
-      logging.info('texts %d to %d', i * _CHUNK_SIZE, (i + 1) * _CHUNK_SIZE - 1)
-      for i in range(_MODEL_ENDPOINT_RETRIES):
-        try:
-          resp = model_endpoint.predict(instances=chuck,
-                                        timeout=600).predictions
-          embeddings.extend(resp)
-          break
-        except Exception as e:
-          logging.info('Exception %s', e)
-  embeddings = pd.DataFrame(embeddings)
-  embeddings[DCID_COL] = [text2sv[t] for t in texts]
-  embeddings[COL_ALTERNATIVES] = texts
+
+def compute_embeddings(texts: List[str],
+                       model: EmbeddingsModel) -> List[List[float]]:
+  """
+  Compute embeddings for a list of text strings.
+  """
+  logging.info("Compute embeddings")
+  start = time.time()
+  embeddings = []
+  for i, chunk in enumerate(_chunk_list(texts, _CHUNK_SIZE)):
+    logging.info('texts %d to %d', i * _CHUNK_SIZE, (i + 1) * _CHUNK_SIZE - 1)
+    for i in range(_NUM_RETRIES):
+      try:
+        resp = model.encode(chunk)
+        if len(resp) != len(chunk):
+          raise Exception(f'Expected {len(chunk)} but got {len(resp)}')
+        embeddings.extend(resp)
+        break
+      except Exception as e:
+        logging.error('Exception %s', e)
+  logging.info(f'Computing embeddings took {time.time() - start} seconds')
   return embeddings
+
+
+# TODO(shifucun): Put sentence, dcid and embeddings in one object
+def save_embeddings_memory(local_dir: str, sentences: List[str],
+                           dcids: List[str], embeddings: List[List[float]]):
+  """
+  Save embeddings as csv file.
+  """
+  # All the input should have the same length and with elements index aligned.
+  assert len(embeddings) == len(dcids) == len(sentences)
+  df = pd.DataFrame(embeddings)
+  df[_COL_DCID] = dcids
+  df[_COL_SENTENCE] = sentences
+  local_file = os.path.join(local_dir, constants.EMBEDDINGS_FILE_NAME)
+  df.to_csv(local_file, index=False)
+  logging.info("Saved embeddings to %s", local_file)
+
+
+def save_embeddings_lancedb(local_dir: str, sentences: List[str],
+                            dcids: List[str], embeddings: List[List[float]]):
+  # All the input should have the same length and with elements index aligned.
+  assert len(embeddings) == len(dcids) == len(sentences)
+  db = lancedb.connect(local_dir)
+  records = []
+  for d, s, v in zip(dcids, sentences, embeddings):
+    records.append({_COL_DCID: d, _COL_SENTENCE: s, 'vector': v})
+  db.create_table(_LANCEDB_TABLE, records)
+  logging.info("Saved embeddings as lancedb file in %s", local_dir)
