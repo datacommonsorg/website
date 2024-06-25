@@ -113,7 +113,10 @@ export function QuerySection(): JSX.Element {
     } else {
       // RAG eval type has different things that should be shown in this section
       // depending on the feedback stage
-      if (feedbackStage === FeedbackStage.CALLS || feedbackStage === FeedbackStage.OVERALL_QUESTIONS) {
+      if (
+        feedbackStage === FeedbackStage.CALLS ||
+        feedbackStage === FeedbackStage.OVERALL_QUESTIONS
+      ) {
         loadRagCalls();
       } else {
         loadAnswer(doc, allQuery[sessionQueryId].row);
