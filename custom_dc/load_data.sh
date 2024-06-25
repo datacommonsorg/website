@@ -1,13 +1,10 @@
 #!/bin/bash
 # Script to load data into custom Data Commons using simple importer.
 # Defaults
-OUTPUT_DIR=".data/output"
 USAGE="Script to load data into custom Data Commons using simple importer.
 Usage: $(basename $0) [Options] <env-file>
 Options:
   -e <file>       Load environment variables from file. Example: env.list
-  -r <steps>      Steps to run. Can be one or more of the following:
-                    stats, embeddings
   -h              Display this help string.
 
 For more, please refer to https://github.com/datacommonsorg/import/tree/master/simple
@@ -67,12 +64,12 @@ function parse_options {
 
 function setup_python {
   PY_ENV_DIR=${PY_ENV_DIR:-"$TMP_DIR/py_env_load_data"}
-  python3 -m venv $PY_ENV_DIR
-  source $PY_ENV_DIR/bin/activate
+  python3 -m venv "$PY_ENV_DIR"
+  source "$PY_ENV_DIR/bin/activate"
   if [[ "$PYTHON_REQUIREMENTS_INSTALLED" != "true" ]]
   then
     echo_log "Installing Python requirements from $SIMPLE_DIR/requirements.txt"
-    run_cmd pip3 install -r $SIMPLE_DIR/requirements.txt
+    run_cmd pip3 install -r "$SIMPLE_DIR/requirements.txt"
     PYTHON_REQUIREMENTS_INSTALLED=true
 
     # Setup python for building NL embeddings
@@ -80,11 +77,12 @@ function setup_python {
     if [[ -f "$embeddings_req" ]]; then
       echo_log "Installing Pytorch"
       run_cmd python -m pip install --upgrade pip
-      run_cmd pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
+      run_cmd pip3 install torch==2.2.2 --extra-index-url \
+        "https://download.pytorch.org/whl/cpu"
       echo_log "Installing Python requirements from $embeddings_req"
       run_cmd pip3 install -r "$embeddings_req"
       # TODO: remove install once embeddings doesn't need nl_server/requirements.txt
-      nlserver_req=$WEBSITE_DIR/nl_server/requirements.txt
+      nlserver_req="$WEBSITE_DIR/nl_server/requirements.txt"
       echo_log "Installing Python requirements from $nlserver_req"
       run_cmd pip3 install -r "$nlserver_req"
     fi
@@ -94,13 +92,13 @@ function setup_python {
 # Setup submodules
 # import module is used for stats loading.
 function setup_submodules {
-  local cwd=$PWD
-  cd $WEBSITE_DIR
+  local cwd="$PWD"
+  cd "$WEBSITE_DIR"
   run_cmd scripts/update_git_submodules.sh
   if [[ -d "$WEBSITE_DIR/import/simple" ]]; then
     SIMPLE_DIR=${SIMPLE_DIR:-"$WEBSITE_DIR/import/simple"}
   fi
-  cd $cwd
+  cd "$cwd"
 }
 
 # Returns 0 if the argument is a local dir and doesn't start with 'gs://'
@@ -119,28 +117,23 @@ function setup {
 
   setup_submodules
 
-  # Set output dir if not provided.
+  # Set output dir if GCS path is set
+  if [[ -n "$GCS_DATA_PATH" ]]; then
+    OUTPUT_DIR="$GCS_DATA_PATH"
+  fi
+
   if [[ -z "$OUTPUT_DIR" ]]; then
     if [[ -n "$INPUT_DIR" ]]; then
       OUTPUT_DIR=$(dirname $INPUT_DIR)"/output"
     fi
   fi
-  # TODO(ajaits): confirm if GCS_DATA_PATH can overrite OUTPUT_DIR
-  #if ! is_local_dir "$OUTPUT_DIR"; then
-  #  GCS_DATA_PATH=$OUTPUT_DIR
-  #  OUTPUT_DIR=""
-  #fi
 
-  #if [[ -n "$GCS_DATA_PATH" ]]; then
-  #  OUTPUT_DIR=""
-  #fi
-
-  if is_local_dir $OUTPUT_DIR; then
-    mkdir -p $OUTPUT_DIR
-    OUTPUT_DIR=$(readlink -f $OUTPUT_DIR)
+  if is_local_dir "$OUTPUT_DIR"; then
+    mkdir -p "$OUTPUT_DIR"
+    OUTPUT_DIR=$(readlink -f "$OUTPUT_DIR")
   fi
 
-  # Fork a process to display log
+  # Fork a process to display log continuously
   touch $LOG
   if [[ -z "$QUIET" ]]; then
     tail -f $LOG &
@@ -173,14 +166,14 @@ function load_env_file {
 # Check parameters for simple_import
 function check_simple_import {
   if [[ "$INPUT_DIR$CONFIG" == "" ]]; then
-    echo_fatal "No input directory or config. Specify one of '-i' or '-c' command line options.
+    echo_fatal "No input directory or config. Set 'INPUT_DIR' in '$ENV_FILE'.
 $USAGE"
   fi
 
   # Check for DC API key
   if [[ "$DC_API_KEY" == "" ]]; then
     echo_log "Warning: DC_API_KEY not set and may cause failures.
-Set a DataCommons API key with '-k' option.
+Set a DataCommons API key in '$ENV_FILE'.
 To get a key, please refer to https://docs.datacommons.org/api/rest/v2/getting_started#authentication"
   fi
 }
@@ -198,8 +191,8 @@ function simple_import {
   [[ -n "$OUTPUT_DIR" ]] && cmd+=("--output_dir=$OUTPUT_DIR")
 
   # Clear state from old run
-  report_json=$OUTPUT_DIR/process/report.json
-  [[ -f $report_json ]] && rm $report_json
+  report_json="$OUTPUT_DIR/process/report.json"
+  [[ -f "$report_json" ]] && rm "$report_json"
 
   # Run the simple importer
   local cwd="$PWD"
@@ -211,7 +204,8 @@ function simple_import {
     echo_fatal "Failed to run simple importer: $cmd. Logs in $LOG"
   fi
 
-  status=$(grep '"status"' $report_json)
+  status=$cmd_status
+  [[ -f "$report_json" ]] && status=$(grep '"status"' "$report_json")
   echo_log "simple importer: $status"
 }
 
@@ -228,14 +222,12 @@ function generate_embeddings {
   fi
   echo_log "Building embeddings for sentences in $NL_DIR"
   local cwd="$PWD"
-  cd $WEBSITE_DIR
-  run_cmd python -m tools.nl.embeddings.build_custom_dc_embeddings \
-    --input_file_path="$NL_DIR/sentences.csv" --output_dir="$NL_DIR"
+  cd "$WEBSITE_DIR"
+  # TODO: Enable with new build_embeddings.py
+  # run_cmd python -m tools.nl.embeddings.build_custom_dc_embeddings \
+  #    --input_file_path="$NL_DIR/sentences.csv" --output_dir="$NL_DIR"
   cd "$cwd"
 }
-
-# Return if being sourced
-(return 0 2>/dev/null) && return
 
 # Run a specific step
 function run_step {
@@ -245,6 +237,9 @@ function run_step {
   has_stage=$(echo "$RUN_STEPS" | egrep -i "$step_name")
   [[ -n "$has_stage" ]] && $step_fn $@
 }
+
+# Return if being sourced
+(return 0 2>/dev/null) && return
 
 function main {
   setup "$@"
