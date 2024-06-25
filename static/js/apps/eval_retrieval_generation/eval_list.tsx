@@ -21,7 +21,8 @@ import { Button, Input, Modal } from "reactstrap";
 
 import {
   NEW_QUERY_CALL_ID,
-  QUERY_OVERALL_FEEDBACK_KEY,
+  QUERY_OVERALL_ANS_KEY,
+  QUERY_OVERALL_QUESTIONS_KEY,
   RAG_CLAIM_KEYS,
 } from "./constants";
 import { AppContext, SessionContext } from "./context";
@@ -61,12 +62,15 @@ export function EvalList(): JSX.Element {
           const calls = allCall[query.id] || {};
           let completed = callCountResults[i] === Object.keys(calls).length;
           // If no overall feedback value, set completed to false
-          if (!queryFeedbackResults[i][QUERY_OVERALL_FEEDBACK_KEY]) {
+          if (!queryFeedbackResults[i][QUERY_OVERALL_ANS_KEY]) {
             completed = false;
           }
-          // For RAG eval type, also check that claim counts are completed
+          // For RAG eval type, also check that additional feedback is completed
           if (evalType === EvalType.RAG) {
-            Object.values(RAG_CLAIM_KEYS).forEach((countKey) => {
+            [
+              ...Object.values(RAG_CLAIM_KEYS),
+              QUERY_OVERALL_QUESTIONS_KEY,
+            ].forEach((countKey) => {
               if (!(countKey in queryFeedbackResults[i])) {
                 completed = false;
               }

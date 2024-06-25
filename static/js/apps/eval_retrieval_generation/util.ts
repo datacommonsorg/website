@@ -74,6 +74,6 @@ export function getFirstFeedbackStage(evalType: EvalType): FeedbackStage {
   if (evalType === EvalType.RAG) {
     return FeedbackStage.CALLS;
   } else {
-    return FeedbackStage.OVERALL;
+    return FeedbackStage.OVERALL_ANS;
   }
 }
