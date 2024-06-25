@@ -43,7 +43,8 @@ export enum EvalType {
 }
 
 export enum FeedbackStage {
-  OVERALL = "OVERALL",
+  OVERALL_ANS = "OVERALL_ANS",
   CALLS = "CALLS",
   RAG_ANS = "RAG_ANS",
+  OVERALL_QUESTIONS = "OVERALL_QUESTIONS",
 }
