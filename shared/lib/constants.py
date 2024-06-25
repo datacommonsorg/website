@@ -408,6 +408,5 @@ DATE_LATEST = 'LATEST'
 # date
 DATE_HIGHEST_COVERAGE = 'HIGHEST_COVERAGE'
 
-
 # The name of the embeddings CSV file.
 EMBEDDINGS_FILE_NAME = 'embeddings.csv'

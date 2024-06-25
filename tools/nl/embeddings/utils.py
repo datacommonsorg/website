@@ -32,8 +32,8 @@ from nl_server import registry
 from nl_server.config import Catalog
 from nl_server.config import Env
 from nl_server.embeddings import EmbeddingsModel
-from shared.lib import gcs
 from shared.lib import constants
+from shared.lib import gcs
 
 _COL_DCID = 'dcid'
 _COL_SENTENCE = 'sentence'

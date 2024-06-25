@@ -44,14 +44,9 @@ def _path_from_current_file(rel_path: str) -> str:
   return os.path.join(os.path.dirname(__file__), rel_path)
 
 
-# Note the order here is (somewhat) important. The later config could
-# overwrite the earlier config.
-# 1) read catalog from checked in file
-# 2) read catalog from mounted file, this is for GKE deployments
+# Default catalog paths to load from
 _DEFAULT_CATALOG_PATHS = (_path_from_current_file('../deploy/nl/catalog.yaml'),
                           '/datacommons/nl/catalog.yaml')
-
-# env paths
 
 # env from checked in file for autopush instance. Used for local and testing.
 _ENV_CODE_PATH = _path_from_current_file(
@@ -117,6 +112,9 @@ def read_catalog(catalog_paths: List[str] = _DEFAULT_CATALOG_PATHS,
       indexes={},
       models={},
   )
+
+  # Later catalog may override earlier.
+  # TODO:See if should throw error.
   for (catalog_dir, partial_catalog) in partial_catalogs:
     # read version
     ver = catalog.version
