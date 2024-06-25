@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import hashlib
 import os
 import unittest
 
 from nl_server import config_reader
 from shared.lib import gcs
+from tools.nl.embeddings import utils
 
 
 class TestIntegrity(unittest.TestCase):
@@ -44,6 +44,6 @@ class TestIntegrity(unittest.TestCase):
         md5sum_path = gcs.maybe_download(md5sum_path)
       with open(md5sum_path) as f:
         got_md5sum = f.read().strip()
-      with open(os.path.join(index_config.source_path, '_preindex.csv')) as f:
-        expected_md5sum = hashlib.md5(f.read().encode('utf-8')).hexdigest()
+      expected_md5sum = utils.get_md5sum(
+          os.path.join(index_config.source_path, '_preindex.csv'))
       self.assertEqual(got_md5sum, expected_md5sum)

@@ -108,6 +108,11 @@ def _chunk_list(data, chunk_size):
   return iter(lambda: tuple(itertools.islice(it, chunk_size)), ())
 
 
+def get_md5sum(file_path: str) -> str:
+  with open(file_path, 'r') as f:
+    return hashlib.md5(f.read().encode('utf-8')).hexdigest()
+
+
 def get_model(catalog: Catalog, env: Env, model_name: str) -> EmbeddingsModel:
   logging.info("Loading model")
   model_config = catalog.models[model_name]
@@ -145,9 +150,8 @@ def build_and_save_preindex(fm: FileManager) -> Tuple[List[str], List[str]]:
       dcids.append(dcids_str)
       csv_writer.writerow([sentence, dcids_str])
   # Write md5sum of preindex as a file
-  with open(fm.preindex_csv_path()) as fin:
-    with open(os.path.join(fm.local_output_dir(), _MD5_SUM_FILE), 'w') as fout:
-      fout.write(hashlib.md5(fin.read().encode('utf-8')).hexdigest())
+  with open(os.path.join(fm.local_output_dir(), _MD5_SUM_FILE), 'w') as f:
+    f.write(get_md5sum(fm.preindex_csv_path()))
   return texts, dcids
 
 
