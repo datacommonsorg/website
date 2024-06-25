@@ -379,16 +379,17 @@ export function TileSources(props: {
   });
   return (
     <div className="sources" {...{ part: "source" }}>
-      Source: {sourcesJsx}
+      Source: <span {...{ part: "source-links" }}>{sourcesJsx}</span>
       {statVarSpecs && statVarSpecs.length > 0 && (
         <>
-          {" "}
-          •{" "}
-          <TileMetadataModal
-            apiRoot={props.apiRoot}
-            containerRef={props.containerRef}
-            statVarSpecs={statVarSpecs}
-          ></TileMetadataModal>
+          <span {...{ part: "source-separator" }}> • </span>
+          <span {...{ part: "source-show-metadata-link" }}>
+            <TileMetadataModal
+              apiRoot={props.apiRoot}
+              containerRef={props.containerRef}
+              statVarSpecs={statVarSpecs}
+            ></TileMetadataModal>
+          </span>
         </>
       )}
     </div>
