@@ -26,9 +26,13 @@ from flask import jsonify
 from flask import render_template
 from flask import request
 
+from shared.lib import constants
+
 bp = Blueprint('admin', __name__, url_prefix='/admin')
 
-CUSTOM_EMBEDDING_INDEX = 'user_all_minilm_mem'
+_CUSTOM_EMBEDDING_INDEX = 'user_all_minilm_mem'
+_CUSTOM_MODEL = 'ft-final-v20230717230459-all-MiniLM-L6-v2'
+_CUSTOM_MODEL_PATH = 'gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2'
 
 
 @bp.route('/load-data', methods=['POST'])
@@ -57,30 +61,24 @@ def load_data():
   load_nl = os.environ.get('ENABLE_MODEL', '').lower() == 'true'
 
   # Create the custom_catalog
+  embeddings_path = os.path.join(nl_embeddings_dir,
+                                 constants.EMBEDDINGS_FILE_NAME)
   custom_catalog_dict = {
       'version': '1',
       'indexes': {
-          CUSTOM_EMBEDDING_INDEX: {
-              'store_type':
-                  'MEMORY',
-              'source_path':
-                  nl_dir,
-              'embeddings_path':
-                  os.path.join(nl_embeddings_dir, 'embeddings.csv'),
-              'model':
-                  'ft-final-v20230717230459-all-MiniLM-L6-v2'
+          _CUSTOM_EMBEDDING_INDEX: {
+              'store_type': 'MEMORY',
+              'source_path': nl_dir,
+              'embeddings_path': embeddings_path,
+              'model': _CUSTOM_MODEL
           },
       },
       'models': {
-          'ft-final-v20230717230459-all-MiniLM-L6-v2': {
-              'type':
-                  'LOCAL',
-              'usage':
-                  'EMBEDDINGS',
-              'gcs_folder':
-                  'gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2',
-              'score_threshold':
-                  0.5
+          _CUSTOM_MODEL: {
+              'type': 'LOCAL',
+              'usage': 'EMBEDDINGS',
+              'gcs_folder': _CUSTOM_MODEL_PATH,
+              'score_threshold': 0.5
           }
       }
   }
@@ -102,7 +100,7 @@ def load_data():
       '-m',
       'tools.nl.embeddings.build_embeddings',
       '--embeddings_name',
-      CUSTOM_EMBEDDING_INDEX,
+      _CUSTOM_EMBEDDING_INDEX,
       '--output_dir',
       f'{nl_embeddings_dir}',
       '--catalog',

@@ -33,8 +33,7 @@ from nl_server.config import Catalog
 from nl_server.config import Env
 from nl_server.embeddings import EmbeddingsModel
 from shared.lib import gcs
-
-EMBEDDINGS_FILE_NAME = 'embeddings.csv'
+from shared.lib import constants
 
 _COL_DCID = 'dcid'
 _COL_SENTENCE = 'sentence'
@@ -172,7 +171,7 @@ def save_embeddings_memory(local_dir: str, sentences: List[str],
   df = pd.DataFrame(embeddings)
   df[_COL_DCID] = dcids
   df[_COL_SENTENCE] = sentences
-  local_file = os.path.join(local_dir, EMBEDDINGS_FILE_NAME)
+  local_file = os.path.join(local_dir, constants.EMBEDDINGS_FILE_NAME)
   df.to_csv(local_file, index=False)
   logging.info("Saved embeddings to %s", local_file)
 
