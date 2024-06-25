@@ -32,9 +32,8 @@ from nl_server import registry
 from nl_server.config import Catalog
 from nl_server.config import Env
 from nl_server.embeddings import EmbeddingsModel
+from shared.lib import constants
 from shared.lib import gcs
-
-EMBEDDINGS_FILE_NAME = 'embeddings.csv'
 
 _COL_DCID = 'dcid'
 _COL_SENTENCE = 'sentence'
@@ -98,16 +97,6 @@ class FileManager(object):
 def _chunk_list(data, chunk_size):
   it = iter(data)
   return iter(lambda: tuple(itertools.islice(it, chunk_size)), ())
-
-
-def make_output_path(output_root: str, source_folder: str,
-                     model_name: str) -> str:
-  if not output_root:
-    output_root = tempfile.mkdtemp()
-  now = datetime.datetime.now()
-  date_string = now.strftime('%Y_%m_%d_%H_%M_%S')
-  folder_name = f'{source_folder}_{model_name}_{date_string}'
-  return os.path.join(output_root, folder_name)
 
 
 def get_model(catalog: Catalog, env: Env, model_name: str) -> EmbeddingsModel:
@@ -182,7 +171,7 @@ def save_embeddings_memory(local_dir: str, sentences: List[str],
   df = pd.DataFrame(embeddings)
   df[_COL_DCID] = dcids
   df[_COL_SENTENCE] = sentences
-  local_file = os.path.join(local_dir, EMBEDDINGS_FILE_NAME)
+  local_file = os.path.join(local_dir, constants.EMBEDDINGS_FILE_NAME)
   df.to_csv(local_file, index=False)
   logging.info("Saved embeddings to %s", local_file)
 
@@ -197,9 +186,3 @@ def save_embeddings_lancedb(local_dir: str, sentences: List[str],
     records.append({_COL_DCID: d, _COL_SENTENCE: s, 'vector': v})
   db.create_table(_LANCEDB_TABLE, records)
   logging.info("Saved embeddings as lancedb file in %s", local_dir)
-
-
-def upload_to_gcs(local_dir: str, gcs_root: str):
-  folder_name = os.path.basename(local_dir)
-  gcs_path = os.path.join(gcs_root, folder_name)
-  gcs.upload_by_path(local_dir, gcs_path)
