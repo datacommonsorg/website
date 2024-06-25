@@ -37,6 +37,9 @@ import {
  * @returns A string array of attribute values
  */
 export function convertArrayAttribute(attributeValue: string): string[] {
+  if (!attributeValue) {
+    return undefined;
+  }
   if (attributeValue.startsWith("[")) {
     // Parse as JSON if attribute value begins with a bracket
     return JSON.parse(attributeValue);
