@@ -30,6 +30,9 @@ from shared.lib import constants
 
 bp = Blueprint('admin', __name__, url_prefix='/admin')
 
+# This entire file should be ran as an offline tool by user.
+# These constants would map to arguments of the tool of choice and are the
+# source of truth for the stages of the pipeline.
 _CUSTOM_EMBEDDING_INDEX = 'user_all_minilm_mem'
 _CUSTOM_MODEL = 'ft-final-v20230717230459-all-MiniLM-L6-v2'
 _CUSTOM_MODEL_PATH = 'gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2'
