@@ -21,33 +21,96 @@ import { Button } from "reactstrap";
 
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import {
-  QUERY_OVERALL_FEEDBACK_KEY,
+  OVERALL_QUESTIONS_OPTION_HAS_MISSING,
+  OVERALL_QUESTIONS_OPTION_NONE_MISSING,
+  QUERY_OVERALL_ANS_KEY,
+  QUERY_OVERALL_FEEDBACK_COL,
   QUERY_OVERALL_OPTION_HALLUCINATION,
+  QUERY_OVERALL_OPTION_IRRELEVANT,
   QUERY_OVERALL_OPTION_OK,
+  QUERY_OVERALL_OPTION_RELEVANT,
+  QUERY_OVERALL_OPTION_SOMEWHAT_RELEVANT,
+  QUERY_OVERALL_QUESTIONS_KEY,
 } from "./constants";
 import { AppContext, SessionContext } from "./context";
-import { getField, getPath, saveToSheet, setField } from "./data_store";
+import { getField, getPath, saveToSheet, setFields } from "./data_store";
 import { EvalList } from "./eval_list";
 import { FeedbackNavigation } from "./feedback_navigation";
 import { OneQuestion } from "./one_question";
 import { TablePane } from "./table_pane";
-import { EvalType } from "./types";
+import { EvalType, FeedbackStage } from "./types";
 
 const LOADING_CONTAINER_ID = "form-container";
-const RESPONSE_OPTIONS = {
-  [QUERY_OVERALL_OPTION_HALLUCINATION]: "Found factual inaccuracies",
-  [QUERY_OVERALL_OPTION_OK]: "No obvious factual inaccuracies",
+
+// object to hold information about a question
+interface QuestionConfig {
+  title: string;
+  question: string;
+  responseOptions: Record<string, string>;
+}
+
+// Dictionary of feedback stage -> eval type -> question config
+const QUESTION_CONFIG: Record<string, Record<string, QuestionConfig>> = {
+  [FeedbackStage.OVERALL_QUESTIONS]: {
+    [EvalType.RAG]: {
+      title: "QUESTIONS EVALUATION",
+      question:
+        "Do the generated questions seem sufficient to answer the query?",
+      responseOptions: {
+        [OVERALL_QUESTIONS_OPTION_HAS_MISSING]: "Missing obvious questions",
+        [OVERALL_QUESTIONS_OPTION_NONE_MISSING]: "No obvious questions missing",
+      },
+    },
+  },
+  [FeedbackStage.OVERALL_ANS]: {
+    [EvalType.RIG]: {
+      title: "OVERALL EVALUATION",
+      question: "How is the overall answer?",
+      responseOptions: {
+        [QUERY_OVERALL_OPTION_HALLUCINATION]: "Found factual inaccuracies",
+        [QUERY_OVERALL_OPTION_OK]: "No obvious factual inaccuracies",
+      },
+    },
+    [EvalType.RAG]: {
+      title: "OVERALL EVALUATION",
+      question: "How relevant is the overall answer to the query?",
+      responseOptions: {
+        [QUERY_OVERALL_OPTION_IRRELEVANT]: "Not at all relevant",
+        [QUERY_OVERALL_OPTION_SOMEWHAT_RELEVANT]: "Somewhat relevant",
+        [QUERY_OVERALL_OPTION_RELEVANT]: "Relevant",
+      },
+    },
+  },
 };
+
+// Get firestore key to use for this feedback stage
+function getFirestoreKey(feedbackStage: FeedbackStage): string {
+  if (feedbackStage === FeedbackStage.OVERALL_QUESTIONS) {
+    return QUERY_OVERALL_QUESTIONS_KEY;
+  } else {
+    return QUERY_OVERALL_ANS_KEY;
+  }
+}
+
+// Get sheets column to use for this feedback stage
+function getSheetsCol(feedbackStage: FeedbackStage): string {
+  if (feedbackStage === FeedbackStage.OVERALL_QUESTIONS) {
+    return QUERY_OVERALL_QUESTIONS_KEY;
+  } else {
+    return QUERY_OVERALL_FEEDBACK_COL;
+  }
+}
 
 export function OverallFeedback(): JSX.Element {
   const { doc, sheetId, userEmail, evalType } = useContext(AppContext);
-  const { sessionQueryId, sessionCallId } = useContext(SessionContext);
+  const { sessionQueryId, sessionCallId, feedbackStage } =
+    useContext(SessionContext);
   const [response, setResponse] = useState<string>("");
   const [isSubmitted, setIsSubmitted] = useState<boolean>(null);
 
   useEffect(() => {
     loadSpinner(LOADING_CONTAINER_ID);
-    getField(getPath(sheetId, sessionQueryId), QUERY_OVERALL_FEEDBACK_KEY)
+    getField(getPath(sheetId, sessionQueryId), getFirestoreKey(feedbackStage))
       .then((data) => {
         if (data) {
           setResponse(data.toString());
@@ -58,7 +121,7 @@ export function OverallFeedback(): JSX.Element {
         }
       })
       .finally(() => removeSpinner(LOADING_CONTAINER_ID));
-  }, [sheetId, sessionQueryId, sessionCallId]);
+  }, [sheetId, sessionQueryId, sessionCallId, feedbackStage]);
 
   const checkAndSubmit = async (): Promise<boolean> => {
     if (isSubmitted) {
@@ -66,19 +129,12 @@ export function OverallFeedback(): JSX.Element {
     }
     loadSpinner(LOADING_CONTAINER_ID);
     return Promise.all([
-      setField(
-        getPath(sheetId, sessionQueryId),
-        QUERY_OVERALL_FEEDBACK_KEY,
-        response
-      ),
-      saveToSheet(
-        userEmail,
-        doc,
-        sessionQueryId,
-        sessionCallId,
-        null,
-        response
-      ),
+      setFields(getPath(sheetId, sessionQueryId), {
+        [getFirestoreKey(feedbackStage)]: response,
+      }),
+      saveToSheet(userEmail, doc, sessionQueryId, sessionCallId, {
+        [getSheetsCol(feedbackStage)]: response,
+      }),
     ])
       .then(() => {
         return true;
@@ -102,6 +158,8 @@ export function OverallFeedback(): JSX.Element {
     setIsSubmitted(false);
   };
 
+  const questionConfig = QUESTION_CONFIG[feedbackStage][evalType];
+
   return (
     <>
       <div className="button-section">
@@ -117,11 +175,11 @@ export function OverallFeedback(): JSX.Element {
         <form>
           <fieldset>
             <div className="question-section">
-              <div className="title">OVERALL EVALUATION</div>
+              <div className="title">{questionConfig.title}</div>
               <OneQuestion
-                question="How is the overall answer?"
+                question={questionConfig.question}
                 name="overall"
-                options={RESPONSE_OPTIONS}
+                options={questionConfig.responseOptions}
                 handleChange={handleChange}
                 responseField={response}
                 disabled={isSubmitted}

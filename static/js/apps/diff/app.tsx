@@ -119,7 +119,7 @@ export function App(): JSX.Element {
       <input
         type="text"
         ref={ref}
-        value={inputUrl.path}
+        value={url.path}
         placeholder="Enter path starting with /"
         onChange={(e) => {
           setInputUrl({

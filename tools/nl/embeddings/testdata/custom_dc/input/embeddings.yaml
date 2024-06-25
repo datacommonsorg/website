@@ -21,7 +21,7 @@ indexes:
     store: MEMORY
     embeddings: gs://datcom-nl-models/embeddings_bio_2024_03_19_16_39_03.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
     model: ft_final_v20230717230459
-  medium_lance_ft:
+  base_uae_lance:
     store: LANCEDB
     embeddings: gs://datcom-nl-models-dev/lancedb/lancedb_embeddings_medium_2024_04_09_07_22_21.ft_final_v20230717230459.all-MiniLM-L6-v2
     model: ft_final_v20230717230459

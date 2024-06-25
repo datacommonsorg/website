@@ -5,13 +5,13 @@ sentence,dcid
 (a) Index of coastal eutrophication,dc/topic/sdg_14.1.1
 (a) Number of commercial bank branches per 100K adults and (b) number of automated teller machines (ATMs) per 100K adults,dc/topic/sdg_8.10.1
 (a) Number of countries that have established national targets in accordance with or similar to Aichi Biodiversity Target 2 of the Strategic Plan for Biodiversity 2011–2020 in their national biodiversity strategy and action plans and the progress reported towards these targets,dc/topic/sdg_15.9.1
-(a) Official development assistance on conservation and sustainable use of biodiversity,dc/topic/sdg_15.a.1
+(a) Official development assistance on conservation and sustainable use of biodiversity,dc/topic/sdg_15.a.1;dc/topic/sdg_15.b.1
 "(a) Proportion of total agricultural population with ownership or secure rights over agricultural land, by sex",dc/topic/sdg_5.a.1
 (b) at the end of primary,dc/topic/sdg_4.1.1
-(b) curricula,dc/topic/sdg_4.7.1
+(b) curricula,dc/topic/sdg_12.8.1;dc/topic/sdg_13.3.1;dc/topic/sdg_4.7.1
 (b) ensure balanced territorial development,dc/topic/sdg_11.a.1
 (b) the public service,dc/topic/sdg_16.7.1
-(c) teacher education,dc/topic/sdg_4.7.1
+(c) teacher education,dc/topic/sdg_12.8.1;dc/topic/sdg_13.3.1;dc/topic/sdg_4.7.1
 10 pm pollutant,dc/topic/PM10
 2.5 pm pollutant,dc/topic/PM2.5
 2G network,dc/topic/sdg_9.c.1
@@ -665,7 +665,7 @@ Diesel Oil consumption by Transport Industry,Annual_Consumption_Fuel_TransportIn
 Diesel Oil consumption by Wood And Wood Products Industry,Annual_Consumption_Fuel_WoodAndWoodProductsIndustry_DieselOil
 Diesel PM,dc/topic/DieselPM
 Diesel pollutant,dc/topic/DieselPM
-Direct economic loss attributed to disasters in relation to global gross domestic product (GDP),dc/topic/sdg_1.5.2
+Direct economic loss attributed to disasters in relation to global gross domestic product (GDP),dc/topic/sdg_1.5.2;dc/topic/sdg_11.5.2
 Disabilities,dc/topic/Disabilities
 Disabilities by gender,dc/topic/DisabilitiesByGender
 Disabilities by race,dc/topic/DisabilitiesByRace
@@ -704,10 +704,10 @@ Domestic Wood consumption,sdg/EN_MAT_DOMCMPT.PRODUCT--MF13
 Domestic crops consumption,sdg/EN_MAT_DOMCMPT.PRODUCT--MF11
 Domestic material consumption,sdg/EN_MAT_DOMCMPT
 Domestic material consumption per unit of GDP,sdg/EN_MAT_DOMCMPG
-"Domestic material consumption, domestic material consumption per capita, and domestic material consumption per GDP",dc/topic/sdg_8.4.2
+"Domestic material consumption, domestic material consumption per capita, and domestic material consumption per GDP",dc/topic/sdg_12.2.2;dc/topic/sdg_8.4.2
 Droughts,dc/topic/Drought
 Earthquakes,dc/topic/Earthquake
-Economic Activity,dc/topic/EconomicActivity
+Economic Activity,dc/topic/EconomicActivity;dc/topic/GlobalEconomicActivity
 Economic Equity,dc/topic/EconomicEquity
 Economic activity overview,dc/topic/EconomicActivity
 Economic overview,dc/topic/Economy
@@ -719,7 +719,7 @@ Education Faculty,dc/topic/EducationFaculty
 Educational Attainment,dc/topic/EducationalAttainment
 Educational attainment by gender,dc/topic/EducationalAttainmentByGenderAndLevel
 Educational attainment by race,dc/topic/EducationalAttainmentByRaceAndLevel
-Electricity Consumption,Annual_Consumption_Electricity
+Electricity Consumption,Annual_Consumption_Electricity;dc/topic/Electricity_Consumption
 Electricity Usage in Agriculture,Annual_Consumption_Electricity_Agriculture
 Electricity Usage in Chemical Petrochemical Industry,Annual_Consumption_Electricity_ChemicalPetrochemicalIndustry
 Electricity Usage in Commerce and Public Services,Annual_Consumption_Electricity_CommerceAndPublicServices
@@ -812,7 +812,7 @@ Estimated annual loss from natural disasters,Annual_ExpectedLoss_NaturalHazardIm
 Existence of independent national human rights institutions in compliance with the Paris Principles,dc/topic/sdg_16.a.1
 Export Subsidies,dc/topic/ExportSubsidies
 Extent of use of country-owned results frameworks and planning tools by providers of development cooperation,dc/topic/sdg_17.15.1
-Extent to which (i) global citizenship education and (ii) education for sustainable development are mainstreamed in (a) national education policies,dc/topic/sdg_4.7.1
+Extent to which (i) global citizenship education and (ii) education for sustainable development are mainstreamed in (a) national education policies,dc/topic/sdg_12.8.1;dc/topic/sdg_13.3.1;dc/topic/sdg_4.7.1
 FEMA Community Resilience to Natural Hazard Impact,FemaCommunityResilience_NaturalHazardImpact
 FEMA National Risk Index for Avalanche,FemaNaturalHazardRiskIndex_NaturalHazardImpact_AvalancheEvent
 FEMA National Risk Index for Coastal Flood,FemaNaturalHazardRiskIndex_NaturalHazardImpact_CoastalFloodEvent
@@ -866,7 +866,7 @@ Food Insecurity,dc/topic/FoodInsecurity
 Food waste per capita,sdg/AG_FOOD_WST_PC
 Forest,dc/topic/Forest
 Forest area,sdg/AG_LND_FRSTN
-Forest area as a proportion of total land area,sdg/AG_LND_FRST
+Forest area as a proportion of total land area,dc/topic/sdg_15.1.1;sdg/AG_LND_FRST
 Fossil-fuel subsidies as a proportion of total GDP,sdg/ER_FFS_CMPT_GDP
 Fossil-fuel subsidies per capita,sdg/ER_FFS_CMPT_PC_CD
 Fuel Oil consumption by Paper Pulp Print Industry,Annual_Consumption_Fuel_PaperPulpPrintIndustry_FuelOil
@@ -1003,7 +1003,7 @@ Infant mortality rate for females,Count_Death_LessThan1Year_Female_AsAFractionOf
 Infant mortality rate for males,Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male
 Inflation Adjusted GDP,InflationAdjustedGDP
 Information on farming,dc/topic/Agriculture
-Installed renewable energy-generating capacity in developing countries (in watts per capita),dc/topic/sdg_7.b.1
+Installed renewable energy-generating capacity in developing countries (in watts per capita),dc/topic/sdg_12.a.1;dc/topic/sdg_7.b.1
 Institutionalized Group Quarters Residents,dc/topic/InstitutionalizedGroupQuartersResidents
 Insured Unemployment Rate,InsuredUnemploymentRate_Person_WithCoveredEmployment_MovingAverage1WeekWindow
 "Integrate climate change measures into national policies, strategies and planning",dc/topic/sdg_13.2
@@ -1072,10 +1072,10 @@ Market Value of Farms Growing Crops,MarketValue_Farm_Crops
 Market Value of Livestock and Poultry in farm inventory,MarketValue_Farm_LivestockAndPoultry
 Married Population by Demographic,dc/topic/MarriedPopulationByDemographic
 Martial Status Breakdown,dc/topic/MaritalStatusBreakdown
-"Material footprint, material footprint per capita, and material footprint per GDP",dc/topic/sdg_8.4.1
+"Material footprint, material footprint per capita, and material footprint per GDP",dc/topic/sdg_12.2.1;dc/topic/sdg_8.4.1
 Maternal Health,dc/topic/MaternalHealth
 Maternal health,dc/topic/MaternalHealth
-Maternal mortality ratio,sdg/SH_STA_MORT.SEX--F
+Maternal mortality ratio,dc/topic/sdg_3.1.1;sdg/SH_STA_MORT.SEX--F
 Max Barometric Pressure,Max_BarometricPressure
 Max Precipitable Water,Max_PrecipitableWater_Atmosphere
 Max Relative Humidity,Max_Humidity_RelativeHumidity
@@ -1358,14 +1358,14 @@ Number foreign born males resides in Noninstitutionalized Group Quarters,Count_P
 Number foreign born males resides in Nursing Facilities,Count_Person_Male_ForeignBorn_ResidesInNursingFacilities
 Number of (a) plant and (b) animal genetic resources for food and agriculture secured in either medium- or long-term conservation facilities,dc/topic/sdg_2.5.1
 Number of AIDS Cases,Count_MedicalConditionIncident_ConditionAIDS
-Number of Accommodation And Food Services establishments,Count_Establishment_NAICSAccommodationFoodServices
+Number of Accommodation And Food Services establishments,Count_Establishment_NAICSAccommodationFoodServices;dc/w8gp902jnk426
 Number of Acute Hepatitis A Cases,Count_MedicalConditionIncident_ConditionHepatitisA_AcuteCondition
 Number of Acute Hepatitis B Cases,Count_MedicalConditionIncident_ConditionHepatitisB_AcuteCondition
 Number of Acute QFever Cases,Count_MedicalConditionIncident_ConditionQFever_AcuteCondition
 "Number of Administrative Support, Waste Management And Remediation Services establishments",Count_Establishment_NAICSAdministrativeSupportWasteManagementRemediationServices
 Number of Aggravated Assaults,Count_CriminalActivities_AggravatedAssault
 Number of Agricultural Facility,Count_CivicStructure_AgriculturalFacility
-"Number of Agriculture, Forestry, Fishing And Hunting establishments",Count_Establishment_NAICSAgricultureForestryFishingHunting
+"Number of Agriculture, Forestry, Fishing And Hunting establishments",Count_Establishment_NAICSAgricultureForestryFishingHunting;dc/1j7jmy39fwhw5
 Number of American Indian Or Alaska Native females with some college education,dc/mqxdr821c7kw3
 Number of American Indian Or Alaska Native people with disabilities,Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone
 Number of American Indian and Alaska Native people,Count_Person_AmericanIndianAndAlaskaNativeAlone
@@ -1530,7 +1530,7 @@ Number of Dengue Disease Cases,Count_MedicalConditionIncident_ConditionDengueDis
 Number of Dense Fogs,Count_DenseFogEvent
 Number of Earthquakes,Count_EarthquakeEvent
 Number of Education Facility,Count_CivicStructure_EducationFacility
-Number of Educational Services establishments,Count_Establishment_NAICSEducationalServices
+Number of Educational Services establishments,Count_Establishment_NAICSEducationalServices;dc/kcns4cvt14zx2
 Number of Electric Power Transmission And Distribution establishments,dc/mwcnlh5bmdk63
 Number of Establishments Owned by the Federal Government,Count_Establishment_FederalGovernmentOwnedEstablishment_NAICSTotalAllIndustries
 Number of Establishments Owned by the local Government,Count_Establishment_LocalGovernmentOwnedEstablishment_NAICSTotalAllIndustries
@@ -1648,7 +1648,7 @@ Number of Hate Crimes Motivated by Gender,Count_CriminalIncidents_BiasMotivation
 Number of Hate Crimes Motivated by Race,Count_CriminalIncidents_BiasMotivationRace_IsHateCrime
 Number of Hate Crimes Motivated by Religion,Count_CriminalIncidents_BiasMotivationReligion_IsHateCrime
 Number of Hate Crimes Motivated by Sexual Orientation,Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime
-Number of Health Care and Social Assistance establishments,Count_Establishment_NAICSHealthCareSocialAssistance
+Number of Health Care and Social Assistance establishments,Count_Establishment_NAICSHealthCareSocialAssistance;dc/tz59wt1hkl4y
 Number of Heat Temperature Events,Count_HeatTemperatureEvent
 Number of Heat Wave days in a year,NumberOfDays_HeatWaveEvent
 Number of Heavy Civil Engineering Construction establishments,dc/ltwqwtxcq9l23
@@ -1794,8 +1794,8 @@ Number of Males with a Bachelors Degree or Higher,Count_Person_25OrMoreYears_Edu
 Number of Males with a Doctorate Degree,Count_Person_25OrMoreYears_EducationalAttainmentDoctorateDegree_Male
 Number of Males with a Masters Degree,Count_Person_25OrMoreYears_EducationalAttainmentMastersDegree_Male
 Number of Males with a Professional School Degree,Count_Person_25OrMoreYears_EducationalAttainmentProfessionalSchoolDegree_Male
-Number of Management Of Companies and Enterprises establishments,Count_Establishment_NAICSManagementOfCompaniesEnterprises
-Number of Manufacturing establishments,Count_Establishment_NAICSManufacturing
+Number of Management Of Companies and Enterprises establishments,Count_Establishment_NAICSManagementOfCompaniesEnterprises;dc/9pz1cse6yndtg
+Number of Manufacturing establishments,Count_Establishment_NAICSManufacturing;dc/1wf1h5esex2d
 Number of Marine Hail Events,Count_MarineHailEvent
 Number of Marine High Wind Events,Count_MarineHighWindEvent
 Number of Marine Strong Wind Events,Count_MarineStrongWindEvent
@@ -1813,7 +1813,7 @@ Number of Medical Facility,Count_CivicStructure_MedicalFacility
 Number of Meningococcal Meningitis Cases,Count_MedicalConditionIncident_ConditionMeningococcalMeningitis
 Number of Merchant Wholesalers establishments,Count_Establishment_USC_MerchantWholesalers_NAICSWholesaleTrade_WithPayroll
 Number of Milk Cows in Farm Inventory,Count_FarmInventory_MilkCows
-"Number of Mining, Quarrying, And Oil And Gas Extraction establishments",Count_Establishment_NAICSMiningQuarryingOilGasExtraction
+"Number of Mining, Quarrying, And Oil And Gas Extraction establishments",Count_Establishment_NAICSMiningQuarryingOilGasExtraction;dc/br6elkd593zs1
 Number of Mumps Cases,Count_MedicalConditionIncident_ConditionMumps
 Number of Murder and Non Negligent Manslaughter per capita,Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person
 Number of Muslim boys,indianCensus/Count_Person_Religion_Muslim_YearsUpto6_Male
@@ -1941,7 +1941,7 @@ Number of Probable Cases of Lyme Disease,Count_MedicalConditionIncident_Conditio
 Number of Probable Cases of Spotted Fever Rickettsiosis,Count_MedicalConditionIncident_ConditionSpottedFeverRickettsiosis_ProbableCase
 Number of Probable Cases of Vibriosis Excluding Cholera,Count_MedicalConditionIncident_ConditionVibriosisExcludingCholera_ProbableCase
 Number of Probable Cryptosporidiosis Cases,Count_MedicalConditionIncident_ConditionCryptosporidiosis_ProbableCase
-"Number of Professional, Scientific, And Technical Services establishments",Count_Establishment_NAICSProfessionalScientificTechnicalServices
+"Number of Professional, Scientific, And Technical Services establishments",Count_Establishment_NAICSProfessionalScientificTechnicalServices;dc/mlf5e4m68h2k7
 Number of Public Administration establishments,Count_Establishment_NAICSPublicAdministration
 Number of QFever Cases,Count_MedicalConditionIncident_ConditionQFever
 Number of Rabiesinhuman Cases,Count_MedicalConditionIncident_ConditionRabiesinhuman
@@ -1960,7 +1960,7 @@ Number of Renter-Occupied Housing Units with Householders Identifying as multi R
 Number of Renter-Occupied Housing Units with Householders Who Are white,Count_HousingUnit_HouseholderRaceWhiteAlone_RenterOccupied
 Number of Renter-Occupied Housing Units with No Cash Rent,Count_HousingUnit_NoCashRent
 Number of Research And Development In The Physical Engineering And Life Sciences establishments,dc/61t0et409x8ch
-Number of Retail Trade establishments,Count_Establishment_NAICSRetailTrade
+Number of Retail Trade establishments,Count_Establishment_NAICSRetailTrade;dc/2c2e9bn8p7xz6
 Number of Salmonellosis Except Typhi And Paratyphi Cases,Count_MedicalConditionIncident_ConditionSalmonellosisExceptTyphiAndParatyphi
 Number of School Enrolled People Residing in Adult Correctional Facilities,Count_Person_ResidesInAdultCorrectionalFacilities_EnrolledInSchool
 Number of School Enrolled People Residing in College Or University Student Housing,Count_Person_ResidesInCollegeOrUniversityStudentHousing_EnrolledInSchool
@@ -2028,7 +2028,7 @@ Number of Syphilis Cases,Count_MedicalConditionIncident_ConditionSyphilis
 Number of Syphilis Primary And Secondary Cases,Count_MedicalConditionIncident_ConditionSyphilisPrimaryAndSecondary
 Number of Tetanus Cases,Count_MedicalConditionIncident_ConditionTetanus
 Number of Transport or Admin Facility,Count_CivicStructure_TransportOrAdminFacility
-Number of Transportation And Warehousing establishments,Count_Establishment_NAICSTransportationWarehousing
+Number of Transportation And Warehousing establishments,Count_Establishment_NAICSTransportationWarehousing;dc/x52jxxbwspczh
 Number of Tropical Disturbance,Count_CycloneEvent_TropicalDisturbance
 Number of Tropical Storm,Count_CycloneEvent_TropicalStorm
 Number of Tuberculosis Cases,Count_MedicalConditionIncident_ConditionTuberculosis
@@ -2085,8 +2085,8 @@ Number of companies publishing sustainability reports with disclosure by dimensi
 Number of countries reporting progress in multi-stakeholder development effectiveness monitoring frameworks that support the achievement of the sustainable development goals,dc/topic/sdg_17.16.1
 "Number of countries that adopt and implement constitutional, statutory and/or policy guarantees for public access to information",dc/topic/sdg_16.10.2
 "Number of countries that adopt and implement investment promotion regimes for developing countries, including the least developed countries",dc/topic/sdg_17.5.1
-Number of countries that adopt and implement national disaster risk reduction strategies in line with the Sendai Framework for Disaster Risk Reduction 2015-2030,dc/topic/sdg_1.5.3
-"Number of countries that have adopted legislative, administrative and policy frameworks to ensure fair and equitable sharing of benefits",dc/topic/sdg_15.8
+Number of countries that adopt and implement national disaster risk reduction strategies in line with the Sendai Framework for Disaster Risk Reduction 2015-2030,dc/topic/sdg_1.5.3;dc/topic/sdg_11.b.1;dc/topic/sdg_13.1.2
+"Number of countries that have adopted legislative, administrative and policy frameworks to ensure fair and equitable sharing of benefits",dc/topic/sdg_15.6.1;dc/topic/sdg_15.8
 Number of countries that have national statistical legislation that complies with the Fundamental Principles of Official Statistics,dc/topic/sdg_17.18.2
 Number of countries that have national urban policies or regional development plans that (a) respond to population dynamics,dc/topic/sdg_11.a.1
 Number of countries using ecosystem-based approaches to managing marine areas,dc/topic/sdg_14.2.1
@@ -2106,7 +2106,7 @@ Number of deaths among males,Count_Death_Male
 Number of deaths of incarcerated females,dc/gb0b3cwxyfsh9
 Number of deaths of incarcerated males,dc/6xlk95n27cn23
 Number of deaths of incarcerated people,dc/67ttwfn9dswch
-"Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",dc/topic/sdg_1.5.1
+"Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",dc/topic/sdg_1.5.1;dc/topic/sdg_11.5.1;dc/topic/sdg_13.1.1
 Number of divorced females,Count_Person_Female_Divorced
 Number of divorced females in the past 12 months for whom poverty status is determined,Count_Person_Female_DivorcedInThePast12Months_PovertyStatusDetermined
 Number of divorced females in the past 12 months who reside in a household,Count_Person_Female_DivorcedInThePast12Months_ResidesInHousehold
@@ -2122,7 +2122,7 @@ Number of divorced people residing in nursing facilities,Count_Person_Divorced_R
 Number of divorced people who are foreign born,dc/twlffl9b5vgn3
 Number of elementary school teachers,Count_Teacher_ElementaryTeacher
 Number of employed civilian,Count_Person_Civilian_Employed
-Number of employed people,Count_Person_Employed
+Number of employed people,Count_Person_Employed;dc/nm9hcklgg5zb3
 "Number of employed people in Agriculture, forestry and fishing",Count_Person_Employed_NACE/A
 Number of employed people in Construction,Count_Person_Employed_NACE/F
 Number of employed people in Financial and insurance activities,Count_Person_Employed_NACE/K
@@ -2510,7 +2510,6 @@ Number of males that have heart Diseases,Count_Person_Male_ConditionDiseasesOfHe
 Number of males who are married,dc/70zj83ev915f8
 Number of males who do not work,Count_Person_NonWorker_Male
 Number of males who have worked before,Count_Person_WorkedFullTime
-Number of married (including separated) people,Count_Person_NowMarried
 Number of married American Indian and Alaska Native people,Count_Person_15OrMoreYears_MarriedAndNotSeparated_AmericanIndianAndAlaskaNativeAlone
 Number of married Black or African American people,Count_Person_15OrMoreYears_MarriedAndNotSeparated_BlackOrAfricanAmericanAlone
 Number of married Hispanic or Latino people,Count_Person_15OrMoreYears_MarriedAndNotSeparated_HispanicOrLatino
@@ -2534,7 +2533,7 @@ Number of married couple households with a householder with some college or an a
 Number of married females,Count_Person_Female_MarriedAndNotSeparated
 Number of married foreign born people,Count_Person_15OrMoreYears_MarriedAndNotSeparated_ForeignBorn
 Number of married native people,Count_Person_15OrMoreYears_MarriedAndNotSeparated_Native
-Number of married people,Count_Person_MarriedAndNotSeparated
+Number of married people,Count_Person_MarriedAndNotSeparated;Count_Person_NowMarried
 Number of married people of multi-races,Count_Person_15OrMoreYears_NeverMarried_TwoOrMoreRaces
 Number of married people of one race,Count_Person_15OrMoreYears_MarriedAndNotSeparated_OneRace
 Number of married people of two or more races,Count_Person_15OrMoreYears_MarriedAndNotSeparated_TwoOrMoreRaces
@@ -3064,7 +3063,7 @@ Prevalence of poor Physical Health among adults,Percent_Person_WithPhysicalHealt
 Prevalence of stunting (height for age <-2 standard deviation from the median of the World Health Organization (WHO) Child Growth Standards) among children under 5 years of age,dc/topic/sdg_2.2.1
 Prevalence of tobacco use among females,Percent_TobaccoUsing_In_Count_Person_Female
 Prevalence of tobacco use among males,Percent_TobaccoUsing_In_Count_Person_Male
-Prevalence of undernourishment,sdg/SN_ITK_DEFC
+Prevalence of undernourishment,dc/topic/sdg_2.1.1;sdg/SN_ITK_DEFC
 Preventative Health,dc/topic/PreventativeHealth
 Preventative health and behavior,dc/topic/PreventativeHealthAndBehavior
 "Primary government expenditures as a proportion of original approved budget, by sector (or by budget codes or similar)",dc/topic/sdg_16.6.1
@@ -3113,7 +3112,7 @@ Proportion of domestic budget funded by domestic taxes,dc/topic/sdg_17.1.2
 "Proportion of ever-partnered women and girls aged 15 years and older subjected to physical, sexual or psychological violence by a current or former intimate partner in the previous 12 months, by form of violence and by age",dc/topic/sdg_5.2.1
 Proportion of females aged 15-49 years with anaemia,sdg/SH_STA_ANEM.AGE--Y15T49__SEX--F
 Proportion of females of reproductive age who have their need for family planning satisfied with modern methods,sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F
-Proportion of fish stocks within biologically sustainable levels,sdg/ER_H2O_FWTL
+Proportion of fish stocks within biologically sustainable levels,dc/topic/sdg_14.4.1;sdg/ER_H2O_FWTL
 Proportion of forest area within legally established protected areas,sdg/AG_LND_FRSTPRCT
 "Proportion of girls and women aged 15-49 years who have undergone female genital mutilation/cutting, by age",dc/topic/sdg_5.3.2
 Proportion of health facilities that have a core set of relevant essential medicines available and affordable on a sustainable basis,dc/topic/sdg_3.b.3
@@ -3124,9 +3123,9 @@ Proportion of individuals using the Internet,dc/topic/sdg_17.8.1
 Proportion of land that is degraded over total land area,dc/topic/sdg_15.3.1
 Proportion of local administrative units with established and operational policies and procedures for participation of local communities in water and sanitation management,dc/topic/sdg_6.b.1
 Proportion of local breeds classified as being at risk of extinction,dc/topic/sdg_2.5.2
-Proportion of local governments that adopt and implement local disaster risk reduction strategies in line with national disaster risk reduction strategies,dc/topic/sdg_1.5.4
+Proportion of local governments that adopt and implement local disaster risk reduction strategies in line with national disaster risk reduction strategies,dc/topic/sdg_1.5.4;dc/topic/sdg_11.b.2;dc/topic/sdg_13.1.3
 Proportion of medium and high-tech industry value added in total value added,dc/topic/sdg_9.b.1
-Proportion of members and voting rights of developing countries in international organizations,dc/topic/sdg_10.6.1
+Proportion of members and voting rights of developing countries in international organizations,dc/topic/sdg_10.6.1;dc/topic/sdg_16.8.1
 "Proportion of men, women and children of all ages living in poverty in all its dimensions according to national definitions",dc/topic/sdg_1.2.2
 "Proportion of municipal solid waste collected and managed in controlled facilities out of total municipal waste generated, by cities",dc/topic/sdg_11.6.1
 "Proportion of people living below 50 per cent of median income, by sex, age and persons with disabilities",dc/topic/sdg_10.2.1
@@ -3138,7 +3137,7 @@ Proportion of population below international poverty level,sdg/SI_POV_DAY1
 "Proportion of population in a given age group achieving at least a fixed level of proficiency in functional (a) literacy and (b) numeracy skills, by sex",dc/topic/sdg_4.6.1
 "Proportion of population living below the national poverty line, by sex and age",dc/topic/sdg_1.2.1
 Proportion of population living in households with access to basic services,dc/topic/sdg_1.4.1
-Proportion of population reporting having personally felt discriminated against or harassed in the previous 12 months on the basis of a ground of discrimination prohibited under international human rights law,dc/topic/sdg_10.3.1
+Proportion of population reporting having personally felt discriminated against or harassed in the previous 12 months on the basis of a ground of discrimination prohibited under international human rights law,dc/topic/sdg_10.3.1;dc/topic/sdg_16.b.1
 Proportion of population satisfied with their last experience of public services,dc/topic/sdg_16.6.2
 "Proportion of population subjected to (a) physical violence, (b) psychological violence and (c) sexual violence in the previous 12 months",dc/topic/sdg_16.1.3
 Proportion of population that feel safe walking alone around the area they live after dark,dc/topic/sdg_16.1.4
@@ -3205,7 +3204,7 @@ Reasons for death,dc/topic/CausesOfDeath
 Reasons for mortality,dc/topic/CausesOfDeath
 "Recognize and value unpaid care and domestic work through the provision of public services, infrastructure and social protection policies and the promotion of shared responsibility within the household and the family as nationally appropriate",dc/topic/sdg_5.4
 Recruitment cost borne by employee as a proportion of monthly income earned in country of destination,dc/topic/sdg_10.7.1
-Red List Index,sdg/ER_RSK_LST
+Red List Index,dc/topic/sdg_15.5.1;sdg/ER_RSK_LST
 Redistributive impact of fiscal policy,dc/topic/sdg_10.4.2
 Reforestation,dc/topic/SDGReforestations
 Religion,dc/topic/Religion
@@ -3213,7 +3212,7 @@ Remittance,dc/topic/Remittance
 Remittance costs as a proportion of the amount remitted,dc/topic/sdg_10.c.1
 Renewable electricity output,worldBank/4_1_2_REN_ELECTRICITY_OUTPUT
 Renewable electricity share of total electricity output,worldBank/4_1_SHARE_RE_IN_ELECTRICITY
-Renewable energy share in the total final energy consumption,sdg/EG_FEC_RNEW
+Renewable energy share in the total final energy consumption,dc/topic/sdg_7.2.1;sdg/EG_FEC_RNEW
 Rental Houses,dc/topic/RentalHouses
 Rental Housing,dc/topic/RentalHouses
 Research and development expenditure as a proportion of GDP,dc/topic/sdg_9.5.1
@@ -3338,7 +3337,7 @@ Sustainable fisheries as a proportion of GDP,sdg/EN_SCP_FSHGDP
 "Take urgent and significant action to reduce the degradation of natural habitats, halt the loss of biodiversity and, by 2020, protect and prevent the extinction of threatened species",dc/topic/sdg_15.5
 Tariffs,dc/topic/Tariffs
 Teacher,dc/topic/Teacher
-Temperature,Temperature
+Temperature,Temperature;dc/topic/Temperatures
 Temperature Predicitions,dc/topic/TemperaturePredictions
 The agriculture orientation index for government expenditures,dc/topic/sdg_2.a.1
 The average area covered by commercial solar installations,Mean_CoverageArea_SolarInstallation_Commercial
@@ -3483,7 +3482,7 @@ amount of Carbon Monoxide emissions from transportation,Annual_Amount_Emissions_
 amount of Carbon Monoxide emissions from waste disposal and recycling,Annual_Amount_Emissions_WasteDisposalAndRecycling_NonBiogenicEmissionSource_CarbonMonoxide
 amount of Carbon Monoxide emissions from wildfire,Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_CarbonMonoxide
 amount of Chromium_6 emissions from External Combustion,Annual_Amount_Emissions_Chromium_6_SCC_1_ExternalCombustion
-amount of Chromium_6 emissions from Industrial Processes,Annual_Amount_Emissions_Chromium_6_SCC_3_IndustrialProcesses
+amount of Chromium_6 emissions from Industrial Processes,Annual_Amount_Emissions_Chromium_6_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_Chromium_6_SCC_3_IndustrialProcesses
 amount of Chromium_6 emissions from Internal Combustion Engines,Annual_Amount_Emissions_Chromium_6_SCC_2_InternalCombustionEngines
 amount of Chromium_6 emissions from Miscellaneous Area Sources,Annual_Amount_Emissions_Chromium_6_SCC_28_MiscellaneousAreaSources
 amount of Chromium_6 emissions from Mobile Sources,Annual_Amount_Emissions_Chromium_6_SCC_22_MobileSources
@@ -3493,7 +3492,7 @@ amount of Chromium_6 emissions from Stationary Source Fuel Combustion,Annual_Amo
 amount of Chromium_6 emissions from Waste Disposal,Annual_Amount_Emissions_Chromium_6_SCC_5_WasteDisposal
 amount of Chromium_6 emissions from Waste Disposal Treatment And Recovery,Annual_Amount_Emissions_Chromium_6_SCC_26_WasteDisposalTreatmentAndRecovery
 amount of Cobalt emissions from External Combustion,Annual_Amount_Emissions_Cobalt_SCC_1_ExternalCombustion
-amount of Cobalt emissions from Industrial Processes,Annual_Amount_Emissions_Cobalt_SCC_3_IndustrialProcesses
+amount of Cobalt emissions from Industrial Processes,Annual_Amount_Emissions_Cobalt_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_Cobalt_SCC_3_IndustrialProcesses
 amount of Cobalt emissions from Internal Combustion Engines,Annual_Amount_Emissions_Cobalt_SCC_2_InternalCombustionEngines
 amount of Cobalt emissions from Miscellaneous Area Sources,Annual_Amount_Emissions_Cobalt_SCC_28_MiscellaneousAreaSources
 amount of Cobalt emissions from Mobile Sources,Annual_Amount_Emissions_Cobalt_SCC_22_MobileSources
@@ -3503,7 +3502,7 @@ amount of Cobalt emissions from Stationary Source Fuel Combustion,Annual_Amount_
 amount of Cobalt emissions from Waste Disposal,Annual_Amount_Emissions_Cobalt_SCC_5_WasteDisposal
 amount of Cobalt emissions from Waste Disposal Treatment And Recovery,Annual_Amount_Emissions_Cobalt_SCC_26_WasteDisposalTreatmentAndRecovery
 amount of Cyanide emissions from External Combustion,Annual_Amount_Emissions_Cyanide_SCC_1_ExternalCombustion
-amount of Cyanide emissions from Industrial Processes,Annual_Amount_Emissions_Cyanide_SCC_3_IndustrialProcesses
+amount of Cyanide emissions from Industrial Processes,Annual_Amount_Emissions_Cyanide_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_Cyanide_SCC_3_IndustrialProcesses
 amount of Cyanide emissions from Internal Combustion Engines,Annual_Amount_Emissions_Cyanide_SCC_2_InternalCombustionEngines
 amount of Cyanide emissions from Miscellaneous Area Sources,Annual_Amount_Emissions_Cyanide_SCC_28_MiscellaneousAreaSources
 amount of Cyanide emissions from Petroleum And Solvent Evaporation,Annual_Amount_Emissions_Cyanide_SCC_4_PetroleumAndSolventEvaporation
@@ -3511,7 +3510,7 @@ amount of Cyanide emissions from Solvent Utilization,Annual_Amount_Emissions_Cya
 amount of Cyanide emissions from Stationary Source Fuel Combustion,Annual_Amount_Emissions_Cyanide_SCC_21_StationarySourceFuelCombustion
 amount of Cyanide emissions from Waste Disposal Treatment And Recovery,Annual_Amount_Emissions_Cyanide_SCC_26_WasteDisposalTreatmentAndRecovery
 amount of Nickel emissions from external combustion,Annual_Amount_Emissions_Nickel_SCC_1_ExternalCombustion
-amount of Nickel emissions from industrial processes,Annual_Amount_Emissions_Nickel_SCC_3_IndustrialProcesses
+amount of Nickel emissions from industrial processes,Annual_Amount_Emissions_Nickel_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_Nickel_SCC_3_IndustrialProcesses
 amount of Nickel emissions from internal combustion engines,Annual_Amount_Emissions_Nickel_SCC_2_InternalCombustionEngines
 amount of Nickel emissions from miscellaneous area sources,Annual_Amount_Emissions_Nickel_SCC_28_MiscellaneousAreaSources
 amount of Nickel emissions from mobile sources,Annual_Amount_Emissions_Nickel_SCC_22_MobileSources
@@ -3530,7 +3529,7 @@ amount of Oxides Of Nitrogen emissions from Non Road Engines And Vehicles,Annual
 amount of Oxides Of Nitrogen emissions from On Road Vehicles,Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_OxidesOfNitrogen
 amount of Oxides Of Nitrogen emissions from Petroleum And Related Industries,Annual_Amount_Emissions_PetroleumAndRelatedIndustries_NonBiogenicEmissionSource_OxidesOfNitrogen
 amount of Oxides Of Nitrogen emissions from external combustion,Annual_Amount_Emissions_OxidesOfNitrogen_SCC_1_ExternalCombustion
-amount of Oxides Of Nitrogen emissions from industrial processes,Annual_Amount_Emissions_OxidesOfNitrogen_SCC_3_IndustrialProcesses
+amount of Oxides Of Nitrogen emissions from industrial processes,Annual_Amount_Emissions_OxidesOfNitrogen_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_OxidesOfNitrogen_SCC_3_IndustrialProcesses
 amount of Oxides Of Nitrogen emissions from internal combustion engines,Annual_Amount_Emissions_OxidesOfNitrogen_SCC_2_InternalCombustionEngines
 amount of Oxides Of Nitrogen emissions from miscellaneous area sources,Annual_Amount_Emissions_OxidesOfNitrogen_SCC_28_MiscellaneousAreaSources
 amount of Oxides Of Nitrogen emissions from mobile sources,Annual_Amount_Emissions_OxidesOfNitrogen_SCC_22_MobileSources
@@ -3540,13 +3539,13 @@ amount of Oxides Of Nitrogen emissions from prescribed fire,Annual_Amount_Emissi
 amount of Oxides Of Nitrogen emissions from solvent utilization,Annual_Amount_Emissions_OxidesOfNitrogen_SCC_24_SolventUtilization
 amount of Oxides Of Nitrogen emissions from stationary fuel combustion,Annual_Amount_Emissions_StationaryFuelCombustion_NonBiogenicEmissionSource_OxidesOfNitrogen
 amount of Oxides Of Nitrogen emissions from stationary source fuel combustion,Annual_Amount_Emissions_OxidesOfNitrogen_SCC_21_StationarySourceFuelCombustion
-amount of Oxides Of Nitrogen emissions from storage and transport,Annual_Amount_Emissions_OxidesOfNitrogen_SCC_25_StorageAndTransport
+amount of Oxides Of Nitrogen emissions from storage and transport,Annual_Amount_Emissions_OxidesOfNitrogen_SCC_25_StorageAndTransport;Annual_Amount_Emissions_StorageAndTransport_NonBiogenicEmissionSource_OxidesOfNitrogen
 amount of Oxides Of Nitrogen emissions from transportation,Annual_Amount_Emissions_Transportation_NonBiogenicEmissionSource_OxidesOfNitrogen
 amount of Oxides Of Nitrogen emissions from waste disposal,Annual_Amount_Emissions_OxidesOfNitrogen_SCC_5_WasteDisposal
 amount of Oxides Of Nitrogen emissions from waste disposal and recycling,Annual_Amount_Emissions_WasteDisposalAndRecycling_NonBiogenicEmissionSource_OxidesOfNitrogen
 amount of Oxides Of Nitrogen emissions from wildfire,Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_OxidesOfNitrogen
 amount of Oxochromiooxy Chromium emissions from external combustion,Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_1_ExternalCombustion
-amount of Oxochromiooxy Chromium emissions from industrial processes,Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_3_IndustrialProcesses
+amount of Oxochromiooxy Chromium emissions from industrial processes,Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_3_IndustrialProcesses
 amount of Oxochromiooxy Chromium emissions from internal combustion engines,Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_2_InternalCombustionEngines
 amount of Oxochromiooxy Chromium emissions from miscellaneous area sources,Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_28_MiscellaneousAreaSources
 amount of Oxochromiooxy Chromium emissions from mobile sources,Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_22_MobileSources
@@ -3560,7 +3559,7 @@ amount of PM10 emissions from On Road Vehicles,Annual_Amount_Emissions_OnRoadVeh
 amount of PM10 emissions from Petroleum And Related Industries,Annual_Amount_Emissions_PetroleumAndRelatedIndustries_NonBiogenicEmissionSource_PM10
 amount of PM10 emissions from external combustion,Annual_Amount_Emissions_PM10_SCC_1_ExternalCombustion
 amount of PM10 emissions from industrial fuel combustion,Annual_Amount_Emissions_FuelCombustionIndustrial_NonBiogenicEmissionSource_PM10
-amount of PM10 emissions from industrial processes,Annual_Amount_Emissions_PM10_SCC_3_IndustrialProcesses
+amount of PM10 emissions from industrial processes,Annual_Amount_Emissions_PM10_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_PM10_SCC_3_IndustrialProcesses
 amount of PM10 emissions from internal combustion engines,Annual_Amount_Emissions_PM10_SCC_2_InternalCombustionEngines
 amount of PM10 emissions from metals processing,Annual_Amount_Emissions_MetalsProcessing_NonBiogenicEmissionSource_PM10
 amount of PM10 emissions from miscellaneous area sources,Annual_Amount_Emissions_PM10_SCC_28_MiscellaneousAreaSources
@@ -3570,7 +3569,7 @@ amount of PM10 emissions from prescribed fire,Annual_Amount_Emissions_Prescribed
 amount of PM10 emissions from solvent utilization,Annual_Amount_Emissions_PM10_SCC_24_SolventUtilization
 amount of PM10 emissions from stationary fuel combustion,Annual_Amount_Emissions_StationaryFuelCombustion_NonBiogenicEmissionSource_PM10
 amount of PM10 emissions from stationary source fuel combustion,Annual_Amount_Emissions_PM10_SCC_21_StationarySourceFuelCombustion
-amount of PM10 emissions from storage and transport,Annual_Amount_Emissions_PM10_SCC_25_StorageAndTransport
+amount of PM10 emissions from storage and transport,Annual_Amount_Emissions_PM10_SCC_25_StorageAndTransport;Annual_Amount_Emissions_StorageAndTransport_NonBiogenicEmissionSource_PM10
 amount of PM10 emissions from transportation,Annual_Amount_Emissions_Transportation_NonBiogenicEmissionSource_PM10
 amount of PM10 emissions from waste disposal,Annual_Amount_Emissions_PM10_SCC_5_WasteDisposal
 amount of PM10 emissions from waste disposal and recycling,Annual_Amount_Emissions_WasteDisposalAndRecycling_NonBiogenicEmissionSource_PM10
@@ -3581,7 +3580,7 @@ amount of PM2.5 emissions from On Road Vehicles,Annual_Amount_Emissions_OnRoadVe
 amount of PM2.5 emissions from Petroleum And Related Industries,Annual_Amount_Emissions_PetroleumAndRelatedIndustries_NonBiogenicEmissionSource_PM2.5
 amount of PM2.5 emissions from external combustion,Annual_Amount_Emissions_PM2.5_SCC_1_ExternalCombustion
 amount of PM2.5 emissions from industrial fuel combustion,Annual_Amount_Emissions_FuelCombustionIndustrial_NonBiogenicEmissionSource_PM2.5
-amount of PM2.5 emissions from industrial processes,Annual_Amount_Emissions_PM2.5_SCC_3_IndustrialProcesses
+amount of PM2.5 emissions from industrial processes,Annual_Amount_Emissions_PM2.5_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_PM2.5_SCC_3_IndustrialProcesses
 amount of PM2.5 emissions from internal combustion engines,Annual_Amount_Emissions_PM2.5_SCC_2_InternalCombustionEngines
 amount of PM2.5 emissions from metals processing,Annual_Amount_Emissions_MetalsProcessing_NonBiogenicEmissionSource_PM2.5
 amount of PM2.5 emissions from miscellaneous area sources,Annual_Amount_Emissions_PM2.5_SCC_28_MiscellaneousAreaSources
@@ -3591,12 +3590,12 @@ amount of PM2.5 emissions from prescribed fire,Annual_Amount_Emissions_Prescribe
 amount of PM2.5 emissions from solvent utilization,Annual_Amount_Emissions_PM2.5_SCC_24_SolventUtilization
 amount of PM2.5 emissions from stationary fuel combustion,Annual_Amount_Emissions_StationaryFuelCombustion_NonBiogenicEmissionSource_PM2.5
 amount of PM2.5 emissions from stationary source fuel combustion,Annual_Amount_Emissions_PM2.5_SCC_21_StationarySourceFuelCombustion
-amount of PM2.5 emissions from storage and transport,Annual_Amount_Emissions_PM2.5_SCC_25_StorageAndTransport
+amount of PM2.5 emissions from storage and transport,Annual_Amount_Emissions_PM2.5_SCC_25_StorageAndTransport;Annual_Amount_Emissions_StorageAndTransport_NonBiogenicEmissionSource_PM2.5
 amount of PM2.5 emissions from transportation,Annual_Amount_Emissions_Transportation_NonBiogenicEmissionSource_PM2.5
 amount of PM2.5 emissions from waste disposal,Annual_Amount_Emissions_PM2.5_SCC_5_WasteDisposal
 amount of PM2.5 emissions from waste disposal and recycling,Annual_Amount_Emissions_WasteDisposalAndRecycling_NonBiogenicEmissionSource_PM2.5
 amount of PM2.5 emissions from wildfire,Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_PM2.5
-amount of Sulfur Dioxide emissions from Non Road Engines And Vehicles,Annual_Amount_Emissions_NonRoadEnginesAndVehicles_NonBiogenicEmissionSource_Ammonia
+amount of Sulfur Dioxide emissions from Non Road Engines And Vehicles,Annual_Amount_Emissions_NonRoadEnginesAndVehicles_NonBiogenicEmissionSource_Ammonia;Annual_Amount_Emissions_NonRoadEnginesAndVehicles_NonBiogenicEmissionSource_SulfurDioxide
 amount of Sulfur Dioxide emissions from On Road Vehicles,Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_SulfurDioxide
 amount of Sulfur Dioxide emissions from Petroleum And Related Industries,Annual_Amount_Emissions_PetroleumAndRelatedIndustries_NonBiogenicEmissionSource_SulfurDioxide
 amount of Sulfur Dioxide emissions from prescribed fire,Annual_Amount_Emissions_PrescribedFire_NonBiogenicEmissionSource_SulfurDioxide
@@ -3605,7 +3604,7 @@ amount of Sulfur Dioxide emissions from storage and transport,Annual_Amount_Emis
 amount of Sulfur Dioxide emissions from transportation,Annual_Amount_Emissions_Transportation_NonBiogenicEmissionSource_SulfurDioxide
 amount of Sulfur Dioxide emissions from waste disposal and recycling,Annual_Amount_Emissions_WasteDisposalAndRecycling_NonBiogenicEmissionSource_SulfurDioxide
 amount of Sulfur Dioxide emissions from wildfire,Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_SulfurDioxide
-amount of Volatile Organic Compound emissions from On Road Vehicles,Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_VolatileOrganicCompound
+amount of Volatile Organic Compound emissions from On Road Vehicles,Annual_Amount_Emissions_NonRoadEnginesAndVehicles_NonBiogenicEmissionSource_VolatileOrganicCompound;Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_VolatileOrganicCompound
 amount of Volatile Organic Compound emissions from Petroleum And Related Industries,Annual_Amount_Emissions_PetroleumAndRelatedIndustries_NonBiogenicEmissionSource_VolatileOrganicCompound
 amount of Volatile Organic Compound emissions from prescribed fire,Annual_Amount_Emissions_PrescribedFire_NonBiogenicEmissionSource_VolatileOrganicCompound
 amount of Volatile Organic Compound emissions from stationary fuel combustion,Annual_Amount_Emissions_StationaryFuelCombustion_NonBiogenicEmissionSource_VolatileOrganicCompound
@@ -3615,7 +3614,7 @@ amount of Volatile Organic Compound emissions from waste disposal and recycling,
 amount of Volatile Organic Compound emissions from wildfire,Annual_Amount_Emissions_Wildfire_NonBiogenicEmissionSource_VolatileOrganicCompound
 amount of VolatileOrganicCompound emissions from NaturalResource with biogenic emissions,Annual_Amount_Emissions_NaturalResource_BiogenicEmissionSource_VolatileOrganicCompound
 amount of acetaldehyde emissions from External Combustion,Annual_Amount_Emissions_Acetaldehyde_SCC_1_ExternalCombustion
-amount of acetaldehyde emissions from Industrial Processes,Annual_Amount_Emissions_Acetaldehyde_SCC_3_IndustrialProcesses
+amount of acetaldehyde emissions from Industrial Processes,Annual_Amount_Emissions_Acetaldehyde_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_Acetaldehyde_SCC_3_IndustrialProcesses
 amount of acetaldehyde emissions from Internal Combustion Engines,Annual_Amount_Emissions_Acetaldehyde_SCC_2_InternalCombustionEngines
 amount of acetaldehyde emissions from Miscellaneous Area Sources,Annual_Amount_Emissions_Acetaldehyde_SCC_28_MiscellaneousAreaSources
 amount of acetaldehyde emissions from Mobile Sources,Annual_Amount_Emissions_Acetaldehyde_SCC_22_MobileSources
@@ -3626,7 +3625,7 @@ amount of acetaldehyde emissions from Stationary Source Fuel Combustion,Annual_A
 amount of acetaldehyde emissions from Waste Disposal,Annual_Amount_Emissions_Acetaldehyde_SCC_5_WasteDisposal
 amount of ammonia emissions from Chemical And Allied Product Manufacturing,Annual_Amount_Emissions_ChemicalAndAlliedProductManufacturing_NonBiogenicEmissionSource_Ammonia
 amount of ammonia emissions from External Combustion,Annual_Amount_Emissions_Ammonia_SCC_1_ExternalCombustion
-amount of ammonia emissions from Industrial Processes,Annual_Amount_Emissions_Ammonia_SCC_3_IndustrialProcesses
+amount of ammonia emissions from Industrial Processes,Annual_Amount_Emissions_Ammonia_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_Ammonia_SCC_3_IndustrialProcesses
 amount of ammonia emissions from Internal Combustion Engines,Annual_Amount_Emissions_Ammonia_SCC_2_InternalCombustionEngines
 amount of ammonia emissions from Miscellaneous Area Sources,Annual_Amount_Emissions_Ammonia_SCC_28_MiscellaneousAreaSources
 amount of ammonia emissions from Mobile Sources,Annual_Amount_Emissions_Ammonia_SCC_22_MobileSources
@@ -3641,7 +3640,7 @@ amount of ammonia emissions from industrial fuel combustion,Annual_Amount_Emissi
 amount of ammonia emissions from metals processing,Annual_Amount_Emissions_MetalsProcessing_NonBiogenicEmissionSource_Ammonia
 amount of anthracite coal imports,Annual_Imports_Fuel_AnthraciteCoal
 amount of arsenic emissions from External Combustion,Annual_Amount_Emissions_Arsenic_SCC_1_ExternalCombustion
-amount of arsenic emissions from Industrial Processes,Annual_Amount_Emissions_Arsenic_SCC_3_IndustrialProcesses
+amount of arsenic emissions from Industrial Processes,Annual_Amount_Emissions_Arsenic_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_Arsenic_SCC_3_IndustrialProcesses
 amount of arsenic emissions from Internal Combustion Engines,Annual_Amount_Emissions_Arsenic_SCC_2_InternalCombustionEngines
 amount of arsenic emissions from Miscellaneous Area Sources,Annual_Amount_Emissions_Arsenic_SCC_28_MiscellaneousAreaSources
 amount of arsenic emissions from Mobile Sources,Annual_Amount_Emissions_Arsenic_SCC_22_MobileSources
@@ -3652,7 +3651,7 @@ amount of arsenic emissions from Waste Disposal,Annual_Amount_Emissions_Arsenic_
 amount of arsenic emissions from Waste Disposal Treatment And Recovery,Annual_Amount_Emissions_Arsenic_SCC_26_WasteDisposalTreatmentAndRecovery
 amount of asbestos emissions from Industrial Processes,Annual_Amount_Emissions_Asbestos_SCC_3_IndustrialProcesses
 amount of benzene emissions from External Combustion,Annual_Amount_Emissions_Benzene_SCC_1_ExternalCombustion
-amount of benzene emissions from Industrial Processes,Annual_Amount_Emissions_Benzene_SCC_3_IndustrialProcesses
+amount of benzene emissions from Industrial Processes,Annual_Amount_Emissions_Benzene_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_Benzene_SCC_3_IndustrialProcesses
 amount of benzene emissions from Internal Combustion Engines,Annual_Amount_Emissions_Benzene_SCC_2_InternalCombustionEngines
 amount of benzene emissions from Miscellaneous Area Sources,Annual_Amount_Emissions_Benzene_SCC_28_MiscellaneousAreaSources
 amount of benzene emissions from Mobile Sources,Annual_Amount_Emissions_Benzene_SCC_22_MobileSources
@@ -3665,7 +3664,7 @@ amount of benzene emissions from Waste Disposal Treatment And Recovery,Annual_Am
 amount of bituminous coal imports,Annual_Imports_Fuel_BituminousCoal
 amount of brown coal imports,Annual_Imports_Fuel_BrownCoal
 amount of cadmium emissions from External Combustion,Annual_Amount_Emissions_Cadmium_SCC_1_ExternalCombustion
-amount of cadmium emissions from Industrial Processes,Annual_Amount_Emissions_Cadmium_SCC_3_IndustrialProcesses
+amount of cadmium emissions from Industrial Processes,Annual_Amount_Emissions_Cadmium_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_Cadmium_SCC_3_IndustrialProcesses
 amount of cadmium emissions from Internal Combustion Engines,Annual_Amount_Emissions_Cadmium_SCC_2_InternalCombustionEngines
 amount of cadmium emissions from Miscellaneous Area Sources,Annual_Amount_Emissions_Cadmium_SCC_28_MiscellaneousAreaSources
 amount of cadmium emissions from Mobile Sources,Annual_Amount_Emissions_Cadmium_SCC_22_MobileSources
@@ -3706,7 +3705,7 @@ amount of carbon dioxide emissions from Petroleum And Solvent Evaporation,Annual
 amount of carbon dioxide emissions from Waste Disposal,Annual_Amount_Emissions_CarbonDioxide_SCC_5_WasteDisposal
 amount of carbon monoxide emissions from Chemical And Allied Product Manufacturing,Annual_Amount_Emissions_ChemicalAndAlliedProductManufacturing_NonBiogenicEmissionSource_CarbonMonoxide
 amount of carbon monoxide emissions from External Combustion,Annual_Amount_Emissions_CarbonMonoxide_SCC_1_ExternalCombustion
-amount of carbon monoxide emissions from Industrial Processes,Annual_Amount_Emissions_CarbonMonoxide_SCC_3_IndustrialProcesses
+amount of carbon monoxide emissions from Industrial Processes,Annual_Amount_Emissions_CarbonMonoxide_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_CarbonMonoxide_SCC_3_IndustrialProcesses
 amount of carbon monoxide emissions from Internal Combustion Engines,Annual_Amount_Emissions_CarbonMonoxide_SCC_2_InternalCombustionEngines
 amount of carbon monoxide emissions from Miscellaneous Area Sources,Annual_Amount_Emissions_CarbonMonoxide_SCC_28_MiscellaneousAreaSources
 amount of carbon monoxide emissions from Mobile Sources,Annual_Amount_Emissions_CarbonMonoxide_SCC_22_MobileSources
@@ -3721,7 +3720,7 @@ amount of carbon monoxide emissions from industrial fuel combustion,Annual_Amoun
 amount of carbon monoxide emissions from metals processing,Annual_Amount_Emissions_MetalsProcessing_NonBiogenicEmissionSource_CarbonMonoxide
 amount of charcoal imports,Annual_Imports_Fuel_Charcoal
 amount of chlorane emissions from External Combustion,Annual_Amount_Emissions_Chlorane_SCC_1_ExternalCombustion
-amount of chlorane emissions from Industrial Processes,Annual_Amount_Emissions_Chlorane_SCC_3_IndustrialProcesses
+amount of chlorane emissions from Industrial Processes,Annual_Amount_Emissions_Chlorane_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_Chlorane_SCC_3_IndustrialProcesses
 amount of chlorane emissions from Internal Combustion Engines,Annual_Amount_Emissions_Chlorane_SCC_2_InternalCombustionEngines
 amount of chlorane emissions from Miscellaneous Area Sources,Annual_Amount_Emissions_Chlorane_SCC_28_MiscellaneousAreaSources
 amount of chlorane emissions from Petroleum And Solvent Evaporation,Annual_Amount_Emissions_Chlorane_SCC_4_PetroleumAndSolventEvaporation
@@ -3730,7 +3729,7 @@ amount of chlorane emissions from Stationary Source Fuel Combustion,Annual_Amoun
 amount of chlorane emissions from Waste Disposal,Annual_Amount_Emissions_Chlorane_SCC_5_WasteDisposal
 amount of chlorane emissions from Waste Disposal Treatment And Recovery,Annual_Amount_Emissions_Chlorane_SCC_26_WasteDisposalTreatmentAndRecovery
 amount of chlorine emissions from External Combustion,Annual_Amount_Emissions_Chlorine_SCC_1_ExternalCombustion
-amount of chlorine emissions from Industrial Processes,Annual_Amount_Emissions_Chlorine_SCC_3_IndustrialProcesses
+amount of chlorine emissions from Industrial Processes,Annual_Amount_Emissions_Chlorine_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_Chlorine_SCC_3_IndustrialProcesses
 amount of chlorine emissions from Internal Combustion Engines,Annual_Amount_Emissions_Chlorine_SCC_2_InternalCombustionEngines
 amount of chlorine emissions from Miscellaneous Area Sources,Annual_Amount_Emissions_Chlorine_SCC_28_MiscellaneousAreaSources
 amount of chlorine emissions from Mobile Sources,Annual_Amount_Emissions_Chlorine_SCC_22_MobileSources
@@ -3739,7 +3738,7 @@ amount of chlorine emissions from Stationary Source Fuel Combustion,Annual_Amoun
 amount of chlorine emissions from Waste Disposal,Annual_Amount_Emissions_Chlorine_SCC_5_WasteDisposal
 amount of chlorine emissions from Waste Disposal Treatment And Recovery,Annual_Amount_Emissions_Chlorine_SCC_26_WasteDisposalTreatmentAndRecovery
 amount of chloroform emissions from External Combustion,Annual_Amount_Emissions_Chloroform_SCC_1_ExternalCombustion
-amount of chloroform emissions from Industrial Processes,Annual_Amount_Emissions_Chloroform_SCC_3_IndustrialProcesses
+amount of chloroform emissions from Industrial Processes,Annual_Amount_Emissions_Chloroform_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_Chloroform_SCC_3_IndustrialProcesses
 amount of chloroform emissions from Internal Combustion Engines,Annual_Amount_Emissions_Chloroform_SCC_2_InternalCombustionEngines
 amount of chloroform emissions from Miscellaneous Area Sources,Annual_Amount_Emissions_Chloroform_SCC_28_MiscellaneousAreaSources
 amount of chloroform emissions from Petroleum And Solvent Evaporation,Annual_Amount_Emissions_Chloroform_SCC_4_PetroleumAndSolventEvaporation
@@ -3796,7 +3795,7 @@ amount of emission of Sulfur hexafluoride from non biogenic emission source,Annu
 amount of emission of very short lived compounds from non biogenic emission source,Annual_Emissions_VeryShortLivedCompounds_NonBiogenic
 amount of emissions from MACT source categories,Annual_Amount_Emissions_SCC_6_MACTSourceCategories
 amount of emissions from external combustion,Annual_Amount_Emissions_SCC_1_ExternalCombustion
-amount of emissions from industrial processes,Annual_Amount_Emissions_SCC_3_IndustrialProcesses
+amount of emissions from industrial processes,Annual_Amount_Emissions_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_SCC_3_IndustrialProcesses
 amount of emissions from internal combustion engines,Annual_Amount_Emissions_SCC_2_InternalCombustionEngines
 amount of emissions from miscellaneous area sources,Annual_Amount_Emissions_SCC_28_MiscellaneousAreaSources
 amount of emissions from mobile sources,Annual_Amount_Emissions_SCC_22_MobileSources
@@ -3807,7 +3806,7 @@ amount of emissions from stationary source fuel combustion,Annual_Amount_Emissio
 amount of emissions from storage and transport,Annual_Amount_Emissions_SCC_25_StorageAndTransport
 amount of emissions from waste disposal,Annual_Amount_Emissions_SCC_5_WasteDisposal
 amount of fluorane emissions from external combustion,Annual_Amount_Emissions_Fluorane_SCC_1_ExternalCombustion
-amount of fluorane emissions from industrial processes,Annual_Amount_Emissions_Fluorane_SCC_3_IndustrialProcesses
+amount of fluorane emissions from industrial processes,Annual_Amount_Emissions_Fluorane_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_Fluorane_SCC_3_IndustrialProcesses
 amount of fluorane emissions from internal combustion engines,Annual_Amount_Emissions_Fluorane_SCC_2_InternalCombustionEngines
 amount of fluorane emissions from miscellaneous area sources,Annual_Amount_Emissions_Fluorane_SCC_28_MiscellaneousAreaSources
 amount of fluorane emissions from petroleum and solvent evaporation,Annual_Amount_Emissions_Fluorane_SCC_4_PetroleumAndSolventEvaporation
@@ -3815,7 +3814,7 @@ amount of fluorane emissions from solvent utilization,Annual_Amount_Emissions_Fl
 amount of fluorane emissions from stationary source fuel combustion,Annual_Amount_Emissions_Fluorane_SCC_21_StationarySourceFuelCombustion
 amount of fluorane emissions from waste disposal,Annual_Amount_Emissions_Fluorane_SCC_5_WasteDisposal
 amount of formaldehyde emissions from external combustion,Annual_Amount_Emissions_Formaldehyde_SCC_1_ExternalCombustion
-amount of formaldehyde emissions from industrial processes,Annual_Amount_Emissions_Formaldehyde_SCC_3_IndustrialProcesses
+amount of formaldehyde emissions from industrial processes,Annual_Amount_Emissions_Formaldehyde_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_Formaldehyde_SCC_3_IndustrialProcesses
 amount of formaldehyde emissions from internal combustion engines,Annual_Amount_Emissions_Formaldehyde_SCC_2_InternalCombustionEngines
 amount of formaldehyde emissions from miscellaneous area sources,Annual_Amount_Emissions_Formaldehyde_SCC_28_MiscellaneousAreaSources
 amount of formaldehyde emissions from mobile sources,Annual_Amount_Emissions_Formaldehyde_SCC_22_MobileSources
@@ -3829,7 +3828,7 @@ amount of fuel oil imports,Annual_Imports_Fuel_FuelOil
 amount of fuelwood imports,Annual_Imports_Fuel_Fuelwood
 amount of hard coal imports,Annual_Imports_Fuel_HardCoal
 amount of hexane emissions from external combustion,Annual_Amount_Emissions_Hexane_SCC_1_ExternalCombustion
-amount of hexane emissions from industrial processes,Annual_Amount_Emissions_Hexane_SCC_3_IndustrialProcesses
+amount of hexane emissions from industrial processes,Annual_Amount_Emissions_Hexane_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_Hexane_SCC_3_IndustrialProcesses
 amount of hexane emissions from internal combustion engines,Annual_Amount_Emissions_Hexane_SCC_2_InternalCombustionEngines
 amount of hexane emissions from miscellaneous area sources,Annual_Amount_Emissions_Hexane_SCC_28_MiscellaneousAreaSources
 amount of hexane emissions from mobile sources,Annual_Amount_Emissions_Hexane_SCC_22_MobileSources
@@ -3843,7 +3842,7 @@ amount of imported gasoline for aviation use,Annual_Imports_Fuel_AviationGasolin
 amount of kerosene imports,Annual_Imports_Fuel_Kerosene
 amount of kerosene-type jet fuel imports,Annual_Imports_Fuel_KeroseneJetFuel
 amount of lead emissions from external combustion,Annual_Amount_Emissions_Lead_SCC_1_ExternalCombustion
-amount of lead emissions from industrial processes,Annual_Amount_Emissions_Lead_SCC_3_IndustrialProcesses
+amount of lead emissions from industrial processes,Annual_Amount_Emissions_Lead_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_Lead_SCC_3_IndustrialProcesses
 amount of lead emissions from internal combustion engines,Annual_Amount_Emissions_Lead_SCC_2_InternalCombustionEngines
 amount of lead emissions from miscellaneous area sources,Annual_Amount_Emissions_Lead_SCC_28_MiscellaneousAreaSources
 amount of lead emissions from mobile sources,Annual_Amount_Emissions_Lead_SCC_22_MobileSources
@@ -3855,7 +3854,7 @@ amount of lead emissions from waste disposal,Annual_Amount_Emissions_Lead_SCC_5_
 amount of liquified petroleum gas imports,Annual_Imports_Fuel_LiquifiedPetroleumGas
 amount of lubricant oil imports,Annual_Imports_Fuel_Lubricants
 amount of manganese emissions from external combustion,Annual_Amount_Emissions_Manganese_SCC_1_ExternalCombustion
-amount of manganese emissions from industrial processes,Annual_Amount_Emissions_Manganese_SCC_3_IndustrialProcesses
+amount of manganese emissions from industrial processes,Annual_Amount_Emissions_Manganese_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_Manganese_SCC_3_IndustrialProcesses
 amount of manganese emissions from internal combustion engines,Annual_Amount_Emissions_Manganese_SCC_2_InternalCombustionEngines
 amount of manganese emissions from miscellaneous area sources,Annual_Amount_Emissions_Manganese_SCC_28_MiscellaneousAreaSources
 amount of manganese emissions from mobile sources,Annual_Amount_Emissions_Manganese_SCC_22_MobileSources
@@ -3864,7 +3863,7 @@ amount of manganese emissions from solvent utilization,Annual_Amount_Emissions_M
 amount of manganese emissions from stationary source fuel combustion,Annual_Amount_Emissions_Manganese_SCC_21_StationarySourceFuelCombustion
 amount of manganese emissions from waste disposal,Annual_Amount_Emissions_Manganese_SCC_5_WasteDisposal
 amount of mercury emissions from external combustion,Annual_Amount_Emissions_Mercury_SCC_1_ExternalCombustion
-amount of mercury emissions from industrial processes,Annual_Amount_Emissions_Mercury_SCC_3_IndustrialProcesses
+amount of mercury emissions from industrial processes,Annual_Amount_Emissions_Mercury_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_Mercury_SCC_3_IndustrialProcesses
 amount of mercury emissions from internal combustion engines,Annual_Amount_Emissions_Mercury_SCC_2_InternalCombustionEngines
 amount of mercury emissions from miscellaneous area sources,Annual_Amount_Emissions_Mercury_SCC_28_MiscellaneousAreaSources
 amount of mercury emissions from mobile sources,Annual_Amount_Emissions_Mercury_SCC_22_MobileSources
@@ -3881,7 +3880,7 @@ amount of methane emissions from mobile sources,Annual_Amount_Emissions_Methane_
 amount of methane emissions from petroleum and solvent evaporation,Annual_Amount_Emissions_Methane_SCC_4_PetroleumAndSolventEvaporation
 amount of methane emissions from waste disposal,Annual_Amount_Emissions_Methane_SCC_5_WasteDisposal
 amount of methanol emissions from external combustion,Annual_Amount_Emissions_Methanol_SCC_1_ExternalCombustion
-amount of methanol emissions from industrial processes,Annual_Amount_Emissions_Methanol_SCC_3_IndustrialProcesses
+amount of methanol emissions from industrial processes,Annual_Amount_Emissions_Methanol_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_Methanol_SCC_3_IndustrialProcesses
 amount of methanol emissions from internal combustion engines,Annual_Amount_Emissions_Methanol_SCC_2_InternalCombustionEngines
 amount of methanol emissions from miscellaneous area sources,Annual_Amount_Emissions_Methanol_SCC_28_MiscellaneousAreaSources
 amount of methanol emissions from mobile sources,Annual_Amount_Emissions_Methanol_SCC_22_MobileSources
@@ -3892,7 +3891,7 @@ amount of methanol emissions from waste disposal,Annual_Amount_Emissions_Methano
 amount of motor gasoline imports,Annual_Imports_Fuel_MotorGasoline
 amount of naphtha imports,Annual_Imports_Fuel_Naphtha
 amount of naphthalene emissions from external combustion,Annual_Amount_Emissions_Naphthalene_SCC_1_ExternalCombustion
-amount of naphthalene emissions from industrial processes,Annual_Amount_Emissions_Naphthalene_SCC_3_IndustrialProcesses
+amount of naphthalene emissions from industrial processes,Annual_Amount_Emissions_Naphthalene_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_Naphthalene_SCC_3_IndustrialProcesses
 amount of naphthalene emissions from internal combustion engines,Annual_Amount_Emissions_Naphthalene_SCC_2_InternalCombustionEngines
 amount of naphthalene emissions from miscellaneous area sources,Annual_Amount_Emissions_Naphthalene_SCC_28_MiscellaneousAreaSources
 amount of naphthalene emissions from mobile sources,Annual_Amount_Emissions_Naphthalene_SCC_22_MobileSources
@@ -3908,7 +3907,7 @@ amount of oxides of nitrogen emissions from metals processing,Annual_Amount_Emis
 amount of paraffin wax imports,Annual_Imports_Fuel_ParaffinWaxes
 amount of petroleum coke imports,Annual_Imports_Fuel_PetroleumCoke
 amount of phenol emissions from external combustion,Annual_Amount_Emissions_Phenol_SCC_1_ExternalCombustion
-amount of phenol emissions from industrial processes,Annual_Amount_Emissions_Phenol_SCC_3_IndustrialProcesses
+amount of phenol emissions from industrial processes,Annual_Amount_Emissions_Phenol_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_Phenol_SCC_3_IndustrialProcesses
 amount of phenol emissions from internal combustion engines,Annual_Amount_Emissions_Phenol_SCC_2_InternalCombustionEngines
 amount of phenol emissions from miscellaneous area sources,Annual_Amount_Emissions_Phenol_SCC_28_MiscellaneousAreaSources
 amount of phenol emissions from mobile sources,Annual_Amount_Emissions_Phenol_SCC_22_MobileSources
@@ -3917,7 +3916,7 @@ amount of phenol emissions from solvent utilization,Annual_Amount_Emissions_Phen
 amount of phenol emissions from stationary source fuel combustion,Annual_Amount_Emissions_Phenol_SCC_21_StationarySourceFuelCombustion
 amount of phenol emissions from waste disposal,Annual_Amount_Emissions_Phenol_SCC_5_WasteDisposal
 amount of phosphorus emissions from external combustion,Annual_Amount_Emissions_Phosphorus_SCC_1_ExternalCombustion
-amount of phosphorus emissions from industrial processes,Annual_Amount_Emissions_Phosphorus_SCC_3_IndustrialProcesses
+amount of phosphorus emissions from industrial processes,Annual_Amount_Emissions_Phosphorus_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_Phosphorus_SCC_3_IndustrialProcesses
 amount of phosphorus emissions from internal combustion engines,Annual_Amount_Emissions_Phosphorus_SCC_2_InternalCombustionEngines
 amount of phosphorus emissions from miscellaneous area sources,Annual_Amount_Emissions_Phosphorus_SCC_28_MiscellaneousAreaSources
 amount of phosphorus emissions from mobile sources,Annual_Amount_Emissions_Phosphorus_SCC_22_MobileSources
@@ -3928,7 +3927,7 @@ amount of phosphorus emissions from waste disposal,Annual_Amount_Emissions_Phosp
 amount of pm10 emissions from Chemical And Allied Product Manufacturing,Annual_Amount_Emissions_ChemicalAndAlliedProductManufacturing_NonBiogenicEmissionSource_PM10
 amount of pm2.5 emissions from Chemical And Allied Product Manufacturing,Annual_Amount_Emissions_ChemicalAndAlliedProductManufacturing_NonBiogenicEmissionSource_PM2.5
 amount of pyrene emissions from external combustion,Annual_Amount_Emissions_Pyrene_SCC_1_ExternalCombustion
-amount of pyrene emissions from industrial processes,Annual_Amount_Emissions_Pyrene_SCC_3_IndustrialProcesses
+amount of pyrene emissions from industrial processes,Annual_Amount_Emissions_Pyrene_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_Pyrene_SCC_3_IndustrialProcesses
 amount of pyrene emissions from internal combustion engines,Annual_Amount_Emissions_Pyrene_SCC_2_InternalCombustionEngines
 amount of pyrene emissions from miscellaneous area sources,Annual_Amount_Emissions_Pyrene_SCC_28_MiscellaneousAreaSources
 amount of pyrene emissions from mobile sources,Annual_Amount_Emissions_Pyrene_SCC_22_MobileSources
@@ -3981,7 +3980,7 @@ amount of retail drug purchase of Tincured Opium,RetailDrugDistribution_DrugDist
 amount of retail drug purchase of Zolpidem,RetailDrugDistribution_DrugDistribution_Zolpidem
 amount of retail drug purchase of alfentanil,RetailDrugDistribution_DrugDistribution_Alfentanil
 amount of selenium emissions from external combustion,Annual_Amount_Emissions_Selenium_SCC_1_ExternalCombustion
-amount of selenium emissions from industrial processes,Annual_Amount_Emissions_Selenium_SCC_3_IndustrialProcesses
+amount of selenium emissions from industrial processes,Annual_Amount_Emissions_Selenium_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_Selenium_SCC_3_IndustrialProcesses
 amount of selenium emissions from internal combustion engines,Annual_Amount_Emissions_Selenium_SCC_2_InternalCombustionEngines
 amount of selenium emissions from miscellaneous area sources,Annual_Amount_Emissions_Selenium_SCC_28_MiscellaneousAreaSources
 amount of selenium emissions from mobile sources,Annual_Amount_Emissions_Selenium_SCC_22_MobileSources
@@ -3990,7 +3989,7 @@ amount of selenium emissions from solvent utilization,Annual_Amount_Emissions_Se
 amount of selenium emissions from stationary source fuel combustion,Annual_Amount_Emissions_Selenium_SCC_21_StationarySourceFuelCombustion
 amount of selenium emissions from waste disposal,Annual_Amount_Emissions_Selenium_SCC_5_WasteDisposal
 amount of sulfane emissions from external combustion,Annual_Amount_Emissions_Sulfane_SCC_1_ExternalCombustion
-amount of sulfane emissions from industrial processes,Annual_Amount_Emissions_Sulfane_SCC_3_IndustrialProcesses
+amount of sulfane emissions from industrial processes,Annual_Amount_Emissions_Sulfane_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_Sulfane_SCC_3_IndustrialProcesses
 amount of sulfane emissions from internal combustion engines,Annual_Amount_Emissions_Sulfane_SCC_2_InternalCombustionEngines
 amount of sulfane emissions from miscellaneous area sources,Annual_Amount_Emissions_Sulfane_SCC_28_MiscellaneousAreaSources
 amount of sulfane emissions from petroleum and solvent evaporation,Annual_Amount_Emissions_Sulfane_SCC_4_PetroleumAndSolventEvaporation
@@ -4000,7 +3999,7 @@ amount of sulfur dioxide emissions from Chemical And Allied Product Manufacturin
 amount of sulfur dioxide emissions from MACT source categories,Annual_Amount_Emissions_SulfurDioxide_SCC_6_MACTSourceCategories
 amount of sulfur dioxide emissions from external combustion,Annual_Amount_Emissions_SulfurDioxide_SCC_1_ExternalCombustion
 amount of sulfur dioxide emissions from industrial fuel combustion,Annual_Amount_Emissions_FuelCombustionIndustrial_NonBiogenicEmissionSource_SulfurDioxide
-amount of sulfur dioxide emissions from industrial processes,Annual_Amount_Emissions_SulfurDioxide_SCC_3_IndustrialProcesses
+amount of sulfur dioxide emissions from industrial processes,Annual_Amount_Emissions_SulfurDioxide_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_SulfurDioxide_SCC_3_IndustrialProcesses
 amount of sulfur dioxide emissions from internal combustion engines,Annual_Amount_Emissions_SulfurDioxide_SCC_2_InternalCombustionEngines
 amount of sulfur dioxide emissions from metals processing,Annual_Amount_Emissions_MetalsProcessing_NonBiogenicEmissionSource_SulfurDioxide
 amount of sulfur dioxide emissions from miscellaneous area sources,Annual_Amount_Emissions_SulfurDioxide_SCC_28_MiscellaneousAreaSources
@@ -4011,7 +4010,7 @@ amount of sulfur dioxide emissions from stationary source fuel combustion,Annual
 amount of sulfur dioxide emissions from storage and transport,Annual_Amount_Emissions_SulfurDioxide_SCC_25_StorageAndTransport
 amount of sulfur dioxide emissions from waste disposal,Annual_Amount_Emissions_SulfurDioxide_SCC_5_WasteDisposal
 amount of toluene emissions from external combustion,Annual_Amount_Emissions_Toluene_SCC_1_ExternalCombustion
-amount of toluene emissions from industrial processes,Annual_Amount_Emissions_Toluene_SCC_3_IndustrialProcesses
+amount of toluene emissions from industrial processes,Annual_Amount_Emissions_Toluene_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_Toluene_SCC_3_IndustrialProcesses
 amount of toluene emissions from internal combustion engines,Annual_Amount_Emissions_Toluene_SCC_2_InternalCombustionEngines
 amount of toluene emissions from miscellaneous area sources,Annual_Amount_Emissions_Toluene_SCC_28_MiscellaneousAreaSources
 amount of toluene emissions from mobile sources,Annual_Amount_Emissions_Toluene_SCC_22_MobileSources
@@ -4025,7 +4024,7 @@ amount of volatile organic compound emissions from industrial fuel combustion,An
 amount of volatile organic compound emissions from metals processing,Annual_Amount_Emissions_MetalsProcessing_NonBiogenicEmissionSource_VolatileOrganicCompound
 amount of volatile organic compound from MACT source categories,Annual_Amount_Emissions_VolatileOrganicCompound_SCC_6_MACTSourceCategories
 amount of volatile organic compound from external combustion,Annual_Amount_Emissions_VolatileOrganicCompound_SCC_1_ExternalCombustion
-amount of volatile organic compound from industrial processes,Annual_Amount_Emissions_VolatileOrganicCompound_SCC_3_IndustrialProcesses
+amount of volatile organic compound from industrial processes,Annual_Amount_Emissions_VolatileOrganicCompound_SCC_23_IndustrialProcesses;Annual_Amount_Emissions_VolatileOrganicCompound_SCC_3_IndustrialProcesses
 amount of volatile organic compound from internal combustion engines,Annual_Amount_Emissions_VolatileOrganicCompound_SCC_2_InternalCombustionEngines
 amount of volatile organic compound from miscellaneous area sources,Annual_Amount_Emissions_VolatileOrganicCompound_SCC_28_MiscellaneousAreaSources
 amount of volatile organic compound from mobile sources,Annual_Amount_Emissions_VolatileOrganicCompound_SCC_22_MobileSources
@@ -4041,12 +4040,12 @@ amount spent on health,dc/topic/HealthcareExpenditure
 "and (b) integration of biodiversity into national accounting and reporting systems, defined as implementation of the System of Environmental-Economic Accounting",dc/topic/sdg_15.9.1
 and (b) plastic debris density,dc/topic/sdg_14.1.1
 "and (b) proportion of hazardous waste treated, by type of treatment",dc/topic/sdg_12.4.2
-and (b) revenue generated and finance mobilized from biodiversity-relevant economic instruments,dc/topic/sdg_15.a.1
+and (b) revenue generated and finance mobilized from biodiversity-relevant economic instruments,dc/topic/sdg_15.a.1;dc/topic/sdg_15.b.1
 "and (b) share of women among owners or rights-bearers of agricultural land, by type of tenure",dc/topic/sdg_5.a.1
 "and (c) at the end of lower secondary achieving at least a minimum proficiency level in (i) reading and (ii) mathematics, by sex",dc/topic/sdg_4.1.1
 and (c) increase local fiscal space,dc/topic/sdg_11.a.1
 "and (c) the judiciary, compared to national distributions, by sex, age, persons with disabilities and population groups",dc/topic/sdg_16.7.1
-and (d) student assessment,dc/topic/sdg_4.7.1
+and (d) student assessment,dc/topic/sdg_12.8.1;dc/topic/sdg_13.3.1;dc/topic/sdg_4.7.1
 area of farms with harvested cropland,Area_Farm_HarvestedCropland
 average retail price of electricity,Annual_Average_RetailPrice_Electricity
 average retail price of electricity for commercial sector,Annual_Average_RetailPrice_Electricity_Commercial
@@ -4140,7 +4139,7 @@ education attainment of home owners,dc/topic/HousesByHouseholderEducationalAttai
 education fairness,dc/topic/EducationEquity
 education level of home owner,dc/topic/HousesByHouseholderEducationalAttainment
 education opportunities,dc/topic/EducationEquity
-electricity access,dc/topic/GlobalElectricityAccess
+electricity access,dc/topic/GlobalElectricityAccess;dc/topic/sdg_7.1.1
 electricity generated by industries,Annual_Generation_Electricity_Industrial
 electricity generated for residential use,Annual_Generation_Electricity_Households
 electricity generated from natural gas,Annual_Generation_Electricity_NaturalGas
@@ -4200,7 +4199,7 @@ flourinated gas emissions by source,dc/topic/Emissions_FlourinatedGases
 food harvest loss,dc/topic/sdg_12.3
 food insecure,dc/topic/FoodInsecurity
 food insecurity,dc/topic/sdg_2.1.2
-food security,dc/topic/FoodInsecurity
+food security,dc/topic/FoodInsecurity;dc/topic/sdg_2.1.2
 food waste,dc/topic/sdg_12.3
 forest area change rate,sdg/AG_LND_FRSTCHG
 fraction of energy producton and consumption,dc/topic/Energy_Fraction
@@ -4381,7 +4380,7 @@ no health insurance across race,dc/topic/NoHealthInsuranceByRace
 no health insurance by race,dc/topic/NoHealthInsuranceByRace
 no health insurance split by income,dc/topic/NoHealthInsuranceByIncome
 nominal Gross Domestic Product (GDP),Amount_EconomicActivity_GrossDomesticProduction_Nominal
-nominal Gross Domestic Product (GDP) per capita,Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita
+nominal Gross Domestic Product (GDP) per capita,Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person;Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita
 non communicable diseases WHO,dc/topic/WHONonCommunicableDiseases
 non-english at home,dc/topic/NonEnglishLanguageAtHome
 non-english language at home,dc/topic/NonEnglishLanguageAtHome
@@ -4686,7 +4685,7 @@ sdg (a) Food loss index and (b) food waste index,dc/topic/sdg_12.3.1
 sdg (a) Hazardous waste generated per capita,dc/topic/sdg_12.4.2
 sdg (a) Index of coastal eutrophication,dc/topic/sdg_14.1.1
 sdg (a) Number of countries that have established national targets in accordance with or similar to Aichi Biodiversity Target 2 of the Strategic Plan for Biodiversity 2011–2020 in their national biodiversity strategy and action plans and the progress reported towards these targets,dc/topic/sdg_15.9.1
-sdg (a) Official development assistance on conservation and sustainable use of biodiversity,dc/topic/sdg_15.a.1
+sdg (a) Official development assistance on conservation and sustainable use of biodiversity,dc/topic/sdg_15.a.1;dc/topic/sdg_15.b.1
 "sdg (a) Proportion of total agricultural population with ownership or secure rights over agricultural land, by sex",dc/topic/sdg_5.a.1
 sdg 1,dc/topic/sdg_1
 sdg 1 1,dc/topic/sdg_1.1
@@ -4798,7 +4797,7 @@ sdg 10b,dc/topic/sdg_10.b
 sdg 10b1,dc/topic/sdg_10.b.1
 sdg 10c,dc/topic/sdg_10.c
 sdg 10c1,dc/topic/sdg_10.c.1
-sdg 11,dc/topic/sdg_11
+sdg 11,dc/topic/sdg_1.1;dc/topic/sdg_11
 sdg 11 1,dc/topic/sdg_11.1
 sdg 11 1 1,dc/topic/sdg_11.1.1
 sdg 11 2,dc/topic/sdg_11.2
@@ -4849,7 +4848,7 @@ sdg 11.b,dc/topic/sdg_11.b
 sdg 11.b.1,dc/topic/sdg_11.b.1
 sdg 11.b.2,dc/topic/sdg_11.b.2
 sdg 11.c,dc/topic/sdg_11.c
-sdg 111,dc/topic/sdg_11.1
+sdg 111,dc/topic/sdg_1.1.1;dc/topic/sdg_11.1
 sdg 1111,dc/topic/sdg_11.1.1
 sdg 112,dc/topic/sdg_11.2
 sdg 1121,dc/topic/sdg_11.2.1
@@ -4874,7 +4873,7 @@ sdg 11b,dc/topic/sdg_11.b
 sdg 11b1,dc/topic/sdg_11.b.1
 sdg 11b2,dc/topic/sdg_11.b.2
 sdg 11c,dc/topic/sdg_11.c
-sdg 12,dc/topic/sdg_12
+sdg 12,dc/topic/sdg_1.2;dc/topic/sdg_12
 sdg 12 1,dc/topic/sdg_12.1
 sdg 12 1 1,dc/topic/sdg_12.1.1
 sdg 12 2,dc/topic/sdg_12.2
@@ -4921,9 +4920,9 @@ sdg 12.a.1,dc/topic/sdg_12.a.1
 sdg 12.b,dc/topic/sdg_12.b
 sdg 12.c,dc/topic/sdg_12.c
 sdg 12.c.1,dc/topic/sdg_12.c.1
-sdg 121,dc/topic/sdg_12.1
+sdg 121,dc/topic/sdg_1.2.1;dc/topic/sdg_12.1
 sdg 1211,dc/topic/sdg_12.1.1
-sdg 122,dc/topic/sdg_12.2
+sdg 122,dc/topic/sdg_1.2.2;dc/topic/sdg_12.2
 sdg 1221,dc/topic/sdg_12.2.1
 sdg 1222,dc/topic/sdg_12.2.2
 sdg 123,dc/topic/sdg_12.3
@@ -4944,7 +4943,7 @@ sdg 12a1,dc/topic/sdg_12.a.1
 sdg 12b,dc/topic/sdg_12.b
 sdg 12c,dc/topic/sdg_12.c
 sdg 12c1,dc/topic/sdg_12.c.1
-sdg 13,dc/topic/sdg_13
+sdg 13,dc/topic/sdg_1.3;dc/topic/sdg_13
 sdg 13 1,dc/topic/sdg_13.1
 sdg 13 1 1,dc/topic/sdg_13.1.1
 sdg 13 1 2,dc/topic/sdg_13.1.2
@@ -4971,7 +4970,7 @@ sdg 13.a,dc/topic/sdg_13.a
 sdg 13.a.1,dc/topic/sdg_13.a.1
 sdg 13.b,dc/topic/sdg_13.b
 sdg 13.b.1,dc/topic/sdg_13.b.1
-sdg 131,dc/topic/sdg_13.1
+sdg 131,dc/topic/sdg_1.3.1;dc/topic/sdg_13.1
 sdg 1311,dc/topic/sdg_13.1.1
 sdg 1312,dc/topic/sdg_13.1.2
 sdg 1313,dc/topic/sdg_13.1.3
@@ -4984,7 +4983,7 @@ sdg 13a,dc/topic/sdg_13.a
 sdg 13a1,dc/topic/sdg_13.a.1
 sdg 13b,dc/topic/sdg_13.b
 sdg 13b1,dc/topic/sdg_13.b.1
-sdg 14,dc/topic/sdg_14
+sdg 14,dc/topic/sdg_1.4;dc/topic/sdg_14
 sdg 14 1,dc/topic/sdg_14.1
 sdg 14 1 1,dc/topic/sdg_14.1.1
 sdg 14 2,dc/topic/sdg_14.2
@@ -5025,9 +5024,9 @@ sdg 14.b,dc/topic/sdg_14.b
 sdg 14.b.1,dc/topic/sdg_14.b.1
 sdg 14.c,dc/topic/sdg_14.c
 sdg 14.c.1,dc/topic/sdg_14.c.1
-sdg 141,dc/topic/sdg_14.1
+sdg 141,dc/topic/sdg_1.4.1;dc/topic/sdg_14.1
 sdg 1411,dc/topic/sdg_14.1.1
-sdg 142,dc/topic/sdg_14.2
+sdg 142,dc/topic/sdg_1.4.2;dc/topic/sdg_14.2
 sdg 1421,dc/topic/sdg_14.2.1
 sdg 143,dc/topic/sdg_14.3
 sdg 1431,dc/topic/sdg_14.3.1
@@ -5045,7 +5044,7 @@ sdg 14b,dc/topic/sdg_14.b
 sdg 14b1,dc/topic/sdg_14.b.1
 sdg 14c,dc/topic/sdg_14.c
 sdg 14c1,dc/topic/sdg_14.c.1
-sdg 15,dc/topic/sdg_15
+sdg 15,dc/topic/sdg_1.5;dc/topic/sdg_15
 sdg 15 1,dc/topic/sdg_15.1
 sdg 15 1 1,dc/topic/sdg_15.1.1
 sdg 15 1 2,dc/topic/sdg_15.1.2
@@ -5090,14 +5089,14 @@ sdg 15.a,dc/topic/sdg_15.a
 sdg 15.a.1,dc/topic/sdg_15.a.1
 sdg 15.b,dc/topic/sdg_15.b
 sdg 15.b.1,dc/topic/sdg_15.b.1
-sdg 151,dc/topic/sdg_15.1
+sdg 151,dc/topic/sdg_1.5.1;dc/topic/sdg_15.1
 sdg 1511,dc/topic/sdg_15.1.1
 sdg 1512,dc/topic/sdg_15.1.2
-sdg 152,dc/topic/sdg_15.2
+sdg 152,dc/topic/sdg_1.5.2;dc/topic/sdg_15.2
 sdg 1521,dc/topic/sdg_15.2.1
-sdg 153,dc/topic/sdg_15.3
+sdg 153,dc/topic/sdg_1.5.3;dc/topic/sdg_15.3
 sdg 1531,dc/topic/sdg_15.3.1
-sdg 154,dc/topic/sdg_15.4
+sdg 154,dc/topic/sdg_1.5.4;dc/topic/sdg_15.4
 sdg 1541,dc/topic/sdg_15.4.1
 sdg 1542,dc/topic/sdg_15.4.2
 sdg 155,dc/topic/sdg_15.5
@@ -5309,8 +5308,8 @@ sdg 17.9.1,dc/topic/sdg_17.9.1
 sdg 171,dc/topic/sdg_17.1
 sdg 1710,dc/topic/sdg_17.10
 sdg 17101,dc/topic/sdg_17.10.1
-sdg 1711,dc/topic/sdg_17.11
-sdg 1712,dc/topic/sdg_17.12
+sdg 1711,dc/topic/sdg_17.1.1;dc/topic/sdg_17.11
+sdg 1712,dc/topic/sdg_17.1.2;dc/topic/sdg_17.12
 sdg 17121,dc/topic/sdg_17.12.1
 sdg 1713,dc/topic/sdg_17.13
 sdg 17131,dc/topic/sdg_17.13.1
@@ -5766,7 +5765,7 @@ sdg 7b1,dc/topic/sdg_7.b.1
 sdg 8,dc/topic/sdg_8
 sdg 8 1,dc/topic/sdg_8.1
 sdg 8 1 1,dc/topic/sdg_8.1.1
-sdg 8 10,dc/topic/sdg_8.10
+sdg 8 10,dc/topic/sdg_8.10;dc/topic/sdg_8.10.1
 sdg 8 10 2,dc/topic/sdg_8.10.2
 sdg 8 2,dc/topic/sdg_8.2
 sdg 8 2 1,dc/topic/sdg_8.2.1
@@ -5793,7 +5792,7 @@ sdg 8 b,dc/topic/sdg_8.b
 sdg 8 b 1,dc/topic/sdg_8.b.1
 sdg 8.1,dc/topic/sdg_8.1
 sdg 8.1.1,dc/topic/sdg_8.1.1
-sdg 8.10,dc/topic/sdg_8.10
+sdg 8.10,dc/topic/sdg_8.10;dc/topic/sdg_8.10.1
 sdg 8.10.2,dc/topic/sdg_8.10.2
 sdg 8.2,dc/topic/sdg_8.2
 sdg 8.2.1,dc/topic/sdg_8.2.1
@@ -5819,7 +5818,7 @@ sdg 8.a.1,dc/topic/sdg_8.a.1
 sdg 8.b,dc/topic/sdg_8.b
 sdg 8.b.1,dc/topic/sdg_8.b.1
 sdg 81,dc/topic/sdg_8.1
-sdg 810,dc/topic/sdg_8.10
+sdg 810,dc/topic/sdg_8.10;dc/topic/sdg_8.10.1
 sdg 8102,dc/topic/sdg_8.10.2
 sdg 811,dc/topic/sdg_8.1.1
 sdg 82,dc/topic/sdg_8.2
@@ -6026,10 +6025,10 @@ sdg Develop and implement tools to monitor sustainable development impacts for s
 "sdg Develop effective, accountable and transparent institutions at all levels",dc/topic/sdg_16.6
 "sdg Develop quality, reliable, sustainable and resilient infrastructure, including regional and trans-border infrastructure, to support economic development and human well-being, with a focus on affordable and equitable access for all",dc/topic/sdg_9.1
 "sdg Developed countries to implement fully their official development assistance commitments, including the commitment by many developed countries to achieve the target of 0.7 per cent of gross national income for official development assistance (ODA/GNI) to developing countries and 0.15 to 0.20 per cent of ODA/GNI to least developed countries",dc/topic/sdg_17.2
-sdg Direct economic loss attributed to disasters in relation to global gross domestic product (GDP),dc/topic/sdg_1.5.2
+sdg Direct economic loss attributed to disasters in relation to global gross domestic product (GDP),dc/topic/sdg_1.5.2;dc/topic/sdg_11.5.2
 sdg Dollar value of all resources made available to strengthen statistical capacity in developing countries,dc/topic/sdg_17.19.1
 "sdg Dollar value of financial and technical assistance (including through North-South, South-South and triangular cooperation) committed to developing countries",dc/topic/sdg_17.9.1
-"sdg Domestic material consumption, domestic material consumption per capita, and domestic material consumption per GDP",dc/topic/sdg_8.4.2
+"sdg Domestic material consumption, domestic material consumption per capita, and domestic material consumption per GDP",dc/topic/sdg_12.2.2;dc/topic/sdg_8.4.2
 "sdg Eliminate all forms of violence against all women and girls in the public and private spheres, including trafficking and sexual and other types of exploitation",dc/topic/sdg_5.2
 "sdg Eliminate all harmful practices, such as child, early and forced marriage and female genital mutilation",dc/topic/sdg_5.3
 "sdg Encourage and promote effective public, public-private and civil society partnerships, building on the experience and resourcing strategies of partnerships",dc/topic/sdg_17.17
@@ -6056,7 +6055,7 @@ sdg Ensure universal access to sexual and reproductive health and reproductive r
 "sdg Existence of a developed and operationalized national strategy for youth employment, as a distinct strategy or as part of a national employment strategy",dc/topic/sdg_8.b.1
 sdg Existence of independent national human rights institutions in compliance with the Paris Principles,dc/topic/sdg_16.a.1
 sdg Extent of use of country-owned results frameworks and planning tools by providers of development cooperation,dc/topic/sdg_17.15.1
-sdg Extent to which (i) global citizenship education and (ii) education for sustainable development are mainstreamed in (a) national education policies,dc/topic/sdg_4.7.1
+sdg Extent to which (i) global citizenship education and (ii) education for sustainable development are mainstreamed in (a) national education policies,dc/topic/sdg_12.8.1;dc/topic/sdg_13.3.1;dc/topic/sdg_4.7.1
 "sdg Facilitate orderly, safe, regular and responsible migration and mobility of people, including through the implementation of planned and well-managed migration policies",dc/topic/sdg_10.7
 "sdg Facilitate sustainable and resilient infrastructure development in developing countries through enhanced financial, technological and technical support to African countries, least developed countries, landlocked developing countries and small island developing States",dc/topic/sdg_9.a
 "sdg Fatal and non-fatal occupational injuries per 100K workers, by sex and migrant status",dc/topic/sdg_8.8.1
@@ -6082,7 +6081,7 @@ sdg Improve the regulation and monitoring of global financial markets and instit
 "sdg Increase the access of small-scale industrial and other enterprises, in particular in developing countries, to financial services, including affordable credit, and their integration into value chains and markets",dc/topic/sdg_9.3
 sdg Indicator of food price anomalies,dc/topic/sdg_2.c.1
 "sdg Industry, Innovation and Infrastructure",dc/topic/sdg_9
-sdg Installed renewable energy-generating capacity in developing countries (in watts per capita),dc/topic/sdg_7.b.1
+sdg Installed renewable energy-generating capacity in developing countries (in watts per capita),dc/topic/sdg_12.a.1;dc/topic/sdg_7.b.1
 "sdg Integrate climate change measures into national policies, strategies and planning",dc/topic/sdg_13.2
 sdg International Health Regulations (IHR) capacity and health emergency preparedness,dc/topic/sdg_3.d.1
 "sdg International financial flows to developing countries in support of clean energy research and development and renewable energy production, including in hybrid systems",dc/topic/sdg_7.a.1
@@ -6095,7 +6094,7 @@ sdg Macroeconomic Dashboard,dc/topic/sdg_17.13.1
 "sdg Malaria incidence per 1,000 population",dc/topic/sdg_3.3.3
 sdg Manufacturing employment as a proportion of total employment,dc/topic/sdg_9.2.2
 sdg Manufacturing value added as a proportion of GDP and per capita,dc/topic/sdg_9.2.1
-"sdg Material footprint, material footprint per capita, and material footprint per GDP",dc/topic/sdg_8.4.1
+"sdg Material footprint, material footprint per capita, and material footprint per GDP",dc/topic/sdg_12.2.1;dc/topic/sdg_8.4.1
 sdg Maternal mortality ratio,dc/topic/sdg_3.1.1
 "sdg Minimize and address the impacts of ocean acidification, including through enhanced scientific cooperation at all levels",dc/topic/sdg_14.3
 sdg Mobilize additional financial resources for developing countries from multiple sources,dc/topic/sdg_17.3
@@ -6117,7 +6116,7 @@ sdg Number of companies publishing sustainability reports,dc/topic/sdg_12.6.1
 sdg Number of countries reporting progress in multi-stakeholder development effectiveness monitoring frameworks that support the achievement of the sustainable development goals,dc/topic/sdg_17.16.1
 "sdg Number of countries that adopt and implement constitutional, statutory and/or policy guarantees for public access to information",dc/topic/sdg_16.10.2
 "sdg Number of countries that adopt and implement investment promotion regimes for developing countries, including the least developed countries",dc/topic/sdg_17.5.1
-sdg Number of countries that adopt and implement national disaster risk reduction strategies in line with the Sendai Framework for Disaster Risk Reduction 2015-2030,dc/topic/sdg_1.5.3
+sdg Number of countries that adopt and implement national disaster risk reduction strategies in line with the Sendai Framework for Disaster Risk Reduction 2015-2030,dc/topic/sdg_1.5.3;dc/topic/sdg_11.b.1;dc/topic/sdg_13.1.2
 "sdg Number of countries that have adopted legislative, administrative and policy frameworks to ensure fair and equitable sharing of benefits",dc/topic/sdg_15.6.1
 sdg Number of countries that have national statistical legislation that complies with the Fundamental Principles of Official Statistics,dc/topic/sdg_17.18.2
 sdg Number of countries that have national urban policies or regional development plans that (a) respond to population dynamics,dc/topic/sdg_11.a.1
@@ -6127,7 +6126,7 @@ sdg Number of countries using ecosystem-based approaches to managing marine area
 sdg Number of countries with mechanisms in place to enhance policy coherence of sustainable development,dc/topic/sdg_17.14.1
 "sdg Number of countries with migration policies that facilitate orderly, safe, regular and responsible migration and mobility of people",dc/topic/sdg_10.7.2
 "sdg Number of countries with nationally determined contributions, long-term strategies, national adaptation plans and adaptation communications, as reported to the secretariat of the United Nations Framework Convention on Climate Change",dc/topic/sdg_13.2.1
-"sdg Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",dc/topic/sdg_1.5.1
+"sdg Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",dc/topic/sdg_1.5.1;dc/topic/sdg_11.5.1;dc/topic/sdg_13.1.1
 "sdg Number of least developed countries and small island developing States with nationally determined contributions, long-term strategies, national adaptation plans and adaptation communications, as reported to the secretariat of the United Nations Framework Convention on Climate Change",dc/topic/sdg_13.b.1
 "sdg Number of new HIV infections per 1,000 uninfected population, by sex, age and key populations",dc/topic/sdg_3.3.1
 "sdg Number of parties to international multilateral environmental agreements on hazardous waste, and other chemicals that meet their commitments and obligations in transmitting information as required by each relevant agreement",dc/topic/sdg_12.4.1
@@ -6186,9 +6185,9 @@ sdg Proportion of individuals using the Internet,dc/topic/sdg_17.8.1
 sdg Proportion of land that is degraded over total land area,dc/topic/sdg_15.3.1
 sdg Proportion of local administrative units with established and operational policies and procedures for participation of local communities in water and sanitation management,dc/topic/sdg_6.b.1
 sdg Proportion of local breeds classified as being at risk of extinction,dc/topic/sdg_2.5.2
-sdg Proportion of local governments that adopt and implement local disaster risk reduction strategies in line with national disaster risk reduction strategies,dc/topic/sdg_1.5.4
+sdg Proportion of local governments that adopt and implement local disaster risk reduction strategies in line with national disaster risk reduction strategies,dc/topic/sdg_1.5.4;dc/topic/sdg_11.b.2;dc/topic/sdg_13.1.3
 sdg Proportion of medium and high-tech industry value added in total value added,dc/topic/sdg_9.b.1
-sdg Proportion of members and voting rights of developing countries in international organizations,dc/topic/sdg_10.6.1
+sdg Proportion of members and voting rights of developing countries in international organizations,dc/topic/sdg_10.6.1;dc/topic/sdg_16.8.1
 "sdg Proportion of men, women and children of all ages living in poverty in all its dimensions according to national definitions",dc/topic/sdg_1.2.2
 "sdg Proportion of municipal solid waste collected and managed in controlled facilities out of total municipal waste generated, by cities",dc/topic/sdg_11.6.1
 "sdg Proportion of people living below 50 per cent of median income, by sex, age and persons with disabilities",dc/topic/sdg_10.2.1
@@ -6199,7 +6198,7 @@ sdg Proportion of members and voting rights of developing countries in internati
 "sdg Proportion of population in a given age group achieving at least a fixed level of proficiency in functional (a) literacy and (b) numeracy skills, by sex",dc/topic/sdg_4.6.1
 "sdg Proportion of population living below the national poverty line, by sex and age",dc/topic/sdg_1.2.1
 sdg Proportion of population living in households with access to basic services,dc/topic/sdg_1.4.1
-sdg Proportion of population reporting having personally felt discriminated against or harassed in the previous 12 months on the basis of a ground of discrimination prohibited under international human rights law,dc/topic/sdg_10.3.1
+sdg Proportion of population reporting having personally felt discriminated against or harassed in the previous 12 months on the basis of a ground of discrimination prohibited under international human rights law,dc/topic/sdg_10.3.1;dc/topic/sdg_16.b.1
 sdg Proportion of population satisfied with their last experience of public services,dc/topic/sdg_16.6.2
 "sdg Proportion of population subjected to (a) physical violence, (b) psychological violence and (c) sexual violence in the previous 12 months",dc/topic/sdg_16.1.3
 sdg Proportion of population that feel safe walking alone around the area they live after dark,dc/topic/sdg_16.1.4
@@ -6264,7 +6263,7 @@ sdg Strengthen efforts to protect and safeguard the world's cultural and natural
 "sdg Strengthen relevant national institutions, including through international cooperation, for building capacity at all levels, in particular in developing countries, to prevent violence and combat terrorism and crime",dc/topic/sdg_16.a
 sdg Strengthen resilience and adaptive capacity to climate-related hazards and natural disasters in all countries,dc/topic/sdg_13.1
 "sdg Strengthen the capacity of all countries, in particular developing countries, for early warning, risk reduction and management of national and global health risks",dc/topic/sdg_3.d
-"sdg Strengthen the capacity of domestic financial institutions to encourage and expand access to banking, insurance and financial services for all",dc/topic/sdg_8.10
+"sdg Strengthen the capacity of domestic financial institutions to encourage and expand access to banking, insurance and financial services for all",dc/topic/sdg_8.10;dc/topic/sdg_8.10.1
 "sdg Strengthen the implementation of the World Health Organization Framework Convention on Tobacco Control in all countries, as appropriate",dc/topic/sdg_3.a
 "sdg Strengthen the prevention and treatment of substance abuse, including narcotic drug abuse and harmful use of alcohol",dc/topic/sdg_3.5
 "sdg Substantially increase health financing and the recruitment, development, training and retention of the health workforce in developing countries, especially in least developed countries and small island developing States",dc/topic/sdg_3.c
@@ -6335,8 +6334,8 @@ sdg10b,dc/topic/sdg_10.b
 sdg10b1,dc/topic/sdg_10.b.1
 sdg10c,dc/topic/sdg_10.c
 sdg10c1,dc/topic/sdg_10.c.1
-sdg11,dc/topic/sdg_11
-sdg111,dc/topic/sdg_11.1
+sdg11,dc/topic/sdg_1.1;dc/topic/sdg_11
+sdg111,dc/topic/sdg_1.1.1;dc/topic/sdg_11.1
 sdg1111,dc/topic/sdg_11.1.1
 sdg112,dc/topic/sdg_11.2
 sdg1121,dc/topic/sdg_11.2.1
@@ -6361,10 +6360,10 @@ sdg11b,dc/topic/sdg_11.b
 sdg11b1,dc/topic/sdg_11.b.1
 sdg11b2,dc/topic/sdg_11.b.2
 sdg11c,dc/topic/sdg_11.c
-sdg12,dc/topic/sdg_12
-sdg121,dc/topic/sdg_12.1
+sdg12,dc/topic/sdg_1.2;dc/topic/sdg_12
+sdg121,dc/topic/sdg_1.2.1;dc/topic/sdg_12.1
 sdg1211,dc/topic/sdg_12.1.1
-sdg122,dc/topic/sdg_12.2
+sdg122,dc/topic/sdg_1.2.2;dc/topic/sdg_12.2
 sdg1221,dc/topic/sdg_12.2.1
 sdg1222,dc/topic/sdg_12.2.2
 sdg123,dc/topic/sdg_12.3
@@ -6385,8 +6384,8 @@ sdg12a1,dc/topic/sdg_12.a.1
 sdg12b,dc/topic/sdg_12.b
 sdg12c,dc/topic/sdg_12.c
 sdg12c1,dc/topic/sdg_12.c.1
-sdg13,dc/topic/sdg_13
-sdg131,dc/topic/sdg_13.1
+sdg13,dc/topic/sdg_1.3;dc/topic/sdg_13
+sdg131,dc/topic/sdg_1.3.1;dc/topic/sdg_13.1
 sdg1311,dc/topic/sdg_13.1.1
 sdg1312,dc/topic/sdg_13.1.2
 sdg1313,dc/topic/sdg_13.1.3
@@ -6399,10 +6398,10 @@ sdg13a,dc/topic/sdg_13.a
 sdg13a1,dc/topic/sdg_13.a.1
 sdg13b,dc/topic/sdg_13.b
 sdg13b1,dc/topic/sdg_13.b.1
-sdg14,dc/topic/sdg_14
-sdg141,dc/topic/sdg_14.1
+sdg14,dc/topic/sdg_1.4;dc/topic/sdg_14
+sdg141,dc/topic/sdg_1.4.1;dc/topic/sdg_14.1
 sdg1411,dc/topic/sdg_14.1.1
-sdg142,dc/topic/sdg_14.2
+sdg142,dc/topic/sdg_1.4.2;dc/topic/sdg_14.2
 sdg1421,dc/topic/sdg_14.2.1
 sdg143,dc/topic/sdg_14.3
 sdg1431,dc/topic/sdg_14.3.1
@@ -6420,15 +6419,15 @@ sdg14b,dc/topic/sdg_14.b
 sdg14b1,dc/topic/sdg_14.b.1
 sdg14c,dc/topic/sdg_14.c
 sdg14c1,dc/topic/sdg_14.c.1
-sdg15,dc/topic/sdg_15
-sdg151,dc/topic/sdg_15.1
+sdg15,dc/topic/sdg_1.5;dc/topic/sdg_15
+sdg151,dc/topic/sdg_1.5.1;dc/topic/sdg_15.1
 sdg1511,dc/topic/sdg_15.1.1
 sdg1512,dc/topic/sdg_15.1.2
-sdg152,dc/topic/sdg_15.2
+sdg152,dc/topic/sdg_1.5.2;dc/topic/sdg_15.2
 sdg1521,dc/topic/sdg_15.2.1
-sdg153,dc/topic/sdg_15.3
+sdg153,dc/topic/sdg_1.5.3;dc/topic/sdg_15.3
 sdg1531,dc/topic/sdg_15.3.1
-sdg154,dc/topic/sdg_15.4
+sdg154,dc/topic/sdg_1.5.4;dc/topic/sdg_15.4
 sdg1541,dc/topic/sdg_15.4.1
 sdg1542,dc/topic/sdg_15.4.2
 sdg155,dc/topic/sdg_15.5
@@ -6484,8 +6483,8 @@ sdg17,dc/topic/sdg_17
 sdg171,dc/topic/sdg_17.1
 sdg1710,dc/topic/sdg_17.10
 sdg17101,dc/topic/sdg_17.10.1
-sdg1711,dc/topic/sdg_17.11
-sdg1712,dc/topic/sdg_17.12
+sdg1711,dc/topic/sdg_17.1.1;dc/topic/sdg_17.11
+sdg1712,dc/topic/sdg_17.1.2;dc/topic/sdg_17.12
 sdg17121,dc/topic/sdg_17.12.1
 sdg1713,dc/topic/sdg_17.13
 sdg17131,dc/topic/sdg_17.13.1
@@ -6668,7 +6667,7 @@ sdg7b,dc/topic/sdg_7.b
 sdg7b1,dc/topic/sdg_7.b.1
 sdg8,dc/topic/sdg_8
 sdg81,dc/topic/sdg_8.1
-sdg810,dc/topic/sdg_8.10
+sdg810,dc/topic/sdg_8.10;dc/topic/sdg_8.10.1
 sdg8102,dc/topic/sdg_8.10.2
 sdg811,dc/topic/sdg_8.1.1
 sdg82,dc/topic/sdg_8.2
@@ -6740,7 +6739,7 @@ sustainable development goal (a) Food loss index and (b) food waste index,dc/top
 sustainable development goal (a) Hazardous waste generated per capita,dc/topic/sdg_12.4.2
 sustainable development goal (a) Index of coastal eutrophication,dc/topic/sdg_14.1.1
 sustainable development goal (a) Number of countries that have established national targets in accordance with or similar to Aichi Biodiversity Target 2 of the Strategic Plan for Biodiversity 2011–2020 in their national biodiversity strategy and action plans and the progress reported towards these targets,dc/topic/sdg_15.9.1
-sustainable development goal (a) Official development assistance on conservation and sustainable use of biodiversity,dc/topic/sdg_15.a.1
+sustainable development goal (a) Official development assistance on conservation and sustainable use of biodiversity,dc/topic/sdg_15.a.1;dc/topic/sdg_15.b.1
 "sustainable development goal (a) Proportion of total agricultural population with ownership or secure rights over agricultural land, by sex",dc/topic/sdg_5.a.1
 "sustainable development goal Achieve higher levels of economic productivity through diversification, technological upgrading and innovation, including through a focus on high-value added and labour-intensive sectors",dc/topic/sdg_8.2
 "sustainable development goal Achieve universal health coverage, including financial risk protection, access to quality essential health-care services and access to safe, effective, quality and affordable essential medicines and vaccines for all",dc/topic/sdg_3.8
@@ -6863,10 +6862,10 @@ sustainable development goal Develop and implement tools to monitor sustainable 
 "sustainable development goal Develop effective, accountable and transparent institutions at all levels",dc/topic/sdg_16.6
 "sustainable development goal Develop quality, reliable, sustainable and resilient infrastructure, including regional and trans-border infrastructure, to support economic development and human well-being, with a focus on affordable and equitable access for all",dc/topic/sdg_9.1
 "sustainable development goal Developed countries to implement fully their official development assistance commitments, including the commitment by many developed countries to achieve the target of 0.7 per cent of gross national income for official development assistance (ODA/GNI) to developing countries and 0.15 to 0.20 per cent of ODA/GNI to least developed countries",dc/topic/sdg_17.2
-sustainable development goal Direct economic loss attributed to disasters in relation to global gross domestic product (GDP),dc/topic/sdg_1.5.2
+sustainable development goal Direct economic loss attributed to disasters in relation to global gross domestic product (GDP),dc/topic/sdg_1.5.2;dc/topic/sdg_11.5.2
 sustainable development goal Dollar value of all resources made available to strengthen statistical capacity in developing countries,dc/topic/sdg_17.19.1
 "sustainable development goal Dollar value of financial and technical assistance (including through North-South, South-South and triangular cooperation) committed to developing countries",dc/topic/sdg_17.9.1
-"sustainable development goal Domestic material consumption, domestic material consumption per capita, and domestic material consumption per GDP",dc/topic/sdg_8.4.2
+"sustainable development goal Domestic material consumption, domestic material consumption per capita, and domestic material consumption per GDP",dc/topic/sdg_12.2.2;dc/topic/sdg_8.4.2
 "sustainable development goal Eliminate all forms of violence against all women and girls in the public and private spheres, including trafficking and sexual and other types of exploitation",dc/topic/sdg_5.2
 "sustainable development goal Eliminate all harmful practices, such as child, early and forced marriage and female genital mutilation",dc/topic/sdg_5.3
 "sustainable development goal Encourage and promote effective public, public-private and civil society partnerships, building on the experience and resourcing strategies of partnerships",dc/topic/sdg_17.17
@@ -6893,7 +6892,7 @@ sustainable development goal Ensure universal access to sexual and reproductive 
 "sustainable development goal Existence of a developed and operationalized national strategy for youth employment, as a distinct strategy or as part of a national employment strategy",dc/topic/sdg_8.b.1
 sustainable development goal Existence of independent national human rights institutions in compliance with the Paris Principles,dc/topic/sdg_16.a.1
 sustainable development goal Extent of use of country-owned results frameworks and planning tools by providers of development cooperation,dc/topic/sdg_17.15.1
-sustainable development goal Extent to which (i) global citizenship education and (ii) education for sustainable development are mainstreamed in (a) national education policies,dc/topic/sdg_4.7.1
+sustainable development goal Extent to which (i) global citizenship education and (ii) education for sustainable development are mainstreamed in (a) national education policies,dc/topic/sdg_12.8.1;dc/topic/sdg_13.3.1;dc/topic/sdg_4.7.1
 "sustainable development goal Facilitate orderly, safe, regular and responsible migration and mobility of people, including through the implementation of planned and well-managed migration policies",dc/topic/sdg_10.7
 "sustainable development goal Facilitate sustainable and resilient infrastructure development in developing countries through enhanced financial, technological and technical support to African countries, least developed countries, landlocked developing countries and small island developing States",dc/topic/sdg_9.a
 "sustainable development goal Fatal and non-fatal occupational injuries per 100K workers, by sex and migrant status",dc/topic/sdg_8.8.1
@@ -6919,7 +6918,7 @@ sustainable development goal Improve the regulation and monitoring of global fin
 "sustainable development goal Increase the access of small-scale industrial and other enterprises, in particular in developing countries, to financial services, including affordable credit, and their integration into value chains and markets",dc/topic/sdg_9.3
 sustainable development goal Indicator of food price anomalies,dc/topic/sdg_2.c.1
 "sustainable development goal Industry, Innovation and Infrastructure",dc/topic/sdg_9
-sustainable development goal Installed renewable energy-generating capacity in developing countries (in watts per capita),dc/topic/sdg_7.b.1
+sustainable development goal Installed renewable energy-generating capacity in developing countries (in watts per capita),dc/topic/sdg_12.a.1;dc/topic/sdg_7.b.1
 "sustainable development goal Integrate climate change measures into national policies, strategies and planning",dc/topic/sdg_13.2
 sustainable development goal International Health Regulations (IHR) capacity and health emergency preparedness,dc/topic/sdg_3.d.1
 "sustainable development goal International financial flows to developing countries in support of clean energy research and development and renewable energy production, including in hybrid systems",dc/topic/sdg_7.a.1
@@ -6932,7 +6931,7 @@ sustainable development goal Macroeconomic Dashboard,dc/topic/sdg_17.13.1
 "sustainable development goal Malaria incidence per 1,000 population",dc/topic/sdg_3.3.3
 sustainable development goal Manufacturing employment as a proportion of total employment,dc/topic/sdg_9.2.2
 sustainable development goal Manufacturing value added as a proportion of GDP and per capita,dc/topic/sdg_9.2.1
-"sustainable development goal Material footprint, material footprint per capita, and material footprint per GDP",dc/topic/sdg_8.4.1
+"sustainable development goal Material footprint, material footprint per capita, and material footprint per GDP",dc/topic/sdg_12.2.1;dc/topic/sdg_8.4.1
 sustainable development goal Maternal mortality ratio,dc/topic/sdg_3.1.1
 "sustainable development goal Minimize and address the impacts of ocean acidification, including through enhanced scientific cooperation at all levels",dc/topic/sdg_14.3
 sustainable development goal Mobilize additional financial resources for developing countries from multiple sources,dc/topic/sdg_17.3
@@ -6954,7 +6953,7 @@ sustainable development goal Number of companies publishing sustainability repor
 sustainable development goal Number of countries reporting progress in multi-stakeholder development effectiveness monitoring frameworks that support the achievement of the sustainable development goals,dc/topic/sdg_17.16.1
 "sustainable development goal Number of countries that adopt and implement constitutional, statutory and/or policy guarantees for public access to information",dc/topic/sdg_16.10.2
 "sustainable development goal Number of countries that adopt and implement investment promotion regimes for developing countries, including the least developed countries",dc/topic/sdg_17.5.1
-sustainable development goal Number of countries that adopt and implement national disaster risk reduction strategies in line with the Sendai Framework for Disaster Risk Reduction 2015-2030,dc/topic/sdg_1.5.3
+sustainable development goal Number of countries that adopt and implement national disaster risk reduction strategies in line with the Sendai Framework for Disaster Risk Reduction 2015-2030,dc/topic/sdg_1.5.3;dc/topic/sdg_11.b.1;dc/topic/sdg_13.1.2
 "sustainable development goal Number of countries that have adopted legislative, administrative and policy frameworks to ensure fair and equitable sharing of benefits",dc/topic/sdg_15.6.1
 sustainable development goal Number of countries that have national statistical legislation that complies with the Fundamental Principles of Official Statistics,dc/topic/sdg_17.18.2
 sustainable development goal Number of countries that have national urban policies or regional development plans that (a) respond to population dynamics,dc/topic/sdg_11.a.1
@@ -6964,7 +6963,7 @@ sustainable development goal Number of countries using ecosystem-based approache
 sustainable development goal Number of countries with mechanisms in place to enhance policy coherence of sustainable development,dc/topic/sdg_17.14.1
 "sustainable development goal Number of countries with migration policies that facilitate orderly, safe, regular and responsible migration and mobility of people",dc/topic/sdg_10.7.2
 "sustainable development goal Number of countries with nationally determined contributions, long-term strategies, national adaptation plans and adaptation communications, as reported to the secretariat of the United Nations Framework Convention on Climate Change",dc/topic/sdg_13.2.1
-"sustainable development goal Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",dc/topic/sdg_1.5.1
+"sustainable development goal Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",dc/topic/sdg_1.5.1;dc/topic/sdg_11.5.1;dc/topic/sdg_13.1.1
 "sustainable development goal Number of least developed countries and small island developing States with nationally determined contributions, long-term strategies, national adaptation plans and adaptation communications, as reported to the secretariat of the United Nations Framework Convention on Climate Change",dc/topic/sdg_13.b.1
 "sustainable development goal Number of new HIV infections per 1,000 uninfected population, by sex, age and key populations",dc/topic/sdg_3.3.1
 "sustainable development goal Number of parties to international multilateral environmental agreements on hazardous waste, and other chemicals that meet their commitments and obligations in transmitting information as required by each relevant agreement",dc/topic/sdg_12.4.1
@@ -7023,9 +7022,9 @@ sustainable development goal Proportion of individuals using the Internet,dc/top
 sustainable development goal Proportion of land that is degraded over total land area,dc/topic/sdg_15.3.1
 sustainable development goal Proportion of local administrative units with established and operational policies and procedures for participation of local communities in water and sanitation management,dc/topic/sdg_6.b.1
 sustainable development goal Proportion of local breeds classified as being at risk of extinction,dc/topic/sdg_2.5.2
-sustainable development goal Proportion of local governments that adopt and implement local disaster risk reduction strategies in line with national disaster risk reduction strategies,dc/topic/sdg_1.5.4
+sustainable development goal Proportion of local governments that adopt and implement local disaster risk reduction strategies in line with national disaster risk reduction strategies,dc/topic/sdg_1.5.4;dc/topic/sdg_11.b.2;dc/topic/sdg_13.1.3
 sustainable development goal Proportion of medium and high-tech industry value added in total value added,dc/topic/sdg_9.b.1
-sustainable development goal Proportion of members and voting rights of developing countries in international organizations,dc/topic/sdg_10.6.1
+sustainable development goal Proportion of members and voting rights of developing countries in international organizations,dc/topic/sdg_10.6.1;dc/topic/sdg_16.8.1
 "sustainable development goal Proportion of men, women and children of all ages living in poverty in all its dimensions according to national definitions",dc/topic/sdg_1.2.2
 "sustainable development goal Proportion of municipal solid waste collected and managed in controlled facilities out of total municipal waste generated, by cities",dc/topic/sdg_11.6.1
 "sustainable development goal Proportion of people living below 50 per cent of median income, by sex, age and persons with disabilities",dc/topic/sdg_10.2.1
@@ -7036,7 +7035,7 @@ sustainable development goal Proportion of members and voting rights of developi
 "sustainable development goal Proportion of population in a given age group achieving at least a fixed level of proficiency in functional (a) literacy and (b) numeracy skills, by sex",dc/topic/sdg_4.6.1
 "sustainable development goal Proportion of population living below the national poverty line, by sex and age",dc/topic/sdg_1.2.1
 sustainable development goal Proportion of population living in households with access to basic services,dc/topic/sdg_1.4.1
-sustainable development goal Proportion of population reporting having personally felt discriminated against or harassed in the previous 12 months on the basis of a ground of discrimination prohibited under international human rights law,dc/topic/sdg_10.3.1
+sustainable development goal Proportion of population reporting having personally felt discriminated against or harassed in the previous 12 months on the basis of a ground of discrimination prohibited under international human rights law,dc/topic/sdg_10.3.1;dc/topic/sdg_16.b.1
 sustainable development goal Proportion of population satisfied with their last experience of public services,dc/topic/sdg_16.6.2
 "sustainable development goal Proportion of population subjected to (a) physical violence, (b) psychological violence and (c) sexual violence in the previous 12 months",dc/topic/sdg_16.1.3
 sustainable development goal Proportion of population that feel safe walking alone around the area they live after dark,dc/topic/sdg_16.1.4
@@ -7101,7 +7100,7 @@ sustainable development goal Strengthen efforts to protect and safeguard the wor
 "sustainable development goal Strengthen relevant national institutions, including through international cooperation, for building capacity at all levels, in particular in developing countries, to prevent violence and combat terrorism and crime",dc/topic/sdg_16.a
 sustainable development goal Strengthen resilience and adaptive capacity to climate-related hazards and natural disasters in all countries,dc/topic/sdg_13.1
 "sustainable development goal Strengthen the capacity of all countries, in particular developing countries, for early warning, risk reduction and management of national and global health risks",dc/topic/sdg_3.d
-"sustainable development goal Strengthen the capacity of domestic financial institutions to encourage and expand access to banking, insurance and financial services for all",dc/topic/sdg_8.10
+"sustainable development goal Strengthen the capacity of domestic financial institutions to encourage and expand access to banking, insurance and financial services for all",dc/topic/sdg_8.10;dc/topic/sdg_8.10.1
 "sustainable development goal Strengthen the implementation of the World Health Organization Framework Convention on Tobacco Control in all countries, as appropriate",dc/topic/sdg_3.a
 "sustainable development goal Strengthen the prevention and treatment of substance abuse, including narcotic drug abuse and harmful use of alcohol",dc/topic/sdg_3.5
 "sustainable development goal Substantially increase health financing and the recruitment, development, training and retention of the health workforce in developing countries, especially in least developed countries and small island developing States",dc/topic/sdg_3.c

@@ -3,13 +3,13 @@
 
 # The default embedding index types to use.
 default_indexes:
-  - custom_ft
+  - user_all_minilm_mem
   - medium_ft
 
 # The enabled embedding index types. Can use 'idx=' in explore page url to pick
 # a specific index from here to use.
 enabled_indexes:
-  - custom_ft
+  - user_all_minilm_mem
   - medium_ft
 
 # Whether to enable reranking for stat var matches.

@@ -233,7 +233,8 @@ export function App(props: AppPropType): JSX.Element {
               <div className="app-content">
                 <QuerySection />
                 <div className="feedback-pane">
-                  {feedbackStage === FeedbackStage.OVERALL && (
+                  {(feedbackStage === FeedbackStage.OVERALL_ANS ||
+                    feedbackStage === FeedbackStage.OVERALL_QUESTIONS) && (
                     <OverallFeedback />
                   )}
                   {feedbackStage === FeedbackStage.CALLS && <CallFeedback />}

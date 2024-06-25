@@ -26,10 +26,11 @@ import { EvalType, FeedbackStage } from "./types";
 import { getFirstFeedbackStage } from "./util";
 
 const FEEDBACK_STAGE_LIST: Record<EvalType, FeedbackStage[]> = {
-  [EvalType.RIG]: [FeedbackStage.OVERALL, FeedbackStage.CALLS],
+  [EvalType.RIG]: [FeedbackStage.OVERALL_ANS, FeedbackStage.CALLS],
   [EvalType.RAG]: [
     FeedbackStage.CALLS,
-    FeedbackStage.OVERALL,
+    FeedbackStage.OVERALL_QUESTIONS,
+    FeedbackStage.OVERALL_ANS,
     FeedbackStage.RAG_ANS,
   ],
 };
@@ -92,7 +93,7 @@ function isEndOfStage(
   numCalls: number
 ): boolean {
   if (feedbackStage === FeedbackStage.CALLS) {
-    return sessionCallId === numCalls;
+    return sessionCallId >= numCalls;
   }
   // feedback stages besides CALLS only have one page
   return true;
@@ -101,10 +102,11 @@ function isEndOfStage(
 // Whether or not we are at the first page of a feedback stage
 function isStartOfStage(
   feedbackStage: FeedbackStage,
-  sessionCallId: number
+  sessionCallId: number,
+  numCalls: number
 ): boolean {
   if (feedbackStage === FeedbackStage.CALLS) {
-    return sessionCallId === NEW_QUERY_CALL_ID;
+    return sessionCallId === NEW_QUERY_CALL_ID || numCalls < sessionCallId;
   }
   // feedback stages besides CALLS only have one page
   return true;
@@ -113,9 +115,11 @@ function isStartOfStage(
 // Whether or not to include a stage in the list of stages to show
 function shouldIncludeStage(
   feedbackStage: FeedbackStage,
-  numCalls: number
+  numCalls: number,
+  evalType: EvalType
 ): boolean {
-  if (feedbackStage === FeedbackStage.CALLS) {
+  // only filter out the call stage for RIG eval type
+  if (feedbackStage === FeedbackStage.CALLS && evalType === EvalType.RIG) {
     return numCalls > 0;
   }
   return true;
@@ -153,7 +157,7 @@ export function FeedbackNavigation(
 
   const numCalls = Object.keys(allCall[sessionQueryId] || {}).length;
   const feedbackStageList = FEEDBACK_STAGE_LIST[evalType].filter((stage) =>
-    shouldIncludeStage(stage, numCalls)
+    shouldIncludeStage(stage, numCalls, evalType)
   );
   const currStageIdx = feedbackStageList.indexOf(feedbackStage);
 
@@ -211,6 +215,12 @@ export function FeedbackNavigation(
     }
   };
 
+  const finish = async () => {
+    if (await props.checkAndSubmit()) {
+      alert("All evaluations completed.");
+    }
+  };
+
   // Button Conditions
 
   function getNextButtonType(): ButtonType {
@@ -228,7 +238,7 @@ export function FeedbackNavigation(
   }
 
   function getPrevButtonType(): ButtonType {
-    if (isStartOfStage(feedbackStage, sessionCallId)) {
+    if (isStartOfStage(feedbackStage, sessionCallId, numCalls)) {
       if (currStageIdx > 0) {
         return ButtonType.PREV_EVAL_STAGE;
       }
@@ -255,7 +265,7 @@ export function FeedbackNavigation(
       case ButtonType.NEXT_EVAL_STAGE:
         return nextEvalStage;
       case ButtonType.FINISH:
-        return props.checkAndSubmit;
+        return finish;
       default:
         return _.noop;
     }
@@ -265,12 +275,15 @@ export function FeedbackNavigation(
 
   return (
     <div className="feedback-nav-section">
-      {feedbackStage === FeedbackStage.CALLS && (
-        <div className="item-num">
-          <span className="highlight">{sessionCallId}</span>
-          <span className="regular">/ {numCalls} ITEMS IN THIS QUERY</span>
-        </div>
-      )}
+      <div className="nav-info">
+        {feedbackStage === FeedbackStage.CALLS && (
+          <div>
+            <span className="highlight">{sessionCallId}</span>
+            <span className="regular">/ {numCalls} ITEMS IN THIS QUERY</span>
+          </div>
+        )}
+        <div className="regular">EVAL STAGE {currStageIdx + 1}</div>
+      </div>
       <div className="nav-buttons">
         {prevButtonType !== ButtonType.EMPTY && (
           <Button
