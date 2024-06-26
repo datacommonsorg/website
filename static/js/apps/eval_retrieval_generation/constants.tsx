@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import { EvalType, FeedbackStage } from "./types";
+
 // TODO: think about cleaning up all these constants
 
 export const QA_SHEET = "query_and_answer";
@@ -76,3 +78,13 @@ export const QUERY_OVERALL_OPTION_RELEVANT = "LLM_ANSWER_RELEVANT";
 export const OVERALL_QUESTIONS_OPTION_HAS_MISSING = "LLM_QUESTIONS_MISSING";
 export const OVERALL_QUESTIONS_OPTION_NONE_MISSING =
   "LLM_QUESTIONS_NONE_MISSING";
+
+export const FEEDBACK_STAGE_LIST: Record<EvalType, FeedbackStage[]> = {
+  [EvalType.RIG]: [FeedbackStage.OVERALL_ANS, FeedbackStage.CALLS],
+  [EvalType.RAG]: [
+    FeedbackStage.OVERALL_QUESTIONS,
+    FeedbackStage.CALLS,
+    FeedbackStage.OVERALL_ANS,
+    FeedbackStage.RAG_ANS,
+  ],
+};

@@ -16,6 +16,7 @@
 
 import _ from "lodash";
 
+import { FEEDBACK_STAGE_LIST } from "./constants";
 import { EvalType, FeedbackStage } from "./types";
 
 const HTTP_PATTERN = /https:\/\/[^\s]+/g;
@@ -71,9 +72,5 @@ export function processTableText(text: string): string {
 
 // Get the first feedback stage to show for an eval type
 export function getFirstFeedbackStage(evalType: EvalType): FeedbackStage {
-  if (evalType === EvalType.RAG) {
-    return FeedbackStage.CALLS;
-  } else {
-    return FeedbackStage.OVERALL_ANS;
-  }
+  return FEEDBACK_STAGE_LIST[evalType][0];
 }
