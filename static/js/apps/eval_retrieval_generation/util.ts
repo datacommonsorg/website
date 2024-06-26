@@ -23,7 +23,7 @@ const LONG_SPACES = "&nbsp;&nbsp;&nbsp;&nbsp;";
 const TABLE_DIVIDER_PATTERN = /[--][-]+/g;
 // table headers are sometimes country names so there can be symbols used like
 // in "Côte d'Ivoire".
-const TABLE_HEADER_TEXT_PATTERN = /[\w'ô[\]ãéí\s°()%:]+/g;
+const TABLE_HEADER_TEXT_PATTERN = /[\w'ô[\]ãéí\s°()%:-]+/g;
 
 export const processText = (text: string): string => {
   // If "Answer" is in the text, remove it
