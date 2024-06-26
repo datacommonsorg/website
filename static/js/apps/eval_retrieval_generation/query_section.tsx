@@ -54,7 +54,7 @@ export function QuerySection(): JSX.Element {
     sheet.getRows({ offset: rowIdx - 1, limit: 1 }).then((rows) => {
       const row = rows[0];
       if (row) {
-        setAnswer(row.get(ANSWER_COL));
+        setAnswer(row.get(ANSWER_COL) || "");
       }
     });
   };
