@@ -13,8 +13,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-if [ $# -ne 1 -a $# -ne 2 ]; then
-  echo "Usage: $0 <BASE_INDEX> [<TEST_INDEX>]"
+set -x
+
+if [ $# -lt 1 ]; then
+  echo "Usage: $0 <BASE_INDEX> [<TEST_INDEX>] [py flags]"
   exit 1
 fi
 
@@ -22,6 +24,13 @@ BASE=$1
 # TEST same as BASE if second arg is not set
 TEST=${2:-$BASE}
 
+if [[ $# -gt 3 ]]; then
+  shift
+  shift
+  extra_args="$@"
+else
+  extra_args=""
+fi
 
 # Install all the requirements. Need `nl_server` too since the tool uses it.
 cd ../../..
@@ -40,5 +49,4 @@ export TOKENIZERS_PARALLELISM=false
 # Diff production embeddings against test.
 export FLASK_ENV=local
 python3 -m tools.nl.svindex_differ.differ \
-  --base_index="$BASE" --test_index="$TEST" \
-  --queryset=tools/nl/svindex_differ/queryset_vars.csv
+  --base_index="$BASE" --test_index="$TEST" $extra_args

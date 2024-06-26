@@ -26,6 +26,7 @@ from absl import flags
 from google.cloud import storage
 from jinja2 import Environment
 from jinja2 import FileSystemLoader
+from typing import Callable
 import requests
 import yaml
 
@@ -33,6 +34,7 @@ import nl_server.config_reader as config_reader
 from nl_server.registry import Registry
 from nl_server.search import search_vars
 from shared.lib.detected_variables import VarCandidates
+import shared.lib.utils as shared_utils
 
 _NUM_SVS = 10
 _SUB_COLOR = '#ffaaaa'
@@ -44,10 +46,18 @@ _PROD_EMBEDDINGS_YAML = f'https://raw.githubusercontent.com/datacommonsorg/websi
 
 FLAGS = flags.FLAGS
 
+_EMPTY_FN = ''
+_STRIP_STOP_WORDS_FN = 'STRIP_STOP_WORDS'
+
 flags.DEFINE_string('base_index', '',
                     'Base index name in PROD `catalog.yaml` file.')
 flags.DEFINE_string('test_index', '', 'Test index name in local `catalog.yaml`')
-flags.DEFINE_string('queryset', '', 'Full path to queryset CSV')
+flags.DEFINE_enum('base_query_transform', '', [_STRIP_STOP_WORDS_FN, _EMPTY_FN],
+                  'Transform to perform on base query.')
+flags.DEFINE_enum('test_query_transform', '', [_STRIP_STOP_WORDS_FN, _EMPTY_FN],
+                  'Transform to perform on test query.')
+flags.DEFINE_string('queryset', 'tools/nl/svindex_differ/queryset_vars.csv',
+                    'Full path to queryset CSV')
 
 _GCS_PREFIX = 'https://storage.mtls.cloud.google.com'
 _TEMPLATE = 'tools/nl/svindex_differ/template.html'
@@ -55,6 +65,13 @@ _REPORT = '/tmp/diff_report.html'
 
 AUTOPUSH_KEY = os.environ.get('AUTOPUSH_KEY')
 assert AUTOPUSH_KEY
+
+_ALL_STOP_WORDS = shared_utils.combine_stop_words()
+
+_QUERY_TRANSFORM_FUNCS: dict[str, Callable[[str], str]] = {
+    _STRIP_STOP_WORDS_FN:
+        lambda q: shared_utils.remove_stop_words(q, _ALL_STOP_WORDS)
+}
 
 
 def _load_yaml(path: str):
@@ -157,9 +174,13 @@ def _get_diff_table(diff_list, base_sv_info, test_sv_info):
   return diff_table_rows
 
 
-def run_diff(base_idx: str, test_idx: str, base_dict: dict[str, dict[str, str]],
-             test_dict: dict[str, dict[str, str]], query_file: str,
-             output_file: str):
+def run_diff(base_idx: str, test_idx: str,
+             base_query_transform: Callable[[str], str] | None,
+             test_query_transform: Callable[[str], str] | None,
+             base_dict: dict[str, dict[str, str]], test_dict: dict[str,
+                                                                   dict[str,
+                                                                        str]],
+             query_file: str, output_file: str):
   env = Environment(loader=FileSystemLoader(os.path.dirname(_TEMPLATE)))
   template = env.get_template(os.path.basename(_TEMPLATE))
   nl_env = config_reader.read_env()
@@ -189,10 +210,19 @@ def run_diff(base_idx: str, test_idx: str, base_dict: dict[str, dict[str, str]],
       if not query or query.startswith('#') or query.startswith('//'):
         continue
       assert ';' not in query, 'Multiple query not yet supported'
+
+      base_query = base_query_transform(
+          query) if base_query_transform else query
       base_svs, base_sv_info = _prune(
-          search_vars([base], [query])[query], base.model.score_threshold)
+          search_vars([base], [base_query])[base_query],
+          base.model.score_threshold)
+
+      test_query = test_query_transform(
+          query) if test_query_transform else query
       test_svs, test_sv_info = _prune(
-          search_vars([test], [query])[query], test.model.score_threshold)
+          search_vars([test], [test_query])[test_query],
+          test.model.score_threshold)
+
       for sv in base_svs + test_svs:
         all_svs.add(sv)
       if base_svs != test_svs:
@@ -235,8 +265,14 @@ def main(_):
   base_dict = _load_yaml(_PROD_EMBEDDINGS_YAML)
   test_dict = _load_yaml(_LOCAL_EMBEDDINGS_YAML)
 
-  run_diff(FLAGS.base_index, FLAGS.test_index, base_dict, test_dict,
-           FLAGS.queryset, _REPORT)
+  base_transform, test_transform = None, None
+  if FLAGS.base_query_transform:
+    base_transform = _QUERY_TRANSFORM_FUNCS[FLAGS.base_query_transform]
+  if FLAGS.test_query_transform:
+    test_transform = _QUERY_TRANSFORM_FUNCS[FLAGS.base_query_transform]
+
+  run_diff(FLAGS.base_index, FLAGS.test_index, base_transform, test_transform,
+           base_dict, test_dict, FLAGS.queryset, _REPORT)
 
 
 if __name__ == "__main__":
