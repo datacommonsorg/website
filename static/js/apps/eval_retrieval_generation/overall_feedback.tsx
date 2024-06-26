@@ -57,7 +57,6 @@ interface QuestionConfig {
 const QUESTION_CONFIG: Record<string, Record<string, QuestionConfig>> = {
   [FeedbackStage.OVERALL_QUESTIONS]: {
     [EvalType.RAG]: {
-      title: "QUESTIONS EVALUATION",
       questions: [
         {
           firestoreKey: QUERY_OVERALL_QUESTIONS_KEY,
@@ -70,11 +69,11 @@ const QUESTION_CONFIG: Record<string, Record<string, QuestionConfig>> = {
           },
         },
       ],
+      title: "QUESTIONS EVALUATION",
     },
   },
   [FeedbackStage.OVERALL_ANS]: {
     [EvalType.RIG]: {
-      title: "OVERALL EVALUATION",
       questions: [
         {
           firestoreKey: QUERY_OVERALL_ANS_KEY,
@@ -85,9 +84,9 @@ const QUESTION_CONFIG: Record<string, Record<string, QuestionConfig>> = {
           },
         },
       ],
+      title: "OVERALL EVALUATION",
     },
     [EvalType.RAG]: {
-      title: "OVERALL EVALUATION",
       questions: [
         {
           firestoreKey: QUERY_OVERALL_ANS_KEY,
@@ -109,6 +108,7 @@ const QUESTION_CONFIG: Record<string, Record<string, QuestionConfig>> = {
           },
         },
       ],
+      title: "OVERALL EVALUATION",
     },
   },
 };
