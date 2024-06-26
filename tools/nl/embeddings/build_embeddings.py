@@ -54,7 +54,7 @@ def main(_):
   fm = utils.FileManager(input_dir, output_dir)
 
   # Build and save preindex
-  texts, dcids = utils.build_preindex(fm)
+  texts, dcids = utils.build_and_save_preindex(fm)
 
   # Compute embeddings
   embeddings = utils.compute_embeddings(texts, model)
@@ -69,6 +69,10 @@ def main(_):
   else:
     raise ValueError(f'Unknown store type: {index_config.store_type}')
 
+  # Save index config
+  utils.save_index_config(fm, index_config)
+
+  # Upload to GCS if needed
   fm.maybe_upload_to_gcs()
 
 
