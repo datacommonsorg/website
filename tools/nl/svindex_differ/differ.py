@@ -269,7 +269,7 @@ def main(_):
   if FLAGS.base_query_transform:
     base_transform = _QUERY_TRANSFORM_FUNCS[FLAGS.base_query_transform]
   if FLAGS.test_query_transform:
-    test_transform = _QUERY_TRANSFORM_FUNCS[FLAGS.base_query_transform]
+    test_transform = _QUERY_TRANSFORM_FUNCS[FLAGS.test_query_transform]
 
   run_diff(FLAGS.base_index, FLAGS.test_index, base_transform, test_transform,
            base_dict, test_dict, FLAGS.queryset, _REPORT)
