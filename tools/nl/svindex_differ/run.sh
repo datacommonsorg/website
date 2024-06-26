@@ -13,8 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-set -x
-
 if [ $# -lt 1 ]; then
   echo "Usage: $0 <BASE_INDEX> [<TEST_INDEX>] [py flags]"
   exit 1

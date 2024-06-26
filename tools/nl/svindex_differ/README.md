@@ -42,5 +42,5 @@ to the PR updating the SV index.
 
 ```bash
 export AUTOPUSH_KEY=<XYZ>
-./run.sh <SAME_INDEX> <SAME_INDEX> --base_query_transform=STRIP_STOP_WORDS --queryset=tools/nl/svindex_differ/queryset_vars_withstopwords.cs
+./run.sh <SAME_INDEX> <SAME_INDEX> --base_query_transform=STRIP_STOP_WORDS --queryset=tools/nl/svindex_differ/queryset_vars_withstopwords.csv
 ```
