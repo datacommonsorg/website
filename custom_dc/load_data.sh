@@ -253,8 +253,8 @@ EOF
     --embeddings_name "$CUSTOM_EMBEDDING_INDEX" \
     --output_dir "$NL_EMBEDDINGS_DIR" \
     --catalog "$CUSTOM_CATALOG_DICT" >> $LOG 2>&1
-  set +x
   status=$?
+  set +x
   local duration=$(( $(date +%s) - $start_ts))
   [[ "$status" == "0" ]] || echo_fatal "Failed to build embeddings"
   echo_log "Completed building embeddings with status:$status in $duration secs"
