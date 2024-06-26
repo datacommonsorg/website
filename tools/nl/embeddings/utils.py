@@ -134,7 +134,7 @@ def build_and_save_preindex(fm: FileManager) -> List[SentenceObject]:
 def retrieve_embeddings(
     model: EmbeddingsModel,
     target_sentences: List[SentenceObject],
-    saved_sentences: List[SentenceObject] = [],
+    saved_sentences: List[SentenceObject],
 ) -> List[SentenceObject]:
   """Compute embeddings for a list of sentence objects"""
   logging.info("Compute embeddings")
@@ -156,7 +156,7 @@ def retrieve_embeddings(
         resp = model.encode([x.text for x in chunk])
         if len(resp) != len(chunk):
           raise Exception(f'Expected {len(chunk)} but got {len(resp)}')
-        for i in range(len(resp)):
+        for i in enumerate(resp):
           result.append(SentenceObject(chunk[i].text, chunk[i].dcid, resp[i]))
         break
       except Exception as e:

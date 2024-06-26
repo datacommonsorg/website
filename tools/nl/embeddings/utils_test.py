@@ -67,4 +67,4 @@ class TestRetrieveEmbeddings(unittest.TestCase):
         utils.SentenceObject('foo', 'dcid1;dcid2', [0.1, 0.2, 0.3]),
         utils.SentenceObject('bar', 'dcid3', [0.4, 0.5, 0.6]),
     ]
-    self.assertEqual(got, target_sentences)
+    self.assertEqual(got, expected)
