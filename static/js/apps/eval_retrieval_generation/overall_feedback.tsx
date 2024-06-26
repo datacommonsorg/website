@@ -21,6 +21,8 @@ import { Button } from "reactstrap";
 
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import {
+  FEEDBACK_FORM_ID,
+  FEEDBACK_PANE_ID,
   OVERALL_QUESTIONS_OPTION_HAS_MISSING,
   OVERALL_QUESTIONS_OPTION_NONE_MISSING,
   QUERY_OVERALL_ANS_KEY,
@@ -39,8 +41,6 @@ import { FeedbackNavigation } from "./feedback_navigation";
 import { OneQuestion } from "./one_question";
 import { TablePane } from "./table_pane";
 import { EvalType, FeedbackStage } from "./types";
-
-const LOADING_CONTAINER_ID = "form-container";
 
 // object to hold information about a question
 interface QuestionConfig {
@@ -109,7 +109,7 @@ export function OverallFeedback(): JSX.Element {
   const [isSubmitted, setIsSubmitted] = useState<boolean>(null);
 
   useEffect(() => {
-    loadSpinner(LOADING_CONTAINER_ID);
+    loadSpinner(FEEDBACK_PANE_ID);
     getField(getPath(sheetId, sessionQueryId), getFirestoreKey(feedbackStage))
       .then((data) => {
         if (data) {
@@ -120,14 +120,14 @@ export function OverallFeedback(): JSX.Element {
           setIsSubmitted(false);
         }
       })
-      .finally(() => removeSpinner(LOADING_CONTAINER_ID));
+      .finally(() => removeSpinner(FEEDBACK_PANE_ID));
   }, [sheetId, sessionQueryId, sessionCallId, feedbackStage]);
 
   const checkAndSubmit = async (): Promise<boolean> => {
     if (isSubmitted) {
       return Promise.resolve(true);
     }
-    loadSpinner(LOADING_CONTAINER_ID);
+    loadSpinner(FEEDBACK_PANE_ID);
     return Promise.all([
       setFields(getPath(sheetId, sessionQueryId), {
         [getFirestoreKey(feedbackStage)]: response,
@@ -144,7 +144,7 @@ export function OverallFeedback(): JSX.Element {
         return false;
       })
       .finally(() => {
-        removeSpinner(LOADING_CONTAINER_ID);
+        removeSpinner(FEEDBACK_PANE_ID);
       });
   };
 
@@ -171,7 +171,7 @@ export function OverallFeedback(): JSX.Element {
         </Button>
         <EvalList />
       </div>
-      <div id={LOADING_CONTAINER_ID}>
+      <div id={FEEDBACK_FORM_ID}>
         <form>
           <fieldset>
             <div className="question-section">
@@ -190,9 +190,6 @@ export function OverallFeedback(): JSX.Element {
       </div>
       {evalType === EvalType.RAG && <TablePane />}
       <FeedbackNavigation checkAndSubmit={checkAndSubmit} />
-      <div id="page-screen" className="screen">
-        <div id="spinner"></div>
-      </div>
     </>
   );
 }
