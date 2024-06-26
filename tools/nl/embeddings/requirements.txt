@@ -7,3 +7,8 @@ lancedb==0.6.8
 parameterized==0.8.1
 sentence-transformers==2.2.2
 torchvision==0.17.2
+# Downloading the named-entity recognition (NER) library spacy and the large EN model
+# using the guidelines here: https://spacy.io/usage/models#production
+# TODO: try using the large model
+-f https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl
+en_core_web_sm==3.7.1
