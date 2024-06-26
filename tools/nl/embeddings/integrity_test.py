@@ -23,7 +23,7 @@ from tools.nl.embeddings import utils
 class TestIntegrity(unittest.TestCase):
   """Check that the index in catalog.yaml is up to date.
 
-  Read the md5sum of each index index and check it against the _preindex.csv in
+  Read the md5sum of each index and check it against the _preindex.csv in
   the input directory.
   """
 
