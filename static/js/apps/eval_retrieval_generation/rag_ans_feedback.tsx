@@ -150,7 +150,8 @@ export function RagAnsFeedback(): JSX.Element {
         <div className="block-evaluation question-section">
           <div className="title">STATISTICAL CLAIMS EVALUATION</div>
           <div className="subtitle">
-            Count the number of STATISTICAL claims made by the model.
+            Statistical claims total count (e.g., a number retrieved from a
+            table)
           </div>
           {[
             RAG_CLAIM_KEYS.QUERY_TOTAL_STAT_CLAIMS_KEY,
@@ -174,7 +175,7 @@ export function RagAnsFeedback(): JSX.Element {
         <div className="block-evaluation question-section">
           <div className="title">INFERRED CLAIMS EVALUATION</div>
           <div className="subtitle">
-            Count the number of INFERRED claims made by the model.
+            Inferred claims total count (e.g., X is better than Y)
           </div>
           {[
             RAG_CLAIM_KEYS.QUERY_TOTAL_INF_CLAIMS_KEY,
