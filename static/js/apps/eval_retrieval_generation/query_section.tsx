@@ -105,7 +105,7 @@ export function QuerySection(): JSX.Element {
       newHighlighted.classList.add("highlight");
       prevHighlightedRef.current = newHighlighted;
     }
-  }, [answer, sessionCallId]);
+  }, [answer, sessionCallId, feedbackStage]);
 
   useEffect(() => {
     if (evalType === EvalType.RIG) {
@@ -125,7 +125,8 @@ export function QuerySection(): JSX.Element {
   }, [doc, allQuery, sessionQueryId, evalType, feedbackStage]);
 
   const answerHeading =
-    feedbackStage === FeedbackStage.CALLS && evalType === EvalType.RAG
+    (feedbackStage === FeedbackStage.CALLS && evalType === EvalType.RAG) ||
+    feedbackStage === FeedbackStage.OVERALL_QUESTIONS
       ? "Questions to Data Commons"
       : "Answer";
 

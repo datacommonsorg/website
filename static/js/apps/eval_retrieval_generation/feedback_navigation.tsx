@@ -20,20 +20,10 @@ import _ from "lodash";
 import React, { useContext } from "react";
 import { Button } from "reactstrap";
 
-import { NEW_QUERY_CALL_ID } from "./constants";
+import { FEEDBACK_STAGE_LIST, NEW_QUERY_CALL_ID } from "./constants";
 import { AppContext, SessionContext } from "./context";
-import { EvalType, FeedbackStage } from "./types";
+import { FeedbackStage } from "./types";
 import { getFirstFeedbackStage } from "./util";
-
-const FEEDBACK_STAGE_LIST: Record<EvalType, FeedbackStage[]> = {
-  [EvalType.RIG]: [FeedbackStage.OVERALL_ANS, FeedbackStage.CALLS],
-  [EvalType.RAG]: [
-    FeedbackStage.CALLS,
-    FeedbackStage.OVERALL_QUESTIONS,
-    FeedbackStage.OVERALL_ANS,
-    FeedbackStage.RAG_ANS,
-  ],
-};
 
 enum ButtonType {
   PREV_QUERY = "PREV_QUERY",
@@ -115,11 +105,9 @@ function isStartOfStage(
 // Whether or not to include a stage in the list of stages to show
 function shouldIncludeStage(
   feedbackStage: FeedbackStage,
-  numCalls: number,
-  evalType: EvalType
+  numCalls: number
 ): boolean {
-  // only filter out the call stage for RIG eval type
-  if (feedbackStage === FeedbackStage.CALLS && evalType === EvalType.RIG) {
+  if (feedbackStage === FeedbackStage.CALLS) {
     return numCalls > 0;
   }
   return true;
@@ -157,7 +145,7 @@ export function FeedbackNavigation(
 
   const numCalls = Object.keys(allCall[sessionQueryId] || {}).length;
   const feedbackStageList = FEEDBACK_STAGE_LIST[evalType].filter((stage) =>
-    shouldIncludeStage(stage, numCalls, evalType)
+    shouldIncludeStage(stage, numCalls)
   );
   const currStageIdx = feedbackStageList.indexOf(feedbackStage);
 
