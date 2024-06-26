@@ -12,10 +12,59 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
+import shutil
+import tempfile
 import unittest
 
+from tools.nl.embeddings import utils
 
-class TestUtils(unittest.TestCase):
+_THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 
-  def test_func(self):
-    pass
+
+class TestBuildPreindex(unittest.TestCase):
+
+  def setUp(self):
+    # Create two temporary directories
+    self.temp_dir1 = tempfile.mkdtemp()
+    self.temp_dir2 = tempfile.mkdtemp()
+
+  def tearDown(self):
+    # Clean up the temporary directories
+    shutil.rmtree(self.temp_dir1)
+    shutil.rmtree(self.temp_dir2)
+
+  def _compare_files(self, output_path, expected_path):
+    with open(output_path) as gotf, open(expected_path) as wantf:
+      got = gotf.read()
+      want = wantf.read()
+      self.assertEqual(got, want)
+
+  def test_file_content(self):
+    test_input_dir = os.path.join(self.temp_dir1, 'input')
+    shutil.copytree(os.path.join(_THIS_DIR, 'testdata/input'), test_input_dir)
+    fm = utils.FileManager(test_input_dir, self.temp_dir2)
+    utils.build_and_save_preindex(fm)
+    self._compare_files(
+        os.path.join(test_input_dir, '_preindex.csv'),
+        os.path.join(_THIS_DIR, 'testdata/expected/_preindex.csv'))
+
+
+class TestRetrieveEmbeddings(unittest.TestCase):
+
+  def test_different_dcids(self):
+    target_sentences = [
+        utils.SentenceObject('foo', 'dcid1;dcid2', [0.1, 0.2, 0.3]),
+        utils.SentenceObject('bar', 'dcid3', [0.4, 0.5, 0.6]),
+    ]
+    saved_sentences = [
+        utils.SentenceObject('foo', 'dcid1', [0.1, 0.2, 0.3]),
+        utils.SentenceObject('bar', 'dcid3;dcid2', [0.4, 0.5, 0.6]),
+        utils.SentenceObject('fooz', 'dcid4', [0.7, 0.7, 0.7]),
+    ]
+    got = utils.retrieve_embeddings(None, target_sentences, saved_sentences)
+    expected = [
+        utils.SentenceObject('foo', 'dcid1;dcid2', [0.1, 0.2, 0.3]),
+        utils.SentenceObject('bar', 'dcid3', [0.4, 0.5, 0.6]),
+    ]
+    self.assertEqual(got, target_sentences)
