@@ -81,10 +81,6 @@ function setup_python {
         "https://download.pytorch.org/whl/cpu"
       echo_log "Installing Python requirements from $embeddings_req"
       run_cmd pip3 install -r "$embeddings_req"
-      # TODO: remove install once embeddings doesn't need nl_server/requirements.txt
-      # nlserver_req="$WEBSITE_DIR/nl_server/requirements.txt"
-      # echo_log "Installing Python requirements from $nlserver_req"
-      # run_cmd pip3 install -r "$nlserver_req"
     fi
   fi
 }
