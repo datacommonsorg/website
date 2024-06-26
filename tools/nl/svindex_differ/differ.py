@@ -20,13 +20,13 @@ from datetime import datetime
 import difflib
 import os
 import pwd
+from typing import Callable
 
 from absl import app
 from absl import flags
 from google.cloud import storage
 from jinja2 import Environment
 from jinja2 import FileSystemLoader
-from typing import Callable
 import requests
 import yaml
 
