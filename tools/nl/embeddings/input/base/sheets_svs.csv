@@ -801,21 +801,21 @@ Annual_Emissions_CarbonDioxide_SolidFuelTransformation,Amount of Carbon Dioxide 
 Annual_Emissions_CarbonDioxide_SteelManufacturing,Amount of Carbon Dioxide Emissions from Steel Manufacturing
 Annual_Emissions_CarbonDioxide_Transportation,Amount of Carbon Dioxide Emissions from Transportation
 Annual_Emissions_CarbonDioxide_WasteManagement,Amount of Carbon Dioxide Emissions from Waste Management
-Annual_Emissions_GreenhouseGas,Amount of Greenhouse Gas Emissions
+Annual_Emissions_GreenhouseGas,Amount of Greenhouse Gas Emissions;carbon footprint
 Annual_Emissions_GreenhouseGas_Agriculture,Amount of Greenhouse Gas Emissions from Agriculture
 Annual_Emissions_GreenhouseGas_AluminumProduction,Amount of Greenhouse Gas Emissions from Aluminum Production
 Annual_Emissions_GreenhouseGas_AmmoniaManufacturing_NonBiogenic,Amount of Greenhouse Gas Emissions from Ammonia Manufacturing
 Annual_Emissions_GreenhouseGas_BauxiteMining,Amount of Greenhouse Gas Emissions from Bauxite Mining
 Annual_Emissions_GreenhouseGas_CementProduction,Amount of Greenhouse Gas Emissions from Cement Production
-Annual_Emissions_GreenhouseGas_CementProduction_NonBiogenic,Amount of Greenhouse Gas Emissions from Cement Production (Non-Biogenic)
+Annual_Emissions_GreenhouseGas_CementProduction_NonBiogenic,Amount of Greenhouse Gas Emissions from Cement Production
 Annual_Emissions_GreenhouseGas_CopperMining,Amount of Greenhouse Gas Emissions from Copper Mining
 Annual_Emissions_GreenhouseGas_CroplandFire,Amount of Greenhouse Gas Emissions from Cropland Fire
 Annual_Emissions_GreenhouseGas_ElectricityGeneration,Amount of Greenhouse Gas Emissions from Electricity Generation
-Annual_Emissions_GreenhouseGas_ElectricityGeneration_NonBiogenic,Amount of Greenhouse Gas Emissions from Electricity Generation (Non-Biogenic)
+Annual_Emissions_GreenhouseGas_ElectricityGeneration_NonBiogenic,Amount of Greenhouse Gas Emissions from Electricity Generation
 Annual_Emissions_GreenhouseGas_ElectricityGenerationFromThermalPowerPlant,Amount of Greenhouse Gas Emissions from Electricity Generation from Thermal Power Plant
-Annual_Emissions_GreenhouseGas_ElectronicsManufacture_NonBiogenic,Amount of Greenhouse Gas Emissions from Electronics Manufacture (Non-Biogenic)
+Annual_Emissions_GreenhouseGas_ElectronicsManufacture_NonBiogenic,Amount of Greenhouse Gas Emissions from Electronics Manufacture
 Annual_Emissions_GreenhouseGas_EntericFermentation,Amount of Greenhouse Gas Emissions from Enteric Fermentation
-Annual_Emissions_GreenhouseGas_FluorinatedGHGProduction_NonBiogenic,Amount of Greenhouse Gas Emissions from Fluorinated GHG Production (Non-Biogenic)
+Annual_Emissions_GreenhouseGas_FluorinatedGHGProduction_NonBiogenic,Amount of Greenhouse Gas Emissions from Fluorinated GHG Production
 Annual_Emissions_GreenhouseGas_ForestClearing,Amount of Greenhouse Gas Emissions from Forest Clearing
 Annual_Emissions_GreenhouseGas_ForestFire,Amount of Greenhouse Gas Emissions from Forest Fire
 Annual_Emissions_GreenhouseGas_ForestryAndLandUse,Amount of Greenhouse Gas Emissions from Forestry and Land Use
@@ -826,32 +826,32 @@ Annual_Emissions_GreenhouseGas_FuelCombustionForRefrigerationAirConditioning,Amo
 Annual_Emissions_GreenhouseGas_FuelCombustionForResidentialCommercialOnsiteHeating,Amount of Greenhouse Gas Emissions from Fuel Combustion for Residential and Commercial Onsite Heating
 Annual_Emissions_GreenhouseGas_FuelCombustionForRoadVehicles,Amount of Greenhouse Gas Emissions from Fuel Combustion for Road Vehicles
 Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings,Amount of Greenhouse Gas Emissions from Fuel Combustion in Buildings
-Annual_Emissions_GreenhouseGas_GlassProduction_NonBiogenic,Amount of Greenhouse Gas Emissions from Glass Production (Non-Biogenic)
-Annual_Emissions_GreenhouseGas_HydrogenProduction_NonBiogenic,Amount of Greenhouse Gas Emissions from Hydrogen Production (Non-Biogenic)
-Annual_Emissions_GreenhouseGas_IndustrialWasteLandfills_NonBiogenic,Amount of Greenhouse Gas Emissions from Industrial Waste Landfills (Non-Biogenic)
-Annual_Emissions_GreenhouseGas_IndustrialWastewaterTreatment_NonBiogenic,Amount of Greenhouse Gas Emissions from Industrial Wastewater Treatment (Non-Biogenic)
-Annual_Emissions_GreenhouseGas_IronAndSteelProduction_NonBiogenic,Amount of Greenhouse Gas Emissions from Iron and Steel Production (Non-Biogenic)
+Annual_Emissions_GreenhouseGas_GlassProduction_NonBiogenic,Amount of Greenhouse Gas Emissions from Glass Production
+Annual_Emissions_GreenhouseGas_HydrogenProduction_NonBiogenic,Amount of Greenhouse Gas Emissions from Hydrogen Production
+Annual_Emissions_GreenhouseGas_IndustrialWasteLandfills_NonBiogenic,Amount of Greenhouse Gas Emissions from Industrial Waste Landfills
+Annual_Emissions_GreenhouseGas_IndustrialWastewaterTreatment_NonBiogenic,Amount of Greenhouse Gas Emissions from Industrial Wastewater Treatment
+Annual_Emissions_GreenhouseGas_IronAndSteelProduction_NonBiogenic,Amount of Greenhouse Gas Emissions from Iron and Steel Production
 Annual_Emissions_GreenhouseGas_IronMining,Amount of Greenhouse Gas Emissions from Iron Mining
-Annual_Emissions_GreenhouseGas_LimeProduction_NonBiogenic,Amount of Greenhouse Gas Emissions from Lime Production (Non-Biogenic)
+Annual_Emissions_GreenhouseGas_LimeProduction_NonBiogenic,Amount of Greenhouse Gas Emissions from Lime Production
 Annual_Emissions_GreenhouseGas_ManagedSoils,Amount of Greenhouse Gas Emissions from Managed Soils
 Annual_Emissions_GreenhouseGas_Manufacturing,Amount of Greenhouse Gas Emissions from Manufacturing
 Annual_Emissions_GreenhouseGas_ManureManagement,Amount of Greenhouse Gas Emissions from Manure Management
 Annual_Emissions_GreenhouseGas_MaritimeShipping,Amount of Greenhouse Gas Emissions from Maritime Shipping
 Annual_Emissions_GreenhouseGas_MaritimeTransport,Amount of Greenhouse Gas Emissions from Maritime Transport
 Annual_Emissions_GreenhouseGas_MineralExtraction,Amount of Greenhouse Gas Emissions from Mineral Extraction
-Annual_Emissions_GreenhouseGas_MiscellaneousUseOfCarbonates_NonBiogenic,Amount of Greenhouse Gas Emissions from Miscellaneous Use Of Carbonates (Non Biogenic)
-Annual_Emissions_GreenhouseGas_MunicipalLandfills_NonBiogenic,Amount of Greenhouse Gas Emissions from Municipal Landfills (Non Biogenic)
-Annual_Emissions_GreenhouseGas_NitricAcidProduction_NonBiogenic,Amount of Greenhouse Gas Emissions from Nitric Acid Production (Non Biogenic)
-Annual_Emissions_GreenhouseGas_NonBiogenic,Amount of Greenhouse Gas Emissions (Non Biogenic)
+Annual_Emissions_GreenhouseGas_MiscellaneousUseOfCarbonates_NonBiogenic,Amount of Greenhouse Gas Emissions from Miscellaneous Use Of Carbonates
+Annual_Emissions_GreenhouseGas_MunicipalLandfills_NonBiogenic,Amount of Greenhouse Gas Emissions from Municipal Landfills
+Annual_Emissions_GreenhouseGas_NitricAcidProduction_NonBiogenic,Amount of Greenhouse Gas Emissions from Nitric Acid Production
+Annual_Emissions_GreenhouseGas_NonBiogenic,Amount of Non Biogenic Greenhouse Gas Emissions
 Annual_Emissions_GreenhouseGas_OilAndGas,Amount of Greenhouse Gas Emissions from Oil And Gas
 Annual_Emissions_GreenhouseGas_OilAndGasProduction,Amount of Greenhouse Gas Emissions from Oil And Gas Production
 Annual_Emissions_GreenhouseGas_OpenBurningWaste,Amount of Greenhouse Gas Emissions from Open Burning Waste
 Annual_Emissions_GreenhouseGas_PetrochemicalProduction,Amount of Greenhouse Gas Emissions from Petrochemical Production
-Annual_Emissions_GreenhouseGas_PetrochemicalProduction_NonBiogenic,Amount of Greenhouse Gas Emissions from Petrochemical Production (Non Biogenic)
+Annual_Emissions_GreenhouseGas_PetrochemicalProduction_NonBiogenic,Amount of Greenhouse Gas Emissions from Petrochemical Production
 Annual_Emissions_GreenhouseGas_PetroleumRefining,Amount of Greenhouse Gas Emissions from Petroleum Refining
-Annual_Emissions_GreenhouseGas_PetroleumRefining_NonBiogenic,Amount of Greenhouse Gas Emissions from Petroleum Refining (Non Biogenic)
+Annual_Emissions_GreenhouseGas_PetroleumRefining_NonBiogenic,Amount of Greenhouse Gas Emissions from Petroleum Refining
 Annual_Emissions_GreenhouseGas_PulpAndPaperManufacturing,Amount of Greenhouse Gas Emissions from Pulp And Paper Manufacturing
-Annual_Emissions_GreenhouseGas_PulpAndPaperManufacturing_NonBiogenic,Amount of Greenhouse Gas Emissions from Pulp And Paper Manufacturing (Non Biogenic)
+Annual_Emissions_GreenhouseGas_PulpAndPaperManufacturing_NonBiogenic,Amount of Greenhouse Gas Emissions from Pulp And Paper Manufacturing
 Annual_Emissions_GreenhouseGas_RiceCultivation,Amount of Greenhouse Gas Emissions from Rice Cultivation
 Annual_Emissions_GreenhouseGas_RockQuarry,Amount of Greenhouse Gas Emissions from Rock Quarry
 Annual_Emissions_GreenhouseGas_SandQuarry,Amount of Greenhouse Gas Emissions from Sand Quarry
@@ -859,14 +859,14 @@ Annual_Emissions_GreenhouseGas_SavannaFire,Amount of Greenhouse Gas Emissions fr
 Annual_Emissions_GreenhouseGas_ShrublandFire,Amount of Greenhouse Gas Emissions from Shrubland Fire
 Annual_Emissions_GreenhouseGas_SolidFuelTransformation,Amount of Greenhouse Gas Emissions from Solid Fuel Transformation
 Annual_Emissions_GreenhouseGas_SolidWasteDisposal,Amount of Greenhouse Gas Emissions from Solid Waste Disposal
-Annual_Emissions_GreenhouseGas_StationaryCombustion_NonBiogenic,Amount of Greenhouse Gas Emissions from Stationary Combustion (Non Biogenic)
+Annual_Emissions_GreenhouseGas_StationaryCombustion_NonBiogenic,Amount of Greenhouse Gas Emissions from Stationary Combustion
 Annual_Emissions_GreenhouseGas_SteelManufacturing,Amount of Greenhouse Gas Emissions from Steel Manufacturing
 Annual_Emissions_GreenhouseGas_Transportation,Amount of Greenhouse Gas Emissions from Transportation
-Annual_Emissions_GreenhouseGas_UndergroundCoalMines_NonBiogenic,Amount of Greenhouse Gas Emissions from Underground Coal Mines (Non Biogenic)
+Annual_Emissions_GreenhouseGas_UndergroundCoalMines_NonBiogenic,Amount of Greenhouse Gas Emissions from Underground Coal Mines
 Annual_Emissions_GreenhouseGas_WasteManagement,Amount of Greenhouse Gas Emissions from Waste Management
 Annual_Emissions_GreenhouseGas_WastewaterTreatmentAndDischarge,Amount of Greenhouse Gas Emissions from Wastewater Treatment And Discharge
-Annual_Emissions_Hydrofluorocarbon_NonBiogenic,Amount of Hydrofluorocarbon Emissions (Non Biogenic)
-Annual_Emissions_Hydrofluoroether_NonBiogenic,Amount of Hydrofluoroether Emissions (Non Biogenic)
+Annual_Emissions_Hydrofluorocarbon_NonBiogenic,Amount of Non Biogenic Hydrofluorocarbon Emissions
+Annual_Emissions_Hydrofluoroether_NonBiogenic,Amount of Non Biognic Hydrofluoroether Emissions
 Annual_Emissions_Methane_Agriculture,Amount of Methane Emissions from Agriculture
 Annual_Emissions_Methane_BiologicalTreatmentOfSolidWasteAndBiogenic,Amount of Methane Emissions from Biological Treatment Of Solid Waste And Biogenic
 Annual_Emissions_Methane_CoalMining,Amount of Methane Emissions from Coal Mining
@@ -1912,17 +1912,18 @@ Count_Person_15To64Years_InLaborForce_AsFractionOf_Count_Person_15To64Years,Labo
 Count_Person_15To64Years_Male_InLaborForce_AsFractionOf_Count_Person_15To64Years_Male,Male labor force participation rate
 Count_Person_16OrMoreYears_Female_WithEarnings,Number of Females with Earnings
 Count_Person_16OrMoreYears_Male_WithEarnings,Number of Males with Earnings
-Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf15000To24999USDollar_WithEarnings,"number of people Earning Between $15,000 and $25000 Without Health Insurance"
-Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf25000To34999USDollar_WithEarnings,"number of people Earning Between $25,000 and $35000 Without Health Insurance"
-Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf35000To49999USDollar_WithEarnings,"number of people Earning Between $35,000 and $50000 Without Health Insurance"
+Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf15000To24999USDollar_WithEarnings,number of people Earning Between $15000 and $25000 Without Health Insurance
+Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf25000To34999USDollar_WithEarnings,number of people Earning Between $25000 and $35000 Without Health Insurance
+Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf35000To49999USDollar_WithEarnings,number of people Earning Between $35000 and $50000 Without Health Insurance
 Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf4999OrLessUSDollar_WithEarnings,number of people Earning less than $5000 and Without Health Insurance
-Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf50000To74999USDollar_WithEarnings,"number of people Earning Between $50,000 and $75000 Without Health Insurance"
-Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf5000To14999USDollar_WithEarnings,"number of people Earning $5,000 to $15000 Without Health Insurance"
-Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf75000OrMoreUSDollar_WithEarnings,"number of people Earning $75,000 or more Without Health Insurance"
+Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf50000To74999USDollar_WithEarnings,number of people Earning Between $50000 and $75000 Without Health Insurance
+Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf5000To14999USDollar_WithEarnings,number of people Earning $5000 to $15000 Without Health Insurance
+Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf75000OrMoreUSDollar_WithEarnings,number of people Earning $75000 or more Without Health Insurance
 Count_Person_16OrMoreYears_WithEarnings,Number of people with earnings
 Count_Person_16To50Years_BirthInThePast12Months_Female_AsAFractionOf_Count_Person_16To50Years_Female,Percentage of females aged 16-50 who gave birth in the past 12 months
 Count_Person_18OrLessYears_Female_ResidesInCollegeOrUniversityStudentHousing,Number of females aged 18 or less who reside in college or university student housing
 Count_Person_18OrLessYears_Male_ResidesInCollegeOrUniversityStudentHousing,Number of males aged 18 or less who reside in college or university student housing
+Count_Person_18OrLessYears_NoHealthInsurance,Number of people under 18 years old without health insurance
 Count_Person_18OrMoreYears_Civilian,Number of civilians aged 18 or more
 Count_Person_18OrMoreYears_Civilian_ResidesInAdultCorrectionalFacilities,Number of civilians aged 18 or more who reside in adult correctional facilities
 Count_Person_18OrMoreYears_Civilian_ResidesInCollegeOrUniversityStudentHousing,Number of civilians aged 18 or more who reside in college or university student housing
@@ -2263,7 +2264,7 @@ Count_Person_Female_MarriedInThePast12Months_ResidesInHousehold,Number of female
 Count_Person_Female_NativeHawaiianAndOtherPacificIslanderAlone,Number of Native Hawaiian and Other Pacific Islander females
 Count_Person_Female_NativeHawaiianOrOtherPacificIslanderAlone,Number of Native Hawaiian or Other Pacific Islander females
 Count_Person_Female_NeverMarried,Number of never married females
-Count_Person_Female_NoHealthInsurance,Number of females with no health insurance
+Count_Person_Female_NoHealthInsurance,Number of females without health insurance
 Count_Person_Female_NonWhite,Number of non white females
 Count_Person_Female_NotHispanicOrLatino,Number of females that are not Hispanic or Latino
 Count_Person_Female_ResidesInAdultCorrectionalFacilities,Number of females residing in Adult Correctional Facilities
@@ -2428,7 +2429,7 @@ Count_Person_Male_MarriedAndNotSeparated,number of Males married and not separat
 Count_Person_Male_NativeHawaiianAndOtherPacificIslanderAlone,number of Native Hawaiian and other Pacific Islander males
 Count_Person_Male_NativeHawaiianOrOtherPacificIslanderAlone,number of Native Hawaiian or other Pacific Islander males
 Count_Person_Male_NeverMarried,number of never married males aged 15 years or older
-Count_Person_Male_NoHealthInsurance,number of civilian males without health insurance
+Count_Person_Male_NoHealthInsurance,number of males without health insurance
 Count_Person_Male_NonWhite,number of non white males
 Count_Person_Male_NotHispanicOrLatino,number of non hispanic or latino males
 Count_Person_Male_ResidesInAdultCorrectionalFacilities,Number of males residing in adult correctional facilities
@@ -2480,13 +2481,13 @@ Count_Person_NoDisability_ResidesInGroupQuarters,number of people without disabi
 Count_Person_NoDisability_ResidesInInstitutionalizedGroupQuarters,number of people without disabilities residing in institutionalized group quarters
 Count_Person_NoDisability_ResidesInNoninstitutionalizedGroupQuarters,number of people without disabilities residing in noninstitutionalized group quarters
 Count_Person_NoDisability_ResidesInNursingFacilities,number of people without disabilities residing in nursing facilities
-Count_Person_NoHealthInsurance,number of people with no health insurance
-Count_Person_NoHealthInsurance_AmericanIndianOrAlaskaNativeAlone,number of American Indian or Alaska Native people with no health insurance
-Count_Person_NoHealthInsurance_AsianAlone,number of asian people with no health insurance
-Count_Person_NoHealthInsurance_BlackOrAfricanAmericanAlone,number of Black Or African American people with no health insurance
-Count_Person_NoHealthInsurance_HispanicOrLatino,number of Hispanic or Latino people with no health insurance
-Count_Person_NoHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone,number of Native Hawaiian or Other Pacific Islander people with no health insurance
-Count_Person_NoHealthInsurance_WhiteAlone,number of white people with no health insurance
+Count_Person_NoHealthInsurance,number of people without health insurance
+Count_Person_NoHealthInsurance_AmericanIndianOrAlaskaNativeAlone,number of American Indian or Alaska Native people without health insurance
+Count_Person_NoHealthInsurance_AsianAlone,number of asian people without health insurance
+Count_Person_NoHealthInsurance_BlackOrAfricanAmericanAlone,number of Black Or African American people without health insurance
+Count_Person_NoHealthInsurance_HispanicOrLatino,number of Hispanic or Latino people without health insurance
+Count_Person_NoHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone,number of Native Hawaiian or Other Pacific Islander people without health insurance
+Count_Person_NoHealthInsurance_WhiteAlone,number of white people without health insurance
 Count_Person_Nonveteran,Number of adult Civilians Who Are Not Veterans
 Count_Person_NonWhite,Number of non white people
 Count_Person_NonWorker,Number of people who do not work
@@ -2629,8 +2630,6 @@ dc/dyhxtqe2pxhl5,Number of foreign born people with no income
 dc/qj9v0vqzp9vlg,Number of foreign born widowed people
 dc/gvnh5cpl9h1rf,Number of foreign born people who earn income
 dc/0gettc3bc60cb,Number of peole who drive to work
-dc/h7ft916g93ys2,Number of people whose commute time to work is 90 minutes or longer
-dc/fyc3yvjy0xw6g,Number of people whose commute time to work is 5 minutes or less
 dc/hbkh95kc7pkb6,Number of people who take public transportation to work
 dc/vp8cbt6k79t94,Number of people walking to work
 dc/6rltk4kf75612,Number of People working at home
@@ -2994,6 +2993,7 @@ Mean_CashAssistance_Household_ForeignBorn_PlaceOfBirthSouthCentralAsia,Average C
 Mean_CashAssistance_Household_ForeignBorn_PlaceOfBirthSouthEasternAsia,Average Cash Assistance for Households with foreign born people from South Eastern Asia
 Mean_CashAssistance_Household_ForeignBorn_PlaceOfBirthSouthernEasternEurope,Average Cash Assistance for Households with foreign born people from Southern Eastern Europe
 Mean_CashAssistance_Household_ForeignBorn_PlaceOfBirthWesternAsia,Average Cash Assistance for Households with foreign born people from Western Asia
+Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome,Mean commute time of working people
 Mean_Concentration_AirPollutant_CO,Average Atmospheric Carbon Monoxide Concentration
 Mean_Concentration_AirPollutant_DieselPM,Average Diesel PM Particle Concentration
 Mean_Concentration_AirPollutant_NO2,Average Atmospheric Nitrogen Dioxide Concentration
@@ -3163,7 +3163,7 @@ Median_Age_Person_Male_TwoOrMoreRaces,median age of multi races males
 Median_Age_Person_Male_WhiteAlone,median age of white males
 Median_Age_Person_Native,median age of native people
 Median_Age_Person_NativeHawaiianOrOtherPacificIslanderAlone,median age of native hawaiian or other pacific islander
-Median_Age_Person_NoHealthInsurance,median age of people who have no health insurance
+Median_Age_Person_NoHealthInsurance,median age of people without health insurance
 Median_Age_Person_ResidesInAdultCorrectionalFacilities,Median age of people residing in adult correctional facilities
 Median_Age_Person_ResidesInCollegeOrUniversityStudentHousing,Median age of people residing in college or university student housing
 Median_Age_Person_ResidesInGroupQuarters,Median age of people residing in group quarters
@@ -3235,8 +3235,8 @@ Percent_BurnedArea_FireEvent_Forest_HighSeverity,Percent of forest area that exp
 Percent_Daily_TobaccoUsing_In_Count_Person,Prevalence of Daily Tobacco Smoking
 Percent_Daily_TobaccoUsing_In_Count_Person_Female,Prevalence of Daily Tobacco Use Among Females
 Percent_Daily_TobaccoUsing_In_Count_Person_Male,Prevalence of Daily Tobacco Use Among Mmales
-Percent_Person_18To64Years_Female_NoHealthInsurance,Percentage of working age females Without Health Insurance
-Percent_Person_18To64Years_Male_NoHealthInsurance,Percentage of working age males Without Health Insurance
+Percent_Person_18To64Years_Female_NoHealthInsurance,Percentage of working age females without health insurance
+Percent_Person_18To64Years_Male_NoHealthInsurance,Percentage of working age males without health insurance
 Percent_Person_18To64Years_ReceivedNoHealthInsurance,Percentage of working age population Without Health Insurance
 Percent_Person_20OrMoreYears_WithDiabetes,Percentage of People Aged 20 and above With Diabetes
 Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening,Percentage of females Aged 21 to 65 Received Cervical Cancer Screening
