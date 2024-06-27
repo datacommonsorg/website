@@ -336,9 +336,7 @@ def resolve(nodes, prop):
   return post(url, {'nodes': nodes, 'property': prop})
 
 
-def nl_search_vars(queries,
-                   index_types: List[str],
-                   reranker=''):
+def nl_search_vars(queries, index_types: List[str], reranker=''):
   """Search sv from NL server."""
   idx_params = ','.join(index_types)
   url = f'{current_app.config["NL_ROOT"]}/api/search_vars?idx={idx_params}'
