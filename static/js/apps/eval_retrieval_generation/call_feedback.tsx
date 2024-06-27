@@ -85,8 +85,9 @@ export function CallFeedback(): JSX.Element {
         setResponse(data as Response);
         setStatus(FormStatus.Submitted);
       } else {
+        // If applyToNext has been set, we should just use the state of the
+        // previous question for the next question
         if (applyToNext) {
-          setStatus(FormStatus.Completed);
           return;
         }
         setResponse(EMPTY_RESPONSE[evalType]);

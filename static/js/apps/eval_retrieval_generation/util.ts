@@ -16,6 +16,7 @@
 
 import _ from "lodash";
 
+import { FEEDBACK_STAGE_LIST } from "./constants";
 import { EvalType, FeedbackStage } from "./types";
 
 const HTTP_PATTERN = /https:\/\/[^\s]+/g;
@@ -23,7 +24,7 @@ const LONG_SPACES = "&nbsp;&nbsp;&nbsp;&nbsp;";
 const TABLE_DIVIDER_PATTERN = /[--][-]+/g;
 // table headers are sometimes country names so there can be symbols used like
 // in "Côte d'Ivoire".
-const TABLE_HEADER_TEXT_PATTERN = /[\w'ô[\]ãéí\s°()%:]+/g;
+const TABLE_HEADER_TEXT_PATTERN = /[\w'ô[\]ãéí\s°()%:-]+/g;
 
 export const processText = (text: string): string => {
   // If "Answer" is in the text, remove it
@@ -71,9 +72,5 @@ export function processTableText(text: string): string {
 
 // Get the first feedback stage to show for an eval type
 export function getFirstFeedbackStage(evalType: EvalType): FeedbackStage {
-  if (evalType === EvalType.RAG) {
-    return FeedbackStage.CALLS;
-  } else {
-    return FeedbackStage.OVERALL_ANS;
-  }
+  return FEEDBACK_STAGE_LIST[evalType][0];
 }
