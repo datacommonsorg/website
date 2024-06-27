@@ -27,6 +27,8 @@ import {
   DC_RESPONSE_COL,
   DC_RESPONSE_FEEDBACK_COL,
   DC_STAT_COL,
+  FEEDBACK_FORM_ID,
+  FEEDBACK_PANE_ID,
   LLM_STAT_COL,
   LLM_STAT_FEEDBACK_COL,
 } from "./constants";
@@ -38,7 +40,6 @@ import { OneQuestion } from "./one_question";
 import { TablePane } from "./table_pane";
 import { EvalInfo, EvalType, Response } from "./types";
 
-const LOADING_CONTAINER_ID = "form-container";
 const EMPTY_RESPONSE = {
   [EvalType.RIG]: {
     dcResponse: "",
@@ -103,19 +104,29 @@ export function CallFeedback(): JSX.Element {
       return;
     }
     const rowIdx = allCall[sessionQueryId][sessionCallId];
-    sheet.getRows({ offset: rowIdx - 1, limit: 1 }).then((rows) => {
-      const row = rows[0];
-      if (row) {
-        const tableResponse =
-          evalType === EvalType.RIG ? "" : ` \xb7 Table ${sessionCallId}`;
-        setEvalInfo({
-          dcResponse: `${row.get(DC_RESPONSE_COL)}${tableResponse}`,
-          dcStat: row.get(DC_STAT_COL),
-          llmStat: row.get(LLM_STAT_COL),
-          question: row.get(DC_QUESTION_COL),
-        });
-      }
-    });
+    loadSpinner(FEEDBACK_PANE_ID);
+    sheet
+      .getRows({ offset: rowIdx - 1, limit: 1 })
+      .then((rows) => {
+        const row = rows[0];
+        if (row) {
+          const tableResponse =
+            evalType === EvalType.RIG ? "" : ` \xb7 Table ${sessionCallId}`;
+          setEvalInfo({
+            dcResponse: `${row.get(DC_RESPONSE_COL)}${tableResponse}`,
+            dcStat: row.get(DC_STAT_COL),
+            llmStat: row.get(LLM_STAT_COL),
+            question: row.get(DC_QUESTION_COL),
+          });
+        }
+      })
+      .catch((e) => {
+        alert(e);
+        setEvalInfo(null);
+      })
+      .finally(() => {
+        removeSpinner(FEEDBACK_PANE_ID);
+      });
   }, [doc, allCall, sessionQueryId, sessionCallId]);
 
   const checkAndSubmit = async (): Promise<boolean> => {
@@ -124,7 +135,7 @@ export function CallFeedback(): JSX.Element {
       return false;
     }
     if (status === FormStatus.Completed) {
-      loadSpinner(LOADING_CONTAINER_ID);
+      loadSpinner(FEEDBACK_PANE_ID);
       const sheetValues = {
         [DC_QUESTION_FEEDBACK_COL]: response.question,
         [DC_RESPONSE_FEEDBACK_COL]: response.dcResponse,
@@ -148,7 +159,7 @@ export function CallFeedback(): JSX.Element {
           return false;
         })
         .finally(() => {
-          removeSpinner(LOADING_CONTAINER_ID);
+          removeSpinner(FEEDBACK_PANE_ID);
         });
     }
     // Otherwise form status is Submitted or NotStarted. Just proceed with
@@ -212,7 +223,7 @@ export function CallFeedback(): JSX.Element {
         </Button>
         <EvalList />
       </div>
-      <div id={LOADING_CONTAINER_ID}>
+      <div id={FEEDBACK_FORM_ID}>
         {evalInfo && (
           <>
             <form>
@@ -303,9 +314,6 @@ export function CallFeedback(): JSX.Element {
       </div>
       {evalType === EvalType.RAG && <TablePane />}
       <FeedbackNavigation checkAndSubmit={checkAndSubmit} />
-      <div id="page-screen" className="screen">
-        <div id="spinner"></div>
-      </div>
     </>
   );
 }
