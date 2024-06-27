@@ -274,7 +274,7 @@ test("mapDataToCsv", () => {
       name: "non empty geoJson and dataValues, empty variable",
       geoJson: testGeoJson,
       dataValues: testDataValues,
-      expected: 'label,data\r\nPlaceA,1\r\n"PlaceB, test",2',
+      expected: 'place,data\r\nPlaceA,1\r\n"PlaceB, test",2',
     },
     {
       name: "empty geoJson, empty variable",
@@ -286,20 +286,20 @@ test("mapDataToCsv", () => {
         },
       },
       dataValues: testDataValues,
-      expected: "label,data",
+      expected: "place,data",
     },
     {
       name: "empty dataValues, empty variable",
       geoJson: testGeoJson,
       dataValues: {},
-      expected: 'label,data\r\nPlaceA,N/A\r\n"PlaceB, test",N/A',
+      expected: 'place,data\r\nPlaceA,N/A\r\n"PlaceB, test",N/A',
     },
     {
       name: "non empty geoJson, dataValues, variable",
       geoJson: testGeoJson,
       dataValues: testDataValues,
       expected:
-        'label,variable,data\r\nPlaceA,testVarName,1\r\n"PlaceB, test",testVarName,2',
+        'place,variable,data\r\nPlaceA,testVarName,1\r\n"PlaceB, test",testVarName,2',
       variable: testVariable,
     },
   ];

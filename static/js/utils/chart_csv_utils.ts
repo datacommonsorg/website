@@ -48,7 +48,10 @@ function findDataPointOrNull(
  * Gets the csv (as a string) for a  list of data groups.
  * @param dataGroups data groups to get the csv for
  */
-export function dataGroupsToCsv(dataGroups: DataGroup[]): string {
+export function dataGroupsToCsv(
+  dataGroups: DataGroup[],
+  labelHeaderOverride?: string
+): string {
   if (!dataGroups || dataGroups.length == 0) {
     return "";
   }
@@ -58,8 +61,9 @@ export function dataGroupsToCsv(dataGroups: DataGroup[]): string {
     const dates = dg.value.map((dp) => dp.label);
     allLabels = new Set([...Array.from(allLabels), ...dates]);
   }
+  const labelHeader = labelHeaderOverride || "label";
   // Get the header row.
-  const header = ["label"];
+  const header = [labelHeader];
   for (const dg of dataGroups) {
     header.push(dg.label);
   }
@@ -191,8 +195,8 @@ export function mapDataToCsv(layerData: MapLayerData[]): string {
     }
   });
   const header = hasVariable
-    ? ["label", "variable", "data"]
-    : ["label", "data"];
+    ? ["place", "variable", "data"]
+    : ["place", "data"];
   const rows = [header, ...data];
   return Papa.unparse(rows);
 }

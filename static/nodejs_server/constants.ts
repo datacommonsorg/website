@@ -65,3 +65,5 @@ export const COMPRESSED_VAL_ENCODING = {
 };
 // The param value for the client param if the client is Bard. Default is Bard.
 export const BARD_CLIENT_URL_PARAM = "bard";
+// The param value when mode is toolformer_rag
+export const TOOLFORMER_RAG_MODE = "toolformer_rag";
