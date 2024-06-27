@@ -18,9 +18,6 @@ python3 -m venv .env
 source .env/bin/activate
 pip3 install -r tools/nl/svindex_differ/prep/requirements.txt
 
-strip_stopwords=${1:=true}
-
 python3 -m tools.nl.svindex_differ.prep.to_vars \
   --queryset=tools/nl/svindex_differ/queryset.csv \
-  --queryset_vars=tools/nl/svindex_differ/queryset_vars.csv \
-  --strip_stopwords=$1
+  --queryset_vars=tools/nl/svindex_differ/queryset_vars.csv

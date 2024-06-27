@@ -52,9 +52,11 @@ _STRIP_STOP_WORDS_FN = 'STRIP_STOP_WORDS'
 flags.DEFINE_string('base_index', '',
                     'Base index name in PROD `catalog.yaml` file.')
 flags.DEFINE_string('test_index', '', 'Test index name in local `catalog.yaml`')
-flags.DEFINE_enum('base_query_transform', '', [_STRIP_STOP_WORDS_FN, _EMPTY_FN],
+flags.DEFINE_enum('base_query_transform', _EMPTY_FN,
+                  [_STRIP_STOP_WORDS_FN, _EMPTY_FN],
                   'Transform to perform on base query.')
-flags.DEFINE_enum('test_query_transform', '', [_STRIP_STOP_WORDS_FN, _EMPTY_FN],
+flags.DEFINE_enum('test_query_transform', _EMPTY_FN,
+                  [_STRIP_STOP_WORDS_FN, _EMPTY_FN],
                   'Transform to perform on test query.')
 flags.DEFINE_string('queryset', 'tools/nl/svindex_differ/queryset_vars.csv',
                     'Full path to queryset CSV')

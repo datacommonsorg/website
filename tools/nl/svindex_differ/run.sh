@@ -23,6 +23,7 @@ BASE=$1
 TEST=${2:-$BASE}
 
 if [[ $# -gt 3 ]]; then
+  # When there are more than 2 args plumb the rest to py program.
   shift
   shift
   extra_args="$@"
