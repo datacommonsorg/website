@@ -70,7 +70,6 @@ export const RAG_CLAIM_KEYS = {
 // Options for the query overall feedback
 export const QUERY_OVERALL_OPTION_HALLUCINATION = "LLM_ANSWER_HALLUCINATION";
 export const QUERY_OVERALL_OPTION_OK = "LLM_ANSWER_OKAY";
-export const QUERY_OVERALL_OPTION_IRRELEVANT = "LLM_ANSWER_IRRELEVANT";
 export const QUERY_OVERALL_OPTION_PARTIALLY_COMPLETE =
   "LLM_ANSWER_PARTIALLY_COMPLETE";
 // Options for the query calls overall feedback
