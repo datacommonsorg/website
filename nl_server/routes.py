@@ -74,6 +74,7 @@ def search_vars():
   queries = request.json.get('queries', [])
   queries = [str(escape(q)) for q in queries]
 
+  # TODO: clean up skip topics, may not be used anymore
   skip_topics = False
   if request.args.get('skip_topics'):
     skip_topics = True

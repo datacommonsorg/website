@@ -131,12 +131,11 @@ def fulfill(uttr: Utterance) -> PopulateState:
       state.chart_vars_map = topic.compute_chart_vars(state)
   else:
     state.chart_vars_map = topic.compute_chart_vars(state)
+    if state.uttr.mode == QueryMode.TOOLFORMER_RIG:
+      _update_chart_vars_for_rig(state)
 
   if params.is_special_dc(state.uttr.insight_ctx):
     _prune_non_country_special_dc_vars(state)
-
-  if state.uttr.mode == QueryMode.TOOLFORMER_RIG:
-    _update_chart_vars_for_rig(state)
 
   # No fallback for toolformer mode!
   if params.is_toolformer_mode(state.uttr.mode):
@@ -269,20 +268,21 @@ def _update_chart_vars_for_rig(state: PopulateState):
   # add chart vars for detected svs with a score above model threshold & part
   # of a topic that was in the original chart vars
   added_svs = set()
-  for i, sv in enumerate(state.uttr.detection.svs_detected.single_sv.svs):
+  detected_single_sv = state.uttr.detection.svs_detected.single_sv
+  for sv, score in zip(detected_single_sv.svs, detected_single_sv.scores):
     # skip topic svs
     if sv.startswith(_TOPIC_PREFIX):
       continue
     # skip if score is below default threshold
-    if state.uttr.detection.svs_detected.single_sv.scores[
-        i] < state.uttr.detection.svs_detected.model_threshold:
+    if score < state.uttr.detection.svs_detected.model_threshold:
       continue
     # skip if not part of a topic that was detected
     if not sv in topic_svs:
       continue
-    updated_chart_vars_map[sv] = updated_chart_vars_map.get(sv, [])
-    updated_chart_vars_map[sv].append(
-        ChartVars(svs=[sv], orig_sv_map={sv: [sv]}))
+    # skip if sv is already in the chart vars map
+    if sv in updated_chart_vars_map:
+      continue
+    updated_chart_vars_map[sv] = [ChartVars(svs=[sv], orig_sv_map={sv: [sv]})]
     added_svs.add(sv)
 
   if dropped_topics:
