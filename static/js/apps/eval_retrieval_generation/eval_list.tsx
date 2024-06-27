@@ -21,7 +21,6 @@ import { Button, Input, Modal } from "reactstrap";
 
 import {
   NEW_QUERY_CALL_ID,
-  QUERY_OVERALL_ANS_ACCURACY_KEY,
   QUERY_OVERALL_ANS_KEY,
   QUERY_OVERALL_QUESTIONS_KEY,
   RAG_CLAIM_KEYS,
@@ -71,7 +70,6 @@ export function EvalList(): JSX.Element {
             [
               ...Object.values(RAG_CLAIM_KEYS),
               QUERY_OVERALL_QUESTIONS_KEY,
-              QUERY_OVERALL_ANS_ACCURACY_KEY,
             ].forEach((countKey) => {
               if (!(countKey in queryFeedbackResults[i])) {
                 completed = false;
