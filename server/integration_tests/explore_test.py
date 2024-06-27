@@ -719,15 +719,17 @@ class ExploreTestEE2(ExploreTest):
         ])
 
   def test_e2e_toolformer_rig_mode(self):
-    self.run_detect_and_fulfill('e2e_toolformer_rig_mode', [
-        'what is the infant mortality rate in massachusetts',
-        'how many construction workers are in Orlando, Florida?',
-        # should keep poverty topic but prune the vars
-        'what is the poverty rate in Seattle?',
-        # should filter out topics
-        "number of households under poverty line in Seattle"
-    ],
-                                mode='toolformer_rig')
+    self.run_detect_and_fulfill(
+        'e2e_toolformer_rig_mode',
+        [
+            'what is the infant mortality rate in massachusetts',
+            'how many construction workers are in Orlando, Florida?',
+            # should keep poverty topic but prune the vars
+            'what is the poverty rate in Seattle?',
+            # should filter out topics
+            "number of households under poverty line in Seattle"
+        ],
+        mode='toolformer_rig')
 
   def test_e2e_toolformer_rag_mode(self):
     # The answer places (states) would typically be truncated to 10, but here
