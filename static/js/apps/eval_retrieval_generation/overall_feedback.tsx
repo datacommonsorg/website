@@ -28,8 +28,10 @@ import {
   QUERY_OVERALL_ANS_KEY,
   QUERY_OVERALL_FEEDBACK_COL,
   QUERY_OVERALL_OPTION_HALLUCINATION,
+  QUERY_OVERALL_OPTION_IRRELEVANT,
   QUERY_OVERALL_OPTION_OK,
-  QUERY_OVERALL_OPTION_PARTIALLY_COMPLETE,
+  QUERY_OVERALL_OPTION_RELEVANT,
+  QUERY_OVERALL_OPTION_SOMEWHAT_RELEVANT,
   QUERY_OVERALL_QUESTIONS_KEY,
 } from "./constants";
 import { AppContext, SessionContext } from "./context";
@@ -89,10 +91,10 @@ const QUESTION_CONFIG: Record<string, Record<string, QuestionConfig>> = {
           firestoreKey: QUERY_OVERALL_ANS_KEY,
           question: "How well does the LLM answer the user query??",
           responseOptions: {
-            [QUERY_OVERALL_OPTION_HALLUCINATION]: "Does not answer the query",
-            [QUERY_OVERALL_OPTION_PARTIALLY_COMPLETE]:
+            [QUERY_OVERALL_OPTION_IRRELEVANT]: "Does not answer the query",
+            [QUERY_OVERALL_OPTION_SOMEWHAT_RELEVANT]:
               "Partially answers the query",
-            [QUERY_OVERALL_OPTION_OK]: "Fully answers the query",
+            [QUERY_OVERALL_OPTION_RELEVANT]: "Fully answers the query",
           },
         },
       ],
