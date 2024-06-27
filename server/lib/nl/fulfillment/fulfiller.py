@@ -20,6 +20,7 @@ from flask import current_app
 
 from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import FulfillmentResult
+from server.lib.nl.common.utterance import QueryMode
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
 import server.lib.nl.detection.types as dtypes
@@ -34,6 +35,8 @@ from server.lib.nl.fulfillment import triple
 import server.lib.nl.fulfillment.handlers as handlers
 from server.lib.nl.fulfillment.types import PopulateState
 import server.lib.nl.fulfillment.utils as futils
+
+_TOPIC_PREFIX = "dc/topic/"
 
 
 #
@@ -130,6 +133,9 @@ def fulfill(uttr: Utterance) -> PopulateState:
 
   if params.is_special_dc(state.uttr.insight_ctx):
     _prune_non_country_special_dc_vars(state)
+
+  if state.uttr.mode == QueryMode.TOOLFORMER_RIG:
+    _prune_topic_vars_for_rig(state)
 
   # No fallback for toolformer mode!
   if params.is_toolformer_mode(state.uttr.mode):
@@ -230,6 +236,44 @@ def _prune_non_country_special_dc_vars(state: PopulateState):
 
   if dropped_vars:
     state.uttr.counters.info('info_sdg_noncountry_vars_dropped',
+                             list(dropped_vars))
+
+  state.chart_vars_map = pruned_chart_vars_map
+
+#
+# Prune topic chart vars for toolformer_rig mode
+#
+def _prune_topic_vars_for_rig(state: PopulateState):
+  # Set of all svs that were detected
+  detected_svs = set([
+      sv for sv in state.uttr.detection.svs_detected.single_sv.svs
+      if not sv.startswith(_TOPIC_PREFIX)
+  ])
+  # Go over the chart_vars_map and prune topic vars
+  pruned_chart_vars_map = {}
+  dropped_vars = set()
+  for var, chart_vars_list in state.chart_vars_map.items():
+    # If var is not a topic, do not prune
+    if not var.startswith(_TOPIC_PREFIX):
+      pruned_chart_vars_map[var] = chart_vars_list
+      continue
+    # Drop svs that were not separately also detected
+    pruned_chart_vars_list = []
+    for cv in chart_vars_list:
+      pruned_cv = copy.deepcopy(cv)
+      pruned_cv.svs = []
+      for v in cv.svs:
+        if v not in detected_svs:
+          dropped_vars.add(v)
+          continue
+        pruned_cv.svs.append(v)
+      if pruned_cv.svs:
+        pruned_chart_vars_list.append(pruned_cv)
+    if pruned_chart_vars_list:
+      pruned_chart_vars_map[var] = pruned_chart_vars_list
+
+  if dropped_vars:
+    state.uttr.counters.info('info_toolformer_rig_topic_vars_dropped',
                              list(dropped_vars))
 
   state.chart_vars_map = pruned_chart_vars_map
