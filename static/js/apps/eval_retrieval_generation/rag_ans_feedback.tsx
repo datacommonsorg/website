@@ -21,7 +21,11 @@ import { Button } from "reactstrap";
 
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { ClaimCounter } from "./claim_counter";
-import { RAG_CLAIM_KEYS } from "./constants";
+import {
+  FEEDBACK_FORM_ID,
+  FEEDBACK_PANE_ID,
+  RAG_CLAIM_KEYS,
+} from "./constants";
 import { AppContext, SessionContext } from "./context";
 import { getAllFields, getPath, saveToSheet, setFields } from "./data_store";
 import { EvalList } from "./eval_list";
@@ -29,7 +33,6 @@ import { FeedbackNavigation } from "./feedback_navigation";
 import { TablePane } from "./table_pane";
 import { EvalType } from "./types";
 
-const LOADING_CONTAINER_ID = "form-container";
 const EMPTY_COUNTS = {
   [RAG_CLAIM_KEYS.QUERY_TOTAL_STAT_CLAIMS_KEY]: 0,
   [RAG_CLAIM_KEYS.QUERY_FALSE_STAT_CLAIMS_KEY]: 0,
@@ -60,22 +63,26 @@ export function RagAnsFeedback(): JSX.Element {
   const [response, setResponse] = useState<RagAnsResponse>(null);
 
   useEffect(() => {
-    loadSpinner(LOADING_CONTAINER_ID);
-    getAllFields(getPath(sheetId, sessionQueryId)).then((data) => {
-      let complete = true;
-      const counts = EMPTY_COUNTS;
-      for (const countKey of Object.keys(counts)) {
-        if (!(countKey in data)) {
-          complete = false;
-          continue;
+    loadSpinner(FEEDBACK_PANE_ID);
+    getAllFields(getPath(sheetId, sessionQueryId))
+      .then((data) => {
+        let complete = true;
+        const counts = EMPTY_COUNTS;
+        for (const countKey of Object.keys(counts)) {
+          if (!(countKey in data)) {
+            complete = false;
+            continue;
+          }
+          counts[countKey] = Number(data[countKey]);
         }
-        counts[countKey] = Number(data[countKey]);
-      }
-      setResponse({
-        counts,
-        isSubmitted: complete,
+        setResponse({
+          counts,
+          isSubmitted: complete,
+        });
+      })
+      .finally(() => {
+        removeSpinner(FEEDBACK_PANE_ID);
       });
-    });
   }, [sheetId, sessionQueryId, sessionCallId]);
 
   const checkAndSubmit = async (): Promise<boolean> => {
@@ -85,11 +92,11 @@ export function RagAnsFeedback(): JSX.Element {
     if (response.isSubmitted) {
       return Promise.resolve(true);
     }
-    loadSpinner(LOADING_CONTAINER_ID);
     const countsAsStrings = {};
     Object.keys(response.counts).forEach((countKey) => {
       countsAsStrings[countKey] = String(response.counts[countKey]);
     });
+    loadSpinner(FEEDBACK_PANE_ID);
     return Promise.all([
       setFields(getPath(sheetId, sessionQueryId), countsAsStrings),
       saveToSheet(
@@ -108,7 +115,7 @@ export function RagAnsFeedback(): JSX.Element {
         return false;
       })
       .finally(() => {
-        removeSpinner(LOADING_CONTAINER_ID);
+        removeSpinner(FEEDBACK_PANE_ID);
       });
   };
 
@@ -146,11 +153,12 @@ export function RagAnsFeedback(): JSX.Element {
         </Button>
         <EvalList />
       </div>
-      <div id={LOADING_CONTAINER_ID}>
+      <div id={FEEDBACK_FORM_ID}>
         <div className="block-evaluation question-section">
           <div className="title">STATISTICAL CLAIMS EVALUATION</div>
           <div className="subtitle">
-            Count the number of STATISTICAL claims made by the model.
+            Statistical claims total count (e.g., a number retrieved from a
+            table)
           </div>
           {[
             RAG_CLAIM_KEYS.QUERY_TOTAL_STAT_CLAIMS_KEY,
@@ -174,7 +182,7 @@ export function RagAnsFeedback(): JSX.Element {
         <div className="block-evaluation question-section">
           <div className="title">INFERRED CLAIMS EVALUATION</div>
           <div className="subtitle">
-            Count the number of INFERRED claims made by the model.
+            Inferred claims total count (e.g., X is better than Y)
           </div>
           {[
             RAG_CLAIM_KEYS.QUERY_TOTAL_INF_CLAIMS_KEY,
@@ -198,9 +206,6 @@ export function RagAnsFeedback(): JSX.Element {
       </div>
       {evalType === EvalType.RAG && <TablePane />}
       <FeedbackNavigation checkAndSubmit={checkAndSubmit} />
-      <div id="page-screen" className="screen">
-        <div id="spinner"></div>
-      </div>
     </>
   );
 }

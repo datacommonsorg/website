@@ -22,7 +22,7 @@ from flask import render_template
 bp = Blueprint('explore', __name__, url_prefix='/explore')
 
 
-@bp.route('/')
+@bp.route('', strict_slashes=False)
 def page():
   return render_template('/explore.html',
                          manual_ga_pageview=True,
