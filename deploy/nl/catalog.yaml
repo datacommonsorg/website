@@ -81,12 +81,12 @@ indexes:
     embeddings_path: gs://datcom-nl-models/bio_ft_2024_06_24_23_40_05/embeddings.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
     healthcheck_query: "Gene"
-  # base_uae_lance:
-  #   store_type: LANCEDB
-  #   source_path: ../../tools/nl/embeddings/input/base
-  #   embeddings_path: gs://datcom-nl-models/base_uae_lance_2024_06_25_00_00_48
-  #   model: uae-large-v1-model
-  #   healthcheck_query: "Life expectancy"
+  base_uae_lance:
+    store_type: LANCEDB
+    source_path: ../../tools/nl/embeddings/input/base
+    embeddings_path: gs://datcom-nl-models/base_uae_lance_2024_06_25_00_00_48
+    model: uae-large-v1-model
+    healthcheck_query: "Life expectancy"
   base_uae_mem:
     store_type: MEMORY
     source_path: ../../tools/nl/embeddings/input/base

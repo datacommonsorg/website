@@ -22,6 +22,7 @@
     "dc/topic/CommuteTime",
     "dc/topic/CommuteMode",
     "dc/topic/CommuteModeByOccupation",
+    "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome",
     "dc/hbkh95kc7pkb6",
     "dc/0gettc3bc60cb",
     "dc/topic/sdg_11.4",
@@ -36,7 +37,6 @@
     "dc/topic/sdg_8.5",
     "dc/topic/LandUseAndCoverage",
     "dc/topic/sdg_11.5.3",
-    "dc/topic/sdg_8.4.2",
-    "dc/topic/sdg_8.4"
+    "dc/topic/sdg_8.4.2"
   ]
 }
