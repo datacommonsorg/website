@@ -50,8 +50,6 @@ export const QUERY_OVERALL_FEEDBACK_COL = "overall" + FB_SUFFIX;
 export const NEW_QUERY_CALL_ID = 1;
 // The key used in firestore to save the query overall feedback
 export const QUERY_OVERALL_ANS_KEY = "overall";
-// The key used in firestore to save the query overall accuracy feedback
-export const QUERY_OVERALL_ANS_ACCURACY_KEY = "overallAnsAccuracy";
 // The key used in firestore to save the query overall questions feedback
 export const QUERY_OVERALL_QUESTIONS_KEY = "overallQuestions";
 // Firestore keys used to save claims feedback
