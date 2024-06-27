@@ -121,7 +121,7 @@ export function CallFeedback(): JSX.Element {
         }
       })
       .catch((e) => {
-        console.log(e);
+        alert(e);
         setEvalInfo(null);
       })
       .finally(() => {

@@ -126,7 +126,7 @@ function getAnswer(
       return { answer, metadata };
     })
     .catch((e) => {
-      console.log(e);
+      alert(e);
       return { answer: "", metadata };
     });
 }
