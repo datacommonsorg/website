@@ -420,6 +420,7 @@ export async function getQueryResult(
       getTileResults: getElapsedTime(nlResultTime, endTime),
       total: getElapsedTime(startTime, endTime),
     },
+    websiteCommit: process.env.WEBSITE_HASH || "",
   };
   const result: QueryResult = { charts: processedResults, debug };
   if (wantRelatedQuestions) {
