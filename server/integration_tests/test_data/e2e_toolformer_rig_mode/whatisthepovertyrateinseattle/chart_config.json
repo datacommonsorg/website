@@ -40,25 +40,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_Female_BelowPovertyLevelInThePast12Months",
-                      "Count_Person_Male_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Impoverished Population by Gender in Seattle",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "startWithDenom": true,
-            "title": "Impoverished Population by Gender"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
                     ],
                     "title": "Below Poverty Line (Two or More Races) in Seattle",
@@ -81,7 +62,67 @@
             ],
             "denom": "Count_Person",
             "startWithDenom": true,
-            "title": "Impoverished Population by Race"
+            "title": "Below Poverty Line (Two or More Races)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Males in Poverty (In Last Year) in Seattle",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Males in Poverty (In Last Year) in Seattle",
+                    "statVarKey": [
+                      "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Males in Poverty (In Last Year) in Seattle",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "startWithDenom": true,
+            "title": "Males in Poverty (In Last Year)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Women Below Poverty Line in Seattle",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Women Below Poverty Line in Seattle",
+                    "statVarKey": [
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Women Below Poverty Line in Seattle",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "startWithDenom": true,
+            "title": "Women Below Poverty Line"
           }
         ],
         "statVarSpec": {

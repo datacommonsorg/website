@@ -14,7 +14,7 @@
 """Module for NL page data spec"""
 
 import copy
-from typing import cast, List
+from typing import cast, Dict, List
 
 from flask import current_app
 
@@ -33,6 +33,7 @@ from server.lib.nl.fulfillment import overview
 from server.lib.nl.fulfillment import superlative
 from server.lib.nl.fulfillment import triple
 import server.lib.nl.fulfillment.handlers as handlers
+from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 import server.lib.nl.fulfillment.utils as futils
 
@@ -135,7 +136,7 @@ def fulfill(uttr: Utterance) -> PopulateState:
     _prune_non_country_special_dc_vars(state)
 
   if state.uttr.mode == QueryMode.TOOLFORMER_RIG:
-    _prune_topic_vars_for_rig(state)
+    _update_chart_vars_for_rig(state)
 
   # No fallback for toolformer mode!
   if params.is_toolformer_mode(state.uttr.mode):
@@ -242,47 +243,53 @@ def _prune_non_country_special_dc_vars(state: PopulateState):
 
 
 #
-# Prune topic chart vars for toolformer_rig mode
+# Update chart vars map for toolformer rig mode because needs special handling
+# of topics where we only want the stat vars that match both the topic and the
+# actual query.
 #
-def _prune_topic_vars_for_rig(state: PopulateState):
-  # Set of all svs that were detected
-  detected_svs = set([
-      sv for sv in state.uttr.detection.svs_detected.single_sv.svs
-      if not sv.startswith(_TOPIC_PREFIX)
-  ])
-  # skip topics if there are any non topic vars detected
-  skip_topics = any([
-      not var.startswith(_TOPIC_PREFIX) for var in state.chart_vars_map.keys()
-  ])
-  # Go over the chart_vars_map and prune topic vars
-  pruned_chart_vars_map = {}
-  dropped_vars = set()
+def _update_chart_vars_for_rig(state: PopulateState):
+  # set of all svs that are part of a topic
+  topic_svs = set()
   for var, chart_vars_list in state.chart_vars_map.items():
-    # If var is not a topic, do not prune
     if not var.startswith(_TOPIC_PREFIX):
-      pruned_chart_vars_map[var] = chart_vars_list
       continue
-    # if skip topics, skip adding pruned topic vars to pruned map
-    if skip_topics:
-      dropped_vars.add(var)
-      continue
-    # Drop svs that were not separately also detected
-    pruned_chart_vars_list = []
     for cv in chart_vars_list:
-      pruned_cv = copy.deepcopy(cv)
-      pruned_cv.svs = []
-      for v in cv.svs:
-        if v not in detected_svs:
-          dropped_vars.add(v)
-          continue
-        pruned_cv.svs.append(v)
-      if pruned_cv.svs:
-        pruned_chart_vars_list.append(pruned_cv)
-    if pruned_chart_vars_list:
-      pruned_chart_vars_map[var] = pruned_chart_vars_list
+      topic_svs.update(cv.svs)
 
-  if dropped_vars:
+  updated_chart_vars_map: Dict[str, List[ChartVars]] = {}
+
+  # remove topic chart vars
+  dropped_topics = set()
+  for var, chart_vars_list in state.chart_vars_map.items():
+    if var.startswith(_TOPIC_PREFIX):
+      dropped_topics.add(var)
+      continue
+    updated_chart_vars_map[var] = chart_vars_list
+
+  # add chart vars for detected svs with a score above model threshold & part
+  # of a topic that was in the original chart vars
+  added_svs = set()
+  for i, sv in enumerate(state.uttr.detection.svs_detected.single_sv.svs):
+    # skip topic svs
+    if sv.startswith(_TOPIC_PREFIX):
+      continue
+    # skip if score is below default threshold
+    if state.uttr.detection.svs_detected.single_sv.scores[
+        i] < state.uttr.detection.svs_detected.model_threshold:
+      continue
+    # skip if not part of a topic that was detected
+    if not sv in topic_svs:
+      continue
+    updated_chart_vars_map[sv] = updated_chart_vars_map.get(sv, [])
+    updated_chart_vars_map[sv].append(
+        ChartVars(svs=[sv], orig_sv_map={sv: [sv]}))
+    added_svs.add(sv)
+
+  if dropped_topics:
     state.uttr.counters.info('info_toolformer_rig_topic_vars_dropped',
-                             list(dropped_vars))
+                             list(dropped_topics))
+  if added_svs:
+    state.uttr.counters.info('info_toolformer_rig_sv_vars_added',
+                             list(added_svs))
 
-  state.chart_vars_map = pruned_chart_vars_map
+  state.chart_vars_map = updated_chart_vars_map

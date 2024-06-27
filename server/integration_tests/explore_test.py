@@ -724,10 +724,7 @@ class ExploreTestEE2(ExploreTest):
         [
             'what is the infant mortality rate in massachusetts',
             'how many construction workers are in Orlando, Florida?',
-            # should keep poverty topic but prune the vars
             'what is the poverty rate in Seattle?',
-            # should filter out topics
-            "number of households under poverty line in Seattle"
         ],
         mode='toolformer_rig')
 

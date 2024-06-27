@@ -338,13 +338,10 @@ def resolve(nodes, prop):
 
 def nl_search_vars(queries,
                    index_types: List[str],
-                   skip_topics=False,
                    reranker=''):
   """Search sv from NL server."""
   idx_params = ','.join(index_types)
   url = f'{current_app.config["NL_ROOT"]}/api/search_vars?idx={idx_params}'
-  if skip_topics:
-    url = f'{url}&skip_topics={skip_topics}'
   if reranker:
     url = f'{url}&reranker={reranker}'
   return post(url, {'queries': queries})
