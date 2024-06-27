@@ -81,10 +81,6 @@ function setup_python {
         "https://download.pytorch.org/whl/cpu"
       echo_log "Installing Python requirements from $embeddings_req"
       run_cmd pip3 install -r "$embeddings_req"
-      # TODO: remove install once embeddings doesn't need nl_server/requirements.txt
-      nlserver_req="$WEBSITE_DIR/nl_server/requirements.txt"
-      echo_log "Installing Python requirements from $nlserver_req"
-      run_cmd pip3 install -r "$nlserver_req"
     fi
   fi
 }
@@ -223,9 +219,45 @@ function generate_embeddings {
   echo_log "Building embeddings for sentences in $NL_DIR"
   local cwd="$PWD"
   cd "$WEBSITE_DIR"
-  # TODO: Enable with new build_embeddings.py
-  # run_cmd python -m tools.nl.embeddings.build_custom_dc_embeddings \
-  #    --input_file_path="$NL_DIR/sentences.csv" --output_dir="$NL_DIR"
+
+  NL_EMBEDDINGS_DIR="$NL_DIR/embeddings"
+  EMBEDDINGS_PATH="$NL_EMBEDDINGS_DIR/embeddings.csv"
+  CUSTOM_EMBEDDING_INDEX="user_all_minilm_mem"
+  CUSTOM_MODEL="ft-final-v20230717230459-all-MiniLM-L6-v2"
+  CUSTOM_MODEL_PATH="gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2"
+  CUSTOM_CATALOG_DICT=$(cat <<EOF
+{
+  "version": "1",
+  "indexes": {
+    "$CUSTOM_EMBEDDING_INDEX": {
+      "store_type": "MEMORY",
+      "source_path": "$NL_DIR",
+      "embeddings_path": "$EMBEDDINGS_PATH",
+      "model": "$CUSTOM_MODEL"
+    }
+  },
+  "models": {
+    "$CUSTOM_MODEL": {
+      "type": "LOCAL",
+      "usage": "EMBEDDINGS",
+      "gcs_folder": "$CUSTOM_MODEL_PATH",
+      "score_threshold": 0.5
+    }
+  }
+}
+EOF
+)
+  local start_ts=$(date +%s)
+  set -x
+  python -m tools.nl.embeddings.build_embeddings \
+    --embeddings_name "$CUSTOM_EMBEDDING_INDEX" \
+    --output_dir "$NL_EMBEDDINGS_DIR" \
+    --catalog "$CUSTOM_CATALOG_DICT" >> $LOG 2>&1
+  status=$?
+  set +x
+  local duration=$(( $(date +%s) - $start_ts))
+  [[ "$status" == "0" ]] || echo_fatal "Failed to build embeddings"
+  echo_log "Completed building embeddings with status:$status in $duration secs"
   cd "$cwd"
 }
 
