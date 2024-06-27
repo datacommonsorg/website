@@ -32,6 +32,10 @@ set -x
 # their pinned versions (locally only).
 ./scripts/update_git_submodules.sh
 ./scripts/merge_git_submodules.sh
+
+# Configure Git to create commits with Cloud Build's service account
+git config user.email $(gcloud auth list --filter=status:ACTIVE --format='value(account)')
+
 git commit -am "DO NOT PUSH: Temp commit to update pinned submod versions"
 
 website_rev="$(git rev-parse --short HEAD)"
