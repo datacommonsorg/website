@@ -23,14 +23,12 @@ import { loadSpinner, removeSpinner } from "../../shared/util";
 import {
   OVERALL_QUESTIONS_OPTION_HAS_MISSING,
   OVERALL_QUESTIONS_OPTION_NONE_MISSING,
-  QUERY_OVERALL_ANS_ACCURACY_KEY,
   QUERY_OVERALL_ANS_KEY,
   QUERY_OVERALL_FEEDBACK_COL,
   QUERY_OVERALL_OPTION_HALLUCINATION,
   QUERY_OVERALL_OPTION_IRRELEVANT,
   QUERY_OVERALL_OPTION_OK,
-  QUERY_OVERALL_OPTION_RELEVANT,
-  QUERY_OVERALL_OPTION_SOMEWHAT_RELEVANT,
+  QUERY_OVERALL_OPTION_PARTIALLY_COMPLETE,
   QUERY_OVERALL_QUESTIONS_KEY,
 } from "./constants";
 import { AppContext, SessionContext } from "./context";
@@ -90,21 +88,12 @@ const QUESTION_CONFIG: Record<string, Record<string, QuestionConfig>> = {
       questions: [
         {
           firestoreKey: QUERY_OVERALL_ANS_KEY,
-          question: "How relevant is the overall answer to the query?",
+          question: "How well does the LLM answer the user query??",
           responseOptions: {
-            [QUERY_OVERALL_OPTION_IRRELEVANT]: "Not at all relevant",
-            [QUERY_OVERALL_OPTION_SOMEWHAT_RELEVANT]: "Somewhat relevant",
-            [QUERY_OVERALL_OPTION_RELEVANT]: "Relevant",
-          },
-        },
-        {
-          firestoreKey: QUERY_OVERALL_ANS_ACCURACY_KEY,
-          question: "What is the quality of the answer?",
-          responseOptions: {
-            [QUERY_OVERALL_OPTION_HALLUCINATION]:
-              "Poor narrative and/or with hallucinations",
-            [QUERY_OVERALL_OPTION_OK]:
-              "Well written answer with appropriate statistics",
+            [QUERY_OVERALL_OPTION_IRRELEVANT]: "Does not answer the query",
+            [QUERY_OVERALL_OPTION_PARTIALLY_COMPLETE]:
+              "Partially answers the query",
+            [QUERY_OVERALL_OPTION_OK]: "Fully answers the query",
           },
         },
       ],
