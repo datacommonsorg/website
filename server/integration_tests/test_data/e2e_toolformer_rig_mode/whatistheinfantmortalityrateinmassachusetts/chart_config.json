@@ -38,92 +38,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod",
-                      "Count_Death_Upto1Years_CongenitalMalformationsDeformationsChromosomalAbnormalities",
-                      "Count_Death_Upto1Years_DiseasesOfTheCirculatorySystem"
-                    ],
-                    "title": "Causes of Infant Mortality in Massachusetts",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "startWithDenom": true,
-            "title": "Causes of Infant Mortality"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
-                    ],
-                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of Massachusetts (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
-                    ],
-                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of Massachusetts (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "startWithDenom": true,
-            "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of Massachusetts"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_Upto1Years_CongenitalMalformationsDeformationsChromosomalAbnormalities"
-                    ],
-                    "title": "Mortality Events (1 Years or Less): Q00-Q99 ( Congenital Malformations, Deformations and Chromosomal Abnormalities) in Counties of Massachusetts (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Death_Upto1Years_CongenitalMalformationsDeformationsChromosomalAbnormalities"
-                    ],
-                    "title": "Mortality Events (1 Years or Less): Q00-Q99 ( Congenital Malformations, Deformations and Chromosomal Abnormalities) in Counties of Massachusetts (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "startWithDenom": true,
-            "title": "Mortality Events (1 Years or Less): Q00-Q99 ( Congenital Malformations, Deformations and Chromosomal Abnormalities) in Counties of Massachusetts"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female"
                     ],
                     "title": "Count of Mortality Event: 1 Years or Less, Female (As Fraction of Count Birth Event Female) in Massachusetts",
@@ -180,6 +94,69 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
+                    ],
+                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Massachusetts",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Massachusetts",
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
+                    ],
+                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Massachusetts",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "startWithDenom": true,
+            "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
+                    ],
+                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of Massachusetts (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
+                    ],
+                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of Massachusetts (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "startWithDenom": true,
+            "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of Massachusetts"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years"
                     ],
                     "title": "Count of Mortality Event: 14 Years or Less (As Fraction of Count Person Upto 14 Years) in Massachusetts",
@@ -223,14 +200,6 @@
           "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod": {
             "name": "Mortality Events (1 Years or Less): Certain Conditions Originating in The Perinatal Period)",
             "statVar": "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
-          },
-          "Count_Death_Upto1Years_CongenitalMalformationsDeformationsChromosomalAbnormalities": {
-            "name": "Mortality Events (1 Years or Less): Q00-Q99 ( Congenital Malformations, Deformations And Chromosomal Abnormalities)",
-            "statVar": "Count_Death_Upto1Years_CongenitalMalformationsDeformationsChromosomalAbnormalities"
-          },
-          "Count_Death_Upto1Years_DiseasesOfTheCirculatorySystem": {
-            "name": "Mortality Events (1 Years or Less): Diseases of The Circulatory System",
-            "statVar": "Count_Death_Upto1Years_DiseasesOfTheCirculatorySystem"
           }
         }
       }

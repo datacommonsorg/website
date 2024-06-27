@@ -722,7 +722,10 @@ class ExploreTestEE2(ExploreTest):
     self.run_detect_and_fulfill('e2e_toolformer_rig_mode', [
         'what is the infant mortality rate in massachusetts',
         'how many construction workers are in Orlando, Florida?',
-        'what is the poverty rate in Seattle?'
+        # should keep poverty topic but prune the vars
+        'what is the poverty rate in Seattle?',
+        # should filter out topics
+        "number of households under poverty line in Seattle"
     ],
                                 mode='toolformer_rig')
 

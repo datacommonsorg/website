@@ -240,6 +240,7 @@ def _prune_non_country_special_dc_vars(state: PopulateState):
 
   state.chart_vars_map = pruned_chart_vars_map
 
+
 #
 # Prune topic chart vars for toolformer_rig mode
 #
@@ -249,6 +250,10 @@ def _prune_topic_vars_for_rig(state: PopulateState):
       sv for sv in state.uttr.detection.svs_detected.single_sv.svs
       if not sv.startswith(_TOPIC_PREFIX)
   ])
+  # skip topics if there are any non topic vars detected
+  skip_topics = any([
+      not var.startswith(_TOPIC_PREFIX) for var in state.chart_vars_map.keys()
+  ])
   # Go over the chart_vars_map and prune topic vars
   pruned_chart_vars_map = {}
   dropped_vars = set()
@@ -256,6 +261,10 @@ def _prune_topic_vars_for_rig(state: PopulateState):
     # If var is not a topic, do not prune
     if not var.startswith(_TOPIC_PREFIX):
       pruned_chart_vars_map[var] = chart_vars_list
+      continue
+    # if skip topics, skip adding pruned topic vars to pruned map
+    if skip_topics:
+      dropped_vars.add(var)
       continue
     # Drop svs that were not separately also detected
     pruned_chart_vars_list = []
