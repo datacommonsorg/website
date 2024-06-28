@@ -40,6 +40,12 @@ class CdcAutopushTest(unittest.TestCase):
   def test_homepage_load(self):
     """Tests that the base autopush URL loads successfully."""
     self.driver.get(self.url_)
-    req = urllib.request.Request(self.driver.current_url)
+    url = self.driver.current_url
+    # Validate URL scheme for Codacy.
+    if url.lower().startswith('http'):
+      req = urllib.request.Request(url)
+    else:
+      raise ValueError from None
+
     with urllib.request.urlopen(req) as response:
       self.assertEqual(response.getcode(), 200)
