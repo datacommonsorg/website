@@ -46,10 +46,10 @@ footer {
 
 .table-pane {
   overflow: auto;
-  height: 50%;
   padding: 11px 24px;
   width: 100%;
   border-top: solid 1px var(--gm-3-sys-light-outline-variant);
+  flex-grow: 1;
 
   .Collapsible__trigger.is-open + .Collapsible__contentOuter {
     overflow-x: visible !important;
@@ -190,11 +190,11 @@ label {
   #form-container {
     border-top: solid 1px var(--gm-3-sys-light-outline-variant);
     padding: 16px 24px;
-    flex-grow: 1;
     overflow: auto;
+    flex-shrink: 0;
 
     .question-section .title {
-      font-size: 16px;
+      font-size: 11px;
       font-weight: 500;
       color: var(--gm-3-ref-neutral-neutral-50);
       line-height: 16px;
