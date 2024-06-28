@@ -160,48 +160,56 @@ export function RagAnsFeedback(): JSX.Element {
             Statistical claims total count (e.g., a number retrieved from a
             table)
           </div>
-          {[
-            RAG_CLAIM_KEYS.QUERY_TOTAL_STAT_CLAIMS_KEY,
-            RAG_CLAIM_KEYS.QUERY_FALSE_STAT_CLAIMS_KEY,
-            RAG_CLAIM_KEYS.QUERY_TABLES_USED_KEY,
-          ].map((cntKey) => {
-            return (
-              <div
-                className={`counter${response.isSubmitted ? " disabled" : ""}`}
-                key={cntKey}
-              >
-                <ClaimCounter
-                  count={response.counts[cntKey]}
-                  onCountUpdated={(count) => onCountUpdated(count, cntKey)}
-                  label={COUNTER_LABELS[cntKey]}
-                />
-              </div>
-            );
-          })}
+          <div className="counter-group">
+            {[
+              RAG_CLAIM_KEYS.QUERY_TOTAL_STAT_CLAIMS_KEY,
+              RAG_CLAIM_KEYS.QUERY_FALSE_STAT_CLAIMS_KEY,
+              RAG_CLAIM_KEYS.QUERY_TABLES_USED_KEY,
+            ].map((cntKey) => {
+              return (
+                <div
+                  className={`counter${
+                    response.isSubmitted ? " disabled" : ""
+                  }`}
+                  key={cntKey}
+                >
+                  <ClaimCounter
+                    count={response.counts[cntKey]}
+                    onCountUpdated={(count) => onCountUpdated(count, cntKey)}
+                    label={COUNTER_LABELS[cntKey]}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
         <div className="block-evaluation question-section">
           <div className="title">INFERRED CLAIMS EVALUATION</div>
           <div className="subtitle">
             Inferred claims total count (e.g., X is better than Y)
           </div>
-          {[
-            RAG_CLAIM_KEYS.QUERY_TOTAL_INF_CLAIMS_KEY,
-            RAG_CLAIM_KEYS.QUERY_FALSE_INF_CLAIMS_KEY,
-            RAG_CLAIM_KEYS.QUERY_UNSUB_INF_CLAIMS_KEY,
-          ].map((cntKey) => {
-            return (
-              <div
-                className={`counter${response.isSubmitted ? " disabled" : ""}`}
-                key={cntKey}
-              >
-                <ClaimCounter
-                  count={response.counts[cntKey]}
-                  onCountUpdated={(count) => onCountUpdated(count, cntKey)}
-                  label={COUNTER_LABELS[cntKey]}
-                />
-              </div>
-            );
-          })}
+          <div className="counter-group">
+            {[
+              RAG_CLAIM_KEYS.QUERY_TOTAL_INF_CLAIMS_KEY,
+              RAG_CLAIM_KEYS.QUERY_FALSE_INF_CLAIMS_KEY,
+              RAG_CLAIM_KEYS.QUERY_UNSUB_INF_CLAIMS_KEY,
+            ].map((cntKey) => {
+              return (
+                <div
+                  className={`counter${
+                    response.isSubmitted ? " disabled" : ""
+                  }`}
+                  key={cntKey}
+                >
+                  <ClaimCounter
+                    count={response.counts[cntKey]}
+                    onCountUpdated={(count) => onCountUpdated(count, cntKey)}
+                    label={COUNTER_LABELS[cntKey]}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
       {evalType === EvalType.RAG && <TablePane />}
