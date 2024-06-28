@@ -15,18 +15,18 @@
 
 # Usage function
 usage() {
-  echo "Usage: $0 --embeddings_name <embeddings-name> --output_dir <output_dir>"
+  echo "Usage: $0 -e <embeddings-name> -o <output_dir>"
   exit 1
 }
 
 # Parse options
 while [[ "$#" -gt 0 ]]; do
   case $1 in
-    --embeddings_name)
+    -e)
         embeddings_name="$2"
         shift 2
         ;;
-    --output_dir)
+    -o)
         output_dir="$2"
         shift 2
         ;;
