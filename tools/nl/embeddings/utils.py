@@ -30,11 +30,11 @@ import pandas as pd
 import yaml
 
 from nl_server import config_reader
-from nl_server import registry
 from nl_server.config import Catalog
 from nl_server.config import Env
 from nl_server.config import IndexConfig
 from nl_server.embeddings import EmbeddingsModel
+from nl_server.model.create import create_embeddings_model
 from shared.lib import constants
 from shared.lib import gcs
 from tools.nl.embeddings.file_manager import FileManager
@@ -76,8 +76,7 @@ def get_model(catalog: Catalog, env: Env, model_name: str) -> EmbeddingsModel:
     vertex_ai_config = env.vertex_ai_models[model_name]
     model_config = config_reader.merge_vertex_ai_configs(
         model_config, vertex_ai_config)
-  model = registry.create_model(model_config)
-  return model
+  return create_embeddings_model(model_config)
 
 
 def load_existing_embeddings(embeddings_path: str) -> List[Embedding]:
