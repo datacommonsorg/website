@@ -28,8 +28,14 @@ import {
   QA_SHEET,
 } from "./constants";
 import { AppContext, SessionContext } from "./context";
-import { EvalType, FeedbackStage } from "./types";
+import { DcCall, EvalType, FeedbackStage, Query } from "./types";
 import { processText } from "./util";
+
+interface AnswerMetadata {
+  evalType: EvalType;
+  feedbackStage: FeedbackStage;
+  sessionQueryId: number;
+}
 
 function getFormattedRagCallAnswer(
   dcQuestion: string,
@@ -41,50 +47,96 @@ function getFormattedRagCallAnswer(
   return `<span class="annotation annotation-rag annotation-${tableId}">${formattedQuestion}<br/>${formattedStat}</span>`;
 }
 
+function getAnswerFromRagCalls(
+  doc: GoogleSpreadsheet,
+  allCall: Record<number, DcCall>,
+  sessionQueryId: number
+): Promise<string> {
+  if (!allCall[sessionQueryId]) {
+    return Promise.resolve("");
+  }
+  const sheet = doc.sheetsByTitle[DC_CALL_SHEET];
+  const tableIds = Object.keys(allCall[sessionQueryId]).sort(
+    (a, b) => Number(a) - Number(b)
+  );
+  const rowPromises = tableIds.map((tableId) => {
+    const rowIdx = allCall[sessionQueryId][tableId];
+    return sheet.getRows({ offset: rowIdx - 1, limit: 1 });
+  });
+  return Promise.all(rowPromises).then((rowsList) => {
+    const answers = [];
+    rowsList.forEach((rows, i) => {
+      const row = rows[0];
+      const dcQuestion = row.get(DC_QUESTION_COL);
+      const dcStat = row.get(DC_RESPONSE_COL);
+      answers.push(getFormattedRagCallAnswer(dcQuestion, dcStat, tableIds[i]));
+    });
+    return answers.join("\n\n");
+  });
+}
+
+function getAnswerFromQA(
+  doc: GoogleSpreadsheet,
+  allQuery: Record<number, Query>,
+  sessionQueryId: number
+): Promise<string> {
+  const sheet = doc.sheetsByTitle[QA_SHEET];
+  const rowIdx = allQuery[sessionQueryId].row;
+  return sheet.getRows({ offset: rowIdx - 1, limit: 1 }).then((rows) => {
+    const row = rows[0];
+    if (row) {
+      return row.get(ANSWER_COL) || "";
+    }
+  });
+}
+
+function getAnswer(
+  doc: GoogleSpreadsheet,
+  allQuery: Record<number, Query>,
+  allCall: Record<number, DcCall>,
+  evalType: EvalType,
+  feedbackStage: FeedbackStage,
+  sessionQueryId: number
+): Promise<{ answer: string; metadata: AnswerMetadata }> {
+  const metadata = {
+    evalType,
+    feedbackStage,
+    sessionQueryId,
+  };
+  let answerPromise = null;
+  if (evalType === EvalType.RIG) {
+    answerPromise = () => getAnswerFromQA(doc, allQuery, sessionQueryId);
+  } else {
+    // RAG eval type has different things that should be shown in this section
+    // depending on the feedback stage
+    if (
+      feedbackStage === FeedbackStage.CALLS ||
+      feedbackStage === FeedbackStage.OVERALL_QUESTIONS
+    ) {
+      answerPromise = () => getAnswerFromRagCalls(doc, allCall, sessionQueryId);
+    } else {
+      answerPromise = () => getAnswerFromQA(doc, allQuery, sessionQueryId);
+    }
+  }
+  if (!answerPromise) {
+    return Promise.resolve({ answer: "", metadata });
+  }
+  return answerPromise()
+    .then((answer) => {
+      return { answer, metadata };
+    })
+    .catch((e) => {
+      alert(e);
+      return { answer: "", metadata };
+    });
+}
+
 export function QuerySection(): JSX.Element {
   const { allCall, allQuery, doc, evalType } = useContext(AppContext);
   const { sessionQueryId, sessionCallId, feedbackStage } =
     useContext(SessionContext);
-
   const [answer, setAnswer] = useState<string>("");
   const prevHighlightedRef = useRef<HTMLSpanElement | null>(null);
-
-  const loadAnswer = (doc: GoogleSpreadsheet, rowIdx: number) => {
-    const sheet = doc.sheetsByTitle[QA_SHEET];
-    sheet.getRows({ offset: rowIdx - 1, limit: 1 }).then((rows) => {
-      const row = rows[0];
-      if (row) {
-        setAnswer(row.get(ANSWER_COL));
-      }
-    });
-  };
-
-  const loadRagCalls = () => {
-    if (!allCall[sessionQueryId]) {
-      setAnswer("");
-      return;
-    }
-    const sheet = doc.sheetsByTitle[DC_CALL_SHEET];
-    const tableIds = Object.keys(allCall[sessionQueryId]).sort(
-      (a, b) => Number(a) - Number(b)
-    );
-    const rowPromises = tableIds.map((tableId) => {
-      const rowIdx = allCall[sessionQueryId][tableId];
-      return sheet.getRows({ offset: rowIdx - 1, limit: 1 });
-    });
-    Promise.all(rowPromises).then((rowsList) => {
-      const answers = [];
-      rowsList.forEach((rows, i) => {
-        const row = rows[0];
-        const dcQuestion = row.get(DC_QUESTION_COL);
-        const dcStat = row.get(DC_RESPONSE_COL);
-        answers.push(
-          getFormattedRagCallAnswer(dcQuestion, dcStat, tableIds[i])
-        );
-      });
-      setAnswer(answers.join("\n\n"));
-    });
-  };
 
   useEffect(() => {
     // Remove highlight from previous annotation
@@ -108,20 +160,25 @@ export function QuerySection(): JSX.Element {
   }, [answer, sessionCallId, feedbackStage]);
 
   useEffect(() => {
-    if (evalType === EvalType.RIG) {
-      loadAnswer(doc, allQuery[sessionQueryId].row);
-    } else {
-      // RAG eval type has different things that should be shown in this section
-      // depending on the feedback stage
+    getAnswer(
+      doc,
+      allQuery,
+      allCall,
+      evalType,
+      feedbackStage,
+      sessionQueryId
+    ).then(({ answer, metadata }) => {
+      // Set empty answer if metadata doesn't match current state.
       if (
-        feedbackStage === FeedbackStage.CALLS ||
-        feedbackStage === FeedbackStage.OVERALL_QUESTIONS
+        metadata.evalType !== evalType ||
+        metadata.feedbackStage !== feedbackStage ||
+        metadata.sessionQueryId !== sessionQueryId
       ) {
-        loadRagCalls();
+        return;
       } else {
-        loadAnswer(doc, allQuery[sessionQueryId].row);
+        setAnswer(answer);
       }
-    }
+    });
   }, [doc, allQuery, sessionQueryId, evalType, feedbackStage]);
 
   const answerHeading =

@@ -28,8 +28,15 @@
 set -e
 set -x
 
-# Get the latest versions of all submodules (maybe newer than pinned versions)
+# Initialize all submodules, then merge them with their masters and update
+# their pinned versions (locally only).
+./scripts/update_git_submodules.sh
 ./scripts/merge_git_submodules.sh
+
+# Configure Git to create commits with Cloud Build's service account
+git config user.email $(gcloud auth list --filter=status:ACTIVE --format='value(account)')
+
+git commit -am "DO NOT PUSH: Temp commit to update pinned submod versions"
 
 website_rev="$(git rev-parse --short HEAD)"
 mixer_rev="$(git rev-parse --short HEAD:mixer)"

@@ -59,7 +59,7 @@ website and mixer changes.
 - Protoc 3.21.9
 
   Install [`protoc`](https://grpc.io/docs/protoc-installation/) at version
-  3.21.9.
+  [3.21.9](https://github.com/protocolbuffers/protobuf/releases/tag/v21.9).
 
 - [Optional] gcloud
 

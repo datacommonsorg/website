@@ -24,6 +24,7 @@ import {
   CALL_ID_COL,
   DC_CALL_SHEET,
   DC_METADATA_SHEET,
+  FEEDBACK_PANE_ID,
   METADATA_KEY_COL,
   METADATA_KEY_TYPE,
   METADATA_VAL_COL,
@@ -215,6 +216,7 @@ export function App(props: AppPropType): JSX.Element {
             href={`https://docs.google.com/spreadsheets/d/${props.sheetId}`}
             target="_blank"
             rel="noopener noreferrer"
+            className="google-sheet-link"
           >
             Google Sheet Link
           </a>
@@ -232,7 +234,7 @@ export function App(props: AppPropType): JSX.Element {
             >
               <div className="app-content">
                 <QuerySection />
-                <div className="feedback-pane">
+                <div className="feedback-pane" id={FEEDBACK_PANE_ID}>
                   {(feedbackStage === FeedbackStage.OVERALL_ANS ||
                     feedbackStage === FeedbackStage.OVERALL_QUESTIONS) && (
                     <OverallFeedback />
@@ -241,6 +243,9 @@ export function App(props: AppPropType): JSX.Element {
                   {feedbackStage === FeedbackStage.RAG_ANS && (
                     <RagAnsFeedback />
                   )}
+                  <div id="page-screen" className="screen">
+                    <div id="spinner"></div>
+                  </div>
                 </div>
               </div>
             </AppContext.Provider>

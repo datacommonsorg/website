@@ -1,0 +1,25 @@
+sentence,dcid
+SV1 more text,SV_1
+SV1 palm text sentence,SV_1
+SV2 more text,SV_2;SV_3
+abc1,SV_1
+abc2,SV_2
+abc3,SV_3
+desc1,SV_1
+desc2,SV_2
+desc3,SV_3
+even more text for SV2,SV_2
+name1,SV_1
+name2,SV_2
+name3,SV_3
+override3,SV_3
+palm SV3 more text,SV_3
+palm text for SV1,SV_1
+random string for SV3,SV_3
+some text for SV1,SV_1
+some text for SV2,SV_2
+some text for SV3,SV_3
+some text from palm for SV3,SV_3
+xyz1,SV_1
+xyz2,SV_2
+xyz3,SV_3

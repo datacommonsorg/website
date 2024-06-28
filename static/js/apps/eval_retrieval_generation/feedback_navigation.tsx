@@ -156,8 +156,8 @@ export function FeedbackNavigation(
       while (!(targetId in userQuery)) {
         targetId -= 1;
       }
-      setSessionQueryId(targetId);
       setFeedbackStage(getFirstFeedbackStage(evalType));
+      setSessionQueryId(targetId);
       setSessionCallId(NEW_QUERY_CALL_ID);
     }
   };
@@ -190,8 +190,8 @@ export function FeedbackNavigation(
       while (!(targetId in userQuery)) {
         targetId += 1;
       }
-      setSessionQueryId(targetId);
       setFeedbackStage(getFirstFeedbackStage(evalType));
+      setSessionQueryId(targetId);
       setSessionCallId(NEW_QUERY_CALL_ID);
     }
   };
