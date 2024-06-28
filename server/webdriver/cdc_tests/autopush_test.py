@@ -12,15 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from server.webdriver import shared
-from server.webdriver.base_utils import create_driver
-
 import unittest
 import urllib
 import urllib.request
 
+from server.webdriver import shared
+from server.webdriver.base_utils import create_driver
+
 # From project datcom-website-dev > Cloud Run: dc-autopush > Revisions
 CDC_AUTOPUSH_URL = 'https://dc-autopush-kqb7thiuka-uc.a.run.app'
+
 
 class CdcAutopushTest(unittest.TestCase):
 
@@ -48,5 +49,5 @@ class CdcAutopushTest(unittest.TestCase):
     # Disable Bandit security check 310. http scheme is already checked above.
     # Codacity still calls out the error so disable the check.
     # https://bandit.readthedocs.io/en/latest/blacklists/blacklist_calls.html#b310-urllib-urlopen
-    with urllib.request.urlopen(req) as response: # nosec B310
+    with urllib.request.urlopen(req) as response:  # nosec B310
       self.assertEqual(response.getcode(), 200)
