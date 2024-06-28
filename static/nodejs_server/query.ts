@@ -81,7 +81,8 @@ function getBlockTileResults(
   useChartUrl: boolean,
   apikey: string,
   apiRoot: string,
-  allowedTilesTypes?: Set<string>
+  allowedTilesTypes?: Set<string>,
+  mode?: string
 ): Promise<TileResult[] | TileResult>[] {
   const tilePromises = [];
   const svProvider = new StatVarProvider(svSpec);
@@ -105,7 +106,8 @@ function getBlockTileResults(
               apiRoot,
               urlRoot,
               useChartUrl,
-              apikey
+              apikey,
+              mode
             )
           );
           break;
@@ -137,7 +139,8 @@ function getBlockTileResults(
               apiRoot,
               urlRoot,
               useChartUrl,
-              apikey
+              apikey,
+              mode
             )
           );
           break;
@@ -381,7 +384,8 @@ export async function getQueryResult(
             useChartUrl,
             apikey,
             apiRoot,
-            allowedTileTypes
+            allowedTileTypes,
+            mode
           );
       }
       tilePromises.push(...blockTilePromises);
@@ -416,6 +420,7 @@ export async function getQueryResult(
       getTileResults: getElapsedTime(nlResultTime, endTime),
       total: getElapsedTime(startTime, endTime),
     },
+    websiteCommit: process.env.WEBSITE_HASH || "",
   };
   const result: QueryResult = { charts: processedResults, debug };
   if (wantRelatedQuestions) {
