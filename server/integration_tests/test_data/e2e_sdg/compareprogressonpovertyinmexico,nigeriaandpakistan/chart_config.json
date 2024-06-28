@@ -101,9 +101,9 @@
                     ],
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_multiple_place_bar_block",
-                      "sdg/SI_POV_DAY1.AGE--Y_GE65_multiple_place_bar_block",
                       "sdg/SI_POV_DAY1.AGE--Y0T14_multiple_place_bar_block",
                       "sdg/SI_POV_DAY1.AGE--Y15T64_multiple_place_bar_block",
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65_multiple_place_bar_block",
                       "sdg/SI_POV_DAY1.SEX--F_multiple_place_bar_block",
                       "sdg/SI_POV_DAY1.SEX--M_multiple_place_bar_block",
                       "sdg/SI_POV_DAY1.URBANISATION--R_multiple_place_bar_block",
@@ -601,6 +601,13 @@
       {
         "dcid": "dc/topic/sdg_1.a",
         "name": "1.a: Ensure significant mobilization of resources from a variety of sources, including through enhanced development cooperation, in order to provide adequate and predictable means for developing countries, in particular least developed countries, to implement programmes and policies to end poverty in all its dimensions",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_1.b",
+        "name": "1.b: Create sound policy frameworks at the national, regional and international levels, based on pro-poor and gender-sensitive development strategies, to support accelerated investment in poverty eradication actions",
         "types": [
           "Topic"
         ]
