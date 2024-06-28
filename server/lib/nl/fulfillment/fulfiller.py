@@ -131,6 +131,7 @@ def fulfill(uttr: Utterance) -> PopulateState:
       state.chart_vars_map = topic.compute_chart_vars(state)
   else:
     state.chart_vars_map = topic.compute_chart_vars(state)
+    # only do toolformer rig updates in single sv case
     if state.uttr.mode == QueryMode.TOOLFORMER_RIG:
       _update_chart_vars_for_rig(state)
 
