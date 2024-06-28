@@ -28,9 +28,9 @@ import {
   QA_SHEET,
 } from "./constants";
 import { AppContext, SessionContext } from "./context";
+import { getSheetsRows } from "./data_store";
 import { DcCall, EvalType, FeedbackStage, Query } from "./types";
 import { processText } from "./util";
-import { getSheetsRows } from "./data_store";
 
 interface AnswerMetadata {
   evalType: EvalType;
@@ -67,15 +67,15 @@ function getAnswerFromRagCalls(
     const answers = [];
     tableIds.forEach((tableId) => {
       const rowIdx = allCall[sessionQueryId][tableId];
-      const row = rows[rowIdx]
+      const row = rows[rowIdx];
       if (row) {
         const dcQuestion = row.get(DC_QUESTION_COL);
         const dcStat = row.get(DC_RESPONSE_COL);
         answers.push(getFormattedRagCallAnswer(dcQuestion, dcStat, tableId));
       }
-    })
+    });
     return answers.join("\n\n");
-  })
+  });
 }
 
 function getAnswerFromQA(

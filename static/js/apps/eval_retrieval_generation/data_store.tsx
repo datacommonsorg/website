@@ -193,7 +193,6 @@ export async function getCallCount(
   return snapshot.data().count;
 }
 
-
 /**
  * Returns a promise to get a record of row idx to google sheet row
  * @param sheet the sheet to get rows from
