@@ -41,7 +41,6 @@ STOP_WORDS: Set[str] = {
     'yours',
     'such',
     'into',
-    'of',
     'most',
     'itself',
     'other',
@@ -96,7 +95,6 @@ STOP_WORDS: Set[str] = {
     'and',
     'been',
     'have',
-    'in',
     'will',
     'on',
     'does',
@@ -150,6 +148,10 @@ STOP_WORDS: Set[str] = {
     'among',
     'across',
 }
+
+# For a stop words, if it is preceeded or trailed by certain words, don't trim
+# it.
+STOP_WORDS_EXCEPTION = {'how': ['', 'many'], 'of': ['number', '']}
 
 # Note: These heuristics should be revisited if we change
 # query preprocessing (e.g. stopwords, stemming)

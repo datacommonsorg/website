@@ -10,22 +10,25 @@
   "comparisonVariables": [],
   "context": {},
   "debug": {},
-  "entities": [
-    "geoId/32"
-  ],
+  "entities": ["geoId/32"],
   "nonPlaceEntities": [],
   "properties": [],
   "sessionId": "007_999999999",
   "variables": [
     "dc/xj2nk2bg60fg",
+    "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue",
+    "WagesTotal_Worker_NAICSInformation",
+    "Count_Worker_NAICSInformation",
     "ReceiptsOrRevenue_Establishment_NAICSInformation_WithPayroll",
     "WagesAnnual_Establishment_NAICSInformation",
-    "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue",
-    "dc/topic/Income",
+    "Count_Person_Employed_NACE/J",
+    "USStateQuarterlyIndustryGDP_NAICS_51",
+    "Count_Establishment_NAICSInformation",
     "dc/topic/IndividualIncomeByIndustry",
-    "Count_Worker_NAICSInformation",
-    "WagesTotal_Worker_NAICSInformation",
-    "Count_Person_16OrMoreYears_WithEarnings",
-    "dc/topic/IndustriesByRevenue"
+    "Count_Person_15OrMoreYears_WithIncome",
+    "dc/5hv2p802zmh03",
+    "ReceiptsOrRevenue_Establishment_NAICSProfessionalScientificTechnicalServices_WithPayroll",
+    "dc/topic/Income",
+    "dc/jefhcs9qxc971"
   ]
 }

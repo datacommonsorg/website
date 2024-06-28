@@ -305,65 +305,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Percent_Person_18To64Years_ReceivedNoHealthInsurance"
-                    ],
-                    "title": "Percentage of Population Aged 18-64 With No Health Insurance in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Percentage of Population Aged 18-64 With No Health Insurance in California",
-                    "statVarKey": [
-                      "Percent_Person_18To64Years_ReceivedNoHealthInsurance"
-                    ],
-                    "title": "Percentage of Population Aged 18-64 With No Health Insurance in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Percentage of Population Aged 18-64 With No Health Insurance"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Percent_Person_18To64Years_ReceivedNoHealthInsurance"
-                    ],
-                    "title": "Percentage of Population Aged 18-64 With No Health Insurance in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Percent_Person_18To64Years_ReceivedNoHealthInsurance"
-                    ],
-                    "title": "Percentage of Population Aged 18-64 With No Health Insurance in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Percentage of Population Aged 18-64 With No Health Insurance in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Percent_Person_WithDiabetes"
                     ],
                     "title": "Diabetes in California",
@@ -416,6 +357,65 @@
               }
             ],
             "title": "Diabetes in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_18To64Years_ReceivedNoHealthInsurance"
+                    ],
+                    "title": "Percentage of Population Aged 18-64 With No Health Insurance in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Percentage of Population Aged 18-64 With No Health Insurance in California",
+                    "statVarKey": [
+                      "Percent_Person_18To64Years_ReceivedNoHealthInsurance"
+                    ],
+                    "title": "Percentage of Population Aged 18-64 With No Health Insurance in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Percentage of Population Aged 18-64 With No Health Insurance"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_18To64Years_ReceivedNoHealthInsurance"
+                    ],
+                    "title": "Percentage of Population Aged 18-64 With No Health Insurance in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_18To64Years_ReceivedNoHealthInsurance"
+                    ],
+                    "title": "Percentage of Population Aged 18-64 With No Health Insurance in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Percentage of Population Aged 18-64 With No Health Insurance in Counties of California"
           }
         ],
         "statVarSpec": {

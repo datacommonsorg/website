@@ -9,16 +9,75 @@
               {
                 "tiles": [
                   {
-                    "type": "PLACE_OVERVIEW"
+                    "statVarKey": [
+                      "dc/0gettc3bc60cb"
+                    ],
+                    "title": "Drive Alone in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Drive Alone in California",
+                    "statVarKey": [
+                      "dc/0gettc3bc60cb"
+                    ],
+                    "title": "Drive Alone in California",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
-            ]
+            ],
+            "denom": "Count_Person",
+            "title": "Drive Alone"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/0gettc3bc60cb"
+                    ],
+                    "title": "Drive Alone in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/0gettc3bc60cb"
+                    ],
+                    "title": "Drive Alone in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Drive Alone in Counties of California"
           }
-        ]
+        ],
+        "statVarSpec": {
+          "dc/0gettc3bc60cb": {
+            "name": "Drive alone",
+            "statVar": "dc/0gettc3bc60cb"
+          }
+        }
       }
     ],
     "metadata": {
+      "containedPlaceTypes": {
+        "State": "County"
+      },
       "placeDcid": [
         "geoId/06"
       ]
@@ -43,10 +102,7 @@
     }
   ],
   "relatedThings": {},
-  "showForm": true,
-  "svSource": "UNRECOGNIZED",
-  "userMessage": "Could not recognize any topic from the query. See available topic categories for California.",
-  "userMessages": [
-    "Could not recognize any topic from the query. See available topic categories for California."
-  ]
+  "svSource": "CURRENT_QUERY",
+  "userMessage": "",
+  "userMessages": []
 }

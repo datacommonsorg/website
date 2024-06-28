@@ -7,7 +7,7 @@
     "volvox"
   ],
   "entities_resolved": "(name: Volvox, dcid: bio/D044446); (name: Volvox, dcid: dc/003ye83smktt7); (name: Volvox, dcid: dc/3rbv0rhm76sg8); (name: Volvox, dcid: dc/5zhg2q9l2n378); (name: Volvox, dcid: dc/953xfs4xh2bm5); (name: Volvox, dcid: dc/9fzm6f7k7etm4); (name: Volvox, dcid: dc/9xy7ymdmzyzdf); (name: Volvox, dcid: dc/b090kbyb0sz5b); (name: Volvox, dcid: dc/ccyhttectv5n2); (name: Volvox, dcid: dc/cd735b0hd6nh8); (name: Volvox, dcid: dc/ds26y3mt8z3c4); (name: Volvox, dcid: dc/erp74w62y7x4h); (name: Volvox, dcid: dc/fnqkx4gtrh1f7); (name: Volvox, dcid: dc/fzfq3lff3kf34); (name: Volvox, dcid: dc/ghtpcec74knl7); (name: Volvox, dcid: dc/h8ncxq8y6bkj2); (name: Volvox, dcid: dc/pdhk5jc41d636); (name: Volvox, dcid: dc/vxzgmlszw0zfh); (name: Volvox, dcid: dc/xvhwj1943wgf9); (name: Volvox, dcid: dc/yg1kw13e813e9); (name: Volvox, dcid: dc/z9x1mlh4pxzb7); (name: Volvox, dcid: dc/zsn19vpl9fy76); ",
-  "query_with_places_removed": "what is the phylum of",
+  "query_with_places_removed": "what is the phylum",
   "sv_matching": {
     "CosineScore": [
       0.35510891675949097,
@@ -35,7 +35,7 @@
       0.3039420545101166
     ],
     "MultiSV": {},
-    "Query": "what is the phylum of",
+    "Query": "what is the phylum",
     "SV": [
       "dc/topic/SDGBiodiversity",
       "Count_Person_5OrMoreYears_OtherIndicLanguagesSpokenAtHome",
@@ -159,12 +159,12 @@
     "places_found_str": [],
     "query_transformations": {
       "place_detection_input": "What is the phylum of volvox",
-      "place_detection_with_places_removed": "what is the phylum of",
+      "place_detection_with_places_removed": "what is the phylum",
       "sv_detection_query_index_types": [
         "medium_ft",
         "bio_ft"
       ],
-      "sv_detection_query_input": "what is the phylum of",
+      "sv_detection_query_input": "what is the phylum",
       "sv_detection_query_stop_words_removal": "phylum"
     }
   }

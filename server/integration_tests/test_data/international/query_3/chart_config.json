@@ -99,34 +99,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
-                    ],
-                    "title": "Growth Rate of GDP in Spain",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Growth Rate of GDP in Spain",
-                    "statVarKey": [
-                      "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
-                    ],
-                    "title": "Growth Rate of GDP in Spain",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Growth Rate of GDP"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person"
                     ],
                     "title": "Economic Activity: Nominal GDP (Nominal, Per Capita) in Eurostat Nuts 3 Places of Spain (${date})",
@@ -179,6 +151,34 @@
               }
             ],
             "title": "Economic Activity: Nominal GDP (Nominal, Per Capita)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+                    ],
+                    "title": "Growth Rate of GDP in Spain",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Growth Rate of GDP in Spain",
+                    "statVarKey": [
+                      "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+                    ],
+                    "title": "Growth Rate of GDP in Spain",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Growth Rate of GDP"
           },
           {
             "columns": [
@@ -242,6 +242,34 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
+                    ],
+                    "title": "Gross National Income Based on Purchasing Power Parity Per Capita in Spain",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Gross National Income Based on Purchasing Power Parity Per Capita in Spain",
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
+                    ],
+                    "title": "Gross National Income Based on Purchasing Power Parity Per Capita in Spain",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Gross National Income Based on Purchasing Power Parity Per Capita"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "sdg/EN_MAT_DOMCMPG"
                     ],
                     "title": "Domestic Material Consumption Per Unit of GDP in Spain",
@@ -278,6 +306,10 @@
           "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": {
             "name": "Nominal GDP Per Capita",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
+          },
+          "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita": {
+            "name": "Gross National Income Based on Purchasing Power Parity Per Capita",
+            "statVar": "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
           },
           "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": {
             "name": "Growth Rate of GDP",

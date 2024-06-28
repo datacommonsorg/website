@@ -21,6 +21,7 @@ from typing import List, Set
 from markupsafe import escape
 
 import shared.lib.constants as constants
+import logging
 
 
 def _add_to_set_from_list(set_strings: Set[str],
@@ -65,9 +66,20 @@ def remove_stop_words(input_str: str, stop_words: Set[str]) -> str:
   # Example: if looking for "cat" in sentence "cat is a catty animal. i love a cat  but not cats"
   # the words "citty" and "cats" will not be matched.
   input_str = input_str.lower()
-  for words in stop_words:
+  for word in stop_words:
     # Using regex based replacements.
-    input_str = re.sub(rf"\b{words}\b", "", input_str)
+    ex = constants.STOP_WORDS_EXCEPTION.get(word, ['', ''])
+    reg_str = ''
+    if ex[0]:
+      reg_str += rf"(?<!\b{ex[0]}\s)"
+    reg_str += rf"\b{word}\b"
+    if ex[1]:
+      reg_str += rf"(?!\s{ex[1]})"
+    input_str = re.sub(
+        reg_str,
+        "",
+        input_str,
+    )
     # Also replace multiple spaces with a single space.
     input_str = re.sub(r" +", " ", input_str)
 

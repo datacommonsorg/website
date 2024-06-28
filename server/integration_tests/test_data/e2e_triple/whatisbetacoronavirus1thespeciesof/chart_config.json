@@ -12,8 +12,8 @@
                     "answerTableTileSpec": {
                       "columns": [
                         {
-                          "header": "Virus Host",
-                          "propertyExpr": "->virusHost"
+                          "header": "Virus Genus",
+                          "propertyExpr": "->virusGenus"
                         }
                       ]
                     },
@@ -21,7 +21,7 @@
                       "bio/Betacoronavirus1",
                       "bio/D000073641"
                     ],
-                    "title": "The Virus Host for Betacoronavirus 1 are as follows:",
+                    "title": "The Virus Genus for Betacoronavirus 1 are as follows:",
                     "type": "ANSWER_TABLE"
                   }
                 ]
