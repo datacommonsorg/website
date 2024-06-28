@@ -304,7 +304,7 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
   const apikey = (req.query.apikey as string) || "";
   const urlRoot = `${protocol}://${host}`;
   const client = (req.query.client as string) || BARD_CLIENT_URL_PARAM;
-  const mode = (req.query.mode as string) || BARD_CLIENT_URL_PARAM;
+  const mode = (req.query.mode as string) || "";
   const varThreshold = (req.query.varThreshold as string) || "";
   const wantRelatedQuestions =
     req.query.relatedQuestions === URL_PARAM_VALUE_TRUTHY;

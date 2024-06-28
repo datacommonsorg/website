@@ -296,8 +296,10 @@ export async function getQueryResult(
   idx?: string
 ): Promise<QueryResult> {
   const startTime = process.hrtime.bigint();
+  // if mode is empty or mode=bard, use BARD_ALLOWED_CHARTS, otherwise, no
+  // restriction on allowed chart types
   const allowedTileTypes =
-    mode === BARD_CLIENT_URL_PARAM ? BARD_ALLOWED_CHARTS : null;
+    mode && mode !== BARD_CLIENT_URL_PARAM ? null : BARD_ALLOWED_CHARTS;
 
   // Get the nl detect-and-fulfill result for the query
   // TODO: only generate related things when we need to generate related question
