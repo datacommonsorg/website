@@ -2828,7 +2828,7 @@ CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased,Total COVID-19
 CumulativeCount_MedicalTest_ConditionCOVID_19,Total COVID-19 tests performed
 CumulativeCount_Vaccine_COVID_19_Administered,Total COVID-19 vaccines administered
 DewPointTemperature_SurfaceLevel,Surface-Level Dew Point Temperature
-ExchangeRate_Currency_Standardized,exchange rates of Standard Local Currency (SLC) per US dollar
+ExchangeRate_Currency_Standardized,exchange rate of Standard Local Currency (SLC) per US dollar
 Expenses_Farm,total farm expenses
 FemaCommunityResilience_NaturalHazardImpact,FEMA Community Resilience to Natural Hazard Impact
 FemaNaturalHazardRiskIndex_NaturalHazardImpact,FEMA National Risk Index for Natural Hazard Impact
