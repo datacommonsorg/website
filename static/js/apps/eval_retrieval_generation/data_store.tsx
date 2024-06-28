@@ -207,10 +207,11 @@ export async function getSheetsRows(
   }
   rowIdxList.sort((a, b) => a - b);
   const firstRowIdx = rowIdxList[0];
+  const lastRowIdx = rowIdxList[rowIdxList.length - 1];
   return sheet
     .getRows({
       offset: firstRowIdx - 1,
-      limit: rowIdxList[rowIdxList.length - 1] - firstRowIdx + 1,
+      limit: lastRowIdx - firstRowIdx + 1,
     })
     .then((rows) => {
       const result = {};
