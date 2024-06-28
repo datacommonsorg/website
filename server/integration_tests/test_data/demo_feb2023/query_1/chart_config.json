@@ -241,6 +241,65 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Max_Temperature"
+                    ],
+                    "title": "Maximum Temperature in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Maximum Temperature in California",
+                    "statVarKey": [
+                      "Max_Temperature"
+                    ],
+                    "title": "Maximum Temperature in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Maximum Temperature"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Max_Temperature"
+                    ],
+                    "title": "Maximum Temperature in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Max_Temperature"
+                    ],
+                    "title": "Maximum Temperature in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Maximum Temperature in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "rankingTileSpec": {
                       "rankingCount": 10,
                       "showHighest": true
@@ -325,124 +384,6 @@
               }
             ],
             "title": "Mean Temperature in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Max_Temperature"
-                    ],
-                    "title": "Maximum Temperature in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Maximum Temperature in California",
-                    "statVarKey": [
-                      "Max_Temperature"
-                    ],
-                    "title": "Maximum Temperature in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Maximum Temperature"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Max_Temperature"
-                    ],
-                    "title": "Maximum Temperature in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Max_Temperature"
-                    ],
-                    "title": "Maximum Temperature in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Maximum Temperature in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Min_Temperature"
-                    ],
-                    "title": "Min Temperature in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Min Temperature in California",
-                    "statVarKey": [
-                      "Min_Temperature"
-                    ],
-                    "title": "Min Temperature in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Min Temperature"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showLowest": true
-                    },
-                    "statVarKey": [
-                      "Min_Temperature"
-                    ],
-                    "title": "Min Temperature in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Min_Temperature"
-                    ],
-                    "title": "Min Temperature in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Min Temperature in Counties of California"
           }
         ],
         "statVarSpec": {
@@ -485,10 +426,6 @@
           "Mean_Temperature": {
             "name": "Mean Temperature",
             "statVar": "Mean_Temperature"
-          },
-          "Min_Temperature": {
-            "name": "Min Temperature",
-            "statVar": "Min_Temperature"
           },
           "Temperature": {
             "name": "Temperature in a Location",

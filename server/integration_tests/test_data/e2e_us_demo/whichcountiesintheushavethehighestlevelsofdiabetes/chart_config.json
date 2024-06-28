@@ -93,72 +93,6 @@
               }
             ],
             "title": "Percent of Population 20 Years or Older With Diabetes in Counties of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "description": "Age-Standardized Death Rates, Diabetes Mellitus, Per 100,000 in United States",
-                    "statVarKey": [
-                      "WHO/SA_0000001440"
-                    ],
-                    "title": "Age-Standardized Death Rates, Diabetes Mellitus, Per 100,000 in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Age-Standardized Death Rates, Diabetes Mellitus, Per 100,000"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "description": "Diabetes Mellitus, Per 100,000 in United States",
-                    "statVarKey": [
-                      "WHO/SA_0000001421"
-                    ],
-                    "title": "Diabetes Mellitus, Per 100,000 in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Diabetes Mellitus, Per 100,000"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "dc/xmpy89x1nh8cg"
-                    ],
-                    "title": "Percent of Men That Have Diabetes in Counties of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "dc/xmpy89x1nh8cg"
-                    ],
-                    "title": "Percent of Men That Have Diabetes in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Percent of Men That Have Diabetes in Counties of United States"
           }
         ],
         "statVarSpec": {
@@ -171,18 +105,6 @@
             "name": "Diabetes",
             "statVar": "Percent_Person_WithDiabetes",
             "unit": "%"
-          },
-          "WHO/SA_0000001421": {
-            "name": "Diabetes Mellitus, Per 100,000",
-            "statVar": "WHO/SA_0000001421"
-          },
-          "WHO/SA_0000001440": {
-            "name": "Age-Standardized Death Rates, Diabetes Mellitus, Per 100,000",
-            "statVar": "WHO/SA_0000001440"
-          },
-          "dc/xmpy89x1nh8cg": {
-            "name": "Percent of Men That Have Diabetes",
-            "statVar": "dc/xmpy89x1nh8cg"
           }
         }
       }

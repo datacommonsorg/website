@@ -64,141 +64,6 @@
             ],
             "denom": "Count_Person",
             "title": "Crimes by Type"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_CriminalIncidents_IsHateCrime"
-                    ],
-                    "title": "Hate Crime Incidents in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Hate Crime Incidents in California",
-                    "statVarKey": [
-                      "Count_CriminalIncidents_IsHateCrime"
-                    ],
-                    "title": "Hate Crime Incidents in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Hate Crime Incidents"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_CriminalIncidents_BiasMotivationDisabilityStatus_AggravatedAssault_IsHateCrime",
-                      "Count_CriminalIncidents_BiasMotivationDisabilityStatus_Intimidation_IsHateCrime",
-                      "Count_CriminalIncidents_BiasMotivationDisabilityStatus_Robbery_IsHateCrime"
-                    ],
-                    "title": "Hate Crime Cases by Type in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Hate Crime Cases by Type"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_CriminalActivities_MurderAndNonNegligentManslaughter"
-                    ],
-                    "title": "Murder and Non Negligent Manslaughter Cases in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Murder and Non Negligent Manslaughter Cases in California",
-                    "statVarKey": [
-                      "Count_CriminalActivities_MurderAndNonNegligentManslaughter"
-                    ],
-                    "title": "Murder and Non Negligent Manslaughter Cases in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Murder and Non Negligent Manslaughter Cases"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "dc/jtf63bh66k41g"
-                    ],
-                    "title": "Mortality Events (Measured Based on Jurisdiction): Assault(Homicide), Incarcerated in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Mortality Events (Measured Based on Jurisdiction): Assault(Homicide), Incarcerated in California",
-                    "statVarKey": [
-                      "dc/jtf63bh66k41g"
-                    ],
-                    "title": "Mortality Events (Measured Based on Jurisdiction): Assault(Homicide), Incarcerated in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Mortality Events (Measured Based on Jurisdiction): Assault(Homicide), Incarcerated"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "dc/hxsdmw575en24"
-                    ],
-                    "title": "Population (Measured Based on Jurisdiction): Incarcerated in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population (Measured Based on Jurisdiction): Incarcerated in California",
-                    "statVarKey": [
-                      "dc/hxsdmw575en24"
-                    ],
-                    "title": "Population (Measured Based on Jurisdiction): Incarcerated in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population (Measured Based on Jurisdiction): Incarcerated"
           }
         ],
         "statVarSpec": {
@@ -226,10 +91,6 @@
             "name": "Motor Vehicle Thefts",
             "statVar": "Count_CriminalActivities_MotorVehicleTheft"
           },
-          "Count_CriminalActivities_MurderAndNonNegligentManslaughter": {
-            "name": "Murder and Non Negligent Manslaughter Cases",
-            "statVar": "Count_CriminalActivities_MurderAndNonNegligentManslaughter"
-          },
           "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block": {
             "name": "Property Related Crimes",
             "statVar": "Count_CriminalActivities_PropertyCrime"
@@ -241,30 +102,6 @@
           "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block": {
             "name": "Violent Crimes",
             "statVar": "Count_CriminalActivities_ViolentCrime"
-          },
-          "Count_CriminalIncidents_BiasMotivationDisabilityStatus_AggravatedAssault_IsHateCrime": {
-            "name": "Count of Hate Crime Incidents: Bias Against Disability Status, Aggravated Assault",
-            "statVar": "Count_CriminalIncidents_BiasMotivationDisabilityStatus_AggravatedAssault_IsHateCrime"
-          },
-          "Count_CriminalIncidents_BiasMotivationDisabilityStatus_Intimidation_IsHateCrime": {
-            "name": "Count of Hate Crime Incidents: Bias Against Disability Status, Intimidation",
-            "statVar": "Count_CriminalIncidents_BiasMotivationDisabilityStatus_Intimidation_IsHateCrime"
-          },
-          "Count_CriminalIncidents_BiasMotivationDisabilityStatus_Robbery_IsHateCrime": {
-            "name": "Count of Hate Crime Incidents: Bias Against Disability Status, Robbery",
-            "statVar": "Count_CriminalIncidents_BiasMotivationDisabilityStatus_Robbery_IsHateCrime"
-          },
-          "Count_CriminalIncidents_IsHateCrime": {
-            "name": "Hate Crime Incidents",
-            "statVar": "Count_CriminalIncidents_IsHateCrime"
-          },
-          "dc/hxsdmw575en24": {
-            "name": "Population (Measured Based on Jurisdiction): Incarcerated",
-            "statVar": "dc/hxsdmw575en24"
-          },
-          "dc/jtf63bh66k41g": {
-            "name": "Mortality Events (Measured Based on Jurisdiction): Assault(Homicide), Incarcerated",
-            "statVar": "dc/jtf63bh66k41g"
           }
         }
       }
@@ -324,51 +161,6 @@
           "Count_CriminalActivities_PropertyCrime",
           "Count_CriminalActivities_Robbery",
           "Count_CriminalActivities_ViolentCrime"
-        ]
-      },
-      "Count_CriminalIncidents_BiasMotivationDisabilityStatus_AggravatedAssault_IsHateCrime": {
-        "targetedDisabilityStatus": [
-          "Count_CriminalIncidents_BiasMotivationDisabilityStatus_AggravatedAssault_IsHateCrime_MentalDisability",
-          "Count_CriminalIncidents_BiasMotivationDisabilityStatus_AggravatedAssault_IsHateCrime_PhysicalDisability"
-        ]
-      },
-      "Count_CriminalIncidents_BiasMotivationDisabilityStatus_Intimidation_IsHateCrime": {
-        "targetedDisabilityStatus": [
-          "Count_CriminalIncidents_BiasMotivationDisabilityStatus_Intimidation_IsHateCrime_MentalDisability",
-          "Count_CriminalIncidents_BiasMotivationDisabilityStatus_Intimidation_IsHateCrime_PhysicalDisability"
-        ]
-      },
-      "Count_CriminalIncidents_IsHateCrime": {
-        "biasMotivation": [
-          "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime",
-          "Count_CriminalIncidents_BiasMotivationEthnicity_IsHateCrime",
-          "Count_CriminalIncidents_BiasMotivationGender_IsHateCrime",
-          "Count_CriminalIncidents_BiasMotivationMultipleBias_IsHateCrime",
-          "Count_CriminalIncidents_BiasMotivationOtherRaceOrEthnicity_IsHateCrime",
-          "Count_CriminalIncidents_BiasMotivationRaceOrEthnicity_IsHateCrime",
-          "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime",
-          "Count_CriminalIncidents_BiasMotivationReligion_IsHateCrime",
-          "Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime",
-          "Count_CriminalIncidents_BiasMotivationSingleBias_IsHateCrime"
-        ],
-        "crimeType": [
-          "Count_CriminalIncidents_AggravatedAssault_IsHateCrime",
-          "Count_CriminalIncidents_Arson_IsHateCrime",
-          "Count_CriminalIncidents_Burglary_IsHateCrime",
-          "Count_CriminalIncidents_CrimeAgainstPerson_IsHateCrime",
-          "Count_CriminalIncidents_CrimeAgainstProperty_IsHateCrime",
-          "Count_CriminalIncidents_DestructionOrDamageOrVandalismOfProperty_IsHateCrime",
-          "Count_CriminalIncidents_Fondling_IsHateCrime",
-          "Count_CriminalIncidents_Intimidation_IsHateCrime",
-          "Count_CriminalIncidents_MotorVehicleTheft_IsHateCrime",
-          "Count_CriminalIncidents_MurderAndNonNegligentManslaughter_IsHateCrime",
-          "Count_CriminalIncidents_NotSpecified_IsHateCrime"
-        ]
-      },
-      "dc/jtf63bh66k41g": {
-        "gender": [
-          "dc/q2pgyz35p79l4",
-          "dc/z29z7w7ldnwl4"
         ]
       }
     },

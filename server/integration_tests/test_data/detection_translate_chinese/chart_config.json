@@ -32,8 +32,7 @@
     "Count_CriminalActivities_LarcenyTheft",
     "Count_CriminalActivities_Robbery",
     "Count_CriminalActivities_Burglary",
-    "Count_CriminalActivities_PropertyCrime",
-    "Count_CriminalActivities_CombinedCrime",
-    "dc/topic/Crime"
+    "dc/topic/Crime",
+    "Count_CriminalActivities_CombinedCrime"
   ]
 }
