@@ -41,11 +41,12 @@ class CdcAutopushTest(unittest.TestCase):
     """Tests that the base autopush URL loads successfully."""
     self.driver.get(self.url_)
     url = self.driver.current_url
-    # Validate URL scheme for Codacy.
-    if url.lower().startswith('http'):
-      req = urllib.request.Request(url)
-    else:
-      raise ValueError from None
+    if not url.lower().startswith('http'):
+      raise ValueError(f'Invalid scheme in {url}. Expected http(s)://.')
+    req = urllib.request.Request(url)
 
-    with urllib.request.urlopen(req) as response:
+    # Disable Bandit security check 310. http scheme is already checked above.
+    # Codacity still calls out the error so disable the check.
+    # https://bandit.readthedocs.io/en/latest/blacklists/blacklist_calls.html#b310-urllib-urlopen
+    with urllib.request.urlopen(req) as response: # nosec B310
       self.assertEqual(response.getcode(), 200)
