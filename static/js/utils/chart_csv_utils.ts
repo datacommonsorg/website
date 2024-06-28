@@ -26,6 +26,8 @@ import { Point } from "../chart/draw_scatter";
 import { MapLayerData } from "../components/tiles/map_tile";
 import { RankingPoint } from "../types/ranking_unit_types";
 
+const DEFAULT_LABEL_HEADER = "label";
+
 // TODO(beets): Create DataPoints class and add this to that class.
 /**
  * Returns the value associated with the given label in dataPoints, or null.
@@ -61,7 +63,7 @@ export function dataGroupsToCsv(
     const dates = dg.value.map((dp) => dp.label);
     allLabels = new Set([...Array.from(allLabels), ...dates]);
   }
-  const labelHeader = labelHeaderOverride || "label";
+  const labelHeader = labelHeaderOverride || DEFAULT_LABEL_HEADER;
   // Get the header row.
   const header = [labelHeader];
   for (const dg of dataGroups) {
