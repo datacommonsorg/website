@@ -41,6 +41,7 @@ import { EventTypeSpec, TileConfig } from "../types/subject_page_proto_types";
 import { stringifyFn } from "./axios";
 import { isNlInterface } from "./explore_utils";
 import { getUnit } from "./stat_metadata_utils";
+import { addPerCapitaToTitle } from "./subject_page_utils";
 
 const DEFAULT_PC_SCALING = 100;
 const DEFAULT_PC_UNIT = "%";
@@ -599,4 +600,23 @@ export function getFirstCappedStatVarSpecDate(
     return "";
   }
   return getCappedStatVarDate(variables[0].statVar, variables[0].date);
+}
+
+/**
+ * Gets the description for a highlight tile given the tile config and block
+ * level denominator
+ *
+ * @param tile the tile config
+ * @param blockDenom the block level denominator
+ * @returns description for the highlight tile
+ */
+export function getHighlightTileDescription(
+  tile: TileConfig,
+  blockDenom?: string
+): string {
+  let description = tile.description.includes("${date}")
+    ? tile.description
+    : tile.description + " (${date})";
+  description = blockDenom ? addPerCapitaToTitle(description) : description;
+  return description;
 }
