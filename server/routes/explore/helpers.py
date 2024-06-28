@@ -124,6 +124,9 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
     # Strict mode is compatible only with Heuristic Detector!
     detector_type = RequestedDetectorType.Heuristic.value
     use_default_place = False
+  elif params.is_toolformer_mode(mode):
+    # do not use default place for toolformer
+    use_default_place = False
 
   counters = ctr.Counters()
 
