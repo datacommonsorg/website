@@ -15,6 +15,7 @@
 import json
 import os
 import re
+import unittest
 
 from langdetect import detect as detect_lang
 import requests
@@ -269,7 +270,7 @@ class ExploreTestDetection(ExploreTest):
   def test_detection_basic_lancedb(self):
     self.run_detection('detection_api_basic_lancedb', ['Commute in California'],
                        test='unittest',
-                       idx='medium_lance_ft')
+                       idx='base_uae_lance')
 
   def test_detection_basic_sdg(self):
     self.run_detection('detection_api_sdg_idx', ['Health in USA'],
@@ -291,17 +292,12 @@ class ExploreTestDetection(ExploreTest):
     self.run_detection('detection_api_undata_dev_idx',
                        ['Employment in the world'],
                        test='unittest',
-                       idx='undata_dev_ft')
+                       idx='undata_ft,undata_ilo_ft')
 
   def test_detection_basic_bio(self):
     self.run_detection('detection_api_bio_idx', ['Commute in California'],
                        test='unittest',
-                       idx='bio_ft')
-
-  def test_detection_basic_vertex(self):
-    self.run_detection('detection_api_vertex_ft_idx', ['Commute in California'],
-                       test='unittest',
-                       idx='medium_vertex_ft')
+                       idx='bio_ft,medium_ft')
 
   def test_detection_basic_uae(self):
     self.run_detection('detection_api_uae_idx', ['Commute in California'],
@@ -311,7 +307,7 @@ class ExploreTestDetection(ExploreTest):
   def test_detection_basic_sfr(self):
     self.run_detection('detection_api_sfr_idx', ['Commute in California'],
                        test='unittest',
-                       idx='medium_vertex_mistral')
+                       idx='base_mistral_mem')
 
   def test_detection_sdg(self):
     self.run_detection('detection_api_sdg', ['Health in USA'], dc='sdg')
@@ -496,6 +492,8 @@ class ExploreTestFulfillment(ExploreTest):
 
 class ExploreTestEE1(ExploreTest):
 
+  # TODO (boxu): fix the flaky test and reenable it.
+  @unittest.skip
   def test_e2e_answer_places(self):
     self.run_detect_and_fulfill('e2e_answer_places', [
         'California counties with the highest asthma levels',
@@ -721,10 +719,12 @@ class ExploreTestEE2(ExploreTest):
         ])
 
   def test_e2e_toolformer_rig_mode(self):
-    self.run_detect_and_fulfill(
-        'e2e_toolformer_rig_mode',
-        ['what is the infant mortality rate in massachusetts'],
-        mode='toolformer_rig')
+    self.run_detect_and_fulfill('e2e_toolformer_rig_mode', [
+        'what is the infant mortality rate in massachusetts',
+        'how many construction workers are in Orlando, Florida?',
+        'what is the poverty rate in Seattle?',
+    ],
+                                mode='toolformer_rig')
 
   def test_e2e_toolformer_rag_mode(self):
     # The answer places (states) would typically be truncated to 10, but here

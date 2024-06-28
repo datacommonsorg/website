@@ -1,9 +1,5 @@
+-r ../../../nl_requirements.txt
+
 absl-py==1.4.0
 dacite==1.8.1
-datasets==2.18.0
-google-cloud-aiplatform==1.42.1
-google-cloud-storage==2.15.0
-lancedb==0.6.8
 parameterized==0.8.1
-sentence-transformers==2.2.2
-torchvision==0.17.2

@@ -19,4 +19,3 @@ class Config(_base.Config):
   GA_ACCOUNT = 'G-HV2XYYS1JD'
   USE_LLM = True
   LOG_QUERY = True
-  USE_MEMCACHE = False

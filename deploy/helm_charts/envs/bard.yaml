@@ -47,7 +47,7 @@ ingress:
 nl:
   enabled: true
   memory: "10G"
-  workers: 1
+  workers: 3
   env:
     default_indexes:
       - base_uae_mem
@@ -75,7 +75,7 @@ serviceGroups:
   node:
     replicas: 25
     # Use a machine with more CPU for node pods
-    nodePool: "default-pool"
+    nodePool: "pool-e2-cpu"
   observation:
     replicas: 15
     nodePool: "default-pool"
@@ -91,3 +91,4 @@ cronTesting:
   enableSanity: false
   enableAdversarial: false
   schedule: "0 */12 * * *"
+  nodePool: "default-pool"

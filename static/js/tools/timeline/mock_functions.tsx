@@ -168,13 +168,10 @@ export function axiosMock(): void {
     .mockResolvedValue({ data: { "geoId/05": "Place" } });
 
   // get data, geoId/05,Count_Person
-  when(axios.get)
+  when(axios.post)
     .calledWith("/api/observations/series", {
-      params: {
-        variables: ["Count_Person"],
-        entities: ["geoId/05"],
-      },
-      paramsSerializer: stringifyFn,
+      variables: ["Count_Person"],
+      entities: ["geoId/05"],
     })
     .mockResolvedValue({
       data: {
