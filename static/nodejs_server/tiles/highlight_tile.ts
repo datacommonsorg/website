@@ -39,9 +39,9 @@ function getTileProp(
 ): HighlightTilePropType {
   return {
     apiRoot,
+    description: tileConfig.description,
     place,
     statVarSpec,
-    description: tileConfig.description,
   };
 }
 
