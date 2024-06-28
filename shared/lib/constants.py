@@ -96,6 +96,7 @@ STOP_WORDS: Set[str] = {
     'and',
     'been',
     'have',
+    'in',
     'will',
     'on',
     'does',
@@ -150,9 +151,8 @@ STOP_WORDS: Set[str] = {
     'across',
 }
 
-# For a stop words, if it is preceeded or trailed by certain words, don't trim
-# it.
-STOP_WORDS_EXCEPTION = {'how': ['', 'many'], 'of': ['number', '']}
+# Exception list where stop words should be excluded
+STOP_WORDS_EXCEPTION = ['how many', 'number of']
 
 # Note: These heuristics should be revisited if we change
 # query preprocessing (e.g. stopwords, stemming)

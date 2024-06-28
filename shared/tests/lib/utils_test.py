@@ -82,7 +82,10 @@ class TestNLUtilsRemoveStopWordsAndPunctuation(unittest.TestCase):
       ["what about Capitalization", "capitalization"],
       ["say something about crime in California counties", "crime california"],
       ["how are you", ""],
-      ["tell me about the climate extremes in palo alto", "climate palo alto"],
+      [
+          "tell me about the climate extremes in palo alto",
+          "climate extremes palo alto"
+      ],
       [
           "How big are the public elementary schools in Sunnyvale",
           "big public elementary schools sunnyvale"
@@ -96,6 +99,14 @@ class TestNLUtilsRemoveStopWordsAndPunctuation(unittest.TestCase):
       [
           "interest rates among people who are living in poverty across US states",
           "interest rates people living poverty us"
+      ],
+      [
+          "how many hispanics people in california",
+          "how many hispanics people california"
+      ],
+      [
+          "what is the number of students in new york",
+          "number of students new york"
       ],
   ])
   def test_query_remove_stop_words(self, query, expected):

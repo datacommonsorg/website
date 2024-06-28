@@ -13,7 +13,6 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-import re
 from typing import Dict, List, Set
 
 from server.lib.fetch import property_values
@@ -29,8 +28,6 @@ MAX_IDENTICAL_NAME_PLACES = 5
 # be part of the variables being asked for. If there are many non-place entities
 # then we assume they are being asked for as the entities in the query.
 _MAX_ENTITIES_QUERY = 2
-
-_PLACE_PREPOSITION_REGEX = r"\s*(in|in the|of|of the)$"
 
 
 @dataclass
@@ -305,9 +302,6 @@ def _get_stripped_string(query_parts: List[QueryPart],
       # if any of the dcids in the query part is resolved, consider the query part
       # resolved and add the original string to resolved_things_str
       resolved_dcids_str.append(p.substr)
-      if len(stripped_query_parts) > 0:
-        stripped_query_parts[-1] = re.sub(_PLACE_PREPOSITION_REGEX, "",
-                                          stripped_query_parts[-1])
     else:
       stripped_query_parts.append(p.substr)
   stripped_query_str = ' '.join(stripped_query_parts)

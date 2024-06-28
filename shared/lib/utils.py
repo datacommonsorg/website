@@ -22,6 +22,11 @@ from markupsafe import escape
 
 import shared.lib.constants as constants
 
+_PLACEHOLDER_MAP = {
+    f"__PLACEHOLDER_{i}__": exception
+    for i, exception in enumerate(constants.STOP_WORDS_EXCEPTION)
+}
+
 
 def _add_to_set_from_list(set_strings: Set[str],
                           list_string: List[str]) -> None:
@@ -53,6 +58,27 @@ def _add_classification_heuristics(set_strings: Set[str]) -> None:
       ]
 
 
+# Function to replace exceptions with placeholders
+def protect_exceptions(text, placeholder_map):
+  for placeholder, exception in placeholder_map.items():
+    text = re.sub(re.escape(exception), placeholder, text)
+  return text
+
+
+# Function to remove words in remove_list but not protected exceptions
+def remove_words(text, remove_list):
+  remove_pattern = r'\b(?:' + '|'.join(
+      re.escape(word) for word in remove_list) + r')\b'
+  return re.sub(remove_pattern, '', text)
+
+
+# Function to restore placeholders back to exceptions
+def restore_exceptions(text, placeholder_map):
+  for placeholder, exception in placeholder_map.items():
+    text = re.sub(re.escape(placeholder), exception, text)
+  return text
+
+
 def remove_stop_words(input_str: str, stop_words: Set[str]) -> str:
   """Remove stop words from a string and return the remaining in lower case."""
 
@@ -65,24 +91,18 @@ def remove_stop_words(input_str: str, stop_words: Set[str]) -> str:
   # Example: if looking for "cat" in sentence "cat is a catty animal. i love a cat  but not cats"
   # the words "citty" and "cats" will not be matched.
   input_str = input_str.lower()
-  for word in stop_words:
-    # Using regex based replacements.
-    ex = constants.STOP_WORDS_EXCEPTION.get(word, ['', ''])
-    reg_str = ''
-    if ex[0]:
-      reg_str += rf"(?<!\b{ex[0]}\s)"
-    reg_str += rf"\b{word}\b"
-    if ex[1]:
-      reg_str += rf"(?!\s{ex[1]})"
-    input_str = re.sub(
-        reg_str,
-        "",
-        input_str,
-    )
-    # Also replace multiple spaces with a single space.
-    input_str = re.sub(r" +", " ", input_str)
 
-  # Return after removing the beginning and trailing white spaces.
+  # Protect exceptions
+  input_str = protect_exceptions(input_str, _PLACEHOLDER_MAP)
+
+  # Remove words in remove_list
+  input_str = remove_words(input_str, stop_words)
+
+  # Restore exceptions
+  input_str = restore_exceptions(input_str, _PLACEHOLDER_MAP)
+
+  # Clean up extra spaces
+  input_str = re.sub(r'\s+', ' ', input_str).strip()
   return input_str.strip()
 
 
