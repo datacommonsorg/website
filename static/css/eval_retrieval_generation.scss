@@ -32,7 +32,8 @@ footer {
   flex-direction: column;
 }
 
-.sign-in, .google-sheet-link {
+.sign-in,
+.google-sheet-link {
   width: fit-content;
 }
 
@@ -45,10 +46,10 @@ footer {
 
 .table-pane {
   overflow: auto;
-  height: 30%;
   padding: 11px 24px;
   width: 100%;
   border-top: solid 1px var(--gm-3-sys-light-outline-variant);
+  flex-grow: 1;
 
   .Collapsible__trigger.is-open + .Collapsible__contentOuter {
     overflow-x: visible !important;
@@ -188,10 +189,9 @@ label {
 
   #form-container {
     border-top: solid 1px var(--gm-3-sys-light-outline-variant);
-    gap: 16px;
     padding: 16px 24px;
-    flex-grow: 1;
     overflow: auto;
+    flex-shrink: 0;
 
     .question-section .title {
       font-size: 11px;
@@ -206,6 +206,7 @@ label {
       line-height: 24px;
       display: flex;
       flex-direction: column;
+      margin-bottom: 6px;
 
       span {
         width: fit-content;
@@ -396,65 +397,53 @@ label {
 }
 
 .block-evaluation {
+  margin-bottom: 20px;
+
   .disabled {
     opacity: 0.5;
   }
 
-  .counter {
-    justify-content: center;
-    margin-top: 20px;
+  .counter-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 
-    .claims-count,
-    .false-claims-count {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      font-size: 16px;
-      margin-bottom: 24px;
-
-      button {
-        border: none;
-        background-color: transparent;
-        cursor: pointer;
-        font-size: 48px;
-        width: 44px;
-      }
-
-      .count-text {
-        font-size: 2em;
-        color: white;
-        width: 55px;
-        height: 41px;
-        border-radius: 8px;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-      }
+    .counter {
+      flex: 1;
+      justify-content: center;
+      margin-top: 4px;
 
       .claim-text {
         margin: 0 10px;
         font-weight: 500;
       }
-    }
 
-    .claims-count {
-      .count-text {
-        background-color: #007bff;
-      }
+      .button-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        font-size: 16px;
 
-      button {
-        color: #007bff;
-      }
+        button {
+          border: none;
+          background-color: transparent;
+          cursor: pointer;
+          font-size: 24px;
+          width: 36px;
+          color: #007bff;
+        }
 
-    }
-
-    .false-claims-count {
-      .count-text {
-        background-color: #ff5722;
-      }
-
-      button {
-        color: #ff5722;
+        .count-text {
+          font-size: 1.2em;
+          color: white;
+          width: 36px;
+          height: 26px;
+          border-radius: 4px;
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          background-color: #007bff;
+        }
       }
     }
   }

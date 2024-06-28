@@ -24,9 +24,12 @@ const LONG_SPACES = "&nbsp;&nbsp;&nbsp;&nbsp;";
 const TABLE_DIVIDER_PATTERN = /[--][-]+/g;
 // table headers are sometimes country names so there can be symbols used like
 // in "Côte d'Ivoire".
-const TABLE_HEADER_TEXT_PATTERN = /[\w'ô[\]ãéí\s°()%:-]+/g;
+const TABLE_HEADER_TEXT_PATTERN = /[\w'ô[\]ãéí\s°()%:-\\,\\₂]+/g;
 
 export const processText = (text: string): string => {
+  if (!text) {
+    return "";
+  }
   // If "Answer" is in the text, remove it
   let processedText = text.replace("Answer:", "");
   // If "FOOTNOTES" in all caps is in the text, convert it to lower case
@@ -60,6 +63,9 @@ export const processText = (text: string): string => {
 };
 
 export function processTableText(text: string): string {
+  if (!text) {
+    return "";
+  }
   // Get a copy of the table header
   const tableHeader = _.cloneDeep(text).split("\n", 1)[0];
   // Replace all the text in the header with "-" to create the table divider

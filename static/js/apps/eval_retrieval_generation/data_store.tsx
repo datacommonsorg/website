@@ -28,7 +28,12 @@ import {
   query,
   setDoc,
 } from "firebase/firestore";
-import { GoogleSpreadsheet } from "google-spreadsheet";
+import {
+  GoogleSpreadsheet,
+  GoogleSpreadsheetRow,
+  GoogleSpreadsheetWorksheet,
+} from "google-spreadsheet";
+import _ from "lodash";
 
 import { db } from "../../utils/firebase";
 import {
@@ -186,4 +191,33 @@ export async function getCallCount(
   );
   const snapshot = await getCountFromServer(collectionRef);
   return snapshot.data().count;
+}
+
+/**
+ * Returns a promise to get a record of row idx to google sheet row
+ * @param sheet the sheet to get rows from
+ * @param rowIdxList the list of rows to get from the sheet
+ */
+export async function getSheetsRows(
+  sheet: GoogleSpreadsheetWorksheet,
+  rowIdxList: number[]
+): Promise<Record<number, GoogleSpreadsheetRow>> {
+  if (_.isEmpty(rowIdxList)) {
+    return Promise.resolve({});
+  }
+  rowIdxList.sort((a, b) => a - b);
+  const firstRowIdx = rowIdxList[0];
+  const lastRowIdx = rowIdxList[rowIdxList.length - 1];
+  return sheet
+    .getRows({
+      offset: firstRowIdx - 1,
+      limit: lastRowIdx - firstRowIdx + 1,
+    })
+    .then((rows) => {
+      const result = {};
+      rows.forEach((row, i) => {
+        result[firstRowIdx + i] = row;
+      });
+      return result;
+    });
 }
