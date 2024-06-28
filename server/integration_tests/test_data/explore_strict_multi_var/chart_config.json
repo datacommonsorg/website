@@ -93,49 +93,15 @@
                   {
                     "statVarKey": [
                       "WHO/NCD_BMI_30A",
-                      "Percent_Person_WithArthritis"
+                      "Percent_Person_SleepLessThan7Hours"
                     ],
-                    "title": "% Obesity Among Adults, BMI >= 30 and Arthritis in United States",
+                    "title": "% Obesity Among Adults, BMI >= 30 and Percentage That Sleeps Less Than 7 Hours Per Night in United States",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "% Obesity Among Adults, BMI >= 30 and Arthritis"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/NCD_BMI_30A",
-                      "Percent_Person_WithAsthma"
-                    ],
-                    "title": "% Obesity Among Adults, BMI >= 30 and Asthma in United States",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "% Obesity Among Adults, BMI >= 30 and Asthma"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/NCD_BMI_30A",
-                      "Percent_Person_WithCancerExcludingSkinCancer"
-                    ],
-                    "title": "% Obesity Among Adults, BMI >= 30 and Cancer (Excluding Skin Cancer) in United States",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "% Obesity Among Adults, BMI >= 30 and Cancer (Excluding Skin Cancer)"
+            "title": "% Obesity Among Adults, BMI >= 30 and Percentage That Sleeps Less Than 7 Hours Per Night"
           }
         ],
         "statVarSpec": {
@@ -159,21 +125,6 @@
             "name": "Percentage That Sleeps Less Than 7 Hours Per Night",
             "noPerCapita": true,
             "statVar": "Percent_Person_SleepLessThan7Hours",
-            "unit": "%"
-          },
-          "Percent_Person_WithArthritis": {
-            "name": "Arthritis",
-            "statVar": "Percent_Person_WithArthritis",
-            "unit": "%"
-          },
-          "Percent_Person_WithAsthma": {
-            "name": "Asthma",
-            "statVar": "Percent_Person_WithAsthma",
-            "unit": "%"
-          },
-          "Percent_Person_WithCancerExcludingSkinCancer": {
-            "name": "Cancer (excluding skin cancer)",
-            "statVar": "Percent_Person_WithCancerExcludingSkinCancer",
             "unit": "%"
           },
           "WHO/NCD_BMI_30A": {

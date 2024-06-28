@@ -627,34 +627,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
-                    ],
-                    "title": "Gross National Income Based on Purchasing Power Parity Per Capita in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Gross National Income Based on Purchasing Power Parity Per Capita in United States",
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
-                    ],
-                    "title": "Gross National Income Based on Purchasing Power Parity Per Capita in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Gross National Income Based on Purchasing Power Parity Per Capita"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "sdg/EN_MAT_DOMCMPG"
                     ],
                     "title": "Domestic Material Consumption Per Unit of GDP in United States",
@@ -677,6 +649,24 @@
             ],
             "footnote": "Includes data from the following sources: WESR / global material flows database.",
             "title": "Domestic Material Consumption Per Unit of GDP"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_RealValue",
+                      "Amount_EconomicActivity_GrossValueAdded_RealValue"
+                    ],
+                    "title": "GDP (Real Value) and Amount of Economic Activity (Real Value): Gross Value Added in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Related: GDP (Real Value) and Amount of Economic Activity (Real Value): Gross Value Added"
           }
         ],
         "statVarSpec": {
@@ -756,9 +746,9 @@
             "name": "GDP (Real Value)",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
           },
-          "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita": {
-            "name": "Gross National Income Based on Purchasing Power Parity Per Capita",
-            "statVar": "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
+          "Amount_EconomicActivity_GrossValueAdded_RealValue": {
+            "name": "Amount of Economic Activity (Real Value): Gross Value Added",
+            "statVar": "Amount_EconomicActivity_GrossValueAdded_RealValue"
           },
           "Area_Farm": {
             "name": "Total Farm Area",
@@ -1251,6 +1241,17 @@
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSTransportationWarehousing_RealValue",
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue",
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue"
+        ]
+      },
+      "Amount_EconomicActivity_GrossValueAdded_RealValue": {
+        "isic": [
+          "Amount_EconomicActivity_GrossValueAdded_ISICAgricultureHuntingForestryFishing_RealValue",
+          "Amount_EconomicActivity_GrossValueAdded_ISICConstruction_RealValue",
+          "Amount_EconomicActivity_GrossValueAdded_ISICManufacturing_RealValue",
+          "Amount_EconomicActivity_GrossValueAdded_ISICMiningManufacturingUtilities_RealValue",
+          "Amount_EconomicActivity_GrossValueAdded_ISICOtherActivities_RealValue",
+          "Amount_EconomicActivity_GrossValueAdded_ISICTransportStorageCommunications_RealValue",
+          "Amount_EconomicActivity_GrossValueAdded_ISICWholesaleRetailTradeRestaurantsHotels_RealValue"
         ]
       },
       "dc/1wf1h5esex2d": {

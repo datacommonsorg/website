@@ -10,7 +10,9 @@
   "comparisonVariables": [],
   "context": {},
   "debug": {},
-  "entities": ["geoId/32"],
+  "entities": [
+    "geoId/32"
+  ],
   "nonPlaceEntities": [],
   "properties": [],
   "sessionId": "007_999999999",

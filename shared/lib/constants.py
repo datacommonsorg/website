@@ -41,6 +41,7 @@ STOP_WORDS: Set[str] = {
     'yours',
     'such',
     'into',
+    'of',
     'most',
     'itself',
     'other',

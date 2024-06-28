@@ -21,7 +21,6 @@ from typing import List, Set
 from markupsafe import escape
 
 import shared.lib.constants as constants
-import logging
 
 
 def _add_to_set_from_list(set_strings: Set[str],

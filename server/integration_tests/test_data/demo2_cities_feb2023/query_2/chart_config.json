@@ -122,34 +122,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Percent_Person_WithArthritis"
-                    ],
-                    "title": "Arthritis in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Arthritis in Sunnyvale",
-                    "statVarKey": [
-                      "Percent_Person_WithArthritis"
-                    ],
-                    "title": "Arthritis in Sunnyvale",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Arthritis"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Percent_Person_Smoking"
                     ],
                     "title": "Prevalence of Smoking in Sunnyvale",
@@ -199,6 +171,34 @@
               }
             ],
             "title": "High Blood Pressure"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithArthritis"
+                    ],
+                    "title": "Arthritis in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Arthritis in Sunnyvale",
+                    "statVarKey": [
+                      "Percent_Person_WithArthritis"
+                    ],
+                    "title": "Arthritis in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Arthritis"
           },
           {
             "columns": [
