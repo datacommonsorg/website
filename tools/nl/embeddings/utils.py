@@ -150,19 +150,24 @@ def compute_embeddings(
   Return:
     A list of embeddings for the preindexes.
   """
-  logging.info("Compute embeddings")
-  logging.info("Preindex size: %d", len(preindexes))
+  logging.info("Compute embeddings with size %s", len(preindexes))
   start = time.time()
-  # Find preindex that are not in the existing embeddings
-  existing_embeddings_map = {x.preindex.text: x for x in existing_embeddings}
-  filtered_preindexes = [
-      x for x in preindexes if x.text not in existing_embeddings_map
-  ]
-  logging.info("Size of preindexes to compute embeddings with model: %d",
-               len(filtered_preindexes))
-  # Compute embeddings with model inference
+
   result: List[Embedding] = []
-  for i, chunk in enumerate(_chunk_list(filtered_preindexes, _CHUNK_SIZE)):
+  preindexes_to_compute: List[PreIndex] = []
+
+  # Check each preindex, use existing embeddings vector if possible
+  existing_embeddings_map = {x.preindex.text: x for x in existing_embeddings}
+  for p in preindexes:
+    if p.text in existing_embeddings_map:
+      # Only use the saved sentence vector. The dcid might be different.
+      result.append(Embedding(p, existing_embeddings_map[p.text].vector))
+    else:
+      preindexes_to_compute.append(p)
+
+  # Compute embeddings with model inference
+  logging.info("%d embeddings need computation", len(preindexes_to_compute))
+  for i, chunk in enumerate(_chunk_list(preindexes_to_compute, _CHUNK_SIZE)):
     logging.info('texts %d to %d', i * _CHUNK_SIZE, (i + 1) * _CHUNK_SIZE - 1)
     for i in range(_NUM_RETRIES):
       try:
@@ -175,12 +180,8 @@ def compute_embeddings(
         break
       except Exception as e:
         logging.error('Exception: %s', e)
-  # Add existing embeddings
-  for preindex in preindexes:
-    if preindex.text in existing_embeddings_map:
-      existing_embedding = existing_embeddings_map[preindex.text]
-      # Only use the saved sentence vector. The dcid might be different.
-      result.append(Embedding(preindex, existing_embedding.vector))
+
+  # Sort result
   result.sort(key=lambda x: x.preindex.text)
   logging.info(f'Computing embeddings took {time.time() - start} seconds')
   return result
