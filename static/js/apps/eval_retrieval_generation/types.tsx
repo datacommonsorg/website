@@ -23,8 +23,8 @@ export interface EvalInfo {
 
 export interface Response {
   question: string;
-  llmStat: string;
   dcResponse: string;
+  llmStat?: string;
 }
 
 export interface Query {
@@ -36,3 +36,15 @@ export interface Query {
 
 // Key is the call id, value is the row index in the sheet.
 export type DcCall = Record<number, number>;
+
+export enum EvalType {
+  RIG = "RIG",
+  RAG = "RAG",
+}
+
+export enum FeedbackStage {
+  OVERALL_ANS = "OVERALL_ANS",
+  CALLS = "CALLS",
+  RAG_ANS = "RAG_ANS",
+  OVERALL_QUESTIONS = "OVERALL_QUESTIONS",
+}

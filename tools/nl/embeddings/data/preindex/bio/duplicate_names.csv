@@ -1,3 +1,0 @@
-PreferredSV,DroppedSV,DuplicateName
-<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol,<-geneSymbol{typeOf:GeneticVariantGeneAssociation}->referenceSNPClusterID,GeneticVariantGeneAssociation
-<-diseaseOntologyID{typeOf:DiseaseGeneAssociation}->geneID,<-geneID{typeOf:DiseaseGeneAssociation}->diseaseOntologyID,DiseaseGeneAssociation

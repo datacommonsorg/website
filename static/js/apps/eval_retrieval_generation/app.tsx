@@ -23,16 +23,22 @@ import { CallFeedback } from "./call_feedback";
 import {
   CALL_ID_COL,
   DC_CALL_SHEET,
+  DC_METADATA_SHEET,
+  FEEDBACK_PANE_ID,
+  METADATA_KEY_COL,
+  METADATA_KEY_TYPE,
+  METADATA_VAL_COL,
   QA_SHEET,
   QUERY_COL,
-  QUERY_FEEDBACK_CALL_ID,
   QUERY_ID_COL,
   USER_COL,
 } from "./constants";
 import { AppContext, SessionContext } from "./context";
-import { QueryFeedback } from "./query_feedback";
+import { OverallFeedback } from "./overall_feedback";
 import { QuerySection } from "./query_section";
-import { DcCall, Query } from "./types";
+import { RagAnsFeedback } from "./rag_ans_feedback";
+import { DcCall, EvalType, FeedbackStage, Query } from "./types";
+import { getFirstFeedbackStage } from "./util";
 
 // Map from sheet name to column name to column index
 type HeaderInfo = Record<string, Record<string, number>>;
@@ -42,16 +48,17 @@ interface AppPropType {
 }
 
 export function App(props: AppPropType): JSX.Element {
-  const { setSessionQueryId, sessionCallId, sessionQueryId } =
+  const { setSessionQueryId, setFeedbackStage, feedbackStage, sessionQueryId } =
     useContext(SessionContext);
   const [user, setUser] = useState<User | null>(null);
   const [doc, setDoc] = useState<GoogleSpreadsheet>(null);
   const [allQuery, setAllQuery] = useState<Record<number, Query>>(null);
   const [allCall, setAllCall] = useState<Record<number, DcCall>>(null);
+  const [evalType, setEvalType] = useState<EvalType>(null);
 
   async function loadHeader(doc: GoogleSpreadsheet): Promise<HeaderInfo> {
     const result: HeaderInfo = {};
-    for (const sheetName of [QA_SHEET, DC_CALL_SHEET]) {
+    for (const sheetName of [QA_SHEET, DC_CALL_SHEET, DC_METADATA_SHEET]) {
       result[sheetName] = {};
       const sheet = doc.sheetsByTitle[sheetName];
       await sheet.loadHeaderRow();
@@ -146,6 +153,36 @@ export function App(props: AppPropType): JSX.Element {
     });
   };
 
+  const loadMetadata = (doc: GoogleSpreadsheet, allHeader: HeaderInfo) => {
+    const sheet = doc.sheetsByTitle[DC_METADATA_SHEET];
+    const header = allHeader[DC_METADATA_SHEET];
+    const loadPromises = [];
+    for (const col of [METADATA_KEY_COL, METADATA_VAL_COL]) {
+      loadPromises.push(
+        sheet.loadCells({
+          startColumnIndex: header[col],
+          endColumnIndex: header[col] + 1,
+        })
+      );
+    }
+    const numRows = sheet.rowCount;
+    Promise.all(loadPromises).then(() => {
+      for (let i = 1; i < numRows; i++) {
+        const metadataKey = sheet.getCell(i, header[METADATA_KEY_COL]).value;
+        if (metadataKey === METADATA_KEY_TYPE) {
+          const evalType = sheet.getCell(i, header[METADATA_VAL_COL])
+            .value as EvalType;
+          setFeedbackStage(getFirstFeedbackStage(evalType));
+          setEvalType(evalType);
+          return;
+        }
+      }
+      alert(
+        "Could not find an eval type in the sheet metadata. Please update the sheet and try again."
+      );
+    });
+  };
+
   async function handleUserSignIn(user: User, credential: OAuthCredential) {
     if (credential.accessToken) {
       setUser(user); // Set the user state to the signed-in user
@@ -157,6 +194,7 @@ export function App(props: AppPropType): JSX.Element {
       loadHeader(doc).then((allHeader) => {
         loadQuery(doc, allHeader, user.email);
         loadCall(doc, allHeader);
+        loadMetadata(doc, allHeader);
       });
     }
   }
@@ -178,28 +216,36 @@ export function App(props: AppPropType): JSX.Element {
             href={`https://docs.google.com/spreadsheets/d/${props.sheetId}`}
             target="_blank"
             rel="noopener noreferrer"
+            className="google-sheet-link"
           >
             Google Sheet Link
           </a>
           <p>Signed in as {user.email}</p>
-          {allQuery && allCall && doc && sessionQueryId && (
+          {allQuery && allCall && doc && sessionQueryId && evalType && (
             <AppContext.Provider
               value={{
                 allCall,
                 allQuery,
                 doc,
+                evalType,
                 sheetId: props.sheetId,
                 userEmail: user.email,
               }}
             >
               <div className="app-content">
                 <QuerySection />
-                <div className="feedback-pane">
-                  {sessionCallId === QUERY_FEEDBACK_CALL_ID ? (
-                    <QueryFeedback />
-                  ) : (
-                    <CallFeedback />
+                <div className="feedback-pane" id={FEEDBACK_PANE_ID}>
+                  {(feedbackStage === FeedbackStage.OVERALL_ANS ||
+                    feedbackStage === FeedbackStage.OVERALL_QUESTIONS) && (
+                    <OverallFeedback />
                   )}
+                  {feedbackStage === FeedbackStage.CALLS && <CallFeedback />}
+                  {feedbackStage === FeedbackStage.RAG_ANS && (
+                    <RagAnsFeedback />
+                  )}
+                  <div id="page-screen" className="screen">
+                    <div id="spinner"></div>
+                  </div>
                 </div>
               </div>
             </AppContext.Provider>

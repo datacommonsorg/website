@@ -274,7 +274,7 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
         "AnswerPlacesReference": ["these", "those"],
         "PerCapita": [
             "fraction", "percent", "percentage", "per capita", "percapita",
-            "rate", "rates"
+            "per person", "rate", "rates"
         ],
         "Temporal": [
             # Day of week
@@ -407,3 +407,6 @@ DATE_LATEST = 'LATEST'
 # Observations for a particular variable and place will always have the same
 # date
 DATE_HIGHEST_COVERAGE = 'HIGHEST_COVERAGE'
+
+# The name of the embeddings CSV file.
+EMBEDDINGS_FILE_NAME = 'embeddings.csv'

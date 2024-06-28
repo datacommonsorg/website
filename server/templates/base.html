@@ -1,5 +1,5 @@
 {#-
-  Copyright 2020 Google LLC
+  Copyright 2024 Google LLC
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -73,6 +73,23 @@
     globalThis.isCustomDC = {{ config['CUSTOM']|int }};
     globalThis.STAT_VAR_HIERARCHY_CONFIG = {{ config['STAT_VAR_HIERARCHY_CONFIG'] | tojson }};
   </script>
+  <script>
+    // This script is to allow embedding the website as an iframe and allow the
+    // parent to request the iframe's URL. This is used by the /dev/diff tool.
+    window.addEventListener('message', function(event) {
+      // The parent should send a postMessage event.
+      // MUST verify the origin to be autopush DC
+      if (event.origin === 'https://autopush.datacommons.org') {
+        // Send the iframe's URL back to the parent
+        if (event.data === 'Request URL') {
+          event.source.postMessage(
+            { type: 'URLResponse', url: window.location.href },
+            event.origin
+          );
+        }
+      }
+    });
+  </script>
 </head>
 
 <body>
@@ -128,12 +145,12 @@
                 <a class="nav-link dropdown-toggle" href="#" id="nav-doc-dropdown" role="button" data-toggle="dropdown"
                   aria-haspopup="true" aria-expanded="false" aria-label="{% trans %}Show documentation links{% endtrans %}">{% trans %}Documentation{% endtrans %}</a>
                 <div class="dropdown-menu" aria-labelledby="nav-doc-dropdown">
-                  <a class="dropdown-item" href="http://docs.datacommons.org">{% trans %}Documentation{% endtrans %}</a>
-                  <a class="dropdown-item" href="http://docs.datacommons.org/api">{% trans %}APIs{% endtrans %}</a>
+                  <a class="dropdown-item" href="https://docs.datacommons.org">{% trans %}Documentation{% endtrans %}</a>
+                  <a class="dropdown-item" href="https://docs.datacommons.org/api">{% trans %}APIs{% endtrans %}</a>
                   {# TODO: UNCOMMENT TO RE-ENABLE BIGQUERY #}
-                  {#<a class="dropdown-item" href="http://docs.datacommons.org/bigquery">{% trans %}BigQuery{% endtrans
+                  {#<a class="dropdown-item" href="https://docs.datacommons.org/bigquery">{% trans %}BigQuery{% endtrans
                     %}</a>#}
-                  <a class="dropdown-item" href="http://docs.datacommons.org/tutorials">{% trans %}Tutorials{% endtrans
+                  <a class="dropdown-item" href="https://docs.datacommons.org/tutorials">{% trans %}Tutorials{% endtrans
                     %}</a>
                   <a class="dropdown-item" href="https://docs.datacommons.org/contributing/">{% trans %}Contribute{%
                     endtrans %}</a>
@@ -204,14 +221,14 @@
             {# TRANSLATORS: The label for a list of documentation links. #}
             <h6>{% trans %}Documentation{% endtrans %}</h6>
             {# TRANSLATORS: The label for a link to our documentation site. #}
-            <a href="http://docs.datacommons.org"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Documentation{% endtrans %}</span></a>
+            <a href="https://docs.datacommons.org"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Documentation{% endtrans %}</span></a>
             {# TRANSLATORS: The label for a link to our API documentation. #}
-            <a href="http://docs.datacommons.org/api"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}APIs{% endtrans %}</span></a>
+            <a href="https://docs.datacommons.org/api"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}APIs{% endtrans %}</span></a>
             {# TODO: UNCOMMENT TO RE-ENABLE BIGQUERY #}
             {# TRANSLATORS: The label for a link to BigQuery integration starter docs. #}
-            {#<a href="http://docs.datacommons.org/bigquery"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}BigQuery{% endtrans %}</span></a>#}
+            {#<a href="https://docs.datacommons.org/bigquery"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}BigQuery{% endtrans %}</span></a>#}
             {# TRANSLATORS: The label for a link to our API tutorials. #}
-            <a href="http://docs.datacommons.org/tutorials"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Tutorials{% endtrans %}</span></a>
+            <a href="https://docs.datacommons.org/tutorials"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Tutorials{% endtrans %}</span></a>
             {# TRANSLATORS: The label for a link to instructions about contributing to the project. #}
             <a href="https://docs.datacommons.org/contributing/"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Contribute{% endtrans %}</span></a>
             {# TRANSLATORS: The label for a link to the project's github repository (for open sourced code). #}

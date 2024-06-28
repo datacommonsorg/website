@@ -60,21 +60,22 @@ COPY web_app.py /workspace/web_app.py
 COPY server/requirements.txt /workspace/server/requirements.txt
 RUN pip install --upgrade pip
 RUN pip install --upgrade setuptools
-RUN pip3 install -r /workspace/server/requirements.txt
+RUN pip3 install --no-cache-dir -r /workspace/server/requirements.txt
 
 # NL Server
 COPY nl_app.py /workspace/nl_app.py
 COPY deploy/nl/. /datacommons/nl/
 COPY nl_server/requirements.txt /workspace/nl_server/requirements.txt
+COPY nl_requirements.txt /workspace/nl_requirements.txt
 # TODO: Undo this once we figure out why lancedb breaks Custom DC Docker
 RUN sed -i'' '/lancedb/d' /workspace/nl_server/requirements.txt
 RUN pip install --upgrade pip
 RUN pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
-RUN pip3 install -r /workspace/nl_server/requirements.txt
+RUN pip3 install --no-cache-dir -r /workspace/nl_server/requirements.txt
 
 # Import Tool
 COPY import/simple/requirements.txt /workspace/import/simple/requirements.txt
-RUN pip3 install -r /workspace/import/simple/requirements.txt
+RUN pip3 install --no-cache-dir -r /workspace/import/simple/requirements.txt
 
 # Embeddings Tool
 COPY tools/nl/embeddings/requirements.txt /workspace/tools/nl/embeddings/requirements.txt
@@ -109,7 +110,7 @@ COPY shared/. /workspace/shared/
 
 # NL Server
 COPY nl_server/. /workspace/nl_server/
-COPY deploy/nl/. /workspace/deploy/nl/
+COPY deploy/nl/catalog.yaml /datacommons/nl/catalog.yaml
 
 # Import Tool
 COPY import/. /workspace/import/

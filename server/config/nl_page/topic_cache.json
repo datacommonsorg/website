@@ -8757,11 +8757,11 @@
         "dc/svpg/dc/topic/StudentEnrollmentLevels_StudentPopulationByEnrollmentLevel"
       ],
       "memberList": [
-        "Count_Person_EnrolledInKindergarten",
+        "Count_Person_DetailedEnrolledInKindergarten",
         "Count_Person_DetailedPrimarySchool",
         "Count_Person_DetailedMiddleSchool",
         "Count_Person_DetailedHighSchool",
-        "Count_Person_EnrolledInCollegeUndergraduateYears",
+        "Count_Person_DetailedEnrolledInCollegeUndergraduateYears",
         "Count_Person_EnrolledInCollegeOrGraduateSchool"
       ],
       "name": [
@@ -11338,7 +11338,6 @@
       ],
       "relevantVariableList": [
         "Count_MedicalConditionIncident_ConditionHIVAIDS",
-        "dc/topic/sdg_3.3.1",
         "dc/svpg/HIV_HIVCasesByAge",
         "dc/svpg/HIV_HIVCasesByGender",
         "dc/svpg/HIV_HIVCasesByRace"

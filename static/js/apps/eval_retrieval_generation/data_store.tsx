@@ -34,11 +34,7 @@ import { db } from "../../utils/firebase";
 import {
   CALL_ID_COL,
   DC_FEEDBACK_SHEET,
-  DC_QUESTION_FEEDBACK_COL,
-  DC_RESPONSE_FEEDBACK_COL,
-  LLM_STAT_FEEDBACK_COL,
   QUERY_ID_COL,
-  QUERY_OVERALL_FEEDBACK_COL,
   USER_COL,
 } from "./constants";
 import { Response } from "./types";
@@ -60,13 +56,19 @@ export function getPath(
 }
 
 // Sets a field in a doc at the specified path
-export async function setField(
+export async function setFields(
   path: string,
-  fieldKey: string,
-  fieldValue: string
+  fields: Record<string, string>
 ): Promise<void> {
   const docRef = doc(db, path);
-  setDoc(docRef, { [fieldKey]: fieldValue }, { merge: true });
+  setDoc(docRef, fields, { merge: true });
+}
+
+// Gets all the fields for a specified path
+export async function getAllFields(path: string): Promise<DocumentData> {
+  const docRef = doc(db, path);
+  const snapshot = await getDoc(docRef);
+  return snapshot.data() || {};
 }
 
 // Gets a field from a doc at the specified path
@@ -74,9 +76,7 @@ export async function getField(
   path: string,
   fieldKey: string
 ): Promise<string> {
-  const docRef = doc(db, path);
-  const snapshot = await getDoc(docRef);
-  const docData = snapshot.data();
+  const docData = await getAllFields(path);
   return docData ? docData[fieldKey] : "";
 }
 
@@ -155,18 +155,14 @@ export async function saveToSheet(
   doc: GoogleSpreadsheet,
   queryId: number,
   callId: number,
-  response?: Response,
-  overallFeedback?: string
+  cellValues: Record<string, string | number>
 ): Promise<void> {
   const sheet = doc.sheetsByTitle[DC_FEEDBACK_SHEET];
   sheet.addRow({
+    ...cellValues,
     [QUERY_ID_COL]: queryId,
     [CALL_ID_COL]: callId,
     [USER_COL]: userEmail,
-    [DC_QUESTION_FEEDBACK_COL]: response?.question || "",
-    [DC_RESPONSE_FEEDBACK_COL]: response?.dcResponse || "",
-    [LLM_STAT_FEEDBACK_COL]: response?.llmStat || "",
-    [QUERY_OVERALL_FEEDBACK_COL]: overallFeedback || "",
   });
 }
 
