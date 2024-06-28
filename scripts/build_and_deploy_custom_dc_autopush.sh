@@ -28,15 +28,27 @@
 set -e
 set -x
 
-# Get the latest versions of all submodules (maybe newer than pinned versions)
+# Initialize all submodules, then merge them with their masters and update
+# their pinned versions (locally only).
+./scripts/update_git_submodules.sh
 ./scripts/merge_git_submodules.sh
+
+# Configure Git to create commits with Cloud Build's service account
+git config user.email $(gcloud auth list --filter=status:ACTIVE --format='value(account)')
+
+git commit -am "DO NOT PUSH: Temp commit to update pinned submod versions"
+
+website_rev="$(git rev-parse --short HEAD)"
+mixer_rev="$(git rev-parse --short HEAD:mixer)"
+import_rev="$(git rev-parse --short HEAD:import)"
+image_label="${website_rev}-${mixer_rev}-${import_rev}"
 
 # Build a new image and push it to Container Registry, tagging it as latest
 docker build -f build/web_compose/Dockerfile \
-          --tag gcr.io/datcom-ci/datacommons-website-compose:${SHORT_SHA} \
+          --tag gcr.io/datcom-ci/datacommons-website-compose:${image_label} \
           --tag gcr.io/datcom-ci/datacommons-website-compose:latest \
           .
-docker push gcr.io/datcom-ci/datacommons-website-compose:${SHORT_SHA}
+docker push gcr.io/datcom-ci/datacommons-website-compose:${image_label}
 docker push gcr.io/datcom-ci/datacommons-website-compose:latest
 
 # Deploy latest image to dc-autopush Cloud Run service

@@ -14,12 +14,13 @@
 """Module for NL page data spec"""
 
 import copy
-from typing import cast, List
+from typing import cast, Dict, List
 
 from flask import current_app
 
 from server.lib.nl.common import utils
 from server.lib.nl.common.utterance import FulfillmentResult
+from server.lib.nl.common.utterance import QueryMode
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
 import server.lib.nl.detection.types as dtypes
@@ -32,8 +33,11 @@ from server.lib.nl.fulfillment import overview
 from server.lib.nl.fulfillment import superlative
 from server.lib.nl.fulfillment import triple
 import server.lib.nl.fulfillment.handlers as handlers
+from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 import server.lib.nl.fulfillment.utils as futils
+
+_TOPIC_PREFIX = "dc/topic/"
 
 
 #
@@ -127,6 +131,9 @@ def fulfill(uttr: Utterance) -> PopulateState:
       state.chart_vars_map = topic.compute_chart_vars(state)
   else:
     state.chart_vars_map = topic.compute_chart_vars(state)
+    # only do toolformer rig updates in single sv case
+    if state.uttr.mode == QueryMode.TOOLFORMER_RIG:
+      _update_chart_vars_for_rig(state)
 
   if params.is_special_dc(state.uttr.insight_ctx):
     _prune_non_country_special_dc_vars(state)
@@ -233,3 +240,57 @@ def _prune_non_country_special_dc_vars(state: PopulateState):
                              list(dropped_vars))
 
   state.chart_vars_map = pruned_chart_vars_map
+
+
+#
+# Update chart vars map for toolformer rig mode because needs special handling
+# of topics where we only want the stat vars that match both the topic and the
+# actual query.
+#
+def _update_chart_vars_for_rig(state: PopulateState):
+  # set of all svs that are part of a topic
+  topic_svs = set()
+  for var, chart_vars_list in state.chart_vars_map.items():
+    if not var.startswith(_TOPIC_PREFIX):
+      continue
+    for cv in chart_vars_list:
+      topic_svs.update(cv.svs)
+
+  updated_chart_vars_map: Dict[str, List[ChartVars]] = {}
+
+  # remove topic chart vars
+  dropped_topics = set()
+  for var, chart_vars_list in state.chart_vars_map.items():
+    if var.startswith(_TOPIC_PREFIX):
+      dropped_topics.add(var)
+      continue
+    updated_chart_vars_map[var] = chart_vars_list
+
+  # add chart vars for detected svs with a score above model threshold & part
+  # of a topic that was in the original chart vars
+  added_svs = set()
+  detected_single_sv = state.uttr.detection.svs_detected.single_sv
+  for sv, score in zip(detected_single_sv.svs, detected_single_sv.scores):
+    # skip topic svs
+    if sv.startswith(_TOPIC_PREFIX):
+      continue
+    # skip if score is below default threshold
+    if score < state.uttr.detection.svs_detected.model_threshold:
+      continue
+    # skip if not part of a topic that was detected
+    if not sv in topic_svs:
+      continue
+    # skip if sv is already in the chart vars map
+    if sv in updated_chart_vars_map:
+      continue
+    updated_chart_vars_map[sv] = [ChartVars(svs=[sv], orig_sv_map={sv: [sv]})]
+    added_svs.add(sv)
+
+  if dropped_topics:
+    state.uttr.counters.info('info_toolformer_rig_topic_vars_dropped',
+                             list(dropped_topics))
+  if added_svs:
+    state.uttr.counters.info('info_toolformer_rig_sv_vars_added',
+                             list(added_svs))
+
+  state.chart_vars_map = updated_chart_vars_map

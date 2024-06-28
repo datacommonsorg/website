@@ -102,21 +102,18 @@ Amount of GDP for Transportation and Warehousing,USStateQuarterlyIndustryGDP_NAI
 Amount of GDP for Utilities,USStateQuarterlyIndustryGDP_NAICS_22
 Amount of GDP for Wholesale Trade,USStateQuarterlyIndustryGDP_NAICS_42
 Amount of Greenhouse Gas Emissions,Annual_Emissions_GreenhouseGas
-Amount of Greenhouse Gas Emissions (Non Biogenic),Annual_Emissions_GreenhouseGas_NonBiogenic
 Amount of Greenhouse Gas Emissions from Agriculture,Annual_Emissions_GreenhouseGas_Agriculture
 Amount of Greenhouse Gas Emissions from Aluminum Production,Annual_Emissions_GreenhouseGas_AluminumProduction
 Amount of Greenhouse Gas Emissions from Ammonia Manufacturing,Annual_Emissions_GreenhouseGas_AmmoniaManufacturing_NonBiogenic
 Amount of Greenhouse Gas Emissions from Bauxite Mining,Annual_Emissions_GreenhouseGas_BauxiteMining
-Amount of Greenhouse Gas Emissions from Cement Production,Annual_Emissions_GreenhouseGas_CementProduction
-Amount of Greenhouse Gas Emissions from Cement Production (Non-Biogenic),Annual_Emissions_GreenhouseGas_CementProduction_NonBiogenic
+Amount of Greenhouse Gas Emissions from Cement Production,Annual_Emissions_GreenhouseGas_CementProduction;Annual_Emissions_GreenhouseGas_CementProduction_NonBiogenic
 Amount of Greenhouse Gas Emissions from Copper Mining,Annual_Emissions_GreenhouseGas_CopperMining
 Amount of Greenhouse Gas Emissions from Cropland Fire,Annual_Emissions_GreenhouseGas_CroplandFire
-Amount of Greenhouse Gas Emissions from Electricity Generation,Annual_Emissions_GreenhouseGas_ElectricityGeneration
-Amount of Greenhouse Gas Emissions from Electricity Generation (Non-Biogenic),Annual_Emissions_GreenhouseGas_ElectricityGeneration_NonBiogenic
+Amount of Greenhouse Gas Emissions from Electricity Generation,Annual_Emissions_GreenhouseGas_ElectricityGeneration;Annual_Emissions_GreenhouseGas_ElectricityGeneration_NonBiogenic
 Amount of Greenhouse Gas Emissions from Electricity Generation from Thermal Power Plant,Annual_Emissions_GreenhouseGas_ElectricityGenerationFromThermalPowerPlant
-Amount of Greenhouse Gas Emissions from Electronics Manufacture (Non-Biogenic),Annual_Emissions_GreenhouseGas_ElectronicsManufacture_NonBiogenic
+Amount of Greenhouse Gas Emissions from Electronics Manufacture,Annual_Emissions_GreenhouseGas_ElectronicsManufacture_NonBiogenic
 Amount of Greenhouse Gas Emissions from Enteric Fermentation,Annual_Emissions_GreenhouseGas_EntericFermentation
-Amount of Greenhouse Gas Emissions from Fluorinated GHG Production (Non-Biogenic),Annual_Emissions_GreenhouseGas_FluorinatedGHGProduction_NonBiogenic
+Amount of Greenhouse Gas Emissions from Fluorinated GHG Production,Annual_Emissions_GreenhouseGas_FluorinatedGHGProduction_NonBiogenic
 Amount of Greenhouse Gas Emissions from Forest Clearing,Annual_Emissions_GreenhouseGas_ForestClearing
 Amount of Greenhouse Gas Emissions from Forest Fire,Annual_Emissions_GreenhouseGas_ForestFire
 Amount of Greenhouse Gas Emissions from Forestry and Land Use,Annual_Emissions_GreenhouseGas_ForestryAndLandUse
@@ -127,31 +124,28 @@ Amount of Greenhouse Gas Emissions from Fuel Combustion for Refrigeration and Ai
 Amount of Greenhouse Gas Emissions from Fuel Combustion for Residential and Commercial Onsite Heating,Annual_Emissions_GreenhouseGas_FuelCombustionForResidentialCommercialOnsiteHeating
 Amount of Greenhouse Gas Emissions from Fuel Combustion for Road Vehicles,Annual_Emissions_GreenhouseGas_FuelCombustionForRoadVehicles
 Amount of Greenhouse Gas Emissions from Fuel Combustion in Buildings,Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings
-Amount of Greenhouse Gas Emissions from Glass Production (Non-Biogenic),Annual_Emissions_GreenhouseGas_GlassProduction_NonBiogenic
-Amount of Greenhouse Gas Emissions from Hydrogen Production (Non-Biogenic),Annual_Emissions_GreenhouseGas_HydrogenProduction_NonBiogenic
-Amount of Greenhouse Gas Emissions from Industrial Waste Landfills (Non-Biogenic),Annual_Emissions_GreenhouseGas_IndustrialWasteLandfills_NonBiogenic
-Amount of Greenhouse Gas Emissions from Industrial Wastewater Treatment (Non-Biogenic),Annual_Emissions_GreenhouseGas_IndustrialWastewaterTreatment_NonBiogenic
+Amount of Greenhouse Gas Emissions from Glass Production,Annual_Emissions_GreenhouseGas_GlassProduction_NonBiogenic
+Amount of Greenhouse Gas Emissions from Hydrogen Production,Annual_Emissions_GreenhouseGas_HydrogenProduction_NonBiogenic
+Amount of Greenhouse Gas Emissions from Industrial Waste Landfills,Annual_Emissions_GreenhouseGas_IndustrialWasteLandfills_NonBiogenic
+Amount of Greenhouse Gas Emissions from Industrial Wastewater Treatment,Annual_Emissions_GreenhouseGas_IndustrialWastewaterTreatment_NonBiogenic
 Amount of Greenhouse Gas Emissions from Iron Mining,Annual_Emissions_GreenhouseGas_IronMining
-Amount of Greenhouse Gas Emissions from Iron and Steel Production (Non-Biogenic),Annual_Emissions_GreenhouseGas_IronAndSteelProduction_NonBiogenic
-Amount of Greenhouse Gas Emissions from Lime Production (Non-Biogenic),Annual_Emissions_GreenhouseGas_LimeProduction_NonBiogenic
+Amount of Greenhouse Gas Emissions from Iron and Steel Production,Annual_Emissions_GreenhouseGas_IronAndSteelProduction_NonBiogenic
+Amount of Greenhouse Gas Emissions from Lime Production,Annual_Emissions_GreenhouseGas_LimeProduction_NonBiogenic
 Amount of Greenhouse Gas Emissions from Managed Soils,Annual_Emissions_GreenhouseGas_ManagedSoils
 Amount of Greenhouse Gas Emissions from Manufacturing,Annual_Emissions_GreenhouseGas_Manufacturing
 Amount of Greenhouse Gas Emissions from Manure Management,Annual_Emissions_GreenhouseGas_ManureManagement
 Amount of Greenhouse Gas Emissions from Maritime Shipping,Annual_Emissions_GreenhouseGas_MaritimeShipping
 Amount of Greenhouse Gas Emissions from Maritime Transport,Annual_Emissions_GreenhouseGas_MaritimeTransport
 Amount of Greenhouse Gas Emissions from Mineral Extraction,Annual_Emissions_GreenhouseGas_MineralExtraction
-Amount of Greenhouse Gas Emissions from Miscellaneous Use Of Carbonates (Non Biogenic),Annual_Emissions_GreenhouseGas_MiscellaneousUseOfCarbonates_NonBiogenic
-Amount of Greenhouse Gas Emissions from Municipal Landfills (Non Biogenic),Annual_Emissions_GreenhouseGas_MunicipalLandfills_NonBiogenic
-Amount of Greenhouse Gas Emissions from Nitric Acid Production (Non Biogenic),Annual_Emissions_GreenhouseGas_NitricAcidProduction_NonBiogenic
+Amount of Greenhouse Gas Emissions from Miscellaneous Use Of Carbonates,Annual_Emissions_GreenhouseGas_MiscellaneousUseOfCarbonates_NonBiogenic
+Amount of Greenhouse Gas Emissions from Municipal Landfills,Annual_Emissions_GreenhouseGas_MunicipalLandfills_NonBiogenic
+Amount of Greenhouse Gas Emissions from Nitric Acid Production,Annual_Emissions_GreenhouseGas_NitricAcidProduction_NonBiogenic
 Amount of Greenhouse Gas Emissions from Oil And Gas,Annual_Emissions_GreenhouseGas_OilAndGas
 Amount of Greenhouse Gas Emissions from Oil And Gas Production,Annual_Emissions_GreenhouseGas_OilAndGasProduction
 Amount of Greenhouse Gas Emissions from Open Burning Waste,Annual_Emissions_GreenhouseGas_OpenBurningWaste
-Amount of Greenhouse Gas Emissions from Petrochemical Production,Annual_Emissions_GreenhouseGas_PetrochemicalProduction
-Amount of Greenhouse Gas Emissions from Petrochemical Production (Non Biogenic),Annual_Emissions_GreenhouseGas_PetrochemicalProduction_NonBiogenic
-Amount of Greenhouse Gas Emissions from Petroleum Refining,Annual_Emissions_GreenhouseGas_PetroleumRefining
-Amount of Greenhouse Gas Emissions from Petroleum Refining (Non Biogenic),Annual_Emissions_GreenhouseGas_PetroleumRefining_NonBiogenic
-Amount of Greenhouse Gas Emissions from Pulp And Paper Manufacturing,Annual_Emissions_GreenhouseGas_PulpAndPaperManufacturing
-Amount of Greenhouse Gas Emissions from Pulp And Paper Manufacturing (Non Biogenic),Annual_Emissions_GreenhouseGas_PulpAndPaperManufacturing_NonBiogenic
+Amount of Greenhouse Gas Emissions from Petrochemical Production,Annual_Emissions_GreenhouseGas_PetrochemicalProduction;Annual_Emissions_GreenhouseGas_PetrochemicalProduction_NonBiogenic
+Amount of Greenhouse Gas Emissions from Petroleum Refining,Annual_Emissions_GreenhouseGas_PetroleumRefining;Annual_Emissions_GreenhouseGas_PetroleumRefining_NonBiogenic
+Amount of Greenhouse Gas Emissions from Pulp And Paper Manufacturing,Annual_Emissions_GreenhouseGas_PulpAndPaperManufacturing;Annual_Emissions_GreenhouseGas_PulpAndPaperManufacturing_NonBiogenic
 Amount of Greenhouse Gas Emissions from Rice Cultivation,Annual_Emissions_GreenhouseGas_RiceCultivation
 Amount of Greenhouse Gas Emissions from Rock Quarry,Annual_Emissions_GreenhouseGas_RockQuarry
 Amount of Greenhouse Gas Emissions from Sand Quarry,Annual_Emissions_GreenhouseGas_SandQuarry
@@ -159,14 +153,12 @@ Amount of Greenhouse Gas Emissions from Savanna Fire,Annual_Emissions_Greenhouse
 Amount of Greenhouse Gas Emissions from Shrubland Fire,Annual_Emissions_GreenhouseGas_ShrublandFire
 Amount of Greenhouse Gas Emissions from Solid Fuel Transformation,Annual_Emissions_GreenhouseGas_SolidFuelTransformation
 Amount of Greenhouse Gas Emissions from Solid Waste Disposal,Annual_Emissions_GreenhouseGas_SolidWasteDisposal
-Amount of Greenhouse Gas Emissions from Stationary Combustion (Non Biogenic),Annual_Emissions_GreenhouseGas_StationaryCombustion_NonBiogenic
+Amount of Greenhouse Gas Emissions from Stationary Combustion,Annual_Emissions_GreenhouseGas_StationaryCombustion_NonBiogenic
 Amount of Greenhouse Gas Emissions from Steel Manufacturing,Annual_Emissions_GreenhouseGas_SteelManufacturing
 Amount of Greenhouse Gas Emissions from Transportation,Annual_Emissions_GreenhouseGas_Transportation
-Amount of Greenhouse Gas Emissions from Underground Coal Mines (Non Biogenic),Annual_Emissions_GreenhouseGas_UndergroundCoalMines_NonBiogenic
+Amount of Greenhouse Gas Emissions from Underground Coal Mines,Annual_Emissions_GreenhouseGas_UndergroundCoalMines_NonBiogenic
 Amount of Greenhouse Gas Emissions from Waste Management,Annual_Emissions_GreenhouseGas_WasteManagement
 Amount of Greenhouse Gas Emissions from Wastewater Treatment And Discharge,Annual_Emissions_GreenhouseGas_WastewaterTreatmentAndDischarge
-Amount of Hydrofluorocarbon Emissions (Non Biogenic),Annual_Emissions_Hydrofluorocarbon_NonBiogenic
-Amount of Hydrofluoroether Emissions (Non Biogenic),Annual_Emissions_Hydrofluoroether_NonBiogenic
 Amount of Inward Remittance,Amount_Remittance_InwardRemittance
 Amount of Jute or mesta grown,Amount_FarmInventory_JuteOrMesta
 Amount of Methane Emissions from Agriculture,Annual_Emissions_Methane_Agriculture
@@ -177,6 +169,9 @@ Amount of Methane Emissions from Enteric Fermentation,Annual_Emissions_Methane_E
 Amount of Methane Emissions from Fossil Fuel Operations,Annual_Emissions_Methane_FossilFuelOperations
 Amount of Methane Emissions from Fuel Combustion For Domestic Aviation,Annual_Emissions_Methane_FuelCombustionForDomesticAviation
 Amount of Methane Emissions from Fuel Combustion For International Aviation,Annual_Emissions_Methane_FuelCombustionForInternationalAviation
+Amount of Non Biogenic Greenhouse Gas Emissions,Annual_Emissions_GreenhouseGas_NonBiogenic
+Amount of Non Biogenic Hydrofluorocarbon Emissions,Annual_Emissions_Hydrofluorocarbon_NonBiogenic
+Amount of Non Biogenic Hydrofluoroether Emissions,Annual_Emissions_Hydrofluoroether_NonBiogenic
 Amount of Oats grown for grain production,Amount_FarmInventory_OatsForGrain
 Amount of Outward Remittance,Amount_Remittance_OutwardRemittance
 Amount of Sorghum grown for grain production,Amount_FarmInventory_SorghumForGrain
@@ -1135,6 +1130,7 @@ Mean Retirement Income of Households with foreign born people from Western Asia,
 Mean Temperature,Mean_Temperature
 Mean Visibility,Mean_Visibility
 Mean Wind Speed,Mean_WindSpeed
+Mean commute time of working people,Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome
 Mean farm area,Mean_Area_Farm
 Mean near-surface rainfall,Mean_Rainfall
 Mean relative humidity,Mean_Humidity_RelativeHumidity
@@ -2225,7 +2221,7 @@ Number of females with earnings residing in Military Quarters or Military Ships,
 Number of females with earnings residing in Noninstitutionalized Group Quarters,Count_Person_Female_WithEarnings_ResidesInNoninstitutionalizedGroupQuarters
 Number of females with earnings residing in Nursing Facilities,Count_Person_Female_WithEarnings_ResidesInNursingFacilities
 Number of females with heart Disease,Count_Person_Female_ConditionDiseasesOfHeart
-Number of females with no health insurance,Count_Person_Female_NoHealthInsurance
+Number of females without health insurance,Count_Person_Female_NoHealthInsurance
 Number of floods,Count_FloodEvent
 Number of foreign Born People from Asia,Count_Person_PlaceOfBirthAsia
 Number of foreign Born People from Europe,Count_Person_PlaceOfBirthEurope
@@ -2649,6 +2645,7 @@ Number of people that are never married and reside in group quarters,Count_Perso
 Number of people that are never married and reside in institutionalized group quarters,Count_Person_NeverMarried_ResidesInInstitutionalizedGroupQuarters
 Number of people that are never married and reside in noninstitutionalized group quarters,Count_Person_NeverMarried_ResidesInNoninstitutionalizedGroupQuarters
 Number of people that are never married and reside in nursing facilities,Count_Person_NeverMarried_ResidesInNursingFacilities
+Number of people under 18 years old without health insurance,Count_Person_18OrLessYears_NoHealthInsurance
 Number of people walking to work,dc/vp8cbt6k79t94
 Number of people who are high school graduates or higher,Count_Person_EducationalAttainmentHighSchoolGraduateOrHigher
 Number of people who are high school graduates or higher and reside in adult correctional facilities,Count_Person_EducationalAttainmentHighSchoolGraduateOrHigher_ResidesInAdultCorrectionalFacilities
@@ -2706,8 +2703,6 @@ Number of people who work in warehousing and storage,dc/w1tfjz3h6138
 Number of people who work in water transportation,dc/h1jy2glt2m7e6
 Number of people who work in wood product manufacturing,dc/ws19bm1hl105b
 Number of people who worked full time through the year,Count_Person_FullTimeYearRoundWorker
-Number of people whose commute time to work is 5 minutes or less,dc/fyc3yvjy0xw6g
-Number of people whose commute time to work is 90 minutes or longer,dc/h7ft916g93ys2
 Number of people with Medicaid or means tested public coverage,Count_Person_WithMedicaidOrMeansTestedPublicCoverage
 Number of people with VA health care,Count_Person_WithVAHealthCare
 "Number of people with a bachelor's degree or higher in Arts, Humanities, and Other Major",Count_Person_BachelorOfArtsHumanitiesAndOtherMajor
@@ -2988,8 +2983,8 @@ Percentage of renewable electricity capacity,Capacity_Electricity_Renewables_AsA
 Percentage of the population who receive an annual checkup,Percent_Person_ReceivedAnnualCheckup
 Percentage of the workforce that is female,Count_Person_15OrMoreYears_InLaborForce_Female_AsFractionOf_Count_Person_InLaborForce
 Percentage of waste generated that are processed,Count_WasteGenerated_Processed_AsAFractionOf_Count_WasteGenerated
-Percentage of working age females Without Health Insurance,Percent_Person_18To64Years_Female_NoHealthInsurance
-Percentage of working age males Without Health Insurance,Percent_Person_18To64Years_Male_NoHealthInsurance
+Percentage of working age females without health insurance,Percent_Person_18To64Years_Female_NoHealthInsurance
+Percentage of working age males without health insurance,Percent_Person_18To64Years_Male_NoHealthInsurance
 Percentage of working age population Without Health Insurance,Percent_Person_18To64Years_ReceivedNoHealthInsurance
 Petroleum Coke consumption by Fuel,Annual_Consumption_Fuel_PetroleumCoke
 Petroleum Coke consumption by Fuel for Non Energy Use,Annual_Consumption_Fuel_PetroleumCoke_NonEnergyUse
@@ -4062,6 +4057,7 @@ breakdown of workers by jobs,dc/topic/Jobs
 brown coal reserve,Annual_Reserves_Fuel_BrownCoal
 build date of houses,dc/topic/HousesByDateofBuild
 capacity of crude oil refinery,Annual_Capacity_Fuel_CrudeOil_Refinery
+carbon footprint,Annual_Emissions_GreenhouseGas
 cardiovascular disease,dc/topic/HeartDisease
 causes of death WHO,dc/topic/WHOMortalityCauses
 cell phones,dc/topic/sdg_9.c.1
@@ -4338,7 +4334,7 @@ median age of native hawaiian or other pacific islander females,Median_Age_Perso
 median age of native hawaiian or other pacific islander males,Median_Age_Person_Male_NativeHawaiianOrOtherPacificIslanderAlone
 median age of native males,Median_Age_Person_Male_Native
 median age of native people,Median_Age_Person_Native
-median age of people who have no health insurance,Median_Age_Person_NoHealthInsurance
+median age of people without health insurance,Median_Age_Person_NoHealthInsurance
 median age of white females,Median_Age_Person_Female_WhiteAlone
 median age of white males,Median_Age_Person_Male_WhiteAlone
 median earnings,Median_Earnings_Person
@@ -4384,8 +4380,8 @@ nominal Gross Domestic Product (GDP) per capita,Amount_EconomicActivity_GrossDom
 non communicable diseases WHO,dc/topic/WHONonCommunicableDiseases
 non-english at home,dc/topic/NonEnglishLanguageAtHome
 non-english language at home,dc/topic/NonEnglishLanguageAtHome
-number of American Indian or Alaska Native people with no health insurance,Count_Person_NoHealthInsurance_AmericanIndianOrAlaskaNativeAlone
-number of Black Or African American people with no health insurance,Count_Person_NoHealthInsurance_BlackOrAfricanAmericanAlone
+number of American Indian or Alaska Native people without health insurance,Count_Person_NoHealthInsurance_AmericanIndianOrAlaskaNativeAlone
+number of Black Or African American people without health insurance,Count_Person_NoHealthInsurance_BlackOrAfricanAmericanAlone
 number of Black or African American females,Count_Person_Female_BlackOrAfricanAmericanAlone
 number of Black or African American females living Above Poverty Level in the Past 12 months,Count_Person_Female_AbovePovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone
 number of Black or African American females living below poverty level in the past 12 months,Count_Person_Female_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone
@@ -4400,12 +4396,12 @@ number of Elementary School Counselors,Count_Faculty_ElementarySchoolCounselor
 number of Excessive Heat Event,Count_ExcessiveHeatEvent
 number of Extreme Cold Wind Chill Event,Count_ExtremeColdWindChillEvent
 number of Hispanic or Latino males,Count_Person_Male_HispanicOrLatino
-number of Hispanic or Latino people with no health insurance,Count_Person_NoHealthInsurance_HispanicOrLatino
+number of Hispanic or Latino people without health insurance,Count_Person_NoHealthInsurance_HispanicOrLatino
 number of LEA Administrative Support Staff,Count_Faculty_LEAAdministrativeSupportStaff
 number of LEA Administrators,Count_Faculty_LEAAdministrator
 number of Males married and not separated,Count_Person_Male_MarriedAndNotSeparated
 number of Native Hawaiian and other Pacific Islander males,Count_Person_Male_NativeHawaiianAndOtherPacificIslanderAlone
-number of Native Hawaiian or Other Pacific Islander people with no health insurance,Count_Person_NoHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone
+number of Native Hawaiian or Other Pacific Islander people without health insurance,Count_Person_NoHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone
 number of Native Hawaiian or other Pacific Islander males,Count_Person_Male_NativeHawaiianOrOtherPacificIslanderAlone
 number of NonInstitutionalized American Indian or Alaska Native Civilian,Count_Person_Civilian_NonInstitutionalized_AmericanIndianOrAlaskaNativeAlone
 number of NonInstitutionalized Black or African American Civilian,Count_Person_Civilian_NonInstitutionalized_BlackOrAfricanAmericanAlone
@@ -4432,9 +4428,8 @@ number of asian females,Count_Person_Female_AsianAlone
 number of asian females living Above Poverty Level in the Past 12 months,Count_Person_Female_AbovePovertyLevelInThePast12Months_AsianAlone
 number of asian females living below poverty level in the past 12 months,Count_Person_Female_BelowPovertyLevelInThePast12Months_AsianAlone
 number of asian or pacific islander females,Count_Person_Female_AsianOrPacificIslander
-number of asian people with no health insurance,Count_Person_NoHealthInsurance_AsianAlone
+number of asian people without health insurance,Count_Person_NoHealthInsurance_AsianAlone
 number of births,Count_BirthEvent
-number of civilian males without health insurance,Count_Person_Male_NoHealthInsurance
 number of divorced Foreign Born people,Count_Person_15OrMoreYears_Divorced_ForeignBorn
 number of divorced Hispanic or Latino people,Count_Person_15OrMoreYears_Divorced_HispanicOrLatino
 number of divorced people with multi-races,Count_Person_15OrMoreYears_Divorced_TwoOrMoreRaces
@@ -4472,6 +4467,7 @@ number of males with earnings who reside in military quarters or military ships,
 number of males with earnings who reside in noninstitutionalized group quarters,Count_Person_Male_WithEarnings_ResidesInNoninstitutionalizedGroupQuarters
 number of males with earnings who reside in nursing facilities,Count_Person_Male_WithEarnings_ResidesInNursingFacilities
 number of males with health insurance,Count_Person_Male_WithHealthInsurance
+number of males without health insurance,Count_Person_Male_NoHealthInsurance
 number of multi race females living Above Poverty Level in the past 12 months,Count_Person_Female_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces
 number of multi races females living below poverty level in the past 12 months,Count_Person_Female_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces
 number of multi-race males,Count_Person_Male_TwoOrMoreRaces
@@ -4480,12 +4476,12 @@ number of native hawaiian or other pacific islander females living below poverty
 number of never married males aged 15 years or older,Count_Person_Male_NeverMarried
 number of non hispanic or latino males,Count_Person_Male_NotHispanicOrLatino
 number of non white males,Count_Person_Male_NonWhite
-"number of people Earning $5,000 to $15000 Without Health Insurance",Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf5000To14999USDollar_WithEarnings
-"number of people Earning $75,000 or more Without Health Insurance",Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf75000OrMoreUSDollar_WithEarnings
-"number of people Earning Between $15,000 and $25000 Without Health Insurance",Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf15000To24999USDollar_WithEarnings
-"number of people Earning Between $25,000 and $35000 Without Health Insurance",Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf25000To34999USDollar_WithEarnings
-"number of people Earning Between $35,000 and $50000 Without Health Insurance",Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf35000To49999USDollar_WithEarnings
-"number of people Earning Between $50,000 and $75000 Without Health Insurance",Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf50000To74999USDollar_WithEarnings
+number of people Earning $5000 to $15000 Without Health Insurance,Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf5000To14999USDollar_WithEarnings
+number of people Earning $75000 or more Without Health Insurance,Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf75000OrMoreUSDollar_WithEarnings
+number of people Earning Between $15000 and $25000 Without Health Insurance,Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf15000To24999USDollar_WithEarnings
+number of people Earning Between $25000 and $35000 Without Health Insurance,Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf25000To34999USDollar_WithEarnings
+number of people Earning Between $35000 and $50000 Without Health Insurance,Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf35000To49999USDollar_WithEarnings
+number of people Earning Between $50000 and $75000 Without Health Insurance,Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf50000To74999USDollar_WithEarnings
 number of people Earning less than $5000 and Without Health Insurance,Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf4999OrLessUSDollar_WithEarnings
 number of people in labor force,Count_Person_InLaborForce
 number of people living in rural areas,Count_Person_Rural
@@ -4547,7 +4543,6 @@ number of people who speak an Ilocano Samoan Hawaiian or other Austronesian lang
 "number of people who speak any Chinese, Mandarin, or Cantonese language at home",Count_Person_5OrMoreYears_ChineseInclMandarinCantoneseSpokenAtHome
 number of people who speak non-english language at home,Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome
 number of people who speak only English at home,Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome
-number of people with no health insurance,Count_Person_NoHealthInsurance
 number of people without disabilities,Count_Person_NoDisability
 number of people without disabilities residing in adult correctional facilities,Count_Person_NoDisability_ResidesInAdultCorrectionalFacilities
 number of people without disabilities residing in college or university student housing,Count_Person_NoDisability_ResidesInCollegeOrUniversityStudentHousing
@@ -4555,12 +4550,13 @@ number of people without disabilities residing in group quarters,Count_Person_No
 number of people without disabilities residing in institutionalized group quarters,Count_Person_NoDisability_ResidesInInstitutionalizedGroupQuarters
 number of people without disabilities residing in noninstitutionalized group quarters,Count_Person_NoDisability_ResidesInNoninstitutionalizedGroupQuarters
 number of people without disabilities residing in nursing facilities,Count_Person_NoDisability_ResidesInNursingFacilities
+number of people without health insurance,Count_Person_NoHealthInsurance
 number of rooms in houses,dc/topic/HousesByRoomCount
 number of students enrolled,dc/topic/StudentEnrollmentLevels
 number of white females living Above Poverty Level in the Past 12 months,Count_Person_Female_AbovePovertyLevelInThePast12Months_WhiteAlone
 number of white females living below poverty level in the past 12 months,Count_Person_Female_BelowPovertyLevelInThePast12Months_WhiteAlone
 number of white males,Count_Person_Male_WhiteAlone
-number of white people with no health insurance,Count_Person_NoHealthInsurance_WhiteAlone
+number of white people without health insurance,Count_Person_NoHealthInsurance_WhiteAlone
 number of widowed males,Count_Person_Male_Widowed
 number of workers,Count_Person_Workers
 number of workers in the leather and allied product manufacturing industry,dc/7bck6xpkc205c
