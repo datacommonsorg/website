@@ -54,20 +54,21 @@ def main(_):
   fm = utils.FileManager(input_dir, output_dir)
 
   # Build and save preindex
-  target_sentences = utils.build_and_save_preindex(fm)
+  preindexes = utils.build_and_save_preindexes(fm)
 
-  # Load saved embeddings from previous run.
-  saved_sentences = utils.get_saved_embeddings(index_config.embeddings_path)
+  # Load existing embeddings from previous run.
+  existing_embeddings = utils.load_existing_embeddings(
+      index_config.embeddings_path)
 
-  # Retrieve embeddings
-  sentences = utils.retrieve_embeddings(model, target_sentences,
-                                        saved_sentences)
+  # Compute embeddings
+  final_embeddings = utils.compute_embeddings(model, preindexes,
+                                              existing_embeddings)
 
   # Save embeddings
   if index_config.store_type == 'MEMORY':
-    utils.save_embeddings_memory(fm.local_output_dir(), sentences)
+    utils.save_embeddings_memory(fm.local_output_dir(), final_embeddings)
   elif index_config.store_type == 'LANCEDB':
-    utils.save_embeddings_lancedb(fm.local_output_dir(), sentences)
+    utils.save_embeddings_lancedb(fm.local_output_dir(), final_embeddings)
   else:
     raise ValueError(f'Unknown store type: {index_config.store_type}')
 

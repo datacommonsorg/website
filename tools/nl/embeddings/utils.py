@@ -48,9 +48,14 @@ _MD5_SUM_FILE = 'md5sum.txt'
 
 
 @dataclass
-class SentenceObject:
+class PreIndex:
   text: str
   dcid: str  # ';' concatenated dcids
+
+
+@dataclass
+class Embedding:
+  preindex: PreIndex
   vector: List[float]
 
 
@@ -75,27 +80,27 @@ def get_model(catalog: Catalog, env: Env, model_name: str) -> EmbeddingsModel:
   return model
 
 
-def get_saved_embeddings(embeddings_path: str) -> List[SentenceObject]:
-  """Load saved embeddings from a CSV file."""
+def load_existing_embeddings(embeddings_path: str) -> List[Embedding]:
+  """Load computed embeddings existing embeddings path."""
   try:
     if gcs.is_gcs_path(embeddings_path):
       embeddings_path = gcs.maybe_download(embeddings_path)
     df = pd.read_csv(embeddings_path)
-    sentences = []
+    embeddings = []
     for _, row in df.iterrows():
       dcid = row['dcid']
       sentence = row['sentence']
       vector = row.drop(labels=['dcid', 'sentence']).astype(float).tolist()
-      sentences.append(SentenceObject(text=sentence, dcid=dcid, vector=vector))
-    return sentences
+      embeddings.append(Embedding(PreIndex(text=sentence, dcid=dcid), vector))
+    return embeddings
   except Exception as e:
     logging.error(e)
     return []
 
 
-def build_and_save_preindex(fm: FileManager) -> List[SentenceObject]:
+def build_and_save_preindexes(fm: FileManager) -> List[PreIndex]:
   """
-  Build preindex records (text -> dcid) from a directory of CSV files.
+  Build preindex records from a directory of CSV files.
   """
   text2sv: Dict[str, set[str]] = {}
   for file_name in glob.glob(fm.local_input_dir() + "/[!_]*.csv"):
@@ -111,87 +116,95 @@ def build_and_save_preindex(fm: FileManager) -> List[SentenceObject]:
             text2sv[text] = set()
           text2sv[text].add(row[_COL_DCID])
 
-  sentences = [
-      SentenceObject(text, ';'.join(sorted(dcids)), [])
+  preindexes = [
+      PreIndex(text, ';'.join(sorted(dcids)))
       for text, dcids in text2sv.items()
   ]
-  sentences.sort(key=lambda x: x.text)
+  preindexes.sort(key=lambda x: x.text)
 
-  # Write preindex as CSV
+  # Write preindexes as CSV
   with open(fm.preindex_csv_path(), 'w') as csvfile:
     csv_writer = csv.writer(csvfile, delimiter=',')
     csv_writer.writerow([_COL_SENTENCE, _COL_DCID])
-    for sentence in sentences:
-      csv_writer.writerow([sentence.text, sentence.dcid])
+    for preindex in preindexes:
+      csv_writer.writerow([preindex.text, preindex.dcid])
 
-  # Write md5sum of preindex as a file
+  # Write md5sum of preindexes as a file
   with open(os.path.join(fm.local_output_dir(), _MD5_SUM_FILE), 'w') as f:
     f.write(get_md5sum(fm.preindex_csv_path()))
 
-  return sentences
+  return preindexes
 
 
-def retrieve_embeddings(
+def compute_embeddings(
     model: EmbeddingsModel,
-    target_sentences: List[SentenceObject],
-    saved_sentences: List[SentenceObject],
-) -> List[SentenceObject]:
-  """Compute embeddings for a list of sentence objects"""
+    preindexes: List[PreIndex],
+    existing_embeddings: List[Embedding],
+) -> List[Embedding]:
+  """Compute embeddings for the given preindexes
+
+  Args:
+    model: The embeddings model object,
+    preindexes: A list of preindex to compute embeddings for
+    existing_embeddings: A list of embeddings from previous run.
+  Return:
+    A list of embeddings for the preindexes.
+  """
   logging.info("Compute embeddings")
-  logging.info("Target sentences: %d", len(target_sentences))
+  logging.info("Preindex size: %d", len(preindexes))
   start = time.time()
-  # Find sentences that are not in saved_sentences
-  saved_text2sentence = {x.text: x for x in saved_sentences}
-  filtered_sentences = [
-      x for x in target_sentences if x.text not in saved_text2sentence
+  # Find preindex that are not in the existing embeddings
+  existing_embeddings_map = {x.preindex.text: x for x in existing_embeddings}
+  filtered_preindexes = [
+      x for x in preindexes if x.text not in existing_embeddings_map
   ]
-  logging.info("Filtered sentences to compute embeddings with model: %d",
-               len(filtered_sentences))
+  logging.info("Size of preindexes to compute embeddings with model: %d",
+               len(filtered_preindexes))
   # Compute embeddings with model inference
-  result: List[SentenceObject] = []
-  for i, chunk in enumerate(_chunk_list(filtered_sentences, _CHUNK_SIZE)):
+  result: List[Embedding] = []
+  for i, chunk in enumerate(_chunk_list(filtered_preindexes, _CHUNK_SIZE)):
     logging.info('texts %d to %d', i * _CHUNK_SIZE, (i + 1) * _CHUNK_SIZE - 1)
     for i in range(_NUM_RETRIES):
       try:
         resp = model.encode([x.text for x in chunk])
         if len(resp) != len(chunk):
           raise Exception(f'Expected {len(chunk)} but got {len(resp)}')
-        for i in enumerate(resp):
-          result.append(SentenceObject(chunk[i].text, chunk[i].dcid, resp[i]))
+        for i, vector in enumerate(resp):
+          result.append(
+              Embedding(PreIndex(chunk[i].text, chunk[i].dcid), vector))
         break
       except Exception as e:
-        logging.error('Exception %s', e)
-  # Add saved sentences
-  for sentence in target_sentences:
-    if sentence.text in saved_text2sentence:
-      saved_sentence = saved_text2sentence[sentence.text]
-      # Note only use the saved sentence vector. The dcid might be different.
-      result.append(
-          SentenceObject(sentence.text, sentence.dcid, saved_sentence.vector))
-  result.sort(key=lambda x: x.dcid)
+        logging.error('Exception: %s', e)
+  # Add existing embeddings
+  for preindex in preindexes:
+    if preindex.text in existing_embeddings_map:
+      existing_embedding = existing_embeddings_map[preindex.text]
+      # Only use the saved sentence vector. The dcid might be different.
+      result.append(Embedding(preindex, existing_embedding.vector))
+  result.sort(key=lambda x: x.preindex.text)
   logging.info(f'Computing embeddings took {time.time() - start} seconds')
   return result
 
 
-def save_embeddings_memory(local_dir: str, sentences: List[SentenceObject]):
+def save_embeddings_memory(local_dir: str, embeddings: List[Embedding]):
   """
   Save embeddings as csv file.
   """
-  df = pd.DataFrame([x.vector for x in sentences])
-  df[_COL_DCID] = [x.dcid for x in sentences]
-  df[_COL_SENTENCE] = [x.text for x in sentences]
+  df = pd.DataFrame([x.vector for x in embeddings])
+  df[_COL_DCID] = [x.preindex.dcid for x in embeddings]
+  df[_COL_SENTENCE] = [x.preindex.text for x in embeddings]
   local_file = os.path.join(local_dir, constants.EMBEDDINGS_FILE_NAME)
   df.to_csv(local_file, index=False)
   logging.info("Saved embeddings to %s", local_file)
 
 
-def save_embeddings_lancedb(local_dir: str, sentences: List[SentenceObject]):
+def save_embeddings_lancedb(local_dir: str, embeddings: List[Embedding]):
   db = lancedb.connect(local_dir)
   records = [{
-      _COL_DCID: x.dcid,
-      _COL_SENTENCE: x.text,
+      _COL_DCID: x.preindex.dcid,
+      _COL_SENTENCE: x.preindex.text,
       'vector': x.vector
-  } for x in sentences]
+  } for x in embeddings]
   db.create_table(_LANCEDB_TABLE, records)
   logging.info("Saved embeddings as lancedb file in %s", local_dir)
 
