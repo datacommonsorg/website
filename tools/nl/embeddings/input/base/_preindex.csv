@@ -783,7 +783,7 @@ Ensure universal access to sexual and reproductive health and reproductive right
 Equity,dc/topic/Equity
 Equity of the justice system,dc/topic/JusticeSystemEquity
 Esophagus Cancer Death Rate,WHO/SA_0000001449
-Estimated Population-Based Prevalence Of Depression,WHO/GDO_q35
+Estimated Population Based Prevalence Of Depression,WHO/GDO_q35
 Estimated annual loss due to avalanche,Annual_ExpectedLoss_NaturalHazardImpact_AvalancheEvent
 Estimated annual loss due to coastal floods,Annual_ExpectedLoss_NaturalHazardImpact_CoastalFloodEvent
 Estimated annual loss due to cold waves,Annual_ExpectedLoss_NaturalHazardImpact_ColdWaveEvent
@@ -3011,9 +3011,8 @@ Population With Lung Condition By Age,dc/topic/PopulationWithLungConditionByAge
 Population With Poor Mental Health By Age,dc/topic/PopulationWithMentalHealthNotGoodByAge
 Population With Stroke By Age,dc/topic/PopulationWithStrokeByAge
 Population breakdown by income,dc/topic/IndividualIncomeDistribution
-Population change,IncrementalCount_Person
 Population change rate,GrowthRate_Count_Person
-Population-weighted Mean Concentration of Smoke PM2.5,Mean_PopulationWeighted_Concentration_AirPollutant_SmokePM25
+Population weighted Mean Concentration of Smoke PM2.5,Mean_PopulationWeighted_Concentration_AirPollutant_SmokePM25
 Poverty,dc/topic/Poverty
 Poverty By Gender,dc/topic/PovertyByGender
 Poverty By Language Spoken At Home,dc/topic/PovertyByLanguageSpokenAtHome
@@ -3022,7 +3021,6 @@ Poverty By Residency,dc/topic/PovertyByResidency
 Precipitation,dc/topic/Precipitation
 Prevalence Of Anaemia In Children Aged 6-59 Months,WHO/NUTRITION_ANAEMIA_CHILDREN_PREV
 Prevalence Of Daily Tobacco Use Among Adults,WHO/Adult_daily_tob_use
-Prevalence Of Insufficient Physical Activity Among Adults,WHO/NCD_PAC
 Prevalence Of Obesity Among Adults,WHO/NCD_BMI_30A
 Prevalence Of Severely Wasted Children Under 5 Years Of Age,WHO/NUTRITION_WH_3
 Prevalence Of Underweight Among Adults,WHO/NCD_BMI_18A
@@ -3041,20 +3039,20 @@ Prevalence of Daily Tobacco Use Among Mmales,Percent_Daily_TobaccoUsing_In_Count
 Prevalence of Diabetes among adults,Percent_Person_WithDiabetes
 Prevalence of High Blood Pressure among adults,Percent_Person_WithHighBloodPressure
 Prevalence of High Cholesterol among adults,Percent_Person_WithHighCholesterol
-Prevalence of Smoke among adults,Percent_Person_Smoking
 Prevalence of Stroke among adults,Percent_Person_WithStroke
 Prevalence of Tobacco Use,Percent_TobaccoUsing_In_Count_Person
-Prevalence of adult female diabetes,dc/nh3s4skee5483
-Prevalence of adult female obesity,dc/4lvmzr1h1ylk1
-Prevalence of adult female physical inactivity,dc/tcqb49dvg7k53
-Prevalence of adult male diabetes,dc/xmpy89x1nh8cg
-Prevalence of adult male obesity,dc/x13tvt8jsgrm4
-Prevalence of adult male physical inactivity,dc/ty7pq88d26963
 "Prevalence of anaemia in women aged 15 to 49 years, by pregnancy status (percentage)",dc/topic/sdg_2.2.3
+Prevalence of diabetes among adult females,dc/nh3s4skee5483
+Prevalence of diabetes among adult male,dc/xmpy89x1nh8cg
 "Prevalence of malnutrition (weight for height >+2 or <-2 standard deviation from the median of the WHO Child Growth Standards) among children under 5 years of age, by type (wasting and overweight)",dc/topic/sdg_2.2.2
 "Prevalence of moderate or severe food insecurity in the population, based on the Food Insecurity Experience Scale (FIES)",dc/topic/sdg_2.1.2
+Prevalence of obesity among adult females,dc/4lvmzr1h1ylk1
+Prevalence of obesity among adult males,dc/x13tvt8jsgrm4
+Prevalence of physical inactivity among adult females,dc/tcqb49dvg7k53
+Prevalence of physical inactivity among adult males,dc/ty7pq88d26963
 Prevalence of poor Mental Health among adults,Percent_Person_WithMentalHealthNotGood
 Prevalence of poor Physical Health among adults,Percent_Person_WithPhysicalHealthNotGood
+Prevalence of smoking among adults,Percent_Person_Smoking
 Prevalence of stunting (height for age <-2 standard deviation from the median of the World Health Organization (WHO) Child Growth Standards) among children under 5 years of age,dc/topic/sdg_2.2.1
 Prevalence of tobacco use among females,Percent_TobaccoUsing_In_Count_Person_Female
 Prevalence of tobacco use among males,Percent_TobaccoUsing_In_Count_Person_Male
@@ -3205,9 +3203,9 @@ Reforestation,dc/topic/SDGReforestations
 Religion,dc/topic/Religion
 Remittance,dc/topic/Remittance
 Remittance costs as a proportion of the amount remitted,dc/topic/sdg_10.c.1
-Renewable electricity output,worldBank/4_1_2_REN_ELECTRICITY_OUTPUT
 Renewable electricity share of total electricity output,worldBank/4_1_SHARE_RE_IN_ELECTRICITY
-Renewable energy share in the total final energy consumption,dc/topic/sdg_7.2.1;sdg/EG_FEC_RNEW
+Renewable energy share in the total final energy consumption,dc/topic/sdg_7.2.1
+Renewable energy share of the total energy consumption,sdg/EG_FEC_RNEW
 Rental Houses,dc/topic/RentalHouses
 Rental Housing,dc/topic/RentalHouses
 Research and development expenditure as a proportion of GDP,dc/topic/sdg_9.5.1
@@ -3349,8 +3347,6 @@ Tornado,dc/topic/Tornado
 Total COVID-19 deaths,CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased
 Total COVID-19 tests performed,CumulativeCount_MedicalTest_ConditionCOVID_19
 Total COVID-19 vaccines administered,CumulativeCount_Vaccine_COVID_19_Administered
-Total Wages of Workers in the Accommodation and Food Services Industry,WagesTotal_Worker_NAICSAccommodationFoodServices
-Total Wages of Workers in the Administrative and Support and Waste Management Services Industry,WagesTotal_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices
 Total agricultural output,dc/topic/AgriculturalProduction
 "Total amount of funding for developing countries to promote the development, transfer, dissemination and diffusion of environmentally sound technologies",dc/topic/sdg_17.7.1
 Total amount of gas emissions from farming practices,dc/topic/AgricultureEmissionsByGas
@@ -3359,14 +3355,9 @@ Total amount of gas emissions from the power sector,dc/topic/PowerEmissionsByGas
 Total amount of gas emissions from the transportation industry,dc/topic/TransportationEmissionsByGas
 Total confirmed COVID-19 cases,CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedCase
 Total confirmed or probable COVID-19 cases,CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase
-Total electricity output,worldBank/4_1_1_TOTAL_ELECTRICITY_OUTPUT
-Total farm net income,NetMeasure_Income_Farm
-Total food waste,sdg/AG_FOOD_WST
 "Total government revenue as a proportion of GDP, by source",dc/topic/sdg_17.1.1
 Total greenhouse gas emissions per year,dc/topic/sdg_13.2.2
-Total market value of agricultural farms,MarketValue_Farm_AgriculturalProducts
 Total net official development assistance to medical research and basic health sectors,dc/topic/sdg_3.b.2
-Total official development assistance for biodiversity,sdg/DC_ODA_BDVDL
 Total official development assistance grants from all donors that focus on poverty reduction as a share of the recipient country’s gross national income,dc/topic/sdg_1.a.1
 Total official flows (official development assistance plus other official flows) to the agriculture sector,dc/topic/sdg_2.a.2
 Total official international support (official development assistance plus other official flows) to infrastructure,dc/topic/sdg_9.a.1
@@ -3377,7 +3368,6 @@ Total quantity of gases released by the power industry,dc/topic/PowerEmissionsBy
 Total quantity of gases released by the transportation sector,dc/topic/TransportationEmissionsByGas
 "Total resource flows for development, by recipient and donor countries and type of flow (e.g. official development assistance, foreign direct investment and other flows)",dc/topic/sdg_10.b.1
 Total value of inward and outward illicit financial flows (in current United States dollars),dc/topic/sdg_16.4.1
-"Total wages of workers in the agriculture, forestry, fishing, & hunting industry",WagesTotal_Worker_NAICSAgricultureForestryFishingHunting
 Total wages of workers in transportation and warehousing industry,dc/0hq9z5mspf73f
 Total wages of workers in wholesale trade industry,WagesTotal_Worker_NAICSWholesaleTrade
 Total wages of workers in wood product manufacturing industry,dc/nesnbmrncfjrb
@@ -4041,6 +4031,30 @@ and (b) revenue generated and finance mobilized from biodiversity-relevant econo
 and (c) increase local fiscal space,dc/topic/sdg_11.a.1
 "and (c) the judiciary, compared to national distributions, by sex, age, persons with disabilities and population groups",dc/topic/sdg_16.7.1
 and (d) student assessment,dc/topic/sdg_12.8.1;dc/topic/sdg_13.3.1;dc/topic/sdg_4.7.1
+annual payroll amount of Accommodation and Food Services establishments,WagesAnnual_Establishment_NAICSAccommodationFoodServices
+"annual payroll amount of Administrative Support, Waste Management and Remediation Services establishments",WagesAnnual_Establishment_NAICSAdministrativeSupportWasteManagementRemediationServices
+"annual payroll amount of Agriculture, Forestry, Fishing and Hunting establishments",WagesAnnual_Establishment_NAICSAgricultureForestryFishingHunting
+"annual payroll amount of Arts, Entertainment and Recreation establishments",WagesAnnual_Establishment_NAICSArtsEntertainmentRecreation
+annual payroll amount of Construction establishments,WagesAnnual_Establishment_NAICSConstruction
+annual payroll amount of Educational Services establishments,WagesAnnual_Establishment_NAICSEducationalServices
+annual payroll amount of Finance and Insurance establishments,WagesAnnual_Establishment_NAICSFinanceInsurance
+annual payroll amount of Health Care and Social Assistance establishments,WagesAnnual_Establishment_NAICSHealthCareSocialAssistance
+annual payroll amount of Heavy and Civil Engineering Construction establishments,dc/ck1ksqd8rgps6
+annual payroll amount of Information establishments,WagesAnnual_Establishment_NAICSInformation
+annual payroll amount of Management of Companies and Enterprises establishments,WagesAnnual_Establishment_NAICSManagementOfCompaniesEnterprises
+annual payroll amount of Manufacturing establishments,WagesAnnual_Establishment_NAICSManufacturing
+"annual payroll amount of Mining, Quarrying, and Oil and Gas Extraction establishments",WagesAnnual_Establishment_NAICSMiningQuarryingOilGasExtraction
+annual payroll amount of Nonclassifiable establishments,WagesAnnual_Establishment_NAICSNonclassifiable
+annual payroll amount of Other Services establishments,WagesAnnual_Establishment_NAICSOtherServices
+"annual payroll amount of Professional, Scientific, and Technical Services establishments",WagesAnnual_Establishment_NAICSProfessionalScientificTechnicalServices
+annual payroll amount of Real Estate and Rental and Leasing establishments,WagesAnnual_Establishment_NAICSRealEstateRentalLeasing
+"annual payroll amount of Research and Development in the Physical, Engineering, and Life Sciences establishments",dc/msz3yy4p50yyf
+annual payroll amount of Residential Building Construction establishments,dc/j5fv028n7nhe4
+annual payroll amount of Retail Trade establishments,WagesAnnual_Establishment_NAICSRetailTrade
+annual payroll amount of Transportation and Warehousing establishments,WagesAnnual_Establishment_NAICSTransportationWarehousing
+annual payroll amount of Utilities establishments,WagesAnnual_Establishment_NAICSUtilities
+annual payroll amount of Wholesale Trade establishments,WagesAnnual_Establishment_NAICSWholesaleTrade
+annual payroll amount of all establishments,WagesAnnual_Establishment
 area of farms with harvested cropland,Area_Farm_HarvestedCropland
 average retail price of electricity,Annual_Average_RetailPrice_Electricity
 average retail price of electricity for commercial sector,Annual_Average_RetailPrice_Electricity_Commercial
@@ -4146,6 +4160,7 @@ electricity generated from solar,Annual_Generation_Electricity_Solar
 electricity generated from solar by the residential sector,Annual_Generation_Electricity_Solar_Residential
 electricity generated from utility scale solar power plants,Annual_Generation_Electricity_UtilityScaleSolar
 electricity generated from wind,Annual_Generation_Electricity_Wind
+electricity output,worldBank/4_1_1_TOTAL_ELECTRICITY_OUTPUT
 electrification,dc/topic/GlobalElectricityAccess
 employment rate,dc/topic/sdg_8.5.2
 energy consumed from fossil fuels,dc/topic/Energy_Consumption_FossilFuels
@@ -4184,6 +4199,8 @@ fairness of health conditions,dc/topic/HealthEquity
 fairness of income distribution,dc/topic/IncomeEquity
 fariness in income,dc/topic/IncomeEquity
 fariness in the justice system,dc/topic/JusticeSystemEquity
+farm expenses,Expenses_Farm
+farm net income,NetMeasure_Income_Farm
 features in a home,dc/topic/HouseFeatures
 features of a house,dc/topic/HouseFeatures
 female life expectancy,LifeExpectancy_Person_Female
@@ -4196,7 +4213,7 @@ food harvest loss,dc/topic/sdg_12.3
 food insecure,dc/topic/FoodInsecurity
 food insecurity,dc/topic/sdg_2.1.2
 food security,dc/topic/FoodInsecurity;dc/topic/sdg_2.1.2
-food waste,dc/topic/sdg_12.3
+food waste,dc/topic/sdg_12.3;sdg/AG_FOOD_WST
 forest area change rate,sdg/AG_LND_FRSTCHG
 fraction of energy producton and consumption,dc/topic/Energy_Fraction
 freezing,dc/topic/ColdEvent
@@ -4280,6 +4297,7 @@ male unemployment rate,UnemploymentRate_Person_Male
 manufacturing banking,dc/topic/sdg_9.3.2
 manufacturing finance,dc/topic/sdg_9.3.2
 manufacturing heat consumption,Annual_Consumption_Energy_Manufacturing_Heat
+market value of agricultural farms,MarketValue_Farm_AgriculturalProducts
 max temp,dc/topic/Temperatures
 max temp forecast,dc/topic/TemperaturePredictions
 max temperature likely in the decade at five percent chance,dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerDecade
@@ -4562,6 +4580,7 @@ number of workers,Count_Person_Workers
 number of workers in the leather and allied product manufacturing industry,dc/7bck6xpkc205c
 number of working age people with no income,Count_Person_15OrMoreYears_NoIncome
 ocean condition,dc/topic/OceanHealth
+official development assistance for biodiversity,sdg/DC_ODA_BDVDL
 other languages spoken at home,dc/topic/NonEnglishLanguageAtHome
 owners of houses,dc/topic/HomeOwnership
 particulate matter 2.5,dc/topic/SmokePM2.5
@@ -4588,6 +4607,8 @@ pm10 pollutant,dc/topic/PM10
 pm2.5 pollutant,dc/topic/PM2.5
 population breakdown by level Of Educational Attainment,dc/topic/LevelOfEducationalAttainment
 population by race,dc/topic/Race
+population change,IncrementalCount_Person
+population count,Count_Person
 population with internet access,dc/topic/sdg_17.8.1
 poverty across genders,dc/topic/PovertyByGender
 poverty breakdown by gender,dc/topic/PovertyByGender
@@ -4602,6 +4623,7 @@ prevalence of binge drinking,Percent_Person_BingeDrinking
 prevalence of male Smokers Aged 15 and Older,Count_Person_15OrMoreYears_Male_Smoking_AsFractionOf_Count_Person_15OrMoreYears_Male
 prevalence of obesity,Percent_Person_Obesity
 prevalence of physical inactivity,Percent_Person_PhysicalInactivity
+prevalence of physical inactivity among adults,WHO/NCD_PAC
 primary school students,dc/topic/StudentsInPrimarySchool
 production of additives and oxygenates added to oil products,Annual_Generation_Fuel_AdditivesOxygenates
 production of anthracite coal,Annual_Generation_Fuel_AnthraciteCoal
@@ -4656,6 +4678,7 @@ real value of Gross Domestic Product (GDP),Amount_EconomicActivity_GrossDomestic
 reforesting,dc/topic/SDGReforestations
 refugees,dc/topic/sdg_10.7.4
 remittances,dc/topic/Remittance
+renewable electricity output,worldBank/4_1_2_REN_ELECTRICITY_OUTPUT
 renewable energy,dc/topic/Energy_Renewables
 rental housing units,dc/topic/RentalHouses
 residence of veterans,dc/topic/VeteransByGroupQuartersResidence
@@ -7153,32 +7176,8 @@ temperatures,dc/topic/Temperatures
 time spend during commute,dc/topic/CommuteTime
 time spent traveling to work,dc/topic/CommuteTime
 time spent travelling from work,dc/topic/CommuteTime
-total annual payroll amount of Accommodation and Food Services establishments,WagesAnnual_Establishment_NAICSAccommodationFoodServices
-"total annual payroll amount of Administrative Support, Waste Management and Remediation Services establishments",WagesAnnual_Establishment_NAICSAdministrativeSupportWasteManagementRemediationServices
-"total annual payroll amount of Agriculture, Forestry, Fishing and Hunting establishments",WagesAnnual_Establishment_NAICSAgricultureForestryFishingHunting
-"total annual payroll amount of Arts, Entertainment and Recreation establishments",WagesAnnual_Establishment_NAICSArtsEntertainmentRecreation
-total annual payroll amount of Construction establishments,WagesAnnual_Establishment_NAICSConstruction
-total annual payroll amount of Educational Services establishments,WagesAnnual_Establishment_NAICSEducationalServices
-total annual payroll amount of Finance and Insurance establishments,WagesAnnual_Establishment_NAICSFinanceInsurance
-total annual payroll amount of Health Care and Social Assistance establishments,WagesAnnual_Establishment_NAICSHealthCareSocialAssistance
-total annual payroll amount of Heavy and Civil Engineering Construction establishments,dc/ck1ksqd8rgps6
-total annual payroll amount of Information establishments,WagesAnnual_Establishment_NAICSInformation
-total annual payroll amount of Management of Companies and Enterprises establishments,WagesAnnual_Establishment_NAICSManagementOfCompaniesEnterprises
-total annual payroll amount of Manufacturing establishments,WagesAnnual_Establishment_NAICSManufacturing
-"total annual payroll amount of Mining, Quarrying, and Oil and Gas Extraction establishments",WagesAnnual_Establishment_NAICSMiningQuarryingOilGasExtraction
-total annual payroll amount of Nonclassifiable establishments,WagesAnnual_Establishment_NAICSNonclassifiable
-total annual payroll amount of Other Services establishments,WagesAnnual_Establishment_NAICSOtherServices
-"total annual payroll amount of Professional, Scientific, and Technical Services establishments",WagesAnnual_Establishment_NAICSProfessionalScientificTechnicalServices
-total annual payroll amount of Real Estate and Rental and Leasing establishments,WagesAnnual_Establishment_NAICSRealEstateRentalLeasing
-"total annual payroll amount of Research and Development in the Physical, Engineering, and Life Sciences establishments",dc/msz3yy4p50yyf
-total annual payroll amount of Residential Building Construction establishments,dc/j5fv028n7nhe4
-total annual payroll amount of Retail Trade establishments,WagesAnnual_Establishment_NAICSRetailTrade
-total annual payroll amount of Transportation and Warehousing establishments,WagesAnnual_Establishment_NAICSTransportationWarehousing
-total annual payroll amount of Utilities establishments,WagesAnnual_Establishment_NAICSUtilities
-total annual payroll amount of Wholesale Trade,WagesAnnual_Establishment_NAICSWholesaleTrade
-total annual payroll amount of all establishments,WagesAnnual_Establishment
-total farm expenses,Expenses_Farm
-total population,Count_Person
+total Wages of Workers in the Accommodation and Food Services Industry,WagesTotal_Worker_NAICSAccommodationFoodServices
+total Wages of Workers in the Administrative and Support and Waste Management Services Industry,WagesTotal_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices
 total wages of Air Transportation workers,dc/4ky4sj05bw4nd
 total wages of Apparel Manufacturing workers,dc/lygznlxpkj318
 "total wages of Arts, Entertainment, and Recreation workers",WagesTotal_Worker_NAICSArtsEntertainmentRecreation
@@ -7226,6 +7225,7 @@ total wages of workers in Truck Transportation industry,dc/h77bt8rxcjve3
 total wages of workers in Utilities industry,WagesTotal_Worker_NAICSUtilities
 total wages of workers in Warehousing Storage industry,dc/fcn7wgvcwtsj2
 total wages of workers in all industries,WagesTotal_Worker_NAICSTotalAllIndustries
+"total wages of workers in the agriculture, forestry, fishing, & hunting industry",WagesTotal_Worker_NAICSAgricultureForestryFishingHunting
 travel to work,dc/topic/WorkCommute
 tropical diseases ignored WHO,dc/topic/WHONeglectedTropicalDiseases
 type of school,dc/topic/SchoolType
