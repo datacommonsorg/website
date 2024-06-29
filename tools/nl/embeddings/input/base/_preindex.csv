@@ -3021,6 +3021,7 @@ Poverty By Residency,dc/topic/PovertyByResidency
 Precipitation,dc/topic/Precipitation
 Prevalence Of Anaemia In Children Aged 6-59 Months,WHO/NUTRITION_ANAEMIA_CHILDREN_PREV
 Prevalence Of Daily Tobacco Use Among Adults,WHO/Adult_daily_tob_use
+Prevalence Of Insufficient Physical Activity Among Adults,WHO/NCD_PAC
 Prevalence Of Obesity Among Adults,WHO/NCD_BMI_30A
 Prevalence Of Severely Wasted Children Under 5 Years Of Age,WHO/NUTRITION_WH_3
 Prevalence Of Underweight Among Adults,WHO/NCD_BMI_18A
@@ -4623,7 +4624,6 @@ prevalence of binge drinking,Percent_Person_BingeDrinking
 prevalence of male Smokers Aged 15 and Older,Count_Person_15OrMoreYears_Male_Smoking_AsFractionOf_Count_Person_15OrMoreYears_Male
 prevalence of obesity,Percent_Person_Obesity
 prevalence of physical inactivity,Percent_Person_PhysicalInactivity
-prevalence of physical inactivity among adults,WHO/NCD_PAC
 primary school students,dc/topic/StudentsInPrimarySchool
 production of additives and oxygenates added to oil products,Annual_Generation_Fuel_AdditivesOxygenates
 production of anthracite coal,Annual_Generation_Fuel_AnthraciteCoal
