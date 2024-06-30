@@ -35,8 +35,7 @@
       height: 60px;
       width: 800px;
       margin-bottom: 10px;
-      font-size: 15px;
-      font-family: Georgia;
+      font-size: 14px;
     }
 
     button {
@@ -44,6 +43,7 @@
       text-align: right;
     }
   }
+
   .query-section {
     margin-bottom: 20px;
     border: 1px solid #ccc; /* Light grey border */
@@ -76,6 +76,7 @@
           .new {
             background-color: lightgreen;
           }
+
           .old {
             background-color: lightcoral;
           }

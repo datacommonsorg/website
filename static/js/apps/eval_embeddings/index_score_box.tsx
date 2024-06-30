@@ -17,6 +17,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
+import { loadSpinner, removeSpinner } from "../../shared/util";
 import { BASE_URL, EmbeddingObject, MatchObject, Override } from "./util";
 
 function dotProduct(a: number[], b: number[]): number {
@@ -62,9 +63,13 @@ interface IndexScoreBoxProps {
 export function IndexScoreBox(props: IndexScoreBoxProps): JSX.Element {
   const [statVarMatch, setStatVarMatch] = useState<MatchObject[]>([]);
 
+  const elemId = `index-score-box-${props.indexName}-${props.modelName}`;
+
   useEffect(() => {
+    loadSpinner(elemId);
     (async () => {
       if (!props.sentence) {
+        removeSpinner(elemId);
         return;
       }
       const searchResp = await searchVector(props.sentence, props.indexName);
@@ -76,8 +81,8 @@ export function IndexScoreBox(props: IndexScoreBoxProps): JSX.Element {
         const sentence = searchResult["SV_to_Sentences"][sv][0]["sentence"];
         matches.push({
           distance: score,
-          statVar: sv,
           sentence,
+          statVar: sv,
           override: Override.NONE,
         });
       }
@@ -114,11 +119,12 @@ export function IndexScoreBox(props: IndexScoreBoxProps): JSX.Element {
         }
       }
       setStatVarMatch(matches);
+      removeSpinner(elemId);
     })();
-  }, [props]);
+  }, [props, elemId]);
 
   return (
-    <div className="index-score-box">
+    <div className="index-score-box" id={elemId}>
       <div className="index-name">{props.indexName}</div>
       <table>
         <thead>
@@ -147,6 +153,9 @@ export function IndexScoreBox(props: IndexScoreBoxProps): JSX.Element {
           ))}
         </tbody>
       </table>
+      <div id="page-screen" className="screen">
+        <div id="spinner"></div>
+      </div>
     </div>
   );
 }

@@ -15,13 +15,17 @@
  */
 
 import axios from "axios";
+import * as CSV from "csv-string";
 import React, { useEffect, useRef, useState } from "react";
 
+import { loadSpinner, removeSpinner } from "../../shared/util";
 import { QuerySection } from "./query_section";
 import { EmbeddingObject } from "./util";
 
+const DESCRIPTION_TEXTAREA_ID = "description-textarea";
+
 const DEFAULT_DESCRIPTION =
-  "Count_Person,population number\ndc/topic/AgeMedians,median age related";
+  'Count_Person,"population number"\ndc/topic/AgeMedians,"median age related"';
 const DEFAULT_QUERIES = "how many population\nmedian age";
 
 interface AppPropType {
@@ -38,7 +42,8 @@ export function App(props: AppPropType): JSX.Element {
   const queryElem = useRef<HTMLTextAreaElement>(null);
 
   const processDescription = (overrideInput: string) => {
-    const lines = overrideInput.split("\n");
+    loadSpinner(DESCRIPTION_TEXTAREA_ID);
+    const lines = CSV.parse(overrideInput);
     if (lines.length === 0) {
       return;
     }
@@ -47,6 +52,7 @@ export function App(props: AppPropType): JSX.Element {
       Object.values(props.indexes).map((x) => x.model)
     ).then((embeddings) => {
       setDescription(embeddings);
+      removeSpinner(DESCRIPTION_TEXTAREA_ID);
     });
   };
 
@@ -96,10 +102,10 @@ export function App(props: AppPropType): JSX.Element {
 
   return (
     <>
-      <div className="app-section">
+      <div className="app-section" id={DESCRIPTION_TEXTAREA_ID}>
         <h3>
-          Enter or upload stat var descriptions (each row like
-          &quot;dcid,desc1;desc2&quot;)
+          Enter or upload stat var descriptions. Each row in the form of{" "}
+          {'dcid,"desc1;desc2"'}.
         </h3>
         <form onSubmit={handleDescription}>
           <textarea
@@ -116,6 +122,9 @@ export function App(props: AppPropType): JSX.Element {
             }
           />
         </form>
+        <div id="page-screen" className="screen">
+          <div id="spinner"></div>
+        </div>
       </div>
 
       <div className="app-section">
@@ -151,11 +160,16 @@ export function App(props: AppPropType): JSX.Element {
   );
 }
 
-const fetchEmbeddings = async (lines: string[], modelNames: string[]) => {
+const fetchEmbeddings = async (lines: string[][], modelNames: string[]) => {
   const sentence2sv = {};
   for (const line of lines) {
-    const [statVar, descriptions] = line.split(",");
-    for (const sentence of descriptions.split(";")) {
+    if (line.length < 2) {
+      continue;
+    }
+    const statVar = line[0];
+    const descriptions = line[1];
+    for (let sentence of descriptions.split(";")) {
+      sentence = sentence.trim();
       sentence2sv[sentence] = statVar;
     }
   }
