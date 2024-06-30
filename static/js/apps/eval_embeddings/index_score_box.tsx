@@ -81,9 +81,9 @@ export function IndexScoreBox(props: IndexScoreBoxProps): JSX.Element {
         const sentence = searchResult["SV_to_Sentences"][sv][0]["sentence"];
         matches.push({
           distance: score,
+          override: Override.NONE,
           sentence,
           statVar: sv,
-          override: Override.NONE,
         });
       }
       // Use override stat var embeddings
