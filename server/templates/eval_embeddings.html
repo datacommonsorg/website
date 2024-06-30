@@ -15,7 +15,6 @@
 #}
 {%- extends BASE_HTML -%}
 
-{% set main_id = 'eval-embeddings' %}
 {% set page_id = 'eval-embeddings' %}
 {% set title = 'NL Eval Playground' %}
 
@@ -25,7 +24,7 @@
 {% endblock %}
 
 {% block content %}
-<div id="metadata" class="d-none" data-server-config="{{ server_config }}" data-eval-golden="{{ eval_golden }}"></div>
+<div id="metadata" class="d-none" data-server-config="{{ server_config }}"></div>
 <div id="dc-eval-embeddings"></div>
 {% endblock %}
 

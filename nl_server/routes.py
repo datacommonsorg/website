@@ -48,17 +48,19 @@ def healthz():
 def encode():
   """Returns a list of embeddings for each input query.
 
-  List[List[float]]
+  Dict[str, List[float]]
   """
   model_name = request.json.get('model', '')
-  queries = request.json.get('queries', [])
+  queries = request.json.get('queries')
+  if not queries:
+    return json.dumps({})
   queries = [str(escape(q)) for q in queries]
   reg: Registry = current_app.config[REGISTRY_KEY]
   model = reg.get_embedding_model(model_name)
   query_embeddings = model.encode(queries)
   if model.returns_tensor:
     query_embeddings = query_embeddings.tolist()
-  return json.dumps(query_embeddings)
+  return json.dumps({q: e for q, e in zip(queries, query_embeddings)})
 
 
 @bp.route('/api/search_vars/', methods=['POST'])
