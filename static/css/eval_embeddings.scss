@@ -25,17 +25,27 @@
 }
 
 .app-section {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
+
+  .text-box-title {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  span {
+    font-size: 14px;
+    font-weight: 200;
+    margin-bottom: 10px;
+  }
 
   form {
-    margin-bottom: 20px;
-
     textarea {
       display: block;
       height: 60px;
       width: 800px;
-      margin-bottom: 10px;
-      font-size: 14px;
+      margin: 10px 0;
+      font-size: 16px;
+      font-weight: 400;
     }
 
     button {

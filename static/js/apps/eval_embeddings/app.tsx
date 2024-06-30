@@ -102,11 +102,34 @@ export function App(props: AppPropType): JSX.Element {
 
   return (
     <>
+      <div className="app-section">
+        <div className="text-box-title">
+          Explore the variable matches for different models
+        </div>
+        <span>Enter or upload query (one per line)</span>
+        <form onSubmit={handleQuery}>
+          <textarea
+            name="query"
+            defaultValue={DEFAULT_QUERIES}
+            ref={queryElem}
+          />
+          <button type="submit">Apply</button>
+          <input
+            type="file"
+            accept=".txt"
+            onChange={(e) => handleFileUpload(e, "query", queryElem.current)}
+          />
+        </form>
+      </div>
+
       <div className="app-section" id={DESCRIPTION_TEXTAREA_ID}>
-        <h3>
+        <div className="text-box-title">
+          Validate and explore stat var descriptions (new or override)
+        </div>
+        <span>
           Enter or upload stat var descriptions. Each row in the form of{" "}
           {'dcid,"desc1;desc2"'}.
-        </h3>
+        </span>
         <form onSubmit={handleDescription}>
           <textarea
             name="override"
@@ -125,23 +148,6 @@ export function App(props: AppPropType): JSX.Element {
         <div id="page-screen" className="screen">
           <div id="spinner"></div>
         </div>
-      </div>
-
-      <div className="app-section">
-        <h3> Enter or upload query (one per line)</h3>
-        <form onSubmit={handleQuery}>
-          <textarea
-            name="query"
-            defaultValue={DEFAULT_QUERIES}
-            ref={queryElem}
-          />
-          <button type="submit">Apply</button>
-          <input
-            type="file"
-            accept=".txt"
-            onChange={(e) => handleFileUpload(e, "query", queryElem.current)}
-          />
-        </form>
       </div>
 
       <div className="app-section">
