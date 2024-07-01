@@ -96,7 +96,7 @@ indexes:
   base_mistral_mem:
     store_type: MEMORY
     source_path: ../../tools/nl/embeddings/input/base
-    embeddings_path: gs://datcom-nl-models/base_mistral_mem_2024_06_27_17_42_38/embeddings.csv
+    embeddings_path: gs://datcom-nl-models/base_mistral_mem_2024_07_01_10_23_43/embeddings.csv
     model: sfr-embedding-mistral-model
     healthcheck_query: "Life expectancy"
 

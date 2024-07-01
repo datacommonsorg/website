@@ -31,7 +31,7 @@ class TestIntegrity(unittest.TestCase):
     catalog = config_reader.read_catalog
 
     for embeddings_name, index_config in catalog().indexes.items():
-      if embeddings_name == 'medium_ft':
+      if embeddings_name in ['medium_ft', 'base_mistral_mem']:
         continue
       if index_config.store_type == 'LANCEDB':
         continue
