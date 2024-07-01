@@ -14,61 +14,35 @@
  * limitations under the License.
  */
 
-import React, { useState } from "react";
+import React from "react";
 
 import { IndexScoreBox } from "./index_score_box";
-import { BASE_URL, EmbeddingObject } from "./util";
+import { EmbeddingObject } from "./util";
 
 export interface QuerySectionProps {
   sentence: string;
-  index2model: Record<string, string>;
-  goldenStatVars: string[];
-  customDescription: Record<string, EmbeddingObject[]>;
-  onScoreUpdated: (modelName: string, sentence: string, score: number) => void;
+  indexes: Record<string, Record<string, string>>;
+  models: Record<string, Record<string, string | number>>;
+  description: Record<string, EmbeddingObject[]>;
 }
 
 export function QuerySection(props: QuerySectionProps): JSX.Element {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const toggleTableVisibility = () => {
-    setIsExpanded(!isExpanded);
-  };
   return (
     <div className="query-section">
       <h3>{props.sentence}</h3>
-      <button onClick={toggleTableVisibility}>
-        {isExpanded ? "Collapse" : "Expand"}
-      </button>
       <div className="model-result-container">
-        <div className="golden-stat-vars">
-          <div className="golden-label">Golden Stat Vars</div>
-          <ul>
-            {props.goldenStatVars.map((statVar) => {
-              return (
-                <li className="matched-sv" key={statVar}>
-                  <a
-                    href={`${BASE_URL}/${statVar}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {statVar}
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-        {Object.keys(props.index2model).map((indexName) => {
-          const modelName = props.index2model[indexName];
+        {Object.keys(props.indexes).map((indexName) => {
+          const modelName = props.indexes[indexName].model;
           return (
             <IndexScoreBox
               key={indexName}
               sentence={props.sentence}
               indexName={indexName}
               modelName={modelName}
-              isExpanded={isExpanded}
-              goldenStatVars={props.goldenStatVars}
-              overrideStatVars={props.customDescription[modelName]}
-              onScoreUpdated={props.onScoreUpdated}
+              modelScoreThreshold={Number(
+                props.models[modelName].score_threshold
+              )}
+              overrideStatVars={props.description[modelName]}
             />
           );
         })}

@@ -25,6 +25,7 @@ import remarkGfm from "remark-gfm";
 
 import { DC_CALL_SHEET, DC_RESPONSE_COL, DC_STAT_COL } from "./constants";
 import { AppContext, SessionContext } from "./context";
+import { getSheetsRows } from "./data_store";
 import { processTableText } from "./util";
 
 interface TableInfo {
@@ -52,7 +53,7 @@ export function TablePane(): JSX.Element {
   const [tables, setTables] = useState<TableInfo[]>([]);
 
   useEffect(() => {
-    if (!allCall[sessionQueryId]) {
+    if (_.isEmpty(allCall[sessionQueryId])) {
       setTables([]);
       return;
     }
@@ -60,17 +61,17 @@ export function TablePane(): JSX.Element {
     const tableIds = Object.keys(allCall[sessionQueryId]).sort(
       (a, b) => Number(a) - Number(b)
     );
-    const rowPromises = tableIds.map((tableId) => {
-      const rowIdx = allCall[sessionQueryId][tableId];
-      return sheet.getRows({ offset: rowIdx - 1, limit: 1 });
-    });
-    Promise.all(rowPromises).then((rowsList) => {
+    const rowIdxList = tableIds.map(
+      (tableId) => allCall[sessionQueryId][tableId]
+    );
+    getSheetsRows(sheet, rowIdxList).then((rows) => {
       const tableList = [];
-      rowsList.forEach((rows, i) => {
-        const row = rows[0];
+      tableIds.forEach((tableId) => {
+        const rowIdx = allCall[sessionQueryId][tableId];
+        const row = rows[rowIdx];
         if (row) {
           tableList.push({
-            id: tableIds[i],
+            id: tableId,
             title: row.get(DC_RESPONSE_COL),
             content: row.get(DC_STAT_COL),
           });

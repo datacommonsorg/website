@@ -22,10 +22,17 @@ export type EmbeddingObject = {
   embeddings: number[];
 };
 
+export enum Override {
+  NONE = "none",
+  OLD = "old",
+  NEW = "new",
+}
+
 export type MatchObject = {
   sentence: string;
   statVar: string;
   distance: number;
+  override: Override;
 };
 
 function calculateRelevanceScores(baselineList: string[]): {
