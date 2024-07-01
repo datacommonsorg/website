@@ -55,7 +55,7 @@ function getAnswerFromRagCalls(
   sessionQueryId: number
 ): Promise<string> {
   if (!allCall[sessionQueryId]) {
-    return Promise.resolve("");
+    return Promise.resolve("No questions were generated.");
   }
   const sheet = doc.sheetsByTitle[DC_CALL_SHEET];
   const tableIds = Object.keys(allCall[sessionQueryId]).sort(

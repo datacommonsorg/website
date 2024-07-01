@@ -79,7 +79,7 @@ footer {
       }
 
       th {
-        padding: 8px 0;
+        padding: 8px 6px;
         font-weight: 500;
         line-height: 20px;
       }
@@ -87,6 +87,7 @@ footer {
       td {
         line-height: 30px;
         font-weight: 400;
+        padding: 0 6px;
       }
 
       tr:not(:first-child) {
@@ -378,7 +379,7 @@ label {
   font-size: 14px;
 
   .question {
-    width: 107px;
+    width: 157px;
     font-weight: 500;
     margin-bottom: 0.5rem;
     padding: 20px 0;
