@@ -30,22 +30,19 @@ window.onload = () => {
 };
 
 function renderPage(): void {
-  const evalGolden = JSON.parse(
-    document.getElementById("metadata").dataset.evalGolden
-  );
   const serverConfig = JSON.parse(
     document.getElementById("metadata").dataset.serverConfig
   );
-  const index2model = {};
-  for (const indexName in serverConfig["indexes"]) {
-    if (EVAL_INDEXES.has(indexName)) {
-      index2model[indexName] = serverConfig["indexes"][indexName]["model"];
+  const indexes = {};
+  for (const idx in serverConfig["indexes"]) {
+    if (EVAL_INDEXES.has(idx)) {
+      indexes[idx] = serverConfig["indexes"][idx];
     }
   }
   ReactDOM.render(
     React.createElement(App, {
-      evalGolden,
-      index2model,
+      indexes,
+      models: serverConfig["models"],
     }),
     document.getElementById("dc-eval-embeddings")
   );
