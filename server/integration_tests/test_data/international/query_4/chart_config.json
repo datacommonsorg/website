@@ -209,6 +209,288 @@
               }
             ],
             "title": "Count of Birth Event"
+<<<<<<< HEAD
+=======
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SP_DYN_ADKL.AGE--Y10T14__SEX--F",
+                      "sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F"
+                    ],
+                    "title": "Adolescent Birth Rate by Age in Turkey",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Adolescent Birth Rate by Age"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "GrowthRate_Count_Person"
+                    ],
+                    "title": "Rate of Population Growth in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "GrowthRate_Count_Person"
+                    ],
+                    "title": "Rate of Population Growth in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Rate of Population Growth in Eurostat Nuts 3 Places of Turkey"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "GrowthRate_Count_Person"
+                    ],
+                    "title": "Rate of Population Growth in Turkey",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Rate of Population Growth in Turkey",
+                    "statVarKey": [
+                      "GrowthRate_Count_Person"
+                    ],
+                    "title": "Rate of Population Growth in Turkey",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Rate of Population Growth"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+                    ],
+                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in Turkey",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in Turkey",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+                    ],
+                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in Turkey",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+                    ],
+                    "title": "Infant Mortality Rate in Turkey",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Infant Mortality Rate in Turkey",
+                    "statVarKey": [
+                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+                    ],
+                    "title": "Infant Mortality Rate in Turkey",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "description": "Infant mortality rate is the number of infants dying before reaching one year of age, per 1,000 live births in a given year. Estimates developed by the UN Inter-agency group for child mortality estimation (UNICEF, WHO, world bank, UN DESA population division) at www.Childmortality.Org.",
+            "title": "Infant Mortality Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "IncrementalCount_Person"
+                    ],
+                    "title": "Population Change in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "IncrementalCount_Person"
+                    ],
+                    "title": "Population Change in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Change in Eurostat Nuts 3 Places of Turkey"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "IncrementalCount_Person"
+                    ],
+                    "title": "Population Change in Turkey",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population Change in Turkey",
+                    "statVarKey": [
+                      "IncrementalCount_Person"
+                    ],
+                    "title": "Population Change in Turkey",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Change"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person"
+                    ],
+                    "title": "Population in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person"
+                    ],
+                    "title": "Population in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Population in Eurostat Nuts 3 Places of Turkey"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person"
+                    ],
+                    "title": "Population in Turkey",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population in Turkey",
+                    "statVarKey": [
+                      "Count_Person"
+                    ],
+                    "title": "Population in Turkey",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/CM_02"
+                    ],
+                    "title": "Number of Infant Deaths in Turkey",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Number of Infant Deaths in Turkey",
+                    "statVarKey": [
+                      "WHO/CM_02"
+                    ],
+                    "title": "Number of Infant Deaths in Turkey",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Number of Infant Deaths"
+>>>>>>> abbc76cd97d914f6a963fdf0b5e1acee773d0ef9
           }
         ],
         "statVarSpec": {
@@ -224,6 +506,21 @@
             "name": "Crude Birth Rate",
             "statVar": "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
           },
+<<<<<<< HEAD
+=======
+          "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": {
+            "name": "Infant Mortality Rate",
+            "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+          },
+          "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent": {
+            "name": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)",
+            "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+          },
+          "Count_Person": {
+            "name": "Population",
+            "statVar": "Count_Person"
+          },
+>>>>>>> abbc76cd97d914f6a963fdf0b5e1acee773d0ef9
           "FertilityRate_Person_Female": {
             "name": "Fertility Rate",
             "statVar": "FertilityRate_Person_Female"
