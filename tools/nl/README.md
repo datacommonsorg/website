@@ -23,10 +23,10 @@ In a nutshell, the stat var description should be "precise" and "consise". It
 should accurately articulate the meaning of the stat vars with no ambiguity, and
 should be consise without too much unwanted contexts.
 
-Keep in mind that the descriptions are meant to be compared with natural laguage
-queries. They should mimic and reflects real world intent.
+Keep in mind that the descriptions are meant to be compared with natural
+language queries. They should mimic and reflects real world intent.
 
-On the other hand, the description should reflect the stat var constraints (age,
+Additionally, the description should reflect the stat var constraints (age,
 time range etc) so it can be distinguished from other similar stat vars.
 
 ## Test and Validate Description
@@ -43,32 +43,38 @@ tool](https://autopush.datacommons.org/nl/eval/embeddings).
   above
 
 After clicking on "Apply" from each step, you can check the matched stat vars
-for the given queries. The result is grouped by existing indexes and the curated
-descriptions are applied on top of the existing descriptions.
+for the given queries. The result is grouped by index names. If a stat var
+already exists in the index, the curated description would replace the existing
+descriptions for embedding matching.
 
 Note:
 
 - "green" rows indicate the curated stat vars from the session.
-- "red" rows indicate overrided stat vars from the existing index store.
+- "red" rows indicate overriden stat vars from the existing index store.
 
 ### Build Embedding Index
 
-Once you are statisfied with the curated stat vars, can use [Build Embeddings
-Tool](./embeddings/README.md) to build / update the actual embeddings index.
-This would produce and save embeddings file in GCS and readily used by the NL
-server.
+Once you are satisfied with the curated stat vars, use [Build Embeddings
+Tool](./embeddings/README.md) to build or update the actual embeddings index.
+This will produce an embeddings file in GCS and the path gets printed out to the
+console. Updating [catalog.yaml](../../deploy/nl/catalog.yaml) with that path
+makes the NL server use the new embeddings.
 
-This step should be follow by checking a large amount of queries and compare the
-stat var matches against the behavior of "prod". This can be done by running the
-[SV Index Differ](./svindex_differ/README.md) tool. This produces a report html
-file that lists the difference of matched stat vars for hundreds of test queries.
+### SV Index Differ
+
+Once the new embeddings is generated, run the [SV Index
+Differ](./svindex_differ/README.md) is to produce an html report of diffs. These
+are differences in the variable matches when comparing the new embeddings
+against "prod" for a few hundred golden queries. Go over the diffs and make
+further tweaks as necessary.
 
 ### Submit Changes
 
 Send the following changes for code review in one PR
 
-- New / updated description csv file
-- Updated `_preindex.csv`
+- Update stat var description csv file, for example
+  [sheets_svs.csv](./embeddings/input/base/sheets_svs.csv)
+- Updated `_preindex.csv` from "Build Embedding Index" step
 - Updated [catalog.yaml](../../deploy/nl/catalog.yaml)
 - SV index differ report html file link
 - Updated integration golden files (by running `./run_test.sh -g` from repo
