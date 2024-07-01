@@ -152,7 +152,7 @@ STOP_WORDS: Set[str] = {
 }
 
 # Exception list where stop words should be excluded
-STOP_WORDS_EXCEPTION = ['how many', 'number of']
+STOP_WORDS_EXCLUSIONS = ['how many', 'number of']
 
 # Note: These heuristics should be revisited if we change
 # query preprocessing (e.g. stopwords, stemming)

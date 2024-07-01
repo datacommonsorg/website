@@ -209,8 +209,6 @@
               }
             ],
             "title": "Count of Birth Event"
-<<<<<<< HEAD
-=======
           },
           {
             "columns": [
@@ -490,7 +488,6 @@
               }
             ],
             "title": "Number of Infant Deaths"
->>>>>>> abbc76cd97d914f6a963fdf0b5e1acee773d0ef9
           }
         ],
         "statVarSpec": {
@@ -506,8 +503,6 @@
             "name": "Crude Birth Rate",
             "statVar": "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
           },
-<<<<<<< HEAD
-=======
           "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": {
             "name": "Infant Mortality Rate",
             "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
@@ -520,10 +515,29 @@
             "name": "Population",
             "statVar": "Count_Person"
           },
->>>>>>> abbc76cd97d914f6a963fdf0b5e1acee773d0ef9
           "FertilityRate_Person_Female": {
             "name": "Fertility Rate",
             "statVar": "FertilityRate_Person_Female"
+          },
+          "GrowthRate_Count_Person": {
+            "name": "Rate of Population Growth",
+            "statVar": "GrowthRate_Count_Person"
+          },
+          "IncrementalCount_Person": {
+            "name": "Population Change",
+            "statVar": "IncrementalCount_Person"
+          },
+          "WHO/CM_02": {
+            "name": "Number Of Infant Deaths",
+            "statVar": "WHO/CM_02"
+          },
+          "sdg/SP_DYN_ADKL.AGE--Y10T14__SEX--F": {
+            "name": "Adolescent birth rate [10 to 14 years old, Female]",
+            "statVar": "sdg/SP_DYN_ADKL.AGE--Y10T14__SEX--F"
+          },
+          "sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F": {
+            "name": "Birth rate for adolescent women",
+            "statVar": "sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F"
           }
         }
       }

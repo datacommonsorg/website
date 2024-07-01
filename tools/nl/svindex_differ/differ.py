@@ -48,6 +48,7 @@ FLAGS = flags.FLAGS
 
 _EMPTY_FN = ''
 _STRIP_STOP_WORDS_FN = 'STRIP_STOP_WORDS'
+_STRIP_STOP_WORDS_NO_EXCLUSION_FN = 'STRIP_STOP_WORDS_NO_EXCLUSION'
 
 flags.DEFINE_string('base_index', '',
                     'Base index name in PROD `catalog.yaml` file.')
@@ -72,7 +73,9 @@ _ALL_STOP_WORDS = shared_utils.combine_stop_words()
 
 _QUERY_TRANSFORM_FUNCS: dict[str, Callable[[str], str]] = {
     _STRIP_STOP_WORDS_FN:
-        lambda q: shared_utils.remove_stop_words(q, _ALL_STOP_WORDS)
+        lambda q: shared_utils.remove_stop_words(q, _ALL_STOP_WORDS),
+    _STRIP_STOP_WORDS_NO_EXCLUSION_FN:
+        lambda q: shared_utils.remove_stop_words(q, _ALL_STOP_WORDS, {})
 }
 
 CatalogType = dict[str, dict[str, str]]

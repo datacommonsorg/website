@@ -8,41 +8,6 @@
   "query_with_places_removed": "compare obesity vs poverty",
   "sv_matching": {
     "CosineScore": [
-<<<<<<< HEAD
-      0.8321897387504578,
-      0.769133985042572,
-      0.7636071443557739,
-      0.7325096130371094,
-      0.7304790019989014,
-      0.7242437601089478,
-      0.717290997505188,
-      0.7170606851577759,
-      0.7081589102745056,
-      0.7045462131500244,
-      0.7028659582138062,
-      0.6972569227218628,
-      0.6956139802932739,
-      0.6913735866546631,
-      0.6913735866546631,
-      0.6904653310775757,
-      0.688472330570221,
-      0.6862340569496155,
-      0.6852200031280518,
-      0.6837410926818848,
-      0.6799485683441162,
-      0.6790515184402466,
-      0.6789354681968689,
-      0.6787398457527161,
-      0.6780688762664795,
-      0.6777139902114868,
-      0.6755273342132568,
-      0.6747452616691589,
-      0.6742875576019287,
-      0.6742663383483887,
-      0.673677384853363,
-      0.6735327839851379,
-      0.6728386878967285
-=======
       0.8778442740440369,
       0.8041591644287109,
       0.7967699766159058,
@@ -74,25 +39,19 @@
       0.6994997262954712,
       0.6956704258918762,
       0.6947906613349915
->>>>>>> abbc76cd97d914f6a963fdf0b5e1acee773d0ef9
     ],
     "MultiSV": {
       "Candidates": [
         {
-          "AggCosineScore": 0.9016,
+          "AggCosineScore": 0.9478,
           "DelimBased": true,
           "Parts": [
             {
               "CosineScore": [
-<<<<<<< HEAD
-                0.8032432794570923,
-                0.7741808891296387
-=======
                 0.8955404162406921,
                 0.8525748252868652
->>>>>>> abbc76cd97d914f6a963fdf0b5e1acee773d0ef9
               ],
-              "QueryPart": "compare obesity",
+              "QueryPart": "obesity",
               "SV": [
                 "Percent_Person_Obesity",
                 "WHO/NCD_BMI_30A"
@@ -114,29 +73,18 @@
     "Query": "compare obesity vs poverty",
     "SV": [
       "dc/topic/Poverty",
-      "dc/topic/PovertyByRace",
       "Percent_Person_Obesity",
-      "dc/topic/PovertyByGender",
+      "dc/topic/PovertyByRace",
       "dc/topic/SDG_1",
-      "dc/topic/sdg_1.2",
       "WHO/NCD_BMI_30A",
+      "dc/topic/sdg_1.2",
+      "dc/topic/PovertyByGender",
       "dc/topic/PovertyByLanguageSpokenAtHome",
-      "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months",
       "dc/topic/sdg_1.2.2",
-      "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months",
-      "dc/topic/sdg_1.2.1",
-      "dc/topic/PovertyByResidency",
+      "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+      "dc/topic/Malnutrition",
       "dc/topic/sdg_2.1.1",
       "sdg/SN_ITK_DEFC",
-<<<<<<< HEAD
-      "dc/topic/Malnutrition",
-      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-      "sdg/SI_POV_DAY1",
-      "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-      "dc/topic/sdg_1.1.1",
-      "dc/topic/sdg_1",
-      "GiniIndex_EconomicActivity",
-=======
       "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months",
       "dc/topic/PovertyByResidency",
       "dc/4lvmzr1h1ylk1",
@@ -153,18 +101,8 @@
       "dc/topic/HealthEquity",
       "WHO/NUTRITION_WA_2",
       "dc/topic/sdg_1.2.1",
->>>>>>> abbc76cd97d914f6a963fdf0b5e1acee773d0ef9
       "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
-      "Count_Household_WithFoodStampsInThePast12Months_AbovePovertyLevelInThePast12Months",
-      "dc/topic/FoodInsecurity",
-      "WHO/NCD_BMI_18A",
-      "dc/4lvmzr1h1ylk1",
-      "Count_Person_BelowPovertyLevelInThePast12Months",
-      "Count_Person_AbovePovertyLevelInThePast12Months",
-      "Count_Person_Male_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces",
-      "dc/x13tvt8jsgrm4",
-      "Count_Household_WithoutFoodStampsInThePast12Months_AbovePovertyLevelInThePast12Months",
-      "WHO/NUTOVERWEIGHTPREV"
+      "Count_Person_Male_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces"
     ]
   },
   "props_matching": {
@@ -185,7 +123,7 @@
         "base_uae_mem"
       ],
       "sv_detection_query_input": "compare obesity vs poverty",
-      "sv_detection_query_stop_words_removal": "compare obesity poverty"
+      "sv_detection_query_stop_words_removal": "obesity poverty"
     }
   }
 }

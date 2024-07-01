@@ -23,8 +23,8 @@ from markupsafe import escape
 import shared.lib.constants as constants
 
 _PLACEHOLDER_MAP = {
-    f"__PLACEHOLDER_{i}__": exception
-    for i, exception in enumerate(constants.STOP_WORDS_EXCEPTION)
+    f"__PLACEHOLDER_{i}__": exclusion
+    for i, exclusion in enumerate(constants.STOP_WORDS_EXCLUSIONS)
 }
 
 
@@ -58,28 +58,33 @@ def _add_classification_heuristics(set_strings: Set[str]) -> None:
       ]
 
 
-# Function to replace exceptions with placeholders
-def protect_exceptions(text, placeholder_map):
-  for placeholder, exception in placeholder_map.items():
-    text = re.sub(re.escape(exception), placeholder, text)
+# Function to replace exclusions with placeholders
+def replace_exclusions_with_placeholders(text, placeholder_map):
+  for placeholder, exclusion in placeholder_map.items():
+    text = re.sub(re.escape(exclusion), placeholder, text)
   return text
 
 
-# Function to remove words in remove_list but not protected exceptions
+# Function to remove words in remove_list but not protected exclusions
 def remove_words(text, remove_list):
-  remove_pattern = r'\b(?:' + '|'.join(
-      re.escape(word) for word in remove_list) + r')\b'
-  return re.sub(remove_pattern, '', text)
-
-
-# Function to restore placeholders back to exceptions
-def restore_exceptions(text, placeholder_map):
-  for placeholder, exception in placeholder_map.items():
-    text = re.sub(re.escape(placeholder), exception, text)
+  for words in remove_list:
+    # Using regex based replacements.
+    text = re.sub(rf"\b{words}\b", "", text)
+    # Also replace multiple spaces with a single space.
+    text = re.sub(r" +", " ", text)
   return text
 
 
-def remove_stop_words(input_str: str, stop_words: Set[str]) -> str:
+# Function to restore placeholders back to exclusions
+def restore_exclusions_with_placeholders(text, placeholder_map):
+  for placeholder, exclusion in placeholder_map.items():
+    text = re.sub(re.escape(placeholder), exclusion, text)
+  return text
+
+
+def remove_stop_words(input_str: str,
+                      stop_words: Set[str],
+                      placeholder_map=_PLACEHOLDER_MAP) -> str:
   """Remove stop words from a string and return the remaining in lower case."""
 
   # Note: we are removing the full sequence of words in every entry in `stop_words`.
@@ -92,14 +97,14 @@ def remove_stop_words(input_str: str, stop_words: Set[str]) -> str:
   # the words "citty" and "cats" will not be matched.
   input_str = input_str.lower()
 
-  # Protect exceptions
-  input_str = protect_exceptions(input_str, _PLACEHOLDER_MAP)
+  # Protect exclusions
+  input_str = replace_exclusions_with_placeholders(input_str, placeholder_map)
 
   # Remove words in remove_list
   input_str = remove_words(input_str, stop_words)
 
-  # Restore exceptions
-  input_str = restore_exceptions(input_str, _PLACEHOLDER_MAP)
+  # Restore exclusions
+  input_str = restore_exclusions_with_placeholders(input_str, placeholder_map)
 
   # Clean up extra spaces
   input_str = re.sub(r'\s+', ' ', input_str).strip()

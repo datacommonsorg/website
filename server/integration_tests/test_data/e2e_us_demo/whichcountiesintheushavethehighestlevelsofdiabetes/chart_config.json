@@ -93,8 +93,6 @@
               }
             ],
             "title": "Percent of Population 20 Years or Older With Diabetes in Counties of United States"
-<<<<<<< HEAD
-=======
           },
           {
             "columns": [
@@ -193,7 +191,6 @@
               }
             ],
             "title": "Diabetes Mellitus, Per 100,000"
->>>>>>> abbc76cd97d914f6a963fdf0b5e1acee773d0ef9
           }
         ],
         "statVarSpec": {
@@ -206,8 +203,6 @@
             "name": "Diabetes",
             "statVar": "Percent_Person_WithDiabetes",
             "unit": "%"
-<<<<<<< HEAD
-=======
           },
           "WHO/SA_0000001421": {
             "name": "Diabetes Mellitus, Per 100,000",
@@ -224,7 +219,6 @@
           "dc/xmpy89x1nh8cg": {
             "name": "Percent of Men That Have Diabetes",
             "statVar": "dc/xmpy89x1nh8cg"
->>>>>>> abbc76cd97d914f6a963fdf0b5e1acee773d0ef9
           }
         }
       }
