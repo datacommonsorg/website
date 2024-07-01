@@ -17,11 +17,9 @@
 /* Component to record overall feedback for a query */
 
 import React, { FormEvent, useContext, useEffect, useState } from "react";
-import { Button } from "reactstrap";
 
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import {
-  FEEDBACK_FORM_ID,
   FEEDBACK_PANE_ID,
   OVERALL_QUESTIONS_OPTION_HAS_MISSING,
   OVERALL_QUESTIONS_OPTION_NONE_MISSING,
@@ -36,10 +34,8 @@ import {
 } from "./constants";
 import { AppContext, SessionContext } from "./context";
 import { getAllFields, getPath, saveToSheet, setFields } from "./data_store";
-import { EvalList } from "./eval_list";
-import { FeedbackNavigation } from "./feedback_navigation";
+import { FeedbackWrapper } from "./feedback_wrapper";
 import { OneQuestion } from "./one_question";
-import { TablePane } from "./table_pane";
 import { EvalType, FeedbackStage } from "./types";
 
 // object to hold information about a question
@@ -217,40 +213,27 @@ export function OverallFeedback(): JSX.Element {
   const questionConfig = QUESTION_CONFIG[feedbackStage][evalType];
 
   return (
-    <>
-      <div className="button-section">
-        <Button className="reeval-button" onClick={enableReeval}>
-          <div>
-            <span className="material-icons-outlined">redo</span>
-            Re-Eval
+    <FeedbackWrapper onReEval={enableReeval} checkAndSubmit={checkAndSubmit}>
+      <form>
+        <fieldset>
+          <div className="question-section">
+            <div className="title">{questionConfig.title}</div>
+            {questionConfig.questions.map((question) => {
+              return (
+                <OneQuestion
+                  key={question.firestoreKey}
+                  question={question.question}
+                  name={question.firestoreKey}
+                  options={question.responseOptions}
+                  handleChange={handleChange}
+                  responseField={response[question.firestoreKey]}
+                  disabled={isSubmitted}
+                />
+              );
+            })}
           </div>
-        </Button>
-        <EvalList />
-      </div>
-      <div id={FEEDBACK_FORM_ID}>
-        <form>
-          <fieldset>
-            <div className="question-section">
-              <div className="title">{questionConfig.title}</div>
-              {questionConfig.questions.map((question) => {
-                return (
-                  <OneQuestion
-                    key={question.firestoreKey}
-                    question={question.question}
-                    name={question.firestoreKey}
-                    options={question.responseOptions}
-                    handleChange={handleChange}
-                    responseField={response[question.firestoreKey]}
-                    disabled={isSubmitted}
-                  />
-                );
-              })}
-            </div>
-          </fieldset>
-        </form>
-      </div>
-      {evalType === EvalType.RAG && <TablePane />}
-      <FeedbackNavigation checkAndSubmit={checkAndSubmit} />
-    </>
+        </fieldset>
+      </form>
+    </FeedbackWrapper>
   );
 }
