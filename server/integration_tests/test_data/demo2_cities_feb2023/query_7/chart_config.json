@@ -195,6 +195,39 @@
                       "country/SSD"
                     ],
                     "statVarKey": [
+                      "Count_Person_multiple_place_bar_block"
+                    ],
+                    "title": "Population (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/DZA",
+                      "country/MAR",
+                      "country/LBY",
+                      "country/TUN",
+                      "country/MLI",
+                      "country/ERI",
+                      "country/MWI",
+                      "country/SEN",
+                      "country/GMB",
+                      "country/SSD"
+                    ],
+                    "statVarKey": [
                       "WHO/CM_02_multiple_place_bar_block"
                     ],
                     "title": "Number of Infant Deaths (${date})",
@@ -214,6 +247,10 @@
           "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_multiple_place_bar_block": {
             "name": "Infant Mortality Rate",
             "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+          },
+          "Count_Person_multiple_place_bar_block": {
+            "name": "Population",
+            "statVar": "Count_Person"
           },
           "FertilityRate_Person_Female_multiple_place_bar_block": {
             "name": "Fertility Rate",

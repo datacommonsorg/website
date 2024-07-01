@@ -28,6 +28,7 @@ import {
   QA_SHEET,
 } from "./constants";
 import { AppContext, SessionContext } from "./context";
+import { getSheetsRows } from "./data_store";
 import { DcCall, EvalType, FeedbackStage, Query } from "./types";
 import { processText } from "./util";
 
@@ -59,17 +60,19 @@ function getAnswerFromRagCalls(
   const tableIds = Object.keys(allCall[sessionQueryId]).sort(
     (a, b) => Number(a) - Number(b)
   );
-  const rowPromises = tableIds.map((tableId) => {
-    const rowIdx = allCall[sessionQueryId][tableId];
-    return sheet.getRows({ offset: rowIdx - 1, limit: 1 });
-  });
-  return Promise.all(rowPromises).then((rowsList) => {
+  const rowIdxList = tableIds.map(
+    (tableId) => allCall[sessionQueryId][tableId]
+  );
+  return getSheetsRows(sheet, rowIdxList).then((rows) => {
     const answers = [];
-    rowsList.forEach((rows, i) => {
-      const row = rows[0];
-      const dcQuestion = row.get(DC_QUESTION_COL);
-      const dcStat = row.get(DC_RESPONSE_COL);
-      answers.push(getFormattedRagCallAnswer(dcQuestion, dcStat, tableIds[i]));
+    tableIds.forEach((tableId) => {
+      const rowIdx = allCall[sessionQueryId][tableId];
+      const row = rows[rowIdx];
+      if (row) {
+        const dcQuestion = row.get(DC_QUESTION_COL);
+        const dcStat = row.get(DC_RESPONSE_COL);
+        answers.push(getFormattedRagCallAnswer(dcQuestion, dcStat, tableId));
+      }
     });
     return answers.join("\n\n");
   });
