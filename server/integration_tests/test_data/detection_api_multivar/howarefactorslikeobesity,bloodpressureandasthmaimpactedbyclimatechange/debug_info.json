@@ -13,16 +13,15 @@
       0.6740915179252625,
       0.6734591722488403,
       0.6704620718955994,
-      0.6651462912559509,
       0.6635113954544067,
-      0.661127507686615,
       0.6593924760818481,
-      0.6569107174873352,
       0.6520178318023682,
       0.6477762460708618,
       0.6461696624755859,
       0.6459026336669922,
+      0.6443006992340088,
       0.6435545682907104,
+      0.6412221193313599,
       0.6410900354385376,
       0.6405231952667236,
       0.6402113437652588,
@@ -33,7 +32,8 @@
       0.6338476538658142,
       0.6322696805000305,
       0.6322205662727356,
-      0.6317504644393921,
+      0.631922721862793,
+      0.6306846141815186,
       0.6304948925971985,
       0.6302965879440308,
       0.6298357844352722
@@ -41,30 +41,32 @@
     "MultiSV": {
       "Candidates": [
         {
-          "AggCosineScore": 0.8763,
+          "AggCosineScore": 0.8685,
           "DelimBased": false,
           "Parts": [
             {
               "CosineScore": [
-                0.752657413482666,
+                0.7369857430458069,
                 0.7335996627807617,
-                0.7317348718643188,
-                0.7282766699790955,
                 0.7210124135017395,
                 0.7188708782196045,
+                0.7178435325622559,
                 0.7138628363609314,
-                0.7071599960327148
+                0.7071599960327148,
+                0.702164888381958,
+                0.6884872913360596
               ],
               "QueryPart": "factors like obesity blood pressure asthma impacted",
               "SV": [
                 "Percent_Person_WithAsthma",
                 "dc/topic/BloodPressure",
-                "Percent_Person_Children_WithAsthma",
-                "Percent_Person_Obesity",
                 "dc/topic/AsthmaMalePopulationByAge",
                 "dc/topic/AsthmaFemalePopulationByAge",
+                "Percent_Person_Children_WithAsthma",
                 "dc/topic/HealthConditions",
-                "dc/topic/Health"
+                "dc/topic/Health",
+                "Percent_Person_Obesity",
+                "WHO/NCD_BMI_30A"
               ]
             },
             {
@@ -79,20 +81,22 @@
           ]
         },
         {
-          "AggCosineScore": 0.8668,
+          "AggCosineScore": 0.8558,
           "DelimBased": true,
           "Parts": [
             {
               "CosineScore": [
-                0.7976328730583191,
-                0.7576606273651123,
-                0.7477304935455322
+                0.7647155523300171,
+                0.7426645755767822,
+                0.7361233830451965,
+                0.7231454849243164
               ],
               "QueryPart": "factors like obesity",
               "SV": [
                 "Percent_Person_Obesity",
                 "WHO/NCD_BMI_30A",
-                "dc/x13tvt8jsgrm4"
+                "dc/x13tvt8jsgrm4",
+                "dc/4lvmzr1h1ylk1"
               ]
             },
             {
@@ -121,25 +125,23 @@
           "Parts": [
             {
               "CosineScore": [
-                0.7495046257972717,
-                0.7472653388977051,
-                0.7385283708572388,
-                0.7342654466629028,
-                0.7325114011764526,
-                0.7185327410697937,
-                0.7172330617904663,
-                0.703389048576355
+                0.749504566192627,
+                0.7342653274536133,
+                0.7325113415718079,
+                0.7219129800796509,
+                0.7172560691833496,
+                0.7051063776016235,
+                0.702283501625061
               ],
               "QueryPart": "factors like obesity blood pressure asthma",
               "SV": [
                 "dc/topic/BloodPressure",
-                "Percent_Person_Obesity",
-                "Percent_Person_WithAsthma",
                 "dc/topic/HealthConditions",
                 "dc/topic/Health",
+                "Percent_Person_WithAsthma",
+                "Percent_Person_Obesity",
                 "WHO/NCD_BMI_30A",
-                "Percent_Person_Children_WithAsthma",
-                "dc/x13tvt8jsgrm4"
+                "Percent_Person_Children_WithAsthma"
               ]
             },
             {
@@ -186,16 +188,15 @@
       "dc/topic/BloodPressure",
       "dc/topic/sdg_13.3",
       "dc/topic/CO2Emissions",
-      "Percent_Person_Obesity",
       "Annual_Emissions_GreenhouseGas",
-      "Percent_Person_Children_WithAsthma",
       "dc/topic/AmbientAirPollution",
-      "Percent_Person_WithAsthma",
       "Annual_Amount_Emissions_SCC_27_NaturalSources",
       "dc/topic/WHOMortalityCauses",
       "dc/topic/sdg_3.9.1",
       "dc/topic/GlobalHealth",
+      "Percent_Person_Children_WithAsthma",
       "dc/topic/Health",
+      "Percent_Person_WithAsthma",
       "dc/topic/sdg_13",
       "dc/topic/sdg_13.b",
       "dc/topic/sdg_13.2.1",
@@ -206,6 +207,7 @@
       "Annual_Emissions_GreenhouseGas_OilAndGas",
       "dc/topic/GreenhouseGasEmissions",
       "dc/topic/AsthmaFemalePopulationByAge",
+      "Percent_Person_Obesity",
       "WHO/NUTOVERWEIGHTPREV",
       "dc/topic/sdg_13.1",
       "dc/topic/sdg_13.2",
