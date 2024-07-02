@@ -1842,7 +1842,7 @@ Count_MortalityEvent_HeartDiseaseExcludingHypertension,Number of Deaths from Hea
 Count_MortalityEvent_IntentionalSelf-Harm(Suicide),Number of Intentional Self-Harm (Suicide) Deaths
 Count_MortalityEvent_IntentionalSelf-Harm(Suicide)_Female,Number of Intentional Self-Harm (Suicide) Deaths in Females
 Count_MortalityEvent_Suicide,Number of Suicide Deaths
-Count_Person,total population
+Count_Person,population count
 Count_Person_0To4Years_Female,Number of girls under 4 years old
 Count_Person_0To4Years_Male,Number of boys under 4 years old
 Count_Person_10OrMoreYears_Literate_AsAFractionOf_Count_Person_10OrMoreYears,Literacy Rate Among people Aged 10 Years and Older
@@ -2629,7 +2629,8 @@ dc/70zj83ev915f8,Number of males who are married
 dc/dyhxtqe2pxhl5,Number of foreign born people with no income
 dc/qj9v0vqzp9vlg,Number of foreign born widowed people
 dc/gvnh5cpl9h1rf,Number of foreign born people who earn income
-dc/0gettc3bc60cb,Number of peole who drive to work
+dc/0gettc3bc60cb,Number of people who drive to work alone
+dc/wc8q05drd74bd,Number of people who carpool to work
 dc/hbkh95kc7pkb6,Number of people who take public transportation to work
 dc/vp8cbt6k79t94,Number of people walking to work
 dc/6rltk4kf75612,Number of People working at home
@@ -2829,7 +2830,7 @@ CumulativeCount_MedicalTest_ConditionCOVID_19,Total COVID-19 tests performed
 CumulativeCount_Vaccine_COVID_19_Administered,Total COVID-19 vaccines administered
 DewPointTemperature_SurfaceLevel,Surface-Level Dew Point Temperature
 ExchangeRate_Currency_Standardized,exchange rates of Standard Local Currency (SLC) per US dollar
-Expenses_Farm,total farm expenses
+Expenses_Farm,farm expenses
 FemaCommunityResilience_NaturalHazardImpact,FEMA Community Resilience to Natural Hazard Impact
 FemaNaturalHazardRiskIndex_NaturalHazardImpact,FEMA National Risk Index for Natural Hazard Impact
 FemaNaturalHazardRiskIndex_NaturalHazardImpact_AvalancheEvent,FEMA National Risk Index for Avalanche
@@ -2866,7 +2867,7 @@ IncrementalCount_MedicalConditionIncident_COVID_19_ConfirmedCase,incremental cou
 IncrementalCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase,incremental count of COVID-19 confirmed or probable cases
 IncrementalCount_MedicalConditionIncident_COVID_19_PatientDeceased,incremental count of COVID-19 deceased patients
 IncrementalCount_MedicalTest_ConditionCOVID_19,incremental count of COVID-19 tests
-IncrementalCount_Person,Population change
+IncrementalCount_Person,population change
 IncrementalCount_Vaccine_COVID_19_Administered,incremental count of COVID-19 vaccinations administered
 indianCensus/Count_Person_Religion_Buddhist,Number of Buddhist people
 indianCensus/Count_Person_Religion_Buddhist_Female,Number of Buddhist females
@@ -2965,7 +2966,7 @@ Length_Transportation_StateHighway,Length of state highway
 LifeExpectancy_Person,people life expectancy
 LifeExpectancy_Person_Female,female life expectancy
 LifeExpectancy_Person_Male,male Life expectancy
-MarketValue_Farm_AgriculturalProducts,Total market value of agricultural farms
+MarketValue_Farm_AgriculturalProducts,market value of agricultural farms
 MarketValue_Farm_Crops,Market Value of Farms Growing Crops
 MarketValue_Farm_LivestockAndPoultry,Market Value of Livestock and Poultry in farm inventory
 MarketValue_Farm_MachineryAndEquipment,Market Value of Farm Machinery and Equipment
@@ -3064,7 +3065,7 @@ Mean_NetMeasure_Income_Farm,Mean Income of Farm
 Mean_OeGestationalAge_BirthEvent_LiveBirth,Average OE Gestational Age
 Mean_PalmerDroughtSeverityIndex,Mean Palmer Drought Severity Index (PDSI)
 Mean_PalmerDroughtSeverityIndex_Forest,Mean Palmer Drought Severity Index (PDSI) in forested areas
-Mean_PopulationWeighted_Concentration_AirPollutant_SmokePM25,Population-weighted Mean Concentration of Smoke PM2.5
+Mean_PopulationWeighted_Concentration_AirPollutant_SmokePM25,Population weighted Mean Concentration of Smoke PM2.5
 Mean_PrecipitableWater_Atmosphere,Average amount of Precipitable Water
 Mean_PrenatalVisitCount_BirthEvent_LiveBirth,Average prenatal vists
 Mean_PrePregnancyBMI_BirthEvent_LiveBirth,Average Pre pregnancy BMI
@@ -3226,7 +3227,7 @@ Min_Snowfall,minimal snowfall
 Min_Temperature,minimal Temperature
 Monthly_Count_ElectricityConsumer,Monthly count of electricity consumers
 MortalityRate_Person_Upto4Years_AsFractionOf_Count_BirthEvent_LiveBirth,Mortality Rate of Children Younger Than 4 Years
-NetMeasure_Income_Farm,Total farm net income
+NetMeasure_Income_Farm,farm net income
 NumberOfDays_HeatWaveEvent,Number of Heat Wave days in a year
 PalmerDroughtSeverityIndex_Atmosphere,Palmer Drought Severity Index
 Percent_BurnedArea_FireEvent,Percent of area that are burned in land fire
@@ -3253,7 +3254,7 @@ Percent_Person_ReceivedAnnualCheckup,Percentage of the population who receive an
 Percent_Person_ReceivedCholesterolScreening,Percentage of adults who Received Cholesterol Screening
 Percent_Person_ReceivedDentalVisit,Percentage of adults who Received Dental Visit
 Percent_Person_SleepLessThan7Hours,Percentage of adults who Sleep Less Than 7 Hours
-Percent_Person_Smoking,Prevalence of Smoke among adults
+Percent_Person_Smoking,Prevalence of smoking among adults
 Percent_Person_WithAllTeethLoss,Prevalence of All Teeth Loss among adults
 Percent_Person_WithArthritis,Prevalence of Arthritis among adults
 Percent_Person_WithAsthma,Prevalence of Asthma among adults
@@ -3267,12 +3268,12 @@ Percent_Person_WithHighCholesterol,Prevalence of High Cholesterol among adults
 Percent_Person_WithMentalHealthNotGood,Prevalence of poor Mental Health among adults
 Percent_Person_WithPhysicalHealthNotGood,Prevalence of poor Physical Health among adults
 Percent_Person_WithStroke,Prevalence of Stroke among adults
-dc/4lvmzr1h1ylk1,Prevalence of adult female obesity
-dc/tcqb49dvg7k53,Prevalence of adult female physical inactivity
-dc/nh3s4skee5483,Prevalence of adult female diabetes
-dc/x13tvt8jsgrm4,Prevalence of adult male obesity
-dc/ty7pq88d26963,Prevalence of adult male physical inactivity
-dc/xmpy89x1nh8cg,Prevalence of adult male diabetes
+dc/4lvmzr1h1ylk1,Prevalence of obesity among adult females
+dc/tcqb49dvg7k53,Prevalence of physical inactivity among adult females
+dc/nh3s4skee5483,Prevalence of diabetes among adult females
+dc/x13tvt8jsgrm4,Prevalence of obesity among adult males
+dc/ty7pq88d26963,Prevalence of physical inactivity among adult males
+dc/xmpy89x1nh8cg,Prevalence of diabetes among adult male
 Percent_Student_AsAFractionOf_Count_Teacher,Student to Teacher Ratio
 Percent_TobaccoUsing_In_Count_Person,Prevalence of Tobacco Use
 Percent_TobaccoUsing_In_Count_Person_Female,Prevalence of tobacco use among females
@@ -3365,15 +3366,15 @@ Sales_Establishment_ManufacturerSalesBranchesAndOffices_NAICSWholesaleTrade_With
 Sales_Establishment_NAICSAccommodationFoodServices_WithPayroll,Sales of Accommodation and Food Services Establishments
 Sales_Establishment_NAICSWholesaleTrade_WithPayroll,Sales of Wholesale Trade Establishments
 Sales_Establishment_USC_MerchantWholesalers_NAICSWholesaleTrade_WithPayroll,"Sales of USC Merchant Wholesalers, Wholesale Trade Establishments"
-sdg/AG_FOOD_WST,Total food waste
+sdg/AG_FOOD_WST,food waste
 sdg/AG_FOOD_WST_PC,Food waste per capita
 sdg/AG_LND_FRST,Forest area as a proportion of total land area
 sdg/AG_LND_FRSTBIOPHA,Above-ground biomass in forest
 sdg/AG_LND_FRSTCHG,forest area change rate
 sdg/AG_LND_FRSTN,Forest area
 sdg/AG_LND_FRSTPRCT,Proportion of forest area within legally established protected areas
-sdg/DC_ODA_BDVDL,Total official development assistance for biodiversity
-sdg/EG_FEC_RNEW,Renewable energy share in the total final energy consumption
+sdg/DC_ODA_BDVDL,official development assistance for biodiversity
+sdg/EG_FEC_RNEW,Renewable energy share of the total energy consumption
 sdg/EN_EWT_GENPCAP,Electronic waste generated per capita
 sdg/EN_EWT_GENV,Electronic waste generated
 sdg/EN_MAR_BEALIT_BP,Beach litter originating from national land-based sources that ends in the beach
@@ -3439,33 +3440,33 @@ USStateQuarterlyIndustryGDP_NAICS_61,Amount of GDP for Educational Services
 USStateQuarterlyIndustryGDP_NAICS_62,Amount of GDP for Health Care and Social Assistance
 USStateQuarterlyIndustryGDP_NAICS_71,"Amount of GDP for Arts, Entertainment, and Recreation"
 USStateQuarterlyIndustryGDP_NAICS_72,Amount of GDP for Accommodation and Food Services
-WagesAnnual_Establishment,total annual payroll amount of all establishments
-WagesAnnual_Establishment_NAICSAccommodationFoodServices,total annual payroll amount of Accommodation and Food Services establishments
-WagesAnnual_Establishment_NAICSAdministrativeSupportWasteManagementRemediationServices,"total annual payroll amount of Administrative Support, Waste Management and Remediation Services establishments"
-WagesAnnual_Establishment_NAICSAgricultureForestryFishingHunting,"total annual payroll amount of Agriculture, Forestry, Fishing and Hunting establishments"
-WagesAnnual_Establishment_NAICSArtsEntertainmentRecreation,"total annual payroll amount of Arts, Entertainment and Recreation establishments"
-WagesAnnual_Establishment_NAICSConstruction,total annual payroll amount of Construction establishments
-WagesAnnual_Establishment_NAICSEducationalServices,total annual payroll amount of Educational Services establishments
-WagesAnnual_Establishment_NAICSFinanceInsurance,total annual payroll amount of Finance and Insurance establishments
-WagesAnnual_Establishment_NAICSHealthCareSocialAssistance,total annual payroll amount of Health Care and Social Assistance establishments
-dc/ck1ksqd8rgps6,total annual payroll amount of Heavy and Civil Engineering Construction establishments
-WagesAnnual_Establishment_NAICSInformation,total annual payroll amount of Information establishments
-WagesAnnual_Establishment_NAICSManagementOfCompaniesEnterprises,total annual payroll amount of Management of Companies and Enterprises establishments
-WagesAnnual_Establishment_NAICSManufacturing,total annual payroll amount of Manufacturing establishments
-WagesAnnual_Establishment_NAICSMiningQuarryingOilGasExtraction,"total annual payroll amount of Mining, Quarrying, and Oil and Gas Extraction establishments"
-WagesAnnual_Establishment_NAICSNonclassifiable,total annual payroll amount of Nonclassifiable establishments
-WagesAnnual_Establishment_NAICSOtherServices,total annual payroll amount of Other Services establishments
-WagesAnnual_Establishment_NAICSProfessionalScientificTechnicalServices,"total annual payroll amount of Professional, Scientific, and Technical Services establishments"
-WagesAnnual_Establishment_NAICSRealEstateRentalLeasing,total annual payroll amount of Real Estate and Rental and Leasing establishments
-dc/msz3yy4p50yyf,"total annual payroll amount of Research and Development in the Physical, Engineering, and Life Sciences establishments"
-dc/j5fv028n7nhe4,total annual payroll amount of Residential Building Construction establishments
-WagesAnnual_Establishment_NAICSRetailTrade,total annual payroll amount of Retail Trade establishments
-WagesAnnual_Establishment_NAICSTransportationWarehousing,total annual payroll amount of Transportation and Warehousing establishments
-WagesAnnual_Establishment_NAICSUtilities,total annual payroll amount of Utilities establishments
-WagesAnnual_Establishment_NAICSWholesaleTrade,total annual payroll amount of Wholesale Trade
-WagesTotal_Worker_NAICSAccommodationFoodServices,Total Wages of Workers in the Accommodation and Food Services Industry
-WagesTotal_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices,Total Wages of Workers in the Administrative and Support and Waste Management Services Industry
-WagesTotal_Worker_NAICSAgricultureForestryFishingHunting,"Total wages of workers in the agriculture, forestry, fishing, & hunting industry"
+WagesAnnual_Establishment,annual payroll amount of all establishments
+WagesAnnual_Establishment_NAICSAccommodationFoodServices,annual payroll amount of Accommodation and Food Services establishments
+WagesAnnual_Establishment_NAICSAdministrativeSupportWasteManagementRemediationServices,"annual payroll amount of Administrative Support, Waste Management and Remediation Services establishments"
+WagesAnnual_Establishment_NAICSAgricultureForestryFishingHunting,"annual payroll amount of Agriculture, Forestry, Fishing and Hunting establishments"
+WagesAnnual_Establishment_NAICSArtsEntertainmentRecreation,"annual payroll amount of Arts, Entertainment and Recreation establishments"
+WagesAnnual_Establishment_NAICSConstruction,annual payroll amount of Construction establishments
+WagesAnnual_Establishment_NAICSEducationalServices,annual payroll amount of Educational Services establishments
+WagesAnnual_Establishment_NAICSFinanceInsurance,annual payroll amount of Finance and Insurance establishments
+WagesAnnual_Establishment_NAICSHealthCareSocialAssistance,annual payroll amount of Health Care and Social Assistance establishments
+dc/ck1ksqd8rgps6,annual payroll amount of Heavy and Civil Engineering Construction establishments
+WagesAnnual_Establishment_NAICSInformation,annual payroll amount of Information establishments
+WagesAnnual_Establishment_NAICSManagementOfCompaniesEnterprises,annual payroll amount of Management of Companies and Enterprises establishments
+WagesAnnual_Establishment_NAICSManufacturing,annual payroll amount of Manufacturing establishments
+WagesAnnual_Establishment_NAICSMiningQuarryingOilGasExtraction,"annual payroll amount of Mining, Quarrying, and Oil and Gas Extraction establishments"
+WagesAnnual_Establishment_NAICSNonclassifiable,annual payroll amount of Nonclassifiable establishments
+WagesAnnual_Establishment_NAICSOtherServices,annual payroll amount of Other Services establishments
+WagesAnnual_Establishment_NAICSProfessionalScientificTechnicalServices,"annual payroll amount of Professional, Scientific, and Technical Services establishments"
+WagesAnnual_Establishment_NAICSRealEstateRentalLeasing,annual payroll amount of Real Estate and Rental and Leasing establishments
+dc/msz3yy4p50yyf,"annual payroll amount of Research and Development in the Physical, Engineering, and Life Sciences establishments"
+dc/j5fv028n7nhe4,annual payroll amount of Residential Building Construction establishments
+WagesAnnual_Establishment_NAICSRetailTrade,annual payroll amount of Retail Trade establishments
+WagesAnnual_Establishment_NAICSTransportationWarehousing,annual payroll amount of Transportation and Warehousing establishments
+WagesAnnual_Establishment_NAICSUtilities,annual payroll amount of Utilities establishments
+WagesAnnual_Establishment_NAICSWholesaleTrade,annual payroll amount of Wholesale Trade establishments
+WagesTotal_Worker_NAICSAccommodationFoodServices,total Wages of Workers in the Accommodation and Food Services Industry
+WagesTotal_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices,total Wages of Workers in the Administrative and Support and Waste Management Services Industry
+WagesTotal_Worker_NAICSAgricultureForestryFishingHunting,"total wages of workers in the agriculture, forestry, fishing, & hunting industry"
 dc/4ky4sj05bw4nd,total wages of Air Transportation workers
 dc/lygznlxpkj318,total wages of Apparel Manufacturing workers
 WagesTotal_Worker_NAICSArtsEntertainmentRecreation,"total wages of Arts, Entertainment, and Recreation workers"
@@ -3532,7 +3533,7 @@ WHO/fullv_Female,Percentage of Full Immunization Coverage Among 1 Year Old femal
 WHO/fullv_Male,Percentage of Full Immunization Coverage Among 1 Year Old male
 WHO/fullv_Rural,Percentage of Full Immunization Coverage Among 1 Year Old in Rural Areas
 WHO/fullv_Urban,Percentage of Full Immunization Coverage Among 1 Year Old in Urban areas
-WHO/GDO_q35,Estimated Population-Based Prevalence Of Depression
+WHO/GDO_q35,Estimated Population Based Prevalence Of Depression
 WHO/LBW_PREVALENCE,Low Birth Weight Prevalence
 WHO/M_Est_smk_daily,Daily Tobacco Smoking Prevalence
 WHO/mslv_Female,Measles Immunization Coverage Among 1 year old female
@@ -3608,8 +3609,8 @@ WithdrawalRate_Water_Livestock,Withdrawal Rate of Water used for live stock
 WithdrawalRate_Water_Mining,Withdrawal Rate of Water used for mining
 WithdrawalRate_Water_PublicSupply,Withdrawal Rate of Water used for public supply
 WithdrawalRate_Water_Thermoelectric,Withdrawal Rate of Water used for Thermo electric
-worldBank/4_1_1_TOTAL_ELECTRICITY_OUTPUT,Total electricity output
-worldBank/4_1_2_REN_ELECTRICITY_OUTPUT,Renewable electricity output
+worldBank/4_1_1_TOTAL_ELECTRICITY_OUTPUT,electricity output
+worldBank/4_1_2_REN_ELECTRICITY_OUTPUT,renewable electricity output
 worldBank/4_1_SHARE_RE_IN_ELECTRICITY,Renewable electricity share of total electricity output
 worldBank/EG_ELC_ACCS_RU_ZS,percentage of rural population with access to electricity
 worldBank/EG_ELC_ACCS_UR_ZS,percentage of urban population with access to electricity

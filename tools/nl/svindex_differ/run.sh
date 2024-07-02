@@ -36,9 +36,9 @@ cd ../../..
 python3 -m venv .env
 source .env/bin/activate
 python3 -m pip install --upgrade pip
-pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
-pip3 install -r nl_server/requirements.txt
-pip3 install -r tools/nl/svindex_differ/requirements.txt
+pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu -q
+pip3 install -r nl_server/requirements.txt -q
+pip3 install -r tools/nl/svindex_differ/requirements.txt -q
 
 # Set TOKENIZERS_PARALLELISM to false to solve a warning from huggingface's
 # transfomers library as mentioned here:
@@ -48,4 +48,6 @@ export TOKENIZERS_PARALLELISM=false
 # Diff production embeddings against test.
 export FLASK_ENV=local
 python3 -m tools.nl.svindex_differ.differ \
-  --base_index="$BASE" --test_index="$TEST" $extra_args
+  --base_index="$BASE" \
+  --test_index="$TEST" \
+  $extra_args
