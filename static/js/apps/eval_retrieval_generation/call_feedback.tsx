@@ -17,7 +17,6 @@
 /* Component to record feedback for a call within a query */
 
 import React, { FormEvent, useContext, useEffect, useState } from "react";
-import { Button } from "reactstrap";
 
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import {
@@ -27,17 +26,14 @@ import {
   DC_RESPONSE_COL,
   DC_RESPONSE_FEEDBACK_COL,
   DC_STAT_COL,
-  FEEDBACK_FORM_ID,
   FEEDBACK_PANE_ID,
   LLM_STAT_COL,
   LLM_STAT_FEEDBACK_COL,
 } from "./constants";
 import { AppContext, SessionContext } from "./context";
 import { getCallData, saveToSheet, saveToStore } from "./data_store";
-import { EvalList } from "./eval_list";
-import { FeedbackNavigation } from "./feedback_navigation";
+import { FeedbackWrapper } from "./feedback_wrapper";
 import { OneQuestion } from "./one_question";
-import { TablePane } from "./table_pane";
 import { EvalInfo, EvalType, Response } from "./types";
 
 const EMPTY_RESPONSE = {
@@ -213,107 +209,92 @@ export function CallFeedback(): JSX.Element {
   }
 
   return (
-    <>
-      <div className="button-section">
-        <Button className="reeval-button" onClick={enableReeval}>
-          <div>
-            <span className="material-icons-outlined">redo</span>
-            Re-Eval
-          </div>
-        </Button>
-        <EvalList />
-      </div>
-      <div id={FEEDBACK_FORM_ID}>
-        {evalInfo && (
-          <>
-            <form>
-              <fieldset>
-                <div className="question-section">
-                  <div className="title">GEMMA MODEL QUESTION EVALUATION</div>
-                  <div className="subtitle">
-                    <span
-                      className={`${
-                        evalType === EvalType.RAG ? "dc-question" : ""
-                      }`}
-                    >
-                      {evalInfo.question}
-                    </span>
-                  </div>
-                  <OneQuestion
-                    question="Question from the model"
-                    name="question"
-                    options={{
-                      DC_QUESTION_IRRELEVANT: "Irrelevant, vague",
-                      DC_QUESTION_RELEVANT: "Well formulated & relevant",
-                    }}
-                    handleChange={handleChange}
-                    responseField={response.question}
-                    disabled={status === FormStatus.Submitted}
-                  />
+    <FeedbackWrapper onReEval={enableReeval} checkAndSubmit={checkAndSubmit}>
+      {evalInfo && (
+        <>
+          <form>
+            <fieldset>
+              <div className="question-section">
+                <div className="title">GEMMA MODEL QUESTION EVALUATION</div>
+                <div className="subtitle">
+                  <span
+                    className={`${
+                      evalType === EvalType.RAG ? "dc-question" : ""
+                    }`}
+                  >
+                    {evalInfo.question}
+                  </span>
                 </div>
-                {evalType === EvalType.RIG && (
-                  <div className="question-section">
-                    <div className="title">GEMMA MODEL STAT EVALUATION</div>
-                    <div className="subtitle">
-                      <span className="llm-stat">{evalInfo.llmStat}</span>
-                    </div>
-                    <OneQuestion
-                      question="Model response quality"
-                      name="llmStat"
-                      options={{
-                        LLM_STAT_INACCURATE: "Stats seem inaccurate",
-                        LLM_STAT_NOTSURE: "Unsure about accuracy",
-                        LLM_STAT_ACCURATE: "Stats seem accurate",
-                      }}
-                      handleChange={handleChange}
-                      responseField={response.llmStat}
-                      disabled={status === FormStatus.Submitted}
-                    />
-                  </div>
-                )}
-
-                <div className="question-section">
-                  <div className="title">DATA COMMONS EVALUATION</div>
-                  <div className="subtitle">
-                    <span
-                      className={`${
-                        evalType === EvalType.RAG ? "dc-stat" : ""
-                      }`}
-                    >
-                      {evalInfo.dcResponse}
-                    </span>
-                    {evalType === EvalType.RIG && (
-                      <span className="dc-stat">{evalInfo.dcStat}</span>
-                    )}
-                  </div>
-                  <OneQuestion
-                    question={dcResponseQuestion}
-                    name="dcResponse"
-                    options={dcResponseOptions}
-                    handleChange={handleChange}
-                    responseField={response.dcResponse}
-                    disabled={status === FormStatus.Submitted}
-                  />
-                </div>
-              </fieldset>
-            </form>
-
-            <div className="apply-to-next">
-              <label>
-                <input
-                  type="checkbox"
-                  checked={applyToNext}
-                  onChange={handleApplyToNextChange}
+                <OneQuestion
+                  question="Question from the model"
+                  name="question"
+                  options={{
+                    DC_QUESTION_IRRELEVANT: "Irrelevant, vague",
+                    DC_QUESTION_RELEVANT: "Well formulated & relevant",
+                  }}
+                  handleChange={handleChange}
+                  responseField={response.question}
                   disabled={status === FormStatus.Submitted}
                 />
-                Apply the same evaluation to the next item
-              </label>
-            </div>
-          </>
-        )}
-      </div>
-      {evalType === EvalType.RAG && <TablePane />}
-      <FeedbackNavigation checkAndSubmit={checkAndSubmit} />
-    </>
+              </div>
+              {evalType === EvalType.RIG && (
+                <div className="question-section">
+                  <div className="title">GEMMA MODEL STAT EVALUATION</div>
+                  <div className="subtitle">
+                    <span className="llm-stat">{evalInfo.llmStat}</span>
+                  </div>
+                  <OneQuestion
+                    question="Model response quality"
+                    name="llmStat"
+                    options={{
+                      LLM_STAT_INACCURATE: "Stats seem inaccurate",
+                      LLM_STAT_NOTSURE: "Unsure about accuracy",
+                      LLM_STAT_ACCURATE: "Stats seem accurate",
+                    }}
+                    handleChange={handleChange}
+                    responseField={response.llmStat}
+                    disabled={status === FormStatus.Submitted}
+                  />
+                </div>
+              )}
+
+              <div className="question-section">
+                <div className="title">DATA COMMONS EVALUATION</div>
+                <div className="subtitle">
+                  <span
+                    className={`${evalType === EvalType.RAG ? "dc-stat" : ""}`}
+                  >
+                    {evalInfo.dcResponse}
+                  </span>
+                  {evalType === EvalType.RIG && (
+                    <span className="dc-stat">{evalInfo.dcStat}</span>
+                  )}
+                </div>
+                <OneQuestion
+                  question={dcResponseQuestion}
+                  name="dcResponse"
+                  options={dcResponseOptions}
+                  handleChange={handleChange}
+                  responseField={response.dcResponse}
+                  disabled={status === FormStatus.Submitted}
+                />
+              </div>
+            </fieldset>
+          </form>
+
+          <div className="apply-to-next">
+            <label>
+              <input
+                type="checkbox"
+                checked={applyToNext}
+                onChange={handleApplyToNextChange}
+                disabled={status === FormStatus.Submitted}
+              />
+              Apply the same evaluation to the next item
+            </label>
+          </div>
+        </>
+      )}
+    </FeedbackWrapper>
   );
 }

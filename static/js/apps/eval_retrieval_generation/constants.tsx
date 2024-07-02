@@ -90,4 +90,3 @@ export const FEEDBACK_STAGE_LIST: Record<EvalType, FeedbackStage[]> = {
 };
 
 export const FEEDBACK_PANE_ID = "feedback-pane-container";
-export const FEEDBACK_FORM_ID = "form-container";

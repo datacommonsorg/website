@@ -79,7 +79,7 @@ footer {
       }
 
       th {
-        padding: 8px 0;
+        padding: 8px 6px;
         font-weight: 500;
         line-height: 20px;
       }
@@ -87,6 +87,7 @@ footer {
       td {
         line-height: 30px;
         font-weight: 400;
+        padding: 0 6px;
       }
 
       tr:not(:first-child) {
@@ -163,8 +164,15 @@ label {
   padding: 16px 0;
   position: relative;
 
+  .content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: hidden;
+  }
+
   .button-section,
-  #form-container,
+  #question-section,
   .feedback-nav-section {
     padding: 0 24px;
   }
@@ -187,7 +195,7 @@ label {
     }
   }
 
-  #form-container {
+  #question-section {
     border-top: solid 1px var(--gm-3-sys-light-outline-variant);
     padding: 16px 24px;
     overflow: auto;
@@ -371,7 +379,7 @@ label {
   font-size: 14px;
 
   .question {
-    width: 107px;
+    width: 157px;
     font-weight: 500;
     margin-bottom: 0.5rem;
     padding: 20px 0;

@@ -15,6 +15,7 @@
  */
 
 import { GoogleSpreadsheet } from "google-spreadsheet";
+import _ from "lodash";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
@@ -54,7 +55,7 @@ function getAnswerFromRagCalls(
   sessionQueryId: number
 ): Promise<string> {
   if (!allCall[sessionQueryId]) {
-    return Promise.resolve("");
+    return Promise.resolve("No questions were generated.");
   }
   const sheet = doc.sheetsByTitle[DC_CALL_SHEET];
   const tableIds = Object.keys(allCall[sessionQueryId]).sort(
@@ -140,6 +141,7 @@ export function QuerySection(): JSX.Element {
     useContext(SessionContext);
   const [answer, setAnswer] = useState<string>("");
   const prevHighlightedRef = useRef<HTMLSpanElement | null>(null);
+  const answerMetadata = useRef<AnswerMetadata>(null);
 
   useEffect(() => {
     // Remove highlight from previous annotation
@@ -163,6 +165,7 @@ export function QuerySection(): JSX.Element {
   }, [answer, sessionCallId, feedbackStage]);
 
   useEffect(() => {
+    answerMetadata.current = { evalType, feedbackStage, sessionQueryId };
     getAnswer(
       doc,
       allQuery,
@@ -171,14 +174,8 @@ export function QuerySection(): JSX.Element {
       feedbackStage,
       sessionQueryId
     ).then(({ answer, metadata }) => {
-      // Set empty answer if metadata doesn't match current state.
-      if (
-        metadata.evalType !== evalType ||
-        metadata.feedbackStage !== feedbackStage ||
-        metadata.sessionQueryId !== sessionQueryId
-      ) {
-        return;
-      } else {
+      // Only set answer if it matches the current answer metadata
+      if (_.isEqual(answerMetadata.current, metadata)) {
         setAnswer(answer);
       }
     });
