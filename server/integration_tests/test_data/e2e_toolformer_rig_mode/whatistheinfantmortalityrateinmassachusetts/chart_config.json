@@ -124,6 +124,39 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
+                    ],
+                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of Massachusetts (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
+                    ],
+                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of Massachusetts (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "startWithDenom": true,
+            "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of Massachusetts"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years"
                     ],
                     "title": "Count of Mortality Event: 14 Years or Less (As Fraction of Count Person Upto 14 Years) in Massachusetts",
@@ -205,6 +238,39 @@
             "denom": "Count_Person",
             "startWithDenom": true,
             "title": "Mortality Events (1 Years or Less): Q00-Q99 ( Congenital Malformations, Deformations and Chromosomal Abnormalities)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_CongenitalMalformationsDeformationsChromosomalAbnormalities"
+                    ],
+                    "title": "Mortality Events (1 Years or Less): Q00-Q99 ( Congenital Malformations, Deformations and Chromosomal Abnormalities) in Counties of Massachusetts (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_CongenitalMalformationsDeformationsChromosomalAbnormalities"
+                    ],
+                    "title": "Mortality Events (1 Years or Less): Q00-Q99 ( Congenital Malformations, Deformations and Chromosomal Abnormalities) in Counties of Massachusetts (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "startWithDenom": true,
+            "title": "Mortality Events (1 Years or Less): Q00-Q99 ( Congenital Malformations, Deformations and Chromosomal Abnormalities) in Counties of Massachusetts"
           }
         ],
         "statVarSpec": {
@@ -240,6 +306,9 @@
       }
     ],
     "metadata": {
+      "containedPlaceTypes": {
+        "State": "County"
+      },
       "placeDcid": [
         "geoId/25"
       ]
@@ -264,7 +333,108 @@
     }
   ],
   "relatedThings": {
-    "childPlaces": {},
+    "childPlaces": {
+      "County": [
+        {
+          "dcid": "geoId/25001",
+          "name": "Barnstable",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/25003",
+          "name": "Berkshire",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/25005",
+          "name": "Bristol",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/25007",
+          "name": "Dukes",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/25009",
+          "name": "Essex",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/25011",
+          "name": "Franklin",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/25013",
+          "name": "Hampden",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/25015",
+          "name": "Hampshire",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/25017",
+          "name": "Middlesex",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/25019",
+          "name": "Nantucket",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/25021",
+          "name": "Norfolk",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/25023",
+          "name": "Plymouth",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/25025",
+          "name": "Suffolk",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/25027",
+          "name": "Worcester",
+          "types": [
+            "County"
+          ]
+        }
+      ]
+    },
     "childTopics": [],
     "exploreMore": {},
     "mainTopics": [

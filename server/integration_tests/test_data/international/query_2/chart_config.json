@@ -12,6 +12,37 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
+                    "title": "Life Expectancy in Administrative Area 1 Places of China (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in Administrative Area 1 Places of China (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Life Expectancy in Administrative Area 1 Places of China"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
                     "title": "Life Expectancy in China",
                     "type": "LINE"
                   }
@@ -31,6 +62,70 @@
               }
             ],
             "title": "Life Expectancy"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in Administrative Area 1 Places of China (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in Administrative Area 1 Places of China (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "description": "Life expectancy at birth indicates the number of years a newborn infant would live if prevailing patterns of mortality at the time of its birth were to stay the same throughout its life. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
+            "title": "Female Life Expectancy in Administrative Area 1 Places of China"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Male Life Expectancy in Administrative Area 1 Places of China (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Male Life Expectancy in Administrative Area 1 Places of China (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "description": "Life expectancy at birth indicates the number of years a newborn infant would live if prevailing patterns of mortality at the time of its birth were to stay the same throughout its life. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
+            "title": "Male Life Expectancy in Administrative Area 1 Places of China"
           },
           {
             "columns": [
@@ -66,6 +161,37 @@
             ],
             "denom": "Count_Person",
             "title": "Deaths"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Deaths Per Capita in Administrative Area 1 Places of China (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Deaths Per Capita in Administrative Area 1 Places of China (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Deaths Per Capita in Administrative Area 1 Places of China"
           },
           {
             "columns": [
@@ -542,6 +668,9 @@
       }
     ],
     "metadata": {
+      "containedPlaceTypes": {
+        "Country": "AdministrativeArea1"
+      },
       "placeDcid": [
         "country/CHN"
       ]
@@ -556,23 +685,7 @@
     "name": "China",
     "place_type": "Country"
   },
-  "placeFallback": {
-    "newPlace": {
-      "country": "country/CHN",
-      "dcid": "country/CHN",
-      "name": "China",
-      "place_type": "Country"
-    },
-    "newStr": "China",
-    "origPlace": {
-      "country": "country/CHN",
-      "dcid": "country/CHN",
-      "name": "China",
-      "place_type": "Country"
-    },
-    "origStr": "administrative area 1 places in China",
-    "origType": "AdministrativeArea1"
-  },
+  "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
   "places": [
     {
@@ -582,7 +695,241 @@
     }
   ],
   "relatedThings": {
-    "childPlaces": {},
+    "childPlaces": {
+      "AdministrativeArea1": [
+        {
+          "dcid": "country/MAC",
+          "name": "Macau",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q11725",
+          "name": "Chongqing",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q11736",
+          "name": "Tianjin",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q15175",
+          "name": "Guangdong",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q15176",
+          "name": "Guangxi Zhuang Autonomous Region",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q16963",
+          "name": "Jiangsu",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q16967",
+          "name": "Zhejiang",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q17269",
+          "name": "Tibet Autonomous Region",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q19206",
+          "name": "Heilongjiang",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q19770",
+          "name": "Sichuan",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q21208",
+          "name": "Hebei",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q34800",
+          "name": "Xinjiang",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q40956",
+          "name": "Anhui",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q41079",
+          "name": "Inner Mongolia",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q41705",
+          "name": "Fujian",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q42200",
+          "name": "Hainan",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q42392",
+          "name": "Gansu",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q43194",
+          "name": "Yunnan",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q43407",
+          "name": "Shandong",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q43684",
+          "name": "Henan",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q43934",
+          "name": "Liaoning",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q45208",
+          "name": "Jilin",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q45761",
+          "name": "Hunan",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q45833",
+          "name": "Qinghai",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q46862",
+          "name": "Hubei",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q46913",
+          "name": "Shanxi",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q47097",
+          "name": "Guizhou",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q47974",
+          "name": "Shaanxi",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q57052",
+          "name": "Jiangxi",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q57251",
+          "name": "Taiwan Province, People's Republic of China",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q57448",
+          "name": "Ningxia Hui Autonomous Region",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q8686",
+          "name": "Shanghai",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q956",
+          "name": "Beijing",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        }
+      ]
+    },
     "childTopics": [],
     "exploreMore": {
       "LifeExpectancy_Person": {
@@ -611,7 +958,106 @@
         ]
       }
     ],
-    "peerPlaces": [],
+    "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/USA",
+        "name": "United States",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
     "peerTopics": [
       {
         "dcid": "dc/topic/CausesOfDeath",
@@ -630,8 +1076,6 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "Sorry, there were no relevant statistics for administrative area 1 places in China. See results for China.",
-  "userMessages": [
-    "Sorry, there were no relevant statistics for administrative area 1 places in China. See results for China."
-  ]
+  "userMessage": "",
+  "userMessages": []
 }
