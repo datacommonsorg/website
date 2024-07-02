@@ -40,6 +40,37 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Count_Person"
+                    ],
+                    "title": "Population in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person"
+                    ],
+                    "title": "Population in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Population in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "lineTileSpec": {
                       "startDate": "2014"
                     },
@@ -102,6 +133,37 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Median_Age_Person"
+                    ],
+                    "title": "Median Age of Population in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person"
+                    ],
+                    "title": "Median Age of Population in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Population in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "lineTileSpec": {
                       "startDate": "2014"
                     },
@@ -116,6 +178,68 @@
               }
             ],
             "title": "Median Age by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Female"
+                    ],
+                    "title": "Women's Median Age in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Female"
+                    ],
+                    "title": "Women's Median Age in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Women's Median Age in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Male"
+                    ],
+                    "title": "Men's Median Age in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Male"
+                    ],
+                    "title": "Men's Median Age in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Men's Median Age in Counties of California"
           },
           {
             "columns": [
@@ -155,6 +279,70 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Count_Person_1To4Years"
+                    ],
+                    "title": "Population: 1-4 Years in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_1To4Years"
+                    ],
+                    "title": "Population: 1-4 Years in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 1-4 Years in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_5To17Years"
+                    ],
+                    "title": "Population Aged 5 to 17 in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_5To17Years"
+                    ],
+                    "title": "Population Aged 5 to 17 in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Aged 5 to 17 in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "lineTileSpec": {
                       "startDate": "2014"
                     },
@@ -176,6 +364,70 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Count_Person_85OrMoreYears_Female"
+                    ],
+                    "title": "Women Over 85 in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_85OrMoreYears_Female"
+                    ],
+                    "title": "Women Over 85 in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women Over 85 in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_85OrMoreYears_Male"
+                    ],
+                    "title": "Men Over 85 in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_85OrMoreYears_Male"
+                    ],
+                    "title": "Men Over 85 in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Men Over 85 in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "lineTileSpec": {
                       "startDate": "2014"
                     },
@@ -191,6 +443,70 @@
             ],
             "denom": "Count_Person",
             "title": "Population by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female"
+                    ],
+                    "title": "Women in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female"
+                    ],
+                    "title": "Women in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Male"
+                    ],
+                    "title": "Men in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Male"
+                    ],
+                    "title": "Men in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Men in Counties of California"
           },
           {
             "columns": [
@@ -229,6 +545,70 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Count_Person_WhiteAlone"
+                    ],
+                    "title": "White Monoracial Population in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_WhiteAlone"
+                    ],
+                    "title": "White Monoracial Population in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "White Monoracial Population in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Black Monoracial Population in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Black Monoracial Population in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Black Monoracial Population in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "lineTileSpec": {
                       "startDate": "2014"
                     },
@@ -247,6 +627,70 @@
             ],
             "denom": "Count_Person",
             "title": "Monoracial/multiracial Breakdown"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces"
+                    ],
+                    "title": "American Indian and Alaska Native Population, Monoracial/Multiracial in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces"
+                    ],
+                    "title": "American Indian and Alaska Native Population, Monoracial/Multiracial in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "American Indian and Alaska Native Population, Monoracial/Multiracial in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces"
+                    ],
+                    "title": "Asian Population, Monoracial/Multiracial in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces"
+                    ],
+                    "title": "Asian Population, Monoracial/Multiracial in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Asian Population, Monoracial/Multiracial in Counties of California"
           },
           {
             "columns": [
@@ -281,6 +725,70 @@
             ],
             "denom": "Count_Person",
             "title": "Racial Breakdown With Hispanic Consideration"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone"
+                    ],
+                    "title": "Hispanic American Indian Population in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone"
+                    ],
+                    "title": "Hispanic American Indian Population in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Hispanic American Indian Population in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_HispanicOrLatino_AsianAlone"
+                    ],
+                    "title": "Hispanic Asian Population in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_HispanicOrLatino_AsianAlone"
+                    ],
+                    "title": "Hispanic Asian Population in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Hispanic Asian Population in Counties of California"
           },
           {
             "columns": [
@@ -322,6 +830,70 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Count_Person_WhiteAloneNotHispanicOrLatino"
+                    ],
+                    "title": "White Hispanic Monoracial Population in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_WhiteAloneNotHispanicOrLatino"
+                    ],
+                    "title": "White Hispanic Monoracial Population in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "White Hispanic Monoracial Population in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone"
+                    ],
+                    "title": "Non Hispanic Population Identifying as American Indian or Alaska Native Alone in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone"
+                    ],
+                    "title": "Non Hispanic Population Identifying as American Indian or Alaska Native Alone in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Non Hispanic Population Identifying as American Indian or Alaska Native Alone in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "lineTileSpec": {
                       "startDate": "2014"
                     },
@@ -337,6 +909,70 @@
             ],
             "denom": "Count_Person",
             "title": "Spoken English at Home"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome"
+                    ],
+                    "title": "Population: English Spoken at Home in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome"
+                    ],
+                    "title": "Population: English Spoken at Home in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: English Spoken at Home in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome"
+                    ],
+                    "title": "Population: Some Language Other Than English Spoken at Home in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome"
+                    ],
+                    "title": "Population: Some Language Other Than English Spoken at Home in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Some Language Other Than English Spoken at Home in Counties of California"
           },
           {
             "columns": [
@@ -405,6 +1041,70 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome"
+                    ],
+                    "title": "Population: African Language Spoken at Home in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome"
+                    ],
+                    "title": "Population: African Language Spoken at Home in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: African Language Spoken at Home in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_ArabicSpokenAtHome"
+                    ],
+                    "title": "Population: Arabic Spoken at Home in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_ArabicSpokenAtHome"
+                    ],
+                    "title": "Population: Arabic Spoken at Home in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Arabic Spoken at Home in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "lineTileSpec": {
                       "startDate": "2014"
                     },
@@ -431,6 +1131,38 @@
             ],
             "denom": "Count_Person",
             "title": "Divorcees"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Divorced"
+                    ],
+                    "title": "Divorcees in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Divorced"
+                    ],
+                    "title": "Divorcees in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Divorcees in Counties of California"
           }
         ],
         "statVarSpec": {
@@ -441,6 +1173,10 @@
           "Count_Person_18To24Years_multiple_place_bar_block": {
             "name": "Population Aged 18 to 24 Years",
             "statVar": "Count_Person_18To24Years"
+          },
+          "Count_Person_1To4Years": {
+            "name": "Population: 1 - 4 Years",
+            "statVar": "Count_Person_1To4Years"
           },
           "Count_Person_1To4Years_multiple_place_bar_block": {
             "name": "Population: 1 - 4 Years",
@@ -467,9 +1203,17 @@
             "name": "Population: 55 - 64 Years",
             "statVar": "Count_Person_55To64Years"
           },
+          "Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome": {
+            "name": "Population: African language spoken at home",
+            "statVar": "Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome"
+          },
           "Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome_multiple_place_bar_block": {
             "name": "Population: African language spoken at home",
             "statVar": "Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_ArabicSpokenAtHome": {
+            "name": "Population: Arabic spoken at home",
+            "statVar": "Count_Person_5OrMoreYears_ArabicSpokenAtHome"
           },
           "Count_Person_5OrMoreYears_ArabicSpokenAtHome_multiple_place_bar_block": {
             "name": "Population: Arabic spoken at home",
@@ -535,6 +1279,10 @@
             "name": "Population: Korean spoken at home",
             "statVar": "Count_Person_5OrMoreYears_KoreanSpokenAtHome"
           },
+          "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome": {
+            "name": "Population: Some language other than English spoken at home",
+            "statVar": "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome"
+          },
           "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_1145703171": {
             "facetId": "1145703171",
             "name": "Population: Some language other than English spoken at home",
@@ -559,6 +1307,10 @@
           "Count_Person_5OrMoreYears_NepaliMarathiOrOtherIndicLanguagesSpokenAtHome_multiple_place_bar_block": {
             "name": "Population: Nepali Marathi Or Other Indic Languages Spoken At Home",
             "statVar": "Count_Person_5OrMoreYears_NepaliMarathiOrOtherIndicLanguagesSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome": {
+            "name": "Population: English Spoken At Home",
+            "statVar": "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome"
           },
           "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_1145703171": {
             "facetId": "1145703171",
@@ -629,6 +1381,10 @@
             "name": "Population: Yiddish Spoken At Home",
             "statVar": "Count_Person_5OrMoreYears_YiddishSpokenAtHome"
           },
+          "Count_Person_5To17Years": {
+            "name": "Population Aged 5 to 17",
+            "statVar": "Count_Person_5To17Years"
+          },
           "Count_Person_5To17Years_multiple_place_bar_block": {
             "name": "Population Aged 5 to 17",
             "statVar": "Count_Person_5To17Years"
@@ -641,15 +1397,27 @@
             "name": "Population Aged 75 and Up",
             "statVar": "Count_Person_75OrMoreYears"
           },
+          "Count_Person_85OrMoreYears_Female": {
+            "name": "Women over 85",
+            "statVar": "Count_Person_85OrMoreYears_Female"
+          },
           "Count_Person_85OrMoreYears_Female_1145703171": {
             "facetId": "1145703171",
             "name": "Women over 85",
             "statVar": "Count_Person_85OrMoreYears_Female"
           },
+          "Count_Person_85OrMoreYears_Male": {
+            "name": "Men over 85",
+            "statVar": "Count_Person_85OrMoreYears_Male"
+          },
           "Count_Person_85OrMoreYears_Male_1145703171": {
             "facetId": "1145703171",
             "name": "Men over 85",
             "statVar": "Count_Person_85OrMoreYears_Male"
+          },
+          "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces": {
+            "name": "American Indian and Alaska Native Population, Monoracial/Multiracial",
+            "statVar": "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces"
           },
           "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces_1647577208": {
             "facetId": "1647577208",
@@ -659,6 +1427,10 @@
           "Count_Person_AmericanIndianAndAlaskaNativeAlone_multiple_place_bar_block": {
             "name": "Population American Indian or Alaska Native Alone",
             "statVar": "Count_Person_AmericanIndianAndAlaskaNativeAlone"
+          },
+          "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces": {
+            "name": "Asian Population, Monoracial/Multiracial",
+            "statVar": "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces"
           },
           "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces_1647577208": {
             "facetId": "1647577208",
@@ -672,6 +1444,10 @@
           "Count_Person_AsianOrPacificIslander_multiple_place_bar_block": {
             "name": "Population Asian or Pacific Islander",
             "statVar": "Count_Person_AsianOrPacificIslander"
+          },
+          "Count_Person_BlackOrAfricanAmericanAlone": {
+            "name": "Black Monoracial Population",
+            "statVar": "Count_Person_BlackOrAfricanAmericanAlone"
           },
           "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces_1647577208": {
             "facetId": "1647577208",
@@ -691,6 +1467,10 @@
             "name": "Divorcees",
             "statVar": "Count_Person_Divorced"
           },
+          "Count_Person_Female": {
+            "name": "Women",
+            "statVar": "Count_Person_Female"
+          },
           "Count_Person_Female_1145703171": {
             "facetId": "1145703171",
             "name": "Women",
@@ -700,9 +1480,17 @@
             "name": "Hispanic American Indian Population",
             "statVar": "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces"
           },
+          "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone": {
+            "name": "Hispanic American Indian Population",
+            "statVar": "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone"
+          },
           "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
             "name": "Hispanic American Indian Population",
             "statVar": "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone"
+          },
+          "Count_Person_HispanicOrLatino_AsianAlone": {
+            "name": "Hispanic Asian Population",
+            "statVar": "Count_Person_HispanicOrLatino_AsianAlone"
           },
           "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block": {
             "name": "Hispanic Asian Population",
@@ -740,6 +1528,10 @@
             "name": "Hispanic Population",
             "statVar": "Count_Person_HispanicOrLatino"
           },
+          "Count_Person_Male": {
+            "name": "Men",
+            "statVar": "Count_Person_Male"
+          },
           "Count_Person_Male_1145703171": {
             "facetId": "1145703171",
             "name": "Men",
@@ -757,6 +1549,10 @@
           "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block": {
             "name": "Non Hispanic Population Identifying as American Indian and Alaska Native, Monoracial/Multiracial",
             "statVar": "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone": {
+            "name": "Non Hispanic Population Identifying as American Indian or Alaska Native Alone",
+            "statVar": "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone"
           },
           "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
             "name": "Non Hispanic Population Identifying as American Indian or Alaska Native Alone",
@@ -807,6 +1603,14 @@
             "name": "Population Identifying as Some Other Race Alone",
             "statVar": "Count_Person_SomeOtherRaceAlone"
           },
+          "Count_Person_WhiteAlone": {
+            "name": "White Monoracial Population",
+            "statVar": "Count_Person_WhiteAlone"
+          },
+          "Count_Person_WhiteAloneNotHispanicOrLatino": {
+            "name": "White Hispanic Monoracial Population",
+            "statVar": "Count_Person_WhiteAloneNotHispanicOrLatino"
+          },
           "Count_Person_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block": {
             "name": "White Hispanic Monoracial Population",
             "statVar": "Count_Person_WhiteAloneNotHispanicOrLatino"
@@ -829,10 +1633,18 @@
             "name": "Median Age of Population",
             "statVar": "Median_Age_Person"
           },
+          "Median_Age_Person_Female": {
+            "name": "Women's Median Age",
+            "statVar": "Median_Age_Person_Female"
+          },
           "Median_Age_Person_Female_3795540742": {
             "facetId": "3795540742",
             "name": "Women's Median Age",
             "statVar": "Median_Age_Person_Female"
+          },
+          "Median_Age_Person_Male": {
+            "name": "Men's Median Age",
+            "statVar": "Median_Age_Person_Male"
           },
           "Median_Age_Person_Male_3795540742": {
             "facetId": "3795540742",
@@ -843,6 +1655,9 @@
       }
     ],
     "metadata": {
+      "containedPlaceTypes": {
+        "State": "County"
+      },
       "placeDcid": [
         "geoId/06"
       ]
@@ -867,7 +1682,360 @@
     }
   ],
   "relatedThings": {
-    "childPlaces": {},
+    "childPlaces": {
+      "County": [
+        {
+          "dcid": "geoId/06001",
+          "name": "Alameda",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06003",
+          "name": "Alpine",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06005",
+          "name": "Amador",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06007",
+          "name": "Butte",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06009",
+          "name": "Calaveras",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06011",
+          "name": "Colusa",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06013",
+          "name": "Contra Costa",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06015",
+          "name": "Del Norte",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06017",
+          "name": "El Dorado",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06019",
+          "name": "Fresno",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06021",
+          "name": "Glenn",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06023",
+          "name": "Humboldt",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06025",
+          "name": "Imperial",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06027",
+          "name": "Inyo",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06029",
+          "name": "Kern",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06031",
+          "name": "Kings",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06033",
+          "name": "Lake",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06035",
+          "name": "Lassen",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06037",
+          "name": "Los Angeles",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06039",
+          "name": "Madera",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06041",
+          "name": "Marin",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06043",
+          "name": "Mariposa",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06045",
+          "name": "Mendocino",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06047",
+          "name": "Merced",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06049",
+          "name": "Modoc",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06051",
+          "name": "Mono",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06053",
+          "name": "Monterey",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06055",
+          "name": "Napa",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06057",
+          "name": "Nevada",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06059",
+          "name": "Orange",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06061",
+          "name": "Placer",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06063",
+          "name": "Plumas",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06065",
+          "name": "Riverside",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06067",
+          "name": "Sacramento",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06069",
+          "name": "San Benito",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06071",
+          "name": "San Bernardino",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06073",
+          "name": "San Diego",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06075",
+          "name": "San Francisco",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06077",
+          "name": "San Joaquin",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06079",
+          "name": "San Luis Obispo",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06081",
+          "name": "San Mateo",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06083",
+          "name": "Santa Barbara",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06085",
+          "name": "Santa Clara",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06087",
+          "name": "Santa Cruz",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06089",
+          "name": "Shasta",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06091",
+          "name": "Sierra",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06093",
+          "name": "Siskiyou",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06095",
+          "name": "Solano",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06097",
+          "name": "Sonoma",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06099",
+          "name": "Stanislaus",
+          "types": [
+            "County"
+          ]
+        }
+      ]
+    },
     "childTopics": [
       {
         "dcid": "dc/topic/Age",

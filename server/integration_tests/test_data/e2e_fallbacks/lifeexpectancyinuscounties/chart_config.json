@@ -12,37 +12,6 @@
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
-                    "title": "Life Expectancy in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "LifeExpectancy_Person"
-                    ],
-                    "title": "Life Expectancy in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Life Expectancy in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "LifeExpectancy_Person"
-                    ],
                     "title": "Life Expectancy in United States",
                     "type": "LINE"
                   }
@@ -69,70 +38,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "LifeExpectancy_Person_Female"
-                    ],
-                    "title": "Female Life Expectancy in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Female"
-                    ],
-                    "title": "Female Life Expectancy in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "description": "Life expectancy at birth indicates the number of years a newborn infant would live if prevailing patterns of mortality at the time of its birth were to stay the same throughout its life. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
-            "title": "Female Life Expectancy in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Male Life Expectancy in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Male Life Expectancy in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "description": "Life expectancy at birth indicates the number of years a newborn infant would live if prevailing patterns of mortality at the time of its birth were to stay the same throughout its life. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
-            "title": "Male Life Expectancy in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "LifeExpectancy_Person_Female",
                       "LifeExpectancy_Person_Male"
                     ],
@@ -143,6 +48,38 @@
               }
             ],
             "title": "Life Expectancy by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death"
+                    ],
+                    "title": "Deaths in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death"
+                    ],
+                    "title": "Deaths in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Deaths in Counties of United States"
           },
           {
             "columns": [
@@ -207,9 +144,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Death_DiseasesOfTheCirculatorySystem"
+                      "Count_Death_DiseasesOfTheNervousSystem"
                     ],
-                    "title": "Deaths From Diseases of the Circulatory System in States of United States (${date})",
+                    "title": "Deaths From Diseases of the Nervous System in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -222,16 +159,48 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Death_DiseasesOfTheCirculatorySystem"
+                      "Count_Death_DiseasesOfTheNervousSystem"
                     ],
-                    "title": "Deaths From Diseases of the Circulatory System in States of United States (${date})",
+                    "title": "Deaths From Diseases of the Nervous System in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Deaths From Diseases of the Circulatory System in States of United States"
+            "title": "Deaths From Diseases of the Nervous System in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_DiseasesOfTheRespiratorySystem"
+                    ],
+                    "title": "Deaths From Diseases of the Respiratory System in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_DiseasesOfTheRespiratorySystem"
+                    ],
+                    "title": "Deaths From Diseases of the Respiratory System in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Deaths From Diseases of the Respiratory System in Counties of United States"
           },
           {
             "columns": [
@@ -274,6 +243,38 @@
                     "statVarKey": [
                       "Count_Death_Female"
                     ],
+                    "title": "Count of Mortality Event: Female in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_Female"
+                    ],
+                    "title": "Count of Mortality Event: Female in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Mortality Event: Female in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_Female"
+                    ],
                     "title": "Count of Mortality Event: Female in United States",
                     "type": "LINE"
                   }
@@ -303,7 +304,7 @@
                     "statVarKey": [
                       "Count_Death_AbnormalNotClassfied_Female"
                     ],
-                    "title": "Female Deaths Due to Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified in States of United States (${date})",
+                    "title": "Female Deaths Due to Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -318,46 +319,14 @@
                     "statVarKey": [
                       "Count_Death_AbnormalNotClassfied_Female"
                     ],
-                    "title": "Female Deaths Due to Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified in States of United States (${date})",
+                    "title": "Female Deaths Due to Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Female Deaths Due to Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female"
-                    ],
-                    "title": "Female Deaths Due to Certain Conditions Originating in the Perinatal Period in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female"
-                    ],
-                    "title": "Female Deaths Due to Certain Conditions Originating in the Perinatal Period in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Female Deaths Due to Certain Conditions Originating in the Perinatal Period in States of United States"
+            "title": "Female Deaths Due to Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified in Counties of United States"
           },
           {
             "columns": [
@@ -426,9 +395,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Death_Upto1Years_AbnormalNotClassfied"
+                      "Count_Death_Upto1Years"
                     ],
-                    "title": "Mortality Events (1 Years or Less): Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified) in States of United States (${date})",
+                    "title": "Count of Mortality Event: 1 Years or Less in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -441,16 +410,16 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Death_Upto1Years_AbnormalNotClassfied"
+                      "Count_Death_Upto1Years"
                     ],
-                    "title": "Mortality Events (1 Years or Less): Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified) in States of United States (${date})",
+                    "title": "Count of Mortality Event: 1 Years or Less in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Mortality Events (1 Years or Less): Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified) in States of United States"
+            "title": "Count of Mortality Event: 1 Years or Less in Counties of United States"
           },
           {
             "columns": [
@@ -460,7 +429,7 @@
                     "statVarKey": [
                       "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
                     ],
-                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in States of United States (${date})",
+                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -475,14 +444,14 @@
                     "statVarKey": [
                       "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
                     ],
-                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in States of United States (${date})",
+                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in States of United States"
+            "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of United States"
           },
           {
             "columns": [
@@ -537,133 +506,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "dc/67ttwfn9dswch"
-                    ],
-                    "title": "Count of Mortality Event (Measured Based on Jurisdiction): Incarcerated in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "dc/67ttwfn9dswch"
-                    ],
-                    "title": "Count of Mortality Event (Measured Based on Jurisdiction): Incarcerated in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Count of Mortality Event (Measured Based on Jurisdiction): Incarcerated in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "dc/3kk4xws30zxlb"
-                    ],
-                    "title": "Mortality Events (Measured Based on Jurisdiction): NPSOther Cause of Death, Incarcerated in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "dc/3kk4xws30zxlb"
-                    ],
-                    "title": "Mortality Events (Measured Based on Jurisdiction): NPSOther Cause of Death, Incarcerated in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Mortality Events (Measured Based on Jurisdiction): NPSOther Cause of Death, Incarcerated in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "dc/3s7lndm5j3wp4"
-                    ],
-                    "title": "Mortality Events (Measured Based on Jurisdiction): Illness or Natural Cause, Incarcerated in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "dc/3s7lndm5j3wp4"
-                    ],
-                    "title": "Mortality Events (Measured Based on Jurisdiction): Illness or Natural Cause, Incarcerated in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Mortality Events (Measured Based on Jurisdiction): Illness or Natural Cause, Incarcerated in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
-                    ],
-                    "title": "Mortality Rate (Age Adjusted, Per Capita) in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
-                    ],
-                    "title": "Mortality Rate (Age Adjusted, Per Capita) in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Mortality Rate (Age Adjusted, Per Capita) in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
                     ],
                     "title": "Mortality Rate (Age Adjusted, Per Capita) in United States",
@@ -694,7 +536,7 @@
                     "statVarKey": [
                       "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth"
                     ],
-                    "title": "Average Interval in Months Since Last Live Birth in States of United States (${date})",
+                    "title": "Average Interval in Months Since Last Live Birth in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -709,44 +551,13 @@
                     "statVarKey": [
                       "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth"
                     ],
-                    "title": "Average Interval in Months Since Last Live Birth in States of United States (${date})",
+                    "title": "Average Interval in Months Since Last Live Birth in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Average Interval in Months Since Last Live Birth in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_Male_AgeAdjusted_AsAFractionOf_Count_Person_Male"
-                    ],
-                    "title": "Male Mortality Rate (Age Adjusted) in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Death_Male_AgeAdjusted_AsAFractionOf_Count_Person_Male"
-                    ],
-                    "title": "Male Mortality Rate (Age Adjusted) in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Male Mortality Rate (Age Adjusted) in States of United States"
+            "title": "Average Interval in Months Since Last Live Birth in Counties of United States"
           },
           {
             "columns": [
@@ -792,6 +603,51 @@
               }
             ],
             "title": "Diabetes Mellitus, Per 100,000"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_Female_AgeAdjusted_AsAFractionOf_Count_Person_Female"
+                    ],
+                    "title": "Female Mortality Rate (Age Adjusted) in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Female Mortality Rate (Age Adjusted) in United States",
+                    "statVarKey": [
+                      "Count_Death_Female_AgeAdjusted_AsAFractionOf_Count_Person_Female"
+                    ],
+                    "title": "Female Mortality Rate (Age Adjusted) in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Female Mortality Rate (Age Adjusted)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Ischaemic Heart Disease, Per 100,000 in United States",
+                    "statVarKey": [
+                      "WHO/SA_0000001425"
+                    ],
+                    "title": "Ischaemic Heart Disease, Per 100,000 in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Ischaemic Heart Disease, Per 100,000"
           }
         ],
         "statVarSpec": {
@@ -818,10 +674,6 @@
           "Count_Death_AsAFractionOfCount_Person": {
             "name": "Deaths Per Capita",
             "statVar": "Count_Death_AsAFractionOfCount_Person"
-          },
-          "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female": {
-            "name": "Female Deaths Due To Certain Conditions Originating in The Perinatal Period",
-            "statVar": "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female"
           },
           "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female_multiple_place_bar_block": {
             "name": "Female Deaths Due To Certain Conditions Originating in The Perinatal Period",
@@ -855,10 +707,6 @@
             "name": "Deaths Due To Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism",
             "statVar": "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders"
           },
-          "Count_Death_DiseasesOfTheCirculatorySystem": {
-            "name": "Deaths From Diseases of the Circulatory System",
-            "statVar": "Count_Death_DiseasesOfTheCirculatorySystem"
-          },
           "Count_Death_DiseasesOfTheCirculatorySystem_Female_multiple_place_bar_block": {
             "name": "Female Deaths Due To Diseases of The Circulatory System",
             "statVar": "Count_Death_DiseasesOfTheCirculatorySystem_Female"
@@ -867,9 +715,21 @@
             "name": "Deaths From Diseases of the Circulatory System",
             "statVar": "Count_Death_DiseasesOfTheCirculatorySystem"
           },
+          "Count_Death_DiseasesOfTheNervousSystem": {
+            "name": "Deaths From Diseases of the Nervous System",
+            "statVar": "Count_Death_DiseasesOfTheNervousSystem"
+          },
+          "Count_Death_DiseasesOfTheRespiratorySystem": {
+            "name": "Deaths From Diseases of the Respiratory System",
+            "statVar": "Count_Death_DiseasesOfTheRespiratorySystem"
+          },
           "Count_Death_Female": {
             "name": "Count of Mortality Event: Female",
             "statVar": "Count_Death_Female"
+          },
+          "Count_Death_Female_AgeAdjusted_AsAFractionOf_Count_Person_Female": {
+            "name": "Female Mortality Rate (Age Adjusted)",
+            "statVar": "Count_Death_Female_AgeAdjusted_AsAFractionOf_Count_Person_Female"
           },
           "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person_multiple_place_bar_block": {
             "name": "% of Suicide Events",
@@ -887,9 +747,9 @@
             "name": "Deaths From Neoplasms (Tumors or Abnormal Growths)",
             "statVar": "Count_Death_Neoplasms"
           },
-          "Count_Death_Upto1Years_AbnormalNotClassfied": {
-            "name": "Mortality Events (1 Years or Less): Symptoms, Signs And Abnormal Clinical And Laboratory Findings, Not Elsewhere Classified)",
-            "statVar": "Count_Death_Upto1Years_AbnormalNotClassfied"
+          "Count_Death_Upto1Years": {
+            "name": "Count of Mortality Event: 1 Years or Less",
+            "statVar": "Count_Death_Upto1Years"
           },
           "Count_Death_Upto1Years_AbnormalNotClassfied_multiple_place_bar_block": {
             "name": "Mortality Events (1 Years or Less): Symptoms, Signs And Abnormal Clinical And Laboratory Findings, Not Elsewhere Classified)",
@@ -951,17 +811,9 @@
             "name": "Diabetes Mellitus, Per 100,000",
             "statVar": "WHO/SA_0000001421"
           },
-          "dc/3kk4xws30zxlb": {
-            "name": "Mortality Events (Measured Based on Jurisdiction): NPSOther Cause of Death, Incarcerated",
-            "statVar": "dc/3kk4xws30zxlb"
-          },
-          "dc/3s7lndm5j3wp4": {
-            "name": "Mortality Events (Measured Based on Jurisdiction): Illness or Natural Cause, Incarcerated",
-            "statVar": "dc/3s7lndm5j3wp4"
-          },
-          "dc/67ttwfn9dswch": {
-            "name": "Count of Mortality Event (Measured Based on Jurisdiction): Incarcerated",
-            "statVar": "dc/67ttwfn9dswch"
+          "WHO/SA_0000001425": {
+            "name": "Ischaemic Heart Disease, Per 100,000",
+            "statVar": "WHO/SA_0000001425"
           },
           "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F": {
             "name": "Infant mortality rate",
@@ -980,7 +832,7 @@
     ],
     "metadata": {
       "containedPlaceTypes": {
-        "Country": "State"
+        "Country": "County"
       },
       "placeDcid": [
         "country/USA"
@@ -996,24 +848,7 @@
     "name": "United States",
     "place_type": "Country"
   },
-  "placeFallback": {
-    "newPlace": {
-      "country": "country/USA",
-      "dcid": "country/USA",
-      "name": "United States",
-      "place_type": "Country"
-    },
-    "newStr": "states in United States",
-    "newType": "State",
-    "origPlace": {
-      "country": "country/USA",
-      "dcid": "country/USA",
-      "name": "United States",
-      "place_type": "Country"
-    },
-    "origStr": "counties in United States",
-    "origType": "County"
-  },
+  "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
   "places": [
     {
@@ -1023,7 +858,360 @@
     }
   ],
   "relatedThings": {
-    "childPlaces": {},
+    "childPlaces": {
+      "County": [
+        {
+          "dcid": "geoId/01001",
+          "name": "Autauga",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01003",
+          "name": "Baldwin",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01005",
+          "name": "Barbour",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01007",
+          "name": "Bibb",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01009",
+          "name": "Blount",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01011",
+          "name": "Bullock",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01013",
+          "name": "Butler",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01015",
+          "name": "Calhoun",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01017",
+          "name": "Chambers",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01019",
+          "name": "Cherokee",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01021",
+          "name": "Chilton",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01023",
+          "name": "Choctaw",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01025",
+          "name": "Clarke",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01027",
+          "name": "Clay",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01029",
+          "name": "Cleburne",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01031",
+          "name": "Coffee",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01033",
+          "name": "Colbert",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01035",
+          "name": "Conecuh",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01037",
+          "name": "Coosa",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01039",
+          "name": "Covington",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01041",
+          "name": "Crenshaw",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01043",
+          "name": "Cullman",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01045",
+          "name": "Dale",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01047",
+          "name": "Dallas",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01049",
+          "name": "DeKalb",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01051",
+          "name": "Elmore",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01053",
+          "name": "Escambia",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01055",
+          "name": "Etowah",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01057",
+          "name": "Fayette",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01059",
+          "name": "Franklin",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01061",
+          "name": "Geneva",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01063",
+          "name": "Greene",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01065",
+          "name": "Hale",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01067",
+          "name": "Henry",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01069",
+          "name": "Houston",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01071",
+          "name": "Jackson",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01073",
+          "name": "Jefferson",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01075",
+          "name": "Lamar",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01077",
+          "name": "Lauderdale",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01079",
+          "name": "Lawrence",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01081",
+          "name": "Lee",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01083",
+          "name": "Limestone",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01085",
+          "name": "Lowndes",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01087",
+          "name": "Macon",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01089",
+          "name": "Madison",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01091",
+          "name": "Marengo",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01093",
+          "name": "Marion",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01095",
+          "name": "Marshall",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01097",
+          "name": "Mobile",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01099",
+          "name": "Monroe",
+          "types": [
+            "County"
+          ]
+        }
+      ]
+    },
     "childTopics": [],
     "exploreMore": {
       "Count_Death": {
@@ -1095,7 +1283,106 @@
         ]
       }
     ],
-    "peerPlaces": [],
+    "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
     "peerTopics": [
       {
         "dcid": "dc/topic/CausesOfDeath",
@@ -1121,8 +1408,6 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "Sorry, there were no relevant statistics for counties in United States. See results for states in United States.",
-  "userMessages": [
-    "Sorry, there were no relevant statistics for counties in United States. See results for states in United States."
-  ]
+  "userMessage": "",
+  "userMessages": []
 }
