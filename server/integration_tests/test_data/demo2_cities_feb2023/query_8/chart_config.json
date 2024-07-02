@@ -67,6 +67,151 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "dc/g4fthg3t3y5td"
+                    ],
+                    "title": "Population: Middle School, Asian Alone in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Middle School, Asian Alone in Sunnyvale",
+                    "statVarKey": [
+                      "dc/g4fthg3t3y5td"
+                    ],
+                    "title": "Population: Middle School, Asian Alone in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Middle School, Asian Alone"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/e2szvml8jkld8"
+                    ],
+                    "title": "Population: Middle School, Black or African American Alone in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Middle School, Black or African American Alone in Sunnyvale",
+                    "statVarKey": [
+                      "dc/e2szvml8jkld8"
+                    ],
+                    "title": "Population: Middle School, Black or African American Alone in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Middle School, Black or African American Alone"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/qvf1yrhwzp8rd"
+                    ],
+                    "title": "Population: Middle School, White Alone in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Middle School, White Alone in Sunnyvale",
+                    "statVarKey": [
+                      "dc/qvf1yrhwzp8rd"
+                    ],
+                    "title": "Population: Middle School, White Alone in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Middle School, White Alone"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/zvr6djt1p9gj3"
+                    ],
+                    "title": "Population: Middle School, Hispanic or Latino in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Middle School, Hispanic or Latino in Sunnyvale",
+                    "statVarKey": [
+                      "dc/zvr6djt1p9gj3"
+                    ],
+                    "title": "Population: Middle School, Hispanic or Latino in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Middle School, Hispanic or Latino"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/njgzb8knf11n8"
+                    ],
+                    "title": "Population: Middle School, American Indian or Alaska Native Alone in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Middle School, American Indian or Alaska Native Alone in Sunnyvale",
+                    "statVarKey": [
+                      "dc/njgzb8knf11n8"
+                    ],
+                    "title": "Population: Middle School, American Indian or Alaska Native Alone in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Middle School, American Indian or Alaska Native Alone"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "barTileSpec": {
                       "maxPlaces": 15,
                       "maxVariables": 15,
@@ -259,6 +404,35 @@
               }
             ],
             "title": "Student-Teacher Ratio in Middle Schools of Sunnyvale"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_EnrolledInSchool"
+                    ],
+                    "title": "Population Currently Enrolled in School in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population Currently Enrolled in School in Sunnyvale",
+                    "statVarKey": [
+                      "Count_Person_EnrolledInSchool"
+                    ],
+                    "title": "Population Currently Enrolled in School in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Currently Enrolled in School"
           }
         ],
         "statVarSpec": {
@@ -281,6 +455,10 @@
           "Count_Person_DetailedPrimarySchool": {
             "name": "Elementary School Students",
             "statVar": "Count_Person_DetailedPrimarySchool"
+          },
+          "Count_Person_EnrolledInSchool": {
+            "name": "Population Currently Enrolled in School",
+            "statVar": "Count_Person_EnrolledInSchool"
           },
           "Count_Student_DirectCertificationLunch": {
             "name": "Count of Student: Direct Certification Lunch",
@@ -347,6 +525,10 @@
             "name": "Population: Middle School, White Alone Not Hispanic or Latino",
             "statVar": "dc/c75qlm98pmcb2"
           },
+          "dc/e2szvml8jkld8": {
+            "name": "Population: Middle School, Black or African American Alone",
+            "statVar": "dc/e2szvml8jkld8"
+          },
           "dc/e2szvml8jkld8_multiple_place_bar_block": {
             "name": "Population: Middle School, Black or African American Alone",
             "statVar": "dc/e2szvml8jkld8"
@@ -358,6 +540,10 @@
           "dc/env3140jqssg8_multiple_place_bar_block": {
             "name": "Population: Primary School, Some Other Race Alone",
             "statVar": "dc/env3140jqssg8"
+          },
+          "dc/g4fthg3t3y5td": {
+            "name": "Population: Middle School, Asian Alone",
+            "statVar": "dc/g4fthg3t3y5td"
           },
           "dc/g4fthg3t3y5td_multiple_place_bar_block": {
             "name": "Population: Middle School, Asian Alone",
@@ -374,6 +560,10 @@
           "dc/jhjdplbeg26k1_multiple_place_bar_block": {
             "name": "Population: Primary School, Two or More Races",
             "statVar": "dc/jhjdplbeg26k1"
+          },
+          "dc/njgzb8knf11n8": {
+            "name": "Population: Middle School, American Indian or Alaska Native Alone",
+            "statVar": "dc/njgzb8knf11n8"
           },
           "dc/njgzb8knf11n8_multiple_place_bar_block": {
             "name": "Population: Middle School, American Indian or Alaska Native Alone",
@@ -399,6 +589,10 @@
             "name": "Population: Enrolled in Kindergarten, American Indian or Alaska Native Alone",
             "statVar": "dc/qnphlls92tvs9"
           },
+          "dc/qvf1yrhwzp8rd": {
+            "name": "Population: Middle School, White Alone",
+            "statVar": "dc/qvf1yrhwzp8rd"
+          },
           "dc/qvf1yrhwzp8rd_multiple_place_bar_block": {
             "name": "Population: Middle School, White Alone",
             "statVar": "dc/qvf1yrhwzp8rd"
@@ -410,6 +604,10 @@
           "dc/x9e7150515yt7_multiple_place_bar_block": {
             "name": "Population: Primary School, Asian Alone",
             "statVar": "dc/x9e7150515yt7"
+          },
+          "dc/zvr6djt1p9gj3": {
+            "name": "Population: Middle School, Hispanic or Latino",
+            "statVar": "dc/zvr6djt1p9gj3"
           },
           "dc/zvr6djt1p9gj3_multiple_place_bar_block": {
             "name": "Population: Middle School, Hispanic or Latino",
@@ -512,6 +710,20 @@
           "dc/p4jzvj8q1lnmd",
           "dc/wk2vjrzfgyq5d",
           "dc/x9e7150515yt7"
+        ]
+      },
+      "Count_Person_EnrolledInSchool": {
+        "gender": [
+          "Count_Person_3OrMoreYears_Female_EnrolledInSchool",
+          "Count_Person_3OrMoreYears_Male_EnrolledInSchool"
+        ],
+        "race": [
+          "dc/4wdtyd2bbf9m9",
+          "dc/5qnjtqc0w783b",
+          "dc/8cnhmxe67qddf",
+          "dc/jbv3zc0ezvcyc",
+          "dc/km8en9ep7bwh6",
+          "dc/zq864lhfql079"
         ]
       },
       "dc/g8kg52zcxzw9f": {

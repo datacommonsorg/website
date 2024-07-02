@@ -97,6 +97,14 @@ class TestNLUtilsRemoveStopWordsAndPunctuation(unittest.TestCase):
           "interest rates among people who are living in poverty across US states",
           "interest rates people living poverty us"
       ],
+      [
+          "how many hispanics people in california",
+          "how many hispanics people california"
+      ],
+      [
+          "what is the number of students in new york",
+          "number of students new york"
+      ],
   ])
   def test_query_remove_stop_words(self, query, expected):
     stop_words = utils.combine_stop_words()
