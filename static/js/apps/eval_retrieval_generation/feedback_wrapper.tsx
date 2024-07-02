@@ -38,7 +38,7 @@ import React, { useContext } from "react";
 import { Button } from "reactstrap";
 
 import { FEEDBACK_PANE_ID } from "./constants";
-import { AppContext } from "./context";
+import { AppContext, SessionContext } from "./context";
 import { EvalList } from "./eval_list";
 import { FeedbackNavigation } from "./feedback_navigation";
 import { TablePane } from "./table_pane";
@@ -51,7 +51,8 @@ interface FeedbackWrapperPropType {
 }
 
 export function FeedbackWrapper(props: FeedbackWrapperPropType): JSX.Element {
-  const { evalType } = useContext(AppContext);
+  const { evalType, doc, allCall } = useContext(AppContext);
+  const { sessionQueryId } = useContext(SessionContext);
 
   return (
     <div className="feedback-pane" id={FEEDBACK_PANE_ID}>
@@ -66,7 +67,9 @@ export function FeedbackWrapper(props: FeedbackWrapperPropType): JSX.Element {
       </div>
       <div className="content">
         <div id="question-section">{props.children}</div>
-        {evalType === EvalType.RAG && <TablePane />}
+        {evalType === EvalType.RAG && (
+          <TablePane doc={doc} calls={allCall[sessionQueryId]} />
+        )}
       </div>
       <FeedbackNavigation checkAndSubmit={props.checkAndSubmit} />
       <div id="page-screen" className="screen">
