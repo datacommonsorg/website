@@ -86,8 +86,8 @@
             },
             {
               "CosineScore": [
-                0.8318256735801697,
-                0.8029924631118774
+                0.8318259119987488,
+                0.8029923439025879
               ],
               "QueryPart": "women phd",
               "SV": [
@@ -103,13 +103,8 @@
           "Parts": [
             {
               "CosineScore": [
-<<<<<<< HEAD
                 0.8366719484329224,
                 0.7972691059112549
-=======
-                0.8433718681335449,
-                0.8265039920806885
->>>>>>> f2eb77b6051618989922cc5af01341372de33039
               ],
               "QueryPart": "number of poor",
               "SV": [
@@ -167,39 +162,6 @@
               ]
             }
           ]
-<<<<<<< HEAD
-=======
-        },
-        {
-          "AggCosineScore": 0.8021,
-          "DelimBased": false,
-          "Parts": [
-            {
-              "CosineScore": [
-                0.7890845537185669
-              ],
-              "QueryPart": "number poor",
-              "SV": [
-                "dc/topic/Poverty"
-              ]
-            },
-            {
-              "CosineScore": [
-                0.8151504993438721,
-                0.7885995507240295,
-                0.7775553464889526,
-                0.7752051949501038
-              ],
-              "QueryPart": "hispanic women phd",
-              "SV": [
-                "dc/06f0jf8xvzw4f",
-                "Count_Person_Female_HispanicOrLatino",
-                "dc/3w039ndqy7qv1",
-                "dc/topic/HispanicOrLatinoFemalePopulationByAge"
-              ]
-            }
-          ]
->>>>>>> f2eb77b6051618989922cc5af01341372de33039
         }
       ]
     },

@@ -31,6 +31,7 @@
       0.7443947792053223,
       0.7431552410125732,
       0.7426693439483643,
+      0.7396597862243652,
       0.7378743290901184,
       0.7371534109115601,
       0.7366002798080444,
@@ -43,8 +44,7 @@
       0.7299268841743469,
       0.7289118766784668,
       0.7289034724235535,
-      0.7280722260475159,
-      0.7278057336807251
+      0.7280722260475159
     ],
     "MultiSV": {
       "Candidates": [
@@ -54,11 +54,7 @@
           "Parts": [
             {
               "CosineScore": [
-<<<<<<< HEAD
                 0.9257855415344238
-=======
-                0.9257857799530029
->>>>>>> f2eb77b6051618989922cc5af01341372de33039
               ],
               "QueryPart": "male population",
               "SV": [
@@ -67,13 +63,8 @@
             },
             {
               "CosineScore": [
-<<<<<<< HEAD
-                0.9296978712081909,
+                0.9296979904174805,
                 0.884743332862854
-=======
-                0.9296980500221252,
-                0.8847433924674988
->>>>>>> f2eb77b6051618989922cc5af01341372de33039
               ],
               "QueryPart": "female population",
               "SV": [
@@ -89,11 +80,7 @@
           "Parts": [
             {
               "CosineScore": [
-<<<<<<< HEAD
-                0.911777138710022
-=======
                 0.9117770791053772
->>>>>>> f2eb77b6051618989922cc5af01341372de33039
               ],
               "QueryPart": "male population female",
               "SV": [
@@ -102,8 +89,8 @@
             },
             {
               "CosineScore": [
-                0.8982377648353577,
-                0.8723466396331787
+                0.8982378244400024,
+                0.8723466992378235
               ],
               "QueryPart": "population",
               "SV": [
@@ -121,7 +108,7 @@
               "CosineScore": [
                 0.8034241199493408,
                 0.8017654418945312,
-                0.7751557230949402,
+                0.775155782699585,
                 0.7698014974594116,
                 0.7586972713470459
               ],
@@ -136,7 +123,7 @@
             },
             {
               "CosineScore": [
-                0.9170327186584473
+                0.9170328378677368
               ],
               "QueryPart": "population female population",
               "SV": [
@@ -172,6 +159,7 @@
       "dc/topic/Demographics",
       "dc/topic/sdg_5.a.1",
       "dc/topic/MarriedPopulationByDemographic",
+      "dc/topic/DisabilitiesByGender",
       "Count_Death_Female_AsAFractionOf_Count_Person_Female",
       "dc/topic/UrbanFemalePopulationByAge",
       "Count_Student_Male",
@@ -184,8 +172,7 @@
       "dc/topic/WhiteAloneFemalePopulationByAge",
       "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female",
       "Count_Person_3OrMoreYears_Male_EnrolledInSchool",
-      "dc/topic/MedianHouseholdIncomeByGender",
-      "Count_Death_Male_AsAFractionOf_Count_Person_Male"
+      "dc/topic/MedianHouseholdIncomeByGender"
     ]
   },
   "props_matching": {
