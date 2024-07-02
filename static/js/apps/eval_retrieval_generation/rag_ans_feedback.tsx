@@ -17,21 +17,13 @@
 /* Component to record feedback for a rag answer */
 
 import React, { useContext, useEffect, useState } from "react";
-import { Button } from "reactstrap";
 
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { ClaimCounter } from "./claim_counter";
-import {
-  FEEDBACK_FORM_ID,
-  FEEDBACK_PANE_ID,
-  RAG_CLAIM_KEYS,
-} from "./constants";
+import { FEEDBACK_PANE_ID, RAG_CLAIM_KEYS } from "./constants";
 import { AppContext, SessionContext } from "./context";
 import { getAllFields, getPath, saveToSheet, setFields } from "./data_store";
-import { EvalList } from "./eval_list";
-import { FeedbackNavigation } from "./feedback_navigation";
-import { TablePane } from "./table_pane";
-import { EvalType } from "./types";
+import { FeedbackWrapper } from "./feedback_wrapper";
 
 const EMPTY_COUNTS = {
   [RAG_CLAIM_KEYS.QUERY_TOTAL_STAT_CLAIMS_KEY]: 0,
@@ -58,7 +50,7 @@ interface RagAnsResponse {
 }
 
 export function RagAnsFeedback(): JSX.Element {
-  const { doc, sheetId, userEmail, evalType } = useContext(AppContext);
+  const { doc, sheetId, userEmail } = useContext(AppContext);
   const { sessionQueryId, sessionCallId } = useContext(SessionContext);
   const [response, setResponse] = useState<RagAnsResponse>(null);
 
@@ -143,77 +135,59 @@ export function RagAnsFeedback(): JSX.Element {
   }
 
   return (
-    <>
-      <div className="button-section">
-        <Button className="reeval-button" onClick={enableReeval}>
-          <div>
-            <span className="material-icons-outlined">redo</span>
-            Re-Eval
-          </div>
-        </Button>
-        <EvalList />
-      </div>
-      <div id={FEEDBACK_FORM_ID}>
-        <div className="block-evaluation question-section">
-          <div className="title">STATISTICAL CLAIMS EVALUATION</div>
-          <div className="subtitle">
-            Statistical claims total count (e.g., a number retrieved from a
-            table)
-          </div>
-          <div className="counter-group">
-            {[
-              RAG_CLAIM_KEYS.QUERY_TOTAL_STAT_CLAIMS_KEY,
-              RAG_CLAIM_KEYS.QUERY_FALSE_STAT_CLAIMS_KEY,
-              RAG_CLAIM_KEYS.QUERY_TABLES_USED_KEY,
-            ].map((cntKey) => {
-              return (
-                <div
-                  className={`counter${
-                    response.isSubmitted ? " disabled" : ""
-                  }`}
-                  key={cntKey}
-                >
-                  <ClaimCounter
-                    count={response.counts[cntKey]}
-                    onCountUpdated={(count) => onCountUpdated(count, cntKey)}
-                    label={COUNTER_LABELS[cntKey]}
-                  />
-                </div>
-              );
-            })}
-          </div>
+    <FeedbackWrapper onReEval={enableReeval} checkAndSubmit={checkAndSubmit}>
+      <div className="block-evaluation question-section">
+        <div className="title">STATISTICAL CLAIMS EVALUATION</div>
+        <div className="subtitle">
+          Statistical claims total count (e.g., a number retrieved from a table)
         </div>
-        <div className="block-evaluation question-section">
-          <div className="title">INFERRED CLAIMS EVALUATION</div>
-          <div className="subtitle">
-            Inferred claims total count (e.g., X is better than Y)
-          </div>
-          <div className="counter-group">
-            {[
-              RAG_CLAIM_KEYS.QUERY_TOTAL_INF_CLAIMS_KEY,
-              RAG_CLAIM_KEYS.QUERY_FALSE_INF_CLAIMS_KEY,
-              RAG_CLAIM_KEYS.QUERY_UNSUB_INF_CLAIMS_KEY,
-            ].map((cntKey) => {
-              return (
-                <div
-                  className={`counter${
-                    response.isSubmitted ? " disabled" : ""
-                  }`}
-                  key={cntKey}
-                >
-                  <ClaimCounter
-                    count={response.counts[cntKey]}
-                    onCountUpdated={(count) => onCountUpdated(count, cntKey)}
-                    label={COUNTER_LABELS[cntKey]}
-                  />
-                </div>
-              );
-            })}
-          </div>
+        <div className="counter-group">
+          {[
+            RAG_CLAIM_KEYS.QUERY_TOTAL_STAT_CLAIMS_KEY,
+            RAG_CLAIM_KEYS.QUERY_FALSE_STAT_CLAIMS_KEY,
+            RAG_CLAIM_KEYS.QUERY_TABLES_USED_KEY,
+          ].map((cntKey) => {
+            return (
+              <div
+                className={`counter${response.isSubmitted ? " disabled" : ""}`}
+                key={cntKey}
+              >
+                <ClaimCounter
+                  count={response.counts[cntKey]}
+                  onCountUpdated={(count) => onCountUpdated(count, cntKey)}
+                  label={COUNTER_LABELS[cntKey]}
+                />
+              </div>
+            );
+          })}
         </div>
       </div>
-      {evalType === EvalType.RAG && <TablePane />}
-      <FeedbackNavigation checkAndSubmit={checkAndSubmit} />
-    </>
+      <div className="block-evaluation question-section">
+        <div className="title">INFERRED CLAIMS EVALUATION</div>
+        <div className="subtitle">
+          Inferred claims total count (e.g., X is better than Y)
+        </div>
+        <div className="counter-group">
+          {[
+            RAG_CLAIM_KEYS.QUERY_TOTAL_INF_CLAIMS_KEY,
+            RAG_CLAIM_KEYS.QUERY_FALSE_INF_CLAIMS_KEY,
+            RAG_CLAIM_KEYS.QUERY_UNSUB_INF_CLAIMS_KEY,
+          ].map((cntKey) => {
+            return (
+              <div
+                className={`counter${response.isSubmitted ? " disabled" : ""}`}
+                key={cntKey}
+              >
+                <ClaimCounter
+                  count={response.counts[cntKey]}
+                  onCountUpdated={(count) => onCountUpdated(count, cntKey)}
+                  label={COUNTER_LABELS[cntKey]}
+                />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </FeedbackWrapper>
   );
 }
