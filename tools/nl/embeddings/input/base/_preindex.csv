@@ -661,12 +661,8 @@ Diesel Oil consumption by Wood And Wood Products Industry,Annual_Consumption_Fue
 Diesel PM,dc/topic/DieselPM
 Diesel pollutant,dc/topic/DieselPM
 Direct economic loss attributed to disasters in relation to global gross domestic product (GDP),dc/topic/sdg_1.5.2;dc/topic/sdg_11.5.2
-Disabilities,dc/topic/Disabilities
-Disabilities by gender,dc/topic/DisabilitiesByGender
-Disabilities by race,dc/topic/DisabilitiesByRace
-Disabilities split by gender,dc/topic/DisabilitiesByGender
-Disabilities split by race,dc/topic/DisabilitiesByRace
 Disability adjusted life years by causes,dc/topic/WHODALYByCauses
+Disability population,dc/topic/Disabilities
 Disability-Adjusted Life Years Due to Alcohol Use Disorders,WHO/SA_0000001418
 Disability-Adjusted Life Years Due to Breast Cancer,WHO/SA_0000001419
 Disability-Adjusted Life Years Due to Colon and Rectum Cancer,WHO/SA_0000001420
@@ -4134,8 +4130,8 @@ diesel particulate matter,dc/topic/DieselPM
 digital access,dc/topic/InternetAccess
 digital equity,dc/topic/InternetAccess
 digital penetration,dc/topic/InternetAccess
-disabilities breakdown by gender,dc/topic/DisabilitiesByGender
-disabilities breakdown by race,dc/topic/DisabilitiesByRace
+disability population breakdown by gender,dc/topic/DisabilitiesByGender
+disability population breakdown by race,dc/topic/DisabilitiesByRace
 disasters,dc/topic/NaturalDisasters
 disease of the heart,dc/topic/HeartDisease
 disribution of number of business across industries,dc/topic/NumberOfBusinessesByIndustry

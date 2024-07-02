@@ -58,16 +58,16 @@ dc/topic/DecadeProjectedTemperatureHighs,Projected max temperature for the decad
 dc/topic/DecadeProjectedTemperatureLows,Projected min temperature for the decade;Projected min temperature for the decade;decadal projected min temperature;minimum temperature projected decade;temperature lows for the decade
 dc/topic/DementiaFemalePopulationByAge,Female Population With Dementia By Age;Female Population With Dementia By Age
 dc/topic/DementiaMalePopulationByAge,Male Population With Dementia By Age;Male Population With Dementia By Age
-dc/topic/Demographics,Demographics;Demographics
-dc/topic/Dengue,Dengue;Dengue
-dc/topic/Dentists,Dentists;Dentists
-dc/topic/Diabetes,Diabetes;Diabetes
+dc/topic/Demographics,Demographics
+dc/topic/Dengue,Dengue
+dc/topic/Dentists,Dentists
+dc/topic/Diabetes,Diabetes
 dc/topic/DiabetesFemalePopulationByAge,Female Population With Diabetes By Age;Female Population With Diabetes By Age
 dc/topic/DiabetesMalePopulationByAge,Male Population With Diabetes By Age;Male Population With Diabetes By Age
 dc/topic/DieselPM,Diesel PM;Diesel PM;Diesel pollutant;diesel particulate matter
-dc/topic/Disabilities,Disabilities;Disabilities
-dc/topic/DisabilitiesByGender,Disabilities by gender;Disabilities by gender;Disabilities split by gender;disabilities breakdown by gender
-dc/topic/DisabilitiesByRace,Disabilities by race;Disabilities by race;Disabilities split by race;disabilities breakdown by race
+dc/topic/Disabilities,Disability population
+dc/topic/DisabilitiesByGender,disability population breakdown by gender
+dc/topic/DisabilitiesByRace,disability population breakdown by race
 dc/topic/DiseasesOfHeartFemalePopulationByAge,Female Population With Heart Disease By Age;Female Population With Heart Disease By Age
 dc/topic/DiseasesOfHeartMalePopulationByAge,Male Population With Heart Disease By Age;Male Population With Heart Disease By Age
 dc/topic/DivorcedFemalePopulationByAge,Divorced Female Population By Age;Divorced Female Population By Age
