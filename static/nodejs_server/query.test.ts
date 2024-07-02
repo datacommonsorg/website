@@ -218,7 +218,7 @@ test("getQueryResult", async () => {
       "",
       "",
       "bard",
-      "strict",
+      "",
       "",
       false
     );
