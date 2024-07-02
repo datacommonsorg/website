@@ -76,7 +76,7 @@ Available options for <EMBEDDINGS_NAME> are:
 - undata_ft
 - undata_ilo_ft
 - bio_ft
-- uae_base_mem
+- base_uae_mem
 
 ## Validate Embeddings Index
 
