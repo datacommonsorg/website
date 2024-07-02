@@ -33,10 +33,10 @@
   "properties": [],
   "sessionId": "007_999999999",
   "variables": [
-    "Percent_Person_WithAsthma",
-    "Percent_Person_Children_WithAsthma",
     "dc/topic/AsthmaFemalePopulationByAge",
+    "Percent_Person_WithAsthma",
     "dc/topic/AsthmaMalePopulationByAge",
+    "Percent_Person_Children_WithAsthma",
     "dc/topic/HealthConditions",
     "dc/topic/Health"
   ]

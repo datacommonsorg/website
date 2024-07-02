@@ -69,37 +69,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "dc/4lvmzr1h1ylk1"
-                    ],
-                    "title": "Prevalence: Female, Obesity in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "dc/4lvmzr1h1ylk1"
-                    ],
-                    "title": "Prevalence: Female, Obesity in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Prevalence: Female, Obesity in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "dc/x13tvt8jsgrm4"
                     ],
                     "title": "Prevalence: Male, Obesity in Counties of California (${date})",
@@ -125,6 +94,37 @@
             ],
             "denom": "Count_Person",
             "title": "Prevalence: Male, Obesity in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/4lvmzr1h1ylk1"
+                    ],
+                    "title": "Prevalence: Female, Obesity in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/4lvmzr1h1ylk1"
+                    ],
+                    "title": "Prevalence: Female, Obesity in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence: Female, Obesity in Counties of California"
           },
           {
             "columns": [

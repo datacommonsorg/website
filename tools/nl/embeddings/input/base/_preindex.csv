@@ -626,7 +626,6 @@ Coverage of protected areas in relation to marine areas,dc/topic/sdg_14.5.1
 "Coverage of treatment interventions (pharmacological, psychosocial and rehabilitation and aftercare services) for substance use disorders",dc/topic/sdg_3.5.1
 Crime,dc/topic/Crime
 Cyclone,dc/topic/Cyclone
-Daily Tobacco Smoking Prevalence,WHO/M_Est_smk_daily
 Data related to agriculture,dc/topic/Agriculture
 Death,dc/topic/Mortality
 Death Rate from Drownings,WHO/SA_0000001441
@@ -1038,7 +1037,6 @@ Literacy Rate Among people Aged 10 Years and Older,Count_Person_10OrMoreYears_Li
 Literacy Rate Among people Aged 10 to 14 years,Count_Person_10To14Years_Literate_AsAFractionOf_Count_Person_10To14Years
 Liver Cancer Death Rate,WHO/SA_0000001445
 Liver Cirrhosis Death Rate,WHO/SA_0000001446
-Low Birth Weight Prevalence,WHO/LBW_PREVALENCE
 Macroeconomic Dashboard,dc/topic/sdg_17.13.1
 Malaria,dc/topic/Malaria
 "Malaria incidence per 1,000 population",dc/topic/sdg_3.3.3
@@ -1513,7 +1511,6 @@ Number of Deaths Due to Neoplasms,Count_Death_Neoplasms
 Number of Deaths Due to Special Cases,Count_Death_SpecialCases
 Number of Deaths from Animal Contact Transmission,Count_MedicalConditionIncident_PatientDeceased_AnimalContactTransmission
 Number of Deaths from Assault (Homicide),Count_MortalityEvent_Assault(Homicide)
-Number of Deaths from Diabetes,Count_MortalityEvent_Diabetes
 Number of Deaths from Foodborne Transmission,Count_MedicalConditionIncident_PatientDeceased_FoodborneTransmission
 Number of Deaths from Heart Disease Excluding Hypertension,Count_MortalityEvent_HeartDiseaseExcludingHypertension
 Number of Deaths from Person To Person Transmission,Count_MedicalConditionIncident_PatientDeceased_PersonToPersonTransmission
@@ -2174,7 +2171,6 @@ Number of farms that sell vegetables,Count_Farm_VegetablesHarvestedForSale
 Number of female American Indian Or Alaska Native With Bachelor or higher Degree,dc/4qtse8536dg63
 Number of female Black Or African American With Bachelor or higher Degree,dc/t7403chwvspm
 Number of female Deaths from Assault (Homicide),Count_MortalityEvent_Assault(Homicide)_Female
-Number of female Deaths from Diabetes,Count_MortalityEvent_Diabetes_Female
 Number of female Native Hawaiian Or Other Pacific Islander With Bachelor or higher Degree,dc/v7yl3k9w3h7e8
 Number of female asian With Bachelor or higher Degree,dc/eg6rrdr1tkf76
 Number of female full time year around worker,Count_Person_Female_FullTimeYearRoundWorker
@@ -2876,7 +2872,6 @@ ODA providers are encouraged to consider setting a target to provide at least 0.
 Occupational professions,dc/topic/Jobs
 Ocean Health,dc/topic/OceanHealth
 Output from agricultural activities,dc/topic/AgriculturalProduction
-Overweight Prevalence Among Children Under 5 Years old,WHO/NUTOVERWEIGHTPREV
 Ozone,dc/topic/Ozone
 Ozone pollutant,dc/topic/Ozone
 PM10,dc/topic/PM10
@@ -2938,10 +2933,11 @@ Percentage of People Aged 50 to 75 Received Colorectal Cancer Screening,Percent_
 Percentage of People with access to Electricity,dc/topic/GlobalElectricityAccess
 Percentage of Persons Aged 15-19 who are Literate,Count_Person_15To19Years_Literate_AsAFractionOf_Count_Person_15To19Years
 Percentage of Persons Aged 15-24 who are Illiterate,Count_Person_15To24Years_Illiterate_AsAFractionOf_Count_Person_15To24Years
+Percentage of Population Who Are Physically Inactive,Percent_Person_PhysicalInactivity
 Percentage of Safe Child births,Count_DeliveryEvent_Safe_AsFractionOf_Count_DeliveryEvent
 Percentage of Total Government Spending Allocated to Education,Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government
+Percentage of adults who Receive Dental Visit,Percent_Person_ReceivedDentalVisit
 Percentage of adults who Received Cholesterol Screening,Percent_Person_ReceivedCholesterolScreening
-Percentage of adults who Received Dental Visit,Percent_Person_ReceivedDentalVisit
 Percentage of adults who Sleep Less Than 7 Hours,Percent_Person_SleepLessThan7Hours
 Percentage of bloodstream infections due to selected antimicrobial-resistant organisms,dc/topic/sdg_3.d.2
 Percentage of boys younger than 5 years who are overweight,Count_Person_Upto4Years_Male_Overweight_AsFractionOf_Count_Person_Upto4Years_Male
@@ -3016,44 +3012,10 @@ Poverty By Language Spoken At Home,dc/topic/PovertyByLanguageSpokenAtHome
 Poverty By Race,dc/topic/PovertyByRace
 Poverty By Residency,dc/topic/PovertyByResidency
 Precipitation,dc/topic/Precipitation
-Prevalence Of Anaemia In Children Aged 6-59 Months,WHO/NUTRITION_ANAEMIA_CHILDREN_PREV
-Prevalence Of Daily Tobacco Use Among Adults,WHO/Adult_daily_tob_use
-Prevalence Of Insufficient Physical Activity Among Adults,WHO/NCD_PAC
-Prevalence Of Obesity Among Adults,WHO/NCD_BMI_30A
-Prevalence Of Severely Wasted Children Under 5 Years Of Age,WHO/NUTRITION_WH_3
-Prevalence Of Underweight Among Adults,WHO/NCD_BMI_18A
-Prevalence Of Underweight Children Under 5 Years Of Age,WHO/NUTRITION_WA_2
-Prevalence Of Wasted Children Under 5 Years Of Age,WHO/NUTRITION_WH_2
-Prevalence of All Teeth Loss among adults,Percent_Person_WithAllTeethLoss
-Prevalence of Arthritis among adults,Percent_Person_WithArthritis
-Prevalence of Asthma among adults,Percent_Person_WithAsthma
-Prevalence of Cancer Excluding Skin Cancer among adults,Percent_Person_WithCancerExcludingSkinCancer
-Prevalence of Chronic Kidney Disease among adults,Percent_Person_WithChronicKidneyDisease
-Prevalence of Chronic Obstructive Pulmonary Disease among adults,Percent_Person_WithChronicObstructivePulmonaryDisease
-Prevalence of Coronary Heart Disease among adults,Percent_Person_WithCoronaryHeartDisease
-Prevalence of Daily Tobacco Smoking,Percent_Daily_TobaccoUsing_In_Count_Person
-Prevalence of Daily Tobacco Use Among Females,Percent_Daily_TobaccoUsing_In_Count_Person_Female
-Prevalence of Daily Tobacco Use Among Mmales,Percent_Daily_TobaccoUsing_In_Count_Person_Male
-Prevalence of Diabetes among adults,Percent_Person_WithDiabetes
-Prevalence of High Blood Pressure among adults,Percent_Person_WithHighBloodPressure
-Prevalence of High Cholesterol among adults,Percent_Person_WithHighCholesterol
-Prevalence of Stroke among adults,Percent_Person_WithStroke
-Prevalence of Tobacco Use,Percent_TobaccoUsing_In_Count_Person
 "Prevalence of anaemia in women aged 15 to 49 years, by pregnancy status (percentage)",dc/topic/sdg_2.2.3
-Prevalence of diabetes among adult females,dc/nh3s4skee5483
-Prevalence of diabetes among adult male,dc/xmpy89x1nh8cg
 "Prevalence of malnutrition (weight for height >+2 or <-2 standard deviation from the median of the WHO Child Growth Standards) among children under 5 years of age, by type (wasting and overweight)",dc/topic/sdg_2.2.2
 "Prevalence of moderate or severe food insecurity in the population, based on the Food Insecurity Experience Scale (FIES)",dc/topic/sdg_2.1.2
-Prevalence of obesity among adult females,dc/4lvmzr1h1ylk1
-Prevalence of obesity among adult males,dc/x13tvt8jsgrm4
-Prevalence of physical inactivity among adult females,dc/tcqb49dvg7k53
-Prevalence of physical inactivity among adult males,dc/ty7pq88d26963
-Prevalence of poor Mental Health among adults,Percent_Person_WithMentalHealthNotGood
-Prevalence of poor Physical Health among adults,Percent_Person_WithPhysicalHealthNotGood
-Prevalence of smoking among adults,Percent_Person_Smoking
 Prevalence of stunting (height for age <-2 standard deviation from the median of the World Health Organization (WHO) Child Growth Standards) among children under 5 years of age,dc/topic/sdg_2.2.1
-Prevalence of tobacco use among females,Percent_TobaccoUsing_In_Count_Person_Female
-Prevalence of tobacco use among males,Percent_TobaccoUsing_In_Count_Person_Male
 Prevalence of undernourishment,dc/topic/sdg_2.1.1;sdg/SN_ITK_DEFC
 Preventative Health,dc/topic/PreventativeHealth
 Preventative health and behavior,dc/topic/PreventativeHealthAndBehavior
@@ -3303,7 +3265,6 @@ Students,dc/topic/StudentPopulation
 Students in College,dc/topic/StudentsInCollege
 Students in Kindergarten,dc/topic/StudentsInKindergarten
 Students in Primary School,dc/topic/StudentsInPrimarySchool
-Stunting Prevalence Among Children Under 5 Years Of Age,WHO/NUTSTUNTINGPREV
 "Substantially increase health financing and the recruitment, development, training and retention of the health workforce in developing countries, especially in least developed countries and small island developing States",dc/topic/sdg_3.c
 Substantially reduce corruption and bribery in all their forms,dc/topic/sdg_16.5
 Suicide,dc/topic/Suicide
@@ -4257,6 +4218,47 @@ housing owners,dc/topic/HomeOwnership
 housing rentals,dc/topic/RentalHouses
 immunization rates,dc/topic/WHOImmunization
 incarcerated deaths,dc/topic/MortalityAmongIncarcerated
+incidence rate Of Anaemia In Children Aged 6-59 Months,WHO/NUTRITION_ANAEMIA_CHILDREN_PREV
+incidence rate Of Daily Tobacco Use Among Adults,WHO/Adult_daily_tob_use
+incidence rate Of Insufficient Physical Activity Among Adults,WHO/NCD_PAC
+incidence rate Of Obesity Among Adults,WHO/NCD_BMI_30A
+incidence rate Of Severely Wasted Children Under 5 Years Of Age,WHO/NUTRITION_WH_3
+incidence rate Of Underweight Among Adults,WHO/NCD_BMI_18A
+incidence rate Of Underweight Children Under 5 Years Of Age,WHO/NUTRITION_WA_2
+incidence rate Of Wasted Children Under 5 Years Of Age,WHO/NUTRITION_WH_2
+incidence rate of All Teeth Loss among adults,Percent_Person_WithAllTeethLoss
+incidence rate of Arthritis among adults,Percent_Person_WithArthritis
+incidence rate of Asthma among adults,Percent_Person_WithAsthma
+incidence rate of Cancer (Excluding Skin Cancer) among adults,Percent_Person_WithCancerExcludingSkinCancer
+incidence rate of Chronic Kidney Disease among adults,Percent_Person_WithChronicKidneyDisease
+incidence rate of Chronic Obstructive Pulmonary Disease among adults,Percent_Person_WithChronicObstructivePulmonaryDisease
+incidence rate of Coronary Heart Disease among adults,Percent_Person_WithCoronaryHeartDisease
+incidence rate of Daily Tobacco Smoking,WHO/M_Est_smk_daily
+incidence rate of Diabetes among adults,Percent_Person_WithDiabetes
+incidence rate of High Blood Pressure among adults,Percent_Person_WithHighBloodPressure
+incidence rate of High Cholesterol among adults,Percent_Person_WithHighCholesterol
+incidence rate of Overweight Among Children Under 5 Years old,WHO/NUTOVERWEIGHTPREV
+incidence rate of Stroke among adults,Percent_Person_WithStroke
+incidence rate of Stunting Among Children Under 5 Years Of Age,WHO/NUTSTUNTINGPREV
+incidence rate of asthma among children,Percent_Person_Children_WithAsthma
+incidence rate of binge drinking,Percent_Person_BingeDrinking
+incidence rate of diabetes among adult females,dc/nh3s4skee5483
+incidence rate of diabetes among adult male,dc/xmpy89x1nh8cg
+incidence rate of low birth weight,WHO/LBW_PREVALENCE
+incidence rate of obesity,Percent_Person_Obesity
+incidence rate of obesity among adult females,dc/4lvmzr1h1ylk1
+incidence rate of obesity among adult males,dc/x13tvt8jsgrm4
+incidence rate of physical inactivity among adult females,dc/tcqb49dvg7k53
+incidence rate of physical inactivity among adult males,dc/ty7pq88d26963
+incidence rate of poor Mental Health among adults,Percent_Person_WithMentalHealthNotGood
+incidence rate of poor Physical Health among adults,Percent_Person_WithPhysicalHealthNotGood
+incidence rate of smoking among adults,Percent_Person_Smoking
+incidence rate of smoking among females aged 15 and older,Count_Person_15OrMoreYears_Female_Smoking_AsFractionOf_Count_Person_15OrMoreYears_Female
+incidence rate of smoking among of males aged 15 and older,Count_Person_15OrMoreYears_Male_Smoking_AsFractionOf_Count_Person_15OrMoreYears_Male
+incidence rate of smoking among people aged 15 and older,Count_Person_15OrMoreYears_Smoking_AsFractionOf_Count_Person_15OrMoreYears
+incidence rate of tobacco use,Percent_TobaccoUsing_In_Count_Person
+incidence rate of tobacco use among females,Percent_TobaccoUsing_In_Count_Person_Female
+incidence rate of tobacco use among males,Percent_TobaccoUsing_In_Count_Person_Male
 income of veterans,dc/topic/VeteransIncome
 incremental count COVID-19 confirmed cases,IncrementalCount_MedicalConditionIncident_COVID_19_ConfirmedCase
 incremental count of COVID-19 confirmed or probable cases,IncrementalCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase
@@ -4446,6 +4448,7 @@ number of asian females living below poverty level in the past 12 months,Count_P
 number of asian or pacific islander females,Count_Person_Female_AsianOrPacificIslander
 number of asian people without health insurance,Count_Person_NoHealthInsurance_AsianAlone
 number of births,Count_BirthEvent
+number of deaths from diabetes,Count_MortalityEvent_Diabetes
 number of divorced Foreign Born people,Count_Person_15OrMoreYears_Divorced_ForeignBorn
 number of divorced Hispanic or Latino people,Count_Person_15OrMoreYears_Divorced_HispanicOrLatino
 number of divorced people with multi-races,Count_Person_15OrMoreYears_Divorced_TwoOrMoreRaces
@@ -4462,6 +4465,7 @@ number of farms that raise broiler chicken,Count_Farm_Broilers
 number of farms that raise cattle,Count_Farm_CattleAndCalves
 number of farms that raise dairy cows,Count_Farm_MilkCows
 number of farms that raise sheep and lambs,Count_Farm_SheepAndLambs
+number of female deaths from diabetes,Count_MortalityEvent_Diabetes_Female
 number of females aged 65 Years or More and reside in Nursing Facilities,Count_Person_65OrMoreYears_Female_ResidesInNursingFacilities
 number of females living Above Poverty Level in the past 12 months,Count_Person_Female_AbovePovertyLevelInThePast12Months
 number of females living below poverty level in the past year,Count_Person_Female_BelowPovertyLevelInThePast12Months
@@ -4470,6 +4474,7 @@ number of hispanic or latino females living below poverty level in the past 12 m
 number of hispanic or latino living Above Poverty Level in the Past 12 months,Count_Person_Female_AbovePovertyLevelInThePast12Months_HispanicOrLatino
 number of hispanic or latino people,Count_Person_HispanicOrLatino
 number of households,Count_Household
+number of male deaths from diabetes,Count_MortalityEvent_Diabetes_Memale
 number of males,Count_Person_Male
 number of males aged 65 Years or More and reside in Nursing Facilities,Count_Person_65OrMoreYears_Male_ResidesInNursingFacilities
 number of males who are actively enrolled in any educational institution,Count_Person_3OrMoreYears_Male_EnrolledInSchool
@@ -4592,8 +4597,11 @@ people with no health insurance,dc/topic/NoHealthInsurance
 people with private health insurance,dc/topic/PrivateHealthInsuranceType
 people with public health insurance,dc/topic/PublicHealthInsuranceType
 people without access to health insurance,dc/topic/NoHealthInsurance
+percentage of Females with Daily Tobacco Use,Percent_Daily_TobaccoUsing_In_Count_Person_Female
+percentage of Males with Daily Tobacco Use,Percent_Daily_TobaccoUsing_In_Count_Person_Male
 percentage of internet users,Count_Person_IsInternetUser_PerCapita
 percentage of online people,dc/topic/sdg_17.8.1
+percentage of people with daily Tobacco Smoking,Percent_Daily_TobaccoUsing_In_Count_Person
 percentage of population with access to electricity,worldBank/EG_ELC_ACCS_ZS
 percentage of rural population with access to electricity,worldBank/EG_ELC_ACCS_RU_ZS
 percentage of urban population with access to electricity,worldBank/EG_ELC_ACCS_UR_ZS
@@ -4614,13 +4622,6 @@ poverty breakdown by language spoken at home,dc/topic/PovertyByLanguageSpokenAtH
 poverty breakdown by race,dc/topic/PovertyByRace
 poverty breakdown by residency,dc/topic/PovertyByResidency
 predict temperature,dc/topic/TemperaturePredictions
-prevalence of Female Smokers Aged 15 and Older,Count_Person_15OrMoreYears_Female_Smoking_AsFractionOf_Count_Person_15OrMoreYears_Female
-prevalence of Smokers Aged 15 and Older,Count_Person_15OrMoreYears_Smoking_AsFractionOf_Count_Person_15OrMoreYears
-prevalence of asthma among children,Percent_Person_Children_WithAsthma
-prevalence of binge drinking,Percent_Person_BingeDrinking
-prevalence of male Smokers Aged 15 and Older,Count_Person_15OrMoreYears_Male_Smoking_AsFractionOf_Count_Person_15OrMoreYears_Male
-prevalence of obesity,Percent_Person_Obesity
-prevalence of physical inactivity,Percent_Person_PhysicalInactivity
 primary school students,dc/topic/StudentsInPrimarySchool
 production of additives and oxygenates added to oil products,Annual_Generation_Fuel_AdditivesOxygenates
 production of anthracite coal,Annual_Generation_Fuel_AnthraciteCoal

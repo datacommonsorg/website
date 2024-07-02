@@ -241,6 +241,236 @@
               }
             ],
             "title": "Males in Poverty (In Last Year) in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_scatter",
+                      "dc/x13tvt8jsgrm4_scatter"
+                    ],
+                    "title": "Population Below Poverty Line (${yDate}) Vs. Prevalence: Male, Obesity (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Below poverty line vs. Prevalence: Male, Obesity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/x13tvt8jsgrm4"
+                    ],
+                    "title": "Prevalence: Male, Obesity in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/x13tvt8jsgrm4"
+                    ],
+                    "title": "Prevalence: Male, Obesity in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Prevalence: Male, Obesity in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person_scatter",
+                      "dc/x13tvt8jsgrm4_scatter"
+                    ],
+                    "title": "Population Below Poverty Line (Per Capita) (${yDate}) Vs. Prevalence: Male, Obesity (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Below poverty line (Per Capita) vs. Prevalence: Male, Obesity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter",
+                      "dc/x13tvt8jsgrm4_scatter"
+                    ],
+                    "title": "Women Below Poverty Line (${yDate}) Vs. Prevalence: Male, Obesity (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women below Poverty Line vs. Prevalence: Male, Obesity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Male_BelowPovertyLevelInThePast12Months_scatter",
+                      "dc/x13tvt8jsgrm4_scatter"
+                    ],
+                    "title": "Males in Poverty (In Last Year) (${yDate}) Vs. Prevalence: Male, Obesity (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Males in Poverty (in last year) vs. Prevalence: Male, Obesity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_scatter",
+                      "dc/4lvmzr1h1ylk1_scatter"
+                    ],
+                    "title": "Population Below Poverty Line (${yDate}) Vs. Prevalence: Female, Obesity (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Below poverty line vs. Prevalence: Female, Obesity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/4lvmzr1h1ylk1"
+                    ],
+                    "title": "Prevalence: Female, Obesity in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/4lvmzr1h1ylk1"
+                    ],
+                    "title": "Prevalence: Female, Obesity in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence: Female, Obesity in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person_scatter",
+                      "dc/4lvmzr1h1ylk1_scatter"
+                    ],
+                    "title": "Population Below Poverty Line (Per Capita) (${yDate}) Vs. Prevalence: Female, Obesity (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Below poverty line (Per Capita) vs. Prevalence: Female, Obesity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter",
+                      "dc/4lvmzr1h1ylk1_scatter"
+                    ],
+                    "title": "Women Below Poverty Line (${yDate}) Vs. Prevalence: Female, Obesity (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women below Poverty Line vs. Prevalence: Female, Obesity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Male_BelowPovertyLevelInThePast12Months_scatter",
+                      "dc/4lvmzr1h1ylk1_scatter"
+                    ],
+                    "title": "Males in Poverty (In Last Year) (${yDate}) Vs. Prevalence: Female, Obesity (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Males in Poverty (in last year) vs. Prevalence: Female, Obesity"
           }
         ],
         "statVarSpec": {
@@ -287,6 +517,23 @@
             "noPerCapita": true,
             "statVar": "Percent_Person_Obesity",
             "unit": "%"
+          },
+          "dc/4lvmzr1h1ylk1": {
+            "name": "Prevalence: Female, Obesity",
+            "statVar": "dc/4lvmzr1h1ylk1"
+          },
+          "dc/4lvmzr1h1ylk1_scatter": {
+            "name": "Prevalence: Female, Obesity",
+            "noPerCapita": true,
+            "statVar": "dc/4lvmzr1h1ylk1"
+          },
+          "dc/x13tvt8jsgrm4": {
+            "name": "Prevalence: Male, Obesity",
+            "statVar": "dc/x13tvt8jsgrm4"
+          },
+          "dc/x13tvt8jsgrm4_scatter": {
+            "name": "Prevalence: Male, Obesity",
+            "statVar": "dc/x13tvt8jsgrm4"
           }
         }
       }
