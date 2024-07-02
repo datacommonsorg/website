@@ -32,7 +32,7 @@
  * limitations under the License.
  */
 
-/* Component to record feedback for a call within a query */
+/* Wrapper component around all the right hand side feedback pane components */
 
 import React, { useContext } from "react";
 import { Button } from "reactstrap";
