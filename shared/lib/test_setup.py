@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,6 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from shared.lib.test_setup import set_up_macos_for_tests
+import multiprocessing
+import os
+import sys
 
-set_up_macos_for_tests()
+
+def set_up_macos_for_tests():
+  """Ensure Python tests work on MacOS.
+
+  Explicitly sets multiprocessing start method to 'fork' so tests work with
+  python3.8+ on MacOS:
+  https://docs.python.org/3/library/multiprocessing.html#contexts-and-start-methods
+
+  This code must only be run once per execution.
+  """
+  if sys.version_info >= (3, 8) and sys.platform == "darwin":
+    multiprocessing.set_start_method("fork")
+    os.environ['no_proxy'] = '*'
