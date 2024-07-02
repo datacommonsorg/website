@@ -82,10 +82,7 @@ class TestNLUtilsRemoveStopWordsAndPunctuation(unittest.TestCase):
       ["what about Capitalization", "capitalization"],
       ["say something about crime in California counties", "crime california"],
       ["how are you", ""],
-      [
-          "tell me about the climate extremes in palo alto",
-          "climate extremes palo alto"
-      ],
+      ["tell me about the climate extremes in palo alto", "climate palo alto"],
       [
           "How big are the public elementary schools in Sunnyvale",
           "big public elementary schools sunnyvale"
