@@ -62,8 +62,8 @@ makes the NL server use the new embeddings.
 
 ### SV Index Differ
 
-Once the new embeddings is generated, run the [SV Index
-Differ](./svindex_differ/README.md) is to produce an html report of diffs. These
+Once the new embeddings are generated, run the [SV Index
+Differ](./svindex_differ/README.md) to produce an html report of diffs. These
 are differences in the variable matches when comparing the new embeddings
 against "prod" for a few hundred golden queries. Go over the diffs and make
 further tweaks as necessary.

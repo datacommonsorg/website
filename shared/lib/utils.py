@@ -22,6 +22,11 @@ from markupsafe import escape
 
 import shared.lib.constants as constants
 
+_PLACEHOLDER_MAP = {
+    f"__PLACEHOLDER_{i}__": exclusion
+    for i, exclusion in enumerate(constants.STOP_WORDS_EXCLUSIONS)
+}
+
 
 def _add_to_set_from_list(set_strings: Set[str],
                           list_string: List[str]) -> None:
@@ -53,7 +58,33 @@ def _add_classification_heuristics(set_strings: Set[str]) -> None:
       ]
 
 
-def remove_stop_words(input_str: str, stop_words: Set[str]) -> str:
+# Function to replace exclusions with placeholders
+def replace_exclusions_with_placeholders(text, placeholder_map):
+  for placeholder, exclusion in placeholder_map.items():
+    text = re.sub(re.escape(exclusion), placeholder, text)
+  return text
+
+
+# Function to remove words in remove_list but not protected exclusions
+def remove_words(text, remove_list):
+  for words in remove_list:
+    # Using regex based replacements.
+    text = re.sub(rf"\b{words}\b", "", text)
+    # Also replace multiple spaces with a single space.
+    text = re.sub(r" +", " ", text)
+  return text
+
+
+# Function to restore placeholders back to exclusions
+def restore_exclusions_with_placeholders(text, placeholder_map):
+  for placeholder, exclusion in placeholder_map.items():
+    text = re.sub(re.escape(placeholder), exclusion, text)
+  return text
+
+
+def remove_stop_words(input_str: str,
+                      stop_words: Set[str],
+                      placeholder_map=_PLACEHOLDER_MAP) -> str:
   """Remove stop words from a string and return the remaining in lower case."""
 
   # Note: we are removing the full sequence of words in every entry in `stop_words`.
@@ -65,13 +96,18 @@ def remove_stop_words(input_str: str, stop_words: Set[str]) -> str:
   # Example: if looking for "cat" in sentence "cat is a catty animal. i love a cat  but not cats"
   # the words "citty" and "cats" will not be matched.
   input_str = input_str.lower()
-  for words in stop_words:
-    # Using regex based replacements.
-    input_str = re.sub(rf"\b{words}\b", "", input_str)
-    # Also replace multiple spaces with a single space.
-    input_str = re.sub(r" +", " ", input_str)
 
-  # Return after removing the beginning and trailing white spaces.
+  # Protect exclusions
+  input_str = replace_exclusions_with_placeholders(input_str, placeholder_map)
+
+  # Remove words in remove_list
+  input_str = remove_words(input_str, stop_words)
+
+  # Restore exclusions
+  input_str = restore_exclusions_with_placeholders(input_str, placeholder_map)
+
+  # Clean up extra spaces
+  input_str = re.sub(r'\s+', ' ', input_str).strip()
   return input_str.strip()
 
 

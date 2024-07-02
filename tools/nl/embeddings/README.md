@@ -67,7 +67,7 @@ Run the command below which will generate a new embeddings csv in
 end of the run.
 
 ```bash
-./run.sh --embeddings_name <EMBEDDINGS_NAME>
+./run.sh -e <EMBEDDINGS_NAME>
 ```
 
 Available options for <EMBEDDINGS_NAME> are:
@@ -76,7 +76,7 @@ Available options for <EMBEDDINGS_NAME> are:
 - undata_ft
 - undata_ilo_ft
 - bio_ft
-- uae_base_mem
+- base_uae_mem
 
 ## Validate Embeddings Index
 

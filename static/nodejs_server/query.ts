@@ -37,10 +37,14 @@ import {
   getDate,
   getSeverityFilters,
 } from "../js/utils/disaster_event_map_utils";
-import { getTileEventTypeSpecs } from "../js/utils/tile_utils";
+import {
+  getHighlightTileDescription,
+  getTileEventTypeSpecs,
+} from "../js/utils/tile_utils";
 import { BARD_CLIENT_URL_PARAM } from "./constants";
 import { getBarTileResult } from "./tiles/bar_tile";
 import { getDisasterMapTileResult } from "./tiles/disaster_map_tile";
+import { getHighlightTileResult } from "./tiles/highlight_tile";
 import { getLineTileResult } from "./tiles/line_tile";
 import { getMapTileResult } from "./tiles/map_tile";
 import { getRankingTileResult } from "./tiles/ranking_tile";
@@ -176,6 +180,13 @@ function getBlockTileResults(
             )
           );
           break;
+        case "HIGHLIGHT":
+          tileSvSpec = svProvider.getSpec(tile.statVarKey[0], { blockDenom });
+          tile.description = getHighlightTileDescription(tile, blockDenom);
+          tilePromises.push(
+            getHighlightTileResult(tileId, tile, place, tileSvSpec, apiRoot)
+          );
+          break;
         default:
           break;
       }
@@ -285,8 +296,10 @@ export async function getQueryResult(
   idx?: string
 ): Promise<QueryResult> {
   const startTime = process.hrtime.bigint();
+  // if mode is empty or mode=bard, use BARD_ALLOWED_CHARTS, otherwise, no
+  // restriction on allowed chart types
   const allowedTileTypes =
-    client === BARD_CLIENT_URL_PARAM ? BARD_ALLOWED_CHARTS : null;
+    mode && mode !== BARD_CLIENT_URL_PARAM ? null : BARD_ALLOWED_CHARTS;
 
   // Get the nl detect-and-fulfill result for the query
   // TODO: only generate related things when we need to generate related question
