@@ -14,10 +14,9 @@ FLAGS = flags.FLAGS
 flags.DEFINE_string('input_file', '', 'The input csv file path')
 
 yaml = YAML()
-yaml.indent(mapping=3, sequence=2,
-            offset=0)  # sequence and offset have their default values here
+yaml.indent(mapping=3, sequence=2, offset=2)
 yaml.preserve_quotes = True
-yaml.width = 800  # this is the output line width after which wrapping occurs
+yaml.width = 800
 
 
 def main(_):
@@ -30,7 +29,7 @@ def main(_):
       texts = row[_COL_SENTENCE].split(';')
       sv2texts[row[_COL_DCID]] = sorted(texts)
 
-  with open(Path(file_name).stem + '.yaml', 'w') as f:
+  with open(file_name.replace('.csv', '.yaml'), 'w') as f:
     yaml.dump(sv2texts, f)
 
 
