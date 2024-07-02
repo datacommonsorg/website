@@ -2582,7 +2582,6 @@ Number of owner occupied family households,Count_Household_FamilyHousehold_Owner
 Number of owner occupied married couple family households,Count_Household_MarriedCoupleFamilyHousehold_OwnerOccupied
 Number of owner occupied married couple family households below poverty in the past 12 months,Count_Household_MarriedCoupleFamilyHousehold_OwnerOccupied_BelowPovertyLevelInThePast12Months
 "Number of parties to international multilateral environmental agreements on hazardous waste, and other chemicals that meet their commitments and obligations in transmitting information as required by each relevant agreement",dc/topic/sdg_12.4.1
-Number of peole who drive to work,dc/0gettc3bc60cb
 Number of people Aged 16 and Over Not in the Labor Force,Count_Person_NotInLaborForce
 Number of people Enrolled in College or Graduate School and Resides in Adult Correctional Facilities,Count_Person_EnrolledInCollegeOrGraduateSchool_ResidesInAdultCorrectionalFacilities
 Number of people Enrolled in College or Graduate School and Resides in College or University Student Housing,Count_Person_EnrolledInCollegeOrGraduateSchool_ResidesInCollegeOrUniversityStudentHousing
@@ -2653,8 +2652,10 @@ Number of people who are high school graduates or higher and reside in nursing f
 Number of people who are less than high school graduates,Count_Person_EducationalAttainmentLessThanHighSchoolGraduate
 Number of people who are seperated,Count_Person_Separated
 Number of people who are seperated and reside in adult correctional facilities,Count_Person_Separated_ResidesInAdultCorrectionalFacilities
+Number of people who carpool to work,dc/wc8q05drd74bd
 Number of people who died or disappeared in the process of migration towards an international destination,dc/topic/sdg_10.7.3
 Number of people who do not work,Count_Person_NonWorker
+Number of people who drive to work alone,dc/0gettc3bc60cb
 Number of people who earn income,Count_Person_15OrMoreYears_WithIncome
 Number of people who have employer based health insurance,Count_Person_WithEmployerBasedHealthInsurance
 Number of people who have not completed any formal education,Count_Person_EducationalAttainmentNoSchoolingCompleted
