@@ -2370,10 +2370,6 @@ Count_Person_InLaborForce_ResidesInCollegeOrUniversityStudentHousing,Number of L
 Count_Person_InLaborForce_ResidesInGroupQuarters,Number of Labor Force Participants reside in Group Quarters
 Count_Person_InLaborForce_ResidesInNoninstitutionalizedGroupQuarters,Number of Labor Force Participants reside in Noninstitutionalized Group Quarters
 Count_Person_IsInternetUser_PerCapita,percentage of internet users
-Count_Person_InvolvedInCrash_Motorists,Number of motorists involved in crash
-Count_Person_InvolvedInCrash_MotorVehicleOccupant,Number of motor vehicle occupants involved in crash
-Count_Person_InvolvedInCrash_NonMotorists,Number of non-motorists involved in crash
-Count_Person_InvolvedInCrash_NotMotorVehicleOccupant,Number of non motor vehicle occupants involved in crash
 Count_Person_Literate,Number of Literate people
 Count_Person_Literate_Female,Number of Literate Females
 Count_Person_Literate_Male,Number of Literate Males
@@ -2764,10 +2760,6 @@ Count_ThunderstormWindEvent,Number of thunderstorm wind events
 Count_TornadoEvent,Number of tornado events
 Count_TropicalStormEvent,Number of tropical storm events
 Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance,Number of state unemployment insurance claims
-Count_Vehicle_InvolvedInCrash_InTransport,Number of vehicles crashed in transport 
-Count_VehicleCrashIncident_NationalHighway,Number of crash incidents occurred on the national highway
-Count_VehicleCrashIncident_StateHighway,Number of crash incidents on state highway
-Count_VehicleCrashIncident_USHighway,Number of crash incidents on US highway
 Count_VolcanicAshEvent,Number of volcanic events
 Count_WasteGenerated_Processed_AsAFractionOf_Count_WasteGenerated,Percentage of waste generated that are processed
 Count_WaterspoutEvent,Number of waterspouts
