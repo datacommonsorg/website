@@ -23,8 +23,6 @@ import ReactDOM from "react-dom";
 
 import { App } from "./app";
 
-const EVAL_INDEXES = new Set(["base_uae_mem", "medium_ft", "base_mistral_mem"]);
-
 window.onload = () => {
   renderPage();
 };
@@ -33,15 +31,10 @@ function renderPage(): void {
   const serverConfig = JSON.parse(
     document.getElementById("metadata").dataset.serverConfig
   );
-  const indexes = {};
-  for (const idx in serverConfig["indexes"]) {
-    if (EVAL_INDEXES.has(idx)) {
-      indexes[idx] = serverConfig["indexes"][idx];
-    }
-  }
+
   ReactDOM.render(
     React.createElement(App, {
-      indexes,
+      indexes: serverConfig["indexes"],
       models: serverConfig["models"],
     }),
     document.getElementById("dc-eval-embeddings")
