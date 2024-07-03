@@ -1,4 +1,5 @@
-# Copyright 2023 Google LLC
+#!/bin/bash
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,6 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from shared.lib.test_setup import set_up_macos_for_tests
+set -e
 
-set_up_macos_for_tests()
+export FLASK_ENV=test
+
+python3 -m venv .env
+source .env/bin/activate
+
+python3 -m pytest server/webdriver/tests/standalone/cdc/
