@@ -24,33 +24,49 @@
   margin-top: 0;
 }
 
+.text-box-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+#checkbox-container {
+  font-size: 16px;
+
+  input {
+    margin: 3px;
+  }
+
+  label {
+    font-weight: 500;
+    line-height: 20px;
+    margin-right: 12px;
+  }
+}
+
 .app-section {
   margin-bottom: 20px;
-
-  .text-box-title {
-    font-size: 20px;
-    font-weight: bold;
-  }
 
   span {
     font-size: 14px;
     font-weight: 200;
-    margin-bottom: 10px;
   }
 
   form {
     textarea {
       display: block;
-      height: 60px;
-      width: 800px;
-      margin: 10px 0;
+      height: 100px;
+      width: 1200px;
       font-size: 16px;
       font-weight: 400;
     }
 
     button {
+      margin-top: 20px;
       display: inline-block;
       text-align: right;
+      font-weight: bold;
+      background-color: lightblue;
     }
   }
 
@@ -62,6 +78,7 @@
     .model-result-container {
       display: flex;
       flex-direction: row;
+      justify-content: space-between;
       width: auto;
 
       .index-score-box {
@@ -72,7 +89,7 @@
         padding: 10px;
         font-size: 13px;
         word-wrap: break-word;
-        width: 33%;
+        flex: 1;
 
         .index-name {
           font-size: 16px;

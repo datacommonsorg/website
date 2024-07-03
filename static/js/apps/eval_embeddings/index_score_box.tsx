@@ -57,13 +57,13 @@ interface IndexScoreBoxProps {
   indexName: string;
   modelName: string;
   modelScoreThreshold: number;
-  overrideStatVars: EmbeddingObject[];
+  additionalEmbeddings: EmbeddingObject[];
 }
 
-export function IndexScoreBox(props: IndexScoreBoxProps): JSX.Element {
+function IndexScoreBox(props: IndexScoreBoxProps): JSX.Element {
   const [statVarMatch, setStatVarMatch] = useState<MatchObject[]>([]);
 
-  const elemId = `index-score-box-${props.indexName}-${props.modelName}`;
+  const elemId = `index-score-box-${props.indexName}`;
 
   useEffect(() => {
     loadSpinner(elemId);
@@ -87,9 +87,9 @@ export function IndexScoreBox(props: IndexScoreBoxProps): JSX.Element {
         });
       }
       // Use override stat var embeddings
-      if (props.overrideStatVars) {
+      if (props.additionalEmbeddings) {
         const overrideSV = new Set(
-          props.overrideStatVars.map((x) => x.statVar)
+          props.additionalEmbeddings.map((x) => x.statVar)
         );
         for (const match of matches) {
           if (overrideSV.has(match.statVar)) {
@@ -99,7 +99,7 @@ export function IndexScoreBox(props: IndexScoreBoxProps): JSX.Element {
         const embeddings = await encodeVector(props.sentence, props.modelName);
         const overrideMatches = findNearestEmbeddings(
           embeddings,
-          props.overrideStatVars,
+          props.additionalEmbeddings,
           props.modelScoreThreshold
         );
         overrideMatches.forEach((x) => (x.override = Override.NEW));
@@ -179,3 +179,5 @@ const encodeVector = async (sentence: string, modelName: string) => {
       return resp.data[sentence];
     });
 };
+
+export const MemoIndexScoreBox = React.memo(IndexScoreBox);
