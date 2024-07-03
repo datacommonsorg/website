@@ -122,8 +122,8 @@ function getQueries(
   for (const col of [QUERY_ID_COL, USER_COL, QUERY_COL]) {
     loadPromises.push(
       sheet.loadCells({
-        startColumnIndex: header[col],
         endColumnIndex: header[col] + 1,
+        startColumnIndex: header[col],
       })
     );
   }
@@ -153,8 +153,8 @@ function getCalls(
   for (const col of [QUERY_ID_COL, CALL_ID_COL]) {
     loadPromises.push(
       sheet.loadCells({
-        startColumnIndex: header[col],
         endColumnIndex: header[col] + 1,
+        startColumnIndex: header[col],
       })
     );
   }
