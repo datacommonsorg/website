@@ -30,14 +30,7 @@ import {
   QUERY_ID_COL,
   USER_COL,
 } from "./constants";
-import {
-  DcCall,
-  DocInfo,
-  EvalType,
-  FeedbackStage,
-  HeaderInfo,
-  Query,
-} from "./types";
+import { DcCall, DocInfo, EvalType, FeedbackStage, Query } from "./types";
 
 const HTTP_PATTERN = /https:\/\/[^\s]+/g;
 const LONG_SPACES = "&nbsp;&nbsp;&nbsp;&nbsp;";
@@ -45,6 +38,9 @@ const TABLE_DIVIDER_PATTERN = /[--][-]+/g;
 // table headers are sometimes country names so there can be symbols used like
 // in "Côte d'Ivoire".
 const TABLE_HEADER_TEXT_PATTERN = /[\w'ô[\]ãéí\s°()%:-\\,\\₂]+/g;
+
+// Map from sheet name to column name to column index
+type HeaderInfo = Record<string, Record<string, number>>;
 
 export const processText = (text: string): string => {
   if (!text) {
@@ -100,7 +96,6 @@ export function processTableText(text: string): string {
 export function getFirstFeedbackStage(evalType: EvalType): FeedbackStage {
   return FEEDBACK_STAGE_LIST[evalType][0];
 }
-
 
 async function getHeader(doc: GoogleSpreadsheet): Promise<HeaderInfo> {
   const result: HeaderInfo = {};

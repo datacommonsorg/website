@@ -52,9 +52,6 @@ export enum FeedbackStage {
   SXS = "SXS",
 }
 
-// Map from sheet name to column name to column index
-export type HeaderInfo = Record<string, Record<string, number>>;
-
 // Object to hold all the information about a google sheets document
 export interface DocInfo {
   doc: GoogleSpreadsheet;
