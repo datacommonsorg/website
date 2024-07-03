@@ -47,4 +47,5 @@ export enum FeedbackStage {
   CALLS = "CALLS",
   RAG_ANS = "RAG_ANS",
   OVERALL_QUESTIONS = "OVERALL_QUESTIONS",
+  SXS = "SXS",
 }

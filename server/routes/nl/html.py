@@ -18,7 +18,6 @@ import os
 
 import flask
 from flask import Blueprint
-from flask import current_app
 from flask import redirect
 from flask import render_template
 from flask import request
@@ -55,3 +54,16 @@ def eval_retrieval_generation():
                             sheet_id=_TEST_SHEET_ID),
                     code=302)
   return render_template('/eval_retrieval_generation.html', sheet_id=sheet_id)
+
+
+@bp.route('/eval/retrieval_generation_sxs')
+def eval_retrieval_generation_sxs():
+  if os.environ.get('FLASK_ENV') not in ['local', 'autopush']:
+    flask.abort(404)
+  sheet_id_left = request.args.get('sheetIdLeft', '')
+  sheet_id_right = request.args.get('sheetIdRight', '')
+  query_id = request.args.get('queryId', '')
+  return render_template('/eval_retrieval_generation_sxs.html',
+                         sheet_id_left=sheet_id_left,
+                         sheet_id_right=sheet_id_right,
+                         query_id=query_id)
