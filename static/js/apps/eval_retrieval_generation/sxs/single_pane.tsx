@@ -70,8 +70,8 @@ export function SinglePane(props: SinglePanePropType): JSX.Element {
     for (const col of [QUERY_ID_COL, USER_COL, QUERY_COL]) {
       loadPromises.push(
         sheet.loadCells({
-          startColumnIndex: header[col],
           endColumnIndex: header[col] + 1,
+          startColumnIndex: header[col],
         })
       );
     }
@@ -99,8 +99,8 @@ export function SinglePane(props: SinglePanePropType): JSX.Element {
     for (const col of [QUERY_ID_COL, CALL_ID_COL]) {
       loadPromises.push(
         sheet.loadCells({
-          startColumnIndex: header[col],
           endColumnIndex: header[col] + 1,
+          startColumnIndex: header[col],
         })
       );
     }
@@ -126,8 +126,8 @@ export function SinglePane(props: SinglePanePropType): JSX.Element {
     for (const col of [METADATA_KEY_COL, METADATA_VAL_COL]) {
       loadPromises.push(
         sheet.loadCells({
-          startColumnIndex: header[col],
           endColumnIndex: header[col] + 1,
+          startColumnIndex: header[col],
         })
       );
     }

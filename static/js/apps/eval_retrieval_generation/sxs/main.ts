@@ -41,9 +41,9 @@ function renderPage(): void {
 
   ReactDOM.render(
     React.createElement(App, {
+      queryId: Number(queryId),
       sheetIdLeft,
       sheetIdRight,
-      queryId: Number(queryId),
     }),
     document.getElementById("dc-eval-retrieval-generation")
   );

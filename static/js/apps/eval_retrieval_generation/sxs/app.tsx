@@ -32,7 +32,10 @@ export function App(props: AppPropType): JSX.Element {
   const [docLeft, setDocLeft] = useState<GoogleSpreadsheet>(null);
   const [docRight, setDocRight] = useState<GoogleSpreadsheet>(null);
 
-  async function handleUserSignIn(user: User, credential: OAuthCredential) {
+  async function handleUserSignIn(
+    user: User,
+    credential: OAuthCredential
+  ): Promise<void> {
     if (credential.accessToken) {
       setUser(user); // Set the user state to the signed-in user
       const docLeft = new GoogleSpreadsheet(props.sheetIdLeft, {
