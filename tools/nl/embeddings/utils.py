@@ -102,18 +102,37 @@ def build_and_save_preindexes(fm: FileManager) -> List[PreIndex]:
   Build preindex records from a directory of CSV files.
   """
   text2sv: Dict[str, set[str]] = {}
+
+  def _process(dcid: str, texts: List[str]):
+    for text in texts:
+      text = text.strip()
+      if text == '':
+        continue
+      if text not in text2sv:
+        text2sv[text] = set()
+      text2sv[text].add(dcid)
+
+  seen_dcids = set()
+
   for file_name in glob.glob(fm.local_input_dir() + "/[!_]*.csv"):
     with open(file_name) as f:
       reader = csv.DictReader(f)
       for row in reader:
+        dcid = row[_COL_DCID]
+        if dcid in seen_dcids:
+          raise ValueError(f"Duplicate dcid: {dcid}")
+        seen_dcids.add(dcid)
         texts = row[_COL_SENTENCE].split(';')
-        for text in texts:
-          text = text.strip()
-          if text == '':
-            continue
-          if text not in text2sv:
-            text2sv[text] = set()
-          text2sv[text].add(row[_COL_DCID])
+        _process(dcid, texts)
+
+  for file_name in glob.glob(fm.local_input_dir() + "*.yaml"):
+    with open(file_name) as f:
+      data = yaml.safe_load(f)
+      for dcid, texts in data.items():
+        if dcid in seen_dcids:
+          raise ValueError(f"Duplicate dcid: {dcid}")
+        seen_dcids.add(dcid)
+        _process(dcid, texts)
 
   preindexes = [
       PreIndex(text, ';'.join(sorted(dcids)))

@@ -234,19 +234,12 @@ export function App(props: AppPropType): JSX.Element {
             >
               <div className="app-content">
                 <QuerySection />
-                <div className="feedback-pane" id={FEEDBACK_PANE_ID}>
-                  {(feedbackStage === FeedbackStage.OVERALL_ANS ||
-                    feedbackStage === FeedbackStage.OVERALL_QUESTIONS) && (
-                    <OverallFeedback />
-                  )}
-                  {feedbackStage === FeedbackStage.CALLS && <CallFeedback />}
-                  {feedbackStage === FeedbackStage.RAG_ANS && (
-                    <RagAnsFeedback />
-                  )}
-                  <div id="page-screen" className="screen">
-                    <div id="spinner"></div>
-                  </div>
-                </div>
+                {(feedbackStage === FeedbackStage.OVERALL_ANS ||
+                  feedbackStage === FeedbackStage.OVERALL_QUESTIONS) && (
+                  <OverallFeedback />
+                )}
+                {feedbackStage === FeedbackStage.CALLS && <CallFeedback />}
+                {feedbackStage === FeedbackStage.RAG_ANS && <RagAnsFeedback />}
               </div>
             </AppContext.Provider>
           )}
