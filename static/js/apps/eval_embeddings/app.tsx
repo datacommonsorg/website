@@ -41,13 +41,13 @@ export function App(props: AppPropType): JSX.Element {
   const queryElem = useRef<HTMLTextAreaElement>(null);
 
   const [input, setInput] = useState({
-    query: DEFAULT_QUERY_STRING,
     description: DEFAULT_DESCRIPTION,
+    query: DEFAULT_QUERY_STRING,
   });
 
   const [appState, setAppState] = useState<appState>({
-    queries: [],
     embeddings: {},
+    queries: [],
   });
 
   const [checkedIndexes, setCheckedIndexes] = useState<string[]>([
@@ -84,8 +84,8 @@ export function App(props: AppPropType): JSX.Element {
     event.preventDefault();
     if (queryElem.current) {
       setInput({
-        query: queryElem.current.value,
         description: descriptionElem.current.value,
+        query: queryElem.current.value,
       });
     }
   };
