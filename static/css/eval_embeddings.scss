@@ -32,10 +32,15 @@
 
 #checkbox-container {
   font-size: 16px;
-  line-height: 20px;
 
   input {
-    margin: 5px;
+    margin: 3px;
+  }
+
+  label {
+    font-weight: 500;
+    line-height: 20px;
+    margin-right: 12px;
   }
 }
 

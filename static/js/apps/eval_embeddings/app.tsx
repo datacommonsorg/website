@@ -26,6 +26,11 @@ const DEFAULT_DESCRIPTION = 'Count_Person,"population number"';
 const DEFAULT_QUERY_STRING = "how many population";
 const DEFAULT_INDEX = "base_uae_mem";
 
+const _INDEX_NAME_ANNOTATION = {
+  base_uae_mem: " (PROD)",
+  medium_ft: " (CUSTOM DC)",
+};
+
 interface AppPropType {
   indexes: Record<string, Record<string, string>>;
   models: Record<string, Record<string, string | number>>;
@@ -117,7 +122,7 @@ export function App(props: AppPropType): JSX.Element {
               checked={checkedIndexes.includes(indexName)}
               onChange={handleCheckboxChange}
             />
-            {indexName}
+            {indexName + (_INDEX_NAME_ANNOTATION[indexName] || "")}
           </label>
         ))}
       </div>
