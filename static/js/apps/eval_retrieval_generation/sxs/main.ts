@@ -28,22 +28,22 @@ window.onload = () => {
 };
 
 function renderPage(): void {
-  const sheetIdLeft = document.getElementById("metadata").dataset.sheetIdLeft;
-  const sheetIdRight = document.getElementById("metadata").dataset.sheetIdRight;
-  const queryId = document.getElementById("metadata").dataset.queryId;
+  const sheetIdA = document.getElementById("metadata").dataset.sheetIdA;
+  const sheetIdB = document.getElementById("metadata").dataset.sheetIdB;
+  const sessionId = document.getElementById("metadata").dataset.sessionId;
 
-  if (!sheetIdLeft || !sheetIdRight || !queryId) {
+  if (!sheetIdA || !sheetIdB || !sessionId) {
     alert(
-      "Missing URL parameter. Please ensure you have provided a valid sheetIdLeft, sheetIdRight, and queryId."
+      "Missing URL parameter. Please ensure you have provided a valid sheetIdA, sheetIdB, and sessionId."
     );
     return;
   }
 
   ReactDOM.render(
     React.createElement(App, {
-      queryId: Number(queryId),
-      sheetIdLeft,
-      sheetIdRight,
+      sessionId,
+      sheetIdA,
+      sheetIdB,
     }),
     document.getElementById("dc-eval-retrieval-generation")
   );

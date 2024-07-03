@@ -14,10 +14,30 @@
  * limitations under the License.
  */
 
+import { GoogleSpreadsheet } from "google-spreadsheet";
 import _ from "lodash";
 
-import { FEEDBACK_STAGE_LIST } from "./constants";
-import { EvalType, FeedbackStage } from "./types";
+import {
+  CALL_ID_COL,
+  DC_CALL_SHEET,
+  DC_METADATA_SHEET,
+  FEEDBACK_STAGE_LIST,
+  METADATA_KEY_COL,
+  METADATA_KEY_TYPE,
+  METADATA_VAL_COL,
+  QA_SHEET,
+  QUERY_COL,
+  QUERY_ID_COL,
+  USER_COL,
+} from "./constants";
+import {
+  DcCall,
+  DocInfo,
+  EvalType,
+  FeedbackStage,
+  HeaderInfo,
+  Query,
+} from "./types";
 
 const HTTP_PATTERN = /https:\/\/[^\s]+/g;
 const LONG_SPACES = "&nbsp;&nbsp;&nbsp;&nbsp;";
@@ -79,4 +99,125 @@ export function processTableText(text: string): string {
 // Get the first feedback stage to show for an eval type
 export function getFirstFeedbackStage(evalType: EvalType): FeedbackStage {
   return FEEDBACK_STAGE_LIST[evalType][0];
+}
+
+
+async function getHeader(doc: GoogleSpreadsheet): Promise<HeaderInfo> {
+  const result: HeaderInfo = {};
+  for (const sheetName of [QA_SHEET, DC_CALL_SHEET, DC_METADATA_SHEET]) {
+    result[sheetName] = {};
+    const sheet = doc.sheetsByTitle[sheetName];
+    await sheet.loadHeaderRow();
+    for (let i = 0; i < sheet.headerValues.length; i++) {
+      const colName = sheet.headerValues[i];
+      result[sheetName][colName] = i;
+    }
+  }
+  return result;
+}
+
+function getQueries(
+  doc: GoogleSpreadsheet,
+  allHeader: HeaderInfo
+): Promise<Record<number, Query>> {
+  const sheet = doc.sheetsByTitle[QA_SHEET];
+  const header = allHeader[QA_SHEET];
+  const numRows = sheet.rowCount;
+  const loadPromises = [];
+  for (const col of [QUERY_ID_COL, USER_COL, QUERY_COL]) {
+    loadPromises.push(
+      sheet.loadCells({
+        startColumnIndex: header[col],
+        endColumnIndex: header[col] + 1,
+      })
+    );
+  }
+  return Promise.all(loadPromises).then(() => {
+    const allQuery: Record<number, Query> = {};
+    for (let i = 1; i < numRows; i++) {
+      const id = Number(sheet.getCell(i, header[QUERY_ID_COL]).value);
+      allQuery[id] = {
+        id,
+        row: i,
+        text: String(sheet.getCell(i, header[QUERY_COL]).value),
+        user: String(sheet.getCell(i, header[USER_COL]).value),
+      };
+    }
+    return allQuery;
+  });
+}
+
+function getCalls(
+  doc: GoogleSpreadsheet,
+  allHeader: HeaderInfo
+): Promise<Record<number, DcCall>> {
+  const sheet = doc.sheetsByTitle[DC_CALL_SHEET];
+  const header = allHeader[DC_CALL_SHEET];
+  const numRows = sheet.rowCount;
+  const loadPromises = [];
+  for (const col of [QUERY_ID_COL, CALL_ID_COL]) {
+    loadPromises.push(
+      sheet.loadCells({
+        startColumnIndex: header[col],
+        endColumnIndex: header[col] + 1,
+      })
+    );
+  }
+  return Promise.all(loadPromises).then(() => {
+    const tmp: Record<number, DcCall> = {};
+    for (let i = 1; i < numRows; i++) {
+      const row = i;
+      const queryId = Number(sheet.getCell(i, header[QUERY_ID_COL]).value);
+      const callId = Number(sheet.getCell(i, header[CALL_ID_COL]).value);
+      if (!tmp[queryId]) {
+        tmp[queryId] = {};
+      }
+      tmp[queryId][callId] = row;
+    }
+    return tmp;
+  });
+}
+
+function getEvalType(
+  doc: GoogleSpreadsheet,
+  allHeader: HeaderInfo
+): Promise<EvalType> {
+  const sheet = doc.sheetsByTitle[DC_METADATA_SHEET];
+  const header = allHeader[DC_METADATA_SHEET];
+  const loadPromises = [];
+  for (const col of [METADATA_KEY_COL, METADATA_VAL_COL]) {
+    loadPromises.push(
+      sheet.loadCells({
+        endColumnIndex: header[col] + 1,
+        startColumnIndex: header[col],
+      })
+    );
+  }
+  const numRows = sheet.rowCount;
+  return Promise.all(loadPromises).then(() => {
+    for (let i = 1; i < numRows; i++) {
+      const metadataKey = sheet.getCell(i, header[METADATA_KEY_COL]).value;
+      if (metadataKey === METADATA_KEY_TYPE) {
+        const evalType = sheet.getCell(i, header[METADATA_VAL_COL])
+          .value as EvalType;
+        return evalType;
+      }
+    }
+    alert(
+      "Could not find an eval type in the sheet metadata. Please update the sheet and try again."
+    );
+  });
+}
+
+// Promise to get all the information about a google spreadsheet doc
+export function getDocInfo(doc: GoogleSpreadsheet): Promise<DocInfo> {
+  return getHeader(doc).then((allHeader) => {
+    return Promise.all([
+      getQueries(doc, allHeader),
+      getCalls(doc, allHeader),
+      getEvalType(doc, allHeader),
+    ]).then(([allQuery, allCall, evalType]) => {
+      return { doc, allQuery, allCall, evalType };
+    });
+  });
 }

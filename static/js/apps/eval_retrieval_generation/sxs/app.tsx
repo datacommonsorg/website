@@ -19,18 +19,23 @@ import { GoogleSpreadsheet } from "google-spreadsheet";
 import React, { useState } from "react";
 
 import { GoogleSignIn } from "../../../utils/google_signin";
-import { SinglePane } from "./single_pane";
+import { QuerySection } from "../query_section";
+import { TablePane } from "../table_pane";
+import { DocInfo, EvalType, FeedbackStage } from "../types";
+import { getDocInfo } from "../util";
 
 interface AppPropType {
-  sheetIdLeft: string;
-  sheetIdRight: string;
-  queryId: number;
+  sessionId: string;
+  sheetIdA: string;
+  sheetIdB: string;
 }
 
 export function App(props: AppPropType): JSX.Element {
   const [user, setUser] = useState<User | null>(null);
-  const [docLeft, setDocLeft] = useState<GoogleSpreadsheet>(null);
-  const [docRight, setDocRight] = useState<GoogleSpreadsheet>(null);
+  const [docInfo, setDocInfo] = useState<{ left: DocInfo; right: DocInfo }>(
+    null
+  );
+  const [queryId, setQueryId] = useState<number>(1);
 
   async function handleUserSignIn(
     user: User,
@@ -38,15 +43,25 @@ export function App(props: AppPropType): JSX.Element {
   ): Promise<void> {
     if (credential.accessToken) {
       setUser(user); // Set the user state to the signed-in user
-      const docLeft = new GoogleSpreadsheet(props.sheetIdLeft, {
+      const docA = new GoogleSpreadsheet(props.sheetIdA, {
         token: credential.accessToken,
       });
-      const docRight = new GoogleSpreadsheet(props.sheetIdRight, {
+      const docB = new GoogleSpreadsheet(props.sheetIdB, {
         token: credential.accessToken,
       });
-      await Promise.all([docLeft.loadInfo(), docRight.loadInfo()]);
-      setDocLeft(docLeft);
-      setDocRight(docRight);
+      // Wait for documents to load
+      await Promise.all([docA.loadInfo(), docB.loadInfo()]);
+      // Get and set information about each document
+      Promise.all([getDocInfo(docA), getDocInfo(docB)]).then(
+        ([docInfoA, docInfoB]) => {
+          // randomize which side each document goes on
+          if (Math.floor(Math.random() * 2) === 0) {
+            setDocInfo({ left: docInfoA, right: docInfoB });
+          } else {
+            setDocInfo({ left: docInfoB, right: docInfoA });
+          }
+        }
+      );
     }
   }
 
@@ -61,13 +76,39 @@ export function App(props: AppPropType): JSX.Element {
         </div>
       )}
 
-      {user && (
+      {user && <p>Signed in as {user.email}</p>}
+      {docInfo && (
         <>
-          <p>Signed in as {user.email}</p>
           <div className="app-content">
-            {docLeft && <SinglePane doc={docLeft} queryId={props.queryId} />}
+            <div className="sxs-pane">
+              <QuerySection
+                doc={docInfo.left.doc}
+                evalType={docInfo.left.evalType}
+                feedbackStage={FeedbackStage.SXS}
+                query={docInfo.left.allQuery[queryId]}
+              />
+              {docInfo.left.evalType === EvalType.RAG && (
+                <TablePane
+                  doc={docInfo.left.doc}
+                  calls={docInfo.left.allCall[queryId]}
+                />
+              )}
+            </div>
             <div className="divider" />
-            {docRight && <SinglePane doc={docRight} queryId={props.queryId} />}
+            <div className="sxs-pane">
+              <QuerySection
+                doc={docInfo.right.doc}
+                evalType={docInfo.right.evalType}
+                feedbackStage={FeedbackStage.SXS}
+                query={docInfo.right.allQuery[queryId]}
+              />
+              {docInfo.right.evalType === EvalType.RAG && (
+                <TablePane
+                  doc={docInfo.right.doc}
+                  calls={docInfo.right.allCall[queryId]}
+                />
+              )}
+            </div>
           </div>
         </>
       )}

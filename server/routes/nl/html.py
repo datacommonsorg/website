@@ -60,10 +60,10 @@ def eval_retrieval_generation():
 def eval_retrieval_generation_sxs():
   if os.environ.get('FLASK_ENV') not in ['local', 'autopush']:
     flask.abort(404)
-  sheet_id_left = request.args.get('sheetIdLeft', '')
-  sheet_id_right = request.args.get('sheetIdRight', '')
-  query_id = request.args.get('queryId', '')
+  sheet_id_a = request.args.get('sheetIdA', '')
+  sheet_id_b = request.args.get('sheetIdB', '')
+  session_id = request.args.get('sessionId', '')
   return render_template('/eval_retrieval_generation_sxs.html',
-                         sheet_id_left=sheet_id_left,
-                         sheet_id_right=sheet_id_right,
-                         query_id=query_id)
+                         sheet_id_a=sheet_id_a,
+                         sheet_id_b=sheet_id_b,
+                         session_id=session_id)
