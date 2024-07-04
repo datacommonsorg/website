@@ -2933,12 +2933,8 @@ Percentage of People Aged 50 to 75 Received Colorectal Cancer Screening,Percent_
 Percentage of People with access to Electricity,dc/topic/GlobalElectricityAccess
 Percentage of Persons Aged 15-19 who are Literate,Count_Person_15To19Years_Literate_AsAFractionOf_Count_Person_15To19Years
 Percentage of Persons Aged 15-24 who are Illiterate,Count_Person_15To24Years_Illiterate_AsAFractionOf_Count_Person_15To24Years
-Percentage of Population Who Are Physically Inactive,Percent_Person_PhysicalInactivity
 Percentage of Safe Child births,Count_DeliveryEvent_Safe_AsFractionOf_Count_DeliveryEvent
 Percentage of Total Government Spending Allocated to Education,Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government
-Percentage of adults who Receive Dental Visit,Percent_Person_ReceivedDentalVisit
-Percentage of adults who Received Cholesterol Screening,Percent_Person_ReceivedCholesterolScreening
-Percentage of adults who Sleep Less Than 7 Hours,Percent_Person_SleepLessThan7Hours
 Percentage of bloodstream infections due to selected antimicrobial-resistant organisms,dc/topic/sdg_3.d.2
 Percentage of boys younger than 5 years who are overweight,Count_Person_Upto4Years_Male_Overweight_AsFractionOf_Count_Person_Upto4Years_Male
 Percentage of boys younger than 5 years who are severely wasting,Count_Person_Upto4Years_Male_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Male
@@ -2973,7 +2969,6 @@ Percentage of people below poverty level in the past 12 months,Count_Person_Belo
 Percentage of people with a Bachelor's or higher Degree,Count_Person_25OrMoreYears_BachelorsDegreeOrHigher_AsFractionOf_Count_Person_25OrMoreYears
 Percentage of people with a Doctorate Degree,Count_Person_25OrMoreYears_DoctorateDegree_AsFractionOf_Count_Person_25OrMoreYears
 Percentage of renewable electricity capacity,Capacity_Electricity_Renewables_AsAFractionOf_Capacity_Electricity
-Percentage of the population who receive an annual checkup,Percent_Person_ReceivedAnnualCheckup
 Percentage of the workforce that is female,Count_Person_15OrMoreYears_InLaborForce_Female_AsFractionOf_Count_Person_InLaborForce
 Percentage of waste generated that are processed,Count_WasteGenerated_Processed_AsAFractionOf_Count_WasteGenerated
 Percentage of working age females without health insurance,Percent_Person_18To64Years_Female_NoHealthInsurance
@@ -4218,47 +4213,6 @@ housing owners,dc/topic/HomeOwnership
 housing rentals,dc/topic/RentalHouses
 immunization rates,dc/topic/WHOImmunization
 incarcerated deaths,dc/topic/MortalityAmongIncarcerated
-incidence rate Of Anaemia In Children Aged 6-59 Months,WHO/NUTRITION_ANAEMIA_CHILDREN_PREV
-incidence rate Of Daily Tobacco Use Among Adults,WHO/Adult_daily_tob_use
-incidence rate Of Insufficient Physical Activity Among Adults,WHO/NCD_PAC
-incidence rate Of Obesity Among Adults,WHO/NCD_BMI_30A
-incidence rate Of Severely Wasted Children Under 5 Years Of Age,WHO/NUTRITION_WH_3
-incidence rate Of Underweight Among Adults,WHO/NCD_BMI_18A
-incidence rate Of Underweight Children Under 5 Years Of Age,WHO/NUTRITION_WA_2
-incidence rate Of Wasted Children Under 5 Years Of Age,WHO/NUTRITION_WH_2
-incidence rate of All Teeth Loss among adults,Percent_Person_WithAllTeethLoss
-incidence rate of Arthritis among adults,Percent_Person_WithArthritis
-incidence rate of Asthma among adults,Percent_Person_WithAsthma
-incidence rate of Cancer (Excluding Skin Cancer) among adults,Percent_Person_WithCancerExcludingSkinCancer
-incidence rate of Chronic Kidney Disease among adults,Percent_Person_WithChronicKidneyDisease
-incidence rate of Chronic Obstructive Pulmonary Disease among adults,Percent_Person_WithChronicObstructivePulmonaryDisease
-incidence rate of Coronary Heart Disease among adults,Percent_Person_WithCoronaryHeartDisease
-incidence rate of Daily Tobacco Smoking,WHO/M_Est_smk_daily
-incidence rate of Diabetes among adults,Percent_Person_WithDiabetes
-incidence rate of High Blood Pressure among adults,Percent_Person_WithHighBloodPressure
-incidence rate of High Cholesterol among adults,Percent_Person_WithHighCholesterol
-incidence rate of Overweight Among Children Under 5 Years old,WHO/NUTOVERWEIGHTPREV
-incidence rate of Stroke among adults,Percent_Person_WithStroke
-incidence rate of Stunting Among Children Under 5 Years Of Age,WHO/NUTSTUNTINGPREV
-incidence rate of asthma among children,Percent_Person_Children_WithAsthma
-incidence rate of binge drinking,Percent_Person_BingeDrinking
-incidence rate of diabetes among adult females,dc/nh3s4skee5483
-incidence rate of diabetes among adult male,dc/xmpy89x1nh8cg
-incidence rate of low birth weight,WHO/LBW_PREVALENCE
-incidence rate of obesity,Percent_Person_Obesity
-incidence rate of obesity among adult females,dc/4lvmzr1h1ylk1
-incidence rate of obesity among adult males,dc/x13tvt8jsgrm4
-incidence rate of physical inactivity among adult females,dc/tcqb49dvg7k53
-incidence rate of physical inactivity among adult males,dc/ty7pq88d26963
-incidence rate of poor Mental Health among adults,Percent_Person_WithMentalHealthNotGood
-incidence rate of poor Physical Health among adults,Percent_Person_WithPhysicalHealthNotGood
-incidence rate of smoking among adults,Percent_Person_Smoking
-incidence rate of smoking among females aged 15 and older,Count_Person_15OrMoreYears_Female_Smoking_AsFractionOf_Count_Person_15OrMoreYears_Female
-incidence rate of smoking among of males aged 15 and older,Count_Person_15OrMoreYears_Male_Smoking_AsFractionOf_Count_Person_15OrMoreYears_Male
-incidence rate of smoking among people aged 15 and older,Count_Person_15OrMoreYears_Smoking_AsFractionOf_Count_Person_15OrMoreYears
-incidence rate of tobacco use,Percent_TobaccoUsing_In_Count_Person
-incidence rate of tobacco use among females,Percent_TobaccoUsing_In_Count_Person_Female
-incidence rate of tobacco use among males,Percent_TobaccoUsing_In_Count_Person_Male
 income of veterans,dc/topic/VeteransIncome
 incremental count COVID-19 confirmed cases,IncrementalCount_MedicalConditionIncident_COVID_19_ConfirmedCase
 incremental count of COVID-19 confirmed or probable cases,IncrementalCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase
@@ -4660,7 +4614,53 @@ production of refinery gas,Annual_Generation_Fuel_RefineryGas
 production of vegetal waste,Annual_Generation_Fuel_VegetalWaste
 production of white spirit,Annual_Generation_Fuel_WhiteSpirit
 projected temperature,dc/topic/ProjectedClimateExtremes
+proportion Of Adults with Insufficient Physical Activity,WHO/NCD_PAC
+proportion Of children aged 5 and under who are Underweight,WHO/NUTRITION_WA_2
+proportion Of children aged 5 and under who are severely wasted,WHO/NUTRITION_WH_3
+proportion Of children aged 5 and under who are stunting,WHO/NUTSTUNTINGPREV
+proportion Of children aged 5 and under who are wasted,WHO/NUTRITION_WH_2
+proportion of Adults who are Underweight,WHO/NCD_BMI_18A
+proportion of Adults with Obesity,WHO/NCD_BMI_30A
+proportion of adult females with diabetes,dc/nh3s4skee5483
+proportion of adult females with physical inactivity,dc/tcqb49dvg7k53
+proportion of adult male with diabetes,dc/xmpy89x1nh8cg
+proportion of adult males with obesity,dc/x13tvt8jsgrm4
+proportion of adult males with physical inactivity,dc/ty7pq88d26963
+proportion of adults who Receive Cholesterol Screening,Percent_Person_ReceivedCholesterolScreening
+proportion of adults who Sleep Less Than 7 Hours,Percent_Person_SleepLessThan7Hours
+proportion of adults who smoke,Percent_Person_Smoking
+proportion of adults who use tobacco daily,WHO/Adult_daily_tob_use
+proportion of adults with All Teeth Loss,Percent_Person_WithAllTeethLoss
+proportion of adults with Cancer (Excluding Skin Cancer),Percent_Person_WithCancerExcludingSkinCancer
+proportion of adults with Chronic Kidney Disease,Percent_Person_WithChronicKidneyDisease
+proportion of adults with Chronic Obstructive Pulmonary Disease,Percent_Person_WithChronicObstructivePulmonaryDisease
+proportion of adults with Coronary Heart Disease,Percent_Person_WithCoronaryHeartDisease
+proportion of adults with Diabetes,Percent_Person_WithDiabetes
+proportion of adults with High Blood Pressure,Percent_Person_WithHighBloodPressure
+proportion of adults with High Cholesterol,Percent_Person_WithHighCholesterol
+proportion of adults with Stroke,Percent_Person_WithStroke
+proportion of adults with arthritis,Percent_Person_WithArthritis
+proportion of adults with asthma,Percent_Person_WithAsthma
+proportion of adults with poor Mental Health,Percent_Person_WithMentalHealthNotGood
+proportion of adults with poor Physical Health,Percent_Person_WithPhysicalHealthNotGood
+proportion of children aged 5 and under who are overweight,WHO/NUTOVERWEIGHTPREV
+proportion of children aged 6-59 Months with anaemia,WHO/NUTRITION_ANAEMIA_CHILDREN_PREV
+proportion of children with asthma,Percent_Person_Children_WithAsthma
+proportion of females aged 15+ who smoke,Count_Person_15OrMoreYears_Female_Smoking_AsFractionOf_Count_Person_15OrMoreYears_Female
+proportion of females who use tobacco,Percent_TobaccoUsing_In_Count_Person_Female
+proportion of females with obesity,dc/4lvmzr1h1ylk1
+proportion of low birth weight,WHO/LBW_PREVALENCE
+proportion of males aged 15+ who smoke,Count_Person_15OrMoreYears_Male_Smoking_AsFractionOf_Count_Person_15OrMoreYears_Male
+proportion of males who use tobacco,Percent_TobaccoUsing_In_Count_Person_Male
 proportion of men online,dc/topic/sdg_17.8.1
+proportion of people Who Are Physically Inactive,Percent_Person_PhysicalInactivity
+proportion of people aged 15+ who smoke,Count_Person_15OrMoreYears_Smoking_AsFractionOf_Count_Person_15OrMoreYears
+proportion of people who Receive Dental Visit,Percent_Person_ReceivedDentalVisit
+proportion of people who have Daily Tobacco Smoking,WHO/M_Est_smk_daily
+proportion of people who receive an annual checkup,Percent_Person_ReceivedAnnualCheckup
+proportion of people who use tobacco,Percent_TobaccoUsing_In_Count_Person
+proportion of people with binge drinking,Percent_Person_BingeDrinking
+proportion of people with obesity,Percent_Person_Obesity
 proportion of women online,dc/topic/sdg_17.8.1
 public benefits,dc/topic/Benefits
 race breakdown of students in Graduate or Professional School,dc/topic/StudentsInGraduateOrProfessionalSchool

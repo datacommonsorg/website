@@ -35,8 +35,8 @@
   "variables": [
     "dc/topic/AsthmaFemalePopulationByAge",
     "Percent_Person_WithAsthma",
-    "dc/topic/AsthmaMalePopulationByAge",
     "Percent_Person_Children_WithAsthma",
+    "dc/topic/AsthmaMalePopulationByAge",
     "dc/topic/HealthConditions",
     "dc/topic/Health"
   ]

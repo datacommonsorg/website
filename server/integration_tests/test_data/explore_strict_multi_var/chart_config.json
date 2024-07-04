@@ -112,6 +112,57 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
+                      "dc/4lvmzr1h1ylk1_scatter",
+                      "Percent_Person_SleepLessThan7Hours_scatter"
+                    ],
+                    "title": "Prevalence: Female, Obesity (${yDate}) Vs. Percentage That Sleeps Less Than 7 Hours Per Night (${xDate}) in Counties of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence: Female, Obesity vs. Percentage That Sleeps Less Than 7 Hours Per Night"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/4lvmzr1h1ylk1"
+                    ],
+                    "title": "Prevalence: Female, Obesity in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/4lvmzr1h1ylk1"
+                    ],
+                    "title": "Prevalence: Female, Obesity in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence: Female, Obesity in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
                       "dc/x13tvt8jsgrm4_scatter",
                       "Percent_Person_SleepLessThan7Hours_scatter"
                     ],
@@ -154,57 +205,6 @@
               }
             ],
             "title": "Prevalence: Male, Obesity in Counties of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "dc/4lvmzr1h1ylk1_scatter",
-                      "Percent_Person_SleepLessThan7Hours_scatter"
-                    ],
-                    "title": "Prevalence: Female, Obesity (${yDate}) Vs. Percentage That Sleeps Less Than 7 Hours Per Night (${xDate}) in Counties of United States",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ],
-            "title": "Prevalence: Female, Obesity vs. Percentage That Sleeps Less Than 7 Hours Per Night"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "dc/4lvmzr1h1ylk1"
-                    ],
-                    "title": "Prevalence: Female, Obesity in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "dc/4lvmzr1h1ylk1"
-                    ],
-                    "title": "Prevalence: Female, Obesity in Counties of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Prevalence: Female, Obesity in Counties of United States"
           }
         ],
         "statVarSpec": {
