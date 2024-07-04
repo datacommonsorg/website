@@ -41,6 +41,7 @@ serviceAccount:
 
 ingress:
   enabled: true
+  enableMixer: true
 
 nl:
   enabled: true
@@ -57,11 +58,15 @@ serviceGroups:
   svg:
     replicas: 5
   node:
-    replicas: 50
-  observation:
-    replicas: 50
-  default:
     replicas: 30
+  observation:
+    replicas: 30
+  default:
+    replicas: 20
+    cacheSVG: true # For REST api support
+    resources:
+      memoryRequest: "8G"
+      memoryLimit: "8G"
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]
