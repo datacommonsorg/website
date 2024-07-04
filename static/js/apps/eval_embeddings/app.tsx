@@ -16,72 +16,87 @@
 
 import axios from "axios";
 import * as CSV from "csv-string";
+import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 
-import { loadSpinner, removeSpinner } from "../../shared/util";
-import { QuerySection } from "./query_section";
+import { MemoIndexScoreBox } from "./index_score_box";
 import { EmbeddingObject } from "./util";
 
-const DESCRIPTION_TEXTAREA_ID = "description-textarea";
+const DEFAULT_DESCRIPTION = 'Count_Person,"population number"';
+const DEFAULT_QUERY_STRING = "how many population";
+const DEFAULT_INDEX = "base_uae_mem";
 
-const DEFAULT_DESCRIPTION =
-  'Count_Person,"population number"\ndc/topic/AgeMedians,"median age related"';
-const DEFAULT_QUERIES = "how many population\nmedian age";
+const _INDEX_NAME_ANNOTATION = {
+  base_uae_mem: " (PROD)",
+  medium_ft: " (CUSTOM DC)",
+};
 
 interface AppPropType {
   indexes: Record<string, Record<string, string>>;
   models: Record<string, Record<string, string | number>>;
 }
 
+interface appState {
+  queries: string[];
+  embeddings: Record<string, EmbeddingObject[]>;
+}
+
 export function App(props: AppPropType): JSX.Element {
-  const [queries, setQueries] = useState<string[]>([]);
-  const [description, setDescription] = useState<
-    Record<string, EmbeddingObject[]>
-  >({});
   const descriptionElem = useRef<HTMLTextAreaElement>(null);
   const queryElem = useRef<HTMLTextAreaElement>(null);
 
-  const processDescription = (overrideInput: string) => {
-    loadSpinner(DESCRIPTION_TEXTAREA_ID);
-    const lines = CSV.parse(overrideInput);
+  const [input, setInput] = useState({
+    description: DEFAULT_DESCRIPTION,
+    query: DEFAULT_QUERY_STRING,
+  });
+
+  const [appState, setAppState] = useState<appState>({
+    embeddings: {},
+    queries: [],
+  });
+
+  const [checkedIndexes, setCheckedIndexes] = useState<string[]>([
+    DEFAULT_INDEX,
+  ]);
+
+  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = event.target;
+    setCheckedIndexes((prevCheckedIndexes) =>
+      checked
+        ? [...prevCheckedIndexes, name]
+        : prevCheckedIndexes.filter((index) => index !== name)
+    );
+  };
+
+  useEffect(() => {
+    if (!checkedIndexes) {
+      return;
+    }
+    const lines = CSV.parse(input.description);
     if (lines.length === 0) {
+      setAppState({ queries: input.query.split("\n"), embeddings: {} });
       return;
     }
     fetchEmbeddings(
       lines,
-      Object.values(props.indexes).map((x) => x.model)
+      _.values(_.pick(props.indexes, checkedIndexes)).map((x) => x["model"])
     ).then((embeddings) => {
-      setDescription(embeddings);
-      removeSpinner(DESCRIPTION_TEXTAREA_ID);
+      setAppState({ queries: input.query.split("\n"), embeddings });
     });
-  };
+  }, [checkedIndexes, input, props.indexes]);
 
-  const processQueries = (queryInput: string) => {
-    setQueries(queryInput.split("\n"));
-  };
-
-  useEffect(() => {
-    processDescription(DEFAULT_DESCRIPTION);
-    processQueries(DEFAULT_QUERIES);
-  }, []);
-
-  const handleDescription = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleApply = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const form = event.currentTarget;
-    const overrideInput = form.override ? form.override.value : "";
-    processDescription(overrideInput);
-  };
-
-  const handleQuery = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const queryInput = form.query.value;
-    processQueries(queryInput);
+    if (queryElem.current) {
+      setInput({
+        description: descriptionElem.current.value,
+        query: queryElem.current.value,
+      });
+    }
   };
 
   const handleFileUpload = (
     event: React.ChangeEvent<HTMLInputElement>,
-    type: "description" | "query",
     textArea: HTMLTextAreaElement
   ) => {
     const file = event.target.files?.[0];
@@ -89,11 +104,6 @@ export function App(props: AppPropType): JSX.Element {
       const reader = new FileReader();
       reader.onload = (e) => {
         const text = e.target?.result as string;
-        if (type === "description") {
-          processDescription(text);
-        } else if (type === "query") {
-          processQueries(text);
-        }
         textArea.value = text;
       };
       reader.readAsText(file);
@@ -102,64 +112,90 @@ export function App(props: AppPropType): JSX.Element {
 
   return (
     <>
+      <div id="checkbox-container">
+        <div className="text-box-title">Select Indexes</div>
+        {Object.keys(props.indexes).map((indexName) => (
+          <label key={indexName}>
+            <input
+              type="checkbox"
+              name={indexName}
+              checked={checkedIndexes.includes(indexName)}
+              onChange={handleCheckboxChange}
+            />
+            {indexName + (_INDEX_NAME_ANNOTATION[indexName] || "")}
+          </label>
+        ))}
+      </div>
       <div className="app-section">
         <div className="text-box-title">
           Explore the variable matches for different models
         </div>
-        <span>Enter or upload query (one per line)</span>
-        <form onSubmit={handleQuery}>
-          <textarea
-            name="query"
-            defaultValue={DEFAULT_QUERIES}
-            ref={queryElem}
-          />
+        <form onSubmit={handleApply}>
+          <div>
+            <span>Enter or upload query (one per line)</span>
+            <textarea
+              name="query"
+              defaultValue={DEFAULT_QUERY_STRING}
+              ref={queryElem}
+            />
+            <input
+              type="file"
+              accept=".txt"
+              onChange={(e) => handleFileUpload(e, queryElem.current)}
+            />
+          </div>
+          <div>
+            <div className="text-box-title">
+              Validate and explore stat var descriptions (new or override)
+            </div>
+            <span>
+              Enter or upload stat var descriptions. Each row in the form of{" "}
+              {'dcid,"desc1;desc2"'}.
+            </span>
+            <textarea
+              name="override"
+              defaultValue={DEFAULT_DESCRIPTION}
+              ref={descriptionElem}
+            />
+            <input
+              type="file"
+              accept=".csv"
+              onChange={(e) => handleFileUpload(e, descriptionElem.current)}
+            />
+          </div>
           <button type="submit">Apply</button>
-          <input
-            type="file"
-            accept=".txt"
-            onChange={(e) => handleFileUpload(e, "query", queryElem.current)}
-          />
         </form>
-      </div>
-
-      <div className="app-section" id={DESCRIPTION_TEXTAREA_ID}>
-        <div className="text-box-title">
-          Validate and explore stat var descriptions (new or override)
-        </div>
-        <span>
-          Enter or upload stat var descriptions. Each row in the form of{" "}
-          {'dcid,"desc1;desc2"'}.
-        </span>
-        <form onSubmit={handleDescription}>
-          <textarea
-            name="override"
-            defaultValue={DEFAULT_DESCRIPTION}
-            ref={descriptionElem}
-          />
-          <button type="submit">Apply</button>
-          <input
-            type="file"
-            accept=".csv"
-            onChange={(e) =>
-              handleFileUpload(e, "description", descriptionElem.current)
-            }
-          />
-        </form>
-        <div id="page-screen" className="screen">
-          <div id="spinner"></div>
-        </div>
       </div>
 
       <div className="app-section">
-        {queries &&
-          queries.map((query) => (
-            <QuerySection
-              key={query}
-              sentence={query}
-              indexes={props.indexes}
-              models={props.models}
-              description={description}
-            />
+        {appState.queries.length > 0 &&
+          checkedIndexes.length > 0 &&
+          appState.queries.map((query) => (
+            <div key={query} className="query-section">
+              <h3>{query}</h3>
+              <div className="model-result-container">
+                {checkedIndexes.map((indexName) => {
+                  const modelName = props.indexes[indexName].model;
+                  const embeddings = appState.embeddings[modelName];
+                  if (!embeddings) {
+                    return null;
+                  }
+
+                  return (
+                    <MemoIndexScoreBox
+                      key={indexName}
+                      sentence={query}
+                      indexName={indexName}
+                      modelName={modelName}
+                      modelScoreThreshold={Number(
+                        props.models[modelName].score_threshold
+                      )}
+                      additionalEmbeddings={embeddings}
+                    />
+                  );
+                })}
+              </div>
+            </div>
           ))}
       </div>
     </>
@@ -179,13 +215,20 @@ const fetchEmbeddings = async (lines: string[][], modelNames: string[]) => {
       sentence2sv[sentence] = statVar;
     }
   }
-  const allSentences = Object.keys(sentence2sv);
+  const queries = Object.keys(sentence2sv);
+  if (queries.length === 0) {
+    const result = {};
+    for (const modelName of modelNames) {
+      result[modelName] = [];
+    }
+    return result;
+  }
   const requests = [];
   for (const modelName of modelNames) {
     requests.push(
       axios
         .post(`/api/nl/encode-vector?model=${modelName}`, {
-          queries: allSentences,
+          queries,
         })
         .then((resp) => ({ modelName, data: resp.data }))
     );
@@ -195,11 +238,11 @@ const fetchEmbeddings = async (lines: string[][], modelNames: string[]) => {
   for (const response of responses) {
     const { modelName, data } = response;
     result[modelName] = [];
-    for (const sentence of allSentences) {
+    for (const query of queries) {
       result[modelName].push({
-        embeddings: data[sentence],
-        sentence,
-        statVar: sentence2sv[sentence],
+        embeddings: data[query],
+        sentence: query,
+        statVar: sentence2sv[query],
       });
     }
   }

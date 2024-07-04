@@ -24,7 +24,6 @@ import {
   CALL_ID_COL,
   DC_CALL_SHEET,
   DC_METADATA_SHEET,
-  FEEDBACK_PANE_ID,
   METADATA_KEY_COL,
   METADATA_KEY_TYPE,
   METADATA_VAL_COL,
@@ -48,8 +47,13 @@ interface AppPropType {
 }
 
 export function App(props: AppPropType): JSX.Element {
-  const { setSessionQueryId, setFeedbackStage, feedbackStage, sessionQueryId } =
-    useContext(SessionContext);
+  const {
+    setSessionQueryId,
+    setFeedbackStage,
+    feedbackStage,
+    sessionQueryId,
+    sessionCallId,
+  } = useContext(SessionContext);
   const [user, setUser] = useState<User | null>(null);
   const [doc, setDoc] = useState<GoogleSpreadsheet>(null);
   const [allQuery, setAllQuery] = useState<Record<number, Query>>(null);
@@ -233,20 +237,20 @@ export function App(props: AppPropType): JSX.Element {
               }}
             >
               <div className="app-content">
-                <QuerySection />
-                <div className="feedback-pane" id={FEEDBACK_PANE_ID}>
-                  {(feedbackStage === FeedbackStage.OVERALL_ANS ||
-                    feedbackStage === FeedbackStage.OVERALL_QUESTIONS) && (
-                    <OverallFeedback />
-                  )}
-                  {feedbackStage === FeedbackStage.CALLS && <CallFeedback />}
-                  {feedbackStage === FeedbackStage.RAG_ANS && (
-                    <RagAnsFeedback />
-                  )}
-                  <div id="page-screen" className="screen">
-                    <div id="spinner"></div>
-                  </div>
-                </div>
+                <QuerySection
+                  doc={doc}
+                  evalType={evalType}
+                  feedbackStage={feedbackStage}
+                  query={allQuery[sessionQueryId]}
+                  callId={sessionCallId}
+                  allCall={allCall}
+                />
+                {(feedbackStage === FeedbackStage.OVERALL_ANS ||
+                  feedbackStage === FeedbackStage.OVERALL_QUESTIONS) && (
+                  <OverallFeedback />
+                )}
+                {feedbackStage === FeedbackStage.CALLS && <CallFeedback />}
+                {feedbackStage === FeedbackStage.RAG_ANS && <RagAnsFeedback />}
               </div>
             </AppContext.Provider>
           )}

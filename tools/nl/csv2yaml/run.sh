@@ -1,4 +1,5 @@
-# Copyright 2023 Google LLC
+#!/bin/bash
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,6 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from shared.lib.test_setup import set_up_macos_for_tests
 
-set_up_macos_for_tests()
+if [ $# -lt 1 ]; then
+  echo "Usage: $0 <INPUT_CSV_PATH>"
+  exit 1
+fi
+
+pip install -r requirements.txt -q
+python3 convert.py --input_file=$1
