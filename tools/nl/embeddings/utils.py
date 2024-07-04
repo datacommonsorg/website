@@ -119,8 +119,6 @@ def build_and_save_preindexes(fm: FileManager) -> List[PreIndex]:
       reader = csv.DictReader(f)
       for row in reader:
         dcid = row[_COL_DCID]
-        if dcid in seen_dcids:
-          raise ValueError(f"Duplicate dcid: {dcid}")
         seen_dcids.add(dcid)
         texts = row[_COL_SENTENCE].split(';')
         _process(dcid, texts)
