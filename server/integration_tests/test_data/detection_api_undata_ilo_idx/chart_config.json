@@ -20,23 +20,14 @@
   "variables": [
     "dc/topic/ILOEMPPIFLNB",
     "dc/topic/ILOEMPNORMNB",
-    "dc/topic/ILOEMPNIFLNB",
     "dc/topic/ILOEMPSTATNB",
     "dc/topic/ILOEMPPIFLRT",
-    "dc/topic/ILOEMP2FTENB",
-    "dc/topic/ILOPSETPSENB",
     "dc/topic/ILOLUUXLUXNB",
     "dc/topic/ILOEMPNIFLRT",
-    "dc/topic/ILOEMP3EMPNB",
-    "dc/topic/ILOPOP3TEDNB",
-    "dc/topic/ILOEMP2NIFNB",
-    "dc/topic/ILOEMP2WAPRT",
-    "dc/topic/ILOSDG0831RT",
     "dc/topic/ILOEMP5NIFNB",
     "dc/topic/ILOEMP5PIFRT",
     "dc/topic/ILOEMP5PIFNB",
-    "dc/topic/ILOEMP2NIFRT",
-    "dc/topic/ILOHOW2TOTNB",
-    "dc/topic/ILOEIP2JOBNB"
+    "dc/topic/ILOLUUXLUXRT",
+    "dc/topic/ILOLAIINSPNB"
   ]
 }
