@@ -3234,9 +3234,9 @@ PalmerDroughtSeverityIndex_Atmosphere,Palmer Drought Severity Index
 Percent_BurnedArea_FireEvent,Percent of area that are burned in land fire
 Percent_BurnedArea_FireEvent_Forest,Percent of forest area that burned
 Percent_BurnedArea_FireEvent_Forest_HighSeverity,Percent of forest area that experienced high-severity fire
-Percent_Daily_TobaccoUsing_In_Count_Person,percentage of people with daily Tobacco Smoking
-Percent_Daily_TobaccoUsing_In_Count_Person_Female,percentage of Females with Daily Tobacco Use
-Percent_Daily_TobaccoUsing_In_Count_Person_Male,percentage of Males with Daily Tobacco Use
+Percent_Daily_TobaccoUsing_In_Count_Person,percentage of people who smoke tobacco daily
+Percent_Daily_TobaccoUsing_In_Count_Person_Female,percentage of females who use tobacco daily
+Percent_Daily_TobaccoUsing_In_Count_Person_Male,percentage of males who use tobacco daily
 Percent_Person_18To64Years_Female_NoHealthInsurance,Percentage of working age females without health insurance
 Percent_Person_18To64Years_Male_NoHealthInsurance,Percentage of working age males without health insurance
 Percent_Person_18To64Years_ReceivedNoHealthInsurance,Percentage of working age population Without Health Insurance
@@ -3247,7 +3247,7 @@ Percent_Person_50To75Years_ReceivedColorectalCancerScreening,Percentage of Peopl
 Percent_Person_65OrMoreYears_Female_ReceivedCorePreventiveServices,Percentage of elderly females Received Core Preventive Services
 Percent_Person_65OrMoreYears_Male_ReceivedCorePreventiveServices,Percentage of elderly males Received Core Preventive Services
 Percent_Person_65OrMoreYears_WithAllTeethLoss,Percentage of elderly people who have lost all their teeth
-Percent_Person_BingeDrinking,proportion of people with binge drinking
+Percent_Person_BingeDrinking,proportion of people who binge drink
 Percent_Person_Children_WithAsthma,proportion of children with asthma
 Percent_Person_Obesity,proportion of people with obesity
 Percent_Person_PhysicalInactivity,proportion of people Who Are Physically Inactive

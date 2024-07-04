@@ -4551,11 +4551,11 @@ people with no health insurance,dc/topic/NoHealthInsurance
 people with private health insurance,dc/topic/PrivateHealthInsuranceType
 people with public health insurance,dc/topic/PublicHealthInsuranceType
 people without access to health insurance,dc/topic/NoHealthInsurance
-percentage of Females with Daily Tobacco Use,Percent_Daily_TobaccoUsing_In_Count_Person_Female
-percentage of Males with Daily Tobacco Use,Percent_Daily_TobaccoUsing_In_Count_Person_Male
+percentage of females who use tobacco daily,Percent_Daily_TobaccoUsing_In_Count_Person_Female
 percentage of internet users,Count_Person_IsInternetUser_PerCapita
+percentage of males who use tobacco daily,Percent_Daily_TobaccoUsing_In_Count_Person_Male
 percentage of online people,dc/topic/sdg_17.8.1
-percentage of people with daily Tobacco Smoking,Percent_Daily_TobaccoUsing_In_Count_Person
+percentage of people who smoke tobacco daily,Percent_Daily_TobaccoUsing_In_Count_Person
 percentage of population with access to electricity,worldBank/EG_ELC_ACCS_ZS
 percentage of rural population with access to electricity,worldBank/EG_ELC_ACCS_RU_ZS
 percentage of urban population with access to electricity,worldBank/EG_ELC_ACCS_UR_ZS
@@ -4656,10 +4656,10 @@ proportion of men online,dc/topic/sdg_17.8.1
 proportion of people Who Are Physically Inactive,Percent_Person_PhysicalInactivity
 proportion of people aged 15+ who smoke,Count_Person_15OrMoreYears_Smoking_AsFractionOf_Count_Person_15OrMoreYears
 proportion of people who Receive Dental Visit,Percent_Person_ReceivedDentalVisit
+proportion of people who binge drink,Percent_Person_BingeDrinking
 proportion of people who have Daily Tobacco Smoking,WHO/M_Est_smk_daily
 proportion of people who receive an annual checkup,Percent_Person_ReceivedAnnualCheckup
 proportion of people who use tobacco,Percent_TobaccoUsing_In_Count_Person
-proportion of people with binge drinking,Percent_Person_BingeDrinking
 proportion of people with obesity,Percent_Person_Obesity
 proportion of women online,dc/topic/sdg_17.8.1
 public benefits,dc/topic/Benefits
