@@ -9816,8 +9816,8 @@
         "Asthma"
       ],
       "relevantVariableList": [
-        "Percent_Person_Children_WithAsthma",
-        "Percent_Person_WithAsthma"
+        "Percent_Person_WithAsthma",
+        "Percent_Person_Children_WithAsthma"
       ],
       "typeOf": [
         "Topic"
