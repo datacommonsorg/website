@@ -89,9 +89,7 @@ export function App(props: AppPropType): JSX.Element {
       )}
 
       {user && <p>Signed in as {user.email}</p>}
-      {!docInfo && (
-            <p>Loading query...</p>
-          )}
+      {user && !docInfo && <p>Loading query...</p>}
       {docInfo && (
         <>
           <div className="app-content">
