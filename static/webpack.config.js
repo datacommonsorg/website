@@ -76,6 +76,9 @@ const config = {
       __dirname + "/js/apps/eval_retrieval_generation/main.ts",
       __dirname + "/css/eval_retrieval_generation.scss",
     ],
+    eval_retrieval_generation_sxs: [
+      __dirname + "/js/apps/eval_retrieval_generation/sxs/main.ts",
+    ],
     ranking: [
       __dirname + "/js/ranking/ranking.ts",
       __dirname + "/css/ranking.scss",

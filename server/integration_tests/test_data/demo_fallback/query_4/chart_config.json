@@ -191,9 +191,37 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Percent_Person_Children_WithAsthma"
+                      "Percent_Person_WithAsthma"
                     ],
-                    "title": "Percent of Children That Have Asthma in Counties of California (${date})",
+                    "title": "Asthma in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Asthma in California",
+                    "statVarKey": [
+                      "Percent_Person_WithAsthma"
+                    ],
+                    "title": "Asthma in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Asthma"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithAsthma"
+                    ],
+                    "title": "Asthma in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -206,15 +234,15 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Percent_Person_Children_WithAsthma"
+                      "Percent_Person_WithAsthma"
                     ],
-                    "title": "Percent of Children That Have Asthma in Counties of California (${date})",
+                    "title": "Asthma in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Percent of Children That Have Asthma in Counties of California"
+            "title": "Asthma in Counties of California"
           },
           {
             "columns": [
@@ -250,37 +278,6 @@
               }
             ],
             "title": "Prevalence of Health Conditions"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Percent_Person_WithAsthma"
-                    ],
-                    "title": "Asthma in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Percent_Person_WithAsthma"
-                    ],
-                    "title": "Asthma in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Asthma in Counties of California"
           },
           {
             "columns": [
@@ -1126,11 +1123,6 @@
           "Percent_Person_BingeDrinking": {
             "name": "Prevalence of Binge Drinking",
             "statVar": "Percent_Person_BingeDrinking",
-            "unit": "%"
-          },
-          "Percent_Person_Children_WithAsthma": {
-            "name": "Percent of Children That Have Asthma",
-            "statVar": "Percent_Person_Children_WithAsthma",
             "unit": "%"
           },
           "Percent_Person_Obesity": {

@@ -106,23 +106,6 @@
               {
                 "tiles": [
                   {
-                    "description": "Percent of Children That Have Asthma in Placer County",
-                    "statVarKey": [
-                      "Percent_Person_Children_WithAsthma"
-                    ],
-                    "title": "Percent of Children That Have Asthma in Placer County",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Percent of Children That Have Asthma"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "statVarKey": [
                       "Percent_Person_WithAsthma"
                     ],
@@ -145,6 +128,23 @@
               }
             ],
             "title": "Asthma"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Percent of Children That Have Asthma in Placer County",
+                    "statVarKey": [
+                      "Percent_Person_Children_WithAsthma"
+                    ],
+                    "title": "Percent of Children That Have Asthma in Placer County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Percent of Children That Have Asthma"
           },
           {
             "columns": [
