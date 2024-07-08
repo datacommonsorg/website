@@ -75,8 +75,8 @@ export async function getHighlightTileResult(
     const result: TileResult = {
       data_csv: getDataCsv(tileProp, highlightData),
       highlight: {
-        value: highlightData.value,
         date: highlightData.date,
+        value: highlightData.value,
       },
       places: [place.dcid],
       srcs: getSources(highlightData.sources),
