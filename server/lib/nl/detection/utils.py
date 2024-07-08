@@ -316,5 +316,5 @@ def find_word_boundary(haystack: str, needle: str):
 def replace_strings_in_query(query: str, replacements: Dict[str, str]) -> str:
   processed_query = query
   for orig, new in replacements.items():
-    processed_query = processed_query.replace(orig, new)
+    processed_query = re.sub(rf"\b{orig}\b", new, processed_query)
   return processed_query
