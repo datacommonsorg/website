@@ -72,7 +72,7 @@ indexes:
   undata_ilo_ft:
     store_type: MEMORY
     source_path: ../../tools/nl/embeddings/input/undata_ilo
-    embeddings_path: gs://datcom-nl-models/undata_ilo_ft_2024_06_24_23_48_34/embeddings.csv
+    embeddings_path: gs://datcom-nl-models/undata_ilo_ft_2024_07_03_16_24_32/embeddings.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
     healthcheck_query: "Employment"
   bio_ft:
@@ -90,7 +90,7 @@ indexes:
   base_uae_mem:
     store_type: MEMORY
     source_path: ../../tools/nl/embeddings/input/base
-    embeddings_path: gs://datcom-nl-models/base_uae_mem_2024_07_01_20_18_36/embeddings.csv
+    embeddings_path: gs://datcom-nl-models/base_uae_mem_2024_07_04_11_24_32/embeddings.csv
     model: uae-large-v1-model
     healthcheck_query: "Life expectancy"
   base_mistral_mem:
