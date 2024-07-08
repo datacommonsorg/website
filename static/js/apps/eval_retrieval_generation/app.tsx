@@ -18,7 +18,7 @@ import { OAuthCredential, User } from "firebase/auth";
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import React, { useContext, useEffect, useState } from "react";
 
-import { GoogleSignIn } from "../../utils/google_signin";
+import { signInWithGoogle } from "../../utils/google_signin";
 import { CallFeedback } from "./call_feedback";
 import { AppContext, SessionContext } from "./context";
 import { OverallFeedback } from "./overall_feedback";
@@ -95,20 +95,15 @@ export function App(props: AppPropType): JSX.Element {
 
   // Sign in automatically.
   useEffect(() => {
-    const buttons = Array.from(document.getElementsByTagName("button"));
-    const signInButton = buttons.find((el) => el.innerText.includes("Sign In"));
-    signInButton.click();
-    signInButton.disabled = true;
+    const scopes = ["https://www.googleapis.com/auth/spreadsheets"];
+    signInWithGoogle(scopes, handleUserSignIn);
   }, []);
 
   return (
     <>
       {!user && (
-        <div className="sign-in">
-          <GoogleSignIn
-            onSignIn={handleUserSignIn}
-            scopes={["https://www.googleapis.com/auth/spreadsheets"]}
-          />
+        <div>
+          <p>Signing you in...</p>
           <p>
             If you are not signed in after a few seconds, check that pop-ups are
             allowed and refresh the page.
