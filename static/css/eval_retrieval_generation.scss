@@ -456,3 +456,29 @@ label {
     }
   }
 }
+
+/* SXS eval specific styling */
+
+.sxs-pane {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 100%;
+
+  #query-section {
+    max-width: 100%;
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  .google-sheet-link {
+    padding: 0 16px;
+  }
+}
+
+.app-content .divider {
+  border-left: solid 1px var(--gm-3-sys-light-outline-variant);
+  position: absolute;
+  left: 50%;
+  height: 100%;
+}
