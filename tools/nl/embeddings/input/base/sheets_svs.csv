@@ -1836,8 +1836,9 @@ Count_MedicalConditionIncident_PatientDeceased_PersonToPersonTransmission,Number
 Count_MedicalConditionIncident_PatientDeceased_WaterborneTransmission,Number of Deaths from Waterborne Transmission
 Count_MortalityEvent_Assault(Homicide),Number of Deaths from Assault (Homicide)
 Count_MortalityEvent_Assault(Homicide)_Female,Number of female Deaths from Assault (Homicide)
-Count_MortalityEvent_Diabetes,Number of Deaths from Diabetes
-Count_MortalityEvent_Diabetes_Female,Number of female Deaths from Diabetes
+Count_MortalityEvent_Diabetes,number of deaths from diabetes
+Count_MortalityEvent_Diabetes_Female,number of female deaths from diabetes
+Count_MortalityEvent_Diabetes_Memale,number of male deaths from diabetes
 Count_MortalityEvent_HeartDiseaseExcludingHypertension,Number of Deaths from Heart Disease Excluding Hypertension
 Count_MortalityEvent_IntentionalSelf-Harm(Suicide),Number of Intentional Self-Harm (Suicide) Deaths
 Count_MortalityEvent_IntentionalSelf-Harm(Suicide)_Female,Number of Intentional Self-Harm (Suicide) Deaths in Females
@@ -1857,9 +1858,9 @@ Count_Person_15OrMoreYears_Divorced_NativeHawaiianAndOtherPacificIslanderAlone,n
 Count_Person_15OrMoreYears_Divorced_OneRace,number of Divorced people with single Race
 Count_Person_15OrMoreYears_Divorced_TwoOrMoreRaces,number of divorced people with multi-races
 Count_Person_15OrMoreYears_Divorced_WhiteAlone,number of Divorced White people
-Count_Person_15OrMoreYears_Female_Smoking_AsFractionOf_Count_Person_15OrMoreYears_Female,prevalence of Female Smokers Aged 15 and Older
+Count_Person_15OrMoreYears_Female_Smoking_AsFractionOf_Count_Person_15OrMoreYears_Female,proportion of females aged 15+ who smoke
 Count_Person_15OrMoreYears_InLaborForce_Female_AsFractionOf_Count_Person_InLaborForce,Percentage of the workforce that is female
-Count_Person_15OrMoreYears_Male_Smoking_AsFractionOf_Count_Person_15OrMoreYears_Male,prevalence of male Smokers Aged 15 and Older
+Count_Person_15OrMoreYears_Male_Smoking_AsFractionOf_Count_Person_15OrMoreYears_Male,proportion of males aged 15+ who smoke
 Count_Person_15OrMoreYears_MarriedAndNotSeparated_AmericanIndianAndAlaskaNativeAlone,Number of married American Indian and Alaska Native people
 Count_Person_15OrMoreYears_MarriedAndNotSeparated_AsianAlone,Number of married asian people
 Count_Person_15OrMoreYears_MarriedAndNotSeparated_BlackOrAfricanAmericanAlone,Number of married Black or African American people
@@ -1891,7 +1892,7 @@ Count_Person_15OrMoreYears_Separated_NativeHawaiianAndOtherPacificIslanderAlone,
 Count_Person_15OrMoreYears_Separated_OneRace,Number of separated One Race people
 Count_Person_15OrMoreYears_Separated_TwoOrMoreRaces,Number of separated Two Or More Races people
 Count_Person_15OrMoreYears_Separated_WhiteAlone,Number of separated white people
-Count_Person_15OrMoreYears_Smoking_AsFractionOf_Count_Person_15OrMoreYears,prevalence of Smokers Aged 15 and Older
+Count_Person_15OrMoreYears_Smoking_AsFractionOf_Count_Person_15OrMoreYears,proportion of people aged 15+ who smoke
 Count_Person_15OrMoreYears_Widowed_AmericanIndianAndAlaskaNativeAlone,Number of widowed American Indian and Alaska Native people
 Count_Person_15OrMoreYears_Widowed_AsianAlone,Number of widowed asian people
 Count_Person_15OrMoreYears_Widowed_BlackOrAfricanAmericanAlone,Number of widowed Black or African American people
@@ -3233,9 +3234,9 @@ PalmerDroughtSeverityIndex_Atmosphere,Palmer Drought Severity Index
 Percent_BurnedArea_FireEvent,Percent of area that are burned in land fire
 Percent_BurnedArea_FireEvent_Forest,Percent of forest area that burned
 Percent_BurnedArea_FireEvent_Forest_HighSeverity,Percent of forest area that experienced high-severity fire
-Percent_Daily_TobaccoUsing_In_Count_Person,Prevalence of Daily Tobacco Smoking
-Percent_Daily_TobaccoUsing_In_Count_Person_Female,Prevalence of Daily Tobacco Use Among Females
-Percent_Daily_TobaccoUsing_In_Count_Person_Male,Prevalence of Daily Tobacco Use Among Mmales
+Percent_Daily_TobaccoUsing_In_Count_Person,percentage of people who smoke tobacco daily
+Percent_Daily_TobaccoUsing_In_Count_Person_Female,percentage of females who use tobacco daily
+Percent_Daily_TobaccoUsing_In_Count_Person_Male,percentage of males who use tobacco daily
 Percent_Person_18To64Years_Female_NoHealthInsurance,Percentage of working age females without health insurance
 Percent_Person_18To64Years_Male_NoHealthInsurance,Percentage of working age males without health insurance
 Percent_Person_18To64Years_ReceivedNoHealthInsurance,Percentage of working age population Without Health Insurance
@@ -3246,38 +3247,38 @@ Percent_Person_50To75Years_ReceivedColorectalCancerScreening,Percentage of Peopl
 Percent_Person_65OrMoreYears_Female_ReceivedCorePreventiveServices,Percentage of elderly females Received Core Preventive Services
 Percent_Person_65OrMoreYears_Male_ReceivedCorePreventiveServices,Percentage of elderly males Received Core Preventive Services
 Percent_Person_65OrMoreYears_WithAllTeethLoss,Percentage of elderly people who have lost all their teeth
-Percent_Person_BingeDrinking,prevalence of binge drinking
-Percent_Person_Children_WithAsthma,prevalence of asthma among children
-Percent_Person_Obesity,prevalence of obesity
-Percent_Person_PhysicalInactivity,prevalence of physical inactivity
-Percent_Person_ReceivedAnnualCheckup,Percentage of the population who receive an annual checkup
-Percent_Person_ReceivedCholesterolScreening,Percentage of adults who Received Cholesterol Screening
-Percent_Person_ReceivedDentalVisit,Percentage of adults who Received Dental Visit
-Percent_Person_SleepLessThan7Hours,Percentage of adults who Sleep Less Than 7 Hours
-Percent_Person_Smoking,Prevalence of smoking among adults
-Percent_Person_WithAllTeethLoss,Prevalence of All Teeth Loss among adults
-Percent_Person_WithArthritis,Prevalence of Arthritis among adults
-Percent_Person_WithAsthma,Prevalence of Asthma among adults
-Percent_Person_WithCancerExcludingSkinCancer,Prevalence of Cancer Excluding Skin Cancer among adults
-Percent_Person_WithChronicKidneyDisease,Prevalence of Chronic Kidney Disease among adults
-Percent_Person_WithChronicObstructivePulmonaryDisease,Prevalence of Chronic Obstructive Pulmonary Disease among adults
-Percent_Person_WithCoronaryHeartDisease,Prevalence of Coronary Heart Disease among adults
-Percent_Person_WithDiabetes,Prevalence of Diabetes among adults
-Percent_Person_WithHighBloodPressure,Prevalence of High Blood Pressure among adults
-Percent_Person_WithHighCholesterol,Prevalence of High Cholesterol among adults
-Percent_Person_WithMentalHealthNotGood,Prevalence of poor Mental Health among adults
-Percent_Person_WithPhysicalHealthNotGood,Prevalence of poor Physical Health among adults
-Percent_Person_WithStroke,Prevalence of Stroke among adults
-dc/4lvmzr1h1ylk1,Prevalence of obesity among adult females
-dc/tcqb49dvg7k53,Prevalence of physical inactivity among adult females
-dc/nh3s4skee5483,Prevalence of diabetes among adult females
-dc/x13tvt8jsgrm4,Prevalence of obesity among adult males
-dc/ty7pq88d26963,Prevalence of physical inactivity among adult males
-dc/xmpy89x1nh8cg,Prevalence of diabetes among adult male
+Percent_Person_BingeDrinking,proportion of people who binge drink
+Percent_Person_Children_WithAsthma,proportion of children with asthma
+Percent_Person_Obesity,proportion of people with obesity
+Percent_Person_PhysicalInactivity,proportion of people Who Are Physically Inactive
+Percent_Person_ReceivedAnnualCheckup,proportion of people who receive an annual checkup
+Percent_Person_ReceivedCholesterolScreening,proportion of adults who Receive Cholesterol Screening
+Percent_Person_ReceivedDentalVisit,proportion of people who Receive Dental Visit
+Percent_Person_SleepLessThan7Hours,proportion of adults who Sleep Less Than 7 Hours
+Percent_Person_Smoking,proportion of adults who smoke
+Percent_Person_WithAllTeethLoss,proportion of adults with All Teeth Loss
+Percent_Person_WithArthritis,proportion of adults with arthritis
+Percent_Person_WithAsthma,proportion of adults with asthma
+Percent_Person_WithCancerExcludingSkinCancer,proportion of adults with Cancer (Excluding Skin Cancer)
+Percent_Person_WithChronicKidneyDisease,proportion of adults with Chronic Kidney Disease
+Percent_Person_WithChronicObstructivePulmonaryDisease,proportion of adults with Chronic Obstructive Pulmonary Disease
+Percent_Person_WithCoronaryHeartDisease,proportion of adults with Coronary Heart Disease
+Percent_Person_WithDiabetes,proportion of adults with Diabetes
+Percent_Person_WithHighBloodPressure,proportion of adults with High Blood Pressure
+Percent_Person_WithHighCholesterol,proportion of adults with High Cholesterol
+Percent_Person_WithMentalHealthNotGood,proportion of adults with poor Mental Health
+Percent_Person_WithPhysicalHealthNotGood,proportion of adults with poor Physical Health
+Percent_Person_WithStroke,proportion of adults with Stroke
+dc/4lvmzr1h1ylk1,proportion of females with obesity
+dc/tcqb49dvg7k53,proportion of adult females with physical inactivity
+dc/nh3s4skee5483,proportion of adult females with diabetes
+dc/x13tvt8jsgrm4,proportion of adult males with obesity
+dc/ty7pq88d26963,proportion of adult males with physical inactivity
+dc/xmpy89x1nh8cg,proportion of adult male with diabetes
 Percent_Student_AsAFractionOf_Count_Teacher,Student to Teacher Ratio
-Percent_TobaccoUsing_In_Count_Person,Prevalence of Tobacco Use
-Percent_TobaccoUsing_In_Count_Person_Female,Prevalence of tobacco use among females
-Percent_TobaccoUsing_In_Count_Person_Male,Prevalence of tobacco use among males
+Percent_TobaccoUsing_In_Count_Person,proportion of people who use tobacco
+Percent_TobaccoUsing_In_Count_Person_Female,proportion of females who use tobacco
+Percent_TobaccoUsing_In_Count_Person_Male,proportion of males who use tobacco
 QuantitySold_FarmInventory_CattleAndCalves,Number of Cattle and Calves Sold From Farms
 QuantitySold_FarmInventory_HogsAndPigs,Number of Hogs and Pigs Sold From Farms
 dc/9pmyhk89dj3pf,Median income of people working in the Accommodation & Food Services Industry
@@ -3517,7 +3518,7 @@ dc/fcn7wgvcwtsj2,total wages of workers in Warehousing Storage industry
 dc/0hq9z5mspf73f,Total wages of workers in transportation and warehousing industry
 WagesTotal_Worker_NAICSWholesaleTrade,Total wages of workers in wholesale trade industry
 dc/nesnbmrncfjrb,Total wages of workers in wood product manufacturing industry
-WHO/Adult_daily_tob_use,Prevalence Of Daily Tobacco Use Among Adults
+WHO/Adult_daily_tob_use,proportion of adults who use tobacco daily
 WHO/bcgv_Female,Percentage of Bcg Immunization Coverage Among 1 Year Old female
 WHO/bcgv_Male,Percentage of Bcg Immunization Coverage Among 1 Year Old male
 WHO/bcgv_Rural,Percentage of Bcg Immunization Coverage Among 1 Year Old in Rural Areas
@@ -3534,15 +3535,15 @@ WHO/fullv_Male,Percentage of Full Immunization Coverage Among 1 Year Old male
 WHO/fullv_Rural,Percentage of Full Immunization Coverage Among 1 Year Old in Rural Areas
 WHO/fullv_Urban,Percentage of Full Immunization Coverage Among 1 Year Old in Urban areas
 WHO/GDO_q35,Estimated Population Based Prevalence Of Depression
-WHO/LBW_PREVALENCE,Low Birth Weight Prevalence
-WHO/M_Est_smk_daily,Daily Tobacco Smoking Prevalence
+WHO/LBW_PREVALENCE,proportion of low birth weight
+WHO/M_Est_smk_daily,proportion of people who have Daily Tobacco Smoking
 WHO/mslv_Female,Measles Immunization Coverage Among 1 year old female
 WHO/mslv_Male,Measles Immunization Coverage Among 1 year old male
 WHO/mslv_Rural,Measles Immunization Coverage Among 1 year old in Rural Areas
 WHO/mslv_Urban,Measles Immunization Coverage Among 1 year old in Urban areas
-WHO/NCD_BMI_18A,Prevalence Of Underweight Among Adults
-WHO/NCD_BMI_30A,Prevalence Of Obesity Among Adults
-WHO/NCD_PAC,Prevalence Of Insufficient Physical Activity Among Adults
+WHO/NCD_BMI_18A,proportion of Adults who are Underweight
+WHO/NCD_BMI_30A,proportion of Adults with Obesity
+WHO/NCD_PAC,proportion Of Adults with Insufficient Physical Activity
 WHO/NTD_1,Number Of New Reported Cases Of Buruli Ulcer
 WHO/NTD_4,Number Of New Reported Cases Of Human African Trypanosomiasis (T.B. Gambiense)
 WHO/NTD_5,Number Of New Reported Cases Of Human African Trypanosomiasis (T.B. Rhodesiense)
@@ -3550,12 +3551,12 @@ WHO/NTD_LEISHCNUM,Number Of Cases Of Cutaneous Leishmaniasis Reported
 WHO/NTD_LEISHVNUM,Number Of Cases Of Visceral Leishmaniasis Reported
 WHO/NTD_LEPR5,Leprosy - Number Of New G2D Cases
 WHO/NTD_YAWSNUM,Number Of Cases Of Yaws Reported
-WHO/NUTOVERWEIGHTPREV,Overweight Prevalence Among Children Under 5 Years old
-WHO/NUTRITION_ANAEMIA_CHILDREN_PREV,Prevalence Of Anaemia In Children Aged 6-59 Months
-WHO/NUTRITION_WA_2,Prevalence Of Underweight Children Under 5 Years Of Age
-WHO/NUTRITION_WH_2,Prevalence Of Wasted Children Under 5 Years Of Age
-WHO/NUTRITION_WH_3,Prevalence Of Severely Wasted Children Under 5 Years Of Age
-WHO/NUTSTUNTINGPREV,Stunting Prevalence Among Children Under 5 Years Of Age
+WHO/NUTOVERWEIGHTPREV,proportion of children aged 5 and under who are overweight
+WHO/NUTRITION_ANAEMIA_CHILDREN_PREV,proportion of children aged 6-59 Months with anaemia
+WHO/NUTRITION_WA_2,proportion Of children aged 5 and under who are Underweight
+WHO/NUTRITION_WH_2,proportion Of children aged 5 and under who are wasted
+WHO/NUTRITION_WH_3,proportion Of children aged 5 and under who are severely wasted
+WHO/NUTSTUNTINGPREV,proportion Of children aged 5 and under who are stunting
 WHO/poliov_Female,Polio Immunization Coverage Among 1 year old female
 WHO/poliov_Male,Polio Immunization Coverage Among 1 year old male
 WHO/poliov_Rural,Polio Immunization Coverage Among 1 year old in rural area
