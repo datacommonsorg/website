@@ -81,7 +81,7 @@ def detect(orig_query: str, cleaned_query: str,
   # the query
   if (params.is_toolformer_mode(dargs.mode)):
     sv_detection_query = dutils.replace_strings_in_query(
-        query, TOOLFORMER_QUERY_REPLACEMENTS)
+        sv_detection_query, TOOLFORMER_QUERY_REPLACEMENTS)
   sv_detection_result = dutils.empty_var_detection_result()
   try:
     sv_detection_result = variable.detect_vars(
