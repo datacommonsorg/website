@@ -112,14 +112,11 @@ def build_and_save_preindexes(fm: FileManager) -> List[PreIndex]:
         text2sv[text] = set()
       text2sv[text].add(dcid)
 
-  csv_dcids = set()
-
   for file_name in glob.glob(fm.local_input_dir() + "/[!_]*.csv"):
     with open(file_name) as f:
       reader = csv.DictReader(f)
       for row in reader:
         dcid = row[_COL_DCID]
-        csv_dcids.add(dcid)
         texts = row[_COL_SENTENCE].split(';')
         _process(dcid, texts)
 
@@ -127,8 +124,6 @@ def build_and_save_preindexes(fm: FileManager) -> List[PreIndex]:
     with open(file_name) as f:
       data = yaml.safe_load(f)
       for dcid, texts in data.items():
-        if dcid in csv_dcids:
-          raise ValueError(f"Duplicate dcid: {dcid}")
         _process(dcid, texts)
 
   preindexes = [
