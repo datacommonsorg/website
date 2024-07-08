@@ -16,7 +16,7 @@
 
 import { OAuthCredential, User } from "firebase/auth";
 import { GoogleSpreadsheet } from "google-spreadsheet";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { GoogleSignIn } from "../../utils/google_signin";
 import { CallFeedback } from "./call_feedback";
@@ -203,6 +203,14 @@ export function App(props: AppPropType): JSX.Element {
     }
   }
 
+  // Sign in automatically.
+  useEffect(() => {
+    const buttons = Array.from(document.getElementsByTagName("button"));
+    const signInButton = buttons.find((el) => el.innerText.includes("Sign In"));
+    signInButton.click();
+    signInButton.disabled = true;
+  }, []);
+
   return (
     <>
       {!user && (
@@ -211,6 +219,10 @@ export function App(props: AppPropType): JSX.Element {
             onSignIn={handleUserSignIn}
             scopes={["https://www.googleapis.com/auth/spreadsheets"]}
           />
+          <p>
+            If you are not signed in after a few seconds, check that pop-ups are
+            allowed and refresh the page.
+          </p>
         </div>
       )}
 
@@ -225,6 +237,9 @@ export function App(props: AppPropType): JSX.Element {
             Google Sheet Link
           </a>
           <p>Signed in as {user.email}</p>
+          {!(allQuery && allCall && doc && sessionQueryId && evalType) && (
+            <p>Loading query...</p>
+          )}
           {allQuery && allCall && doc && sessionQueryId && evalType && (
             <AppContext.Provider
               value={{
