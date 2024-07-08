@@ -21,12 +21,10 @@
 }
 
 #main-nav {
-  background-color: unset;
+  background-color: var(--palo-alto-dark);
 }
 
 #main-header {
-  background-color: var(--palo-alto-dark);
-
   .navbar-brand a {
     color: #fff;
   }
