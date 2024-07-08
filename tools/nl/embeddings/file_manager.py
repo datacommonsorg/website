@@ -45,7 +45,7 @@ class FileManager(object):
     else:
       self._local_output_dir = output_dir
     # Create local output directory if it does not exist.
-    os.mkdir(self._local_output_dir)
+    os.makedirs(self._local_output_dir, exist_ok=True)
 
   def __del__(self):
     shutil.rmtree(self._local_dir)
