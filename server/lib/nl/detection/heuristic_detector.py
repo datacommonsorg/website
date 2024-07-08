@@ -29,6 +29,8 @@ from server.lib.nl.detection.types import SimpleClassificationAttributes
 from server.lib.nl.explore import params
 from server.lib.nl.explore.params import QueryMode
 
+TOOLFORMER_QUERY_REPLACEMENTS = {"residents": "people"}
+
 
 def detect(orig_query: str, cleaned_query: str,
            query_detection_debug_logs: Dict, counters: Counters,
@@ -75,6 +77,11 @@ def detect(orig_query: str, cleaned_query: str,
 
   # Step 4: Identify the SV matched based on the query.
   sv_detection_query = dutils.remove_date_from_query(query, classifications)
+  # If in toolformer mode, further process the query by replacing strings in
+  # the query
+  if (params.is_toolformer_mode(dargs.mode)):
+    sv_detection_query = dutils.replace_strings_in_query(
+        query, TOOLFORMER_QUERY_REPLACEMENTS)
   sv_detection_result = dutils.empty_var_detection_result()
   try:
     sv_detection_result = variable.detect_vars(

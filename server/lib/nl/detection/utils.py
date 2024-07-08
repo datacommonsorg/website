@@ -16,7 +16,7 @@
 # TODO: rename to variable_utils.py
 
 import re
-from typing import List
+from typing import Dict, List
 
 from server.lib.fetch import property_values
 from server.lib.nl.common import constants
@@ -309,3 +309,12 @@ def find_word_boundary(haystack: str, needle: str):
   if match:
     return match.start()
   return -1
+
+
+# Replaces strings in a query given a dictionary where key is the original
+# string and value is the replacement string to use
+def replace_strings_in_query(query: str, replacements: Dict[str, str]) -> str:
+  processed_query = query
+  for orig, new in replacements.items():
+    processed_query = processed_query.replace(orig, new)
+  return processed_query
