@@ -28,7 +28,7 @@ import { auth } from "./firebase";
 export function signInWithGoogle(
   scopes: string[],
   onSignIn: (user: User, credential: OAuthCredential) => void
-) {
+): void {
   if (auth.currentUser) {
     console.log("Already logged in");
     return;
