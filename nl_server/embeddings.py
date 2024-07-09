@@ -16,6 +16,7 @@
 from abc import ABC
 from abc import abstractmethod
 from dataclasses import dataclass
+import logging
 from typing import Dict, List
 
 import torch
@@ -81,17 +82,26 @@ class Embeddings:
 
   # Given a list of queries, returns
   def vector_search(self, queries: List[str], top_k: int) -> SearchVarsResult:
+    logging.info('CLOUDRUNDEBUG In Embeddings.vector_search: %s (%s)', queries,
+                 self)
     query_embeddings = self.model.encode(queries)
+    logging.info('query_embeddings: %s', query_embeddings)
 
     if self.model.returns_tensor and not self.store.needs_tensor:
       # Convert to List[List[float]]
+      logging.info('In query_embeddings condition #1')
       query_embeddings = query_embeddings.tolist()
+      logging.info('Done query_embeddings condition #1: %s', query_embeddings)
     elif not self.model.returns_tensor and self.store.needs_tensor:
       # Convert to torch.Tensor
+      logging.info('In query_embeddings condition #2')
       query_embeddings = torch.tensor(query_embeddings, dtype=torch.float)
+      logging.info('Done query_embeddings condition #2: %s', query_embeddings)
 
     # Call the store.
+    logging.info('Before store.vector_search: %s', self.store)
     results = self.store.vector_search(query_embeddings, top_k)
+    logging.info('after store.vector_search: %s', results)
 
     # Turn this into a map:
     return {k: v for k, v in zip(queries, results)}
