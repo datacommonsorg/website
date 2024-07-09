@@ -51,7 +51,9 @@ def create_app():
   try:
     # Build the registry before creating the Flask app to make sure all resources
     # are loaded.
+    logging.info('CLOUDRUNDEBUG Building registry.')
     reg = registry.build()
+    logging.info('CLOUDRUNDEBUG Registry built.')
 
     if not lib_utils.is_test_env():
       # Below is a safe check to ensure that the model and embedding is loaded.
@@ -59,7 +61,9 @@ def create_app():
       idx_type = server_config.default_indexes[0]
       embeddings = reg.get_index(idx_type)
       query = server_config.indexes[idx_type].healthcheck_query
+      logging.info('CLOUDRUNDEBUG Healthcheck query: %s', query)
       result = search.search_vars([embeddings], [query]).get(query)
+      logging.info('CLOUDRUNDEBUG Healthcheck query result: %s', result)
       if not result or not result.svs:
         raise Exception(f'Registry does not have default index {idx_type}')
 

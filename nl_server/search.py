@@ -13,6 +13,7 @@
 # limitations under the License.
 """Library that exposes search_vars"""
 
+import logging
 import time
 from typing import Dict, List
 
@@ -49,8 +50,12 @@ def search_vars(embeddings_list: List[Embeddings],
 
   # Call vector search for each index.
   query2candidates_list: List[EmbeddingsResult] = []
+  logging.info('CLOUDRUNDEBUG In search_vars')
   for embeddings in embeddings_list:
-    query2candidates_list.append(embeddings.vector_search(queries, topk))
+    result = embeddings.vector_search(queries, topk)
+    logging.info('CLOUDRUNDEBUG vector_search result: %s (%s)', result,
+                 embeddings)
+    query2candidates_list.append(result)
 
   # Merge the results.
   query2candidates = merge_search_results(query2candidates_list)
@@ -59,6 +64,8 @@ def search_vars(embeddings_list: List[Embeddings],
   results: Dict[str, dvars.VarCandidates] = {}
   for query, candidates in query2candidates.items():
     results[query] = _rank_vars(candidates, skip_topics)
+
+  logging.info('CLOUDRUNDEBUG merged results: %s', results)
 
   if rerank_model:
     start = time.time()

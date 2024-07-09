@@ -75,6 +75,7 @@ def search_vars():
   """
   queries = request.json.get('queries', [])
   queries = [str(escape(q)) for q in queries]
+  logging.info('CLOUDRUNDEBUG In search_vars: %s', queries)
 
   # TODO: clean up skip topics, may not be used anymore
   skip_topics = False
@@ -100,8 +101,10 @@ def search_vars():
   embeddings = _get_indexes(reg, idx_types)
 
   debug_logs = {'sv_detection_query_index_types': idx_types}
+  logging.info('CLOUDRUNDEBUG debug_logs: %s', debug_logs)
   results = search.search_vars(embeddings, queries, skip_topics, reranker_model,
                                debug_logs)
+  logging.info('CLOUDRUNDEBUG results: %s', results)
   q2result = {q: var_candidates_to_dict(result) for q, result in results.items()}
   return json.dumps({
       'queryResults': q2result,
@@ -130,7 +133,9 @@ def embeddings_version_map():
 
 @bp.route('/api/load/', methods=['POST'])
 def load():
+  logging.info('CLOUDRUNDEBUG In nl_server.load')
   catalog = request.json.get('catalog', None)
+  logging.info('CLOUDRUNDEBUG catalog: %s', catalog)
   try:
     current_app.config[REGISTRY_KEY] = registry.build(
         additional_catalog=catalog)
@@ -138,6 +143,7 @@ def load():
     logging.error(f'Server registry not built due to error: {str(e)}')
   reg: Registry = current_app.config[REGISTRY_KEY]
   server_config = reg.server_config()
+  logging.info('CLOUDRUNDEBUG server_config: %s', server_config)
   return json.dumps(asdict(server_config))
 
 
