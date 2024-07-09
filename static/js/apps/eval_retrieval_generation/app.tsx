@@ -99,6 +99,8 @@ export function App(props: AppPropType): JSX.Element {
     signInWithGoogle(scopes, handleUserSignIn);
   }, []);
 
+  const initialLoadCompleted =
+    allQuery && allCall && doc && sessionQueryId && evalType;
   return (
     <>
       {!user && (
@@ -122,10 +124,9 @@ export function App(props: AppPropType): JSX.Element {
             Google Sheet Link
           </a>
           <p>Signed in as {user.email}</p>
-          {!(allQuery && allCall && doc && sessionQueryId && evalType) && (
-            <p>Loading query...</p>
-          )}
-          {allQuery && allCall && doc && sessionQueryId && evalType && (
+          {}
+          {!initialLoadCompleted && <p>Loading query...</p>}
+          {initialLoadCompleted && (
             <AppContext.Provider
               value={{
                 allCall,
