@@ -16,9 +16,9 @@
 
 import { OAuthCredential, User } from "firebase/auth";
 import { GoogleSpreadsheet } from "google-spreadsheet";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import { GoogleSignIn } from "../../../utils/google_signin";
+import { signInWithGoogle } from "../../../utils/google_signin";
 import { QuerySection } from "../query_section";
 import { TablePane } from "../table_pane";
 import { DocInfo, EvalType, FeedbackStage } from "../types";
@@ -65,18 +65,26 @@ export function App(props: AppPropType): JSX.Element {
     }
   }
 
+  // Sign in automatically.
+  useEffect(() => {
+    const scopes = ["https://www.googleapis.com/auth/spreadsheets"];
+    signInWithGoogle(scopes, handleUserSignIn);
+  }, []);
+
   return (
     <>
       {!user && (
-        <div className="sign-in">
-          <GoogleSignIn
-            onSignIn={handleUserSignIn}
-            scopes={["https://www.googleapis.com/auth/spreadsheets"]}
-          />
+        <div>
+          <p>Signing you in...</p>
+          <p>
+            If you are not signed in after a few seconds, check that pop-ups are
+            allowed and refresh the page.
+          </p>
         </div>
       )}
 
       {user && <p>Signed in as {user.email}</p>}
+      {user && !docInfo && <p>Loading query...</p>}
       {docInfo && (
         <>
           <div className="app-content">
