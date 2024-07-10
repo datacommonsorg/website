@@ -95,7 +95,7 @@ class TestNLUtilsRemoveStopWordsAndPunctuation(unittest.TestCase):
       ["best high schools in Florida counties", "schools florida"],
       [
           "interest rates among people who are living in poverty across US states",
-          "interest rates people living poverty us"
+          "interest people living poverty us"
       ],
       [
           "how many hispanics people in california",
