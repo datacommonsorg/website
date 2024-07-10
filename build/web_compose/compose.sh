@@ -14,7 +14,10 @@
 # limitations under the License.
 
 export MIXER_API_KEY=$DC_API_KEY
+# https://stackoverflow.com/a/62703850
 export TOKENIZERS_PARALLELISM=false
+# https://github.com/UKPLab/sentence-transformers/issues/1318#issuecomment-1084731111
+export OMP_NUM_THREADS=1
 
 if [[ $USE_SQLITE == "true" ]]; then
     export SQLITE_PATH=/sqlite/datacommons.db
