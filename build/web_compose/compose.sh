@@ -14,6 +14,7 @@
 # limitations under the License.
 
 export MIXER_API_KEY=$DC_API_KEY
+export TOKENIZERS_PARALLELISM=false
 
 if [[ $USE_SQLITE == "true" ]]; then
     export SQLITE_PATH=/sqlite/datacommons.db

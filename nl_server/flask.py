@@ -63,13 +63,20 @@ def create_app():
       query = server_config.indexes[idx_type].healthcheck_query
       logging.info('CLOUDRUNDEBUG Healthcheck query: %s', query)
       result = search.search_vars([embeddings], [query]).get(query)
-      logging.info('CLOUDRUNDEBUG Healthcheck query result: %s', result)
+      logging.info('CLOUDRUNDEBUG Healthcheck query len(result.svs): %s',
+                   len(result.svs))
       if not result or not result.svs:
         raise Exception(f'Registry does not have default index {idx_type}')
 
     app = Flask(__name__)
     app.register_blueprint(routes.bp)
     app.config[registry.REGISTRY_KEY] = reg
+
+    embeddings = reg.get_index("medium_ft")
+    logging.info('CLOUDRUNDEBUG reg.get_index("medium_ft"): %s', embeddings)
+    if embeddings:
+      results = search.search_vars([embeddings], ["life expectancy"])
+      logging.info('CLOUDRUNDEBUG len(results): %s', len(results))
 
     logging.info('NL Server Flask app initialized')
     return app

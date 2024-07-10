@@ -28,6 +28,7 @@ set -e
 trap "trap - SIGTERM && kill -- -$$" SIGINT SIGTERM EXIT
 
 source .run_cdc_dev.env && export $(sed '/^#/d' .run_cdc_dev.env | cut -d= -f1)
+export TOKENIZERS_PARALLELISM=false
 
 # Print commit hashes.
 echo -e "\033[0;32m" # Set different color.

@@ -41,6 +41,14 @@ default_embeddings_loaded = False
 
 @bp.route('/healthz')
 def healthz():
+  print("In healthz")
+  reg: Registry = current_app.config[REGISTRY_KEY]
+  embeddings = reg.get_index("medium_ft")
+  logging.info('CLOUDRUNDEBUG healthz reg.get_index("medium_ft"): %s',
+               embeddings)
+  if embeddings:
+    results = search.search_vars([embeddings], ["life expectancy"])
+    logging.info('CLOUDRUNDEBUG healthz len(results): %s', len(results))
   return 'NL Server is healthy', 200
 
 

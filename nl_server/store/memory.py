@@ -86,7 +86,7 @@ class MemoryEmbeddingsStore(EmbeddingsStore):
     hits = semantic_search(query_embeddings,
                            self.dataset_embeddings,
                            top_k=top_k)
-    logging.info('CLOUDRUNDEBUG hits: %s', hits)
+    logging.info('CLOUDRUNDEBUG len(hits): %s', len(hits))
     results: List[EmbeddingsResult] = []
     for hit in hits:
       matches: List[EmbeddingsMatch] = []

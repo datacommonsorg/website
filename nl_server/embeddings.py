@@ -79,29 +79,34 @@ class Embeddings:
   def __init__(self, model: EmbeddingsModel, store: EmbeddingsStore):
     self.model: EmbeddingsModel = model
     self.store: EmbeddingsStore = store
+    self.search_count = 0
 
   # Given a list of queries, returns
   def vector_search(self, queries: List[str], top_k: int) -> SearchVarsResult:
-    logging.info('CLOUDRUNDEBUG In Embeddings.vector_search: %s (%s)', queries,
-                 self)
+    self.search_count += 1
+    logging.info('CLOUDRUNDEBUG In Embeddings.vector_search #%s: %s (%s)',
+                 self.search_count, queries, self)
     query_embeddings = self.model.encode(queries)
-    logging.info('query_embeddings: %s', query_embeddings)
+    logging.info('CLOUDRUNDEBUG len(query_embeddings) #%s: %s',
+                 self.search_count, len(query_embeddings))
 
     if self.model.returns_tensor and not self.store.needs_tensor:
       # Convert to List[List[float]]
       logging.info('In query_embeddings condition #1')
       query_embeddings = query_embeddings.tolist()
-      logging.info('Done query_embeddings condition #1: %s', query_embeddings)
+      logging.info('Done len(query_embeddings) condition #1: %s',
+                   len(query_embeddings))
     elif not self.model.returns_tensor and self.store.needs_tensor:
       # Convert to torch.Tensor
       logging.info('In query_embeddings condition #2')
       query_embeddings = torch.tensor(query_embeddings, dtype=torch.float)
-      logging.info('Done query_embeddings condition #2: %s', query_embeddings)
+      logging.info('Done len(query_embeddings) condition #2: %s',
+                   len(query_embeddings))
 
     # Call the store.
     logging.info('Before store.vector_search: %s', self.store)
     results = self.store.vector_search(query_embeddings, top_k)
-    logging.info('after store.vector_search: %s', results)
+    logging.info('after store.vector_search len(results): %s', len(results))
 
     # Turn this into a map:
     return {k: v for k, v in zip(queries, results)}
