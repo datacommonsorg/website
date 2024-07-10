@@ -16,24 +16,6 @@
 
 import React, { createContext, useState } from "react";
 
-import { DocInfo } from "../types";
-
-interface AppContextType {
-  docInfoA: DocInfo;
-  docInfoB: DocInfo;
-  sessionId: string;
-}
-
-/**
- * The AppContext contains static state that does not change when using the
- * tool.
- */
-export const AppContext = createContext<AppContextType>({
-  docInfoA: null,
-  docInfoB: null,
-  sessionId: "",
-});
-
 /**
  * Session context contains fields that can be set within child components and
  * are changed when the user interacts with the tool.

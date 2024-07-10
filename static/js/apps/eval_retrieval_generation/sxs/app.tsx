@@ -21,7 +21,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { signInWithGoogle } from "../../../utils/google_signin";
 import { DocInfo } from "../types";
 import { getDocInfo } from "../util";
-import { AppContext, SessionContext } from "./context";
+import { SessionContext } from "./context";
 import { getLeftAndRight } from "./left_right_picker";
 import { QueryWithTables } from "./query_with_tables";
 
@@ -35,7 +35,7 @@ export function App(props: AppPropType): JSX.Element {
   const [user, setUser] = useState<User | null>(null);
   const [docInfos, setDocInfos] = useState<{ a: DocInfo; b: DocInfo }>(null);
   const { setSessionQueryId, sessionQueryId } = useContext(SessionContext);
-  const { left, right } = getLeftAndRight(
+  const { leftDocInfo, rightDocInfo } = getLeftAndRight(
     props.sessionId,
     docInfos?.a,
     docInfos?.b,
@@ -86,19 +86,13 @@ export function App(props: AppPropType): JSX.Element {
       {user && <p>Signed in as {user.email}</p>}
       {user && !docInfos && <p>Loading query...</p>}
       {docInfos && (
-        <AppContext.Provider
-          value={{
-            docInfoA: docInfos.a,
-            docInfoB: docInfos.b,
-            sessionId: props.sessionId,
-          }}
-        >
+        <>
           <div className="app-content">
-            <QueryWithTables docInfo={left}></QueryWithTables>
+            <QueryWithTables docInfo={leftDocInfo} />
             <div className="divider" />
-            <QueryWithTables docInfo={right}></QueryWithTables>
+            <QueryWithTables docInfo={rightDocInfo} />
           </div>
-        </AppContext.Provider>
+        </>
       )}
     </>
   );
