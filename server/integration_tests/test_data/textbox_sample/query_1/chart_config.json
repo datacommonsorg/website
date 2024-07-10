@@ -484,67 +484,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_Civilian_FamilyHousehold_NonInstitutionalized"
-                    ],
-                    "title": "Population: Civilian, Family Household, Non Institutionalized in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: Civilian, Family Household, Non Institutionalized in California",
-                    "statVarKey": [
-                      "Count_Person_Civilian_FamilyHousehold_NonInstitutionalized"
-                    ],
-                    "title": "Population: Civilian, Family Household, Non Institutionalized in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Civilian, Family Household, Non Institutionalized"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Civilian_FamilyHousehold_NonInstitutionalized"
-                    ],
-                    "title": "Population: Civilian, Family Household, Non Institutionalized in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Civilian_FamilyHousehold_NonInstitutionalized"
-                    ],
-                    "title": "Population: Civilian, Family Household, Non Institutionalized in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Civilian, Family Household, Non Institutionalized in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Mean_Income_Household_MarriedCoupleFamilyHousehold"
                     ],
                     "title": "Average Income for Married Couple Family Households in California",
@@ -871,16 +810,71 @@
               }
             ],
             "title": "Mean Income Deficit of Household: Married Couple Family Household in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Individual Median Earnings in California",
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Individual Median Earnings"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Individual Median Earnings in Counties of California"
           }
         ],
         "statVarSpec": {
           "Count_Household_FamilyHousehold": {
             "name": "Count of Household: Family Household",
             "statVar": "Count_Household_FamilyHousehold"
-          },
-          "Count_Person_Civilian_FamilyHousehold_NonInstitutionalized": {
-            "name": "Population: Civilian, Family Household, Non Institutionalized",
-            "statVar": "Count_Person_Civilian_FamilyHousehold_NonInstitutionalized"
           },
           "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia": {
             "name": "Mean Earnings of Household: Foreign Born, Asia",
@@ -913,6 +907,10 @@
           "Mean_Income_Household_NonfamilyHousehold": {
             "name": "Average Income for Nonfamily Households",
             "statVar": "Mean_Income_Household_NonfamilyHousehold"
+          },
+          "Median_Earnings_Person": {
+            "name": "Individual Median Earnings",
+            "statVar": "Median_Earnings_Person"
           },
           "Median_Earnings_Person_Female": {
             "name": "Median Earnings for Women",
@@ -1348,6 +1346,12 @@
           "Mean_Income_Household_FamilyHousehold",
           "Mean_Income_Household_MarriedCoupleFamilyHousehold",
           "Mean_Income_Household_NonfamilyHousehold"
+        ]
+      },
+      "Median_Earnings_Person": {
+        "gender": [
+          "Median_Earnings_Person_Female",
+          "Median_Earnings_Person_Male"
         ]
       },
       "Median_Income_Household": {

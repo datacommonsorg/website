@@ -394,35 +394,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_Civilian_InLaborForce"
-                    ],
-                    "title": "Population: 16 Years or More, Civilian, in Labor Force in Washington",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: 16 Years or More, Civilian, in Labor Force in Washington",
-                    "statVarKey": [
-                      "Count_Person_Civilian_InLaborForce"
-                    ],
-                    "title": "Population: 16 Years or More, Civilian, in Labor Force in Washington",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: 16 Years or More, Civilian, in Labor Force"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Count_Person_InLaborForce"
                     ],
                     "title": "Population in the Labor Force in Washington",
@@ -596,6 +567,67 @@
             ],
             "denom": "Count_Person",
             "title": "Workers in All Industries"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_FullTimeYearRoundWorker"
+                    ],
+                    "title": "Population: 16-64 Years, Full Time Year Round Worker in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_FullTimeYearRoundWorker"
+                    ],
+                    "title": "Population: 16-64 Years, Full Time Year Round Worker in Census Zip Code Tabulation Areas of Washington (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 16-64 Years, Full Time Year Round Worker in Census Zip Code Tabulation Areas of Washington"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_FullTimeYearRoundWorker"
+                    ],
+                    "title": "Population: 16-64 Years, Full Time Year Round Worker in Washington",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: 16-64 Years, Full Time Year Round Worker in Washington",
+                    "statVarKey": [
+                      "Count_Person_FullTimeYearRoundWorker"
+                    ],
+                    "title": "Population: 16-64 Years, Full Time Year Round Worker in Washington",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 16-64 Years, Full Time Year Round Worker"
           }
         ],
         "statVarSpec": {
@@ -611,13 +643,13 @@
             "name": "Population: 16 Years or More, With Earnings",
             "statVar": "Count_Person_16OrMoreYears_WithEarnings"
           },
-          "Count_Person_Civilian_InLaborForce": {
-            "name": "Population: 16 Years or More, Civilian, in Labor Force",
-            "statVar": "Count_Person_Civilian_InLaborForce"
-          },
           "Count_Person_Employed": {
             "name": "Population With Current Employment",
             "statVar": "Count_Person_Employed"
+          },
+          "Count_Person_FullTimeYearRoundWorker": {
+            "name": "Population: 16 - 64 Years, Full Time Year Round Worker",
+            "statVar": "Count_Person_FullTimeYearRoundWorker"
           },
           "Count_Person_InLaborForce": {
             "name": "Population in the Labor Force",
@@ -1046,10 +1078,10 @@
     },
     "childTopics": [],
     "exploreMore": {
-      "Count_Person_Civilian_InLaborForce": {
-        "employment": [
-          "Count_Person_Civilian_Unemployed",
-          "dc/bqbxc8gc6tge4"
+      "Count_Person_FullTimeYearRoundWorker": {
+        "gender": [
+          "Count_Person_Female_FullTimeYearRoundWorker",
+          "Count_Person_Male_FullTimeYearRoundWorker"
         ]
       },
       "Count_Person_NotInLaborForce": {
