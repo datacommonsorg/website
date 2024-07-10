@@ -19,12 +19,11 @@ import { GoogleSpreadsheet } from "google-spreadsheet";
 import React, { useContext, useEffect, useState } from "react";
 
 import { signInWithGoogle } from "../../../utils/google_signin";
-import { QuerySection } from "../query_section";
-import { TablePane } from "../table_pane";
-import { DocInfo, EvalType, FeedbackStage } from "../types";
+import { DocInfo } from "../types";
 import { getDocInfo } from "../util";
 import { AppContext, SessionContext } from "./context";
 import { getLeftAndRight } from "./left_right_picker";
+import { QueryWithTables } from "./query_with_tables";
 
 interface AppPropType {
   sessionId: string;
@@ -95,35 +94,9 @@ export function App(props: AppPropType): JSX.Element {
           }}
         >
           <div className="app-content">
-            <div className="sxs-pane">
-              <QuerySection
-                doc={left.doc}
-                evalType={left.evalType}
-                feedbackStage={FeedbackStage.SXS}
-                query={left.allQuery[sessionQueryId]}
-              />
-              {left.evalType === EvalType.RAG && (
-                <TablePane
-                  doc={left.doc}
-                  calls={left.allCall[sessionQueryId]}
-                />
-              )}
-            </div>
+            <QueryWithTables docInfo={left}></QueryWithTables>
             <div className="divider" />
-            <div className="sxs-pane">
-              <QuerySection
-                doc={right.doc}
-                evalType={right.evalType}
-                feedbackStage={FeedbackStage.SXS}
-                query={right.allQuery[sessionQueryId]}
-              />
-              {right.evalType === EvalType.RAG && (
-                <TablePane
-                  doc={right.doc}
-                  calls={right.allCall[sessionQueryId]}
-                />
-              )}
-            </div>
+            <QueryWithTables docInfo={right}></QueryWithTables>
           </div>
         </AppContext.Provider>
       )}
