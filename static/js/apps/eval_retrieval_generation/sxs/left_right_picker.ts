@@ -1,3 +1,5 @@
+import sdbm from "sdbm";
+
 import { DocInfo } from "../types";
 
 /**
@@ -9,8 +11,13 @@ export function getLeftAndRight(
   docInfoB: DocInfo | null,
   queryId: number
 ): { left: DocInfo; right: DocInfo } {
-  // TODO: Pseudo-randomize based on session ID, query ID, and two sheet IDs.
-  if (Number(sessionId) % 2 == 0) {
+  if (!docInfoA || !docInfoB) {
+    return { left: docInfoA, right: docInfoB };
+  }
+  const inputs =
+    `${docInfoA.doc.spreadsheetId} ${docInfoB.doc.spreadsheetId}` +
+    ` ${sessionId} ${queryId}`;
+  if (sdbm(inputs) % 2 === 0) {
     return { left: docInfoA, right: docInfoB };
   } else {
     return { left: docInfoB, right: docInfoA };
