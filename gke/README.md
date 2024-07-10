@@ -62,6 +62,11 @@ You should have owner/editor role to perform the following tasks.
    ./configure_internal_load_balancer.sh <ENV> <REGION>
    ```
 
+1. If setting up an instance with NL enabled and using VertexAI, do the following to get the necessary permissions.
+    - Note the robot service account for your new instance. This will most likely be `website-robot@<project>.iam.gserviceaccount.com`, but you can check in `IAM & Admin -> Service Accounts` ([screenshot](https://screenshot.googleplex.com/8eout4BpvPN9xUt)).
+    - Look at the enabled vertex_ai_models in the `deploy/helm_charts/envs/<ENV>.yaml` file. e.g., https://github.com/datacommonsorg/website/blob/master/deploy/helm_charts/envs/autopush.yaml#L64-L80 and for each project_id:
+         - Go to the IAM & Admin page for that project & grant "Vertex AI User" role to the robot service account for this instance ([screenshot](https://screenshot.googleplex.com/9GiEsWML5fztwS5)).
+
 1. Run the following scripts sequentially.
 
    ```bash
