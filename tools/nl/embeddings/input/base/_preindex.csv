@@ -2055,6 +2055,7 @@ Number of black or african american people with disabilities,Count_Person_WithDi
 Number of boys under 4 years old,Count_Person_0To4Years_Male
 Number of burglaries,Count_CriminalActivities_Burglary
 Number of car thefts,Count_CriminalActivities_MotorVehicleTheft
+Number of civilian in family household,Count_Person_Civilian_FamilyHousehold_NonInstitutionalized
 Number of civilian reside in household,Count_Person_Civilian_ResidesInHousehold
 Number of civilians aged 18 or more,Count_Person_18OrMoreYears_Civilian
 Number of civilians aged 18 or more who reside in adult correctional facilities,Count_Person_18OrMoreYears_Civilian_ResidesInAdultCorrectionalFacilities
@@ -2062,6 +2063,8 @@ Number of civilians aged 18 or more who reside in college or university student 
 Number of civilians aged 18 or more who reside in group quarters,Count_Person_18OrMoreYears_Civilian_ResidesInGroupQuarters
 Number of civilians aged 18 or more who reside in institutionalized group quarters,Count_Person_18OrMoreYears_Civilian_ResidesInInstitutionalizedGroupQuarters
 Number of civilians aged 18 or more who reside in non-institutionalized group quarters,Count_Person_18OrMoreYears_Civilian_ResidesInNoninstitutionalizedGroupQuarters
+Number of civilians in labor force,Count_Person_Civilian_InLaborForce
+Number of civilians in married couple family household,Count_Person_Civilian_MarriedCoupleFamilyHousehold_NonInstitutionalized
 Number of coastal floods,Count_CoastalFloodEvent
 Number of companies publishing sustainability reports,dc/topic/sdg_12.6.1
 Number of companies publishing sustainability reports with disclosure by dimension,sdg/EN_SCP_FRMN
@@ -2569,9 +2572,9 @@ Number of non white people,Count_Person_NonWhite
 Number of non-family households,Count_Household_NonfamilyHousehold
 Number of non-institutionalized civilian,Count_Person_Civilian_NonInstitutionalized
 Number of non-institutionalized civilian with disability,Count_Person_Civilian_WithDisability_NonInstitutionalized
-Number of non-institutionalized females,Count_Person_Civilian_Female_NonInstitutionalized
-Number of non-institutionalized females without disability,Count_Person_Civilian_NoDisability_NonInstitutionalized
-Number of non-institutionalized males,Count_Person_Civilian_Male_NonInstitutionalized
+Number of non-institutionalized female civilians,Count_Person_Civilian_Female_NonInstitutionalized
+Number of non-institutionalized female civilians without disability,Count_Person_Civilian_NoDisability_NonInstitutionalized
+Number of non-institutionalized male civilians,Count_Person_Civilian_Male_NonInstitutionalized
 Number of nonfamily households that received food stamps in the past 12 months,Count_Household_WithFoodStampsInThePast12Months_NonfamilyHousehold
 Number of nonfamily households without children and received food stamps in the last 12 months,Count_Household_WithFoodStampsInThePast12Months_WithoutChildrenUnder18_NonfamilyHousehold
 Number of one race people with disabilities,Count_Person_WithDisability_OneRace
@@ -2608,9 +2611,6 @@ Number of people do not speak english at all,Count_Person_SpeakEnglishNotAtAll
 Number of people do not speak english well,Count_Person_SpeakEnglishNotWell
 Number of people employed in the manufacturing sector,dc/ndg1xk1e9frc2
 Number of people enrolled for Aadhaar,Count_Person_Aadhaar_Enrolled
-Number of people in family household,Count_Person_Civilian_FamilyHousehold_NonInstitutionalized
-Number of people in labor force,Count_Person_Civilian_InLaborForce
-Number of people in married couple family household,Count_Person_Civilian_MarriedCoupleFamilyHousehold_NonInstitutionalized
 Number of people living above the poverty level in the past 12 months,Count_Person_AbovePovertyLevelInThePast12Months
 Number of people living in urban areas,Count_Person_Urban
 Number of people living in urban areas and below poverty level in the past 12 months,Count_Person_Urban_BelowPovertyLevelInThePast12Months
