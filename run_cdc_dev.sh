@@ -18,10 +18,11 @@ set -e
 # Runs an approximate custom dc setup for development.
 # Note that this is not the exact custom dc setup but one that can be easier to develop against vs doing it in a docker container.
 
-# Make sure the following are taken care of before running this script:
-# - run ./run_npm.sh
-# - run ./scripts/update_git_submodules.sh
-# - run ./run_test.sh --setup_python
+# Make sure the following are run before running this script:
+# ./run_npm.sh
+# ./scripts/update_git_submodules.sh
+# ./run_test.sh --setup_python
+# pip3 install -r import/simple/requirements.txt
 
 # Kill forked processes on exit.
 trap "trap - SIGTERM && kill -- -$$" SIGINT SIGTERM EXIT
