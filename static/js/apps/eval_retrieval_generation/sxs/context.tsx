@@ -19,9 +19,9 @@ import React, { createContext, useState } from "react";
 import { DocInfo } from "../types";
 
 interface AppContextType {
-  sessionId: string;
   docInfoA: DocInfo;
   docInfoB: DocInfo;
+  sessionId: string;
 }
 
 /**
@@ -29,9 +29,9 @@ interface AppContextType {
  * tool.
  */
 export const AppContext = createContext<AppContextType>({
-  sessionId: "",
   docInfoA: null,
   docInfoB: null,
+  sessionId: "",
 });
 
 /**

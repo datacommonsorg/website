@@ -88,9 +88,9 @@ export function App(props: AppPropType): JSX.Element {
       {docInfos && (
         <AppContext.Provider
           value={{
-            sessionId: props.sessionId,
             docInfoA: docInfos.a,
             docInfoB: docInfos.b,
+            sessionId: props.sessionId,
           }}
         >
           <div className="app-content">
