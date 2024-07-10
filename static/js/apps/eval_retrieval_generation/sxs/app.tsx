@@ -24,6 +24,7 @@ import { getDocInfo } from "../util";
 import { SessionContext } from "./context";
 import { getLeftAndRight } from "./left_right_picker";
 import { QueryWithTables } from "./query_with_tables";
+import { SxsFeedback } from "./sxs_feedback";
 
 interface AppPropType {
   sessionId: string;
@@ -31,16 +32,27 @@ interface AppPropType {
   sheetIdB: string;
 }
 
+function getSortedQueryIds(docInfos: { a: DocInfo; b: DocInfo }) {
+  const idsA = Object.keys(docInfos?.a?.allQuery || []);
+  const idsB = Object.keys(docInfos?.b?.allQuery || []);
+  return idsA
+    .filter((id) => idsB.includes(id))
+    .map((id) => Number(id))
+    .sort((a, b) => a - b);
+}
+
 export function App(props: AppPropType): JSX.Element {
   const [user, setUser] = useState<User | null>(null);
   const [docInfos, setDocInfos] = useState<{ a: DocInfo; b: DocInfo }>(null);
   const { setSessionQueryId, sessionQueryId } = useContext(SessionContext);
+  const sortedQueryIds = getSortedQueryIds(docInfos);
   const { leftDocInfo, rightDocInfo } = getLeftAndRight(
     props.sessionId,
     docInfos?.a,
     docInfos?.b,
     sessionQueryId
   );
+
   async function handleUserSignIn(
     user: User,
     credential: OAuthCredential
@@ -91,6 +103,11 @@ export function App(props: AppPropType): JSX.Element {
             <QueryWithTables docInfo={leftDocInfo} />
             <div className="divider" />
             <QueryWithTables docInfo={rightDocInfo} />
+            <SxsFeedback
+              leftSheetId={leftDocInfo.doc.spreadsheetId}
+              rightSheetId={rightDocInfo.doc.spreadsheetId}
+              sortedQueryIds={sortedQueryIds}
+            ></SxsFeedback>
           </div>
         </>
       )}

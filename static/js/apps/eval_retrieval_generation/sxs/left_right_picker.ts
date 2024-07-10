@@ -35,6 +35,7 @@ export function getLeftAndRight(
   const inputs =
     `${docInfoA.doc.spreadsheetId} ${docInfoB.doc.spreadsheetId}` +
     ` ${sessionId} ${queryId}`;
+  // TODO use a different hash function. This one has really similar values for similar strings.
   if (sdbm(inputs) % 2 === 0) {
     return { leftDocInfo: docInfoA, rightDocInfo: docInfoB };
   } else {
