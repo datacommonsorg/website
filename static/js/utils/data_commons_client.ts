@@ -35,7 +35,7 @@ export const defaultDataCommonsClient = new DataCommonsClient({
 export function getDataCommonsClient(apiRoot?: string) {
   if (apiRoot) {
     return new DataCommonsClient({
-      apiRoot: apiRoot,
+      apiRoot,
     });
   }
   return defaultDataCommonsClient;

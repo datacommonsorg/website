@@ -47,12 +47,12 @@ import { getSeriesWithin } from "../../utils/data_fetch_utils";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import {
-  ReplacementStrings,
   getDenomInfo,
   getFirstCappedStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarName,
+  ReplacementStrings,
   showError,
   transformCsvHeader,
 } from "../../utils/tile_utils";
