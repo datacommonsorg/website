@@ -14,7 +14,9 @@
  limitations under the License.
  */
 
+import { md5 } from "js-md5";
 import sdbm from "sdbm";
+import Srand from "seeded-rand";
 
 import { DocInfo } from "../types";
 
@@ -35,8 +37,9 @@ export function getLeftAndRight(
   const inputs =
     `${docInfoA.doc.spreadsheetId} ${docInfoB.doc.spreadsheetId}` +
     ` ${sessionId} ${queryId}`;
-  // TODO use a different hash function. This one has really similar values for similar strings.
-  if (sdbm(inputs) % 2 === 0) {
+  const seededRand = new Srand(sdbm(md5(inputs)));
+  console.log(seededRand.random() * 2);
+  if (Math.floor(seededRand.random() * 2) === 0) {
     return { leftDocInfo: docInfoA, rightDocInfo: docInfoB };
   } else {
     return { leftDocInfo: docInfoB, rightDocInfo: docInfoA };
