@@ -42,6 +42,7 @@ export type DcCall = Record<number, number>;
 export enum EvalType {
   RIG = "RIG",
   RAG = "RAG",
+  BASELINE = "BASELINE",
 }
 
 export enum FeedbackStage {
