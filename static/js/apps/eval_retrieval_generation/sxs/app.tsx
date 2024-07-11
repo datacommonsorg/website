@@ -46,6 +46,9 @@ export function App(props: AppPropType): JSX.Element {
   const [docInfos, setDocInfos] = useState<{ a: DocInfo; b: DocInfo }>(null);
   const { setSessionQueryId, sessionQueryId } = useContext(SessionContext);
   const sortedQueryIds = getSortedQueryIds(docInfos);
+  if (!sessionQueryId) {
+    setSessionQueryId(sortedQueryIds[0]);
+  }
   const { leftDocInfo, rightDocInfo } = getLeftAndRight(
     props.sessionId,
     docInfos?.a,
@@ -70,7 +73,6 @@ export function App(props: AppPropType): JSX.Element {
       // Get and set information about each document
       Promise.all([getDocInfo(docA), getDocInfo(docB)]).then(
         ([docInfoA, docInfoB]) => {
-          setSessionQueryId(1);
           setDocInfos({ a: docInfoA, b: docInfoB });
         }
       );
@@ -106,7 +108,9 @@ export function App(props: AppPropType): JSX.Element {
             <SxsFeedback
               leftSheetId={leftDocInfo.doc.spreadsheetId}
               rightSheetId={rightDocInfo.doc.spreadsheetId}
+              sessionId={props.sessionId}
               sortedQueryIds={sortedQueryIds}
+              userEmail={user.email}
             ></SxsFeedback>
           </div>
         </>

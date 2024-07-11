@@ -14,32 +14,56 @@
  * limitations under the License.
  */
 
-/* Wrapper component around all the right hand side feedback pane components */
+/* Wrapper component around all side-by-side feedback components */
 
-import React from "react";
+import React, { useContext } from "react";
 
+import { loadSpinner, removeSpinner } from "../../../shared/util";
 import { FEEDBACK_PANE_ID } from "../constants";
+import { SessionContext } from "./context";
+import { saveRatingToStore } from "./data_store";
 import { Navigation } from "./navigation";
+import { Rating, SxsPreference } from "./types";
 
 interface SxsFeedbackPropType {
   leftSheetId: string;
   rightSheetId: string;
+  sessionId: string;
   sortedQueryIds: number[];
+  userEmail: string;
 }
 
 export function SxsFeedback(props: SxsFeedbackPropType): JSX.Element {
+  const { sessionQueryId } = useContext(SessionContext);
+
   const checkAndSubmit = () => {
-    console.log("checkAndSubmit");
-    // TODO Actually store feedback inputs.
-    return Promise.resolve(true);
+    const rating: Rating = {
+      leftSheetId: props.leftSheetId,
+      rightSheetId: props.rightSheetId,
+      // TODO Get these values from input elements and throw if they're empty.
+      preference: SxsPreference.NEUTRAL,
+      reason: "because",
+    };
+    loadSpinner(FEEDBACK_PANE_ID);
+    console.log(sessionQueryId);
+    return saveRatingToStore(
+      props.userEmail,
+      props.leftSheetId,
+      props.rightSheetId,
+      sessionQueryId,
+      props.sessionId,
+      rating
+    )
+      .then(() => true)
+      .finally(() => removeSpinner(FEEDBACK_PANE_ID));
   };
 
   return (
     <div className="feedback-pane feedback-pane-footer" id={FEEDBACK_PANE_ID}>
       <div className="content">
         <p>Inputs go here.</p>
-        <p>If left is better, store sheet ID {props.leftSheetId}.</p>
-        <p>If right is better, store sheet ID {props.rightSheetId}.</p>
+        <p>left: {props.leftSheetId}.</p>
+        <p>right: {props.rightSheetId}.</p>
       </div>
       <Navigation
         sortedQueryIds={props.sortedQueryIds}
