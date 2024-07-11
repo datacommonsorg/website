@@ -15,6 +15,8 @@
 
 from typing import Dict, FrozenSet, List, Set, Union
 
+_RATE_WORDS_TO_SKIP = "(birth|change|death|exchange|fertility|literacy|mortality|participation|unemployment|withdrawal)"
+
 STOP_WORDS: Set[str] = {
     'ourselves',
     'hers',
@@ -152,198 +154,177 @@ STOP_WORDS_EXCLUSIONS = ['how many', 'number of']
 
 # Note: These heuristics should be revisited if we change
 # query preprocessing (e.g. stopwords, stemming)
-QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[str, List[str]]]] = {
-    "Ranking": {
-        "High": [
-            "most",
-            "(?<!bottom to )top",
-            "best",  # leaving here for backwards-compatibility
-            "(?<!lowest to )highest",
-            "high",
-            "largest",
-            "biggest",
-            "greatest",
-            "strongest",
-            "richest",
-            "sickest",
-            "illest",
-            "oldest",
-            "major",  # as in 'major storms'
-            "descending",
-            "top to bottom",
-            "highest to lowest",
+QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
+    str, List[str]]]] = {
+        "Ranking": {
+            "High": [
+                "most",
+                "(?<!bottom to )top",
+                "best",  # leaving here for backwards-compatibility
+                "(?<!lowest to )highest",
+                "high",
+                "largest",
+                "biggest",
+                "greatest",
+                "strongest",
+                "richest",
+                "sickest",
+                "illest",
+                "oldest",
+                "major",  # as in 'major storms'
+                "descending",
+                "top to bottom",
+                "highest to lowest",
+            ],
+            "Low": [
+                "least",
+                "(?<!top to )bottom",
+                "worst",  # leaving here for backwards-compatibility
+                "(?<!highest to )lowest",
+                "low",
+                "smallest",
+                "weakest",
+                "youngest",
+                "poorest",
+                "healthiest",
+                "ascending",
+                "bottom to top",
+                "lowest to highest",
+            ],
+            "Best": ["best",],
+            "Worst": ["worst",],
+            "Extreme": ["extremes?", "impact"]
+        },
+        "Comparison": [
+            "compare(s|d)?",
+            "comparison",
+            "(is|has|have)( a| the)? \w+er",
+            # WARNING: These will conflate with Correlation
+            "vs",
+            "versus",
         ],
-        "Low": [
-            "least",
-            "(?<!top to )bottom",
-            "worst",  # leaving here for backwards-compatibility
-            "(?<!highest to )lowest",
-            "low",
-            "smallest",
-            "weakest",
-            "youngest",
-            "poorest",
-            "healthiest",
-            "ascending",
-            "bottom to top",
-            "lowest to highest",
+        "Correlation": [
+            "correlate",
+            "correlated",
+            "correlation",
+            "relationship to",
+            "relationship with",
+            "relationship between",
+            "related to",
+            "related with",
+            "related between",
+            # WARNING: These will conflate with Comparison
+            "vs",
+            "versus",
         ],
-        "Best": [
-            "best",
+        "Event": {
+            "Fire": ["(wild)?fires?",],
+            "Drought": ["droughts?",],
+            "Flood": ["floods?",],
+            "Cyclone": [
+                "tropical storms?",
+                "cyclones?",
+                "hurricanes?",
+                "typhoons?",
+            ],
+            "ExtremeHeat": [
+                "(extreme )?heat",
+                "extreme(ly)? hot",
+            ],
+            "ExtremeCold": ["(extreme(ly)? )?cold",],
+            "WetBulb": ["wet(\W?)bulb",],
+            "Earthquake": ["earthquakes?",]
+        },
+        "TimeDelta": {
+            "Increase": [
+                "grow(n|th|s)?",
+                "grew",
+                "gain(s)?",
+                "increase(d|s)?",
+                "increasing",
+                "surge(d|s)?",
+                "surging",
+                "rise(d|n|s)?",
+                "rising",
+            ],
+            "Decrease": [
+                "decrease(d|s)?",
+                "decreasing",
+                "shr(ank|ink|unk)(ing)?",
+                "reduce(d|s)?",
+                "reduc(ing|tion)",
+                "decline(d|s)?",
+                "declining",
+                "plummet(ed|ing|s)?",
+                "fall(en|s)?",
+                "drop(ped|s)?",
+                "loss(es)?",
+            ],
+            "Change": ["change(s|d|) (over|with) time"]
+        },
+        "Superlative": {
+            "Big": ["big", "bigger", "biggest"],
+            "Small": ["small", "bigger", "smallest"],
+            "Rich": ["rich", "richer", "richest"],
+            "Poor": ["poor", "poorer", "poorest"],
+            "List": ["list( of|)"]
+        },
+        "Overview": ["tell me (more )?about",],
+        # Hint for potential reference to answer-places, to be used
+        # together with ContainedInPlace.
+        "AnswerPlacesReference": ["these", "those"],
+        "PerCapita": [
+            "fraction",
+            "percent",
+            "percentage",
+            "per capita",
+            "percapita",
+            "per person",
+            # remove "rate" or "rates" if is not followed by certain words (used as one metric)
+            f"\brate(s)?\b(?!\s*{_RATE_WORDS_TO_SKIP}\s+rate(s)?)",
         ],
-        "Worst": [
-            "worst",
-        ],
-        "Extreme": ["extremes?", "impact"]
-    },
-    "Comparison": [
-        "compare(s|d)?",
-        "comparison",
-        "(is|has|have)( a| the)? \w+er",
-        # WARNING: These will conflate with Correlation
-        "vs",
-        "versus",
-    ],
-    "Correlation": [
-        "correlate",
-        "correlated",
-        "correlation",
-        "relationship to",
-        "relationship with",
-        "relationship between",
-        "related to",
-        "related with",
-        "related between",
-        # WARNING: These will conflate with Comparison
-        "vs",
-        "versus",
-    ],
-    "Event": {
-        "Fire": [
-            "(wild)?fires?",
-        ],
-        "Drought": ["droughts?",
-                   ],
-        "Flood": [
-            "floods?",
-        ],
-        "Cyclone": [
-            "tropical storms?",
-            "cyclones?",
-            "hurricanes?",
-            "typhoons?",
-        ],
-        "ExtremeHeat": [
-            "(extreme )?heat",
-            "extreme(ly)? hot",
-        ],
-        "ExtremeCold": [
-            "(extreme(ly)? )?cold",
-        ],
-        "WetBulb": ["wet(\W?)bulb",],
-        "Earthquake": ["earthquakes?",]
-    },
-    "TimeDelta": {
-        "Increase": [
-            "grow(n|th|s)?",
-            "grew",
-            "gain(s)?",
-            "increase(d|s)?",
-            "increasing",
-            "surge(d|s)?",
-            "surging",
-            "rise(d|n|s)?",
-            "rising",
-        ],
-        "Decrease": [
-            "decrease(d|s)?",
-            "decreasing",
-            "shr(ank|ink|unk)(ing)?",
-            "reduce(d|s)?",
-            "reduc(ing|tion)",
-            "decline(d|s)?",
-            "declining",
-            "plummet(ed|ing|s)?",
-            "fall(en|s)?",
-            "drop(ped|s)?",
-            "loss(es)?",
-        ],
-        "Change": ["change(s|d|) (over|with) time"]
-    },
-    "Superlative": {
-        "Big": ["big", "bigger", "biggest"
-               ],
-        "Small": [
-            "small",
-            "bigger",
-            "smallest"
-        ],
-        "Rich": [
-            "rich",
-            "richer",
-            "richest"
-        ],
-        "Poor": [
-            "poor",
-            "poorer",
-            "poorest"
-        ],
-        "List": ["list( of|)"]
-    },
-    "Overview": ["tell me (more )?about",],
-    # Hint for potential reference to answer-places, to be used
-    # together with ContainedInPlace.
-    "AnswerPlacesReference":
-        ["these",
-         "those"],
-    "PerCapita": [
-        "fraction",
-        "percent",
-        "percentage",
-        "per capita",
-        "percapita",
-        "per person",
-        # remove "rate" if is not followed by certain words (used as one metric)
-        "\brate\b(?!\s*(birth|change|death|exchange|fertility|literacy|mortality|participation|unemployment|withdrawal)\s+rate)",
-        "rates"
-    ],
-    "Temporal": [
-        # Day of week
-        "monday",
-        "tuesday",
-        "wednesday",
-        "thursday",
-        "friday",
-        "saturday",
-        "sunday",
-        # Month of year
-        "january",
-        "february",
-        "march",
-        "april",
-        "may",
-        "june",
-        "july",
-        "august",
-        "september",
-        "october",
-        "november",
-        "december",
-        # Season
-        "spring",
-        "summer",
-        "winter",
-        "autumn",
-        # Others
-        "today",
-        "yesterday",
-        "tomorrow",
-    ]
-}
+        "Temporal": [
+            # Day of week
+            "monday",
+            "tuesday",
+            "wednesday",
+            "thursday",
+            "friday",
+            "saturday",
+            "sunday",
+            # Month of year
+            "january",
+            "february",
+            "march",
+            "april",
+            "may",
+            "june",
+            "july",
+            "august",
+            "september",
+            "october",
+            "november",
+            "december",
+            # Season
+            "spring",
+            "summer",
+            "winter",
+            "autumn",
+            # Others
+            "today",
+            "yesterday",
+            "tomorrow",
+        ]
+    }
 
-# We do not want to strip words from events / superlatives / temporal
+# We do not want to strip words from events / superlatives / temporal / percapita
 # since we want those to match SVs too!
-HEURISTIC_TYPES_IN_VARIABLES = frozenset(["Event", "Superlative", "Temporal"])
+HEURISTIC_TYPES_IN_VARIABLES = frozenset(
+    ["Event", "Superlative", "Temporal", "PerCapita"])
+# For toolformer, we only do not want to strip words from
+# events / superlatives / temporal
+HEURISTIC_TYPES_IN_VARIABLES_TOOLFORMER = frozenset(
+    ["Event", "Superlative", "Temporal"])
 
 PLACE_TYPE_TO_PLURALS: Dict[str, str] = {
     "place": "places",

@@ -1804,7 +1804,7 @@ Number of Merchant Wholesalers establishments,Count_Establishment_USC_MerchantWh
 Number of Milk Cows in Farm Inventory,Count_FarmInventory_MilkCows
 "Number of Mining, Quarrying, And Oil And Gas Extraction establishments",Count_Establishment_NAICSMiningQuarryingOilGasExtraction;dc/br6elkd593zs1
 Number of Mumps Cases,Count_MedicalConditionIncident_ConditionMumps
-Number of Murder and Non Negligent Manslaughter per capita,Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person
+Number of Murder and non-negligent manslaughter per capita,Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person
 Number of Muslim boys,indianCensus/Count_Person_Religion_Muslim_YearsUpto6_Male
 Number of Muslim children,indianCensus/Count_Person_Religion_Muslim_YearsUpto6
 Number of Muslim children in rural areas,indianCensus/Count_Person_Religion_Muslim_YearsUpto6_Rural
@@ -2520,7 +2520,7 @@ Number of married couple households with a householder with some college or an a
 Number of married females,Count_Person_Female_MarriedAndNotSeparated
 Number of married foreign born people,Count_Person_15OrMoreYears_MarriedAndNotSeparated_ForeignBorn
 Number of married native people,Count_Person_15OrMoreYears_MarriedAndNotSeparated_Native
-Number of married people,Count_Person_MarriedAndNotSeparated;Count_Person_NowMarried
+Number of married people,Count_Person_MarriedAndNotSeparated
 Number of married people of multi-races,Count_Person_15OrMoreYears_NeverMarried_TwoOrMoreRaces
 Number of married people of one race,Count_Person_15OrMoreYears_MarriedAndNotSeparated_OneRace
 Number of married people of two or more races,Count_Person_15OrMoreYears_MarriedAndNotSeparated_TwoOrMoreRaces
@@ -2530,6 +2530,7 @@ Number of married people who reside in group quarters,Count_Person_MarriedAndNot
 Number of married people who reside in institutionalized group quarters,Count_Person_MarriedAndNotSeparated_ResidesInInstitutionalizedGroupQuarters
 Number of married people who reside in non-institutionalized group quarters,Count_Person_MarriedAndNotSeparated_ResidesInNoninstitutionalizedGroupQuarters
 Number of married people who reside in nursing facilities,Count_Person_MarriedAndNotSeparated_ResidesInNursingFacilities
+"Number of married people, including separated",Count_Person_NowMarried
 Number of married white people,Count_Person_15OrMoreYears_MarriedAndNotSeparated_WhiteAlone
 Number of mobile phone subscriptions per person,Count_Product_MobileCellularSubscription_AsFractionOf_Count_Person
 Number of multi race people with disabilities,Count_Person_WithDisability_TwoOrMoreRaces
@@ -2892,7 +2893,6 @@ People with health insurance split by race,dc/topic/WithHealthInsuranceByRace
 People with high blood pressure,dc/topic/BloodPressure
 People with high cholestrol,dc/topic/Cholesterol
 Percent of area that are burned in land fire,Percent_BurnedArea_FireEvent
-Percent of females commiting intentional homicide,Count_CriminalActivities_MurderAndNonNegligentManslaughter_Female_AsFractionOf_Count_Person_Female
 Percent of forest area that burned,Percent_BurnedArea_FireEvent_Forest
 Percent of forest area that experienced high-severity fire,Percent_BurnedArea_FireEvent_Forest_HighSeverity
 Percent of illiterate people older than 60,Count_Person_60OrMoreYears_Illiterate_AsAFractionOf_Count_Person_60OrMoreYears
@@ -2906,7 +2906,6 @@ Percent of land covered by Permanent Water,LandCoverFraction_PermanentWater
 Percent of land covered by Seasonal Water,LandCoverFraction_SeasonalWater
 Percent of land covered by Shrubland,LandCoverFraction_Shrubland
 Percent of land covered by Snow Ice,LandCoverFraction_SnowIce
-Percent of males commiting intentional homicide,Count_CriminalActivities_MurderAndNonNegligentManslaughter_Male_AsFractionOf_Count_Person_Male
 Percentage of Bcg Immunization Coverage Among 1 Year Old female,WHO/bcgv_Female
 Percentage of Bcg Immunization Coverage Among 1 Year Old in Rural Areas,WHO/bcgv_Rural
 Percentage of Bcg Immunization Coverage Among 1 Year Old in Urban areas,WHO/bcgv_Urban
@@ -4192,7 +4191,6 @@ health in the world,dc/topic/GlobalHealth
 health insurance private type,dc/topic/PrivateHealthInsuranceType
 health insurance public type,dc/topic/PublicHealthInsuranceType
 health of mothers,dc/topic/MaternalHealth
-heart attack,dc/topic/Stroke
 high cholestrol condition,dc/topic/Cholesterol
 high humidity and high heat,dc/topic/WetBulbEvent
 high rainfall,dc/topic/Precipitation
@@ -4435,6 +4433,8 @@ number of males without health insurance,Count_Person_Male_NoHealthInsurance
 number of multi race females living Above Poverty Level in the past 12 months,Count_Person_Female_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces
 number of multi races females living below poverty level in the past 12 months,Count_Person_Female_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces
 number of multi-race males,Count_Person_Male_TwoOrMoreRaces
+number of murders,Count_CriminalActivities_MurderAndNonNegligentManslaughter
+number of murders per capita,Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person
 number of native hawaiian or other pacific islander females living Above Poverty Level in the Past 12 months,Count_Person_Female_AbovePovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone
 number of native hawaiian or other pacific islander females living below poverty level in the past 12 months,Count_Person_Female_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone
 number of never married males aged 15 years or older,Count_Person_Male_NeverMarried
@@ -4648,10 +4648,14 @@ proportion of children aged 5 and under who are overweight,WHO/NUTOVERWEIGHTPREV
 proportion of children aged 6-59 Months with anaemia,WHO/NUTRITION_ANAEMIA_CHILDREN_PREV
 proportion of children with asthma,Percent_Person_Children_WithAsthma
 proportion of females aged 15+ who smoke,Count_Person_15OrMoreYears_Female_Smoking_AsFractionOf_Count_Person_15OrMoreYears_Female
+proportion of females commiting murder,Count_CriminalActivities_MurderAndNonNegligentManslaughter_Female_AsFractionOf_Count_Person_Female
+proportion of females commiting murder and non-negligent manslaughter,Count_CriminalActivities_MurderAndNonNegligentManslaughter_Female_AsFractionOf_Count_Person_Female
 proportion of females who use tobacco,Percent_TobaccoUsing_In_Count_Person_Female
 proportion of females with obesity,dc/4lvmzr1h1ylk1
 proportion of low birth weight,WHO/LBW_PREVALENCE
 proportion of males aged 15+ who smoke,Count_Person_15OrMoreYears_Male_Smoking_AsFractionOf_Count_Person_15OrMoreYears_Male
+proportion of males commiting murder,Count_CriminalActivities_MurderAndNonNegligentManslaughter_Male_AsFractionOf_Count_Person_Male
+proportion of males commiting murder and non-negligent manslaughter,Count_CriminalActivities_MurderAndNonNegligentManslaughter_Male_AsFractionOf_Count_Person_Male
 proportion of males who use tobacco,Percent_TobaccoUsing_In_Count_Person_Male
 proportion of men online,dc/topic/sdg_17.8.1
 proportion of people Who Are Physically Inactive,Percent_Person_PhysicalInactivity
