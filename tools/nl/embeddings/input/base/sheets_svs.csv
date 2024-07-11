@@ -2499,7 +2499,7 @@ Count_Person_NonWorker_Urban,Number of urban people who do not work
 Count_Person_NotAUSCitizen,Number of non US citizens
 Count_Person_NotEnrolledInSchool,Number of people not enrolled in school
 Count_Person_NotInLaborForce,Number of people Aged 16 and Over Not in the Labor Force
-Count_Person_NowMarried,Number of married people, including separated
+Count_Person_NowMarried,"Number of married people, including separated"
 Count_Person_OneRace,Number of people of single race
 Count_Person_OneRace_ResidesInCollegeOrUniversityStudentHousing,Number of people of single race who reside in college or university student housing
 Count_Person_OneRace_ResidesInGroupQuarters,Number of people of single race who reside in group quarters
