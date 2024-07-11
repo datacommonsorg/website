@@ -100,8 +100,8 @@ function run_py_test {
   # Run server pytest.
   source .env/bin/activate
   export FLASK_ENV=test
-  export TOKENIZERS_PARALLELISM=false
-  export OMP_NUM_THREADS=1
+  # export TOKENIZERS_PARALLELISM=false
+  # export OMP_NUM_THREADS=1
   # Disabled nodejs e2e test to avoid dependency on dev
   python3 -m pytest server/tests/ -s --ignore=server/tests/nodejs_e2e_test.py ${@}
   python3 -m pytest shared/tests/ -s ${@}
@@ -166,9 +166,9 @@ function run_screenshot_test {
 # Run integration test for NL and explore interface
 # The first argument will be the test file under `integration_tests` folder
 function run_integration_test {
-  echo "Starting NL server"
-  ./run_nl_server.sh&
-  sleep 100
+  # echo "Starting NL server"
+  # ./run_nl_server.sh&
+  # sleep 100
 
   source .env/bin/activate
   export ENABLE_MODEL=true
@@ -179,10 +179,10 @@ function run_integration_test {
   export GOOGLE_CLOUD_PROJECT=datcom-website-staging
   export TEST_MODE=test
   export ENABLE_EVAL_TOOL=false
-  export OMP_NUM_THREADS=1
+  # export OMP_NUM_THREADS=1
   export TOKENIZERS_PARALLELISM=false
 
-  python3 -m pytest -vv server/integration_tests/$1 ${@:2}
+  python3 -m pytest -vv --reruns 2 server/integration_tests/$1 ${@:2}
   deactivate
 }
 

@@ -15,7 +15,7 @@
 # Run integration tests for NL
 steps:
   - id: setup_python
-    name: python:3.11.3
+    name: python:3.12
     entrypoint: /bin/bash
     waitFor: ["-"]
     args:
@@ -24,7 +24,7 @@ steps:
         ./run_test.sh --setup_python
 
   - id: explore_test_detection
-    name: python:3.11.3
+    name: python:3.12
     entrypoint: /bin/sh
     waitFor:
       - setup_python
