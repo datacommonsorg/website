@@ -31,3 +31,12 @@ export const defaultDataCommonsWebClient = new DataCommonsWebClient({
 export const defaultDataCommonsClient = new DataCommonsClient({
   apiRoot: DEFAULT_CLIENT_API_ROOT,
 });
+
+export function getDataCommonsClient(apiRoot?: string) {
+  if (apiRoot) {
+    return new DataCommonsClient({
+      apiRoot: apiRoot,
+    });
+  }
+  return defaultDataCommonsClient;
+}

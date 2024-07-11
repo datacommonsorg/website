@@ -18,11 +18,7 @@
  * Component for rendering a line type tile.
  */
 
-import {
-  DataCommonsClient,
-  isDateInRange,
-  ISO_CODE_ATTRIBUTE,
-} from "@datacommonsorg/client";
+import { isDateInRange, ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
@@ -40,6 +36,7 @@ import {
   getContextStatVar,
   getHash,
 } from "../../utils/app/visualization_utils";
+import { getDataCommonsClient } from "../../utils/data_commons_client";
 import {
   getBestUnit,
   getSeries,
@@ -188,7 +185,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
  * @returns Async function for fetching chart CSV
  */
 function getDataCsvCallback(props: LineTilePropType): () => Promise<string> {
-  const dataCommonsClient = new DataCommonsClient({ apiRoot: props.apiRoot });
+  const dataCommonsClient = getDataCommonsClient(props.apiRoot);
   return () => {
     const perCapitaVariables = props.statVarSpec
       .filter((v) => v.denom)

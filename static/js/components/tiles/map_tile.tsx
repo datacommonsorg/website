@@ -19,7 +19,6 @@
  */
 
 import {
-  DataCommonsClient,
   DataRow,
   dataRowsToCsv,
   ISO_CODE_ATTRIBUTE,
@@ -66,6 +65,7 @@ import {
   getHash,
 } from "../../utils/app/visualization_utils";
 import { stringifyFn } from "../../utils/axios";
+import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { getPointWithin, getSeriesWithin } from "../../utils/data_fetch_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
@@ -208,7 +208,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
     : null;
   const showZoomButtons =
     !!zoomParams && !!mapChartData && _.isEqual(mapChartData.props, props);
-  const dataCommonsClient = new DataCommonsClient({ apiRoot: props.apiRoot });
+  const dataCommonsClient = getDataCommonsClient(props.apiRoot);
 
   useEffect(() => {
     if (props.lazyLoad && !shouldLoad) {

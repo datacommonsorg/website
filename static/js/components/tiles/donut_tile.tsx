@@ -18,7 +18,6 @@
  * Component for rendering a donut tile.
  */
 
-import { DataCommonsClient } from "@datacommonsorg/client";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
@@ -29,16 +28,17 @@ import { useLazyLoad } from "../../shared/hooks";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { RankingPoint } from "../../types/ranking_unit_types";
+import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { getPoint, getSeries } from "../../utils/data_fetch_utils";
 import { getPlaceNames } from "../../utils/place_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
+  ReplacementStrings,
   getDenomInfo,
   getFirstCappedStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
-  ReplacementStrings,
   showError,
   transformCsvHeader,
 } from "../../utils/tile_utils";
@@ -153,7 +153,7 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
  */
 function getDataCsvCallback(props: DonutTilePropType): () => Promise<string> {
   return () => {
-    const dataCommonsClient = new DataCommonsClient({ apiRoot: props.apiRoot });
+    const dataCommonsClient = getDataCommonsClient(props.apiRoot);
     // Assume all variables will have the same date
     // TODO: Update getCsv to handle different dates for different variables
     const date = getFirstCappedStatVarSpecDate(props.statVarSpec);
