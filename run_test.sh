@@ -23,8 +23,8 @@ function setup_python {
   pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
   pip3 install -r nl_server/requirements.txt
   deactivate
-  echo "Forking off run_nl_tests"
-  ./run_nl_test.sh&
+  echo "Forking off run_nl_server.sh"
+  ./run_nl_server.sh&
   # hmmm, maybe wait for 5 mins for nl server to boot up.
   sleep 300
   echo "Slept for 300s"
