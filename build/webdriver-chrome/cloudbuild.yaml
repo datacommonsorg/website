@@ -14,7 +14,7 @@
 
 # Version can be found at: https://chromedriver.storage.googleapis.com/LATEST_RELEASE
 substitutions:
-  _VERS: "2024-06-05"
+  _VERS: "2024-07-11"
 
 steps:
   - name: "gcr.io/cloud-builders/docker"
@@ -22,9 +22,7 @@ steps:
       - build
       - "--build-arg=VERS=${_VERS}"
       - --tag=gcr.io/datcom-ci/webdriver-chrome:${_VERS}
-      - --tag=gcr.io/datcom-ci/webdriver-chrome:latest
       - "."
 
 images:
   - "gcr.io/datcom-ci/webdriver-chrome:${_VERS}"
-  - "gcr.io/datcom-ci/webdriver-chrome:latest"
