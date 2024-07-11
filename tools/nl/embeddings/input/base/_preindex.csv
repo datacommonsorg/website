@@ -1121,7 +1121,6 @@ Mean Retirement Income of Households with foreign born people from South Central
 Mean Retirement Income of Households with foreign born people from South Eastern Asia,Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthSouthEasternAsia
 Mean Retirement Income of Households with foreign born people from Southern Eastern Europe,Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthSouthernEasternEurope
 Mean Retirement Income of Households with foreign born people from Western Asia,Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthWesternAsia
-Mean Temperature,Mean_Temperature
 Mean Visibility,Mean_Visibility
 Mean Wind Speed,Mean_WindSpeed
 Mean commute time of working people,Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome
@@ -2054,6 +2053,7 @@ Number of black or african american people with disabilities,Count_Person_WithDi
 Number of boys under 4 years old,Count_Person_0To4Years_Male
 Number of burglaries,Count_CriminalActivities_Burglary
 Number of car thefts,Count_CriminalActivities_MotorVehicleTheft
+Number of children without health insurance,Count_Person_18OrLessYears_NoHealthInsurance
 Number of civilians Aged 18 or More Resides In Nursing Facilities,Count_Person_18OrMoreYears_Civilian_ResidesInNursingFacilities
 Number of civilians aged 18 or more,Count_Person_18OrMoreYears_Civilian
 Number of civilians aged 18 or more who reside in adult correctional facilities,Count_Person_18OrMoreYears_Civilian_ResidesInAdultCorrectionalFacilities
@@ -3275,7 +3275,6 @@ Sustainable fisheries as a proportion of GDP,sdg/EN_SCP_FSHGDP
 "Take urgent and significant action to reduce the degradation of natural habitats, halt the loss of biodiversity and, by 2020, protect and prevent the extinction of threatened species",dc/topic/sdg_15.5
 Tariffs,dc/topic/Tariffs
 Teacher,dc/topic/Teacher
-Temperature,dc/topic/Temperatures
 Temperature Predicitions,dc/topic/TemperaturePredictions
 The agriculture orientation index for government expenditures,dc/topic/sdg_2.a.1
 The average area covered by commercial solar installations,Mean_CoverageArea_SolarInstallation_Commercial
@@ -4243,13 +4242,11 @@ manufacturing banking,dc/topic/sdg_9.3.2
 manufacturing finance,dc/topic/sdg_9.3.2
 manufacturing heat consumption,Annual_Consumption_Energy_Manufacturing_Heat
 market value of agricultural farms,MarketValue_Farm_AgriculturalProducts
-max temp,dc/topic/Temperatures
 max temp forecast,dc/topic/TemperaturePredictions
 max temperature likely in the decade at five percent chance,dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerDecade
 max temperature likely in the decade at one percent chance,dc/topic/MaxTemperature1PercentLikelyAtLeastOncePerDecade
 max temperature likely in the year at five percent chance,dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerYear
 max temperature likely in the year at one percent chance,dc/topic/MaxTemperature1PercentLikelyAtLeastOncePerYear
-maximum temperature,dc/topic/Temperatures
 maximum temperature once per decade 1%,dc/topic/MaxTemperature1PercentLikelyAtLeastOncePerDecade
 maximum temperature once per decade 5%,dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerDecade
 maximum temperature once per year 1%,dc/topic/MaxTemperature1PercentLikelyAtLeastOncePerYear
@@ -4307,14 +4304,12 @@ median income,Median_Income_Person
 men with internet access,dc/topic/sdg_17.8.1
 men women children living below $2,dc/topic/sdg_1.2.2
 middle school students by race,dc/topic/StudentsInMiddleSchool
-min temp,dc/topic/Temperatures
 min temp forecast,dc/topic/TemperaturePredictions
 min temperature likely in the decade at five percent chance,dc/topic/MinTemperature5PercentLikelyAtLeastOncePerDecade
 min temperature likely in the decade at one percent chance,dc/topic/MinTemperature1PercentLikelyAtLeastOncePerDecade
 min temperature likely in the year at five percent chance,dc/topic/MinTemperature5PercentLikelyAtLeastOncePerYear
 min temperature likely in the year at one percent chance,dc/topic/MinTemperature1PercentLikelyAtLeastOncePerYear
 minimal snowfall,Min_Snowfall
-minimum temperature,dc/topic/Temperatures
 minimum temperature once per decade 1%,dc/topic/MinTemperature1PercentLikelyAtLeastOncePerDecade
 minimum temperature once per decade 5%,dc/topic/MinTemperature5PercentLikelyAtLeastOncePerDecade
 minimum temperature once per year 1%,dc/topic/MinTemperature1PercentLikelyAtLeastOncePerYear
@@ -7160,7 +7155,6 @@ temperature highs for the year,dc/topic/YearlyProjectedTemperatureHighs
 temperature lows for the decade,dc/topic/DecadeProjectedTemperatureLows
 temperature lows for the year,dc/topic/YearlyProjectedTemperatureLows
 temperature prediction,dc/topic/TemperaturePredictions
-temperatures,dc/topic/Temperatures
 time spend during commute,dc/topic/CommuteTime
 time spent traveling to work,dc/topic/CommuteTime
 time spent travelling from work,dc/topic/CommuteTime
