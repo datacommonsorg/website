@@ -166,6 +166,10 @@ function run_screenshot_test {
 # Run integration test for NL and explore interface
 # The first argument will be the test file under `integration_tests` folder
 function run_integration_test {
+  echo "Starting NL server"
+  ./run_nl_server.sh&
+  sleep 100
+
   source .env/bin/activate
   export ENABLE_MODEL=true
   export FLASK_ENV=integration_test
