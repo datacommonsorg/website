@@ -24,7 +24,7 @@ function setup_python {
   pip3 install -r nl_server/requirements.txt
   deactivate
   echo "Forking off run_nl_tests"
-  ./run_nl_test&
+  ./run_nl_test.sh&
   # hmmm, maybe wait for 5 mins for nl server to boot up.
   sleep 300
   echo "Slept for 300s"
