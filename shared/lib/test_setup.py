@@ -14,18 +14,15 @@
 
 import multiprocessing
 import os
-import sys
 
 
-def set_up_macos_for_tests():
-  """Ensure Python tests work on MacOS.
+def set_up_multiprocessing_for_tests():
+  """Ensure Python tests work with multiprocessing.
 
-  Explicitly sets multiprocessing start method to 'fork' so tests work with
-  python3.8+ on MacOS:
-  https://docs.python.org/3/library/multiprocessing.html#contexts-and-start-methods
+  Explicitly sets to "spawn" as the default can be "fork" in certain Linux,
+  and that does not work consistently well.
 
   This code must only be run once per execution.
   """
-  if sys.version_info >= (3, 8) and sys.platform == "darwin":
-    multiprocessing.set_start_method("fork")
-    os.environ['no_proxy'] = '*'
+  multiprocessing.set_start_method("spawn")
+  os.environ['no_proxy'] = '*'
