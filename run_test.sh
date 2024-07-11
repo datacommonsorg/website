@@ -25,9 +25,6 @@ function setup_python {
   deactivate
   echo "Forking off run_nl_server.sh"
   ./run_nl_server.sh&
-  # hmmm, maybe wait for 5 mins for nl server to boot up.
-  sleep 300
-  echo "Slept for 300s"
 }
 
 # Run test for client side code.
