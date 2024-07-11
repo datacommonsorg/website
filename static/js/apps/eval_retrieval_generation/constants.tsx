@@ -87,6 +87,9 @@ export const FEEDBACK_STAGE_LIST: Record<EvalType, FeedbackStage[]> = {
     FeedbackStage.OVERALL_ANS,
     FeedbackStage.RAG_ANS,
   ],
+  [EvalType.BASELINE]: [
+    // Only used for SXS eval which does not have stages.
+  ],
 };
 
 export const FEEDBACK_PANE_ID = "feedback-pane-container";

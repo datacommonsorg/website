@@ -124,7 +124,6 @@ export function App(props: AppPropType): JSX.Element {
             Google Sheet Link
           </a>
           <p>Signed in as {user.email}</p>
-          {}
           {!initialLoadCompleted && <p>Loading query...</p>}
           {initialLoadCompleted && (
             <AppContext.Provider
