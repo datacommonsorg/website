@@ -15,21 +15,23 @@
  */
 
 :root {
-  --palo-alto: #175E54;
+  --palo-alto: #175e54;
   --palo-alto-dark: #014240;
   --palo-alto-light: #7fa2a2;
 }
 
-#main-header {
+#main-nav {
   background-color: var(--palo-alto-dark);
+}
 
+#main-header {
   .navbar-brand a {
     color: #fff;
   }
 
   .nav-item .nav-link,
   #main-nav .navbar-brand .sep {
-    color: rgba(255,255,255,.5)
+    color: rgba(255, 255, 255, 0.5);
   }
 }
 
