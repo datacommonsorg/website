@@ -254,17 +254,17 @@ def maybe_load_custom_catalog() -> Dict:
   if gcs.is_gcs_path(custom_catalog_path):
     local_path = gcs.maybe_download(custom_catalog_path)
     if not local_path:
-      logging.info("Custom catalog not found and will not be loaded: %s",
+      logging.info('Custom catalog not found and will not be loaded: %s',
                    custom_catalog_path)
       return None
   else:
     local_path = custom_catalog_path
     if not os.path.exists(custom_catalog_path):
-      logging.info("Custom catalog not found and will not be loaded: %s",
+      logging.info('Custom catalog not found and will not be loaded: %s',
                    custom_catalog_path)
       return None
 
-  logging.info("Loading custom catalog: %s", custom_catalog_path)
+  logging.info('Loading custom catalog: %s', custom_catalog_path)
   with open(local_path, 'r') as f:
     custom_catalog = yaml.safe_load(f)
     logging.info('custom_catalog:\n%s', json.dumps(custom_catalog, indent=2))

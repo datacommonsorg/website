@@ -14,6 +14,7 @@
 """Build the embeddings index from variable and topic descriptions."""
 
 import logging
+import sys
 from typing import Dict
 
 from absl import app
@@ -35,7 +36,19 @@ flags.DEFINE_string('catalog', '',
                     'A dict of user provided embeddings/model catalog')
 
 
+def _init_logger():
+  # Log to stdout for easy redirect of the output text.
+  # This enables the logs to be captured by the admin tool.
+  logger = logging.getLogger()
+  logger.setLevel(logging.INFO)
+  handler = logging.StreamHandler(sys.stdout)
+  handler.setLevel(logging.INFO)
+  logger.addHandler(handler)
+
+
 def main(_):
+  _init_logger()
+
   # Get embeddings_name
   embeddings_name = FLAGS.embeddings_name
   output_dir = FLAGS.output_dir
