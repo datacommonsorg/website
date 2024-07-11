@@ -30,6 +30,6 @@ def set_up_macos_for_tests():
     multiprocessing.set_start_method("fork")
     os.environ['no_proxy'] = '*'
   else:
-    print(f'Sys version: {sys.version_info}, platform: {sys.platform}')
-    multiprocessing.set_start_method("spawn")
-  print(f'multiprocessing start_method: {multiprocessing.get_start_method()}')
+    multiprocessing.set_start_method("fork")
+  print(f'Sys version: {sys.version_info}, platform: {sys.platform}', file=sys.stderr)
+  print(f'multiprocessing start_method: {multiprocessing.get_start_method()}', file=sys.stderr)
