@@ -55,7 +55,7 @@ for src in $(gsutil ls gs://datcom-control/autopush/*_latest_base_cache_version.
   if [[ $TABLE == experimental* ]] && [[ $ENV != "autopush" ]]; then
     continue
   fi
-  echo "Copying $TABLE"
+  echo "Copying $src"
   if [[ $TABLE != "" ]]; then
     yq eval -i '.tables += [env(TABLE)]' deploy/storage/base_bigtable_info.yaml
   fi
