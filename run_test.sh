@@ -176,7 +176,7 @@ function run_integration_test {
   export OMP_NUM_THREADS=1
   export TOKENIZERS_PARALLELISM=false
 
-  python3 -m pytest -vv --reruns 2 server/integration_tests/$1 ${@:2}
+  python3 -m pytest -vv server/integration_tests/$1 ${@:2}
   deactivate
 }
 
