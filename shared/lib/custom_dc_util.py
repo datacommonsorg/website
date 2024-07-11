@@ -19,6 +19,7 @@ import os
 from shared.lib.gcs import is_gcs_path
 
 _TOPIC_CACHE_PATH = "datacommons/nl/custom_dc_topic_cache.json"
+_CUSTOM_CATALOG_PATH = "datacommons/nl/embeddings/custom_catalog.yaml"
 
 
 def is_custom_dc() -> bool:
@@ -36,6 +37,13 @@ def get_custom_dc_topic_cache_path() -> str:
   if not base_path:
     return base_path
   return os.path.join(base_path, _TOPIC_CACHE_PATH)
+
+
+def get_custom_catalog_path() -> str:
+  base_path = get_custom_dc_user_data_path()
+  if not base_path:
+    return base_path
+  return os.path.join(base_path, _CUSTOM_CATALOG_PATH)
 
 
 def is_gcs_custom_dc_user_data_path() -> bool:

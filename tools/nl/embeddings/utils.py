@@ -223,3 +223,8 @@ def save_embeddings_lancedb(local_dir: str, embeddings: List[Embedding]):
 def save_index_config(fm: FileManager, index_config: IndexConfig):
   with open(fm.index_config_path(), 'w') as f:
     yaml.dump(asdict(index_config), f)
+
+
+def save_custom_catalog(fm: FileManager, custom_catalog: Dict):
+  with open(fm.custom_catalog_path(), 'w') as f:
+    yaml.dump(custom_catalog, f)

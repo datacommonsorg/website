@@ -22,6 +22,7 @@ import torch
 from nl_server import registry
 from nl_server import routes
 from nl_server import search
+from nl_server.config_reader import maybe_load_custom_catalog
 from shared.lib import gcp as lib_gcp
 from shared.lib import utils as lib_utils
 
@@ -49,9 +50,11 @@ def create_app():
     torch.set_num_threads(1)
 
   try:
+    # Maybe load custom dc catalog.
+    custom_catalog = maybe_load_custom_catalog()
     # Build the registry before creating the Flask app to make sure all resources
     # are loaded.
-    reg = registry.build()
+    reg = registry.build(additional_catalog=custom_catalog)
 
     if not lib_utils.is_test_env():
       # Below is a safe check to ensure that the model and embedding is loaded.

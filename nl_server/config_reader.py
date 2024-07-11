@@ -237,3 +237,35 @@ def get_server_config(catalog: Catalog, env: Env) -> ServerConfig:
   )
   _log_asdict(server_config, 'server config')
   return server_config
+
+
+def maybe_load_custom_catalog() -> Dict:
+  """
+  Loads the custom DC catalog and returns it as a dict if running in custom DC mode and if it exists.
+  Returns None otherwise.
+  """
+  if not custom_dc_util.is_custom_dc():
+    return None
+
+  custom_catalog_path = custom_dc_util.get_custom_catalog_path()
+  if not custom_catalog_path:
+    return None
+
+  if gcs.is_gcs_path(custom_catalog_path):
+    local_path = gcs.maybe_download(custom_catalog_path)
+    if not local_path:
+      logging.info("Custom catalog not found and will not be loaded: %s",
+                   custom_catalog_path)
+      return None
+  else:
+    local_path = custom_catalog_path
+    if not os.path.exists(custom_catalog_path):
+      logging.info("Custom catalog not found and will not be loaded: %s",
+                   custom_catalog_path)
+      return None
+
+  logging.info("Loading custom catalog: %s", custom_catalog_path)
+  with open(local_path, 'r') as f:
+    custom_catalog = yaml.safe_load(f)
+    logging.info('custom_catalog:\n%s', json.dumps(custom_catalog, indent=2))
+    return custom_catalog

@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
 import os
 import shutil
 import tempfile
@@ -20,6 +21,7 @@ from shared.lib import gcs
 
 _PREINDEX_CSV = '_preindex.csv'
 _INDEX_CONFIG_YAML = 'index_config.yaml'
+_CUSTOM_CATALOG_YAML = 'custom_catalog.yaml'
 
 
 class FileManager(object):
@@ -65,12 +67,17 @@ class FileManager(object):
   def index_config_path(self):
     return os.path.join(self._local_output_dir, _INDEX_CONFIG_YAML)
 
+  def custom_catalog_path(self):
+    return os.path.join(self._local_output_dir, _CUSTOM_CATALOG_YAML)
+
   def maybe_upload_to_gcs(self):
     """
     Upload the generated files to GCS if the input or output paths are GCS.
     """
     if gcs.is_gcs_path(self._input_dir):
       # This is to upload any generated files in the input directory to GCS
+      logging.info("Uploading input dir to GCS path: %s", self._input_dir)
       gcs.upload_by_path(self._local_input_dir, self._input_dir)
     if gcs.is_gcs_path(self._output_dir):
+      logging.info("Uploading output dir to GCS path: %s", self._output_dir)
       gcs.upload_by_path(self._local_output_dir, self._output_dir)
