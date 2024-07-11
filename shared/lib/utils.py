@@ -134,7 +134,7 @@ def list_place_type_stopwords() -> List[str]:
 
 def combine_stop_words(
     heuristics_to_skip: Set[str] = constants.HEURISTIC_TYPES_IN_VARIABLES
-) -> Set[str]:
+) -> List[str]:
   """Returns all the combined stop words from the various constants."""
   # Make a copy.
   stop_words = copy.deepcopy(constants.STOP_WORDS)

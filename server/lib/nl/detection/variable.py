@@ -43,6 +43,9 @@ _MAX_MULTIVAR_PARTS = 2
 def detect_vars(orig_query: str, debug_logs: Dict,
                 dargs: DetectionArgs) -> vars.VarDetectionResult:
 
+  # Get the list of stop words to use depending on if this is toolformer mode
+  # or not.
+  #
   # TODO: decouple words removal from detected attributes. Today, the removal
   # blanket removes anything that matches, including the various attribute/
   # classification triggers and contained_in place types (and their plurals).
@@ -52,6 +55,7 @@ def detect_vars(orig_query: str, debug_logs: Dict,
         constants.HEURISTIC_TYPES_IN_VARIABLES_TOOLFORMER)
   else:
     stop_words = shared_utils.combine_stop_words()
+
   #
   # 1. Prepare all the queries for embeddings lookup, both mono-var and multi-var.
   #
