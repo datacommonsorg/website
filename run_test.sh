@@ -23,6 +23,7 @@ function setup_python {
   pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
   pip3 install -r nl_server/requirements.txt
   deactivate
+  ./run_nl_test&
 }
 
 # Run test for client side code.

@@ -37,7 +37,7 @@ is_nl_mode = os.environ.get('ENABLE_MODEL') == 'true'
 if is_nl_mode:
   # Start NL server on an unused port, so multiple integration tests can
   # run at the same time.
-  if platform.system() == 'Darwin' and platform.processor() == 'arm':
+  if True or (platform.system() == 'Darwin' and platform.processor() == 'arm'):
     msg = '\n\n!!!!! IMPORTANT NOTE !!!!!!\n' \
           'Detected MacOS ARM processor! You need to have a local ' \
           'NL server running (using run_nl_server.sh).\n'
@@ -57,7 +57,7 @@ class NLWebServerTestCase(LiveServerTestCase):
       if should_start_nl_server:
 
         def start_nl_server(app):
-          app.run(port=nl_port, debug=False, use_reloader=False, threaded=False)
+          app.run(port=nl_port, debug=False, use_reloader=False, threaded=True)
 
         nl_app = create_nl_app()
         # Create a thread that will contain our running server
