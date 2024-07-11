@@ -226,38 +226,6 @@
                       "endDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_Civilian_Female_NonInstitutionalized_1145703171"
-                    ],
-                    "title": "Women Non Institutionalized in New York",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Women Non Institutionalized in New York",
-                    "statVarKey": [
-                      "Count_Person_Civilian_Female_NonInstitutionalized_2019"
-                    ],
-                    "title": "Women Non Institutionalized in New York",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Women Non Institutionalized"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "lineTileSpec": {
-                      "endDate": "2019"
-                    },
-                    "statVarKey": [
                       "Median_Age_Person_Female_3795540742"
                     ],
                     "title": "Women's Median Age in New York",
@@ -471,6 +439,38 @@
             ],
             "denom": "Count_Person",
             "title": "Population: 16 Years or More, Female, With Earnings"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Count_Person_85OrMoreYears_Female_1145703171"
+                    ],
+                    "title": "Women Over 85 in New York",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Women Over 85 in New York",
+                    "statVarKey": [
+                      "Count_Person_85OrMoreYears_Female_2019"
+                    ],
+                    "title": "Women Over 85 in New York",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women Over 85"
           }
         ],
         "statVarSpec": {
@@ -514,15 +514,15 @@
             "name": "Population: Female, Enrolled in School",
             "statVar": "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
           },
-          "Count_Person_Civilian_Female_NonInstitutionalized_1145703171": {
+          "Count_Person_85OrMoreYears_Female_1145703171": {
             "facetId": "1145703171",
-            "name": "Women Non Institutionalized",
-            "statVar": "Count_Person_Civilian_Female_NonInstitutionalized"
+            "name": "Women over 85",
+            "statVar": "Count_Person_85OrMoreYears_Female"
           },
-          "Count_Person_Civilian_Female_NonInstitutionalized_2019": {
+          "Count_Person_85OrMoreYears_Female_2019": {
             "date": "2019",
-            "name": "Women Non Institutionalized",
-            "statVar": "Count_Person_Civilian_Female_NonInstitutionalized"
+            "name": "Women over 85",
+            "statVar": "Count_Person_85OrMoreYears_Female"
           },
           "Count_Person_Female_1145703171": {
             "facetId": "1145703171",
@@ -666,20 +666,15 @@
           "Count_Person_65OrMoreYears_EducationalAttainmentBachelorsDegree_Female"
         ]
       },
-      "Count_Person_Civilian_Female_NonInstitutionalized": {
-        "age": [
-          "dc/09z87msgrnz46",
-          "dc/3ynz47ezvb9t3",
-          "dc/9zrfybzebz9eg",
-          "dc/clt08ev67qbg4",
-          "dc/e4tnwblpn05ng",
-          "dc/eyq93l7lzkljh",
-          "dc/fdt2p0r5fced1",
-          "dc/g8tzm4h7qzqnd",
-          "dc/spwgfh6tfr03c",
-          "dc/vqxc814k47fc5",
-          "dc/x8zvw66c41lx",
-          "dc/z3blp4w0t2nv2"
+      "Count_Person_85OrMoreYears_Female": {
+        "race": [
+          "Count_Person_85OrMoreYears_Female_AsianAlone",
+          "Count_Person_85OrMoreYears_Female_BlackOrAfricanAmericanAlone",
+          "Count_Person_85OrMoreYears_Female_HispanicOrLatino",
+          "Count_Person_85OrMoreYears_Female_SomeOtherRaceAlone",
+          "Count_Person_85OrMoreYears_Female_TwoOrMoreRaces",
+          "Count_Person_85OrMoreYears_Female_WhiteAlone",
+          "Count_Person_85OrMoreYears_Female_WhiteAloneNotHispanicOrLatino"
         ]
       },
       "Count_Person_Female": {
@@ -689,7 +684,8 @@
           "Count_Person_60OrMoreYears_Female",
           "Count_Person_62OrMoreYears_Female",
           "Count_Person_65To66Years_Female",
-          "Count_Person_67To69Years_Female"
+          "Count_Person_67To69Years_Female",
+          "Count_Person_85OrMoreYears_Female"
         ],
         "educationalAttainment": [
           "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female",
