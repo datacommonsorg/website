@@ -29,3 +29,7 @@ def set_up_macos_for_tests():
   if sys.version_info >= (3, 8) and sys.platform == "darwin":
     multiprocessing.set_start_method("fork")
     os.environ['no_proxy'] = '*'
+  else:
+    print(f'Sys version: {sys.version_info}, platform: {sys.platform}')
+    multiprocessing.set_start_method("spawn")
+  print(f'multiprocessing start_method: {multiprocessing.get_start_method()}')

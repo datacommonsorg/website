@@ -23,8 +23,8 @@ function setup_python {
   pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
   pip3 install -r nl_server/requirements.txt
   deactivate
-  echo "Forking off run_nl_server.sh"
-  ./run_nl_server.sh&
+  # echo "Forking off run_nl_server.sh"
+  # ./run_nl_server.sh&
 }
 
 # Run test for client side code.
