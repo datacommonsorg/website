@@ -21,6 +21,7 @@ from server.lib.nl.detection.query_util import get_parts_via_delimiters
 from server.lib.nl.detection.query_util import prepare_multivar_querysets
 from server.lib.nl.detection.query_util import QuerySet
 from server.lib.nl.detection.query_util import QuerySplit
+from shared.lib.utils import combine_stop_words
 
 
 class TestGetPartsViaDelimiters(unittest.TestCase):
@@ -181,4 +182,7 @@ class TestPrepareMultivarQuerysets(unittest.TestCase):
        ]])
   def test_prepare_multivar_querysets(self, query, expected):
     self.maxDiff = None
-    self.assertEqual(prepare_multivar_querysets(query, max_svs=4), expected)
+    self.assertEqual(
+        prepare_multivar_querysets(query,
+                                   max_svs=4,
+                                   stop_words=combine_stop_words()), expected)

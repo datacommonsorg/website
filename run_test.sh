@@ -64,7 +64,7 @@ function run_lint_fix {
     pip3 install isort -q
   fi
   yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py -e=**/.env/**
-  isort server/ nl_server/ shared/ tools/  --skip-glob *pb2.py  --skip-glob **/.env/** --profile google
+  isort server/ nl_server/ shared/ tools/  --skip-glob=*pb2.py  --skip-glob=**/.env/** --profile=google
   deactivate
 }
 
