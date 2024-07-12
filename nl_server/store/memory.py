@@ -82,9 +82,11 @@ class MemoryEmbeddingsStore(EmbeddingsStore):
   #
   def vector_search(self, query_embeddings: torch.Tensor,
                     top_k: int) -> List[EmbeddingsResult]:
+    logging.info('CLOUDRUNDEBUG In vector_search')
     hits = semantic_search(query_embeddings,
                            self.dataset_embeddings,
                            top_k=top_k)
+    logging.info('CLOUDRUNDEBUG len(hits): %s', len(hits))
     results: List[EmbeddingsResult] = []
     for hit in hits:
       matches: List[EmbeddingsMatch] = []
