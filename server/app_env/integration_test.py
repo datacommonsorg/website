@@ -29,3 +29,8 @@ class StagingConfig(_base.Config):
   SECRET_PROJECT = 'datcom-website-staging'
   SCHEME = 'http'
   USE_LLM = True
+
+
+# This is only used for testing bad-words file before push.
+class BadWordsConfig(StagingConfig):
+  BAD_WORDS_FILE = 'nl_bad_words_staging.txt'
