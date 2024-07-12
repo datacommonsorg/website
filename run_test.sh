@@ -190,14 +190,15 @@ function update_integration_test_golden {
   export LLM_API_KEY=
   export ENABLE_EVAL_TOOL=false
 
-  # Should update topic cache first as it's used by the following tests.
-  python3 -m pytest -vv --reruns 2 server/integration_tests/topic_cache
-
   # Run integration test against staging mixer to make it stable.
   if [[ $ENV_PREFIX == "" ]]; then
     export ENV_PREFIX=Staging
   fi
   echo "Using ENV_PREFIX=$ENV_PREFIX"
+
+  # Should update topic cache first as it's used by the following tests.
+  python3 -m pytest -vv --reruns 2 server/integration_tests/topic_cache
+
   python3 -m pytest -vv -n 5 --reruns 2 server/integration_tests/ ${@}
 }
 
