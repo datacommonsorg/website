@@ -71,3 +71,14 @@ class TestRetrieveEmbeddings(unittest.TestCase):
     ]
     print(got)
     self.assertEqual(got, expected)
+
+
+class TestAdditionalCatalogEmbeddingsName(unittest.TestCase):
+
+  def test_additional_catalog_embeddings_name(self):
+    test_additional_catalog_path = os.path.join(
+        _THIS_DIR,
+        "testdata/additional_catalog_embeddings_name/custom_catalog.yaml")
+    embeddings_name = utils.get_additional_catalog_embeddings_name(
+        test_additional_catalog_path)
+    self.assertEqual(embeddings_name, 'user_all_minilm_mem')

@@ -223,3 +223,14 @@ def save_embeddings_lancedb(local_dir: str, embeddings: List[Embedding]):
 def save_index_config(fm: FileManager, index_config: IndexConfig):
   with open(fm.index_config_path(), 'w') as f:
     yaml.dump(asdict(index_config), f)
+
+
+def get_additional_catalog_embeddings_name(additional_catalog_path: str) -> str:
+  local_path = additional_catalog_path
+  if gcs.is_gcs_path(additional_catalog_path):
+    local_path = gcs.maybe_download(additional_catalog_path)
+  with open(local_path, 'r') as f:
+    catalog_dict: Dict = yaml.safe_load(f)
+    indexes: Dict = catalog_dict.get('indexes')
+    assert indexes, f'No indexes in catalog: {additional_catalog_path}'
+    return list(indexes.keys())[0]

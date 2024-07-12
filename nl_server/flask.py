@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import logging
+import os
 import sys
 
 from flask import Flask
@@ -22,6 +23,7 @@ import torch
 from nl_server import registry
 from nl_server import routes
 from nl_server import search
+from shared.lib import constants
 from shared.lib import gcp as lib_gcp
 from shared.lib import utils as lib_utils
 
@@ -51,7 +53,8 @@ def create_app():
   try:
     # Build the registry before creating the Flask app to make sure all resources
     # are loaded.
-    reg = registry.build()
+    additional_catalog_path = os.environ.get(constants.ADDITIONAL_CATALOG_PATH)
+    reg = registry.build(additional_catalog_path=additional_catalog_path)
 
     if not lib_utils.is_test_env():
       # Below is a safe check to ensure that the model and embedding is loaded.
