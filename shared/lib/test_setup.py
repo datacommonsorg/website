@@ -15,6 +15,7 @@
 import logging
 import multiprocessing
 import os
+import platform
 import sys
 
 
@@ -35,5 +36,20 @@ def set_up_macos_for_tests():
     os.environ['no_proxy'] = '*'
   logging.error(f'Sys version: {sys.version_info}, platform: {sys.platform}')
   logging.error(
-      f'AFTER multiprocessing start_method: {multiprocessing.get_start_method()}'
+      f'multiprocessing start_method: {multiprocessing.get_start_method()}'
+  )
+  logging.error(
+      f'Platform: {platform.platform()}'
+  )
+  logging.error(
+      f'Platform: {platform.architecture()}'
+  )
+  logging.error(
+      f'Machine: {platform.machine()}'
+  )
+  logging.error(
+      f'Processor: {platform.processor()}'
+  )
+  logging.error(
+      f'Libcver: {platform.libc_ver()}'
   )
