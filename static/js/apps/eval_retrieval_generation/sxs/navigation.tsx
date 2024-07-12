@@ -32,7 +32,6 @@ enum ButtonType {
 interface ButtonConfig {
   text: string;
   themeClassName: string;
-  icon?: string;
 }
 
 // Map each button type to its config
@@ -114,14 +113,7 @@ export function Navigation(props: NavigationPropType): JSX.Element {
             onClick={getOnClickFunction(prevButtonType)}
             className={BUTTON_CONFIGS[prevButtonType].themeClassName}
           >
-            <div>
-              {BUTTON_CONFIGS[prevButtonType].icon && (
-                <span className="material-icons-outlined">
-                  {BUTTON_CONFIGS[prevButtonType].icon}
-                </span>
-              )}
-              {BUTTON_CONFIGS[prevButtonType].text}
-            </div>
+            <div>{BUTTON_CONFIGS[prevButtonType].text}</div>
           </Button>
         )}
         {nextButtonType !== ButtonType.EMPTY && (
@@ -129,14 +121,7 @@ export function Navigation(props: NavigationPropType): JSX.Element {
             onClick={getOnClickFunction(nextButtonType)}
             className={BUTTON_CONFIGS[nextButtonType].themeClassName}
           >
-            <div>
-              {BUTTON_CONFIGS[nextButtonType].icon && (
-                <span className="material-icons-outlined">
-                  {BUTTON_CONFIGS[nextButtonType].icon}
-                </span>
-              )}
-              {BUTTON_CONFIGS[nextButtonType].text}
-            </div>
+            <div>{BUTTON_CONFIGS[nextButtonType].text}</div>
           </Button>
         )}
       </div>

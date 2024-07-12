@@ -33,8 +33,8 @@ interface AppPropType {
 }
 
 function getSortedQueryIds(docInfos: { a: DocInfo; b: DocInfo }) {
-  const idsA = Object.keys(docInfos?.a?.allQuery || []);
-  const idsB = Object.keys(docInfos?.b?.allQuery || []);
+  const idsA = Object.keys(docInfos?.a?.allQuery || {});
+  const idsB = Object.keys(docInfos?.b?.allQuery || {});
   return idsA
     .filter((id) => idsB.includes(id))
     .map((id) => Number(id))

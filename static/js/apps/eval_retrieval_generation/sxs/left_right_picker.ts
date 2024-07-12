@@ -15,8 +15,8 @@
  */
 
 import { md5 } from "js-md5";
+import prand from "pure-rand";
 import sdbm from "sdbm";
-import Srand from "seeded-rand";
 
 import { DocInfo } from "../types";
 
@@ -37,8 +37,11 @@ export function getLeftAndRight(
   const inputs =
     `${docInfoA.doc.spreadsheetId} ${docInfoB.doc.spreadsheetId}` +
     ` ${sessionId} ${queryId}`;
-  const seededRand = new Srand(sdbm(md5(inputs)));
-  if (Math.floor(seededRand.random() * 2) === 0) {
+  // Pseudo-randomly pick which answer to show on the left vs right.
+  // Randomize to avoid rater bias; only pseudo-randomize so the same pair of
+  // answers always appears in the same order if the session ID is the same.
+  const prng = prand.mersenne(sdbm(md5(inputs)));
+  if (prand.unsafeUniformIntDistribution(0, 1, prng) === 0) {
     return { leftDocInfo: docInfoA, rightDocInfo: docInfoB };
   } else {
     return { leftDocInfo: docInfoB, rightDocInfo: docInfoA };
