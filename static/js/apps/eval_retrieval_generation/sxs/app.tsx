@@ -46,7 +46,7 @@ export function App(props: AppPropType): JSX.Element {
   const [docInfos, setDocInfos] = useState<{ a: DocInfo; b: DocInfo }>(null);
   const { setSessionQueryId, sessionQueryId } = useContext(SessionContext);
   const sortedQueryIds = getSortedQueryIds(docInfos);
-  if (!sessionQueryId) {
+  if (!sessionQueryId && sortedQueryIds.length) {
     setSessionQueryId(sortedQueryIds[0]);
   }
   const { leftDocInfo, rightDocInfo } = getLeftAndRight(
