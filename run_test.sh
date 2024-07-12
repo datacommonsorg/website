@@ -23,8 +23,6 @@ function setup_python {
   pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
   pip3 install -r nl_server/requirements.txt
   deactivate
-  # echo "Forking off run_nl_server.sh"
-  # ./run_nl_server.sh&
 }
 
 # Run test for client side code.
@@ -100,6 +98,7 @@ function run_py_test {
   # Run server pytest.
   source .env/bin/activate
   export FLASK_ENV=test
+  export TOKENIZERS_PARALLELISM=false
   # Disabled nodejs e2e test to avoid dependency on dev
   python3 -m pytest server/tests/ -s --ignore=server/tests/nodejs_e2e_test.py ${@}
   python3 -m pytest shared/tests/ -s ${@}
@@ -173,7 +172,6 @@ function run_integration_test {
   export GOOGLE_CLOUD_PROJECT=datcom-website-staging
   export TEST_MODE=test
   export ENABLE_EVAL_TOOL=false
-  export TOKENIZERS_PARALLELISM=false
 
   python3 -m pytest -vv --reruns 2 server/integration_tests/$1 ${@:2}
   deactivate

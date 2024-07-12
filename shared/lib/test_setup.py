@@ -29,12 +29,3 @@ def set_up_multiprocessing_for_tests():
   """
   multiprocessing.set_start_method("spawn")
   os.environ['no_proxy'] = '*'
-
-  logging.info(f'sys_version: {sys.version_info}, platform: {sys.platform}')
-  logging.info(
-      f'multiprocessing start_method: {multiprocessing.get_start_method()}')
-  logging.info(f'Platform: {platform.platform()}')
-  logging.info(f'Platform: {platform.architecture()}')
-  logging.info(f'Machine: {platform.machine()}')
-  logging.info(f'Processor: {platform.processor()}')
-  logging.info(f'Libcver: {platform.libc_ver()}')
