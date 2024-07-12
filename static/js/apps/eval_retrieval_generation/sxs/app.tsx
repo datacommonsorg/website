@@ -88,7 +88,7 @@ export function App(props: AppPropType): JSX.Element {
   return (
     <>
       {!user && (
-        <div>
+        <div className="banner">
           <p>Signing you in...</p>
           <p>
             If you are not signed in after a few seconds, check that pop-ups are
@@ -97,14 +97,24 @@ export function App(props: AppPropType): JSX.Element {
         </div>
       )}
 
-      {user && <p>Signed in as {user.email}</p>}
-      {user && !docInfos && <p>Loading query...</p>}
+      {user && (
+        <div className="banner">
+          <p>Signed in as {user.email}</p>
+        </div>
+      )}
+      {user && !docInfos && (
+        <div className="banner">
+          <p>Loading query...</p>
+        </div>
+      )}
       {docInfos && (
         <>
-          <div className="app-content">
-            <QueryWithTables docInfo={leftDocInfo} />
-            <div className="divider" />
-            <QueryWithTables docInfo={rightDocInfo} />
+          <div className="sxs-app-content">
+            <div className="sxs-panes">
+              <QueryWithTables docInfo={leftDocInfo} />
+              <div className="divider" />
+              <QueryWithTables docInfo={rightDocInfo} />
+            </div>
             <SxsFeedback
               leftSheetId={leftDocInfo.doc.spreadsheetId}
               rightSheetId={rightDocInfo.doc.spreadsheetId}

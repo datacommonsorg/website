@@ -33,19 +33,21 @@ export function QueryWithTables(props: QueryWithTablesPropType): JSX.Element {
 
   return (
     <>
-      <div className="sxs-pane">
-        <QuerySection
-          doc={props.docInfo.doc}
-          evalType={props.docInfo.evalType}
-          feedbackStage={FeedbackStage.SXS}
-          query={props.docInfo.allQuery[sessionQueryId]}
-        />
-        {props.docInfo.evalType === EvalType.RAG && (
-          <TablePane
+      <div className="sxs-pane-scroll-wrapper">
+        <div className="sxs-pane">
+          <QuerySection
             doc={props.docInfo.doc}
-            calls={props.docInfo.allCall[sessionQueryId]}
+            evalType={props.docInfo.evalType}
+            feedbackStage={FeedbackStage.SXS}
+            query={props.docInfo.allQuery[sessionQueryId]}
           />
-        )}
+          {props.docInfo.evalType === EvalType.RAG && (
+            <TablePane
+              doc={props.docInfo.doc}
+              calls={props.docInfo.allCall[sessionQueryId]}
+            />
+          )}
+        </div>
       </div>
     </>
   );

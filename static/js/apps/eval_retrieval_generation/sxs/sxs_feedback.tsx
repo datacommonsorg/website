@@ -99,8 +99,6 @@ export function SxsFeedback(props: SxsFeedbackPropType): JSX.Element {
           setPreference={setPreference}
           setReason={setReason}
         ></FeedbackForm>
-        <p>left: {props.leftSheetId}.</p>
-        <p>right: {props.rightSheetId}.</p>
       </div>
       <Navigation
         sortedQueryIds={props.sortedQueryIds}

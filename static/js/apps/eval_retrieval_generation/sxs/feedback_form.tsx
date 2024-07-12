@@ -20,9 +20,6 @@ import React, { FormEvent } from "react";
 
 import { SxsPreference } from "./types";
 
-const PREFERENCE_INPUT_NAME = "preference";
-const REASON_INPUT_NAME = "reason";
-
 // Map from enum to displayed string
 const OPTIONS: Record<string, string> = {
   [SxsPreference.LEFT]: "Left",
@@ -39,45 +36,49 @@ interface FeedbackFormProps {
 }
 
 export function FeedbackForm(props: FeedbackFormProps): JSX.Element {
-  const handleChange = (event: FormEvent<HTMLInputElement>) => {
-    const { name, value } = event.target as HTMLInputElement;
-    if (name === PREFERENCE_INPUT_NAME) {
-      props.setPreference(value as SxsPreference);
-    }
-    if (name === REASON_INPUT_NAME) {
-      props.setReason(value ?? "");
-    }
+  const handlePreferenceChange = (event: FormEvent<HTMLInputElement>) => {
+    const { value } = event.target as HTMLInputElement;
+    props.setPreference(value as SxsPreference);
+  };
+
+  const handleReasonChange = (event: FormEvent<HTMLTextAreaElement>) => {
+    const { value } = event.target as HTMLInputElement;
+    props.setReason(value ?? "");
   };
 
   return (
-    <div className="one-question">
-      <div className="question">Which answer do you prefer?</div>
-      <div className="options">
-        {Object.keys(OPTIONS).map((optionKey) => {
-          const optionValue = OPTIONS[optionKey];
-          return (
-            <label key={optionKey}>
-              <input
-                type="radio"
-                name={PREFERENCE_INPUT_NAME}
-                value={optionKey}
-                checked={props.preference === optionKey}
-                onChange={handleChange}
-                disabled={props.disabled}
-              />
-              {optionValue}
-            </label>
-          );
-        })}
+    <div className="sxs-feedback-form">
+      <div className="one-question">
+        <div className="question">Which answer do you prefer?</div>
+        <div className="options">
+          {Object.keys(OPTIONS).map((optionKey) => {
+            const optionValue = OPTIONS[optionKey];
+            return (
+              <label key={optionKey}>
+                <input
+                  type="radio"
+                  value={optionKey}
+                  checked={props.preference === optionKey}
+                  onChange={handlePreferenceChange}
+                  disabled={props.disabled}
+                />
+                {optionValue}
+              </label>
+            );
+          })}
+        </div>
       </div>
-      <div className="question">Why?</div>
-      <div className="freeText">
-        <input
-          name={REASON_INPUT_NAME}
-          value={props.reason}
-          onChange={handleChange}
-          disabled={props.disabled}
-        />
+      <div className="one-question">
+        <div className="question">Why?</div>
+        <div className="free-text-input">
+          <textarea
+            rows={2}
+            cols={50}
+            value={props.reason}
+            onChange={handleReasonChange}
+            disabled={props.disabled}
+          />
+        </div>
       </div>
     </div>
   );
