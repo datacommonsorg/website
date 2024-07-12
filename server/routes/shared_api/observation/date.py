@@ -42,80 +42,80 @@ def observation_dates():
 @bp.route('/api/observation-dates/entities')
 def observation_dates_entities():
   """
-    Retrieve observation dates for specified entities and variables.
+  Retrieve observation dates for specified entities and variables.
 
-    Query Parameters:
-    - entities (List[str]): List of entity DCIDs.
-    - variables (List[str]): List of variable names.
+  Query Parameters:
+  - entities (List[str]): List of entity DCIDs.
+  - variables (List[str]): List of variable names.
 
-    Returns:
-    - dict: JSON object with 'datesByVariable' and 'facets' keys.
-      - 'datesByVariable': List of dictionaries grouped by variable, date, and facet.
-      - 'facets': Facet information from the observation series response.
+  Returns:
+  - dict: JSON object with 'datesByVariable' and 'facets' keys.
+    - 'datesByVariable': List of dictionaries grouped by variable, date, and facet.
+    - 'facets': Facet information from the observation series response.
 
-    Errors:
-    - 400: If 'entities' or 'variables' parameters are missing or empty.
+  Errors:
+  - 400: If 'entities' or 'variables' parameters are missing or empty.
 
-    Example:
-    ```
-    GET /api/observation-dates/entities?entities=country/USA&entities=country/CAN&variables=Count_Person&variables=Count_Household
-    Response:
-    {
-        "datesByVariable": [
-            {
-                "variable": "Count_Person",
-                "observationDates": [
-                    {
-                        "date": "1900",
-                        "entityCount": [
-                            {
-                                "facet": "2176550201",
-                                "count": 1
-                            }
-                        ]
-                    },
-                    {
-                        "date": "1901",
-                        "entityCount": [
-                            {
-                                "facet": "2176550201",
-                                "count": 1
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "variable": "Count_Household",
-                "observationDates": [
-                    {
-                        "date": "1900",
-                        "entityCount": [
-                            {
-                                "facet": "2176550202",
-                                "count": 1
-                            }
-                        ]
-                    },
-                    {
-                        "date": "1901",
-                        "entityCount": [
-                            {
-                                "facet": "2176550202",
-                                "count": 1
-                            }
-                        ]
-                    }
-                ]
-            }
-        ],
-        "facets": {
-            "2176550201": {"importName": "facet1"},
-            "2176550202": {"importName": "facet2"}
-        }
-    }
-    ```
-    """
+  Example:
+  ```
+  GET /api/observation-dates/entities?entities=country/USA&entities=country/CAN&variables=Count_Person&variables=Count_Household
+  Response:
+  {
+      "datesByVariable": [
+          {
+              "variable": "Count_Person",
+              "observationDates": [
+                  {
+                      "date": "1900",
+                      "entityCount": [
+                          {
+                              "facet": "2176550201",
+                              "count": 1
+                          }
+                      ]
+                  },
+                  {
+                      "date": "1901",
+                      "entityCount": [
+                          {
+                              "facet": "2176550201",
+                              "count": 1
+                          }
+                      ]
+                  }
+              ]
+          },
+          {
+              "variable": "Count_Household",
+              "observationDates": [
+                  {
+                      "date": "1900",
+                      "entityCount": [
+                          {
+                              "facet": "2176550202",
+                              "count": 1
+                          }
+                      ]
+                  },
+                  {
+                      "date": "1901",
+                      "entityCount": [
+                          {
+                              "facet": "2176550202",
+                              "count": 1
+                          }
+                      ]
+                  }
+              ]
+          }
+      ],
+      "facets": {
+          "2176550201": {"importName": "facet1"},
+          "2176550202": {"importName": "facet2"}
+      }
+  }
+  ```
+  """
   entities = request.args.getlist('entities')
   if len(entities) == 0:
     return 'error: must provide entities field', 400
