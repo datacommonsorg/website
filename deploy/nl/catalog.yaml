@@ -90,7 +90,7 @@ indexes:
   base_uae_mem:
     store_type: MEMORY
     source_path: ../../tools/nl/embeddings/input/base
-    embeddings_path: gs://datcom-nl-models/base_uae_mem_2024_07_10_16_22_06/embeddings.csv
+    embeddings_path: gs://datcom-nl-models/base_uae_mem_2024_07_11_08_35_57/embeddings.csv
     model: uae-large-v1-model
     healthcheck_query: "Life expectancy"
   base_mistral_mem:
