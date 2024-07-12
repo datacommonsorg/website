@@ -4512,6 +4512,7 @@ number of people without disabilities residing in non-institutionalized group qu
 number of people without disabilities residing in nursing facilities,Count_Person_NoDisability_ResidesInNursingFacilities
 number of people without health insurance,Count_Person_NoHealthInsurance
 number of rooms in houses,dc/topic/HousesByRoomCount
+number of seats held by women in national parliaments,sdg/SG_GEN_PARLN.SEX--F
 number of students enrolled,dc/topic/StudentEnrollmentLevels
 number of white females living Above Poverty Level in the Past 12 months,Count_Person_Female_AbovePovertyLevelInThePast12Months_WhiteAlone
 number of white females living below poverty level in the past 12 months,Count_Person_Female_BelowPovertyLevelInThePast12Months_WhiteAlone
@@ -4650,6 +4651,7 @@ proportion of people who have Daily Tobacco Smoking,WHO/M_Est_smk_daily
 proportion of people who receive an annual checkup,Percent_Person_ReceivedAnnualCheckup
 proportion of people who use tobacco,Percent_TobaccoUsing_In_Count_Person
 proportion of people with obesity,Percent_Person_Obesity
+proportion of seats held by women in national parliaments,sdg/SG_GEN_PARL.SEX--F
 proportion of women online,dc/topic/sdg_17.8.1
 public benefits,dc/topic/Benefits
 race breakdown of students in Graduate or Professional School,dc/topic/StudentsInGraduateOrProfessionalSchool
