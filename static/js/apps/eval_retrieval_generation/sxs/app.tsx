@@ -23,8 +23,9 @@ import { DocInfo } from "../types";
 import { getDocInfo } from "../util";
 import { SessionContext } from "./context";
 import { getLeftAndRight } from "./left_right_picker";
-import { QueryWithTables } from "./query_with_tables";
+import { AnswerWithTables } from "./answer_with_tables";
 import { SxsFeedback } from "./sxs_feedback";
+import { QueryIdAndQuestion } from "./query_id_and_question";
 
 interface AppPropType {
   sessionId: string;
@@ -110,10 +111,11 @@ export function App(props: AppPropType): JSX.Element {
       {docInfos && (
         <>
           <div className="sxs-app-content">
+            <QueryIdAndQuestion docInfo={leftDocInfo} />
             <div className="sxs-panes">
-              <QueryWithTables docInfo={leftDocInfo} />
+              <AnswerWithTables docInfo={leftDocInfo} />
               <div className="divider" />
-              <QueryWithTables docInfo={rightDocInfo} />
+              <AnswerWithTables docInfo={rightDocInfo} />
             </div>
             <SxsFeedback
               leftSheetId={leftDocInfo.doc.spreadsheetId}

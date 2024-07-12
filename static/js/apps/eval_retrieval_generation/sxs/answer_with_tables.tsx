@@ -24,11 +24,11 @@ import { TablePane } from "../table_pane";
 import { DocInfo, EvalType, FeedbackStage } from "../types";
 import { SessionContext } from "./context";
 
-interface QueryWithTablesPropType {
+interface AnswerWithTablesPropType {
   docInfo: DocInfo;
 }
 
-export function QueryWithTables(props: QueryWithTablesPropType): JSX.Element {
+export function AnswerWithTables(props: AnswerWithTablesPropType): JSX.Element {
   const { sessionQueryId } = useContext(SessionContext);
 
   return (
@@ -40,6 +40,7 @@ export function QueryWithTables(props: QueryWithTablesPropType): JSX.Element {
             evalType={props.docInfo.evalType}
             feedbackStage={FeedbackStage.SXS}
             query={props.docInfo.allQuery[sessionQueryId]}
+            hideIdAndQuestion={true}
           />
           {props.docInfo.evalType === EvalType.RAG && (
             <TablePane

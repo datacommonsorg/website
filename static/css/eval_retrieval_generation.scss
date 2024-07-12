@@ -36,8 +36,8 @@ footer {
   width: fit-content;
 }
 
-#query-section {
-  max-width: 50%;
+#query-section,
+.query-header {
   text-wrap: wrap;
   word-break: break-word;
   font-size: 14px;
@@ -108,6 +108,7 @@ label {
 
 #query-section {
   width: 50%;
+  max-width: 50%;
   padding: 16px;
   overflow: auto; /* This allows the div to scroll */
 
@@ -476,6 +477,12 @@ label {
   height: 0;
 }
 
+.query-header {
+  border-top: solid 1px var(--gm-3-sys-light-outline-variant);
+  border-bottom: solid 1px var(--gm-3-sys-light-outline-variant);
+  padding: 20px;
+}
+
 .sxs-panes {
   display: flex;
   flex-direction: row;
@@ -513,14 +520,15 @@ label {
   align-self: flex-end;
   border-left: none;
   border-top: solid 1px var(--gm-3-sys-light-outline-variant);
-  padding: 0;
+  padding: 24px;
 
   .content {
-    padding: 24px;
+    padding: 0 0 24px;
   }
 
   .feedback-nav-section {
-    padding: 24px;
+    border: none;
+    padding: 0;
   }
 }
 
@@ -528,6 +536,7 @@ label {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   gap: 50px;
 
   .one-question {
@@ -538,5 +547,9 @@ label {
       padding: 0 20px 0 0;
       width: unset;
     }
+
+    .options {
+      padding: 0;
   }
+}
 }
