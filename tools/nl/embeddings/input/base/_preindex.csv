@@ -1073,7 +1073,6 @@ Max Temperature Likely (1%) At Least Once Per Decade,dc/topic/MaxTemperature1Per
 Max Temperature Likely (1%) At Least Once Per Year,dc/topic/MaxTemperature1PercentLikelyAtLeastOncePerYear
 Max Temperature Likely (5%) At Least Once Per Decade,dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerDecade
 Max Temperature Likely (5%) At Least Once Per Year,dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerYear
-Maximum Temperature,Max_Temperature
 Maximum number of consecutive dry days,ConsecutiveDryDays
 Maximum rain fall,Max_Rainfall
 Maximum snow fall,Max_Snowfall
@@ -1122,7 +1121,6 @@ Mean Retirement Income of Households with foreign born people from South Central
 Mean Retirement Income of Households with foreign born people from South Eastern Asia,Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthSouthEasternAsia
 Mean Retirement Income of Households with foreign born people from Southern Eastern Europe,Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthSouthernEasternEurope
 Mean Retirement Income of Households with foreign born people from Western Asia,Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthWesternAsia
-Mean Temperature,Mean_Temperature
 Mean Visibility,Mean_Visibility
 Mean Wind Speed,Mean_WindSpeed
 Mean commute time of working people,Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome
@@ -1816,6 +1814,7 @@ Number of Muslim workers,indianCensus/Count_Person_Religion_Muslim_Workers
 Number of Muslims,indianCensus/Count_Person_Religion_Muslim
 Number of Muslims living in rural areas,indianCensus/Count_Person_Religion_Muslim_Rural
 Number of Muslims living in urban areas,indianCensus/Count_Person_Religion_Muslim_Urban
+Number of Native American people,Count_Person_AmericanIndianOrAlaskaNativeAlone
 Number of Native Hawaiian Or Other Pacific Islander males live Above Poverty Level In The Past 12 Months,Count_Person_Male_AbovePovertyLevelInThePast12Months_HispanicOrLatino
 Number of Native Hawaiian Or Other Pacific Islander males living Below Poverty Level In The Past 12 Months,Count_Person_Male_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone
 Number of Native Hawaiian Or Other Pacific IslanderAlone people below poverty level in the past 12 months,Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone
@@ -2054,6 +2053,7 @@ Number of black or african american people with disabilities,Count_Person_WithDi
 Number of boys under 4 years old,Count_Person_0To4Years_Male
 Number of burglaries,Count_CriminalActivities_Burglary
 Number of car thefts,Count_CriminalActivities_MotorVehicleTheft
+Number of children without health insurance,Count_Person_18OrLessYears_NoHealthInsurance
 Number of civilians Aged 18 or More Resides In Nursing Facilities,Count_Person_18OrMoreYears_Civilian_ResidesInNursingFacilities
 Number of civilians aged 18 or more,Count_Person_18OrMoreYears_Civilian
 Number of civilians aged 18 or more who reside in adult correctional facilities,Count_Person_18OrMoreYears_Civilian_ResidesInAdultCorrectionalFacilities
@@ -2341,7 +2341,6 @@ Number of households without householders over 60 years old that did not receive
 Number of households without internet subscription,Count_Household_InternetWithoutSubscription
 Number of houseless females,Count_Person_Houseless_Female
 Number of houseless females under 6 years,Count_Person_Houseless_YearsUpto6_Female
-Number of houseless females who belong to Scheduled Caste,Count_Person_Houseless_ScheduledCaste_Female
 Number of houseless females who reside in rural area,Count_Person_Houseless_Rural_Female
 Number of houseless females who reside in urban area,Count_Person_Houseless_Urban_Female
 Number of houseless females who worked in the last year,Count_Person_Houseless_Workers_Female
@@ -2360,7 +2359,6 @@ Number of houseless literates in rural areas,Count_Person_Houseless_Literate_Rur
 Number of houseless literates in urban areas,Count_Person_Houseless_Literate_Urban
 Number of houseless males,Count_Person_Houseless_Male
 Number of houseless males under 6 years,Count_Person_Houseless_YearsUpto6_Male
-Number of houseless males who belong to Scheduled Caste,Count_Person_Houseless_ScheduledCaste_Male
 Number of houseless males who reside in rural area,Count_Person_Houseless_Rural_Male
 Number of houseless males who reside in urban area,Count_Person_Houseless_Urban_Male
 Number of houseless males who worked in the last year,Count_Person_Houseless_Workers_Male
@@ -2368,15 +2366,7 @@ Number of houseless people,Count_Person_Houseless
 Number of houseless people under 6 years who reside in rural area,Count_Person_Houseless_YearsUpto6_Rural
 Number of houseless people under 6 years who reside in urban area,Count_Person_Houseless_YearsUpto6_Urban
 Number of houseless people who reside in urban area,Count_Person_Houseless_Urban
-Number of houseless scheduled caste people who reside in urban area,Count_Person_Houseless_ScheduledCaste_Urban
-Number of houseless scheduled tribe females,Count_Person_Houseless_ScheduledTribe_Female
-Number of houseless scheduled tribe males,Count_Person_Houseless_ScheduledTribe_Male
-Number of houseless scheduled tribe people,Count_Person_Houseless_ScheduledTribe
-Number of houseless scheduled tribe people who reside in rural area,Count_Person_Houseless_ScheduledTribe_Rural
-Number of houseless scheduled tribe people who reside in urban area,Count_Person_Houseless_ScheduledTribe_Urban
 Number of houseless who are up to 6 years old,Count_Person_Houseless_YearsUpto6
-Number of houseless who belong to Scheduled Caste,Count_Person_Houseless_ScheduledCaste
-Number of houseless who belong to Scheduled Caste and reside in rural area,Count_Person_Houseless_ScheduledCaste_Rural
 Number of houseless who did not work in the last year,Count_Person_Houseless_NonWorker
 Number of houseless who reside in rural area,Count_Person_Houseless_Rural
 Number of houseless who worked in the last year,Count_Person_Houseless_Workers
@@ -3285,7 +3275,6 @@ Sustainable fisheries as a proportion of GDP,sdg/EN_SCP_FSHGDP
 "Take urgent and significant action to reduce the degradation of natural habitats, halt the loss of biodiversity and, by 2020, protect and prevent the extinction of threatened species",dc/topic/sdg_15.5
 Tariffs,dc/topic/Tariffs
 Teacher,dc/topic/Teacher
-Temperature,Temperature;dc/topic/Temperatures
 Temperature Predicitions,dc/topic/TemperaturePredictions
 The agriculture orientation index for government expenditures,dc/topic/sdg_2.a.1
 The average area covered by commercial solar installations,Mean_CoverageArea_SolarInstallation_Commercial
@@ -3615,7 +3604,6 @@ amount of cadmium emissions from Waste Disposal,Annual_Amount_Emissions_Cadmium_
 amount of cadmium emissions from Waste Disposal Treatment And Recovery,Annual_Amount_Emissions_Cadmium_SCC_26_WasteDisposalTreatmentAndRecovery
 amount of carbon dioxide (CO2) emissions from agriculture source,Annual_Emissions_CarbonDioxide_Agriculture
 amount of carbon dioxide (CO2) emissions from aluminum production,Annual_Emissions_CarbonDioxide_AluminumProduction
-amount of carbon dioxide (CO2) emissions from biogenic emission sources,Annual_Emissions_CarbonDioxide_Biogenic
 amount of carbon dioxide (CO2) emissions from cement production,Annual_Emissions_CarbonDioxide_CementProduction
 amount of carbon dioxide (CO2) emissions from chemical and petrochemical industry,Annual_Emissions_CarbonDioxide_ChemicalPetrochemicalIndustry
 amount of carbon dioxide (CO2) emissions from coal mining,Annual_Emissions_CarbonDioxide_CoalMining
@@ -3636,6 +3624,7 @@ amount of carbon dioxide (CO2) emissions from maritime shipping,Annual_Emissions
 amount of carbon dioxide (CO2) emissions from mineral extraction,Annual_Emissions_CarbonDioxide_MineralExtraction
 amount of carbon dioxide (CO2) emissions from net forest emissions,Annual_Emissions_CarbonDioxide_NetForestEmissions
 amount of carbon dioxide (CO2) emissions from net grassland emissions,Annual_Emissions_CarbonDioxide_NetGrasslandEmissions
+amount of carbon dioxide (CO2) emissions from non-biogenic emission sources,Annual_Emissions_CarbonDioxide_NonBiogenic
 amount of carbon dioxide emissions from External Combustion,Annual_Amount_Emissions_CarbonDioxide_SCC_1_ExternalCombustion
 amount of carbon dioxide emissions from Industrial Processes,Annual_Amount_Emissions_CarbonDioxide_SCC_3_IndustrialProcesses
 amount of carbon dioxide emissions from Internal Combustion Engines,Annual_Amount_Emissions_CarbonDioxide_SCC_2_InternalCombustionEngines
@@ -4253,13 +4242,11 @@ manufacturing banking,dc/topic/sdg_9.3.2
 manufacturing finance,dc/topic/sdg_9.3.2
 manufacturing heat consumption,Annual_Consumption_Energy_Manufacturing_Heat
 market value of agricultural farms,MarketValue_Farm_AgriculturalProducts
-max temp,dc/topic/Temperatures
 max temp forecast,dc/topic/TemperaturePredictions
 max temperature likely in the decade at five percent chance,dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerDecade
 max temperature likely in the decade at one percent chance,dc/topic/MaxTemperature1PercentLikelyAtLeastOncePerDecade
 max temperature likely in the year at five percent chance,dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerYear
 max temperature likely in the year at one percent chance,dc/topic/MaxTemperature1PercentLikelyAtLeastOncePerYear
-maximum temperature,dc/topic/Temperatures
 maximum temperature once per decade 1%,dc/topic/MaxTemperature1PercentLikelyAtLeastOncePerDecade
 maximum temperature once per decade 5%,dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerDecade
 maximum temperature once per year 1%,dc/topic/MaxTemperature1PercentLikelyAtLeastOncePerYear
@@ -4317,15 +4304,12 @@ median income,Median_Income_Person
 men with internet access,dc/topic/sdg_17.8.1
 men women children living below $2,dc/topic/sdg_1.2.2
 middle school students by race,dc/topic/StudentsInMiddleSchool
-min temp,dc/topic/Temperatures
 min temp forecast,dc/topic/TemperaturePredictions
 min temperature likely in the decade at five percent chance,dc/topic/MinTemperature5PercentLikelyAtLeastOncePerDecade
 min temperature likely in the decade at one percent chance,dc/topic/MinTemperature1PercentLikelyAtLeastOncePerDecade
 min temperature likely in the year at five percent chance,dc/topic/MinTemperature5PercentLikelyAtLeastOncePerYear
 min temperature likely in the year at one percent chance,dc/topic/MinTemperature1PercentLikelyAtLeastOncePerYear
-minimal Temperature,Min_Temperature
 minimal snowfall,Min_Snowfall
-minimum temperature,dc/topic/Temperatures
 minimum temperature once per decade 1%,dc/topic/MinTemperature1PercentLikelyAtLeastOncePerDecade
 minimum temperature once per decade 5%,dc/topic/MinTemperature5PercentLikelyAtLeastOncePerDecade
 minimum temperature once per year 1%,dc/topic/MinTemperature1PercentLikelyAtLeastOncePerYear
@@ -7171,7 +7155,6 @@ temperature highs for the year,dc/topic/YearlyProjectedTemperatureHighs
 temperature lows for the decade,dc/topic/DecadeProjectedTemperatureLows
 temperature lows for the year,dc/topic/YearlyProjectedTemperatureLows
 temperature prediction,dc/topic/TemperaturePredictions
-temperatures,dc/topic/Temperatures
 time spend during commute,dc/topic/CommuteTime
 time spent traveling to work,dc/topic/CommuteTime
 time spent travelling from work,dc/topic/CommuteTime
