@@ -15,7 +15,7 @@
 # Run integration tests for NL
 steps:
   - id: setup_python
-    name: python:3.12
+    name: python:3.11.3
     entrypoint: /bin/bash
     waitFor: ["-"]
     args:
@@ -24,7 +24,7 @@ steps:
         ./run_test.sh --setup_python
 
   - id: explore_test_detection
-    name: python:3.12
+    name: python:3.11.3
     entrypoint: /bin/sh
     waitFor:
       - setup_python
@@ -34,7 +34,7 @@ steps:
         ./run_test.sh --explore -k 'ExploreTestDetection'
 
   - id: explore_test_fulfillment
-    name: python:3.12
+    name: python:3.11.3
     entrypoint: /bin/sh
     waitFor:
       - explore_test_detection
@@ -44,7 +44,7 @@ steps:
         ./run_test.sh --explore -k 'ExploreTestFulfillment'
 
   - id: explore_test_e2e_1
-    name: python:3.12
+    name: python:3.11.3
     entrypoint: /bin/sh
     waitFor:
       - explore_test_fulfillment
@@ -54,7 +54,7 @@ steps:
         ./run_test.sh --explore -k 'ExploreTestEE1'
 
   - id: explore_test_e2e_2
-    name: python:3.12
+    name: python:3.11.3
     entrypoint: /bin/sh
     waitFor:
       - explore_test_e2e_1
@@ -64,7 +64,7 @@ steps:
         ./run_test.sh --explore -k 'ExploreTestEE2'
 
   - id: nl_test_demo
-    name: python:3.12
+    name: python:3.11.3
     entrypoint: /bin/sh
     waitFor:
       - explore_test_e2e_2
@@ -74,7 +74,7 @@ steps:
         ./run_test.sh --nl -k 'NLTestDemo'
 
   - id: nl_test_misc
-    name: python:3.12
+    name: python:3.11.3
     entrypoint: /bin/sh
     waitFor:
       - nl_test_demo
