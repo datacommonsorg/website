@@ -15,6 +15,8 @@
 
 from typing import Dict, FrozenSet, List, Set, Union
 
+_RATE_WORDS_TO_SKIP = "(birth|change|death|exchange|fertility|literacy|mortality|participation|unemployment|withdrawal)"
+
 STOP_WORDS: Set[str] = {
     'ourselves',
     'hers',
@@ -272,8 +274,14 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
         # together with ContainedInPlace.
         "AnswerPlacesReference": ["these", "those"],
         "PerCapita": [
-            "fraction", "percent", "percentage", "per capita", "percapita",
-            "per person", "rate", "rates"
+            "fraction",
+            "percent",
+            "percentage",
+            "per capita",
+            "percapita",
+            "per person",
+            # remove "rate" or "rates" if is not followed by certain words (used as one metric)
+            f"\brate(s)?\b(?!\s*{_RATE_WORDS_TO_SKIP}\s+rate(s)?)",
         ],
         "Temporal": [
             # Day of week
@@ -309,10 +317,17 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
         ]
     }
 
-# We do not want to strip words from events / superlatives / temporal
-# since we want those to match SVs too!
+# By default, we do not want to strip words from these heuristics because they
+# can match SVs too: events / superlatives / temporal / percapita.
+# We want to keep per capita because queries like "theft rates" without the
+# per capita stop words will become "theft" which has trouble matching plurals
+# and stat based descriptions.
 HEURISTIC_TYPES_IN_VARIABLES = frozenset(
     ["Event", "Superlative", "Temporal", "PerCapita"])
+# For toolformer, we do want to strip words from PerCapita heuristics because
+# we care about top matches being more accurate.
+HEURISTIC_TYPES_IN_VARIABLES_TOOLFORMER = frozenset(
+    ["Event", "Superlative", "Temporal"])
 
 PLACE_TYPE_TO_PLURALS: Dict[str, str] = {
     "place": "places",

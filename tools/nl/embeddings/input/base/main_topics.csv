@@ -297,7 +297,7 @@ dc/topic/SocialSupport,Social Support;Social Support
 dc/topic/SolarConsumption,Solar Consumption;Solar Consumption
 dc/topic/SolarPotential,Solar Potential;Solar Potential;Solar potential
 dc/topic/Storm,Storm;Storm
-dc/topic/Stroke,Stroke;Stroke;stroke attack;heart attack
+dc/topic/Stroke,Stroke;Stroke;stroke attack
 dc/topic/StrokeFemalePopulationByAge,Female Population With Stroke By Age;Female Population With Stroke By Age
 dc/topic/StrokeMalePopulationByAge,Male Population With Stroke By Age;Male Population With Stroke By Age
 dc/topic/StudentEnrollmentLevels,Student Enrollment Levels;Student Enrollment Levels;enrollement levels of students;number of students enrolled;students currently enrolled
@@ -317,7 +317,6 @@ dc/topic/Sustainability,Sustainability;Sustainability;green;sustainable
 dc/topic/Tariffs,Tariffs;Tariffs
 dc/topic/Teacher,Teacher;Teacher;teachers
 dc/topic/TemperaturePredictions,Temperature Predicitions;Temperature Predicitions;temperature forecasts;temp forecast;max temp forecast;min temp forecast;temperature prediction;predict temperature
-dc/topic/Temperatures,Temperature;Temperature;temperatures;max temp;min temp;maximum temperature;minimum temperature
 dc/topic/Tornado,Tornado;Tornado
 dc/topic/TransportationEmissionsByGas,Emissions from transportation;Emissions from transportation;Amount of gases emitted by the transportation sector;Total quantity of gases released by the transportation sector;The volume of emissions produced by transportation activities;Quantity of greenhouse gases emitted by vehicles and transportation systems;Total amount of gas emissions from the transportation industry;The sum of all gases released by transportation activities
 dc/topic/Tsunami,Tsunami;Tsunami
