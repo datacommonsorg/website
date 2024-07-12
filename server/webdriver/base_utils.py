@@ -15,6 +15,7 @@
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 
 DEFAULT_HEIGHT = 1200
 DEFAULT_WIDTH = 1200
@@ -29,7 +30,7 @@ def create_driver(preferences=None):
   chrome_options.add_argument('--hide-scrollbars')
   if preferences:
     chrome_options.add_experimental_option("prefs", preferences)
-  driver = webdriver.Chrome(options=chrome_options)
+  driver = webdriver.Chrome(options=chrome_options, service=Service(port=0))
   # Set a reliable window size for all tests (can be overwritten though)
   driver.set_window_size(DEFAULT_WIDTH, DEFAULT_HEIGHT)
   return driver
