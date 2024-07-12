@@ -29,8 +29,8 @@ window.onload = () => {
 };
 
 function renderPage(): void {
-  const sheetIdA = document.getElementById("metadata").dataset.sheetIdA;
-  const sheetIdB = document.getElementById("metadata").dataset.sheetIdB;
+  let sheetIdA = document.getElementById("metadata").dataset.sheetIdA;
+  let sheetIdB = document.getElementById("metadata").dataset.sheetIdB;
   const sessionId = document.getElementById("metadata").dataset.sessionId;
 
   if (!sheetIdA || !sheetIdB || !sessionId) {
@@ -38,6 +38,12 @@ function renderPage(): void {
       "Missing URL parameter. Please ensure you have provided a valid sheetIdA, sheetIdB, and sessionId."
     );
     return;
+  }
+
+  // Put sheet IDs in lexicographical order so it doesn't matter what order
+  // they are in the URL.
+  if (sheetIdB < sheetIdA) {
+    sheetIdB = [sheetIdA, (sheetIdA = sheetIdB)][0];
   }
 
   ReactDOM.render(
