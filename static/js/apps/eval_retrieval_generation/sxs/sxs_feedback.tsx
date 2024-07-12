@@ -16,12 +16,13 @@
 
 /* Wrapper component around all side-by-side feedback components */
 
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { loadSpinner, removeSpinner } from "../../../shared/util";
 import { FEEDBACK_PANE_ID } from "../constants";
 import { SessionContext } from "./context";
-import { saveRatingToStore } from "./data_store";
+import { getStoredRating, saveRatingIfChanged } from "./data_store";
+import { FeedbackForm } from "./feedback_form";
 import { Navigation } from "./navigation";
 import { Rating, SxsPreference } from "./types";
 
@@ -35,23 +36,49 @@ interface SxsFeedbackPropType {
 
 export function SxsFeedback(props: SxsFeedbackPropType): JSX.Element {
   const { sessionQueryId } = useContext(SessionContext);
+  const [disabled, setDisabled] = useState<boolean>(false);
+  const [preference, setPreference] = useState<SxsPreference>(null);
+  const [reason, setReason] = useState<string>("");
+
+  useEffect(() => {
+    setDisabled(true);
+    getStoredRating(
+      props.leftSheetId,
+      props.rightSheetId,
+      sessionQueryId,
+      props.sessionId
+    ).then((storedRating: Rating | null) => {
+      // TODO Assert left and right still match.
+      setPreference(storedRating?.preference ?? null);
+      setReason(storedRating?.reason ?? "");
+      setDisabled(false);
+    });
+  }, [props.leftSheetId, props.rightSheetId, props.sessionId, sessionQueryId]);
 
   const checkAndSubmit = () => {
-    const rating: Rating = {
+    if (!preference) {
+      if (reason) {
+        alert("Please choose a preferred answer.");
+        return Promise.resolve(false);
+      } else {
+        // Form is empty; skip saving.
+        return Promise.resolve(true);
+      }
+    }
+    const newRating: Rating = {
       leftSheetId: props.leftSheetId,
-      // TODO Get these values from input elements and throw if they're empty.
-      preference: SxsPreference.NEUTRAL,
-      reason: "because",
+      preference,
+      reason,
       rightSheetId: props.rightSheetId,
     };
     loadSpinner(FEEDBACK_PANE_ID);
-    return saveRatingToStore(
+    return saveRatingIfChanged(
       props.userEmail,
       props.leftSheetId,
       props.rightSheetId,
       sessionQueryId,
       props.sessionId,
-      rating
+      newRating
     )
       .then(() => true)
       .finally(() => removeSpinner(FEEDBACK_PANE_ID));
@@ -60,7 +87,13 @@ export function SxsFeedback(props: SxsFeedbackPropType): JSX.Element {
   return (
     <div className="feedback-pane feedback-pane-footer" id={FEEDBACK_PANE_ID}>
       <div className="content">
-        <p>Inputs go here.</p>
+        <FeedbackForm
+          disabled={disabled}
+          preference={preference}
+          reason={reason}
+          setPreference={setPreference}
+          setReason={setReason}
+        ></FeedbackForm>
         <p>left: {props.leftSheetId}.</p>
         <p>right: {props.rightSheetId}.</p>
       </div>

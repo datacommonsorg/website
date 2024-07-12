@@ -44,6 +44,53 @@ function getRatingRef(
 }
 
 /**
+ * Checks if two ratings are the same.
+ */
+function areEqual(r1: Rating | null, r2: Rating | null): boolean {
+  if (!r1 || !r2) {
+    return r1 === r2;
+  }
+  return (
+    r1.leftSheetId === r2.leftSheetId &&
+    r1.preference === r2.preference &&
+    r1.reason === r2.reason &&
+    r1.rightSheetId === r2.rightSheetId
+  );
+}
+
+/**
+ * Saves a rater's input to Firestore only if it is different from any existing
+ * stored rating. Overwrites any previous data.
+ */
+export async function saveRatingIfChanged(
+  userEmail: string,
+  sheetIdA: string,
+  sheetIdB: string,
+  queryId: number,
+  sessionId: string,
+  rating: Rating
+) {
+  const storedRating = await getStoredRating(
+    sheetIdA,
+    sheetIdB,
+    queryId,
+    sessionId
+  );
+  if (areEqual(rating, storedRating)) {
+    // No change; skip saving.
+    return Promise.resolve();
+  }
+  return saveRatingToStore(
+    userEmail,
+    sheetIdA,
+    sheetIdB,
+    queryId,
+    sessionId,
+    rating
+  );
+}
+
+/**
  * Saves a rater's input to Firestore, overwriting any previous data.
  */
 export async function saveRatingToStore(
@@ -59,7 +106,10 @@ export async function saveRatingToStore(
   return setDoc(docRef, dataToSave);
 }
 
-export async function getStoredFeedback(
+/**
+ * Gets any prior rating for the given query and session.
+ */
+export async function getStoredRating(
   sheetIdA: string,
   sheetIdB: string,
   queryId: number,
