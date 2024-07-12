@@ -23,6 +23,8 @@ import os
 import time
 from typing import Dict, List, Set
 import urllib
+from itertools import groupby
+from operator import itemgetter
 
 from flask import make_response
 from flask import request
@@ -527,6 +529,262 @@ def gzip_compress_response(raw_content, is_json):
   return response
 
 
+def flatten_obs_series_response(obs_series_response):
+  """
+  Flatten the observation series response into a list of dictionaries.
+
+  This function processes an observation series response, extracting and 
+  flattening the nested data structure into a simple list of dictionaries. 
+  Each dictionary in the list represents a single observation with the 
+  following keys: 'variable', 'entity', 'date', 'value', and 'facet'.
+
+  Parameters:
+  obs_series_response (dict): A nested dictionary representing the observation 
+                              series response. It contains observations grouped 
+                              by variable and entity, with each entity having 
+                              ordered facets and observations.
+
+  Returns:
+  list: A list of dictionaries where each dictionary contains the keys:
+        - 'variable' (str): The variable dcid.
+        - 'entity' (str): The entity dcid.
+        - 'date' (str): The date of the observation.
+        - 'value' (numeric): The observation value.
+        - 'facet' (str): The facet ID associated with the observation.
+        
+  Example:
+  >>> obs_series_response = {
+          "byVariable": {
+              "Count_Person": {
+                  "byEntity": {
+                      "country/USA": {
+                          "orderedFacets": [
+                              {
+                                  "facetId": "2176550201",
+                                  "observations": [
+                                      {"date": "1900", "value": 76094000},
+                                      {"date": "1901", "value": 77584000}
+                                  ]
+                              }
+                          ]
+                      }
+                  }
+              }
+          }
+      }
+  >>> flatten_obs_series_response(obs_series_response)
+  [
+      {'date': '1900', 'entity': 'country/USA', 'facet': '2176550201', 'value': 76094000, 'variable': 'Count_Person'},
+      {'date': '1901', 'entity': 'country/USA', 'facet': '2176550201', 'value': 77584000, 'variable': 'Count_Person'}
+  ]
+  """
+  flattened_observations = []
+  variables = obs_series_response["byVariable"].keys()
+  for variable in variables:
+    entities = obs_series_response["byVariable"][variable]["byEntity"].keys()
+    for entity in entities:
+      variable_entity_entry = obs_series_response["byVariable"][variable]["byEntity"][entity]
+      if not variable_entity_entry:
+        continue
+      for ordered_facet in variable_entity_entry['orderedFacets']:
+        for observation in ordered_facet['observations']:
+          flattened_observations.append({
+            'date': observation['date'],
+            'entity' : entity,
+            'facet': ordered_facet['facetId'],
+            'value': observation['value'],
+            'variable': variable
+          })
+  return flattened_observations
+
+def flattened_observations_to_dates_by_variable(flattened_observations: List[dict]) -> List[dict]:
+  """
+  Group flattened observation data by variable, then date, then facet, and count entities for each facet.
+
+  This function takes a list of flattened observation dictionaries and organizes them into a nested 
+  structure grouped by variable, date, and facet. The resulting structure provides counts of entities 
+  for each facet on each date for each variable.
+
+  Parameters:
+  flattened_observations (List[dict]): A list of dictionaries where each dictionary represents 
+                                        a flattened observation with the following keys:
+                                        - 'variable' (str): The variable dcid.
+                                        - 'date' (str): The date of the observation.
+                                        - 'entity' (str): The entity dcid.
+                                        - 'facet' (str): The facet ID.
+                                        - 'value' (numeric): The observation value.
+
+  Returns:
+  List[dict]: A list of dictionaries where each dictionary contains the keys:
+              - 'variable' (str): The variable dcid.
+              - 'observationDates' (List[dict]): A list of dictionaries for each date, each containing:
+                - 'date' (str): The date of the observation.
+                - 'entityCount' (List[dict]): A list of dictionaries for each facet, each containing:
+                  - 'facet' (str): The facet ID.
+                  - 'count' (int): The number of entities for this facet on this date.
+                  
+  Example:
+  >>> flattened_observations = [
+          {'date': '1900', 'entity': 'country/USA', 'facet': '2176550201', 'value': 76094000, 'variable': 'Count_Person'},
+          {'date': '1900', 'entity': 'country/USA', 'facet': '2176550201', 'value': 76094000, 'variable': 'Count_Person'},
+          {'date': '1901', 'entity': 'country/USA', 'facet': '2176550201', 'value': 77584000, 'variable': 'Count_Person'},
+          {'date': '1901', 'entity': 'country/CAN', 'facet': '2176550201', 'value': 5500000, 'variable': 'Count_Person'}
+      ]
+  >>> flattened_observations_to_dates_by_variable(flattened_observations)
+  [
+      {
+          'variable': 'Count_Person',
+          'observationDates': [
+              {
+                  'date': '1900',
+                  'entityCount': [
+                      {
+                          'facet': '2176550201',
+                          'count': 2
+                      }
+                  ]
+              },
+              {
+                  'date': '1901',
+                  'entityCount': [
+                      {
+                          'facet': '2176550201',
+                          'count': 2
+                      }
+                  ]
+              }
+          ]
+      }
+  ]
+  """
+  dates_by_variable = []
+  flattened_observations.sort(key=itemgetter('variable'))
+  for variable_key, observations_for_variable_group in groupby(flattened_observations, key=itemgetter('variable')):
+    dates_by_variable_item = {
+      'variable' : variable_key,
+      'observationDates': []
+    }
+    dates_by_variable.append(dates_by_variable_item)
+    observations_for_variable = list(observations_for_variable_group)
+    observations_for_variable.sort(key=itemgetter('date'))
+    for date_key, observations_for_date_group in groupby(observations_for_variable, key=itemgetter('date')):
+      observation_dates_item = {
+        'date': date_key,
+        'entityCount': []
+      }
+      dates_by_variable_item['observationDates'].append(observation_dates_item)
+      observations_for_date = list(observations_for_date_group)
+      observations_for_date.sort(key=itemgetter('facet'))
+      for facet_key, observations_for_facet_group in groupby(observations_for_date, key=itemgetter('facet')):
+        entity_count_item = {
+          'count': len(list(observations_for_facet_group)),
+          'facet': facet_key
+        }
+        observation_dates_item['entityCount'].append(entity_count_item)
+  return dates_by_variable
+
+def get_series_dates_from_entities(entities: List[str], variables:List[str]):
+  """
+  Get observation series dates by place DCIDs and variables.
+
+  This function retrieves observation series data for the specified entities and variables,
+  flattens the data, and then organizes it by variable, date, and facet. The result includes
+  the grouped observation dates and the facets information from the observation series response.
+
+  Parameters:
+  entities (List[str]): A list of entity DCIDs (place identifiers) for which to retrieve data.
+  variables (List[str]): A list of variable names to retrieve data for.
+
+  Returns:
+  dict: A dictionary with two keys:
+        - 'datesByVariable' (List[dict]): A list of dictionaries where each dictionary contains:
+            - 'variable' (str): The variable dcid.
+            - 'observationDates' (List[dict]): A list of dictionaries for each date, each containing:
+                - 'date' (str): The date of the observation.
+                - 'entityCount' (List[dict]): A list of dictionaries for each facet, each containing:
+                    - 'facet' (str): The facet ID.
+                    - 'count' (int): The number of entities for this facet on this date.
+        - 'facets' (dict): The facets information from the observation series response.
+        
+  Example:
+  >>> entities = ["country/USA", "country/CAN"]
+  >>> variables = ["Count_Person", "Count_Household"]
+  >>> result = get_series_dates_from_entities(entities, variables)
+  >>> print(result)
+  {
+      'datesByVariable': [
+          {
+              'variable': 'Count_Person',
+              'observationDates': [
+                  {
+                      'date': '1900',
+                      'entityCount': [
+                          {
+                              'facet': '2176550201',
+                              'count': 1
+                          }
+                      ]
+                  },
+                  {
+                      'date': '1901',
+                      'entityCount': [
+                          {
+                              'facet': '2176550201',
+                              'count': 1
+                          }
+                      ]
+                  }
+              ]
+          },
+          {
+              'variable': 'Count_Household',
+              'observationDates': [
+                  {
+                      'date': '1900',
+                      'entityCount': [
+                          {
+                              'facet': '2176550202',
+                              'count': 1
+                          }
+                      ]
+                  },
+                  {
+                      'date': '1901',
+                      'entityCount': [
+                          {
+                              'facet': '2176550202',
+                              'count': 1
+                          }
+                      ]
+                  }
+              ]
+          }
+      ],
+      'facets': {
+          '2176550201': {
+            'importName': 'CensusACS5YearSurvey_SubjectTables_S0101',
+            'measurementMethod': 'CensusACS5yrSurveySubjectTable',
+            'provenanceUrl': 'https://data.census.gov/table?q=S0101:+Age+and+Sex&tid=ACSST1Y2022.S0101'
+          },
+          '2176550202': {
+            'importName': 'CensusACS5YearSurvey_SubjectTables_S2602',
+            'measurementMethod': 'CensusACS5yrSurveySubjectTable',
+            'provenanceUrl': 'https://data.census.gov/cedsci/table?q=S2602&tid=ACSST5Y2019.S2602'
+          }
+      }
+  }
+  """
+  obs_series_response = dc.obs_series(entities=entities, variables=variables)
+  flattened_observations = flatten_obs_series_response(obs_series_response)
+  dates_by_variable = flattened_observations_to_dates_by_variable(flattened_observations)
+
+  result = {
+    'datesByVariable': dates_by_variable,
+    'facets': obs_series_response['facets']
+  }
+  return result
+
+
 def fetch_highest_coverage(parent_entity: str,
                            child_type: str,
                            variables: List[str],
@@ -557,6 +815,7 @@ def fetch_highest_coverage(parent_entity: str,
   point_responses = []
   series_dates_response = dc.get_series_dates(parent_entity, child_type,
                                               variables)
+  print("!!! series_dates_response", series_dates_response)
   facet_ids_set = set(facet_ids or [])
   for observation_entity_counts_by_date in series_dates_response[
       'datesByVariable']:
