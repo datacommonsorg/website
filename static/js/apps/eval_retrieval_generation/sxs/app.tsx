@@ -16,13 +16,15 @@
 
 import { OAuthCredential, User } from "firebase/auth";
 import { GoogleSpreadsheet } from "google-spreadsheet";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { signInWithGoogle } from "../../../utils/google_signin";
-import { QuerySection } from "../query_section";
-import { TablePane } from "../table_pane";
-import { DocInfo, EvalType, FeedbackStage } from "../types";
+import { DocInfo } from "../types";
 import { getDocInfo } from "../util";
+import { SessionContext } from "./context";
+import { getLeftAndRight } from "./left_right_picker";
+import { QueryWithTables } from "./query_with_tables";
+import { SxsFeedback } from "./sxs_feedback";
 
 interface AppPropType {
   sessionId: string;
@@ -30,12 +32,29 @@ interface AppPropType {
   sheetIdB: string;
 }
 
+function getSortedQueryIds(docInfos: { a: DocInfo; b: DocInfo }) {
+  const idsA = Object.keys(docInfos?.a?.allQuery || {});
+  const idsB = Object.keys(docInfos?.b?.allQuery || {});
+  return idsA
+    .filter((id) => idsB.includes(id))
+    .map((id) => Number(id))
+    .sort((a, b) => a - b);
+}
+
 export function App(props: AppPropType): JSX.Element {
   const [user, setUser] = useState<User | null>(null);
-  const [docInfo, setDocInfo] = useState<{ left: DocInfo; right: DocInfo }>(
-    null
+  const [docInfos, setDocInfos] = useState<{ a: DocInfo; b: DocInfo }>(null);
+  const { setSessionQueryId, sessionQueryId } = useContext(SessionContext);
+  const sortedQueryIds = getSortedQueryIds(docInfos);
+  if (!sessionQueryId && sortedQueryIds.length) {
+    setSessionQueryId(sortedQueryIds[0]);
+  }
+  const { leftDocInfo, rightDocInfo } = getLeftAndRight(
+    props.sessionId,
+    docInfos?.a,
+    docInfos?.b,
+    sessionQueryId
   );
-  const [queryId, setQueryId] = useState<number>(1);
 
   async function handleUserSignIn(
     user: User,
@@ -54,12 +73,7 @@ export function App(props: AppPropType): JSX.Element {
       // Get and set information about each document
       Promise.all([getDocInfo(docA), getDocInfo(docB)]).then(
         ([docInfoA, docInfoB]) => {
-          // randomize which side each document goes on
-          if (Math.floor(Math.random() * 2) === 0) {
-            setDocInfo({ left: docInfoA, right: docInfoB });
-          } else {
-            setDocInfo({ left: docInfoB, right: docInfoA });
-          }
+          setDocInfos({ a: docInfoA, b: docInfoB });
         }
       );
     }
@@ -84,39 +98,20 @@ export function App(props: AppPropType): JSX.Element {
       )}
 
       {user && <p>Signed in as {user.email}</p>}
-      {user && !docInfo && <p>Loading query...</p>}
-      {docInfo && (
+      {user && !docInfos && <p>Loading query...</p>}
+      {docInfos && (
         <>
           <div className="app-content">
-            <div className="sxs-pane">
-              <QuerySection
-                doc={docInfo.left.doc}
-                evalType={docInfo.left.evalType}
-                feedbackStage={FeedbackStage.SXS}
-                query={docInfo.left.allQuery[queryId]}
-              />
-              {docInfo.left.evalType === EvalType.RAG && (
-                <TablePane
-                  doc={docInfo.left.doc}
-                  calls={docInfo.left.allCall[queryId]}
-                />
-              )}
-            </div>
+            <QueryWithTables docInfo={leftDocInfo} />
             <div className="divider" />
-            <div className="sxs-pane">
-              <QuerySection
-                doc={docInfo.right.doc}
-                evalType={docInfo.right.evalType}
-                feedbackStage={FeedbackStage.SXS}
-                query={docInfo.right.allQuery[queryId]}
-              />
-              {docInfo.right.evalType === EvalType.RAG && (
-                <TablePane
-                  doc={docInfo.right.doc}
-                  calls={docInfo.right.allCall[queryId]}
-                />
-              )}
-            </div>
+            <QueryWithTables docInfo={rightDocInfo} />
+            <SxsFeedback
+              leftSheetId={leftDocInfo.doc.spreadsheetId}
+              rightSheetId={rightDocInfo.doc.spreadsheetId}
+              sessionId={props.sessionId}
+              sortedQueryIds={sortedQueryIds}
+              userEmail={user.email}
+            ></SxsFeedback>
           </div>
         </>
       )}

@@ -103,19 +103,14 @@ function getAnswer(
     queryId: query.id,
   };
   let answerPromise = null;
-  if (evalType === EvalType.RIG) {
-    answerPromise = () => getAnswerFromQA(doc, query);
+  if (
+    evalType === EvalType.RAG &&
+    (feedbackStage === FeedbackStage.CALLS ||
+      feedbackStage === FeedbackStage.OVERALL_QUESTIONS)
+  ) {
+    answerPromise = () => getAnswerFromRagCalls(doc, allCall, query.id);
   } else {
-    // RAG eval type has different things that should be shown in this section
-    // depending on the feedback stage
-    if (
-      feedbackStage === FeedbackStage.CALLS ||
-      feedbackStage === FeedbackStage.OVERALL_QUESTIONS
-    ) {
-      answerPromise = () => getAnswerFromRagCalls(doc, allCall, query.id);
-    } else {
-      answerPromise = () => getAnswerFromQA(doc, query);
-    }
+    answerPromise = () => getAnswerFromQA(doc, query);
   }
   if (!answerPromise) {
     return Promise.resolve({ answer: "", metadata });

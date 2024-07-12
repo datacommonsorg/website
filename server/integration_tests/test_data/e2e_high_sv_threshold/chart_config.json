@@ -62,7 +62,6 @@
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
             "title": "Count of Mortality Event: 1 Years or Less in Counties of Massachusetts"
           },
           {
@@ -83,7 +82,6 @@
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
             "title": "Causes of Infant Mortality"
           },
           {
@@ -116,7 +114,6 @@
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
             "title": "Mortality Events (1 Years or Less): Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified) in Counties of Massachusetts"
           },
           {
@@ -149,7 +146,6 @@
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
             "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of Massachusetts"
           },
           {
