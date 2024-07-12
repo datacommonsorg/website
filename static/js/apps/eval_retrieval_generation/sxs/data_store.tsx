@@ -71,8 +71,8 @@ export async function getStoredFeedback(
   if (!savedData) return null;
   return {
     leftSheetId: savedData["leftSheetId"],
-    rightSheetId: savedData["rightSheetId"],
     preference: savedData["preference"] as SxsPreference,
     reason: savedData["reason"],
+    rightSheetId: savedData["rightSheetId"],
   };
 }

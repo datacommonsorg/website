@@ -39,10 +39,10 @@ export function SxsFeedback(props: SxsFeedbackPropType): JSX.Element {
   const checkAndSubmit = () => {
     const rating: Rating = {
       leftSheetId: props.leftSheetId,
-      rightSheetId: props.rightSheetId,
       // TODO Get these values from input elements and throw if they're empty.
       preference: SxsPreference.NEUTRAL,
       reason: "because",
+      rightSheetId: props.rightSheetId,
     };
     loadSpinner(FEEDBACK_PANE_ID);
     return saveRatingToStore(
