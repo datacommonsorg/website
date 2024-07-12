@@ -24,6 +24,7 @@ import { SessionContext } from "./context";
 import { getStoredRating, saveRatingIfChanged } from "./data_store";
 import { FeedbackForm } from "./feedback_form";
 import { Navigation } from "./navigation";
+import { getFlipped } from "./rating_util";
 import { Rating, SxsPreference } from "./types";
 
 interface SxsFeedbackPropType {
@@ -48,9 +49,13 @@ export function SxsFeedback(props: SxsFeedbackPropType): JSX.Element {
       sessionQueryId,
       props.sessionId
     ).then((storedRating: Rating | null) => {
-      // TODO Assert left and right still match.
-      setPreference(storedRating?.preference ?? null);
-      setReason(storedRating?.reason ?? "");
+      let ratingToDisplay = storedRating;
+      if (storedRating && storedRating.leftSheetId !== props.leftSheetId) {
+        // Newly-calculated left/right orientation takes priority over storage.
+        ratingToDisplay = getFlipped(storedRating);
+      }
+      setPreference(ratingToDisplay?.preference ?? null);
+      setReason(ratingToDisplay?.reason ?? "");
       setDisabled(false);
     });
   }, [props.leftSheetId, props.rightSheetId, props.sessionId, sessionQueryId]);

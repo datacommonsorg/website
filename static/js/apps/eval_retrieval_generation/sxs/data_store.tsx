@@ -17,6 +17,7 @@
 import { doc, DocumentReference, getDoc, setDoc } from "firebase/firestore";
 
 import { db } from "../../../utils/firebase";
+import { equivalent } from "./rating_util";
 import { Rating, SxsPreference } from "./types";
 
 /**
@@ -44,21 +45,6 @@ function getRatingRef(
 }
 
 /**
- * Checks if two ratings are the same.
- */
-function areEqual(r1: Rating | null, r2: Rating | null): boolean {
-  if (!r1 || !r2) {
-    return r1 === r2;
-  }
-  return (
-    r1.leftSheetId === r2.leftSheetId &&
-    r1.preference === r2.preference &&
-    r1.reason === r2.reason &&
-    r1.rightSheetId === r2.rightSheetId
-  );
-}
-
-/**
  * Saves a rater's input to Firestore only if it is different from any existing
  * stored rating. Overwrites any previous data.
  */
@@ -76,7 +62,7 @@ export async function saveRatingIfChanged(
     queryId,
     sessionId
   );
-  if (areEqual(rating, storedRating)) {
+  if (equivalent(rating, storedRating)) {
     // No change; skip saving.
     return Promise.resolve();
   }
