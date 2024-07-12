@@ -29,6 +29,7 @@ protobuf==4.25.3
 PyGithub==1.58.2
 pyOpenSSL==23.2.0
 python-dateutil==2.8.2
+pytest-rerunfailures==10.2
 pytest-xdist==3.2.1
 PyYAML==6.0.1
 redis==4.5.4

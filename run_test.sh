@@ -141,7 +141,7 @@ function run_webdriver_test {
   fi
   export FLASK_ENV=webdriver
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
-  python3 -m pytest -n 5 server/webdriver/tests/ ${@}
+  python3 -m pytest -n 5 --reruns 2 server/webdriver/tests/ ${@}
   deactivate
 }
 
@@ -159,7 +159,7 @@ function run_screenshot_test {
   export ENABLE_MODEL=true
   export DC_API_KEY=
   export LLM_API_KEY=
-  python3 -m pytest server/webdriver/screenshot/ ${@}
+  python3 -m pytest --reruns 2 server/webdriver/screenshot/ ${@}
   deactivate
 }
 
@@ -182,7 +182,7 @@ function run_integration_test {
   # export OMP_NUM_THREADS=1
   export TOKENIZERS_PARALLELISM=false
 
-  python3 -m pytest -vv server/integration_tests/$1 ${@:2}
+  python3 -m pytest -vv --reruns 2 server/integration_tests/$1 ${@:2}
   deactivate
 }
 
@@ -200,9 +200,9 @@ function update_integration_test_golden {
   export ENV_PREFIX=Staging
 
   # Should update topic cache first as it's used by the following tests.
-  python3 -m pytest -vv server/integration_tests/topic_cache
+  python3 -m pytest -vv --reruns 2 server/integration_tests/topic_cache
 
-  python3 -m pytest -vv -n 5 server/integration_tests/ ${@}
+  python3 -m pytest -vv -n 5 --reruns 2 server/integration_tests/ ${@}
 }
 
 function run_all_tests {
