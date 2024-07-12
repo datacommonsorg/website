@@ -37,7 +37,7 @@ steps:
     name: python:3.11.3
     entrypoint: /bin/sh
     waitFor:
-      - explore_test_detection
+      - setup_python
     args:
       - -c
       - |
@@ -47,7 +47,7 @@ steps:
     name: python:3.11.3
     entrypoint: /bin/sh
     waitFor:
-      - explore_test_fulfillment
+      - setup_python
     args:
       - -c
       - |
@@ -57,7 +57,7 @@ steps:
     name: python:3.11.3
     entrypoint: /bin/sh
     waitFor:
-      - explore_test_e2e_1
+      - setup_python
     args:
       - -c
       - |
@@ -67,7 +67,7 @@ steps:
     name: python:3.11.3
     entrypoint: /bin/sh
     waitFor:
-      - explore_test_e2e_2
+      - setup_python
     args:
       - -c
       - |
@@ -77,7 +77,7 @@ steps:
     name: python:3.11.3
     entrypoint: /bin/sh
     waitFor:
-      - nl_test_demo
+      - setup_python
     args:
       - -c
       - |

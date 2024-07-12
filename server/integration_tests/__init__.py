@@ -12,6 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from shared.lib.test_setup import set_up_macos_for_tests
+from shared.lib.test_setup import set_up_multiprocessing_for_tests
 
-set_up_macos_for_tests()
+set_up_multiprocessing_for_tests()

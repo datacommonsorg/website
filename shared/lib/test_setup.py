@@ -19,26 +19,22 @@ import platform
 import sys
 
 
-def set_up_macos_for_tests():
-  """Ensure Python tests work on MacOS.
+def set_up_multiprocessing_for_tests():
+  """Ensure Python tests work with multiprocessing.
 
-  Explicitly sets multiprocessing start method to 'fork' so tests work with
-  python3.8+ on MacOS:
-  https://docs.python.org/3/library/multiprocessing.html#contexts-and-start-methods
+  Explicitly sets to "spawn" as the default can be "fork" in certain Linux,
+  and that does not work consistently well.
 
   This code must only be run once per execution.
   """
-  if sys.version_info >= (3, 8) and sys.platform == "darwin":
-    multiprocessing.set_start_method("fork")
-    os.environ['no_proxy'] = '*'
-  else:
-    multiprocessing.set_start_method("spawn")
-    os.environ['no_proxy'] = '*'
-  logging.error(f'Sys version: {sys.version_info}, platform: {sys.platform}')
-  logging.error(
+  multiprocessing.set_start_method("spawn")
+  os.environ['no_proxy'] = '*'
+
+  logging.info(f'sys_version: {sys.version_info}, platform: {sys.platform}')
+  logging.info(
       f'multiprocessing start_method: {multiprocessing.get_start_method()}')
-  logging.error(f'Platform: {platform.platform()}')
-  logging.error(f'Platform: {platform.architecture()}')
-  logging.error(f'Machine: {platform.machine()}')
-  logging.error(f'Processor: {platform.processor()}')
-  logging.error(f'Libcver: {platform.libc_ver()}')
+  logging.info(f'Platform: {platform.platform()}')
+  logging.info(f'Platform: {platform.architecture()}')
+  logging.info(f'Machine: {platform.machine()}')
+  logging.info(f'Processor: {platform.processor()}')
+  logging.info(f'Libcver: {platform.libc_ver()}')
