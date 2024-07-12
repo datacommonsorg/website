@@ -49,15 +49,16 @@ if is_nl_mode:
     should_start_nl_server = True
 
 
+def start_nl_server(app):
+  app.run(port=nl_port, debug=False, use_reloader=False, threaded=True)
+
+
 class NLWebServerTestCase(LiveServerTestCase):
 
   @classmethod
   def setUpClass(cls):
     if is_nl_mode:
       if should_start_nl_server:
-
-        def start_nl_server(app):
-          app.run(port=nl_port, debug=False, use_reloader=False, threaded=True)
 
         nl_app = create_nl_app()
         # Create a thread that will contain our running server
