@@ -45,7 +45,6 @@ export function SxsFeedback(props: SxsFeedbackPropType): JSX.Element {
       reason: "because",
     };
     loadSpinner(FEEDBACK_PANE_ID);
-    console.log(sessionQueryId);
     return saveRatingToStore(
       props.userEmail,
       props.leftSheetId,

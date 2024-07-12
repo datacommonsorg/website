@@ -38,7 +38,6 @@ export function getLeftAndRight(
     `${docInfoA.doc.spreadsheetId} ${docInfoB.doc.spreadsheetId}` +
     ` ${sessionId} ${queryId}`;
   const seededRand = new Srand(sdbm(md5(inputs)));
-  console.log(seededRand.random() * 2);
   if (Math.floor(seededRand.random() * 2) === 0) {
     return { leftDocInfo: docInfoA, rightDocInfo: docInfoB };
   } else {
