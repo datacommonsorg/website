@@ -12,8 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import multiprocessing
 import logging
+import multiprocessing
 import os
 import sys
 
@@ -30,5 +30,10 @@ def set_up_macos_for_tests():
   if sys.version_info >= (3, 8) and sys.platform == "darwin":
     multiprocessing.set_start_method("fork")
     os.environ['no_proxy'] = '*'
+  else:
+    multiprocessing.set_start_method("spawn")
+    os.environ['no_proxy'] = '*'
   logging.error(f'Sys version: {sys.version_info}, platform: {sys.platform}')
-  logging.error(f'AFTER multiprocessing start_method: {multiprocessing.get_start_method()}')
+  logging.error(
+      f'AFTER multiprocessing start_method: {multiprocessing.get_start_method()}'
+  )
