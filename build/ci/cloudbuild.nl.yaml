@@ -84,4 +84,4 @@ steps:
         ./run_test.sh --nl -k 'NLTestMisc'
 
 options:
-  machineType: "N1_HIGHCPU_32"
+  machineType: "E2_HIGHCPU_32"
