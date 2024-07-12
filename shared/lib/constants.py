@@ -317,12 +317,15 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
         ]
     }
 
-# We do not want to strip words from events / superlatives / temporal / percapita
-# since we want those to match SVs too!
+# By default, we do not want to strip words from these heuristics because they
+# can match SVs too: events / superlatives / temporal / percapita.
+# We want to keep per capita because queries like "theft rates" without the
+# per capita stop words will become "theft" which has trouble matching plurals
+# and stat based descriptions.
 HEURISTIC_TYPES_IN_VARIABLES = frozenset(
     ["Event", "Superlative", "Temporal", "PerCapita"])
-# For toolformer, we only do not want to strip words from
-# events / superlatives / temporal
+# For toolformer, we do want to strip words from PerCapita heuristics because
+# we care about top matches being more accurate.
 HEURISTIC_TYPES_IN_VARIABLES_TOOLFORMER = frozenset(
     ["Event", "Superlative", "Temporal"])
 

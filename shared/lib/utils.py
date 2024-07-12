@@ -132,6 +132,10 @@ def list_place_type_stopwords() -> List[str]:
   return place_type_stop_words
 
 
+# TODO: decouple words removal from detected attributes. Today, the removal
+# blanket removes anything that matches, including the various attribute/
+# classification triggers and contained_in place types (and their plurals).
+# This may not always be the best thing to do.
 def combine_stop_words(
     heuristics_to_skip: Set[str] = constants.HEURISTIC_TYPES_IN_VARIABLES
 ) -> List[str]:

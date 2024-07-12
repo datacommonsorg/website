@@ -45,11 +45,6 @@ def detect_vars(orig_query: str, debug_logs: Dict,
 
   # Get the list of stop words to use depending on if this is toolformer mode
   # or not.
-  #
-  # TODO: decouple words removal from detected attributes. Today, the removal
-  # blanket removes anything that matches, including the various attribute/
-  # classification triggers and contained_in place types (and their plurals).
-  # This may not always be the best thing to do.
   if params.is_toolformer_mode(dargs.mode):
     stop_words = shared_utils.combine_stop_words(
         constants.HEURISTIC_TYPES_IN_VARIABLES_TOOLFORMER)
