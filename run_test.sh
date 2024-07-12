@@ -168,7 +168,10 @@ function run_integration_test {
   export FLASK_ENV=integration_test
   export DC_API_KEY=
   export LLM_API_KEY=
-  export ENV_PREFIX=Staging
+  if [[ $ENV_PREFIX == "" ]]; then
+    export ENV_PREFIX=Staging
+  fi
+  echo "Using ENV_PREFIX=$ENV_PREFIX"
   export GOOGLE_CLOUD_PROJECT=datcom-website-staging
   export TEST_MODE=test
   export ENABLE_EVAL_TOOL=false
@@ -187,11 +190,15 @@ function update_integration_test_golden {
   export LLM_API_KEY=
   export ENABLE_EVAL_TOOL=false
 
+  # Run integration test against staging mixer to make it stable.
+  if [[ $ENV_PREFIX == "" ]]; then
+    export ENV_PREFIX=Staging
+  fi
+  echo "Using ENV_PREFIX=$ENV_PREFIX"
+
   # Should update topic cache first as it's used by the following tests.
   python3 -m pytest -vv --reruns 2 server/integration_tests/topic_cache
 
-  # Run integration test against staging mixer to make it stable.
-  export ENV_PREFIX=Staging
   python3 -m pytest -vv -n 5 --reruns 2 server/integration_tests/ ${@}
 }
 

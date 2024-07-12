@@ -70,7 +70,9 @@ export GOOGLE_CLOUD_PROJECT=datcom-website-dev
 # Set flask env
 if [[ $FLASK_ENV == "" ]]; then
   export FLASK_ENV="local"
-  export ENV_PREFIX="DC"
+  if [[ $ENV_PREFIX == "" ]]; then
+    export ENV_PREFIX="DC"
+  fi
 else
   export ENV_PREFIX="Local"
 fi
