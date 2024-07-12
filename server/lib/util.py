@@ -783,7 +783,6 @@ def fetch_highest_coverage(parent_entity: str,
   point_responses = []
   series_dates_response = dc.get_series_dates(parent_entity, child_type,
                                               variables)
-  print("!!! series_dates_response", series_dates_response)
   facet_ids_set = set(facet_ids or [])
   for observation_entity_counts_by_date in series_dates_response[
       'datesByVariable']:
