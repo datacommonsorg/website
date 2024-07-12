@@ -22,6 +22,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { App } from "./app";
+import { SessionContextProvider } from "./context";
 
 window.onload = () => {
   renderPage();
@@ -40,11 +41,15 @@ function renderPage(): void {
   }
 
   ReactDOM.render(
-    React.createElement(App, {
-      sessionId,
-      sheetIdA,
-      sheetIdB,
-    }),
+    React.createElement(
+      SessionContextProvider,
+      null,
+      React.createElement(App, {
+        sessionId,
+        sheetIdA,
+        sheetIdB,
+      })
+    ),
     document.getElementById("dc-eval-retrieval-generation")
   );
 }

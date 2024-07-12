@@ -38,14 +38,15 @@ def _add_to_set_from_list(set_strings: Set[str],
     set_strings.add(v_str.lower())
 
 
-def _add_classification_heuristics(set_strings: Set[str]) -> None:
+def _add_classification_heuristics(set_strings: Set[str],
+                                   heuristics_to_skip: Set[str]) -> None:
   """Adds (in place) relevant stop words in QUERY_CLASSIFICATION_HEURISTICS.
 
     Args:
         set_strings: the set of Strings to add to.
     """
   for (ctype, v) in constants.QUERY_CLASSIFICATION_HEURISTICS.items():
-    if ctype in constants.HEURISTIC_TYPES_IN_VARIABLES:
+    if ctype in heuristics_to_skip:
       continue
     if isinstance(v, list):
       # If 'v' is a list, add all the words.
@@ -131,13 +132,19 @@ def list_place_type_stopwords() -> List[str]:
   return place_type_stop_words
 
 
-def combine_stop_words() -> Set[str]:
+# TODO: decouple words removal from detected attributes. Today, the removal
+# blanket removes anything that matches, including the various attribute/
+# classification triggers and contained_in place types (and their plurals).
+# This may not always be the best thing to do.
+def combine_stop_words(
+    heuristics_to_skip: Set[str] = constants.HEURISTIC_TYPES_IN_VARIABLES
+) -> List[str]:
   """Returns all the combined stop words from the various constants."""
   # Make a copy.
   stop_words = copy.deepcopy(constants.STOP_WORDS)
 
   # Now add the words in the classification heuristics.
-  _add_classification_heuristics(stop_words)
+  _add_classification_heuristics(stop_words, heuristics_to_skip)
 
   _add_to_set_from_list(stop_words, list_place_type_stopwords())
 
