@@ -538,20 +538,6 @@ def flatten_obs_series_response(obs_series_response):
   Each dictionary in the list represents a single observation with the 
   following keys: 'variable', 'entity', 'date', 'value', and 'facet'.
 
-  Parameters:
-  obs_series_response (dict): A nested dictionary representing the observation 
-                              series response. It contains observations grouped 
-                              by variable and entity, with each entity having 
-                              ordered facets and observations.
-
-  Returns:
-  list: A list of dictionaries where each dictionary contains the keys:
-        - 'variable' (str): The variable dcid.
-        - 'entity' (str): The entity dcid.
-        - 'date' (str): The date of the observation.
-        - 'value' (numeric): The observation value.
-        - 'facet' (str): The facet ID associated with the observation.
-        
   Example:
   >>> obs_series_response = {
           "byVariable": {
@@ -604,24 +590,6 @@ def flattened_observations_to_dates_by_variable(flattened_observations: List[dic
   This function takes a list of flattened observation dictionaries and organizes them into a nested 
   structure grouped by variable, date, and facet. The resulting structure provides counts of entities 
   for each facet on each date for each variable.
-
-  Parameters:
-  flattened_observations (List[dict]): A list of dictionaries where each dictionary represents 
-                                        a flattened observation with the following keys:
-                                        - 'variable' (str): The variable dcid.
-                                        - 'date' (str): The date of the observation.
-                                        - 'entity' (str): The entity dcid.
-                                        - 'facet' (str): The facet ID.
-                                        - 'value' (numeric): The observation value.
-
-  Returns:
-  List[dict]: A list of dictionaries where each dictionary contains the keys:
-              - 'variable' (str): The variable dcid.
-              - 'observationDates' (List[dict]): A list of dictionaries for each date, each containing:
-                - 'date' (str): The date of the observation.
-                - 'entityCount' (List[dict]): A list of dictionaries for each facet, each containing:
-                  - 'facet' (str): The facet ID.
-                  - 'count' (int): The number of entities for this facet on this date.
                   
   Example:
   >>> flattened_observations = [
