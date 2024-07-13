@@ -154,6 +154,21 @@ label {
   background-color: var(--dc-primary);
 }
 
+.feedback-pane.feedback-pane-footer {
+  width: 100%;
+  position: fixed;
+  left: 0;
+  top: 70%;
+  height: 30%;
+  border-left: none;
+  border-top: solid 1px var(--gm-3-sys-light-outline-variant);
+  padding: 24px 0;
+
+  .content {
+    padding: 0 20px;
+  }
+}
+
 .feedback-pane {
   display: flex;
   flex-direction: column;
@@ -462,7 +477,7 @@ label {
   display: flex;
   flex-direction: column;
   width: 50%;
-  height: 100%;
+  height: 70%;
 
   #query-section {
     max-width: 100%;
