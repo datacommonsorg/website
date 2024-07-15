@@ -56,6 +56,6 @@ function renderPage(): void {
         sheetIdB,
       })
     ),
-    document.getElementById("dc-eval-retrieval-generation")
+    document.getElementById("dc-eval-sxs")
   );
 }
