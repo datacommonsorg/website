@@ -16,6 +16,7 @@ import unittest
 import urllib
 import urllib.request
 
+import requests
 from selenium.webdriver.common.by import By
 
 from server.webdriver import shared
@@ -27,7 +28,7 @@ from server.webdriver.base_utils import wait_elem
 CDC_AUTOPUSH_URL = 'https://dc-autopush-kqb7thiuka-uc.a.run.app'
 
 
-class CdcAutopushTest(unittest.TestCase):
+class CdcAutopushWebdriverTest(unittest.TestCase):
 
   def setUp(self, preferences=None):
     """Runs at the beginning of every individual test."""
@@ -66,3 +67,17 @@ class CdcAutopushTest(unittest.TestCase):
                                '//*[contains(text(), "Average Annual Wage")]')
     self.assertIsNotNone(custom_sv_elem,
                          'Custom SV (Average Annual Wage) element not found')
+
+
+class CdcAutopushNLTest(unittest.TestCase):
+
+  def test_detect_and_fulfill(self):
+    """Tests that the detect-and-fulfill endpoint returns a Custom DC SV in the response."""
+    query = "Average annual wages in Europe"
+    url = f'{CDC_AUTOPUSH_URL}/api/explore/detect-and-fulfill?q={query}'
+    response = requests.post(url, json={
+        'contextHistory': [],
+        'dc': '',
+    }).json()
+    svs = response.get('context', [{}])[0].get('svs', [])
+    assert 'average_annual_wage' in svs, 'Custom SV (average_annual_wage) not in detect-and-fulfill response'
