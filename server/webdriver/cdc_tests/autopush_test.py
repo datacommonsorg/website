@@ -20,8 +20,8 @@ from selenium.webdriver.common.by import By
 
 from server.webdriver import shared
 from server.webdriver.base_utils import create_driver
-from server.webdriver.cdc_tests.cdc_tests_utils import find_elem
-from server.webdriver.cdc_tests.cdc_tests_utils import wait_elem
+from server.webdriver.base_utils import find_elem
+from server.webdriver.base_utils import wait_elem
 
 # From project datcom-website-dev > Cloud Run: dc-autopush > Revisions
 CDC_AUTOPUSH_URL = 'https://dc-autopush-kqb7thiuka-uc.a.run.app'
@@ -50,6 +50,7 @@ class CdcAutopushTest(unittest.TestCase):
     self.assertIsNotNone(homepage_elem, 'Homepage element not found')
 
   def test_statvar_explorer(self):
+    """Tests that the SV explorer loads custom SVGs and SVs."""
     self.driver.get(f'{self._base_url}/tools/statvar')
 
     svg_container_elem = find_elem(self.driver, By.CLASS_NAME,
