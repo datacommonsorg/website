@@ -52,6 +52,9 @@ You should have owner/editor role to perform the following tasks.
    # [Ask Data Commons team to run this] Get permission to read Data Commons data
    ./get_storage_permission.sh <ENV>
 
+   # [Ask Data Commons team to run this] Only if using Vertex AI: Grant permissions for service account to run Vertex AI models
+   ./grant_vertex_ai_permissions.sh <ENV>
+
    # Create SSL certificate
    ./setup_ssl.sh <ENV>
 
