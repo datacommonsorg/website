@@ -162,10 +162,11 @@ export function QuerySection(props: QuerySectionPropType): JSX.Element {
   }, [answer, props.callId, props.feedbackStage]);
 
   useEffect(() => {
+    setAnswer("");
     if (!props.query) {
-      setAnswer("");
       return;
     }
+    setAnswer("Loading answer...");
     answerMetadata.current = {
       evalType: props.evalType,
       feedbackStage: props.feedbackStage,
@@ -177,12 +178,14 @@ export function QuerySection(props: QuerySectionPropType): JSX.Element {
       props.allCall,
       props.evalType,
       props.feedbackStage
-    ).then(({ answer, metadata }) => {
-      // Only set answer if it matches the current answer metadata
-      if (_.isEqual(answerMetadata.current, metadata)) {
-        setAnswer(answer);
-      }
-    });
+    )
+      .then(({ answer, metadata }) => {
+        // Only set answer if it matches the current answer metadata
+        if (_.isEqual(answerMetadata.current, metadata)) {
+          setAnswer(answer);
+        }
+      })
+      .catch(() => void setAnswer("Failed to load answer."));
   }, [props]);
 
   if (!props.query) {
