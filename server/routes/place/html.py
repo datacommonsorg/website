@@ -66,10 +66,6 @@ PARENT_PLACE_TYPES_TO_HIGHLIGHT = {
     'Continent',
 }
 
-# How long to keep cache entries for, in seconds
-CACHE_TIMEOUT = 3600 * 24 * 7 * 3  # 3 weeks
-
-
 def get_place_summaries(dcid: str) -> dict:
   """Load place summary content from disk containing summary for a given dcid"""
   # Get shard matching the given dcid
@@ -197,7 +193,7 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
 
 @bp.route('', strict_slashes=False)
 @bp.route('/<path:place_dcid>')
-@cache.cached(timeout=CACHE_TIMEOUT, query_string=True)
+@cache.cached(timeout=0, query_string=True)
 def place(place_dcid=None):
   redirect_args = dict(flask.request.args)
 
