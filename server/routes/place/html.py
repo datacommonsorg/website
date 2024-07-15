@@ -193,7 +193,7 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
 
 @bp.route('', strict_slashes=False)
 @bp.route('/<path:place_dcid>')
-@cache.cached(timeout=0, query_string=True)
+@cache.cached(query_string=True)
 def place(place_dcid=None):
   redirect_args = dict(flask.request.args)
 
