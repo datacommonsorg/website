@@ -21,7 +21,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 def find_elem(parent, by: str, value: str):
   """
-  Find an element within the parent element with the specified by string and value.
+  Finds an element within the parent element with the specified by string and value.
   Returns None if not found.
   """
   try:
