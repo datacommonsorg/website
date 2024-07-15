@@ -132,6 +132,7 @@ interface QuerySectionPropType {
   query: Query;
   callId?: number;
   allCall?: Record<number, DcCall>;
+  hideIdAndQuestion?: boolean;
 }
 
 export function QuerySection(props: QuerySectionPropType): JSX.Element {
@@ -197,8 +198,8 @@ export function QuerySection(props: QuerySectionPropType): JSX.Element {
 
   return (
     <div id="query-section">
-      <h3>Query {props.query.id}</h3>
-      <p>{props.query.text}</p>
+      {!props.hideIdAndQuestion && <h3>Query {props.query.id}</h3>}
+      {!props.hideIdAndQuestion && <p>{props.query.text}</p>}
       <h3>{answerHeading}</h3>
       <ReactMarkdown
         rehypePlugins={[rehypeRaw as any]}

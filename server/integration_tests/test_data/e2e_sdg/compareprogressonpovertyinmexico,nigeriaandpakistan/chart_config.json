@@ -673,7 +673,7 @@
                     "statVarKey": [
                       "sdg/VC_DSR_MMHN_multiple_place_bar_block"
                     ],
-                    "title": "Deaths and Missing Persons Attributed to Disasters (${date})",
+                    "title": "Number of Deaths and Missing Persons Attributed to Disasters (${date})",
                     "type": "BAR"
                   }
                 ]
@@ -681,7 +681,7 @@
             ],
             "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
             "infoMessage": "Data for \"Nigeria\" is currently unavailable. See the following statistics on the other places.",
-            "title": "Deaths and Missing Persons Attributed to Disasters"
+            "title": "Number of Deaths and Missing Persons Attributed to Disasters"
           },
           {
             "columns": [
@@ -699,14 +699,14 @@
                     "statVarKey": [
                       "sdg/VC_DSR_MTMP_multiple_place_bar_block"
                     ],
-                    "title": "Deaths and Missing Persons Attributed to Disasters Per 100K Population (${date})",
+                    "title": "Number of Deaths and Missing Persons Attributed to Disasters Per 100K Population (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
-            "title": "Deaths and Missing Persons Attributed to Disasters Per 100K Population"
+            "title": "Number of Deaths and Missing Persons Attributed to Disasters Per 100K Population"
           },
           {
             "columns": [
@@ -724,14 +724,14 @@
                     "statVarKey": [
                       "sdg/VC_DSR_MORT_multiple_place_bar_block"
                     ],
-                    "title": "Deaths Due to Disaster (${date})",
+                    "title": "Number of Deaths Due to Disaster (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
-            "title": "Deaths Due to Disaster"
+            "title": "Number of Deaths Due to Disaster"
           },
           {
             "columns": [
@@ -749,14 +749,14 @@
                     "statVarKey": [
                       "sdg/VC_DSR_DAFF_multiple_place_bar_block"
                     ],
-                    "title": "Directly Affected Persons Attributed to Disasters Per 100K Population (${date})",
+                    "title": "Number of Directly Affected Persons Attributed to Disasters Per 100K Population (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
-            "title": "Directly Affected Persons Attributed to Disasters Per 100K Population"
+            "title": "Number of Directly Affected Persons Attributed to Disasters Per 100K Population"
           },
           {
             "columns": [
@@ -774,14 +774,14 @@
                     "statVarKey": [
                       "sdg/VC_DSR_IJILN_multiple_place_bar_block"
                     ],
-                    "title": "Injured or Ill People Attributed to Disasters (${date})",
+                    "title": "Number of Injured or Ill People Attributed to Disasters (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
-            "title": "Injured or Ill People Attributed to Disasters"
+            "title": "Number of Injured or Ill People Attributed to Disasters"
           },
           {
             "columns": [
@@ -799,14 +799,14 @@
                     "statVarKey": [
                       "sdg/VC_DSR_MISS_multiple_place_bar_block"
                     ],
-                    "title": "Missing Persons Due to Disaster (${date})",
+                    "title": "Number of Missing Persons Due to Disaster (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
-            "title": "Missing Persons Due to Disaster"
+            "title": "Number of Missing Persons Due to Disaster"
           },
           {
             "columns": [
@@ -824,14 +824,14 @@
                     "statVarKey": [
                       "sdg/VC_DSR_AFFCT_multiple_place_bar_block"
                     ],
-                    "title": "People Affected by Disaster (${date})",
+                    "title": "Number of People Affected by Disaster (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
-            "title": "People Affected by Disaster"
+            "title": "Number of People Affected by Disaster"
           },
           {
             "columns": [
@@ -849,14 +849,14 @@
                     "statVarKey": [
                       "sdg/VC_DSR_PDAN_multiple_place_bar_block"
                     ],
-                    "title": "People Whose Damaged Dwellings Were Attributed to Disasters (${date})",
+                    "title": "Number of People Whose Damaged Dwellings Were Attributed to Disasters (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
-            "title": "People Whose Damaged Dwellings Were Attributed to Disasters"
+            "title": "Number of People Whose Damaged Dwellings Were Attributed to Disasters"
           },
           {
             "columns": [
@@ -874,14 +874,14 @@
                     "statVarKey": [
                       "sdg/VC_DSR_PDYN_multiple_place_bar_block"
                     ],
-                    "title": "People Whose Destroyed Dwellings Were Attributed to Disasters (${date})",
+                    "title": "Number of People Whose Destroyed Dwellings Were Attributed to Disasters (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
-            "title": "People Whose Destroyed Dwellings Were Attributed to Disasters"
+            "title": "Number of People Whose Destroyed Dwellings Were Attributed to Disasters"
           },
           {
             "columns": [
@@ -1049,14 +1049,14 @@
                     "statVarKey": [
                       "sdg/SG_GOV_LOGV_multiple_place_bar_block"
                     ],
-                    "title": "Local Governments (${date})",
+                    "title": "Number of Local Governments (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
-            "title": "Local Governments"
+            "title": "Number of Local Governments"
           },
           {
             "columns": [
@@ -1074,14 +1074,14 @@
                     "statVarKey": [
                       "sdg/SG_DSR_SILN_multiple_place_bar_block"
                     ],
-                    "title": "Local Governments That Adopt and Implement Local Disaster Risk Reduction Strategies in Line With National Strategies (${date})",
+                    "title": "Number of Local Governments That Adopt and Implement Local Disaster Risk Reduction Strategies in Line With National Strategies (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
-            "title": "Local Governments That Adopt and Implement Local Disaster Risk Reduction Strategies in Line With National Strategies"
+            "title": "Number of Local Governments That Adopt and Implement Local Disaster Risk Reduction Strategies in Line With National Strategies"
           },
           {
             "columns": [
@@ -1203,7 +1203,7 @@
             "statVar": "sdg/SG_DSR_LGRGSR"
           },
           "sdg/SG_DSR_SILN_multiple_place_bar_block": {
-            "name": "local governments that adopt and implement local Disaster Risk Reduction strategies in line with national strategies",
+            "name": "Number of local governments that adopt and implement local Disaster Risk Reduction strategies in line with national strategies",
             "statVar": "sdg/SG_DSR_SILN"
           },
           "sdg/SG_DSR_SILS_multiple_place_bar_block": {
@@ -1211,7 +1211,7 @@
             "statVar": "sdg/SG_DSR_SILS"
           },
           "sdg/SG_GOV_LOGV_multiple_place_bar_block": {
-            "name": "local governments",
+            "name": "Number of local governments",
             "statVar": "sdg/SG_GOV_LOGV"
           },
           "sdg/SI_COV_BENFTS_multiple_place_bar_block": {
@@ -1391,7 +1391,7 @@
             "statVar": "sdg/SP_LGL_LNDSTR"
           },
           "sdg/VC_DSR_AFFCT_multiple_place_bar_block": {
-            "name": "people affected by disaster",
+            "name": "Number of people affected by disaster",
             "statVar": "sdg/VC_DSR_AFFCT"
           },
           "sdg/VC_DSR_CHLN_multiple_place_bar_block": {
@@ -1403,7 +1403,7 @@
             "statVar": "sdg/VC_DSR_CILN"
           },
           "sdg/VC_DSR_DAFF_multiple_place_bar_block": {
-            "name": "directly affected persons attributed to disasters per 100K population",
+            "name": "Number of directly affected persons attributed to disasters per 100K population",
             "statVar": "sdg/VC_DSR_DAFF"
           },
           "sdg/VC_DSR_DDPA_multiple_place_bar_block": {
@@ -1415,7 +1415,7 @@
             "statVar": "sdg/VC_DSR_GDPLS"
           },
           "sdg/VC_DSR_IJILN_multiple_place_bar_block": {
-            "name": "injured or ill people attributed to disasters",
+            "name": "Number of injured or ill people attributed to disasters",
             "statVar": "sdg/VC_DSR_IJILN"
           },
           "sdg/VC_DSR_LSGP_multiple_place_bar_block": {
@@ -1423,27 +1423,27 @@
             "statVar": "sdg/VC_DSR_LSGP"
           },
           "sdg/VC_DSR_MISS_multiple_place_bar_block": {
-            "name": "missing persons due to disaster",
+            "name": "Number of missing persons due to disaster",
             "statVar": "sdg/VC_DSR_MISS"
           },
           "sdg/VC_DSR_MMHN_multiple_place_bar_block": {
-            "name": "deaths and missing persons attributed to disasters",
+            "name": "Number of deaths and missing persons attributed to disasters",
             "statVar": "sdg/VC_DSR_MMHN"
           },
           "sdg/VC_DSR_MORT_multiple_place_bar_block": {
-            "name": "deaths due to disaster",
+            "name": "Number of deaths due to disaster",
             "statVar": "sdg/VC_DSR_MORT"
           },
           "sdg/VC_DSR_MTMP_multiple_place_bar_block": {
-            "name": "deaths and missing persons attributed to disasters per 100K population",
+            "name": "Number of deaths and missing persons attributed to disasters per 100K population",
             "statVar": "sdg/VC_DSR_MTMP"
           },
           "sdg/VC_DSR_PDAN_multiple_place_bar_block": {
-            "name": "people whose damaged dwellings were attributed to disasters",
+            "name": "Number of people whose damaged dwellings were attributed to disasters",
             "statVar": "sdg/VC_DSR_PDAN"
           },
           "sdg/VC_DSR_PDYN_multiple_place_bar_block": {
-            "name": "people whose destroyed dwellings were attributed to disasters",
+            "name": "Number of people whose destroyed dwellings were attributed to disasters",
             "statVar": "sdg/VC_DSR_PDYN"
           }
         }
