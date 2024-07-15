@@ -21,10 +21,10 @@ import React, { useContext, useEffect, useState } from "react";
 import { loadSpinner, removeSpinner } from "../../../shared/util";
 import { FEEDBACK_PANE_ID } from "../constants";
 import { SessionContext } from "./context";
-import { getStoredRating, saveRatingIfChanged } from "./data_store";
+import { getStoredRating, saveRatingToStore } from "./data_store";
 import { FeedbackForm } from "./feedback_form";
 import { Navigation } from "./navigation";
-import { getFlipped } from "./rating_util";
+import { equivalent, getReversedRating } from "./rating_util";
 import { Rating, SxsPreference } from "./types";
 
 interface SxsFeedbackPropType {
@@ -40,6 +40,7 @@ export function SxsFeedback(props: SxsFeedbackPropType): JSX.Element {
   const [disabled, setDisabled] = useState<boolean>(false);
   const [preference, setPreference] = useState<SxsPreference>(null);
   const [reason, setReason] = useState<string>("");
+  const [originalRating, setOriginalRating] = useState<Rating>(null);
 
   useEffect(() => {
     setDisabled(true);
@@ -52,8 +53,9 @@ export function SxsFeedback(props: SxsFeedbackPropType): JSX.Element {
       let ratingToDisplay = storedRating;
       if (storedRating && storedRating.leftSheetId !== props.leftSheetId) {
         // Newly-calculated left/right orientation takes priority over storage.
-        ratingToDisplay = getFlipped(storedRating);
+        ratingToDisplay = getReversedRating(storedRating);
       }
+      setOriginalRating(storedRating);
       setPreference(ratingToDisplay?.preference ?? null);
       setReason(ratingToDisplay?.reason ?? "");
       setDisabled(false);
@@ -76,8 +78,11 @@ export function SxsFeedback(props: SxsFeedbackPropType): JSX.Element {
       reason,
       rightSheetId: props.rightSheetId,
     };
+    if (equivalent(newRating, originalRating)) {
+      return Promise.resolve(true);
+    }
     loadSpinner(FEEDBACK_PANE_ID);
-    return saveRatingIfChanged(
+    return saveRatingToStore(
       props.userEmail,
       props.leftSheetId,
       props.rightSheetId,

@@ -17,7 +17,6 @@
 import { doc, DocumentReference, getDoc, setDoc } from "firebase/firestore";
 
 import { db } from "../../../utils/firebase";
-import { equivalent } from "./rating_util";
 import { Rating, SxsPreference } from "./types";
 
 /**
@@ -41,38 +40,6 @@ function getRatingRef(
     queryId.toString(),
     "ratings",
     String(sessionId)
-  );
-}
-
-/**
- * Saves a rater's input to Firestore only if it is different from any existing
- * stored rating. Overwrites any previous data.
- */
-export async function saveRatingIfChanged(
-  userEmail: string,
-  sheetIdA: string,
-  sheetIdB: string,
-  queryId: number,
-  sessionId: string,
-  rating: Rating
-) {
-  const storedRating = await getStoredRating(
-    sheetIdA,
-    sheetIdB,
-    queryId,
-    sessionId
-  );
-  if (equivalent(rating, storedRating)) {
-    // No change; skip saving.
-    return Promise.resolve();
-  }
-  return saveRatingToStore(
-    userEmail,
-    sheetIdA,
-    sheetIdB,
-    queryId,
-    sessionId,
-    rating
   );
 }
 

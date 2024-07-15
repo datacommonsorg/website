@@ -14,29 +14,31 @@
  limitations under the License.
  */
 
+import _ from "lodash";
+
 import { Rating, SxsPreference } from "./types";
 
 /**
  * Checks if two ratings are equivalent.
  */
 export function equivalent(r1: Rating | null, r2: Rating | null): boolean {
-  return equal(r1, r2) || equal(r1, getFlipped(r2));
+  return _.isEqual(r1, r2) || _.isEqual(r1, getReversedRating(r2));
 }
 
 /**
  * Returns an equivalent rating with left and right sheet swapped.
  */
-export function getFlipped(rating: Rating | null): Rating {
+export function getReversedRating(rating: Rating | null): Rating {
   if (!rating) return null;
   return {
     leftSheetId: rating.rightSheetId,
-    preference: getReversed(rating.preference),
+    preference: getReversedPreference(rating.preference),
     reason: rating.reason,
     rightSheetId: rating.leftSheetId,
   };
 }
 
-function getReversed(preference: SxsPreference) {
+function getReversedPreference(preference: SxsPreference): SxsPreference {
   switch (preference) {
     case SxsPreference.LEFT:
       return SxsPreference.RIGHT;
@@ -47,16 +49,4 @@ function getReversed(preference: SxsPreference) {
     default:
       throw "All preference values should be handled";
   }
-}
-
-function equal(r1: Rating | null, r2: Rating | null) {
-  if (!r1 || !r2) {
-    return r1 === r2;
-  }
-  return (
-    r1.leftSheetId === r2.leftSheetId &&
-    r1.rightSheetId === r2.rightSheetId &&
-    r1.preference === r2.preference &&
-    r1.reason === r2.reason
-  );
 }
