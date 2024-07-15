@@ -16,8 +16,12 @@ import unittest
 import urllib
 import urllib.request
 
+from selenium.webdriver.common.by import By
+
 from server.webdriver import shared
 from server.webdriver.base_utils import create_driver
+from server.webdriver.cdc_tests.cdc_tests_utils import find_elem
+from server.webdriver.cdc_tests.cdc_tests_utils import wait_elem
 
 # From project datcom-website-dev > Cloud Run: dc-autopush > Revisions
 CDC_AUTOPUSH_URL = 'https://dc-autopush-kqb7thiuka-uc.a.run.app'
@@ -30,7 +34,7 @@ class CdcAutopushTest(unittest.TestCase):
     # Maximum time, in seconds, before throwing a TimeoutException.
     self.TIMEOUT_SEC = shared.TIMEOUT
     self.driver = create_driver(preferences)
-    self.url_ = CDC_AUTOPUSH_URL
+    self._base_url = CDC_AUTOPUSH_URL
 
   def tearDown(self):
     """Runs at the end of every individual test."""
@@ -40,14 +44,24 @@ class CdcAutopushTest(unittest.TestCase):
 
   def test_homepage_load(self):
     """Tests that the base autopush URL loads successfully."""
-    self.driver.get(self.url_)
-    url = self.driver.current_url
-    if not url.lower().startswith('http'):
-      raise ValueError(f'Invalid scheme in {url}. Expected http(s)://.')
-    req = urllib.request.Request(url)
+    self.driver.get(self._base_url)
 
-    # Disable Bandit security check 310. http scheme is already checked above.
-    # Codacity still calls out the error so disable the check.
-    # https://bandit.readthedocs.io/en/latest/blacklists/blacklist_calls.html#b310-urllib-urlopen
-    with urllib.request.urlopen(req) as response:  # nosec B310
-      self.assertEqual(response.getcode(), 200)
+    homepage_elem = find_elem(self.driver, By.ID, 'homepage')
+    self.assertIsNotNone(homepage_elem, 'Homepage element not found')
+
+  def test_statvar_explorer(self):
+    self.driver.get(f'{self._base_url}/tools/statvar')
+
+    svg_container_elem = find_elem(self.driver, By.CLASS_NAME,
+                                   'stat-var-hierarchy-container')
+    self.assertIsNotNone(svg_container_elem, 'SVG container element not found')
+
+    custom_svg_elem = wait_elem(svg_container_elem, By.XPATH,
+                                '//*[contains(text(), "OECD")]')
+    self.assertIsNotNone(custom_svg_elem, 'Custom SVG (OECD) element not found')
+
+    custom_svg_elem.click()
+    custom_sv_elem = wait_elem(custom_svg_elem, By.XPATH,
+                               '//*[contains(text(), "Average Annual Wage")]')
+    self.assertIsNotNone(custom_sv_elem,
+                         'Custom SV (Average Annual Wage) element not found')
