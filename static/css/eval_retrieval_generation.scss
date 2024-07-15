@@ -506,9 +506,10 @@ label {
   display: none;
 }
 
+// Modify stat annotation styles for SxS UI.
 #dc-eval-sxs {
   // Don't highlight an LLM stat if it doesn't have a DC stat.
-  .llm-stat.llm-stat-no-dc-stat {
+  .annotation.annotation-no-dc-stat .llm-stat {
     background-color: unset;
   }
 
@@ -553,12 +554,13 @@ label {
   }
 
   // Show tooltip and tooltip arrow on hover.
-  .annotation:hover .dc-stat-tooltip,
-  .annotation:hover .dc-stat-tooltip::after {
-    display: block;
+  .annotation:hover {
+    .dc-stat-tooltip,
+    .dc-stat-tooltip::after {
+      display: block;
+    }
   }
 }
-
 
 .sxs-pane {
   display: flex;

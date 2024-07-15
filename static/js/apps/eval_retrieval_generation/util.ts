@@ -68,14 +68,17 @@ export const processText = (text: string): string => {
       const hasDcStat = dcStat?.trim().length > 0;
       let innerHtml = "";
       innerHtml += `<span class="dc-stat">${dcStat || LONG_SPACES}</span>`;
-      innerHtml +=
-        `<span class="llm-stat` +
-        (hasDcStat ? "" : " llm-stat-no-dc-stat") +
-        `">${llmStat || LONG_SPACES}</span>`;
-      innerHtml += `<span class="dc-stat-tooltip">${
-        dcStat || LONG_SPACES
-      }</span>`;
-      return `<span class="annotation annotation-${callId}">${innerHtml}</span>`;
+      innerHtml += `<span class="llm-stat">${llmStat || LONG_SPACES}</span>`;
+      if (hasDcStat) {
+        innerHtml += `<span class="dc-stat-tooltip">${
+          dcStat || LONG_SPACES
+        }</span>`;
+      }
+      return (
+        `<span class="annotation annotation-${callId}` +
+        (hasDcStat ? "" : " annotation-no-dc-stat") +
+        `">${innerHtml}</span>`
+      );
     }
   );
   // Replace each link with the desired HTML format
