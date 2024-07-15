@@ -24,12 +24,11 @@ from flask import current_app
 from flask import g
 from flask_babel import gettext
 
+from server.lib.cache import cache
 from server.lib.i18n import AVAILABLE_LANGUAGES
 import server.routes.shared_api.place as place_api
 from shared.lib.place_summaries import get_shard_filename_by_dcid
 from shared.lib.place_summaries import get_shard_name
-from server.lib.cache import cache
-from server.routes import TIMEOUT
 
 bp = flask.Blueprint('place', __name__, url_prefix='/place')
 
@@ -66,6 +65,9 @@ PARENT_PLACE_TYPES_TO_HIGHLIGHT = {
     'Country',
     'Continent',
 }
+
+# How long to keep cache entries for, in seconds
+CACHE_TIMEOUT = 3600 * 24 * 7 * 3  # 3 weeks
 
 
 def get_place_summaries(dcid: str) -> dict:
@@ -195,7 +197,7 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
 
 @bp.route('', strict_slashes=False)
 @bp.route('/<path:place_dcid>')
-@cache.cached(timeout=TIMEOUT, query_string=True)
+@cache.cached(timeout=CACHE_TIMEOUT, query_string=True)
 def place(place_dcid=None):
   redirect_args = dict(flask.request.args)
 
