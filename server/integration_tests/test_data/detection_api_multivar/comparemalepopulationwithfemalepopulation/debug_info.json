@@ -54,7 +54,7 @@
           "Parts": [
             {
               "CosineScore": [
-                0.9257857799530029
+                0.9257858991622925
               ],
               "QueryPart": "male population",
               "SV": [
@@ -63,8 +63,8 @@
             },
             {
               "CosineScore": [
-                0.9296980500221252,
-                0.8847433924674988
+                0.9296978712081909,
+                0.884743332862854
               ],
               "QueryPart": "female population",
               "SV": [
@@ -80,7 +80,7 @@
           "Parts": [
             {
               "CosineScore": [
-                0.9117770791053772
+                0.911777138710022
               ],
               "QueryPart": "male population female",
               "SV": [
@@ -89,8 +89,8 @@
             },
             {
               "CosineScore": [
-                0.8982378244400024,
-                0.8723468780517578
+                0.8982377648353577,
+                0.8723466396331787
               ],
               "QueryPart": "population",
               "SV": [
@@ -123,7 +123,7 @@
             },
             {
               "CosineScore": [
-                0.9170327186584473
+                0.9170328378677368
               ],
               "QueryPart": "population female population",
               "SV": [
