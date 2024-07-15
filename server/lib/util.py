@@ -17,14 +17,14 @@ from datetime import date
 from datetime import datetime
 import gzip
 import hashlib
+from itertools import groupby
 import json
 import logging
+from operator import itemgetter
 import os
 import time
 from typing import Dict, List, Set
 import urllib
-from itertools import groupby
-from operator import itemgetter
 
 from flask import make_response
 from flask import request
@@ -569,21 +569,24 @@ def flatten_obs_series_response(obs_series_response):
   for variable in variables:
     entities = obs_series_response["byVariable"][variable]["byEntity"].keys()
     for entity in entities:
-      variable_entity_entry = obs_series_response["byVariable"][variable]["byEntity"][entity]
+      variable_entity_entry = obs_series_response["byVariable"][variable][
+          "byEntity"][entity]
       if not variable_entity_entry:
         continue
       for ordered_facet in variable_entity_entry['orderedFacets']:
         for observation in ordered_facet['observations']:
           flattened_observations.append({
-            'date': observation['date'],
-            'entity' : entity,
-            'facet': ordered_facet['facetId'],
-            'value': observation['value'],
-            'variable': variable
+              'date': observation['date'],
+              'entity': entity,
+              'facet': ordered_facet['facetId'],
+              'value': observation['value'],
+              'variable': variable
           })
   return flattened_observations
 
-def flattened_observations_to_dates_by_variable(flattened_observations: List[dict]) -> List[dict]:
+
+def flattened_observations_to_dates_by_variable(
+    flattened_observations: List[dict]) -> List[dict]:
   """
   Group flattened observation data by variable, then date, then facet, and count entities for each facet.
 
@@ -627,31 +630,29 @@ def flattened_observations_to_dates_by_variable(flattened_observations: List[dic
   """
   dates_by_variable = []
   flattened_observations.sort(key=itemgetter('variable'))
-  for variable_key, observations_for_variable_group in groupby(flattened_observations, key=itemgetter('variable')):
-    dates_by_variable_item = {
-      'variable' : variable_key,
-      'observationDates': []
-    }
+  for variable_key, observations_for_variable_group in groupby(
+      flattened_observations, key=itemgetter('variable')):
+    dates_by_variable_item = {'variable': variable_key, 'observationDates': []}
     dates_by_variable.append(dates_by_variable_item)
     observations_for_variable = list(observations_for_variable_group)
     observations_for_variable.sort(key=itemgetter('date'))
-    for date_key, observations_for_date_group in groupby(observations_for_variable, key=itemgetter('date')):
-      observation_dates_item = {
-        'date': date_key,
-        'entityCount': []
-      }
+    for date_key, observations_for_date_group in groupby(
+        observations_for_variable, key=itemgetter('date')):
+      observation_dates_item = {'date': date_key, 'entityCount': []}
       dates_by_variable_item['observationDates'].append(observation_dates_item)
       observations_for_date = list(observations_for_date_group)
       observations_for_date.sort(key=itemgetter('facet'))
-      for facet_key, observations_for_facet_group in groupby(observations_for_date, key=itemgetter('facet')):
+      for facet_key, observations_for_facet_group in groupby(
+          observations_for_date, key=itemgetter('facet')):
         entity_count_item = {
-          'count': len(list(observations_for_facet_group)),
-          'facet': facet_key
+            'count': len(list(observations_for_facet_group)),
+            'facet': facet_key
         }
         observation_dates_item['entityCount'].append(entity_count_item)
   return dates_by_variable
 
-def get_series_dates_from_entities(entities: List[str], variables:List[str]):
+
+def get_series_dates_from_entities(entities: List[str], variables: List[str]):
   """
   Get observation series dates by place DCIDs and variables.
 
@@ -744,11 +745,12 @@ def get_series_dates_from_entities(entities: List[str], variables:List[str]):
   """
   obs_series_response = dc.obs_series(entities=entities, variables=variables)
   flattened_observations = flatten_obs_series_response(obs_series_response)
-  dates_by_variable = flattened_observations_to_dates_by_variable(flattened_observations)
+  dates_by_variable = flattened_observations_to_dates_by_variable(
+      flattened_observations)
 
   result = {
-    'datesByVariable': dates_by_variable,
-    'facets': obs_series_response['facets']
+      'datesByVariable': dates_by_variable,
+      'facets': obs_series_response['facets']
   }
   return result
 

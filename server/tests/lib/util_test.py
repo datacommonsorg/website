@@ -64,542 +64,663 @@ class TestPostBodyCacheKey(unittest.TestCase):
 
 class TestFlattenObsSeriesResponse(unittest.TestCase):
 
-    def test_single_variable_single_entity(self):
-        obs_series_response = {
-            "byVariable": {
-                "Count_Person": {
-                    "byEntity": {
-                        "country/USA": {
-                            "orderedFacets": [
-                                {
-                                    "facetId": "2176550201",
-                                    "observations": [
-                                        {"date": "1900", "value": 76094000},
-                                        {"date": "1901", "value": 77584000}
-                                    ]
-                                }
-                            ]
-                        }
+  def test_single_variable_single_entity(self):
+    obs_series_response = {
+        "byVariable": {
+            "Count_Person": {
+                "byEntity": {
+                    "country/USA": {
+                        "orderedFacets": [{
+                            "facetId":
+                                "2176550201",
+                            "observations": [{
+                                "date": "1900",
+                                "value": 76094000
+                            }, {
+                                "date": "1901",
+                                "value": 77584000
+                            }]
+                        }]
                     }
                 }
             }
         }
-        expected_output = [
-            {'date': '1900', 'entity': 'country/USA', 'facet': '2176550201', 'value': 76094000, 'variable': 'Count_Person'},
-            {'date': '1901', 'entity': 'country/USA', 'facet': '2176550201', 'value': 77584000, 'variable': 'Count_Person'}
-        ]
-        self.assertEqual(lib_util.flatten_obs_series_response(obs_series_response), expected_output)
+    }
+    expected_output = [{
+        'date': '1900',
+        'entity': 'country/USA',
+        'facet': '2176550201',
+        'value': 76094000,
+        'variable': 'Count_Person'
+    }, {
+        'date': '1901',
+        'entity': 'country/USA',
+        'facet': '2176550201',
+        'value': 77584000,
+        'variable': 'Count_Person'
+    }]
+    self.assertEqual(lib_util.flatten_obs_series_response(obs_series_response),
+                     expected_output)
 
-    def test_multiple_variables_single_entity(self):
-        obs_series_response = {
-            "byVariable": {
-                "Count_Person": {
-                    "byEntity": {
-                        "country/USA": {
-                            "orderedFacets": [
-                                {
-                                    "facetId": "2176550201",
-                                    "observations": [
-                                        {"date": "1900", "value": 76094000},
-                                        {"date": "1901", "value": 77584000}
-                                    ]
-                                }
-                            ]
-                        }
+  def test_multiple_variables_single_entity(self):
+    obs_series_response = {
+        "byVariable": {
+            "Count_Person": {
+                "byEntity": {
+                    "country/USA": {
+                        "orderedFacets": [{
+                            "facetId":
+                                "2176550201",
+                            "observations": [{
+                                "date": "1900",
+                                "value": 76094000
+                            }, {
+                                "date": "1901",
+                                "value": 77584000
+                            }]
+                        }]
                     }
-                },
-                "Count_Household": {
-                    "byEntity": {
-                        "country/USA": {
-                            "orderedFacets": [
-                                {
-                                    "facetId": "2176550202",
-                                    "observations": [
-                                        {"date": "1900", "value": 15000000},
-                                        {"date": "1901", "value": 15500000}
-                                    ]
-                                }
-                            ]
-                        }
+                }
+            },
+            "Count_Household": {
+                "byEntity": {
+                    "country/USA": {
+                        "orderedFacets": [{
+                            "facetId":
+                                "2176550202",
+                            "observations": [{
+                                "date": "1900",
+                                "value": 15000000
+                            }, {
+                                "date": "1901",
+                                "value": 15500000
+                            }]
+                        }]
                     }
                 }
             }
         }
-        expected_output = [
-            {'date': '1900', 'entity': 'country/USA', 'facet': '2176550201', 'value': 76094000, 'variable': 'Count_Person'},
-            {'date': '1901', 'entity': 'country/USA', 'facet': '2176550201', 'value': 77584000, 'variable': 'Count_Person'},
-            {'date': '1900', 'entity': 'country/USA', 'facet': '2176550202', 'value': 15000000, 'variable': 'Count_Household'},
-            {'date': '1901', 'entity': 'country/USA', 'facet': '2176550202', 'value': 15500000, 'variable': 'Count_Household'}
-        ]
-        self.assertEqual(lib_util.flatten_obs_series_response(obs_series_response), expected_output)
+    }
+    expected_output = [{
+        'date': '1900',
+        'entity': 'country/USA',
+        'facet': '2176550201',
+        'value': 76094000,
+        'variable': 'Count_Person'
+    }, {
+        'date': '1901',
+        'entity': 'country/USA',
+        'facet': '2176550201',
+        'value': 77584000,
+        'variable': 'Count_Person'
+    }, {
+        'date': '1900',
+        'entity': 'country/USA',
+        'facet': '2176550202',
+        'value': 15000000,
+        'variable': 'Count_Household'
+    }, {
+        'date': '1901',
+        'entity': 'country/USA',
+        'facet': '2176550202',
+        'value': 15500000,
+        'variable': 'Count_Household'
+    }]
+    self.assertEqual(lib_util.flatten_obs_series_response(obs_series_response),
+                     expected_output)
 
-    def test_single_variable_multiple_entities(self):
-        obs_series_response = {
-            "byVariable": {
-                "Count_Person": {
-                    "byEntity": {
-                        "country/USA": {
-                            "orderedFacets": [
-                                {
-                                    "facetId": "2176550201",
-                                    "observations": [
-                                        {"date": "1900", "value": 76094000},
-                                        {"date": "1901", "value": 77584000}
-                                    ]
-                                }
-                            ]
-                        },
-                        "country/CAN": {
-                            "orderedFacets": [
-                                {
-                                    "facetId": "2176550203",
-                                    "observations": [
-                                        {"date": "1900", "value": 5400000},
-                                        {"date": "1901", "value": 5500000}
-                                    ]
-                                }
-                            ]
-                        }
+  def test_single_variable_multiple_entities(self):
+    obs_series_response = {
+        "byVariable": {
+            "Count_Person": {
+                "byEntity": {
+                    "country/USA": {
+                        "orderedFacets": [{
+                            "facetId":
+                                "2176550201",
+                            "observations": [{
+                                "date": "1900",
+                                "value": 76094000
+                            }, {
+                                "date": "1901",
+                                "value": 77584000
+                            }]
+                        }]
+                    },
+                    "country/CAN": {
+                        "orderedFacets": [{
+                            "facetId":
+                                "2176550203",
+                            "observations": [{
+                                "date": "1900",
+                                "value": 5400000
+                            }, {
+                                "date": "1901",
+                                "value": 5500000
+                            }]
+                        }]
                     }
                 }
             }
         }
-        expected_output = [
-            {'date': '1900', 'entity': 'country/USA', 'facet': '2176550201', 'value': 76094000, 'variable': 'Count_Person'},
-            {'date': '1901', 'entity': 'country/USA', 'facet': '2176550201', 'value': 77584000, 'variable': 'Count_Person'},
-            {'date': '1900', 'entity': 'country/CAN', 'facet': '2176550203', 'value': 5400000, 'variable': 'Count_Person'},
-            {'date': '1901', 'entity': 'country/CAN', 'facet': '2176550203', 'value': 5500000, 'variable': 'Count_Person'}
-        ]
-        self.assertEqual(lib_util.flatten_obs_series_response(obs_series_response), expected_output)
+    }
+    expected_output = [{
+        'date': '1900',
+        'entity': 'country/USA',
+        'facet': '2176550201',
+        'value': 76094000,
+        'variable': 'Count_Person'
+    }, {
+        'date': '1901',
+        'entity': 'country/USA',
+        'facet': '2176550201',
+        'value': 77584000,
+        'variable': 'Count_Person'
+    }, {
+        'date': '1900',
+        'entity': 'country/CAN',
+        'facet': '2176550203',
+        'value': 5400000,
+        'variable': 'Count_Person'
+    }, {
+        'date': '1901',
+        'entity': 'country/CAN',
+        'facet': '2176550203',
+        'value': 5500000,
+        'variable': 'Count_Person'
+    }]
+    self.assertEqual(lib_util.flatten_obs_series_response(obs_series_response),
+                     expected_output)
 
-    def test_multiple_variables_multiple_entities(self):
-        obs_series_response = {
-            "byVariable": {
-                "Count_Person": {
-                    "byEntity": {
-                        "country/USA": {
-                            "orderedFacets": [
-                                {
-                                    "facetId": "2176550201",
-                                    "observations": [
-                                        {"date": "1900", "value": 76094000},
-                                        {"date": "1901", "value": 77584000}
-                                    ]
-                                }
-                            ]
-                        },
-                        "country/CAN": {
-                            "orderedFacets": [
-                                {
-                                    "facetId": "2176550203",
-                                    "observations": [
-                                        {"date": "1900", "value": 5400000},
-                                        {"date": "1901", "value": 5500000}
-                                    ]
-                                }
-                            ]
-                        }
+  def test_multiple_variables_multiple_entities(self):
+    obs_series_response = {
+        "byVariable": {
+            "Count_Person": {
+                "byEntity": {
+                    "country/USA": {
+                        "orderedFacets": [{
+                            "facetId":
+                                "2176550201",
+                            "observations": [{
+                                "date": "1900",
+                                "value": 76094000
+                            }, {
+                                "date": "1901",
+                                "value": 77584000
+                            }]
+                        }]
+                    },
+                    "country/CAN": {
+                        "orderedFacets": [{
+                            "facetId":
+                                "2176550203",
+                            "observations": [{
+                                "date": "1900",
+                                "value": 5400000
+                            }, {
+                                "date": "1901",
+                                "value": 5500000
+                            }]
+                        }]
                     }
-                },
-                "Count_Household": {
-                    "byEntity": {
-                        "country/USA": {
-                            "orderedFacets": [
-                                {
-                                    "facetId": "2176550202",
-                                    "observations": [
-                                        {"date": "1900", "value": 15000000},
-                                        {"date": "1901", "value": 15500000}
-                                    ]
-                                }
-                            ]
-                        },
-                        "country/CAN": {
-                            "orderedFacets": [
-                                {
-                                    "facetId": "2176550204",
-                                    "observations": [
-                                        {"date": "1900", "value": 1000000},
-                                        {"date": "1901", "value": 1100000}
-                                    ]
-                                }
-                            ]
-                        }
+                }
+            },
+            "Count_Household": {
+                "byEntity": {
+                    "country/USA": {
+                        "orderedFacets": [{
+                            "facetId":
+                                "2176550202",
+                            "observations": [{
+                                "date": "1900",
+                                "value": 15000000
+                            }, {
+                                "date": "1901",
+                                "value": 15500000
+                            }]
+                        }]
+                    },
+                    "country/CAN": {
+                        "orderedFacets": [{
+                            "facetId":
+                                "2176550204",
+                            "observations": [{
+                                "date": "1900",
+                                "value": 1000000
+                            }, {
+                                "date": "1901",
+                                "value": 1100000
+                            }]
+                        }]
                     }
                 }
             }
         }
-        expected_output = [
-            {'date': '1900', 'entity': 'country/USA', 'facet': '2176550201', 'value': 76094000, 'variable': 'Count_Person'},
-            {'date': '1901', 'entity': 'country/USA', 'facet': '2176550201', 'value': 77584000, 'variable': 'Count_Person'},
-            {'date': '1900', 'entity': 'country/CAN', 'facet': '2176550203', 'value': 5400000, 'variable': 'Count_Person'},
-            {'date': '1901', 'entity': 'country/CAN', 'facet': '2176550203', 'value': 5500000, 'variable': 'Count_Person'},
-            {'date': '1900', 'entity': 'country/USA', 'facet': '2176550202', 'value': 15000000, 'variable': 'Count_Household'},
-            {'date': '1901', 'entity': 'country/USA', 'facet': '2176550202', 'value': 15500000, 'variable': 'Count_Household'},
-            {'date': '1900', 'entity': 'country/CAN', 'facet': '2176550204', 'value': 1000000, 'variable': 'Count_Household'},
-            {'date': '1901', 'entity': 'country/CAN', 'facet': '2176550204', 'value': 1100000, 'variable': 'Count_Household'}
-        ]
-        self.assertEqual(lib_util.flatten_obs_series_response(obs_series_response), expected_output)
+    }
+    expected_output = [{
+        'date': '1900',
+        'entity': 'country/USA',
+        'facet': '2176550201',
+        'value': 76094000,
+        'variable': 'Count_Person'
+    }, {
+        'date': '1901',
+        'entity': 'country/USA',
+        'facet': '2176550201',
+        'value': 77584000,
+        'variable': 'Count_Person'
+    }, {
+        'date': '1900',
+        'entity': 'country/CAN',
+        'facet': '2176550203',
+        'value': 5400000,
+        'variable': 'Count_Person'
+    }, {
+        'date': '1901',
+        'entity': 'country/CAN',
+        'facet': '2176550203',
+        'value': 5500000,
+        'variable': 'Count_Person'
+    }, {
+        'date': '1900',
+        'entity': 'country/USA',
+        'facet': '2176550202',
+        'value': 15000000,
+        'variable': 'Count_Household'
+    }, {
+        'date': '1901',
+        'entity': 'country/USA',
+        'facet': '2176550202',
+        'value': 15500000,
+        'variable': 'Count_Household'
+    }, {
+        'date': '1900',
+        'entity': 'country/CAN',
+        'facet': '2176550204',
+        'value': 1000000,
+        'variable': 'Count_Household'
+    }, {
+        'date': '1901',
+        'entity': 'country/CAN',
+        'facet': '2176550204',
+        'value': 1100000,
+        'variable': 'Count_Household'
+    }]
+    self.assertEqual(lib_util.flatten_obs_series_response(obs_series_response),
+                     expected_output)
 
 
 class TestFlattenedObservationsToDatesByVariable(unittest.TestCase):
 
-    def test_single_variable_single_date_single_facet(self):
-        flattened_observations = [
-            {'date': '1900', 'entity': 'country/USA', 'facet': '2176550201', 'value': 76094000, 'variable': 'Count_Person'}
-        ]
-        expected_output = [
-            {
-                'variable': 'Count_Person',
-                'observationDates': [
-                    {
-                        'date': '1900',
-                        'entityCount': [
-                            {
-                                'facet': '2176550201',
-                                'count': 1
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-        self.assertEqual(lib_util.flattened_observations_to_dates_by_variable(flattened_observations), expected_output)
+  def test_single_variable_single_date_single_facet(self):
+    flattened_observations = [{
+        'date': '1900',
+        'entity': 'country/USA',
+        'facet': '2176550201',
+        'value': 76094000,
+        'variable': 'Count_Person'
+    }]
+    expected_output = [{
+        'variable':
+            'Count_Person',
+        'observationDates': [{
+            'date': '1900',
+            'entityCount': [{
+                'facet': '2176550201',
+                'count': 1
+            }]
+        }]
+    }]
+    self.assertEqual(
+        lib_util.flattened_observations_to_dates_by_variable(
+            flattened_observations), expected_output)
 
-    def test_single_variable_multiple_dates_single_facet(self):
-        flattened_observations = [
-            {'date': '1900', 'entity': 'country/USA', 'facet': '2176550201', 'value': 76094000, 'variable': 'Count_Person'},
-            {'date': '1901', 'entity': 'country/USA', 'facet': '2176550201', 'value': 77584000, 'variable': 'Count_Person'}
-        ]
-        expected_output = [
-            {
-                'variable': 'Count_Person',
-                'observationDates': [
-                    {
-                        'date': '1900',
-                        'entityCount': [
-                            {
-                                'facet': '2176550201',
-                                'count': 1
-                            }
-                        ]
-                    },
-                    {
-                        'date': '1901',
-                        'entityCount': [
-                            {
-                                'facet': '2176550201',
-                                'count': 1
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-        self.assertEqual(lib_util.flattened_observations_to_dates_by_variable(flattened_observations), expected_output)
+  def test_single_variable_multiple_dates_single_facet(self):
+    flattened_observations = [{
+        'date': '1900',
+        'entity': 'country/USA',
+        'facet': '2176550201',
+        'value': 76094000,
+        'variable': 'Count_Person'
+    }, {
+        'date': '1901',
+        'entity': 'country/USA',
+        'facet': '2176550201',
+        'value': 77584000,
+        'variable': 'Count_Person'
+    }]
+    expected_output = [{
+        'variable':
+            'Count_Person',
+        'observationDates': [{
+            'date': '1900',
+            'entityCount': [{
+                'facet': '2176550201',
+                'count': 1
+            }]
+        }, {
+            'date': '1901',
+            'entityCount': [{
+                'facet': '2176550201',
+                'count': 1
+            }]
+        }]
+    }]
+    self.assertEqual(
+        lib_util.flattened_observations_to_dates_by_variable(
+            flattened_observations), expected_output)
 
-    def test_multiple_variables_single_date_single_facet(self):
-        flattened_observations = [
-            {'date': '1900', 'entity': 'country/USA', 'facet': '2176550201', 'value': 76094000, 'variable': 'Count_Person'},
-            {'date': '1900', 'entity': 'country/USA', 'facet': '2176550202', 'value': 15000000, 'variable': 'Count_Household'}
-        ]
-        expected_output = [
-            {
-                'variable': 'Count_Household',
-                'observationDates': [
-                    {
-                        'date': '1900',
-                        'entityCount': [
-                            {
-                                'facet': '2176550202',
-                                'count': 1
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                'variable': 'Count_Person',
-                'observationDates': [
-                    {
-                        'date': '1900',
-                        'entityCount': [
-                            {
-                                'facet': '2176550201',
-                                'count': 1
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-        self.assertEqual(lib_util.flattened_observations_to_dates_by_variable(flattened_observations), expected_output)
+  def test_multiple_variables_single_date_single_facet(self):
+    flattened_observations = [{
+        'date': '1900',
+        'entity': 'country/USA',
+        'facet': '2176550201',
+        'value': 76094000,
+        'variable': 'Count_Person'
+    }, {
+        'date': '1900',
+        'entity': 'country/USA',
+        'facet': '2176550202',
+        'value': 15000000,
+        'variable': 'Count_Household'
+    }]
+    expected_output = [{
+        'variable':
+            'Count_Household',
+        'observationDates': [{
+            'date': '1900',
+            'entityCount': [{
+                'facet': '2176550202',
+                'count': 1
+            }]
+        }]
+    }, {
+        'variable':
+            'Count_Person',
+        'observationDates': [{
+            'date': '1900',
+            'entityCount': [{
+                'facet': '2176550201',
+                'count': 1
+            }]
+        }]
+    }]
+    self.assertEqual(
+        lib_util.flattened_observations_to_dates_by_variable(
+            flattened_observations), expected_output)
 
-    def test_single_variable_single_date_multiple_facets(self):
-        flattened_observations = [
-            {'date': '1900', 'entity': 'country/USA', 'facet': '2176550201', 'value': 76094000, 'variable': 'Count_Person'},
-            {'date': '1900', 'entity': 'country/USA', 'facet': '2176550202', 'value': 15000000, 'variable': 'Count_Person'}
-        ]
-        expected_output = [
-            {
-                'variable': 'Count_Person',
-                'observationDates': [
-                    {
-                        'date': '1900',
-                        'entityCount': [
-                            {
-                                'facet': '2176550201',
-                                'count': 1
-                            },
-                            {
-                                'facet': '2176550202',
-                                'count': 1
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-        self.assertEqual(lib_util.flattened_observations_to_dates_by_variable(flattened_observations), expected_output)
+  def test_single_variable_single_date_multiple_facets(self):
+    flattened_observations = [{
+        'date': '1900',
+        'entity': 'country/USA',
+        'facet': '2176550201',
+        'value': 76094000,
+        'variable': 'Count_Person'
+    }, {
+        'date': '1900',
+        'entity': 'country/USA',
+        'facet': '2176550202',
+        'value': 15000000,
+        'variable': 'Count_Person'
+    }]
+    expected_output = [{
+        'variable':
+            'Count_Person',
+        'observationDates': [{
+            'date':
+                '1900',
+            'entityCount': [{
+                'facet': '2176550201',
+                'count': 1
+            }, {
+                'facet': '2176550202',
+                'count': 1
+            }]
+        }]
+    }]
+    self.assertEqual(
+        lib_util.flattened_observations_to_dates_by_variable(
+            flattened_observations), expected_output)
 
-    def test_multiple_variables_multiple_dates_multiple_facets(self):
-        flattened_observations = [
-            {'date': '1900', 'entity': 'country/USA', 'facet': '2176550201', 'value': 76094000, 'variable': 'Count_Person'},
-            {'date': '1901', 'entity': 'country/USA', 'facet': '2176550201', 'value': 77584000, 'variable': 'Count_Person'},
-            {'date': '1900', 'entity': 'country/USA', 'facet': '2176550202', 'value': 15000000, 'variable': 'Count_Household'},
-            {'date': '1901', 'entity': 'country/USA', 'facet': '2176550202', 'value': 15500000, 'variable': 'Count_Household'}
-        ]
-        expected_output = [
-            {
-                'variable': 'Count_Household',
-                'observationDates': [
-                    {
-                        'date': '1900',
-                        'entityCount': [
-                            {
-                                'facet': '2176550202',
-                                'count': 1
-                            }
-                        ]
-                    },
-                    {
-                        'date': '1901',
-                        'entityCount': [
-                            {
-                                'facet': '2176550202',
-                                'count': 1
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                'variable': 'Count_Person',
-                'observationDates': [
-                    {
-                        'date': '1900',
-                        'entityCount': [
-                            {
-                                'facet': '2176550201',
-                                'count': 1
-                            }
-                        ]
-                    },
-                    {
-                        'date': '1901',
-                        'entityCount': [
-                            {
-                                'facet': '2176550201',
-                                'count': 1
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-        self.assertEqual(lib_util.flattened_observations_to_dates_by_variable(flattened_observations), expected_output)
+  def test_multiple_variables_multiple_dates_multiple_facets(self):
+    flattened_observations = [{
+        'date': '1900',
+        'entity': 'country/USA',
+        'facet': '2176550201',
+        'value': 76094000,
+        'variable': 'Count_Person'
+    }, {
+        'date': '1901',
+        'entity': 'country/USA',
+        'facet': '2176550201',
+        'value': 77584000,
+        'variable': 'Count_Person'
+    }, {
+        'date': '1900',
+        'entity': 'country/USA',
+        'facet': '2176550202',
+        'value': 15000000,
+        'variable': 'Count_Household'
+    }, {
+        'date': '1901',
+        'entity': 'country/USA',
+        'facet': '2176550202',
+        'value': 15500000,
+        'variable': 'Count_Household'
+    }]
+    expected_output = [{
+        'variable':
+            'Count_Household',
+        'observationDates': [{
+            'date': '1900',
+            'entityCount': [{
+                'facet': '2176550202',
+                'count': 1
+            }]
+        }, {
+            'date': '1901',
+            'entityCount': [{
+                'facet': '2176550202',
+                'count': 1
+            }]
+        }]
+    }, {
+        'variable':
+            'Count_Person',
+        'observationDates': [{
+            'date': '1900',
+            'entityCount': [{
+                'facet': '2176550201',
+                'count': 1
+            }]
+        }, {
+            'date': '1901',
+            'entityCount': [{
+                'facet': '2176550201',
+                'count': 1
+            }]
+        }]
+    }]
+    self.assertEqual(
+        lib_util.flattened_observations_to_dates_by_variable(
+            flattened_observations), expected_output)
 
 
 class TestGetSeriesDatesFromEntities(unittest.TestCase):
-    maxDiff = None
-    @patch('server.services.datacommons.obs_series')
-    def test_single_variable_single_entity(self, mock_obs_series):
-        mock_obs_series.return_value = {
-            "byVariable": {
-                "Count_Person": {
-                    "byEntity": {
-                        "country/USA": {
-                            "orderedFacets": [
-                                {
-                                    "facetId": "2176550201",
-                                    "observations": [
-                                        {"date": "1900", "value": 76094000},
-                                        {"date": "1901", "value": 77584000}
-                                    ]
-                                }
-                            ]
-                        }
+  maxDiff = None
+
+  @patch('server.services.datacommons.obs_series')
+  def test_single_variable_single_entity(self, mock_obs_series):
+    mock_obs_series.return_value = {
+        "byVariable": {
+            "Count_Person": {
+                "byEntity": {
+                    "country/USA": {
+                        "orderedFacets": [{
+                            "facetId":
+                                "2176550201",
+                            "observations": [{
+                                "date": "1900",
+                                "value": 76094000
+                            }, {
+                                "date": "1901",
+                                "value": 77584000
+                            }]
+                        }]
+                    }
+                }
+            }
+        },
+        "facets": {
+            "2176550201": {
+                "importName": "facet1"
+            }
+        }
+    }
+
+    entities = ["country/USA"]
+    variables = ["Count_Person"]
+    expected_output = {
+        'datesByVariable': [{
+            'variable':
+                'Count_Person',
+            'observationDates': [{
+                'date': '1900',
+                'entityCount': [{
+                    'facet': '2176550201',
+                    'count': 1
+                }]
+            }, {
+                'date': '1901',
+                'entityCount': [{
+                    'facet': '2176550201',
+                    'count': 1
+                }]
+            }]
+        }],
+        'facets': {
+            '2176550201': {
+                "importName": "facet1"
+            }
+        }
+    }
+
+    result = lib_util.get_series_dates_from_entities(entities, variables)
+    self.assertEqual(result, expected_output)
+
+  @patch('server.services.datacommons.obs_series')
+  def test_multiple_variables_multiple_entities(self, mock_obs_series):
+    mock_obs_series.return_value = {
+        "byVariable": {
+            "Count_Person": {
+                "byEntity": {
+                    "country/USA": {
+                        "orderedFacets": [{
+                            "facetId":
+                                "2176550201",
+                            "observations": [{
+                                "date": "1900",
+                                "value": 76094000
+                            }, {
+                                "date": "1901",
+                                "value": 77584000
+                            }]
+                        }]
+                    },
+                    "country/CAN": {
+                        "orderedFacets": [{
+                            "facetId": "2176550201",
+                            "observations": [{
+                                "date": "1901",
+                                "value": 5500000
+                            }]
+                        }]
                     }
                 }
             },
-            "facets": {
-                "2176550201": {"importName": "facet1"}
-            }
-        }
-
-        entities = ["country/USA"]
-        variables = ["Count_Person"]
-        expected_output = {
-            'datesByVariable': [
-                {
-                    'variable': 'Count_Person',
-                    'observationDates': [
-                        {
-                            'date': '1900',
-                            'entityCount': [
-                                {
-                                    'facet': '2176550201',
-                                    'count': 1
-                                }
-                            ]
-                        },
-                        {
-                            'date': '1901',
-                            'entityCount': [
-                                {
-                                    'facet': '2176550201',
-                                    'count': 1
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ],
-            'facets': {
-                '2176550201': {"importName": "facet1"}
-            }
-        }
-
-        result = lib_util.get_series_dates_from_entities(entities, variables)
-        self.assertEqual(result, expected_output)
-
-    @patch('server.services.datacommons.obs_series')
-    def test_multiple_variables_multiple_entities(self, mock_obs_series):
-        mock_obs_series.return_value = {
-            "byVariable": {
-                "Count_Person": {
-                    "byEntity": {
-                        "country/USA": {
-                            "orderedFacets": [
-                                {
-                                    "facetId": "2176550201",
-                                    "observations": [
-                                        {"date": "1900", "value": 76094000},
-                                        {"date": "1901", "value": 77584000}
-                                    ]
-                                }
-                            ]
-                        },
-                        "country/CAN": {
-                            "orderedFacets": [
-                                {
-                                    "facetId": "2176550201",
-                                    "observations": [
-                                        {"date": "1901", "value": 5500000}
-                                    ]
-                                }
-                            ]
-                        }
-                    }
-                },
-                "Count_Household": {
-                    "byEntity": {
-                        "country/USA": {
-                            "orderedFacets": [
-                                {
-                                    "facetId": "2176550202",
-                                    "observations": [
-                                        {"date": "1900", "value": 15000000},
-                                        {"date": "1901", "value": 15500000}
-                                    ]
-                                }
-                            ]
-                        },
-                        "country/CAN": {
-                            "orderedFacets": [
-                                {
-                                    "facetId": "2176550202",
-                                    "observations": [
-                                        {"date": "1900", "value": 1000000},
-                                    ]
-                                }
-                            ]
-                        }
+            "Count_Household": {
+                "byEntity": {
+                    "country/USA": {
+                        "orderedFacets": [{
+                            "facetId":
+                                "2176550202",
+                            "observations": [{
+                                "date": "1900",
+                                "value": 15000000
+                            }, {
+                                "date": "1901",
+                                "value": 15500000
+                            }]
+                        }]
+                    },
+                    "country/CAN": {
+                        "orderedFacets": [{
+                            "facetId":
+                                "2176550202",
+                            "observations": [{
+                                "date": "1900",
+                                "value": 1000000
+                            },]
+                        }]
                     }
                 }
+            }
+        },
+        "facets": {
+            '2176550201': {
+                "importName": "facet1"
             },
-            "facets": {
-                '2176550201': {"importName": "facet1"},
-                '2176550202': {"importName": "facet2"}
+            '2176550202': {
+                "importName": "facet2"
             }
         }
+    }
 
-        entities = ["country/USA", "country/CAN"]
-        variables = ["Count_Person", "Count_Household"]
-        expected_output = {
-            'datesByVariable': [
-                {
-                    'variable': 'Count_Household',
-                    'observationDates': [
-                        {
-                            'date': '1900',
-                            'entityCount': [
-                                {
-                                    'facet': '2176550202',
-                                    'count': 2
-                                }
-                            ]
-                        },
-                        {
-                            'date': '1901',
-                            'entityCount': [
-                                {
-                                    'facet': '2176550202',
-                                    'count': 1
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    'variable': 'Count_Person',
-                    'observationDates': [
-                        {
-                            'date': '1900',
-                            'entityCount': [
-                                {
-                                    'facet': '2176550201',
-                                    'count': 1
-                                }
-                            ]
-                        },
-                        {
-                            'date': '1901',
-                            'entityCount': [
-                                {
-                                    'facet': '2176550201',
-                                    'count': 2
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ],
-            'facets': {
-                '2176550201': {"importName": "facet1"},
-                '2176550202': {"importName": "facet2"}
+    entities = ["country/USA", "country/CAN"]
+    variables = ["Count_Person", "Count_Household"]
+    expected_output = {
+        'datesByVariable': [{
+            'variable':
+                'Count_Household',
+            'observationDates': [{
+                'date': '1900',
+                'entityCount': [{
+                    'facet': '2176550202',
+                    'count': 2
+                }]
+            }, {
+                'date': '1901',
+                'entityCount': [{
+                    'facet': '2176550202',
+                    'count': 1
+                }]
+            }]
+        }, {
+            'variable':
+                'Count_Person',
+            'observationDates': [{
+                'date': '1900',
+                'entityCount': [{
+                    'facet': '2176550201',
+                    'count': 1
+                }]
+            }, {
+                'date': '1901',
+                'entityCount': [{
+                    'facet': '2176550201',
+                    'count': 2
+                }]
+            }]
+        }],
+        'facets': {
+            '2176550201': {
+                "importName": "facet1"
+            },
+            '2176550202': {
+                "importName": "facet2"
             }
         }
+    }
 
-        result = lib_util.get_series_dates_from_entities(entities, variables)
-        self.assertEqual(result, expected_output)
+    result = lib_util.get_series_dates_from_entities(entities, variables)
+    self.assertEqual(result, expected_output)
