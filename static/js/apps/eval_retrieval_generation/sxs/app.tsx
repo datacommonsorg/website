@@ -21,11 +21,10 @@ import React, { useContext, useEffect, useState } from "react";
 import { signInWithGoogle } from "../../../utils/google_signin";
 import { DocInfo } from "../types";
 import { getDocInfo } from "../util";
+import { AnswerWithTables } from "./answer_with_tables";
 import { SessionContext } from "./context";
 import { getLeftAndRight } from "./left_right_picker";
-import { AnswerWithTables } from "./answer_with_tables";
 import { SxsFeedback } from "./sxs_feedback";
-import { QueryIdAndQuestion } from "./query_id_and_question";
 
 interface AppPropType {
   sessionId: string;
@@ -111,7 +110,10 @@ export function App(props: AppPropType): JSX.Element {
       {docInfos && (
         <>
           <div className="sxs-app-content">
-            <QueryIdAndQuestion docInfo={leftDocInfo} />
+            <div className="query-header">
+              <h3>Query {sessionQueryId}</h3>
+              {leftDocInfo.allQuery[sessionQueryId].text}
+            </div>
             <div className="sxs-panes">
               <AnswerWithTables docInfo={leftDocInfo} />
               <div className="divider" />
