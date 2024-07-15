@@ -66,6 +66,7 @@ PARENT_PLACE_TYPES_TO_HIGHLIGHT = {
     'Continent',
 }
 
+
 def get_place_summaries(dcid: str) -> dict:
   """Load place summary content from disk containing summary for a given dcid"""
   # Get shard matching the given dcid
