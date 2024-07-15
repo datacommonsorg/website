@@ -15,7 +15,7 @@
 
 from collections import OrderedDict
 import copy
-from typing import cast, List
+from typing import cast, Dict, List
 
 from flask import current_app
 
@@ -132,10 +132,9 @@ def fulfill(uttr: Utterance) -> PopulateState:
       state.chart_vars_map = topic.compute_chart_vars(state)
   else:
     state.chart_vars_map = topic.compute_chart_vars(state)
-    # only do toolformer rig updates in single sv case
+    # do toolformer rig and rag updates in single sv case
     if state.uttr.mode == QueryMode.TOOLFORMER_RIG:
       _update_chart_vars_for_rig(state)
-    # only do toolformer rig updates in single sv case
     elif state.uttr.mode == QueryMode.TOOLFORMER_RAG:
       _update_chart_vars_for_rag(state)
 
@@ -219,7 +218,7 @@ def _prune_non_country_special_dc_vars(state: PopulateState):
   sdc_non_country_vars = current_app.config['SPECIAL_DC_NON_COUNTRY_ONLY_VARS']
 
   # Go over the chart_vars_map and drop
-  pruned_chart_vars_map = OrderedDict()
+  pruned_chart_vars_map: Dict[str, List[ChartVars]] = OrderedDict()
   dropped_vars = set()
   for var, chart_vars_list in state.chart_vars_map.items():
     if var in sdc_non_country_vars:
@@ -260,7 +259,7 @@ def _update_chart_vars_for_rig(state: PopulateState):
     for cv in chart_vars_list:
       topic_svs.update(cv.svs)
 
-  updated_chart_vars_map = OrderedDict()
+  updated_chart_vars_map: Dict[str, List[ChartVars]] = OrderedDict()
 
   # remove topic chart vars
   dropped_topics = set()
@@ -310,7 +309,7 @@ def _update_chart_vars_for_rag(state: PopulateState):
   ordered_cv_map = list(state.chart_vars_map.items())
 
   # go over the chart_vars_map and update ordering
-  updated_chart_vars_map = OrderedDict()
+  updated_chart_vars_map: Dict[str, List[ChartVars]] = OrderedDict()
   promoted_svs = set()
   for idx, (var, cv_list) in enumerate(ordered_cv_map):
     # handle non topic vars
