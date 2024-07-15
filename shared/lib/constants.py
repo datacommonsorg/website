@@ -423,6 +423,3 @@ DATE_HIGHEST_COVERAGE = 'HIGHEST_COVERAGE'
 
 # The name of the embeddings CSV file.
 EMBEDDINGS_FILE_NAME = 'embeddings.csv'
-
-# The name of the ADDITIONAL_CATALOG_PATH env variable.
-ADDITIONAL_CATALOG_PATH = 'ADDITIONAL_CATALOG_PATH'

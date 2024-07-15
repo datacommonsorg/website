@@ -53,7 +53,7 @@ def create_app():
   try:
     # Build the registry before creating the Flask app to make sure all resources
     # are loaded.
-    additional_catalog_path = os.environ.get(constants.ADDITIONAL_CATALOG_PATH)
+    additional_catalog_path = os.environ.get('ADDITIONAL_CATALOG_PATH')
     reg = registry.build(additional_catalog_path=additional_catalog_path)
 
     if not lib_utils.is_test_env():

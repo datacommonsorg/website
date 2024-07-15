@@ -15,11 +15,9 @@
 
 import logging
 import sys
-from typing import Dict
 
 from absl import app
 from absl import flags
-import yaml
 
 from nl_server import config_reader
 from shared.lib import gcs
@@ -32,9 +30,6 @@ flags.DEFINE_string('embeddings_name', '',
 
 flags.DEFINE_string('output_dir', '',
                     'The output directory to save the embeddings files/db')
-
-flags.DEFINE_string('catalog', '',
-                    'A dict of user provided embeddings/model catalog')
 
 flags.DEFINE_string(
     'additional_catalog_path', '',
@@ -61,19 +56,12 @@ def main(_):
   # If additional catalog path is provided and embeddings name is not specified, extract the embeddings name from the catalog.
   additional_catalog_path: str = FLAGS.additional_catalog_path
   if additional_catalog_path and not embeddings_name:
-    embeddings_name = utils.get_additional_catalog_embeddings_name(
-        additional_catalog_path)
+    embeddings_name = utils.get_first_index_name(additional_catalog_path)
 
   assert embeddings_name, output_dir
 
-  # Prepare the model
-  if FLAGS.catalog:
-    catalog = yaml.safe_load(FLAGS.catalog)
-  else:
-    catalog = None
-
   catalog = config_reader.read_catalog(
-      catalog_dict=catalog, additional_catalog_path=additional_catalog_path)
+      additional_catalog_path=additional_catalog_path)
   index_config = catalog.indexes[embeddings_name]
   # Use default env config: autopush for base DCs and custom env for custom DCs.
   env = config_reader.read_env()

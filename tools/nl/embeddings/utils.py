@@ -225,12 +225,12 @@ def save_index_config(fm: FileManager, index_config: IndexConfig):
     yaml.dump(asdict(index_config), f)
 
 
-def get_additional_catalog_embeddings_name(additional_catalog_path: str) -> str:
-  local_path = additional_catalog_path
-  if gcs.is_gcs_path(additional_catalog_path):
-    local_path = gcs.maybe_download(additional_catalog_path)
+def get_first_index_name(catalog_path: str) -> str:
+  local_path = catalog_path
+  if gcs.is_gcs_path(catalog_path):
+    local_path = gcs.maybe_download(catalog_path)
   with open(local_path, 'r') as f:
     catalog_dict: Dict = yaml.safe_load(f)
     indexes: Dict = catalog_dict.get('indexes')
-    assert indexes, f'No indexes in catalog: {additional_catalog_path}'
+    assert indexes, f'No indexes in catalog: {catalog_path}'
     return list(indexes.keys())[0]
