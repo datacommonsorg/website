@@ -16,70 +16,101 @@ import multiprocessing
 import os
 import platform
 import socket
+import unittest
 import warnings
-
-from flask_testing import LiveServerTestCase
 
 from nl_server.flask import create_app as create_nl_app
 from server.__init__ import create_app as create_web_app
 import server.lib.util as libutil
 
 
-def find_open_port():
+def find_open_port(skip_ports: set[int] | None = None):
   for port in range(12000, 13000):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+      if skip_ports and port in skip_ports:
+        continue
       res = sock.connect_ex(('localhost', port))
       if res != 0:
         return port
 
-
-is_nl_mode = os.environ.get('ENABLE_MODEL') == 'true'
-if is_nl_mode:
+def get_nl_port(web_port: int):
   # Start NL server on an unused port, so multiple integration tests can
   # run at the same time.
   if platform.system() == 'Darwin' and platform.processor() == 'arm':
-    msg = '\n\n!!!!! IMPORTANT NOTE !!!!!!\n' \
-          'Detected MacOS ARM processor! You need to have a local ' \
-          'NL server running (using run_nl_server.sh).\n'
-    warnings.warn(msg)
-    nl_port = 6060
-    should_start_nl_server = False
+      msg = '\n\n!!!!! IMPORTANT NOTE !!!!!!\n' \
+            'Detected MacOS ARM processor! You need to have a local ' \
+            'NL server running (using run_nl_server.sh).\n'
+      warnings.warn(msg)
+      nl_port = 6060
+      should_start_nl_server = False
   else:
-    nl_port = find_open_port()
-    should_start_nl_server = True
+      nl_port = find_open_port(set[web_port])
+      should_start_nl_server = True
+  return nl_port, should_start_nl_server
 
 
-class NLWebServerTestCase(LiveServerTestCase):
+def start_nl_server(port):
+  nl_app = create_nl_app()
+  nl_app.run(port=port, debug=False, use_reloader=False, threaded=True)
+
+
+def start_web_server(web_port, nl_port=None):
+  if nl_port:
+    web_app = create_web_app(f'http://127.0.0.1:{nl_port}')
+  else:
+    web_app = create_web_app()
+  web_app.run(port=web_port, use_reloader=False)
+
+
+class NLWebServerTestCase(unittest.TestCase):
 
   @classmethod
   def setUpClass(cls):
-    if is_nl_mode:
+    cls.web_port = find_open_port()
+    cls.is_nl_mode = os.environ.get('ENABLE_MODEL') == 'true'
+    nl_port = None
+    if cls.is_nl_mode:
+      nl_port, should_start_nl_server = get_nl_port(cls.web_port)
       if should_start_nl_server:
 
-        def start_nl_server(app):
-          app.run(port=nl_port, debug=False, use_reloader=False, threaded=True)
-
-        nl_app = create_nl_app()
         # Create a thread that will contain our running server
-        cls.proc = multiprocessing.Process(target=start_nl_server,
-                                           args=(nl_app,),
-                                           daemon=True)
-        cls.proc.start()
+        cls.nl_proc = multiprocessing.Process(target=start_nl_server,
+                                              args=(nl_port,),
+                                              daemon=True)
+        cls.nl_proc.start()
       else:
-        cls.proc = None
+        cls.nl_proc = None
       libutil.check_backend_ready(
           ['http://127.0.0.1:{}/healthz'.format(nl_port)])
 
+    skip_ports = set([cls.web_port, nl_port])
+    # Start web app.
+    for _ in range(5):
+      try:
+        print("trying to start server")
+        cls.web_proc = multiprocessing.Process(target=start_web_server,
+                                              args=(cls.web_port, nl_port))
+        cls.web_proc.start()
+        print("server started")
+        break
+      except Exception as e:
+        print("exception caught in test server")
+        print(str(e))
+        if "already in use" in str(e):
+          cls.web_port = find_open_port(skip_ports)
+          skip_ports.add(cls.web_port)
+          print(skip_ports)
+          continue
+        else:
+          print("raising exception")
+          raise e
+    libutil.check_backend_ready([f'http://127.0.0.1:{cls.web_port}/healthz'])
+
+  def get_server_url(cls):
+    return f'http://localhost:{cls.web_port}'
+
   @classmethod
   def tearDownClass(cls):
-    if is_nl_mode and cls.proc:
-      cls.proc.terminate()
-
-  def create_app(self):
-    """Returns the Flask Server running Data Commons."""
-    if is_nl_mode:
-      app = create_web_app('http://127.0.0.1:{}'.format(nl_port))
-    else:
-      app = create_web_app()
-    app.config['LIVESERVER_PORT'] = 0
-    return app
+    if cls.is_nl_mode and cls.nl_proc:
+      cls.nl_proc.terminate()
+    cls.web_proc.terminate()
