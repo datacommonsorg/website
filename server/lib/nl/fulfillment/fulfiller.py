@@ -13,9 +13,9 @@
 # limitations under the License.
 """Module for NL page data spec"""
 
+from collections import OrderedDict
 import copy
 from typing import cast, List
-from collections import OrderedDict
 
 from flask import current_app
 
@@ -335,7 +335,7 @@ def _update_chart_vars_for_rag(state: PopulateState):
         break
       promoted_svs.add(next_var)
       updated_chart_vars_map[next_var] = next_var_cv_list
-    
+
     # add current topic to the updated chart vars map
     updated_chart_vars_map[var] = cv_list
 

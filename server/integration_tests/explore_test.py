@@ -731,11 +731,13 @@ class ExploreTestEE2(ExploreTest):
     # we should all the 50+ states.
     self.run_detect_and_fulfill(
         'e2e_toolformer_rag_mode',
-        ['how has life expectancy changed over time across US states?',
-         # variables in a topic that match immediately after the topic should
-         # show up before the topic (i.e., Count_Worker_NAICSAccommodationFoodServices
-         # should show up first)
-         'How has employment in hospitality changed over time in New Jersey counties?'],
+        [
+            'how has life expectancy changed over time across US states?',
+            # variables in a topic that match immediately after the topic should
+            # show up before the topic (i.e., Count_Worker_NAICSAccommodationFoodServices
+            # should show up first)
+            'How has employment in hospitality changed over time in New Jersey counties?'
+        ],
         mode='toolformer_rag')
 
   def test_e2e_triple(self):
