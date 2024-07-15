@@ -87,3 +87,5 @@ class Config:
   # all stat vars available for a given entity. Setting a value > 1 prevents
   # users from encountering almost-empty maps and sparse scatter plots.
   MIN_STAT_VAR_GEO_COVERAGE = 10
+  # NL Bad words file.
+  BAD_WORDS_FILE = 'nl_bad_words.txt'

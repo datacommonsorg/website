@@ -21,9 +21,10 @@ import React, { useContext, useEffect, useState } from "react";
 import { signInWithGoogle } from "../../../utils/google_signin";
 import { DocInfo } from "../types";
 import { getDocInfo } from "../util";
+import { AnswerWithTables } from "./answer_with_tables";
 import { SessionContext } from "./context";
 import { getLeftAndRight } from "./left_right_picker";
-import { QueryWithTables } from "./query_with_tables";
+import { SxsFeedback } from "./sxs_feedback";
 
 interface AppPropType {
   sessionId: string;
@@ -31,16 +32,30 @@ interface AppPropType {
   sheetIdB: string;
 }
 
+function getSortedQueryIds(docInfos: { a: DocInfo; b: DocInfo }) {
+  const idsA = Object.keys(docInfos?.a?.allQuery || {});
+  const idsB = Object.keys(docInfos?.b?.allQuery || {});
+  return idsA
+    .filter((id) => idsB.includes(id))
+    .map((id) => Number(id))
+    .sort((a, b) => a - b);
+}
+
 export function App(props: AppPropType): JSX.Element {
   const [user, setUser] = useState<User | null>(null);
   const [docInfos, setDocInfos] = useState<{ a: DocInfo; b: DocInfo }>(null);
   const { setSessionQueryId, sessionQueryId } = useContext(SessionContext);
+  const sortedQueryIds = getSortedQueryIds(docInfos);
+  if (!sessionQueryId && sortedQueryIds.length) {
+    setSessionQueryId(sortedQueryIds[0]);
+  }
   const { leftDocInfo, rightDocInfo } = getLeftAndRight(
     props.sessionId,
     docInfos?.a,
     docInfos?.b,
     sessionQueryId
   );
+
   async function handleUserSignIn(
     user: User,
     credential: OAuthCredential
@@ -58,7 +73,6 @@ export function App(props: AppPropType): JSX.Element {
       // Get and set information about each document
       Promise.all([getDocInfo(docA), getDocInfo(docB)]).then(
         ([docInfoA, docInfoB]) => {
-          setSessionQueryId(1);
           setDocInfos({ a: docInfoA, b: docInfoB });
         }
       );
@@ -74,7 +88,7 @@ export function App(props: AppPropType): JSX.Element {
   return (
     <>
       {!user && (
-        <div>
+        <div className="banner">
           <p>Signing you in...</p>
           <p>
             If you are not signed in after a few seconds, check that pop-ups are
@@ -83,14 +97,35 @@ export function App(props: AppPropType): JSX.Element {
         </div>
       )}
 
-      {user && <p>Signed in as {user.email}</p>}
-      {user && !docInfos && <p>Loading query...</p>}
+      {user && (
+        <div className="banner">
+          <p>Signed in as {user.email}</p>
+        </div>
+      )}
+      {user && !docInfos && (
+        <div className="banner">
+          <p>Loading query...</p>
+        </div>
+      )}
       {docInfos && (
         <>
-          <div className="app-content">
-            <QueryWithTables docInfo={leftDocInfo} />
-            <div className="divider" />
-            <QueryWithTables docInfo={rightDocInfo} />
+          <div className="sxs-app-content">
+            <div className="query-header">
+              <h3>Query {sessionQueryId}</h3>
+              {leftDocInfo.allQuery[sessionQueryId].text}
+            </div>
+            <div className="sxs-panes">
+              <AnswerWithTables docInfo={leftDocInfo} />
+              <div className="divider" />
+              <AnswerWithTables docInfo={rightDocInfo} />
+            </div>
+            <SxsFeedback
+              leftSheetId={leftDocInfo.doc.spreadsheetId}
+              rightSheetId={rightDocInfo.doc.spreadsheetId}
+              sessionId={props.sessionId}
+              sortedQueryIds={sortedQueryIds}
+              userEmail={user.email}
+            ></SxsFeedback>
           </div>
         </>
       )}

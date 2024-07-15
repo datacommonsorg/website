@@ -9,11 +9,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Undernourished People in Nigeria",
+                    "description": "Number of Undernourished People in Nigeria",
                     "statVarKey": [
                       "sdg/SN_ITK_DEFCN"
                     ],
-                    "title": "Undernourished People in Nigeria",
+                    "title": "Number of Undernourished People in Nigeria",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -24,14 +24,14 @@
                     "statVarKey": [
                       "sdg/SN_ITK_DEFCN"
                     ],
-                    "title": "Undernourished People in Nigeria",
+                    "title": "Number of Undernourished People in Nigeria",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO).",
-            "title": "Undernourished People"
+            "title": "Number of Undernourished People"
           },
           {
             "columns": [
@@ -67,11 +67,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Moderately or Severely Food Insecure People in Nigeria",
+                    "description": "Number of Moderately or Severely Food Insecure People in Nigeria",
                     "statVarKey": [
                       "sdg/AG_PRD_FIESMSN"
                     ],
-                    "title": "Moderately or Severely Food Insecure People in Nigeria",
+                    "title": "Number of Moderately or Severely Food Insecure People in Nigeria",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -82,25 +82,25 @@
                     "statVarKey": [
                       "sdg/AG_PRD_FIESMSN"
                     ],
-                    "title": "Moderately or Severely Food Insecure People in Nigeria",
+                    "title": "Number of Moderately or Severely Food Insecure People in Nigeria",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO); national entity.",
-            "title": "Moderately or Severely Food Insecure People"
+            "title": "Number of Moderately or Severely Food Insecure People"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Severely Food Insecure People in Nigeria",
+                    "description": "Number of Severely Food Insecure People in Nigeria",
                     "statVarKey": [
                       "sdg/AG_PRD_FIESSN"
                     ],
-                    "title": "Severely Food Insecure People in Nigeria",
+                    "title": "Number of Severely Food Insecure People in Nigeria",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -111,14 +111,14 @@
                     "statVarKey": [
                       "sdg/AG_PRD_FIESSN"
                     ],
-                    "title": "Severely Food Insecure People in Nigeria",
+                    "title": "Number of Severely Food Insecure People in Nigeria",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO); national entity.",
-            "title": "Severely Food Insecure People"
+            "title": "Number of Severely Food Insecure People"
           },
           {
             "columns": [
@@ -584,11 +584,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Local Breeds Kept in the Country in Nigeria",
+                    "description": "Number of Local Breeds Kept in the Country in Nigeria",
                     "statVarKey": [
                       "sdg/ER_GRF_ANIMKPT"
                     ],
-                    "title": "Local Breeds Kept in the Country in Nigeria",
+                    "title": "Number of Local Breeds Kept in the Country in Nigeria",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -599,25 +599,25 @@
                     "statVarKey": [
                       "sdg/ER_GRF_ANIMKPT"
                     ],
-                    "title": "Local Breeds Kept in the Country in Nigeria",
+                    "title": "Number of Local Breeds Kept in the Country in Nigeria",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: abteilung biodiversit\u00e4t und genetik. Institut f\u00fcr biologische landwirtschaft und biodiversit\u00e4t; administration des services techniques de l\u2019Agriculture (ASTA); agriculture research & extension authority (AREA); agriculture research organization (ARO). Ministry of agriculture; agriculture and Agri-Food canada. Saskatoon research development centre; animal production research institute. APRI; animal resources directorate. Ministry of agriculture; animal we...8804 more chars",
-            "title": "Local Breeds Kept in the Country"
+            "title": "Number of Local Breeds Kept in the Country"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Transboundary Breeds in Nigeria",
+                    "description": "Number of Transboundary Breeds in Nigeria",
                     "statVarKey": [
                       "sdg/ER_GRF_ANIMKPT_TRB"
                     ],
-                    "title": "Transboundary Breeds in Nigeria",
+                    "title": "Number of Transboundary Breeds in Nigeria",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -628,14 +628,14 @@
                     "statVarKey": [
                       "sdg/ER_GRF_ANIMKPT_TRB"
                     ],
-                    "title": "Transboundary Breeds in Nigeria",
+                    "title": "Number of Transboundary Breeds in Nigeria",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: abteilung biodiversit\u00e4t und genetik. Institut f\u00fcr biologische landwirtschaft und biodiversit\u00e4t; administration des services techniques de l\u2019Agriculture (ASTA); agriculture research & extension authority (AREA); agriculture research organization (ARO). Ministry of agriculture; agriculture and Agri-Food canada. Saskatoon research development centre; animal production research institute. APRI; animal resources directorate. Ministry of agriculture; animal we...9293 more chars",
-            "title": "Transboundary Breeds"
+            "title": "Number of Transboundary Breeds"
           },
           {
             "columns": [
@@ -671,11 +671,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Local Breeds in Nigeria",
+                    "description": "Number of Local Breeds in Nigeria",
                     "statVarKey": [
                       "sdg/ER_NOEX_LBREDN"
                     ],
-                    "title": "Local Breeds in Nigeria",
+                    "title": "Number of Local Breeds in Nigeria",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -686,25 +686,25 @@
                     "statVarKey": [
                       "sdg/ER_NOEX_LBREDN"
                     ],
-                    "title": "Local Breeds in Nigeria",
+                    "title": "Number of Local Breeds in Nigeria",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: abteilung biodiversit\u00e4t und genetik. Institut f\u00fcr biologische landwirtschaft und biodiversit\u00e4t; administration des services techniques de l\u2019Agriculture (ASTA); agriculture research & extension authority (AREA); agriculture research organization (ARO). Ministry of agriculture; agriculture and Agri-Food canada. Saskatoon research development centre; animal production research institute. APRI; animal resources directorate. Ministry of agriculture; animal we...8759 more chars",
-            "title": "Local Breeds"
+            "title": "Number of Local Breeds"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Local Breeds With Unknown Risk Status in Nigeria",
+                    "description": "Number of Local Breeds With Unknown Risk Status in Nigeria",
                     "statVarKey": [
                       "sdg/ER_UNK_LBREDN"
                     ],
-                    "title": "Local Breeds With Unknown Risk Status in Nigeria",
+                    "title": "Number of Local Breeds With Unknown Risk Status in Nigeria",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -715,14 +715,14 @@
                     "statVarKey": [
                       "sdg/ER_UNK_LBREDN"
                     ],
-                    "title": "Local Breeds With Unknown Risk Status in Nigeria",
+                    "title": "Number of Local Breeds With Unknown Risk Status in Nigeria",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: abteilung biodiversit\u00e4t und genetik. Institut f\u00fcr biologische landwirtschaft und biodiversit\u00e4t; administration des services techniques de l\u2019Agriculture (ASTA); agriculture research & extension authority (AREA); agriculture research organization (ARO). Ministry of agriculture; agriculture and Agri-Food canada. Saskatoon research development centre; animal production research institute. APRI; animal resources directorate. Ministry of agriculture; animal we...8759 more chars",
-            "title": "Local Breeds With Unknown Risk Status"
+            "title": "Number of Local Breeds With Unknown Risk Status"
           },
           {
             "columns": [
@@ -927,15 +927,15 @@
             "statVar": "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--M"
           },
           "sdg/AG_PRD_FIESMSN": {
-            "name": "moderately or severely food insecure people",
+            "name": "Number of moderately or severely food insecure people",
             "statVar": "sdg/AG_PRD_FIESMSN"
           },
           "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--F": {
-            "name": "moderately or severely food insecure people [15 years old and over, Female]",
+            "name": "Number of moderately or severely food insecure people [15 years old and over, Female]",
             "statVar": "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--F"
           },
           "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--M": {
-            "name": "moderately or severely food insecure people [15 years old and over, Male]",
+            "name": "Number of moderately or severely food insecure people [15 years old and over, Male]",
             "statVar": "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--M"
           },
           "sdg/AG_PRD_FIESS": {
@@ -951,15 +951,15 @@
             "statVar": "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--M"
           },
           "sdg/AG_PRD_FIESSN": {
-            "name": "severely food insecure people",
+            "name": "Number of severely food insecure people",
             "statVar": "sdg/AG_PRD_FIESSN"
           },
           "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--F": {
-            "name": "severely food insecure people [15 years old and over, Female]",
+            "name": "Number of severely food insecure people [15 years old and over, Female]",
             "statVar": "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--F"
           },
           "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--M": {
-            "name": "severely food insecure people [15 years old and over, Male]",
+            "name": "Number of severely food insecure people [15 years old and over, Male]",
             "statVar": "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--M"
           },
           "sdg/AG_PRD_ORTIND": {
@@ -975,11 +975,11 @@
             "statVar": "sdg/DC_TOF_AGRL"
           },
           "sdg/ER_GRF_ANIMKPT": {
-            "name": "local breeds kept in the country",
+            "name": "Number of local breeds kept in the country",
             "statVar": "sdg/ER_GRF_ANIMKPT"
           },
           "sdg/ER_GRF_ANIMKPT_TRB": {
-            "name": "transboundary breeds",
+            "name": "Number of transboundary breeds",
             "statVar": "sdg/ER_GRF_ANIMKPT_TRB"
           },
           "sdg/ER_GRF_PLNTSTOR": {
@@ -987,11 +987,11 @@
             "statVar": "sdg/ER_GRF_PLNTSTOR"
           },
           "sdg/ER_NOEX_LBREDN": {
-            "name": "local breeds",
+            "name": "Number of local breeds",
             "statVar": "sdg/ER_NOEX_LBREDN"
           },
           "sdg/ER_UNK_LBREDN": {
-            "name": "local breeds with unknown risk status",
+            "name": "Number of local breeds with unknown risk status",
             "statVar": "sdg/ER_UNK_LBREDN"
           },
           "sdg/PD_AGR_LSFP": {
@@ -1075,7 +1075,7 @@
             "statVar": "sdg/SN_ITK_DEFC"
           },
           "sdg/SN_ITK_DEFCN": {
-            "name": "undernourished people",
+            "name": "Number of undernourished people",
             "statVar": "sdg/SN_ITK_DEFCN"
           },
           "sdg/SN_STA_OVWGT.AGE--Y0T4": {

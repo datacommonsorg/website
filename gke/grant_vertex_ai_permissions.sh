@@ -13,11 +13,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+
+# Grant service account permission to access Vertex AI services in datcom-nl
+# account
+
 set -e
 
-export FLASK_ENV=test
+CONFIG_YAML="../deploy/helm_charts/envs/$1.yaml"
 
-python3 -m venv .env
-source .env/bin/activate
+PROJECT_ID=$(yq eval '.project' $CONFIG_YAML)
 
-python3 -m pytest server/webdriver/cdc_tests/
+NL_PROJECT_ID=datcom-nl
+NAME="website-robot"
+SERVICE_ACCOUNT="$NAME@$PROJECT_ID.iam.gserviceaccount.com"
+
+# NL project roles
+declare -a nl_roles=(
+    "roles/aiplatform.user"   # Vertex AI User
+)
+for role in "${nl_roles[@]}"
+do
+  gcloud projects add-iam-policy-binding $NL_PROJECT_ID \
+    --member serviceAccount:$SERVICE_ACCOUNT \
+    --role $role
+done
