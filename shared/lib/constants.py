@@ -198,7 +198,6 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
         "Comparison": [
             "compare(s|d)?",
             "comparison",
-            "(is|has|have)( a| the)? \w+er",
             # WARNING: These will conflate with Correlation
             "vs",
             "versus",
