@@ -14,7 +14,7 @@
 # limitations under the License.
 
 
-# Grant service account permission to access Verte AI services in datcom-nl
+# Grant service account permission to access Vertex AI services in datcom-nl
 # account
 
 set -e
