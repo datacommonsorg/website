@@ -59,7 +59,10 @@ export async function saveRatingToStore(
   return setDoc(docRef, dataToSave);
 }
 
-export async function getStoredFeedback(
+/**
+ * Gets any prior rating for the given query and session.
+ */
+export async function getStoredRating(
   sheetIdA: string,
   sheetIdB: string,
   queryId: number,
