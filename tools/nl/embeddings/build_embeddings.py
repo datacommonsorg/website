@@ -20,7 +20,6 @@ from absl import app
 from absl import flags
 
 from nl_server import config_reader
-from shared.lib import gcs
 from tools.nl.embeddings import utils
 
 FLAGS = flags.FLAGS

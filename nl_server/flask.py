@@ -23,7 +23,6 @@ import torch
 from nl_server import registry
 from nl_server import routes
 from nl_server import search
-from shared.lib import constants
 from shared.lib import gcp as lib_gcp
 from shared.lib import utils as lib_utils
 
