@@ -28,6 +28,10 @@ from flask import request
 
 bp = Blueprint('admin', __name__, url_prefix='/admin')
 
+# The custom embeddings index type.
+# https://github.com/datacommonsorg/import/blob/b2616a504051885362725eabefc2060e9a5636cc/simple/stats/nl_constants.py#L25
+_CUSTOM_EMBEDDINGS_INDEX = "user_all_minilm_mem"
+
 
 @bp.route('/load-data', methods=['POST'])
 def load_data():
@@ -74,6 +78,8 @@ def load_data():
       'tools.nl.embeddings.build_embeddings',
       '--output_dir',
       f'{nl_embeddings_dir}',
+      '--embeddings_name',
+      _CUSTOM_EMBEDDINGS_INDEX,
       '--additional_catalog_path',
       additional_catalog_path,
   ]

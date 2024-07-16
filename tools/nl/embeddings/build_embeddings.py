@@ -52,15 +52,10 @@ def main(_):
   embeddings_name = FLAGS.embeddings_name
   output_dir = FLAGS.output_dir
 
-  # If additional catalog path is provided and embeddings name is not specified, extract the embeddings name from the catalog.
-  additional_catalog_path: str = FLAGS.additional_catalog_path
-  if additional_catalog_path and not embeddings_name:
-    embeddings_name = utils.get_first_index_name(additional_catalog_path)
-
   assert embeddings_name, output_dir
 
   catalog = config_reader.read_catalog(
-      additional_catalog_path=additional_catalog_path)
+      additional_catalog_path=FLAGS.additional_catalog_path)
   index_config = catalog.indexes[embeddings_name]
   # Use default env config: autopush for base DCs and custom env for custom DCs.
   env = config_reader.read_env()

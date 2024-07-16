@@ -71,12 +71,3 @@ class TestRetrieveEmbeddings(unittest.TestCase):
     ]
     print(got)
     self.assertEqual(got, expected)
-
-
-class TestFirstIndexName(unittest.TestCase):
-
-  def test_first_index_name(self):
-    test_catalog_path = os.path.join(
-        _THIS_DIR, "testdata/first_index_name/custom_catalog.yaml")
-    embeddings_name = utils.get_first_index_name(test_catalog_path)
-    self.assertEqual(embeddings_name, 'user_all_minilm_mem')
