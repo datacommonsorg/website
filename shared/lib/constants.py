@@ -15,6 +15,8 @@
 
 from typing import Dict, FrozenSet, List, Set, Union
 
+import frozendict
+
 _RATE_WORDS_TO_SKIP = "(birth|change|death|exchange|fertility|literacy|mortality|participation|unemployment|withdrawal)"
 
 STOP_WORDS: Set[str] = {
@@ -321,12 +323,27 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
 # We want to keep per capita because queries like "theft rates" without the
 # per capita stop words will become "theft" which has trouble matching plurals
 # and stat based descriptions.
-HEURISTIC_TYPES_IN_VARIABLES = frozenset(
-    ["Event", "Superlative", "Temporal", "PerCapita"])
+#
+# The key is heuristic type and the value is a list of exclusion patterns. If the
+# list is empty (default) all patterns are excluded from stop-words.
+HEURISTIC_TYPES_IN_VARIABLES = frozendict.frozendict({
+    "Event": [],
+    "Superlative": [],
+    "Temporal": [],
+    "PerCapita": [],
+})
+
 # For toolformer, we do want to strip words from PerCapita heuristics because
 # we care about top matches being more accurate.
-HEURISTIC_TYPES_IN_VARIABLES_TOOLFORMER = frozenset(
-    ["Event", "Superlative", "Temporal"])
+HEURISTIC_TYPES_IN_VARIABLES_TOOLFORMER = frozendict.frozendict({
+    "Event": [],
+    "Superlative": [],
+    "Temporal": [],
+    "Ranking": [
+        "richest", "poorest", "healthiest", "sickest", "illest", "strongest",
+        "weakest", "oldest", "youngest"
+    ]
+})
 
 PLACE_TYPE_TO_PLURALS: Dict[str, str] = {
     "place": "places",

@@ -77,13 +77,16 @@ export function TablePane(props: TablePanePropType): JSX.Element {
     setTables(tableList);
   }, [props]);
 
-  if (_.isEmpty(tables)) {
+  // We only want to show tables that actually have content
+  const filteredTables = tables.filter((tableInfo) => !!tableInfo.content);
+
+  if (_.isEmpty(filteredTables)) {
     return null;
   }
 
   return (
     <div className="table-pane">
-      {tables.map((tableInfo) => {
+      {filteredTables.map((tableInfo) => {
         return (
           <Collapsible
             key={tableInfo.id}

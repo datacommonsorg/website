@@ -208,6 +208,12 @@ def _classification_to_query_type(cl: NLClassifier,
     # And we don't do event maps for SDG.
     query_type = QueryType.BASIC
 
+  if (params.is_toolformer_mode(uttr.mode) and
+      query_type == QueryType.CORRELATION_ACROSS_VARS):
+    # Don't do correlation for toolformer because scatter charts aren't
+    # supported and toolformer queries should be single var
+    query_type = QueryType.BASIC
+
   if (not detection_utils.is_llm_detection(uttr.detection) and
       uttr.test != 'filter_test' and query_type
       in [QueryType.FILTER_WITH_SINGLE_VAR, QueryType.FILTER_WITH_DUAL_VARS]):
