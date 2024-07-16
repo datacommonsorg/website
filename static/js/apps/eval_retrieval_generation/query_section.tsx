@@ -63,12 +63,12 @@ function getAnswerFromRagCalls(
   return answers.join("\n\n");
 }
 
-function getAnswerFromQA(
+function getAnswerFromQueryAndAnswerSheet(
   doc: GoogleSpreadsheet,
   query: Query
 ): Promise<string> {
   const sheet = doc.sheetsByTitle[QA_SHEET];
-  const rowIdx = query.row;
+  const rowIdx = query.rowIndex;
   return sheet.getRows({ offset: rowIdx - 1, limit: 1 }).then((rows) => {
     const row = rows[0];
     if (row) {
@@ -98,7 +98,7 @@ function getAnswer(
     answerPromise = () =>
       Promise.resolve(getAnswerFromRagCalls(allCall, query.id));
   } else {
-    answerPromise = () => getAnswerFromQA(doc, query);
+    answerPromise = () => getAnswerFromQueryAndAnswerSheet(doc, query);
   }
   if (!answerPromise) {
     return Promise.resolve({ answer: "", metadata });

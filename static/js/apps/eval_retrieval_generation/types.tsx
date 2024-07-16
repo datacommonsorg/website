@@ -33,7 +33,7 @@ export interface Query {
   id: number;
   text: string;
   user: string;
-  row: number;
+  rowIndex: number;
 }
 
 export interface DcCallInfo {

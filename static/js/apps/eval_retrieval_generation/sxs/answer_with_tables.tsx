@@ -35,10 +35,12 @@ export function AnswerWithTables(props: AnswerWithTablesPropType): JSX.Element {
     // Only do something for RIG answers.
     if (props.docInfo.evalType !== EvalType.RIG) return;
 
+    const dcCalls = props.docInfo.allCall[sessionQueryId];
+    if (!dcCalls) return;
+
     // Put the DC response for each call in the associated stat tooltip. Note
     // that this assumes only one RIG answer is visible; otherwise there would
     // be two sets of conflicting call IDs.
-    const dcCalls = props.docInfo.allCall[sessionQueryId];
     for (const callId of Object.keys(dcCalls)) {
       const annotationEls = Array.from(
         document.getElementsByClassName(`annotation-${callId}`)

@@ -135,22 +135,13 @@ function getQueries(
   const sheet = doc.sheetsByTitle[QA_SHEET];
   const header = allHeader[QA_SHEET];
   const numRows = sheet.rowCount;
-  const loadPromises = [];
-  for (const col of [QUERY_ID_COL, USER_COL, QUERY_COL]) {
-    loadPromises.push(
-      sheet.loadCells({
-        endColumnIndex: header[col] + 1,
-        startColumnIndex: header[col],
-      })
-    );
-  }
-  return Promise.all(loadPromises).then(() => {
+  return sheet.loadCells().then(() => {
     const allQuery: Record<number, Query> = {};
     for (let i = 1; i < numRows; i++) {
       const id = Number(sheet.getCell(i, header[QUERY_ID_COL]).value);
       allQuery[id] = {
         id,
-        row: i,
+        rowIndex: i,
         text: String(sheet.getCell(i, header[QUERY_COL]).value),
         user: String(sheet.getCell(i, header[USER_COL]).value),
       };
@@ -166,23 +157,7 @@ function getCalls(
   const sheet = doc.sheetsByTitle[DC_CALL_SHEET];
   const header = allHeader[DC_CALL_SHEET];
   const numRows = sheet.rowCount;
-  const loadPromises = [];
-  for (const col of [
-    QUERY_ID_COL,
-    CALL_ID_COL,
-    DC_QUESTION_COL,
-    LLM_STAT_COL,
-    DC_RESPONSE_COL,
-    DC_STAT_COL,
-  ]) {
-    loadPromises.push(
-      sheet.loadCells({
-        endColumnIndex: header[col] + 1,
-        startColumnIndex: header[col],
-      })
-    );
-  }
-  return Promise.all(loadPromises).then(() => {
+  return sheet.loadCells().then(() => {
     const calls: Record<number, DcCalls> = {};
     for (let i = 1; i < numRows; i++) {
       const queryId = Number(sheet.getCell(i, header[QUERY_ID_COL]).value);
@@ -208,17 +183,8 @@ function getEvalType(
 ): Promise<EvalType> {
   const sheet = doc.sheetsByTitle[DC_METADATA_SHEET];
   const header = allHeader[DC_METADATA_SHEET];
-  const loadPromises = [];
-  for (const col of [METADATA_KEY_COL, METADATA_VAL_COL]) {
-    loadPromises.push(
-      sheet.loadCells({
-        endColumnIndex: header[col] + 1,
-        startColumnIndex: header[col],
-      })
-    );
-  }
   const numRows = sheet.rowCount;
-  return Promise.all(loadPromises).then(() => {
+  return sheet.loadCells().then(() => {
     for (let i = 1; i < numRows; i++) {
       const metadataKey = sheet.getCell(i, header[METADATA_KEY_COL]).value;
       if (metadataKey === METADATA_KEY_TYPE) {
