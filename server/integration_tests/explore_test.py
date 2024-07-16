@@ -723,6 +723,7 @@ class ExploreTestEE2(ExploreTest):
         'what is the infant mortality rate in massachusetts',
         'how many construction workers are in Orlando, Florida?',
         'what is the poverty rate in Seattle?',
+        'Commute time in california',
     ],
                                 mode='toolformer_rig')
 
@@ -736,7 +737,8 @@ class ExploreTestEE2(ExploreTest):
             # variables in a topic that match immediately after the topic should
             # show up before the topic (i.e., Count_Worker_NAICSAccommodationFoodServices
             # should show up first)
-            'How has employment in hospitality changed over time in New Jersey counties?'
+            'How has employment in hospitality changed over time in New Jersey counties?',
+            'What is the coal powered electricity generation in US states?',
         ],
         mode='toolformer_rag')
 

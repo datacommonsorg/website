@@ -152,20 +152,20 @@ def _populate_specific(state: PopulateState, chart_vars: ChartVars,
     # Ranking query
     if user_set_child_type:
       # This is ranking across places.
-      if ranking_across_places.populate(state, chart_vars, places, chart_origin,
-                                        rank):
-        _maybe_set_place_type_existence(state, rank)
-        return True
+      added = ranking_across_places.populate(state, chart_vars, places, chart_origin,
+                                        rank)
+      _maybe_set_place_type_existence(state, rank)
+      return added
     else:
       # This is ranking across vars.
-      if ranking_across_vars.populate(state, chart_vars, places, chart_origin,
-                                      rank):
-        return True
+      added = ranking_across_vars.populate(state, chart_vars, places, chart_origin,
+                                           rank)
+      return added
 
   if user_set_child_type:
-    if containedin.populate(state, chart_vars, places, chart_origin, rank):
-      _maybe_set_place_type_existence(state, rank)
-      return True
+    added = containedin.populate(state, chart_vars, places, chart_origin, rank)
+    _maybe_set_place_type_existence(state, rank)
+    return added
 
   return place_vars.populate(state, chart_vars, places, chart_origin, rank)
 
