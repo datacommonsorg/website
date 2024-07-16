@@ -112,8 +112,8 @@ def read_catalog(catalog_paths: List[str] = _DEFAULT_CATALOG_PATHS,
       logging.info('Loading catalog from gcs path: %s', gcs_path)
       p = gcs.maybe_download(gcs_path)
       if not p:
-        logging.info('GCS catalog path not found and will be skipped: %s',
-                     gcs_path)
+        logging.error('GCS catalog path not found and will be skipped: %s',
+                      gcs_path)
 
     if p and os.path.exists(p):
       all_paths.append(p)
