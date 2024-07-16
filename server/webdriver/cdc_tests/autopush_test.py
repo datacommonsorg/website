@@ -13,12 +13,10 @@
 # limitations under the License.
 
 import unittest
-import urllib
-import urllib.request
 
-import requests
 from selenium.webdriver.common.by import By
 
+from server.integration_tests.explore_test import ExploreTest
 from server.webdriver import shared
 from server.webdriver.base_utils import create_driver
 from server.webdriver.base_utils import find_elem
@@ -69,15 +67,10 @@ class CdcAutopushWebdriverTest(unittest.TestCase):
                          'Custom SV (Average Annual Wage) element not found')
 
 
-class CdcAutopushNLTest(unittest.TestCase):
+class CdcAutopushNLTest(ExploreTest):
 
-  def test_detect_and_fulfill(self):
-    """Tests that the detect-and-fulfill endpoint returns a Custom DC SV in the response."""
-    query = "Average annual wages in Europe"
-    url = f'{CDC_AUTOPUSH_URL}/api/explore/detect-and-fulfill?q={query}'
-    response = requests.post(url, json={
-        'contextHistory': [],
-        'dc': '',
-    }).json()
-    svs = response.get('context', [{}])[0].get('svs', [])
-    assert 'average_annual_wage' in svs, 'Custom SV (average_annual_wage) not in detect-and-fulfill response'
+  def get_server_url(self):
+    return CDC_AUTOPUSH_URL
+
+  def test_cdc_nl(self):
+    self.run_detect_and_fulfill('cdc_nl', ['gender wage gap in europe'])
