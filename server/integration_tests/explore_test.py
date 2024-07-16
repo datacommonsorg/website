@@ -741,8 +741,9 @@ class ExploreTestEE2(ExploreTest):
             # show up before the topic (i.e., Count_Worker_NAICSAccommodationFoodServices
             # should show up first)
             'How has employment in hospitality changed over time in New Jersey counties?',
+            'Which California counties have the youngest recent mothers?',
             # toolformer mode should not show correlations
-            'Foreign born vs. native born in Sunnyvale'
+            'Foreign born vs. native born in Sunnyvale',
         ],
         mode='toolformer_rag')
 
