@@ -36,8 +36,16 @@ export interface Query {
   row: number;
 }
 
-// Key is the call id, value is the row index in the sheet.
-export type DcCall = Record<number, number>;
+export interface DcCallInfo {
+  rowIndex: number;
+  question: string;
+  llmStat: string;
+  dcResponse: string;
+  dcStat: string;
+}
+
+// Key is the call id, value is the data for that call from the sheet.
+export type DcCalls = Record<number, DcCallInfo>;
 
 export enum EvalType {
   RIG = "RIG",
@@ -57,6 +65,6 @@ export enum FeedbackStage {
 export interface DocInfo {
   doc: GoogleSpreadsheet;
   allQuery: Record<number, Query>;
-  allCall: Record<number, DcCall>;
+  allCall: Record<number, DcCalls>;
   evalType: EvalType;
 }

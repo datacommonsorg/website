@@ -24,9 +24,7 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 
-import { DC_CALL_SHEET, DC_RESPONSE_COL, DC_STAT_COL } from "./constants";
-import { getSheetsRows } from "./data_store";
-import { DcCall } from "./types";
+import { DcCallInfo, DcCalls } from "./types";
 import { processTableText } from "./util";
 
 interface TableInfo {
@@ -50,7 +48,7 @@ function getTableTrigger(tableInfo: TableInfo, opened: boolean): JSX.Element {
 
 interface TablePanePropType {
   doc: GoogleSpreadsheet;
-  calls: DcCall;
+  calls: DcCalls;
 }
 
 export function TablePane(props: TablePanePropType): JSX.Element {
@@ -61,26 +59,22 @@ export function TablePane(props: TablePanePropType): JSX.Element {
       setTables([]);
       return;
     }
-    const sheet = props.doc.sheetsByTitle[DC_CALL_SHEET];
     const tableIds = Object.keys(props.calls).sort(
       (a, b) => Number(a) - Number(b)
     );
-    const rowIdxList = tableIds.map((tableId) => props.calls[tableId]);
-    getSheetsRows(sheet, rowIdxList).then((rows) => {
-      const tableList = [];
-      tableIds.forEach((tableId) => {
-        const rowIdx = props.calls[tableId];
-        const row = rows[rowIdx];
-        if (row) {
-          tableList.push({
-            id: tableId,
-            title: row.get(DC_RESPONSE_COL),
-            content: row.get(DC_STAT_COL),
-          });
-        }
-      });
-      setTables(tableList);
+    const tableList = [];
+    tableIds.forEach((tableId) => {
+      const tableInfo: DcCallInfo | null = props.calls[tableId];
+
+      if (tableInfo) {
+        tableList.push({
+          id: tableId,
+          title: tableInfo.dcResponse,
+          content: tableInfo.dcStat,
+        });
+      }
     });
+    setTables(tableList);
   }, [props]);
 
   if (_.isEmpty(tables)) {

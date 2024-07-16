@@ -20,21 +20,16 @@ import React, { FormEvent, useContext, useEffect, useState } from "react";
 
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import {
-  DC_CALL_SHEET,
-  DC_QUESTION_COL,
   DC_QUESTION_FEEDBACK_COL,
-  DC_RESPONSE_COL,
   DC_RESPONSE_FEEDBACK_COL,
-  DC_STAT_COL,
   FEEDBACK_PANE_ID,
-  LLM_STAT_COL,
   LLM_STAT_FEEDBACK_COL,
 } from "./constants";
 import { AppContext, SessionContext } from "./context";
 import { getCallData, saveToSheet, saveToStore } from "./data_store";
 import { FeedbackWrapper } from "./feedback_wrapper";
 import { OneQuestion } from "./one_question";
-import { EvalInfo, EvalType, Response } from "./types";
+import { DcCallInfo, EvalInfo, EvalType, Response } from "./types";
 
 const EMPTY_RESPONSE = {
   [EvalType.RIG]: {
@@ -94,35 +89,25 @@ export function CallFeedback(): JSX.Element {
   }, [sheetId, sessionQueryId, sessionCallId, applyToNext]);
 
   useEffect(() => {
-    const sheet = doc.sheetsByTitle[DC_CALL_SHEET];
     if (!(sessionQueryId in allCall)) {
       setEvalInfo(null);
       return;
     }
-    const rowIdx = allCall[sessionQueryId][sessionCallId];
+    const callInfo: DcCallInfo | null = allCall[sessionQueryId][sessionCallId];
     loadSpinner(FEEDBACK_PANE_ID);
-    sheet
-      .getRows({ offset: rowIdx - 1, limit: 1 })
-      .then((rows) => {
-        const row = rows[0];
-        if (row) {
-          const tableResponse =
-            evalType === EvalType.RIG ? "" : ` \xb7 Table ${sessionCallId}`;
-          setEvalInfo({
-            dcResponse: `${row.get(DC_RESPONSE_COL)}${tableResponse}`,
-            dcStat: row.get(DC_STAT_COL),
-            llmStat: row.get(LLM_STAT_COL),
-            question: row.get(DC_QUESTION_COL),
-          });
-        }
-      })
-      .catch((e) => {
-        alert(e);
-        setEvalInfo(null);
-      })
-      .finally(() => {
-        removeSpinner(FEEDBACK_PANE_ID);
+    if (callInfo) {
+      const tableResponse =
+        evalType === EvalType.RIG ? "" : ` \xb7 Table ${sessionCallId}`;
+      setEvalInfo({
+        dcResponse: `${callInfo.dcResponse}${tableResponse}`,
+        dcStat: callInfo.dcStat,
+        llmStat: callInfo.llmStat,
+        question: callInfo.question,
       });
+    } else {
+      setEvalInfo(null);
+    }
+    removeSpinner(FEEDBACK_PANE_ID);
   }, [doc, allCall, sessionQueryId, sessionCallId]);
 
   const checkAndSubmit = async (): Promise<boolean> => {

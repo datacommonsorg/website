@@ -21,7 +21,11 @@ import {
   CALL_ID_COL,
   DC_CALL_SHEET,
   DC_METADATA_SHEET,
+  DC_QUESTION_COL,
+  DC_RESPONSE_COL,
+  DC_STAT_COL,
   FEEDBACK_STAGE_LIST,
+  LLM_STAT_COL,
   METADATA_KEY_COL,
   METADATA_KEY_TYPE,
   METADATA_VAL_COL,
@@ -30,7 +34,7 @@ import {
   QUERY_ID_COL,
   USER_COL,
 } from "./constants";
-import { DcCall, DocInfo, EvalType, FeedbackStage, Query } from "./types";
+import { DcCalls, DocInfo, EvalType, FeedbackStage, Query } from "./types";
 
 const HTTP_PATTERN = /https:\/\/[^\s]+/g;
 const LONG_SPACES = "&nbsp;&nbsp;&nbsp;&nbsp;";
@@ -70,9 +74,12 @@ export const processText = (text: string): string => {
       innerHtml += `<span class="dc-stat">${dcStat || LONG_SPACES}</span>`;
       innerHtml += `<span class="llm-stat">${llmStat || LONG_SPACES}</span>`;
       if (hasDcStat) {
-        innerHtml += `<span class="dc-stat-tooltip">${
-          dcStat || LONG_SPACES
-        }</span>`;
+        innerHtml +=
+          `<div class="dc-stat-tooltip">` +
+          `<div class="dc-stat-tooltip-label"></div>` +
+          `<div class="dc-stat-tooltip-value">${
+            dcStat || LONG_SPACES
+          }</div></div>`;
       }
       return (
         `<span class="annotation annotation-${callId}` +
@@ -155,12 +162,19 @@ function getQueries(
 function getCalls(
   doc: GoogleSpreadsheet,
   allHeader: HeaderInfo
-): Promise<Record<number, DcCall>> {
+): Promise<Record<number, DcCalls>> {
   const sheet = doc.sheetsByTitle[DC_CALL_SHEET];
   const header = allHeader[DC_CALL_SHEET];
   const numRows = sheet.rowCount;
   const loadPromises = [];
-  for (const col of [QUERY_ID_COL, CALL_ID_COL]) {
+  for (const col of [
+    QUERY_ID_COL,
+    CALL_ID_COL,
+    DC_QUESTION_COL,
+    LLM_STAT_COL,
+    DC_RESPONSE_COL,
+    DC_STAT_COL,
+  ]) {
     loadPromises.push(
       sheet.loadCells({
         endColumnIndex: header[col] + 1,
@@ -169,17 +183,22 @@ function getCalls(
     );
   }
   return Promise.all(loadPromises).then(() => {
-    const tmp: Record<number, DcCall> = {};
+    const calls: Record<number, DcCalls> = {};
     for (let i = 1; i < numRows; i++) {
-      const row = i;
       const queryId = Number(sheet.getCell(i, header[QUERY_ID_COL]).value);
       const callId = Number(sheet.getCell(i, header[CALL_ID_COL]).value);
-      if (!tmp[queryId]) {
-        tmp[queryId] = {};
+      if (!calls[queryId]) {
+        calls[queryId] = {};
       }
-      tmp[queryId][callId] = row;
+      calls[queryId][callId] = {
+        rowIndex: i,
+        question: sheet.getCell(i, header[DC_QUESTION_COL]).stringValue,
+        llmStat: sheet.getCell(i, header[LLM_STAT_COL]).stringValue,
+        dcResponse: sheet.getCell(i, header[DC_RESPONSE_COL]).stringValue,
+        dcStat: sheet.getCell(i, header[DC_STAT_COL]).stringValue,
+      };
     }
-    return tmp;
+    return calls;
   });
 }
 
@@ -216,13 +235,21 @@ function getEvalType(
 
 // Promise to get all the information about a google spreadsheet doc
 export function getDocInfo(doc: GoogleSpreadsheet): Promise<DocInfo> {
-  return getHeader(doc).then((allHeader) => {
-    return Promise.all([
-      getQueries(doc, allHeader),
-      getCalls(doc, allHeader),
-      getEvalType(doc, allHeader),
-    ]).then(([allQuery, allCall, evalType]) => {
+  return getHeader(doc)
+    .then((allHeader) => {
+      return Promise.all([
+        Promise.resolve(allHeader),
+        getEvalType(doc, allHeader),
+      ]);
+    })
+    .then(([allHeader, evalType]) => {
+      return Promise.all([
+        getQueries(doc, allHeader),
+        getCalls(doc, allHeader),
+        Promise.resolve(evalType),
+      ]);
+    })
+    .then(([allQuery, allCall, evalType]) => {
       return { doc, allQuery, allCall, evalType };
     });
-  });
 }

@@ -21,15 +21,8 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 
-import {
-  ANSWER_COL,
-  DC_CALL_SHEET,
-  DC_QUESTION_COL,
-  DC_RESPONSE_COL,
-  QA_SHEET,
-} from "./constants";
-import { getSheetsRows } from "./data_store";
-import { DcCall, EvalType, FeedbackStage, Query } from "./types";
+import { ANSWER_COL, QA_SHEET } from "./constants";
+import { DcCallInfo, DcCalls, EvalType, FeedbackStage, Query } from "./types";
 import { processText } from "./util";
 
 interface AnswerMetadata {
@@ -49,31 +42,25 @@ function getFormattedRagCallAnswer(
 }
 
 function getAnswerFromRagCalls(
-  doc: GoogleSpreadsheet,
-  allCall: Record<number, DcCall>,
+  allCall: Record<number, DcCalls>,
   queryId: number
-): Promise<string> {
+): string {
   if (!allCall[queryId]) {
-    return Promise.resolve("No questions were generated.");
+    return "No questions were generated.";
   }
-  const sheet = doc.sheetsByTitle[DC_CALL_SHEET];
   const tableIds = Object.keys(allCall[queryId]).sort(
     (a, b) => Number(a) - Number(b)
   );
-  const rowIdxList = tableIds.map((tableId) => allCall[queryId][tableId]);
-  return getSheetsRows(sheet, rowIdxList).then((rows) => {
-    const answers = [];
-    tableIds.forEach((tableId) => {
-      const rowIdx = allCall[queryId][tableId];
-      const row = rows[rowIdx];
-      if (row) {
-        const dcQuestion = row.get(DC_QUESTION_COL);
-        const dcStat = row.get(DC_RESPONSE_COL);
-        answers.push(getFormattedRagCallAnswer(dcQuestion, dcStat, tableId));
-      }
-    });
-    return answers.join("\n\n");
+  const answers = [];
+  tableIds.forEach((tableId) => {
+    const tableInfo: DcCallInfo | null = allCall[queryId][tableId];
+    if (tableInfo) {
+      answers.push(
+        getFormattedRagCallAnswer(tableInfo.question, tableInfo.dcStat, tableId)
+      );
+    }
   });
+  return answers.join("\n\n");
 }
 
 function getAnswerFromQA(
@@ -93,7 +80,7 @@ function getAnswerFromQA(
 function getAnswer(
   doc: GoogleSpreadsheet,
   query: Query,
-  allCall: Record<number, DcCall>,
+  allCall: Record<number, DcCalls>,
   evalType: EvalType,
   feedbackStage: FeedbackStage
 ): Promise<{ answer: string; metadata: AnswerMetadata }> {
@@ -108,7 +95,8 @@ function getAnswer(
     (feedbackStage === FeedbackStage.CALLS ||
       feedbackStage === FeedbackStage.OVERALL_QUESTIONS)
   ) {
-    answerPromise = () => getAnswerFromRagCalls(doc, allCall, query.id);
+    answerPromise = () =>
+      Promise.resolve(getAnswerFromRagCalls(allCall, query.id));
   } else {
     answerPromise = () => getAnswerFromQA(doc, query);
   }
@@ -131,8 +119,9 @@ interface QuerySectionPropType {
   feedbackStage: FeedbackStage;
   query: Query;
   callId?: number;
-  allCall?: Record<number, DcCall>;
+  allCall?: Record<number, DcCalls>;
   hideIdAndQuestion?: boolean;
+  onAnswerChange?: () => void;
 }
 
 export function QuerySection(props: QuerySectionPropType): JSX.Element {
@@ -160,6 +149,12 @@ export function QuerySection(props: QuerySectionPropType): JSX.Element {
       prevHighlightedRef.current = newHighlighted;
     }
   }, [answer, props.callId, props.feedbackStage]);
+
+  useEffect(() => {
+    if (props.onAnswerChange) {
+      props.onAnswerChange();
+    }
+  }, [answer]);
 
   useEffect(() => {
     setAnswer("");

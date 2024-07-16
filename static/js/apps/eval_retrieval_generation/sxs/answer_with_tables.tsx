@@ -31,6 +31,30 @@ interface AnswerWithTablesPropType {
 export function AnswerWithTables(props: AnswerWithTablesPropType): JSX.Element {
   const { sessionQueryId } = useContext(SessionContext);
 
+  const onAnswerChange = () => {
+    // Only do something for RIG answers.
+    if (props.docInfo.evalType !== EvalType.RIG) return;
+
+    // Put the DC response for each call in the associated stat tooltip. Note
+    // that this assumes only one RIG answer is visible; otherwise there would
+    // be two sets of conflicting call IDs.
+    const dcCalls = props.docInfo.allCall[sessionQueryId];
+    for (const callId of Object.keys(dcCalls)) {
+      const annotationEls = Array.from(
+        document.getElementsByClassName(`annotation-${callId}`)
+      );
+      if (!annotationEls) continue;
+      for (const annotationEl of annotationEls) {
+        const tooltipLabelEl = annotationEl.querySelector(
+          ".dc-stat-tooltip-label"
+        );
+        if (tooltipLabelEl) {
+          tooltipLabelEl.innerHTML = dcCalls[callId].dcResponse ?? "";
+        }
+      }
+    }
+  };
+
   return (
     <>
       <div className="sxs-pane-scroll-wrapper">
@@ -41,6 +65,7 @@ export function AnswerWithTables(props: AnswerWithTablesPropType): JSX.Element {
             feedbackStage={FeedbackStage.SXS}
             query={props.docInfo.allQuery[sessionQueryId]}
             hideIdAndQuestion={true}
+            onAnswerChange={onAnswerChange}
           />
           {props.docInfo.evalType === EvalType.RAG && (
             <TablePane
