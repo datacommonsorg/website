@@ -732,8 +732,12 @@ class ExploreTestEE2(ExploreTest):
     self.run_detect_and_fulfill(
         'e2e_toolformer_rag_mode',
         [
-          'how has life expectancy changed over time across US states?',
-          'Which California counties have the youngest recent mothers?',
+            'how has life expectancy changed over time across US states?',
+            # variables in a topic that match immediately after the topic should
+            # show up before the topic (i.e., Count_Worker_NAICSAccommodationFoodServices
+            # should show up first)
+            'How has employment in hospitality changed over time in New Jersey counties?',
+            'Which California counties have the youngest recent mothers?',
         ],
         mode='toolformer_rag')
 
