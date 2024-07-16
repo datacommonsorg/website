@@ -22,9 +22,9 @@ from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RankingType
 from server.lib.nl.explore import params
 from server.lib.nl.fulfillment import containedin
+from server.lib.nl.fulfillment import place_vars
 from server.lib.nl.fulfillment import ranking_across_places
 from server.lib.nl.fulfillment import ranking_across_vars
-from server.lib.nl.fulfillment import simple
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 
@@ -40,17 +40,17 @@ _MAX_RANKING_AND_MAP_PER_SVPG_UPPER = 10
 _PLACE_TYPE_FALLBACK_THRESHOLD_RANK = 5
 
 #
-# NOTE: basic is a layer on topic of simple, containedin, ranking_across_places and ranking_across_vars
+# NOTE: basic is a wrapper around place_vars, containedin, ranking_across_places and ranking_across_vars
 #
 
 
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
              chart_origin: ChartOriginType, rank: int) -> bool:
-  if chart_vars.event:
-    state.uttr.counters.err('basic_failed_cb_events', 1)
-    return False
   if not chart_vars:
     state.uttr.counters.err('basic_failed_cb_missing_chart_vars', 1)
+    return False
+  if chart_vars.event:
+    state.uttr.counters.err('basic_failed_cb_events', 1)
     return False
   if not chart_vars.svs:
     state.uttr.counters.err('basic_failed_cb_missing_svs', 1)
@@ -63,11 +63,19 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
                             [p.dcid for p in places])
     return False
 
-  if chart_vars.source_topic == PROJECTED_TEMP_TOPIC:
+  if (chart_vars.source_topic == PROJECTED_TEMP_TOPIC or
+      params.is_toolformer_mode(state.uttr.mode)):
     # PROJECTED_TEMP_TOPIC has some very custom handling in config-builder,
     # that needs to be deprecated.
     # TODO: Deprecate this flow completely!
-    return _populate_specific(state, chart_vars, places, chart_origin, rank)
+    #
+    # For toolformer mode, where we return focussed charts based
+    # on query, additional charts are not very useful.
+    return _populate_specific(state=state,
+                              chart_vars=chart_vars,
+                              places=places,
+                              chart_origin=chart_origin,
+                              rank=rank)
   else:
     return _populate_explore(state, chart_vars, places, chart_origin, rank)
 
@@ -89,7 +97,7 @@ def _populate_explore(state: PopulateState, chart_vars: ChartVars,
 
   # If user didn't ask for ranking, show timeline+highlight first.
   if not user_set_child_type and chart_vars.is_topic_peer_group:
-    added |= simple.populate(state, chart_vars, places, chart_origin, rank)
+    added |= place_vars.populate(state, chart_vars, places, chart_origin, rank)
 
   cv = copy.deepcopy(chart_vars)
   for sv in chart_vars.svs[:max_rank_and_map_charts]:
@@ -97,7 +105,7 @@ def _populate_explore(state: PopulateState, chart_vars: ChartVars,
 
     # If user didn't ask for ranking, show timeline+highlight first.
     if not user_set_child_type and not cv.is_topic_peer_group:
-      added |= simple.populate(state, cv, places, chart_origin, rank)
+      added |= place_vars.populate(state, cv, places, chart_origin, rank)
 
     if state.place_type:
       # If this is SDG, unless user has asked for ranking, do not return!
@@ -126,11 +134,11 @@ def _populate_explore(state: PopulateState, chart_vars: ChartVars,
 
     # If user had asked for ranking, show timeline+highlight last.
     if user_set_child_type and not cv.is_topic_peer_group:
-      added |= simple.populate(state, cv, places, chart_origin, rank)
+      added |= place_vars.populate(state, cv, places, chart_origin, rank)
 
   # If user had asked for ranking, show timeline+highlight last.
   if user_set_child_type and chart_vars.is_topic_peer_group:
-    added |= simple.populate(state, chart_vars, places, chart_origin, rank)
+    added |= place_vars.populate(state, chart_vars, places, chart_origin, rank)
 
   return added
 
@@ -138,9 +146,11 @@ def _populate_explore(state: PopulateState, chart_vars: ChartVars,
 def _populate_specific(state: PopulateState, chart_vars: ChartVars,
                        places: List[Place], chart_origin: ChartOriginType,
                        rank: int) -> bool:
+  user_set_child_type = bool(state.place_type and
+                             not state.had_default_place_type)
   if state.ranking_types:
     # Ranking query
-    if state.place_type:
+    if user_set_child_type:
       # This is ranking across places.
       if ranking_across_places.populate(state, chart_vars, places, chart_origin,
                                         rank):
@@ -152,12 +162,12 @@ def _populate_specific(state: PopulateState, chart_vars: ChartVars,
                                       rank):
         return True
 
-  if state.place_type:
+  if user_set_child_type:
     if containedin.populate(state, chart_vars, places, chart_origin, rank):
       _maybe_set_place_type_existence(state, rank)
       return True
 
-  return simple.populate(state, chart_vars, places, chart_origin, rank)
+  return place_vars.populate(state, chart_vars, places, chart_origin, rank)
 
 
 def _maybe_set_place_type_existence(state: PopulateState, rank: int):

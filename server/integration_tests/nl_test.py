@@ -179,7 +179,7 @@ class NLTestDemo(NLTest):
 
   def test_demo_feb2023(self):
     self.run_sequence('demo_feb2023', [
-        'What are the projected temperature extremes across California',
+        'What are the projected temperature extremes across California counties',
         'Where were the major fires in the last year',
         'Tell me about Placer County',
         'What were the most common jobs there',
