@@ -164,8 +164,9 @@ def combine_stop_words(
 def remove_punctuations(s, include_comma=False):
   s = s.replace('\'s', '')
 
-  # First replace all periods (.) which cannot be considered decimals.
-  s = re.sub(r'(?<!\d)\.(?!\d)', ' ', s)
+  # First replace all periods (.) which cannot be considered decimals or part
+  # of an abbreviation in a place name like St. Landry Parish.
+  s = re.sub(r'(?<!\d)(?<!St|st)\.(?!\d)', ' ', s)
 
   # Now replace all punctuation which is not a period (.)
   if include_comma:
