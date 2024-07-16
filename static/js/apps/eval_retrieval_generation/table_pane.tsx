@@ -68,9 +68,9 @@ export function TablePane(props: TablePanePropType): JSX.Element {
 
       if (tableInfo) {
         tableList.push({
+          content: tableInfo.dcStat,
           id: tableId,
           title: tableInfo.dcResponse,
-          content: tableInfo.dcStat,
         });
       }
     });

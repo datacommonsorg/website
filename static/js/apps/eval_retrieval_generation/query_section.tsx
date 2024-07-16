@@ -33,11 +33,11 @@ interface AnswerMetadata {
 
 function getFormattedRagCallAnswer(
   dcQuestion: string,
-  dcStat: string,
+  dcResponse: string,
   tableId: string
 ): string {
   const formattedQuestion = `<span class="dc-question">**${dcQuestion}**</span>`;
-  const formattedStat = `<span class="dc-stat">${dcStat} \xb7 Table ${tableId}</span>`;
+  const formattedStat = `<span class="dc-stat">${dcResponse} \xb7 Table ${tableId}</span>`;
   return `<span class="annotation annotation-rag annotation-${tableId}">${formattedQuestion}<br/>${formattedStat}</span>`;
 }
 
@@ -56,7 +56,11 @@ function getAnswerFromRagCalls(
     const tableInfo: DcCallInfo | null = allCall[queryId][tableId];
     if (tableInfo) {
       answers.push(
-        getFormattedRagCallAnswer(tableInfo.question, tableInfo.dcStat, tableId)
+        getFormattedRagCallAnswer(
+          tableInfo.question,
+          tableInfo.dcResponse,
+          tableId
+        )
       );
     }
   });
