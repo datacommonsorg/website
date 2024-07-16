@@ -75,11 +75,11 @@ export const processText = (text: string): string => {
       innerHtml += `<span class="llm-stat">${llmStat || LONG_SPACES}</span>`;
       if (hasDcStat) {
         innerHtml +=
-          `<div class="dc-stat-tooltip">` +
-          `<div class="dc-stat-tooltip-label"></div>` +
-          `<div class="dc-stat-tooltip-value">${
+          `<span class="dc-stat-tooltip">` +
+          `<span class="dc-stat-tooltip-label"></span>: ` +
+          `<span class="dc-stat-tooltip-value">${
             dcStat || LONG_SPACES
-          }</div></div>`;
+          }</span></span>`;
       }
       return (
         `<span class="annotation annotation-${callId}` +
