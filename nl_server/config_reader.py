@@ -48,8 +48,10 @@ def _path_from_current_file(rel_path: str) -> str:
 # The paths here represent the same file used in different environments.
 # When catalog.yaml is available in relative code path, use it; Otherwise use
 # the mounted file in the GCP deployment.
-_DEFAULT_CATALOG_PATHS = (_path_from_current_file('../deploy/nl/catalog.yaml'),
-                          '/datacommons/nl/catalog.yaml')
+_DEFAULT_CATALOG_PATHS = [
+    _path_from_current_file('../deploy/nl/catalog.yaml'),
+    '/datacommons/nl/catalog.yaml'
+]
 
 # env from checked in file for autopush instance. Used for local and testing.
 _ENV_CODE_PATH = _path_from_current_file(
@@ -94,13 +96,26 @@ def merge_vertex_ai_configs(m: ModelConfig,
 
 
 def read_catalog(catalog_paths: List[str] = _DEFAULT_CATALOG_PATHS,
-                 catalog_dict: Dict = None) -> Catalog:
+                 catalog_dict: Dict = None,
+                 additional_catalog_path: str = None) -> Catalog:
   """Reads the catalog from the config files and merges them together.
   """
   partial_catalogs = []
+  if additional_catalog_path:
+    catalog_paths.append(additional_catalog_path)
   for p in catalog_paths:
     all_paths = []
-    if os.path.exists(p):
+
+    # If gcs path, download it locally.
+    if gcs.is_gcs_path(p):
+      gcs_path = p
+      logging.info('Loading catalog from gcs path: %s', gcs_path)
+      p = gcs.maybe_download(gcs_path)
+      if not p:
+        logging.error('GCS catalog path not found and will be skipped: %s',
+                      gcs_path)
+
+    if p and os.path.exists(p):
       all_paths.append(p)
     for p in all_paths:
       logging.info('Loading index and model catalog from: %s', p)
