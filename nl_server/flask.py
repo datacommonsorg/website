@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import logging
+import os
 import sys
 
 from flask import Flask
@@ -51,7 +52,8 @@ def create_app():
   try:
     # Build the registry before creating the Flask app to make sure all resources
     # are loaded.
-    reg = registry.build()
+    additional_catalog_path = os.environ.get('ADDITIONAL_CATALOG_PATH')
+    reg = registry.build(additional_catalog_path=additional_catalog_path)
 
     if not lib_utils.is_test_env():
       # Below is a safe check to ensure that the model and embedding is loaded.
