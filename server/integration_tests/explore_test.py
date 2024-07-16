@@ -736,7 +736,8 @@ class ExploreTestEE2(ExploreTest):
             # variables in a topic that match immediately after the topic should
             # show up before the topic (i.e., Count_Worker_NAICSAccommodationFoodServices
             # should show up first)
-            'How has employment in hospitality changed over time in New Jersey counties?'
+            'How has employment in hospitality changed over time in New Jersey counties?',
+            'Which California counties have the youngest recent mothers?',
         ],
         mode='toolformer_rag')
 
