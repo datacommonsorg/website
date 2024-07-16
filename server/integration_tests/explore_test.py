@@ -24,7 +24,7 @@ from shared.lib.test_server import NLWebServerTestCase
 
 _dir = os.path.dirname(os.path.abspath(__file__))
 
-_TEST_MODE = os.environ['TEST_MODE']
+_TEST_MODE = os.environ.get('TEST_MODE', '')
 
 _TEST_DATA = 'test_data'
 
