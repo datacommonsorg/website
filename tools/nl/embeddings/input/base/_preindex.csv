@@ -2083,6 +2083,7 @@ Number of countries using ecosystem-based approaches to managing marine areas,dc
 Number of countries with mechanisms in place to enhance policy coherence of sustainable development,dc/topic/sdg_17.14.1
 "Number of countries with migration policies that facilitate orderly, safe, regular and responsible migration and mobility of people",dc/topic/sdg_10.7.2
 "Number of countries with nationally determined contributions, long-term strategies, national adaptation plans and adaptation communications, as reported to the secretariat of the United Nations Framework Convention on Climate Change",dc/topic/sdg_13.2.1
+Number of crashes with school buses,Count_VehicleCrashIncident_InvolvedInCrash_SchoolBus
 Number of crimes,Count_CriminalActivities_CombinedCrime
 Number of cyclones,Count_CycloneEvent
 Number of deaths,Count_Death
@@ -2271,6 +2272,7 @@ Number of full time year round workers with earnings,Count_Person_WithEarnings_F
 Number of gambling establishments in gambling industries,dc/3jr0p7yjw06z9
 Number of girls under 4 years old,Count_Person_0To4Years_Female
 Number of hate crime incidents,Count_CriminalIncidents_IsHateCrime
+Number of head-on collision vehicle crash,Count_VehicleCrashIncident_CollisionCrash_HeadOnCollision
 Number of heat events,Count_HeatEvent
 Number of heat waves,Count_HeatWaveEvent
 Number of hispanic or latino people who reside in college or university student housing,Count_Person_HispanicOrLatino_ResidesInCollegeOrUniversityStudentHousing
@@ -2523,6 +2525,9 @@ Number of married people who reside in nursing facilities,Count_Person_MarriedAn
 "Number of married people, including separated",Count_Person_NowMarried
 Number of married white people,Count_Person_15OrMoreYears_MarriedAndNotSeparated_WhiteAlone
 Number of mobile phone subscriptions per person,Count_Product_MobileCellularSubscription_AsFractionOf_Count_Person
+Number of motor vehicle occupants involved in crash,Count_Person_InvolvedInCrash_MotorVehicleOccupant
+Number of motorists involved in crash,Count_Person_InvolvedInCrash_Motorists
+Number of moving vehicles involved in crash,Count_Vehicle_InvolvedInCrash_InTransport
 Number of multi race people with disabilities,Count_Person_WithDisability_TwoOrMoreRaces
 Number of multi races farmers,Count_Person_Producer_TwoOrMoreRaces
 Number of multi races female With Bachelor or higher Degree,dc/hyfn2tlyz48lb
@@ -2813,6 +2818,8 @@ Number of urban scheduled caste people,Count_Person_ScheduledCaste_Urban
 Number of urban scheduled caste people below 6 years,Count_Person_ScheduledCaste_YearsUpto6_Urban
 Number of urban scheduled tribe people,Count_Person_ScheduledTribe_Urban
 Number of urban scheduled tribe people below 6 years,Count_Person_ScheduledTribe_YearsUpto6_Urban
+Number of vehicle crash incidents occurred on the national highway,Count_VehicleCrashIncident_NationalHighway
+Number of vehicle crash incidents occurred on the state highway,Count_VehicleCrashIncident_StateHighway
 "Number of verified cases of killing, kidnapping, enforced disappearance, arbitrary detention and torture of journalists, associated media personnel, trade unionists and human rights advocates in the previous 12 months",dc/topic/sdg_16.10.1
 Number of veterans,Count_Person_Veteran
 "Number of victims of human trafficking per 100K population, by sex, age and form of exploitation",dc/topic/sdg_16.2.2
