@@ -41,23 +41,30 @@
     "MultiSV": {
       "Candidates": [
         {
-          "AggCosineScore": 0.8999,
+          "AggCosineScore": 0.8763,
           "DelimBased": false,
           "Parts": [
             {
               "CosineScore": [
-                0.7526575326919556,
-                0.7335994839668274,
-                0.7317348122596741,
-                0.7282767295837402,
-                0.72101229429245,
-                0.7188706994056702,
+                0.7526575922966003,
+                0.7335994243621826,
+                0.7317348718643188,
+                0.7282766699790955,
+                0.7210123538970947,
+                0.7188708186149597,
                 0.7138627171516418,
-                0.7071598172187805
+                0.7071599960327148
               ],
               "QueryPart": "factors like obesity blood pressure asthma impacted",
               "SV": [
-                "dc/topic/Asthma"
+                "Percent_Person_WithAsthma",
+                "dc/topic/BloodPressure",
+                "Percent_Person_Children_WithAsthma",
+                "Percent_Person_Obesity",
+                "dc/topic/AsthmaMalePopulationByAge",
+                "dc/topic/AsthmaFemalePopulationByAge",
+                "dc/topic/HealthConditions",
+                "dc/topic/Health"
               ]
             },
             {
@@ -72,7 +79,7 @@
           ]
         },
         {
-          "AggCosineScore": 0.8615,
+          "AggCosineScore": 0.8668,
           "DelimBased": true,
           "Parts": [
             {
@@ -85,9 +92,7 @@
               "SV": [
                 "Percent_Person_Obesity",
                 "WHO/NCD_BMI_30A",
-                "dc/x13tvt8jsgrm4",
-                "dc/4lvmzr1h1ylk1",
-                "dc/topic/Health"
+                "dc/x13tvt8jsgrm4"
               ]
             },
             {
@@ -105,14 +110,13 @@
               ],
               "QueryPart": "asthma impacted climate change",
               "SV": [
-                "dc/topic/Asthma",
                 "dc/topic/ClimateChange"
               ]
             }
           ]
         },
         {
-          "AggCosineScore": 0.8413,
+          "AggCosineScore": 0.8276,
           "DelimBased": false,
           "Parts": [
             {
@@ -125,14 +129,17 @@
                 0.7185328006744385,
                 0.717232882976532,
                 0.7033888697624207
-
               ],
               "QueryPart": "factors like obesity blood pressure asthma",
               "SV": [
-                "dc/topic/Asthma",
                 "dc/topic/BloodPressure",
+                "Percent_Person_Obesity",
+                "Percent_Person_WithAsthma",
                 "dc/topic/HealthConditions",
-                "dc/topic/Health"
+                "dc/topic/Health",
+                "WHO/NCD_BMI_30A",
+                "Percent_Person_Children_WithAsthma",
+                "dc/x13tvt8jsgrm4"
               ]
             },
             {
@@ -147,7 +154,7 @@
           ]
         },
         {
-          "AggCosineScore": 0.8232,
+          "AggCosineScore": 0.8118,
           "DelimBased": false,
           "Parts": [
             {
@@ -165,7 +172,6 @@
               ],
               "QueryPart": "asthma impacted climate change",
               "SV": [
-                "dc/topic/Asthma",
                 "dc/topic/ClimateChange"
               ]
             }
@@ -176,15 +182,16 @@
     "Query": "how are factors like obesity , blood pressure and asthma impacted by climate change",
     "SV": [
       "dc/topic/ClimateChange",
-      "dc/topic/Asthma",
       "dc/topic/ProjectedClimateExtremes",
       "dc/topic/BloodPressure",
       "dc/topic/sdg_13.3",
       "dc/topic/CO2Emissions",
-      "Annual_Emissions_GreenhouseGas",
-      "dc/topic/AmbientAirPollution",
-      "Annual_Amount_Emissions_SCC_27_NaturalSources",
       "Percent_Person_Obesity",
+      "Annual_Emissions_GreenhouseGas",
+      "Percent_Person_Children_WithAsthma",
+      "dc/topic/AmbientAirPollution",
+      "Percent_Person_WithAsthma",
+      "Annual_Amount_Emissions_SCC_27_NaturalSources",
       "dc/topic/WHOMortalityCauses",
       "dc/topic/sdg_3.9.1",
       "dc/topic/GlobalHealth",
@@ -192,15 +199,14 @@
       "dc/topic/sdg_13",
       "dc/topic/sdg_13.b",
       "dc/topic/sdg_13.2.1",
-      "Percent_Person_Children_WithAsthma",
       "dc/topic/sdg_13.2.2",
       "dc/topic/WHONonCommunicableDiseases",
-      "Percent_Person_WithAsthma",
       "dc/topic/Emissions",
       "dc/topic/Pollutants",
       "Annual_Emissions_GreenhouseGas_OilAndGas",
       "dc/topic/GreenhouseGasEmissions",
       "dc/topic/AsthmaFemalePopulationByAge",
+      "WHO/NUTOVERWEIGHTPREV",
       "dc/topic/sdg_13.1",
       "dc/topic/sdg_13.2",
       "dc/topic/sdg_11.6.2"

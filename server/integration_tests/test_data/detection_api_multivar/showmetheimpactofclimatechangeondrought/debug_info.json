@@ -50,7 +50,7 @@
             },
             {
               "CosineScore": [
-                0.9999998211860657
+                0.9999998807907104
               ],
               "QueryPart": "drought",
               "SV": [
@@ -73,7 +73,9 @@
               "QueryPart": "show climate",
               "SV": [
                 "dc/topic/ProjectedClimateExtremes",
-                "dc/topic/ClimateChange"
+                "dc/topic/ClimateChange",
+                "dc/topic/Temperatures",
+                "Temperature"
               ]
             },
             {

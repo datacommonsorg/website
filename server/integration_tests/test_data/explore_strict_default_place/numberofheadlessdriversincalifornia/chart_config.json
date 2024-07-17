@@ -39,38 +39,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "dc/0gettc3bc60cb"
-                    ],
-                    "title": "Drive Alone in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "dc/0gettc3bc60cb"
-                    ],
-                    "title": "Drive Alone in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Drive Alone in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Count_VehicleCrashIncident_CollisionCrash_HeadOnCollision"
                     ],
                     "title": "Count of Crash Incidents With Head on Collision in California",
@@ -94,39 +62,6 @@
             "denom": "Count_Person",
             "description": "Count of crash incidents with head on collision of two motor vehicles in-transport when they are involved in the first harmful event of a collision crash.",
             "title": "Count of Crash Incidents With Head on Collision"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_VehicleCrashIncident_CollisionCrash_HeadOnCollision"
-                    ],
-                    "title": "Count of Crash Incidents With Head on Collision in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_VehicleCrashIncident_CollisionCrash_HeadOnCollision"
-                    ],
-                    "title": "Count of Crash Incidents With Head on Collision in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "description": "Count of crash incidents with head on collision of two motor vehicles in-transport when they are involved in the first harmful event of a collision crash.",
-            "title": "Count of Crash Incidents With Head on Collision in Counties of California"
           }
         ],
         "statVarSpec": {
@@ -142,9 +77,6 @@
       }
     ],
     "metadata": {
-      "containedPlaceTypes": {
-        "State": "County"
-      },
       "placeDcid": [
         "geoId/06"
       ]

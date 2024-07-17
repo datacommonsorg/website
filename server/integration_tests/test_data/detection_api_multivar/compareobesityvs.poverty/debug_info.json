@@ -43,7 +43,7 @@
     "MultiSV": {
       "Candidates": [
         {
-          "AggCosineScore": 0.9234,
+          "AggCosineScore": 0.9478,
           "DelimBased": true,
           "Parts": [
             {
@@ -54,9 +54,7 @@
               "QueryPart": "obesity",
               "SV": [
                 "Percent_Person_Obesity",
-                "WHO/NCD_BMI_30A",
-                "dc/4lvmzr1h1ylk1",
-                "dc/x13tvt8jsgrm4"
+                "WHO/NCD_BMI_30A"
               ]
             },
             {
@@ -75,34 +73,36 @@
     "Query": "compare obesity vs poverty",
     "SV": [
       "dc/topic/Poverty",
+      "Percent_Person_Obesity",
       "dc/topic/PovertyByRace",
       "dc/topic/SDG_1",
-      "Percent_Person_Obesity",
+      "WHO/NCD_BMI_30A",
       "dc/topic/sdg_1.2",
       "dc/topic/PovertyByGender",
       "dc/topic/PovertyByLanguageSpokenAtHome",
       "dc/topic/sdg_1.2.2",
       "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-      "WHO/NCD_BMI_30A",
       "dc/topic/Malnutrition",
       "dc/topic/sdg_2.1.1",
       "sdg/SN_ITK_DEFC",
       "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months",
       "dc/topic/PovertyByResidency",
+      "dc/4lvmzr1h1ylk1",
+      "dc/x13tvt8jsgrm4",
       "dc/topic/sdg_1",
       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-      "dc/x13tvt8jsgrm4",
       "dc/topic/FoodInsecurity",
       "dc/topic/sdg_2.1.2",
+      "WHO/NCD_BMI_18A",
       "Count_Household_WithoutFoodStampsInThePast12Months_AbovePovertyLevelInThePast12Months",
-      "dc/4lvmzr1h1ylk1",
+      "WHO/NUTOVERWEIGHTPREV",
       "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
       "Count_Household_WithFoodStampsInThePast12Months_AbovePovertyLevelInThePast12Months",
       "dc/topic/HealthEquity",
+      "WHO/NUTRITION_WA_2",
       "dc/topic/sdg_1.2.1",
       "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
-      "Count_Person_Male_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces",
-      "sdg/SI_POV_DAY1"
+      "Count_Person_Male_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces"
     ]
   },
   "props_matching": {

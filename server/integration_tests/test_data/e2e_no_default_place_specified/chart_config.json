@@ -514,6 +514,67 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Person_Civilian_Female_NonInstitutionalized"
+                    ],
+                    "title": "Women Non Institutionalized in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Women Non Institutionalized in United States of America",
+                    "statVarKey": [
+                      "Count_Person_Civilian_Female_NonInstitutionalized"
+                    ],
+                    "title": "Women Non Institutionalized in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women Non Institutionalized"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Civilian_Female_NonInstitutionalized"
+                    ],
+                    "title": "Women Non Institutionalized in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Civilian_Female_NonInstitutionalized"
+                    ],
+                    "title": "Women Non Institutionalized in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women Non Institutionalized in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Median_Age_Person_Female"
                     ],
                     "title": "Women's Median Age in United States of America",
@@ -799,67 +860,6 @@
             ],
             "denom": "Count_Person",
             "title": "Women With Disabilities in States of United States of America"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female"
-                    ],
-                    "title": "Bachelors, Women in United States of America",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Bachelors, Women in United States of America",
-                    "statVarKey": [
-                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female"
-                    ],
-                    "title": "Bachelors, Women in United States of America",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Bachelors, Women"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female"
-                    ],
-                    "title": "Bachelors, Women in States of United States of America (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female"
-                    ],
-                    "title": "Bachelors, Women in States of United States of America (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Bachelors, Women in States of United States of America"
           }
         ],
         "statVarSpec": {
@@ -875,13 +875,13 @@
             "name": "Population: Bachelors Degree or Higher, Female",
             "statVar": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female"
           },
-          "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female": {
-            "name": "Bachelors, Women",
-            "statVar": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female"
-          },
           "Count_Person_3OrMoreYears_Female_EnrolledInSchool": {
             "name": "Population: Female, Enrolled in School",
             "statVar": "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
+          },
+          "Count_Person_Civilian_Female_NonInstitutionalized": {
+            "name": "Women Non Institutionalized",
+            "statVar": "Count_Person_Civilian_Female_NonInstitutionalized"
           },
           "Count_Person_Female": {
             "name": "Women",
@@ -1384,13 +1384,20 @@
           "Count_Person_45To64Years_EducationalAttainmentBachelorsDegreeOrHigher_Female"
         ]
       },
-      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female": {
+      "Count_Person_Civilian_Female_NonInstitutionalized": {
         "age": [
-          "Count_Person_18To24Years_EducationalAttainmentBachelorsDegree_Female",
-          "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female",
-          "Count_Person_35To44Years_EducationalAttainmentBachelorsDegree_Female",
-          "Count_Person_45To64Years_EducationalAttainmentBachelorsDegree_Female",
-          "Count_Person_65OrMoreYears_EducationalAttainmentBachelorsDegree_Female"
+          "dc/09z87msgrnz46",
+          "dc/3ynz47ezvb9t3",
+          "dc/9zrfybzebz9eg",
+          "dc/clt08ev67qbg4",
+          "dc/e4tnwblpn05ng",
+          "dc/eyq93l7lzkljh",
+          "dc/fdt2p0r5fced1",
+          "dc/g8tzm4h7qzqnd",
+          "dc/spwgfh6tfr03c",
+          "dc/vqxc814k47fc5",
+          "dc/x8zvw66c41lx",
+          "dc/z3blp4w0t2nv2"
         ]
       },
       "Count_Person_Female": {
@@ -1402,11 +1409,6 @@
           "Count_Person_65To66Years_Female",
           "Count_Person_67To69Years_Female",
           "Count_Person_Upto14Years_Female"
-        ],
-        "educationalAttainment": [
-          "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female",
-          "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female",
-          "Count_Person_EducationalAttainmentBachelorsDegree_Female"
         ],
         "race": [
           "Count_Person_Female_AsianAlone",

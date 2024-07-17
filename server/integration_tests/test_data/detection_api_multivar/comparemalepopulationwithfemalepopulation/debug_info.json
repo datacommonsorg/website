@@ -89,8 +89,8 @@
             },
             {
               "CosineScore": [
-                0.8982377648353577,
-                0.872346818447113
+                0.8982378244400024,
+                0.8723468780517578
               ],
               "QueryPart": "population",
               "SV": [
@@ -106,11 +106,11 @@
           "Parts": [
             {
               "CosineScore": [
-                0.8034242987632751,
-                0.8017653822898865,
+                0.8034242391586304,
+                0.8017652630805969,
                 0.7751559019088745,
-                0.7698014974594116,
-                0.7586973309516907
+                0.7698014378547668,
+                0.7586972713470459
               ],
               "QueryPart": "male",
               "SV": [
@@ -123,7 +123,7 @@
             },
             {
               "CosineScore": [
-                0.9170329570770264
+                0.9170328974723816
               ],
               "QueryPart": "population female population",
               "SV": [
@@ -164,6 +164,7 @@
       "dc/topic/UrbanFemalePopulationByAge",
       "Count_Student_Male",
       "dc/topic/SeparatedFemalePopulationByAge",
+      "Count_Person_Civilian_Female_NonInstitutionalized",
       "dc/topic/AsianAloneFemalePopulationByAge",
       "Count_Person_Female_WithHealthInsurance",
       "Count_Person_Workers_Male",
@@ -171,8 +172,7 @@
       "dc/topic/WhiteAloneFemalePopulationByAge",
       "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female",
       "Count_Person_3OrMoreYears_Male_EnrolledInSchool",
-      "dc/topic/MedianHouseholdIncomeByGender",
-      "Count_Death_Male_AsAFractionOf_Count_Person_Male"
+      "dc/topic/MedianHouseholdIncomeByGender"
     ]
   },
   "props_matching": {
