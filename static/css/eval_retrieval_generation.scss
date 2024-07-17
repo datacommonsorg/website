@@ -502,65 +502,58 @@ label {
   width: 0;
 }
 
-#dc-eval-retrieval-generation .dc-stat-tooltip {
-  display: none;
-}
-
 // Modify stat annotation styles for SxS UI.
 #dc-eval-sxs {
+
   // Don't highlight an LLM stat if it doesn't have a DC stat.
   .annotation.annotation-no-dc-stat .llm-stat {
     background-color: unset;
   }
+}
 
-  // Hide inline DC stats.
-  .dc-stat {
-    display: none;
-  }
+.dc-stat-tooltip {
+  display: none;
+  pointer-events: none;
+  z-index: 999;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, calc(-100% - 10px));
+  background-color: var(--gm-3-sys-light-surface-container-high);
+  text-align: center;
+  text-wrap: wrap;
+  word-break: normal;
+  width: max-content;
+  max-width: 200px;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
 
-  .dc-stat-tooltip {
-    display: none;
-    pointer-events: none;
-    z-index: 999;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, calc(-100% - 10px));
-    background-color: var(--gm-3-sys-light-surface-container-high);
-    text-align: center;
-    text-wrap: wrap;
-    word-break: normal;
-    width: max-content;
-    max-width: 200px;
-    border-radius: 5px;
-    padding: 5px 10px;
-  }
+$tooltip-arrow-size: 10px;
 
-  $tooltip-arrow-size: 10px;
+// Tooltip arrow
+.dc-stat-tooltip::after {
+  display: none;
+  position: absolute;
+  border: $tooltip-arrow-size solid;
+  border-color: var(--gm-3-sys-light-surface-container-high) transparent transparent;
+  content: "";
+  left: 50%;
+  margin-left: -$tooltip-arrow-size;
+  top: calc(100% - 1px);
+}
 
-  // Tooltip arrow
+.annotation {
+  // Use relative position so tooltip can be absolutely positioned.
+  position: relative;
+}
+
+// Show tooltip and tooltip arrow on hover.
+.annotation:hover {
+
+  .dc-stat-tooltip,
   .dc-stat-tooltip::after {
-    display: none;
-    position: absolute;
-    border: $tooltip-arrow-size solid;
-    border-color: var(--gm-3-sys-light-surface-container-high) transparent transparent;
-    content: "";
-    left: 50%;
-    margin-left: -$tooltip-arrow-size;
-    top: calc(100% - 1px);
-  }
-
-  .annotation {
-    // Use relative position so tooltip can be absolutely positioned.
-    position: relative;
-  }
-
-  // Show tooltip and tooltip arrow on hover.
-  .annotation:hover {
-    .dc-stat-tooltip,
-    .dc-stat-tooltip::after {
-      display: block;
-    }
+    display: block;
   }
 }
 

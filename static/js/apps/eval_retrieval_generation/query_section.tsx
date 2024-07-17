@@ -125,7 +125,6 @@ interface QuerySectionPropType {
   callId?: number;
   allCall?: Record<number, DcCalls>;
   hideIdAndQuestion?: boolean;
-  onAnswerChange?: () => void;
 }
 
 export function QuerySection(props: QuerySectionPropType): JSX.Element {
@@ -153,12 +152,6 @@ export function QuerySection(props: QuerySectionPropType): JSX.Element {
       prevHighlightedRef.current = newHighlighted;
     }
   }, [answer, props.callId, props.feedbackStage]);
-
-  useEffect(() => {
-    if (props.onAnswerChange) {
-      props.onAnswerChange();
-    }
-  }, [answer]);
 
   useEffect(() => {
     setAnswer("");
@@ -197,6 +190,8 @@ export function QuerySection(props: QuerySectionPropType): JSX.Element {
     props.feedbackStage === FeedbackStage.OVERALL_QUESTIONS
       ? "Questions to Data Commons"
       : "Answer";
+  const calls =
+    props.query && props.allCall ? props.allCall[props.query.id] : null;
 
   return (
     <div id="query-section">
@@ -207,7 +202,7 @@ export function QuerySection(props: QuerySectionPropType): JSX.Element {
         rehypePlugins={[rehypeRaw as any]}
         remarkPlugins={[remarkGfm]}
       >
-        {processText(answer)}
+        {processText(answer, calls)}
       </ReactMarkdown>
     </div>
   );

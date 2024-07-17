@@ -16,7 +16,6 @@
 
 /* Component to display a table */
 
-import { GoogleSpreadsheet } from "google-spreadsheet";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import Collapsible from "react-collapsible";
@@ -47,7 +46,6 @@ function getTableTrigger(tableInfo: TableInfo, opened: boolean): JSX.Element {
 }
 
 interface TablePanePropType {
-  doc: GoogleSpreadsheet;
   calls: DcCalls;
 }
 

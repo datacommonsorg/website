@@ -46,7 +46,7 @@ const TABLE_HEADER_TEXT_PATTERN = /[\w'ô[\]ãéí\s°()%:-\\,\\₂]+/g;
 // Map from sheet name to column name to column index
 type HeaderInfo = Record<string, Record<string, number>>;
 
-export const processText = (text: string): string => {
+export const processText = (text: string, calls?: DcCalls): string => {
   if (!text) {
     return "";
   }
@@ -69,23 +69,19 @@ export const processText = (text: string): string => {
       } else {
         llmStat = parts[0];
       }
-      const hasDcStat = dcStat?.trim().length > 0;
+
       let innerHtml = "";
-      innerHtml += `<span class="dc-stat">${dcStat || LONG_SPACES}</span>`;
       innerHtml += `<span class="llm-stat">${llmStat || LONG_SPACES}</span>`;
+      let annotationClasses = `annotation annotation-${callId}`;
+
+      const hasDcStat = dcStat?.trim().length > 0;
       if (hasDcStat) {
-        innerHtml +=
-          `<span class="dc-stat-tooltip">` +
-          `<span class="dc-stat-tooltip-label"></span>: ` +
-          `<span class="dc-stat-tooltip-value">${
-            dcStat || LONG_SPACES
-          }</span></span>`;
+        innerHtml += getTooltipHtml(dcStat, callId, calls);
+      } else {
+        annotationClasses += " annotation-no-dc-stat";
       }
-      return (
-        `<span class="annotation annotation-${callId}` +
-        (hasDcStat ? "" : " annotation-no-dc-stat") +
-        `">${innerHtml}</span>`
-      );
+
+      return `<span class="${annotationClasses}">${innerHtml}</span>`;
     }
   );
   // Replace each link with the desired HTML format
@@ -94,6 +90,20 @@ export const processText = (text: string): string => {
     (match) => `<a href="${match}" target="_blank">Explore Page</a><br> `
   );
 };
+
+function getTooltipHtml(
+  dcStat: string,
+  callId: string,
+  calls?: DcCalls
+): string {
+  const dcResponse: string = calls ? calls[callId]?.dcResponse ?? "" : "";
+  return (
+    `<span class="dc-stat-tooltip">` +
+    `<span class="dc-stat-tooltip-label">${dcResponse}</span>: ` +
+    `<span class="dc-stat-tooltip-value">${dcStat}</span>` +
+    `</span>`
+  );
+}
 
 export function processTableText(text: string): string {
   if (!text) {
@@ -204,15 +214,9 @@ export function getDocInfo(doc: GoogleSpreadsheet): Promise<DocInfo> {
   return getHeader(doc)
     .then((allHeader) => {
       return Promise.all([
-        Promise.resolve(allHeader),
-        getEvalType(doc, allHeader),
-      ]);
-    })
-    .then(([allHeader, evalType]) => {
-      return Promise.all([
         getQueries(doc, allHeader),
         getCalls(doc, allHeader),
-        Promise.resolve(evalType),
+        getEvalType(doc, allHeader),
       ]);
     })
     .then(([allQuery, allCall, evalType]) => {

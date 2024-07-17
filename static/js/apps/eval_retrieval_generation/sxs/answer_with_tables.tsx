@@ -31,32 +31,6 @@ interface AnswerWithTablesPropType {
 export function AnswerWithTables(props: AnswerWithTablesPropType): JSX.Element {
   const { sessionQueryId } = useContext(SessionContext);
 
-  const onAnswerChange = () => {
-    // Only do something for RIG answers.
-    if (props.docInfo.evalType !== EvalType.RIG) return;
-
-    const dcCalls = props.docInfo.allCall[sessionQueryId];
-    if (!dcCalls) return;
-
-    // Put the DC response for each call in the associated stat tooltip. Note
-    // that this assumes only one RIG answer is visible; otherwise there would
-    // be two sets of conflicting call IDs.
-    for (const callId of Object.keys(dcCalls)) {
-      const annotationEls = Array.from(
-        document.getElementsByClassName(`annotation-${callId}`)
-      );
-      if (!annotationEls) continue;
-      for (const annotationEl of annotationEls) {
-        const tooltipLabelEl = annotationEl.querySelector(
-          ".dc-stat-tooltip-label"
-        );
-        if (tooltipLabelEl) {
-          tooltipLabelEl.innerHTML = dcCalls[callId].dcResponse ?? "";
-        }
-      }
-    }
-  };
-
   return (
     <>
       <div className="sxs-pane-scroll-wrapper">
@@ -66,14 +40,11 @@ export function AnswerWithTables(props: AnswerWithTablesPropType): JSX.Element {
             evalType={props.docInfo.evalType}
             feedbackStage={FeedbackStage.SXS}
             query={props.docInfo.allQuery[sessionQueryId]}
+            allCall={props.docInfo.allCall}
             hideIdAndQuestion={true}
-            onAnswerChange={onAnswerChange}
           />
           {props.docInfo.evalType === EvalType.RAG && (
-            <TablePane
-              doc={props.docInfo.doc}
-              calls={props.docInfo.allCall[sessionQueryId]}
-            />
+            <TablePane calls={props.docInfo.allCall[sessionQueryId]} />
           )}
         </div>
       </div>

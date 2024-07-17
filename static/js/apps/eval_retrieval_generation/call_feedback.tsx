@@ -94,7 +94,6 @@ export function CallFeedback(): JSX.Element {
       return;
     }
     const callInfo: DcCallInfo | null = allCall[sessionQueryId][sessionCallId];
-    loadSpinner(FEEDBACK_PANE_ID);
     if (callInfo) {
       const tableResponse =
         evalType === EvalType.RIG ? "" : ` \xb7 Table ${sessionCallId}`;
@@ -107,7 +106,6 @@ export function CallFeedback(): JSX.Element {
     } else {
       setEvalInfo(null);
     }
-    removeSpinner(FEEDBACK_PANE_ID);
   }, [doc, allCall, sessionQueryId, sessionCallId]);
 
   const checkAndSubmit = async (): Promise<boolean> => {
