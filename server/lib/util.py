@@ -565,21 +565,15 @@ def flatten_obs_series_response(obs_series_response):
   ]
   """
   flattened_observations = []
-  variables = obs_series_response["byVariable"].keys()
-  for variable in variables:
-    entities = obs_series_response["byVariable"][variable]["byEntity"].keys()
-    for entity in entities:
-      variable_entity_entry = obs_series_response["byVariable"][variable][
-          "byEntity"][entity]
-      if not variable_entity_entry:
-        continue
-      for ordered_facet in variable_entity_entry['orderedFacets']:
+  for variable, variable_entry in obs_series_response["byVariable"].items():
+    for entity, variable_entity_entry in variable_entry["byEntity"].items():
+      for ordered_facet in variable_entity_entry.get('orderedFacets', []):
         for observation in ordered_facet['observations']:
           flattened_observations.append({
               'date': observation['date'],
               'entity': entity,
               'facet': ordered_facet['facetId'],
-              'value': observation['value'],
+              'value': observation.get('value'),
               'variable': variable
           })
   return flattened_observations
@@ -628,22 +622,27 @@ def flattened_observations_to_dates_by_variable(
       }
   ]
   """
+  # Final result is grouped by variable, then date, then facet, then count.
   dates_by_variable = []
   flattened_observations.sort(key=itemgetter('variable'))
+  # Group by variable
   for variable_key, observations_for_variable_group in groupby(
       flattened_observations, key=itemgetter('variable')):
     dates_by_variable_item = {'variable': variable_key, 'observationDates': []}
     dates_by_variable.append(dates_by_variable_item)
     observations_for_variable = list(observations_for_variable_group)
     observations_for_variable.sort(key=itemgetter('date'))
+    # Group by date
     for date_key, observations_for_date_group in groupby(
         observations_for_variable, key=itemgetter('date')):
       observation_dates_item = {'date': date_key, 'entityCount': []}
       dates_by_variable_item['observationDates'].append(observation_dates_item)
       observations_for_date = list(observations_for_date_group)
       observations_for_date.sort(key=itemgetter('facet'))
+      # Group by facet
       for facet_key, observations_for_facet_group in groupby(
           observations_for_date, key=itemgetter('facet')):
+        # Count all records iwth this variable, date, and facet
         entity_count_item = {
             'count': len(list(observations_for_facet_group)),
             'facet': facet_key
