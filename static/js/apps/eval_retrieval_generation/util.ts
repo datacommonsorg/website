@@ -21,7 +21,11 @@ import {
   CALL_ID_COL,
   DC_CALL_SHEET,
   DC_METADATA_SHEET,
+  DC_QUESTION_COL,
+  DC_RESPONSE_COL,
+  DC_STAT_COL,
   FEEDBACK_STAGE_LIST,
+  LLM_STAT_COL,
   METADATA_KEY_COL,
   METADATA_KEY_TYPE,
   METADATA_VAL_COL,
@@ -30,7 +34,7 @@ import {
   QUERY_ID_COL,
   USER_COL,
 } from "./constants";
-import { DcCall, DocInfo, EvalType, FeedbackStage, Query } from "./types";
+import { DcCalls, DocInfo, EvalType, FeedbackStage, Query } from "./types";
 
 const HTTP_PATTERN = /https:\/\/[^\s]+/g;
 const LONG_SPACES = "&nbsp;&nbsp;&nbsp;&nbsp;";
@@ -42,7 +46,7 @@ const TABLE_HEADER_TEXT_PATTERN = /[\w'ô[\]ãéí\s°()%:-\\,\\₂]+/g;
 // Map from sheet name to column name to column index
 type HeaderInfo = Record<string, Record<string, number>>;
 
-export const processText = (text: string): string => {
+export const processText = (text: string, calls?: DcCalls): string => {
   if (!text) {
     return "";
   }
@@ -65,10 +69,19 @@ export const processText = (text: string): string => {
       } else {
         llmStat = parts[0];
       }
+
       let innerHtml = "";
-      innerHtml += `<span class="dc-stat">${dcStat || LONG_SPACES}</span>`;
       innerHtml += `<span class="llm-stat">${llmStat || LONG_SPACES}</span>`;
-      return `<span class="annotation annotation-${callId}">${innerHtml}</span>`;
+      let annotationClasses = `annotation annotation-${callId}`;
+
+      const hasDcStat = dcStat?.trim().length > 0;
+      if (hasDcStat) {
+        innerHtml += getTooltipHtml(dcStat, callId, calls);
+      } else {
+        annotationClasses += " annotation-no-dc-stat";
+      }
+
+      return `<span class="${annotationClasses}">${innerHtml}</span>`;
     }
   );
   // Replace each link with the desired HTML format
@@ -77,6 +90,23 @@ export const processText = (text: string): string => {
     (match) => `<a href="${match}" target="_blank">Explore Page</a><br> `
   );
 };
+
+function getTooltipHtml(
+  dcStat: string,
+  callId: string,
+  calls?: DcCalls
+): string {
+  let dcResponse = "";
+  if (calls) {
+    dcResponse = calls[callId]?.dcResponse || "";
+  }
+  return (
+    `<span class="dc-stat-tooltip">` +
+    `<span class="dc-stat-tooltip-label">${dcResponse}</span>: ` +
+    `<span class="dc-stat-tooltip-value">${dcStat}</span>` +
+    `</span>`
+  );
+}
 
 export function processTableText(text: string): string {
   if (!text) {
@@ -118,22 +148,13 @@ function getQueries(
   const sheet = doc.sheetsByTitle[QA_SHEET];
   const header = allHeader[QA_SHEET];
   const numRows = sheet.rowCount;
-  const loadPromises = [];
-  for (const col of [QUERY_ID_COL, USER_COL, QUERY_COL]) {
-    loadPromises.push(
-      sheet.loadCells({
-        endColumnIndex: header[col] + 1,
-        startColumnIndex: header[col],
-      })
-    );
-  }
-  return Promise.all(loadPromises).then(() => {
+  return sheet.loadCells().then(() => {
     const allQuery: Record<number, Query> = {};
     for (let i = 1; i < numRows; i++) {
       const id = Number(sheet.getCell(i, header[QUERY_ID_COL]).value);
       allQuery[id] = {
         id,
-        row: i,
+        rowIndex: i,
         text: String(sheet.getCell(i, header[QUERY_COL]).value),
         user: String(sheet.getCell(i, header[USER_COL]).value),
       };
@@ -145,31 +166,27 @@ function getQueries(
 function getCalls(
   doc: GoogleSpreadsheet,
   allHeader: HeaderInfo
-): Promise<Record<number, DcCall>> {
+): Promise<Record<number, DcCalls>> {
   const sheet = doc.sheetsByTitle[DC_CALL_SHEET];
   const header = allHeader[DC_CALL_SHEET];
   const numRows = sheet.rowCount;
-  const loadPromises = [];
-  for (const col of [QUERY_ID_COL, CALL_ID_COL]) {
-    loadPromises.push(
-      sheet.loadCells({
-        endColumnIndex: header[col] + 1,
-        startColumnIndex: header[col],
-      })
-    );
-  }
-  return Promise.all(loadPromises).then(() => {
-    const tmp: Record<number, DcCall> = {};
+  return sheet.loadCells().then(() => {
+    const calls: Record<number, DcCalls> = {};
     for (let i = 1; i < numRows; i++) {
-      const row = i;
       const queryId = Number(sheet.getCell(i, header[QUERY_ID_COL]).value);
       const callId = Number(sheet.getCell(i, header[CALL_ID_COL]).value);
-      if (!tmp[queryId]) {
-        tmp[queryId] = {};
+      if (!calls[queryId]) {
+        calls[queryId] = {};
       }
-      tmp[queryId][callId] = row;
+      calls[queryId][callId] = {
+        rowIndex: i,
+        question: sheet.getCell(i, header[DC_QUESTION_COL]).stringValue,
+        llmStat: sheet.getCell(i, header[LLM_STAT_COL]).stringValue,
+        dcResponse: sheet.getCell(i, header[DC_RESPONSE_COL]).stringValue,
+        dcStat: sheet.getCell(i, header[DC_STAT_COL]).stringValue,
+      };
     }
-    return tmp;
+    return calls;
   });
 }
 
@@ -179,17 +196,8 @@ function getEvalType(
 ): Promise<EvalType> {
   const sheet = doc.sheetsByTitle[DC_METADATA_SHEET];
   const header = allHeader[DC_METADATA_SHEET];
-  const loadPromises = [];
-  for (const col of [METADATA_KEY_COL, METADATA_VAL_COL]) {
-    loadPromises.push(
-      sheet.loadCells({
-        endColumnIndex: header[col] + 1,
-        startColumnIndex: header[col],
-      })
-    );
-  }
   const numRows = sheet.rowCount;
-  return Promise.all(loadPromises).then(() => {
+  return sheet.loadCells().then(() => {
     for (let i = 1; i < numRows; i++) {
       const metadataKey = sheet.getCell(i, header[METADATA_KEY_COL]).value;
       if (metadataKey === METADATA_KEY_TYPE) {
@@ -206,13 +214,15 @@ function getEvalType(
 
 // Promise to get all the information about a google spreadsheet doc
 export function getDocInfo(doc: GoogleSpreadsheet): Promise<DocInfo> {
-  return getHeader(doc).then((allHeader) => {
-    return Promise.all([
-      getQueries(doc, allHeader),
-      getCalls(doc, allHeader),
-      getEvalType(doc, allHeader),
-    ]).then(([allQuery, allCall, evalType]) => {
+  return getHeader(doc)
+    .then((allHeader) => {
+      return Promise.all([
+        getQueries(doc, allHeader),
+        getCalls(doc, allHeader),
+        getEvalType(doc, allHeader),
+      ]);
+    })
+    .then(([allQuery, allCall, evalType]) => {
       return { doc, allQuery, allCall, evalType };
     });
-  });
 }

@@ -69,7 +69,7 @@ export function FeedbackForm(props: FeedbackFormProps): JSX.Element {
         </div>
       </div>
       <div className="one-question">
-        <div className="question">Why?</div>
+        <div className="question">Comments (optional)</div>
         <div className="free-text-input">
           <textarea
             rows={2}

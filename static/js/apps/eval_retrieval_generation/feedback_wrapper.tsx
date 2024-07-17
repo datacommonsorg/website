@@ -33,7 +33,7 @@ interface FeedbackWrapperPropType {
 }
 
 export function FeedbackWrapper(props: FeedbackWrapperPropType): JSX.Element {
-  const { evalType, doc, allCall } = useContext(AppContext);
+  const { evalType, allCall } = useContext(AppContext);
   const { sessionQueryId } = useContext(SessionContext);
 
   return (
@@ -50,7 +50,7 @@ export function FeedbackWrapper(props: FeedbackWrapperPropType): JSX.Element {
       <div className="content">
         <div id="question-section">{props.children}</div>
         {evalType === EvalType.RAG && (
-          <TablePane doc={doc} calls={allCall[sessionQueryId]} />
+          <TablePane calls={allCall[sessionQueryId]} />
         )}
       </div>
       <FeedbackNavigation checkAndSubmit={props.checkAndSubmit} />
