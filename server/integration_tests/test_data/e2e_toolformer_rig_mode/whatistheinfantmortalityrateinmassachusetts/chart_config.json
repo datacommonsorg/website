@@ -123,38 +123,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
-                    ],
-                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of Massachusetts (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
-                    ],
-                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of Massachusetts (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of Massachusetts"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years"
                     ],
                     "title": "Count of Mortality Event: 14 Years or Less (As Fraction of Count Person Upto 14 Years) in Massachusetts",
@@ -234,38 +202,6 @@
             ],
             "denom": "Count_Person",
             "title": "Mortality Events (1 Years or Less): Q00-Q99 ( Congenital Malformations, Deformations and Chromosomal Abnormalities)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_Upto1Years_CongenitalMalformationsDeformationsChromosomalAbnormalities"
-                    ],
-                    "title": "Mortality Events (1 Years or Less): Q00-Q99 ( Congenital Malformations, Deformations and Chromosomal Abnormalities) in Counties of Massachusetts (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Death_Upto1Years_CongenitalMalformationsDeformationsChromosomalAbnormalities"
-                    ],
-                    "title": "Mortality Events (1 Years or Less): Q00-Q99 ( Congenital Malformations, Deformations and Chromosomal Abnormalities) in Counties of Massachusetts (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Mortality Events (1 Years or Less): Q00-Q99 ( Congenital Malformations, Deformations and Chromosomal Abnormalities) in Counties of Massachusetts"
           }
         ],
         "statVarSpec": {
@@ -301,9 +237,6 @@
       }
     ],
     "metadata": {
-      "containedPlaceTypes": {
-        "State": "County"
-      },
       "placeDcid": [
         "geoId/25"
       ]

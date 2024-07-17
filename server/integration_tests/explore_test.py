@@ -727,6 +727,7 @@ class ExploreTestEE2(ExploreTest):
             'what is the poverty rate in Seattle?',
             # toolformer mode should not show correlations
             'Foreign born vs. native born in Sunnyvale'
+            'Commute time in california',
         ],
         mode='toolformer_rig')
 
@@ -744,6 +745,7 @@ class ExploreTestEE2(ExploreTest):
             'Which California counties have the youngest recent mothers?',
             # toolformer mode should not show correlations
             'Foreign born vs. native born in Sunnyvale',
+            'What is the coal powered electricity generation in US states?',
         ],
         mode='toolformer_rag')
 

@@ -26,7 +26,7 @@ from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.explore import params
-from server.lib.nl.fulfillment import simple
+from server.lib.nl.fulfillment import place_vars
 from server.lib.nl.fulfillment.existence import chart_vars_fetch
 from server.lib.nl.fulfillment.existence import ExtensionExistenceCheckTracker
 from server.lib.nl.fulfillment.existence import get_places_to_check
@@ -340,8 +340,8 @@ def _add_charts_for_extended_svs(state: PopulateState, places: List[Place],
       printed_sv_extensions.add(exist_svs_key)
 
       # Add this as a secondary chart.
-      if simple.populate(state, chart_vars, places,
-                         ChartOriginType.SECONDARY_CHART, _MAX_RANK):
+      if place_vars.populate(state, chart_vars, places,
+                             ChartOriginType.SECONDARY_CHART, _MAX_RANK):
         found = True
         num_charts += 1
       else:

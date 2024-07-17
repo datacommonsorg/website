@@ -21,8 +21,8 @@ from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RankingType
+from server.lib.nl.fulfillment import place_vars
 from server.lib.nl.fulfillment import ranking_across_places
-from server.lib.nl.fulfillment import simple
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.fulfillment.utils import add_chart_to_utterance
@@ -90,4 +90,4 @@ def _simple(state: PopulateState, chart_vars: ChartVars, places: List[Place],
   # Set this so that `simple` will plot the SVs in a single chart.
   cv.is_topic_peer_group = True
 
-  return simple.populate(state, cv, places, chart_origin, rank)
+  return place_vars.populate(state, cv, places, chart_origin, rank)
