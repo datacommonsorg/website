@@ -16,16 +16,17 @@
 
 /* Component to display a table */
 
+import { GoogleSpreadsheet } from "google-spreadsheet";
 import _ from "lodash";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Collapsible from "react-collapsible";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 
 import { DC_CALL_SHEET, DC_RESPONSE_COL, DC_STAT_COL } from "./constants";
-import { AppContext, SessionContext } from "./context";
 import { getSheetsRows } from "./data_store";
+import { DcCall } from "./types";
 import { processTableText } from "./util";
 
 interface TableInfo {
@@ -47,27 +48,28 @@ function getTableTrigger(tableInfo: TableInfo, opened: boolean): JSX.Element {
   );
 }
 
-export function TablePane(): JSX.Element {
-  const { allCall, doc } = useContext(AppContext);
-  const { sessionQueryId } = useContext(SessionContext);
+interface TablePanePropType {
+  doc: GoogleSpreadsheet;
+  calls: DcCall;
+}
+
+export function TablePane(props: TablePanePropType): JSX.Element {
   const [tables, setTables] = useState<TableInfo[]>([]);
 
   useEffect(() => {
-    if (_.isEmpty(allCall[sessionQueryId])) {
+    if (_.isEmpty(props.calls)) {
       setTables([]);
       return;
     }
-    const sheet = doc.sheetsByTitle[DC_CALL_SHEET];
-    const tableIds = Object.keys(allCall[sessionQueryId]).sort(
+    const sheet = props.doc.sheetsByTitle[DC_CALL_SHEET];
+    const tableIds = Object.keys(props.calls).sort(
       (a, b) => Number(a) - Number(b)
     );
-    const rowIdxList = tableIds.map(
-      (tableId) => allCall[sessionQueryId][tableId]
-    );
+    const rowIdxList = tableIds.map((tableId) => props.calls[tableId]);
     getSheetsRows(sheet, rowIdxList).then((rows) => {
       const tableList = [];
       tableIds.forEach((tableId) => {
-        const rowIdx = allCall[sessionQueryId][tableId];
+        const rowIdx = props.calls[tableId];
         const row = rows[rowIdx];
         if (row) {
           tableList.push({
@@ -79,15 +81,18 @@ export function TablePane(): JSX.Element {
       });
       setTables(tableList);
     });
-  }, [allCall, doc, sessionQueryId]);
+  }, [props]);
 
-  if (_.isEmpty(tables)) {
+  // We only want to show tables that actually have content
+  const filteredTables = tables.filter((tableInfo) => !!tableInfo.content);
+
+  if (_.isEmpty(filteredTables)) {
     return null;
   }
 
   return (
     <div className="table-pane">
-      {tables.map((tableInfo) => {
+      {filteredTables.map((tableInfo) => {
         return (
           <Collapsible
             key={tableInfo.id}

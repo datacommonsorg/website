@@ -149,18 +149,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Deaths in China",
+                    "description": "Number of Deaths in China",
                     "statVarKey": [
                       "Count_Death"
                     ],
-                    "title": "Deaths in China",
+                    "title": "Number of Deaths in China",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Deaths"
+            "title": "Number of Deaths"
           },
           {
             "columns": [
@@ -457,7 +457,7 @@
         ],
         "statVarSpec": {
           "Count_Death": {
-            "name": "Deaths",
+            "name": "Number of Deaths",
             "statVar": "Count_Death"
           },
           "Count_Death_AsAFractionOfCount_Person": {

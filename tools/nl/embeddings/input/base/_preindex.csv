@@ -298,6 +298,7 @@ Asian Or Pacific Islander Male Population By Age,dc/topic/AsianOrPacificIslander
 Asian Or Pacific Islander Population By Age,dc/topic/AsianOrPacificIslanderPopulationByAge
 Asian Population By Age,dc/topic/AsianAlonePopulationByAge
 "Assist developing countries in attaining long-term debt sustainability through coordinated policies aimed at fostering debt financing, debt relief and debt restructuring, as appropriate, and address the external debt of highly indebted poor countries to reduce debt distress",dc/topic/sdg_17.4
+Asthma,dc/topic/Asthma
 Atmospheric pressure at Surface Level,AtmosphericPressure_SurfaceLevel
 Avalanche,dc/topic/Avalanche
 Average Age of Mothers at Live Birth,Mean_MothersAge_BirthEvent_LiveBirth
@@ -626,7 +627,6 @@ Coverage of protected areas in relation to marine areas,dc/topic/sdg_14.5.1
 "Coverage of treatment interventions (pharmacological, psychosocial and rehabilitation and aftercare services) for substance use disorders",dc/topic/sdg_3.5.1
 Crime,dc/topic/Crime
 Cyclone,dc/topic/Cyclone
-Daily Tobacco Smoking Prevalence,WHO/M_Est_smk_daily
 Data related to agriculture,dc/topic/Agriculture
 Death,dc/topic/Mortality
 Death Rate from Drownings,WHO/SA_0000001441
@@ -1038,7 +1038,6 @@ Literacy Rate Among people Aged 10 Years and Older,Count_Person_10OrMoreYears_Li
 Literacy Rate Among people Aged 10 to 14 years,Count_Person_10To14Years_Literate_AsAFractionOf_Count_Person_10To14Years
 Liver Cancer Death Rate,WHO/SA_0000001445
 Liver Cirrhosis Death Rate,WHO/SA_0000001446
-Low Birth Weight Prevalence,WHO/LBW_PREVALENCE
 Macroeconomic Dashboard,dc/topic/sdg_17.13.1
 Malaria,dc/topic/Malaria
 "Malaria incidence per 1,000 population",dc/topic/sdg_3.3.3
@@ -1074,7 +1073,6 @@ Max Temperature Likely (1%) At Least Once Per Decade,dc/topic/MaxTemperature1Per
 Max Temperature Likely (1%) At Least Once Per Year,dc/topic/MaxTemperature1PercentLikelyAtLeastOncePerYear
 Max Temperature Likely (5%) At Least Once Per Decade,dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerDecade
 Max Temperature Likely (5%) At Least Once Per Year,dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerYear
-Maximum Temperature,Max_Temperature
 Maximum number of consecutive dry days,ConsecutiveDryDays
 Maximum rain fall,Max_Rainfall
 Maximum snow fall,Max_Snowfall
@@ -1123,7 +1121,6 @@ Mean Retirement Income of Households with foreign born people from South Central
 Mean Retirement Income of Households with foreign born people from South Eastern Asia,Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthSouthEasternAsia
 Mean Retirement Income of Households with foreign born people from Southern Eastern Europe,Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthSouthernEasternEurope
 Mean Retirement Income of Households with foreign born people from Western Asia,Mean_RetirementIncome_Household_ForeignBorn_PlaceOfBirthWesternAsia
-Mean Temperature,Mean_Temperature
 Mean Visibility,Mean_Visibility
 Mean Wind Speed,Mean_WindSpeed
 Mean commute time of working people,Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome
@@ -1188,7 +1185,7 @@ Median age of people residing in adult correctional facilities,Median_Age_Person
 Median age of people residing in college or university student housing,Median_Age_Person_ResidesInCollegeOrUniversityStudentHousing
 Median age of people residing in group quarters,Median_Age_Person_ResidesInGroupQuarters
 Median age of people residing in institutionalized group quarters,Median_Age_Person_ResidesInInstitutionalizedGroupQuarters
-Median age of people residing in noninstitutionalized group quarters,Median_Age_Person_ResidesInNoninstitutionalizedGroupQuarters
+Median age of people residing in non-institutionalized group quarters,Median_Age_Person_ResidesInNoninstitutionalizedGroupQuarters
 Median age of people residing in nursing facilities,Median_Age_Person_ResidesInNursingFacilities
 Median age of people who worked in the past 12 months,Median_Age_Person_WorkedInThePast12Months
 Median age of white people,Median_Age_Person_WhiteAlone
@@ -1346,8 +1343,8 @@ Number foreign born males resides in Group Quarters,Count_Person_Male_ForeignBor
 Number foreign born males resides in Institutionalized Group Quarters,Count_Person_Male_ForeignBorn_ResidesInInstitutionalizedGroupQuarters
 Number foreign born males resides in Juvenile Facilities,Count_Person_Male_ForeignBorn_ResidesInJuvenileFacilities
 Number foreign born males resides in Military Quarters Or Military Ships,Count_Person_Male_ForeignBorn_ResidesInMilitaryQuartersOrMilitaryShips
-Number foreign born males resides in Noninstitutionalized Group Quarters,Count_Person_Male_ForeignBorn_ResidesInNoninstitutionalizedGroupQuarters
 Number foreign born males resides in Nursing Facilities,Count_Person_Male_ForeignBorn_ResidesInNursingFacilities
+Number foreign born males resides in non-institutionalized Group Quarters,Count_Person_Male_ForeignBorn_ResidesInNoninstitutionalizedGroupQuarters
 Number of (a) plant and (b) animal genetic resources for food and agriculture secured in either medium- or long-term conservation facilities,dc/topic/sdg_2.5.1
 Number of AIDS Cases,Count_MedicalConditionIncident_ConditionAIDS
 Number of Accommodation And Food Services establishments,Count_Establishment_NAICSAccommodationFoodServices;dc/w8gp902jnk426
@@ -1441,7 +1438,6 @@ Number of Christian people,indianCensus/Count_Person_Religion_Christian
 Number of Christian workers,indianCensus/Count_Person_Religion_Christian_Workers
 Number of Christians living in rural areas,indianCensus/Count_Person_Religion_Christian_Rural
 Number of Christians living in urban areas,indianCensus/Count_Person_Religion_Christian_Urban
-Number of Civilian people Aged 18 or More Resides In Nursing Facilities,Count_Person_18OrMoreYears_Civilian_ResidesInNursingFacilities
 Number of Confirmed Acute Hepatitis C Cases,Count_MedicalConditionIncident_ConditionHepatitisC_AcuteCondition_ConfirmedCase
 Number of Confirmed Cases of Invasive Streptococcus Pneumonia,Count_MedicalConditionIncident_ConditionStreptococcusPneumonia_InvasiveDisease_ConfirmedCase
 Number of Confirmed Cases of Streptococcus Pneumonia,Count_MedicalConditionIncident_ConditionStreptococcusPneumonia_ConfirmedCase
@@ -1513,7 +1509,6 @@ Number of Deaths Due to Neoplasms,Count_Death_Neoplasms
 Number of Deaths Due to Special Cases,Count_Death_SpecialCases
 Number of Deaths from Animal Contact Transmission,Count_MedicalConditionIncident_PatientDeceased_AnimalContactTransmission
 Number of Deaths from Assault (Homicide),Count_MortalityEvent_Assault(Homicide)
-Number of Deaths from Diabetes,Count_MortalityEvent_Diabetes
 Number of Deaths from Foodborne Transmission,Count_MedicalConditionIncident_PatientDeceased_FoodborneTransmission
 Number of Deaths from Heart Disease Excluding Hypertension,Count_MortalityEvent_HeartDiseaseExcludingHypertension
 Number of Deaths from Person To Person Transmission,Count_MedicalConditionIncident_PatientDeceased_PersonToPersonTransmission
@@ -1755,7 +1750,7 @@ Number of Jains living in rural areas,indianCensus/Count_Person_Religion_Jain_Ru
 Number of Jains living in urban areas,indianCensus/Count_Person_Religion_Jain_Urban
 Number of Labor Force Participants Residing in College or University Student Housing,Count_Person_InLaborForce_ResidesInCollegeOrUniversityStudentHousing
 Number of Labor Force Participants reside in Group Quarters,Count_Person_InLaborForce_ResidesInGroupQuarters
-Number of Labor Force Participants reside in Noninstitutionalized Group Quarters,Count_Person_InLaborForce_ResidesInNoninstitutionalizedGroupQuarters
+Number of Labor Force Participants reside in non-institutionalized Group Quarters,Count_Person_InLaborForce_ResidesInNoninstitutionalizedGroupQuarters
 Number of Legionnaires Disease Cases,Count_MedicalConditionIncident_ConditionLegionnairesDisease
 Number of Lightning Events,Count_LightningEvent
 Number of Listeriosis Cases,Count_MedicalConditionIncident_ConditionListeriosis
@@ -1807,7 +1802,7 @@ Number of Merchant Wholesalers establishments,Count_Establishment_USC_MerchantWh
 Number of Milk Cows in Farm Inventory,Count_FarmInventory_MilkCows
 "Number of Mining, Quarrying, And Oil And Gas Extraction establishments",Count_Establishment_NAICSMiningQuarryingOilGasExtraction;dc/br6elkd593zs1
 Number of Mumps Cases,Count_MedicalConditionIncident_ConditionMumps
-Number of Murder and Non Negligent Manslaughter per capita,Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person
+Number of Murder and non-negligent manslaughter per capita,Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person
 Number of Muslim boys,indianCensus/Count_Person_Religion_Muslim_YearsUpto6_Male
 Number of Muslim children,indianCensus/Count_Person_Religion_Muslim_YearsUpto6
 Number of Muslim children in rural areas,indianCensus/Count_Person_Religion_Muslim_YearsUpto6_Rural
@@ -1819,6 +1814,7 @@ Number of Muslim workers,indianCensus/Count_Person_Religion_Muslim_Workers
 Number of Muslims,indianCensus/Count_Person_Religion_Muslim
 Number of Muslims living in rural areas,indianCensus/Count_Person_Religion_Muslim_Rural
 Number of Muslims living in urban areas,indianCensus/Count_Person_Religion_Muslim_Urban
+Number of Native American people,Count_Person_AmericanIndianOrAlaskaNativeAlone
 Number of Native Hawaiian Or Other Pacific Islander males live Above Poverty Level In The Past 12 Months,Count_Person_Male_AbovePovertyLevelInThePast12Months_HispanicOrLatino
 Number of Native Hawaiian Or Other Pacific Islander males living Below Poverty Level In The Past 12 Months,Count_Person_Male_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone
 Number of Native Hawaiian Or Other Pacific IslanderAlone people below poverty level in the past 12 months,Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone
@@ -1845,11 +1841,6 @@ Number of Non-Family Households living in Single Unit,Count_Household_NonfamilyH
 Number of Non-Family Households living in Two Or More Units,Count_Household_NonfamilyHousehold_TwoOrMoreUnits
 Number of NonCongenital Zika Virus Disease Cases,Count_MedicalConditionIncident_ConditionZikaVirusDisease_NonCongenitalDisease
 Number of NonCongenital Zika Virus Infection Cases,Count_MedicalConditionIncident_ConditionZikaVirusInfection_NonCongenitalDisease
-Number of NonInstitutionalized civilian,Count_Person_Civilian_NonInstitutionalized
-Number of NonInstitutionalized civilian with disability,Count_Person_Civilian_WithDisability_NonInstitutionalized
-Number of NonInstitutionalized females,Count_Person_Civilian_Female_NonInstitutionalized
-Number of NonInstitutionalized females without disability,Count_Person_Civilian_NoDisability_NonInstitutionalized
-Number of NonInstitutionalized males,Count_Person_Civilian_Male_NonInstitutionalized
 Number of NonNeuroinvasive West Nile Virus Disease Cases,Count_MedicalConditionIncident_ConditionWestNileVirusDisease_NonNeuroinvasiveDisease
 Number of Nuclear Electric Power Generation establishments,dc/eptfljlz7bgbg
 Number of Occupied Housing Units,Count_HousingUnit_OccupiedHousingUnit
@@ -1887,8 +1878,8 @@ Number of People Residing in College Or University Student Housing,Count_Person_
 Number of People Residing in Group Quarters,Count_Person_ResidesInGroupQuarters
 Number of People Residing in Household,Count_Person_ResidesInHousehold
 Number of People Residing in Institutionalized Group Quarters,Count_Person_ResidesInInstitutionalizedGroupQuarters
-Number of People Residing in Noninstitutionalized Group Quarters,Count_Person_ResidesInNoninstitutionalizedGroupQuarters
 Number of People Residing in Nursing Facilities,Count_Person_ResidesInNursingFacilities
+Number of People Residing in non-institutionalized Group Quarters,Count_Person_ResidesInNoninstitutionalizedGroupQuarters
 Number of People Who Completed 10th Grade,Count_Person_EducationalAttainment10ThGrade
 Number of People Who Completed 11th Grade,Count_Person_EducationalAttainment11ThGrade
 Number of People Who Completed 12th Grade No Diploma,Count_Person_EducationalAttainment12ThGradeNoDiploma
@@ -1914,8 +1905,8 @@ Number of People With Bachelor's Degree or Higher Who Reside in Adult Correction
 Number of People With Bachelor's Degree or Higher Who Reside in College or University Student Housing,Count_Person_EducationalAttainmentBachelorsDegreeOrHigher_ResidesInCollegeOrUniversityStudentHousing
 Number of People With Bachelor's Degree or Higher Who Reside in Group Quarters,Count_Person_EducationalAttainmentBachelorsDegreeOrHigher_ResidesInGroupQuarters
 Number of People With Bachelor's Degree or Higher Who Reside in Institutionalized Group Quarters,Count_Person_EducationalAttainmentBachelorsDegreeOrHigher_ResidesInInstitutionalizedGroupQuarters
-Number of People With Bachelor's Degree or Higher Who Reside in Noninstitutionalized Group Quarters,Count_Person_EducationalAttainmentBachelorsDegreeOrHigher_ResidesInNoninstitutionalizedGroupQuarters
 Number of People With Bachelor's Degree or Higher Who Reside in Nursing Facilities,Count_Person_EducationalAttainmentBachelorsDegreeOrHigher_ResidesInNursingFacilities
+Number of People With Bachelor's Degree or Higher Who Reside in non-institutionalized Group Quarters,Count_Person_EducationalAttainmentBachelorsDegreeOrHigher_ResidesInNoninstitutionalizedGroupQuarters
 Number of People With Bachelor's Degree or Higher Who Speak Only English at Home,Count_Person_EducationalAttainmentBachelorsDegreeOrHigher_OnlyEnglishSpokenAtHome
 Number of People With Bachelor's or higher Degree,Count_Person_EducationalAttainmentBachelorsDegreeOrHigher
 Number of People With Independent Living Difficulty,Count_Person_IndependentLivingDifficulty
@@ -2062,13 +2053,18 @@ Number of black or african american people with disabilities,Count_Person_WithDi
 Number of boys under 4 years old,Count_Person_0To4Years_Male
 Number of burglaries,Count_CriminalActivities_Burglary
 Number of car thefts,Count_CriminalActivities_MotorVehicleTheft
-Number of civilian reside in household,Count_Person_Civilian_ResidesInHousehold
+Number of children without health insurance,Count_Person_18OrLessYears_NoHealthInsurance
+Number of civilians Aged 18 or More Resides In Nursing Facilities,Count_Person_18OrMoreYears_Civilian_ResidesInNursingFacilities
 Number of civilians aged 18 or more,Count_Person_18OrMoreYears_Civilian
 Number of civilians aged 18 or more who reside in adult correctional facilities,Count_Person_18OrMoreYears_Civilian_ResidesInAdultCorrectionalFacilities
 Number of civilians aged 18 or more who reside in college or university student housing,Count_Person_18OrMoreYears_Civilian_ResidesInCollegeOrUniversityStudentHousing
 Number of civilians aged 18 or more who reside in group quarters,Count_Person_18OrMoreYears_Civilian_ResidesInGroupQuarters
 Number of civilians aged 18 or more who reside in institutionalized group quarters,Count_Person_18OrMoreYears_Civilian_ResidesInInstitutionalizedGroupQuarters
-Number of civilians aged 18 or more who reside in noninstitutionalized group quarters,Count_Person_18OrMoreYears_Civilian_ResidesInNoninstitutionalizedGroupQuarters
+Number of civilians aged 18 or more who reside in non-institutionalized group quarters,Count_Person_18OrMoreYears_Civilian_ResidesInNoninstitutionalizedGroupQuarters
+Number of civilians in family household,Count_Person_Civilian_FamilyHousehold_NonInstitutionalized
+Number of civilians in labor force,Count_Person_Civilian_InLaborForce
+Number of civilians in married couple family household,Count_Person_Civilian_MarriedCoupleFamilyHousehold_NonInstitutionalized
+Number of civilians reside in household,Count_Person_Civilian_ResidesInHousehold
 Number of coastal floods,Count_CoastalFloodEvent
 Number of companies publishing sustainability reports,dc/topic/sdg_12.6.1
 Number of companies publishing sustainability reports with disclosure by dimension,sdg/EN_SCP_FRMN
@@ -2110,11 +2106,11 @@ Number of divorced people residing in adult correctional facilities,Count_Person
 Number of divorced people residing in college or university student housing,Count_Person_Divorced_ResidesInCollegeOrUniversityStudentHousing
 Number of divorced people residing in group quarters,Count_Person_Divorced_ResidesInGroupQuarters
 Number of divorced people residing in institutionalized group quarters,Count_Person_Divorced_ResidesInInstitutionalizedGroupQuarters
-Number of divorced people residing in noninstitutionalized group quarters,Count_Person_Divorced_ResidesInNoninstitutionalizedGroupQuarters
+Number of divorced people residing in non-institutionalized group quarters,Count_Person_Divorced_ResidesInNoninstitutionalizedGroupQuarters
 Number of divorced people residing in nursing facilities,Count_Person_Divorced_ResidesInNursingFacilities
 Number of divorced people who are foreign born,dc/twlffl9b5vgn3
 Number of elementary school teachers,Count_Teacher_ElementaryTeacher
-Number of employed civilian,Count_Person_Civilian_Employed
+Number of employed civilians,Count_Person_Civilian_Employed
 Number of employed people,Count_Person_Employed;dc/nm9hcklgg5zb3
 "Number of employed people in Agriculture, forestry and fishing",Count_Person_Employed_NACE/A
 Number of employed people in Construction,Count_Person_Employed_NACE/F
@@ -2175,7 +2171,6 @@ Number of farms that sell vegetables,Count_Farm_VegetablesHarvestedForSale
 Number of female American Indian Or Alaska Native With Bachelor or higher Degree,dc/4qtse8536dg63
 Number of female Black Or African American With Bachelor or higher Degree,dc/t7403chwvspm
 Number of female Deaths from Assault (Homicide),Count_MortalityEvent_Assault(Homicide)_Female
-Number of female Deaths from Diabetes,Count_MortalityEvent_Diabetes_Female
 Number of female Native Hawaiian Or Other Pacific Islander With Bachelor or higher Degree,dc/v7yl3k9w3h7e8
 Number of female asian With Bachelor or higher Degree,dc/eg6rrdr1tkf76
 Number of female full time year around worker,Count_Person_Female_FullTimeYearRoundWorker
@@ -2201,8 +2196,8 @@ Number of females residing in Group Quarters,Count_Person_Female_ResidesInGroupQ
 Number of females residing in Institutionalized Group Quarters,Count_Person_Female_ResidesInInstitutionalizedGroupQuarters
 Number of females residing in Juvenile Facilities,Count_Person_Female_ResidesInJuvenileFacilities
 Number of females residing in Military Quarters or Military Ships,Count_Person_Female_ResidesInMilitaryQuartersOrMilitaryShips
-Number of females residing in Noninstitutionalized Group Quarters,Count_Person_Female_ResidesInNoninstitutionalizedGroupQuarters
 Number of females residing in Nursing Facilities,Count_Person_Female_ResidesInNursingFacilities
+Number of females residing in non-institutionalized Group Quarters,Count_Person_Female_ResidesInNoninstitutionalizedGroupQuarters
 Number of females that are not Hispanic or Latino,Count_Person_Female_NotHispanicOrLatino
 Number of females who divorced and live below poverty in the past 12 months,Count_Person_Female_DivorcedInThePast12Months_BelowPovertyLevelInThePast12Months
 Number of females who do not work,Count_Person_NonWorker_Female
@@ -2215,8 +2210,8 @@ Number of females with earnings residing in Group Quarters,Count_Person_Female_W
 Number of females with earnings residing in Institutionalized Group Quarters,Count_Person_Female_WithEarnings_ResidesInInstitutionalizedGroupQuarters
 Number of females with earnings residing in Juvenile Facilities,Count_Person_Female_WithEarnings_ResidesInJuvenileFacilities
 Number of females with earnings residing in Military Quarters or Military Ships,Count_Person_Female_WithEarnings_ResidesInMilitaryQuartersOrMilitaryShips
-Number of females with earnings residing in Noninstitutionalized Group Quarters,Count_Person_Female_WithEarnings_ResidesInNoninstitutionalizedGroupQuarters
 Number of females with earnings residing in Nursing Facilities,Count_Person_Female_WithEarnings_ResidesInNursingFacilities
+Number of females with earnings residing in non-institutionalized Group Quarters,Count_Person_Female_WithEarnings_ResidesInNoninstitutionalizedGroupQuarters
 Number of females with heart Disease,Count_Person_Female_ConditionDiseasesOfHeart
 Number of females without health insurance,Count_Person_Female_NoHealthInsurance
 Number of floods,Count_FloodEvent
@@ -2247,8 +2242,8 @@ Number of foreign born females who reside in College Or University Student Housi
 Number of foreign born females who reside in Group Quarters,Count_Person_Female_ForeignBorn_ResidesInGroupQuarters
 Number of foreign born females who reside in Institutionalized Group Quarters,Count_Person_Female_ForeignBorn_ResidesInInstitutionalizedGroupQuarters
 Number of foreign born females who reside in Military Quarters Or Military Ships,Count_Person_Female_ForeignBorn_ResidesInMilitaryQuartersOrMilitaryShips
-Number of foreign born females who reside in Noninstitutionalized Group Quarters,Count_Person_Female_ForeignBorn_ResidesInNoninstitutionalizedGroupQuarters
 Number of foreign born females who reside in Nursing Facilities,Count_Person_Female_ForeignBorn_ResidesInNursingFacilities
+Number of foreign born females who reside in non-institutionalized Group Quarters,Count_Person_Female_ForeignBorn_ResidesInNoninstitutionalizedGroupQuarters
 Number of foreign born people from Northern Western Europe,Count_Person_ForeignBorn_PlaceOfBirthNorthernWesternEurope
 Number of foreign born people from Oceania,Count_Person_ForeignBorn_PlaceOfBirthOceania
 Number of foreign born people from South America,Count_Person_ForeignBorn_PlaceOfBirthSouthamerica
@@ -2348,7 +2343,6 @@ Number of households without householders over 60 years old that did not receive
 Number of households without internet subscription,Count_Household_InternetWithoutSubscription
 Number of houseless females,Count_Person_Houseless_Female
 Number of houseless females under 6 years,Count_Person_Houseless_YearsUpto6_Female
-Number of houseless females who belong to Scheduled Caste,Count_Person_Houseless_ScheduledCaste_Female
 Number of houseless females who reside in rural area,Count_Person_Houseless_Rural_Female
 Number of houseless females who reside in urban area,Count_Person_Houseless_Urban_Female
 Number of houseless females who worked in the last year,Count_Person_Houseless_Workers_Female
@@ -2367,7 +2361,6 @@ Number of houseless literates in rural areas,Count_Person_Houseless_Literate_Rur
 Number of houseless literates in urban areas,Count_Person_Houseless_Literate_Urban
 Number of houseless males,Count_Person_Houseless_Male
 Number of houseless males under 6 years,Count_Person_Houseless_YearsUpto6_Male
-Number of houseless males who belong to Scheduled Caste,Count_Person_Houseless_ScheduledCaste_Male
 Number of houseless males who reside in rural area,Count_Person_Houseless_Rural_Male
 Number of houseless males who reside in urban area,Count_Person_Houseless_Urban_Male
 Number of houseless males who worked in the last year,Count_Person_Houseless_Workers_Male
@@ -2375,15 +2368,7 @@ Number of houseless people,Count_Person_Houseless
 Number of houseless people under 6 years who reside in rural area,Count_Person_Houseless_YearsUpto6_Rural
 Number of houseless people under 6 years who reside in urban area,Count_Person_Houseless_YearsUpto6_Urban
 Number of houseless people who reside in urban area,Count_Person_Houseless_Urban
-Number of houseless scheduled caste people who reside in urban area,Count_Person_Houseless_ScheduledCaste_Urban
-Number of houseless scheduled tribe females,Count_Person_Houseless_ScheduledTribe_Female
-Number of houseless scheduled tribe males,Count_Person_Houseless_ScheduledTribe_Male
-Number of houseless scheduled tribe people,Count_Person_Houseless_ScheduledTribe
-Number of houseless scheduled tribe people who reside in rural area,Count_Person_Houseless_ScheduledTribe_Rural
-Number of houseless scheduled tribe people who reside in urban area,Count_Person_Houseless_ScheduledTribe_Urban
 Number of houseless who are up to 6 years old,Count_Person_Houseless_YearsUpto6
-Number of houseless who belong to Scheduled Caste,Count_Person_Houseless_ScheduledCaste
-Number of houseless who belong to Scheduled Caste and reside in rural area,Count_Person_Houseless_ScheduledCaste_Rural
 Number of houseless who did not work in the last year,Count_Person_Houseless_NonWorker
 Number of houseless who reside in rural area,Count_Person_Houseless_Rural
 Number of houseless who worked in the last year,Count_Person_Houseless_Workers
@@ -2492,7 +2477,7 @@ Number of males residing in group quarters,Count_Person_Male_ResidesInGroupQuart
 Number of males residing in institutionalized group quarters,Count_Person_Male_ResidesInInstitutionalizedGroupQuarters
 Number of males residing in juvenile facilities,Count_Person_Male_ResidesInJuvenileFacilities
 Number of males residing in military quarters or military ships,Count_Person_Male_ResidesInMilitaryQuartersOrMilitaryShips
-Number of males residing in noninstitutionalized group quarters,Count_Person_Male_ResidesInNoninstitutionalizedGroupQuarters
+Number of males residing in non-institutionalized group quarters,Count_Person_Male_ResidesInNoninstitutionalizedGroupQuarters
 Number of males residing in nursing facilities,Count_Person_Male_ResidesInNursingFacilities
 Number of males that are American Indian Or Alaska Native,Count_Person_Male_AmericanIndianOrAlaskaNativeAlone
 Number of males that are Asian Or Pacific Islander,Count_Person_Male_AsianOrPacificIslander
@@ -2527,7 +2512,7 @@ Number of married couple households with a householder with some college or an a
 Number of married females,Count_Person_Female_MarriedAndNotSeparated
 Number of married foreign born people,Count_Person_15OrMoreYears_MarriedAndNotSeparated_ForeignBorn
 Number of married native people,Count_Person_15OrMoreYears_MarriedAndNotSeparated_Native
-Number of married people,Count_Person_MarriedAndNotSeparated;Count_Person_NowMarried
+Number of married people,Count_Person_MarriedAndNotSeparated
 Number of married people of multi-races,Count_Person_15OrMoreYears_NeverMarried_TwoOrMoreRaces
 Number of married people of one race,Count_Person_15OrMoreYears_MarriedAndNotSeparated_OneRace
 Number of married people of two or more races,Count_Person_15OrMoreYears_MarriedAndNotSeparated_TwoOrMoreRaces
@@ -2535,8 +2520,9 @@ Number of married people who reside in adult correctional facilities,Count_Perso
 Number of married people who reside in college or university student housing,Count_Person_MarriedAndNotSeparated_ResidesInCollegeOrUniversityStudentHousing
 Number of married people who reside in group quarters,Count_Person_MarriedAndNotSeparated_ResidesInGroupQuarters
 Number of married people who reside in institutionalized group quarters,Count_Person_MarriedAndNotSeparated_ResidesInInstitutionalizedGroupQuarters
-Number of married people who reside in noninstitutionalized group quarters,Count_Person_MarriedAndNotSeparated_ResidesInNoninstitutionalizedGroupQuarters
+Number of married people who reside in non-institutionalized group quarters,Count_Person_MarriedAndNotSeparated_ResidesInNoninstitutionalizedGroupQuarters
 Number of married people who reside in nursing facilities,Count_Person_MarriedAndNotSeparated_ResidesInNursingFacilities
+"Number of married people, including separated",Count_Person_NowMarried
 Number of married white people,Count_Person_15OrMoreYears_MarriedAndNotSeparated_WhiteAlone
 Number of mobile phone subscriptions per person,Count_Product_MobileCellularSubscription_AsFractionOf_Count_Person
 Number of motor vehicle occupants involved in crash,Count_Person_InvolvedInCrash_MotorVehicleOccupant
@@ -2580,6 +2566,11 @@ Number of non family households that have not received food stamps in the past 1
 Number of non white females,Count_Person_Female_NonWhite
 Number of non white people,Count_Person_NonWhite
 Number of non-family households,Count_Household_NonfamilyHousehold
+Number of non-institutionalized civilians,Count_Person_Civilian_NonInstitutionalized
+Number of non-institutionalized civilians with disability,Count_Person_Civilian_WithDisability_NonInstitutionalized
+Number of non-institutionalized female civilians,Count_Person_Civilian_Female_NonInstitutionalized
+Number of non-institutionalized female civilians without disability,Count_Person_Civilian_NoDisability_NonInstitutionalized
+Number of non-institutionalized male civilians,Count_Person_Civilian_Male_NonInstitutionalized
 Number of nonfamily households that received food stamps in the past 12 months,Count_Household_WithFoodStampsInThePast12Months_NonfamilyHousehold
 Number of nonfamily households without children and received food stamps in the last 12 months,Count_Household_WithFoodStampsInThePast12Months_WithoutChildrenUnder18_NonfamilyHousehold
 Number of one race people with disabilities,Count_Person_WithDisability_OneRace
@@ -2616,9 +2607,6 @@ Number of people do not speak english at all,Count_Person_SpeakEnglishNotAtAll
 Number of people do not speak english well,Count_Person_SpeakEnglishNotWell
 Number of people employed in the manufacturing sector,dc/ndg1xk1e9frc2
 Number of people enrolled for Aadhaar,Count_Person_Aadhaar_Enrolled
-Number of people in family household,Count_Person_Civilian_FamilyHousehold_NonInstitutionalized
-Number of people in labor force,Count_Person_Civilian_InLaborForce
-Number of people in married couple family household,Count_Person_Civilian_MarriedCoupleFamilyHousehold_NonInstitutionalized
 Number of people living above the poverty level in the past 12 months,Count_Person_AbovePovertyLevelInThePast12Months
 Number of people living in urban areas,Count_Person_Urban
 Number of people living in urban areas and below poverty level in the past 12 months,Count_Person_Urban_BelowPovertyLevelInThePast12Months
@@ -2643,7 +2631,7 @@ Number of people that are never married and reside in adult correctional facilit
 Number of people that are never married and reside in college or university student housing,Count_Person_NeverMarried_ResidesInCollegeOrUniversityStudentHousing
 Number of people that are never married and reside in group quarters,Count_Person_NeverMarried_ResidesInGroupQuarters
 Number of people that are never married and reside in institutionalized group quarters,Count_Person_NeverMarried_ResidesInInstitutionalizedGroupQuarters
-Number of people that are never married and reside in noninstitutionalized group quarters,Count_Person_NeverMarried_ResidesInNoninstitutionalizedGroupQuarters
+Number of people that are never married and reside in non-institutionalized group quarters,Count_Person_NeverMarried_ResidesInNoninstitutionalizedGroupQuarters
 Number of people that are never married and reside in nursing facilities,Count_Person_NeverMarried_ResidesInNursingFacilities
 Number of people under 18 years old without health insurance,Count_Person_18OrLessYears_NoHealthInsurance
 Number of people walking to work,dc/vp8cbt6k79t94
@@ -2652,7 +2640,7 @@ Number of people who are high school graduates or higher and reside in adult cor
 Number of people who are high school graduates or higher and reside in college or university student housing,Count_Person_EducationalAttainmentHighSchoolGraduateOrHigher_ResidesInCollegeOrUniversityStudentHousing
 Number of people who are high school graduates or higher and reside in group quarters,Count_Person_EducationalAttainmentHighSchoolGraduateOrHigher_ResidesInGroupQuarters
 Number of people who are high school graduates or higher and reside in institutionalized group quarters,Count_Person_EducationalAttainmentHighSchoolGraduateOrHigher_ResidesInInstitutionalizedGroupQuarters
-Number of people who are high school graduates or higher and reside in noninstitutionalized group quarters,Count_Person_EducationalAttainmentHighSchoolGraduateOrHigher_ResidesInNoninstitutionalizedGroupQuarters
+Number of people who are high school graduates or higher and reside in non-institutionalized group quarters,Count_Person_EducationalAttainmentHighSchoolGraduateOrHigher_ResidesInNoninstitutionalizedGroupQuarters
 Number of people who are high school graduates or higher and reside in nursing facilities,Count_Person_EducationalAttainmentHighSchoolGraduateOrHigher_ResidesInNursingFacilities
 Number of people who are less than high school graduates,Count_Person_EducationalAttainmentLessThanHighSchoolGraduate
 Number of people who are seperated,Count_Person_Separated
@@ -2883,7 +2871,6 @@ ODA providers are encouraged to consider setting a target to provide at least 0.
 Occupational professions,dc/topic/Jobs
 Ocean Health,dc/topic/OceanHealth
 Output from agricultural activities,dc/topic/AgriculturalProduction
-Overweight Prevalence Among Children Under 5 Years old,WHO/NUTOVERWEIGHTPREV
 Ozone,dc/topic/Ozone
 Ozone pollutant,dc/topic/Ozone
 PM10,dc/topic/PM10
@@ -2903,7 +2890,6 @@ People with health insurance split by race,dc/topic/WithHealthInsuranceByRace
 People with high blood pressure,dc/topic/BloodPressure
 People with high cholestrol,dc/topic/Cholesterol
 Percent of area that are burned in land fire,Percent_BurnedArea_FireEvent
-Percent of females commiting intentional homicide,Count_CriminalActivities_MurderAndNonNegligentManslaughter_Female_AsFractionOf_Count_Person_Female
 Percent of forest area that burned,Percent_BurnedArea_FireEvent_Forest
 Percent of forest area that experienced high-severity fire,Percent_BurnedArea_FireEvent_Forest_HighSeverity
 Percent of illiterate people older than 60,Count_Person_60OrMoreYears_Illiterate_AsAFractionOf_Count_Person_60OrMoreYears
@@ -2917,7 +2903,6 @@ Percent of land covered by Permanent Water,LandCoverFraction_PermanentWater
 Percent of land covered by Seasonal Water,LandCoverFraction_SeasonalWater
 Percent of land covered by Shrubland,LandCoverFraction_Shrubland
 Percent of land covered by Snow Ice,LandCoverFraction_SnowIce
-Percent of males commiting intentional homicide,Count_CriminalActivities_MurderAndNonNegligentManslaughter_Male_AsFractionOf_Count_Person_Male
 Percentage of Bcg Immunization Coverage Among 1 Year Old female,WHO/bcgv_Female
 Percentage of Bcg Immunization Coverage Among 1 Year Old in Rural Areas,WHO/bcgv_Rural
 Percentage of Bcg Immunization Coverage Among 1 Year Old in Urban areas,WHO/bcgv_Urban
@@ -2947,9 +2932,6 @@ Percentage of Persons Aged 15-19 who are Literate,Count_Person_15To19Years_Liter
 Percentage of Persons Aged 15-24 who are Illiterate,Count_Person_15To24Years_Illiterate_AsAFractionOf_Count_Person_15To24Years
 Percentage of Safe Child births,Count_DeliveryEvent_Safe_AsFractionOf_Count_DeliveryEvent
 Percentage of Total Government Spending Allocated to Education,Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government
-Percentage of adults who Received Cholesterol Screening,Percent_Person_ReceivedCholesterolScreening
-Percentage of adults who Received Dental Visit,Percent_Person_ReceivedDentalVisit
-Percentage of adults who Sleep Less Than 7 Hours,Percent_Person_SleepLessThan7Hours
 Percentage of bloodstream infections due to selected antimicrobial-resistant organisms,dc/topic/sdg_3.d.2
 Percentage of boys younger than 5 years who are overweight,Count_Person_Upto4Years_Male_Overweight_AsFractionOf_Count_Person_Upto4Years_Male
 Percentage of boys younger than 5 years who are severely wasting,Count_Person_Upto4Years_Male_SevereWasting_AsFractionOf_Count_Person_Upto4Years_Male
@@ -2984,7 +2966,6 @@ Percentage of people below poverty level in the past 12 months,Count_Person_Belo
 Percentage of people with a Bachelor's or higher Degree,Count_Person_25OrMoreYears_BachelorsDegreeOrHigher_AsFractionOf_Count_Person_25OrMoreYears
 Percentage of people with a Doctorate Degree,Count_Person_25OrMoreYears_DoctorateDegree_AsFractionOf_Count_Person_25OrMoreYears
 Percentage of renewable electricity capacity,Capacity_Electricity_Renewables_AsAFractionOf_Capacity_Electricity
-Percentage of the population who receive an annual checkup,Percent_Person_ReceivedAnnualCheckup
 Percentage of the workforce that is female,Count_Person_15OrMoreYears_InLaborForce_Female_AsFractionOf_Count_Person_InLaborForce
 Percentage of waste generated that are processed,Count_WasteGenerated_Processed_AsAFractionOf_Count_WasteGenerated
 Percentage of working age females without health insurance,Percent_Person_18To64Years_Female_NoHealthInsurance
@@ -3023,44 +3004,10 @@ Poverty By Language Spoken At Home,dc/topic/PovertyByLanguageSpokenAtHome
 Poverty By Race,dc/topic/PovertyByRace
 Poverty By Residency,dc/topic/PovertyByResidency
 Precipitation,dc/topic/Precipitation
-Prevalence Of Anaemia In Children Aged 6-59 Months,WHO/NUTRITION_ANAEMIA_CHILDREN_PREV
-Prevalence Of Daily Tobacco Use Among Adults,WHO/Adult_daily_tob_use
-Prevalence Of Insufficient Physical Activity Among Adults,WHO/NCD_PAC
-Prevalence Of Obesity Among Adults,WHO/NCD_BMI_30A
-Prevalence Of Severely Wasted Children Under 5 Years Of Age,WHO/NUTRITION_WH_3
-Prevalence Of Underweight Among Adults,WHO/NCD_BMI_18A
-Prevalence Of Underweight Children Under 5 Years Of Age,WHO/NUTRITION_WA_2
-Prevalence Of Wasted Children Under 5 Years Of Age,WHO/NUTRITION_WH_2
-Prevalence of All Teeth Loss among adults,Percent_Person_WithAllTeethLoss
-Prevalence of Arthritis among adults,Percent_Person_WithArthritis
-Prevalence of Asthma among adults,Percent_Person_WithAsthma
-Prevalence of Cancer Excluding Skin Cancer among adults,Percent_Person_WithCancerExcludingSkinCancer
-Prevalence of Chronic Kidney Disease among adults,Percent_Person_WithChronicKidneyDisease
-Prevalence of Chronic Obstructive Pulmonary Disease among adults,Percent_Person_WithChronicObstructivePulmonaryDisease
-Prevalence of Coronary Heart Disease among adults,Percent_Person_WithCoronaryHeartDisease
-Prevalence of Daily Tobacco Smoking,Percent_Daily_TobaccoUsing_In_Count_Person
-Prevalence of Daily Tobacco Use Among Females,Percent_Daily_TobaccoUsing_In_Count_Person_Female
-Prevalence of Daily Tobacco Use Among Mmales,Percent_Daily_TobaccoUsing_In_Count_Person_Male
-Prevalence of Diabetes among adults,Percent_Person_WithDiabetes
-Prevalence of High Blood Pressure among adults,Percent_Person_WithHighBloodPressure
-Prevalence of High Cholesterol among adults,Percent_Person_WithHighCholesterol
-Prevalence of Stroke among adults,Percent_Person_WithStroke
-Prevalence of Tobacco Use,Percent_TobaccoUsing_In_Count_Person
 "Prevalence of anaemia in women aged 15 to 49 years, by pregnancy status (percentage)",dc/topic/sdg_2.2.3
-Prevalence of diabetes among adult females,dc/nh3s4skee5483
-Prevalence of diabetes among adult male,dc/xmpy89x1nh8cg
 "Prevalence of malnutrition (weight for height >+2 or <-2 standard deviation from the median of the WHO Child Growth Standards) among children under 5 years of age, by type (wasting and overweight)",dc/topic/sdg_2.2.2
 "Prevalence of moderate or severe food insecurity in the population, based on the Food Insecurity Experience Scale (FIES)",dc/topic/sdg_2.1.2
-Prevalence of obesity among adult females,dc/4lvmzr1h1ylk1
-Prevalence of obesity among adult males,dc/x13tvt8jsgrm4
-Prevalence of physical inactivity among adult females,dc/tcqb49dvg7k53
-Prevalence of physical inactivity among adult males,dc/ty7pq88d26963
-Prevalence of poor Mental Health among adults,Percent_Person_WithMentalHealthNotGood
-Prevalence of poor Physical Health among adults,Percent_Person_WithPhysicalHealthNotGood
-Prevalence of smoking among adults,Percent_Person_Smoking
 Prevalence of stunting (height for age <-2 standard deviation from the median of the World Health Organization (WHO) Child Growth Standards) among children under 5 years of age,dc/topic/sdg_2.2.1
-Prevalence of tobacco use among females,Percent_TobaccoUsing_In_Count_Person_Female
-Prevalence of tobacco use among males,Percent_TobaccoUsing_In_Count_Person_Male
 Prevalence of undernourishment,dc/topic/sdg_2.1.1;sdg/SN_ITK_DEFC
 Preventative Health,dc/topic/PreventativeHealth
 Preventative health and behavior,dc/topic/PreventativeHealthAndBehavior
@@ -3310,7 +3257,6 @@ Students,dc/topic/StudentPopulation
 Students in College,dc/topic/StudentsInCollege
 Students in Kindergarten,dc/topic/StudentsInKindergarten
 Students in Primary School,dc/topic/StudentsInPrimarySchool
-Stunting Prevalence Among Children Under 5 Years Of Age,WHO/NUTSTUNTINGPREV
 "Substantially increase health financing and the recruitment, development, training and retention of the health workforce in developing countries, especially in least developed countries and small island developing States",dc/topic/sdg_3.c
 Substantially reduce corruption and bribery in all their forms,dc/topic/sdg_16.5
 Suicide,dc/topic/Suicide
@@ -3335,7 +3281,6 @@ Sustainable fisheries as a proportion of GDP,sdg/EN_SCP_FSHGDP
 "Take urgent and significant action to reduce the degradation of natural habitats, halt the loss of biodiversity and, by 2020, protect and prevent the extinction of threatened species",dc/topic/sdg_15.5
 Tariffs,dc/topic/Tariffs
 Teacher,dc/topic/Teacher
-Temperature,Temperature;dc/topic/Temperatures
 Temperature Predicitions,dc/topic/TemperaturePredictions
 The agriculture orientation index for government expenditures,dc/topic/sdg_2.a.1
 The average area covered by commercial solar installations,Mean_CoverageArea_SolarInstallation_Commercial
@@ -3665,7 +3610,6 @@ amount of cadmium emissions from Waste Disposal,Annual_Amount_Emissions_Cadmium_
 amount of cadmium emissions from Waste Disposal Treatment And Recovery,Annual_Amount_Emissions_Cadmium_SCC_26_WasteDisposalTreatmentAndRecovery
 amount of carbon dioxide (CO2) emissions from agriculture source,Annual_Emissions_CarbonDioxide_Agriculture
 amount of carbon dioxide (CO2) emissions from aluminum production,Annual_Emissions_CarbonDioxide_AluminumProduction
-amount of carbon dioxide (CO2) emissions from biogenic emission sources,Annual_Emissions_CarbonDioxide_Biogenic
 amount of carbon dioxide (CO2) emissions from cement production,Annual_Emissions_CarbonDioxide_CementProduction
 amount of carbon dioxide (CO2) emissions from chemical and petrochemical industry,Annual_Emissions_CarbonDioxide_ChemicalPetrochemicalIndustry
 amount of carbon dioxide (CO2) emissions from coal mining,Annual_Emissions_CarbonDioxide_CoalMining
@@ -3686,6 +3630,7 @@ amount of carbon dioxide (CO2) emissions from maritime shipping,Annual_Emissions
 amount of carbon dioxide (CO2) emissions from mineral extraction,Annual_Emissions_CarbonDioxide_MineralExtraction
 amount of carbon dioxide (CO2) emissions from net forest emissions,Annual_Emissions_CarbonDioxide_NetForestEmissions
 amount of carbon dioxide (CO2) emissions from net grassland emissions,Annual_Emissions_CarbonDioxide_NetGrasslandEmissions
+amount of carbon dioxide (CO2) emissions from non-biogenic emission sources,Annual_Emissions_CarbonDioxide_NonBiogenic
 amount of carbon dioxide emissions from External Combustion,Annual_Amount_Emissions_CarbonDioxide_SCC_1_ExternalCombustion
 amount of carbon dioxide emissions from Industrial Processes,Annual_Amount_Emissions_CarbonDioxide_SCC_3_IndustrialProcesses
 amount of carbon dioxide emissions from Internal Combustion Engines,Annual_Amount_Emissions_CarbonDioxide_SCC_2_InternalCombustionEngines
@@ -4242,7 +4187,6 @@ health in the world,dc/topic/GlobalHealth
 health insurance private type,dc/topic/PrivateHealthInsuranceType
 health insurance public type,dc/topic/PublicHealthInsuranceType
 health of mothers,dc/topic/MaternalHealth
-heart attack,dc/topic/Stroke
 high cholestrol condition,dc/topic/Cholesterol
 high humidity and high heat,dc/topic/WetBulbEvent
 high rainfall,dc/topic/Precipitation
@@ -4303,13 +4247,11 @@ manufacturing banking,dc/topic/sdg_9.3.2
 manufacturing finance,dc/topic/sdg_9.3.2
 manufacturing heat consumption,Annual_Consumption_Energy_Manufacturing_Heat
 market value of agricultural farms,MarketValue_Farm_AgriculturalProducts
-max temp,dc/topic/Temperatures
 max temp forecast,dc/topic/TemperaturePredictions
 max temperature likely in the decade at five percent chance,dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerDecade
 max temperature likely in the decade at one percent chance,dc/topic/MaxTemperature1PercentLikelyAtLeastOncePerDecade
 max temperature likely in the year at five percent chance,dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerYear
 max temperature likely in the year at one percent chance,dc/topic/MaxTemperature1PercentLikelyAtLeastOncePerYear
-maximum temperature,dc/topic/Temperatures
 maximum temperature once per decade 1%,dc/topic/MaxTemperature1PercentLikelyAtLeastOncePerDecade
 maximum temperature once per decade 5%,dc/topic/MaxTemperature5PercentLikelyAtLeastOncePerDecade
 maximum temperature once per year 1%,dc/topic/MaxTemperature1PercentLikelyAtLeastOncePerYear
@@ -4367,15 +4309,12 @@ median income,Median_Income_Person
 men with internet access,dc/topic/sdg_17.8.1
 men women children living below $2,dc/topic/sdg_1.2.2
 middle school students by race,dc/topic/StudentsInMiddleSchool
-min temp,dc/topic/Temperatures
 min temp forecast,dc/topic/TemperaturePredictions
 min temperature likely in the decade at five percent chance,dc/topic/MinTemperature5PercentLikelyAtLeastOncePerDecade
 min temperature likely in the decade at one percent chance,dc/topic/MinTemperature1PercentLikelyAtLeastOncePerDecade
 min temperature likely in the year at five percent chance,dc/topic/MinTemperature5PercentLikelyAtLeastOncePerYear
 min temperature likely in the year at one percent chance,dc/topic/MinTemperature1PercentLikelyAtLeastOncePerYear
-minimal Temperature,Min_Temperature
 minimal snowfall,Min_Snowfall
-minimum temperature,dc/topic/Temperatures
 minimum temperature once per decade 1%,dc/topic/MinTemperature1PercentLikelyAtLeastOncePerDecade
 minimum temperature once per decade 5%,dc/topic/MinTemperature5PercentLikelyAtLeastOncePerDecade
 minimum temperature once per year 1%,dc/topic/MinTemperature1PercentLikelyAtLeastOncePerYear
@@ -4426,18 +4365,6 @@ number of Males married and not separated,Count_Person_Male_MarriedAndNotSeparat
 number of Native Hawaiian and other Pacific Islander males,Count_Person_Male_NativeHawaiianAndOtherPacificIslanderAlone
 number of Native Hawaiian or Other Pacific Islander people without health insurance,Count_Person_NoHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone
 number of Native Hawaiian or other Pacific Islander males,Count_Person_Male_NativeHawaiianOrOtherPacificIslanderAlone
-number of NonInstitutionalized American Indian or Alaska Native Civilian,Count_Person_Civilian_NonInstitutionalized_AmericanIndianOrAlaskaNativeAlone
-number of NonInstitutionalized Black or African American Civilian,Count_Person_Civilian_NonInstitutionalized_BlackOrAfricanAmericanAlone
-number of NonInstitutionalized Civilian who resides in household,Count_Person_Civilian_NonInstitutionalized_ResidesInHousehold
-number of NonInstitutionalized Civilian with poverty status determined,Count_Person_Civilian_NonInstitutionalized_PovertyStatusDetermined
-number of NonInstitutionalized Foreign Born Civilian,Count_Person_Civilian_NonInstitutionalized_ForeignBorn
-number of NonInstitutionalized Hispanic or Latino Civilian,Count_Person_Civilian_NonInstitutionalized_HispanicOrLatino
-number of NonInstitutionalized Native Hawaiian or Other Pacific Islander Civilian,Count_Person_Civilian_NonInstitutionalized_NativeHawaiianOrOtherPacificIslanderAlone
-number of NonInstitutionalized asian Civilian,Count_Person_Civilian_NonInstitutionalized_AsianAlone
-number of NonInstitutionalized muti-race Civilian,Count_Person_Civilian_NonInstitutionalized_TwoOrMoreRaces
-number of NonInstitutionalized native Civilian,Count_Person_Civilian_NonInstitutionalized_Native
-number of NonInstitutionalized single race Civilian,Count_Person_Civilian_NonInstitutionalized_OneRace
-number of NonInstitutionalized white Civilian,Count_Person_Civilian_NonInstitutionalized_WhiteAlone
 "number of Para Professionals, Aides or Instructional Aides",Count_Faculty_ParaProfessionalsAidesOrInstructionalAide
 number of School Administrative Support Staff,Count_Faculty_SchoolAdministrativeSupportStaff
 number of School Administrators,Count_Faculty_SchoolAdministrator
@@ -4453,6 +4380,7 @@ number of asian females living below poverty level in the past 12 months,Count_P
 number of asian or pacific islander females,Count_Person_Female_AsianOrPacificIslander
 number of asian people without health insurance,Count_Person_NoHealthInsurance_AsianAlone
 number of births,Count_BirthEvent
+number of deaths from diabetes,Count_MortalityEvent_Diabetes
 number of divorced Foreign Born people,Count_Person_15OrMoreYears_Divorced_ForeignBorn
 number of divorced Hispanic or Latino people,Count_Person_15OrMoreYears_Divorced_HispanicOrLatino
 number of divorced people with multi-races,Count_Person_15OrMoreYears_Divorced_TwoOrMoreRaces
@@ -4469,6 +4397,7 @@ number of farms that raise broiler chicken,Count_Farm_Broilers
 number of farms that raise cattle,Count_Farm_CattleAndCalves
 number of farms that raise dairy cows,Count_Farm_MilkCows
 number of farms that raise sheep and lambs,Count_Farm_SheepAndLambs
+number of female deaths from diabetes,Count_MortalityEvent_Diabetes_Female
 number of females aged 65 Years or More and reside in Nursing Facilities,Count_Person_65OrMoreYears_Female_ResidesInNursingFacilities
 number of females living Above Poverty Level in the past 12 months,Count_Person_Female_AbovePovertyLevelInThePast12Months
 number of females living below poverty level in the past year,Count_Person_Female_BelowPovertyLevelInThePast12Months
@@ -4477,6 +4406,7 @@ number of hispanic or latino females living below poverty level in the past 12 m
 number of hispanic or latino living Above Poverty Level in the Past 12 months,Count_Person_Female_AbovePovertyLevelInThePast12Months_HispanicOrLatino
 number of hispanic or latino people,Count_Person_HispanicOrLatino
 number of households,Count_Household
+number of male deaths from diabetes,Count_MortalityEvent_Diabetes_Memale
 number of males,Count_Person_Male
 number of males aged 65 Years or More and reside in Nursing Facilities,Count_Person_65OrMoreYears_Male_ResidesInNursingFacilities
 number of males who are actively enrolled in any educational institution,Count_Person_3OrMoreYears_Male_EnrolledInSchool
@@ -4487,18 +4417,32 @@ number of males with earnings who reside in group quarters,Count_Person_Male_Wit
 number of males with earnings who reside in institutionalized group quarters,Count_Person_Male_WithEarnings_ResidesInInstitutionalizedGroupQuarters
 number of males with earnings who reside in juvenile facilities,Count_Person_Male_WithEarnings_ResidesInJuvenileFacilities
 number of males with earnings who reside in military quarters or military ships,Count_Person_Male_WithEarnings_ResidesInMilitaryQuartersOrMilitaryShips
-number of males with earnings who reside in noninstitutionalized group quarters,Count_Person_Male_WithEarnings_ResidesInNoninstitutionalizedGroupQuarters
+number of males with earnings who reside in non-institutionalized group quarters,Count_Person_Male_WithEarnings_ResidesInNoninstitutionalizedGroupQuarters
 number of males with earnings who reside in nursing facilities,Count_Person_Male_WithEarnings_ResidesInNursingFacilities
 number of males with health insurance,Count_Person_Male_WithHealthInsurance
 number of males without health insurance,Count_Person_Male_NoHealthInsurance
 number of multi race females living Above Poverty Level in the past 12 months,Count_Person_Female_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces
 number of multi races females living below poverty level in the past 12 months,Count_Person_Female_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces
 number of multi-race males,Count_Person_Male_TwoOrMoreRaces
+number of murders,Count_CriminalActivities_MurderAndNonNegligentManslaughter
+number of murders per capita,Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person
 number of native hawaiian or other pacific islander females living Above Poverty Level in the Past 12 months,Count_Person_Female_AbovePovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone
 number of native hawaiian or other pacific islander females living below poverty level in the past 12 months,Count_Person_Female_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone
 number of never married males aged 15 years or older,Count_Person_Male_NeverMarried
 number of non hispanic or latino males,Count_Person_Male_NotHispanicOrLatino
 number of non white males,Count_Person_Male_NonWhite
+number of non-institutionalized American Indian or Alaska Native civilians,Count_Person_Civilian_NonInstitutionalized_AmericanIndianOrAlaskaNativeAlone
+number of non-institutionalized Black or African American civilians,Count_Person_Civilian_NonInstitutionalized_BlackOrAfricanAmericanAlone
+number of non-institutionalized Foreign Born civilians,Count_Person_Civilian_NonInstitutionalized_ForeignBorn
+number of non-institutionalized Hispanic or Latino civilians,Count_Person_Civilian_NonInstitutionalized_HispanicOrLatino
+number of non-institutionalized Native Hawaiian or Other Pacific Islander civilians,Count_Person_Civilian_NonInstitutionalized_NativeHawaiianOrOtherPacificIslanderAlone
+number of non-institutionalized asian civilians,Count_Person_Civilian_NonInstitutionalized_AsianAlone
+number of non-institutionalized civilians who resides in household,Count_Person_Civilian_NonInstitutionalized_ResidesInHousehold
+number of non-institutionalized civilians with poverty status determined,Count_Person_Civilian_NonInstitutionalized_PovertyStatusDetermined
+number of non-institutionalized muti-race civilians,Count_Person_Civilian_NonInstitutionalized_TwoOrMoreRaces
+number of non-institutionalized native civilians,Count_Person_Civilian_NonInstitutionalized_Native
+number of non-institutionalized single race civilians,Count_Person_Civilian_NonInstitutionalized_OneRace
+number of non-institutionalized white civilians,Count_Person_Civilian_NonInstitutionalized_WhiteAlone
 number of people Earning $5000 to $15000 Without Health Insurance,Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf5000To14999USDollar_WithEarnings
 number of people Earning $75000 or more Without Health Insurance,Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf75000OrMoreUSDollar_WithEarnings
 number of people Earning Between $15000 and $25000 Without Health Insurance,Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf15000To24999USDollar_WithEarnings
@@ -4571,7 +4515,7 @@ number of people without disabilities residing in adult correctional facilities,
 number of people without disabilities residing in college or university student housing,Count_Person_NoDisability_ResidesInCollegeOrUniversityStudentHousing
 number of people without disabilities residing in group quarters,Count_Person_NoDisability_ResidesInGroupQuarters
 number of people without disabilities residing in institutionalized group quarters,Count_Person_NoDisability_ResidesInInstitutionalizedGroupQuarters
-number of people without disabilities residing in noninstitutionalized group quarters,Count_Person_NoDisability_ResidesInNoninstitutionalizedGroupQuarters
+number of people without disabilities residing in non-institutionalized group quarters,Count_Person_NoDisability_ResidesInNoninstitutionalizedGroupQuarters
 number of people without disabilities residing in nursing facilities,Count_Person_NoDisability_ResidesInNursingFacilities
 number of people without health insurance,Count_Person_NoHealthInsurance
 number of rooms in houses,dc/topic/HousesByRoomCount
@@ -4599,8 +4543,11 @@ people with no health insurance,dc/topic/NoHealthInsurance
 people with private health insurance,dc/topic/PrivateHealthInsuranceType
 people with public health insurance,dc/topic/PublicHealthInsuranceType
 people without access to health insurance,dc/topic/NoHealthInsurance
+percentage of females who use tobacco daily,Percent_Daily_TobaccoUsing_In_Count_Person_Female
 percentage of internet users,Count_Person_IsInternetUser_PerCapita
+percentage of males who use tobacco daily,Percent_Daily_TobaccoUsing_In_Count_Person_Male
 percentage of online people,dc/topic/sdg_17.8.1
+percentage of people who smoke tobacco daily,Percent_Daily_TobaccoUsing_In_Count_Person
 percentage of population with access to electricity,worldBank/EG_ELC_ACCS_ZS
 percentage of rural population with access to electricity,worldBank/EG_ELC_ACCS_RU_ZS
 percentage of urban population with access to electricity,worldBank/EG_ELC_ACCS_UR_ZS
@@ -4621,13 +4568,6 @@ poverty breakdown by language spoken at home,dc/topic/PovertyByLanguageSpokenAtH
 poverty breakdown by race,dc/topic/PovertyByRace
 poverty breakdown by residency,dc/topic/PovertyByResidency
 predict temperature,dc/topic/TemperaturePredictions
-prevalence of Female Smokers Aged 15 and Older,Count_Person_15OrMoreYears_Female_Smoking_AsFractionOf_Count_Person_15OrMoreYears_Female
-prevalence of Smokers Aged 15 and Older,Count_Person_15OrMoreYears_Smoking_AsFractionOf_Count_Person_15OrMoreYears
-prevalence of asthma among children,Percent_Person_Children_WithAsthma
-prevalence of binge drinking,Percent_Person_BingeDrinking
-prevalence of male Smokers Aged 15 and Older,Count_Person_15OrMoreYears_Male_Smoking_AsFractionOf_Count_Person_15OrMoreYears_Male
-prevalence of obesity,Percent_Person_Obesity
-prevalence of physical inactivity,Percent_Person_PhysicalInactivity
 primary school students,dc/topic/StudentsInPrimarySchool
 production of additives and oxygenates added to oil products,Annual_Generation_Fuel_AdditivesOxygenates
 production of anthracite coal,Annual_Generation_Fuel_AnthraciteCoal
@@ -4666,7 +4606,58 @@ production of refinery gas,Annual_Generation_Fuel_RefineryGas
 production of vegetal waste,Annual_Generation_Fuel_VegetalWaste
 production of white spirit,Annual_Generation_Fuel_WhiteSpirit
 projected temperature,dc/topic/ProjectedClimateExtremes
+proportion Of Adults with Insufficient Physical Activity,WHO/NCD_PAC
+proportion Of children aged 5 and under who are Underweight,WHO/NUTRITION_WA_2
+proportion Of children aged 5 and under who are severely wasted,WHO/NUTRITION_WH_3
+proportion Of children aged 5 and under who are stunting,WHO/NUTSTUNTINGPREV
+proportion Of children aged 5 and under who are wasted,WHO/NUTRITION_WH_2
+proportion of Adults who are Underweight,WHO/NCD_BMI_18A
+proportion of Adults with Obesity,WHO/NCD_BMI_30A
+proportion of adult females with diabetes,dc/nh3s4skee5483
+proportion of adult females with physical inactivity,dc/tcqb49dvg7k53
+proportion of adult male with diabetes,dc/xmpy89x1nh8cg
+proportion of adult males with obesity,dc/x13tvt8jsgrm4
+proportion of adult males with physical inactivity,dc/ty7pq88d26963
+proportion of adults who Receive Cholesterol Screening,Percent_Person_ReceivedCholesterolScreening
+proportion of adults who Sleep Less Than 7 Hours,Percent_Person_SleepLessThan7Hours
+proportion of adults who smoke,Percent_Person_Smoking
+proportion of adults who use tobacco daily,WHO/Adult_daily_tob_use
+proportion of adults with All Teeth Loss,Percent_Person_WithAllTeethLoss
+proportion of adults with Cancer (Excluding Skin Cancer),Percent_Person_WithCancerExcludingSkinCancer
+proportion of adults with Chronic Kidney Disease,Percent_Person_WithChronicKidneyDisease
+proportion of adults with Chronic Obstructive Pulmonary Disease,Percent_Person_WithChronicObstructivePulmonaryDisease
+proportion of adults with Coronary Heart Disease,Percent_Person_WithCoronaryHeartDisease
+proportion of adults with Diabetes,Percent_Person_WithDiabetes
+proportion of adults with High Blood Pressure,Percent_Person_WithHighBloodPressure
+proportion of adults with High Cholesterol,Percent_Person_WithHighCholesterol
+proportion of adults with Stroke,Percent_Person_WithStroke
+proportion of adults with arthritis,Percent_Person_WithArthritis
+proportion of adults with asthma,Percent_Person_WithAsthma
+proportion of adults with poor Mental Health,Percent_Person_WithMentalHealthNotGood
+proportion of adults with poor Physical Health,Percent_Person_WithPhysicalHealthNotGood
+proportion of children aged 5 and under who are overweight,WHO/NUTOVERWEIGHTPREV
+proportion of children aged 6-59 Months with anaemia,WHO/NUTRITION_ANAEMIA_CHILDREN_PREV
+proportion of children with asthma,Percent_Person_Children_WithAsthma
+proportion of females aged 15+ who smoke,Count_Person_15OrMoreYears_Female_Smoking_AsFractionOf_Count_Person_15OrMoreYears_Female
+proportion of females commiting murder,Count_CriminalActivities_MurderAndNonNegligentManslaughter_Female_AsFractionOf_Count_Person_Female
+proportion of females commiting murder and non-negligent manslaughter,Count_CriminalActivities_MurderAndNonNegligentManslaughter_Female_AsFractionOf_Count_Person_Female
+proportion of females who use tobacco,Percent_TobaccoUsing_In_Count_Person_Female
+proportion of females with obesity,dc/4lvmzr1h1ylk1
+proportion of low birth weight,WHO/LBW_PREVALENCE
+proportion of males aged 15+ who smoke,Count_Person_15OrMoreYears_Male_Smoking_AsFractionOf_Count_Person_15OrMoreYears_Male
+proportion of males commiting murder,Count_CriminalActivities_MurderAndNonNegligentManslaughter_Male_AsFractionOf_Count_Person_Male
+proportion of males commiting murder and non-negligent manslaughter,Count_CriminalActivities_MurderAndNonNegligentManslaughter_Male_AsFractionOf_Count_Person_Male
+proportion of males who use tobacco,Percent_TobaccoUsing_In_Count_Person_Male
 proportion of men online,dc/topic/sdg_17.8.1
+proportion of people Who Are Physically Inactive,Percent_Person_PhysicalInactivity
+proportion of people aged 15+ who smoke,Count_Person_15OrMoreYears_Smoking_AsFractionOf_Count_Person_15OrMoreYears
+proportion of people who Receive Dental Visit,Percent_Person_ReceivedDentalVisit
+proportion of people who binge drink,Percent_Person_BingeDrinking
+proportion of people who have Daily Tobacco Smoking,WHO/M_Est_smk_daily
+proportion of people who receive an annual checkup,Percent_Person_ReceivedAnnualCheckup
+proportion of people who use tobacco,Percent_TobaccoUsing_In_Count_Person
+proportion of people with obesity,Percent_Person_Obesity
+proportion of seats held by women in national parliaments,sdg/SG_GEN_PARL.SEX--F
 proportion of women online,dc/topic/sdg_17.8.1
 public benefits,dc/topic/Benefits
 race breakdown of students in Graduate or Professional School,dc/topic/StudentsInGraduateOrProfessionalSchool
@@ -7176,7 +7167,6 @@ temperature highs for the year,dc/topic/YearlyProjectedTemperatureHighs
 temperature lows for the decade,dc/topic/DecadeProjectedTemperatureLows
 temperature lows for the year,dc/topic/YearlyProjectedTemperatureLows
 temperature prediction,dc/topic/TemperaturePredictions
-temperatures,dc/topic/Temperatures
 time spend during commute,dc/topic/CommuteTime
 time spent traveling to work,dc/topic/CommuteTime
 time spent travelling from work,dc/topic/CommuteTime

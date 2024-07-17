@@ -164,7 +164,6 @@
       "dc/topic/UrbanFemalePopulationByAge",
       "Count_Student_Male",
       "dc/topic/SeparatedFemalePopulationByAge",
-      "Count_Person_Civilian_Female_NonInstitutionalized",
       "dc/topic/AsianAloneFemalePopulationByAge",
       "Count_Person_Female_WithHealthInsurance",
       "Count_Person_Workers_Male",
@@ -172,7 +171,8 @@
       "dc/topic/WhiteAloneFemalePopulationByAge",
       "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female",
       "Count_Person_3OrMoreYears_Male_EnrolledInSchool",
-      "dc/topic/MedianHouseholdIncomeByGender"
+      "dc/topic/MedianHouseholdIncomeByGender",
+      "Count_Death_Male_AsAFractionOf_Count_Person_Male"
     ]
   },
   "props_matching": {

@@ -22,32 +22,27 @@ import {
   User,
   UserCredential,
 } from "firebase/auth";
-import React from "react";
 
 import { auth } from "./firebase";
 
-interface GoogleSignInProps {
-  scopes: string[];
-  onSignIn: (user: User, credential: OAuthCredential) => void;
-}
-
-export function GoogleSignIn(props: GoogleSignInProps): JSX.Element {
-  const signInWithGoogle = (): void => {
-    const provider = new GoogleAuthProvider();
-    for (const scope of props.scopes) {
-      provider.addScope(scope);
-    }
-    signInWithPopup(auth, provider)
-      .then((result: UserCredential) => {
-        props.onSignIn(
-          result.user,
-          GoogleAuthProvider.credentialFromResult(result)
-        );
-      })
-      .catch((error: AuthError) => {
-        // Handle errors here
-        console.error(error);
-      });
-  };
-  return <button onClick={signInWithGoogle}>Sign In with Google</button>;
+export function signInWithGoogle(
+  scopes: string[],
+  onSignIn: (user: User, credential: OAuthCredential) => void
+): void {
+  if (auth.currentUser) {
+    console.log("Already logged in");
+    return;
+  }
+  const provider = new GoogleAuthProvider();
+  for (const scope of scopes) {
+    provider.addScope(scope);
+  }
+  signInWithPopup(auth, provider)
+    .then((result: UserCredential) => {
+      onSignIn(result.user, GoogleAuthProvider.credentialFromResult(result));
+    })
+    .catch((error: AuthError) => {
+      // Handle errors here
+      console.error(error);
+    });
 }

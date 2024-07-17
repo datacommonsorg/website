@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import { GoogleSpreadsheet } from "google-spreadsheet";
+
 export interface EvalInfo {
   question: string;
   llmStat: string;
@@ -40,6 +42,7 @@ export type DcCall = Record<number, number>;
 export enum EvalType {
   RIG = "RIG",
   RAG = "RAG",
+  BASELINE = "BASELINE",
 }
 
 export enum FeedbackStage {
@@ -47,4 +50,13 @@ export enum FeedbackStage {
   CALLS = "CALLS",
   RAG_ANS = "RAG_ANS",
   OVERALL_QUESTIONS = "OVERALL_QUESTIONS",
+  SXS = "SXS",
+}
+
+// Object to hold all the information about a google sheets document
+export interface DocInfo {
+  doc: GoogleSpreadsheet;
+  allQuery: Record<number, Query>;
+  allCall: Record<number, DcCall>;
+  evalType: EvalType;
 }

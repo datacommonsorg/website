@@ -1,0 +1,86 @@
+{
+  "client": "test_detect-and-fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/0677000",
+                      "geoId/5363000"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_ForeignBorn_multiple_place_bar_block"
+                    ],
+                    "title": "Population: Foreign Born (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Foreign Born"
+          }
+        ],
+        "statVarSpec": {
+          "Count_Person_5OrMoreYears_ForeignBorn_multiple_place_bar_block": {
+            "name": "Population: Foreign Born",
+            "statVar": "Count_Person_5OrMoreYears_ForeignBorn"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "geoId/0677000"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "entities": [],
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "geoId/0677000",
+    "name": "Sunnyvale",
+    "place_type": "City"
+  },
+  "placeFallback": {},
+  "placeSource": "PARTIAL_PAST_QUERY",
+  "places": [
+    {
+      "dcid": "geoId/0677000",
+      "name": "Sunnyvale",
+      "place_type": "City"
+    },
+    {
+      "dcid": "geoId/5363000",
+      "name": "Seattle",
+      "place_type": "City"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopics": [],
+    "parentPlaces": [],
+    "parentTopics": [],
+    "peerPlaces": [],
+    "peerTopics": []
+  },
+  "svSource": "CURRENT_QUERY",
+  "userMessage": "See comparisons based on places in the previous query.",
+  "userMessages": [
+    "See comparisons based on places in the previous query."
+  ]
+}

@@ -47,7 +47,7 @@ export TOKENIZERS_PARALLELISM=false
 
 # Diff production embeddings against test.
 export FLASK_ENV=local
-python3 -m tools.nl.svindex_differ.differ \
+python3 -W default -m tools.nl.svindex_differ.differ \
   --base_index="$BASE" \
   --test_index="$TEST" \
   $extra_args

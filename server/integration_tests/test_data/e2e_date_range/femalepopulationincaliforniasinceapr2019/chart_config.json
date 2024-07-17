@@ -481,70 +481,6 @@
                       "startDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_Civilian_Female_NonInstitutionalized_1145703171"
-                    ],
-                    "title": "Women Non Institutionalized in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Women Non Institutionalized in California",
-                    "statVarKey": [
-                      "Count_Person_Civilian_Female_NonInstitutionalized"
-                    ],
-                    "title": "Women Non Institutionalized in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Women Non Institutionalized"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Civilian_Female_NonInstitutionalized"
-                    ],
-                    "title": "Women Non Institutionalized in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Civilian_Female_NonInstitutionalized"
-                    ],
-                    "title": "Women Non Institutionalized in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Women Non Institutionalized in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "lineTileSpec": {
-                      "startDate": "2019"
-                    },
-                    "statVarKey": [
                       "Median_Age_Person_Female_3795540742"
                     ],
                     "title": "Women's Median Age in California",
@@ -917,6 +853,38 @@
             ],
             "denom": "Count_Person",
             "title": "Bachelors, Women in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "startDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_ForeignBorn_10983471"
+                    ],
+                    "title": "Foreign Born Women in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Foreign Born Women in California",
+                    "statVarKey": [
+                      "Count_Person_Female_ForeignBorn"
+                    ],
+                    "title": "Foreign Born Women in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Foreign Born Women"
           }
         ],
         "statVarSpec": {
@@ -956,15 +924,6 @@
             "name": "Population: Female, Enrolled in School",
             "statVar": "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
           },
-          "Count_Person_Civilian_Female_NonInstitutionalized": {
-            "name": "Women Non Institutionalized",
-            "statVar": "Count_Person_Civilian_Female_NonInstitutionalized"
-          },
-          "Count_Person_Civilian_Female_NonInstitutionalized_1145703171": {
-            "facetId": "1145703171",
-            "name": "Women Non Institutionalized",
-            "statVar": "Count_Person_Civilian_Female_NonInstitutionalized"
-          },
           "Count_Person_Female": {
             "name": "Women",
             "statVar": "Count_Person_Female"
@@ -982,6 +941,15 @@
             "facetId": "1145703171",
             "name": "Asian Monoracial Women",
             "statVar": "Count_Person_Female_AsianAlone"
+          },
+          "Count_Person_Female_ForeignBorn": {
+            "name": "Foreign Born Women",
+            "statVar": "Count_Person_Female_ForeignBorn"
+          },
+          "Count_Person_Female_ForeignBorn_10983471": {
+            "facetId": "10983471",
+            "name": "Foreign Born Women",
+            "statVar": "Count_Person_Female_ForeignBorn"
           },
           "Count_Person_Female_FullTimeYearRoundWorker": {
             "name": "Population: 16 - 64 Years, Female, Full Time Year Round Worker",
@@ -1476,19 +1444,6 @@
           "Count_Person_35To44Years_EducationalAttainmentBachelorsDegree_Female",
           "Count_Person_45To64Years_EducationalAttainmentBachelorsDegree_Female",
           "Count_Person_65OrMoreYears_EducationalAttainmentBachelorsDegree_Female"
-        ]
-      },
-      "Count_Person_Civilian_Female_NonInstitutionalized": {
-        "age": [
-          "dc/9zrfybzebz9eg",
-          "dc/clt08ev67qbg4",
-          "dc/e4tnwblpn05ng",
-          "dc/eyq93l7lzkljh",
-          "dc/fdt2p0r5fced1",
-          "dc/g8tzm4h7qzqnd",
-          "dc/spwgfh6tfr03c",
-          "dc/vqxc814k47fc5",
-          "dc/x8zvw66c41lx"
         ]
       },
       "Count_Person_Female": {
