@@ -15,7 +15,9 @@
 # limitations under the License.
 
 
-# Creates a new custom DC image, tags it latest, and deploys it to autopush.
+# Creates a new custom DC image, tags it latest, deploys it to autopush,
+# and runs basic tests against it.
+
 # The script also updates a RESTART_TIMESTAMP env var
 # to easily identify the restart time of a given revision.
 
@@ -57,3 +59,6 @@ gcloud run deploy dc-autopush \
     --image gcr.io/datcom-ci/datacommons-website-compose:latest \
     --region us-central1 \
     --update-env-vars RESTART_TIMESTAMP="$(date)"
+
+# Run tests against dc-autopush
+./run_cdc_tests.sh

@@ -106,23 +106,6 @@
               {
                 "tiles": [
                   {
-                    "description": "Percent of Children That Have Asthma in Placer County",
-                    "statVarKey": [
-                      "Percent_Person_Children_WithAsthma"
-                    ],
-                    "title": "Percent of Children That Have Asthma in Placer County",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Percent of Children That Have Asthma"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "statVarKey": [
                       "Percent_Person_WithAsthma"
                     ],
@@ -145,6 +128,23 @@
               }
             ],
             "title": "Asthma"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Percent of Children That Have Asthma in Placer County",
+                    "statVarKey": [
+                      "Percent_Person_Children_WithAsthma"
+                    ],
+                    "title": "Percent of Children That Have Asthma in Placer County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Percent of Children That Have Asthma"
           },
           {
             "columns": [
@@ -872,7 +872,7 @@
                     "statVarKey": [
                       "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone"
                     ],
-                    "title": "American Indian/Alaska Natives With Disabilities in Cities of Placer County (${date})",
+                    "title": "Number of American Indian/Alaska Natives With Disabilities in Cities of Placer County (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -883,14 +883,14 @@
                     "statVarKey": [
                       "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone"
                     ],
-                    "title": "American Indian/Alaska Natives With Disabilities in Cities of Placer County (${date})",
+                    "title": "Number of American Indian/Alaska Natives With Disabilities in Cities of Placer County (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "American Indian/Alaska Natives With Disabilities in Cities of Placer County"
+            "title": "Number of American Indian/Alaska Natives With Disabilities in Cities of Placer County"
           },
           {
             "columns": [
@@ -904,7 +904,7 @@
                     "statVarKey": [
                       "Count_Person_WithDisability_BlackOrAfricanAmericanAlone"
                     ],
-                    "title": "Black/African Americans With Disabilities in Cities of Placer County (${date})",
+                    "title": "Number of Black/African Americans With Disabilities in Cities of Placer County (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -915,14 +915,14 @@
                     "statVarKey": [
                       "Count_Person_WithDisability_BlackOrAfricanAmericanAlone"
                     ],
-                    "title": "Black/African Americans With Disabilities in Cities of Placer County (${date})",
+                    "title": "Number of Black/African Americans With Disabilities in Cities of Placer County (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Black/African Americans With Disabilities in Cities of Placer County"
+            "title": "Number of Black/African Americans With Disabilities in Cities of Placer County"
           },
           {
             "columns": [
@@ -1361,19 +1361,19 @@
             "statVar": "Count_Person_NoHealthInsurance"
           },
           "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone": {
-            "name": "American Indian/Alaska Natives With Disabilities",
+            "name": "Number of American Indian/Alaska Natives With Disabilities",
             "statVar": "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone"
           },
           "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
-            "name": "American Indian/Alaska Natives With Disabilities",
+            "name": "Number of American Indian/Alaska Natives With Disabilities",
             "statVar": "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone"
           },
           "Count_Person_WithDisability_BlackOrAfricanAmericanAlone": {
-            "name": "Black/African Americans With Disabilities",
+            "name": "Number of Black/African Americans With Disabilities",
             "statVar": "Count_Person_WithDisability_BlackOrAfricanAmericanAlone"
           },
           "Count_Person_WithDisability_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
-            "name": "Black/African Americans With Disabilities",
+            "name": "Number of Black/African Americans With Disabilities",
             "statVar": "Count_Person_WithDisability_BlackOrAfricanAmericanAlone"
           },
           "Count_Person_WithDisability_Female": {
@@ -1381,7 +1381,7 @@
             "statVar": "Count_Person_WithDisability_Female"
           },
           "Count_Person_WithDisability_HispanicOrLatino_multiple_place_bar_block": {
-            "name": "Hispanic/Latinos With Disabilities",
+            "name": "Number of Hispanic/Latinos With Disabilities",
             "statVar": "Count_Person_WithDisability_HispanicOrLatino"
           },
           "Count_Person_WithDisability_Male": {

@@ -49,7 +49,7 @@ export interface TileResult {
   svg?: string;
   // The unit of the data in the chart if it's a single unit.
   unit?: string;
-  // The data point to highlight. Only returned for single line line charts.
+  // The data point to highlight. Only returned for single line line charts and highlight charts
   highlight?: {
     value: number;
     date: string;

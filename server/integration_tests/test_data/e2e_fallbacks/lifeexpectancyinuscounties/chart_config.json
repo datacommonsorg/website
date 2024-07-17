@@ -57,7 +57,7 @@
                     "statVarKey": [
                       "Count_Death"
                     ],
-                    "title": "Deaths in Counties of United States (${date})",
+                    "title": "Number of Deaths in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -72,14 +72,14 @@
                     "statVarKey": [
                       "Count_Death"
                     ],
-                    "title": "Deaths in Counties of United States (${date})",
+                    "title": "Number of Deaths in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Deaths in Counties of United States"
+            "title": "Number of Deaths in Counties of United States"
           },
           {
             "columns": [
@@ -89,7 +89,7 @@
                     "statVarKey": [
                       "Count_Death"
                     ],
-                    "title": "Deaths in United States",
+                    "title": "Number of Deaths in United States",
                     "type": "LINE"
                   }
                 ]
@@ -97,18 +97,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Deaths in United States",
+                    "description": "Number of Deaths in United States",
                     "statVarKey": [
                       "Count_Death"
                     ],
-                    "title": "Deaths in United States",
+                    "title": "Number of Deaths in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Deaths"
+            "title": "Number of Deaths"
           },
           {
             "columns": [
@@ -652,7 +652,7 @@
         ],
         "statVarSpec": {
           "Count_Death": {
-            "name": "Deaths",
+            "name": "Number of Deaths",
             "statVar": "Count_Death"
           },
           "Count_Death_AbnormalNotClassfied_Female": {

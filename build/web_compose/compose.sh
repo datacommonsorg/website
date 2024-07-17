@@ -14,6 +14,10 @@
 # limitations under the License.
 
 export MIXER_API_KEY=$DC_API_KEY
+# https://stackoverflow.com/a/62703850
+export TOKENIZERS_PARALLELISM=false
+# https://github.com/UKPLab/sentence-transformers/issues/1318#issuecomment-1084731111
+export OMP_NUM_THREADS=1
 
 if [[ $USE_SQLITE == "true" ]]; then
     export SQLITE_PATH=/sqlite/datacommons.db
@@ -28,6 +32,7 @@ else
     export USER_DATA_PATH=/userdata/
 fi
 export IS_CUSTOM_DC=true
+export ADDITIONAL_CATALOG_PATH=$USER_DATA_PATH/datacommons/nl/embeddings/custom_catalog.yaml
 
 /go/bin/mixer \
     --use_bigquery=false \

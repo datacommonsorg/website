@@ -73,9 +73,7 @@
               "QueryPart": "show climate",
               "SV": [
                 "dc/topic/ProjectedClimateExtremes",
-                "dc/topic/ClimateChange",
-                "dc/topic/Temperatures",
-                "Temperature"
+                "dc/topic/ClimateChange"
               ]
             },
             {

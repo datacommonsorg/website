@@ -41,7 +41,7 @@
     "MultiSV": {
       "Candidates": [
         {
-          "AggCosineScore": 0.8763,
+          "AggCosineScore": 0.8999,
           "DelimBased": false,
           "Parts": [
             {
@@ -57,14 +57,7 @@
               ],
               "QueryPart": "factors like obesity blood pressure asthma impacted",
               "SV": [
-                "Percent_Person_WithAsthma",
-                "dc/topic/BloodPressure",
-                "Percent_Person_Children_WithAsthma",
-                "Percent_Person_Obesity",
-                "dc/topic/AsthmaMalePopulationByAge",
-                "dc/topic/AsthmaFemalePopulationByAge",
-                "dc/topic/HealthConditions",
-                "dc/topic/Health"
+                "dc/topic/Asthma"
               ]
             },
             {
@@ -79,7 +72,7 @@
           ]
         },
         {
-          "AggCosineScore": 0.8668,
+          "AggCosineScore": 0.8615,
           "DelimBased": true,
           "Parts": [
             {
@@ -92,7 +85,9 @@
               "SV": [
                 "Percent_Person_Obesity",
                 "WHO/NCD_BMI_30A",
-                "dc/x13tvt8jsgrm4"
+                "dc/x13tvt8jsgrm4",
+                "dc/4lvmzr1h1ylk1",
+                "dc/topic/Health"
               ]
             },
             {
@@ -110,13 +105,14 @@
               ],
               "QueryPart": "asthma impacted climate change",
               "SV": [
+                "dc/topic/Asthma",
                 "dc/topic/ClimateChange"
               ]
             }
           ]
         },
         {
-          "AggCosineScore": 0.8276,
+          "AggCosineScore": 0.8413,
           "DelimBased": false,
           "Parts": [
             {
@@ -129,17 +125,14 @@
                 0.7185328006744385,
                 0.717232882976532,
                 0.7033888697624207
+
               ],
               "QueryPart": "factors like obesity blood pressure asthma",
               "SV": [
+                "dc/topic/Asthma",
                 "dc/topic/BloodPressure",
-                "Percent_Person_Obesity",
-                "Percent_Person_WithAsthma",
                 "dc/topic/HealthConditions",
-                "dc/topic/Health",
-                "WHO/NCD_BMI_30A",
-                "Percent_Person_Children_WithAsthma",
-                "dc/x13tvt8jsgrm4"
+                "dc/topic/Health"
               ]
             },
             {
@@ -154,7 +147,7 @@
           ]
         },
         {
-          "AggCosineScore": 0.8118,
+          "AggCosineScore": 0.8232,
           "DelimBased": false,
           "Parts": [
             {
@@ -172,6 +165,7 @@
               ],
               "QueryPart": "asthma impacted climate change",
               "SV": [
+                "dc/topic/Asthma",
                 "dc/topic/ClimateChange"
               ]
             }
@@ -182,16 +176,15 @@
     "Query": "how are factors like obesity , blood pressure and asthma impacted by climate change",
     "SV": [
       "dc/topic/ClimateChange",
+      "dc/topic/Asthma",
       "dc/topic/ProjectedClimateExtremes",
       "dc/topic/BloodPressure",
       "dc/topic/sdg_13.3",
       "dc/topic/CO2Emissions",
-      "Percent_Person_Obesity",
       "Annual_Emissions_GreenhouseGas",
-      "Percent_Person_Children_WithAsthma",
       "dc/topic/AmbientAirPollution",
-      "Percent_Person_WithAsthma",
       "Annual_Amount_Emissions_SCC_27_NaturalSources",
+      "Percent_Person_Obesity",
       "dc/topic/WHOMortalityCauses",
       "dc/topic/sdg_3.9.1",
       "dc/topic/GlobalHealth",
@@ -199,14 +192,15 @@
       "dc/topic/sdg_13",
       "dc/topic/sdg_13.b",
       "dc/topic/sdg_13.2.1",
+      "Percent_Person_Children_WithAsthma",
       "dc/topic/sdg_13.2.2",
       "dc/topic/WHONonCommunicableDiseases",
+      "Percent_Person_WithAsthma",
       "dc/topic/Emissions",
       "dc/topic/Pollutants",
       "Annual_Emissions_GreenhouseGas_OilAndGas",
       "dc/topic/GreenhouseGasEmissions",
       "dc/topic/AsthmaFemalePopulationByAge",
-      "WHO/NUTOVERWEIGHTPREV",
       "dc/topic/sdg_13.1",
       "dc/topic/sdg_13.2",
       "dc/topic/sdg_11.6.2"

@@ -260,90 +260,12 @@
         }
       ]
     },
-    "childTopics": [
-      {
-        "dcid": "dc/topic/Arthritis",
-        "name": "Arthritis",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Asthma",
-        "name": "Asthma",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/BloodPressure",
-        "name": "Blood Pressure",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Cancer",
-        "name": "Cancer",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Cholesterol",
-        "name": "Cholesterol",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Diabetes",
-        "name": "Diabetes",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/HeartDisease",
-        "name": "Heart Disease",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/MentalHealth",
-        "name": "Mental Health",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/KidneyDisease",
-        "name": "Kidney Disease",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Stroke",
-        "name": "Stroke",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/HeatIllnesses",
-        "name": "Heat Illnesses",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "childTopics": [],
     "exploreMore": {},
     "mainTopics": [
       {
-        "dcid": "dc/topic/HealthConditions",
-        "name": "Health Conditions",
+        "dcid": "dc/topic/Asthma",
+        "name": "Asthma",
         "types": [
           "Topic"
         ]
@@ -352,8 +274,8 @@
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/Health",
-        "name": "Health",
+        "dcid": "dc/topic/HealthConditions",
+        "name": "Health Conditions",
         "types": [
           "Topic"
         ]
@@ -713,29 +635,71 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/HealthEquity",
-        "name": "Health Equity",
+        "dcid": "dc/topic/Arthritis",
+        "name": "Arthritis",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/HealthInsurance",
-        "name": "Health Insurance",
+        "dcid": "dc/topic/BloodPressure",
+        "name": "Blood Pressure",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Mortality",
-        "name": "Mortality",
+        "dcid": "dc/topic/Cancer",
+        "name": "Cancer",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/PreventativeHealthAndBehavior",
-        "name": "Preventive Health and Behavior",
+        "dcid": "dc/topic/Cholesterol",
+        "name": "Cholesterol",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Diabetes",
+        "name": "Diabetes",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HeartDisease",
+        "name": "Heart Disease",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/MentalHealth",
+        "name": "Mental Health",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/KidneyDisease",
+        "name": "Kidney Disease",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Stroke",
+        "name": "Stroke",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HeatIllnesses",
+        "name": "Heat Illnesses",
         "types": [
           "Topic"
         ]

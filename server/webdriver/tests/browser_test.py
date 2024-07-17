@@ -15,6 +15,7 @@
 import urllib
 import urllib.request
 
+import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -61,6 +62,7 @@ class TestBrowser(WebdriverBaseTest):
         intro.text.startswith(
             'The Data Commons Knowledge Graph is constructed'))
 
+  @pytest.mark.skip(reason="needs mixer/data fix")
   def test_page_serve_mtv(self):
     """Test the browser page for MTV can be loaded successfully."""
     TITLE_TEXT = "Mountain View - Knowledge Graph - Data Commons"

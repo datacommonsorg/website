@@ -17,10 +17,12 @@ from dataclasses import field
 import itertools
 from typing import Dict, List
 
-from server.lib.config import GLOBAL_CONFIG_BUCKET
+from server.lib import config as libconfig
 from shared.lib import gcs
 
-BAD_WORDS_PATH = gcs.make_path(GLOBAL_CONFIG_BUCKET, 'nl_bad_words.txt')
+cfg = libconfig.get_config()
+BAD_WORDS_PATH = gcs.make_path(libconfig.GLOBAL_CONFIG_BUCKET,
+                               cfg.BAD_WORDS_FILE)
 _DELIM = ':'
 
 

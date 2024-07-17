@@ -16,172 +16,64 @@
 
 import { OAuthCredential, User } from "firebase/auth";
 import { GoogleSpreadsheet } from "google-spreadsheet";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
-import { GoogleSignIn } from "../../utils/google_signin";
+import { signInWithGoogle } from "../../utils/google_signin";
 import { CallFeedback } from "./call_feedback";
-import {
-  CALL_ID_COL,
-  DC_CALL_SHEET,
-  DC_METADATA_SHEET,
-  FEEDBACK_PANE_ID,
-  METADATA_KEY_COL,
-  METADATA_KEY_TYPE,
-  METADATA_VAL_COL,
-  QA_SHEET,
-  QUERY_COL,
-  QUERY_ID_COL,
-  USER_COL,
-} from "./constants";
 import { AppContext, SessionContext } from "./context";
 import { OverallFeedback } from "./overall_feedback";
 import { QuerySection } from "./query_section";
 import { RagAnsFeedback } from "./rag_ans_feedback";
 import { DcCall, EvalType, FeedbackStage, Query } from "./types";
-import { getFirstFeedbackStage } from "./util";
-
-// Map from sheet name to column name to column index
-type HeaderInfo = Record<string, Record<string, number>>;
+import { getDocInfo, getFirstFeedbackStage } from "./util";
 
 interface AppPropType {
   sheetId: string;
 }
 
+// Get first query to show which should be the first question of this user or a
+// question with no user.
+function getFirstQuery(
+  allQuery: Record<number, Query>,
+  userEmail: string
+): number {
+  let queryId: number = null;
+  let nullQueryId: number = null;
+  const sortedQueryIds = Object.keys(allQuery)
+    .map((qKey) => Number(qKey))
+    .sort((a, b) => a - b);
+  for (const qId of sortedQueryIds) {
+    if (allQuery[qId].user === userEmail) {
+      queryId = qId;
+      break;
+    }
+    if (nullQueryId === null && allQuery[qId].user === null) {
+      nullQueryId = qId;
+    }
+  }
+  if (queryId === null && nullQueryId !== null) {
+    queryId = nullQueryId;
+  }
+  if (queryId !== null) {
+    return queryId;
+  } else {
+    return sortedQueryIds[0];
+  }
+}
+
 export function App(props: AppPropType): JSX.Element {
-  const { setSessionQueryId, setFeedbackStage, feedbackStage, sessionQueryId } =
-    useContext(SessionContext);
+  const {
+    setSessionQueryId,
+    setFeedbackStage,
+    feedbackStage,
+    sessionQueryId,
+    sessionCallId,
+  } = useContext(SessionContext);
   const [user, setUser] = useState<User | null>(null);
   const [doc, setDoc] = useState<GoogleSpreadsheet>(null);
   const [allQuery, setAllQuery] = useState<Record<number, Query>>(null);
   const [allCall, setAllCall] = useState<Record<number, DcCall>>(null);
   const [evalType, setEvalType] = useState<EvalType>(null);
-
-  async function loadHeader(doc: GoogleSpreadsheet): Promise<HeaderInfo> {
-    const result: HeaderInfo = {};
-    for (const sheetName of [QA_SHEET, DC_CALL_SHEET, DC_METADATA_SHEET]) {
-      result[sheetName] = {};
-      const sheet = doc.sheetsByTitle[sheetName];
-      await sheet.loadHeaderRow();
-      for (let i = 0; i < sheet.headerValues.length; i++) {
-        const colName = sheet.headerValues[i];
-        result[sheetName][colName] = i;
-      }
-    }
-    return result;
-  }
-
-  const loadQuery = (
-    doc: GoogleSpreadsheet,
-    allHeader: HeaderInfo,
-    userEmail: string
-  ) => {
-    const sheet = doc.sheetsByTitle[QA_SHEET];
-    const header = allHeader[QA_SHEET];
-    const numRows = sheet.rowCount;
-    const loadPromises = [];
-    for (const col of [QUERY_ID_COL, USER_COL, QUERY_COL]) {
-      loadPromises.push(
-        sheet.loadCells({
-          startColumnIndex: header[col],
-          endColumnIndex: header[col] + 1,
-        })
-      );
-    }
-    Promise.all(loadPromises).then(() => {
-      const allQuery: Record<number, Query> = {};
-      for (let i = 1; i < numRows; i++) {
-        const id = Number(sheet.getCell(i, header[QUERY_ID_COL]).value);
-        allQuery[id] = {
-          id,
-          row: i,
-          text: String(sheet.getCell(i, header[QUERY_COL]).value),
-          user: String(sheet.getCell(i, header[USER_COL]).value),
-        };
-      }
-      setAllQuery(allQuery);
-      // Jump to the first question of this user or a question with no user.
-      let queryId: number = null;
-      let nullQueryId: number = null;
-      const sortedQueryIds = Object.keys(allQuery)
-        .map((qKey) => Number(qKey))
-        .sort((a, b) => a - b);
-      for (const qId of sortedQueryIds) {
-        if (allQuery[qId].user === userEmail) {
-          queryId = qId;
-          break;
-        }
-        if (nullQueryId === null && allQuery[qId].user === null) {
-          nullQueryId = qId;
-        }
-      }
-      if (queryId === null && nullQueryId !== null) {
-        queryId = nullQueryId;
-      }
-      if (queryId !== null) {
-        setSessionQueryId(queryId);
-      } else {
-        setSessionQueryId(sortedQueryIds[0]);
-      }
-    });
-  };
-
-  const loadCall = (doc: GoogleSpreadsheet, allHeader: HeaderInfo) => {
-    const sheet = doc.sheetsByTitle[DC_CALL_SHEET];
-    const header = allHeader[DC_CALL_SHEET];
-    const numRows = sheet.rowCount;
-    const loadPromises = [];
-    for (const col of [QUERY_ID_COL, CALL_ID_COL]) {
-      loadPromises.push(
-        sheet.loadCells({
-          startColumnIndex: header[col],
-          endColumnIndex: header[col] + 1,
-        })
-      );
-    }
-    Promise.all(loadPromises).then(() => {
-      const tmp: Record<number, DcCall> = {};
-      for (let i = 1; i < numRows; i++) {
-        const row = i;
-        const queryId = Number(sheet.getCell(i, header[QUERY_ID_COL]).value);
-        const callId = Number(sheet.getCell(i, header[CALL_ID_COL]).value);
-        if (!tmp[queryId]) {
-          tmp[queryId] = {};
-        }
-        tmp[queryId][callId] = row;
-      }
-      setAllCall(tmp);
-    });
-  };
-
-  const loadMetadata = (doc: GoogleSpreadsheet, allHeader: HeaderInfo) => {
-    const sheet = doc.sheetsByTitle[DC_METADATA_SHEET];
-    const header = allHeader[DC_METADATA_SHEET];
-    const loadPromises = [];
-    for (const col of [METADATA_KEY_COL, METADATA_VAL_COL]) {
-      loadPromises.push(
-        sheet.loadCells({
-          startColumnIndex: header[col],
-          endColumnIndex: header[col] + 1,
-        })
-      );
-    }
-    const numRows = sheet.rowCount;
-    Promise.all(loadPromises).then(() => {
-      for (let i = 1; i < numRows; i++) {
-        const metadataKey = sheet.getCell(i, header[METADATA_KEY_COL]).value;
-        if (metadataKey === METADATA_KEY_TYPE) {
-          const evalType = sheet.getCell(i, header[METADATA_VAL_COL])
-            .value as EvalType;
-          setFeedbackStage(getFirstFeedbackStage(evalType));
-          setEvalType(evalType);
-          return;
-        }
-      }
-      alert(
-        "Could not find an eval type in the sheet metadata. Please update the sheet and try again."
-      );
-    });
-  };
 
   async function handleUserSignIn(user: User, credential: OAuthCredential) {
     if (credential.accessToken) {
@@ -191,22 +83,33 @@ export function App(props: AppPropType): JSX.Element {
       });
       await doc.loadInfo();
       setDoc(doc);
-      loadHeader(doc).then((allHeader) => {
-        loadQuery(doc, allHeader, user.email);
-        loadCall(doc, allHeader);
-        loadMetadata(doc, allHeader);
+      getDocInfo(doc).then((docInfo) => {
+        setAllCall(docInfo.allCall);
+        setAllQuery(docInfo.allQuery);
+        setFeedbackStage(getFirstFeedbackStage(docInfo.evalType));
+        setEvalType(docInfo.evalType);
+        setSessionQueryId(getFirstQuery(docInfo.allQuery, user.email));
       });
     }
   }
 
+  // Sign in automatically.
+  useEffect(() => {
+    const scopes = ["https://www.googleapis.com/auth/spreadsheets"];
+    signInWithGoogle(scopes, handleUserSignIn);
+  }, []);
+
+  const initialLoadCompleted =
+    allQuery && allCall && doc && sessionQueryId && evalType;
   return (
     <>
       {!user && (
-        <div className="sign-in">
-          <GoogleSignIn
-            onSignIn={handleUserSignIn}
-            scopes={["https://www.googleapis.com/auth/spreadsheets"]}
-          />
+        <div>
+          <p>Signing you in...</p>
+          <p>
+            If you are not signed in after a few seconds, check that pop-ups are
+            allowed and refresh the page.
+          </p>
         </div>
       )}
 
@@ -221,7 +124,8 @@ export function App(props: AppPropType): JSX.Element {
             Google Sheet Link
           </a>
           <p>Signed in as {user.email}</p>
-          {allQuery && allCall && doc && sessionQueryId && evalType && (
+          {!initialLoadCompleted && <p>Loading query...</p>}
+          {initialLoadCompleted && (
             <AppContext.Provider
               value={{
                 allCall,
@@ -233,20 +137,20 @@ export function App(props: AppPropType): JSX.Element {
               }}
             >
               <div className="app-content">
-                <QuerySection />
-                <div className="feedback-pane" id={FEEDBACK_PANE_ID}>
-                  {(feedbackStage === FeedbackStage.OVERALL_ANS ||
-                    feedbackStage === FeedbackStage.OVERALL_QUESTIONS) && (
-                    <OverallFeedback />
-                  )}
-                  {feedbackStage === FeedbackStage.CALLS && <CallFeedback />}
-                  {feedbackStage === FeedbackStage.RAG_ANS && (
-                    <RagAnsFeedback />
-                  )}
-                  <div id="page-screen" className="screen">
-                    <div id="spinner"></div>
-                  </div>
-                </div>
+                <QuerySection
+                  doc={doc}
+                  evalType={evalType}
+                  feedbackStage={feedbackStage}
+                  query={allQuery[sessionQueryId]}
+                  callId={sessionCallId}
+                  allCall={allCall}
+                />
+                {(feedbackStage === FeedbackStage.OVERALL_ANS ||
+                  feedbackStage === FeedbackStage.OVERALL_QUESTIONS) && (
+                  <OverallFeedback />
+                )}
+                {feedbackStage === FeedbackStage.CALLS && <CallFeedback />}
+                {feedbackStage === FeedbackStage.RAG_ANS && <RagAnsFeedback />}
               </div>
             </AppContext.Provider>
           )}
