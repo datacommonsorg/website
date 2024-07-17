@@ -96,7 +96,10 @@ function getTooltipHtml(
   callId: string,
   calls?: DcCalls
 ): string {
-  const dcResponse: string = calls ? calls[callId]?.dcResponse ?? "" : "";
+  let dcResponse = "";
+  if (calls) {
+    dcResponse = calls[callId]?.dcResponse || "";
+  }
   return (
     `<span class="dc-stat-tooltip">` +
     `<span class="dc-stat-tooltip-label">${dcResponse}</span>: ` +
@@ -176,11 +179,11 @@ function getCalls(
         calls[queryId] = {};
       }
       calls[queryId][callId] = {
-        dcResponse: sheet.getCell(i, header[DC_RESPONSE_COL]).stringValue,
-        dcStat: sheet.getCell(i, header[DC_STAT_COL]).stringValue,
-        llmStat: sheet.getCell(i, header[LLM_STAT_COL]).stringValue,
         rowIndex: i,
         question: sheet.getCell(i, header[DC_QUESTION_COL]).stringValue,
+        llmStat: sheet.getCell(i, header[LLM_STAT_COL]).stringValue,
+        dcResponse: sheet.getCell(i, header[DC_RESPONSE_COL]).stringValue,
+        dcStat: sheet.getCell(i, header[DC_STAT_COL]).stringValue,
       };
     }
     return calls;

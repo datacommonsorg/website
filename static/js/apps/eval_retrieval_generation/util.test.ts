@@ -16,10 +16,16 @@
 import { DcCalls } from "./types";
 import { processText } from "./util";
 
+interface TestCase {
+  input: string;
+  calls?: DcCalls;
+  expected: string;
+}
+
 test("processText", () => {
   // TODO pass calls too
 
-  const testCases = [
+  const testCases: TestCase[] = [
     // DC stat and DC response
     // -> inline DC stat plus DC stat tooltip
     {
