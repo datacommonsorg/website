@@ -24,6 +24,7 @@ from flask import current_app
 from flask import g
 from flask_babel import gettext
 
+from server.lib.cache import cache
 from server.lib.i18n import AVAILABLE_LANGUAGES
 import server.routes.shared_api.place as place_api
 from shared.lib.place_summaries import get_shard_filename_by_dcid
@@ -193,6 +194,7 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
 
 @bp.route('', strict_slashes=False)
 @bp.route('/<path:place_dcid>')
+@cache.cached(query_string=True)
 def place(place_dcid=None):
   redirect_args = dict(flask.request.args)
 
@@ -268,7 +270,6 @@ def place(place_dcid=None):
     place_summary = get_place_summaries(place_dcid).get(place_dcid, {})
     elapsed_time = (time.time() - start_time) * 1000
     logging.info(f"Place page summary took {elapsed_time:.2f} milliseconds.")
-  logging.info("----------------- 4")
 
   # Block pages from being indexed if not on the main DC domain. This prevents
   # crawlers from indexing dev or custom DC versions of the place pages.
