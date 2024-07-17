@@ -23,6 +23,7 @@ import { DocInfo } from "../types";
 import { getDocInfo } from "../util";
 import { AnswerWithTables } from "./answer_with_tables";
 import { SessionContext } from "./context";
+import { getRatedQueryIds } from "./data_store";
 import { getLeftAndRight } from "./left_right_picker";
 import { SxsFeedback } from "./sxs_feedback";
 
@@ -41,14 +42,38 @@ function getSortedQueryIds(docInfos: { a: DocInfo; b: DocInfo }) {
     .sort((a, b) => a - b);
 }
 
+/** Returns the ID of the first unevaluated query. */
+async function getStartingQueryId(
+  props: AppPropType,
+  sortedQueryIds: number[]
+): Promise<number> {
+  const completedIds = await getRatedQueryIds(
+    props.sheetIdA,
+    props.sheetIdB,
+    props.sessionId
+  );
+  for (const queryId of sortedQueryIds) {
+    if (!completedIds.includes(queryId)) {
+      return queryId;
+    }
+  }
+  // If all evals are complete, show the first query.
+  return sortedQueryIds[0];
+}
+
 export function App(props: AppPropType): JSX.Element {
   const [user, setUser] = useState<User | null>(null);
   const [docInfos, setDocInfos] = useState<{ a: DocInfo; b: DocInfo }>(null);
   const { setSessionQueryId, sessionQueryId } = useContext(SessionContext);
+  console.log(sessionQueryId);
+
   const sortedQueryIds = getSortedQueryIds(docInfos);
   if (!sessionQueryId && sortedQueryIds.length) {
-    setSessionQueryId(sortedQueryIds[0]);
+    getStartingQueryId(props, sortedQueryIds).then(
+      (startingQueryId) => void setSessionQueryId(startingQueryId)
+    );
   }
+
   const { leftDocInfo, rightDocInfo } = getLeftAndRight(
     props.sessionId,
     docInfos?.a,
@@ -85,6 +110,7 @@ export function App(props: AppPropType): JSX.Element {
     signInWithGoogle(scopes, handleUserSignIn);
   }, []);
 
+  const initialLoadCompleted = docInfos && sessionQueryId;
   return (
     <>
       {!user && (
@@ -102,12 +128,12 @@ export function App(props: AppPropType): JSX.Element {
           <p>Signed in as {user.email}</p>
         </div>
       )}
-      {user && !docInfos && (
+      {user && !initialLoadCompleted && (
         <div className="banner">
           <p>Loading query...</p>
         </div>
       )}
-      {docInfos && (
+      {initialLoadCompleted && (
         <>
           <div className="sxs-app-content">
             <div className="query-header">
