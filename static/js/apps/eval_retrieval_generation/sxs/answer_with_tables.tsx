@@ -40,13 +40,11 @@ export function AnswerWithTables(props: AnswerWithTablesPropType): JSX.Element {
             evalType={props.docInfo.evalType}
             feedbackStage={FeedbackStage.SXS}
             query={props.docInfo.allQuery[sessionQueryId]}
+            allCall={props.docInfo.allCall}
             hideIdAndQuestion={true}
           />
           {props.docInfo.evalType === EvalType.RAG && (
-            <TablePane
-              doc={props.docInfo.doc}
-              calls={props.docInfo.allCall[sessionQueryId]}
-            />
+            <TablePane calls={props.docInfo.allCall[sessionQueryId]} />
           )}
         </div>
       </div>
