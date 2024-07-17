@@ -13,11 +13,10 @@
 # limitations under the License.
 
 import unittest
-import urllib
-import urllib.request
 
 from selenium.webdriver.common.by import By
 
+from server.integration_tests.explore_test import ExploreTest
 from server.webdriver import shared
 from server.webdriver.base_utils import create_driver
 from server.webdriver.base_utils import find_elem
@@ -27,7 +26,7 @@ from server.webdriver.base_utils import wait_elem
 CDC_AUTOPUSH_URL = 'https://dc-autopush-kqb7thiuka-uc.a.run.app'
 
 
-class CdcAutopushTest(unittest.TestCase):
+class CdcAutopushWebdriverTest(unittest.TestCase):
 
   def setUp(self, preferences=None):
     """Runs at the beginning of every individual test."""
@@ -66,3 +65,12 @@ class CdcAutopushTest(unittest.TestCase):
                                '//*[contains(text(), "Average Annual Wage")]')
     self.assertIsNotNone(custom_sv_elem,
                          'Custom SV (Average Annual Wage) element not found')
+
+
+class CdcAutopushNLTest(ExploreTest):
+
+  def get_server_url(self):
+    return CDC_AUTOPUSH_URL
+
+  def test_cdc_nl(self):
+    self.run_detect_and_fulfill('cdc_nl', ['gender wage gap in europe'])
