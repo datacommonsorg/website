@@ -124,6 +124,7 @@ export function App(props: AppPropType): JSX.Element {
               rightSheetId={rightDocInfo.doc.spreadsheetId}
               sessionId={props.sessionId}
               sortedQueryIds={sortedQueryIds}
+              allQuery={leftDocInfo.allQuery}
               userEmail={user.email}
             ></SxsFeedback>
           </div>
