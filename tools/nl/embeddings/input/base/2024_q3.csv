@@ -1,8 +1,8 @@
 dcid,sentence
 Count_Person_InvolvedInCrash_Motorists,Number of motorists involved in crash
 Count_Person_InvolvedInCrash_MotorVehicleOccupant,Number of motor vehicle occupants involved in crash
-Count_Vehicle_InvolvedInCrash_InTransport,Number of vehicles in motion involved in crash
-Count_VehicleCrashIncident_CollisionCrash_HeadOnCollision,Number of headon vehicle collisions
+Count_Vehicle_InvolvedInCrash_InTransport,Number of moving vehicles involved in crash
+Count_VehicleCrashIncident_CollisionCrash_HeadOnCollision,Number of head-on collision vehicle crash
 Count_VehicleCrashIncident_InvolvedInCrash_SchoolBus,Number of crashes with school buses
 Count_VehicleCrashIncident_NationalHighway,Number of vehicle crash incidents occurred on the national highway
 Count_VehicleCrashIncident_StateHighway,Number of vehicle crash incidents occurred on the state highway
