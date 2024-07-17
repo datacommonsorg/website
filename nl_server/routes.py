@@ -130,10 +130,10 @@ def embeddings_version_map():
 
 @bp.route('/api/load/', methods=['POST'])
 def load():
-  catalog = request.json.get('catalog', None)
+  additional_catalog_path = request.json.get('additional_catalog_path', None)
   try:
     current_app.config[REGISTRY_KEY] = registry.build(
-        additional_catalog=catalog)
+        additional_catalog_path=additional_catalog_path)
   except Exception as e:
     logging.error(f'Server registry not built due to error: {str(e)}')
   reg: Registry = current_app.config[REGISTRY_KEY]

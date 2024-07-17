@@ -24,7 +24,7 @@ import { AppContext, SessionContext } from "./context";
 import { OverallFeedback } from "./overall_feedback";
 import { QuerySection } from "./query_section";
 import { RagAnsFeedback } from "./rag_ans_feedback";
-import { DcCall, EvalType, FeedbackStage, Query } from "./types";
+import { DcCalls, EvalType, FeedbackStage, Query } from "./types";
 import { getDocInfo, getFirstFeedbackStage } from "./util";
 
 interface AppPropType {
@@ -72,7 +72,7 @@ export function App(props: AppPropType): JSX.Element {
   const [user, setUser] = useState<User | null>(null);
   const [doc, setDoc] = useState<GoogleSpreadsheet>(null);
   const [allQuery, setAllQuery] = useState<Record<number, Query>>(null);
-  const [allCall, setAllCall] = useState<Record<number, DcCall>>(null);
+  const [allCall, setAllCall] = useState<Record<number, DcCalls>>(null);
   const [evalType, setEvalType] = useState<EvalType>(null);
 
   async function handleUserSignIn(user: User, credential: OAuthCredential) {
