@@ -18,6 +18,7 @@ import { GoogleSpreadsheet } from "google-spreadsheet";
 import _ from "lodash";
 
 import {
+  ANSWER_COL,
   CALL_ID_COL,
   DC_CALL_SHEET,
   DC_METADATA_SHEET,
@@ -34,7 +35,14 @@ import {
   QUERY_ID_COL,
   USER_COL,
 } from "./constants";
-import { DcCalls, DocInfo, EvalType, FeedbackStage, Query } from "./types";
+import {
+  AllQuery,
+  DcCalls,
+  DocInfo,
+  EvalType,
+  FeedbackStage,
+  Query,
+} from "./types";
 
 const HTTP_PATTERN = /https:\/\/[^\s]+/g;
 const LONG_SPACES = "&nbsp;&nbsp;&nbsp;&nbsp;";
@@ -144,7 +152,7 @@ async function getHeader(doc: GoogleSpreadsheet): Promise<HeaderInfo> {
 function getQueries(
   doc: GoogleSpreadsheet,
   allHeader: HeaderInfo
-): Promise<Record<number, Query>> {
+): Promise<AllQuery> {
   const sheet = doc.sheetsByTitle[QA_SHEET];
   const header = allHeader[QA_SHEET];
   const numRows = sheet.rowCount;
@@ -152,6 +160,8 @@ function getQueries(
     const allQuery: Record<number, Query> = {};
     for (let i = 1; i < numRows; i++) {
       const id = Number(sheet.getCell(i, header[QUERY_ID_COL]).value);
+      // Skip row if query ID is 0 or NaN.
+      if (!id) continue;
       allQuery[id] = {
         id,
         rowIndex: i,
@@ -180,10 +190,12 @@ function getCalls(
       }
       calls[queryId][callId] = {
         rowIndex: i,
-        question: sheet.getCell(i, header[DC_QUESTION_COL]).stringValue,
-        llmStat: sheet.getCell(i, header[LLM_STAT_COL]).stringValue,
-        dcResponse: sheet.getCell(i, header[DC_RESPONSE_COL]).stringValue,
-        dcStat: sheet.getCell(i, header[DC_STAT_COL]).stringValue,
+        question:
+          sheet.getCell(i, header[DC_QUESTION_COL]).formattedValue || "",
+        llmStat: sheet.getCell(i, header[LLM_STAT_COL]).formattedValue || "",
+        dcResponse:
+          sheet.getCell(i, header[DC_RESPONSE_COL]).formattedValue || "",
+        dcStat: sheet.getCell(i, header[DC_STAT_COL]).formattedValue || "",
       };
     }
     return calls;
@@ -225,4 +237,20 @@ export function getDocInfo(doc: GoogleSpreadsheet): Promise<DocInfo> {
     .then(([allQuery, allCall, evalType]) => {
       return { doc, allQuery, allCall, evalType };
     });
+}
+
+// Promise to get the answer for a query from the query and answer sheet in a
+// google spreadsheet.
+export function getAnswerFromQueryAndAnswerSheet(
+  doc: GoogleSpreadsheet,
+  query: Query
+): Promise<string> {
+  const sheet = doc.sheetsByTitle[QA_SHEET];
+  const rowIdx = query.rowIndex;
+  return sheet.getRows({ offset: rowIdx - 1, limit: 1 }).then((rows) => {
+    const row = rows[0];
+    if (row) {
+      return row.get(ANSWER_COL) || "";
+    }
+  });
 }

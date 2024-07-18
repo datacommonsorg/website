@@ -14,10 +14,36 @@
  limitations under the License.
  */
 
-import { doc, DocumentReference, getDoc, setDoc } from "firebase/firestore";
+import {
+  collectionGroup,
+  doc,
+  DocumentReference,
+  getDoc,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
 
 import { db } from "../../../utils/firebase";
 import { Rating, SxsPreference } from "./types";
+
+const SHEETS_COLLECTION_NAME = "sheets";
+const QUERIES_COLLECTION_NAME = "queries";
+const RATINGS_COLLECTION_NAME = "ratings";
+
+const SHEET_IDS_KEY = "sheetIds";
+const SESSION_ID_KEY = "sessionId";
+
+interface StorageOnlyRatingFields {
+  [SHEET_IDS_KEY]: string;
+  [SESSION_ID_KEY]: string;
+  queryId: number;
+  userEmail: string;
+  timestamp: Date;
+}
+
+type StoredRating = Rating & StorageOnlyRatingFields;
 
 /**
  * Gets the document ref for a particular rating.
@@ -28,19 +54,26 @@ function getRatingRef(
   queryId: number,
   sessionId: string
 ): DocumentReference {
+  return doc(
+    db,
+    SHEETS_COLLECTION_NAME,
+    getCombinedSheetIds(sheetIdA, sheetIdB),
+    QUERIES_COLLECTION_NAME,
+    queryId.toString(),
+    RATINGS_COLLECTION_NAME,
+    String(sessionId)
+  );
+}
+
+/**
+ * Combines two sheet IDs into the expected format for Firestore path.
+ */
+function getCombinedSheetIds(sheetIdA: string, sheetIdB: string): string {
   // Use sheet IDs in lexicographical order so it doesn't matter which order
   // they're passed in.
   const firstSheetId = sheetIdA < sheetIdB ? sheetIdA : sheetIdB;
   const secondSheetId = sheetIdA < sheetIdB ? sheetIdB : sheetIdA;
-  return doc(
-    db,
-    "sheets",
-    `${firstSheetId}:${secondSheetId}`,
-    "queries",
-    queryId.toString(),
-    "ratings",
-    String(sessionId)
-  );
+  return `${firstSheetId}:${secondSheetId}`;
 }
 
 /**
@@ -55,7 +88,14 @@ export async function saveRatingToStore(
   rating: Rating
 ): Promise<void> {
   const docRef = getRatingRef(sheetIdA, sheetIdB, queryId, sessionId);
-  const dataToSave = { ...rating, userEmail, timestamp: new Date() };
+  const dataToSave: StoredRating = {
+    ...rating,
+    sheetIds: getCombinedSheetIds(sheetIdA, sheetIdB),
+    sessionId,
+    queryId,
+    userEmail,
+    timestamp: new Date(),
+  };
   return setDoc(docRef, dataToSave);
 }
 
@@ -78,4 +118,24 @@ export async function getStoredRating(
     reason: savedData["reason"],
     rightSheetId: savedData["rightSheetId"],
   };
+}
+
+/**
+ * Gets the IDs of queries that have a stored rating under the given session ID.
+ */
+export async function getRatedQueryIds(
+  sheetIdA: string,
+  sheetIdB: string,
+  sessionId: string
+): Promise<number[]> {
+  const sessionRatingsRef = query(
+    collectionGroup(db, RATINGS_COLLECTION_NAME),
+    where(SHEET_IDS_KEY, "==", getCombinedSheetIds(sheetIdA, sheetIdB)),
+    where(SESSION_ID_KEY, "==", sessionId)
+  );
+  const sessionRatings = await getDocs(sessionRatingsRef);
+  return sessionRatings.docs.map((ratingDocData) => {
+    const storedRating = ratingDocData.data() as StoredRating;
+    return storedRating.queryId;
+  });
 }
