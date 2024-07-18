@@ -19,11 +19,11 @@
  * TODO(beets): Don't update the modal with stat var names if it's already opened.
  */
 
-import { DataCommonsClient } from "@datacommonsorg/client";
 import React, { useEffect, useState } from "react";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
 import { StatVarSpec } from "../../shared/types";
+import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { apiRootToHostname } from "../../utils/url_utils";
 
 const SV_EXPLORER_REDIRECT_PREFIX = "/tools/statvar#sv=";
@@ -67,7 +67,7 @@ export function TileMetadataModal(
   const [statVarNames, setStatVarNames] = useState<DcidNameTuple[]>([]);
   const dcids = new Set<string>();
   const toggleModal = () => setModalOpen(!modalOpen);
-  const dataCommonsClient = new DataCommonsClient({ apiRoot: props.apiRoot });
+  const dataCommonsClient = getDataCommonsClient(props.apiRoot);
   if (props.statVarSpecs) {
     for (const spec of props.statVarSpecs) {
       dcids.add(spec.statVar);
