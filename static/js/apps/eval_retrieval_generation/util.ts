@@ -152,6 +152,8 @@ function getQueries(
     const allQuery: Record<number, Query> = {};
     for (let i = 1; i < numRows; i++) {
       const id = Number(sheet.getCell(i, header[QUERY_ID_COL]).value);
+      // Skip row if query ID is 0 or NaN.
+      if (!id) continue;
       allQuery[id] = {
         id,
         rowIndex: i,
