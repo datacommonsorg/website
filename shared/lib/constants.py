@@ -282,7 +282,7 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
             "percapita",
             "per person",
             # remove "rate" or "rates" if is not followed by certain words (used as one metric)
-            f"\brate(s)?\b(?!\s*{_RATE_WORDS_TO_SKIP}\s+rate(s)?)",
+            f"rate(s)?(?!\s*{_RATE_WORDS_TO_SKIP}\s+rate(s)?)",
         ],
         "Temporal": [
             # Day of week
