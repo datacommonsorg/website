@@ -35,7 +35,7 @@ export function SessionContextProvider({
 }: {
   children: JSX.Element;
 }): JSX.Element {
-  const [sessionQueryId, setSessionQueryId] = useState(1);
+  const [sessionQueryId, setSessionQueryId] = useState(null);
   return (
     <SessionContext.Provider
       value={{

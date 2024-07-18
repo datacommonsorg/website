@@ -20,7 +20,9 @@ import _ from "lodash";
 import React, { useContext } from "react";
 import { Button } from "reactstrap";
 
+import { AllQuery } from "../types";
 import { SessionContext } from "./context";
+import { EvalList } from "./eval_list";
 
 enum ButtonType {
   PREV_QUERY = "PREV_QUERY",
@@ -51,7 +53,11 @@ const BUTTON_CONFIGS: Record<string, ButtonConfig> = {
 };
 
 interface NavigationPropType {
+  leftSheetId: string;
+  rightSheetId: string;
+  sessionId: string;
   sortedQueryIds: number[];
+  allQuery: AllQuery;
   checkAndSubmit: () => Promise<boolean>;
 }
 
@@ -107,6 +113,13 @@ export function Navigation(props: NavigationPropType): JSX.Element {
 
   return (
     <div className="feedback-nav-section">
+      <EvalList
+        leftSheetId={props.leftSheetId}
+        rightSheetId={props.rightSheetId}
+        sessionId={props.sessionId}
+        sortedQueryIds={props.sortedQueryIds}
+        allQuery={props.allQuery}
+      ></EvalList>
       <div className="nav-buttons">
         {prevButtonType !== ButtonType.EMPTY && (
           <Button
