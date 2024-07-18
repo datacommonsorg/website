@@ -39,7 +39,7 @@ interface CombinedDocInfo {
   sortedQueryIds: number[];
 }
 
-function getSortedQueryIds(docInfoA: DocInfo, docInfoB: DocInfo) {
+function getSortedQueryIds(docInfoA: DocInfo, docInfoB: DocInfo): number[] {
   const idsA = Object.keys(docInfoA.allQuery || {});
   const idsB = Object.keys(docInfoB.allQuery || {});
   return idsA
