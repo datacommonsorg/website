@@ -28,6 +28,7 @@ from server.lib.i18n import AVAILABLE_LANGUAGES
 import server.routes.shared_api.place as place_api
 from shared.lib.place_summaries import get_shard_filename_by_dcid
 from shared.lib.place_summaries import get_shard_name
+import shared.lib.gcs as gcs
 
 bp = flask.Blueprint('place', __name__, url_prefix='/place')
 
@@ -64,6 +65,49 @@ PARENT_PLACE_TYPES_TO_HIGHLIGHT = {
     'Country',
     'Continent',
 }
+
+# Location of manually written templates for SEO experimentation in GCS bucket
+SEO_EXPERIMENT_HTML_GCS_DIR = "seo_experiments/active"
+
+# Location of manually written templates for SEO experimentation on local disk
+SEO_EXPERIMENT_HTML_LOCAL_DIR = "config/seo_experiments/html_templates/active/"
+
+# Map DCID of SEO experiment places to their template filename
+SEO_EXPERIMENT_DCID_TO_HTML = {"country/EGY": "Egypt.html"}
+
+
+def get_seo_experiment_template(dcid: str) -> str:
+  """Load page template for SEO experiments
+  
+  Will load files from GCS unless server is running locally, in which case
+  will load from server/config/seo_experiments/html_templates/active instead.
+
+  If a file cannot be found or read, will return empty string instead.
+  """
+  experiment_template = ""
+  try:
+    filename = SEO_EXPERIMENT_DCID_TO_HTML[dcid]
+
+    if current_app.config['LOCAL']:
+      # Load template from local path
+      template_filepath = os.path.join(current_app.root_path,
+                                       SEO_EXPERIMENT_HTML_LOCAL_DIR, filename)
+    else:
+      # Load template from GCS
+      template_filepath = os.path.join("/tmp/seo_experiment/template/",
+                                       filename)
+      gcs.download_blob("datcom-website-config",
+                        os.path.join(SEO_EXPERIMENT_HTML_GCS_DIR, filename),
+                        template_filepath)
+
+    with open(template_filepath, 'r', errors='ignore') as f:
+      experiment_template = f.read()
+
+  except Exception as e:
+    logging.info(
+        f"Encountered exception while attempting to load experiment place page template for {dcid}: {e}"
+    )
+  return experiment_template
 
 
 def get_place_summaries(dcid: str) -> dict:
@@ -268,14 +312,56 @@ def place(place_dcid=None):
     place_summary = get_place_summaries(place_dcid).get(place_dcid, {})
     elapsed_time = (time.time() - start_time) * 1000
     logging.info(f"Place page summary took {elapsed_time:.2f} milliseconds.")
-  logging.info("----------------- 4")
 
   # Block pages from being indexed if not on the main DC domain. This prevents
   # crawlers from indexing dev or custom DC versions of the place pages.
   block_indexing = not is_canonical_domain(flask.request.base_url)
-  logging.info(f"flask.requests.base_url is {flask.request.base_url}")
-  logging.info(f"Block indexing on place pages? {block_indexing}")
 
+  # Use SEO experiment templates on English overview pages for places in
+  # the experiment group.
+  use_experiment = place_dcid in SEO_EXPERIMENT_DCID_TO_HTML.keys(
+  ) and not category and locale == 'en'
+
+  # Do not release experiment to prod while templates are still being written.
+  # TODO(juliawu): Once all templates are ready, enable the experiment on
+  #                staging and prod.
+  is_experiment_enabled_flask_env = os.environ.get('FLASK_ENV') in [
+      'local', 'autopush', 'dev'
+  ]
+
+  experiment_template = ""
+  if use_experiment and is_experiment_enabled_flask_env:
+    try:
+      # Fetch template from GCS and log the timing
+      start_time = time.time()
+      experiment_template = get_seo_experiment_template(place_dcid)
+      elapsed_time = (time.time() - start_time) * 1000
+      logging.info(
+          f"Loading experiment place page template for {place_name} (DCID: {place_dcid}) took {elapsed_time:.2f} milliseconds."
+      )
+      # Load response
+      response = flask.make_response(
+          flask.render_template_string(
+              experiment_template,
+              place_type=place_type,
+              place_name=place_name,
+              place_dcid=place_dcid,
+              place_type_with_parent_places_links=
+              place_type_with_parent_places_links,
+              category=category if category else '',
+              place_summary=place_summary.get('summary')
+              if place_summary and locale == 'en' else '',
+              maps_api_key=current_app.config['MAPS_API_KEY'],
+              block_indexing=block_indexing))
+      response.headers.set('Link',
+                           generate_link_headers(place_dcid, category, locale))
+      return response
+    except Exception as e:
+      logging.error(
+          f"Encountered exception while loading experiment place page template for {place_name} (DCID: {place_dcid}). Falling back to default place page template: {e}"
+      )
+
+  # Default to place.html template
   response = flask.make_response(
       flask.render_template(
           'place.html',
