@@ -73,11 +73,16 @@ export function App(props: AppPropType): JSX.Element {
   const { setSessionQueryId, sessionQueryId } = useContext(SessionContext);
 
   useEffect(() => {
-    if (!sessionQueryId && combinedDocInfo?.sortedQueryIds.length) {
+    let subscribed = true;
+    if (combinedDocInfo?.sortedQueryIds.length) {
       getStartingQueryId(props, combinedDocInfo.sortedQueryIds).then(
-        (startingQueryId) => void setSessionQueryId(startingQueryId)
+        (startingQueryId) => {
+          if (!subscribed) return;
+          setSessionQueryId(startingQueryId);
+        }
       );
     }
+    return () => void (subscribed = false);
   }, [combinedDocInfo]);
 
   const { leftDocInfo, rightDocInfo } = getLeftAndRight(
