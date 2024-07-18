@@ -15,16 +15,11 @@
 # limitations under the License.
 
 
-# Creates a new custom DC image, tags it latest, and deploys it to autopush.
+# Creates a new custom DC image and tags it latest.
 
-# The script also updates a RESTART_TIMESTAMP env var
-# to easily identify the restart time of a given revision.
-
-# Usage: From root, ./scripts/build_and_deploy_custom_dc_autopush.sh
+# Usage: From root, ./scripts/build_custom_dc_and_tag_latest.sh
 
 # The latest image = gcr.io/datcom-ci/datacommons-website-compose:latest
-# autopush service: https://pantheon.corp.google.com/run/detail/us-central1/dc-dev/revisions?project=datcom-website-dev
-# autopush URL: https://dc-dev-kqb7thiuka-uc.a.run.app
 
 set -e
 set -x
@@ -51,10 +46,3 @@ docker build -f build/web_compose/Dockerfile \
           .
 docker push gcr.io/datcom-ci/datacommons-website-compose:${image_label}
 docker push gcr.io/datcom-ci/datacommons-website-compose:latest
-
-# Deploy latest image to dc-autopush Cloud Run service
-gcloud run deploy dc-autopush \
-    --project datcom-website-dev \
-    --image gcr.io/datcom-ci/datacommons-website-compose:latest \
-    --region us-central1 \
-    --update-env-vars RESTART_TIMESTAMP="$(date)"
