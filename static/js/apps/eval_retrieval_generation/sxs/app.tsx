@@ -33,9 +33,15 @@ interface AppPropType {
   sheetIdB: string;
 }
 
-function getSortedQueryIds(docInfos: { a: DocInfo; b: DocInfo }) {
-  const idsA = Object.keys(docInfos?.a?.allQuery || {});
-  const idsB = Object.keys(docInfos?.b?.allQuery || {});
+interface CombinedDocInfo {
+  docInfoA: DocInfo;
+  docInfoB: DocInfo;
+  sortedQueryIds: number[];
+}
+
+function getSortedQueryIds(docInfoA: DocInfo, docInfoB: DocInfo) {
+  const idsA = Object.keys(docInfoA.allQuery || {});
+  const idsB = Object.keys(docInfoB.allQuery || {});
   return idsA
     .filter((id) => idsB.includes(id))
     .map((id) => Number(id))
@@ -63,21 +69,21 @@ async function getStartingQueryId(
 
 export function App(props: AppPropType): JSX.Element {
   const [user, setUser] = useState<User | null>(null);
-  const [docInfos, setDocInfos] = useState<{ a: DocInfo; b: DocInfo }>(null);
+  const [combinedDocInfo, setCombinedDocInfo] = useState<CombinedDocInfo>(null);
   const { setSessionQueryId, sessionQueryId } = useContext(SessionContext);
-  console.log(sessionQueryId);
 
-  const sortedQueryIds = getSortedQueryIds(docInfos);
-  if (!sessionQueryId && sortedQueryIds.length) {
-    getStartingQueryId(props, sortedQueryIds).then(
-      (startingQueryId) => void setSessionQueryId(startingQueryId)
-    );
-  }
+  useEffect(() => {
+    if (!sessionQueryId && combinedDocInfo?.sortedQueryIds.length) {
+      getStartingQueryId(props, combinedDocInfo.sortedQueryIds).then(
+        (startingQueryId) => void setSessionQueryId(startingQueryId)
+      );
+    }
+  }, [combinedDocInfo]);
 
   const { leftDocInfo, rightDocInfo } = getLeftAndRight(
     props.sessionId,
-    docInfos?.a,
-    docInfos?.b,
+    combinedDocInfo?.docInfoA,
+    combinedDocInfo?.docInfoB,
     sessionQueryId
   );
 
@@ -98,7 +104,11 @@ export function App(props: AppPropType): JSX.Element {
       // Get and set information about each document
       Promise.all([getDocInfo(docA), getDocInfo(docB)]).then(
         ([docInfoA, docInfoB]) => {
-          setDocInfos({ a: docInfoA, b: docInfoB });
+          setCombinedDocInfo({
+            docInfoA,
+            docInfoB,
+            sortedQueryIds: getSortedQueryIds(docInfoA, docInfoB),
+          });
         }
       );
     }
@@ -110,7 +120,7 @@ export function App(props: AppPropType): JSX.Element {
     signInWithGoogle(scopes, handleUserSignIn);
   }, []);
 
-  const initialLoadCompleted = docInfos && sessionQueryId;
+  const initialLoadCompleted = combinedDocInfo && sessionQueryId;
   return (
     <>
       {!user && (
@@ -149,7 +159,7 @@ export function App(props: AppPropType): JSX.Element {
               leftSheetId={leftDocInfo.doc.spreadsheetId}
               rightSheetId={rightDocInfo.doc.spreadsheetId}
               sessionId={props.sessionId}
-              sortedQueryIds={sortedQueryIds}
+              sortedQueryIds={combinedDocInfo.sortedQueryIds}
               allQuery={leftDocInfo.allQuery}
               userEmail={user.email}
             ></SxsFeedback>

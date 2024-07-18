@@ -67,14 +67,14 @@ export function EvalList(props: EvalListPropType): JSX.Element {
       <Button className="eval-list-button" onClick={openModal}>
         <div>
           <span className="material-icons-outlined">list_alt</span>
-          List
+          Evaluation list
         </div>
       </Button>
       <Modal isOpen={modalOpen} className="eval-list-modal">
         <div className="header">
           <div className="title">
-            Queries ({completedCount} of {props.sortedQueryIds.length}{" "}
-            evaluated)
+            Evaluations ({completedCount} of {props.sortedQueryIds.length}{" "}
+            completed)
           </div>
         </div>
         <div className="body">
