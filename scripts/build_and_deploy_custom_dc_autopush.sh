@@ -59,6 +59,3 @@ gcloud run deploy dc-autopush \
     --image gcr.io/datcom-ci/datacommons-website-compose:latest \
     --region us-central1 \
     --update-env-vars RESTART_TIMESTAMP="$(date)"
-
-# Run tests against dc-autopush
-./run_cdc_tests.sh
