@@ -15,8 +15,7 @@
 # limitations under the License.
 
 
-# Creates a new custom DC image, tags it latest, deploys it to autopush,
-# and runs basic tests against it.
+# Creates a new custom DC image, tags it latest, and deploys it to autopush.
 
 # The script also updates a RESTART_TIMESTAMP env var
 # to easily identify the restart time of a given revision.
