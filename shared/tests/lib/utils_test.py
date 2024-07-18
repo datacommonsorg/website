@@ -110,20 +110,19 @@ class TestNLUtilsRemoveStopWordsAndPunctuation(unittest.TestCase):
     stop_words = utils.combine_stop_words()
     self.assertEqual(utils.remove_stop_words(query, stop_words), expected)
 
-  @parameterized.expand([
-      [
+  @parameterized.expand(
+      [[
           "this is a random query with no punctuation",
           "this is a random query with no punctuation",
       ],
-      [
-          "people of palo alto, mountain view and California!",
-          "people of palo alto mountain view and California"
-      ],
-      ["America's population.growth", "America population growth"],
-      ["Is this a question?", "Is this a question"],
-      ["what about Santa@Clara*&^%", "what about Santa Clara"],
-      ["'===()@#$%^&---`~:|][{}/?><,.,\"", ""],
-  ])
+       [
+           "people of palo alto, mountain view and California!",
+           "people of palo alto mountain view and California"
+       ], ["America's population.growth", "America population growth"],
+       ["Is this a question?", "Is this a question"],
+       ["what about Santa@Clara*&^%", "what about Santa Clara"],
+       ["'===()@#$%^&---`~:|][{}/?><,.,\"", ""],
+       ["query about St. Landry Parish", "query about St. Landry Parish"]])
   def test_query_remove_punctuation(self, query, expected):
     self.assertEqual(utils.remove_punctuations(query), expected)
 

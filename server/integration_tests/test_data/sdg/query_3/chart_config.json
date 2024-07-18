@@ -12,7 +12,7 @@
                     "statVarKey": [
                       "Count_Death"
                     ],
-                    "title": "Deaths in the World (${date})",
+                    "title": "Number of Deaths in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -27,14 +27,14 @@
                     "statVarKey": [
                       "Count_Death"
                     ],
-                    "title": "Deaths in the World (${date})",
+                    "title": "Number of Deaths in the World (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Deaths in the World"
+            "title": "Number of Deaths in the World"
           },
           {
             "columns": [
@@ -826,7 +826,7 @@
         ],
         "statVarSpec": {
           "Count_Death": {
-            "name": "Deaths",
+            "name": "Number of Deaths",
             "statVar": "Count_Death"
           },
           "Count_Death_AsAFractionOfCount_Person": {

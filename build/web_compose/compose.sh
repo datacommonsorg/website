@@ -32,6 +32,7 @@ else
     export USER_DATA_PATH=/userdata/
 fi
 export IS_CUSTOM_DC=true
+export ADDITIONAL_CATALOG_PATH=$USER_DATA_PATH/datacommons/nl/embeddings/custom_catalog.yaml
 
 /go/bin/mixer \
     --use_bigquery=false \

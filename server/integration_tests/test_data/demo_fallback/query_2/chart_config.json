@@ -78,6 +78,32 @@
                       "geoId/12"
                     ],
                     "statVarKey": [
+                      "Count_CriminalActivities_MurderAndNonNegligentManslaughter_multiple_place_bar_block"
+                    ],
+                    "title": "Murder and Non Negligent Manslaughter Cases (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Murder and Non Negligent Manslaughter Cases"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
                       "Count_CriminalIncidents_IsHateCrime_multiple_place_bar_block"
                     ],
                     "title": "Hate Crime Incidents (${date})",
@@ -115,32 +141,6 @@
             ],
             "denom": "Count_Person",
             "title": "Hate Crime Cases by Type"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_CriminalActivities_MurderAndNonNegligentManslaughter_multiple_place_bar_block"
-                    ],
-                    "title": "Murder and Non Negligent Manslaughter Cases (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Murder and Non Negligent Manslaughter Cases"
           },
           {
             "columns": [
