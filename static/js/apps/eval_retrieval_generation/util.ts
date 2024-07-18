@@ -190,10 +190,12 @@ function getCalls(
       }
       calls[queryId][callId] = {
         rowIndex: i,
-        question: sheet.getCell(i, header[DC_QUESTION_COL]).value?.toString(),
-        llmStat: sheet.getCell(i, header[LLM_STAT_COL]).value?.toString(),
-        dcResponse: sheet.getCell(i, header[DC_RESPONSE_COL]).value?.toString(),
-        dcStat: sheet.getCell(i, header[DC_STAT_COL]).value?.toString(),
+        question:
+          sheet.getCell(i, header[DC_QUESTION_COL]).formattedValue || "",
+        llmStat: sheet.getCell(i, header[LLM_STAT_COL]).formattedValue || "",
+        dcResponse:
+          sheet.getCell(i, header[DC_RESPONSE_COL]).formattedValue || "",
+        dcStat: sheet.getCell(i, header[DC_STAT_COL]).formattedValue || "",
       };
     }
     return calls;
