@@ -18,6 +18,7 @@ import { GoogleSpreadsheet } from "google-spreadsheet";
 import _ from "lodash";
 
 import {
+  ANSWER_COL,
   CALL_ID_COL,
   DC_CALL_SHEET,
   DC_METADATA_SHEET,
@@ -234,4 +235,20 @@ export function getDocInfo(doc: GoogleSpreadsheet): Promise<DocInfo> {
     .then(([allQuery, allCall, evalType]) => {
       return { doc, allQuery, allCall, evalType };
     });
+}
+
+// Promise to get the answer for a query from the query and answer sheet in a
+// google spreadsheet.
+export function getAnswerFromQueryAndAnswerSheet(
+  doc: GoogleSpreadsheet,
+  query: Query
+): Promise<string> {
+  const sheet = doc.sheetsByTitle[QA_SHEET];
+  const rowIdx = query.rowIndex;
+  return sheet.getRows({ offset: rowIdx - 1, limit: 1 }).then((rows) => {
+    const row = rows[0];
+    if (row) {
+      return row.get(ANSWER_COL) || "";
+    }
+  });
 }
