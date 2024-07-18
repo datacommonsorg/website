@@ -24,6 +24,8 @@ import remarkGfm from "remark-gfm";
 import { DcCallInfo, DcCalls, EvalType, FeedbackStage, Query } from "./types";
 import { getAnswerFromQueryAndAnswerSheet, processText } from "./util";
 
+const ANSWER_LOADING_MESSAGE = "Loading answer...";
+
 interface AnswerMetadata {
   evalType: EvalType;
   feedbackStage: FeedbackStage;
@@ -113,7 +115,9 @@ interface QuerySectionPropType {
 }
 
 export function QuerySection(props: QuerySectionPropType): JSX.Element {
-  const [answer, setAnswer] = useState<string>("");
+  const [displayedAnswer, setDisplayedAnswer] = useState<string>(
+    ANSWER_LOADING_MESSAGE
+  );
   const prevHighlightedRef = useRef<HTMLSpanElement | null>(null);
   const answerMetadata = useRef<AnswerMetadata>(null);
 
@@ -136,14 +140,14 @@ export function QuerySection(props: QuerySectionPropType): JSX.Element {
       newHighlighted.classList.add("highlight");
       prevHighlightedRef.current = newHighlighted;
     }
-  }, [answer, props.callId, props.feedbackStage]);
+  }, [displayedAnswer, props.callId, props.feedbackStage]);
 
   useEffect(() => {
-    setAnswer("");
     if (!props.query) {
+      setDisplayedAnswer("");
       return;
     }
-    setAnswer("Loading answer...");
+    setDisplayedAnswer(ANSWER_LOADING_MESSAGE);
     answerMetadata.current = {
       evalType: props.evalType,
       feedbackStage: props.feedbackStage,
@@ -161,10 +165,12 @@ export function QuerySection(props: QuerySectionPropType): JSX.Element {
         if (!subscribed) return;
         // Only set answer if it matches the current answer metadata
         if (_.isEqual(answerMetadata.current, metadata)) {
-          setAnswer(answer);
+          const calls =
+            props.query && props.allCall ? props.allCall[props.query.id] : null;
+          setDisplayedAnswer(processText(answer, calls));
         }
       })
-      .catch(() => void setAnswer("Failed to load answer."));
+      .catch(() => void setDisplayedAnswer("Failed to load answer."));
     return () => void (subscribed = false);
   }, [props]);
 
@@ -178,8 +184,6 @@ export function QuerySection(props: QuerySectionPropType): JSX.Element {
     props.feedbackStage === FeedbackStage.OVERALL_QUESTIONS
       ? "Questions to Data Commons"
       : "Answer";
-  const calls =
-    props.query && props.allCall ? props.allCall[props.query.id] : null;
 
   return (
     <div id="query-section">
@@ -190,7 +194,7 @@ export function QuerySection(props: QuerySectionPropType): JSX.Element {
         rehypePlugins={[rehypeRaw as any]}
         remarkPlugins={[remarkGfm]}
       >
-        {processText(answer, calls)}
+        {displayedAnswer}
       </ReactMarkdown>
     </div>
   );

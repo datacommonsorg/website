@@ -35,7 +35,14 @@ import {
   QUERY_ID_COL,
   USER_COL,
 } from "./constants";
-import { DcCalls, DocInfo, EvalType, FeedbackStage, Query } from "./types";
+import {
+  AllQuery,
+  DcCalls,
+  DocInfo,
+  EvalType,
+  FeedbackStage,
+  Query,
+} from "./types";
 
 const HTTP_PATTERN = /https:\/\/[^\s]+/g;
 const LONG_SPACES = "&nbsp;&nbsp;&nbsp;&nbsp;";
@@ -145,7 +152,7 @@ async function getHeader(doc: GoogleSpreadsheet): Promise<HeaderInfo> {
 function getQueries(
   doc: GoogleSpreadsheet,
   allHeader: HeaderInfo
-): Promise<Record<number, Query>> {
+): Promise<AllQuery> {
   const sheet = doc.sheetsByTitle[QA_SHEET];
   const header = allHeader[QA_SHEET];
   const numRows = sheet.rowCount;
