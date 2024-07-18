@@ -44,7 +44,12 @@ export function AnswerWithTables(props: AnswerWithTablesPropType): JSX.Element {
             hideIdAndQuestion={true}
           />
           {props.docInfo.evalType === EvalType.RAG && (
-            <TablePane calls={props.docInfo.allCall[sessionQueryId]} />
+            <TablePane
+              calls={props.docInfo.allCall[sessionQueryId]}
+              onlyShowAnswerTables={true}
+              query={props.docInfo.allQuery[sessionQueryId]}
+              doc={props.docInfo.doc}
+            />
           )}
         </div>
       </div>
