@@ -20,6 +20,7 @@ import React, { useContext, useEffect, useState } from "react";
 
 import { loadSpinner, removeSpinner } from "../../../shared/util";
 import { FEEDBACK_PANE_ID } from "../constants";
+import { AllQuery } from "../types";
 import { SessionContext } from "./context";
 import { getStoredRating, saveRatingToStore } from "./data_store";
 import { FeedbackForm } from "./feedback_form";
@@ -32,6 +33,7 @@ interface SxsFeedbackPropType {
   rightSheetId: string;
   sessionId: string;
   sortedQueryIds: number[];
+  allQuery: AllQuery;
   userEmail: string;
 }
 
@@ -106,7 +108,11 @@ export function SxsFeedback(props: SxsFeedbackPropType): JSX.Element {
         ></FeedbackForm>
       </div>
       <Navigation
+        leftSheetId={props.leftSheetId}
+        rightSheetId={props.rightSheetId}
+        sessionId={props.sessionId}
         sortedQueryIds={props.sortedQueryIds}
+        allQuery={props.allQuery}
         checkAndSubmit={checkAndSubmit}
       />
       <div id="page-screen" className="screen">
