@@ -749,67 +749,12 @@ def get_series_dates_from_entities(entities: List[str], variables: List[str]):
 
   result = {
       'datesByVariable': dates_by_variable,
-      'facets': obs_series_response['facets']
+      'facets': obs_series_response.get('facets', {})
   }
   return result
 
 
-def fetch_highest_coverage(parent_entity: str,
-                           child_type: str,
-                           variables: List[str],
-                           all_facets: bool,
-                           facet_ids: List[str] = None):
-  """
-  Fetches the latest available data with the best coverage for the given a
-  parent entity, child type, variables, and facets. If multiple variables are
-  passed in, selects dates with highest coverage independently for each
-  variable.
-
-  Response format:
-  {
-    "facets": {
-      <facet_id>: {<facet object>}
-    },
-    "data": {
-      <var_dcid>: {
-        <entity_dcid>: {
-          <observation point(s)>
-        }
-      }
-    }
-  }
-  """
-  MAX_DATES_TO_CHECK = 5
-  MAX_YEARS_TO_CHECK = 5
-  point_responses = []
-  series_dates_response = dc.get_series_dates(parent_entity, child_type,
-                                              variables)
-  facet_ids_set = set(facet_ids or [])
-  for observation_entity_counts_by_date in series_dates_response[
-      'datesByVariable']:
-    # Each observation_entity_counts_by_date contains the observation counts by date
-    variable = observation_entity_counts_by_date['variable']
-    best_coverage_date = _get_highest_coverage_date(
-        observation_entity_counts_by_date=observation_entity_counts_by_date,
-        facet_ids=facet_ids_set,
-        max_dates_to_check=MAX_DATES_TO_CHECK,
-        max_years_to_check=MAX_YEARS_TO_CHECK)
-    if not best_coverage_date:
-      # No best coverage date means we couldn't find any variable observations
-      # Add a blank point response in this case
-      point_responses.append({'data': {variable: {}}})
-      continue
-    point_responses.append(
-        fetch.point_within_core(parent_entity, child_type, [variable],
-                                best_coverage_date, all_facets, facet_ids))
-  combined_point_response = {"facets": {}, "data": {}}
-  for point_response in point_responses:
-    combined_point_response["facets"].update(point_response.get("facets", {}))
-    combined_point_response["data"].update(point_response.get("data", {}))
-  return combined_point_response
-
-
-def _get_highest_coverage_date(observation_entity_counts_by_date,
+def _get_highest_coverage_date(observation_dates_by_variable,
                                facet_ids: Set[str], max_dates_to_check: int,
                                max_years_to_check: int) -> str | None:
   """
@@ -828,6 +773,28 @@ def _get_highest_coverage_date(observation_entity_counts_by_date,
     max_years_to_check: Only consider entity counts going back this number of
       years
   """
+  recent_date_counts_dict = {}
+  for observation_entity_counts_by_date in observation_dates_by_variable:
+    recent_date_counts = _get_recent_date_counts(
+        observation_entity_counts_by_date, facet_ids, max_dates_to_check,
+        max_years_to_check)
+    for date_count in recent_date_counts:
+      if not date_count["date"] in recent_date_counts_dict:
+        recent_date_counts_dict[date_count["date"]] = 0
+      recent_date_counts_dict[date_count["date"]] += date_count["count"]
+
+  highest_coverage_date = None
+  highest_count = 0
+  for date, count in recent_date_counts_dict.items():
+    if count > highest_count:
+      highest_count = count
+      highest_coverage_date = date
+  return highest_coverage_date
+
+
+def _get_recent_date_counts(observation_entity_counts_by_date,
+                            facet_ids: Set[str], max_dates_to_check: int,
+                            max_years_to_check: int) -> str | None:
   # Get observation dates in descending order
   descending_observation_dates = [
       observation_date for observation_date in list(
@@ -868,8 +835,63 @@ def _get_highest_coverage_date(observation_entity_counts_by_date,
           ],
               key=lambda item: item['count'])['count']
   } for obs in observation_dates]
-  best_coverage = max(date_counts, key=lambda date_count: date_count['count'])
-  return best_coverage['date']
+  return date_counts
+
+
+def fetch_highest_coverage(variables: List[str],
+                           all_facets: bool,
+                           entities: List[str] | None = None,
+                           parent_entity: str | None = None,
+                           child_type: str | None = None,
+                           facet_ids: List[str] | None = None):
+  """
+  Fetches the latest available data with the best coverage for the given a
+  (list of entities OR (parent entity and child type)), variables, and facets.
+  If multiple variables are passed in, selects dates with the overall highest
+  coverage among all variables.
+
+  Response format:
+  {
+    "facets": {
+      <facet_id>: {<facet object>}
+    },
+    "data": {
+      <var_dcid>: {
+        <entity_dcid>: {
+          <observation point(s)>
+        }
+      }
+    }
+  }
+  """
+  if (entities is None) and ((parent_entity is None) or (child_type is None)):
+    raise ValueError(
+        "Must provide either 'entities' OR ('parent_entity' AND 'child_type') parameters to fetch_highest_coverage"
+    )
+  MAX_DATES_TO_CHECK = 5
+  MAX_YEARS_TO_CHECK = 5
+  if entities is not None:
+    series_dates_response = get_series_dates_from_entities(entities, variables)
+  else:
+    series_dates_response = dc.get_series_dates(parent_entity, child_type,
+                                                variables)
+  facet_ids_set = set(facet_ids or [])
+
+  observation_dates_by_variable = series_dates_response['datesByVariable']
+  highest_coverage_date = _get_highest_coverage_date(
+      observation_dates_by_variable,
+      facet_ids=facet_ids_set,
+      max_dates_to_check=MAX_DATES_TO_CHECK,
+      max_years_to_check=MAX_YEARS_TO_CHECK)
+
+  if entities is not None:
+    point_response = fetch.point_core(entities, variables,
+                                      highest_coverage_date, all_facets)
+  else:
+    point_response = fetch.point_within_core(parent_entity, child_type,
+                                             variables, highest_coverage_date,
+                                             all_facets, facet_ids)
+  return point_response
 
 
 def post_body_cache_key():
