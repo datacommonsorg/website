@@ -21,16 +21,11 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 
-import {
-  ANSWER_COL,
-  DC_CALL_SHEET,
-  DC_QUESTION_COL,
-  DC_RESPONSE_COL,
-  QA_SHEET,
-} from "./constants";
-import { getSheetsRows } from "./data_store";
-import { DcCall, EvalType, FeedbackStage, Query } from "./types";
+import { ANSWER_COL, QA_SHEET } from "./constants";
+import { DcCallInfo, DcCalls, EvalType, FeedbackStage, Query } from "./types";
 import { processText } from "./util";
+
+const ANSWER_LOADING_MESSAGE = "Loading answer...";
 
 interface AnswerMetadata {
   evalType: EvalType;
@@ -40,48 +35,46 @@ interface AnswerMetadata {
 
 function getFormattedRagCallAnswer(
   dcQuestion: string,
-  dcStat: string,
+  dcResponse: string,
   tableId: string
 ): string {
   const formattedQuestion = `<span class="dc-question">**${dcQuestion}**</span>`;
-  const formattedStat = `<span class="dc-stat">${dcStat} \xb7 Table ${tableId}</span>`;
+  const formattedStat = `<span class="dc-stat">${dcResponse} \xb7 Table ${tableId}</span>`;
   return `<span class="annotation annotation-rag annotation-${tableId}">${formattedQuestion}<br/>${formattedStat}</span>`;
 }
 
 function getAnswerFromRagCalls(
-  doc: GoogleSpreadsheet,
-  allCall: Record<number, DcCall>,
+  allCall: Record<number, DcCalls>,
   queryId: number
-): Promise<string> {
+): string {
   if (!allCall[queryId]) {
-    return Promise.resolve("No questions were generated.");
+    return "No questions were generated.";
   }
-  const sheet = doc.sheetsByTitle[DC_CALL_SHEET];
   const tableIds = Object.keys(allCall[queryId]).sort(
     (a, b) => Number(a) - Number(b)
   );
-  const rowIdxList = tableIds.map((tableId) => allCall[queryId][tableId]);
-  return getSheetsRows(sheet, rowIdxList).then((rows) => {
-    const answers = [];
-    tableIds.forEach((tableId) => {
-      const rowIdx = allCall[queryId][tableId];
-      const row = rows[rowIdx];
-      if (row) {
-        const dcQuestion = row.get(DC_QUESTION_COL);
-        const dcStat = row.get(DC_RESPONSE_COL);
-        answers.push(getFormattedRagCallAnswer(dcQuestion, dcStat, tableId));
-      }
-    });
-    return answers.join("\n\n");
+  const answers = [];
+  tableIds.forEach((tableId) => {
+    const tableInfo: DcCallInfo | null = allCall[queryId][tableId];
+    if (tableInfo) {
+      answers.push(
+        getFormattedRagCallAnswer(
+          tableInfo.question,
+          tableInfo.dcResponse,
+          tableId
+        )
+      );
+    }
   });
+  return answers.join("\n\n");
 }
 
-function getAnswerFromQA(
+function getAnswerFromQueryAndAnswerSheet(
   doc: GoogleSpreadsheet,
   query: Query
 ): Promise<string> {
   const sheet = doc.sheetsByTitle[QA_SHEET];
-  const rowIdx = query.row;
+  const rowIdx = query.rowIndex;
   return sheet.getRows({ offset: rowIdx - 1, limit: 1 }).then((rows) => {
     const row = rows[0];
     if (row) {
@@ -93,7 +86,7 @@ function getAnswerFromQA(
 function getAnswer(
   doc: GoogleSpreadsheet,
   query: Query,
-  allCall: Record<number, DcCall>,
+  allCall: Record<number, DcCalls>,
   evalType: EvalType,
   feedbackStage: FeedbackStage
 ): Promise<{ answer: string; metadata: AnswerMetadata }> {
@@ -103,19 +96,15 @@ function getAnswer(
     queryId: query.id,
   };
   let answerPromise = null;
-  if (evalType === EvalType.RIG) {
-    answerPromise = () => getAnswerFromQA(doc, query);
+  if (
+    evalType === EvalType.RAG &&
+    (feedbackStage === FeedbackStage.CALLS ||
+      feedbackStage === FeedbackStage.OVERALL_QUESTIONS)
+  ) {
+    answerPromise = () =>
+      Promise.resolve(getAnswerFromRagCalls(allCall, query.id));
   } else {
-    // RAG eval type has different things that should be shown in this section
-    // depending on the feedback stage
-    if (
-      feedbackStage === FeedbackStage.CALLS ||
-      feedbackStage === FeedbackStage.OVERALL_QUESTIONS
-    ) {
-      answerPromise = () => getAnswerFromRagCalls(doc, allCall, query.id);
-    } else {
-      answerPromise = () => getAnswerFromQA(doc, query);
-    }
+    answerPromise = () => getAnswerFromQueryAndAnswerSheet(doc, query);
   }
   if (!answerPromise) {
     return Promise.resolve({ answer: "", metadata });
@@ -136,11 +125,14 @@ interface QuerySectionPropType {
   feedbackStage: FeedbackStage;
   query: Query;
   callId?: number;
-  allCall?: Record<number, DcCall>;
+  allCall?: Record<number, DcCalls>;
+  hideIdAndQuestion?: boolean;
 }
 
 export function QuerySection(props: QuerySectionPropType): JSX.Element {
-  const [answer, setAnswer] = useState<string>("");
+  const [displayedAnswer, setDisplayedAnswer] = useState<string>(
+    ANSWER_LOADING_MESSAGE
+  );
   const prevHighlightedRef = useRef<HTMLSpanElement | null>(null);
   const answerMetadata = useRef<AnswerMetadata>(null);
 
@@ -163,30 +155,38 @@ export function QuerySection(props: QuerySectionPropType): JSX.Element {
       newHighlighted.classList.add("highlight");
       prevHighlightedRef.current = newHighlighted;
     }
-  }, [answer, props.callId, props.feedbackStage]);
+  }, [displayedAnswer, props.callId, props.feedbackStage]);
 
   useEffect(() => {
     if (!props.query) {
-      setAnswer("");
+      setDisplayedAnswer("");
       return;
     }
+    setDisplayedAnswer(ANSWER_LOADING_MESSAGE);
     answerMetadata.current = {
       evalType: props.evalType,
       feedbackStage: props.feedbackStage,
       queryId: props.query.id,
     };
+    let subscribed = true;
     getAnswer(
       props.doc,
       props.query,
       props.allCall,
       props.evalType,
       props.feedbackStage
-    ).then(({ answer, metadata }) => {
-      // Only set answer if it matches the current answer metadata
-      if (_.isEqual(answerMetadata.current, metadata)) {
-        setAnswer(answer);
-      }
-    });
+    )
+      .then(({ answer, metadata }) => {
+        if (!subscribed) return;
+        // Only set answer if it matches the current answer metadata
+        if (_.isEqual(answerMetadata.current, metadata)) {
+          const calls =
+            props.query && props.allCall ? props.allCall[props.query.id] : null;
+          setDisplayedAnswer(processText(answer, calls));
+        }
+      })
+      .catch(() => void setDisplayedAnswer("Failed to load answer."));
+    return () => void (subscribed = false);
   }, [props]);
 
   if (!props.query) {
@@ -202,14 +202,14 @@ export function QuerySection(props: QuerySectionPropType): JSX.Element {
 
   return (
     <div id="query-section">
-      <h3>Query {props.query.id}</h3>
-      <p>{props.query.text}</p>
+      {!props.hideIdAndQuestion && <h3>Query {props.query.id}</h3>}
+      {!props.hideIdAndQuestion && <p>{props.query.text}</p>}
       <h3>{answerHeading}</h3>
       <ReactMarkdown
         rehypePlugins={[rehypeRaw as any]}
         remarkPlugins={[remarkGfm]}
       >
-        {processText(answer)}
+        {displayedAnswer}
       </ReactMarkdown>
     </div>
   );

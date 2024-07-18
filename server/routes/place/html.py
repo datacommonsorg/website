@@ -24,6 +24,7 @@ from flask import current_app
 from flask import g
 from flask_babel import gettext
 
+from server.lib.cache import cache
 from server.lib.i18n import AVAILABLE_LANGUAGES
 import server.routes.shared_api.place as place_api
 import shared.lib.gcs as gcs
@@ -237,6 +238,7 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
 
 @bp.route('', strict_slashes=False)
 @bp.route('/<path:place_dcid>')
+@cache.cached(query_string=True)
 def place(place_dcid=None):
   redirect_args = dict(flask.request.args)
 

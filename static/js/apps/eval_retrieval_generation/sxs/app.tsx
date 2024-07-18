@@ -16,13 +16,16 @@
 
 import { OAuthCredential, User } from "firebase/auth";
 import { GoogleSpreadsheet } from "google-spreadsheet";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
-import { GoogleSignIn } from "../../../utils/google_signin";
-import { QuerySection } from "../query_section";
-import { TablePane } from "../table_pane";
-import { DocInfo, EvalType, FeedbackStage } from "../types";
+import { signInWithGoogle } from "../../../utils/google_signin";
+import { DocInfo } from "../types";
 import { getDocInfo } from "../util";
+import { AnswerWithTables } from "./answer_with_tables";
+import { SessionContext } from "./context";
+import { getRatedQueryIds } from "./data_store";
+import { getLeftAndRight } from "./left_right_picker";
+import { SxsFeedback } from "./sxs_feedback";
 
 interface AppPropType {
   sessionId: string;
@@ -30,12 +33,64 @@ interface AppPropType {
   sheetIdB: string;
 }
 
+interface CombinedDocInfo {
+  docInfoA: DocInfo;
+  docInfoB: DocInfo;
+  sortedQueryIds: number[];
+}
+
+function getSortedQueryIds(docInfoA: DocInfo, docInfoB: DocInfo): number[] {
+  const idsA = Object.keys(docInfoA.allQuery || {});
+  const idsB = Object.keys(docInfoB.allQuery || {});
+  return idsA
+    .filter((id) => idsB.includes(id))
+    .map((id) => Number(id))
+    .sort((a, b) => a - b);
+}
+
+/** Returns the ID of the first unevaluated query. */
+async function getStartingQueryId(
+  props: AppPropType,
+  sortedQueryIds: number[]
+): Promise<number> {
+  const completedIds = await getRatedQueryIds(
+    props.sheetIdA,
+    props.sheetIdB,
+    props.sessionId
+  );
+  for (const queryId of sortedQueryIds) {
+    if (!completedIds.includes(queryId)) {
+      return queryId;
+    }
+  }
+  // If all evals are complete, show the first query.
+  return sortedQueryIds[0];
+}
+
 export function App(props: AppPropType): JSX.Element {
   const [user, setUser] = useState<User | null>(null);
-  const [docInfo, setDocInfo] = useState<{ left: DocInfo; right: DocInfo }>(
-    null
+  const [combinedDocInfo, setCombinedDocInfo] = useState<CombinedDocInfo>(null);
+  const { setSessionQueryId, sessionQueryId } = useContext(SessionContext);
+
+  useEffect(() => {
+    let subscribed = true;
+    if (combinedDocInfo?.sortedQueryIds.length) {
+      getStartingQueryId(props, combinedDocInfo.sortedQueryIds).then(
+        (startingQueryId) => {
+          if (!subscribed) return;
+          setSessionQueryId(startingQueryId);
+        }
+      );
+    }
+    return () => void (subscribed = false);
+  }, [combinedDocInfo]);
+
+  const { leftDocInfo, rightDocInfo } = getLeftAndRight(
+    props.sessionId,
+    combinedDocInfo?.docInfoA,
+    combinedDocInfo?.docInfoB,
+    sessionQueryId
   );
-  const [queryId, setQueryId] = useState<number>(1);
 
   async function handleUserSignIn(
     user: User,
@@ -54,61 +109,65 @@ export function App(props: AppPropType): JSX.Element {
       // Get and set information about each document
       Promise.all([getDocInfo(docA), getDocInfo(docB)]).then(
         ([docInfoA, docInfoB]) => {
-          // randomize which side each document goes on
-          if (Math.floor(Math.random() * 2) === 0) {
-            setDocInfo({ left: docInfoA, right: docInfoB });
-          } else {
-            setDocInfo({ left: docInfoB, right: docInfoA });
-          }
+          setCombinedDocInfo({
+            docInfoA,
+            docInfoB,
+            sortedQueryIds: getSortedQueryIds(docInfoA, docInfoB),
+          });
         }
       );
     }
   }
 
+  // Sign in automatically.
+  useEffect(() => {
+    const scopes = ["https://www.googleapis.com/auth/spreadsheets"];
+    signInWithGoogle(scopes, handleUserSignIn);
+  }, []);
+
+  const initialLoadCompleted = combinedDocInfo && sessionQueryId;
   return (
     <>
       {!user && (
-        <div className="sign-in">
-          <GoogleSignIn
-            onSignIn={handleUserSignIn}
-            scopes={["https://www.googleapis.com/auth/spreadsheets"]}
-          />
+        <div className="banner">
+          <p>Signing you in...</p>
+          <p>
+            If you are not signed in after a few seconds, check that pop-ups are
+            allowed and refresh the page.
+          </p>
         </div>
       )}
 
-      {user && <p>Signed in as {user.email}</p>}
-      {docInfo && (
+      {user && (
+        <div className="banner">
+          <p>Signed in as {user.email}</p>
+        </div>
+      )}
+      {user && !initialLoadCompleted && (
+        <div className="banner">
+          <p>Loading query...</p>
+        </div>
+      )}
+      {initialLoadCompleted && (
         <>
-          <div className="app-content">
-            <div className="sxs-pane">
-              <QuerySection
-                doc={docInfo.left.doc}
-                evalType={docInfo.left.evalType}
-                feedbackStage={FeedbackStage.SXS}
-                query={docInfo.left.allQuery[queryId]}
-              />
-              {docInfo.left.evalType === EvalType.RAG && (
-                <TablePane
-                  doc={docInfo.left.doc}
-                  calls={docInfo.left.allCall[queryId]}
-                />
-              )}
+          <div className="sxs-app-content">
+            <div className="query-header">
+              <h3>Query {sessionQueryId}</h3>
+              {leftDocInfo.allQuery[sessionQueryId].text}
             </div>
-            <div className="divider" />
-            <div className="sxs-pane">
-              <QuerySection
-                doc={docInfo.right.doc}
-                evalType={docInfo.right.evalType}
-                feedbackStage={FeedbackStage.SXS}
-                query={docInfo.right.allQuery[queryId]}
-              />
-              {docInfo.right.evalType === EvalType.RAG && (
-                <TablePane
-                  doc={docInfo.right.doc}
-                  calls={docInfo.right.allCall[queryId]}
-                />
-              )}
+            <div className="sxs-panes">
+              <AnswerWithTables docInfo={leftDocInfo} />
+              <div className="divider" />
+              <AnswerWithTables docInfo={rightDocInfo} />
             </div>
+            <SxsFeedback
+              leftSheetId={leftDocInfo.doc.spreadsheetId}
+              rightSheetId={rightDocInfo.doc.spreadsheetId}
+              sessionId={props.sessionId}
+              sortedQueryIds={combinedDocInfo.sortedQueryIds}
+              allQuery={leftDocInfo.allQuery}
+              userEmail={user.email}
+            ></SxsFeedback>
           </div>
         </>
       )}

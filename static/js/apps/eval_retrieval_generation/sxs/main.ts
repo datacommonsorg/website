@@ -22,14 +22,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { App } from "./app";
+import { SessionContextProvider } from "./context";
 
 window.onload = () => {
   renderPage();
 };
 
 function renderPage(): void {
-  const sheetIdA = document.getElementById("metadata").dataset.sheetIdA;
-  const sheetIdB = document.getElementById("metadata").dataset.sheetIdB;
+  let sheetIdA = document.getElementById("metadata").dataset.sheetIdA;
+  let sheetIdB = document.getElementById("metadata").dataset.sheetIdB;
   const sessionId = document.getElementById("metadata").dataset.sessionId;
 
   if (!sheetIdA || !sheetIdB || !sessionId) {
@@ -39,12 +40,22 @@ function renderPage(): void {
     return;
   }
 
+  // Put sheet IDs in lexicographical order so it doesn't matter what order
+  // they are in the URL.
+  if (sheetIdB < sheetIdA) {
+    sheetIdB = [sheetIdA, (sheetIdA = sheetIdB)][0];
+  }
+
   ReactDOM.render(
-    React.createElement(App, {
-      sessionId,
-      sheetIdA,
-      sheetIdB,
-    }),
-    document.getElementById("dc-eval-retrieval-generation")
+    React.createElement(
+      SessionContextProvider,
+      null,
+      React.createElement(App, {
+        sessionId,
+        sheetIdA,
+        sheetIdB,
+      })
+    ),
+    document.getElementById("dc-eval-sxs")
   );
 }

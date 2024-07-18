@@ -16,15 +16,15 @@
 
 import { OAuthCredential, User } from "firebase/auth";
 import { GoogleSpreadsheet } from "google-spreadsheet";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
-import { GoogleSignIn } from "../../utils/google_signin";
+import { signInWithGoogle } from "../../utils/google_signin";
 import { CallFeedback } from "./call_feedback";
 import { AppContext, SessionContext } from "./context";
 import { OverallFeedback } from "./overall_feedback";
 import { QuerySection } from "./query_section";
 import { RagAnsFeedback } from "./rag_ans_feedback";
-import { DcCall, EvalType, FeedbackStage, Query } from "./types";
+import { AllQuery, DcCalls, EvalType, FeedbackStage, Query } from "./types";
 import { getDocInfo, getFirstFeedbackStage } from "./util";
 
 interface AppPropType {
@@ -33,10 +33,7 @@ interface AppPropType {
 
 // Get first query to show which should be the first question of this user or a
 // question with no user.
-function getFirstQuery(
-  allQuery: Record<number, Query>,
-  userEmail: string
-): number {
+function getFirstQuery(allQuery: AllQuery, userEmail: string): number {
   let queryId: number = null;
   let nullQueryId: number = null;
   const sortedQueryIds = Object.keys(allQuery)
@@ -72,7 +69,7 @@ export function App(props: AppPropType): JSX.Element {
   const [user, setUser] = useState<User | null>(null);
   const [doc, setDoc] = useState<GoogleSpreadsheet>(null);
   const [allQuery, setAllQuery] = useState<Record<number, Query>>(null);
-  const [allCall, setAllCall] = useState<Record<number, DcCall>>(null);
+  const [allCall, setAllCall] = useState<Record<number, DcCalls>>(null);
   const [evalType, setEvalType] = useState<EvalType>(null);
 
   async function handleUserSignIn(user: User, credential: OAuthCredential) {
@@ -93,14 +90,23 @@ export function App(props: AppPropType): JSX.Element {
     }
   }
 
+  // Sign in automatically.
+  useEffect(() => {
+    const scopes = ["https://www.googleapis.com/auth/spreadsheets"];
+    signInWithGoogle(scopes, handleUserSignIn);
+  }, []);
+
+  const initialLoadCompleted =
+    allQuery && allCall && doc && sessionQueryId && evalType;
   return (
     <>
       {!user && (
-        <div className="sign-in">
-          <GoogleSignIn
-            onSignIn={handleUserSignIn}
-            scopes={["https://www.googleapis.com/auth/spreadsheets"]}
-          />
+        <div>
+          <p>Signing you in...</p>
+          <p>
+            If you are not signed in after a few seconds, check that pop-ups are
+            allowed and refresh the page.
+          </p>
         </div>
       )}
 
@@ -115,7 +121,8 @@ export function App(props: AppPropType): JSX.Element {
             Google Sheet Link
           </a>
           <p>Signed in as {user.email}</p>
-          {allQuery && allCall && doc && sessionQueryId && evalType && (
+          {!initialLoadCompleted && <p>Loading query...</p>}
+          {initialLoadCompleted && (
             <AppContext.Provider
               value={{
                 allCall,

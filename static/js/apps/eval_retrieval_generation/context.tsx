@@ -18,16 +18,16 @@ import { GoogleSpreadsheet } from "google-spreadsheet";
 import React, { createContext, useState } from "react";
 
 import { NEW_QUERY_CALL_ID } from "./constants";
-import { DcCall, EvalType, FeedbackStage, Query } from "./types";
+import { AllQuery, DcCalls, EvalType, FeedbackStage } from "./types";
 
 interface AppContextType {
   doc: GoogleSpreadsheet;
   sheetId: string;
   userEmail: string;
   // Key is query id, value is the query object.
-  allQuery: Record<number, Query>;
-  // Key is query id, value is the call mapping (call id to call row index).
-  allCall: Record<number, DcCall>;
+  allQuery: AllQuery;
+  // Key is query id, value is the call mapping (call id to call info).
+  allCall: Record<number, DcCalls>;
   evalType: EvalType;
 }
 

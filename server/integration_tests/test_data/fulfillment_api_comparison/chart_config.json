@@ -143,17 +143,15 @@
                       "geoId/32"
                     ],
                     "statVarKey": [
-                      "dc/e9gftzl2hm8h9_multiple_place_bar_block"
+                      "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome_multiple_place_bar_block"
                     ],
-                    "title": "Total Commute Time (${date})",
+                    "title": "Mean Commute Time: 16 Years or More, Work Commute, Employed, Worked Outside of Home (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "description": "Total time spent on a single commute across all workers.",
-            "title": "Total Commute Time"
+            "title": "Mean Commute Time: 16 Years or More, Work Commute, Employed, Worked Outside of Home"
           },
           {
             "columns": [
@@ -194,6 +192,10 @@
           }
         ],
         "statVarSpec": {
+          "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome_multiple_place_bar_block": {
+            "name": "Mean Commute Time: 16 Years or More, Work Commute, Employed, Worked Outside of Home",
+            "statVar": "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome"
+          },
           "dc/0gettc3bc60cb_multiple_place_bar_block": {
             "name": "Drive alone",
             "statVar": "dc/0gettc3bc60cb"
@@ -241,10 +243,6 @@
           "dc/dn2h9yfcgbkg2_multiple_place_bar_block": {
             "name": "Population: Worked At Home, Service Occupations",
             "statVar": "dc/dn2h9yfcgbkg2"
-          },
-          "dc/e9gftzl2hm8h9_multiple_place_bar_block": {
-            "name": "Total Commute Time",
-            "statVar": "dc/e9gftzl2hm8h9"
           },
           "dc/exr9t81en1h34_multiple_place_bar_block": {
             "name": "Population: 16 Years or More, 25 - 29 Minute, Employed And Working, in Labor Force, Outside of Home",
@@ -392,7 +390,14 @@
         ]
       }
     ],
-    "exploreMore": {},
+    "exploreMore": {
+      "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome": {
+        "commuteMode": [
+          "Mean_CommuteTime_Person_Years16Onwards_CarTruckOrVanCarpooled_WorkCommute_Employed_WorkedOutsideOfHome",
+          "Mean_CommuteTime_Person_Years16Onwards_CarTruckOrVanDroveAlone_WorkCommute_Employed_WorkedOutsideOfHome"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/WorkCommute",

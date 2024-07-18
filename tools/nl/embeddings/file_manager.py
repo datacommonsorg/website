@@ -42,9 +42,10 @@ class FileManager(object):
     # Set local output directory
     if gcs.is_gcs_path(output_dir):
       self._local_output_dir = os.path.join(self._local_dir, 'output')
-      os.mkdir(self._local_output_dir)
     else:
       self._local_output_dir = output_dir
+    # Create local output directory if it does not exist.
+    os.makedirs(self._local_output_dir, exist_ok=True)
 
   def __del__(self):
     shutil.rmtree(self._local_dir)

@@ -14,24 +14,6 @@
  * limitations under the License.
  */
 
-/* Component to wrap the actual feedback section of the feedback pane */
-
-/**
- * Copyright 2024 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 /* Wrapper component around all the right hand side feedback pane components */
 
 import React, { useContext } from "react";
@@ -51,7 +33,7 @@ interface FeedbackWrapperPropType {
 }
 
 export function FeedbackWrapper(props: FeedbackWrapperPropType): JSX.Element {
-  const { evalType, doc, allCall } = useContext(AppContext);
+  const { evalType, allCall } = useContext(AppContext);
   const { sessionQueryId } = useContext(SessionContext);
 
   return (
@@ -68,7 +50,7 @@ export function FeedbackWrapper(props: FeedbackWrapperPropType): JSX.Element {
       <div className="content">
         <div id="question-section">{props.children}</div>
         {evalType === EvalType.RAG && (
-          <TablePane doc={doc} calls={allCall[sessionQueryId]} />
+          <TablePane calls={allCall[sessionQueryId]} />
         )}
       </div>
       <FeedbackNavigation checkAndSubmit={props.checkAndSubmit} />
