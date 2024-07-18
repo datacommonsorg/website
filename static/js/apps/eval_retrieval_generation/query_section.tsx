@@ -21,9 +21,8 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 
-import { ANSWER_COL, QA_SHEET } from "./constants";
 import { DcCallInfo, DcCalls, EvalType, FeedbackStage, Query } from "./types";
-import { processText } from "./util";
+import { getAnswerFromQueryAndAnswerSheet, processText } from "./util";
 
 interface AnswerMetadata {
   evalType: EvalType;
@@ -65,20 +64,6 @@ function getAnswerFromRagCalls(
     }
   });
   return answers.join("\n\n");
-}
-
-function getAnswerFromQueryAndAnswerSheet(
-  doc: GoogleSpreadsheet,
-  query: Query
-): Promise<string> {
-  const sheet = doc.sheetsByTitle[QA_SHEET];
-  const rowIdx = query.rowIndex;
-  return sheet.getRows({ offset: rowIdx - 1, limit: 1 }).then((rows) => {
-    const row = rows[0];
-    if (row) {
-      return row.get(ANSWER_COL) || "";
-    }
-  });
 }
 
 function getAnswer(
