@@ -13,9 +13,11 @@
 # limitations under the License.
 """Build the embeddings index from variable and topic descriptions."""
 
+import logging
+import sys
+
 from absl import app
 from absl import flags
-import yaml
 
 from nl_server import config_reader
 from tools.nl.embeddings import utils
@@ -28,22 +30,32 @@ flags.DEFINE_string('embeddings_name', '',
 flags.DEFINE_string('output_dir', '',
                     'The output directory to save the embeddings files/db')
 
-flags.DEFINE_string('catalog', '',
-                    'A dict of user provided embeddings/model catalog')
+flags.DEFINE_string(
+    'additional_catalog_path', '',
+    'Path to an additional catalog yaml file. Can be a local or a GCS path')
+
+
+def _init_logger():
+  # Log to stdout for easy redirect of the output text.
+  # This enables the logs to be captured by the admin tool.
+  logger = logging.getLogger()
+  logger.setLevel(logging.INFO)
+  handler = logging.StreamHandler(sys.stdout)
+  handler.setLevel(logging.INFO)
+  logger.addHandler(handler)
 
 
 def main(_):
+  _init_logger()
+
   # Get embeddings_name
   embeddings_name = FLAGS.embeddings_name
   output_dir = FLAGS.output_dir
+
   assert embeddings_name, output_dir
 
-  # Prepare the model
-  if FLAGS.catalog:
-    catalog = yaml.safe_load(FLAGS.catalog)
-  else:
-    catalog = None
-  catalog = config_reader.read_catalog(catalog_dict=catalog)
+  catalog = config_reader.read_catalog(
+      additional_catalog_path=FLAGS.additional_catalog_path)
   index_config = catalog.indexes[embeddings_name]
   # Use default env config: autopush for base DCs and custom env for custom DCs.
   env = config_reader.read_env()

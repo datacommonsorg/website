@@ -31,7 +31,6 @@
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
             "title": "Population Below Poverty Line"
           },
           {
@@ -61,7 +60,6 @@
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
             "title": "Below Poverty Line (Two or More Races)"
           },
           {
@@ -91,7 +89,6 @@
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
             "title": "Males in Poverty (In Last Year)"
           },
           {
@@ -121,7 +118,6 @@
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
             "title": "Women Below Poverty Line"
           }
         ],

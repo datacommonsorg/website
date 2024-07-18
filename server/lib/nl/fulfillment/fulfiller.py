@@ -13,6 +13,7 @@
 # limitations under the License.
 """Module for NL page data spec"""
 
+from collections import OrderedDict
 import copy
 from typing import cast, Dict, List
 
@@ -131,9 +132,11 @@ def fulfill(uttr: Utterance) -> PopulateState:
       state.chart_vars_map = topic.compute_chart_vars(state)
   else:
     state.chart_vars_map = topic.compute_chart_vars(state)
-    # only do toolformer rig updates in single sv case
+    # do toolformer rig and rag updates in single sv case
     if state.uttr.mode == QueryMode.TOOLFORMER_RIG:
       _update_chart_vars_for_rig(state)
+    elif state.uttr.mode == QueryMode.TOOLFORMER_RAG:
+      _update_chart_vars_for_rag(state)
 
   if params.is_special_dc(state.uttr.insight_ctx):
     _prune_non_country_special_dc_vars(state)
@@ -215,7 +218,7 @@ def _prune_non_country_special_dc_vars(state: PopulateState):
   sdc_non_country_vars = current_app.config['SPECIAL_DC_NON_COUNTRY_ONLY_VARS']
 
   # Go over the chart_vars_map and drop
-  pruned_chart_vars_map = {}
+  pruned_chart_vars_map: Dict[str, List[ChartVars]] = OrderedDict()
   dropped_vars = set()
   for var, chart_vars_list in state.chart_vars_map.items():
     if var in sdc_non_country_vars:
@@ -256,7 +259,7 @@ def _update_chart_vars_for_rig(state: PopulateState):
     for cv in chart_vars_list:
       topic_svs.update(cv.svs)
 
-  updated_chart_vars_map: Dict[str, List[ChartVars]] = {}
+  updated_chart_vars_map: Dict[str, List[ChartVars]] = OrderedDict()
 
   # remove topic chart vars
   dropped_topics = set()
@@ -292,5 +295,51 @@ def _update_chart_vars_for_rig(state: PopulateState):
   if added_svs:
     state.uttr.counters.info('info_toolformer_rig_sv_vars_added',
                              list(added_svs))
+
+  state.chart_vars_map = updated_chart_vars_map
+
+
+#
+# Update chart vars map for toolformer rag mode by changing the order of chart
+# vars. Promote svs immediately after a topic to before the topic if they are
+# found in the topic.
+#
+def _update_chart_vars_for_rag(state: PopulateState):
+  # ordered list of chart vars map items
+  ordered_cv_map = list(state.chart_vars_map.items())
+
+  # go over the chart_vars_map and update ordering
+  updated_chart_vars_map: Dict[str, List[ChartVars]] = OrderedDict()
+  promoted_svs = set()
+  for idx, (var, cv_list) in enumerate(ordered_cv_map):
+    # handle non topic vars
+    if not var.startswith(_TOPIC_PREFIX):
+      # if var hasn't already been added to the updated chart vars map, add it
+      if not var in updated_chart_vars_map:
+        updated_chart_vars_map[var] = cv_list
+      continue
+
+    # get all the svs in the topic
+    topic_svs = set()
+    for cv in cv_list:
+      topic_svs.update(cv.svs)
+
+    # add immediate next svs that are part of the current topic so that they are
+    # promoted to before the current topic.
+    for next_var_idx in range(idx + 1, len(ordered_cv_map)):
+      next_var, next_var_cv_list = ordered_cv_map[next_var_idx]
+      # break if not a sv in the topic because we only want to add the immediate
+      # next svs
+      if next_var.startswith(_TOPIC_PREFIX) or not next_var in topic_svs:
+        break
+      promoted_svs.add(next_var)
+      updated_chart_vars_map[next_var] = next_var_cv_list
+
+    # add current topic to the updated chart vars map
+    updated_chart_vars_map[var] = cv_list
+
+  if promoted_svs:
+    state.uttr.counters.info('info_toolformer_rag_svs_promoted',
+                             list(promoted_svs))
 
   state.chart_vars_map = updated_chart_vars_map

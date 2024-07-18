@@ -16,6 +16,10 @@ import multiprocessing
 import os
 import sys
 
+# The set up must only run once.
+# This is a guard that ensures that.
+_set_up_done = False
+
 
 def set_up_macos_for_tests():
   """Ensure Python tests work on MacOS.
@@ -26,6 +30,10 @@ def set_up_macos_for_tests():
 
   This code must only be run once per execution.
   """
+  global _set_up_done
+  if _set_up_done:
+    return
+  _set_up_done = True
   if sys.version_info >= (3, 8) and sys.platform == "darwin":
     multiprocessing.set_start_method("fork")
     os.environ['no_proxy'] = '*'

@@ -33,11 +33,22 @@ export interface Query {
   id: number;
   text: string;
   user: string;
-  row: number;
+  rowIndex: number;
 }
 
-// Key is the call id, value is the row index in the sheet.
-export type DcCall = Record<number, number>;
+export interface DcCallInfo {
+  rowIndex: number;
+  question: string;
+  llmStat: string;
+  dcResponse: string;
+  dcStat: string;
+}
+
+// Key is the call id, value is the data for that call from the sheet.
+export type DcCalls = Record<number, DcCallInfo>;
+
+// Key is the query id, value is the data for that query.
+export type AllQuery = Record<number, Query>;
 
 export enum EvalType {
   RIG = "RIG",
@@ -56,7 +67,7 @@ export enum FeedbackStage {
 // Object to hold all the information about a google sheets document
 export interface DocInfo {
   doc: GoogleSpreadsheet;
-  allQuery: Record<number, Query>;
-  allCall: Record<number, DcCall>;
+  allQuery: AllQuery;
+  allCall: Record<number, DcCalls>;
   evalType: EvalType;
 }

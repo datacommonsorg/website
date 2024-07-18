@@ -225,7 +225,7 @@ def get_sv_name(all_svs: List[str],
       sv_name_map[sv] = constants.SV_DISPLAY_NAME_OVERRIDE[sv]
     elif sv_chart_titles.get(sv) and not dc in sv_chart_titles[sv].get(
         'blocklist', []):
-      sv_name_map[sv] = clean_sv_name(sv_chart_titles[sv].get('title', ''), dc)
+      sv_name_map[sv] = sv_chart_titles[sv].get('title', '')
     else:
       # Topic and SVPG have a cache, so lookup name from there if its
       # fresher.
@@ -236,7 +236,7 @@ def get_sv_name(all_svs: List[str],
           # Very rare edge case.
           sv_name_map[sv] = sv.replace('dc/topic/', '').replace('dc/svpg/', '')
       else:
-        sv_name_map[sv] = clean_sv_name(uncurated_names[sv], dc)
+        sv_name_map[sv] = uncurated_names[sv]
 
   return sv_name_map
 
@@ -264,31 +264,6 @@ def get_sv_description(all_svs: List[str]) -> Dict:
     else:
       sv_desc_map[sv] = sv2desc_dc[sv]
   return sv_desc_map
-
-
-# TODO: Remove this hack by fixing the name in schema and config.
-def clean_sv_name(name: str, dc: str) -> str:
-  if dc.startswith('dc'):
-    return name
-  _PREFIXES = [
-      'Population of People Working in the ',
-      'Population of People Working in ',
-      'Population of People ',
-      'Population Working in the ',
-      'Population Working in ',
-      'Number of the ',
-      'Number of ',
-  ]
-  _SUFFIXES = [
-      ' Workers',
-  ]
-  for p in _PREFIXES:
-    if name.startswith(p):
-      name = name[len(p):]
-  for s in _SUFFIXES:
-    if name.endswith(s):
-      name = name[:-len(s)]
-  return name
 
 
 def get_sv_footnote(all_svs: List[str]) -> Dict:
