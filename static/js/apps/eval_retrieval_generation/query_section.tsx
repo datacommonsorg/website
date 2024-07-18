@@ -164,6 +164,7 @@ export function QuerySection(props: QuerySectionPropType): JSX.Element {
       feedbackStage: props.feedbackStage,
       queryId: props.query.id,
     };
+    let subscribed = true;
     getAnswer(
       props.doc,
       props.query,
@@ -172,12 +173,14 @@ export function QuerySection(props: QuerySectionPropType): JSX.Element {
       props.feedbackStage
     )
       .then(({ answer, metadata }) => {
+        if (!subscribed) return;
         // Only set answer if it matches the current answer metadata
         if (_.isEqual(answerMetadata.current, metadata)) {
           setAnswer(answer);
         }
       })
       .catch(() => void setAnswer("Failed to load answer."));
+    return () => void (subscribed = false);
   }, [props]);
 
   if (!props.query) {
