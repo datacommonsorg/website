@@ -26,9 +26,9 @@ from flask_babel import gettext
 
 from server.lib.i18n import AVAILABLE_LANGUAGES
 import server.routes.shared_api.place as place_api
+import shared.lib.gcs as gcs
 from shared.lib.place_summaries import get_shard_filename_by_dcid
 from shared.lib.place_summaries import get_shard_name
-import shared.lib.gcs as gcs
 
 bp = flask.Blueprint('place', __name__, url_prefix='/place')
 
