@@ -529,14 +529,26 @@ label {
   top: 0;
   left: 50%;
   transform: translate(-50%, calc(-100% - 10px));
+
   background-color: var(--gm-3-sys-light-surface-container-high);
+
+  border-radius: 5px;
+  padding: 5px 10px;
+
   text-align: center;
   text-wrap: wrap;
   word-break: normal;
   width: max-content;
-  max-width: 200px;
-  border-radius: 5px;
-  padding: 5px 10px;
+  max-width: 150px;
+
+  font-style: normal;
+  font-weight: normal;
+  line-height: normal;
+  font-size: 10px;
+
+  .dc-stat-tooltip-value {
+    font-size: 14px;
+  }
 }
 
 $tooltip-arrow-size: 10px;
