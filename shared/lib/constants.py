@@ -17,7 +17,17 @@ from typing import Dict, FrozenSet, List, Set, Union
 
 import frozendict
 
-_RATE_WORDS_TO_SKIP = "(birth|change|death|exchange|fertility|literacy|mortality|participation|unemployment|withdrawal)"
+_RATE_WORDS_TO_SKIP = [
+    "birth", "change", "death", "exchange", "fertility", "literacy",
+    "mortality", "participation", "unemployment", "withdrawal"
+]
+# negative look behinds in python require fixed width regex so need to create
+# 2 look behinds for each individual word to skip: one for rate and one for
+# rates
+_RATE_WORDS_LOOK_BEHINDS = ''.join([
+    f'(?<!{rate_word}\srate)(?<!{rate_word}\srates)'
+    for rate_word in _RATE_WORDS_TO_SKIP
+])
 
 STOP_WORDS: Set[str] = {
     'ourselves',
@@ -281,8 +291,8 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
             "per capita",
             "percapita",
             "per person",
-            # remove "rate" or "rates" if is not followed by certain words (used as one metric)
-            f"\brate(s)?\b(?!\s*{_RATE_WORDS_TO_SKIP}\s+rate(s)?)",
+            # remove "rate" or "rates" if is not preceded by certain words (used as one metric)
+            f"rates?{_RATE_WORDS_LOOK_BEHINDS}",
         ],
         "Temporal": [
             # Day of week
