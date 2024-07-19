@@ -1326,9 +1326,7 @@
       "Count_Household_FamilyHousehold": {
         "benefitsStatus": [
           "Count_Household_WithFoodStampsInThePast12Months_FamilyHousehold",
-          "Count_Household_WithSSIAndOrCashAssistanceInThePast12Months_FamilyHousehold",
-          "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold",
-          "Count_Household_WithoutFoodStampsInThePast12Months_FamilyHousehold"
+          "Count_Household_WithSSIAndOrCashAssistanceInThePast12Months_FamilyHousehold"
         ],
         "familyIncome": [
           "Count_Household_0.5OrLessRatioToPovertyLine_FamilyHousehold",
@@ -1352,12 +1350,6 @@
         "gender": [
           "Median_Earnings_Person_Female",
           "Median_Earnings_Person_Male"
-        ]
-      },
-      "Median_Income_Household": {
-        "benefitsStatus": [
-          "Median_Income_Household_WithFoodStampsInThePast12Months",
-          "Median_Income_Household_WithoutFoodStampsInThePast12Months"
         ]
       }
     },
