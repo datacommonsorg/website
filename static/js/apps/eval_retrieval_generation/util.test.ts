@@ -41,8 +41,8 @@ test("processText", () => {
         '<span class="annotation annotation-1">' +
         '<span class="llm-stat"> $98,588</span>' +
         '<span class="dc-stat-tooltip">' +
-        '<span class="dc-stat-tooltip-label">Median Household Income in United States</span>: ' +
-        '<span class="dc-stat-tooltip-value">116068 USD [1]* </span>' +
+        '<span class="dc-stat-tooltip-value">116068 USD [1]* </span><br/>' +
+        '<span class="dc-stat-tooltip-label">Median Household Income in United States</span>' +
         "</span>" +
         "</span>",
     },
@@ -62,8 +62,8 @@ test("processText", () => {
         '<span class="annotation annotation-2">' +
         '<span class="llm-stat"> $108,748</span>' +
         '<span class="dc-stat-tooltip">' +
-        '<span class="dc-stat-tooltip-label"></span>: ' +
-        '<span class="dc-stat-tooltip-value">128184 Infl. adj. USD (CY) [2]* </span>' +
+        '<span class="dc-stat-tooltip-value">128184 Infl. adj. USD (CY) [2]* </span><br/>' +
+        '<span class="dc-stat-tooltip-label"></span>' +
         "</span>" +
         "</span>",
     },
@@ -83,8 +83,8 @@ test("processText", () => {
         '<span class="annotation annotation-2">' +
         '<span class="llm-stat"> $108,748</span>' +
         '<span class="dc-stat-tooltip">' +
-        '<span class="dc-stat-tooltip-label"></span>: ' +
-        '<span class="dc-stat-tooltip-value">128184 Infl. adj. USD (CY) [2]* </span>' +
+        '<span class="dc-stat-tooltip-value">128184 Infl. adj. USD (CY) [2]* </span><br/>' +
+        '<span class="dc-stat-tooltip-label"></span>' +
         "</span>" +
         "</span>",
     },
@@ -99,8 +99,8 @@ test("processText", () => {
         '<span class="annotation annotation-2">' +
         '<span class="llm-stat"> $108,748</span>' +
         '<span class="dc-stat-tooltip">' +
-        '<span class="dc-stat-tooltip-label"></span>: ' +
-        '<span class="dc-stat-tooltip-value">128184 Infl. adj. USD (CY) [2]* </span>' +
+        '<span class="dc-stat-tooltip-value">128184 Infl. adj. USD (CY) [2]* </span><br/>' +
+        '<span class="dc-stat-tooltip-label"></span>' +
         "</span>" +
         "</span>",
     },
