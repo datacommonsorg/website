@@ -31,3 +31,21 @@ export const defaultDataCommonsWebClient = new DataCommonsWebClient({
 export const defaultDataCommonsClient = new DataCommonsClient({
   apiRoot: DEFAULT_CLIENT_API_ROOT,
 });
+
+/**
+ * Returns a DataCommonsClient instance.
+ * Creates a new client with the passed in apiRoot if specified, otherwise
+ * returns the default DataCommonsClient with apiRoot = "/", meaning the current
+ * window.location.origin
+ *
+ * @param apiRoot
+ * @returns DataCommonsClient instance
+ */
+export function getDataCommonsClient(apiRoot?: string) {
+  if (apiRoot) {
+    return new DataCommonsClient({
+      apiRoot,
+    });
+  }
+  return defaultDataCommonsClient;
+}

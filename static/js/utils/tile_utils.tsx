@@ -420,11 +420,11 @@ export function getStatFormat(
   svSpec: StatVarSpec,
   statPointData?: PointApiResponse,
   statSeriesData?: SeriesApiResponse
-): { unit: string; scaling: number; numFractionDigits: number } {
+): { unit: string; scaling: number; numFractionDigits?: number } {
   const result = {
     unit: svSpec.unit,
     scaling: svSpec.scaling || 1,
-    numFractionDigits: NUM_FRACTION_DIGITS,
+    numFractionDigits: undefined,
   };
   // If unit was specified in the svSpec, use that unit
   if (result.unit) {

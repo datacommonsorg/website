@@ -18,7 +18,7 @@
  * Component for rendering a scatter type tile.
  */
 
-import { DataCommonsClient, ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
+import { ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
 import axios from "axios";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
@@ -44,6 +44,7 @@ import {
   getHash,
 } from "../../utils/app/visualization_utils";
 import { stringifyFn } from "../../utils/axios";
+import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { getSeriesWithin } from "../../utils/data_fetch_utils";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
@@ -226,7 +227,7 @@ function getDataCsvCallback(
   scatterChartData: ScatterChartData
 ): () => Promise<string> {
   return () => {
-    const dataCommonsClient = new DataCommonsClient({ apiRoot: props.apiRoot });
+    const dataCommonsClient = getDataCommonsClient(props.apiRoot);
     // Assume both variables will have the same date
     // TODO: Update getCsv to handle different dates for different variables
     const date = getFirstCappedStatVarSpecDate(props.statVarSpec);

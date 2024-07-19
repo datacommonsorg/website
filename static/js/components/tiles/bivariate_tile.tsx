@@ -18,7 +18,6 @@
  * Component for rendering a bivariate type tile.
  */
 
-import { DataCommonsClient } from "@datacommonsorg/client";
 import axios from "axios";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
@@ -43,6 +42,7 @@ import {
   getContextStatVar,
   getHash,
 } from "../../utils/app/visualization_utils";
+import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { getSeriesWithin } from "../../utils/data_fetch_utils";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
@@ -168,7 +168,7 @@ function getDataCsvCallback(
   props: BivariateTilePropType
 ): () => Promise<string> {
   return () => {
-    const dataCommonsClient = new DataCommonsClient({ apiRoot: props.apiRoot });
+    const dataCommonsClient = getDataCommonsClient(props.apiRoot);
     // Assume all variables will have the same date
     // TODO: Update getCsv to handle different dates for different variables
     const date = getFirstCappedStatVarSpecDate(props.statVarSpec);

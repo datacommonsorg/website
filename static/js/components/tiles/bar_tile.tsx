@@ -18,7 +18,7 @@
  * Component for rendering a bar tile.
  */
 
-import { DataCommonsClient, ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
+import { ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
 import { ChartSortOption } from "@datacommonsorg/web-components";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
@@ -40,6 +40,7 @@ import {
   getContextStatVar,
   getHash,
 } from "../../utils/app/visualization_utils";
+import { getDataCommonsClient } from "../../utils/data_commons_client";
 import {
   getPoint,
   getPointWithin,
@@ -188,7 +189,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
  */
 function getDataCsvCallback(props: BarTilePropType): () => Promise<string> {
   return () => {
-    const dataCommonsClient = new DataCommonsClient({ apiRoot: props.apiRoot });
+    const dataCommonsClient = getDataCommonsClient(props.apiRoot);
     // Assume all variables will have the same date
     // TODO: Handle different dates for different variables
     const date = getFirstCappedStatVarSpecDate(props.variables);
