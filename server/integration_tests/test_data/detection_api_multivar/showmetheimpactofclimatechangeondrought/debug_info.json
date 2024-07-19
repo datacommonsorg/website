@@ -50,7 +50,7 @@
             },
             {
               "CosineScore": [
-                1.0
+                0.9999998807907104
               ],
               "QueryPart": "drought",
               "SV": [
@@ -76,7 +76,7 @@
             },
             {
               "CosineScore": [
-                0.866512656211853
+                0.8665127754211426
               ],
               "QueryPart": "change drought",
               "SV": [

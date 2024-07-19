@@ -76,8 +76,7 @@ class TestNLUtilsRemoveStopWordsAndPunctuation(unittest.TestCase):
       [
           "this is a random query",
           "random query",
-      ],
-      ["population of palo alto", "population palo alto"],
+      ], ["population of palo alto", "population palo alto"],
       ["tell me about life expectancy", "life expectancy"],
       ["what about Capitalization", "capitalization"],
       ["say something about crime in California counties", "crime california"],
@@ -90,8 +89,7 @@ class TestNLUtilsRemoveStopWordsAndPunctuation(unittest.TestCase):
       [
           "what is relationship between the sickest and healthiest people in the world",
           "people world"
-      ],
-      ["how does it correlate with heart disease", "heart disease"],
+      ], ["how does it correlate with heart disease", "heart disease"],
       ["best high schools in Florida counties", "schools florida"],
       [
           "interest rates among people who are living in poverty across US states",
@@ -104,10 +102,35 @@ class TestNLUtilsRemoveStopWordsAndPunctuation(unittest.TestCase):
       [
           "what is the number of students in new york",
           "number of students new york"
-      ],
+      ], ["unemployment rate in palo alto", "unemployment rate palo alto"],
+      ["rate of unemployment in palo alto", "rate unemployment palo alto"],
+      [
+          "what are the rates of uninsured people in california",
+          "rates uninsured people california"
+      ], ["obesity rate", "obesity rate"]
   ])
   def test_query_remove_stop_words(self, query, expected):
     stop_words = utils.combine_stop_words()
+    self.assertEqual(utils.remove_stop_words(query, stop_words), expected)
+
+  @parameterized.expand([
+      [
+          "this is a random query",
+          "random query",
+      ],
+      # unemployment rate is a special case we don't want to strip
+      ["unemployment rate in palo alto", "unemployment rate palo alto"],
+      # following are all cases where rate/rates should be stripped
+      ["rate of unemployment in palo alto", "unemployment palo alto"],
+      [
+          "what are the rates of uninsured people in california",
+          "uninsured people california"
+      ],
+      ["obesity rate", "obesity"]
+  ])
+  def test_query_remove_stop_words_toolformer(self, query, expected):
+    stop_words = utils.combine_stop_words(
+        constants.HEURISTIC_TYPES_IN_VARIABLES_TOOLFORMER)
     self.assertEqual(utils.remove_stop_words(query, stop_words), expected)
 
   @parameterized.expand(
