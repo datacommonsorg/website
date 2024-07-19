@@ -110,6 +110,26 @@ class TestNLUtilsRemoveStopWordsAndPunctuation(unittest.TestCase):
     stop_words = utils.combine_stop_words()
     self.assertEqual(utils.remove_stop_words(query, stop_words), expected)
 
+  @parameterized.expand([
+      [
+          "this is a random query",
+          "random query",
+      ],
+      # unemployment rate is a special case we don't want to strip
+      ["unemployment rate in palo alto", "unemployment rate palo alto"],
+      # following are all cases where rate/rates should be stripped
+      ["rate of unemployment in palo alto", "unemployment palo alto"],
+      [
+          "what are the rates of uninsured people in california",
+          "uninsured people california"
+      ],
+      ["obesity rate", "obesity"]
+  ])
+  def test_query_remove_stop_words_toolformer(self, query, expected):
+    stop_words = utils.combine_stop_words(
+        constants.HEURISTIC_TYPES_IN_VARIABLES_TOOLFORMER)
+    self.assertEqual(utils.remove_stop_words(query, stop_words), expected)
+
   @parameterized.expand(
       [[
           "this is a random query with no punctuation",
