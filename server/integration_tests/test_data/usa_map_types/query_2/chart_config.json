@@ -497,6 +497,37 @@
                     "statVarKey": [
                       "Median_Income_Household_WithFoodStampsInThePast12Months"
                     ],
+                    "title": "Median Income for Households With Food Stamps in the Past Year in Census Tracts of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_WithFoodStampsInThePast12Months"
+                    ],
+                    "title": "Median Income for Households With Food Stamps in the Past Year in Census Tracts of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income for Households With Food Stamps in the Past Year in Census Tracts of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_WithFoodStampsInThePast12Months"
+                    ],
                     "title": "Median Income for Households With Food Stamps in the Past Year in Placer County",
                     "type": "LINE"
                   }
@@ -575,6 +606,37 @@
               }
             ],
             "title": "Median Income: Less Than High School Graduate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_WithoutFoodStampsInThePast12Months"
+                    ],
+                    "title": "Median Income for Households Without Food Stamps in the Past Year in Census Tracts of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_WithoutFoodStampsInThePast12Months"
+                    ],
+                    "title": "Median Income for Households Without Food Stamps in the Past Year in Census Tracts of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income for Households Without Food Stamps in the Past Year in Census Tracts of Placer County"
           },
           {
             "columns": [

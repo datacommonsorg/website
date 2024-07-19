@@ -9,25 +9,10 @@
               {
                 "tiles": [
                   {
-                    "answerTableTileSpec": {
-                      "columns": [
-                        {
-                          "header": "Has RNA Transcript",
-                          "propertyExpr": "->hasRNATranscript"
-                        }
-                      ]
-                    },
                     "entities": [
-                      "bio/FGFR1",
-                      "bio/galGal5_FGFR1",
-                      "bio/galGal6_FGFR1",
-                      "bio/hg19_FGFR1",
-                      "bio/hg38_FGFR1",
-                      "bio/mm10_Fgfr1",
-                      "bio/mm9_Fgfr1"
+                      "bio/HeliothisArmigeraEntomopoxvirus"
                     ],
-                    "title": "The Has RNA Transcript for FGFR1 are as follows:",
-                    "type": "ANSWER_TABLE"
+                    "type": "ENTITY_OVERVIEW"
                   }
                 ]
               }
@@ -41,38 +26,8 @@
   "debug": {},
   "entities": [
     {
-      "dcid": "bio/FGFR1",
-      "name": "FGFR1",
-      "type": ""
-    },
-    {
-      "dcid": "bio/galGal5_FGFR1",
-      "name": "FGFR1",
-      "type": ""
-    },
-    {
-      "dcid": "bio/galGal6_FGFR1",
-      "name": "FGFR1",
-      "type": ""
-    },
-    {
-      "dcid": "bio/hg19_FGFR1",
-      "name": "FGFR1",
-      "type": ""
-    },
-    {
-      "dcid": "bio/hg38_FGFR1",
-      "name": "FGFR1",
-      "type": ""
-    },
-    {
-      "dcid": "bio/mm10_Fgfr1",
-      "name": "Fgfr1",
-      "type": ""
-    },
-    {
-      "dcid": "bio/mm9_Fgfr1",
-      "name": "Fgfr1",
+      "dcid": "bio/HeliothisArmigeraEntomopoxvirus",
+      "name": "Heliothis armigera entomopoxvirus",
       "type": ""
     }
   ],
@@ -92,8 +47,6 @@
     "peerTopics": []
   },
   "svSource": "UNKNOWN",
-  "userMessage": "See relevant information for FGFR1 based on the previous query.",
-  "userMessages": [
-    "See relevant information for FGFR1 based on the previous query."
-  ]
+  "userMessage": "",
+  "userMessages": []
 }
