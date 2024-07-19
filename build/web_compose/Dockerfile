@@ -68,7 +68,7 @@ COPY deploy/nl/. /datacommons/nl/
 COPY nl_server/requirements.txt /workspace/nl_server/requirements.txt
 COPY nl_requirements.txt /workspace/nl_requirements.txt
 # TODO: Undo this once we figure out why lancedb breaks Custom DC Docker
-RUN sed -i'' '/lancedb/d' /workspace/nl_server/requirements.txt
+RUN sed -i'' '/lancedb/d' /workspace/nl_requirements.txt
 RUN pip install --upgrade pip
 RUN pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
 RUN pip3 install --no-cache-dir -r /workspace/nl_server/requirements.txt
@@ -84,15 +84,15 @@ RUN pip3 install -r /workspace/tools/nl/embeddings/requirements.txt
 # Install website NPM dependencies
 COPY packages/web-components/package.json /workspace/packages/web-components/package.json
 COPY packages/web-components/package-lock.json /workspace/packages/web-components/package-lock.json
-RUN npm --prefix /workspace/packages/web-components install --omit=dev
+RUN npm --prefix /workspace/packages/web-components ci --omit=dev
 
 COPY packages/client/package.json /workspace/packages/client/package.json
 COPY packages/client/package-lock.json /workspace/packages/client/package-lock.json
-RUN npm --prefix /workspace/packages/client install
+RUN npm --prefix /workspace/packages/client ci
 
 COPY static/package.json /workspace/static/package.json
 COPY static/package-lock.json /workspace/static/package-lock.json
-RUN npm --prefix /workspace/static install --omit=dev
+RUN npm --prefix /workspace/static ci --omit=dev
 
 # Install packages NPM depenencies
 COPY packages/. /workspace/packages/
