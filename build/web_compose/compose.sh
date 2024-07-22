@@ -26,15 +26,6 @@ if [[ $OUTPUT_DIR == "" && $GCS_DATA_PATH != "" ]]; then
     export OUTPUT_DIR=$GCS_DATA_PATH
 fi
 
-# Set OUTPUT_DIR to same as INPUT_DIR if not specified.
-if [[ $OUTPUT_DIR == "" ]]; then
-    if [[ $INPUT_DIR == "" ]]; then
-        echo "INPUT_DIR not specified."
-        exit 1
-    fi
-    export OUTPUT_DIR=$INPUT_DIR
-fi
-
 # Check for required variables.
 
 if [[ $DC_API_KEY == "" ]]; then
@@ -45,6 +36,11 @@ fi
 if [[ $MAPS_API_KEY == "" ]]; then
   echo "MAPS_API_KEY not specified."
   exit 1
+fi
+
+if [[ $OUTPUT_DIR == "" ]]; then
+    echo "OUTPUT_DIR not specified."
+    exit 1
 fi
 
 echo "OUTPUT_DIR=$OUTPUT_DIR"
