@@ -11,7 +11,6 @@ the root directory.
 File structure:
 ```text
 config/seo_experiments/
-├─ html_templates/
 ├─ html_templates/        <-- this folder gets sync'ed with GCS
 │  ├─ active/             <-- templates actively being used for a live experiment
 |  ├─ archive/            <-- templates from not currently active experiments

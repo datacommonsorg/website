@@ -13,7 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Script to sync HTML templates with the website GCS bucket.
+# Script to sync HTML templates with the website GCS bucket
+# (datcom-website-config in project ID datcom-204919).
 # Used for updating the HTML templates used in SEO experimentation
 # Will set the contents of the GCS bucket to match what's in local HEAD.
 #

@@ -105,7 +105,7 @@ def get_seo_experiment_template(dcid: str) -> str:
       experiment_template = f.read()
 
   except Exception as e:
-    logging.info(
+    logging.error(
         f"Encountered exception while attempting to load experiment place page template for {dcid}: {e}"
     )
   return experiment_template
