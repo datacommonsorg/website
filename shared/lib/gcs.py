@@ -159,3 +159,21 @@ def upload_by_path(local_path: str, gcs_path: str, timeout: int = 60):
         blob.upload_from_filename(file_path, timeout=timeout)
         logging.info("Uploaded %s to gs://%s/%s", file_path, bucket_name,
                      blob_name)
+
+
+def read_to_string(gcs_path: str) -> str:
+  """Read the contents of a GCS file to string
+  
+  Args:
+    gcs_path: The full GCS path to a file
+  
+  Returns:
+    Contents of the file as a text string
+  """
+  if not is_gcs_path(gcs_path):
+    raise ValueError(f"Invalid GCS path: {gcs_path}")
+
+  bucket_name, base_blob_name = get_path_parts(gcs_path)
+  bucket = storage.Client().bucket(bucket_name)
+  blob = bucket.get_blob(base_blob_name)
+  return blob.download_as_text()

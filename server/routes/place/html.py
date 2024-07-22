@@ -25,6 +25,7 @@ from flask import g
 from flask_babel import gettext
 
 from server.lib.cache import cache
+from server.lib.config import GLOBAL_CONFIG_BUCKET
 from server.lib.i18n import AVAILABLE_LANGUAGES
 import server.routes.shared_api.place as place_api
 import shared.lib.gcs as gcs
@@ -77,32 +78,35 @@ SEO_EXPERIMENT_HTML_LOCAL_DIR = "config/seo_experiments/html_templates/active/"
 SEO_EXPERIMENT_DCID_TO_HTML = {"country/EGY": "Egypt.html"}
 
 
-def get_seo_experiment_template(dcid: str) -> str:
+def get_seo_experiment_template(dcid: str, use_local_template=False) -> str:
   """Load page template for SEO experiments
   
-  Will load files from GCS unless server is running locally, in which case
-  will load from server/config/seo_experiments/html_templates/active instead.
-
   If a file cannot be found or read, will return empty string instead.
+
+  Args:
+    dcid: dcid of the place the page is about
+    use_local_template: if True, will read from local config file instead of
+                        GCS. Used in development for writing new templates.
   """
   experiment_template = ""
   try:
     filename = SEO_EXPERIMENT_DCID_TO_HTML[dcid]
 
-    if current_app.config['LOCAL']:
+    if use_local_template:
       # Load template from local path
       template_filepath = os.path.join(current_app.root_path,
                                        SEO_EXPERIMENT_HTML_LOCAL_DIR, filename)
+      with open(template_filepath, 'r', errors='ignore') as f:
+        experiment_template = f.read()
+
     else:
       # Load template from GCS
-      template_filepath = os.path.join("/tmp/seo_experiment/template/",
-                                       filename)
-      gcs.download_blob("datcom-website-config",
-                        os.path.join(SEO_EXPERIMENT_HTML_GCS_DIR, filename),
-                        template_filepath)
-
-    with open(template_filepath, 'r', errors='ignore') as f:
-      experiment_template = f.read()
+      gcs_filepath = gcs.make_path(
+          GLOBAL_CONFIG_BUCKET,
+          os.path.join(SEO_EXPERIMENT_HTML_GCS_DIR, filename))
+      output = gcs.read_to_string(gcs_filepath)
+      print(type(output))
+      return output
 
   except Exception as e:
     logging.error(
@@ -236,6 +240,29 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
   return ''
 
 
+def is_seo_experiment_enabled(place_dcid: str, category: str,
+                              locale: str) -> bool:
+  """Determine if SEO experiment should be enabled for the page
+  
+  Args:
+    place_dcid: dcid of the place the page is about
+    category: page category, e.g. "Economics", "Health". Use "" for an
+              overview page.
+    locale: which i18n language locale the page is in.
+  """
+  # Use SEO experiment templates on English overview pages for places in
+  # the experiment group only.
+  # Do not release experiment to prod while templates are still being written.
+  # TODO(juliawu): Once all templates are ready, enable the experiment on
+  #                staging and prod.
+  if place_dcid in SEO_EXPERIMENT_DCID_TO_HTML.keys(
+  ) and not category and locale == 'en' and os.environ.get('FLASK_ENV') in [
+      'local', 'autopush', 'dev'
+  ]:
+    return True
+  return False
+
+
 @bp.route('', strict_slashes=False)
 @bp.route('/<path:place_dcid>')
 @cache.cached(query_string=True)
@@ -319,24 +346,17 @@ def place(place_dcid=None):
   # crawlers from indexing dev or custom DC versions of the place pages.
   block_indexing = not is_canonical_domain(flask.request.base_url)
 
-  # Use SEO experiment templates on English overview pages for places in
-  # the experiment group.
-  use_experiment = place_dcid in SEO_EXPERIMENT_DCID_TO_HTML.keys(
-  ) and not category and locale == 'en'
-
-  # Do not release experiment to prod while templates are still being written.
-  # TODO(juliawu): Once all templates are ready, enable the experiment on
-  #                staging and prod.
-  is_experiment_enabled_flask_env = os.environ.get('FLASK_ENV') in [
-      'local', 'autopush', 'dev'
-  ]
-
-  experiment_template = ""
-  if use_experiment and is_experiment_enabled_flask_env:
+  # Render SEO experimental pages
+  if is_seo_experiment_enabled(place_dcid, category, locale):
+    experiment_template = ""
     try:
+      # Allow "useLocalTemplate=true" in the request to render template from
+      # local config instead of GCS
+      use_local_template = flask.request.args.get('useLocalTemplate')
       # Fetch template from GCS and log the timing
       start_time = time.time()
-      experiment_template = get_seo_experiment_template(place_dcid)
+      experiment_template = get_seo_experiment_template(place_dcid,
+                                                        use_local_template)
       elapsed_time = (time.time() - start_time) * 1000
       logging.info(
           f"Loading experiment place page template for {place_name} (DCID: {place_dcid}) took {elapsed_time:.2f} milliseconds."
