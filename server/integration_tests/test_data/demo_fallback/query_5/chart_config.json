@@ -647,7 +647,7 @@
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: WESR / global material flows database.",
+            "footnote": "Includes data from the following sources: eurostat; WESR / global material flows database.",
             "title": "Domestic Material Consumption Per Unit of GDP"
           },
           {
@@ -1233,7 +1233,6 @@
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSMiningQuarryingOilGasExtraction_RealValue",
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSNaturalResourcesMining_RealValue",
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSNondurableGoodsManufacturing_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue",
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalAndBusinessServices_RealValue",
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue",
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_RealValue",

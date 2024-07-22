@@ -6,7 +6,7 @@
   "entities_detected": [
     "volvox"
   ],
-  "entities_resolved": "(name: Volvox, dcid: bio/D044446); (name: Volvox, dcid: dc/003ye83smktt7); (name: Volvox, dcid: dc/3rbv0rhm76sg8); (name: Volvox, dcid: dc/5zhg2q9l2n378); (name: Volvox, dcid: dc/953xfs4xh2bm5); (name: Volvox, dcid: dc/9fzm6f7k7etm4); (name: Volvox, dcid: dc/9xy7ymdmzyzdf); (name: Volvox, dcid: dc/b090kbyb0sz5b); (name: Volvox, dcid: dc/ccyhttectv5n2); (name: Volvox, dcid: dc/cd735b0hd6nh8); (name: Volvox, dcid: dc/ds26y3mt8z3c4); (name: Volvox, dcid: dc/erp74w62y7x4h); (name: Volvox, dcid: dc/fnqkx4gtrh1f7); (name: Volvox, dcid: dc/fzfq3lff3kf34); (name: Volvox, dcid: dc/ghtpcec74knl7); (name: Volvox, dcid: dc/h8ncxq8y6bkj2); (name: Volvox, dcid: dc/pdhk5jc41d636); (name: Volvox, dcid: dc/vxzgmlszw0zfh); (name: Volvox, dcid: dc/xvhwj1943wgf9); (name: Volvox, dcid: dc/yg1kw13e813e9); (name: Volvox, dcid: dc/z9x1mlh4pxzb7); (name: Volvox, dcid: dc/zsn19vpl9fy76); ",
+  "entities_resolved": "(name: Volvox, dcid: bio/D044446); ",
   "query_with_places_removed": "what is the phylum of",
   "sv_matching": {
     "CosineScore": [
@@ -127,28 +127,7 @@
   "query_detection_debug_logs": {
     "dc_recognize_entities": {
       "volvox": [
-        "bio/D044446",
-        "dc/003ye83smktt7",
-        "dc/3rbv0rhm76sg8",
-        "dc/5zhg2q9l2n378",
-        "dc/953xfs4xh2bm5",
-        "dc/9fzm6f7k7etm4",
-        "dc/9xy7ymdmzyzdf",
-        "dc/b090kbyb0sz5b",
-        "dc/ccyhttectv5n2",
-        "dc/cd735b0hd6nh8",
-        "dc/ds26y3mt8z3c4",
-        "dc/erp74w62y7x4h",
-        "dc/fnqkx4gtrh1f7",
-        "dc/fzfq3lff3kf34",
-        "dc/ghtpcec74knl7",
-        "dc/h8ncxq8y6bkj2",
-        "dc/pdhk5jc41d636",
-        "dc/vxzgmlszw0zfh",
-        "dc/xvhwj1943wgf9",
-        "dc/yg1kw13e813e9",
-        "dc/z9x1mlh4pxzb7",
-        "dc/zsn19vpl9fy76"
+        "bio/D044446"
       ]
     },
     "dc_recognize_places": {},

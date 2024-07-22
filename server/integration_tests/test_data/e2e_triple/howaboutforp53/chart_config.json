@@ -18,11 +18,12 @@
                       ]
                     },
                     "entities": [
+                      "bio/P53_HUMAN",
                       "bio/dm3_p53",
                       "bio/dm6_p53",
                       "bio/mm9_p53"
                     ],
-                    "title": "The Has RNA Transcript for p53 are as follows:",
+                    "title": "The Has RNA Transcript for P53_HUMAN and p53 are as follows:",
                     "type": "ANSWER_TABLE"
                   }
                 ]
@@ -36,6 +37,11 @@
   "context": {},
   "debug": {},
   "entities": [
+    {
+      "dcid": "bio/P53_HUMAN",
+      "name": "P53_HUMAN",
+      "type": ""
+    },
     {
       "dcid": "bio/dm3_p53",
       "name": "p53",
