@@ -105,7 +105,6 @@ def get_seo_experiment_template(dcid: str, use_local_template=False) -> str:
           GLOBAL_CONFIG_BUCKET,
           os.path.join(SEO_EXPERIMENT_HTML_GCS_DIR, filename))
       output = gcs.read_to_string(gcs_filepath)
-      print(type(output))
       return output
 
   except Exception as e:
