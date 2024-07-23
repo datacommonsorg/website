@@ -1470,22 +1470,22 @@ class TestFetchHighestCoverage(unittest.TestCase):
 
   @patch('server.lib.fetch.point_core')
   @patch('server.services.datacommons.obs_series')
-  def test_fetch_highest_coverage_with_entities_single_variable(self, mock_obs_series,
-                                                mock_point_core):
+  def test_fetch_highest_coverage_with_entities_single_variable(
+      self, mock_obs_series, mock_point_core):
     variables = ['Count_Person_InLaborForce']
     entities = ['country/USA', 'country/RUS', 'country/MEX']
 
     mock_obs_series.return_value = self.mock_obs_series_labor_force_response
 
     lib_util.fetch_highest_coverage(variables=variables,
-                                               all_facets=False,
-                                               entities=entities)
+                                    all_facets=False,
+                                    entities=entities)
     mock_point_core.assert_called_with(entities, variables, '2021', False)
 
   @patch('server.lib.fetch.point_core')
   @patch('server.services.datacommons.obs_series')
-  def test_fetch_highest_coverage_with_entities_multi_variable(self, mock_obs_series,
-                                                mock_point_core):
+  def test_fetch_highest_coverage_with_entities_multi_variable(
+      self, mock_obs_series, mock_point_core):
     variables = ['Count_Person_InLaborForce', 'sdg/SI_POV_DAY1']
     entities = ['country/USA', 'country/RUS', 'country/MEX']
     mock_obs_series_response = {
@@ -1498,7 +1498,7 @@ class TestFetchHighestCoverage(unittest.TestCase):
             **(self.mock_obs_series_poverty_response["facets"])
         }
     }
-    
+
     mock_obs_series.return_value = mock_obs_series_response
 
     lib_util.fetch_highest_coverage(variables=variables,
@@ -1508,92 +1508,238 @@ class TestFetchHighestCoverage(unittest.TestCase):
 
   @patch('server.lib.fetch.point_within_core')
   @patch('server.services.datacommons.get_series_dates')
-  def test_fetch_highest_coverage_with_parent_entity_and_child_type(self, mock_get_series_dates, mock_point_within_core):
-      variables = ['who/Var1', 'who/Var2']
-      parent_entity = 'Earth'
-      child_type = 'Country'
-      mock_series_dates_response = {
-          "datesByVariable": [
-              {
-                  "observationDates": [
-                      {"date": "2017", "entityCount": [{"count": 195, "facet": "820746905"}]},
-                      {"date": "2018", "entityCount": [{"count": 195, "facet": "820746905"}]},
-                      {"date": "2019", "entityCount": [{"count": 195, "facet": "820746905"}]},
-                      {"date": "2020", "entityCount": [{"count": 195, "facet": "820746905"}]},
-                      {"date": "2021", "entityCount": [{"count": 155, "facet": "820746905"}]},
-                      {"date": "2022", "entityCount": [{"count": 155, "facet": "820746905"}]},
-                  ],
-                  "variable": "who/Var1"
-              },
-              {
-                  "observationDates": [
-                      {"date": "2017", "entityCount": [{"count": 195, "facet": "820746905"}]},
-                      {"date": "2018", "entityCount": [{"count": 195, "facet": "820746905"}]},
-                      {"date": "2019", "entityCount": [{"count": 195, "facet": "820746905"}]},
-                      {"date": "2020", "entityCount": [{"count": 195, "facet": "820746905"}]},
-                      {"date": "2021", "entityCount": [{"count": 155, "facet": "820746905"}]},
-                      {"date": "2022", "entityCount": [{"count": 155, "facet": "820746905"}]},
-                  ],
-                  "variable": "who/Var2"
-              }
-          ],
-          "facets": {
-              "820746905": {
-                  "importName": "UN_WHO",
-                  "provenanceUrl": "https://www.who.int/data"
-              }
-          }
-      }
+  def test_fetch_highest_coverage_with_parent_entity_and_child_type(
+      self, mock_get_series_dates, mock_point_within_core):
+    variables = ['who/Var1', 'who/Var2']
+    parent_entity = 'Earth'
+    child_type = 'Country'
+    mock_series_dates_response = {
+        "datesByVariable": [{
+            "observationDates": [
+                {
+                    "date": "2017",
+                    "entityCount": [{
+                        "count": 195,
+                        "facet": "820746905"
+                    }]
+                },
+                {
+                    "date": "2018",
+                    "entityCount": [{
+                        "count": 195,
+                        "facet": "820746905"
+                    }]
+                },
+                {
+                    "date": "2019",
+                    "entityCount": [{
+                        "count": 195,
+                        "facet": "820746905"
+                    }]
+                },
+                {
+                    "date": "2020",
+                    "entityCount": [{
+                        "count": 195,
+                        "facet": "820746905"
+                    }]
+                },
+                {
+                    "date": "2021",
+                    "entityCount": [{
+                        "count": 155,
+                        "facet": "820746905"
+                    }]
+                },
+                {
+                    "date": "2022",
+                    "entityCount": [{
+                        "count": 155,
+                        "facet": "820746905"
+                    }]
+                },
+            ],
+            "variable": "who/Var1"
+        }, {
+            "observationDates": [
+                {
+                    "date": "2017",
+                    "entityCount": [{
+                        "count": 195,
+                        "facet": "820746905"
+                    }]
+                },
+                {
+                    "date": "2018",
+                    "entityCount": [{
+                        "count": 195,
+                        "facet": "820746905"
+                    }]
+                },
+                {
+                    "date": "2019",
+                    "entityCount": [{
+                        "count": 195,
+                        "facet": "820746905"
+                    }]
+                },
+                {
+                    "date": "2020",
+                    "entityCount": [{
+                        "count": 195,
+                        "facet": "820746905"
+                    }]
+                },
+                {
+                    "date": "2021",
+                    "entityCount": [{
+                        "count": 155,
+                        "facet": "820746905"
+                    }]
+                },
+                {
+                    "date": "2022",
+                    "entityCount": [{
+                        "count": 155,
+                        "facet": "820746905"
+                    }]
+                },
+            ],
+            "variable": "who/Var2"
+        }],
+        "facets": {
+            "820746905": {
+                "importName": "UN_WHO",
+                "provenanceUrl": "https://www.who.int/data"
+            }
+        }
+    }
 
+    mock_get_series_dates.return_value = mock_series_dates_response
 
-      mock_get_series_dates.return_value = mock_series_dates_response
-
-      lib_util.fetch_highest_coverage(variables=variables, all_facets=False, parent_entity=parent_entity, child_type=child_type)
-      # In this case, 2020 (195 observations) has higher coverage than 2021 and 2022 (155 observations)
-      mock_point_within_core.assert_called_with(parent_entity, child_type, variables, "2020", False, None)
+    lib_util.fetch_highest_coverage(variables=variables,
+                                    all_facets=False,
+                                    parent_entity=parent_entity,
+                                    child_type=child_type)
+    # In this case, 2020 (195 observations) has higher coverage than 2021 and 2022 (155 observations)
+    mock_point_within_core.assert_called_with(parent_entity, child_type,
+                                              variables, "2020", False, None)
 
   @patch('server.lib.fetch.point_within_core')
   @patch('server.services.datacommons.get_series_dates')
-  def test_fetch_highest_coverage_with_parent_entity_and_child_type_multi_variable(self, mock_get_series_dates, mock_point_within_core):
-      variables = ['who/Var1', 'who/Var2']
-      parent_entity = 'Earth'
-      child_type = 'Country'
-      mock_series_dates_response = {
-          "datesByVariable": [
-              {
-                  "observationDates": [
-                      {"date": "2017", "entityCount": [{"count": 10, "facet": "820746905"}]},
-                      {"date": "2018", "entityCount": [{"count": 10, "facet": "820746905"}]},
-                      {"date": "2019", "entityCount": [{"count": 155, "facet": "820746905"}]},
-                      {"date": "2020", "entityCount": [{"count": 10, "facet": "820746905"}]},
-                      {"date": "2021", "entityCount": [{"count": 10, "facet": "820746905"}]},
-                      {"date": "2022", "entityCount": [{"count": 10, "facet": "820746905"}]},
-                  ],
-                  "variable": "who/Var1"
-              },
-              {
-                  "observationDates": [
-                      {"date": "2017", "entityCount": [{"count": 195, "facet": "820746905"}]},
-                      {"date": "2018", "entityCount": [{"count": 195, "facet": "820746905"}]},
-                      {"date": "2019", "entityCount": [{"count": 175, "facet": "820746905"}]},
-                      {"date": "2020", "entityCount": [{"count": 195, "facet": "820746905"}]},
-                      {"date": "2021", "entityCount": [{"count": 155, "facet": "820746905"}]},
-                      {"date": "2022", "entityCount": [{"count": 155, "facet": "820746905"}]},
-                  ],
-                  "variable": "who/Var2"
-              }
-          ],
-          "facets": {
-              "820746905": {
-                  "importName": "UN_WHO",
-                  "provenanceUrl": "https://www.who.int/data"
-              }
-          }
-      }
+  def test_fetch_highest_coverage_with_parent_entity_and_child_type_multi_variable(
+      self, mock_get_series_dates, mock_point_within_core):
+    variables = ['who/Var1', 'who/Var2']
+    parent_entity = 'Earth'
+    child_type = 'Country'
+    mock_series_dates_response = {
+        "datesByVariable": [{
+            "observationDates": [
+                {
+                    "date": "2017",
+                    "entityCount": [{
+                        "count": 10,
+                        "facet": "820746905"
+                    }]
+                },
+                {
+                    "date": "2018",
+                    "entityCount": [{
+                        "count": 10,
+                        "facet": "820746905"
+                    }]
+                },
+                {
+                    "date": "2019",
+                    "entityCount": [{
+                        "count": 155,
+                        "facet": "820746905"
+                    }]
+                },
+                {
+                    "date": "2020",
+                    "entityCount": [{
+                        "count": 10,
+                        "facet": "820746905"
+                    }]
+                },
+                {
+                    "date": "2021",
+                    "entityCount": [{
+                        "count": 10,
+                        "facet": "820746905"
+                    }]
+                },
+                {
+                    "date": "2022",
+                    "entityCount": [{
+                        "count": 10,
+                        "facet": "820746905"
+                    }]
+                },
+            ],
+            "variable": "who/Var1"
+        }, {
+            "observationDates": [
+                {
+                    "date": "2017",
+                    "entityCount": [{
+                        "count": 195,
+                        "facet": "820746905"
+                    }]
+                },
+                {
+                    "date": "2018",
+                    "entityCount": [{
+                        "count": 195,
+                        "facet": "820746905"
+                    }]
+                },
+                {
+                    "date": "2019",
+                    "entityCount": [{
+                        "count": 175,
+                        "facet": "820746905"
+                    }]
+                },
+                {
+                    "date": "2020",
+                    "entityCount": [{
+                        "count": 195,
+                        "facet": "820746905"
+                    }]
+                },
+                {
+                    "date": "2021",
+                    "entityCount": [{
+                        "count": 155,
+                        "facet": "820746905"
+                    }]
+                },
+                {
+                    "date": "2022",
+                    "entityCount": [{
+                        "count": 155,
+                        "facet": "820746905"
+                    }]
+                },
+            ],
+            "variable": "who/Var2"
+        }],
+        "facets": {
+            "820746905": {
+                "importName": "UN_WHO",
+                "provenanceUrl": "https://www.who.int/data"
+            }
+        }
+    }
 
+    mock_get_series_dates.return_value = mock_series_dates_response
 
-      mock_get_series_dates.return_value = mock_series_dates_response
-
-      lib_util.fetch_highest_coverage(variables=variables, all_facets=False, parent_entity=parent_entity, child_type=child_type)
-      # In this case 2019 has the highest overall coverage (155 observations for who/Var1 + 175 observations for who/Var2)
-      mock_point_within_core.assert_called_with(parent_entity, child_type, variables, "2019", False, None)
+    lib_util.fetch_highest_coverage(variables=variables,
+                                    all_facets=False,
+                                    parent_entity=parent_entity,
+                                    child_type=child_type)
+    # In this case 2019 has the highest overall coverage (155 observations for who/Var1 + 175 observations for who/Var2)
+    mock_point_within_core.assert_called_with(parent_entity, child_type,
+                                              variables, "2019", False, None)
