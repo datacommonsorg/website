@@ -785,10 +785,10 @@ def _get_highest_coverage_date(observation_dates_by_variable,
 
   highest_coverage_date = None
   highest_count = 0
-  for date, count in recent_date_counts_dict.items():
+  for coverage_date, count in recent_date_counts_dict.items():
     if count > highest_count:
       highest_count = count
-      highest_coverage_date = date
+      highest_coverage_date = coverage_date
   return highest_coverage_date
 
 
