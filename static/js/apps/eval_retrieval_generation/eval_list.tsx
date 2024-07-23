@@ -40,6 +40,8 @@ export function EvalList(): JSX.Element {
   const [modalOpen, setModalOpen] = useState(false);
   const [queryCompletionStatus, setQueryCompletionStatus] = useState({});
 
+  const toggleModal = () => void setModalOpen(!modalOpen);
+
   const orderedQueries: Query[] = Object.keys(allQuery)
     .sort((a, b) => {
       return Number(a) - Number(b);
@@ -93,7 +95,11 @@ export function EvalList(): JSX.Element {
           Evaluation list
         </div>
       </Button>
-      <Modal isOpen={modalOpen} className="eval-list-modal">
+      <Modal
+        className="eval-list-modal"
+        isOpen={modalOpen}
+        toggle={toggleModal}
+      >
         <div className="header">
           <div className="title">Choose a query to start evaluating from</div>
           <div className="subtitle">

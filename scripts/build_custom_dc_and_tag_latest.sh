@@ -32,7 +32,7 @@ set -x
 # Configure Git to create commits with Cloud Build's service account
 git config user.email $(gcloud auth list --filter=status:ACTIVE --format='value(account)')
 
-git commit -am "DO NOT PUSH: Temp commit to update pinned submod versions"
+git commit --allow-empty -am "DO NOT PUSH: Temp commit to update pinned submod versions (empty if submods are already up-to-date)"
 
 website_rev="$(git rev-parse --short HEAD)"
 mixer_rev="$(git rev-parse --short HEAD:mixer)"

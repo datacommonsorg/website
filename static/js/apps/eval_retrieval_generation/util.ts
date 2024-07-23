@@ -110,8 +110,9 @@ function getTooltipHtml(
   }
   return (
     `<span class="dc-stat-tooltip">` +
-    `<span class="dc-stat-tooltip-label">${dcResponse}</span>: ` +
     `<span class="dc-stat-tooltip-value">${dcStat}</span>` +
+    `<br/>` +
+    `<span class="dc-stat-tooltip-label">${dcResponse}</span>` +
     `</span>`
   );
 }

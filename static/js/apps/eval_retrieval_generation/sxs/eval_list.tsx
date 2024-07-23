@@ -35,6 +35,7 @@ export function EvalList(props: EvalListPropType): JSX.Element {
   const { sessionQueryId, setSessionQueryId } = useContext(SessionContext);
 
   const [modalOpen, setModalOpen] = useState(false);
+  const toggleModal = () => void setModalOpen(!modalOpen);
 
   // Keys are query IDs and values are true if query eval is complete.
   const [queryCompletionStatus, setQueryCompletionStatus] = useState<
@@ -70,7 +71,11 @@ export function EvalList(props: EvalListPropType): JSX.Element {
           Evaluation list
         </div>
       </Button>
-      <Modal isOpen={modalOpen} className="eval-list-modal">
+      <Modal
+        className="eval-list-modal"
+        isOpen={modalOpen}
+        toggle={toggleModal}
+      >
         <div className="header">
           <div className="title">
             Evaluations ({completedCount} of {props.sortedQueryIds.length}{" "}
