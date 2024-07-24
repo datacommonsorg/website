@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Stage 1: Build env for data importer.
+# #### Stage 1: Build env for data importer. ####
 FROM python:3.11.4-slim as data-importer
 
 ARG PIP_DISABLE_PIP_VERSION_CHECK=1
@@ -31,7 +31,8 @@ RUN pip3 install -r ./import/simple/requirements.txt
 # Copy simple importer.
 COPY import/simple/ ./import/simple/
 
-# Stage 2: Build env for embeddings builder.
+
+# #### Stage 2: Build env for embeddings builder. ####
 FROM python:3.11.4-slim as embeddings-builder
 
 ARG PIP_DISABLE_PIP_VERSION_CHECK=1
@@ -61,14 +62,16 @@ COPY nl_server/. /workspace/nl_server/
 # Copy yaml files used by the embeddings builder.
 COPY deploy/nl/. /datacommons/nl/
 
-# Stage 3: Download base dc model from GCS.
+
+# #### Stage 3: Download base dc model from GCS. ####
 FROM google/cloud-sdk:slim as model-downloader
 
 # Copy model.
 RUN mkdir -p /tmp/datcom-nl-models \
     && gsutil -m cp -R gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2/ /tmp/datcom-nl-models/
 
-# Stage 4: Runtime env.
+
+# #### Stage 4: Runtime env. ####
 FROM python:3.11.4-slim as runner
 
 ARG ENV

@@ -14,6 +14,8 @@
 # limitations under the License.
 
 # Build CDC data Docker image with a test image tag and push to Cloud Container Registry.
+# The image tag should be specified as an argument when invoking this script:
+# e.g. ./scripts/push_cdc_data_image.sh my-test-image-tag
 
 set -e
 
