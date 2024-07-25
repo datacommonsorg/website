@@ -13,5 +13,6 @@ pytest_log.txt
 **/eval/**/result
 
 import/simple/sample/
-**/tests/
 **/.data
+**/testdata
+**/test_data
