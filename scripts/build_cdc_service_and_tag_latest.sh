@@ -14,7 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 # Creates a new custom DC image and tags it latest.
 
 # Usage: From root, ./scripts/build_custom_dc_and_tag_latest.sh
@@ -25,15 +24,16 @@ set -e
 set -x
 
 # Check for image label, which is set after submodules are updated.
-if [ "$CDC_AUTOPUSH_IMAGE_LABEL" = "" ]; then
-  echo "CDC_AUTOPUSH_IMAGE_LABEL not specified."
+image_label=$(cat cdc_autopush_image_label.txt)
+if [ "$image_label" = "" ]; then
+  echo "Image label not found."
   exit 1
 fi
 
 # Build a new image and push it to Container Registry, tagging it as latest
 docker build -f build/web_compose/Dockerfile \
-          --tag "gcr.io/datcom-ci/datacommons-website-compose:${CDC_AUTOPUSH_IMAGE_LABEL}" \
-          --tag gcr.io/datcom-ci/datacommons-website-compose:latest \
-          .
+  --tag "gcr.io/datcom-ci/datacommons-website-compose:${CDC_AUTOPUSH_IMAGE_LABEL}" \
+  --tag gcr.io/datcom-ci/datacommons-website-compose:latest \
+  .
 docker push "gcr.io/datcom-ci/datacommons-website-compose:${CDC_AUTOPUSH_IMAGE_LABEL}"
 docker push gcr.io/datcom-ci/datacommons-website-compose:latest

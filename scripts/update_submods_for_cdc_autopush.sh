@@ -16,8 +16,9 @@
 
 
 # Update and merge submodules temporarily, exporting a combination of short
-# revision hashes (website-mixer-import) for labeling autopush builds.
-# $CDC_AUTOPUSH_IMAGE_LABEL will be set to this value.
+# revision hashes (website-mixer-import) to a temp file
+# cdc_autopush_image_label.txt.
+# The value in this file can be used to label autopush builds.
 
 # Usage: From root, ./scripts/update_submods_for_cdc_autopush.sh
 
@@ -41,4 +42,4 @@ mixer_rev="$(git rev-parse --short HEAD:mixer)"
 import_rev="$(git rev-parse --short HEAD:import)"
 image_label="${website_rev}-${mixer_rev}-${import_rev}"
 
-echo "CDC_AUTOPUSH_IMAGE_LABEL=$image_label"
+echo "$image_label" > "cdc_autopush_image_label.txt"
