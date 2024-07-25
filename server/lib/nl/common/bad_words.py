@@ -19,7 +19,6 @@ from typing import Dict, List
 
 from server.lib import config as libconfig
 from shared.lib import gcs
-import logging
 
 cfg = libconfig.get_config()
 BAD_WORDS_PATH = gcs.make_path(libconfig.GLOBAL_CONFIG_BUCKET,
