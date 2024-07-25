@@ -758,15 +758,15 @@ def _get_highest_coverage_date(observation_dates_by_variable,
                                facet_ids: Set[str], max_dates_to_check: int,
                                max_years_to_check: int) -> str | None:
   """
-  Heuristic for fetching "latest data with highest coverage":
+  Heuristic for fetching "latest date with highest coverage":
   Choose the date with the most data coverage from either:
   (1) last N observation dates
   (2) M years from the most recent observation date
   whichever set has more dates
 
   Args:
-    observation_entity_counts_by_date: Part of "dc.get_series_dates" response
-      containing variable observation counts by date and entity
+    observation_dates_by_variable: Part of "dc.get_series_dates" response
+      containing observation counts by variable, date and entity
     facet_ids: (optional) Only consider observation counts from these facets
     max_dates_to_check: Only consider entity counts going back this number of
       observation groups
@@ -779,9 +779,10 @@ def _get_highest_coverage_date(observation_dates_by_variable,
         observation_entity_counts_by_date, facet_ids, max_dates_to_check,
         max_years_to_check)
     for date_count in recent_date_counts:
-      if not date_count["date"] in recent_date_counts_dict:
-        recent_date_counts_dict[date_count["date"]] = 0
-      recent_date_counts_dict[date_count["date"]] += date_count["count"]
+      date_count_date = date_count["date"]
+      if not date_count_date in recent_date_counts_dict:
+        recent_date_counts_dict[date_count_date] = 0
+      recent_date_counts_dict[date_count_date] += date_count["count"]
 
   highest_coverage_date = None
   highest_count = 0
@@ -845,10 +846,15 @@ def fetch_highest_coverage(variables: List[str],
                            child_type: str | None = None,
                            facet_ids: List[str] | None = None):
   """
-  Fetches the latest available data with the best coverage for the given a
-  (list of entities OR (parent entity and child type)), variables, and facets.
-  If multiple variables are passed in, selects dates with the overall highest
-  coverage among all variables.
+  Fetches the latest available data with the best coverage for the given
+  entities (list of entities OR (parent entity and child type)), variables, and
+  facets.
+
+  - If multiple variables are passed in, selects dates with the overall highest
+    coverage among all variables.
+  - If all_facets is True, return observations from all available facets.
+    Otherwise returns observations from a single facet.
+  - If facet_ids is set, only returns observations from those facets
 
   Response format:
   {
