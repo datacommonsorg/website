@@ -350,4 +350,4 @@ class NLTestMisc(NLTest):
             'number of headless drivers in california',
         ],
         mode='strict',
-        expected_detectors=['Heuristic Based'])
+        expected_detectors=['Hybrid - Heuristic Based'])
