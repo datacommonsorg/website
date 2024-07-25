@@ -385,54 +385,6 @@
       "chartUrl": ""
     },
     {
-      "data_csv": "label,\"Population: Civilian, Family Household, Non Institutionalized\"\r\n2021,584504\r\n2020,569471\r\n2019,566522\r\n2018,563250\r\n2017,558396",
-      "legend": [
-        "Population: Civilian, Family Household, Non Institutionalized"
-      ],
-      "places": [
-        "geoId/38"
-      ],
-      "srcs": [
-        {
-          "name": "data.census.gov",
-          "url": "https://data.census.gov/cedsci/table?q=S2701&tid=ACSST5Y2020.S2701"
-        }
-      ],
-      "title": "Population: Civilian, Family Household, Non Institutionalized in North Dakota",
-      "type": "LINE",
-      "unit": "",
-      "vars": [
-        "Count_Person_Civilian_FamilyHousehold_NonInstitutionalized"
-      ],
-      "highlight": {
-        "date": "2021",
-        "value": 584504
-      },
-      "chartUrl": "",
-      "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
-    },
-    {
-      "data_csv": "rank,place,\"Population: Civilian, Family Household, Non Institutionalized\"\r\n1,Cass County,132676\r\n2,Burleigh County,76731\r\n3,Ward County,51683\r\n4,Grand Forks County,47260\r\n5,Williams County,30616\r\n49,Golden Valley County,1459\r\n50,Logan County,1439\r\n51,Sheridan County,1036\r\n52,Billings County,702\r\n53,Slope County,684",
-      "placeType": "County",
-      "places": [
-        "geoId/38"
-      ],
-      "srcs": [
-        {
-          "name": "data.census.gov",
-          "url": "https://data.census.gov/cedsci/table?q=S2701&tid=ACSST5Y2020.S2701"
-        }
-      ],
-      "title": "Population: Civilian, Family Household, Non Institutionalized in Counties of North Dakota (2021)",
-      "type": "TABLE",
-      "unit": "",
-      "vars": [
-        "Count_Person_Civilian_FamilyHousehold_NonInstitutionalized"
-      ],
-      "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota",
-      "chartUrl": ""
-    },
-    {
       "data_csv": "label,Average Income for Married Couple Family Households\r\n2019,117934\r\n2018,115706\r\n2017,111105\r\n2016,107344\r\n2015,103913\r\n2014,100467\r\n2013,95868\r\n2012,92261\r\n2011,88071\r\n2010,83619",
       "legend": [
         "Average Income for Married Couple Family Households"
@@ -693,6 +645,54 @@
       "unit": "USD",
       "vars": [
         "Median_Earnings_Person"
+      ],
+      "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota",
+      "chartUrl": ""
+    },
+    {
+      "data_csv": "label,\"Population: 16 Years or More, With Earnings\"\r\n2019,449730\r\n2018,449818\r\n2017,449547\r\n2016,444904\r\n2015,437154\r\n2014,428757\r\n2013,420838\r\n2012,414037\r\n2011,408780\r\n2010,403426",
+      "legend": [
+        "Population: 16 Years or More, With Earnings"
+      ],
+      "places": [
+        "geoId/38"
+      ],
+      "srcs": [
+        {
+          "name": "data.census.gov",
+          "url": "https://data.census.gov/cedsci/table?q=S2001&tid=ACSST1Y2019.S2001"
+        }
+      ],
+      "title": "Population: 16 Years or More, With Earnings in North Dakota",
+      "type": "LINE",
+      "unit": "",
+      "vars": [
+        "Count_Person_16OrMoreYears_WithEarnings"
+      ],
+      "highlight": {
+        "date": "2019",
+        "value": 449730
+      },
+      "chartUrl": "",
+      "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
+    },
+    {
+      "data_csv": "rank,place,\"Population: 16 Years or More, With Earnings\"\r\n1,Cass County,114087\r\n2,Burleigh County,56047\r\n3,Grand Forks County,44469\r\n4,Ward County,42256\r\n5,Williams County,20332\r\n49,Steele County,1026\r\n50,Oliver County,871\r\n51,Sheridan County,674\r\n52,Billings County,531\r\n53,Slope County,364",
+      "placeType": "County",
+      "places": [
+        "geoId/38"
+      ],
+      "srcs": [
+        {
+          "name": "data.census.gov",
+          "url": "https://data.census.gov/cedsci/table?q=S2001&tid=ACSST1Y2019.S2001"
+        }
+      ],
+      "title": "Population: 16 Years or More, With Earnings in Counties of North Dakota (2019)",
+      "type": "TABLE",
+      "unit": "",
+      "vars": [
+        "Count_Person_16OrMoreYears_WithEarnings"
       ],
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota",
       "chartUrl": ""
