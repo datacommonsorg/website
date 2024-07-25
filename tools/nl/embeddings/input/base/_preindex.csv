@@ -4618,6 +4618,7 @@ proportion of adults who Sleep Less Than 7 Hours,Percent_Person_SleepLessThan7Ho
 proportion of adults who smoke,Percent_Person_Smoking
 proportion of adults who use tobacco daily,WHO/Adult_daily_tob_use
 proportion of adults with All Teeth Loss,Percent_Person_WithAllTeethLoss
+proportion of adults with COPD,Percent_Person_WithChronicObstructivePulmonaryDisease
 proportion of adults with Cancer (Excluding Skin Cancer),Percent_Person_WithCancerExcludingSkinCancer
 proportion of adults with Chronic Kidney Disease,Percent_Person_WithChronicKidneyDisease
 proportion of adults with Chronic Obstructive Pulmonary Disease,Percent_Person_WithChronicObstructivePulmonaryDisease
