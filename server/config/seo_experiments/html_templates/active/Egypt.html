@@ -1,0 +1,407 @@
+{#
+Copyright 2024 Google LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+#}
+{%- extends BASE_HTML -%}
+
+{% set main_id = 'dc-places' %}
+{% set page_id = 'page-dc-places' %}
+{% set is_hide_full_footer = true %}
+{% if category == '' %}
+{% set title = place_name + ' - ' + _('Place Explorer') %}
+{% set description = _('Statistics about economics, health, equity, crime, education, demographics, housing, and
+environment in {place_name}.'.format(place_name=place_name)) %}
+{% else %}
+{% set title = place_name + ' - '+ _('CHART_TITLE-CHART_CATEGORY-{category}'.format(category=category)) + ' - ' +
+_('Place Explorer') %}
+{% set description = _('Statistics about {category} in {place_name}.'.format(category=category, place_name=place_name))
+%}
+{% endif %}
+{% set similar_places = "country/NGA country/FRA country/USA country/IND country/CHN" %}
+
+{% block head %}
+<link rel="stylesheet" href={{url_for('static', filename='css/dev_place_page.min.css' , t=config['VERSION'])}}>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+<script src="https://datacommons.org/datacommons.js"></script>
+{% if locale == "en" %}
+<meta name="description" content="{{ place_summary or description }}" />
+{% endif %}
+
+{% if block_indexing %}
+<meta name="robots" content="noindex" />
+{% endif %}
+
+{% endblock %}
+
+{% block content %}
+<div id="body" class="container-fluid">
+  <div id="main" class="container">
+    <div id="nl-search-bar"></div>
+    <div id="page-content" class="page-content-container">
+      <div class="title-section">
+        <div class="place-info">
+          <h1>{{ place_name }}</h1>
+          <p class="subheader">{{ place_type_with_parent_places_links | safe }}</p>
+        </div>
+        <div class="dcid-and-knowledge-graph">
+          dcid: {{ place_dcid }} • <a href={{url_for('browser.browser_node', dcid=place_dcid)}}>See Knowledge Graph</a>
+        </div>
+      </div>
+      <div class="explore-topics-box">
+        <span class="explore-relevant-topics">Related topics</span>
+        <div class="item-list-container">
+          <div class="item-list-inner">
+            <div class="item-list-item"><a class="item-list-text"
+                href="/place/{{place_dcid}}?category=Economics">Economics</a></div>
+            <div class="item-list-item"><a class="item-list-text" href="/place/{{place_dcid}}?category=Health">Health</a>
+            </div>
+            <div class="item-list-item"><a class="item-list-text" href="/place/{{place_dcid}}?category=Equity">Equity</a>
+            </div>
+            <div class="item-list-item"><a class="item-list-text"
+                href="/place/{{place_dcid}}?category=Demographics">Demographics</a></div>
+            <div class="item-list-item"><a class="item-list-text"
+                href="/place/{{place_dcid}}?category=Environment">Environment</a></div>
+            <div class="item-list-item"><a class="item-list-text" href="/place/{{place_dcid}}?category=Energy">Energy</a>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div id="place-summary" class="summary-text">
+        Egypt is a country in Asia and Africa. The population in Egypt was 109,262,178 in 2021. The nominal GDP per capita in
+        Egypt was $3,886.72 in 2021. The Gini index in Egypt was 31.9 in 2019. The life expectancy in Egypt was 70.22 in
+        2021. The energy consumption per capita in Egypt was 782.76kg in 2014. The carbon dioxide emissions per capita in
+        Egypt was 1.96t in 2020.
+      </div>
+  
+      <div class="charts-container">
+        <article class="category">
+          <div class="category-heading-container">
+            <h2>Economics</h2>
+            <a href="/place/{{place_dcid}}?category=Economics">More charts</a>
+          </div>
+  
+          <section class="block subtopic">
+            <div class="block-body row">
+              <div class="block-column">
+                <datacommons-line header="Children in employment"
+                  variables="Count_Person_7To14Years_Employed_AsFractionOf_Count_Person_7To14Years"
+                  places="{{place_dcid}}"></datacommons-line>
+              </div>
+              <div class="block-column">
+                <datacommons-line header="Gross domestic product per capita"
+                  variables="Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
+                  places="{{place_dcid}}"></datacommons-line>
+              </div>
+              <div class="block-column">
+                <datacommons-bar header="Gross domestic product per capita: other countries"
+                  variables="Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
+                  places="{{place_dcid}} {{similar_places}}"></datacommons-bar>
+              </div>
+              <div class="block-column">
+                <datacommons-line header="Labor force" variables="Count_Person_InLaborForce"
+                  places="{{place_dcid}}"></datacommons-line>
+              </div>
+              <div class="block-column">
+                <datacommons-line header="Labor force participation rate"
+                  variables="Count_Person_15To64Years_InLaborForce_AsFractionOf_Count_Person_15To64Years"
+                  places="{{place_dcid}}"></datacommons-line>
+              </div>
+              <div class="block-column">
+                <datacommons-bar header="Labor force participation rate: other countries"
+                  variables="Count_Person_15To64Years_InLaborForce_AsFractionOf_Count_Person_15To64Years"
+                  places="{{place_dcid}} {{ similar_places }}"></datacommons-bar>
+              </div>
+              <div class="block-column">
+                <datacommons-line header="Market capitalization of domestic companies" variables="Amount_Stock"
+                  places="{{place_dcid}}"></datacommons-line>
+              </div>
+              <div class="block-column">
+                <datacommons-bar header="Market capitalization of domestic companies" variables="Amount_Stock"
+                  places="{{place_dcid}} {{ similar_places }}"></datacommons-bar>
+              </div>
+            </div>
+          </section>
+        </article>
+  
+        <article class="category">
+          <div class="category-heading-container">
+            <h2>Health</h2>
+            <a href="/place/{{place_dcid}}?category=Health">More charts</a>
+          </div>
+  
+          <section class="block subtopic">
+            <div class="block-body row">
+              <div class="block-column">
+                <datacommons-line header="Alcohol consumption per capita (annual)"
+                  variables="Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears"
+                  places="{{place_dcid}}"></datacommons-line>
+              </div>
+              <div class="block-column">
+                <datacommons-bar header="Alcohol consumption per capita (annual): other countries"
+                  variables="Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears"
+                  places="{{place_dcid}} {{ similar_places }}"></datacommons-bar>
+              </div>
+              <div class="block-column">
+                <datacommons-line header="COVID-19 cumulative deaths"
+                  variables="CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
+                  places="{{place_dcid}}"></datacommons-line>
+              </div>
+              <div class="block-column">
+                <datacommons-bar header="COVID-19 cumulative deaths per capita: other countries"
+                  variables="CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
+                  perCapita="CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
+                  places="{{place_dcid}} {{ similar_places }}"></datacommons-bar>
+              </div>
+              <div class="block-column">
+                <datacommons-line header="Infant mortality rate"
+                  variables="Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+                  places="{{place_dcid}}"></datacommons-line>
+              </div>
+              <div class="block-column">
+                <datacommons-bar header="Infant mortality rate: other countries"
+                  variables="Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+                  places="{{place_dcid}} {{ similar_places}}"></datacommons-bar>
+              </div>
+              <div class="block-column">
+                <datacommons-line header="Life expectancy (years)" variables="LifeExpectancy_Person"
+                  places="{{place_dcid}}"></datacommons-line>
+              </div>
+              <div class="block-column">
+                <datacommons-bar header="Life expectancy (years): other countries" variables="LifeExpectancy_Person"
+                  places="{{place_dcid}} {{ similar_places }}"></datacommons-bar>
+              </div>
+              <div class="block-column">
+                <datacommons-line header="Severe wasting among children under 5" variables="Count_Person_Upto4Years_SevereWasting_AsFractionOf_Count_Person_Upto4Years"
+                  places="{{place_dcid}}"></datacommons-line>
+              </div>
+              <div class="block-column">
+                <datacommons-bar header="Severe wasting among children under 5: other countries" variables="Count_Person_Upto4Years_SevereWasting_AsFractionOf_Count_Person_Upto4Years"
+                  places="{{place_dcid}} {{similar_places}}"></datacommons-bar>
+              </div>
+              <div class="block-column">
+                <datacommons-line header="Wasting among children under 5"
+                  variables="Count_Person_Upto4Years_Wasting_AsFractionOf_Count_Person_Upto4Years"
+                  places="{{place_dcid}}"></datacommons-line>
+              </div>
+              <div class="block-column">
+                <datacommons-bar header="Wasting among children under 5: other countries"
+                  variables="Count_Person_Upto4Years_Wasting_AsFractionOf_Count_Person_Upto4Years"
+                  places="{{place_dcid}} {{similar_places}}"></datacommons-bar>
+              </div>
+            </div>
+          </section>
+        </article>
+  
+        <article class="category">
+          <div class="category-heading-container">
+            <h2>Equity</h2>
+            <a href="/place/{{place_dcid}}?category=Equity">More charts</a>
+          </div>
+  
+          <section class="block subtopic">
+            <div class="block-body row">
+              <div class="block-column">
+                <datacommons-line header="Gini index"
+                  variables="GiniIndex_EconomicActivity"
+                  places="{{place_dcid}}"></datacommons-line>
+              </div>
+              <div class="block-column">
+                <datacommons-bar header="Gini index: other countries"
+                  variables="GiniIndex_EconomicActivity"
+                  places="{{place_dcid}} {{ similar_places }}"></datacommons-bar>
+              </div>
+            </div>
+          </section>
+        </article>
+  
+        <article class="category">
+          <div class="category-heading-container">
+            <h2>Demographics</h2>
+            <a href="/place/{{place_dcid}}?category=Demographics">More charts</a>
+          </div>
+  
+          <section class="block subtopic">
+            <div class="block-body row">
+              <div class="block-column">
+                <datacommons-line header="Fertility rate"
+                  variables="FertilityRate_Person_Female"
+                  places="{{place_dcid}}"></datacommons-line>
+              </div>
+              <div class="block-column">
+                <datacommons-bar header="Fertility rate: other countries"
+                  variables="FertilityRate_Person_Female"
+                  places="{{place_dcid}} {{ similar_places }}"></datacommons-bar>
+              </div>
+              <div class="block-column">
+                <datacommons-line header="Population"
+                  variables="Count_Person"
+                  places="{{place_dcid}}"></datacommons-line>
+              </div>
+              <div class="block-column">
+                <datacommons-bar header="Population: other countries"
+                  variables="Count_Person"
+                  places="{{place_dcid}} {{ similar_places }}"></datacommons-bar>
+              </div>
+              <div class="block-column">
+                <datacommons-line header="Population growth rate"
+                  variables="GrowthRate_Count_Person"
+                  places="{{place_dcid}}"></datacommons-line>
+              </div>
+              <div class="block-column">
+                <datacommons-bar header="Population growth rate: other countries"
+                  variables="GrowthRate_Count_Person"
+                  places="{{place_dcid}} {{ similar_places }}"></datacommons-bar>
+              </div>
+              <div class="block-column">
+                <datacommons-line header="Urban and rural population"
+                  variables="Count_Person_Urban Count_Person_Rural"
+                  places="{{place_dcid}}"></datacommons-line>
+              </div>
+              <div class="block-column">
+                <datacommons-bar header="Urban and rural population: other countries"
+                  variables="Count_Person_Urban Count_Person_Rural"
+                  places="{{place_dcid}} {{ similar_places}}"></datacommons-bar>
+              </div>
+            </div>
+          </section>
+        </article>
+  
+        <article class="category">
+          <div class="category-heading-container">
+            <h2>Environment</h2>
+            <a href="/place/{{place_dcid}}?category=Environment">More charts</a>
+          </div>
+  
+          <section class="block subtopic">
+            <div class="block-body row">
+              <div class="block-column">
+                <datacommons-line header="Carbon dioxide emissions per capita"
+                  variables="Amount_Emissions_CarbonDioxide_PerCapita"
+                  places="{{place_dcid}}"></datacommons-line>
+              </div>
+              <div class="block-column">
+                <datacommons-bar header="Carbon dioxide emissions per capita: other countries"
+                  variables="Amount_Emissions_CarbonDioxide_PerCapita"
+                  places="{{place_dcid}} {{ similar_places }}"></datacommons-bar>
+              </div>
+            </div>
+          </section>
+        </article>
+  
+        <article class="category">
+          <div class="category-heading-container">
+            <h2>Energy</h2>
+            <a href="/place/{{place_dcid}}?category=Energy">More charts</a>
+          </div>
+  
+          <section class="block subtopic">
+            <div class="block-body row">
+              <div class="block-column">
+                <datacommons-line header="Electricity generation per capita"
+                  variables="Annual_Generation_Electricity"
+                  places="{{place_dcid}}"></datacommons-line>
+              </div>
+              <div class="block-column">
+                <datacommons-bar header="Electricity generation per capita: other countries"
+                  variables="Annual_Generation_Electricity"
+                  places="{{place_dcid}} {{ similar_places }}"></datacommons-bar>
+              </div>
+              <div class="block-column">
+                <datacommons-line header="Energy use (kg of oil equivalent per capita)"
+                  variables="Amount_Consumption_Energy_PerCapita"
+                  places="{{place_dcid}}"></datacommons-line>
+              </div>
+              <div class="block-column">
+                <datacommons-bar header="Energy use (kg of oil equivalent per capita): other countries"
+                  variables="Amount_Consumption_Energy_PerCapita"
+                  places="{{place_dcid}} {{ similar_places }}"></datacommons-bar>
+              </div>
+            </div>
+          </section>
+        </article>
+  
+        <div class="related-places">
+          <div class="related-places-callout">Places in {{ place_name }}</div>
+          <div class="item-list-container">
+            <div class="item-list-inner">
+              <div class="item-list-item"><a class="item-list-text" href="/place/wikidataId/Q29937">Aswan
+                  Governorate</a></div>
+              <div class="item-list-item"><a class="item-list-text" href="/place/wikidataId/Q29943">Alexandria
+                  Governorate</a></div>
+              <div class="item-list-item"><a class="item-list-text" href="/place/wikidataId/Q29965">Asyut
+                  Governorate</a></div>
+              <div class="item-list-item"><a class="item-list-text" href="/place/wikidataId/Q30630">Beheira
+                  Governorate</a></div>
+              <div class="item-list-item"><a class="item-list-text" href="/place/wikidataId/Q30644">Damietta
+                  Governorate</a></div>
+              <div class="item-list-item"><a class="item-list-text" href="/place/wikidataId/Q30650">New
+                  Valley Governorate</a></div>
+              <div class="item-list-item"><a class="item-list-text" href="/place/wikidataId/Q30656">Faiyum
+                  Governorate</a></div>
+              <div class="item-list-item"><a class="item-list-text" href="/place/wikidataId/Q30662">North
+                  Sinai Governorate</a></div>
+              <div class="item-list-item"><a class="item-list-text" href="/place/wikidataId/Q30669">Sohag
+                  Governorate</a></div>
+              <div class="item-list-item"><a class="item-list-text" href="/place/wikidataId/Q30675">Minya
+                  Governorate</a></div>
+              <div class="item-list-item"><a class="item-list-text" href="/place/wikidataId/Q30682">Matrouh
+                  Governorate</a></div>
+              <div class="item-list-item"><a class="item-list-text" href="/place/wikidataId/Q30683">Beni
+                  Suef Governorate</a></div>
+              <div class="item-list-item"><a class="item-list-text" href="/place/wikidataId/Q30786">Monufia
+                  Governorate</a></div>
+              <div class="item-list-item"><a class="item-list-text" href="/place/wikidataId/Q30797">Luxor
+                  Governorate</a></div>
+              <div class="item-list-item"><a class="item-list-text" href="/place/wikidataId/Q30805">Cairo
+                  Governorate</a></div>
+              <div class="item-list-item"><a class="item-list-text" href="/place/wikidataId/Q30815">South
+                  Sinai Governorate</a></div>
+              <div class="item-list-item"><a class="item-list-text" href="/place/wikidataId/Q30831">Red Sea
+                  Governorate</a></div>
+              <div class="item-list-item"><a class="item-list-text" href="/place/wikidataId/Q30832">Giza
+                  Governorate</a></div>
+              <div class="item-list-item"><a class="item-list-text" href="/place/wikidataId/Q30835">Gharbia
+                  Governorate</a></div>
+              <div class="item-list-item"><a class="item-list-text" href="/place/wikidataId/Q30946">Kafr
+                  el-Sheikh Governorate</a></div>
+              <div class="item-list-item"><a class="item-list-text" href="/place/wikidataId/Q31065">Qena
+                  Governorate</a></div>
+              <div class="item-list-item"><a class="item-list-text" href="/place/wikidataId/Q31067">Ismailia
+                  Governorate</a></div>
+              <div class="item-list-item"><a class="item-list-text" href="/place/wikidataId/Q31068">Dakahlia
+                  Governorate</a></div>
+              <div class="item-list-item"><a class="item-list-text" href="/place/wikidataId/Q31070">Suez
+                  Governorate</a></div>
+              <div class="item-list-item"><a class="item-list-text" href="/place/wikidataId/Q31074">Al
+                  Sharqia Governorate</a></div>
+              <div class="item-list-item"><a class="item-list-text" href="/place/wikidataId/Q31075">Qalyubia
+                  Governorate</a></div>
+              <div class="item-list-item"><a class="item-list-text" href="/place/wikidataId/Q31079">Port
+                  Said Governorate</a></div>
+            </div>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<script src={{url_for('static', filename='dev_place.js' , t=config['VERSION'])}}></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{maps_api_key}}&libraries=places&language={{locale}}" async
+  defer></script>
+{% endblock %}
