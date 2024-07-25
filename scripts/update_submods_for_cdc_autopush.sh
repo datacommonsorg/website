@@ -15,14 +15,17 @@
 # limitations under the License.
 
 
-# Creates a new custom DC image and tags it latest.
+# Update and merge submodules temporarily, exporting a combination of short
+# revision hashes (website-mixer-import) for labeling autopush builds.
+# $CDC_AUTOPUSH_IMAGE_LABEL will be set to this value.
 
-# Usage: From root, ./scripts/build_custom_dc_and_tag_latest.sh
-
-# The latest image = gcr.io/datcom-ci/datacommons-website-compose:latest
+# Usage: From root, ./scripts/update_submods_for_cdc_autopush.sh
 
 set -e
 set -x
+
+# Get the website short commit hash before it changes due to a temp commit.
+website_rev="$(git rev-parse --short HEAD)"
 
 # Initialize all submodules, then merge them with their masters and update
 # their pinned versions (locally only).
@@ -30,19 +33,12 @@ set -x
 ./scripts/merge_git_submodules.sh
 
 # Configure Git to create commits with Cloud Build's service account
-git config user.email $(gcloud auth list --filter=status:ACTIVE --format='value(account)')
+git config user.email "$(gcloud auth list --filter=status:ACTIVE --format='value(account)')"
 
 git commit --allow-empty -am "DO NOT PUSH: Temp commit to update pinned submod versions (empty if submods are already up-to-date)"
 
-website_rev="$(git rev-parse --short HEAD)"
 mixer_rev="$(git rev-parse --short HEAD:mixer)"
 import_rev="$(git rev-parse --short HEAD:import)"
 image_label="${website_rev}-${mixer_rev}-${import_rev}"
 
-# Build a new image and push it to Container Registry, tagging it as latest
-docker build -f build/web_compose/Dockerfile \
-          --tag gcr.io/datcom-ci/datacommons-website-compose:${image_label} \
-          --tag gcr.io/datcom-ci/datacommons-website-compose:latest \
-          .
-docker push gcr.io/datcom-ci/datacommons-website-compose:${image_label}
-docker push gcr.io/datcom-ci/datacommons-website-compose:latest
+echo "CDC_AUTOPUSH_IMAGE_LABEL=$image_label"

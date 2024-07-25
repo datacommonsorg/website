@@ -15,11 +15,11 @@
 # limitations under the License.
 
 
-# Creates a new custom DC data docker image and tags it as latest.
+# Creates a new custom DC image and tags it latest.
 
-# Usage: From root, ./scripts/build_cdc_data_and_tag_latest.sh
+# Usage: From root, ./scripts/build_custom_dc_and_tag_latest.sh
 
-# The latest image = gcr.io/datcom-ci/datacommons-data:latest
+# The latest image = gcr.io/datcom-ci/datacommons-website-compose:latest
 
 set -e
 set -x
@@ -31,9 +31,9 @@ if [ "$CDC_AUTOPUSH_IMAGE_LABEL" = "" ]; then
 fi
 
 # Build a new image and push it to Container Registry, tagging it as latest
-docker build -f build/cdc_data/Dockerfile \
-          --tag "gcr.io/datcom-ci/datacommons-data:${CDC_AUTOPUSH_IMAGE_LABEL}" \
-          --tag gcr.io/datcom-ci/datacommons-data:latest \
+docker build -f build/web_compose/Dockerfile \
+          --tag "gcr.io/datcom-ci/datacommons-website-compose:${CDC_AUTOPUSH_IMAGE_LABEL}" \
+          --tag gcr.io/datcom-ci/datacommons-website-compose:latest \
           .
-docker push "gcr.io/datcom-ci/datacommons-data:${CDC_AUTOPUSH_IMAGE_LABEL}"
-docker push gcr.io/datcom-ci/datacommons-data:latest
+docker push "gcr.io/datcom-ci/datacommons-website-compose:${CDC_AUTOPUSH_IMAGE_LABEL}"
+docker push gcr.io/datcom-ci/datacommons-website-compose:latest
