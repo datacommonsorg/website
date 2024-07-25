@@ -16,7 +16,7 @@
 
 # Creates a new custom DC image and tags it latest.
 
-# Usage: From root, ./scripts/build_custom_dc_and_tag_latest.sh
+# Usage: From root, ./scripts/build_cdc_service_and_tag_latest.sh
 
 # The latest image = gcr.io/datcom-ci/datacommons-website-compose:latest
 
