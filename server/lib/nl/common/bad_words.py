@@ -142,7 +142,6 @@ def _validate(mode: str, line: str, bad_words: BannedWords, validate: bool):
   if not validate:
     return
   if mode == 'multi':
-    assert ' ' not in line, f'Line {line} has a ":" and a phrase!'
     words = sorted([w.strip() for w in line.split(_DELIM) if w.strip()])
     for w in words:
       if w in bad_words.entries:
