@@ -3248,7 +3248,7 @@ Percent_Person_WithArthritis,proportion of adults with arthritis
 Percent_Person_WithAsthma,proportion of adults with asthma
 Percent_Person_WithCancerExcludingSkinCancer,proportion of adults with Cancer (Excluding Skin Cancer)
 Percent_Person_WithChronicKidneyDisease,proportion of adults with Chronic Kidney Disease
-Percent_Person_WithChronicObstructivePulmonaryDisease,proportion of adults with Chronic Obstructive Pulmonary Disease
+Percent_Person_WithChronicObstructivePulmonaryDisease,proportion of adults with Chronic Obstructive Pulmonary Disease;proportion of adults with COPD
 Percent_Person_WithCoronaryHeartDisease,proportion of adults with Coronary Heart Disease
 Percent_Person_WithDiabetes,proportion of adults with Diabetes
 Percent_Person_WithHighBloodPressure,proportion of adults with High Blood Pressure
