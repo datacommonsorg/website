@@ -69,12 +69,12 @@ import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { getPointWithin, getSeriesWithin } from "../../utils/data_fetch_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
+  clearContainer,
   getDenomInfo,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
   ReplacementStrings,
-  showError,
   transformCsvHeader,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
@@ -340,7 +340,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       }}
       isInitialLoading={_.isNull(mapChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
-      hasErrorMsg={!_.isEmpty(mapChartData) && !!mapChartData.errorMsg}
+      errorMsg={!_.isEmpty(mapChartData) && mapChartData.errorMsg}
       footnote={props.footnote}
       statVarSpecs={
         !_.isEmpty(props.dataSpecs)
@@ -362,7 +362,10 @@ export function MapTile(props: MapTilePropType): JSX.Element {
         id={props.id}
         className="svg-container"
         ref={svgContainer}
-        style={{ minHeight: svgHeight }}
+        style={{
+          minHeight: svgHeight,
+          display: mapChartData && mapChartData.errorMsg ? "none" : "flex",
+        }}
       >
         <div className="error-msg" ref={errorMsgContainer}></div>
         <div className="map" ref={mapContainer}></div>
@@ -652,7 +655,7 @@ export function draw(
     // clear the map and legend before adding error message
     mapContainer.innerHTML = "";
     legendContainer.innerHTML = "";
-    showError(chartData.errorMsg, errorMsgContainer);
+    clearContainer(errorMsgContainer);
     return;
   }
   // clear the error message before drawing the map and legend
