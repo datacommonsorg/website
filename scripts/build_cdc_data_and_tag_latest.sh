@@ -27,6 +27,7 @@ set -x
 image_label=$1
 if [[ $image_label = "" ]]; then
   echo "Expected positional argument with image label."
+  echo "Usage: ./scripts/build_cdc_data_and_tag_latest.sh \$IMAGE_LABEL"
   exit 1
 fi
 
