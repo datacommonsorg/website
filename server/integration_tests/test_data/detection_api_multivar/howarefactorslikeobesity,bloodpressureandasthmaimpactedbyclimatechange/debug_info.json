@@ -18,16 +18,14 @@
       0.6593924760818481,
       0.6520178318023682,
       0.6484817266464233,
-      0.6477762460708618,
       0.6461696624755859,
-      0.6459026336669922,
       0.6435545682907104,
+      0.6435544490814209,
       0.6410900354385376,
       0.6405231952667236,
       0.6402113437652588,
       0.6384210586547852,
       0.6380343437194824,
-      0.6376669406890869,
       0.6376464366912842,
       0.6346377730369568,
       0.6341456174850464,
@@ -36,7 +34,8 @@
       0.6322205662727356,
       0.6304948925971985,
       0.6302965879440308,
-      0.6298357844352722
+      0.6298357844352722,
+      0.6295678019523621
     ],
     "MultiSV": {
       "Candidates": [
@@ -46,7 +45,7 @@
           "Parts": [
             {
               "CosineScore": [
-                0.7997788190841675
+                0.7997788786888123
               ],
               "QueryPart": "factors like obesity blood pressure asthma impacted",
               "SV": [
@@ -74,6 +73,7 @@
                 0.7463642954826355,
                 0.740165650844574,
                 0.7351235151290894,
+                0.7130996584892273,
                 0.7130995988845825
               ],
               "QueryPart": "factors like obesity",
@@ -82,6 +82,7 @@
                 "WHO/NCD_BMI_30A",
                 "dc/x13tvt8jsgrm4",
                 "dc/4lvmzr1h1ylk1",
+                "dc/topic/GlobalHealth",
                 "dc/topic/Health"
               ]
             },
@@ -96,8 +97,8 @@
             },
             {
               "CosineScore": [
-                0.8255698680877686,
-                0.8027870059013367
+                0.8255698084831238,
+                0.8027870655059814
               ],
               "QueryPart": "asthma impacted climate change",
               "SV": [
@@ -115,6 +116,7 @@
               "CosineScore": [
                 0.7768431901931763,
                 0.7495046257972717,
+                0.7342653870582581,
                 0.7342654466629028,
                 0.7325114011764526
               ],
@@ -122,6 +124,7 @@
               "SV": [
                 "dc/topic/Asthma",
                 "dc/topic/BloodPressure",
+                "dc/topic/GlobalHealth",
                 "dc/topic/HealthConditions",
                 "dc/topic/Health"
               ]
@@ -152,8 +155,8 @@
             },
             {
               "CosineScore": [
-                0.8255698680877686,
-                0.8027870059013367
+                0.8255698084831238,
+                0.8027870655059814
               ],
               "QueryPart": "asthma impacted climate change",
               "SV": [
@@ -177,16 +180,14 @@
       "dc/topic/AmbientAirPollution",
       "Annual_Amount_Emissions_SCC_27_NaturalSources",
       "Percent_Person_Obesity",
-      "dc/topic/WHOMortalityCauses",
       "dc/topic/sdg_3.9.1",
-      "dc/topic/GlobalHealth",
       "dc/topic/Health",
+      "dc/topic/GlobalHealth",
       "dc/topic/sdg_13",
       "dc/topic/sdg_13.b",
       "dc/topic/sdg_13.2.1",
       "Percent_Person_Children_WithAsthma",
       "dc/topic/sdg_13.2.2",
-      "dc/topic/WHONonCommunicableDiseases",
       "Percent_Person_WithAsthma",
       "dc/topic/Emissions",
       "dc/topic/Pollutants",
@@ -195,7 +196,8 @@
       "dc/topic/AsthmaFemalePopulationByAge",
       "dc/topic/sdg_13.1",
       "dc/topic/sdg_13.2",
-      "dc/topic/sdg_11.6.2"
+      "dc/topic/sdg_11.6.2",
+      "dc/topic/HealthConditions"
     ]
   },
   "props_matching": {

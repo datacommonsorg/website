@@ -10,120 +10,37 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "wikidataId/Q1193",
-                      "wikidataId/Q1168",
-                      "wikidataId/Q1184",
-                      "wikidataId/Q1195",
-                      "wikidataId/Q1164",
-                      "wikidataId/Q1498",
-                      "wikidataId/Q1165",
                       "wikidataId/Q1437",
                       "wikidataId/Q1188",
-                      "wikidataId/Q22048"
+                      "wikidataId/Q1164",
+                      "wikidataId/Q1498",
+                      "wikidataId/Q22048",
+                      "wikidataId/Q1165",
+                      "wikidataId/Q1184",
+                      "wikidataId/Q1195",
+                      "wikidataId/Q1193",
+                      "wikidataId/Q1168"
                     ],
                     "statVarKey": [
-                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent10"
+                      "Count_Death_Infant10"
                     ],
-                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)",
+                    "title": "Total Number of Infant Deaths Reported",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)"
+            "denom": "Count_Person",
+            "title": "Total Number of Infant Deaths Reported"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1193",
-                    "statVarKey": [
-                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_abs"
-                    ],
-                    "title": "Manipur",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "wikidataId/Q1168",
-                    "statVarKey": [
-                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_abs"
-                    ],
-                    "title": "Chhattisgarh",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "wikidataId/Q1184",
-                    "statVarKey": [
-                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_abs"
-                    ],
-                    "title": "Jharkhand",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "wikidataId/Q1195",
-                    "statVarKey": [
-                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_abs"
-                    ],
-                    "title": "Meghalaya",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "wikidataId/Q1164",
-                    "statVarKey": [
-                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_abs"
-                    ],
-                    "title": "Assam",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "wikidataId/Q1498",
-                    "statVarKey": [
-                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_abs"
-                    ],
-                    "title": "Uttar Pradesh",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "wikidataId/Q1165",
-                    "statVarKey": [
-                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_abs"
-                    ],
-                    "title": "Bihar",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "wikidataId/Q1437",
                     "statVarKey": [
-                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_abs"
+                      "Count_Death_Infant_growth_abs"
                     ],
                     "title": "Rajasthan",
                     "type": "LINE"
@@ -135,7 +52,7 @@
                   {
                     "placeDcidOverride": "wikidataId/Q1188",
                     "statVarKey": [
-                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_abs"
+                      "Count_Death_Infant_growth_abs"
                     ],
                     "title": "Madhya Pradesh",
                     "type": "LINE"
@@ -145,50 +62,9 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q22048",
-                    "statVarKey": [
-                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_abs"
-                    ],
-                    "title": "Odisha",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Change in Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) Over Time (Absolute Change)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "wikidataId/Q1193",
-                    "statVarKey": [
-                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_pct"
-                    ],
-                    "title": "Manipur",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "wikidataId/Q1168",
-                    "statVarKey": [
-                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_pct"
-                    ],
-                    "title": "Chhattisgarh",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "wikidataId/Q1164",
                     "statVarKey": [
-                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_pct"
+                      "Count_Death_Infant_growth_abs"
                     ],
                     "title": "Assam",
                     "type": "LINE"
@@ -198,9 +74,45 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "wikidataId/Q1498",
+                    "statVarKey": [
+                      "Count_Death_Infant_growth_abs"
+                    ],
+                    "title": "Uttar Pradesh",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q22048",
+                    "statVarKey": [
+                      "Count_Death_Infant_growth_abs"
+                    ],
+                    "title": "Odisha",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1165",
+                    "statVarKey": [
+                      "Count_Death_Infant_growth_abs"
+                    ],
+                    "title": "Bihar",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "wikidataId/Q1184",
                     "statVarKey": [
-                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_pct"
+                      "Count_Death_Infant_growth_abs"
                     ],
                     "title": "Jharkhand",
                     "type": "LINE"
@@ -212,7 +124,7 @@
                   {
                     "placeDcidOverride": "wikidataId/Q1195",
                     "statVarKey": [
-                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_pct"
+                      "Count_Death_Infant_growth_abs"
                     ],
                     "title": "Meghalaya",
                     "type": "LINE"
@@ -222,11 +134,53 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1188",
+                    "placeDcidOverride": "wikidataId/Q1193",
                     "statVarKey": [
-                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_pct"
+                      "Count_Death_Infant_growth_abs"
                     ],
-                    "title": "Madhya Pradesh",
+                    "title": "Manipur",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1168",
+                    "statVarKey": [
+                      "Count_Death_Infant_growth_abs"
+                    ],
+                    "title": "Chhattisgarh",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Change in Total Number of Infant Deaths Reported Over Time (Absolute Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1165",
+                    "statVarKey": [
+                      "Count_Death_Infant_growth_pct"
+                    ],
+                    "title": "Bihar",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1164",
+                    "statVarKey": [
+                      "Count_Death_Infant_growth_pct"
+                    ],
+                    "title": "Assam",
                     "type": "LINE"
                   }
                 ]
@@ -236,7 +190,7 @@
                   {
                     "placeDcidOverride": "wikidataId/Q1498",
                     "statVarKey": [
-                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_pct"
+                      "Count_Death_Infant_growth_pct"
                     ],
                     "title": "Uttar Pradesh",
                     "type": "LINE"
@@ -248,7 +202,7 @@
                   {
                     "placeDcidOverride": "wikidataId/Q1437",
                     "statVarKey": [
-                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_pct"
+                      "Count_Death_Infant_growth_pct"
                     ],
                     "title": "Rajasthan",
                     "type": "LINE"
@@ -258,11 +212,125 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "wikidataId/Q1165",
+                    "placeDcidOverride": "wikidataId/Q22048",
                     "statVarKey": [
-                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_pct"
+                      "Count_Death_Infant_growth_pct"
                     ],
-                    "title": "Bihar",
+                    "title": "Odisha",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1193",
+                    "statVarKey": [
+                      "Count_Death_Infant_growth_pct"
+                    ],
+                    "title": "Manipur",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1195",
+                    "statVarKey": [
+                      "Count_Death_Infant_growth_pct"
+                    ],
+                    "title": "Meghalaya",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1188",
+                    "statVarKey": [
+                      "Count_Death_Infant_growth_pct"
+                    ],
+                    "title": "Madhya Pradesh",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1184",
+                    "statVarKey": [
+                      "Count_Death_Infant_growth_pct"
+                    ],
+                    "title": "Jharkhand",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1168",
+                    "statVarKey": [
+                      "Count_Death_Infant_growth_pct"
+                    ],
+                    "title": "Chhattisgarh",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Change in Total Number of Infant Deaths Reported Over Time (Percent Change)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1195",
+                    "statVarKey": [
+                      "Count_Death_Infant_growth_pc"
+                    ],
+                    "title": "Meghalaya",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1164",
+                    "statVarKey": [
+                      "Count_Death_Infant_growth_pc"
+                    ],
+                    "title": "Assam",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1437",
+                    "statVarKey": [
+                      "Count_Death_Infant_growth_pc"
+                    ],
+                    "title": "Rajasthan",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1188",
+                    "statVarKey": [
+                      "Count_Death_Infant_growth_pc"
+                    ],
+                    "title": "Madhya Pradesh",
                     "type": "LINE"
                   }
                 ]
@@ -272,36 +340,101 @@
                   {
                     "placeDcidOverride": "wikidataId/Q22048",
                     "statVarKey": [
-                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_pct"
+                      "Count_Death_Infant_growth_pc"
                     ],
                     "title": "Odisha",
                     "type": "LINE"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1165",
+                    "statVarKey": [
+                      "Count_Death_Infant_growth_pc"
+                    ],
+                    "title": "Bihar",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1184",
+                    "statVarKey": [
+                      "Count_Death_Infant_growth_pc"
+                    ],
+                    "title": "Jharkhand",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1498",
+                    "statVarKey": [
+                      "Count_Death_Infant_growth_pc"
+                    ],
+                    "title": "Uttar Pradesh",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1193",
+                    "statVarKey": [
+                      "Count_Death_Infant_growth_pc"
+                    ],
+                    "title": "Manipur",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "wikidataId/Q1168",
+                    "statVarKey": [
+                      "Count_Death_Infant_growth_pc"
+                    ],
+                    "title": "Chhattisgarh",
+                    "type": "LINE"
+                  }
+                ]
               }
             ],
-            "title": "Change in Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) Over Time (Percent Change)"
+            "denom": "Count_Person",
+            "title": "Change in Total Number of Infant Deaths Reported Over Time (Per Capita Change)"
           }
         ],
         "statVarSpec": {
-          "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent10": {
-            "name": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)",
-            "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+          "Count_Death_Infant10": {
+            "name": "Total number of infant deaths reported",
+            "statVar": "Count_Death_Infant"
           },
-          "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_abs": {
-            "name": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)",
-            "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+          "Count_Death_Infant_growth_abs": {
+            "name": "Total number of infant deaths reported",
+            "statVar": "Count_Death_Infant"
           },
-          "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_growth_pct": {
-            "name": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)",
-            "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+          "Count_Death_Infant_growth_pc": {
+            "name": "Total number of infant deaths reported",
+            "statVar": "Count_Death_Infant"
+          },
+          "Count_Death_Infant_growth_pct": {
+            "name": "Total number of infant deaths reported",
+            "statVar": "Count_Death_Infant"
           }
         }
       }
     ],
     "metadata": {
       "placeDcid": [
-        "wikidataId/Q1193"
+        "wikidataId/Q1437"
       ]
     }
   },
@@ -310,31 +443,21 @@
   "entities": [],
   "pastSourceContext": "",
   "place": {
-    "dcid": "wikidataId/Q1193",
-    "name": "Manipur",
+    "dcid": "wikidataId/Q1437",
+    "name": "Rajasthan",
     "place_type": "AdministrativeArea1"
   },
   "placeFallback": {},
   "placeSource": "PAST_ANSWER",
   "places": [
     {
-      "dcid": "wikidataId/Q1193",
-      "name": "Manipur",
+      "dcid": "wikidataId/Q1437",
+      "name": "Rajasthan",
       "place_type": "AdministrativeArea1"
     },
     {
-      "dcid": "wikidataId/Q1168",
-      "name": "Chhattisgarh",
-      "place_type": "AdministrativeArea1"
-    },
-    {
-      "dcid": "wikidataId/Q1184",
-      "name": "Jharkhand",
-      "place_type": "AdministrativeArea1"
-    },
-    {
-      "dcid": "wikidataId/Q1195",
-      "name": "Meghalaya",
+      "dcid": "wikidataId/Q1188",
+      "name": "Madhya Pradesh",
       "place_type": "AdministrativeArea1"
     },
     {
@@ -348,23 +471,33 @@
       "place_type": "AdministrativeArea1"
     },
     {
+      "dcid": "wikidataId/Q22048",
+      "name": "Odisha",
+      "place_type": "AdministrativeArea1"
+    },
+    {
       "dcid": "wikidataId/Q1165",
       "name": "Bihar",
       "place_type": "AdministrativeArea1"
     },
     {
-      "dcid": "wikidataId/Q1437",
-      "name": "Rajasthan",
+      "dcid": "wikidataId/Q1184",
+      "name": "Jharkhand",
       "place_type": "AdministrativeArea1"
     },
     {
-      "dcid": "wikidataId/Q1188",
-      "name": "Madhya Pradesh",
+      "dcid": "wikidataId/Q1195",
+      "name": "Meghalaya",
       "place_type": "AdministrativeArea1"
     },
     {
-      "dcid": "wikidataId/Q22048",
-      "name": "Odisha",
+      "dcid": "wikidataId/Q1193",
+      "name": "Manipur",
+      "place_type": "AdministrativeArea1"
+    },
+    {
+      "dcid": "wikidataId/Q1168",
+      "name": "Chhattisgarh",
       "place_type": "AdministrativeArea1"
     }
   ],

@@ -33,15 +33,15 @@ Adopt and strengthen sound policies and enforceable legislation for the promotio
 Adult Correctional Facilities Residents,dc/topic/AdultCorrectionalFacilitiesResidents
 Age,dc/topic/Age
 Age Medians,dc/topic/AgeMedians
-Age adjusted death rate,Count_Death_AgeAdjusted_AsAFractionOf_Count_Person
-Age adjusted female death rate,Count_Death_Female_AgeAdjusted_AsAFractionOf_Count_Person_Female
-Age adjusted male death rate,Count_Death_Male_AgeAdjusted_AsAFractionOf_Count_Person_Male
+Age adjusted deaths,Count_Death_AgeAdjusted_AsAFractionOf_Count_Person
+Age adjusted female deaths,Count_Death_Female_AgeAdjusted_AsAFractionOf_Count_Person_Female
+Age adjusted male deaths,Count_Death_Male_AgeAdjusted_AsAFractionOf_Count_Person_Male
 Age based demographic breakdown,dc/topic/AgeDistribution
-Age-Standardized Death Rates due to Alcoholic Liver Disease,WHO/SA_0000001456
-Age-Standardized Death Rates from Poisoning,WHO/SA_0000001458
-Age-Standardized Death Rates from Road Traffic Accidents,WHO/SA_0000001452
-Age-Standardized Death Rates from Self-Inflicted Injury,WHO/SA_0000001453
-Age-Standardized Death Rates from Violence,WHO/SA_0000001455
+Age-Standardized Deaths due to Alcoholic Liver Disease,WHO/SA_0000001456
+Age-Standardized Deaths from Poisoning,WHO/SA_0000001458
+Age-Standardized Deaths from Road Traffic Accidents,WHO/SA_0000001452
+Age-Standardized Deaths from Self-Inflicted Injury,WHO/SA_0000001453
+Age-Standardized Deaths from Violence,WHO/SA_0000001455
 Age-standardized prevalence of current tobacco use among persons aged 15 years and older,dc/topic/sdg_3.a.1
 Agricultural Output,dc/topic/AgriculturalProduction
 Agricultural Production,dc/topic/AgriculturalProduction
@@ -58,7 +58,7 @@ Air Quality Index of PM2.5,AirQualityIndex_AirPollutant_PM2.5
 Air Quality Index of Sulfur Dioxide,AirQualityIndex_AirPollutant_SO2
 Air quality index,AirQualityIndex_AirPollutant
 Alcohol Industry,dc/topic/AlcoholIndustry
-Alcohol Use Disorder Death Rate,WHO/SA_0000001437
+Alcohol Use Disorder Deaths,WHO/SA_0000001437
 Alcohol consumed per capita,Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears
 Alcohol per capita consumption (aged 15 years and older) within a calendar year in litres of pure alcohol,dc/topic/sdg_3.5.2
 Ambient Air Pollution,dc/topic/AmbientAirPollution
@@ -370,7 +370,7 @@ Blood Pressure,dc/topic/BloodPressure
 Breakdown of Household Income by household types,dc/topic/HouseholdIncomeDistribution
 Breakdown of health insurance coverage by gender,dc/topic/HealthInsuranceByGender
 Breakdown of health insurance coverage by race,dc/topic/HealthInsuranceByRace
-Breast Cancer Death Rate,WHO/SA_0000001438
+Breast Cancer Deaths,WHO/SA_0000001438
 Broaden and strengthen the participation of developing countries in the institutions of global governance,dc/topic/sdg_16.8
 "Build and upgrade education facilities that are child, disability and gender sensitive and provide safe, non-violent, inclusive and effective learning environments for all",dc/topic/sdg_4.a
 Burned Area of Fire Event,BurnedArea_FireEvent
@@ -464,11 +464,11 @@ Careers,dc/topic/Jobs
 Causes of death,dc/topic/CausesOfDeath
 Change in the extent of water-related ecosystems over time,dc/topic/sdg_6.6.1
 Change in water-use efficiency over time,dc/topic/sdg_6.4.1
+Child Immunization,dc/topic/WHOChildImmunization
 Child Immunization by gender,dc/topic/WHOChildImmunizationsByGender
 Child Immunization by urban or rural,dc/topic/WHOChildImmunizationsByUrbanRural
 Child Mortality,dc/topic/WHOChildMortality
-Child Mortality Rate for Ages Up to 14 Years,Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years
-Child immunization rates,dc/topic/WHOChildImmunization
+Child mortalities for Ages Up to 14 Years,Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years
 Childen with Non Communicable Diseases,dc/topic/WHOChildrenNonCommunicableDiseases
 Citizenship Status,dc/topic/CitizenshipStatus
 Climate Change,dc/topic/ClimateChange
@@ -478,7 +478,7 @@ Coastal Flood,dc/topic/CoastalFlood
 Cold Event,dc/topic/ColdEvent
 College Education Attainment,dc/topic/CollegeEducationAttainment
 College Or University Student Housing Residents,dc/topic/CollegeOrUniversityStudentHousingResidents
-Colon and Rectum Cancer Death Rate,WHO/SA_0000001439
+Colon and Rectum Cancer Deaths,WHO/SA_0000001439
 Commute Mode By Occupation,dc/topic/CommuteModeByOccupation
 Commute Modes,dc/topic/CommuteMode
 Commute Time,dc/topic/CommuteTime
@@ -625,16 +625,17 @@ Coverage of protected areas in relation to marine areas,dc/topic/sdg_14.5.1
 "Coverage of treatment interventions (pharmacological, psychosocial and rehabilitation and aftercare services) for substance use disorders",dc/topic/sdg_3.5.1
 Crime,dc/topic/Crime
 Cyclone,dc/topic/Cyclone
+DALY causes,dc/topic/WHODALYByCauses
 Data related to agriculture,dc/topic/Agriculture
 Death,dc/topic/Mortality
-Death Rate from Drownings,WHO/SA_0000001441
-Death Rate from Falls,WHO/SA_0000001442
-Death Rate from Fires,WHO/SA_0000001443
-Death Rate from Poisoning,WHO/SA_0000001450
-Death Rate from Prematurity and Low Birth Weight,WHO/SA_0000001451
-Death rate,Count_Death_AsAFractionOfCount_Person
 Death rate due to road traffic injuries,dc/topic/sdg_3.6.1
+Deaths,Count_Death_AsAFractionOfCount_Person
 Deaths among mothers,dc/topic/WHOMaternalMortality
+Deaths from Drownings,WHO/SA_0000001441
+Deaths from Falls,WHO/SA_0000001442
+Deaths from Fires,WHO/SA_0000001443
+Deaths from Poisoning,WHO/SA_0000001450
+Deaths from Prematurity and Low Birth Weight,WHO/SA_0000001451
 Debt,dc/topic/Debt
 Debt service as a proportion of exports of goods and services,dc/topic/sdg_17.4.1
 Degree of application of a legal/regulatory/policy/institutional framework which recognizes and protects access rights for small-scale fisheries,dc/topic/sdg_14.b.1
@@ -649,7 +650,7 @@ Develop and implement tools to monitor sustainable development impacts for susta
 "Develop quality, reliable, sustainable and resilient infrastructure, including regional and trans-border infrastructure, to support economic development and human well-being, with a focus on affordable and equitable access for all",dc/topic/sdg_9.1
 "Developed countries to implement fully their official development assistance commitments, including the commitment by many developed countries to achieve the target of 0.7 per cent of gross national income for official development assistance (ODA/GNI) to developing countries and 0.15 to 0.20 per cent of ODA/GNI to least developed countries",dc/topic/sdg_17.2
 Diabetes,dc/topic/Diabetes
-Diabetes Death Rate,WHO/SA_0000001440
+Diabetes Deaths,WHO/SA_0000001440
 Diesel Oil consumption by Paper Pulp Print Industry,Annual_Consumption_Fuel_PaperPulpPrintIndustry_DieselOil
 Diesel Oil consumption by Rail Transport,Annual_Consumption_Fuel_RailTransport_DieselOil
 Diesel Oil consumption by Road Transport,Annual_Consumption_Fuel_RoadTransport_DieselOil
@@ -776,7 +777,7 @@ Ensure universal access to sexual and reproductive health and reproductive right
 "Ensure women's full and effective participation and equal opportunities for leadership at all levels of decision-making in political, economic and public life",dc/topic/sdg_5.5
 Equity,dc/topic/Equity
 Equity of the justice system,dc/topic/JusticeSystemEquity
-Esophagus Cancer Death Rate,WHO/SA_0000001449
+Esophagus Cancer Deaths,WHO/SA_0000001449
 Estimated Population Based Prevalence Of Depression,WHO/GDO_q35
 Estimated annual loss due to avalanche,Annual_ExpectedLoss_NaturalHazardImpact_AvalancheEvent
 Estimated annual loss due to coastal floods,Annual_ExpectedLoss_NaturalHazardImpact_CoastalFloodEvent
@@ -829,7 +830,7 @@ Farm incomes,Income_Farm
 Farming,dc/topic/Agriculture
 Farming information,dc/topic/Agriculture
 "Fatal and non-fatal occupational injuries per 100K workers, by sex and migrant status",dc/topic/sdg_8.8.1
-Female Child Mortality Rate for Ages Up to 14 Years,Count_Death_Upto14Years_Female_AsAFractionOf_Count_Person_Upto14Years_Female
+Female Child mortalities for Ages Up to 14 Years,Count_Death_Upto14Years_Female_AsAFractionOf_Count_Person_Upto14Years_Female
 Female Population With Arthritis By Age,dc/topic/ArthritisFemalePopulationByAge
 Female Population With Asthma By Age,dc/topic/AsthmaFemalePopulationByAge
 Female Population With Cancer By Age,dc/topic/CancerFemalePopulationByAge
@@ -840,8 +841,7 @@ Female Population With Kidney Disease By Age,dc/topic/KidneyDiseaseFemalePopulat
 Female Population With Lung Condition By Age,dc/topic/LungConditionFemalePopulationByAge
 Female Population With Poor Mental Health By Age,dc/topic/MentalHealthNotGoodFemalePopulationByAge
 Female Population With Stroke By Age,dc/topic/StrokeFemalePopulationByAge
-Female death rate,Count_Death_Female_AsAFractionOf_Count_Person_Female
-Female deaths,dc/topic/FemaleMortality
+Female deaths,Count_Death_Female_AsAFractionOf_Count_Person_Female;dc/topic/FemaleMortality
 Female labor force participation rate,Count_Person_15To64Years_Female_InLaborForce_AsFractionOf_Count_Person_15To64Years_Female
 Female mortality,dc/topic/FemaleMortality
 Fertility rate,FertilityRate_Person_Female
@@ -869,23 +869,7 @@ GDP change rate,GrowthRate_Amount_EconomicActivity_GrossDomesticProduction
 GDP contribution by industries,dc/topic/IndustriesByGDP
 Gender,dc/topic/Gender
 Gini Index,GiniIndex_EconomicActivity
-Global Child Immunization,dc/topic/WHOChildImmunization
-Global Child Immunization by gender,dc/topic/WHOChildImmunizationsByGender
-Global Child Immunization by urban or rural,dc/topic/WHOChildImmunizationsByUrbanRural
-Global Child Mortality,dc/topic/WHOChildMortality
-Global Childen with Non Communicable Diseases,dc/topic/WHOChildrenNonCommunicableDiseases
-Global DALY causes,dc/topic/WHODALYByCauses
-Global Economic Activity,dc/topic/GlobalEconomicActivity
-Global Health behaviors,dc/topic/WHOHealthBehavior
-Global Immunizations,dc/topic/WHOImmunization
-Global Maternal Mortality,dc/topic/WHOMaternalMortality
-Global Mortality Causes,dc/topic/WHOMortalityCauses
-Global Neglected Tropical Diseases,dc/topic/WHONeglectedTropicalDiseases
-Global Non communicable disease deaths,dc/topic/WHONonCommunicableDiseaseDeaths
-Global Non communicable diseases,dc/topic/WHONonCommunicableDiseases
 Global Warming,dc/topic/ClimateChange
-Global debt,dc/topic/Debt
-Global health,dc/topic/GlobalHealth
 Government Military Expenditure,Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government
 Government Tertiary Education Expenditure as Proportion of Government Education Expenditure,Amount_EconomicActivity_ExpenditureActivity_TertiaryEducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government
 Green Jobs,dc/topic/GreenJobs
@@ -919,7 +903,7 @@ Health Insurance,dc/topic/HealthInsurance
 Health Insurance types,dc/topic/HealthInsuranceType
 Health Worker Density,dc/topic/HealthWorkerDensity
 Health behavior,dc/topic/HealthBehavior
-Health behaviors,dc/topic/HealthBehavior
+Health behaviors,dc/topic/HealthBehavior;dc/topic/WHOHealthBehavior
 Health behaviors WHO,dc/topic/WHOHealthBehavior
 Health conditions,dc/topic/HealthConditions
 Health equity,dc/topic/HealthEquity
@@ -987,9 +971,7 @@ Individual Income By Industry type,dc/topic/IndividualIncomeByIndustry
 Industries By GDP Contribution,dc/topic/IndustriesByGDP
 Industries By Revenue,dc/topic/IndustriesByRevenue
 Infant Mortality,dc/topic/InfantMortality
-Infant mortality rate,Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent
-Infant mortality rate for females,Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female
-Infant mortality rate for males,Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male
+Infant mortalities,Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent
 Inflation Adjusted GDP,InflationAdjustedGDP
 Information on farming,dc/topic/Agriculture
 Installed renewable energy-generating capacity in developing countries (in watts per capita),dc/topic/sdg_12.a.1;dc/topic/sdg_7.b.1
@@ -1002,7 +984,7 @@ Internet,dc/topic/Internet
 Internet Access,dc/topic/InternetAccess
 Internet Publishing And Broadcasting Industry,dc/topic/InternetPublishingAndBroadcastingIndustry
 Inward Remittance as a Fraction of Nominal Gross Domestic Product,Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal
-Ischemic Heart Disease Death Rate,WHO/SA_0000001444
+Ischemic Heart Disease Deaths,WHO/SA_0000001444
 Issues relating to death,dc/topic/Mortality
 Job Roles,dc/topic/Jobs
 Jobs,dc/topic/Jobs
@@ -1034,12 +1016,12 @@ Liquified Petroleum Gas consumption by Transport Industry,Annual_Consumption_Fue
 Literacy,dc/topic/Literacy
 Literacy Rate Among people Aged 10 Years and Older,Count_Person_10OrMoreYears_Literate_AsAFractionOf_Count_Person_10OrMoreYears
 Literacy Rate Among people Aged 10 to 14 years,Count_Person_10To14Years_Literate_AsAFractionOf_Count_Person_10To14Years
-Liver Cancer Death Rate,WHO/SA_0000001445
-Liver Cirrhosis Death Rate,WHO/SA_0000001446
+Liver Cancer Deaths,WHO/SA_0000001445
+Liver Cirrhosis Deaths,WHO/SA_0000001446
 Macroeconomic Dashboard,dc/topic/sdg_17.13.1
 Malaria,dc/topic/Malaria
 "Malaria incidence per 1,000 population",dc/topic/sdg_3.3.3
-Male Child Mortality Rate for Ages Up to 14 Years,Count_Death_Upto14Years_Male_AsAFractionOf_Count_Person_Upto14Years_Male
+Male Child mortalities for Ages Up to 14 Years,Count_Death_Upto14Years_Male_AsAFractionOf_Count_Person_Upto14Years_Male
 Male Population With Arthritis By Age,dc/topic/ArthritisMalePopulationByAge
 Male Population With Asthma By Age,dc/topic/AsthmaMalePopulationByAge
 Male Population With Cancer By Age,dc/topic/CancerMalePopulationByAge
@@ -1062,8 +1044,10 @@ Married Population by Demographic,dc/topic/MarriedPopulationByDemographic
 Martial Status Breakdown,dc/topic/MaritalStatusBreakdown
 "Material footprint, material footprint per capita, and material footprint per GDP",dc/topic/sdg_12.2.1;dc/topic/sdg_8.4.1
 Maternal Health,dc/topic/MaternalHealth
+Maternal Mortality,dc/topic/WHOMaternalMortality
 Maternal health,dc/topic/MaternalHealth
-Maternal mortality ratio,dc/topic/sdg_3.1.1;sdg/SH_STA_MORT.SEX--F
+Maternal mortalities,sdg/SH_STA_MORT.SEX--F
+Maternal mortality ratio,dc/topic/sdg_3.1.1
 Max Barometric Pressure,Max_BarometricPressure
 Max Precipitable Water,Max_PrecipitableWater_Atmosphere
 Max Relative Humidity,Max_Humidity_RelativeHumidity
@@ -1255,7 +1239,7 @@ Mobilize and significantly increase financial resources from all sources to cons
 "Mobilize significant resources from all sources and at all levels to finance sustainable forest management and provide adequate incentives to developing countries to advance such management, including for conservation and reforestation",dc/topic/sdg_15.b
 Monthly count of electricity consumers,Monthly_Count_ElectricityConsumer
 Mortality,dc/topic/Mortality
-Mortality Rate of Children Younger Than 4 Years,MortalityRate_Person_Upto4Years_AsFractionOf_Count_BirthEvent_LiveBirth
+Mortality Causes,dc/topic/WHOMortalityCauses
 Mortality among incarcerated,dc/topic/MortalityAmongIncarcerated
 Mortality among those in jail,dc/topic/MortalityAmongIncarcerated
 Mortality by gender,dc/topic/MortalityByGender
@@ -1268,7 +1252,7 @@ Mortality split by gender,dc/topic/MortalityByGender
 Motor Gasoline consumption by Road Transport,Annual_Consumption_Fuel_RoadTransport_MotorGasoline
 Motor Gasoline consumption by Transport Industry,Annual_Consumption_Fuel_TransportIndustry_MotorGasoline
 Mountain Green Cover Index,dc/topic/sdg_15.4.2
-Mouth and Oropharynx Cancer Death Rate,WHO/SA_0000001448
+Mouth and Oropharynx Cancer Deaths,WHO/SA_0000001448
 NO2,dc/topic/NitrogenDioxide
 NO2 pollutant,dc/topic/NitrogenDioxide
 "National recycling rate, tons of material recycled",dc/topic/sdg_12.5.1
@@ -1283,7 +1267,7 @@ Natural Gas consumption by Textile And Leather Industry,Annual_Consumption_Fuel_
 Natural Gas consumption by Transport Equipment Industry,Annual_Consumption_Fuel_TransportEquipmentIndustry_NaturalGas
 Natural Gas consumption by Transport Industry,Annual_Consumption_Fuel_TransportIndustry_NaturalGas
 Natural Gas consumption by Wood And Wood Products Industry,Annual_Consumption_Fuel_WoodAndWoodProductsIndustry_NaturalGas
-Neglected Tropical Diseases,dc/topic/NeglectedTropicalDiseases
+Neglected Tropical Diseases,dc/topic/NeglectedTropicalDiseases;dc/topic/WHONeglectedTropicalDiseases
 Neonatal mortality rate,dc/topic/sdg_3.2.2
 "Net official development assistance, total and to least developed countries, as a proportion of the Organization for Economic Cooperation and Development (OECD) Development Assistance Committee donors’ gross national income (GNI)",dc/topic/sdg_17.2.1
 Never Married Female Population By Age,dc/topic/NeverMarriedFemalePopulationByAge
@@ -3123,7 +3107,6 @@ Quantity of greenhouse gases emitted by the agricultural sector,dc/topic/Agricul
 Quantity of greenhouse gases emitted by vehicles and transportation systems,dc/topic/TransportationEmissionsByGas
 Race,dc/topic/Race
 Rainfall,dc/topic/Rainfall
-Rate of deaths due to Intentional Self Harm,Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person
 Rate of female deaths due to Intentional Self Harm,Count_Death_IntentionalSelfHarm_Female_AsFractionOf_Count_Person_Female
 Rate of male deaths due to Intentional Self Harm,Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male
 Ratio of land consumption rate to population growth rate,dc/topic/sdg_11.3.1
@@ -3382,7 +3365,6 @@ Withdrawal Rate of Water used for public supply,WithdrawalRate_Water_PublicSuppl
 Work Commute,dc/topic/WorkCommute
 Work Occupations,dc/topic/Jobs
 Work commute,dc/topic/WorkCommute
-World health,dc/topic/GlobalHealth
 Worldwide weighted tariff-average,dc/topic/sdg_17.10.1
 about income,dc/topic/Income
 acces to credit for industries,dc/topic/sdg_9.3.2
@@ -4053,6 +4035,7 @@ death among infants,dc/topic/InfantMortality
 deaths among children,dc/topic/WHOChildMortality
 deaths among those in jail,dc/topic/MortalityAmongIncarcerated
 deaths by race,dc/topic/MortalityByRace
+deaths due to Intentional Self Harm,Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person
 deaths due to non communicable disease,dc/topic/WHONonCommunicableDiseaseDeaths
 deaths of incarcerated,dc/topic/MortalityAmongIncarcerated
 decadal projected max temperature,dc/topic/DecadeProjectedTemperatureHighs
@@ -4148,6 +4131,7 @@ farm expenses,Expenses_Farm
 farm net income,NetMeasure_Income_Farm
 features in a home,dc/topic/HouseFeatures
 features of a house,dc/topic/HouseFeatures
+female infant mortalities,Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female;Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female
 female life expectancy,LifeExpectancy_Person_Female
 female unemployment rate,UnemploymentRate_Person_Female
 fire,dc/topic/Fire
@@ -4167,7 +4151,6 @@ gender breakdown of veterans,dc/topic/VeteransByGender
 gender of population,dc/topic/Gender
 gender of veterans,dc/topic/VeteransByGender
 generation of energy,dc/topic/Energy_Generation
-global mortality,dc/topic/WHOMortality
 green,dc/topic/Sustainability
 gross domestic product breakdown by industry,dc/topic/GDPByIndustry
 gross domestic product by industry,dc/topic/GDPByIndustry
@@ -4176,9 +4159,9 @@ hard coal reserve,Annual_Reserves_Fuel_HardCoal
 harvest loss,dc/topic/sdg_12.3
 harvest wastage,dc/topic/sdg_12.3
 harvest waste,dc/topic/sdg_12.3
-health conditions in the world,dc/topic/GlobalHealth
+health,dc/topic/GlobalHealth
+health conditions,dc/topic/GlobalHealth
 health expenses,dc/topic/HealthcareExpenditure
-health in the world,dc/topic/GlobalHealth
 health insurance private type,dc/topic/PrivateHealthInsuranceType
 health insurance public type,dc/topic/PublicHealthInsuranceType
 health of mothers,dc/topic/MaternalHealth
@@ -4201,7 +4184,6 @@ houses by resident race,dc/topic/HousesByHouseholderRace
 housing cost,dc/topic/HousesByOwnershipCost
 housing owners,dc/topic/HomeOwnership
 housing rentals,dc/topic/RentalHouses
-immunization rates,dc/topic/WHOImmunization
 incarcerated deaths,dc/topic/MortalityAmongIncarcerated
 income of veterans,dc/topic/VeteransIncome
 incremental count COVID-19 confirmed cases,IncrementalCount_MedicalConditionIncident_COVID_19_ConfirmedCase
@@ -4211,6 +4193,7 @@ incremental count of COVID-19 tests,IncrementalCount_MedicalTest_ConditionCOVID_
 incremental count of COVID-19 vaccinations administered,IncrementalCount_Vaccine_COVID_19_Administered
 industrie with financing,dc/topic/sdg_9.3.2
 infant deaths,dc/topic/InfantMortality
+infant mortalities,Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth
 internet access,dc/topic/sdg_17.8.1
 internet access by genders,dc/topic/sdg_17.8.1
 internet penetration,dc/topic/InternetAccess
@@ -4236,7 +4219,8 @@ lunch eligibility of students,dc/topic/StudentLunchEligibility
 major precipitation,dc/topic/Precipitation
 major snow event,dc/topic/Precipitation
 male Life expectancy,LifeExpectancy_Person_Male
-male death rate,Count_Death_Male_AsAFractionOf_Count_Person_Male
+male deaths,Count_Death_Male_AsAFractionOf_Count_Person_Male
+male infant mortalities,Count_Death_0Years_Male_AsFractionOf_Count_BirthEvent_LiveBirth_Male;Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male
 male unemployment rate,UnemploymentRate_Person_Male
 manufacturing banking,dc/topic/sdg_9.3.2
 manufacturing finance,dc/topic/sdg_9.3.2
@@ -4319,13 +4303,12 @@ minimum temperature projected year,dc/topic/YearlyProjectedTemperatureLows
 mobile network,dc/topic/sdg_9.c.1
 mobile phones,dc/topic/sdg_9.c.1
 modes of commute,dc/topic/CommuteMode
+mortalities of Children Younger Than 4 Years,MortalityRate_Person_Upto4Years_AsFractionOf_Count_BirthEvent_LiveBirth
+mortality,dc/topic/WHOMortality
 mortality among infants,dc/topic/InfantMortality
 mortality breakdown by gender,dc/topic/MortalityByGender
 mortality breakdown by race,dc/topic/MortalityByRace
 mortality causes by WHO,dc/topic/WHOMortalityCauses
-mortality rate of female infants,Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female
-mortality rate of infants,Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth
-mortality rate of male infants,Count_Death_0Years_Male_AsFractionOf_Count_BirthEvent_LiveBirth_Male
 natural gas reserve,Annual_Reserves_Fuel_NaturalGas
 nitrous oxide emissions by source,dc/topic/Emissions_NitrousOxide_EmissionsbySource
 no health insurance across income levels,dc/topic/NoHealthInsuranceByIncome
