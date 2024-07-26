@@ -14,21 +14,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Update and merge submodules temporarily, exporting a combination of short
-# revision hashes (website-mixer-import) to a temp file at the specified path.
-# The value in this file can be used to label autopush builds.
+# Update and merge submodules temporarily.
+# When finished, echoes a combination of short revision hashes
+# (website-mixer-import) that can be used to label autopush builds.
 
 # Usage: From root, ./scripts/update_submods_for_cdc_autopush.sh $IMAGE_LABEL_PATH
 
 set -e
 set -x
-
-# Check for image label, which is set after submodules are updated.
-image_label_path=$1
-if [[ $image_label_path = "" ]]; then
-  echo "Expected positional argument with image label file path."
-  exit 1
-fi
 
 # Get the website short commit hash before it changes due to a temp commit.
 website_rev="$(git rev-parse --short HEAD)"
@@ -47,4 +40,4 @@ mixer_rev="$(git rev-parse --short HEAD:mixer)"
 import_rev="$(git rev-parse --short HEAD:import)"
 image_label="${website_rev}-${mixer_rev}-${import_rev}"
 
-echo "$image_label" >"$image_label_path"
+echo "$image_label"
