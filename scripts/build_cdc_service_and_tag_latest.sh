@@ -14,9 +14,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Creates a new custom DC image and tags it latest.
+# Creates a new custom DC service image and tags it latest.
+# Also tags it with a custom label read from the specified file.
 
-# Usage: From root, ./scripts/build_cdc_service_and_tag_latest.sh
+# Usage: From root, ./scripts/build_cdc_service_and_tag_latest.sh $IMAGE_LABEL_PATH
 
 # The latest image = gcr.io/datcom-ci/datacommons-website-compose:latest
 
@@ -24,16 +25,21 @@ set -e
 set -x
 
 # Check for image label, which is set after submodules are updated.
-image_label=$(cat cdc_autopush_image_label.txt)
+image_label_path=$1
+if [[ $image_label_path = "" ]]; then
+  echo "Expected positional argument with image label file path."
+  exit 1
+fi
+image_label=$(cat "$image_label_path")
 if [ "$image_label" = "" ]; then
-  echo "Image label not found."
+  echo "Image label file is invalid."
   exit 1
 fi
 
 # Build a new image and push it to Container Registry, tagging it as latest
 docker build -f build/web_compose/Dockerfile \
-  --tag "gcr.io/datcom-ci/datacommons-website-compose:${CDC_AUTOPUSH_IMAGE_LABEL}" \
+  --tag "gcr.io/datcom-ci/datacommons-website-compose:${image_label}" \
   --tag gcr.io/datcom-ci/datacommons-website-compose:latest \
   .
-docker push "gcr.io/datcom-ci/datacommons-website-compose:${CDC_AUTOPUSH_IMAGE_LABEL}"
+docker push "gcr.io/datcom-ci/datacommons-website-compose:${image_label}"
 docker push gcr.io/datcom-ci/datacommons-website-compose:latest

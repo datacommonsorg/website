@@ -14,9 +14,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Creates a new custom DC data docker image and tags it as latest.
+# Creates a new custom DC data docker image and tags it latest.
+# Also tags it with a custom label read from the specified file.
 
-# Usage: From root, ./scripts/build_cdc_data_and_tag_latest.sh
+# Usage: From root, ./scripts/build_cdc_data_and_tag_latest.sh $IMAGE_LABEL_PATH
 
 # The latest image = gcr.io/datcom-ci/datacommons-data:latest
 
@@ -24,9 +25,14 @@ set -e
 set -x
 
 # Check for image label, which is set after submodules are updated.
-image_label=$(cat cdc_autopush_image_label.txt)
+image_label_path=$1
+if [[ $image_label_path = "" ]]; then
+  echo "Expected positional argument with image label file path."
+  exit 1
+fi
+image_label=$(cat "$image_label_path")
 if [ "$image_label" = "" ]; then
-  echo "Image label not found."
+  echo "Image label file is invalid."
   exit 1
 fi
 
