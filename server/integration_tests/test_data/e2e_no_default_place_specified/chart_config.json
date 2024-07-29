@@ -333,65 +333,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Death_Female_AsAFractionOf_Count_Person_Female"
-                    ],
-                    "title": "Count of Mortality Event: Female (As Fraction of Count Person Female) in United States of America",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Count of Mortality Event: Female (As Fraction of Count Person Female) in United States of America",
-                    "statVarKey": [
-                      "Count_Death_Female_AsAFractionOf_Count_Person_Female"
-                    ],
-                    "title": "Count of Mortality Event: Female (As Fraction of Count Person Female) in United States of America",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Count of Mortality Event: Female (As Fraction of Count Person Female)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_Female_AsAFractionOf_Count_Person_Female"
-                    ],
-                    "title": "Count of Mortality Event: Female (As Fraction of Count Person Female) in States of United States of America (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Death_Female_AsAFractionOf_Count_Person_Female"
-                    ],
-                    "title": "Count of Mortality Event: Female (As Fraction of Count Person Female) in States of United States of America (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Count of Mortality Event: Female (As Fraction of Count Person Female) in States of United States of America"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Count_Person_Female_WithHealthInsurance"
                     ],
                     "title": "Women With Health Insurance in United States of America",
@@ -860,16 +801,73 @@
             ],
             "denom": "Count_Person",
             "title": "Bachelors, Women in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_ForeignBorn"
+                    ],
+                    "title": "Foreign Born Women in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Foreign Born Women in United States of America",
+                    "statVarKey": [
+                      "Count_Person_Female_ForeignBorn"
+                    ],
+                    "title": "Foreign Born Women in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Foreign Born Women"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_ForeignBorn"
+                    ],
+                    "title": "Foreign Born Women in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_ForeignBorn"
+                    ],
+                    "title": "Foreign Born Women in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Foreign Born Women in States of United States of America"
           }
         ],
         "statVarSpec": {
           "Count_Death_Female": {
             "name": "Count of Mortality Event: Female",
             "statVar": "Count_Death_Female"
-          },
-          "Count_Death_Female_AsAFractionOf_Count_Person_Female": {
-            "name": "Count of Mortality Event: Female (As Fraction of Count Person Female)",
-            "statVar": "Count_Death_Female_AsAFractionOf_Count_Person_Female"
           },
           "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female": {
             "name": "Population: Bachelors Degree or Higher, Female",
@@ -890,6 +888,10 @@
           "Count_Person_Female_AsianAlone": {
             "name": "Asian Monoracial Women",
             "statVar": "Count_Person_Female_AsianAlone"
+          },
+          "Count_Person_Female_ForeignBorn": {
+            "name": "Foreign Born Women",
+            "statVar": "Count_Person_Female_ForeignBorn"
           },
           "Count_Person_Female_FullTimeYearRoundWorker": {
             "name": "Population: 16 - 64 Years, Female, Full Time Year Round Worker",
@@ -1352,29 +1354,6 @@
           "Count_MortalityEvent_AllOtherFormsOfHeartDisease_Female",
           "Count_MortalityEvent_AlzheimersDisease_Female",
           "Count_MortalityEvent_AorticAneurysmAndDissection_Female"
-        ]
-      },
-      "Count_Death_Female_AsAFractionOf_Count_Person_Female": {
-        "causeOfDeath": [
-          "Count_Death_IntentionalSelfHarm_Female_AsFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AIDS_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AccidentalDischargeOfFirearms_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AccidentalDrowningAndSubmersion_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AccidentalExposureToSmokeFireAndFlames_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AccidentalPoisoningAndExposureToNoxiousSubstances_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_Accidents(UnintentionalInjuries)_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AcuteAndRapidlyProgressiveNephriticAndNephroticSyndrome_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AcuteAndSubacuteEndocarditis_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AcuteBronchitisAndBronchiolitis_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AcuteMyocardialInfarction_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AcuteRheumaticFeverAndChronicRheumaticHeartDiseases_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AlcoholicLiverDisease_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AllOtherAndUnspecifiedMalignantNeoplasms_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AllOtherDiseases(Residual)_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AllOtherFormsOfChronicIschemicHeartDisease_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AllOtherFormsOfHeartDisease_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AlzheimersDisease_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AorticAneurysmAndDissection_Female_AsAFractionOf_Count_Person_Female"
         ]
       },
       "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female": {

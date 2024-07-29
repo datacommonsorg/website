@@ -10,9 +10,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Death"
+                      "WHO/M_Est_smk_daily"
                     ],
-                    "title": "Number of Deaths in the World (${date})",
+                    "title": "% Daily Tobacco Smokers (Estimate) in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -25,16 +25,15 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Death"
+                      "WHO/M_Est_smk_daily"
                     ],
-                    "title": "Number of Deaths in the World (${date})",
+                    "title": "% Daily Tobacco Smokers (Estimate) in the World (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Number of Deaths in the World"
+            "title": "% Daily Tobacco Smokers (Estimate) in the World"
           },
           {
             "columns": [
@@ -42,37 +41,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Death_AsAFractionOfCount_Person"
+                      "WHO/NCD_BMI_18A"
                     ],
-                    "title": "Deaths Per Capita in the World",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Deaths Per Capita in the World",
-                    "statVarKey": [
-                      "Count_Death_AsAFractionOfCount_Person"
-                    ],
-                    "title": "Deaths Per Capita in the World",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Deaths Per Capita"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_AsAFractionOfCount_Person"
-                    ],
-                    "title": "Deaths Per Capita in the World (${date})",
+                    "title": "% Underweight Among Adults, BMI < 18 in the World (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -85,155 +56,15 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Death_AsAFractionOfCount_Person"
+                      "WHO/NCD_BMI_18A"
                     ],
-                    "title": "Deaths Per Capita in the World (${date})",
+                    "title": "% Underweight Among Adults, BMI < 18 in the World (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Deaths Per Capita in the World"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "LifeExpectancy_Person"
-                    ],
-                    "title": "Life Expectancy in the World",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Life Expectancy in the World",
-                    "statVarKey": [
-                      "LifeExpectancy_Person"
-                    ],
-                    "title": "Life Expectancy in the World",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Life Expectancy"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "LifeExpectancy_Person"
-                    ],
-                    "title": "Life Expectancy in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "LifeExpectancy_Person"
-                    ],
-                    "title": "Life Expectancy in the World (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Life Expectancy in the World"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Female",
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Life Expectancy by Gender in the World",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Life Expectancy by Gender"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Female"
-                    ],
-                    "title": "Female Life Expectancy in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Female"
-                    ],
-                    "title": "Female Life Expectancy in the World (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "description": "Life expectancy at birth indicates the number of years a newborn infant would live if prevailing patterns of mortality at the time of its birth were to stay the same throughout its life. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
-            "title": "Female Life Expectancy in the World"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Male Life Expectancy in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "LifeExpectancy_Person_Male"
-                    ],
-                    "title": "Male Life Expectancy in the World (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "description": "Life expectancy at birth indicates the number of years a newborn infant would live if prevailing patterns of mortality at the time of its birth were to stay the same throughout its life. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
-            "title": "Male Life Expectancy in the World"
+            "title": "% Underweight Among Adults, BMI < 18 in the World"
           },
           {
             "columns": [
@@ -327,68 +158,6 @@
               }
             ],
             "title": "Hib (Hib3) Immunization Coverage Among 1-Year-Olds (%) in the World"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/M_Est_smk_daily"
-                    ],
-                    "title": "% Daily Tobacco Smokers (Estimate) in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "WHO/M_Est_smk_daily"
-                    ],
-                    "title": "% Daily Tobacco Smokers (Estimate) in the World (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "% Daily Tobacco Smokers (Estimate) in the World"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/NCD_BMI_18A"
-                    ],
-                    "title": "% Underweight Among Adults, BMI < 18 in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "WHO/NCD_BMI_18A"
-                    ],
-                    "title": "% Underweight Among Adults, BMI < 18 in the World (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "% Underweight Among Adults, BMI < 18 in the World"
           },
           {
             "columns": [
@@ -822,6 +591,237 @@
               }
             ],
             "title": "Non-Communicable Disease Deaths, by Disease & Sex, Chronic Respiratory Diseases in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death"
+                    ],
+                    "title": "Number of Deaths in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death"
+                    ],
+                    "title": "Number of Deaths in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Number of Deaths in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Deaths Per Capita in the World",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Deaths Per Capita in the World",
+                    "statVarKey": [
+                      "Count_Death_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Deaths Per Capita in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Deaths Per Capita"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Deaths Per Capita in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Deaths Per Capita in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Deaths Per Capita in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in the World",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Life Expectancy in the World",
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Life Expectancy"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Life Expectancy in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female",
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Life Expectancy by Gender in the World",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Life Expectancy by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "description": "Life expectancy at birth indicates the number of years a newborn infant would live if prevailing patterns of mortality at the time of its birth were to stay the same throughout its life. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
+            "title": "Female Life Expectancy in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Male Life Expectancy in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Male Life Expectancy in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "description": "Life expectancy at birth indicates the number of years a newborn infant would live if prevailing patterns of mortality at the time of its birth were to stay the same throughout its life. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
+            "title": "Male Life Expectancy in the World"
           }
         ],
         "statVarSpec": {
@@ -1304,15 +1304,8 @@
     },
     "childTopics": [
       {
-        "dcid": "dc/topic/Mortality",
+        "dcid": "dc/topic/WHOMortality",
         "name": "Mortality",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/GlobalHealth",
-        "name": "Global Health",
         "types": [
           "Topic"
         ]
@@ -1328,8 +1321,8 @@
     },
     "mainTopics": [
       {
-        "dcid": "dc/topic/Health",
-        "name": "Health",
+        "dcid": "dc/topic/GlobalHealth",
+        "name": "Global Health",
         "types": [
           "Topic"
         ]
@@ -1338,8 +1331,8 @@
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/Root",
-        "name": "Statistics",
+        "dcid": "dc/topic/Health",
+        "name": "Health",
         "types": [
           "Topic"
         ]
@@ -1348,29 +1341,8 @@
     "peerPlaces": [],
     "peerTopics": [
       {
-        "dcid": "dc/topic/Demographics",
-        "name": "Demographics",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Economy",
-        "name": "Economy",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Equity",
-        "name": "Equity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Sustainability",
-        "name": "Sustainability",
+        "dcid": "dc/topic/Mortality",
+        "name": "Mortality",
         "types": [
           "Topic"
         ]
