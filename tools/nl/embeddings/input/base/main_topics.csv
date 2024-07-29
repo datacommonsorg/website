@@ -114,9 +114,9 @@ dc/topic/Forest,Forest;Forest
 dc/topic/GDP,GDP;GDP;gross domestic production
 dc/topic/GDPByIndustry,GDP By Industry;GDP By Industry;gross domestic product breakdown by industry;gross domestic product by industry
 dc/topic/Gender,Gender;Gender;gender of population
-dc/topic/GlobalEconomicActivity,Economic Activity
+dc/topic/GlobalEconomicActivity,Economic Activity;World Economic Activity
 dc/topic/GlobalElectricityAccess,Access To Electricity;Percentage of People with access to Electricity;electrification;electricity access;people with access to electricity
-dc/topic/GlobalHealth,Health;Health conditions
+dc/topic/GlobalHealth,World Health;World Health conditions;health in the world;health conditions in the world
 dc/topic/GreenJobs,Green Jobs;Green Jobs;sustainable jobs;environmentally friendly jobs
 dc/topic/GreenhouseGasEmissions,Greenhouse Gas Emissions by source
 dc/topic/GroupQuartersResidents,Group Quarters Residents;Group Quarters Residents
@@ -340,20 +340,20 @@ dc/topic/VeteransIncome,Veterans Income;Veterans Income;income of veterans;veter
 dc/topic/Visibility,Visibility;Visibility
 dc/topic/Volcano,Volcano;Volcano
 dc/topic/Voting,Voting;Voting
-dc/topic/WHOChildImmunization,Child Immunization;WHO child immunization
-dc/topic/WHOChildImmunizationsByGender,Child Immunization by gender;WHO child immunization by gender;Child immunization split by gender
-dc/topic/WHOChildImmunizationsByUrbanRural,Child Immunization by urban or rural;WHO child immunization across urban or rural;Rural or urban child immunization;Child immunizations across rural and urban
-dc/topic/WHOChildMortality,Child Mortality;WHO child mortality;Deaths among children
-dc/topic/WHOChildrenNonCommunicableDiseases,Childen with Non Communicable Diseases;WHO Childen with Non Communicable Diseases
-dc/topic/WHODALYByCauses,DALY causes;Disability adjusted life years by causes;WHO DALY causes;WHO Disability adjusted life years by causes
-dc/topic/WHOHealthBehavior,Health behaviors;WHO Health behaviors;Health behaviors WHO
-dc/topic/WHOImmunization,Immunizations;Immunizations;WHO immunizations
-dc/topic/WHOMaternalMortality,Maternal Mortality;Deaths among mothers;WHO maternal mortality
-dc/topic/WHOMortality,Mortality
-dc/topic/WHOMortalityCauses,Mortality Causes;WHO Mortality causes;Mortality causes by WHO;Causes of death WHO
-dc/topic/WHONeglectedTropicalDiseases,Neglected Tropical Diseases;Ignored Tropical Diseases;WHO neglected tropical diseases;tropical diseases ignored WHO
-dc/topic/WHONonCommunicableDiseaseDeaths,Non communicable disease deaths;Deaths due to non communicable disease;WHO deaths due to non communicable diseases
-dc/topic/WHONonCommunicableDiseases,Non communicable diseases;WHO non communicable diseases;non communicable diseases WHO
+dc/topic/WHOChildImmunization,Child Immunization;World Child Immunization;WHO child immunization
+dc/topic/WHOChildImmunizationsByGender,World Child Immunization by gender;Child Immunization by gender;WHO child immunization by gender;Child immunization split by gender
+dc/topic/WHOChildImmunizationsByUrbanRural,World Child Immunization by urban or rural;Child Immunization by urban or rural;WHO child immunization across urban or rural;Rural or urban child immunization;Child immunizations across rural and urban
+dc/topic/WHOChildMortality,World Child Mortality;Child Mortality;WHO child mortality;Deaths among children
+dc/topic/WHOChildrenNonCommunicableDiseases,World Childen with Non Communicable Diseases;Childen with Non Communicable Diseases;WHO Childen with Non Communicable Diseases
+dc/topic/WHODALYByCauses,World DALY causes;Disability adjusted life years by causes;WHO DALY causes;WHO Disability adjusted life years by causes
+dc/topic/WHOHealthBehavior,World Health behaviors;WHO Health behaviors;Health behaviors WHO
+dc/topic/WHOImmunization,World Immunizations;Immunizations;WHO immunizations
+dc/topic/WHOMaternalMortality,World Maternal Mortality;Deaths among mothers;WHO maternal mortality
+dc/topic/WHOMortality,World mortality
+dc/topic/WHOMortalityCauses,World Mortality Causes;WHO Mortality causes;Mortality causes by WHO;Causes of death WHO
+dc/topic/WHONeglectedTropicalDiseases,World Neglected Tropical Diseases;Ignored Tropical Diseases;WHO neglected tropical diseases;tropical diseases ignored WHO
+dc/topic/WHONonCommunicableDiseaseDeaths,World Non communicable disease deaths;Non communicable disease deaths;deaths due to non communicable disease;WHO deaths due to non communicable diseases
+dc/topic/WHONonCommunicableDiseases,World Non communicable diseases;Non communicable diseases;WHO non communicable diseases;non communicable diseases WHO
 dc/topic/WetBulbEvent,Wet-Bulb Events;Wet-Bulb Events;wetbulb;wet bulb events;high humidity and high heat
 dc/topic/WhiteAloneFemalePopulationByAge,White Female Population By Age;White Female Population By Age
 dc/topic/WhiteAloneMalePopulationByAge,White Male Population By Age;White Male Population By Age

@@ -707,68 +707,6 @@
               }
             ],
             "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person"
-                    ],
-                    "title": "Median Age of Population in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Age_Person"
-                    ],
-                    "title": "Median Age of Population in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Age of Population in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "lineTileSpec": {
-                      "startDate": "2019"
-                    },
-                    "statVarKey": [
-                      "Median_Age_Person_3357919774"
-                    ],
-                    "title": "Median Age of Population in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Age of Population in United States",
-                    "statVarKey": [
-                      "Median_Age_Person"
-                    ],
-                    "title": "Median Age of Population in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Age of Population"
           }
         ],
         "statVarSpec": {
@@ -967,15 +905,6 @@
           "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth": {
             "name": "Average interval in months since last live birth",
             "statVar": "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth"
-          },
-          "Median_Age_Person": {
-            "name": "Median Age of Population",
-            "statVar": "Median_Age_Person"
-          },
-          "Median_Age_Person_3357919774": {
-            "facetId": "3357919774",
-            "name": "Median Age of Population",
-            "statVar": "Median_Age_Person"
           },
           "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F_2966989201": {
             "facetId": "2966989201",
@@ -1426,12 +1355,6 @@
         "gender": [
           "LifeExpectancy_Person_Female",
           "LifeExpectancy_Person_Male"
-        ]
-      },
-      "Median_Age_Person": {
-        "gender": [
-          "Median_Age_Person_Female",
-          "Median_Age_Person_Male"
         ]
       }
     },

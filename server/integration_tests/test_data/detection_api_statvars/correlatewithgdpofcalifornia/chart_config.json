@@ -52,7 +52,7 @@
     "Amount_EconomicActivity_GrossDomesticProduction_NAICSConstruction_RealValue",
     "Amount_EconomicActivity_GrossDomesticProduction_NAICSManagementOfCompaniesEnterprises_RealValue",
     "USStateQuarterlyIndustryGDP_NAICS_22",
-    "dc/topic/EconomicEquity",
-    "USStateQuarterlyIndustryGDP_NAICS_52"
+    "dc/topic/GlobalEconomicActivity",
+    "dc/topic/EconomicEquity"
   ]
 }
