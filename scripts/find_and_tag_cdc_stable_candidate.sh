@@ -12,6 +12,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+# Convenience script for finding and tagging a custom DC service image that
+# corresponds to the latest website prod release. Note that this will change
+# which image the stable-candidate tag applies to.
+
+# Usage: ./scripts/find_and_tag_cdc_stable_candidate.sh
+
 set -e
 
 ###### BEGIN CONFIG ######
