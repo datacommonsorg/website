@@ -41,7 +41,7 @@
 
 {% block footer %}
   <script src={{url_for('static', filename='map.js', t=config['VERSION'])}}></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key={{maps_api_key}}&libraries=places" async defer></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key={{maps_api_key}}&libraries=places&loading=async" async defer></script>
 {% endblock %}
 
 {% block subfooter_extra %}
