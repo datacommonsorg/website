@@ -161,6 +161,40 @@
                       "country/SSD"
                     ],
                     "statVarKey": [
+                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_multiple_place_bar_block"
+                    ],
+                    "title": "Infant Mortality Rate (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "description": "Infant mortality rate is the number of infants dying before reaching one year of age, per 1,000 live births in a given year. Estimates developed by the UN Inter-agency group for child mortality estimation (UNICEF, WHO, world bank, UN DESA population division) at www.Childmortality.Org.",
+            "title": "Infant Mortality Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/DZA",
+                      "country/MAR",
+                      "country/LBY",
+                      "country/TUN",
+                      "country/MLI",
+                      "country/ERI",
+                      "country/MWI",
+                      "country/SEN",
+                      "country/GMB",
+                      "country/SSD"
+                    ],
+                    "statVarKey": [
                       "Count_Person_multiple_place_bar_block"
                     ],
                     "title": "Population (${date})",
@@ -209,6 +243,10 @@
           "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person_multiple_place_bar_block": {
             "name": "Crude Birth Rate",
             "statVar": "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
+          },
+          "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_multiple_place_bar_block": {
+            "name": "Infant Mortality Rate",
+            "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
           },
           "Count_Person_multiple_place_bar_block": {
             "name": "Population",

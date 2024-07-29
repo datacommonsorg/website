@@ -10,6 +10,34 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+                    ],
+                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in Massachusetts",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in Massachusetts",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+                    ],
+                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in Massachusetts",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Count_Death_Upto1Years"
                     ],
                     "title": "Count of Mortality Event: 1 Years or Less in Counties of Massachusetts (${date})",
@@ -123,34 +151,6 @@
             "denom": "Count_Person",
             "startWithDenom": true,
             "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of Massachusetts"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
-                    ],
-                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in Massachusetts",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in Massachusetts",
-                    "statVarKey": [
-                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
-                    ],
-                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in Massachusetts",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)"
           },
           {
             "columns": [

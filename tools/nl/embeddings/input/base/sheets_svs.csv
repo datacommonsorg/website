@@ -1162,9 +1162,9 @@ Count_CycloneEvent_SubtropicalStorm,Number of Subtropical Storm
 Count_CycloneEvent_TropicalDisturbance,Number of Tropical Disturbance
 Count_CycloneEvent_TropicalStorm,Number of Tropical Storm
 Count_Death,Number of deaths
-Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth,infant mortalities
-Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female,female infant mortalities
-Count_Death_0Years_Male_AsFractionOf_Count_BirthEvent_LiveBirth_Male,male infant mortalities
+Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth,infant mortality
+Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female,female infant mortality
+Count_Death_0Years_Male_AsFractionOf_Count_BirthEvent_LiveBirth_Male,male infant mortality
 Count_Death_AgeAdjusted_AsAFractionOf_Count_Person,Age adjusted deaths
 Count_Death_AmericanIndianAndAlaskaNativeAlone,Number of deaths Among American Indians and Alaska Natives
 Count_Death_AsAFractionOfCount_Person,Deaths
@@ -1218,9 +1218,9 @@ Count_Death_Infant,Number of Deaths Among Infants
 Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person,deaths due to Intentional Self Harm
 Count_Death_IntentionalSelfHarm_Female_AsFractionOf_Count_Person_Female,Rate of female deaths due to Intentional Self Harm
 Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male,Rate of male deaths due to Intentional Self Harm
-Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent,Infant mortalities
-Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female,female infant mortalities
-Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male,male infant mortalities
+Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent,Infant mortality
+Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female,female infant mortality
+Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male,male infant mortality
 Count_Death_Male,Number of deaths among males
 Count_Death_Male_AgeAdjusted_AsAFractionOf_Count_Person_Male,Age adjusted male deaths
 Count_Death_Male_AmericanIndianAndAlaskaNativeAlone,Number of deaths among American Indian and Alaska Native males
@@ -1238,9 +1238,9 @@ Count_Death_PregnancyChildbirthThePuerperium,"Number of Deaths Due to Pregnancy,
 Count_Death_PregnancyChildbirthThePuerperium_Female,"Number of Deaths Among Females Due to Pregnancy, Childbirth, and the Puerperium"
 Count_Death_SpecialCases,Number of Deaths Due to Special Cases
 Count_Death_SpecialCases_Female,Number of Deaths Among Females Due to Special Cases
-Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years,Child mortalities for Ages Up to 14 Years
-Count_Death_Upto14Years_Female_AsAFractionOf_Count_Person_Upto14Years_Female,Female Child mortalities for Ages Up to 14 Years
-Count_Death_Upto14Years_Male_AsAFractionOf_Count_Person_Upto14Years_Male,Male Child mortalities for Ages Up to 14 Years
+Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years,Child mortality for Ages Up to 14 Years
+Count_Death_Upto14Years_Female_AsAFractionOf_Count_Person_Upto14Years_Female,Female Child mortality for Ages Up to 14 Years
+Count_Death_Upto14Years_Male_AsAFractionOf_Count_Person_Upto14Years_Male,Male Child mortality for Ages Up to 14 Years
 Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod,Number of infant deaths from certain conditions originating in the perinatal period
 Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod_Female,Number of infant deaths among females due to certain conditions originating in the perinatal period
 Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod_Male,Number of infant deaths among males due to certain conditions originating in the perinatal period
@@ -3214,7 +3214,7 @@ Min_Humidity_RelativeHumidity,Minimum Relative Humidity
 Min_Rainfall,Minimal rainfall
 Min_Snowfall,minimal snowfall
 Monthly_Count_ElectricityConsumer,Monthly count of electricity consumers
-MortalityRate_Person_Upto4Years_AsFractionOf_Count_BirthEvent_LiveBirth,mortalities of Children Younger Than 4 Years
+MortalityRate_Person_Upto4Years_AsFractionOf_Count_BirthEvent_LiveBirth,mortality of Children Younger Than 4 Years
 NetMeasure_Income_Farm,farm net income
 NumberOfDays_HeatWaveEvent,Number of Heat Wave days in a year
 PalmerDroughtSeverityIndex_Atmosphere,Palmer Drought Severity Index
@@ -3389,7 +3389,7 @@ sdg/ER_PTD_TERR,Average proportion of Terrestrial Key Biodiversity Areas covered
 sdg/ER_RSK_LST,Red List Index
 sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F,Proportion of females of reproductive age who have their need for family planning satisfied with modern methods
 sdg/SH_STA_ANEM.AGE--Y15T49__SEX--F,Proportion of females aged 15-49 years with anaemia
-sdg/SH_STA_MORT.SEX--F,Maternal mortalities
+sdg/SH_STA_MORT.SEX--F,Maternal mortality
 sdg/SH_STA_STNT.AGE--Y0T4,Proportion of children under 5 who are moderately or severely stunted
 sdg/SH_STA_WAST.AGE--Y0T4,Proportion of children under 5 who are moderately or severely wasted
 sdg/SI_POV_DAY1,Proportion of population below international poverty level

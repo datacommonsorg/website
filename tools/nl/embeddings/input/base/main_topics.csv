@@ -54,7 +54,7 @@ dc/topic/CommuteModeByOccupation,Commute Mode By Occupation;Commute Mode By Occu
 dc/topic/CommuteTime,Commute Time;Commute Time;time spend during commute;time spent traveling to work;time spent travelling from work
 dc/topic/Crime,Crime;Crime
 dc/topic/Cyclone,Cyclone;Cyclone
-dc/topic/Debt,Debt;Debt
+dc/topic/Debt,Debt
 dc/topic/DecadeProjectedTemperatureHighs,Projected max temperature for the decade;Projected max temperature for the decade;decadal projected max temperature;maximum temperature projected decade;temperature highs for the decade
 dc/topic/DecadeProjectedTemperatureLows,Projected min temperature for the decade;Projected min temperature for the decade;decadal projected min temperature;minimum temperature projected decade;temperature lows for the decade
 dc/topic/DementiaFemalePopulationByAge,Female Population With Dementia By Age;Female Population With Dementia By Age
@@ -116,7 +116,7 @@ dc/topic/GDPByIndustry,GDP By Industry;GDP By Industry;gross domestic product br
 dc/topic/Gender,Gender;Gender;gender of population
 dc/topic/GlobalEconomicActivity,Economic Activity
 dc/topic/GlobalElectricityAccess,Access To Electricity;Percentage of People with access to Electricity;electrification;electricity access;people with access to electricity
-dc/topic/GlobalHealth,health;health conditions
+dc/topic/GlobalHealth,Health;Health conditions
 dc/topic/GreenJobs,Green Jobs;Green Jobs;sustainable jobs;environmentally friendly jobs
 dc/topic/GreenhouseGasEmissions,Greenhouse Gas Emissions by source
 dc/topic/GroupQuartersResidents,Group Quarters Residents;Group Quarters Residents
@@ -341,18 +341,18 @@ dc/topic/Visibility,Visibility;Visibility
 dc/topic/Volcano,Volcano;Volcano
 dc/topic/Voting,Voting;Voting
 dc/topic/WHOChildImmunization,Child Immunization;WHO child immunization
-dc/topic/WHOChildImmunizationsByGender,Child Immunization by gender;WHO child immunization by gender;child immunization split by gender
-dc/topic/WHOChildImmunizationsByUrbanRural,Child Immunization by urban or rural;WHO child immunization across urban or rural;rural or urban child immunization;child immunizations across rural and urban
-dc/topic/WHOChildMortality,Child Mortality;WHO child mortality;deaths among children
+dc/topic/WHOChildImmunizationsByGender,Child Immunization by gender;WHO child immunization by gender;Child immunization split by gender
+dc/topic/WHOChildImmunizationsByUrbanRural,Child Immunization by urban or rural;WHO child immunization across urban or rural;Rural or urban child immunization;Child immunizations across rural and urban
+dc/topic/WHOChildMortality,Child Mortality;WHO child mortality;Deaths among children
 dc/topic/WHOChildrenNonCommunicableDiseases,Childen with Non Communicable Diseases;WHO Childen with Non Communicable Diseases
 dc/topic/WHODALYByCauses,DALY causes;Disability adjusted life years by causes;WHO DALY causes;WHO Disability adjusted life years by causes
 dc/topic/WHOHealthBehavior,Health behaviors;WHO Health behaviors;Health behaviors WHO
 dc/topic/WHOImmunization,Immunizations;Immunizations;WHO immunizations
 dc/topic/WHOMaternalMortality,Maternal Mortality;Deaths among mothers;WHO maternal mortality
-dc/topic/WHOMortality,mortality
-dc/topic/WHOMortalityCauses,Mortality Causes;WHO Mortality causes;mortality causes by WHO;causes of death WHO
+dc/topic/WHOMortality,Mortality
+dc/topic/WHOMortalityCauses,Mortality Causes;WHO Mortality causes;Mortality causes by WHO;Causes of death WHO
 dc/topic/WHONeglectedTropicalDiseases,Neglected Tropical Diseases;Ignored Tropical Diseases;WHO neglected tropical diseases;tropical diseases ignored WHO
-dc/topic/WHONonCommunicableDiseaseDeaths,Non communicable disease deaths;deaths due to non communicable disease;WHO deaths due to non communicable diseases
+dc/topic/WHONonCommunicableDiseaseDeaths,Non communicable disease deaths;Deaths due to non communicable disease;WHO deaths due to non communicable diseases
 dc/topic/WHONonCommunicableDiseases,Non communicable diseases;WHO non communicable diseases;non communicable diseases WHO
 dc/topic/WetBulbEvent,Wet-Bulb Events;Wet-Bulb Events;wetbulb;wet bulb events;high humidity and high heat
 dc/topic/WhiteAloneFemalePopulationByAge,White Female Population By Age;White Female Population By Age

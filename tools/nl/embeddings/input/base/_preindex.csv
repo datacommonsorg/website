@@ -462,13 +462,16 @@ Carbon Dioxide Emissions per Capita,Amount_Emissions_CarbonDioxide_PerCapita
 Carbon Monoxide,dc/topic/CarbonMonoxide
 Careers,dc/topic/Jobs
 Causes of death,dc/topic/CausesOfDeath
+Causes of death WHO,dc/topic/WHOMortalityCauses
 Change in the extent of water-related ecosystems over time,dc/topic/sdg_6.6.1
 Change in water-use efficiency over time,dc/topic/sdg_6.4.1
 Child Immunization,dc/topic/WHOChildImmunization
 Child Immunization by gender,dc/topic/WHOChildImmunizationsByGender
 Child Immunization by urban or rural,dc/topic/WHOChildImmunizationsByUrbanRural
 Child Mortality,dc/topic/WHOChildMortality
-Child mortalities for Ages Up to 14 Years,Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years
+Child immunization split by gender,dc/topic/WHOChildImmunizationsByGender
+Child immunizations across rural and urban,dc/topic/WHOChildImmunizationsByUrbanRural
+Child mortality for Ages Up to 14 Years,Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years
 Childen with Non Communicable Diseases,dc/topic/WHOChildrenNonCommunicableDiseases
 Citizenship Status,dc/topic/CitizenshipStatus
 Climate Change,dc/topic/ClimateChange
@@ -630,7 +633,9 @@ Data related to agriculture,dc/topic/Agriculture
 Death,dc/topic/Mortality
 Death rate due to road traffic injuries,dc/topic/sdg_3.6.1
 Deaths,Count_Death_AsAFractionOfCount_Person
+Deaths among children,dc/topic/WHOChildMortality
 Deaths among mothers,dc/topic/WHOMaternalMortality
+Deaths due to non communicable disease,dc/topic/WHONonCommunicableDiseaseDeaths
 Deaths from Drownings,WHO/SA_0000001441
 Deaths from Falls,WHO/SA_0000001442
 Deaths from Fires,WHO/SA_0000001443
@@ -830,7 +835,7 @@ Farm incomes,Income_Farm
 Farming,dc/topic/Agriculture
 Farming information,dc/topic/Agriculture
 "Fatal and non-fatal occupational injuries per 100K workers, by sex and migrant status",dc/topic/sdg_8.8.1
-Female Child mortalities for Ages Up to 14 Years,Count_Death_Upto14Years_Female_AsAFractionOf_Count_Person_Upto14Years_Female
+Female Child mortality for Ages Up to 14 Years,Count_Death_Upto14Years_Female_AsAFractionOf_Count_Person_Upto14Years_Female
 Female Population With Arthritis By Age,dc/topic/ArthritisFemalePopulationByAge
 Female Population With Asthma By Age,dc/topic/AsthmaFemalePopulationByAge
 Female Population With Cancer By Age,dc/topic/CancerFemalePopulationByAge
@@ -898,14 +903,14 @@ Hard Coal Consumption,Annual_Consumption_Fuel_HardCoal
 Hate Crimes,dc/topic/HateCrimes
 Having Health Insurance by gender,dc/topic/WithHealthInsuranceByGender
 Having Health Insurance by race,dc/topic/WithHealthInsuranceByRace
-Health,dc/topic/Health
+Health,dc/topic/GlobalHealth;dc/topic/Health
 Health Insurance,dc/topic/HealthInsurance
 Health Insurance types,dc/topic/HealthInsuranceType
 Health Worker Density,dc/topic/HealthWorkerDensity
 Health behavior,dc/topic/HealthBehavior
 Health behaviors,dc/topic/HealthBehavior;dc/topic/WHOHealthBehavior
 Health behaviors WHO,dc/topic/WHOHealthBehavior
-Health conditions,dc/topic/HealthConditions
+Health conditions,dc/topic/GlobalHealth;dc/topic/HealthConditions
 Health equity,dc/topic/HealthEquity
 Health insurance by types,dc/topic/HealthInsuranceType
 Health worker density and distribution,dc/topic/sdg_3.c.1
@@ -971,7 +976,7 @@ Individual Income By Industry type,dc/topic/IndividualIncomeByIndustry
 Industries By GDP Contribution,dc/topic/IndustriesByGDP
 Industries By Revenue,dc/topic/IndustriesByRevenue
 Infant Mortality,dc/topic/InfantMortality
-Infant mortalities,Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent
+Infant mortality,Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent
 Inflation Adjusted GDP,InflationAdjustedGDP
 Information on farming,dc/topic/Agriculture
 Installed renewable energy-generating capacity in developing countries (in watts per capita),dc/topic/sdg_12.a.1;dc/topic/sdg_7.b.1
@@ -1021,7 +1026,7 @@ Liver Cirrhosis Deaths,WHO/SA_0000001446
 Macroeconomic Dashboard,dc/topic/sdg_17.13.1
 Malaria,dc/topic/Malaria
 "Malaria incidence per 1,000 population",dc/topic/sdg_3.3.3
-Male Child mortalities for Ages Up to 14 Years,Count_Death_Upto14Years_Male_AsAFractionOf_Count_Person_Upto14Years_Male
+Male Child mortality for Ages Up to 14 Years,Count_Death_Upto14Years_Male_AsAFractionOf_Count_Person_Upto14Years_Male
 Male Population With Arthritis By Age,dc/topic/ArthritisMalePopulationByAge
 Male Population With Asthma By Age,dc/topic/AsthmaMalePopulationByAge
 Male Population With Cancer By Age,dc/topic/CancerMalePopulationByAge
@@ -1046,7 +1051,7 @@ Martial Status Breakdown,dc/topic/MaritalStatusBreakdown
 Maternal Health,dc/topic/MaternalHealth
 Maternal Mortality,dc/topic/WHOMaternalMortality
 Maternal health,dc/topic/MaternalHealth
-Maternal mortalities,sdg/SH_STA_MORT.SEX--F
+Maternal mortality,sdg/SH_STA_MORT.SEX--F
 Maternal mortality ratio,dc/topic/sdg_3.1.1
 Max Barometric Pressure,Max_BarometricPressure
 Max Precipitable Water,Max_PrecipitableWater_Atmosphere
@@ -1238,12 +1243,13 @@ Mobilize additional financial resources for developing countries from multiple s
 Mobilize and significantly increase financial resources from all sources to conserve and sustainably use biodiversity and ecosystems,dc/topic/sdg_15.a
 "Mobilize significant resources from all sources and at all levels to finance sustainable forest management and provide adequate incentives to developing countries to advance such management, including for conservation and reforestation",dc/topic/sdg_15.b
 Monthly count of electricity consumers,Monthly_Count_ElectricityConsumer
-Mortality,dc/topic/Mortality
+Mortality,dc/topic/Mortality;dc/topic/WHOMortality
 Mortality Causes,dc/topic/WHOMortalityCauses
 Mortality among incarcerated,dc/topic/MortalityAmongIncarcerated
 Mortality among those in jail,dc/topic/MortalityAmongIncarcerated
 Mortality by gender,dc/topic/MortalityByGender
 Mortality by race,dc/topic/MortalityByRace
+Mortality causes by WHO,dc/topic/WHOMortalityCauses
 "Mortality rate attributed to cardiovascular disease, cancer, diabetes or chronic respiratory disease",dc/topic/sdg_3.4.1
 Mortality rate attributed to household and ambient air pollution,dc/topic/sdg_3.9.1
 Mortality rate attributed to unintentional poisoning,dc/topic/sdg_3.9.3
@@ -3159,6 +3165,7 @@ Road Traffic Deaths,dc/topic/RoadTrafficDeaths
 Rural Female Population By Age,dc/topic/RuralFemalePopulationByAge
 Rural Male Population By Age,dc/topic/RuralMalePopulationByAge
 Rural Population By Age,dc/topic/RuralPopulationByAge
+Rural or urban child immunization,dc/topic/WHOChildImmunizationsByUrbanRural
 SDG Affordable and Clean Energy,dc/topic/sdg_7
 SDG Clean Water and Sanitation,dc/topic/sdg_6
 SDG Climate Action,dc/topic/sdg_13
@@ -3996,10 +4003,7 @@ build date of houses,dc/topic/HousesByDateofBuild
 capacity of crude oil refinery,Annual_Capacity_Fuel_CrudeOil_Refinery
 carbon footprint,Annual_Emissions_GreenhouseGas
 cardiovascular disease,dc/topic/HeartDisease
-causes of death WHO,dc/topic/WHOMortalityCauses
 cell phones,dc/topic/sdg_9.c.1
-child immunization split by gender,dc/topic/WHOChildImmunizationsByGender
-child immunizations across rural and urban,dc/topic/WHOChildImmunizationsByUrbanRural
 children population count,Count_Person_Upto18Years
 children women men living below $1,dc/topic/sdg_1.2.2
 children women men living below poverty,dc/topic/sdg_1.2.2
@@ -4032,11 +4036,9 @@ cost of owning a house,dc/topic/HousesByOwnershipCost
 crude oil reserve,Annual_Reserves_Fuel_CrudeOil
 date built of houses,dc/topic/HousesByDateofBuild
 death among infants,dc/topic/InfantMortality
-deaths among children,dc/topic/WHOChildMortality
 deaths among those in jail,dc/topic/MortalityAmongIncarcerated
 deaths by race,dc/topic/MortalityByRace
 deaths due to Intentional Self Harm,Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person
-deaths due to non communicable disease,dc/topic/WHONonCommunicableDiseaseDeaths
 deaths of incarcerated,dc/topic/MortalityAmongIncarcerated
 decadal projected max temperature,dc/topic/DecadeProjectedTemperatureHighs
 decadal projected min temperature,dc/topic/DecadeProjectedTemperatureLows
@@ -4131,7 +4133,7 @@ farm expenses,Expenses_Farm
 farm net income,NetMeasure_Income_Farm
 features in a home,dc/topic/HouseFeatures
 features of a house,dc/topic/HouseFeatures
-female infant mortalities,Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female;Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female
+female infant mortality,Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female;Count_Death_LessThan1Year_Female_AsAFractionOf_Count_BirthEvent_Female
 female life expectancy,LifeExpectancy_Person_Female
 female unemployment rate,UnemploymentRate_Person_Female
 fire,dc/topic/Fire
@@ -4159,8 +4161,6 @@ hard coal reserve,Annual_Reserves_Fuel_HardCoal
 harvest loss,dc/topic/sdg_12.3
 harvest wastage,dc/topic/sdg_12.3
 harvest waste,dc/topic/sdg_12.3
-health,dc/topic/GlobalHealth
-health conditions,dc/topic/GlobalHealth
 health expenses,dc/topic/HealthcareExpenditure
 health insurance private type,dc/topic/PrivateHealthInsuranceType
 health insurance public type,dc/topic/PublicHealthInsuranceType
@@ -4193,7 +4193,7 @@ incremental count of COVID-19 tests,IncrementalCount_MedicalTest_ConditionCOVID_
 incremental count of COVID-19 vaccinations administered,IncrementalCount_Vaccine_COVID_19_Administered
 industrie with financing,dc/topic/sdg_9.3.2
 infant deaths,dc/topic/InfantMortality
-infant mortalities,Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth
+infant mortality,Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth
 internet access,dc/topic/sdg_17.8.1
 internet access by genders,dc/topic/sdg_17.8.1
 internet penetration,dc/topic/InternetAccess
@@ -4220,7 +4220,7 @@ major precipitation,dc/topic/Precipitation
 major snow event,dc/topic/Precipitation
 male Life expectancy,LifeExpectancy_Person_Male
 male deaths,Count_Death_Male_AsAFractionOf_Count_Person_Male
-male infant mortalities,Count_Death_0Years_Male_AsFractionOf_Count_BirthEvent_LiveBirth_Male;Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male
+male infant mortality,Count_Death_0Years_Male_AsFractionOf_Count_BirthEvent_LiveBirth_Male;Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male
 male unemployment rate,UnemploymentRate_Person_Male
 manufacturing banking,dc/topic/sdg_9.3.2
 manufacturing finance,dc/topic/sdg_9.3.2
@@ -4303,12 +4303,10 @@ minimum temperature projected year,dc/topic/YearlyProjectedTemperatureLows
 mobile network,dc/topic/sdg_9.c.1
 mobile phones,dc/topic/sdg_9.c.1
 modes of commute,dc/topic/CommuteMode
-mortalities of Children Younger Than 4 Years,MortalityRate_Person_Upto4Years_AsFractionOf_Count_BirthEvent_LiveBirth
-mortality,dc/topic/WHOMortality
 mortality among infants,dc/topic/InfantMortality
 mortality breakdown by gender,dc/topic/MortalityByGender
 mortality breakdown by race,dc/topic/MortalityByRace
-mortality causes by WHO,dc/topic/WHOMortalityCauses
+mortality of Children Younger Than 4 Years,MortalityRate_Person_Upto4Years_AsFractionOf_Count_BirthEvent_LiveBirth
 natural gas reserve,Annual_Reserves_Fuel_NaturalGas
 nitrous oxide emissions by source,dc/topic/Emissions_NitrousOxide_EmissionsbySource
 no health insurance across income levels,dc/topic/NoHealthInsuranceByIncome
@@ -4662,7 +4660,6 @@ retail sales of electricity consumed by industrial sector,Annual_RetailSales_Ele
 retail sales of electricity consumed by residential sector,Annual_RetailSales_Electricity_Residential
 revenue across industries,dc/topic/IndustriesByRevenue
 revenue breakdown by industries,dc/topic/IndustriesByRevenue
-rural or urban child immunization,dc/topic/WHOChildImmunizationsByUrbanRural
 sales revenue of electricity,Annual_SalesRevenue_Electricity
 sales revenue of electricity from commercial sector,Annual_SalesRevenue_Electricity_Commercial
 sales revenue of electricity from industrial sector,Annual_SalesRevenue_Electricity_Industrial
