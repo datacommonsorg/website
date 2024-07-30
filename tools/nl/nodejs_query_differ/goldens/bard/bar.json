@@ -1,7 +1,7 @@
 {
   "charts": [
     {
-      "data_csv": "label,Santa Clara County\r\nAccommodation/Food Industry,82881\r\nAdmin / Waste Management Service Industry,60538\r\n\"Agriculture, Forestry, Fishing, Hunting\",2960\r\nConstruction Industry,53031\r\nEducational Services Industry,81663\r\nHealth Care and Social Assistance Industry,156124\r\nManufacturing,176811\r\nFinance and Insurance Industry,20831\r\nInformation Industry,96168\r\n\"Arts, Entertainment, Recreation Industry\",20764\r\n\"Mining, Quarrying, Oil and Gas Extraction Industry\",142\r\nOther Services (except Public Admin),25214\r\nTransportation And Warehousing,20846\r\nUtilities,3527\r\nRetail Trade,72215\r\nReal Estate and Rental and Leasing,15648\r\nPublic Administration,27668\r\nWholesale Trade,28183\r\n\"Professional, Scientific, and Technical Services\",161223\r\nManagement of Companies and Enterprises Industry,13729\r\nUnclassified,959",
+      "data_csv": "label,Santa Clara County\r\nAccommodation/Food Industry Workers,82693\r\nAdmin / Waste Management Service Industry Workers,61064\r\n\"Agriculture, Forestry, Fishing, Hunting Workers\",3042\r\nPopulation Working in the Construction Industry,53530\r\nEducational Services Industry Workers,81751\r\nHealth Care and Social Assistance Industry Workers,158680\r\nManufacturing Workers,174771\r\nFinance and Insurance Industry Workers,21380\r\nInformation Industry Workers,94952\r\n\"Arts, Entertainment, Recreation Industry Workers\",20834\r\n\"Mining, Quarrying, Oil and Gas Extraction Industry Workers\",150\r\nOther Services (except Public Admin) Workers,25048\r\nTransportation And Warehousing Workers,20858\r\nUtilities Workers,3496\r\nRetail Trade Workers,71546\r\nReal Estate and Rental and Leasing Workers,15480\r\nPublic Administration Workers,27567\r\nWholesale Trade Workers,27966\r\n\"Professional, Scientific, and Technical Services Workers\",159638\r\nPopulation Working in the Management of Companies and Enterprises Industry,14705\r\nUnclassified Workers,809",
       "placeType": "City",
       "places": [
         "geoId/06085"
@@ -13,29 +13,29 @@
         }
       ],
       "legend": [
-        "Accommodation/Food Industry",
-        "Admin / Waste Management Service Industry",
-        "Agriculture, Forestry, Fishing, Hunting",
-        "Construction Industry",
-        "Educational Services Industry",
-        "Health Care and Social Assistance Industry",
-        "Manufacturing",
-        "Finance and Insurance Industry",
-        "Information Industry",
-        "Arts, Entertainment, Recreation Industry",
-        "Mining, Quarrying, Oil and Gas Extraction Industry",
-        "Other Services (except Public Admin)",
-        "Transportation And Warehousing",
-        "Utilities",
-        "Retail Trade",
-        "Real Estate and Rental and Leasing",
-        "Public Administration",
-        "Wholesale Trade",
-        "Professional, Scientific, and Technical Services",
-        "Management of Companies and Enterprises Industry",
-        "Unclassified"
+        "Accommodation/Food Industry Workers",
+        "Admin / Waste Management Service Industry Workers",
+        "Agriculture, Forestry, Fishing, Hunting Workers",
+        "Population Working in the Construction Industry",
+        "Educational Services Industry Workers",
+        "Health Care and Social Assistance Industry Workers",
+        "Manufacturing Workers",
+        "Finance and Insurance Industry Workers",
+        "Information Industry Workers",
+        "Arts, Entertainment, Recreation Industry Workers",
+        "Mining, Quarrying, Oil and Gas Extraction Industry Workers",
+        "Other Services (except Public Admin) Workers",
+        "Transportation And Warehousing Workers",
+        "Utilities Workers",
+        "Retail Trade Workers",
+        "Real Estate and Rental and Leasing Workers",
+        "Public Administration Workers",
+        "Wholesale Trade Workers",
+        "Professional, Scientific, and Technical Services Workers",
+        "Population Working in the Management of Companies and Enterprises Industry",
+        "Unclassified Workers"
       ],
-      "title": "Categories of Jobs in Santa Clara County (Jun, 2023)",
+      "title": "Categories of Jobs in Santa Clara County (Sep, 2023)",
       "type": "BAR",
       "unit": "",
       "vars": [
