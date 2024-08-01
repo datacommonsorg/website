@@ -1761,13 +1761,7 @@ class TestFetchHighestCoverage(unittest.TestCase):
 
     mock_get_series_dates.return_value = mock_series_dates_response
 
-    expected_output = {
-        "data": {
-            "who/Var1": {},
-            "who/Var2": {}
-        },
-        "facets": {}
-    }
+    expected_output = {"data": {"who/Var1": {}, "who/Var2": {}}, "facets": {}}
 
     result = lib_util.fetch_highest_coverage(variables=variables,
                                              all_facets=False,

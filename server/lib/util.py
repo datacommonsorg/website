@@ -892,12 +892,7 @@ def fetch_highest_coverage(variables: List[str],
 
   # If no highest coverage date is found, return an empty response
   if not highest_coverage_date:
-    return {
-      "data":{
-        variable: {} for variable in variables
-      },
-      "facets":{}
-      }
+    return {"data": {variable: {} for variable in variables}, "facets": {}}
 
   # Return observations with the highest coverage date
   if entities is not None:
