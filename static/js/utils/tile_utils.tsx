@@ -535,16 +535,13 @@ export function getNoDataErrorMsg(statVarSpec: StatVarSpec[]): string {
 }
 
 /**
- * Shows an error message in a container div
- * @param errorMsg the message to show
+ * Removes content from specified container
  * @param container the container div to show the message
  */
-export function showError(errorMsg: string, container: HTMLDivElement): void {
+export function clearContainer(container: HTMLDivElement): void {
   // Remove contents of the container
   const containerSelection = d3.select(container);
   containerSelection.selectAll("*").remove();
-  // Show error message in the container
-  containerSelection.html(errorMsg);
 }
 
 /**
@@ -594,12 +591,13 @@ export function transformCsvHeader(columnHeader: string) {
  * @returns first date found or undefined if stat var spec list is empty
  */
 export function getFirstCappedStatVarSpecDate(
-  variables: StatVarSpec[]
+  variables: StatVarSpec[],
+  date?: string
 ): string {
   if (variables.length === 0) {
     return "";
   }
-  return getCappedStatVarDate(variables[0].statVar, variables[0].date);
+  return getCappedStatVarDate(variables[0].statVar, date || variables[0].date);
 }
 
 /**
