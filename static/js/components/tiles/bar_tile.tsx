@@ -168,21 +168,27 @@ export function BarTile(props: BarTilePropType): JSX.Element {
 
   /**
    * Updates the bar tile date when receiving events on the ${props.subscribe}
-   * channel. Used to conenct the datacommons-slider component to this
+   * channel. Used to connect the datacommons-slider component to this
    * component
    */
   useEffect(() => {
+    const eventHandler = (e: CustomEvent<ChartEventDetail>) => {
+      if (e.detail.property === "date") {
+        setDateOverride(e.detail.value);
+      }
+    };
+
     if (props.subscribe) {
-      self.addEventListener(
-        props.subscribe,
-        (e: CustomEvent<ChartEventDetail>) => {
-          if (e.detail.property === "date") {
-            setDateOverride(e.detail.value);
-          }
-        }
-      );
+      self.addEventListener(props.subscribe, eventHandler);
     }
-  }, []);
+
+    // Cleanup function to remove the event listener
+    return () => {
+      if (props.subscribe) {
+        self.removeEventListener(props.subscribe, eventHandler);
+      }
+    };
+  }, [props.subscribe]);
   return (
     <ChartTileContainer
       allowEmbed={true}

@@ -283,17 +283,23 @@ export function MapTile(props: MapTilePropType): JSX.Element {
   }, [props, mapChartData, svgContainer, legendContainer, mapContainer]);
   useDrawOnResize(drawFn, svgContainer.current);
   useEffect(() => {
+    const eventHandler = (e: CustomEvent<ChartEventDetail>) => {
+      if (e.detail.property === "date") {
+        setDateOverride(e.detail.value);
+      }
+    };
+
     if (props.subscribe) {
-      self.addEventListener(
-        props.subscribe,
-        (e: CustomEvent<ChartEventDetail>) => {
-          if (e.detail.property === "date") {
-            setDateOverride(e.detail.value);
-          }
-        }
-      );
+      self.addEventListener(props.subscribe, eventHandler);
     }
-  }, []);
+
+    // Cleanup function to remove the event listener
+    return () => {
+      if (props.subscribe) {
+        self.removeEventListener(props.subscribe, eventHandler);
+      }
+    };
+  }, [props.subscribe]);
 
   return (
     <ChartTileContainer
