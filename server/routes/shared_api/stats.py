@@ -98,12 +98,17 @@ def stat_var_property():
   return result
 
 
-@bp.route('/stat-var-search')
+@bp.route('/stat-var-search', methods=('GET', 'POST'))
 @cache.cached(timeout=TIMEOUT, query_string=True)
 def search_statvar():
   """Gets the statvars and statvar groups that match the tokens in the query."""
-  query = request.args.get("query")
-  places = request.args.getlist("places")
-  sv_only = request.args.get("svOnly", False)
+  if request.method == 'GET':
+    query = request.args.get("query")
+    places = request.args.getlist("places")
+    sv_only = request.args.get("svOnly", False)
+  else:  # Method is POST
+    query = request.json.get("query")
+    places = request.json.get("places")
+    sv_only = request.json.get("svOnly")
   result = dc.search_statvar(query, places, sv_only)
   return Response(json.dumps(result), 200, mimetype='application/json')
