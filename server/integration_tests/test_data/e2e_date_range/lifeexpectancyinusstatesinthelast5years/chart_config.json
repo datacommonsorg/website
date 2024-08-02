@@ -650,10 +650,42 @@
               {
                 "tiles": [
                   {
+                    "lineTileSpec": {
+                      "startDate": "2019"
+                    },
                     "statVarKey": [
-                      "Median_Age_Person"
+                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_606064963"
                     ],
-                    "title": "Median Age of Population in States of United States (${date})",
+                    "title": "Infant Mortality Rate in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Infant Mortality Rate in United States",
+                    "statVarKey": [
+                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+                    ],
+                    "title": "Infant Mortality Rate in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "description": "Infant mortality rate is the number of infants dying before reaching one year of age, per 1,000 live births in a given year. Estimates developed by the UN Inter-agency group for child mortality estimation (UNICEF, WHO, world bank, UN DESA population division) at www.Childmortality.Org.",
+            "title": "Infant Mortality Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+                    ],
+                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in States of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -666,52 +698,30 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Median_Age_Person"
+                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
                     ],
-                    "title": "Median Age of Population in States of United States (${date})",
+                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in States of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Median Age of Population in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "lineTileSpec": {
-                      "startDate": "2019"
-                    },
-                    "statVarKey": [
-                      "Median_Age_Person_3357919774"
-                    ],
-                    "title": "Median Age of Population in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Median Age of Population in United States",
-                    "statVarKey": [
-                      "Median_Age_Person"
-                    ],
-                    "title": "Median Age of Population in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Age of Population"
+            "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in States of United States"
           }
         ],
         "statVarSpec": {
           "Count_Death": {
             "name": "Number of Deaths",
             "statVar": "Count_Death"
+          },
+          "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": {
+            "name": "Infant Mortality Rate",
+            "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+          },
+          "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_606064963": {
+            "facetId": "606064963",
+            "name": "Infant Mortality Rate",
+            "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
           },
           "Count_Death_1151455814": {
             "facetId": "1151455814",
@@ -809,6 +819,10 @@
             "name": "% of Suicide Events",
             "statVar": "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
           },
+          "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent": {
+            "name": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)",
+            "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+          },
           "Count_Death_Neoplasms_Female_multiple_place_bar_block": {
             "name": "Female Deaths Due To Neoplasms",
             "statVar": "Count_Death_Neoplasms_Female"
@@ -891,15 +905,6 @@
           "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth": {
             "name": "Average interval in months since last live birth",
             "statVar": "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth"
-          },
-          "Median_Age_Person": {
-            "name": "Median Age of Population",
-            "statVar": "Median_Age_Person"
-          },
-          "Median_Age_Person_3357919774": {
-            "facetId": "3357919774",
-            "name": "Median Age of Population",
-            "statVar": "Median_Age_Person"
           },
           "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F_2966989201": {
             "facetId": "2966989201",
@@ -1350,12 +1355,6 @@
         "gender": [
           "LifeExpectancy_Person_Female",
           "LifeExpectancy_Person_Male"
-        ]
-      },
-      "Median_Age_Person": {
-        "gender": [
-          "Median_Age_Person_Female",
-          "Median_Age_Person_Male"
         ]
       }
     },

@@ -26,6 +26,7 @@ bp = Blueprint('explore', __name__, url_prefix='/explore')
 def page():
   return render_template('/explore.html',
                          manual_ga_pageview=True,
+                         maps_api_key=current_app.config.get('MAPS_API_KEY'),
                          website_hash=os.environ.get("WEBSITE_HASH"))
 
 

@@ -17,9 +17,14 @@ from typing import Dict, FrozenSet, List, Set, Union
 
 import frozendict
 
+# These are words that come before rate, which together mean a specific metric
+# (like "fertility rate"). So if "fertility rate" appears in the query, we will
+# not infer PerCapita heuristic.
+# Note that we expect to find the full phrase with the word rate in the NL index
+# description
 _RATE_WORDS_TO_SKIP = [
-    "birth", "change", "death", "exchange", "fertility", "literacy",
-    "mortality", "participation", "unemployment", "withdrawal"
+    "birth", "change", "exchange", "fertility", "literacy", "participation",
+    "unemployment", "withdrawal"
 ]
 # negative look behinds in python require fixed width regex so need to create
 # 2 look behinds for each individual word to skip: one for rate and one for
