@@ -34,6 +34,5 @@ def set_up_macos_for_tests():
   if _set_up_done:
     return
   _set_up_done = True
-  if sys.version_info >= (3, 8) and sys.platform == "darwin":
-    multiprocessing.set_start_method("fork")
-    os.environ['no_proxy'] = '*'
+  multiprocessing.set_start_method("spawn")
+  os.environ['no_proxy'] = '*'
