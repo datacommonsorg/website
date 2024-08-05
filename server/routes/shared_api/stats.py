@@ -22,6 +22,7 @@ from flask import Response
 from server.lib import fetch
 from server.lib import shared
 from server.lib.cache import cache
+import server.lib.util as lib_util
 from server.routes import TIMEOUT
 import server.services.datacommons as dc
 
@@ -99,7 +100,9 @@ def stat_var_property():
 
 
 @bp.route('/stat-var-search', methods=('GET', 'POST'))
-@cache.cached(timeout=TIMEOUT, query_string=True)
+@cache.cached(timeout=TIMEOUT,
+              query_string=True,
+              make_cache_key=lib_util.post_body_cache_key)
 def search_statvar():
   """Gets the statvars and statvar groups that match the tokens in the query."""
   if request.method == 'GET':
