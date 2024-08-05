@@ -93,6 +93,9 @@ function getProcessedPointResponse(
     for (const variable of varGroup) {
       const entityObs = resp.data[variable];
       Object.values(entityObs).forEach((obs) => {
+        if (_.isEmpty(obs)) {
+          return;
+        }
         const unit = getObsUnit(resp.facets, obs);
         if (!unit2Count[unit]) {
           unit2Count[unit] = 0;

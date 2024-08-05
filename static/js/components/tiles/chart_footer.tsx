@@ -40,9 +40,6 @@ interface ChartFooterPropType {
 }
 
 export function ChartFooter(props: ChartFooterPropType): JSX.Element {
-  if (!props.handleEmbed && !props.exploreLink) {
-    return null;
-  }
   return (
     <>
       <slot name="footer" {...{ part: "footer" }}>

@@ -795,7 +795,7 @@ def _get_highest_coverage_date(observation_dates_by_variable,
 
 def _get_recent_date_counts(observation_entity_counts_by_date,
                             facet_ids: Set[str], max_dates_to_check: int,
-                            max_years_to_check: int) -> str | None:
+                            max_years_to_check: int) -> List[Dict]:
   # Get observation dates in descending order
   descending_observation_dates = [
       observation_date for observation_date in list(
@@ -812,7 +812,7 @@ def _get_recent_date_counts(observation_entity_counts_by_date,
         if observation_date['date'] < todays_date
     ]
   if len(descending_observation_dates) == 0:
-    return None
+    return []
   # Heuristic to fetch the "max_dates_to_check" most recent
   # observation dates or observation dates going back
   # "max_years_to_check" years, whichever is greater
@@ -890,6 +890,11 @@ def fetch_highest_coverage(variables: List[str],
       max_dates_to_check=MAX_DATES_TO_CHECK,
       max_years_to_check=MAX_YEARS_TO_CHECK)
 
+  # If no highest coverage date is found, return an empty response
+  if not highest_coverage_date:
+    return {"data": {variable: {} for variable in variables}, "facets": {}}
+
+  # Return observations with the highest coverage date
   if entities is not None:
     point_response = fetch.point_core(entities, variables,
                                       highest_coverage_date, all_facets)
