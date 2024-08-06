@@ -16,7 +16,7 @@
 # The dependencies are as follows (add to this list if and when new dependencies are added):
 # - python 3.11
 # - envoy
-# - sqlite3
+# - nginx
 
 FROM python:3.11.4-slim as runner
 
@@ -29,6 +29,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get -y upgrade \
     && echo "deb [arch=amd64 signed-by=/usr/share/keyrings/getenvoy-keyring.gpg] https://deb.dl.getenvoy.io/public/deb/debian $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/getenvoy.list \
     && apt update \
     && apt install -y --no-install-recommends getenvoy-envoy \
-    # sqlite3 - used by mixer.
-    && apt install -y --no-install-recommends sqlite3 libsqlite3-dev \
+    # Install nginx.
+    && apt install -y --no-install-recommends nginx \
     && rm -rf /var/lib/apt/lists/*

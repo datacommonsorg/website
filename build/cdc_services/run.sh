@@ -14,7 +14,6 @@
 # limitations under the License.
 
 set -e
-set -x
 
 export MIXER_API_KEY=$DC_API_KEY
 # https://stackoverflow.com/a/62703850
@@ -57,11 +56,7 @@ if [[ $USE_SQLITE == "true" ]]; then
     echo "SQLITE_PATH=$SQLITE_PATH"
 fi
 
-# nginx -c /workspace/nginx.conf
-
-ls -l /workspace
-ls -l /workspace/bin
-ls -l /workspace/esp
+nginx -c /workspace/nginx.conf
 
 /workspace/bin/mixer \
     --use_bigquery=false \

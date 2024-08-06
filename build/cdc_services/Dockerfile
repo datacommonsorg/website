@@ -49,27 +49,26 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o bin/mixer cmd/main.go
 
 
 # #### Final stage: Runtime env. ####
-FROM gcr.io/datcom-ci/datacommons-services-runtime:2024-08-05 as runner
+FROM gcr.io/datcom-ci/datacommons-services-runtime:2024-08-06 as runner
 
 # Env that should not change
 ENV USE_LOCAL_MIXER=true \
     ENV_PREFIX=Compose \
     ENABLE_ADMIN=true
 
-RUN rm -rf /workspace
-
 WORKDIR /workspace
 
-# Copy scripts, dependencies and files from the build stages.
+# Copy scripts, dependencies and files from build stages and from local file system.
+# Mixer.
 COPY --from=mixer /workspace/bin/ bin
 COPY --from=mixer /workspace/esp/ esp
 COPY --from=mixer /workspace/internal/ internal
 COPY --from=mixer /workspace/mixer-grpc.pb .
+# nginx.
+COPY build/cdc_services/nginx.conf .
 
 # Copy executable script.
 COPY --chmod=0755 build/cdc_services/run.sh .
-
-RUN echo "Running ls " && echo $(pwd) && ls -l . && echo "Running ls bin" && ls -l bin && echo "Running ls esp" && ls -l esp
 
 # Set the default command to run the script.
 CMD ./run.sh
