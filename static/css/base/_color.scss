@@ -45,11 +45,13 @@ $dc-primary-color: #467bd5;
   --gm-3-ref-neutral-neutral-80: #c7c7c7;
   --gm-3-ref-neutral-neutral-90: #e3e3e3;
   --gm-3-white: #fff;
+  --gm-3-sys-light-surface-container: #f0f4f9;
   --gm-3-sys-light-surface-container-low: #f8fafd;
   --gm-3-sys-light-surface-container-high: #e9eef6;
   --gm-3-sys-light-outline-variant: #c4c7c5;
   --gm-3-sys-light-outline: #747775;
   --gm-3-sys-light-on-surface: #1f1f1f;
+  --gm-3-sys-light-on-surface-variant: #444746;
   // Following vars are overwritten in custom dc modes
   --dc-primary: #{$dc-primary-color};
   --link-color: #0b57d0;

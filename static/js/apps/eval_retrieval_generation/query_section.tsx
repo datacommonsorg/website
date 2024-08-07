@@ -25,6 +25,7 @@ import { DcCallInfo, DcCalls, EvalType, FeedbackStage, Query } from "./types";
 import { getAnswerFromQueryAndAnswerSheet, processText } from "./util";
 
 const ANSWER_LOADING_MESSAGE = "Loading answer...";
+const ACTIVE_ANNOTATION_CLASSNAME = "annotation-active";
 
 interface AnswerMetadata {
   evalType: EvalType;
@@ -120,6 +121,40 @@ export function QuerySection(props: QuerySectionPropType): JSX.Element {
   );
   const prevHighlightedRef = useRef<HTMLSpanElement | null>(null);
   const answerMetadata = useRef<AnswerMetadata>(null);
+
+  // Add window-level click handling for showing/hiding annotation tooltips.
+  useEffect(() => {
+    const onClick = (e: MouseEvent): void => {
+      const clickedEl = e.target as Element;
+
+      // Don't change active annotation if the tooltip itself is clicked.
+      if (clickedEl.closest(".dc-stat-tooltip")) return;
+
+      const activeAnnotationEl = document.querySelector(
+        `.${ACTIVE_ANNOTATION_CLASSNAME}`
+      ) as HTMLSpanElement | null;
+
+      // Deactivate any active annotation.
+      if (activeAnnotationEl) {
+        activeAnnotationEl.classList.remove(ACTIVE_ANNOTATION_CLASSNAME);
+      }
+
+      // If the previously active annotation was clicked, don't reactivate it.
+      if (clickedEl === activeAnnotationEl) return;
+
+      // Otherwise, if an annotation was clicked, activate it.
+      if (clickedEl.classList.contains("annotation")) {
+        clickedEl.classList.add(ACTIVE_ANNOTATION_CLASSNAME);
+      }
+    };
+
+    window.addEventListener("click", onClick);
+
+    // Remove the event listener when the component unmounts.
+    return () => {
+      window.removeEventListener("click", onClick);
+    };
+  }, []);
 
   useEffect(() => {
     // Remove highlight from previous annotation
