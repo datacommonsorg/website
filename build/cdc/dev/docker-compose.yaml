@@ -110,8 +110,6 @@ services:
       - ../../../nl_requirements.txt:/app/nl_requirements.txt
       # GCP credentials
       - "${HOST_GOOGLE_APPLICATION_CREDENTIALS:-${HOME}/.config/gcloud/application_default_credentials.json}:/app/creds.json"
-      # NL models
-      # - /tmp/datcom-nl-models:/tmp/datcom-nl-models
 
   nginx:
     image: nginx:latest

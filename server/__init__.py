@@ -466,6 +466,4 @@ def create_app():
       app.jinja_env.globals['BASE_HTML'] = os.path.join('custom_dc/custom',
                                                         'base.html')
   flask_cors.CORS(app)
-  #flask_cors.CORS(app, resources={r"/*": {"origins": "*"}, "methods": ["GET", "POST", "OPTIONS"],})
-  #flask_cors.CORS(app, resources={r"/*": {"origins": "*"}})
   return app

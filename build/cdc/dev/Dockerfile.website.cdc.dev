@@ -53,5 +53,4 @@ COPY web_app.py /app/web_app.py
 EXPOSE 8080
 
 # Set the command to run the Flask app
-#CMD ["./run_server.sh", "-m"]
 CMD ["/app/.env/bin/python3", "web_app.py", "7070"]
