@@ -1,0 +1,57 @@
+# Copyright 2024 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Development Dockerfile for Custom Data Commons NL server
+
+# Use official Python runtime as a parent image
+FROM python:3.12-slim
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the NL requirements files to the container
+COPY server/requirements.txt /app/server_requirements.txt
+COPY nl_server/requirements.txt /app/nl_server_requirements.txt
+COPY nl_requirements.txt /app/nl_requirements.txt
+
+# Create the python virtual environment and install dependencies
+RUN python3 -m venv /app/.env
+RUN /app/.env/bin/pip install --upgrade pip setuptools wheel
+RUN /app/.env/bin/pip install --only-binary :all: pandas==2.1.1
+RUN /app/.env/bin/pip install --only-binary :all: scikit-learn==1.3.1
+RUN /app/.env/bin/pip install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
+RUN /app/.env/bin/pip install -r /app/server_requirements.txt
+# RUN /app/.env/bin/pip install -r /app/nl_server_requirements.txt
+RUN /app/.env/bin/pip install dacite==1.8.1
+RUN /app/.env/bin/pip install en_core_web_sm==3.7.1 -f https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl
+RUN /app/.env/bin/pip install -r /app/nl_requirements.txt
+
+# Copy source files to the container
+COPY nl_server/. /app/nl_server/
+# COPY server/. /app/server/
+COPY shared/. /app/shared/
+# For loading deploy/helm_charts/envs/autopush.yaml configuration
+COPY deploy/. /app/deploy/
+
+# Copy the NL application start script into the container
+COPY run_nl_server.sh /app/run_nl_server.sh
+
+# Copy the NL application start script into the container
+COPY nl_app.py /app/nl_app.py
+
+# Expose port 6060 for the nl-python app
+EXPOSE 6060
+
+# Set the command to run the Flask app
+CMD ["./run_nl_server.sh"]

@@ -57,8 +57,8 @@ while getopts ":e:p:m?d?l?xg" OPTION; do
     export ENABLE_DISASTER_JSON=true
     ;;
   l)
-    export USE_LOCAL_MIXER=true
-    ;;
+    # Use local mixer
+    export WEBSITE_MIXER_API_ROOT=http://127.0.0.1:8081
   g)
     USE_GUNICORN=true
     ;;

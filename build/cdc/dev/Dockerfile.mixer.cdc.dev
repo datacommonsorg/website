@@ -1,0 +1,86 @@
+# Copyright 2024 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+FROM envoyproxy/envoy:v1.31-latest AS envoy
+FROM golang:1.20-bullseye
+
+WORKDIR /app
+
+# Install updates
+RUN apt-get update
+
+# Setup envoy
+COPY --from=envoy /etc/envoy /etc/envoy
+COPY --from=envoy /usr/local/bin/envoy /usr/local/bin/envoy
+
+# Verify envoy 
+RUN envoy --version
+
+# Install protoc and its dependencies
+RUN apt-get install -y wget unzip
+RUN wget https://github.com/protocolbuffers/protobuf/releases/download/v23.3/protoc-23.3-linux-x86_64.zip -O protoc.zip \
+    && unzip protoc.zip -d /usr/local \
+    && rm protoc.zip \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install protoc-gen-go
+RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.30.0
+RUN go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.3.0
+
+
+# Docker cache: Download modules
+COPY mixer/go.mod mixer/go.sum ./
+RUN go mod download -x
+
+# Copy files
+COPY mixer/proto/ proto
+COPY mixer/internal/ internal
+
+# Build protobuf
+RUN protoc \
+  --include_source_info \
+  --include_imports \
+  --proto_path=proto \
+  --go_out=paths=source_relative:internal/proto \
+  --go-grpc_out=paths=source_relative:internal/proto \
+  --go-grpc_opt=require_unimplemented_servers=false \
+  --experimental_allow_proto3_optional \
+  --descriptor_set_out mixer-grpc.pb \
+  proto/*.proto proto/**/*.proto
+
+# Adding the grpc_health_probe
+RUN GRPC_HEALTH_PROBE_VERSION=v0.4.7 && \
+  wget -qO/bin/grpc_health_probe https://github.com/grpc-ecosystem/grpc-health-probe/releases/download/${GRPC_HEALTH_PROBE_VERSION}/grpc_health_probe-linux-amd64 && \
+  chmod +x /bin/grpc_health_probe
+
+
+# Build binary
+COPY mixer/cmd/ cmd
+COPY mixer/esp/ esp
+ENV CGO_ENABLED=1
+RUN go build -o /go/bin/mixer cmd/main.go
+
+# Copy start script
+COPY build/cdc/dev/run_mixer.sh run_mixer.sh
+
+# Env that can be set from `docker run`
+ENV DEBUG=false
+ENV USE_SQLITE=false
+ENV USE_CLOUDSQL=false
+ENV DC_API_ROOT=https://api.datacommons.org
+ENV ENABLE_MODEL=false
+
+EXPOSE 8080
+CMD ./run_mixer.sh
