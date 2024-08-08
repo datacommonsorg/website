@@ -12,24 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Cloud build file to manually trigger building and pushing a CDC data docker image.
+# Cloud build file to manually trigger building and pushing a CDC services docker image.
 # This cloud build is typically executed by invoking
-# the wrapper script ./scripts/push_cdc_data_image.sh.
+# the wrapper script ./scripts/push_cdc_services_image.sh.
 
 steps:
 
-  - id: push-cdc-data-image
+  - id: push-cdc-services-image
     name: gcr.io/cloud-builders/docker
     entrypoint: "bash"
     args:
       - -c
       - |
         set -e
-        docker build -f build/cdc_data/Dockerfile \
-          --network=cloudbuild \
-          -t gcr.io/datcom-ci/datacommons-data:${_TAG} \
+        DOCKER_BUILDKIT=1 docker build -f build/cdc_services/Dockerfile \
+          --tag gcr.io/datcom-ci/datacommons-services:${_TAG} \
           .
-        docker push gcr.io/datcom-ci/datacommons-data:${_TAG}
+        docker push gcr.io/datcom-ci/datacommons-services:${_TAG}
 
 timeout: 3600s
 options:
