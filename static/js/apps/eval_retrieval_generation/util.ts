@@ -44,7 +44,6 @@ import {
   Query,
 } from "./types";
 
-const HTTP_PATTERN = /https:\/\/[^\s]+/g;
 const LONG_SPACES = "&nbsp;&nbsp;&nbsp;&nbsp;";
 // Assume a sequence of three or more dashes is the table divider.
 const TABLE_DIVIDER_PATTERN = /[-]{3,}/g;
@@ -52,6 +51,8 @@ const TABLE_DIVIDER_PATTERN = /[-]{3,}/g;
 // header value.
 const TABLE_HEADER_TEXT_PATTERN = /[^|]+/g;
 const FOOTNOTE_HEADER_PATTERN = /\n[^\n]+Footnotes[^\n]+/g;
+const FOOTNOTE_PATTERN =
+  /\[(\d+)\] - Per ([^\n]+), value was [^\n]+ in (\d+)\. See more at ([^\n]+)/g;
 
 // Map from sheet name to column name to column index
 type HeaderInfo = Record<string, Record<string, number>>;
@@ -71,11 +72,6 @@ export const processText = (text: string, calls?: DcCalls): string => {
   if (footnoteHeaderStart > 0) {
     processedText = processedText.substring(0, footnoteHeaderStart);
   }
-  // Replace each link with the desired HTML format
-  processedText = processedText.replace(
-    HTTP_PATTERN,
-    (match) => `<a href="${match}" target="_blank">Explore Page</a><br> `
-  );
 
   processedText = processedText.replace(
     // Replace [__DC__#1(dc stat text||llm stat text)] to
@@ -141,20 +137,21 @@ function getTooltipHtml(
   );
 }
 
-const FOOTNOTE_REGEX =
-  /\[(\d+)\] - Per ([^\n]+), value was [^\n]+ in (\d+)\. See more at ([^\n]+)/g;
-
 interface Footnote {
   source: string;
   year: string;
   link: string;
 }
 
+/**
+ * For each DC call that has a footnote, extracts the footnote components into
+ * an object. Returns a map of DC call ID to footnote data object.
+ */
 function extractFootnotes(text: string): Map<string, Footnote> {
   const result = new Map();
-  const headerLocation = text.indexOf("Footnotes");
+  const headerLocation = text.search(FOOTNOTE_HEADER_PATTERN);
   if (headerLocation < 0) return result;
-  const rawNotes = text.substring(headerLocation).matchAll(FOOTNOTE_REGEX);
+  const rawNotes = text.substring(headerLocation).matchAll(FOOTNOTE_PATTERN);
   for (const note of rawNotes) {
     const key = note[1];
     const value = {

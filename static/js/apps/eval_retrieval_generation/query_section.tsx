@@ -115,10 +115,16 @@ function adjustTooltipPosition(annotationEl: Element): void {
   ) as HTMLDivElement;
   const parentSection = annotationEl.closest("#query-section");
   const sectionRect = parentSection.getBoundingClientRect();
+  const sectionBorderWidth = 1;
 
   // Limit tooltip width to section width.
-  if (tooltipEl.getBoundingClientRect().width > sectionRect.width - 2) {
-    tooltipEl.style.maxWidth = `${sectionRect.width - 2}px`;
+  if (
+    tooltipEl.getBoundingClientRect().width >
+    sectionRect.width - 2 * sectionBorderWidth
+  ) {
+    tooltipEl.style.maxWidth = `${
+      sectionRect.width - 2 * sectionBorderWidth
+    }px`;
   }
 
   // Re-calculate since tooltip width may have changed.
@@ -127,23 +133,29 @@ function adjustTooltipPosition(annotationEl: Element): void {
 
   // All tooltip positioning is relative to the annotation el's left edge.
   const annotationRect = annotationEl.getBoundingClientRect();
-  // With CSS transform attribute, tooltip is shifted by this much.
-  const tooltipTranslateX = -1 * 0.5 * tooltipWidth;
-  const tooltipReferencePoint = annotationRect.left + tooltipTranslateX;
+  const tooltipReferencePoint = annotationRect.left;
 
-  const sectionBorderWidth = 1;
-  if (tooltipRect.left < sectionRect.left + sectionBorderWidth) {
-    tooltipEl.style.left = `${
-      sectionRect.left + sectionBorderWidth - tooltipReferencePoint
-    }px`;
-  } else if (tooltipRect.right > sectionRect.right - sectionBorderWidth) {
-    tooltipEl.style.left = `${
+  // By default, center tooltip over annotation.
+  let newTooltipLeft = -0.5 * (tooltipWidth - annotationRect.width);
+  if (
+    newTooltipLeft + tooltipReferencePoint <
+    sectionRect.left + sectionBorderWidth
+  ) {
+    // Shift tooltip if it is cut off by the left edge of the section.
+    newTooltipLeft =
+      sectionRect.left + sectionBorderWidth - tooltipReferencePoint;
+  } else if (
+    newTooltipLeft + tooltipReferencePoint + tooltipWidth >
+    sectionRect.right - sectionBorderWidth
+  ) {
+    // Shift tooltip if it is cut off by the right edge of the section.
+    newTooltipLeft =
       sectionRect.right -
       sectionBorderWidth -
       tooltipWidth -
-      tooltipReferencePoint
-    }px`;
+      tooltipReferencePoint;
   }
+  tooltipEl.style.left = `${newTooltipLeft}px`;
 }
 
 /**
