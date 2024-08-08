@@ -31,7 +31,6 @@ RUN python3 -m venv /app/.env
 RUN /app/.env/bin/pip install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
 RUN /app/.env/bin/pip install -r /app/server/requirements.txt
 RUN /app/.env/bin/pip install -r /app/nl_server/requirements.txt
-RUN /app/.env/bin/pip install -r /app/nl_requirements.txt
 
 # Copy source files to the container
 COPY nl_server/. /app/nl_server/

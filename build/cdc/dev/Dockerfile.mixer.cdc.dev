@@ -28,17 +28,16 @@ COPY --from=envoy /usr/local/bin/envoy /usr/local/bin/envoy
 RUN envoy --version
 
 # Install protoc and its dependencies
-RUN apt-get install -y wget unzip
-RUN wget https://github.com/protocolbuffers/protobuf/releases/download/v23.3/protoc-23.3-linux-x86_64.zip -O protoc.zip \
+RUN apt-get install -y wget unzip \
+    && wget https://github.com/protocolbuffers/protobuf/releases/download/v23.3/protoc-23.3-linux-x86_64.zip -O protoc.zip \
     && unzip protoc.zip -d /usr/local \
     && rm protoc.zip \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Install protoc-gen-go
-RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.30.0
-RUN go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.3.0
-
+RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.30.0 \
+    && go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.3.0
 
 # Docker cache: Download modules
 COPY mixer/go.mod mixer/go.sum ./
