@@ -105,6 +105,58 @@ function getAnswer(
     });
 }
 
+/**
+ * Absolutely positions the tooltip within the given annotation so it fits
+ * within the parent query section.
+ */
+function adjustTooltipPosition(annotationEl: Element): void {
+  const tooltipEl = annotationEl.querySelector(
+    ".dc-stat-tooltip"
+  ) as HTMLDivElement;
+  const parentSection = annotationEl.closest("#query-section");
+  const sectionRect = parentSection.getBoundingClientRect();
+
+  // Limit tooltip width to section width.
+  if (tooltipEl.getBoundingClientRect().width > sectionRect.width - 2) {
+    tooltipEl.style.maxWidth = `${sectionRect.width - 2}px`;
+  }
+
+  // Re-calculate since tooltip width may have changed.
+  const tooltipRect = tooltipEl.getBoundingClientRect();
+  const tooltipWidth = tooltipRect.width;
+
+  // All tooltip positioning is relative to the annotation el's left edge.
+  const annotationRect = annotationEl.getBoundingClientRect();
+  // With CSS transform attribute, tooltip is shifted by this much.
+  const tooltipTranslateX = -1 * 0.5 * tooltipWidth;
+  const tooltipReferencePoint = annotationRect.left + tooltipTranslateX;
+
+  const sectionBorderWidth = 1;
+  if (tooltipRect.left < sectionRect.left + sectionBorderWidth) {
+    tooltipEl.style.left = `${
+      sectionRect.left + sectionBorderWidth - tooltipReferencePoint
+    }px`;
+  } else if (tooltipRect.right > sectionRect.right - sectionBorderWidth) {
+    tooltipEl.style.left = `${
+      sectionRect.right -
+      sectionBorderWidth -
+      tooltipWidth -
+      tooltipReferencePoint
+    }px`;
+  }
+}
+
+/**
+ * Removes any absolute positioning applied by adjustTooltipPosition.
+ */
+function resetTooltipPosition(annotationEl: Element): void {
+  const tooltipEl = annotationEl.querySelector(
+    ".dc-stat-tooltip"
+  ) as HTMLDivElement;
+  tooltipEl.style.left = null;
+  tooltipEl.style.maxWidth = null;
+}
+
 interface QuerySectionPropType {
   doc: GoogleSpreadsheet;
   evalType: EvalType;
@@ -124,6 +176,9 @@ export function QuerySection(props: QuerySectionPropType): JSX.Element {
 
   // Add window-level click handling for showing/hiding annotation tooltips.
   useEffect(() => {
+    // Only show tooltips for RIG evals.
+    if (props.evalType !== EvalType.RIG) return;
+
     const onClick = (e: MouseEvent): void => {
       const clickedEl = e.target as Element;
 
@@ -137,6 +192,7 @@ export function QuerySection(props: QuerySectionPropType): JSX.Element {
       // Deactivate any active annotation.
       if (activeAnnotationEl) {
         activeAnnotationEl.classList.remove(ACTIVE_ANNOTATION_CLASSNAME);
+        resetTooltipPosition(activeAnnotationEl);
       }
 
       // If the previously active annotation was clicked, don't reactivate it.
@@ -145,6 +201,7 @@ export function QuerySection(props: QuerySectionPropType): JSX.Element {
       // Otherwise, if an annotation was clicked, activate it.
       if (clickedEl.classList.contains("annotation")) {
         clickedEl.classList.add(ACTIVE_ANNOTATION_CLASSNAME);
+        adjustTooltipPosition(clickedEl);
       }
     };
 
@@ -152,6 +209,7 @@ export function QuerySection(props: QuerySectionPropType): JSX.Element {
 
     // Remove the event listener when the component unmounts.
     return () => {
+      if (props.evalType !== EvalType.RIG) return;
       window.removeEventListener("click", onClick);
     };
   }, []);

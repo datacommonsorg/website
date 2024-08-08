@@ -84,7 +84,7 @@ export const processText = (text: string, calls?: DcCalls): string => {
       innerHtml += `<span class="llm-stat">${
         llmStat || LONG_SPACES
       }<span class="material-icons-outlined">fact_check</span></span>`;
-      let annotationClasses = `annotation annotation-${callId}`;
+      let annotationClasses = `annotation annotation-${callId} inline-stat`;
 
       const hasDcStat: boolean = calls && !!calls[callId]?.dcStat;
       innerHtml += getTooltipHtml(hasDcStat, callId, footnotes, calls);

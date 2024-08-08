@@ -512,12 +512,28 @@ label {
   width: 0;
 }
 
-// Modify stat annotation styles for SxS UI.
-#dc-eval-sxs {
+.annotation.inline-stat {
+  padding: 1px 2px;
+  border-radius: 4px;
 
-  // Don't highlight an LLM stat if it doesn't have a DC stat.
-  .annotation.annotation-no-dc-stat .llm-stat {
+  .llm-stat {
     background-color: unset;
+  }
+
+  &.annotation-no-dc-stat {
+    background-color: var(--gm-3-sys-light-surface-container-highest);
+
+    .material-icons-outlined {
+      color: var(--gm-3-sys-on-surface-secondary);
+    }
+  }
+
+  &:not(annotation-no-dc-stat) {
+    background-color: var(--gm-3-sys-light-primary-90);
+
+    .material-icons-outlined {
+      color: #0842A0;
+    }
   }
 }
 
@@ -530,7 +546,7 @@ label {
   position: absolute;
   top: 0;
   left: 50%;
-  transform: translate(-50%, calc(-100% - 10px));
+  transform: translate(-50%, calc(-100% - 6px));
 
   background-color: var(--gm-3-sys-light-surface-container);
   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
@@ -541,8 +557,8 @@ label {
   text-align: left;
   text-wrap: wrap;
   word-break: normal;
-  width: max-content; // TODO adjust if needed
-  max-width: 300px;
+  width: max-content;
+  max-width: 312px;
 
   font-style: normal;
   font-weight: normal;
@@ -555,14 +571,14 @@ label {
     font-weight: 500
   }
   .dc-stat-tooltip-link {
-    padding: 10px 0;
-    pointer-events: unset;
+    padding: 4px 0;
   }
 }
 
 .llm-stat {
   display: inline-flex;
-  pointer-events: none;
+  gap: 2px;
+  pointer-events: none; // Let events hit .annotation parent instead
 
   .material-icons,
   .material-icons-outlined {
@@ -571,7 +587,6 @@ label {
     padding: 0;
   }
 }
-$tooltip-arrow-size: 10px;
 
 .annotation {
   // Use relative position so tooltip can be absolutely positioned.
