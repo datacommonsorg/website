@@ -125,7 +125,8 @@ RUN gsutil cp -R gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2
 WORKDIR /workspace
 
 # Env that should not change
-ENV USE_LOCAL_MIXER=true
+# Local mixer API root
+ENV WEBSITE_MIXER_API_ROOT=http://127.0.0.1:8081
 ENV ENV_PREFIX=Compose
 ENV ENABLE_ADMIN=true
 

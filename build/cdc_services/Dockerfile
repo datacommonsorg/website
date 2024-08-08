@@ -52,7 +52,7 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o bin/mixer cmd/main.go
 FROM gcr.io/datcom-ci/datacommons-services-runtime:2024-08-06 as runner
 
 # Env that should not change
-ENV USE_LOCAL_MIXER=true \
+ENV WEBSITE_MIXER_API_ROOT=http://127.0.0.1:8081 \
     ENV_PREFIX=Compose \
     ENABLE_ADMIN=true
 

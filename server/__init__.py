@@ -262,7 +262,8 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     raise Exception(
         'Set environment variable DC_API_KEY for local custom DC development')
 
-  app.config['NL_ROOT'] = nl_root
+  # Use NL_SERVICE_ROOT if it's set, otherwise use nl_root argument
+  app.config['NL_ROOT'] = os.environ.get("NL_SERVICE_ROOT_URL", nl_root)
   app.config['ENABLE_ADMIN'] = os.environ.get('ENABLE_ADMIN', '') == 'true'
 
   lib_cache.cache.init_app(app)
