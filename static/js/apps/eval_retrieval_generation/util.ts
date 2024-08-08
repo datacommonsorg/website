@@ -44,13 +44,15 @@ import {
   Query,
 } from "./types";
 
-const HTTP_PATTERN = /https:\/\/[^\s]+/g;
 const LONG_SPACES = "&nbsp;&nbsp;&nbsp;&nbsp;";
 // Assume a sequence of three or more dashes is the table divider.
 const TABLE_DIVIDER_PATTERN = /[-]{3,}/g;
 // Assume any sequence of 1 or more characters that are not pipes is a table
 // header value.
 const TABLE_HEADER_TEXT_PATTERN = /[^|]+/g;
+const FOOTNOTE_HEADER_PATTERN = /\n[^\n]+Footnotes[^\n]+/g;
+const FOOTNOTE_PATTERN =
+  /\[(\d+)\] - Per ([^\n]+), value was [^\n]+ in (\d+)\. See more at ([^\n]+)/g;
 
 // Map from sheet name to column name to column index
 type HeaderInfo = Record<string, Record<string, number>>;
@@ -63,6 +65,14 @@ export const processText = (text: string, calls?: DcCalls): string => {
   let processedText = text.replace("Answer:", "");
   // If "FOOTNOTES" in all caps is in the text, convert it to lower case
   processedText = processedText.replace("FOOTNOTES", "Footnotes");
+  // Get footnote values for use in tooltips.
+  const footnotes = extractFootnotes(processedText);
+  // Remove footnotes from answer body.
+  const footnoteHeaderStart = processedText.search(FOOTNOTE_HEADER_PATTERN);
+  if (footnoteHeaderStart > 0) {
+    processedText = processedText.substring(0, footnoteHeaderStart);
+  }
+
   processedText = processedText.replace(
     // Replace [__DC__#1(dc stat text||llm stat text)] to
     // dc stat text||llm stat text with html and css annotations.
@@ -70,52 +80,88 @@ export const processText = (text: string, calls?: DcCalls): string => {
     (_, callId, content) => {
       // Split the second capturing group by "||"
       const parts = content.split("||");
-      let dcStat: string;
-      let llmStat: string;
-      if (parts.length === 2) {
-        dcStat = parts[0];
-        llmStat = parts[1];
-      } else {
-        llmStat = parts[0];
-      }
+      const llmStat: string = parts.length === 2 ? parts[1] : parts[0];
 
       let innerHtml = "";
-      innerHtml += `<span class="llm-stat">${llmStat || LONG_SPACES}</span>`;
-      let annotationClasses = `annotation annotation-${callId}`;
+      innerHtml += `<span class="llm-stat">${
+        llmStat || LONG_SPACES
+      }<span class="material-icons-outlined">fact_check</span></span>`;
+      let annotationClasses = `annotation annotation-${callId} inline-stat`;
 
-      const hasDcStat = dcStat?.trim().length > 0;
-      if (hasDcStat) {
-        innerHtml += getTooltipHtml(dcStat, callId, calls);
-      } else {
+      const hasDcStat: boolean = calls && !!calls[callId]?.dcStat;
+      innerHtml += getTooltipHtml(hasDcStat, callId, footnotes, calls);
+      if (!hasDcStat) {
         annotationClasses += " annotation-no-dc-stat";
       }
 
       return `<span class="${annotationClasses}">${innerHtml}</span>`;
     }
   );
-  // Replace each link with the desired HTML format
-  return processedText.replace(
-    HTTP_PATTERN,
-    (match) => `<a href="${match}" target="_blank">Explore Page</a><br> `
-  );
+  return processedText;
 };
 
 function getTooltipHtml(
-  dcStat: string,
+  hasDcStat: boolean,
   callId: string,
+  footnotes: Map<string, Footnote>,
   calls?: DcCalls
 ): string {
-  let dcResponse = "";
-  if (calls) {
-    dcResponse = calls[callId]?.dcResponse || "";
+  let valueText = "",
+    linkHtml = "";
+  if (hasDcStat) {
+    const call = calls[callId];
+    valueText = call.dcStat;
+    if (call.dcResponse) {
+      valueText += ` - ${call.dcResponse}`;
+    }
+    if (valueText && footnotes.has(callId)) {
+      const footnote = footnotes.get(callId);
+      valueText += `; [REF] ${footnote.source} (${footnote.year})`;
+      linkHtml =
+        `<div class="dc-stat-tooltip-link">` +
+        `<a target="_blank" href="${footnote.link}">View more on Data Commons</a>` +
+        `</div>`;
+    }
+  } else {
+    valueText = "No reference found or available on Data Commons.";
   }
+
   return (
-    `<span class="dc-stat-tooltip">` +
-    `<span class="dc-stat-tooltip-value">${dcStat}</span>` +
-    `<br/>` +
-    `<span class="dc-stat-tooltip-label">${dcResponse}</span>` +
-    `</span>`
+    `<div class="dc-stat-tooltip">` +
+    `<div class="dc-stat-tooltip-title">Data Commons · Fact Check</div>` +
+    `<div class="dc-stat-tooltip-value">` +
+    valueText +
+    `</div>` +
+    linkHtml +
+    `</div>`
   );
+}
+
+interface Footnote {
+  source: string;
+  year: string;
+  link: string;
+}
+
+/**
+ * For each DC call that has a footnote, extracts the footnote components into
+ * an object. Returns a map of DC call ID to footnote data object.
+ */
+function extractFootnotes(text: string): Map<string, Footnote> {
+  const result = new Map();
+  const headerLocation = text.search(FOOTNOTE_HEADER_PATTERN);
+  if (headerLocation < 0) return result;
+  const rawNotes = text.substring(headerLocation).matchAll(FOOTNOTE_PATTERN);
+  for (const note of rawNotes) {
+    const key = note[1];
+    const value = {
+      source: note[2],
+      year: note[3],
+      link: note[4],
+    };
+    result.set(key, value);
+  }
+  return result;
 }
 
 export function processTableText(text: string): string {
