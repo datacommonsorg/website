@@ -233,7 +233,7 @@ def register_routes_common(app):
   app.register_blueprint(oembed.bp)
 
 
-def create_app():
+def create_app(nl_root=DEFAULT_NL_ROOT):
   app = Flask(__name__, static_folder='dist', static_url_path='')
 
   cfg = lib_config.get_config()
@@ -262,7 +262,8 @@ def create_app():
     raise Exception(
         'Set environment variable DC_API_KEY for local custom DC development')
 
-  app.config['NL_ROOT'] = os.environ.get("NL_SERVICE_ROOT_URL", DEFAULT_NL_ROOT)
+  # Use NL_SERVICE_ROOT if it's set, otherwise use nl_root argument
+  app.config['NL_ROOT'] = os.environ.get("NL_SERVICE_ROOT_URL", nl_root)
   app.config['ENABLE_ADMIN'] = os.environ.get('ENABLE_ADMIN', '') == 'true'
 
   lib_cache.cache.init_app(app)
