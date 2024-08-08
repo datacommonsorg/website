@@ -24,6 +24,7 @@ import React, { MutableRefObject, useRef } from "react";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { INITIAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
+import { IconPlaceholder } from "../../shared/components";
 import { StatVarSpec } from "../../shared/types";
 import {
   formatString,
@@ -53,8 +54,8 @@ interface ChartTileContainerProp {
   isInitialLoading?: boolean;
   // Object used for the explore link
   exploreLink?: { displayText: string; url: string };
-  // Whether or not there is an error message in the chart.
-  hasErrorMsg?: boolean;
+  // Optional: Error message
+  errorMsg?: string;
   // Text to show in footer
   footnote?: string;
   // Subtitle text
@@ -65,6 +66,8 @@ interface ChartTileContainerProp {
   apiRoot?: string;
   // Optional ref for tile container element
   forwardRef?: MutableRefObject<HTMLDivElement | null>;
+  // Optional: Chart height
+  chartHeight?: number;
 }
 
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
@@ -74,9 +77,9 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
   const title = !props.isInitialLoading
     ? getChartTitle(props.title, props.replacementStrings)
     : "";
-  const showSources = !_.isEmpty(props.sources) && !props.hasErrorMsg;
+  const showSources = !_.isEmpty(props.sources) && !props.errorMsg;
   const showEmbed =
-    props.allowEmbed && !props.isInitialLoading && !props.hasErrorMsg;
+    props.allowEmbed && !props.isInitialLoading && !props.errorMsg;
   return (
     <div
       className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS} ${
@@ -92,6 +95,7 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
         ref={props.forwardRef}
       >
         <div className="chart-headers">
+          {props.errorMsg && <h4 className="text-danger">{props.errorMsg}</h4>}
           <LoadingHeader isLoading={props.isLoading} title={title} />
           <slot name="subheader" {...{ part: "subheader" }}>
             {props.subtitle && !props.isInitialLoading ? (
@@ -107,6 +111,9 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
             />
           )}
         </div>
+        {props.errorMsg && (
+          <IconPlaceholder height={props.chartHeight} iconName="warning" />
+        )}
         {props.children}
       </div>
       <ChartFooter

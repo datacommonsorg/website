@@ -628,14 +628,12 @@ Coverage of protected areas in relation to marine areas,dc/topic/sdg_14.5.1
 "Coverage of treatment interventions (pharmacological, psychosocial and rehabilitation and aftercare services) for substance use disorders",dc/topic/sdg_3.5.1
 Crime,dc/topic/Crime
 Cyclone,dc/topic/Cyclone
-DALY causes,dc/topic/WHODALYByCauses
 Data related to agriculture,dc/topic/Agriculture
 Death,dc/topic/Mortality
 Death rate due to road traffic injuries,dc/topic/sdg_3.6.1
 Deaths,Count_Death_AsAFractionOfCount_Person
 Deaths among children,dc/topic/WHOChildMortality
 Deaths among mothers,dc/topic/WHOMaternalMortality
-Deaths due to non communicable disease,dc/topic/WHONonCommunicableDiseaseDeaths
 Deaths from Drownings,WHO/SA_0000001441
 Deaths from Falls,WHO/SA_0000001442
 Deaths from Fires,WHO/SA_0000001443
@@ -903,14 +901,14 @@ Hard Coal Consumption,Annual_Consumption_Fuel_HardCoal
 Hate Crimes,dc/topic/HateCrimes
 Having Health Insurance by gender,dc/topic/WithHealthInsuranceByGender
 Having Health Insurance by race,dc/topic/WithHealthInsuranceByRace
-Health,dc/topic/GlobalHealth;dc/topic/Health
+Health,dc/topic/Health
 Health Insurance,dc/topic/HealthInsurance
 Health Insurance types,dc/topic/HealthInsuranceType
 Health Worker Density,dc/topic/HealthWorkerDensity
 Health behavior,dc/topic/HealthBehavior
-Health behaviors,dc/topic/HealthBehavior;dc/topic/WHOHealthBehavior
+Health behaviors,dc/topic/HealthBehavior
 Health behaviors WHO,dc/topic/WHOHealthBehavior
-Health conditions,dc/topic/GlobalHealth;dc/topic/HealthConditions
+Health conditions,dc/topic/HealthConditions
 Health equity,dc/topic/HealthEquity
 Health insurance by types,dc/topic/HealthInsuranceType
 Health worker density and distribution,dc/topic/sdg_3.c.1
@@ -1273,7 +1271,7 @@ Natural Gas consumption by Textile And Leather Industry,Annual_Consumption_Fuel_
 Natural Gas consumption by Transport Equipment Industry,Annual_Consumption_Fuel_TransportEquipmentIndustry_NaturalGas
 Natural Gas consumption by Transport Industry,Annual_Consumption_Fuel_TransportIndustry_NaturalGas
 Natural Gas consumption by Wood And Wood Products Industry,Annual_Consumption_Fuel_WoodAndWoodProductsIndustry_NaturalGas
-Neglected Tropical Diseases,dc/topic/NeglectedTropicalDiseases;dc/topic/WHONeglectedTropicalDiseases
+Neglected Tropical Diseases,dc/topic/NeglectedTropicalDiseases
 Neonatal mortality rate,dc/topic/sdg_3.2.2
 "Net official development assistance, total and to least developed countries, as a proportion of the Organization for Economic Cooperation and Development (OECD) Development Assistance Committee donors’ gross national income (GNI)",dc/topic/sdg_17.2.1
 Never Married Female Population By Age,dc/topic/NeverMarriedFemalePopulationByAge
@@ -3372,6 +3370,19 @@ Withdrawal Rate of Water used for public supply,WithdrawalRate_Water_PublicSuppl
 Work Commute,dc/topic/WorkCommute
 Work Occupations,dc/topic/Jobs
 Work commute,dc/topic/WorkCommute
+World Child Immunization,dc/topic/WHOChildImmunization
+World Child Immunization by gender,dc/topic/WHOChildImmunizationsByGender
+World Child Immunization by urban or rural,dc/topic/WHOChildImmunizationsByUrbanRural
+World Childen with Non Communicable Diseases,dc/topic/WHOChildrenNonCommunicableDiseases
+World DALY causes,dc/topic/WHODALYByCauses
+World Economic Activity,dc/topic/GlobalEconomicActivity
+World Health,dc/topic/GlobalHealth
+World Health behaviors,dc/topic/WHOHealthBehavior
+World Health conditions,dc/topic/GlobalHealth
+World Immunizations,dc/topic/WHOImmunization
+World Neglected Tropical Diseases,dc/topic/WHONeglectedTropicalDiseases
+World Non communicable disease deaths,dc/topic/WHONonCommunicableDiseaseDeaths
+World Non communicable diseases,dc/topic/WHONonCommunicableDiseases
 Worldwide weighted tariff-average,dc/topic/sdg_17.10.1
 about income,dc/topic/Income
 acces to credit for industries,dc/topic/sdg_9.3.2
@@ -4039,6 +4050,7 @@ death among infants,dc/topic/InfantMortality
 deaths among those in jail,dc/topic/MortalityAmongIncarcerated
 deaths by race,dc/topic/MortalityByRace
 deaths due to Intentional Self Harm,Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person
+deaths due to non communicable disease,dc/topic/WHONonCommunicableDiseaseDeaths
 deaths of incarcerated,dc/topic/MortalityAmongIncarcerated
 decadal projected max temperature,dc/topic/DecadeProjectedTemperatureHighs
 decadal projected min temperature,dc/topic/DecadeProjectedTemperatureLows
@@ -4161,7 +4173,9 @@ hard coal reserve,Annual_Reserves_Fuel_HardCoal
 harvest loss,dc/topic/sdg_12.3
 harvest wastage,dc/topic/sdg_12.3
 harvest waste,dc/topic/sdg_12.3
+health conditions in the world,dc/topic/GlobalHealth
 health expenses,dc/topic/HealthcareExpenditure
+health in the world,dc/topic/GlobalHealth
 health insurance private type,dc/topic/PrivateHealthInsuranceType
 health insurance public type,dc/topic/PublicHealthInsuranceType
 health of mothers,dc/topic/MaternalHealth

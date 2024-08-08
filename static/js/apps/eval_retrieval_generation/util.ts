@@ -46,10 +46,11 @@ import {
 
 const HTTP_PATTERN = /https:\/\/[^\s]+/g;
 const LONG_SPACES = "&nbsp;&nbsp;&nbsp;&nbsp;";
-const TABLE_DIVIDER_PATTERN = /[--][-]+/g;
-// table headers are sometimes country names so there can be symbols used like
-// in "Côte d'Ivoire".
-const TABLE_HEADER_TEXT_PATTERN = /[\w'ô[\]ãéí\s°()%:-\\,\\₂]+/g;
+// Assume a sequence of three or more dashes is the table divider.
+const TABLE_DIVIDER_PATTERN = /[-]{3,}/g;
+// Assume any sequence of 1 or more characters that are not pipes is a table
+// header value.
+const TABLE_HEADER_TEXT_PATTERN = /[^|]+/g;
 
 // Map from sheet name to column name to column index
 type HeaderInfo = Record<string, Record<string, number>>;

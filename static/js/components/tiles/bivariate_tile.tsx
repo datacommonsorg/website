@@ -47,13 +47,13 @@ import { getSeriesWithin } from "../../utils/data_fetch_utils";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import {
+  clearContainer,
   getDenomInfo,
   getFirstCappedStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarName,
   ReplacementStrings,
-  showError,
   transformCsvHeader,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
@@ -144,7 +144,7 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
       getDataCsv={getDataCsvCallback(props)}
       isInitialLoading={_.isNull(bivariateChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
-      hasErrorMsg={bivariateChartData && !!bivariateChartData.errorMsg}
+      errorMsg={bivariateChartData && bivariateChartData.errorMsg}
       statVarSpecs={props.statVarSpec}
       forwardRef={containerRef}
     >
@@ -152,7 +152,13 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
         id={props.id}
         className="bivariate-svg-container"
         ref={svgContainer}
-        style={{ minHeight: props.svgChartHeight }}
+        style={{
+          minHeight: props.svgChartHeight,
+          display:
+            bivariateChartData && bivariateChartData.errorMsg
+              ? "none"
+              : "block",
+        }}
       />
       <div id="bivariate-legend-container" ref={legend} />
     </ChartTileContainer>
@@ -396,7 +402,7 @@ function draw(
   legend: React.RefObject<HTMLDivElement>
 ): void {
   if (chartData.errorMsg) {
-    showError(chartData.errorMsg, svgContainer.current);
+    clearContainer(svgContainer.current);
     return;
   }
   const width = svgContainer.current.offsetWidth;

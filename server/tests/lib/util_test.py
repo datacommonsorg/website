@@ -1743,3 +1743,30 @@ class TestFetchHighestCoverage(unittest.TestCase):
     # In this case 2019 has the highest overall coverage (155 observations for who/Var1 + 175 observations for who/Var2)
     mock_point_within_core.assert_called_with(parent_entity, child_type,
                                               variables, "2019", False, None)
+
+  @patch('server.lib.fetch.point_within_core')
+  @patch('server.services.datacommons.get_series_dates')
+  def test_fetch_highest_coverage_with_no_observation_dates(
+      self, mock_get_series_dates, mock_point_within_core):
+    variables = ['who/Var1', 'who/Var2']
+    parent_entity = 'Earth'
+    child_type = 'Country'
+    mock_series_dates_response = {
+        "datesByVariable": [{
+            "variable": "who/Var1"
+        }, {
+            "variable": "who/Var2"
+        }]
+    }
+
+    mock_get_series_dates.return_value = mock_series_dates_response
+
+    expected_output = {"data": {"who/Var1": {}, "who/Var2": {}}, "facets": {}}
+
+    result = lib_util.fetch_highest_coverage(variables=variables,
+                                             all_facets=False,
+                                             parent_entity=parent_entity,
+                                             child_type=child_type)
+    # In this case, there is no highest coverage date, so expect and empty
+    # response
+    self.assertEqual(result, expected_output)
