@@ -22,6 +22,17 @@ interface TestCase {
   expected: string;
 }
 
+const FACT_CHECK_ICON_HTML =
+  '<span class="material-icons-outlined">fact_check</span>';
+
+const DISCLAIMER_TOOLTIP_HTML =
+  '<div class="dc-stat-tooltip">' +
+  '<div class="dc-stat-tooltip-title">Data Commons · Fact Check</div>' +
+  '<div class="dc-stat-tooltip-value">' +
+  "No reference found or available on Data Commons." +
+  "</div>" +
+  "</div>";
+
 test("processText", () => {
   // TODO pass calls too
 
@@ -34,16 +45,54 @@ test("processText", () => {
       calls: {
         "1": {
           dcResponse: "Median Household Income in United States",
+          dcStat: "116068 USD",
         },
       } as unknown as DcCalls,
       expected:
         "Median household income:** " +
-        '<span class="annotation annotation-1">' +
-        '<span class="llm-stat"> $98,588</span>' +
-        '<span class="dc-stat-tooltip">' +
-        '<span class="dc-stat-tooltip-value">116068 USD [1]* </span><br/>' +
-        '<span class="dc-stat-tooltip-label">Median Household Income in United States</span>' +
+        '<span class="annotation annotation-1 inline-stat">' +
+        '<span class="llm-stat"> $98,588' +
+        FACT_CHECK_ICON_HTML +
         "</span>" +
+        '<div class="dc-stat-tooltip">' +
+        '<div class="dc-stat-tooltip-title">Data Commons · Fact Check</div>' +
+        '<div class="dc-stat-tooltip-value">' +
+        "116068 USD - Median Household Income in United States" +
+        "</div>" +
+        "</div>" +
+        "</span>",
+    },
+
+    // DC stat and DC response, plus footnote in input
+    // -> inline DC stat plus DC stat tooltip with footnote info
+    {
+      input:
+        "Median household income:** [__DC__#1(116068 USD [1]* || $98,588)]" +
+        "\n ### FOOTNOTES ### \n[1] - Per census.gov, value was 116068 USD in 2021. " +
+        "See more at datacommons.org/something",
+      calls: {
+        "1": {
+          dcResponse: "Median Household Income in United States",
+          dcStat: "116068 USD",
+        },
+      } as unknown as DcCalls,
+      expected:
+        "Median household income:** " +
+        '<span class="annotation annotation-1 inline-stat">' +
+        '<span class="llm-stat"> $98,588' +
+        FACT_CHECK_ICON_HTML +
+        "</span>" +
+        '<div class="dc-stat-tooltip">' +
+        '<div class="dc-stat-tooltip-title">Data Commons · Fact Check</div>' +
+        '<div class="dc-stat-tooltip-value">' +
+        "116068 USD - Median Household Income in United States; [REF] census.gov (2021)" +
+        "</div>" +
+        '<div class="dc-stat-tooltip-link">' +
+        '<a target="_blank" href="datacommons.org/something">' +
+        "View more on Data Commons" +
+        "</a>" +
+        "</div>" +
+        "</div>" +
         "</span>",
     },
 
@@ -55,58 +104,60 @@ test("processText", () => {
       calls: {
         "2": {
           dcResponse: "",
+          dcStat: "128184 Infl. adj. USD (CY)",
         },
       } as unknown as DcCalls,
       expected:
         "Average household income:** " +
-        '<span class="annotation annotation-2">' +
-        '<span class="llm-stat"> $108,748</span>' +
-        '<span class="dc-stat-tooltip">' +
-        '<span class="dc-stat-tooltip-value">128184 Infl. adj. USD (CY) [2]* </span><br/>' +
-        '<span class="dc-stat-tooltip-label"></span>' +
+        '<span class="annotation annotation-2 inline-stat">' +
+        '<span class="llm-stat"> $108,748' +
+        FACT_CHECK_ICON_HTML +
         "</span>" +
+        '<div class="dc-stat-tooltip">' +
+        '<div class="dc-stat-tooltip-title">Data Commons · Fact Check</div>' +
+        '<div class="dc-stat-tooltip-value">128184 Infl. adj. USD (CY)</div>' +
+        "</div>" +
         "</span>",
     },
 
     // DC stat but no call info for this call ID
-    // -> tooltip with stat only (empty label)
+    // -> disclaimer tooltip (since DC stat is taken from calls only)
     {
       input:
         "Average household income:** [__DC__#2(128184 Infl. adj. USD (CY) [2]* || $108,748)]",
       calls: {
         "1": {
           dcResponse: "mismatched",
+          dcStat: "128184 Infl. adj. USD (CY)",
         },
       } as unknown as DcCalls,
       expected:
         "Average household income:** " +
-        '<span class="annotation annotation-2">' +
-        '<span class="llm-stat"> $108,748</span>' +
-        '<span class="dc-stat-tooltip">' +
-        '<span class="dc-stat-tooltip-value">128184 Infl. adj. USD (CY) [2]* </span><br/>' +
-        '<span class="dc-stat-tooltip-label"></span>' +
+        '<span class="annotation annotation-2 inline-stat annotation-no-dc-stat">' +
+        '<span class="llm-stat"> $108,748' +
+        FACT_CHECK_ICON_HTML +
         "</span>" +
+        DISCLAIMER_TOOLTIP_HTML +
         "</span>",
     },
 
     // DC stat but no call info for any calls
-    // -> tooltip with stat only (empty label)
+    // -> disclaimer tooltip (since DC stat is taken from calls only)
     {
       input:
         "Average household income:** [__DC__#2(128184 Infl. adj. USD (CY) [2]* || $108,748)]",
       expected:
         "Average household income:** " +
-        '<span class="annotation annotation-2">' +
-        '<span class="llm-stat"> $108,748</span>' +
-        '<span class="dc-stat-tooltip">' +
-        '<span class="dc-stat-tooltip-value">128184 Infl. adj. USD (CY) [2]* </span><br/>' +
-        '<span class="dc-stat-tooltip-label"></span>' +
+        '<span class="annotation annotation-2 inline-stat annotation-no-dc-stat">' +
+        '<span class="llm-stat"> $108,748' +
+        FACT_CHECK_ICON_HTML +
         "</span>" +
+        DISCLAIMER_TOOLTIP_HTML +
         "</span>",
     },
 
     // Empty DC stats
-    // -> no tooltips
+    // -> disclaimer tooltips
     {
       input:
         "the amount of new credit issued increasing from [__DC__#1($1.8 trillion)] " +
@@ -114,20 +165,31 @@ test("processText", () => {
         "[__DC__#3(133%)] increase over the past two decades",
       expected:
         "the amount of new credit issued increasing from " +
-        '<span class="annotation annotation-1 annotation-no-dc-stat">' +
-        '<span class="llm-stat">$1.8 trillion</span>' +
+        '<span class="annotation annotation-1 inline-stat annotation-no-dc-stat">' +
+        '<span class="llm-stat">$1.8 trillion' +
+        FACT_CHECK_ICON_HTML +
+        "</span>" +
+        DISCLAIMER_TOOLTIP_HTML +
         "</span>" +
         " to " +
-        '<span class="annotation annotation-2 annotation-no-dc-stat">' +
-        '<span class="llm-stat">$27 trillion</span></span>' +
+        '<span class="annotation annotation-2 inline-stat annotation-no-dc-stat">' +
+        '<span class="llm-stat">$27 trillion' +
+        FACT_CHECK_ICON_HTML +
+        "</span>" +
+        DISCLAIMER_TOOLTIP_HTML +
+        "</span>" +
         " in 2023. This represents a " +
-        '<span class="annotation annotation-3 annotation-no-dc-stat">' +
-        '<span class="llm-stat">133%</span></span>' +
+        '<span class="annotation annotation-3 inline-stat annotation-no-dc-stat">' +
+        '<span class="llm-stat">133%' +
+        FACT_CHECK_ICON_HTML +
+        "</span>" +
+        DISCLAIMER_TOOLTIP_HTML +
+        "</span>" +
         " increase over the past two decades",
     },
 
     // Empty DC stat, non-empty DC response
-    // -> no tooltip
+    // -> disclaimer tooltip
     {
       input: "China ([__DC__#1(245 billion kWh)])",
       calls: {
@@ -137,8 +199,11 @@ test("processText", () => {
       } as unknown as DcCalls,
       expected:
         "China (" +
-        '<span class="annotation annotation-1 annotation-no-dc-stat">' +
-        '<span class="llm-stat">245 billion kWh</span>' +
+        '<span class="annotation annotation-1 inline-stat annotation-no-dc-stat">' +
+        '<span class="llm-stat">245 billion kWh' +
+        FACT_CHECK_ICON_HTML +
+        "</span>" +
+        DISCLAIMER_TOOLTIP_HTML +
         "</span>" +
         ")",
     },

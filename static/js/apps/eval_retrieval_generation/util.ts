@@ -51,6 +51,7 @@ const TABLE_DIVIDER_PATTERN = /[-]{3,}/g;
 // Assume any sequence of 1 or more characters that are not pipes is a table
 // header value.
 const TABLE_HEADER_TEXT_PATTERN = /[^|]+/g;
+const FOOTNOTE_HEADER_PATTERN = /\n[^\n]+Footnotes[^\n]+/g;
 
 // Map from sheet name to column name to column index
 type HeaderInfo = Record<string, Record<string, number>>;
@@ -65,6 +66,11 @@ export const processText = (text: string, calls?: DcCalls): string => {
   processedText = processedText.replace("FOOTNOTES", "Footnotes");
   // Get footnote values for use in tooltips.
   const footnotes = extractFootnotes(processedText);
+  // Remove footnotes from answer body.
+  const footnoteHeaderStart = processedText.search(FOOTNOTE_HEADER_PATTERN);
+  if (footnoteHeaderStart > 0) {
+    processedText = processedText.substring(0, footnoteHeaderStart);
+  }
   // Replace each link with the desired HTML format
   processedText = processedText.replace(
     HTTP_PATTERN,
