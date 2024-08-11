@@ -112,7 +112,7 @@ WORKDIR /workspace/static
 RUN npm run-script build
 
 
-# #### Stage 3: Download base dc model and embeddings from GCS. ####
+# #### Stage 4: Download base dc model and embeddings from GCS. ####
 FROM --platform=linux/amd64 google/cloud-sdk:slim as download
 
 # Copy model and embeddings.
