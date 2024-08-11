@@ -71,21 +71,21 @@ nginx -c /workspace/nginx.conf
 
 envoy -l warning --config-path /workspace/esp/envoy-config.yaml &
 
-# if [[ $DEBUG == "true" ]] then
-#     if [[ $ENABLE_MODEL == "true" ]] then
-#         echo "Starting NL Server in debug mode."
-#         python3 nl_app.py 6060 &
-#     fi
-#     echo "Starting Website Server in debug mode."
-#     python3 web_app.py 7070 &
-# else
-#     if [[ $ENABLE_MODEL == "true" ]] then
-#         echo "Starting NL Server."
-#         gunicorn --log-level info --preload --timeout 1000 --bind 0.0.0.0:6060 -w 1 nl_app:app &
-#     fi
-#     echo "Starting Website Server."
-#     gunicorn --log-level info --preload --timeout 1000 --bind 0.0.0.0:7070 -w 4 web_app:app &
-# fi
+if [[ $DEBUG == "true" ]] then
+    if [[ $ENABLE_MODEL == "true" ]] then
+        echo "Starting NL Server in debug mode."
+        python3 nl_app.py 6060 &
+    fi
+    echo "Starting Website Server in debug mode."
+    python3 web_app.py 7070 &
+else
+    if [[ $ENABLE_MODEL == "true" ]] then
+        echo "Starting NL Server."
+        gunicorn --log-level info --preload --timeout 1000 --bind 0.0.0.0:6060 -w 1 nl_app:app &
+    fi
+    echo "Starting Website Server."
+    gunicorn --log-level info --preload --timeout 1000 --bind 0.0.0.0:7070 -w 4 web_app:app &
+fi
 
 # Wait for any process to exit
 wait
