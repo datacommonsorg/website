@@ -53,6 +53,9 @@ const TABLE_HEADER_TEXT_PATTERN = /[^|]+/g;
 const FOOTNOTE_HEADER_PATTERN = /\n[^\n]+Footnotes[^\n]+/g;
 const FOOTNOTE_PATTERN =
   /\[(\d+)\] - Per ([^\n]+), value was [^\n]+ in (\d+)\. See more at ([^\n]+)/g;
+// DC stats in an answer should look like: [__DC__#1(dc stat text||llm stat text)]
+const DC_STAT_PATTERN = /\[\s*__DC__#(\d+)\((.*?)\)\]/g;
+const DC_HTTP_PATTERN = /https:\/\/datacommons[^\s]+/g;
 
 // Map from sheet name to column name to column index
 type HeaderInfo = Record<string, Record<string, number>>;
@@ -67,16 +70,26 @@ export const processText = (text: string, calls?: DcCalls): string => {
   processedText = processedText.replace("FOOTNOTES", "Footnotes");
   // Get footnote values for use in tooltips.
   const footnotes = extractFootnotes(processedText);
-  // Remove footnotes from answer body.
-  const footnoteHeaderStart = processedText.search(FOOTNOTE_HEADER_PATTERN);
-  if (footnoteHeaderStart > 0) {
-    processedText = processedText.substring(0, footnoteHeaderStart);
+  // Remove footnotes from answer body only if DC_STAT_PATTERN is there because
+  // in those cases, footnote information will be in the tooltip.
+  const shouldRemoveFootnotes = processedText.search(DC_STAT_PATTERN) >= 0;
+  if (shouldRemoveFootnotes) {
+    const footnoteHeaderStart = processedText.search(FOOTNOTE_HEADER_PATTERN);
+    if (footnoteHeaderStart > 0) {
+      processedText = processedText.substring(0, footnoteHeaderStart);
+    }
+  } else {
+    // if keeping footnotes, format the links in the footnotes
+    processedText = processedText.replace(
+      DC_HTTP_PATTERN,
+      (match) => `<a href="${match}" target="_blank">Explore Page</a><br> `
+    );
   }
 
   processedText = processedText.replace(
     // Replace [__DC__#1(dc stat text||llm stat text)] to
     // dc stat text||llm stat text with html and css annotations.
-    /\[\s*__DC__#(\d+)\((.*?)\)\]/g,
+    DC_STAT_PATTERN,
     (_, callId, content) => {
       // Split the second capturing group by "||"
       const parts = content.split("||");
