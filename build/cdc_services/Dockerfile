@@ -48,13 +48,91 @@ RUN protoc \
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o bin/mixer cmd/main.go
 
 
-# #### Final stage: Runtime env. ####
-FROM gcr.io/datcom-ci/datacommons-services-runtime:2024-08-06 as runner
+# #### Stage 2: Build python servers (website and NL). ####
+FROM --platform=linux/amd64 python:3.11.4-slim as py-servers
 
-# Env that should not change
+ARG PIP_DISABLE_PIP_VERSION_CHECK=1
+ARG PIP_NO_CACHE_DIR=1
+
+WORKDIR /workspace
+
+# Copy requirements.
+# Copy nl_requirements.txt since it is referenced by embeddings requirements.txt
+COPY server/requirements.txt ./server/requirements.txt
+COPY nl_server/requirements.txt ./nl_server/requirements.txt
+COPY nl_requirements.txt ./nl_requirements.txt
+
+# Create a virtual env and install requirements.
+# Remove lancedb - it is not used by custom dc.
+RUN python -m venv ./venv
+ENV PATH="/workspace/venv/bin:$PATH"
+RUN pip3 install --upgrade pip setuptools \
+    && sed -i'' '/lancedb/d' /workspace/nl_requirements.txt \
+    && pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu \
+    && pip3 install --no-cache-dir -r /workspace/server/requirements.txt \
+    && pip3 install --no-cache-dir -r /workspace/nl_server/requirements.txt
+
+# Copy website app script.
+COPY web_app.py ./web_app.py
+# Copy server module.
+COPY server/. ./server/
+# Copy NL app script.
+COPY nl_app.py ./nl_app.py
+# Copy nl_server module.
+COPY nl_server/. ./nl_server/
+# Copy the shared module.
+COPY shared/. ./shared/
+# Copy yaml files.
+COPY deploy/nl/. /datacommons/nl/
+
+
+# #### Stage 3: Build static website assets. ####
+FROM --platform=linux/amd64 node:20 as static
+
+WORKDIR /workspace
+
+# Insall npm dependencies.
+COPY packages/web-components/package.json ./packages/web-components/package.json
+COPY packages/web-components/package-lock.json ./packages/web-components/package-lock.json
+
+COPY packages/client/package.json ./packages/client/package.json
+COPY packages/client/package-lock.json ./packages/client/package-lock.json
+
+COPY static/package.json ./static/package.json
+COPY static/package-lock.json ./static/package-lock.json
+
+RUN npm --prefix /workspace/packages/web-components ci --omit=dev \
+    && npm --prefix /workspace/packages/client ci \
+    && npm --prefix /workspace/static ci --omit=dev
+
+# Build static assets.
+COPY packages/. ./packages/
+COPY static/. ./static/
+WORKDIR /workspace/static
+RUN npm run-script build
+
+
+# #### Stage 4: Download base dc model and embeddings from GCS. ####
+FROM --platform=linux/amd64 google/cloud-sdk:slim as download
+
+# Copy model and embeddings.
+RUN mkdir -p /tmp/datcom-nl-models \
+    && gsutil -m cp -R gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2/ /tmp/datcom-nl-models/ \
+    && gsutil cp -R gs://datcom-nl-models/embeddings_medium_2024_05_09_18_01_32.ft_final_v20230717230459.all-MiniLM-L6-v2.csv /tmp/datcom-nl-models/
+
+
+# #### Final stage: Runtime env. ####
+FROM gcr.io/datcom-ci/datacommons-services-runtime:2024-08-08 as runner
+
+# Env defaults.
 ENV WEBSITE_MIXER_API_ROOT=http://127.0.0.1:8081 \
     ENV_PREFIX=Compose \
-    ENABLE_ADMIN=true
+    ENABLE_ADMIN=false \
+    DEBUG=false \
+    USE_SQLITE=false \
+    USE_CLOUDSQL=false \
+    DC_API_ROOT=https://api.datacommons.org \
+    ENABLE_MODEL=false
 
 WORKDIR /workspace
 
@@ -66,9 +144,19 @@ COPY --from=mixer /workspace/internal/ internal
 COPY --from=mixer /workspace/mixer-grpc.pb .
 # nginx.
 COPY build/cdc_services/nginx.conf .
+# Website and NL servers.
+COPY --from=py-servers /workspace/ .
+COPY --from=py-servers /datacommons/ /datacommons
+# Static website assets.
+COPY --from=static /workspace/ .
+# Downloaded model and embeddings.
+COPY --from=download /tmp/datcom-nl-models /tmp/datcom-nl-models
 
 # Copy executable script.
 COPY --chmod=0755 build/cdc_services/run.sh .
+
+# Add virtual env to the path.
+ENV PATH="/workspace/venv/bin:$PATH"
 
 # Set the default command to run the script.
 CMD ./run.sh

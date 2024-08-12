@@ -18,17 +18,14 @@
 # - envoy
 # - nginx
 
-FROM python:3.11.4-slim as runner
+# Stage 1: envoy.
+FROM --platform=linux/amd64 envoyproxy/envoy:v1.31.0 as envoy
 
-RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get -y upgrade \
-    && apt update \
-    # Install envoy.
-    && apt install -y --no-install-recommends curl gpg debian-keyring debian-archive-keyring apt-transport-https lsb-release \
-    && curl -sL 'https://deb.dl.getenvoy.io/public/gpg.8115BA8E629CC074.key' | gpg --dearmor -o /usr/share/keyrings/getenvoy-keyring.gpg \
-    && echo a077cb587a1b622e03aa4bf2f3689de14658a9497a9af2c427bba5f4cc3c4723 /usr/share/keyrings/getenvoy-keyring.gpg | sha256sum --check \
-    && echo "deb [arch=amd64 signed-by=/usr/share/keyrings/getenvoy-keyring.gpg] https://deb.dl.getenvoy.io/public/deb/debian $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/getenvoy.list \
-    && apt update \
-    && apt install -y --no-install-recommends getenvoy-envoy \
-    # Install nginx.
-    && apt install -y --no-install-recommends nginx \
-    && rm -rf /var/lib/apt/lists/*
+# Final stage: final runtime.
+FROM --platform=linux/amd64 python:3.11.4-slim as runtime
+
+# Copy envoy.
+COPY --from=envoy /usr/local/bin/envoy /usr/local/bin/envoy
+
+# Install nginx.
+RUN apt-get update && apt-get -y upgrade && apt update && apt install -y nginx
