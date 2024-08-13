@@ -32,7 +32,7 @@ if [[ $image_label = "" ]]; then
 fi
 
 # Build a new image and push it to Container Registry, tagging it as latest
-docker build -f build/cdc_services/Dockerfile \
+DOCKER_BUILDKIT=1 docker build -f build/cdc_services/Dockerfile \
   --tag "gcr.io/datcom-ci/datacommons-services:${image_label}" \
   --tag gcr.io/datcom-ci/datacommons-services:latest \
   .
