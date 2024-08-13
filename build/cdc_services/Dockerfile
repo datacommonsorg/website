@@ -148,7 +148,7 @@ COPY build/cdc_services/nginx.conf .
 COPY --from=py-servers /workspace/ .
 COPY --from=py-servers /datacommons/ /datacommons
 # Static website assets.
-COPY --from=static /workspace/ .
+COPY --from=static /workspace/server ./server
 # Downloaded model and embeddings.
 COPY --from=download /tmp/datcom-nl-models /tmp/datcom-nl-models
 
