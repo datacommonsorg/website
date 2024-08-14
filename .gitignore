@@ -89,5 +89,14 @@ ft_final_v20230717230459.all-MiniLM-L6-v2/
 **/eval/**/result
 
 custom_dc/sample/datacommons/**
+custom_dc/data/*.db
 
 .cache/
+
+
+**/*.egg-info
+*.egg-info
+
+# CDC ignores
+build/cdc/dev/.env
+*.tfvars

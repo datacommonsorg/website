@@ -1,0 +1,2 @@
+project_id  = "your-gcp-project"
+namespace   = "your-namespace"
