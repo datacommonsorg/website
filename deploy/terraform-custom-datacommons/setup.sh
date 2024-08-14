@@ -49,13 +49,18 @@ gcloud config set project $PROJECT_ID
 
 # Enable APIs
 REQUIRED_APIS=(
-    "compute.googleapis.com"       # For Compute Engine and VPC networking
-    "redis.googleapis.com"         # For Google Cloud Memorystore (Redis)
-    "sqladmin.googleapis.com"      # For Cloud SQL
-    "storage.googleapis.com"       # For Google Cloud Storage
-    "run.googleapis.com"           # For Cloud Run
-    "vpcaccess.googleapis.com"     # For VPC Access for Cloud Run
-    "iam.googleapis.com"           # For IAM roles and service accounts
+    "compute.googleapis.com"              # For Compute Engine and VPC networking
+    "redis.googleapis.com"                # For Google Cloud Memorystore (Redis)
+    "sqladmin.googleapis.com"             # For Cloud SQL
+    "storage.googleapis.com"              # For Google Cloud Storage
+    "run.googleapis.com"                  # For Cloud Run
+    "vpcaccess.googleapis.com"            # For VPC Access for Cloud Run
+    "iam.googleapis.com"                  # For IAM roles and service accounts
+    "cloudresourcemanager.googleapis.com" # For IAM roles and service accounts
+    "secretmanager.googleapis.com"        # For creating secrets
+    "apikeys.googleapis.com"              # For creating api keys
+    "api.datacommons.org"                 # Data Commons API access
+    
 )
 # Enable each API
 for api in "${REQUIRED_APIS[@]}"; do

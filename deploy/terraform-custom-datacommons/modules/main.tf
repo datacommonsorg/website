@@ -24,14 +24,12 @@ provider "google" {
 # Reference the default VPC network
 data "google_compute_network" "default" {
   name = var.vpc_network_name
-  depends_on = [google_project_service.compute]
 }
 
 # Reference the default subnet in the specified region
 data "google_compute_subnetwork" "default_subnet" {
   name   = var.vpc_network_subnet_name
   region = var.region
-  depends_on = [google_project_service.compute]
 }
 
 # Create redis instance
@@ -86,9 +84,6 @@ resource "google_secret_manager_secret" "mysql_password" {
   replication {
     auto {}
   }
-  depends_on = [
-    google_project_service.secrets
-  ]
 }
 
 # Version the mysql password in the secrets manager
@@ -118,10 +113,18 @@ resource "google_storage_bucket" "dc_gcs_data_bucket" {
   uniform_bucket_level_access = true
 }
 
+# Generate a random suffix to append to api keys.
+# A deleted API key fully expires 30 days after deletion, and in the 30-day
+# window the ID remains taken. This suffix allows terraform to give API
+# keys a unique name if the stack is destroyed and rebuilt
+resource "random_id" "api_key_suffix" {
+  byte_length = 4
+}
+
 # Google Maps API key
 resource "google_apikeys_key" "maps_api_key" {
-  name         = "${var.namespace}-maps-api-key"
-  display_name = "${var.namespace}-maps-api-key"
+  name         = "${var.namespace}-maps-api-key-${random_id.api_key_suffix.hex}"
+  display_name = "${var.namespace}-maps-api-key-${random_id.api_key_suffix.hex}"
   project      = var.project_id
 
   restrictions {
@@ -132,20 +135,14 @@ resource "google_apikeys_key" "maps_api_key" {
       service = "places_backend"
     }
   }
-  depends_on = [
-    google_project_service.apikeys
-  ]
 }
 
 # Store maps api key in the secrets manager
 resource "google_secret_manager_secret" "maps_api_key" {
-  secret_id = "${var.namespace}-datacommons-maps-api-key"
+  secret_id = "${var.namespace}-datacommons-maps-api-key-${random_id.api_key_suffix.hex}"
   replication {
     auto {}
   }
-  depends_on = [
-    google_project_service.secrets
-  ]
 }
 
 # Version the maps api key in the secrets manager
@@ -156,8 +153,8 @@ resource "google_secret_manager_secret_version" "maps_api_key_version" {
 
 # Data Commons API key
 resource "google_apikeys_key" "datacommons_api_key" {
-  name         = "${var.namespace}-dc-api-key"
-  display_name = "${var.namespace}-dc-api-key"
+  name         = "${var.namespace}-dc-api-key-${random_id.api_key_suffix.hex}"
+  display_name = "${var.namespace}-dc-api-key-${random_id.api_key_suffix.hex}"
   project      = var.project_id
 
   restrictions {
@@ -165,20 +162,14 @@ resource "google_apikeys_key" "datacommons_api_key" {
       service = "api.datacommons.org"
     }
   }
-  depends_on = [
-    google_project_service.apikeys
-  ]
 }
 
 # Store Data Commons api key in the secrets manager
 resource "google_secret_manager_secret" "dc_api_key" {
-  secret_id = "${var.namespace}-datacommons-dc-api-key"
+  secret_id = "${var.namespace}-datacommons-dc-api-key-${random_id.api_key_suffix.hex}"
   replication {
     auto {}
   }
-  depends_on = [
-    google_project_service.secrets
-  ]
 }
 
 # Version the Data Commons api key in the secrets manager
@@ -209,19 +200,27 @@ resource "google_cloud_run_v2_service" "dc_web_service" {
         startup_cpu_boost = true
       }
 
-      env {
-        name  = "DC_API_KEY"
-        value_source {
-          secret_key_ref {
-            secret = google_secret_manager_secret.dc_api_key.secret_id
-            version  = "latest"
-          }
+      # Shared environment variables
+      dynamic "env" {
+        for_each = local.cloud_run_shared_env_variables
+        content {
+          name  = env.value.name
+          value = env.value.value
         }
       }
 
-      env {
-        name  = "USE_CLOUDSQL"
-        value = "true"
+      # Shared environment variables with secret refs
+      dynamic "env" {
+        for_each = local.cloud_run_shared_env_variable_secrets
+        content {
+          name  = env.value.name
+          value_source {
+            secret_key_ref {
+              secret = env.value.value_source.secret_key_ref.secret
+              version = env.value.value_source.secret_key_ref.version
+            }            
+          }
+        }
       }
 
       env {
@@ -245,43 +244,8 @@ resource "google_cloud_run_v2_service" "dc_web_service" {
       }
 
       env {
-        name  = "MAPS_API_KEY"
-        value_source {
-          secret_key_ref {
-            secret = google_secret_manager_secret.maps_api_key.secret_id
-            version  = "latest"
-          }
-        }
-      }
-
-      env {
         name  = "ENABLE_MODEL"
         value = "true"
-      }
-
-      env {
-        name  = "CLOUDSQL_INSTANCE"
-        value = google_sql_database_instance.mysql_instance.connection_name
-      }
-
-      env {
-        name = "DB_NAME"
-        value = var.mysql_database_name
-      }
-
-      env {
-        name  = "DB_USER"
-        value = var.mysql_user
-      }
-
-      env {
-        name  = "DB_PASS"
-        value_source {
-          secret_key_ref {
-            secret  = google_secret_manager_secret.mysql_password.secret_id
-            version = "latest"
-          }
-        }
       }
 
       env {
@@ -290,13 +254,13 @@ resource "google_cloud_run_v2_service" "dc_web_service" {
       }
 
       env {
-        name  = "GCS_DATA_PATH"
-        value = local.dc_gcs_data_bucket_path
-      }
-
-      env {
-        name  = "FORCE_RESTART"
-        value = "${timestamp()}"  # Add a dummy environment variable to force restart
+        name  = "MAPS_API_KEY"
+        value_source {
+          secret_key_ref {
+            secret = google_secret_manager_secret.maps_api_key.secret_id
+            version  = "latest"
+          }
+        }
       }
 
       startup_probe {
@@ -345,9 +309,9 @@ resource "google_cloud_run_v2_service" "dc_web_service" {
 
   depends_on = [
     google_sql_database_instance.mysql_instance,
-    google_secret_manager_secret.mysql_password,
-    google_secret_manager_secret.dc_api_key,
-    google_secret_manager_secret.maps_api_key,
+    google_secret_manager_secret_version.mysql_password_version,
+    google_secret_manager_secret_version.dc_api_key_version,
+    google_secret_manager_secret_version.maps_api_key_version,
   ]
 }
 
@@ -376,54 +340,32 @@ resource "google_cloud_run_v2_job" "dc_data_job" {
           }
         }
 
-        env {
-          name  = "USE_CLOUDSQL"
-          value = "true"
+        # Shared environment variables
+        dynamic "env" {
+          for_each = local.cloud_run_shared_env_variables
+          content { 
+            name  = env.value.name
+            value = env.value.value
+          }
         }
 
-        env {
-          name  = "DC_API_KEY"
-          value_source {
-            secret_key_ref {
-              secret = google_secret_manager_secret.dc_api_key.secret_id
-              version  = "latest"
+        # Shared environment variables with secret refs
+        dynamic "env" {
+          for_each = local.cloud_run_shared_env_variable_secrets
+          content {
+            name  = env.value.name
+            value_source {
+              secret_key_ref {
+                secret = env.value.value_source.secret_key_ref.secret
+                version = env.value.value_source.secret_key_ref.version
+              }            
             }
           }
         }
 
         env {
           name  = "INPUT_DIR"
-          value = "gs://${local.dc_gcs_data_bucket_path}/input"  # Fixed variable reference
-        }
-
-        env {
-          name  = "OUTPUT_DIR"
-          value = "gs://${local.dc_gcs_data_bucket_path}/output"  # Fixed variable reference
-        }
-
-        env {
-          name  = "CLOUDSQL_INSTANCE"
-          value = google_sql_database_instance.mysql_instance.connection_name
-        }
-
-        env {
-          name  = "DB_NAME"
-          value = var.mysql_database_name
-        }
-
-        env {
-          name  = "DB_USER"
-          value = var.mysql_user
-        }
-
-        env {
-          name  = "DB_PASS"
-          value_source {
-            secret_key_ref {
-              secret = google_secret_manager_secret.mysql_password.secret_id
-              version  = "latest"
-            }
-          }
+          value = "gs://${local.dc_gcs_data_bucket_path}/input"
         }
       }
       execution_environment = "EXECUTION_ENVIRONMENT_GEN2"
@@ -437,8 +379,8 @@ resource "google_cloud_run_v2_job" "dc_data_job" {
   }
 
   depends_on = [
-    google_secret_manager_secret.mysql_password,
-    google_secret_manager_secret.dc_api_key,
-    google_secret_manager_secret.maps_api_key
+    google_secret_manager_secret_version.mysql_password_version,
+    google_secret_manager_secret_version.dc_api_key_version,
+    google_secret_manager_secret_version.maps_api_key_version
   ]
 }

@@ -28,4 +28,56 @@ locals {
 
   # Use var.billing_project_id if set, otherwise use project_id for billing
   billing_project_id = var.billing_project_id != null ? var.billing_project_id : var.project_id
+
+  # Shared environment variables used by the Data Commons web service and the Data
+  # Commons data loading job
+  cloud_run_shared_env_variables = [
+    {
+      name  = "USE_CLOUDSQL"
+      value = "true"
+    },
+    {
+      name  = "CLOUDSQL_INSTANCE"
+      value = google_sql_database_instance.mysql_instance.connection_name
+    },
+    {
+      name  = "DB_NAME"
+      value = var.mysql_database_name
+    },
+    {
+      name  = "DB_USER"
+      value = var.mysql_user
+    },
+    {
+      name  = "OUTPUT_DIR"
+      value = "gs://${local.dc_gcs_data_bucket_path}/output"
+    },
+    {
+      name  = "FORCE_RESTART"
+      value = "${timestamp()}"
+    }
+  ]
+
+  # Shared environment variables containing secret refs used by the Data Commons
+  # web service and the Data Commons data loading job
+  cloud_run_shared_env_variable_secrets = [
+    {
+      name  = "DC_API_KEY"
+      value_source = {
+        secret_key_ref = {
+          secret = google_secret_manager_secret.dc_api_key.secret_id
+          version  = "latest"
+        }
+      }
+    },
+    {
+      name  = "DB_PASS"
+      value_source = {
+        secret_key_ref = {
+          secret  = google_secret_manager_secret.mysql_password.secret_id
+          version = "latest"
+        }
+      }
+    }
+  ]
 }
