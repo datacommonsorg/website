@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import os
 import unittest
 
 from selenium.webdriver.common.by import By
@@ -23,7 +24,12 @@ from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import wait_elem
 
 # From project datcom-website-dev > Cloud Run: dc-autopush > Revisions
-CDC_AUTOPUSH_URL = 'https://dc-autopush-kqb7thiuka-uc.a.run.app'
+DEFAULT_CDC_TEST_BASE_URL = 'https://dc-autopush-kqb7thiuka-uc.a.run.app'
+
+# Get base test url from the CDC_TEST_BASE_URL env variable, defaulting to DEFAULT_CDC_TEST_BASE_URL
+CDC_TEST_BASE_URL = os.environ.get('CDC_TEST_BASE_URL',
+                                   DEFAULT_CDC_TEST_BASE_URL)
+print(f'Running CDC tests against base URL: {CDC_TEST_BASE_URL}')
 
 
 class CdcAutopushWebdriverTest(unittest.TestCase):
@@ -33,7 +39,7 @@ class CdcAutopushWebdriverTest(unittest.TestCase):
     # Maximum time, in seconds, before throwing a TimeoutException.
     self.TIMEOUT_SEC = shared.TIMEOUT
     self.driver = create_driver(preferences)
-    self._base_url = CDC_AUTOPUSH_URL
+    self._base_url = CDC_TEST_BASE_URL
 
   def tearDown(self):
     """Runs at the end of every individual test."""
@@ -70,7 +76,7 @@ class CdcAutopushWebdriverTest(unittest.TestCase):
 class CdcAutopushNLTest(ExploreTest):
 
   def get_server_url(self):
-    return CDC_AUTOPUSH_URL
+    return CDC_TEST_BASE_URL
 
   def test_cdc_nl(self):
     self.run_detect_and_fulfill('cdc_nl', ['gender wage gap in europe'])
