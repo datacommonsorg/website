@@ -4,10 +4,28 @@
 
 Deploying a custom Data Commons instance on Google Cloud Platform (GCP) enables you to host and manage your own data while leveraging the power of Data Commons to enrich your datasets with publicly available information. This deployment is managed using Terraform, which automates the provisioning of infrastructure and services on GCP.
 
+## Features
+
+* Enables all required Google Cloud APIs
+* Creates Redis instance (optional)
+* Creates MySQL instance
+* Creates Data Commons Website service container in Cloud Run
+* Creates Data Commons Data task container in Cloud Run
+* Creates new service account with minimum required permissions
+* Automatically provisions required Data Commons API key. Stores key in GCP secrets container.
+* Automatically provisions required Data Commons API key. Stores key in GCP secrets container.
+* Generates random MySQL password and stores in GCP secrets container.
+
+## Architecture
+
+![Custom Data Commons Architecture](https://docs.datacommons.org/assets/images/custom_dc/customdc_setup3.png)
+
+
 ## Pre-requisites
 
-- **A Google Cloud Project**: You must have a GCP project where the custom Data Commons instance will be deployed.
-- **Terraform**: Ensure Terraform is installed on your local machine to manage the infrastructure as code.
+- **A [Google Cloud Project](https://cloud.google.com)**: You must have a GCP project where the custom Data Commons instance will be deployed.
+- **[gcloud](https://cloud.google.com/sdk/docs/install)**: Ensure gcloud is installed on your local machine for the initial environment setup.
+- **[Terraform](https://developer.hashicorp.com/terraform/install)**: Ensure Terraform is installed on your local machine to manage the infrastructure as code.
 
 ## Deployment Configuration Variables
 
@@ -23,6 +41,7 @@ Deployment configuration variable definitions are located in the `variables.tf` 
 Optional variables are defined in `variables.tf`. Notable ones include:
 
 - **region**: The GCP region where resources will be deployed. [View available regions](https://cloud.google.com/about/locations).
+- **redis_enabled**: Set to false to disable redis caching for the website.
 - **make_dc_web_service_public**: By default, the Data Commons web service is publicly accessible. Set this to `false` if your GCP account has restrictions on public access. [Reference](https://cloud.google.com/run/docs/authenticating/public).
 
 ## Deployment Instructions

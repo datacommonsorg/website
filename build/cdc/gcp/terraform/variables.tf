@@ -111,12 +111,6 @@ variable "redis_alternative_location_id" {
   default     = "us-central1-b"
 }
 
-variable "redis_reserved_ip_range" {
-  description = "Redis reserved IP range"
-  type        = string
-  default     = "10.0.0.0/29"
-}
-
 variable "redis_replica_count" {
   description = "Redis reserved IP range"
   type        = number
@@ -164,7 +158,7 @@ variable mysql_database_name {
 variable "mysql_user" {
   description = "The username for the MySQL instance"
   type        = string
-  default     = "root"
+  default     = "datacommons"
 }
 
 variable "mysql_deletion_protection" {
@@ -210,13 +204,11 @@ variable "dc_data_job_memory" {
   default     = "8G"
 }
 
-
 variable "dc_api_root" {
   description = "Data Commons API Root"
   type        = string
   default     = "https://api.datacommons.org"
 }
-
 
 variable "dc_gcs_data_bucket_path_override" {
   description = "[Optional] Set a custom GCS data bucket path"

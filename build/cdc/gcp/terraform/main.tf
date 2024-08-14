@@ -43,7 +43,6 @@ resource "google_redis_instance" "redis_instance" {
   region         = var.region
   location_id    = var.redis_location_id
   alternative_location_id = var.redis_alternative_location_id
-  reserved_ip_range = var.redis_reserved_ip_range
   authorized_network = data.google_compute_network.default.self_link
   replica_count = var.redis_replica_count
 }
@@ -75,9 +74,27 @@ resource "google_sql_database_instance" "mysql_instance" {
   deletion_protection = var.mysql_deletion_protection
 }
 
+# Generate random mysql password
 resource "random_password" "mysql_password" {
   length  = 16
   special = true
+}
+
+# Store password in the secrets manager
+resource "google_secret_manager_secret" "mysql_password" {
+  secret_id = "${var.namespace}-datacommons-mysql-password"
+  replication {
+    auto {}
+  }
+  depends_on = [
+    google_project_service.secrets
+  ]
+}
+
+# Version the mysql password in the secrets manager
+resource "google_secret_manager_secret_version" "mysql_password_version" {
+  secret      = google_secret_manager_secret.mysql_password.id
+  secret_data = random_password.mysql_password.result
 }
 
 resource "google_sql_database" "mysql_db" {
@@ -89,6 +106,7 @@ resource "google_sql_database" "mysql_db" {
 
 resource "google_sql_user" "mysql_user" {
   name     = var.mysql_user
+  host     = "%"
   instance = google_sql_database_instance.mysql_instance.name
   password = random_password.mysql_password.result
 }
@@ -119,6 +137,23 @@ resource "google_apikeys_key" "maps_api_key" {
   ]
 }
 
+# Store maps api key in the secrets manager
+resource "google_secret_manager_secret" "maps_api_key" {
+  secret_id = "${var.namespace}-datacommons-maps-api-key"
+  replication {
+    auto {}
+  }
+  depends_on = [
+    google_project_service.secrets
+  ]
+}
+
+# Version the maps api key in the secrets manager
+resource "google_secret_manager_secret_version" "maps_api_key_version" {
+  secret      = google_secret_manager_secret.maps_api_key.id
+  secret_data = local.maps_api_key
+}
+
 # Data Commons API key
 resource "google_apikeys_key" "datacommons_api_key" {
   name         = "${var.namespace}-datacommons-api-key"
@@ -133,6 +168,23 @@ resource "google_apikeys_key" "datacommons_api_key" {
   depends_on = [
     google_project_service.apikeys
   ]
+}
+
+# Store Data Commons api key in the secrets manager
+resource "google_secret_manager_secret" "dc_api_key" {
+  secret_id = "${var.namespace}-datacommons-dc-api-key"
+  replication {
+    auto {}
+  }
+  depends_on = [
+    google_project_service.secrets
+  ]
+}
+
+# Version the Data Commons api key in the secrets manager
+resource "google_secret_manager_secret_version" "dc_api_key_version" {
+  secret      = google_secret_manager_secret.dc_api_key.id
+  secret_data = local.maps_api_key
 }
 
 # Data Commons Cloud Run Service
@@ -159,7 +211,12 @@ resource "google_cloud_run_v2_service" "dc_web_service" {
 
       env {
         name  = "DC_API_KEY"
-        value = local.dc_api_key
+        value_source {
+          secret_key_ref {
+            secret = google_secret_manager_secret.dc_api_key.secret_id
+            version  = "latest"
+          }
+        }
       }
 
       env {
@@ -189,7 +246,12 @@ resource "google_cloud_run_v2_service" "dc_web_service" {
 
       env {
         name  = "MAPS_API_KEY"
-        value = local.maps_api_key
+        value_source {
+          secret_key_ref {
+            secret = google_secret_manager_secret.maps_api_key.secret_id
+            version  = "latest"
+          }
+        }
       }
 
       env {
@@ -214,12 +276,17 @@ resource "google_cloud_run_v2_service" "dc_web_service" {
 
       env {
         name  = "DB_PASS"
-        value = random_password.mysql_password.result
+        value_source {
+          secret_key_ref {
+            secret  = google_secret_manager_secret.mysql_password.secret_id
+            version = "latest"
+          }
+        }
       }
 
       env {
         name = "REDIS_HOST"
-        value = var.redis_enabled != null  ? google_redis_instance.redis_instance[0].host : ""
+        value = var.redis_enabled ? google_redis_instance.redis_instance[0].host : ""
       }
 
       env {
@@ -270,6 +337,18 @@ resource "google_cloud_run_v2_service" "dc_web_service" {
     }
     service_account = google_service_account.datacommons_service_account.email
   }
+
+  labels = {
+    namespace = var.namespace
+    service   = "datacommons-web-service"
+  }
+
+  depends_on = [
+    google_sql_database_instance.mysql_instance,
+    google_secret_manager_secret.mysql_password,
+    google_secret_manager_secret.dc_api_key,
+    google_secret_manager_secret.maps_api_key,
+  ]
 }
 
 # Make the Data Commons Cloud Run service publicly accessible
@@ -304,7 +383,12 @@ resource "google_cloud_run_v2_job" "dc_data_job" {
 
         env {
           name  = "DC_API_KEY"
-          value = local.dc_api_key
+          value_source {
+            secret_key_ref {
+              secret = google_secret_manager_secret.dc_api_key.secret_id
+              version  = "latest"
+            }
+          }
         }
 
         env {
@@ -334,7 +418,12 @@ resource "google_cloud_run_v2_job" "dc_data_job" {
 
         env {
           name  = "DB_PASS"
-          value = random_password.mysql_password.result
+          value_source {
+            secret_key_ref {
+              secret = google_secret_manager_secret.mysql_password.secret_id
+              version  = "latest"
+            }
+          }
         }
       }
       execution_environment = "EXECUTION_ENVIRONMENT_GEN2"
@@ -346,4 +435,10 @@ resource "google_cloud_run_v2_job" "dc_data_job" {
     namespace = var.namespace
     service   = "datacommons-data-job"
   }
+
+  depends_on = [
+    google_secret_manager_secret.mysql_password,
+    google_secret_manager_secret.dc_api_key,
+    google_secret_manager_secret.maps_api_key
+  ]
 }

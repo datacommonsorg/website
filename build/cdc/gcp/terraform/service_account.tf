@@ -21,7 +21,7 @@ resource "google_service_account" "datacommons_service_account" {
 }
 
 resource "google_project_iam_member" "datacommons_service_account_roles" {
-  for_each = toset(["roles/compute.networkViewer", "roles/redis.editor", "roles/cloudsql.admin", "roles/storage.objectAdmin", "roles/run.admin", "roles/vpcaccess.user", "roles/iam.serviceAccountUser"])
+  for_each = toset(["roles/compute.networkViewer", "roles/redis.editor", "roles/cloudsql.admin", "roles/storage.objectAdmin", "roles/run.admin", "roles/vpcaccess.user", "roles/iam.serviceAccountUser", "roles/secretmanager.secretAccessor"])
   project  = var.project_id
   member   = "serviceAccount:${google_service_account.datacommons_service_account.email}"
   role     = each.value

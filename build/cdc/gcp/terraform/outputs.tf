@@ -18,6 +18,12 @@ output "mysql_instance_public_ip" {
   value       = google_sql_database_instance.mysql_instance.public_ip_address
 }
 
+output "mysql_user" {
+  description = "MySQL user name"
+  value       = var.mysql_user
+  sensitive   = true
+}
+
 output "mysql_user_password" {
   description = "The password for the MySQL user"
   value       = random_password.mysql_password.result

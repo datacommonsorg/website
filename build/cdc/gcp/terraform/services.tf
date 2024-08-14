@@ -79,3 +79,9 @@ resource "google_project_service" "iam" {
   project = var.project_id
   service = "iam.googleapis.com"
 }
+
+# Enable secrets manager API
+resource "google_project_service" "secrets" {
+  project = var.project_id
+  service = "secretmanager.googleapis.com"
+}
