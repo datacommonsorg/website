@@ -2,22 +2,20 @@
 
 ## Overview
 
-Deploying your own Custom Data Commons instance on Google Cloud Platform (GCP) lets you to host and manage your own data while leveraging the [Google Data Commons](https://datacommons.org/) repository of over 260K statistical variables. This deployment is managed using Terraform, which automates the provisioning of infrastructure and services on GCP.
+Deploying your own Custom Data Commons instance on Google Cloud Platform (GCP) lets you to host and manage your own data while leveraging [Google's Data Commons](https://datacommons.org/) repository of over 260K statistical variables. This deployment is managed using Terraform, which automates the provisioning of infrastructure and services on GCP.
 
 ## Features
 
-* Supports multiple Data Commons instances in the same GCP account
 * Creates Data Commons Website service container in Cloud Run
 * Creates Data Commons Data task container in Cloud Run
 * Enables all required Google Cloud APIs
 * Creates Redis instance (optional)
 * Creates MySQL instance
-
-
 * Creates new service account with minimum required permissions
 * Automatically provisions required Data Commons API key. Stores key in GCP secrets container.
 * Automatically provisions required Data Commons API key. Stores key in GCP secrets container.
 * Generates random MySQL password and stores in GCP secrets container.
+* Supports multiple Data Commons instances in the same GCP account
 
 ## Architecture
 
@@ -131,26 +129,29 @@ redis_instance_port = 6379
 ### 6. Open Data Commons
 
 Open your Custom Data Commons instance in the browser using the above
-`cloud_run_service_url` (e.g, `https://my-namespace-datacommons-web-service-abc123-uc.a.run.app`),
+`cloud_run_service_url` (e.g, `https://<your-namespace>-datacommons-web-service-abc123-uc.a.run.app`),
 
 ### 7. Load custom data
 
-Upload custom data to the GCS bucket specified by the terraform output `dc_gcs_data_bucket_path` (e.g., `gs://my-namespace-datacommons-data-my-project`).
+Upload custom data to the GCS bucket specified by the terraform output `dc_gcs_data_bucket_path` (e.g., `gs://<your-namespace>-datacommons-data-<your-project-id>`).
 
 Set the default project using gcloud
 
 
-Add new datasets to `gs://my-namespace-datacommons-data-my-project/input`. From this repository's root directory, run:
+Add new datasets to `gs://<your-namespace>-datacommons-data-<your-project-id>/input`. From this repository's root directory, run:
 
 ```
-# Replace DATA_BUCKET with your bucket path from dc_gcs_data_bucket_path above
-export DATA_BUCKET=dan2-datacommons-data-dwnoble-datcom-dev-002
+# Replace `NAMESPACE` and `PROJECT_ID` with values from your `variables.tfvars`
+export NAMESPACE=your-namespace
+export PROJECT_ID=your-project-id
+export DATA_BUCKET=${NAMESPACE}-datacommons-data-${PROJECT_ID}
 gsutil cp -r custom_dc/sample/* gs://$DATA_BUCKET/input/
 ```
 
-Load custom data into data commons
-
+Load custom data into data commons.
 ```
+# Replace `NAMESPACE` and `PROJECT_ID` with values from your `variables.tfvars`
+export NAMESPACE=your-namespace
 export PROJECT_ID=your-project
 export REGION=us-central1
 gcloud run jobs execute dan2-datacommons-data-job --region=us-central1
