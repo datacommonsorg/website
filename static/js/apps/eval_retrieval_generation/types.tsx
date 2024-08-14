@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import { GoogleSpreadsheet } from "google-spreadsheet";
+
 export interface EvalInfo {
   question: string;
   llmStat: string;
@@ -23,16 +25,49 @@ export interface EvalInfo {
 
 export interface Response {
   question: string;
-  llmStat: string;
   dcResponse: string;
+  llmStat?: string;
 }
 
 export interface Query {
   id: number;
   text: string;
   user: string;
-  row: number;
+  rowIndex: number;
 }
 
-// Key is the call id, value is the row index in the sheet.
-export type DcCall = Record<number, number>;
+export interface DcCallInfo {
+  rowIndex: number;
+  question: string;
+  llmStat: string;
+  dcResponse: string;
+  dcStat: string;
+}
+
+// Key is the call id, value is the data for that call from the sheet.
+export type DcCalls = Record<number, DcCallInfo>;
+
+// Key is the query id, value is the data for that query.
+export type AllQuery = Record<number, Query>;
+
+export enum EvalType {
+  RIG = "RIG",
+  RAG = "RAG",
+  BASELINE = "BASELINE",
+}
+
+export enum FeedbackStage {
+  OVERALL_ANS = "OVERALL_ANS",
+  CALLS = "CALLS",
+  RAG_ANS = "RAG_ANS",
+  OVERALL_QUESTIONS = "OVERALL_QUESTIONS",
+  SXS = "SXS",
+}
+
+// Object to hold all the information about a google sheets document
+export interface DocInfo {
+  doc: GoogleSpreadsheet;
+  allQuery: AllQuery;
+  allCall: Record<number, DcCalls>;
+  evalType: EvalType;
+}

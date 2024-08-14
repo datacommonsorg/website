@@ -19,18 +19,28 @@
 import React, { useContext, useState } from "react";
 import { Button, Input, Modal } from "reactstrap";
 
-import { QUERY_FEEDBACK_CALL_ID } from "./constants";
+import {
+  NEW_QUERY_CALL_ID,
+  QUERY_OVERALL_ANS_KEY,
+  QUERY_OVERALL_QUESTIONS_KEY,
+  RAG_CLAIM_KEYS,
+} from "./constants";
 import { AppContext, SessionContext } from "./context";
-import { getCallCount, getField, getPath } from "./data_store";
-import { Query } from "./types";
+import { getAllFields, getCallCount, getPath } from "./data_store";
+import { EvalType, Query } from "./types";
+import { getFirstFeedbackStage } from "./util";
 
 export function EvalList(): JSX.Element {
-  const { allCall, allQuery, userEmail, sheetId } = useContext(AppContext);
-  const { setSessionCallId, setSessionQueryId } = useContext(SessionContext);
+  const { allCall, allQuery, userEmail, sheetId, evalType } =
+    useContext(AppContext);
+  const { setSessionCallId, setSessionQueryId, setFeedbackStage } =
+    useContext(SessionContext);
 
   const [userEvalsOnly, setUserEvalsOnly] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [queryCompletionStatus, setQueryCompletionStatus] = useState({});
+
+  const toggleModal = () => void setModalOpen(!modalOpen);
 
   const orderedQueries: Query[] = Object.keys(allQuery)
     .sort((a, b) => {
@@ -41,20 +51,33 @@ export function EvalList(): JSX.Element {
   const openModal = () => {
     setModalOpen(true);
     const queryFeedbackPromises = Promise.all(
-      orderedQueries.map((query) =>
-        getField(getPath(sheetId, query.id), "overall")
-      )
+      orderedQueries.map((query) => getAllFields(getPath(sheetId, query.id)))
     );
     const callCountPromises = Promise.all(
       orderedQueries.map((query) => getCallCount(sheetId, query.id))
     );
     const queryCompletionStatus = {};
     Promise.all([callCountPromises, queryFeedbackPromises])
-      .then(([callCountResults]) => {
+      .then(([callCountResults, queryFeedbackResults]) => {
         orderedQueries.forEach((query, i) => {
           // A query might not have any calls.
           const calls = allCall[query.id] || {};
-          const completed = callCountResults[i] === Object.keys(calls).length;
+          let completed = callCountResults[i] === Object.keys(calls).length;
+          // If no overall feedback value, set completed to false
+          if (!queryFeedbackResults[i][QUERY_OVERALL_ANS_KEY]) {
+            completed = false;
+          }
+          // For RAG eval type, also check that additional feedback is completed
+          if (evalType === EvalType.RAG) {
+            [
+              ...Object.values(RAG_CLAIM_KEYS),
+              QUERY_OVERALL_QUESTIONS_KEY,
+            ].forEach((countKey) => {
+              if (!(countKey in queryFeedbackResults[i])) {
+                completed = false;
+              }
+            });
+          }
           queryCompletionStatus[query.id] = completed;
         });
         setQueryCompletionStatus(queryCompletionStatus);
@@ -72,7 +95,11 @@ export function EvalList(): JSX.Element {
           Evaluation list
         </div>
       </Button>
-      <Modal isOpen={modalOpen} className="eval-list-modal">
+      <Modal
+        className="eval-list-modal"
+        isOpen={modalOpen}
+        toggle={toggleModal}
+      >
         <div className="header">
           <div className="title">Choose a query to start evaluating from</div>
           <div className="subtitle">
@@ -102,9 +129,10 @@ export function EvalList(): JSX.Element {
               <div
                 className={`eval-list-query${completed ? " completed" : ""}`}
                 onClick={() => {
-                  setModalOpen(false);
+                  setFeedbackStage(getFirstFeedbackStage(evalType));
                   setSessionQueryId(query.id);
-                  setSessionCallId(QUERY_FEEDBACK_CALL_ID);
+                  setSessionCallId(NEW_QUERY_CALL_ID);
+                  setModalOpen(false);
                 }}
                 key={query.id}
               >

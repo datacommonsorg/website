@@ -32,15 +32,68 @@ footer {
   flex-direction: column;
 }
 
-.sign-in {
+.google-sheet-link {
   width: fit-content;
 }
 
-#query-section {
-  max-width: 50%;
+#query-section,
+.query-header {
   text-wrap: wrap;
   word-break: break-word;
   font-size: 14px;
+}
+
+.table-pane {
+  overflow: auto;
+  padding: 11px 24px;
+  width: 100%;
+  border-top: solid 1px var(--gm-3-sys-light-outline-variant);
+  flex-grow: 1;
+
+  .Collapsible__trigger.is-open + .Collapsible__contentOuter {
+    overflow-x: visible !important;
+    overflow-y: hidden !important;
+    width: fit-content;
+    min-width: 100%;
+  }
+
+  .table-title {
+    display: flex;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  .table-content {
+    height: 100%;
+    margin: 16px 0;
+    border-top: 1px solid var(--gm-3-ref-neutral-neutral-70);
+
+    table {
+      height: 100%;
+      width: 100%;
+      font-size: 14px;
+
+      thead {
+        border-bottom: 1px solid var(--gm-3-ref-neutral-neutral-20);
+      }
+
+      th {
+        padding: 8px 6px;
+        font-weight: 500;
+        line-height: 20px;
+      }
+
+      td {
+        line-height: 30px;
+        font-weight: 400;
+        padding: 0 6px;
+      }
+
+      tr:not(:first-child) {
+        border-top: 1px solid var(--gm-3-ref-neutral-neutral-90);
+      }
+    }
+  }
 }
 
 label {
@@ -55,6 +108,7 @@ label {
 
 #query-section {
   width: 50%;
+  max-width: 50%;
   padding: 16px;
   overflow: auto; /* This allows the div to scroll */
 
@@ -108,9 +162,17 @@ label {
   border-left: solid 1px var(--gm-3-sys-light-outline-variant);
   width: 50%;
   padding: 16px 0;
+  position: relative;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: hidden;
+  }
 
   .button-section,
-  #form-container,
+  #question-section,
   .feedback-nav-section {
     padding: 0 24px;
   }
@@ -133,13 +195,11 @@ label {
     }
   }
 
-  #form-container {
+  #question-section {
     border-top: solid 1px var(--gm-3-sys-light-outline-variant);
-    border-bottom: solid 1px var(--gm-3-sys-light-outline-variant);
-    gap: 16px;
     padding: 16px 24px;
-    flex-grow: 1;
     overflow: auto;
+    flex-shrink: 0;
 
     .question-section .title {
       font-size: 11px;
@@ -154,6 +214,7 @@ label {
       line-height: 24px;
       display: flex;
       flex-direction: column;
+      margin-bottom: 6px;
 
       span {
         width: fit-content;
@@ -165,14 +226,15 @@ label {
     padding-top: 24px;
     display: flex;
     align-items: center;
+    border-top: solid 1px var(--gm-3-sys-light-outline-variant);
 
-    .item-num .highlight {
+    .nav-info .highlight {
       font-size: 22px;
       line-height: 28px;
       color: #5e5e5e;
     }
 
-    .item-num .regular {
+    .nav-info .regular {
       font-size: 11px;
       line-height: 16px;
       color: #757575;
@@ -219,7 +281,7 @@ label {
   .modal-content .body {
     flex-grow: 1;
     overflow-y: auto;
-    padding: 8px 24px 0 24px;
+    padding: 0 24px;
 
     .eval-list-query {
       align-items: center;
@@ -227,6 +289,7 @@ label {
       display: flex;
       padding: 14px 0;
 
+      .material-icons,
       .material-icons-outlined,
       .user {
         flex-grow: 0;
@@ -243,6 +306,7 @@ label {
         font-weight: 500;
       }
 
+      .material-icons,
       .material-icons-outlined,
       .query-name {
         color: var(--link-color);
@@ -254,9 +318,17 @@ label {
     }
 
     .eval-list-query.completed {
+
+      .material-icons,
       .material-icons-outlined,
       .query-name {
         color: #146c2e;
+      }
+    }
+
+    .eval-list-query.current {
+      .query-name {
+        font-weight: 800;
       }
     }
   }
@@ -282,13 +354,20 @@ label {
   font-weight: 500;
 }
 
+.annotation-rag .dc-stat,
+.annotation-rag .dc-question {
+  background-color: transparent;
+}
+
 .question-section .dc-stat,
 .highlight .dc-stat {
   background-color: lightblue;
 }
 
 .question-section .llm-stat,
-.highlight .llm-stat {
+.highlight .llm-stat,
+.question-section .dc-question,
+.highlight .dc-question {
   background-color: lightsalmon;
 }
 
@@ -297,7 +376,7 @@ label {
   position: absolute;
   left: 0;
   top: 0;
-  background: rgba(0, 0, 0, 0);
+  background: rgba(0, 0, 0, 0.6);
   z-index: 100;
   width: 100%;
   height: 100%;
@@ -310,7 +389,7 @@ label {
   font-size: 14px;
 
   .question {
-    width: 107px;
+    width: 157px;
     font-weight: 500;
     margin-bottom: 0.5rem;
     padding: 20px 0;
@@ -333,4 +412,242 @@ label {
   input {
     margin-right: 8px;
   }
+}
+
+.block-evaluation {
+  margin-bottom: 20px;
+
+  .disabled {
+    opacity: 0.5;
+  }
+
+  .counter-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .counter {
+      flex: 1;
+      justify-content: center;
+      margin-top: 4px;
+
+      .claim-text {
+        margin: 0 10px;
+        font-weight: 500;
+      }
+
+      .button-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        font-size: 16px;
+
+        button {
+          border: none;
+          background-color: transparent;
+          cursor: pointer;
+          font-size: 24px;
+          width: 36px;
+          color: #007bff;
+        }
+
+        .count-text {
+          font-size: 1.2em;
+          color: white;
+          width: 36px;
+          height: 26px;
+          border-radius: 4px;
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          background-color: #007bff;
+        }
+      }
+    }
+  }
+}
+
+/* SXS eval specific styling */
+
+#dc-eval-sxs {
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.banner {
+  padding: 20px 20px 0;
+}
+
+.sxs-app-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 100%;
+  height: 0;
+}
+
+.query-header {
+  border-top: solid 1px var(--gm-3-sys-light-outline-variant);
+  border-bottom: solid 1px var(--gm-3-sys-light-outline-variant);
+  padding: 20px;
+}
+
+.sxs-panes {
+  display: flex;
+  flex-direction: row;
+  overflow: auto;
+  flex: 1 1 100%;
+}
+
+.sxs-app-content .divider {
+  flex: 0 0 1px;
+  background-color: var(--gm-3-sys-light-outline-variant);
+}
+
+.sxs-pane-scroll-wrapper {
+  overflow: auto;
+  height: 100%;
+  flex: 1 1 100%;
+  width: 0;
+}
+
+.annotation.inline-stat {
+  padding: 1px 2px;
+  border-radius: 4px;
+
+  .llm-stat {
+    background-color: unset;
+  }
+
+  &.annotation-no-dc-stat {
+    background-color: var(--gm-3-sys-light-surface-container-highest);
+
+    .material-icons-outlined {
+      color: var(--gm-3-sys-on-surface-secondary);
+    }
+  }
+
+  &:not(annotation-no-dc-stat) {
+    background-color: var(--gm-3-sys-light-primary-90);
+
+    .material-icons-outlined {
+      color: #0842A0;
+    }
+  }
+}
+
+.dc-stat-tooltip {
+  display: none;  // Changes to inline-flex when tooltip is visible.
+  flex-direction: column;
+  gap: 4px;
+
+  z-index: 999;
+  position: absolute;
+  top: 0;
+  // X position is set with JS when the tooltip is activated.
+  transform: translateY(calc(-100% - 6px));
+
+  background-color: var(--gm-3-sys-light-surface-container);
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.30);
+
+  border-radius: 12px;
+  padding: 12px 16px;
+
+  text-align: left;
+  text-wrap: wrap;
+  word-break: normal;
+  width: max-content;
+  max-width: 312px;
+
+  font-style: normal;
+  font-weight: normal;
+  line-height: normal;
+  font-size: 12px;
+  color: var(--gm-3-sys-light-on-surface-variant);
+
+  .dc-stat-tooltip-title,
+  .dc-stat-tooltip-link {
+    font-weight: 500
+  }
+  .dc-stat-tooltip-link {
+    padding: 4px 0;
+  }
+}
+
+.llm-stat {
+  display: inline-flex;
+  gap: 2px;
+  pointer-events: none; // Let events hit .annotation parent instead
+
+  .material-icons,
+  .material-icons-outlined {
+    font-size: inherit;
+    line-height: inherit;
+    padding: 0;
+  }
+}
+
+.annotation {
+  // Use relative position so tooltip can be absolutely positioned.
+  position: relative;
+}
+
+// Show tooltip and tooltip arrow on hover.
+.annotation.annotation-active {
+
+  .dc-stat-tooltip {
+    display: inline-flex;
+  }
+}
+
+.sxs-pane {
+  display: flex;
+  flex-direction: column;
+
+
+  #query-section {
+    max-width: 100%;
+    width: 100%;
+    flex-shrink: 0;
+  }
+}
+
+.feedback-pane.feedback-pane-footer {
+  width: 100%;
+  align-self: flex-end;
+  border-left: none;
+  border-top: solid 1px var(--gm-3-sys-light-outline-variant);
+  padding: 24px;
+
+  .content {
+    padding: 0 0 24px;
+  }
+
+  .feedback-nav-section {
+    border: none;
+    padding: 0;
+  }
+}
+
+.sxs-feedback-form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+
+  .one-question {
+    align-items: center;
+
+    .question {
+      margin: 0;
+      padding: 0 20px 0 0;
+      width: unset;
+    }
+
+    .options {
+      padding: 0;
+  }
+}
 }

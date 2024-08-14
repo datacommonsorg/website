@@ -17,36 +17,126 @@
 /** Styles for /dev-place/<dcid> pages */
 
 @use "../base.scss";
-@use "../nl_search_bar";
+@use "../explore";
 
-// Left/right padding shared across elements to ensure all text on the page
+// Left/right spacing shared across elements to ensure all text on the page
 // is left-justified to the same visual line, including the NL search bar text
-$text-alignment-padding: 24px;
+$text-alignment-spacing: 24px;
 
-.search-content {
-  // Override default NL search bar spacing
-  margin: 48px 0 32px 0;
+// Border styling used to create a horizontal divider between sections
+$horizontal-divider-style: 1px solid rgba(0, 0, 0, 0.12);
+
+main {
+  // Leave space on top for navbar and bottom for footer
+  padding: 64px 0;
 }
 
-h1 {
-  color: var(--gm-3-ref-neutral-neutral-20);
-  font-size: 28px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 36px;
-  margin-bottom: 10px;
-  padding: 0 $text-alignment-padding;
+.page-content-container {
+  padding: 0 $text-alignment-spacing;
+}
+.title-section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  .place-info {
+    flex-grow: 1;
+
+    h1 {
+      color: var(--gm-3-ref-neutral-neutral-20);
+      font-size: 28px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 36px;
+    }
+
+    .subheader {
+      color: var(--gm-3-ref-neutral-neutral-20);
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 20px;
+      margin-bottom: 0;
+
+      a {
+        color: currentColor;
+      }
+    }
+  }
+
+  .dcid-and-knowledge-graph {
+    color: var(--gm-3-ref-neutral-neutral-40);
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0.1px;
+  }
 }
 
-.subheader {
+.explore-topics-box {
+  border-top: $horizontal-divider-style;
+  margin: 8px 0;
+  padding-top: 10px;
+}
+
+.summary-text {
   color: var(--gm-3-ref-neutral-neutral-20);
   font-size: 14px;
   font-style: normal;
-  font-weight: 500;
+  font-weight: 400;
   line-height: 20px;
-  padding: 0 $text-alignment-padding;
+  margin: 24px 0;
+}
 
-  a {
-    color: currentColor;
+.charts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  margin: 24px 0;
+
+  .category {
+    .category-heading-container {
+      align-items: center;
+      border-bottom: $horizontal-divider-style;
+      display: flex;
+      flex-direction: row;
+
+      h2 {
+        flex-grow: 1;
+        font-size: 22px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 28px;
+      }
+
+      a {
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 20px;
+      }
+    }
+  }
+}
+
+.block.subtopic {
+  padding: 0;
+}
+
+.block-column {
+  width: 50%;
+  padding: 0px 10px 24px 10px;
+}
+
+.related-places {
+  width: fit-content;
+
+  .related-places-callout {
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 28px;
   }
 }

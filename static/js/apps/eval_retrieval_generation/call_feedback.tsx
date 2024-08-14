@@ -17,28 +17,42 @@
 /* Component to record feedback for a call within a query */
 
 import React, { FormEvent, useContext, useEffect, useState } from "react";
-import { Button } from "reactstrap";
 
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import {
-  DC_CALL_SHEET,
-  DC_QUESTION_COL,
-  DC_RESPONSE_COL,
-  DC_STAT_COL,
-  LLM_STAT_COL,
+  DC_QUESTION_FEEDBACK_COL,
+  DC_RESPONSE_FEEDBACK_COL,
+  FEEDBACK_PANE_ID,
+  LLM_STAT_FEEDBACK_COL,
 } from "./constants";
 import { AppContext, SessionContext } from "./context";
 import { getCallData, saveToSheet, saveToStore } from "./data_store";
-import { EvalList } from "./eval_list";
-import { FeedbackNavigation } from "./feedback_navigation";
+import { FeedbackWrapper } from "./feedback_wrapper";
 import { OneQuestion } from "./one_question";
-import { EvalInfo, Response } from "./types";
+import { DcCallInfo, EvalInfo, EvalType, Response } from "./types";
 
-const LOADING_CONTAINER_ID = "form-container";
 const EMPTY_RESPONSE = {
-  dcResponse: "",
-  llmStat: "",
-  question: "",
+  [EvalType.RIG]: {
+    dcResponse: "",
+    llmStat: "",
+    question: "",
+  },
+  [EvalType.RAG]: {
+    dcResponse: "",
+    question: "",
+  },
+};
+const DC_RESPONSE_OPTIONS = {
+  [EvalType.RIG]: {
+    DC_ANSWER_IRRELEVANT: "Does not match the question",
+    DC_ANSWER_RELEVANT_INACCURATE: "Relevant, but inaccurate",
+    DC_ANSWER_RELEVANT_UNSURE: "Relevant, but unsure if it is accurate",
+    DC_ANSWER_RELEVANT_ACCURATE: "Relevant and accurate",
+  },
+  [EvalType.RAG]: {
+    DC_ANSWER_IRRELEVANT: "Does not match the question",
+    DC_ANSWER_RELEVANT: "Matches the question",
+  },
 };
 
 export enum FormStatus {
@@ -49,11 +63,11 @@ export enum FormStatus {
 }
 
 export function CallFeedback(): JSX.Element {
-  const { allCall, doc, sheetId, userEmail } = useContext(AppContext);
+  const { allCall, doc, sheetId, userEmail, evalType } = useContext(AppContext);
   const { sessionQueryId, sessionCallId } = useContext(SessionContext);
 
   const [evalInfo, setEvalInfo] = useState<EvalInfo | null>(null);
-  const [response, setResponse] = useState<Response>(EMPTY_RESPONSE);
+  const [response, setResponse] = useState<Response>(EMPTY_RESPONSE[evalType]);
   const [status, setStatus] = useState<FormStatus>(null);
   const [applyToNext, setApplyToNext] = useState(false);
 
@@ -63,34 +77,35 @@ export function CallFeedback(): JSX.Element {
         setResponse(data as Response);
         setStatus(FormStatus.Submitted);
       } else {
+        // If applyToNext has been set, we should just use the state of the
+        // previous question for the next question
         if (applyToNext) {
-          setStatus(FormStatus.Completed);
           return;
         }
-        setResponse(EMPTY_RESPONSE);
+        setResponse(EMPTY_RESPONSE[evalType]);
         setStatus(FormStatus.NotStarted);
       }
     });
   }, [sheetId, sessionQueryId, sessionCallId, applyToNext]);
 
   useEffect(() => {
-    const sheet = doc.sheetsByTitle[DC_CALL_SHEET];
     if (!(sessionQueryId in allCall)) {
       setEvalInfo(null);
       return;
     }
-    const rowIdx = allCall[sessionQueryId][sessionCallId];
-    sheet.getRows({ offset: rowIdx - 1, limit: 1 }).then((rows) => {
-      const row = rows[0];
-      if (row) {
-        setEvalInfo({
-          dcResponse: row.get(DC_RESPONSE_COL),
-          dcStat: row.get(DC_STAT_COL),
-          llmStat: row.get(LLM_STAT_COL),
-          question: row.get(DC_QUESTION_COL),
-        });
-      }
-    });
+    const callInfo: DcCallInfo | null = allCall[sessionQueryId][sessionCallId];
+    if (callInfo) {
+      const tableResponse =
+        evalType === EvalType.RIG ? "" : ` \xb7 Table ${sessionCallId}`;
+      setEvalInfo({
+        dcResponse: `${callInfo.dcResponse}${tableResponse}`,
+        dcStat: callInfo.dcStat,
+        llmStat: callInfo.llmStat,
+        question: callInfo.question,
+      });
+    } else {
+      setEvalInfo(null);
+    }
   }, [doc, allCall, sessionQueryId, sessionCallId]);
 
   const checkAndSubmit = async (): Promise<boolean> => {
@@ -99,7 +114,12 @@ export function CallFeedback(): JSX.Element {
       return false;
     }
     if (status === FormStatus.Completed) {
-      loadSpinner(LOADING_CONTAINER_ID);
+      loadSpinner(FEEDBACK_PANE_ID);
+      const sheetValues = {
+        [DC_QUESTION_FEEDBACK_COL]: response.question,
+        [DC_RESPONSE_FEEDBACK_COL]: response.dcResponse,
+        [LLM_STAT_FEEDBACK_COL]: response.llmStat || "",
+      };
       return Promise.all([
         saveToStore(
           userEmail,
@@ -108,7 +128,7 @@ export function CallFeedback(): JSX.Element {
           sessionCallId,
           response
         ),
-        saveToSheet(userEmail, doc, sessionQueryId, sessionCallId, response),
+        saveToSheet(userEmail, doc, sessionQueryId, sessionCallId, sheetValues),
       ])
         .then(() => {
           return true;
@@ -118,7 +138,7 @@ export function CallFeedback(): JSX.Element {
           return false;
         })
         .finally(() => {
-          removeSpinner(LOADING_CONTAINER_ID);
+          removeSpinner(FEEDBACK_PANE_ID);
         });
     }
     // Otherwise form status is Submitted or NotStarted. Just proceed with
@@ -150,7 +170,7 @@ export function CallFeedback(): JSX.Element {
   };
 
   const enableReeval = () => {
-    setResponse(EMPTY_RESPONSE);
+    setResponse(EMPTY_RESPONSE[evalType]);
     setStatus(FormStatus.NotStarted);
   };
 
@@ -159,12 +179,7 @@ export function CallFeedback(): JSX.Element {
   if (evalInfo) {
     if (evalInfo.dcStat) {
       dcResponseQuestion = "Response from Data Commons";
-      dcResponseOptions = {
-        DC_ANSWER_IRRELEVANT: "Doesn't match the question",
-        DC_ANSWER_RELEVANT_INACCURATE: "Relevant, but inaccurate",
-        DC_ANSWER_RELEVANT_UNSURE: "Relevant, but unsure if it is accurate",
-        DC_ANSWER_RELEVANT_ACCURATE: "Relevant and accurate",
-      };
+      dcResponseOptions = DC_RESPONSE_OPTIONS[evalType];
     } else {
       dcResponseQuestion = "Reason for empty Data Commons response";
       dcResponseOptions = {
@@ -177,39 +192,35 @@ export function CallFeedback(): JSX.Element {
   }
 
   return (
-    <>
-      <div className="button-section">
-        <Button className="reeval-button" onClick={enableReeval}>
-          <div>
-            <span className="material-icons-outlined">redo</span>
-            Re-Eval
-          </div>
-        </Button>
-        <EvalList />
-      </div>
-      <div id={LOADING_CONTAINER_ID}>
-        {evalInfo && (
-          <>
-            <form>
-              <fieldset>
-                <div className="question-section">
-                  <div className="title">GEMMA MODEL QUESTION EVALUATION</div>
-                  <div className="subtitle">
-                    <span>{evalInfo.question}</span>
-                  </div>
-                  <OneQuestion
-                    question="Question from the model"
-                    name="question"
-                    options={{
-                      DC_QUESTION_IRRELEVANT:
-                        "Irrelevant, vague, requires editing",
-                      DC_QUESTION_RELEVANT: "Well formulated & relevant",
-                    }}
-                    handleChange={handleChange}
-                    responseField={response.question}
-                    disabled={status === FormStatus.Submitted}
-                  />
+    <FeedbackWrapper onReEval={enableReeval} checkAndSubmit={checkAndSubmit}>
+      {evalInfo && (
+        <>
+          <form>
+            <fieldset>
+              <div className="question-section">
+                <div className="title">GEMMA MODEL QUESTION EVALUATION</div>
+                <div className="subtitle">
+                  <span
+                    className={`${
+                      evalType === EvalType.RAG ? "dc-question" : ""
+                    }`}
+                  >
+                    {evalInfo.question}
+                  </span>
                 </div>
+                <OneQuestion
+                  question="Question from the model"
+                  name="question"
+                  options={{
+                    DC_QUESTION_IRRELEVANT: "Irrelevant, vague",
+                    DC_QUESTION_RELEVANT: "Well formulated & relevant",
+                  }}
+                  handleChange={handleChange}
+                  responseField={response.question}
+                  disabled={status === FormStatus.Submitted}
+                />
+              </div>
+              {evalType === EvalType.RIG && (
                 <div className="question-section">
                   <div className="title">GEMMA MODEL STAT EVALUATION</div>
                   <div className="subtitle">
@@ -228,43 +239,45 @@ export function CallFeedback(): JSX.Element {
                     disabled={status === FormStatus.Submitted}
                   />
                 </div>
+              )}
 
-                <div className="question-section">
-                  <div className="title">DATA COMMONS EVALUATION</div>
-                  <div className="subtitle">
-                    <span>{evalInfo.dcResponse}</span>
+              <div className="question-section">
+                <div className="title">DATA COMMONS EVALUATION</div>
+                <div className="subtitle">
+                  <span
+                    className={`${evalType === EvalType.RAG ? "dc-stat" : ""}`}
+                  >
+                    {evalInfo.dcResponse}
+                  </span>
+                  {evalType === EvalType.RIG && (
                     <span className="dc-stat">{evalInfo.dcStat}</span>
-                  </div>
-                  <OneQuestion
-                    question={dcResponseQuestion}
-                    name="dcResponse"
-                    options={dcResponseOptions}
-                    handleChange={handleChange}
-                    responseField={response.dcResponse}
-                    disabled={status === FormStatus.Submitted}
-                  />
+                  )}
                 </div>
-              </fieldset>
-            </form>
-
-            <div className="apply-to-next">
-              <label>
-                <input
-                  type="checkbox"
-                  checked={applyToNext}
-                  onChange={handleApplyToNextChange}
+                <OneQuestion
+                  question={dcResponseQuestion}
+                  name="dcResponse"
+                  options={dcResponseOptions}
+                  handleChange={handleChange}
+                  responseField={response.dcResponse}
                   disabled={status === FormStatus.Submitted}
                 />
-                Apply the same evaluation to the next item
-              </label>
-            </div>
-          </>
-        )}
-      </div>
-      <FeedbackNavigation checkAndSubmit={checkAndSubmit} />
-      <div id="page-screen" className="screen">
-        <div id="spinner"></div>
-      </div>
-    </>
+              </div>
+            </fieldset>
+          </form>
+
+          <div className="apply-to-next">
+            <label>
+              <input
+                type="checkbox"
+                checked={applyToNext}
+                onChange={handleApplyToNextChange}
+                disabled={status === FormStatus.Submitted}
+              />
+              Apply the same evaluation to the next item
+            </label>
+          </div>
+        </>
+      )}
+    </FeedbackWrapper>
   );
 }

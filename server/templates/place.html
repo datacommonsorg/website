@@ -92,6 +92,6 @@ limitations under the License.
 
 {% block footer %}
 <script src={{url_for('static', filename='place.js' , t=config['VERSION'])}}></script>
-<script src="https://maps.googleapis.com/maps/api/js?key={{maps_api_key}}&libraries=places&language={{locale}}" async
+<script src="https://maps.googleapis.com/maps/api/js?key={{maps_api_key}}&libraries=places&language={{locale}}&loading=async" async
   defer></script>
 {% endblock %}

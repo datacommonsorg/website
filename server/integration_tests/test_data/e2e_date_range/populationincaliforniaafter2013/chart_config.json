@@ -2152,14 +2152,6 @@
           "Count_Person_NotHispanicOrLatino_AsianAlone"
         ]
       },
-      "Count_Person_18To24Years": {
-        "placeOfBirth": [
-          "Count_Person_18To24Years_BornInOtherStateInTheUnitedStates",
-          "Count_Person_18To24Years_BornInStateOfResidence",
-          "Count_Person_18To24Years_ForeignBorn",
-          "Count_Person_18To24Years_NativeBornOutsideTheUnitedStates"
-        ]
-      },
       "Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome": {
         "abilityToSpeakEnglish": [
           "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_AfricanLanguagesSpokenAtHome",

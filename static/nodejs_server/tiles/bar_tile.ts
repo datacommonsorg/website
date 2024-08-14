@@ -31,7 +31,13 @@ import { StatVarSpec } from "../../js/shared/types";
 import { TileConfig } from "../../js/types/subject_page_proto_types";
 import { dataGroupsToCsv } from "../../js/utils/chart_csv_utils";
 import { getChartTitle } from "../../js/utils/tile_utils";
-import { CHART_ID, DOM_ID, SVG_HEIGHT, SVG_WIDTH } from "../constants";
+import {
+  CHART_ID,
+  DOM_ID,
+  SVG_HEIGHT,
+  SVG_WIDTH,
+  TOOLFORMER_RAG_MODE,
+} from "../constants";
 import { TileResult } from "../types";
 import { getChartUrl, getProcessedSvg, getSources, getSvgXml } from "./utils";
 
@@ -95,7 +101,8 @@ export async function getBarTileResult(
   apiRoot: string,
   urlRoot: string,
   useChartUrl: boolean,
-  apikey?: string
+  apikey?: string,
+  mode?: string
 ): Promise<TileResult> {
   const tileProp = getTileProp(
     id,
@@ -118,8 +125,10 @@ export async function getBarTileResult(
     ) {
       legend = chartData.dataGroup[0].value.map((dp) => dp.label);
     }
+    const csvLabelHeader =
+      mode === TOOLFORMER_RAG_MODE ? "variable" : undefined;
     const result: TileResult = {
-      data_csv: dataGroupsToCsv(chartData.dataGroup),
+      data_csv: dataGroupsToCsv(chartData.dataGroup, csvLabelHeader),
       placeType: enclosedPlaceType,
       places: getPlaces(tileConfig, place),
       srcs: getSources(chartData.sources),

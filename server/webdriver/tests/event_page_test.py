@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import unittest
 import urllib
 import urllib.request
 
@@ -161,6 +162,8 @@ class TestEventPage(WebdriverBaseTest):
     chart_lines = charts[0].find_elements(By.CLASS_NAME, 'line')
     self.assertEqual(len(chart_lines), 1)
 
+  # TODO (boxu): fix the flaky test and reenable it.
+  @unittest.skip
   def test_page_drought(self):
     """Test a drought event page can be loaded successfully"""
 

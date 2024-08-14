@@ -399,9 +399,10 @@ const STAT_VAR_HIERARCHY_PROPS = {
   deselectSV: () => null,
 };
 
-beforeEach(() =>
-  jest.spyOn(axios, "get").mockImplementation(() => Promise.resolve(null))
-);
+beforeEach(() => {
+  jest.spyOn(axios, "get").mockImplementation(() => Promise.resolve(null));
+  jest.spyOn(axios, "post").mockImplementation(() => Promise.resolve(null));
+});
 
 // Unmount react trees that were mounted with render and clear all mocks.
 afterEach(() => {

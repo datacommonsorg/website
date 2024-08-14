@@ -185,58 +185,6 @@
                       "geoId/12"
                     ],
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
-                    ],
-                    "title": "Family Households Below the Poverty Line (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Family Households Below the Poverty Line"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
-                      "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
-                    ],
-                    "title": "Married Couple Family Households Below Poverty Line (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Married Couple Family Households Below Poverty Line"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06",
-                      "geoId/12"
-                    ],
-                    "statVarKey": [
                       "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
                     ],
                     "title": "Households With Food Stamps in the Past Year and Below Poverty Line (${date})",
@@ -247,6 +195,32 @@
             ],
             "denom": "Count_Person",
             "title": "Households With Food Stamps in the Past Year and Below Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06",
+                      "geoId/12"
+                    ],
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
+                    ],
+                    "title": "Family Households Below the Poverty Line (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Family Households Below the Poverty Line"
           }
         ],
         "statVarSpec": {
@@ -257,10 +231,6 @@
           "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
             "name": "Count of Household: Family Household, 65 Years or More, Below Poverty Level in The Past 12 Months",
             "statVar": "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
-            "name": "Married Couple Family Households below poverty line",
-            "statVar": "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
           },
           "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
             "name": "Households With Food Stamps in the Past Year and below poverty line",
@@ -438,57 +408,6 @@
         "occupancyTenure": [
           "Count_Household_FamilyHousehold_OwnerOccupied_BelowPovertyLevelInThePast12Months",
           "Count_Household_FamilyHousehold_RenterOccupied_BelowPovertyLevelInThePast12Months"
-        ]
-      },
-      "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months": {
-        "benefitsStatus": [
-          "Count_Household_WithSSIAndOrCashAssistanceInThePast12Months_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_WithSocialSecurityIncomeInThePast12Months_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
-        ],
-        "householdSize": [
-          "Count_Household_With2Person_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_With3To4Person_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_With5To6Person_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_With7OrMorePerson_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
-        ],
-        "householdWorkerSize": [
-          "Count_Household_MarriedCoupleFamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months",
-          "Count_Household_MarriedCoupleFamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months",
-          "Count_Household_MarriedCoupleFamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months",
-          "Count_Household_MarriedCoupleFamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
-        ],
-        "householderEducationalAttainment": [
-          "Count_Household_HouseholderEducationalAttainmentBachelorsDegreeOrHigher_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderEducationalAttainmentHighSchoolGraduateIncludesEquivalency_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderEducationalAttainmentSomeCollegeOrAssociatesDegree_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
-        ],
-        "householderOwnChildrenUnder18Years": [
-          "Count_Household_Householder0OwnChildren_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_Householder1To2OwnChildren_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_Householder3To4OwnChildren_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_Householder5OrMoreOwnChildren_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
-        ],
-        "householderRace": [
-          "Count_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderRaceAsianAlone_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderRaceBlackOrAfricanAmericanAlone_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderRaceHispanicOrLatino_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderRaceSomeOtherRaceAlone_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderRaceTwoOrMoreRaces_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_HouseholderRaceWhiteAlone_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
-        ],
-        "householderRelatedChildrenUnder18Years": [
-          "Count_Household_Householder0RelatedChildren_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_Householder1To2RelatedChildren_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_Householder3To4RelatedChildren_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
-          "Count_Household_Householder5OrMoreRelatedChildren_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
-        ],
-        "occupancyTenure": [
-          "Count_Household_MarriedCoupleFamilyHousehold_OwnerOccupied_BelowPovertyLevelInThePast12Months",
-          "Count_Household_MarriedCoupleFamilyHousehold_RenterOccupied_BelowPovertyLevelInThePast12Months"
         ]
       },
       "Count_Person_BelowPovertyLevelInThePast12Months": {

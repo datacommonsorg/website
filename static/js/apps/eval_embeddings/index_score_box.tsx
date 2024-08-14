@@ -17,10 +17,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-import { stringifyFn } from "../../utils/axios";
-import { accuracy, BASE_URL, EmbeddingObject, MatchObject } from "./util";
-
-const NEW_MATCH_COUNT = 5;
+import { loadSpinner, removeSpinner } from "../../shared/util";
+import { BASE_URL, EmbeddingObject, MatchObject, Override } from "./util";
 
 function dotProduct(a: number[], b: number[]): number {
   // We expect same length vector for dot product.
@@ -30,10 +28,10 @@ function dotProduct(a: number[], b: number[]): number {
   return a.map((x, i) => a[i] * b[i]).reduce((m, n) => m + n);
 }
 
-function findKNearestEmbeddings(
+function findNearestEmbeddings(
   target: number[],
   pool: EmbeddingObject[],
-  k: number
+  threshold: number
 ): MatchObject[] {
   const result = [];
   for (const emb of pool) {
@@ -45,7 +43,7 @@ function findKNearestEmbeddings(
     });
   }
   result.sort((a, b) => a.distance - b.distance);
-  return result.slice(0, k);
+  return result.filter((x) => x.distance > threshold);
 }
 
 interface StatVar {
@@ -58,21 +56,22 @@ interface IndexScoreBoxProps {
   sentence: string;
   indexName: string;
   modelName: string;
-  isExpanded: boolean;
-  goldenStatVars: string[];
-  overrideStatVars: EmbeddingObject[];
-  // Callback function when the eval score of a model with respect to the golden
-  // stat vars is computed.
-  onScoreUpdated: (modelName: string, sentence: string, score: number) => void;
+  modelScoreThreshold: number;
+  additionalEmbeddings: EmbeddingObject[];
 }
 
-export function IndexScoreBox(props: IndexScoreBoxProps): JSX.Element {
+function IndexScoreBox(props: IndexScoreBoxProps): JSX.Element {
   const [statVarMatch, setStatVarMatch] = useState<MatchObject[]>([]);
-  const [rankedStatVars, setRankedStatVars] = useState<StatVar[]>([]);
-  const [evalScore, setEvalScore] = useState<number>();
+
+  const elemId = `index-score-box-${props.indexName}`;
 
   useEffect(() => {
+    loadSpinner(elemId);
     (async () => {
+      if (!props.sentence) {
+        removeSpinner(elemId);
+        return;
+      }
       const searchResp = await searchVector(props.sentence, props.indexName);
       const searchResult = searchResp["queryResults"][props.sentence];
       let matches: MatchObject[] = [];
@@ -80,32 +79,33 @@ export function IndexScoreBox(props: IndexScoreBoxProps): JSX.Element {
         const sv = searchResult["SV"][i];
         const score = searchResult["SV_to_Sentences"][sv][0]["score"];
         const sentence = searchResult["SV_to_Sentences"][sv][0]["sentence"];
-        matches.push({ distance: score, statVar: sv, sentence });
+        matches.push({
+          distance: score,
+          override: Override.NONE,
+          sentence,
+          statVar: sv,
+        });
       }
-      const originalMatchCount = matches.length;
       // Use override stat var embeddings
-      if (props.overrideStatVars) {
+      if (props.additionalEmbeddings) {
         const overrideSV = new Set(
-          props.overrideStatVars.map((x) => x.statVar)
+          props.additionalEmbeddings.map((x) => x.statVar)
         );
-        matches = matches.filter((x) => !overrideSV.has(x.statVar));
-        let newMatchCount = originalMatchCount - matches.length;
-        if (newMatchCount == 0) {
-          newMatchCount = NEW_MATCH_COUNT;
+        for (const match of matches) {
+          if (overrideSV.has(match.statVar)) {
+            match.override = Override.OLD;
+          }
         }
         const embeddings = await encodeVector(props.sentence, props.modelName);
-        const overrideMatches = findKNearestEmbeddings(
+        const overrideMatches = findNearestEmbeddings(
           embeddings,
-          props.overrideStatVars,
-          newMatchCount
+          props.additionalEmbeddings,
+          props.modelScoreThreshold
         );
-        overrideMatches.filter(
-          (x) => !(x.distance > matches.slice(-1)[0].distance)
-        );
+        overrideMatches.forEach((x) => (x.override = Override.NEW));
         matches = matches.concat(overrideMatches);
         matches.sort((a, b) => b.distance - a.distance);
       }
-
       const statVarInfo: Record<string, StatVar> = {};
       for (const item of matches) {
         if (item.statVar in statVarInfo) {
@@ -118,80 +118,52 @@ export function IndexScoreBox(props: IndexScoreBoxProps): JSX.Element {
           };
         }
       }
-      const rankedStatVarMatch = Object.values(statVarInfo).sort((a, b) => {
-        return a.rank - b.rank;
-      });
-
-      const evalScore = accuracy(
-        rankedStatVarMatch.map((x) => x.dcid),
-        props.goldenStatVars
-      );
-
-      setEvalScore(evalScore);
       setStatVarMatch(matches);
-      setRankedStatVars(rankedStatVarMatch);
-      props.onScoreUpdated(props.modelName, props.sentence, evalScore);
+      removeSpinner(elemId);
     })();
-  }, [props]);
+  }, [props, elemId]);
 
   return (
-    <div className="index-score-box">
-      <div className="index-name">
-        {props.indexName}{" "}
-        <span className="eval-score">(accuracy: {evalScore?.toFixed(2)})</span>
-      </div>
-      <p>Matched stat vars with top 2 cosine scores</p>
-      <ul>
-        {rankedStatVars.map((svItem) => {
-          return (
-            <li key={svItem.dcid}>
-              <a
-                className={
-                  props.goldenStatVars.includes(svItem.dcid) ? "matched-sv" : ""
-                }
-                href={`${BASE_URL}/${svItem.dcid}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {svItem.dcid}
-              </a>
-              {` (${svItem.scores
-                .slice(0, 2)
-                .map((score) => score.toFixed(3))
-                .join(", ")})`}
-            </li>
-          );
-        })}
-      </ul>
-      {props.isExpanded && statVarMatch && (
-        <table>
-          <thead>
-            <tr>
-              <th className="sentence-column">Sentence</th>
-              <th>Distance</th>
-              <th className="stat-var-column">Stat Var</th>
+    <div className="index-score-box" id={elemId}>
+      <div className="index-name">{props.indexName}</div>
+      <table>
+        <thead>
+          <tr>
+            <th className="stat-var-column">stat var / topic</th>
+            <th>cosine score</th>
+            <th className="sentence-column">Sentence</th>
+          </tr>
+        </thead>
+        <tbody>
+          {statVarMatch.map((match, i) => (
+            <tr key={match.sentence + i} className={match.override}>
+              <td className="stat-var-column">
+                {" "}
+                <a
+                  href={`${BASE_URL}/${match.statVar}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {match.statVar}
+                </a>
+              </td>
+              <td>{Number(match.distance).toFixed(3)}</td>
+              <td className="sentence-column">{match.sentence}</td>
             </tr>
-          </thead>
-          <tbody>
-            {statVarMatch.map((match) => (
-              <tr key={match.sentence}>
-                <td className="sentence-column">{match.sentence}</td>
-                <td>{Number(match.distance).toFixed(3)}</td>
-                <td className="stat-var-column">{match.statVar}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+          ))}
+        </tbody>
+      </table>
+      <div id="page-screen" className="screen">
+        <div id="spinner"></div>
+      </div>
     </div>
   );
 }
 
 const searchVector = async (sentence: string, indexName: string) => {
   return axios
-    .get(`/api/nl/search-vector`, {
-      params: { query: sentence, idx: [indexName] },
-      paramsSerializer: stringifyFn,
+    .post(`/api/nl/search-vector?idx=${indexName}`, {
+      queries: [sentence],
     })
     .then((resp) => {
       return resp.data;
@@ -200,11 +172,12 @@ const searchVector = async (sentence: string, indexName: string) => {
 
 const encodeVector = async (sentence: string, modelName: string) => {
   return axios
-    .get(`/api/nl/encode-vector`, {
-      params: { query: sentence, model: modelName },
-      paramsSerializer: stringifyFn,
+    .post(`/api/nl/encode-vector?model=${modelName}`, {
+      queries: [sentence],
     })
     .then((resp) => {
-      return resp.data[0];
+      return resp.data[sentence];
     });
 };
+
+export const MemoIndexScoreBox = React.memo(IndexScoreBox);

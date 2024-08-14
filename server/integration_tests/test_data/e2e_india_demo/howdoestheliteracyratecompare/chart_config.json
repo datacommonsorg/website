@@ -36,7 +36,6 @@
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
             "title": "Population: Literate"
           },
           {
@@ -71,7 +70,6 @@
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
             "title": "Population: Illiterate"
           },
           {
@@ -139,7 +137,6 @@
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
             "title": "Population: Literate, Urban"
           },
           {
@@ -174,7 +171,6 @@
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
             "title": "Population: Male, Literate"
           },
           {
@@ -209,7 +205,6 @@
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
             "title": "Population: Literate, Rural"
           },
           {
@@ -244,7 +239,6 @@
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
             "title": "Population: Illiterate, Urban"
           },
           {
@@ -279,7 +273,6 @@
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
             "title": "Population: Female, Literate"
           },
           {
@@ -314,7 +307,6 @@
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
             "title": "Population: Male, Illiterate"
           },
           {
@@ -349,7 +341,6 @@
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
             "title": "Population: Illiterate, Rural"
           },
           {
@@ -384,7 +375,6 @@
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
             "title": "Population: Female, Illiterate"
           },
           {
@@ -419,7 +409,6 @@
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
             "title": "Population: Houseless, Literate"
           },
           {
@@ -454,7 +443,6 @@
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
             "title": "Population: Houseless, Illiterate"
           },
           {
@@ -489,7 +477,6 @@
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
             "title": "Population: Houseless, Literate, Urban"
           },
           {
@@ -524,7 +511,6 @@
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
             "title": "Population: Houseless, Illiterate, Urban"
           },
           {
@@ -559,7 +545,6 @@
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
             "title": "Population: Houseless, Literate, Rural"
           }
         ],
@@ -777,15 +762,8 @@
           "indianCensus/Count_Person_Religion_Buddhist_Literate_Female",
           "indianCensus/Count_Person_Religion_Christian_Literate_Female",
           "indianCensus/Count_Person_Religion_Hindu_Literate_Female",
-          "indianCensus/Count_Person_Religion_Jain_Literate_Female",
           "indianCensus/Count_Person_Religion_Muslim_Literate_Female",
-          "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions_Literate_Female",
-          "indianCensus/Count_Person_Religion_ReligionNotStated_Literate_Female",
-          "indianCensus/Count_Person_Religion_Sikh_Literate_Female"
-        ],
-        "socialCategory": [
-          "Count_Person_ScheduledCaste_Literate_Female",
-          "Count_Person_ScheduledTribe_Literate_Female"
+          "indianCensus/Count_Person_Religion_OtherReligionsAndPersuasions_Literate_Female"
         ]
       }
     },

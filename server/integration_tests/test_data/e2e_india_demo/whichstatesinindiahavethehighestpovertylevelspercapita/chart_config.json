@@ -297,67 +297,6 @@
               {
                 "tiles": [
                   {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "sdg/NY_GDP_PCAP"
-                    ],
-                    "title": "Annual Growth Rate of Real GDP Per Capita in Administrative Area 1 Places of India (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/NY_GDP_PCAP"
-                    ],
-                    "title": "Annual Growth Rate of Real GDP Per Capita in Administrative Area 1 Places of India (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: united nations, department of economic and social affairs, statistics division (AMA).",
-            "title": "Annual Growth Rate of Real GDP Per Capita in Administrative Area 1 Places of India"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/NY_GDP_PCAP"
-                    ],
-                    "title": "Annual Growth Rate of Real GDP Per Capita in India",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Annual Growth Rate of Real GDP Per Capita in India",
-                    "statVarKey": [
-                      "sdg/NY_GDP_PCAP"
-                    ],
-                    "title": "Annual Growth Rate of Real GDP Per Capita in India",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: united nations, department of economic and social affairs, statistics division (AMA).",
-            "title": "Annual Growth Rate of Real GDP Per Capita"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "statVarKey": [
                       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
                     ],
@@ -380,35 +319,6 @@
               }
             ],
             "title": "Nominal GDP Per Capita"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
-                    ],
-                    "title": "Employed Population Aged 15 or Over Below International Poverty Line in India",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Employed Population Aged 15 or Over Below International Poverty Line in India",
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
-                    ],
-                    "title": "Employed Population Aged 15 or Over Below International Poverty Line in India",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: source = ILO modelled estimates, nov.2022.",
-            "title": "Employed Population Aged 15 or Over Below International Poverty Line"
           },
           {
             "columns": [
@@ -464,10 +374,6 @@
             "name": "Urban residents, Below Poverty Line",
             "statVar": "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
           },
-          "sdg/NY_GDP_PCAP": {
-            "name": "Annual growth rate of real GDP per capita",
-            "statVar": "sdg/NY_GDP_PCAP"
-          },
           "sdg/SI_POV_DAY1": {
             "name": "Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1"
@@ -499,10 +405,6 @@
           "sdg/SI_POV_DAY1.URBANISATION--U": {
             "name": "Urban Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1.URBANISATION--U"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y_GE15": {
-            "name": "Employed Population Aged 15 or Over Below International Poverty Line",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15"
           }
         }
       }
@@ -854,12 +756,6 @@
         "sdg_urbanisation": [
           "sdg/SI_POV_DAY1.URBANISATION--R",
           "sdg/SI_POV_DAY1.URBANISATION--U"
-        ]
-      },
-      "sdg/SI_POV_EMP1.AGE--Y_GE15": {
-        "sdg_sex": [
-          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F",
-          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
         ]
       }
     },

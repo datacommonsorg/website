@@ -21,6 +21,7 @@ from server.lib.nl.detection.query_util import get_parts_via_delimiters
 from server.lib.nl.detection.query_util import prepare_multivar_querysets
 from server.lib.nl.detection.query_util import QuerySet
 from server.lib.nl.detection.query_util import QuerySplit
+from shared.lib.utils import combine_stop_words
 
 
 class TestGetPartsViaDelimiters(unittest.TestCase):
@@ -44,114 +45,144 @@ class TestGetPartsViaDelimiters(unittest.TestCase):
 
 class TestPrepareMultivarQuerysets(unittest.TestCase):
 
-  @parameterized.expand([
-      [
+  @parameterized.expand(
+      [[
           'number of poor hispanic women with phd',
           [
               QuerySet(
                   nsplits=2,
                   delim_based=False,
                   combinations=[
-                      QuerySplit(parts=['number', 'poor hispanic women phd']),
-                      QuerySplit(parts=['number poor', 'hispanic women phd']),
-                      QuerySplit(parts=['number poor hispanic', 'women phd']),
-                      QuerySplit(parts=['number poor hispanic women', 'phd'])
+                      QuerySplit(
+                          parts=['number', 'of poor hispanic women phd']),
+                      QuerySplit(
+                          parts=['number of', 'poor hispanic women phd']),
+                      QuerySplit(
+                          parts=['number of poor', 'hispanic women phd']),
+                      QuerySplit(
+                          parts=['number of poor hispanic', 'women phd']),
+                      QuerySplit(parts=['number of poor hispanic women', 'phd'])
                   ]),
               QuerySet(
                   nsplits=3,
                   delim_based=False,
                   combinations=[
                       QuerySplit(
-                          parts=['number', 'poor', 'hispanic women phd']),
+                          parts=['number', 'of', 'poor hispanic women phd']),
                       QuerySplit(
-                          parts=['number', 'poor hispanic', 'women phd']),
+                          parts=['number', 'of poor', 'hispanic women phd']),
                       QuerySplit(
-                          parts=['number', 'poor hispanic women', 'phd']),
+                          parts=['number', 'of poor hispanic', 'women phd']),
                       QuerySplit(
-                          parts=['number poor', 'hispanic', 'women phd']),
+                          parts=['number', 'of poor hispanic women', 'phd']),
                       QuerySplit(
-                          parts=['number poor', 'hispanic women', 'phd']),
-                      QuerySplit(parts=['number poor hispanic', 'women', 'phd'])
+                          parts=['number of', 'poor', 'hispanic women phd']),
+                      QuerySplit(
+                          parts=['number of', 'poor hispanic', 'women phd']),
+                      QuerySplit(
+                          parts=['number of', 'poor hispanic women', 'phd']),
+                      QuerySplit(
+                          parts=['number of poor', 'hispanic', 'women phd']),
+                      QuerySplit(
+                          parts=['number of poor', 'hispanic women', 'phd']),
+                      QuerySplit(
+                          parts=['number of poor hispanic', 'women', 'phd']),
                   ]),
               QuerySet(
                   nsplits=4,
                   delim_based=False,
                   combinations=[
                       QuerySplit(
-                          parts=['number', 'poor', 'hispanic', 'women phd']),
+                          parts=['number', 'of', 'poor', 'hispanic women phd']),
                       QuerySplit(
-                          parts=['number', 'poor', 'hispanic women', 'phd']),
+                          parts=['number', 'of', 'poor hispanic', 'women phd']),
                       QuerySplit(
-                          parts=['number', 'poor hispanic', 'women', 'phd']),
+                          parts=['number', 'of', 'poor hispanic women', 'phd']),
                       QuerySplit(
-                          parts=['number poor', 'hispanic', 'women', 'phd'])
+                          parts=['number', 'of poor', 'hispanic', 'women phd']),
+                      QuerySplit(
+                          parts=['number', 'of poor', 'hispanic women', 'phd']),
+                      QuerySplit(
+                          parts=['number', 'of poor hispanic', 'women', 'phd']),
+                      QuerySplit(
+                          parts=['number of', 'poor', 'hispanic', 'women phd']),
+                      QuerySplit(
+                          parts=['number of', 'poor', 'hispanic women', 'phd']),
+                      QuerySplit(
+                          parts=['number of', 'poor hispanic', 'women', 'phd']),
+                      QuerySplit(
+                          parts=['number of poor', 'hispanic', 'women', 'phd'])
                   ])
           ],
       ],
-      [
-          'compare obesity vs. poverty',
-          [
-              QuerySet(nsplits=2,
-                       delim_based=True,
-                       combinations=[QuerySplit(parts=['obesity', 'poverty'])]),
-          ],
-      ],
-      [
-          'show me the impact of climate change on drought',
-          [
-              QuerySet(nsplits=2,
-                       delim_based=False,
-                       combinations=[
-                           QuerySplit(parts=['show', 'climate change drought']),
-                           QuerySplit(parts=['show climate', 'change drought']),
-                           QuerySplit(parts=['show climate change', 'drought'])
-                       ]),
-              QuerySet(
-                  nsplits=3,
-                  delim_based=False,
-                  combinations=[
-                      QuerySplit(parts=['show', 'climate', 'change drought']),
-                      QuerySplit(parts=['show', 'climate change', 'drought']),
-                      QuerySplit(parts=['show climate', 'change', 'drought'])
-                  ]),
-              QuerySet(
-                  nsplits=4,
-                  delim_based=False,
-                  combinations=[
-                      QuerySplit(parts=['show', 'climate', 'change', 'drought'])
-                  ])
-          ]
-      ],
-      [
-          'Compare "Male population" with "Female Population"',
-          [
-              QuerySet(
-                  nsplits=2,
-                  delim_based=True,
-                  combinations=[
-                      QuerySplit(parts=['male population', 'female population'])
-                  ]),
-              QuerySet(
-                  nsplits=3,
-                  delim_based=False,
-                  combinations=[
-                      QuerySplit(
-                          parts=['male', 'population', 'female population']),
-                      QuerySplit(
-                          parts=['male', 'population female', 'population']),
-                      QuerySplit(
-                          parts=['male population', 'female', 'population'])
-                  ]),
-              QuerySet(
-                  nsplits=4,
-                  delim_based=False,
-                  combinations=[
-                      QuerySplit(
-                          parts=['male', 'population', 'female', 'population'])
-                  ])
-          ]
-      ]
-  ])
+       [
+           'compare obesity vs. poverty',
+           [
+               QuerySet(
+                   nsplits=2,
+                   delim_based=True,
+                   combinations=[QuerySplit(parts=['obesity', 'poverty'])]),
+           ],
+       ],
+       [
+           'show me the impact of climate change on drought',
+           [
+               QuerySet(
+                   nsplits=2,
+                   delim_based=False,
+                   combinations=[
+                       QuerySplit(parts=['show', 'climate change drought']),
+                       QuerySplit(parts=['show climate', 'change drought']),
+                       QuerySplit(parts=['show climate change', 'drought'])
+                   ]),
+               QuerySet(
+                   nsplits=3,
+                   delim_based=False,
+                   combinations=[
+                       QuerySplit(parts=['show', 'climate', 'change drought']),
+                       QuerySplit(parts=['show', 'climate change', 'drought']),
+                       QuerySplit(parts=['show climate', 'change', 'drought'])
+                   ]),
+               QuerySet(nsplits=4,
+                        delim_based=False,
+                        combinations=[
+                            QuerySplit(
+                                parts=['show', 'climate', 'change', 'drought'])
+                        ])
+           ]
+       ],
+       [
+           'Compare "Male population" with "Female Population"',
+           [
+               QuerySet(nsplits=2,
+                        delim_based=True,
+                        combinations=[
+                            QuerySplit(
+                                parts=['male population', 'female population'])
+                        ]),
+               QuerySet(
+                   nsplits=3,
+                   delim_based=False,
+                   combinations=[
+                       QuerySplit(
+                           parts=['male', 'population', 'female population']),
+                       QuerySplit(
+                           parts=['male', 'population female', 'population']),
+                       QuerySplit(
+                           parts=['male population', 'female', 'population'])
+                   ]),
+               QuerySet(
+                   nsplits=4,
+                   delim_based=False,
+                   combinations=[
+                       QuerySplit(
+                           parts=['male', 'population', 'female', 'population'])
+                   ])
+           ]
+       ]])
   def test_prepare_multivar_querysets(self, query, expected):
     self.maxDiff = None
-    self.assertEqual(prepare_multivar_querysets(query, max_svs=4), expected)
+    self.assertEqual(
+        prepare_multivar_querysets(query,
+                                   max_svs=4,
+                                   stop_words=combine_stop_words()), expected)
