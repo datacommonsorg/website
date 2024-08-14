@@ -159,7 +159,7 @@ resource "google_apikeys_key" "datacommons_api_key" {
 
   restrictions {
     api_targets {
-      service = "api.datacommons.org"
+      service = var.dc_api_hostname
     }
   }
 }
@@ -230,7 +230,7 @@ resource "google_cloud_run_v2_service" "dc_web_service" {
 
       env {
         name  = "DC_API_ROOT"
-        value = var.dc_api_root
+        value = local.dc_api_root
       }
 
       env {

@@ -12,13 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Instructions:
-#  - Copy this file to terraform.tfvars
-#  - Replace variables with valid values
-#  - [Optional] Add any additional variable values from variables.tf definition
+# Terraform backend definition
 
-# User's GCP project
-project_id  = "your-gcp-project"
-
-# User provided namespace. Example: "dev", "prod", "dan-dev"
-namespace   = "john-doe-dev"
+# Store terraform configuration in a GCS bucket
+terraform {
+  backend "gcs" {
+    bucket = "PLACEHOLDER_BUCKET"
+    prefix = "terraform/state"
+  }
+}

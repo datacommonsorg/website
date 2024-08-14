@@ -36,8 +36,6 @@ fi
 # First argument is the GCP project
 PROJECT_ID=$1
 
-
-
 # Get the default service account
 echo -e "${GREEN}Configuring GCP project ID: $PROJECT_ID${NC}"
 PROJECT_NUM=$(gcloud projects list --filter="$(gcloud config get-value project)" --format="value(PROJECT_NUMBER)")
@@ -46,6 +44,17 @@ echo -e "${GREEN}Service account: $SERVICE_ACCOUNT${NC}"
 
 gcloud config set project $PROJECT_ID
 # gcloud auth application-default set-quota-project $PROJECT_ID
+
+
+# Create terraform configuration bucket
+TERRAFORM_CONFIG_BUCKET="datacommons-tf-config-${PROJECT_ID}"
+echo -e "${GREEN}Creating terraform config bucket gs://${TERRAFORM_CONFIG_BUCKET}${NC}"
+# Check if the bucket already exists
+if gsutil ls -p "$PROJECT_ID" "gs://$TERRAFORM_CONFIG_BUCKET/" > /dev/null 2>&1; then
+  echo -e "${YELLOW}Bucket gs://$TERRAFORM_CONFIG_BUCKET/ already exists.${NC}"
+else
+  gsutil mb -p $PROJECT_ID  gs://$TERRAFORM_CONFIG_BUCKET
+fi
 
 # Enable APIs
 REQUIRED_APIS=(

@@ -204,10 +204,16 @@ variable "dc_data_job_memory" {
   default     = "8G"
 }
 
-variable "dc_api_root" {
-  description = "Data Commons API Root"
+variable "dc_api_hostname" {
+  description = "Data Commons API hostname"
   type        = string
-  default     = "https://api.datacommons.org"
+  default     = "api.datacommons.org"
+}
+
+variable "dc_api_protocol" {
+  description = "Data Commons API protocol"
+  type        = string
+  default     = "https"
 }
 
 variable "dc_gcs_data_bucket_path_override" {

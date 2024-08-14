@@ -98,7 +98,7 @@ cd terraform
 Run the following command once to initialize Terraform. This command sets up the backend for Terraform, downloads required providers, and prepares the environment for deployment.
 
 ```bash
-terraform init
+PROJECT_ID=your-gcp-project terraform init -backend-config="bucket=datacommons-tf-config-${PROJECT_ID}" 
 ```
 
 ### 5. Apply the Terraform Configuration
