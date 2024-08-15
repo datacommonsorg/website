@@ -153,7 +153,10 @@ COPY --from=static /workspace/server ./server
 COPY --from=download /tmp/datcom-nl-models /tmp/datcom-nl-models
 
 # Copy executable script.
-COPY --chmod=0755 build/cdc_services/run.sh .
+COPY build/cdc_services/run.sh .
+
+# Make script executable.
+RUN chmod +x run.sh
 
 # Add virtual env to the path.
 ENV PATH="/workspace/venv/bin:$PATH"
