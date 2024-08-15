@@ -15,7 +15,6 @@
 
 # One-time setup script for configuring a GCP project to run Data Commons
 #  * Enables required APIs
-#  * Creates IAM roles
 
 # This script requires a single argument: the GCP project ID.
 set -e
