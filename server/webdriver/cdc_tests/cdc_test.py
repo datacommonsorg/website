@@ -23,6 +23,8 @@ from server.webdriver.base_utils import create_driver
 from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import wait_elem
 
+# The tests in this file can be run with any CDC instance loaded with sample data from the custom_dc/sample folder.
+
 # From project datcom-website-dev > Cloud Run: dc-autopush > Revisions
 DEFAULT_CDC_TEST_BASE_URL = 'https://dc-autopush-kqb7thiuka-uc.a.run.app'
 
@@ -32,7 +34,7 @@ CDC_TEST_BASE_URL = os.environ.get('CDC_TEST_BASE_URL',
 print(f'Running CDC tests against base URL: {CDC_TEST_BASE_URL}')
 
 
-class CdcAutopushWebdriverTest(unittest.TestCase):
+class CdcWebdriverTest(unittest.TestCase):
 
   def setUp(self, preferences=None):
     """Runs at the beginning of every individual test."""
@@ -73,7 +75,7 @@ class CdcAutopushWebdriverTest(unittest.TestCase):
                          'Custom SV (Average Annual Wage) element not found')
 
 
-class CdcAutopushNLTest(ExploreTest):
+class CdcNLTest(ExploreTest):
 
   def get_server_url(self):
     return CDC_TEST_BASE_URL
