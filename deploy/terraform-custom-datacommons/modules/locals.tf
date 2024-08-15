@@ -20,9 +20,6 @@ locals {
   # VPC Connector CIDR block
   vpc_connector_cidr = cidrsubnet(var.vpc_base_cidr_block, 4, 0)  # Generates the first /28 subnet from the /24 block
 
-  # Use var.dc_api_key if set, otherwise use generated Data Commons API key
-  dc_api_key = var.dc_api_key != null ? var.dc_api_key : google_apikeys_key.datacommons_api_key.key_string
-
   # Use var.maps_api_key if set, otherwise use generated Maps API key
   maps_api_key = var.maps_api_key != null ? var.maps_api_key : google_apikeys_key.maps_api_key.key_string
 

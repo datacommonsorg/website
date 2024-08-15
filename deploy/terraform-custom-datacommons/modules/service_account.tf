@@ -14,7 +14,6 @@
 
 # Custom Data Commons service account
 
-
 resource "google_service_account" "datacommons_service_account" {
   account_id   = "${var.namespace}-datacommons-sa"
   display_name = "Data Commons Service Account for ${var.project_id} (namespace = ${var.namespace})"

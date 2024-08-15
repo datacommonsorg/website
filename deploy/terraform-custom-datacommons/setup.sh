@@ -56,8 +56,6 @@ REQUIRED_APIS=(
     "cloudresourcemanager.googleapis.com" # For IAM roles and service accounts
     "secretmanager.googleapis.com"        # For creating secrets
     "apikeys.googleapis.com"              # For creating api keys
-    "api.datacommons.org"                 # Data Commons API access
-    
 )
 # Enable each API
 for api in "${REQUIRED_APIS[@]}"; do

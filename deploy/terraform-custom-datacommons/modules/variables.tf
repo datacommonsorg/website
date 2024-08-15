@@ -25,13 +25,12 @@ variable "namespace" {
   type        = string
 }
 
-# Optional variables
-# Optional: If blank will use generated data commons API key
 variable "dc_api_key" {
   description = "Data Commons API Key"
   type        = string
-  default     = null
 }
+
+# Optional variables
 
 # Optional: If blank will use generated maps API key
 variable "maps_api_key" {

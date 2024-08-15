@@ -151,19 +151,6 @@ resource "google_secret_manager_secret_version" "maps_api_key_version" {
   secret_data = local.maps_api_key
 }
 
-# Data Commons API key
-resource "google_apikeys_key" "datacommons_api_key" {
-  name         = "${var.namespace}-dc-api-key-${random_id.api_key_suffix.hex}"
-  display_name = "${var.namespace}-dc-api-key-${random_id.api_key_suffix.hex}"
-  project      = var.project_id
-
-  restrictions {
-    api_targets {
-      service = var.dc_api_hostname
-    }
-  }
-}
-
 # Store Data Commons api key in the secrets manager
 resource "google_secret_manager_secret" "dc_api_key" {
   secret_id = "${var.namespace}-datacommons-dc-api-key-${random_id.api_key_suffix.hex}"
@@ -175,7 +162,7 @@ resource "google_secret_manager_secret" "dc_api_key" {
 # Version the Data Commons api key in the secrets manager
 resource "google_secret_manager_secret_version" "dc_api_key_version" {
   secret      = google_secret_manager_secret.dc_api_key.id
-  secret_data = local.dc_api_key
+  secret_data = var.dc_api_key
 }
 
 # Data Commons Cloud Run Service

@@ -70,7 +70,8 @@ See `variables.tf` for a complete list of optional variables.
 Enables necessary APIs in your Google Cloud project:
 
 ```bash
-./setup.sh your-gcp-project
+PROJECT_ID=your-gcp-project
+./setup.sh $PROJECT_ID
 ```
 
 ### 4. Initialize Terraform
@@ -82,7 +83,9 @@ cd terraform
 Optionally use a Google Cloud Storage [backend](https://developer.hashicorp.com/terraform/language/settings/backends/configuration):
 
 ```bash
-gsutil mb "gs://${PROJECT_ID}-datacommons-tf"
+PROJECT_ID=your-gcp-project
+gcloud auth application-default login --project $PROJECT_ID
+gsutil mb -p $PROJECT_ID "gs://${PROJECT_ID}-datacommons-tf"
 
 cat <<EOF >terraform.tf
 terraform {
@@ -103,7 +106,7 @@ terraform plan
 
 ### 5. Provision Data Commons in GCP
 
-Apply the Terraform configuration to deploy your custom Data Commons instance:
+Deploy custom Data Commons instance (takes about 15 minutes):
 
 ```bash
 terraform apply
@@ -142,19 +145,18 @@ Add new datasets to `gs://<your-namespace>-datacommons-data-<your-project-id>/in
 
 ```
 # Replace `NAMESPACE` and `PROJECT_ID` with values from your `variables.tfvars`
-export NAMESPACE=your-namespace
-export PROJECT_ID=your-project-id
-export DATA_BUCKET=${NAMESPACE}-datacommons-data-${PROJECT_ID}
+NAMESPACE=your-namespace
+PROJECT_ID=your-project-id
+DATA_BUCKET=${NAMESPACE}-datacommons-data-${PROJECT_ID}
 gsutil cp -r custom_dc/sample/* gs://$DATA_BUCKET/input/
 ```
 
 Load custom data into data commons.
 ```
-# Replace `NAMESPACE` and `PROJECT_ID` with values from your `variables.tfvars`
-export NAMESPACE=your-namespace
-export PROJECT_ID=your-project
-export REGION=us-central1
-gcloud run jobs execute dan2-datacommons-data-job --region=us-central1
+# Replace `NAMESPACE` and `REGION` with values from your `variables.tfvars`
+NAMESPACE=your-namespace
+REGION=us-central1
+gcloud run jobs execute ${NAMESPACE}-datacommons-data-job --region=$REGION
 ```
 
 ### 8. Using Terraform Workspaces and Namespace
