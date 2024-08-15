@@ -16,7 +16,7 @@
 
 # Required variables
 variable "project_id" {
-  description = "The GCP project ID where the Redis instance will be created"
+  description = "The GCP project ID where the solution will be deployed"
   type        = string
 }
 
@@ -78,7 +78,7 @@ variable "vpc_base_cidr_block" {
 variable "redis_enabled" {
   description = "Enable redis instance in this deployment"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "redis_instance_name" {
