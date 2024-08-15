@@ -171,7 +171,7 @@ variable "mysql_deletion_protection" {
 variable "dc_web_service_image" {
   description = "Container image for Cloud Run service"
   type        = string
-  default     = "gcr.io/datcom-ci/datacommons-website-compose:latest"
+  default     = "gcr.io/datcom-ci/datacommons-website-compose:stable"
 }
 
 variable "dc_web_service_cpu" {
@@ -189,7 +189,7 @@ variable "dc_web_service_memory" {
 variable "dc_data_job_image" {
   description = "The container image for the data job"
   type        = string
-  default     = "gcr.io/datcom-ci/datacommons-data:latest"
+  default     = "gcr.io/datcom-ci/datacommons-data:stable"
 }
 
 variable "dc_data_job_cpu" {

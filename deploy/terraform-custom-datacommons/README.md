@@ -2,7 +2,7 @@
 
 ## Overview
 
-Deploying your own Custom Data Commons instance on Google Cloud Platform (GCP) lets you to host and manage your own data while leveraging [Google's Data Commons](https://datacommons.org/) repository of over 260K statistical variables. This deployment is managed using Terraform, which automates the provisioning of infrastructure and services on GCP.
+Deploying your own Custom Data Commons instance on Google Cloud Platform (GCP) lets you to host and manage your own data while leveraging [Google's Data Commons](https://datacommons.org/) repository of publicly available information. This deployment is managed using Terraform, which automates the provisioning of infrastructure and services on GCP.
 
 ## Features
 
@@ -28,80 +28,80 @@ Deploying your own Custom Data Commons instance on Google Cloud Platform (GCP) l
 - **[gcloud](https://cloud.google.com/sdk/docs/install)**: Ensure gcloud is installed on your local machine for the initial environment setup.
 - **[Terraform](https://developer.hashicorp.com/terraform/install)**: Ensure Terraform is installed on your local machine to manage the infrastructure as code.
 
-## Deployment Configuration Variables
-
-Deployment configuration variable definitions are located in the `variables.tf` file. You can copy `terraform.tfvars.sample` to `terraform.tfvars` and fill in the required values, allowing Terraform to automatically use these settings. Alternatively, you can enter the required variables interactively when running `terraform apply`.
-
-## Required Variables
-
-- **project_id**: The Google Cloud project ID where the resources will be created.
-- **namespace**: A unique namespace to differentiate multiple instances of custom Data Commons within the same project.
-
-## Optional Configuration Variables
-
-Optional variables are defined in `variables.tf`. Notable ones include:
-
-- **region**: The GCP region where resources will be deployed. [View available regions](https://cloud.google.com/about/locations).
-- **redis_enabled**: Set to false to disable redis caching for the website.
-- **dc_web_service_image**: Docker image to use for the web service container. Default: `gcr.io/datcom-ci/datacommons-website-compose:latest`
-- **dc_data_job_image**: Docker image to use for the data loading job. Default: `gcr.io/datcom-ci/datacommons-data:latest`
-- **make_dc_web_service_public**: By default, the Data Commons web service is publicly accessible. Set this to `false` if your GCP account has restrictions on public access. [Reference](https://cloud.google.com/run/docs/authenticating/public).
-
 ## Deployment Instructions
 
-To deploy a new Custom Data Commons instance to the GCP account `your-gcp-account`:
+### 1. Configure Deployment Variables
 
-### 1. Navigate to the Deployment Directory
+Create a local copy of `terraform.tfvars` file and fill in the required values.
 
-```bash
+```
 cd deploy/terraform-custom-datacommons/
+cp ./modules/terraform.tfvars.sample ./modules/terraform.tfvars
 ```
 
-### 2. Define GCP variables at `modules/variables.tfvars`
-
-Create a `modules/variables.tfvars` using the sample file `modules/variables.tfvars.sample` as a starting point
-
-```
-cp modules/variables.tfvars.sample modules/variables.tfvars
-```
-
-Edit `modules/variables.tfvars` and fill in your own gcp [project_id](https://support.google.com/googleapi/answer/7014113?hl=en)
-and user-defined `namespace`. The `namespace` can be any value, and is used to
-support deploying multiple Data Commons environments to the same GCP project.
-
-For example:
+Example `terraform.tfvars`:
 
 ```
 project_id  = "your-gcp-project"
 namespace   = "dan-dev"
+dc_api_key  = "your-api-key"
 ```
 
-### 3. Run the Setup Script
+#### Required Variables
 
-Before running Terraform, you need to enable the necessary APIs in your Google Cloud project. 
-Run the following setup script, replacing `your-gcp-project` with your actually gcp project id
+- **project_id**: The Google Cloud project ID where the resources will be created.
+- **namespace**: A unique namespace to differentiate multiple instances of custom Data Commons within the same project.
+- **dc_api_key**: Data Commons API key. [Request an API key](https://docs.google.com/forms/d/e/1FAIpQLSeVCR95YOZ56ABsPwdH1tPAjjIeVDtisLF-8oDYlOxYmNZ7LQ/viewform?resourcekey=0-yJ9nT9ST-TfoKNtmGIws-g)
+
+#### Optional Configuration Variables
+
+
+
+- **region**: The [GCP region](https://cloud.google.com/about/locations) where resources will be deployed.
+- **redis_enabled**: Set to false to disable redis caching.
+- **dc_web_service_image**: Docker image to use for the web service container. Default: `gcr.io/datcom-ci/datacommons-website-compose:stable`
+- **dc_data_job_image**: Docker image to use for the data loading job. Default: `gcr.io/datcom-ci/datacommons-data:stable`
+- **make_dc_web_service_public**: By default, the Data Commons web service is publicly accessible. Set this to `false` if your GCP account has restrictions on public access. [Reference](https://cloud.google.com/run/docs/authenticating/public).
+
+See `variables.tf` for a complete list of optional variables.
+
+### 2. Setup GCP Project
+
+Enables necessary APIs in your Google Cloud project:
 
 ```bash
 ./setup.sh your-gcp-project
 ```
 
-This script will automatically enable the required APIs, including Compute Engine, Cloud SQL, Cloud Run, and others.
-
 ### 4. Initialize Terraform
-
-Navigate to the terraform directory
 
 ```bash
 cd terraform
 ```
 
-Run the following command once to initialize Terraform. This command sets up the backend for Terraform, downloads required providers, and prepares the environment for deployment.
+Optionally use a Google Cloud Storage [backend](https://developer.hashicorp.com/terraform/language/settings/backends/configuration):
 
 ```bash
-PROJECT_ID=your-gcp-project terraform init -backend-config="bucket=datacommons-tf-config-${PROJECT_ID}" 
+gsutil mb "gs://${PROJECT_ID}-datacommons-tf"
+
+cat <<EOF >terraform.tf
+terraform {
+  backend "gcs" {
+    bucket  = "${PROJECT_ID}-datacommons-tf"
+    prefix  = "terraform/state"
+  }
+}
+EOF
 ```
 
-### 5. Apply the Terraform Configuration
+Initialize Terraform and validate configuration
+
+```bash
+terraform init
+terraform plan
+```
+
+### 5. Provision Data Commons in GCP
 
 Apply the Terraform configuration to deploy your custom Data Commons instance:
 
