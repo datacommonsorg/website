@@ -23,5 +23,6 @@ class Config(custom.Config):
 class LocalConfig(Config, local.Config):
   pass
 
+
 class ComposeConfig(Config, local.Config):
   pass
