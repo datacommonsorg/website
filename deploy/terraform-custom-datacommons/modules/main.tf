@@ -34,7 +34,7 @@ data "google_compute_subnetwork" "default_subnet" {
 
 # Create redis instance
 resource "google_redis_instance" "redis_instance" {
-  count           = var.redis_enabled ? 1 : 0
+  count           = var.enable_redis ? 1 : 0
   name           = "${var.namespace}-${var.redis_instance_name}"
   tier           = var.redis_tier
   memory_size_gb = var.redis_memory_size_gb
@@ -237,7 +237,7 @@ resource "google_cloud_run_v2_service" "dc_web_service" {
 
       env {
         name = "REDIS_HOST"
-        value = var.redis_enabled ? google_redis_instance.redis_instance[0].host : ""
+        value = var.enable_redis ? google_redis_instance.redis_instance[0].host : ""
       }
 
       env {

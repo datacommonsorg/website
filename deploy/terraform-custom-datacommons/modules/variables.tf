@@ -75,7 +75,7 @@ variable "vpc_base_cidr_block" {
   default     = "10.8.0.0/24"
 }
 
-variable "redis_enabled" {
+variable "enable_redis" {
   description = "Enable redis instance in this deployment"
   type        = bool
   default     = false

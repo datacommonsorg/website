@@ -57,7 +57,7 @@ dc_api_key  = "your-api-key"
 
 
 - **region**: The [GCP region](https://cloud.google.com/about/locations) where resources will be deployed.
-- **redis_enabled**: Set to true to enable redis caching (default: false)
+- **enable_redis**: Set to true to enable redis caching (default: false)
 - **dc_web_service_image**: Docker image to use for the web service container. Default: `gcr.io/datcom-ci/datacommons-website-compose:stable`
 - **dc_data_job_image**: Docker image to use for the data loading job. Default: `gcr.io/datcom-ci/datacommons-data:stable`
 - **make_dc_web_service_public**: By default, the Data Commons web service is publicly accessible. Set this to `false` if your GCP account has restrictions on public access. [Reference](https://cloud.google.com/run/docs/authenticating/public).

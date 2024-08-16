@@ -14,12 +14,12 @@
 
 output "redis_instance_host" {
   description = "The hostname or IP address of the Redis instance"
-  value       = var.redis_enabled ? google_redis_instance.redis_instance[0].host : ""
+  value       = var.enable_redis ? google_redis_instance.redis_instance[0].host : ""
 }
 
 output "redis_instance_port" {
   description = "The port number the Redis instance is listening on"
-  value       = var.redis_enabled ? google_redis_instance.redis_instance[0].port : null
+  value       = var.enable_redis ? google_redis_instance.redis_instance[0].port : null
 }
 
 output "mysql_instance_connection_name" {
