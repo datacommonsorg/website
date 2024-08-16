@@ -118,10 +118,14 @@ def multiple_place_bar_block(column,
 
 
 def get_sort_order(state: PopulateState, cspec: ChartSpec):
-  # Use no default sort_order for special DC, since UN
-  # want the order to be as provided in variable groupings.
-  sort_order = None if is_special_dc(state.uttr.insight_ctx) \
-    else BarTileSpec.DESCENDING
+  sort_order = None
+
+  # No default sort_order for special DC since UN wants the order to be as
+  # provided in variable groupings. Also no default sort order if there is more
+  # than one sv because for cases like age ranges, we also want the order to be
+  # what's provided in the variable groupings.
+  if not is_special_dc(state.uttr.insight_ctx) and cspec.svs == 1:
+    sort_order = BarTileSpec.DESCENDING
 
   if (RankingType.LOW in cspec.ranking_types and
       RankingType.HIGH not in cspec.ranking_types):

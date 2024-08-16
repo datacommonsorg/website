@@ -40,6 +40,7 @@ import {
 } from "../constants";
 import { TileResult } from "../types";
 import { getChartUrl, getProcessedSvg, getSources, getSvgXml } from "./utils";
+import { convertToSortType } from "../../js/utils/subject_page_utils";
 
 function getPlaces(tileConfig: TileConfig, place: string): string[] {
   return tileConfig.comparisonPlaces || [place];
@@ -65,6 +66,7 @@ function getTileProp(
     title: tileConfig.title,
     useLollipop: barTileSpec.useLollipop || false,
     variables: statVarSpec,
+    sort: convertToSortType(tileConfig.barTileSpec?.sort)
   };
 }
 
