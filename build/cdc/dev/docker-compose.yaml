@@ -28,6 +28,7 @@ services:
       - .env
     environment:
       - MAPS_API_KEY
+      - SQLITE_PATH=/app/data/datacommons/datacommons.db
       - MIXER_API_KEY=$DC_API_KEY
       - GOOGLE_APPLICATION_CREDENTIALS=/app/creds.json
     ports:
@@ -39,6 +40,8 @@ services:
       - ./run_mixer.sh:/app/run_mixer.sh
       # GCP credentials
       - "${HOST_GOOGLE_APPLICATION_CREDENTIALS:-${HOME}/.config/gcloud/application_default_credentials.json}:/app/creds.json"
+      # Custom DC user data path containing datacommons/datacommons.db file
+      - "$OUTPUT_DIR:/app/data/"
 
   # Website frontend static assets
   dc-website-static:
@@ -67,10 +70,11 @@ services:
       - DC_API_KEY
       - MAPS_API_KEY
       - ENABLE_MODEL=true
-      - FLASK_ENV=local
       - GOOGLE_CLOUD_PROJECT=datcom-website-dev
       - GOOGLE_APPLICATION_CREDENTIALS=/app/creds.json
+      - IS_CUSTOM_DC=true
       - NL_SERVICE_ROOT_URL=http://dc-nl-python:6060
+      - USER_DATA_PATH=/app/data # Topic cache stored here
       - WEBSITE_MIXER_API_ROOT=http://dc-mixer:8081
     ports:
       - "7070:7070"
@@ -82,6 +86,8 @@ services:
       - ../../../shared:/app/shared
       # GCP credentials
       - "${HOST_GOOGLE_APPLICATION_CREDENTIALS:-${HOME}/.config/gcloud/application_default_credentials.json}:/app/creds.json"
+      # Custom DC user data path containing topic cache json
+      - $OUTPUT_DIR:/app/data
 
   dc-nl-python:
     build:
@@ -92,7 +98,9 @@ services:
     env_file:
       - .env
     environment:
+      - ADDITIONAL_CATALOG_PATH=$OUTPUT_DIR/datacommons/nl/embeddings/custom_catalog.yaml # Custom NL embeddings definition
       - GOOGLE_APPLICATION_CREDENTIALS=/app/creds.json
+      - IS_CUSTOM_DC=true
     ports:
       - "6060:6060"
     networks:
@@ -110,6 +118,8 @@ services:
       - ../../../nl_requirements.txt:/app/nl_requirements.txt
       # GCP credentials
       - "${HOST_GOOGLE_APPLICATION_CREDENTIALS:-${HOME}/.config/gcloud/application_default_credentials.json}:/app/creds.json"
+      # Custom DC output dir containing NL embeddings
+      - $OUTPUT_DIR:$OUTPUT_DIR
 
   nginx:
     image: nginx:latest
