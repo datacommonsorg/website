@@ -24,7 +24,7 @@ namespace:
   name: "website"
 
 website:
-  flaskEnv: custom
+  flaskEnv: bard
   replicas: 20
   redis:
     enabled: true
