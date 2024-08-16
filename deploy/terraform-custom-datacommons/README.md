@@ -76,7 +76,7 @@ PROJECT_ID=your-gcp-project
 ### 4. Initialize Terraform
 
 ```bash
-cd terraform
+cd modules
 ```
 
 Optionally use a Google Cloud Storage [backend](https://developer.hashicorp.com/terraform/language/settings/backends/configuration):
@@ -86,7 +86,7 @@ PROJECT_ID=your-gcp-project
 gcloud auth application-default login --project $PROJECT_ID
 gsutil mb -p $PROJECT_ID "gs://${PROJECT_ID}-datacommons-tf"
 
-cat <<EOF >terraform.tf
+cat <<EOF >backend.tf
 terraform {
   backend "gcs" {
     bucket  = "${PROJECT_ID}-datacommons-tf"
@@ -143,7 +143,7 @@ Set the default project using gcloud
 Add new datasets to `gs://<your-namespace>-datacommons-data-<your-project-id>/input`. From this repository's root directory, run:
 
 ```
-# Replace `NAMESPACE` and `PROJECT_ID` with values from your `variables.tfvars`
+# Replace `NAMESPACE` and `PROJECT_ID` with values from your `terraform.tfvars`
 NAMESPACE=your-namespace
 PROJECT_ID=your-project-id
 DATA_BUCKET=${NAMESPACE}-datacommons-data-${PROJECT_ID}
@@ -152,7 +152,7 @@ gsutil cp -r custom_dc/sample/* gs://$DATA_BUCKET/input/
 
 Load custom data into data commons.
 ```
-# Replace `NAMESPACE` and `REGION` with values from your `variables.tfvars`
+# Replace `NAMESPACE` and `REGION` with values from your `terraform.tfvars`
 NAMESPACE=your-namespace
 REGION=us-central1
 gcloud run jobs execute ${NAMESPACE}-datacommons-data-job --region=$REGION
