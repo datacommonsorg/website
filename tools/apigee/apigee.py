@@ -37,9 +37,10 @@ class CloudApiClient:
     self.credentials.refresh(Request())
     self.http_client = AsyncClient(limits=_HTTPX_LIMITS)
 
-  async def get_dc_api_key(self, project_id: str) -> str:
-    key_name = await self.fetch_dc_api_key_name(project_id)
-    return await self.fetch_dc_api_key_string(key_name)
+  async def get_dc_api_keys(self, project_id: str) -> list[str]:
+    key_names = await self.fetch_dc_api_key_names(project_id)
+    futures = [self.fetch_dc_api_key_string(key_name) for key_name in key_names]
+    return list(filter(lambda x: x, await asyncio.gather(*futures)))
 
   async def fetch_dc_api_key_string(self, key_name: str) -> str:
     if not key_name:
@@ -51,19 +52,20 @@ class CloudApiClient:
       logging.warning("No DC API key string found for key name: %s", key_name)
     return key_string
 
-  async def fetch_dc_api_key_name(self, project_id: str) -> str:
+  async def fetch_dc_api_key_names(self, project_id: str) -> list[str]:
     response = await self.http_get(
         f"{_API_KEYS_BASE_URL}/v2/projects/{project_id}/locations/global/keys")
+    key_names: list[str] = []
     for key in response.get("keys", []):
       key_name = key.get("name")
       if not key_name:
         continue
       for api_target in key.get("restrictions", {}).get("apiTargets", []):
         if api_target.get("service", "") == _DC_API_TARGET:
-          logging.info("Key name: %s = %s", project_id, key_name)
-          return key_name
-    logging.warning("No DC API key name found for project: %s", project_id)
-    return ""
+          key_names.append(key_name)
+    if not key_names:
+      logging.warning("No DC API key name found for project: %s", project_id)
+    return key_names
 
   async def http_get(self, url: str, params: dict = None) -> dict:
     headers = {
@@ -81,9 +83,9 @@ class CloudApiClient:
 
 def main(_):
   client = CloudApiClient()
-  project_id = "dc-api-key-keyurs-goog-com"
-  dc_api_key = asyncio.run(client.get_dc_api_key("dc-api-key-keyurs-goog-com"))
-  logging.info("%s = %s", project_id, dc_api_key)
+  project_id = "datcom-api-key-trial"
+  dc_api_keys = asyncio.run(client.get_dc_api_keys(project_id))
+  logging.info("%s = %s", project_id, ", ".join(dc_api_keys))
 
 
 if __name__ == "__main__":
