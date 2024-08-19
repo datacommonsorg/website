@@ -21,13 +21,24 @@ from absl import app
 from google.auth import default
 from google.auth.transport.requests import Request
 from httpx import AsyncClient
+from httpx import HTTPStatusError
 from httpx import Limits
 
 _BILLING_PROJECT_ID = "datcom-204919"
 _API_KEYS_BASE_URL = "https://apikeys.googleapis.com"
+_APIGEE_BASE_URL = "https://apigee.googleapis.com"
 _HTTPX_LIMITS = Limits(max_keepalive_connections=5, max_connections=10)
+_HTTP_RESOURCE_EXISTS_CODE = 409
 
-_DC_API_TARGET = os.environ.get("DC_API_TARGET", "api.datacommons.org")
+# The DC API target of the keys being migrated.
+# e.g. api.datacommons.org
+_DC_API_TARGET = os.environ.get("DC_API_TARGET")
+# The apigee organization to migrate the keys to.
+# e.g. datcom-apigee
+_APIGEE_ORGANIZATION = os.environ.get("APIGEE_ORGANIZATION")
+
+assert _DC_API_TARGET, "'DC_API_TARGET' env variable not specified"
+assert _APIGEE_ORGANIZATION, "'APIGEE_ORGANIZATION' env variable not specified"
 
 
 class CloudApiClient:
@@ -36,6 +47,63 @@ class CloudApiClient:
     self.credentials, self.project_id = default()
     self.credentials.refresh(Request())
     self.http_client = AsyncClient(limits=_HTTPX_LIMITS)
+    self.http_headers = {
+        "Authorization": f"Bearer {self.credentials.token}",
+        "x-goog-user-project": _BILLING_PROJECT_ID,
+        "Content-Type": "application/json"
+    }
+
+  async def import_key(self, developer_email: str, app_name: str,
+                       key: str) -> str:
+    request = {"consumerKey": key, "consumerSecret": key}
+    try:
+      response = await self.http_post(
+          f"{_APIGEE_BASE_URL}/v1/organizations/{_APIGEE_ORGANIZATION}/developers/{developer_email}/apps/{app_name}/keys",
+          request)
+      logging.info(json.dumps(response, indent=1))
+      return response.get("consumerKey", "")
+    except HTTPStatusError as hse:
+      # 409 status = Key already exists, log and return key.
+      if hse.response.status_code == _HTTP_RESOURCE_EXISTS_CODE:
+        logging.info("Key already exists: %s", key)
+        return app_name
+      raise hse
+
+  async def create_app(self, developer_email: str, app_name: str) -> str:
+    request = {"name": app_name}
+    try:
+      response = await self.http_post(
+          f"{_APIGEE_BASE_URL}/v1/organizations/{_APIGEE_ORGANIZATION}/developers/{developer_email}/apps",
+          request)
+      logging.info(json.dumps(response, indent=1))
+      return response.get("name", "")
+    except HTTPStatusError as hse:
+      # 409 status = App already exists, log and return app name.
+      if hse.response.status_code == _HTTP_RESOURCE_EXISTS_CODE:
+        logging.info("App already exists: %s", app_name)
+        return app_name
+      raise hse
+
+  async def create_developer(self, email: str, first_name: str,
+                             last_name: str) -> str:
+    request = {
+        "email": email,
+        "userName": email,
+        "firstName": first_name,
+        "lastName": last_name
+    }
+    try:
+      response = await self.http_post(
+          f"{_APIGEE_BASE_URL}/v1/organizations/{_APIGEE_ORGANIZATION}/developers",
+          request)
+      logging.info(json.dumps(response, indent=1))
+      return response.get("email", "")
+    except HTTPStatusError as hse:
+      # 409 status = Developer already exists, log and return email.
+      if hse.response.status_code == _HTTP_RESOURCE_EXISTS_CODE:
+        logging.info("Developer already exists: %s", email)
+        return email
+      raise hse
 
   async def get_dc_api_keys(self, project_id: str) -> list[str]:
     key_names = await self.fetch_dc_api_key_names(project_id)
@@ -68,24 +136,35 @@ class CloudApiClient:
     return key_names
 
   async def http_get(self, url: str, params: dict = None) -> dict:
-    headers = {
-        "Authorization": f"Bearer {self.credentials.token}",
-        "x-goog-user-project": _BILLING_PROJECT_ID
-    }
-
     async with asyncio.Semaphore(_HTTPX_LIMITS.max_connections):
-      response = await self.http_client.get(url, params=params, headers=headers)
+      response = await self.http_client.get(url,
+                                            params=params,
+                                            headers=self.http_headers)
+      response.raise_for_status()
+      result = response.json()
+      logging.debug("Response: %s", json.dumps(result, indent=1))
+      return result
+
+  async def http_post(self, url: str, data: dict = None) -> dict:
+    async with asyncio.Semaphore(_HTTPX_LIMITS.max_connections):
+      response = await self.http_client.post(url,
+                                             json=data,
+                                             headers=self.http_headers)
       response.raise_for_status()
       result = response.json()
       logging.debug("Response: %s", json.dumps(result, indent=1))
       return result
 
 
-def main(_):
+async def async_main():
   client = CloudApiClient()
-  project_id = "datcom-api-key-trial"
-  dc_api_keys = asyncio.run(client.get_dc_api_keys(project_id))
-  logging.info("%s = %s", project_id, ", ".join(dc_api_keys))
+  await client.create_developer("test@test.com", "First", "Last")
+  await client.create_app("test@test.com", "Test App3")
+  await client.import_key("test@test.com", "Test App2", "barbaz")
+
+
+def main(_):
+  asyncio.run(async_main())
 
 
 if __name__ == "__main__":
