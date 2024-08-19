@@ -30,8 +30,15 @@ _APIGEE_BASE_URL = "https://apigee.googleapis.com"
 _HTTPX_LIMITS = Limits(max_keepalive_connections=5, max_connections=10)
 _HTTP_RESOURCE_EXISTS_CODE = 409
 
-_DC_API_TARGET = os.environ.get("DC_API_TARGET", "api.datacommons.org")
-_APIGEE_ORGANIZATION = os.environ.get("APIGEE_ORGANIZATION", "datcom-apigee")
+# The DC API target of the keys being migrated.
+# e.g. api.datacommons.org
+_DC_API_TARGET = os.environ.get("DC_API_TARGET")
+# The apigee organization to migrate the keys to.
+# e.g. datcom-apigee
+_APIGEE_ORGANIZATION = os.environ.get("APIGEE_ORGANIZATION")
+
+assert _DC_API_TARGET, "'DC_API_TARGET' env variable not specified"
+assert _APIGEE_ORGANIZATION, "'APIGEE_ORGANIZATION' env variable not specified"
 
 
 class CloudApiClient:
