@@ -151,9 +151,6 @@ class CloudApiClient:
 
 async def async_main():
   client = CloudApiClient()
-  # project_id = "datcom-api-key-trial"
-  # dc_api_keys = await client.get_dc_api_keys(project_id)
-  # logging.info("%s = %s", project_id, ", ".join(dc_api_keys))
   await client.create_developer("test@test.com", "First", "Last")
   await client.create_app("test@test.com", "Test App3")
   await client.import_key("test@test.com", "Test App2", "barbaz")
