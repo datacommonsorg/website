@@ -30,6 +30,7 @@ import {
 import { StatVarSpec } from "../../js/shared/types";
 import { TileConfig } from "../../js/types/subject_page_proto_types";
 import { dataGroupsToCsv } from "../../js/utils/chart_csv_utils";
+import { convertToSortType } from "../../js/utils/subject_page_utils";
 import { getChartTitle } from "../../js/utils/tile_utils";
 import {
   CHART_ID,
@@ -40,7 +41,6 @@ import {
 } from "../constants";
 import { TileResult } from "../types";
 import { getChartUrl, getProcessedSvg, getSources, getSvgXml } from "./utils";
-import { convertToSortType } from "../../js/utils/subject_page_utils";
 
 function getPlaces(tileConfig: TileConfig, place: string): string[] {
   return tileConfig.comparisonPlaces || [place];
@@ -66,7 +66,7 @@ function getTileProp(
     title: tileConfig.title,
     useLollipop: barTileSpec.useLollipop || false,
     variables: statVarSpec,
-    sort: convertToSortType(tileConfig.barTileSpec?.sort)
+    sort: convertToSortType(tileConfig.barTileSpec?.sort),
   };
 }
 
