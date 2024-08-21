@@ -37,8 +37,7 @@ class Mode(StrEnum):
   EXPORT = "export"
 
 
-flags.DEFINE_enum_class("mode", Mode.MIGRATE, Mode,
-                        "The mode of operation: import or export")
+flags.DEFINE_enum_class("mode", Mode.MIGRATE, Mode, "The mode of operation")
 
 _BILLING_PROJECT_ID = "datcom-204919"
 _API_KEYS_BASE_URL = "https://apikeys.googleapis.com"
