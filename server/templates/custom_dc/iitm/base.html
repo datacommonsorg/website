@@ -53,6 +53,9 @@
   {% block head %}
   {% endblock %}
   <link href="/custom_dc/iitm/style.css" rel="stylesheet">
+  <script>
+    globalThis.isCustomDC = {{ config['CUSTOM']|int }};
+  </script>
 </head>
 
 <body id="iitm-india">

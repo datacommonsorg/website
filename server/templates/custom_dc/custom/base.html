@@ -34,7 +34,7 @@
 <html lang={{ locale }} id={{ page_id }}>
 
 <head>
-  <title>{{ title }} - Custom Data Commons Commons</title>
+  <title>{{ title }} - Custom Data Commons</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;600&family=Roboto&display=swap"
@@ -46,6 +46,9 @@
   {% if OVERRIDE_CSS_PATH %}
   <link href="{{ OVERRIDE_CSS_PATH }}" rel="stylesheet">
   {% endif %}
+  <script>
+    globalThis.isCustomDC = {{ config['CUSTOM']|int }};
+  </script>
 </head>
 
 <body>

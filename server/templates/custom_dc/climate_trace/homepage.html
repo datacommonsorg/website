@@ -23,6 +23,9 @@
 
 {% block head %}
 <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['VERSION'])}}>
+<script>
+  globalThis.isCustomDC = {{ config['CUSTOM']|int }};
+</script>
 {% endblock %}
 
 {% block content %}
