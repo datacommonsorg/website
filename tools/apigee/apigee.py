@@ -20,6 +20,7 @@ import os
 from absl import app
 from google.auth import default
 from google.auth.transport.requests import Request
+import gspread
 from httpx import AsyncClient
 from httpx import HTTPStatusError
 from httpx import Limits
@@ -36,16 +37,27 @@ _DC_API_TARGET = os.environ.get("DC_API_TARGET")
 # The apigee organization to migrate the keys to.
 # e.g. datcom-apigee
 _APIGEE_ORGANIZATION = os.environ.get("APIGEE_ORGANIZATION")
+# The URL to the Google Sheet with details of partners to be migrated.
+_SHEETS_URL = os.environ.get("SHEETS_URL")
+# The name of the worksheet at the SHEETS_URL with details of partners to be migrated.
+# Worksheet should have the following named columns:
+# project_id, developer_email, developer_first_name, developer_last_name, org_name, keys
+_WORKSHEET_NAME = os.environ.get("WORKSHEET_NAME")
 
 assert _DC_API_TARGET, "'DC_API_TARGET' env variable not specified"
 assert _APIGEE_ORGANIZATION, "'APIGEE_ORGANIZATION' env variable not specified"
+assert _SHEETS_URL, "'SHEETS_URL' env variable not specified"
+assert _WORKSHEET_NAME, "'WORKSHEET_NAME' env variable not specified"
 
 
 class CloudApiClient:
 
-  def __init__(self) -> None:
+  def __init__(self, dc_api_target: str, apigee_organization: str) -> None:
+    self.dc_api_target = dc_api_target
+    self.apigee_organization = apigee_organization
     self.credentials, self.project_id = default()
     self.credentials.refresh(Request())
+    logging.info("Obtained cloud credentials, project id = %s", self.project_id)
     self.http_client = AsyncClient(limits=_HTTPX_LIMITS)
     self.http_headers = {
         "Authorization": f"Bearer {self.credentials.token}",
@@ -58,7 +70,7 @@ class CloudApiClient:
     request = {"consumerKey": key, "consumerSecret": key}
     try:
       response = await self.http_post(
-          f"{_APIGEE_BASE_URL}/v1/organizations/{_APIGEE_ORGANIZATION}/developers/{developer_email}/apps/{app_name}/keys",
+          f"{_APIGEE_BASE_URL}/v1/organizations/{self.apigee_organization}/developers/{developer_email}/apps/{app_name}/keys",
           request)
       logging.info(json.dumps(response, indent=1))
       return response.get("consumerKey", "")
@@ -73,7 +85,7 @@ class CloudApiClient:
     request = {"name": app_name}
     try:
       response = await self.http_post(
-          f"{_APIGEE_BASE_URL}/v1/organizations/{_APIGEE_ORGANIZATION}/developers/{developer_email}/apps",
+          f"{_APIGEE_BASE_URL}/v1/organizations/{self.apigee_organization}/developers/{developer_email}/apps",
           request)
       logging.info(json.dumps(response, indent=1))
       return response.get("name", "")
@@ -94,7 +106,7 @@ class CloudApiClient:
     }
     try:
       response = await self.http_post(
-          f"{_APIGEE_BASE_URL}/v1/organizations/{_APIGEE_ORGANIZATION}/developers",
+          f"{_APIGEE_BASE_URL}/v1/organizations/{self.apigee_organization}/developers",
           request)
       logging.info(json.dumps(response, indent=1))
       return response.get("email", "")
@@ -105,10 +117,17 @@ class CloudApiClient:
         return email
       raise hse
 
-  async def get_dc_api_keys(self, project_id: str) -> list[str]:
+  async def batch_get_dc_api_keys(
+      self, project_ids: list[str]) -> dict[str, list[str]]:
+    futures = [self.get_dc_api_keys(project_id) for project_id in project_ids]
+    keys = dict(await asyncio.gather(*futures))
+    return keys
+
+  async def get_dc_api_keys(self, project_id: str) -> tuple[str, list[str]]:
     key_names = await self.fetch_dc_api_key_names(project_id)
     futures = [self.fetch_dc_api_key_string(key_name) for key_name in key_names]
-    return list(filter(lambda x: x, await asyncio.gather(*futures)))
+    keys = list(filter(lambda x: x, await asyncio.gather(*futures)))
+    return project_id, keys
 
   async def fetch_dc_api_key_string(self, key_name: str) -> str:
     if not key_name:
@@ -129,7 +148,7 @@ class CloudApiClient:
       if not key_name:
         continue
       for api_target in key.get("restrictions", {}).get("apiTargets", []):
-        if api_target.get("service", "") == _DC_API_TARGET:
+        if api_target.get("service", "") == self.dc_api_target:
           key_names.append(key_name)
     if not key_names:
       logging.warning("No DC API key name found for project: %s", project_id)
@@ -156,11 +175,80 @@ class CloudApiClient:
       return result
 
 
+class SheetsClient:
+
+  def __init__(self, cloud_client: CloudApiClient, sheets_url: str,
+               worksheet_name: str) -> None:
+    self.cloud_client = cloud_client
+    self.sheets_url = sheets_url
+    self.worksheet_name = worksheet_name
+    gs = gspread.oauth()
+    sheet = gs.open_by_url(self.sheets_url)
+    self.worksheet = sheet.worksheet(self.worksheet_name)
+    logging.info("Connected to worksheet '%s' at: %s", self.worksheet_name,
+                 self.sheets_url)
+
+  async def write_dc_api_keys(self):
+    """
+    Reads the sheet, fetches DC api keys for each project and writes them back to the sheet.
+    """
+    # Read sheet data.
+    data = self._read_sheet_data()
+
+    # Extract project ids from the data.
+    project_ids: list[str] = list(
+        filter(lambda x: x, map(lambda row: row.get("project_id"), data)))
+
+    # Fetch API keys for each project.
+    project_id_2_keys = await self.cloud_client.batch_get_dc_api_keys(
+        project_ids)
+
+    # Insert fetched keys into the in-memory data.
+    self._insert_project_keys(data, project_id_2_keys)
+
+    # Write data with keys back to the sheet.
+    self._write_sheet_data(data)
+
+  def _insert_project_keys(self, data: list[dict[str, str]],
+                           project_id_2_keys: dict[str, list[str]]):
+    for row in data:
+      project_id = row.get("project_id")
+      keys = project_id_2_keys.get(project_id)
+      if not keys:
+        logging.warning("No API keys found for project: %s", project_id)
+        continue
+      # Write keys as comma separated values.
+      row["keys"] = ", ".join(keys)
+
+  def _read_sheet_data(self) -> list[dict[str, str]]:
+    # Get all values from the sheet.
+    sheet_data = self.worksheet.get_all_values()
+    # Extract headers (first row)
+    headers = sheet_data.pop(0)
+    # Create a list of dictionaries, where each dictionary represents a row
+    data = [dict(zip(headers, row)) for row in sheet_data]
+    return data
+
+  def _write_sheet_data(self, data: list[dict[str, str]]):
+    # Prepare data to write back to the sheet
+    headers = list(data[0].keys())  # Get headers from the first dictionary
+    # # Convert dictionaries to lists of values.
+    rows = [list(row.values()) for row in data]
+    # Combine headers and rows to write to sheet.
+    sheet_data = [headers] + rows
+    # Clear existing sheet content.
+    self.worksheet.clear()
+    # Write updated data back to the sheet.
+    self.worksheet.update(range_name="A1", values=sheet_data)
+    logging.info("Wrote keys back to worksheet '%s' at: %s",
+                 self.worksheet_name, self.sheets_url)
+
+
 async def async_main():
-  client = CloudApiClient()
-  await client.create_developer("test@test.com", "First", "Last")
-  await client.create_app("test@test.com", "Test App3")
-  await client.import_key("test@test.com", "Test App2", "barbaz")
+  cloud_client = CloudApiClient(dc_api_target=_DC_API_TARGET,
+                                apigee_organization=_APIGEE_ORGANIZATION)
+  sheets_client = SheetsClient(cloud_client, _SHEETS_URL, _WORKSHEET_NAME)
+  await sheets_client.write_dc_api_keys()
 
 
 def main(_):
