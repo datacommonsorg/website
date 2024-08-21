@@ -20,8 +20,8 @@
 # User's GCP project
 project_id  = "your-gcp-project"
 
-# User provided namespace. Example: "dev", "prod", "dan-dev"
+# User provided namespace. Examples: "dev", "prod", "dan-dev"
 namespace   = "john-doe-dev"
 
-# Data Commons API key. See https://docs.datacommons.org/api/rest/v1/getting_started#getting-api-keys
+# Data Commons API key. See https://docs.datacommons.org/custom_dc/quickstart.html#prerequisites
 dc_api_key = "your-datacommons-api-key"
