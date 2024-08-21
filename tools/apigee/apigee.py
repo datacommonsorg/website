@@ -40,10 +40,14 @@ _APIGEE_ORGANIZATION = os.environ.get("APIGEE_ORGANIZATION")
 # The URL to the Google Sheet with details of partners to be migrated.
 _SHEETS_URL = os.environ.get("SHEETS_URL")
 # The name of the worksheet at the SHEETS_URL with details of partners to be migrated.
+# Worksheet should have the following named columns:
+# project_id, developer_email, developer_first_name, developer_last_name, org_name, keys
 _WORKSHEET_NAME = os.environ.get("WORKSHEET_NAME")
 
 assert _DC_API_TARGET, "'DC_API_TARGET' env variable not specified"
 assert _APIGEE_ORGANIZATION, "'APIGEE_ORGANIZATION' env variable not specified"
+assert _SHEETS_URL, "'SHEETS_URL' env variable not specified"
+assert _WORKSHEET_NAME, "'WORKSHEET_NAME' env variable not specified"
 
 
 class CloudApiClient:
@@ -178,7 +182,6 @@ class SheetsClient:
     self.cloud_client = cloud_client
     self.sheets_url = sheets_url
     self.worksheet_name = worksheet_name
-    # gs = gspread.authorize(self.cloud_client.credentials)
     gs = gspread.oauth()
     sheet = gs.open_by_url(self.sheets_url)
     self.worksheet = sheet.worksheet(self.worksheet_name)
