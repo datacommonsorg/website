@@ -13,17 +13,32 @@
 # limitations under the License.
 
 import asyncio
+from enum import StrEnum
 import json
 import logging
 import os
+import re
 
 from absl import app
+from absl import flags
 from google.auth import default
 from google.auth.transport.requests import Request
 import gspread
 from httpx import AsyncClient
 from httpx import HTTPStatusError
 from httpx import Limits
+
+FLAGS = flags.FLAGS
+
+
+class Mode(StrEnum):
+  MIGRATE = "migrate"
+  IMPORT = "import"
+  EXPORT = "export"
+
+
+flags.DEFINE_enum_class("mode", Mode.MIGRATE, Mode,
+                        "The mode of operation: import or export")
 
 _BILLING_PROJECT_ID = "datcom-204919"
 _API_KEYS_BASE_URL = "https://apikeys.googleapis.com"
@@ -43,6 +58,11 @@ _SHEETS_URL = os.environ.get("SHEETS_URL")
 # Worksheet should have the following named columns:
 # project_id, developer_email, developer_first_name, developer_last_name, org_name, keys
 _WORKSHEET_NAME = os.environ.get("WORKSHEET_NAME")
+
+_DEFAULT_DEVELOPER_EMAIL = "datcom-core@google.com"
+_DEFAULT_DEVELOPER_FIRST_NAME = "Data Commons"
+_DEFAULT_ORG_NAME = "Apigee Migrated"
+_APP_NAME_SUFFIX = " - Data Commons"
 
 assert _DC_API_TARGET, "'DC_API_TARGET' env variable not specified"
 assert _APIGEE_ORGANIZATION, "'APIGEE_ORGANIZATION' env variable not specified"
@@ -64,15 +84,66 @@ class CloudApiClient:
         "x-goog-user-project": _BILLING_PROJECT_ID,
         "Content-Type": "application/json"
     }
+    self._concurrent_requests_limit = asyncio.Semaphore(
+        _HTTPX_LIMITS.max_connections)
 
-  async def import_key(self, developer_email: str, app_name: str,
+  async def bulk_import_keys(self,
+                             key_2_data: dict[str, dict[str, str]]) -> set[str]:
+    futures = [self.import_key(key, data) for key, data in key_2_data.items()]
+    keys = set(filter(lambda x: x, await asyncio.gather(*futures)))
+    return keys
+
+  async def import_key(self, key: str, data: dict[str, str]) -> str:
+    """
+    Imports the key to apigee by creating the developer, app and key in apigee.
+
+    The data needed is expected in the form of a dict with the following fields:
+    developer_email, developer_first_name, developer_last_name and org_name.
+
+    Defaults are assigned if these fields don"t exist or are empty.
+
+    If import was successful, it returns the imported key.
+    In case of a failure, it logs the failure and returns an empty string. 
+    """
+
+    developer_email = data.get("developer_email") or _DEFAULT_DEVELOPER_EMAIL
+    developer_first_name = data.get(
+        "developer_first_name") or _DEFAULT_DEVELOPER_FIRST_NAME
+    developer_last_name = data.get(
+        "developer_last_name") or developer_first_name
+    org_name = data.get("org_name") or _DEFAULT_ORG_NAME
+    app_name = f"{org_name}{_APP_NAME_SUFFIX}"
+
+    try:
+      await self.create_developer(developer_email, developer_first_name,
+                                  developer_last_name)
+      logging.info("Created / found developer: %s", developer_email)
+
+      await self.create_app(developer_email, app_name)
+      logging.info("Created / found app: %s", app_name)
+
+      await self.create_key(developer_email, app_name, key)
+      logging.info("Created / found key: %s", key)
+
+      # If successful, set the migrated* fields so they are reflected in the sheet.
+      data["migrated_app_name"] = app_name
+      data["migrated_developer_first_name"] = developer_first_name
+      data["migrated_developer_last_name"] = developer_last_name
+
+      return key
+    except HTTPStatusError as hse:
+      logging.error(
+          "Error importing key to apigee: %s (%s),\nRequest:\n%s,\nResponse:\n%s",
+          key, str(hse), hse.request.content, hse.response.content)
+      return ""
+
+  async def create_key(self, developer_email: str, app_name: str,
                        key: str) -> str:
     request = {"consumerKey": key, "consumerSecret": key}
     try:
       response = await self.http_post(
           f"{_APIGEE_BASE_URL}/v1/organizations/{self.apigee_organization}/developers/{developer_email}/apps/{app_name}/keys",
           request)
-      logging.info(json.dumps(response, indent=1))
       return response.get("consumerKey", "")
     except HTTPStatusError as hse:
       # 409 status = Key already exists, log and return key.
@@ -87,7 +158,6 @@ class CloudApiClient:
       response = await self.http_post(
           f"{_APIGEE_BASE_URL}/v1/organizations/{self.apigee_organization}/developers/{developer_email}/apps",
           request)
-      logging.info(json.dumps(response, indent=1))
       return response.get("name", "")
     except HTTPStatusError as hse:
       # 409 status = App already exists, log and return app name.
@@ -108,7 +178,6 @@ class CloudApiClient:
       response = await self.http_post(
           f"{_APIGEE_BASE_URL}/v1/organizations/{self.apigee_organization}/developers",
           request)
-      logging.info(json.dumps(response, indent=1))
       return response.get("email", "")
     except HTTPStatusError as hse:
       # 409 status = Developer already exists, log and return email.
@@ -117,13 +186,13 @@ class CloudApiClient:
         return email
       raise hse
 
-  async def batch_get_dc_api_keys(
-      self, project_ids: list[str]) -> dict[str, list[str]]:
-    futures = [self.get_dc_api_keys(project_id) for project_id in project_ids]
+  async def bulk_export_keys(self,
+                             project_ids: list[str]) -> dict[str, list[str]]:
+    futures = [self.export_keys(project_id) for project_id in project_ids]
     keys = dict(await asyncio.gather(*futures))
     return keys
 
-  async def get_dc_api_keys(self, project_id: str) -> tuple[str, list[str]]:
+  async def export_keys(self, project_id: str) -> tuple[str, list[str]]:
     key_names = await self.fetch_dc_api_key_names(project_id)
     futures = [self.fetch_dc_api_key_string(key_name) for key_name in key_names]
     keys = list(filter(lambda x: x, await asyncio.gather(*futures)))
@@ -155,7 +224,7 @@ class CloudApiClient:
     return key_names
 
   async def http_get(self, url: str, params: dict = None) -> dict:
-    async with asyncio.Semaphore(_HTTPX_LIMITS.max_connections):
+    async with self._concurrent_requests_limit:
       response = await self.http_client.get(url,
                                             params=params,
                                             headers=self.http_headers)
@@ -165,7 +234,7 @@ class CloudApiClient:
       return result
 
   async def http_post(self, url: str, data: dict = None) -> dict:
-    async with asyncio.Semaphore(_HTTPX_LIMITS.max_connections):
+    async with self._concurrent_requests_limit:
       response = await self.http_client.post(url,
                                              json=data,
                                              headers=self.http_headers)
@@ -188,26 +257,67 @@ class SheetsClient:
     logging.info("Connected to worksheet '%s' at: %s", self.worksheet_name,
                  self.sheets_url)
 
-  async def write_dc_api_keys(self):
+  async def export_keys(self):
     """
+    Exports DC API keys from apikeys.
+
     Reads the sheet, fetches DC api keys for each project and writes them back to the sheet.
     """
     # Read sheet data.
-    data = self._read_sheet_data()
+    data = self._read_sheet_data(clear_keys=True)
 
     # Extract project ids from the data.
     project_ids: list[str] = list(
         filter(lambda x: x, map(lambda row: row.get("project_id"), data)))
 
     # Fetch API keys for each project.
-    project_id_2_keys = await self.cloud_client.batch_get_dc_api_keys(
-        project_ids)
+    project_id_2_keys = await self.cloud_client.bulk_export_keys(project_ids)
 
     # Insert fetched keys into the in-memory data.
     self._insert_project_keys(data, project_id_2_keys)
 
     # Write data with keys back to the sheet.
     self._write_sheet_data(data)
+
+  async def import_keys(self):
+    """
+    Imports DC API keys into apigee.
+
+    Reads the sheet that should already include they keys,
+    imports the keys to apigee and 
+    writes the keys that were migrated back in the sheet.
+    """
+    # Read sheet data.
+    data = self._read_sheet_data(clear_migrated=True)
+
+    # Create a reverse lookup dict from key to row data to prepare for bulk import.
+    key_2_data: dict[str, dict[str, str]] = {}
+    for row in data:
+      keys_value = row.get("keys", "")
+      if not keys_value:
+        logging.warning("No keys found in row and will be skipped: %s",
+                        ", ".join(row.values()))
+        continue
+      keys = re.split(r"\s*,\s*", keys_value)
+      for key in keys:
+        key_2_data[key] = row
+
+    # Migrated keys.
+    migrated_keys = await self.cloud_client.bulk_import_keys(key_2_data)
+
+    if migrated_keys:
+      # Insert migrated keys into the in-memory data.
+      self._insert_migrated_keys(key_2_data, migrated_keys)
+      # Write data with migrated keys back to the sheet.
+      self._write_sheet_data(data)
+
+  def _insert_migrated_keys(self, key_2_data: dict[str, dict[str, str]],
+                            migrated_keys: set[str]):
+    for key, data in key_2_data.items():
+      if key in migrated_keys:
+        migrated_keys_value = data.get("migrated_keys", "")
+        migrated_keys_value = f"{migrated_keys_value}, {key}" if migrated_keys_value else key
+        data["migrated_keys"] = migrated_keys_value
 
   def _insert_project_keys(self, data: list[dict[str, str]],
                            project_id_2_keys: dict[str, list[str]]):
@@ -220,13 +330,25 @@ class SheetsClient:
       # Write keys as comma separated values.
       row["keys"] = ", ".join(keys)
 
-  def _read_sheet_data(self) -> list[dict[str, str]]:
+  def _read_sheet_data(self,
+                       clear_keys: bool = False,
+                       clear_migrated: bool = False) -> list[dict[str, str]]:
     # Get all values from the sheet.
     sheet_data = self.worksheet.get_all_values()
     # Extract headers (first row)
     headers = sheet_data.pop(0)
     # Create a list of dictionaries, where each dictionary represents a row
-    data = [dict(zip(headers, row)) for row in sheet_data]
+    data: list[dict[str, str]] = []
+    for row_values in sheet_data:
+      row: dict[str, str] = dict(zip(headers, row_values))
+      # Clear all migrated fields when clearing keys or migrated fields.
+      if clear_keys or clear_migrated:
+        for field in row.keys():
+          if field.startswith("migrated_"):
+            row[field] = ""
+      if clear_keys:
+        row["keys"] = ""
+      data.append(row)
     return data
 
   def _write_sheet_data(self, data: list[dict[str, str]]):
@@ -236,23 +358,30 @@ class SheetsClient:
     rows = [list(row.values()) for row in data]
     # Combine headers and rows to write to sheet.
     sheet_data = [headers] + rows
-    # Clear existing sheet content.
-    self.worksheet.clear()
     # Write updated data back to the sheet.
     self.worksheet.update(range_name="A1", values=sheet_data)
     logging.info("Wrote keys back to worksheet '%s' at: %s",
                  self.worksheet_name, self.sheets_url)
 
 
-async def async_main():
+async def async_main(mode: Mode):
   cloud_client = CloudApiClient(dc_api_target=_DC_API_TARGET,
                                 apigee_organization=_APIGEE_ORGANIZATION)
   sheets_client = SheetsClient(cloud_client, _SHEETS_URL, _WORKSHEET_NAME)
-  await sheets_client.write_dc_api_keys()
+
+  if mode == Mode.IMPORT:
+    await sheets_client.import_keys()
+  elif mode == Mode.EXPORT:
+    await sheets_client.export_keys()
+  elif mode == Mode.MIGRATE:
+    await sheets_client.export_keys()
+    await sheets_client.import_keys()
+  else:
+    raise ValueError(f"Invalid mode: {mode}")
 
 
 def main(_):
-  asyncio.run(async_main())
+  asyncio.run(async_main(FLAGS.mode))
 
 
 if __name__ == "__main__":
