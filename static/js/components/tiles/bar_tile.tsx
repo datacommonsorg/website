@@ -109,6 +109,8 @@ interface BarTileSpecificSpec {
   lazyLoadMargin?: string;
   // Optional: listen for property value changes with this event name
   subscribe?: string;
+  // Optional: Disable the entity href link for this component
+  disableEntityLink?: boolean;
 }
 
 export type BarTilePropType = MultiOrContainedInPlaceMultiVariableTileType &
@@ -575,6 +577,7 @@ export function draw(
           title: chartTitle,
           unit: chartData.unit,
           useSvgLegend,
+          disableEntityLink: props.disableEntityLink,
         }
       );
     } else {
@@ -592,6 +595,7 @@ export function draw(
           title: chartTitle,
           unit: chartData.unit,
           useSvgLegend,
+          disableEntityLink: props.disableEntityLink,
         }
       );
     }

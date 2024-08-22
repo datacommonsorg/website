@@ -229,6 +229,10 @@ export class DatacommonsBarComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   sources?: string[];
 
+  // Optional: Disable the entity href link for this component
+  @property({ type: Boolean, converter: convertBooleanAttribute })
+  disableEntityLink?: boolean;
+
   render(): HTMLDivElement {
     const statVarDcids: string[] = this.variables;
     const statVarSpec = [];
@@ -273,6 +277,7 @@ export class DatacommonsBarComponent extends LitElement {
       useLollipop: this.lollipop,
       yAxisMargin: this.yAxisMargin,
       subscribe: this.subscribe,
+      disableEntityLink: this.disableEntityLink,
     };
 
     return createWebComponentElement(BarTile, barTileProps);
