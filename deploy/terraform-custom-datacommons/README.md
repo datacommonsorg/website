@@ -137,7 +137,7 @@ redis_instance_port = 6379
 
 ### 6. Load custom data
 
-Upload custom data to the GCS bucket specified by the terraform output `dc_gcs_data_bucket_path` (`gs://<your-namespace>-datacommons-data-<your-project-id>`).
+Upload custom sample data to the GCS bucket specified by the terraform output `dc_gcs_data_bucket_path` (`gs://<your-namespace>-datacommons-data-<your-project-id>`).
 From the `website` repository's root directory, run:
 
 ```
