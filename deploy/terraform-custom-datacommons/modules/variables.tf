@@ -170,7 +170,7 @@ variable "mysql_deletion_protection" {
 variable "dc_web_service_image" {
   description = "Container image for Cloud Run service"
   type        = string
-  default     = "gcr.io/datcom-ci/datacommons-website-compose:stable"
+  default     = "gcr.io/datcom-ci/datacommons-services:stable"
 }
 
 variable "dc_web_service_cpu" {
