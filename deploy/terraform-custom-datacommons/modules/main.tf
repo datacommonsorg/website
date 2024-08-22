@@ -256,9 +256,9 @@ resource "google_cloud_run_v2_service" "dc_web_service" {
           port = 8080
         }
         initial_delay_seconds = 60
-        period_seconds        = 30
+        period_seconds        = 10
         timeout_seconds       = 5
-        failure_threshold     = 5
+        failure_threshold     = 15
       }
 
       liveness_probe {
