@@ -101,7 +101,7 @@ class CloudApiClient:
     }
     self._concurrent_requests_limit = asyncio.Semaphore(
         _HTTPX_LIMITS.max_connections)
-    # Used to serialize calls to the same URL to prevent concurrent calls to mutating the same resource.
+    # Used to serialize calls to the same URL to prevent concurrent calls from mutating the same resource.
     self._in_flight_urls = defaultdict(asyncio.Lock)
 
   async def bulk_import_keys(self,
