@@ -13,11 +13,15 @@
 # limitations under the License.
 
 import asyncio
+from collections import defaultdict
 from enum import StrEnum
+from functools import wraps
 import json
 import logging
 import os
+import random
 import re
+import string
 
 from absl import app
 from absl import flags
@@ -44,6 +48,7 @@ _API_KEYS_BASE_URL = "https://apikeys.googleapis.com"
 _APIGEE_BASE_URL = "https://apigee.googleapis.com"
 _HTTPX_LIMITS = Limits(max_keepalive_connections=5, max_connections=10)
 _HTTP_RESOURCE_EXISTS_CODE = 409
+_SECRET_CHARS = string.ascii_letters + string.digits
 
 # The DC API target of the keys being migrated.
 # e.g. api.datacommons.org
@@ -51,6 +56,9 @@ _DC_API_TARGET = os.environ.get("DC_API_TARGET")
 # The apigee organization to migrate the keys to.
 # e.g. datcom-apigee
 _APIGEE_ORGANIZATION = os.environ.get("APIGEE_ORGANIZATION")
+# The apigee api product that the migrated keys should be associated to.
+# e.g. api, api-staging
+_APIGEE_API_PRODUCT = os.environ.get("APIGEE_API_PRODUCT")
 # The URL to the Google Sheet with details of partners to be migrated.
 _SHEETS_URL = os.environ.get("SHEETS_URL")
 # The name of the worksheet at the SHEETS_URL with details of partners to be migrated.
@@ -65,15 +73,23 @@ _APP_NAME_SUFFIX = " - Data Commons"
 
 assert _DC_API_TARGET, "'DC_API_TARGET' env variable not specified"
 assert _APIGEE_ORGANIZATION, "'APIGEE_ORGANIZATION' env variable not specified"
+assert _APIGEE_API_PRODUCT, "'APIGEE_API_PRODUCT' env variable not specified"
 assert _SHEETS_URL, "'SHEETS_URL' env variable not specified"
 assert _WORKSHEET_NAME, "'WORKSHEET_NAME' env variable not specified"
 
 
+def _generate_secret() -> str:
+  """Generates a random 16 character secret string."""
+  return ''.join(random.choices(_SECRET_CHARS, k=16))
+
+
 class CloudApiClient:
 
-  def __init__(self, dc_api_target: str, apigee_organization: str) -> None:
+  def __init__(self, dc_api_target: str, apigee_organization: str,
+               apigee_api_product: str) -> None:
     self.dc_api_target = dc_api_target
     self.apigee_organization = apigee_organization
+    self.apigee_api_product = apigee_api_product
     self.credentials, self.project_id = default()
     self.credentials.refresh(Request())
     logging.info("Obtained cloud credentials, project id = %s", self.project_id)
@@ -85,6 +101,8 @@ class CloudApiClient:
     }
     self._concurrent_requests_limit = asyncio.Semaphore(
         _HTTPX_LIMITS.max_connections)
+    # Used to serialize calls to the same URL to prevent concurrent calls to mutating the same resource.
+    self._in_flight_urls = defaultdict(asyncio.Lock)
 
   async def bulk_import_keys(self,
                              key_2_data: dict[str, dict[str, str]]) -> set[str]:
@@ -94,7 +112,8 @@ class CloudApiClient:
 
   async def import_key(self, key: str, data: dict[str, str]) -> str:
     """
-    Imports the key to apigee by creating the developer, app and key in apigee.
+    Imports the key to apigee by creating the developer, app and key in apigee 
+    and associating the key with the configured api product.
 
     The data needed is expected in the form of a dict with the following fields:
     developer_email, developer_first_name, developer_last_name and org_name.
@@ -124,10 +143,15 @@ class CloudApiClient:
       await self.create_key(developer_email, app_name, key)
       logging.info("Created / found key: %s", key)
 
+      await self.associate_key(developer_email, app_name, key)
+      logging.info("Associated key with api product: %s",
+                   self.apigee_api_product)
+
       # If successful, set the migrated* fields so they are reflected in the sheet.
       data["migrated_app_name"] = app_name
       data["migrated_developer_first_name"] = developer_first_name
       data["migrated_developer_last_name"] = developer_last_name
+      data["migrated_api_product"] = self.apigee_api_product
 
       return key
     except HTTPStatusError as hse:
@@ -136,9 +160,18 @@ class CloudApiClient:
           key, str(hse), hse.request.content, hse.response.content)
       return ""
 
+  async def associate_key(self, developer_email: str, app_name: str,
+                          key: str) -> str:
+    """Associates the key with the configured api product."""
+    request = {"apiProducts": [self.apigee_api_product]}
+    response = await self.http_put(
+        f"{_APIGEE_BASE_URL}/v1/organizations/{self.apigee_organization}/developers/{developer_email}/apps/{app_name}/keys/{key}",
+        request)
+    return response.get("consumerKey", "")
+
   async def create_key(self, developer_email: str, app_name: str,
                        key: str) -> str:
-    request = {"consumerKey": key, "consumerSecret": key}
+    request = {"consumerKey": key, "consumerSecret": _generate_secret()}
     try:
       response = await self.http_post(
           f"{_APIGEE_BASE_URL}/v1/organizations/{self.apigee_organization}/developers/{developer_email}/apps/{app_name}/keys",
@@ -222,6 +255,20 @@ class CloudApiClient:
       logging.warning("No DC API key name found for project: %s", project_id)
     return key_names
 
+  def _serialize_in_flight_urls(func):
+
+    @wraps(func)
+    async def wrapper(self, url, *args, **kwargs):
+      async with self._in_flight_urls[url]:
+        try:
+          return await func(self, url, *args, **kwargs)
+        finally:
+          if url in self._in_flight_urls:
+            del self._in_flight_urls[url]
+
+    return wrapper
+
+  @_serialize_in_flight_urls
   async def http_get(self, url: str, params: dict = None) -> dict:
     async with self._concurrent_requests_limit:
       response = await self.http_client.get(url,
@@ -232,11 +279,23 @@ class CloudApiClient:
       logging.debug("Response: %s", json.dumps(result, indent=1))
       return result
 
+  @_serialize_in_flight_urls
   async def http_post(self, url: str, data: dict = None) -> dict:
     async with self._concurrent_requests_limit:
       response = await self.http_client.post(url,
                                              json=data,
                                              headers=self.http_headers)
+      response.raise_for_status()
+      result = response.json()
+      logging.debug("Response: %s", json.dumps(result, indent=1))
+      return result
+
+  @_serialize_in_flight_urls
+  async def http_put(self, url: str, data: dict = None) -> dict:
+    async with self._concurrent_requests_limit:
+      response = await self.http_client.put(url,
+                                            json=data,
+                                            headers=self.http_headers)
       response.raise_for_status()
       result = response.json()
       logging.debug("Response: %s", json.dumps(result, indent=1))
@@ -365,7 +424,8 @@ class SheetsClient:
 
 async def async_main(mode: Mode):
   cloud_client = CloudApiClient(dc_api_target=_DC_API_TARGET,
-                                apigee_organization=_APIGEE_ORGANIZATION)
+                                apigee_organization=_APIGEE_ORGANIZATION,
+                                apigee_api_product=_APIGEE_API_PRODUCT)
   sheets_client = SheetsClient(cloud_client, _SHEETS_URL, _WORKSHEET_NAME)
 
   if mode == Mode.IMPORT:
