@@ -31,6 +31,13 @@ variable "dc_api_key" {
 }
 
 # Optional variables
+# Set to your Google Analytics Tag ID to enable Google Analytics tracking.
+# Reference: https://support.google.com/analytics/answer/9539598
+variable "google_analytics_tag_id" {
+  description = "Google Analytics Tag ID"
+  type        = string
+  default     = null
+}
 
 # Optional: If blank will use generated maps API key
 variable "maps_api_key" {

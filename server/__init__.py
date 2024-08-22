@@ -450,8 +450,13 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
       app.logger.error('Error thrown for request: %s\nerror: %s', request.url,
                        e)
 
+  # Attempt to retrieve the Google Analytics Tag ID (GA_ACCOUNT):
+  # 1. First, check the environment variables for 'GA_ACCOUNT'.
+  # 2. If not found, fallback to the application configuration ('GA_ACCOUNT' in app.config).
+  ga_account = os.environ.get('GA_ACCOUNT', app.config['GA_ACCOUNT'])
+
   # Jinja env
-  app.jinja_env.globals['GA_ACCOUNT'] = app.config['GA_ACCOUNT']
+  app.jinja_env.globals['GA_ACCOUNT'] = ga_account
   app.jinja_env.globals['NAME'] = app.config['NAME']
   app.jinja_env.globals['LOGO_PATH'] = app.config['LOGO_PATH']
   app.jinja_env.globals['OVERRIDE_CSS_PATH'] = app.config['OVERRIDE_CSS_PATH']
