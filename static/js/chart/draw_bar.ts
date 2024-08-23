@@ -317,7 +317,7 @@ export function drawStackBarChart(
     chartHeight,
     x,
     false,
-    labelToLink,
+    options?.disableEntityLink ? null : labelToLink,
     null,
     options?.apiRoot
   );
@@ -981,7 +981,7 @@ export function drawGroupBarChart(
     chartHeight,
     x0,
     false,
-    labelToLink,
+    options?.disableEntityLink ? null : labelToLink,
     null,
     options?.apiRoot
   );
