@@ -136,11 +136,10 @@ redis_instance_host = "<redis_ip>"
 redis_instance_port = 6379
 ```
 
-### 5. Load custom data
+### 6. Load custom data
 
-Upload custom data to the GCS bucket specified by the terraform output `dc_gcs_data_bucket_path` (`gs://<your-namespace>-datacommons-data-<your-project-id>`).
-
-Add new datasets to `gs://<your-namespace>-datacommons-data-<your-project-id>/input`. From the `website` repository's root directory, run:
+Upload custom sample data to the GCS bucket specified by the terraform output `dc_gcs_data_bucket_path` (`gs://<your-namespace>-datacommons-data-<your-project-id>`).
+From the `website` repository's root directory, run:
 
 ```
 # Replace `NAMESPACE` and `PROJECT_ID` with values from your `terraform.tfvars`
@@ -150,7 +149,7 @@ DATA_BUCKET=${NAMESPACE}-datacommons-data-${PROJECT_ID}
 gcloud storage cp custom_dc/sample/* gs://$DATA_BUCKET/input/
 ```
 
-Load custom data into data commons.
+Load custom data into data commons:
 ```
 # Replace `NAMESPACE` and `REGION` with values from your `terraform.tfvars`
 NAMESPACE=your-namespace
@@ -158,13 +157,19 @@ REGION=us-central1
 gcloud run jobs execute ${NAMESPACE}-datacommons-data-job --region=$REGION
 ```
 
-### 6. Open Data Commons
+Restart the services to pick up the new data:
+
+```bash
+terraform apply
+```
+
+### 7. Open Data Commons
 
 Open your Custom Data Commons instance in the browser using the above
 `cloud_run_service_url` (e.g, `https://<your-namespace>-datacommons-web-service-abc123-uc.a.run.app`),
 
 
-### 8. Using Terraform Workspaces and Namespace
+## Using Terraform Workspaces and Namespace
 
 If you need to deploy multiple instances of Data Commons within the same GCP project, or across different projects, you can use Terraform workspaces and the `namespace` variable.
 
