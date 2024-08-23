@@ -68,7 +68,7 @@ _WORKSHEET_NAME = os.environ.get("WORKSHEET_NAME")
 
 _DEFAULT_DEVELOPER_EMAIL = "datcom-core@google.com"
 _DEFAULT_DEVELOPER_FIRST_NAME = "Data Commons"
-_DEFAULT_ORG_NAME = "Apigee Migrated"
+_DEFAULT_ORG_NAME = "Unknown Org"
 _APP_NAME_SUFFIX = " - Data Commons"
 
 assert _DC_API_TARGET, "'DC_API_TARGET' env variable not specified"
