@@ -13,8 +13,15 @@
 # limitations under the License.
 
 # Development Dockerfile for Custom Data Commons NL server
+# Stage 1: Download base dc model from GCS.
+FROM google/cloud-sdk:slim as model-downloader
 
-# Use official Python runtime as a parent image
+# Download NL embeddings model
+RUN mkdir -p /tmp/datcom-nl-models \
+    && gsutil -m cp -R gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2/ /tmp/datcom-nl-models/ \
+    && gsutil cp -R gs://datcom-nl-models/embeddings_medium_2024_05_09_18_01_32.ft_final_v20230717230459.all-MiniLM-L6-v2.csv /tmp/datcom-nl-models/
+
+# Stage 2: Use official Python runtime image
 FROM python:3.11.4-slim
 
 # Set the working directory in the container
@@ -40,6 +47,9 @@ COPY deploy/. /app/deploy/
 
 # Copy the NL application start script into the container
 COPY run_nl_server.sh /app/run_nl_server.sh
+
+# Copy NL embeddings model from model-downloader
+COPY --from=model-downloader /tmp/datcom-nl-models /tmp/datcom-nl-models
 
 # Copy the NL application start script into the container
 COPY nl_app.py /app/nl_app.py
