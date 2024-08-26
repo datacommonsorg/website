@@ -154,6 +154,8 @@ export interface ChartOptions {
   useSvgLegend?: boolean;
   // If set, adds title to the top of the chart
   title?: string;
+  // Optional: Disable the place href link for this component
+  disableEntityLink?: boolean;
 }
 
 export interface GroupLineChartOptions extends ChartOptions {

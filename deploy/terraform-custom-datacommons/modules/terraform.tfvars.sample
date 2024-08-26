@@ -20,7 +20,10 @@
 # User's GCP project
 project_id  = "your-gcp-project"
 
-# User provided namespace. Examples: "dev", "prod", "dan-dev"
+# Namespace to prefix all resources created by Terraform. For example, the
+# value "dev" results in resources like "dev-datacommons-web-service" and
+# "dev-datacommons-data-job". This ensures unique names when deploying the
+# module multiple times in the same GCP account.
 namespace   = "john-doe-dev"
 
 # Data Commons API key. See https://docs.datacommons.org/custom_dc/quickstart.html#prerequisites
