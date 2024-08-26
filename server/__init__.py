@@ -455,6 +455,8 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   # 2. If not found, fallback to the application configuration ('GOOGLE_ANALYTICS_TAG_ID' in app.config).
   # 3. If still not found, fallback to the deprecated application configuration ('GA_ACCOUNT' in app.config).
   config_deprecated_ga_account = app.config['GA_ACCOUNT']
+  if config_deprecated_ga_account:
+    logging.warn("Use of GA_ACCOUNT is deprecated. Use GOOGLE_ANALYTICS_TAG_ID instead.")
   config_google_analytics_tag_id = app.config['GOOGLE_ANALYTICS_TAG_ID']
   google_analytics_tag_id = os.environ.get('GOOGLE_ANALYTICS_TAG_ID', config_google_analytics_tag_id or config_deprecated_ga_account)
 
