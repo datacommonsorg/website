@@ -452,11 +452,11 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   # Attempt to retrieve the Google Analytics Tag ID (GOOGLE_ANALYTICS_TAG_ID):
   # 1. First, check the environment variables for 'GOOGLE_ANALYTICS_TAG_ID'.
-  # 2. If not found, fallback to the deprecated application configuration ('GA_ACCOUNT' in app.config).
-  # 3. If still not found, fallback to the application configuration ('GOOGLE_ANALYTICS_TAG_ID' in app.config).
+  # 2. If not found, fallback to the application configuration ('GOOGLE_ANALYTICS_TAG_ID' in app.config).
+  # 3. If still not found, fallback to the deprecated application configuration ('GA_ACCOUNT' in app.config).
   config_deprecated_ga_account = app.config['GA_ACCOUNT']
   config_google_analytics_tag_id = app.config['GOOGLE_ANALYTICS_TAG_ID']
-  google_analytics_tag_id = os.environ.get('GOOGLE_ANALYTICS_TAG_ID', config_deprecated_ga_account or config_google_analytics_tag_id)
+  google_analytics_tag_id = os.environ.get('GOOGLE_ANALYTICS_TAG_ID', config_google_analytics_tag_id or config_deprecated_ga_account)
 
   # Jinja env
   app.jinja_env.globals['GOOGLE_ANALYTICS_TAG_ID'] = google_analytics_tag_id
