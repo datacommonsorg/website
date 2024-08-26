@@ -456,9 +456,13 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   # 3. If still not found, fallback to the deprecated application configuration ('GA_ACCOUNT' in app.config).
   config_deprecated_ga_account = app.config['GA_ACCOUNT']
   if config_deprecated_ga_account:
-    logging.warn("Use of GA_ACCOUNT is deprecated. Use the GOOGLE_ANALYTICS_TAG_ID environment variable instead.")
+    logging.warn(
+        "Use of GA_ACCOUNT is deprecated. Use the GOOGLE_ANALYTICS_TAG_ID environment variable instead."
+    )
   config_google_analytics_tag_id = app.config['GOOGLE_ANALYTICS_TAG_ID']
-  google_analytics_tag_id = os.environ.get('GOOGLE_ANALYTICS_TAG_ID', config_google_analytics_tag_id or config_deprecated_ga_account)
+  google_analytics_tag_id = os.environ.get(
+      'GOOGLE_ANALYTICS_TAG_ID', config_google_analytics_tag_id or
+      config_deprecated_ga_account)
 
   # Jinja env
   app.jinja_env.globals['GOOGLE_ANALYTICS_TAG_ID'] = google_analytics_tag_id

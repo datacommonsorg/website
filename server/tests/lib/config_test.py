@@ -74,5 +74,6 @@ class TestConfig(unittest.TestCase):
     self.assertEqual(config.LOCAL, expected['LOCAL'])
     self.assertEqual(config.LITE, expected['LITE'])
     self.assertEqual(config.API_ROOT, expected['API_ROOT'])
-    self.assertEqual(config.GOOGLE_ANALYTICS_TAG_ID, expected['GOOGLE_ANALYTICS_TAG_ID'])
+    self.assertEqual(config.GOOGLE_ANALYTICS_TAG_ID,
+                     expected['GOOGLE_ANALYTICS_TAG_ID'])
     self.assertEqual(config.SCHEME, expected['SCHEME'])
