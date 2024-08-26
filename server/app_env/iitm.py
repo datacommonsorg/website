@@ -19,7 +19,7 @@ from server.app_env import local
 class Config(_base.Config):
   CUSTOM = True
   NAME = "IITM"
-  GA_ACCOUNT = 'G-32HPL4K4Y1'
+  GOOGLE_ANALYTICS_TAG_ID = 'G-32HPL4K4Y1'
   SHOW_DISASTER = False
   DISABLE_BQ = True
 
