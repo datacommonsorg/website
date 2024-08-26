@@ -42,6 +42,7 @@ class Config(_base.Config):
           "name": "12 UN Data Thematic Areas (ILO)"
       }]
   }
+  DISABLE_BQ = True
 
 
 class LocalConfig(Config, local.Config):

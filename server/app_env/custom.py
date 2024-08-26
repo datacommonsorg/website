@@ -25,6 +25,7 @@ class Config(_base.Config):
   SHOW_DISASTER = False
   USE_LLM = False
   USE_MEMCACHE = False
+  DISABLE_BQ = True
 
 
 class LocalConfig(Config, local.Config):

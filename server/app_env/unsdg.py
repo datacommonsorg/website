@@ -35,6 +35,7 @@ class Config(_base.Config):
           "dcid": "dc/g/SDG"
       }]
   }
+  DISABLE_BQ = True
 
 
 class LocalConfig(Config, local.Config):

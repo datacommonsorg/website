@@ -47,7 +47,7 @@
   <link href="{{ OVERRIDE_CSS_PATH }}" rel="stylesheet">
   {% endif %}
   <script>
-    globalThis.isCustomDC = {{ config['CUSTOM']|int }};
+    globalThis.disableBQ = {{ config['DISABLE_BQ']|int }};
   </script>
 </head>
 

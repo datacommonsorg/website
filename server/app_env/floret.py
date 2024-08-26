@@ -22,6 +22,7 @@ class Config(_base.Config):
   LOGO_PATH = "/custom_dc/floret/logo.svg"
   OVERRIDE_CSS_PATH = '/custom_dc/floret/overrides.css'
   SHOW_DISASTER = False
+  DISABLE_BQ = True
 
 
 class ComposeConfig(Config):

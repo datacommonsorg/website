@@ -51,6 +51,7 @@
   <script>
     globalThis.viaGoogle = true;
     globalThis.isCustomDC = {{ config['CUSTOM']|int }};
+    globalThis.disableBQ = {{ config['DISABLE_BQ']|int }};
   </script>
   <title>{{ title }} - Data Commons</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />

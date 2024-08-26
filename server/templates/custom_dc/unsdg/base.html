@@ -55,7 +55,7 @@ content - main page content
   {% endblock %}
   <link href="/custom_dc/unsdg/css/custom.css" rel="stylesheet">
   <script>
-    globalThis.isCustomDC = {{ config['CUSTOM']|int }};
+    globalThis.disableBQ = {{ config['DISABLE_BQ']|int }};
     globalThis.STAT_VAR_HIERARCHY_CONFIG = {{ config['STAT_VAR_HIERARCHY_CONFIG'] | tojson }};
   </script>
 </head>

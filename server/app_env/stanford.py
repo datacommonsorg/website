@@ -21,6 +21,7 @@ class Config(_base.Config):
   NAME = "Stanford Data Commons"
   GCS_BUCKET = 'datcom-stanford-resources'
   OVERRIDE_CSS_PATH = '/custom_dc/stanford/overrides.css'
+  DISABLE_BQ = True
 
 
 class LocalConfig(Config, local.Config):

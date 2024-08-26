@@ -55,7 +55,7 @@
   {% endblock %}
   <link href="/custom_dc/feedingamerica/css/overrides.css" rel="stylesheet">
   <script>
-    globalThis.isCustomDC = {{ config['CUSTOM']|int }};
+    globalThis.disableBQ = {{ config['DISABLE_BQ']|int }};
   </script>
 </head>
 

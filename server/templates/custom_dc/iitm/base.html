@@ -54,7 +54,7 @@
   {% endblock %}
   <link href="/custom_dc/iitm/style.css" rel="stylesheet">
   <script>
-    globalThis.isCustomDC = {{ config['CUSTOM']|int }};
+    globalThis.disableBQ = {{ config['DISABLE_BQ']|int }};
   </script>
 </head>
 

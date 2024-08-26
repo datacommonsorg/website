@@ -111,7 +111,7 @@ export class ObservationChartSection extends React.Component<
                 idx={index}
                 statVarId={this.props.statVarId}
                 placeDcid={this.props.placeDcid}
-                canClickObs={!globalThis.isCustomDC}
+                canClickObs={!globalThis.disableBQ}
                 statVarName={this.props.statVarName}
               />
               <p className="metadata">provenance: {metadata.provenanceUrl}</p>
