@@ -35,13 +35,13 @@ content - main page content
 
 <head>
   {# Enable Google Analytics with cookieless tracking. #}
-  {% if GA_ACCOUNT %}
-  <script async src="https://www.googletagmanager.com/gtag/js?id={{ GA_ACCOUNT }}"></script>
+  {% if GOOGLE_ANALYTICS_TAG_ID %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_ANALYTICS_TAG_ID }}"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-    gtag('config', '{{ GA_ACCOUNT }}', { client_storage: 'none', anonymize_ip: true });
+    gtag('config', '{{ GOOGLE_ANALYTICS_TAG_ID }}', { client_storage: 'none', anonymize_ip: true });
   </script>
   {% endif %}
   <title>{{ title }} - UN SDG Data Commons</title>
@@ -108,14 +108,14 @@ content - main page content
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
   {# Enable Google Analytics with cookieless tracking. #}
-  {% if GA_ACCOUNT %}
+  {% if GOOGLE_ANALYTICS_TAG_ID %}
   {#
-  <script async src="https://www.googletagmanager.com/gtag/js?id={{ GA_ACCOUNT }}"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_ANALYTICS_TAG_ID }}"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-    gtag('config', '{{ GA_ACCOUNT }}', { client_storage: 'none', anonymize_ip: true });
+    gtag('config', '{{ GOOGLE_ANALYTICS_TAG_ID }}', { client_storage: 'none', anonymize_ip: true });
   </script>#}
   {% endif %}
   {% block footer %}

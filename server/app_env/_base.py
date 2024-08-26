@@ -52,7 +52,7 @@ class Config:
                            os.environ.get('MIXER_HASH'))
   API_ROOT = 'http://127.0.0.1:8081'  # Port for Kubernetes ESP.
   SECRET_PROJECT = ''
-  GA_ACCOUNT = ''
+  GOOGLE_ANALYTICS_TAG_ID = ''
   SCHEME = 'https'
   # Additional stat vars that need to be fetched for place page data.
   # This is only needed for local development when cache is not up to date.

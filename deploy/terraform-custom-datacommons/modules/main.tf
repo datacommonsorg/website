@@ -211,7 +211,7 @@ resource "google_cloud_run_v2_service" "dc_web_service" {
       }
 
       env {
-        name = "GA_ACCOUNT"
+        name = "GOOGLE_ANALYTICS_TAG_ID"
         value = var.google_analytics_tag_id != null ? var.google_analytics_tag_id : ""
       }
 
