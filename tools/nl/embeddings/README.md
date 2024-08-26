@@ -6,8 +6,7 @@ is loaded into the NL Server.
 
 There are multiple embeddings index types. Each index holds the stat var
 descriptions for a particular domain or use case. The input stat var
-description csvs for one index type are saved in one folder under
-`data/curated_input/`.
+description csvs for one index type are saved in one folder under `input/`.
 
 ## Embeddings Index Config
 
@@ -47,14 +46,14 @@ command-line tools [here](../../sheets/).
   to the sheets command line tools folder and run:
 
   ```bash
-  ./run.sh -m csv2sheet -l ../nl/embeddings/data/curated_input/base/sheets_svs.csv [-s <sheets_url>] [-w <worksheet_name>]
+  ./run.sh -m csv2sheet -l ../nl/embeddings/input/base/sheets_svs.csv [-s <sheets_url>] [-w <worksheet_name>]
   ```
 
 - E.g., To copy the contents of the google sheet back as the curated input for
   the base embeddings, go to the sheets command line tools folder and run:
 
   ```bash
-  ./run.sh -m sheet2csv -l ../nl/embeddings/data/curated_input/base/sheets_svs.csv -s <sheets_url> -w <worksheet_name>
+  ./run.sh -m sheet2csv -l ../nl/embeddings/input/base/sheets_svs.csv -s <sheets_url> -w <worksheet_name>
   ```
 
 ## Build Embeddings Index
@@ -68,7 +67,7 @@ Run the command below which will generate a new embeddings csv in
 end of the run.
 
 ```bash
-./run.sh --embeddings_name <EMBEDDINGS_NAME>
+./run.sh -e <EMBEDDINGS_NAME>
 ```
 
 Available options for <EMBEDDINGS_NAME> are:
@@ -77,7 +76,7 @@ Available options for <EMBEDDINGS_NAME> are:
 - undata_ft
 - undata_ilo_ft
 - bio_ft
-- uae_base_mem
+- base_uae_mem
 
 ## Validate Embeddings Index
 

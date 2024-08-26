@@ -16,7 +16,6 @@
 
 /* Component to count the number of claims */
 
-import _ from "lodash";
 import React from "react";
 
 interface ClaimCounterPropType {
@@ -28,21 +27,23 @@ interface ClaimCounterPropType {
 
 export function ClaimCounter(props: ClaimCounterPropType): JSX.Element {
   return (
-    <div className="claims-count">
-      <button
-        className="btn-count"
-        onClick={() => props.onCountUpdated(props.count - 1)}
-      >
-        -
-      </button>
-      <span className="count-text">{props.count}</span>
-      <button
-        className="btn-count"
-        onClick={() => props.onCountUpdated(props.count + 1)}
-      >
-        +
-      </button>
-      <p className="claim-text">{props.label}</p>
-    </div>
+    <>
+      <div className="claim-text">{props.label}</div>
+      <div className="button-container">
+        <button
+          className="btn-count"
+          onClick={() => props.onCountUpdated(props.count - 1)}
+        >
+          -
+        </button>
+        <span className="count-text">{props.count}</span>
+        <button
+          className="btn-count"
+          onClick={() => props.onCountUpdated(props.count + 1)}
+        >
+          +
+        </button>
+      </div>
+    </>
   );
 }

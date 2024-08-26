@@ -17,7 +17,6 @@
 
 from typing import Dict, List
 
-import server.lib.nl.common.counters as ctr
 from server.lib.nl.detection import query_util
 from server.lib.nl.detection.types import DetectionArgs
 import server.lib.nl.detection.utils as dutils
@@ -26,12 +25,6 @@ from server.services import datacommons as dc
 from shared.lib import constants
 import shared.lib.detected_variables as vars
 import shared.lib.utils as shared_utils
-
-# TODO: decouple words removal from detected attributes. Today, the removal
-# blanket removes anything that matches, including the various attribute/
-# classification triggers and contained_in place types (and their plurals).
-# This may not always be the best thing to do.
-ALL_STOP_WORDS = shared_utils.combine_stop_words()
 
 # A value higher than the highest score.
 _HIGHEST_SCORE = 1.0
@@ -49,6 +42,15 @@ _MAX_MULTIVAR_PARTS = 2
 #
 def detect_vars(orig_query: str, debug_logs: Dict,
                 dargs: DetectionArgs) -> vars.VarDetectionResult:
+
+  # Get the list of stop words to use depending on if this is toolformer mode
+  # or not.
+  if params.is_toolformer_mode(dargs.mode):
+    stop_words = shared_utils.combine_stop_words(
+        constants.HEURISTIC_TYPES_IN_VARIABLES_TOOLFORMER)
+  else:
+    stop_words = shared_utils.combine_stop_words()
+
   #
   # 1. Prepare all the queries for embeddings lookup, both mono-var and multi-var.
   #
@@ -60,8 +62,7 @@ def detect_vars(orig_query: str, debug_logs: Dict,
   if dargs.include_stop_words:
     query_monovar = orig_query
   else:
-    query_monovar = shared_utils.remove_stop_words(orig_query,
-                                                   query_util.ALL_STOP_WORDS)
+    query_monovar = shared_utils.remove_stop_words(orig_query, stop_words)
   if not query_monovar.strip():
     # Empty user query!  Return empty results
     return dutils.empty_var_detection_result()
@@ -70,16 +71,16 @@ def detect_vars(orig_query: str, debug_logs: Dict,
   # Try to detect multiple SVs.  Use the original query so that
   # the logic can rely on stop-words like `vs`, `and`, etc as hints
   # for SV delimiters.
-  multi_querysets, multi_queries = _prepare_multivar_queries(orig_query)
+  multi_querysets, multi_queries = _prepare_multivar_queries(
+      orig_query, stop_words)
   all_queries.extend(multi_queries)
 
   #
   # 2. Lookup embeddings with both single-var and multi-var queries.
   #
   # Make API call to the NL models/embeddings server.
-  skip_topics = dargs.mode == params.QueryMode.TOOLFORMER_RIG
   resp = dc.nl_search_vars(all_queries, dargs.embeddings_index_types,
-                           skip_topics, dargs.reranker)
+                           dargs.reranker)
   query2results = {
       q: vars.dict_to_var_candidates(r) for q, r in resp['queryResults'].items()
   }
@@ -109,12 +110,14 @@ def detect_vars(orig_query: str, debug_logs: Dict,
 # TODO: Fix the query upstream to ensure the punctuations aren't stripped.
 #
 def _prepare_multivar_queries(
-    query: str) -> tuple[List[query_util.QuerySet], List[str]]:
+    query: str,
+    stop_words: List[str]) -> tuple[List[query_util.QuerySet], List[str]]:
   #
   # Prepare a combination of query-sets.
   #
   querysets = query_util.prepare_multivar_querysets(query,
-                                                    max_svs=_MAX_MULTIVAR_PARTS)
+                                                    max_svs=_MAX_MULTIVAR_PARTS,
+                                                    stop_words=stop_words)
 
   # Make a unique list of query strings
   all_queries = set()

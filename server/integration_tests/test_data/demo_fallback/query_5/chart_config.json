@@ -600,7 +600,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSAgricultureForestryFishingHunting"
                     ],
-                    "title": "Agriculture, Forestry, Fishing, Hunting in United States",
+                    "title": "Agriculture, Forestry, Fishing, Hunting Workers in United States",
                     "type": "LINE"
                   }
                 ]
@@ -608,18 +608,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Agriculture, Forestry, Fishing, Hunting in United States",
+                    "description": "Agriculture, Forestry, Fishing, Hunting Workers in United States",
                     "statVarKey": [
                       "Count_Worker_NAICSAgricultureForestryFishingHunting"
                     ],
-                    "title": "Agriculture, Forestry, Fishing, Hunting in United States",
+                    "title": "Agriculture, Forestry, Fishing, Hunting Workers in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Agriculture, Forestry, Fishing, Hunting"
+            "title": "Agriculture, Forestry, Fishing, Hunting Workers"
           },
           {
             "columns": [
@@ -647,7 +647,7 @@
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: WESR / global material flows database.",
+            "footnote": "Includes data from the following sources: eurostat; WESR / global material flows database.",
             "title": "Domestic Material Consumption Per Unit of GDP"
           },
           {
@@ -755,55 +755,55 @@
             "statVar": "Area_Farm"
           },
           "Count_Establishment_FederalGovernmentOwnedEstablishment_NAICSTotalAllIndustries": {
-            "name": "Establishments:Federal Govt owned",
+            "name": "Number of Establishments:Federal Govt owned",
             "statVar": "Count_Establishment_FederalGovernmentOwnedEstablishment_NAICSTotalAllIndustries"
           },
           "Count_Establishment_LocalGovernmentOwnedEstablishment_NAICSTotalAllIndustries": {
-            "name": "Establishments: Local Govt owned",
+            "name": "Number of Establishments: Local Govt owned",
             "statVar": "Count_Establishment_LocalGovernmentOwnedEstablishment_NAICSTotalAllIndustries"
           },
           "Count_Establishment_NAICSAdministrativeSupportWasteManagementRemediationServices_multiple_place_bar_block": {
-            "name": "Establishments: Administrative, Support, Waste Management",
+            "name": "Number of Establishments: Administrative, Support, Waste Management",
             "statVar": "Count_Establishment_NAICSAdministrativeSupportWasteManagementRemediationServices"
           },
           "Count_Establishment_NAICSConstruction_multiple_place_bar_block": {
-            "name": "Establishments: Construction",
+            "name": "Number of Establishments: Construction",
             "statVar": "Count_Establishment_NAICSConstruction"
           },
           "Count_Establishment_NAICSFinanceInsurance_multiple_place_bar_block": {
-            "name": "Establishments: Finance and Insurance",
+            "name": "Number of Establishments: Finance and Insurance",
             "statVar": "Count_Establishment_NAICSFinanceInsurance"
           },
           "Count_Establishment_NAICSInformation_multiple_place_bar_block": {
-            "name": "Establishments: Information",
+            "name": "Number of Establishments: Information",
             "statVar": "Count_Establishment_NAICSInformation"
           },
           "Count_Establishment_NAICSNonclassifiable_multiple_place_bar_block": {
-            "name": "Establishments: Unclassified",
+            "name": "Number of Establishments: Unclassified",
             "statVar": "Count_Establishment_NAICSNonclassifiable"
           },
           "Count_Establishment_NAICSOtherServices_multiple_place_bar_block": {
-            "name": "Establishments: Other Services",
+            "name": "Number of Establishments: Other Services",
             "statVar": "Count_Establishment_NAICSOtherServices"
           },
           "Count_Establishment_NAICSPublicAdministration_multiple_place_bar_block": {
-            "name": "Establishments: Public Administration",
+            "name": "Number of Establishments: Public Administration",
             "statVar": "Count_Establishment_NAICSPublicAdministration"
           },
           "Count_Establishment_NAICSRealEstateRentalLeasing_multiple_place_bar_block": {
-            "name": "Establishments: Real Estate, Rental, Leasing",
+            "name": "Number of Establishments: Real Estate, Rental, Leasing",
             "statVar": "Count_Establishment_NAICSRealEstateRentalLeasing"
           },
           "Count_Establishment_NAICSUtilities_multiple_place_bar_block": {
-            "name": "Establishments: Utilities",
+            "name": "Number of Establishments: Utilities",
             "statVar": "Count_Establishment_NAICSUtilities"
           },
           "Count_Establishment_PrivatelyOwnedEstablishment_NAICSTotalAllIndustries": {
-            "name": "Establishments: Privately owned",
+            "name": "Number of Establishments: Privately owned",
             "statVar": "Count_Establishment_PrivatelyOwnedEstablishment_NAICSTotalAllIndustries"
           },
           "Count_Establishment_StateGovernmentOwnedEstablishment_NAICSTotalAllIndustries": {
-            "name": "Establishments: State owned",
+            "name": "Number of Establishments: State owned",
             "statVar": "Count_Establishment_StateGovernmentOwnedEstablishment_NAICSTotalAllIndustries"
           },
           "Count_Farm": {
@@ -859,79 +859,79 @@
             "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
           },
           "Count_Worker_NAICSAccommodationFoodServices_multiple_place_bar_block": {
-            "name": "Accommodation/Food Industry",
+            "name": "Accommodation/Food Industry Workers",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
           },
           "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices_multiple_place_bar_block": {
-            "name": "Admin / Waste Management Service Industry",
+            "name": "Admin / Waste Management Service Industry Workers",
             "statVar": "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices"
           },
           "Count_Worker_NAICSAgricultureForestryFishingHunting": {
-            "name": "Agriculture, Forestry, Fishing, Hunting",
+            "name": "Agriculture, Forestry, Fishing, Hunting Workers",
             "statVar": "Count_Worker_NAICSAgricultureForestryFishingHunting"
           },
           "Count_Worker_NAICSAgricultureForestryFishingHunting_multiple_place_bar_block": {
-            "name": "Agriculture, Forestry, Fishing, Hunting",
+            "name": "Agriculture, Forestry, Fishing, Hunting Workers",
             "statVar": "Count_Worker_NAICSAgricultureForestryFishingHunting"
           },
           "Count_Worker_NAICSArtsEntertainmentRecreation_multiple_place_bar_block": {
-            "name": "Arts, Entertainment, Recreation Industry",
+            "name": "Arts, Entertainment, Recreation Industry Workers",
             "statVar": "Count_Worker_NAICSArtsEntertainmentRecreation"
           },
           "Count_Worker_NAICSConstruction_multiple_place_bar_block": {
-            "name": "Construction Industry",
+            "name": "Population Working in the Construction Industry",
             "statVar": "Count_Worker_NAICSConstruction"
           },
           "Count_Worker_NAICSEducationalServices_multiple_place_bar_block": {
-            "name": "Educational Services Industry",
+            "name": "Educational Services Industry Workers",
             "statVar": "Count_Worker_NAICSEducationalServices"
           },
           "Count_Worker_NAICSFinanceInsurance_multiple_place_bar_block": {
-            "name": "Finance and Insurance Industry",
+            "name": "Finance and Insurance Industry Workers",
             "statVar": "Count_Worker_NAICSFinanceInsurance"
           },
           "Count_Worker_NAICSHealthCareSocialAssistance_multiple_place_bar_block": {
-            "name": "Health Care and Social Assistance Industry",
+            "name": "Health Care and Social Assistance Industry Workers",
             "statVar": "Count_Worker_NAICSHealthCareSocialAssistance"
           },
           "Count_Worker_NAICSInformation_multiple_place_bar_block": {
-            "name": "Information Industry",
+            "name": "Information Industry Workers",
             "statVar": "Count_Worker_NAICSInformation"
           },
           "Count_Worker_NAICSManagementOfCompaniesEnterprises_multiple_place_bar_block": {
-            "name": "Management of Companies and Enterprises Industry",
+            "name": "Population Working in the Management of Companies and Enterprises Industry",
             "statVar": "Count_Worker_NAICSManagementOfCompaniesEnterprises"
           },
           "Count_Worker_NAICSMiningQuarryingOilGasExtraction_multiple_place_bar_block": {
-            "name": "Mining, Quarrying, Oil and Gas Extraction Industry",
+            "name": "Mining, Quarrying, Oil and Gas Extraction Industry Workers",
             "statVar": "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
           },
           "Count_Worker_NAICSNonclassifiable_multiple_place_bar_block": {
-            "name": "Unclassified",
+            "name": "Unclassified Workers",
             "statVar": "Count_Worker_NAICSNonclassifiable"
           },
           "Count_Worker_NAICSOtherServices_multiple_place_bar_block": {
-            "name": "Other Services (except Public Admin)",
+            "name": "Other Services (except Public Admin) Workers",
             "statVar": "Count_Worker_NAICSOtherServices"
           },
           "Count_Worker_NAICSProfessionalScientificTechnicalServices_multiple_place_bar_block": {
-            "name": "Professional, Scientific, and Technical Services",
+            "name": "Professional, Scientific, and Technical Services Workers",
             "statVar": "Count_Worker_NAICSProfessionalScientificTechnicalServices"
           },
           "Count_Worker_NAICSPublicAdministration_multiple_place_bar_block": {
-            "name": "Public Administration",
+            "name": "Public Administration Workers",
             "statVar": "Count_Worker_NAICSPublicAdministration"
           },
           "Count_Worker_NAICSRealEstateRentalLeasing_multiple_place_bar_block": {
-            "name": "Real Estate and Rental and Leasing",
+            "name": "Real Estate and Rental and Leasing Workers",
             "statVar": "Count_Worker_NAICSRealEstateRentalLeasing"
           },
           "Count_Worker_NAICSUtilities_multiple_place_bar_block": {
-            "name": "Utilities",
+            "name": "Utilities Workers",
             "statVar": "Count_Worker_NAICSUtilities"
           },
           "Count_Worker_NAICSWholesaleTrade_multiple_place_bar_block": {
-            "name": "Wholesale Trade",
+            "name": "Wholesale Trade Workers",
             "statVar": "Count_Worker_NAICSWholesaleTrade"
           },
           "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": {
@@ -1063,7 +1063,7 @@
             "statVar": "dc/8mty3dlrx26e5"
           },
           "dc/8p97n7l96lgg8_multiple_place_bar_block": {
-            "name": "Transportation And Warehousing",
+            "name": "Transportation And Warehousing Workers",
             "statVar": "dc/8p97n7l96lgg8"
           },
           "dc/8vcbgqlfzwvtf_multiple_place_bar_block": {
@@ -1135,11 +1135,11 @@
             "statVar": "dc/mlf5e4m68h2k7"
           },
           "dc/ndg1xk1e9frc2_multiple_place_bar_block": {
-            "name": "Manufacturing",
+            "name": "Manufacturing Workers",
             "statVar": "dc/ndg1xk1e9frc2"
           },
           "dc/p69tpsldf99h7_multiple_place_bar_block": {
-            "name": "Retail Trade",
+            "name": "Retail Trade Workers",
             "statVar": "dc/p69tpsldf99h7"
           },
           "dc/rw3t3r74kv7mc_multiple_place_bar_block": {
@@ -1233,7 +1233,6 @@
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSMiningQuarryingOilGasExtraction_RealValue",
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSNaturalResourcesMining_RealValue",
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSNondurableGoodsManufacturing_RealValue",
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue",
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalAndBusinessServices_RealValue",
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue",
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_RealValue",

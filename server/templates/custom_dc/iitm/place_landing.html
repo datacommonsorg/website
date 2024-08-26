@@ -117,6 +117,6 @@
   <script
     src={{url_for('static', filename='place_landing.js', t=config['VERSION'])}}></script>
   <script
-    src="https://maps.googleapis.com/maps/api/js?key={{maps_api_key}}&libraries=places&language={{locale}}"
+    src="https://maps.googleapis.com/maps/api/js?key={{maps_api_key}}&libraries=places&language={{locale}}&loading=async"
     async defer></script>
   {% endblock %}

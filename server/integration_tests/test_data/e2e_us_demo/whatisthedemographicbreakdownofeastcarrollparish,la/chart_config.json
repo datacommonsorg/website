@@ -140,7 +140,7 @@
                     "statVarKey": [
                       "Count_Person_IncomeOfUpto9999USDollar"
                     ],
-                    "title": "People Earning Up to $9,999 in Cities of East Carroll Parish (${date})",
+                    "title": "Number of People Earning Up to $9,999 in Cities of East Carroll Parish (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -155,14 +155,14 @@
                     "statVarKey": [
                       "Count_Person_IncomeOfUpto9999USDollar"
                     ],
-                    "title": "People Earning Up to $9,999 in Cities of East Carroll Parish (${date})",
+                    "title": "Number of People Earning Up to $9,999 in Cities of East Carroll Parish (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "People Earning Up to $9,999 in Cities of East Carroll Parish"
+            "title": "Number of People Earning Up to $9,999 in Cities of East Carroll Parish"
           },
           {
             "columns": [
@@ -172,7 +172,7 @@
                     "statVarKey": [
                       "Count_Person_IncomeOf10000To14999USDollar"
                     ],
-                    "title": "People Earning $10,000 and $14,999 in Cities of East Carroll Parish (${date})",
+                    "title": "Number of People Earning $10,000 and $14,999 in Cities of East Carroll Parish (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -187,14 +187,75 @@
                     "statVarKey": [
                       "Count_Person_IncomeOf10000To14999USDollar"
                     ],
-                    "title": "People Earning $10,000 and $14,999 in Cities of East Carroll Parish (${date})",
+                    "title": "Number of People Earning $10,000 and $14,999 in Cities of East Carroll Parish (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "People Earning $10,000 and $14,999 in Cities of East Carroll Parish"
+            "title": "Number of People Earning $10,000 and $14,999 in Cities of East Carroll Parish"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_18OrMoreYears"
+                    ],
+                    "title": "Population: 18 Years or More in East Carroll Parish",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: 18 Years or More in East Carroll Parish",
+                    "statVarKey": [
+                      "Count_Person_18OrMoreYears"
+                    ],
+                    "title": "Population: 18 Years or More in East Carroll Parish",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 18 Years or More"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_18OrMoreYears"
+                    ],
+                    "title": "Population: 18 Years or More in Cities of East Carroll Parish (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_18OrMoreYears"
+                    ],
+                    "title": "Population: 18 Years or More in Cities of East Carroll Parish (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 18 Years or More in Cities of East Carroll Parish"
           },
           {
             "columns": [
@@ -313,12 +374,77 @@
               }
             ],
             "title": "Median Age of Population in Cities of East Carroll Parish"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Upto18Years"
+                    ],
+                    "title": "Population: 18 Years or Less in East Carroll Parish",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: 18 Years or Less in East Carroll Parish",
+                    "statVarKey": [
+                      "Count_Person_Upto18Years"
+                    ],
+                    "title": "Population: 18 Years or Less in East Carroll Parish",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 18 Years or Less"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Upto18Years"
+                    ],
+                    "title": "Population: 18 Years or Less in Cities of East Carroll Parish (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Upto18Years"
+                    ],
+                    "title": "Population: 18 Years or Less in Cities of East Carroll Parish (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 18 Years or Less in Cities of East Carroll Parish"
           }
         ],
         "statVarSpec": {
           "Count_Person": {
             "name": "Population",
             "statVar": "Count_Person"
+          },
+          "Count_Person_18OrMoreYears": {
+            "name": "Population: 18 Years or More",
+            "statVar": "Count_Person_18OrMoreYears"
           },
           "Count_Person_18To24Years_multiple_place_bar_block": {
             "name": "Population Aged 18 to 24 Years",
@@ -365,40 +491,44 @@
             "statVar": "Count_Person_75OrMoreYears"
           },
           "Count_Person_IncomeOf10000To14999USDollar": {
-            "name": "People Earning $10,000 and $14,999",
+            "name": "Number of People Earning $10,000 and $14,999",
             "statVar": "Count_Person_IncomeOf10000To14999USDollar"
           },
           "Count_Person_IncomeOf10000To14999USDollar_multiple_place_bar_block": {
-            "name": "People Earning $10,000 and $14,999",
+            "name": "Number of People Earning $10,000 and $14,999",
             "statVar": "Count_Person_IncomeOf10000To14999USDollar"
           },
           "Count_Person_IncomeOf25000To34999USDollar_multiple_place_bar_block": {
-            "name": "People Earning $25,000 and $34,999",
+            "name": "Number of People Earning $25,000 and $34,999",
             "statVar": "Count_Person_IncomeOf25000To34999USDollar"
           },
           "Count_Person_IncomeOf35000To49999USDollar_multiple_place_bar_block": {
-            "name": "People Earning $35,000 and $49,999",
+            "name": "Number of People Earning $35,000 and $49,999",
             "statVar": "Count_Person_IncomeOf35000To49999USDollar"
           },
           "Count_Person_IncomeOf50000To64999USDollar_multiple_place_bar_block": {
-            "name": "People Earning Between $50,000 and $64,999",
+            "name": "Number of People Earning Between $50,000 and $64,999",
             "statVar": "Count_Person_IncomeOf50000To64999USDollar"
           },
           "Count_Person_IncomeOf65000To74999USDollar_multiple_place_bar_block": {
-            "name": "People Earning Between $65,000 and $74,999",
+            "name": "Number of People Earning Between $65,000 and $74,999",
             "statVar": "Count_Person_IncomeOf65000To74999USDollar"
           },
           "Count_Person_IncomeOf75000OrMoreUSDollar_multiple_place_bar_block": {
-            "name": "People Earning $75,000 or More",
+            "name": "Number of People Earning $75,000 or More",
             "statVar": "Count_Person_IncomeOf75000OrMoreUSDollar"
           },
           "Count_Person_IncomeOfUpto9999USDollar": {
-            "name": "People Earning Up to $9,999",
+            "name": "Number of People Earning Up to $9,999",
             "statVar": "Count_Person_IncomeOfUpto9999USDollar"
           },
           "Count_Person_IncomeOfUpto9999USDollar_multiple_place_bar_block": {
-            "name": "People Earning Up to $9,999",
+            "name": "Number of People Earning Up to $9,999",
             "statVar": "Count_Person_IncomeOfUpto9999USDollar"
+          },
+          "Count_Person_Upto18Years": {
+            "name": "Population: 18 Years or Less",
+            "statVar": "Count_Person_Upto18Years"
           },
           "Median_Age_Person": {
             "name": "Median Age of Population",
@@ -457,6 +587,7 @@
     "exploreMore": {
       "Count_Person": {
         "age": [
+          "Count_Person_18OrMoreYears",
           "Count_Person_18To24Years",
           "Count_Person_1To4Years",
           "Count_Person_25To34Years",
@@ -465,7 +596,8 @@
           "Count_Person_55To64Years",
           "Count_Person_5To17Years",
           "Count_Person_65To74Years",
-          "Count_Person_75OrMoreYears"
+          "Count_Person_75OrMoreYears",
+          "Count_Person_Upto18Years"
         ],
         "income": [
           "Count_Person_IncomeOf10000To14999USDollar",
@@ -475,36 +607,6 @@
           "Count_Person_IncomeOf65000To74999USDollar",
           "Count_Person_IncomeOf75000OrMoreUSDollar",
           "Count_Person_IncomeOfUpto9999USDollar"
-        ]
-      },
-      "Count_Person_18To24Years": {
-        "placeOfBirth": [
-          "Count_Person_18To24Years_BornInOtherStateInTheUnitedStates",
-          "Count_Person_18To24Years_BornInStateOfResidence",
-          "Count_Person_18To24Years_ForeignBorn",
-          "Count_Person_18To24Years_NativeBornOutsideTheUnitedStates"
-        ],
-        "residentStatus": [
-          "Count_Person_18To24Years_DifferentHouseAbroad",
-          "Count_Person_18To24Years_DifferentHouseInDifferentCountyDifferentState",
-          "Count_Person_18To24Years_DifferentHouseInDifferentCountySameState",
-          "Count_Person_18To24Years_DifferentHouseInSameCounty"
-        ]
-      },
-      "Count_Person_1To4Years": {
-        "residentStatus": [
-          "Count_Person_1To4Years_DifferentHouseAbroad",
-          "Count_Person_1To4Years_DifferentHouseInDifferentCountyDifferentState",
-          "Count_Person_1To4Years_DifferentHouseInDifferentCountySameState",
-          "Count_Person_1To4Years_DifferentHouseInSameCounty"
-        ]
-      },
-      "Count_Person_25To34Years": {
-        "placeOfBirth": [
-          "Count_Person_25To34Years_BornInOtherStateInTheUnitedStates",
-          "Count_Person_25To34Years_BornInStateOfResidence",
-          "Count_Person_25To34Years_ForeignBorn",
-          "Count_Person_25To34Years_NativeBornOutsideTheUnitedStates"
         ]
       }
     },

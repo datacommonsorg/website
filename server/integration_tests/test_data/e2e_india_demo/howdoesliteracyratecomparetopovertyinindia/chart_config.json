@@ -23,7 +23,6 @@
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
             "title": "Population: Literate vs. Population Below poverty line"
           },
           {
@@ -56,7 +55,6 @@
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
             "title": "Population: Literate in Administrative Area 1 Places of India"
           },
           {
@@ -89,7 +87,6 @@
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
             "title": "Population Below Poverty Line in Administrative Area 1 Places of India"
           },
           {
@@ -111,7 +108,6 @@
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
             "title": "Population: Illiterate vs. Population Below poverty line (Per Capita)"
           },
           {
@@ -195,7 +191,6 @@
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
             "title": "Population: Literate vs. Population Below poverty line (Per Capita)"
           },
           {
@@ -217,7 +212,6 @@
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
             "title": "Population: Illiterate vs. Population Below poverty line"
           }
         ],
@@ -588,10 +582,6 @@
         "placeOfResidenceClassification": [
           "Count_Person_Illiterate_Rural",
           "Count_Person_Illiterate_Urban"
-        ],
-        "religion": [
-          "indianCensus/Count_Person_Religion_Buddhist_Illiterate",
-          "indianCensus/Count_Person_Religion_Christian_Illiterate"
         ]
       },
       "Count_Person_Literate": {

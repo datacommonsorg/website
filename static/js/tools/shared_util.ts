@@ -185,13 +185,14 @@ export function computeRatio(
   let j = 0; // denominator position
   for (let i = 0; i < num.length; i++) {
     const numDate = Date.parse(num[i].date);
-    const denomDate = Date.parse(denom[j].date);
+    let denomDate = Date.parse(denom[j].date);
     while (j < denom.length - 1 && numDate > denomDate) {
       const denomDateNext = Date.parse(denom[j + 1].date);
       const nextBetter =
         Math.abs(denomDateNext - numDate) < Math.abs(denomDate - numDate);
       if (nextBetter) {
         j++;
+        denomDate = Date.parse(denom[j].date);
       } else {
         break;
       }

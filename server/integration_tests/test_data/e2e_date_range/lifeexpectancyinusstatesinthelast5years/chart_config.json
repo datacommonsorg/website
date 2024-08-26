@@ -161,7 +161,7 @@
                     "statVarKey": [
                       "Count_Death_1151455814"
                     ],
-                    "title": "Deaths in United States",
+                    "title": "Number of Deaths in United States",
                     "type": "LINE"
                   }
                 ]
@@ -169,18 +169,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Deaths in United States",
+                    "description": "Number of Deaths in United States",
                     "statVarKey": [
                       "Count_Death"
                     ],
-                    "title": "Deaths in United States",
+                    "title": "Number of Deaths in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Deaths"
+            "title": "Number of Deaths"
           },
           {
             "columns": [
@@ -435,7 +435,7 @@
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: united nations Inter-agency group for child mortality estimation (UN IGME), 2023.",
+            "footnote": "Includes data from the following sources: united nations Inter-agency group for child mortality estimation (UN IGME), 2024.",
             "title": "Neonatal Mortality Rate"
           },
           {
@@ -650,6 +650,69 @@
               {
                 "tiles": [
                   {
+                    "lineTileSpec": {
+                      "startDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_606064963"
+                    ],
+                    "title": "Infant Mortality Rate in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Infant Mortality Rate in United States",
+                    "statVarKey": [
+                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+                    ],
+                    "title": "Infant Mortality Rate in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "description": "Infant mortality rate is the number of infants dying before reaching one year of age, per 1,000 live births in a given year. Estimates developed by the UN Inter-agency group for child mortality estimation (UNICEF, WHO, world bank, UN DESA population division) at www.Childmortality.Org.",
+            "title": "Infant Mortality Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+                    ],
+                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+                    ],
+                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "Median_Age_Person"
                     ],
@@ -710,12 +773,21 @@
         ],
         "statVarSpec": {
           "Count_Death": {
-            "name": "Deaths",
+            "name": "Number of Deaths",
             "statVar": "Count_Death"
+          },
+          "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": {
+            "name": "Infant Mortality Rate",
+            "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+          },
+          "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_606064963": {
+            "facetId": "606064963",
+            "name": "Infant Mortality Rate",
+            "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
           },
           "Count_Death_1151455814": {
             "facetId": "1151455814",
-            "name": "Deaths",
+            "name": "Number of Deaths",
             "statVar": "Count_Death"
           },
           "Count_Death_AbnormalNotClassfied_Female": {
@@ -808,6 +880,10 @@
           "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person_multiple_place_bar_block": {
             "name": "% of Suicide Events",
             "statVar": "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
+          },
+          "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent": {
+            "name": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)",
+            "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
           },
           "Count_Death_Neoplasms_Female_multiple_place_bar_block": {
             "name": "Female Deaths Due To Neoplasms",

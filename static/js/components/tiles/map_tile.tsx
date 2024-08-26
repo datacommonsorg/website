@@ -19,7 +19,6 @@
  */
 
 import {
-  DataCommonsClient,
   DataRow,
   dataRowsToCsv,
   ISO_CODE_ATTRIBUTE,
@@ -66,15 +65,16 @@ import {
   getHash,
 } from "../../utils/app/visualization_utils";
 import { stringifyFn } from "../../utils/axios";
+import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { getPointWithin, getSeriesWithin } from "../../utils/data_fetch_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
+  clearContainer,
   getDenomInfo,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
   ReplacementStrings,
-  showError,
   transformCsvHeader,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
@@ -208,7 +208,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
     : null;
   const showZoomButtons =
     !!zoomParams && !!mapChartData && _.isEqual(mapChartData.props, props);
-  const dataCommonsClient = new DataCommonsClient({ apiRoot: props.apiRoot });
+  const dataCommonsClient = getDataCommonsClient(props.apiRoot);
 
   useEffect(() => {
     if (props.lazyLoad && !shouldLoad) {
@@ -283,17 +283,23 @@ export function MapTile(props: MapTilePropType): JSX.Element {
   }, [props, mapChartData, svgContainer, legendContainer, mapContainer]);
   useDrawOnResize(drawFn, svgContainer.current);
   useEffect(() => {
+    const eventHandler = (e: CustomEvent<ChartEventDetail>) => {
+      if (e.detail.property === "date") {
+        setDateOverride(e.detail.value);
+      }
+    };
+
     if (props.subscribe) {
-      self.addEventListener(
-        props.subscribe,
-        (e: CustomEvent<ChartEventDetail>) => {
-          if (e.detail.property === "date") {
-            setDateOverride(e.detail.value);
-          }
-        }
-      );
+      self.addEventListener(props.subscribe, eventHandler);
     }
-  }, []);
+
+    // Cleanup function to remove the event listener
+    return () => {
+      if (props.subscribe) {
+        self.removeEventListener(props.subscribe, eventHandler);
+      }
+    };
+  }, [props.subscribe]);
 
   return (
     <ChartTileContainer
@@ -340,7 +346,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       }}
       isInitialLoading={_.isNull(mapChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
-      hasErrorMsg={!_.isEmpty(mapChartData) && !!mapChartData.errorMsg}
+      errorMsg={!_.isEmpty(mapChartData) && mapChartData.errorMsg}
       footnote={props.footnote}
       statVarSpecs={
         !_.isEmpty(props.dataSpecs)
@@ -362,7 +368,10 @@ export function MapTile(props: MapTilePropType): JSX.Element {
         id={props.id}
         className="svg-container"
         ref={svgContainer}
-        style={{ minHeight: svgHeight }}
+        style={{
+          minHeight: svgHeight,
+          display: mapChartData && mapChartData.errorMsg ? "none" : "flex",
+        }}
       >
         <div className="error-msg" ref={errorMsgContainer}></div>
         <div className="map" ref={mapContainer}></div>
@@ -652,7 +661,7 @@ export function draw(
     // clear the map and legend before adding error message
     mapContainer.innerHTML = "";
     legendContainer.innerHTML = "";
-    showError(chartData.errorMsg, errorMsgContainer);
+    clearContainer(errorMsgContainer);
     return;
   }
   // clear the error message before drawing the map and legend

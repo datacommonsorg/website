@@ -18,7 +18,6 @@
  * Component for rendering a bivariate type tile.
  */
 
-import { DataCommonsClient } from "@datacommonsorg/client";
 import axios from "axios";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
@@ -43,17 +42,18 @@ import {
   getContextStatVar,
   getHash,
 } from "../../utils/app/visualization_utils";
+import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { getSeriesWithin } from "../../utils/data_fetch_utils";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import {
+  clearContainer,
   getDenomInfo,
   getFirstCappedStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarName,
   ReplacementStrings,
-  showError,
   transformCsvHeader,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
@@ -144,7 +144,7 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
       getDataCsv={getDataCsvCallback(props)}
       isInitialLoading={_.isNull(bivariateChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
-      hasErrorMsg={bivariateChartData && !!bivariateChartData.errorMsg}
+      errorMsg={bivariateChartData && bivariateChartData.errorMsg}
       statVarSpecs={props.statVarSpec}
       forwardRef={containerRef}
     >
@@ -152,7 +152,13 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
         id={props.id}
         className="bivariate-svg-container"
         ref={svgContainer}
-        style={{ minHeight: props.svgChartHeight }}
+        style={{
+          minHeight: props.svgChartHeight,
+          display:
+            bivariateChartData && bivariateChartData.errorMsg
+              ? "none"
+              : "block",
+        }}
       />
       <div id="bivariate-legend-container" ref={legend} />
     </ChartTileContainer>
@@ -168,7 +174,7 @@ function getDataCsvCallback(
   props: BivariateTilePropType
 ): () => Promise<string> {
   return () => {
-    const dataCommonsClient = new DataCommonsClient({ apiRoot: props.apiRoot });
+    const dataCommonsClient = getDataCommonsClient(props.apiRoot);
     // Assume all variables will have the same date
     // TODO: Update getCsv to handle different dates for different variables
     const date = getFirstCappedStatVarSpecDate(props.statVarSpec);
@@ -396,7 +402,7 @@ function draw(
   legend: React.RefObject<HTMLDivElement>
 ): void {
   if (chartData.errorMsg) {
-    showError(chartData.errorMsg, svgContainer.current);
+    clearContainer(svgContainer.current);
     return;
   }
   const width = svgContainer.current.offsetWidth;

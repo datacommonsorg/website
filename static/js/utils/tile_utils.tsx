@@ -41,6 +41,7 @@ import { EventTypeSpec, TileConfig } from "../types/subject_page_proto_types";
 import { stringifyFn } from "./axios";
 import { isNlInterface } from "./explore_utils";
 import { getUnit } from "./stat_metadata_utils";
+import { addPerCapitaToTitle } from "./subject_page_utils";
 
 const DEFAULT_PC_SCALING = 100;
 const DEFAULT_PC_UNIT = "%";
@@ -419,11 +420,11 @@ export function getStatFormat(
   svSpec: StatVarSpec,
   statPointData?: PointApiResponse,
   statSeriesData?: SeriesApiResponse
-): { unit: string; scaling: number; numFractionDigits: number } {
+): { unit: string; scaling: number; numFractionDigits?: number } {
   const result = {
     unit: svSpec.unit,
     scaling: svSpec.scaling || 1,
-    numFractionDigits: NUM_FRACTION_DIGITS,
+    numFractionDigits: undefined,
   };
   // If unit was specified in the svSpec, use that unit
   if (result.unit) {
@@ -534,16 +535,13 @@ export function getNoDataErrorMsg(statVarSpec: StatVarSpec[]): string {
 }
 
 /**
- * Shows an error message in a container div
- * @param errorMsg the message to show
+ * Removes content from specified container
  * @param container the container div to show the message
  */
-export function showError(errorMsg: string, container: HTMLDivElement): void {
+export function clearContainer(container: HTMLDivElement): void {
   // Remove contents of the container
   const containerSelection = d3.select(container);
   containerSelection.selectAll("*").remove();
-  // Show error message in the container
-  containerSelection.html(errorMsg);
 }
 
 /**
@@ -593,10 +591,30 @@ export function transformCsvHeader(columnHeader: string) {
  * @returns first date found or undefined if stat var spec list is empty
  */
 export function getFirstCappedStatVarSpecDate(
-  variables: StatVarSpec[]
+  variables: StatVarSpec[],
+  date?: string
 ): string {
   if (variables.length === 0) {
     return "";
   }
-  return getCappedStatVarDate(variables[0].statVar, variables[0].date);
+  return getCappedStatVarDate(variables[0].statVar, date || variables[0].date);
+}
+
+/**
+ * Gets the description for a highlight tile given the tile config and block
+ * level denominator
+ *
+ * @param tile the tile config
+ * @param blockDenom the block level denominator
+ * @returns description for the highlight tile
+ */
+export function getHighlightTileDescription(
+  tile: TileConfig,
+  blockDenom?: string
+): string {
+  let description = tile.description.includes("${date}")
+    ? tile.description
+    : tile.description + " (${date})";
+  description = blockDenom ? addPerCapitaToTitle(description) : description;
+  return description;
 }
