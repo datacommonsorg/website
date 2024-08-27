@@ -23,9 +23,6 @@
 
 {% block head %}
 <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['VERSION'])}}>
-<script>
-  globalThis.disableBQ = {{ config['DISABLE_BQ']|int }};
-</script>
 {% endblock %}
 
 {% block content %}

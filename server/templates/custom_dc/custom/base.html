@@ -46,9 +46,6 @@
   {% if OVERRIDE_CSS_PATH %}
   <link href="{{ OVERRIDE_CSS_PATH }}" rel="stylesheet">
   {% endif %}
-  <script>
-    globalThis.disableBQ = {{ config['DISABLE_BQ']|int }};
-  </script>
 </head>
 
 <body>

@@ -31,7 +31,6 @@ class Config(_base.Config):
           "name": "World Bank"
       }]
   }
-  DISABLE_BQ = True
 
 
 class LocalConfig(Config, local.Config):

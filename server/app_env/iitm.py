@@ -21,11 +21,9 @@ class Config(_base.Config):
   NAME = "IITM"
   GA_ACCOUNT = 'G-32HPL4K4Y1'
   SHOW_DISASTER = False
-  DISABLE_BQ = True
 
 
 class LocalConfig(local.Config):
   CUSTOM = True
   NAME = "IITM"
   SHOW_DISASTER = False
-  DISABLE_BQ = True

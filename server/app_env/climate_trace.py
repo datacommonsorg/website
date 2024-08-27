@@ -22,7 +22,6 @@ class Config(_base.Config):
   LOGO_PATH = "/custom_dc/climate_trace/logo.svg"
   OVERRIDE_CSS_PATH = '/custom_dc/climate_trace/overrides.css'
   SHOW_DISASTER = False
-  DISABLE_BQ = True
 
 
 class LocalConfig(Config, local.Config):

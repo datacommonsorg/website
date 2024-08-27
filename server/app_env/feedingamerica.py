@@ -21,11 +21,9 @@ class Config(_base.Config):
   NAME = "Feeding America"
   GA_ACCOUNT = 'G-444S6716SQ'
   SHOW_DISASTER = False
-  DISABLE_BQ = True
 
 
 class LocalConfig(local.Config):
   CUSTOM = True
   NAME = "Feeding America"
   SHOW_DISASTER = False
-  DISABLE_BQ = True

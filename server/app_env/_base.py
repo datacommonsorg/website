@@ -89,6 +89,6 @@ class Config:
   MIN_STAT_VAR_GEO_COVERAGE = 10
   # NL Bad words file.
   BAD_WORDS_FILE = 'nl_bad_words.txt'
-  # Whether to disable BigQuery from instance. This is primarily used for
+  # Whether to enable BigQuery from instance. This is primarily used for
   # accessing the observation browser pages.
-  DISABLE_BQ = False
+  ENABLE_BQ = False
