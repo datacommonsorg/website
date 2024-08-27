@@ -19,9 +19,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+import { loadLocaleData } from "../../i18n/i18n";
 import { App } from "./app";
 
-window.onload = () => {
+window.onload = (): void => {
+  loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
+    () => {
+      renderPage();
+    }
+  );
+};
+
+function renderPage(): void {
   // Homepage animation.
   const CHARACTER_INPUT_INTERVAL_MS = 45;
   const NEXT_PROMPT_DELAY_MS = 5000;
@@ -41,9 +50,10 @@ window.onload = () => {
   // Maximum age of cookie in seconds
   const MAX_COOKIE_AGE = 60 * 60 * 24; // 24hrs
 
-  let inputIntervalTimer, nextInputTimer: ReturnType<typeof setTimeout>;
+  let inputIntervalTimer: ReturnType<typeof setTimeout>;
+  let nextInputTimer: ReturnType<typeof setTimeout>;
   let currentPromptIndex = 0;
-  let prompt;
+  let prompt: HTMLElement | null;
   const inputEl: HTMLInputElement = <HTMLInputElement>(
     document.getElementById("animation-search-input")
   );
@@ -64,7 +74,7 @@ window.onload = () => {
   );
   const resultsElList = svgDiv.getElementsByClassName("result");
 
-  searchSequenceContainer.onclick = () => {
+  searchSequenceContainer.onclick = (): void => {
     if (prompt) {
       window.location.href = `/explore#q=${encodeURIComponent(
         prompt.dataset.query
@@ -72,10 +82,10 @@ window.onload = () => {
     }
   };
 
-  function startNextPrompt() {
+  function startNextPrompt(): void {
     let inputLength = 0;
     if (currentPromptIndex < resultsElList.length) {
-      prompt = resultsElList.item(currentPromptIndex);
+      prompt = resultsElList.item(currentPromptIndex) as HTMLElement;
     } else {
       // End the animation
       setTimeout(() => {
@@ -187,4 +197,4 @@ window.onload = () => {
   ) {
     hideAnimation();
   }
-};
+}
