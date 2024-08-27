@@ -19,7 +19,7 @@ from server.app_env import local
 class Config(_base.Config):
   CUSTOM = True
   NAME = "Feeding America"
-  GA_ACCOUNT = 'G-444S6716SQ'
+  GOOGLE_ANALYTICS_TAG_ID = 'G-444S6716SQ'
   SHOW_DISASTER = False
 
 

@@ -64,8 +64,6 @@ export interface VisTypeConfig {
   // the min number of entities that should have data for a stat var to be
   // shown in the hierarchy. Default is 1.
   svHierarchyNumExistence?: number;
-  // the function to use to get the BQ SQL query.
-  getSqlQueryFn?: (appContext: AppContextType) => () => string;
   // function to get a footer for the tool.
   getFooter?: () => string;
 }
