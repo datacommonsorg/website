@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,10 @@
  */
 
 /**
- * Main component for homnepage.
+ * Main component for homepage.
  */
-import React from "react";
+
+import React, { ReactElement } from "react";
 
 import { NlSearchBar } from "../../components/nl_search_bar";
 import {
@@ -27,24 +28,60 @@ import {
   GA_VALUE_SEARCH_SOURCE_HOMEPAGE,
   triggerGAEvent,
 } from "../../shared/ga_events";
+import { Routes } from "../../shared/types/general";
+import { Partner, Topic } from "../../shared/types/homepage";
+import DataSize from "./components/DataSize";
+import LearnMore from "./components/LearnMore";
+import Partners from "./components/Partners";
+import SearchAnimation from "./components/SearchAnimation";
+import Tools from "./components/Tools";
+import Topics from "./components/Topics";
+
+interface AppProps {
+  topics: Topic[];
+  partners: Partner[];
+  routes: Routes;
+}
 
 /**
  * Application container
  */
-export function App(): JSX.Element {
+export function App({ topics, partners, routes }: AppProps): ReactElement {
   return (
-    <NlSearchBar
-      inputId="query-search-input"
-      onSearch={(q) => {
-        triggerGAEvent(GA_EVENT_NL_SEARCH, {
-          [GA_PARAM_QUERY]: q,
-          [GA_PARAM_SOURCE]: GA_VALUE_SEARCH_SOURCE_HOMEPAGE,
-        });
-        window.location.href = `/explore#q=${encodeURIComponent(q)}`;
-      }}
-      placeholder={"Enter a question to explore"}
-      initialValue={""}
-      shouldAutoFocus={false}
-    />
+    <>
+      <section id="homepage-top">
+        <div id="search-container" className="container">
+          <NlSearchBar
+            inputId="query-search-input"
+            onSearch={(q): void => {
+              triggerGAEvent(GA_EVENT_NL_SEARCH, {
+                [GA_PARAM_QUERY]: q,
+                [GA_PARAM_SOURCE]: GA_VALUE_SEARCH_SOURCE_HOMEPAGE,
+              });
+              window.location.href = `/explore#q=${encodeURIComponent(q)}`;
+            }}
+            placeholder={"Enter a question to explore"}
+            initialValue={""}
+            shouldAutoFocus={false}
+          />
+        </div>
+      </section>
+
+      <SearchAnimation />
+
+      <DataSize />
+
+      <div className="divider container"></div>
+
+      <section id="topics">
+        <Topics topics={topics} />
+      </section>
+
+      <div className="background-gradient">
+        <Tools routes={routes} />
+        <LearnMore routes={routes} />
+        <Partners partners={partners} />
+      </div>
+    </>
   );
 }
