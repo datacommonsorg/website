@@ -26,12 +26,6 @@ import { Routes } from "../../shared/types/general";
 import { Topic } from "../../shared/types/homepage";
 import { App } from "./app";
 
-// This is a measure to fix JSON that comes in with invalid quoting and thus fails the parse. Eventually this should be fixed in the source.
-const correctJSONFormat = (source: string): string => {
-  const regex = /('(?=(,\s*')))|('(?=:))|((?<=([:,]\s*))')|((?<={)')|('(?=}))/g;
-  return source.replace(regex, '"');
-};
-
 window.onload = (): void => {
   loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
     () => {
@@ -42,7 +36,7 @@ window.onload = (): void => {
 
 function renderPage(): void {
   const topics = JSON.parse(
-    correctJSONFormat(document.getElementById("metadata").dataset.topics)
+    document.getElementById("metadata").dataset.topics
   ) as Topic[];
   const partners = JSON.parse(
     document.getElementById("metadata").dataset.partners
