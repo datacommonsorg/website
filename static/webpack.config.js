@@ -44,6 +44,9 @@ const config = {
     ],
     timeline_bulk_download: [__dirname + "/js/tools/timeline/bulk_download.ts"],
     mcf_playground: __dirname + "/js/mcf_playground.js",
+    base: [
+      __dirname + "/js/apps/base/main.ts",
+    ],
     place: [
       __dirname + "/js/place/place.ts",
       __dirname + "/css/place/place_page.scss",

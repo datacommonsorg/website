@@ -26,13 +26,13 @@ import { Routes } from "../../shared/types/general";
 import { Topic } from "../../shared/types/homepage";
 import { App } from "./app";
 
-window.onload = (): void => {
+window.addEventListener("load", (): void => {
   loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
     () => {
       renderPage();
     }
   );
-};
+});
 
 function renderPage(): void {
   const topics = JSON.parse(
