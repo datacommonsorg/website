@@ -40,6 +40,11 @@ website and mixer changes.
   python3 --version
   ```
 
+  Set up your Python environment and update packages with:
+  ```bash
+  ./run_test.sh --setup_python
+  ```
+
 - Node.js 18.4.0
 
   Install [`nodejs`](https://nodejs.org/en/download/) and
@@ -54,7 +59,7 @@ website and mixer changes.
 - Protoc 3.21.9
 
   Install [`protoc`](https://grpc.io/docs/protoc-installation/) at version
-  3.21.9.
+  [3.21.9](https://github.com/protocolbuffers/protobuf/releases/tag/v21.9).
 
 - [Optional] gcloud
 
@@ -127,6 +132,14 @@ to be brought up locally (in a separate process):
 ```
 
 By default the NL server runs on port 6060.
+
+If you run into problems starting the server, try running these commands before restarting the server:
+```bash
+./run_test.sh --setup_python
+rm -rf ~/.datacommons
+rm -rf /tmp/datcom-nl-models
+rm -rf /tmp/datcom-nl-models-dev
+```
 
 ### Use Local Mixer
 
@@ -225,7 +238,7 @@ data. For this to happen in other dev/demo instance, in a clean git checkout,
 simply run:
 
 ```bash
-./script/deploy_latest.sh <ENV_NAME>
+./script/deploy_latest.sh <ENV_NAME> <REGION>
 ```
 
 ### Debug Flask in Visual Studio Code
@@ -317,18 +330,6 @@ A full tutorial of debugging Flask app in Visual Studio Code is in
   self.driver.save_screenshot(filename)
   ```
 
-### Working with NL Models
-
-NL models are large and take time to load. They are intialized once in
-production but would reload in local environment every time the code changes. We
-cache the model object in a disk cache for 1 day to make things faster.
-
-If you need to reload new embeddings, can manually remove the cache by
-
-```bash
-rm -rf ~/.datacommons/cache.*
-```
-
 ### GKE config
 
 The GKE configuration is stored [here](../deploy/helm_charts/dc_website).
@@ -338,3 +339,7 @@ The GKE configuration is stored [here](../deploy/helm_charts/dc_website).
 [Redis memcache](https://pantheon.corp.google.com/memorystore/redis/instances?project=datcom-website-prod)
 is used for production deployment. Each cluster has a Redis instance located in
 the same region.
+
+### Testing cloudbuild changes
+
+To test .yaml cloudbuild files, you can use cloud-build-local to dry run the file before actually pushing. Find documentation for how to install and use cloud-build-local [here](https://github.com/GoogleCloudPlatform/cloud-build-local).

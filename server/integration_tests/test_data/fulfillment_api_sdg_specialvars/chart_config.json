@@ -26,6 +26,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "country/USA",
@@ -161,5 +162,8 @@
   },
   "showForm": true,
   "svSource": "UNRECOGNIZED",
-  "userMessage": "Could not recognize any topic from the query."
+  "userMessage": "Could not recognize any topic from the query.",
+  "userMessages": [
+    "Could not recognize any topic from the query."
+  ]
 }

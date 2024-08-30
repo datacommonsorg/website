@@ -12,6 +12,9 @@
 # below:
 .git
 .gitignore
+#!include:.gitignore
+#!include:.dockerignore
+!mcf_parser.py
 
 # Python pycache:
 **/__pycache__/**
@@ -20,10 +23,10 @@
 # Ignored by the build system
 /setup.cfg
 
-**/node_modules/**
+static/node_modules/
 
-.env/
+server/dist/
+
+**/.env/
 
 screenshots/*.png
-
-.env/

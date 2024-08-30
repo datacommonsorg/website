@@ -41,6 +41,66 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Population Below Poverty Line in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population Below Poverty Line in United States",
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Population Below Poverty Line in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Below Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Population Below Poverty Line (Per Capita) in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Population Below Poverty Line (Per Capita) in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Below Poverty Line (Per Capita) in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "rankingTileSpec": {
                       "rankingCount": 10,
                       "showHighest": true
@@ -99,6 +159,24 @@
             ],
             "denom": "Count_Person",
             "title": "Males in Poverty (In Last Year) in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months",
+                      "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Impoverished Population by Gender in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Impoverished Population by Gender"
           },
           {
             "columns": [
@@ -169,192 +247,32 @@
               {
                 "tiles": [
                   {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
+                    "comparisonPlaces": [
+                      "country/USA"
                     ],
-                    "title": "Hispanic or Latino Americans Below Poverty Line in Counties of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_multiple_place_bar_block",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_multiple_place_bar_block",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_multiple_place_bar_block",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces_multiple_place_bar_block",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_multiple_place_bar_block",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block"
                     ],
-                    "title": "Hispanic or Latino Americans Below Poverty Line in Counties of United States (${date})",
-                    "type": "MAP"
+                    "title": "Impoverished Population by Race in United States (${date})",
+                    "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Hispanic or Latino Americans Below Poverty Line in Counties of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
-                    ],
-                    "title": "Native Hawaiian or Other Pacific Islander Americans Below Poverty Line in Counties of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
-                    ],
-                    "title": "Native Hawaiian or Other Pacific Islander Americans Below Poverty Line in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Native Hawaiian or Other Pacific Islander Americans Below Poverty Line in Counties of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
-                    ],
-                    "title": "Below Poverty Line (Other Race) in Counties of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
-                    ],
-                    "title": "Below Poverty Line (Other Race) in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Below Poverty Line (Other Race) in Counties of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
-                    ],
-                    "title": "Below Poverty Line (Two or More Races) in Counties of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
-                    ],
-                    "title": "Below Poverty Line (Two or More Races) in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Below Poverty Line (Two or More Races) in Counties of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
-                    ],
-                    "title": "White Americans Below Poverty Line in Counties of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
-                    ],
-                    "title": "White Americans Below Poverty Line in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "White Americans Below Poverty Line in Counties of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
-                    ],
-                    "title": "White Americans (Not Hispanic or Latino) Below Poverty Line in Counties of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
-                    ],
-                    "title": "White Americans (Not Hispanic or Latino) Below Poverty Line in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "White Americans (Not Hispanic or Latino) Below Poverty Line in Counties of United States"
+            "title": "Impoverished Population by Race"
           },
           {
             "columns": [
@@ -425,64 +343,20 @@
               {
                 "tiles": [
                   {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
                     "statVarKey": [
-                      "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months"
+                      "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months",
+                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months",
+                      "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months",
+                      "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population: Spanish or Spanish Creole Spoken at Home, Below Poverty Line in Counties of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Population: Spanish or Spanish Creole Spoken at Home, Below Poverty Line in Counties of United States (${date})",
-                    "type": "MAP"
+                    "title": "Impoverished Population by By Language Spoken at Home in United States",
+                    "type": "LINE"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Spanish or Spanish Creole Spoken at Home, Below Poverty Line in Counties of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Population: Spanish Spoken at Home, Below Poverty Line in Counties of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_5OrMoreYears_SpanishSpokenAtHome_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Population: Spanish Spoken at Home, Below Poverty Line in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Spanish Spoken at Home, Below Poverty Line in Counties of United States"
+            "title": "Impoverished Population by By Language Spoken at Home"
           },
           {
             "columns": [
@@ -523,9 +397,9 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Below Poverty Line (Per Capita) in Counties of United States (${date})",
+                    "title": "Family Households Below the Poverty Line in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -534,15 +408,106 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population Below Poverty Line (Per Capita) in Counties of United States (${date})",
+                    "title": "Family Households Below the Poverty Line in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Population Below Poverty Line (Per Capita) in Counties of United States"
+            "denom": "Count_Person",
+            "title": "Family Households Below the Poverty Line in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Family Households Below the Poverty Line in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Family Households Below the Poverty Line in United States",
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Family Households Below the Poverty Line in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Family Households Below the Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Married Couple Family Households Below Poverty Line in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Married Couple Family Households Below Poverty Line in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Married Couple Family Households Below Poverty Line in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Married Couple Family Households Below Poverty Line in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Married Couple Family Households Below Poverty Line in United States",
+                    "statVarKey": [
+                      "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Married Couple Family Households Below Poverty Line in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Married Couple Family Households Below Poverty Line"
           },
           {
             "columns": [
@@ -581,32 +546,29 @@
               {
                 "tiles": [
                   {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
                     "statVarKey": [
-                      "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine"
+                      "Count_Person_AbovePovertyLevelInThePast12Months"
                     ],
-                    "title": "Population: 1 Years or More, 1-1.5 Ratio to Poverty Line in Counties of United States (${date})",
-                    "type": "RANKING"
+                    "title": "Population Above Poverty Line in United States",
+                    "type": "LINE"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
+                    "description": "Population Above Poverty Line in United States",
                     "statVarKey": [
-                      "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine"
+                      "Count_Person_AbovePovertyLevelInThePast12Months"
                     ],
-                    "title": "Population: 1 Years or More, 1-1.5 Ratio to Poverty Line in Counties of United States (${date})",
-                    "type": "MAP"
+                    "title": "Population Above Poverty Line in United States",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: 1 Years or More, 1-1.5 Ratio to Poverty Line in Counties of United States"
+            "title": "Population Above Poverty Line"
           },
           {
             "columns": [
@@ -618,9 +580,9 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+                      "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Family Households Below the Poverty Line in Counties of United States (${date})",
+                    "title": "Count of Household: Family Household, 65 Years or More, Below Poverty Level in the Past 12 Months in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -629,16 +591,167 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+                      "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Family Households Below the Poverty Line in Counties of United States (${date})",
+                    "title": "Count of Household: Family Household, 65 Years or More, Below Poverty Level in the Past 12 Months in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Family Households Below the Poverty Line in Counties of United States"
+            "title": "Count of Household: Family Household, 65 Years or More, Below Poverty Level in the Past 12 Months in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Count of Household: Family Household, 65 Years or More, Below Poverty Level in the Past 12 Months in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Household: Family Household, 65 Years or More, Below Poverty Level in the Past 12 Months in United States",
+                    "statVarKey": [
+                      "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Count of Household: Family Household, 65 Years or More, Below Poverty Level in the Past 12 Months in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: Family Household, 65 Years or More, Below Poverty Level in the Past 12 Months"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Male_AbovePovertyLevelInThePast12Months"
+                    ],
+                    "title": "Men Above Poverty Line in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Male_AbovePovertyLevelInThePast12Months"
+                    ],
+                    "title": "Men Above Poverty Line in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Men Above Poverty Line in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Male_AbovePovertyLevelInThePast12Months"
+                    ],
+                    "title": "Men Above Poverty Line in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Men Above Poverty Line in United States",
+                    "statVarKey": [
+                      "Count_Person_Male_AbovePovertyLevelInThePast12Months"
+                    ],
+                    "title": "Men Above Poverty Line in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Men Above Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Count of Household: Family Household, Worker 0, Below Poverty Level in the Past 12 Months in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Count of Household: Family Household, Worker 0, Below Poverty Level in the Past 12 Months in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: Family Household, Worker 0, Below Poverty Level in the Past 12 Months in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Count of Household: Family Household, Worker 0, Below Poverty Level in the Past 12 Months in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Household: Family Household, Worker 0, Below Poverty Level in the Past 12 Months in United States",
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Count of Household: Family Household, Worker 0, Below Poverty Level in the Past 12 Months in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: Family Household, Worker 0, Below Poverty Level in the Past 12 Months"
           },
           {
             "columns": [
@@ -677,42 +790,10 @@
               {
                 "tiles": [
                   {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
+                      "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Count of Household: Family Household, Worker 1, Below Poverty Level in the Past 12 Months in Counties of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Count of Household: Family Household, Worker 1, Below Poverty Level in the Past 12 Months in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Count of Household: Family Household, Worker 1, Below Poverty Level in the Past 12 Months in Counties of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_PovertyStatusDetermined"
-                    ],
-                    "title": "Population With Poverty Status Determined in United States",
+                    "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in the Past 12 Months in United States",
                     "type": "LINE"
                   }
                 ]
@@ -720,18 +801,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population With Poverty Status Determined in United States",
+                    "description": "Count of Household: Family Household, Worker 2, Below Poverty Level in the Past 12 Months in United States",
                     "statVarKey": [
-                      "Count_Person_PovertyStatusDetermined"
+                      "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population With Poverty Status Determined in United States",
+                    "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in the Past 12 Months in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population With Poverty Status Determined"
+            "title": "Count of Household: Family Household, Worker 2, Below Poverty Level in the Past 12 Months"
           },
           {
             "columns": [
@@ -743,9 +824,9 @@
                       "showHighest": true
                     },
                     "statVarKey": [
-                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_AbovePovertyLevelInThePast12Months"
+                      "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population: English Spoken at Home, Above Poverty Line in Counties of United States (${date})",
+                    "title": "Count of Household: Family Household, 3 Worker or More, Below Poverty Level in the Past 12 Months in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -754,16 +835,45 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_AbovePovertyLevelInThePast12Months"
+                      "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
                     ],
-                    "title": "Population: English Spoken at Home, Above Poverty Line in Counties of United States (${date})",
+                    "title": "Count of Household: Family Household, 3 Worker or More, Below Poverty Level in the Past 12 Months in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: English Spoken at Home, Above Poverty Line in Counties of United States"
+            "title": "Count of Household: Family Household, 3 Worker or More, Below Poverty Level in the Past 12 Months in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Count of Household: Family Household, 3 Worker or More, Below Poverty Level in the Past 12 Months in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Household: Family Household, 3 Worker or More, Below Poverty Level in the Past 12 Months in United States",
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Count of Household: Family Household, 3 Worker or More, Below Poverty Level in the Past 12 Months in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Household: Family Household, 3 Worker or More, Below Poverty Level in the Past 12 Months"
           }
         ],
         "statVarSpec": {
@@ -771,25 +881,29 @@
             "name": "Family Households Below the poverty line",
             "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
           },
-          "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months": {
-            "name": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months",
-            "statVar": "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
+          "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months": {
+            "name": "Count of Household: Family Household, Worker 0, Below Poverty Level in The Past 12 Months",
+            "statVar": "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months"
           },
           "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months": {
             "name": "Count of Household: Family Household, Worker 2, Below Poverty Level in The Past 12 Months",
             "statVar": "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months"
           },
-          "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine": {
-            "name": "Population: 1 Years or More, 1 - 1.5 Ratio To Poverty Line",
-            "statVar": "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine"
+          "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months": {
+            "name": "Count of Household: Family Household, 3 Worker or More, Below Poverty Level in The Past 12 Months",
+            "statVar": "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months": {
+            "name": "Count of Household: Family Household, 65 Years or More, Below Poverty Level in The Past 12 Months",
+            "statVar": "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months": {
+            "name": "Married Couple Family Households below poverty line",
+            "statVar": "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months": {
             "name": "Population: Some language other than English spoken at home & below poverty line",
             "statVar": "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_AbovePovertyLevelInThePast12Months": {
-            "name": "Population: English Spoken At Home, Above Poverty Line",
-            "statVar": "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_AbovePovertyLevelInThePast12Months"
           },
           "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_BelowPovertyLevelInThePast12Months": {
             "name": "Population: Only English Spoken At Home, Below Poverty Line",
@@ -819,45 +933,53 @@
             "name": "Asians Below Poverty Line",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
           },
+          "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_multiple_place_bar_block": {
+            "name": "Asians Below Poverty Line",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
+          },
           "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": {
             "name": "Black or African Americans Below Poverty",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
           },
-          "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
+          "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
+            "name": "Black or African Americans Below Poverty",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino_multiple_place_bar_block": {
             "name": "Hispanic or Latino Americans Below Poverty Line",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
           },
-          "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": {
+          "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block": {
             "name": "Native Hawaiian or Other Pacific Islander Americans Below Poverty Line",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
           },
-          "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone": {
+          "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_multiple_place_bar_block": {
             "name": "Below Poverty Line (Other Race)",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
           },
-          "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces": {
+          "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces_multiple_place_bar_block": {
             "name": "Below Poverty Line (Two or More Races)",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
           },
-          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone": {
-            "name": "White Americans Below Poverty Line",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
-          },
-          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino": {
+          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block": {
             "name": "White Americans (Not Hispanic or Latino) Below Poverty Line",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_multiple_place_bar_block": {
+            "name": "White Americans Below Poverty Line",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
           },
           "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
             "name": "Women below Poverty Line",
             "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
           },
+          "Count_Person_Male_AbovePovertyLevelInThePast12Months": {
+            "name": "Men Above poverty line",
+            "statVar": "Count_Person_Male_AbovePovertyLevelInThePast12Months"
+          },
           "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
             "name": "Males in Poverty (in last year)",
             "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
-          },
-          "Count_Person_PovertyStatusDetermined": {
-            "name": "Population With Poverty Status Determined",
-            "statVar": "Count_Person_PovertyStatusDetermined"
           },
           "sdg/SI_POV_DAY1": {
             "name": "Population Below International Poverty Line",
@@ -877,6 +999,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "country/USA",
@@ -892,7 +1015,781 @@
       "place_type": "Country"
     }
   ],
-  "relatedThings": {},
+  "relatedThings": {
+    "childPlaces": {
+      "County": [
+        {
+          "dcid": "geoId/01001",
+          "name": "Autauga",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01003",
+          "name": "Baldwin",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01005",
+          "name": "Barbour",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01007",
+          "name": "Bibb",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01009",
+          "name": "Blount",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01011",
+          "name": "Bullock",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01013",
+          "name": "Butler",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01015",
+          "name": "Calhoun",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01017",
+          "name": "Chambers",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01019",
+          "name": "Cherokee",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01021",
+          "name": "Chilton",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01023",
+          "name": "Choctaw",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01025",
+          "name": "Clarke",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01027",
+          "name": "Clay",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01029",
+          "name": "Cleburne",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01031",
+          "name": "Coffee",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01033",
+          "name": "Colbert",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01035",
+          "name": "Conecuh",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01037",
+          "name": "Coosa",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01039",
+          "name": "Covington",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01041",
+          "name": "Crenshaw",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01043",
+          "name": "Cullman",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01045",
+          "name": "Dale",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01047",
+          "name": "Dallas",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01049",
+          "name": "DeKalb",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01051",
+          "name": "Elmore",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01053",
+          "name": "Escambia",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01055",
+          "name": "Etowah",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01057",
+          "name": "Fayette",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01059",
+          "name": "Franklin",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01061",
+          "name": "Geneva",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01063",
+          "name": "Greene",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01065",
+          "name": "Hale",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01067",
+          "name": "Henry",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01069",
+          "name": "Houston",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01071",
+          "name": "Jackson",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01073",
+          "name": "Jefferson",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01075",
+          "name": "Lamar",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01077",
+          "name": "Lauderdale",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01079",
+          "name": "Lawrence",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01081",
+          "name": "Lee",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01083",
+          "name": "Limestone",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01085",
+          "name": "Lowndes",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01087",
+          "name": "Macon",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01089",
+          "name": "Madison",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01091",
+          "name": "Marengo",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01093",
+          "name": "Marion",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01095",
+          "name": "Marshall",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01097",
+          "name": "Mobile",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/01099",
+          "name": "Monroe",
+          "types": [
+            "County"
+          ]
+        }
+      ]
+    },
+    "childTopics": [
+      {
+        "dcid": "dc/topic/PovertyByGender",
+        "name": "Poverty by Gender",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/PovertyByRace",
+        "name": "Poverty by Race",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/PovertyByLanguageSpokenAtHome",
+        "name": "Poverty by Language Spoken At Home",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "exploreMore": {
+      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months": {
+        "benefitsStatus": [
+          "Count_Household_WithSSIAndOrCashAssistanceInThePast12Months_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_WithSocialSecurityIncomeInThePast12Months_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+        ],
+        "householdSize": [
+          "Count_Household_With2Person_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_With3To4Person_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_With5To6Person_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_With7OrMorePerson_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+        ],
+        "householdWorkerSize": [
+          "Count_Household_FamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months",
+          "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months",
+          "Count_Household_FamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months",
+          "Count_Household_FamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
+        ],
+        "householderEducationalAttainment": [
+          "Count_Household_HouseholderEducationalAttainmentBachelorsDegreeOrHigher_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderEducationalAttainmentHighSchoolGraduateIncludesEquivalency_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderEducationalAttainmentSomeCollegeOrAssociatesDegree_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+        ],
+        "householderOwnChildrenUnder18Years": [
+          "Count_Household_Householder0OwnChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_Householder1To2OwnChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_Householder3To4OwnChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_Householder5OrMoreOwnChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+        ],
+        "householderRace": [
+          "Count_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderRaceAsianAlone_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderRaceBlackOrAfricanAmericanAlone_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderRaceHispanicOrLatino_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderRaceSomeOtherRaceAlone_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderRaceTwoOrMoreRaces_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderRaceWhiteAlone_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+        ],
+        "householderRelatedChildrenUnder18Years": [
+          "Count_Household_Householder0RelatedChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_Householder1To2RelatedChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_Householder3To4RelatedChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_Householder5OrMoreRelatedChildren_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+        ],
+        "occupancyTenure": [
+          "Count_Household_FamilyHousehold_OwnerOccupied_BelowPovertyLevelInThePast12Months",
+          "Count_Household_FamilyHousehold_RenterOccupied_BelowPovertyLevelInThePast12Months"
+        ]
+      },
+      "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months": {
+        "benefitsStatus": [
+          "Count_Household_WithSSIAndOrCashAssistanceInThePast12Months_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_WithSocialSecurityIncomeInThePast12Months_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
+        ],
+        "householdSize": [
+          "Count_Household_With2Person_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_With3To4Person_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_With5To6Person_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_With7OrMorePerson_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
+        ],
+        "householdWorkerSize": [
+          "Count_Household_MarriedCoupleFamilyHousehold_With0Worker_BelowPovertyLevelInThePast12Months",
+          "Count_Household_MarriedCoupleFamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months",
+          "Count_Household_MarriedCoupleFamilyHousehold_With2Worker_BelowPovertyLevelInThePast12Months",
+          "Count_Household_MarriedCoupleFamilyHousehold_With3OrMoreWorker_BelowPovertyLevelInThePast12Months"
+        ],
+        "householderEducationalAttainment": [
+          "Count_Household_HouseholderEducationalAttainmentBachelorsDegreeOrHigher_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderEducationalAttainmentHighSchoolGraduateIncludesEquivalency_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderEducationalAttainmentLessThanHighSchoolGraduate_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderEducationalAttainmentSomeCollegeOrAssociatesDegree_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
+        ],
+        "householderOwnChildrenUnder18Years": [
+          "Count_Household_Householder0OwnChildren_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_Householder1To2OwnChildren_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_Householder3To4OwnChildren_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_Householder5OrMoreOwnChildren_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
+        ],
+        "householderRace": [
+          "Count_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderRaceAsianAlone_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderRaceBlackOrAfricanAmericanAlone_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderRaceHispanicOrLatino_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderRaceSomeOtherRaceAlone_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderRaceTwoOrMoreRaces_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_HouseholderRaceWhiteAlone_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
+        ],
+        "householderRelatedChildrenUnder18Years": [
+          "Count_Household_Householder0RelatedChildren_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_Householder1To2RelatedChildren_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_Householder3To4RelatedChildren_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+          "Count_Household_Householder5OrMoreRelatedChildren_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months"
+        ],
+        "occupancyTenure": [
+          "Count_Household_MarriedCoupleFamilyHousehold_OwnerOccupied_BelowPovertyLevelInThePast12Months",
+          "Count_Household_MarriedCoupleFamilyHousehold_RenterOccupied_BelowPovertyLevelInThePast12Months"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months": {
+        "gender": [
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+        ],
+        "race": [
+          "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone",
+          "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+          "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+          "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone",
+          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_AsianAlone",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_AsianAlone",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_AsianAlone",
+          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_AsianAlone",
+          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_AsianAlone",
+          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_AsianAlone"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
+          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
+          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
+          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_WhiteAlone",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_WhiteAlone",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_WhiteAlone",
+          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_WhiteAlone",
+          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_WhiteAlone",
+          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_WhiteAlone"
+        ]
+      },
+      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino",
+          "Count_Person_6OrLessYears_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino",
+          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino",
+          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
+        ]
+      },
+      "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
+        "age": [
+          "Count_Person_12To14Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_15Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_16To17Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_18To24Years_Female_BelowPovertyLevelInThePast12Months"
+        ],
+        "maritalStatus": [
+          "Count_Person_Female_DivorcedInThePast12Months_BelowPovertyLevelInThePast12Months",
+          "Count_Person_Female_MarriedInThePast12Months_BelowPovertyLevelInThePast12Months"
+        ]
+      },
+      "Count_Person_Male_AbovePovertyLevelInThePast12Months": {
+        "age": [
+          "Count_Person_12To14Years_Male_AbovePovertyLevelInThePast12Months",
+          "Count_Person_15Years_Male_AbovePovertyLevelInThePast12Months",
+          "Count_Person_16To17Years_Male_AbovePovertyLevelInThePast12Months",
+          "Count_Person_18To24Years_Male_AbovePovertyLevelInThePast12Months"
+        ]
+      },
+      "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
+        "age": [
+          "Count_Person_12To14Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_15Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_16To17Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_18To24Years_Male_BelowPovertyLevelInThePast12Months"
+        ],
+        "maritalStatus": [
+          "Count_Person_Male_DivorcedInThePast12Months_BelowPovertyLevelInThePast12Months",
+          "Count_Person_Male_MarriedInThePast12Months_BelowPovertyLevelInThePast12Months"
+        ]
+      }
+    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Poverty",
+        "name": "Poverty",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Economy",
+        "name": "Economy",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/Businesses",
+        "name": "Businesses",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/EconomicActivity",
+        "name": "Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Employment",
+        "name": "Employment",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/GlobalEconomicActivity",
+        "name": "Global Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Income",
+        "name": "Income",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Agriculture",
+        "name": "Agriculture",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessage": "",
+  "userMessages": []
 }

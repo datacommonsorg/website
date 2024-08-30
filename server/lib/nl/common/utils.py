@@ -15,38 +15,43 @@
 
 import dataclasses
 import datetime
-import logging
 import random
 import re
 import time
 from typing import Any, Dict, List, Set
+
+from dateutil.relativedelta import relativedelta
 
 import server.lib.fetch as fetch
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.counters as ctr
 import server.lib.nl.common.utterance as nl_uttr
 import server.lib.nl.detection.date
-from server.lib.nl.detection.types import ClassificationType
 import server.lib.nl.detection.types as types
+from server.lib.nl.fulfillment.types import Sv2Place2Date
 import server.lib.nl.fulfillment.utils as futils
+import server.services.datacommons as dc
 import shared.lib.constants as shared_constants
 
 # TODO: Consider tweaking/reducing this
 NUM_CHILD_PLACES_FOR_EXISTENCE = 15
-_FACET_OBS_PERIOD_RE = r'P(\d+)[Y|M]'
+_FACET_OBS_PERIOD_RE = r'P(\d+)(Y|M)'
 _YEAR_FORMAT = 'YYYY'
+_MAX_DATES_FOR_EXISTENCE = 10
+_MONTH_GRANULARITY = 'M'
 
 
+# Custom dc topics, svgs and svpgs start with "c/".
 def is_topic(sv):
-  return sv.startswith("dc/topic/")
+  return sv.startswith("dc/topic/") or sv.startswith("c/topic/")
 
 
 def is_svg(sv):
-  return sv.startswith("dc/g/")
+  return sv.startswith("dc/g/") or sv.startswith("c/g/")
 
 
 def is_svpg(sv):
-  return sv.startswith("dc/svpg/")
+  return sv.startswith("dc/svpg/") or sv.startswith("c/svpg/")
 
 
 def is_sv(sv):
@@ -88,7 +93,10 @@ def sv_existence_for_places(places: List[str], svs: List[str],
   sv_existence = fetch.observation_existence(svs, places)
   counters.timeit('sv_existence_for_places', start)
   if not sv_existence:
-    logging.error("Existence checks for SVs failed.")
+    counters.err('sv_existence_for_places_failed', {
+        'nplaces': len(places),
+        'svs': len(svs)
+    })
     return [], {}
 
   existing_svs = []
@@ -108,8 +116,8 @@ def sv_existence_for_places(places: List[str], svs: List[str],
   return existing_svs, existsv2places
 
 
-def _facet_contains_date(facet_data, facet_metadata, single_date,
-                         date_range) -> bool:
+def facet_contains_date(facet_data, facet_metadata, single_date,
+                        date_range) -> bool:
   start_date, end_date = server.lib.nl.detection.date.get_date_range_strings(
       date_range)
   if single_date:
@@ -146,7 +154,7 @@ def _facet_contains_date(facet_data, facet_metadata, single_date,
   obs_period = facet_metadata.get('observationPeriod', '')
   obs_period_match = re.match(_FACET_OBS_PERIOD_RE, obs_period)
   if obs_period_match:
-    obs_period_num, = obs_period_match.groups()
+    obs_period_num, _ = obs_period_match.groups()
     obs_period_num = int(obs_period_num)
     # Difference in years between date of interest and earliest date
     # of the facet
@@ -173,14 +181,15 @@ def _facet_contains_date(facet_data, facet_metadata, single_date,
 
 
 # Returns:
-# 1. a map of existing SVs (as a union across places) keyed by SV DCID with
-# value as a facetId that has data for this SV
+# 1. a map of existing SVs (keyed by SV DCID) to map of existing places
+# (keyed by place dcid) to facet metadata for a facet that has data for this
+# SV and place
 # 2. a map of existing SVs to a map of places to whether or not that SV, place
 # combo has any single data point series
 def sv_existence_for_places_check_single_point(
     places: List[str], svs: List[str], single_date: types.Date,
-    date_range: types.Date,
-    counters: ctr.Counters) -> (Dict[str, str], Dict[str, Dict[str, bool]]):
+    date_range: types.Date, counters: ctr.Counters
+) -> tuple[Dict[str, Dict[str, Dict[str, str]]], Dict[str, Dict[str, bool]]]:
   if not svs:
     return {}, {}
 
@@ -200,12 +209,16 @@ def sv_existence_for_places_check_single_point(
         facet_id = facet_data.get('facet', '')
         facet_metadata = facet_info.get(facet_id, {})
         # Check that this facet has data for specified date
-        if check_date and not _facet_contains_date(facet_data, facet_metadata,
-                                                   single_date, date_range):
+        if check_date and not facet_contains_date(facet_data, facet_metadata,
+                                                  single_date, date_range):
           continue
         num_obs = facet_data.get('obsCount', 0)
+        if sv not in existing_svs:
+          existing_svs[sv] = {}
         facet_metadata['facetId'] = facet_id
-        existing_svs[sv] = facet_metadata
+        facet_metadata['earliestDate'] = facet_data.get('earliestDate', '')
+        facet_metadata['latestDate'] = facet_data.get('latestDate', '')
+        existing_svs[sv][pl] = facet_metadata
         if sv not in existsv2places:
           existsv2places[sv] = {}
         existsv2places[sv][pl] = (num_obs == 1)
@@ -213,6 +226,149 @@ def sv_existence_for_places_check_single_point(
         # so can move on to next place once a facet is found
         break
   return existing_svs, existsv2places
+
+
+# From a list of obs dates (which are objects with a date field and additional
+# info about that date), get the index of the latest date that is less than or
+# equal to the end_date and greater than or equal to the start_date.
+# Returns -1 if no valid date found.
+def _get_max_valid_date_idx(obs_dates: List[Dict[str, any]], start_date: str,
+                            end_date: str) -> int:
+  max_valid_idx = -1
+  lo = 0
+  hi = len(obs_dates) - 1
+  while lo <= hi:
+    mid = (lo + hi) // 2
+    if obs_dates[mid].get('date', '')[0:len(end_date)] <= end_date:
+      max_valid_idx = mid
+      lo = mid + 1
+    else:
+      hi = mid - 1
+  # If date found is earlier than start date, return -1 because date is not
+  # not valid
+  if max_valid_idx > -1 and obs_dates[max_valid_idx].get('date',
+                                                         '') < start_date:
+    max_valid_idx = -1
+  return max_valid_idx
+
+
+# For each place and sv, gets the best available date (most entities with data
+# for this date and within _MAX_DATES_FOR_EXISTENCE dates of the date range) to
+# use as the latest date for the children of that place.
+# Returns a map of sv -> place key (place + child type) -> latest date.
+def get_contained_in_latest_date(places: List[str],
+                                 child_type: types.ContainedInPlaceType,
+                                 svs: List[str],
+                                 date_range: types.Date) -> Sv2Place2Date:
+  sv_place_latest_date = {}
+  # This method only gets the date for children of a place
+  if not date_range or not child_type:
+    return sv_place_latest_date
+  start_date, end_date = server.lib.nl.detection.date.get_date_range_strings(
+      date_range)
+  for place in places:
+    place_key = get_place_key(place, child_type)
+    series_dates = dc.get_series_dates(place, child_type, svs)
+    for dates_by_variable in series_dates.get('datesByVariable', []):
+      sv = dates_by_variable.get('variable', '')
+      if sv not in sv_place_latest_date:
+        sv_place_latest_date[sv] = {}
+
+      obs_dates = dates_by_variable.get('observationDates', [])
+      max_valid_idx = _get_max_valid_date_idx(obs_dates, start_date, end_date)
+      # If no valid date found, move on to the next variable
+      if max_valid_idx < 0:
+        continue
+
+      # Starting at max_valid_idx, check _MAX_DATES_FOR_EXISTENCE number of
+      # earlier dates to get the best date to use
+      max_entity_count = 0
+      for idx in range(max_valid_idx,
+                       max(-1, max_valid_idx - _MAX_DATES_FOR_EXISTENCE), -1):
+        obs_date = obs_dates[idx]
+        date = obs_date.get('date', '')
+        # If we've reached a date that's earlier than the start date, can break
+        # out of this search
+        if date < start_date[0:len(date)]:
+          break
+        entity_count = max([
+            count.get('count', 0) for count in obs_date.get('entityCount', [])
+        ])
+        if entity_count > max_entity_count:
+          max_entity_count = entity_count
+          sv_place_latest_date[sv][place_key] = date
+
+  return sv_place_latest_date
+
+
+# For each sv and place key in sv_place_facet, predict the latest date that is
+# within the date range by either:
+# a. taking the latest date for the sv and place if it is within the date range
+# b. starting at the latest date for the sv and place and using the observation
+#    period to find an available date that is within the date range
+def get_predicted_latest_date(sv_place_facet, date_range):
+  sv_place_latest_date = {}
+  start_date, end_date = server.lib.nl.detection.date.get_date_range_strings(
+      date_range)
+  for sv, place_facet in sv_place_facet.items():
+    sv_place_latest_date[sv] = {}
+    for plk, facet in place_facet.items():
+      latest_date_str = facet.get('latestDate', '')
+
+      # Every facet in sv_place_facet is a valid facet for the date range so
+      # as long as the latest date is earlier than the end date, we know it must
+      # be a valid date.
+      if latest_date_str[0:len(end_date)] <= end_date:
+        date = facet.get('latestDate')
+        sv_place_latest_date[sv][plk] = date
+        continue
+
+      obs_period = facet.get('observationPeriod', '')
+      obs_period_match = re.match(_FACET_OBS_PERIOD_RE, obs_period)
+      # If there is a valid observation period, use the observation period to
+      # predict the latest valid date.
+      if obs_period_match:
+        obs_period_num, granularity = obs_period_match.groups()
+        obs_period_num = int(obs_period_num)
+
+        # Get the latest date as a date object
+        latest_date_parts = latest_date_str.split('-')
+        latest_date_year = int(latest_date_parts[0])
+        latest_date_month = 1 if len(latest_date_parts) < 2 else int(
+            latest_date_parts[1])
+        latest_date_day = 1 if len(latest_date_parts) < 3 else int(
+            latest_date_parts[2])
+        latest_date = datetime.date(latest_date_year, latest_date_month,
+                                    latest_date_day)
+
+        # Get the date change to use to find the latest valid date
+        if granularity == _MONTH_GRANULARITY:
+          change_step = relativedelta(months=obs_period_num)
+        else:
+          change_step = relativedelta(years=obs_period_num)
+
+        # The earliest date that could be used
+        date_limit = min(start_date, facet.get('earliestDate', ''))
+
+        # Starting at latest date, go back change_step dates and check if the
+        # date is valid for the date range. If valid date, save it as the
+        # latest date for the sv + place key combination.
+        while True:
+          latest_date_iso = latest_date.isoformat()
+          if date_limit and latest_date_iso < date_limit:
+            break
+          if latest_date_iso[0:len(end_date)] <= end_date:
+            sv_place_latest_date[sv][plk] = latest_date_iso[
+                0:len(latest_date_str)]
+            break
+          latest_date = latest_date - change_step
+      # Some yearly datasets do not set obsPeriod, so assume yearly obsPeriod if
+      # the date is in the year format & in this case we can just use the year
+      # of the end date as the latest date.
+      elif len(latest_date_str) == len(_YEAR_FORMAT):
+        sv_place_latest_date[sv][plk] = end_date[0:len(_YEAR_FORMAT)]
+
+  return sv_place_latest_date
 
 
 #
@@ -581,3 +737,11 @@ def to_dict(data):
     return data
   else:
     return data
+
+
+# Gets the place key for a place and place type
+def get_place_key(place: str, place_type: str):
+  if place_type:
+    return place + place_type
+  else:
+    return place

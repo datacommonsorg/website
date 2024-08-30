@@ -82,9 +82,9 @@ export interface StatVarGroupInfo {
 
 export interface StatVarGroupNodeType {
   absoluteName: string;
-  level: number;
+  level?: number;
   parent?: string;
-  childStatVarGroups?: Array<{ id: string; specializedEntity: string }>;
+  childStatVarGroups?: StatVarGroupInfo[];
   childStatVars?: StatVarNodeType[];
   descendentStatVarCount?: number;
 }

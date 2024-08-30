@@ -20,18 +20,20 @@ function setup_python {
   python3 -m venv .env
   source .env/bin/activate
   pip3 install -r server/requirements.txt
-  python3 -m pip install --upgrade pip setuptools light-the-torch
-  ltt install torch --cpuonly
+  pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
   pip3 install -r nl_server/requirements.txt
+  deactivate
 }
 
 # Run test for client side code.
 function run_npm_test {
   cd packages/web-components
   npm install --update
+  cd ../client
+  npm install --update
   cd ../../static
   npm install --update
-  npm run test
+  npm run test ${@}
   cd ..
 }
 
@@ -55,15 +57,14 @@ function run_lint_fix {
   cd ..
 
   echo -e "#### Fixing Python code"
-  python3 -m venv .env
   source .env/bin/activate
-  pip3 install yapf==0.33.0 -q
+  pip3 install yapf==0.40.2 -q
   if ! command -v isort &> /dev/null
   then
     pip3 install isort -q
   fi
-  yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py -e=.env/*
-  isort server/ nl_server/ shared/ tools/  --skip-glob *pb2.py  --profile google
+  yapf -r -i -p --style='{based_on_style: google, indent_width: 2}' server/ nl_server/ shared/ tools/ -e=*pb2.py -e=**/.env/**
+  isort server/ nl_server/ shared/ tools/  --skip-glob=*pb2.py  --skip-glob=**/.env/** --profile=google
   deactivate
 }
 
@@ -75,11 +76,15 @@ function run_npm_build () {
     echo -e "#### Only installing production dependencies"
     cd packages/web-components/
     npm install --omit=dev
+    cd ../client
+    npm install --omit=dev
     cd ../../static
     npm install --omit=dev
     npm run-script build
   else
     cd packages/web-components/
+    npm install
+    cd ../client
     npm install
     cd ../../static
     npm install
@@ -91,40 +96,39 @@ function run_npm_build () {
 # Run test and check lint for Python code.
 function run_py_test {
   # Run server pytest.
-  python3 -m venv .env
   source .env/bin/activate
   export FLASK_ENV=test
-  python3 -m pytest server/tests/ -s
-  python3 -m pytest shared/tests/ -s
-  python3 -m pytest nl_server/tests/ -s
+  export TOKENIZERS_PARALLELISM=false
+  # Disabled nodejs e2e test to avoid dependency on dev
+  python3 -m pytest server/tests/ -s --ignore=server/tests/nodejs_e2e_test.py ${@}
+  python3 -m pytest shared/tests/ -s ${@}
+  python3 -m pytest nl_server/tests/ -s ${@}
 
   # Tests within tools/nl/embeddings
   echo "Running tests within tools/nl/embeddings:"
-  cd tools/nl/embeddings
-  pip3 install -r requirements.txt
-  python3 -m pytest ./ -s
-  cd ../../..
+  pip3 install -r tools/nl/embeddings/requirements.txt -q
+  python3 -m pytest tools/nl/embeddings/ -s ${@}
 
-  pip3 install yapf==0.33.0 -q
+  pip3 install yapf==0.40.2 -q
   if ! command -v isort &> /dev/null
   then
     pip3 install isort -q
   fi
   echo -e "#### Checking Python style"
-  if ! yapf --recursive --diff --style='{based_on_style: google, indent_width: 2}' -p server/ nl_server/ tools/ -e=*pb2.py -e=.env/*; then
+  if ! yapf --recursive --diff --style='{based_on_style: google, indent_width: 2}' -p server/ nl_server/ tools/ -e=*pb2.py -e=**/.env/**; then
     echo "Fix Python lint errors by running ./run_test.sh -f"
     exit 1
   fi
 
-  if ! isort server/ nl_server/ tools/ -c --skip-glob *pb2.py --profile google; then
+  if ! isort server/ nl_server/ shared/ tools/ -c --skip-glob *pb2.py --skip-glob **/.env/** --profile google; then
     echo "Fix Python import sort orders by running ./run_test.sh -f"
     exit 1
   fi
+  deactivate
 }
 
 # Run test for webdriver automation test codes.
 function run_webdriver_test {
-  python3 -m venv .env
   source .env/bin/activate
   printf '\n\e[1;35m%-6s\e[m\n\n' "!!! Have you generated the prod client packages? Run './run_test.sh -b' first to do so"
   if [ ! -d server/dist  ]
@@ -134,12 +138,12 @@ function run_webdriver_test {
   fi
   export FLASK_ENV=webdriver
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
-  python3 -m pytest -n 10 --reruns 2 server/webdriver/tests/
+  python3 -m pytest -n 5 --reruns 2 server/webdriver/tests/ ${@}
+  deactivate
 }
 
 # Run test for screenshot test codes.
 function run_screenshot_test {
-  python3 -m venv .env
   source .env/bin/activate
   printf '\n\e[1;35m%-6s\e[m\n\n' "!!! Have you generated the prod client packages? Run './run_test.sh -b' first to do so"
   if [ ! -d server/dist  ]
@@ -152,31 +156,50 @@ function run_screenshot_test {
   export ENABLE_MODEL=true
   export DC_API_KEY=
   export LLM_API_KEY=
-  python3 -m pytest --reruns 2 server/webdriver/screenshot/
+  python3 -m pytest --reruns 2 server/webdriver/screenshot/ ${@}
+  deactivate
 }
 
 # Run integration test for NL and explore interface
 # The first argument will be the test file under `integration_tests` folder
 function run_integration_test {
-  python3 -m venv .env
   source .env/bin/activate
   export ENABLE_MODEL=true
   export FLASK_ENV=integration_test
-  export GOOGLE_CLOUD_PROJECT=datcom-website-dev
+  export DC_API_KEY=
+  export LLM_API_KEY=
+  if [[ $ENV_PREFIX == "" ]]; then
+    export ENV_PREFIX=Staging
+  fi
+  echo "Using ENV_PREFIX=$ENV_PREFIX"
+  export GOOGLE_CLOUD_PROJECT=datcom-website-staging
   export TEST_MODE=test
-  python3 -m pytest -vv --reruns 2 server/integration_tests/$1
+  export ENABLE_EVAL_TOOL=false
+
+  python3 -m pytest -vv --reruns 2 server/integration_tests/$1 ${@:2}
+  deactivate
 }
 
 function update_integration_test_golden {
-  python3 -m venv .env
   source .env/bin/activate
   export ENABLE_MODEL=true
   export FLASK_ENV=integration_test
-  export GOOGLE_CLOUD_PROJECT=datcom-website-dev
+  export GOOGLE_CLOUD_PROJECT=datcom-website-staging
   export TEST_MODE=write
-  python3 -m pytest -vv server/integration_tests/topic_cache
-  python3 -m pytest -vv -n 5 --reruns 2 server/integration_tests/
-  python3 -m pytest -vv server/tests/nodejs_e2e_test.py
+  export DC_API_KEY=
+  export LLM_API_KEY=
+  export ENABLE_EVAL_TOOL=false
+
+  # Run integration test against staging mixer to make it stable.
+  if [[ $ENV_PREFIX == "" ]]; then
+    export ENV_PREFIX=Staging
+  fi
+  echo "Using ENV_PREFIX=$ENV_PREFIX"
+
+  # Should update topic cache first as it's used by the following tests.
+  python3 -m pytest -vv --reruns 2 server/integration_tests/topic_cache
+
+  python3 -m pytest -vv -n 5 --reruns 2 server/integration_tests/ ${@}
 }
 
 function run_all_tests {
@@ -206,77 +229,85 @@ function help {
   exit 1
 }
 
-# Always reset the variable null.
+declare -a extra_args=()  # Use an array to handle extra arguments properly
+command=""  # Initialize command variable
+
 while [[ "$#" -gt 0 ]]; do
   case "$1" in
-    -p)
-        echo -e "### Running server tests"
-        run_py_test
-        shift 1
-        ;;
-    -w)
-        echo -e "### Running webdriver tests"
-        run_webdriver_test
-        shift 1
-        ;;
-    --explore)
-        echo --explore "### Running explore page integration tests"
-        run_integration_test explore_test.py
-        shift 1
-        ;;
-    --nl)
-        echo --nl "### Running nl page integration tests"
-        run_integration_test nl_test.py
-        shift 1
-        ;;
-    --setup_python)
-        echo --setup_python "### Set up python environment"
-        setup_python
-        shift 1
-        ;;
-    -g)
-        echo -e "### Updating integration test goldens"
-        update_integration_test_golden
-        shift 1
-        ;;
-    -o)
-        echo -e "### Production flag enabled"
-        PROD=true
-        shift 1
-        ;;
-    -b)
-        echo -e "### Build client-side packages"
-        run_npm_build $PROD
-        shift 1
-        ;;
-    -l)
-        echo -e "### Running lint"
-        run_npm_lint_test
-        shift 1
-        ;;
-    -c)
-        echo -e "### Running client tests"
-        run_npm_test
-        shift 1
-        ;;
-    -s)
-        echo -e "### Running screenshot tests"
-        run_screenshot_test
-        shift 1
-        ;;
-    -f)
-        echo -e "### Fix lint errors"
-        run_lint_fix
-        shift 1
-        ;;
-    -a)
-        echo -e "### Running all tests"
-        run_all_tests
-        shift 1
+    -p | -w | --explore | --nl | --setup_python | -g | -o | -b | -l | -c | -s | -f | -a)
+        if [[ -n "$command" ]]; then
+            # If a command has already been set, break the loop to process it with the collected extra_args
+            break
+        fi
+        command=$1  # Store the command to call the appropriate function
+        shift  # Move to the next command-line argument
         ;;
     *)
-        help
-        exit 1
+        if [[ -n "$command" ]]; then
+            # Collect extra args only if a command is already set
+            extra_args+=("$1")
+        else
+            echo "Unknown option: $1"
+            help
+            exit 1
+        fi
+        shift
         ;;
-    esac
+  esac
 done
+
+# Use "${extra_args[@]}" to correctly pass array elements as separate words
+case "$command" in
+  -p)
+      echo -e "### Running server tests"
+      run_py_test "${extra_args[@]}"
+      ;;
+  -w)
+      echo -e "### Running webdriver tests"
+      run_webdriver_test "${extra_args[@]}"
+      ;;
+  --explore)
+      echo --explore "### Running explore page integration tests"
+      run_integration_test explore_test.py "${extra_args[@]}"
+      ;;
+  --nl)
+      echo --nl "### Running nl page integration tests"
+      run_integration_test nl_test.py "${extra_args[@]}"
+      ;;
+  --setup_python)
+      echo --setup_python "### Set up python environment"
+      setup_python
+      ;;
+  -g)
+      echo -e "### Updating integration test goldens"
+      update_integration_test_golden "${extra_args[@]}"
+      ;;
+  -o)
+      echo -e "### Production flag enabled"
+      PROD=true
+      ;;
+  -b)
+      echo -e "### Build client-side packages"
+      run_npm_build "${PROD:-false}"  # Use the value of PROD or default to false
+      ;;
+  -l)
+      echo -e "### Running lint"
+      run_npm_lint_test
+      ;;
+  -c)
+      echo -e "### Running client tests"
+      run_npm_test "${extra_args[@]}"
+      ;;
+  -s)
+      echo -e "### Running screenshot tests"
+      run_screenshot_test "${extra_args[@]}"
+      ;;
+  -f)
+      echo -e "### Fix lint errors"
+      run_lint_fix
+      ;;
+  -a)
+      echo -e "### Running all tests"
+      run_all_tests
+      ;;
+esac

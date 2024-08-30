@@ -1,5 +1,5 @@
 {#-
- Copyright 2023 Google LLC
+ Copyright 2024 Google LLC
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -24,17 +24,18 @@
 {% set is_hide_sub_footer = true %}
 
 {% block head %}
-<link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['VERSION'])}}>
+<link rel="stylesheet" href={{url_for('static', filename='css/homepage.min.css', t=config['VERSION'])}}>
+<script src={{url_for('static', filename='homepage_custom_dc.js', t=config['VERSION'])}} async></script>
+
 {% endblock %}
 
 {% block content %}
+<div class="container">
+  <h4>Explore World Bank Data</h4>
+</div>
 <section id="homepage-top">
-  <div class="container">
-    <div class="row">
-      <div class="lead-col col-6 col-lg-6">
-        <h3>Explore World Bank Data</h3>
-      </div>
-    </div>
+  <div id="search-container" class="container">
   </div>
 </section>
+
 {% endblock %}

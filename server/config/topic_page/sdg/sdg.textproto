@@ -9135,7 +9135,7 @@
       title: "16.1.2: Conflict-related deaths per 100K population, by sex, age and cause"
       columns {
         tiles {
-          title: "Number of conflict-related deaths"
+          title: "Number of conflict-related deaths (non-civilians)"
           type: BAR
           stat_var_key: "sdg/VC_DTH_TONCVN"
           bar_tile_spec {
@@ -9145,7 +9145,7 @@
       }
       columns {
         tiles {
-          title: "Number of conflict-related deaths"
+          title: "Number of conflict-related deaths (unknown)"
           type: BAR
           stat_var_key: "sdg/VC_DTH_TOUNN"
           bar_tile_spec {
@@ -9456,7 +9456,7 @@
       key: "sdg/VC_DTH_TONCVN"
       value {
         stat_var: "sdg/VC_DTH_TONCVN"
-        name: "Number of conflict-related deaths"
+        name: "Number of conflict-related deaths (non-civilians)"
       }
     }
     stat_var_spec {
@@ -9470,7 +9470,7 @@
       key: "sdg/VC_DTH_TOUNN"
       value {
         stat_var: "sdg/VC_DTH_TOUNN"
-        name: "Number of conflict-related deaths"
+        name: "Number of conflict-related deaths (unknown)"
       }
     }
     stat_var_spec {

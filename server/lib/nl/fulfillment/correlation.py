@@ -16,7 +16,7 @@ import copy
 import time
 from typing import List
 
-import server.lib.explore.existence as exist
+import server.lib.nl.common.existence_util as exist
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.detection.types import Place
@@ -55,8 +55,16 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
 
 def _scatter(state: PopulateState, chart_vars: ChartVars, places: List[Place],
              chart_origin: ChartOriginType, rank: int) -> bool:
-  found = add_chart_to_utterance(ChartType.SCATTER_CHART, state, chart_vars,
-                                 places, chart_origin)
+
+  sv_place_latest_date = exist.get_sv_place_latest_date(chart_vars.svs, places,
+                                                        state.place_type,
+                                                        state.exist_checks)
+  found = add_chart_to_utterance(ChartType.SCATTER_CHART,
+                                 state,
+                                 chart_vars,
+                                 places,
+                                 chart_origin,
+                                 sv_place_latest_date=sv_place_latest_date)
   if found:
     ranking_orig = state.ranking_types
     state.ranking_types = [RankingType.HIGH, RankingType.LOW]
@@ -73,7 +81,7 @@ def _scatter(state: PopulateState, chart_vars: ChartVars, places: List[Place],
 
 def _simple(state: PopulateState, chart_vars: ChartVars, places: List[Place],
             chart_origin: ChartOriginType, rank: int) -> bool:
-  if not is_coplottable(chart_vars):
+  if not is_coplottable(chart_vars.svs, places, state.exist_checks):
     # TODO: This should eventually be a User Message
     state.uttr.counters.err('correlation_coplottable_failed', chart_vars.svs)
     return False

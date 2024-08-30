@@ -29,6 +29,7 @@ export interface RankingPoint {
    * If not provided, the component will calculate the rank based on the order of the input points.
    */
   rank?: number;
+  date?: string;
 }
 
 export interface RankingGroup {
@@ -46,5 +47,5 @@ export interface RankingGroup {
 }
 
 export interface RankingData {
-  [key: string]: RankingGroup; // Key is main statVarDcid.
+  [statVarDcid: string]: RankingGroup;
 }

@@ -38,6 +38,180 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "dc/b3nmcj3w1lhed"
+                    ],
+                    "title": "Population: Middle School, Two or More Races in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Middle School, Two or More Races in Sunnyvale",
+                    "statVarKey": [
+                      "dc/b3nmcj3w1lhed"
+                    ],
+                    "title": "Population: Middle School, Two or More Races in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Middle School, Two or More Races"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/g4fthg3t3y5td"
+                    ],
+                    "title": "Population: Middle School, Asian Alone in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Middle School, Asian Alone in Sunnyvale",
+                    "statVarKey": [
+                      "dc/g4fthg3t3y5td"
+                    ],
+                    "title": "Population: Middle School, Asian Alone in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Middle School, Asian Alone"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/e2szvml8jkld8"
+                    ],
+                    "title": "Population: Middle School, Black or African American Alone in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Middle School, Black or African American Alone in Sunnyvale",
+                    "statVarKey": [
+                      "dc/e2szvml8jkld8"
+                    ],
+                    "title": "Population: Middle School, Black or African American Alone in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Middle School, Black or African American Alone"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/qvf1yrhwzp8rd"
+                    ],
+                    "title": "Population: Middle School, White Alone in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Middle School, White Alone in Sunnyvale",
+                    "statVarKey": [
+                      "dc/qvf1yrhwzp8rd"
+                    ],
+                    "title": "Population: Middle School, White Alone in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Middle School, White Alone"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/zvr6djt1p9gj3"
+                    ],
+                    "title": "Population: Middle School, Hispanic or Latino in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Middle School, Hispanic or Latino in Sunnyvale",
+                    "statVarKey": [
+                      "dc/zvr6djt1p9gj3"
+                    ],
+                    "title": "Population: Middle School, Hispanic or Latino in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Middle School, Hispanic or Latino"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/njgzb8knf11n8"
+                    ],
+                    "title": "Population: Middle School, American Indian or Alaska Native Alone in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Middle School, American Indian or Alaska Native Alone in Sunnyvale",
+                    "statVarKey": [
+                      "dc/njgzb8knf11n8"
+                    ],
+                    "title": "Population: Middle School, American Indian or Alaska Native Alone in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Middle School, American Indian or Alaska Native Alone"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "barTileSpec": {
                       "maxPlaces": 15,
                       "maxVariables": 15,
@@ -72,40 +246,11 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_DetailedPrimarySchool"
-                    ],
-                    "title": "Elementary School Students in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Elementary School Students in Sunnyvale",
-                    "statVarKey": [
-                      "Count_Person_DetailedPrimarySchool"
-                    ],
-                    "title": "Elementary School Students in Sunnyvale",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Elementary School Students"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_EnrolledInKindergarten",
+                      "Count_Person_DetailedEnrolledInKindergarten",
                       "Count_Person_DetailedPrimarySchool",
                       "Count_Person_DetailedMiddleSchool",
                       "Count_Person_DetailedHighSchool",
-                      "Count_Person_EnrolledInCollegeUndergraduateYears"
+                      "Count_Person_DetailedEnrolledInCollegeUndergraduateYears"
                     ],
                     "title": "Student Population by Enrollment Level in Sunnyvale",
                     "type": "LINE"
@@ -205,6 +350,66 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Student_DirectCertificationLunch"
+                    ],
+                    "title": "Count of Student: Direct Certification Lunch in Middle Schools of Sunnyvale (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Student: Direct Certification Lunch in Middle Schools of Sunnyvale"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Student_FreeLunch"
+                    ],
+                    "title": "Count of Student: Free Lunch in Middle Schools of Sunnyvale (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Student: Free Lunch in Middle Schools of Sunnyvale"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Student_AsAFractionOf_Count_Teacher"
+                    ],
+                    "title": "Student-Teacher Ratio in Middle Schools of Sunnyvale (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Student-Teacher Ratio in Middle Schools of Sunnyvale"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "Count_Person_EnrolledInSchool"
                     ],
@@ -228,67 +433,17 @@
             ],
             "denom": "Count_Person",
             "title": "Population Currently Enrolled in School"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_EducationalAttainment11ThGrade"
-                    ],
-                    "title": "Population: 11th Grade in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: 11th Grade in Sunnyvale",
-                    "statVarKey": [
-                      "Count_Person_EducationalAttainment11ThGrade"
-                    ],
-                    "title": "Population: 11th Grade in Sunnyvale",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: 11th Grade"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Years25Onwards_EducationalAttainment_7ThAnd8ThGrade"
-                    ],
-                    "title": "Population: 7th and 8th Grade in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: 7th and 8th Grade in Sunnyvale",
-                    "statVarKey": [
-                      "Count_Person_Years25Onwards_EducationalAttainment_7ThAnd8ThGrade"
-                    ],
-                    "title": "Population: 7th and 8th Grade in Sunnyvale",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: 7th and 8th Grade"
           }
         ],
         "statVarSpec": {
+          "Count_Person_DetailedEnrolledInCollegeUndergraduateYears": {
+            "name": "Population: Enrolled in College Undergraduate Years",
+            "statVar": "Count_Person_DetailedEnrolledInCollegeUndergraduateYears"
+          },
+          "Count_Person_DetailedEnrolledInKindergarten": {
+            "name": "Population: Enrolled in Kindergarten",
+            "statVar": "Count_Person_DetailedEnrolledInKindergarten"
+          },
           "Count_Person_DetailedHighSchool": {
             "name": "High School Students",
             "statVar": "Count_Person_DetailedHighSchool"
@@ -301,25 +456,22 @@
             "name": "Elementary School Students",
             "statVar": "Count_Person_DetailedPrimarySchool"
           },
-          "Count_Person_EducationalAttainment11ThGrade": {
-            "name": "Population: 11th Grade",
-            "statVar": "Count_Person_EducationalAttainment11ThGrade"
-          },
-          "Count_Person_EnrolledInCollegeUndergraduateYears": {
-            "name": "Population: Enrolled in College Undergraduate Years",
-            "statVar": "Count_Person_EnrolledInCollegeUndergraduateYears"
-          },
-          "Count_Person_EnrolledInKindergarten": {
-            "name": "Population: Enrolled in Kindergarten",
-            "statVar": "Count_Person_EnrolledInKindergarten"
-          },
           "Count_Person_EnrolledInSchool": {
             "name": "Population Currently Enrolled in School",
             "statVar": "Count_Person_EnrolledInSchool"
           },
-          "Count_Person_Years25Onwards_EducationalAttainment_7ThAnd8ThGrade": {
-            "name": "Population: 7th And 8th Grade",
-            "statVar": "Count_Person_Years25Onwards_EducationalAttainment_7ThAnd8ThGrade"
+          "Count_Student_DirectCertificationLunch": {
+            "name": "Count of Student: Direct Certification Lunch",
+            "statVar": "Count_Student_DirectCertificationLunch"
+          },
+          "Count_Student_FreeLunch": {
+            "name": "Count of Student: Free Lunch",
+            "statVar": "Count_Student_FreeLunch"
+          },
+          "Percent_Student_AsAFractionOf_Count_Teacher": {
+            "name": "Student-Teacher Ratio",
+            "statVar": "Percent_Student_AsAFractionOf_Count_Teacher",
+            "unit": "%"
           },
           "dc/1c4zcyw02n71g_multiple_place_bar_block": {
             "name": "Population: Enrolled in Kindergarten, Asian Alone",
@@ -345,6 +497,10 @@
             "name": "Population: Enrolled in Kindergarten, Hispanic or Latino",
             "statVar": "dc/7g77dy8hfb1rg"
           },
+          "dc/b3nmcj3w1lhed": {
+            "name": "Population: Middle School, Two or More Races",
+            "statVar": "dc/b3nmcj3w1lhed"
+          },
           "dc/b3nmcj3w1lhed_multiple_place_bar_block": {
             "name": "Population: Middle School, Two or More Races",
             "statVar": "dc/b3nmcj3w1lhed"
@@ -369,6 +525,10 @@
             "name": "Population: Middle School, White Alone Not Hispanic or Latino",
             "statVar": "dc/c75qlm98pmcb2"
           },
+          "dc/e2szvml8jkld8": {
+            "name": "Population: Middle School, Black or African American Alone",
+            "statVar": "dc/e2szvml8jkld8"
+          },
           "dc/e2szvml8jkld8_multiple_place_bar_block": {
             "name": "Population: Middle School, Black or African American Alone",
             "statVar": "dc/e2szvml8jkld8"
@@ -380,6 +540,10 @@
           "dc/env3140jqssg8_multiple_place_bar_block": {
             "name": "Population: Primary School, Some Other Race Alone",
             "statVar": "dc/env3140jqssg8"
+          },
+          "dc/g4fthg3t3y5td": {
+            "name": "Population: Middle School, Asian Alone",
+            "statVar": "dc/g4fthg3t3y5td"
           },
           "dc/g4fthg3t3y5td_multiple_place_bar_block": {
             "name": "Population: Middle School, Asian Alone",
@@ -396,6 +560,10 @@
           "dc/jhjdplbeg26k1_multiple_place_bar_block": {
             "name": "Population: Primary School, Two or More Races",
             "statVar": "dc/jhjdplbeg26k1"
+          },
+          "dc/njgzb8knf11n8": {
+            "name": "Population: Middle School, American Indian or Alaska Native Alone",
+            "statVar": "dc/njgzb8knf11n8"
           },
           "dc/njgzb8knf11n8_multiple_place_bar_block": {
             "name": "Population: Middle School, American Indian or Alaska Native Alone",
@@ -421,6 +589,10 @@
             "name": "Population: Enrolled in Kindergarten, American Indian or Alaska Native Alone",
             "statVar": "dc/qnphlls92tvs9"
           },
+          "dc/qvf1yrhwzp8rd": {
+            "name": "Population: Middle School, White Alone",
+            "statVar": "dc/qvf1yrhwzp8rd"
+          },
           "dc/qvf1yrhwzp8rd_multiple_place_bar_block": {
             "name": "Population: Middle School, White Alone",
             "statVar": "dc/qvf1yrhwzp8rd"
@@ -433,6 +605,10 @@
             "name": "Population: Primary School, Asian Alone",
             "statVar": "dc/x9e7150515yt7"
           },
+          "dc/zvr6djt1p9gj3": {
+            "name": "Population: Middle School, Hispanic or Latino",
+            "statVar": "dc/zvr6djt1p9gj3"
+          },
           "dc/zvr6djt1p9gj3_multiple_place_bar_block": {
             "name": "Population: Middle School, Hispanic or Latino",
             "statVar": "dc/zvr6djt1p9gj3"
@@ -441,6 +617,9 @@
       }
     ],
     "metadata": {
+      "containedPlaceTypes": {
+        "City": "MiddleSchool"
+      },
       "placeDcid": [
         "geoId/0677000"
       ]
@@ -448,6 +627,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "geoId/0677000",
@@ -463,7 +643,519 @@
       "place_type": "City"
     }
   ],
-  "relatedThings": {},
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [],
+    "exploreMore": {
+      "Count_Person_DetailedEnrolledInCollegeUndergraduateYears": {
+        "race": [
+          "dc/0jtctjm33mgh1",
+          "dc/1t989xd1tn701",
+          "dc/4wkzsq23w6reb",
+          "dc/50yq5l3ek70t7",
+          "dc/55d9n710f1l43",
+          "dc/mwbmxs2q9zcgd",
+          "dc/nhmjhp72kjr48",
+          "dc/wjtdrd9wq4m2g",
+          "dc/zv5g19y8dl9r1"
+        ]
+      },
+      "Count_Person_DetailedEnrolledInKindergarten": {
+        "race": [
+          "dc/1c4zcyw02n71g",
+          "dc/3n8g9we5yv7th",
+          "dc/556pqlh586bmc",
+          "dc/7g77dy8hfb1rg",
+          "dc/c6n2z7vh9sy31",
+          "dc/gr3zem8shyhbf",
+          "dc/ns1rqx6wy9909",
+          "dc/nt9cq96phw6nf",
+          "dc/qnphlls92tvs9"
+        ]
+      },
+      "Count_Person_DetailedHighSchool": {
+        "race": [
+          "dc/1kt512ynvpmc2",
+          "dc/3bg4r46ly61q9",
+          "dc/4hzyqndyzntm",
+          "dc/9q73ecfhmd0y9",
+          "dc/cc8wk2n0ywd9",
+          "dc/dxsxcw009pdm4",
+          "dc/dzfdgrtcv5h7",
+          "dc/fh4td3znm3l4g",
+          "dc/g8537zqf45wl3"
+        ]
+      },
+      "Count_Person_DetailedMiddleSchool": {
+        "race": [
+          "dc/6zbb7s5nx6rxb",
+          "dc/b3nmcj3w1lhed",
+          "dc/c57vzg7l74577",
+          "dc/c75qlm98pmcb2",
+          "dc/e2szvml8jkld8",
+          "dc/g4fthg3t3y5td",
+          "dc/njgzb8knf11n8",
+          "dc/qvf1yrhwzp8rd",
+          "dc/zvr6djt1p9gj3"
+        ]
+      },
+      "Count_Person_DetailedPrimarySchool": {
+        "race": [
+          "dc/68cg2z97cpl7d",
+          "dc/b6h698m2vmdcc",
+          "dc/bf85zc6wypd2h",
+          "dc/e4y4hqq6mjfsh",
+          "dc/env3140jqssg8",
+          "dc/jhjdplbeg26k1",
+          "dc/p4jzvj8q1lnmd",
+          "dc/wk2vjrzfgyq5d",
+          "dc/x9e7150515yt7"
+        ]
+      },
+      "Count_Person_EnrolledInSchool": {
+        "gender": [
+          "Count_Person_3OrMoreYears_Female_EnrolledInSchool",
+          "Count_Person_3OrMoreYears_Male_EnrolledInSchool"
+        ],
+        "race": [
+          "dc/4wdtyd2bbf9m9",
+          "dc/5qnjtqc0w783b",
+          "dc/8cnhmxe67qddf",
+          "dc/jbv3zc0ezvcyc",
+          "dc/km8en9ep7bwh6",
+          "dc/zq864lhfql079"
+        ]
+      },
+      "dc/g8kg52zcxzw9f": {
+        "typeOfSchool": [
+          "dc/kzyx3ll4kpfk1",
+          "dc/wvxlkgg1rw7k7"
+        ]
+      },
+      "dc/p34mhcpgtth76": {
+        "typeOfSchool": [
+          "dc/jf4mf9csthtf8",
+          "dc/we93hmvng2zn2"
+        ]
+      }
+    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/StudentEnrollmentLevels",
+        "name": "Student Enrollment Levels",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/StudentPopulation",
+        "name": "Student Population",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [
+      {
+        "dcid": "geoId/3502000",
+        "name": "Albuquerque",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0203000",
+        "name": "Anchorage municipality",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2603000",
+        "name": "Ann Arbor",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1304000",
+        "name": "Atlanta",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4805000",
+        "name": "Austin",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2404000",
+        "name": "Baltimore",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1608830",
+        "name": "Boise",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2507000",
+        "name": "Boston",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4513330",
+        "name": "Charleston",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3712000",
+        "name": "Charlotte",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1714000",
+        "name": "Chicago",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3915000",
+        "name": "Cincinnati",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3916000",
+        "name": "Cleveland",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3918000",
+        "name": "Columbus",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4819000",
+        "name": "Dallas",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0820000",
+        "name": "Denver",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2622000",
+        "name": "Detroit",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4824000",
+        "name": "El Paso",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0937000",
+        "name": "Hartford",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4835000",
+        "name": "Houston",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1836003",
+        "name": "Indianapolis",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2836000",
+        "name": "Jackson",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1235000",
+        "name": "Jacksonville",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2938000",
+        "name": "Kansas City",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3240000",
+        "name": "Las Vegas",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0541000",
+        "name": "Little Rock",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0644000",
+        "name": "Los Angeles",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2148006",
+        "name": "Louisville/Jefferson County metro government (balance)",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/5548000",
+        "name": "Madison",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4748000",
+        "name": "Memphis",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1245000",
+        "name": "Miami",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/5553000",
+        "name": "Milwaukee",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2743000",
+        "name": "Minneapolis",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0649670",
+        "name": "Mountain View",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4752006",
+        "name": "Nashville-Davidson metropolitan government (balance)",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0952000",
+        "name": "New Haven",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2255000",
+        "name": "New Orleans",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/3651000",
+        "name": "New York",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0653000",
+        "name": "Oakland",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4055000",
+        "name": "Oklahoma City",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3137000",
+        "name": "Omaha",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1253000",
+        "name": "Orlando",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0655282",
+        "name": "Palo Alto",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4260000",
+        "name": "Philadelphia",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0455000",
+        "name": "Phoenix",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4261000",
+        "name": "Pittsburgh",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4159000",
+        "name": "Portland",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/5167000",
+        "name": "Richmond",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/0664000",
+        "name": "Sacramento",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4967000",
+        "name": "Salt Lake City",
+        "types": [
+          "City"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/StudentsInKindergarten",
+        "name": "Students in Kindergarten",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/StudentsInPrimarySchool",
+        "name": "Students in Primary School",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/StudentsInMiddleSchool",
+        "name": "Students in Middle School",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/StudentsInHighSchool",
+        "name": "Students in High School",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/StudentsInCollege",
+        "name": "Students in College",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/StudentsInGraduateOrProfessionalSchool",
+        "name": "Students in Graduate or Professional School",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessage": "",
+  "userMessages": []
 }

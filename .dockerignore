@@ -9,3 +9,10 @@
 .env
 
 pytest_log.txt
+
+**/eval/**/result
+
+import/simple/sample/
+**/.data
+**/testdata
+**/test_data

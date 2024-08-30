@@ -1,0 +1,34 @@
+{
+  "childEntityType": "",
+  "classifications": [
+    {
+      "correlation": true,
+      "type": 5
+    },
+    {
+      "contained_in_place_type": "DefaultType",
+      "had_default_type": true,
+      "type": 4
+    }
+  ],
+  "client": "test_detect",
+  "comparisonEntities": [],
+  "comparisonVariables": [
+    "dc/topic/HousesByHomeValue",
+    "dc/topic/HousesByOwnershipCost"
+  ],
+  "context": {},
+  "debug": {},
+  "entities": [
+    "geoId/06"
+  ],
+  "nonPlaceEntities": [],
+  "properties": [],
+  "sessionId": "007_999999999",
+  "variables": [
+    "dc/topic/Housing",
+    "Mean_HouseholdSize_HousingUnit_OccupiedHousingUnit",
+    "Mean_HouseholdSize_HousingUnit_OccupiedHousingUnit_RenterOccupied",
+    "Count_HousingUnit"
+  ]
+}

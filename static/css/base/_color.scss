@@ -32,20 +32,37 @@ $dc-primary-color: #467bd5;
   --dc-error: #dc3545;
   --gm-3-sys-light-primary: #0b57d0;
   --gm-3-sys-light-primary-60: #4c8df6;
+  --gm-3-sys-light-primary-90: #d3e3fd;
   --gm-3-ref-primary-primary-99: #fafbff;
   --gm-3-ref-primary-primary-100: #ffffff;
+  --gm-3-ref-primary-primary-95: #ecf3fe;
   --gm-3-ref-secondary-secondary-30: #004a77;
   --gm-3-ref-secondary-secondary-99: #f7fcff;
   --gm-3-ref-neutral-neutral-20: #303030;
   --gm-3-ref-neutral-neutral-40: #5e5e5e;
+  --gm-3-ref-neutral-neutral-50: #757575;
+  --gm-3-ref-neutral-neutral-60: #8f8f8f;
+  --gm-3-ref-neutral-neutral-70: #ababab;
   --gm-3-ref-neutral-neutral-80: #c7c7c7;
   --gm-3-ref-neutral-neutral-90: #e3e3e3;
   --gm-3-white: #fff;
+  --gm-3-sys-light-surface-container: #f0f4f9;
   --gm-3-sys-light-surface-container-low: #f8fafd;
+  --gm-3-sys-light-surface-container-high: #e9eef6;
+  --gm-3-sys-light-surface-container-highest: #e3e3e3;
   --gm-3-sys-light-outline-variant: #c4c7c5;
+  --gm-3-sys-light-outline: #747775;
   --gm-3-sys-light-on-surface: #1f1f1f;
+  --gm-3-sys-light-on-surface-secondary: #5e5e5e;
+  --gm-3-sys-light-on-surface-variant: #444746;
   // Following vars are overwritten in custom dc modes
   --dc-primary: #{$dc-primary-color};
   --link-color: #0b57d0;
-  --footer-bg: #f5f9fe;
+  --loading-background: #f8f9fa;
+  --footer-background: #f5f9fe;
+  // Theming of styled components
+  --button-text-color: var(--link-color);
+  --button-background-color: var(--gm-3-white);
+  --button-highlight-background-color: #ecf2fc;
+  --table-link-color: var(--link-color);
 }

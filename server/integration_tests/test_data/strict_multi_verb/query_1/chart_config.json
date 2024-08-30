@@ -3,6 +3,7 @@
   "config": {},
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "",
@@ -20,5 +21,6 @@
   ],
   "relatedThings": {},
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessage": "",
+  "userMessages": []
 }

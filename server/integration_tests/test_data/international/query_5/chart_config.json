@@ -56,6 +56,26 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Area_FloodEvent"
+                    ],
+                    "title": "Area of Flood Event in Administrative Area 1 Places of Brazil (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Area of Flood Event in Administrative Area 1 Places of Brazil"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "Count_FloodEvent"
                     ],
@@ -84,230 +104,26 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "Area_DroughtEvent"
-                    ],
-                    "title": "Area of Drought Event in Brazil",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Area of Drought Event in Brazil",
-                    "statVarKey": [
-                      "Area_DroughtEvent"
-                    ],
-                    "title": "Area of Drought Event in Brazil",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Area of Drought Event"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_DroughtEvent"
-                    ],
-                    "title": "Droughts in Brazil",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Droughts in Brazil",
-                    "statVarKey": [
-                      "Count_DroughtEvent"
-                    ],
-                    "title": "Droughts in Brazil",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Droughts"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_FireEvent"
-                    ],
-                    "title": "Count of Fire Event in Brazil",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Count of Fire Event in Brazil",
-                    "statVarKey": [
-                      "Count_FireEvent"
-                    ],
-                    "title": "Count of Fire Event in Brazil",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Count of Fire Event"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_CycloneEvent"
-                    ],
-                    "title": "Cyclones in Brazil",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Cyclones in Brazil",
-                    "statVarKey": [
-                      "Count_CycloneEvent"
-                    ],
-                    "title": "Cyclones in Brazil",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Cyclones"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
                     },
-                    "comparisonPlaces": [
-                      "country/BRA"
-                    ],
                     "statVarKey": [
-                      "Count_CycloneEvent_TropicalDisturbance_multiple_place_bar_block",
-                      "Count_CycloneEvent_TropicalStorm_multiple_place_bar_block"
+                      "Count_FloodEvent"
                     ],
-                    "title": "Cyclones by Type in Brazil (${date})",
-                    "type": "BAR"
+                    "title": "Floods in Administrative Area 1 Places of Brazil (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Cyclones by Type"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_EarthquakeEvent"
-                    ],
-                    "title": "Earthquakes in Brazil",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Earthquakes in Brazil",
-                    "statVarKey": [
-                      "Count_EarthquakeEvent"
-                    ],
-                    "title": "Earthquakes in Brazil",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Earthquakes"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_EarthquakeEvent_M5To6",
-                      "Count_EarthquakeEvent_M6To7",
-                      "Count_EarthquakeEvent_M7To8"
-                    ],
-                    "title": "Earthquakes by Intensity in Brazil",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Earthquakes by Intensity"
+            "title": "Floods in Administrative Area 1 Places of Brazil"
           }
         ],
         "statVarSpec": {
-          "Area_DroughtEvent": {
-            "name": "Area of Drought Event",
-            "statVar": "Area_DroughtEvent"
-          },
           "Area_FloodEvent": {
             "name": "Area of Flood Event",
             "statVar": "Area_FloodEvent"
-          },
-          "Count_CycloneEvent": {
-            "name": "Cyclones",
-            "statVar": "Count_CycloneEvent"
-          },
-          "Count_CycloneEvent_TropicalDisturbance_multiple_place_bar_block": {
-            "name": "Count of Cyclone Event: Tropical Disturbance",
-            "statVar": "Count_CycloneEvent_TropicalDisturbance"
-          },
-          "Count_CycloneEvent_TropicalStorm_multiple_place_bar_block": {
-            "name": "Count of Cyclone Event: Tropical Storm",
-            "statVar": "Count_CycloneEvent_TropicalStorm"
-          },
-          "Count_DroughtEvent": {
-            "name": "Droughts",
-            "statVar": "Count_DroughtEvent"
-          },
-          "Count_EarthquakeEvent": {
-            "name": "Earthquakes",
-            "statVar": "Count_EarthquakeEvent"
-          },
-          "Count_EarthquakeEvent_M5To6": {
-            "name": "Count of Earthquake Event: 5 - 6 Magnitude",
-            "statVar": "Count_EarthquakeEvent_M5To6"
-          },
-          "Count_EarthquakeEvent_M6To7": {
-            "name": "Count of Earthquake Event: 6 - 7 Magnitude",
-            "statVar": "Count_EarthquakeEvent_M6To7"
-          },
-          "Count_EarthquakeEvent_M7To8": {
-            "name": "Count of Earthquake Event: 7 - 8 Magnitude",
-            "statVar": "Count_EarthquakeEvent_M7To8"
-          },
-          "Count_FireEvent": {
-            "name": "Count of Fire Event",
-            "statVar": "Count_FireEvent"
           },
           "Count_FloodEvent": {
             "name": "Floods",
@@ -344,6 +160,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "country/BRA",
@@ -359,7 +176,353 @@
       "place_type": "Country"
     }
   ],
-  "relatedThings": {},
+  "relatedThings": {
+    "childPlaces": {
+      "AdministrativeArea1": [
+        {
+          "dcid": "wikidataId/Q119158",
+          "name": "Federal District",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q15499",
+          "name": "Paran\u00e1",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q175",
+          "name": "S\u00e3o Paulo",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q38088",
+          "name": "Para\u00edba",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q39109",
+          "name": "Minas Gerais",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q39517",
+          "name": "Par\u00e1",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q40030",
+          "name": "Rio Grande do Sul",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q40040",
+          "name": "Amazonas",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q40123",
+          "name": "Cear\u00e1",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q40130",
+          "name": "Amap\u00e1",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q40430",
+          "name": "Bahia",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q40780",
+          "name": "Acre",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q40885",
+          "name": "Alagoas",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q40942",
+          "name": "Pernambuco",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q41115",
+          "name": "Santa Catarina",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q41428",
+          "name": "Rio de Janeiro",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q41587",
+          "name": "Goi\u00e1s",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q42362",
+          "name": "Maranh\u00e3o",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q42508",
+          "name": "Roraima",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q42722",
+          "name": "Piau\u00ed",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q42824",
+          "name": "Mato Grosso",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q43233",
+          "name": "Esp\u00edrito Santo",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q43235",
+          "name": "Rond\u00f4nia",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q43255",
+          "name": "Rio Grande do Norte",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q43319",
+          "name": "Mato Grosso do Sul",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q43695",
+          "name": "Tocantins",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q43783",
+          "name": "Sergipe",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        }
+      ]
+    },
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Flood",
+        "name": "Flood",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/NaturalDisasters",
+        "name": "Natural Disasters",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/USA",
+        "name": "United States",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/Drought",
+        "name": "Drought",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Fire",
+        "name": "Fire",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Storm",
+        "name": "Storms",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Earthquake",
+        "name": "Earthquake",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessage": "",
+  "userMessages": []
 }

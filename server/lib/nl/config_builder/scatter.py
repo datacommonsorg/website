@@ -15,6 +15,7 @@
 from server.config.subject_page_pb2 import StatVarSpec
 from server.config.subject_page_pb2 import Tile
 from server.lib.nl.common import variable
+from server.lib.nl.common.utils import get_place_key
 from server.lib.nl.config_builder import base
 from server.lib.nl.detection.date import get_date_string
 from server.lib.nl.fulfillment.types import ChartSpec
@@ -33,22 +34,29 @@ def scatter_chart_block(builder: base.Builder, cspec: ChartSpec):
   sv_names = [sv2thing.name[sv_pair[0]], sv2thing.name[sv_pair[1]]]
   sv_units = [sv2thing.unit[sv_pair[0]], sv2thing.unit[sv_pair[1]]]
   sv_key_pair = [sv_pair[0] + '_scatter', sv_pair[1] + '_scatter']
-  date_string = get_date_string(cspec.single_date)
-  if date_string:
-    sv_key_pair = [
-        sv_key_pair[0] + f'_{date_string}', sv_key_pair[1] + f'_{date_string}'
-    ]
+  date_strings = ['', '']
+  if cspec.single_date:
+    date_strings[0] = get_date_string(cspec.single_date)
+    date_strings[1] = date_strings[0]
+  elif cspec.date_range:
+    place_key = get_place_key(pri_place.dcid, child_type)
+    date_strings[0] = cspec.sv_place_latest_date.get(sv_pair[0],
+                                                     {}).get(place_key, '')
+    date_strings[1] = cspec.sv_place_latest_date.get(sv_pair[1],
+                                                     {}).get(place_key, '')
   stat_var_spec_map = {}
   show_pc_block = False
   for i in range(2):
     is_pc = variable.is_percapita_relevant(sv_pair[i], nopc_vars)
     show_pc_block |= is_pc
+    if date_strings[i]:
+      sv_key_pair[i] = sv_key_pair[i] + f'_{date_strings[i]}'
     stat_var_spec_map[sv_key_pair[i]] = StatVarSpec(
         stat_var=sv_pair[i],
         name=sv_names[i],
         unit=sv_units[i],
         no_per_capita=bool(not is_pc),
-        date=date_string)
+        date=date_strings[i])
 
   block = builder.new_chart(cspec, skip_title=True)
 

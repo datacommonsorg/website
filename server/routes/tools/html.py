@@ -29,7 +29,8 @@ ALLOW_LEAFLET_FLAG = "leaflet"
 
 def get_example_file(tool):
   example_file = os.path.join(current_app.root_path, 'templates/custom_dc',
-                              g.env, '{}_examples.json'.format(tool))
+                              g.custom_dc_template_folder,
+                              '{}_examples.json'.format(tool))
   if os.path.exists(example_file):
     return example_file
 

@@ -301,6 +301,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "Earth",
@@ -746,5 +747,6 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessage": "",
+  "userMessages": []
 }

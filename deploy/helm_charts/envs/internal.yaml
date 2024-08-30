@@ -24,8 +24,10 @@ website:
   replicas: 2
 
 mixer:
+  useBaseBigtable: false
   useBranchBigtable: false
-  useCustomBigtable: false
+  useCustomBigtable: true
+  remoteMixerDomain: https://api.datacommons.org
 
 serviceAccount:
   name: website-ksa
@@ -36,17 +38,32 @@ ingress:
   certName: website-ssl-certificate
 nl:
   enabled: true
+  env:
+    default_indexes:
+      - medium_ft
+    enabled_indexes:
+      - medium_ft
 
 serviceGroups:
   recon: null
   svg:
-    replicas: 1
+    replicas: 3
+    resources:
+      memoryRequest: "12G"
+      memoryLimit: "12G"
   observation:
-    replicas: 2
+    replicas: 6
   node:
-    replicas: 2
+    replicas: 6
   default:
-    replicas: 2
+    replicas: 3
+
+kgStoreConfig:
+  customBigtableInfo: |
+    project: datcom-internal
+    instance: dc-graph
+    tables:
+      - internal_2024_01_29_09_12_51
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]

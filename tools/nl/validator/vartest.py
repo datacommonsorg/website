@@ -32,9 +32,9 @@ flags.DEFINE_string('checkpoint_dir', 'checkpoint/', 'Generated files')
 flags.DEFINE_string('run_name', 'foo',
                     'Unique name of the test, for continuation, etc.')
 
-CONFIG = 'idx=medium_ft&skip_multi_sv=1'
+CONFIG = 'idx=base_uae_mem&skip_multi_sv=1'
 
-URL = 'http://localhost:6060/api/search_sv?' + CONFIG
+URL = 'http://localhost:6060/api/search_vars?' + CONFIG
 
 OUT_HEADER = [
     'Query',

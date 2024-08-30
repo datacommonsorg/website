@@ -1,0 +1,259 @@
+{
+  "client": "test_detect-and-fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "answerTableTileSpec": {
+                      "columns": [
+                        {
+                          "header": "Alignment Quality",
+                          "propertyExpr": "->alignmentQuality"
+                        },
+                        {
+                          "header": "Allele Origin",
+                          "propertyExpr": "->alleleOrigin"
+                        },
+                        {
+                          "header": "Average Heterozygosity",
+                          "propertyExpr": "->averageHeterozygosity"
+                        },
+                        {
+                          "header": "Average Heterozygosity SE",
+                          "propertyExpr": "->averageHeterozygositySE"
+                        },
+                        {
+                          "header": "Class",
+                          "propertyExpr": "->class"
+                        },
+                        {
+                          "header": "Clin Var Allele ID",
+                          "propertyExpr": "->clinVarAlleleID"
+                        },
+                        {
+                          "header": "Clin Var Review Status",
+                          "propertyExpr": "->clinVarReviewStatus"
+                        },
+                        {
+                          "header": "Clin Var Variation ID",
+                          "propertyExpr": "->clinVarVariationID"
+                        },
+                        {
+                          "header": "Clinical Significance",
+                          "propertyExpr": "->clinicalSignificance"
+                        },
+                        {
+                          "header": "Clinical Source",
+                          "propertyExpr": "->clinicalSource"
+                        },
+                        {
+                          "header": "Disease Name",
+                          "propertyExpr": "->diseaseName"
+                        },
+                        {
+                          "header": "Exceptions",
+                          "propertyExpr": "->exceptions"
+                        },
+                        {
+                          "header": "Functional Category",
+                          "propertyExpr": "->functionalCategory"
+                        },
+                        {
+                          "header": "Gene ID",
+                          "propertyExpr": "->geneID"
+                        },
+                        {
+                          "header": "Gene Symbol",
+                          "propertyExpr": "->geneSymbol"
+                        },
+                        {
+                          "header": "Genetic Variant Attribute",
+                          "propertyExpr": "->geneticVariantAttribute"
+                        },
+                        {
+                          "header": "Genetic Variant Class",
+                          "propertyExpr": "->geneticVariantClass"
+                        },
+                        {
+                          "header": "Genetic Variant Functional Category",
+                          "propertyExpr": "->geneticVariantFunctionalCategory"
+                        },
+                        {
+                          "header": "Genetic Variant Molecular Type",
+                          "propertyExpr": "->geneticVariantMolecularType"
+                        },
+                        {
+                          "header": "Hg19 Genomic Location",
+                          "propertyExpr": "->hg19GenomicLocation"
+                        },
+                        {
+                          "header": "Hg19 Genomic Position",
+                          "propertyExpr": "->hg19GenomicPosition"
+                        },
+                        {
+                          "header": "Hg38 Genomic Location",
+                          "propertyExpr": "->hg38GenomicLocation"
+                        },
+                        {
+                          "header": "Hg38 Genomic Position",
+                          "propertyExpr": "->hg38GenomicPosition"
+                        },
+                        {
+                          "header": "Hgvs Nomenclature",
+                          "propertyExpr": "->hgvsNomenclature"
+                        },
+                        {
+                          "header": "Human Phenotype Ontology ID",
+                          "propertyExpr": "->humanPhenotypeOntologyID"
+                        },
+                        {
+                          "header": "In Chromosome",
+                          "propertyExpr": "->inChromosome"
+                        },
+                        {
+                          "header": "Loc Type",
+                          "propertyExpr": "->locType"
+                        },
+                        {
+                          "header": "Med Gen ID",
+                          "propertyExpr": "->medGenID"
+                        },
+                        {
+                          "header": "Mondo ID",
+                          "propertyExpr": "->mondoID"
+                        },
+                        {
+                          "header": "N Alleles With Freq",
+                          "propertyExpr": "->nAllelesWithFreq"
+                        },
+                        {
+                          "header": "Name",
+                          "propertyExpr": "->name"
+                        },
+                        {
+                          "header": "Ncbi Gene ID",
+                          "propertyExpr": "->ncbiGeneID"
+                        },
+                        {
+                          "header": "Observed Allele",
+                          "propertyExpr": "->observedAllele"
+                        },
+                        {
+                          "header": "Of Species",
+                          "propertyExpr": "->ofSpecies"
+                        },
+                        {
+                          "header": "Omim ID",
+                          "propertyExpr": "->omimID"
+                        },
+                        {
+                          "header": "Orpha Number",
+                          "propertyExpr": "->orphaNumber"
+                        },
+                        {
+                          "header": "Pharm GKBID",
+                          "propertyExpr": "->pharmGKBID"
+                        },
+                        {
+                          "header": "Provenance",
+                          "propertyExpr": "->provenance"
+                        },
+                        {
+                          "header": "Reference Allele NCBI",
+                          "propertyExpr": "->referenceAlleleNCBI"
+                        },
+                        {
+                          "header": "Reference Allle UCSC",
+                          "propertyExpr": "->referenceAllleUCSC"
+                        },
+                        {
+                          "header": "Reference SNP Cluster ID",
+                          "propertyExpr": "->referenceSNPClusterID"
+                        },
+                        {
+                          "header": "Rs ID",
+                          "propertyExpr": "->rsID"
+                        },
+                        {
+                          "header": "Sequence Ontology ID",
+                          "propertyExpr": "->sequenceOntologyID"
+                        },
+                        {
+                          "header": "Snomed CT",
+                          "propertyExpr": "->snomedCT"
+                        },
+                        {
+                          "header": "Strand Orientation",
+                          "propertyExpr": "->strandOrientation"
+                        },
+                        {
+                          "header": "Submitter",
+                          "propertyExpr": "->submitter"
+                        },
+                        {
+                          "header": "Submitter Count",
+                          "propertyExpr": "->submitterCount"
+                        },
+                        {
+                          "header": "Type Of",
+                          "propertyExpr": "->typeOf"
+                        },
+                        {
+                          "header": "Validation Status",
+                          "propertyExpr": "->validationStatus"
+                        }
+                      ]
+                    },
+                    "entities": [
+                      "bio/rs13317",
+                      "bio/rs7903146"
+                    ],
+                    "title": "Here are all the properties for rs13317 and rs7903146",
+                    "type": "ANSWER_TABLE"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "context": {},
+  "debug": {},
+  "entities": [
+    {
+      "dcid": "bio/rs13317",
+      "name": "rs13317",
+      "type": ""
+    },
+    {
+      "dcid": "bio/rs7903146",
+      "name": "rs7903146",
+      "type": ""
+    }
+  ],
+  "pastSourceContext": "",
+  "place": {},
+  "placeFallback": {},
+  "placeSource": "UNKNOWN",
+  "places": [],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopics": [],
+    "parentPlaces": [],
+    "parentTopics": [],
+    "peerPlaces": [],
+    "peerTopics": []
+  },
+  "svSource": "UNKNOWN",
+  "userMessage": "",
+  "userMessages": []
+}

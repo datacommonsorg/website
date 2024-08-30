@@ -27,6 +27,9 @@ import { GeoJsonProperties } from "geojson";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
+import vegaEmbed from "vega-embed";
+import { Config, TopLevelSpec, compile } from "vega-lite";
+
 import { DataCommonsClient } from "../data_commons_client";
 
 import "./style.css";
@@ -44,6 +47,7 @@ const App = () => {
       <ExampleSetup />
       <ExampleCsv />
       <ExampleCsvPerCapita />
+      <ExampleCsvSeries />
       <ExampleJson />
       <ExampleGeoJson />
       <ExampleGoogleMaps />
@@ -131,6 +135,235 @@ const ExampleCsvPerCapita = () => {
       <Code>{code}</Code>
       <h3>Fetch CSV Data Result</h3>
       <Code>{response}</Code>
+    </div>
+  );
+};
+
+const ExampleCsvSeries = () => {
+  const code = `const response = await client.getCsvSeries({
+    entities: [
+      "geoId/0644000",
+      "geoId/0667000",
+      "geoId/0664000",
+      "geoId/0666000",
+      "geoId/0627000",
+      "geoId/0668000",
+      "geoId/0653000",
+    ],
+    perCapitaVariables: ["Count_CriminalActivities_CombinedCrime"],
+    variables: ["Count_CriminalActivities_CombinedCrime"],
+    // Vega lite doesn't allow dots in CSV header items, so use a different
+    // delimiter instead
+    fieldDelimiter: "__",
+  });
+  setResponse(response);
+  const vegaLiteSpec: TopLevelSpec = {
+    $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+    data: {
+      format: {
+        type: "csv",
+      },
+      values: response,
+    },
+    encoding: {
+      x: {
+        field: "variable__observation__date",
+        timeUnit: "year",
+        title: "Date",
+        type: "temporal",
+      },
+    },
+    layer: [
+      {
+        encoding: {
+          color: {
+            field: "entity__properties__name",
+            type: "nominal",
+            title: "City",
+          },
+          y: {
+            field: "variable__perCapita__perCapitaValue",
+            title: "Criminal Activity Per Capita",
+            type: "quantitative",
+          },
+        },
+        layer: [
+          { mark: "line" },
+          {
+            mark: "point",
+            transform: [{ filter: { empty: false, param: "hover" } }],
+          },
+        ],
+      },
+      {
+        transform: [
+          {
+            groupby: ["variable__observation__date"],
+            pivot: "entity__properties__name",
+            value: "variable__perCapita__perCapitaValue",
+          },
+        ],
+        mark: "rule",
+        encoding: {
+          opacity: {
+            condition: { empty: false, param: "hover", value: 0.3 },
+            value: 0,
+          },
+          tooltip: [
+            {
+              field: "variable__observation__date",
+              type: "temporal",
+              timeUnit: "year",
+              title: "Date",
+            },
+            { field: "Fresno", type: "quantitative", format: ".3f" },
+            { field: "Los Angeles", type: "quantitative", format: ".3f" },
+            { field: "Oakland", type: "quantitative", format: ".3f" },
+            { field: "Sacramento", type: "quantitative", format: ".3f" },
+            { field: "San Diego", type: "quantitative", format: ".3f" },
+            { field: "San Francisco", type: "quantitative", format: ".3f" },
+            { field: "San Jose", type: "quantitative", format: ".3f" },
+          ],
+        },
+        params: [
+          {
+            name: "hover",
+            select: {
+              type: "point",
+              fields: ["variable__observation__date"],
+              nearest: true,
+              on: "pointerover",
+              clear: "pointerout",
+            },
+          },
+        ],
+      },
+    ],
+    title: "Criminal Activity Per Capita in California Cities",
+    width: "container",
+  };
+  const config: Config = {};
+  const vegaSpec = compile(vegaLiteSpec, { config }).spec;
+  vegaEmbed("#mychart", vegaSpec);`;
+
+  const [response, setResponse] = useState("");
+  useEffect(() => {
+    (async () => {
+      const response = await client.getCsvSeries({
+        entities: [
+          "geoId/0644000",
+          "geoId/0667000",
+          "geoId/0664000",
+          "geoId/0666000",
+          "geoId/0627000",
+          "geoId/0668000",
+          "geoId/0653000",
+        ],
+        // Vega lite doesn't allow dots in CSV header items, so use a different
+        // delimiter instead
+        fieldDelimiter: "__",
+        perCapitaVariables: ["Count_CriminalActivities_CombinedCrime"],
+        variables: ["Count_CriminalActivities_CombinedCrime"],
+      });
+      setResponse(response);
+      const vegaLiteSpec: TopLevelSpec = {
+        $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+        data: {
+          format: {
+            type: "csv",
+          },
+          values: response,
+        },
+        encoding: {
+          x: {
+            field: "variable__observation__date",
+            timeUnit: "year",
+            title: "Date",
+            type: "temporal",
+          },
+        },
+        layer: [
+          {
+            encoding: {
+              color: {
+                field: "entity__properties__name",
+                title: "City",
+                type: "nominal",
+              },
+              y: {
+                field: "variable__perCapita__perCapitaValue",
+                title: "Criminal Activity Per Capita",
+                type: "quantitative",
+              },
+            },
+            layer: [
+              { mark: "line" },
+              {
+                mark: "point",
+                transform: [{ filter: { empty: false, param: "hover" } }],
+              },
+            ],
+          },
+          {
+            transform: [
+              {
+                groupby: ["variable__observation__date"],
+                pivot: "entity__properties__name",
+                value: "variable__perCapita__perCapitaValue",
+              },
+            ],
+            mark: "rule",
+            encoding: {
+              opacity: {
+                condition: { empty: false, param: "hover", value: 0.3 },
+                value: 0,
+              },
+              tooltip: [
+                {
+                  field: "variable__observation__date",
+                  type: "temporal",
+                  timeUnit: "year",
+                  title: "Date",
+                },
+                { field: "Fresno", type: "quantitative", format: ".3f" },
+                { field: "Los Angeles", type: "quantitative", format: ".3f" },
+                { field: "Oakland", type: "quantitative", format: ".3f" },
+                { field: "Sacramento", type: "quantitative", format: ".3f" },
+                { field: "San Diego", type: "quantitative", format: ".3f" },
+                { field: "San Francisco", type: "quantitative", format: ".3f" },
+                { field: "San Jose", type: "quantitative", format: ".3f" },
+              ],
+            },
+            params: [
+              {
+                name: "hover",
+                select: {
+                  clear: "pointerout",
+                  fields: ["variable__observation__date"],
+                  nearest: true,
+                  on: "pointerover",
+                  type: "point",
+                },
+              },
+            ],
+          },
+        ],
+        title: "Criminal Activity Per Capita in California Cities",
+        width: "container",
+      };
+      const config: Config = {};
+      const vegaSpec = compile(vegaLiteSpec, { config }).spec;
+      vegaEmbed("#mychart", vegaSpec);
+    })();
+  });
+  return (
+    <div>
+      <h2>Fetch CSV Data (series, per-capita)</h2>
+      <Code>{code}</Code>
+      <h3>Fetch CSV (series, per-capita) Data Result</h3>
+      <Code>{response}</Code>
+      <h3>Render CSV series on vega-lite line chart</h3>
+      <div style={{ width: "100%" }} id="mychart"></div>
     </div>
   );
 };
@@ -401,27 +634,14 @@ const landCover = [
 ];
 
 // @ts-ignore
-function getTooltip({ object }): string {
-  return (
-    object && {
-      html: `\
-  <div><b>Count_Person_BelowPovertyLevelInThePast12Months</b></div>
-  <div>${object.properties.Count_Person_BelowPovertyLevelInThePast12Months}</div>
-  <div>${object.properties["Count_Person_BelowPovertyLevelInThePast12Months.perCapita.value"]}</div>
-  <div>${object.properties["Count_Person_BelowPovertyLevelInThePast12Months.perCapita.populationValue"]}</div>
-  `,
-    }
-  );
-}
-
-// @ts-ignore
 function getTooltipNyc({ object }): string {
   return (
     object && {
       html: `
-      <div><b>Count_Person_BelowPovertyLevelInThePast12Months.value</b>: ${object.properties["Count_Person_BelowPovertyLevelInThePast12Months.value"]}</div>
-      <div><b>Count_Person_BelowPovertyLevelInThePast12Months.perCapita.value</b>: ${object.properties["Count_Person_BelowPovertyLevelInThePast12Months.perCapita.value"]}</div>
-      <div><b>Count_Person_BelowPovertyLevelInThePast12Months.perCapita.population</b>: ${object.properties["Count_Person_BelowPovertyLevelInThePast12Months.perCapita.populationValue"]}</div>
+      <div><b>Census Tract:</b>: ${object.properties["entity.properties.name"]}</div>
+      <div><b>Population</b>: ${object.properties["variables.Count_Person_BelowPovertyLevelInThePast12Months.perCapita.observation.value"]}</div>
+      <div><b>Number of people below the poverty line in the last 12 months</b>: ${object.properties["variables.Count_Person_BelowPovertyLevelInThePast12Months.observation.value"]}</div>
+      <div><b>People below the poverty line per capita</b>: ${object.properties["variables.Count_Person_BelowPovertyLevelInThePast12Months.perCapita.perCapitaValue"]}</div>
   `,
     }
   );
@@ -574,13 +794,13 @@ function MapComponent3dNyc({
             filled: true,
             getElevation: (f) =>
               (f.properties || {})[
-                "Count_Person_BelowPovertyLevelInThePast12Months.perCapita.value"
+                "variables.Count_Person_BelowPovertyLevelInThePast12Months.perCapita.perCapitaValue"
               ] * 10000,
             // @ts-ignore
             getFillColor: (f) =>
               COLOR_SCALE(
                 (f.properties || {})[
-                  "Count_Person_BelowPovertyLevelInThePast12Months.perCapita.value"
+                  "variables.Count_Person_BelowPovertyLevelInThePast12Months.perCapita.perCapitaValue"
                 ]
               ),
             getLineColor: [255, 255, 255],

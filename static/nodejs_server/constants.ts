@@ -41,12 +41,29 @@ export const FONT_SIZE = "10px";
 // Width of the constant sized part of the map legend
 export const MAP_LEGEND_CONSTANT_WIDTH =
   LEGEND_IMG_WIDTH + LEGEND_MARGIN_RIGHT + LEGEND_TICK_LABEL_MARGIN;
-// Url params used for getting a single chart
-export const CHART_URL_PARAMS = {
+// Url params used for /nodejs/chart-info endpoint
+export const CHART_INFO_PARAMS = {
   TILE_CONFIG: "config",
   PLACE: "place",
   ENCLOSED_PLACE_TYPE: "enclosedPlaceType",
   STAT_VAR_SPEC: "svSpec",
   EVENT_TYPE_SPEC: "eventTypeSpec",
-  API_KEY: "apikey",
 };
+// Url params used for /nodejs/chart endpoint
+export const CHART_PARAMS = {
+  API_KEY: "apikey",
+  // props to use for drawing the chart
+  PROPS: "props",
+  // If set, returns chart as an svg. Otherwise, returns chart as a png image.
+  AS_SVG: "svg",
+};
+// Map of compressed value to the html encoding to use for that value.
+export const COMPRESSED_VAL_ENCODING = {
+  "+": "%2B",
+  "/": "%2F",
+  "=": "%3D",
+};
+// The param value for the client param if the client is Bard. Default is Bard.
+export const BARD_CLIENT_URL_PARAM = "bard";
+// The param value when mode is toolformer_rag
+export const TOOLFORMER_RAG_MODE = "toolformer_rag";

@@ -35,11 +35,10 @@ class NLTest(NLWebServerTestCase):
   def run_sequence(self,
                    test_dir,
                    queries,
-                   idx='medium_ft',
-                   detector='hybridsafety',
+                   idx='base_uae_mem',
+                   detector='hybrid',
                    check_place_detection=False,
                    expected_detectors=[],
-                   place_detector='dc',
                    failure='',
                    test='',
                    i18n='',
@@ -56,7 +55,7 @@ class NLTest(NLWebServerTestCase):
       print('Issuing ', test_dir, f'query[{i}]', q)
       resp = requests.post(
           self.get_server_url() +
-          f'/api/nl/data?q={q}&idx={idx}&detector={detector}&place_detector={place_detector}&test={test}&i18n={i18n}&mode={mode}&client=test',
+          f'/api/explore/detect-and-fulfill?q={q}&idx={idx}&detector={detector}&test={test}&i18n={i18n}&mode={mode}&client=test',
           json={
               'contextHistory': ctx
           }).json()
@@ -165,6 +164,9 @@ class NLTest(NLWebServerTestCase):
 
     self.assertTrue(success, f"wanted: {i18n_lang}, got {detected}")
 
+
+class NLTestDemo(NLTest):
+
   def test_textbox_sample(self):
     # This is the sample advertised in our textbox
     self.run_sequence('textbox_sample', ['family earnings in california'])
@@ -226,9 +228,9 @@ class NLTest(NLWebServerTestCase):
             # instead we would pick contained-in from context (County).
             'GDP of countries in the US',
         ],
-        detector='hybridsafety',
+        detector='hybrid',
         expected_detectors=[
-            'Hybrid - LLM Safety',
+            'Hybrid - LLM Fallback',
             'Hybrid - Heuristic Based',
             'Hybrid - Heuristic Based',
             'Hybrid - Heuristic Based',
@@ -250,13 +252,16 @@ class NLTest(NLWebServerTestCase):
             "Prevalence of Asthma in California cities with hispanic population over 10000",
         ],
         # Use heuristic because LLM fallback is not very deterministic.
-        detector='heuristic')
+        detector='heuristic',
+        test='filter_test')
 
   def test_demo_climatetrace(self):
     self.run_sequence('demo_climatetrace',
                       ['Which countries emit the most greenhouse gases?'],
                       test='unittest')
 
+
+class NLTestMisc(NLTest):
   # This test uses DC's Recognize Places API.
   def test_place_detection_e2e_dc(self):
     self.run_sequence('place_detection_e2e_dc', [
@@ -273,7 +278,7 @@ class NLTest(NLWebServerTestCase):
     self.run_sequence('international', [
         'Where are the most rural districts in India',
         'Life expectancy across provinces of China',
-        'GDP of counties in the United Kingdom',
+        'GDP of counties in Spain',
         'Districts in Turkey with the highest fertility rate',
         'Floods in Brazil',
         'Drought in Africa',
@@ -332,13 +337,17 @@ class NLTest(NLWebServerTestCase):
             # These queries do not have a default place, so should fail.
             'what does a diet for diabetes look like?',
             'how to earn money online without investment',
+        ],
+        mode='strict',
+        failure='could not complete')
+
+  def test_strict_low_confidence(self):
+    self.run_sequence(
+        'strict_low_confidence',
+        [
             # This query should return empty result because we don't
             # return low-confidence results.
             'number of headless drivers in california',
         ],
         mode='strict',
-        expected_detectors=[
-            'Heuristic Based',
-            'Heuristic Based',
-            'Heuristic Based',
-        ])
+        expected_detectors=['Hybrid - Heuristic Based'])

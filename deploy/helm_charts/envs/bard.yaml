@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# DNS
+ip: 34.36.60.40
+domain: bard.datacommons.org
+
 # Helm config
 project: "datcom-bard"
 cluster_prefix: "website"
@@ -20,7 +24,7 @@ namespace:
   name: "website"
 
 website:
-  flaskEnv: custom
+  flaskEnv: bard
   replicas: 20
   redis:
     enabled: true
@@ -31,6 +35,7 @@ website:
           "port": "6379"
         }
       }
+  nodePool: "default-pool"
 
 serviceAccount:
   name: website-ksa
@@ -41,24 +46,49 @@ ingress:
 
 nl:
   enabled: true
+  memory: "10G"
+  workers: 3
+  env:
+    default_indexes:
+      - base_uae_mem
+    enabled_indexes:
+      - medium_ft
+      - sdg_ft
+      - undata_ft
+      - base_uae_mem
+    vertex_ai_models:
+      uae-large-v1-model:
+        project_id: datcom-nl
+        location: us-central1
+        prediction_endpoint_id: "1309973546495115264"
 
 nodejs:
   enabled: true
   replicas: 25
+  nodePool: "default-pool"
 
 serviceGroups:
   recon: null
   svg:
     replicas: 6
+    nodePool: "default-pool"
   node:
-    replicas: 15
+    replicas: 25
+    # Use a machine with more CPU for node pods
+    nodePool: "pool-e2-cpu"
   observation:
     replicas: 15
+    nodePool: "default-pool"
   default:
     replicas: 9
+    nodePool: "default-pool"
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]
 
 cronTesting:
   enabled: true
+  enableSanity: false
+  enableAdversarial: false
+  schedule: "0 */12 * * *"
+  nodePool: "default-pool"

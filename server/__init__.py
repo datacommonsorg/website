@@ -23,38 +23,26 @@ from flask import request
 from flask_babel import Babel
 import flask_cors
 from google.cloud import secretmanager
-from opencensus.ext.flask.flask_middleware import FlaskMiddleware
-from opencensus.trace.propagation import google_cloud_format
-from opencensus.trace.samplers import AlwaysOnSampler
+import google.cloud.logging
 
 from server.lib import topic_cache
-import server.lib.config as libconfig
+import server.lib.cache as lib_cache
+import server.lib.config as lib_config
 from server.lib.disaster_dashboard import get_disaster_dashboard_data
 import server.lib.i18n as i18n
 from server.lib.nl.common.bad_words import EMPTY_BANNED_WORDS
 from server.lib.nl.common.bad_words import load_bad_words
 from server.lib.nl.detection import llm_prompt
-import server.lib.place_summaries as place_summaries
 import server.lib.util as libutil
 import server.services.bigtable as bt
 from server.services.discovery import configure_endpoints_from_ingress
 from server.services.discovery import get_health_check_urls
-
-propagator = google_cloud_format.GoogleCloudFormatPropagator()
+from shared.lib import gcp as lib_gcp
+from shared.lib import utils as lib_utils
 
 BLOCKLIST_SVG_FILE = "/datacommons/svg/blocklist_svg.json"
 
 DEFAULT_NL_ROOT = "http://127.0.0.1:6060"
-
-
-def createMiddleWare(app, exporter):
-  # Configure a flask middleware that listens for each request and applies
-  # automatic tracing. This needs to be set up before the application starts.
-  middleware = FlaskMiddleware(app,
-                               exporter=exporter,
-                               propagator=propagator,
-                               sampler=AlwaysOnSampler())
-  return middleware
 
 
 def register_routes_base_dc(app):
@@ -62,17 +50,11 @@ def register_routes_base_dc(app):
   from server.routes.dev import html as dev_html
   app.register_blueprint(dev_html.bp)
 
-  from server.routes.disease import html as disease_html
-  app.register_blueprint(disease_html.bp)
-
   from server.routes.import_wizard import html as import_wizard_html
   app.register_blueprint(import_wizard_html.bp)
 
   from server.routes.place_list import html as place_list_html
   app.register_blueprint(place_list_html.bp)
-
-  from server.routes.protein import html as protein_html
-  app.register_blueprint(protein_html.bp)
 
   from server.routes import redirects
   app.register_blueprint(redirects.bp)
@@ -87,12 +69,6 @@ def register_routes_base_dc(app):
   from server.routes.topic_page import html as topic_page_html
   app.register_blueprint(topic_page_html.bp)
 
-  from server.routes.disease import api as disease_api
-  app.register_blueprint(disease_api.bp)
-
-  from server.routes.protein import api as protein_api
-  app.register_blueprint(protein_api.bp)
-
   from server.routes.import_detection import detection as detection_api
   app.register_blueprint(detection_api.bp)
 
@@ -100,9 +76,22 @@ def register_routes_base_dc(app):
   app.register_blueprint(disaster_api.bp)
 
 
-def register_routes_custom_dc(app):
-  ## apply the blueprints for custom dc instances
-  pass
+def register_routes_biomedical_dc(app):
+  # Apply the blueprints specific to biomedical dc
+  from server.routes.biomedical import html as bio_html
+  app.register_blueprint(bio_html.bp)
+
+  from server.routes.disease import api as disease_api
+  app.register_blueprint(disease_api.bp)
+
+  from server.routes.disease import html as disease_html
+  app.register_blueprint(disease_html.bp)
+
+  from server.routes.protein import api as protein_api
+  app.register_blueprint(protein_api.bp)
+
+  from server.routes.protein import html as protein_html
+  app.register_blueprint(protein_html.bp)
 
 
 def register_routes_disasters(app):
@@ -167,6 +156,9 @@ def register_routes_common(app):
 
   from server.routes.place import html as place_html
   app.register_blueprint(place_html.bp)
+
+  from server.routes.dev_place import html as dev_place_html
+  app.register_blueprint(dev_place_html.bp)
 
   from server.routes.ranking import html as ranking_html
   app.register_blueprint(ranking_html.bp)
@@ -244,8 +236,25 @@ def register_routes_common(app):
 def create_app(nl_root=DEFAULT_NL_ROOT):
   app = Flask(__name__, static_folder='dist', static_url_path='')
 
+  cfg = lib_config.get_config()
+
+  if lib_gcp.in_google_network() and not lib_utils.is_test_env():
+    client = google.cloud.logging.Client()
+    client.setup_logging()
+  else:
+    logging.basicConfig(
+        level=logging.INFO,
+        format=
+        "[%(asctime)s][%(levelname)-8s][%(filename)s:%(lineno)s] %(message)s ",
+        datefmt="%H:%M:%S",
+    )
+
+  log_level = logging.WARNING
+  if lib_utils.is_debug_mode():
+    log_level = logging.INFO
+  logging.getLogger('werkzeug').setLevel(log_level)
+
   # Setup flask config
-  cfg = libconfig.get_config()
   app.config.from_object(cfg)
 
   # Check DC_API_KEY is set for local dev.
@@ -253,17 +262,12 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     raise Exception(
         'Set environment variable DC_API_KEY for local custom DC development')
 
-  app.config['NL_ROOT'] = nl_root
+  # Use NL_SERVICE_ROOT if it's set, otherwise use nl_root argument
+  app.config['NL_ROOT'] = os.environ.get("NL_SERVICE_ROOT_URL", nl_root)
   app.config['ENABLE_ADMIN'] = os.environ.get('ENABLE_ADMIN', '') == 'true'
 
-  # Init extentions
-  from server.cache import cache
-
-  # For some instance with fast updated data, we may not want to use memcache.
-  if app.config['USE_MEMCACHE']:
-    cache.init_app(app)
-  else:
-    cache.init_app(app, {'CACHE_TYPE': 'NullCache'})
+  lib_cache.cache.init_app(app)
+  lib_cache.model_cache.init_app(app)
 
   # Configure ingress
   # See deployment yamls.
@@ -271,11 +275,12 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   if ingress_config_path:
     configure_endpoints_from_ingress(ingress_config_path)
 
-  register_routes_common(app)
-  if cfg.CUSTOM:
-    register_routes_custom_dc(app)
+  if os.environ.get('FLASK_ENV') == 'biomedical':
+    register_routes_biomedical_dc(app)
 
+  register_routes_common(app)
   register_routes_base_dc(app)
+
   if cfg.SHOW_DISASTER:
     register_routes_disasters(app)
 
@@ -284,18 +289,6 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   if app.config['ENABLE_ADMIN']:
     register_routes_admin(app)
-
-  # Load place explorer summaries & allowlist of places to show summaries for
-  # Used when rendering place pages
-  # Won't be loaded for custom DCs at this time.
-  if not cfg.CUSTOM:
-    app.config[
-        'PLACE_SUMMARY_ALLOW_LIST'] = place_summaries.get_place_allowlist()
-    app.config[
-        'PLACE_EXPLORER_SUMMARIES'] = place_summaries.get_place_summaries()
-  else:
-    app.config['PLACE_SUMMARY_ALLOW_LIST'] = []
-    app.config['PLACE_EXPLORER_SUMMARIES'] = {}
 
   # Load topic page config
   topic_page_configs = libutil.get_topic_page_config()
@@ -351,7 +344,8 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
       secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
                                                       'mixer-api-key', 'latest')
       secret_response = secret_client.access_secret_version(name=secret_name)
-      app.config['DC_API_KEY'] = secret_response.payload.data.decode('UTF-8')
+      app.config['DC_API_KEY'] = secret_response.payload.data.decode(
+          'UTF-8').replace('\n', '')
 
   # Initialize translations
   babel = Babel(app, default_domain='all')
@@ -387,11 +381,17 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     app.config['NL_CHART_TITLES'] = libutil.get_nl_chart_titles()
     app.config['TOPIC_CACHE'] = topic_cache.load(app.config['NL_CHART_TITLES'])
     app.config['SDG_PERCENT_VARS'] = libutil.get_sdg_percent_vars()
-    app.config[
-        'SDG_NON_COUNTRY_ONLY_VARS'] = libutil.get_sdg_non_country_only_vars()
+    app.config['SPECIAL_DC_NON_COUNTRY_ONLY_VARS'] = \
+      libutil.get_special_dc_non_countery_only_vars()
+    # TODO: need to handle singular vs plural in the titles
+    app.config['NL_PROP_TITLES'] = libutil.get_nl_prop_titles()
 
   # Get and save the list of variables that we should not allow per capita for.
   app.config['NOPC_VARS'] = libutil.get_nl_no_percapita_vars()
+
+  # Set custom dc template folder if set, otherwise use the environment name
+  custom_dc_template_folder = app.config.get(
+      'CUSTOM_DC_TEMPLATE_FOLDER', None) or app.config.get('ENV', None)
 
   # Get and save the blocklisted svgs.
   blocklist_svg = []
@@ -401,6 +401,10 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   else:
     blocklist_svg = ["dc/g/Uncategorized", "oecd/g/OECD"]
   app.config['BLOCKLIST_SVG'] = blocklist_svg
+
+  # Set whether to filter stat vars with low geographic coverage in the
+  # map and scatter tools.
+  app.config['MIN_STAT_VAR_GEO_COVERAGE'] = cfg.MIN_STAT_VAR_GEO_COVERAGE
 
   if not cfg.TEST:
     urls = get_health_check_urls()
@@ -416,6 +420,7 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     # Add commonly used config flags.
     g.env = app.config.get('ENV', None)
     g.custom = app.config.get('CUSTOM', False)
+    g.custom_dc_template_folder = custom_dc_template_folder
 
     scheme = request.headers.get('X-Forwarded-Proto')
     if scheme and scheme == 'http' and request.url.startswith('http://'):
@@ -442,10 +447,25 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   @app.teardown_request
   def log_unhandled(e):
     if e is not None:
-      logging.error('Error thrown for request: %s, error: %s', request, e)
+      app.logger.error('Error thrown for request: %s\nerror: %s', request.url,
+                       e)
+
+  # Attempt to retrieve the Google Analytics Tag ID (GOOGLE_ANALYTICS_TAG_ID):
+  # 1. First, check the environment variables for 'GOOGLE_ANALYTICS_TAG_ID'.
+  # 2. If not found, fallback to the application configuration ('GOOGLE_ANALYTICS_TAG_ID' in app.config).
+  # 3. If still not found, fallback to the deprecated application configuration ('GA_ACCOUNT' in app.config).
+  config_deprecated_ga_account = app.config['GA_ACCOUNT']
+  if config_deprecated_ga_account:
+    logging.warn(
+        "Use of GA_ACCOUNT is deprecated. Use the GOOGLE_ANALYTICS_TAG_ID environment variable instead."
+    )
+  config_google_analytics_tag_id = app.config['GOOGLE_ANALYTICS_TAG_ID']
+  google_analytics_tag_id = os.environ.get(
+      'GOOGLE_ANALYTICS_TAG_ID', config_google_analytics_tag_id or
+      config_deprecated_ga_account)
 
   # Jinja env
-  app.jinja_env.globals['GA_ACCOUNT'] = app.config['GA_ACCOUNT']
+  app.jinja_env.globals['GOOGLE_ANALYTICS_TAG_ID'] = google_analytics_tag_id
   app.jinja_env.globals['NAME'] = app.config['NAME']
   app.jinja_env.globals['LOGO_PATH'] = app.config['LOGO_PATH']
   app.jinja_env.globals['OVERRIDE_CSS_PATH'] = app.config['OVERRIDE_CSS_PATH']
@@ -453,7 +473,8 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   app.jinja_env.globals['BASE_HTML'] = 'base.html'
   if cfg.CUSTOM:
-    custom_path = os.path.join('custom_dc', cfg.ENV, 'base.html')
+    custom_path = os.path.join('custom_dc', custom_dc_template_folder,
+                               'base.html')
     if os.path.exists(os.path.join(app.root_path, 'templates', custom_path)):
       app.jinja_env.globals['BASE_HTML'] = custom_path
     else:

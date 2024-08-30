@@ -26,6 +26,8 @@ import { Point } from "../chart/draw_scatter";
 import { MapLayerData } from "../components/tiles/map_tile";
 import { RankingPoint } from "../types/ranking_unit_types";
 
+const DEFAULT_LABEL_HEADER = "label";
+
 // TODO(beets): Create DataPoints class and add this to that class.
 /**
  * Returns the value associated with the given label in dataPoints, or null.
@@ -48,7 +50,10 @@ function findDataPointOrNull(
  * Gets the csv (as a string) for a  list of data groups.
  * @param dataGroups data groups to get the csv for
  */
-export function dataGroupsToCsv(dataGroups: DataGroup[]): string {
+export function dataGroupsToCsv(
+  dataGroups: DataGroup[],
+  labelHeaderOverride?: string
+): string {
   if (!dataGroups || dataGroups.length == 0) {
     return "";
   }
@@ -58,8 +63,9 @@ export function dataGroupsToCsv(dataGroups: DataGroup[]): string {
     const dates = dg.value.map((dp) => dp.label);
     allLabels = new Set([...Array.from(allLabels), ...dates]);
   }
+  const labelHeader = labelHeaderOverride || DEFAULT_LABEL_HEADER;
   // Get the header row.
-  const header = ["label"];
+  const header = [labelHeader];
   for (const dg of dataGroups) {
     header.push(dg.label);
   }
@@ -191,8 +197,8 @@ export function mapDataToCsv(layerData: MapLayerData[]): string {
     }
   });
   const header = hasVariable
-    ? ["label", "variable", "data"]
-    : ["label", "data"];
+    ? ["place", "variable", "data"]
+    : ["place", "data"];
   const rows = [header, ...data];
   return Papa.unparse(rows);
 }

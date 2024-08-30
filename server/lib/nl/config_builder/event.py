@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import logging
 from typing import List
 
 from server.config.subject_page_pb2 import Block
@@ -35,7 +34,6 @@ def event_chart_block(metadata, block, place: Place, event_type: EventType,
     metadata.event_type_spec[event_id].CopyFrom(
         event_config.metadata.event_type_spec[event_id])
   else:
-    logging.error('ID not found in event_type_spec: %s', event_id)
     return
 
   if not place.place_type in metadata.contained_place_types:

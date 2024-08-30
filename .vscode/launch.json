@@ -12,7 +12,7 @@
     },
     {
       "name": "Flask (with NL)",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "stopOnEntry": false,
       "python": "${workspaceFolder}/.env/bin/python3",
@@ -33,7 +33,7 @@
     },
     {
       "name": "Flask (without NL)",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "stopOnEntry": false,
       "python": "${workspaceFolder}/.env/bin/python3",
@@ -54,7 +54,7 @@
     },
     {
       "name": "Flask (Custom DC with NL)",
-      "type": "python",
+      "type": "debugpy",
       "justMyCode": false,
       "request": "launch",
       "stopOnEntry": false,
@@ -67,10 +67,7 @@
         "FLASK_DEBUG": "1",
         "ENABLE_MODEL": "true"
       },
-      "args": [
-        "8080",
-        "--no-debugger"
-      ],
+      "args": ["8080", "--no-debugger"],
       "cwd": "${workspaceRoot}",
       "envFile": "${workspaceFolder}/.vscode/.env",
       "jinja": true,

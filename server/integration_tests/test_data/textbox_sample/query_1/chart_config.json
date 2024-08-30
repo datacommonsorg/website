@@ -38,6 +38,37 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Mean_Income_Household_FamilyHousehold"
+                    ],
+                    "title": "Average Income for Family Households in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Mean_Income_Household_FamilyHousehold"
+                    ],
+                    "title": "Average Income for Family Households in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Average Income for Family Households in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Median_Income_Household_FamilyHousehold"
                     ],
                     "title": "Median Family Household Income in California",
@@ -59,6 +90,96 @@
               }
             ],
             "title": "Median Family Household Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_FamilyHousehold"
+                    ],
+                    "title": "Median Family Household Income in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_FamilyHousehold"
+                    ],
+                    "title": "Median Family Household Income in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Family Household Income in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_Income_Household"
+                    ],
+                    "title": "Average Income for Households in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Average Income for Households in California",
+                    "statVarKey": [
+                      "Mean_Income_Household"
+                    ],
+                    "title": "Average Income for Households in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Average Income for Households"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_Income_Household"
+                    ],
+                    "title": "Average Income for Households in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Mean_Income_Household"
+                    ],
+                    "title": "Average Income for Households in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Average Income for Households in Counties of California"
           },
           {
             "columns": [
@@ -94,27 +215,30 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Mean_Income_Household_MarriedCoupleFamilyHousehold"
+                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
                     ],
-                    "title": "Average Income for Married Couple Family Households in California",
-                    "type": "LINE"
+                    "title": "Median Married Couple Family Household Income in Counties of California (${date})",
+                    "type": "MAP"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
-                    "description": "Average Income for Married Couple Family Households in California",
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
-                      "Mean_Income_Household_MarriedCoupleFamilyHousehold"
+                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
                     ],
-                    "title": "Average Income for Married Couple Family Households in California",
-                    "type": "HIGHLIGHT"
+                    "title": "Median Married Couple Family Household Income in Counties of California (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Average Income for Married Couple Family Households"
+            "title": "Median Married Couple Family Household Income in Counties of California"
           },
           {
             "columns": [
@@ -150,6 +274,37 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Mean_Income_Household_NonfamilyHousehold"
+                    ],
+                    "title": "Average Income for Nonfamily Households in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Mean_Income_Household_NonfamilyHousehold"
+                    ],
+                    "title": "Average Income for Nonfamily Households in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Average Income for Nonfamily Households in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Median_Income_Household"
                     ],
                     "title": "Household Median Income in California",
@@ -178,114 +333,30 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Income_Person"
+                      "Median_Income_Household"
                     ],
-                    "title": "Individual Median Income in California",
-                    "type": "LINE"
+                    "title": "Household Median Income in Counties of California (${date})",
+                    "type": "MAP"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
-                    "description": "Individual Median Income in California",
-                    "statVarKey": [
-                      "Median_Income_Person"
-                    ],
-                    "title": "Individual Median Income in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Individual Median Income"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
                     },
-                    "comparisonPlaces": [
-                      "geoId/06"
-                    ],
                     "statVarKey": [
-                      "Count_Person_IncomeOfUpto9999USDollar_multiple_place_bar_block",
-                      "Count_Person_IncomeOf10000To14999USDollar_multiple_place_bar_block",
-                      "Count_Person_IncomeOf25000To34999USDollar_multiple_place_bar_block",
-                      "Count_Person_IncomeOf35000To49999USDollar_multiple_place_bar_block",
-                      "Count_Person_IncomeOf50000To64999USDollar_multiple_place_bar_block",
-                      "Count_Person_IncomeOf65000To74999USDollar_multiple_place_bar_block",
-                      "Count_Person_IncomeOf75000OrMoreUSDollar_multiple_place_bar_block"
+                      "Median_Income_Household"
                     ],
-                    "title": "Population by Income Level in California (${date})",
-                    "type": "BAR"
+                    "title": "Household Median Income in Counties of California (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Population by Income Level"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06"
-                    ],
-                    "statVarKey": [
-                      "dc/015d58s9xh8kd_multiple_place_bar_block",
-                      "dc/2wgh04kx6es88_multiple_place_bar_block",
-                      "dc/3ex11eg2q9hp6_multiple_place_bar_block",
-                      "dc/4z9xy6wn8xns1_multiple_place_bar_block",
-                      "dc/5f3gkej4mrq24_multiple_place_bar_block",
-                      "dc/7jqw95h5wbelb_multiple_place_bar_block",
-                      "dc/9pmyhk89dj3pf_multiple_place_bar_block",
-                      "dc/b4dj4sbgqybh7_multiple_place_bar_block",
-                      "dc/jefhcs9qxc971_multiple_place_bar_block",
-                      "dc/knhvyxwsd3y6h_multiple_place_bar_block",
-                      "dc/m07n4w3ywjzs3_multiple_place_bar_block",
-                      "dc/t6m99mqmqxjbc_multiple_place_bar_block",
-                      "dc/xj2nk2bg60fg_multiple_place_bar_block",
-                      "dc/yw52qqrrb2w11_multiple_place_bar_block",
-                      "dc/zbpsz8dg01nh2_multiple_place_bar_block"
-                    ],
-                    "title": "Individual Income by Industry Type in California (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Individual Income by Industry Type"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Income_Household_FamilyHousehold",
-                      "Median_Income_Household_MarriedCoupleFamilyHousehold",
-                      "Median_Income_Household_NonfamilyHousehold"
-                    ],
-                    "title": "Median Income by Household Type in California",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Income by Household Type"
+            "title": "Household Median Income in Counties of California"
           },
           {
             "columns": [
@@ -321,28 +392,30 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_OwnerOccupied"
+                      "Mean_IncomeDeficit_Household_FamilyHousehold"
                     ],
-                    "title": "Count of Household: Family Household, Owner Occupied in California",
-                    "type": "LINE"
+                    "title": "Mean Income Deficit of Household: Family Household in Counties of California (${date})",
+                    "type": "MAP"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
-                    "description": "Count of Household: Family Household, Owner Occupied in California",
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
-                      "Count_Household_FamilyHousehold_OwnerOccupied"
+                      "Mean_IncomeDeficit_Household_FamilyHousehold"
                     ],
-                    "title": "Count of Household: Family Household, Owner Occupied in California",
-                    "type": "HIGHLIGHT"
+                    "title": "Mean Income Deficit of Household: Family Household in Counties of California (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Count of Household: Family Household, Owner Occupied"
+            "title": "Mean Income Deficit of Household: Family Household in Counties of California"
           },
           {
             "columns": [
@@ -379,27 +452,31 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Mean_Income_Household"
+                      "Count_Household_FamilyHousehold"
                     ],
-                    "title": "Average Income for Households in California",
-                    "type": "LINE"
+                    "title": "Count of Household: Family Household in Counties of California (${date})",
+                    "type": "MAP"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
-                    "description": "Average Income for Households in California",
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
-                      "Mean_Income_Household"
+                      "Count_Household_FamilyHousehold"
                     ],
-                    "title": "Average Income for Households in California",
-                    "type": "HIGHLIGHT"
+                    "title": "Count of Household: Family Household in Counties of California (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Average Income for Households"
+            "denom": "Count_Person",
+            "title": "Count of Household: Family Household in Counties of California"
           },
           {
             "columns": [
@@ -407,9 +484,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Household_OtherFamilyHousehold"
+                      "Mean_Income_Household_MarriedCoupleFamilyHousehold"
                     ],
-                    "title": "Count of Household: Other Family Household in California",
+                    "title": "Average Income for Married Couple Family Households in California",
                     "type": "LINE"
                   }
                 ]
@@ -417,18 +494,263 @@
               {
                 "tiles": [
                   {
-                    "description": "Count of Household: Other Family Household in California",
+                    "description": "Average Income for Married Couple Family Households in California",
                     "statVarKey": [
-                      "Count_Household_OtherFamilyHousehold"
+                      "Mean_Income_Household_MarriedCoupleFamilyHousehold"
                     ],
-                    "title": "Count of Household: Other Family Household in California",
+                    "title": "Average Income for Married Couple Family Households in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Count of Household: Other Family Household"
+            "title": "Average Income for Married Couple Family Households"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_Income_Household_MarriedCoupleFamilyHousehold"
+                    ],
+                    "title": "Average Income for Married Couple Family Households in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Mean_Income_Household_MarriedCoupleFamilyHousehold"
+                    ],
+                    "title": "Average Income for Married Couple Family Households in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Average Income for Married Couple Family Households in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_FamilyHousehold",
+                      "Median_Income_Household_MarriedCoupleFamilyHousehold",
+                      "Median_Income_Household_NonfamilyHousehold"
+                    ],
+                    "title": "Median Income by Household Type in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income by Household Type"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthNorthamerica"
+                    ],
+                    "title": "Mean Earnings of Household: Foreign Born, Northamerica in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Mean Earnings of Household: Foreign Born, Northamerica in California",
+                    "statVarKey": [
+                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthNorthamerica"
+                    ],
+                    "title": "Mean Earnings of Household: Foreign Born, Northamerica in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Mean Earnings of Household: Foreign Born, Northamerica"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthNorthamerica"
+                    ],
+                    "title": "Mean Earnings of Household: Foreign Born, Northamerica in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthNorthamerica"
+                    ],
+                    "title": "Mean Earnings of Household: Foreign Born, Northamerica in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Mean Earnings of Household: Foreign Born, Northamerica in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Earnings_Person_Female",
+                      "Median_Earnings_Person_Male"
+                    ],
+                    "title": "Median Household Income by Gender in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Household Income by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Earnings_Person_Female"
+                    ],
+                    "title": "Median Earnings for Women in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Earnings_Person_Female"
+                    ],
+                    "title": "Median Earnings for Women in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Earnings for Women in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Earnings_Person_Male"
+                    ],
+                    "title": "Median Earnings for Men in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Earnings_Person_Male"
+                    ],
+                    "title": "Median Earnings for Men in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Earnings for Men in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia"
+                    ],
+                    "title": "Mean Earnings of Household: Foreign Born, Asia in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Mean Earnings of Household: Foreign Born, Asia in California",
+                    "statVarKey": [
+                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia"
+                    ],
+                    "title": "Mean Earnings of Household: Foreign Born, Asia in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Mean Earnings of Household: Foreign Born, Asia"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia"
+                    ],
+                    "title": "Mean Earnings of Household: Foreign Born, Asia in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia"
+                    ],
+                    "title": "Mean Earnings of Household: Foreign Born, Asia in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Mean Earnings of Household: Foreign Born, Asia in Counties of California"
           },
           {
             "columns": [
@@ -457,6 +779,96 @@
               }
             ],
             "title": "Mean Income Deficit of Household: Married Couple Family Household"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_IncomeDeficit_Household_MarriedCoupleFamilyHousehold"
+                    ],
+                    "title": "Mean Income Deficit of Household: Married Couple Family Household in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Mean_IncomeDeficit_Household_MarriedCoupleFamilyHousehold"
+                    ],
+                    "title": "Mean Income Deficit of Household: Married Couple Family Household in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Mean Income Deficit of Household: Married Couple Family Household in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Individual Median Earnings in California",
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Individual Median Earnings"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Individual Median Earnings in Counties of California"
           }
         ],
         "statVarSpec": {
@@ -464,41 +876,13 @@
             "name": "Count of Household: Family Household",
             "statVar": "Count_Household_FamilyHousehold"
           },
-          "Count_Household_FamilyHousehold_OwnerOccupied": {
-            "name": "Count of Household: Family Household, Owner Occupied",
-            "statVar": "Count_Household_FamilyHousehold_OwnerOccupied"
+          "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia": {
+            "name": "Mean Earnings of Household: Foreign Born, Asia",
+            "statVar": "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthAsia"
           },
-          "Count_Household_OtherFamilyHousehold": {
-            "name": "Count of Household: Other Family Household",
-            "statVar": "Count_Household_OtherFamilyHousehold"
-          },
-          "Count_Person_IncomeOf10000To14999USDollar_multiple_place_bar_block": {
-            "name": "People Earning $10,000 and $14,999",
-            "statVar": "Count_Person_IncomeOf10000To14999USDollar"
-          },
-          "Count_Person_IncomeOf25000To34999USDollar_multiple_place_bar_block": {
-            "name": "People Earning $25,000 and $34,999",
-            "statVar": "Count_Person_IncomeOf25000To34999USDollar"
-          },
-          "Count_Person_IncomeOf35000To49999USDollar_multiple_place_bar_block": {
-            "name": "People Earning $35,000 and $49,999",
-            "statVar": "Count_Person_IncomeOf35000To49999USDollar"
-          },
-          "Count_Person_IncomeOf50000To64999USDollar_multiple_place_bar_block": {
-            "name": "People Earning Between $50,000 and $64,999",
-            "statVar": "Count_Person_IncomeOf50000To64999USDollar"
-          },
-          "Count_Person_IncomeOf65000To74999USDollar_multiple_place_bar_block": {
-            "name": "People Earning Between $65,000 and $74,999",
-            "statVar": "Count_Person_IncomeOf65000To74999USDollar"
-          },
-          "Count_Person_IncomeOf75000OrMoreUSDollar_multiple_place_bar_block": {
-            "name": "People Earning $75,000 or More",
-            "statVar": "Count_Person_IncomeOf75000OrMoreUSDollar"
-          },
-          "Count_Person_IncomeOfUpto9999USDollar_multiple_place_bar_block": {
-            "name": "People Earning Up to $9,999",
-            "statVar": "Count_Person_IncomeOfUpto9999USDollar"
+          "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthNorthamerica": {
+            "name": "Mean Earnings of Household: Foreign Born, Northamerica",
+            "statVar": "Mean_Earnings_Household_ForeignBorn_PlaceOfBirthNorthamerica"
           },
           "Mean_IncomeDeficit_Household_FamilyHousehold": {
             "name": "Mean Income Deficit of Household: Family Household",
@@ -524,6 +908,18 @@
             "name": "Average Income for Nonfamily Households",
             "statVar": "Mean_Income_Household_NonfamilyHousehold"
           },
+          "Median_Earnings_Person": {
+            "name": "Individual Median Earnings",
+            "statVar": "Median_Earnings_Person"
+          },
+          "Median_Earnings_Person_Female": {
+            "name": "Median Earnings for Women",
+            "statVar": "Median_Earnings_Person_Female"
+          },
+          "Median_Earnings_Person_Male": {
+            "name": "Median Earnings for Men",
+            "statVar": "Median_Earnings_Person_Male"
+          },
           "Median_Income_Household": {
             "name": "Household Median Income",
             "statVar": "Median_Income_Household"
@@ -539,75 +935,14 @@
           "Median_Income_Household_NonfamilyHousehold": {
             "name": "Nonfamily Household Median Income",
             "statVar": "Median_Income_Household_NonfamilyHousehold"
-          },
-          "Median_Income_Person": {
-            "name": "Individual Median Income",
-            "statVar": "Median_Income_Person"
-          },
-          "dc/015d58s9xh8kd_multiple_place_bar_block": {
-            "name": "Median Incomes in Real Estate And Rental And Leasing",
-            "statVar": "dc/015d58s9xh8kd"
-          },
-          "dc/2wgh04kx6es88_multiple_place_bar_block": {
-            "name": "Median Incomes in Health Care And Social Assistance",
-            "statVar": "dc/2wgh04kx6es88"
-          },
-          "dc/3ex11eg2q9hp6_multiple_place_bar_block": {
-            "name": "Median Income of Manufacturing",
-            "statVar": "dc/3ex11eg2q9hp6"
-          },
-          "dc/4z9xy6wn8xns1_multiple_place_bar_block": {
-            "name": "Median Incomes in Administrative And Support And Waste Management Services",
-            "statVar": "dc/4z9xy6wn8xns1"
-          },
-          "dc/5f3gkej4mrq24_multiple_place_bar_block": {
-            "name": "Median Incomes in Retail Trade",
-            "statVar": "dc/5f3gkej4mrq24"
-          },
-          "dc/7jqw95h5wbelb_multiple_place_bar_block": {
-            "name": "Median Incomes in Public Administration",
-            "statVar": "dc/7jqw95h5wbelb"
-          },
-          "dc/9pmyhk89dj3pf_multiple_place_bar_block": {
-            "name": "Median Incomes in Accommodation And Food Services",
-            "statVar": "dc/9pmyhk89dj3pf"
-          },
-          "dc/b4dj4sbgqybh7_multiple_place_bar_block": {
-            "name": "Median Incomes in Mining, Quarrying, And Oil And Gas Extraction",
-            "statVar": "dc/b4dj4sbgqybh7"
-          },
-          "dc/jefhcs9qxc971_multiple_place_bar_block": {
-            "name": "Median Incomes in Educational Services",
-            "statVar": "dc/jefhcs9qxc971"
-          },
-          "dc/knhvyxwsd3y6h_multiple_place_bar_block": {
-            "name": "Median Incomes in Other Services, Except Public Administration",
-            "statVar": "dc/knhvyxwsd3y6h"
-          },
-          "dc/m07n4w3ywjzs3_multiple_place_bar_block": {
-            "name": "Median Incomes in Construction",
-            "statVar": "dc/m07n4w3ywjzs3"
-          },
-          "dc/t6m99mqmqxjbc_multiple_place_bar_block": {
-            "name": "Median Incomes in Management of Companies And Enterprises",
-            "statVar": "dc/t6m99mqmqxjbc"
-          },
-          "dc/xj2nk2bg60fg_multiple_place_bar_block": {
-            "name": "Median Incomes in Information industry",
-            "statVar": "dc/xj2nk2bg60fg"
-          },
-          "dc/yw52qqrrb2w11_multiple_place_bar_block": {
-            "name": "Median Incomes in Agriculture, Forestry, Fishing And Hunting",
-            "statVar": "dc/yw52qqrrb2w11"
-          },
-          "dc/zbpsz8dg01nh2_multiple_place_bar_block": {
-            "name": "Median Incomes in Transportation And Warehousing",
-            "statVar": "dc/zbpsz8dg01nh2"
           }
         }
       }
     ],
     "metadata": {
+      "containedPlaceTypes": {
+        "State": "County"
+      },
       "placeDcid": [
         "geoId/06"
       ]
@@ -615,6 +950,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "geoId/06",
@@ -630,7 +966,782 @@
       "place_type": "State"
     }
   ],
-  "relatedThings": {},
+  "relatedThings": {
+    "childPlaces": {
+      "County": [
+        {
+          "dcid": "geoId/06001",
+          "name": "Alameda",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06003",
+          "name": "Alpine",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06005",
+          "name": "Amador",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06007",
+          "name": "Butte",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06009",
+          "name": "Calaveras",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06011",
+          "name": "Colusa",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06013",
+          "name": "Contra Costa",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06015",
+          "name": "Del Norte",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06017",
+          "name": "El Dorado",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06019",
+          "name": "Fresno",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06021",
+          "name": "Glenn",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06023",
+          "name": "Humboldt",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06025",
+          "name": "Imperial",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06027",
+          "name": "Inyo",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06029",
+          "name": "Kern",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06031",
+          "name": "Kings",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06033",
+          "name": "Lake",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06035",
+          "name": "Lassen",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06037",
+          "name": "Los Angeles",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06039",
+          "name": "Madera",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06041",
+          "name": "Marin",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06043",
+          "name": "Mariposa",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06045",
+          "name": "Mendocino",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06047",
+          "name": "Merced",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06049",
+          "name": "Modoc",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06051",
+          "name": "Mono",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06053",
+          "name": "Monterey",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06055",
+          "name": "Napa",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06057",
+          "name": "Nevada",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06059",
+          "name": "Orange",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06061",
+          "name": "Placer",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06063",
+          "name": "Plumas",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06065",
+          "name": "Riverside",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06067",
+          "name": "Sacramento",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06069",
+          "name": "San Benito",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06071",
+          "name": "San Bernardino",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06073",
+          "name": "San Diego",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06075",
+          "name": "San Francisco",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06077",
+          "name": "San Joaquin",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06079",
+          "name": "San Luis Obispo",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06081",
+          "name": "San Mateo",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06083",
+          "name": "Santa Barbara",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06085",
+          "name": "Santa Clara",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06087",
+          "name": "Santa Cruz",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06089",
+          "name": "Shasta",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06091",
+          "name": "Sierra",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06093",
+          "name": "Siskiyou",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06095",
+          "name": "Solano",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06097",
+          "name": "Sonoma",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06099",
+          "name": "Stanislaus",
+          "types": [
+            "County"
+          ]
+        }
+      ]
+    },
+    "childTopics": [],
+    "exploreMore": {
+      "Count_Household_FamilyHousehold": {
+        "benefitsStatus": [
+          "Count_Household_WithFoodStampsInThePast12Months_FamilyHousehold",
+          "Count_Household_WithSSIAndOrCashAssistanceInThePast12Months_FamilyHousehold"
+        ],
+        "familyIncome": [
+          "Count_Household_0.5OrLessRatioToPovertyLine_FamilyHousehold",
+          "Count_Household_1.25OrLessRatioToPovertyLine_FamilyHousehold",
+          "Count_Household_1.5OrLessRatioToPovertyLine_FamilyHousehold",
+          "Count_Household_1.85OrLessRatioToPovertyLine_FamilyHousehold",
+          "Count_Household_2OrLessRatioToPovertyLine_FamilyHousehold",
+          "Count_Household_3OrLessRatioToPovertyLine_FamilyHousehold",
+          "Count_Household_4OrLessRatioToPovertyLine_FamilyHousehold",
+          "Count_Household_5OrLessRatioToPovertyLine_FamilyHousehold"
+        ]
+      },
+      "Mean_Income_Household": {
+        "householdType": [
+          "Mean_Income_Household_FamilyHousehold",
+          "Mean_Income_Household_MarriedCoupleFamilyHousehold",
+          "Mean_Income_Household_NonfamilyHousehold"
+        ]
+      },
+      "Median_Earnings_Person": {
+        "gender": [
+          "Median_Earnings_Person_Female",
+          "Median_Earnings_Person_Male"
+        ]
+      }
+    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/HouseholdIncomeDistribution",
+        "name": "Household Income Distribution",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Income",
+        "name": "Income",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [
+      {
+        "dcid": "geoId/01",
+        "name": "Alabama",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/02",
+        "name": "Alaska",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/04",
+        "name": "Arizona",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/05",
+        "name": "Arkansas",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/08",
+        "name": "Colorado",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/09",
+        "name": "Connecticut",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/10",
+        "name": "Delaware",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/11",
+        "name": "District of Columbia",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/12",
+        "name": "Florida",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/13",
+        "name": "Georgia",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/15",
+        "name": "Hawaii",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/16",
+        "name": "Idaho",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/17",
+        "name": "Illinois",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/18",
+        "name": "Indiana",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/19",
+        "name": "Iowa",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/20",
+        "name": "Kansas",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/21",
+        "name": "Kentucky",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/22",
+        "name": "Louisiana",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/23",
+        "name": "Maine",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/24",
+        "name": "Maryland",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/25",
+        "name": "Massachusetts",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/26",
+        "name": "Michigan",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/27",
+        "name": "Minnesota",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/28",
+        "name": "Mississippi",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/29",
+        "name": "Missouri",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/30",
+        "name": "Montana",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/31",
+        "name": "Nebraska",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/32",
+        "name": "Nevada",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/33",
+        "name": "New Hampshire",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/34",
+        "name": "New Jersey",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/35",
+        "name": "New Mexico",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/36",
+        "name": "New York",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/37",
+        "name": "North Carolina",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/38",
+        "name": "North Dakota",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/39",
+        "name": "Ohio",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/40",
+        "name": "Oklahoma",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/41",
+        "name": "Oregon",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/42",
+        "name": "Pennsylvania",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/72",
+        "name": "Puerto Rico",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/44",
+        "name": "Rhode Island",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/45",
+        "name": "South Carolina",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/46",
+        "name": "South Dakota",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/47",
+        "name": "Tennessee",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/48",
+        "name": "Texas",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/49",
+        "name": "Utah",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/50",
+        "name": "Vermont",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/51",
+        "name": "Virginia",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/53",
+        "name": "Washington",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/54",
+        "name": "West Virginia",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/55",
+        "name": "Wisconsin",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/IndividualIncomeDistribution",
+        "name": "Individual Income Distribution",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/IndividualIncomeByIndustry",
+        "name": "Individual Income by Industry",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessage": "",
+  "userMessages": []
 }

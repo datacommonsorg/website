@@ -24,7 +24,7 @@
     "var1": {
       "name": "Good var1 name",
       "description": "Good var1 description",
-      "nlSentences": [
+      "searchDescriptions": [
         "Natural language sentence 1",
         "Natural language sentence 2"
       ],

@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Graph browser related handlers."""
+"""Knowledge Graph related handlers."""
 
 import json
 
@@ -19,8 +19,9 @@ import flask
 from flask import request
 from flask import Response
 
-from server import cache
 from server.lib import fetch
+from server.lib.cache import cache
+from server.routes import TIMEOUT
 import server.services.datacommons as dc
 
 bp = flask.Blueprint('api_browser', __name__, url_prefix='/api/browser')
@@ -30,7 +31,7 @@ NO_OBSPERIOD_KEY = 'no_obsPeriod'
 
 
 @bp.route('/provenance')
-@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def provenance():
   """Returns all the provenance information."""
   prov_resp = fetch.property_values(['Provenance'], 'typeOf', False)
@@ -63,8 +64,8 @@ WHERE {{
   return sparql_query
 
 
-@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
 @bp.route('/observation-id')
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def get_observation_id():
   """Returns the observation node dcid for a combination of
     predicates: observedNodeLocation, statisticalVariable, date,

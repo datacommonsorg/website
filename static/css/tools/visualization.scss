@@ -19,7 +19,6 @@
 @import "../place_selector";
 @import "../tiles.scss";
 @import "../draw_scatter.scss";
-@import "../bq_modal";
 @import "../source_selector";
 
 $selector-footer-height: 40px;
@@ -89,17 +88,13 @@ $selector-footer-height: 40px;
   flex-direction: column;
   align-items: center;
   gap: 2px;
-  margin: 10px 16px 0 16px;
+  margin: 18px 16px 0 16px;
   cursor: pointer;
-  padding-bottom: 10px;
+  padding-bottom: 13px;
   font-weight: 500;
 
   .label {
     font-size: 14px;
-  }
-
-  .material-icons-outlined {
-    font-size: 24px;
   }
 }
 
@@ -425,6 +420,7 @@ $selector-footer-height: 40px;
   }
 
   #stat-var-hierarchy-section {
+    padding: 0px;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -447,7 +443,7 @@ $selector-footer-height: 40px;
 
 #statvar-modal {
   .radio-selection-label {
-    padding-top: 1rem;
+    padding: 0.5rem 0;
   }
 
   .radio-selection-section {
@@ -493,7 +489,6 @@ $selector-footer-height: 40px;
       .section-title {
         font-size: 20px;
         font-weight: 500;
-        margin-bottom: 16px;
       }
     }
 
@@ -598,7 +593,6 @@ $selector-footer-height: 40px;
   .ranking-tile {
     display: flex;
     flex-wrap: wrap;
-    padding: 1rem;
 
     h4 {
       text-align: left;

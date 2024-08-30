@@ -20,6 +20,7 @@
 
 import _ from "lodash";
 import React, { RefObject, useContext } from "react";
+import { Spinner } from "reactstrap";
 
 import { RankingUnitUrlFuncContext } from "../../js/shared/context";
 import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
@@ -77,6 +78,7 @@ interface RankingUnitPropType {
   errorMsg?: string;
   apiRoot?: string;
   entityType?: string;
+  isLoading?: boolean;
 }
 
 // Calculates ranks based on the order of data if no rank is provided.
@@ -137,14 +139,18 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
     props.isHighest,
     props.numDataPoints
   );
-
   return (
     <div
       className={"ranking-list " + ASYNC_ELEMENT_CLASS}
       ref={props.forwardRef}
     >
       <div className="ranking-header-section">
-        <h4>{props.title}</h4>
+        <h4>
+          {props.isLoading ? (
+            <Spinner color="secondary" size="sm" className="mr-1" />
+          ) : null}
+          {props.title}
+        </h4>
         {props.headerChild}
       </div>
       {props.errorMsg ? (
@@ -260,6 +266,9 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                               </span>
                             </td>
                           ))}
+                        <td className="ranking-date-cell" title={point.date}>
+                          {point.date}
+                        </td>
                       </tr>
                     );
                   })}

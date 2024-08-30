@@ -1,0 +1,40 @@
+{
+  "<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol": {
+    "displayName": "associated gene",
+    "titleFormat": "The associated genes for {entity} are"
+  }, 
+  "<-geneSymbol{typeOf:GeneticVariantGeneAssociation}->referenceSNPClusterID": {
+    "displayName": "associated genetic variant",
+    "titleFormat": "The associated genetic variants for {entity} are"
+  }, 
+  "<-diseaseOntologyID{typeOf:DiseaseGeneAssociation}->geneID": {
+    "displayName": "associated gene",
+    "titleFormat": "The associated genes for {entity} are"
+  }, 
+  "<-geneID{typeOf:DiseaseGeneAssociation}->diseaseOntologyID": {
+    "displayName": "associated disease",
+    "titleFormat": "The associated diseases for {entity} are"
+  },
+  "->mRNA": {
+    "displayName": "mRNA"
+  },
+  "<-mRNA": {
+    "displayName": "mRNA"
+  },
+  "->preferredMeSHConcept": {
+    "displayName": "Preferred MeSH Concept"
+
+  },
+  "<-preferredMeSHConcept": {
+    "displayName": "Preferred MeSH Concept"
+
+  },
+  "->hasMeSHQualifier": {
+    "displayName": "Has MeSH Qualifier"
+    
+  },
+  "<-hasMeSHQualifier": {
+    "displayName": "Has MeSH Qualifier"
+    
+  }
+}

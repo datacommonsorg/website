@@ -132,7 +132,7 @@ export function App(props: AppPropsType): JSX.Element {
           <h4 className="clearfix">
             <span>Data source: {provenanceJsx}</span>
             <a className="float-right" href={`/browser/${props.dcid}`}>
-              Graph Browser ›
+              Knowledge Graph ›
             </a>
           </h4>
         </div>

@@ -51,9 +51,6 @@ TEST_CASES = [{
     'name': 'scatter_non_bard',
     'query': 'obesity vs. poverty in counties of california',
     'client': 'dc'
-}, {
-    'name': 'disaster',
-    'query': 'fires in california'
 }]
 
 

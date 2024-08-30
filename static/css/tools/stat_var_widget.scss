@@ -21,8 +21,8 @@
 $menu-background: #525252;
 $menu-foreground: #fff;
 $widget-min-width: 400px;
-$container-outer-horizontal-margin: 8px;
-$container-outer-vert-margin: 15px;
+$container-outer-horizontal-margin: 0px;
+$container-outer-vert-margin: 0px;
 // NOTE: timing is also used in drawer_toggle.tsx.
 $transition-animation: 225ms cubic-bezier(0, 0, 0.2, 1) 0ms;
 $explore-toggle-width: 27px;
@@ -134,16 +134,14 @@ $resize-handle-width: 5px;
 }
 
 .stat-var-hierarchy-container .title {
-  margin-bottom: 3px;
-  font-size: $large-font-size;
-  letter-spacing: 0;
-  line-height: 26px;
-  padding-bottom: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
 }
 
 .statvar-hierarchy-search-results {
   max-height: max(90%, 50vh) !important;
-  width: 60% !important;
+  width: 100% !important;
 }
 
 // To allow for scroll only within the hierarchy (and not the search box, etc).

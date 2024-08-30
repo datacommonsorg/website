@@ -14,6 +14,12 @@
  * limitations under the License.
  */
 
+import { StatVarSpec } from "../js/shared/types";
+import {
+  EventTypeSpec,
+  TileConfig,
+} from "../js/types/subject_page_proto_types";
+
 /**
  * Types used for nodejs server
  */
@@ -26,6 +32,13 @@ export interface TileResult {
   title: string;
   // The type of the tile
   type: string;
+  // Dcids of the stat vars shown in the chart
+  vars: string[];
+  // Dcids of the places shown in the chart. If it's a chart that shows children
+  // places such as map or ranking, this is the dcid of the parent place.
+  places: string[];
+  // Type of place shown in the chart if it's a chart that shows children places
+  placeType?: string;
   // List of legend labels
   legend?: string[];
   // The data for the chart in the tile as a csv string
@@ -36,11 +49,39 @@ export interface TileResult {
   svg?: string;
   // The unit of the data in the chart if it's a single unit.
   unit?: string;
-  // The data point to highlight. Only returned for single line line charts.
+  // The data point to highlight. Only returned for single line line charts and highlight charts
   highlight?: {
     value: number;
     date: string;
   };
   // The link to the data commons explore page for this result.
   dcUrl?: string;
+}
+
+// Properties to use for drawing a single chart
+export interface ChartProps {
+  place: string;
+  enclosedPlaceType: string;
+  statVarSpec: StatVarSpec[];
+  tileConfig: TileConfig;
+  eventTypeSpec: Record<string, EventTypeSpec>;
+}
+
+// Debug info to return in /nodejs/query response
+export interface DebugInfo {
+  timing: {
+    getNlResult: number;
+    getTileResults: number;
+    total: number;
+  };
+  // debug info from detect-and-fulfill endpoint
+  debug: Record<string, any>;
+}
+
+// The result to return in /nodejs/query
+export interface QueryResult {
+  charts?: TileResult[];
+  err?: string;
+  debug?: DebugInfo;
+  relatedQuestions?: string[];
 }

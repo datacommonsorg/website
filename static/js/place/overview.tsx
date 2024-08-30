@@ -19,7 +19,6 @@ import React from "react";
 import { PageHighlight } from "../chart/types";
 import { GoogleMap } from "../components/google_map";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../constants/css_constants";
-import { ParentPlace } from "./parent_breadcrumbs";
 import { PlaceHighlight } from "./place_highlight";
 import { PlaceSummary } from "./place_summary";
 import { Ranking } from "./ranking";
@@ -46,10 +45,6 @@ interface OverviewPropType {
    */
   names?: { [key: string]: string };
   /**
-   * DCIDs of containing places
-   */
-  parentPlaces?: string[];
-  /**
    * Type of place, e.g. State, County
    */
   placeType?: string;
@@ -61,9 +56,6 @@ interface OverviewPropType {
 
 class Overview extends React.Component<OverviewPropType> {
   render(): JSX.Element {
-    const showParentPlaces =
-      this.props.parentPlaces && this.props.parentPlaces.length > 0;
-    const showBottomDivider = showParentPlaces || this.props.highlight;
     return (
       <section
         className={`factoid col-12 ${
@@ -91,26 +83,19 @@ class Overview extends React.Component<OverviewPropType> {
               </div>
             )}
           </div>
-          {showBottomDivider && <hr />}
-          {showParentPlaces && (
-            <div
-              id="place-type-in-overview"
-              className="parent-places-container"
-            >
-              <ParentPlace
-                names={this.props.names}
-                parentPlaces={this.props.parentPlaces}
-                placeType={this.props.placeType}
-              />
-            </div>
-          )}
           {this.props.highlight && (
-            <div className="place-highlight-container">
-              <PlaceHighlight
-                dcid={this.props.dcid}
-                highlight={this.props.highlight}
-              />
-            </div>
+            <>
+              <hr />
+              <div
+                id="place-highlight-in-overview"
+                className="place-highlight-container"
+              >
+                <PlaceHighlight
+                  dcid={this.props.dcid}
+                  highlight={this.props.highlight}
+                />
+              </div>
+            </>
           )}
         </div>
       </section>

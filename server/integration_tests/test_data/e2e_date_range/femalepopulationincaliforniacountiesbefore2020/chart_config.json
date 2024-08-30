@@ -1,0 +1,2253 @@
+{
+  "client": "test_detect-and-fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_2019"
+                    ],
+                    "title": "Women in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_2019"
+                    ],
+                    "title": "Women in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_1145703171"
+                    ],
+                    "title": "Women in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Women in California",
+                    "statVarKey": [
+                      "Count_Person_Female_2019"
+                    ],
+                    "title": "Women in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Male_2019"
+                    ],
+                    "title": "Men in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Male_2019"
+                    ],
+                    "title": "Men in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Men in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_1145703171",
+                      "Count_Person_Male_1145703171"
+                    ],
+                    "title": "Population by Gender in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_MarriedAndNotSeparated_2019"
+                    ],
+                    "title": "Non-Separated Married Women in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_MarriedAndNotSeparated_2019"
+                    ],
+                    "title": "Non-Separated Married Women in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Non-Separated Married Women in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_MarriedAndNotSeparated_2369573279"
+                    ],
+                    "title": "Non-Separated Married Women in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Non-Separated Married Women in California",
+                    "statVarKey": [
+                      "Count_Person_Female_MarriedAndNotSeparated_2019"
+                    ],
+                    "title": "Non-Separated Married Women in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Non-Separated Married Women"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_Female_2017"
+                    ],
+                    "title": "Count of Mortality Event: Female in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_Female_2017"
+                    ],
+                    "title": "Count of Mortality Event: Female in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Mortality Event: Female in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_TwoOrMoreRaces_2019"
+                    ],
+                    "title": "Women Identifying as Multiracial in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_TwoOrMoreRaces_2019"
+                    ],
+                    "title": "Women Identifying as Multiracial in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women Identifying as Multiracial in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_TwoOrMoreRaces_1145703171"
+                    ],
+                    "title": "Women Identifying as Multiracial in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Women Identifying as Multiracial in California",
+                    "statVarKey": [
+                      "Count_Person_Female_TwoOrMoreRaces_2019"
+                    ],
+                    "title": "Women Identifying as Multiracial in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women Identifying as Multiracial"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_3OrMoreYears_Female_EnrolledInSchool_2019"
+                    ],
+                    "title": "Population: Female, Enrolled in School in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_3OrMoreYears_Female_EnrolledInSchool_2019"
+                    ],
+                    "title": "Population: Female, Enrolled in School in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Female, Enrolled in School in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Count_Person_3OrMoreYears_Female_EnrolledInSchool_1145703171"
+                    ],
+                    "title": "Population: Female, Enrolled in School in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Female, Enrolled in School in California",
+                    "statVarKey": [
+                      "Count_Person_3OrMoreYears_Female_EnrolledInSchool_2019"
+                    ],
+                    "title": "Population: Female, Enrolled in School in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Female, Enrolled in School"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_WithHealthInsurance_2019"
+                    ],
+                    "title": "Women With Health Insurance in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_WithHealthInsurance_2019"
+                    ],
+                    "title": "Women With Health Insurance in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women With Health Insurance in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_WithHealthInsurance_3013967739"
+                    ],
+                    "title": "Women With Health Insurance in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Women With Health Insurance in California",
+                    "statVarKey": [
+                      "Count_Person_Female_WithHealthInsurance_2019"
+                    ],
+                    "title": "Women With Health Insurance in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women With Health Insurance"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_FullTimeYearRoundWorker_2019"
+                    ],
+                    "title": "Population: 16-64 Years, Female, Full Time Year Round Worker in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_FullTimeYearRoundWorker_2019"
+                    ],
+                    "title": "Population: 16-64 Years, Female, Full Time Year Round Worker in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 16-64 Years, Female, Full Time Year Round Worker in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_FullTimeYearRoundWorker_4208561269"
+                    ],
+                    "title": "Population: 16-64 Years, Female, Full Time Year Round Worker in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: 16-64 Years, Female, Full Time Year Round Worker in California",
+                    "statVarKey": [
+                      "Count_Person_Female_FullTimeYearRoundWorker_2019"
+                    ],
+                    "title": "Population: 16-64 Years, Female, Full Time Year Round Worker in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 16-64 Years, Female, Full Time Year Round Worker"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Female_2019"
+                    ],
+                    "title": "Women's Median Age in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Female_2019"
+                    ],
+                    "title": "Women's Median Age in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Women's Median Age in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Female_3795540742"
+                    ],
+                    "title": "Women's Median Age in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Women's Median Age in California",
+                    "statVarKey": [
+                      "Median_Age_Person_Female_2019"
+                    ],
+                    "title": "Women's Median Age in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Women's Median Age"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_AsianAlone_2019"
+                    ],
+                    "title": "Asian Monoracial Women in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_AsianAlone_2019"
+                    ],
+                    "title": "Asian Monoracial Women in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Asian Monoracial Women in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_AsianAlone_1145703171"
+                    ],
+                    "title": "Asian Monoracial Women in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Asian Monoracial Women in California",
+                    "statVarKey": [
+                      "Count_Person_Female_AsianAlone_2019"
+                    ],
+                    "title": "Asian Monoracial Women in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Asian Monoracial Women"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_WhiteAlone_2019"
+                    ],
+                    "title": "Women Identifying as White Alone in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_WhiteAlone_2019"
+                    ],
+                    "title": "Women Identifying as White Alone in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women Identifying as White Alone in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_WhiteAlone_1145703171"
+                    ],
+                    "title": "Women Identifying as White Alone in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Women Identifying as White Alone in California",
+                    "statVarKey": [
+                      "Count_Person_Female_WhiteAlone_2019"
+                    ],
+                    "title": "Women Identifying as White Alone in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women Identifying as White Alone"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_2019"
+                    ],
+                    "title": "Population: Bachelors Degree or Higher, Female in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_2019"
+                    ],
+                    "title": "Population: Bachelors Degree or Higher, Female in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Bachelors Degree or Higher, Female in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_770342238"
+                    ],
+                    "title": "Population: Bachelors Degree or Higher, Female in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Bachelors Degree or Higher, Female in California",
+                    "statVarKey": [
+                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_2019"
+                    ],
+                    "title": "Population: Bachelors Degree or Higher, Female in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Bachelors Degree or Higher, Female"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WithDisability_Female_2019"
+                    ],
+                    "title": "Women With Disabilities in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_WithDisability_Female_2019"
+                    ],
+                    "title": "Women With Disabilities in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women With Disabilities in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Count_Person_WithDisability_Female_4281944711"
+                    ],
+                    "title": "Women With Disabilities in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Women With Disabilities in California",
+                    "statVarKey": [
+                      "Count_Person_WithDisability_Female_2019"
+                    ],
+                    "title": "Women With Disabilities in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women With Disabilities"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female_2019"
+                    ],
+                    "title": "Bachelors, Women in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female_2019"
+                    ],
+                    "title": "Bachelors, Women in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Bachelors, Women in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female_1145703171"
+                    ],
+                    "title": "Bachelors, Women in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Bachelors, Women in California",
+                    "statVarKey": [
+                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female_2019"
+                    ],
+                    "title": "Bachelors, Women in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Bachelors, Women"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_ForeignBorn_10983471"
+                    ],
+                    "title": "Foreign Born Women in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Foreign Born Women in California",
+                    "statVarKey": [
+                      "Count_Person_Female_ForeignBorn_2019"
+                    ],
+                    "title": "Foreign Born Women in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Foreign Born Women"
+          }
+        ],
+        "statVarSpec": {
+          "Count_Death_Female_2017": {
+            "date": "2017",
+            "name": "Count of Mortality Event: Female",
+            "statVar": "Count_Death_Female"
+          },
+          "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_2019": {
+            "date": "2019",
+            "name": "Population: Bachelors Degree or Higher, Female",
+            "statVar": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female"
+          },
+          "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_770342238": {
+            "facetId": "770342238",
+            "name": "Population: Bachelors Degree or Higher, Female",
+            "statVar": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female"
+          },
+          "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female_1145703171": {
+            "facetId": "1145703171",
+            "name": "Bachelors, Women",
+            "statVar": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female"
+          },
+          "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female_2019": {
+            "date": "2019",
+            "name": "Bachelors, Women",
+            "statVar": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female"
+          },
+          "Count_Person_3OrMoreYears_Female_EnrolledInSchool_1145703171": {
+            "facetId": "1145703171",
+            "name": "Population: Female, Enrolled in School",
+            "statVar": "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
+          },
+          "Count_Person_3OrMoreYears_Female_EnrolledInSchool_2019": {
+            "date": "2019",
+            "name": "Population: Female, Enrolled in School",
+            "statVar": "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
+          },
+          "Count_Person_Female_1145703171": {
+            "facetId": "1145703171",
+            "name": "Women",
+            "statVar": "Count_Person_Female"
+          },
+          "Count_Person_Female_2019": {
+            "date": "2019",
+            "name": "Women",
+            "statVar": "Count_Person_Female"
+          },
+          "Count_Person_Female_AsianAlone_1145703171": {
+            "facetId": "1145703171",
+            "name": "Asian Monoracial Women",
+            "statVar": "Count_Person_Female_AsianAlone"
+          },
+          "Count_Person_Female_AsianAlone_2019": {
+            "date": "2019",
+            "name": "Asian Monoracial Women",
+            "statVar": "Count_Person_Female_AsianAlone"
+          },
+          "Count_Person_Female_ForeignBorn_10983471": {
+            "facetId": "10983471",
+            "name": "Foreign Born Women",
+            "statVar": "Count_Person_Female_ForeignBorn"
+          },
+          "Count_Person_Female_ForeignBorn_2019": {
+            "date": "2019",
+            "name": "Foreign Born Women",
+            "statVar": "Count_Person_Female_ForeignBorn"
+          },
+          "Count_Person_Female_FullTimeYearRoundWorker_2019": {
+            "date": "2019",
+            "name": "Population: 16 - 64 Years, Female, Full Time Year Round Worker",
+            "statVar": "Count_Person_Female_FullTimeYearRoundWorker"
+          },
+          "Count_Person_Female_FullTimeYearRoundWorker_4208561269": {
+            "facetId": "4208561269",
+            "name": "Population: 16 - 64 Years, Female, Full Time Year Round Worker",
+            "statVar": "Count_Person_Female_FullTimeYearRoundWorker"
+          },
+          "Count_Person_Female_MarriedAndNotSeparated_2019": {
+            "date": "2019",
+            "name": "Non-Separated Married Women",
+            "statVar": "Count_Person_Female_MarriedAndNotSeparated"
+          },
+          "Count_Person_Female_MarriedAndNotSeparated_2369573279": {
+            "facetId": "2369573279",
+            "name": "Non-Separated Married Women",
+            "statVar": "Count_Person_Female_MarriedAndNotSeparated"
+          },
+          "Count_Person_Female_TwoOrMoreRaces_1145703171": {
+            "facetId": "1145703171",
+            "name": "Women Identifying as Multiracial",
+            "statVar": "Count_Person_Female_TwoOrMoreRaces"
+          },
+          "Count_Person_Female_TwoOrMoreRaces_2019": {
+            "date": "2019",
+            "name": "Women Identifying as Multiracial",
+            "statVar": "Count_Person_Female_TwoOrMoreRaces"
+          },
+          "Count_Person_Female_WhiteAlone_1145703171": {
+            "facetId": "1145703171",
+            "name": "Women Identifying as White Alone",
+            "statVar": "Count_Person_Female_WhiteAlone"
+          },
+          "Count_Person_Female_WhiteAlone_2019": {
+            "date": "2019",
+            "name": "Women Identifying as White Alone",
+            "statVar": "Count_Person_Female_WhiteAlone"
+          },
+          "Count_Person_Female_WithHealthInsurance_2019": {
+            "date": "2019",
+            "name": "Women With Health Insurance",
+            "statVar": "Count_Person_Female_WithHealthInsurance"
+          },
+          "Count_Person_Female_WithHealthInsurance_3013967739": {
+            "facetId": "3013967739",
+            "name": "Women With Health Insurance",
+            "statVar": "Count_Person_Female_WithHealthInsurance"
+          },
+          "Count_Person_Male_1145703171": {
+            "facetId": "1145703171",
+            "name": "Men",
+            "statVar": "Count_Person_Male"
+          },
+          "Count_Person_Male_2019": {
+            "date": "2019",
+            "name": "Men",
+            "statVar": "Count_Person_Male"
+          },
+          "Count_Person_WithDisability_Female_2019": {
+            "date": "2019",
+            "name": "Women With Disabilities",
+            "statVar": "Count_Person_WithDisability_Female"
+          },
+          "Count_Person_WithDisability_Female_4281944711": {
+            "facetId": "4281944711",
+            "name": "Women With Disabilities",
+            "statVar": "Count_Person_WithDisability_Female"
+          },
+          "Median_Age_Person_Female_2019": {
+            "date": "2019",
+            "name": "Women's Median Age",
+            "statVar": "Median_Age_Person_Female"
+          },
+          "Median_Age_Person_Female_3795540742": {
+            "facetId": "3795540742",
+            "name": "Women's Median Age",
+            "statVar": "Median_Age_Person_Female"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "containedPlaceTypes": {
+        "State": "County"
+      },
+      "placeDcid": [
+        "geoId/06"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "entities": [],
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "geoId/06",
+    "name": "California",
+    "place_type": "State"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "geoId/06",
+      "name": "California",
+      "place_type": "State"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {
+      "County": [
+        {
+          "dcid": "geoId/06001",
+          "name": "Alameda",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06003",
+          "name": "Alpine",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06005",
+          "name": "Amador",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06007",
+          "name": "Butte",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06009",
+          "name": "Calaveras",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06011",
+          "name": "Colusa",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06013",
+          "name": "Contra Costa",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06015",
+          "name": "Del Norte",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06017",
+          "name": "El Dorado",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06019",
+          "name": "Fresno",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06021",
+          "name": "Glenn",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06023",
+          "name": "Humboldt",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06025",
+          "name": "Imperial",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06027",
+          "name": "Inyo",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06029",
+          "name": "Kern",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06031",
+          "name": "Kings",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06033",
+          "name": "Lake",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06035",
+          "name": "Lassen",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06037",
+          "name": "Los Angeles",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06039",
+          "name": "Madera",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06041",
+          "name": "Marin",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06043",
+          "name": "Mariposa",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06045",
+          "name": "Mendocino",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06047",
+          "name": "Merced",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06049",
+          "name": "Modoc",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06051",
+          "name": "Mono",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06053",
+          "name": "Monterey",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06055",
+          "name": "Napa",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06057",
+          "name": "Nevada",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06059",
+          "name": "Orange",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06061",
+          "name": "Placer",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06063",
+          "name": "Plumas",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06065",
+          "name": "Riverside",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06067",
+          "name": "Sacramento",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06069",
+          "name": "San Benito",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06071",
+          "name": "San Bernardino",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06073",
+          "name": "San Diego",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06075",
+          "name": "San Francisco",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06077",
+          "name": "San Joaquin",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06079",
+          "name": "San Luis Obispo",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06081",
+          "name": "San Mateo",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06083",
+          "name": "Santa Barbara",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06085",
+          "name": "Santa Clara",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06087",
+          "name": "Santa Cruz",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06089",
+          "name": "Shasta",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06091",
+          "name": "Sierra",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06093",
+          "name": "Siskiyou",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06095",
+          "name": "Solano",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06097",
+          "name": "Sonoma",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06099",
+          "name": "Stanislaus",
+          "types": [
+            "County"
+          ]
+        }
+      ]
+    },
+    "childTopics": [],
+    "exploreMore": {
+      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female": {
+        "age": [
+          "Count_Person_18To24Years_EducationalAttainmentBachelorsDegreeOrHigher_Female",
+          "Count_Person_35To44Years_EducationalAttainmentBachelorsDegreeOrHigher_Female",
+          "Count_Person_45To64Years_EducationalAttainmentBachelorsDegreeOrHigher_Female"
+        ]
+      },
+      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female": {
+        "age": [
+          "Count_Person_18To24Years_EducationalAttainmentBachelorsDegree_Female",
+          "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female",
+          "Count_Person_35To44Years_EducationalAttainmentBachelorsDegree_Female",
+          "Count_Person_45To64Years_EducationalAttainmentBachelorsDegree_Female",
+          "Count_Person_65OrMoreYears_EducationalAttainmentBachelorsDegree_Female"
+        ]
+      },
+      "Count_Person_Female": {
+        "age": [
+          "Count_Person_15To44Years_Female",
+          "Count_Person_21OrMoreYears_Female",
+          "Count_Person_60OrMoreYears_Female",
+          "Count_Person_62OrMoreYears_Female",
+          "Count_Person_65To66Years_Female",
+          "Count_Person_67To69Years_Female",
+          "Count_Person_Upto14Years_Female"
+        ],
+        "educationalAttainment": [
+          "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female",
+          "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female"
+        ],
+        "race": [
+          "Count_Person_Female_AsianAlone",
+          "Count_Person_Female_TwoOrMoreRaces",
+          "Count_Person_Female_WhiteAlone"
+        ]
+      },
+      "Count_Person_Female_AsianAlone": {
+        "age": [
+          "Count_Person_0To4Years_Female_AsianAlone",
+          "Count_Person_0Years_Female_AsianAlone",
+          "Count_Person_10To14Years_Female_AsianAlone",
+          "Count_Person_10Years_Female_AsianAlone",
+          "Count_Person_11Years_Female_AsianAlone",
+          "Count_Person_12Years_Female_AsianAlone",
+          "Count_Person_13Years_Female_AsianAlone",
+          "Count_Person_14Years_Female_AsianAlone",
+          "Count_Person_15OrMoreYears_Female_AsianAlone",
+          "Count_Person_15To17Years_Female_AsianAlone",
+          "Count_Person_15To19Years_Female_AsianAlone",
+          "Count_Person_16Years_Female_AsianAlone",
+          "Count_Person_17Years_Female_AsianAlone",
+          "Count_Person_18To19Years_Female_AsianAlone",
+          "Count_Person_18Years_Female_AsianAlone",
+          "Count_Person_19Years_Female_AsianAlone",
+          "Count_Person_1Years_Female_AsianAlone",
+          "Count_Person_20To24Years_Female_AsianAlone",
+          "Count_Person_20Years_Female_AsianAlone",
+          "Count_Person_21Years_Female_AsianAlone",
+          "Count_Person_22Years_Female_AsianAlone",
+          "Count_Person_23Years_Female_AsianAlone",
+          "Count_Person_24Years_Female_AsianAlone",
+          "Count_Person_25OrMoreYears_Female_AsianAlone",
+          "Count_Person_25To29Years_Female_AsianAlone",
+          "Count_Person_25Years_Female_AsianAlone",
+          "Count_Person_26Years_Female_AsianAlone",
+          "Count_Person_27Years_Female_AsianAlone",
+          "Count_Person_28Years_Female_AsianAlone",
+          "Count_Person_29Years_Female_AsianAlone",
+          "Count_Person_2Years_Female_AsianAlone",
+          "Count_Person_30To34Years_Female_AsianAlone",
+          "Count_Person_30Years_Female_AsianAlone",
+          "Count_Person_31Years_Female_AsianAlone",
+          "Count_Person_32Years_Female_AsianAlone",
+          "Count_Person_33Years_Female_AsianAlone",
+          "Count_Person_34Years_Female_AsianAlone",
+          "Count_Person_35To39Years_Female_AsianAlone",
+          "Count_Person_35Years_Female_AsianAlone",
+          "Count_Person_36Years_Female_AsianAlone",
+          "Count_Person_37Years_Female_AsianAlone",
+          "Count_Person_38Years_Female_AsianAlone",
+          "Count_Person_39Years_Female_AsianAlone",
+          "Count_Person_3Years_Female_AsianAlone",
+          "Count_Person_40To44Years_Female_AsianAlone",
+          "Count_Person_40Years_Female_AsianAlone",
+          "Count_Person_41Years_Female_AsianAlone",
+          "Count_Person_42Years_Female_AsianAlone",
+          "Count_Person_43Years_Female_AsianAlone",
+          "Count_Person_44Years_Female_AsianAlone",
+          "Count_Person_45To49Years_Female_AsianAlone",
+          "Count_Person_45Years_Female_AsianAlone",
+          "Count_Person_46Years_Female_AsianAlone",
+          "Count_Person_47Years_Female_AsianAlone",
+          "Count_Person_48Years_Female_AsianAlone",
+          "Count_Person_49Years_Female_AsianAlone",
+          "Count_Person_4Years_Female_AsianAlone",
+          "Count_Person_50To54Years_Female_AsianAlone",
+          "Count_Person_50Years_Female_AsianAlone",
+          "Count_Person_51Years_Female_AsianAlone",
+          "Count_Person_52Years_Female_AsianAlone",
+          "Count_Person_53Years_Female_AsianAlone",
+          "Count_Person_54Years_Female_AsianAlone",
+          "Count_Person_55To59Years_Female_AsianAlone",
+          "Count_Person_55Years_Female_AsianAlone",
+          "Count_Person_56Years_Female_AsianAlone",
+          "Count_Person_57Years_Female_AsianAlone",
+          "Count_Person_58Years_Female_AsianAlone",
+          "Count_Person_59Years_Female_AsianAlone",
+          "Count_Person_5To9Years_Female_AsianAlone",
+          "Count_Person_60To64Years_Female_AsianAlone",
+          "Count_Person_60Years_Female_AsianAlone",
+          "Count_Person_61Years_Female_AsianAlone",
+          "Count_Person_62Years_Female_AsianAlone",
+          "Count_Person_63Years_Female_AsianAlone",
+          "Count_Person_64Years_Female_AsianAlone",
+          "Count_Person_65To69Years_Female_AsianAlone",
+          "Count_Person_65Years_Female_AsianAlone",
+          "Count_Person_66Years_Female_AsianAlone",
+          "Count_Person_67Years_Female_AsianAlone",
+          "Count_Person_68Years_Female_AsianAlone",
+          "Count_Person_69Years_Female_AsianAlone",
+          "Count_Person_6Years_Female_AsianAlone",
+          "Count_Person_70To74Years_Female_AsianAlone",
+          "Count_Person_70Years_Female_AsianAlone",
+          "Count_Person_71Years_Female_AsianAlone",
+          "Count_Person_72Years_Female_AsianAlone",
+          "Count_Person_73Years_Female_AsianAlone",
+          "Count_Person_74Years_Female_AsianAlone",
+          "Count_Person_75To79Years_Female_AsianAlone",
+          "Count_Person_75To84Years_Female_AsianAlone",
+          "Count_Person_75Years_Female_AsianAlone",
+          "Count_Person_76Years_Female_AsianAlone",
+          "Count_Person_77Years_Female_AsianAlone",
+          "Count_Person_78Years_Female_AsianAlone",
+          "Count_Person_79Years_Female_AsianAlone",
+          "Count_Person_7Years_Female_AsianAlone",
+          "Count_Person_80To84Years_Female_AsianAlone",
+          "Count_Person_80Years_Female_AsianAlone",
+          "Count_Person_81Years_Female_AsianAlone",
+          "Count_Person_82Years_Female_AsianAlone",
+          "Count_Person_83Years_Female_AsianAlone",
+          "Count_Person_84Years_Female_AsianAlone",
+          "Count_Person_85OrMoreYears_Female_AsianAlone",
+          "Count_Person_8Years_Female_AsianAlone",
+          "Count_Person_9Years_Female_AsianAlone"
+        ]
+      },
+      "Count_Person_Female_MarriedAndNotSeparated": {
+        "age": [
+          "Count_Person_15To19Years_Female_MarriedAndNotSeparated",
+          "Count_Person_20To34Years_Female_MarriedAndNotSeparated",
+          "Count_Person_35To44Years_Female_MarriedAndNotSeparated",
+          "Count_Person_45To54Years_Female_MarriedAndNotSeparated",
+          "Count_Person_55To64Years_Female_MarriedAndNotSeparated"
+        ]
+      },
+      "Count_Person_Female_TwoOrMoreRaces": {
+        "age": [
+          "Count_Person_0To4Years_Female_TwoOrMoreRaces",
+          "Count_Person_0Years_Female_TwoOrMoreRaces",
+          "Count_Person_10To14Years_Female_TwoOrMoreRaces",
+          "Count_Person_10Years_Female_TwoOrMoreRaces",
+          "Count_Person_11Years_Female_TwoOrMoreRaces",
+          "Count_Person_12Years_Female_TwoOrMoreRaces",
+          "Count_Person_13Years_Female_TwoOrMoreRaces",
+          "Count_Person_14Years_Female_TwoOrMoreRaces",
+          "Count_Person_15OrMoreYears_Female_TwoOrMoreRaces",
+          "Count_Person_15To17Years_Female_TwoOrMoreRaces",
+          "Count_Person_15To19Years_Female_TwoOrMoreRaces",
+          "Count_Person_16Years_Female_TwoOrMoreRaces",
+          "Count_Person_17Years_Female_TwoOrMoreRaces",
+          "Count_Person_18To19Years_Female_TwoOrMoreRaces",
+          "Count_Person_18Years_Female_TwoOrMoreRaces",
+          "Count_Person_19Years_Female_TwoOrMoreRaces",
+          "Count_Person_1Years_Female_TwoOrMoreRaces",
+          "Count_Person_20To24Years_Female_TwoOrMoreRaces",
+          "Count_Person_20Years_Female_TwoOrMoreRaces",
+          "Count_Person_21Years_Female_TwoOrMoreRaces",
+          "Count_Person_22Years_Female_TwoOrMoreRaces",
+          "Count_Person_23Years_Female_TwoOrMoreRaces",
+          "Count_Person_24Years_Female_TwoOrMoreRaces",
+          "Count_Person_25OrMoreYears_Female_TwoOrMoreRaces",
+          "Count_Person_25To29Years_Female_TwoOrMoreRaces",
+          "Count_Person_25Years_Female_TwoOrMoreRaces",
+          "Count_Person_26Years_Female_TwoOrMoreRaces",
+          "Count_Person_27Years_Female_TwoOrMoreRaces",
+          "Count_Person_28Years_Female_TwoOrMoreRaces",
+          "Count_Person_29Years_Female_TwoOrMoreRaces",
+          "Count_Person_2Years_Female_TwoOrMoreRaces",
+          "Count_Person_30To34Years_Female_TwoOrMoreRaces",
+          "Count_Person_30Years_Female_TwoOrMoreRaces",
+          "Count_Person_31Years_Female_TwoOrMoreRaces",
+          "Count_Person_32Years_Female_TwoOrMoreRaces",
+          "Count_Person_33Years_Female_TwoOrMoreRaces",
+          "Count_Person_34Years_Female_TwoOrMoreRaces",
+          "Count_Person_35To39Years_Female_TwoOrMoreRaces",
+          "Count_Person_35Years_Female_TwoOrMoreRaces",
+          "Count_Person_36Years_Female_TwoOrMoreRaces",
+          "Count_Person_37Years_Female_TwoOrMoreRaces",
+          "Count_Person_38Years_Female_TwoOrMoreRaces",
+          "Count_Person_39Years_Female_TwoOrMoreRaces",
+          "Count_Person_3Years_Female_TwoOrMoreRaces",
+          "Count_Person_40To44Years_Female_TwoOrMoreRaces",
+          "Count_Person_40Years_Female_TwoOrMoreRaces",
+          "Count_Person_41Years_Female_TwoOrMoreRaces",
+          "Count_Person_42Years_Female_TwoOrMoreRaces",
+          "Count_Person_43Years_Female_TwoOrMoreRaces",
+          "Count_Person_44Years_Female_TwoOrMoreRaces",
+          "Count_Person_45To49Years_Female_TwoOrMoreRaces",
+          "Count_Person_45Years_Female_TwoOrMoreRaces",
+          "Count_Person_46Years_Female_TwoOrMoreRaces",
+          "Count_Person_47Years_Female_TwoOrMoreRaces",
+          "Count_Person_48Years_Female_TwoOrMoreRaces",
+          "Count_Person_49Years_Female_TwoOrMoreRaces",
+          "Count_Person_4Years_Female_TwoOrMoreRaces",
+          "Count_Person_50To54Years_Female_TwoOrMoreRaces",
+          "Count_Person_50Years_Female_TwoOrMoreRaces",
+          "Count_Person_51Years_Female_TwoOrMoreRaces",
+          "Count_Person_52Years_Female_TwoOrMoreRaces",
+          "Count_Person_53Years_Female_TwoOrMoreRaces",
+          "Count_Person_54Years_Female_TwoOrMoreRaces",
+          "Count_Person_55To59Years_Female_TwoOrMoreRaces",
+          "Count_Person_55Years_Female_TwoOrMoreRaces",
+          "Count_Person_56Years_Female_TwoOrMoreRaces",
+          "Count_Person_57Years_Female_TwoOrMoreRaces",
+          "Count_Person_58Years_Female_TwoOrMoreRaces",
+          "Count_Person_59Years_Female_TwoOrMoreRaces",
+          "Count_Person_5To9Years_Female_TwoOrMoreRaces",
+          "Count_Person_60To64Years_Female_TwoOrMoreRaces",
+          "Count_Person_60Years_Female_TwoOrMoreRaces",
+          "Count_Person_61Years_Female_TwoOrMoreRaces",
+          "Count_Person_62Years_Female_TwoOrMoreRaces",
+          "Count_Person_63Years_Female_TwoOrMoreRaces",
+          "Count_Person_64Years_Female_TwoOrMoreRaces",
+          "Count_Person_65To69Years_Female_TwoOrMoreRaces",
+          "Count_Person_65Years_Female_TwoOrMoreRaces",
+          "Count_Person_66Years_Female_TwoOrMoreRaces",
+          "Count_Person_67Years_Female_TwoOrMoreRaces",
+          "Count_Person_68Years_Female_TwoOrMoreRaces",
+          "Count_Person_69Years_Female_TwoOrMoreRaces",
+          "Count_Person_6Years_Female_TwoOrMoreRaces",
+          "Count_Person_70To74Years_Female_TwoOrMoreRaces",
+          "Count_Person_70Years_Female_TwoOrMoreRaces",
+          "Count_Person_71Years_Female_TwoOrMoreRaces",
+          "Count_Person_72Years_Female_TwoOrMoreRaces",
+          "Count_Person_73Years_Female_TwoOrMoreRaces",
+          "Count_Person_74Years_Female_TwoOrMoreRaces",
+          "Count_Person_75To79Years_Female_TwoOrMoreRaces",
+          "Count_Person_75To84Years_Female_TwoOrMoreRaces",
+          "Count_Person_75Years_Female_TwoOrMoreRaces",
+          "Count_Person_76Years_Female_TwoOrMoreRaces",
+          "Count_Person_77Years_Female_TwoOrMoreRaces",
+          "Count_Person_78Years_Female_TwoOrMoreRaces",
+          "Count_Person_79Years_Female_TwoOrMoreRaces",
+          "Count_Person_7Years_Female_TwoOrMoreRaces",
+          "Count_Person_80To84Years_Female_TwoOrMoreRaces",
+          "Count_Person_80Years_Female_TwoOrMoreRaces",
+          "Count_Person_81Years_Female_TwoOrMoreRaces",
+          "Count_Person_82Years_Female_TwoOrMoreRaces",
+          "Count_Person_83Years_Female_TwoOrMoreRaces",
+          "Count_Person_84Years_Female_TwoOrMoreRaces",
+          "Count_Person_85OrMoreYears_Female_TwoOrMoreRaces",
+          "Count_Person_8Years_Female_TwoOrMoreRaces",
+          "Count_Person_9Years_Female_TwoOrMoreRaces"
+        ]
+      },
+      "Count_Person_Female_WhiteAlone": {
+        "age": [
+          "Count_Person_0To4Years_Female_WhiteAlone",
+          "Count_Person_0Years_Female_WhiteAlone",
+          "Count_Person_10To14Years_Female_WhiteAlone",
+          "Count_Person_10Years_Female_WhiteAlone",
+          "Count_Person_11Years_Female_WhiteAlone",
+          "Count_Person_12Years_Female_WhiteAlone",
+          "Count_Person_13Years_Female_WhiteAlone",
+          "Count_Person_14Years_Female_WhiteAlone",
+          "Count_Person_15OrMoreYears_Female_WhiteAlone",
+          "Count_Person_15To17Years_Female_WhiteAlone",
+          "Count_Person_15To19Years_Female_WhiteAlone",
+          "Count_Person_16Years_Female_WhiteAlone",
+          "Count_Person_17Years_Female_WhiteAlone",
+          "Count_Person_18To19Years_Female_WhiteAlone",
+          "Count_Person_18Years_Female_WhiteAlone",
+          "Count_Person_19Years_Female_WhiteAlone",
+          "Count_Person_1Years_Female_WhiteAlone",
+          "Count_Person_20To24Years_Female_WhiteAlone",
+          "Count_Person_20Years_Female_WhiteAlone",
+          "Count_Person_21Years_Female_WhiteAlone",
+          "Count_Person_22Years_Female_WhiteAlone",
+          "Count_Person_23Years_Female_WhiteAlone",
+          "Count_Person_24Years_Female_WhiteAlone",
+          "Count_Person_25OrMoreYears_Female_WhiteAlone",
+          "Count_Person_25To29Years_Female_WhiteAlone",
+          "Count_Person_25Years_Female_WhiteAlone",
+          "Count_Person_26Years_Female_WhiteAlone",
+          "Count_Person_27Years_Female_WhiteAlone",
+          "Count_Person_28Years_Female_WhiteAlone",
+          "Count_Person_29Years_Female_WhiteAlone",
+          "Count_Person_2Years_Female_WhiteAlone",
+          "Count_Person_30To34Years_Female_WhiteAlone",
+          "Count_Person_30Years_Female_WhiteAlone",
+          "Count_Person_31Years_Female_WhiteAlone",
+          "Count_Person_32Years_Female_WhiteAlone",
+          "Count_Person_33Years_Female_WhiteAlone",
+          "Count_Person_34Years_Female_WhiteAlone",
+          "Count_Person_35To39Years_Female_WhiteAlone",
+          "Count_Person_35Years_Female_WhiteAlone",
+          "Count_Person_36Years_Female_WhiteAlone",
+          "Count_Person_37Years_Female_WhiteAlone",
+          "Count_Person_38Years_Female_WhiteAlone",
+          "Count_Person_39Years_Female_WhiteAlone",
+          "Count_Person_3Years_Female_WhiteAlone",
+          "Count_Person_40To44Years_Female_WhiteAlone",
+          "Count_Person_40Years_Female_WhiteAlone",
+          "Count_Person_41Years_Female_WhiteAlone",
+          "Count_Person_42Years_Female_WhiteAlone",
+          "Count_Person_43Years_Female_WhiteAlone",
+          "Count_Person_44Years_Female_WhiteAlone",
+          "Count_Person_45To49Years_Female_WhiteAlone",
+          "Count_Person_45Years_Female_WhiteAlone",
+          "Count_Person_46Years_Female_WhiteAlone",
+          "Count_Person_47Years_Female_WhiteAlone",
+          "Count_Person_48Years_Female_WhiteAlone",
+          "Count_Person_49Years_Female_WhiteAlone",
+          "Count_Person_4Years_Female_WhiteAlone",
+          "Count_Person_50To54Years_Female_WhiteAlone",
+          "Count_Person_50Years_Female_WhiteAlone",
+          "Count_Person_51Years_Female_WhiteAlone",
+          "Count_Person_52Years_Female_WhiteAlone",
+          "Count_Person_53Years_Female_WhiteAlone",
+          "Count_Person_54Years_Female_WhiteAlone",
+          "Count_Person_55To59Years_Female_WhiteAlone",
+          "Count_Person_55Years_Female_WhiteAlone",
+          "Count_Person_56Years_Female_WhiteAlone",
+          "Count_Person_57Years_Female_WhiteAlone",
+          "Count_Person_58Years_Female_WhiteAlone",
+          "Count_Person_59Years_Female_WhiteAlone",
+          "Count_Person_5To9Years_Female_WhiteAlone",
+          "Count_Person_60To64Years_Female_WhiteAlone",
+          "Count_Person_60Years_Female_WhiteAlone",
+          "Count_Person_61Years_Female_WhiteAlone",
+          "Count_Person_62Years_Female_WhiteAlone",
+          "Count_Person_63Years_Female_WhiteAlone",
+          "Count_Person_64Years_Female_WhiteAlone",
+          "Count_Person_65To69Years_Female_WhiteAlone",
+          "Count_Person_65Years_Female_WhiteAlone",
+          "Count_Person_66Years_Female_WhiteAlone",
+          "Count_Person_67Years_Female_WhiteAlone",
+          "Count_Person_68Years_Female_WhiteAlone",
+          "Count_Person_69Years_Female_WhiteAlone",
+          "Count_Person_6Years_Female_WhiteAlone",
+          "Count_Person_70To74Years_Female_WhiteAlone",
+          "Count_Person_70Years_Female_WhiteAlone",
+          "Count_Person_71Years_Female_WhiteAlone",
+          "Count_Person_72Years_Female_WhiteAlone",
+          "Count_Person_73Years_Female_WhiteAlone",
+          "Count_Person_74Years_Female_WhiteAlone",
+          "Count_Person_75To79Years_Female_WhiteAlone",
+          "Count_Person_75To84Years_Female_WhiteAlone",
+          "Count_Person_75Years_Female_WhiteAlone",
+          "Count_Person_76Years_Female_WhiteAlone",
+          "Count_Person_77Years_Female_WhiteAlone",
+          "Count_Person_78Years_Female_WhiteAlone",
+          "Count_Person_79Years_Female_WhiteAlone",
+          "Count_Person_7Years_Female_WhiteAlone",
+          "Count_Person_80To84Years_Female_WhiteAlone",
+          "Count_Person_80Years_Female_WhiteAlone",
+          "Count_Person_81Years_Female_WhiteAlone",
+          "Count_Person_82Years_Female_WhiteAlone",
+          "Count_Person_83Years_Female_WhiteAlone",
+          "Count_Person_84Years_Female_WhiteAlone",
+          "Count_Person_85OrMoreYears_Female_WhiteAlone",
+          "Count_Person_8Years_Female_WhiteAlone",
+          "Count_Person_9Years_Female_WhiteAlone"
+        ]
+      },
+      "Count_Person_Female_WithHealthInsurance": {
+        "age": [
+          "dc/1h5c2xbpd0edb",
+          "dc/1hs676pfqqthd",
+          "dc/2ernkb6d9yem2",
+          "dc/48s0hzlshj354",
+          "dc/965mdb0c8tef9",
+          "dc/jjhxlkp3qk2m6",
+          "dc/kkbq8kzlm6tw4",
+          "dc/lwqlh3vtpzw51",
+          "dc/py9rzq2xytfe3",
+          "dc/q4lk959j0bgq",
+          "dc/whh1y53fj4p69",
+          "dc/y9xxbzfr8yb06"
+        ]
+      },
+      "Count_Person_Male": {
+        "age": [
+          "Count_Person_15To44Years_Male",
+          "Count_Person_21OrMoreYears_Male",
+          "Count_Person_60OrMoreYears_Male",
+          "Count_Person_62OrMoreYears_Male",
+          "Count_Person_65To66Years_Male",
+          "Count_Person_67To69Years_Male",
+          "Count_Person_Upto14Years_Male"
+        ]
+      },
+      "Median_Age_Person_Female": {
+        "race": [
+          "Median_Age_Person_Female_AsianAlone",
+          "Median_Age_Person_Female_TwoOrMoreRaces",
+          "Median_Age_Person_Female_WhiteAlone"
+        ]
+      }
+    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Gender",
+        "name": "Gender",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Demographics",
+        "name": "Demographics",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [
+      {
+        "dcid": "geoId/01",
+        "name": "Alabama",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/02",
+        "name": "Alaska",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/04",
+        "name": "Arizona",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/05",
+        "name": "Arkansas",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/08",
+        "name": "Colorado",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/09",
+        "name": "Connecticut",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/10",
+        "name": "Delaware",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/11",
+        "name": "District of Columbia",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/12",
+        "name": "Florida",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/13",
+        "name": "Georgia",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/15",
+        "name": "Hawaii",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/16",
+        "name": "Idaho",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/17",
+        "name": "Illinois",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/18",
+        "name": "Indiana",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/19",
+        "name": "Iowa",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/20",
+        "name": "Kansas",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/21",
+        "name": "Kentucky",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/22",
+        "name": "Louisiana",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/23",
+        "name": "Maine",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/24",
+        "name": "Maryland",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/25",
+        "name": "Massachusetts",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/26",
+        "name": "Michigan",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/27",
+        "name": "Minnesota",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/28",
+        "name": "Mississippi",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/29",
+        "name": "Missouri",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/30",
+        "name": "Montana",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/31",
+        "name": "Nebraska",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/32",
+        "name": "Nevada",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/33",
+        "name": "New Hampshire",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/34",
+        "name": "New Jersey",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/35",
+        "name": "New Mexico",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/36",
+        "name": "New York",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/37",
+        "name": "North Carolina",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/38",
+        "name": "North Dakota",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/39",
+        "name": "Ohio",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/40",
+        "name": "Oklahoma",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/41",
+        "name": "Oregon",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/42",
+        "name": "Pennsylvania",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/72",
+        "name": "Puerto Rico",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/44",
+        "name": "Rhode Island",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/45",
+        "name": "South Carolina",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/46",
+        "name": "South Dakota",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/47",
+        "name": "Tennessee",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/48",
+        "name": "Texas",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/49",
+        "name": "Utah",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/50",
+        "name": "Vermont",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/51",
+        "name": "Virginia",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/53",
+        "name": "Washington",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/54",
+        "name": "West Virginia",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/55",
+        "name": "Wisconsin",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/Age",
+        "name": "Age",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Race",
+        "name": "Population by Race",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Language",
+        "name": "Language Spoken At Home",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/MaritalStatus",
+        "name": "Marital Status",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Nationality",
+        "name": "Nationality",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Veterans",
+        "name": "Veterans",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
+  "svSource": "CURRENT_QUERY",
+  "userMessage": "",
+  "userMessages": []
+}

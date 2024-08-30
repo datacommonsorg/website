@@ -61,6 +61,19 @@ def click_sv_group(driver, svg_name):
       break
 
 
+def select_source(driver, source_name, sv_dcid):
+  """With the source selector modal open, choose the source with name
+    source_name for variable with dcid sv_dcid"""
+  wait_for_loading(driver)
+  source_options = driver.find_elements(By.NAME, sv_dcid)
+  for option in source_options:
+    parent = option.find_element(By.XPATH, '..')
+    if source_name in parent.text:
+      option.click()
+      wait_for_loading(driver)
+      break
+
+
 def charts_rendered(driver):
   """
   Wait asynchronously for charts or web components to show up

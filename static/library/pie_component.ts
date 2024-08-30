@@ -97,7 +97,11 @@ export class DatacommonsPieComponent extends LitElement {
   @property()
   title!: string;
 
-  render(): HTMLElement {
+  // Optional: List of sources for this component
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  sources?: string[];
+
+  render(): HTMLDivElement {
     const statVarSpec = [];
     this.variables.forEach((statVarDcid) => {
       statVarSpec.push({
@@ -119,6 +123,7 @@ export class DatacommonsPieComponent extends LitElement {
         name: "",
         types: [],
       },
+      sources: this.sources,
       statVarSpec,
       subtitle: this.subheader,
       svgChartHeight: 200,

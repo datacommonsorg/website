@@ -32,7 +32,7 @@ metadata:
     {{- if .Values.ingress.internal }}
     cloud.google.com/neg: '{"ingress": true}'
     {{- end }}
-    cloud.google.com/backend-config: '{"ports": {"8081":"backendconfig"}}'
+    cloud.google.com/backend-config: '{"ports": {"8080":"backendconfig"}}'
 spec:
   type: NodePort
   ports:
@@ -74,6 +74,7 @@ metadata:
     {{- end }}
     cloud.google.com/backend-config: '{"ports": {"8080":"backendconfig-nodejs"}}'
 spec:
+  type: NodePort
   ports:
     - port: 8080
       targetPort: 8080
@@ -81,6 +82,42 @@ spec:
       name: http
   selector:
     app: website-nodejs-app
+
+{{- end }}
+
+{{- if .Values.ingress.enableMixer }}
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: website-mixer-service
+  namespace: {{ .Values.namespace.name }}
+  annotations:
+    # This is to get longer timeout for the Cloud Load Balancer.
+    cloud.google.com/backend-config: '{"ports": {"80":"website-mixer-backendconfig"}}'
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 8081
+      protocol: TCP
+      name: http
+  selector:
+    service: dc-mixer-default
+
+---
+
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: website-mixer-backendconfig
+  namespace: {{ .Values.namespace.name }}
+spec:
+  # Timeout for load balancer and the GKE pod connection
+  timeoutSec: 300
+  connectionDraining:
+    drainingTimeoutSec: 300
 
 {{- end }}
 
@@ -105,20 +142,18 @@ metadata:
     ingress.gcp.kubernetes.io/pre-shared-cert: {{ .Values.ingress.certName }}
     {{- end }}
 spec:
+  defaultBackend:
+    service:
+      name: website-service
+      port:
+        number: 8080
   rules:
     {{- if .Values.ingress.internal }}
     - host: website-ilb.website.internal
     {{- end }}
+    {{- if .Values.nodejs.enabled }}
     - http:
         paths:
-        - path: /*
-          pathType: ImplementationSpecific
-          backend:
-            service:
-              name: website-service
-              port:
-                number: 8080
-        {{- if .Values.nodejs.enabled }}
         - path: /nodejs/*
           pathType: ImplementationSpecific
           backend:
@@ -126,7 +161,25 @@ spec:
               name: website-nodejs-service
               port:
                 number: 8080
-        {{- end }}
+    {{- end }}
+    {{- if .Values.ingress.enableMixer }}
+    - http:
+        paths:
+        - path: /v2/*
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: website-mixer-service
+              port:
+                number: 80
+        - path: /v1/*
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: website-mixer-service
+              port:
+                number: 80
+    {{- end }}
 
 
 {{- end }}

@@ -18,7 +18,7 @@
 
 from dataclasses import dataclass
 from dataclasses import field
-from typing import Dict, List, Set
+from typing import Dict, List
 
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
@@ -26,6 +26,7 @@ from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Date
+from server.lib.nl.detection.types import Entity
 from server.lib.nl.detection.types import EventType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import QuantityClassificationAttributes
@@ -46,8 +47,9 @@ from server.lib.nl.detection.types import TimeDeltaType
 #    this is used to decide the "main" topic for the page.
 @dataclass
 class ChartVars:
-  # Only one of svs or events is set.
+  # Only one of svs, props, or events is set.
   svs: List[str] = field(default_factory=list)
+  props: List[str] = field(default_factory=list)
   # Represents a grouping of charts on the resulting display.
   title: str = ""
   description: str = ""
@@ -70,10 +72,8 @@ class ChartVars:
 
   # Set if is_topic_peer_group is set.
   svpg_id: str = ''
-
-  # Map of sv to facet metadata that has data for this sv. Used by LINE tiles
-  # when there is a date specified, and by the "is_coplottable" check.
-  sv_exist_facet = Dict[str, Dict[str, str]]
+  # Skips adding an overview tile for ANSWER_WITH_ENTITY_OVERVIEW chart type.
+  skip_overview_for_entity_answer: bool = False
 
 
 @dataclass
@@ -82,6 +82,18 @@ class SV2Thing:
   unit: Dict
   description: Dict
   footnote: Dict
+
+
+@dataclass
+class ExistInfo:
+  is_single_point: bool = False
+  # Facet metadata where keys are metadata keys and values are metadata values.
+  # Keys include 'facetId'. 'earliestDate', 'latestDate', and optional 'unit'
+  # and 'observationPeriod'.
+  facet: Dict[str, str] = field(default_factory=dict)
+  # Latest valid date that there exists data for. This is only used and only set
+  # when there is a date/date range asked for in the query.
+  latest_valid_date: str = ''
 
 
 # Data structure to store state for a single "populate" call.
@@ -118,11 +130,9 @@ class PopulateState:
   # Ordered list of query types.
   query_types: List[QueryType] = field(default_factory=list)
   # Has the results of existence check.
-  # SV -> Place Keys
+  # SV -> Place Keys -> Existence info
   # Where Place Key may be the place DCID, or place DCID + child-type.
-  exist_checks: Dict[str, Set[str]] = field(default_factory=dict)
-  # Whether this is explore mode of fulfillment.
-  explore_mode: bool = False
+  exist_checks: Dict[str, Dict[str, ExistInfo]] = field(default_factory=dict)
   # Set to true if utterance has overwritten SVs.  So they should
   # be cleared and not be propagated into context.
   has_overwritten_svs: bool = False
@@ -132,17 +142,38 @@ class PopulateState:
   has_child_type_in_top_basic_charts: bool = False
 
 
+# Dict of place dcid -> facet metadata which includes information like facetId,
+# earliestDate, and latestDate
+Place2Facet = Dict[str, Dict[str, str]]
+# Dict of sv dcid -> place dcid -> facet metadata
+Sv2Place2Facet = Dict[str, Place2Facet]
+# Dict of place key -> date
+Place2Date = Dict[str, str]
+# Dict of sv dcid -> place key -> date
+Sv2Place2Date = Dict[str, Place2Date]
+
+
 @dataclass
 class ChartSpec:
   chart_type: ChartType
   places: List[Place]
+  entities: List[Entity]
   svs: List[str]
+  props: List[str]
   event: EventType
   chart_vars: ChartVars
   place_type: str
   ranking_types: List[RankingType]
   ranking_count: int
   chart_origin: ChartOriginType
-  is_sdg: bool
+  is_special_dc: bool
   single_date: Date
   date_range: Date
+  # Dict of sv -> place -> facet metadata to use.
+  # This is used by timeline charts when there is a date/date range in the query
+  sv_place_facet: Sv2Place2Facet
+  info_message: str
+  # Dict of sv -> place key -> latest valid date
+  # This is used by charts that show a single data point (e.g., bar, map,
+  # ranking, highlight, scatter) when there is a date range in the query
+  sv_place_latest_date: Sv2Place2Date

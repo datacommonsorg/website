@@ -109,8 +109,8 @@ msgid "Government Expenditures on Military"
 msgstr "Government Expenditures on Military"
 
 #. The name of a tool to browse the Data Commons knowledge graph.
-msgid "Graph Browser"
-msgstr "Graph Browser"
+msgid "Knowledge Graph"
+msgstr "Knowledge Graph"
 
 #. Link to worldwide rankings for Gross National Income, by country.
 msgid "Gross National Income"
@@ -931,6 +931,50 @@ msgstr "Nitrous oxide emissions (non-biogenic)"
 #. Title of a place chart: Water withdrawal rate
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Water withdrawal rate"
+
+#. Place containment. Gives context for where a place is located.
+msgid "%(placeType)s in %(parentPlaces)s"
+msgstr "%(placeType)s in %(parentPlaces)s"
+
+#. Place Types
+msgid "singular_administrative_area"
+msgstr "Administrative Area"
+
+msgid "singular_administrative_area_level"
+msgstr "Administrative Area %(level)s Place"
+
+msgid "singular_borough"
+msgstr "Borough"
+
+msgid "singular_city"
+msgstr "City"
+
+msgid "singular_country"
+msgstr "Country"
+
+msgid "singular_county"
+msgstr "County"
+
+msgid "singular_eurostat_nuts"
+msgstr "Eurostat NUTS %(level)s Place"
+
+msgid "singular_neighborhood"
+msgstr "Neighborhood"
+
+msgid "singular_place"
+msgstr "Place"
+
+msgid "singular_state"
+msgstr "State"
+
+msgid "singular_town"
+msgstr "Town"
+
+msgid "singular_village"
+msgstr "Village"
+
+msgid "singular_zip_code"
+msgstr "ZIP Code"
 
 #~ msgid "CHART_TITLE-nitrous_oxide_emissions_nonbiogenic"
 #~ msgstr "Nitrous oxide emissions (non-biogenic)"

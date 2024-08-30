@@ -14,7 +14,6 @@
 """Interface to LLM API for detection"""
 
 import json
-import logging
 import time
 from typing import Callable, Dict, List
 
@@ -25,24 +24,10 @@ import requests
 from server.lib.nl.common import counters
 
 _GEMINI_PRO_URL_BASE = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent"
-_PALM_URL_BASE = "https://generativelanguage.googleapis.com/v1beta2/models/chat-bison-001:generateMessage"
 _API_HEADER = {'content-type': 'application/json'}
-
-_SUFFIX = '\n\nIn your response, include just the JSON adhering to the above schema. Do not add JSON keys outside the schema.  Also, explain why you set specific enum values.'
 
 # TODO: Consider tweaking this. And maybe consider passing as url param.
 _TEMPERATURE = 0.1
-
-_CANDIDATE_COUNT = 1
-
-_PALM_REQ_DATA = {
-    'prompt': {
-        'messages': {},
-        'examples': [],
-    },
-    'temperature': _TEMPERATURE,
-    'candidateCount': _CANDIDATE_COUNT,
-}
 
 _GEMINI_REQ_DATA = {
     'contents': [{
@@ -119,50 +104,6 @@ def extract_gemini_response(candidate: str) -> str:
   return candidate.get('content', {}).get('parts', [{}])[0].get('text', '')
 
 
-def detect_with_palm(query: str, history: List[List[str]],
-                     ctr: counters.Counters) -> Dict:
-  req_data = _PALM_REQ_DATA.copy()
-
-  req_data['prompt']['context'] = current_app.config['LLM_PROMPT_TEXT'].palm
-  if not history:
-    # For the first query in the session.
-    q = 'Convert this sentence to JSON: "' + query + '"'
-  else:
-    # For subsequent queries in the session.
-    q = 'As a follow up to the last sentence, convert this sentence to JSON: "' + query + '"'
-  req_data['prompt']['messages']['content'] = q + _SUFFIX
-
-  for input, output in history:
-    req_data['prompt']['examples'].append({
-        'input': {
-            'content': input
-        },
-        'output': {
-            'content': json.dumps(output)
-        }
-    })
-
-  start_time = time.time()
-  req = json.dumps(req_data)
-  # NOTE: llm_detector.detect() caller checks this.
-  api_key = current_app.config['LLM_API_KEY']
-  r = requests.post(f'{_PALM_URL_BASE}?key={api_key}',
-                    data=req,
-                    headers=_API_HEADER)
-  resp = r.json()
-  ctr.timeit('palm_call', start_time)
-
-  return parse_response(query,
-                        resp,
-                        get_content_fn=extract_palm_response,
-                        ctr=ctr)
-
-
-def extract_palm_response(candidate: str) -> str:
-  # https://ai.google.dev/palm_docs/curl_quickstart#generate_message
-  return candidate.get('content', '')
-
-
 def parse_response(query: str, resp: Dict, get_content_fn: Callable[[str], str],
                    ctr: counters.Counters) -> Dict:
   if 'candidates' in resp and resp['candidates']:
@@ -171,7 +112,6 @@ def parse_response(query: str, resp: Dict, get_content_fn: Callable[[str], str],
     ctr.info('info_llm_api_response', raw_content)
     ans = _extract_answer(content)
     if not ans:
-      logging.error(f'ERROR: empty parsed result for {query}')
       ctr.err('failed_llm_api_emptyparsedresult', content)
       return {}
 
@@ -182,7 +122,6 @@ def parse_response(query: str, resp: Dict, get_content_fn: Callable[[str], str],
       # But with current LLM latencies that's fine.
       ans_json = json5.loads(ans, allow_duplicate_keys=False)
     except Exception as e:
-      logging.error(f'ERROR: json decoding failed {e}')
       ctr.err('failed_llm_api_jsondecodeerror', ans)
       return {}
 

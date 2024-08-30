@@ -139,3 +139,19 @@ export const PLACE_TYPES = new Set([
   "UNGeoRegion",
   "UsdaSummerMealSite",
 ]);
+
+/**
+ * date query param value for requesting latest overall available for
+ * /api/observations/point/* endpoints
+ */
+export const DATE_HIGHEST_COVERAGE = "HIGHEST_COVERAGE";
+
+/**
+ * date query param value for requesting latest observations from REST v2 API
+ */
+export const DATE_LATEST = "LATEST";
+
+/**
+ * AbortController cancelled code
+ */
+export const ABORT_CONTROLLER_CANCELLED = "ERR_CANCELED";

@@ -169,7 +169,6 @@ $chart-border: 0.5px solid #dee2e6;
   border-radius: 16px;
   border: 1px solid #e1e3e1;
   gap: 16px;
-  margin-bottom: 44px;
   padding: 24px 27px 24px 27px;
 
   .parent-places-container {
@@ -184,15 +183,20 @@ $chart-border: 0.5px solid #dee2e6;
     font-style: normal;
     font-weight: 400;
     line-height: 20px;
+    margin-bottom: 0px;
   }
+}
 
-  .place-summary-container {
-    margin-bottom: 16px;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 20px;
-  }
+.place-summary-container {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  margin-bottom: 16px;
+}
+
+.place-summary-container:empty {
+  display: none;
 }
 
 .search-section {

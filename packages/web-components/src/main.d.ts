@@ -36,7 +36,9 @@ export type ChartSortOption =
  * }
  */
 export interface ChartEventDetail {
-  property: string;
+  // For now only support changing the "date" attribute.
+  // TODO: Support additional properties
+  property: "date";
   value: string;
 }
 
@@ -85,6 +87,7 @@ export interface HighlightComponentProps
     React.HTMLAttributes<HTMLElement>,
     HTMLElement
   > {
+  addPerCapita?: boolean;
   apiRoot?: string;
   date?: string;
   description?: string;

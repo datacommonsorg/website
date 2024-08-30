@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,27 +21,31 @@ import urllib.parse
 from flask import current_app
 import requests
 
-from server import cache
+from server.lib import log
+from server.lib.cache import cache
 import server.lib.config as libconfig
+from server.routes import TIMEOUT
 from server.services.discovery import get_health_check_urls
 from server.services.discovery import get_service_url
 
 cfg = libconfig.get_config()
 
 
-@cache.cache.memoize(timeout=cache.TIMEOUT)
+@cache.memoize(timeout=TIMEOUT)
 def get(url: str):
   headers = {'Content-Type': 'application/json'}
   dc_api_key = current_app.config.get('DC_API_KEY', '')
   if dc_api_key:
     headers['x-api-key'] = dc_api_key
   # Send the request and verify the request succeeded
+  call_logger = log.ExtremeCallLogger()
   response = requests.get(url, headers=headers)
+  call_logger.finish(response)
   if response.status_code != 200:
     raise ValueError(
-        'Response error: An HTTP {} code ({}) was returned by the mixer.'
-        'Printing response:\n{}'.format(response.status_code, response.reason,
-                                        response.json()['message']))
+        'An HTTP {} code ({}) was returned by the mixer:\n{}'.format(
+            response.status_code, response.reason,
+            response.json()['message']))
   return response.json()
 
 
@@ -53,7 +57,7 @@ def post(url: str, req: Dict):
   return post_wrapper(url, req_str)
 
 
-@cache.cache.memoize(timeout=cache.TIMEOUT)
+@cache.memoize(timeout=TIMEOUT)
 def post_wrapper(url, req_str: str):
   req = json.loads(req_str)
   headers = {'Content-Type': 'application/json'}
@@ -61,11 +65,14 @@ def post_wrapper(url, req_str: str):
   if dc_api_key:
     headers['x-api-key'] = dc_api_key
   # Send the request and verify the request succeeded
+  call_logger = log.ExtremeCallLogger(req)
   response = requests.post(url, json=req, headers=headers)
+  call_logger.finish(response)
   if response.status_code != 200:
     raise ValueError(
-        'An HTTP {} code ({}) was returned by the mixer: "{}"'.format(
-            response.status_code, response.reason, response.content))
+        'An HTTP {} code ({}) was returned by the mixer:\n{}'.format(
+            response.status_code, response.reason,
+            response.json()['message']))
   return response.json()
 
 
@@ -228,10 +235,12 @@ def v2observation(select, entity, variable):
     variable: A dict in the form of {'dcids':, 'expression':}
 
   """
+  # Remove None from dcids and sort them. Note do not sort in place to avoid
+  # changing the original input.
   if 'dcids' in entity:
-    entity['dcids'] = sorted(entity['dcids'])
+    entity['dcids'] = sorted([x for x in entity['dcids'] if x])
   if 'dcids' in variable:
-    variable['dcids'] = sorted(variable['dcids'])
+    variable['dcids'] = sorted([x for x in variable['dcids'] if x])
   url = get_service_url('/v2/observation')
   return post(url, {
       'select': select,
@@ -268,9 +277,7 @@ def v2event(node, prop):
 def get_place_info(dcids: List[str]) -> Dict:
   """Retrieves Place Info given a list of DCIDs."""
   url = get_service_url('/v1/bulk/info/place')
-  return post(f'{url}', {
-      'nodes': sorted(set(dcids)),
-  })
+  return post(f'{url}', {'nodes': sorted(set(dcids))})
 
 
 def get_variable_group_info(nodes: List[str],
@@ -279,8 +286,8 @@ def get_variable_group_info(nodes: List[str],
   """Gets the stat var group node information."""
   url = get_service_url('/v1/bulk/info/variable-group')
   req_dict = {
-      "constrained_entities": entities,
       "nodes": nodes,
+      "constrained_entities": entities,
       "num_entities_existence": numEntitiesExistence
   }
   return post(url, req_dict)
@@ -329,10 +336,13 @@ def resolve(nodes, prop):
   return post(url, {'nodes': nodes, 'property': prop})
 
 
-def nl_search_sv(query, index_type, threshold):
+def nl_search_vars(queries, index_types: List[str], reranker=''):
   """Search sv from NL server."""
-  url = f'{current_app.config["NL_ROOT"]}/api/search_sv?q={query}&idx={index_type}&threshold={threshold}'
-  return get(url)
+  idx_params = ','.join(index_types)
+  url = f'{current_app.config["NL_ROOT"]}/api/search_vars?idx={idx_params}'
+  if reranker:
+    url = f'{url}&reranker={reranker}'
+  return post(url, {'queries': queries})
 
 
 def nl_detect_verbs(query):
@@ -341,14 +351,14 @@ def nl_detect_verbs(query):
   return get(url)
 
 
-def nl_detect_place_ner(query):
-  """Detect places from NL server."""
-  url = f'{current_app.config["NL_ROOT"]}/api/search_places?q={query}'
-  return get(url).get('places', [])
+def nl_encode(model, queries):
+  """Encode queries from NL server."""
+  url = f'{current_app.config["NL_ROOT"]}/api/encode'
+  return post(url, {'model': model, 'queries': queries})
 
 
-def nl_embeddings_version_map():
-  return get(f'{current_app.config["NL_ROOT"]}/api/embeddings_version_map')
+def nl_server_config():
+  return get(f'{current_app.config["NL_ROOT"]}/api/server_config')
 
 
 # =======================   V0 V0 V0 ================================
@@ -409,6 +419,12 @@ def related_place(dcid, variables, ancestor=None, per_capita=False):
 
 def recognize_places(query):
   url = get_service_url('/v1/recognize/places')
+  resp = post(url, {'queries': [query]})
+  return resp.get('queryItems', {}).get(query, {}).get('items', [])
+
+
+def recognize_entities(query):
+  url = get_service_url('/v1/recognize/entities')
   resp = post(url, {'queries': [query]})
   return resp.get('queryItems', {}).get(query, {}).get('items', [])
 

@@ -17,6 +17,7 @@
 @import "../base";
 
 body {
+  font-family: $font-family-sans-serif;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -44,7 +45,6 @@ body {
 #main-footer #sub-footer {
   border-top: none !important;
   margin-bottom: 0 !important;
-  padding-bottom: 1.5rem !important;
 }
 
 @include media-breakpoint-up(lg) {
@@ -103,6 +103,10 @@ body {
   flex-shrink: 1;
   border: 1px solid rgba(0, 0, 0, 0.2);
   padding: 15px;
+}
+
+#stat-var-hierarchy-section {
+  padding-top: 24px;
 }
 
 .modal #stat-var-hierarchy-section.hidden {

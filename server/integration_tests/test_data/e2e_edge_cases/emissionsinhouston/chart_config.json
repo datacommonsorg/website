@@ -215,6 +215,35 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Annual_Amount_Emissions_SCC_27_NaturalSources"
+                    ],
+                    "title": "Annual Emissions: Natural Sources in Fort Bend County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Annual Emissions: Natural Sources in Fort Bend County",
+                    "statVarKey": [
+                      "Annual_Amount_Emissions_SCC_27_NaturalSources"
+                    ],
+                    "title": "Annual Emissions: Natural Sources in Fort Bend County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Emissions: Natural Sources"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Annual_Amount_Emissions_SCC_28_MiscellaneousAreaSources"
                     ],
                     "title": "Annual Emissions: Misc in Fort Bend County",
@@ -237,35 +266,6 @@
             ],
             "denom": "Count_Person",
             "title": "Annual Emissions: Misc"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines"
-                    ],
-                    "title": "Annual Emissions: Internal Combustion Engines in Fort Bend County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Annual Emissions: Internal Combustion Engines in Fort Bend County",
-                    "statVarKey": [
-                      "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines"
-                    ],
-                    "title": "Annual Emissions: Internal Combustion Engines in Fort Bend County",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Annual Emissions: Internal Combustion Engines"
           },
           {
             "columns": [
@@ -302,9 +302,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Annual_Amount_Emissions_SCC_27_NaturalSources"
+                      "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines"
                     ],
-                    "title": "Annual Emissions: Natural Sources in Fort Bend County",
+                    "title": "Annual Emissions: Internal Combustion Engines in Fort Bend County",
                     "type": "LINE"
                   }
                 ]
@@ -312,47 +312,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Annual Emissions: Natural Sources in Fort Bend County",
+                    "description": "Annual Emissions: Internal Combustion Engines in Fort Bend County",
                     "statVarKey": [
-                      "Annual_Amount_Emissions_SCC_27_NaturalSources"
+                      "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines"
                     ],
-                    "title": "Annual Emissions: Natural Sources in Fort Bend County",
+                    "title": "Annual Emissions: Internal Combustion Engines in Fort Bend County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Emissions: Natural Sources"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_CarbonMonoxide"
-                    ],
-                    "title": "Annual Amount of Emissions: on Road Vehicles, Non Biogenic Emission Source, Carbon Monoxide in Fort Bend County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Annual Amount of Emissions: on Road Vehicles, Non Biogenic Emission Source, Carbon Monoxide in Fort Bend County",
-                    "statVarKey": [
-                      "Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_CarbonMonoxide"
-                    ],
-                    "title": "Annual Amount of Emissions: on Road Vehicles, Non Biogenic Emission Source, Carbon Monoxide in Fort Bend County",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: on Road Vehicles, Non Biogenic Emission Source, Carbon Monoxide"
+            "title": "Annual Emissions: Internal Combustion Engines"
           },
           {
             "columns": [
@@ -389,9 +360,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Annual_Amount_Emissions_SCC_26_WasteDisposalTreatmentAndRecovery"
+                      "Annual_Amount_Emissions_SCC_23_IndustrialProcesses"
                     ],
-                    "title": "Annual Emissions: Waste Dispotsal Treatment and Recovery in Fort Bend County",
+                    "title": "Annual Emissions: Industrial Processes in Fort Bend County",
                     "type": "LINE"
                   }
                 ]
@@ -399,18 +370,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Annual Emissions: Waste Dispotsal Treatment and Recovery in Fort Bend County",
+                    "description": "Annual Emissions: Industrial Processes in Fort Bend County",
                     "statVarKey": [
-                      "Annual_Amount_Emissions_SCC_26_WasteDisposalTreatmentAndRecovery"
+                      "Annual_Amount_Emissions_SCC_23_IndustrialProcesses"
                     ],
-                    "title": "Annual Emissions: Waste Dispotsal Treatment and Recovery in Fort Bend County",
+                    "title": "Annual Emissions: Industrial Processes in Fort Bend County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Emissions: Waste Dispotsal Treatment and Recovery"
+            "title": "Annual Emissions: Industrial Processes"
           },
           {
             "columns": [
@@ -418,9 +389,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_Ammonia"
+                      "Annual_Amount_Emissions_SCC_3_IndustrialProcesses"
                     ],
-                    "title": "Annual Amount of Emissions: on Road Vehicles, Non Biogenic Emission Source, Ammonia in Fort Bend County",
+                    "title": "Annual Emissions: Industrial Processes in Fort Bend County",
                     "type": "LINE"
                   }
                 ]
@@ -428,29 +399,50 @@
               {
                 "tiles": [
                   {
-                    "description": "Annual Amount of Emissions: on Road Vehicles, Non Biogenic Emission Source, Ammonia in Fort Bend County",
+                    "description": "Annual Emissions: Industrial Processes in Fort Bend County",
                     "statVarKey": [
-                      "Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_Ammonia"
+                      "Annual_Amount_Emissions_SCC_3_IndustrialProcesses"
                     ],
-                    "title": "Annual Amount of Emissions: on Road Vehicles, Non Biogenic Emission Source, Ammonia in Fort Bend County",
+                    "title": "Annual Emissions: Industrial Processes in Fort Bend County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Amount of Emissions: on Road Vehicles, Non Biogenic Emission Source, Ammonia"
+            "title": "Annual Emissions: Industrial Processes"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Annual_Amount_Emissions_SCC_21_StationarySourceFuelCombustion"
+                    ],
+                    "title": "Annual Emissions: Stationary Source Fuel Combustion in Fort Bend County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Annual Emissions: Stationary Source Fuel Combustion in Fort Bend County",
+                    "statVarKey": [
+                      "Annual_Amount_Emissions_SCC_21_StationarySourceFuelCombustion"
+                    ],
+                    "title": "Annual Emissions: Stationary Source Fuel Combustion in Fort Bend County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Emissions: Stationary Source Fuel Combustion"
           }
         ],
         "statVarSpec": {
-          "Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_Ammonia": {
-            "name": "Annual Amount of Emissions: on Road Vehicles, Non Biogenic Emission Source, Ammonia",
-            "statVar": "Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_Ammonia"
-          },
-          "Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_CarbonMonoxide": {
-            "name": "Annual Amount of Emissions: on Road Vehicles, Non Biogenic Emission Source, Carbon Monoxide",
-            "statVar": "Annual_Amount_Emissions_OnRoadVehicles_NonBiogenicEmissionSource_CarbonMonoxide"
-          },
           "Annual_Amount_Emissions_PM2.5_SCC_1_ExternalCombustion_multiple_place_bar_block": {
             "name": "Annual Amount Emissions PM2.5, ExternalCombustion (1)",
             "statVar": "Annual_Amount_Emissions_PM2.5_SCC_1_ExternalCombustion"
@@ -495,13 +487,17 @@
             "name": "Annual Emissions: External Combustion",
             "statVar": "Annual_Amount_Emissions_SCC_1_ExternalCombustion"
           },
+          "Annual_Amount_Emissions_SCC_21_StationarySourceFuelCombustion": {
+            "name": "Annual Emissions: Stationary Source Fuel Combustion",
+            "statVar": "Annual_Amount_Emissions_SCC_21_StationarySourceFuelCombustion"
+          },
+          "Annual_Amount_Emissions_SCC_23_IndustrialProcesses": {
+            "name": "Annual Emissions: Industrial Processes",
+            "statVar": "Annual_Amount_Emissions_SCC_23_IndustrialProcesses"
+          },
           "Annual_Amount_Emissions_SCC_25_StorageAndTransport": {
             "name": "Annual Emissions: Storage and Transport",
             "statVar": "Annual_Amount_Emissions_SCC_25_StorageAndTransport"
-          },
-          "Annual_Amount_Emissions_SCC_26_WasteDisposalTreatmentAndRecovery": {
-            "name": "Annual Emissions: Waste Dispotsal Treatment and Recovery",
-            "statVar": "Annual_Amount_Emissions_SCC_26_WasteDisposalTreatmentAndRecovery"
           },
           "Annual_Amount_Emissions_SCC_27_NaturalSources": {
             "name": "Annual Emissions: Natural Sources",
@@ -514,6 +510,10 @@
           "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines": {
             "name": "Annual Emissions: Internal Combustion Engines",
             "statVar": "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines"
+          },
+          "Annual_Amount_Emissions_SCC_3_IndustrialProcesses": {
+            "name": "Annual Emissions: Industrial Processes",
+            "statVar": "Annual_Amount_Emissions_SCC_3_IndustrialProcesses"
           },
           "Annual_Amount_Emissions_SulfurDioxide_SCC_1_ExternalCombustion_multiple_place_bar_block": {
             "name": "Annual Emissions: Sulfur Dioxide, External Combustion",
@@ -602,6 +602,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "geoId/48157",
@@ -681,5 +682,8 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "Sorry, there were no relevant statistics for Houston. See results for Fort Bend County."
+  "userMessage": "Sorry, there were no relevant statistics for Houston. See results for Fort Bend County.",
+  "userMessages": [
+    "Sorry, there were no relevant statistics for Houston. See results for Fort Bend County."
+  ]
 }

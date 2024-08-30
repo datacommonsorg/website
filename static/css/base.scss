@@ -58,14 +58,16 @@ $theme-colors: (
   "primary": $dc-primary-color,
 );
 
-$font-family-sans-serif: "Google Sans Text", -apple-system, BlinkMacSystemFont,
-  "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
-  "Segoe UI Emoji", "Segoe UI Symbol";
-$headings-font-family: "Google Sans", $font-family-sans-serif;
+$font-family-sans-serif: "Google Sans", "Google Sans Text", -apple-system,
+  BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif,
+  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$headings-font-family: $font-family-sans-serif;
 
 @import "node_modules/bootstrap/scss/bootstrap";
 
 #main-nav {
+  height: fit-content;
+  background-color: white;
   padding: 0.75rem 0.25rem;
   > .container-fluid {
     padding-left: 15px;
@@ -169,7 +171,6 @@ $headings-font-family: "Google Sans", $font-family-sans-serif;
 /** Shared page elements **/
 #main-header {
   background: var(--gm-3-white);
-  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
 }
 
 #main-header #main-header-logo {
@@ -201,7 +202,7 @@ $headings-font-family: "Google Sans", $font-family-sans-serif;
   background: $full-footer-bg;
   padding-top: 75px;
   /* Trick to get the footer to extend to the bottom of short pages */
-  box-shadow: 0 50vh 0 50vh var(--footer-bg);
+  box-shadow: 0 50vh 0 50vh var(--footer-background);
   .top-footer {
     padding-bottom: 30px;
   }
@@ -249,11 +250,11 @@ $headings-font-family: "Google Sans", $font-family-sans-serif;
 
 #main-footer #sub-footer {
   align-items: space-between;
-  background: var(--footer-bg);
+  background: var(--footer-background);
   border-top: 1px solid $gray-300;
   display: flex;
   flex-direction: row;
-  padding: 26px 0;
+  padding: 4px 0;
   line-height: 2.5rem;
   .container {
     display: flex;
@@ -327,7 +328,7 @@ $headings-font-family: "Google Sans", $font-family-sans-serif;
   position: absolute;
   left: 0;
   top: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.02);
   z-index: 100;
   width: 100%;
   height: 100%;
@@ -373,7 +374,7 @@ $headings-font-family: "Google Sans", $font-family-sans-serif;
   margin-top: 150px;
   margin-left: 20px;
   font-size: 20px;
-  color: white;
+  color: var(--gm-3-ref-neutral-neutral-40);
   opacity: 0; /* Initially hidden */
   animation: fadeIn 0.5s forwards 3s; /* Animation after 3s delay */
 }

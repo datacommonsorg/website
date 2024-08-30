@@ -844,4 +844,5 @@ def _run(uttr_dict: Dict,
                             nopc_vars=NOPC_VARS,
                             sdg_percent_vars=set())
   state = PopulateState(uttr=uttr)
-  return text_format.MessageToString(builder.build(state, cfg))
+  builder_result = builder.build(state, cfg)
+  return text_format.MessageToString(builder_result.page_config)

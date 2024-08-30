@@ -38,7 +38,6 @@ class Counters:
   # REQUIRES: `value` should be a JSON serializable type
   #
   def info(self, counter: str, value: any):
-    # logging.info(f'counter["{counter}"] = {value}')
     self._update(self._info, counter, value)
 
   #
@@ -49,7 +48,6 @@ class Counters:
   # REQUIRES: `value` should be a JSON serializable type
   #
   def err(self, counter: str, value: any):
-    # logging.error(f'counter["{counter}"] = {value}')
     self._update(self._err, counter, value)
 
   #

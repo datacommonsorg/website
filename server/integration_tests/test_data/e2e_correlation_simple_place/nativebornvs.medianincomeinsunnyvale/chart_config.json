@@ -60,16 +60,266 @@
               }
             ],
             "title": "Individual Median Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_ForeignBorn"
+                    ],
+                    "title": "Population: Foreign Born in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Foreign Born in Sunnyvale",
+                    "statVarKey": [
+                      "Count_Person_ForeignBorn"
+                    ],
+                    "title": "Population: Foreign Born in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Foreign Born"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Individual Median Earnings in Sunnyvale",
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Individual Median Earnings"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_PlaceOfBirthAsia"
+                    ],
+                    "title": "Population: Foreign Born, Asia in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Foreign Born, Asia in Sunnyvale",
+                    "statVarKey": [
+                      "Count_Person_PlaceOfBirthAsia"
+                    ],
+                    "title": "Population: Foreign Born, Asia in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Foreign Born, Asia"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/6bkn9vt30f5c1"
+                    ],
+                    "title": "Population: Foreign Born, American Indian or Alaska Native Alone in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Foreign Born, American Indian or Alaska Native Alone in Sunnyvale",
+                    "statVarKey": [
+                      "dc/6bkn9vt30f5c1"
+                    ],
+                    "title": "Population: Foreign Born, American Indian or Alaska Native Alone in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Foreign Born, American Indian or Alaska Native Alone"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_ForeignBorn_PlaceOfBirthCaribbean"
+                    ],
+                    "title": "Foreign-born Caribbean Origin in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Foreign-born Caribbean Origin in Sunnyvale",
+                    "statVarKey": [
+                      "Count_Person_ForeignBorn_PlaceOfBirthCaribbean"
+                    ],
+                    "title": "Foreign-born Caribbean Origin in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Foreign-born Caribbean Origin"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico"
+                    ],
+                    "title": "Foreign-born Central American Origin (Except Mexico) in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Foreign-born Central American Origin (Except Mexico) in Sunnyvale",
+                    "statVarKey": [
+                      "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico"
+                    ],
+                    "title": "Foreign-born Central American Origin (Except Mexico) in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Foreign-born Central American Origin (Except Mexico)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Native"
+                    ],
+                    "title": "Median Age: Native in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age: Native in Sunnyvale",
+                    "statVarKey": [
+                      "Median_Age_Person_Native"
+                    ],
+                    "title": "Median Age: Native in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age: Native"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Native",
+                      "Median_Age_Person_ForeignBorn"
+                    ],
+                    "title": "Median Age: Native and Median Age: Foreign Born in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Related: Median Age: Native and Median Age: Foreign Born"
           }
         ],
         "statVarSpec": {
+          "Count_Person_ForeignBorn": {
+            "name": "Population: Foreign Born",
+            "statVar": "Count_Person_ForeignBorn"
+          },
+          "Count_Person_ForeignBorn_PlaceOfBirthCaribbean": {
+            "name": "Foreign-born Caribbean origin",
+            "statVar": "Count_Person_ForeignBorn_PlaceOfBirthCaribbean"
+          },
+          "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico": {
+            "name": "Foreign-born Central American origin (except Mexico)",
+            "statVar": "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico"
+          },
           "Count_Person_Native": {
             "name": "Population: Native",
             "statVar": "Count_Person_Native"
           },
+          "Count_Person_PlaceOfBirthAsia": {
+            "name": "Population: Foreign Born, Asia",
+            "statVar": "Count_Person_PlaceOfBirthAsia"
+          },
+          "Median_Age_Person_ForeignBorn": {
+            "name": "Median Age: Foreign Born",
+            "statVar": "Median_Age_Person_ForeignBorn"
+          },
+          "Median_Age_Person_Native": {
+            "name": "Median Age: Native",
+            "statVar": "Median_Age_Person_Native"
+          },
+          "Median_Earnings_Person": {
+            "name": "Individual Median Earnings",
+            "statVar": "Median_Earnings_Person"
+          },
           "Median_Income_Person": {
             "name": "Individual Median Income",
             "statVar": "Median_Income_Person"
+          },
+          "dc/6bkn9vt30f5c1": {
+            "name": "Population: Foreign Born, American Indian or Alaska Native Alone",
+            "statVar": "dc/6bkn9vt30f5c1"
           }
         }
       }
@@ -82,6 +332,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "geoId/0677000",
@@ -115,7 +366,76 @@
         ]
       }
     ],
-    "exploreMore": {},
+    "exploreMore": {
+      "Count_Person_ForeignBorn": {
+        "age": [
+          "Count_Person_15OrMoreYears_ForeignBorn",
+          "Count_Person_18To24Years_ForeignBorn",
+          "Count_Person_25To34Years_ForeignBorn",
+          "Count_Person_35To44Years_ForeignBorn",
+          "Count_Person_45To54Years_ForeignBorn",
+          "Count_Person_55To59Years_ForeignBorn",
+          "Count_Person_5To17Years_ForeignBorn",
+          "Count_Person_60To61Years_ForeignBorn",
+          "Count_Person_62To64Years_ForeignBorn",
+          "Count_Person_65To74Years_ForeignBorn",
+          "Count_Person_75OrMoreYears_ForeignBorn",
+          "Count_Person_Upto5Years_ForeignBorn"
+        ]
+      },
+      "Count_Person_ForeignBorn_PlaceOfBirthCaribbean": {
+        "age": [
+          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthCaribbean",
+          "Count_Person_25To44Years_ForeignBorn_PlaceOfBirthCaribbean",
+          "Count_Person_45To54Years_ForeignBorn_PlaceOfBirthCaribbean",
+          "Count_Person_55To64Years_ForeignBorn_PlaceOfBirthCaribbean",
+          "Count_Person_5OrLessYears_ForeignBorn_PlaceOfBirthCaribbean",
+          "Count_Person_5To17Years_ForeignBorn_PlaceOfBirthCaribbean",
+          "Count_Person_65To74Years_ForeignBorn_PlaceOfBirthCaribbean",
+          "Count_Person_75To84Years_ForeignBorn_PlaceOfBirthCaribbean",
+          "Count_Person_85OrMoreYears_ForeignBorn_PlaceOfBirthCaribbean"
+        ]
+      },
+      "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico": {
+        "age": [
+          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
+          "Count_Person_25To44Years_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
+          "Count_Person_45To54Years_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
+          "Count_Person_55To64Years_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
+          "Count_Person_5OrLessYears_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
+          "Count_Person_5To17Years_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
+          "Count_Person_65To74Years_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
+          "Count_Person_75To84Years_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico",
+          "Count_Person_85OrMoreYears_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico"
+        ]
+      },
+      "Count_Person_PlaceOfBirthAsia": {
+        "age": [
+          "Count_Person_18To24Years_ForeignBorn_PlaceOfBirthAsia",
+          "Count_Person_25To44Years_ForeignBorn_PlaceOfBirthAsia",
+          "Count_Person_45To54Years_ForeignBorn_PlaceOfBirthAsia",
+          "Count_Person_55To64Years_ForeignBorn_PlaceOfBirthAsia",
+          "Count_Person_5OrLessYears_ForeignBorn_PlaceOfBirthAsia",
+          "Count_Person_5To17Years_ForeignBorn_PlaceOfBirthAsia",
+          "Count_Person_65To74Years_ForeignBorn_PlaceOfBirthAsia",
+          "Count_Person_75To84Years_ForeignBorn_PlaceOfBirthAsia",
+          "Count_Person_85OrMoreYears_ForeignBorn_PlaceOfBirthAsia"
+        ]
+      },
+      "Median_Age_Person_ForeignBorn": {
+        "placeOfBirth": [
+          "Median_Age_Person_ForeignBorn_PlaceOfBirthAsia",
+          "Median_Age_Person_ForeignBorn_PlaceOfBirthCaribbean",
+          "Median_Age_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico"
+        ]
+      },
+      "dc/6bkn9vt30f5c1": {
+        "abilityToSpeakEnglish": [
+          "dc/834l34hp5krkd",
+          "dc/slhc0k07wwmq1"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/Immigration",
@@ -498,5 +818,6 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessage": "",
+  "userMessages": []
 }

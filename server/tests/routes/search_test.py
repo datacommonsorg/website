@@ -33,7 +33,7 @@ class TestSearchPages(unittest.TestCase):
   def test_search_dc(self):
     response = app.test_client().get('/search_dc')
     assert response.status_code == 200
-    assert b"Search the Data Commons Graph" in response.data
+    assert b"Search the Data Commons Knowledge Graph" in response.data
 
   @patch('server.services.datacommons.search')
   def test_search_dc_query(self, mock_dc_search):

@@ -139,11 +139,15 @@ export function Chart(props: ChartPropsType): JSX.Element {
       }
     }, DEBOUNCE_INTERVAL_MS);
     const resizeObserver = new ResizeObserver(debouncedHandler);
-    if (chartContainerRef.current) {
-      resizeObserver.observe(chartContainerRef.current);
+    // The value of chartContainerRef.current may change between setting the
+    // observe and unobserving during cleanup, so we store the current value
+    // in a variable.
+    const currentChartContainerElement = chartContainerRef.current;
+    if (currentChartContainerElement) {
+      resizeObserver.observe(currentChartContainerElement);
     }
     return () => {
-      resizeObserver.unobserve(chartContainerRef.current);
+      resizeObserver.unobserve(currentChartContainerElement);
       debouncedHandler.cancel();
     };
   }, [props, chartContainerRef, geoJsonFetched]);

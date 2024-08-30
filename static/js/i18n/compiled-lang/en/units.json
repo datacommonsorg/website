@@ -178,11 +178,11 @@
   "metric-ton": [
     {
       "type": 1,
-      "value": " haha"
+      "value": "0"
     },
     {
       "type": 0,
-      "value": " haha"
+      "value": " t"
     }
   ],
   "metric-ton-display": [

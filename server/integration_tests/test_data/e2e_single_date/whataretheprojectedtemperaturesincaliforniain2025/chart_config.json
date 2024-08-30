@@ -135,138 +135,6 @@
             "description": "Predicted max temperature with 95% chance, at least once in the year, according to a CMIP6 ensemble model as per SSP 585 (pessimistic) scenario.",
             "footnote": "SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m\u00b2. RCP 8.5 is more likely than not to result in global temperature rise between 3 \u00b0C and 12.6 \u00b0C by 2100.",
             "title": "Max Temperature (\u00b0C) Once in Year With 95% Chance: SP585 in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245_2025"
-                    ],
-                    "title": "Relative Min Temperature (\u00b0C) Once in Year With 95% Chance: SSP245 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245_2025"
-                    ],
-                    "title": "Relative Min Temperature (\u00b0C) Once in Year With 95% Chance: SSP245 in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "description": "Relative to the average yearly min temperature between 1980-2010, the predicted min temperature difference with 95% chance, at least once in the year, according to a CMIP6 ensemble model as per SSP 245 (intermediate) scenario.",
-            "footnote": "SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m\u00b2. RCP 4.5 is more likely than not to result in global temperature rise between 2 \u00b0C and 3 \u00b0C by 2100.",
-            "title": "Relative Min Temperature (\u00b0C) Once in Year With 95% Chance: SSP245 in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585_2025"
-                    ],
-                    "title": "Relative Min Temperature (\u00b0C) Once in Year With 95% Chance: SP585 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585_2025"
-                    ],
-                    "title": "Relative Min Temperature (\u00b0C) Once in Year With 95% Chance: SP585 in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "description": "Relative to the average yearly min temperature between 1980-2010, the predicted min temperature difference with 95% chance, at least once in the year, according to a CMIP6 ensemble model as per SSP 585 (pessimistic) scenario.",
-            "footnote": "SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m\u00b2. RCP 8.5 is more likely than not to result in global temperature rise between 3 \u00b0C and 12.6 \u00b0C by 2100.",
-            "title": "Relative Min Temperature (\u00b0C) Once in Year With 95% Chance: SP585 in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245_2025"
-                    ],
-                    "title": "Min Temperature (\u00b0C) Once in Year With 95% Chance: SSP245 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245_2025"
-                    ],
-                    "title": "Min Temperature (\u00b0C) Once in Year With 95% Chance: SSP245 in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "description": "Predicted min temperature with 95% chance, at least once in the year, according to a CMIP6 ensemble model as per SSP 245 (intermediate) scenario.",
-            "footnote": "SSP245 is a medium pathway. It is an update to RCP 4.5 with an additional radiative forcing of 4.5 W/m\u00b2. RCP 4.5 is more likely than not to result in global temperature rise between 2 \u00b0C and 3 \u00b0C by 2100.",
-            "title": "Min Temperature (\u00b0C) Once in Year With 95% Chance: SSP245 in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585_2025"
-                    ],
-                    "title": "Min Temperature (\u00b0C) Once in Year With 95% Chance: SP585 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585_2025"
-                    ],
-                    "title": "Min Temperature (\u00b0C) Once in Year With 95% Chance: SP585 in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "description": "Predicted min temperature with 95% chance, at least once in the year, according to a CMIP6 ensemble model as per SSP 585 (pessimistic) scenario.",
-            "footnote": "SSP585 is a pessimistic pathway. It is an update to RCP 8.5 with an additional radiative forcing of 8.5 W/m\u00b2. RCP 8.5 is more likely than not to result in global temperature rise between 3 \u00b0C and 12.6 \u00b0C by 2100.",
-            "title": "Min Temperature (\u00b0C) Once in Year With 95% Chance: SP585 in Counties of California"
           }
         ],
         "statVarSpec": {
@@ -280,16 +148,6 @@
             "name": "Relative Max Temperature (\u00b0C) Once In Year With 95% Chance: SP585",
             "statVar": "DiffRelativeToAvg_1980_2010_MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
           },
-          "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245_2025": {
-            "date": "2025",
-            "name": "Relative Min Temperature (\u00b0C) Once In Year With 95% Chance: SSP245",
-            "statVar": "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245"
-          },
-          "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585_2025": {
-            "date": "2025",
-            "name": "Relative Min Temperature (\u00b0C) Once In Year With 95% Chance: SP585",
-            "statVar": "DiffRelativeToAvg_1980_2010_MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
-          },
           "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP245_2025": {
             "date": "2025",
             "name": "Max Temperature (\u00b0C) Once In Year With 95% Chance: SSP245",
@@ -299,16 +157,6 @@
             "date": "2025",
             "name": "Max Temperature (\u00b0C) Once In Year With 95% Chance: SP585",
             "statVar": "MaxTemp_Daily_Hist_95PctProb_Greater_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
-          },
-          "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245_2025": {
-            "date": "2025",
-            "name": "Min Temperature (\u00b0C) Once In Year With 95% Chance: SSP245",
-            "statVar": "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP245"
-          },
-          "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585_2025": {
-            "date": "2025",
-            "name": "Min Temperature (\u00b0C) Once In Year With 95% Chance: SP585",
-            "statVar": "MinTemp_Daily_Hist_95PctProb_LessThan_Atleast1DayAYear_CMIP6_Ensemble_SSP585"
           }
         }
       }
@@ -324,6 +172,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "geoId/06",
@@ -698,23 +547,15 @@
     "exploreMore": {},
     "mainTopics": [
       {
-        "dcid": "dc/topic/TemperaturePredictions",
-        "name": "Temperature Predictions",
+        "dcid": "dc/topic/YearlyProjectedTemperatureHighs",
+        "name": "Yearly Projected Temperature Highs",
         "types": [
           "Topic"
         ]
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [
-      {
-        "dcid": "dc/topic/Temperatures",
-        "name": "Temperature",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "parentTopics": [],
     "peerPlaces": [
       {
         "dcid": "geoId/01",
@@ -1070,5 +911,6 @@
     "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessage": "",
+  "userMessages": []
 }

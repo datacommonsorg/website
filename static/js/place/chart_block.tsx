@@ -29,6 +29,7 @@ import {
   USA_PLACE_TYPES_WITH_CHOROPLETH,
 } from "./util";
 
+const EARTH_ENCLOSED_PLACE_TYPE = "Country";
 interface ChartBlockPropType {
   /**
    * The place dcid.
@@ -105,7 +106,9 @@ export class ChartBlock extends React.Component<ChartBlockPropType> {
       : isEarth
       ? "Earth"
       : "";
-    this.rankingPlaceType = isEarth ? "Country" : this.props.placeType;
+    this.rankingPlaceType = isEarth
+      ? EARTH_ENCLOSED_PLACE_TYPE
+      : this.props.placeType;
     this.displayDataTitle = this.props.data.title;
   }
 
@@ -258,11 +261,15 @@ export class ChartBlock extends React.Component<ChartBlockPropType> {
         const id = randDomId();
         chartElements.push(
           <Chart
-            key={id}
-            id={id}
             chartType={chartTypeEnum.CHOROPLETH}
-            title={choroplethTitle}
+            enclosedPlaceType={
+              isEarth ? EARTH_ENCLOSED_PLACE_TYPE : this.props.childPlaceType
+            }
+            id={id}
+            key={id}
+            parentPlaceDcid={this.props.dcid}
             rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${this.props.dcid}${rankingArg}`}
+            title={choroplethTitle}
             {...sharedProps}
           ></Chart>
         );
@@ -423,11 +430,15 @@ export class ChartBlock extends React.Component<ChartBlockPropType> {
         const id = randDomId();
         chartElements.push(
           <Chart
-            key={id}
-            id={id}
             chartType={chartTypeEnum.CHOROPLETH}
-            title={choroplethTitle}
+            enclosedPlaceType={
+              isEarth ? EARTH_ENCLOSED_PLACE_TYPE : this.props.childPlaceType
+            }
+            id={id}
+            parentPlaceDcid={this.props.dcid}
+            key={id}
             rankingTemplateUrl={`/ranking/_sv_/${this.rankingPlaceType}/${this.props.dcid}${rankingArg}`}
+            title={choroplethTitle}
             {...sharedProps}
           ></Chart>
         );
@@ -463,7 +474,7 @@ export class ChartBlock extends React.Component<ChartBlockPropType> {
             statsVars={this.props.data.statsVars}
             category={this.props.category}
             isUsaPlace={this.props.isUsaPlace}
-            rankingPlaceType={this.rankingPlaceType}
+            enclosedPlaceType={this.rankingPlaceType}
             parentPlaceDcid={this.parentPlaceDcid}
           ></Chart>
         );

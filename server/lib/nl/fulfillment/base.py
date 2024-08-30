@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import copy
-import logging
 import time
 from typing import List
 
@@ -26,6 +25,7 @@ from server.lib.nl.common.utterance import PlaceFallback
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Place
+from server.lib.nl.explore import params
 from server.lib.nl.fulfillment import simple
 from server.lib.nl.fulfillment.existence import chart_vars_fetch
 from server.lib.nl.fulfillment.existence import ExtensionExistenceCheckTracker
@@ -37,7 +37,9 @@ from server.lib.nl.fulfillment.utils import handle_contained_in_type
 
 # Limit the number of charts.  Each chart may double for per-capita.
 # With 3 per row max, allow up to 2 rows, without any per-capita.
-_MAX_NUM_CHARTS = 15
+_DEFAULT_MAX_NUM_CHARTS = 15
+# TODO: This is a temp hack for undata DC.
+_EXTREME_MAX_NUM_CHARTS = 200
 
 # Do not do extension API calls for more than these many SVs
 _MAX_EXTENSION_SVS = 5
@@ -65,7 +67,7 @@ def populate_charts(state: PopulateState) -> bool:
   if not success:
     state.uttr.counters.err('num_populate_fallbacks', 1)
     state.uttr.counters.err('failed_populate_main_svs',
-                            state.chart_vars_map.keys())
+                            list(state.chart_vars_map.keys()))
     if state.chart_vars_map:
       if state.uttr.sv_source == FulfillmentResult.PAST_QUERY:
         # We did not recognize anything in this query, the SV
@@ -207,6 +209,8 @@ def _add_charts_with_existence_check(state: PopulateState,
   tracker.perform_existence_check()
   state.exist_chart_vars_list = chart_vars_fetch(tracker)
 
+  max_num_charts = _get_max_num_charts(state)
+
   existing_svs = set()
   found = False
   num_charts = 0
@@ -235,7 +239,7 @@ def _add_charts_with_existence_check(state: PopulateState,
             state.uttr.counters.err('failed_populate_callback_primary', 1)
 
       # If we have found enough charts, return success
-      if num_charts >= _MAX_NUM_CHARTS:
+      if num_charts >= max_num_charts:
         break
 
     # Handle extended/comparable SVs only for simple query since
@@ -245,14 +249,15 @@ def _add_charts_with_existence_check(state: PopulateState,
     #
     # TODO: Optimize and enable in Explore mode.
     if (qt == QueryType.BASIC and existing_svs and not state.place_type and
-        not state.ranking_types and num_charts < _MAX_NUM_CHARTS):
+        not state.ranking_types and num_charts < max_num_charts):
       # Note that we want to expand on existing_svs only, and in the
       # order of `svs`
       ordered_existing_svs = [v for v in state.uttr.svs if v in existing_svs]
       found |= _add_charts_for_extended_svs(state=state,
                                             places=places,
                                             svs=ordered_existing_svs,
-                                            num_charts=num_charts)
+                                            num_charts=num_charts,
+                                            max_num_charts=max_num_charts)
 
     # For a given handler, if we found any charts at all, we're good.
     if found:
@@ -285,7 +290,8 @@ def _add_charts_with_existence_check(state: PopulateState,
 
 
 def _add_charts_for_extended_svs(state: PopulateState, places: List[Place],
-                                 svs: List[str], num_charts: int) -> bool:
+                                 svs: List[str], num_charts: int,
+                                 max_num_charts: int) -> bool:
   # Map of main SV -> peer SVs
   # Perform SV extension calls.
   # PERF-TODO: This is expensive! (multiple seconds)
@@ -341,17 +347,10 @@ def _add_charts_for_extended_svs(state: PopulateState, places: List[Place],
       else:
         state.uttr.counters.err('failed_populate_callback_secondary', 1)
 
-    if num_charts >= _MAX_NUM_CHARTS:
+    if num_charts >= max_num_charts:
       return found
 
   return found
-
-
-def _get_place_names(places: List[Place]) -> List[str]:
-  names = []
-  for p in places:
-    names.append(p.name)
-  return names
 
 
 #
@@ -436,3 +435,12 @@ def _maybe_set_fallback(state: PopulateState, places: List[Place]):
 
 def clear_fallback(state: PopulateState):
   state.uttr.place_fallback = None
+
+
+def _get_max_num_charts(state: PopulateState) -> int:
+  # For special DCs use a much higher limit of charts
+  # shown. NOTE: This is a hack to allow mix of topics from
+  # multiple sources.
+  if params.is_special_dc(state.uttr.insight_ctx):
+    return _EXTREME_MAX_NUM_CHARTS
+  return _DEFAULT_MAX_NUM_CHARTS

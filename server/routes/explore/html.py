@@ -15,20 +15,18 @@
 
 import os
 
-import flask
 from flask import Blueprint
 from flask import current_app
-from flask import g
 from flask import render_template
 
 bp = Blueprint('explore', __name__, url_prefix='/explore')
 
 
-@bp.route('/')
+@bp.route('', strict_slashes=False)
 def page():
   return render_template('/explore.html',
                          manual_ga_pageview=True,
-                         maps_api_key=current_app.config['MAPS_API_KEY'],
+                         maps_api_key=current_app.config.get('MAPS_API_KEY'),
                          website_hash=os.environ.get("WEBSITE_HASH"))
 
 
@@ -36,5 +34,4 @@ def page():
 def landing(topic):
   return render_template('/explore_landing.html',
                          topic=topic,
-                         maps_api_key=current_app.config['MAPS_API_KEY'],
                          website_hash=os.environ.get("WEBSITE_HASH"))

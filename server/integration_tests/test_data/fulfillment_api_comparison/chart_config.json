@@ -143,17 +143,15 @@
                       "geoId/32"
                     ],
                     "statVarKey": [
-                      "dc/e9gftzl2hm8h9_multiple_place_bar_block"
+                      "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome_multiple_place_bar_block"
                     ],
-                    "title": "Total Commute Time (${date})",
+                    "title": "Mean Commute Time: 16 Years or More, Work Commute, Employed, Worked Outside of Home (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "description": "Total time spent on a single commute across all workers.",
-            "title": "Total Commute Time"
+            "title": "Mean Commute Time: 16 Years or More, Work Commute, Employed, Worked Outside of Home"
           },
           {
             "columns": [
@@ -194,12 +192,16 @@
           }
         ],
         "statVarSpec": {
+          "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome_multiple_place_bar_block": {
+            "name": "Mean Commute Time: 16 Years or More, Work Commute, Employed, Worked Outside of Home",
+            "statVar": "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome"
+          },
           "dc/0gettc3bc60cb_multiple_place_bar_block": {
             "name": "Drive alone",
             "statVar": "dc/0gettc3bc60cb"
           },
           "dc/1fw0t5m6459gb_multiple_place_bar_block": {
-            "name": "Population: 10 - 14 Minute",
+            "name": "Population: 16 Years or More, 10 - 14 Minute, Employed And Working, in Labor Force, Outside of Home",
             "statVar": "dc/1fw0t5m6459gb"
           },
           "dc/4xklqxfc27w1f_multiple_place_bar_block": {
@@ -207,7 +209,7 @@
             "statVar": "dc/4xklqxfc27w1f"
           },
           "dc/62gn48xpbqew9_multiple_place_bar_block": {
-            "name": "Population: 30 - 34 Minute",
+            "name": "Population: 16 Years or More, 30 - 34 Minute, Employed And Working, in Labor Force, Outside of Home",
             "statVar": "dc/62gn48xpbqew9"
           },
           "dc/6rltk4kf75612_multiple_place_bar_block": {
@@ -223,7 +225,7 @@
             "statVar": "dc/7wt44yv38rew"
           },
           "dc/7ykp70f9rtck9_multiple_place_bar_block": {
-            "name": "Population: 20 - 24 Minute",
+            "name": "Population: 16 Years or More, 20 - 24 Minute, Employed And Working, in Labor Force, Outside of Home",
             "statVar": "dc/7ykp70f9rtck9"
           },
           "dc/80q8jrnkvwtt3_multiple_place_bar_block": {
@@ -235,27 +237,23 @@
             "statVar": "dc/bre4whrdn7pt7"
           },
           "dc/dbe0drezxrpv6_multiple_place_bar_block": {
-            "name": "Population: 5 - 9 Minute",
+            "name": "Population: 16 Years or More, 5 - 9 Minute, Employed And Working, in Labor Force, Outside of Home",
             "statVar": "dc/dbe0drezxrpv6"
           },
           "dc/dn2h9yfcgbkg2_multiple_place_bar_block": {
             "name": "Population: Worked At Home, Service Occupations",
             "statVar": "dc/dn2h9yfcgbkg2"
           },
-          "dc/e9gftzl2hm8h9_multiple_place_bar_block": {
-            "name": "Total Commute Time",
-            "statVar": "dc/e9gftzl2hm8h9"
-          },
           "dc/exr9t81en1h34_multiple_place_bar_block": {
-            "name": "Population: 25 - 29 Minute",
+            "name": "Population: 16 Years or More, 25 - 29 Minute, Employed And Working, in Labor Force, Outside of Home",
             "statVar": "dc/exr9t81en1h34"
           },
           "dc/fyc3yvjy0xw6g_multiple_place_bar_block": {
-            "name": "Population: 5 Minute or Less",
+            "name": "Population: 16 Years or More, 5 Minute or Less, Employed And Working, in Labor Force, Outside of Home",
             "statVar": "dc/fyc3yvjy0xw6g"
           },
           "dc/h7ft916g93ys2_multiple_place_bar_block": {
-            "name": "Population: 90 Minute or More",
+            "name": "Population: 16 Years or More, 90 Minute or More, Employed And Working, in Labor Force, Outside of Home",
             "statVar": "dc/h7ft916g93ys2"
           },
           "dc/hbkh95kc7pkb6_multiple_place_bar_block": {
@@ -275,7 +273,7 @@
             "statVar": "dc/k33ngtzpqxql6"
           },
           "dc/kfr6chpkw90e3_multiple_place_bar_block": {
-            "name": "Population: 60 - 89 Minute",
+            "name": "Population: 16 Years or More, 60 - 89 Minute, Employed And Working, in Labor Force, Outside of Home",
             "statVar": "dc/kfr6chpkw90e3"
           },
           "dc/kt900ezddrf79_multiple_place_bar_block": {
@@ -299,7 +297,7 @@
             "statVar": "dc/nvrxn11yxlen2"
           },
           "dc/pplpj0y0mzd3g_multiple_place_bar_block": {
-            "name": "Population: 40 - 44 Minute",
+            "name": "Population: 16 Years or More, 40 - 44 Minute, Employed And Working, in Labor Force, Outside of Home",
             "statVar": "dc/pplpj0y0mzd3g"
           },
           "dc/slp5hywj7b9c1_multiple_place_bar_block": {
@@ -307,7 +305,7 @@
             "statVar": "dc/slp5hywj7b9c1"
           },
           "dc/t0hh9jhx104k7_multiple_place_bar_block": {
-            "name": "Population: 45 - 59 Minute",
+            "name": "Population: 16 Years or More, 45 - 59 Minute, Employed And Working, in Labor Force, Outside of Home",
             "statVar": "dc/t0hh9jhx104k7"
           },
           "dc/v33p7mwnpe9vb_multiple_place_bar_block": {
@@ -315,11 +313,11 @@
             "statVar": "dc/v33p7mwnpe9vb"
           },
           "dc/vfs5dgtzhp4j4_multiple_place_bar_block": {
-            "name": "Population: 35 - 39 Minute",
+            "name": "Population: 16 Years or More, 35 - 39 Minute, Employed And Working, in Labor Force, Outside of Home",
             "statVar": "dc/vfs5dgtzhp4j4"
           },
           "dc/vgwx3kjjzz8wf_multiple_place_bar_block": {
-            "name": "Population: 15 - 19 Minute",
+            "name": "Population: 16 Years or More, 15 - 19 Minute, Employed And Working, in Labor Force, Outside of Home",
             "statVar": "dc/vgwx3kjjzz8wf"
           },
           "dc/vp8cbt6k79t94_multiple_place_bar_block": {
@@ -327,7 +325,7 @@
             "statVar": "dc/vp8cbt6k79t94"
           },
           "dc/vt2q292eme79f_multiple_place_bar_block": {
-            "name": "Others (incl. Taxcab, Motorcyle, Bicycle)",
+            "name": "Others (incl. Taxicab, Motorcycle, Bicycle)",
             "statVar": "dc/vt2q292eme79f"
           },
           "dc/wc8q05drd74bd_multiple_place_bar_block": {
@@ -353,6 +351,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "geoId/06",
@@ -392,77 +391,10 @@
       }
     ],
     "exploreMore": {
-      "dc/0gettc3bc60cb": {
-        "hasOccupation": [
-          "dc/b9plt3q5k6gyb",
-          "dc/jszfr5wd4f7pb",
-          "dc/k33ngtzpqxql6",
-          "dc/kt900ezddrf79",
-          "dc/r0delcsw86kc6",
-          "dc/wqbf0ppbmly7"
-        ]
-      },
-      "dc/6rltk4kf75612": {
-        "hasOccupation": [
-          "dc/7wt44yv38rew",
-          "dc/cs8fvwkmpmlpg",
-          "dc/dn2h9yfcgbkg2",
-          "dc/nfdf9rt7kbggb",
-          "dc/vh36nvvkwxz5g",
-          "dc/zf0wjwwyddbj4"
-        ]
-      },
-      "dc/e9gftzl2hm8h9": {
-        "commuteTime": [
-          "dc/0mk1gv9me1cn",
-          "dc/2r6wbwvbkrz23",
-          "dc/ddyrfe05v5347",
-          "dc/e0zlyvx7twnr2",
-          "dc/hntm9bl6g1gn5",
-          "dc/jk6hj15v39b0d",
-          "dc/qkm5qdj8rqf5h",
-          "dc/xejg6s76dxle2",
-          "dc/z00r6r95rb066"
-        ]
-      },
-      "dc/hbkh95kc7pkb6": {
-        "hasOccupation": [
-          "dc/2hhr4qp4b4r0b",
-          "dc/4xklqxfc27w1f",
-          "dc/9vlv8l9dbgsk7",
-          "dc/j7lkt2ww5qsn5",
-          "dc/n2vhkpw0slkv5",
-          "dc/nvrxn11yxlen2"
-        ]
-      },
-      "dc/vp8cbt6k79t94": {
-        "hasOccupation": [
-          "dc/2r1c78wzvbq58",
-          "dc/bre4whrdn7pt7",
-          "dc/fgt7thnws9vx9",
-          "dc/n99t0lnl3fch6",
-          "dc/v33p7mwnpe9vb",
-          "dc/zcth2y8fqte1f"
-        ]
-      },
-      "dc/vt2q292eme79f": {
-        "hasOccupation": [
-          "dc/06m8j6xz3h0wf",
-          "dc/6zrlr86zt61yg",
-          "dc/bhc16vntggjyd",
-          "dc/e27c5t4tbplg",
-          "dc/slp5hywj7b9c1",
-          "dc/y9yb58snpfzw5"
-        ]
-      },
-      "dc/wc8q05drd74bd": {
-        "hasOccupation": [
-          "dc/80q8jrnkvwtt3",
-          "dc/dj7khl7q78412",
-          "dc/j7pej9wer7lkd",
-          "dc/jxsx1rb4xg84f",
-          "dc/m54m06x6r5xm9",
-          "dc/m615rq99fwf2c"
+      "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome": {
+        "commuteMode": [
+          "Mean_CommuteTime_Person_Years16Onwards_CarTruckOrVanCarpooled_WorkCommute_Employed_WorkedOutsideOfHome",
+          "Mean_CommuteTime_Person_Years16Onwards_CarTruckOrVanDroveAlone_WorkCommute_Employed_WorkedOutsideOfHome"
         ]
       }
     },
@@ -504,5 +436,6 @@
     ]
   },
   "svSource": "UNKNOWN",
-  "userMessage": ""
+  "userMessage": "",
+  "userMessages": []
 }

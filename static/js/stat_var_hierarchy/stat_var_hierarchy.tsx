@@ -38,6 +38,7 @@ import {
   StatVarHierarchyType,
 } from "../shared/types";
 import { loadSpinner, removeSpinner } from "../shared/util";
+import { STAT_VAR_HIERARCHY_CONFIG } from "../tools/stat_var/stat_var_hierarchy_config";
 import { StatVarGroupNode } from "./stat_var_group_node";
 import { StatVarHierarchySearch } from "./stat_var_search";
 import {
@@ -47,7 +48,6 @@ import {
   TOOLTIP_ID,
 } from "./util";
 
-const ROOT_SVG = globalThis.svgRoot || "dc/g/Root";
 const TOOLTIP_TOP_OFFSET = 30;
 const TOOLTIP_MARGIN = 5;
 export interface StatVarHierarchyPropType {
@@ -67,6 +67,11 @@ export interface StatVarHierarchyPropType {
   numEntitiesExistence?: number;
 }
 
+type StatVarGroupInfoConfig = StatVarGroupInfo & {
+  // Optional: add data source DCID to filter stat var group variables
+  dataSourceDcid?: string;
+};
+
 interface StatVarHierarchyStateType {
   focus?: string;
   // The path to the focus node. If the focus is an svg, it will not be
@@ -81,7 +86,7 @@ interface StatVarHierarchyStateType {
   // A path of svgs which should be expanded
   expandedPath: string[];
   // A list of stat var group nodes.
-  rootSVGs: StatVarGroupInfo[];
+  rootSVGs: StatVarGroupInfoConfig[];
   // Select or de-select a stat var with its path.
   togglePath: (sv: string, path?: string[]) => void;
   // Whether we should show all stat vars, even the ones without data.
@@ -154,7 +159,7 @@ export class StatVarHierarchy extends React.Component<
         )}
         <div className="stat-var-hierarchy-container">
           {/* If svgRoot is set, only show subset of stat vars, so disable search */}
-          {!globalThis.svgRoot && (
+          {!STAT_VAR_HIERARCHY_CONFIG.disableSearch && (
             <StatVarHierarchySearch
               entities={this.props.entities.map((x) => x.dcid)}
               onSelectionChange={this.onSearchSelectionChange}
@@ -191,7 +196,7 @@ export class StatVarHierarchy extends React.Component<
           {!_.isEmpty(rootSVGs) ? (
             <div id="stat-var-hierarchy-scroll-container">
               <div id="hierarchy-section">
-                {rootSVGs.map((svg) => {
+                {rootSVGs.map((svg, index) => {
                   if (
                     _.isEmpty(this.state.focus) ||
                     this.state.focusPath[0] === svg.id
@@ -206,7 +211,7 @@ export class StatVarHierarchy extends React.Component<
                           svPath: this.state.svPath,
                           togglePath: this.togglePath,
                         }}
-                        key={svg.id}
+                        key={`${svg.id}-${index}`}
                       >
                         <StatVarGroupNode
                           path={[svg.id]}
@@ -225,9 +230,7 @@ export class StatVarHierarchy extends React.Component<
                             // This is a virtual node for holding stat vars of
                             // a data source.
                             // Add data source to constrain this node.
-                            svg.id == ROOT_SVG
-                              ? (globalThis.dataSourceDcid as string)
-                              : ""
+                            svg.dataSourceDcid
                           }
                         />
                       </Context.Provider>
@@ -250,85 +253,85 @@ export class StatVarHierarchy extends React.Component<
     );
   }
 
-  private fetchData(): void {
+  private async fetchData(): Promise<void> {
     loadSpinner(SV_HIERARCHY_SECTION_ID);
     const entityList = this.props.entities.map((entity) => entity.dcid);
-    const allPromises: Promise<
-      string[] | StatVarGroupInfo[] | StatVarGroupNodeType
-    >[] = [];
-    allPromises.push(
-      axios
-        .post("/api/variable-group/info", {
-          dcid: ROOT_SVG,
-          entities: entityList,
-          numEntitiesExistence: this.props.numEntitiesExistence,
-        })
-        .then((resp) => {
-          return resp.data["childStatVarGroups"];
-        })
-    );
-    if (globalThis.dataSourceDcid) {
-      allPromises.push(
-        axios
+    const variableGroupInfoPromises: Promise<StatVarGroupNodeType>[] =
+      STAT_VAR_HIERARCHY_CONFIG.nodes.map((statVarHierarchyConfigNode) => {
+        // Filter variable group info result with these data source DCIDs
+        // if specified
+        const dataSourceEntities = statVarHierarchyConfigNode.dataSourceDcid
+          ? [statVarHierarchyConfigNode.dataSourceDcid]
+          : [];
+        return axios
           .post("/api/variable-group/info", {
-            dcid: ROOT_SVG,
-            entities: [globalThis.dataSourceDcid],
+            dcid: statVarHierarchyConfigNode.dcid,
+            entities: [...entityList, ...dataSourceEntities],
+            numEntitiesExistence: this.props.numEntitiesExistence,
           })
           .then((resp) => {
             return resp.data;
-          })
-      );
-    } else {
-      allPromises.push(Promise.resolve(null));
-    }
-
+          });
+      });
+    const statVarPathPromises: Promise<string[]>[] = [];
     const svPath = {};
     if (this.props.selectedSVs) {
       for (const sv of this.props.selectedSVs) {
         if (this.state.svPath && sv in this.state.svPath) {
           svPath[sv] = this.state.svPath[sv];
         } else {
-          allPromises.push(this.getPath(sv));
+          statVarPathPromises.push(this.getPath(sv));
         }
       }
     }
-    Promise.all(allPromises)
-      .then((allResult) => {
-        removeSpinner(SV_HIERARCHY_SECTION_ID);
-        const rootSVGs = allResult[0] as StatVarGroupInfo[];
-        const dataSourceNode = allResult[1] as StatVarGroupNodeType;
-        // When data source is specified, create a virtual top level node for
-        // this data source. This node is marked with the ROOT_SVG, hence the
-        // children can just be fetched with the data source as contraining
-        // entity.
-        if (dataSourceNode) {
-          rootSVGs.push({
-            id: ROOT_SVG,
-            specializedEntity: "",
-            displayName: globalThis.dataSourceName,
-            descendentStatVarCount: dataSourceNode.descendentStatVarCount,
-          });
-        }
 
-        const paths = allResult.slice(2) as string[][];
-        for (const path of paths) {
-          // In this case, the stat var is not in hierarchy.
-          if (path.length == 1) {
-            continue;
-          }
-          svPath[path.slice(-1)[0]] = path;
+    try {
+      const variableGroupInfos = await Promise.all(variableGroupInfoPromises);
+      // const dataSourceFilter = await dataSourceFilterPromise;
+      const statVarFilterPaths = await Promise.all(statVarPathPromises);
+      removeSpinner(SV_HIERARCHY_SECTION_ID);
+
+      // Set root stat var group hierarchy
+      const rootSVGs: StatVarGroupInfoConfig[] = [];
+      // Don't display the root node if there's only one stat var root node
+      // (e.g., "dc/g/Root"). Instead, show child stat var groups at the top
+      // level.
+      if (variableGroupInfos.length === 1) {
+        rootSVGs.push(...(variableGroupInfos[0].childStatVarGroups || []));
+      } else {
+        variableGroupInfos.forEach((variableGroupInfo, index) => {
+          const statVarHierarchyNodeConfig =
+            STAT_VAR_HIERARCHY_CONFIG.nodes[index];
+          rootSVGs.push({
+            id: statVarHierarchyNodeConfig.dcid,
+            specializedEntity: "",
+            displayName:
+              statVarHierarchyNodeConfig.name || variableGroupInfo.absoluteName,
+            descendentStatVarCount: variableGroupInfo.descendentStatVarCount,
+            dataSourceDcid: statVarHierarchyNodeConfig.dataSourceDcid,
+          });
+        });
+      }
+
+      // Set stat var path filters
+      for (const path of statVarFilterPaths) {
+        // In this case, the stat var is not in hierarchy.
+        if (path.length == 1) {
+          continue;
         }
-        this.setState({
-          rootSVGs,
-          svPath,
-        });
-      })
-      .catch(() => {
-        removeSpinner(SV_HIERARCHY_SECTION_ID);
-        this.setState({
-          errorMessage: "Error retrieving stat var group root nodes",
-        });
+        svPath[path.slice(-1)[0]] = path;
+      }
+
+      this.setState({
+        rootSVGs,
+        svPath,
       });
+    } catch {
+      removeSpinner(SV_HIERARCHY_SECTION_ID);
+      this.setState({
+        errorMessage: "Error retrieving stat var group root nodes",
+      });
+    }
   }
 
   private onSearchSelectionChange(selection: string): void {

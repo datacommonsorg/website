@@ -16,6 +16,25 @@
 from dataclasses import dataclass
 from typing import Dict, List
 
+from shared.lib import constants
+
+
+@dataclass
+class SentenceScore:
+  sentence: str
+  score: float
+  rerank_score: float = None
+
+  def to_dict(self) -> Dict:
+    d = {'sentence': self.sentence, 'score': self.score}
+    if self.rerank_score != None:
+      d['rerank_score'] = self.rerank_score
+    return d
+
+
+# Key is SV.
+SV2Sentences = Dict[str, List[SentenceScore]]
+
 
 # List of SV candidates, along with scores.
 @dataclass
@@ -23,7 +42,14 @@ class VarCandidates:
   # The below are sorted and parallel lists.
   svs: List[str]
   scores: List[float]
-  sv2sentences: Dict[str, List[str]]
+  # Key is variable.
+  sv2sentences: SV2Sentences
+
+  def sv2sentences_dict(self) -> Dict[str, Dict]:
+    resp = {}
+    for sv, sentences in self.sv2sentences.items():
+      resp[sv] = [s.to_dict() for s in sentences]
+    return resp
 
 
 # One part of a single multi-var candidate and its
@@ -51,8 +77,52 @@ class MultiVarCandidates:
   candidates: List[MultiVarCandidate]
 
 
+@dataclass
+class VarDetectionResult:
+  single_var: VarCandidates
+  multi_var: MultiVarCandidates
+  # This is the default score threshold prescribed by the model.
+  model_threshold: float
+
+
+def dict_to_var_candidates(nlresp: Dict) -> VarCandidates:
+  sv2sentences: SV2Sentences = {}
+  for sv, sentences in nlresp.get('SV_to_Sentences', {}).items():
+    sv2sentences[sv] = [
+        SentenceScore(sentence=v.get('sentence'),
+                      score=v.get('score'),
+                      rerank_score=v.get('rerank_score', None))
+        for v in sentences
+    ]
+  return VarCandidates(svs=nlresp.get('SV', []),
+                       scores=nlresp.get('CosineScore', []),
+                       sv2sentences=sv2sentences)
+
+
+def var_candidates_to_dict(res: VarCandidates) -> Dict:
+  result = {'SV': res.svs, 'CosineScore': res.scores}
+  if res.sv2sentences:
+    result['SV_to_Sentences'] = res.sv2sentences_dict()
+  return result
+
+
+def var_detection_result_to_dict(res: VarDetectionResult) -> Dict:
+  result = var_candidates_to_dict(res.single_var)
+  if res.multi_var:
+    result['MultiSV'] = multivar_candidates_to_dict(res.multi_var)
+  return result
+
+
+# Only used in test
+def test_dict_to_var_detection_result(input: Dict) -> VarDetectionResult:
+  return VarDetectionResult(
+      single_var=dict_to_var_candidates(input),
+      multi_var=dict_to_multivar_candidates(input.get('MultiSV', {})),
+      model_threshold=constants.SV_SCORE_DEFAULT_THRESHOLD)
+
+
 def multivar_candidates_to_dict(candidates: MultiVarCandidates) -> Dict:
-  if not candidates:
+  if not candidates or not candidates.candidates:
     return {}
   result = {'Candidates': []}
   for c in candidates.candidates:

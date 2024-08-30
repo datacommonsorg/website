@@ -20,24 +20,23 @@
 
 import {
   ApiNodePropvalOutResponse,
+  ObservationDatesApiResponse,
   PointApiResponse,
   SeriesApiResponse,
 } from "./data_commons_web_client_types";
-import { toURLSearchParams } from "./utils";
+import { parseWebsiteApiRoot, toURLSearchParams } from "./utils";
 
 export interface DatacommonsWebClientParams {
-  /** Web api root endpoint. Default: `"https://datacommons.org/"` */
   apiRoot?: string;
 }
 
 class DataCommonsWebClient {
+  /** Website API root */
   apiRoot?: string;
 
   constructor(params?: DatacommonsWebClientParams) {
     const p = params || {};
-    this.apiRoot = p.apiRoot
-      ? p.apiRoot.replace(/\/$/, "")
-      : "https://datacommons.org";
+    this.apiRoot = parseWebsiteApiRoot(p.apiRoot);
   }
 
   /**
@@ -182,5 +181,28 @@ class DataCommonsWebClient {
     const response = await fetch(url);
     return (await response.json()) as SeriesApiResponse;
   }
+
+  /**
+   * Gets observation series from child places within a parent place
+   * Uses /api/observations/series/within endpoint
+   * @param params.parentEntity parent place dcid to get the data for
+   * @param params.childType place type to get the data for
+   * @param params.variables variable dcids to get data for
+   */
+  async getObservationDates(params: {
+    parentEntity: string;
+    childType: string;
+    variable: string;
+  }): Promise<ObservationDatesApiResponse> {
+    const queryString = toURLSearchParams({
+      parentEntity: params.parentEntity,
+      childType: params.childType,
+      variable: params.variable,
+    });
+    const url = `${this.apiRoot || ""}/api/observation-dates?${queryString}`;
+    const response = await fetch(url);
+    return (await response.json()) as ObservationDatesApiResponse;
+  }
 }
+
 export { DataCommonsWebClient };

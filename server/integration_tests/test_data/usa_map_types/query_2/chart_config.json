@@ -16,6 +16,21 @@
                     "type": "MAP"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household"
+                    ],
+                    "title": "Household Median Income in Census Tracts of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
               }
             ],
             "title": "Household Median Income in Census Tracts of Placer County"
@@ -26,9 +41,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Mean_Income_Household"
+                      "Median_Income_Household"
                     ],
-                    "title": "Average Income for Households in Placer County",
+                    "title": "Household Median Income in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -36,17 +51,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Average Income for Households in Placer County",
+                    "description": "Household Median Income in Placer County",
                     "statVarKey": [
-                      "Mean_Income_Household"
+                      "Median_Income_Household"
                     ],
-                    "title": "Average Income for Households in Placer County",
+                    "title": "Household Median Income in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Average Income for Households"
+            "title": "Household Median Income"
           },
           {
             "columns": [
@@ -82,38 +97,25 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Income_Household_NonfamilyHousehold"
+                      "Median_Income_Person"
                     ],
-                    "title": "Nonfamily Household Median Income in Placer County",
-                    "type": "LINE"
+                    "title": "Individual Median Income in Census Tracts of Placer County (${date})",
+                    "type": "MAP"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
-                    "description": "Nonfamily Household Median Income in Placer County",
-                    "statVarKey": [
-                      "Median_Income_Household_NonfamilyHousehold"
-                    ],
-                    "title": "Nonfamily Household Median Income in Placer County",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Nonfamily Household Median Income"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
                       "Median_Income_Person"
                     ],
                     "title": "Individual Median Income in Census Tracts of Placer County (${date})",
-                    "type": "MAP"
+                    "type": "RANKING"
                   }
                 ]
               }
@@ -126,9 +128,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
+                      "Median_Income_Person"
                     ],
-                    "title": "Median Married Couple Family Household Income in Placer County",
+                    "title": "Individual Median Income in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -136,17 +138,45 @@
               {
                 "tiles": [
                   {
-                    "description": "Median Married Couple Family Household Income in Placer County",
+                    "description": "Individual Median Income in Placer County",
                     "statVarKey": [
-                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
+                      "Median_Income_Person"
                     ],
-                    "title": "Median Married Couple Family Household Income in Placer County",
+                    "title": "Individual Median Income in Placer County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Median Married Couple Family Household Income"
+            "title": "Individual Median Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_Income_Household"
+                    ],
+                    "title": "Average Income for Households in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Average Income for Households in Placer County",
+                    "statVarKey": [
+                      "Mean_Income_Household"
+                    ],
+                    "title": "Average Income for Households in Placer County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Average Income for Households"
           },
           {
             "columns": [
@@ -182,6 +212,202 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Median_Earnings_Person_Female",
+                      "Median_Earnings_Person_Male"
+                    ],
+                    "title": "Median Household Income by Gender in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Household Income by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
+                    ],
+                    "title": "Median Married Couple Family Household Income in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Married Couple Family Household Income in Placer County",
+                    "statVarKey": [
+                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
+                    ],
+                    "title": "Median Married Couple Family Household Income in Placer County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Married Couple Family Household Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Individual Median Earnings in Placer County",
+                    "statVarKey": [
+                      "Median_Earnings_Person"
+                    ],
+                    "title": "Individual Median Earnings in Placer County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Individual Median Earnings"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_HouseholderRaceWhiteAlone"
+                    ],
+                    "title": "Median Income of White Households in Census Tracts of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_HouseholderRaceWhiteAlone"
+                    ],
+                    "title": "Median Income of White Households in Census Tracts of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of White Households in Census Tracts of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
+                    ],
+                    "title": "Median Income of American Indian or Alaska Native Households in Census Tracts of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
+                    ],
+                    "title": "Median Income of American Indian or Alaska Native Households in Census Tracts of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of American Indian or Alaska Native Households in Census Tracts of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06061"
+                    ],
+                    "statVarKey": [
+                      "Median_Income_Household_HouseholderRaceWhiteAlone_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceAsianAlone_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceHispanicOrLatino_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceSomeOtherRaceAlone_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceTwoOrMoreRaces_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceWhiteAlone_multiple_place_bar_block",
+                      "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_multiple_place_bar_block"
+                    ],
+                    "title": "Median Household Income by Race in Placer County (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Household Income by Race"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_NonfamilyHousehold"
+                    ],
+                    "title": "Nonfamily Household Median Income in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Nonfamily Household Median Income in Placer County",
+                    "statVarKey": [
+                      "Median_Income_Household_NonfamilyHousehold"
+                    ],
+                    "title": "Nonfamily Household Median Income in Placer County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Nonfamily Household Median Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Mean_Income_Household_NonfamilyHousehold"
                     ],
                     "title": "Average Income for Nonfamily Households in Placer County",
@@ -203,6 +429,242 @@
               }
             ],
             "title": "Average Income for Nonfamily Households"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+                    ],
+                    "title": "Median Income of Men (15 Years or Older) With Income in Census Tracts of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+                    ],
+                    "title": "Median Income of Men (15 Years or Older) With Income in Census Tracts of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Men (15 Years or Older) With Income in Census Tracts of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+                    ],
+                    "title": "Median Income of Men (15 Years or Older) With Income in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Income of Men (15 Years or Older) With Income in Placer County",
+                    "statVarKey": [
+                      "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+                    ],
+                    "title": "Median Income of Men (15 Years or Older) With Income in Placer County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income of Men (15 Years or Older) With Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_WithFoodStampsInThePast12Months"
+                    ],
+                    "title": "Median Income for Households With Food Stamps in the Past Year in Census Tracts of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_WithFoodStampsInThePast12Months"
+                    ],
+                    "title": "Median Income for Households With Food Stamps in the Past Year in Census Tracts of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income for Households With Food Stamps in the Past Year in Census Tracts of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_WithFoodStampsInThePast12Months"
+                    ],
+                    "title": "Median Income for Households With Food Stamps in the Past Year in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Income for Households With Food Stamps in the Past Year in Placer County",
+                    "statVarKey": [
+                      "Median_Income_Household_WithFoodStampsInThePast12Months"
+                    ],
+                    "title": "Median Income for Households With Food Stamps in the Past Year in Placer County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income for Households With Food Stamps in the Past Year"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
+                    ],
+                    "title": "Median Income: Less Than High School Graduate in Census Tracts of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
+                    ],
+                    "title": "Median Income: Less Than High School Graduate in Census Tracts of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income: Less Than High School Graduate in Census Tracts of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
+                    ],
+                    "title": "Median Income: Less Than High School Graduate in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Income: Less Than High School Graduate in Placer County",
+                    "statVarKey": [
+                      "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
+                    ],
+                    "title": "Median Income: Less Than High School Graduate in Placer County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income: Less Than High School Graduate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_WithoutFoodStampsInThePast12Months"
+                    ],
+                    "title": "Median Income for Households Without Food Stamps in the Past Year in Census Tracts of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_WithoutFoodStampsInThePast12Months"
+                    ],
+                    "title": "Median Income for Households Without Food Stamps in the Past Year in Census Tracts of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income for Households Without Food Stamps in the Past Year in Census Tracts of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_WithoutFoodStampsInThePast12Months"
+                    ],
+                    "title": "Median Income for Households Without Food Stamps in the Past Year in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Income for Households Without Food Stamps in the Past Year in Placer County",
+                    "statVarKey": [
+                      "Median_Income_Household_WithoutFoodStampsInThePast12Months"
+                    ],
+                    "title": "Median Income for Households Without Food Stamps in the Past Year in Placer County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Income for Households Without Food Stamps in the Past Year"
           }
         ],
         "statVarSpec": {
@@ -218,6 +680,18 @@
             "name": "Average Income for Nonfamily Households",
             "statVar": "Mean_Income_Household_NonfamilyHousehold"
           },
+          "Median_Earnings_Person": {
+            "name": "Individual Median Earnings",
+            "statVar": "Median_Earnings_Person"
+          },
+          "Median_Earnings_Person_Female": {
+            "name": "Median Earnings for Women",
+            "statVar": "Median_Earnings_Person_Female"
+          },
+          "Median_Earnings_Person_Male": {
+            "name": "Median Earnings for Men",
+            "statVar": "Median_Earnings_Person_Male"
+          },
           "Median_Income_Household": {
             "name": "Household Median Income",
             "statVar": "Median_Income_Household"
@@ -225,6 +699,50 @@
           "Median_Income_Household_FamilyHousehold": {
             "name": "Median Family Household Income",
             "statVar": "Median_Income_Household_FamilyHousehold"
+          },
+          "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": {
+            "name": "Median Income of American Indian or Alaska Native Households",
+            "statVar": "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
+          },
+          "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
+            "name": "Median Income of American Indian or Alaska Native Households",
+            "statVar": "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone"
+          },
+          "Median_Income_Household_HouseholderRaceAsianAlone_multiple_place_bar_block": {
+            "name": "Median Income of Asian Households",
+            "statVar": "Median_Income_Household_HouseholderRaceAsianAlone"
+          },
+          "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone_multiple_place_bar_block": {
+            "name": "Median Income of Black or African American Households",
+            "statVar": "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone"
+          },
+          "Median_Income_Household_HouseholderRaceHispanicOrLatino_multiple_place_bar_block": {
+            "name": "Median Income of Hispanic or Latino Households",
+            "statVar": "Median_Income_Household_HouseholderRaceHispanicOrLatino"
+          },
+          "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block": {
+            "name": "Median Income of Native Hawaiian or Other Pacific Islander Households",
+            "statVar": "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone"
+          },
+          "Median_Income_Household_HouseholderRaceSomeOtherRaceAlone_multiple_place_bar_block": {
+            "name": "Median Income of Household: Some Other Race Alone",
+            "statVar": "Median_Income_Household_HouseholderRaceSomeOtherRaceAlone"
+          },
+          "Median_Income_Household_HouseholderRaceTwoOrMoreRaces_multiple_place_bar_block": {
+            "name": "Median Income of Household: Two or More Races",
+            "statVar": "Median_Income_Household_HouseholderRaceTwoOrMoreRaces"
+          },
+          "Median_Income_Household_HouseholderRaceWhiteAlone": {
+            "name": "Median Income of White Households",
+            "statVar": "Median_Income_Household_HouseholderRaceWhiteAlone"
+          },
+          "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino_multiple_place_bar_block": {
+            "name": "Median Income of Household: White Alone Not Hispanic or Latino",
+            "statVar": "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino"
+          },
+          "Median_Income_Household_HouseholderRaceWhiteAlone_multiple_place_bar_block": {
+            "name": "Median Income of White Households",
+            "statVar": "Median_Income_Household_HouseholderRaceWhiteAlone"
           },
           "Median_Income_Household_MarriedCoupleFamilyHousehold": {
             "name": "Median Married Couple Family Household Income",
@@ -234,9 +752,25 @@
             "name": "Nonfamily Household Median Income",
             "statVar": "Median_Income_Household_NonfamilyHousehold"
           },
+          "Median_Income_Household_WithFoodStampsInThePast12Months": {
+            "name": "Median Income for Households With Food Stamps in the Past Year",
+            "statVar": "Median_Income_Household_WithFoodStampsInThePast12Months"
+          },
+          "Median_Income_Household_WithoutFoodStampsInThePast12Months": {
+            "name": "Median Income for Households Without Food Stamps in the Past Year",
+            "statVar": "Median_Income_Household_WithoutFoodStampsInThePast12Months"
+          },
           "Median_Income_Person": {
             "name": "Individual Median Income",
             "statVar": "Median_Income_Person"
+          },
+          "Median_Income_Person_15OrMoreYears_Male_WithIncome": {
+            "name": "Median Income of Men (15 Years or Older) With Income",
+            "statVar": "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+          },
+          "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome": {
+            "name": "Median Income: Less Than High School Graduate",
+            "statVar": "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome"
           }
         }
       }
@@ -252,6 +786,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "geoId/06061",
@@ -267,7 +802,679 @@
       "place_type": "County"
     }
   ],
-  "relatedThings": {},
+  "relatedThings": {
+    "childPlaces": {
+      "CensusTract": [
+        {
+          "dcid": "geoId/06061020104",
+          "name": "Census Tract 201.04, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020105",
+          "name": "Census Tract 201.05, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020106",
+          "name": "Census Tract 201.06, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020107",
+          "name": "Census Tract 201.07, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020200",
+          "name": "Census Tract 202, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020300",
+          "name": "Census Tract 203, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020401",
+          "name": "Census Tract 204.01, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020402",
+          "name": "Census Tract 204.02, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020501",
+          "name": "Census Tract 205.01, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020502",
+          "name": "Census Tract 205.02, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020601",
+          "name": "Census Tract 206.01, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020602",
+          "name": "Census Tract 206.02, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020604",
+          "name": "Census Tract 206.04, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020605",
+          "name": "Census Tract 206.05, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020606",
+          "name": "Census Tract 206.06, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020710",
+          "name": "Census Tract 207.10, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020711",
+          "name": "Census Tract 207.11, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020712",
+          "name": "Census Tract 207.12, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020713",
+          "name": "Census Tract 207.13, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020714",
+          "name": "Census Tract 207.14, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020715",
+          "name": "Census Tract 207.15, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020717",
+          "name": "Census Tract 207.17, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020805",
+          "name": "Census Tract 208.05, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020806",
+          "name": "Census Tract 208.06, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020901",
+          "name": "Census Tract 209.01, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061020908",
+          "name": "Census Tract 209.08, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021003",
+          "name": "Census Tract 210.03, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021034",
+          "name": "Census Tract 210.34, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021035",
+          "name": "Census Tract 210.35, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021037",
+          "name": "Census Tract 210.37, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021038",
+          "name": "Census Tract 210.38, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021039",
+          "name": "Census Tract 210.39, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021040",
+          "name": "Census Tract 210.40, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021043",
+          "name": "Census Tract 210.43, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021044",
+          "name": "Census Tract 210.44, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021045",
+          "name": "Census Tract 210.45, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021046",
+          "name": "Census Tract 210.46, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021103",
+          "name": "Census Tract 211.03, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021106",
+          "name": "Census Tract 211.06, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021108",
+          "name": "Census Tract 211.08, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021109",
+          "name": "Census Tract 211.09, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021122",
+          "name": "Census Tract 211.22, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021123",
+          "name": "Census Tract 211.23, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021128",
+          "name": "Census Tract 211.28, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021129",
+          "name": "Census Tract 211.29, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021130",
+          "name": "Census Tract 211.30, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021131",
+          "name": "Census Tract 211.31, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021203",
+          "name": "Census Tract 212.03, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021204",
+          "name": "Census Tract 212.04, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        },
+        {
+          "dcid": "geoId/06061021304",
+          "name": "Census Tract 213.04, Placer County, California",
+          "types": [
+            "CensusTract"
+          ]
+        }
+      ]
+    },
+    "childTopics": [
+      {
+        "dcid": "dc/topic/IndividualIncomeDistribution",
+        "name": "Individual Income Distribution",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/IndividualIncomeByIndustry",
+        "name": "Individual Income by Industry",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HouseholdIncomeDistribution",
+        "name": "Household Income Distribution",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "exploreMore": {
+      "Mean_Income_Household": {
+        "householdType": [
+          "Mean_Income_Household_FamilyHousehold",
+          "Mean_Income_Household_MarriedCoupleFamilyHousehold",
+          "Mean_Income_Household_NonfamilyHousehold"
+        ]
+      },
+      "Median_Earnings_Person": {
+        "gender": [
+          "Median_Earnings_Person_Female",
+          "Median_Earnings_Person_Male"
+        ]
+      },
+      "Median_Income_Household": {
+        "benefitsStatus": [
+          "Median_Income_Household_WithFoodStampsInThePast12Months",
+          "Median_Income_Household_WithoutFoodStampsInThePast12Months"
+        ],
+        "householderRace": [
+          "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone",
+          "Median_Income_Household_HouseholderRaceAsianAlone",
+          "Median_Income_Household_HouseholderRaceBlackOrAfricanAmericanAlone",
+          "Median_Income_Household_HouseholderRaceHispanicOrLatino",
+          "Median_Income_Household_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone",
+          "Median_Income_Household_HouseholderRaceSomeOtherRaceAlone",
+          "Median_Income_Household_HouseholderRaceTwoOrMoreRaces",
+          "Median_Income_Household_HouseholderRaceWhiteAlone",
+          "Median_Income_Household_HouseholderRaceWhiteAloneNotHispanicOrLatino"
+        ]
+      }
+    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Income",
+        "name": "Income",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Economy",
+        "name": "Economy",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [
+      {
+        "dcid": "geoId/06001",
+        "name": "Alameda",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/36005",
+        "name": "Bronx",
+        "types": [
+          "County"
+        ]
+      },
+      {
+        "dcid": "geoId/06013",
+        "name": "Contra Costa",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/17031",
+        "name": "Cook",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/39035",
+        "name": "Cuyahoga",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/48113",
+        "name": "Dallas",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/12031",
+        "name": "Duval",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/08041",
+        "name": "El Paso",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/51059",
+        "name": "Fairfax",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/13121",
+        "name": "Fulton",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/48201",
+        "name": "Harris",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/12057",
+        "name": "Hillsborough",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/15003",
+        "name": "Honolulu",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/08059",
+        "name": "Jefferson",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06029",
+        "name": "Kern",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/53033",
+        "name": "King",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06037",
+        "name": "Los Angeles",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/04013",
+        "name": "Maricopa",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/37119",
+        "name": "Mecklenburg",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/12086",
+        "name": "Miami-Dade",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06059",
+        "name": "Orange",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/36081",
+        "name": "Queens",
+        "types": [
+          "County"
+        ]
+      },
+      {
+        "dcid": "geoId/06065",
+        "name": "Riverside",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06071",
+        "name": "San Bernardino",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06073",
+        "name": "San Diego",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06075",
+        "name": "San Francisco",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06085",
+        "name": "Santa Clara",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/24047",
+        "name": "Worcester",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/Businesses",
+        "name": "Businesses",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/EconomicActivity",
+        "name": "Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Employment",
+        "name": "Employment",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/GlobalEconomicActivity",
+        "name": "Global Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Poverty",
+        "name": "Poverty",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Agriculture",
+        "name": "Agriculture",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessage": "",
+  "userMessages": []
 }

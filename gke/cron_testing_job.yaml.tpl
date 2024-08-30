@@ -20,7 +20,7 @@ metadata:
   namespace: website
 spec:
   # Run every 4 hours
-  schedule: "0 */4 * * *"
+  schedule:
   successfulJobsHistoryLimit: 100
   failedJobsHistoryLimit: 100
   jobTemplate:
@@ -29,6 +29,8 @@ spec:
       template:
         spec:
           serviceAccountName:
+          nodeSelector:
+            cloud.google.com/gke-nodepool:
           containers:
           - name: cron-testing-container
             image: "gcr.io/datcom-ci/website-cron-testing:latest"
@@ -47,4 +49,19 @@ spec:
                 configMapKeyRef:
                   name: cron-testing-config
                   key: nodejsApiRoot
+            - name: SCREENSHOT_DOMAIN
+              valueFrom: 
+                configMapKeyRef:
+                  name: cron-testing-config
+                  key: screenshotDomain
+            - name: ENABLE_SANITY
+              valueFrom: 
+                configMapKeyRef:
+                  name: cron-testing-config
+                  key: enableSanity
+            - name: ENABLE_ADVERSARIAL
+              valueFrom: 
+                configMapKeyRef:
+                  name: cron-testing-config
+                  key: enableAdversarial
           restartPolicy: Never

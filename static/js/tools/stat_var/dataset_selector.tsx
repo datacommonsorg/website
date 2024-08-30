@@ -43,7 +43,7 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
     <>
       <Card className={`${CSS_PREFIX}-card`}>
         <Container fluid={true} className={`${CSS_PREFIX}-container`}>
-          <div className={`${CSS_PREFIX}-label`}>Show variables for</div>
+          <div className={`${CSS_PREFIX}-label`}>Filter variables by</div>
           <CustomInput
             id={`${CSS_PREFIX}-source-custom-input`}
             className={`${CSS_PREFIX}-custom-input`}
@@ -57,7 +57,7 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
               });
             }}
           >
-            <option value="">Select a source to filter by (optional)</option>
+            <option value="">Data source</option>
             {props.sources.map((s) => {
               return (
                 <option
@@ -80,7 +80,7 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
               updateHash({ [SV_URL_PARAMS.DATASET]: dcid });
             }}
           >
-            <option value="">Select a dataset (optional)</option>
+            <option value="">Dataset</option>
             {props.datasets.map((d) => {
               return (
                 <option

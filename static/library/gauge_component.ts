@@ -93,7 +93,11 @@ export class DatacommonsGaugeComponent extends LitElement {
   @property()
   variable!: string;
 
-  render(): HTMLElement {
+  // Optional: List of sources for this component
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  sources?: string[];
+
+  render(): HTMLDivElement {
     const gaugeTileProps: GaugeTilePropType = {
       apiRoot: getApiRoot(this.apiRoot),
       colors: this.colors,
@@ -107,7 +111,7 @@ export class DatacommonsGaugeComponent extends LitElement {
         min: this.min,
         max: this.max,
       },
-      svgChartHeight: 200,
+      sources: this.sources,
       statVarSpec: {
         denom:
           this.perCapita && this.perCapita.includes(this.variable)
@@ -119,6 +123,7 @@ export class DatacommonsGaugeComponent extends LitElement {
         statVar: this.variable,
         unit: "",
       },
+      svgChartHeight: 200,
       title: this.header || this.title,
     };
     return createWebComponentElement(GaugeTile, gaugeTileProps);

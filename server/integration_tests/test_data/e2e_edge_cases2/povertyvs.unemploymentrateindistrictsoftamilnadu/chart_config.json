@@ -60,12 +60,44 @@
               }
             ],
             "title": "Unemployment Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Population Below Poverty Line (Per Capita) in Tamil Nadu",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population Below Poverty Line (Per Capita) in Tamil Nadu",
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Population Below Poverty Line (Per Capita) in Tamil Nadu",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Below Poverty Line (Per Capita)"
           }
         ],
         "statVarSpec": {
           "Count_Person_BelowPovertyLevelInThePast12Months": {
             "name": "Population Below poverty line",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person": {
+            "name": "Population Below poverty line (Per Capita)",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
           },
           "UnemploymentRate_Person": {
             "name": "Unemployment Rate",
@@ -82,6 +114,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "wikidataId/Q1445",
@@ -154,8 +187,22 @@
         ]
       },
       {
+        "dcid": "dc/topic/GlobalEconomicActivity",
+        "name": "Global Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
         "dcid": "dc/topic/Income",
         "name": "Income",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Agriculture",
+        "name": "Agriculture",
         "types": [
           "Topic"
         ]
@@ -163,5 +210,9 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "Sorry, there were no relevant statistics for administrative area 2 places in Tamil Nadu. See results for Tamil Nadu."
+  "test": "filter_test",
+  "userMessage": "Sorry, there were no relevant statistics for administrative area 2 places in Tamil Nadu. See results for Tamil Nadu.",
+  "userMessages": [
+    "Sorry, there were no relevant statistics for administrative area 2 places in Tamil Nadu. See results for Tamil Nadu."
+  ]
 }

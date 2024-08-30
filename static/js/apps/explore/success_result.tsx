@@ -25,24 +25,21 @@ import React, { useEffect, useRef } from "react";
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import {
   CLIENT_TYPES,
+  SVG_CHART_HEIGHT,
   URL_DELIM,
   URL_HASH_PARAMS,
 } from "../../constants/app/explore_constants";
-import { SVG_CHART_HEIGHT } from "../../constants/app/nl_interface_constants";
 import {
   ExploreContext,
   NlSessionContext,
   RankingUnitUrlFuncContext,
 } from "../../shared/context";
-import {
-  QueryResult,
-  UserMessageInfo,
-} from "../../types/app/nl_interface_types";
+import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getPlaceTypePlural } from "../../utils/string_utils";
 import { trimCategory } from "../../utils/subject_page_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
-import { DebugInfo } from "../nl_interface/debug_info";
+import { DebugInfo } from "./debug_info";
 import { RelatedPlace } from "./related_place";
 import { ResultHeaderSection } from "./result_header_section";
 import { SearchSection } from "./search_section";
@@ -161,7 +158,7 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
           placeUrlVal={placeUrlVal}
           shouldShowTopics={placeOverviewOnly}
         />
-        {props.pageMetadata && props.pageMetadata.pageConfig && (
+        {props.pageMetadata && !_.isEmpty(props.pageMetadata.pageConfig) && (
           <>
             {!placeOverviewOnly && (
               <ResultHeaderSection

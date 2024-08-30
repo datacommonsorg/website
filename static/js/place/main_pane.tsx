@@ -74,10 +74,6 @@ interface MainPanePropType {
    * Highlighted data to show in overview
    */
   highlight?: PageHighlight;
-  /**
-   * Text summary of the place to show in overview
-   */
-  summaryText?: string;
 }
 
 export function showOverview(
@@ -129,9 +125,7 @@ class MainPane extends React.Component<MainPanePropType> {
             locale={this.props.locale}
             highlight={this.props.highlight}
             names={this.props.names}
-            parentPlaces={this.props.parentPlaces}
             placeType={this.props.placeType}
-            summaryText={this.props.summaryText}
           />
         )}
         {topics.map((topic: string, index: number) => {

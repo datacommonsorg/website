@@ -126,7 +126,19 @@ export class DatacommonsLineComponent extends LitElement {
   @property()
   timeScale?: TimeScaleOption;
 
-  render(): HTMLElement {
+  // Optional: Only show observations equal to or after this date.
+  @property()
+  startDate?: string;
+
+  // Optional: Only show observations equal to or before this date.
+  @property()
+  endDate?: string;
+
+  // Optional: List of sources for this component
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  sources?: string[];
+
+  render(): HTMLDivElement {
     const lineTileProps: LineTilePropType = {
       apiRoot: getApiRoot(this.apiRoot),
       colors: this.colors,
@@ -138,8 +150,11 @@ export class DatacommonsLineComponent extends LitElement {
         name: "",
         types: [],
       },
+      startDate: this.startDate,
+      endDate: this.endDate,
       showExploreMore: this.showExploreMore,
       showTooltipOnHover: true,
+      sources: this.sources,
       statVarSpec: this.variables.map((variable) => ({
         denom:
           this.perCapita && this.perCapita.includes(variable)

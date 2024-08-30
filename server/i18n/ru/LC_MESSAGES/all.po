@@ -82,8 +82,8 @@ msgstr "Расходы правительства на образование"
 msgid "Government Expenditures on Military"
 msgstr "Военные расходы правительства"
 
-msgid "Graph Browser"
-msgstr "Graph Browser"
+msgid "Knowledge Graph"
+msgstr "графа знаний"
 
 msgid "Gross National Income"
 msgstr "Валовой национальный доход"
@@ -706,3 +706,46 @@ msgstr "Water withdrawal rate"
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "Обзор"
 
+#. Place containment. Gives context for where a place is located.
+msgid "%(placeType)s in %(parentPlaces)s"
+msgstr "%(parentPlaces)s: %(placeType)s"
+
+#. Place Types
+msgid "singular_administrative_area"
+msgstr "Административный район"
+
+msgid "singular_administrative_area_level"
+msgstr "Место по типу административного района уровня %(level)s"
+
+msgid "singular_borough"
+msgstr "Район"
+
+msgid "singular_city"
+msgstr "Город"
+
+msgid "singular_country"
+msgstr "Страна"
+
+msgid "singular_county"
+msgstr "Округ"
+
+msgid "singular_eurostat_nuts"
+msgstr "Место по типу Евростат NUTS уровня %(level)s"
+
+msgid "singular_neighborhood"
+msgstr "Микрорайон"
+
+msgid "singular_place"
+msgstr "Место"
+
+msgid "singular_state"
+msgstr "Штат"
+
+msgid "singular_town"
+msgstr "Город"
+
+msgid "singular_village"
+msgstr "Поселок"
+
+msgid "singular_zip_code"
+msgstr "Почтовый индекс"

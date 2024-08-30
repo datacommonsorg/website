@@ -13,6 +13,190 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
+                      "Mean_Income_Household_scatter",
+                      "Percent_Person_WithDiabetes_scatter"
+                    ],
+                    "title": "Average Income for Households (${yDate}) Vs. Diabetes (${xDate}) in Counties of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "title": "Average Income for Households vs. Diabetes"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_Income_Household"
+                    ],
+                    "title": "Average Income for Households in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Mean_Income_Household"
+                    ],
+                    "title": "Average Income for Households in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Average Income for Households in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithDiabetes"
+                    ],
+                    "title": "Diabetes in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_WithDiabetes"
+                    ],
+                    "title": "Diabetes in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Diabetes in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Mean_Income_Household_FamilyHousehold_scatter",
+                      "Percent_Person_WithDiabetes_scatter"
+                    ],
+                    "title": "Average Income for Family Households (${yDate}) Vs. Diabetes (${xDate}) in Counties of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "title": "Average Income for Family Households vs. Diabetes"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_Income_Household_FamilyHousehold"
+                    ],
+                    "title": "Average Income for Family Households in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Mean_Income_Household_FamilyHousehold"
+                    ],
+                    "title": "Average Income for Family Households in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Average Income for Family Households in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_FamilyHousehold_scatter",
+                      "Percent_Person_WithDiabetes_scatter"
+                    ],
+                    "title": "Median Family Household Income (${yDate}) Vs. Diabetes (${xDate}) in Counties of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Family Household Income vs. Diabetes"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_FamilyHousehold"
+                    ],
+                    "title": "Median Family Household Income in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_FamilyHousehold"
+                    ],
+                    "title": "Median Family Household Income in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Family Household Income in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
                       "Median_Income_Household_scatter",
                       "Percent_Person_WithDiabetes_scatter"
                     ],
@@ -60,10 +244,30 @@
               {
                 "tiles": [
                   {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
                     "statVarKey": [
-                      "Percent_Person_WithDiabetes"
+                      "Median_Income_Household_MarriedCoupleFamilyHousehold_scatter",
+                      "Percent_Person_WithDiabetes_scatter"
                     ],
-                    "title": "Diabetes in Counties of United States (${date})",
+                    "title": "Median Married Couple Family Household Income (${yDate}) Vs. Diabetes (${xDate}) in Counties of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Married Couple Family Household Income vs. Diabetes"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
+                    ],
+                    "title": "Median Married Couple Family Household Income in Counties of United States (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -76,21 +280,117 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Percent_Person_WithDiabetes"
+                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
                     ],
-                    "title": "Diabetes in Counties of United States (${date})",
+                    "title": "Median Married Couple Family Household Income in Counties of United States (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Diabetes in Counties of United States"
+            "title": "Median Married Couple Family Household Income in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_NonfamilyHousehold_scatter",
+                      "Percent_Person_WithDiabetes_scatter"
+                    ],
+                    "title": "Nonfamily Household Median Income (${yDate}) Vs. Diabetes (${xDate}) in Counties of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "title": "Nonfamily Household Median Income vs. Diabetes"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_NonfamilyHousehold"
+                    ],
+                    "title": "Nonfamily Household Median Income in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Income_Household_NonfamilyHousehold"
+                    ],
+                    "title": "Nonfamily Household Median Income in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Nonfamily Household Median Income in Counties of United States"
           }
         ],
         "statVarSpec": {
+          "Mean_Income_Household": {
+            "name": "Average Income for Households",
+            "statVar": "Mean_Income_Household"
+          },
+          "Mean_Income_Household_FamilyHousehold": {
+            "name": "Average Income for Family Households",
+            "statVar": "Mean_Income_Household_FamilyHousehold"
+          },
+          "Mean_Income_Household_FamilyHousehold_scatter": {
+            "name": "Average Income for Family Households",
+            "noPerCapita": true,
+            "statVar": "Mean_Income_Household_FamilyHousehold"
+          },
+          "Mean_Income_Household_scatter": {
+            "name": "Average Income for Households",
+            "noPerCapita": true,
+            "statVar": "Mean_Income_Household"
+          },
           "Median_Income_Household": {
             "name": "Household Median Income",
             "statVar": "Median_Income_Household"
+          },
+          "Median_Income_Household_FamilyHousehold": {
+            "name": "Median Family Household Income",
+            "statVar": "Median_Income_Household_FamilyHousehold"
+          },
+          "Median_Income_Household_FamilyHousehold_scatter": {
+            "name": "Median Family Household Income",
+            "noPerCapita": true,
+            "statVar": "Median_Income_Household_FamilyHousehold"
+          },
+          "Median_Income_Household_MarriedCoupleFamilyHousehold": {
+            "name": "Median Married Couple Family Household Income",
+            "statVar": "Median_Income_Household_MarriedCoupleFamilyHousehold"
+          },
+          "Median_Income_Household_MarriedCoupleFamilyHousehold_scatter": {
+            "name": "Median Married Couple Family Household Income",
+            "noPerCapita": true,
+            "statVar": "Median_Income_Household_MarriedCoupleFamilyHousehold"
+          },
+          "Median_Income_Household_NonfamilyHousehold": {
+            "name": "Nonfamily Household Median Income",
+            "statVar": "Median_Income_Household_NonfamilyHousehold"
+          },
+          "Median_Income_Household_NonfamilyHousehold_scatter": {
+            "name": "Nonfamily Household Median Income",
+            "noPerCapita": true,
+            "statVar": "Median_Income_Household_NonfamilyHousehold"
           },
           "Median_Income_Household_scatter": {
             "name": "Household Median Income",
@@ -122,6 +422,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "country/USA",
@@ -492,23 +793,15 @@
         }
       ]
     },
-    "childTopics": [
-      {
-        "dcid": "dc/topic/IndividualIncomeDistribution",
-        "name": "Individual Income Distribution",
-        "types": [
-          "Topic"
+    "childTopics": [],
+    "exploreMore": {
+      "Mean_Income_Household": {
+        "householdType": [
+          "Mean_Income_Household_FamilyHousehold",
+          "Mean_Income_Household_MarriedCoupleFamilyHousehold",
+          "Mean_Income_Household_NonfamilyHousehold"
         ]
       },
-      {
-        "dcid": "dc/topic/HouseholdIncomeDistribution",
-        "name": "Household Income Distribution",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
-    "exploreMore": {
       "Median_Income_Household": {
         "benefitsStatus": [
           "Median_Income_Household_WithFoodStampsInThePast12Months",
@@ -517,13 +810,6 @@
       }
     },
     "mainTopics": [
-      {
-        "dcid": "dc/topic/Income",
-        "name": "Income",
-        "types": [
-          "Topic"
-        ]
-      },
       {
         "dcid": "dc/topic/Diabetes",
         "name": "Diabetes",
@@ -534,13 +820,6 @@
     ],
     "parentPlaces": [],
     "parentTopics": [
-      {
-        "dcid": "dc/topic/Economy",
-        "name": "Economy",
-        "types": [
-          "Topic"
-        ]
-      },
       {
         "dcid": "dc/topic/HealthConditions",
         "name": "Health Conditions",
@@ -651,48 +930,6 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/Businesses",
-        "name": "Businesses",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/EconomicActivity",
-        "name": "Economic Activity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Employment",
-        "name": "Employment",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/GlobalEconomicActivity",
-        "name": "Global Economic Activity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Poverty",
-        "name": "Poverty",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Agriculture",
-        "name": "Agriculture",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
         "dcid": "dc/topic/Arthritis",
         "name": "Arthritis",
         "types": [
@@ -765,5 +1002,6 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessage": "",
+  "userMessages": []
 }

@@ -209,11 +209,11 @@
   },
   "Amount_FarmInventory_SugarbeetsForSugar": {
     "blocklist": [],
-    "title": "Sugarbeets Grown"
+    "title": "Sugar Beets Grown"
   },
   "Amount_FarmInventory_SunflowerSeed": {
     "blocklist": [],
-    "title": "Sunflowerseed Grown"
+    "title": "Sunflower Seed Grown"
   },
   "Amount_FarmInventory_UplandCotton": {
     "blocklist": [],
@@ -1325,47 +1325,47 @@
   },
   "Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_1_ExternalCombustion": {
     "blocklist": [],
-    "title": "Annual Emissions: Oxo Chromium, External Combustion"
+    "title": "Annual Emissions: Chromium Oxide, External Combustion"
   },
   "Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_21_StationarySourceFuelCombustion": {
     "blocklist": [],
-    "title": "Annual Emissions: Oxo Chromium, Stationary Source Fuel Combustion"
+    "title": "Annual Emissions: Chromium Oxide, Stationary Source Fuel Combustion"
   },
   "Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_22_MobileSources": {
     "blocklist": [],
-    "title": "Annual Emissions: Oxo Chromium, Mobile Sources"
+    "title": "Annual Emissions: Chromium Oxide, Mobile Sources"
   },
   "Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_23_IndustrialProcesses": {
     "blocklist": [],
-    "title": "Annual Emissions: Oxo Chromium, Industrial Processes"
+    "title": "Annual Emissions: Chromium Oxide, Industrial Processes"
   },
   "Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_24_SolventUtilization": {
     "blocklist": [],
-    "title": "Annual Emissions: Oxo Chromium, Solvent Utilization"
+    "title": "Annual Emissions: Chromium Oxide, Solvent Utilization"
   },
   "Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_26_WasteDisposalTreatmentAndRecovery": {
     "blocklist": [],
-    "title": "Annual Emissions: Oxo Chromium, Waste Treatment & Recovery"
+    "title": "Annual Emissions: Chromium Oxide, Waste Treatment & Recovery"
   },
   "Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_28_MiscellaneousAreaSources": {
     "blocklist": [],
-    "title": "Annual Emissions: Oxo Chromium, Misc Sources"
+    "title": "Annual Emissions: Chromium Oxide, Misc Sources"
   },
   "Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_2_InternalCombustionEngines": {
     "blocklist": [],
-    "title": "Annual Emissions: Oxo Chromium, Internal Combustion Engine"
+    "title": "Annual Emissions: Chromium Oxide, Internal Combustion Engine"
   },
   "Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_3_IndustrialProcesses": {
     "blocklist": [],
-    "title": "Annual Emissions: Oxo Chromium, Industrial Processes"
+    "title": "Annual Emissions: Chromium Oxide, Industrial Processes"
   },
   "Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_4_PetroleumAndSolventEvaporation": {
     "blocklist": [],
-    "title": "Annual Emissions: Oxo Chromium, Petroleum & Solvent Evaporation"
+    "title": "Annual Emissions: Chromium Oxide, Petroleum & Solvent Evaporation"
   },
   "Annual_Amount_Emissions_Oxo_Oxochromiooxy_Chromium_SCC_5_WasteDisposal": {
     "blocklist": [],
-    "title": "Annual Emissions: Oxo Chromium, Waste Disposal"
+    "title": "Annual Emissions: Chromium Oxide, Waste Disposal"
   },
   "Annual_Amount_Emissions_PM10_SCC_1_ExternalCombustion": {
     "blocklist": [],
@@ -1593,7 +1593,7 @@
   },
   "Annual_Amount_Emissions_SCC_26_WasteDisposalTreatmentAndRecovery": {
     "blocklist": [],
-    "title": "Annual Emissions: Waste Dispotsal Treatment and Recovery"
+    "title": "Annual Emissions: Waste Disposal Treatment and Recovery"
   },
   "Annual_Amount_Emissions_SCC_27_NaturalSources": {
     "blocklist": [],
@@ -1913,19 +1913,19 @@
   },
   "Annual_Generation_Electricity_RenewableEnergy_Commercial": {
     "blocklist": [],
-    "title": "Annual Renewables: Commercial (Net Generation)"
+    "title": "Annual Renewable Energy: Commercial (Net Generation)"
   },
   "Annual_Generation_Electricity_RenewableEnergy_ElectricPower": {
     "blocklist": [],
-    "title": "Annual Renewables: Electric Power (Net Generation)"
+    "title": "Annual Renewable Energy: Electric Power (Net Generation)"
   },
   "Annual_Generation_Electricity_RenewableEnergy_IndependentPowerProducers": {
     "blocklist": [],
-    "title": "Annual Renewables: Independent Power Producers (Net Generation)"
+    "title": "Annual Renewable Energy: Independent Power Producers (Net Generation)"
   },
   "Annual_Generation_Electricity_RenewableEnergy_Industrial": {
     "blocklist": [],
-    "title": "Annual Renewables: Industrial (Net Generation)"
+    "title": "Annual Renewable Energy: Industrial (Net Generation)"
   },
   "Annual_Generation_Energy_Coal": {
     "blocklist": [],
@@ -2033,7 +2033,7 @@
   },
   "Area_Farm_SugarbeetsForSugar": {
     "blocklist": [],
-    "title": "Area of Farms Growing Sugarbeets for Sugar Production"
+    "title": "Area of Farms Growing Sugar Beets for Sugar Production"
   },
   "Area_Farm_SunflowerSeed": {
     "blocklist": [],
@@ -2177,7 +2177,7 @@
   },
   "Count_Death_15To24Years_MentalBehaviouralDisorders": {
     "blocklist": [],
-    "title": "Deaths due to Mental and Behavioral Disorders amongs 15-24 year olds"
+    "title": "Deaths due to Mental and Behavioral Disorders among 15-24 year olds"
   },
   "Count_Death_15To24Years_Neoplasms": {
     "blocklist": [],
@@ -2357,11 +2357,11 @@
   },
   "Count_Death_IntentionalSelfHarm_Female_AsFractionOf_Count_Person_Female": {
     "blocklist": [],
-    "title": "% of Female Suicide Events"
+    "title": "Female Suicide Mortality Rate"
   },
   "Count_Death_IntentionalSelfHarm_Male_AsFractionOf_Count_Person_Male": {
     "blocklist": [],
-    "title": "% of Male Suicide Events"
+    "title": "Male Suicide Mortality Rate"
   },
   "Count_Death_Male_AgeAdjusted_AsAFractionOf_Count_Person_Male": {
     "blocklist": [],
@@ -2761,7 +2761,7 @@
   },
   "Count_Farm_OatsForGrain": {
     "blocklist": [],
-    "title": "Farms Grawing Oats"
+    "title": "Farms Growing Oats"
   },
   "Count_Farm_Orchards": {
     "blocklist": [],
@@ -2769,7 +2769,7 @@
   },
   "Count_Farm_PeanutsForNuts": {
     "blocklist": [],
-    "title": "Farms Growing Peantuts"
+    "title": "Farms Growing Peanuts"
   },
   "Count_Farm_PimaCotton": {
     "blocklist": [],
@@ -2797,7 +2797,7 @@
   },
   "Count_Farm_SugarbeetsForSugar": {
     "blocklist": [],
-    "title": "Farms Growing Sugarbeets for Sugar Production"
+    "title": "Farms Growing Sugar Beets for Sugar Production"
   },
   "Count_Farm_SunflowerSeed": {
     "blocklist": [],
@@ -3641,7 +3641,7 @@
   },
   "Count_Person_15OrMoreYears_NeverMarried_HispanicOrLatino": {
     "blocklist": [],
-    "title": "Never-Maried Hispanic/Latino Adults"
+    "title": "Never-Married Hispanic/Latino Adults"
   },
   "Count_Person_15OrMoreYears_NoIncome": {
     "blocklist": [],
@@ -4037,7 +4037,7 @@
   },
   "Count_Person_5OrMoreYears_PersianInclFarsiDariSpokenAtHome": {
     "blocklist": [],
-    "title": "Population: Persian Incl Farsi Dari Spoken At Home"
+    "title": "Population: Persian, Including Farsi Or Dari, Spoken At Home"
   },
   "Count_Person_5OrMoreYears_PersianSpokenAtHome": {
     "blocklist": [],
@@ -4073,7 +4073,7 @@
   },
   "Count_Person_5OrMoreYears_SerboCroatianSpokenAtHome": {
     "blocklist": [],
-    "title": "Population: Serbo Croatian Spoken At Home"
+    "title": "Population: Serbo-Croatian Spoken At Home"
   },
   "Count_Person_5OrMoreYears_SpanishOrSpanishCreoleSpokenAtHome_AbovePovertyLevelInThePast12Months": {
     "blocklist": [],
@@ -4141,7 +4141,7 @@
   },
   "Count_Person_5OrMoreYears_ThaiLaoOrOtherTaiKadaiLanguagesSpokenAtHome": {
     "blocklist": [],
-    "title": "Population: Thai Lao Or Other Tai Kadai Languages Spoken At Home"
+    "title": "Population: Thai, Lao, Or Other Tai-Kadai Languages Spoken At Home"
   },
   "Count_Person_5OrMoreYears_ThaiSpokenAtHome": {
     "blocklist": [],
@@ -4693,7 +4693,7 @@
   },
   "Count_Person_Female_DivorcedInThePast12Months_PovertyStatusDetermined": {
     "blocklist": [],
-    "title": "Women With Poverty Status Determined and Divorsed"
+    "title": "Women With Poverty Status Determined and Divorced"
   },
   "Count_Person_Female_DivorcedInThePast12Months_ResidesInHousehold": {
     "blocklist": [],
@@ -4713,7 +4713,7 @@
   },
   "Count_Person_Female_ForeignBorn_PlaceOfBirthCaribbean": {
     "blocklist": [],
-    "title": "Women Born in the Carribean"
+    "title": "Women Born in the Caribbean"
   },
   "Count_Person_Female_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico": {
     "blocklist": [],
@@ -4789,7 +4789,7 @@
   },
   "Count_Person_Female_ForeignBorn_ResidesInMilitaryQuartersOrMilitaryShips": {
     "blocklist": [],
-    "title": "Foreign Born Women Staying in Military Quarters or on Military Sheeps"
+    "title": "Foreign Born Women Staying in Military Quarters or on Military Ships"
   },
   "Count_Person_Female_ForeignBorn_ResidesInNoninstitutionalizedGroupQuarters": {
     "blocklist": [],
@@ -5041,11 +5041,11 @@
   },
   "Count_Person_ForeignBorn_PlaceOfBirthCaribbean": {
     "blocklist": [],
-    "title": "Foreign-born Carribbean origin"
+    "title": "Foreign-born Caribbean origin"
   },
   "Count_Person_ForeignBorn_PlaceOfBirthCentralAmericaExceptMexico": {
     "blocklist": [],
-    "title": "Foreing-born Central American origin (except Mexico)"
+    "title": "Foreign-born Central American origin (except Mexico)"
   },
   "Count_Person_ForeignBorn_PlaceOfBirthMexico": {
     "blocklist": [],
@@ -5337,7 +5337,7 @@
   },
   "Count_Person_Male_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone": {
     "blocklist": [],
-    "title": "Native Hawaiianor Other Pacific Islander Men Below Poverty Line"
+    "title": "Native Hawaiian Or Other Pacific Islander Men Below Poverty Line"
   },
   "Count_Person_Male_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone": {
     "blocklist": [],
@@ -6333,7 +6333,7 @@
   },
   "Count_Person_WithDisability_WhiteAlone": {
     "blocklist": [],
-    "title": "White Disbabled Population"
+    "title": "White Disabled Population"
   },
   "Count_Person_WithDisability_WhiteAloneNotHispanicOrLatino": {
     "blocklist": [],
@@ -6553,7 +6553,7 @@
   },
   "Count_Worker_NAICSAccommodationFoodServices": {
     "blocklist": [],
-    "title": "Accomodation/Food Industry Workers"
+    "title": "Accommodation/Food Industry Workers"
   },
   "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices": {
     "blocklist": [],
@@ -9286,6 +9286,34 @@
   "dc/zkmdz1rhlt7q8": {
     "blocklist": [],
     "title": "Shipments or Receipts of Establishments With Payroll: Nonmetallic Mineral Product Manufacturing"
+  },
+  "sdg/VC_DTH_TOCVN": {
+    "blocklist": [],
+    "title": "Number of conflict-related deaths (civilians)"
+  },
+  "sdg/VC_DTH_TOCVN.AGE--Y0T17": {
+    "blocklist": [],
+    "title": "Number of conflict-related deaths (civilians) [Age = under 18 years old]"
+  },
+  "sdg/VC_DTH_TOCVN.AGE--Y_GE18": {
+    "blocklist": [],
+    "title": "Number of conflict-related deaths (civilians) [Age = 18 years old and over]"
+  },
+  "sdg/VC_DTH_TOCVN.SEX--F": {
+    "blocklist": [],
+    "title": "Number of conflict-related deaths (civilians) [Sex = Female]"
+  },
+  "sdg/VC_DTH_TOCVN.SEX--M": {
+    "blocklist": [],
+    "title": "Number of conflict-related deaths (civilians) [Sex = Male]"
+  },
+  "sdg/VC_DTH_TONCVN": {
+    "blocklist": [],
+    "title": "Number of conflict-related deaths (non-civilians)"
+  },
+  "sdg/VC_DTH_TOUNN": {
+    "blocklist": [],
+    "title": "Number of conflict-related deaths (unknown)"
   },
   "worldBank/4_1_1_TOTAL_ELECTRICITY_OUTPUT": {
     "blocklist": [],

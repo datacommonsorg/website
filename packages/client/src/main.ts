@@ -14,7 +14,35 @@
  * limitations under the License.
  */
 
+import {
+  DEFAULT_ENTITY_PROPS,
+  DEFAULT_FIELD_DELIMITER,
+  DEFAULT_GEOJSON_PROPERTY_NAME,
+  DEFAULT_VARIABLE_PROPS,
+  ISO_CODE_ATTRIBUTE,
+  NAME_ATTRIBUTE,
+  TOTAL_POPULATION_VARIABLE,
+} from "./constants";
 import { DataCommonsClient } from "./data_commons_client";
+import { DataRow } from "./data_commons_client_types";
 import { DataCommonsWebClient } from "./data_commons_web_client";
+import {
+  PointApiResponse,
+  SeriesApiResponse,
+} from "./data_commons_web_client_types";
+import { dataRowsToCsv, isDateInRange } from "./utils";
 
-export { DataCommonsClient, DataCommonsWebClient };
+export {
+  DEFAULT_ENTITY_PROPS,
+  DEFAULT_FIELD_DELIMITER,
+  DEFAULT_GEOJSON_PROPERTY_NAME,
+  DEFAULT_VARIABLE_PROPS,
+  DataCommonsClient,
+  DataCommonsWebClient,
+  ISO_CODE_ATTRIBUTE,
+  NAME_ATTRIBUTE,
+  TOTAL_POPULATION_VARIABLE,
+  dataRowsToCsv,
+  isDateInRange,
+};
+export type { DataRow, PointApiResponse, SeriesApiResponse };

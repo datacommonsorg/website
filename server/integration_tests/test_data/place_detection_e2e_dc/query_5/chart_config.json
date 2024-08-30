@@ -58,7 +58,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Population Density"
           },
           {
@@ -88,12 +87,131 @@
               }
             ],
             "title": "Rate of Population Growth"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person"
+                    ],
+                    "title": "Median Age of Population in Mexico City",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age of Population in Mexico City",
+                    "statVarKey": [
+                      "Median_Age_Person"
+                    ],
+                    "title": "Median Age of Population in Mexico City",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female",
+                      "Count_Person_Male"
+                    ],
+                    "title": "Population by Gender in Mexico City",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_ForeignBorn"
+                    ],
+                    "title": "Population: Foreign Born in Mexico City",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Foreign Born in Mexico City",
+                    "statVarKey": [
+                      "Count_Person_ForeignBorn"
+                    ],
+                    "title": "Population: Foreign Born in Mexico City",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population by Nativity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_BirthEvent"
+                    ],
+                    "title": "Count of Birth Event in Mexico City",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Birth Event in Mexico City",
+                    "statVarKey": [
+                      "Count_BirthEvent"
+                    ],
+                    "title": "Count of Birth Event in Mexico City",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Birth Event"
           }
         ],
         "statVarSpec": {
+          "Count_BirthEvent": {
+            "name": "Count of Birth Event",
+            "statVar": "Count_BirthEvent"
+          },
           "Count_Person": {
             "name": "Population",
             "statVar": "Count_Person"
+          },
+          "Count_Person_Female": {
+            "name": "Women",
+            "statVar": "Count_Person_Female"
+          },
+          "Count_Person_ForeignBorn": {
+            "name": "Population: Foreign Born",
+            "statVar": "Count_Person_ForeignBorn"
+          },
+          "Count_Person_Male": {
+            "name": "Men",
+            "statVar": "Count_Person_Male"
           },
           "Count_Person_PerArea": {
             "name": "Population Density",
@@ -102,6 +220,10 @@
           "GrowthRate_Count_Person": {
             "name": "Rate of Population Growth",
             "statVar": "GrowthRate_Count_Person"
+          },
+          "Median_Age_Person": {
+            "name": "Median Age of Population",
+            "statVar": "Median_Age_Person"
           }
         }
       }
@@ -114,6 +236,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "wikidataId/Q1489",
@@ -129,7 +252,215 @@
       "place_type": "City"
     }
   ],
-  "relatedThings": {},
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [
+      {
+        "dcid": "dc/topic/Age",
+        "name": "Age",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Gender",
+        "name": "Gender",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Nationality",
+        "name": "Nationality",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "exploreMore": {
+      "Count_BirthEvent": {
+        "gender": [
+          "Count_BirthEvent_Female",
+          "Count_BirthEvent_Male"
+        ]
+      },
+      "Count_Person": {
+        "gender": [
+          "Count_Person_Female",
+          "Count_Person_Male"
+        ]
+      },
+      "Count_Person_Female": {
+        "age": [
+          "Count_Person_90To94Years_Female",
+          "Count_Person_95To99Years_Female"
+        ]
+      },
+      "Count_Person_Male": {
+        "age": [
+          "Count_Person_90To94Years_Male",
+          "Count_Person_95To99Years_Male"
+        ]
+      }
+    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Demographics",
+        "name": "Demographics",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Root",
+        "name": "Statistics",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [
+      {
+        "dcid": "wikidataId/Q956",
+        "name": "Beijing",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "nuts/DE3",
+        "name": "Berlin",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "wikidataId/Q85",
+        "name": "Cairo",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1714000",
+        "name": "Chicago",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "wikidataId/Q1353",
+        "name": "Delhi",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "wikidataId/Q34647",
+        "name": "Johannesburg",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "wikidataId/Q84",
+        "name": "London",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "wikidataId/Q2807",
+        "name": "Madrid",
+        "types": [
+          "AdministrativeArea3"
+        ]
+      },
+      {
+        "dcid": "wikidataId/Q649",
+        "name": "Moscow",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/3651000",
+        "name": "New York",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "nuts/FR101",
+        "name": "Paris",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "wikidataId/Q8678",
+        "name": "Rio de Janeiro",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/0667000",
+        "name": "San Francisco",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "wikidataId/Q3130",
+        "name": "Sydney",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "wikidataId/Q7473516",
+        "name": "Tokyo",
+        "types": [
+          "City"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/Health",
+        "name": "Health",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/EducationHousingAndCommute",
+        "name": "Education, Housing and Commute",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Equity",
+        "name": "Equity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Sustainability",
+        "name": "Sustainability",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessage": "",
+  "userMessages": []
 }

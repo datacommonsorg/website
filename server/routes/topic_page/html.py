@@ -94,7 +94,7 @@ def topic_page(topic_id=None, place_dcid=None):
         place_dcid="",
         topic_id=topic_id,
         topic_name=topic_configs[0].metadata.topic_name or "",
-        config={},
+        page_config={},
         topics_summary=topics_summary)
 
   more_places = request.args.getlist('places')

@@ -198,9 +198,9 @@ export class ObservationChart extends React.Component<
       HEIGHT,
       dataGroups,
       true,
-      true,
       {
         handleDotClick: this.props.canClickObs ? this.handleDotClick : null,
+        showAllDots: true,
         unit: getUnit(this.props.metadata),
       }
     );

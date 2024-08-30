@@ -1,0 +1,69 @@
+{
+  "client": "test_detect-and-fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "answerTableTileSpec": {
+                      "columns": [
+                        {
+                          "header": "associated gene",
+                          "propertyExpr": "<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol"
+                        }
+                      ]
+                    },
+                    "entities": [
+                      "bio/rs13317",
+                      "bio/rs7903146"
+                    ],
+                    "title": "The associated genes for rs13317 and rs7903146 are",
+                    "type": "ANSWER_TABLE"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "context": {},
+  "debug": {},
+  "entities": [
+    {
+      "dcid": "bio/rs13317",
+      "name": "rs13317",
+      "type": ""
+    },
+    {
+      "dcid": "bio/rs7903146",
+      "name": "rs7903146",
+      "type": ""
+    }
+  ],
+  "pastSourceContext": "",
+  "place": {},
+  "placeFallback": {},
+  "placeSource": "UNKNOWN",
+  "places": [],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopics": [],
+    "parentPlaces": [],
+    "parentTopics": [],
+    "peerPlaces": [],
+    "peerTopics": []
+  },
+  "svSource": "CURRENT_QUERY",
+  "userMessage": "Low confidence in understanding your query. Displaying the closest results.",
+  "userMessages": [
+    "Low confidence in understanding your query. Displaying the closest results."
+  ]
+}

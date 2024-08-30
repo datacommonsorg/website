@@ -82,8 +82,8 @@ msgstr "Spesa pubblica per l'istruzione"
 msgid "Government Expenditures on Military"
 msgstr "Spesa pubblica per le forze armate"
 
-msgid "Graph Browser"
-msgstr "Graph Browser"
+msgid "Knowledge Graph"
+msgstr "Knowledge Graph"
 
 msgid "Gross National Income"
 msgstr "Reddito nazionale lordo"
@@ -706,3 +706,46 @@ msgstr "Water withdrawal rate"
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "Panoramica"
 
+#. Place containment. Gives context for where a place is located.
+msgid "%(placeType)s in %(parentPlaces)s"
+msgstr "%(placeType)s in %(parentPlaces)s"
+
+#. Place Types
+msgid "singular_administrative_area"
+msgstr "Area amministrativa"
+
+msgid "singular_administrative_area_level"
+msgstr "Luogo dell'area amministrativa %(level)s"
+
+msgid "singular_borough"
+msgstr "Distretto"
+
+msgid "singular_city"
+msgstr "Città"
+
+msgid "singular_country"
+msgstr "Paese"
+
+msgid "singular_county"
+msgstr "Contea"
+
+msgid "singular_eurostat_nuts"
+msgstr "Luogo Eurostat NUTS %(level)s"
+
+msgid "singular_neighborhood"
+msgstr "Quartiere"
+
+msgid "singular_place"
+msgstr "Luogo"
+
+msgid "singular_state"
+msgstr "Stato"
+
+msgid "singular_town"
+msgstr "Città"
+
+msgid "singular_village"
+msgstr "Villaggio"
+
+msgid "singular_zip_code"
+msgstr "Codice postale"

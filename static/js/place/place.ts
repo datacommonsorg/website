@@ -33,7 +33,6 @@ import { ChildPlace } from "./child_places_menu";
 import { MainPane, showOverview } from "./main_pane";
 import { Menu } from "./menu";
 import { PageSubtitle } from "./page_subtitle";
-import { ParentPlace } from "./parent_breadcrumbs";
 import { PlaceHighlight } from "./place_highlight";
 import { PlaceSearch } from "./place_search";
 import { isPlaceInUsa } from "./util";
@@ -66,7 +65,7 @@ window.onload = () => {
  *  Make adjustments to sidebar scroll state based on the content.
  */
 function updatePageLayoutState(): void {
-  yScrollLimit = document.getElementById("main-pane").offsetTop;
+  yScrollLimit = document.getElementById("place-summary").offsetTop;
   document.getElementById("sidebar-top-spacer").style.height =
     yScrollLimit + "px";
   const sidebarOuterHeight =
@@ -146,6 +145,22 @@ function onSearch(q: string): void {
   window.location.href = `/explore#q=${encodeURIComponent(q)}`;
 }
 
+/**
+ * Set the text in the page-loading div to a sorry message.
+ * Set the text to empty if summary text is present on the page.
+ */
+function setErrorMessage(): void {
+  const summaryText = document.getElementById("place-summary").innerText;
+  const loadingElem = document.getElementById("page-loading");
+  if (summaryText) {
+    // If summary text is present, suppress "Sorry" message
+    loadingElem.innerHTML = "";
+  } else {
+    loadingElem.innerText =
+      "Sorry, there was an error loading charts for this place.";
+  }
+}
+
 function renderPage(): void {
   const urlParams = new URLSearchParams(window.location.search);
   const urlHash = window.location.hash;
@@ -156,7 +171,6 @@ function renderPage(): void {
   const placeName = document.getElementById("place-name").dataset.pn;
   const placeType = document.getElementById("place-type").dataset.pt;
   const locale = document.getElementById("locale").dataset.lc;
-  const summaryText = document.getElementById("place-summary").dataset.summary;
   const landingPagePromise = getLandingPageData(dcid, category, locale, seed);
 
   Promise.all([
@@ -169,12 +183,11 @@ function renderPage(): void {
     ]),
   ])
     .then(([landingPageData]) => {
-      const loadingElem = document.getElementById("page-loading");
       if (_.isEmpty(landingPageData)) {
-        loadingElem.innerText =
-          "Sorry, we don't have any charts to show for this place.";
+        setErrorMessage();
         return;
       }
+      const loadingElem = document.getElementById("page-loading");
       loadingElem.style.display = "none";
       const data: PageData = landingPageData;
       const isUsaPlace = isPlaceInUsa(dcid, data.parentPlaces);
@@ -211,17 +224,6 @@ function renderPage(): void {
       );
 
       if (!showOverview(isUsaPlace, placeType, category)) {
-        // Earth has no parent places.
-        if (data.parentPlaces.length > 0) {
-          ReactDOM.render(
-            React.createElement(ParentPlace, {
-              names: data.names,
-              parentPlaces: data.parentPlaces,
-              placeType,
-            }),
-            document.getElementById("place-type")
-          );
-        }
         ReactDOM.render(
           React.createElement(PlaceHighlight, {
             dcid,
@@ -279,7 +281,6 @@ function renderPage(): void {
           categoryStrings: data.categories,
           locale,
           highlight: data.highlight,
-          summaryText,
         }),
         document.getElementById("main-pane")
       );
@@ -287,9 +288,7 @@ function renderPage(): void {
       window.location.hash = urlHash;
     })
     .catch(() => {
-      const loadingElem = document.getElementById("page-loading");
-      loadingElem.innerText =
-        "Sorry, there was an error loading charts for this place.";
+      setErrorMessage();
     });
 }
 

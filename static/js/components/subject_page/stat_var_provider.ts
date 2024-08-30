@@ -30,22 +30,31 @@ export class StatVarProvider {
 
   // Gets the stat var spec for a key. If blockDenom is non empty, set the denom
   // of the stat var spec.
-  getSpec(key: string, blockDenom?: string): StatVarSpec {
+  getSpec(
+    key: string,
+    options?: { blockDenom?: string; blockDate?: string }
+  ): StatVarSpec {
     if (!(key in this._statVarSpecMap)) {
       return null;
     }
     const spec = _.cloneDeep(this._statVarSpecMap[key]);
-    if (blockDenom && !spec.noPerCapita) {
-      spec.denom = blockDenom;
+    if (options?.blockDenom && !spec.noPerCapita) {
+      spec.denom = options.blockDenom;
+    }
+    if (options?.blockDate) {
+      spec.date = options.blockDate;
     }
     return spec;
   }
 
   // Gets the stat var spec for a list of keys. If blockDenom is non empty, set
   // the denom of each stat var spec in the list.
-  getSpecList(keys: string[], blockDenom?: string): StatVarSpec[] {
+  getSpecList(
+    keys: string[],
+    options?: { blockDenom?: string; blockDate?: string }
+  ): StatVarSpec[] {
     return keys
-      .map((k) => this.getSpec(k, blockDenom))
+      .map((k) => this.getSpec(k, options))
       .filter((svSpec) => !_.isEmpty(svSpec));
   }
 }

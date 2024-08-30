@@ -16,37 +16,12 @@ import multiprocessing
 import os
 import sys
 
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-
 from server.webdriver import shared
+from server.webdriver.base_utils import create_driver
 from shared.lib.test_server import NLWebServerTestCase
+from shared.lib.test_setup import set_up_macos_for_tests
 
-DEFAULT_HEIGHT = 1200
-DEFAULT_WIDTH = 1200
-
-# Explicitly set multiprocessing start method to 'fork' so tests work with
-# python3.8+ on MacOS.
-# https://docs.python.org/3/library/multiprocessing.html#contexts-and-start-methods
-# This code must only be run once per execution.
-if sys.version_info >= (3, 8) and sys.platform == "darwin":
-  multiprocessing.set_start_method("fork")
-  os.environ['no_proxy'] = '*'
-
-
-def create_driver(preferences=None):
-  # These options are needed to run ChromeDriver inside a Docker without a UI.
-  chrome_options = Options()
-  chrome_options.add_argument('--headless=new')
-  chrome_options.add_argument('--no-sandbox')
-  chrome_options.add_argument('--disable-dev-shm-usage')
-  chrome_options.add_argument('--hide-scrollbars')
-  if preferences:
-    chrome_options.add_experimental_option("prefs", preferences)
-  driver = webdriver.Chrome(options=chrome_options)
-  # Set a reliable window size for all tests (can be overwritten though)
-  driver.set_window_size(DEFAULT_WIDTH, DEFAULT_HEIGHT)
-  return driver
+set_up_macos_for_tests()
 
 
 # Base test class to setup the server.

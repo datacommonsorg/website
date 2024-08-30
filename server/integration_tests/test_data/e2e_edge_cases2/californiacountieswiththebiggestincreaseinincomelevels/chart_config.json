@@ -10,15 +10,15 @@
                 "tiles": [
                   {
                     "comparisonPlaces": [
-                      "geoId/06075",
                       "geoId/06085",
+                      "geoId/06075",
                       "geoId/06081",
                       "geoId/06041",
                       "geoId/06001",
                       "geoId/06003",
                       "geoId/06013",
-                      "geoId/06087",
                       "geoId/06069",
+                      "geoId/06087",
                       "geoId/06055"
                     ],
                     "statVarKey": [
@@ -37,11 +37,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06075",
+                    "placeDcidOverride": "geoId/06085",
                     "statVarKey": [
                       "Median_Income_Household_growth_abs"
                     ],
-                    "title": "San Francisco County",
+                    "title": "Santa Clara County",
                     "type": "LINE"
                   }
                 ]
@@ -49,11 +49,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06085",
+                    "placeDcidOverride": "geoId/06075",
                     "statVarKey": [
                       "Median_Income_Household_growth_abs"
                     ],
-                    "title": "Santa Clara County",
+                    "title": "San Francisco County",
                     "type": "LINE"
                   }
                 ]
@@ -121,11 +121,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06087",
+                    "placeDcidOverride": "geoId/06069",
                     "statVarKey": [
                       "Median_Income_Household_growth_abs"
                     ],
-                    "title": "Santa Cruz County",
+                    "title": "San Benito County",
                     "type": "LINE"
                   }
                 ]
@@ -133,11 +133,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06069",
+                    "placeDcidOverride": "geoId/06087",
                     "statVarKey": [
                       "Median_Income_Household_growth_abs"
                     ],
-                    "title": "San Benito County",
+                    "title": "Santa Cruz County",
                     "type": "LINE"
                   }
                 ]
@@ -174,18 +174,6 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06003",
-                    "statVarKey": [
-                      "Median_Income_Household_growth_pct"
-                    ],
-                    "title": "Alpine County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "geoId/06001",
                     "statVarKey": [
                       "Median_Income_Household_growth_pct"
@@ -210,6 +198,18 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "geoId/06003",
+                    "statVarKey": [
+                      "Median_Income_Household_growth_pct"
+                    ],
+                    "title": "Alpine County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "geoId/06081",
                     "statVarKey": [
                       "Median_Income_Household_growth_pct"
@@ -222,11 +222,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06041",
+                    "placeDcidOverride": "geoId/06015",
                     "statVarKey": [
                       "Median_Income_Household_growth_pct"
                     ],
-                    "title": "Marin County",
+                    "title": "Del Norte County",
                     "type": "LINE"
                   }
                 ]
@@ -239,6 +239,18 @@
                       "Median_Income_Household_growth_pct"
                     ],
                     "title": "San Benito County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/06041",
+                    "statVarKey": [
+                      "Median_Income_Household_growth_pct"
+                    ],
+                    "title": "Marin County",
                     "type": "LINE"
                   }
                 ]
@@ -266,18 +278,6 @@
                     "type": "LINE"
                   }
                 ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/06097",
-                    "statVarKey": [
-                      "Median_Income_Household_growth_pct"
-                    ],
-                    "title": "Sonoma County",
-                    "type": "LINE"
-                  }
-                ]
               }
             ],
             "title": "Increase in Household Median Income Over Time (Percent Change)"
@@ -301,12 +301,13 @@
     ],
     "metadata": {
       "placeDcid": [
-        "geoId/06075"
+        "geoId/06085"
       ]
     }
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "geoId/06",
@@ -1125,5 +1126,7 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "test": "filter_test",
+  "userMessage": "",
+  "userMessages": []
 }

@@ -10,7 +10,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2020"
+                      "endDate": "2019"
                     },
                     "statVarKey": [
                       "Count_Person_Female_1145703171"
@@ -25,7 +25,7 @@
                   {
                     "description": "Women in New York",
                     "statVarKey": [
-                      "Count_Person_Female"
+                      "Count_Person_Female_2019"
                     ],
                     "title": "Women in New York",
                     "type": "HIGHLIGHT"
@@ -42,71 +42,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2020"
-                    },
-                    "statVarKey": [
-                      "Count_Person_85OrMoreYears_Female_1145703171"
-                    ],
-                    "title": "Women Over 85 in New York",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Women Over 85 in New York",
-                    "statVarKey": [
-                      "Count_Person_85OrMoreYears_Female"
-                    ],
-                    "title": "Women Over 85 in New York",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Women Over 85"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "lineTileSpec": {
-                      "endDate": "2020"
-                    },
-                    "statVarKey": [
-                      "Count_Person_15To19Years_Female_Separated_2369573279"
-                    ],
-                    "title": "Population: 15-19 Years, Female, Separated in New York",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: 15-19 Years, Female, Separated in New York",
-                    "statVarKey": [
-                      "Count_Person_15To19Years_Female_Separated"
-                    ],
-                    "title": "Population: 15-19 Years, Female, Separated in New York",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Separated Female Population by Age"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "lineTileSpec": {
-                      "endDate": "2020"
+                      "endDate": "2019"
                     },
                     "statVarKey": [
                       "Count_Person_Female_1145703171",
@@ -127,12 +63,12 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2020"
+                      "endDate": "2019"
                     },
                     "statVarKey": [
-                      "Median_Age_Person_Female_3795540742"
+                      "Count_Person_Female_MarriedAndNotSeparated_2369573279"
                     ],
-                    "title": "Women's Median Age in New York",
+                    "title": "Non-Separated Married Women in New York",
                     "type": "LINE"
                   }
                 ]
@@ -140,17 +76,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Women's Median Age in New York",
+                    "description": "Non-Separated Married Women in New York",
                     "statVarKey": [
-                      "Median_Age_Person_Female"
+                      "Count_Person_Female_MarriedAndNotSeparated_2019"
                     ],
-                    "title": "Women's Median Age in New York",
+                    "title": "Non-Separated Married Women in New York",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Women's Median Age"
+            "denom": "Count_Person",
+            "title": "Non-Separated Married Women"
           },
           {
             "columns": [
@@ -158,7 +95,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2020"
+                      "endDate": "2019"
                     },
                     "statVarKey": [
                       "Count_Person_Female_TwoOrMoreRaces_1145703171"
@@ -173,7 +110,7 @@
                   {
                     "description": "Women Identifying as Multiracial in New York",
                     "statVarKey": [
-                      "Count_Person_Female_TwoOrMoreRaces"
+                      "Count_Person_Female_TwoOrMoreRaces_2019"
                     ],
                     "title": "Women Identifying as Multiracial in New York",
                     "type": "HIGHLIGHT"
@@ -190,12 +127,12 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2020"
+                      "endDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_Female_SomeOtherRaceAlone_1145703171"
+                      "Count_Person_3OrMoreYears_Female_EnrolledInSchool_1145703171"
                     ],
-                    "title": "Women Identifying as Some Other Race Alone in New York",
+                    "title": "Population: Female, Enrolled in School in New York",
                     "type": "LINE"
                   }
                 ]
@@ -203,18 +140,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Women Identifying as Some Other Race Alone in New York",
+                    "description": "Population: Female, Enrolled in School in New York",
                     "statVarKey": [
-                      "Count_Person_Female_SomeOtherRaceAlone"
+                      "Count_Person_3OrMoreYears_Female_EnrolledInSchool_2019"
                     ],
-                    "title": "Women Identifying as Some Other Race Alone in New York",
+                    "title": "Population: Female, Enrolled in School in New York",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Women Identifying as Some Other Race Alone"
+            "title": "Population: Female, Enrolled in School"
           },
           {
             "columns": [
@@ -222,12 +159,12 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2020"
+                      "endDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_WithOwnChildrenUnder18_Female_1293445251"
+                      "Count_Person_Female_WithHealthInsurance_3013967739"
                     ],
-                    "title": "Population: With Own Children Under 18, Female in New York",
+                    "title": "Women With Health Insurance in New York",
                     "type": "LINE"
                   }
                 ]
@@ -235,18 +172,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: With Own Children Under 18, Female in New York",
+                    "description": "Women With Health Insurance in New York",
                     "statVarKey": [
-                      "Count_Person_WithOwnChildrenUnder18_Female"
+                      "Count_Person_Female_WithHealthInsurance_2019"
                     ],
-                    "title": "Population: With Own Children Under 18, Female in New York",
+                    "title": "Women With Health Insurance in New York",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: With Own Children Under 18, Female"
+            "title": "Women With Health Insurance"
           },
           {
             "columns": [
@@ -254,20 +191,31 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2020"
+                      "endDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_Female_1145703171",
-                      "Count_Person_Male_1145703171"
+                      "Count_Person_Female_FullTimeYearRoundWorker_4208561269"
                     ],
-                    "title": "Women and Men in New York",
+                    "title": "Population: 16-64 Years, Female, Full Time Year Round Worker in New York",
                     "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: 16-64 Years, Female, Full Time Year Round Worker in New York",
+                    "statVarKey": [
+                      "Count_Person_Female_FullTimeYearRoundWorker_2019"
+                    ],
+                    "title": "Population: 16-64 Years, Female, Full Time Year Round Worker in New York",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Related: Women and Men"
+            "title": "Population: 16-64 Years, Female, Full Time Year Round Worker"
           },
           {
             "columns": [
@@ -275,20 +223,30 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2020"
+                      "endDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_85OrMoreYears_Female_1145703171",
-                      "Count_Person_85OrMoreYears_Male_1145703171"
+                      "Median_Age_Person_Female_3795540742"
                     ],
-                    "title": "Women Over 85 and Men Over 85 in New York",
+                    "title": "Women's Median Age in New York",
                     "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Women's Median Age in New York",
+                    "statVarKey": [
+                      "Median_Age_Person_Female_2019"
+                    ],
+                    "title": "Women's Median Age in New York",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Related: Women Over 85 and Men Over 85"
+            "title": "Women's Median Age"
           },
           {
             "columns": [
@@ -296,156 +254,363 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "endDate": "2020"
+                      "endDate": "2019"
                     },
                     "statVarKey": [
-                      "Median_Age_Person_Female_3795540742",
-                      "Median_Age_Person_Male_3795540742"
+                      "Count_Person_Female_AsianAlone_1145703171"
                     ],
-                    "title": "Women's Median Age and Men's Median Age in New York",
+                    "title": "Asian Monoracial Women in New York",
                     "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Asian Monoracial Women in New York",
+                    "statVarKey": [
+                      "Count_Person_Female_AsianAlone_2019"
+                    ],
+                    "title": "Asian Monoracial Women in New York",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Related: Women's Median Age and Men's Median Age"
+            "denom": "Count_Person",
+            "title": "Asian Monoracial Women"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                    "lineTileSpec": {
+                      "endDate": "2019"
                     },
-                    "comparisonPlaces": [
-                      "geoId/3651000"
-                    ],
                     "statVarKey": [
-                      "Count_Person_Female_TwoOrMoreRaces_multiple_place_bar_block",
-                      "Count_Person_Female_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block",
-                      "Count_Person_Female_AsianAlone_multiple_place_bar_block",
-                      "Count_Person_Female_BlackOrAfricanAmericanAlone_multiple_place_bar_block",
-                      "Count_Person_Female_HispanicOrLatino_multiple_place_bar_block",
-                      "Count_Person_Female_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block",
-                      "Count_Person_Female_SomeOtherRaceAlone_multiple_place_bar_block",
-                      "Count_Person_Female_WhiteAlone_multiple_place_bar_block",
-                      "Count_Person_Female_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block"
+                      "Count_Person_Female_WhiteAlone_1145703171"
                     ],
-                    "title": "Women Identifying as Multiracial and More in New York (${date})",
-                    "type": "BAR"
+                    "title": "Women Identifying as White Alone in New York",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Women Identifying as White Alone in New York",
+                    "statVarKey": [
+                      "Count_Person_Female_WhiteAlone_2019"
+                    ],
+                    "title": "Women Identifying as White Alone in New York",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Related: Women Identifying as Multiracial and More"
+            "title": "Women Identifying as White Alone"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_770342238"
+                    ],
+                    "title": "Population: Bachelors Degree or Higher, Female in New York",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Bachelors Degree or Higher, Female in New York",
+                    "statVarKey": [
+                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_2019"
+                    ],
+                    "title": "Population: Bachelors Degree or Higher, Female in New York",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Bachelors Degree or Higher, Female"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Count_Person_WithDisability_Female_4281944711"
+                    ],
+                    "title": "Women With Disabilities in New York",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Women With Disabilities in New York",
+                    "statVarKey": [
+                      "Count_Person_WithDisability_Female_2019"
+                    ],
+                    "title": "Women With Disabilities in New York",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women With Disabilities"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female_1145703171"
+                    ],
+                    "title": "Bachelors, Women in New York",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Bachelors, Women in New York",
+                    "statVarKey": [
+                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female_2019"
+                    ],
+                    "title": "Bachelors, Women in New York",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Bachelors, Women"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Count_Person_16OrMoreYears_Female_WithEarnings_1472009826"
+                    ],
+                    "title": "Population: 16 Years or More, Female, With Earnings in New York",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: 16 Years or More, Female, With Earnings in New York",
+                    "statVarKey": [
+                      "Count_Person_16OrMoreYears_Female_WithEarnings_2019"
+                    ],
+                    "title": "Population: 16 Years or More, Female, With Earnings in New York",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 16 Years or More, Female, With Earnings"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "endDate": "2019"
+                    },
+                    "statVarKey": [
+                      "Count_Person_85OrMoreYears_Female_1145703171"
+                    ],
+                    "title": "Women Over 85 in New York",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Women Over 85 in New York",
+                    "statVarKey": [
+                      "Count_Person_85OrMoreYears_Female_2019"
+                    ],
+                    "title": "Women Over 85 in New York",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women Over 85"
           }
         ],
         "statVarSpec": {
-          "Count_Person_15To19Years_Female_Separated": {
-            "name": "Population: 15 - 19 Years, Female, Separated",
-            "statVar": "Count_Person_15To19Years_Female_Separated"
+          "Count_Person_16OrMoreYears_Female_WithEarnings_1472009826": {
+            "facetId": "1472009826",
+            "name": "Population: 16 Years or More, Female, With Earnings",
+            "statVar": "Count_Person_16OrMoreYears_Female_WithEarnings"
           },
-          "Count_Person_15To19Years_Female_Separated_2369573279": {
-            "facetId": "2369573279",
-            "name": "Population: 15 - 19 Years, Female, Separated",
-            "statVar": "Count_Person_15To19Years_Female_Separated"
+          "Count_Person_16OrMoreYears_Female_WithEarnings_2019": {
+            "date": "2019",
+            "name": "Population: 16 Years or More, Female, With Earnings",
+            "statVar": "Count_Person_16OrMoreYears_Female_WithEarnings"
           },
-          "Count_Person_85OrMoreYears_Female": {
-            "name": "Women over 85",
-            "statVar": "Count_Person_85OrMoreYears_Female"
+          "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_2019": {
+            "date": "2019",
+            "name": "Population: Bachelors Degree or Higher, Female",
+            "statVar": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female"
+          },
+          "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_770342238": {
+            "facetId": "770342238",
+            "name": "Population: Bachelors Degree or Higher, Female",
+            "statVar": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female"
+          },
+          "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female_1145703171": {
+            "facetId": "1145703171",
+            "name": "Bachelors, Women",
+            "statVar": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female"
+          },
+          "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female_2019": {
+            "date": "2019",
+            "name": "Bachelors, Women",
+            "statVar": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female"
+          },
+          "Count_Person_3OrMoreYears_Female_EnrolledInSchool_1145703171": {
+            "facetId": "1145703171",
+            "name": "Population: Female, Enrolled in School",
+            "statVar": "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
+          },
+          "Count_Person_3OrMoreYears_Female_EnrolledInSchool_2019": {
+            "date": "2019",
+            "name": "Population: Female, Enrolled in School",
+            "statVar": "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
           },
           "Count_Person_85OrMoreYears_Female_1145703171": {
             "facetId": "1145703171",
             "name": "Women over 85",
             "statVar": "Count_Person_85OrMoreYears_Female"
           },
-          "Count_Person_85OrMoreYears_Male_1145703171": {
-            "facetId": "1145703171",
-            "name": "Men over 85",
-            "statVar": "Count_Person_85OrMoreYears_Male"
-          },
-          "Count_Person_Female": {
-            "name": "Women",
-            "statVar": "Count_Person_Female"
+          "Count_Person_85OrMoreYears_Female_2019": {
+            "date": "2019",
+            "name": "Women over 85",
+            "statVar": "Count_Person_85OrMoreYears_Female"
           },
           "Count_Person_Female_1145703171": {
             "facetId": "1145703171",
             "name": "Women",
             "statVar": "Count_Person_Female"
           },
-          "Count_Person_Female_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
-            "name": "American Indian or Alaska Native Monoracial Women",
-            "statVar": "Count_Person_Female_AmericanIndianOrAlaskaNativeAlone"
+          "Count_Person_Female_2019": {
+            "date": "2019",
+            "name": "Women",
+            "statVar": "Count_Person_Female"
           },
-          "Count_Person_Female_AsianAlone_multiple_place_bar_block": {
+          "Count_Person_Female_AsianAlone_1145703171": {
+            "facetId": "1145703171",
             "name": "Asian Monoracial Women",
             "statVar": "Count_Person_Female_AsianAlone"
           },
-          "Count_Person_Female_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
-            "name": "Black or African American Monoracial Women",
-            "statVar": "Count_Person_Female_BlackOrAfricanAmericanAlone"
+          "Count_Person_Female_AsianAlone_2019": {
+            "date": "2019",
+            "name": "Asian Monoracial Women",
+            "statVar": "Count_Person_Female_AsianAlone"
           },
-          "Count_Person_Female_HispanicOrLatino_multiple_place_bar_block": {
-            "name": "Hispanic Women",
-            "statVar": "Count_Person_Female_HispanicOrLatino"
+          "Count_Person_Female_FullTimeYearRoundWorker_2019": {
+            "date": "2019",
+            "name": "Population: 16 - 64 Years, Female, Full Time Year Round Worker",
+            "statVar": "Count_Person_Female_FullTimeYearRoundWorker"
           },
-          "Count_Person_Female_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block": {
-            "name": "Women Identifying as Native Hawaiian/Other Pacific Islander Alone",
-            "statVar": "Count_Person_Female_NativeHawaiianOrOtherPacificIslanderAlone"
+          "Count_Person_Female_FullTimeYearRoundWorker_4208561269": {
+            "facetId": "4208561269",
+            "name": "Population: 16 - 64 Years, Female, Full Time Year Round Worker",
+            "statVar": "Count_Person_Female_FullTimeYearRoundWorker"
           },
-          "Count_Person_Female_SomeOtherRaceAlone": {
-            "name": "Women Identifying as Some Other Race Alone",
-            "statVar": "Count_Person_Female_SomeOtherRaceAlone"
+          "Count_Person_Female_MarriedAndNotSeparated_2019": {
+            "date": "2019",
+            "name": "Non-Separated Married Women",
+            "statVar": "Count_Person_Female_MarriedAndNotSeparated"
           },
-          "Count_Person_Female_SomeOtherRaceAlone_1145703171": {
-            "facetId": "1145703171",
-            "name": "Women Identifying as Some Other Race Alone",
-            "statVar": "Count_Person_Female_SomeOtherRaceAlone"
-          },
-          "Count_Person_Female_SomeOtherRaceAlone_multiple_place_bar_block": {
-            "name": "Women Identifying as Some Other Race Alone",
-            "statVar": "Count_Person_Female_SomeOtherRaceAlone"
-          },
-          "Count_Person_Female_TwoOrMoreRaces": {
-            "name": "Women Identifying as Multiracial",
-            "statVar": "Count_Person_Female_TwoOrMoreRaces"
+          "Count_Person_Female_MarriedAndNotSeparated_2369573279": {
+            "facetId": "2369573279",
+            "name": "Non-Separated Married Women",
+            "statVar": "Count_Person_Female_MarriedAndNotSeparated"
           },
           "Count_Person_Female_TwoOrMoreRaces_1145703171": {
             "facetId": "1145703171",
             "name": "Women Identifying as Multiracial",
             "statVar": "Count_Person_Female_TwoOrMoreRaces"
           },
-          "Count_Person_Female_TwoOrMoreRaces_multiple_place_bar_block": {
+          "Count_Person_Female_TwoOrMoreRaces_2019": {
+            "date": "2019",
             "name": "Women Identifying as Multiracial",
             "statVar": "Count_Person_Female_TwoOrMoreRaces"
           },
-          "Count_Person_Female_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block": {
-            "name": "White Non Hispanic Women",
-            "statVar": "Count_Person_Female_WhiteAloneNotHispanicOrLatino"
-          },
-          "Count_Person_Female_WhiteAlone_multiple_place_bar_block": {
+          "Count_Person_Female_WhiteAlone_1145703171": {
+            "facetId": "1145703171",
             "name": "Women Identifying as White Alone",
             "statVar": "Count_Person_Female_WhiteAlone"
+          },
+          "Count_Person_Female_WhiteAlone_2019": {
+            "date": "2019",
+            "name": "Women Identifying as White Alone",
+            "statVar": "Count_Person_Female_WhiteAlone"
+          },
+          "Count_Person_Female_WithHealthInsurance_2019": {
+            "date": "2019",
+            "name": "Women With Health Insurance",
+            "statVar": "Count_Person_Female_WithHealthInsurance"
+          },
+          "Count_Person_Female_WithHealthInsurance_3013967739": {
+            "facetId": "3013967739",
+            "name": "Women With Health Insurance",
+            "statVar": "Count_Person_Female_WithHealthInsurance"
           },
           "Count_Person_Male_1145703171": {
             "facetId": "1145703171",
             "name": "Men",
             "statVar": "Count_Person_Male"
           },
-          "Count_Person_WithOwnChildrenUnder18_Female": {
-            "name": "Population: With Own Children Under 18, Female",
-            "statVar": "Count_Person_WithOwnChildrenUnder18_Female"
+          "Count_Person_WithDisability_Female_2019": {
+            "date": "2019",
+            "name": "Women With Disabilities",
+            "statVar": "Count_Person_WithDisability_Female"
           },
-          "Count_Person_WithOwnChildrenUnder18_Female_1293445251": {
-            "facetId": "1293445251",
-            "name": "Population: With Own Children Under 18, Female",
-            "statVar": "Count_Person_WithOwnChildrenUnder18_Female"
+          "Count_Person_WithDisability_Female_4281944711": {
+            "facetId": "4281944711",
+            "name": "Women With Disabilities",
+            "statVar": "Count_Person_WithDisability_Female"
           },
-          "Median_Age_Person_Female": {
+          "Median_Age_Person_Female_2019": {
+            "date": "2019",
             "name": "Women's Median Age",
             "statVar": "Median_Age_Person_Female"
           },
@@ -453,11 +618,6 @@
             "facetId": "3795540742",
             "name": "Women's Median Age",
             "statVar": "Median_Age_Person_Female"
-          },
-          "Median_Age_Person_Male_3795540742": {
-            "facetId": "3795540742",
-            "name": "Men's Median Age",
-            "statVar": "Median_Age_Person_Male"
           }
         }
       }
@@ -470,6 +630,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "geoId/3651000",
@@ -489,6 +650,22 @@
     "childPlaces": {},
     "childTopics": [],
     "exploreMore": {
+      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female": {
+        "age": [
+          "Count_Person_18To24Years_EducationalAttainmentBachelorsDegreeOrHigher_Female",
+          "Count_Person_35To44Years_EducationalAttainmentBachelorsDegreeOrHigher_Female",
+          "Count_Person_45To64Years_EducationalAttainmentBachelorsDegreeOrHigher_Female"
+        ]
+      },
+      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female": {
+        "age": [
+          "Count_Person_18To24Years_EducationalAttainmentBachelorsDegree_Female",
+          "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female",
+          "Count_Person_35To44Years_EducationalAttainmentBachelorsDegree_Female",
+          "Count_Person_45To64Years_EducationalAttainmentBachelorsDegree_Female",
+          "Count_Person_65OrMoreYears_EducationalAttainmentBachelorsDegree_Female"
+        ]
+      },
       "Count_Person_85OrMoreYears_Female": {
         "race": [
           "Count_Person_85OrMoreYears_Female_AsianAlone",
@@ -500,17 +677,6 @@
           "Count_Person_85OrMoreYears_Female_WhiteAloneNotHispanicOrLatino"
         ]
       },
-      "Count_Person_85OrMoreYears_Male": {
-        "race": [
-          "Count_Person_85OrMoreYears_Male_AsianAlone",
-          "Count_Person_85OrMoreYears_Male_BlackOrAfricanAmericanAlone",
-          "Count_Person_85OrMoreYears_Male_HispanicOrLatino",
-          "Count_Person_85OrMoreYears_Male_SomeOtherRaceAlone",
-          "Count_Person_85OrMoreYears_Male_TwoOrMoreRaces",
-          "Count_Person_85OrMoreYears_Male_WhiteAlone",
-          "Count_Person_85OrMoreYears_Male_WhiteAloneNotHispanicOrLatino"
-        ]
-      },
       "Count_Person_Female": {
         "age": [
           "Count_Person_15To44Years_Female",
@@ -519,28 +685,16 @@
           "Count_Person_62OrMoreYears_Female",
           "Count_Person_65To66Years_Female",
           "Count_Person_67To69Years_Female",
-          "Count_Person_85OrMoreYears_Female",
-          "Count_Person_Years5To14_Female"
+          "Count_Person_85OrMoreYears_Female"
+        ],
+        "educationalAttainment": [
+          "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female",
+          "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female"
         ],
         "race": [
-          "Count_Person_Female_AmericanIndianOrAlaskaNativeAlone",
           "Count_Person_Female_AsianAlone",
-          "Count_Person_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_Female_HispanicOrLatino",
-          "Count_Person_Female_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_Female_SomeOtherRaceAlone",
           "Count_Person_Female_TwoOrMoreRaces",
-          "Count_Person_Female_WhiteAlone",
-          "Count_Person_Female_WhiteAloneNotHispanicOrLatino"
-        ]
-      },
-      "Count_Person_Female_AmericanIndianOrAlaskaNativeAlone": {
-        "age": [
-          "Count_Person_15OrMoreYears_Female_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_15To17Years_Female_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_18To19Years_Female_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_25OrMoreYears_Female_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_75To84Years_Female_AmericanIndianOrAlaskaNativeAlone"
+          "Count_Person_Female_WhiteAlone"
         ]
       },
       "Count_Person_Female_AsianAlone": {
@@ -558,58 +712,13 @@
           "Count_Person_85OrMoreYears_Female_AsianAlone"
         ]
       },
-      "Count_Person_Female_BlackOrAfricanAmericanAlone": {
+      "Count_Person_Female_MarriedAndNotSeparated": {
         "age": [
-          "Count_Person_10To14Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_15OrMoreYears_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_15To17Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_18To19Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_20To24Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_25OrMoreYears_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_25To29Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_30To34Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_5To9Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_75To84Years_Female_BlackOrAfricanAmericanAlone",
-          "Count_Person_85OrMoreYears_Female_BlackOrAfricanAmericanAlone"
-        ]
-      },
-      "Count_Person_Female_HispanicOrLatino": {
-        "age": [
-          "Count_Person_10To14Years_Female_HispanicOrLatino",
-          "Count_Person_15OrMoreYears_Female_HispanicOrLatino",
-          "Count_Person_15To17Years_Female_HispanicOrLatino",
-          "Count_Person_18To19Years_Female_HispanicOrLatino",
-          "Count_Person_20To24Years_Female_HispanicOrLatino",
-          "Count_Person_25OrMoreYears_Female_HispanicOrLatino",
-          "Count_Person_25To29Years_Female_HispanicOrLatino",
-          "Count_Person_30To34Years_Female_HispanicOrLatino",
-          "Count_Person_5To9Years_Female_HispanicOrLatino",
-          "Count_Person_75To84Years_Female_HispanicOrLatino",
-          "Count_Person_85OrMoreYears_Female_HispanicOrLatino"
-        ]
-      },
-      "Count_Person_Female_NativeHawaiianOrOtherPacificIslanderAlone": {
-        "age": [
-          "Count_Person_15OrMoreYears_Female_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_15To17Years_Female_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_18To19Years_Female_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_25OrMoreYears_Female_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_75To84Years_Female_NativeHawaiianOrOtherPacificIslanderAlone"
-        ]
-      },
-      "Count_Person_Female_SomeOtherRaceAlone": {
-        "age": [
-          "Count_Person_10To14Years_Female_SomeOtherRaceAlone",
-          "Count_Person_15OrMoreYears_Female_SomeOtherRaceAlone",
-          "Count_Person_15To17Years_Female_SomeOtherRaceAlone",
-          "Count_Person_18To19Years_Female_SomeOtherRaceAlone",
-          "Count_Person_20To24Years_Female_SomeOtherRaceAlone",
-          "Count_Person_25OrMoreYears_Female_SomeOtherRaceAlone",
-          "Count_Person_25To29Years_Female_SomeOtherRaceAlone",
-          "Count_Person_30To34Years_Female_SomeOtherRaceAlone",
-          "Count_Person_5To9Years_Female_SomeOtherRaceAlone",
-          "Count_Person_75To84Years_Female_SomeOtherRaceAlone",
-          "Count_Person_85OrMoreYears_Female_SomeOtherRaceAlone"
+          "Count_Person_15To19Years_Female_MarriedAndNotSeparated",
+          "Count_Person_20To34Years_Female_MarriedAndNotSeparated",
+          "Count_Person_35To44Years_Female_MarriedAndNotSeparated",
+          "Count_Person_45To54Years_Female_MarriedAndNotSeparated",
+          "Count_Person_55To64Years_Female_MarriedAndNotSeparated"
         ]
       },
       "Count_Person_Female_TwoOrMoreRaces": {
@@ -642,19 +751,20 @@
           "Count_Person_85OrMoreYears_Female_WhiteAlone"
         ]
       },
-      "Count_Person_Female_WhiteAloneNotHispanicOrLatino": {
+      "Count_Person_Female_WithHealthInsurance": {
         "age": [
-          "Count_Person_10To14Years_Female_WhiteAloneNotHispanicOrLatino",
-          "Count_Person_15OrMoreYears_Female_WhiteAloneNotHispanicOrLatino",
-          "Count_Person_15To17Years_Female_WhiteAloneNotHispanicOrLatino",
-          "Count_Person_18To19Years_Female_WhiteAloneNotHispanicOrLatino",
-          "Count_Person_20To24Years_Female_WhiteAloneNotHispanicOrLatino",
-          "Count_Person_25OrMoreYears_Female_WhiteAloneNotHispanicOrLatino",
-          "Count_Person_25To29Years_Female_WhiteAloneNotHispanicOrLatino",
-          "Count_Person_30To34Years_Female_WhiteAloneNotHispanicOrLatino",
-          "Count_Person_5To9Years_Female_WhiteAloneNotHispanicOrLatino",
-          "Count_Person_75To84Years_Female_WhiteAloneNotHispanicOrLatino",
-          "Count_Person_85OrMoreYears_Female_WhiteAloneNotHispanicOrLatino"
+          "dc/1h5c2xbpd0edb",
+          "dc/1hs676pfqqthd",
+          "dc/2ernkb6d9yem2",
+          "dc/48s0hzlshj354",
+          "dc/965mdb0c8tef9",
+          "dc/jjhxlkp3qk2m6",
+          "dc/kkbq8kzlm6tw4",
+          "dc/lwqlh3vtpzw51",
+          "dc/py9rzq2xytfe3",
+          "dc/q4lk959j0bgq",
+          "dc/whh1y53fj4p69",
+          "dc/y9xxbzfr8yb06"
         ]
       },
       "Count_Person_Male": {
@@ -664,22 +774,14 @@
           "Count_Person_60OrMoreYears_Male",
           "Count_Person_62OrMoreYears_Male",
           "Count_Person_65To66Years_Male",
-          "Count_Person_67To69Years_Male",
-          "Count_Person_85OrMoreYears_Male",
-          "Count_Person_Years5To14_Male"
+          "Count_Person_67To69Years_Male"
         ]
       },
       "Median_Age_Person_Female": {
         "race": [
-          "Median_Age_Person_Female_AmericanIndianOrAlaskaNativeAlone",
           "Median_Age_Person_Female_AsianAlone",
-          "Median_Age_Person_Female_BlackOrAfricanAmericanAlone",
-          "Median_Age_Person_Female_HispanicOrLatino",
-          "Median_Age_Person_Female_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Median_Age_Person_Female_SomeOtherRaceAlone",
           "Median_Age_Person_Female_TwoOrMoreRaces",
-          "Median_Age_Person_Female_WhiteAlone",
-          "Median_Age_Person_Female_WhiteAloneNotHispanicOrLatino"
+          "Median_Age_Person_Female_WhiteAlone"
         ]
       }
     },
@@ -1100,5 +1202,6 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessage": "",
+  "userMessages": []
 }

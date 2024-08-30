@@ -1,0 +1,491 @@
+{
+  "client": "test_detect-and-fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/0649670"
+                    ],
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValueUpto49999USDollar_multiple_place_bar_block_2014",
+                      "Count_HousingUnit_HomeValue50000To99999USDollar_multiple_place_bar_block_2014",
+                      "Count_HousingUnit_HomeValue100000To199999USDollar_multiple_place_bar_block_2014",
+                      "Count_HousingUnit_HomeValue200000To299999USDollar_multiple_place_bar_block_2014",
+                      "Count_HousingUnit_HomeValue300000To499999USDollar_multiple_place_bar_block_2014",
+                      "Count_HousingUnit_HomeValue500000To999999USDollar_multiple_place_bar_block_2014"
+                    ],
+                    "title": "Home Value of Houses in Mountain View (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Home Value of Houses"
+          }
+        ],
+        "statVarSpec": {
+          "Count_HousingUnit_HomeValue100000To199999USDollar_multiple_place_bar_block_2014": {
+            "date": "2014",
+            "name": "Count of Housing Unit: 100,000 - 199,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue100000To199999USDollar"
+          },
+          "Count_HousingUnit_HomeValue200000To299999USDollar_multiple_place_bar_block_2014": {
+            "date": "2014",
+            "name": "Count of Housing Unit: 200,000 - 299,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue200000To299999USDollar"
+          },
+          "Count_HousingUnit_HomeValue300000To499999USDollar_multiple_place_bar_block_2014": {
+            "date": "2014",
+            "name": "Count of Housing Unit: 300,000 - 499,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue300000To499999USDollar"
+          },
+          "Count_HousingUnit_HomeValue500000To999999USDollar_multiple_place_bar_block_2014": {
+            "date": "2014",
+            "name": "Count of Housing Unit: 500,000 - 999,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue500000To999999USDollar"
+          },
+          "Count_HousingUnit_HomeValue50000To99999USDollar_multiple_place_bar_block_2014": {
+            "date": "2014",
+            "name": "Count of Housing Unit: 50,000 - 99,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue50000To99999USDollar"
+          },
+          "Count_HousingUnit_HomeValueUpto49999USDollar_multiple_place_bar_block_2014": {
+            "date": "2014",
+            "name": "Count of Housing Unit: 49,999 USD or Less",
+            "statVar": "Count_HousingUnit_HomeValueUpto49999USDollar"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "geoId/0649670"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "entities": [],
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "geoId/0649670",
+    "name": "Mountain View",
+    "place_type": "City"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "geoId/0649670",
+      "name": "Mountain View",
+      "place_type": "City"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/HousesByHomeValue",
+        "name": "Houses by Home Value",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/HomeOwnership",
+        "name": "Home Ownership",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [
+      {
+        "dcid": "geoId/3502000",
+        "name": "Albuquerque",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0203000",
+        "name": "Anchorage municipality",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2603000",
+        "name": "Ann Arbor",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1304000",
+        "name": "Atlanta",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4805000",
+        "name": "Austin",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2404000",
+        "name": "Baltimore",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1608830",
+        "name": "Boise",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2507000",
+        "name": "Boston",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4513330",
+        "name": "Charleston",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3712000",
+        "name": "Charlotte",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1714000",
+        "name": "Chicago",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3915000",
+        "name": "Cincinnati",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3916000",
+        "name": "Cleveland",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3918000",
+        "name": "Columbus",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4819000",
+        "name": "Dallas",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0820000",
+        "name": "Denver",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2622000",
+        "name": "Detroit",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4824000",
+        "name": "El Paso",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0937000",
+        "name": "Hartford",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4835000",
+        "name": "Houston",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1836003",
+        "name": "Indianapolis",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2836000",
+        "name": "Jackson",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1235000",
+        "name": "Jacksonville",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2938000",
+        "name": "Kansas City",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3240000",
+        "name": "Las Vegas",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0541000",
+        "name": "Little Rock",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0644000",
+        "name": "Los Angeles",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2148006",
+        "name": "Louisville/Jefferson County metro government (balance)",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/5548000",
+        "name": "Madison",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4748000",
+        "name": "Memphis",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1245000",
+        "name": "Miami",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/5553000",
+        "name": "Milwaukee",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2743000",
+        "name": "Minneapolis",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4752006",
+        "name": "Nashville-Davidson metropolitan government (balance)",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0952000",
+        "name": "New Haven",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2255000",
+        "name": "New Orleans",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/3651000",
+        "name": "New York",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0653000",
+        "name": "Oakland",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4055000",
+        "name": "Oklahoma City",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3137000",
+        "name": "Omaha",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1253000",
+        "name": "Orlando",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0655282",
+        "name": "Palo Alto",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4260000",
+        "name": "Philadelphia",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0455000",
+        "name": "Phoenix",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4261000",
+        "name": "Pittsburgh",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4159000",
+        "name": "Portland",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/5167000",
+        "name": "Richmond",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/0664000",
+        "name": "Sacramento",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4967000",
+        "name": "Salt Lake City",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4865000",
+        "name": "San Antonio",
+        "types": [
+          "City"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/HousesByOwnershipCost",
+        "name": "Houses by Ownership Cost",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HousesByTaxAmount",
+        "name": "Houses by Tax Amount",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
+  "svSource": "CURRENT_QUERY",
+  "userMessage": "",
+  "userMessages": []
+}

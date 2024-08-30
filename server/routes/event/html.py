@@ -24,11 +24,12 @@ from flask import render_template
 from google.protobuf.json_format import MessageToJson
 from markupsafe import escape
 
-from server import cache
 from server.lib import fetch
+from server.lib.cache import cache
 import server.lib.shared as shared_api
 import server.lib.subject_page_config as lib_subject_page_config
 import server.lib.util as lib_util
+from server.routes import TIMEOUT
 
 DEFAULT_EVENT_DCID = ""
 
@@ -139,7 +140,7 @@ def find_best_place_for_config(places: Dict[str, List[str]]) -> str:
 
 @bp.route('/')
 @bp.route('/<path:dcid>', strict_slashes=False)
-@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def event_node(dcid=DEFAULT_EVENT_DCID):
   # Get node properties
   node_name = escape(dcid)

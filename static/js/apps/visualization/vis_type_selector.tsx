@@ -35,9 +35,6 @@ export function VisTypeSelector(): JSX.Element {
             onClick={() => setVisType(type)}
             key={type}
           >
-            <span className="material-icons-outlined">
-              {visTypeConfig.icon}
-            </span>
             <span className="label">{visTypeConfig.displayName}</span>
           </div>
         );

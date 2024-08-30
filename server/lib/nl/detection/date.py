@@ -15,6 +15,8 @@
 import datetime
 import re
 
+from dateutil.relativedelta import relativedelta
+
 from server.lib.nl.common.counters import Counters
 from server.lib.nl.detection.types import Date
 from server.lib.nl.detection.types import DateClassificationAttributes
@@ -22,6 +24,8 @@ from server.lib.nl.detection.types import DateClassificationAttributes
 YEAR_RE = [
     r'(in|after|on|before|year)(?: year)? (\d{4})',
 ]
+
+YEARS_AGO_RE = [r'(decade) ago', r'(\d+) years ago']
 
 LAST_YEARS = [
     r'(?:in|during|over) the (?:last|past|previous) (\d+) years',
@@ -31,16 +35,21 @@ LAST_YEARS = [
 LAST_YEAR = [r'(?:in|during|over)(?: the)? (?:last|past|previous) year']
 
 YEAR_MONTH_RE = [
-    r'(in|after|on|before|since|by|until|from|between) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)(?:,)? (\d{4})',
-    r'(in|after|on|before|since|by|until|from|between) (\d{4})(?:,)? (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)',
+    r'(in|after|on|before|since|by|until|from|between) (jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)(?:,)? (\d{4})',
+    r'(in|after|on|before|since|by|until|from|between) (\d{4})(?:,)? (jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)',
 ]
 
+# Placeholder prep to use for LAST_YEAR/LAST_YEARS type dates because they do
+# not depend on the preposition and should all be treated the same way.
+_LAST_YEARS_PREP = 'last_years'
 # List of date preps that indicate single date
-_SINGLE_DATE_PREPS = ['in', 'on']
+_SINGLE_DATE_PREPS = ['in', 'on', 'year']
 # List of date preps that indicate that the base date is a start date
-_START_DATE_PREPS = ['after', 'since', 'from']
+_START_DATE_PREPS = ['after', 'since', 'from', _LAST_YEARS_PREP]
 # List of date preps that indicate that the base date is an end date
 _END_DATE_PREPS = ['before', 'by', 'until']
+# List of date preps that exclude the base date
+_EXCLUSIVE_DATE_PREPS = ['before', 'after']
 _MIN_MONTH = 1
 _MIN_DOUBLE_DIGIT_MONTH = 10
 _YEARS_STRING_TO_NUM = {'decade': 10}
@@ -50,16 +59,13 @@ def _is_single_date(dates: list[Date]) -> bool:
   if len(dates) != 1:
     return False
   date = dates[0]
-  if date.year_span == 1:
-    return True
-  if date.year_span == 0:
-    return date.prep in _SINGLE_DATE_PREPS
-  return False
+  return date.prep in _SINGLE_DATE_PREPS
 
 
 def parse_date(query: str, ctr: Counters) -> DateClassificationAttributes:
   dates = []
   trigger_strings = []
+  # Looks for matches for a single date of the form YYYY-MM
   for pattern in YEAR_MONTH_RE:
     matches = re.finditer(pattern, query)
     for match in matches:
@@ -72,6 +78,7 @@ def parse_date(query: str, ctr: Counters) -> DateClassificationAttributes:
       dates.append(Date(prep, year, month))
       trigger_strings.append(query[match.start():match.end()])
 
+  # Looks for matches for a single date of the form YYYY
   for pattern in YEAR_RE:
     matches = re.finditer(pattern, query)
     for match in matches:
@@ -80,20 +87,36 @@ def parse_date(query: str, ctr: Counters) -> DateClassificationAttributes:
       dates.append(Date(prep, year))
       trigger_strings.append(query[match.start():match.end()])
 
+  # Looks for matches for a yearly date range that ends in the current year
   for pattern in LAST_YEARS:
     matches = re.finditer(pattern, query)
     for match in matches:
       count, = match.groups()
       count_num = _YEARS_STRING_TO_NUM.get(count, count)
       year = datetime.date.today().year
-      dates.append(Date('before', year - 1, year_span=int(count_num)))
+      # Use a placeholder prep because all last years dates should be treated
+      # the same way.
+      dates.append(Date(_LAST_YEARS_PREP, year - int(count_num), year_span=0))
       trigger_strings.append(query[match.start():match.end()])
 
+  # Looks for matches for a one year range that ends in the current year
   for pattern in LAST_YEAR:
     matches = re.finditer(pattern, query)
     for match in matches:
       year = datetime.date.today().year
-      dates.append(Date('before', year - 1, year_span=1))
+      # Use a placeholder prep because all last year dates should be treated the
+      # same way.
+      dates.append(Date(_LAST_YEARS_PREP, year - 1, year_span=0))
+      trigger_strings.append(query[match.start():match.end()])
+
+  # Looks for matches for a single year that is X years back.
+  for pattern in YEARS_AGO_RE:
+    matches = re.finditer(pattern, query)
+    for match in matches:
+      count, = match.groups()
+      count_num = _YEARS_STRING_TO_NUM.get(count, count)
+      year = datetime.date.today().year - int(count_num)
+      dates.append(Date(_SINGLE_DATE_PREPS[0], year))
       trigger_strings.append(query[match.start():match.end()])
 
   return DateClassificationAttributes(dates=dates,
@@ -101,12 +124,12 @@ def parse_date(query: str, ctr: Counters) -> DateClassificationAttributes:
                                       date_trigger_strings=trigger_strings)
 
 
-def _get_month_string(date: Date) -> str:
+def _get_month_string(month: int) -> str:
   month_string = ''
-  if date.month >= _MIN_DOUBLE_DIGIT_MONTH:
-    month_string = f'-{date.month}'
-  elif date.month >= _MIN_MONTH:
-    month_string = f'-0{date.month}'
+  if month >= _MIN_DOUBLE_DIGIT_MONTH:
+    month_string = f'-{month}'
+  elif month >= _MIN_MONTH:
+    month_string = f'-0{month}'
   return month_string
 
 
@@ -115,8 +138,43 @@ def get_date_string(date: Date) -> str:
   if not date or not date.year:
     return ''
   year_string = str(date.year)
-  month_string = _get_month_string(date)
+  month_string = _get_month_string(date.month)
   return year_string + month_string
+
+
+# Gets the year and month to use as the base date when calculating a date range
+def _get_base_year_month(date: Date) -> (int, int):
+  base_year = date.year
+  base_month = date.month
+  # if date range excludes the specified date, need to do some calculations to
+  # get the base date.
+  if date.prep in _EXCLUSIVE_DATE_PREPS:
+    # if specified date is an end date, base date should be earlier than
+    # specified date
+    if date.prep in _END_DATE_PREPS:
+      # if date is monthly, use date that is one month before the specified date
+      if base_month >= _MIN_MONTH:
+        base_date = datetime.date(base_year, base_month,
+                                  1) - relativedelta(months=1)
+        base_year = base_date.year
+        base_month = base_date.month
+      # otherwise, use date that is one year before the specified date
+      else:
+        base_year = base_year - 1
+    # if specified date is a start date, base date should be later than
+    # specified date
+    elif date.prep in _START_DATE_PREPS:
+      # if date is monthly, use date that is one month after the specified date
+      if base_month >= _MIN_MONTH:
+        base_date = datetime.date(base_year, base_month,
+                                  1) + relativedelta(months=1)
+        base_year = base_date.year
+        base_month = base_date.month
+      # otherwise, use date that is one year after the specified date
+      else:
+        base_year = base_year + 1
+
+  return base_year, base_month
 
 
 # Gets the date range as 2 ISO-8601 formatted strings (i.e., YYYY-MM or YYYY).
@@ -126,19 +184,18 @@ def get_date_range_strings(date: Date) -> (str, str):
   end_date = ''
   if not date or not date.year:
     return start_date, end_date
-  year_string = str(date.year)
-  month_string = _get_month_string(date)
+  base_year, base_month = _get_base_year_month(date)
+  year_string = str(base_year)
+  month_string = _get_month_string(base_month)
   base_date = year_string + month_string
   if date.prep in _START_DATE_PREPS:
     start_date = base_date
     if date.year_span > 0:
-      # The year span includes start and end years so add year span - 1.
-      end_year = date.year + (date.year_span - 1)
+      end_year = base_year + date.year_span
       end_date = str(end_year) + month_string
   elif date.prep in _END_DATE_PREPS:
     end_date = base_date
     if date.year_span > 0:
-      # The year span includes start and end years so subtract year span - 1.
-      start_year = date.year - (date.year_span - 1)
+      start_year = base_year - date.year_span
       start_date = str(start_year) + month_string
   return start_date, end_date

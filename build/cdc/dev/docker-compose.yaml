@@ -1,0 +1,135 @@
+# Copyright 2024 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Docker compose for running a local development version of Data Commons
+# Prerequisites:
+#   - docker
+#   - Copy .env.sample to .env and fill in missing values
+# Run with ./run_cdc_dev_docker.sh
+
+services:
+  dc-mixer:
+    build:
+      context: ../../../
+      dockerfile: build/cdc/dev/Dockerfile.mixer.cdc.dev
+    container_name: dc-mixer
+    env_file:
+      - .env
+    environment:
+      - MAPS_API_KEY
+      - SQLITE_PATH=/app/data/datacommons/datacommons.db
+      - MIXER_API_KEY=$DC_API_KEY
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/creds.json
+    ports:
+      - "8081:8081"
+    networks:
+      - webnet
+    volumes:
+      - ../../../mixer:/app/mixer
+      - ./run_mixer.sh:/app/run_mixer.sh
+      # GCP credentials
+      - "${HOST_GOOGLE_APPLICATION_CREDENTIALS:-${HOME}/.config/gcloud/application_default_credentials.json}:/app/creds.json"
+      # Custom DC user data path containing datacommons/datacommons.db file
+      - "$OUTPUT_DIR:/app/data/"
+
+  # Website frontend static assets
+  dc-website-static:
+    build:
+      context: ../../../
+      dockerfile: build/cdc/dev/Dockerfile.website-static.cdc.dev
+    container_name: dc-website-static
+    volumes:
+      # Website frontend source code
+      - ../../../static:/app/static
+      # Website frontend dependencies
+      - ../../../packages:/app/packages
+      # Statically compiled files
+      - ../../../server/dist:/app/server/dist
+
+  # Website flask API
+  dc-website:
+    build:
+      context: ../../../
+      dockerfile: build/cdc/dev/Dockerfile.website.cdc.dev
+      network: host
+    container_name: dc-website
+    env_file:
+      - .env
+    environment:
+      - DC_API_KEY
+      - MAPS_API_KEY
+      - ENABLE_MODEL=true
+      - GOOGLE_CLOUD_PROJECT=datcom-website-dev
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/creds.json
+      - IS_CUSTOM_DC=true
+      - NL_SERVICE_ROOT_URL=http://dc-nl-python:6060
+      - USER_DATA_PATH=/app/data # Topic cache stored here
+      - WEBSITE_MIXER_API_ROOT=http://dc-mixer:8081
+    ports:
+      - "7070:7070"
+    networks:
+      - webnet
+    volumes:
+      # Website server source code
+      - ../../../server:/app/server
+      - ../../../shared:/app/shared
+      # GCP credentials
+      - "${HOST_GOOGLE_APPLICATION_CREDENTIALS:-${HOME}/.config/gcloud/application_default_credentials.json}:/app/creds.json"
+      # Custom DC user data path containing topic cache json
+      - $OUTPUT_DIR:/app/data
+
+  dc-nl-python:
+    build:
+      context: ../../../
+      dockerfile: build/cdc/dev/Dockerfile.nl-python.cdc.dev
+      # network: host
+    container_name: dc-nl-python
+    env_file:
+      - .env
+    environment:
+      - ADDITIONAL_CATALOG_PATH=$OUTPUT_DIR/datacommons/nl/embeddings/custom_catalog.yaml # Custom NL embeddings definition
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/creds.json
+      - IS_CUSTOM_DC=true
+    ports:
+      - "6060:6060"
+    networks:
+      - webnet
+    volumes:
+      # NL server source code
+      - ../../../nl_server:/app/nl_server
+      # - ../../../server:/app/server
+      - ../../../shared:/app/shared
+      - ../../../deploy:/app/deploy
+      # NL server scripts and configuration
+      - ../../../run_test.sh:/app/run_test.sh
+      - ../../../run_nl_server.sh:/app/run_nl_server.sh
+      - ../../../nl_app.py:/app/nl_app.py
+      - ../../../nl_requirements.txt:/app/nl_requirements.txt
+      # GCP credentials
+      - "${HOST_GOOGLE_APPLICATION_CREDENTIALS:-${HOME}/.config/gcloud/application_default_credentials.json}:/app/creds.json"
+      # Custom DC output dir containing NL embeddings
+      - $OUTPUT_DIR:$OUTPUT_DIR
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./nginx-cdc-dev.conf:/etc/nginx/nginx.conf
+    networks:
+      - webnet
+
+networks:
+  webnet:

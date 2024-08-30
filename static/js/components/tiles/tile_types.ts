@@ -31,6 +31,8 @@ export interface TileProp {
   showExploreMore?: boolean;
   // Title of the chart
   title: string;
+  // Optional: Override sources for this tile
+  sources?: string[];
 }
 
 /**

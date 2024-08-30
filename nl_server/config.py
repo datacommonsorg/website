@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,106 +13,116 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-import os
+from dataclasses import field
+from enum import Enum
 from typing import Dict, List
 
-from nl_server import gcs
-
-# Index constants.  Passed in `url=`
-CUSTOM_DC_INDEX: str = 'custom_ft'
-DEFAULT_INDEX_TYPE: str = 'medium_ft'
-
-# The default base model we use.
-EMBEDDINGS_BASE_MODEL_NAME: str = 'all-MiniLM-L6-v2'
-
-# App Config constants.
-NL_MODEL_KEY: str = 'NL_MODEL'
-NL_EMBEDDINGS_KEY: str = 'NL_EMBEDDINGS'
-NL_EMBEDDINGS_VERSION_KEY: str = 'NL_EMBEDDINGS_VERSION_MAP'
+import dacite
 
 
-# Defines one embeddings index config.
-@dataclass
-class EmbeddingsIndex:
-  # Name provided in the yaml file, and set in `idx=` URL param.
-  name: str
-
-  # File name provided in the yaml file.
-  embeddings_file_name: str
-  # Local path.
-  embeddings_local_path: str
-
-  # Fine-tuned model name ("" if embeddings uses base model).
-  tuned_model: str = ""
-  # Fine-tuned model local path.
-  tuned_model_local_path: str = ""
+class StoreType(str, Enum):
+  MEMORY = 'MEMORY'
+  LANCEDB = 'LANCEDB'
+  VERTEXAI = 'VERTEXAI'
 
 
-#
-# Validates the config input, downloads all the files and returns a list of Indexes to load.
-#
-def load(embeddings_map: Dict[str, str],
-         models_map: Dict[str, str]) -> List[EmbeddingsIndex]:
-  # Create Index objects.
-  indexes = _parse(embeddings_map)
-
-  # This is just a sanity, we can soon deprecate models.yaml
-  tuned_models_provided = list(set(models_map.values()))
-  tuned_models_configured = list(
-      set([i.tuned_model for i in indexes if i.tuned_model]))
-  assert sorted(tuned_models_configured) == sorted(tuned_models_provided), \
-    f'{tuned_models_configured} vs. {tuned_models_provided}'
-
-  #
-  # Download all the models.
-  #
-  model2path = {d: gcs.download_model_folder(d) for d in tuned_models_configured}
-  for idx in indexes:
-    if idx.tuned_model:
-      idx.tuned_model_local_path = model2path[idx.tuned_model]
-
-  #
-  # Download all the embeddings.
-  #
-  for idx in indexes:
-    if not idx.embeddings_local_path:
-      idx.embeddings_local_path = gcs.download_embeddings(
-          idx.embeddings_file_name)
-
-  return indexes
+class ModelType(str, Enum):
+  LOCAL = 'LOCAL'
+  VERTEXAI = 'VERTEXAI'
 
 
-def _parse(embeddings_map: Dict[str, str]) -> List[EmbeddingsIndex]:
-  indexes: List[EmbeddingsIndex] = []
+class ModelUsage(str, Enum):
+  EMBEDDINGS = 'EMBEDDINGS'
+  RERANKING = 'RERANKING'
 
-  for key, value in embeddings_map.items():
 
-    if value.startswith('/'):
-      # Value is an absolute path
-      file_name = os.path.basename(value)
-      local_path = value
-    else:
-      file_name = value
-      local_path = ''
+@dataclass(kw_only=True)
+class ModelConfig:
+  type: str = None
+  usage: str = None
+  score_threshold: float = None
 
-    idx = EmbeddingsIndex(name=key,
-                          embeddings_file_name=file_name,
-                          embeddings_local_path=local_path)
 
-    parts = value.split('.')
-    assert parts[
-        -1] == 'csv', f'Embeddings file {value} name does not end with .csv!'
+@dataclass(kw_only=True)
+class VertexAIModelConfig(ModelConfig):
+  project_id: str = None
+  location: str = None
+  prediction_endpoint_id: str = None
 
-    if len(parts) == 4:
-      # Expect: <embeddings_version>.<fine-tuned-model-version>.<base-model>.csv
-      # Example: embeddings_sdg_2023_09_12_16_38_04.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
-      assert parts[
-          2] == EMBEDDINGS_BASE_MODEL_NAME, f'Unexpected base model {parts[3]}'
-      idx.tuned_model = f'{parts[1]}.{parts[2]}'
-    else:
-      # Expect: <embeddings_version>.csv
-      # Example: embeddings_small_2023_05_24_23_17_03.csv
-      assert len(parts) == 2, f'Unexpected file name format {value}'
-    indexes.append(idx)
 
-  return indexes
+@dataclass(kw_only=True)
+class LocalModelConfig(ModelConfig):
+  gcs_folder: str = None
+
+
+@dataclass(kw_only=True)
+class IndexConfig:
+  store_type: str = None
+  source_path: str = None
+  model: str = None
+  healthcheck_query: str = 'health'
+
+
+@dataclass(kw_only=True)
+class MemoryIndexConfig(IndexConfig):
+  embeddings_path: str = None
+
+
+@dataclass(kw_only=True)
+class LanceDBIndexConfig(IndexConfig):
+  embeddings_path: str = None
+
+
+@dataclass(kw_only=True)
+class VertexAIIndexConfig(IndexConfig):
+  project_id: str = None
+  location: str = None
+  index_endpoint_root: str = None
+  index_endpoint: str = None
+  index_id: str = None
+
+
+# Check
+# https://github.com/datacommonsorg/website/assets/5951856/81bfdf68-0119-4755-95f3-2742cc74655c
+# to see the relation between the following configs and the Registry object.
+
+
+@dataclass(kw_only=True)
+class Catalog:
+  """
+  This represents the full catalog of models and indexes.
+
+  Only a subset of them are enabled/used by the Env config at runtime.
+  """
+  version: str = None
+  indexes: Dict[str, IndexConfig]
+  models: Dict[str, ModelConfig]
+
+
+@dataclass(kw_only=True)
+class Env:
+  """
+  A class to represent the NL server environment config.
+  This object is used with the Catalog object to configure the server.
+  """
+  default_indexes: List[str]
+  enabled_indexes: List[str]
+  vertex_ai_models: Dict[str, VertexAIModelConfig] = field(default_factory=dict)
+  enable_reranking: bool = False
+
+  def from_dict(d):
+    return dacite.from_dict(data_class=Env, data=d)
+
+
+@dataclass(kw_only=True)
+class ServerConfig:
+  """
+  A class to hold the runtime server config.
+
+  This config is obtained from the catalog and environment config.
+  """
+  version: str
+  default_indexes: List[str]
+  indexes: Dict[str, IndexConfig]
+  models: Dict[str, ModelConfig]
+  enable_reranking: bool

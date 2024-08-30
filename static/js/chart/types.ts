@@ -152,6 +152,10 @@ export interface ChartOptions {
   // Use an svg version of the legend that is added as part of the svg chart and
   // has no interactions.
   useSvgLegend?: boolean;
+  // If set, adds title to the top of the chart
+  title?: string;
+  // Optional: Disable the place href link for this component
+  disableEntityLink?: boolean;
 }
 
 export interface GroupLineChartOptions extends ChartOptions {
@@ -176,4 +180,10 @@ export type TimeScaleOption = "year" | "month" | "day";
 export interface LineChartOptions extends ChartOptions {
   handleDotClick?: (dotData: DotDataPoint) => void;
   timeScale?: TimeScaleOption;
+  // If set, all other dots should be removed and only the dot at this date
+  // should be shown, If showAllDots is also set, all other dots will still be
+  // shown, but this one will be slightly larger.
+  highlightDate?: string;
+  // If set to true, should show all data points as dots on the line
+  showAllDots?: boolean;
 }

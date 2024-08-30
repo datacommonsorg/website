@@ -15,14 +15,31 @@
 import copy
 from typing import List
 
-import server.lib.explore.existence as ext
-from server.lib.nl.common import constants
+from server.lib.nl.common.commentary import COMPARISON_MISSING_PLACE_MSG
+import server.lib.nl.common.existence_util as ext
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.fulfillment.utils import add_chart_to_utterance
+from server.lib.nl.fulfillment.utils import get_max_ans_places
+from server.lib.nl.fulfillment.utils import get_places_as_string
+
+
+def _get_info_message(exist_places: List[Place], all_places: List[Place]):
+  if exist_places == all_places:
+    return ''
+  else:
+    exist_place_dcids = list(map(lambda x: x.dcid, exist_places))
+    exist_places_set = set(exist_place_dcids)
+    missing_place_names = []
+    for pl in all_places:
+      if not pl.dcid in exist_places_set:
+        missing_place_names.append(pl.name)
+    missing_places_str = get_places_as_string(missing_place_names)
+    return COMPARISON_MISSING_PLACE_MSG.format(
+        missing_places=missing_places_str)
 
 
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
@@ -48,14 +65,22 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
       if len(exist_places) <= 1:
         continue
 
+      info_msg = _get_info_message(exist_places, places)
       if i == 0:
         # This is for setting answer places.
         places = exist_places
 
       cv = copy.deepcopy(chart_vars)
       cv.svs = [sv]
-      found |= add_chart_to_utterance(ChartType.BAR_CHART, state, cv,
-                                      exist_places, chart_origin)
+      sv_place_latest_date = ext.get_sv_place_latest_date([sv], places, None,
+                                                          state.exist_checks)
+      found |= add_chart_to_utterance(ChartType.BAR_CHART,
+                                      state,
+                                      cv,
+                                      exist_places,
+                                      chart_origin,
+                                      info_message=info_msg,
+                                      sv_place_latest_date=sv_place_latest_date)
   else:
     exist_svs = []
     # Pick variables that exist in at least 2 place, so each variable is comparable.
@@ -75,10 +100,18 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
       state.uttr.counters.err('comparison_failed_placeexistence', 1)
       return False
 
+    info_msg = _get_info_message(exist_places, places)
     places = exist_places
     chart_vars.svs = exist_svs
-    found |= add_chart_to_utterance(ChartType.BAR_CHART, state, chart_vars,
-                                    places, chart_origin)
+    sv_place_latest_date = ext.get_sv_place_latest_date(exist_svs, places, None,
+                                                        state.exist_checks)
+    found |= add_chart_to_utterance(ChartType.BAR_CHART,
+                                    state,
+                                    chart_vars,
+                                    places,
+                                    chart_origin,
+                                    info_message=info_msg,
+                                    sv_place_latest_date=sv_place_latest_date)
 
   if not found:
     state.uttr.counters.err('failed_comparison_existence', '')
@@ -86,7 +119,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
 
   # If this is the top result, add to answer place.
   if rank == 0 and places:
-    ans_places = copy.deepcopy(places[:constants.MAX_ANSWER_PLACES])
+    ans_places = copy.deepcopy(get_max_ans_places(places, state.uttr))
     state.uttr.answerPlaces = ans_places
     state.uttr.counters.info('comparison_answer_places',
                              [p.dcid for p in ans_places])

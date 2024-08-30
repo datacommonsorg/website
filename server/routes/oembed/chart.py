@@ -18,8 +18,8 @@ from flask import current_app
 from flask import render_template
 from flask import request
 
-from server import cache
-import server.lib.config as libconfig
+from server.lib.cache import cache
+from server.routes import TIMEOUT
 
 DEFAULT_WIDTH = 500
 DEFAULT_HEIGHT = 400
@@ -37,7 +37,7 @@ bp = Blueprint("chart", __name__, url_prefix="/chart")
 
 
 @bp.route("/", strict_slashes=False)
-@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def render_chart():
   chart_type = request.args.get("chartType", None)
   if not chart_type or not chart_type in ALLOWED_CHART_TYPES:

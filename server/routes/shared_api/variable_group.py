@@ -21,21 +21,19 @@ import server.services.datacommons as dc
 bp = Blueprint("variable-group", __name__, url_prefix='/api/variable-group')
 
 
-@bp.route('/info', methods=['GET', 'POST'])
-def get_variable_group_info():
+@bp.route('/info', methods=['POST'])
+def variable_group_info():
   """Gets the stat var group node information.
 
   This is to retrieve the adjacent nodes, including child stat vars, child stat
   var groups and parent stat var groups for the given stat var group node.
   """
-  if request.method == 'GET':
-    dcid = request.args.get("dcid")
-    entities = request.args.getlist("entities")
-    numEntitiesExistence = request.args.get("numEntitiesExistence", 1)
-  else:
-    dcid = request.json.get("dcid")
-    entities = request.json.get("entities")
-    numEntitiesExistence = request.json.get("numEntitiesExistence", 1)
+  dcid = request.json.get("dcid")
+  entities = request.json.get("entities")
+  numEntitiesExistence = request.json.get("numEntitiesExistence", 1)
+  if not dcid:
+    return 'error: must provide a `dcid` field', 400
+
   resp = dc.get_variable_group_info([dcid], entities, numEntitiesExistence)
   result = resp.get("data", [{}])[0].get("info", {})
   if current_app.config["BLOCKLIST_SVG"]:

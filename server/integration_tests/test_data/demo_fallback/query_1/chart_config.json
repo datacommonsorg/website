@@ -26,6 +26,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "geoId/0667000",
@@ -46,8 +47,71 @@
       "place_type": "City"
     }
   ],
-  "relatedThings": {},
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [
+      {
+        "dcid": "dc/topic/Demographics",
+        "name": "Demographics",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Health",
+        "name": "Health",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Economy",
+        "name": "Economy",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/EducationHousingAndCommute",
+        "name": "Education, Housing and Commute",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Equity",
+        "name": "Equity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Sustainability",
+        "name": "Sustainability",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "exploreMore": {},
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Root",
+        "name": "Statistics",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [],
+    "peerPlaces": [],
+    "peerTopics": []
+  },
   "showForm": true,
   "svSource": "UNRECOGNIZED",
-  "userMessage": "Could not recognize any topic from the query. See available topic categories for San Francisco."
+  "userMessage": "Could not recognize any topic from the query. See available topic categories for San Francisco.",
+  "userMessages": [
+    "Could not recognize any topic from the query. See available topic categories for San Francisco."
+  ]
 }

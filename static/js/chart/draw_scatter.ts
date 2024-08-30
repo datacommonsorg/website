@@ -28,6 +28,7 @@ import { formatNumber } from "../i18n/i18n";
 import { NamedPlace } from "../shared/types";
 import { SHOW_POPULATION_LOG } from "../tools/scatter/context";
 import { wrap } from "./base";
+import { addChartTitle } from "./draw_utils";
 
 /**
  * Represents a point in the scatter plot.
@@ -44,7 +45,7 @@ export interface Point {
   yPopDate?: string;
 }
 
-const MARGINS = {
+const MARGIN = {
   bottom: 30,
   left: 60,
   right: 30,
@@ -55,7 +56,6 @@ const STROKE_WIDTH = 1.5;
 const DEFAULT_FILL = "#FFFFFF";
 const DENSITY_LEGEND_FONT_SIZE = "0.7rem";
 const DENSITY_LEGEND_TEXT_HEIGHT = 15;
-const DENSITY_LEGEND_TEXT_PADDING = 5;
 const DENSITY_LEGEND_IMAGE_WIDTH = 10;
 const DENSITY_LEGEND_WIDTH = 75;
 const DEFAULT_MAX_POINT_SIZE = 20;
@@ -72,6 +72,14 @@ const HIGHLIGHT_QUADRANT_SECTIONS = 4;
 const MIN_HIGHLIGHT_POINTS = 4;
 const MIN_TEXT_LABEL_HEIGHT = 10;
 const MIN_TEXT_LABEL_LENGTH = 95;
+
+// Truncate x label text after wrapping this many times
+const X_LABEL_WRAP_MAX_LINES = 3;
+
+// If SVG goes smaller than Y_LABEL_WRAP_SVG_WIDTH_BREAKPOINT, reduce the number
+// of wrapped lines to this value
+const Y_LABEL_WRAP_MAX_LINES_SMALL = 3;
+const Y_LABEL_WRAP_SVG_WIDTH_BREAKPOINT = 400;
 
 enum ScaleType {
   LOG,
@@ -91,13 +99,16 @@ type ScatterScale =
  * @param marginTop top margin for the label
  * @param label label text to add
  * @param unit unit text to add to the label
+ * @param maxLines maximum number of wrapped text lines lines to show before
+ *        truncating
  */
 function addYLabel(
   labelElement: d3.Selection<SVGGElement, any, any, any>,
   height: number,
   marginTop: number,
   label: string,
-  unit?: string
+  unit?: string,
+  maxLines?: number
 ): number {
   const unitLabelString = unit ? ` (${unit})` : "";
   const yAxisLabel = labelElement
@@ -105,11 +116,13 @@ function addYLabel(
     .attr("text-anchor", "middle")
     .attr("y", 0)
     .text(label + unitLabelString)
-    .call(wrap, height)
+    .call((d, height) => {
+      wrap(d, height, maxLines);
+    }, height)
     .attr(
       "transform",
       `rotate(-90) translate(${-height / 2 - marginTop}, ${
-        MARGINS.left - Y_AXIS_WIDTH
+        MARGIN.left - Y_AXIS_WIDTH
       })`
     );
   return yAxisLabel.node().getBBox().height;
@@ -130,7 +143,8 @@ function addXLabel(
   marginLeft: number,
   containerHeight: number,
   label: string,
-  unit?: string
+  unit?: string,
+  maxLines?: number
 ): number {
   const unitLabelString = unit ? ` (${unit})` : "";
   const padding = 5;
@@ -139,7 +153,9 @@ function addXLabel(
     .attr("text-anchor", "middle")
     .attr("y", 0)
     .text(label + unitLabelString)
-    .call(wrap, width);
+    .call((d, width) => {
+      wrap(d, width, maxLines);
+    }, width);
   const xAxisHeight = xAxisLabel.node().getBBox().height + padding;
   xAxisLabel.attr(
     "transform",
@@ -316,7 +332,7 @@ function addDensityLegend(
     .attr("width", DENSITY_LEGEND_WIDTH);
   const legendHeight = chartHeight / 2;
 
-  // add legend title
+  // add legend titles
   legend
     .append("g")
     .append("text")
@@ -327,15 +343,10 @@ function addDensityLegend(
   legend
     .append("g")
     .append("text")
-    .attr("dominant-baseline", "hanging")
+    .attr("dominant-baseline", "text-bottom")
     .attr("font-size", DENSITY_LEGEND_FONT_SIZE)
     .text("sparse")
-    .attr(
-      "transform",
-      `translate(0, ${
-        legendHeight - DENSITY_LEGEND_TEXT_HEIGHT + DENSITY_LEGEND_TEXT_PADDING
-      })`
-    );
+    .attr("transform", `translate(0, ${legendHeight})`);
 
   // generate a scale image and append to legend
   const canvas = document.createElement("canvas");
@@ -435,14 +446,16 @@ function addDensity(
     .domain([contours.length, 0]);
 
   // Add a legend to show what each color means
-  addDensityLegend(
-    svg,
-    contours,
-    densityColorScale,
-    chartHeight,
-    marginTop,
-    svgWidth
-  );
+  if (chartWidth > 0) {
+    addDensityLegend(
+      svg,
+      contours,
+      densityColorScale,
+      chartHeight,
+      marginTop,
+      svgWidth
+    );
+  }
 
   // color the dots according to which contour it's in
   dots
@@ -833,7 +846,8 @@ export function drawScatter(
     yLabel: string,
     xPerCapita: boolean,
     yPerCapita: boolean
-  ) => JSX.Element
+  ) => JSX.Element,
+  chartTitle?: string
 ): void {
   const container = d3.select(svgContainer);
   container.selectAll("*").remove();
@@ -853,38 +867,50 @@ export function drawScatter(
   const xMinMax = d3.extent(Object.values(points), (point) => point.xVal);
   const yMinMax = d3.extent(Object.values(points), (point) => point.yVal);
 
-  let height = properties.height - MARGINS.top - MARGINS.bottom;
+  let marginTop = MARGIN.top;
+  if (chartTitle) {
+    marginTop += addChartTitle(svg, chartTitle, properties.width);
+  }
+
+  let height = Math.max(0, properties.height - marginTop - MARGIN.bottom);
   const minXAxisHeight = 30;
   const yAxisLabel = svg.append("g").attr("class", "y-axis-label");
+  // Number of lines to show in the y axis label before truncating
+  const yAxisLabelMaxLines =
+    svgContainerWidth < Y_LABEL_WRAP_SVG_WIDTH_BREAKPOINT
+      ? Y_LABEL_WRAP_MAX_LINES_SMALL
+      : undefined;
   const yAxisWidth = addYLabel(
     yAxisLabel,
     height - minXAxisHeight,
-    MARGINS.top,
+    marginTop,
     properties.yLabel,
-    properties.yUnit
+    properties.yUnit,
+    yAxisLabelMaxLines
   );
-  let width = properties.width - MARGINS.left - MARGINS.right - yAxisWidth;
+  let width = Math.max(
+    0,
+    properties.width - MARGIN.left - MARGIN.right - yAxisWidth
+  );
   if (options.showDensity) {
-    width = width - DENSITY_LEGEND_WIDTH;
+    width = Math.max(0, width - DENSITY_LEGEND_WIDTH);
   }
 
   const xAxisLabel = svg.append("g").attr("class", "x-axis-label");
   const xAxisHeight = addXLabel(
     xAxisLabel,
     width,
-    MARGINS.left + yAxisWidth,
+    MARGIN.left + yAxisWidth,
     properties.height,
     properties.xLabel,
-    properties.xUnit
+    properties.xUnit,
+    X_LABEL_WRAP_MAX_LINES
   );
-  height = height - xAxisHeight;
+  height = Math.max(0, height - xAxisHeight);
 
   const g = svg
     .append("g")
-    .attr(
-      "transform",
-      `translate(${MARGINS.left + yAxisWidth},${MARGINS.top})`
-    );
+    .attr("transform", `translate(${MARGIN.left + yAxisWidth},${marginTop})`);
 
   const xScale = addXAxis(
     g,
@@ -927,7 +953,7 @@ export function drawScatter(
       Object.values(points),
       width,
       height,
-      MARGINS.top,
+      marginTop,
       properties.width,
       pointSizeScale
     );

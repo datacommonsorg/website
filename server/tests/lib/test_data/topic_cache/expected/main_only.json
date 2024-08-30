@@ -1,0 +1,78 @@
+{
+ "main": {
+  "out_map": {
+   "dc/svpg/main_dc_svpg1": {
+    "name": "Main DC SVPVG1",
+    "type": "StatVarPeerGroup",
+    "vars": [
+     "main_dc_sv1",
+     "main_dc_sv2"
+    ],
+    "extended_vars": []
+   },
+   "dc/topic/main_dc_topic1": {
+    "name": "Main DC Topic1",
+    "type": "Topic",
+    "vars": [
+     "main_dc_sv3"
+    ],
+    "extended_vars": []
+   }
+  },
+  "in_map": {
+   "main_dc_sv1": {
+    "member": [
+     "dc/svpg/main_dc_svpg1"
+    ]
+   },
+   "main_dc_sv2": {
+    "member": [
+     "dc/svpg/main_dc_svpg1"
+    ]
+   },
+   "main_dc_sv3": {
+    "relevantVariable": [
+     "dc/topic/main_dc_topic1"
+    ]
+   }
+  }
+ },
+ "undata": {
+  "out_map": {
+   "dc/svpg/undata_svpg1": {
+    "name": "UNData SVPVG1",
+    "type": "StatVarPeerGroup",
+    "vars": [
+     "undata_sv1",
+     "undata_sv2"
+    ],
+    "extended_vars": []
+   },
+   "dc/topic/undata_topic1": {
+    "name": "UNData Topic1",
+    "type": "Topic",
+    "vars": [
+     "undata_sv3"
+    ],
+    "extended_vars": []
+   }
+  },
+  "in_map": {
+   "undata_sv1": {
+    "member": [
+     "dc/svpg/undata_svpg1"
+    ]
+   },
+   "undata_sv2": {
+    "member": [
+     "dc/svpg/undata_svpg1"
+    ]
+   },
+   "undata_sv3": {
+    "relevantVariable": [
+     "dc/topic/undata_topic1"
+    ]
+   }
+  }
+ }
+}

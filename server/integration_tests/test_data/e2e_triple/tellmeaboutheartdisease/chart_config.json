@@ -1,0 +1,52 @@
+{
+  "client": "test_detect-and-fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "entities": [
+                      "bio/DOID_114"
+                    ],
+                    "type": "ENTITY_OVERVIEW"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "context": {},
+  "debug": {},
+  "entities": [
+    {
+      "dcid": "bio/DOID_114",
+      "name": "heart disease",
+      "type": ""
+    }
+  ],
+  "pastSourceContext": "",
+  "place": {},
+  "placeFallback": {},
+  "placeSource": "UNKNOWN",
+  "places": [],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopics": [],
+    "parentPlaces": [],
+    "parentTopics": [],
+    "peerPlaces": [],
+    "peerTopics": []
+  },
+  "svSource": "PAST_QUERY",
+  "userMessage": "",
+  "userMessages": []
+}

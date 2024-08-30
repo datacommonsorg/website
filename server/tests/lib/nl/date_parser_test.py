@@ -25,19 +25,21 @@ from server.lib.nl.detection.types import Date
 class TestDateParser(unittest.TestCase):
 
   @parameterized.expand([
-      ('USA population in May, 2021', [Date('in', 2021, 5)]),
+      ('USA population in may, 2021', [Date('in', 2021, 5)]),
       ('USA population in Sep 2021', [Date('in', 2021, 9)]),
       ('USA population in 2021', [Date('in', 2021, 0)]),
       ('World temperature before year 2080', [Date('before', 2080, 0)]),
       ('How does california GCP in 2020 compare with year 2010',
        [Date('in', 2020, 0), Date('year', 2010, 0)]),
       ('Earthquakes in the last 5 years',
-       [Date('before', 2023, 0, year_span=5)]),
-      ('Flood in previous year', [Date('before', 2023, 0, year_span=1)]),
+       [Date('last_years', 2019, 0, year_span=0)]),
+      ('Flood in previous year', [Date('last_years', 2023, 0, year_span=0)]),
       ('Population over the past decade',
-       [Date('before', 2023, 0, year_span=10)]),
+       [Date('last_years', 2014, 0, year_span=0)]),
       ('Female population in Dakota', []),
       ('How has the population in USA changed over time', []),
+      ("Female population in California a decade ago", [Date('in', 2014)]),
+      ('Female population in California 15 years ago', [Date('in', 2009)])
   ])
   def test_main(self, query, expected):
     ctr = Counters()
@@ -52,14 +54,25 @@ class TestDateParser(unittest.TestCase):
 class TestGetDateRange(unittest.TestCase):
 
   @parameterized.expand([
+      # 'last_years' includes the specified date
+      (Date('last_years', 2023, 0, year_span=0), ('2023', '')),
+      (Date('last_years', 2023, 2, year_span=0), ('2023-02', '')),
+      # 'before' does not include the specified date
+      (Date('before', 2080, 0, year_span=0), ('', '2079')),
+      (Date('before', 2080, 1, year_span=0), ('', '2079-12')),
+      (Date('before', 2080, 2, year_span=0), ('', '2080-01')),
+      # 'after' does not include the specified date
+      (Date('after', 2020, 0, year_span=0), ('2021', '')),
+      (Date('after', 2020, 12, year_span=0), ('2021-01', '')),
+      (Date('after', 2020, 2, year_span=0), ('2020-03', '')),
+      # 'until' includes the specified date
+      (Date('until', 2017, 0, year_span=0), ('', '2017')),
+      (Date('until', 2017, 2, year_span=0), ('', '2017-02')),
+      # 'since' includes the specified date
+      (Date('since', 2017, 0, year_span=0), ('2017', '')),
+      (Date('since', 2017, 2, year_span=0), ('2017-02', '')),
+      # 'in' is not a date range
       (Date('in', 2021, 5), ('', '')),
-      (Date('before', 2080, 0), ('', '2080')),
-      (Date('after', 2021, 5), ('2021-05', '')),
-      (Date('before', 2022, 0, year_span=5), ('2018', '2022')),
-      (Date('before', 2022, 0, year_span=1), ('2022', '2022')),
-      (Date('after', 2022, 0, year_span=1), ('2022', '2022')),
-      (Date("until", 2017, 2, year_span=0), ('', '2017-02')),
-      (Date("after", 2017, 2, year_span=0), ('2017-02', '')),
       (None, ('', '')),
   ])
   def test_main(self, query, expected):

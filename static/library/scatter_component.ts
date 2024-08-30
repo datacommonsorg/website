@@ -113,7 +113,11 @@ export class DatacommonsScatterComponent extends LitElement {
   @property({ type: Boolean, converter: convertBooleanAttribute })
   showExploreMore: boolean;
 
-  render(): HTMLElement {
+  // Optional: List of sources for this component
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  sources?: string[];
+
+  render(): HTMLDivElement {
     const scatterTileProps: ScatterTilePropType = {
       apiRoot: getApiRoot(this.apiRoot),
       enclosedPlaceType: this.childPlaceType,
@@ -132,6 +136,7 @@ export class DatacommonsScatterComponent extends LitElement {
         showQuadrants: this.showQuadrants,
       },
       showExploreMore: this.showExploreMore,
+      sources: this.sources,
       statVarSpec: this.variables.map((variable) => ({
         denom: this.usePerCapita?.includes(variable) ? "Count_Person" : "",
         log: false,

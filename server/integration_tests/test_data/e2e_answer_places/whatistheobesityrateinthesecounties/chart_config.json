@@ -17,14 +17,14 @@
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06093",
+                      "geoId/06091",
+                      "geoId/06063",
+                      "geoId/06051",
                       "geoId/06049",
-                      "geoId/06033",
-                      "geoId/06023",
-                      "geoId/06103",
-                      "geoId/06039",
-                      "geoId/06015",
-                      "geoId/06115",
-                      "geoId/06089"
+                      "geoId/06043",
+                      "geoId/06027",
+                      "geoId/06021",
+                      "geoId/06011"
                     ],
                     "statVarKey": [
                       "Percent_Person_Obesity_multiple_place_bar_block"
@@ -50,14 +50,14 @@
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06093",
+                      "geoId/06091",
+                      "geoId/06063",
+                      "geoId/06051",
                       "geoId/06049",
-                      "geoId/06033",
-                      "geoId/06023",
-                      "geoId/06103",
-                      "geoId/06039",
-                      "geoId/06015",
-                      "geoId/06115",
-                      "geoId/06089"
+                      "geoId/06043",
+                      "geoId/06027",
+                      "geoId/06021",
+                      "geoId/06011"
                     ],
                     "statVarKey": [
                       "dc/x13tvt8jsgrm4_multiple_place_bar_block"
@@ -69,6 +69,7 @@
               }
             ],
             "denom": "Count_Person",
+            "startWithDenom": true,
             "title": "Prevalence: Male, Obesity"
           },
           {
@@ -84,14 +85,14 @@
                     "comparisonPlaces": [
                       "geoId/06105",
                       "geoId/06093",
+                      "geoId/06091",
+                      "geoId/06063",
+                      "geoId/06051",
                       "geoId/06049",
-                      "geoId/06033",
-                      "geoId/06023",
-                      "geoId/06103",
-                      "geoId/06039",
-                      "geoId/06015",
-                      "geoId/06115",
-                      "geoId/06089"
+                      "geoId/06043",
+                      "geoId/06027",
+                      "geoId/06021",
+                      "geoId/06011"
                     ],
                     "statVarKey": [
                       "dc/4lvmzr1h1ylk1_multiple_place_bar_block"
@@ -103,50 +104,12 @@
               }
             ],
             "title": "Prevalence: Female, Obesity"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06105",
-                      "geoId/06093",
-                      "geoId/06049",
-                      "geoId/06033",
-                      "geoId/06023",
-                      "geoId/06103",
-                      "geoId/06039",
-                      "geoId/06015",
-                      "geoId/06115",
-                      "geoId/06089"
-                    ],
-                    "statVarKey": [
-                      "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block"
-                    ],
-                    "title": "Physical Health Issues (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Physical Health Issues"
           }
         ],
         "statVarSpec": {
           "Percent_Person_Obesity_multiple_place_bar_block": {
             "name": "Prevalence of Obesity",
             "statVar": "Percent_Person_Obesity",
-            "unit": "%"
-          },
-          "Percent_Person_WithPhysicalHealthNotGood_multiple_place_bar_block": {
-            "name": "Physical Health Issues",
-            "statVar": "Percent_Person_WithPhysicalHealthNotGood",
             "unit": "%"
           },
           "dc/4lvmzr1h1ylk1_multiple_place_bar_block": {
@@ -168,6 +131,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "geoId/06105",
@@ -188,43 +152,43 @@
       "place_type": "County"
     },
     {
+      "dcid": "geoId/06091",
+      "name": "Sierra County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06063",
+      "name": "Plumas County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06051",
+      "name": "Mono County",
+      "place_type": "County"
+    },
+    {
       "dcid": "geoId/06049",
       "name": "Modoc County",
       "place_type": "County"
     },
     {
-      "dcid": "geoId/06033",
-      "name": "Lake County",
+      "dcid": "geoId/06043",
+      "name": "Mariposa County",
       "place_type": "County"
     },
     {
-      "dcid": "geoId/06023",
-      "name": "Humboldt County",
+      "dcid": "geoId/06027",
+      "name": "Inyo County",
       "place_type": "County"
     },
     {
-      "dcid": "geoId/06103",
-      "name": "Tehama County",
+      "dcid": "geoId/06021",
+      "name": "Glenn County",
       "place_type": "County"
     },
     {
-      "dcid": "geoId/06039",
-      "name": "Madera County",
-      "place_type": "County"
-    },
-    {
-      "dcid": "geoId/06015",
-      "name": "Del Norte County",
-      "place_type": "County"
-    },
-    {
-      "dcid": "geoId/06115",
-      "name": "Yuba County",
-      "place_type": "County"
-    },
-    {
-      "dcid": "geoId/06089",
-      "name": "Shasta County",
+      "dcid": "geoId/06011",
+      "name": "Colusa County",
       "place_type": "County"
     }
   ],
@@ -270,5 +234,9 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "See comparison based on places in the previous answer."
+  "test": "filter_test",
+  "userMessage": "See comparison based on places in the previous answer.",
+  "userMessages": [
+    "See comparison based on places in the previous answer."
+  ]
 }

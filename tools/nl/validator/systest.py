@@ -32,7 +32,7 @@ flags.DEFINE_string('run_name', 'foo',
                     'Unique name of the test, for continuation, etc.')
 flags.DEFINE_bool('do_places_in', False, 'Generate places in?')
 
-CONFIG = 'detector=heuristic&idx=medium_ft&place_detector=ner'
+CONFIG = 'detector=heuristic&idx=base_uae_mem'
 
 URL = 'https://dev.datacommons.org/api/nl/data?' + CONFIG
 

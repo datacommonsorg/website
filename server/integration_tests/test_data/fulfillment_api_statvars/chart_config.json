@@ -282,6 +282,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "geoId/06",
@@ -1052,5 +1053,6 @@
     ]
   },
   "svSource": "UNKNOWN",
-  "userMessage": ""
+  "userMessage": "",
+  "userMessages": []
 }

@@ -18,6 +18,7 @@
  * Component for rendering a line type tile.
  */
 
+import { isDateInRange, ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
@@ -26,15 +27,16 @@ import { DataGroup, DataPoint, expandDataPoints } from "../../chart/base";
 import { drawLineChart } from "../../chart/draw_line";
 import { TimeScaleOption } from "../../chart/types";
 import { URL_PATH } from "../../constants/app/visualization_constants";
+import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
+import { useLazyLoad } from "../../shared/hooks";
 import { SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
-import { loadSpinner, removeSpinner } from "../../shared/util";
 import { computeRatio } from "../../tools/shared_util";
 import {
   getContextStatVar,
   getHash,
 } from "../../utils/app/visualization_utils";
-import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
+import { getDataCommonsClient } from "../../utils/data_commons_client";
 import {
   getBestUnit,
   getSeries,
@@ -43,11 +45,12 @@ import {
 import { getPlaceNames } from "../../utils/place_utils";
 import { getUnit } from "../../utils/stat_metadata_utils";
 import {
+  clearContainer,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
   ReplacementStrings,
-  showError,
+  transformCsvHeader,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
@@ -79,8 +82,6 @@ export interface LineTilePropType {
   svgChartWidth?: number;
   // Whether or not to show the explore more button.
   showExploreMore?: boolean;
-  // Whether or not to show a loading spinner when fetching data.
-  showLoadingSpinner?: boolean;
   // Whether to show tooltip on hover
   showTooltipOnHover?: boolean;
   // Function used to get processed stat var names.
@@ -95,6 +96,17 @@ export interface LineTilePropType {
   startDate?: string;
   // Latest date to show on the chart.
   endDate?: string;
+  // Date to highlight on the chart.
+  highlightDate?: string;
+  // Optional: Override sources for this tile
+  sources?: string[];
+  // Optional: only load this component when it's near the viewport
+  lazyLoad?: boolean;
+  /**
+   * Optional: If lazy loading is enabled, load the component when it is within
+   * this margin of the viewport. Default: "0px"
+   */
+  lazyLoadMargin?: string;
 }
 
 export interface LineChartData {
@@ -109,57 +121,120 @@ export interface LineChartData {
 export function LineTile(props: LineTilePropType): JSX.Element {
   const svgContainer = useRef(null);
   const [chartData, setChartData] = useState<LineChartData | undefined>(null);
-
+  const [isLoading, setIsLoading] = useState(true);
+  const { shouldLoad, containerRef } = useLazyLoad(props.lazyLoadMargin);
   useEffect(() => {
+    if (props.lazyLoad && !shouldLoad) {
+      return;
+    }
     if (!chartData || !_.isEqual(chartData.props, props)) {
-      loadSpinner(props.id);
       (async () => {
-        const data = await fetchData(props);
-        if (props && _.isEqual(data.props, props)) {
-          setChartData(data);
+        try {
+          setIsLoading(true);
+          const data = await fetchData(props);
+          if (props && _.isEqual(data.props, props)) {
+            setChartData(data);
+          }
+        } finally {
+          setIsLoading(false);
         }
       })();
     }
-  }, [props, chartData]);
+  }, [props, chartData, shouldLoad]);
 
   const drawFn = useCallback(() => {
     if (_.isEmpty(chartData)) {
       return;
     }
     draw(props, chartData, svgContainer.current);
-    removeSpinner(props.id);
   }, [props, chartData]);
 
   useDrawOnResize(drawFn, svgContainer.current);
   return (
     <ChartTileContainer
-      id={props.id}
-      title={props.title}
-      subtitle={props.subtitle}
-      sources={chartData && chartData.sources}
-      replacementStrings={getReplacementStrings(props)}
-      className={`${props.className} line-chart`}
       allowEmbed={true}
-      getDataCsv={chartData ? () => dataGroupsToCsv(chartData.dataGroup) : null}
-      isInitialLoading={_.isNull(chartData)}
+      apiRoot={props.apiRoot}
+      className={`${props.className} line-chart`}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
-      hasErrorMsg={chartData && !!chartData.errorMsg}
       footnote={props.footnote}
+      getDataCsv={getDataCsvCallback(props)}
+      errorMsg={chartData && chartData.errorMsg}
+      id={props.id}
+      isInitialLoading={_.isNull(chartData)}
+      isLoading={isLoading}
+      replacementStrings={getReplacementStrings(props)}
+      sources={props.sources || (chartData && chartData.sources)}
+      subtitle={props.subtitle}
+      title={props.title}
+      statVarSpecs={props.statVarSpec}
+      forwardRef={containerRef}
     >
       <div
         id={props.id}
         className="svg-container"
         ref={svgContainer}
-        style={{ minHeight: props.svgChartHeight }}
-      >
-        {props.showLoadingSpinner && (
-          <div className="screen">
-            <div id="spinner"></div>
-          </div>
-        )}
-      </div>
+        style={{
+          minHeight: props.svgChartHeight,
+          display: chartData && chartData.errorMsg ? "none" : "block",
+        }}
+      ></div>
     </ChartTileContainer>
   );
+}
+
+/**
+ * Returns callback for fetching chart CSV data
+ * @param props Chart properties
+ * @returns Async function for fetching chart CSV
+ */
+function getDataCsvCallback(props: LineTilePropType): () => Promise<string> {
+  const dataCommonsClient = getDataCommonsClient(props.apiRoot);
+  return () => {
+    const perCapitaVariables = props.statVarSpec
+      .filter((v) => v.denom)
+      .map((v) => v.statVar);
+    const entityProps = props.placeNameProp
+      ? [props.placeNameProp, ISO_CODE_ATTRIBUTE]
+      : undefined;
+    if (props.enclosedPlaceType) {
+      return dataCommonsClient.getCsvSeries({
+        childType: props.enclosedPlaceType,
+        endDate: props.endDate,
+        entityProps,
+        fieldDelimiter: CSV_FIELD_DELIMITER,
+        parentEntity: props.place.dcid,
+        perCapitaVariables,
+        startDate: props.startDate,
+        transformHeader: transformCsvHeader,
+        variables: props.statVarSpec.map((v) => v.statVar),
+      });
+    } else {
+      const entities = getPlaceDcids(props);
+      return dataCommonsClient.getCsvSeries({
+        endDate: props.endDate,
+        entities,
+        entityProps,
+        fieldDelimiter: CSV_FIELD_DELIMITER,
+        perCapitaVariables: _.uniq(perCapitaVariables),
+        startDate: props.startDate,
+        transformHeader: transformCsvHeader,
+        variables: props.statVarSpec.map((v) => v.statVar),
+      });
+    }
+  };
+}
+
+/**
+ * Returns list of comparison places or a list with just the specified place
+ * dcid
+ *
+ * @param props LineTile props
+ * @returns Array of place dcids
+ */
+function getPlaceDcids(props: LineTilePropType) {
+  return props.comparisonPlaces && props.comparisonPlaces.length > 0
+    ? props.comparisonPlaces
+    : [props.place.dcid];
 }
 
 // Get the ReplacementStrings object used for formatting the title
@@ -193,16 +268,7 @@ export const fetchData = async (props: LineTilePropType) => {
     if (facetId !== EMPTY_FACET_ID_KEY) {
       facetIds = [facetId];
     }
-    if (!_.isEmpty(props.comparisonPlaces)) {
-      dataPromises.push(
-        getSeries(
-          props.apiRoot,
-          props.comparisonPlaces,
-          facetToVariable[facetId],
-          facetIds
-        )
-      );
-    } else if (props.enclosedPlaceType) {
+    if (props.enclosedPlaceType) {
       dataPromises.push(
         getSeriesWithin(
           props.apiRoot,
@@ -213,13 +279,9 @@ export const fetchData = async (props: LineTilePropType) => {
         )
       );
     } else {
+      const placeDcids = getPlaceDcids(props);
       dataPromises.push(
-        getSeries(
-          props.apiRoot,
-          [props.place.dcid],
-          facetToVariable[facetId],
-          facetIds
-        )
+        getSeries(props.apiRoot, placeDcids, facetToVariable[facetId], facetIds)
       );
     }
   }
@@ -242,11 +304,10 @@ export const fetchData = async (props: LineTilePropType) => {
     props.apiRoot,
     props.getProcessedSVNameFn
   );
-  const placeNames = await getPlaceNames(
-    placeDcids,
-    props.apiRoot,
-    props.placeNameProp
-  );
+  const placeNames = await getPlaceNames(placeDcids, {
+    apiRoot: props.apiRoot,
+    prop: props.placeNameProp,
+  });
   // How legend labels should be set
   // If neither options are set, default to showing stat vars in legend labels
   const options = {
@@ -262,12 +323,13 @@ export function draw(
   props: LineTilePropType,
   chartData: LineChartData,
   svgContainer: HTMLDivElement,
-  useSvgLegend?: boolean
+  useSvgLegend?: boolean,
+  chartTitle?: string
 ): void {
   // TODO: Remove all cases of setting innerHTML directly.
   svgContainer.innerHTML = "";
   if (chartData.errorMsg) {
-    showError(chartData.errorMsg, svgContainer);
+    clearContainer(svgContainer);
     return;
   }
   const isCompleteLine = drawLineChart(
@@ -275,11 +337,12 @@ export function draw(
     props.svgChartWidth || svgContainer.offsetWidth,
     props.svgChartHeight,
     chartData.dataGroup,
-    false,
     props.showTooltipOnHover,
     {
       colors: props.colors,
+      highlightDate: props.highlightDate,
       timeScale: props.timeScale,
+      title: chartTitle,
       unit: chartData.unit,
       useSvgLegend,
     }
@@ -343,16 +406,7 @@ function rawToChart(
       if (obsList.length > 0) {
         const dataPoints: DataPoint[] = [];
         for (const obs of obsList) {
-          if (
-            props.startDate &&
-            obs.date < props.startDate.substring(0, obs.date.length)
-          ) {
-            continue;
-          }
-          if (
-            props.endDate &&
-            obs.date.substring(0, props.endDate.length) > props.endDate
-          ) {
+          if (!isDateInRange(obs.date, props.startDate, props.endDate)) {
             continue;
           }
           dataPoints.push({
@@ -395,7 +449,7 @@ function getExploreLink(props: LineTilePropType): {
 } {
   const hash = getHash(
     VisType.TIMELINE,
-    props.comparisonPlaces || [props.place.dcid],
+    getPlaceDcids(props),
     "",
     props.statVarSpec.map((spec) => getContextStatVar(spec)),
     {}

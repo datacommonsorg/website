@@ -23,20 +23,24 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import { DataGroup, DataPoint } from "../../chart/base";
 import { drawDonutChart } from "../../chart/draw_donut";
+import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
+import { useLazyLoad } from "../../shared/hooks";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { RankingPoint } from "../../types/ranking_unit_types";
-import { dataGroupsToCsv } from "../../utils/chart_csv_utils";
+import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { getPoint, getSeries } from "../../utils/data_fetch_utils";
 import { getPlaceNames } from "../../utils/place_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
+  clearContainer,
   getDenomInfo,
+  getFirstCappedStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
   ReplacementStrings,
-  showError,
+  transformCsvHeader,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
 import { useDrawOnResize } from "./use_draw_on_resize";
@@ -69,6 +73,15 @@ export interface DonutTilePropType {
   title: string;
   // Chart subtitle
   subtitle?: string;
+  // Optional: Override sources for this tile
+  sources?: string[];
+  // Optional: only load this component when it's near the viewport
+  lazyLoad?: boolean;
+  /**
+   * Optional: If lazy loading is enabled, load the component when it is within
+   * this margin of the viewport. Default: "0px"
+   */
+  lazyLoadMargin?: string;
 }
 
 interface DonutChartData {
@@ -84,15 +97,18 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
   const [donutChartData, setDonutChartData] = useState<
     DonutChartData | undefined
   >(null);
-
+  const { shouldLoad, containerRef } = useLazyLoad(props.lazyLoadMargin);
   useEffect(() => {
+    if (props.lazyLoad && !shouldLoad) {
+      return;
+    }
     if (!donutChartData) {
       (async () => {
         const data = await fetchData(props);
         setDonutChartData(data);
       })();
     }
-  }, [props, donutChartData]);
+  }, [props, donutChartData, shouldLoad]);
 
   const drawFn = useCallback(() => {
     if (_.isEmpty(donutChartData)) {
@@ -108,25 +124,54 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
       id={props.id}
       title={props.title}
       subtitle={props.subtitle}
-      sources={donutChartData && donutChartData.sources}
+      apiRoot={props.apiRoot}
+      sources={props.sources || (donutChartData && donutChartData.sources)}
       replacementStrings={getReplacementStrings(props, donutChartData)}
       className={`${props.className} bar-chart`}
       allowEmbed={true}
-      getDataCsv={
-        donutChartData ? () => dataGroupsToCsv(donutChartData.dataGroup) : null
-      }
+      getDataCsv={getDataCsvCallback(props)}
       isInitialLoading={_.isNull(donutChartData)}
-      hasErrorMsg={donutChartData && !!donutChartData.errorMsg}
+      errorMsg={donutChartData && donutChartData.errorMsg}
       footnote={props.footnote}
+      forwardRef={containerRef}
+      statVarSpecs={props.statVarSpec}
     >
       <div
         id={props.id}
         className="svg-container"
-        style={{ minHeight: props.svgChartHeight }}
+        style={{
+          minHeight: props.svgChartHeight,
+          display: donutChartData && donutChartData.errorMsg ? "none" : "block",
+        }}
         ref={chartContainerRef}
       ></div>
     </ChartTileContainer>
   );
+}
+
+/**
+ * Returns callback for fetching chart CSV data
+ * @param props Chart properties
+ * @returns Async function for fetching chart CSV
+ */
+function getDataCsvCallback(props: DonutTilePropType): () => Promise<string> {
+  return () => {
+    const dataCommonsClient = getDataCommonsClient(props.apiRoot);
+    // Assume all variables will have the same date
+    // TODO: Update getCsv to handle different dates for different variables
+    const date = getFirstCappedStatVarSpecDate(props.statVarSpec);
+    const perCapitaVariables = props.statVarSpec
+      .filter((v) => v.denom)
+      .map((v) => v.statVar);
+    return dataCommonsClient.getCsv({
+      date,
+      entities: [props.place.dcid],
+      fieldDelimiter: CSV_FIELD_DELIMITER,
+      perCapitaVariables,
+      transformHeader: transformCsvHeader,
+      variables: props.statVarSpec.map((v) => v.statVar),
+    });
+  };
 }
 
 // Get the ReplacementStrings object used for formatting the title
@@ -141,6 +186,9 @@ export function getReplacementStrings(
 }
 
 export const fetchData = async (props: DonutTilePropType) => {
+  // Assume all variables will have the same date
+  // TODO: Handle different dates for different variables
+  const date = getFirstCappedStatVarSpecDate(props.statVarSpec);
   const statSvs = props.statVarSpec
     .map((spec) => spec.statVar)
     .filter((sv) => !!sv);
@@ -152,7 +200,7 @@ export const fetchData = async (props: DonutTilePropType) => {
       props.apiRoot,
       [props.place.dcid],
       [statSvs, FILTER_STAT_VAR].flat(1),
-      "",
+      date,
       [statSvs]
     );
     const denomResp = _.isEmpty(denomSvs)
@@ -172,7 +220,9 @@ export const fetchData = async (props: DonutTilePropType) => {
     popPoints = popPoints.slice(0, NUM_PLACES);
     const placeNames = await getPlaceNames(
       Array.from(popPoints).map((x) => x.placeDcid),
-      props.apiRoot
+      {
+        apiRoot: props.apiRoot,
+      }
     );
     const statVarDcidToName = await getStatVarNames(
       props.statVarSpec,
@@ -265,7 +315,7 @@ export function draw(
   svgWidth?: number
 ): void {
   if (chartData.errorMsg) {
-    showError(chartData.errorMsg, svgContainer);
+    clearContainer(svgContainer);
     return;
   }
   drawDonutChart(

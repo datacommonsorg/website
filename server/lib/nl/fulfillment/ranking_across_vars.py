@@ -12,10 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import logging
 from typing import List
 
-import server.lib.explore.existence as ext
+import server.lib.nl.common.existence_util as ext
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.detection.types import Place
@@ -35,7 +34,6 @@ from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 #
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
              chart_origin: ChartOriginType, _: int) -> bool:
-  logging.info('populate_cb for ranking_across_vars')
   if chart_vars.event:
     state.uttr.counters.err('ranking-across-vars_failed_cb_events', 1)
     return False
@@ -66,5 +64,11 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     return False
   chart_vars.svs = eres.exist_svs
 
-  return add_chart_to_utterance(ChartType.BAR_CHART, state, chart_vars, places,
-                                chart_origin)
+  sv_place_latest_date = ext.get_sv_place_latest_date(chart_vars.svs, places,
+                                                      None, state.exist_checks)
+  return add_chart_to_utterance(ChartType.BAR_CHART,
+                                state,
+                                chart_vars,
+                                places,
+                                chart_origin,
+                                sv_place_latest_date=sv_place_latest_date)

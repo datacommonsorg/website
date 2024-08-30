@@ -120,6 +120,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "CentralAsia",
@@ -235,5 +236,6 @@
     }
   },
   "svSource": "UNKNOWN",
-  "userMessage": ""
+  "userMessage": "",
+  "userMessages": []
 }

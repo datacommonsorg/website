@@ -35,7 +35,10 @@ import {
 import { Spinner } from "../../components/spinner";
 import { getStatVarInfo } from "../../shared/stat_var";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
-import { getFilteredStatVarPromise } from "../../utils/app/visualization_utils";
+import {
+  getFilteredStatVarPromise,
+  getNumEntitiesExistence,
+} from "../../utils/app/visualization_utils";
 import { AppContext } from "./app_context";
 import { VIS_TYPE_CONFIG } from "./vis_type_configs";
 
@@ -104,9 +107,9 @@ export function StatVarSelector(props: StatVarSelectorPropType): JSX.Element {
             selectSV={addSv}
             searchLabel={""}
             deselectSV={removeSv}
-            numEntitiesExistence={Math.min(
-              Math.max(samplePlaces.length, 1),
-              visTypeConfig.svHierarchyNumExistence || 1
+            numEntitiesExistence={getNumEntitiesExistence(
+              samplePlaces,
+              visTypeConfig
             )}
           />
         )}
@@ -141,12 +144,8 @@ export function StatVarSelector(props: StatVarSelectorPropType): JSX.Element {
           </ModalHeader>
           <ModalBody>
             <Container>
-              <div>
-                You selected:{" "}
-                <b>{extraSv ? extraSv.info.title || extraSv.dcid : ""}</b>
-              </div>
               <div className="radio-selection-label">
-                Please choose 1 statistical variable to replace:
+                Select the statistical variable to replace:
               </div>
               <div className="radio-selection-section">
                 {selectedStatVars

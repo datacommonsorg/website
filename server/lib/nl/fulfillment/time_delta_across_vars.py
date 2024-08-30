@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import logging
 import os
 from typing import List
 
@@ -20,6 +19,8 @@ from flask import current_app
 
 from server.lib import util as libutil
 from server.lib.nl.common import rank_utils
+from server.lib.nl.common.existence_util import get_sv_place_facet
+from server.lib.nl.common.existence_util import get_sv_place_latest_date
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.detection.types import Place
@@ -33,7 +34,6 @@ from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 #
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
              chart_origin: ChartOriginType, _: int) -> bool:
-  logging.info('populate_cb for time_delta_across_vars')
   if chart_vars.event:
     state.uttr.counters.err('time-delta-across-vars_failed_cb_events', 1)
     return False
@@ -60,7 +60,6 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
   found = False
   # Compute time-delta ranks.
   rank_order = state.ranking_types[0] if state.ranking_types else None
-  logging.info('Attempting to compute growth rate stats')
 
   if os.environ.get('FLASK_ENV') == 'test':
     nopc_vars = libutil.get_nl_no_percapita_vars()
@@ -68,13 +67,19 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     nopc_vars = current_app.config['NOPC_VARS']
 
   direction = state.time_delta_types[0]
+  sv_place_facet = {}
+  if state.date_range:
+    sv_place_facet = get_sv_place_facet(chart_vars.svs, places,
+                                        state.exist_checks)
   ranked_lists = rank_utils.rank_svs_by_series_growth(
       place=places[0].dcid,
       svs=chart_vars.svs,
       growth_direction=direction,
       rank_order=rank_order,
       nopc_vars=nopc_vars,
-      counters=state.uttr.counters)
+      counters=state.uttr.counters,
+      date_range=state.date_range,
+      sv_place_facet=sv_place_facet)
 
   state.uttr.counters.info(
       'time-delta-across-vars_reranked_svs', {
@@ -92,10 +97,21 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
 
     # TODO: Uncomment this once we agree on look and feel.
     if field == 'abs':
-      found |= add_chart_to_utterance(ChartType.TIMELINE_WITH_HIGHLIGHT, state,
-                                      chart_vars, places, chart_origin)
+      sv_place_latest_date = get_sv_place_latest_date(ranked_svs, places, None,
+                                                      state.exist_checks)
+      found |= add_chart_to_utterance(ChartType.TIMELINE_WITH_HIGHLIGHT,
+                                      state,
+                                      chart_vars,
+                                      places,
+                                      chart_origin,
+                                      sv_place_facet=sv_place_facet,
+                                      sv_place_latest_date=sv_place_latest_date)
 
-    found |= add_chart_to_utterance(ChartType.RANKED_TIMELINE_COLLECTION, state,
-                                    chart_vars, places, chart_origin)
+    found |= add_chart_to_utterance(ChartType.RANKED_TIMELINE_COLLECTION,
+                                    state,
+                                    chart_vars,
+                                    places,
+                                    chart_origin,
+                                    sv_place_facet=sv_place_facet)
 
   return found
