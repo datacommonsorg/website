@@ -94,190 +94,76 @@
 </head>
 
 <body>
-  <div id="main">
-    <header id="main-header">
-      <nav class="navbar navbar-light navbar-expand-lg col" id="main-nav">
-        <div class="container-fluid">
-          <div class="navbar-brand">
-            {% if LOGO_PATH %}
-            <div id="main-header-logo">
-                <a href="{{ url_for('static.homepage') }}" aria-label="{% trans %}Back to {{ NAME }} homepage{% endtrans %}">
-                  <img src="{{ LOGO_PATH }}" alt="{{ NAME }} logo"/>
-                </a>
-            </div>
-            {% endif %}
-            <a href="{{ url_for('static.homepage') }}">{{ NAME }}</a>
-            </a>
-          </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dc-main-nav" aria-label="{% trans %}Show site navigation{% endtrans %}">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse justify-content-md-end" id="dc-main-nav">
-            <ul class="navbar-nav float-md-right">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="nav-explore-dropdown" role="button"
-                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="{% trans %}Show exploration tools{% endtrans %}">
-                  {% trans %}Explore{% endtrans %}
-                </a>
-                <div class="dropdown-menu" aria-labelledby="nav-explore-dropdown">
-                  <a class="dropdown-item" href="{{ url_for('place.place') }}">{% trans %}Place Explorer{% endtrans
-                    %}</a>
-                  <a class="dropdown-item" href="{{ url_for('browser.browser_main') }}">{% trans %}Knowledge Graph{%
-                    endtrans %}</a>
-                  <a class="dropdown-item" href="{{ url_for('tools.visualization')}}#visType=timeline">{% trans %}Timelines Explorer{%
-                    endtrans %}</a>
-                  <a class="dropdown-item" href="{{ url_for('tools.visualization')}}#visType=scatter">{% trans %}Scatter Plot Explorer{%
-                    endtrans %}</a>
-                  <a class="dropdown-item" href="{{ url_for('tools.visualization')}}#visType=map">{% trans %}Map Explorer{% endtrans %}</a>
-                  <a class="dropdown-item" href="{{ url_for('tools.stat_var') }}">{% trans %}Statistical Variable Explorer{% endtrans %}</a>
-                  <a class="dropdown-item" href="{{ url_for('tools.download') }}">{% trans %}Data Download Tool{% endtrans %}</a>
-                  {# hide disaster dashboard and sustainability explorer for now #}
-                  {% if false %}
-                    {% if config['SHOW_DISASTER'] %}
-                      <a class="dropdown-item" href="{{ url_for('disasters.disaster_dashboard') }}">{% trans %}Natural Disaster Dashboard{% endtrans %}</a>
-                    {% endif %}
-                    {% if config['SHOW_SUSTAINABILITY'] %}
-                      <a class="dropdown-item" href="{{ url_for('sustainability.sustainability_explorer') }}">Sustainability Explorer</a>
-                    {% endif %}
-                  {% endif %}
-                </div>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="nav-doc-dropdown" role="button" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false" aria-label="{% trans %}Show documentation links{% endtrans %}">{% trans %}Documentation{% endtrans %}</a>
-                <div class="dropdown-menu" aria-labelledby="nav-doc-dropdown">
-                  <a class="dropdown-item" href="https://docs.datacommons.org">{% trans %}Documentation{% endtrans %}</a>
-                  <a class="dropdown-item" href="https://docs.datacommons.org/api">{% trans %}APIs{% endtrans %}</a>
-                  {# TODO: UNCOMMENT TO RE-ENABLE BIGQUERY #}
-                  {#<a class="dropdown-item" href="https://docs.datacommons.org/bigquery">{% trans %}BigQuery{% endtrans
-                    %}</a>#}
-                  <a class="dropdown-item" href="https://docs.datacommons.org/tutorials">{% trans %}Tutorials{% endtrans
-                    %}</a>
-                  <a class="dropdown-item" href="https://docs.datacommons.org/contributing/">{% trans %}Contribute{%
-                    endtrans %}</a>
-                </div>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="nav-about-dropdown" role="button"
-                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="{% trans %}Show about links{% endtrans %}">
-                  {% trans %}About{% endtrans %}
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="nav-about-dropdown">
-                  <a class="dropdown-item" href="{{ url_for('static.about') }}">{% trans %}About Data Commons{% endtrans
-                    %}</a>
-                  <a class="dropdown-item" href="https://blog.datacommons.org/">{% trans %}Blog{% endtrans
-                    %}</a>
-                  <a class="dropdown-item" href="https://docs.datacommons.org/datasets/">{% trans %}Data Sources{%
-                    endtrans %}</a>
-                  <a class="dropdown-item" href="{{ url_for('static.faq') }}">{% trans %}FAQ{% endtrans %}</a>
-                  <a class="dropdown-item" href="{{ url_for('static.feedback') }}">{% trans %}Feedback{% endtrans %}</a>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
+<div id="metadata-base" class="d-none"
+  data-logo-path="{{ LOGO_PATH }}"
+  data-name="{{ NAME }}"
+  data-show-disaster="{{ SHOW_DISASTER }}"
+  data-show-sustainability="{{ SHOW_SUSTAINABILITY }}"
+  data-hide-full-footer="{{ is_hide_full_footer }}"
+  data-hide-sub-footer="{{ is_hide_sub_footer }}"
+  data-subfooter-extra="{{ subfooter_extra_content|safe }}"
+  data-brand-logo-light="{{ brand_logo_light }}"
+  data-routes="{
+    &quot;static_homepage&quot;: &quot;{{ url_for('static.homepage') }}&quot;,
+    &quot;place_place&quot;: &quot;{{ url_for('place.place') }}&quot;,
+    &quot;browser_browser_main&quot;: &quot;{{ url_for('browser.browser_main') }}&quot;,
+    &quot;tools_visualization&quot;: &quot;{{ url_for('tools.visualization') }}&quot;,
+    &quot;tools_stat_var&quot;: &quot;{{ url_for('tools.stat_var') }}&quot;,
+    &quot;tools_download&quot;: &quot;{{ url_for('tools.download') }}&quot;,
+    &quot;static_about&quot;: &quot;{{ url_for('static.about') }}&quot;,
+    &quot;static_faq&quot;: &quot;{{ url_for('static.faq') }}&quot;,
+    &quot;static_feedback&quot;: &quot;{{ url_for('static.feedback') }}&quot;,
+    &quot;static_disclaimers&quot;: &quot;{{ url_for('static.disclaimers') }}&quot;
+  }"
+>
+</div>
 
+<div id="labels-base" class="d-none"
+  data-data-commons="{% trans %}Data Commons{% endtrans %}"
+  data-back-to-homepage="{% trans %}Back to {{ NAME }} homepage{% endtrans %}"
+  data-show-site-navigation="{% trans %}Show site navigation{% endtrans %}"
+  data-show-exploration-tools="{% trans %}Show exploration tools{% endtrans %}"
+  data-explore="{% trans %}Explore{% endtrans %}"
+  data-place-explorer="{% trans %}Place Explorer{% endtrans%}"
+  data-knowledge-graph="{% trans %}Knowledge Graph{% endtrans %}"
+  data-timeline-explorer="{% trans %}Timelines Explorer{% endtrans %}"
+  data-scatterplot-explorer="{% trans %}Scatter Plot Explorer{% endtrans %}"
+  data-map-explorer="{% trans %}Map Explorer{% endtrans %}"
+  data-statistical-variable-explorer="{% trans %}Statistical Variable Explorer{% endtrans %}"
+  data-data-download-tool="{% trans %}Data Download Tool{% endtrans %}"
+  data-natural-disaster-dashboard="{% trans %}Natural Disaster Dashboard{% endtrans %}"
+  data-sustainability-explorer="Sustainability Explorer"
+  data-show-documentation-links="{% trans %}Show documentation links{% endtrans %}"
+  data-documentation="{% trans %}Documentation{% endtrans %}"
+  data-apis="{% trans %}APIs{% endtrans %}"
+  data-big-query="{% trans %}BigQuery{% endtrans %}"
+  data-tutorials="{% trans %}Tutorials{% endtrans %}"
+  data-contribute="{% trans %}Contribute{% endtrans %}"
+  data-github-repository="{% trans %}Github Repository{% endtrans %}"
+  data-show-about-links="{% trans %}Show about links{% endtrans %}"
+  data-about="{% trans %}About{% endtrans %}"
+  data-about-data-commons="{% trans %}About Data Commons{% endtrans %}"
+  data-blog="{% trans %}Blog{% endtrans %}"
+  data-data-sources="{% trans %}Data Sources{% endtrans %}"
+  data-faq="{% trans %}FAQ{% endtrans %}"
+  data-frequently-asked-questions="{% trans %}Frequently Asked Questions{% endtrans %}"
+  data-feedback="{% trans %}Feedback{% endtrans %}"
+  data-tools="{% trans %}Tools{% endtrans %}"
+  data-an-initiative-from="{% trans %}An initiative from{% endtrans %}"
+  data-terms-and-conditions="{% trans %}Terms and Conditions{% endtrans %}"
+  data-privacy-policy="{% trans %}Privacy Policy{% endtrans %}"
+  data-disclaimer="{% trans %}Disclaimers{% endtrans %}"
+>
+</div>
+
+<script src={{url_for('static', filename='base.js', t=config['VERSION'])}} async></script>
+  <div id="main">
+    <div id="app-header-container"></div>
     <main id="{{ main_id }}" class="main-content">
       {% block content %}
       {% endblock %}
     </main>
-
-    <footer id="main-footer">
-      {% if not is_hide_full_footer %}
-      <div class="container top-footer">
-        <div class="row">
-          <section class="col-12 col-sm-6 col-md-4">
-            {# TRANSLATORS: The label for a collection of exploration tools. #}
-            <h6>{% trans %}Tools{% endtrans %}</h6>
-            {# TRANSLATORS: The name of a tool to browse statistics about a place. #}
-            <a href="{{ url_for('place.place') }}"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Place Explorer{% endtrans %}</span></a>
-            {# TRANSLATORS: The name of a tool to browse the Data Commons knowledge graph. #}
-            <a href="{{ url_for('browser.browser_main') }}"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Knowledge Graph{% endtrans %}</span></a>
-            {# TRANSLATORS: The name of a tool to explore timeline charts of statistical variables for places. #}
-            <a href="{{ url_for('tools.visualization')}}#visType=timeline"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Timelines Explorer{% endtrans %}</span></a>
-            {# TRANSLATORS: The name of a tool to explore scatter plots of statistical variables for places. #}
-            <a href="{{ url_for('tools.visualization')}}#visType=scatter"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Scatter Plot Explorer{% endtrans %}</span></a>
-            {# TRANSLATORS: The name of a tool to explore maps of statistical variables for places. #}
-            <a href="{{ url_for('tools.visualization')}}#visType=map"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Map Explorer{% endtrans %}</span></a>
-            {# TRANSLATORS: The name of a tool that provides observation and import information about statistical
-            variables. #}
-            <a href="{{ url_for('tools.stat_var') }}"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Statistical Variable Explorer{% endtrans %}</span></a>
-            {# TRANSLATORS: The name of a tool that allows users to download data. #}
-            <a href="{{ url_for('tools.download') }}"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Data Download Tool{% endtrans %}</span></a>
-            {# hide disaster dashboard and sustainability explorer for now #}
-            {% if false %}
-              {# TRANSLATORS: The name of a dashboard that shows information about
-              natural disasters. #}
-              {% if config['SHOW_DISASTER'] %}
-                <a href="{{ url_for('disasters.disaster_dashboard') }}"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Natural Disaster Dashboard{% endtrans %}</span></a>
-              {% endif %}
-              {% if config['SHOW_SUSTAINABILITY'] %}
-                <a href="{{ url_for('sustainability.sustainability_explorer') }}"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Sustainability Explorer{% endtrans %}</span></a>
-              {% endif %}
-            {% endif %}
-          </section>
-          <section class="col-12 col-sm-6 col-md-4">
-            {# TRANSLATORS: The label for a list of documentation links. #}
-            <h6>{% trans %}Documentation{% endtrans %}</h6>
-            {# TRANSLATORS: The label for a link to our documentation site. #}
-            <a href="https://docs.datacommons.org"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Documentation{% endtrans %}</span></a>
-            {# TRANSLATORS: The label for a link to our API documentation. #}
-            <a href="https://docs.datacommons.org/api"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}APIs{% endtrans %}</span></a>
-            {# TODO: UNCOMMENT TO RE-ENABLE BIGQUERY #}
-            {# TRANSLATORS: The label for a link to BigQuery integration starter docs. #}
-            {#<a href="https://docs.datacommons.org/bigquery"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}BigQuery{% endtrans %}</span></a>#}
-            {# TRANSLATORS: The label for a link to our API tutorials. #}
-            <a href="https://docs.datacommons.org/tutorials"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Tutorials{% endtrans %}</span></a>
-            {# TRANSLATORS: The label for a link to instructions about contributing to the project. #}
-            <a href="https://docs.datacommons.org/contributing/"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Contribute{% endtrans %}</span></a>
-            {# TRANSLATORS: The label for a link to the project's github repository (for open sourced code). #}
-            <a href="http://github.com/datacommonsorg"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Github Repository{% endtrans %}</span></a>
-          </section>
-          <section class="col-12 col-sm-6 col-md-4">
-            {# TRANSLATORS: The label for a link to informational pages about the Data Commons project. #}
-            <h6>{% trans %}Data Commons{% endtrans %}</h6>
-            {# TRANSLATORS: The label for a link to the project's about page. #}
-            <a href="{{ url_for('static.about') }}"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}About Data Commons{% endtrans %}</span></a>
-            {# TRANSLATORS: The label for a link to the project's blog. #}
-            <a href="https://blog.datacommons.org/"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Blog{% endtrans %}</span></a>
-            {# TRANSLATORS: The label for a link to data sources included in the Data Commons knowledge graph. #}
-            <a href="https://docs.datacommons.org/datasets/"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Data Sources{% endtrans %}</span></a>
-            {# TRANSLATORS: The label for a link to instructions about sending feedback. #}
-            <a href="{{ url_for('static.feedback') }}"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Feedback{% endtrans %}</span></a>
-            {# TRANSLATORS: The label for a link to project FAQ page. #}
-            <a href="{{ url_for('static.faq') }}"><span class="material-icons-outlined">arrow_forward</span><span>{% trans %}Frequently Asked Questions{% endtrans %}</span></a>
-          </section>
-        </div>
-      </div>
-      {% endif %}
-      {% if not is_hide_sub_footer %}
-      <div id="sub-footer">
-        <div class="container">
-          <!-- {% set homepage_url = "<a href={href}>Data Commons</a>".format(href=url_for('static.homepage'))  %} -->
-          {# TRANSLATORS: The label for the Google branding byline. #}
-          <span class="brand-byline">
-            <span class="brand-text">{% trans %}An initiative from{% endtrans %}</span>
-            {% if brand_logo_light %}
-            <img class="brand-logo" width="74" height="25" src="/images/google-logo-reverse.svg" alt="Google logo" />
-            {% else %}
-            <img class="brand-logo" width="74" height="25" src="/images/google-logo.svg" alt="Google logo" />
-            {% endif %}
-          </span>
-          <div class="sub-footer-links">
-            {% block subfooter_extra %}{% endblock %}
-            {# TRANSLATORS: The label for a link to site terms and conditions. #}
-            <a href="https://policies.google.com/terms"><span>{% trans %}Terms and Conditions{% endtrans %}</span></a>
-            {# TRANSLATORS: The label for a link to site privacy policy. #}
-            <a href="https://policies.google.com/privacy?hl=en-US"><span>{% trans %}Privacy Policy{% endtrans %}</span></a>
-            {# TRANSLATORS: The label for a link to site disclaimers. #}
-            <a href="{{ url_for('static.disclaimers') }}"><span>{% trans %}Disclaimers{% endtrans %}</span></a>
-          </div>
-        </div>
-      </div>
-      {% endif %}
-    </footer>
+    <div id="app-footer-container"></div>
   </div>
   {# Compile this down (or manually implement). Used only for nav bar so far #}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
