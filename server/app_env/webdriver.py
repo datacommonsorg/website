@@ -22,3 +22,4 @@ class Config(_base.Config):
   SCHEME = 'http'
   SHOW_TOPIC = True
   USE_LLM = True
+  ENABLE_BQ = True
