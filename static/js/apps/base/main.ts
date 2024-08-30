@@ -78,60 +78,13 @@ function renderPage(): void {
     document.getElementById("metadata-base").dataset.subfooterExtra;
   const brandLogoLight =
     document.getElementById("metadata-base").dataset.brandLogoLight === "true";
-  const labels: Labels = {
-    dataCommons: document.getElementById("labels-base").dataset.dataCommons,
-    backToHomepage:
-      document.getElementById("labels-base").dataset.backToHomepage,
-    showSiteNavigation:
-      document.getElementById("labels-base").dataset.showSiteNavigation,
-    showExplorationTools:
-      document.getElementById("labels-base").dataset.showExplorationTools,
-    explore: document.getElementById("labels-base").dataset.explore,
-    placeExplorer: document.getElementById("labels-base").dataset.placeExplorer,
-    knowledgeGraph:
-      document.getElementById("labels-base").dataset.knowledgeGraph,
-    timelineExplorer:
-      document.getElementById("labels-base").dataset.timelineExplorer,
-    scatterplotExplorer:
-      document.getElementById("labels-base").dataset.scatterplotExplorer,
-    mapExplorer: document.getElementById("labels-base").dataset.mapExplorer,
-    statisticalVariableExplorer:
-      document.getElementById("labels-base").dataset
-        .statisticalVariableExplorer,
-    dataDownloadTool:
-      document.getElementById("labels-base").dataset.dataDownloadTool,
-    naturalDisasterDashboard:
-      document.getElementById("labels-base").dataset.naturalDisasterDashboard,
-    sustainabilityExplorer:
-      document.getElementById("labels-base").dataset.sustainabilityExplorer,
-    showDocumentationLinks:
-      document.getElementById("labels-base").dataset.showDocumentationLinks,
-    documentation: document.getElementById("labels-base").dataset.documentation,
-    apis: document.getElementById("labels-base").dataset.apis,
-    bigQuery: document.getElementById("labels-base").dataset.bigQuery,
-    tutorials: document.getElementById("labels-base").dataset.tutorials,
-    contribute: document.getElementById("labels-base").dataset.contribute,
-    githubRepository:
-      document.getElementById("labels-base").dataset.githubRepository,
-    showAboutLinks:
-      document.getElementById("labels-base").dataset.showAboutLinks,
-    about: document.getElementById("labels-base").dataset.about,
-    aboutDataCommons:
-      document.getElementById("labels-base").dataset.aboutDataCommons,
-    blog: document.getElementById("labels-base").dataset.blog,
-    dataSources: document.getElementById("labels-base").dataset.dataSources,
-    faq: document.getElementById("labels-base").dataset.faq,
-    frequentlyAskedQuestions:
-      document.getElementById("labels-base").dataset.frequentlyAskedQuestions,
-    feedback: document.getElementById("labels-base").dataset.feedback,
-    tools: document.getElementById("labels-base").dataset.tools,
-    anInitiativeFrom:
-      document.getElementById("labels-base").dataset.anInitiativeFrom,
-    termsAndConditions:
-      document.getElementById("labels-base").dataset.termsAndConditions,
-    privacyPolicy: document.getElementById("labels-base").dataset.privacyPolicy,
-    disclaimer: document.getElementById("labels-base").dataset.disclaimer,
-  };
+
+  const labelElements = document.getElementById("metadata-base-labels").dataset;
+
+  const labels = {} as Labels;
+  (Object.keys(labelElements) as Array<keyof Labels>).forEach((key) => {
+    labels[key] = labelElements[key];
+  });
 
   const routes = JSON.parse(
     document.getElementById("metadata-base").dataset.routes
