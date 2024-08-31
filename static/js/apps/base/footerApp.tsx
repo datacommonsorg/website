@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import footerData from "baseFooterData";
 import React, { ReactElement } from "react";
 
+import { FooterMenu } from "../../shared/types/base";
 import { Labels, Routes } from "../../shared/types/general";
 import Footer from "./components/Footer";
 
@@ -25,6 +25,7 @@ interface FooterAppProps {
   hideSubFooter: boolean;
   subFooterExtra: string;
   brandLogoLight: boolean;
+  footerMenu: FooterMenu[];
   labels: Labels;
   routes: Routes;
 }
@@ -34,6 +35,7 @@ export function FooterApp({
   hideSubFooter,
   subFooterExtra,
   brandLogoLight,
+  footerMenu,
   labels,
   routes,
 }: FooterAppProps): ReactElement {
@@ -43,7 +45,7 @@ export function FooterApp({
       hideSubFooter={hideSubFooter}
       subFooterExtra={subFooterExtra}
       brandLogoLight={brandLogoLight}
-      footerMenu={footerData}
+      footerMenu={footerMenu}
       labels={labels}
       routes={routes}
     />

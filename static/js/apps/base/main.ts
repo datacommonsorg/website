@@ -18,6 +18,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { loadLocaleData } from "../../i18n/i18n";
+import { FooterMenu, HeaderMenu } from "../../shared/types/base";
 import { Labels, Routes } from "../../shared/types/general";
 import { FooterApp } from "./footerApp";
 import { HeaderApp } from "./headerApp";
@@ -31,6 +32,12 @@ window.addEventListener("load", (): void => {
 });
 
 function renderPage(): void {
+  const headerMenu = JSON.parse(
+    document.getElementById("metadata-base").dataset.header
+  ) as HeaderMenu[];
+  const footerMenu = JSON.parse(
+    document.getElementById("metadata-base").dataset.footer
+  ) as FooterMenu[];
   const name = document.getElementById("metadata-base").dataset.name;
   const logoPath = document.getElementById("metadata-base").dataset.logoPath;
   const hideFullFooter =
@@ -78,6 +85,7 @@ function renderPage(): void {
     React.createElement(HeaderApp, {
       name,
       logoPath,
+      headerMenu,
       labels,
       routes,
     }),
@@ -90,6 +98,7 @@ function renderPage(): void {
       hideSubFooter,
       subFooterExtra,
       brandLogoLight,
+      footerMenu,
       labels,
       routes,
     }),
