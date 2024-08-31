@@ -14,34 +14,17 @@
  * limitations under the License.
  */
 
-import headerData from "baseHeaderData";
-import React, { ReactElement } from "react";
+import { Routes } from "../../../shared/types/general";
 
-import { Labels, Routes } from "../../shared/types/general";
-import HeaderBar from "./components/HeaderBar";
+export const resolveHref = (href: string, routes: Routes): string => {
+  const regex = /{([^}]+)}/;
+  const match = href.match(regex);
 
-interface HeaderAppProps {
-  name: string;
-  logoPath: string;
-  labels: Labels;
-  routes: Routes;
-}
-
-export function HeaderApp({
-  name,
-  logoPath,
-  labels,
-  routes,
-}: HeaderAppProps): ReactElement {
-  return (
-    <>
-      <HeaderBar
-        name={name}
-        logoPath={logoPath}
-        menu={headerData}
-        labels={labels}
-        routes={routes}
-      />
-    </>
-  );
-}
+  if (match) {
+    const routeKey = match[1];
+    const resolvedRoute = routes[routeKey] || "";
+    return href.replace(regex, resolvedRoute);
+  } else {
+    return routes[href] || href;
+  }
+};

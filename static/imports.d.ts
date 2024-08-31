@@ -14,34 +14,14 @@
  * limitations under the License.
  */
 
-import headerData from "baseHeaderData";
-import React, { ReactElement } from "react";
-
-import { Labels, Routes } from "../../shared/types/general";
-import HeaderBar from "./components/HeaderBar";
-
-interface HeaderAppProps {
-  name: string;
-  logoPath: string;
-  labels: Labels;
-  routes: Routes;
+declare module "baseHeaderData" {
+  type HeaderMenu = import("./js/shared/types/base").HeaderMenu;
+  const value: HeaderMenu[];
+  export default value;
 }
 
-export function HeaderApp({
-  name,
-  logoPath,
-  labels,
-  routes,
-}: HeaderAppProps): ReactElement {
-  return (
-    <>
-      <HeaderBar
-        name={name}
-        logoPath={logoPath}
-        menu={headerData}
-        labels={labels}
-        routes={routes}
-      />
-    </>
-  );
+declare module "baseFooterData" {
+  type FooterMenu = import("./js/shared/types/base").FooterMenu;
+  const value: FooterMenu[];
+  export default value;
 }

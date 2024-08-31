@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
+import footerData from "baseFooterData";
 import React, { ReactElement } from "react";
 
-import { Routes } from "../../shared/types/general";
+import { Labels, Routes } from "../../shared/types/general";
 import Footer from "./components/Footer";
-import { Labels } from "./main";
 
 interface FooterAppProps {
   hideFullFooter: boolean;
@@ -43,6 +43,7 @@ export function FooterApp({
       hideSubFooter={hideSubFooter}
       subFooterExtra={subFooterExtra}
       brandLogoLight={brandLogoLight}
+      footerMenu={footerData}
       labels={labels}
       routes={routes}
     />

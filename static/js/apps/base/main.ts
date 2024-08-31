@@ -18,46 +18,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { loadLocaleData } from "../../i18n/i18n";
-import { Routes } from "../../shared/types/general";
+import { Labels, Routes } from "../../shared/types/general";
 import { FooterApp } from "./footerApp";
 import { HeaderApp } from "./headerApp";
-
-export interface Labels {
-  dataCommons: string;
-  backToHomepage: string;
-  showSiteNavigation: string;
-  showExplorationTools: string;
-  explore: string;
-  placeExplorer: string;
-  knowledgeGraph: string;
-  timelineExplorer: string;
-  scatterplotExplorer: string;
-  mapExplorer: string;
-  statisticalVariableExplorer: string;
-  dataDownloadTool: string;
-  naturalDisasterDashboard: string;
-  sustainabilityExplorer: string;
-  showDocumentationLinks: string;
-  documentation: string;
-  apis: string;
-  bigQuery: string;
-  tutorials: string;
-  contribute: string;
-  githubRepository: string;
-  showAboutLinks: string;
-  about: string;
-  aboutDataCommons: string;
-  blog: string;
-  dataSources: string;
-  faq: string;
-  frequentlyAskedQuestions: string;
-  feedback: string;
-  tools: string;
-  anInitiativeFrom: string;
-  termsAndConditions: string;
-  privacyPolicy: string;
-  disclaimer: string;
-}
 
 window.addEventListener("load", (): void => {
   loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
@@ -79,16 +42,37 @@ function renderPage(): void {
   const brandLogoLight =
     document.getElementById("metadata-base").dataset.brandLogoLight === "true";
 
-  const labelElements = document.getElementById("metadata-base-labels").dataset;
+  const labelElements = document.getElementById("metadata-labels").children;
 
-  const labels = {} as Labels;
-  (Object.keys(labelElements) as Array<keyof Labels>).forEach((key) => {
-    labels[key] = labelElements[key];
+  const labels: Labels = new Proxy(
+    {},
+    {
+      get: (target, prop): string => {
+        return prop in target ? target[prop] : prop;
+      },
+    }
+  );
+
+  Array.from(labelElements).forEach((element) => {
+    const labelTag = element.getAttribute("data-label");
+    labels[labelTag] = element.getAttribute("data-value");
   });
 
-  const routes = JSON.parse(
-    document.getElementById("metadata-base").dataset.routes
-  ) as Routes;
+  const routeElements = document.getElementById("metadata-routes").children;
+
+  const routes: Routes = new Proxy(
+    {},
+    {
+      get: (target, prop): string => {
+        return prop in target ? target[prop] : prop;
+      },
+    }
+  );
+
+  Array.from(routeElements).forEach((element) => {
+    const routeTag = element.getAttribute("data-route");
+    routes[routeTag] = element.getAttribute("data-value");
+  });
 
   ReactDOM.render(
     React.createElement(HeaderApp, {
