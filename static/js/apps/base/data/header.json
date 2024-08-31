@@ -1,0 +1,89 @@
+[
+  {
+    "label": "Explore",
+    "ariaLabel": "Show exploration tools",
+    "subMenu": [
+      {
+        "href": "place.place",
+        "label": "Place Explorer"
+      },
+      {
+        "href": "browser.browser_main",
+        "label": "Knowledge Graph"
+      },
+      {
+        "href": "{tools.visualization}#visType=timeline",
+        "label": "Timelines Explorer"
+      },
+      {
+        "href": "{tools.visualization}#visType=scatter",
+        "label": "Scatter Plot Explorer"
+      },
+      {
+        "href": "{tools.visualization}#visType=map",
+        "label": "Map Explorer"
+      },
+      {
+        "href": "tools.stat_var",
+        "label": "Statistical Variable Explorer"
+      },
+      {
+        "href": "tools.download",
+        "label": "Data Download Tool"
+      }
+    ]
+  },
+  {
+    "label": "Documentation",
+    "ariaLabel": "Show documentation links",
+    "subMenu": [
+      {
+        "href": "https://docs.datacommons.org",
+        "label": "Documentation"
+      },
+      {
+        "href": "https://docs.datacommons.org/api",
+        "label": "APIs"
+      },
+      {
+        "hide": true,
+        "href": "https://docs.datacommons.org/bigquery",
+        "label": "BigQuery"
+      },
+      {
+        "href": "https://docs.datacommons.org/tutorials",
+        "label": "Tutorials"
+      },
+      {
+        "href": "https://docs.datacommons.org/contributing/",
+        "label": "Contribute"
+      }
+    ]
+  },
+  {
+    "label": "About",
+    "ariaLabel": "Show about links",
+    "subMenu": [
+      {
+        "href": "static.about",
+        "label": "About Data Commons"
+      },
+      {
+        "href": "https://blog.datacommons.org/",
+        "label": "Blog"
+      },
+      {
+        "href": "https://docs.datacommons.org/datasets/",
+        "label": "Data Sources"
+      },
+      {
+        "href": "static.faq",
+        "label": "FAQ"
+      },
+      {
+        "href": "static.feedback",
+        "label": "Feedback"
+      }
+    ]
+  }
+]

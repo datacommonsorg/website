@@ -103,58 +103,11 @@
   data-hide-sub-footer="{{ is_hide_sub_footer }}"
   data-subfooter-extra="{{ subfooter_extra_content|safe }}"
   data-brand-logo-light="{{ brand_logo_light }}"
-  data-routes="{
-    &quot;static_homepage&quot;: &quot;{{ url_for('static.homepage') }}&quot;,
-    &quot;place_place&quot;: &quot;{{ url_for('place.place') }}&quot;,
-    &quot;browser_browser_main&quot;: &quot;{{ url_for('browser.browser_main') }}&quot;,
-    &quot;tools_visualization&quot;: &quot;{{ url_for('tools.visualization') }}&quot;,
-    &quot;tools_stat_var&quot;: &quot;{{ url_for('tools.stat_var') }}&quot;,
-    &quot;tools_download&quot;: &quot;{{ url_for('tools.download') }}&quot;,
-    &quot;static_about&quot;: &quot;{{ url_for('static.about') }}&quot;,
-    &quot;static_faq&quot;: &quot;{{ url_for('static.faq') }}&quot;,
-    &quot;static_feedback&quot;: &quot;{{ url_for('static.feedback') }}&quot;,
-    &quot;static_disclaimers&quot;: &quot;{{ url_for('static.disclaimers') }}&quot;
-  }"
 >
 </div>
 
-<div id="metadata-base-labels" class="d-none"
-  data-data-commons="{% trans %}Data Commons{% endtrans %}"
-  data-back-to-homepage="{% trans %}Back to {{ NAME }} homepage{% endtrans %}"
-  data-show-site-navigation="{% trans %}Show site navigation{% endtrans %}"
-  data-show-exploration-tools="{% trans %}Show exploration tools{% endtrans %}"
-  data-explore="{% trans %}Explore{% endtrans %}"
-  data-place-explorer="{% trans %}Place Explorer{% endtrans%}"
-  data-knowledge-graph="{% trans %}Knowledge Graph{% endtrans %}"
-  data-timeline-explorer="{% trans %}Timelines Explorer{% endtrans %}"
-  data-scatterplot-explorer="{% trans %}Scatter Plot Explorer{% endtrans %}"
-  data-map-explorer="{% trans %}Map Explorer{% endtrans %}"
-  data-statistical-variable-explorer="{% trans %}Statistical Variable Explorer{% endtrans %}"
-  data-data-download-tool="{% trans %}Data Download Tool{% endtrans %}"
-  data-natural-disaster-dashboard="{% trans %}Natural Disaster Dashboard{% endtrans %}"
-  data-sustainability-explorer="Sustainability Explorer"
-  data-show-documentation-links="{% trans %}Show documentation links{% endtrans %}"
-  data-documentation="{% trans %}Documentation{% endtrans %}"
-  data-apis="{% trans %}APIs{% endtrans %}"
-  data-big-query="{% trans %}BigQuery{% endtrans %}"
-  data-tutorials="{% trans %}Tutorials{% endtrans %}"
-  data-contribute="{% trans %}Contribute{% endtrans %}"
-  data-github-repository="{% trans %}Github Repository{% endtrans %}"
-  data-show-about-links="{% trans %}Show about links{% endtrans %}"
-  data-about="{% trans %}About{% endtrans %}"
-  data-about-data-commons="{% trans %}About Data Commons{% endtrans %}"
-  data-blog="{% trans %}Blog{% endtrans %}"
-  data-data-sources="{% trans %}Data Sources{% endtrans %}"
-  data-faq="{% trans %}FAQ{% endtrans %}"
-  data-frequently-asked-questions="{% trans %}Frequently Asked Questions{% endtrans %}"
-  data-feedback="{% trans %}Feedback{% endtrans %}"
-  data-tools="{% trans %}Tools{% endtrans %}"
-  data-an-initiative-from="{% trans %}An initiative from{% endtrans %}"
-  data-terms-and-conditions="{% trans %}Terms and Conditions{% endtrans %}"
-  data-privacy-policy="{% trans %}Privacy Policy{% endtrans %}"
-  data-disclaimer="{% trans %}Disclaimers{% endtrans %}"
->
-</div>
+{% include 'auxiliary/labels.html' %}
+{% include 'auxiliary/routes.html' %}
 
 <script src={{url_for('static', filename='base.js', t=config['VERSION'])}} async></script>
   <div id="main">
