@@ -15,7 +15,6 @@
  */
 
 const path = require("path");
-const fs = require('fs');
 const CopyPlugin = require("copy-webpack-plugin");
 const FixStyleOnlyEntriesPlugin = require("webpack-remove-empty-scripts");
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
@@ -162,18 +161,6 @@ const config = {
   },
   resolve: {
     extensions: [".js", ".ts", ".tsx"],
-    alias: {
-      'baseHeaderData': path.join(__dirname, 'js/apps/base/data',
-        fs.existsSync(path.resolve(__dirname, 'js/apps/base/data/header_custom_dc.json'))
-          ? 'header_custom_dc.json'
-          : 'header.json'
-      ),
-      'baseFooterData': path.join(__dirname, 'js/apps/base/data',
-        fs.existsSync(path.resolve(__dirname, 'js/apps/base/data/footer_custom_dc.json'))
-          ? 'footer_custom_dc.json'
-          : 'footer.json'
-      )
-    }
   },
   module: {
     rules: [

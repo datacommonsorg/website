@@ -14,15 +14,16 @@
  * limitations under the License.
  */
 
-import headerData from "baseHeaderData";
 import React, { ReactElement } from "react";
 
+import { HeaderMenu } from "../../shared/types/base";
 import { Labels, Routes } from "../../shared/types/general";
 import HeaderBar from "./components/HeaderBar";
 
 interface HeaderAppProps {
   name: string;
   logoPath: string;
+  headerMenu: HeaderMenu[];
   labels: Labels;
   routes: Routes;
 }
@@ -30,6 +31,7 @@ interface HeaderAppProps {
 export function HeaderApp({
   name,
   logoPath,
+  headerMenu,
   labels,
   routes,
 }: HeaderAppProps): ReactElement {
@@ -38,7 +40,7 @@ export function HeaderApp({
       <HeaderBar
         name={name}
         logoPath={logoPath}
-        menu={headerData}
+        menu={headerMenu}
         labels={labels}
         routes={routes}
       />
