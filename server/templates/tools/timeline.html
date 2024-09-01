@@ -41,9 +41,6 @@
 {% endblock %}
 
 {% block subfooter_extra %}
-{% if not config['CUSTOM'] %}
-<button id="bq-link" class="btn-subfooter btn btn-primary" style="display: none">Get BigQuery SQL</button>
-{% endif %}
 <button id="download-link" class="btn-subfooter btn btn-primary" style="display: none">Download Data</button>
 <a id="bulk-download-link" href="javascript:void(0)" style="display: none">Bulk Download</a>
 {% endblock %}
