@@ -17,6 +17,7 @@
 import React, { ReactElement } from "react";
 
 import { Routes } from "../../../shared/types/general";
+import { resolveHref } from "../../base/utilities/utilities";
 
 interface LearnMoreProps {
   routes: Routes;
@@ -39,7 +40,7 @@ const LearnMore = ({ routes }: LearnMoreProps): ReactElement => {
               datasets, boosting their usability across different domains.
             </p>
             <div className="learn-more-links">
-              <a href={`${routes.about}`}>
+              <a href={resolveHref("static.about", routes)}>
                 <span className="material-icons-outlined">arrow_forward</span>
                 <span>About Data Commons</span>
               </a>

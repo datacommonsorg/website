@@ -22,8 +22,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { loadLocaleData } from "../../i18n/i18n";
-import { Routes } from "../../shared/types/general";
 import { Topic } from "../../shared/types/homepage";
+import { getRoutes } from "../base/utilities/utilities";
 import { App } from "./app";
 
 window.addEventListener("load", (): void => {
@@ -42,9 +42,7 @@ function renderPage(): void {
     document.getElementById("metadata").dataset.partners
   );
 
-  const routes = JSON.parse(
-    document.getElementById("metadata").dataset.routes
-  ) as Routes;
+  const routes = getRoutes();
 
   ReactDOM.render(
     React.createElement(App, {

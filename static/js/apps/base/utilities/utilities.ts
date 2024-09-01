@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Routes } from "../../../shared/types/general";
+import { Labels, Routes } from "../../../shared/types/general";
 
 export const resolveHref = (href: string, routes: Routes): string => {
   const regex = /{([^}]+)}/;
@@ -27,4 +27,46 @@ export const resolveHref = (href: string, routes: Routes): string => {
   } else {
     return routes[href] || href;
   }
+};
+
+export const getRoutes = (elementId = "metadata-routes"): Routes => {
+  const routeElements = document.getElementById(elementId)?.children;
+  const routes: Routes = new Proxy(
+    {},
+    {
+      get: (target, prop): string => {
+        return prop in target ? target[prop] : (prop as string);
+      },
+    }
+  );
+
+  if (routeElements) {
+    Array.from(routeElements).forEach((element) => {
+      const routeTag = element.getAttribute("data-route");
+      routes[routeTag] = element.getAttribute("data-value");
+    });
+  }
+
+  return routes;
+};
+
+export const getLabels = (elementId = "metadata-labels"): Labels => {
+  const labelElements = document.getElementById(elementId)?.children;
+  const labels: Labels = new Proxy(
+    {},
+    {
+      get: (target, prop): string => {
+        return prop in target ? target[prop] : (prop as string);
+      },
+    }
+  );
+
+  if (labelElements) {
+    Array.from(labelElements).forEach((element) => {
+      const labelTag = element.getAttribute("data-label");
+      labels[labelTag] = element.getAttribute("data-value");
+    });
+  }
+
+  return labels;
 };

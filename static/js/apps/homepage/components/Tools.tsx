@@ -16,6 +16,8 @@
 
 import React, { ReactElement } from "react";
 
+import { resolveHref } from "../../base/utilities/utilities";
+
 interface ToolsProps {
   routes: Record<string, string>;
 }
@@ -33,7 +35,7 @@ const Tools = ({ routes }: ToolsProps): ReactElement => {
         <div className="tools-icons">
           <div className="tool-buttons-container">
             <a
-              href={`${routes.tools}#visType=map`}
+              href={resolveHref("{tools.visualization}#visType=map", routes)}
               id="map-button"
               className="tool-button"
             >
@@ -41,7 +43,10 @@ const Tools = ({ routes }: ToolsProps): ReactElement => {
               <span>Map explorer</span>
             </a>
             <a
-              href={`${routes.tools}#visType=scatter`}
+              href={resolveHref(
+                "{tools.visualization}#visType=scatter",
+                routes
+              )}
               id="scatter-button"
               className="tool-button"
             >
@@ -49,19 +54,26 @@ const Tools = ({ routes }: ToolsProps): ReactElement => {
               <span>Scatter plots</span>
             </a>
             <a
-              href={`${routes.tools}#visType=timeline`}
+              href={resolveHref(
+                "{tools.visualization}#visType=timeline",
+                routes
+              )}
               id="timeline-button"
               className="tool-button"
             >
               <div className="tool-icon"></div>
               <span>Timelines</span>
             </a>
-            <a href={routes.place} id="place-button" className="tool-button">
+            <a
+              href={resolveHref("place.place", routes)}
+              id="place-button"
+              className="tool-button"
+            >
               <div className="tool-icon"></div>
               <span>Place explorer</span>
             </a>
             <a
-              href={`${routes.tools}/download`}
+              href={resolveHref("tools.download", routes)}
               id="download-button"
               className="tool-button"
             >

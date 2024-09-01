@@ -19,9 +19,9 @@ import ReactDOM from "react-dom";
 
 import { loadLocaleData } from "../../i18n/i18n";
 import { FooterMenu, HeaderMenu } from "../../shared/types/base";
-import { Labels, Routes } from "../../shared/types/general";
 import { FooterApp } from "./footerApp";
 import { HeaderApp } from "./headerApp";
+import { getLabels, getRoutes } from "./utilities/utilities";
 
 window.addEventListener("load", (): void => {
   loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
@@ -38,6 +38,7 @@ function renderPage(): void {
   const footerMenu = JSON.parse(
     document.getElementById("metadata-base").dataset.footer
   ) as FooterMenu[];
+
   const name = document.getElementById("metadata-base").dataset.name;
   const logoPath = document.getElementById("metadata-base").dataset.logoPath;
   const hideFullFooter =
@@ -49,37 +50,8 @@ function renderPage(): void {
   const brandLogoLight =
     document.getElementById("metadata-base").dataset.brandLogoLight === "true";
 
-  const labelElements = document.getElementById("metadata-labels").children;
-
-  const labels: Labels = new Proxy(
-    {},
-    {
-      get: (target, prop): string => {
-        return prop in target ? target[prop] : prop;
-      },
-    }
-  );
-
-  Array.from(labelElements).forEach((element) => {
-    const labelTag = element.getAttribute("data-label");
-    labels[labelTag] = element.getAttribute("data-value");
-  });
-
-  const routeElements = document.getElementById("metadata-routes").children;
-
-  const routes: Routes = new Proxy(
-    {},
-    {
-      get: (target, prop): string => {
-        return prop in target ? target[prop] : prop;
-      },
-    }
-  );
-
-  Array.from(routeElements).forEach((element) => {
-    const routeTag = element.getAttribute("data-route");
-    routes[routeTag] = element.getAttribute("data-value");
-  });
+  const labels = getLabels();
+  const routes = getRoutes();
 
   ReactDOM.render(
     React.createElement(HeaderApp, {

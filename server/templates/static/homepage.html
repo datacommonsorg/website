@@ -31,12 +31,10 @@
 
  {% block content %}
 
-<div id="metadata" class="d-none" data-topics="{{ topics }}" data-partners="{{ partners }}"
-     data-routes="{
-        &quot;tools&quot;: &quot;{{ url_for('tools.visualization') }}&quot;,
-        &quot;place&quot;: &quot;{{ url_for('place.place') }}&quot;,
-        &quot;about&quot;: &quot;{{ url_for('static.about') }}&quot;
-      }">
+<div id="metadata" class="d-none"
+  data-topics="{{ topics }}"
+  data-partners="{{ partners }}"
+>
 </div>
 
 <div id="app-container">

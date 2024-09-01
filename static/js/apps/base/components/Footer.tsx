@@ -110,7 +110,7 @@ const Footer = ({
                 <span>{labels["Privacy Policy"]}</span>
               </a>
               <a href={routes["static.disclaimers"]}>
-                <span>{labels["Disclaimer"]}</span>
+                <span>{labels["Disclaimers"]}</span>
               </a>
             </div>
           </div>
