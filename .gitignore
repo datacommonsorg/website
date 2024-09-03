@@ -15,6 +15,7 @@ screenshots/screenshot_url.json
 # Local env.
 *.swp
 .vscode
+.idea
 !.vscode/launch.json
 .env.list
 

@@ -439,10 +439,15 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
       return
     values['hl'] = g.locale
 
-  # Provides locale parameter in all templates
+  # Provides locale and other common parameters in all templates
   @app.context_processor
-  def inject_locale():
-    return dict(locale=get_locale())
+  def inject_common_parameters():
+    common_variables = {
+      'HEADER_MENU': json.dumps(libutil.get_json("config/base/header.json")),
+      'FOOTER_MENU': json.dumps(libutil.get_json("config/base/footer.json"))
+    }
+    locale_variable = dict(locale=get_locale())
+    return {**common_variables, **locale_variable}
 
   @app.teardown_request
   def log_unhandled(e):

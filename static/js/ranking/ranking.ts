@@ -21,7 +21,7 @@
 import { loadLocaleData } from "../i18n/i18n";
 import { renderRankingComponent } from "./component";
 
-window.onload = () => {
+window.addEventListener("load", (): void => {
   const withinPlace = document.getElementById("within-place-dcid").dataset.pwp;
   const placeType = document.getElementById("place-type").dataset.pt;
   const placeName = document.getElementById("place-name").dataset.pn;
@@ -51,4 +51,4 @@ window.onload = () => {
       date,
     });
   });
-};
+});

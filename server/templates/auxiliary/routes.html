@@ -1,0 +1,29 @@
+{#-
+Copyright 2024 Google LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-#}
+
+<div id="metadata-routes" class="d-none">
+  <div data-route="static.homepage" data-value="{{ url_for('static.homepage') }}"></div>
+  <div data-route="place.place" data-value="{{ url_for('place.place') }}"></div>
+  <div data-route="browser.browser_main" data-value="{{ url_for('browser.browser_main') }}"></div>
+  <div data-route="tools.visualization" data-value="{{ url_for('tools.visualization') }}"></div>
+  <div data-route="tools.stat_var" data-value="{{ url_for('tools.stat_var') }}"></div>
+  <div data-route="tools.download" data-value="{{ url_for('tools.download') }}"></div>
+  <div data-route="static.about" data-value="{{ url_for('static.about') }}"></div>
+  <div data-route="static.feedback" data-value="{{ url_for('static.feedback') }}"></div>
+  <div data-route="static.faq" data-value="{{ url_for('static.faq') }}"></div>
+  <div data-route="static.disclaimers" data-value="{{ url_for('static.disclaimers') }}"></div>
+</div>
+

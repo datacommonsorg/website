@@ -1,5 +1,5 @@
 {#
-  Copyright 2023 Google LLC
+  Copyright 2024 Google LLC
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -31,155 +31,13 @@
 
  {% block content %}
 
-<section id="homepage-top">
-  <div id="search-container" class="container">
-  </div>
-</section>
-
-<section id="search-animation">
-  <div id="search-animation-container" class="container">
-    <div id="default-text">
-      <div class="content">
-        <h3 class="header">Data tells interesting stories</h3>
-        <h4 class="sub-header invisible" id="header-prompt">Ask a question like...</h4>
-        <h4 class="sub-header hidden" id="header-mission">Data Commons, an initiative from Google,<br />organizes the world’s publicly available data<br />and makes it more accessible and useful</h4>
-      </div>
-    </div>
-    <div id="search-sequence" class="hidden">
-      <input id="animation-search-input" placeholder="" autocomplete="off" type="text" class="pac-target-input search-input-text form-control" aria-invalid="false" value="" readonly>
-      <div id="result-svg" class="">
-        <div class="result hidden" data-query="Which countries in Africa have had the greatest increase in electricity access?" style="background-image: url('/images/home-answers/access-electricity.svg')"></div>
-        <div class="result hidden" data-query="How does income correlate with diabetes in US counties?" style="background-image: url('/images/home-answers/income-diabetes.svg')"></div>
-        <div class="result hidden" data-query="Which counties in the US have the highest levels of diabetes?" style="background-image: url('/images/home-answers/diabetes.svg')"></div>
-        <div class="result hidden" data-query="Tell me about greenhouse gas emissions from the US" style="background-image: url('/images/home-answers/emissions.svg')"></div>
-        <div class="result hidden" data-query="Show me agricultural income by US county" style="background-image: url('/images/home-answers/farm-income.svg')"></div>
-      </div>
-    </div>
-  </div>
-</section>
-<div id="search-animation-toggle">
-  <span class="material-icons-outlined">keyboard_double_arrow_up</span>
+<div id="metadata" class="d-none"
+  data-topics="{{ topics }}"
+  data-partners="{{ partners }}"
+>
 </div>
 
-<section id="data-size">
-  <div class="container">
-    <div id="data-size-content">
-      <article>
-        <h4>Data from</h4>
-        <ul>
-          <li>193 countries
-          <li> 110,000 cities
-          <li>5,000 states and provinces
-        </ul>
-      </article>
-      <article>
-        <p>
-          Over 240B data points across 260K variables from the
-          <a href="https://www.who.int/" target="_blank">World Health
-          Organization</a>, <a href="https://www.cdc.gov/index.htm"
-          target="_blank">Centers for Disease Control and Prevention</a>, <a
-          href="https://www.census.gov/" target="_blank">United States Census
-          Bureau</a>, <a href="https://ec.europa.eu/eurostat"
-          target="_blank">Eurostat</a>, and over 100 other agencies about
-          economics, jobs, climate, health, demographics and more.
-        </p>
-      </article>
-    </div>
-    <div id="data-size-icon-container">
-      <div id="data-size-icon"></div>
-    </div>
-  </div>
-</section>
-
-<div class="divider container"></div>
-
-<section id="topics">
-  <div class="container">
-    <h3>Explore the Data</h3>
-    <div class="topics-container">
-      {% for topic in topics %}
-        <div class="topic-card clickable" onclick="location.href='{{ topic['browseUrl'] }}';">
-          <div class="topic-card-body">
-            <div class="topic-card-image-container">
-              <div class="topic-card-image" style="background-position-y: -{{ topic['sprite-index'] * 141 }}px"></div>
-            </div>
-            <div class="topic-card-title">{{ topic['title'] }}</div>
-            <div class="topic-card-description">{{ topic['description'] }}</div>
-            <div class="topic-card-links">
-              <a href="{{ topic['browseUrl'] }}" ><span class="material-icons-outlined">arrow_forward</span><span>Explore</span></a>
-            </div>
-          </div>
-        </div>
-      {% endfor %}
-    </div>
-</section>
-
-<div class="background-gradient">
-  <section class="tools">
-    <div class="container">
-      <div class="tools-description">
-        <h3 class="tools-description-header">Data Commons Tools</h3>
-        <h4 class="tools-description-subheader">Explore the public database through these tools</h4>
-      </div>
-      <div class="tools-icons">
-        <div class="tool-buttons-container">
-          <a href="{{ url_for('tools.visualization')}}#visType=map" id="map-button" class="tool-button">
-            <div class="tool-icon"></div>
-            <span>Map explorer</span>
-          </a>
-          <a href="{{ url_for('tools.visualization')}}#visType=scatter" id="scatter-button" class="tool-button">
-            <div class="tool-icon"></div>
-            <span>Scatter plots</span>
-          </a>
-          <a href="{{ url_for('tools.visualization')}}#visType=timeline" id="timeline-button" class="tool-button">
-            <div class="tool-icon"></div>
-            <span>Timelines</span>
-          </a>
-          <a href="{{ url_for('place.place') }}" id="place-button" class="tool-button">
-            <div class="tool-icon"></div>
-            <span>Place explorer</span>
-          </a>
-          <a href="{{ url_for('tools.download') }}" id="download-button" class="tool-button">
-            <div class="tool-icon"></div>
-            <span>Data download</span>
-          </a>
-        </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="container">
-      <div class="learn-more">
-        <div id="learn-more-icon-container">
-          <div id="learn-more-icon"></div>
-        </div>
-        <div class="learn-more-content">
-          <h3>Learn More</h3>
-          <p>Data forms the foundation of science, policy, and journalism, but its full potential is often limited. Data Commons addresses this by offering cloud-based APIs to access and integrate cleaned datasets, boosting their usability across different domains.</p>
-          <div class="learn-more-links">
-            <a href="{{ url_for('static.about') }}" ><span class="material-icons-outlined">arrow_forward</span><span>About Data Commons</span></a>
-            <a href="https://docs.datacommons.org/tutorials/" ><span class="material-icons-outlined">arrow_forward</span><span>Tutorials</span></a>
-            <a href="https://docs.datacommons.org/" ><span class="material-icons-outlined">arrow_forward</span><span>Documentation</span></a>
-            <a href="https://docs.datacommons.org/api/" ><span class="material-icons-outlined">arrow_forward</span><span>API</span></a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="container">
-      <div class="partners">
-        <h3>Our Partners</h2>
-        <div class="partner-items">
-          {% for partner in partners_list %}
-            <a href="{{ partner['url'] }}" title="{{ partner['title'] }}" target="_blank" rel="noopener noreferrer">
-              <div class="partner-logo" style="background-position-y: -{{ partner['sprite-index'] * 120 }}px"></div>
-            </a>
-          {% endfor %}
-        </div>
-      </div>
-    </div>
-  </section>
+<div id="app-container">
 </div>
+
  {% endblock %}
