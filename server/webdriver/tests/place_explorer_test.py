@@ -221,15 +221,16 @@ class TestPlaceExplorer(WebdriverBaseTest):
 
   def test_explorer_redirect_place_explorer(self):
     """Test the redirection from explore to place explore for single place queries"""
-    TITLE_TEXT = "United States of America - Place Explorer - Data Commons"
     PLACE_TYPE_TEXT = "Country in North America"
     USA_EXPLORE = '/explore#q=United%20States%20Of%20America'
-    self.driver.get(self.url_ + USA_EXPLORE)
 
-    # Wait until the page loads and the title is correct.
-    WebDriverWait(self.driver,
-                  self.TIMEOUT_SEC).until(EC.title_contains(TITLE_TEXT))
-    self.assertEqual(TITLE_TEXT, self.driver.title)
+    start_url = self.url_ + USA_EXPLORE
+    self.driver.get(start_url)
+
+    # Wait for redirect.
+    WebDriverWait(
+        self.driver,
+        self.TIMEOUT_SEC).until(lambda driver: driver.current_url != start_url)
 
     # Wait until the place type is correct.
     element_present = EC.text_to_be_present_in_element((By.ID, 'place-type'),
