@@ -46,10 +46,12 @@ import {
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getUpdatedHash } from "../../utils/url_utils";
+import { onlyHasPlaceExplorer } from "../../utils/explore_utils";
 import { AutoPlay } from "./autoplay";
 import { ErrorResult } from "./error_result";
 import { SearchSection } from "./search_section";
 import { SuccessResult } from "./success_result";
+
 
 enum LoadingStatus {
   LOADING = "loading",
@@ -176,17 +178,6 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     const hasPlace = fulfillData["place"] && fulfillData["place"]["dcid"];
     // Fulfill data needs to have either a place or entities
     return hasPlace || fulfillData["entities"];
-  }
-
-  function onlyHasPlaceExplorer(pageMetadata: SubjectPageMetadata): boolean {
-    // Check for a single category within the page config, and that it has a single column.tiles.type as PLACE_OVERVIEW
-    if (pageMetadata.pageConfig.categories.length != 1
-      || pageMetadata.pageConfig.categories[0].blocks.length != 1
-      || pageMetadata.pageConfig.categories[0].blocks[0].columns.length != 1
-      || pageMetadata.pageConfig.categories[0].blocks[0].columns[0].tiles.length != 1
-    ) return false;
-
-    return pageMetadata.pageConfig.categories[0].blocks[0].columns[0].tiles[0].type == 'PLACE_OVERVIEW';
   }
 
   function processFulfillData(fulfillData: any, shouldSetQuery: boolean): void {

@@ -39,6 +39,7 @@ import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getPlaceTypePlural } from "../../utils/string_utils";
 import { trimCategory } from "../../utils/subject_page_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
+import { onlyHasPlaceExplorer } from "../../utils/explore_utils";
 import { DebugInfo } from "./debug_info";
 import { RelatedPlace } from "./related_place";
 import { ResultHeaderSection } from "./result_header_section";
@@ -198,7 +199,7 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
                 </ExploreContext.Provider>
               </NlSessionContext.Provider>
             </RankingUnitUrlFuncContext.Provider>
-            {!_.isEmpty(props.pageMetadata.childPlaces) && (
+            {!onlyHasPlaceExplorer(props.pageMetadata) && !_.isEmpty(props.pageMetadata.childPlaces) && (
               <RelatedPlace
                 relatedPlaces={props.pageMetadata.childPlaces[childPlaceType]}
                 topic={relatedPlaceTopic}
@@ -209,7 +210,7 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
                 }
               ></RelatedPlace>
             )}
-            {!_.isEmpty(props.pageMetadata.peerPlaces) && (
+            {!onlyHasPlaceExplorer(props.pageMetadata) && !_.isEmpty(props.pageMetadata.peerPlaces) && (
               <RelatedPlace
                 relatedPlaces={props.pageMetadata.peerPlaces}
                 topic={relatedPlaceTopic}

@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import { SubjectPageMetadata } from "../types/subject_page_types";
+
 /**
  * Utils used for the nl interface
  */
@@ -159,4 +161,20 @@ export function getFeedbackLink(
     }
   });
   return link;
+}
+
+/**
+ * 
+ * @param pageMetadata HEllo world
+ * @returns goodbye
+ */
+export function onlyHasPlaceExplorer(pageMetadata: SubjectPageMetadata): boolean {
+  // Check for a single category within the page config, and that it has a single column.tiles.type as PLACE_OVERVIEW
+  if (pageMetadata.pageConfig.categories.length != 1
+    || pageMetadata.pageConfig.categories[0].blocks.length != 1
+    || pageMetadata.pageConfig.categories[0].blocks[0].columns.length != 1
+    || pageMetadata.pageConfig.categories[0].blocks[0].columns[0].tiles.length != 1
+  ) return false;
+
+  return pageMetadata.pageConfig.categories[0].blocks[0].columns[0].tiles[0].type == 'PLACE_OVERVIEW';
 }

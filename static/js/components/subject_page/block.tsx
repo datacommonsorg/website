@@ -400,6 +400,7 @@ function renderTiles(
   if (!tiles || !overridePlaces) {
     return <></>;
   }
+
   const tilesJsx = tiles.map((tile, i) => {
     const id = getId(columnId, TILE_ID_PREFIX, i);
     const enclosedPlaceType = props.enclosedPlaceType;
@@ -666,7 +667,11 @@ function renderTiles(
           </p>
         );
       case "PLACE_OVERVIEW":
-        return <PlaceOverviewTile key={id} place={place} />;
+        // TODO(gmechali): Switch to server-side redirection
+        // if (tiles.length == 1 && tiles[0].type == "PLACE_OVERVIEW") {
+        //   tiles.pop()
+        // }
+        return tiles.length == 1 ? <></> : <PlaceOverviewTile key={id} place={place} />;
       case "ANSWER_MESSAGE":
         return (
           <AnswerMessageTile
