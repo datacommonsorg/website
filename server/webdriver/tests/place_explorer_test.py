@@ -224,7 +224,7 @@ class TestPlaceExplorer(WebdriverBaseTest):
     TITLE_TEXT = "United States of America - Place Explorer - Data Commons"
     PLACE_TYPE_TEXT = "Country in North America"
     USA_EXPLORE = '/explore#q=United%20States%20Of%20America'
-    self.driver.get(self.url + USA_EXPLORE)
+    self.driver.get(self.url_ + USA_EXPLORE)
 
     # Wait until the page loads and the title is correct.
     WebDriverWait(self.driver,
