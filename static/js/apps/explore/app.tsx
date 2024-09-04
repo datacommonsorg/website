@@ -178,6 +178,17 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     return hasPlace || fulfillData["entities"];
   }
 
+  function onlyHasPlaceExplorer(pageMetadata: SubjectPageMetadata): boolean {
+    // Check for a single category within the page config, and that it has a single column.tiles.type as PLACE_OVERVIEW
+    if (pageMetadata.pageConfig.categories.length != 1
+      || pageMetadata.pageConfig.categories[0].blocks.length != 1
+      || pageMetadata.pageConfig.categories[0].blocks[0].columns.length != 1
+      || pageMetadata.pageConfig.categories[0].blocks[0].columns[0].tiles.length != 1
+    ) return false;
+
+    return pageMetadata.pageConfig.categories[0].blocks[0].columns[0].tiles[0].type == 'PLACE_OVERVIEW';
+  }
+
   function processFulfillData(fulfillData: any, shouldSetQuery: boolean): void {
     setDebugData(fulfillData["debug"]);
     const userMessage = {
@@ -214,6 +225,13 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       pageMetadata.pageConfig &&
       pageMetadata.pageConfig.categories
     ) {
+      // If the response is a single PLACE_OVERVIEW tile, redirect to the place explorer.
+      if (onlyHasPlaceExplorer(pageMetadata)) {
+        console.log('Redirecting to place explorer');
+        let url = 'place/';
+        url += pageMetadata.pageConfig.metadata["placeDcid"][0];
+        window.open(url, "_self");
+      }
       // Note: for category links, we only use the main-topic.
       for (const category of pageMetadata.pageConfig.categories) {
         if (category.dcid) {
