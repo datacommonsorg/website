@@ -18,7 +18,6 @@
       0.6593924760818481,
       0.6520178318023682,
       0.6484817266464233,
-      0.6477762460708618,
       0.6461696624755859,
       0.6459026336669922,
       0.6435545682907104,
@@ -27,7 +26,6 @@
       0.6402113437652588,
       0.6384210586547852,
       0.6380343437194824,
-      0.6376669406890869,
       0.6376464366912842,
       0.6346377730369568,
       0.6341456174850464,
@@ -36,7 +34,8 @@
       0.6322205662727356,
       0.6304948925971985,
       0.6302965879440308,
-      0.6298357844352722
+      0.6298357844352722,
+      0.6295678019523621
     ],
     "MultiSV": {
       "Candidates": [
@@ -87,7 +86,7 @@
             },
             {
               "CosineScore": [
-                0.9999996423721313
+                0.9999995827674866
               ],
               "QueryPart": "blood pressure",
               "SV": [
@@ -96,8 +95,8 @@
             },
             {
               "CosineScore": [
-                0.8255698680877686,
-                0.8027870059013367
+                0.8255698084831238,
+                0.8027870655059814
               ],
               "QueryPart": "asthma impacted climate change",
               "SV": [
@@ -152,8 +151,8 @@
             },
             {
               "CosineScore": [
-                0.8255698680877686,
-                0.8027870059013367
+                0.8255698084831238,
+                0.8027870655059814
               ],
               "QueryPart": "asthma impacted climate change",
               "SV": [
@@ -177,7 +176,6 @@
       "dc/topic/AmbientAirPollution",
       "Annual_Amount_Emissions_SCC_27_NaturalSources",
       "Percent_Person_Obesity",
-      "dc/topic/WHOMortalityCauses",
       "dc/topic/sdg_3.9.1",
       "dc/topic/GlobalHealth",
       "dc/topic/Health",
@@ -186,7 +184,6 @@
       "dc/topic/sdg_13.2.1",
       "Percent_Person_Children_WithAsthma",
       "dc/topic/sdg_13.2.2",
-      "dc/topic/WHONonCommunicableDiseases",
       "Percent_Person_WithAsthma",
       "dc/topic/Emissions",
       "dc/topic/Pollutants",
@@ -195,7 +192,8 @@
       "dc/topic/AsthmaFemalePopulationByAge",
       "dc/topic/sdg_13.1",
       "dc/topic/sdg_13.2",
-      "dc/topic/sdg_11.6.2"
+      "dc/topic/sdg_11.6.2",
+      "dc/topic/HealthConditions"
     ]
   },
   "props_matching": {

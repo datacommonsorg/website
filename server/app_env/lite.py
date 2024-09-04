@@ -18,3 +18,4 @@ from server.app_env import local
 class LocalConfig(local.Config):
   LITE = True
   SHOW_DISASTER = False
+  ENABLE_BQ = True

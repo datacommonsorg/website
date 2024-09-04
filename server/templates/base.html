@@ -37,13 +37,13 @@
 
 <head>
   {# Enable Google Analytics with cookieless tracking. #}
-  {% if GA_ACCOUNT %}
-  <script async src="https://www.googletagmanager.com/gtag/js?id={{ GA_ACCOUNT }}"></script>
+  {% if GOOGLE_ANALYTICS_TAG_ID %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_ANALYTICS_TAG_ID }}"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-    gtag('config', '{{ GA_ACCOUNT }}', {
+    gtag('config', '{{ GOOGLE_ANALYTICS_TAG_ID }}', {
       client_storage: 'none',
       anonymize_ip: true,
       {{ ("place_category: '{}',"|safe).format(place_category) if place_category is defined else "" }}
@@ -72,6 +72,7 @@
   <script>
     globalThis.isCustomDC = {{ config['CUSTOM']|int }};
     globalThis.STAT_VAR_HIERARCHY_CONFIG = {{ config['STAT_VAR_HIERARCHY_CONFIG'] | tojson }};
+    globalThis.enableBQ = {{ config['ENABLE_BQ']|int }};
   </script>
   <script>
     // This script is to allow embedding the website as an iframe and allow the

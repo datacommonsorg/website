@@ -52,7 +52,9 @@ class Config:
                            os.environ.get('MIXER_HASH'))
   API_ROOT = 'http://127.0.0.1:8081'  # Port for Kubernetes ESP.
   SECRET_PROJECT = ''
+  # Deprecated. Use the GOOGLE_ANALYTICS_TAG_ID environment variable instead of GA_ACCOUNT
   GA_ACCOUNT = ''
+  GOOGLE_ANALYTICS_TAG_ID = ''
   SCHEME = 'https'
   # Additional stat vars that need to be fetched for place page data.
   # This is only needed for local development when cache is not up to date.
@@ -89,3 +91,6 @@ class Config:
   MIN_STAT_VAR_GEO_COVERAGE = 10
   # NL Bad words file.
   BAD_WORDS_FILE = 'nl_bad_words.txt'
+  # Whether to enable BigQuery for instance. This is primarily used for
+  # accessing the observation browser pages.
+  ENABLE_BQ = False

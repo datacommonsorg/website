@@ -17,6 +17,7 @@
 import { PointApiResponse } from "@datacommonsorg/client";
 import React from "react";
 import ReactDOM from "react-dom";
+import { StyleSheetManager } from "styled-components";
 
 import {
   DEFAULT_API_ENDPOINT,
@@ -71,6 +72,8 @@ export function createWebComponentElement(
   tileProps: any
 ): HTMLDivElement {
   const container = document.createElement("div");
+  const styleHost = document.createElement("div");
+  container.appendChild(styleHost);
 
   // Add stylesheet for material icons to the shadow DOM
   for (const url of [
@@ -85,7 +88,14 @@ export function createWebComponentElement(
 
   // Create mount point and render tile in it
   const mountPoint = document.createElement("div");
-  ReactDOM.render(React.createElement(tile, tileProps), mountPoint);
+  const tileElement = React.createElement(tile, tileProps);
+  // Wrap tile in a StyleSheetManager to support styled-components styles
+  const wrappedTileElement = React.createElement(
+    StyleSheetManager,
+    { target: styleHost },
+    tileElement
+  );
+  ReactDOM.render(wrappedTileElement, mountPoint);
   container.appendChild(mountPoint);
 
   return container;

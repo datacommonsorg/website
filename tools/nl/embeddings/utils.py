@@ -25,7 +25,6 @@ import os
 import time
 from typing import Dict, List
 
-import lancedb
 import pandas as pd
 import yaml
 
@@ -210,6 +209,12 @@ def save_embeddings_memory(local_dir: str, embeddings: List[Embedding]):
 
 
 def save_embeddings_lancedb(local_dir: str, embeddings: List[Embedding]):
+  # lancedb has issues in docker containers on certain platforms.
+  # Importing it as a global import causes failures in build_embeddings on those platforms for Custom DC (CDC).
+  # Since this method is never called for building CDC embeddings, we import it locally.
+  # This will need to be addressed before we can support lancedb in CDC.
+  import lancedb
+
   db = lancedb.connect(local_dir)
   records = [{
       _COL_DCID: x.preindex.dcid,

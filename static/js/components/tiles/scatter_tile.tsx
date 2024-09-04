@@ -50,13 +50,13 @@ import { getStringOrNA } from "../../utils/number_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
+  clearContainer,
   getDenomInfo,
   getFirstCappedStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
   ReplacementStrings,
-  showError,
   transformCsvHeader,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
@@ -175,7 +175,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
       footnote={props.footnote}
       getDataCsv={getDataCsvCallback(props, scatterChartData)}
-      hasErrorMsg={scatterChartData && !!scatterChartData.errorMsg}
+      errorMsg={scatterChartData && scatterChartData.errorMsg}
       id={props.id}
       isInitialLoading={_.isNull(scatterChartData)}
       isLoading={isLoading}
@@ -191,7 +191,11 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
           id={props.id}
           className="scatter-svg-container"
           ref={svgContainer}
-          style={{ minHeight: props.svgChartHeight }}
+          style={{
+            minHeight: props.svgChartHeight,
+            display:
+              scatterChartData && scatterChartData.errorMsg ? "none" : "block",
+          }}
         />
         <div
           id="scatter-tooltip"
@@ -481,7 +485,7 @@ export function draw(
   chartTitle?: string
 ): void {
   if (chartData.errorMsg) {
-    showError(chartData.errorMsg, svgContainer);
+    clearContainer(svgContainer);
     return;
   }
   const width = svgWidth || svgContainer.offsetWidth;

@@ -608,14 +608,6 @@
           "Count_Person_IncomeOf75000OrMoreUSDollar",
           "Count_Person_IncomeOfUpto9999USDollar"
         ]
-      },
-      "Count_Person_18To24Years": {
-        "placeOfBirth": [
-          "Count_Person_18To24Years_BornInOtherStateInTheUnitedStates",
-          "Count_Person_18To24Years_BornInStateOfResidence",
-          "Count_Person_18To24Years_ForeignBorn",
-          "Count_Person_18To24Years_NativeBornOutsideTheUnitedStates"
-        ]
       }
     },
     "mainTopics": [

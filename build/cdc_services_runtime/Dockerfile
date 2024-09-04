@@ -12,22 +12,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-steps:
+# Installs the runtime dependencies for the gcr.io/datcom-ci/datacommons-services docker.
+# The dependencies are as follows (add to this list if and when new dependencies are added):
+# - python 3.11
+# - envoy
+# - nginx
 
-  - id: push-web-compose-image
-    name: gcr.io/cloud-builders/docker
-    entrypoint: "bash"
-    args:
-      - -c
-      - |
-        set -e
-        DOCKER_BUILDKIT=1
-        docker build -f build/web_compose/Dockerfile \
-          --tag gcr.io/datcom-ci/datacommons-website-compose:${_TAG} \
-          .
-        docker push gcr.io/datcom-ci/datacommons-website-compose:${_TAG}
+# Stage 1: envoy.
+FROM --platform=linux/amd64 envoyproxy/envoy:v1.31.0 as envoy
 
-timeout: 3600s
-options:
-  dynamic_substitutions: true
-  machineType: "E2_HIGHCPU_32"
+# Final stage: final runtime.
+FROM --platform=linux/amd64 python:3.11.4-slim as runtime
+
+# Copy envoy.
+COPY --from=envoy /usr/local/bin/envoy /usr/local/bin/envoy
+
+# Install nginx.
+RUN apt-get update && apt-get -y upgrade && apt update && apt install -y nginx

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,28 +13,52 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+set -e
+
 export MIXER_API_KEY=$DC_API_KEY
 # https://stackoverflow.com/a/62703850
 export TOKENIZERS_PARALLELISM=false
 # https://github.com/UKPLab/sentence-transformers/issues/1318#issuecomment-1084731111
 export OMP_NUM_THREADS=1
 
+# If OUTPUT_DIR is not specified and the deprecated GCS_DATA_PATH is, use that as OUTPUT_DIR.
+if [[ $OUTPUT_DIR == "" && $GCS_DATA_PATH != "" ]]; then
+    echo "GCS Data Path: $GCS_DATA_PATH"
+    echo "GCS_DATA_PATH is deprecated and will be removed in the future. Use OUTPUT_DIR instead."
+    export OUTPUT_DIR=$GCS_DATA_PATH
+fi
+
+# Check for required variables.
+
+if [[ $DC_API_KEY == "" ]]; then
+  echo "DC_API_KEY not specified."
+  exit 1
+fi
+
+if [[ $MAPS_API_KEY == "" ]]; then
+  echo "MAPS_API_KEY not specified."
+  exit 1
+fi
+
+if [[ $OUTPUT_DIR == "" ]]; then
+    echo "OUTPUT_DIR not specified."
+    exit 1
+fi
+
+echo "OUTPUT_DIR=$OUTPUT_DIR"
+
+export IS_CUSTOM_DC=true
+export USER_DATA_PATH=$OUTPUT_DIR
+export ADDITIONAL_CATALOG_PATH=$USER_DATA_PATH/datacommons/nl/embeddings/custom_catalog.yaml
+
 if [[ $USE_SQLITE == "true" ]]; then
-    export SQLITE_PATH=/sqlite/datacommons.db
+    export SQLITE_PATH=$OUTPUT_DIR/datacommons/datacommons.db
+    echo "SQLITE_PATH=$SQLITE_PATH"
 fi
 
 nginx -c /workspace/nginx.conf
 
-echo "GCS Data Path: $GCS_DATA_PATH"
-if [[ $GCS_DATA_PATH != "" ]]; then
-    export USER_DATA_PATH=$GCS_DATA_PATH
-else
-    export USER_DATA_PATH=/userdata/
-fi
-export IS_CUSTOM_DC=true
-export ADDITIONAL_CATALOG_PATH=$USER_DATA_PATH/datacommons/nl/embeddings/custom_catalog.yaml
-
-/go/bin/mixer \
+/workspace/bin/mixer \
     --use_bigquery=false \
     --use_base_bigtable=false \
     --use_custom_bigtable=false \

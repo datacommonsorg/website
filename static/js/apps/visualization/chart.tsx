@@ -21,7 +21,6 @@ import React, { useContext, useRef, useState } from "react";
 
 import { STAT_VAR_SELECTOR_WIDTH } from "../../constants/tools_constants";
 import { DrawerResize } from "../../stat_var_hierarchy/drawer_resize";
-import { BqModal } from "../../tools/shared/bq_modal";
 import { AppContext } from "./app_context";
 import { StatVarSelector } from "./stat_var_selector";
 import { VIS_TYPE_CONFIG } from "./vis_type_configs";
@@ -33,7 +32,6 @@ export function Chart(): JSX.Element {
   const sidebarRef = useRef<HTMLDivElement>();
 
   const chartHeight = window.innerHeight * 0.45;
-  const showBqButton = !!VIS_TYPE_CONFIG[appContext.visType].getSqlQueryFn;
   const visTypeConfig = VIS_TYPE_CONFIG[appContext.visType];
   const footer = visTypeConfig.getFooter ? visTypeConfig.getFooter() : "";
 
@@ -61,12 +59,6 @@ export function Chart(): JSX.Element {
         {visTypeConfig.getChartArea(appContext, chartHeight)}
         {footer && <div className="footer">{footer}</div>}
       </div>
-      {showBqButton && (
-        <BqModal
-          getSqlQuery={visTypeConfig.getSqlQueryFn(appContext)}
-          showButton={true}
-        />
-      )}
     </div>
   );
 }
