@@ -39,7 +39,7 @@ import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getPlaceTypePlural } from "../../utils/string_utils";
 import { trimCategory } from "../../utils/subject_page_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
-import { onlyHasPlaceExplorer } from "../../utils/explore_utils";
+import { isPlaceOverviewOnly } from "../../utils/explore_utils";
 import { DebugInfo } from "./debug_info";
 import { RelatedPlace } from "./related_place";
 import { ResultHeaderSection } from "./result_header_section";
@@ -57,30 +57,6 @@ interface SuccessResultPropType {
   userMessage: UserMessageInfo;
 }
 
-// Whether or not there is only a single place overview tile in the page
-// metadata.
-function isPlaceOverviewOnly(pageMetadata: SubjectPageMetadata): boolean {
-  // false if no page metadata or config or categories
-  if (
-    !pageMetadata ||
-    !pageMetadata.pageConfig ||
-    !pageMetadata.pageConfig.categories
-  ) {
-    return false;
-  }
-  const categories = pageMetadata.pageConfig.categories;
-  // False if there is more than 1 tile
-  if (
-    categories.length !== 1 ||
-    categories[0].blocks.length !== 1 ||
-    categories[0].blocks[0].columns.length !== 1 ||
-    categories[0].blocks[0].columns[0].tiles.length !== 1
-  ) {
-    return false;
-  }
-  // True only if the one tile is of type PLACE_OVERVIEW
-  return categories[0].blocks[0].columns[0].tiles[0].type === "PLACE_OVERVIEW";
-}
 
 export function SuccessResult(props: SuccessResultPropType): JSX.Element {
   if (!props.pageMetadata) {
@@ -199,7 +175,7 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
                 </ExploreContext.Provider>
               </NlSessionContext.Provider>
             </RankingUnitUrlFuncContext.Provider>
-            {!onlyHasPlaceExplorer(props.pageMetadata) && !_.isEmpty(props.pageMetadata.childPlaces) && (
+            {!isPlaceOverviewOnly(props.pageMetadata) && !_.isEmpty(props.pageMetadata.childPlaces) && (
               <RelatedPlace
                 relatedPlaces={props.pageMetadata.childPlaces[childPlaceType]}
                 topic={relatedPlaceTopic}
@@ -210,7 +186,7 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
                 }
               ></RelatedPlace>
             )}
-            {!onlyHasPlaceExplorer(props.pageMetadata) && !_.isEmpty(props.pageMetadata.peerPlaces) && (
+            {!isPlaceOverviewOnly(props.pageMetadata) && !_.isEmpty(props.pageMetadata.peerPlaces) && (
               <RelatedPlace
                 relatedPlaces={props.pageMetadata.peerPlaces}
                 topic={relatedPlaceTopic}

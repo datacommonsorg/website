@@ -46,7 +46,7 @@ import {
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getUpdatedHash } from "../../utils/url_utils";
-import { onlyHasPlaceExplorer } from "../../utils/explore_utils";
+import { isPlaceOverviewOnly } from "../../utils/explore_utils";
 import { AutoPlay } from "./autoplay";
 import { ErrorResult } from "./error_result";
 import { SearchSection } from "./search_section";
@@ -217,7 +217,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       pageMetadata.pageConfig.categories
     ) {
       // If the response is a single PLACE_OVERVIEW tile, redirect to the place explorer.
-      if (onlyHasPlaceExplorer(pageMetadata)) {
+      if (isPlaceOverviewOnly(pageMetadata)) {
         console.log('Redirecting to place explorer');
         let url = 'place/';
         url += pageMetadata.pageConfig.metadata["placeDcid"][0];

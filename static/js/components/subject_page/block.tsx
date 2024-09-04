@@ -668,9 +668,6 @@ function renderTiles(
         );
       case "PLACE_OVERVIEW":
         // TODO(gmechali): Switch to server-side redirection
-        // if (tiles.length == 1 && tiles[0].type == "PLACE_OVERVIEW") {
-        //   tiles.pop()
-        // }
         return tiles.length == 1 ? <></> : <PlaceOverviewTile key={id} place={place} />;
       case "ANSWER_MESSAGE":
         return (
