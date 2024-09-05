@@ -14,16 +14,26 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -#}
 
+{% macro render_metadata_routes(routes) %}
 <div id="metadata-routes" class="d-none">
-  <div data-route="static.homepage" data-value="{{ url_for('static.homepage') }}"></div>
-  <div data-route="place.place" data-value="{{ url_for('place.place') }}"></div>
-  <div data-route="browser.browser_main" data-value="{{ url_for('browser.browser_main') }}"></div>
-  <div data-route="tools.visualization" data-value="{{ url_for('tools.visualization') }}"></div>
-  <div data-route="tools.stat_var" data-value="{{ url_for('tools.stat_var') }}"></div>
-  <div data-route="tools.download" data-value="{{ url_for('tools.download') }}"></div>
-  <div data-route="static.about" data-value="{{ url_for('static.about') }}"></div>
-  <div data-route="static.feedback" data-value="{{ url_for('static.feedback') }}"></div>
-  <div data-route="static.faq" data-value="{{ url_for('static.faq') }}"></div>
-  <div data-route="static.disclaimers" data-value="{{ url_for('static.disclaimers') }}"></div>
+  {% for route_name in routes %}
+    <div data-route="{{ route_name }}" data-value="{{ url_for(route_name) }}"></div>
+  {% endfor %}
 </div>
+{% endmacro %}
+
+{% set routes = [
+  'static.homepage',
+  'place.place',
+  'browser.browser_main',
+  'tools.visualization',
+  'tools.stat_var',
+  'tools.download',
+  'static.about',
+  'static.feedback',
+  'static.faq',
+  'static.disclaimers'
+] %}
+
+{{ render_metadata_routes(routes) }}
 
