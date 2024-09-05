@@ -36,10 +36,10 @@ window.addEventListener("load", (): void => {
 
 function renderPage(): void {
   const topics = JSON.parse(
-    document.getElementById("metadata").dataset.topics
+    document.getElementById("metadata-homepage").dataset.topics
   ) as Topic[];
   const partners = JSON.parse(
-    document.getElementById("metadata").dataset.partners
+    document.getElementById("metadata-homepage").dataset.partners
   );
 
   const routes = extractRoutes();

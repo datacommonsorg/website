@@ -112,21 +112,23 @@
 {% include 'metadata/routes.html' %}
 
 <script src={{url_for('static', filename='base.js', t=config['VERSION'])}} async></script>
-  <div id="main">
-    <div id="app-header-container"></div>
-    <main id="{{ main_id }}" class="main-content">
-      {% block content %}
-      {% endblock %}
-    </main>
-    <div id="app-footer-container"></div>
-  </div>
-  {# Compile this down (or manually implement). Used only for nav bar so far #}
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
-  {% block footer %}
-  {% endblock %}
+
+<div id="main">
+  <div id="app-header-container"></div>
+  <main id="{{ main_id }}" class="main-content">
+    {% block content %}
+    {% endblock %}
+  </main>
+  <div id="app-footer-container"></div>
+</div>
+
+{# Compile this down (or manually implement). Used only for nav bar so far #}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+  crossorigin="anonymous"></script>
+{% block footer %}
+{% endblock %}
 </body>
 
 </html>
