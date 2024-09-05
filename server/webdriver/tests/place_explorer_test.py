@@ -219,6 +219,32 @@ class TestPlaceExplorer(WebdriverBaseTest):
     self.assertEqual("Median age by gender: states near California(2022)",
                      chart_title)
 
+  def test_explorer_redirect_place_explorer(self):
+    """Test the redirection from explore to place explore for single place queries"""
+    PLACE_TYPE_TEXT = "Country in North America"
+    USA_EXPLORE = '/explore#q=United%20States%20Of%20America'
+
+    start_url = self.url_ + USA_EXPLORE
+    self.driver.get(start_url)
+
+    # Wait for redirect.
+    WebDriverWait(
+        self.driver,
+        self.TIMEOUT_SEC).until(lambda driver: driver.current_url != start_url)
+
+    # Wait until the place type is correct.
+    element_present = EC.text_to_be_present_in_element((By.ID, 'place-type'),
+                                                       PLACE_TYPE_TEXT)
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+
+    # Assert place title is correct.
+    title = self.driver.find_element(By.ID, "place-name")
+    self.assertEqual("United States of America", title.text)
+
+    # Assert place type is correct.
+    subtitle = self.driver.find_element(By.ID, "place-type")
+    self.assertEqual("Country in North America", subtitle.text)
+
   def test_ranking_chart_present(self):
     """Test basic ranking chart."""
     CHART_TITLE_MUST_INCLUDE = "rankings"

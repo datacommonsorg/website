@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import { SubjectPageMetadata } from "../types/subject_page_types";
+
 /**
  * Utils used for the nl interface
  */
@@ -159,4 +161,29 @@ export function getFeedbackLink(
     }
   });
   return link;
+}
+
+// Whether or not there is only a single place overview tile in the page
+// metadata.
+export function isPlaceOverviewOnly(pageMetadata: SubjectPageMetadata): boolean {
+  // false if no page metadata or config or categories
+  if (
+    !pageMetadata ||
+    !pageMetadata.pageConfig ||
+    !pageMetadata.pageConfig.categories
+  ) {
+    return false;
+  }
+  const categories = pageMetadata.pageConfig.categories;
+  // False if there is more than 1 tile
+  if (
+    categories.length !== 1 ||
+    categories[0].blocks.length !== 1 ||
+    categories[0].blocks[0].columns.length !== 1 ||
+    categories[0].blocks[0].columns[0].tiles.length !== 1
+  ) {
+    return false;
+  }
+  // True only if the one tile is of type PLACE_OVERVIEW
+  return categories[0].blocks[0].columns[0].tiles[0].type === "PLACE_OVERVIEW";
 }

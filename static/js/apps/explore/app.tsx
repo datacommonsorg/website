@@ -46,10 +46,12 @@ import {
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getUpdatedHash } from "../../utils/url_utils";
+import { isPlaceOverviewOnly } from "../../utils/explore_utils";
 import { AutoPlay } from "./autoplay";
 import { ErrorResult } from "./error_result";
 import { SearchSection } from "./search_section";
 import { SuccessResult } from "./success_result";
+
 
 enum LoadingStatus {
   LOADING = "loading",
@@ -214,6 +216,13 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       pageMetadata.pageConfig &&
       pageMetadata.pageConfig.categories
     ) {
+      // If the response is a single PLACE_OVERVIEW tile, redirect to the place explorer.
+      if (isPlaceOverviewOnly(pageMetadata)) {
+        console.log('Redirecting to place explorer');
+        let url = 'place/';
+        url += pageMetadata.pageConfig.metadata["placeDcid"][0];
+        window.open(url, "_self");
+      }
       // Note: for category links, we only use the main-topic.
       for (const category of pageMetadata.pageConfig.categories) {
         if (category.dcid) {
