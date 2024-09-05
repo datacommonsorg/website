@@ -45,7 +45,9 @@ website and mixer changes.
   ./run_test.sh --setup_python
   ```
 
-  For python 3.12 and over, distutils module is no longer pre-installed, on macOs, you need to run:
+- Python 3.12
+
+  You need to run the following command:
   ```brew install python-setuptools
   ```
   or for linux:
