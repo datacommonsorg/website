@@ -17,9 +17,10 @@
 import { Labels, Routes } from "../../../shared/types/base";
 
 /*
-  This function takes a string that is either a pure url, a route (such as static.homepage)
-  or a route wrapped in {} located inside a string (such as {tools.visualization}#visType=timeline),
-  returns the string converted into a url.
+  This function takes a string that may contain a route from the template wrapped in {}.
+  The string may be a pure URL with no route, a route such as "{static.homepage}", or
+  a route embedded into a string such as "{tools.visualization}#visType=timeline".
+  The function will return the string with the route converted.
 
   The purpose of the function is to flexibly resolve strings from sources such as JSON that may contain
   either routes or raw URLs and to return the final URL.
@@ -33,7 +34,7 @@ export const resolveHref = (href: string, routes: Routes): string => {
     const resolvedRoute = routes[routeKey] || "";
     return href.replace(regex, resolvedRoute);
   } else {
-    return routes[href] || href;
+    return href;
   }
 };
 
@@ -69,7 +70,10 @@ export const extractRoutes = (elementId = "metadata-routes"): Routes => {
         if (typeof prop === "symbol") {
           throw new Error("Invalid property key.");
         }
-        return prop in target ? target[prop] : (prop as string);
+        if (!(prop in target)) {
+          throw new Error(`Route not found: ${String(prop)}`);
+        }
+        return target[prop];
       },
     }
   );

@@ -3,11 +3,11 @@
     "label": "Tools",
     "subMenu": [
       {
-        "href": "place.place",
+        "href": "{place.place}",
         "label": "Place Explorer"
       },
       {
-        "href": "browser.browser_main",
+        "href": "{browser.browser_main}",
         "label": "Knowledge Graph"
       },
       {
@@ -23,11 +23,11 @@
         "label": "Map Explorer"
       },
       {
-        "href": "tools.stat_var",
+        "href": "{tools.stat_var}",
         "label": "Statistical Variable Explorer"
       },
       {
-        "href": "tools.download",
+        "href": "{tools.download}",
         "label": "Data Download Tool"
       }
     ]
@@ -66,7 +66,7 @@
     "label": "Data Commons",
     "subMenu": [
       {
-        "href": "static.about",
+        "href": "{static.about}",
         "label": "About Data Commons"
       },
       {
@@ -78,11 +78,11 @@
         "label": "Data Sources"
       },
       {
-        "href": "static.feedback",
+        "href": "{static.feedback}",
         "label": "Feedback"
       },
       {
-        "href": "static.faq",
+        "href": "{static.faq}",
         "label": "Frequently Asked Questions"
       }
     ]
