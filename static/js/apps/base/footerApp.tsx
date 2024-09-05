@@ -16,8 +16,7 @@
 
 import React, { ReactElement } from "react";
 
-import { FooterMenu } from "../../shared/types/base";
-import { Labels, Routes } from "../../shared/types/general";
+import { FooterMenu, Labels, Routes } from "../../shared/types/base";
 import Footer from "./components/Footer";
 
 interface FooterAppProps {

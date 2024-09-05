@@ -14,8 +14,16 @@
  * limitations under the License.
  */
 
-import { Labels, Routes } from "../../../shared/types/general";
+import { Labels, Routes } from "../../../shared/types/base";
 
+/*
+  This function takes a string that is either a pure url, a route (such as static.homepage)
+  or a route wrapped in {} located inside a string (such as {tools.visualization}#visType=timeline),
+  returns the string converted into a url.
+
+  The purpose of the function is to flexibly resolve strings from sources such as JSON that may contain
+  either routes or raw URLs and to return the final URL.
+ */
 export const resolveHref = (href: string, routes: Routes): string => {
   const regex = /{([^}]+)}/;
   const match = href.match(regex);
@@ -29,6 +37,11 @@ export const resolveHref = (href: string, routes: Routes): string => {
   }
 };
 
+/*
+  This function takes a string that may contain spaces and capital letters and returns a slugged version
+  of the string in kebab-case. It is used to convert labels into slugs that can be used as part of html
+  ids (used currently in React components where labels are converted into Ids that previously were hard-coded).
+ */
 export const slugify = (text: string): string => {
   return text
     .toString()
@@ -39,7 +52,15 @@ export const slugify = (text: string): string => {
     .replace(/--+/g, "-");
 };
 
-export const getRoutes = (elementId = "metadata-routes"): Routes => {
+/*
+  This function takes the id of a data container div and returns a route dictionary from the pairs in the container.
+  The referenced data container should be of the form:
+  <div id="metadata-routes" class="d-none">
+    <div data-route="static.route1" data-value="{{ url_for('static.route1') }}"></div>
+    <div data-route="static.route2" data-value="{{ url_for('static.route2') }}"></div>
+  </div>
+ */
+export const extractRoutes = (elementId = "metadata-routes"): Routes => {
   const routeElements = document.getElementById(elementId)?.children;
   const routes: Routes = new Proxy(
     {},
@@ -60,7 +81,14 @@ export const getRoutes = (elementId = "metadata-routes"): Routes => {
   return routes;
 };
 
-export const getLabels = (elementId = "metadata-labels"): Labels => {
+/*
+  This function takes the id of a data container div and returns a label dictionary from the pairs in the container.
+  The referenced data container should be of the form:
+  <div id="metadata-labels" class="d-none">
+    <div data-label="Phrase to be translated" data-value="{% trans %}Phrase to be translated{% endtrans %}"></div>
+  </div>
+ */
+export const extractLabels = (elementId = "metadata-labels"): Labels => {
   const labelElements = document.getElementById(elementId)?.children;
   const labels: Labels = new Proxy(
     {},

@@ -16,7 +16,7 @@
 
 import React, { ReactElement } from "react";
 
-import { Routes } from "../../../shared/types/general";
+import { Routes } from "../../../shared/types/base";
 import { resolveHref } from "../../base/utilities/utilities";
 
 interface LearnMoreProps {

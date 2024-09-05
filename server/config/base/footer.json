@@ -55,6 +55,10 @@
       {
         "href": "https://docs.datacommons.org/contributing/",
         "label": "Contribute"
+      },
+      {
+        "href": "http://github.com/datacommonsorg",
+        "label": "Github Repository"
       }
     ]
   },

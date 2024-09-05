@@ -21,7 +21,7 @@ import { loadLocaleData } from "../../i18n/i18n";
 import { FooterMenu, HeaderMenu } from "../../shared/types/base";
 import { FooterApp } from "./footerApp";
 import { HeaderApp } from "./headerApp";
-import { getLabels, getRoutes } from "./utilities/utilities";
+import { extractLabels, extractRoutes } from "./utilities/utilities";
 
 window.addEventListener("load", (): void => {
   loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
@@ -42,16 +42,22 @@ function renderPage(): void {
   const name = document.getElementById("metadata-base").dataset.name;
   const logoPath = document.getElementById("metadata-base").dataset.logoPath;
   const hideFullFooter =
-    document.getElementById("metadata-base").dataset.hideFullFooter === "true";
+    document
+      .getElementById("metadata-base")
+      .dataset.hideFullFooter.toLowerCase() === "true";
   const hideSubFooter =
-    document.getElementById("metadata-base").dataset.hideSubFooter === "true";
+    document
+      .getElementById("metadata-base")
+      .dataset.hideSubFooter.toLowerCase() === "true";
   const subFooterExtra =
     document.getElementById("metadata-base").dataset.subfooterExtra;
   const brandLogoLight =
-    document.getElementById("metadata-base").dataset.brandLogoLight === "true";
+    document
+      .getElementById("metadata-base")
+      .dataset.brandLogoLight.toLowerCase() === "true";
 
-  const labels = getLabels();
-  const routes = getRoutes();
+  const labels = extractLabels();
+  const routes = extractRoutes();
 
   ReactDOM.render(
     React.createElement(HeaderApp, {

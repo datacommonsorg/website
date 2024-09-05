@@ -20,3 +20,6 @@ interface FooterSubMenu {
   label: string;
   hide?: boolean;
 }
+
+export type Routes = Record<string, string>;
+export type Labels = Record<string, string>;

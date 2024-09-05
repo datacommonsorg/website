@@ -23,7 +23,7 @@ import ReactDOM from "react-dom";
 
 import { loadLocaleData } from "../../i18n/i18n";
 import { Topic } from "../../shared/types/homepage";
-import { getRoutes } from "../base/utilities/utilities";
+import { extractRoutes } from "../base/utilities/utilities";
 import { App } from "./app";
 
 window.addEventListener("load", (): void => {
@@ -42,7 +42,7 @@ function renderPage(): void {
     document.getElementById("metadata").dataset.partners
   );
 
-  const routes = getRoutes();
+  const routes = extractRoutes();
 
   ReactDOM.render(
     React.createElement(App, {

@@ -28,7 +28,7 @@ import {
   GA_VALUE_SEARCH_SOURCE_HOMEPAGE,
   triggerGAEvent,
 } from "../../shared/ga_events";
-import { Routes } from "../../shared/types/general";
+import { Routes } from "../../shared/types/base";
 import { Partner, Topic } from "../../shared/types/homepage";
 import DataSize from "./components/DataSize";
 import LearnMore from "./components/LearnMore";
