@@ -17,7 +17,7 @@
 import React, { ReactElement } from "react";
 
 import { HeaderMenu, Labels, Routes } from "../../shared/types/base";
-import HeaderBar from "./components/HeaderBar";
+import HeaderBar from "./components/header_bar";
 
 interface HeaderAppProps {
   name: string;

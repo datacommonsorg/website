@@ -17,7 +17,7 @@
 import React, { ReactElement } from "react";
 
 import { FooterMenu, Labels, Routes } from "../../shared/types/base";
-import Footer from "./components/Footer";
+import Footer from "./components/footer";
 
 interface FooterAppProps {
   hideFullFooter: boolean;

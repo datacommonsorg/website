@@ -30,12 +30,12 @@ import {
 } from "../../shared/ga_events";
 import { Routes } from "../../shared/types/base";
 import { Partner, Topic } from "../../shared/types/homepage";
-import DataSize from "./components/DataSize";
-import LearnMore from "./components/LearnMore";
-import Partners from "./components/Partners";
-import SearchAnimation from "./components/SearchAnimation";
-import Tools from "./components/Tools";
-import Topics from "./components/Topics";
+import DataSize from "./components/data_size";
+import LearnMore from "./components/learn_more";
+import Partners from "./components/partners";
+import SearchAnimation from "./components/search_animation";
+import Tools from "./components/tools";
+import Topics from "./components/topics";
 
 interface AppProps {
   topics: Topic[];

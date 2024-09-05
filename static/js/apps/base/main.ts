@@ -19,8 +19,8 @@ import ReactDOM from "react-dom";
 
 import { loadLocaleData } from "../../i18n/i18n";
 import { FooterMenu, HeaderMenu } from "../../shared/types/base";
-import { FooterApp } from "./footerApp";
-import { HeaderApp } from "./headerApp";
+import { FooterApp } from "./footer_app";
+import { HeaderApp } from "./header_app";
 import { extractLabels, extractRoutes } from "./utilities/utilities";
 
 window.addEventListener("load", (): void => {
