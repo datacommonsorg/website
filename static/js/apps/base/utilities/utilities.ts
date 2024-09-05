@@ -62,10 +62,13 @@ export const slugify = (text: string): string => {
  */
 export const extractRoutes = (elementId = "metadata-routes"): Routes => {
   const routeElements = document.getElementById(elementId)?.children;
-  const routes: Routes = new Proxy(
+  const routes: Routes = new Proxy<Routes>(
     {},
     {
       get: (target, prop): string => {
+        if (typeof prop === "symbol") {
+          throw new Error("Invalid property key.");
+        }
         return prop in target ? target[prop] : (prop as string);
       },
     }
@@ -90,10 +93,13 @@ export const extractRoutes = (elementId = "metadata-routes"): Routes => {
  */
 export const extractLabels = (elementId = "metadata-labels"): Labels => {
   const labelElements = document.getElementById(elementId)?.children;
-  const labels: Labels = new Proxy(
+  const labels = new Proxy<Labels>(
     {},
     {
       get: (target, prop): string => {
+        if (typeof prop === "symbol") {
+          throw new Error("Invalid property key.");
+        }
         return prop in target ? target[prop] : (prop as string);
       },
     }
