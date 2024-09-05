@@ -18,20 +18,36 @@
  * Typing for components and TypeScript associated with the homepage template.
  */
 
+//An interface for the partner objects that are passed through to the JavaScript from the template.
+//These are then used to render the partner links on the homepage.
 export interface Partner {
+  //the id of the partner
   id: string;
+  //the name of the partner
   title: string;
+  //the url that the partner box links to
   url: string;
+  //the sprite index of the partner's logo
   "sprite-index": number;
 }
 
+//An interface for the topic objects that are passed through to the JavaScript from the template.
+//These are used to render the topics links on the homepage
 export interface Topic {
+  //the id of the topic
   id: string;
+  //the title of the topic
   title: string;
+  //a blurb describing the topic
   description: string;
+  //the icon is currently unused by the homepage template
   icon: string;
+  //the image is unused by the homepage template
   image: string;
+  //the url is unused by the homepage template
   url: string;
+  //the url that the topic box links to
   browseUrl: string;
+  //the sprite index of the partner's logo
   "sprite-index": number;
 }

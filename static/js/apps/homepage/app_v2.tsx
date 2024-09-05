@@ -15,7 +15,7 @@
  */
 
 /**
- * Main component for homepage.
+ * Main component for Version 2 of the homepage.
  */
 
 import React, { ReactElement } from "react";
@@ -38,8 +38,11 @@ import Tools from "./components/tools";
 import Topics from "./components/topics";
 
 interface AppProps {
+  //the topics passed from the backend through to the JavaScript via the templates
   topics: Topic[];
+  //the partners passed from the backend through to the JavaScript via the templates
   partners: Partner[];
+  //the routes dictionary - this is used to convert routes to resolved urls
   routes: Routes;
 }
 

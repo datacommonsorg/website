@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * A component that renders the search animation section of the home page.
+ */
+
 import React, { ReactElement, useEffect, useRef } from "react";
 
 const SearchAnimation = (): ReactElement => {

@@ -14,11 +14,16 @@
  * limitations under the License.
  */
 
+/**
+ * A component that renders the topics section of the home page.
+ */
+
 import React, { ReactElement } from "react";
 
 import { Topic } from "../../../shared/types/homepage";
 
 interface TopicsProps {
+  //the topics passed from the backend through to the JavaScript via the templates
   topics: Topic[];
 }
 

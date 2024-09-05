@@ -14,11 +14,16 @@
  * limitations under the License.
  */
 
+/**
+ * A component that renders the partners section of the home page.
+ */
+
 import React, { ReactElement } from "react";
 
 import { Partner } from "../../../shared/types/homepage";
 
 interface PartnersProps {
+  //the partners passed from the backend through to the JavaScript via the templates
   partners: Partner[];
 }
 

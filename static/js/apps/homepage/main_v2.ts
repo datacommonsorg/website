@@ -15,7 +15,7 @@
  */
 
 /**
- * Entrypoint file for homepage.
+ * Entry point for Version 2 of the home page.
  */
 
 import React from "react";
@@ -24,7 +24,7 @@ import ReactDOM from "react-dom";
 import { loadLocaleData } from "../../i18n/i18n";
 import { Topic } from "../../shared/types/homepage";
 import { extractRoutes } from "../base/utilities/utilities";
-import { App } from "./app";
+import { App } from "./app_v2";
 
 window.addEventListener("load", (): void => {
   loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(

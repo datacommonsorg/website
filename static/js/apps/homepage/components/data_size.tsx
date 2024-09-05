@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * A component that renders the data size section of the home page.
+ */
+
 import React, { ReactElement } from "react";
 
 const DataSize = (): ReactElement => {

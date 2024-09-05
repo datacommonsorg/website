@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * Entry point for the base template. This file will render two apps: one for the header and one for the footer.
+ */
+
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -51,6 +55,7 @@ function renderPage(): void {
   const brandLogoLight =
     metadataContainer.dataset.brandLogoLight.toLowerCase() === "true";
 
+  //TODO: Move to internationalization library
   const labels = extractLabels();
   const routes = extractRoutes();
 

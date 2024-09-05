@@ -14,12 +14,17 @@
  * limitations under the License.
  */
 
+/**
+ * A component that renders the learn more section of the home page.
+ */
+
 import React, { ReactElement } from "react";
 
 import { Routes } from "../../../shared/types/base";
 import { resolveHref } from "../../base/utilities/utilities";
 
 interface LearnMoreProps {
+  //the routes dictionary - this is used to convert routes to resolved urls
   routes: Routes;
 }
 

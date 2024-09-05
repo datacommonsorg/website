@@ -13,9 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 /**
  * Entrypoint file for homepage.
  */
+
 import React from "react";
 import ReactDOM from "react-dom";
 

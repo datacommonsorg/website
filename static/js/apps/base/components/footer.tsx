@@ -14,18 +14,29 @@
  * limitations under the License.
  */
 
+/**
+ * A component that renders the footer on all pages via the base template.
+ */
+
 import React, { ReactElement, useMemo } from "react";
 
 import { FooterMenu, Labels, Routes } from "../../../shared/types/base";
 import { resolveHref } from "../utilities/utilities";
 
 interface FooterProps {
+  //if true, the larger top-level footer will not display
   hideFullFooter: boolean;
+  //if true, the smaller sub footer will not display
   hideSubFooter: boolean;
+  //extra text (that can be html) that can be injected into the sub-footer.
   subFooterExtra: string;
+  //if true, will display an alternate, lighter version of the logo.
   brandLogoLight: boolean;
+  //the data that will populate the footer menu.
   footerMenu: FooterMenu[];
+  //the labels dictionary - all labels will be passed through this before being rendered. If no value exists, the dictionary will return the key that was sent.
   labels: Labels;
+  //the routes dictionary - this is used to convert routes to resolved urls
   routes: Routes;
 }
 
