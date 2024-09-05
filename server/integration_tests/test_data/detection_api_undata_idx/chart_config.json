@@ -1,10 +1,6 @@
 {
   "childEntityType": "",
-  "classifications": [
-    {
-      "type": 100
-    }
-  ],
+  "classifications": [],
   "client": "test_detect",
   "comparisonEntities": [],
   "comparisonVariables": [],
