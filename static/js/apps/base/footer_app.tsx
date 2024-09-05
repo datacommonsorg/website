@@ -40,6 +40,9 @@ interface FooterAppProps {
   routes: Routes;
 }
 
+/**
+ * Footer application container
+ */
 export function FooterApp({
   hideFullFooter,
   hideSubFooter,

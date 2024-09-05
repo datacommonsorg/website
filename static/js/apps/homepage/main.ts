@@ -66,7 +66,7 @@ window.addEventListener("load", (): void => {
   );
   const resultsElList = svgDiv.getElementsByClassName("result");
 
-  searchSequenceContainer.onclick = () => {
+  searchSequenceContainer.onclick = (): void => {
     if (prompt) {
       window.location.href = `/explore#q=${encodeURIComponent(
         prompt.dataset.query
@@ -74,7 +74,7 @@ window.addEventListener("load", (): void => {
     }
   };
 
-  function startNextPrompt() {
+  function startNextPrompt(): void {
     let inputLength = 0;
     if (currentPromptIndex < resultsElList.length) {
       prompt = resultsElList.item(currentPromptIndex);

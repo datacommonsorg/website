@@ -36,6 +36,9 @@ interface HeaderAppProps {
   routes: Routes;
 }
 
+/**
+ * Header application container
+ */
 export function HeaderApp({
   name,
   logoPath,
