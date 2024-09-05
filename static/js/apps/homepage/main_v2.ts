@@ -35,12 +35,10 @@ window.addEventListener("load", (): void => {
 });
 
 function renderPage(): void {
-  const topics = JSON.parse(
-    document.getElementById("metadata-homepage").dataset.topics
-  ) as Topic[];
-  const partners = JSON.parse(
-    document.getElementById("metadata-homepage").dataset.partners
-  );
+  const metadataContainer = document.getElementById("metadata-homepage");
+
+  const topics = JSON.parse(metadataContainer.dataset.topics) as Topic[];
+  const partners = JSON.parse(metadataContainer.dataset.partners);
 
   const routes = extractRoutes();
 

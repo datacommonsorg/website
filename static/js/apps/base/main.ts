@@ -32,29 +32,24 @@ window.addEventListener("load", (): void => {
 });
 
 function renderPage(): void {
+  const metadataContainer = document.getElementById("metadata-base");
+
   const headerMenu = JSON.parse(
-    document.getElementById("metadata-base").dataset.header
+    metadataContainer.dataset.header
   ) as HeaderMenu[];
   const footerMenu = JSON.parse(
-    document.getElementById("metadata-base").dataset.footer
+    metadataContainer.dataset.footer
   ) as FooterMenu[];
 
-  const name = document.getElementById("metadata-base").dataset.name;
-  const logoPath = document.getElementById("metadata-base").dataset.logoPath;
+  const name = metadataContainer.dataset.name;
+  const logoPath = metadataContainer.dataset.logoPath;
   const hideFullFooter =
-    document
-      .getElementById("metadata-base")
-      .dataset.hideFullFooter.toLowerCase() === "true";
+    metadataContainer.dataset.hideFullFooter.toLowerCase() === "true";
   const hideSubFooter =
-    document
-      .getElementById("metadata-base")
-      .dataset.hideSubFooter.toLowerCase() === "true";
-  const subFooterExtra =
-    document.getElementById("metadata-base").dataset.subfooterExtra;
+    metadataContainer.dataset.hideSubFooter.toLowerCase() === "true";
+  const subFooterExtra = metadataContainer.dataset.subfooterExtra;
   const brandLogoLight =
-    document
-      .getElementById("metadata-base")
-      .dataset.brandLogoLight.toLowerCase() === "true";
+    metadataContainer.dataset.brandLogoLight.toLowerCase() === "true";
 
   const labels = extractLabels();
   const routes = extractRoutes();
