@@ -100,7 +100,15 @@ export const extractLabels = (elementId = "metadata-labels"): Labels => {
         if (typeof prop === "symbol") {
           throw new Error("Invalid property key.");
         }
-        return prop in target ? target[prop] : (prop as string);
+
+        if (prop in target) {
+          return target[prop];
+        } else {
+          console.log(
+            `Requested label "${prop}" does not exist in labels dictionary.`
+          );
+          return prop as string;
+        }
       },
     }
   );
