@@ -37,6 +37,7 @@ const NlSearchBarHeaderInline = ({
       <div className="search-box-section">
         <div className={`search-bar${value ? " non-empty" : ""}`}>
           <InputGroup className="search-bar-content">
+          <span className="material-icons-outlined">search</span>
             <Input
               id={inputId}
               invalid={invalid}
@@ -48,7 +49,9 @@ const NlSearchBarHeaderInline = ({
               autoFocus={shouldAutoFocus}
               autoComplete="off"
             ></Input>
-            <div onClick={onSearch} id="rich-search-button"></div>
+            <div onClick={onSearch} id="rich-search-button">
+              <span className="material-icons-outlined">check</span>
+            </div>
           </InputGroup>
         </div>
       </div>
