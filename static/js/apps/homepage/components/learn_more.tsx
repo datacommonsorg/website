@@ -45,7 +45,7 @@ const LearnMore = ({ routes }: LearnMoreProps): ReactElement => {
               datasets, boosting their usability across different domains.
             </p>
             <div className="learn-more-links">
-              <a href={resolveHref("static.about", routes)}>
+              <a href={resolveHref("{static.about}", routes)}>
                 <span className="material-icons-outlined">arrow_forward</span>
                 <span>About Data Commons</span>
               </a>

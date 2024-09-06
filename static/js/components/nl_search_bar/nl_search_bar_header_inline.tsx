@@ -37,7 +37,7 @@ const NlSearchBarHeaderInline = ({
       <div className="search-box-section">
         <div className={`search-bar${value ? " non-empty" : ""}`}>
           <InputGroup className="search-bar-content">
-          <span className="material-icons-outlined">search</span>
+            <span className="material-icons-outlined">search</span>
             <Input
               id={inputId}
               invalid={invalid}

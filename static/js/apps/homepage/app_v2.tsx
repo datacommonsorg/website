@@ -18,6 +18,8 @@
  * Main component for Version 2 of the homepage.
  */
 
+//TODO: fold this into app.tsx when revamp is complete and final PR is ready.
+
 import React, { ReactElement } from "react";
 
 import { Routes } from "../../shared/types/base";

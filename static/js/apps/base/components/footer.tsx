@@ -101,13 +101,6 @@ const Footer = ({
                 }
                 alt="Google logo"
               />
-              <img
-                className="brand-logo"
-                width="74"
-                height="25"
-                src="/images/google-logo-reverse.svg"
-                alt="Google logo"
-              />
             </span>
             <div className="sub-footer-links">
               {subFooterExtra && (
