@@ -67,13 +67,13 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
           cursor: pointer;
           padding: 0 1.25rem;
 
-          a.menu-main-link {
+          .menu-main-link {
             color: #474747;
             transition: color 0.3s ease-in-out;
           }
 
           &:hover{
-            a.menu-main-link {
+            .menu-main-link {
               color: #0B57D0;
               text-decoration: none;
             }

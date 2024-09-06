@@ -89,13 +89,15 @@ const MenuDesktop = ({
               </a>
             ) : (
               <>
-                {labels[menuItem.label]}
+                <span className="menu-main-link">
+                  {labels[menuItem.label]}
+                </span>
                 {openMenu === index ? (
-                  <span className="material-icons-outlined">
+                  <span className="material-icons-outlined menu-main-link">
                     keyboard_arrow_up
                   </span>
                 ) : (
-                  <span className="material-icons-outlined">
+                  <span className="material-icons-outlined menu-main-link">
                     keyboard_arrow_down
                   </span>
                 )}
