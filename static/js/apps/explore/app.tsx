@@ -218,10 +218,9 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     ) {
       // If the response is a single PLACE_OVERVIEW tile, redirect to the place explorer.
       if (isPlaceOverviewOnly(pageMetadata)) {
-        console.log('Redirecting to place explorer');
-        let url = 'place/';
-        url += pageMetadata.pageConfig.metadata["placeDcid"][0];
-        window.open(url, "_self");
+        const placeDcid = pageMetadata.place.dcid;
+        const url = `/place/${placeDcid}`;
+        window.location.replace(url);
       }
       // Note: for category links, we only use the main-topic.
       for (const category of pageMetadata.pageConfig.categories) {
