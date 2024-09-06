@@ -68,7 +68,6 @@ const HeaderBar = ({
             routes={routes}
           />
           <HeaderBarSearch />
-          [X]
         </div>
       </nav>
     </header>
