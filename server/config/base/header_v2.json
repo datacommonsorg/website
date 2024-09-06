@@ -108,10 +108,12 @@
           },
           {
             "title": "Scatter Plot Explorer",
+            "url": "{tools.visualization}#visType=scatter",
             "description": "Visualize the correlation between two statistical variables"
           },
           {
             "title": "Timelines Explorer",
+            "url": "{tools.visualization}#visType=timeline",
             "description": "See trends over time for selected statistical variables"
           }
         ]
