@@ -26,14 +26,17 @@ interface MenuDesktopRichMenuProps {
   menuItem: HeaderMenuV2;
   //the routes dictionary - this is used to convert routes to resolved urls
   routes: Routes;
+  //a flag to indicate whether the menu is open.
+  open: boolean;
 }
 
 const MenuDesktopRichMenu = ({
   menuItem,
   routes,
+  open,
 }: MenuDesktopRichMenuProps): ReactElement => {
   return (
-    <div className="rich-menu-content">
+    <div className={`rich-menu-content ${open ? "open" : ""}`}>
       <div className={"introduction-section"}>
         <h3>{menuItem.label}</h3>
         {menuItem.introduction && <p>{menuItem.introduction}</p>}

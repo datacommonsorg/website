@@ -89,9 +89,7 @@ const MenuDesktop = ({
               </a>
             ) : (
               <>
-                <span className="menu-main-link">
-                  {labels[menuItem.label]}
-                </span>
+                <span className="menu-main-link">{labels[menuItem.label]}</span>
                 <span
                   className={`material-icons-outlined menu-main-link menu-arrow-icon ${
                     openMenu === index ? "open" : ""
@@ -109,13 +107,18 @@ const MenuDesktop = ({
                     maxHeight: openMenu === index ? `${panelHeight}px` : 0,
                   }}
                 >
-                  <MenuDesktopRichMenu menuItem={menuItem} routes={routes}/>
+                  <MenuDesktopRichMenu
+                    menuItem={menuItem}
+                    routes={routes}
+                    open={openMenu === index}
+                  />
                 </div>
               </>
             )}
           </li>
         ))}
       </ul>
+      <div className={"panel"} style={{ height: panelHeight }} />
     </div>
   );
 };
