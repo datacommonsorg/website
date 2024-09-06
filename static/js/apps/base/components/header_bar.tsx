@@ -45,8 +45,6 @@ const HeaderBar = ({
   labels,
   routes,
 }: HeaderBarProps): ReactElement => {
-  console.log(menu);
-
   return (
     <header id="main-header-v2">
       <nav id="main-nav-v2">
