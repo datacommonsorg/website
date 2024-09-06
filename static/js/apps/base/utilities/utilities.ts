@@ -16,6 +16,7 @@
 
 import { Labels, Routes } from "../../../shared/types/base";
 
+//TODO: Revisit the `resolveHref` function after the revamp. Changes to where routes are resolved (Flask/templates) into URLs may make this function unnecessary.
 /*
   This function takes a string that may contain a route from the template wrapped in {}.
   The string may be a pure URL with no route, a route such as "{static.homepage}", or
@@ -38,6 +39,7 @@ export const resolveHref = (href: string, routes: Routes): string => {
   }
 };
 
+//TODO: Revisit the `slugify` function after the revamp of the home-page, as it may not be required.
 /*
   This function takes a string that may contain spaces and capital letters and returns a slugged version
   of the string in kebab-case. It is used to convert labels into slugs that can be used as part of html

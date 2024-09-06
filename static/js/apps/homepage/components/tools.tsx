@@ -70,7 +70,7 @@ const Tools = ({ routes }: ToolsProps): ReactElement => {
               <span>Timelines</span>
             </a>
             <a
-              href={resolveHref("place.place", routes)}
+              href={resolveHref("{place.place}", routes)}
               id="place-button"
               className="tool-button"
             >
@@ -78,7 +78,7 @@ const Tools = ({ routes }: ToolsProps): ReactElement => {
               <span>Place explorer</span>
             </a>
             <a
-              href={resolveHref("tools.download", routes)}
+              href={resolveHref("{tools.download}", routes)}
               id="download-button"
               className="tool-button"
             >
