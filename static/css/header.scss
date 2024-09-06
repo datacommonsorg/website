@@ -34,6 +34,8 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
     flex-grow: 1;
     align-items: stretch;
     gap: 64px;
+    margin: auto;
+    max-width: 1920px;
     @include media-breakpoint-down(md) {
       display: none;
     }
@@ -142,6 +144,12 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
             gap: 8px;
             margin: 0;
             padding: 0;
+            &:hover{
+              text-decoration: none;
+              .link-title{
+                text-decoration: underline;
+              }
+            }
             .material-icons-outlined{
               font-size: 18px;
             }
@@ -291,6 +299,7 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
         opacity: 0;
         display: flex;
         align-items: center;
+        color: #0B57D0;
       }
 
       .search-input-text {

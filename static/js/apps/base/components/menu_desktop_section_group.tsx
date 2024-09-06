@@ -62,7 +62,7 @@ const MenuDesktopSectionGroup = ({
                         className={"link"}
                       >
                         <span className="material-icons-outlined">rss_feed</span>
-                        RSS Feed
+                        <span className="link-title">RSS Feed</span>
                       </a>
                       {link.title && <p>• {link.title}</p>}
                     </>
@@ -71,7 +71,7 @@ const MenuDesktopSectionGroup = ({
                       {link.linkType === "external" && (
                         <span className="material-icons-outlined">arrow_outward</span>
                       )}
-                      {link.title}
+                      <span className="link-title">{link.title}</span>
                     </a>
                   )}
                 </div>

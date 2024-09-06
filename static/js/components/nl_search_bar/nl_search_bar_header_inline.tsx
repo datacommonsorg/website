@@ -50,7 +50,7 @@ const NlSearchBarHeaderInline = ({
               autoComplete="off"
             ></Input>
             <div onClick={onSearch} id="rich-search-button">
-              <span className="material-icons-outlined">check</span>
+              <span className="material-icons-outlined">arrow_forward</span>
             </div>
           </InputGroup>
         </div>
