@@ -16,56 +16,89 @@
 
 /* Styles for the header reflected in version 2 of the homepage */
 
+@import "node_modules/bootstrap/scss/bootstrap";
+
 #main-nav-v2 {
   display: flex;
   align-items: stretch;
   height: fit-content;
   padding: 0;
 
-  .navbar-brand {
-    display: flex;
-    flex-shrink: 0;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0 0 0 1rem;
-    white-space: nowrap;
-    font-size: 1.1rem;
-    line-height: 24px;
-  }
-
-  .header-menu {
+  .navbar-menu-large {
     display: flex;
     flex-grow: 1;
-    justify-content: right;
     align-items: stretch;
+    @include media-breakpoint-down(md) {
+      display: none;
+    }
 
-    ul {
+    .navbar-brand {
       display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0 0 0 1rem;
+      white-space: nowrap;
+      font-size: 1.1rem;
+      line-height: 24px;
+    }
+
+    .header-menu {
+      display: flex;
+      flex-grow: 1;
+      justify-content: right;
       align-items: stretch;
-      list-style: none;
-      margin: 0;
-      padding: 0;
 
-      li {
+      ul {
         display: flex;
-        align-items: center;
-        cursor: pointer;
-        padding: 0 1.25rem;
+        align-items: stretch;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+          padding: 0 1.25rem;
+        }
       }
-    }
 
-    .rich-menu-container {
-      position: fixed;
-      top: 80px;
-      left: 0;
-      width: 100vw;
-      overflow: hidden;
-      transition: max-height 0.4s ease-in-out;
-      background-color: white;
-      z-index: 1000;
-    }
+      .rich-menu-container {
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100vw;
+        overflow: hidden;
+        transition: max-height 0.4s ease-in-out;
+        background-color: white;
+        z-index: 1000;
+      }
 
+    }
   }
+
+  .navbar-menu-mobile {
+    display: flex;
+    flex-grow: 1;
+    align-items: stretch;
+    padding: 1rem;
+    @include media-breakpoint-up(lg) {
+      display: none;
+    }
+
+    .navbar-brand {
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      gap: 0.75rem;
+      white-space: nowrap;
+      font-size: 1.1rem;
+      line-height: 24px;
+    }
+  }
+
+
 }
 
 .header-search-section {

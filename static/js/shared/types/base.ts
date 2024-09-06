@@ -60,10 +60,12 @@ interface FooterSubMenu {
 export interface HeaderMenuV2 {
   //the label that displays in the top level menu item of the header
   label: string;
+  //an optional url - if this is supplied, any subsequent information will be ignored as the rich menu cannot be clicked
+  url?: string;
   //the aria-label attribute for that header
   ariaLabel: string;
   //text that displays in the introduction section of the desktop menu
-  introduction: string;
+  introduction?: string;
   //the content of the primary column (the column directly next to the introduction column;
   primarySectionGroups?: HeaderMenuGroup[];
   //the content of the secondary column (the smaller column to the right of the introduction column;

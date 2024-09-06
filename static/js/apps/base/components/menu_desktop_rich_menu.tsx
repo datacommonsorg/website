@@ -36,7 +36,7 @@ const MenuDesktopRichMenu = ({
     <div className="rich-menu-content">
       <div className={"introduction-section"}>
         <h3>{menuItem.label}</h3>
-        <p>{menuItem.introduction}</p>
+        {menuItem.introduction && <p>{menuItem.introduction}</p>}
       </div>
       {menuItem.primarySectionGroups?.length > 0 && (
         <div className={"primary-section"}>

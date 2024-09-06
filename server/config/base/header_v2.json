@@ -201,5 +201,10 @@
         ]
       }
     ]
+  },
+  {
+    "label": "Feedback",
+    "ariaLabel": "Give feedback",
+    "url": "{static.feedback}"
   }
 ]

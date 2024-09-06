@@ -19,7 +19,7 @@
 import React, { ReactElement, useEffect, useRef, useState } from "react";
 
 import { HeaderMenuV2, Labels, Routes } from "../../../shared/types/base";
-import { slugify } from "../utilities/utilities";
+import { resolveHref, slugify } from "../utilities/utilities";
 import MenuDesktopRichMenu from "./menu_desktop_rich_menu";
 
 interface MenuDesktopProps {
@@ -74,23 +74,33 @@ const MenuDesktop = ({
         {menu.map((menuItem, index) => (
           <li
             key={menuItem.label}
-            onFocus={(): void => handleOpenMenu(index)}
-            onClick={(): void => toggleMenu(index)}
+            onFocus={(): void => !menuItem.url && handleOpenMenu(index)}
+            onClick={(): void => !menuItem.url && toggleMenu(index)}
             onTouchEnd={(e): void => {
-              itemMenuTouch(e, index);
+              if (!menuItem.url) itemMenuTouch(e, index);
             }}
           >
-            {labels[menuItem.label]}
-            <div
-              ref={(el: HTMLDivElement | null): void => {
-                submenuRefs.current[index] = el;
-              }}
-              className="rich-menu-container"
-              aria-labelledby={slugify(`nav-${menuItem.label}-dropdown`)}
-              style={{ maxHeight: openMenu === index ? `${panelHeight}px` : 0 }}
-            >
-              <MenuDesktopRichMenu menuItem={menuItem} routes={routes} />
-            </div>
+            {menuItem.url ? (
+              <a href={resolveHref(menuItem.url, routes)}>
+                {labels[menuItem.label]}
+              </a>
+            ) : (
+              <>
+                {labels[menuItem.label]}
+                <div
+                  ref={(el: HTMLDivElement | null): void => {
+                    submenuRefs.current[index] = el;
+                  }}
+                  className="rich-menu-container"
+                  aria-labelledby={slugify(`nav-${menuItem.label}-dropdown`)}
+                  style={{
+                    maxHeight: openMenu === index ? `${panelHeight}px` : 0,
+                  }}
+                >
+                  <MenuDesktopRichMenu menuItem={menuItem} routes={routes} />
+                </div>
+              </>
+            )}
           </li>
         ))}
       </ul>
