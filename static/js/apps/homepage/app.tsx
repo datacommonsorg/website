@@ -15,9 +15,9 @@
  */
 
 /**
- * Main component for homnepage.
+ * Main component for homepage.
  */
-import React from "react";
+import React, { ReactElement } from "react";
 
 import { NlSearchBar } from "../../components/nl_search_bar";
 import {
@@ -31,11 +31,11 @@ import {
 /**
  * Application container
  */
-export function App(): JSX.Element {
+export function App(): ReactElement {
   return (
     <NlSearchBar
       inputId="query-search-input"
-      onSearch={(q) => {
+      onSearch={(q): void => {
         triggerGAEvent(GA_EVENT_NL_SEARCH, {
           [GA_PARAM_QUERY]: q,
           [GA_PARAM_SOURCE]: GA_VALUE_SEARCH_SOURCE_HOMEPAGE,

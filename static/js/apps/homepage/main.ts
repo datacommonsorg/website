@@ -13,15 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 /**
  * Entrypoint file for homepage.
  */
+
 import React from "react";
 import ReactDOM from "react-dom";
 
 import { App } from "./app";
 
-window.onload = () => {
+window.addEventListener("load", (): void => {
   // Homepage animation.
   const CHARACTER_INPUT_INTERVAL_MS = 45;
   const NEXT_PROMPT_DELAY_MS = 5000;
@@ -64,7 +66,7 @@ window.onload = () => {
   );
   const resultsElList = svgDiv.getElementsByClassName("result");
 
-  searchSequenceContainer.onclick = () => {
+  searchSequenceContainer.onclick = (): void => {
     if (prompt) {
       window.location.href = `/explore#q=${encodeURIComponent(
         prompt.dataset.query
@@ -72,7 +74,7 @@ window.onload = () => {
     }
   };
 
-  function startNextPrompt() {
+  function startNextPrompt(): void {
     let inputLength = 0;
     if (currentPromptIndex < resultsElList.length) {
       prompt = resultsElList.item(currentPromptIndex);
@@ -187,4 +189,4 @@ window.onload = () => {
   ) {
     hideAnimation();
   }
-};
+});

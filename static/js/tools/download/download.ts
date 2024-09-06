@@ -19,8 +19,8 @@ import ReactDOM from "react-dom";
 
 import { Page } from "./page";
 
-window.onload = () => {
+window.addEventListener("load", (): void => {
   const mainPainElem = document.getElementById("main-pane");
   const infoPlaces = JSON.parse(mainPainElem.dataset.infoPlaces) || [];
   ReactDOM.render(React.createElement(Page, { infoPlaces }), mainPainElem);
-};
+});
