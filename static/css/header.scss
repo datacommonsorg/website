@@ -16,12 +16,16 @@
 
 /* Styles for the header reflected in version 2 of the homepage */
 
-@import "node_modules/bootstrap/scss/bootstrap";
+@import "base";
+
+// Component Variables
 
 $font-family-google-title: "Google Sans", Arial, sans-serif,
   "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 $font-family-google-text: "Google Sans Text", Arial, sans-serif,
   "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  
+// Styles
 
 #main-nav-v2 {
   display: flex;
@@ -49,10 +53,15 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
       flex-shrink: 0;
       align-items: center;
       gap: 0.75rem;
-      padding: 0 0 0 1rem;
       white-space: nowrap;
       font-size: 1.1rem;
       line-height: 24px;
+    }
+    @include media-breakpoint-up(xl) {
+      padding: 0 0 0 32px;
+    }
+    @include media-breakpoint-down(xl) {
+      padding: 0 0 0 16px;
     }
 
     .panel {
@@ -76,12 +85,13 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
         align-items: stretch;
         list-style: none;
         margin: 0;
-        padding: 0 32px;
         @include media-breakpoint-up(xl) {
           gap: 32px;
+          padding: 0 32px;
         }
         @include media-breakpoint-down(xl) {
           gap: 16px;
+          padding: 0 16px 0 0;
         }
 
         li {
@@ -245,7 +255,12 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
   flex-grow: 1;
   height: fit-content;
   margin: 1rem 0;
-  padding-right: 64px;
+  @include media-breakpoint-up(xl) {
+    padding-right: 64px;
+  }
+  @include media-breakpoint-down(xl) {
+    padding-right: 16px;
+  }
 
   .btn {
     height: 2.5rem;
