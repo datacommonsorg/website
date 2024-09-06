@@ -95,8 +95,8 @@
             },
             {
               "CosineScore": [
-                0.8255698084831238,
-                0.8027870655059814
+                0.8255698680877686,
+                0.8027870059013367
               ],
               "QueryPart": "asthma impacted climate change",
               "SV": [
@@ -151,8 +151,8 @@
             },
             {
               "CosineScore": [
-                0.8255698084831238,
-                0.8027870655059814
+                0.8255698680877686,
+                0.8027870059013367
               ],
               "QueryPart": "asthma impacted climate change",
               "SV": [
