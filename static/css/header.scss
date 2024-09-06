@@ -33,9 +33,13 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
     display: flex;
     flex-grow: 1;
     align-items: stretch;
-    gap: 64px;
+    gap: 32px;
     margin: auto;
     max-width: 1920px;
+
+    @include media-breakpoint-down(xl) {
+      gap: 16px;
+    }
     @include media-breakpoint-down(md) {
       display: none;
     }
@@ -56,18 +60,20 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
       justify-content: right;
       align-items: stretch;
 
-      ul {
+      &-list {
         display: flex;
         align-items: stretch;
         list-style: none;
         margin: 0;
-        padding: 0;
+        padding: 0 32px;
+        gap: 32px;
 
         li {
           display: flex;
           align-items: center;
+          margin: 0;
+          padding: 0;
           cursor: pointer;
-          padding: 0 1.25rem;
 
           .menu-main-link {
             color: #474747;
@@ -215,6 +221,7 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
   flex-grow: 1;
   height: fit-content;
   margin: 1rem 0;
+  padding-right: 64px;
 
   .btn {
     height: 2.5rem;

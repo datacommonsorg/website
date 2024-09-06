@@ -38,13 +38,15 @@ const MenuDesktopSectionGroup = ({
       {menuGroup.items.map((item, index) => (
         <div key={index} className={"item"}>
           {item.title && item.url ? (
-            <a href={item.url} className={"item-link"}>
-              {item.linkType === "external" && (
-                <span className="material-icons-outlined">arrow_outward</span>
-              )}
-              {item.linkType === "rss" && <span className="material-icons-outlined">rss_feed</span>}
-              {item.title}
-            </a>
+            <h5>
+              <a href={item.url} className={"item-link"}>
+                {item.linkType === "external" && (
+                  <span className="material-icons-outlined">arrow_outward</span>
+                )}
+                {item.linkType === "rss" && <span className="material-icons-outlined">rss_feed</span>}
+                {item.title}
+              </a>
+            </h5>
           ) : (
             <h5>{item.title}</h5>
           )}

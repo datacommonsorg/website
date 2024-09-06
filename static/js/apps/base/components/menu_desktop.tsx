@@ -70,7 +70,7 @@ const MenuDesktop = ({
 
   return (
     <div className="header-menu" onMouseLeave={handleMouseLeave}>
-      <ul>
+      <ul className="header-menu-list">
         {menu.map((menuItem, index) => (
           <li
             key={menuItem.label}
