@@ -40,9 +40,9 @@ const MenuDesktopSectionGroup = ({
           {item.title && item.url ? (
             <a href={item.url} className={"item-link"}>
               {item.linkType === "external" && (
-                <i className="bi bi-box-arrow-up-right me-1"></i>
+                <span className="material-icons-outlined">arrow_outward</span>
               )}
-              {item.linkType === "rss" && <i className="bi bi-rss me-1"></i>}
+              {item.linkType === "rss" && <span className="material-icons-outlined">rss_feed</span>}
               {item.title}
             </a>
           ) : (
@@ -61,16 +61,15 @@ const MenuDesktopSectionGroup = ({
                         href={resolveHref(link.url, routes)}
                         className={"link"}
                       >
-                        <i className="bi bi-rss me-1"></i>
+                        <span className="material-icons-outlined">rss_feed</span>
                         RSS Feed
-                      </a>{" "}
-                      •{" "}
-                      {link.title && <span className="ms-1">{link.title}</span>}
+                      </a>
+                      {link.title && <p>• {link.title}</p>}
                     </>
                   ) : (
                     <a href={resolveHref(link.url, routes)} className={"link"}>
                       {link.linkType === "external" && (
-                        <i className="bi bi-box-arrow-up-right me-1"></i>
+                        <span className="material-icons-outlined">arrow_outward</span>
                       )}
                       {link.title}
                     </a>
