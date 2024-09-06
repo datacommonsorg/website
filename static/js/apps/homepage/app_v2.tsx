@@ -22,14 +22,6 @@
 
 import React, { ReactElement } from "react";
 
-import { NlSearchBar } from "../../components/nl_search_bar";
-import {
-  GA_EVENT_NL_SEARCH,
-  GA_PARAM_QUERY,
-  GA_PARAM_SOURCE,
-  GA_VALUE_SEARCH_SOURCE_HOMEPAGE,
-  triggerGAEvent,
-} from "../../shared/ga_events";
 import { Routes } from "../../shared/types/base";
 import { Partner, Topic } from "../../shared/types/homepage";
 import DataSize from "./components/data_size";
@@ -54,24 +46,6 @@ interface AppProps {
 export function App({ topics, partners, routes }: AppProps): ReactElement {
   return (
     <>
-      <section id="homepage-top">
-        <div id="search-container" className="container">
-          <NlSearchBar
-            inputId="query-search-input"
-            onSearch={(q): void => {
-              triggerGAEvent(GA_EVENT_NL_SEARCH, {
-                [GA_PARAM_QUERY]: q,
-                [GA_PARAM_SOURCE]: GA_VALUE_SEARCH_SOURCE_HOMEPAGE,
-              });
-              window.location.href = `/explore#q=${encodeURIComponent(q)}`;
-            }}
-            placeholder={"Enter a question to explore"}
-            initialValue={""}
-            shouldAutoFocus={false}
-          />
-        </div>
-      </section>
-
       <SearchAnimation />
 
       <DataSize />

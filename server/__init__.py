@@ -444,7 +444,8 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   def inject_common_parameters():
     common_variables = {
       'HEADER_MENU': json.dumps(libutil.get_json("config/base/header.json")),
-      'FOOTER_MENU': json.dumps(libutil.get_json("config/base/footer.json"))
+      'FOOTER_MENU': json.dumps(libutil.get_json("config/base/footer.json")),
+      'HEADER_MENU_V2': json.dumps(libutil.get_json("config/base/header_v2.json")),
     }
     locale_variable = dict(locale=get_locale())
     return {**common_variables, **locale_variable}

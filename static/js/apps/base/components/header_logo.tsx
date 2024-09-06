@@ -15,61 +15,45 @@
  */
 
 /**
- * A component that renders the header on all pages via the base template.
+ * The branding logo that appears in the header.
  */
 
 import React, { ReactElement } from "react";
 
-import { HeaderMenuV2, Labels, Routes } from "../../../shared/types/base";
-import HeaderBarSearch from "./header_bar_search";
-import HeaderLogo from "./header_logo";
-import MenuDesktop from "./menu_desktop";
+import { Labels, Routes } from "../../../shared/types/base";
 
-interface HeaderBarProps {
+interface HeaderLogoProps {
   //the name of the application (this may not be "Data Commons" in forked versions).
   name: string;
   //a path to the logo to be displayed in the header
   logoPath: string;
-  //the data that will populate the header menu.
-  menu: HeaderMenuV2[];
   //the labels dictionary - all labels will be passed through this before being rendered. If no value exists, the dictionary will return the key that was sent.
   labels: Labels;
   //the routes dictionary - this is used to convert routes to resolved urls
   routes: Routes;
 }
 
-const HeaderBar = ({
+const HeaderLogo = ({
   name,
   logoPath,
-  menu,
   labels,
   routes,
-}: HeaderBarProps): ReactElement => {
+}: HeaderLogoProps): ReactElement => {
   return (
-    <header id="main-header-v2">
-      <nav id="main-nav-v2">
-        <div className="navbar-menu-large">
-          <HeaderLogo
-            name={name}
-            logoPath={logoPath}
-            labels={labels}
-            routes={routes}
-          />
-          <HeaderBarSearch />
-          <MenuDesktop menu={menu} labels={labels} routes={routes} />
+    <div className="navbar-brand">
+      {logoPath && (
+        <div id="main-header-logo">
+          <a
+            href={routes["static.homepage"]}
+            aria-label={labels["Back to homepage"]}
+          >
+            <img src={logoPath} alt={`${name} logo`} />
+          </a>
         </div>
-        <div className="navbar-menu-mobile">
-          <HeaderLogo
-            name={name}
-            logoPath={logoPath}
-            labels={labels}
-            routes={routes}
-          />
-          <HeaderBarSearch />
-        </div>
-      </nav>
-    </header>
+      )}
+      <a href={routes["static.homepage"]}>{name}</a>
+    </div>
   );
 };
 
-export default HeaderBar;
+export default HeaderLogo;

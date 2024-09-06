@@ -56,6 +56,58 @@ interface FooterSubMenu {
   hide?: boolean;
 }
 
+// The top level of the header menu
+export interface HeaderMenuV2 {
+  //the label that displays in the top level menu item of the header
+  label: string;
+  //an optional url - if this is supplied, any subsequent information will be ignored as the rich menu cannot be clicked
+  url?: string;
+  //the aria-label attribute for that header
+  ariaLabel: string;
+  //text that displays in the introduction section of the desktop menu
+  introduction?: string;
+  //the content of the primary column (the column directly next to the introduction column;
+  primarySectionGroups?: HeaderMenuGroup[];
+  //the content of the secondary column (the smaller column to the right of the introduction column;
+  secondarySectionGroups?: HeaderMenuGroup[];
+}
+
+// a subsection of the header menu. These contain an optional title and a list of content items.
+export interface HeaderMenuGroup {
+  id: string;
+  //an optional title for the column group
+  title?: string;
+  //a list of the content items associated with each column
+  items: HeaderMenuItem[];
+}
+
+// a header group content item - each group is populated by these.
+export interface HeaderMenuItem {
+  //the title of the header menu item - this can be a link if a link is given, otherwise a regular header
+  title?: string;
+  //the url of the header menu item - giving one will make the title clickable
+  url?: string;
+  //the type of link: internal, external or rss - this determines how the link is decorated.
+  linkType?: LinkType;
+  //a description of the item. This will go below the link, and is optional.
+  description?: string;
+  //an optional list of links that appear below the description.
+  links?: HeaderMenuItemLink[];
+}
+
+// a header menu item link - these links will appear below the header item description if links are given.
+export interface HeaderMenuItemLink {
+  //the title of a header menu item link
+  title: string;
+  //the type of link: internal, external or rss - this determines how the link is decorated.
+  linkType: LinkType;
+  //the url of the link
+  url: string;
+}
+
+//a union of possible link types for determining how links are decorated.
+export type LinkType = "internal" | "external" | "rss";
+
 //A dictionary of routes. These map route names, such as "tools.visualization" to the resolved route.
 //These are implemented as a proxy object that will return the text of the key if the key is not found.
 //This is to allow the flexibility using both urls and routes in source data such as JSON that will be passed through the object.
