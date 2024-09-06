@@ -87,6 +87,7 @@ const MenuDesktop = ({
             ) : (
               <>
                 {labels[menuItem.label]}
+                {openMenu === index ? <span className="material-icons-outlined">keyboard_arrow_up</span> : <span className="material-icons-outlined">keyboard_arrow_down</span>}
                 <div
                   ref={(el: HTMLDivElement | null): void => {
                     submenuRefs.current[index] = el;
