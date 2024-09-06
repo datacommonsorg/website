@@ -81,13 +81,24 @@ const MenuDesktop = ({
             }}
           >
             {menuItem.url ? (
-              <a href={resolveHref(menuItem.url, routes)}>
+              <a
+                className="menu-main-link"
+                href={resolveHref(menuItem.url, routes)}
+              >
                 {labels[menuItem.label]}
               </a>
             ) : (
               <>
                 {labels[menuItem.label]}
-                {openMenu === index ? <span className="material-icons-outlined">keyboard_arrow_up</span> : <span className="material-icons-outlined">keyboard_arrow_down</span>}
+                {openMenu === index ? (
+                  <span className="material-icons-outlined">
+                    keyboard_arrow_up
+                  </span>
+                ) : (
+                  <span className="material-icons-outlined">
+                    keyboard_arrow_down
+                  </span>
+                )}
                 <div
                   ref={(el: HTMLDivElement | null): void => {
                     submenuRefs.current[index] = el;
