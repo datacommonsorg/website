@@ -1,0 +1,205 @@
+[
+  {
+    "label": "Overview",
+    "ariaLabel": "Data commons overview",
+    "introduction": "Data Commons is an open-source platform aggregating global public data for easy exploration using natural language.",
+    "primarySectionGroups": [
+      {
+        "title": "Key Features",
+        "items": [
+          {
+            "title": "Large harmonized public dataset",
+            "description": "240 billion data points across 260K statistical variables, harmonized from governmental, inter-governmental, academic and non-profit organizations"
+          },
+          {
+            "title": "Natural language interface",
+            "description": "Data Commons uses AI for natural language queries, making public data accessible and useful to all"
+          }
+        ]
+      },
+      {
+        "title": "Build your Data Commons",
+        "items": [
+          {
+            "title": "Tailor your own Data Commons",
+            "description": "Launch your own Data Commons and customize it with your own data to better engage your specific audience"
+          },
+          {
+            "title": "Explore your data with natural language",
+            "description": "Ask questions in your own words and get answers directly from your data"
+          },
+          {
+            "title": "Actionable Insights",
+            "description": "Gain actionable insights from your data in connection to global data",
+            "links": [
+              {
+                "title": "Learn more & build yours today",
+                "url": "{place.place}"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "secondarySectionGroups": [
+      {
+        "title": "Other Data Commons",
+        "items": [
+          {
+            "title": "Biomedical Data Commons",
+            "url": "https://docs.datacommons.org/datasets/Biomedical.html",
+            "type": "external",
+            "description": "Data Commons has invested into harmonized other domain specific topics like Biomedical data"
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "title": "Partners",
+            "description": "Featured organizations who organizations have tailored their own Data Commons to meet their specific needs and goals",
+            "links": [
+              {
+                "title": "United Nations",
+                "url": "https://www.un.org",
+                "linkType": "external"
+              },
+              {
+                "title": "One.org",
+                "url": "https://one.org",
+                "linkType": "external"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "label": "Tools",
+    "ariaLabel": "Show exploration tools",
+    "introduction": "Explore a variety of tools to visualize, analyze, and interact with the Data Commons knowledge graph and its extensive datasets.",
+    "primarySectionGroups": [
+      {
+        "items": [
+          {
+            "title": "Knowledge Graph",
+            "url": "{browser.browser_main}",
+            "description": "Explore what data is available and understand the graph structure"
+          },
+          {
+            "title": "Statistical Variable Explorer",
+            "url": "{tools.stat_var}",
+            "description": "Explore statistical variable details including metadata and observations"
+          },
+          {
+            "title": "Data Download Tool",
+            "url": "{tools.download}",
+            "description": "Download data for selected statistical variables"
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "title": "Map Explorer",
+            "url": "{tools.visualization}#visType=map",
+            "description": "Study how a selected statistical variable can vary across geographic regions"
+          },
+          {
+            "title": "Scatter Plot Explorer",
+            "description": "Visualize the correlation between two statistical variables"
+          },
+          {
+            "title": "Timelines Explorer",
+            "description": "See trends over time for selected statistical variables"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "label": "Documentation",
+    "ariaLabel": "Show documentation links",
+    "introduction": "Access in-depth tutorials, guides, and API references to unlock the full potential of Data Commons and integrate it into your projects.",
+    "primarySectionGroups": [
+      {
+        "items": [
+          {
+            "title": "Docs",
+            "url": "https://docs.datacommons.org",
+            "description": "Learn how to leverage the Data Commons unified database with comprehensive documentation, tutorials, and guides."
+          },
+          {
+            "title": "API",
+            "url": "https://docs.datacommons.org/api",
+            "description": "Access a unified knowledge graph with standardized data from diverse sources using Data Commons APIs."
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "title": "Tutorials",
+            "url": "https://docs.datacommons.org/tutorials",
+            "description": "Get familiar with the Data Commons Knowledge Graph and APIs using analysis examples in Google Colab notebooks written in Python."
+          },
+          {
+            "title": "Contributions",
+            "url": "https://docs.datacommons.org/contributing/",
+            "description": "Become part of Data Commons by contributing data, tools, educational materials, or sharing your analysis and insights. Collaborate and help expand the knowledge graph!"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "label": "About",
+    "ariaLabel": "Show about links",
+    "introduction": "Data Commons is an initiative from Google. Discover how Data Commons is changing data analysis. Explore diverse data, learn to use its tools through Python examples, and stay updated on the latest news and research.",
+    "primarySectionGroups": [
+      {
+        "items": [
+          {
+            "title": "Why Data Commons",
+            "url": "{static.about}",
+            "description": "Discover why Data Commons is revolutionizing data access and analysis. Learn how its unified knowledge graph empowers you to explore diverse, standardized data."
+          },
+          {
+            "title": "Data Sources",
+            "url": "https://docs.datacommons.org/datasets/",
+            "description": "Get familiar with the Data Commons Knowledge Graph and APIs using analysis examples in Google Colab notebooks written in Python.",
+            "links": [
+              {
+                "title": "Data Updates",
+                "url": "https://www.datacommons.org/rss",
+                "linkType": "rss"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "items": [
+          {
+            "title": "FAQ",
+            "url": "{static.faq}",
+            "description": "Find quick answers to common questions about Data Commons, its usage, data sources, and available resources."
+          },
+          {
+            "title": "Blog",
+            "url": "https://blog.datacommons.org/",
+            "description": "Stay up-to-date with the latest news, updates, and insights from the Data Commons team. Explore new features, research, and educational content related to the project.",
+            "links": [
+              {
+                "title": "Blog posts",
+                "url": "https://blog.datacommons.org/rss",
+                "linkType": "rss"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
