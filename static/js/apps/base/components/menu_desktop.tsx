@@ -92,15 +92,13 @@ const MenuDesktop = ({
                 <span className="menu-main-link">
                   {labels[menuItem.label]}
                 </span>
-                {openMenu === index ? (
-                  <span className="material-icons-outlined menu-main-link">
-                    keyboard_arrow_up
-                  </span>
-                ) : (
-                  <span className="material-icons-outlined menu-main-link">
-                    keyboard_arrow_down
-                  </span>
-                )}
+                <span
+                  className={`material-icons-outlined menu-arrow-icon ${
+                    openMenu === index ? "open" : ""
+                  }`}
+                >
+                  keyboard_arrow_down
+                </span>
                 <div
                   ref={(el: HTMLDivElement | null): void => {
                     submenuRefs.current[index] = el;
@@ -111,7 +109,7 @@ const MenuDesktop = ({
                     maxHeight: openMenu === index ? `${panelHeight}px` : 0,
                   }}
                 >
-                  <MenuDesktopRichMenu menuItem={menuItem} routes={routes} />
+                  <MenuDesktopRichMenu menuItem={menuItem} routes={routes}/>
                 </div>
               </>
             )}

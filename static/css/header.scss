@@ -78,6 +78,15 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
               text-decoration: none;
             }
           }
+
+          .menu-arrow-icon {
+            display: inline-block;
+            transition: transform 0.3s ease;
+          }
+
+          .menu-arrow-icon.open {
+            transform: rotate(180deg);
+          }
         }
       }
 
