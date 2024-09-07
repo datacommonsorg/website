@@ -300,6 +300,7 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
       .big{
         font-size: 32px;
         color: #5E5E5E;
+        transform: translateY(1px); // Optical correction
         @media (max-width: 340px){
           font-size: 24px;
         }
@@ -339,7 +340,7 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
       .paper {
         width: calc(100vw / 2 - 10px);
         min-width: 300px;
-        max-width: 400px;
+        max-width: 680px;
 
         .header {
           position: relative;
