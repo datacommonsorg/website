@@ -19,7 +19,7 @@
 import React, { ReactElement } from "react";
 
 import { HeaderMenuV2, Labels, Routes } from "../../../shared/types/base";
-import MenuDesktopSectionGroup from "./menu_desktop_section_group";
+import MenuRichSectionGroup from "./menu_rich_section_group";
 
 interface MenuMobileRichMenuProps {
   //the menu item for which we are rendering the rich menu
@@ -46,7 +46,7 @@ const MenuMobileRichMenu = ({
       {menuItem.primarySectionGroups?.length > 0 && (
         <div className={"primary-section"}>
           {menuItem.primarySectionGroups.map((primarySectionGroup, index) => (
-            <MenuDesktopSectionGroup
+            <MenuRichSectionGroup
               key={index}
               menuGroup={primarySectionGroup}
               routes={routes}
@@ -58,7 +58,7 @@ const MenuMobileRichMenu = ({
         <div className={"secondary-section"}>
           {menuItem.secondarySectionGroups.map(
             (secondarySectionGroup, index) => (
-              <MenuDesktopSectionGroup
+              <MenuRichSectionGroup
                 key={index}
                 menuGroup={secondarySectionGroup}
                 routes={routes}

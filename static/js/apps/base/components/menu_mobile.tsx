@@ -123,11 +123,11 @@ const MenuMobile = ({
           <div className="header">
             <h3 style={{ textAlign: "center", margin: 0 }}>{name}</h3>
             {selectedPrimaryItemIndex !== null ? (
-              <button onClick={handleBackClick}  className="menu-toggle">
+              <button onClick={handleBackClick} className="menu-toggle">
                 <span className="material-icons-outlined">arrow_back</span>
               </button>
             ) : (
-              <button onClick={toggleDrawer}  className="menu-toggle">
+              <button onClick={toggleDrawer} className="menu-toggle">
                 <span className="material-icons-outlined">close</span>
               </button>
             )}
@@ -143,7 +143,10 @@ const MenuMobile = ({
                 {menu.map((item, index) => (
                   <li key={index}>
                     {item.url ? (
-                      <a href={resolveHref(item.url, routes)} className="menu-item-link">
+                      <a
+                        href={resolveHref(item.url, routes)}
+                        className="menu-item-link"
+                      >
                         {labels[item.label]}
                       </a>
                     ) : (
@@ -153,7 +156,9 @@ const MenuMobile = ({
                           className="menu-item-button"
                         >
                           <span>{labels[item.label]}</span>
-                          <span className="material-icons-outlined">arrow_forward</span>
+                          <span className="material-icons-outlined">
+                            arrow_forward
+                          </span>
                         </button>
                       </>
                     )}
