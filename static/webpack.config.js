@@ -146,6 +146,7 @@ const config = {
     homepage: [
       __dirname + "/js/apps/homepage/main.ts",
       __dirname + "/css/homepage.scss",
+      __dirname + "/css/homepage_v2.scss",
     ],
     homepage_v2: [
       __dirname + "/js/apps/homepage/main_v2.ts",

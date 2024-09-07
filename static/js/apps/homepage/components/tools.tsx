@@ -31,62 +31,63 @@ const Tools = ({ routes }: ToolsProps): ReactElement => {
   return (
     <section className="tools">
       <div className="container">
-        <div className="tools-description">
-          <h3 className="tools-description-header">Data Commons Tools</h3>
-          <h4 className="tools-description-subheader">
-            Explore the public database through these tools
-          </h4>
+        <div className="big-description">
+          <h3>Data Commons Tools</h3>
+          <p>Data forms the foundation of science, policy, and journalism, but its full potential is often limited. Data Commons addresses this by offering data exploration tools and cloud-based APIs to access and integrate cleaned datasets, boosting their usability across different domains.</p>
         </div>
-        <div className="tools-icons">
-          <div className="tool-buttons-container">
+        <ul className="tools-buttons">
+          <li>
             <a
               href={resolveHref("{tools.visualization}#visType=map", routes)}
               id="map-button"
-              className="tool-button"
             >
-              <div className="tool-icon"></div>
-              <span>Map explorer</span>
+              <span className="tool-icon map"></span>
+              Map explorer
             </a>
+          </li>
+          <li>
             <a
               href={resolveHref(
                 "{tools.visualization}#visType=scatter",
                 routes
               )}
               id="scatter-button"
-              className="tool-button"
             >
-              <div className="tool-icon"></div>
-              <span>Scatter plots</span>
+              <span className="tool-icon scaterplot"></span>
+              Scatter plot tool
             </a>
+          </li>
+          <li>
             <a
               href={resolveHref(
                 "{tools.visualization}#visType=timeline",
                 routes
               )}
               id="timeline-button"
-              className="tool-button"
             >
-              <div className="tool-icon"></div>
-              <span>Timelines</span>
+              <span className="tool-icon timeline"></span>
+              Timeline plot tool
             </a>
+          </li>
+          <li>
             <a
-              href={resolveHref("{place.place}", routes)}
-              id="place-button"
-              className="tool-button"
-            >
-              <div className="tool-icon"></div>
-              <span>Place explorer</span>
-            </a>
-            <a
-              href={resolveHref("{tools.download}", routes)}
+              href={resolveHref("tools.download", routes)}
               id="download-button"
-              className="tool-button"
             >
-              <div className="tool-icon"></div>
-              <span>Data download</span>
+              <span className="tool-icon download"></span>
+              Place explorer
             </a>
-          </div>
-        </div>
+          </li>
+          <li>
+            <a
+              href={resolveHref("tools.api", routes)}
+              id="api-button"
+            >
+              <span className="tool-icon api"></span>
+              API access
+            </a>
+          </li>
+        </ul>
       </div>
     </section>
   );

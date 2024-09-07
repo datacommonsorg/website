@@ -29,39 +29,26 @@ interface TopicsProps {
 
 const Topics = ({ topics }: TopicsProps): ReactElement => {
   return (
-    <div className="container">
-      <h3>Explore the Data</h3>
-      <div className="topics-container">
-        {topics.map((topic) => (
-          <div
-            key={topic.id}
-            className="topic-card clickable"
-            onClick={(): void => {
-              window.location.href = topic.browseUrl;
-            }}
-          >
-            <div className="topic-card-body">
-              <div className="topic-card-image-container">
-                <div
-                  className="topic-card-image"
-                  style={{
-                    backgroundPositionY: `-${topic["sprite-index"] * 141}px`,
-                  }}
-                ></div>
-              </div>
-              <div className="topic-card-title">{topic.title}</div>
-              <div className="topic-card-description">{topic.description}</div>
-              <div className="topic-card-links">
-                <a href={topic.browseUrl}>
-                  <span className="material-icons-outlined">arrow_forward</span>
-                  <span>Explore</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        ))}
+    <section id="topics">
+      <div className="container">
+        <h3>Topics to explore</h3>
+        <ul className="topics-container" >
+          {topics.map((topic) => (
+            <li key={topic.id} className="topic-item">
+              <a 
+                href={topic.browseUrl} 
+                onClick={(): void => {
+                  window.location.href = topic.browseUrl;
+                }}
+              >
+                <span className="material-icons-outlined">arrow_forward</span>
+                {topic.title}
+              </a>
+            </li>
+          ))} 
+        </ul>
       </div>
-    </div>
+    </section>
   );
 };
 

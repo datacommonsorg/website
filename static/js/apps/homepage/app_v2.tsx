@@ -24,12 +24,12 @@ import React, { ReactElement } from "react";
 
 import { Routes } from "../../shared/types/base";
 import { Partner, Topic } from "../../shared/types/homepage";
-import DataSize from "./components/data_size";
-import LearnMore from "./components/learn_more";
 import Partners from "./components/partners";
-import SearchAnimation from "./components/search_animation";
 import Tools from "./components/tools";
 import Topics from "./components/topics";
+import Build from "./components/build";
+import Hero from "./components/hero";
+import SampleQuestions from "./components/sample_questions";
 
 interface AppProps {
   //the topics passed from the backend through to the JavaScript via the templates
@@ -46,21 +46,12 @@ interface AppProps {
 export function App({ topics, partners, routes }: AppProps): ReactElement {
   return (
     <>
-      <SearchAnimation />
-
-      <DataSize />
-
-      <div className="divider container"></div>
-
-      <section id="topics">
-        <Topics topics={topics} />
-      </section>
-
-      <div className="background-gradient">
-        <Tools routes={routes} />
-        <LearnMore routes={routes} />
-        <Partners partners={partners} />
-      </div>
+      <Hero />
+      <Topics topics={topics} />
+      <SampleQuestions />
+      <Tools routes={routes} />
+      <Build />
+      <Partners partners={partners} />
     </>
   );
 }
