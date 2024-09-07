@@ -46,6 +46,7 @@ const config = {
     mcf_playground: __dirname + "/js/mcf_playground.js",
     base: [
       __dirname + "/js/apps/base/main.ts",
+      __dirname + "/css/core.scss",
     ],
     place: [
       __dirname + "/js/place/place.ts",

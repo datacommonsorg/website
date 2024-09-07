@@ -64,6 +64,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500;700&family=Google+Sans+Text:wght@300;400;500;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined&display=block">
+  <link rel="stylesheet" href={{url_for('static', filename='css/core.min.css', t=config['VERSION'])}}>
   {% block head %}
   {% endblock %}
   {% if OVERRIDE_CSS_PATH %}
