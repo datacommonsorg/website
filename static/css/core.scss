@@ -228,9 +228,25 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
     display: flex;
     flex-grow: 1;
     align-items: stretch;
-    padding: 1rem;
+    padding: 24px 16px;
+    gap: 16px;
     @include media-breakpoint-up(lg) {
       display: none;
+    }
+    @media (max-width: 620px) {
+      display: grid;
+      grid-template-columns: 1fr min-content;
+      .header-search-section{
+        order: 3;
+        grid-column: 1 / span 2;
+        .search-bar{
+          max-width: 100%;
+        }
+      }
+    }
+    @media (max-width: 340px){
+      padding: 16px;
+      gap: 8px;
     }
 
     .navbar-brand {
@@ -247,7 +263,48 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
       position: relative;
       display: flex;
       align-items: center;
+      gap: 16px;
+      @media (max-width: 340px){
+        gap: 8px;
+      }
     }
+
+    .header-search-section{
+      margin: 0;
+      padding: 0;
+    }
+    .search-bar{
+      max-width: 420px;
+    }
+    .search-input-text {
+      height: 40px;
+    }
+
+    .menu-main-link{
+      font-size: 0.9rem;
+      color: #5E5E5E;
+    }
+    
+    .menu-toggle {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 0;
+      margin: 0;
+      padding: 0;
+      background-color: transparent;
+      cursor: pointer;
+      .material-icons-outline{
+        color: #5E5E5E;
+      }
+      .big{
+        font-size:40px;
+        color: #5E5E5E;
+        @media (max-width: 340px){
+          font-size: 32px;
+        }
+      }
+    }    
 
     .overlay {
       position: fixed;
@@ -266,18 +323,6 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
         pointer-events: auto;
       }
     }
-
-    .menu-toggle {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border: 0;
-      margin: 0;
-      padding: 0;
-      background-color: transparent;
-      cursor: pointer;
-      font-size: 48px;
-    }    
 
     .drawer {
       position: fixed;
@@ -300,6 +345,7 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
           position: relative;
           display: flex;
           justify-content: space-between;
+          flex-direction: row-reverse;
           align-items: center;
           padding: 8px 16px;
           height: 50px;
@@ -425,62 +471,12 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
   flex-shrink: 0;
   flex-grow: 1;
   height: fit-content;
-  margin: 1rem 0;
+  margin: 24px 0;
   @include media-breakpoint-up(xl) {
     padding-right: 64px;
   }
   @include media-breakpoint-down(xl) {
     padding-right: 16px;
-  }
-
-  .btn {
-    height: 2.5rem;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-  }
-
-  .search-bar-tags {
-    display: flex;
-    flex-direction: row;
-
-    color: var(--gm-3-ref-secondary-secondary-30);
-    font-family: var(--font-family-sans-serif);
-    font-size: 11px;
-    font-style: normal;
-    font-weight: 500;
-    letter-spacing: 0.1px;
-    line-height: 16px;
-    margin-bottom: 6px;
-    margin-left: auto;
-    margin-right: 37.93px;
-
-    .early-preview-tag {
-      text-align: right;
-      text-transform: uppercase;
-      margin-right: 8px;
-    }
-
-    .feedback-link {
-      background-color: transparent;
-      display: flex;
-      justify-content: flex-end;
-
-      a {
-        text-transform: capitalize;
-        color: var(--gm-3-ref-secondary-secondary-30);
-        font-family: var(--font-family-sans-serif);
-        font-size: 11px;
-        font-style: normal;
-        font-weight: 500;
-        letter-spacing: 0.1px;
-        line-height: 16px;
-        margin-left: 8px;
-      }
-    }
-  }
-
-  .history-button {
-    margin-left: 0.5rem;
   }
 
   .search-box-section {
@@ -515,7 +511,7 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
         margin: 0px;
         width: 150px;
         flex-grow: 10;
-        height: 48px;
+        height: 38px;
         background: transparent;
         border: none;
         color: var(--gm-3-ref-neutral-neutral-40);

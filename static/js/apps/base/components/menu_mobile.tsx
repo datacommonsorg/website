@@ -109,7 +109,7 @@ const MenuMobile = ({
         ))}
       </div>
       <button className="menu-toggle" onClick={toggleDrawer}>
-        <span className="material-icons-outlined">menu</span>
+        <span className="material-icons-outlined big">menu</span>
       </button>
 
       <div className={`overlay ${open ? "open" : ""}`} onClick={toggleDrawer} />
@@ -121,16 +121,14 @@ const MenuMobile = ({
       >
         <div className="paper">
           <div className="header">
-            <h3 style={{ textAlign: "center", margin: 0 }}>{name}</h3>
-            {selectedPrimaryItemIndex !== null ? (
+            <button onClick={toggleDrawer}  className="menu-toggle">
+              <span className="material-icons-outlined">close</span>
+            </button>
+            {selectedPrimaryItemIndex !== null && (
               <button onClick={handleBackClick}  className="menu-toggle">
                 <span className="material-icons-outlined">arrow_back</span>
               </button>
-            ) : (
-              <button onClick={toggleDrawer}  className="menu-toggle">
-                <span className="material-icons-outlined">close</span>
-              </button>
-            )}
+            ) }
           </div>
 
           <div
