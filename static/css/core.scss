@@ -298,10 +298,10 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
         color: #5E5E5E;
       }
       .big{
-        font-size:40px;
+        font-size: 32px;
         color: #5E5E5E;
         @media (max-width: 340px){
-          font-size: 32px;
+          font-size: 24px;
         }
       }
     }    
