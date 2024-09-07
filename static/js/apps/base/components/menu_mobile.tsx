@@ -29,8 +29,6 @@ import { resolveHref } from "../utilities/utilities";
 import MenuMobileRichMenu from "./menu_mobile_rich_menu";
 
 interface MenuMobileProps {
-  //the name of the application (this may not be "Data Commons" in forked versions).
-  name: string;
   //the data that will populate the header menu.
   menu: HeaderMenuV2[];
   //the labels dictionary - all labels will be passed through this before being rendered. If no value exists, the dictionary will return the key that was sent.
@@ -40,7 +38,6 @@ interface MenuMobileProps {
 }
 
 const MenuMobile = ({
-  name,
   menu,
   labels,
   routes,
@@ -121,14 +118,14 @@ const MenuMobile = ({
       >
         <div className="paper">
           <div className="header">
-            <button onClick={toggleDrawer}  className="menu-toggle">
+            <button onClick={toggleDrawer} className="menu-toggle">
               <span className="material-icons-outlined">close</span>
             </button>
             {selectedPrimaryItemIndex !== null && (
-              <button onClick={handleBackClick}  className="menu-toggle">
+              <button onClick={handleBackClick} className="menu-toggle">
                 <span className="material-icons-outlined">arrow_back</span>
               </button>
-            ) }
+            )}
           </div>
 
           <div
