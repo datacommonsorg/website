@@ -15,13 +15,13 @@
 #}
 {%- extends BASE_HTML -%}
 
-{% set main_id = 'about' %}
-{% set page_id = 'page-about' %}
-{% set title = 'About Us' %}
+{% set main_id = 'build' %}
+{% set page_id = 'page-build' %}
+{% set title = 'Build your own Data Commons' %}
 
 {% block head %}
-<link rel="stylesheet" href={{url_for('static', filename='css/about.min.css', t=config['VERSION'])}}>
-<script src={{url_for('static', filename='about.js', t=config['VERSION'])}} async></script>
+<link rel="stylesheet" href={{url_for('static', filename='css/build.min.css', t=config['VERSION'])}}>
+<script src={{url_for('static', filename='build.js', t=config['VERSION'])}} async></script>
 {% endblock %}
 
 {% block content %}

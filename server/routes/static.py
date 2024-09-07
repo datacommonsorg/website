@@ -49,6 +49,11 @@ def about():
   return lib_render.render_page("static/about.html", "about.html")
 
 
+@bp.route('/build')
+def build():
+  return lib_render.render_page("static/build.html", "build.html")
+
+
 @bp.route('/faq')
 def faq():
   current_date = date.today().strftime('%-d %b %Y')

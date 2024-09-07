@@ -129,7 +129,15 @@ const config = {
       __dirname + "/js/import_wizard2/import_wizard.ts",
       __dirname + "/css/import_wizard2.scss",
     ],
+    about: [
+      __dirname + "/js/apps/about/main.ts",
+      __dirname + "/css/about.scss",
+    ],
     admin: [__dirname + "/js/admin/main.ts", __dirname + "/css/admin.scss"],
+    build: [
+      __dirname + "/js/apps/build/main.ts",
+      __dirname + "/css/build.scss",
+    ],
     disaster_dashboard: [
       __dirname + "/js/apps/disaster_dashboard/main.ts",
       __dirname + "/css/disaster_dashboard.scss",
@@ -146,10 +154,10 @@ const config = {
     homepage: [
       __dirname + "/js/apps/homepage/main.ts",
       __dirname + "/css/homepage.scss",
-      __dirname + "/css/homepage_v2.scss",
     ],
     homepage_v2: [
       __dirname + "/js/apps/homepage/main_v2.ts",
+      __dirname + "/css/homepage_v2.scss",
     ],
     homepage_custom_dc: [
       __dirname + "/js/apps/homepage/main_custom_dc.ts",
