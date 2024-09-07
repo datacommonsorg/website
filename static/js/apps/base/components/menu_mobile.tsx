@@ -109,7 +109,7 @@ const MenuMobile = ({
         ))}
       </div>
       <button className="menu-toggle" onClick={toggleDrawer}>
-        ☰
+        <span className="material-icons-outlined">menu</span>
       </button>
 
       <div className={`overlay ${open ? "open" : ""}`} onClick={toggleDrawer} />
@@ -123,9 +123,13 @@ const MenuMobile = ({
           <div className="header">
             <h3 style={{ textAlign: "center", margin: 0 }}>{name}</h3>
             {selectedPrimaryItemIndex !== null ? (
-              <button onClick={handleBackClick}>←</button>
+              <button onClick={handleBackClick}  className="menu-toggle">
+                <span className="material-icons-outlined">arrow_back</span>
+              </button>
             ) : (
-              <button onClick={toggleDrawer}>x</button>
+              <button onClick={toggleDrawer}  className="menu-toggle">
+                <span className="material-icons-outlined">close</span>
+              </button>
             )}
           </div>
 
@@ -135,20 +139,21 @@ const MenuMobile = ({
             }`}
           >
             <div className="panel left-panel">
-              <ul>
+              <ul className="menu-items">
                 {menu.map((item, index) => (
                   <li key={index}>
                     {item.url ? (
-                      <a href={resolveHref(item.url, routes)}>
+                      <a href={resolveHref(item.url, routes)} className="menu-item-link">
                         {labels[item.label]}
                       </a>
                     ) : (
                       <>
-                        <span>{labels[item.label]}</span>
                         <button
                           onClick={(): void => handlePrimaryItemClick(index)}
+                          className="menu-item-button"
                         >
-                          →
+                          <span>{labels[item.label]}</span>
+                          <span className="material-icons-outlined">arrow_forward</span>
                         </button>
                       </>
                     )}

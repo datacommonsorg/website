@@ -268,11 +268,16 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
     }
 
     .menu-toggle {
-      font-size: 35px;
-      background: none;
-      border: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 0;
+      margin: 0;
+      padding: 0;
+      background-color: transparent;
       cursor: pointer;
-    }
+      font-size: 48px;
+    }    
 
     .drawer {
       position: fixed;
@@ -296,9 +301,9 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
           display: flex;
           justify-content: space-between;
           align-items: center;
+          padding: 8px 16px;
           height: 50px;
-          padding: 0 10px;
-          background: hotpink;
+          border-bottom: 1px solid #cccccc;
         }
 
         .slide-wrapper {
@@ -312,7 +317,7 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
 
           .panel {
             flex: 1 1 50%;
-            max-width: 50%;
+            max-width: 80%;
             box-sizing: border-box;
             max-height: calc(100vh - 50px);
             overflow-y: auto;
@@ -320,22 +325,92 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
           }
 
           .left-panel {
-            padding: 20px;
+            padding: 16px;
             ul {
               display: flex;
               flex-direction: column;
-              gap: 5px;
+              gap: 8px;
               padding: 0;
               list-style: none;
               li {
                 display: flex;
                 justify-content: space-between;
+
+                .menu-item-link, .menu-item-button{
+                  background-color: transparent;
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  padding: 8px 0;
+                  width: 100%;
+                  border: 0;
+                  margin: 0;
+                  color: #474747;
+                }
               }
             }
           }
 
           .right-panel {
-            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            padding: 16px;
+              h3{
+                font-family: $font-family-google-title;
+                font-size: 1.4rem;
+                font-weight: 100;
+              }
+              h4{
+                font-family: $font-family-google-title;
+                font-size: 1rem;
+                text-transform: uppercase;
+                color: #5E5E5E;
+                font-weight: 300;
+              }
+              h5{
+                font-family: $font-family-google-title;
+                font-size: 1rem;
+                font-weight: 600;
+              }
+              p, .link-item, .ms-1{
+                font-size: 0.9rem;
+                font-weight: 300;
+              }
+              .link-item{
+                display: flex;
+                gap: 8px;
+                .link{
+                  display: flex;
+                  gap: 8px;
+                  margin: 0;
+                  padding: 0;
+                  &:hover{
+                    text-decoration: none;
+                    .link-title{
+                      text-decoration: underline;
+                    }
+                  }
+                  .material-icons-outlined{
+                    font-size: 18px;
+                  }
+                }
+              }
+              .introduction-section, .primary-section, .secondary-section {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                border-bottom: 1px solid #ccc;
+                padding: 0 0 16px 0;
+                &:last-of-type{
+                  border-bottom: none;
+                }
+                .group{
+                  display: flex;
+                  flex-direction: column;
+                  gap: 16px;
+                }
+              }
           }
         }
       }

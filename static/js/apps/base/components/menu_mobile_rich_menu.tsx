@@ -38,7 +38,7 @@ const MenuMobileRichMenu = ({
   if (!menuItem) return null;
 
   return (
-    <div>
+    <>
       <div className={"introduction-section"}>
         <h3>{labels[menuItem.label]}</h3>
         {menuItem.introduction && <p>{menuItem.introduction}</p>}
@@ -67,7 +67,7 @@ const MenuMobileRichMenu = ({
           )}
         </div>
       )}
-    </div>
+    </>
   );
 };
 
