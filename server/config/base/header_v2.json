@@ -207,6 +207,7 @@
   {
     "label": "Feedback",
     "ariaLabel": "Give feedback",
-    "url": "{static.feedback}"
+    "url": "{static.feedback}",
+    "exposeInMobileBanner": true
   }
 ]

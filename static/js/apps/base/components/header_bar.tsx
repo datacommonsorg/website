@@ -24,6 +24,7 @@ import { HeaderMenuV2, Labels, Routes } from "../../../shared/types/base";
 import HeaderBarSearch from "./header_bar_search";
 import HeaderLogo from "./header_logo";
 import MenuDesktop from "./menu_desktop";
+import MenuMobile from "./menu_mobile";
 
 interface HeaderBarProps {
   //the name of the application (this may not be "Data Commons" in forked versions).
@@ -66,6 +67,7 @@ const HeaderBar = ({
             routes={routes}
           />
           <HeaderBarSearch />
+          <MenuMobile name={name} menu={menu} labels={labels} routes={routes} />
         </div>
       </nav>
     </header>

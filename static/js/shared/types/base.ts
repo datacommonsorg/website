@@ -70,6 +70,8 @@ export interface HeaderMenuV2 {
   primarySectionGroups?: HeaderMenuGroup[];
   //the content of the secondary column (the smaller column to the right of the introduction column;
   secondarySectionGroups?: HeaderMenuGroup[];
+  //if set to true, will be exposed outside the mobile toggle button and on the banner itself - this should be used with consideration for available space
+  exposeInMobileBanner?: boolean;
 }
 
 // a subsection of the header menu. These contain an optional title and a list of content items.

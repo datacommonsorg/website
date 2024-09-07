@@ -242,9 +242,105 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
       font-size: 1.1rem;
       line-height: 24px;
     }
+
+    .menu-mobile {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+
+      &.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+
+    .menu-toggle {
+      font-size: 35px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100%;
+      background-color: white;
+      overflow: hidden;
+      white-space: nowrap;
+      transition: width 0.3s ease;
+      box-shadow: -1px 0 2px rgba(94, 94, 94, 0.5);
+      z-index: 1000;
+
+      .paper {
+        width: calc(100vw / 2 - 10px);
+        min-width: 300px;
+        max-width: 400px;
+
+        .header {
+          position: relative;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          height: 50px;
+          padding: 0 10px;
+          background: hotpink;
+        }
+
+        .slide-wrapper {
+          display: flex;
+          width: 200%;
+          min-height: calc(100vh - 50px);
+          transition: transform 0.3s ease;
+          &.slide-left {
+            transform: translateX(-50%);
+          }
+
+          .panel {
+            flex: 1 1 50%;
+            max-width: 50%;
+            box-sizing: border-box;
+            max-height: calc(100vh - 50px);
+            overflow-y: auto;
+            white-space: normal;
+          }
+
+          .left-panel {
+            padding: 20px;
+            ul {
+              display: flex;
+              flex-direction: column;
+              gap: 5px;
+              padding: 0;
+              list-style: none;
+              li {
+                display: flex;
+                justify-content: space-between;
+              }
+            }
+          }
+
+          .right-panel {
+            padding: 20px;
+          }
+        }
+      }
+    }
   }
-
-
 }
 
 .header-search-section {
