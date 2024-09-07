@@ -68,6 +68,19 @@ const MenuDesktop = ({
     }
   }, [openMenu]);
 
+  useEffect(() => {
+    const handleScroll = (): void => {
+      if (openMenu !== null) {
+        resetMenu();
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [openMenu]);
+
   return (
     <div className="header-menu" onMouseLeave={handleMouseLeave}>
       <ul className="header-menu-list">
