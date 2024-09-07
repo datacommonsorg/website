@@ -14,24 +14,24 @@
  * limitations under the License.
  */
 
-/* A component to render a section group of the rich menu */
+/* A component to render a section group of the rich menu (both mobile and desktop) */
 
 import React, { ReactElement } from "react";
 
 import { HeaderMenuGroup, Routes } from "../../../shared/types/base";
 import { resolveHref } from "../utilities/utilities";
 
-interface MenuDesktopSectionGroupProps {
+interface MenuRichSectionGroupProps {
   //the menu group to be rendered inside a particular location in the rich menu
   menuGroup: HeaderMenuGroup;
   //the routes dictionary - this is used to convert routes to resolved urls
   routes: Routes;
 }
 
-const MenuDesktopSectionGroup = ({
+const MenuRichSectionGroup = ({
   menuGroup,
   routes,
-}: MenuDesktopSectionGroupProps): ReactElement => {
+}: MenuRichSectionGroupProps): ReactElement => {
   return (
     <div className={"group"}>
       {menuGroup.title && <h4>{menuGroup.title}</h4>}
@@ -92,4 +92,4 @@ const MenuDesktopSectionGroup = ({
   );
 };
 
-export default MenuDesktopSectionGroup;
+export default MenuRichSectionGroup;

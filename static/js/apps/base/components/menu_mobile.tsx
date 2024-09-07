@@ -141,7 +141,10 @@ const MenuMobile = ({
                 {menu.map((item, index) => (
                   <li key={index}>
                     {item.url ? (
-                      <a href={resolveHref(item.url, routes)} className="menu-item-link">
+                      <a
+                        href={resolveHref(item.url, routes)}
+                        className="menu-item-link"
+                      >
                         {labels[item.label]}
                       </a>
                     ) : (
@@ -151,7 +154,9 @@ const MenuMobile = ({
                           className="menu-item-button"
                         >
                           <span>{labels[item.label]}</span>
-                          <span className="material-icons-outlined">arrow_forward</span>
+                          <span className="material-icons-outlined">
+                            arrow_forward
+                          </span>
                         </button>
                       </>
                     )}
