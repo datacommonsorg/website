@@ -20,7 +20,7 @@
 
 import React, { ReactElement } from "react";
 
-import { resolveHref } from "../../utilities/utilities";
+import { resolveHref } from "../../apps/base/utilities/utilities";
 
 interface ToolsProps {
   //the routes dictionary - this is used to convert routes to resolved urls
@@ -33,7 +33,13 @@ const Tools = ({ routes }: ToolsProps): ReactElement => {
       <div className="container">
         <div className="big-description">
           <h3>Data Commons Tools</h3>
-          <p>Data forms the foundation of science, policy, and journalism, but its full potential is often limited. Data Commons addresses this by offering data exploration tools and cloud-based APIs to access and integrate cleaned datasets, boosting their usability across different domains.</p>
+          <p>
+            Data forms the foundation of science, policy, and journalism, but
+            its full potential is often limited. Data Commons addresses this by
+            offering data exploration tools and cloud-based APIs to access and
+            integrate cleaned datasets, boosting their usability across
+            different domains.
+          </p>
         </div>
         <ul className="tools-buttons">
           <li>
@@ -79,10 +85,7 @@ const Tools = ({ routes }: ToolsProps): ReactElement => {
             </a>
           </li>
           <li>
-            <a
-              href={resolveHref("tools.api", routes)}
-              id="api-button"
-            >
+            <a href={resolveHref("tools.api", routes)} id="api-button">
               <span className="tool-icon api"></span>
               API access
             </a>

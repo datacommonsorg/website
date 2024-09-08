@@ -20,8 +20,13 @@ const Quote = (): ReactElement => {
   return (
     <section id="quote" className="quote">
       <div className="container">
-        <blockquote>“We were spending most of our time and resources cleaning data sets. 
-        Then we heard that there was this tool that essentially did that. When you fire up your data Commons instance, the first thing you see is there are billions of data points already available covering basically every country in the world, with data on a whole range of issues.”</blockquote>
+        <blockquote>
+          “We were spending most of our time and resources cleaning data sets.
+          Then we heard that there was this tool that essentially did that. When
+          you fire up your data Commons instance, the first thing you see is
+          there are billions of data points already available covering basically
+          every country in the world, with data on a whole range of issues.”
+        </blockquote>
         <p>- ONE.org</p>
       </div>
     </section>
@@ -29,4 +34,3 @@ const Quote = (): ReactElement => {
 };
 
 export default Quote;
-

@@ -55,7 +55,7 @@ const SlideCarousel = ({
   }, [autoslideInterval, slides.length, activeIndex, isInteracting]);
 
   return (
-    <div className="fade-carousel">
+    <div className="slide-carousel">
       <div className="carousel-inner">
         <div
           className="carousel-tape"

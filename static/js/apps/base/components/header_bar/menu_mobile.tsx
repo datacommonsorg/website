@@ -24,8 +24,8 @@ import React, {
   useState,
 } from "react";
 
-import { HeaderMenuV2, Labels, Routes } from "../../../shared/types/base";
-import { resolveHref } from "../utilities/utilities";
+import { HeaderMenuV2, Labels, Routes } from "../../../../shared/types/base";
+import { resolveHref } from "../../utilities/utilities";
 import MenuMobileRichMenu from "./menu_mobile_rich_menu";
 
 interface MenuMobileProps {

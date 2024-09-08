@@ -20,8 +20,8 @@
 
 import React, { ReactElement, useEffect, useState } from "react";
 
-import { SampleQuestionCategory } from "../../../../shared/types/homepage";
-import { BREAKPOINTS } from "../../utilities/utilities";
+import { BREAKPOINTS } from "../../apps/base/utilities/utilities";
+import { SampleQuestionCategory } from "../../shared/types/homepage";
 import SlideCarousel from "../elements/slide_carousel";
 
 interface SampleQuestionsProps {

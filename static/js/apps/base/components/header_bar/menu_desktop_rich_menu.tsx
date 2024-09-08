@@ -14,33 +14,31 @@
  * limitations under the License.
  */
 
-/* A component to render the rich menu drop-down for the mobile menu */
+/* A component to render the rich menu drop-down for the desktop menu */
 
 import React, { ReactElement } from "react";
 
-import { HeaderMenuV2, Labels, Routes } from "../../../shared/types/base";
+import { HeaderMenuV2, Routes } from "../../../../shared/types/base";
 import MenuRichSectionGroup from "./menu_rich_section_group";
 
-interface MenuMobileRichMenuProps {
-  //the menu item for which we are rendering the rich menu
-  menuItem: HeaderMenuV2 | null;
-  //the labels dictionary - all labels will be passed through this before being rendered. If no value exists, the dictionary will return the key that was sent.
-  labels: Labels;
+interface MenuDesktopRichMenuProps {
+  //the top level header item that will render in the open rich menu container
+  menuItem: HeaderMenuV2;
   //the routes dictionary - this is used to convert routes to resolved urls
   routes: Routes;
+  //a flag to indicate whether the menu is open.
+  open: boolean;
 }
 
-const MenuMobileRichMenu = ({
+const MenuDesktopRichMenu = ({
   menuItem,
-  labels,
   routes,
-}: MenuMobileRichMenuProps): ReactElement => {
-  if (!menuItem) return null;
-
+  open,
+}: MenuDesktopRichMenuProps): ReactElement => {
   return (
-    <>
+    <div className={`rich-menu-content ${open ? "open" : ""}`}>
       <div className={"introduction-section"}>
-        <h3>{labels[menuItem.label]}</h3>
+        <h3>{menuItem.label}</h3>
         {menuItem.introduction && <p>{menuItem.introduction}</p>}
       </div>
       {menuItem.primarySectionGroups?.length > 0 && (
@@ -67,8 +65,8 @@ const MenuMobileRichMenu = ({
           )}
         </div>
       )}
-    </>
+    </div>
   );
 };
 
-export default MenuMobileRichMenu;
+export default MenuDesktopRichMenu;

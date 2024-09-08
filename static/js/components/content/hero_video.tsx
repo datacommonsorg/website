@@ -21,13 +21,29 @@ const Hero = (): ReactElement => {
     <section id="hero" className="hero">
       <div className="container">
         <div className="video-background">
-          <video autoPlay loop muted poster='/images/content/home_hero_poster.png'>
-            <source src='/images/content/home_hero_video.mp4' type='video/mp4' />
+          <video
+            autoPlay
+            loop
+            muted
+            poster="/images/content/home_hero_poster.png"
+          >
+            <source
+              src="/images/content/home_hero_video.mp4"
+              type="video/mp4"
+            />
           </video>
         </div>
         <div className="big-description">
-          <h3>Data Commons aggregates and harmonizes global, open data, giving everyone the power to uncover insights with natural language questions</h3>
-          <p>Data Commons' open source foundation allows organizations to create tailored, private instances, deciding on the openness of their data contributions. <a href="#">Build yours today</a></p>
+          <h3>
+            Data Commons aggregates and harmonizes global, open data, giving
+            everyone the power to uncover insights with natural language
+            questions
+          </h3>
+          <p>
+            Data Commons&rsquo; open source foundation allows organizations to
+            create tailored, private instances, deciding on the openness of
+            their data contributions. <a href="#">Build yours today</a>
+          </p>
         </div>
       </div>
     </section>

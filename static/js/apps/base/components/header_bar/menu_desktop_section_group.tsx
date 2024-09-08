@@ -18,8 +18,8 @@
 
 import React, { ReactElement } from "react";
 
-import { HeaderMenuGroup, Routes } from "../../../shared/types/base";
-import { resolveHref } from "../utilities/utilities";
+import { HeaderMenuGroup, Routes } from "../../../../shared/types/base";
+import { resolveHref } from "../../utilities/utilities";
 
 interface MenuDesktopSectionGroupProps {
   //the menu group to be rendered inside a particular location in the rich menu

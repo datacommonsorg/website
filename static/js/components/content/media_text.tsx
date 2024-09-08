@@ -23,30 +23,35 @@ interface MediaTextProps {
   children: ReactElement;
 }
 
-const MediaText = ({ mediaType, mediaUrl, title, children }: MediaTextProps ): ReactElement => {
+const MediaText = ({
+  mediaType,
+  mediaUrl,
+  title,
+  children,
+}: MediaTextProps): ReactElement => {
   return (
     <section id="text-images" className="text-images">
       <div className="container">
         <div className="header">
-          <h3> { title } </h3>
+          <h3> {title} </h3>
           {/* <h3>Your Data Commons at a glance</h3> */}
         </div>
         <div className="media">
-          { mediaType === "image" ? ( 
-            <img src={ mediaUrl } alt={ title } />
+          {mediaType === "image" ? (
+            <img src={mediaUrl} alt={title} />
           ) : (
-            <iframe 
+            <iframe
               src={`https://www.youtube.com/embed/${mediaUrl}`}
               title="YouTube video player"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen>
-            </iframe>
-          )  }
+              allowFullScreen
+            ></iframe>
+          )}
         </div>
         <div className="text">
-          { children }
+          {children}
           {/* <p> A custom instance natively joins your data and the base Data Commons data (from datacommons.org) in a unified fashion. Your users can visualize and analyze the data seamlessly without the need for further data preparation.</p> 
           <p>You have full control over your own data and computing resources, with the ability to limit access to specific individuals or open it to the general public.</p>
           <p>Note that each new Data Commons is deployed using the Google Cloud Platform (GCP). </p> */}

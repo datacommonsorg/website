@@ -22,18 +22,18 @@
 
 import React, { ReactElement } from "react";
 
+import Build from "../../components/content/build";
+import HeroVideo from "../../components/content/hero_video";
+import Partners from "../../components/content/partners";
+import SampleQuestions from "../../components/content/sample_questions";
+import Tools from "../../components/content/tools";
+import Topics from "../../components/content/topics";
 import { Routes } from "../../shared/types/base";
 import {
   Partner,
   SampleQuestionCategory,
   Topic,
 } from "../../shared/types/homepage";
-import Build from "../base/components/content/build";
-import HeroVideo from "../base/components/content/hero_video";
-import SampleQuestions from "../base/components/content/sample_questions";
-import Tools from "../base/components/content/tools";
-import Topics from "../base/components/content/topics";
-import Partners from "../base/components/content/partners";
 
 interface AppProps {
   //the topics passed from the backend through to the JavaScript via the templates

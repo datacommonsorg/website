@@ -20,7 +20,7 @@
 
 import React, { ReactElement } from "react";
 
-import { Topic } from "../../../../shared/types/homepage";
+import { Topic } from "../../shared/types/homepage";
 
 interface TopicsProps {
   //the topics passed from the backend through to the JavaScript via the templates
@@ -32,11 +32,11 @@ const Topics = ({ topics }: TopicsProps): ReactElement => {
     <section id="topics">
       <div className="container">
         <h3>Topics to explore</h3>
-        <ul className="topics-container" >
+        <ul className="topics-container">
           {topics.map((topic) => (
             <li key={topic.id} className="topic-item">
-              <a 
-                href={topic.browseUrl} 
+              <a
+                href={topic.browseUrl}
                 onClick={(): void => {
                   window.location.href = topic.browseUrl;
                 }}
@@ -45,7 +45,7 @@ const Topics = ({ topics }: TopicsProps): ReactElement => {
                 {topic.title}
               </a>
             </li>
-          ))} 
+          ))}
         </ul>
       </div>
     </section>

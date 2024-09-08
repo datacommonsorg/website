@@ -20,7 +20,7 @@
 
 import React, { ReactElement } from "react";
 
-import { HeaderMenuV2, Labels, Routes } from "../../../shared/types/base";
+import { HeaderMenuV2, Labels, Routes } from "../../../../shared/types/base";
 import HeaderBarSearch from "./header_bar_search";
 import HeaderLogo from "./header_logo";
 import MenuDesktop from "./menu_desktop";

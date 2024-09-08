@@ -21,20 +21,33 @@ const HeroColumns = (): ReactElement => {
     <section id="hero-columns" className="hero-columns">
       <div className="container">
         <div className="col_right">
-          <h2 className="title">Build your Data Commons, overlay your data with global data, and let everyone in your organization uncover insights with natural language questions. Learn how</h2>
+          <h2 className="title">
+            Build your Data Commons, overlay your data with global data, and let
+            everyone in your organization uncover insights with natural language
+            questions. Learn how
+          </h2>
         </div>
         <div className="col_left">
           <div>
             <h4>Build and deploy your own</h4>
-            <p>Launch your own Data Commons and customize it with your own data to better engage your specific audience</p>
+            <p>
+              Launch your own Data Commons and customize it with your own data
+              to better engage your specific audience
+            </p>
           </div>
           <div>
             <h4>Explore data with natural language</h4>
-            <p>Ask questions in your own words and get answers directly from your data</p>
+            <p>
+              Ask questions in your own words and get answers directly from your
+              data
+            </p>
           </div>
           <div>
             <h4>Gain actionable insights</h4>
-            <p>Find actionable insights from your data in connection to global data </p>
+            <p>
+              Find actionable insights from your data in connection to global
+              data{" "}
+            </p>
           </div>
         </div>
       </div>

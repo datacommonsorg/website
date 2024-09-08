@@ -18,14 +18,14 @@
 
 import React, { ReactElement } from "react";
 
-import { NlSearchBar } from "../../../components/nl_search_bar";
+import { NlSearchBar } from "../../../../components/nl_search_bar";
 import {
   GA_EVENT_NL_SEARCH,
   GA_PARAM_QUERY,
   GA_PARAM_SOURCE,
   GA_VALUE_SEARCH_SOURCE_HOMEPAGE,
   triggerGAEvent,
-} from "../../../shared/ga_events";
+} from "../../../../shared/ga_events";
 
 const HeaderBarSearch = (): ReactElement => {
   return (
