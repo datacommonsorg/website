@@ -1,0 +1,111 @@
+@use "./new_variables" as var;
+
+// Questions section
+.questions-carousel{
+  display: flex;
+  gap: calc(#{var.$spacing} * 3);
+  margin-bottom: calc(#{var.$spacing} * 3);
+}
+.questions-carousel-dots{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  gap: var.$spacing;
+  margin: auto;
+  padding: 0;
+  .questions-carousel-dot{
+    display: block;
+    margin: 0;
+    padding: 0;
+    a{
+      display: block;
+      text-decoration: none;
+      display: inline-block;
+      overflow: hidden;
+      text-indent: -1000em;
+      width: 10px;
+      height: 10px;
+      background: white;
+      border: 1px solid #{var.$color-blue};
+      border-radius: 100px;
+    }
+    &.active a{
+      background: var.$color-blue;
+    }
+  }
+}
+.questions-column{
+ display: flex; 
+ flex-direction: column;
+ gap: calc(#{var.$spacing} * 3);
+}
+.question-item {
+  display: block;
+  list-style: none;
+  a{
+    @include var.white-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: calc(#{var.$spacing} * 3);
+    border-radius: calc(#{var.$spacing} * 4);
+    p{
+      font-size: 1.6rem;
+      line-height: 2rem;
+      font-weight: 400;
+    }
+    small{
+      display: inline-block;
+      padding: 2px 8px;
+      font-size: 12px;
+      line-height: 16px;
+      border-radius: 24px;
+    }
+  }
+  &.green a{
+    p {
+      color: var.$color-green;
+    }
+    small{
+      color: var.$color-green_pill_text;
+      background-color: var.$color-green_pill_bckg;
+    }
+  }
+  &.blue a{
+    p {
+      color: var.$color-blue;
+    }
+    small{
+      color: var.$color-blue_pill_text;
+      background-color: var.$color-blue_pill_bckg;
+    }
+  }
+  &.red a{
+    p {
+      color: var.$color-red;
+    }
+    small{
+      color: var.$color-red_pill_text;
+      background-color: var.$color-red_pill_bckg;
+    }
+  }
+  &.yellow a{
+    p {
+      color: var.$color-yellow;
+    }
+    small{
+      color: var.$color-yellow_pill_text;
+      background-color: var.$color-yellow_pill_bckg;
+    }
+  }
+  &.gray a{
+    p {
+      color: var.$color-gray;
+    }
+    small{
+      color: var.$color-gray_pill_text;
+      background-color: var.$color-gray_pill_bckg;
+    }
+  }
+}
