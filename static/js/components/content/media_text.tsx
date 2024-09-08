@@ -38,23 +38,24 @@ const MediaText = ({
         </div>
         <div className="media">
           {mediaType === "image" ? (
-            <img src={mediaUrl} alt={title} />
+            <figure>
+              <img src={mediaUrl} alt={title} />
+            </figure>
           ) : (
-            <iframe
-              src={`https://www.youtube.com/embed/${mediaUrl}`}
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-            ></iframe>
+            <div className="video-player">
+              <iframe
+                src={`https://www.youtube.com/embed/${mediaUrl}`}
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              ></iframe>
+            </div>
           )}
         </div>
         <div className="text">
           {children}
-          {/* <p> A custom instance natively joins your data and the base Data Commons data (from datacommons.org) in a unified fashion. Your users can visualize and analyze the data seamlessly without the need for further data preparation.</p> 
-          <p>You have full control over your own data and computing resources, with the ability to limit access to specific individuals or open it to the general public.</p>
-          <p>Note that each new Data Commons is deployed using the Google Cloud Platform (GCP). </p> */}
         </div>
       </div>
     </section>

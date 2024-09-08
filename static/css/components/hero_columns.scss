@@ -1,6 +1,12 @@
 .hero-columns{
   background-color: var.$color-blue_pill_text;
   color: white;
+  .container{
+    padding: calc(#{var.$spacing} * 12) 0;
+    display: grid;
+    grid-template-columns: 6fr 4fr;
+    gap: calc(#{var.$spacing} * 6);
+  }
   .title{
     @include var.title_xl;
   }

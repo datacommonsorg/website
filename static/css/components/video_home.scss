@@ -20,7 +20,7 @@
 
   .video-container{
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 6fr 4fr;
     gap: calc(#{var.$spacing} * 6);
   }
   .video-description{

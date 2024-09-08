@@ -42,7 +42,7 @@
   }
   .big-description{
     margin-bottom: calc(#{var.$spacing} * 4);
-    max-width: 650px;
+    max-width: 57%;
     h3{
       @include var.title_xl;
     }

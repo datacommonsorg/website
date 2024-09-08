@@ -19,7 +19,7 @@
 @import "base";
 @import "./components/partners";
 @import "./components/hero_columns";
-@import "./components/text_image";
+@import "./components/media_text";
 @import "./components/quote";
 
 #about {
@@ -34,11 +34,11 @@
     margin-bottom: calc(#{var.$spacing} * 4);
   }
   .container{
-    padding: var.$container-horizontal-padding 0;
+    padding: calc(#{var.$spacing} * 8) 0;
   }
   .big-description{
     margin-bottom: calc(#{var.$spacing} * 4);
-    max-width: 650px;
+    max-width: 57%;
     h3{
       @include var.title_xl;
     }
