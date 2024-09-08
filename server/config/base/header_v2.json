@@ -1,7 +1,7 @@
 [
   {
     "label": "Overview",
-    "ariaLabel": "Data commons overview",
+    "ariaLabel": "Data Commons overview",
     "introduction": "Data Commons is an open-source platform aggregating global public data for easy exploration using natural language.",
     "primarySectionGroups": [
       {
@@ -44,16 +44,6 @@
     "secondarySectionGroups": [
       {
         "title": "Other Data Commons",
-        "items": [
-          {
-            "title": "Biomedical Data Commons",
-            "url": "https://docs.datacommons.org/datasets/Biomedical.html",
-            "type": "external",
-            "description": "Data Commons has invested into harmonized other domain specific topics like Biomedical data"
-          }
-        ]
-      },
-      {
         "items": [
           {
             "title": "Partners",

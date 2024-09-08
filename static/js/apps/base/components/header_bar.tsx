@@ -47,8 +47,8 @@ const HeaderBar = ({
   routes,
 }: HeaderBarProps): ReactElement => {
   return (
-    <header id="main-header-v2">
-      <nav id="main-nav-v2">
+    <header id="main-header">
+      <nav id="main-nav">
         <div className="navbar-menu-large">
           <HeaderLogo
             name={name}
