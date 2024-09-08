@@ -20,14 +20,18 @@
 
 .questions-container {
   display: flex;
-  gap: calc(#{var.$spacing} * 3);
-  margin-bottom: calc(#{var.$spacing} * 3);
+  gap: calc(# {var.$spacing} * 3);
+  margin-bottom: calc(# {var.$spacing} * 3);
+  padding: 0 4px; // account for boxes shadows
 }
 
 .questions-column {
   display: flex;
+  flex-basis: 100%;
+  flex-grow: 1;
+  flex-shrink: 1;
   flex-direction: column;
-  gap: calc(#{var.$spacing} * 3);
+  gap: calc(# {var.$spacing} * 3);
 }
 
 .question-item {
@@ -44,54 +48,54 @@
     p{
       @include var.text_lg;
     }
-    small{
+    small {
       @include var.text_xs;
       display: inline-block;
       padding: 2px 8px;
       border-radius: 24px;
     }
   }
-  &.green a{
+  &.green a {
     p {
       color: var.$color-green;
     }
-    small{
+    small {
       color: var.$color-green_pill_text;
       background-color: var.$color-green_pill_bckg;
     }
   }
-  &.blue a{
+  &.blue a {
     p {
       color: var.$color-blue;
     }
-    small{
+    small {
       color: var.$color-blue_pill_text;
       background-color: var.$color-blue_pill_bckg;
     }
   }
-  &.red a{
+  &.red a {
     p {
       color: var.$color-red;
     }
-    small{
+    small {
       color: var.$color-red_pill_text;
       background-color: var.$color-red_pill_bckg;
     }
   }
-  &.yellow a{
+  &.yellow a {
     p {
       color: var.$color-yellow;
     }
-    small{
+    small {
       color: var.$color-yellow_pill_text;
       background-color: var.$color-yellow_pill_bckg;
     }
   }
-  &.gray a{
+  &.gray a {
     p {
       color: var.$color-gray;
     }
-    small{
+    small {
       color: var.$color-gray_pill_text;
       background-color: var.$color-gray_pill_bckg;
     }

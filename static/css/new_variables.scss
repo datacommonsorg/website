@@ -31,35 +31,35 @@ $color-gray_pill_bckg:#E2E2EC;
 
 // Title sizes
 
-@mixin title_xl{
+@mixin title_xl {
   font-size: 2.25rem;
   line-height: 2.75rem;
   font-weight: 300;
   background-color: yellow;
 }
 
-@mixin title_lg{
+@mixin title_lg {
   font-size: 2.25rem;
   line-height: 2.75rem;
   font-weight: 300;
   background-color: orange;
 }
 
-@mixin title_md{
+@mixin title_md {
   font-size: 2rem;
   line-height: 2.5rem;
   font-weight: 300;
   background-color: red;
 }
 
-@mixin title_sm{
+@mixin title_sm {
   font-size: 1.4rem;
   line-height: 1.75rem;
   font-weight: 300;
   background-color: blue;
 }
 
-@mixin title_xs{
+@mixin title_xs {
   font-size: 2.25rem;
   line-height: 2.75rem;
   font-weight: 300;
@@ -69,35 +69,35 @@ $color-gray_pill_bckg:#E2E2EC;
 
 // Text Sizes
 
-@mixin text_xl{
+@mixin text_xl {
   font-size: 1.75rem;
   line-height: 2.25rem;
   font-weight: 400;
   background-color: yellow;
 }
 
-@mixin text_lg{
+@mixin text_lg {
   font-size: 1.6rem;
   line-height: 2rem;
   font-weight: 400;
   background-color: orange;
 }
 
-@mixin text_md{
+@mixin text_md {
   font-size: 1rem;
   line-height: 1.5rem;
   font-weight: 400;
   background-color: red;
 }
 
-@mixin text_sm{
+@mixin text_sm {
   font-size: 0.875;
   line-height: 1.25rem;
   font-weight: 400;
   background-color: blue;
 }
 
-@mixin text_xs{
+@mixin text_xs {
   font-size: 0.75rem;
   line-height: 0.625rem;
   font-weight: 400;
@@ -108,26 +108,26 @@ $color-gray_pill_bckg:#E2E2EC;
 
 // Reusable Bits
 
-@mixin shadow{
+@mixin shadow {
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
 }
 
-@mixin white-box{
+@mixin white-box {
   @include shadow;
   background-color: $color-white-container;
   text-decoration: none;
-  &:hover{
+  &:hover {
     background-color: rgba(11, 87, 208, 0.08);
   }
 }
 
-@mixin responsive-video{
+@mixin responsive-video {
   box-sizing: border-box;
   position: relative;
   width: 100%;
   display: block;
   overflow: hidden;
-  iframe, video{
+  iframe, video {
     margin: 0;
     padding: 0;
     border: 0;
@@ -145,7 +145,7 @@ $color-gray_pill_bckg:#E2E2EC;
 
 // Generic Elements
 
-.separator{
+.separator {
   margin: auto;
   width: 100%;
   border: 0;

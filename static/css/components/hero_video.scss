@@ -18,7 +18,7 @@
  * SCSS for the homepage hero component
  */
 
-.hero{
+.hero {
   position: relative;
   display: flex;
   align-items: center;
@@ -26,7 +26,7 @@
   min-height: 500px;
   max-height: 50vh;
   background-color: var.$color-blue-bckg;
-  .video-background{
+  .video-background {
     @include var.responsive-video;
     position: absolute;
     top: 0;
@@ -37,7 +37,7 @@
     height: 100%;
     background: var.$color-blue-bckg;
   }
-  .big-description{
+  .big-description {
     display: flex;
     flex-direction: column;
     align-items: center;
