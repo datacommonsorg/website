@@ -45,7 +45,30 @@
   }
   // Hero section
   .hero{
+    min-height: 80vh;
     background-color: var.$color-blue-bckg;
+    position: relative;
+    display: flex;
+    align-items: center;
+    .video-background{
+      @include var.responsive-video;
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      z-index: 0;
+      height: 100%;
+      background: var.$color-blue-bckg;
+    }
+    .big-description{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      position: relative;
+      z-index: 1;
+    }
   }
   // Topics section
   .topics-container{
@@ -249,27 +272,9 @@
     }
   }
   .video-player{
-    box-sizing: border-box;
-    position: relative;
-    width: 100%;
-    display: block;
+    @include var.responsive-video;
     padding-bottom: 56.25%;
     border-radius: 20px;
-    overflow: hidden;
-    & > iframe{
-        margin: 0;
-        padding: 0;
-        border: 0;
-        box-sizing: border-box;
-        display: block;
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-    }
   }
   // Partners section
   .partners-items{
