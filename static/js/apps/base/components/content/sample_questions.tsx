@@ -15,53 +15,86 @@
  */
 
 /**
- * A component that renders the sample questions section of the home page
+ * A component to display clickable sample questions on a carousel for the homepage
  */
 
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 
 import { SampleQuestionCategory } from "../../../../shared/types/homepage";
+import { BREAKPOINTS } from "../../utilities/utilities";
+import SlideCarousel from "../elements/slide_carousel";
 
 interface SampleQuestionsProps {
-  //the sample question categories and questions passed from the backend through to the JavaScript via the templates
   sampleQuestions: SampleQuestionCategory[];
 }
 
 const colors = ["green", "blue", "red", "yellow", "gray"];
 
+const calculateColumnsPerSlide = (): number => {
+  if (window.innerWidth < BREAKPOINTS.sm) return 1;
+  if (window.innerWidth < BREAKPOINTS.md) return 2;
+  return 3;
+};
+
 const SampleQuestions = ({
   sampleQuestions,
 }: SampleQuestionsProps): ReactElement => {
-  console.log(sampleQuestions);
+  const [columnsPerSlide, setColumnsPerSlide] = useState(() =>
+    calculateColumnsPerSlide()
+  );
+  useEffect(() => {
+    const handleResize = (): void => {
+      setColumnsPerSlide(calculateColumnsPerSlide());
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const createSlides = (): ReactElement[] => {
+    const slides: ReactElement[] = [];
+
+    for (let i = 0; i < sampleQuestions.length; i += columnsPerSlide) {
+      slides.push(
+        <div className="questions-container" key={i}>
+          {sampleQuestions
+            .slice(i, i + columnsPerSlide)
+            .map((category, index) => {
+              const overallIndex = i + index;
+
+              return (
+                <div key={category.category} className="questions-column">
+                  {category.questions.map((question) => (
+                    <div
+                      key={question}
+                      className={`question-item ${
+                        colors[overallIndex % colors.length]
+                      }`}
+                    >
+                      <a href={`/explore#q=${encodeURIComponent(question)}`}>
+                        <p>{question}</p>
+                        <small>{category.category}</small>
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              );
+            })}
+        </div>
+      );
+    }
+    return slides;
+  };
+
+  const slides = createSlides();
+
   return (
     <section id="sample-questions">
       <div className="container">
         <h3>Sample Questions</h3>
-        <div className="questions-carousel">
-          {sampleQuestions.map((category, index) => (
-            <div key={category.category} className="questions-column">
-              {category.questions.map((question) => (
-                <div
-                  key={question}
-                  className={`question-item ${colors[index % colors.length]}`}
-                >
-                  <a href={`/explore#q=${encodeURIComponent(question)}`}>
-                    <p>{question}</p>
-                    <small>{category.category}</small>
-                  </a>
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-        <ul className="questions-carousel-dots">
-          <li className="questions-carousel-dot active">
-            <a href="#">Slide 1</a>
-          </li>
-          <li className="questions-carousel-dot">
-            <a href="#">Slide 2</a>
-          </li>
-        </ul>
+        <SlideCarousel slides={slides} autoslideInterval={5000} />
       </div>
     </section>
   );

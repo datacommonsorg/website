@@ -15,14 +15,16 @@
  */
 
 /* Styles for the homepage */
+
 @use "./new_variables" as var;
 @import "base";
 @import "./components/hero_video";
-@import "./components/questions_carousel";
+@import "./components/sample_questions";
 @import "./components/tools";
 @import "./components/partners";
 @import "./components/video_home";
 @import "./components/topics";
+@import "./components/slide_carousel";
 
 #homepage {
   // General Styles

@@ -1,46 +1,39 @@
-// Questions section
-.questions-carousel{
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * SCSS for the sample questions component.
+ */
+
+.questions-container {
   display: flex;
   gap: calc(#{var.$spacing} * 3);
   margin-bottom: calc(#{var.$spacing} * 3);
 }
-.questions-carousel-dots{
+
+.questions-column {
   display: flex;
-  justify-content: center;
-  width: 100%;
-  gap: var.$spacing;
-  margin: auto;
-  padding: 0;
-  .questions-carousel-dot{
-    display: block;
-    margin: 0;
-    padding: 0;
-    a{
-      display: block;
-      text-decoration: none;
-      display: inline-block;
-      overflow: hidden;
-      text-indent: -1000em;
-      width: 10px;
-      height: 10px;
-      background: white;
-      border: 1px solid #{var.$color-blue};
-      border-radius: 100px;
-    }
-    &.active a{
-      background: var.$color-blue;
-    }
-  }
+  flex-direction: column;
+  gap: calc(#{var.$spacing} * 3);
 }
-.questions-column{
- display: flex; 
- flex-direction: column;
- gap: calc(#{var.$spacing} * 3);
-}
+
 .question-item {
   display: block;
   list-style: none;
-  a{
+  a {
     @include var.white-box;
     display: flex;
     flex-direction: column;
@@ -48,7 +41,7 @@
     gap: 10px;
     padding: calc(#{var.$spacing} * 3);
     border-radius: calc(#{var.$spacing} * 4);
-    p{
+    p {
       font-size: 1.6rem;
       line-height: 2rem;
       font-weight: 400;
