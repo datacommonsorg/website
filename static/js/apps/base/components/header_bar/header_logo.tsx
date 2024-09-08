@@ -20,7 +20,7 @@
 
 import React, { ReactElement } from "react";
 
-import { Labels, Routes } from "../../../shared/types/base";
+import { Labels, Routes } from "../../../../shared/types/base";
 
 interface HeaderLogoProps {
   //the name of the application (this may not be "Data Commons" in forked versions).

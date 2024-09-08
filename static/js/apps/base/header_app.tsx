@@ -21,7 +21,7 @@
 import React, { ReactElement } from "react";
 
 import { HeaderMenuV2, Labels, Routes } from "../../shared/types/base";
-import HeaderBar from "./components/header_bar";
+import HeaderBar from "./components/header_bar/header_bar";
 
 interface HeaderAppProps {
   //the name of the application (this may not be "Data Commons" in forked versions).

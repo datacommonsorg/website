@@ -18,8 +18,8 @@
 
 import React, { ReactElement, useEffect, useRef, useState } from "react";
 
-import { HeaderMenuV2, Labels, Routes } from "../../../shared/types/base";
-import { resolveHref, slugify } from "../utilities/utilities";
+import { HeaderMenuV2, Labels, Routes } from "../../../../shared/types/base";
+import { resolveHref, slugify } from "../../utilities/utilities";
 import MenuDesktopRichMenu from "./menu_desktop_rich_menu";
 
 interface MenuDesktopProps {
