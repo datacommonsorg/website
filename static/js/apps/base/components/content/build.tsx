@@ -26,9 +26,9 @@ const Build = (): ReactElement => {
         </div>
         <h3>United Nations Data Commons for the SDGs</h3>
         <div className="video-container">
-          <div className="video-player">\
+          <div className="video-player">
             <iframe 
-              src="https://www.youtube.com/embed/O6iVsS-RDYI?si=7ZaxonNPFjpvtqnu"
+              src="https://www.youtube.com/embed/O6iVsS-RDYI"
               title="YouTube video player"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
