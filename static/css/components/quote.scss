@@ -1,0 +1,8 @@
+.quote{
+  blockquote{
+    @include var.title_xl;
+  }
+  p{
+    @include var.text_lg;
+  }
+}

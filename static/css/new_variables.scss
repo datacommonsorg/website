@@ -1,5 +1,9 @@
+// Size and Spacing Variables
+
 $spacing: 8px;
 $container-horizontal-padding: 3rem;
+
+// Color Variables
 
 $color-white-container: #F8FAFD;
 
@@ -24,6 +28,86 @@ $color-gray:#444746;
 $color-gray_pill_text:#945700;
 $color-gray_pill_bckg:#E2E2EC;
 
+
+// Title sizes
+
+@mixin title_xl{
+  font-size: 2.25rem;
+  line-height: 2.75rem;
+  font-weight: 300;
+  background-color: yellow;
+}
+
+@mixin title_lg{
+  font-size: 2.25rem;
+  line-height: 2.75rem;
+  font-weight: 300;
+  background-color: orange;
+}
+
+@mixin title_md{
+  font-size: 2rem;
+  line-height: 2.5rem;
+  font-weight: 300;
+  background-color: red;
+}
+
+@mixin title_sm{
+  font-size: 1.4rem;
+  line-height: 1.75rem;
+  font-weight: 300;
+  background-color: blue;
+}
+
+@mixin title_xs{
+  font-size: 2.25rem;
+  line-height: 2.75rem;
+  font-weight: 300;
+  background-color: green;
+}
+
+
+// Text Sizes
+
+@mixin text_xl{
+  font-size: 1.75rem;
+  line-height: 2.25rem;
+  font-weight: 400;
+  background-color: yellow;
+}
+
+@mixin text_lg{
+  font-size: 1.6rem;
+  line-height: 2rem;
+  font-weight: 400;
+  background-color: orange;
+}
+
+@mixin text_md{
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 400;
+  background-color: red;
+}
+
+@mixin text_sm{
+  font-size: 0.875;
+  line-height: 1.25rem;
+  font-weight: 400;
+  background-color: blue;
+}
+
+@mixin text_xs{
+  font-size: 0.75rem;
+  line-height: 0.625rem;
+  font-weight: 400;
+  background-color: green;
+}
+
+
+
+// Reusable Bits
+
 @mixin shadow{
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
 }
@@ -35,11 +119,6 @@ $color-gray_pill_bckg:#E2E2EC;
   &:hover{
     background-color: rgba(11, 87, 208, 0.08);
   }
-}
-
-@mixin big-text{
-  font-size: 1.4rem;
-  line-height: 1.73rem;
 }
 
 @mixin responsive-video{
@@ -63,6 +142,8 @@ $color-gray_pill_bckg:#E2E2EC;
     left: 0;
   }
 }
+
+// Generic Elements
 
 .separator{
   margin: auto;

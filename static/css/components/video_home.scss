@@ -6,7 +6,7 @@
   }
   .video-description{
     p{
-      @include var.big-text;
+      @include var.text_lg;
     }
   }
   .video-player{

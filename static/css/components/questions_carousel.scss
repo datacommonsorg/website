@@ -49,15 +49,12 @@
     padding: calc(#{var.$spacing} * 3);
     border-radius: calc(#{var.$spacing} * 4);
     p{
-      font-size: 1.6rem;
-      line-height: 2rem;
-      font-weight: 400;
+      @include var.text_lg;
     }
     small{
+      @include var.text_xs;
       display: inline-block;
       padding: 2px 8px;
-      font-size: 12px;
-      line-height: 16px;
       border-radius: 24px;
     }
   }

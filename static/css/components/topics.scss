@@ -15,6 +15,7 @@
     list-style: none;
     a{
       @include var.white-box;
+      @include var.text_sm;
       display: flex;
       justify-content: center;
       align-items: center;
