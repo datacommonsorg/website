@@ -1,0 +1,16 @@
+// Build Your Own section
+  .video-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: calc(#{var.$spacing} * 6);
+  }
+  .video-description{
+    p{
+      @include var.big-text;
+    }
+  }
+  .video-player{
+    @include var.responsive-video;
+    padding-bottom: 56.25%;
+    border-radius: 20px;
+  }

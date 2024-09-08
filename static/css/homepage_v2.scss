@@ -20,6 +20,10 @@
 @import "base";
 @import "./components/hero";
 @import "./components/questions_carousel";
+@import "./components/tools";
+@import "./components/partners";
+@import "./components/video_home";
+@import "./components/topics";
 
 #homepage {
   // General Styles
@@ -46,136 +50,6 @@
     }
     p{
       @include var.big-text;
-    }
-  }
-  
-  // Topics section
-  .topics-container{
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: calc(#{var.$spacing} * 2);
-    max-width: 80%;
-    @include media-breakpoint-down(md) {
-      max-width: 100%;
-    }
-  }
-  .topic-item {
-    display: block;
-    list-style: none;
-    a{
-      @include var.white-box;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      border-radius: calc(#{var.$spacing} * 10);
-      padding: 10px calc(#{var.$spacing} * 3) 10px calc(#{var.$spacing} * 2);
-    }
-  }
-  // Tools section
-  .tools{
-    padding-top: calc(#{var.$spacing} * 10);
-    padding-bottom: calc(#{var.$spacing} * 10);
-    background: var.$color-blue-bckg;
-  }
-  .tools-buttons{
-    display: flex;
-    align-items: stretch;
-    flex-wrap: wrap;
-    gap: calc(#{var.$spacing} * 3);
-    margin: 0;
-    padding: 0;
-    li{
-      display: block;
-      padding: 0;
-      margin: 0;
-      flex-basis: 200px;
-      a{
-        @include var.white-box;
-        display: flex;
-        width: 100%;
-        height: 100%;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: calc(#{var.$spacing} * 2);
-        padding: calc(#{var.$spacing} * 3);
-        border-radius: calc(#{var.$spacing} * 4);
-        font-size: 1.75rem;
-        line-height: 2.25rem;
-      }
-    }
-  }
-  .tool-icon{
-    display: block;
-    width: 32px;
-    height: 32px;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: 100%;
-    &.timeline{
-      background-image: url('/images/icons/icon-timeline.svg')
-    }
-    &.api{
-      background-image: url('/images/icons/icon-api.svg')
-    }
-    &.download{
-      background-image: url('/images/icons/icon-download.svg')
-    }
-    &.map{
-      background-image: url('/images/icons/icon-map.svg')
-    }
-    &.scaterplot{
-      background-image: url('/images/icons/icon-scaterplot.svg')
-    }
-  }
-  // Build Your Own section
-  .video-container{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: calc(#{var.$spacing} * 6);
-  }
-  .video-description{
-    p{
-      @include var.big-text;
-    }
-  }
-  .video-player{
-    @include var.responsive-video;
-    padding-bottom: 56.25%;
-    border-radius: 20px;
-  }
-  // Partners section
-  .partners-items{
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: calc(#{var.$spacing} * 3);
-    margin: 0;
-    margin-top: calc(#{var.$spacing} * 3);
-    padding: 0;
-    li{
-      display: block;
-      margin: 0;
-      padding: 0;
-      a{
-        display: block;
-        border-radius: 300px;
-        transition: transform 0.3s ease-in-out, border 0.3s ease-in-out;
-        border: 2px solid transparent;
-        img{
-          display: block;
-          width: 100%;
-          height: auto;
-          max-width: 90px;
-        }
-        &:hover{
-          @include var.shadow;
-          transform: translateY(-5px);
-          border: 2px solid white;
-        }
-      }
     }
   }
 }

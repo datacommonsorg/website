@@ -1,0 +1,25 @@
+// Topics section
+  .topics-container{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: calc(#{var.$spacing} * 2);
+    max-width: 80%;
+    @include media-breakpoint-down(md) {
+      max-width: 100%;
+    }
+  }
+  .topic-item {
+    display: block;
+    list-style: none;
+    a{
+      @include var.white-box;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      border-radius: calc(#{var.$spacing} * 10);
+      padding: 10px calc(#{var.$spacing} * 3) 10px calc(#{var.$spacing} * 2);
+    }
+  }
