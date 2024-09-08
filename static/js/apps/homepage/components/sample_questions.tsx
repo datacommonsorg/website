@@ -14,118 +14,53 @@
  * limitations under the License.
  */
 
+/**
+ * A component that renders the sample questions section of the home page
+ */
+
 import React, { ReactElement } from "react";
 
-const SampleQuestions = (): ReactElement => {
+import { SampleQuestionCategory } from "../../../shared/types/homepage";
+
+interface SampleQuestionsProps {
+  //the sample question categories and questions passed from the backend through to the JavaScript via the templates
+  sampleQuestions: SampleQuestionCategory[];
+}
+
+const colors = ["green", "blue", "red", "yellow", "gray"];
+
+const SampleQuestions = ({
+  sampleQuestions,
+}: SampleQuestionsProps): ReactElement => {
+  console.log(sampleQuestions);
   return (
-    <section  id="sample-questions">
+    <section id="sample-questions">
       <div className="container">
         <h3>Sample Questions</h3>
         <div className="questions-carousel">
-          <div className="questions-column">
-            <div className="question-item green">
-              <a href="#">
-                <p>Which counties in the US have the most smoke pollution?</p>
-                <small>Sustainabilty</small>
-              </a>
+          {sampleQuestions.map((category, index) => (
+            <div key={category.category} className="questions-column">
+              {category.questions.map((question) => (
+                <div
+                  key={question}
+                  className={`question-item ${colors[index % colors.length]}`}
+                >
+                  <a href={`/explore#q=${encodeURIComponent(question)}`}>
+                    <p>{question}</p>
+                    <small>{category.category}</small>
+                  </a>
+                </div>
+              ))}
             </div>
-            <div className="question-item green">
-              <a href="#">
-                <p>Show me the breakdown of businesses by industry type in the US</p>
-                <small>Sustainabilty</small>
-              </a>
-            </div>
-            <div className="question-item green">
-              <a href="#">
-                <p>Which counties in the US have the most smoke pollution?</p>
-                <small>Sustainabilty</small>
-              </a>
-            </div>
-          </div>
-          <div className="questions-column">
-            <div className="question-item blue">
-              <a href="#">
-                <p>Which counties in the US have the most smoke pollution?</p>
-                <small>Sustainabilty</small>
-              </a>
-            </div>
-            <div className="question-item blue">
-              <a href="#">
-                <p>Show me the breakdown of businesses by industry type in the US</p>
-                <small>Sustainabilty</small>
-              </a>
-            </div>
-            <div className="question-item blue">
-              <a href="#">
-                <p>Which counties in the US have the most smoke pollution?</p>
-                <small>Sustainabilty</small>
-              </a>
-            </div>
-          </div>
-          <div className="questions-column">
-            <div className="question-item red">
-              <a href="#">
-                <p>Which counties in the US have the most smoke pollution?</p>
-                <small>Sustainabilty</small>
-              </a>
-            </div>
-            <div className="question-item red">
-              <a href="#">
-                <p>Show me the breakdown of businesses by industry type in the US</p>
-                <small>Sustainabilty</small>
-              </a>
-            </div>
-            <div className="question-item red">
-              <a href="#">
-                <p>Which counties in the US have the most smoke pollution?</p>
-                <small>Sustainabilty</small>
-              </a>
-            </div>
-          </div>
-          <div className="questions-column">
-            <div className="question-item yellow">
-              <a href="#">
-                <p>Which counties in the US have the most smoke pollution?</p>
-                <small>Sustainabilty</small>
-              </a>
-            </div>
-            <div className="question-item yellow">
-              <a href="#">
-                <p>Show me the breakdown of businesses by industry type in the US</p>
-                <small>Sustainabilty</small>
-              </a>
-            </div>
-            <div className="question-item yellow">
-              <a href="#">
-                <p>Which counties in the US have the most smoke pollution?</p>
-                <small>Sustainabilty</small>
-              </a>
-            </div>
-          </div>
-          <div className="questions-column">
-            <div className="question-item gray">
-              <a href="#">
-                <p>Which counties in the US have the most smoke pollution?</p>
-                <small>Sustainabilty</small>
-              </a>
-            </div>
-            <div className="question-item gray">
-              <a href="#">
-                <p>Show me the breakdown of businesses by industry type in the US</p>
-                <small>Sustainabilty</small>
-              </a>
-            </div>
-            <div className="question-item gray">
-              <a href="#">
-                <p>Which counties in the US have the most smoke pollution?</p>
-                <small>Sustainabilty</small>
-              </a>
-            </div>
-          </div>
+          ))}
         </div>
         <ul className="questions-carousel-dots">
-          <li className="questions-carousel-dot active"><a href="#">Slide 1</a></li>
-          <li className="questions-carousel-dot"><a href="#">Slide 2</a></li>
+          <li className="questions-carousel-dot active">
+            <a href="#">Slide 1</a>
+          </li>
+          <li className="questions-carousel-dot">
+            <a href="#">Slide 2</a>
+          </li>
         </ul>
       </div>
     </section>

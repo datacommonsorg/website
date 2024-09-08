@@ -22,7 +22,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { loadLocaleData } from "../../i18n/i18n";
-import { Topic } from "../../shared/types/homepage";
+import {
+  Partner,
+  SampleQuestionCategory,
+  Topic,
+} from "../../shared/types/homepage";
 import { extractRoutes } from "../base/utilities/utilities";
 import { App } from "./app_v2";
 
@@ -38,7 +42,10 @@ function renderPage(): void {
   const metadataContainer = document.getElementById("metadata-homepage");
 
   const topics = JSON.parse(metadataContainer.dataset.topics) as Topic[];
-  const partners = JSON.parse(metadataContainer.dataset.partners);
+  const partners = JSON.parse(metadataContainer.dataset.partners) as Partner[];
+  const sampleQuestions = JSON.parse(
+    metadataContainer.dataset.sampleQuestions
+  ) as SampleQuestionCategory[];
 
   const routes = extractRoutes();
 
@@ -46,6 +53,7 @@ function renderPage(): void {
     React.createElement(App, {
       topics,
       partners,
+      sampleQuestions,
       routes,
     }),
     document.getElementById("app-container")
