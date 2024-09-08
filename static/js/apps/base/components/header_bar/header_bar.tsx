@@ -15,46 +15,63 @@
  */
 
 /**
- * The app that renders the header component on all pages via the base template
+ * A component that renders the header on all pages via the base template.
  */
 
 import React, { ReactElement } from "react";
 
-import { HeaderMenuV2, Labels, Routes } from "../../shared/types/base";
-import HeaderBar from "./components/header_bar/header_bar";
+import { HeaderMenuV2, Labels, Routes } from "../../../../shared/types/base";
+import HeaderBarSearch from "./header_bar_search";
+import HeaderLogo from "./header_logo";
+import MenuDesktop from "./menu_desktop";
+import MenuMobile from "./menu_mobile";
 
-interface HeaderAppProps {
+interface HeaderBarProps {
   //the name of the application (this may not be "Data Commons" in forked versions).
   name: string;
   //a path to the logo to be displayed in the header
   logoPath: string;
   //the data that will populate the header menu.
-  headerMenu: HeaderMenuV2[];
+  menu: HeaderMenuV2[];
   //the labels dictionary - all labels will be passed through this before being rendered. If no value exists, the dictionary will return the key that was sent.
   labels: Labels;
   //the routes dictionary - this is used to convert routes to resolved urls
   routes: Routes;
 }
 
-/**
- * Header application container
- */
-export function HeaderApp({
+const HeaderBar = ({
   name,
   logoPath,
-  headerMenu,
+  menu,
   labels,
   routes,
-}: HeaderAppProps): ReactElement {
+}: HeaderBarProps): ReactElement => {
   return (
-    <>
-      <HeaderBar
-        name={name}
-        logoPath={logoPath}
-        menu={headerMenu}
-        labels={labels}
-        routes={routes}
-      />
-    </>
+    <header id="main-header">
+      <nav id="main-nav">
+        <div className="navbar-menu-large">
+          <HeaderLogo
+            name={name}
+            logoPath={logoPath}
+            labels={labels}
+            routes={routes}
+          />
+          <HeaderBarSearch />
+          <MenuDesktop menu={menu} labels={labels} routes={routes} />
+        </div>
+        <div className="navbar-menu-mobile">
+          <HeaderLogo
+            name={name}
+            logoPath={logoPath}
+            labels={labels}
+            routes={routes}
+          />
+          <HeaderBarSearch />
+          <MenuMobile menu={menu} labels={labels} routes={routes} />
+        </div>
+      </nav>
+    </header>
   );
-}
+};
+
+export default HeaderBar;

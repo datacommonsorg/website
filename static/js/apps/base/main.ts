@@ -22,7 +22,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { loadLocaleData } from "../../i18n/i18n";
-import { FooterMenu, HeaderMenu } from "../../shared/types/base";
+import { FooterMenu, HeaderMenuV2 } from "../../shared/types/base";
 import { FooterApp } from "./footer_app";
 import { HeaderApp } from "./header_app";
 import { extractLabels, extractRoutes } from "./utilities/utilities";
@@ -40,7 +40,7 @@ function renderPage(): void {
 
   const headerMenu = JSON.parse(
     metadataContainer.dataset.header
-  ) as HeaderMenu[];
+  ) as HeaderMenuV2[];
   const footerMenu = JSON.parse(
     metadataContainer.dataset.footer
   ) as FooterMenu[];
