@@ -31,6 +31,9 @@ interface MenuDesktopProps {
   routes: Routes;
 }
 
+//TODO: verify the desired length of the timer
+const MENU_CLOSE_TIMER = 250;
+
 const MenuDesktop = ({
   menu,
   labels,
@@ -39,6 +42,7 @@ const MenuDesktop = ({
   const [openMenu, setOpenMenu] = useState<number | null>(null);
   const [panelHeight, setPanelHeight] = useState<number>(0);
   const submenuRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const closeMenuTimer = useRef<NodeJS.Timeout | null>(null);
 
   const resetMenu = (): void => {
     setOpenMenu(null);
@@ -59,7 +63,15 @@ const MenuDesktop = ({
   };
 
   const handleMouseLeave = (): void => {
-    resetMenu();
+    closeMenuTimer.current = setTimeout(() => {
+      resetMenu();
+    }, MENU_CLOSE_TIMER);
+  };
+
+  const handleMouseEnter = (): void => {
+    if (closeMenuTimer.current) {
+      clearTimeout(closeMenuTimer.current);
+    }
   };
 
   useEffect(() => {
@@ -82,7 +94,11 @@ const MenuDesktop = ({
   }, [openMenu]);
 
   return (
-    <div className="header-menu" onMouseLeave={handleMouseLeave}>
+    <div
+      className="header-menu"
+      onMouseLeave={handleMouseLeave}
+      onMouseEnter={handleMouseEnter}
+    >
       <ul className="header-menu-list">
         {menu.map((menuItem, index) => (
           <li
