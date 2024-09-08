@@ -1,0 +1,43 @@
+$spacing: 8px;
+$container-horizontal-padding: 3rem;
+
+$color-white-container: #F8FAFD;
+
+$color-blue:#0B57D0;
+$color-blue_pill_text:#041E49;
+$color-blue_pill_bckg:#E8F0FE;
+$color-blue-bckg: #F6F9FF;
+
+$color-green:#146C2E;
+$color-green_pill_text:#072711;
+$color-green_pill_bckg:#C4EED0;
+
+$color-red:#B3261E;
+$color-red_pill_text:#410E0B;
+$color-red_pill_bckg:#F9DEDC;
+
+$color-yellow:#945700;
+$color-yellow_pill_text:#410E0B;
+$color-yellow_pill_bckg:#FFF0D1;
+
+$color-gray:#444746;
+$color-gray_pill_text:#945700;
+$color-gray_pill_bckg:#E2E2EC;
+
+@mixin shadow{
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+}
+
+@mixin white-box{
+  @include shadow;
+  background-color: $color-white-container;
+  text-decoration: none;
+  &:hover{
+    background-color: rgba(11, 87, 208, 0.08);
+  }
+}
+
+@mixin big-text{
+  font-size: 1.4rem;
+  line-height: 1.73rem;
+}
