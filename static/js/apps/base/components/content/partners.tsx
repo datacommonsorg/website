@@ -44,7 +44,7 @@ const Partners = ({ partners }: PartnersProps): ReactElement => {
                 className={partner.id}
               >
                 <img
-                  src={"/images/partners/logo_" + partner.id + ".png"}
+                  src={"/images/content/partners/logo_" + partner.id + ".png"}
                   alt={partner.title}
                 />
               </a>

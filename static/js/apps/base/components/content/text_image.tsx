@@ -24,7 +24,7 @@ const TextImage = (): ReactElement => {
           <h3>Your Data Commons at a glance</h3>
         </div>
         <div className="image">
-          <img src="" alt="" />
+          <img src="/images/content/about_diagram.png" alt="Data Commons Query Diagram" />
         </div>
         <div className="text">
           <p> A custom instance natively joins your data and the base Data Commons data (from datacommons.org) in a unified fashion. Your users can visualize and analyze the data seamlessly without the need for further data preparation.</p> 

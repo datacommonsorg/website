@@ -22,6 +22,8 @@ import React, { ReactElement } from "react";
 
 import { Routes } from "../../shared/types/base";
 import { Partner } from "../../shared/types/homepage";
+import Hero from "../base/components/content/hero_columns"
+import TextImage from "../base/components/content/text_image"
 import Quote from "../base/components/content/quote"
 import Partners from "../base/components/content/partners";
 
@@ -40,7 +42,11 @@ export function App({ partners, routes }: AppProps): ReactElement {
 
   return (
     <>
+      <Hero />
+      <TextImage />
+      <hr className="separator"/>
       <Quote />
+      <hr className="separator"/>
       <Partners partners={partners} />
     </>
   );

@@ -21,8 +21,8 @@ const Hero = (): ReactElement => {
     <section id="hero" className="hero">
       <div className="container">
         <div className="video-background">
-          <video autoPlay loop muted poster='/images/hero/hero_video.png'>
-            <source src='/images/hero/hero_video.mp4' type='video/mp4' />
+          <video autoPlay loop muted poster='/images/content/home_hero_poster.png'>
+            <source src='/images/content/home_hero_video.mp4' type='video/mp4' />
           </video>
         </div>
         <div className="big-description">
