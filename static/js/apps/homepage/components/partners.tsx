@@ -30,26 +30,29 @@ interface PartnersProps {
 const Partners = ({ partners }: PartnersProps): ReactElement => {
   return (
     <section className="container">
-    <div className="partners">
-      <h3>Other organizations with a Data Commons</h3>
-      <ul className="partners-items">
-        {partners.map((partner) => (
-          <li key={partner.id}>
-            <a
-            key={partner.id}
-            href={partner.url}
-            title={partner.title}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={partner.id}
-            >
-              <img src={'/images/partners/logo_' + partner.id + '.png'} alt={partner.title} />
-            </a>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
+      <div className="partners">
+        <h3>Other organizations with a Data Commons</h3>
+        <ul className="partners-items">
+          {partners.map((partner) => (
+            <li key={partner.id}>
+              <a
+                key={partner.id}
+                href={partner.url}
+                title={partner.title}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={partner.id}
+              >
+                <img
+                  src={"/images/partners/logo_" + partner.id + ".png"}
+                  alt={partner.title}
+                />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
   );
 };
 

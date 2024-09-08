@@ -23,13 +23,17 @@
 import React, { ReactElement } from "react";
 
 import { Routes } from "../../shared/types/base";
-import {Partner, SampleQuestionCategory, Topic} from "../../shared/types/homepage";
-import Partners from "./components/partners";
-import Tools from "./components/tools";
-import Topics from "./components/topics";
+import {
+  Partner,
+  SampleQuestionCategory,
+  Topic,
+} from "../../shared/types/homepage";
 import Build from "./components/build";
 import Hero from "./components/hero";
+import Partners from "./components/partners";
 import SampleQuestions from "./components/sample_questions";
+import Tools from "./components/tools";
+import Topics from "./components/topics";
 
 interface AppProps {
   //the topics passed from the backend through to the JavaScript via the templates
@@ -45,7 +49,12 @@ interface AppProps {
 /**
  * Application container
  */
-export function App({ topics, partners, sampleQuestions, routes }: AppProps): ReactElement {
+export function App({
+  topics,
+  partners,
+  sampleQuestions,
+  routes,
+}: AppProps): ReactElement {
   return (
     <>
       <Hero />
