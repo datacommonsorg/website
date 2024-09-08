@@ -32,10 +32,8 @@
     margin: 0;
   }
   h3{
+    @include var.title_sm;
     display: block;
-    font-size: 1.4rem;
-    line-height: 1.75rem;
-    font-weight: 400;
     color: #072711;
     margin-bottom: calc(#{var.$spacing} * 4);
   }
@@ -46,11 +44,10 @@
     margin-bottom: calc(#{var.$spacing} * 4);
     max-width: 650px;
     h3{
-      font-size: 2rem;
-      line-height: 2.5rem;
+      @include var.title_xl;
     }
     p{
-      @include var.big-text;
+      @include var.text_lg;
     }
   }
 }

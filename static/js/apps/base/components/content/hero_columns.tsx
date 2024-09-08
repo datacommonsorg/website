@@ -20,10 +20,10 @@ const HeroColumns = (): ReactElement => {
   return (
     <section id="hero-columns" className="hero-columns">
       <div className="container">
-        <div className="big-text">
-          <h2>Build your Data Commons, overlay your data with global data, and let everyone in your organization uncover insights with natural language questions. Learn how</h2>
+        <div className="col_right">
+          <h2 className="title">Build your Data Commons, overlay your data with global data, and let everyone in your organization uncover insights with natural language questions. Learn how</h2>
         </div>
-        <div className="small-text">
+        <div className="col_left">
           <div>
             <h4>Build and deploy your own</h4>
             <p>Launch your own Data Commons and customize it with your own data to better engage your specific audience</p>

@@ -1,0 +1,14 @@
+.hero-columns{
+  background-color: var.$color-blue_pill_text;
+  color: white;
+  .title{
+    @include var.title_xl;
+  }
+  h4{
+    @include var.text_md;
+    font-weight: 900;
+  }
+  p{
+    @include var.text_md;
+  }
+}

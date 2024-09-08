@@ -18,7 +18,7 @@ import React, { ReactElement } from "react";
 
 const TextImage = (): ReactElement => {
   return (
-    <section id="hero-columns" className="hero-columns">
+    <section id="text-images" className="text-images">
       <div className="container">
         <div className="header">
           <h3>Your Data Commons at a glance</h3>
