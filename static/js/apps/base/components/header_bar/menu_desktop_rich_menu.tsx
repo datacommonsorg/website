@@ -16,6 +16,8 @@
 
 /* A component to render the rich menu drop-down for the desktop menu */
 
+//TODO: Look into folding this into the same component as the mobile version, pending no changes to the structure.
+
 import React, { ReactElement } from "react";
 
 import { HeaderMenuV2, Routes } from "../../../../shared/types/base";
