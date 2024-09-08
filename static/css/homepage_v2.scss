@@ -21,6 +21,9 @@
 
 #homepage {
   // General Styles
+  &.main-content{
+    margin: 0;
+  }
   h3{
     display: block;
     font-size: 1.4rem;
