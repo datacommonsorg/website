@@ -21,9 +21,12 @@
 import React, { ReactElement } from "react";
 
 import { Routes } from "../../shared/types/base";
+import { Partner } from "../../shared/types/homepage";
 import SplashQuote from "./components/splash_quote";
 
 interface AppProps {
+  //the partners passed from the backend through to the JavaScript via the templates
+  partners: Partner[];
   //the routes dictionary - this is used to convert routes to resolved urls
   routes: Routes;
 }
@@ -31,7 +34,9 @@ interface AppProps {
 /**
  * Application container
  */
-export function App({ routes }: AppProps): ReactElement {
+export function App({ partners, routes }: AppProps): ReactElement {
+  console.log(partners);
+
   return (
     <>
       <SplashQuote />

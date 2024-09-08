@@ -47,8 +47,10 @@ def homepage():
 
 @bp.route('/about')
 def about():
-  return lib_render.render_page("static/about.html", "about.html")
-
+  return lib_render.render_page(
+      "static/about.html",
+      "about.html",
+      partners=json.dumps(current_app.config.get('HOMEPAGE_PARTNERS', [])))
 
 @bp.route('/build')
 def build():
