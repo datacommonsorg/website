@@ -34,7 +34,7 @@ const Partners = ({ partners }: PartnersProps): ReactElement => {
       <h3>Other organizations with a Data Commons</h3>
       <ul className="partners-items">
         {partners.map((partner) => (
-          <li>
+          <li key={partner.id}>
             <a
             key={partner.id}
             href={partner.url}
