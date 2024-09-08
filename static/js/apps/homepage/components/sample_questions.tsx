@@ -18,9 +18,9 @@
  * A component that renders the sample questions section of the home page
  */
 
-
 import React, { ReactElement } from "react";
-import {SampleQuestionCategory} from "../../../shared/types/homepage";
+
+import { SampleQuestionCategory } from "../../../shared/types/homepage";
 
 interface SampleQuestionsProps {
   //the sample question categories and questions passed from the backend through to the JavaScript via the templates
@@ -29,29 +29,38 @@ interface SampleQuestionsProps {
 
 const colors = ["green", "blue", "red", "yellow", "gray"];
 
-const SampleQuestions = ( { sampleQuestions}: SampleQuestionsProps ): ReactElement => {
+const SampleQuestions = ({
+  sampleQuestions,
+}: SampleQuestionsProps): ReactElement => {
   console.log(sampleQuestions);
   return (
-    <section  id="sample-questions">
+    <section id="sample-questions">
       <div className="container">
         <h3>Sample Questions</h3>
         <div className="questions-carousel">
-          {(sampleQuestions.map((category, index) => (
-            <div className="questions-column">
-              {(category.questions.map((question) => (
-                <div className={`question-item ${colors[index % colors.length]}`}>
+          {sampleQuestions.map((category, index) => (
+            <div key={category.category} className="questions-column">
+              {category.questions.map((question) => (
+                <div
+                  key={question}
+                  className={`question-item ${colors[index % colors.length]}`}
+                >
                   <a href={`/explore#q=${encodeURIComponent(question)}`}>
                     <p>{question}</p>
                     <small>{category.category}</small>
                   </a>
                 </div>
-              )))}
+              ))}
             </div>
-          )))}
+          ))}
         </div>
         <ul className="questions-carousel-dots">
-          <li className="questions-carousel-dot active"><a href="#">Slide 1</a></li>
-          <li className="questions-carousel-dot"><a href="#">Slide 2</a></li>
+          <li className="questions-carousel-dot active">
+            <a href="#">Slide 1</a>
+          </li>
+          <li className="questions-carousel-dot">
+            <a href="#">Slide 2</a>
+          </li>
         </ul>
       </div>
     </section>
