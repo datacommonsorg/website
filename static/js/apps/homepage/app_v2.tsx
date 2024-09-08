@@ -28,12 +28,12 @@ import {
   SampleQuestionCategory,
   Topic,
 } from "../../shared/types/homepage";
-import Build from "./components/build";
-import Hero from "./components/hero";
-import Partners from "./components/partners";
-import SampleQuestions from "./components/sample_questions";
-import Tools from "./components/tools";
-import Topics from "./components/topics";
+import Build from "../base/components/content/build";
+import HeroVideo from "../base/components/content/hero_video";
+import SampleQuestions from "../base/components/content/sample_questions";
+import Tools from "../base/components/content/tools";
+import Topics from "../base/components/content/topics";
+import Partners from "../base/components/content/partners";
 
 interface AppProps {
   //the topics passed from the backend through to the JavaScript via the templates
@@ -57,7 +57,7 @@ export function App({
 }: AppProps): ReactElement {
   return (
     <>
-      <Hero />
+      <HeroVideo />
       <Topics topics={topics} />
       <SampleQuestions sampleQuestions={sampleQuestions} />
       <Tools routes={routes} />

@@ -20,7 +20,7 @@
 
 import React, { ReactElement } from "react";
 
-import { SampleQuestionCategory } from "../../../shared/types/homepage";
+import { SampleQuestionCategory } from "../../../../shared/types/homepage";
 
 interface SampleQuestionsProps {
   //the sample question categories and questions passed from the backend through to the JavaScript via the templates

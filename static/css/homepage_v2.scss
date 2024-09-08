@@ -15,10 +15,9 @@
  */
 
 /* Styles for the homepage */
-@use "./nl_search_bar";
 @use "./new_variables" as var;
 @import "base";
-@import "./components/hero";
+@import "./components/hero_video";
 @import "./components/questions_carousel";
 @import "./components/tools";
 @import "./components/partners";

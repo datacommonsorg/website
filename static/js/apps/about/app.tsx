@@ -22,7 +22,8 @@ import React, { ReactElement } from "react";
 
 import { Routes } from "../../shared/types/base";
 import { Partner } from "../../shared/types/homepage";
-import SplashQuote from "./components/splash_quote";
+import Quote from "../base/components/content/quote"
+import Partners from "../base/components/content/partners";
 
 interface AppProps {
   //the partners passed from the backend through to the JavaScript via the templates
@@ -39,7 +40,8 @@ export function App({ partners, routes }: AppProps): ReactElement {
 
   return (
     <>
-      <SplashQuote />
+      <Quote />
+      <Partners partners={partners} />
     </>
   );
 }

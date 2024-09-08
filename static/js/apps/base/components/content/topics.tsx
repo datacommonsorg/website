@@ -20,7 +20,7 @@
 
 import React, { ReactElement } from "react";
 
-import { Topic } from "../../../shared/types/homepage";
+import { Topic } from "../../../../shared/types/homepage";
 
 interface TopicsProps {
   //the topics passed from the backend through to the JavaScript via the templates

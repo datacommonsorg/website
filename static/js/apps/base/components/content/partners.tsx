@@ -20,7 +20,7 @@
 
 import React, { ReactElement } from "react";
 
-import { Partner } from "../../../shared/types/homepage";
+import { Partner } from "../../../../shared/types/homepage";
 
 interface PartnersProps {
   //the partners passed from the backend through to the JavaScript via the templates

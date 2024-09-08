@@ -16,25 +16,17 @@
 
 import React, { ReactElement } from "react";
 
-/**
- * A component to render the splash quote of the about page.
- */
-
-const SplashQuote = (): ReactElement => {
+const Quote = (): ReactElement => {
   return (
-    <div>
-      <p>
-        “Every moment around the world people and organizations are generating
-        data that can be extraordinary useful and I think we have to find the
-        way to harness that to solve problems. The challenge is that a lot of
-        this data is very fragmented.”
-      </p>
-      <p className="byline">
-        James Manyika, Senior Vice President, Research, Technology & Society at
-        Google
-      </p>
-    </div>
+    <section id="hero-columns" className="hero-columns">
+      <div className="container">
+        <blockquote>“We were spending most of our time and resources cleaning data sets. 
+        Then we heard that there was this tool that essentially did that. When you fire up your data Commons instance, the first thing you see is there are billions of data points already available covering basically every country in the world, with data on a whole range of issues.”</blockquote>
+        <p>- ONE.org</p>
+      </div>
+    </section>
   );
 };
 
-export default SplashQuote;
+export default Quote;
+

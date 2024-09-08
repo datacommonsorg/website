@@ -20,7 +20,7 @@
 
 import React, { ReactElement } from "react";
 
-import { resolveHref } from "../../base/utilities/utilities";
+import { resolveHref } from "../../utilities/utilities";
 
 interface ToolsProps {
   //the routes dictionary - this is used to convert routes to resolved urls

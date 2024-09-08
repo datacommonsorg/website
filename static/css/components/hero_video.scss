@@ -1,10 +1,12 @@
 // Hero section
 .hero{
-  min-height: 80vh;
-  background-color: var.$color-blue-bckg;
   position: relative;
   display: flex;
   align-items: center;
+  height: 100%;
+  min-height: 500px;
+  max-height: 50vh;
+  background-color: var.$color-blue-bckg;
   .video-background{
     @include var.responsive-video;
     position: absolute;
