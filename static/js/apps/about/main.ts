@@ -15,14 +15,13 @@
  */
 
 /**
- * Entry point for the about page.
+ * Entry point for the about your own Data Commons page.
  */
 
 import React from "react";
 import ReactDOM from "react-dom";
 
 import { loadLocaleData } from "../../i18n/i18n";
-import { Partner } from "../../shared/types/homepage";
 import { App } from "./app";
 
 window.addEventListener("load", (): void => {
@@ -34,14 +33,8 @@ window.addEventListener("load", (): void => {
 });
 
 function renderPage(): void {
-  const metadataContainer = document.getElementById("metadata-about");
-
-  const partners = JSON.parse(metadataContainer.dataset.partners) as Partner[];
-
   ReactDOM.render(
-    React.createElement(App, {
-      partners,
-    }),
+    React.createElement(App),
     document.getElementById("app-container")
   );
 }
