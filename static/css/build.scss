@@ -18,6 +18,7 @@
 @use "./new_variables" as var;
 @import "base";
 @import "./components/media_text";
+@import "./components/columns_text";
 
 #build {
   // General Styles
@@ -25,6 +26,6 @@
     margin: 0;
   }
   .container {
-    padding: calc(#{var.$spacing} * 8) 0;
+    padding: calc(#{var.$spacing} * 6) 0;
   }
 }

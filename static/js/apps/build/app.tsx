@@ -34,9 +34,9 @@ interface AppProps {
 export function App({ routes }: AppProps): ReactElement {
   return (
     <>
-      <section className="text_columns">
+      <section className="text-columns">
         <div className="container">
-          <header>
+          <header className="header">
             <h3>Why Data Commons</h3>
           </header>
           <div className="col_left">
@@ -98,9 +98,9 @@ export function App({ routes }: AppProps): ReactElement {
         </>
       </MediaText>
 
-      <section className="text_columns">
+      <section className="text-columns">
         <div className="container">
-          <header>
+          <header className="header">
             <h3>Collaborations</h3>
           </header>
           <div className="col_left">
@@ -125,6 +125,26 @@ export function App({ routes }: AppProps): ReactElement {
           </div>
         </div>
       </section>
+
+      <section className="text-columns no-header">
+        <div className="container">
+          <div className="col_left">
+            <h3>Stay in touch</h3>
+            <p>Stay informed about the latest Data Commons developments: visit our blog or sign up for our mailing list</p>
+            <a href="#" className="btn btn-primary">Join the mailing list</a>
+          </div>
+          <div className="col_right">
+            <h3>See Also</h3>
+            <ul>
+              <li><a href="#">Data Sources</a></li>
+              <li><a href="#">Disclaimers</a></li>
+              <li><a href="#">Frequently Asked Questions</a></li>
+              <li><a href="#">Blog</a></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
     </>
   );
 }
