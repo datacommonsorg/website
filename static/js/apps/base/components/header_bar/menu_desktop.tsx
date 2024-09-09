@@ -101,14 +101,7 @@ const MenuDesktop = ({
     >
       <ul className="header-menu-list">
         {menu.map((menuItem, index) => (
-          <li
-            key={menuItem.label}
-            onFocus={(): void => !menuItem.url && handleOpenMenu(index)}
-            onClick={(): void => !menuItem.url && toggleMenu(index)}
-            onTouchEnd={(e): void => {
-              if (!menuItem.url) itemMenuTouch(e, index);
-            }}
-          >
+          <li key={menuItem.label} >
             {menuItem.url ? (
               <a
                 className="menu-main-link"
@@ -118,14 +111,23 @@ const MenuDesktop = ({
               </a>
             ) : (
               <>
-                <span className="menu-main-link">{labels[menuItem.label]}</span>
-                <span
-                  className={`material-icons-outlined menu-main-link menu-arrow-icon ${
-                    openMenu === index ? "open" : ""
-                  }`}
+                <button
+                  className="menu-main-button"
+                  // onFocus={(): void => !menuItem.url && handleOpenMenu(index)}
+                  onClick={(): void => !menuItem.url && toggleMenu(index)}
+                  onTouchEnd={(e): void => {
+                    if (!menuItem.url) itemMenuTouch(e, index);
+                  }}
                 >
-                  keyboard_arrow_down
-                </span>
+                  <span className="menu-main-label">{labels[menuItem.label]}</span>
+                  <span
+                    className={`material-icons-outlined menu-main-label menu-arrow-icon ${
+                      openMenu === index ? "open" : ""
+                    }`}
+                  >
+                    keyboard_arrow_down
+                  </span>
+                </button>
                 <div
                   ref={(el: HTMLDivElement | null): void => {
                     submenuRefs.current[index] = el;

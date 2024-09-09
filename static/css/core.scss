@@ -130,12 +130,28 @@ section {
 
         li {
           display: flex;
-          align-items: center;
+          align-items: stretch;
           margin: 0;
           padding: 0;
-          cursor: pointer;
+
+          .menu-main-button {
+            border: 0;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            height: 100%;
+            background-color: transparent;
+            .menu-main-label {
+              color: #474747;
+              transition: color 0.3s ease-in-out;
+            }
+          }
 
           .menu-main-link {
+            display: flex;
+            align-items: center;
+            height: 100%;
             color: #474747;
             transition: color 0.3s ease-in-out;
           }
