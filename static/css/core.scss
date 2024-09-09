@@ -101,7 +101,9 @@ section {
     }
 
     .panel {
-      width: 100%;
+      width: 100vw;
+      left: 0;
+      right: 0;
       position: absolute;
       z-index: 950;
       top: $header-desktop-height;
