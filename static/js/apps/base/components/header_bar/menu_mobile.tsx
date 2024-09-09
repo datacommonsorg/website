@@ -24,13 +24,13 @@ import React, {
   useState,
 } from "react";
 
-import { HeaderMenuV2, Labels, Routes } from "../../../../shared/types/base";
+import { HeaderMenu, Labels, Routes } from "../../../../shared/types/base";
 import { resolveHref } from "../../utilities/utilities";
 import MenuMobileRichMenu from "./menu_mobile_rich_menu";
 
 interface MenuMobileProps {
   //the data that will populate the header menu.
-  menu: HeaderMenuV2[];
+  menu: HeaderMenu[];
   //the labels dictionary - all labels will be passed through this before being rendered. If no value exists, the dictionary will return the key that was sent.
   labels: Labels;
   //the routes dictionary - this is used to convert routes to resolved urls

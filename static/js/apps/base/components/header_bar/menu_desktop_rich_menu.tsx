@@ -20,12 +20,12 @@
 
 import React, { ReactElement } from "react";
 
-import { HeaderMenuV2, Routes } from "../../../../shared/types/base";
+import { HeaderMenu, Routes } from "../../../../shared/types/base";
 import MenuRichSectionGroup from "./menu_rich_section_group";
 
 interface MenuDesktopRichMenuProps {
   //the top level header item that will render in the open rich menu container
-  menuItem: HeaderMenuV2;
+  menuItem: HeaderMenu;
   //the routes dictionary - this is used to convert routes to resolved urls
   routes: Routes;
   //a flag to indicate whether the menu is open.
