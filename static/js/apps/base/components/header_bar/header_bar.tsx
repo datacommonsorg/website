@@ -69,7 +69,7 @@ const HeaderBar = ({
             labels={labels}
             routes={routes}
           />
-          <HeaderBarSearch />
+          {showHeaderSearchBar && <HeaderBarSearch />}
           <MenuMobile menu={menu} labels={labels} routes={routes} />
         </div>
       </nav>
