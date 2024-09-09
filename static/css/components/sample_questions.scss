@@ -25,7 +25,7 @@
     display: flex;
     gap: calc(#{var.$spacing} * 3);
     margin-bottom: calc(#{var.$spacing} * 3);
-    padding: 0 4px; // account for boxes shadows
+    padding: 4px; // account for boxes shadows
   }
   
   .questions-column {
