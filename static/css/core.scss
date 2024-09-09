@@ -57,10 +57,13 @@ section {
 }
 
 #main-nav {
+  position: relative;
   display: flex;
   align-items: stretch;
   height: fit-content;
   padding: 0;
+  background: white;
+  z-index: 10;
 
   .navbar-menu-large {
     display: flex;
@@ -69,6 +72,8 @@ section {
     gap: 32px;
     margin: auto;
     max-width: 1920px;
+    justify-content: space-between;
+    height: 96px;
 
     @include media-breakpoint-down(xl) {
       gap: 16px;
