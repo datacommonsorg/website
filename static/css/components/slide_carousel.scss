@@ -36,7 +36,7 @@
 
   .carousel-slide {
     flex-shrink: 0;
-    .container{
+    .container {
       padding: 0!important; // Fix to re-use component inside sliders reseting their padding
     }
   }
