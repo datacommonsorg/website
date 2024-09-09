@@ -160,14 +160,7 @@
           {
             "title": "Data Sources",
             "url": "https://docs.datacommons.org/datasets/",
-            "description": "Get familiar with the Data Commons Knowledge Graph and APIs using analysis examples in Google Colab notebooks written in Python.",
-            "links": [
-              {
-                "title": "Data Updates",
-                "url": "https://www.datacommons.org/rss",
-                "linkType": "rss"
-              }
-            ]
+            "description": "Get familiar with the Data Commons Knowledge Graph and APIs using analysis examples in Google Colab notebooks written in Python."
           }
         ]
       },
@@ -181,14 +174,7 @@
           {
             "title": "Blog",
             "url": "https://blog.datacommons.org/",
-            "description": "Stay up-to-date with the latest news, updates, and insights from the Data Commons team. Explore new features, research, and educational content related to the project.",
-            "links": [
-              {
-                "title": "Blog posts",
-                "url": "https://blog.datacommons.org/rss",
-                "linkType": "rss"
-              }
-            ]
+            "description": "Stay up-to-date with the latest news, updates, and insights from the Data Commons team. Explore new features, research, and educational content related to the project."
           }
         ]
       }
@@ -197,7 +183,7 @@
   {
     "label": "Feedback",
     "ariaLabel": "Give feedback",
-    "url": "{static.feedback}",
+    "url": "https://docs.google.com/forms/d/e/1FAIpQLSc_xIinZPbO5RHDjq2a4eMoElkFgfe79U5DQ8-_kVhCNf2FJQ/viewform",
     "exposeInMobileBanner": true
   }
 ]
