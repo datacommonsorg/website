@@ -14,15 +14,21 @@
  * limitations under the License.
  */
 
+/**
+ * A component to display a simple text block
+ */
+
 import React, { ReactElement } from "react";
 
-const SimpleText = (): ReactElement => {
+interface SimpleTextProps {
+  //the content (text or other content) as a React element
+  children: ReactElement;
+}
+
+const SimpleText = ({ children }: SimpleTextProps): ReactElement => {
   return (
     <section id="simple-text" className="simple-text">
-      <div className="container">
-        <h3>Ready to get started?</h3>
-        <p><a href="#">Get started</a> building your own Data Commons </p>
-      </div>
+      <div className="container">{children}</div>
     </section>
   );
 };

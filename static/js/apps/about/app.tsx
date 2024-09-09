@@ -47,7 +47,7 @@ export function App({ partners, routes }: AppProps): ReactElement {
       <MediaText
         title="Your Data Commons at a glance"
         mediaType="image"
-        mediaUrl="images/content/about_diagram.png"
+        mediaSource="images/content/about_diagram.png"
       >
         <>
           <p>
@@ -69,10 +69,24 @@ export function App({ partners, routes }: AppProps): ReactElement {
         </>
       </MediaText>
       <hr className="separator" />
-      <Quote />
+      <Quote
+        byline="ONE.org"
+        quote="We were spending most of our time and resources cleaning data sets.
+          Then we heard that there was this tool that essentially did that. When
+          you fire up your data Commons instance, the first thing you see is
+          there are billions of data points already available covering basically
+          every country in the world, with data on a whole range of issues."
+      />
       <Partners partners={partners} />
       <hr className="separator" />
-      <SimpleText />
+      <SimpleText>
+        <>
+          <h3>Ready to get started?</h3>
+          <p>
+            <a href="#">Get started</a> building your own Data Commons{" "}
+          </p>
+        </>
+      </SimpleText>
     </>
   );
 }

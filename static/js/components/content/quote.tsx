@@ -14,20 +14,25 @@
  * limitations under the License.
  */
 
+/**
+ * A component to display a splash quote
+ */
+
 import React, { ReactElement } from "react";
 
-const Quote = (): ReactElement => {
+interface QuoteProps {
+  //the quote content
+  quote: string;
+  //the person or organization responsible for the quote
+  byline: string;
+}
+
+const Quote = ({ quote, byline }: QuoteProps): ReactElement => {
   return (
     <section id="quote" className="quote">
       <div className="container">
-        <blockquote>
-          “We were spending most of our time and resources cleaning data sets.
-          Then we heard that there was this tool that essentially did that. When
-          you fire up your data Commons instance, the first thing you see is
-          there are billions of data points already available covering basically
-          every country in the world, with data on a whole range of issues.”
-        </blockquote>
-        <p>- ONE.org</p>
+        <blockquote>“{quote}”</blockquote>
+        <p>- {byline}</p>
       </div>
     </section>
   );

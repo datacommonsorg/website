@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * A component to display the columned her component.
+ */
+
 import React, { ReactElement } from "react";
 
 const HeroColumns = (): ReactElement => {

@@ -30,7 +30,7 @@ interface PartnersProps {
 const Partners = ({ partners }: PartnersProps): ReactElement => {
   return (
     <section className="partners">
-      <div  className="container">
+      <div className="container">
         <h3>Other organizations with a Data Commons</h3>
         <ul className="partners-items">
           {partners.map((partner) => (
