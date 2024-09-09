@@ -36,17 +36,6 @@ const NlSearchBarStandard = ({
   return (
     <div className="search-section">
       <div className="search-bar-tags">
-        <div className="early-preview-tag">Early preview</div>
-        {feedbackLink && (
-          <>
-            <span>|</span>
-            <div className="feedback-link">
-              <a href={feedbackLink} target="_blank" rel="noreferrer">
-                Feedback
-              </a>
-            </div>
-          </>
-        )}
       </div>
       <div className="search-box-section">
         <div className={`search-bar${value ? " non-empty" : ""}`}>
