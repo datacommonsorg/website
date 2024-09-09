@@ -33,7 +33,8 @@
   }
   .container {
     padding: var.$container-horizontal-padding 0;
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(lg) {
+      max-width: 100%!important;
       padding: var.$container-horizontal-padding calc(#{var.$spacing} * 3);
     }
   }
