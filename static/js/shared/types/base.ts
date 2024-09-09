@@ -18,26 +18,6 @@
  * Typing for components and TypeScript associated with the base template.
  */
 
-// The top level of the header menu
-export interface HeaderMenu {
-  //the label that displays in the top level menu item of the header
-  label: string;
-  //the aria-label attribute for that header
-  ariaLabel: string;
-  //the children of the top-level menu (these populate the dropdowns that appear on click)
-  subMenu: HeaderSubMenu[];
-}
-
-//The entries that populate the dropdown menus in the header menu
-export interface HeaderSubMenu {
-  //the link of the entry - these can be either a route, a url, or a route embedded into a string: {tools.visualization}#visType=timeline)
-  href: string;
-  //the label (the text) of the link
-  label: string;
-  //an option to hide the entry - this is to allow the json to contain items (for later forking) that will not display on the menu (such as BigQuery)
-  hide?: boolean;
-}
-
 //The sections of the footer menu
 export interface FooterMenu {
   //the label of the section: this appears directly above the list of links.
@@ -57,7 +37,7 @@ interface FooterSubMenu {
 }
 
 // The top level of the header menu
-export interface HeaderMenuV2 {
+export interface HeaderMenu {
   //the label that displays in the top level menu item of the header
   label: string;
   //an optional url - if this is supplied, any subsequent information will be ignored as the rich menu cannot be clicked

@@ -51,3 +51,12 @@ export interface Topic {
   //the sprite index of the partner's logo
   "sprite-index": number;
 }
+
+//An interface for the sample questions and sample question categories that are passed through to the JavaScript from the template.
+//These are used to render the sample questions on the home page
+export interface SampleQuestionCategory {
+  //the category
+  category: string;
+  //sample questions in the category
+  questions: string[];
+}

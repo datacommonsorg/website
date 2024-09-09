@@ -19,6 +19,7 @@
  {% set page_id = 'page-homepage' %}
  {% set title = 'Home' %}
  {% set brand_logo_light = false %}
+ {% set is_show_header_search_bar = true %}
 
  {% macro external_icon() -%}
  <svg class="icon"xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="12px" fill="#660000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
@@ -26,7 +27,7 @@
 
  {% block head %}
  <link rel="stylesheet" href={{url_for('static', filename='css/homepage.min.css', t=config['VERSION'])}}>
- <script src={{url_for('static', filename='homepage_v2.js', t=config['VERSION'])}} async></script>
+ <script src={{url_for('static', filename='homepage.js', t=config['VERSION'])}} async></script>
  {% endblock %}
 
  {% block content %}
@@ -34,6 +35,7 @@
 <div id="metadata-homepage" class="d-none"
   data-topics="{{ topics }}"
   data-partners="{{ partners }}"
+  data-sample-questions="{{ sample_questions }}"
 >
 </div>
 

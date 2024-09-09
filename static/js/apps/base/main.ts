@@ -22,7 +22,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { loadLocaleData } from "../../i18n/i18n";
-import { FooterMenu, HeaderMenuV2 } from "../../shared/types/base";
+import { HeaderMenu } from "../../shared/types/base";
 import { FooterApp } from "./footer_app";
 import { HeaderApp } from "./header_app";
 import { extractLabels, extractRoutes } from "./utilities/utilities";
@@ -40,18 +40,14 @@ function renderPage(): void {
 
   const headerMenu = JSON.parse(
     metadataContainer.dataset.header
-  ) as HeaderMenuV2[];
-  const footerMenu = JSON.parse(
-    metadataContainer.dataset.footer
-  ) as FooterMenu[];
+  ) as HeaderMenu[];
+
+  //TODO: once confirmed, remove the footer menu json and types.
 
   const name = metadataContainer.dataset.name;
   const logoPath = metadataContainer.dataset.logoPath;
-  const hideFullFooter =
-    metadataContainer.dataset.hideFullFooter.toLowerCase() === "true";
-  const hideSubFooter =
-    metadataContainer.dataset.hideSubFooter.toLowerCase() === "true";
-  const subFooterExtra = metadataContainer.dataset.subfooterExtra;
+  const showHeaderSearchBar =
+    metadataContainer.dataset.showHeaderSearchBar.toLowerCase() === "true";
   const brandLogoLight =
     metadataContainer.dataset.brandLogoLight.toLowerCase() === "true";
 
@@ -64,6 +60,7 @@ function renderPage(): void {
       name,
       logoPath,
       headerMenu,
+      showHeaderSearchBar,
       labels,
       routes,
     }),
@@ -72,11 +69,7 @@ function renderPage(): void {
 
   ReactDOM.render(
     React.createElement(FooterApp, {
-      hideFullFooter,
-      hideSubFooter,
-      subFooterExtra,
       brandLogoLight,
-      footerMenu,
       labels,
       routes,
     }),

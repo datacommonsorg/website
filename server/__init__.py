@@ -310,6 +310,8 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
       "config/home_page/topics.json")
   app.config['HOMEPAGE_PARTNERS'] = libutil.get_json(
       "config/home_page/partners.json")
+  app.config['HOMEPAGE_SAMPLE_QUESTIONS'] = libutil.get_json(
+      "config/home_page/sample_questions.json")
 
   if cfg.TEST or cfg.LITE:
     app.config['MAPS_API_KEY'] = ''

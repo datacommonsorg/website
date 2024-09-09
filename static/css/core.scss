@@ -16,6 +16,7 @@
 
 /* Styles for the header reflected in version 2 of the homepage */
 
+@use "./new_variables" as var;
 @import "base";
 
 // Component Variables
@@ -27,11 +28,42 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
 
 // Styles
 
+#app-header-loader {
+  @include media-breakpoint-up(xs) {
+    height: 151px;
+  }
+
+  @include media-breakpoint-up(sm) {
+    height: 98px;
+  }
+
+  @include media-breakpoint-up(lg) {
+    height: 96px;
+  }
+
+  @include media-breakpoint-up(xl) {
+    height: 96px;
+  }
+}
+
+section {
+  &.blue {
+    background-color: var.$color-blue-bckg;
+  }
+  &.big {
+    padding: calc(#{var.$spacing} * 12) 0;
+    margin-bottom: calc(#{var.$spacing} * 6);
+  }
+}
+
 #main-nav {
+  position: relative;
   display: flex;
   align-items: stretch;
   height: fit-content;
   padding: 0;
+  background: white;
+  z-index: 10;
 
   .navbar-menu-large {
     display: flex;
@@ -40,6 +72,8 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
     gap: 32px;
     margin: auto;
     max-width: 1920px;
+    justify-content: space-between;
+    height: 96px;
 
     @include media-breakpoint-down(xl) {
       gap: 16px;
@@ -68,7 +102,7 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
       width: 100%;
       position: absolute;
       z-index: 950;
-      top: 110px;
+      top: 90px;
       background: white;
       overflow: hidden;
       box-shadow: 0 1px 2px rgb(94, 94, 94, 0.5);
@@ -373,6 +407,7 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
 
           .left-panel {
             padding: 16px;
+            padding-bottom: 100px;
             ul {
               display: flex;
               flex-direction: column;
@@ -403,6 +438,7 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
             flex-direction: column;
             gap: 32px;
             padding: 16px;
+            padding-bottom: 100px;
               h3 {
                 font-family: $font-family-google-title;
                 font-size: 1.4rem;
@@ -547,6 +583,43 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
   .search-bar.non-empty:focus-within {
     #rich-search-button {
       opacity: 1;
+    }
+  }
+}
+
+// Needs refactor this overrides current styles
+#main-footer {
+  padding: 3rem 0!important;
+  .container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    @include media-breakpoint-down(sm) {
+      justify-content: center;
+      gap: 24px;
+    }
+  }
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    @include media-breakpoint-down(sm) {
+      justify-content: center;
+    }
+    li {
+      display: block;
+      margin: 0;
+      padding: 0;
+      a {
+        color: var(--gm-3-ref-neutral-neutral-40);
+        font-family: var(--font-family-sans-serif);
+        font-weight: 100;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
   }
 }

@@ -20,7 +20,7 @@
 
 import React, { ReactElement } from "react";
 
-import { HeaderMenuV2, Labels, Routes } from "../../shared/types/base";
+import { HeaderMenu, Labels, Routes } from "../../shared/types/base";
 import HeaderBar from "./components/header_bar/header_bar";
 
 interface HeaderAppProps {
@@ -29,7 +29,9 @@ interface HeaderAppProps {
   //a path to the logo to be displayed in the header
   logoPath: string;
   //the data that will populate the header menu.
-  headerMenu: HeaderMenuV2[];
+  headerMenu: HeaderMenu[];
+  //if set true, the header menu will show. It will default to false on all pages unless the {% set is_show_header_search_bar = true %} is set.
+  showHeaderSearchBar: boolean;
   //the labels dictionary - all labels will be passed through this before being rendered. If no value exists, the dictionary will return the key that was sent.
   labels: Labels;
   //the routes dictionary - this is used to convert routes to resolved urls
@@ -43,6 +45,7 @@ export function HeaderApp({
   name,
   logoPath,
   headerMenu,
+  showHeaderSearchBar,
   labels,
   routes,
 }: HeaderAppProps): ReactElement {
@@ -52,6 +55,7 @@ export function HeaderApp({
         name={name}
         logoPath={logoPath}
         menu={headerMenu}
+        showHeaderSearchBar={showHeaderSearchBar}
         labels={labels}
         routes={routes}
       />
