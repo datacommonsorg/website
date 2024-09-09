@@ -24,7 +24,7 @@ namespace:
   name: "website"
 website:
   flaskEnv: custom
-  replicas: 5
+  replicas: 20
   redis:
     enabled: true
     configFile: |
@@ -59,21 +59,21 @@ nl:
         prediction_endpoint_id: "4332900447158272000"
 nodejs:
   enabled: true
-  replicas: 10
+  replicas: 25
   nodePool: "default-pool"
 serviceGroups:
   recon: null
   svg:
-    replicas: 5
+    replicas: 6
     nodePool: "default-pool"
   node:
-    replicas: 10
-    nodePool: "default-pool"
+    replicas: 25
+    nodePool: "pool-e2-cpu"
   observation:
-    replicas: 5
+    replicas: 15
     nodePool: "default-pool"
   default:
-    replicas: 5
+    replicas: 9
     nodePool: "default-pool"
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]
