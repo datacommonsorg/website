@@ -20,7 +20,7 @@
     padding: calc(#{var.$spacing} * 12) 0;
     display: grid;
     grid-template-columns: 6fr 4fr;
-    gap: calc(#{var.$spacing} * 3) calc(#{var.$spacing} * 6);
+    gap: calc(#{var.$spacing} * 2) calc(#{var.$spacing} * 6);
   }
   .header {
     grid-column: 1 / span 2;
