@@ -38,34 +38,38 @@ const Footer = ({
 }: FooterProps): ReactElement => {
   return (
     <footer id="main-footer">
-      <div id="sub-footer">
-        <div className="container">
-          <span className="brand-byline">
-            <span className="brand-text">{labels["An initiative from"]}</span>
-            <img
-              className="brand-logo"
-              width="74"
-              height="25"
-              src={
-                brandLogoLight
-                  ? "/images/google-logo-reverse.svg"
-                  : "/images/google-logo.svg"
-              }
-              alt="Google logo"
-            />
-          </span>
-          <div className="sub-footer-links">
-            <a href="https://policies.google.com/terms">
-              <span>{labels["Terms and Conditions"]}</span>
-            </a>
-            <a href="https://policies.google.com/privacy?hl=en-US">
-              <span>{labels["Privacy Policy"]}</span>
-            </a>
-            <a href={routes["static.disclaimers"]}>
-              <span>{labels["Disclaimers"]}</span>
-            </a>
-          </div>
+      <div className="container">
+        <div className="brand-byline">
+          <span className="brand-text">{labels["An initiative from"]}</span>
+          <img
+            className="brand-logo"
+            width="74"
+            height="25"
+            src={
+              brandLogoLight
+                ? "/images/google-logo-reverse.svg"
+                : "/images/google-logo.svg"
+            }
+            alt="Google logo"
+          />
         </div>
+        <ul className="footer-links">
+          <li>
+            <a href="https://policies.google.com/terms">
+              {labels["Terms and Conditions"]}
+            </a>
+          </li>
+          <li>
+            <a href="https://policies.google.com/privacy?hl=en-US">
+              {labels["Privacy Policy"]}
+            </a>
+          </li>
+          <li>
+            <a href={routes["static.disclaimers"]}>
+              {labels["Disclaimers"]}
+            </a>
+          </li>
+        </ul>
       </div>
     </footer>
   );

@@ -568,3 +568,27 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
     }
   }
 }
+
+// Needs refactor this overrides current styles
+#main-footer {
+  padding: 3rem 0!important;
+  .container {
+    display: flex;
+    justify-content: space-between;
+  }
+  .footer-links {
+    display: flex;
+    gap: 16px;
+    li {
+      display: block;
+      a {
+        color: var(--gm-3-ref-neutral-neutral-40);
+        font-family: var(--font-family-sans-serif);
+        font-weight: 100;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
