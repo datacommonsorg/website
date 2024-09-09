@@ -20,25 +20,23 @@
 
 import React, { ReactElement } from "react";
 
+import OneDataCommons from "../../about/one_data_commons";
 import Hero from "../../components/content/hero_columns";
 import MediaText from "../../components/content/media_text";
 import Partners from "../../components/content/partners";
 import Quote from "../../components/content/quote";
 import SimpleText from "../../components/content/simple_text";
-import { Routes } from "../../shared/types/base";
 import { Partner } from "../../shared/types/homepage";
 
 interface AppProps {
   //the partners passed from the backend through to the JavaScript via the templates
   partners: Partner[];
-  //the routes dictionary - this is used to convert routes to resolved urls
-  routes: Routes;
 }
 
 /**
  * Application container
  */
-export function App({ partners, routes }: AppProps): ReactElement {
+export function App({ partners }: AppProps): ReactElement {
   console.log(partners);
 
   return (
@@ -47,7 +45,7 @@ export function App({ partners, routes }: AppProps): ReactElement {
       <MediaText
         title="Your Data Commons at a glance"
         mediaType="image"
-        mediaSource="images/content/about_diagram.png"
+        mediaSource="images/content/about/about_diagram.png"
       >
         <>
           <p>
@@ -77,6 +75,7 @@ export function App({ partners, routes }: AppProps): ReactElement {
           there are billions of data points already available covering basically
           every country in the world, with data on a whole range of issues."
       />
+      <OneDataCommons />
       <Partners partners={partners} />
       <hr className="separator" />
       <SimpleText>

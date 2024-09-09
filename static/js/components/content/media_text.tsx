@@ -26,7 +26,7 @@ interface MediaTextProps {
   //the source of the media - for video, this will be the video id, and for an image this will be the url
   mediaSource: string;
   //the title that renders at the top of the component
-  title: string;
+  title?: string;
   //the text (or other) content, given as the children of the component
   children: ReactElement;
 }
@@ -40,9 +40,11 @@ const MediaText = ({
   return (
     <section id="text-images" className="text-images">
       <div className="container">
-        <div className="header">
-          <h3> {title} </h3>
-        </div>
+        {title && (
+          <div className="header">
+            <h3> {title} </h3>
+          </div>
+        )}
         <div className="media">
           {mediaType === "image" ? (
             <figure>
