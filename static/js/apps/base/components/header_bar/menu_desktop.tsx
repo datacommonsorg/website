@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-/* The content of the desktop version of the header */
+/** The content of the desktop version of the header */
 
 import React, { ReactElement, useEffect, useRef, useState } from "react";
 
+import useEscapeKeyInputHandler from "../../../../shared/hooks/escape_key_handler";
 import { HeaderMenu, Labels, Routes } from "../../../../shared/types/base";
 import { resolveHref, slugify } from "../../utilities/utilities";
 import MenuDesktopRichMenu from "./menu_desktop_rich_menu";
@@ -31,9 +32,6 @@ interface MenuDesktopProps {
   routes: Routes;
 }
 
-//TODO: verify the desired length of the timer
-const MENU_CLOSE_TIMER = 250;
-
 const MenuDesktop = ({
   menu,
   labels,
@@ -42,7 +40,7 @@ const MenuDesktop = ({
   const [openMenu, setOpenMenu] = useState<number | null>(null);
   const [panelHeight, setPanelHeight] = useState<number>(0);
   const submenuRefs = useRef<Array<HTMLDivElement | null>>([]);
-  const closeMenuTimer = useRef<NodeJS.Timeout | null>(null);
+  const menuContainerRef = useRef<HTMLDivElement | null>(null);
 
   const resetMenu = (): void => {
     setOpenMenu(null);
@@ -53,25 +51,13 @@ const MenuDesktop = ({
     openMenu === index ? resetMenu() : setOpenMenu(index);
   };
 
+  useEscapeKeyInputHandler(() => {
+    resetMenu();
+  });
+
   const itemMenuTouch = (e: React.TouchEvent, index: number): void => {
     e.preventDefault();
     toggleMenu(index);
-  };
-
-  const handleOpenMenu = (index: number): void => {
-    setOpenMenu(index);
-  };
-
-  const handleMouseLeave = (): void => {
-    closeMenuTimer.current = setTimeout(() => {
-      resetMenu();
-    }, MENU_CLOSE_TIMER);
-  };
-
-  const handleMouseEnter = (): void => {
-    if (closeMenuTimer.current) {
-      clearTimeout(closeMenuTimer.current);
-    }
   };
 
   useEffect(() => {
@@ -81,27 +67,28 @@ const MenuDesktop = ({
   }, [openMenu]);
 
   useEffect(() => {
-    const handleScroll = (): void => {
-      if (openMenu !== null) {
+    const handleClickOutside = (event: MouseEvent): void => {
+      if (
+        menuContainerRef.current &&
+        !menuContainerRef.current.contains(event.target as Node) &&
+        !submenuRefs.current.some((ref) => ref?.contains(event.target as Node))
+      ) {
         resetMenu();
       }
     };
-    window.addEventListener("scroll", handleScroll);
+
+    document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [openMenu]);
 
   return (
-    <div
-      className="header-menu"
-      onMouseLeave={handleMouseLeave}
-      onMouseEnter={handleMouseEnter}
-    >
+    <div className="header-menu" ref={menuContainerRef}>
       <ul className="header-menu-list">
         {menu.map((menuItem, index) => (
-          <li key={menuItem.label} >
+          <li key={menuItem.label}>
             {menuItem.url ? (
               <a
                 className="menu-main-link"
@@ -113,13 +100,14 @@ const MenuDesktop = ({
               <>
                 <button
                   className="menu-main-button"
-                  // onFocus={(): void => !menuItem.url && handleOpenMenu(index)}
                   onClick={(): void => !menuItem.url && toggleMenu(index)}
                   onTouchEnd={(e): void => {
                     if (!menuItem.url) itemMenuTouch(e, index);
                   }}
                 >
-                  <span className="menu-main-label">{labels[menuItem.label]}</span>
+                  <span className="menu-main-label">
+                    {labels[menuItem.label]}
+                  </span>
                   <span
                     className={`material-icons-outlined menu-main-label menu-arrow-icon ${
                       openMenu === index ? "open" : ""
