@@ -19,6 +19,8 @@
 @use "./new_variables" as var;
 @import "base";
 
+$header-desktop-height: 96px;
+
 // Component Variables
 
 $font-family-google-title: "Google Sans", Arial, sans-serif,
@@ -73,7 +75,7 @@ section {
     margin: auto;
     max-width: 1920px;
     justify-content: space-between;
-    height: 96px;
+    height: $header-desktop-height;
 
     @include media-breakpoint-down(xl) {
       gap: 16px;
@@ -102,7 +104,7 @@ section {
       width: 100%;
       position: absolute;
       z-index: 950;
-      top: 90px;
+      top: $header-desktop-height;
       background: white;
       overflow: hidden;
       box-shadow: 0 1px 2px rgb(94, 94, 94, 0.5);
@@ -178,7 +180,7 @@ section {
 
       .rich-menu-container {
         position: fixed;
-        top: 110px;
+        top: 96px;
         left: 0;
         width: 100vw;
         overflow: hidden;
