@@ -14,18 +14,26 @@
  * limitations under the License.
  */
 
+/**
+ * A component to display a media/text component. This component renders in two columns a piece of media (video or image) and text content
+ */
+
 import React, { ReactElement } from "react";
 
 interface MediaTextProps {
+  //the type of media that will be displayed - either a video or an image, with a video representing a YouTube video
   mediaType: "video" | "image";
-  mediaUrl: string;
+  //the source of the media - for video, this will be the video id, and for an image this will be the url
+  mediaSource: string;
+  //the title that renders at the top of the component
   title: string;
+  //the text (or other) content, given as the children of the component
   children: ReactElement;
 }
 
 const MediaText = ({
   mediaType,
-  mediaUrl,
+  mediaSource,
   title,
   children,
 }: MediaTextProps): ReactElement => {
@@ -34,19 +42,18 @@ const MediaText = ({
       <div className="container">
         <div className="header">
           <h3> {title} </h3>
-          {/* <h3>Your Data Commons at a glance</h3> */}
         </div>
         <div className="media">
           {mediaType === "image" ? (
             <figure>
-              <img src={mediaUrl} alt={title} />
+              <img src={mediaSource} alt={title} />
             </figure>
           ) : (
             <div className="video-player">
               <iframe
-                src={`https://www.youtube.com/embed/${mediaUrl}`}
+                src={`https://www.youtube.com/embed/${mediaSource}`}
                 title="YouTube video player"
-                frameBorder="0"
+                style={{ border: "none" }}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerPolicy="strict-origin-when-cross-origin"
                 allowFullScreen
@@ -54,9 +61,7 @@ const MediaText = ({
             </div>
           )}
         </div>
-        <div className="text">
-          {children}
-        </div>
+        <div className="text">{children}</div>
       </div>
     </section>
   );

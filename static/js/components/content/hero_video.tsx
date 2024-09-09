@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * A component to display the primary video hero component
+ */
+
 import React, { ReactElement } from "react";
 
 const Hero = (): ReactElement => {

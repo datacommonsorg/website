@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+/**
+ * A component to display the build your own Data Commons block
+ */
+
 import React, { ReactElement } from "react";
 
 const Build = (): ReactElement => {
@@ -34,7 +38,7 @@ const Build = (): ReactElement => {
           <iframe
             src="https://www.youtube.com/embed/O6iVsS-RDYI"
             title="YouTube video player"
-            frameBorder="0"
+            style={{ border: "none" }}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
