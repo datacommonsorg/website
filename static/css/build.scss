@@ -17,6 +17,7 @@
 /* Styles for the about page */
 @use "./new_variables" as var;
 @import "base";
+@import "./components/media_text";
 
 #build {
   // General Styles

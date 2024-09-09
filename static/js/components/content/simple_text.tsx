@@ -21,7 +21,7 @@ const SimpleText = (): ReactElement => {
     <section id="simple-text" className="simple-text">
       <div className="container">
         <h3>Ready to get started?</h3>
-        <p>Get started building your own Data Commons </p>
+        <p><a href="#">Get started</a> building your own Data Commons </p>
       </div>
     </section>
   );
