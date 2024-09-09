@@ -29,7 +29,7 @@ import Quote from "../../components/content/quote";
 export function App(): ReactElement {
   return (
     <>
-      <section className="blue">
+      <section className="blue big">
         <Quote
           quote="Every moment around the world people and organizations are generating data that can be extraordinary useful and I think we have to find the way to harness that to solve problems. 
 The challenge is that a lot of this data is very fragmented."

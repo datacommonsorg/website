@@ -50,6 +50,10 @@ section {
   &.blue {
     background-color: var.$color-blue-bckg;
   }
+  &.big {
+    padding: calc(#{var.$spacing} * 12) 0;
+    margin-bottom: calc(#{var.$spacing} * 6);
+  }
 }
 
 #main-nav {

@@ -23,4 +23,18 @@
   p {
     @include var.text_md;
   }
+  ul {
+    margin: 0;
+    padding-left: calc(#{var.$spacing} * 3);
+  }
+  a.btn-primary {
+    border-radius: 100px;
+    padding: calc(#{var.$spacing} + 2px) calc(#{var.$spacing} * 3);
+    background-color: var.$color-blue;
+  }
+  &.no-header {
+    h3 {
+      margin-bottom: calc(#{var.$spacing} * 3);
+    }
+  }
 }
