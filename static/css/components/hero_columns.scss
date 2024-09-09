@@ -24,11 +24,22 @@
     display: grid;
     grid-template-columns: 6fr 4fr;
     gap: calc(#{var.$spacing} * 6);
+    @include media-breakpoint-down(sm) {
+      display: block;
+    }
+  }
+  .col_right{
+    @include media-breakpoint-down(sm) {
+      margin-bottom: calc(#{var.$spacing} * 6);
+    }
   }
   .col_left {
     display: flex;
     flex-direction: column;
     gap: calc(#{var.$spacing} * 6);
+    @include media-breakpoint-down(sm) {
+      gap: calc(#{var.$spacing} * 2);
+    }
   }
   .title {
     @include var.title_xl;

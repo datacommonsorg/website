@@ -23,6 +23,9 @@
   .header{
     max-width: 57%;
     margin-bottom: calc(#{var.$spacing} * 4);
+    @include media-breakpoint-down(md) {
+      max-width: 100%; 
+    }
     h3 {
       @include var.title_md;
       margin-bottom: calc(#{var.$spacing} * 3);
@@ -43,6 +46,9 @@
       padding: 0;
       margin: 0;
       flex-basis: 200px;
+      @include media-breakpoint-down(xs) {
+        flex-grow: 2;
+      }
       a {
         @include var.white-box;
         @include var.title_xs;
@@ -54,6 +60,9 @@
         gap: calc(#{var.$spacing} * 2);
         padding: calc(#{var.$spacing} * 3);
         border-radius: calc(#{var.$spacing} * 4);
+        @include media-breakpoint-down(xs) {
+          align-items: center;
+        }
       }
     }
   }

@@ -31,5 +31,8 @@
   }
   .container {
     padding: calc(#{var.$spacing} * 8) 0;
+    @include media-breakpoint-down(sm) {
+      padding: var.$container-horizontal-padding calc(#{var.$spacing} * 3);
+    }
   }
 }

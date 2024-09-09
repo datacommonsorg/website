@@ -575,12 +575,25 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
   .container {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+    @include media-breakpoint-down(sm) {
+      justify-content: center;
+      gap: 24px;
+    }
   }
   .footer-links {
     display: flex;
+    flex-wrap: wrap;
     gap: 16px;
+    margin: 0;
+    padding: 0;
+    @include media-breakpoint-down(sm) {
+      justify-content: center;
+    }
     li {
       display: block;
+      margin: 0;
+      padding: 0;
       a {
         color: var(--gm-3-ref-neutral-neutral-40);
         font-family: var(--font-family-sans-serif);

@@ -26,6 +26,9 @@
   min-height: 500px;
   max-height: 50vh;
   background-color: var.$color-blue-bckg;
+  @include media-breakpoint-down(sm) {
+    min-height: auto;
+  }
   .video-background {
     @include var.responsive-video;
     position: absolute;
@@ -36,6 +39,9 @@
     z-index: 0;
     height: 100%;
     background: var.$color-blue-bckg;
+    @include media-breakpoint-down(sm) {
+      display: none;
+    }
   }
   .big-description {
     display: flex;
@@ -46,6 +52,9 @@
     z-index: 1;
     margin-bottom: calc(#{var.$spacing} * 4);
     max-width: 57%;
+    @include media-breakpoint-down(sm) {
+      max-width: 100%;
+    }
     h3 {
       @include var.title_xl;
       margin-bottom: calc(#{var.$spacing} * 4);

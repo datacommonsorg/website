@@ -22,10 +22,16 @@
     display: grid;
     grid-template-columns: 6fr 4fr;
     gap: calc(#{var.$spacing} * 2) calc(#{var.$spacing} * 6);
+    @include media-breakpoint-down(sm) {
+      display: block;
+    }
   }
   .header {
     grid-column: 1 / span 2;
     order: 0;
+    @include media-breakpoint-down(sm) {
+      margin-bottom: calc(#{var.$spacing} * 3);
+    }
     h3 {
       @include var.title_md;
       margin-bottom: calc(#{var.$spacing} * 3);
@@ -38,6 +44,9 @@
     display: grid;
     grid-template-columns: 6fr 4fr;
     gap: calc(#{var.$spacing} * 6);
+    @include media-breakpoint-down(sm) {
+      display: block;
+    }
   }
   .video-description {
     p {
@@ -48,5 +57,8 @@
     @include var.responsive-video;
     padding-bottom: 56.25%;
     border-radius: 20px;
+    @include media-breakpoint-down(sm) {
+      margin-bottom: calc(#{var.$spacing} * 3);
+    }
   }
 }

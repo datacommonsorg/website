@@ -1,3 +1,5 @@
+@import "node_modules/bootstrap/scss/bootstrap";
+
 // Size and Spacing Variables
 
 $spacing: 8px;
@@ -35,7 +37,10 @@ $color-gray_pill_bckg:#E2E2EC;
   font-size: 2.25rem;
   line-height: 2.75rem;
   font-weight: 300;
-  // background-color: yellow;
+  @include media-breakpoint-down(xs) {
+    font-size: 1.375rem;
+    line-height: 1.75rem;
+  }
 }
 
 @mixin title_lg {
@@ -74,6 +79,10 @@ $color-gray_pill_bckg:#E2E2EC;
   line-height: 2rem;
   font-weight: 400;
   // background-color: yellow;
+  @include media-breakpoint-down(sm) {
+    font-size: 1.375rem;
+    line-height: 1.75rem;
+  }
 }
 
 @mixin text_lg {
@@ -81,6 +90,10 @@ $color-gray_pill_bckg:#E2E2EC;
   line-height: 1.75rem;
   font-weight: 400;
   // background-color: orange;
+  @include media-breakpoint-down(sm) {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
 }
 
 @mixin text_md {
