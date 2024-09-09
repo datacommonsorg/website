@@ -15,23 +15,21 @@
  */
 
 /* Styles for the about page */
+
 @use "./new_variables" as var;
 @import "base";
-@import "./components/partners";
-@import "./components/hero_columns";
 @import "./components/media_text";
+@import "./components/columns_text";
 @import "./components/quote";
-@import "./components/simple_text";
-@import "./components/slide_carousel";
-@import "./components/one_data_commons";
 
 #about {
   // General Styles
   &.main-content {
     margin: 0;
+    padding-bottom: calc(#{var.$spacing} * 6);
   }
   .container {
-    padding: calc(#{var.$spacing} * 8) 0;
+    padding: calc(#{var.$spacing} * 3) 0;
     @include media-breakpoint-down(lg) {
       max-width: 100%!important;
       padding: var.$container-horizontal-padding calc(#{var.$spacing} * 3);
