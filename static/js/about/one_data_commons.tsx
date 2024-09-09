@@ -35,7 +35,9 @@ const OneDataCommons = (): ReactElement => {
   return (
     <section id="one-data-commons" className="one-data-commons">
       <div className="container">
-        <h3>ONE Data Commons</h3>
+        <header className="header">
+          <h3>ONE Data Commons</h3>
+        </header>
         <SlideCarousel slides={slides} autoslideInterval={5000} />
       </div>
     </section>
