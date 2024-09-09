@@ -155,10 +155,6 @@ const config = {
       __dirname + "/js/apps/homepage/main.ts",
       __dirname + "/css/homepage.scss",
     ],
-    homepage_v2: [
-      __dirname + "/js/apps/homepage/main_v2.ts",
-      __dirname + "/css/homepage_v2.scss",
-    ],
     homepage_custom_dc: [
       __dirname + "/js/apps/homepage/main_custom_dc.ts",
       __dirname + "/css/homepage.scss",
