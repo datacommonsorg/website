@@ -23,7 +23,7 @@ import React, { ReactElement } from "react";
 const HeroColumns = (): ReactElement => {
   return (
     <section id="hero-columns" className="hero-columns">
-      <div className="container">
+      <div className="container big">
         <div className="col_right">
           <h2 className="title">
             Build your Data Commons, overlay your data with global data, and let

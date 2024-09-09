@@ -86,10 +86,10 @@ section {
       display: flex;
       flex-shrink: 0;
       align-items: center;
-      gap: 0.75rem;
       white-space: nowrap;
-      font-size: 1.1rem;
-      line-height: 24px;
+      a {
+        font-size: 1rem!important;
+      }
     }
     @include media-breakpoint-up(xl) {
       padding: 0 0 0 32px;
@@ -143,6 +143,7 @@ section {
             height: 100%;
             background-color: transparent;
             .menu-main-label {
+              font-size: 0.875rem;;
               color: #474747;
               transition: color 0.3s ease-in-out;
             }
@@ -154,6 +155,7 @@ section {
             height: 100%;
             color: #474747;
             transition: color 0.3s ease-in-out;
+            font-size: 0.875rem;;
           }
 
           &:hover {
@@ -219,7 +221,7 @@ section {
         h5 {
           font-family: $font-family-google-title;
           font-size: 1rem;
-          font-weight: 600;
+          font-weight: 500;
           margin-bottom: 16px;
         }
         p, .link-item, .ms-1 {
@@ -234,6 +236,7 @@ section {
             gap: 8px;
             margin: 0;
             padding: 0;
+            font-weight: 500;
             &:hover {
               text-decoration: none;
               .link-title {
@@ -303,10 +306,10 @@ section {
       display: flex;
       flex-shrink: 0;
       align-items: center;
-      gap: 0.75rem;
       white-space: nowrap;
-      font-size: 1.1rem;
-      line-height: 24px;
+      a {
+        font-size: 1rem!important;
+      }
     }
 
     .menu-mobile {
@@ -331,7 +334,7 @@ section {
     }
 
     .menu-main-link {
-      font-size: 0.9rem;
+      font-size: 0.875rem;
       color: #5E5E5E;
     }
     
@@ -470,7 +473,7 @@ section {
               h5 {
                 font-family: $font-family-google-title;
                 font-size: 1rem;
-                font-weight: 600;
+                font-weight: 500;
               }
               p, .link-item, .ms-1 {
                 font-size: 0.9rem;
