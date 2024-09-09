@@ -24,6 +24,7 @@ import Hero from "../../components/content/hero_columns";
 import MediaText from "../../components/content/media_text";
 import Partners from "../../components/content/partners";
 import Quote from "../../components/content/quote";
+import SimpleText from "../../components/content/simple_text";
 import { Routes } from "../../shared/types/base";
 import { Partner } from "../../shared/types/homepage";
 
@@ -69,8 +70,9 @@ export function App({ partners, routes }: AppProps): ReactElement {
       </MediaText>
       <hr className="separator" />
       <Quote />
-      <hr className="separator" />
       <Partners partners={partners} />
+      <hr className="separator" />
+      <SimpleText />
     </>
   );
 }

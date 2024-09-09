@@ -44,5 +44,14 @@
     height: 100%;
     position: relative;
     z-index: 1;
+    margin-bottom: calc(#{var.$spacing} * 4);
+    max-width: 57%;
+    h3 {
+      @include var.title_xl;
+      margin-bottom: calc(#{var.$spacing} * 4);
+    }
+    p {
+      @include var.text_lg;
+    }
   }
 }

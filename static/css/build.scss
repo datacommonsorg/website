@@ -15,4 +15,15 @@
  */
 
 /* Styles for the about page */
+@use "./new_variables" as var;
 @import "base";
+
+#build {
+  // General Styles
+  &.main-content {
+    margin: 0;
+  }
+  .container {
+    padding: calc(#{var.$spacing} * 8) 0;
+  }
+}

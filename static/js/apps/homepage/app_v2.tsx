@@ -22,7 +22,7 @@
 
 import React, { ReactElement } from "react";
 
-import Build from "../../components/content/build";
+import Build from "../../components/content/build_your_own";
 import HeroVideo from "../../components/content/hero_video";
 import Partners from "../../components/content/partners";
 import SampleQuestions from "../../components/content/sample_questions";

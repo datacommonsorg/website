@@ -18,26 +18,36 @@
  * SCSS for the homepage tools component
  */
 
-  .tools{
-    padding-top: calc(#{var.$spacing} * 10);
-    padding-bottom: calc(#{var.$spacing} * 10);
-    background: var.$color-blue-bckg;
+.tools {
+  padding-top: calc(#{var.$spacing} * 10);
+  padding-bottom: calc(#{var.$spacing} * 10);
+  background: var.$color-blue-bckg;
+  .header{
+    max-width: 57%;
+    margin-bottom: calc(#{var.$spacing} * 4);
+    h3 {
+      @include var.title_md;
+      margin-bottom: calc(#{var.$spacing} * 3);
+    }
+    p {
+      @include var.text_lg;
+    }
   }
-  .tools-buttons{
+  .tools-buttons {
     display: flex;
     align-items: stretch;
     flex-wrap: wrap;
     gap: calc(#{var.$spacing} * 3);
     margin: 0;
     padding: 0;
-    li{
+    li {
       display: block;
       padding: 0;
       margin: 0;
       flex-basis: 200px;
-      a{
+      a {
         @include var.white-box;
-        @include var.text_xl;
+        @include var.title_xs;
         display: flex;
         width: 100%;
         height: 100%;
@@ -49,26 +59,27 @@
       }
     }
   }
-  .tool-icon{
+  .tool-icon {
     display: block;
     width: 32px;
     height: 32px;
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 100%;
-    &.timeline{
+    &.timeline {
       background-image: url('/images/icons/icon-timeline.svg')
     }
-    &.api{
+    &.api {
       background-image: url('/images/icons/icon-api.svg')
     }
-    &.download{
+    &.download {
       background-image: url('/images/icons/icon-download.svg')
     }
-    &.map{
+    &.map {
       background-image: url('/images/icons/icon-map.svg')
     }
-    &.scaterplot{
+    &.scaterplot {
       background-image: url('/images/icons/icon-scaterplot.svg')
     }
   }
+}

@@ -18,9 +18,9 @@ import React, { ReactElement } from "react";
 
 const Build = (): ReactElement => {
   return (
-    <section id="build-your-own">
+    <section id="build-your-own" className="build-your-own">
       <div className="container">
-        <div className="big-description">
+        <div className="header">
           <h3>Build your own Data Commons</h3>
           <p>
             Deploying your own Data Commons lets you create a tailored platform
@@ -28,28 +28,26 @@ const Build = (): ReactElement => {
             entity or organization can build their own instance with specific
             data, a dedicated website, and specialized tools.
           </p>
+          <h4>United Nations Data Commons for the SDGs</h4>
         </div>
-        <h3>United Nations Data Commons for the SDGs</h3>
-        <div className="video-container">
-          <div className="video-player">
-            <iframe
-              src="https://www.youtube.com/embed/O6iVsS-RDYI"
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-            ></iframe>
-          </div>
-          <div className="video-description">
-            <p>
-              United Nations deployed a Data Commons to amplify the impact of
-              their Sustainable Development Goals data. With their deployed Data
-              Commons, the UN created a centralized repository, allowing for
-              dynamic storytelling and targeted analysis related to global
-              progress. Learn more
-            </p>
-          </div>
+        <div className="video-player">
+          <iframe
+            src="https://www.youtube.com/embed/O6iVsS-RDYI"
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          ></iframe>
+        </div>
+        <div className="video-description">
+          <p>
+            United Nations deployed a Data Commons to amplify the impact of
+            their Sustainable Development Goals data. With their deployed Data
+            Commons, the UN created a centralized repository, allowing for
+            dynamic storytelling and targeted analysis related to global
+            progress. Learn more
+          </p>
         </div>
       </div>
     </section>

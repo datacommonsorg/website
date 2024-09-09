@@ -29,7 +29,7 @@ interface TopicsProps {
 
 const Topics = ({ topics }: TopicsProps): ReactElement => {
   return (
-    <section id="topics">
+    <section id="topics" className="topics">
       <div className="container">
         <h3>Topics to explore</h3>
         <ul className="topics-container">

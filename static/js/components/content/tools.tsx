@@ -29,9 +29,9 @@ interface ToolsProps {
 
 const Tools = ({ routes }: ToolsProps): ReactElement => {
   return (
-    <section className="tools">
+    <section id="tools" className="tools">
       <div className="container">
-        <div className="big-description">
+        <div className="header">
           <h3>Data Commons Tools</h3>
           <p>
             Data forms the foundation of science, policy, and journalism, but

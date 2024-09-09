@@ -1,0 +1,6 @@
+.simple-text {
+  h3 {
+    @include var.title_sm;
+    margin-bottom: calc(#{var.$spacing} * 3);
+  }
+}

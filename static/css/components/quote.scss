@@ -1,8 +1,11 @@
-.quote{
-  blockquote{
+.quote {
+  .container {
+    text-align: center
+  }
+  blockquote {
     @include var.title_xl;
   }
-  p{
+  p {
     @include var.text_lg;
   }
 }

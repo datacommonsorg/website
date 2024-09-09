@@ -10,17 +10,23 @@
     order: 0;
   }
   .media {
-    figure{
-      img{
+    figure {
+      img {
         display: block;
         width: 100%;
         height: auto;
       }
     }
-    .video-player{
+    .video-player {
       @include var.responsive-video;
       padding-bottom: 56.25%;
       border-radius: 20px;
+    }
+  }
+  .header {
+    h3 {
+      @include var.title_sm;
+      margin-bottom: calc(#{var.$spacing} * 3);
     }
   }
   .text {

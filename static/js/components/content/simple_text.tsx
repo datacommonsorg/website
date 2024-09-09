@@ -14,22 +14,17 @@
  * limitations under the License.
  */
 
-/**
- * SCSS for the video component on the homepage
- */
+import React, { ReactElement } from "react";
 
-  .video-container{
-    display: grid;
-    grid-template-columns: 6fr 4fr;
-    gap: calc(#{var.$spacing} * 6);
-  }
-  .video-description{
-    p{
-      @include var.text_lg;
-    }
-  }
-  .video-player{
-    @include var.responsive-video;
-    padding-bottom: 56.25%;
-    border-radius: 20px;
-  }
+const SimpleText = (): ReactElement => {
+  return (
+    <section id="simple-text" className="simple-text">
+      <div className="container">
+        <h3>Ready to get started?</h3>
+        <p>Get started building your own Data Commons </p>
+      </div>
+    </section>
+  );
+};
+
+export default SimpleText;

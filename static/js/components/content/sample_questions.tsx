@@ -91,7 +91,7 @@ const SampleQuestions = ({
   const slides = createSlides();
 
   return (
-    <section id="sample-questions">
+    <section id="sample-questions" className="sample-questions">
       <div className="container">
         <h3>Sample Questions</h3>
         <SlideCarousel slides={slides} autoslideInterval={5000} />

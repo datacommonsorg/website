@@ -1,20 +1,25 @@
-.hero-columns{
+.hero-columns {
   background-color: var.$color-blue_pill_text;
   color: white;
-  .container{
+  .container {
     padding: calc(#{var.$spacing} * 12) 0;
     display: grid;
     grid-template-columns: 6fr 4fr;
     gap: calc(#{var.$spacing} * 6);
   }
-  .title{
+  .col_left {
+    display: flex;
+    flex-direction: column;
+    gap: calc(#{var.$spacing} * 6);
+  }
+  .title {
     @include var.title_xl;
   }
-  h4{
+  h4 {
     @include var.text_md;
     font-weight: 900;
   }
-  p{
+  p {
     @include var.text_md;
   }
 }
