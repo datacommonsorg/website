@@ -30,19 +30,19 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
 
 #app-header-loader {
   @include media-breakpoint-up(xs) {
-    height: 175px;
+    height: 151px;
   }
 
   @include media-breakpoint-up(sm) {
-    height: 122px;
+    height: 98px;
   }
 
   @include media-breakpoint-up(lg) {
-    height: 120px;
+    height: 96px;
   }
 
   @include media-breakpoint-up(xl) {
-    height: 120px;
+    height: 96px;
   }
 }
 
