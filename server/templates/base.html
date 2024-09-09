@@ -115,7 +115,9 @@
 <script src={{url_for('static', filename='base.js', t=config['VERSION'])}} async></script>
 
 <div id="main">
-  <div id="app-header-container"></div>
+  <div id="app-header-container">
+    <div id="app-header-loader"></div>
+  </div>
   <main id="{{ main_id }}" class="main-content">
     {% block content %}
     {% endblock %}

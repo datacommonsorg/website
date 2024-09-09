@@ -27,6 +27,24 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
 
 // Styles
 
+#app-header-loader {
+  @include media-breakpoint-up(xs) {
+    height: 175px;
+  }
+
+  @include media-breakpoint-up(sm) {
+    height: 122px;
+  }
+
+  @include media-breakpoint-up(lg) {
+    height: 120px;
+  }
+
+  @include media-breakpoint-up(xl) {
+    height: 120px;
+  }
+}
+
 #main-nav {
   display: flex;
   align-items: stretch;
