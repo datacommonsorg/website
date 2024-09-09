@@ -16,6 +16,7 @@
 
 /* Styles for the header reflected in version 2 of the homepage */
 
+@use "./new_variables" as var;
 @import "base";
 
 // Component Variables
@@ -42,6 +43,12 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
 
   @include media-breakpoint-up(xl) {
     height: 120px;
+  }
+}
+
+section {
+  &.blue {
+    background-color: var.$color-blue-bckg;
   }
 }
 

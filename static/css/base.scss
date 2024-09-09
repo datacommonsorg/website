@@ -65,23 +65,6 @@ $headings-font-family: $font-family-sans-serif;
 
 @import "node_modules/bootstrap/scss/bootstrap";
 
-#main-nav {
-  height: fit-content;
-  background-color: white;
-  padding: 0.75rem 0.25rem;
-  > .container-fluid {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-}
-
-#main-nav .navbar-brand {
-  font-size: 1.1rem;
-  line-height: 24px;
-  display: flex;
-  align-items: center;
-}
-
 :root.feedingamerica .navbar-brand > a {
   display: inline-block;
   background: url(https://secure.feedingamerica.org/assets/images/sprites2018.png);

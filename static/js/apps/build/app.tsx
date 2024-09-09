@@ -21,19 +21,21 @@
 import React, { ReactElement } from "react";
 
 import MediaText from "../../components/content/media_text";
-import { Routes } from "../../shared/types/base";
-
-interface AppProps {
-  //the routes dictionary - this is used to convert routes to resolved urls
-  routes: Routes;
-}
+import Quote from "../../components/content/quote";
 
 /**
  * Application container
  */
-export function App({ routes }: AppProps): ReactElement {
+export function App(): ReactElement {
   return (
     <>
+      <section className="blue">
+        <Quote
+          quote="Every moment around the world people and organizations are generating data that can be extraordinary useful and I think we have to find the way to harness that to solve problems. 
+The challenge is that a lot of this data is very fragmented."
+          byline="James Manyika, Senior  Vice President, Research, Technology & Society at Google"
+        />
+      </section>
       <section className="text-columns">
         <div className="container">
           <header className="header">
@@ -130,21 +132,33 @@ export function App({ routes }: AppProps): ReactElement {
         <div className="container">
           <div className="col_left">
             <h3>Stay in touch</h3>
-            <p>Stay informed about the latest Data Commons developments: visit our blog or sign up for our mailing list</p>
-            <a href="#" className="btn btn-primary">Join the mailing list</a>
+            <p>
+              Stay informed about the latest Data Commons developments: visit
+              our blog or sign up for our mailing list
+            </p>
+            <a href="#" className="btn btn-primary">
+              Join the mailing list
+            </a>
           </div>
           <div className="col_right">
             <h3>See Also</h3>
             <ul>
-              <li><a href="#">Data Sources</a></li>
-              <li><a href="#">Disclaimers</a></li>
-              <li><a href="#">Frequently Asked Questions</a></li>
-              <li><a href="#">Blog</a></li>
+              <li>
+                <a href="#">Data Sources</a>
+              </li>
+              <li>
+                <a href="#">Disclaimers</a>
+              </li>
+              <li>
+                <a href="#">Frequently Asked Questions</a>
+              </li>
+              <li>
+                <a href="#">Blog</a>
+              </li>
             </ul>
           </div>
         </div>
       </section>
-
     </>
   );
 }
