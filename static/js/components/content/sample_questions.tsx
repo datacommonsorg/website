@@ -36,12 +36,20 @@ const calculateColumnsPerSlide = (): number => {
   return 3;
 };
 
+const getRandomQuestionFromCategory = (
+  category: SampleQuestionCategory
+): string => {
+  const randomIndex = Math.floor(Math.random() * category.questions.length);
+  return category.questions[randomIndex];
+};
+
 const SampleQuestions = ({
   sampleQuestions,
 }: SampleQuestionsProps): ReactElement => {
   const [columnsPerSlide, setColumnsPerSlide] = useState(() =>
     calculateColumnsPerSlide()
   );
+
   useEffect(() => {
     const handleResize = (): void => {
       setColumnsPerSlide(calculateColumnsPerSlide());
@@ -88,13 +96,40 @@ const SampleQuestions = ({
     return slides;
   };
 
+  const createSingleColumnLayout = (): ReactElement => {
+    return (
+      <div className="questions-container">
+        <div className="questions-column">
+          {sampleQuestions.map((category, index) => {
+            const question = getRandomQuestionFromCategory(category);
+            return (
+              <div
+                key={category.category}
+                className={`question-item ${colors[index % colors.length]}`}
+              >
+                <a href={`/explore#q=${encodeURIComponent(question)}`}>
+                  <p>{question}</p>
+                  <small>{category.category}</small>
+                </a>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
+
   const slides = createSlides();
 
   return (
     <section id="sample-questions" className="sample-questions">
       <div className="container">
-        <h3>Sample Questions</h3>
-        <SlideCarousel slides={slides} autoslideInterval={5000} />
+        <h3>Sample questions</h3>
+        {columnsPerSlide === 1 ? (
+          createSingleColumnLayout()
+        ) : (
+          <SlideCarousel slides={slides} />
+        )}
       </div>
     </section>
   );

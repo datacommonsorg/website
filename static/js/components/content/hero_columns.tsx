@@ -23,12 +23,18 @@ import React, { ReactElement } from "react";
 const HeroColumns = (): ReactElement => {
   return (
     <section id="hero-columns" className="hero-columns">
-      <div className="container">
+      <div className="container big">
         <div className="col_right">
           <h2 className="title">
             Build your Data Commons, overlay your data with global data, and let
             everyone in your organization uncover insights with natural language
-            questions. Learn how
+            questions.{" "}
+            <a
+              href="https://docs.datacommons.org/custom_dc"
+              title="Build your own Data Commons"
+            >
+              Learn how
+            </a>
           </h2>
         </div>
         <div className="col_left">

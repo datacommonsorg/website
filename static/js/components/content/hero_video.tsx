@@ -20,7 +20,15 @@
 
 import React, { ReactElement } from "react";
 
-const Hero = (): ReactElement => {
+import { resolveHref } from "../../apps/base/utilities/utilities";
+import { Routes } from "../../shared/types/base";
+
+interface HeroProps {
+  //the routes dictionary - this is used to convert routes to resolved urls
+  routes: Routes;
+}
+
+const Hero = ({ routes }: HeroProps): ReactElement => {
   return (
     <section id="hero" className="hero">
       <div className="container">
@@ -46,7 +54,10 @@ const Hero = (): ReactElement => {
           <p>
             Data Commons&rsquo; open source foundation allows organizations to
             create tailored, private instances, deciding on the openness of
-            their data contributions. <a href="#">Build yours today</a>
+            their data contributions.{" "}
+            <a href={resolveHref("{static.build}", routes)}>
+              Build yours today
+            </a>
           </p>
         </div>
       </div>

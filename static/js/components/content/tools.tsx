@@ -32,7 +32,7 @@ const Tools = ({ routes }: ToolsProps): ReactElement => {
     <section id="tools" className="tools">
       <div className="container">
         <div className="header">
-          <h3>Data Commons Tools</h3>
+          <h3>Data Commons tools</h3>
           <p>
             Data forms the foundation of science, policy, and journalism, but
             its full potential is often limited. Data Commons addresses this by
@@ -48,7 +48,7 @@ const Tools = ({ routes }: ToolsProps): ReactElement => {
               id="map-button"
             >
               <span className="tool-icon map"></span>
-              Map explorer
+              Map Explorer
             </a>
           </li>
           <li>
@@ -60,7 +60,7 @@ const Tools = ({ routes }: ToolsProps): ReactElement => {
               id="scatter-button"
             >
               <span className="tool-icon scaterplot"></span>
-              Scatter plot tool
+              Scatter Plot Tool
             </a>
           </li>
           <li>
@@ -72,22 +72,22 @@ const Tools = ({ routes }: ToolsProps): ReactElement => {
               id="timeline-button"
             >
               <span className="tool-icon timeline"></span>
-              Timeline plot tool
+              Timelines Explorer
             </a>
           </li>
           <li>
             <a
-              href={resolveHref("tools.download", routes)}
+              href={resolveHref("{tools.download}", routes)}
               id="download-button"
             >
               <span className="tool-icon download"></span>
-              Place explorer
+              Data Download Tool
             </a>
           </li>
           <li>
-            <a href={resolveHref("tools.api", routes)} id="api-button">
+            <a href="https://docs.datacommons.org/api/" id="api-button">
               <span className="tool-icon api"></span>
-              API access
+              API Access
             </a>
           </li>
         </ul>

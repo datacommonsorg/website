@@ -19,6 +19,10 @@
 @use "./new_variables" as var;
 @import "base";
 
+$header-desktop-height: 96px;
+$header-mobile-height: 152px;
+$header-mobile-height-xs: 128px;
+
 // Component Variables
 
 $font-family-google-title: "Google Sans", Arial, sans-serif,
@@ -56,24 +60,40 @@ section {
   }
 }
 
+#main{
+  margin-top: $header-desktop-height!important;
+  @media (max-width: 620px) {
+    margin-top: $header-mobile-height!important;
+  }
+  @media (max-width: 340px) {
+    margin-top: $header-mobile-height-xs!important;
+  }
+}
+
+#app-header-container {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 100;
+} 
+
 #main-nav {
   position: relative;
   display: flex;
   align-items: stretch;
   height: fit-content;
-  padding: 0;
-  background: white;
-  z-index: 10;
 
   .navbar-menu-large {
     display: flex;
     flex-grow: 1;
     align-items: stretch;
-    gap: 32px;
+    gap: calc(#{var.$spacing} * 4);
     margin: auto;
     max-width: 1920px;
     justify-content: space-between;
-    height: 96px;
+    height: $header-desktop-height;
+    background: white;
 
     @include media-breakpoint-down(xl) {
       gap: 16px;
@@ -86,10 +106,10 @@ section {
       display: flex;
       flex-shrink: 0;
       align-items: center;
-      gap: 0.75rem;
       white-space: nowrap;
-      font-size: 1.1rem;
-      line-height: 24px;
+      a {
+        font-size: 1rem!important;
+      }
     }
     @include media-breakpoint-up(xl) {
       padding: 0 0 0 32px;
@@ -99,10 +119,12 @@ section {
     }
 
     .panel {
-      width: 100%;
+      width: 100vw;
+      left: 0;
+      right: 0;
       position: absolute;
       z-index: 950;
-      top: 90px;
+      top: $header-desktop-height;
       background: white;
       overflow: hidden;
       box-shadow: 0 1px 2px rgb(94, 94, 94, 0.5);
@@ -113,6 +135,7 @@ section {
       display: flex;
       justify-content: right;
       align-items: stretch;
+      transition: flex-basis .4s ease-in-out;
 
       &-list {
         display: flex;
@@ -130,14 +153,32 @@ section {
 
         li {
           display: flex;
-          align-items: center;
+          align-items: stretch;
           margin: 0;
           padding: 0;
-          cursor: pointer;
+
+          .menu-main-button {
+            border: 0;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            height: 100%;
+            background-color: transparent;
+            .menu-main-label {
+              font-size: 0.875rem;;
+              color: #474747;
+              transition: color 0.3s ease-in-out;
+            }
+          }
 
           .menu-main-link {
+            display: flex;
+            align-items: center;
+            height: 100%;
             color: #474747;
             transition: color 0.3s ease-in-out;
+            font-size: 0.875rem;;
           }
 
           &:hover {
@@ -160,8 +201,9 @@ section {
 
       .rich-menu-container {
         position: fixed;
-        top: 110px;
+        top: 96px;
         left: 0;
+        right: 0;
         width: 100vw;
         overflow: hidden;
         background: white;
@@ -179,8 +221,17 @@ section {
         font-family: $font-family-google-text;
         opacity: 0;
         transform: translate3d(0, -16px, 0);
-
         transition: opacity 0.3s ease-out, transform 0.4s ease-out;
+        height: 100%;
+        max-height: calc( 100vh - #{$header-desktop-height}) ;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        scroll-behavior: smooth;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        &::-webkit-scrollbar{
+          display: none;
+        }
 
         &.open {
           opacity: 1;
@@ -203,7 +254,7 @@ section {
         h5 {
           font-family: $font-family-google-title;
           font-size: 1rem;
-          font-weight: 600;
+          font-weight: 500;
           margin-bottom: 16px;
         }
         p, .link-item, .ms-1 {
@@ -218,6 +269,7 @@ section {
             gap: 8px;
             margin: 0;
             padding: 0;
+            font-weight: 500;
             &:hover {
               text-decoration: none;
               .link-title {
@@ -261,6 +313,7 @@ section {
   .navbar-menu-mobile {
     display: flex;
     flex-grow: 1;
+    justify-content: space-between;
     align-items: stretch;
     padding: 24px 16px;
     gap: 16px;
@@ -270,6 +323,7 @@ section {
     @media (max-width: 620px) {
       display: grid;
       grid-template-columns: 1fr min-content;
+      height: $header-mobile-height;
       .header-search-section {
         order: 3;
         grid-column: 1 / span 2;
@@ -281,16 +335,17 @@ section {
     @media (max-width: 340px) {
       padding: 16px;
       gap: 8px;
+      height: $header-mobile-height-xs;
     }
 
     .navbar-brand {
       display: flex;
       flex-shrink: 0;
       align-items: center;
-      gap: 0.75rem;
       white-space: nowrap;
-      font-size: 1.1rem;
-      line-height: 24px;
+      a {
+        font-size: 1rem!important;
+      }
     }
 
     .menu-mobile {
@@ -315,7 +370,7 @@ section {
     }
 
     .menu-main-link {
-      font-size: 0.9rem;
+      font-size: 0.875rem;
       color: #5E5E5E;
     }
     
@@ -454,7 +509,7 @@ section {
               h5 {
                 font-family: $font-family-google-title;
                 font-size: 1rem;
-                font-weight: 600;
+                font-weight: 500;
               }
               p, .link-item, .ms-1 {
                 font-size: 0.9rem;

@@ -80,20 +80,21 @@ const SlideCarousel = ({
           ))}
         </div>
       </div>
-
-      <div className="carousel-dots-wrapper">
-        <ul className="carousel-dots">
-          {slides.map((_, index) => (
-            <li
-              key={index}
-              className={`carousel-dot ${
-                index === activeIndex ? "active" : ""
-              }`}
-              onClick={(): void => goToSlide(index)}
-            />
-          ))}
-        </ul>
-      </div>
+      {slides.length > 1 && (
+        <div className="carousel-dots-wrapper">
+          <ul className="carousel-dots">
+            {slides.map((_, index) => (
+              <li
+                key={index}
+                className={`carousel-dot ${
+                  index === activeIndex ? "active" : ""
+                }`}
+                onClick={(): void => goToSlide(index)}
+              />
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
