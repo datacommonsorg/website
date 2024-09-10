@@ -203,6 +203,7 @@ section {
         position: fixed;
         top: 96px;
         left: 0;
+        right: 0;
         width: 100vw;
         overflow: hidden;
         background: white;
@@ -226,6 +227,11 @@ section {
         overflow-y: scroll;
         overflow-x: hidden;
         scroll-behavior: smooth;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        &::-webkit-scrollbar{
+          display: none;
+        }
 
         &.open {
           opacity: 1;
