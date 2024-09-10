@@ -2,7 +2,7 @@
   {
     "label": "Overview",
     "ariaLabel": "Data Commons overview",
-    "introduction": "Data Commons is an open-source platform aggregating global public data for easy exploration using natural language.",
+    "introduction": "Data Commons is an open-source platform aggregating global public data for easy exploration using natural language",
     "primarySectionGroups": [
       {
         "title": "Key Features",
@@ -34,7 +34,7 @@
             "links": [
               {
                 "title": "Learn more & build yours today",
-                "url": "{place.place}"
+                "url": "{static.build}"
               }
             ]
           }
@@ -68,7 +68,7 @@
   {
     "label": "Tools",
     "ariaLabel": "Show exploration tools",
-    "introduction": "Explore a variety of tools to visualize, analyze, and interact with the Data Commons knowledge graph and its extensive datasets.",
+    "introduction": "Explore a variety of tools to visualize, analyze, and interact with the Data Commons knowledge graph and its extensive datasets",
     "primarySectionGroups": [
       {
         "items": [
@@ -113,19 +113,19 @@
   {
     "label": "Documentation",
     "ariaLabel": "Show documentation links",
-    "introduction": "Access in-depth tutorials, guides, and API references to unlock the full potential of Data Commons and integrate it into your projects.",
+    "introduction": "Access in-depth tutorials, guides, and API references to unlock the full potential of Data Commons and integrate it into your projects",
     "primarySectionGroups": [
       {
         "items": [
           {
             "title": "Docs",
             "url": "https://docs.datacommons.org",
-            "description": "Learn how to leverage the Data Commons unified database with comprehensive documentation, tutorials, and guides."
+            "description": "Learn how to access and visualize Data Commons data: docs for the website, APIs, and more, for all users and needs"
           },
           {
             "title": "API",
             "url": "https://docs.datacommons.org/api",
-            "description": "Access a unified knowledge graph with standardized data from diverse sources using Data Commons APIs."
+            "description": "Access Data Commons data programmatically, using REST and Python APIs"
           }
         ]
       },
@@ -134,12 +134,12 @@
           {
             "title": "Tutorials",
             "url": "https://docs.datacommons.org/tutorials",
-            "description": "Get familiar with the Data Commons Knowledge Graph and APIs using analysis examples in Google Colab notebooks written in Python."
+            "description": "Get familiar with the Data Commons Knowledge Graph and APIs using analysis examples in Google Colab notebooks written in Python"
           },
           {
             "title": "Contributions",
             "url": "https://docs.datacommons.org/contributing/",
-            "description": "Become part of Data Commons by contributing data, tools, educational materials, or sharing your analysis and insights. Collaborate and help expand the knowledge graph!"
+            "description": "Become part of Data Commons by contributing data, tools, educational materials, or sharing your analysis and insights. Collaborate and help expand the Data Commons Knowledge Graph"
           }
         ]
       }
@@ -148,19 +148,19 @@
   {
     "label": "About",
     "ariaLabel": "Show about links",
-    "introduction": "Data Commons is an initiative from Google. Discover how Data Commons is changing data analysis. Explore diverse data, learn to use its tools through Python examples, and stay updated on the latest news and research.",
+    "introduction": "Data Commons is an initiative from Google. Explore diverse data, learn to use its tools through Python examples, and stay updated on the latest news and research",
     "primarySectionGroups": [
       {
         "items": [
           {
             "title": "Why Data Commons",
             "url": "{static.about}",
-            "description": "Discover why Data Commons is revolutionizing data access and analysis. Learn how its unified knowledge graph empowers you to explore diverse, standardized data."
+            "description": "Discover why Data Commons is revolutionizing data access and analysis. Learn how its unified Knowledge Graph empowers you to explore diverse, standardized data"
           },
           {
             "title": "Data Sources",
             "url": "https://docs.datacommons.org/datasets/",
-            "description": "Get familiar with the Data Commons Knowledge Graph and APIs using analysis examples in Google Colab notebooks written in Python."
+            "description": "Get familiar with the data available in Data Commons"
           }
         ]
       },
@@ -169,12 +169,12 @@
           {
             "title": "FAQ",
             "url": "{static.faq}",
-            "description": "Find quick answers to common questions about Data Commons, its usage, data sources, and available resources."
+            "description": "Find quick answers to common questions about Data Commons, its usage, data sources, and available resources"
           },
           {
             "title": "Blog",
             "url": "https://blog.datacommons.org/",
-            "description": "Stay up-to-date with the latest news, updates, and insights from the Data Commons team. Explore new features, research, and educational content related to the project."
+            "description": "Stay up-to-date with the latest news, updates, and insights from the Data Commons team. Explore new features, research, and educational content related to the project"
           }
         ]
       }
