@@ -13,7 +13,7 @@ const OneDataCommons = (): ReactElement => {
       >
         <p>
           ONE Data Commons, a collaborative platform combining the in-depth data
-          and research from data.one.org with the vast repository of
+          and research from the ONE Campaign with the vast repository of
           Google&rsquo;s Data Commons, offers unparalleled insights into global
           issues spanning economics, climate, health, demographics, and beyond.
         </p>

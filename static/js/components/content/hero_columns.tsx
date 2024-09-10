@@ -28,7 +28,13 @@ const HeroColumns = (): ReactElement => {
           <h2 className="title">
             Build your Data Commons, overlay your data with global data, and let
             everyone in your organization uncover insights with natural language
-            questions. Learn how
+            questions.{" "}
+            <a
+              href="https://docs.datacommons.org/api/"
+              title="Build your own Data Commons"
+            >
+              Learn how
+            </a>
           </h2>
         </div>
         <div className="col_left">

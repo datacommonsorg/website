@@ -124,7 +124,7 @@ const SampleQuestions = ({
   return (
     <section id="sample-questions" className="sample-questions">
       <div className="container">
-        <h3>Sample Questions</h3>
+        <h3>Sample questions</h3>
         {columnsPerSlide === 1 ? (
           createSingleColumnLayout()
         ) : (

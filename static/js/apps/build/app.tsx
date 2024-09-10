@@ -37,7 +37,6 @@ interface AppProps {
  * Application container
  */
 export function App({ partners }: AppProps): ReactElement {
-  console.log(partners);
 
   return (
     <>
@@ -71,7 +70,7 @@ export function App({ partners }: AppProps): ReactElement {
         byline="ONE.org"
         quote="We were spending most of our time and resources cleaning data sets.
           Then we heard that there was this tool that essentially did that. When
-          you fire up your data Commons instance, the first thing you see is
+          you fire up your Data Commons instance, the first thing you see is
           there are billions of data points already available covering basically
           every country in the world, with data on a whole range of issues."
       />
@@ -82,7 +81,10 @@ export function App({ partners }: AppProps): ReactElement {
         <>
           <h3>Ready to get started?</h3>
           <p>
-            <a href="#">Get started</a> building your own Data Commons{" "}
+            <a href="https://docs.datacommons.org/api/" title="Get started">
+              Get started
+            </a>{" "}
+            building your own Data Commons{" "}
           </p>
         </>
       </SimpleText>
