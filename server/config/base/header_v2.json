@@ -2,7 +2,15 @@
   {
     "label": "Overview",
     "ariaLabel": "Data Commons overview",
-    "introduction": "Data Commons is an open-source platform aggregating global public data for easy exploration using natural language",
+    "introduction": {
+      "description": "Data Commons is an open-source platform aggregating global public data for easy exploration using natural language",
+      "links": [
+        {
+          "title": "Learn more & build yours today",
+          "url": "{static.build}"
+        }
+      ]
+    },
     "primarySectionGroups": [
       {
         "title": "Key Features",
@@ -30,13 +38,7 @@
           },
           {
             "title": "Actionable Insights",
-            "description": "Gain actionable insights from your data in connection to global data",
-            "links": [
-              {
-                "title": "Learn more & build yours today",
-                "url": "{static.build}"
-              }
-            ]
+            "description": "Gain actionable insights from your data in connection to global data"
           }
         ]
       }
@@ -68,7 +70,9 @@
   {
     "label": "Tools",
     "ariaLabel": "Show exploration tools",
-    "introduction": "Explore a variety of tools to visualize, analyze, and interact with the Data Commons knowledge graph and its extensive datasets",
+    "introduction": {
+      "description": "Explore a variety of tools to visualize, analyze, and interact with the Data Commons knowledge graph and its extensive datasets"
+    },
     "primarySectionGroups": [
       {
         "items": [
@@ -113,7 +117,9 @@
   {
     "label": "Documentation",
     "ariaLabel": "Show documentation links",
-    "introduction": "Access in-depth tutorials, guides, and API references to unlock the full potential of Data Commons and integrate it into your projects",
+    "introduction": {
+      "description": "Access in-depth tutorials, guides, and API references to unlock the full potential of Data Commons and integrate it into your projects"
+    },
     "primarySectionGroups": [
       {
         "items": [
@@ -148,7 +154,9 @@
   {
     "label": "About",
     "ariaLabel": "Show about links",
-    "introduction": "Data Commons is an initiative from Google. Explore diverse data, learn to use its tools through Python examples, and stay updated on the latest news and research",
+    "introduction": {
+      "description": "Data Commons is an initiative from Google. Explore diverse data, learn to use its tools through Python examples, and stay updated on the latest news and research"
+    },
     "primarySectionGroups": [
       {
         "items": [

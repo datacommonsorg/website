@@ -44,14 +44,23 @@ export interface HeaderMenu {
   url?: string;
   //the aria-label attribute for that header
   ariaLabel: string;
-  //text that displays in the introduction section of the desktop menu
-  introduction?: string;
+  //text that displays in the introduction section of the rich menu
+  introduction?: IntroductionSection;
   //the content of the primary column (the column directly next to the introduction column;
   primarySectionGroups?: HeaderMenuGroup[];
   //the content of the secondary column (the smaller column to the right of the introduction column;
   secondarySectionGroups?: HeaderMenuGroup[];
   //if set to true, will be exposed outside the mobile toggle button and on the banner itself - this should be used with consideration for available space
   exposeInMobileBanner?: boolean;
+}
+
+export interface IntroductionSection {
+  //the label of the section - this is optional, and if not provided will default to the parent label
+  label?: string;
+  //text that displays in the introduction section of the rich menu
+  description?: string;
+  //an optional list of links that appear below the introduction.
+  links?: HeaderMenuItemLink[];
 }
 
 // a subsection of the header menu. These contain an optional title and a list of content items.
