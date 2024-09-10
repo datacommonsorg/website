@@ -24,7 +24,7 @@
   align-items: center;
   height: 100%;
   min-height: 500px;
-  max-height: 50vh;
+  // max-height: 50vh;
   background-color: var.$color-blue-bckg;
   @include media-breakpoint-down(sm) {
     min-height: auto;

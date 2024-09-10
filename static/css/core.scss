@@ -20,6 +20,8 @@
 @import "base";
 
 $header-desktop-height: 96px;
+$header-mobile-height: 152px;
+$header-mobile-height-xs: 128px;
 
 // Component Variables
 
@@ -59,7 +61,13 @@ section {
 }
 
 #main{
-  margin-top: $header-desktop-height !important;
+  margin-top: $header-desktop-height!important;
+  @media (max-width: 620px) {
+    margin-top: $header-mobile-height!important;
+  }
+  @media (max-width: 340px) {
+    margin-top: $header-mobile-height-xs!important;
+  }
 }
 
 #app-header-container {
@@ -308,6 +316,7 @@ section {
     @media (max-width: 620px) {
       display: grid;
       grid-template-columns: 1fr min-content;
+      height: $header-mobile-height;
       .header-search-section {
         order: 3;
         grid-column: 1 / span 2;
@@ -319,6 +328,7 @@ section {
     @media (max-width: 340px) {
       padding: 16px;
       gap: 8px;
+      height: $header-mobile-height-xs;
     }
 
     .navbar-brand {
