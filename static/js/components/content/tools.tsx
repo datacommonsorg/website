@@ -72,7 +72,7 @@ const Tools = ({ routes }: ToolsProps): ReactElement => {
               id="timeline-button"
             >
               <span className="tool-icon timeline"></span>
-              Timeline Plot Tool
+              Timelines Explorer
             </a>
           </li>
           <li>

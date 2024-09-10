@@ -50,4 +50,7 @@
   p {
     @include var.text_md;
   }
+  a {
+    color: var.$color-blue_light
+  }
 }
