@@ -223,7 +223,8 @@ section {
         transition: opacity 0.3s ease-out, transform 0.4s ease-out;
         height: 100%;
         max-height: calc( 100vh - #{$header-desktop-height}) ;
-        overflow: scroll;
+        overflow-y: scroll;
+        overflow-x: hidden;
         scroll-behavior: smooth;
 
         &.open {
