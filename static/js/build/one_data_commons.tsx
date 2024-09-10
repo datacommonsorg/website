@@ -13,7 +13,7 @@ const OneDataCommons = (): ReactElement => {
       >
         <p>
           <a
-            href="https://data.one.org/"
+            href="https://datacommons.one.org/"
             target="_blank"
             rel="noopener noreferrer"
           >

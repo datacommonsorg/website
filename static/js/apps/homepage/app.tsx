@@ -57,7 +57,7 @@ export function App({
 }: AppProps): ReactElement {
   return (
     <>
-      <HeroVideo />
+      <HeroVideo routes={routes} />
       <Topics topics={topics} />
       <SampleQuestions sampleQuestions={sampleQuestions} />
       <Tools routes={routes} />
