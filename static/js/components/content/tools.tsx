@@ -77,7 +77,7 @@ const Tools = ({ routes }: ToolsProps): ReactElement => {
           </li>
           <li>
             <a
-              href={resolveHref("tools.download", routes)}
+              href={resolveHref("{tools.download}", routes)}
               id="download-button"
             >
               <span className="tool-icon download"></span>
@@ -85,7 +85,7 @@ const Tools = ({ routes }: ToolsProps): ReactElement => {
             </a>
           </li>
           <li>
-            <a href={resolveHref("tools.api", routes)} id="api-button">
+            <a href="https://docs.datacommons.org/api/" id="api-button">
               <span className="tool-icon api"></span>
               API access
             </a>
