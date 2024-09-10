@@ -81,7 +81,7 @@ const Tools = ({ routes }: ToolsProps): ReactElement => {
               id="download-button"
             >
               <span className="tool-icon download"></span>
-              Download Tool
+              Data Download Tool
             </a>
           </li>
           <li>
