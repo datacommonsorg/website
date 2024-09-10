@@ -58,24 +58,34 @@ section {
   }
 }
 
+#main{
+  margin-top: $header-desktop-height !important;
+}
+
+#app-header-container {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 100;
+} 
+
 #main-nav {
   position: relative;
   display: flex;
   align-items: stretch;
   height: fit-content;
-  padding: 0;
-  background: white;
-  z-index: 10;
 
   .navbar-menu-large {
     display: flex;
     flex-grow: 1;
     align-items: stretch;
-    gap: 32px;
+    gap: calc(#{var.$spacing} * 4);
     margin: auto;
     max-width: 1920px;
     justify-content: space-between;
     height: $header-desktop-height;
+    background: white;
 
     @include media-breakpoint-down(xl) {
       gap: 16px;
@@ -117,6 +127,7 @@ section {
       display: flex;
       justify-content: right;
       align-items: stretch;
+      transition: flex-basis .4s ease-in-out;
 
       &-list {
         display: flex;
@@ -201,8 +212,11 @@ section {
         font-family: $font-family-google-text;
         opacity: 0;
         transform: translate3d(0, -16px, 0);
-
         transition: opacity 0.3s ease-out, transform 0.4s ease-out;
+        height: 100%;
+        max-height: calc( 100vh - #{$header-desktop-height}) ;
+        overflow: scroll;
+        scroll-behavior: smooth;
 
         &.open {
           opacity: 1;
