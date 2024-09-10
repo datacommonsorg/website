@@ -12,10 +12,17 @@ const OneDataCommons = (): ReactElement => {
         mediaSource="images/content/build/ONEData.png"
       >
         <p>
-          ONE Data Commons, a collaborative platform combining the in-depth data
-          and research from the ONE Campaign with the vast repository of
-          Google&rsquo;s Data Commons, offers unparalleled insights into global
-          issues spanning economics, climate, health, demographics, and beyond.
+          <a
+            href="https://data.one.org/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            ONE Data Commons
+          </a>
+          , a collaborative platform combining the in-depth data and research
+          from the ONE Campaign with the vast repository of Google&rsquo;s Data
+          Commons, offers unparalleled insights into global issues spanning
+          economics, climate, health, demographics, and beyond.
         </p>
       </MediaText>,
     ];

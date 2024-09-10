@@ -30,7 +30,7 @@ const HeroColumns = (): ReactElement => {
             everyone in your organization uncover insights with natural language
             questions.{" "}
             <a
-              href="https://docs.datacommons.org/api/"
+              href="https://docs.datacommons.org/custom_dc"
               title="Build your own Data Commons"
             >
               Learn how

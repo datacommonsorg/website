@@ -81,7 +81,10 @@ export function App({ partners }: AppProps): ReactElement {
         <>
           <h3>Ready to get started?</h3>
           <p>
-            <a href="https://docs.datacommons.org/api/" title="Get started">
+            <a
+              href="https://docs.datacommons.org/custom_dc"
+              title="Get started"
+            >
               Get started
             </a>{" "}
             building your own Data Commons{" "}
