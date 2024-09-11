@@ -58,6 +58,18 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+  {% block meta %}
+  <meta property="og:type" content="website" />
+  {% if title == "Home" %}
+  <meta property="og:title" content="Data Commons" />
+  {% else %}
+  <meta property="og:title" content="{{ title }}{{' - ' if title else ''}}Data Commons" />
+  {% endif %}
+  <meta property="twitter:card" content="summary" />
+  <meta property="og:description" content="Data Commons aggregates and harmonizes global, open data, giving everyone the power to uncover insights with natural language questions" />
+  <meta property="og:image" content="https://datacommons.org/images/dc-logo.png" />
+  {% endblock %}
+
   {% if config['LOCAL'] %}
   <link rel="icon" href="/images/favicon-local.png" type="image/png">
   {% else %}
