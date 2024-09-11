@@ -23,7 +23,6 @@ export function triggerGAEvent(
   eventName: string,
   parameter: Record<string, string | string[]>
 ): void {
-  console.log("triggered ga event: ", eventName, parameter);
   if (window.gtag) {
     window.gtag("event", eventName, parameter);
   }
