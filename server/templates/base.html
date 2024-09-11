@@ -96,7 +96,8 @@
   </script>
 </head>
 
-<body>
+<body {% if not is_show_header_search_bar %}class="no-header-search-bar"{% endif %}>
+
 <div id="metadata-base" class="d-none"
   data-header="{{ HEADER_MENU_V2 }}"
   data-footer="{{ FOOTER_MENU }}"
