@@ -37,7 +37,7 @@ const Footer = ({
   routes,
 }: FooterProps): ReactElement => {
   return (
-    <footer id="main-footer">
+    <div id="main-footer-container">
       <div className="container">
         <div className="brand-byline">
           <span className="brand-text">{labels["An initiative from"]}</span>
@@ -71,7 +71,7 @@ const Footer = ({
           </li>
         </ul>
       </div>
-    </footer>
+    </div>
   );
 };
 

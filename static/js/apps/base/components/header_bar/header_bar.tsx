@@ -50,7 +50,7 @@ const HeaderBar = ({
   routes,
 }: HeaderBarProps): ReactElement => {
   return (
-    <header id="main-header">
+    <div id="main-header-container" className={ !showHeaderSearchBar ? "nobar" : "" }>
       <nav id="main-nav">
         <div className="navbar-menu-large">
           <HeaderLogo
@@ -73,7 +73,7 @@ const HeaderBar = ({
           <MenuMobile menu={menu} labels={labels} routes={routes} />
         </div>
       </nav>
-    </header>
+    </div>
   );
 };
 
