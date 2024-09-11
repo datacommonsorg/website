@@ -65,9 +65,7 @@ const Footer = ({
             </a>
           </li>
           <li>
-            <a href={routes["static.disclaimers"]}>
-              {labels["Disclaimers"]}
-            </a>
+            <a href={routes["static.disclaimers"]}>{labels["Disclaimers"]}</a>
           </li>
         </ul>
       </div>

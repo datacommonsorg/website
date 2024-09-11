@@ -22,11 +22,18 @@ import React, { ReactElement } from "react";
 
 import MediaText from "../../components/content/media_text";
 import Quote from "../../components/content/quote";
+import { Routes } from "../../shared/types/base";
+
+interface AppProps {
+  //the routes dictionary - this is used to convert routes to resolved urls
+  routes: Routes;
+}
 
 /**
  * Application container
  */
-export function App(): ReactElement {
+
+export function App({ routes }: AppProps): ReactElement {
   return (
     <>
       <section className="blue big">
@@ -136,7 +143,10 @@ The challenge is that a lot of this data is very fragmented."
               Stay informed about the latest Data Commons developments: visit
               our blog or sign up for our mailing list
             </p>
-            <a href="#" className="btn btn-primary">
+            <a
+              href="https://groups.google.com/g/datacommons-announce"
+              className="btn btn-primary"
+            >
               Join the mailing list
             </a>
           </div>
@@ -144,16 +154,18 @@ The challenge is that a lot of this data is very fragmented."
             <h3>See Also</h3>
             <ul>
               <li>
-                <a href="#">Data Sources</a>
+                <a href="https://docs.datacommons.org/datasets/">
+                  Data Sources
+                </a>
               </li>
               <li>
-                <a href="#">Disclaimers</a>
+                <a href={routes["static.disclaimers"]}>Disclaimers</a>
               </li>
               <li>
-                <a href="#">Frequently Asked Questions</a>
+                <a href={routes["static.faq"]}>Frequently Asked Questions</a>
               </li>
               <li>
-                <a href="#">Blog</a>
+                <a href="https://blog.datacommons.org/">Blog</a>
               </li>
             </ul>
           </div>

@@ -50,7 +50,7 @@ const HeaderBar = ({
   routes,
 }: HeaderBarProps): ReactElement => {
   return (
-    <div id="main-header-container" className={ !showHeaderSearchBar ? "nobar" : "" }>
+    <div id="main-header-container">
       <nav id="main-nav">
         <div className="navbar-menu-large">
           <HeaderLogo
