@@ -53,9 +53,11 @@ const Y_SCROLL_MARGIN = 100;
 window.addEventListener("load", (): void => {
   try {
     renderPage();
-    updatePageLayoutState();
-    maybeToggleFixedSidebar();
-    window.onresize = maybeToggleFixedSidebar;
+    // Disable sidebar pinning.
+    // TODO(beets): Delete this code.
+    // updatePageLayoutState();
+    // maybeToggleFixedSidebar();
+    // window.onresize = maybeToggleFixedSidebar;
   } catch (e) {
     return;
   }
@@ -234,7 +236,7 @@ function renderPage(): void {
       }
 
       // Readjust sidebar based on parent places.
-      updatePageLayoutState();
+      // updatePageLayoutState();
 
       // Display child places alphabetically
       for (const placeType in data.allChildPlaces) {
