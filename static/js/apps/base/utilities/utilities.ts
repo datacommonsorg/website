@@ -40,7 +40,7 @@ export const resolveHref = (href: string, routes: Routes): string => {
     if (routeKey === "feedback-prefill") {
       const windowHash = window.location.hash;
       if (windowHash) {
-          url += encodeURIComponent(windowHash);
+        url += encodeURIComponent(windowHash);
       }
     }
 
