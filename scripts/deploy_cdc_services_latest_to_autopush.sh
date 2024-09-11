@@ -14,8 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Deploys the custom DC services image tagged "latest" to the dc-autopush2 service.
-# TODO: Deploy to dc-autopush instead of dc-autopush2 once we have deprecated the datacommons-website-compose image.
+# Deploys the custom DC services image tagged "latest" to the dc-autopush service.
 
 # The script also updates a RESTART_TIMESTAMP env var
 # to easily identify the restart time of a given revision.
@@ -23,14 +22,14 @@
 # Usage: From root, ./scripts/deploy_cdc_services_latest_to_autopush.sh
 
 # The latest image = gcr.io/datcom-ci/datacommons-services:latest
-# autopush service: https://pantheon.corp.google.com/run/detail/us-central1/dc-autopush2/revisions?project=datcom-website-dev
-# autopush URL: https://dc-autopush2-496370955550.us-central1.run.app
+# autopush service: https://pantheon.corp.google.com/run/detail/us-central1/dc-autopush/revisions?project=datcom-website-dev
+# autopush URL: https://dc-autopush-496370955550.us-central1.run.app
 
 set -e
 set -x
 
-# Deploy latest image to dc-autopush2 Cloud Run service
-gcloud run deploy dc-autopush2 \
+# Deploy latest image to dc-autopush Cloud Run service
+gcloud run deploy dc-autopush \
   --project datcom-website-dev \
   --image gcr.io/datcom-ci/datacommons-services:latest \
   --region us-central1 \
