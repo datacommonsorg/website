@@ -37,7 +37,6 @@ interface AppProps {
  * Application container
  */
 export function App({ partners }: AppProps): ReactElement {
-
   return (
     <>
       <Hero />

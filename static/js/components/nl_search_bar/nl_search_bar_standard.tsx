@@ -35,8 +35,7 @@ const NlSearchBarStandard = ({
 }: NlSearchBarImplementationProps): ReactElement => {
   return (
     <div className="search-section">
-      <div className="search-bar-tags">
-      </div>
+      <div className="search-bar-tags"></div>
       <div className="search-box-section">
         <div className={`search-bar${value ? " non-empty" : ""}`}>
           <InputGroup className="search-bar-content">

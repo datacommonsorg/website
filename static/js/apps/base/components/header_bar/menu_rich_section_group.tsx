@@ -18,9 +18,14 @@
 
 import React, { ReactElement } from "react";
 
+import {
+  GA_EVENT_HEADER_CLICK,
+  GA_PARAM_ID,
+  GA_PARAM_URL,
+  triggerGAEvent,
+} from "../../../../shared/ga_events";
 import { HeaderMenuGroup, Routes } from "../../../../shared/types/base";
 import { resolveHref } from "../../utilities/utilities";
-import { GA_EVENT_HEADER_CLICK, GA_PARAM_ID, GA_PARAM_URL, triggerGAEvent } from "../../../../shared/ga_events";
 import MenuRichLinkGroup from "./menu_rich_link_group";
 
 interface MenuRichSectionGroupProps {
@@ -44,14 +49,17 @@ const MenuRichSectionGroup = ({
         <div key={index} className={"item"}>
           {item.title && item.url ? (
             <h5>
-              <a href={resolveHref(item.url, routes)} className={"item-link"}
-                        onClick={() => {
-                          triggerGAEvent(GA_EVENT_HEADER_CLICK, {
-                          [GA_PARAM_ID]: `${type} submenu ${menuGroup.id}-${index}`,
-                          [GA_PARAM_URL]: item.url});
-                      return true;
-                          }}
-                      >
+              <a
+                href={resolveHref(item.url, routes)}
+                className={"item-link"}
+                onClick={() => {
+                  triggerGAEvent(GA_EVENT_HEADER_CLICK, {
+                    [GA_PARAM_ID]: `${type} submenu ${menuGroup.id}-${index}`,
+                    [GA_PARAM_URL]: item.url,
+                  });
+                  return true;
+                }}
+              >
                 {item.linkType === "external" && (
                   <span className="material-icons-outlined">arrow_outward</span>
                 )}
