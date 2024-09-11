@@ -1,5 +1,6 @@
 [
   {
+    "id": "tools",
     "label": "Tools",
     "ariaLabel": "Show exploration tools",
     "introduction": {
@@ -7,6 +8,7 @@
     },
     "primarySectionGroups": [
       {
+        "id": "tools-0",
         "items": [
           {
             "title": "Knowledge Graph",
@@ -26,6 +28,7 @@
         ]
       },
       {
+        "id": "tools-1",
         "items": [
           {
             "title": "Map Explorer",
@@ -47,6 +50,7 @@
     ]
   },
   {
+    "id": "docs",
     "label": "Documentation",
     "ariaLabel": "Show documentation links",
     "introduction": {
@@ -54,6 +58,7 @@
     },
     "primarySectionGroups": [
       {
+        "id": "docs-0",
         "items": [
           {
             "title": "Docs",
@@ -68,6 +73,7 @@
         ]
       },
       {
+        "id": "docs-1",
         "items": [
           {
             "title": "Tutorials",
@@ -84,6 +90,7 @@
     ]
   },
   {
+    "id": "about",
     "label": "About",
     "ariaLabel": "Show about links",
     "introduction": {
@@ -91,6 +98,7 @@
     },
     "primarySectionGroups": [
       {
+        "id": "about-0",
         "items": [
           {
             "title": "Why Data Commons",
@@ -105,6 +113,7 @@
         ]
       },
       {
+        "id": "about-1",
         "items": [
           {
             "title": "FAQ",
@@ -121,6 +130,7 @@
     ]
   },
   {
+    "id": "feedback",
     "label": "Feedback",
     "ariaLabel": "Give feedback",
     "url": "https://docs.google.com/forms/d/e/1FAIpQLSc_xIinZPbO5RHDjq2a4eMoElkFgfe79U5DQ8-_kVhCNf2FJQ/viewform",

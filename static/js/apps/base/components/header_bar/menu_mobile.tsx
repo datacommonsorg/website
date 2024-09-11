@@ -24,6 +24,12 @@ import React, {
   useState,
 } from "react";
 
+import {
+  GA_EVENT_HEADER_CLICK,
+  GA_PARAM_ID,
+  GA_PARAM_URL,
+  triggerGAEvent,
+} from "../../../../shared/ga_events";
 import { HeaderMenu, Labels, Routes } from "../../../../shared/types/base";
 import { resolveHref } from "../../utilities/utilities";
 import MenuMobileRichMenu from "./menu_mobile_rich_menu";
@@ -54,7 +60,13 @@ const MenuMobile = ({
     setSelectedPrimaryItemIndex(null);
   };
 
-  const handlePrimaryItemClick = (primaryItemIndex: number): void => {
+  const handlePrimaryItemClick = (
+    primaryItemIndex: number,
+    id: string
+  ): void => {
+    triggerGAEvent(GA_EVENT_HEADER_CLICK, {
+      [GA_PARAM_ID]: `mobile ${id}`,
+    });
     setSelectedPrimaryItemIndex(primaryItemIndex);
   };
 
@@ -102,6 +114,13 @@ const MenuMobile = ({
             key={menuItem.label}
             className="menu-main-link"
             href={resolveHref(menuItem.url, routes)}
+            onClick={() => {
+              triggerGAEvent(GA_EVENT_HEADER_CLICK, {
+                [GA_PARAM_ID]: `mobile main ${menuItem.id}`,
+                [GA_PARAM_URL]: menuItem.url,
+              });
+              return true;
+            }}
           >
             {labels[menuItem.label]}
           </a>
@@ -151,6 +170,12 @@ const MenuMobile = ({
                       <a
                         href={resolveHref(item.url, routes)}
                         className="menu-item-link"
+                        onClick={(): boolean => {
+                          triggerGAEvent(GA_EVENT_HEADER_CLICK, {
+                            [GA_PARAM_ID]: `mobile submenu ${item.id}`,
+                          });
+                          return true;
+                        }}
                         tabIndex={tabIndex}
                       >
                         {labels[item.label]}
@@ -158,7 +183,9 @@ const MenuMobile = ({
                     ) : (
                       <>
                         <button
-                          onClick={(): void => handlePrimaryItemClick(index)}
+                          onClick={(): void =>
+                            handlePrimaryItemClick(index, item.id)
+                          }
                           className="menu-item-button"
                           tabIndex={tabIndex}
                         >

@@ -25,7 +25,7 @@ namespace:
 
 website:
   flaskEnv: unsdg
-  replicas: 50
+  replicas: 10
   redis:
     enabled: true
     configFile: |
@@ -56,13 +56,13 @@ nl:
 serviceGroups:
   recon: null
   svg:
-    replicas: 5
+    replicas: 3
   node:
-    replicas: 30
+    replicas: 3
   observation:
-    replicas: 30
+    replicas: 3
   default:
-    replicas: 20
+    replicas: 3
     cacheSVG: true # For REST api support
     resources:
       memoryRequest: "8G"
