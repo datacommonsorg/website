@@ -20,6 +20,12 @@
 
 import React, { ReactElement } from "react";
 
+import {
+  GA_EVENT_HEADER_CLICK,
+  GA_PARAM_ID,
+  GA_PARAM_URL,
+  triggerGAEvent,
+} from "../../../../shared/ga_events";
 import { Labels, Routes } from "../../../../shared/types/base";
 
 interface HeaderLogoProps {
@@ -49,6 +55,13 @@ const HeaderLogo = ({
           <a
             href={routes["static.homepage"]}
             aria-label={labels["Back to homepage"]}
+            onClick={() => {
+              triggerGAEvent(GA_EVENT_HEADER_CLICK, {
+                [GA_PARAM_ID]: "dc-logo",
+                [GA_PARAM_URL]: "{static.homepage}",
+              });
+              return true;
+            }}
           >
             <img
               src={logoPath}
@@ -58,7 +71,18 @@ const HeaderLogo = ({
           </a>
         </div>
       )}
-      <a href={routes["static.homepage"]}>{name}</a>
+      <a
+        href={routes["static.homepage"]}
+        onClick={() => {
+          triggerGAEvent(GA_EVENT_HEADER_CLICK, {
+            [GA_PARAM_ID]: "dc-name",
+            [GA_PARAM_URL]: "{static.homepage}",
+          });
+          return true;
+        }}
+      >
+        {name}
+      </a>
     </div>
   );
 };

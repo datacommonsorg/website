@@ -63,6 +63,7 @@ const MenuDesktopRichMenu = ({
               key={index}
               menuGroup={primarySectionGroup}
               routes={routes}
+              type="desktop"
               open={open}
             />
           ))}
@@ -76,6 +77,7 @@ const MenuDesktopRichMenu = ({
                 key={index}
                 menuGroup={secondarySectionGroup}
                 routes={routes}
+                type="desktop"
                 open={open}
               />
             )
