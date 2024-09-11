@@ -33,7 +33,18 @@ export const resolveHref = (href: string, routes: Routes): string => {
   if (match) {
     const routeKey = match[1];
     const resolvedRoute = routes[routeKey] || "";
-    return href.replace(regex, resolvedRoute);
+
+    let url = href.replace(regex, resolvedRoute);
+
+    // TODO(beets): Find a more appropriate place to do this only for feedback links.
+    if (routeKey === "feedback-prefill") {
+      const windowHash = window.location.hash;
+      if (windowHash) {
+          url += encodeURIComponent(windowHash);
+      }
+    }
+
+    return url;
   } else {
     return href;
   }
