@@ -52,6 +52,7 @@ const MenuDesktopRichMenu = ({
           <MenuRichLinkGroup
             links={menuItem.introduction.links}
             routes={routes}
+            open={open}
           />
         )}
       </div>
@@ -62,6 +63,7 @@ const MenuDesktopRichMenu = ({
               key={index}
               menuGroup={primarySectionGroup}
               routes={routes}
+              open={open}
             />
           ))}
         </div>
@@ -74,6 +76,7 @@ const MenuDesktopRichMenu = ({
                 key={index}
                 menuGroup={secondarySectionGroup}
                 routes={routes}
+                open={open}
               />
             )
           )}

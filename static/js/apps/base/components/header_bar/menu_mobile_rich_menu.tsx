@@ -49,6 +49,7 @@ const MenuMobileRichMenu = ({
           <MenuRichLinkGroup
             links={menuItem.introduction.links}
             routes={routes}
+            open={true}
           />
         )}
       </div>
@@ -59,6 +60,7 @@ const MenuMobileRichMenu = ({
               key={index}
               menuGroup={primarySectionGroup}
               routes={routes}
+              open={true}
             />
           ))}
         </div>
@@ -71,6 +73,7 @@ const MenuMobileRichMenu = ({
                 key={index}
                 menuGroup={secondarySectionGroup}
                 routes={routes}
+                open={true}
               />
             )
           )}
