@@ -18,6 +18,12 @@
 
 import React, { ReactElement } from "react";
 
+import {
+  GA_EVENT_HEADER_CLICK,
+  GA_PARAM_ID,
+  GA_PARAM_URL,
+  triggerGAEvent,
+} from "../../../../shared/ga_events";
 import { HeaderMenuGroup, Routes } from "../../../../shared/types/base";
 import { resolveHref } from "../../utilities/utilities";
 import MenuRichLinkGroup from "./menu_rich_link_group";
@@ -27,6 +33,8 @@ interface MenuRichSectionGroupProps {
   menuGroup: HeaderMenuGroup;
   //the routes dictionary - this is used to convert routes to resolved urls
   routes: Routes;
+  //menu type used for tracking
+  type: "desktop" | "mobile";
   //a flag to indicate whether the menu is open.
   open: boolean;
 }
@@ -34,6 +42,7 @@ interface MenuRichSectionGroupProps {
 const MenuRichSectionGroup = ({
   menuGroup,
   routes,
+  type,
   open,
 }: MenuRichSectionGroupProps): ReactElement => {
   const tabIndex = open ? 0 : -1;
@@ -48,6 +57,13 @@ const MenuRichSectionGroup = ({
               <a
                 href={resolveHref(item.url, routes)}
                 className={"item-link"}
+                onClick={() => {
+                  triggerGAEvent(GA_EVENT_HEADER_CLICK, {
+                    [GA_PARAM_ID]: `${type} submenu ${menuGroup.id}-${index}`,
+                    [GA_PARAM_URL]: item.url,
+                  });
+                  return true;
+                }}
                 tabIndex={tabIndex}
               >
                 {item.linkType === "external" && (

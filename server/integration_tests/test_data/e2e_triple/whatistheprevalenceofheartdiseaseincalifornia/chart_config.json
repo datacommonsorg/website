@@ -470,6 +470,41 @@
   "debug": {},
   "entities": [
     {
+      "dcid": "bio/D002275",
+      "name": "Carcinoid Heart Disease",
+      "type": ""
+    },
+    {
+      "dcid": "bio/D003327",
+      "name": "Coronary Disease",
+      "type": ""
+    },
+    {
+      "dcid": "bio/D006331",
+      "name": "Heart Diseases",
+      "type": ""
+    },
+    {
+      "dcid": "bio/D006349",
+      "name": "Heart Valve Diseases",
+      "type": ""
+    },
+    {
+      "dcid": "bio/D011660",
+      "name": "Pulmonary Heart Disease",
+      "type": ""
+    },
+    {
+      "dcid": "bio/D012214",
+      "name": "Rheumatic Heart Disease",
+      "type": ""
+    },
+    {
+      "dcid": "bio/D017202",
+      "name": "Myocardial Ischemia",
+      "type": ""
+    },
+    {
       "dcid": "bio/DOID_114",
       "name": "heart disease",
       "type": ""

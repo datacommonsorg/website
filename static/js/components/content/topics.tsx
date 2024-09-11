@@ -20,6 +20,12 @@
 
 import React, { ReactElement } from "react";
 
+import {
+  GA_EVENT_HOMEPAGE_CLICK,
+  GA_PARAM_ID,
+  GA_PARAM_URL,
+  triggerGAEvent,
+} from "../../shared/ga_events";
 import { Topic } from "../../shared/types/homepage";
 
 interface TopicsProps {
@@ -38,6 +44,10 @@ const Topics = ({ topics }: TopicsProps): ReactElement => {
               <a
                 href={topic.browseUrl}
                 onClick={(): void => {
+                  triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
+                    [GA_PARAM_ID]: `topic ${topic.id}`,
+                    [GA_PARAM_URL]: topic.browseUrl,
+                  });
                   window.location.href = topic.browseUrl;
                 }}
               >

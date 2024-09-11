@@ -27,6 +27,7 @@ import Partners from "../../components/content/partners";
 import Quote from "../../components/content/quote";
 import SimpleText from "../../components/content/simple_text";
 import { Partner } from "../../shared/types/homepage";
+import { GA_EVENT_BUILDPAGE_CLICK } from "../../shared/ga_events";
 
 interface AppProps {
   //the partners passed from the backend through to the JavaScript via the templates
@@ -37,7 +38,6 @@ interface AppProps {
  * Application container
  */
 export function App({ partners }: AppProps): ReactElement {
-
   return (
     <>
       <Hero />
@@ -75,14 +75,14 @@ export function App({ partners }: AppProps): ReactElement {
           every country in the world, with data on a whole range of issues."
       />
       <OneDataCommons />
-      <Partners partners={partners} />
+      <Partners partners={partners} gaEvent={GA_EVENT_BUILDPAGE_CLICK} />
       <hr className="separator" />
       <SimpleText>
         <>
           <h3>Ready to get started?</h3>
           <p>
             <a
-              href="https://docs.datacommons.org/custom_dc"
+              href="https://docs.datacommons.org/custom_dc?utm_source=buildpage_start"
               title="Get started"
             >
               Get started

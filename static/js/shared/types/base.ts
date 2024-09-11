@@ -38,6 +38,7 @@ interface FooterSubMenu {
 
 // The top level of the header menu
 export interface HeaderMenu {
+  id: string;
   //the label that displays in the top level menu item of the header
   label: string;
   //an optional url - if this is supplied, any subsequent information will be ignored as the rich menu cannot be clicked
