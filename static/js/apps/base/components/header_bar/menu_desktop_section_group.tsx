@@ -97,27 +97,28 @@ const MenuDesktopSectionGroup = ({
                         {link.title && <p>• {link.title}</p>}
                       </>
                     ) : (
-                    <a
-                      href={url}
-                      className={"link"}
-                      onClick={() => {
-                        triggerGAEvent(GA_EVENT_HEADER_CLICK, {
-                          GA_PARAM_ID: `desktop ${menuGroup.id} ${index}-${linksIndex}`,
-                          GA_PARAM_URL: url,
-                        });
-                        return true;
-                      }}
-                    >
-                      {link.linkType === "external" && (
-                        <span className="material-icons-outlined">
-                          arrow_outward
-                        </span>
-                      )}
-                      <span className="link-title">{link.title}</span>
-                    </a>
-                  )}
-                </div>
-              )})}
+                      <a
+                        href={url}
+                        className={"link"}
+                        onClick={() => {
+                          triggerGAEvent(GA_EVENT_HEADER_CLICK, {
+                            GA_PARAM_ID: `desktop ${menuGroup.id} ${index}-${linksIndex}`,
+                            GA_PARAM_URL: url,
+                          });
+                          return true;
+                        }}
+                      >
+                        {link.linkType === "external" && (
+                          <span className="material-icons-outlined">
+                            arrow_outward
+                          </span>
+                        )}
+                        <span className="link-title">{link.title}</span>
+                      </a>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>

@@ -21,9 +21,14 @@
 import React, { ReactElement, useEffect, useState } from "react";
 
 import { BREAKPOINTS } from "../../apps/base/utilities/utilities";
+import {
+  GA_EVENT_HOMEPAGE_CLICK,
+  GA_PARAM_ID,
+  GA_PARAM_QUERY,
+  triggerGAEvent,
+} from "../../shared/ga_events";
 import { SampleQuestionCategory } from "../../shared/types/homepage";
 import SlideCarousel from "../elements/slide_carousel";
-import { GA_EVENT_HOMEPAGE_CLICK, GA_PARAM_ID, GA_PARAM_QUERY, triggerGAEvent } from "../../shared/ga_events";
 
 interface SampleQuestionsProps {
   sampleQuestions: SampleQuestionCategory[];
@@ -82,14 +87,15 @@ const SampleQuestions = ({
                         colors[overallIndex % colors.length]
                       }`}
                     >
-                      <a href={`/explore#q=${encodeURIComponent(question)}`}
-                onClick={(): void => {
-                  triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
-                    [GA_PARAM_ID]: `sample-q ${index}-${overallIndex}`,
-                    [GA_PARAM_QUERY]: question,
-                  });
-                }}
-                >
+                      <a
+                        href={`/explore#q=${encodeURIComponent(question)}`}
+                        onClick={(): void => {
+                          triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
+                            [GA_PARAM_ID]: `sample-q ${index}-${overallIndex}`,
+                            [GA_PARAM_QUERY]: question,
+                          });
+                        }}
+                      >
                         <p>{question}</p>
                         <small>{category.category}</small>
                       </a>
@@ -115,13 +121,14 @@ const SampleQuestions = ({
                 key={category.category}
                 className={`question-item ${colors[index % colors.length]}`}
               >
-                <a href={`/explore#q=${encodeURIComponent(question)}`}
-                onClick={(): void => {
-                  triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
-                    [GA_PARAM_ID]: `sample-q ${index}-single`,
-                    [GA_PARAM_QUERY]: question,
-                  });
-                }}
+                <a
+                  href={`/explore#q=${encodeURIComponent(question)}`}
+                  onClick={(): void => {
+                    triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
+                      [GA_PARAM_ID]: `sample-q ${index}-single`,
+                      [GA_PARAM_QUERY]: question,
+                    });
+                  }}
                 >
                   <p>{question}</p>
                   <small>{category.category}</small>

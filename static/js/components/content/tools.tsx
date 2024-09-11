@@ -21,7 +21,12 @@
 import React, { ReactElement } from "react";
 
 import { resolveHref } from "../../apps/base/utilities/utilities";
-import { GA_EVENT_HOMEPAGE_CLICK, GA_PARAM_ID, GA_PARAM_URL, triggerGAEvent } from "../../shared/ga_events";
+import {
+  GA_EVENT_HOMEPAGE_CLICK,
+  GA_PARAM_ID,
+  GA_PARAM_URL,
+  triggerGAEvent,
+} from "../../shared/ga_events";
 
 interface ToolsProps {
   //the routes dictionary - this is used to convert routes to resolved urls
@@ -47,12 +52,12 @@ const Tools = ({ routes }: ToolsProps): ReactElement => {
             <a
               href={resolveHref("{tools.visualization}#visType=map", routes)}
               id="map-button"
-                onClick={(): void => {
-                  triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
-                    [GA_PARAM_ID]: "tools",
-                    [GA_PARAM_URL]: "map",
-                  });
-                }}
+              onClick={(): void => {
+                triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
+                  [GA_PARAM_ID]: "tools",
+                  [GA_PARAM_URL]: "map",
+                });
+              }}
             >
               <span className="tool-icon map"></span>
               Map Explorer
@@ -65,12 +70,12 @@ const Tools = ({ routes }: ToolsProps): ReactElement => {
                 routes
               )}
               id="scatter-button"
-                onClick={(): void => {
-                  triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
-                    [GA_PARAM_ID]: "tools",
-                    [GA_PARAM_URL]: "scatter",
-                  });
-                }}
+              onClick={(): void => {
+                triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
+                  [GA_PARAM_ID]: "tools",
+                  [GA_PARAM_URL]: "scatter",
+                });
+              }}
             >
               <span className="tool-icon scaterplot"></span>
               Scatter Plot Explorer
@@ -83,12 +88,12 @@ const Tools = ({ routes }: ToolsProps): ReactElement => {
                 routes
               )}
               id="timeline-button"
-                onClick={(): void => {
-                  triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
-                    [GA_PARAM_ID]: "tools",
-                    [GA_PARAM_URL]: "timeline",
-                  });
-                }}
+              onClick={(): void => {
+                triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
+                  [GA_PARAM_ID]: "tools",
+                  [GA_PARAM_URL]: "timeline",
+                });
+              }}
             >
               <span className="tool-icon timeline"></span>
               Timelines Explorer
@@ -98,26 +103,28 @@ const Tools = ({ routes }: ToolsProps): ReactElement => {
             <a
               href={resolveHref("{tools.download}", routes)}
               id="download-button"
-                onClick={(): void => {
-                  triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
-                    [GA_PARAM_ID]: "tools",
-                    [GA_PARAM_URL]: "download",
-                  });
-                }}
+              onClick={(): void => {
+                triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
+                  [GA_PARAM_ID]: "tools",
+                  [GA_PARAM_URL]: "download",
+                });
+              }}
             >
               <span className="tool-icon download"></span>
               Data Download Tool
             </a>
           </li>
           <li>
-            <a href="https://docs.datacommons.org/api/" id="api-button"
-                onClick={(): void => {
-                  triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
-                    [GA_PARAM_ID]: "tools",
-                    [GA_PARAM_URL]: "api",
-                  });
-                }}
-                >
+            <a
+              href="https://docs.datacommons.org/api/"
+              id="api-button"
+              onClick={(): void => {
+                triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
+                  [GA_PARAM_ID]: "tools",
+                  [GA_PARAM_URL]: "api",
+                });
+              }}
+            >
               <span className="tool-icon api"></span>
               API Access
             </a>

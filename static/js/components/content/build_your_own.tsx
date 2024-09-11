@@ -21,7 +21,12 @@
 import React, { ReactElement } from "react";
 
 import { resolveHref } from "../../apps/base/utilities/utilities";
-import { GA_EVENT_HOMEPAGE_CLICK, GA_PARAM_ID, GA_PARAM_URL, triggerGAEvent } from "../../shared/ga_events";
+import {
+  GA_EVENT_HOMEPAGE_CLICK,
+  GA_PARAM_ID,
+  GA_PARAM_URL,
+  triggerGAEvent,
+} from "../../shared/ga_events";
 
 interface BuildProps {
   //the routes dictionary - this is used to convert routes to resolved urls
@@ -39,13 +44,17 @@ const Build = ({ routes }: BuildProps): ReactElement => {
             showcasing relevant data and tools to engage your audience. Any
             entity or organization can build their own instance with specific
             data, a dedicated website, and specialized tools.{" "}
-            <a href={resolveHref("{static.build}", routes)}
-                onClick={(): void => {
-                  triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
-                    [GA_PARAM_ID]: "build-your-own",
-                    [GA_PARAM_URL]: "{static.build}",
-                  });
-                }}>Learn more</a>
+            <a
+              href={resolveHref("{static.build}", routes)}
+              onClick={(): void => {
+                triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
+                  [GA_PARAM_ID]: "build-your-own",
+                  [GA_PARAM_URL]: "{static.build}",
+                });
+              }}
+            >
+              Learn more
+            </a>
           </p>
           <h4>United Nations Data Commons for the SDGs</h4>
         </div>

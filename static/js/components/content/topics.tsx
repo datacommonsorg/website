@@ -20,8 +20,13 @@
 
 import React, { ReactElement } from "react";
 
+import {
+  GA_EVENT_HOMEPAGE_CLICK,
+  GA_PARAM_ID,
+  GA_PARAM_URL,
+  triggerGAEvent,
+} from "../../shared/ga_events";
 import { Topic } from "../../shared/types/homepage";
-import { GA_EVENT_HOMEPAGE_CLICK, GA_PARAM_ID, GA_PARAM_URL, triggerGAEvent } from "../../shared/ga_events";
 
 interface TopicsProps {
   //the topics passed from the backend through to the JavaScript via the templates
