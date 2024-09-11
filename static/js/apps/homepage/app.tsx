@@ -28,13 +28,13 @@ import Partners from "../../components/content/partners";
 import SampleQuestions from "../../components/content/sample_questions";
 import Tools from "../../components/content/tools";
 import Topics from "../../components/content/topics";
+import { GA_EVENT_HOMEPAGE_CLICK } from "../../shared/ga_events";
 import { Routes } from "../../shared/types/base";
 import {
   Partner,
   SampleQuestionCategory,
   Topic,
 } from "../../shared/types/homepage";
-import { GA_EVENT_HOMEPAGE_CLICK } from "../../shared/ga_events";
 
 interface AppProps {
   //the topics passed from the backend through to the JavaScript via the templates

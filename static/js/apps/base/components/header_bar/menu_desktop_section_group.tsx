@@ -23,7 +23,7 @@ import {
   triggerGAEvent,
 } from "../../../../shared/ga_events";
 import { HeaderMenuGroup, Routes } from "../../../../shared/types/base";
-import { resolveHref, slugify } from "../../utilities/utilities";
+import { resolveHref } from "../../utilities/utilities";
 
 interface MenuDesktopSectionGroupProps {
   //the menu group to be rendered inside a particular location in the rich menu
@@ -47,7 +47,6 @@ const MenuDesktopSectionGroup = ({
                 href={item.url}
                 className={"item-link"}
                 onClick={() => {
-                  debugger;
                   triggerGAEvent(GA_EVENT_HEADER_CLICK, {
                     GA_PARAM_ID: `desktop ${menuGroup.id} ${index}`,
                     GA_PARAM_URL: item.url,
