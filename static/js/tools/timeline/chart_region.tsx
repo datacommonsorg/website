@@ -22,8 +22,6 @@ import { StatMetadata } from "../../shared/stat_types";
 import { StatVarInfo } from "../../shared/stat_var";
 import { saveToFile } from "../../shared/util";
 import { getStatVarGroups } from "../../utils/app/timeline_utils";
-import { BqModal } from "../shared/bq_modal";
-import { getTimelineSqlQuery } from "./bq_query_utils";
 import { Chart } from "./chart";
 import { StatData } from "./data_fetcher";
 import {
@@ -57,7 +55,6 @@ interface ChartRegionPropsType {
 class ChartRegion extends Component<ChartRegionPropsType> {
   downloadLink: HTMLAnchorElement;
   bulkDownloadLink: HTMLAnchorElement;
-  bqLink: HTMLAnchorElement;
   allStatData: { [key: string]: StatData };
   // map of stat var dcid to map of metahash to source metadata
   metadataMap: Record<string, Record<string, StatMetadata>>;
@@ -87,8 +84,6 @@ class ChartRegion extends Component<ChartRegionPropsType> {
         );
       };
     }
-    // TODO: uncomment to re-enable opening big query
-    // this.bqLink = setUpBqButton(this.getSqlQuery);
   }
 
   render(): JSX.Element {
@@ -103,11 +98,6 @@ class ChartRegion extends Component<ChartRegionPropsType> {
       this.props.statVarOrder,
       this.props.statVarInfo
     );
-    if (this.bqLink) {
-      this.bqLink.style.display = this.shouldShowBqButton(chartGroupInfo)
-        ? "inline-block"
-        : "none";
-    }
     return (
       <React.Fragment>
         {chartGroupInfo.chartOrder.map((mprop) => {
@@ -138,18 +128,11 @@ class ChartRegion extends Component<ChartRegionPropsType> {
             ></Chart>
           );
         }, this)}
-        <BqModal
-          getSqlQuery={this.getSqlQuery(chartGroupInfo).bind(this)}
-          showButton={this.shouldShowBqButton(chartGroupInfo)}
-        />
       </React.Fragment>
     );
   }
 
   componentWillUnmount() {
-    if (this.bqLink) {
-      this.bqLink.style.display = "none";
-    }
     if (this.downloadLink) {
       this.downloadLink.style.display = "none";
     }
@@ -254,24 +237,6 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     }
     return result;
   }
-
-  private shouldShowBqButton(chartGroupInfo: ChartGroupInfo): boolean {
-    for (const mprop of Object.keys(chartGroupInfo.chartIdToStatVars)) {
-      if (!getChartOption(mprop, "delta")) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  private getSqlQuery = (chartGroupInfo: ChartGroupInfo) => () => {
-    return getTimelineSqlQuery(
-      chartGroupInfo,
-      Object.keys(this.props.placeName),
-      getMetahash(),
-      this.metadataMap
-    );
-  };
 }
 
 export { ChartRegion, ChartRegionPropsType, StatVarInfo };

@@ -133,7 +133,7 @@ ENV WEBSITE_MIXER_API_ROOT=http://127.0.0.1:8081 \
     USE_SQLITE=false \
     USE_CLOUDSQL=false \
     DC_API_ROOT=https://api.datacommons.org \
-    ENABLE_MODEL=false
+    ENABLE_MODEL=true
 
 WORKDIR /workspace
 
