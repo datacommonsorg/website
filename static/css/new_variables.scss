@@ -140,11 +140,15 @@ $color-gray_pill_bckg:#E2E2EC;
   position: relative;
   width: 100%;
   display: block;
+  border: none;
+  outline: none;
   overflow: hidden;
   iframe, video {
     margin: 0;
     padding: 0;
-    border: 0;
+    border: none;
+    outline: none;
+    isolation: isolate;
     box-sizing: border-box;
     display: block;
     width: 100%;
@@ -154,6 +158,9 @@ $color-gray_pill_bckg:#E2E2EC;
     right: 0;
     bottom: 0;
     left: 0;
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
   }
 }
 

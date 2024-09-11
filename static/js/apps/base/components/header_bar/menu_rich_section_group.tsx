@@ -27,12 +27,17 @@ interface MenuRichSectionGroupProps {
   menuGroup: HeaderMenuGroup;
   //the routes dictionary - this is used to convert routes to resolved urls
   routes: Routes;
+  //a flag to indicate whether the menu is open.
+  open: boolean;
 }
 
 const MenuRichSectionGroup = ({
   menuGroup,
   routes,
+  open,
 }: MenuRichSectionGroupProps): ReactElement => {
+  const tabIndex = open ? 0 : -1;
+
   return (
     <div className={"group"}>
       {menuGroup.title && <h4>{menuGroup.title}</h4>}
@@ -40,7 +45,11 @@ const MenuRichSectionGroup = ({
         <div key={index} className={"item"}>
           {item.title && item.url ? (
             <h5>
-              <a href={resolveHref(item.url, routes)} className={"item-link"}>
+              <a
+                href={resolveHref(item.url, routes)}
+                className={"item-link"}
+                tabIndex={tabIndex}
+              >
                 {item.linkType === "external" && (
                   <span className="material-icons-outlined">arrow_outward</span>
                 )}
@@ -57,7 +66,7 @@ const MenuRichSectionGroup = ({
           {item.description && <p>{item.description}</p>}
 
           {item.links?.length > 0 && (
-            <MenuRichLinkGroup links={item.links} routes={routes} />
+            <MenuRichLinkGroup links={item.links} routes={routes} open={open} />
           )}
         </div>
       ))}
