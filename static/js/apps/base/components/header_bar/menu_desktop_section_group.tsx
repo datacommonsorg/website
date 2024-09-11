@@ -19,7 +19,8 @@
 import React, { ReactElement } from "react";
 
 import { HeaderMenuGroup, Routes } from "../../../../shared/types/base";
-import { resolveHref } from "../../utilities/utilities";
+import { resolveHref, slugify } from "../../utilities/utilities";
+import { GA_EVENT_HEADER_CLICK, triggerGAEvent } from "../../../../shared/ga_events";
 
 interface MenuDesktopSectionGroupProps {
   //the menu group to be rendered inside a particular location in the rich menu
@@ -39,7 +40,15 @@ const MenuDesktopSectionGroup = ({
         <div key={index} className={"item"}>
           {item.title && item.url ? (
             <h5>
-              <a href={item.url} className={"item-link"}>
+              <a href={item.url} className={"item-link"}
+                        onClick={() => {
+                          debugger;
+                          triggerGAEvent(GA_EVENT_HEADER_CLICK, {
+                          GA_PARAM_ID: `desktop ${menuGroup.id} ${index}`,
+                          GA_PARAM_URL: item.url});
+                      return true;
+                          }}
+                      >
                 {item.linkType === "external" && (
                   <span className="material-icons-outlined">arrow_outward</span>
                 )}
@@ -55,13 +64,21 @@ const MenuDesktopSectionGroup = ({
 
           {item.links?.length > 0 && (
             <div className="item-links">
-              {item.links.map((link, index) => (
-                <div key={index} className="link-item">
+              {item.links.map((link, linksIndex) => {
+                const url = resolveHref(link.url, routes);
+                return (
+                <div key={linksIndex} className="link-item">
                   {link.linkType === "rss" ? (
                     <>
                       <a
-                        href={resolveHref(link.url, routes)}
+                        href={url}
                         className={"link"}
+                        onClick={() => {
+                          triggerGAEvent(GA_EVENT_HEADER_CLICK, {
+                          GA_PARAM_ID: `desktop ${menuGroup.id} ${index}-${linksIndex}`,
+                        GA_PARAM_URL: url});
+                      return true;
+                          }}
                       >
                         <span className="material-icons-outlined">rss_feed</span>
                         <span className="link-title">RSS Feed</span>
@@ -69,7 +86,13 @@ const MenuDesktopSectionGroup = ({
                       {link.title && <p>• {link.title}</p>}
                     </>
                   ) : (
-                    <a href={resolveHref(link.url, routes)} className={"link"}>
+                    <a href={url} className={"link"}
+                        onClick={() => {
+                          triggerGAEvent(GA_EVENT_HEADER_CLICK, {
+                          GA_PARAM_ID: `desktop ${menuGroup.id} ${index}-${linksIndex}`,
+                        GA_PARAM_URL: url});
+                      return true;
+                          }}>
                       {link.linkType === "external" && (
                         <span className="material-icons-outlined">arrow_outward</span>
                       )}
@@ -77,7 +100,7 @@ const MenuDesktopSectionGroup = ({
                     </a>
                   )}
                 </div>
-              ))}
+              )})}
             </div>
           )}
         </div>

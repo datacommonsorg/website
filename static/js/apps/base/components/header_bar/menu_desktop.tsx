@@ -22,6 +22,7 @@ import useEscapeKeyInputHandler from "../../../../shared/hooks/escape_key_handle
 import { HeaderMenu, Labels, Routes } from "../../../../shared/types/base";
 import { resolveHref, slugify } from "../../utilities/utilities";
 import MenuDesktopRichMenu from "./menu_desktop_rich_menu";
+import { GA_EVENT_HEADER_CLICK, GA_PARAM_ID, GA_PARAM_URL, triggerGAEvent } from "../../../../shared/ga_events";
 
 interface MenuDesktopProps {
   //the data that will populate the header menu.
@@ -93,6 +94,12 @@ const MenuDesktop = ({
               <a
                 className="menu-main-link"
                 href={resolveHref(menuItem.url, routes)}
+                        onClick={() => {
+                          triggerGAEvent(GA_EVENT_HEADER_CLICK, {
+                          [GA_PARAM_ID]: `desktop main ${menuItem.id}`,
+                          [GA_PARAM_URL]: menuItem.url});
+                      return true;
+                          }}
               >
                 {labels[menuItem.label]}
               </a>
@@ -100,7 +107,11 @@ const MenuDesktop = ({
               <>
                 <button
                   className="menu-main-button"
-                  onClick={(): void => !menuItem.url && toggleMenu(index)}
+                  onClick={(): void => {
+                          triggerGAEvent(GA_EVENT_HEADER_CLICK, {
+                          [GA_PARAM_ID]: `desktop ${menuItem.id}`});
+                    return !menuItem.url && toggleMenu(index)
+                  }}
                   onTouchEnd={(e): void => {
                     if (!menuItem.url) itemMenuTouch(e, index);
                   }}

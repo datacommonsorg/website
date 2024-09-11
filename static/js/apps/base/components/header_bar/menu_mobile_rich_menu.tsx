@@ -59,6 +59,7 @@ const MenuMobileRichMenu = ({
               key={index}
               menuGroup={primarySectionGroup}
               routes={routes}
+              type="mobile"
             />
           ))}
         </div>
@@ -71,6 +72,7 @@ const MenuMobileRichMenu = ({
                 key={index}
                 menuGroup={secondarySectionGroup}
                 routes={routes}
+                type="mobile"
               />
             )
           )}
