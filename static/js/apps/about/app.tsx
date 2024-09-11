@@ -31,7 +31,7 @@ export function App(): ReactElement {
     <>
       <section className="blue big">
         <Quote
-          quote="Every moment around the world people and organizations are generating data that can be extraordinary useful and I think we have to find the way to harness that to solve problems. 
+          quote="Every moment around the world people and organizations are generating data that can be extraordinarily useful and I think we have to find the way to harness that to solve problems.
 The challenge is that a lot of this data is very fragmented."
           byline="James Manyika, Senior  Vice President, Research, Technology & Society at Google"
         />
