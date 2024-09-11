@@ -4,6 +4,10 @@ This folder contains command line tools to migrate api keys to apigee.
 
 > NOTE: This tool is currently a WIP and the usage below will change once it is finalized.
 
+## Auth
+
+(First time only) Follow [these instructions](https://docs.gspread.org/en/v6.1.2/oauth2.html#for-end-users-using-oauth-client-id) to generate and download a credentials.json file.
+
 ## Usage
 
 To migrate keys in prod env:
