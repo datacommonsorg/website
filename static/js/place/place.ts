@@ -50,7 +50,7 @@ const Y_SCROLL_WINDOW_BREAKPOINT = 992;
 // Margin to apply to the fixed sidebar top.
 const Y_SCROLL_MARGIN = 100;
 
-window.onload = () => {
+window.addEventListener("load", (): void => {
   try {
     renderPage();
     updatePageLayoutState();
@@ -59,7 +59,7 @@ window.onload = () => {
   } catch (e) {
     return;
   }
-};
+});
 
 /**
  *  Make adjustments to sidebar scroll state based on the content.

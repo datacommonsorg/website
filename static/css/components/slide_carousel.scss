@@ -1,0 +1,70 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Styles for the slide carousel
+ */
+
+.slide-carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+
+  .carousel-inner {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .carousel-tape {
+    display: flex;
+    transition: transform 0.5s ease;
+  }
+
+  .carousel-slide {
+    flex-shrink: 0;
+    .container {
+      padding: 0!important; // Fix to re-use component inside sliders reseting their padding
+    }
+  }
+
+  .carousel-dots-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-top: 10px;
+
+    .carousel-dots {
+      display: flex;
+      gap: var.$spacing;
+      padding: 0;
+
+      .carousel-dot {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        background: white;
+        border: 1px solid var.$color-blue;
+        border-radius: 50%;
+        cursor: pointer;
+
+        &.active {
+          background: var.$color-blue;
+        }
+      }
+    }
+  }
+}

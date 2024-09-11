@@ -1,0 +1,92 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* Styles for the tools component located on the home page */
+
+.tools {
+  padding-top: calc(#{var.$spacing} * 10);
+  padding-bottom: calc(#{var.$spacing} * 10);
+  background: var.$color-blue-bckg;
+  .header{
+    max-width: 57%;
+    margin-bottom: calc(#{var.$spacing} * 4);
+    @include media-breakpoint-down(md) {
+      max-width: 100%; 
+    }
+    h3 {
+      @include var.title_md;
+      margin-bottom: calc(#{var.$spacing} * 3);
+    }
+    p {
+      @include var.text_lg;
+    }
+  }
+  .tools-buttons {
+    display: flex;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: calc(#{var.$spacing} * 3);
+    margin: 0;
+    padding: 0;
+    li {
+      display: block;
+      padding: 0;
+      margin: 0;
+      flex-basis: 200px;
+      @include media-breakpoint-down(xs) {
+        flex-grow: 2;
+      }
+      a {
+        @include var.white-box;
+        @include var.title_xs;
+        display: flex;
+        width: 100%;
+        height: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: calc(#{var.$spacing} * 2);
+        padding: calc(#{var.$spacing} * 3);
+        border-radius: calc(#{var.$spacing} * 4);
+        @include media-breakpoint-down(xs) {
+          align-items: center;
+        }
+      }
+    }
+  }
+  .tool-icon {
+    display: block;
+    width: 32px;
+    height: 32px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100%;
+    &.timeline {
+      background-image: url('/images/icons/icon-timeline.svg')
+    }
+    &.api {
+      background-image: url('/images/icons/icon-api.svg')
+    }
+    &.download {
+      background-image: url('/images/icons/icon-download.svg')
+    }
+    &.map {
+      background-image: url('/images/icons/icon-map.svg')
+    }
+    &.scaterplot {
+      background-image: url('/images/icons/icon-scaterplot.svg')
+    }
+  }
+}

@@ -1,0 +1,90 @@
+[
+  {
+    "label": "Tools",
+    "subMenu": [
+      {
+        "href": "{place.place}",
+        "label": "Place Explorer"
+      },
+      {
+        "href": "{browser.browser_main}",
+        "label": "Knowledge Graph"
+      },
+      {
+        "href": "{tools.visualization}#visType=timeline",
+        "label": "Timelines Explorer"
+      },
+      {
+        "href": "{tools.visualization}#visType=scatter",
+        "label": "Scatter Plot Explorer"
+      },
+      {
+        "href": "{tools.visualization}#visType=map",
+        "label": "Map Explorer"
+      },
+      {
+        "href": "{tools.stat_var}",
+        "label": "Statistical Variable Explorer"
+      },
+      {
+        "href": "{tools.download}",
+        "label": "Data Download Tool"
+      }
+    ]
+  },
+  {
+    "label": "Documentation",
+    "subMenu": [
+      {
+        "href": "https://docs.datacommons.org",
+        "label": "Documentation"
+      },
+      {
+        "href": "https://docs.datacommons.org/api",
+        "label": "APIs"
+      },
+      {
+        "hide": true,
+        "href": "https://docs.datacommons.org/bigquery",
+        "label": "BigQuery"
+      },
+      {
+        "href": "https://docs.datacommons.org/tutorials",
+        "label": "Tutorials"
+      },
+      {
+        "href": "https://docs.datacommons.org/contributing/",
+        "label": "Contribute"
+      },
+      {
+        "href": "http://github.com/datacommonsorg",
+        "label": "Github Repository"
+      }
+    ]
+  },
+  {
+    "label": "Data Commons",
+    "subMenu": [
+      {
+        "href": "{static.about}",
+        "label": "About Data Commons"
+      },
+      {
+        "href": "https://blog.datacommons.org/",
+        "label": "Blog"
+      },
+      {
+        "href": "https://docs.datacommons.org/datasets/",
+        "label": "Data Sources"
+      },
+      {
+        "href": "{static.feedback}",
+        "label": "Feedback"
+      },
+      {
+        "href": "{static.faq}",
+        "label": "Frequently Asked Questions"
+      }
+    ]
+  }
+]

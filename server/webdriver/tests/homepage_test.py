@@ -28,11 +28,13 @@ class TestPlaceLanding(WebdriverBaseTest):
     self.driver.get(self.url_ + '/')
 
     title_present = EC.text_to_be_present_in_element(
-        (By.XPATH, '//*[@id="main-nav"]/div/div[1]/a'), 'Data Commons')
+        (By.CSS_SELECTOR, '#main-nav .navbar-brand'), 'Data Commons')
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(title_present)
 
-    hero_msg = self.driver.find_elements(By.CLASS_NAME, 'header')[0]
-    self.assertTrue(hero_msg.text.startswith('Data tells interesting stories'))
+    hero_msg = self.driver.find_elements(By.ID, 'hero')[0]
+    self.assertTrue(
+        hero_msg.text.startswith(
+            'Data Commons aggregates and harmonizes global, open data'))
 
   def test_homepage_it(self):
     """Test homepage in IT."""
@@ -40,11 +42,13 @@ class TestPlaceLanding(WebdriverBaseTest):
     self.driver.get(self.url_ + '/?hl=it')
 
     title_present = EC.text_to_be_present_in_element(
-        (By.XPATH, '//*[@id="main-nav"]/div/div[1]/a'), 'Data Commons')
+        (By.CSS_SELECTOR, '#main-nav .navbar-brand'), 'Data Commons')
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(title_present)
 
-    hero_msg = self.driver.find_elements(By.CLASS_NAME, 'header')[0]
-    self.assertTrue(hero_msg.text.startswith('Data tells interesting stories'))
+    hero_msg = self.driver.find_elements(By.ID, 'hero')[0]
+    self.assertTrue(
+        hero_msg.text.startswith(
+            'Data Commons aggregates and harmonizes global, open data'))
 
   # def test_hero_all_langs(self):
   #   """Test hero message translation in *all* languages.

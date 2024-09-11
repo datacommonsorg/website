@@ -27,13 +27,13 @@ import { loadLocaleData } from "../../i18n/i18n";
 import { getFilteredParentPlaces } from "../../utils/app/disaster_dashboard_utils";
 import { App } from "./app";
 
-window.onload = () => {
+window.addEventListener("load", (): void => {
   loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
     () => {
       renderPage();
     }
   );
-};
+});
 
 function renderPage(): void {
   // Event

@@ -19,7 +19,7 @@ import ReactDOM from "react-dom";
 
 import { Page } from "./page";
 
-window.onload = () => {
+window.addEventListener("load", (): void => {
   const dcid = document.getElementById("node").dataset.dcid;
   const nodeName = document.getElementById("node").dataset.nn;
   ReactDOM.render(
@@ -29,4 +29,4 @@ window.onload = () => {
     }),
     document.getElementById("node")
   );
-};
+});

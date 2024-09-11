@@ -24,9 +24,9 @@ import ReactDOM from "react-dom";
 import { App } from "./app";
 import { SessionContextProvider } from "./context";
 
-window.onload = () => {
+window.addEventListener("load", (): void => {
   renderPage();
-};
+});
 
 function renderPage(): void {
   let sheetIdA = document.getElementById("metadata").dataset.sheetIdA;
