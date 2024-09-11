@@ -46,6 +46,7 @@ function renderPage(): void {
 
   const name = metadataContainer.dataset.name;
   const logoPath = metadataContainer.dataset.logoPath;
+  const logoWidth = metadataContainer.dataset.logoWidth;
   const showHeaderSearchBar =
     metadataContainer.dataset.showHeaderSearchBar.toLowerCase() === "true";
   const brandLogoLight =
@@ -59,6 +60,7 @@ function renderPage(): void {
     React.createElement(HeaderApp, {
       name,
       logoPath,
+      logoWidth,
       headerMenu,
       showHeaderSearchBar,
       labels,

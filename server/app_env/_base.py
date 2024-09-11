@@ -62,6 +62,9 @@ class Config:
   # If set, will be used in the main header of the default base template. Must
   # be the full serving path from /static folder.
   LOGO_PATH = '/images/dc-logo.svg'
+  # If set, this width will be applied to the logo in the default base template,
+  # in order to prevent content bouncing.
+  LOGO_WIDTH = '28px'
   # If set, will be included on all pages, after base DC css as verbatim
   # overrides in the default base template. Will not be compiled. Must be the
   # full serving path from /static folder.
