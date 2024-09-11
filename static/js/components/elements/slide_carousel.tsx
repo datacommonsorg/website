@@ -19,6 +19,7 @@
  */
 
 import React, { ReactElement, useEffect, useState } from "react";
+import { GA_EVENT_HOMEPAGE_CLICK, GA_PARAM_ID, triggerGAEvent } from "../../shared/ga_events";
 
 interface SlideCarouselProps {
   //an array of ReactElements, each of which will be a slide in the carousel
@@ -37,6 +38,10 @@ const SlideCarousel = ({
   const goToSlide = (index: number): void => {
     setIsInteracting(true);
     setActiveIndex(index);
+    // TODO: Pass in GA event so the component can be used on other pages.
+                  triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
+                    [GA_PARAM_ID]: `carousel ${index}`,
+                  });
   };
 
   useEffect(() => {

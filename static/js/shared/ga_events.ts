@@ -150,10 +150,19 @@ export const GA_EVENT_TILE_SOURCE = "tile_source";
 /**
  * Triggered on header menu & navigation clicks.
  * Parameters:
- *    "id": <desktop|mobile> <main|submenu> <menu_id> ?<index>
+ *    "id": desktop|mobile main|submenu <menu_id> ?<index>
  *    "url": <destination source URL>
  */
 export const GA_EVENT_HEADER_CLICK = "header_click";
+
+/**
+ * Triggered on homepage clicks.
+ * Parameters:
+ *    "id": topic|sample-q single|<id>
+ *    "url"?: <destination source URL>
+ *    "query"?: <sample query>
+ */
+export const GA_EVENT_HOMEPAGE_CLICK = "homepage_click";
 
 // GA event parameters
 export const GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE =

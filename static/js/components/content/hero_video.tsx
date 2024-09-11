@@ -22,6 +22,7 @@ import React, { ReactElement } from "react";
 
 import { resolveHref } from "../../apps/base/utilities/utilities";
 import { Routes } from "../../shared/types/base";
+import { GA_EVENT_HOMEPAGE_CLICK, GA_PARAM_ID, GA_PARAM_URL, triggerGAEvent } from "../../shared/ga_events";
 
 interface HeroProps {
   //the routes dictionary - this is used to convert routes to resolved urls
@@ -55,7 +56,16 @@ const Hero = ({ routes }: HeroProps): ReactElement => {
             Data Commons&rsquo; open source foundation allows organizations to
             create tailored, private instances, deciding on the openness of
             their data contributions.{" "}
-            <a href={resolveHref("{static.build}", routes)}>
+            <a href={resolveHref("{static.build}", routes)}
+                onClick={(): void => {
+    /* TODO: Pass in GA event so the component can be used on other pages. */
+                  triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
+                    [GA_PARAM_ID]: `hero-video`,
+                    [GA_PARAM_URL]: "{static.build}",
+                  });
+                }
+              }
+                  >
               Build yours today
             </a>
           </p>
