@@ -64,7 +64,7 @@ function renderPage(): void {
       labels,
       routes,
     }),
-    document.getElementById("app-header-container")
+    document.getElementById("main-header")
   );
 
   ReactDOM.render(
@@ -73,6 +73,6 @@ function renderPage(): void {
       labels,
       routes,
     }),
-    document.getElementById("app-footer-container")
+    document.getElementById("main-footer")
   );
 }

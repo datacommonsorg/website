@@ -37,7 +37,7 @@ const Footer = ({
   routes,
 }: FooterProps): ReactElement => {
   return (
-    <footer id="main-footer">
+    <div id="main-footer-container">
       <div className="container">
         <div className="brand-byline">
           <span className="brand-text">{labels["An initiative from"]}</span>
@@ -65,13 +65,11 @@ const Footer = ({
             </a>
           </li>
           <li>
-            <a href={routes["static.disclaimers"]}>
-              {labels["Disclaimers"]}
-            </a>
+            <a href={routes["static.disclaimers"]}>{labels["Disclaimers"]}</a>
           </li>
         </ul>
       </div>
-    </footer>
+    </div>
   );
 };
 

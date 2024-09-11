@@ -128,6 +128,7 @@ const MenuDesktop = ({
                 >
                   <MenuDesktopRichMenu
                     menuItem={menuItem}
+                    labels={labels}
                     routes={routes}
                     open={openMenu === index}
                   />

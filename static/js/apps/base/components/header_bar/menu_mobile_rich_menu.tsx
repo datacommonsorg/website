@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-/* A component to render the rich menu drop-down for the mobile menu */
+/** A component to render the rich menu drop-down for the mobile menu */
 
 import React, { ReactElement } from "react";
 
 import { HeaderMenu, Labels, Routes } from "../../../../shared/types/base";
+import MenuRichLinkGroup from "./menu_rich_link_group";
 import MenuRichSectionGroup from "./menu_rich_section_group";
 
 interface MenuMobileRichMenuProps {
@@ -40,8 +41,16 @@ const MenuMobileRichMenu = ({
   return (
     <>
       <div className={"introduction-section"}>
-        <h3>{labels[menuItem.label]}</h3>
-        {menuItem.introduction && <p>{menuItem.introduction}</p>}
+        <h3>{labels[menuItem.introduction?.label ?? menuItem.label]}</h3>
+        {menuItem.introduction?.description && (
+          <p>{menuItem.introduction.description}</p>
+        )}
+        {menuItem.introduction.links?.length > 0 && (
+          <MenuRichLinkGroup
+            links={menuItem.introduction.links}
+            routes={routes}
+          />
+        )}
       </div>
       {menuItem.primarySectionGroups?.length > 0 && (
         <div className={"primary-section"}>

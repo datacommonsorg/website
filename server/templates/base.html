@@ -96,7 +96,8 @@
   </script>
 </head>
 
-<body>
+<body {% if not is_show_header_search_bar %}class="no-header-search-bar"{% endif %}>
+
 <div id="metadata-base" class="d-none"
   data-header="{{ HEADER_MENU_V2 }}"
   data-footer="{{ FOOTER_MENU }}"
@@ -118,14 +119,13 @@
 <script src={{url_for('static', filename='base.js', t=config['VERSION'])}} async></script>
 
 <div id="main">
-  <div id="app-header-container">
-    <div id="app-header-loader"></div>
-  </div>
+  <header id="main-header">
+  </header>
   <main id="{{ main_id }}" class="main-content">
     {% block content %}
     {% endblock %}
   </main>
-  <div id="app-footer-container"></div>
+  <footer id="main-footer"></footer>
 </div>
 
 {# Compile this down (or manually implement). Used only for nav bar so far #}
