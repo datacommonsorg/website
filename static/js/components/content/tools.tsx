@@ -60,7 +60,7 @@ const Tools = ({ routes }: ToolsProps): ReactElement => {
               id="scatter-button"
             >
               <span className="tool-icon scaterplot"></span>
-              Scatter Plot Tool
+              Scatter Plot Explorer
             </a>
           </li>
           <li>
