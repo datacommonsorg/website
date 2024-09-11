@@ -20,14 +20,21 @@
 
 import React, { ReactElement } from "react";
 
+import {
+  GA_PARAM_ID,
+  GA_PARAM_URL,
+  triggerGAEvent,
+} from "../../shared/ga_events";
 import { Partner } from "../../shared/types/homepage";
 
 interface PartnersProps {
   //the partners passed from the backend through to the JavaScript via the templates
   partners: Partner[];
+  // The GA event ID to use for click tracking.
+  gaEvent: string;
 }
 
-const Partners = ({ partners }: PartnersProps): ReactElement => {
+const Partners = ({ partners, gaEvent: ga_event }: PartnersProps): ReactElement => {
   return (
     <section className="partners">
       <div className="container">
@@ -42,6 +49,12 @@ const Partners = ({ partners }: PartnersProps): ReactElement => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={partner.id}
+                onClick={(): void => {
+                  triggerGAEvent(ga_event, {
+                    [GA_PARAM_ID]: `partners ${partner.id}`,
+                    [GA_PARAM_URL]: partner.url,
+                  });
+                }}
               >
                 <img
                   src={"/images/content/partners/logo_" + partner.id + ".png"}

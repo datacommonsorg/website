@@ -34,6 +34,7 @@ import {
   SampleQuestionCategory,
   Topic,
 } from "../../shared/types/homepage";
+import { GA_EVENT_HOMEPAGE_CLICK } from "../../shared/ga_events";
 
 interface AppProps {
   //the topics passed from the backend through to the JavaScript via the templates
@@ -62,7 +63,7 @@ export function App({
       <SampleQuestions sampleQuestions={sampleQuestions} />
       <Tools routes={routes} />
       <Build routes={routes} />
-      <Partners partners={partners} />
+      <Partners partners={partners} gaEvent={GA_EVENT_HOMEPAGE_CLICK} />
     </>
   );
 }
