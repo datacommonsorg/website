@@ -33,6 +33,8 @@ interface HeaderLogoProps {
   name: string;
   //a path to the logo to be displayed in the header
   logoPath: string;
+  //the width of the logo - if provided, this will be used to prevent content bouncing as the logo loads in after the rest of the content.
+  logoWidth: string;
   //the labels dictionary - all labels will be passed through this before being rendered. If no value exists, the dictionary will return the key that was sent.
   labels: Labels;
   //the routes dictionary - this is used to convert routes to resolved urls
@@ -42,6 +44,7 @@ interface HeaderLogoProps {
 const HeaderLogo = ({
   name,
   logoPath,
+  logoWidth,
   labels,
   routes,
 }: HeaderLogoProps): ReactElement => {
@@ -60,7 +63,11 @@ const HeaderLogo = ({
               return true;
             }}
           >
-            <img src={logoPath} alt={`${name} logo`} />
+            <img
+              src={logoPath}
+              style={{ width: logoWidth }}
+              alt={`${name} logo`}
+            />
           </a>
         </div>
       )}

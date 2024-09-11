@@ -44,6 +44,18 @@
                           "propertyExpr": "->clinVarVariationID"
                         },
                         {
+                          "header": "Clinical Annotation Count",
+                          "propertyExpr": "->clinicalAnnotationCount"
+                        },
+                        {
+                          "header": "Clinical Annotation Count Level1_2",
+                          "propertyExpr": "->clinicalAnnotationCountLevel1_2"
+                        },
+                        {
+                          "header": "Clinical Guideline Annotation Count",
+                          "propertyExpr": "->clinicalGuidelineAnnotationCount"
+                        },
+                        {
                           "header": "Clinical Significance",
                           "propertyExpr": "->clinicalSignificance"
                         },
@@ -52,8 +64,28 @@
                           "propertyExpr": "->clinicalSource"
                         },
                         {
+                          "header": "Date Created",
+                          "propertyExpr": "->dateCreated"
+                        },
+                        {
+                          "header": "Date Established",
+                          "propertyExpr": "->dateEstablished"
+                        },
+                        {
+                          "header": "Date Revised",
+                          "propertyExpr": "->dateRevised"
+                        },
+                        {
+                          "header": "Description",
+                          "propertyExpr": "->description"
+                        },
+                        {
                           "header": "Disease Name",
                           "propertyExpr": "->diseaseName"
+                        },
+                        {
+                          "header": "Drug Label Annotation Count",
+                          "propertyExpr": "->drugLabelAnnotationCount"
                         },
                         {
                           "header": "Exceptions",
@@ -72,6 +104,10 @@
                           "propertyExpr": "->geneSymbol"
                         },
                         {
+                          "header": "Genetic Variant Annotation Count",
+                          "propertyExpr": "->geneticVariantAnnotationCount"
+                        },
+                        {
                           "header": "Genetic Variant Attribute",
                           "propertyExpr": "->geneticVariantAttribute"
                         },
@@ -86,6 +122,10 @@
                         {
                           "header": "Genetic Variant Molecular Type",
                           "propertyExpr": "->geneticVariantMolecularType"
+                        },
+                        {
+                          "header": "Has MeSH Qualifier",
+                          "propertyExpr": "->hasMeSHQualifier"
                         },
                         {
                           "header": "Hg19 Genomic Location",
@@ -112,6 +152,10 @@
                           "propertyExpr": "->humanPhenotypeOntologyID"
                         },
                         {
+                          "header": "Identifier",
+                          "propertyExpr": "->identifier"
+                        },
+                        {
                           "header": "In Chromosome",
                           "propertyExpr": "->inChromosome"
                         },
@@ -124,6 +168,18 @@
                           "propertyExpr": "->medGenID"
                         },
                         {
+                          "header": "Medical Dictionary For Regulatory Activities Id",
+                          "propertyExpr": "->medicalDictionaryForRegulatoryActivitiesId"
+                        },
+                        {
+                          "header": "Medical Subject Heading ID",
+                          "propertyExpr": "->medicalSubjectHeadingID"
+                        },
+                        {
+                          "header": "Medical Subject Heading Tree Number",
+                          "propertyExpr": "->medicalSubjectHeadingTreeNumber"
+                        },
+                        {
                           "header": "Mondo ID",
                           "propertyExpr": "->mondoID"
                         },
@@ -134,6 +190,10 @@
                         {
                           "header": "Name",
                           "propertyExpr": "->name"
+                        },
+                        {
+                          "header": "National Drug File Reference Terminology Code",
+                          "propertyExpr": "->nationalDrugFileReferenceTerminologyCode"
                         },
                         {
                           "header": "Ncbi Gene ID",
@@ -188,6 +248,10 @@
                           "propertyExpr": "->snomedCT"
                         },
                         {
+                          "header": "Specialization Of",
+                          "propertyExpr": "->specializationOf"
+                        },
+                        {
                           "header": "Strand Orientation",
                           "propertyExpr": "->strandOrientation"
                         },
@@ -200,8 +264,16 @@
                           "propertyExpr": "->submitterCount"
                         },
                         {
+                          "header": "Synonym",
+                          "propertyExpr": "->synonym"
+                        },
+                        {
                           "header": "Type Of",
                           "propertyExpr": "->typeOf"
+                        },
+                        {
+                          "header": "Umls Concept Unique ID",
+                          "propertyExpr": "->umlsConceptUniqueID"
                         },
                         {
                           "header": "Validation Status",
@@ -210,10 +282,11 @@
                       ]
                     },
                     "entities": [
+                      "bio/D014777",
                       "bio/rs13317",
                       "bio/rs7903146"
                     ],
-                    "title": "Here are all the properties for rs13317 and rs7903146",
+                    "title": "Here are all the properties for Virus Diseases, rs13317 and rs7903146",
                     "type": "ANSWER_TABLE"
                   }
                 ]
@@ -227,6 +300,11 @@
   "context": {},
   "debug": {},
   "entities": [
+    {
+      "dcid": "bio/D014777",
+      "name": "Virus Diseases",
+      "type": ""
+    },
     {
       "dcid": "bio/rs13317",
       "name": "rs13317",
@@ -253,7 +331,7 @@
     "peerPlaces": [],
     "peerTopics": []
   },
-  "svSource": "UNKNOWN",
+  "svSource": "CURRENT_QUERY",
   "userMessage": "",
   "userMessages": []
 }

@@ -31,6 +31,8 @@ interface HeaderBarProps {
   name: string;
   //a path to the logo to be displayed in the header
   logoPath: string;
+  //the width of the logo - if provided, this will be used to prevent content bouncing as the logo loads in after the rest of the content.
+  logoWidth: string;
   //the data that will populate the header menu.
   menu: HeaderMenu[];
   //if set true, the header menu will show - this value is pulled in from the page template and will default to false.
@@ -44,6 +46,7 @@ interface HeaderBarProps {
 const HeaderBar = ({
   name,
   logoPath,
+  logoWidth,
   menu,
   showHeaderSearchBar,
   labels,
@@ -56,6 +59,7 @@ const HeaderBar = ({
           <HeaderLogo
             name={name}
             logoPath={logoPath}
+            logoWidth={logoWidth}
             labels={labels}
             routes={routes}
           />
@@ -66,6 +70,7 @@ const HeaderBar = ({
           <HeaderLogo
             name={name}
             logoPath={logoPath}
+            logoWidth={logoWidth}
             labels={labels}
             routes={routes}
           />

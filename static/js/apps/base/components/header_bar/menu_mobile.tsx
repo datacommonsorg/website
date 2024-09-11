@@ -104,6 +104,8 @@ const MenuMobile = ({
     [menu]
   );
 
+  const tabIndex = open ? 0 : -1;
+
   return (
     <div className="menu-mobile">
       <div className="header-links">
@@ -137,11 +139,19 @@ const MenuMobile = ({
       >
         <div className="paper">
           <div className="header">
-            <button onClick={toggleDrawer} className="menu-toggle">
+            <button
+              onClick={toggleDrawer}
+              className="menu-toggle"
+              tabIndex={tabIndex}
+            >
               <span className="material-icons-outlined">close</span>
             </button>
             {selectedPrimaryItemIndex !== null && (
-              <button onClick={handleBackClick} className="menu-toggle">
+              <button
+                onClick={handleBackClick}
+                className="menu-toggle"
+                tabIndex={tabIndex}
+              >
                 <span className="material-icons-outlined">arrow_back</span>
               </button>
             )}
@@ -166,6 +176,7 @@ const MenuMobile = ({
                           });
                           return true;
                         }}
+                        tabIndex={tabIndex}
                       >
                         {labels[item.label]}
                       </a>
@@ -176,6 +187,7 @@ const MenuMobile = ({
                             handlePrimaryItemClick(index, item.id)
                           }
                           className="menu-item-button"
+                          tabIndex={tabIndex}
                         >
                           <span>{labels[item.label]}</span>
                           <span className="material-icons-outlined">

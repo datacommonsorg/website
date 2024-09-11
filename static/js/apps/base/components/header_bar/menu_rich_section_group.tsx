@@ -35,13 +35,18 @@ interface MenuRichSectionGroupProps {
   routes: Routes;
   //menu type used for tracking
   type: "desktop" | "mobile";
+  //a flag to indicate whether the menu is open.
+  open: boolean;
 }
 
 const MenuRichSectionGroup = ({
   menuGroup,
   routes,
   type,
+  open,
 }: MenuRichSectionGroupProps): ReactElement => {
+  const tabIndex = open ? 0 : -1;
+
   return (
     <div className={"group"}>
       {menuGroup.title && <h4>{menuGroup.title}</h4>}
@@ -59,6 +64,7 @@ const MenuRichSectionGroup = ({
                   });
                   return true;
                 }}
+                tabIndex={tabIndex}
               >
                 {item.linkType === "external" && (
                   <span className="material-icons-outlined">arrow_outward</span>
@@ -76,7 +82,7 @@ const MenuRichSectionGroup = ({
           {item.description && <p>{item.description}</p>}
 
           {item.links?.length > 0 && (
-            <MenuRichLinkGroup links={item.links} routes={routes} />
+            <MenuRichLinkGroup links={item.links} routes={routes} open={open} />
           )}
         </div>
       ))}
