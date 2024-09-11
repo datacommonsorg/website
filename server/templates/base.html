@@ -60,7 +60,12 @@
 
   {% block meta %}
   <meta property="og:type" content="website" />
+  {% if title == "Home" }
   <meta property="og:title" content="Data Commons" />
+  {% else %}
+  <meta property="og:title" content="{{ title }}{{' - ' if title else ''}}Data Commons" />
+  {% endif %}
+
   <meta property="og:description" content="Data Commons aggregates and harmonizes global, open data, giving everyone the power to uncover insights with natural language questions" />
   <meta property="og:image" content="https://datacommons.org/images/dc-logo.png" />
   {% endblock %}
