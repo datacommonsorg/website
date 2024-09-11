@@ -109,7 +109,7 @@ const MenuDesktop = ({
                     {labels[menuItem.label]}
                   </span>
                   <span
-                    className={`material-icons-outlined menu-main-label menu-arrow-icon ${
+                    className={`material-icons-outlined menu-arrow-icon ${
                       openMenu === index ? "open" : ""
                     }`}
                   >

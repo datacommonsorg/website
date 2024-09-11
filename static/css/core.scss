@@ -170,6 +170,18 @@ section {
               color: #474747;
               transition: color 0.3s ease-in-out;
             }
+            .menu-arrow-icon {
+              margin: 0;
+              padding: 0;
+              display: inline-block;
+              transition: transform 0.3s ease;
+              font-size: 1.45rem;
+              transform: translateY(1px);
+            }
+  
+            .menu-arrow-icon.open {
+              transform: rotate(180deg);
+            }
           }
 
           .menu-main-link {
@@ -186,15 +198,6 @@ section {
               color: #0B57D0;
               text-decoration: none;
             }
-          }
-
-          .menu-arrow-icon {
-            display: inline-block;
-            transition: transform 0.3s ease;
-          }
-
-          .menu-arrow-icon.open {
-            transform: rotate(180deg);
           }
         }
       }
@@ -653,6 +656,11 @@ section {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    padding: 0!important;
+    max-width: 100%!important;
+    @include media-breakpoint-down(lg) {
+      padding: 0 24px!important;
+    }
     @include media-breakpoint-down(sm) {
       justify-content: center;
       gap: 24px;
