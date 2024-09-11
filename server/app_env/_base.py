@@ -64,6 +64,7 @@ class Config:
   LOGO_PATH = '/images/dc-logo.svg'
   # If set, this width will be applied to the logo in the default base template,
   # in order to prevent content bouncing.
+  # TODO: Determine this automatically by looking at the file in the LOGO_PATH.
   LOGO_WIDTH = '28px'
   # If set, will be included on all pages, after base DC css as verbatim
   # overrides in the default base template. Will not be compiled. Must be the
