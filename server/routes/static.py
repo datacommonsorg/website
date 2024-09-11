@@ -42,7 +42,8 @@ def homepage():
       topics=json.dumps(current_app.config.get('HOMEPAGE_TOPICS', [])),
       partners_list=current_app.config.get('HOMEPAGE_PARTNERS', []),
       partners=json.dumps(current_app.config.get('HOMEPAGE_PARTNERS', [])),
-      sample_questions=json.dumps(current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])))
+      sample_questions=json.dumps(
+          current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])))
 
 
 @bp.route('/about')
