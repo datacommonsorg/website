@@ -20,7 +20,14 @@
 
 import React, { ReactElement } from "react";
 
-const Build = (): ReactElement => {
+import { resolveHref } from "../../apps/base/utilities/utilities";
+
+interface BuildProps {
+  //the routes dictionary - this is used to convert routes to resolved urls
+  routes: Record<string, string>;
+}
+
+const Build = ({ routes }: BuildProps): ReactElement => {
   return (
     <section id="build-your-own" className="build-your-own">
       <div className="container">
@@ -30,7 +37,8 @@ const Build = (): ReactElement => {
             Deploying your own Data Commons lets you create a tailored platform
             showcasing relevant data and tools to engage your audience. Any
             entity or organization can build their own instance with specific
-            data, a dedicated website, and specialized tools.
+            data, a dedicated website, and specialized tools.{" "}
+            <a href={resolveHref("{static.build}", routes)}>Learn more</a>
           </p>
           <h4>United Nations Data Commons for the SDGs</h4>
         </div>
@@ -50,7 +58,7 @@ const Build = (): ReactElement => {
             their Sustainable Development Goals data. With their deployed Data
             Commons, the UN created a centralized repository, allowing for
             dynamic storytelling and targeted analysis related to global
-            progress. Learn more
+            progress.
           </p>
         </div>
       </div>

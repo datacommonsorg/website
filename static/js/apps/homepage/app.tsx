@@ -61,7 +61,7 @@ export function App({
       <Topics topics={topics} />
       <SampleQuestions sampleQuestions={sampleQuestions} />
       <Tools routes={routes} />
-      <Build />
+      <Build routes={routes} />
       <Partners partners={partners} />
     </>
   );
