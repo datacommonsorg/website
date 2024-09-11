@@ -43,7 +43,9 @@ const MenuDesktopSectionGroup = ({
                 {item.linkType === "external" && (
                   <span className="material-icons-outlined">arrow_outward</span>
                 )}
-                {item.linkType === "rss" && <span className="material-icons-outlined">rss_feed</span>}
+                {item.linkType === "rss" && (
+                  <span className="material-icons-outlined">rss_feed</span>
+                )}
                 {item.title}
               </a>
             </h5>
@@ -63,7 +65,9 @@ const MenuDesktopSectionGroup = ({
                         href={resolveHref(link.url, routes)}
                         className={"link"}
                       >
-                        <span className="material-icons-outlined">rss_feed</span>
+                        <span className="material-icons-outlined">
+                          rss_feed
+                        </span>
                         <span className="link-title">RSS Feed</span>
                       </a>
                       {link.title && <p>• {link.title}</p>}
@@ -71,7 +75,9 @@ const MenuDesktopSectionGroup = ({
                   ) : (
                     <a href={resolveHref(link.url, routes)} className={"link"}>
                       {link.linkType === "external" && (
-                        <span className="material-icons-outlined">arrow_outward</span>
+                        <span className="material-icons-outlined">
+                          arrow_outward
+                        </span>
                       )}
                       <span className="link-title">{link.title}</span>
                     </a>
