@@ -34,7 +34,10 @@ interface PartnersProps {
   gaEvent: string;
 }
 
-const Partners = ({ partners, gaEvent: ga_event }: PartnersProps): ReactElement => {
+const Partners = ({
+  partners,
+  gaEvent: ga_event,
+}: PartnersProps): ReactElement => {
   return (
     <section className="partners">
       <div className="container">

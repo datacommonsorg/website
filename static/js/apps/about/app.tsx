@@ -159,9 +159,6 @@ The challenge is that a lot of this data is very fragmented."
                 </a>
               </li>
               <li>
-                <a href={routes["static.disclaimers"]}>Disclaimers</a>
-              </li>
-              <li>
                 <a href={routes["static.faq"]}>Frequently Asked Questions</a>
               </li>
               <li>

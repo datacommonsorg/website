@@ -133,7 +133,7 @@
     "id": "feedback",
     "label": "Feedback",
     "ariaLabel": "Give feedback",
-    "url": "https://docs.google.com/forms/d/e/1FAIpQLSc_xIinZPbO5RHDjq2a4eMoElkFgfe79U5DQ8-_kVhCNf2FJQ/viewform",
+    "url": "{feedback-prefill}",
     "exposeInMobileBanner": true
   }
 ]

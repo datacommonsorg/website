@@ -26,8 +26,8 @@ import MediaText from "../../components/content/media_text";
 import Partners from "../../components/content/partners";
 import Quote from "../../components/content/quote";
 import SimpleText from "../../components/content/simple_text";
-import { Partner } from "../../shared/types/homepage";
 import { GA_EVENT_BUILDPAGE_CLICK } from "../../shared/ga_events";
+import { Partner } from "../../shared/types/homepage";
 
 interface AppProps {
   //the partners passed from the backend through to the JavaScript via the templates

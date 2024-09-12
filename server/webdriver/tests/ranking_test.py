@@ -28,7 +28,7 @@ class TestRanking(WebdriverBaseTest):
     self.driver.get(self.url_ + '/ranking/Count_Person/Country/northamerica')
 
     subtitle_present = EC.text_to_be_present_in_element(
-        (By.TAG_NAME, 'h3'), 'All Countries in North America')
+        (By.CSS_SELECTOR, '#main-pane h3'), 'All Countries in North America')
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(subtitle_present)
 
     self.assertEqual(
@@ -62,12 +62,12 @@ class TestRanking(WebdriverBaseTest):
         '/ranking/Amount_Consumption_Energy_PerCapita/Country/?h=country%2FIND&unit=kg&hl=hi&bottom='
     )
 
-    self.assertEqual(
-        self.driver.find_elements(By.CLASS_NAME, 'navbar-brand')[0].text,
-        'Data Commons')
+    title_present = EC.text_to_be_present_in_element(
+        (By.CSS_SELECTOR, '#main-nav .navbar-brand'), 'Data Commons')
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(title_present)
 
     subtitle_present = EC.text_to_be_present_in_element(
-        (By.TAG_NAME, 'h3'), 'the World से नीचे से 100 देश')
+        (By.CSS_SELECTOR, '#main-pane h3'), 'the World से नीचे से 100 देश')
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(subtitle_present)
     self.assertEqual(
         self.driver.find_element(By.TAG_NAME, 'h1').text,
@@ -109,12 +109,12 @@ class TestRanking(WebdriverBaseTest):
         '/ranking/Amount_Consumption_Energy_PerCapita/Country/?h=country%2FKOR&unit=kg&hl=ko'
     )
 
-    self.assertEqual(
-        self.driver.find_elements(By.CLASS_NAME, 'navbar-brand')[0].text,
-        'Data Commons')
+    title_present = EC.text_to_be_present_in_element(
+        (By.CSS_SELECTOR, '#main-nav .navbar-brand'), 'Data Commons')
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(title_present)
 
-    subtitle_present = EC.text_to_be_present_in_element((By.TAG_NAME, 'h3'),
-                                                        'the World 상위 국가 100개')
+    subtitle_present = EC.text_to_be_present_in_element(
+        (By.CSS_SELECTOR, '#main-pane h3'), 'the World 상위 국가 100개')
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(subtitle_present)
     self.assertEqual(
         self.driver.find_element(By.TAG_NAME, 'h1').text, '1인당 에너지 소비량 순위')
