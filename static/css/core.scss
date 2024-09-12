@@ -662,8 +662,8 @@ section {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    padding: 0 !important;
-    max-width: 100% !important;
+    padding: 0  32px !important;
+    max-width: 1920px !important;
     @include media-breakpoint-down(lg) {
       padding: 0 24px !important;
     }
