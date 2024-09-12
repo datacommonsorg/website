@@ -65,23 +65,6 @@ $headings-font-family: $font-family-sans-serif;
 
 @import "node_modules/bootstrap/scss/bootstrap";
 
-#main-nav {
-  height: fit-content;
-  background-color: white;
-  padding: 0.75rem 0.25rem;
-  > .container-fluid {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-}
-
-#main-nav .navbar-brand {
-  font-size: 1.1rem;
-  line-height: 24px;
-  display: flex;
-  align-items: center;
-}
-
 :root.feedingamerica .navbar-brand > a {
   display: inline-block;
   background: url(https://secure.feedingamerica.org/assets/images/sprites2018.png);
@@ -200,75 +183,8 @@ $headings-font-family: $font-family-sans-serif;
 
 #main-footer {
   background: $full-footer-bg;
-  padding-top: 75px;
   /* Trick to get the footer to extend to the bottom of short pages */
   box-shadow: 0 50vh 0 50vh var(--footer-background);
-  .top-footer {
-    padding-bottom: 30px;
-  }
-}
-
-#main-footer {
-  color: var(--gm-3-ref-neutral-neutral-20);
-  h6 {
-    color: var(--gm-3-ref-neutral-neutral-20);
-    font-family: $headings-font-family;
-    font-size: 28px;
-    font-weight: 400;
-    line-height: 36px;
-  }
-  #top-footer a {
-    display: flex !important;
-  }
-  a {
-    align-items: center;
-    color: var(--gm-3-sys-light-primary);
-    flex-direction: row;
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 20px;
-    padding: 10px 0px;
-    .material-icons-outlined {
-      font-size: 12px;
-      margin-right: 8px;
-      text-decoration: none;
-    }
-    &:hover {
-      text-decoration: none;
-      span:last-child {
-        text-decoration: underline;
-      }
-    }
-  }
-}
-@include media-breakpoint-down(xs) {
-  #main-footer h6 {
-    font-size: 22px;
-    line-height: 28px;
-  }
-}
-
-#main-footer #sub-footer {
-  align-items: space-between;
-  background: var(--footer-background);
-  border-top: 1px solid $gray-300;
-  display: flex;
-  flex-direction: row;
-  padding: 4px 0;
-  line-height: 2.5rem;
-  .container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-  height: fit-content;
-
-  @media (max-width: $sub-footer-breakpoint) {
-    .container {
-      align-items: center;
-      flex-direction: column;
-    }
-  }
 }
 
 .brand-byline {
@@ -288,37 +204,6 @@ $headings-font-family: $font-family-sans-serif;
     margin-top: -0.2em;
     height: 1.4em;
   }
-}
-
-#sub-footer .sub-footer-links {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  a {
-    color: var(--gm-3-ref-neutral-neutral-40);
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 20px;
-  }
-}
-
-#sub-footer .btn,
-#sub-footer a {
-  margin-right: 0.75rem;
-}
-
-#sub-footer a:last-of-type {
-  margin-right: 0;
-}
-
-#main-footer section a {
-  display: block;
-}
-
-#main-footer .col-12,
-#main-footer .col-sm-6 {
-  margin-bottom: 2rem;
 }
 
 /* Spinner */

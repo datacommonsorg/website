@@ -27,9 +27,9 @@ import {
   triggerGAEvent,
 } from "../shared/ga_events";
 
-window.onload = () => {
+window.addEventListener("load", (): void => {
   renderPage();
-};
+});
 
 /**
  * Handler for NL search bar
