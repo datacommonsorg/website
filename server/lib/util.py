@@ -15,6 +15,7 @@
 import csv
 from datetime import date
 from datetime import datetime
+from functools import wraps
 import gzip
 import hashlib
 from itertools import groupby
@@ -922,3 +923,44 @@ def post_body_cache_key():
   else:
     cache_key = full_path
   return cache_key
+
+
+def log_execution_time(func):
+  """
+  Decorator that logs the execution time of a Flask route.
+  """
+
+  @wraps(func)
+  def wrapper(*args, **kwargs):
+    start_time = time.time()
+    response = func(*args, **kwargs)
+    end_time = time.time()
+    execution_time = end_time - start_time
+    logging.info(
+        f"Route {request.method} {request.path} took {execution_time:.4f} seconds to complete."
+    )
+    return response
+
+  return wrapper
+
+
+from flask import jsonify
+
+
+def error_response(message, status_code=400):
+  """
+  Generate a JSON error response payload.
+
+  Args:
+      message (str): A human-readable message explaining the error.
+      status_code (int): The HTTP status code of the error. Default: 400.
+
+  Returns:
+      response: A Flask `Response` object with a JSON payload and the given status code.
+  """
+  error_response = {
+      "status": "error",
+      "message": message,
+      "code": status_code,
+  }
+  return jsonify(error_response), status_code
