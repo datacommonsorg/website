@@ -57,7 +57,7 @@ _DC_API_TARGET = os.environ.get("DC_API_TARGET")
 # e.g. datcom-apigee
 _APIGEE_ORGANIZATION = os.environ.get("APIGEE_ORGANIZATION")
 # The apigee api product that the migrated keys should be associated to.
-# e.g. api, api-staging
+# e.g. datacommons-api, datacommons-api-staging
 _APIGEE_API_PRODUCT = os.environ.get("APIGEE_API_PRODUCT")
 # The URL to the Google Sheet with details of partners to be migrated.
 _SHEETS_URL = os.environ.get("SHEETS_URL")
@@ -112,7 +112,7 @@ class CloudApiClient:
 
   async def import_key(self, key: str, data: dict[str, str]) -> str:
     """
-    Imports the key to apigee by creating the developer, app and key in apigee 
+    Imports the key to apigee by creating the developer, app and key in apigee
     and associating the key with the configured api product.
 
     The data needed is expected in the form of a dict with the following fields:
@@ -121,7 +121,7 @@ class CloudApiClient:
     Defaults are assigned if these fields don"t exist or are empty.
 
     If import was successful, it returns the imported key.
-    In case of a failure, it logs the failure and returns an empty string. 
+    In case of a failure, it logs the failure and returns an empty string.
     """
 
     developer_email = data.get("developer_email") or _DEFAULT_DEVELOPER_EMAIL
@@ -130,7 +130,7 @@ class CloudApiClient:
     developer_last_name = data.get(
         "developer_last_name") or developer_first_name
     org_name = data.get("org_name") or _DEFAULT_ORG_NAME
-    app_name = f"{org_name}{_APP_NAME_SUFFIX}"
+    app_name = data.get("app_name") or f"{org_name}{_APP_NAME_SUFFIX}"
 
     try:
       await self.create_developer(developer_email, developer_first_name,
@@ -190,6 +190,13 @@ class CloudApiClient:
       response = await self.http_post(
           f"{_APIGEE_BASE_URL}/v1/organizations/{self.apigee_organization}/developers/{developer_email}/apps",
           request)
+      # Delete the key that is created when the app is first created.
+      initial_key = response.get("credentials")[0]["consumerKey"]
+      await self.http_delete(
+          f"{_APIGEE_BASE_URL}/v1/organizations/{self.apigee_organization}/developers/{developer_email}/apps/{app_name}/keys/{initial_key}"
+      )
+      logging.info("Removed default-created key %s for app %s", initial_key,
+                   app_name)
       return response.get("name", "")
     except HTTPStatusError as hse:
       # 409 status = App already exists, log and return app name.
@@ -269,12 +276,22 @@ class CloudApiClient:
     return wrapper
 
   @_serialize_in_flight_urls
-  async def http_get(self, url: str, params: dict = None) -> dict:
+  async def http_get(self,
+                     url: str,
+                     params: dict = None,
+                     continue_on_error: bool = False,
+                     error_message: string = '') -> dict:
     async with self._concurrent_requests_limit:
       response = await self.http_client.get(url,
                                             params=params,
                                             headers=self.http_headers)
-      response.raise_for_status()
+      if response.status_code != 200:
+        if not continue_on_error:
+          response.raise_for_status()
+        else:
+          logging.warning(error_message + ' Response code: %d',
+                          response.status_code)
+
       result = response.json()
       logging.debug("Response: %s", json.dumps(result, indent=1))
       return result
@@ -296,6 +313,17 @@ class CloudApiClient:
       response = await self.http_client.put(url,
                                             json=data,
                                             headers=self.http_headers)
+      response.raise_for_status()
+      result = response.json()
+      logging.debug("Response: %s", json.dumps(result, indent=1))
+      return result
+
+  @_serialize_in_flight_urls
+  async def http_delete(self, url: str, params: dict = None) -> dict:
+    async with self._concurrent_requests_limit:
+      response = await self.http_client.delete(url,
+                                               params=params,
+                                               headers=self.http_headers)
       response.raise_for_status()
       result = response.json()
       logging.debug("Response: %s", json.dumps(result, indent=1))
@@ -342,7 +370,7 @@ class SheetsClient:
     Imports DC API keys into apigee.
 
     Reads the sheet that should already include they keys,
-    imports the keys to apigee and 
+    imports the keys to apigee and
     writes the keys that were migrated back in the sheet.
     """
     # Read sheet data.
