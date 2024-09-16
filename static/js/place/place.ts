@@ -50,16 +50,18 @@ const Y_SCROLL_WINDOW_BREAKPOINT = 992;
 // Margin to apply to the fixed sidebar top.
 const Y_SCROLL_MARGIN = 100;
 
-window.onload = () => {
+window.addEventListener("load", (): void => {
   try {
     renderPage();
-    updatePageLayoutState();
-    maybeToggleFixedSidebar();
-    window.onresize = maybeToggleFixedSidebar;
+    // Disable sidebar pinning.
+    // TODO(beets): Delete this code.
+    // updatePageLayoutState();
+    // maybeToggleFixedSidebar();
+    // window.onresize = maybeToggleFixedSidebar;
   } catch (e) {
     return;
   }
-};
+});
 
 /**
  *  Make adjustments to sidebar scroll state based on the content.
@@ -234,7 +236,7 @@ function renderPage(): void {
       }
 
       // Readjust sidebar based on parent places.
-      updatePageLayoutState();
+      // updatePageLayoutState();
 
       // Display child places alphabetically
       for (const placeType in data.allChildPlaces) {

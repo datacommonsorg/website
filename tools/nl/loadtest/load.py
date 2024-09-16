@@ -58,6 +58,7 @@ def _run_query(query):
                                         {}).get('debug',
                                                 {}).get('counters',
                                                         {}).get('TIMING', {}))
+      return result
     return {
         _RESULT_KEY_CODE: str(response.status_code),
         _RESULT_KEY_ERROR_CONTENT: str(response.content)
