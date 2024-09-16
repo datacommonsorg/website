@@ -31,9 +31,9 @@ website and mixer changes.
 
 **WARNING**: Make sure to go through each of the following steps.
 
-- Python 3.11
+- Python
 
-  Confirm the Python3 version is 3.11.x. Otherwise install/upgrade your Python
+  Confirm the Python3 version is 3.11 or above. Otherwise install/upgrade your Python
   and confirm the version:
 
   ```bash
@@ -45,13 +45,13 @@ website and mixer changes.
   ./run_test.sh --setup_python
   ```
 
-- Python 3.12
-
-  You need to run the following command:
-  ```brew install python-setuptools
+  If using version 3.12.x or above, you also need to run the following command, on macOs:
+  ```bash
+  brew install python-setuptools
   ```
   or for linux:
-  ```pip install python-setuptools
+  ```bash
+  pip install python-setuptools
   ```
 
 - Node.js 18.4.0
