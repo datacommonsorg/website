@@ -228,10 +228,9 @@ class TestPlaceExplorer(WebdriverBaseTest):
     self.driver.get(start_url)
 
     # Wait for redirect.
-    wait_for_loading(self.driver)
-    # WebDriverWait(
-    #     self.driver,
-    #     self.TIMEOUT_SEC).until(lambda driver: driver.current_url != start_url)
+    WebDriverWait(
+        self.driver,
+        self.TIMEOUT_SEC).until(lambda driver: driver.current_url != start_url)
 
     # Wait until the place type is correct.
     # element_present = EC.text_to_be_present_in_element((By.ID, 'place-type'),
