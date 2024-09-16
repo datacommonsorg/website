@@ -380,7 +380,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     } catch (e) {
       return;
     }
-    updatePageLayoutState();
+    // updatePageLayoutState();
   }
 
   componentWillUnmount(): void {

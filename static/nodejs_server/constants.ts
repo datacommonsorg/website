@@ -67,3 +67,5 @@ export const COMPRESSED_VAL_ENCODING = {
 export const BARD_CLIENT_URL_PARAM = "bard";
 // The param value when mode is toolformer_rag
 export const TOOLFORMER_RAG_MODE = "toolformer_rag";
+// The param value when mode is toolformer_rig
+export const TOOLFORMER_RIG_MODE = "toolformer_rig";

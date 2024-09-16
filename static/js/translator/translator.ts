@@ -27,7 +27,7 @@ import { Page } from "./page";
 /**
  * Update translation results when schema mapping or query changes.
  */
-window.onload = function () {
+window.addEventListener("load", (): void => {
   ReactDOM.render(
     React.createElement(Page, {
       mapping,
@@ -35,4 +35,4 @@ window.onload = function () {
     }),
     document.getElementById("translator")
   );
-};
+});
