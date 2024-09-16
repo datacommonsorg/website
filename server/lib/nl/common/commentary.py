@@ -37,10 +37,6 @@ def place_from_context(u: Utterance) -> str:
   return f'See relevant statistics{_ctx("for", u.past_source_context)} based on the previous query.'
 
 
-def topic_from_context(_) -> str:
-  return 'See relevant statistics based on the previous query.'
-
-
 def entity_from_context(u: Utterance) -> str:
   seen_entities = set()
   entity_names = []
@@ -142,7 +138,7 @@ def user_message(uttr: Utterance) -> UserMessage:
     elif uttr.place_source == FulfillmentResult.PAST_ANSWER:
       callback = cmp_places_from_answer
     elif uttr.place_source == FulfillmentResult.PAST_QUERY and uttr.sv_source == FulfillmentResult.CURRENT_QUERY:
-      callback = place_from_context
+      callback = cmp_places_from_context
     elif uttr.place_source == FulfillmentResult.PAST_QUERY and uttr.sv_source == FulfillmentResult.PAST_QUERY:
       callback = place_from_context
     elif uttr.place_source == FulfillmentResult.DEFAULT and uttr.past_source_context != constants.EARTH.name:
