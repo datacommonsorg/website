@@ -9,28 +9,25 @@
               {
                 "tiles": [
                   {
-                    "answerMessageTileSpec": {
-                      "propertyExpr": "<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol"
+                    "answerTableTileSpec": {
+                      "columns": [
+                        {
+                          "header": "associated gene",
+                          "propertyExpr": "<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol"
+                        }
+                      ]
                     },
                     "entities": [
+                      "bio/D012873",
+                      "bio/D014178",
+                      "bio/D020022",
+                      "bio/D020132",
+                      "bio/D007562",
+                      "bio/D020326",
                       "bio/rs13317"
                     ],
-                    "title": "The associated genes for rs13317 are",
-                    "type": "ANSWER_MESSAGE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "entities": [
-                      "bio/rs13317"
-                    ],
-                    "type": "ENTITY_OVERVIEW"
+                    "title": "The associated genes for Genetic, Genetic Predisposition to Disease and 4 more others are",
+                    "type": "ANSWER_TABLE"
                   }
                 ]
               }
@@ -43,6 +40,36 @@
   "context": {},
   "debug": {},
   "entities": [
+    {
+      "dcid": "bio/D012873",
+      "name": "Genetic",
+      "type": ""
+    },
+    {
+      "dcid": "bio/D014178",
+      "name": "Genetic",
+      "type": ""
+    },
+    {
+      "dcid": "bio/D020022",
+      "name": "Genetic Predisposition to Disease",
+      "type": ""
+    },
+    {
+      "dcid": "bio/D020132",
+      "name": "Anticipation",
+      "type": ""
+    },
+    {
+      "dcid": "bio/D007562",
+      "name": "Creutzfeldt-Jakob Syndrome",
+      "type": ""
+    },
+    {
+      "dcid": "bio/D020326",
+      "name": "Migraine without Aura",
+      "type": ""
+    },
     {
       "dcid": "bio/rs13317",
       "name": "rs13317",

@@ -28,13 +28,13 @@ import { initSearchAutocomplete } from "../../shared/place_autocomplete";
 import { loadSubjectPageMetadataFromPage } from "../../utils/subject_page_utils";
 import { App } from "./app";
 
-window.onload = () => {
+window.addEventListener("load", (): void => {
   loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
     () => {
       renderPage();
     }
   );
-};
+});
 
 function renderPage(): void {
   const metadata = loadSubjectPageMetadataFromPage();
