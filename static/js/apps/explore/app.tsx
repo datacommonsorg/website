@@ -45,13 +45,12 @@ import {
 } from "../../shared/ga_events";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
-import { getUpdatedHash } from "../../utils/url_utils";
 import { isPlaceOverviewOnly } from "../../utils/explore_utils";
+import { getUpdatedHash } from "../../utils/url_utils";
 import { AutoPlay } from "./autoplay";
 import { ErrorResult } from "./error_result";
 import { SearchSection } from "./search_section";
 import { SuccessResult } from "./success_result";
-
 
 enum LoadingStatus {
   LOADING = "loading",

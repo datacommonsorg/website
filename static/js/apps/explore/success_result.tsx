@@ -36,10 +36,10 @@ import {
 } from "../../shared/context";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
+import { isPlaceOverviewOnly } from "../../utils/explore_utils";
 import { getPlaceTypePlural } from "../../utils/string_utils";
 import { trimCategory } from "../../utils/subject_page_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
-import { isPlaceOverviewOnly } from "../../utils/explore_utils";
 import { DebugInfo } from "./debug_info";
 import { RelatedPlace } from "./related_place";
 import { ResultHeaderSection } from "./result_header_section";
@@ -56,7 +56,6 @@ interface SuccessResultPropType {
   pageMetadata: SubjectPageMetadata;
   userMessage: UserMessageInfo;
 }
-
 
 export function SuccessResult(props: SuccessResultPropType): JSX.Element {
   if (!props.pageMetadata) {
@@ -175,27 +174,29 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
                 </ExploreContext.Provider>
               </NlSessionContext.Provider>
             </RankingUnitUrlFuncContext.Provider>
-            {!isPlaceOverviewOnly(props.pageMetadata) && !_.isEmpty(props.pageMetadata.childPlaces) && (
-              <RelatedPlace
-                relatedPlaces={props.pageMetadata.childPlaces[childPlaceType]}
-                topic={relatedPlaceTopic}
-                titleSuffix={
-                  getPlaceTypePlural(childPlaceType) +
-                  " in " +
-                  props.pageMetadata.place.name
-                }
-              ></RelatedPlace>
-            )}
-            {!isPlaceOverviewOnly(props.pageMetadata) && !_.isEmpty(props.pageMetadata.peerPlaces) && (
-              <RelatedPlace
-                relatedPlaces={props.pageMetadata.peerPlaces}
-                topic={relatedPlaceTopic}
-                titleSuffix={
-                  "other " +
-                  getPlaceTypePlural(props.pageMetadata.place.types[0])
-                }
-              ></RelatedPlace>
-            )}
+            {!isPlaceOverviewOnly(props.pageMetadata) &&
+              !_.isEmpty(props.pageMetadata.childPlaces) && (
+                <RelatedPlace
+                  relatedPlaces={props.pageMetadata.childPlaces[childPlaceType]}
+                  topic={relatedPlaceTopic}
+                  titleSuffix={
+                    getPlaceTypePlural(childPlaceType) +
+                    " in " +
+                    props.pageMetadata.place.name
+                  }
+                ></RelatedPlace>
+              )}
+            {!isPlaceOverviewOnly(props.pageMetadata) &&
+              !_.isEmpty(props.pageMetadata.peerPlaces) && (
+                <RelatedPlace
+                  relatedPlaces={props.pageMetadata.peerPlaces}
+                  topic={relatedPlaceTopic}
+                  titleSuffix={
+                    "other " +
+                    getPlaceTypePlural(props.pageMetadata.place.types[0])
+                  }
+                ></RelatedPlace>
+              )}
           </>
         )}
       </div>

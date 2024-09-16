@@ -165,7 +165,9 @@ export function getFeedbackLink(
 
 // Whether or not there is only a single place overview tile in the page
 // metadata.
-export function isPlaceOverviewOnly(pageMetadata: SubjectPageMetadata): boolean {
+export function isPlaceOverviewOnly(
+  pageMetadata: SubjectPageMetadata
+): boolean {
   // false if no page metadata or config or categories
   if (
     !pageMetadata ||
