@@ -25,4 +25,5 @@ set -a
 source "$ENV_FILE"
 set +a
 
-python3 apigee.py
+# Pass all args, except the first one to the python script.
+python3 apigee.py "${@:2}"

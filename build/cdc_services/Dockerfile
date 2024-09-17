@@ -127,12 +127,13 @@ FROM gcr.io/datcom-ci/datacommons-services-runtime:2024-08-08 as runner
 # Env defaults.
 ENV WEBSITE_MIXER_API_ROOT=http://127.0.0.1:8081 \
     ENV_PREFIX=Compose \
+    FLASK_ENV=custom \
     ENABLE_ADMIN=false \
     DEBUG=false \
     USE_SQLITE=false \
     USE_CLOUDSQL=false \
     DC_API_ROOT=https://api.datacommons.org \
-    ENABLE_MODEL=false
+    ENABLE_MODEL=true
 
 WORKDIR /workspace
 

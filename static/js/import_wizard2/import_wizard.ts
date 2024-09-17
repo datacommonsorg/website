@@ -18,9 +18,9 @@ import ReactDOM from "react-dom";
 
 import { Page } from "./components/page";
 
-window.onload = () => {
+window.addEventListener("load", (): void => {
   ReactDOM.render(
     React.createElement(Page),
     document.getElementById("main-pane")
   );
-};
+});

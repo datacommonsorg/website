@@ -31,7 +31,7 @@ import {
   ColumnConfig,
   SubjectPageConfig,
 } from "../types/subject_page_proto_types";
-import { SubjectPageMetadata } from "./../types/subject_page_types";
+import { SubjectPageMetadata } from "../types/subject_page_types";
 import { getFilteredParentPlaces } from "./app/disaster_dashboard_utils";
 import { isNlInterface } from "./explore_utils";
 
@@ -70,7 +70,7 @@ const TITLE_MESSAGES = defineMessages({
  * Gets the relative link using the title of a section on the subject page
  * @param title title of the section to get the relative link for
  */
-export function getRelLink(title: string) {
+export function getRelLink(title: string): string {
   return title.replace(/ /g, "-");
 }
 
@@ -130,6 +130,7 @@ export function getColumnTileClassName(column: ColumnConfig): string {
  * @param selectedPlace the enclosing place to get geojson data for
  * @param placeType the place type to get geojson data for
  * @param parentPlaces parent places of the selected place
+ * @param apiRoot the stem of the API endpoint
  */
 export function fetchGeoJsonData(
   selectedPlace: NamedTypedPlace,

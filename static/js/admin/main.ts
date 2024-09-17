@@ -21,7 +21,7 @@ import { Page } from "./page";
 
 const domId = "main-section";
 
-window.onload = () => {
+window.addEventListener("load", (): void => {
   const pageElem = document.getElementById(domId);
   ReactDOM.render(React.createElement(Page), pageElem);
-};
+});

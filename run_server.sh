@@ -59,6 +59,7 @@ while getopts ":e:p:m?d?l?xg" OPTION; do
   l)
     # Use local mixer
     export WEBSITE_MIXER_API_ROOT=http://127.0.0.1:8081
+    ;;
   g)
     USE_GUNICORN=true
     ;;

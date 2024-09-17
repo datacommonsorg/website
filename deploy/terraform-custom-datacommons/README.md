@@ -6,11 +6,11 @@ Deploying your own Custom Data Commons instance on Google Cloud Platform (GCP) l
 
 ## Features
 
-* Creates Data Commons Website service container in Cloud Run
-* Creates Data Commons Data task container in Cloud Run
+* Creates Data Commons services container as a Cloud Run service, in region `us-central1`
+* Creates Data Commons data management container as a Cloud Run job
 * Enables all required Google Cloud APIs
 * Creates Redis instance (optional)
-* Creates MySQL instance
+* Creates Cloud SQL MySQL instance
 * Creates new service account with minimum required permissions
 * Automatically provisions required Google Maps API key. Stores key in GCP secrets container.
 * Generates random MySQL password and stores in GCP secrets container.
@@ -31,7 +31,7 @@ Deploying your own Custom Data Commons instance on Google Cloud Platform (GCP) l
 
 ### 1. Configure Deployment Variables
 
-Create a local copy of `terraform.tfvars` file and fill in the required values.
+From the root directory of the `website` repo, create a local copy of `terraform.tfvars` file and fill in the required values.
 
 ```
 cd deploy/terraform-custom-datacommons/
@@ -54,23 +54,31 @@ dc_api_key  = "your-api-key"
 
 #### Optional Configuration Variables
 
-
-
 - **region**: The [GCP region](https://cloud.google.com/about/locations) where resources will be deployed.
 - **enable_redis**: Set to true to enable redis caching (default: false)
-- **dc_web_service_image**: Docker image to use for the web service container. Default: `gcr.io/datcom-ci/datacommons-website-compose:stable`
+- **dc_web_service_image**: Docker image to use for the services container. Default: `gcr.io/datcom-ci/datacommons-services:stable`
 - **dc_data_job_image**: Docker image to use for the data loading job. Default: `gcr.io/datcom-ci/datacommons-data:stable`
 - **make_dc_web_service_public**: By default, the Data Commons web service is publicly accessible. Set this to `false` if your GCP account has restrictions on public access. [Reference](https://cloud.google.com/run/docs/authenticating/public).
+- **google_analytics_tag_id**: Set to your [Google Analytics Tag ID](https://support.google.com/analytics/answer/9539598) to enable Google Analytics tracking.
 
-See `variables.tf` for a complete list of optional variables.
+See `modules/variables.tf` for a complete list of optional variables.
 
-### 2. Setup GCP Project
+### 2. Set up GCP Project
 
 Enables necessary APIs in your Google Cloud project:
 
 ```bash
 PROJECT_ID=your-gcp-project
 ./setup.sh $PROJECT_ID
+```
+
+### 3. Authenticate to GCP
+
+Generate credentials for Google Cloud:
+
+```bash
+gcloud auth application-default login --project $PROJECT_ID
+gcloud auth login
 ```
 
 ### 4. Initialize Terraform
@@ -96,14 +104,14 @@ terraform {
 EOF
 ```
 
-Initialize Terraform and validate configuration
+Initialize Terraform and validate configuration:
 
 ```bash
 terraform init
 terraform plan
 ```
 
-### 5. Provision Data Commons in GCP
+### 5. Provision and run Data Commons in GCP
 
 Deploy custom Data Commons instance (takes about 15 minutes):
 
@@ -128,29 +136,20 @@ redis_instance_host = "<redis_ip>"
 redis_instance_port = 6379
 ```
 
-### 6. Open Data Commons
+### 6. Load custom data
 
-Open your Custom Data Commons instance in the browser using the above
-`cloud_run_service_url` (e.g, `https://<your-namespace>-datacommons-web-service-abc123-uc.a.run.app`),
-
-### 7. Load custom data
-
-Upload custom data to the GCS bucket specified by the terraform output `dc_gcs_data_bucket_path` (e.g., `gs://<your-namespace>-datacommons-data-<your-project-id>`).
-
-Set the default project using gcloud
-
-
-Add new datasets to `gs://<your-namespace>-datacommons-data-<your-project-id>/input`. From this repository's root directory, run:
+Upload custom sample data to the GCS bucket specified by the terraform output `dc_gcs_data_bucket_path` (`gs://<your-namespace>-datacommons-data-<your-project-id>`).
+From the `website` repository's root directory, run:
 
 ```
 # Replace `NAMESPACE` and `PROJECT_ID` with values from your `terraform.tfvars`
 NAMESPACE=your-namespace
 PROJECT_ID=your-project-id
 DATA_BUCKET=${NAMESPACE}-datacommons-data-${PROJECT_ID}
-gsutil cp -r custom_dc/sample/* gs://$DATA_BUCKET/input/
+gcloud storage cp custom_dc/sample/* gs://$DATA_BUCKET/input/
 ```
 
-Load custom data into data commons.
+Load custom data into data commons:
 ```
 # Replace `NAMESPACE` and `REGION` with values from your `terraform.tfvars`
 NAMESPACE=your-namespace
@@ -158,7 +157,19 @@ REGION=us-central1
 gcloud run jobs execute ${NAMESPACE}-datacommons-data-job --region=$REGION
 ```
 
-### 8. Using Terraform Workspaces and Namespace
+Restart the services to pick up the new data:
+
+```bash
+terraform apply
+```
+
+### 7. Open Data Commons
+
+Open your Custom Data Commons instance in the browser using the above
+`cloud_run_service_url` (e.g, `https://<your-namespace>-datacommons-web-service-abc123-uc.a.run.app`),
+
+
+## Using Terraform Workspaces and Namespace
 
 If you need to deploy multiple instances of Data Commons within the same GCP project, or across different projects, you can use Terraform workspaces and the `namespace` variable.
 
