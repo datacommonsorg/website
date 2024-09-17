@@ -138,7 +138,7 @@ def user_message(uttr: Utterance) -> UserMessage:
     elif uttr.place_source == FulfillmentResult.PAST_ANSWER:
       callback = cmp_places_from_answer
     elif uttr.place_source == FulfillmentResult.PAST_QUERY and uttr.sv_source == FulfillmentResult.CURRENT_QUERY:
-      callback = cmp_places_from_context
+      callback = place_from_context
     elif uttr.place_source == FulfillmentResult.PAST_QUERY and uttr.sv_source == FulfillmentResult.PAST_QUERY:
       callback = place_from_context
     elif uttr.place_source == FulfillmentResult.DEFAULT and uttr.past_source_context != constants.EARTH.name:
