@@ -11,7 +11,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "country/DZA",
@@ -43,7 +44,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "country/DZA",
@@ -76,7 +78,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "country/DZA",
@@ -109,7 +112,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "country/DZA",
@@ -141,7 +145,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "country/DZA",
@@ -174,7 +179,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "country/DZA",
@@ -206,7 +212,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "country/DZA",

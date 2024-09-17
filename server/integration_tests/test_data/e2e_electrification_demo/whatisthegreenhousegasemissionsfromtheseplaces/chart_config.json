@@ -11,7 +11,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "country/ETH",
@@ -45,7 +46,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "country/ETH",
@@ -89,7 +91,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "country/ETH",
@@ -122,7 +125,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "country/ETH",
@@ -154,7 +158,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "country/ETH",
@@ -194,7 +199,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "country/ETH",
@@ -227,7 +233,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "country/ETH",
@@ -260,7 +267,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "country/ETH",
@@ -292,7 +300,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "country/ETH",
@@ -325,7 +334,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "country/ETH",
@@ -358,7 +368,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "country/ETH",
@@ -391,7 +402,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "country/ETH",

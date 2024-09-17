@@ -11,7 +11,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "wikidataId/Q1165",
@@ -44,7 +45,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "wikidataId/Q1165",
@@ -77,7 +79,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "wikidataId/Q1165",
@@ -109,7 +112,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "wikidataId/Q1165",
@@ -142,7 +146,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "wikidataId/Q1165",
@@ -175,7 +180,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "wikidataId/Q1165",
@@ -208,7 +214,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "wikidataId/Q1165",
@@ -241,7 +248,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "wikidataId/Q1165",
@@ -274,7 +282,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "wikidataId/Q1165",
@@ -307,7 +316,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "wikidataId/Q1165",
@@ -340,7 +350,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "wikidataId/Q1165",
@@ -373,7 +384,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "wikidataId/Q1165",
@@ -406,7 +418,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "wikidataId/Q1165",
@@ -439,7 +452,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "wikidataId/Q1165",
@@ -472,7 +486,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "wikidataId/Q1165",
@@ -505,7 +520,8 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
                       "wikidataId/Q1165",
