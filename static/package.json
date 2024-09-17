@@ -44,7 +44,7 @@
     "d3-geo": "^2.0.1",
     "d3-regression": "^1.2.8",
     "easy-peasy": "^6.0.1",
-    "express": "^4.19.2",
+    "express": "^4.21.0",
     "file-loader": "^6.1.0",
     "firebase": "^10.12.2",
     "full-icu": "^1.4.0",
