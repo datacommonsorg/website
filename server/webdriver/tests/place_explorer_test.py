@@ -219,6 +219,23 @@ class TestPlaceExplorer(WebdriverBaseTest):
     self.assertEqual("Median age by gender: states near California(2022)",
                      chart_title)
 
+  def test_explorer_redirect_place_explorer(self):
+    """Test the redirection from explore to place explore for single place queries"""
+    USA_EXPLORE = '/explore#q=United%20States%20Of%20America'
+
+    start_url = self.url_ + USA_EXPLORE
+    self.driver.get(start_url)
+
+    # Assert 200 HTTP code: successful page load.
+    req = urllib.request.Request(self.driver.current_url)
+    with urllib.request.urlopen(req) as response:
+      self.assertEqual(response.getcode(), 200)
+
+    # Assert page title is correct.
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.title_contains('United States of America'))
+    self.assertTrue("place/country/USA" in self.driver.current_url)
+
   def test_ranking_chart_present(self):
     """Test basic ranking chart."""
     CHART_TITLE_MUST_INCLUDE = "rankings"

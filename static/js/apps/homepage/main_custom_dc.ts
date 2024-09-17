@@ -21,10 +21,10 @@ import ReactDOM from "react-dom";
 
 import { App } from "./app";
 
-window.onload = () => {
+window.addEventListener("load", (): void => {
   // Initialize search box.
   ReactDOM.render(
     React.createElement(App),
     document.getElementById("search-container")
   );
-};
+});
