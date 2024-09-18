@@ -209,6 +209,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       exploreMore: relatedThings["exploreMore"],
       mainTopics: relatedThings["mainTopics"],
       sessionId: "session" in fulfillData ? fulfillData["session"]["id"] : "",
+      svSource: fulfillData["svSource"],
     };
     if (
       pageMetadata &&
@@ -216,7 +217,8 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       pageMetadata.pageConfig.categories
     ) {
       // If the response is a single PLACE_OVERVIEW tile, redirect to the place explorer.
-      if (isPlaceOverviewOnly(pageMetadata)) {
+      if (['UNKNOWN', 'PAST_QUERY'].includes(fulfillData["svSource"]) && isPlaceOverviewOnly(pageMetadata)) {
+        console.log("Main topics: " + pageMetadata.mainTopics[0].name);
         const placeDcid = pageMetadata.place.dcid;
         const url = `/place/${placeDcid}`;
         window.location.replace(url);

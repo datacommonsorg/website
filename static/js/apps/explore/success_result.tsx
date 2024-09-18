@@ -108,6 +108,7 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
     };
   }, []);
   const placeOverviewOnly = isPlaceOverviewOnly(props.pageMetadata);
+  const emptyPlaceOverview = placeOverviewOnly && ["UNKNOWN", "PAST_QUERY"].includes(props.pageMetadata.svSource);
   return (
     <div
       className={`row explore-charts${
@@ -174,7 +175,7 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
                 </ExploreContext.Provider>
               </NlSessionContext.Provider>
             </RankingUnitUrlFuncContext.Provider>
-            {!isPlaceOverviewOnly(props.pageMetadata) &&
+            {!emptyPlaceOverview &&
               !_.isEmpty(props.pageMetadata.childPlaces) && (
                 <RelatedPlace
                   relatedPlaces={props.pageMetadata.childPlaces[childPlaceType]}
@@ -186,7 +187,7 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
                   }
                 ></RelatedPlace>
               )}
-            {!isPlaceOverviewOnly(props.pageMetadata) &&
+            {!emptyPlaceOverview &&
               !_.isEmpty(props.pageMetadata.peerPlaces) && (
                 <RelatedPlace
                   relatedPlaces={props.pageMetadata.peerPlaces}
