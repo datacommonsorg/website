@@ -45,7 +45,7 @@ import {
 } from "../../shared/ga_events";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
-import { isPlaceOverviewOnly } from "../../utils/explore_utils";
+import { shouldSkipPlaceOverview } from "../../utils/explore_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
 import { AutoPlay } from "./autoplay";
 import { ErrorResult } from "./error_result";
@@ -216,9 +216,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       pageMetadata.pageConfig &&
       pageMetadata.pageConfig.categories
     ) {
-      // If the response is a single PLACE_OVERVIEW tile, redirect to the place explorer.
-      if (['UNKNOWN', 'PAST_QUERY'].includes(fulfillData["svSource"]) && isPlaceOverviewOnly(pageMetadata)) {
-        console.log("Main topics: " + pageMetadata.mainTopics[0].name);
+      if (shouldSkipPlaceOverview(pageMetadata)) {
         const placeDcid = pageMetadata.place.dcid;
         const url = `/place/${placeDcid}`;
         window.location.replace(url);

@@ -36,7 +36,7 @@ import {
 } from "../../shared/context";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
-import { isPlaceOverviewOnly } from "../../utils/explore_utils";
+import { isPlaceOverviewOnly, shouldSkipPlaceOverview } from "../../utils/explore_utils";
 import { getPlaceTypePlural } from "../../utils/string_utils";
 import { trimCategory } from "../../utils/subject_page_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
@@ -108,7 +108,7 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
     };
   }, []);
   const placeOverviewOnly = isPlaceOverviewOnly(props.pageMetadata);
-  const emptyPlaceOverview = placeOverviewOnly && ["UNKNOWN", "PAST_QUERY"].includes(props.pageMetadata.svSource);
+  const emptyPlaceOverview = shouldSkipPlaceOverview(props.pageMetadata);
   return (
     <div
       className={`row explore-charts${
