@@ -20,6 +20,7 @@
 
 import React, { ReactElement } from "react";
 import { Input, InputGroup } from "reactstrap";
+import AutoCompleteInput from "./auto_complete_input";
 
 import { NlSearchBarImplementationProps } from "../nl_search_bar";
 
@@ -39,17 +40,8 @@ const NlSearchBarStandard = ({
       <div className="search-box-section">
         <div className={`search-bar${value ? " non-empty" : ""}`}>
           <InputGroup className="search-bar-content">
-            <Input
-              id={inputId}
-              invalid={invalid}
-              placeholder={placeholder}
-              value={value}
-              onChange={onChange}
-              onKeyDown={(e): void => e.key === "Enter" && onSearch()}
-              className="pac-target-input search-input-text"
-              autoFocus={shouldAutoFocus}
-              autoComplete="off"
-            ></Input>
+            <AutoCompleteInput enableAutoComplete={true} value={value} invalid={invalid} placeholder={placeholder} inputId={inputId}
+            onChange={onChange} onSearch={onSearch} feedbackLink={feedbackLink} shouldAutoFocus={shouldAutoFocus} />
             <div onClick={onSearch} id="rich-search-button"></div>
           </InputGroup>
         </div>
