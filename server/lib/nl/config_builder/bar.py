@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import re
 from typing import List
 
 from server.config.subject_page_pb2 import BarTileSpec
@@ -32,6 +33,7 @@ import server.lib.nl.fulfillment.types as types
 
 _MAX_VARIABLE_LIMIT = 15
 _MAX_PLACES_LIMIT = 15
+_SKIP_SORTING_SV_REGEX = r'\d+To\d+'
 
 
 # Get best date to use for an sv and list of places.
@@ -120,8 +122,12 @@ def multiple_place_bar_block(column,
 def get_sort_order(state: PopulateState, cspec: ChartSpec):
   # Use no default sort_order for special DC, since UN
   # want the order to be as provided in variable groupings.
-  sort_order = None if is_special_dc(state.uttr.insight_ctx) \
-    else BarTileSpec.DESCENDING
+  sort_order = None if is_special_dc(
+      state.uttr.insight_ctx) else BarTileSpec.DESCENDING
+
+  # If any of the svs in the chart spec are a range, no default sort order
+  if any([re.search(_SKIP_SORTING_SV_REGEX, sv) for sv in cspec.svs]):
+    sort_order = None
 
   if (RankingType.LOW in cspec.ranking_types and
       RankingType.HIGH not in cspec.ranking_types):
