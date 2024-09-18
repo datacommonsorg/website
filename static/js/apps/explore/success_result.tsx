@@ -36,7 +36,10 @@ import {
 } from "../../shared/context";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
-import { isPlaceOverviewOnly, shouldSkipPlaceOverview } from "../../utils/explore_utils";
+import {
+  isPlaceOverviewOnly,
+  shouldSkipPlaceOverview,
+} from "../../utils/explore_utils";
 import { getPlaceTypePlural } from "../../utils/string_utils";
 import { trimCategory } from "../../utils/subject_page_utils";
 import { getUpdatedHash } from "../../utils/url_utils";

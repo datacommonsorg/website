@@ -195,5 +195,7 @@ export function isPlaceOverviewOnly(
 export function shouldSkipPlaceOverview(
   pageMetadata: SubjectPageMetadata
 ): boolean {
-  return isPlaceOverviewOnly(pageMetadata) && pageMetadata.svSource !== 'UNFULFILLED'
+  return (
+    isPlaceOverviewOnly(pageMetadata) && pageMetadata.svSource !== "UNFULFILLED"
+  );
 }
