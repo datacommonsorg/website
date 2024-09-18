@@ -28,12 +28,8 @@ import {
 import { NamedNode, NamedPlace } from "../../shared/types";
 import { getPlaceDcids } from "../../utils/place_utils";
   
-const data = [ 
-  'Developer', 
-  'Engineer', 
-  'Data Scientist', 
-  'Data Engineer', 
-  'Mobile App Developer'
+const stop_words = [ 
+  'in', 'to', 'from', 'the'
 ]; 
 
 export function AutoCompleteInput({
@@ -53,6 +49,11 @@ export function AutoCompleteInput({
     const placeAutocompleteService = useRef(null);
     const [hoveredIdx, setHoveredIdx] = useState(0);
     const [inputText, setInputText] = useState('');
+    const [selectedSuggestion, setSelectedSuggestion] = useState('')
+
+    useEffect(() => {
+        setInputText(value)
+      }, []);
 
     useEffect(() => {
         if (enableAutoComplete && google.maps) {
@@ -61,24 +62,43 @@ export function AutoCompleteInput({
         }
       }, [enableAutoComplete]);
 
-    function onThisChange(e: React.ChangeEvent<HTMLInputElement>) :void {
-        onChange(e);
-        setInputText(e.target.value);
+    function onSelect(selectedName: string) : void {
+        selectedName += ' ';
+        var newInputText = latestQuery.current == null ?  selectedName : inputText.replace(latestQuery.current, ' ' + selectedName)
+        setInputText(newInputText);
+        onChange(newInputText);
+        setSelectedSuggestion(selectedName);
+        setShowResults(false);
+        setResults({ placeResults: [], svResults: [] });
+    }
+
+    function onInputChange(e: React.ChangeEvent<HTMLInputElement>) :void {
+        const currentText = e.target.value;
+        onChange(currentText);
+        setInputText(currentText);
+
+        if (currentText == '') {
+            setSelectedSuggestion('');
+        }
 
         if (!enableAutoComplete) {
             return;
         }
 
+        
         setShowResults(true);
-        latestQuery.current = inputText;
+        var currentQuery = selectedSuggestion == '' ? currentText : currentText.replace(selectedSuggestion, '');
+        console.log("Now running query " + currentQuery + "because " + selectedSuggestion);
+        latestQuery.current = currentQuery;
         if (placeAutocompleteService.current) {
             placeAutocompleteService.current.getPredictions(
-              { input: inputText, types: ["(regions)"] },
+              { input: currentQuery, types: ["(regions)"] },
               (predictions, status) =>
-                onPlaceAutocompleteCompleted(inputText, predictions, status)
+                onPlaceAutocompleteCompleted(currentQuery, predictions, status)
             );
           }
       }
+
     const matches = inputText.split(" ");
 
   return (
@@ -87,8 +107,8 @@ export function AutoCompleteInput({
             id={inputId}
             invalid={invalid}
             placeholder={placeholder}
-            value={value}
-            onChange={onThisChange}
+            value={inputText}
+            onChange={onInputChange}
             onKeyDown={(e): void => e.key === "Enter" && onSearch()}
             className="pac-target-input search-input-text"
             autoFocus={shouldAutoFocus}
@@ -115,7 +135,7 @@ export function AutoCompleteInput({
                         : ""
                     }`}
                     key={"search-input-result-" + result.dcid}
-                    onClick={() => setInputText(result.name)}
+                    onClick={() => selectedSuggestion == '' ? redirectAction(result.name, result.dcid, "") : onSelect(result.name)}
                   >
                     {getHighlightedJSX(result.dcid, result.name, matches)}
                   </div>
@@ -130,7 +150,7 @@ export function AutoCompleteInput({
                         ? "search-input-result-highlighted"
                         : ""
                     }`}
-                    onClick={() => setInputText(result.name)}
+                    onClick={() => onSelect(result.name)}
                     key={"search-input-result-" + result.dcid}
                   >
                     {getHighlightedJSX(result.dcid, result.name, matches)}
@@ -186,11 +206,26 @@ export function AutoCompleteInput({
   }
 };
 
+
+const REDIRECT_PREFIX = "/explore?";
 function redirectAction(
     query: string,
     placeDcid: string,
     svDcid: string
-  ): void {}
+  ): void {
+    console.log("on shit " + placeDcid);
+    let url = REDIRECT_PREFIX;
+    if (query) {
+      url += `q=${query}`;
+    }
+    if (placeDcid) {
+        url = "/place/" + `${placeDcid}`;
+    }
+    if (svDcid) {
+      url += `&svDcid=${svDcid}`;
+    }
+    window.open(url, "_self");
+  }
 
 const NUM_SV_RESULTS = 5;
 function getSvResultsPromise(query: string): Promise<NamedNode[]> {
