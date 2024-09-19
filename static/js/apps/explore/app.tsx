@@ -45,6 +45,7 @@ import {
 } from "../../shared/ga_events";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
+import { shouldSkipPlaceOverview } from "../../utils/explore_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
 import { AutoPlay } from "./autoplay";
 import { ErrorResult } from "./error_result";
@@ -208,12 +209,18 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       exploreMore: relatedThings["exploreMore"],
       mainTopics: relatedThings["mainTopics"],
       sessionId: "session" in fulfillData ? fulfillData["session"]["id"] : "",
+      svSource: fulfillData["svSource"],
     };
     if (
       pageMetadata &&
       pageMetadata.pageConfig &&
       pageMetadata.pageConfig.categories
     ) {
+      if (shouldSkipPlaceOverview(pageMetadata)) {
+        const placeDcid = pageMetadata.place.dcid;
+        const url = `/place/${placeDcid}`;
+        window.location.replace(url);
+      }
       // Note: for category links, we only use the main-topic.
       for (const category of pageMetadata.pageConfig.categories) {
         if (category.dcid) {
