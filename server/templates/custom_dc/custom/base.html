@@ -34,7 +34,23 @@
 <html lang={{ locale }} id={{ page_id }}>
 
 <head>
-  <title>{{ title }} - Custom Data Commons Commons</title>
+  {# Enable Google Analytics with cookieless tracking. #}
+  {% if GOOGLE_ANALYTICS_TAG_ID %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_ANALYTICS_TAG_ID }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', '{{ GOOGLE_ANALYTICS_TAG_ID }}', {
+      client_storage: 'none',
+      anonymize_ip: true,
+      {{ ("place_category: '{}',"|safe).format(place_category) if place_category is defined else "" }}
+      {{ ("send_page_view: false,"|safe) if manual_ga_pageview else "" }}
+    });
+  </script>
+  {% endif %}
+
+  <title>{{ title }} - Custom Data Commons</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;600&family=Roboto&display=swap"

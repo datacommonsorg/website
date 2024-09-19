@@ -1,0 +1,50 @@
+[
+  {
+    "category": "Sustainability",
+    "questions": [
+      "Which counties in the US have the most smoke pollution?",
+      "Which countries have the most greenhouse gas emissions?",
+      "What is the solar energy consumption around the world?"
+    ]
+  },
+  {
+    "category": "Economics",
+    "questions": [
+      "Tell me about the economy in Brazil.",
+      "Show me the breakdown of businesses by industry type in the US.",
+      "What is the GDP in Iran?"
+    ]
+  },
+  {
+    "category": "Equity",
+    "questions": [
+      "Which countries have the lowest Gini index?",
+      "Which counties in the US have the highest rates of uninsured?",
+      "What about health equity in Florida?"
+    ]
+  },
+  {
+    "category": "Education, housing and commute",
+    "questions": [
+      "When were the houses in NYC built?",
+      "Which countries have the highest college-educated population in the world?",
+      "How much time do people in San Francisco spend commuting?"
+    ]
+  },
+  {
+    "category": "Demographics",
+    "questions": [
+      "Demographics around the world",
+      "Which country has the most old people?",
+      "Which state in the US has the most Tamil speakers?"
+    ]
+  },
+  {
+    "category": "Health",
+    "questions": [
+      "How does life expectancy vary across countries in Africa?",
+      "What is the prevalence of asthma across California counties?",
+      "What are the rates of child immunization in Pakistan?"
+    ]
+  }
+]

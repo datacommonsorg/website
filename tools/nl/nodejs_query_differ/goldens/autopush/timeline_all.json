@@ -602,7 +602,7 @@
       "chartUrl": ""
     },
     {
-      "data_csv": "label,Individual Median Earnings\r\n2016,32791\r\n2015,31907\r\n2014,31198\r\n2013,30289\r\n2012,28923\r\n2011,27194\r\n2010,26117",
+      "data_csv": "label,Individual Median Earnings\r\n2021,42290.65625\r\n2020,38660.13281\r\n2019,42290.65625\r\n2018,43192.87109\r\n2017,39031.44922\r\n2016,32789.875\r\n2015,31884.46094\r\n2014,31177.86133\r\n2013,30285.50977\r\n2012,28909.44922\r\n2011,27176.15039\r\n2010,26108.58398",
       "legend": [
         "Individual Median Earnings"
       ],
@@ -611,38 +611,38 @@
       ],
       "srcs": [
         {
-          "name": "data.census.gov",
-          "url": "https://data.census.gov/cedsci/table?q=S2001&tid=ACSST1Y2019.S2001"
+          "name": "datacommons.org",
+          "url": "https://datacommons.org"
         }
       ],
       "title": "Individual Median Earnings in North Dakota",
       "type": "LINE",
-      "unit": "USD",
+      "unit": "",
       "vars": [
         "Median_Earnings_Person"
       ],
       "highlight": {
-        "date": "2016",
-        "value": 32791
+        "date": "2021",
+        "value": 42290.65625
       },
       "chartUrl": "",
       "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
-      "data_csv": "rank,place,Individual Median Earnings\r\n1,Williams County,44561\r\n2,Burke County,40635\r\n3,Stark County,40520\r\n4,Renville County,40313\r\n5,Oliver County,39856\r\n49,Sioux County,28984\r\n50,Pierce County,27008\r\n51,Benson County,26975\r\n52,Dickey County,26497\r\n53,Grand Forks County,26304",
+      "data_csv": "rank,place,Individual Median Earnings\r\n1,Traill County,138163.8125\r\n2,Cass County,136895.25\r\n3,Richland County,132499.9688\r\n4,Sargent County,128997.8047\r\n5,Ransom County,128132.4063\r\n49,Golden Valley County,110927.6484\r\n50,Sheridan County,110237.6016\r\n51,Sioux County,108676.6719\r\n52,Hettinger County,108374.7891\r\n53,Divide County,105277.0781",
       "placeType": "County",
       "places": [
         "geoId/38"
       ],
       "srcs": [
         {
-          "name": "data.census.gov",
-          "url": "https://data.census.gov/cedsci/table?q=S2001&tid=ACSST1Y2019.S2001"
+          "name": "datacommons.org",
+          "url": "https://datacommons.org"
         }
       ],
-      "title": "Individual Median Earnings in Counties of North Dakota (2016)",
+      "title": "Individual Median Earnings in Counties of North Dakota (2021)",
       "type": "TABLE",
-      "unit": "USD",
+      "unit": "",
       "vars": [
         "Median_Earnings_Person"
       ],

@@ -36,6 +36,10 @@ import {
 } from "../../shared/context";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
+import {
+  isPlaceOverviewOnly,
+  shouldSkipPlaceOverview,
+} from "../../utils/explore_utils";
 import { getPlaceTypePlural } from "../../utils/string_utils";
 import { trimCategory } from "../../utils/subject_page_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
@@ -54,31 +58,6 @@ interface SuccessResultPropType {
   queryResult: QueryResult;
   pageMetadata: SubjectPageMetadata;
   userMessage: UserMessageInfo;
-}
-
-// Whether or not there is only a single place overview tile in the page
-// metadata.
-function isPlaceOverviewOnly(pageMetadata: SubjectPageMetadata): boolean {
-  // false if no page metadata or config or categories
-  if (
-    !pageMetadata ||
-    !pageMetadata.pageConfig ||
-    !pageMetadata.pageConfig.categories
-  ) {
-    return false;
-  }
-  const categories = pageMetadata.pageConfig.categories;
-  // False if there is more than 1 tile
-  if (
-    categories.length !== 1 ||
-    categories[0].blocks.length !== 1 ||
-    categories[0].blocks[0].columns.length !== 1 ||
-    categories[0].blocks[0].columns[0].tiles.length !== 1
-  ) {
-    return false;
-  }
-  // True only if the one tile is of type PLACE_OVERVIEW
-  return categories[0].blocks[0].columns[0].tiles[0].type === "PLACE_OVERVIEW";
 }
 
 export function SuccessResult(props: SuccessResultPropType): JSX.Element {
@@ -132,6 +111,7 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
     };
   }, []);
   const placeOverviewOnly = isPlaceOverviewOnly(props.pageMetadata);
+  const emptyPlaceOverview = shouldSkipPlaceOverview(props.pageMetadata);
   return (
     <div
       className={`row explore-charts${
@@ -198,27 +178,29 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
                 </ExploreContext.Provider>
               </NlSessionContext.Provider>
             </RankingUnitUrlFuncContext.Provider>
-            {!_.isEmpty(props.pageMetadata.childPlaces) && (
-              <RelatedPlace
-                relatedPlaces={props.pageMetadata.childPlaces[childPlaceType]}
-                topic={relatedPlaceTopic}
-                titleSuffix={
-                  getPlaceTypePlural(childPlaceType) +
-                  " in " +
-                  props.pageMetadata.place.name
-                }
-              ></RelatedPlace>
-            )}
-            {!_.isEmpty(props.pageMetadata.peerPlaces) && (
-              <RelatedPlace
-                relatedPlaces={props.pageMetadata.peerPlaces}
-                topic={relatedPlaceTopic}
-                titleSuffix={
-                  "other " +
-                  getPlaceTypePlural(props.pageMetadata.place.types[0])
-                }
-              ></RelatedPlace>
-            )}
+            {!emptyPlaceOverview &&
+              !_.isEmpty(props.pageMetadata.childPlaces) && (
+                <RelatedPlace
+                  relatedPlaces={props.pageMetadata.childPlaces[childPlaceType]}
+                  topic={relatedPlaceTopic}
+                  titleSuffix={
+                    getPlaceTypePlural(childPlaceType) +
+                    " in " +
+                    props.pageMetadata.place.name
+                  }
+                ></RelatedPlace>
+              )}
+            {!emptyPlaceOverview &&
+              !_.isEmpty(props.pageMetadata.peerPlaces) && (
+                <RelatedPlace
+                  relatedPlaces={props.pageMetadata.peerPlaces}
+                  topic={relatedPlaceTopic}
+                  titleSuffix={
+                    "other " +
+                    getPlaceTypePlural(props.pageMetadata.place.types[0])
+                  }
+                ></RelatedPlace>
+              )}
           </>
         )}
       </div>
