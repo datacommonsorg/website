@@ -20,146 +20,106 @@
 
 import _ from "lodash";
 import React, { ReactElement, useState, useRef, useEffect } from "react";
-import { Input } from "reactstrap";
+import { Input, InputGroup } from "reactstrap";
 import {
     getHighlightedJSX,
     getStatVarSearchResults,
   } from "../../utils/search_utils";
 import { NamedNode, NamedPlace } from "../../shared/types";
 import { getPlaceDcids } from "../../utils/place_utils";
-  
-const stop_words = [ 
-  'in', 'to', 'from', 'the'
-]; 
 
-export function AutoCompleteInput({
-  enableAutoComplete,
-  value,
-  invalid,
-  placeholder,
-  inputId,
-  onChange,
-  onSearch,
-  feedbackLink,
-  shouldAutoFocus,
-}): ReactElement {
-    const [showResults, setShowResults] = useState(false);
-    const [results, setResults] = useState({ placeResults: [], svResults: [] });
-    const latestQuery = useRef(null);
-    const placeAutocompleteService = useRef(null);
-    const [hoveredIdx, setHoveredIdx] = useState(0);
-    const [inputText, setInputText] = useState('');
-    const [selectedSuggestion, setSelectedSuggestion] = useState('')
+const icons = {'place': 'place', 'sv': 'analytics'};
 
-    useEffect(() => {
-        setInputText(value)
-      }, []);
+function AutoCompleteSuggestions({ inputText, setInputText, onChange}): ReactElement {
+  const placeAutocompleteService = useRef(null);
+  const [hoveredIdx, setHoveredIdx] = useState(0);
+  const [results, setResults] = useState({ placeResults: [], svResults: [] });
+  const [selectedSuggestion, setSelectedSuggestion] = useState('')
+  const [allResults, setAllResults] = useState([]);
+  const latestQuery = useRef(null);
 
-    useEffect(() => {
-        if (enableAutoComplete && google.maps) {
-          placeAutocompleteService.current =
-            new google.maps.places.AutocompleteService();
-        }
-      }, [enableAutoComplete]);
+  function onSelect(selectedName: string) : void {
+    selectedName += ' ';
+    var newInputText = latestQuery.current == null ?  selectedName : inputText.replace(latestQuery.current, ' ' + selectedName)
+    setInputText(newInputText);  
+    setSelectedSuggestion(selectedName);
+    setResults({ placeResults: [], svResults: [] });
+    onChange(newInputText);
+  }
+  const matches = inputText.split(" ");
 
-    function onSelect(selectedName: string) : void {
-        selectedName += ' ';
-        var newInputText = latestQuery.current == null ?  selectedName : inputText.replace(latestQuery.current, ' ' + selectedName)
-        setInputText(newInputText);
-        onChange(newInputText);
-        setSelectedSuggestion(selectedName);
-        setShowResults(false);
-        setResults({ placeResults: [], svResults: [] });
+  useEffect(() => {
+    if (google.maps) {
+      placeAutocompleteService.current =
+        new google.maps.places.AutocompleteService();
+    }
+  }, []);
+
+  useEffect(() => {
+    const allResultsSorted = ((results.placeResults.map((result, idx) => {
+      result['type'] = 'place';
+      return result;
+    }).concat(results.svResults.map((result, idx) => {
+      result['type']='sv';
+      return result;
+    }))).sort(function(a, b){return a.name.localeCompare(b.name);}));
+    setAllResults(allResultsSorted);
+  }, [results, setResults]);
+
+  useEffect(() => {
+    if (_.isEmpty(inputText)) {
+      setSelectedSuggestion('');
+      setResults({ placeResults: [], svResults: [] });
+      return;
     }
 
-    function onInputChange(e: React.ChangeEvent<HTMLInputElement>) :void {
-        const currentText = e.target.value;
-        onChange(currentText);
-        setInputText(currentText);
-
-        if (currentText == '') {
-            setSelectedSuggestion('');
-        }
-
-        if (!enableAutoComplete) {
-            return;
-        }
-
-        
-        setShowResults(true);
-        var currentQuery = selectedSuggestion == '' ? currentText : currentText.replace(selectedSuggestion, '');
-        console.log("Now running query " + currentQuery + "because " + selectedSuggestion);
-        latestQuery.current = currentQuery;
-        if (placeAutocompleteService.current) {
-            placeAutocompleteService.current.getPredictions(
-              { input: currentQuery, types: ["(regions)"] },
-              (predictions, status) =>
-                onPlaceAutocompleteCompleted(currentQuery, predictions, status)
-            );
-          }
+    var currentQuery = selectedSuggestion == '' ? inputText : inputText.replace(selectedSuggestion, '');
+    latestQuery.current = currentQuery;
+    if (placeAutocompleteService.current) {
+        placeAutocompleteService.current.getPredictions(
+          { input: currentQuery, types: ["(regions)"] },
+          (predictions, status) =>
+            onPlaceAutocompleteCompleted(currentQuery, predictions, status)
+        );
       }
-
-    const matches = inputText.split(" ");
+  }, [inputText]);
+  
+  function onClick(result) {
+    if (_.isEmpty(selectedSuggestion)) {
+      if (result['type'] == 'place') {
+        redirectAction(result.name, result.dcid, "");
+      } else if (result['type'] == 'sv') {
+        redirectAction(result.name, "", result.dcid);
+      }
+    } else {
+      onSelect(result.name);
+    }
+  }
 
   return (
     <>
-        <Input
-            id={inputId}
-            invalid={invalid}
-            placeholder={placeholder}
-            value={inputText}
-            onChange={onInputChange}
-            onKeyDown={(e): void => e.key === "Enter" && onSearch()}
-            className="pac-target-input search-input-text"
-            autoFocus={shouldAutoFocus}
-        ></Input>
-        { enableAutoComplete && showResults && (
-            <div className="search-results-place search-results-section">
-            <div className="search-input-results-list" tabIndex={-1}>
-            {/* <div
-              className={`search-input-result ${
-                0 === hoveredIdx ? "search-input-result-highlighted" : ""
-              }`}
-              onClick={() => redirectAction(inputText, "", "")}
-              key={"search-input-result-0"}
-            >
-              {inputText}
-            </div> */}
-            {!_.isEmpty(results.placeResults) &&
-              results.placeResults.map((result, idx) => {
-                return (
-                  <div
-                    className={`search-input-result ${
-                      idx + 1 === hoveredIdx
-                        ? "search-input-result-highlighted"
-                        : ""
-                    }`}
-                    key={"search-input-result-" + result.dcid}
-                    onClick={() => selectedSuggestion == '' ? redirectAction(result.name, result.dcid, "") : onSelect(result.name)}
-                  >
-                    {getHighlightedJSX(result.dcid, result.name, matches)}
-                  </div>
-                );
-              })}
-            {!_.isEmpty(results.svResults) &&
-              results.svResults.map((result, idx) => {
-                return (
-                  <div
-                    className={`search-input-result ${
-                      idx + 1 + results.placeResults.length === hoveredIdx
-                        ? "search-input-result-highlighted"
-                        : ""
-                    }`}
-                    onClick={() => onSelect(result.name)}
-                    key={"search-input-result-" + result.dcid}
-                  >
-                    {getHighlightedJSX(result.dcid, result.name, matches)}
-                  </div>
-                );
-              })}
-          </div>
-          </div>
-        )}
+    <div className="search-results-place search-results-section">
+      <div className="search-input-results-list" tabIndex={-1}>
+      {!_.isEmpty(allResults) &&
+        allResults.map((result, idx) => {
+          return (
+            <div className='search-input-result-section'>
+              <div
+                className={`search-input-result ${
+                  idx + 1 === hoveredIdx
+                    ? "search-input-result-highlighted"
+                    : ""
+                }`}
+                key={"search-input-result-" + result.dcid}
+                onClick={() => onClick(result)}>
+                <span className="material-icons-outlined">{icons[result['type']]}</span>
+                {getHighlightedJSX(result.dcid, result.name, matches)}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
     </>
   );
 
@@ -184,28 +144,76 @@ export function AutoCompleteInput({
           .filter((place) => !_.isEmpty(place));
       });
     }
-    Promise.all([namedPlacePromise, getSvResultsPromise(query)])
-      .then(([placeResults, svResults]) => {
+    Promise.all([namedPlacePromise]) //, getSvResultsPromise(query)])
+      .then(([placeResults]) => { // , svResults
         if (query !== latestQuery.current) {
           return;
         }
-        if (_.isEmpty(placeResults) && _.isEmpty(svResults)) {
-            setShowResults(false);
+        if (_.isEmpty(placeResults)) {
           setResults({ placeResults: [], svResults: [] });
         } else {
-          setResults({ placeResults, svResults });
+          setResults({ placeResults, svResults: [] });
         }
       })
       .catch(() => {
         if (query !== latestQuery.current) {
           return;
         }
-        setShowResults(false);
         setResults({ placeResults: [], svResults: [] });
       });
   }
 };
 
+export function AutoCompleteInput({
+  enableAutoComplete,
+  value,
+  invalid,
+  placeholder,
+  inputId,
+  onChange,
+  onSearch,
+  feedbackLink,
+  shouldAutoFocus,
+  barType,
+}): ReactElement {
+    const [inputText, setInputText] = useState('');
+
+    function onInputChange(e: React.ChangeEvent<HTMLInputElement>) :void {
+        const currentText = e.target.value;
+        setInputText(currentText);
+        onChange(currentText);
+      }
+
+    const isHeaderBar = barType == 'header';
+
+  return (
+    <>
+    <div className="search-box-section">
+      <div className={`search-bar${value ? " non-empty" : ""}`}>
+        <InputGroup className="search-bar-content">
+          { isHeaderBar && <span className="material-icons-outlined">search</span> }
+          <Input
+            id={inputId}
+            invalid={invalid}
+            placeholder={placeholder}
+            value={inputText}
+            onChange={onInputChange}
+            onKeyDown={(e): void => e.key === "Enter" && onSearch()}
+            className="pac-target-input search-input-text"
+            autoComplete="new-password"
+            autoFocus={shouldAutoFocus}></Input>
+            <div onClick={onSearch} id="rich-search-button">
+              { isHeaderBar && <span className="material-icons-outlined">arrow_forward</span> }
+            </div>
+        </InputGroup>
+        </div>
+        { enableAutoComplete && <AutoCompleteSuggestions inputText={inputText} setInputText={setInputText} onChange={onChange}/>}
+      </div>
+    </>
+  );
+}
+
+ 
 
 const REDIRECT_PREFIX = "/explore?";
 function redirectAction(
@@ -222,9 +230,9 @@ function redirectAction(
         url = "/place/" + `${placeDcid}`;
     }
     if (svDcid) {
-      url += `&svDcid=${svDcid}`;
+      url = `/tools/statvar#sv=${svDcid}`;
     }
-    window.open(url, "_self");
+    window.open(url, "_");
   }
 
 const NUM_SV_RESULTS = 5;

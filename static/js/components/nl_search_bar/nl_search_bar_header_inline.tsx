@@ -19,7 +19,6 @@
  */
 
 import React, { ReactElement } from "react";
-import { InputGroup } from "reactstrap";
 import { AutoCompleteInput } from "./auto_complete_input";
 
 import { NlSearchBarImplementationProps } from "../nl_search_bar";
@@ -37,14 +36,8 @@ const NlSearchBarHeaderInline = ({
     <div className="header-search-section">
       <div className="search-box-section">
         <div className={`search-bar${value ? " non-empty" : ""}`}>
-          <InputGroup className="search-bar-content">
-            <span className="material-icons-outlined">search</span>
-            <AutoCompleteInput enableAutoComplete={false} value={value} invalid={invalid} placeholder={placeholder} inputId={inputId}
-            onChange={onChange} onSearch={onSearch} feedbackLink='' shouldAutoFocus={shouldAutoFocus} />
-            <div onClick={onSearch} id="rich-search-button">
-              <span className="material-icons-outlined">arrow_forward</span>
-            </div>
-          </InputGroup>
+          <AutoCompleteInput enableAutoComplete={true} value={value} invalid={invalid} placeholder={placeholder} inputId={inputId}
+          onChange={onChange} onSearch={onSearch} feedbackLink='' shouldAutoFocus={shouldAutoFocus} barType="header" />
         </div>
       </div>
     </div>
