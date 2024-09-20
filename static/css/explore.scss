@@ -317,6 +317,19 @@ $highlighted-box-max-width: 600px;
   }
 }
 
+.search-input-results-list {
+  width: 95%;
+  border: $border;
+  position: absolute;
+  left: 10px;
+  background-color: var(--gm-3-ref-primary-primary-99);
+  z-index: 9;
+}
+
+.search-input-result {
+  border: 1px solid black;
+}
+  
 .nl-query-result-debug-info {
   position: absolute;
   z-index: 20;

@@ -29,8 +29,9 @@ import { NamedNode, NamedPlace } from "../../shared/types";
 import { getPlaceDcids } from "../../utils/place_utils";
 
 const icons = {'place': 'place', 'sv': 'analytics'};
+const stop_words = ["in", "for", "from", "at"];
 
-function AutoCompleteSuggestions({ inputText, updateInputText, onChange}): ReactElement {
+function AutoCompleteSuggestions({ inputText, updateInputText, onChange, onSearch}): ReactElement {
   const placeAutocompleteService = useRef(null);
   const [hoveredIdx, setHoveredIdx] = useState(0);
   const [results, setResults] = useState({ placeResults: [], svResults: [] });
@@ -42,9 +43,9 @@ function AutoCompleteSuggestions({ inputText, updateInputText, onChange}): React
     selectedName += ' ';
     var newInputText = latestQuery.current == null ?  selectedName : inputText.replace(latestQuery.current, ' ' + selectedName)
     updateInputText(newInputText);  
-    setSelectedSuggestion(selectedName);
-    setResults({ placeResults: [], svResults: [] });
     onChange(newInputText);
+    setResults({ placeResults: [], svResults: [] });
+    setSelectedSuggestion(selectedName);
   }
   const matches = inputText.split(" ");
 
@@ -56,13 +57,17 @@ function AutoCompleteSuggestions({ inputText, updateInputText, onChange}): React
   }, []);
 
   useEffect(() => {
+    onSearch(inputText);
+  }, [selectedSuggestion, setSelectedSuggestion]);
+
+  useEffect(() => {
     const allResultsSorted = ((results.placeResults.map((result, idx) => {
       result['type'] = 'place';
       return result;
     }).concat(results.svResults.map((result, idx) => {
       result['type']='sv';
       return result;
-    }))).sort(function(a, b){return a.name.localeCompare(b.name);}));
+    }))));
     setAllResults(allResultsSorted);
   }, [results, setResults]);
 
@@ -132,13 +137,18 @@ function AutoCompleteSuggestions({ inputText, updateInputText, onChange}): React
     allowRetry: boolean
   ): void {
     if (allowRetry && _.isEmpty(predictions)) {
-      const split = query.trim().split(' ');
+      const regex = new RegExp("\\b(?:" + stop_words.join('|') + "|\\s)+\\b", "i");
+      var split = query.trim().split(regex);
+      if (split.length == 1) {
+        split = query.trim().split(' ');
+      }
+
       if (split.length > 1) {
-        console.log("Retrying with subqueries." + split + "; ");
+        console.log("Retrying with subqueries." + split[split.length-1] + "; ");
         const curr = split[split.length-1];
         latestQuery.current = curr;
         placeAutocompleteService.current.getPredictions(
-          { input: curr, types: ["(regions)"], offset: split.length },
+          { input: curr, types: ["(regions)"] },
           (predictions, status) =>
             onPlaceAutocompleteCompleted(curr, predictions, status, /* allowRetry= */false)
         );
@@ -219,7 +229,7 @@ export function AutoCompleteInput({
             </div>
         </InputGroup>
         </div>
-        { enableAutoComplete && <AutoCompleteSuggestions inputText={inputText} updateInputText={setInputText} onChange={onChange}/>}
+        { enableAutoComplete && <AutoCompleteSuggestions inputText={inputText} updateInputText={setInputText} onChange={onChange} onSearch={onSearch}/>}
       </div>
     </>
   );
