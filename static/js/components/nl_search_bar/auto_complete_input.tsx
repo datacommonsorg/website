@@ -38,7 +38,6 @@ function useOutsideAlerter(ref, clearResults) {
      */
     function handleClickOutside(event) {
       if (ref.current && !ref.current.contains(event.target)) {
-        console.log("You clicked outside of me!");
         clearResults();
       }
     }
@@ -83,7 +82,6 @@ function AutoCompleteSuggestions({ inputText, updateInputText, onChange, onSearc
 
 
   useEffect(() => {
-    console.log("gotta clear in here" + clearResults);
     if (clearResults == 'true') {
       setResults({ placeResults: [], svResults: [] });
       resetCleared();
@@ -121,6 +119,7 @@ function AutoCompleteSuggestions({ inputText, updateInputText, onChange, onSearc
   }, [inputText]);
   
   function onClick(result) {
+    console.log("Clicked " + inputText + "; and " + result.name);
     if (result.name.toLowerCase().includes(inputText.toLowerCase())) {
       if (result['type'] == 'place') {
         redirectAction(result.name, result.dcid, "");
@@ -175,7 +174,6 @@ function AutoCompleteSuggestions({ inputText, updateInputText, onChange, onSearc
       }
 
       if (split.length > 1) {
-        console.log("Retrying with subqueries." + split[split.length-1] + "; ");
         const curr = split[split.length-1];
         latestQuery.current = curr;
         placeAutocompleteService.current.getPredictions(
@@ -260,7 +258,7 @@ export function AutoCompleteInput({
             onChange={onInputChange}
             onKeyDown={(e): void => e.key === "Enter" && onSearch()}
             className="pac-target-input search-input-text"
-            autoComplete="new-password"
+            autoComplete="one-time-code"
             autoFocus={shouldAutoFocus}></Input>
             <div onClick={onSearch} id="rich-search-button">
               { isHeaderBar && <span className="material-icons-outlined">arrow_forward</span> }
