@@ -31,13 +31,34 @@ import { getPlaceDcids } from "../../utils/place_utils";
 const icons = {'place': 'place', 'sv': 'analytics'};
 const stop_words = ["in", "for", "from", "at"];
 
-function AutoCompleteSuggestions({ inputText, updateInputText, onChange, onSearch}): ReactElement {
+function useOutsideAlerter(ref, clearResults) {
+  useEffect(() => {
+    /**
+     * Alert if clicked on outside of element
+     */
+    function handleClickOutside(event) {
+      if (ref.current && !ref.current.contains(event.target)) {
+        console.log("You clicked outside of me!");
+        clearResults();
+      }
+    }
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [ref]);
+}
+
+function AutoCompleteSuggestions({ inputText, updateInputText, onChange, onSearch, clearResults, resetCleared}): ReactElement {
   const placeAutocompleteService = useRef(null);
   const [hoveredIdx, setHoveredIdx] = useState(0);
   const [results, setResults] = useState({ placeResults: [], svResults: [] });
   const [selectedSuggestion, setSelectedSuggestion] = useState('')
   const [allResults, setAllResults] = useState([]);
   const latestQuery = useRef(null);
+
 
   function onSelect(selectedName: string) : void {
     selectedName += ' ';
@@ -60,6 +81,16 @@ function AutoCompleteSuggestions({ inputText, updateInputText, onChange, onSearc
     onSearch(inputText);
   }, [selectedSuggestion, setSelectedSuggestion]);
 
+
+  useEffect(() => {
+    console.log("gotta clear in here" + clearResults);
+    if (clearResults == 'true') {
+      setResults({ placeResults: [], svResults: [] });
+      resetCleared();
+    }
+  }, [clearResults]);
+
+  
   useEffect(() => {
     const allResultsSorted = ((results.placeResults.map((result, idx) => {
       result['type'] = 'place';
@@ -90,7 +121,7 @@ function AutoCompleteSuggestions({ inputText, updateInputText, onChange, onSearc
   }, [inputText]);
   
   function onClick(result) {
-    if (result.name.includes(inputText)) {
+    if (result.name.toLowerCase().includes(inputText.toLowerCase())) {
       if (result['type'] == 'place') {
         redirectAction(result.name, result.dcid, "");
       } else if (result['type'] == 'sv') {
@@ -199,6 +230,8 @@ export function AutoCompleteInput({
   barType,
 }): ReactElement {
     const [inputText, setInputText] = useState('');
+    const wrapperRef = useRef(null);
+    const [clearResults, setClearResults] = useState('false');
 
     function onInputChange(e: React.ChangeEvent<HTMLInputElement>) :void {
         const currentText = e.target.value;
@@ -207,10 +240,15 @@ export function AutoCompleteInput({
       }
 
     const isHeaderBar = barType == 'header';
+    useOutsideAlerter(wrapperRef, () => { setClearResults('true');});
+
+    function resetCleared(){
+      setClearResults('false');
+    }
 
   return (
     <>
-    <div className="search-box-section">
+    <div className="search-box-section" ref={wrapperRef}>
       <div className={`search-bar${value ? " non-empty" : ""}`}>
         <InputGroup className="search-bar-content">
           { isHeaderBar && <span className="material-icons-outlined">search</span> }
@@ -229,7 +267,7 @@ export function AutoCompleteInput({
             </div>
         </InputGroup>
         </div>
-        { enableAutoComplete && <AutoCompleteSuggestions inputText={inputText} updateInputText={setInputText} onChange={onChange} onSearch={onSearch}/>}
+        { enableAutoComplete && <AutoCompleteSuggestions inputText={inputText} updateInputText={setInputText} onChange={onChange} onSearch={onSearch} clearResults={clearResults} resetCleared={resetCleared}/>}
       </div>
     </>
   );
