@@ -30,7 +30,7 @@ import { getPlaceDcids } from "../../utils/place_utils";
 
 const icons = {'place': 'place', 'sv': 'analytics'};
 
-function AutoCompleteSuggestions({ inputText, setInputText, onChange}): ReactElement {
+function AutoCompleteSuggestions({ inputText, updateInputText, onChange}): ReactElement {
   const placeAutocompleteService = useRef(null);
   const [hoveredIdx, setHoveredIdx] = useState(0);
   const [results, setResults] = useState({ placeResults: [], svResults: [] });
@@ -41,7 +41,7 @@ function AutoCompleteSuggestions({ inputText, setInputText, onChange}): ReactEle
   function onSelect(selectedName: string) : void {
     selectedName += ' ';
     var newInputText = latestQuery.current == null ?  selectedName : inputText.replace(latestQuery.current, ' ' + selectedName)
-    setInputText(newInputText);  
+    updateInputText(newInputText);  
     setSelectedSuggestion(selectedName);
     setResults({ placeResults: [], svResults: [] });
     onChange(newInputText);
@@ -77,21 +77,23 @@ function AutoCompleteSuggestions({ inputText, setInputText, onChange}): ReactEle
     latestQuery.current = currentQuery;
     if (placeAutocompleteService.current) {
         placeAutocompleteService.current.getPredictions(
-          { input: currentQuery, types: ["(regions)"] },
+          { input: currentQuery, types: ["(regions)"], offset: inputText.length },
           (predictions, status) =>
-            onPlaceAutocompleteCompleted(currentQuery, predictions, status)
+            onPlaceAutocompleteCompleted(currentQuery, predictions, status, /* allowRetry= */true)
         );
       }
   }, [inputText]);
   
   function onClick(result) {
-    if (_.isEmpty(selectedSuggestion)) {
+    if (result.name.includes(inputText)) { // _.isEmpty(selectedSuggestion) || 
+      console.log("Result " + result.name + ";; " +inputText);
       if (result['type'] == 'place') {
         redirectAction(result.name, result.dcid, "");
       } else if (result['type'] == 'sv') {
         redirectAction(result.name, "", result.dcid);
       }
     } else {
+      console.log("In esle...");
       onSelect(result.name);
     }
   }
@@ -126,8 +128,22 @@ function AutoCompleteSuggestions({ inputText, setInputText, onChange}): ReactEle
   function onPlaceAutocompleteCompleted(
     query: string,
     predictions: google.maps.places.AutocompletePrediction[],
-    status: google.maps.places.PlacesServiceStatus
+    status: google.maps.places.PlacesServiceStatus,
+    allowRetry: boolean
   ): void {
+    if (allowRetry && _.isEmpty(predictions)) {
+      const split = query.trim().split(' ');
+      if (split.length > 1) {
+        console.log("Retrying with subqueries." + split + "; ");
+        const curr = split[split.length-1];
+        latestQuery.current = curr;
+        placeAutocompleteService.current.getPredictions(
+          { input: curr, types: ["(regions)"], offset: split.length },
+          (predictions, status) =>
+            onPlaceAutocompleteCompleted(curr, predictions, status, /* allowRetry= */false)
+        );
+      }
+    }
     let namedPlacePromise: Promise<NamedPlace[]> = Promise.resolve([]);
     if (status === google.maps.places.PlacesServiceStatus.OK) {
       const placeIds = predictions.map((prediction) => prediction.place_id);
@@ -149,11 +165,7 @@ function AutoCompleteSuggestions({ inputText, setInputText, onChange}): ReactEle
         if (query !== latestQuery.current) {
           return;
         }
-        if (_.isEmpty(placeResults)) {
-          setResults({ placeResults: [], svResults: [] });
-        } else {
-          setResults({ placeResults, svResults: [] });
-        }
+        setResults({ placeResults, svResults: [] });
       })
       .catch(() => {
         if (query !== latestQuery.current) {
@@ -207,7 +219,7 @@ export function AutoCompleteInput({
             </div>
         </InputGroup>
         </div>
-        { enableAutoComplete && <AutoCompleteSuggestions inputText={inputText} setInputText={setInputText} onChange={onChange}/>}
+        { enableAutoComplete && <AutoCompleteSuggestions inputText={inputText} updateInputText={setInputText} onChange={onChange}/>}
       </div>
     </>
   );
@@ -221,7 +233,6 @@ function redirectAction(
     placeDcid: string,
     svDcid: string
   ): void {
-    console.log("on shit " + placeDcid);
     let url = REDIRECT_PREFIX;
     if (query) {
       url += `q=${query}`;
@@ -232,7 +243,7 @@ function redirectAction(
     if (svDcid) {
       url = `/tools/statvar#sv=${svDcid}`;
     }
-    window.open(url, "_");
+    window.open(url, "_self");
   }
 
 const NUM_SV_RESULTS = 5;
