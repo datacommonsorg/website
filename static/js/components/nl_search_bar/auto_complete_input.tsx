@@ -90,15 +90,13 @@ function AutoCompleteSuggestions({ inputText, updateInputText, onChange, onSearc
   }, [inputText]);
   
   function onClick(result) {
-    if (result.name.includes(inputText)) { // _.isEmpty(selectedSuggestion) || 
-      console.log("Result " + result.name + ";; " +inputText);
+    if (result.name.includes(inputText)) {
       if (result['type'] == 'place') {
         redirectAction(result.name, result.dcid, "");
       } else if (result['type'] == 'sv') {
         redirectAction(result.name, "", result.dcid);
       }
     } else {
-      console.log("In esle...");
       onSelect(result.name);
     }
   }
@@ -109,7 +107,7 @@ function AutoCompleteSuggestions({ inputText, updateInputText, onChange, onSearc
       <div className="search-input-results-list" tabIndex={-1}>
       {!_.isEmpty(allResults) &&
         allResults.map((result, idx) => {
-          return (
+          return (<>
             <div className='search-input-result-section'>
               <div
                 className={`search-input-result ${
@@ -121,8 +119,10 @@ function AutoCompleteSuggestions({ inputText, updateInputText, onChange, onSearc
                 onClick={() => onClick(result)}>
                 <span className="material-icons-outlined">{icons[result['type']]}</span>
                 {getHighlightedJSX(result.dcid, result.name, matches)}
+                {idx !== allResults.length-1 ? <hr></hr> : <></>}
+                </div>
               </div>
-            </div>
+            </>
           );
         })}
       </div>
