@@ -258,7 +258,8 @@ export class StatVarHierarchySearch extends React.Component<
     if (this.state.svResults) {
       for (const sv of this.state.svResults) {
         if (sv.dcid == selectedID) {
-          displayName = sv.name;
+          let url = `/tools/statvar#sv=${sv.dcid}`;
+          window.open(url, "_self");
           break;
         }
       }
