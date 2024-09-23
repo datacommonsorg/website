@@ -58,6 +58,11 @@ $highlighted-box-max-width: 600px;
   // padding-top: 100px;
 }
 
+.search-input-result-highlighted,
+.search-input-result:hover {
+  background-color: var(--dc-gray-lite);
+}
+
 #insight-lhs {
   padding-right: 20px;
 }
