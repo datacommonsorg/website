@@ -18,73 +18,85 @@
  * Standard version of the NL Search Component - used as a stand-alone component in the body of a page.
  */
 
-import _ from "lodash";
-import React, { ReactElement, useState, useRef, useEffect } from "react";
+import { triggerAsyncId } from "async_hooks";
+import _, { replace } from "lodash";
+import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { Input, InputGroup } from "reactstrap";
-import {
-    getHighlightedJSX,
-    getStatVarSearchResults,
-  } from "../../utils/search_utils";
-import { NamedNode, NamedPlace } from "../../shared/types";
-import { getPlaceDcids } from "../../utils/place_utils";
-import e from "express";
-import { text } from "d3";
 
-const icons = {'place': 'place', 'sv': 'analytics'};
+import { NamedPlace } from "../../shared/types";
+import { OutsideClickAlerter } from "../../utils/outside_click_alerter";
+import { getPlaceDcids } from "../../utils/place_utils";
+import { getHighlightedJSX } from "../../utils/search_utils";
+
+// Material Icons used for the result sv type.
+const icons = { place: "place" };
+
+// Stop words used to split the query for location autocomplete.
 const stop_words = ["in", "for", "from", "at"];
 
-function useOutsideAlerter(ref, clearResults) {
-  useEffect(() => {
-    /**
-     * Alert if clicked on outside of element
-     */
-    function handleClickOutside(event) {
-      if (ref.current && !ref.current.contains(event.target)) {
-        clearResults();
-      }
-    }
-    // Bind the event listener
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      // Unbind the event listener on clean up
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [ref]);
+const EXPLORE_PREFIX = "/explore?";
+const PLACE_EXPLORER_PREFIX = "/place/";
+const SV_EXPLORER_PREFIX = "/tools/statvar";
+
+function redirectAction(
+  query: string,
+  placeDcid: string,
+  svDcid: string
+): void {
+  let url = "";
+  if (query) {
+    url += EXPLORE_PREFIX + `q=${query}`;
+  }
+  if (placeDcid) {
+    url = PLACE_EXPLORER_PREFIX + `${placeDcid}`;
+  }
+  if (svDcid) {
+    url = SV_EXPLORER_PREFIX + `#sv=${svDcid}`;
+  }
+  window.open(url, "_self");
 }
 
-function AutoCompleteSuggestions({ allResults, inputText, onClick, hoveredIdx}): ReactElement {
-
+function AutoCompleteSuggestions({
+  allResults,
+  inputText,
+  onClick,
+  hoveredIdx,
+}): ReactElement {
   const matches = inputText.split(" ");
 
   return (
     <>
-    <div className="search-results-place search-results-section">
-      <div className="search-input-results-list" tabIndex={-1}>
-      {!_.isEmpty(allResults) &&
-        allResults.map((result, idx) => {
-          return (<>
-            <div className='search-input-result-section'>
-              <div
-                className={`search-input-result ${
-                  idx === hoveredIdx
-                    ? "search-input-result-highlighted"
-                    : ""
-                }`}
-                key={"search-input-result-" + result.dcid}
-                onClick={() => onClick(result)}>
-                <span className="material-icons-outlined">{icons[result['type']]}</span>
-                {getHighlightedJSX(result.dcid, result.name, matches)}
-                {idx !== allResults.length-1 ? <hr></hr> : <></>}
-                </div>
-              </div>
-            </>
-          );
-        })}
+      <div className="search-results-place search-results-section">
+        <div className="search-input-results-list" tabIndex={-1}>
+          {!_.isEmpty(allResults) &&
+            allResults.map((result, idx) => {
+              return (
+                <>
+                  <div className="search-input-result-section">
+                    <div
+                      className={`search-input-result ${
+                        idx === hoveredIdx
+                          ? "search-input-result-highlighted"
+                          : ""
+                      }`}
+                      key={"search-input-result-" + result.dcid}
+                      onClick={() => onClick(result)}
+                    >
+                      <span className="material-icons-outlined">
+                        {icons[result["type"]]}
+                      </span>
+                      {getHighlightedJSX(result.dcid, result.name, matches)}
+                      {idx !== allResults.length - 1 ? <hr></hr> : <></>}
+                    </div>
+                  </div>
+                </>
+              );
+            })}
+        </div>
       </div>
-    </div>
     </>
   );
-};
+}
 
 export function AutoCompleteInput({
   enableAutoComplete,
@@ -98,16 +110,17 @@ export function AutoCompleteInput({
   shouldAutoFocus,
   barType,
 }): ReactElement {
-    const placeAutocompleteService = useRef(null);
-    const [inputText, setInputText] = useState('');
-    const wrapperRef = useRef(null);
-    const [hoveredIdx, setHoveredIdx] = useState(-1);
-    const [results, setResults] = useState({ placeResults: [], svResults: [] });
-    const [allResults, setAllResults] = useState([]);
-    const latestQuery = useRef(null);
-    const [selectedSuggestion, setSelectedSuggestion] = useState('')
-    const [baseInput, setBaseInput] = useState('')
-  
+  const wrapperRef = useRef(null);
+  const placeAutocompleteService = useRef(null);
+  const latestQuery = useRef(null);
+  const [baseInput, setBaseInput] = useState("");
+  const [inputText, setInputText] = useState("");
+  const [results, setResults] = useState({ placeResults: [], svResults: [] });
+  const [allResults, setAllResults] = useState([]);
+  const [hoveredIdx, setHoveredIdx] = useState(-1);
+  const [triggerSearch, setTriggerSearch] = useState("");
+
+  const isHeaderBar = barType == "header";
 
   useEffect(() => {
     if (google.maps) {
@@ -116,141 +129,152 @@ export function AutoCompleteInput({
     }
   }, []);
 
-    
   useEffect(() => {
-    const allResultsSorted = ((results.placeResults.map((result, idx) => {
-      result['type'] = 'place';
+    const allResultsSorted = results.placeResults.map((result, idx) => {
+      result["type"] = "place";
       return result;
-    }).concat(results.svResults.map((result, idx) => {
-      result['type']='sv';
-      return result;
-    }))));
+    });
+    // TODO(gmechali): Add SV type results.
     setAllResults(allResultsSorted);
   }, [results, setResults]);
-  
 
   useEffect(() => {
-    onSearch(inputText);
-  }, [selectedSuggestion, setSelectedSuggestion]);
+    onSearch();
+  }, [triggerSearch, setTriggerSearch]);
 
+  function onInputChange(e: React.ChangeEvent<HTMLInputElement>): void {
+    setHoveredIdx(-1);
 
-  function onSelect(selectedName: string) : void {
-    selectedName += ' ';
-    var newInputText = latestQuery.current == null ?  selectedName : baseInput.replace(latestQuery.current, selectedName)
-    onChange(newInputText);
-    setResults({ placeResults: [], svResults: [] });
-    setSelectedSuggestion(selectedName);
+    const currentText = e.target.value;
+    changeText(currentText);
+    setBaseInput(currentText);
+
+    if (_.isEmpty(currentText)) {
+      // Reset all suggestion results.
+      setResults({ placeResults: [], svResults: [] });
+      return;
+    }
+
+    // Trigger new query for location autocomplete.
+    if (placeAutocompleteService.current) {
+      latestQuery.current = currentText;
+      placeAutocompleteService.current.getPredictions(
+        {
+          input: latestQuery.current,
+          types: ["(regions)"],
+          offset: currentText.length,
+        },
+        (predictions, status) =>
+          onPlaceAutocompleteCompleted(
+            currentText,
+            predictions,
+            status,
+            /* allowRetry= */ true
+          )
+      );
+    }
   }
 
-  useEffect(() => {
-    console.log("Base input is " + baseInput);
-  }, [baseInput, setBaseInput]);
+  function changeText(text: string) {
+    setInputText(text);
+    onChange(text);
+  }
 
-    function onInputChange(e: React.ChangeEvent<HTMLInputElement>) :void {
-      setHoveredIdx(-1);
-      const currentText = e.target.value;
-      setBaseInput(currentText);
+  // For all clicks outside of the input component, empty out results.
+  OutsideClickAlerter(wrapperRef, () => {
+    setResults({ placeResults: [], svResults: [] });
+  });
 
-      if (_.isEmpty(currentText)) {
-        setSelectedSuggestion('');
-        setResults({ placeResults: [], svResults: [] });
-        changeText(currentText);
-        return;
-      }
-  
-      var currentQuery = selectedSuggestion == '' ? currentText : currentText.replace(selectedSuggestion, '');
-      latestQuery.current = currentQuery;
-      if (placeAutocompleteService.current) {
-          placeAutocompleteService.current.getPredictions(
-            { input: currentQuery, types: ["(regions)"], offset: currentText.length },
-            (predictions, status) =>
-              onPlaceAutocompleteCompleted(currentQuery, predictions, status, /* allowRetry= */true)
-          );
-      }
-      changeText(currentText);
+  function handleKeydownEvent(
+    event: React.KeyboardEvent<HTMLDivElement>
+  ): void {
+    switch (event.key) {
+      case "Enter":
+        if (hoveredIdx >= 0) {
+          onClick(allResults[hoveredIdx]);
+        } else {
+          onSearch();
+        }
+        event.preventDefault();
+        break;
+      case "ArrowUp":
+        event.preventDefault();
+        processArrowKey(Math.max(hoveredIdx - 1, -1));
+        break;
+      case "ArrowDown":
+        event.preventDefault();
+        processArrowKey(Math.min(hoveredIdx + 1, allResults.length - 1));
+        break;
     }
+  }
 
-    function changeText(text: string) {
-      setInputText(text);
-      onChange(text);
-    }
-
-    const isHeaderBar = barType == 'header';
-    useOutsideAlerter(wrapperRef, () => {setResults({ placeResults: [], svResults: [] });});
-
-    function handleKeydownEvent(event: React.KeyboardEvent<HTMLDivElement>
-    ): void {
-      const regex = new RegExp("\\b(?:.(?!" + latestQuery.current + "))+$\\b", "i") ;
-      
-      let index = hoveredIdx;
-      console.log("Key Down: " + index);
-      switch(event.key) {
-        case "Enter":
-          if (hoveredIdx >= 0) {
-            onClick(allResults[hoveredIdx])
-          } else {
-            onSearch();
-          }
-          event.preventDefault();
-          break;
-        case "ArrowUp":
-          index = Math.max(hoveredIdx-1, -1);
-          setHoveredIdx(index);
-          event.preventDefault();
-          if (index >= 0) {
-            const strin = baseInput.replace(regex, '')  + allResults[index].name;
-            changeText(strin);
-          } else {
-            changeText(baseInput);
-          }
-          break;
-        case "ArrowDown":
-          index = Math.min(hoveredIdx+1, allResults.length-1);
-          setHoveredIdx(index);
-          setHoveredIdx(index);
-          event.preventDefault();
-          const newString = baseInput.replace(regex, '')  + allResults[index].name;
-          changeText(newString);
-          break;
-      }
-    }
+  function processArrowKey(selectedIndex: number) {
+    setHoveredIdx(selectedIndex);
+    const textDisplayed =
+      selectedIndex >= 0
+        ? replaceQueryWithSelection(allResults[selectedIndex].name)
+        : baseInput;
+    changeText(textDisplayed);
+  }
 
   return (
     <>
-    <div className="search-box-section" ref={wrapperRef}>
-      <div className={`search-bar${value ? " non-empty" : ""}`}>
-        <InputGroup className="search-bar-content">
-          { isHeaderBar && <span className="material-icons-outlined">search</span> }
-          <Input
-            id={inputId}
-            invalid={invalid}
-            placeholder={placeholder}
-            value={inputText}
-            onChange={onInputChange}
-            onKeyDown={(event) => handleKeydownEvent(event)}
-            className="pac-target-input search-input-text"
-            autoComplete="one-time-code"
-            autoFocus={shouldAutoFocus}></Input>
+      <div className="search-box-section" ref={wrapperRef}>
+        <div className={`search-bar${value ? " non-empty" : ""}`}>
+          <InputGroup className="search-bar-content">
+            {isHeaderBar && (
+              <span className="material-icons-outlined">search</span>
+            )}
+            <Input
+              id={inputId}
+              invalid={invalid}
+              placeholder={placeholder}
+              value={inputText}
+              onChange={onInputChange}
+              onKeyDown={(event) => handleKeydownEvent(event)}
+              className="pac-target-input search-input-text"
+              autoComplete="one-time-code"
+              autoFocus={shouldAutoFocus}
+            ></Input>
             <div onClick={onSearch} id="rich-search-button">
-              { isHeaderBar && <span className="material-icons-outlined">arrow_forward</span> }
+              {isHeaderBar && (
+                <span className="material-icons-outlined">arrow_forward</span>
+              )}
             </div>
-        </InputGroup>
+          </InputGroup>
         </div>
-        { enableAutoComplete && <AutoCompleteSuggestions inputText={inputText} allResults={allResults} hoveredIdx={hoveredIdx} onClick={onClick}/>}
+        {enableAutoComplete && (
+          <AutoCompleteSuggestions
+            inputText={inputText}
+            allResults={allResults}
+            hoveredIdx={hoveredIdx}
+            onClick={onClick}
+          />
+        )}
       </div>
     </>
   );
 
   function onClick(result) {
     if (result.name.toLowerCase().includes(inputText.toLowerCase())) {
-      if (result['type'] == 'place') {
+      if (result["type"] == "place") {
         redirectAction(result.name, result.dcid, "");
-      } else if (result['type'] == 'sv') {
+      } else if (result["type"] == "sv") {
         redirectAction(result.name, "", result.dcid);
       }
     } else {
-      onSelect(result.name);
+      const newString = replaceQueryWithSelection(result.name);
+      changeText(newString);
+      setTriggerSearch(newString);
     }
+  }
+
+  function replaceQueryWithSelection(resultName: string): string {
+    const regex = new RegExp(
+      "\\b(?:.(?!" + latestQuery.current + "))+$\\b",
+      "i"
+    );
+    return baseInput.replace(regex, "") + resultName;
   }
 
   function onPlaceAutocompleteCompleted(
@@ -259,20 +283,33 @@ export function AutoCompleteInput({
     status: google.maps.places.PlacesServiceStatus,
     allowRetry: boolean
   ): void {
+    // If the callback has no responses from the entire query, try again with a subquery.
     if (allowRetry && _.isEmpty(predictions)) {
-      const regex = new RegExp("\\b(?:" + stop_words.join('|') + "|\\s)+\\b", "i");
-      var split = query.trim().split(regex);
+      // Try running the query by taking the last segment from splitting on stop words.
+      // e.g.: Poverty level in Burkina Fas --> runs the query with "Burkina Fas"
+      const regex = new RegExp(
+        "\\b(?:" + stop_words.join("|") + "|\\s)+\\b",
+        "i"
+      );
+      let split = query.trim().split(regex);
+
+      // If there were no stop words, just re-try the last word.
       if (split.length == 1) {
-        split = query.trim().split(' ');
+        split = query.trim().split(" ");
       }
 
       if (split.length > 1) {
-        const curr = split[split.length-1];
+        const curr = split[split.length - 1];
         latestQuery.current = curr;
         placeAutocompleteService.current.getPredictions(
           { input: curr, types: ["(regions)"] },
           (predictions, status) =>
-            onPlaceAutocompleteCompleted(curr, predictions, status, /* allowRetry= */false)
+            onPlaceAutocompleteCompleted(
+              curr,
+              predictions,
+              status,
+              /* allowRetry= */ false
+            )
         );
       }
     }
@@ -282,6 +319,7 @@ export function AutoCompleteInput({
       namedPlacePromise = getPlaceDcids(placeIds).then((dcids) => {
         return predictions
           .map((prediction) => {
+            // TODO(gmechali): Put these place DCIDs in the context of the request.
             if (prediction.place_id in dcids) {
               return {
                 dcid: dcids[prediction.place_id],
@@ -292,8 +330,8 @@ export function AutoCompleteInput({
           .filter((place) => !_.isEmpty(place));
       });
     }
-    Promise.all([namedPlacePromise]) //, getSvResultsPromise(query)])
-      .then(([placeResults]) => { // , svResults
+    Promise.all([namedPlacePromise])
+      .then(([placeResults]) => {
         if (query !== latestQuery.current) {
           return;
         }
@@ -307,36 +345,5 @@ export function AutoCompleteInput({
       });
   }
 }
-
- 
-
-const REDIRECT_PREFIX = "/explore?";
-function redirectAction(
-    query: string,
-    placeDcid: string,
-    svDcid: string
-  ): void {
-    let url = REDIRECT_PREFIX;
-    if (query) {
-      url += `q=${query}`;
-    }
-    if (placeDcid) {
-        url = "/place/" + `${placeDcid}`;
-    }
-    if (svDcid) {
-      url = `/tools/statvar#sv=${svDcid}`;
-    }
-    window.open(url, "_self");
-  }
-
-const NUM_SV_RESULTS = 5;
-function getSvResultsPromise(query: string): Promise<NamedNode[]> {
-    return getStatVarSearchResults(query, [], true).then((data) => {
-      return data.statVars.slice(
-        0,
-        Math.min(NUM_SV_RESULTS, data.statVars.length)
-      );
-    });
-  }
 
 export default AutoCompleteInput;

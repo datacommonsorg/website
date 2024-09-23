@@ -19,9 +19,9 @@
  */
 
 import React, { ReactElement } from "react";
-import AutoCompleteInput from "./auto_complete_input";
 
 import { NlSearchBarImplementationProps } from "../nl_search_bar";
+import AutoCompleteInput from "./auto_complete_input";
 
 export function NlSearchBarStandard({
   value,
@@ -36,10 +36,20 @@ export function NlSearchBarStandard({
   return (
     <div className="search-section">
       <div className="search-bar-tags"></div>
-          <AutoCompleteInput enableAutoComplete={true} value={value} invalid={invalid} placeholder={placeholder} inputId={inputId}
-          onChange={onChange} onSearch={onSearch} feedbackLink={feedbackLink} shouldAutoFocus={shouldAutoFocus} barType="standard" />
+      <AutoCompleteInput
+        enableAutoComplete={true}
+        value={value}
+        invalid={invalid}
+        placeholder={placeholder}
+        inputId={inputId}
+        onChange={onChange}
+        onSearch={onSearch}
+        feedbackLink={feedbackLink}
+        shouldAutoFocus={shouldAutoFocus}
+        barType="standard"
+      />
     </div>
   );
-};
+}
 
 export default NlSearchBarStandard;
