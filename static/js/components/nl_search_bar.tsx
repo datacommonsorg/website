@@ -63,7 +63,6 @@ export function NlSearchBar(props: NlSearchBarPropType): ReactElement {
   }, [props.initialValue]);
 
   function handleSearch(): void {
-    console.log("We re in the saerch. with " + value);
     if (!props.allowEmptySearch && !value) {
       setInvalid(true);
       return;

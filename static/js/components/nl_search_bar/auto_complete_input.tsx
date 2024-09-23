@@ -27,6 +27,8 @@ import {
   } from "../../utils/search_utils";
 import { NamedNode, NamedPlace } from "../../shared/types";
 import { getPlaceDcids } from "../../utils/place_utils";
+import e from "express";
+import { text } from "d3";
 
 const icons = {'place': 'place', 'sv': 'analytics'};
 const stop_words = ["in", "for", "from", "at"];
@@ -50,22 +52,9 @@ function useOutsideAlerter(ref, clearResults) {
   }, [ref]);
 }
 
-function AutoCompleteSuggestions({ allResults, inputText, onSelect, hoveredIdx}): ReactElement {
+function AutoCompleteSuggestions({ allResults, inputText, onClick, hoveredIdx}): ReactElement {
 
   const matches = inputText.split(" ");
-
-  function onClick(result) {
-    console.log("Clicked " + inputText + "; and " + result.name);
-    if (result.name.toLowerCase().includes(inputText.toLowerCase())) {
-      if (result['type'] == 'place') {
-        redirectAction(result.name, result.dcid, "");
-      } else if (result['type'] == 'sv') {
-        redirectAction(result.name, "", result.dcid);
-      }
-    } else {
-      onSelect(result.name);
-    }
-  }
 
   return (
     <>
@@ -112,11 +101,12 @@ export function AutoCompleteInput({
     const placeAutocompleteService = useRef(null);
     const [inputText, setInputText] = useState('');
     const wrapperRef = useRef(null);
-    const [hoveredIdx, setHoveredIdx] = useState(0);
+    const [hoveredIdx, setHoveredIdx] = useState(-1);
     const [results, setResults] = useState({ placeResults: [], svResults: [] });
     const [allResults, setAllResults] = useState([]);
     const latestQuery = useRef(null);
     const [selectedSuggestion, setSelectedSuggestion] = useState('')
+    const [baseInput, setBaseInput] = useState('')
   
 
   useEffect(() => {
@@ -146,65 +136,83 @@ export function AutoCompleteInput({
 
   function onSelect(selectedName: string) : void {
     selectedName += ' ';
-    var newInputText = latestQuery.current == null ?  selectedName : inputText.replace(latestQuery.current, selectedName)
+    var newInputText = latestQuery.current == null ?  selectedName : baseInput.replace(latestQuery.current, selectedName)
     onChange(newInputText);
     setResults({ placeResults: [], svResults: [] });
     setSelectedSuggestion(selectedName);
   }
 
   useEffect(() => {
-    if (_.isEmpty(inputText)) {
-      setSelectedSuggestion('');
-      setResults({ placeResults: [], svResults: [] });
-      return;
+    console.log("Base input is " + baseInput);
+  }, [baseInput, setBaseInput]);
+
+    function onInputChange(e: React.ChangeEvent<HTMLInputElement>) :void {
+      setHoveredIdx(-1);
+      const currentText = e.target.value;
+      setBaseInput(currentText);
+
+      if (_.isEmpty(currentText)) {
+        setSelectedSuggestion('');
+        setResults({ placeResults: [], svResults: [] });
+        changeText(currentText);
+        return;
+      }
+  
+      var currentQuery = selectedSuggestion == '' ? currentText : currentText.replace(selectedSuggestion, '');
+      latestQuery.current = currentQuery;
+      if (placeAutocompleteService.current) {
+          placeAutocompleteService.current.getPredictions(
+            { input: currentQuery, types: ["(regions)"], offset: currentText.length },
+            (predictions, status) =>
+              onPlaceAutocompleteCompleted(currentQuery, predictions, status, /* allowRetry= */true)
+          );
+      }
+      changeText(currentText);
     }
 
-    var currentQuery = selectedSuggestion == '' ? inputText : inputText.replace(selectedSuggestion, '');
-    latestQuery.current = currentQuery;
-    if (placeAutocompleteService.current) {
-        placeAutocompleteService.current.getPredictions(
-          { input: currentQuery, types: ["(regions)"], offset: inputText.length },
-          (predictions, status) =>
-            onPlaceAutocompleteCompleted(currentQuery, predictions, status, /* allowRetry= */true)
-        );
-      }
-  }, [inputText]);
-  
-    function onInputChange(e: React.ChangeEvent<HTMLInputElement>) :void {
-        const currentText = e.target.value;
-        setInputText(currentText);
-        onChange(currentText);
-      }
+    function changeText(text: string) {
+      setInputText(text);
+      onChange(text);
+    }
 
     const isHeaderBar = barType == 'header';
     useOutsideAlerter(wrapperRef, () => {setResults({ placeResults: [], svResults: [] });});
 
-    useEffect(() => {
-      console.log("HoveredI DX " +  hoveredIdx)
-    }, [hoveredIdx, setHoveredIdx]);
-
     function handleKeydownEvent(event: React.KeyboardEvent<HTMLDivElement>
     ): void {
-
+      const regex = new RegExp("\\b(?:.(?!" + latestQuery.current + "))+$\\b", "i") ;
+      
+      let index = hoveredIdx;
+      console.log("Key Down: " + index);
       switch(event.key) {
-        case "Enter": onSearch(); break;
-        case "ArrowUp": setHoveredIdx(Math.max(hoveredIdx-1, 0)); break;
-        case "ArrowDown": setHoveredIdx(Math.min(hoveredIdx+1, allResults.length-1)); break;
+        case "Enter":
+          if (hoveredIdx >= 0) {
+            onClick(allResults[hoveredIdx])
+          } else {
+            onSearch();
+          }
+          event.preventDefault();
+          break;
+        case "ArrowUp":
+          index = Math.max(hoveredIdx-1, -1);
+          setHoveredIdx(index);
+          event.preventDefault();
+          if (index >= 0) {
+            const strin = baseInput.replace(regex, '')  + allResults[index].name;
+            changeText(strin);
+          } else {
+            changeText(baseInput);
+          }
+          break;
+        case "ArrowDown":
+          index = Math.min(hoveredIdx+1, allResults.length-1);
+          setHoveredIdx(index);
+          setHoveredIdx(index);
+          event.preventDefault();
+          const newString = baseInput.replace(regex, '')  + allResults[index].name;
+          changeText(newString);
+          break;
       }
-      // console.log("hel" + event.key + "; " + hoveredIdx);
-      // if (event.key === "Enter") {
-      //   onSearch();
-      // } else if (event.key === "ArrowUp" || event.key === "ArrowDown") {
-      //   if (allResults.length == 0) {
-      //     setHoveredIdx(0);
-      //     return;
-      //   }
-
-      //   if (event.ke)
-      // }
-      //   console.log("Arrow event" + event.key);
-      //   }
-      // }
     }
 
   return (
@@ -228,10 +236,22 @@ export function AutoCompleteInput({
             </div>
         </InputGroup>
         </div>
-        { enableAutoComplete && <AutoCompleteSuggestions inputText={inputText} allResults={allResults} onSelect={onSelect} hoveredIdx={hoveredIdx} />}
+        { enableAutoComplete && <AutoCompleteSuggestions inputText={inputText} allResults={allResults} hoveredIdx={hoveredIdx} onClick={onClick}/>}
       </div>
     </>
   );
+
+  function onClick(result) {
+    if (result.name.toLowerCase().includes(inputText.toLowerCase())) {
+      if (result['type'] == 'place') {
+        redirectAction(result.name, result.dcid, "");
+      } else if (result['type'] == 'sv') {
+        redirectAction(result.name, "", result.dcid);
+      }
+    } else {
+      onSelect(result.name);
+    }
+  }
 
   function onPlaceAutocompleteCompleted(
     query: string,
