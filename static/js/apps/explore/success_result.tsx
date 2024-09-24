@@ -36,7 +36,10 @@ import {
 } from "../../shared/context";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
-import { isPlaceOverviewOnly } from "../../utils/explore_utils";
+import {
+  isPlaceOverviewOnly,
+  shouldSkipPlaceOverview,
+} from "../../utils/explore_utils";
 import { getPlaceTypePlural } from "../../utils/string_utils";
 import { trimCategory } from "../../utils/subject_page_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
@@ -108,6 +111,7 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
     };
   }, []);
   const placeOverviewOnly = isPlaceOverviewOnly(props.pageMetadata);
+  const emptyPlaceOverview = shouldSkipPlaceOverview(props.pageMetadata);
   return (
     <div
       className={`row explore-charts${
@@ -174,7 +178,7 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
                 </ExploreContext.Provider>
               </NlSessionContext.Provider>
             </RankingUnitUrlFuncContext.Provider>
-            {!isPlaceOverviewOnly(props.pageMetadata) &&
+            {!emptyPlaceOverview &&
               !_.isEmpty(props.pageMetadata.childPlaces) && (
                 <RelatedPlace
                   relatedPlaces={props.pageMetadata.childPlaces[childPlaceType]}
@@ -186,7 +190,7 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
                   }
                 ></RelatedPlace>
               )}
-            {!isPlaceOverviewOnly(props.pageMetadata) &&
+            {!emptyPlaceOverview &&
               !_.isEmpty(props.pageMetadata.peerPlaces) && (
                 <RelatedPlace
                   relatedPlaces={props.pageMetadata.peerPlaces}

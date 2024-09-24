@@ -50,4 +50,5 @@ export interface SubjectPageMetadata {
 
   mainTopics?: NamedTypedNode[];
   sessionId?: string;
+  svSource?: string;
 }
