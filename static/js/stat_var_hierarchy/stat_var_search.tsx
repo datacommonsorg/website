@@ -252,27 +252,34 @@ export class StatVarHierarchySearch extends React.Component<
     });
   };
 
+  private redirectToSelectedStatVar(selectedStatVar: NamedNode) {
+    let url = decodeURIComponent(window.location.href);
+
+    // Process the URL parameters to make sure it remains intact with the new
+    // selected SV
+    const svParameterRegex = new RegExp(
+      "sv=([A-Za-z0-9_\\/])([A-Za-z0-9_\\/])*(\\&|$)"
+    );
+    const match = url.match(svParameterRegex);
+    if (match) {
+      url = url.replace(svParameterRegex, `sv=${selectedStatVar.dcid}&`);
+    } else {
+      const baseUrlRegex = new RegExp("tools/(statVar|map)$");
+      if (url.match(baseUrlRegex)) {
+        url += "#";
+      }
+      url += `sv=${selectedStatVar.dcid}`;
+    }
+    window.open(encodeURI(url), "_self");
+  }
+
   private onResultSelected = (selectedID: string) => () => {
     this.props.onSelectionChange(selectedID);
     let displayName = "";
-    var selected = this.state.svResults.filter((sv) => sv.dcid == selectedID);
+    let selected = this.state.svResults.filter((sv) => sv.dcid == selectedID);
     if (selected) {
       // ID filter should only ever yield one match.
-      let url = decodeURIComponent(window.location.href);
-
-      // Identify the sv parameter.
-      const svParameterRegex = new RegExp('sv\=([A-Za-z0-9_\\/])([A-Za-z0-9_\\/])*(\\&|$)');
-      const match = url.match(svParameterRegex);
-      if (match) {
-        url = url.replace(svParameterRegex, `sv=${selected[0].dcid}&`);
-      } else {
-        const baseUrlRegex = new RegExp('tools/(statVar|map)$');
-        if (url.match(baseUrlRegex)) {
-          url += '#';
-        }
-        url += `sv=${selected[0].dcid}`;
-      }
-      window.open(encodeURI(url), "_self");
+      this.redirectToSelectedStatVar(selected[0]);
     } else {
       // Fallback to SVG result search.
       selected = this.state.svgResults.filter((svg) => svg.dcid == selectedID);
