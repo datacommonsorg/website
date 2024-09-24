@@ -45,7 +45,7 @@ import {
 } from "../../shared/ga_events";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
-import { isPlaceOverviewOnly } from "../../utils/explore_utils";
+import { shouldSkipPlaceOverview } from "../../utils/explore_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
 import { AutoPlay } from "./autoplay";
 import { ErrorResult } from "./error_result";
@@ -209,14 +209,14 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       exploreMore: relatedThings["exploreMore"],
       mainTopics: relatedThings["mainTopics"],
       sessionId: "session" in fulfillData ? fulfillData["session"]["id"] : "",
+      svSource: fulfillData["svSource"],
     };
     if (
       pageMetadata &&
       pageMetadata.pageConfig &&
       pageMetadata.pageConfig.categories
     ) {
-      // If the response is a single PLACE_OVERVIEW tile, redirect to the place explorer.
-      if (isPlaceOverviewOnly(pageMetadata)) {
+      if (shouldSkipPlaceOverview(pageMetadata)) {
         const placeDcid = pageMetadata.place.dcid;
         const url = `/place/${placeDcid}`;
         window.location.replace(url);
