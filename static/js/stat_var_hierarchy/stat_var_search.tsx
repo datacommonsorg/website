@@ -253,23 +253,24 @@ export class StatVarHierarchySearch extends React.Component<
   };
 
   private onResultSelected = (selectedID: string) => () => {
-    console.log("Hello world" + window.location.search); 
     this.props.onSelectionChange(selectedID);
     let displayName = "";
-    console.log("Url: " + window.location.href);
     var selected = this.state.svResults.filter((sv) => sv.dcid == selectedID);
     if (selected) {
       // ID filter should only ever yield one match.
       let url = decodeURIComponent(window.location.href);
-      console.log("Decoded URL " + url);
 
       // Identify the sv parameter.
-      const regex = new RegExp('sv\=([A-Za-z0-9_\\/])([A-Za-z0-9_\\/])*(\\&|$)');
-      const match = url.match(regex);
+      const svParameterRegex = new RegExp('sv\=([A-Za-z0-9_\\/])([A-Za-z0-9_\\/])*(\\&|$)');
+      const match = url.match(svParameterRegex);
       if (match) {
-        url = url.replace(regex, `sv=${selected[0].dcid}&`);
+        url = url.replace(svParameterRegex, `sv=${selected[0].dcid}&`);
       } else {
-        url += `#sv=${selected[0].dcid}`;
+        const baseUrlRegex = new RegExp('tools/(statVar|map)$');
+        if (url.match(baseUrlRegex)) {
+          url += '#';
+        }
+        url += `sv=${selected[0].dcid}`;
       }
       window.open(encodeURI(url), "_self");
     } else {
