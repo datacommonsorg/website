@@ -18,8 +18,7 @@
  * Standard version of the NL Search Component - used as a stand-alone component in the body of a page.
  */
 
-import { triggerAsyncId } from "async_hooks";
-import _, { replace } from "lodash";
+import _ from "lodash";
 import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { Input, InputGroup } from "reactstrap";
 
