@@ -264,7 +264,7 @@ export class StatVarHierarchySearch extends React.Component<
     if (match) {
       url = url.replace(svParameterRegex, `sv=${selectedStatVar.dcid}&`);
     } else {
-      const baseUrlRegex = new RegExp("tools/(statVar|map)$");
+      const baseUrlRegex = new RegExp("tools/(statvar|map)$");
       if (url.match(baseUrlRegex)) {
         url += "#";
       }
