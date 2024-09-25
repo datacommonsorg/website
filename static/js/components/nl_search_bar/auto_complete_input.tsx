@@ -19,13 +19,15 @@
  */
 
 import _ from "lodash";
-import React, { ReactElement, useEffect, useRef, useState } from "react";
+import React, { ReactElement, useEffect, useRef, useState, useCallback, useMemo } from "react";
 import { Input, InputGroup } from "reactstrap";
 
 import { NamedPlace } from "../../shared/types";
 import { OutsideClickAlerter } from "../../utils/outside_click_alerter";
 import { getPlaceDcids } from "../../utils/place_utils";
 import { getHighlightedJSX } from "../../utils/search_utils";
+
+const DEBOUNCE_INTERVAL_MS = 100;
 
 // Material Icons used for the result sv type.
 const icons = { place: "place" };
@@ -154,25 +156,35 @@ export function AutoCompleteInput({
       return;
     }
 
-    // Trigger new query for location autocomplete.
+    debouncedSendRequest(currentText);
+  }
+
+  // memoize the callback with useCallback
+  // we need it since it's a dependency in useMemo below
+  const triggerAutoCompleteRequest = useCallback((query: string) => {
     if (placeAutocompleteService.current) {
-      latestQuery.current = currentText;
+      latestQuery.current = query;
       placeAutocompleteService.current.getPredictions(
         {
-          input: latestQuery.current,
+          input: query,
           types: ["(regions)"],
-          offset: currentText.length,
+          offset: query.length,
         },
         (predictions, status) =>
           onPlaceAutocompleteCompleted(
-            currentText,
+            query,
             predictions,
             status,
             /* allowRetry= */ true
           )
       );
     }
-  }
+  }, []);
+
+  // memoize the debounce call with useMemo
+  const debouncedSendRequest = useMemo(() => {
+    return _.debounce(triggerAutoCompleteRequest, DEBOUNCE_INTERVAL_MS);
+  }, []);
 
   function changeText(text: string) {
     setInputText(text);
