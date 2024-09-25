@@ -32,6 +32,7 @@ import {
   getHighlightedJSX,
   getStatVarSearchResults,
 } from "../utils/search_utils";
+import { svg } from "d3";
 
 interface StatVarHierarchySearchPropType {
   entities: string[];
@@ -255,26 +256,20 @@ export class StatVarHierarchySearch extends React.Component<
   private onResultSelected = (selectedID: string) => () => {
     this.props.onSelectionChange(selectedID);
     let displayName = "";
-    var selected = this.state.svResults.filter((sv) => sv.dcid == selectedID);
-    if (selected) {
-      // ID filter should only ever yield one match.
-      let url = decodeURIComponent(window.location.href);
-      console.log("Decoded URL " + url);
-
-      // Identify the sv parameter.
-      const regex = new RegExp('sv\=([A-Za-z0-9_\\/])([A-Za-z0-9_\\/])*(\\&|$)');
-      const match = url.match(regex);
-      if (match) {
-        url = url.replace(regex, `sv=${selected[0].dcid}&`);
-      } else {
-        url += `#sv=${selected[0].dcid}`;
+    if (this.state.svResults) {
+      for (const sv of this.state.svResults) {
+        if (sv.dcid == selectedID) {
+          displayName = sv.name;
+          break;
+        }
       }
-      window.open(encodeURI(url), "_self");
-    } else {
-      // Fallback to SVG result search.
-      selected = this.state.svgResults.filter((svg) => svg.dcid == selectedID);
-      if (selected) {
-        displayName = selected[0].name;
+    }
+    if (displayName === "" && this.state.svgResults) {
+      for (const svg of this.state.svgResults) {
+        if (svg.dcid == selectedID) {
+          displayName = svg.name;
+          break;
+        }
       }
     }
     this.setState({
