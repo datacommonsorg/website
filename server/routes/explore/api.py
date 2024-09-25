@@ -16,6 +16,7 @@
 import copy
 import time
 from typing import Dict
+import googlemaps
 
 import flask
 from flask import Blueprint
@@ -39,6 +40,7 @@ from server.routes.explore import helpers
 import server.services.bigtable as bt
 
 bp = Blueprint('explore_api', __name__, url_prefix='/api/explore')
+gmaps = googlemaps.Client(key='Add Your Key here')
 
 
 #
@@ -87,6 +89,15 @@ def fulfill():
   counters = ctr.Counters()
   return _fulfill_with_insight_ctx(request, debug_logs, counters)
 
+
+@bp.route('/autocomplete', methods=['POST'])
+def autocomplete():
+  debug_logs = {}
+
+  print('Printing our autocomplete request', request)
+  # ser = googlemaps.Client(key='')
+  print(ser.getPredictions('california'))
+  return {'Helloooo': 'haha'}
 
 #
 # The detect and fulfill endpoint.

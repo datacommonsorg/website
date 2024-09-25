@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "googlemaps": "^1.12.0"
+  }
+}

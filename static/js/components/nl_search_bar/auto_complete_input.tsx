@@ -20,6 +20,7 @@
 
 import _ from "lodash";
 import React, { ReactElement, useEffect, useRef, useState, useCallback, useMemo } from "react";
+import axios from "axios";
 import { Input, InputGroup } from "reactstrap";
 
 import { NamedPlace } from "../../shared/types";
@@ -161,24 +162,29 @@ export function AutoCompleteInput({
 
   // memoize the callback with useCallback
   // we need it since it's a dependency in useMemo below
-  const triggerAutoCompleteRequest = useCallback((query: string) => {
-    if (placeAutocompleteService.current) {
-      latestQuery.current = query;
-      placeAutocompleteService.current.getPredictions(
-        {
-          input: query,
-          types: ["(regions)"],
-          offset: query.length,
-        },
-        (predictions, status) =>
-          onPlaceAutocompleteCompleted(
-            query,
-            predictions,
-            status,
-            /* allowRetry= */ true
-          )
-      );
-    }
+  const triggerAutoCompleteRequest = useCallback(async (query: string) => {
+    console.log("Posting.")
+    const resp = await axios.post(
+      `/api/explore/autocomplete?q=${query}`,
+      {}
+    );
+    // if (placeAutocompleteService.current) {
+    //   latestQuery.current = query;
+    //   placeAutocompleteService.current.getPredictions(
+    //     {
+    //       input: query,
+    //       types: ["(regions)"],
+    //       offset: query.length,
+    //     },
+    //     (predictions, status) =>
+    //       onPlaceAutocompleteCompleted(
+    //         query,
+    //         predictions,
+    //         status,
+    //         /* allowRetry= */ true
+    //       )
+    //   );
+    // }
   }, []);
 
   // memoize the debounce call with useMemo
