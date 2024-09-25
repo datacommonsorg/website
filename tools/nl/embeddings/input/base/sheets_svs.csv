@@ -3606,3 +3606,31 @@ sdg/SG_GEN_PARL.SEX--F,proportion of seats held by women in national parliaments
 Count_Person_Upto18Years,children population count
 Count_Person_18OrMoreYears,adult population count
 Count_Person_65OrMoreYears,senior population count
+Count_VehicleCrashIncident_CountyRoad,number of crash on county road
+Count_VehicleCrashIncident_Dark,number of crash in the dark;number of crash at night
+Count_VehicleCrashIncident_Daylight,number of crash in daylight;number of crash in day
+Count_VehicleCrashIncident_InterstateRoad,number of crash on interstate road
+Count_VehicleCrashIncident_LocalStreet,number of crash on local street
+Count_VehicleCrashIncident_OnRoadside,number of crash on roadside
+Count_VehicleCrashIncident_OnRoadway,number of crash on roadway
+Count_VehicleCrashIncident_RainOrMist,number of crash in rain or mist
+Count_VehicleCrashIncident_SleetOrHail,number of crash in sleet or hail
+Count_VehicleCrashIncident_Snow,number of crash in snow
+Count_Vehicle_InvolvedInCrash_InTransport,number of vehicles in transport involved in crash
+Count_VehicleCrashIncident_InvolvedInCrash_SchoolBus,number of school bus crash
+Count_VehicleCrashIncident_Dawn,number of crash during dawn
+Count_VehicleCrashIncident_Dusk,number of crash during dusk
+Count_VehicleCrashIncident_ParkingLane,number of crash in parking lane
+Count_Person_InvolvedInCrash_NotMotorVehicleOccupant,number of people not on motor vehical involved in crash
+Count_VehicleCrashIncident_NationalHighway,number of crash on national highway
+Count_VehicleCrashIncident_BlowingSnow,number of crash in blowing snow
+Count_VehicleCrashIncident_Cloudy,number of crash in cloudy atmospheric condition
+Count_VehicleCrashIncident_TIntersection,number of crash at T intersection
+Count_VehicleCrashIncident_TrafficCircle,number of crash at traffic circle
+Count_VehicleCrashIncident_YIntersection,number of crash at Y intersection
+Count_Person_InvolvedInCrash_Motorists,number of people on motor vehical involved in crash
+Count_Vehicle_InvolvedInCrash_Parked,number of parked vehicle involved in crash
+Count_VehicleCrashIncident_FreezingRainOrDrizzle,number of crash in freezing rain or drizzle
+Count_VehicleCrashIncident_LIntersection,number of crash at L intersection
+Count_MortalityEvent_VehicleCrashIncident,number of death in vehicle crash
+Count_VehicleCrashIncident,number of vehicle crash;number of crash incident;number of total crash

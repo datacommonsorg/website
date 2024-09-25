@@ -4370,6 +4370,31 @@ number of asian females living below poverty level in the past 12 months,Count_P
 number of asian or pacific islander females,Count_Person_Female_AsianOrPacificIslander
 number of asian people without health insurance,Count_Person_NoHealthInsurance_AsianAlone
 number of births,Count_BirthEvent
+number of crash at L intersection,Count_VehicleCrashIncident_LIntersection
+number of crash at T intersection,Count_VehicleCrashIncident_TIntersection
+number of crash at Y intersection,Count_VehicleCrashIncident_YIntersection
+number of crash at night,Count_VehicleCrashIncident_Dark
+number of crash at traffic circle,Count_VehicleCrashIncident_TrafficCircle
+number of crash during dawn,Count_VehicleCrashIncident_Dawn
+number of crash during dusk,Count_VehicleCrashIncident_Dusk
+number of crash in blowing snow,Count_VehicleCrashIncident_BlowingSnow
+number of crash in cloudy atmospheric condition,Count_VehicleCrashIncident_Cloudy
+number of crash in day,Count_VehicleCrashIncident_Daylight
+number of crash in daylight,Count_VehicleCrashIncident_Daylight
+number of crash in freezing rain or drizzle,Count_VehicleCrashIncident_FreezingRainOrDrizzle
+number of crash in parking lane,Count_VehicleCrashIncident_ParkingLane
+number of crash in rain or mist,Count_VehicleCrashIncident_RainOrMist
+number of crash in sleet or hail,Count_VehicleCrashIncident_SleetOrHail
+number of crash in snow,Count_VehicleCrashIncident_Snow
+number of crash in the dark,Count_VehicleCrashIncident_Dark
+number of crash incident,Count_VehicleCrashIncident
+number of crash on county road,Count_VehicleCrashIncident_CountyRoad
+number of crash on interstate road,Count_VehicleCrashIncident_InterstateRoad
+number of crash on local street,Count_VehicleCrashIncident_LocalStreet
+number of crash on national highway,Count_VehicleCrashIncident_NationalHighway
+number of crash on roadside,Count_VehicleCrashIncident_OnRoadside
+number of crash on roadway,Count_VehicleCrashIncident_OnRoadway
+number of death in vehicle crash,Count_MortalityEvent_VehicleCrashIncident
 number of deaths from diabetes,Count_MortalityEvent_Diabetes
 number of divorced Foreign Born people,Count_Person_15OrMoreYears_Divorced_ForeignBorn
 number of divorced Hispanic or Latino people,Count_Person_15OrMoreYears_Divorced_HispanicOrLatino
@@ -4433,6 +4458,7 @@ number of non-institutionalized muti-race civilians,Count_Person_Civilian_NonIns
 number of non-institutionalized native civilians,Count_Person_Civilian_NonInstitutionalized_Native
 number of non-institutionalized single race civilians,Count_Person_Civilian_NonInstitutionalized_OneRace
 number of non-institutionalized white civilians,Count_Person_Civilian_NonInstitutionalized_WhiteAlone
+number of parked vehicle involved in crash,Count_Vehicle_InvolvedInCrash_Parked
 number of people Earning $5000 to $15000 Without Health Insurance,Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf5000To14999USDollar_WithEarnings
 number of people Earning $75000 or more Without Health Insurance,Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf75000OrMoreUSDollar_WithEarnings
 number of people Earning Between $15000 and $25000 Without Health Insurance,Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf15000To24999USDollar_WithEarnings
@@ -4443,6 +4469,8 @@ number of people Earning less than $5000 and Without Health Insurance,Count_Pers
 number of people in labor force,Count_Person_InLaborForce
 number of people living in rural areas,Count_Person_Rural
 number of people living in rural areas and below poverty level,Count_Person_Rural_BelowPovertyLevelInThePast12Months
+number of people not on motor vehical involved in crash,Count_Person_InvolvedInCrash_NotMotorVehicleOccupant
+number of people on motor vehical involved in crash,Count_Person_InvolvedInCrash_Motorists
 number of people who are foreign born,Count_Person_5OrMoreYears_ForeignBorn
 number of people who are seperated and reside in college or university student housing,Count_Person_Separated_ResidesInCollegeOrUniversityStudentHousing
 number of people who are seperated and reside in group quarters,Count_Person_Separated_ResidesInGroupQuarters
@@ -4509,7 +4537,11 @@ number of people without disabilities residing in non-institutionalized group qu
 number of people without disabilities residing in nursing facilities,Count_Person_NoDisability_ResidesInNursingFacilities
 number of people without health insurance,Count_Person_NoHealthInsurance
 number of rooms in houses,dc/topic/HousesByRoomCount
+number of school bus crash,Count_VehicleCrashIncident_InvolvedInCrash_SchoolBus
 number of students enrolled,dc/topic/StudentEnrollmentLevels
+number of total crash,Count_VehicleCrashIncident
+number of vehicle crash,Count_VehicleCrashIncident
+number of vehicles in transport involved in crash,Count_Vehicle_InvolvedInCrash_InTransport
 number of white females living Above Poverty Level in the Past 12 months,Count_Person_Female_AbovePovertyLevelInThePast12Months_WhiteAlone
 number of white females living below poverty level in the past 12 months,Count_Person_Female_BelowPovertyLevelInThePast12Months_WhiteAlone
 number of white males,Count_Person_Male_WhiteAlone
