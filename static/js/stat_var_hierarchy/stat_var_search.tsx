@@ -253,10 +253,8 @@ export class StatVarHierarchySearch extends React.Component<
   };
 
   private onResultSelected = (selectedID: string) => () => {
-    console.log("Hello world" + window.location.search); 
     this.props.onSelectionChange(selectedID);
     let displayName = "";
-    console.log("Url: " + window.location.href);
     var selected = this.state.svResults.filter((sv) => sv.dcid == selectedID);
     if (selected) {
       // ID filter should only ever yield one match.
