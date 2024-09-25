@@ -32,7 +32,6 @@ import {
   getHighlightedJSX,
   getStatVarSearchResults,
 } from "../utils/search_utils";
-import { svg } from "d3";
 
 interface StatVarHierarchySearchPropType {
   entities: string[];
