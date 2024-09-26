@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 """
-Dev Place API dataclass types
+Place API dataclass types
 """
 
 from dataclasses import dataclass
@@ -44,7 +44,7 @@ class Chart:
 class Place:
   dcid: str
   name: str
-  types: str
+  types: List[str]
 
 
 @dataclass

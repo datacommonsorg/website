@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Helper functions for development place page routes"""
+"""Helper functions for place page routes"""
 
 import re
 from typing import Dict, List
@@ -324,30 +324,20 @@ def get_translated_category_strings(chart_config: List[Dict]) -> Dict[str, str]:
 
 def get_place_cohort(place: Place) -> str:
   """
-    Builds a dictionary of translated category strings for each unique category found in 
-    the chart configuration.
+  Returns the place CohortSet DCID for the given place type
 
-    Args:
-        chart_config (List[Dict]): A list of dictionaries where each dictionary contains 
-                                   chart configuration data. Each dictionary contains a 'category'
-                                   field to be translated.
+  Args:
+      place (Place): Place object to retrieve the place cohort for
 
-    Returns:
-        Dict[str, str]: A dictionary where the keys are the original category names and the values 
-                        are the translated category strings.
+  Returns:
+      str: Place CohortSet DCID
 
-    Example:
-        If the input chart_config contains categories  "Overview" and "Crime",
-        the returned dictionary would look like :
+  Example:
+      >> country_place = Place(dcid="country/USA", types=["Country"])
+      >> get_place_cohort(country_place)
+      "PlacePagesComparisonCountriesCohort"
 
-        {
-            "Overview": "Descripción General",
-            "Crime": "Crimen"
-        }
-
-        The translations are generated using gettext with a format like:
-        'CHART_TITLE-CHART_CATEGORY-<category>'
-    """
+  """
   # Country
   if "Country" in place.types:
     return "PlacePagesComparisonCountriesCohort"

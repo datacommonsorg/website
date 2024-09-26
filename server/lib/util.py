@@ -28,7 +28,7 @@ from typing import Dict, List, Set
 import urllib
 
 from flask import make_response
-from flask import request
+from flask import request, jsonify
 from google.protobuf import text_format
 
 from server.config import subject_page_pb2
@@ -942,9 +942,6 @@ def log_execution_time(func):
     return response
 
   return wrapper
-
-
-from flask import jsonify
 
 
 def error_response(message, status_code=400):

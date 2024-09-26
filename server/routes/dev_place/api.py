@@ -20,6 +20,7 @@ from flask import current_app
 from flask import g
 from flask import jsonify
 from flask import request
+import copy
 
 from server.lib.cache import cache
 from server.lib.util import error_response
@@ -80,7 +81,7 @@ def place_charts(place_dcid: str):
   place = place_utils.fetch_place(place_dcid, locale=g.locale)
 
   # Retrieve available place page charts
-  chart_config = current_app.config['CHART_CONFIG']
+  chart_config = copy.deepcopy(current_app.config['CHART_CONFIG'])
 
   # Filter out place page charts that don't have any data for the current place_dcid
   filtered_chart_config = place_utils.filter_chart_config_by_place_dcid(
