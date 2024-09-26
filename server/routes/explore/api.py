@@ -15,12 +15,15 @@
 
 import copy
 import time
+import json
+import requests
 from typing import Dict
 import flask
 from flask import Blueprint
 from flask import current_app
 from flask import request
 
+from urllib.parse import urlencode
 from server.lib.nl.common import serialize
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.counters as ctr
@@ -35,6 +38,7 @@ from server.lib.nl.explore.params import DCNames
 from server.lib.nl.explore.params import Params
 from server.lib.util import get_nl_disaster_config
 from server.routes.explore import helpers
+from server.routes.shared_api.place import findplacedcid
 import server.services.bigtable as bt
 
 bp = Blueprint('explore_api', __name__, url_prefix='/api/explore')
@@ -86,27 +90,56 @@ def fulfill():
   counters = ctr.Counters()
   return _fulfill_with_insight_ctx(request, debug_logs, counters)
 
+def run(myobj: Dict):
+  url = "https://maps.googleapis.com/maps/api/place/autocomplete/json?" + urlencode(myobj)
+  x = requests.post(url, json = {})
+  return json.loads(x.text)
 
 @bp.route('/autocomplete', methods=['POST'])
 def autocomplete():
   debug_logs = {}
 
-  print('Printing our autocomplete request', request)
-  # ser = googlemaps.Client(key='')
-  # print(ser.getPredictions('california'))
-  url = "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=Vict&language=fr&types=geocode&key=YOUR_API_KEY"
-  myobj = {'somekey': 'somevalue'}
+  original_query = request.args.get('q')
+  query = original_query
 
-  x = requests.post(url, json = myobj)
-  print(x)
-  print(myobj)
-  return [{'name': 'Los angeles, CA, USA', 'dcid': 'geoId/0644000'},
-  {'name': 'Los angeles, CA, USA', 'dcid': 'geoId/0644000'},
-  {'name': 'Los angeles, CA, USA', 'dcid': 'geoId/0644000'},
-  {'name': 'Los angeles, CA, USA', 'dcid': 'geoId/0644000'},
-  {'name': 'Los angeles, CA, USA', 'dcid': 'geoId/0644000'}]
+  #  Stop words used to split the query for location autocomplete.
+  stop_words = ["in", "for", "from", "at"]
 
-#
+
+  myobj = {'input': original_query, 'types': "(regions)", 'key': 'GOOGLE_MAPS_API_KEY', 'language': 'en'}
+  response_dict = run(myobj)
+
+  predictions = response_dict['predictions']
+
+  if not predictions:
+    # find alternates.
+    split_query = original_query.split()
+    if split_query:
+      # todo better splitting.
+      query = split_query[-1]
+      myobj['input'] = query
+      response_dict = run(myobj)
+      predictions = response_dict['predictions']
+
+
+  place_ids = []
+  for pred in predictions:
+    place_ids.append(pred["place_id"])
+
+  if place_ids:  
+    place_to_dcid = json.loads(findplacedcid(place_ids).data)
+
+  my_preds = []
+  for pred in predictions:
+    new_pred = {}
+    new_pred['name'] = pred['description']
+    if pred['place_id'] in place_to_dcid:
+      new_pred['dcid'] = place_to_dcid[pred['place_id']]
+    new_pred['type'] = 'place'
+    my_preds.append(new_pred)
+
+  return {'place_results': {'places': my_preds, 'matching_place_query': query}}
+
 # The detect and fulfill endpoint.
 #
 @bp.route('/detect-and-fulfill', methods=['POST'])
