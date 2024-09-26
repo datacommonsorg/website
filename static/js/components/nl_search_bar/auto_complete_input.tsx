@@ -27,6 +27,7 @@ import { NamedPlace } from "../../shared/types";
 import { OutsideClickAlerter } from "../../utils/outside_click_alerter";
 import { getPlaceDcids } from "../../utils/place_utils";
 import { getHighlightedJSX } from "../../utils/search_utils";
+import { PlaceResults } from "../../search/place_results";
 
 const DEBOUNCE_INTERVAL_MS = 100;
 
@@ -167,7 +168,10 @@ export function AutoCompleteInput({
     const resp = await axios.post(
       `/api/explore/autocomplete?q=${query}`,
       {}
-    );
+    ).then((response) => {
+      onPlaceAutocompleteCompleted(query, response["data"], google.maps.places.PlacesServiceStatus.INVALID_REQUEST, false);
+      console.log("Response is " + JSON.stringify(response["data"]));
+    })
     // if (placeAutocompleteService.current) {
     //   latestQuery.current = query;
     //   placeAutocompleteService.current.getPredictions(
@@ -296,70 +300,73 @@ export function AutoCompleteInput({
 
   function onPlaceAutocompleteCompleted(
     query: string,
-    predictions: google.maps.places.AutocompletePrediction[],
+    predictions,
+    // predictions: google.maps.places.AutocompletePrediction[],
     status: google.maps.places.PlacesServiceStatus,
     allowRetry: boolean
   ): void {
+    console.log("Predictions are now: " + predictions);
+    setResults( {placeResults: predictions, svResults: []});
     // If the callback has no responses from the entire query, try again with a subquery.
-    if (allowRetry && _.isEmpty(predictions)) {
+    // if (allowRetry && _.isEmpty(predictions)) {
       // Try running the query by taking the last segment from splitting on stop words.
       // e.g.: Poverty level in Burkina Fas --> runs the query with "Burkina Fas"
-      const regex = new RegExp(
-        "\\b(?:" + stop_words.join("|") + "|\\s)+\\b",
-        "i"
-      );
-      let split = query.trim().split(regex);
+    //   const regex = new RegExp(
+    //     "\\b(?:" + stop_words.join("|") + "|\\s)+\\b",
+    //     "i"
+    //   );
+    //   let split = query.trim().split(regex);
 
-      // If there were no stop words, just re-try the last word.
-      if (split.length == 1) {
-        split = query.trim().split(" ");
-      }
+    //   // If there were no stop words, just re-try the last word.
+    //   if (split.length == 1) {
+    //     split = query.trim().split(" ");
+    //   }
 
-      if (split.length > 1) {
-        const curr = split[split.length - 1];
-        latestQuery.current = curr;
-        placeAutocompleteService.current.getPredictions(
-          { input: curr, types: ["(regions)"] },
-          (predictions, status) =>
-            onPlaceAutocompleteCompleted(
-              curr,
-              predictions,
-              status,
-              /* allowRetry= */ false
-            )
-        );
-      }
-    }
-    let namedPlacePromise: Promise<NamedPlace[]> = Promise.resolve([]);
-    if (status === google.maps.places.PlacesServiceStatus.OK) {
-      const placeIds = predictions.map((prediction) => prediction.place_id);
-      namedPlacePromise = getPlaceDcids(placeIds).then((dcids) => {
-        return predictions
-          .map((prediction) => {
-            // TODO(gmechali): Put these place DCIDs in the context of the request.
-            if (prediction.place_id in dcids) {
-              return {
-                dcid: dcids[prediction.place_id],
-                name: prediction.description,
-              };
-            }
-          })
-          .filter((place) => !_.isEmpty(place));
-      });
-    }
-    Promise.all([namedPlacePromise])
-      .then(([placeResults]) => {
-        if (query !== latestQuery.current) {
-          return;
-        }
-        setResults({ placeResults, svResults: [] });
-      })
-      .catch(() => {
-        if (query !== latestQuery.current) {
-          return;
-        }
-        setResults({ placeResults: [], svResults: [] });
-      });
+    //   if (split.length > 1) {
+    //     const curr = split[split.length - 1];
+    //     latestQuery.current = curr;
+    //     placeAutocompleteService.current.getPredictions(
+    //       { input: curr, types: ["(regions)"] },
+    //       (predictions, status) =>
+    //         onPlaceAutocompleteCompleted(
+    //           curr,
+    //           predictions,
+    //           status,
+    //           /* allowRetry= */ false
+    //         )
+    //     );
+    //   }
+    // }
+    // let namedPlacePromise: Promise<NamedPlace[]> = Promise.resolve([]);
+    // if (status === google.maps.places.PlacesServiceStatus.OK) {
+    //   const placeIds = predictions.map((prediction) => prediction.place_id);
+    //   namedPlacePromise = getPlaceDcids(placeIds).then((dcids) => {
+    //     return predictions
+    //       .map((prediction) => {
+    //         // TODO(gmechali): Put these place DCIDs in the context of the request.
+    //         if (prediction.place_id in dcids) {
+    //           return {
+    //             dcid: dcids[prediction.place_id],
+    //             name: prediction.description,
+    //           };
+    //         }
+    //       })
+    //       .filter((place) => !_.isEmpty(place));
+    //   });
+    // }
+    // Promise.all([namedPlacePromise])
+    //   .then(([placeResults]) => {
+    //     if (query !== latestQuery.current) {
+    //       return;
+    //     }
+    //     setResults({ placeResults, svResults: [] });
+    //   })
+    //   .catch(() => {
+    //     if (query !== latestQuery.current) {
+    //       return;
+    //     }
+    //     setResults({ placeResults: [], svResults: [] });
+    //   });
   }
 }
 

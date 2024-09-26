@@ -16,8 +16,6 @@
 import copy
 import time
 from typing import Dict
-import googlemaps
-
 import flask
 from flask import Blueprint
 from flask import current_app
@@ -40,7 +38,6 @@ from server.routes.explore import helpers
 import server.services.bigtable as bt
 
 bp = Blueprint('explore_api', __name__, url_prefix='/api/explore')
-gmaps = googlemaps.Client(key='Add Your Key here')
 
 
 #
@@ -96,8 +93,18 @@ def autocomplete():
 
   print('Printing our autocomplete request', request)
   # ser = googlemaps.Client(key='')
-  print(ser.getPredictions('california'))
-  return {'Helloooo': 'haha'}
+  # print(ser.getPredictions('california'))
+  url = "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=Vict&language=fr&types=geocode&key=YOUR_API_KEY"
+  myobj = {'somekey': 'somevalue'}
+
+  x = requests.post(url, json = myobj)
+  print(x)
+  print(myobj)
+  return [{'name': 'Los angeles, CA, USA', 'dcid': 'geoId/0644000'},
+  {'name': 'Los angeles, CA, USA', 'dcid': 'geoId/0644000'},
+  {'name': 'Los angeles, CA, USA', 'dcid': 'geoId/0644000'},
+  {'name': 'Los angeles, CA, USA', 'dcid': 'geoId/0644000'},
+  {'name': 'Los angeles, CA, USA', 'dcid': 'geoId/0644000'}]
 
 #
 # The detect and fulfill endpoint.
