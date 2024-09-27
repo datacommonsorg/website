@@ -121,6 +121,9 @@ def autocomplete():
       response_dict = run(myobj)
       predictions = response_dict['predictions']
 
+  # Keep predictions?
+  predictions = list(filter(lambda p: p["matched_substrings"][0]["length"] >= 4, predictions))
+  
 
   place_ids = []
   for pred in predictions:

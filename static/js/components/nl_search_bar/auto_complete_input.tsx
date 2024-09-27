@@ -65,8 +65,7 @@ function AutoCompleteSuggestions({
     <>
       <div className="search-results-place search-results-section">
         <div className="search-input-results-list" tabIndex={-1}>
-          {!_.isEmpty(allResults) &&
-            allResults.map((result, idx) => {
+          {allResults.map((result, idx) => {
               return (
                 <>
                   <div className="search-input-result-section">
@@ -244,7 +243,7 @@ export function AutoCompleteInput({
             </div>
           </InputGroup>
         </div>
-        {enableAutoComplete && (
+        {enableAutoComplete && !_.isEmpty(allResults) && (
           <AutoCompleteSuggestions
             inputText={inputText}
             allResults={allResults}

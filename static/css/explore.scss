@@ -317,11 +317,11 @@
 
 .search-input-results-list {
   width: 100%;
-  position: relative;
+  position: absolute;
   border: 1px solid black;
+  border-top: none;
   border-bottom-left-radius: 28px;
   border-bottom-right-radius: 28px;
-  left: 10px;
   background-color: var(--gm-3-ref-primary-primary-99);
   z-index: 9;
 }
