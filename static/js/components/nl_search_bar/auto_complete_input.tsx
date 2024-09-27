@@ -23,11 +23,8 @@ import React, { ReactElement, useEffect, useRef, useState, useCallback, useMemo 
 import axios from "axios";
 import { Input, InputGroup } from "reactstrap";
 
-import { NamedPlace } from "../../shared/types";
 import { OutsideClickAlerter } from "../../utils/outside_click_alerter";
-import { getPlaceDcids } from "../../utils/place_utils";
 import { getHighlightedJSX } from "../../utils/search_utils";
-import { PlaceResults } from "../../search/place_results";
 
 const DEBOUNCE_INTERVAL_MS = 100;
 
@@ -218,7 +215,7 @@ export function AutoCompleteInput({
   return (
     <>
       <div className="search-box-section" ref={wrapperRef}>
-        <div className={`search-bar${value ? " non-empty" : ""}`}>
+        <div className={`search-bar${value ? " non-empty" : ""} ${results.placeResults.length == 0 ? "radiused" : "unradiused" }`}>
           <InputGroup className="search-bar-content">
             {isHeaderBar && (
               <span className="material-icons-outlined">search</span>

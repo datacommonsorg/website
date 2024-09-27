@@ -106,7 +106,7 @@ def autocomplete():
   stop_words = ["in", "for", "from", "at"]
 
 
-  myobj = {'input': original_query, 'types': "(regions)", 'key': 'GOOGLE_MAPS_API_KEY', 'language': 'en'}
+  myobj = {'input': original_query, 'types': "(regions)", 'key': 'GOOGLE_MAPS_KEY', 'language': 'en'}
   response_dict = run(myobj)
 
   predictions = response_dict['predictions']
@@ -126,6 +126,7 @@ def autocomplete():
   for pred in predictions:
     place_ids.append(pred["place_id"])
 
+  place_to_dcid = []
   if place_ids:  
     place_to_dcid = json.loads(findplacedcid(place_ids).data)
 
