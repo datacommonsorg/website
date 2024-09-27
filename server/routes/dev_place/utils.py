@@ -231,10 +231,9 @@ def chart_config_to_overview_charts(chart_config):
   """
   charts = []
   for page_config_item in chart_config:
-    denominator = next(iter(page_config_item.get("denominator", [])), None)
+    denominator = page_config_item.get("denominator", None)
     chart = Chart(
         category=page_config_item.get("category"),
-        denominator=denominator,
         description=page_config_item.get("description"),
         scaling=page_config_item.get("scaling"),
         statisticalVariableDcids=page_config_item.get("statsVars", []),
@@ -243,6 +242,8 @@ def chart_config_to_overview_charts(chart_config):
         type="MAP" if page_config_item.get("isChoropleth", False) else "LINE",
         unit=page_config_item.get("unit"),
     )
+    if denominator:
+      chart.denominator = denominator
     charts.append(chart)
 
   return charts

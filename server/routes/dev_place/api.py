@@ -15,12 +15,13 @@
 Defines endpoints for the place page.
 """
 
+import copy
+
 from flask import Blueprint
 from flask import current_app
 from flask import g
 from flask import jsonify
 from flask import request
-import copy
 
 from server.lib.cache import cache
 from server.lib.util import error_response
@@ -48,7 +49,7 @@ CATEGORIES = {
 }
 
 # Define blueprint
-bp = Blueprint("dev_place_api", __name__, url_prefix='/api/place')
+bp = Blueprint("dev_place_api", __name__, url_prefix='/api/dev-place')
 
 
 @bp.route('/charts/<path:place_dcid>')
@@ -105,7 +106,7 @@ def place_charts(place_dcid: str):
   return jsonify(response)
 
 
-@bp.route('/related_places/<path:place_dcid>')
+@bp.route('/related-places/<path:place_dcid>')
 @log_execution_time
 @cache.cached(timeout=TIMEOUT, query_string=True)
 def related_places(place_dcid: str):

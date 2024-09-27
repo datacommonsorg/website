@@ -40,6 +40,10 @@ SAMPLE_CHART_CONFIG = [{
         "CHART_TITLE-Educational_attainment",
     "title":
         "Education attainment",
+    "denominator": [
+        "Sample_Denominator_1", "Sample_Denominator_2", "Sample_Denominator_3",
+        "Sample_Denominator_4", "Sample_Denominator_5"
+    ],
     "description":
         "Number of people who have attained various educational milestones, e.g. completed high school or have a bachelor's degree",
     "statsVars": [
@@ -130,7 +134,7 @@ class TestPlaceAPI(unittest.TestCase):
       mock_raw_property_values.return_value = {place_dcid: []}
 
       # Send a GET request to the new endpoint
-      response = app.test_client().get(f'/api/place/charts/{place_dcid}')
+      response = app.test_client().get(f'/api/dev-place/charts/{place_dcid}')
 
       # Check if the response is successful
       self.assertEqual(response.status_code, 200)
@@ -159,10 +163,13 @@ class TestPlaceAPI(unittest.TestCase):
       self.assertIn('Crime', response_json['translatedCategoryStrings'])
       self.assertIn('Education', response_json['translatedCategoryStrings'])
 
+      # Ensure the denominator is present in chart results
+      self.assertEqual(5, len(response_json["charts"][1]["denominator"]))
+
   @patch('server.routes.dev_place.utils.fetch.raw_property_values')
   @patch('server.routes.dev_place.utils.fetch.property_values')
   def test_related_places(self, mock_property_values, mock_raw_property_values):
-    """Test the related_places endpoint. Mocks fetch.* and dc.* calls."""
+    """Test the /api/dev-place/related-places endpoint. Mocks fetch.* and dc.* calls."""
 
     with app.app_context():
       # Sample place_dcid
@@ -231,9 +238,9 @@ class TestPlaceAPI(unittest.TestCase):
 
       mock_raw_property_values.side_effect = mock_raw_property_values_side_effect
 
-      # Send a GET request to the related_places endpoint
+      # Send a GET request to the related-places endpoint
       response = app.test_client().get(
-          f'/api/place/related_places/{place_dcid}')
+          f'/api/dev-place/related-places/{place_dcid}')
 
       # Check that the response is successful
       self.assertEqual(response.status_code, 200)
@@ -283,7 +290,7 @@ class TestPlaceAPI(unittest.TestCase):
   @patch('server.routes.dev_place.utils.fetch.property_values')
   def test_related_places_es_locale(self, mock_property_values,
                                     mock_raw_property_values):
-    """Test the related_places endpoint with 'es' locale."""
+    """Test the /api/dev-place/related-places endpoint with 'es' locale."""
     with app.app_context():
       # Sample place_dcid
       place_dcid = 'country/USA'
@@ -360,9 +367,9 @@ class TestPlaceAPI(unittest.TestCase):
 
       mock_raw_property_values.side_effect = mock_raw_property_values_side_effect
 
-      # Send a GET request to the related_places endpoint with locale 'es'
+      # Send a GET request to the api/dev-place/related-places endpoint with locale 'es'
       response = app.test_client().get(
-          f'/api/place/related_places/{place_dcid}?hl=es')
+          f'/api/dev-place/related-places/{place_dcid}?hl=es')
 
       # Check that the response is successful
       self.assertEqual(response.status_code, 200)

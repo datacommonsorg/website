@@ -29,7 +29,7 @@ class Chart:
   description: str
   statisticalVariableDcids: List[str]
   topicDcids: List[str]
-  denominator: Optional[str] = None
+  denominator: Optional[List[str]] = None
   unit: Optional[str] = None
   scaling: Optional[float] = None
 
@@ -50,8 +50,8 @@ class Place:
 @dataclass
 class PlaceChartsApiResponse:
   """
-    API Response for /api/place/charts/<place_dcid>
-    """
+  API Response for /api/dev-place/charts/<place_dcid>
+  """
   charts: List[Chart]
   place: Place
   translatedCategoryStrings: Dict[str, str]
@@ -60,8 +60,8 @@ class PlaceChartsApiResponse:
 @dataclass
 class RelatedPlacesApiResponse:
   """
-    API Response for /api/related_charts/charts/<place_dcid>
-    """
+  API Response for /api/dev-place/related_charts/charts/<place_dcid>
+  """
   childPlaceType: str
   childPlaces: List[Place]
   nearbyPlaces: List[Place]

@@ -27,8 +27,9 @@ import time
 from typing import Dict, List, Set
 import urllib
 
+from flask import jsonify
 from flask import make_response
-from flask import request, jsonify
+from flask import request
 from google.protobuf import text_format
 
 from server.config import subject_page_pb2
