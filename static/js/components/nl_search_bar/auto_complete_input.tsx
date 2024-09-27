@@ -76,12 +76,11 @@ function AutoCompleteSuggestions({
                           : ""
                       }`}
                       key={"search-input-result-" + result.dcid}
-                      onClick={() => onClick(result)}
-                    >
+                      onClick={() => onClick(result)}>
                       <span className="material-icons-outlined">
                         {icons[result["type"]]}
                       </span>
-                      {getHighlightedJSX(result.dcid, result.name, matches)} 
+                      {result.name} 
                       {idx !== allResults.length - 1 ? <hr></hr> : <></>}
                     </div>
                   </div>
@@ -147,7 +146,7 @@ export function AutoCompleteInput({
     changeText(currentText);
     setBaseInput(currentText);
 
-    const selectionApplied = hoveredIdx >= 0 && currentText.trim().endsWith(allResults[hoveredIdx].name);
+    const selectionApplied = hoveredIdx >= 0 && allResults.length >= hoveredIdx && currentText.trim().endsWith(allResults[hoveredIdx].name);
     setHoveredIdx(-1);
 
     if (_.isEmpty(currentText) || selectionApplied) {
@@ -220,7 +219,7 @@ export function AutoCompleteInput({
 
   return (
     <>
-      <div className="search-box-section" ref={wrapperRef}>
+      <div className={`search-box-section ${results.placeResults.length == 0 ? "radiused" : "unradiused" }`} ref={wrapperRef}>
         <div className={`search-bar${value ? " non-empty" : ""} ${results.placeResults.length == 0 ? "radiused" : "unradiused" }`}>
           <InputGroup className="search-bar-content">
             {isHeaderBar && (
