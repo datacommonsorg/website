@@ -3606,31 +3606,11 @@ sdg/SG_GEN_PARL.SEX--F,proportion of seats held by women in national parliaments
 Count_Person_Upto18Years,children population count
 Count_Person_18OrMoreYears,adult population count
 Count_Person_65OrMoreYears,senior population count
-Count_VehicleCrashIncident_CountyRoad,number of crash on county road;number of motor vehicle accident on county road;number of road accident on county road
-Count_VehicleCrashIncident_Dark,number of crash in the dark;number of crash at night;number of motor vehicle accident in the dark;number of road accident in the dark;number of motor vehicle accident at night;number of road accident at night
-Count_VehicleCrashIncident_Daylight,number of crash in daylight;number of crash in day;number of motor vehicle accident in the daylight;number of road accident in the daylight;number of motor vehicle accident in day;number of road accident in day
-Count_VehicleCrashIncident_InterstateRoad,number of crash on interstate road;number of motor vehicle accident on interstate road;number of road accident on interstate road
-Count_VehicleCrashIncident_LocalStreet,number of crash on local street;number of motor vehicle accident on local street;number of road accident on local street
-Count_VehicleCrashIncident_OnRoadside,number of crash on roadside;number of motor vehicle accident on roadside;number of road accident on roadside
-Count_VehicleCrashIncident_OnRoadway,number of crash on roadway;number of motor vehicle accident on roadway;number of road accident on roadway
-Count_VehicleCrashIncident_RainOrMist,number of crash in rain or mist;number of motor vehicle accident in rain or mist;number of road accident in rain or mist
-Count_VehicleCrashIncident_SleetOrHail,number of crash in sleet or hail;number of motor vehicle accident in sleet or hail;number of road accident in sleet or hail
-Count_VehicleCrashIncident_Snow,number of crash in snow;number of motor vehicle accident in snow;number of road accident in snow
-Count_Vehicle_InvolvedInCrash_InTransport,number of vehicle in transport involved in crash;number of vehicle in transport involved in road accident
-Count_VehicleCrashIncident_InvolvedInCrash_SchoolBus,number of school bus crash;number of road accident involving school bus
-Count_VehicleCrashIncident_Dawn,number of crash during dawn;number of motor vehicle accident during dawn;number of road accident during dawn
-Count_VehicleCrashIncident_Dusk,number of crash during dusk;number of motor vehicle accident during dusk;number of road accident during dusk
-Count_VehicleCrashIncident_ParkingLane,number of crash in parking lane
-Count_Person_InvolvedInCrash_NotMotorVehicleOccupant,number of people not on motor vehicle involved in crash;number of people not on motor vehicle involved in road accident
-Count_VehicleCrashIncident_NationalHighway,number of crash on national highway;number of motor vehicle accident on national highway;number of road accident on national highway
-Count_VehicleCrashIncident_BlowingSnow,number of crash in blowing snow;number of motor vehicle accident in blowing snow;number of road accident in blowing snow
-Count_VehicleCrashIncident_Cloudy,number of crash in cloudy atmospheric condition;number of motor vehicle accident in cloudy atmospheric condition;number of road accident in cloudy atmospheric condition
-Count_VehicleCrashIncident_TIntersection,number of crash at T intersection;number of motor vehicle accident at T intersection;number of road accident at T intersection
-Count_VehicleCrashIncident_TrafficCircle,number of crash at traffic circle;number of motor vehicle accident at traffic circle;number of road accident at traffic circle
-Count_VehicleCrashIncident_YIntersection,number of crash at Y intersection;number of motor vehicle accident at Y intersection;number of road accident at Y intersection
-Count_Person_InvolvedInCrash_Motorists,number of people on motor vehicle involved in crash;number of people on motor vehicle involved in road accident
-Count_Vehicle_InvolvedInCrash_Parked,number of parked vehicle involved in crash
-Count_VehicleCrashIncident_FreezingRainOrDrizzle,number of crash in freezing rain or drizzle;number of motor vehicle accident in freezing rain or drizzle;number of road accident in freezing rain or drizzle
-Count_VehicleCrashIncident_LIntersection,number of crash at L intersection;number of motor vehicle accident at L intersection;number of road accident at L intersection
-Count_MortalityEvent_VehicleCrashIncident,number of death in vehicle crash;number of death in road crash;count of death in motor vehicle accident
-Count_VehicleCrashIncident,number of vehicle crash;number of crash incident;number of total crash
+Count_VehicleCrashIncident_Dark,number of vehicle accident in the dark
+Count_VehicleCrashIncident_Daylight,number of vehicle accident in the daylight
+Count_VehicleCrashIncident_RainOrMist,number of vehicle accident in rain or mist
+Count_VehicleCrashIncident_SleetOrHail,number of vehicle accident in sleet or hail
+Count_VehicleCrashIncident_Snow,number of vehicle accident in snow
+Count_VehicleCrashIncident_InvolvedInCrash_SchoolBus,number of school bus accident
+Count_MortalityEvent_VehicleCrashIncident,number of death in vehicle accident
+Count_VehicleCrashIncident,number of vehicle accident
