@@ -28,13 +28,6 @@
 @import "./nl_interface";
 
 
-$font-size-large: 16px;
-$font-size-small: 14px;
-$font-size-section-title: 1.3rem;
-$color-byline: #7b7b7b;
-$border: 1px solid rgba(0, 0, 0, 0.125);
-$highlighted-box-max-width: 600px;
-
 #main {
   height: auto;
   min-height: 100vh;
@@ -324,7 +317,10 @@ $highlighted-box-max-width: 600px;
 
 .search-input-results-list {
   width: 100%;
-  position: absolute;
+  position: relative;
+  border: 1px solid black;
+  border-bottom-left-radius: 28px;
+  border-bottom-right-radius: 28px;
   left: 10px;
   background-color: var(--gm-3-ref-primary-primary-99);
   z-index: 9;

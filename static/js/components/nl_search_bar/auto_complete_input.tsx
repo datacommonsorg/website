@@ -126,6 +126,12 @@ export function AutoCompleteInput({
       placeAutocompleteService.current =
         new google.maps.places.AutocompleteService();
     }
+
+    window.addEventListener('scroll', () => {
+      if (results.placeResults) {
+        setResults({placeResults: [], svResults: []});
+      }
+    });
   }, []);
 
   useEffect(() => {
