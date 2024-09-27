@@ -565,6 +565,11 @@ section {
   }
 }
 
+.search-input-result {
+  flex-direction: roe;
+  display: flex;
+}
+
 .search-input-result-highlighted,
 .search-input-result:hover {
   background-color: var(--dc-gray-lite);
@@ -587,7 +592,8 @@ section {
 
   .search-box-section {
     width: 100%;
-    background-color: var(--gm-3-ref-primary-primary-100);
+    // background-color: var(--gm-3-ref-primary-primary-100);
+    background-color: var.$color-blue-bckg;
     padding: 2px;
     border-radius: 28px;
     border: var(--border-primary);

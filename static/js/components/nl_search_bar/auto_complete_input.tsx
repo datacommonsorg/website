@@ -143,13 +143,14 @@ export function AutoCompleteInput({
   }, [triggerSearch, setTriggerSearch]);
 
   function onInputChange(e: React.ChangeEvent<HTMLInputElement>): void {
-    setHoveredIdx(-1);
-
     const currentText = e.target.value;
     changeText(currentText);
     setBaseInput(currentText);
 
-    if (_.isEmpty(currentText)) {
+    const selectionApplied = hoveredIdx >= 0 && currentText.trim().endsWith(allResults[hoveredIdx].name);
+    setHoveredIdx(-1);
+
+    if (_.isEmpty(currentText) || selectionApplied) {
       // Reset all suggestion results.
       setResults({ placeResults: [], svResults: [] });
       return;
