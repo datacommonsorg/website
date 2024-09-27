@@ -34,22 +34,18 @@ const NlSearchBarHeaderInline = ({
 }: NlSearchBarImplementationProps): ReactElement => {
   return (
     <div className="header-search-section">
-      <div className="search-box-section">
-        <div className={`search-bar${value ? " non-empty" : ""}`}>
-          <AutoCompleteInput
-            enableAutoComplete={true}
-            value={value}
-            invalid={invalid}
-            placeholder={placeholder}
-            inputId={inputId}
-            onChange={onChange}
-            onSearch={onSearch}
-            feedbackLink=""
-            shouldAutoFocus={shouldAutoFocus}
-            barType="header"
-          />
-        </div>
-      </div>
+      <AutoCompleteInput
+        enableAutoComplete={true}
+        value={value}
+        invalid={invalid}
+        placeholder={placeholder}
+        inputId={inputId}
+        onChange={onChange}
+        onSearch={onSearch}
+        feedbackLink=""
+        shouldAutoFocus={shouldAutoFocus}
+        barType="header"
+      />
     </div>
   );
 };
