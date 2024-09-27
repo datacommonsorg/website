@@ -666,6 +666,7 @@ function renderTiles(
           </p>
         );
       case "PLACE_OVERVIEW":
+        // TODO(gmechali): Switch to server-side redirection
         return <PlaceOverviewTile key={id} place={place} />;
       case "ANSWER_MESSAGE":
         return (
