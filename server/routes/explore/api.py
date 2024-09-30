@@ -90,59 +90,6 @@ def fulfill():
   counters = ctr.Counters()
   return _fulfill_with_insight_ctx(request, debug_logs, counters)
 
-def run(myobj: Dict):
-  url = "https://maps.googleapis.com/maps/api/place/autocomplete/json?" + urlencode(myobj)
-  x = requests.post(url, json = {})
-  return json.loads(x.text)
-
-@bp.route('/autocomplete', methods=['POST'])
-def autocomplete():
-  debug_logs = {}
-
-  original_query = request.args.get('q')
-  query = original_query
-
-  #  Stop words used to split the query for location autocomplete.
-  stop_words = ["in", "for", "from", "at"]
-
-
-  myobj = {'input': original_query, 'types': "(regions)", 'key': 'MAPS_API_KEY', 'language': 'en'}
-  response_dict = run(myobj)
-
-  predictions = response_dict['predictions']
-
-  if not predictions:
-    # find alternates.
-    split_query = original_query.split()
-    if split_query:
-      # todo better splitting.
-      query = split_query[-1]
-      myobj['input'] = query
-      response_dict = run(myobj)
-      predictions = response_dict['predictions']
-
-  # Keep predictions?
-  predictions = list(filter(lambda p: p["matched_substrings"][0]["length"] >= 4, predictions))
-  
-
-  place_ids = []
-  for pred in predictions:
-    place_ids.append(pred["place_id"])
-
-  place_to_dcid = []
-  if place_ids:  
-    place_to_dcid = json.loads(findplacedcid(place_ids).data)
-
-  my_preds = []
-  for pred in predictions:
-    new_pred = {}
-    new_pred['name'] = pred['description']
-    if pred['place_id'] in place_to_dcid:
-      new_pred['dcid'] = place_to_dcid[pred['place_id']]
-    new_pred['type'] = 'place'
-    my_preds.append(new_pred)
-
-  return {'place_results': {'places': my_preds, 'matching_place_query': query}}
 
 # The detect and fulfill endpoint.
 #

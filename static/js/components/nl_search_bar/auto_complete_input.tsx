@@ -161,10 +161,11 @@ export function AutoCompleteInput({
   // we need it since it's a dependency in useMemo below
   const triggerAutoCompleteRequest = useCallback(async (query: string) => {
     const resp = await axios.post(
-      `/api/explore/autocomplete?q=${query}`,
+      `/api/autocomplete/autocomplete?query=${query}`,
       {}
     ).then((response) => {
       setResults( {placeResults: response["data"]["place_results"]["places"], svResults: []});
+      console.log(JSON.stringify(response));
       setMatchingPlaceQuery(response["data"]["place_results"]["matching_place_query"])
     })
   }, []);
@@ -211,7 +212,7 @@ export function AutoCompleteInput({
     setHoveredIdx(selectedIndex);
     const textDisplayed =
       selectedIndex >= 0
-        ? replaceQueryWithSelection(allResults[selectedIndex].name)
+        ? replaceQueryWithSelection(allResults[selectedIndex])
         : baseInput;
     changeText(textDisplayed);
   }
@@ -262,18 +263,19 @@ export function AutoCompleteInput({
         redirectAction(result.name, "", result.dcid);
       }
     } else {
-      const newString = replaceQueryWithSelection(result.name);
+      const newString = replaceQueryWithSelection(result);
       changeText(newString);
       setTriggerSearch(newString);
     }
   }
 
-  function replaceQueryWithSelection(resultName: string): string {
+  function replaceQueryWithSelection(result): string {
+    console.log("Reaplceing " + result.matched_query);
     const regex = new RegExp(
-      "\\b(?:.(?!" + matchingPlaceQuery + "))+$\\b",
+      "(?:.(?!" + result.matched_query + "))+\\s?$",
       "i"
     );
-    return baseInput.replace(regex, "") + resultName;
+    return baseInput.replace(regex, "") + result.name;
   }
 }
 
