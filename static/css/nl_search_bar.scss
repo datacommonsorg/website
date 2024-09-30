@@ -80,7 +80,6 @@
   .search-bar {
     align-items: center;
     background: var(--gm-3-ref-primary-primary-100);
-    border-radius: 28px;
     border: var(--border-primary);
     border-color: var(--gm-3-ref-neutral-neutral-40);
     display: flex;
@@ -90,6 +89,13 @@
     margin: 1px;
     padding: 0px;
     width: 100%;
+
+    .radiused {
+      border-radius: 1px;
+    }
+    .unradiused {
+      background-color: red;
+    }
 
     .search-bar-content {
       align-items: center;

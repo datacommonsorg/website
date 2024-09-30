@@ -106,7 +106,7 @@ def autocomplete():
   stop_words = ["in", "for", "from", "at"]
 
 
-  myobj = {'input': original_query, 'types': "(regions)", 'key': 'GOOGLE_MAPS_KEY', 'language': 'en'}
+  myobj = {'input': original_query, 'types': "(regions)", 'key': 'AIzaSyA1FNDmW3cbwXV421hyDhIOxA7JMuEyfCc', 'language': 'en'}
   response_dict = run(myobj)
 
   predictions = response_dict['predictions']
