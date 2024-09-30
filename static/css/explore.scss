@@ -16,7 +16,6 @@
 
 @use "./shared/subject_page";
 @use "./nl_search_bar";
-@import './base';
 @import "./tools/base_tools";
 @import "./draw";
 @import "./draw_choropleth";
@@ -25,7 +24,6 @@
 @import "./shared/story_block";
 @import "./shared/story_chart";
 @import "./nl_interface";
-
 
 #main {
   height: auto;
@@ -44,7 +42,6 @@
 #main-nav {
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
 }
-
 
 #explore.main-content {
   flex-grow: 1;
@@ -273,6 +270,7 @@
 
 .search-section-container {
   width: 100%;
+
   .search-section-content {
     position: relative;
   }
@@ -286,7 +284,6 @@
 
 .search-section-container.sticky {
   position: fixed;
-  border:none;
   left: 0;
   background-color: var(--gm-3-ref-primary-primary-99);
   z-index: 9;

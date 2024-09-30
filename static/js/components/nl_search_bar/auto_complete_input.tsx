@@ -114,7 +114,6 @@ export function AutoCompleteInput(
   props: AutoCompleteInputPropType
 ): ReactElement {
   const wrapperRef = useRef(null);
-  const placeAutocompleteService = useRef(null);
   const [baseInput, setBaseInput] = useState("");
   const [inputText, setInputText] = useState("");
   // TODO(gmechali): Implement stat var search.
@@ -126,11 +125,6 @@ export function AutoCompleteInput(
   const isHeaderBar = props.barType == "header";
 
   useEffect(() => {
-    if (google.maps) {
-      placeAutocompleteService.current =
-        new google.maps.places.AutocompleteService();
-    }
-
     window.addEventListener("scroll", () => {
       if (results.placeResults) {
         setResults({ placeResults: [], svResults: [] });

@@ -42,7 +42,6 @@ def homepage():
       topics=json.dumps(current_app.config.get('HOMEPAGE_TOPICS', [])),
       partners_list=current_app.config.get('HOMEPAGE_PARTNERS', []),
       partners=json.dumps(current_app.config.get('HOMEPAGE_PARTNERS', [])),
-      maps_api_key=current_app.config.get('MAPS_API_KEY'),
       sample_questions=json.dumps(
           current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])))
 
