@@ -109,6 +109,7 @@ export function AutoCompleteInput({
   const placeAutocompleteService = useRef(null);
   const [baseInput, setBaseInput] = useState("");
   const [inputText, setInputText] = useState("");
+  // TODO(gmechali): Implement stat var search.
   const [results, setResults] = useState({ placeResults: [], svResults: [] });
   const [allResults, setAllResults] = useState([]);
   const [hoveredIdx, setHoveredIdx] = useState(-1);
@@ -142,6 +143,8 @@ export function AutoCompleteInput({
     const currentText = e.target.value;
     changeText(currentText);
     setBaseInput(currentText);
+
+    if (!enableAutoComplete) return;
 
     const selectionApplied = hoveredIdx >= 0 && allResults.length >= hoveredIdx && currentText.trim().endsWith(allResults[hoveredIdx].name);
     setHoveredIdx(-1);

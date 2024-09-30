@@ -14,11 +14,9 @@
  * limitations under the License.
  */
 
-@use "./new_variables" as var;
 @use "./shared/subject_page";
 @use "./nl_search_bar";
 @import './base';
-@import './place/place_search';
 @import "./tools/base_tools";
 @import "./draw";
 @import "./draw_choropleth";
@@ -47,9 +45,10 @@
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
 }
 
-.search-input-result-highlighted,
-.search-input-result:hover {
-  background-color: var(--dc-gray-lite);
+
+#explore.main-content {
+  flex-grow: 1;
+  // padding-top: 100px;
 }
 
 #insight-lhs {
@@ -274,7 +273,6 @@
 
 .search-section-container {
   width: 100%;
-  
   .search-section-content {
     position: relative;
   }
@@ -283,16 +281,6 @@
     top: -0.5rem;
     right: 1.5rem;
     padding: 0;
-  }
-
-  .search-box-section {
-
-    .search-bar .non-empty .unradiused {
-        border: none;
-        .search-bar-content .input-group {
-        border: none;
-      }
-    }
   }
 }
 
@@ -323,17 +311,6 @@
   }
 }
 
-.search-input-results-list {
-  width: 98%;
-  position: absolute;
-  border: 1px solid #0b57d0;
-  border-top: none;
-  border-bottom-left-radius: 28px;
-  border-bottom-right-radius: 28px;
-  background-color: var(--gm-3-ref-primary-primary-99);
-  z-index: 9;
-}
-
 .nl-query-result-debug-info {
   position: absolute;
   z-index: 20;
@@ -357,17 +334,4 @@
 
 #ranking-table-container {
   margin-left: 24px;
-}
-
-
-.unradiused {
-  border-top-left-radius: 28px;
-  border-top-right-radius: 28px;
-  border-bottom-left-radius: 1px;
-  border-bottom-right-radius: 1px;
-  // border:1px solid black;
-}
-
-.radiused {
-  border-radius: 28px;
 }

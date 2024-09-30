@@ -37,7 +37,7 @@ export function NlSearchBarStandard({
     <div className="search-section">
       <div className="search-bar-tags"></div>
       <AutoCompleteInput
-        enableAutoComplete={true}
+        enableAutoComplete={false}
         value={value}
         invalid={invalid}
         placeholder={placeholder}

@@ -81,6 +81,7 @@
     align-items: center;
     background: var(--gm-3-ref-primary-primary-100);
     border: var(--border-primary);
+    border-radius: 28px;
     border-color: var(--gm-3-ref-neutral-neutral-40);
     display: flex;
     flex-shrink: 0;
@@ -89,13 +90,6 @@
     margin: 1px;
     padding: 0px;
     width: 100%;
-
-    .radiused {
-      border-radius: 1px;
-    }
-    .unradiused {
-      background-color: red;
-    }
 
     .search-bar-content {
       align-items: center;
