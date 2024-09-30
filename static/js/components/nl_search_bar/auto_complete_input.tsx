@@ -24,7 +24,6 @@ import axios from "axios";
 import { Input, InputGroup } from "reactstrap";
 
 import { OutsideClickAlerter } from "../../utils/outside_click_alerter";
-import { getHighlightedJSX } from "../../utils/search_utils";
 
 const DEBOUNCE_INTERVAL_MS = 100;
 
