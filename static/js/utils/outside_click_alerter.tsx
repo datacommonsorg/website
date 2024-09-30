@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-/**
- * Standard version of the NL Search Component - used as a stand-alone component in the body of a page.
- */
-
 import { useEffect } from "react";
 
-export function OutsideClickAlerter(ref, callbackFunction) {
+export default function useOutsideClickAlerter(ref, callbackFunction) {
+  /**
+   * Initiates component that calls the callback function when a click is registered outside of the referenced component.
+   */
   useEffect(() => {
     /**
      * Alert if clicked on outside of element
@@ -38,5 +37,3 @@ export function OutsideClickAlerter(ref, callbackFunction) {
     };
   }, [ref]);
 }
-
-export default OutsideClickAlerter;

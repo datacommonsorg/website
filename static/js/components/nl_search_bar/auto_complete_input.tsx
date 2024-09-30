@@ -15,7 +15,7 @@
  */
 
 /**
- * Standard version of the NL Search Component - used as a stand-alone component in the body of a page.
+ * Standard version of the auto-complete capable NL Search bar.
  */
 
 import axios from "axios";
@@ -30,7 +30,7 @@ import React, {
 } from "react";
 import { Input, InputGroup } from "reactstrap";
 
-import { OutsideClickAlerter } from "../../utils/outside_click_alerter";
+import useOutsideClickAlerter from "../../utils/outside_click_alerter";
 
 const DEBOUNCE_INTERVAL_MS = 100;
 const PLACE_EXPLORER_PREFIX = "/place/";
@@ -65,35 +65,33 @@ function AutoCompleteSuggestions(
   props: AutoCompleteSuggestionsPropType
 ): ReactElement {
   return (
-    <>
-      <div className="search-results-place search-results-section">
-        <div className="search-input-results-list" tabIndex={-1}>
-          {props.allResults.map((result: any, idx: number) => {
-            return (
-              <>
-                <div className="search-input-result-section">
-                  <div
-                    className={`search-input-result ${
-                      idx === props.hoveredIdx
-                        ? "search-input-result-highlighted"
-                        : ""
-                    }`}
-                    key={"search-input-result-" + result.dcid}
-                    onClick={() => props.onClick(result)}
-                  >
-                    <span className="material-icons-outlined">search</span>
-                    <p className="autosuggest-query">
-                      {replaceQueryWithSelection(props.inputText, result)}
-                    </p>
-                  </div>
-                  {idx !== props.allResults.length - 1 ? <hr></hr> : <></>}
+    <div className="search-results-place search-results-section">
+      <div className="search-input-results-list" tabIndex={-1}>
+        {props.allResults.map((result: any, idx: number) => {
+          return (
+            <>
+              <div className="search-input-result-section">
+                <div
+                  className={`search-input-result ${
+                    idx === props.hoveredIdx
+                      ? "search-input-result-highlighted"
+                      : ""
+                  }`}
+                  key={"search-input-result-" + result.dcid}
+                  onClick={() => props.onClick(result)}
+                >
+                  <span className="material-icons-outlined">search</span>
+                  <p className="autosuggest-query">
+                    {replaceQueryWithSelection(props.inputText, result)}
+                  </p>
                 </div>
-              </>
-            );
-          })}
-        </div>
+                {idx !== props.allResults.length - 1 ? <hr></hr> : <></>}
+              </div>
+            </>
+          );
+        })}
       </div>
-    </>
+    </div>
   );
 }
 
@@ -118,13 +116,14 @@ export function AutoCompleteInput(
   const [inputText, setInputText] = useState("");
   // TODO(gmechali): Implement stat var search.
   const [results, setResults] = useState({ placeResults: [], svResults: [] });
-  const [allResults, setAllResults] = useState([]);
   const [hoveredIdx, setHoveredIdx] = useState(-1);
   const [triggerSearch, setTriggerSearch] = useState("");
 
   const isHeaderBar = props.barType == "header";
 
   useEffect(() => {
+    // One time initialization of event listener to clear suggested results on scroll.
+    // It allows the user to navigate through the page without being annoyed by the results.
     window.addEventListener("scroll", () => {
       if (results.placeResults) {
         setResults({ placeResults: [], svResults: [] });
@@ -132,12 +131,13 @@ export function AutoCompleteInput(
     });
   }, []);
 
-  useEffect(() => {
-    const allResultsSorted = results.placeResults;
-    setAllResults(allResultsSorted);
-  }, [results, setResults, results.placeResults]);
+  // Clear suggested results when click registered outside of component.
+  useOutsideClickAlerter(wrapperRef, () => {
+    setResults({ placeResults: [], svResults: [] });
+  });
 
   useEffect(() => {
+    // TriggerSearch state used to ensure onSearch only called after text updated.
     props.onSearch();
   }, [triggerSearch, setTriggerSearch]);
 
@@ -150,8 +150,8 @@ export function AutoCompleteInput(
 
     const selectionApplied =
       hoveredIdx >= 0 &&
-      allResults.length >= hoveredIdx &&
-      currentText.trim().endsWith(allResults[hoveredIdx].name);
+      results.placeResults.length >= hoveredIdx &&
+      currentText.trim().endsWith(results.placeResults[hoveredIdx].name);
     setHoveredIdx(-1);
 
     if (_.isEmpty(currentText) || selectionApplied) {
@@ -160,7 +160,7 @@ export function AutoCompleteInput(
       return;
     }
 
-    debouncedSendRequest(currentText);
+    SendDebouncedAutoCompleteRequest(currentText);
   }
 
   const triggerAutoCompleteRequest = useCallback(async (query: string) => {
@@ -171,35 +171,35 @@ export function AutoCompleteInput(
           placeResults: response["data"]["predictions"],
           svResults: [],
         });
+      })
+      .catch((err) => {
+        console.log("Error fetching autocomplete suggestions: " + err);
       });
   }, []);
 
   // memoize the debounce call with useMemo
-  const debouncedSendRequest = useMemo(() => {
+  const SendDebouncedAutoCompleteRequest = useMemo(() => {
     return _.debounce(triggerAutoCompleteRequest, DEBOUNCE_INTERVAL_MS);
   }, []);
 
   function changeText(text: string) {
+    // Update text in Input without triggering search.
     setInputText(text);
     props.onChange(text);
   }
 
-  // For all clicks outside of the input component, empty out results.
-  OutsideClickAlerter(wrapperRef, () => {
-    setResults({ placeResults: [], svResults: [] });
-  });
-
   function handleKeydownEvent(
     event: React.KeyboardEvent<HTMLDivElement>
   ): void {
+    // Navigate through the suggested results.
     switch (event.key) {
       case "Enter":
+        event.preventDefault();
         if (hoveredIdx >= 0) {
-          onClick(allResults[hoveredIdx]);
+          onClick(results.placeResults[hoveredIdx]);
         } else {
           props.onSearch();
         }
-        event.preventDefault();
         break;
       case "ArrowUp":
         event.preventDefault();
@@ -207,7 +207,9 @@ export function AutoCompleteInput(
         break;
       case "ArrowDown":
         event.preventDefault();
-        processArrowKey(Math.min(hoveredIdx + 1, allResults.length - 1));
+        processArrowKey(
+          Math.min(hoveredIdx + 1, results.placeResults.length - 1)
+        );
         break;
     }
   }
@@ -216,7 +218,10 @@ export function AutoCompleteInput(
     setHoveredIdx(selectedIndex);
     const textDisplayed =
       selectedIndex >= 0
-        ? replaceQueryWithSelection(baseInput, allResults[selectedIndex])
+        ? replaceQueryWithSelection(
+            baseInput,
+            results.placeResults[selectedIndex]
+          )
         : baseInput;
     changeText(textDisplayed);
   }
@@ -256,10 +261,10 @@ export function AutoCompleteInput(
             </div>
           </InputGroup>
         </div>
-        {props.enableAutoComplete && !_.isEmpty(allResults) && (
+        {props.enableAutoComplete && !_.isEmpty(results.placeResults) && (
           <AutoCompleteSuggestions
             inputText={inputText}
-            allResults={allResults}
+            allResults={results.placeResults}
             hoveredIdx={hoveredIdx}
             onClick={onClick}
           />
