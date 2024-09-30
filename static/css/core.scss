@@ -718,7 +718,9 @@ section {
 }
 
 .search-input-result {
-  padding: 4px 24px;
+  display: flex;
+  flex-direction: row;
+  padding: 0px 24px;
 }
 
 .search-input-results-list {

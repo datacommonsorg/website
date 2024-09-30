@@ -26,7 +26,8 @@ from urllib.parse import urlencode
 from server.routes.shared_api.place import findplacedcid
 
 
-# TODO(gmechali): add unittest for this module
+# TODO(gmechali): Add unittest for this module.
+# TODO(gmechali): Add Stat Var search.
 
 # Define blueprint
 bp = Blueprint("autocomplete", __name__, url_prefix='/api')
@@ -34,10 +35,10 @@ bp = Blueprint("autocomplete", __name__, url_prefix='/api')
 
 @bp.route('/autocomplete', methods=['GET', 'POST'])
 def autocomplete():
-  """TODO.
+  """Predicts the user query for location only, using the Google Maps prediction API.
 
   Returns:
-      TODO.
+      Json object represnting 5 location predictions for the query.
   """
   debug_logs = {}
 
@@ -62,7 +63,7 @@ def autocomplete():
   for prediction in prediction_responses:
     current_prediction = {}
     current_prediction['name'] = prediction['description']
-    current_prediction['type'] = 'PLACE'
+    current_prediction['match_type'] = 'location_search'
     current_prediction['matched_query'] = prediction['matched_query']
     if prediction['place_id'] in place_id_to_dcid:
         current_prediction['dcid'] = place_id_to_dcid[prediction['place_id']]

@@ -18,39 +18,40 @@
  * Standard version of the NL Search Component - used as a stand-alone component in the body of a page.
  */
 
-import _ from "lodash";
 import axios from "axios";
-import React, { ReactElement, useEffect, useRef, useState, useCallback, useMemo } from "react";
+import _ from "lodash";
+import React, {
+  ReactElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { Input, InputGroup } from "reactstrap";
+
 import { OutsideClickAlerter } from "../../utils/outside_click_alerter";
 
 const DEBOUNCE_INTERVAL_MS = 100;
-
-const EXPLORE_PREFIX = "/explore?";
 const PLACE_EXPLORER_PREFIX = "/place/";
-
-const PLACE_TYPE = "PLACE";
+const LOCATION_SEARCH = "location_search";
 
 function replaceQueryWithSelection(query, result): string {
   const regex = new RegExp(
-"(?:.(?!" + result.matched_query + "))+([,;\\s])?$",
+    "(?:.(?!" + result.matched_query + "))+([,;\\s])?$",
     "i"
   );
   return query.replace(regex, "") + result.name;
 }
 
-function redirectAction(
-  query: string,
-  placeDcid: string
-): void {
-  let url = "";
-  if (query) {
-    url += EXPLORE_PREFIX + `q=${query}`;
+function redirectAction(placeDcid: string): boolean {
+  if (!placeDcid) {
+    return false;
   }
-  if (placeDcid) {
-    url = PLACE_EXPLORER_PREFIX + `${placeDcid}`;
-  }
+
+  const url = PLACE_EXPLORER_PREFIX + `${placeDcid}`;
   window.open(url, "_self");
+  return true;
 }
 
 function AutoCompleteSuggestions({
@@ -59,34 +60,31 @@ function AutoCompleteSuggestions({
   onClick,
   hoveredIdx,
 }): ReactElement {
-  const matches = inputText.split(" ");
-
   return (
     <>
       <div className="search-results-place search-results-section">
         <div className="search-input-results-list" tabIndex={-1}>
-          {allResults.map((result, idx) => {
-              return (
-                <>
-                  <div className="search-input-result-section">
-                    <div
-                      className={`search-input-result ${
-                        idx === hoveredIdx
-                          ? "search-input-result-highlighted"
-                          : ""
-                      }`}
-                      key={"search-input-result-" + result.dcid}
-                      onClick={() => onClick(result)}>
-                      <span className="google-symbols">
-                        search_spark
-                      </span>
-                      {replaceQueryWithSelection(inputText, result)} 
-                      {idx !== allResults.length - 1 ? <hr></hr> : <></>}
-                    </div>
+          {allResults.map((result, idx: number) => {
+            return (
+              <>
+                <div className="search-input-result-section">
+                  <div
+                    className={`search-input-result ${
+                      idx === hoveredIdx
+                        ? "search-input-result-highlighted"
+                        : ""
+                    }`}
+                    key={"search-input-result-" + result.dcid}
+                    onClick={() => onClick(result)}
+                  >
+                    <span className="material-icons-outlined">search</span>
+                    <p className="autosuggest-query">{replaceQueryWithSelection(inputText, result)}</p>
                   </div>
-                </>
-              );
-            })}
+                    {idx !== allResults.length - 1 ? <hr></hr> : <></>}
+                </div>
+              </>
+            );
+          })}
         </div>
       </div>
     </>
@@ -123,15 +121,15 @@ export function AutoCompleteInput({
         new google.maps.places.AutocompleteService();
     }
 
-    window.addEventListener('scroll', () => {
+    window.addEventListener("scroll", () => {
       if (results.placeResults) {
-        setResults({placeResults: [], svResults: []});
+        setResults({ placeResults: [], svResults: [] });
       }
     });
   }, []);
 
   useEffect(() => {
-    const allResultsSorted = results.placeResults
+    const allResultsSorted = results.placeResults;
     setAllResults(allResultsSorted);
   }, [results, setResults]);
 
@@ -146,7 +144,10 @@ export function AutoCompleteInput({
 
     if (!enableAutoComplete) return;
 
-    const selectionApplied = hoveredIdx >= 0 && allResults.length >= hoveredIdx && currentText.trim().endsWith(allResults[hoveredIdx].name);
+    const selectionApplied =
+      hoveredIdx >= 0 &&
+      allResults.length >= hoveredIdx &&
+      currentText.trim().endsWith(allResults[hoveredIdx].name);
     setHoveredIdx(-1);
 
     if (_.isEmpty(currentText) || selectionApplied) {
@@ -159,12 +160,14 @@ export function AutoCompleteInput({
   }
 
   const triggerAutoCompleteRequest = useCallback(async (query: string) => {
-    await axios.post(
-      `/api/autocomplete?query=${query}`,
-      {}
-    ).then((response) => {
-      setResults( {placeResults: response["data"]["predictions"], svResults: []});
-    })
+    await axios
+      .post(`/api/autocomplete?query=${query}`, {})
+      .then((response) => {
+        setResults({
+          placeResults: response["data"]["predictions"],
+          svResults: [],
+        });
+      });
   }, []);
 
   // memoize the debounce call with useMemo
@@ -216,8 +219,17 @@ export function AutoCompleteInput({
 
   return (
     <>
-      <div className={`search-box-section ${results.placeResults.length == 0 ? "radiused" : "unradiused" }`} ref={wrapperRef}>
-        <div className={`search-bar${value ? " non-empty" : ""} ${results.placeResults.length == 0 ? "radiused" : "unradiused" }`}>
+      <div
+        className={`search-box-section ${
+          results.placeResults.length == 0 ? "radiused" : "unradiused"
+        }`}
+        ref={wrapperRef}
+      >
+        <div
+          className={`search-bar${value ? " non-empty" : ""} ${
+            results.placeResults.length == 0 ? "radiused" : "unradiused"
+          }`}
+        >
           <InputGroup className="search-bar-content">
             {isHeaderBar && (
               <span className="material-icons-outlined">search</span>
@@ -253,13 +265,18 @@ export function AutoCompleteInput({
   );
 
   function onClick(result) {
-    if (result["type"] == PLACE_TYPE && result.name.toLowerCase().includes(inputText.toLowerCase())) {
-        redirectAction(result.name, result.dcid);
-    } else {
-      const newString = replaceQueryWithSelection(baseInput, result);
-      changeText(newString);
-      setTriggerSearch(newString);
+    if (
+      result["match_type"] == LOCATION_SEARCH &&
+      result.name.toLowerCase().includes(inputText.toLowerCase())
+    ) {
+      if (redirectAction(result.dcid)) {
+        return;
+      }
     }
+
+    const newString = replaceQueryWithSelection(baseInput, result);
+    changeText(newString);
+    setTriggerSearch(newString);
   }
 }
 
