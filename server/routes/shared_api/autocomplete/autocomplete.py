@@ -29,7 +29,7 @@ from server.routes.shared_api.place import findplacedcid
 # TODO(gmechali): add unittest for this module
 
 # Define blueprint
-bp = Blueprint("autocomplete", __name__, url_prefix='/api/autocomplete')
+bp = Blueprint("autocomplete", __name__, url_prefix='/api')
 
 
 @bp.route('/autocomplete', methods=['GET', 'POST'])
@@ -48,29 +48,25 @@ def autocomplete():
   queries_to_send = helpers.find_queries(query)
 
   # send requests.
-  predictions = helpers.issue_maps_predictions_requests(queries_to_send)
-
-  # Filter out predictions if the matched substring is too short.
-  predictions = list(filter(lambda p: p["matched_substrings"] and p["matched_substrings"][0]["length"] >= 3, predictions))
-  print(predictions)
-
+  prediction_responses = helpers.issue_maps_predictions_requests(queries_to_send)
 
   place_ids = []
-  for pred in predictions:
-    place_ids.append(pred["place_id"])
+  for prediction in prediction_responses:
+    place_ids.append(prediction["place_id"])
 
-  place_to_dcid = []
+  place_id_to_dcid = []
   if place_ids:  
-    place_to_dcid = json.loads(findplacedcid(place_ids).data)
+    place_id_to_dcid = json.loads(findplacedcid(place_ids).data)
 
-  my_preds = []
-  for pred in predictions:
-    new_pred = {}
-    new_pred['name'] = pred['description']
-    if pred['place_id'] in place_to_dcid:
-        new_pred['dcid'] = place_to_dcid[pred['place_id']]
-    new_pred['type'] = 'place'
-    new_pred['matched_query'] = pred['matched_query']
-    my_preds.append(new_pred)
+  final_predictions = []
+  for prediction in prediction_responses:
+    current_prediction = {}
+    current_prediction['name'] = prediction['description']
+    current_prediction['type'] = 'PLACE'
+    current_prediction['matched_query'] = prediction['matched_query']
+    if prediction['place_id'] in place_id_to_dcid:
+        current_prediction['dcid'] = place_id_to_dcid[prediction['place_id']]
 
-  return {'place_results': {'places': my_preds, 'matching_place_query': query}}
+    final_predictions.append(current_prediction)
+
+  return {'predictions': final_predictions}

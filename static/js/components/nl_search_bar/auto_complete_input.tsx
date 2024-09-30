@@ -19,25 +19,29 @@
  */
 
 import _ from "lodash";
-import React, { ReactElement, useEffect, useRef, useState, useCallback, useMemo } from "react";
 import axios from "axios";
+import React, { ReactElement, useEffect, useRef, useState, useCallback, useMemo } from "react";
 import { Input, InputGroup } from "reactstrap";
-
 import { OutsideClickAlerter } from "../../utils/outside_click_alerter";
 
 const DEBOUNCE_INTERVAL_MS = 100;
 
-// Material Icons used for the result sv type.
-const icons = { place: "place" };
-
 const EXPLORE_PREFIX = "/explore?";
 const PLACE_EXPLORER_PREFIX = "/place/";
-const SV_EXPLORER_PREFIX = "/tools/statvar";
+
+const PLACE_TYPE = "PLACE";
+
+function replaceQueryWithSelection(query, result): string {
+  const regex = new RegExp(
+"(?:.(?!" + result.matched_query + "))+([,;\\s])?$",
+    "i"
+  );
+  return query.replace(regex, "") + result.name;
+}
 
 function redirectAction(
   query: string,
-  placeDcid: string,
-  svDcid: string
+  placeDcid: string
 ): void {
   let url = "";
   if (query) {
@@ -45,9 +49,6 @@ function redirectAction(
   }
   if (placeDcid) {
     url = PLACE_EXPLORER_PREFIX + `${placeDcid}`;
-  }
-  if (svDcid) {
-    url = SV_EXPLORER_PREFIX + `#sv=${svDcid}`;
   }
   window.open(url, "_self");
 }
@@ -76,10 +77,10 @@ function AutoCompleteSuggestions({
                       }`}
                       key={"search-input-result-" + result.dcid}
                       onClick={() => onClick(result)}>
-                      <span className="material-icons-outlined">
-                        {icons[result["type"]]}
+                      <span className="google-symbols">
+                        search_spark
                       </span>
-                      {result.name} 
+                      {replaceQueryWithSelection(inputText, result)} 
                       {idx !== allResults.length - 1 ? <hr></hr> : <></>}
                     </div>
                   </div>
@@ -91,7 +92,6 @@ function AutoCompleteSuggestions({
     </>
   );
 }
-// 91 replace '' with dcid.
 
 export function AutoCompleteInput({
   enableAutoComplete,
@@ -107,14 +107,12 @@ export function AutoCompleteInput({
 }): ReactElement {
   const wrapperRef = useRef(null);
   const placeAutocompleteService = useRef(null);
-  const latestQuery = useRef(null);
   const [baseInput, setBaseInput] = useState("");
   const [inputText, setInputText] = useState("");
   const [results, setResults] = useState({ placeResults: [], svResults: [] });
   const [allResults, setAllResults] = useState([]);
   const [hoveredIdx, setHoveredIdx] = useState(-1);
   const [triggerSearch, setTriggerSearch] = useState("");
-  const [matchingPlaceQuery, setMatchingPlaceQuery] = useState("");
 
   const isHeaderBar = barType == "header";
 
@@ -157,16 +155,12 @@ export function AutoCompleteInput({
     debouncedSendRequest(currentText);
   }
 
-  // memoize the callback with useCallback
-  // we need it since it's a dependency in useMemo below
   const triggerAutoCompleteRequest = useCallback(async (query: string) => {
-    const resp = await axios.post(
-      `/api/autocomplete/autocomplete?query=${query}`,
+    await axios.post(
+      `/api/autocomplete?query=${query}`,
       {}
     ).then((response) => {
-      setResults( {placeResults: response["data"]["place_results"]["places"], svResults: []});
-      console.log(JSON.stringify(response));
-      setMatchingPlaceQuery(response["data"]["place_results"]["matching_place_query"])
+      setResults( {placeResults: response["data"]["predictions"], svResults: []});
     })
   }, []);
 
@@ -212,7 +206,7 @@ export function AutoCompleteInput({
     setHoveredIdx(selectedIndex);
     const textDisplayed =
       selectedIndex >= 0
-        ? replaceQueryWithSelection(allResults[selectedIndex])
+        ? replaceQueryWithSelection(baseInput, allResults[selectedIndex])
         : baseInput;
     changeText(textDisplayed);
   }
@@ -256,26 +250,13 @@ export function AutoCompleteInput({
   );
 
   function onClick(result) {
-    if (result.name.toLowerCase().includes(inputText.toLowerCase())) {
-      if (result["type"] == "place") {
-        redirectAction(result.name, result.dcid, "");
-      } else if (result["type"] == "sv") {
-        redirectAction(result.name, "", result.dcid);
-      }
+    if (result["type"] == PLACE_TYPE && result.name.toLowerCase().includes(inputText.toLowerCase())) {
+        redirectAction(result.name, result.dcid);
     } else {
-      const newString = replaceQueryWithSelection(result);
+      const newString = replaceQueryWithSelection(baseInput, result);
       changeText(newString);
       setTriggerSearch(newString);
     }
-  }
-
-  function replaceQueryWithSelection(result): string {
-    console.log("Reaplceing " + result.matched_query);
-    const regex = new RegExp(
-      "(?:.(?!" + result.matched_query + "))+\\s?$",
-      "i"
-    );
-    return baseInput.replace(regex, "") + result.name;
   }
 }
 

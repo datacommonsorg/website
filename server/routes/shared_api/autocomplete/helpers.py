@@ -60,10 +60,10 @@ def make_map_prediction_request(query: str, language: str):
   return json.loads(response.text)
 
 def issue_maps_predictions_requests(queries: List[str]):
-  """TODO.
+  """Trigger maps prediction api requests and parse the output. Remove duplication responses and limit the number of results.
 
   Returns:
-      TODO.
+      Json object containing predictions from all queries issued after deduping.
   """
   responses = []
   place_ids = []
