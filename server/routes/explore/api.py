@@ -14,16 +14,17 @@
 """Endpoints for Datacommons NL"""
 
 import copy
-import time
 import json
-import requests
+import time
 from typing import Dict
+from urllib.parse import urlencode
+
 import flask
 from flask import Blueprint
 from flask import current_app
 from flask import request
+import requests
 
-from urllib.parse import urlencode
 from server.lib.nl.common import serialize
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.counters as ctr

@@ -54,33 +54,39 @@ function redirectAction(placeDcid: string): boolean {
   return true;
 }
 
-function AutoCompleteSuggestions({
-  allResults,
-  inputText,
-  onClick,
-  hoveredIdx,
-}): ReactElement {
+interface AutoCompleteSuggestionsPropType {
+  allResults: any[];
+  inputText: string;
+  onClick: (result: any) => void;
+  hoveredIdx: number;
+}
+
+function AutoCompleteSuggestions(
+  props: AutoCompleteSuggestionsPropType
+): ReactElement {
   return (
     <>
       <div className="search-results-place search-results-section">
         <div className="search-input-results-list" tabIndex={-1}>
-          {allResults.map((result, idx: number) => {
+          {props.allResults.map((result: any, idx: number) => {
             return (
               <>
                 <div className="search-input-result-section">
                   <div
                     className={`search-input-result ${
-                      idx === hoveredIdx
+                      idx === props.hoveredIdx
                         ? "search-input-result-highlighted"
                         : ""
                     }`}
                     key={"search-input-result-" + result.dcid}
-                    onClick={() => onClick(result)}
+                    onClick={() => props.onClick(result)}
                   >
                     <span className="material-icons-outlined">search</span>
-                    <p className="autosuggest-query">{replaceQueryWithSelection(inputText, result)}</p>
+                    <p className="autosuggest-query">
+                      {replaceQueryWithSelection(props.inputText, result)}
+                    </p>
                   </div>
-                    {idx !== allResults.length - 1 ? <hr></hr> : <></>}
+                  {idx !== props.allResults.length - 1 ? <hr></hr> : <></>}
                 </div>
               </>
             );
@@ -91,18 +97,22 @@ function AutoCompleteSuggestions({
   );
 }
 
-export function AutoCompleteInput({
-  enableAutoComplete,
-  value,
-  invalid,
-  placeholder,
-  inputId,
-  onChange,
-  onSearch,
-  feedbackLink,
-  shouldAutoFocus,
-  barType,
-}): ReactElement {
+interface AutoCompleteInputPropType {
+  enableAutoComplete?: boolean;
+  value: string;
+  invalid: boolean;
+  placeholder: string;
+  inputId: string;
+  onChange: (query: string) => void;
+  onSearch: () => void;
+  feedbackLink: string;
+  shouldAutoFocus: boolean;
+  barType: string;
+}
+
+export function AutoCompleteInput(
+  props: AutoCompleteInputPropType
+): ReactElement {
   const wrapperRef = useRef(null);
   const placeAutocompleteService = useRef(null);
   const [baseInput, setBaseInput] = useState("");
@@ -113,7 +123,7 @@ export function AutoCompleteInput({
   const [hoveredIdx, setHoveredIdx] = useState(-1);
   const [triggerSearch, setTriggerSearch] = useState("");
 
-  const isHeaderBar = barType == "header";
+  const isHeaderBar = props.barType == "header";
 
   useEffect(() => {
     if (google.maps) {
@@ -131,10 +141,10 @@ export function AutoCompleteInput({
   useEffect(() => {
     const allResultsSorted = results.placeResults;
     setAllResults(allResultsSorted);
-  }, [results, setResults]);
+  }, [results, setResults, results.placeResults]);
 
   useEffect(() => {
-    onSearch();
+    props.onSearch();
   }, [triggerSearch, setTriggerSearch]);
 
   function onInputChange(e: React.ChangeEvent<HTMLInputElement>): void {
@@ -142,7 +152,7 @@ export function AutoCompleteInput({
     changeText(currentText);
     setBaseInput(currentText);
 
-    if (!enableAutoComplete) return;
+    if (!props.enableAutoComplete) return;
 
     const selectionApplied =
       hoveredIdx >= 0 &&
@@ -177,7 +187,7 @@ export function AutoCompleteInput({
 
   function changeText(text: string) {
     setInputText(text);
-    onChange(text);
+    props.onChange(text);
   }
 
   // For all clicks outside of the input component, empty out results.
@@ -193,7 +203,7 @@ export function AutoCompleteInput({
         if (hoveredIdx >= 0) {
           onClick(allResults[hoveredIdx]);
         } else {
-          onSearch();
+          props.onSearch();
         }
         event.preventDefault();
         break;
@@ -226,7 +236,7 @@ export function AutoCompleteInput({
         ref={wrapperRef}
       >
         <div
-          className={`search-bar${value ? " non-empty" : ""} ${
+          className={`search-bar${props.value ? " non-empty" : ""} ${
             results.placeResults.length == 0 ? "radiused" : "unradiused"
           }`}
         >
@@ -235,24 +245,24 @@ export function AutoCompleteInput({
               <span className="material-icons-outlined">search</span>
             )}
             <Input
-              id={inputId}
-              invalid={invalid}
-              placeholder={placeholder}
+              id={props.inputId}
+              invalid={props.invalid}
+              placeholder={props.placeholder}
               value={inputText}
               onChange={onInputChange}
               onKeyDown={(event) => handleKeydownEvent(event)}
               className="pac-target-input search-input-text"
               autoComplete="one-time-code"
-              autoFocus={shouldAutoFocus}
+              autoFocus={props.shouldAutoFocus}
             ></Input>
-            <div onClick={onSearch} id="rich-search-button">
+            <div onClick={props.onSearch} id="rich-search-button">
               {isHeaderBar && (
                 <span className="material-icons-outlined">arrow_forward</span>
               )}
             </div>
           </InputGroup>
         </div>
-        {enableAutoComplete && !_.isEmpty(allResults) && (
+        {props.enableAutoComplete && !_.isEmpty(allResults) && (
           <AutoCompleteSuggestions
             inputText={inputText}
             allResults={allResults}
@@ -264,7 +274,7 @@ export function AutoCompleteInput({
     </>
   );
 
-  function onClick(result) {
+  function onClick(result: any) {
     if (
       result["match_type"] == LOCATION_SEARCH &&
       result.name.toLowerCase().includes(inputText.toLowerCase())

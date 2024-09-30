@@ -675,6 +675,7 @@ def descendent_names():
     result = get_display_name(child_places)
   return Response(json.dumps(result), 200, mimetype='application/json')
 
+
 def findplacedcid(place_ids):
   if not place_ids:
     return 'error: must provide `placeIds` field', 400
@@ -687,6 +688,7 @@ def findplacedcid(place_ids):
         dcid = PLACE_OVERRIDE[dcid]
       result[place_id] = dcid
   return Response(json.dumps(result), 200, mimetype='application/json')
+
 
 @bp.route('/placeid2dcid')
 def placeid2dcid():

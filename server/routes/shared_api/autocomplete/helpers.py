@@ -14,21 +14,22 @@
 
 import json
 from typing import List
-import requests
 from urllib.parse import urlencode
 
 from flask import current_app
+import requests
 
 MAPS_API_URL = "https://maps.googleapis.com/maps/api/place/autocomplete/json?"
 MAX_MAPS_QUERIES = 4
 MAX_MAPS_RESPONSES = 5
+
 
 def find_queries(user_query: str):
   """Extracts subqueries to send to the Google Maps Predictions API from the entire user input.
 
   Returns:
       List[str]: containing all subqueries to execute.
-  """ 
+  """
   words_in_query = user_query.split(" ")
   queries = []
   cumulative = ""
@@ -42,12 +43,13 @@ def find_queries(user_query: str):
       cumulative = word + " " + cumulative
     else:
       cumulative = word
-    
+
     # Only send queries over 4 characters long.
     if (len(cumulative) > 4):
       queries.append(cumulative)
 
   return queries
+
 
 def make_map_prediction_request(query: str, language: str):
   """Execute a request to the Google Maps Prediction API for a given query.
@@ -55,9 +57,15 @@ def make_map_prediction_request(query: str, language: str):
   Returns:
       Json object containing the google maps prediction response.
   """
-  request_obj = {'types': "(regions)", 'key': current_app.config['MAPS_API_KEY'], 'input': query, 'language': language}
-  response = requests.post(MAPS_API_URL + urlencode(request_obj), json = {})
+  request_obj = {
+      'types': "(regions)",
+      'key': current_app.config['MAPS_API_KEY'],
+      'input': query,
+      'language': language
+  }
+  response = requests.post(MAPS_API_URL + urlencode(request_obj), json={})
   return json.loads(response.text)
+
 
 def issue_maps_predictions_requests(queries: List[str]):
   """Trigger maps prediction api requests and parse the output. Remove duplication responses and limit the number of results.
@@ -68,7 +76,8 @@ def issue_maps_predictions_requests(queries: List[str]):
   responses = []
   place_ids = []
   for query in queries:
-    predictions_for_query = make_map_prediction_request(query, "en")['predictions']
+    predictions_for_query = make_map_prediction_request(query,
+                                                        "en")['predictions']
     for pred in predictions_for_query:
       if pred['place_id'] in place_ids:
         continue

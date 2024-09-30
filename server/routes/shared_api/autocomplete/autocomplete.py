@@ -13,18 +13,17 @@
 # limitations under the License.
 
 import json
-
-import requests
 from typing import Dict
+from urllib.parse import urlencode
+
 import flask
 from flask import Blueprint
 from flask import current_app
 from flask import request
+import requests
 
 from server.routes.shared_api.autocomplete import helpers
-from urllib.parse import urlencode
 from server.routes.shared_api.place import findplacedcid
-
 
 # TODO(gmechali): Add unittest for this module.
 # TODO(gmechali): Add Stat Var search.
@@ -49,24 +48,26 @@ def autocomplete():
   queries_to_send = helpers.find_queries(query)
 
   # send requests.
-  prediction_responses = helpers.issue_maps_predictions_requests(queries_to_send)
+  prediction_responses = helpers.issue_maps_predictions_requests(
+      queries_to_send)
 
   place_ids = []
   for prediction in prediction_responses:
     place_ids.append(prediction["place_id"])
 
   place_id_to_dcid = []
-  if place_ids:  
+  if place_ids:
     place_id_to_dcid = json.loads(findplacedcid(place_ids).data)
 
   final_predictions = []
+  # TODO(gmechali): See if we can use typed dataclasses here.
   for prediction in prediction_responses:
     current_prediction = {}
     current_prediction['name'] = prediction['description']
     current_prediction['match_type'] = 'location_search'
     current_prediction['matched_query'] = prediction['matched_query']
     if prediction['place_id'] in place_id_to_dcid:
-        current_prediction['dcid'] = place_id_to_dcid[prediction['place_id']]
+      current_prediction['dcid'] = place_id_to_dcid[prediction['place_id']]
 
     final_predictions.append(current_prediction)
 

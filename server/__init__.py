@@ -203,9 +203,10 @@ def register_routes_common(app):
   from server.routes.shared_api import place as shared_place
   app.register_blueprint(shared_place.bp)
 
-  from server.routes.shared_api.autocomplete import autocomplete as shared_autocomplete
+  from server.routes.shared_api.autocomplete import \
+      autocomplete as shared_autocomplete
   app.register_blueprint(shared_autocomplete.bp)
-  
+
   from server.routes.shared_api import stats as shared_stats
   app.register_blueprint(shared_stats.bp)
 
