@@ -44,8 +44,8 @@ def find_queries(user_query: str):
     else:
       cumulative = word
 
-    # Only send queries over 4 characters long.
-    if (len(cumulative) > 4):
+    # Only send queries 3 characters or longer.
+    if (len(cumulative) >= 3):
       queries.append(cumulative)
 
   return queries
@@ -76,7 +76,8 @@ def issue_maps_predictions_requests(queries: List[str], lang: str):
   responses = []
   place_ids = []
   for query in queries:
-    predictions_for_query = make_map_prediction_request(query, lang)['predictions']
+    predictions_for_query = make_map_prediction_request(query,
+                                                        lang)['predictions']
     for pred in predictions_for_query:
       if pred['place_id'] in place_ids:
         continue

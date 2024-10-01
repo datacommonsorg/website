@@ -28,27 +28,28 @@ import React, {
   useRef,
   useState,
 } from "react";
-import {
-  formatNumber,
-  intl,
-  LocalizedLink,
-  localizeSearchParams,
-} from "../../i18n/i18n";
 import { Input, InputGroup } from "reactstrap";
 
 import useOutsideClickAlerter from "../../utils/outside_click_alerter";
-import { url } from "inspector";
 
 const DEBOUNCE_INTERVAL_MS = 100;
 const PLACE_EXPLORER_PREFIX = "/place/";
 const LOCATION_SEARCH = "location_search";
 
-function replaceQueryWithSelection(query, result): string {
-  const regex = new RegExp(
-    "(?:.(?!" + result.matched_query + "))+([,;\\s])?$",
-    "i"
-  );
-  return query.replace(regex, "") + result.name;
+function stripQueryFromMatchedPart(
+  query: string,
+  matched_query: string
+): string {
+  const regex = new RegExp("(?:.(?!" + matched_query + "))+([,;\\s])?$", "i");
+
+  // Returns the query without part that matched a result.
+  // E.g.: query: "population of Calif", matched_query: "Calif",
+  // returns "population of "
+  return query.replace(regex, "");
+}
+
+function replaceQueryWithSelection(query: string, result: any): string {
+  return stripQueryFromMatchedPart(query, result.matched_query) + result.name;
 }
 
 function redirectAction(placeDcid: string): boolean {
@@ -88,8 +89,12 @@ function AutoCompleteSuggestions(
                   onClick={() => props.onClick(result)}
                 >
                   <span className="material-icons-outlined">search</span>
-                  <p className="autosuggest-query">
-                    {replaceQueryWithSelection(props.inputText, result)}
+                  <p>
+                    {stripQueryFromMatchedPart(
+                      props.inputText,
+                      result.matched_query
+                    )}
+                    <span className="query-suggestion">{result.name}</span>
                   </p>
                 </div>
                 {idx !== props.allResults.length - 1 ? <hr></hr> : <></>}
@@ -127,7 +132,7 @@ export function AutoCompleteInput(
   const [triggerSearch, setTriggerSearch] = useState("");
 
   const isHeaderBar = props.barType == "header";
-  let lang = '';
+  let lang = "";
 
   useEffect(() => {
     // One time initialization of event listener to clear suggested results on scroll.
@@ -139,7 +144,7 @@ export function AutoCompleteInput(
     });
 
     const urlParams = new URLSearchParams(window.location.search);
-    lang = urlParams.has('hl') ? urlParams.get('hl') : 'en';
+    lang = urlParams.has("hl") ? urlParams.get("hl") : "en";
   }, []);
 
   // Clear suggested results when click registered outside of component.
