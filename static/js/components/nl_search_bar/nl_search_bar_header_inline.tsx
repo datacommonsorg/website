@@ -32,10 +32,13 @@ const NlSearchBarHeaderInline = ({
   onSearch,
   shouldAutoFocus,
 }: NlSearchBarImplementationProps): ReactElement => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const enableAutoComplete = urlParams.has('ac_on') ? urlParams.get('ac_on') == "true" : false;
+
   return (
     <div className="header-search-section">
       <AutoCompleteInput
-        enableAutoComplete={true}
+        enableAutoComplete={enableAutoComplete}
         value={value}
         invalid={invalid}
         placeholder={placeholder}
