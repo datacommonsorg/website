@@ -90,3 +90,23 @@ class TestPlaceLanding(WebdriverBaseTest):
   #   hero_msg = self.driver.find_elements(By.CLASS_NAME, 'lead')[0]
   #   self.assertTrue(
   #       hero_msg.text.startswith('Data Commons – это открытая база данных'))
+
+  # Tests for NL Search Bar AutoComplete feature.
+  def test_homepage_autocomplete(self):
+    """Test homepage autocomplete."""
+
+    self.driver.get(self.url_ + '/?ac_on=true')
+
+    title_present = EC.text_to_be_present_in_element(
+        (By.CSS_SELECTOR, '#main-nav .navbar-brand'), 'Data Commons')
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(title_present)
+
+    search_box_input = self.driver.find_element(By.ID, 'query-search-input')
+
+    # Type california into the search box.
+    search_box_input.send_keys("California")
+
+    autocomplete_results = self.driver.find_elements(By.ID, 'search-input-result-section')
+    print("so we're here and we found stuff")
+    print(len(autocomplete_results))
+    self.assertTrue(len(autocomplete_results) == 5)

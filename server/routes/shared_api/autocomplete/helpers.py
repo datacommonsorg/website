@@ -89,4 +89,8 @@ def issue_maps_predictions_requests(queries: List[str], lang: str):
       if len(responses) >= MAX_MAPS_RESPONSES:
         return responses
 
+
+  print("All my responses:\n\n\n")
+  print(responses)
+
   return responses

@@ -51,6 +51,8 @@ def autocomplete():
   # send requests.
   prediction_responses = helpers.issue_maps_predictions_requests(
       queries_to_send, lang)
+  print("\n\n\n\n")
+  print(prediction_responses)
 
   place_ids = []
   for prediction in prediction_responses:

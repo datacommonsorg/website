@@ -72,7 +72,6 @@ export function AutoCompleteInput(
     window.addEventListener("scroll", () => {
       if (results.placeResults) {
         setResults({ placeResults: [], svResults: [] });
-        setInputActive(false);
       }
     });
 
