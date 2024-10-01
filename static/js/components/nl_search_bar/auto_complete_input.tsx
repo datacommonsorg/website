@@ -48,23 +48,9 @@ function stripQueryFromMatchedPart(
   return query.replace(regex, "");
 }
 
-function replaceQueryWithSelection(query: string, result: any): string {
-  return stripQueryFromMatchedPart(query, result.matched_query) + result.name;
-}
-
-function redirectAction(placeDcid: string): boolean {
-  if (!placeDcid) {
-    return false;
-  }
-
-  const url = PLACE_EXPLORER_PREFIX + `${placeDcid}`;
-  window.open(url, "_self");
-  return true;
-}
-
 interface AutoCompleteSuggestionsPropType {
   allResults: any[];
-  inputText: string;
+  baseInput: string;
   onClick: (result: any) => void;
   hoveredIdx: number;
 }
@@ -72,34 +58,42 @@ interface AutoCompleteSuggestionsPropType {
 function AutoCompleteSuggestions(
   props: AutoCompleteSuggestionsPropType
 ): ReactElement {
+  function getIcon(query: string, matched_query: string): string {
+    if (query == matched_query) {
+      return "location_on";
+    }
+    return "search";
+  }
+
   return (
     <div className="search-results-place search-results-section">
       <div className="search-input-results-list" tabIndex={-1}>
         {props.allResults.map((result: any, idx: number) => {
           return (
-            <>
-              <div className="search-input-result-section">
-                <div
-                  className={`search-input-result ${
+            <div key={idx}>
+              <div className={`search-input-result-section  ${
                     idx === props.hoveredIdx
-                      ? "search-input-result-highlighted"
+                      ? "search-input-result-section-highlighted"
                       : ""
-                  }`}
+                  }`}>
+                <div
+                  className="search-input-result"
                   key={"search-input-result-" + result.dcid}
-                  onClick={() => props.onClick(result)}
-                >
-                  <span className="material-icons-outlined">search</span>
-                  <p>
-                    {stripQueryFromMatchedPart(
-                      props.inputText,
-                      result.matched_query
-                    )}
-                    <span className="query-suggestion">{result.name}</span>
-                  </p>
+                  onClick={() => props.onClick(result)}>
+                  <span className="material-icons-outlined search-result-icon">{getIcon(props.baseInput, result.matched_query)}</span>
+                  <div className="query-result">
+                    <span>
+                      {stripQueryFromMatchedPart(
+                        props.baseInput,
+                        result.matched_query
+                      )}
+                      <span className="query-suggestion">{result.name}</span>
+                    </span>
+                  </div>
                 </div>
-                {idx !== props.allResults.length - 1 ? <hr></hr> : <></>}
               </div>
-            </>
+              {idx !== props.allResults.length - 1 ? <hr className="result-divider"></hr> : <></>}
+            </div>
           );
         })}
       </div>
@@ -230,6 +224,10 @@ export function AutoCompleteInput(
     }
   }
 
+  function replaceQueryWithSelection(query: string, result: any): string {
+    return stripQueryFromMatchedPart(query, result.matched_query) + result.name;
+  }
+
   function processArrowKey(selectedIndex: number) {
     setHoveredIdx(selectedIndex);
     const textDisplayed =
@@ -279,7 +277,7 @@ export function AutoCompleteInput(
         </div>
         {props.enableAutoComplete && !_.isEmpty(results.placeResults) && (
           <AutoCompleteSuggestions
-            inputText={inputText}
+            baseInput={baseInput}
             allResults={results.placeResults}
             hoveredIdx={hoveredIdx}
             onClick={onClick}
@@ -292,9 +290,11 @@ export function AutoCompleteInput(
   function onClick(result: any) {
     if (
       result["match_type"] == LOCATION_SEARCH &&
-      result.name.toLowerCase().includes(inputText.toLowerCase())
+      result.name.toLowerCase().includes(baseInput.toLowerCase())
     ) {
-      if (redirectAction(result.dcid)) {
+      if (result.dcid) {
+        const url = PLACE_EXPLORER_PREFIX + `${result.dcid}`;
+        window.open(url, "_self");
         return;
       }
     }
