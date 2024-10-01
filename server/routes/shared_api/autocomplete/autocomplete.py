@@ -41,6 +41,7 @@ def autocomplete():
   """
   debug_logs = {}
 
+  lang = request.args.get('hl')
   original_query = request.args.get('query')
   query = original_query
 
@@ -49,7 +50,7 @@ def autocomplete():
 
   # send requests.
   prediction_responses = helpers.issue_maps_predictions_requests(
-      queries_to_send)
+      queries_to_send, lang)
 
   place_ids = []
   for prediction in prediction_responses:

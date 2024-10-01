@@ -28,9 +28,16 @@ import React, {
   useRef,
   useState,
 } from "react";
+import {
+  formatNumber,
+  intl,
+  LocalizedLink,
+  localizeSearchParams,
+} from "../../i18n/i18n";
 import { Input, InputGroup } from "reactstrap";
 
 import useOutsideClickAlerter from "../../utils/outside_click_alerter";
+import { url } from "inspector";
 
 const DEBOUNCE_INTERVAL_MS = 100;
 const PLACE_EXPLORER_PREFIX = "/place/";
@@ -120,6 +127,7 @@ export function AutoCompleteInput(
   const [triggerSearch, setTriggerSearch] = useState("");
 
   const isHeaderBar = props.barType == "header";
+  let lang = '';
 
   useEffect(() => {
     // One time initialization of event listener to clear suggested results on scroll.
@@ -129,6 +137,9 @@ export function AutoCompleteInput(
         setResults({ placeResults: [], svResults: [] });
       }
     });
+
+    const urlParams = new URLSearchParams(window.location.search);
+    lang = urlParams.has('hl') ? urlParams.get('hl') : 'en';
   }, []);
 
   // Clear suggested results when click registered outside of component.
@@ -165,7 +176,7 @@ export function AutoCompleteInput(
 
   const triggerAutoCompleteRequest = useCallback(async (query: string) => {
     await axios
-      .post(`/api/autocomplete?query=${query}`, {})
+      .post(`/api/autocomplete?query=${query}&hl=${lang}`, {})
       .then((response) => {
         setResults({
           placeResults: response["data"]["predictions"],

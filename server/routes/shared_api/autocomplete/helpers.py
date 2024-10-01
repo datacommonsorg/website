@@ -67,7 +67,7 @@ def make_map_prediction_request(query: str, language: str):
   return json.loads(response.text)
 
 
-def issue_maps_predictions_requests(queries: List[str]):
+def issue_maps_predictions_requests(queries: List[str], lang: str):
   """Trigger maps prediction api requests and parse the output. Remove duplication responses and limit the number of results.
 
   Returns:
@@ -76,8 +76,7 @@ def issue_maps_predictions_requests(queries: List[str]):
   responses = []
   place_ids = []
   for query in queries:
-    predictions_for_query = make_map_prediction_request(query,
-                                                        "en")['predictions']
+    predictions_for_query = make_map_prediction_request(query, lang)['predictions']
     for pred in predictions_for_query:
       if pred['place_id'] in place_ids:
         continue
