@@ -32,7 +32,7 @@ import { Input, InputGroup } from "reactstrap";
 import AutoCompleteSuggestions from "./auto_complete_suggestions";
 import { stripPatternFromQuery } from "../../shared/util";
 
-import useOutsideClickAlerter from "../../utils/outside_click_alerter";
+import { useInsideClickAlerter, useOutsideClickAlerter } from "../../utils/click_alerter";
 
 const DEBOUNCE_INTERVAL_MS = 100;
 const PLACE_EXPLORER_PREFIX = "/place/";
@@ -61,6 +61,7 @@ export function AutoCompleteInput(
   const [results, setResults] = useState({ placeResults: [], svResults: [] });
   const [hoveredIdx, setHoveredIdx] = useState(-1);
   const [triggerSearch, setTriggerSearch] = useState("");
+  const [inputActive, setInputActive] = useState(false);
 
   const isHeaderBar = props.barType == "header";
   let lang = "";
@@ -71,6 +72,7 @@ export function AutoCompleteInput(
     window.addEventListener("scroll", () => {
       if (results.placeResults) {
         setResults({ placeResults: [], svResults: [] });
+        setInputActive(false);
       }
     });
 
@@ -81,7 +83,12 @@ export function AutoCompleteInput(
   // Clear suggested results when click registered outside of component.
   useOutsideClickAlerter(wrapperRef, () => {
     setResults({ placeResults: [], svResults: [] });
+    setInputActive(false);
   });
+
+  useInsideClickAlerter(wrapperRef, () => {
+    setInputActive(true);
+  })
 
   useEffect(() => {
     // TriggerSearch state used to ensure onSearch only called after text updated.
@@ -200,7 +207,7 @@ export function AutoCompleteInput(
       <div
         className={`search-box-section ${
           results.placeResults.length == 0 ? "radiused" : "unradiused"
-        }`}
+        } ${inputActive ? "search-box-section-active" : "" }`}
         ref={wrapperRef}
       >
         <div

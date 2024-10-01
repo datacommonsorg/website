@@ -14,16 +14,13 @@
 """Endpoints for Datacommons NL"""
 
 import copy
-import json
 import time
 from typing import Dict
-from urllib.parse import urlencode
 
 import flask
 from flask import Blueprint
 from flask import current_app
 from flask import request
-import requests
 
 from server.lib.nl.common import serialize
 import server.lib.nl.common.constants as constants
@@ -39,7 +36,6 @@ from server.lib.nl.explore.params import DCNames
 from server.lib.nl.explore.params import Params
 from server.lib.util import get_nl_disaster_config
 from server.routes.explore import helpers
-from server.routes.shared_api.place import findplacedcid
 import server.services.bigtable as bt
 
 bp = Blueprint('explore_api', __name__, url_prefix='/api/explore')
@@ -92,6 +88,7 @@ def fulfill():
   return _fulfill_with_insight_ctx(request, debug_logs, counters)
 
 
+#
 # The detect and fulfill endpoint.
 #
 @bp.route('/detect-and-fulfill', methods=['POST'])

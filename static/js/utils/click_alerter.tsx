@@ -16,7 +16,7 @@
 
 import { useEffect } from "react";
 
-export default function useOutsideClickAlerter(ref, callbackFunction) {
+export function useOutsideClickAlerter(ref, callbackFunction) {
   /**
    * Initiates component that calls the callback function when a click is registered outside of the referenced component.
    */
@@ -34,6 +34,28 @@ export default function useOutsideClickAlerter(ref, callbackFunction) {
     return () => {
       // Unbind the event listener on clean up
       document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [ref]);
+}
+
+export function useInsideClickAlerter(ref, callbackFunction) {
+  /**
+   * Initiates component that calls the callback function when a click is registered outside of the referenced component.
+   */
+  useEffect(() => {
+    /**
+     * Alert if clicked on outside of element
+     */
+    function handleClickInside(event) {
+      if (ref.current && ref.current.contains(event.target)) {
+        callbackFunction();
+      }
+    }
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickInside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickInside);
     };
   }, [ref]);
 }
