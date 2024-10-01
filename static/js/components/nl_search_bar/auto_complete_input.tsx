@@ -29,77 +29,14 @@ import React, {
   useState,
 } from "react";
 import { Input, InputGroup } from "reactstrap";
+import AutoCompleteSuggestions from "./auto_complete_suggestions";
+import { stripPatternFromQuery } from "../../shared/util";
 
 import useOutsideClickAlerter from "../../utils/outside_click_alerter";
 
 const DEBOUNCE_INTERVAL_MS = 100;
 const PLACE_EXPLORER_PREFIX = "/place/";
 const LOCATION_SEARCH = "location_search";
-
-function stripQueryFromMatchedPart(
-  query: string,
-  matched_query: string
-): string {
-  const regex = new RegExp("(?:.(?!" + matched_query + "))+([,;\\s])?$", "i");
-
-  // Returns the query without part that matched a result.
-  // E.g.: query: "population of Calif", matched_query: "Calif",
-  // returns "population of "
-  return query.replace(regex, "");
-}
-
-interface AutoCompleteSuggestionsPropType {
-  allResults: any[];
-  baseInput: string;
-  onClick: (result: any) => void;
-  hoveredIdx: number;
-}
-
-function AutoCompleteSuggestions(
-  props: AutoCompleteSuggestionsPropType
-): ReactElement {
-  function getIcon(query: string, matched_query: string): string {
-    if (query == matched_query) {
-      return "location_on";
-    }
-    return "search";
-  }
-
-  return (
-    <div className="search-results-place search-results-section">
-      <div className="search-input-results-list" tabIndex={-1}>
-        {props.allResults.map((result: any, idx: number) => {
-          return (
-            <div key={idx}>
-              <div className={`search-input-result-section  ${
-                    idx === props.hoveredIdx
-                      ? "search-input-result-section-highlighted"
-                      : ""
-                  }`}>
-                <div
-                  className="search-input-result"
-                  key={"search-input-result-" + result.dcid}
-                  onClick={() => props.onClick(result)}>
-                  <span className="material-icons-outlined search-result-icon">{getIcon(props.baseInput, result.matched_query)}</span>
-                  <div className="query-result">
-                    <span>
-                      {stripQueryFromMatchedPart(
-                        props.baseInput,
-                        result.matched_query
-                      )}
-                      <span className="query-suggestion">{result.name}</span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-              {idx !== props.allResults.length - 1 ? <hr className="result-divider"></hr> : <></>}
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
 
 interface AutoCompleteInputPropType {
   enableAutoComplete?: boolean;
@@ -206,7 +143,7 @@ export function AutoCompleteInput(
       case "Enter":
         event.preventDefault();
         if (hoveredIdx >= 0) {
-          onClick(results.placeResults[hoveredIdx]);
+          selectResult(results.placeResults[hoveredIdx]);
         } else {
           props.onSearch();
         }
@@ -225,7 +162,7 @@ export function AutoCompleteInput(
   }
 
   function replaceQueryWithSelection(query: string, result: any): string {
-    return stripQueryFromMatchedPart(query, result.matched_query) + result.name;
+    return stripPatternFromQuery(query, result.matched_query) + result.name;
   }
 
   function processArrowKey(selectedIndex: number) {
@@ -238,6 +175,24 @@ export function AutoCompleteInput(
           )
         : baseInput;
     changeText(textDisplayed);
+  }
+
+
+  function selectResult(result: any) {
+    if (
+      result["match_type"] == LOCATION_SEARCH &&
+      result.name.toLowerCase().includes(baseInput.toLowerCase())
+    ) {
+      if (result.dcid) {
+        const url = PLACE_EXPLORER_PREFIX + `${result.dcid}`;
+        window.open(url, "_self");
+        return;
+      }
+    }
+
+    const newString = replaceQueryWithSelection(baseInput, result);
+    changeText(newString);
+    setTriggerSearch(newString);
   }
 
   return (
@@ -280,29 +235,12 @@ export function AutoCompleteInput(
             baseInput={baseInput}
             allResults={results.placeResults}
             hoveredIdx={hoveredIdx}
-            onClick={onClick}
+            onClick={selectResult}
           />
         )}
       </div>
     </>
   );
-
-  function onClick(result: any) {
-    if (
-      result["match_type"] == LOCATION_SEARCH &&
-      result.name.toLowerCase().includes(baseInput.toLowerCase())
-    ) {
-      if (result.dcid) {
-        const url = PLACE_EXPLORER_PREFIX + `${result.dcid}`;
-        window.open(url, "_self");
-        return;
-      }
-    }
-
-    const newString = replaceQueryWithSelection(baseInput, result);
-    changeText(newString);
-    setTriggerSearch(newString);
-  }
 }
 
 export default AutoCompleteInput;
