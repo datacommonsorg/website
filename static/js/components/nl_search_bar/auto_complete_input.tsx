@@ -29,10 +29,13 @@ import React, {
   useState,
 } from "react";
 import { Input, InputGroup } from "reactstrap";
-import AutoCompleteSuggestions from "./auto_complete_suggestions";
-import { stripPatternFromQuery } from "../../shared/util";
 
-import { useInsideClickAlerter, useOutsideClickAlerter } from "../../utils/click_alerter";
+import { stripPatternFromQuery } from "../../shared/util";
+import {
+  useInsideClickAlerter,
+  useOutsideClickAlerter,
+} from "../../utils/click_alerter";
+import AutoCompleteSuggestions from "./auto_complete_suggestions";
 
 const DEBOUNCE_INTERVAL_MS = 100;
 const PLACE_EXPLORER_PREFIX = "/place/";
@@ -87,7 +90,7 @@ export function AutoCompleteInput(
 
   useInsideClickAlerter(wrapperRef, () => {
     setInputActive(true);
-  })
+  });
 
   useEffect(() => {
     // TriggerSearch state used to ensure onSearch only called after text updated.
@@ -183,7 +186,6 @@ export function AutoCompleteInput(
     changeText(textDisplayed);
   }
 
-
   function selectResult(result: any) {
     if (
       result["match_type"] == LOCATION_SEARCH &&
@@ -206,7 +208,7 @@ export function AutoCompleteInput(
       <div
         className={`search-box-section ${
           results.placeResults.length == 0 ? "radiused" : "unradiused"
-        } ${inputActive ? "search-box-section-active" : "" }`}
+        } ${inputActive ? "search-box-section-active" : ""}`}
         ref={wrapperRef}
       >
         <div

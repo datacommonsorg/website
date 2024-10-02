@@ -18,29 +18,30 @@ from typing import Any, List
 import unittest
 from unittest.mock import patch
 
+import server.tests.routes.api.mock_data as mock_data
 from web_app import app
 
 
 class TestAutocomplete(unittest.TestCase):
+
   def run_autocomplete_query(self, query: str, lang: str):
     return app.test_client().post(
-        "/api/autocomplete?query=`${query}`&hl=${lang}",
-        json={})
+        "/api/autocomplete?query=`${query}`&hl=${lang}", json={})
 
   lang = 'en'
 
-  @patch('server.routes.shared_api.autocomplete.helpers.issue_maps_predictions_requests')
+  @patch(
+      'server.routes.shared_api.autocomplete.helpers.issue_maps_predictions_requests'
+  )
   @patch('server.routes.shared_api.place.fetch.resolve_id')
-  def test_empty_query(self, mock_resolve_ids, mock_issue_maps_predictions_requests):
+  def test_empty_query(self, mock_resolve_ids,
+                       mock_issue_maps_predictions_requests):
+
     def resolve_ids_side_effect(nodes, in_prop, out_prop):
-      return {
-        '1': { 'dcid': 'place1' },
-        '2': { 'dcid': 'place3' },
-        '3': { 'dcid': 'place1' }
-      }
+      return []
 
     def mock_issue_maps_predictions_requests_effect(query, lang):
-        return []
+      return {}
 
     mock_resolve_ids.side_effect = resolve_ids_side_effect
     mock_issue_maps_predictions_requests.side_effect = mock_issue_maps_predictions_requests_effect
@@ -51,19 +52,18 @@ class TestAutocomplete(unittest.TestCase):
     response_dict = json.loads(response.data.decode("utf-8"))
     self.assertEqual(len(response_dict["predictions"]), 0)
 
-  @patch('server.routes.shared_api.autocomplete.helpers.issue_maps_predictions_requests')
+  @patch(
+      'server.routes.shared_api.autocomplete.helpers.issue_maps_predictions_requests'
+  )
   @patch('server.routes.shared_api.place.fetch.resolve_id')
-  def test_single_word_query(self, mock_resolve_ids, mock_issue_maps_predictions_requests):
+  def test_single_word_query(self, mock_resolve_ids,
+                             mock_issue_maps_predictions_requests):
 
     def resolve_ids_side_effect(nodes, in_prop, out_prop):
-      return {
-        '1': { 'dcid': 'place1' },
-        '2': { 'dcid': 'place3' },
-        '3': { 'dcid': 'place1' }
-      }
+      return mock_data.RESOLVE_IDS_VALUES
 
     def mock_issue_maps_predictions_requests_effect(query, lang):
-        return [{'description': 'California, USA', 'matched_substrings': [{'length': 5, 'offset': 0}], 'place_id': 'ChIJPV4oX_65j4ARVW8IJ6IJUYs', 'matched_query': 'calif'}]
+      return mock_data.MAPS_PREDICTIONS_VALUES
 
     mock_resolve_ids.side_effect = resolve_ids_side_effect
     mock_issue_maps_predictions_requests.side_effect = mock_issue_maps_predictions_requests_effect
@@ -73,6 +73,4 @@ class TestAutocomplete(unittest.TestCase):
     self.assertEqual(response.status_code, 200)
 
     response_dict = json.loads(response.data.decode("utf-8"))
-    print(response.data)
     self.assertEqual(len(response_dict["predictions"]), 5)
-    # assert response_data

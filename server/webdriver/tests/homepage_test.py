@@ -106,7 +106,9 @@ class TestPlaceLanding(WebdriverBaseTest):
     # Type california into the search box.
     search_box_input.send_keys("California")
 
-    autocomplete_results = self.driver.find_elements(By.ID, 'search-input-result-section')
-    print("so we're here and we found stuff")
-    print(len(autocomplete_results))
+    suggestions_present = EC.presence_of_element_located((By.CLASS_NAME, 'search-input-result-section'))
+    WebDriverWait(self.driver, 300).until(suggestions_present)
+
+    autocomplete_results = self.driver.find_elements(
+        By.CLASS_NAME, 'search-input-result-section')
     self.assertTrue(len(autocomplete_results) == 5)
