@@ -680,7 +680,14 @@ def findplacedcid(place_ids):
   if not place_ids:
     return 'error: must provide `placeIds` field', 400
   resp = fetch.resolve_id(place_ids, "placeId", "dcid")
-  return Response(json.dumps(resp), 200, mimetype='application/json')
+  result = {}
+  for place_id, dcids in resp.items():
+    if dcids:
+      dcid = dcids[0]['dcid']
+      if dcid in PLACE_OVERRIDE:
+        dcid = PLACE_OVERRIDE[dcid]
+      result[place_id] = dcid
+  return Response(json.dumps(result), 200, mimetype='application/json')
 
 
 @bp.route('/placeid2dcid')
