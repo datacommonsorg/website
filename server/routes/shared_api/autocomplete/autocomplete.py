@@ -13,19 +13,14 @@
 # limitations under the License.
 
 import json
-from typing import Dict
 from urllib.parse import urlencode
 
-import flask
 from flask import Blueprint
-from flask import current_app
 from flask import request
-import requests
 
 from server.routes.shared_api.autocomplete import helpers
 from server.routes.shared_api.place import findplacedcid
 
-# TODO(gmechali): Add unittest for this module.
 # TODO(gmechali): Add Stat Var search.
 
 # Define blueprint
@@ -39,20 +34,15 @@ def autocomplete():
   Returns:
       Json object represnting 5 location predictions for the query.
   """
-  debug_logs = {}
-
   lang = request.args.get('hl')
   original_query = request.args.get('query')
   query = original_query
 
   # Extract subqueries from the user input.
-  queries_to_send = helpers.find_queries(query)
+  queries = helpers.find_queries(query)
 
-  # send requests.
-  prediction_responses = helpers.issue_maps_predictions_requests(
-      queries_to_send, lang)
-  print("\n\n\n\n")
-  print(prediction_responses)
+  # Send requests to the Google Maps Predictions API.
+  prediction_responses = helpers.predict(queries, lang)
 
   place_ids = []
   for prediction in prediction_responses:

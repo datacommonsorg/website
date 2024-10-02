@@ -40,11 +40,11 @@ export function useOutsideClickAlerter(ref, callbackFunction) {
 
 export function useInsideClickAlerter(ref, callbackFunction) {
   /**
-   * Initiates component that calls the callback function when a click is registered outside of the referenced component.
+   * Initiates component that calls the callback function when a click is registered inside of the referenced component.
    */
   useEffect(() => {
     /**
-     * Alert if clicked on outside of element
+     * Alert if clicked inside of element
      */
     function handleClickInside(event) {
       if (ref.current && ref.current.contains(event.target)) {

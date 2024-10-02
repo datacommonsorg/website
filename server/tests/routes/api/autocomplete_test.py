@@ -11,10 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import copy
-from dataclasses import dataclass
 import json
-from typing import Any, List
 import unittest
 from unittest.mock import patch
 
@@ -30,21 +27,18 @@ class TestAutocomplete(unittest.TestCase):
 
   lang = 'en'
 
-  @patch(
-      'server.routes.shared_api.autocomplete.helpers.issue_maps_predictions_requests'
-  )
+  @patch('server.routes.shared_api.autocomplete.helpers.predict')
   @patch('server.routes.shared_api.place.fetch.resolve_id')
-  def test_empty_query(self, mock_resolve_ids,
-                       mock_issue_maps_predictions_requests):
+  def test_empty_query(self, mock_resolve_ids, mock_predict):
 
     def resolve_ids_side_effect(nodes, in_prop, out_prop):
       return []
 
-    def mock_issue_maps_predictions_requests_effect(query, lang):
+    def mock_predict_effect(query, lang):
       return {}
 
     mock_resolve_ids.side_effect = resolve_ids_side_effect
-    mock_issue_maps_predictions_requests.side_effect = mock_issue_maps_predictions_requests_effect
+    mock_predict.side_effect = mock_predict_effect
 
     response = self.run_autocomplete_query('', 'en')
     self.assertEqual(response.status_code, 200)
@@ -52,21 +46,18 @@ class TestAutocomplete(unittest.TestCase):
     response_dict = json.loads(response.data.decode("utf-8"))
     self.assertEqual(len(response_dict["predictions"]), 0)
 
-  @patch(
-      'server.routes.shared_api.autocomplete.helpers.issue_maps_predictions_requests'
-  )
+  @patch('server.routes.shared_api.autocomplete.helpers.predict')
   @patch('server.routes.shared_api.place.fetch.resolve_id')
-  def test_single_word_query(self, mock_resolve_ids,
-                             mock_issue_maps_predictions_requests):
+  def test_single_word_query(self, mock_resolve_ids, mock_predict):
 
     def resolve_ids_side_effect(nodes, in_prop, out_prop):
       return mock_data.RESOLVE_IDS_VALUES
 
-    def mock_issue_maps_predictions_requests_effect(query, lang):
+    def mock_predict_effect(query, lang):
       return mock_data.MAPS_PREDICTIONS_VALUES
 
     mock_resolve_ids.side_effect = resolve_ids_side_effect
-    mock_issue_maps_predictions_requests.side_effect = mock_issue_maps_predictions_requests_effect
+    mock_predict.side_effect = mock_predict_effect
 
     response = self.run_autocomplete_query('Calif', 'en')
 

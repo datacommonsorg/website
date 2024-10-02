@@ -20,8 +20,9 @@ from flask import current_app
 import requests
 
 MAPS_API_URL = "https://maps.googleapis.com/maps/api/place/autocomplete/json?"
-MAX_MAPS_QUERIES = 4
-MAX_MAPS_RESPONSES = 5
+MIN_CHARACTERS_PER_QUERY = 3
+MAX_NUM_OF_QUERIES = 4
+RESPONSE_COUNT_LIMIT = 5
 
 
 def find_queries(user_query: str):
@@ -35,7 +36,7 @@ def find_queries(user_query: str):
   cumulative = ""
   for word in reversed(words_in_query):
     # Extract at most 3 subqueries.
-    if len(queries) >= MAX_MAPS_QUERIES:
+    if len(queries) >= MAX_NUM_OF_QUERIES:
       break
 
     # Prepend the current word for the next subquery.
@@ -45,13 +46,13 @@ def find_queries(user_query: str):
       cumulative = word
 
     # Only send queries 3 characters or longer.
-    if (len(cumulative) >= 3):
+    if (len(cumulative) >= MIN_CHARACTERS_PER_QUERY):
       queries.append(cumulative)
 
   return queries
 
 
-def make_map_prediction_request(query: str, language: str):
+def execute_maps_request(query: str, language: str):
   """Execute a request to the Google Maps Prediction API for a given query.
 
   Returns:
@@ -67,7 +68,7 @@ def make_map_prediction_request(query: str, language: str):
   return json.loads(response.text)
 
 
-def issue_maps_predictions_requests(queries: List[str], lang: str):
+def predict(queries: List[str], lang: str):
   """Trigger maps prediction api requests and parse the output. Remove duplication responses and limit the number of results.
 
   Returns:
@@ -76,8 +77,7 @@ def issue_maps_predictions_requests(queries: List[str], lang: str):
   responses = []
   place_ids = []
   for query in queries:
-    predictions_for_query = make_map_prediction_request(query,
-                                                        lang)['predictions']
+    predictions_for_query = execute_maps_request(query, lang)['predictions']
     for pred in predictions_for_query:
       if pred['place_id'] in place_ids:
         continue
@@ -86,7 +86,7 @@ def issue_maps_predictions_requests(queries: List[str], lang: str):
       responses.append(pred)
       place_ids.append(pred['place_id'])
 
-      if len(responses) >= MAX_MAPS_RESPONSES:
+      if len(responses) >= RESPONSE_COUNT_LIMIT:
         return responses
 
   return responses

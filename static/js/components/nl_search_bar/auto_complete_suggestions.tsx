@@ -15,7 +15,7 @@
  */
 
 /**
- * Standard version of the auto-complete capable NL Search bar.
+ * Standard version of the suggested results for the auto-complete capable NL Search bar.
  */
 
 import React, { ReactElement } from "react";
