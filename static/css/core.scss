@@ -699,6 +699,7 @@ section {
   .search-bar:active,
   .search-bar:focus-within {
     background: var(--gm-3-ref-primary-primary-99);
+  }
 
   .search-bar.non-empty:focus-within {
     #rich-search-button {

@@ -91,7 +91,9 @@ class TestPlaceLanding(WebdriverBaseTest):
   #   self.assertTrue(
   #       hero_msg.text.startswith('Data Commons – это открытая база данных'))
 
+
 # Tests for NL Search Bar AutoComplete feature.
+
   def test_homepage_autocomplete(self):
     """Test homepage autocomplete."""
 
