@@ -580,19 +580,9 @@ section {
     padding-right: 16px;
   }
 
-  .unradiused {
-    border-top-left-radius: 28px;
-    border-top-right-radius: 28px;
-  }
-
-  .radiused {
-    border-radius: 28px;
-  }
-
   .search-bar {
     align-items: center;
     background: var(--gm-3-ref-primary-primary-100);
-    border-radius: 28px;
     border: none;
     border-color: var(--gm-3-ref-neutral-neutral-40);
 
@@ -649,6 +639,51 @@ section {
     border-radius: 28px;
     border: var(--border-primary);
     border-color: var(--gm-3-ref-neutral-neutral-40);
+
+    .unradiused {
+      border-top-left-radius: 28px;
+      border-top-right-radius: 28px;
+    }
+  
+    .radiused {
+      border-radius: 28px;
+    }
+    
+    .search-input-results-list {
+      padding-bottom: 24px;
+      border-bottom-left-radius: 28px;
+      border-bottom-right-radius: 28px;
+
+      .search-input-result-section {
+        display: flex;
+        flex-direction: column;
+        padding: 10px 0px;
+
+        .search-input-result {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          padding-left: 24px;
+
+          .query-result {
+            padding-left: 4px;
+          
+            .query-suggestion {
+              font-weight: 500;
+            }
+          }
+        }
+      }
+
+      .search-input-result-section-highlighted,
+      .search-input-result-section:hover {
+        background-color: var(--gm-3-sys-light-surface-container-high);
+      }
+    } 
+
+    .result-divider {
+      margin: 0px;
+    }
   }
   
   .search-box-section:hover {
@@ -712,40 +747,4 @@ section {
       }
     }
   }
-}
-
-.query-suggestion {
-  font-weight: 500;
-}
-
-.query-result {
-  padding-left: 4px;
-}
-
-.search-input-result-section {
-  display: flex;
-  flex-direction: column;
-  padding: 10px 0px;
-}
-
-.search-input-result {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  padding-left: 24px;
-}
-
-.search-input-results-list {
-  padding-bottom: 24px;
-  border-bottom-left-radius: 28px;
-  border-bottom-right-radius: 28px;
-} 
-
-.result-divider {
-  margin: 0px;
-}
-
-.search-input-result-section-highlighted,
-.search-input-result-section:hover {
-  background-color: var(--gm-3-sys-light-surface-container-high);
 }

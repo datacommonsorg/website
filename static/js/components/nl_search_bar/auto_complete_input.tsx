@@ -57,7 +57,7 @@ interface AutoCompleteInputPropType {
 export function AutoCompleteInput(
   props: AutoCompleteInputPropType
 ): ReactElement {
-  const wrapperRef = useRef<HTMLElement>(null);
+  const wrapperRef = useRef(null);
   const [baseInput, setBaseInput] = useState("");
   const [inputText, setInputText] = useState("");
   // TODO(gmechali): Implement stat var search.
