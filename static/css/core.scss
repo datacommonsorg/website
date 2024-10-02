@@ -580,15 +580,10 @@ section {
     padding-right: 16px;
   }
 
-  .search-box-section {
-    width: 100%;
-  }
-
   .search-bar {
     align-items: center;
     background: var(--gm-3-ref-primary-primary-100);
-    border-radius: 28px;
-    border: var(--border-primary);
+    border: none;
     border-color: var(--gm-3-ref-neutral-neutral-40);
 
     .search-bar-content {
@@ -637,15 +632,73 @@ section {
     }
   }
 
-  .search-bar:hover {
+  .search-box-section {
+    width: 100%;
+    background-color: var.$color-blue-bckg;
+    padding: 2px;
+    border-radius: 28px;
+    border: var(--border-primary);
+    border-color: var(--gm-3-ref-neutral-neutral-40);
+
+    .unradiused {
+      border-top-left-radius: 28px;
+      border-top-right-radius: 28px;
+    }
+
+    .radiused {
+      border-radius: 28px;
+    }
+
+    .search-input-results-list {
+      padding-bottom: 24px;
+      border-bottom-left-radius: 28px;
+      border-bottom-right-radius: 28px;
+
+      .search-input-result-section {
+        display: flex;
+        flex-direction: column;
+        padding: 10px 0px;
+
+        .search-input-result {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          padding-left: 24px;
+
+          .query-result {
+            padding-left: 4px;
+
+            .query-suggestion {
+              font-weight: 500;
+            }
+          }
+        }
+      }
+
+      .search-input-result-section-highlighted,
+      .search-input-result-section:hover {
+        background-color: var(--gm-3-sys-light-surface-container-high);
+      }
+    } 
+
+    .result-divider {
+      margin: 0px;
+    }
+  }
+
+  .search-box-section:hover {
     border-color: var(--gm-3-ref-neutral-neutral-20);
+  }
+
+ 
+  .search-box-section-active,
+  .search-box-section-active:hover {
+    border-color: var(--gm-3-sys-light-primary);
   }
 
   .search-bar:active,
   .search-bar:focus-within {
-    border-color: var(--gm-3-sys-light-primary);
     background: var(--gm-3-ref-primary-primary-99);
-  }
 
   .search-bar.non-empty:focus-within {
     #rich-search-button {
