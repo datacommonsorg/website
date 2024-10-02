@@ -675,11 +675,13 @@ def descendent_names():
     result = get_display_name(child_places)
   return Response(json.dumps(result), 200, mimetype='application/json')
 
+
 def findplacedcid(place_ids):
   if not place_ids:
     return 'error: must provide `placeIds` field', 400
   resp = fetch.resolve_id(place_ids, "placeId", "dcid")
   return Response(json.dumps(resp), 200, mimetype='application/json')
+
 
 @bp.route('/placeid2dcid')
 def placeid2dcid():

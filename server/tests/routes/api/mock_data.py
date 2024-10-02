@@ -416,7 +416,6 @@ POINT_WITHIN_2015_ALL_FACETS = {
     }
 }
 
-
 RESOLVE_IDS_VALUES = {
     'ChIJPV4oX_65j4ARVW8IJ6IJUYs': [{
         'dcid': 'geoId/4210768'
