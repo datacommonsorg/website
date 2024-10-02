@@ -189,3 +189,13 @@ export function isPlaceOverviewOnly(
   // True only if the one tile is of type PLACE_OVERVIEW
   return categories[0].blocks[0].columns[0].tiles[0].type === "PLACE_OVERVIEW";
 }
+
+// Whether to skip showing the Place Overview tile. It should be skipped if
+// place overview is the only tile, and the SvSource was unfulfilled.
+export function shouldSkipPlaceOverview(
+  pageMetadata: SubjectPageMetadata
+): boolean {
+  return (
+    isPlaceOverviewOnly(pageMetadata) && pageMetadata.svSource !== "UNFULFILLED"
+  );
+}
