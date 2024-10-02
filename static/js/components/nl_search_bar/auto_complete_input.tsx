@@ -189,8 +189,11 @@ export function AutoCompleteInput(
   function selectResult(result: any) {
     if (
       result["match_type"] == LOCATION_SEARCH &&
-      result.name.toLowerCase().includes(baseInput.toLowerCase())
+      stripPatternFromQuery(baseInput, result.matched_query).trim() === ""
     ) {
+      // If this is a location result, and the matched_query matches the base input
+      // then that means there are no other parts of the query, so it's a place only
+      // redirection.
       if (result.dcid) {
         const url = PLACE_EXPLORER_PREFIX + `${result.dcid}`;
         window.open(url, "_self");
