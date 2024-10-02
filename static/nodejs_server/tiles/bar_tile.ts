@@ -30,6 +30,7 @@ import {
 import { StatVarSpec } from "../../js/shared/types";
 import { TileConfig } from "../../js/types/subject_page_proto_types";
 import { dataGroupsToCsv } from "../../js/utils/chart_csv_utils";
+import { convertToSortType } from "../../js/utils/subject_page_utils";
 import { getChartTitle } from "../../js/utils/tile_utils";
 import {
   CHART_ID,
@@ -65,6 +66,7 @@ function getTileProp(
     title: tileConfig.title,
     useLollipop: barTileSpec.useLollipop || false,
     variables: statVarSpec,
+    sort: convertToSortType(tileConfig.barTileSpec?.sort),
   };
 }
 
