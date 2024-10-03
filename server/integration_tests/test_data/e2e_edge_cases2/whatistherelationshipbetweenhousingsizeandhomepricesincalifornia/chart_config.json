@@ -1143,8 +1143,7 @@
           "Count_HousingUnit_HouseholderRaceAmericanIndianAndAlaskaNativeAlone",
           "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone",
           "Count_HousingUnit_HouseholderRaceAsianAlone",
-          "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone",
-          "Count_HousingUnit_HouseholderRaceHispanicOrLatino"
+          "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone"
         ],
         "numberOfRooms": [
           "Count_HousingUnit_WithTotal2Rooms",
@@ -1164,9 +1163,7 @@
       "Count_HousingUnit_OwnerOccupied": {
         "householderRace": [
           "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_OwnerOccupied",
-          "Count_HousingUnit_HouseholderRaceAsianAlone_OwnerOccupied",
-          "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone_OwnerOccupied",
-          "Count_HousingUnit_HouseholderRaceHispanicOrLatino_OwnerOccupied"
+          "Count_HousingUnit_HouseholderRaceAsianAlone_OwnerOccupied"
         ]
       },
       "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied": {
