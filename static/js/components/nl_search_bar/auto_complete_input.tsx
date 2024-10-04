@@ -116,12 +116,12 @@ export function AutoCompleteInput(
       return;
     }
 
-    SendDebouncedAutoCompleteRequest(currentText);
+    sendDebouncedAutoCompleteRequest(currentText);
   }
 
   const triggerAutoCompleteRequest = useCallback(async (query: string) => {
     await axios
-      .post(`/api/autocomplete?query=${query}&hl=${lang}`, {})
+      .get(`/api/autocomplete?query=${query}&hl=${lang}`, {})
       .then((response) => {
         setResults({
           placeResults: response["data"]["predictions"],
@@ -134,7 +134,7 @@ export function AutoCompleteInput(
   }, []);
 
   // memoize the debounce call with useMemo
-  const SendDebouncedAutoCompleteRequest = useMemo(() => {
+  const sendDebouncedAutoCompleteRequest = useMemo(() => {
     return _.debounce(triggerAutoCompleteRequest, DEBOUNCE_INTERVAL_MS);
   }, []);
 

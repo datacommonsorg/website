@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,8 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import re
 import json
-from typing import List
+from typing import List, Dict
 from urllib.parse import urlencode
 
 from flask import current_app
@@ -25,12 +26,13 @@ MAX_NUM_OF_QUERIES = 4
 RESPONSE_COUNT_LIMIT = 5
 
 
-def find_queries(user_query: str):
+def find_queries(user_query: str) -> List[str]:
   """Extracts subqueries to send to the Google Maps Predictions API from the entire user input.
   Returns:
       List[str]: containing all subqueries to execute.
   """
-  words_in_query = user_query.split(" ")
+  rgx = re.compile(r'\s+')
+  words_in_query = re.split(rgx, user_query)
   queries = []
   cumulative = ""
   for word in reversed(words_in_query):
@@ -51,7 +53,7 @@ def find_queries(user_query: str):
   return queries
 
 
-def execute_maps_request(query: str, language: str):
+def execute_maps_request(query: str, language: str) -> Dict:
   """Execute a request to the Google Maps Prediction API for a given query.
   Returns:
       Json object containing the google maps prediction response.
@@ -66,13 +68,13 @@ def execute_maps_request(query: str, language: str):
   return json.loads(response.text)
 
 
-def predict(queries: List[str], lang: str):
+def predict(queries: List[str], lang: str) -> List[Dict]:
   """Trigger maps prediction api requests and parse the output. Remove duplication responses and limit the number of results.
   Returns:
-      Json object containing predictions from all queries issued after deduping.
+      List of json objects containing predictions from all queries issued after deduping.
   """
   responses = []
-  place_ids = []
+  place_ids = set()
   for query in queries:
     predictions_for_query = execute_maps_request(query, lang)['predictions']
     for pred in predictions_for_query:
@@ -81,7 +83,7 @@ def predict(queries: List[str], lang: str):
 
       pred['matched_query'] = query
       responses.append(pred)
-      place_ids.append(pred['place_id'])
+      place_ids.add(pred['place_id'])
 
       if len(responses) >= RESPONSE_COUNT_LIMIT:
         return responses

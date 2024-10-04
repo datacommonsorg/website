@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -27,15 +27,14 @@ from server.routes.shared_api.place import findplacedcid
 bp = Blueprint("autocomplete", __name__, url_prefix='/api')
 
 
-@bp.route('/autocomplete', methods=['GET', 'POST'])
+@bp.route('/autocomplete')
 def autocomplete():
   """Predicts the user query for location only, using the Google Maps prediction API.
   Returns:
       Json object represnting 5 location predictions for the query.
   """
   lang = request.args.get('hl')
-  original_query = request.args.get('query')
-  query = original_query
+  query = request.args.get('query')
 
   # Extract subqueries from the user input.
   queries = helpers.find_queries(query)
