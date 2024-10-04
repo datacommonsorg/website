@@ -59,7 +59,6 @@ def autocomplete():
     current_prediction['matched_query'] = prediction['matched_query']
     if prediction['place_id'] in place_id_to_dcid:
       current_prediction['dcid'] = place_id_to_dcid[prediction['place_id']]
-
-    final_predictions.append(current_prediction)
+      final_predictions.append(current_prediction)
 
   return {'predictions': final_predictions}
