@@ -51,16 +51,8 @@ def find_queries(user_query: str) -> List[str]:
     if (len(cumulative) >= MIN_CHARACTERS_PER_QUERY):
       queries.append(cumulative)
 
-  if len(queries) <= 1:
-    return queries
-
-  # Priorize the 2 word query over 1 word query.
-  words_in_first_query = re.split(rgx, queries[0])
-  if len(words_in_first_query) == 1:
-    tmp = queries[1]
-    queries[1] = queries[0]
-    queries[0] = tmp
-
+  # Start by running the longer queries.
+  queries.reverse()
   return queries
 
 
