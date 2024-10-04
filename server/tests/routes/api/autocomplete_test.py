@@ -22,7 +22,7 @@ from web_app import app
 class TestAutocomplete(unittest.TestCase):
 
   def run_autocomplete_query(self, query: str, lang: str):
-    return app.test_client().post(
+    return app.test_client().get(
         "/api/autocomplete?query=`${query}`&hl=${lang}", json={})
 
   lang = 'en'
@@ -35,7 +35,7 @@ class TestAutocomplete(unittest.TestCase):
       return []
 
     def mock_predict_effect(query, lang):
-      return {}
+      return []
 
     mock_resolve_ids.side_effect = resolve_ids_side_effect
     mock_predict.side_effect = mock_predict_effect
