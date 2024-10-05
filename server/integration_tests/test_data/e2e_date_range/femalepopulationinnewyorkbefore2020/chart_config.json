@@ -162,7 +162,7 @@
                       "endDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_Female_WithHealthInsurance_3013967739"
+                      "Count_Person_Female_WithHealthInsurance_3376114862"
                     ],
                     "title": "Women With Health Insurance in New York",
                     "type": "LINE"
@@ -321,7 +321,7 @@
                       "endDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_770342238"
+                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_1118952551"
                     ],
                     "title": "Population: Bachelors Degree or Higher, Female in New York",
                     "type": "LINE"
@@ -484,13 +484,13 @@
             "name": "Population: 16 Years or More, Female, With Earnings",
             "statVar": "Count_Person_16OrMoreYears_Female_WithEarnings"
           },
-          "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_2019": {
-            "date": "2019",
+          "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_1118952551": {
+            "facetId": "1118952551",
             "name": "Population: Bachelors Degree or Higher, Female",
             "statVar": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female"
           },
-          "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_770342238": {
-            "facetId": "770342238",
+          "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_2019": {
+            "date": "2019",
             "name": "Population: Bachelors Degree or Higher, Female",
             "statVar": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female"
           },
@@ -589,8 +589,8 @@
             "name": "Women With Health Insurance",
             "statVar": "Count_Person_Female_WithHealthInsurance"
           },
-          "Count_Person_Female_WithHealthInsurance_3013967739": {
-            "facetId": "3013967739",
+          "Count_Person_Female_WithHealthInsurance_3376114862": {
+            "facetId": "3376114862",
             "name": "Women With Health Insurance",
             "statVar": "Count_Person_Female_WithHealthInsurance"
           },

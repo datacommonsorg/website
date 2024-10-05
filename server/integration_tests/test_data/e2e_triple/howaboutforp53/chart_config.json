@@ -1,81 +1,16 @@
 {
   "client": "test_detect-and-fulfill",
-  "config": {
-    "categories": [
-      {
-        "blocks": [
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "answerTableTileSpec": {
-                      "columns": [
-                        {
-                          "header": "Has RNA Transcript",
-                          "propertyExpr": "->hasRNATranscript"
-                        }
-                      ]
-                    },
-                    "entities": [
-                      "bio/P53_HUMAN",
-                      "bio/dm3_p53",
-                      "bio/dm6_p53",
-                      "bio/mm9_p53"
-                    ],
-                    "title": "The Has RNA Transcript for P53_HUMAN and p53 are as follows:",
-                    "type": "ANSWER_TABLE"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
+  "config": {},
   "context": {},
   "debug": {},
-  "entities": [
-    {
-      "dcid": "bio/P53_HUMAN",
-      "name": "P53_HUMAN",
-      "type": ""
-    },
-    {
-      "dcid": "bio/dm3_p53",
-      "name": "p53",
-      "type": ""
-    },
-    {
-      "dcid": "bio/dm6_p53",
-      "name": "p53",
-      "type": ""
-    },
-    {
-      "dcid": "bio/mm9_p53",
-      "name": "p53",
-      "type": ""
-    }
-  ],
-  "pastSourceContext": "",
-  "place": {},
-  "placeFallback": {},
-  "placeSource": "UNKNOWN",
-  "places": [],
-  "relatedThings": {
-    "childPlaces": {},
-    "childTopics": [],
-    "exploreMore": {},
-    "mainTopics": [],
-    "parentPlaces": [],
-    "parentTopics": [],
-    "peerPlaces": [],
-    "peerTopics": []
+  "failure": "Sorry, could not complete your request. No entity found in the query.",
+  "place": {
+    "dcid": "",
+    "name": "",
+    "place_type": ""
   },
-  "svSource": "UNKNOWN",
-  "userMessage": "See relevant information based on the previous query.",
+  "userMessage": "Sorry, could not complete your request. No entity found in the query.",
   "userMessages": [
-    "See relevant information based on the previous query."
+    "Sorry, could not complete your request. No entity found in the query."
   ]
 }
