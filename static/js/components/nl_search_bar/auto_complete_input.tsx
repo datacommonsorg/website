@@ -138,7 +138,7 @@ export function AutoCompleteInput(
     return _.debounce(triggerAutoCompleteRequest, DEBOUNCE_INTERVAL_MS);
   }, []);
 
-  function changeText(text: string) {
+  function changeText(text: string): void {
     // Update text in Input without triggering search.
     setInputText(text);
     props.onChange(text);
@@ -174,7 +174,7 @@ export function AutoCompleteInput(
     return stripPatternFromQuery(query, result.matched_query) + result.name;
   }
 
-  function processArrowKey(selectedIndex: number) {
+  function processArrowKey(selectedIndex: number): void {
     setHoveredIdx(selectedIndex);
     const textDisplayed =
       selectedIndex >= 0
@@ -186,7 +186,7 @@ export function AutoCompleteInput(
     changeText(textDisplayed);
   }
 
-  function selectResult(result: any) {
+  function selectResult(result: any): void {
     if (
       result["match_type"] == LOCATION_SEARCH &&
       stripPatternFromQuery(baseInput, result.matched_query).trim() === ""

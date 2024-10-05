@@ -16,9 +16,10 @@
 
 import { useEffect } from "react";
 
-export function useOutsideClickAlerter(ref, callbackFunction) {
+export function useOutsideClickAlerter(ref: React.MutableRefObject<any>, callbackFunction): void {
   /**
-   * Initiates component that calls the callback function when a click is registered outside of the referenced component.
+   * Initiates component that calls the callback function when a click is
+   * registered outside of the referenced component.
    */
   useEffect(() => {
     /**
@@ -38,9 +39,10 @@ export function useOutsideClickAlerter(ref, callbackFunction) {
   }, [ref]);
 }
 
-export function useInsideClickAlerter(ref, callbackFunction) {
+export function useInsideClickAlerter(ref: React.MutableRefObject<any>, callbackFunction): void {
   /**
-   * Initiates component that calls the callback function when a click is registered inside of the referenced component.
+   * Initiates component that calls the callback function when a click is
+   * registered inside of the referenced component.
    */
   useEffect(() => {
     /**
