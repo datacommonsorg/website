@@ -21,7 +21,7 @@
 import React, { ReactElement, useEffect, useState } from "react";
 
 import NlSearchBarHeaderInline from "./nl_search_bar/nl_search_bar_header_inline";
-import NlSearchBarStandard from "./nl_search_bar/nl_search_bar_standard";
+import { NlSearchBarStandard } from "./nl_search_bar/nl_search_bar_standard";
 
 interface NlSearchBarPropType {
   variant?: "standard" | "header-inline";

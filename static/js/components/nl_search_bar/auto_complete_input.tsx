@@ -35,11 +35,18 @@ import {
   useInsideClickAlerter,
   useOutsideClickAlerter,
 } from "../../utils/click_alerter";
-import AutoCompleteSuggestions from "./auto_complete_suggestions";
+import { AutoCompleteSuggestions } from "./auto_complete_suggestions";
 
 const DEBOUNCE_INTERVAL_MS = 100;
 const PLACE_EXPLORER_PREFIX = "/place/";
 const LOCATION_SEARCH = "location_search";
+
+export interface AutoCompleteResult {
+  dcid: string;
+  match_type: string;
+  matched_query: string;
+  name: string;
+}
 
 interface AutoCompleteInputPropType {
   enableAutoComplete?: boolean;
@@ -54,7 +61,7 @@ interface AutoCompleteInputPropType {
   barType: string;
 }
 
-export default function AutoCompleteInput(
+export function AutoCompleteInput(
   props: AutoCompleteInputPropType
 ): ReactElement {
   const wrapperRef = useRef(null);
@@ -170,7 +177,10 @@ export default function AutoCompleteInput(
     }
   }
 
-  function replaceQueryWithSelection(query: string, result: any): string {
+  function replaceQueryWithSelection(
+    query: string,
+    result: AutoCompleteResult
+  ): string {
     return stripPatternFromQuery(query, result.matched_query) + result.name;
   }
 
@@ -186,7 +196,7 @@ export default function AutoCompleteInput(
     changeText(textDisplayed);
   }
 
-  function selectResult(result: any): void {
+  function selectResult(result: AutoCompleteResult): void {
     if (
       result["match_type"] == LOCATION_SEARCH &&
       stripPatternFromQuery(baseInput, result.matched_query).trim() === ""

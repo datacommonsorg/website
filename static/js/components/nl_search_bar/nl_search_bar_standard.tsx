@@ -21,9 +21,9 @@
 import React, { ReactElement } from "react";
 
 import { NlSearchBarImplementationProps } from "../nl_search_bar";
-import AutoCompleteInput from "./auto_complete_input";
+import { AutoCompleteInput } from "./auto_complete_input";
 
-export default function NlSearchBarStandard({
+export function NlSearchBarStandard({
   value,
   invalid,
   placeholder,

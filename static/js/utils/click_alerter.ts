@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { useEffect } from "react";
+import { MutableRefObject, useEffect } from "react";
 
 export function useOutsideClickAlerter(
-  ref: React.MutableRefObject<any>,
+  ref: MutableRefObject<HTMLDivElement | null>,
   callbackFunction: () => void
 ): void {
   /**
@@ -28,8 +28,8 @@ export function useOutsideClickAlerter(
     /**
      * Alert if clicked on outside of element
      */
-    function handleClickOutside(event): void {
-      if (ref.current && !ref.current.contains(event.target)) {
+    function handleClickOutside(event: MouseEvent): void {
+      if (ref.current && !ref.current.contains(event.target as Node)) {
         callbackFunction();
       }
     }
@@ -43,7 +43,7 @@ export function useOutsideClickAlerter(
 }
 
 export function useInsideClickAlerter(
-  ref: React.MutableRefObject<any>,
+  ref: MutableRefObject<HTMLDivElement | null>,
   callbackFunction: () => void
 ): void {
   /**
@@ -54,8 +54,8 @@ export function useInsideClickAlerter(
     /**
      * Alert if clicked inside of element
      */
-    function handleClickInside(event): void {
-      if (ref.current && ref.current.contains(event.target)) {
+    function handleClickInside(event: MouseEvent): void {
+      if (ref.current && ref.current.contains(event.target as Node)) {
         callbackFunction();
       }
     }

@@ -21,15 +21,16 @@
 import React, { ReactElement } from "react";
 
 import { stripPatternFromQuery } from "../../shared/util";
+import { AutoCompleteResult } from "./auto_complete_input";
 
 interface AutoCompleteSuggestionsPropType {
-  allResults: any[];
+  allResults: AutoCompleteResult[];
   baseInput: string;
-  onClick: (result: any) => void;
+  onClick: (result: AutoCompleteResult) => void;
   hoveredIdx: number;
 }
 
-function AutoCompleteSuggestions(
+export function AutoCompleteSuggestions(
   props: AutoCompleteSuggestionsPropType
 ): ReactElement {
   function getIcon(query: string, matched_query: string): string {
@@ -42,7 +43,7 @@ function AutoCompleteSuggestions(
   return (
     <div className="search-results-place search-results-section">
       <div className="search-input-results-list" tabIndex={-1}>
-        {props.allResults.map((result: any, idx: number) => {
+        {props.allResults.map((result: AutoCompleteResult, idx: number) => {
           return (
             <div key={idx}>
               <div
@@ -83,5 +84,3 @@ function AutoCompleteSuggestions(
     </div>
   );
 }
-
-export default AutoCompleteSuggestions;

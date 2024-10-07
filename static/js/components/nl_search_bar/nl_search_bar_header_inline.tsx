@@ -21,7 +21,7 @@
 import React, { ReactElement } from "react";
 
 import { NlSearchBarImplementationProps } from "../nl_search_bar";
-import AutoCompleteInput from "./auto_complete_input";
+import { AutoCompleteInput } from "./auto_complete_input";
 
 const NlSearchBarHeaderInline = ({
   value,
