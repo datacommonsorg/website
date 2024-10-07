@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import json
-from urllib.parse import urlencode
 
 from flask import Blueprint
 from flask import request

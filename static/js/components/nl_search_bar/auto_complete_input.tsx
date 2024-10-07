@@ -54,7 +54,7 @@ interface AutoCompleteInputPropType {
   barType: string;
 }
 
-export function AutoCompleteInput(
+export default function AutoCompleteInput(
   props: AutoCompleteInputPropType
 ): ReactElement {
   const wrapperRef = useRef(null);
@@ -253,5 +253,3 @@ export function AutoCompleteInput(
     </>
   );
 }
-
-export default AutoCompleteInput;

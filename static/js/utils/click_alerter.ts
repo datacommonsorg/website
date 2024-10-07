@@ -16,7 +16,7 @@
 
 import { useEffect } from "react";
 
-export function useOutsideClickAlerter(ref: React.MutableRefObject<any>, callbackFunction): void {
+export function useOutsideClickAlerter(ref: React.MutableRefObject<any>, callbackFunction: () => void): void {
   /**
    * Initiates component that calls the callback function when a click is
    * registered outside of the referenced component.
@@ -25,7 +25,7 @@ export function useOutsideClickAlerter(ref: React.MutableRefObject<any>, callbac
     /**
      * Alert if clicked on outside of element
      */
-    function handleClickOutside(event) {
+    function handleClickOutside(event): void {
       if (ref.current && !ref.current.contains(event.target)) {
         callbackFunction();
       }
@@ -39,7 +39,7 @@ export function useOutsideClickAlerter(ref: React.MutableRefObject<any>, callbac
   }, [ref]);
 }
 
-export function useInsideClickAlerter(ref: React.MutableRefObject<any>, callbackFunction): void {
+export function useInsideClickAlerter(ref: React.MutableRefObject<any>, callbackFunction: () => void): void {
   /**
    * Initiates component that calls the callback function when a click is
    * registered inside of the referenced component.
@@ -48,7 +48,7 @@ export function useInsideClickAlerter(ref: React.MutableRefObject<any>, callback
     /**
      * Alert if clicked inside of element
      */
-    function handleClickInside(event) {
+    function handleClickInside(event): void {
       if (ref.current && ref.current.contains(event.target)) {
         callbackFunction();
       }
