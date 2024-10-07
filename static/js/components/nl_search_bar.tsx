@@ -21,7 +21,7 @@
 import React, { ReactElement, useEffect, useState } from "react";
 
 import NlSearchBarHeaderInline from "./nl_search_bar/nl_search_bar_header_inline";
-import NlSearchBarStandard from "./nl_search_bar/nl_search_bar_standard";
+import { NlSearchBarStandard } from "./nl_search_bar/nl_search_bar_standard";
 
 interface NlSearchBarPropType {
   variant?: "standard" | "header-inline";
@@ -45,7 +45,7 @@ export interface NlSearchBarImplementationProps {
   //the id of the input
   inputId: string;
   //the change event (used to trigger appropriate state changes in this parent)
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (newValue: string) => void;
   //a function to be called once a search is run
   onSearch: () => void;
   //the autofocus attribute of the input will be set to shouldAutoFocus
@@ -76,8 +76,8 @@ export function NlSearchBar(props: NlSearchBarPropType): ReactElement {
     invalid,
     placeholder: props.placeholder,
     inputId: props.inputId,
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => {
-      setValue(e.target.value);
+    onChange: (newValue: string) => {
+      setValue(newValue);
       setInvalid(false);
     },
     onSearch: handleSearch,
