@@ -10,6 +10,66 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Death"
+                    ],
+                    "title": "Number of Deaths in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death"
+                    ],
+                    "title": "Number of Deaths in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Number of Deaths in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Deaths Per Capita in the World",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Deaths Per Capita in the World",
+                    "statVarKey": [
+                      "Count_Death_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Deaths Per Capita in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Deaths Per Capita"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Count_Death_AsAFractionOfCount_Person"
                     ],
                     "title": "Deaths Per Capita in the World (${date})",
@@ -20,6 +80,54 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Deaths Per Capita in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Deaths Per Capita in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in the World",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Life Expectancy in the World",
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Life Expectancy"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "LifeExpectancy_Person"
                     ],
@@ -27,9 +135,41 @@
                     "type": "MAP"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
               }
             ],
-            "title": "Deaths Per Capita and Life Expectancy in the World"
+            "title": "Life Expectancy in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female",
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Life Expectancy by Gender in the World",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Life Expectancy by Gender"
           },
           {
             "columns": [
@@ -47,6 +187,27 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "description": "Life expectancy at birth indicates the number of years a newborn infant would live if prevailing patterns of mortality at the time of its birth were to stay the same throughout its life. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
+            "title": "Female Life Expectancy in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
@@ -54,9 +215,25 @@
                     "type": "MAP"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Male Life Expectancy in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
               }
             ],
-            "title": "Life Expectancy by Gender in the World"
+            "description": "Life expectancy at birth indicates the number of years a newborn infant would live if prevailing patterns of mortality at the time of its birth were to stay the same throughout its life. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
+            "title": "Male Life Expectancy in the World"
           },
           {
             "columns": [
@@ -74,6 +251,26 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "WHO/WHS4_117"
+                    ],
+                    "title": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%) in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%) in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "WHO/WHS4_128"
                     ],
@@ -85,6 +282,26 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "WHO/WHS4_128"
+                    ],
+                    "title": "Neonates Protected at Birth Against Neonatal Tetanus (Pab) (%) in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Neonates Protected at Birth Against Neonatal Tetanus (Pab) (%) in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "WHO/WHS4_129"
                     ],
@@ -92,9 +309,24 @@
                     "type": "MAP"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "WHO/WHS4_129"
+                    ],
+                    "title": "Hib (Hib3) Immunization Coverage Among 1-Year-Olds (%) in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
               }
             ],
-            "title": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%) and More in the World"
+            "title": "Hib (Hib3) Immunization Coverage Among 1-Year-Olds (%) in the World"
           },
           {
             "columns": [
@@ -112,6 +344,26 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "WHO/M_Est_smk_daily"
+                    ],
+                    "title": "% Daily Tobacco Smokers (Estimate) in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "% Daily Tobacco Smokers (Estimate) in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "WHO/NCD_BMI_18A"
                     ],
@@ -123,27 +375,20 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
-                      "WHO/NCD_BMI_30A"
+                      "WHO/NCD_BMI_18A"
                     ],
-                    "title": "% Obesity Among Adults, BMI >= 30 in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/NCD_PAC"
-                    ],
-                    "title": "% Insufficient Physical Activity Among Adults Aged 18+ Years (Crude Estimate) in the World (${date})",
-                    "type": "MAP"
+                    "title": "% Underweight Among Adults, BMI < 18 in the World (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Health Behaviors in the World"
+            "title": "% Underweight Among Adults, BMI < 18 in the World"
           },
           {
             "columns": [
@@ -157,9 +402,85 @@
                     "type": "MAP"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "WHO/WHS4_543"
+                    ],
+                    "title": "Bcg Immunization Coverage Among 1-Year-Olds (%) in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
               }
             ],
-            "title": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%) and More in the World"
+            "title": "Bcg Immunization Coverage Among 1-Year-Olds (%) in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_MORT.SEX--F"
+                    ],
+                    "title": "Maternal Mortality Ratio in the World",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Maternal Mortality Ratio in the World",
+                    "statVarKey": [
+                      "sdg/SH_STA_MORT.SEX--F"
+                    ],
+                    "title": "Maternal Mortality Ratio in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: estimates by WHO, UNICEF, UNFPA, world bank group and UNDESA/Population division. Geneva: world health organization; 2023.",
+            "title": "Maternal Mortality Ratio"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_MORT.SEX--F"
+                    ],
+                    "title": "Maternal Mortality Ratio in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "sdg/SH_STA_MORT.SEX--F"
+                    ],
+                    "title": "Maternal Mortality Ratio in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: estimates by WHO, UNICEF, UNFPA, world bank group and UNDESA/Population division. Geneva: world health organization; 2023.",
+            "title": "Maternal Mortality Ratio in the World"
           },
           {
             "columns": [
@@ -177,16 +498,20 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
-                      "sdg/SH_STA_MORT.SEX--F"
+                      "WHO/MORT_MATERNALNUM"
                     ],
-                    "title": "Maternal Mortality Ratio in the World (${date})",
-                    "type": "MAP"
+                    "title": "Number of Maternal Deaths in the World (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Number of Maternal Deaths and Maternal Mortality Ratio in the World"
+            "title": "Number of Maternal Deaths in the World"
           },
           {
             "columns": [
@@ -204,6 +529,26 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "WHO/CM_01"
+                    ],
+                    "title": "Number of Under-Five Deaths in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Number of Under-Five Deaths in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "WHO/CM_02"
                     ],
@@ -215,16 +560,20 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
-                      "WHO/CM_03"
+                      "WHO/CM_02"
                     ],
-                    "title": "Number of Neonatal Deaths in the World (${date})",
-                    "type": "MAP"
+                    "title": "Number of Infant Deaths in the World (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Child Mortality in the World"
+            "title": "Number of Infant Deaths in the World"
           },
           {
             "columns": [
@@ -242,6 +591,26 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "WHO/SA_0000001418"
+                    ],
+                    "title": "Alcohol Use Disorders, Per 100,000 in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Alcohol Use Disorders, Per 100,000 in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "WHO/SA_0000001419"
                     ],
@@ -253,192 +622,20 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
-                      "WHO/SA_0000001420"
+                      "WHO/SA_0000001419"
                     ],
-                    "title": "Colon and Rectum Cancers, Per 100,000 in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/SA_0000001421"
-                    ],
-                    "title": "Diabetes Mellitus, Per 100,000 in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/SA_0000001422"
-                    ],
-                    "title": "Drownings, Per 100,000 in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/SA_0000001423"
-                    ],
-                    "title": "Falls, Per 100,000 in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/SA_0000001424"
-                    ],
-                    "title": "Fires, Per 100,000 in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/SA_0000001425"
-                    ],
-                    "title": "Ischaemic Heart Disease, Per 100,000 in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/SA_0000001426"
-                    ],
-                    "title": "Liver Cancer, Per 100,000 in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/SA_0000001427"
-                    ],
-                    "title": "Liver Cirrhosis, Per 100,000 in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/SA_0000001429"
-                    ],
-                    "title": "Mouth and Oropharynx Cancer, Per 100,000 in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/SA_0000001430"
-                    ],
-                    "title": "Oesophagus Cancer, Per 100,000 in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/SA_0000001431"
-                    ],
-                    "title": "Poisoning, Per 100,000 in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/SA_0000001432"
-                    ],
-                    "title": "Prematurity and Low Birth Rate, Per 100,000 in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/SA_0000001433"
-                    ],
-                    "title": "Road Traffic Accidents, Per 100,000 in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/SA_0000001434"
-                    ],
-                    "title": "Self-Inflicted Injury, Per 100,000 in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/SA_0000001435"
-                    ],
-                    "title": "Other Unintentional Injuries, Per 100,000 in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/SA_0000001436"
-                    ],
-                    "title": "Violence, Per 100,000 in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/SA_0000001689"
-                    ],
-                    "title": "Cerebrovascular Disease, Per 100,000 in the World (${date})",
-                    "type": "MAP"
+                    "title": "Breast Cancer, Per 100,000 in the World (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Disability-Adjusted Life-Years in the World"
+            "title": "Breast Cancer, Per 100,000 in the World"
           },
           {
             "columns": [
@@ -456,6 +653,26 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "WHO/NTD_1"
+                    ],
+                    "title": "New Cases of Buruli Ulcer in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "New Cases of Buruli Ulcer in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "WHO/NTD_4"
                     ],
@@ -467,38 +684,20 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
-                      "WHO/NTD_LEISHCNUM"
+                      "WHO/NTD_4"
                     ],
-                    "title": "Cases of Cutaneous Leishmaniasis in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/NTD_LEISHVNUM"
-                    ],
-                    "title": "Cases of Visceral Leishmaniasis in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/NTD_LEPR5"
-                    ],
-                    "title": "New G2D Leprosy Cases in the World (${date})",
-                    "type": "MAP"
+                    "title": "New Cases of Human African Trypanosomiasis in the World (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Cases of Neglected Troplical Diseases in the World"
+            "title": "New Cases of Human African Trypanosomiasis in the World"
           },
           {
             "columns": [
@@ -516,6 +715,26 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "WHO/LBW_PREVALENCE"
+                    ],
+                    "title": "% Low Birth Weight in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "% Low Birth Weight in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "WHO/NUTOVERWEIGHTPREV"
                     ],
@@ -527,60 +746,20 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
-                      "WHO/NUTRITION_ANAEMIA_CHILDREN_PREV"
+                      "WHO/NUTOVERWEIGHTPREV"
                     ],
-                    "title": "% Anaemia, Children Aged 6-59 Months in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/NUTRITION_WA_2"
-                    ],
-                    "title": "% Underweight, Children Under 5 Years in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/NUTRITION_WH_2"
-                    ],
-                    "title": "% Wasted, Children Under 5 Years in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/NUTRITION_WH_3"
-                    ],
-                    "title": "% Severely Wasted, Children Under 5 Years in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/NUTSTUNTINGPREV"
-                    ],
-                    "title": "% Stunting, Children Under 5 Years in the World (${date})",
-                    "type": "MAP"
+                    "title": "% Overweight, Children Under 5 Years in the World (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Non-communicable Diseases Among Children in the World"
+            "title": "% Overweight, Children Under 5 Years in the World"
           },
           {
             "columns": [
@@ -598,6 +777,26 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "WHO/GDO_q35"
+                    ],
+                    "title": "Estimated Population-Based Prevalence of Depression in the World (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Estimated Population-Based Prevalence of Depression in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "WHO/SDG_SH_DTH_RNCOM_ChronicRespiratoryDiseases"
                     ],
@@ -609,41 +808,27 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
-                      "WHO/SDG_SH_DTH_RNCOM_DiabetesMellitus"
+                      "WHO/SDG_SH_DTH_RNCOM_ChronicRespiratoryDiseases"
                     ],
-                    "title": "Non-Communicable Disease Deaths, by Disease & Sex, Diabetes Mellitus in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/SDG_SH_DTH_RNCOM_MajorCardiovascularDiseases"
-                    ],
-                    "title": "Non-Communicable Diseases Deaths, by Disease & Sex, Major Cardiovascular Diseases in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/SDG_SH_DTH_RNCOM_MalignantNeoplasms"
-                    ],
-                    "title": "Non-Communicable Diseases Deaths, by Disease & Sex, Malignant Neoplasms in the World (${date})",
-                    "type": "MAP"
+                    "title": "Non-Communicable Disease Deaths, by Disease & Sex, Chronic Respiratory Diseases in the World (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Deaths Due to Non-communicable Diseases in the World"
+            "title": "Non-Communicable Disease Deaths, by Disease & Sex, Chronic Respiratory Diseases in the World"
           }
         ],
         "statVarSpec": {
+          "Count_Death": {
+            "name": "Number of Deaths",
+            "statVar": "Count_Death"
+          },
           "Count_Death_AsAFractionOfCount_Person": {
             "name": "Deaths Per Capita",
             "statVar": "Count_Death_AsAFractionOfCount_Person"
@@ -668,10 +853,6 @@
             "name": "Number Of Infant Deaths",
             "statVar": "WHO/CM_02"
           },
-          "WHO/CM_03": {
-            "name": "Number Of Neonatal Deaths",
-            "statVar": "WHO/CM_03"
-          },
           "WHO/GDO_q35": {
             "name": "Estimated Population-Based Prevalence Of Depression",
             "statVar": "WHO/GDO_q35"
@@ -692,14 +873,6 @@
             "name": "% Underweight Among Adults, BMI < 18",
             "statVar": "WHO/NCD_BMI_18A"
           },
-          "WHO/NCD_BMI_30A": {
-            "name": "% Obesity Among Adults, BMI >= 30",
-            "statVar": "WHO/NCD_BMI_30A"
-          },
-          "WHO/NCD_PAC": {
-            "name": "% Insufficient Physical Activity Among Adults Aged 18+ Years (Crude Estimate)",
-            "statVar": "WHO/NCD_PAC"
-          },
           "WHO/NTD_1": {
             "name": "New Cases Of Buruli Ulcer",
             "statVar": "WHO/NTD_1"
@@ -708,41 +881,9 @@
             "name": "New Cases Of Human African Trypanosomiasis",
             "statVar": "WHO/NTD_4"
           },
-          "WHO/NTD_LEISHCNUM": {
-            "name": "Cases Of Cutaneous Leishmaniasis",
-            "statVar": "WHO/NTD_LEISHCNUM"
-          },
-          "WHO/NTD_LEISHVNUM": {
-            "name": "Cases Of Visceral Leishmaniasis",
-            "statVar": "WHO/NTD_LEISHVNUM"
-          },
-          "WHO/NTD_LEPR5": {
-            "name": "New G2D Leprosy Cases",
-            "statVar": "WHO/NTD_LEPR5"
-          },
           "WHO/NUTOVERWEIGHTPREV": {
             "name": "% Overweight, Children Under 5 Years",
             "statVar": "WHO/NUTOVERWEIGHTPREV"
-          },
-          "WHO/NUTRITION_ANAEMIA_CHILDREN_PREV": {
-            "name": "% Anaemia, Children Aged 6-59 Months",
-            "statVar": "WHO/NUTRITION_ANAEMIA_CHILDREN_PREV"
-          },
-          "WHO/NUTRITION_WA_2": {
-            "name": "% Underweight, Children Under 5 Years",
-            "statVar": "WHO/NUTRITION_WA_2"
-          },
-          "WHO/NUTRITION_WH_2": {
-            "name": "% Wasted, Children Under 5 Years",
-            "statVar": "WHO/NUTRITION_WH_2"
-          },
-          "WHO/NUTRITION_WH_3": {
-            "name": "% Severely Wasted, Children Under 5 Years",
-            "statVar": "WHO/NUTRITION_WH_3"
-          },
-          "WHO/NUTSTUNTINGPREV": {
-            "name": "% Stunting, Children Under 5 Years",
-            "statVar": "WHO/NUTSTUNTINGPREV"
           },
           "WHO/SA_0000001418": {
             "name": "Alcohol Use Disorders, Per 100,000",
@@ -752,89 +893,9 @@
             "name": "Breast Cancer, Per 100,000",
             "statVar": "WHO/SA_0000001419"
           },
-          "WHO/SA_0000001420": {
-            "name": "Colon And Rectum Cancers, Per 100,000",
-            "statVar": "WHO/SA_0000001420"
-          },
-          "WHO/SA_0000001421": {
-            "name": "Diabetes Mellitus, Per 100,000",
-            "statVar": "WHO/SA_0000001421"
-          },
-          "WHO/SA_0000001422": {
-            "name": "Drownings, Per 100,000",
-            "statVar": "WHO/SA_0000001422"
-          },
-          "WHO/SA_0000001423": {
-            "name": "Falls, Per 100,000",
-            "statVar": "WHO/SA_0000001423"
-          },
-          "WHO/SA_0000001424": {
-            "name": "Fires, Per 100,000",
-            "statVar": "WHO/SA_0000001424"
-          },
-          "WHO/SA_0000001425": {
-            "name": "Ischaemic Heart Disease, Per 100,000",
-            "statVar": "WHO/SA_0000001425"
-          },
-          "WHO/SA_0000001426": {
-            "name": "Liver Cancer, Per 100,000",
-            "statVar": "WHO/SA_0000001426"
-          },
-          "WHO/SA_0000001427": {
-            "name": "Liver Cirrhosis, Per 100,000",
-            "statVar": "WHO/SA_0000001427"
-          },
-          "WHO/SA_0000001429": {
-            "name": "Mouth And Oropharynx Cancer, Per 100,000",
-            "statVar": "WHO/SA_0000001429"
-          },
-          "WHO/SA_0000001430": {
-            "name": "Oesophagus Cancer, Per 100,000",
-            "statVar": "WHO/SA_0000001430"
-          },
-          "WHO/SA_0000001431": {
-            "name": "Poisoning, Per 100,000",
-            "statVar": "WHO/SA_0000001431"
-          },
-          "WHO/SA_0000001432": {
-            "name": "Prematurity And Low Birth Rate, Per 100,000",
-            "statVar": "WHO/SA_0000001432"
-          },
-          "WHO/SA_0000001433": {
-            "name": "Road Traffic Accidents, Per 100,000",
-            "statVar": "WHO/SA_0000001433"
-          },
-          "WHO/SA_0000001434": {
-            "name": "Self-Inflicted Injury, Per 100,000",
-            "statVar": "WHO/SA_0000001434"
-          },
-          "WHO/SA_0000001435": {
-            "name": "Other Unintentional Injuries, Per 100,000",
-            "statVar": "WHO/SA_0000001435"
-          },
-          "WHO/SA_0000001436": {
-            "name": "Violence, Per 100,000",
-            "statVar": "WHO/SA_0000001436"
-          },
-          "WHO/SA_0000001689": {
-            "name": "Cerebrovascular Disease, Per 100,000",
-            "statVar": "WHO/SA_0000001689"
-          },
           "WHO/SDG_SH_DTH_RNCOM_ChronicRespiratoryDiseases": {
             "name": "Non-Communicable Disease Deaths, By Disease & Sex, Chronic Respiratory Diseases",
             "statVar": "WHO/SDG_SH_DTH_RNCOM_ChronicRespiratoryDiseases"
-          },
-          "WHO/SDG_SH_DTH_RNCOM_DiabetesMellitus": {
-            "name": "Non-Communicable Disease Deaths, By Disease & Sex, Diabetes Mellitus",
-            "statVar": "WHO/SDG_SH_DTH_RNCOM_DiabetesMellitus"
-          },
-          "WHO/SDG_SH_DTH_RNCOM_MajorCardiovascularDiseases": {
-            "name": "Non-Communicable Diseases Deaths, By Disease & Sex, Major Cardiovascular Diseases",
-            "statVar": "WHO/SDG_SH_DTH_RNCOM_MajorCardiovascularDiseases"
-          },
-          "WHO/SDG_SH_DTH_RNCOM_MalignantNeoplasms": {
-            "name": "Non-Communicable Diseases Deaths, By Disease & Sex, Malignant Neoplasms",
-            "statVar": "WHO/SDG_SH_DTH_RNCOM_MalignantNeoplasms"
           },
           "WHO/WHS4_117": {
             "name": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%)",
@@ -886,7 +947,436 @@
       "place_type": "Place"
     }
   ],
-  "relatedThings": {},
+  "relatedThings": {
+    "childPlaces": {
+      "Country": [
+        {
+          "dcid": "country/ABW",
+          "name": "Aruba",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AFG",
+          "name": "Afghanistan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AGO",
+          "name": "Angola",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AIA",
+          "name": "Anguilla",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ALA",
+          "name": "\u00c5land Islands",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ALB",
+          "name": "Albania",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AND",
+          "name": "Andorra",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ANT",
+          "name": "Netherlands Antilles",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ARE",
+          "name": "United Arab Emirates",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ARG",
+          "name": "Argentina",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ARM",
+          "name": "Armenia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ASM",
+          "name": "American Samoa",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATA",
+          "name": "Antarctica",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATB",
+          "name": "British Antarctic Territory",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATF",
+          "name": "French Southern Territories",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATG",
+          "name": "Antigua and Barbuda",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATN",
+          "name": "Dronning Maud Land",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AUS",
+          "name": "Australia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AUT",
+          "name": "Austria",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AZE",
+          "name": "Azerbaijan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BDI",
+          "name": "Burundi",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BEL",
+          "name": "Belgium",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BEN",
+          "name": "Benin",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BES",
+          "name": "Bonaire, Sint Eustatius and Saba",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BFA",
+          "name": "Burkina Faso",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BGD",
+          "name": "Bangladesh",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BGR",
+          "name": "Bulgaria",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BHR",
+          "name": "Bahrain",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BHS",
+          "name": "Bahamas",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BIH",
+          "name": "Bosnia and Herzegovina",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BLM",
+          "name": "Saint Barth\u00e9lemy",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BLR",
+          "name": "Belarus",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BLZ",
+          "name": "Belize",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BMU",
+          "name": "Bermuda",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BOL",
+          "name": "Bolivia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BRA",
+          "name": "Brazil",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BRB",
+          "name": "Barbados",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BRN",
+          "name": "Brunei",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BTN",
+          "name": "Bhutan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BVT",
+          "name": "Bouvet Island",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BWA",
+          "name": "Botswana",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CAF",
+          "name": "Central African Republic",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CAN",
+          "name": "Canada",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CCK",
+          "name": "Cocos (Keeling) Islands",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CHE",
+          "name": "Switzerland",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CHL",
+          "name": "Chile",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CHN",
+          "name": "China",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CIV",
+          "name": "C\u00f4te d'Ivoire",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CMR",
+          "name": "Cameroon",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/COD",
+          "name": "Congo [DRC]",
+          "types": [
+            "Country"
+          ]
+        }
+      ]
+    },
+    "childTopics": [
+      {
+        "dcid": "dc/topic/Mortality",
+        "name": "Mortality",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/GlobalHealth",
+        "name": "Global Health",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "exploreMore": {
+      "LifeExpectancy_Person": {
+        "gender": [
+          "LifeExpectancy_Person_Female",
+          "LifeExpectancy_Person_Male"
+        ]
+      }
+    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Health",
+        "name": "Health",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Root",
+        "name": "Statistics",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/Demographics",
+        "name": "Demographics",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Economy",
+        "name": "Economy",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Equity",
+        "name": "Equity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Sustainability",
+        "name": "Sustainability",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
   "svSource": "CURRENT_QUERY",
   "userMessages": []
 }

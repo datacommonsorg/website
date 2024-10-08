@@ -12,8 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-project: datcom-karnataka
+# DNS
+domain: worldbank.datacommons.org
+ip: 35.227.235.65
 
+# Helm Config
+project: datcom-karnataka
 cluster_prefix: "website"
 
 namespace:
@@ -49,6 +53,13 @@ serviceGroups:
       memoryLimit: "8G"
 nl:
   enabled: true
+  env:
+    default_indexes:
+      - medium_ft
+    enabled_indexes:
+      - medium_ft
+      - sdg_ft
+      - undata_ft
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]

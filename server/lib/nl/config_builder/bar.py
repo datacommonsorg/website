@@ -12,18 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import re
 from typing import List
 
 from server.config.subject_page_pb2 import BarTileSpec
 from server.config.subject_page_pb2 import StatVarSpec
 from server.config.subject_page_pb2 import Tile
-from server.lib.explore.params import is_special_dc
 from server.lib.nl.config_builder import base
 from server.lib.nl.config_builder.formatting_utils import \
     title_for_two_or_more_svs
 from server.lib.nl.detection.date import get_date_string
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RankingType
+from server.lib.nl.explore.params import is_special_dc
 from server.lib.nl.fulfillment.types import ChartSpec
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
@@ -32,6 +33,7 @@ import server.lib.nl.fulfillment.types as types
 
 _MAX_VARIABLE_LIMIT = 15
 _MAX_PLACES_LIMIT = 15
+_SKIP_SORTING_SV_REGEX = r'\d+To\d+'
 
 
 # Get best date to use for an sv and list of places.
@@ -120,8 +122,12 @@ def multiple_place_bar_block(column,
 def get_sort_order(state: PopulateState, cspec: ChartSpec):
   # Use no default sort_order for special DC, since UN
   # want the order to be as provided in variable groupings.
-  sort_order = None if is_special_dc(state.uttr.insight_ctx) \
-    else BarTileSpec.DESCENDING
+  sort_order = None if is_special_dc(
+      state.uttr.insight_ctx) else BarTileSpec.DESCENDING
+
+  # If any of the svs in the chart spec are a range, no default sort order
+  if any([re.search(_SKIP_SORTING_SV_REGEX, sv) for sv in cspec.svs]):
+    sort_order = None
 
   if (RankingType.LOW in cspec.ranking_types and
       RankingType.HIGH not in cspec.ranking_types):

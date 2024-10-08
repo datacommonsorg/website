@@ -45,6 +45,7 @@ import {
 } from "../../shared/ga_events";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
+import { shouldSkipPlaceOverview } from "../../utils/explore_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
 import { AutoPlay } from "./autoplay";
 import { ErrorResult } from "./error_result";
@@ -208,12 +209,18 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       exploreMore: relatedThings["exploreMore"],
       mainTopics: relatedThings["mainTopics"],
       sessionId: "session" in fulfillData ? fulfillData["session"]["id"] : "",
+      svSource: fulfillData["svSource"],
     };
     if (
       pageMetadata &&
       pageMetadata.pageConfig &&
       pageMetadata.pageConfig.categories
     ) {
+      if (shouldSkipPlaceOverview(pageMetadata)) {
+        const placeDcid = pageMetadata.place.dcid;
+        const url = `/place/${placeDcid}`;
+        window.location.replace(url);
+      }
       // Note: for category links, we only use the main-topic.
       for (const category of pageMetadata.pageConfig.categories) {
         if (category.dcid) {
@@ -274,6 +281,9 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     const detector = getSingleParam(hashParams[URL_HASH_PARAMS.DETECTOR]);
     const testMode = getSingleParam(hashParams[URL_HASH_PARAMS.TEST_MODE]);
     const i18n = getSingleParam(hashParams[URL_HASH_PARAMS.I18N]);
+    const includeStopWords = getSingleParam(
+      hashParams[URL_HASH_PARAMS.INCLUDE_STOP_WORDS]
+    );
     const defaultPlace = getSingleParam(
       hashParams[URL_HASH_PARAMS.DEFAULT_PLACE]
     );
@@ -306,7 +316,8 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         client,
         defaultPlace,
         mode,
-        reranker
+        reranker,
+        includeStopWords
       )
         .then((resp) => {
           processFulfillData(resp, false);
@@ -417,7 +428,8 @@ const fetchDetectAndFufillData = async (
   client: string,
   defaultPlace: string,
   mode: string,
-  reranker: string
+  reranker: string,
+  includeStopWords: string
 ) => {
   const argsMap = new Map<string, string>();
   if (detector) {
@@ -440,6 +452,9 @@ const fetchDetectAndFufillData = async (
   }
   if (reranker) {
     argsMap.set(URL_HASH_PARAMS.RERANKER, reranker);
+  }
+  if (includeStopWords) {
+    argsMap.set(URL_HASH_PARAMS.INCLUDE_STOP_WORDS, includeStopWords);
   }
   if (idx) {
     argsMap.set(URL_HASH_PARAMS.IDX, idx);

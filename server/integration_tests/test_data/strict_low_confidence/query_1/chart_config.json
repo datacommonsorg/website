@@ -1,37 +1,14 @@
 {
+  "blocked": true,
   "client": "test",
-  "config": {
-    "categories": [
-      {
-        "blocks": [
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "type": "PLACE_OVERVIEW"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ],
-    "metadata": {
-      "placeDcid": [
-        "geoId/06"
-      ]
-    }
-  },
+  "config": {},
   "context": {},
   "debug": {},
-  "entities": [],
-  "pastSourceContext": "",
+  "failure": "Sorry, could not complete your request.",
   "place": {
-    "dcid": "geoId/06",
-    "name": "California",
-    "place_type": "State"
+    "dcid": "",
+    "name": "",
+    "place_type": ""
   },
   "placeFallback": {},
   "placeSource": "CURRENT_QUERY",
@@ -46,6 +23,6 @@
   "showForm": true,
   "svSource": "UNRECOGNIZED",
   "userMessages": [
-    "Could not recognize any topic from the query. See available topic categories for California."
+    "Sorry, could not complete your request."
   ]
 }

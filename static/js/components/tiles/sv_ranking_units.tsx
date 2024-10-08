@@ -21,6 +21,7 @@ import React, { RefObject, useRef } from "react";
 
 import { VisType } from "../../apps/visualization/vis_type_configs";
 import { URL_PATH } from "../../constants/app/visualization_constants";
+import { StatVarSpec } from "../../shared/types";
 import {
   RankingData,
   RankingGroup,
@@ -57,6 +58,9 @@ interface SvRankingUnitsProps {
   footnote?: string;
   // Optional: Override sources for this tile
   sources?: string[];
+  isLoading?: boolean;
+  statVarSpecs: StatVarSpec[];
+  containerRef: React.RefObject<HTMLElement>;
 }
 
 /**
@@ -69,7 +73,6 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
   const rankingGroup = rankingData[statVar];
   const highestRankingUnitRef = useRef<HTMLDivElement>();
   const lowestRankingUnitRef = useRef<HTMLDivElement>();
-
   /**
    * Build content and triggers export modal window
    */
@@ -109,10 +112,13 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
             rankingMetadata,
             true,
             props.apiRoot,
+            props.statVarSpecs,
+            props.containerRef,
             highestRankingUnitRef,
             props.onHoverToggled,
             props.errorMsg,
-            props.sources
+            props.sources,
+            props.isLoading
           )}
           {!props.hideFooter && (
             <ChartFooter
@@ -142,10 +148,13 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                 rankingMetadata,
                 true,
                 props.apiRoot,
+                props.statVarSpecs,
+                props.containerRef,
                 highestRankingUnitRef,
                 props.onHoverToggled,
                 undefined,
-                props.sources
+                props.sources,
+                props.isLoading
               )}
               {!props.hideFooter && (
                 <ChartFooter
@@ -170,10 +179,13 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
                 rankingMetadata,
                 false,
                 props.apiRoot,
+                props.statVarSpecs,
+                props.containerRef,
                 lowestRankingUnitRef,
                 props.onHoverToggled,
                 undefined,
-                props.sources
+                props.sources,
+                props.isLoading
               )}
               {!props.hideFooter && (
                 <ChartFooter
@@ -294,10 +306,13 @@ export function getRankingUnit(
   rankingMetadata: RankingTileSpec,
   isHighest: boolean,
   apiRoot: string,
+  statVarSpecs: StatVarSpec[],
+  containerRef: React.RefObject<HTMLElement>,
   rankingUnitRef?: RefObject<HTMLDivElement>,
   onHoverToggled?: (placeDcid: string, hover: boolean) => void,
   errorMsg?: string,
-  sources?: string[]
+  sources?: string[],
+  isLoading?: boolean
 ): JSX.Element {
   const { topPoints, bottomPoints } = getRankingUnitPoints(
     rankingMetadata,
@@ -322,13 +337,19 @@ export function getRankingUnit(
       bottomPoints={bottomPoints}
       numDataPoints={rankingGroup.numDataPoints}
       isHighest={isHighest}
+      isLoading={isLoading}
       svNames={
         rankingMetadata.showMultiColumn ? rankingGroup.svName : undefined
       }
       onHoverToggled={onHoverToggled}
       headerChild={
         errorMsg ? null : (
-          <TileSources sources={sources || rankingGroup.sources} />
+          <TileSources
+            apiRoot={apiRoot}
+            containerRef={containerRef}
+            sources={sources || rankingGroup.sources}
+            statVarSpecs={statVarSpecs}
+          />
         )
       }
       errorMsg={errorMsg}

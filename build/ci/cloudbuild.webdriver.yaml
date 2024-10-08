@@ -1,4 +1,4 @@
-# Copyright 2019 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 steps:
   # Build the static files
   - id: package_js
-    name: gcr.io/datcom-ci/node:2023-05-18
+    name: gcr.io/datcom-ci/node:2024-06-11
     entrypoint: /bin/bash
     waitFor: ["-"]
     args:
@@ -33,7 +33,7 @@ steps:
 
   # Run the webdriver tests
   - id: flask_webdriver_test
-    name: gcr.io/datcom-ci/webdriver-chrome:2023-12-11
+    name: gcr.io/datcom-ci/webdriver-chrome:2024-06-05
     entrypoint: /bin/sh
     waitFor:
       - package_js

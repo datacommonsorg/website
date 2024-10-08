@@ -24,16 +24,17 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { drawGaugeChart } from "../../chart/draw_gauge";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
+import { useLazyLoad } from "../../shared/hooks";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { getPoint, getSeries } from "../../utils/data_fetch_utils";
-import { datacommonsClient } from "../../utils/datacommons_client";
 import {
+  clearContainer,
   getDenomInfo,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
   ReplacementStrings,
-  showError,
   transformCsvHeader,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
@@ -65,6 +66,13 @@ export interface GaugeTilePropType {
   subtitle?: string;
   // Optional: Override sources for this tile
   sources?: string[];
+  // Optional: only load this component when it's near the viewport
+  lazyLoad?: boolean;
+  /**
+   * Optional: If lazy loading is enabled, load the component when it is within
+   * this margin of the viewport. Default: "0px"
+   */
+  lazyLoadMargin?: string;
 }
 
 export interface GaugeChartData {
@@ -84,8 +92,11 @@ export interface GaugeChartData {
 export function GaugeTile(props: GaugeTilePropType): JSX.Element {
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const [gaugeData, setGaugeData] = useState<GaugeChartData | undefined>(null);
-
+  const { shouldLoad, containerRef } = useLazyLoad(props.lazyLoadMargin);
   useEffect(() => {
+    if (props.lazyLoad && !shouldLoad) {
+      return;
+    }
     // fetch data
     if (!gaugeData || !_.isEqual(gaugeData.props, props)) {
       (async () => {
@@ -93,7 +104,7 @@ export function GaugeTile(props: GaugeTilePropType): JSX.Element {
         setGaugeData(data);
       })();
     }
-  }, [props, gaugeData]);
+  }, [props, gaugeData, shouldLoad]);
 
   const drawFn = useCallback(() => {
     // draw if data is available
@@ -116,17 +127,24 @@ export function GaugeTile(props: GaugeTilePropType): JSX.Element {
       id={props.id}
       title={props.title}
       subtitle={props.subtitle}
+      apiRoot={props.apiRoot}
       sources={props.sources || (gaugeData && gaugeData.sources)}
       replacementStrings={replacementStrings}
       allowEmbed={true}
       className={`bar-chart`}
       getDataCsv={getDataCsvCallback(props)}
-      hasErrorMsg={gaugeData && !!gaugeData.errorMsg}
+      errorMsg={gaugeData && gaugeData.errorMsg}
       footnote={props.footnote}
+      statVarSpecs={[props.statVarSpec]}
+      forwardRef={containerRef}
+      chartHeight={props.svgChartHeight}
     >
       <div
         className={`svg-container ${ASYNC_ELEMENT_HOLDER_CLASS}`}
-        style={{ minHeight: props.svgChartHeight }}
+        style={{
+          minHeight: props.svgChartHeight,
+          display: gaugeData && gaugeData.errorMsg ? "none" : "block",
+        }}
         ref={chartContainerRef}
       ></div>
     </ChartTileContainer>
@@ -203,8 +221,9 @@ const fetchData = async (props: GaugeTilePropType) => {
  * @returns Async function for fetching chart CSV
  */
 function getDataCsvCallback(props: GaugeTilePropType): () => Promise<string> {
+  const dataCommonsClient = getDataCommonsClient(props.apiRoot);
   return () => {
-    return datacommonsClient.getCsv({
+    return dataCommonsClient.getCsv({
       date: props.statVarSpec.date,
       entities: [props.place.dcid],
       fieldDelimiter: CSV_FIELD_DELIMITER,
@@ -223,7 +242,7 @@ function draw(
   svgContainer: HTMLDivElement
 ): void {
   if (chartData.errorMsg) {
-    showError(chartData.errorMsg, svgContainer);
+    clearContainer(svgContainer);
     return;
   }
   drawGaugeChart(

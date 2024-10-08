@@ -17,7 +17,7 @@
 @import "../base";
 
 body {
-  font-family: "Google Sans";
+  font-family: $font-family-sans-serif;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -31,21 +31,6 @@ body {
   margin: 0 !important;
 }
 
-#main-footer {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-#main-footer .container {
-  max-width: 100% !important;
-  padding-left: 31px !important;
-  padding-right: 31px !important;
-}
-
-#main-footer #sub-footer {
-  border-top: none !important;
-  margin-bottom: 0 !important;
-}
 
 @include media-breakpoint-up(lg) {
   #main {

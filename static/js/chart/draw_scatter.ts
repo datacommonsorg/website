@@ -537,7 +537,7 @@ function addTooltip(
   yPerCapita: boolean
 ): void {
   const div = d3.select(tooltip).style("visibility", "hidden");
-  const onTooltipMouseover = (event, point: Point) => {
+  const onTooltipMouseover = (point: Point) => {
     const element = getTooltipElement(
       point,
       xLabel,
@@ -555,7 +555,7 @@ function addTooltip(
       d3.select(svgContainer).node() as HTMLDivElement
     ).getBoundingClientRect().width;
     let left = Math.min(
-      event.offsetX + TOOLTIP_OFFSET,
+      d3.event.offsetX + TOOLTIP_OFFSET,
       containerWidth - tooltipWidth
     );
     if (left < 0) {
@@ -564,9 +564,9 @@ function addTooltip(
     } else {
       div.style("width", "fit-content");
     }
-    let top = event.offsetY - tooltipHeight - TOOLTIP_OFFSET;
+    let top = d3.event.offsetY - tooltipHeight - TOOLTIP_OFFSET;
     if (top < 0) {
-      top = event.offsetY + TOOLTIP_OFFSET;
+      top = d3.event.offsetY + TOOLTIP_OFFSET;
     }
     div
       .style("left", left + "px")
@@ -938,9 +938,7 @@ export function drawScatter(
     .attr("cy", (point) => yScale(point.yVal))
     .attr("stroke", "rgb(147, 0, 0)")
     .style("opacity", "0.7")
-    .on("click", (event: MouseEvent, point: Point) =>
-      redirectAction(point.place.dcid)
-    );
+    .on("click", (point: Point) => redirectAction(point.place.dcid));
 
   const pointSizeScale = options.showPopulation
     ? getPointSizeScale(points, options.showPopulation === SHOW_POPULATION_LOG)

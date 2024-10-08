@@ -37,20 +37,23 @@
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15
-                    },
-                    "comparisonPlaces": [
-                      "country/USA"
-                    ],
+                    "description": "Proportion of Children/Households Receiving Child/Family Cash Benefit in United States of America",
                     "statVarKey": [
-                      "sdg/SI_COV_CHLD_multiple_place_bar_block",
-                      "sdg/SI_COV_CHLD.SEX--F_multiple_place_bar_block",
-                      "sdg/SI_COV_CHLD.SEX--M_multiple_place_bar_block"
+                      "sdg/SI_COV_CHLD"
                     ],
-                    "title": "Proportion of Children/Households Receiving Child/Family Cash Benefit, by Sex (%) in United States of America (${date})",
-                    "type": "BAR"
+                    "title": "Proportion of Children/Households Receiving Child/Family Cash Benefit in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SI_COV_CHLD"
+                    ],
+                    "title": "Proportion of Children/Households Receiving Child/Family Cash Benefit in United States of America",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -62,23 +65,20 @@
               {
                 "tiles": [
                   {
-                    "description": "Proportion of Employed Population Covered in the Event of Work Injury in United States of America",
-                    "statVarKey": [
-                      "sdg/SI_COV_WKINJRY"
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/USA"
                     ],
-                    "title": "Proportion of Employed Population Covered in the Event of Work Injury in United States of America",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "statVarKey": [
-                      "sdg/SI_COV_WKINJRY"
+                      "sdg/SI_COV_WKINJRY_multiple_place_bar_block",
+                      "sdg/SI_COV_WKINJRY.SEX--F_multiple_place_bar_block",
+                      "sdg/SI_COV_WKINJRY.SEX--M_multiple_place_bar_block"
                     ],
-                    "title": "Proportion of Employed Population Covered in the Event of Work Injury in United States of America",
-                    "type": "LINE"
+                    "title": "Proportion of Employed Population Covered in the Event of Work Injury, by Sex (%) in United States of America (${date})",
+                    "type": "BAR"
                   }
                 ]
               }
@@ -263,11 +263,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Deaths and Missing Persons Attributed to Disasters in United States of America",
+                    "description": "Number of Deaths and Missing Persons Attributed to Disasters in United States of America",
                     "statVarKey": [
                       "sdg/VC_DSR_MMHN"
                     ],
-                    "title": "Deaths and Missing Persons Attributed to Disasters in United States of America",
+                    "title": "Number of Deaths and Missing Persons Attributed to Disasters in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -278,25 +278,25 @@
                     "statVarKey": [
                       "sdg/VC_DSR_MMHN"
                     ],
-                    "title": "Deaths and Missing Persons Attributed to Disasters in United States of America",
+                    "title": "Number of Deaths and Missing Persons Attributed to Disasters in United States of America",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
-            "title": "Deaths and Missing Persons Attributed to Disasters"
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "title": "Number of Deaths and Missing Persons Attributed to Disasters"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Deaths and Missing Persons Attributed to Disasters Per 100K Population in United States of America",
+                    "description": "Number of Deaths and Missing Persons Attributed to Disasters Per 100K Population in United States of America",
                     "statVarKey": [
                       "sdg/VC_DSR_MTMP"
                     ],
-                    "title": "Deaths and Missing Persons Attributed to Disasters Per 100K Population in United States of America",
+                    "title": "Number of Deaths and Missing Persons Attributed to Disasters Per 100K Population in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -307,25 +307,25 @@
                     "statVarKey": [
                       "sdg/VC_DSR_MTMP"
                     ],
-                    "title": "Deaths and Missing Persons Attributed to Disasters Per 100K Population in United States of America",
+                    "title": "Number of Deaths and Missing Persons Attributed to Disasters Per 100K Population in United States of America",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
-            "title": "Deaths and Missing Persons Attributed to Disasters Per 100K Population"
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "title": "Number of Deaths and Missing Persons Attributed to Disasters Per 100K Population"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Deaths Due to Disaster in United States of America",
+                    "description": "Number of Deaths Due to Disaster in United States of America",
                     "statVarKey": [
                       "sdg/VC_DSR_MORT"
                     ],
-                    "title": "Deaths Due to Disaster in United States of America",
+                    "title": "Number of Deaths Due to Disaster in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -336,25 +336,25 @@
                     "statVarKey": [
                       "sdg/VC_DSR_MORT"
                     ],
-                    "title": "Deaths Due to Disaster in United States of America",
+                    "title": "Number of Deaths Due to Disaster in United States of America",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
-            "title": "Deaths Due to Disaster"
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "title": "Number of Deaths Due to Disaster"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Directly Affected Persons Attributed to Disasters Per 100K Population in United States of America",
+                    "description": "Number of Directly Affected Persons Attributed to Disasters Per 100K Population in United States of America",
                     "statVarKey": [
                       "sdg/VC_DSR_DAFF"
                     ],
-                    "title": "Directly Affected Persons Attributed to Disasters Per 100K Population in United States of America",
+                    "title": "Number of Directly Affected Persons Attributed to Disasters Per 100K Population in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -365,25 +365,25 @@
                     "statVarKey": [
                       "sdg/VC_DSR_DAFF"
                     ],
-                    "title": "Directly Affected Persons Attributed to Disasters Per 100K Population in United States of America",
+                    "title": "Number of Directly Affected Persons Attributed to Disasters Per 100K Population in United States of America",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
-            "title": "Directly Affected Persons Attributed to Disasters Per 100K Population"
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "title": "Number of Directly Affected Persons Attributed to Disasters Per 100K Population"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Injured or Ill People Attributed to Disasters in United States of America",
+                    "description": "Number of Injured or Ill People Attributed to Disasters in United States of America",
                     "statVarKey": [
                       "sdg/VC_DSR_IJILN"
                     ],
-                    "title": "Injured or Ill People Attributed to Disasters in United States of America",
+                    "title": "Number of Injured or Ill People Attributed to Disasters in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -394,25 +394,25 @@
                     "statVarKey": [
                       "sdg/VC_DSR_IJILN"
                     ],
-                    "title": "Injured or Ill People Attributed to Disasters in United States of America",
+                    "title": "Number of Injured or Ill People Attributed to Disasters in United States of America",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
-            "title": "Injured or Ill People Attributed to Disasters"
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "title": "Number of Injured or Ill People Attributed to Disasters"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "People Affected by Disaster in United States of America",
+                    "description": "Number of People Affected by Disaster in United States of America",
                     "statVarKey": [
                       "sdg/VC_DSR_AFFCT"
                     ],
-                    "title": "People Affected by Disaster in United States of America",
+                    "title": "Number of People Affected by Disaster in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -423,25 +423,25 @@
                     "statVarKey": [
                       "sdg/VC_DSR_AFFCT"
                     ],
-                    "title": "People Affected by Disaster in United States of America",
+                    "title": "Number of People Affected by Disaster in United States of America",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
-            "title": "People Affected by Disaster"
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "title": "Number of People Affected by Disaster"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "People Whose Damaged Dwellings Were Attributed to Disasters in United States of America",
+                    "description": "Number of People Whose Damaged Dwellings Were Attributed to Disasters in United States of America",
                     "statVarKey": [
                       "sdg/VC_DSR_PDAN"
                     ],
-                    "title": "People Whose Damaged Dwellings Were Attributed to Disasters in United States of America",
+                    "title": "Number of People Whose Damaged Dwellings Were Attributed to Disasters in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -452,25 +452,25 @@
                     "statVarKey": [
                       "sdg/VC_DSR_PDAN"
                     ],
-                    "title": "People Whose Damaged Dwellings Were Attributed to Disasters in United States of America",
+                    "title": "Number of People Whose Damaged Dwellings Were Attributed to Disasters in United States of America",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
-            "title": "People Whose Damaged Dwellings Were Attributed to Disasters"
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "title": "Number of People Whose Damaged Dwellings Were Attributed to Disasters"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "People Whose Destroyed Dwellings Were Attributed to Disasters in United States of America",
+                    "description": "Number of People Whose Destroyed Dwellings Were Attributed to Disasters in United States of America",
                     "statVarKey": [
                       "sdg/VC_DSR_PDYN"
                     ],
-                    "title": "People Whose Destroyed Dwellings Were Attributed to Disasters in United States of America",
+                    "title": "Number of People Whose Destroyed Dwellings Were Attributed to Disasters in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -481,14 +481,14 @@
                     "statVarKey": [
                       "sdg/VC_DSR_PDYN"
                     ],
-                    "title": "People Whose Destroyed Dwellings Were Attributed to Disasters in United States of America",
+                    "title": "Number of People Whose Destroyed Dwellings Were Attributed to Disasters in United States of America",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
-            "title": "People Whose Destroyed Dwellings Were Attributed to Disasters"
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "title": "Number of People Whose Destroyed Dwellings Were Attributed to Disasters"
           },
           {
             "columns": [
@@ -516,7 +516,7 @@
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
             "title": "Direct Agriculture Loss Attributed to Disasters"
           },
           {
@@ -545,7 +545,7 @@
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
             "title": "Direct Economic Loss Attributed to Disasters"
           },
           {
@@ -574,8 +574,37 @@
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
             "title": "Direct Economic Loss Attributed to Disasters Relative to GDP"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Direct Economic Loss in the Housing Sector Attributed to Disasters in United States of America",
+                    "statVarKey": [
+                      "sdg/VC_DSR_HOLH"
+                    ],
+                    "title": "Direct Economic Loss in the Housing Sector Attributed to Disasters in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/VC_DSR_HOLH"
+                    ],
+                    "title": "Direct Economic Loss in the Housing Sector Attributed to Disasters in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "title": "Direct Economic Loss in the Housing Sector Attributed to Disasters"
           },
           {
             "columns": [
@@ -603,7 +632,7 @@
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
             "title": "Direct Economic Loss Resulting From Damaged or Destroyed Critical Infrastructure Attributed to Disasters"
           },
           {
@@ -632,7 +661,7 @@
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
             "title": "Direct Economic Loss to Other Damaged or Destroyed Productive Assets Attributed to Disasters"
           },
           {
@@ -661,7 +690,7 @@
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
             "title": "Score of Adoption and Implementation of National Disaster Risk Reduction Strategies in Line With the Sendai Framework"
           },
           {
@@ -669,11 +698,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Local Governments in United States of America",
+                    "description": "Number of Local Governments in United States of America",
                     "statVarKey": [
                       "sdg/SG_GOV_LOGV"
                     ],
-                    "title": "Local Governments in United States of America",
+                    "title": "Number of Local Governments in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -684,25 +713,25 @@
                     "statVarKey": [
                       "sdg/SG_GOV_LOGV"
                     ],
-                    "title": "Local Governments in United States of America",
+                    "title": "Number of Local Governments in United States of America",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
-            "title": "Local Governments"
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "title": "Number of Local Governments"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Local Governments That Adopt and Implement Local Disaster Risk Reduction Strategies in Line With National Strategies in United States of America",
+                    "description": "Number of Local Governments That Adopt and Implement Local Disaster Risk Reduction Strategies in Line With National Strategies in United States of America",
                     "statVarKey": [
                       "sdg/SG_DSR_SILN"
                     ],
-                    "title": "Local Governments That Adopt and Implement Local Disaster Risk Reduction Strategies in Line With National Strategies in United States of America",
+                    "title": "Number of Local Governments That Adopt and Implement Local Disaster Risk Reduction Strategies in Line With National Strategies in United States of America",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -713,14 +742,14 @@
                     "statVarKey": [
                       "sdg/SG_DSR_SILN"
                     ],
-                    "title": "Local Governments That Adopt and Implement Local Disaster Risk Reduction Strategies in Line With National Strategies in United States of America",
+                    "title": "Number of Local Governments That Adopt and Implement Local Disaster Risk Reduction Strategies in Line With National Strategies in United States of America",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
-            "title": "Local Governments That Adopt and Implement Local Disaster Risk Reduction Strategies in Line With National Strategies"
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "title": "Number of Local Governments That Adopt and Implement Local Disaster Risk Reduction Strategies in Line With National Strategies"
           },
           {
             "columns": [
@@ -748,7 +777,7 @@
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2023).",
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
             "title": "Proportion of Local Governments That Adopt and Implement Local Disaster Risk Reduction Strategies in Line With National Disaster Risk Reduction Strategies"
           },
           {
@@ -808,6 +837,64 @@
             ],
             "footnote": "Includes data from the following sources: BOOST initiative. Country-Data available at: https://www.Worldbank.Org/En/Programs/Boost-Portal/Country-Data; data extracted on 01 april 2022; expenditure by function of government (COFOG) - IMF data. Data available at: https://data.Imf.org/regular.Aspx?Key=61037799; data extracted on 01 april 2022; government finace statistics (GFS) database. Data available at: https://data.Imf.Org/; data extracted on 01 april 2022; IMF; data extracted on 01 april 2022;...132 more chars",
             "title": "Proportion of Total Government Spending on Essential Services, Education"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Proportion of Total Government Spending on Health in United States of America",
+                    "statVarKey": [
+                      "sdg/SG_XPD_HLTH"
+                    ],
+                    "title": "Proportion of Total Government Spending on Health in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SG_XPD_HLTH"
+                    ],
+                    "title": "Proportion of Total Government Spending on Health in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: IMF.",
+            "title": "Proportion of Total Government Spending on Health"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Proportion of Total Government Spending on Social Protection in United States of America",
+                    "statVarKey": [
+                      "sdg/SG_XPD_PROT"
+                    ],
+                    "title": "Proportion of Total Government Spending on Social Protection in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SG_XPD_PROT"
+                    ],
+                    "title": "Proportion of Total Government Spending on Social Protection in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: IMF.",
+            "title": "Proportion of Total Government Spending on Social Protection"
           }
         ],
         "statVarSpec": {
@@ -824,7 +911,7 @@
             "statVar": "sdg/SG_DSR_LGRGSR"
           },
           "sdg/SG_DSR_SILN": {
-            "name": "local governments that adopt and implement local Disaster Risk Reduction strategies in line with national strategies",
+            "name": "Number of local governments that adopt and implement local Disaster Risk Reduction strategies in line with national strategies",
             "statVar": "sdg/SG_DSR_SILN"
           },
           "sdg/SG_DSR_SILS": {
@@ -832,22 +919,22 @@
             "statVar": "sdg/SG_DSR_SILS"
           },
           "sdg/SG_GOV_LOGV": {
-            "name": "local governments",
+            "name": "Number of local governments",
             "statVar": "sdg/SG_GOV_LOGV"
+          },
+          "sdg/SG_XPD_HLTH": {
+            "name": "Proportion of total government spending on health",
+            "statVar": "sdg/SG_XPD_HLTH"
+          },
+          "sdg/SG_XPD_PROT": {
+            "name": "Proportion of total government spending on social protection",
+            "statVar": "sdg/SG_XPD_PROT"
           },
           "sdg/SI_COV_BENFTS": {
             "name": "Proportion of population covered by at least one social protection benefit",
             "statVar": "sdg/SI_COV_BENFTS"
           },
-          "sdg/SI_COV_CHLD.SEX--F_multiple_place_bar_block": {
-            "name": "Proportion of children/households receiving child/family cash benefit [Female]",
-            "statVar": "sdg/SI_COV_CHLD.SEX--F"
-          },
-          "sdg/SI_COV_CHLD.SEX--M_multiple_place_bar_block": {
-            "name": "Proportion of children/households receiving child/family cash benefit [Male]",
-            "statVar": "sdg/SI_COV_CHLD.SEX--M"
-          },
-          "sdg/SI_COV_CHLD_multiple_place_bar_block": {
+          "sdg/SI_COV_CHLD": {
             "name": "Proportion of children/households receiving child/family cash benefit",
             "statVar": "sdg/SI_COV_CHLD"
           },
@@ -887,7 +974,15 @@
             "name": "Proportion of vulnerable population receiving social assistance cash benefit",
             "statVar": "sdg/SI_COV_VULN"
           },
-          "sdg/SI_COV_WKINJRY": {
+          "sdg/SI_COV_WKINJRY.SEX--F_multiple_place_bar_block": {
+            "name": "Proportion of employed population covered in the event of work injury [Female]",
+            "statVar": "sdg/SI_COV_WKINJRY.SEX--F"
+          },
+          "sdg/SI_COV_WKINJRY.SEX--M_multiple_place_bar_block": {
+            "name": "Proportion of employed population covered in the event of work injury [Male]",
+            "statVar": "sdg/SI_COV_WKINJRY.SEX--M"
+          },
+          "sdg/SI_COV_WKINJRY_multiple_place_bar_block": {
             "name": "Proportion of employed population covered in the event of work injury",
             "statVar": "sdg/SI_COV_WKINJRY"
           },
@@ -920,7 +1015,7 @@
             "statVar": "sdg/SP_ACS_BSRVSAN.URBANISATION--U"
           },
           "sdg/VC_DSR_AFFCT": {
-            "name": "people affected by disaster",
+            "name": "Number of people affected by disaster",
             "statVar": "sdg/VC_DSR_AFFCT"
           },
           "sdg/VC_DSR_AGLH": {
@@ -932,7 +1027,7 @@
             "statVar": "sdg/VC_DSR_CILN"
           },
           "sdg/VC_DSR_DAFF": {
-            "name": "directly affected persons attributed to disasters per 100K population",
+            "name": "Number of directly affected persons attributed to disasters per 100K population",
             "statVar": "sdg/VC_DSR_DAFF"
           },
           "sdg/VC_DSR_DDPA": {
@@ -943,8 +1038,12 @@
             "name": "Direct economic loss attributed to disasters",
             "statVar": "sdg/VC_DSR_GDPLS"
           },
+          "sdg/VC_DSR_HOLH": {
+            "name": "Direct economic loss in the housing sector attributed to disasters",
+            "statVar": "sdg/VC_DSR_HOLH"
+          },
           "sdg/VC_DSR_IJILN": {
-            "name": "injured or ill people attributed to disasters",
+            "name": "Number of injured or ill people attributed to disasters",
             "statVar": "sdg/VC_DSR_IJILN"
           },
           "sdg/VC_DSR_LSGP": {
@@ -952,23 +1051,23 @@
             "statVar": "sdg/VC_DSR_LSGP"
           },
           "sdg/VC_DSR_MMHN": {
-            "name": "deaths and missing persons attributed to disasters",
+            "name": "Number of deaths and missing persons attributed to disasters",
             "statVar": "sdg/VC_DSR_MMHN"
           },
           "sdg/VC_DSR_MORT": {
-            "name": "deaths due to disaster",
+            "name": "Number of deaths due to disaster",
             "statVar": "sdg/VC_DSR_MORT"
           },
           "sdg/VC_DSR_MTMP": {
-            "name": "deaths and missing persons attributed to disasters per 100K population",
+            "name": "Number of deaths and missing persons attributed to disasters per 100K population",
             "statVar": "sdg/VC_DSR_MTMP"
           },
           "sdg/VC_DSR_PDAN": {
-            "name": "people whose damaged dwellings were attributed to disasters",
+            "name": "Number of people whose damaged dwellings were attributed to disasters",
             "statVar": "sdg/VC_DSR_PDAN"
           },
           "sdg/VC_DSR_PDYN": {
-            "name": "people whose destroyed dwellings were attributed to disasters",
+            "name": "Number of people whose destroyed dwellings were attributed to disasters",
             "statVar": "sdg/VC_DSR_PDYN"
           }
         }
@@ -1039,6 +1138,13 @@
       {
         "dcid": "dc/topic/sdg_1.a",
         "name": "1.a: Ensure significant mobilization of resources from a variety of sources, including through enhanced development cooperation, in order to provide adequate and predictable means for developing countries, in particular least developed countries, to implement programmes and policies to end poverty in all its dimensions",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_1.b",
+        "name": "1.b: Create sound policy frameworks at the national, regional and international levels, based on pro-poor and gender-sensitive development strategies, to support accelerated investment in poverty eradication actions",
         "types": [
           "Topic"
         ]
@@ -1389,6 +1495,24 @@
           ]
         }
       ],
+      "sdg/SG_XPD_HLTH": [
+        {
+          "dcid": "dc/topic/sdg_1.a.2",
+          "name": "1.a.2: Proportion of total government spending on essential services (education, health and social protection)",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SG_XPD_PROT": [
+        {
+          "dcid": "dc/topic/sdg_1.a.2",
+          "name": "1.a.2: Proportion of total government spending on essential services (education, health and social protection)",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
       "sdg/SI_COV_BENFTS": [
         {
           "dcid": "dc/topic/sdg_1.3.1",
@@ -1399,24 +1523,6 @@
         }
       ],
       "sdg/SI_COV_CHLD": [
-        {
-          "dcid": "dc/topic/sdg_1.3.1",
-          "name": "1.3.1: Proportion of population covered by social protection floors/systems, by sex, distinguishing children, unemployed persons, older persons, persons with disabilities, pregnant women, newborns, work-injury victims and the poor and the vulnerable",
-          "types": [
-            "Topic"
-          ]
-        }
-      ],
-      "sdg/SI_COV_CHLD.SEX--F": [
-        {
-          "dcid": "dc/topic/sdg_1.3.1",
-          "name": "1.3.1: Proportion of population covered by social protection floors/systems, by sex, distinguishing children, unemployed persons, older persons, persons with disabilities, pregnant women, newborns, work-injury victims and the poor and the vulnerable",
-          "types": [
-            "Topic"
-          ]
-        }
-      ],
-      "sdg/SI_COV_CHLD.SEX--M": [
         {
           "dcid": "dc/topic/sdg_1.3.1",
           "name": "1.3.1: Proportion of population covered by social protection floors/systems, by sex, distinguishing children, unemployed persons, older persons, persons with disabilities, pregnant women, newborns, work-injury victims and the poor and the vulnerable",
@@ -1507,6 +1613,24 @@
         }
       ],
       "sdg/SI_COV_WKINJRY": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "1.3.1: Proportion of population covered by social protection floors/systems, by sex, distinguishing children, unemployed persons, older persons, persons with disabilities, pregnant women, newborns, work-injury victims and the poor and the vulnerable",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_WKINJRY.SEX--F": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "1.3.1: Proportion of population covered by social protection floors/systems, by sex, distinguishing children, unemployed persons, older persons, persons with disabilities, pregnant women, newborns, work-injury victims and the poor and the vulnerable",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_WKINJRY.SEX--M": [
         {
           "dcid": "dc/topic/sdg_1.3.1",
           "name": "1.3.1: Proportion of population covered by social protection floors/systems, by sex, distinguishing children, unemployed persons, older persons, persons with disabilities, pregnant women, newborns, work-injury victims and the poor and the vulnerable",
@@ -1673,6 +1797,22 @@
         }
       ],
       "sdg/VC_DSR_GDPLS": [
+        {
+          "dcid": "dc/topic/sdg_1.5.2",
+          "name": "1.5.2: Direct economic loss attributed to disasters in relation to global gross domestic product (GDP)",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.5.2",
+          "name": "11.5.2: Direct economic loss attributed to disasters in relation to global gross domestic product (GDP)",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/VC_DSR_HOLH": [
         {
           "dcid": "dc/topic/sdg_1.5.2",
           "name": "1.5.2: Direct economic loss attributed to disasters in relation to global gross domestic product (GDP)",

@@ -15,9 +15,8 @@
 import copy
 from typing import List
 
-from server.lib.explore.existence import get_sv_place_latest_date
-from server.lib.nl.common import constants
 from server.lib.nl.common import rank_utils
+from server.lib.nl.common.existence_util import get_sv_place_latest_date
 from server.lib.nl.common.utils import get_place_key
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
@@ -26,6 +25,7 @@ from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.fulfillment.utils import add_chart_to_utterance
+from server.lib.nl.fulfillment.utils import get_max_ans_places
 
 # TODO: Support per-capita
 # TODO: Increase this after frontend handles comparedPlaces better.
@@ -90,7 +90,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
 
   if rank == 0:
     # Set answer places.
-    ans_places = copy.deepcopy(ranked_children[:constants.MAX_ANSWER_PLACES])
+    ans_places = copy.deepcopy(get_max_ans_places(ranked_children, state.uttr))
     state.uttr.answerPlaces = ans_places
     state.uttr.counters.info('filter-with-single-var_answer_places',
                              [p.dcid for p in ans_places])

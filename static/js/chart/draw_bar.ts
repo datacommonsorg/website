@@ -212,8 +212,8 @@ function addHighlightOnHover(
       tooltip.style("display", "none");
     }, HIGHLIGHT_TIMEOUT);
   };
-  const mousemoveFn = function (event: MouseEvent) {
-    const [mouseX, mouseY] = d3.pointer(event, container.node());
+  const mousemoveFn = function () {
+    const [mouseX, mouseY] = d3.mouse(container.node() as HTMLElement);
     positionTooltip(tooltip, mouseX, mouseY, chartAreaBoundary);
   };
 
@@ -317,7 +317,7 @@ export function drawStackBarChart(
     chartHeight,
     x,
     false,
-    labelToLink,
+    options?.disableEntityLink ? null : labelToLink,
     null,
     options?.apiRoot
   );
@@ -981,7 +981,7 @@ export function drawGroupBarChart(
     chartHeight,
     x0,
     false,
-    labelToLink,
+    options?.disableEntityLink ? null : labelToLink,
     null,
     options?.apiRoot
   );

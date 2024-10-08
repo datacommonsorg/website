@@ -2756,7 +2756,9 @@
         "Count_Worker_NAICSRealEstateRentalLeasing",
         "Count_Worker_NAICSPublicAdministration",
         "Count_Worker_NAICSWholesaleTrade",
-        "Count_Worker_NAICSProfessionalScientificTechnicalServices"
+        "Count_Worker_NAICSProfessionalScientificTechnicalServices",
+        "Count_Worker_NAICSManagementOfCompaniesEnterprises",
+        "Count_Worker_NAICSNonclassifiable"
       ],
       "name": [
         "Categories of Jobs"
@@ -6499,6 +6501,24 @@
     },
     {
       "dcid": [
+        "dc/svpg/dc/topic/CollegeEducation_Attainment"
+      ],
+      "memberList": [
+        "Count_Person_EducationalAttainmentAssociatesDegree",
+        "Count_Person_EducationalAttainmentBachelorsDegree",
+        "Count_Person_EducationalAttainmentMastersDegree",
+        "Count_Person_EducationalAttainmentProfessionalSchoolDegree",
+        "Count_Person_EducationalAttainmentDoctorateDegree"
+      ],
+      "name": [
+        "College Education Attainment"
+      ],
+      "typeOf": [
+        "StatVarPeerGroup"
+      ]
+    },
+    {
+      "dcid": [
         "dc/svpg/dc/topic/CommuteModeByOccupation_ManagementBusinessScienceandArtsOccupations"
       ],
       "memberList": [
@@ -7624,8 +7644,8 @@
         "dc/svpg/dc/topic/Immigration_NativeVsForeign"
       ],
       "memberList": [
-        "Count_Person_Native",
-        "Count_Person_ForeignBorn"
+        "Count_Person_ForeignBorn",
+        "Count_Person_Native"
       ],
       "name": [
         "Population by Nativity"
@@ -8293,7 +8313,10 @@
         "dc/mlf5e4m68h2k7",
         "dc/tz59wt1hkl4y",
         "dc/w8gp902jnk426",
-        "dc/x52jxxbwspczh"
+        "dc/x52jxxbwspczh",
+        "Count_Establishment_NAICSRealEstateRentalLeasing",
+        "Count_Establishment_NAICSPublicAdministration",
+        "Count_Establishment_NAICSNonclassifiable"
       ],
       "name": [
         "Number of Establishments by Industry"
@@ -8734,11 +8757,11 @@
         "dc/svpg/dc/topic/StudentEnrollmentLevels_StudentPopulationByEnrollmentLevel"
       ],
       "memberList": [
-        "Count_Person_EnrolledInKindergarten",
+        "Count_Person_DetailedEnrolledInKindergarten",
         "Count_Person_DetailedPrimarySchool",
         "Count_Person_DetailedMiddleSchool",
         "Count_Person_DetailedHighSchool",
-        "Count_Person_EnrolledInCollegeUndergraduateYears",
+        "Count_Person_DetailedEnrolledInCollegeUndergraduateYears",
         "Count_Person_EnrolledInCollegeOrGraduateSchool"
       ],
       "name": [
@@ -9793,8 +9816,8 @@
         "Asthma"
       ],
       "relevantVariableList": [
-        "Percent_Person_Children_WithAsthma",
-        "Percent_Person_WithAsthma"
+        "Percent_Person_WithAsthma",
+        "Percent_Person_Children_WithAsthma"
       ],
       "typeOf": [
         "Topic"
@@ -10155,6 +10178,20 @@
     },
     {
       "dcid": [
+        "dc/topic/CollegeEducationAttainment"
+      ],
+      "name": [
+        "College Education"
+      ],
+      "relevantVariableList": [
+        "dc/svpg/dc/topic/CollegeEducation_Attainment"
+      ],
+      "typeOf": [
+        "Topic"
+      ]
+    },
+    {
+      "dcid": [
         "dc/topic/CollegeOrUniversityStudentHousingResidents"
       ],
       "name": [
@@ -10213,7 +10250,7 @@
         "Commute Time"
       ],
       "relevantVariableList": [
-        "dc/e9gftzl2hm8h9",
+        "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome",
         "dc/svpg/dc/topic/CommuteTime_BreakdownbyCommuteTime"
       ],
       "typeOf": [
@@ -11301,6 +11338,7 @@
       ],
       "relevantVariableList": [
         "Count_MedicalConditionIncident_ConditionHIVAIDS",
+        "dc/topic/sdg_3.3.1",
         "dc/svpg/HIV_HIVCasesByAge",
         "dc/svpg/HIV_HIVCasesByGender",
         "dc/svpg/HIV_HIVCasesByRace"
@@ -14391,6 +14429,7 @@
       ],
       "relevantVariableList": [
         "Count_Person_BelowPovertyLevelInThePast12Months",
+        "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person",
         "dc/topic/PovertyByGender",
         "dc/topic/PovertyByRace",
         "dc/topic/PovertyByResidency",
@@ -15383,7 +15422,6 @@
       ],
       "relevantVariableList": [
         "UnemploymentRate_Person",
-        "Count_Person_NonWorker",
         "UnemploymentRate_Person_Female",
         "UnemploymentRate_Person_Male"
       ],
@@ -15743,8 +15781,8 @@
         "Maternal Mortality"
       ],
       "relevantVariableList": [
-        "WHO/MORT_MATERNALNUM",
-        "sdg/SH_STA_MORT.SEX--F"
+        "sdg/SH_STA_MORT.SEX--F",
+        "WHO/MORT_MATERNALNUM"
       ],
       "typeOf": [
         "Topic"

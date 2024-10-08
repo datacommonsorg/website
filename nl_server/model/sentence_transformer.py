@@ -13,27 +13,27 @@
 # limitations under the License.
 """Sentence Transformer Model."""
 
-import logging
 from typing import List
 
 from sentence_transformers import SentenceTransformer
 import torch
 
-from nl_server import config
 from nl_server import embeddings
+from nl_server.cache import get_cache_root
+from nl_server.config import LocalModelConfig
+from shared.lib import gcs
 
 
 class LocalSentenceTransformerModel(embeddings.EmbeddingsModel):
 
-  def __init__(self, existing_model_path: str = ""):
-    super().__init__(returns_tensor=True)
+  def __init__(self, model_info: LocalModelConfig):
+    super().__init__(model_info.score_threshold, returns_tensor=True)
 
-    if existing_model_path:
-      logging.info(f'Loading tuned model from: {existing_model_path}')
-      self.model = SentenceTransformer(existing_model_path)
-    else:
-      logging.info(f'Loading base model {config.EMBEDDINGS_BASE_MODEL_NAME}')
-      self.model = SentenceTransformer(config.EMBEDDINGS_BASE_MODEL_NAME)
+    # Download model from gcs if there is a gcs folder specified
+    model_path = gcs.maybe_download(model_info.gcs_folder,
+                                    get_cache_root(),
+                                    use_anonymous_client=True)
+    self.model = SentenceTransformer(model_path)
 
-  def encode(self, queries: List[str]) -> torch.Tensor:
-    return self.model.encode(queries, show_progress_bar=False)
+  def encode(self, queries: List[str], show_progress_bar=False) -> torch.Tensor:
+    return self.model.encode(queries, show_progress_bar=show_progress_bar)

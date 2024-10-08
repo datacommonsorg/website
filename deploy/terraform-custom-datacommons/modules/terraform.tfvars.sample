@@ -1,0 +1,30 @@
+# Copyright 2024 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Instructions:
+#  - Copy this file to terraform.tfvars
+#  - Replace variables with valid values
+#  - [Optional] Add any additional variable values from variables.tf definition
+
+# User's GCP project
+project_id  = "your-gcp-project"
+
+# Namespace to prefix all resources created by Terraform. For example, the
+# value "dev" results in resources like "dev-datacommons-web-service" and
+# "dev-datacommons-data-job". This ensures unique names when deploying the
+# module multiple times in the same GCP account.
+namespace   = "john-doe-dev"
+
+# Data Commons API key. See https://docs.datacommons.org/custom_dc/quickstart.html#prerequisites
+dc_api_key = "your-datacommons-api-key"

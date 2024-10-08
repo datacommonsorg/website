@@ -1,0 +1,33 @@
+{
+  "childEntityType": "",
+  "classifications": [
+    {
+      "type": 100
+    }
+  ],
+  "client": "test_detect",
+  "comparisonEntities": [],
+  "comparisonVariables": [],
+  "context": {},
+  "debug": {},
+  "entities": [
+    "Earth"
+  ],
+  "nonPlaceEntities": [],
+  "properties": [],
+  "sessionId": "007_999999999",
+  "test": "unittest",
+  "variables": [
+    "dc/topic/ILOEMPPIFLNB",
+    "dc/topic/ILOEMPNORMNB",
+    "dc/topic/ILOEMPSTATNB",
+    "dc/topic/ILOEMPPIFLRT",
+    "dc/topic/ILOLUUXLUXNB",
+    "dc/topic/ILOEMPNIFLRT",
+    "dc/topic/ILOEMP5NIFNB",
+    "dc/topic/ILOEMP5PIFRT",
+    "dc/topic/ILOEMP5PIFNB",
+    "dc/topic/ILOLUUXLUXRT",
+    "dc/topic/ILOLAIINSPNB"
+  ]
+}

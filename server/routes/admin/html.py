@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import json
 import logging
 import os
 from subprocess import CalledProcessError
@@ -26,6 +27,10 @@ from flask import render_template
 from flask import request
 
 bp = Blueprint('admin', __name__, url_prefix='/admin')
+
+# The custom embeddings index type.
+# https://github.com/datacommonsorg/import/blob/b2616a504051885362725eabefc2060e9a5636cc/simple/stats/nl_constants.py#L25
+_CUSTOM_EMBEDDINGS_INDEX = "user_all_minilm_mem"
 
 
 @bp.route('/load-data', methods=['POST'])
@@ -45,14 +50,16 @@ def load_data():
             'can not find valid user data path, check GCS_DATA_PATH is set if you store data in GCS'
     }), 500
 
+  # This will add a trailing "/" if the path does not end in one.
+  input_dir = os.path.join(user_data_path, "")
   # TODO: dynamically create the output dir.
   output_dir = os.path.join(user_data_path, 'datacommons')
   nl_dir = os.path.join(output_dir, 'nl')
-  sentences_path = os.path.join(nl_dir, 'sentences.csv')
+  nl_embeddings_dir = os.path.join(nl_dir, 'embeddings')
+  additional_catalog_path = os.path.join(nl_embeddings_dir,
+                                         'custom_catalog.yaml')
   load_nl = os.environ.get('ENABLE_MODEL', '').lower() == 'true'
 
-  # This will add a trailing "/" if the path does not end in one.
-  input_dir = os.path.join(user_data_path, "")
   # Process user csv files, generate debugging files and write the results to
   # database. The database configuration is read from environment variables.
   command1 = [
@@ -67,11 +74,14 @@ def load_data():
   # Build custom embeddings.
   command2 = [
       'python',
-      'build_custom_dc_embeddings.py',
-      '--sv_sentences_csv_path',
-      f'{sentences_path}',
+      '-m',
+      'tools.nl.embeddings.build_embeddings',
       '--output_dir',
-      f'{nl_dir}',
+      f'{nl_embeddings_dir}',
+      '--embeddings_name',
+      _CUSTOM_EMBEDDINGS_INDEX,
+      '--additional_catalog_path',
+      additional_catalog_path,
   ]
   # Update mixer in-memory cache.
   command3 = [
@@ -83,12 +93,18 @@ def load_data():
   # Load embeddings for NL.
   command4 = [
       'curl',
+      '-X',
+      'POST',
+      '-H',
+      'Content-Type: application/json',
+      '-d',
+      json.dumps({'additional_catalog_path': additional_catalog_path}),
       'localhost:6060/api/load/',
   ]
   output = []
   for command, stage, cwd, execute in [
       (command1, 'import_data', 'import/simple', True),
-      (command2, 'create_embeddings', 'tools/nl/embeddings', load_nl),
+      (command2, 'create_embeddings', '.', load_nl),
       (command3, 'load_data', '.', True),
       (command4, 'load_embeddings', '.', load_nl)
   ]:

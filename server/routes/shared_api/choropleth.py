@@ -293,6 +293,9 @@ def geojson():
 
 
 @bp.route('/node-geojson', methods=['POST'])
+@cache.cached(timeout=TIMEOUT,
+              query_string=True,
+              make_cache_key=lib_util.post_body_cache_key)
 def node_geojson():
   """Gets geoJson data for a list of nodes and a specified property to use to
      get the geoJson data"""

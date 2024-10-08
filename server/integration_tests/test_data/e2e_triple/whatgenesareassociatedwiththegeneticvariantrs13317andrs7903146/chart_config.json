@@ -12,16 +12,102 @@
                     "answerTableTileSpec": {
                       "columns": [
                         {
-                          "header": "associated gene",
-                          "propertyExpr": "<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol"
+                          "header": "Clinical Annotation Count",
+                          "propertyExpr": "->clinicalAnnotationCount"
+                        },
+                        {
+                          "header": "Clinical Annotation Count Level1_2",
+                          "propertyExpr": "->clinicalAnnotationCountLevel1_2"
+                        },
+                        {
+                          "header": "Clinical Guideline Annotation Count",
+                          "propertyExpr": "->clinicalGuidelineAnnotationCount"
+                        },
+                        {
+                          "header": "Date Created",
+                          "propertyExpr": "->dateCreated"
+                        },
+                        {
+                          "header": "Date Established",
+                          "propertyExpr": "->dateEstablished"
+                        },
+                        {
+                          "header": "Date Revised",
+                          "propertyExpr": "->dateRevised"
+                        },
+                        {
+                          "header": "Description",
+                          "propertyExpr": "->description"
+                        },
+                        {
+                          "header": "Drug Label Annotation Count",
+                          "propertyExpr": "->drugLabelAnnotationCount"
+                        },
+                        {
+                          "header": "Gene Symbol",
+                          "propertyExpr": "->geneSymbol"
+                        },
+                        {
+                          "header": "Genetic Variant Annotation Count",
+                          "propertyExpr": "->geneticVariantAnnotationCount"
+                        },
+                        {
+                          "header": "Has MeSH Qualifier",
+                          "propertyExpr": "->hasMeSHQualifier"
+                        },
+                        {
+                          "header": "Identifier",
+                          "propertyExpr": "->identifier"
+                        },
+                        {
+                          "header": "Medical Subject Heading ID",
+                          "propertyExpr": "->medicalSubjectHeadingID"
+                        },
+                        {
+                          "header": "Medical Subject Heading Tree Number",
+                          "propertyExpr": "->medicalSubjectHeadingTreeNumber"
+                        },
+                        {
+                          "header": "Name",
+                          "propertyExpr": "->name"
+                        },
+                        {
+                          "header": "National Library Of Medicine Classification Number",
+                          "propertyExpr": "->nationalLibraryOfMedicineClassificationNumber"
+                        },
+                        {
+                          "header": "Pharm GKBID",
+                          "propertyExpr": "->pharmGKBID"
+                        },
+                        {
+                          "header": "Provenance",
+                          "propertyExpr": "->provenance"
+                        },
+                        {
+                          "header": "Rs ID",
+                          "propertyExpr": "->rsID"
+                        },
+                        {
+                          "header": "Specialization Of",
+                          "propertyExpr": "->specializationOf"
+                        },
+                        {
+                          "header": "Synonym",
+                          "propertyExpr": "->synonym"
+                        },
+                        {
+                          "header": "Type Of",
+                          "propertyExpr": "->typeOf"
                         }
                       ]
                     },
                     "entities": [
-                      "bio/rs13317",
+                      "bio/D012873",
+                      "bio/D014178",
+                      "bio/D020132",
                       "bio/rs7903146"
                     ],
-                    "title": "The associated genes for rs13317 and rs7903146 are",
+                    "title": "Here are all the properties for Genetic, Anticipation and rs7903146",
                     "type": "ANSWER_TABLE"
                   }
                 ]
@@ -36,8 +122,18 @@
   "debug": {},
   "entities": [
     {
-      "dcid": "bio/rs13317",
-      "name": "rs13317",
+      "dcid": "bio/D012873",
+      "name": "Genetic",
+      "type": ""
+    },
+    {
+      "dcid": "bio/D014178",
+      "name": "Genetic",
+      "type": ""
+    },
+    {
+      "dcid": "bio/D020132",
+      "name": "Anticipation",
       "type": ""
     },
     {

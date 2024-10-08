@@ -16,8 +16,8 @@ import copy
 from dataclasses import dataclass
 from typing import List
 
-import server.lib.explore.existence as ext
 from server.lib.nl.common import utils
+import server.lib.nl.common.existence_util as ext
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.common.utterance import FulfillmentResult

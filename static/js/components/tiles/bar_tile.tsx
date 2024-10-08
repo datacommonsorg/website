@@ -19,7 +19,10 @@
  */
 
 import { ISO_CODE_ATTRIBUTE } from "@datacommonsorg/client";
-import { ChartSortOption } from "@datacommonsorg/web-components";
+import {
+  ChartEventDetail,
+  ChartSortOption,
+} from "@datacommonsorg/web-components";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
@@ -33,29 +36,30 @@ import {
 import { URL_PATH } from "../../constants/app/visualization_constants";
 import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { PLACE_TYPES } from "../../shared/constants";
+import { useLazyLoad } from "../../shared/hooks";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { RankingPoint } from "../../types/ranking_unit_types";
 import {
   getContextStatVar,
   getHash,
 } from "../../utils/app/visualization_utils";
+import { getDataCommonsClient } from "../../utils/data_commons_client";
 import {
   getPoint,
   getPointWithin,
   getSeries,
   getSeriesWithin,
 } from "../../utils/data_fetch_utils";
-import { datacommonsClient } from "../../utils/datacommons_client";
 import { getPlaceNames, getPlaceType } from "../../utils/place_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
+  clearContainer,
   getDenomInfo,
   getFirstCappedStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
   ReplacementStrings,
-  showError,
   transformCsvHeader,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
@@ -96,6 +100,17 @@ interface BarTileSpecificSpec {
   xLabelLinkRoot?: string;
   // Y-axis margin / text width
   yAxisMargin?: number;
+  // Optional: only load this component when it's near the viewport
+  lazyLoad?: boolean;
+  /**
+   * Optional: If lazy loading is enabled, load the component when it is within
+   * this margin of the viewport. Default: "0px"
+   */
+  lazyLoadMargin?: string;
+  // Optional: listen for property value changes with this event name
+  subscribe?: string;
+  // Optional: Disable the entity href link for this component
+  disableEntityLink?: boolean;
 }
 
 export type BarTilePropType = MultiOrContainedInPlaceMultiVariableTileType &
@@ -112,22 +127,38 @@ export interface BarChartData {
   errorMsg: string;
   // name of place, used for title replacement strings
   placeName?: string;
+  // Set if the component receives a date value from a subscribed event
+  dateOverride?: string;
 }
 
 export function BarTile(props: BarTilePropType): JSX.Element {
   const chartContainerRef = useRef<HTMLDivElement>(null);
+  const [dateOverride, setDateOverride] = useState(null);
   const [barChartData, setBarChartData] = useState<BarChartData | undefined>(
     null
   );
+  const [isLoading, setIsLoading] = useState(true);
+  const { shouldLoad, containerRef } = useLazyLoad(props.lazyLoadMargin);
   useEffect(() => {
-    if (!barChartData || !_.isEqual(barChartData.props, props)) {
+    if (props.lazyLoad && !shouldLoad) {
+      return;
+    }
+    if (
+      !barChartData ||
+      !_.isEqual(barChartData.props, props) ||
+      !_.isEqual(barChartData.dateOverride, dateOverride)
+    ) {
       (async () => {
-        const data = await fetchData(props);
-        setBarChartData(data);
+        try {
+          setIsLoading(true);
+          const data = await fetchData(props, dateOverride);
+          setBarChartData(data);
+        } finally {
+          setIsLoading(false);
+        }
       })();
     }
-  }, [props, barChartData]);
-
+  }, [props, barChartData, shouldLoad, dateOverride]);
   const drawFn = useCallback(() => {
     if (_.isEmpty(barChartData)) {
       return;
@@ -136,25 +167,57 @@ export function BarTile(props: BarTilePropType): JSX.Element {
   }, [props, barChartData]);
 
   useDrawOnResize(drawFn, chartContainerRef.current);
+
+  /**
+   * Updates the bar tile date when receiving events on the ${props.subscribe}
+   * channel. Used to connect the datacommons-slider component to this
+   * component
+   */
+  useEffect(() => {
+    const eventHandler = (e: CustomEvent<ChartEventDetail>) => {
+      if (e.detail.property === "date") {
+        setDateOverride(e.detail.value);
+      }
+    };
+
+    if (props.subscribe) {
+      self.addEventListener(props.subscribe, eventHandler);
+    }
+
+    // Cleanup function to remove the event listener
+    return () => {
+      if (props.subscribe) {
+        self.removeEventListener(props.subscribe, eventHandler);
+      }
+    };
+  }, [props.subscribe]);
   return (
     <ChartTileContainer
-      id={props.id}
-      title={props.title}
-      subtitle={props.subtitle}
-      sources={props.sources || (barChartData && barChartData.sources)}
-      replacementStrings={getReplacementStrings(barChartData)}
-      className={`${props.className} bar-chart`}
       allowEmbed={true}
-      getDataCsv={getDataCsvCallback(props)}
-      isInitialLoading={_.isNull(barChartData)}
+      apiRoot={props.apiRoot}
+      className={`${props.className} bar-chart`}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
-      hasErrorMsg={barChartData && !!barChartData.errorMsg}
       footnote={props.footnote}
+      getDataCsv={getDataCsvCallback(props)}
+      errorMsg={barChartData && barChartData.errorMsg}
+      id={props.id}
+      isInitialLoading={_.isNull(barChartData)}
+      isLoading={isLoading}
+      replacementStrings={getReplacementStrings(barChartData)}
+      sources={props.sources || (barChartData && barChartData.sources)}
+      subtitle={props.subtitle}
+      title={props.title}
+      statVarSpecs={props.variables}
+      forwardRef={containerRef}
+      chartHeight={props.svgChartHeight}
     >
       <div
         id={props.id}
         className="svg-container"
-        style={{ minHeight: props.svgChartHeight }}
+        style={{
+          minHeight: props.svgChartHeight,
+          display: barChartData && barChartData.errorMsg ? "none" : "block",
+        }}
         ref={chartContainerRef}
       ></div>
     </ChartTileContainer>
@@ -168,6 +231,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
  */
 function getDataCsvCallback(props: BarTilePropType): () => Promise<string> {
   return () => {
+    const dataCommonsClient = getDataCommonsClient(props.apiRoot);
     // Assume all variables will have the same date
     // TODO: Handle different dates for different variables
     const date = getFirstCappedStatVarSpecDate(props.variables);
@@ -179,8 +243,18 @@ function getDataCsvCallback(props: BarTilePropType): () => Promise<string> {
       : undefined;
     // Check for !("places" in props) because parentPlace can be set even if
     // "places" is also set
-    if (!("places" in props)) {
-      return datacommonsClient.getCsv({
+    if ("places" in props && !_.isEmpty(props.places)) {
+      return dataCommonsClient.getCsv({
+        date,
+        entityProps,
+        entities: props.places,
+        fieldDelimiter: CSV_FIELD_DELIMITER,
+        perCapitaVariables,
+        transformHeader: transformCsvHeader,
+        variables: props.variables.map((v) => v.statVar),
+      });
+    } else if ("enclosedPlaceType" in props && "parentPlace" in props) {
+      return dataCommonsClient.getCsv({
         childType: props.enclosedPlaceType,
         date,
         entityProps,
@@ -190,17 +264,8 @@ function getDataCsvCallback(props: BarTilePropType): () => Promise<string> {
         transformHeader: transformCsvHeader,
         variables: props.variables.map((v) => v.statVar),
       });
-    } else {
-      return datacommonsClient.getCsv({
-        date,
-        entityProps,
-        entities: props.places,
-        fieldDelimiter: CSV_FIELD_DELIMITER,
-        perCapitaVariables,
-        transformHeader: transformCsvHeader,
-        variables: props.variables.map((v) => v.statVar),
-      });
     }
+    return new Promise(() => "Error fetching CSV");
   };
 }
 
@@ -215,7 +280,10 @@ export function getReplacementStrings(
   };
 }
 
-export const fetchData = async (props: BarTilePropType) => {
+export const fetchData = async (
+  props: BarTilePropType,
+  dateOverride?: string
+) => {
   const statSvs = props.variables
     .map((spec) => spec.statVar)
     .filter((sv) => !!sv);
@@ -224,7 +292,7 @@ export const fetchData = async (props: BarTilePropType) => {
     .filter((sv) => !!sv);
   // Assume all variables will have the same date
   // TODO: Update getCsv to handle different dates for different variables
-  const date = getFirstCappedStatVarSpecDate(props.variables);
+  const date = getFirstCappedStatVarSpecDate(props.variables, dateOverride);
   const apiRoot = props.apiRoot || "";
   let statPromise: Promise<PointApiResponse>;
   let denomPromise: Promise<SeriesApiResponse>;
@@ -323,7 +391,8 @@ export const fetchData = async (props: BarTilePropType) => {
       popPoints,
       placeNames,
       placeType,
-      statVarDcidToName
+      statVarDcidToName,
+      dateOverride
     );
   } catch (error) {
     console.log(error);
@@ -338,7 +407,8 @@ function rawToChart(
   popPoints: RankingPoint[],
   placeNames: Record<string, string>,
   placeType: string,
-  statVarNames: Record<string, string>
+  statVarNames: Record<string, string>,
+  dateOverride?: string
 ): BarChartData {
   const raw = _.cloneDeep(statData);
   const dataGroups: DataGroup[] = [];
@@ -455,6 +525,7 @@ function rawToChart(
     statVarOrder,
     errorMsg,
     placeName,
+    dateOverride,
   };
 }
 
@@ -467,7 +538,7 @@ export function draw(
   chartTitle?: string
 ): void {
   if (chartData.errorMsg) {
-    showError(chartData.errorMsg, svgContainer);
+    clearContainer(svgContainer);
     return;
   }
   if (props.horizontal) {
@@ -506,6 +577,7 @@ export function draw(
           title: chartTitle,
           unit: chartData.unit,
           useSvgLegend,
+          disableEntityLink: props.disableEntityLink,
         }
       );
     } else {
@@ -523,6 +595,7 @@ export function draw(
           title: chartTitle,
           unit: chartData.unit,
           useSvgLegend,
+          disableEntityLink: props.disableEntityLink,
         }
       );
     }

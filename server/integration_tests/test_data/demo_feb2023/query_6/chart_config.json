@@ -44,17 +44,62 @@
               {
                 "tiles": [
                   {
-                    "description": "Percent of Children That Have Asthma in Placer County",
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
                     "statVarKey": [
-                      "Percent_Person_Children_WithAsthma"
+                      "Percent_Person_WithArthritis"
                     ],
-                    "title": "Percent of Children That Have Asthma in Placer County",
-                    "type": "HIGHLIGHT"
+                    "title": "Arthritis in Cities of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithArthritis"
+                    ],
+                    "title": "Arthritis in Cities of Placer County (${date})",
+                    "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Percent of Children That Have Asthma"
+            "title": "Arthritis in Cities of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_WithAsthma"
+                    ],
+                    "title": "Asthma in Cities of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithAsthma"
+                    ],
+                    "title": "Asthma in Cities of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Asthma in Cities of Placer County"
           },
           {
             "columns": [
@@ -89,6 +134,23 @@
               {
                 "tiles": [
                   {
+                    "description": "Percent of Children That Have Asthma in Placer County",
+                    "statVarKey": [
+                      "Percent_Person_Children_WithAsthma"
+                    ],
+                    "title": "Percent of Children That Have Asthma in Placer County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Percent of Children That Have Asthma"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "Percent_Person_WithHighBloodPressure"
                     ],
@@ -111,6 +173,37 @@
               }
             ],
             "title": "High Blood Pressure"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_WithHighBloodPressure"
+                    ],
+                    "title": "High Blood Pressure in Cities of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithHighBloodPressure"
+                    ],
+                    "title": "High Blood Pressure in Cities of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "High Blood Pressure in Cities of Placer County"
           },
           {
             "columns": [
@@ -145,6 +238,37 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
+                    ],
+                    "title": "Percent of Adults With Blood Pressure Who Take Medication in Cities of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication"
+                    ],
+                    "title": "Percent of Adults With Blood Pressure Who Take Medication in Cities of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Percent of Adults With Blood Pressure Who Take Medication in Cities of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "Percent_Person_WithCancerExcludingSkinCancer"
                     ],
@@ -167,6 +291,37 @@
               }
             ],
             "title": "Cancer (Excluding Skin Cancer)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_WithCancerExcludingSkinCancer"
+                    ],
+                    "title": "Cancer (Excluding Skin Cancer) in Cities of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithCancerExcludingSkinCancer"
+                    ],
+                    "title": "Cancer (Excluding Skin Cancer) in Cities of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Cancer (Excluding Skin Cancer) in Cities of Placer County"
           },
           {
             "columns": [
@@ -232,26 +387,80 @@
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
                     "statVarKey": [
-                      "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening_multiple_place_bar_block",
-                      "Percent_Person_50To74Years_Female_ReceivedMammography_multiple_place_bar_block",
-                      "Percent_Person_50To75Years_ReceivedColorectalCancerScreening_multiple_place_bar_block"
+                      "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening",
+                      "Percent_Person_50To74Years_Female_ReceivedMammography",
+                      "Percent_Person_50To75Years_ReceivedColorectalCancerScreening"
                     ],
-                    "title": "Cancer Preventive Health in Placer County (${date})",
-                    "type": "BAR"
+                    "title": "Cancer Preventive Health in Placer County",
+                    "type": "LINE"
                   }
                 ]
               }
             ],
             "title": "Cancer Preventive Health"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening"
+                    ],
+                    "title": "Women 21-65 Years Who Received Cervical Cancer Screening in Cities of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening"
+                    ],
+                    "title": "Women 21-65 Years Who Received Cervical Cancer Screening in Cities of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Women 21-65 Years Who Received Cervical Cancer Screening in Cities of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_50To74Years_Female_ReceivedMammography"
+                    ],
+                    "title": "Women 50-74 Years, Who Received Mammography in Cities of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_50To74Years_Female_ReceivedMammography"
+                    ],
+                    "title": "Women 50-74 Years, Who Received Mammography in Cities of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Women 50-74 Years, Who Received Mammography in Cities of Placer County"
           },
           {
             "columns": [
@@ -286,6 +495,37 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_WithHighCholesterol"
+                    ],
+                    "title": "High Cholesterol in Cities of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithHighCholesterol"
+                    ],
+                    "title": "High Cholesterol in Cities of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "High Cholesterol in Cities of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "Percent_Person_ReceivedCholesterolScreening"
                     ],
@@ -308,6 +548,37 @@
               }
             ],
             "title": "Prevalence: Cholesterol Screening"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_ReceivedCholesterolScreening"
+                    ],
+                    "title": "Prevalence: Cholesterol Screening in Cities of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_ReceivedCholesterolScreening"
+                    ],
+                    "title": "Prevalence: Cholesterol Screening in Cities of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence: Cholesterol Screening in Cities of Placer County"
           },
           {
             "columns": [
@@ -342,6 +613,37 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_WithMentalHealthNotGood"
+                    ],
+                    "title": "Mental Health Issues in Cities of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_WithMentalHealthNotGood"
+                    ],
+                    "title": "Mental Health Issues in Cities of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Mental Health Issues in Cities of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "Percent_Person_18OrMoreYears_WithDepression"
                     ],
@@ -364,6 +666,37 @@
               }
             ],
             "title": "Depression"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_18OrMoreYears_WithDepression"
+                    ],
+                    "title": "Depression in Cities of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_18OrMoreYears_WithDepression"
+                    ],
+                    "title": "Depression in Cities of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Depression in Cities of Placer County"
           },
           {
             "columns": [
@@ -399,21 +732,13 @@
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
                     "statVarKey": [
-                      "Count_Death_65To74Years_MentalBehaviouralDisorders_multiple_place_bar_block",
-                      "Count_Death_75To84Years_MentalBehaviouralDisorders_multiple_place_bar_block",
-                      "Count_Death_85Years_MentalBehaviouralDisorders_multiple_place_bar_block"
+                      "Count_Death_65To74Years_MentalBehaviouralDisorders",
+                      "Count_Death_75To84Years_MentalBehaviouralDisorders",
+                      "Count_Death_85Years_MentalBehaviouralDisorders"
                     ],
-                    "title": "Mental Health Deaths by Age in Placer County (${date})",
-                    "type": "BAR"
+                    "title": "Mental Health Deaths by Age in Placer County",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -426,26 +751,82 @@
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
                     "statVarKey": [
-                      "Count_Person_WithDisability_Female_multiple_place_bar_block",
-                      "Count_Person_WithDisability_Male_multiple_place_bar_block"
+                      "Count_Person_WithDisability_Female",
+                      "Count_Person_WithDisability_Male"
                     ],
-                    "title": "Disabled Population by Gender in Placer County (${date})",
-                    "type": "BAR"
+                    "title": "Disabled Population by Gender in Placer County",
+                    "type": "LINE"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
             "title": "Disabled Population by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_WithDisability_Female"
+                    ],
+                    "title": "Women With Disabilities in Cities of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WithDisability_Female"
+                    ],
+                    "title": "Women With Disabilities in Cities of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women With Disabilities in Cities of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_WithDisability_Male"
+                    ],
+                    "title": "Men With Disabilities in Cities of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WithDisability_Male"
+                    ],
+                    "title": "Men With Disabilities in Cities of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Men With Disabilities in Cities of Placer County"
           },
           {
             "columns": [
@@ -484,20 +865,76 @@
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
                     },
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
                     "statVarKey": [
-                      "Count_Person_Female_NoHealthInsurance_multiple_place_bar_block",
-                      "Count_Person_Male_NoHealthInsurance_multiple_place_bar_block"
+                      "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone"
                     ],
-                    "title": "Uninsured by Gender in Placer County (${date})",
-                    "type": "BAR"
+                    "title": "Number of American Indian/Alaska Natives With Disabilities in Cities of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone"
+                    ],
+                    "title": "Number of American Indian/Alaska Natives With Disabilities in Cities of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Number of American Indian/Alaska Natives With Disabilities in Cities of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_WithDisability_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Number of Black/African Americans With Disabilities in Cities of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WithDisability_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Number of Black/African Americans With Disabilities in Cities of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Number of Black/African Americans With Disabilities in Cities of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_NoHealthInsurance",
+                      "Count_Person_Male_NoHealthInsurance"
+                    ],
+                    "title": "Uninsured by Gender in Placer County",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -510,26 +947,146 @@
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
                     },
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
                     "statVarKey": [
-                      "Count_Person_Female_WithHealthInsurance_multiple_place_bar_block",
-                      "Count_Person_Male_WithHealthInsurance_multiple_place_bar_block"
+                      "Count_Person_Female_NoHealthInsurance"
                     ],
-                    "title": "With Health Insurance by Gender in Placer County (${date})",
-                    "type": "BAR"
+                    "title": "Women With No Health Insurance in Cities of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_NoHealthInsurance"
+                    ],
+                    "title": "Women With No Health Insurance in Cities of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women With No Health Insurance in Cities of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Male_NoHealthInsurance"
+                    ],
+                    "title": "Men With No Health Insurance in Cities of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Male_NoHealthInsurance"
+                    ],
+                    "title": "Men With No Health Insurance in Cities of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Men With No Health Insurance in Cities of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_WithHealthInsurance",
+                      "Count_Person_Male_WithHealthInsurance"
+                    ],
+                    "title": "With Health Insurance by Gender in Placer County",
+                    "type": "LINE"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
             "title": "With Health Insurance by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_WithHealthInsurance"
+                    ],
+                    "title": "Women With Health Insurance in Cities of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_WithHealthInsurance"
+                    ],
+                    "title": "Women With Health Insurance in Cities of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women With Health Insurance in Cities of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Male_WithHealthInsurance"
+                    ],
+                    "title": "Men With Health Insurance in Cities of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Male_WithHealthInsurance"
+                    ],
+                    "title": "Men With Health Insurance in Cities of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Men With Health Insurance in Cities of Placer County"
           },
           {
             "columns": [
@@ -565,6 +1122,38 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_WithHealthInsurance"
+                    ],
+                    "title": "Population With Health Insurance in Cities of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WithHealthInsurance"
+                    ],
+                    "title": "Population With Health Insurance in Cities of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population With Health Insurance in Cities of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "Count_Person_NoHealthInsurance"
                     ],
@@ -594,28 +1183,116 @@
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
                     },
-                    "comparisonPlaces": [
-                      "geoId/06061"
-                    ],
                     "statVarKey": [
-                      "Count_Person_WithPrivateHealthInsurance_multiple_place_bar_block",
-                      "Count_Person_WithPrivateHealthInsuranceOnly_multiple_place_bar_block",
-                      "Count_Person_WithPublicHealthInsurance_multiple_place_bar_block",
-                      "Count_Person_WithPublicHealthInsuranceOnly_multiple_place_bar_block"
+                      "Count_Person_NoHealthInsurance"
                     ],
-                    "title": "Type of Health Insurance Coverage in Placer County (${date})",
-                    "type": "BAR"
+                    "title": "Population Without Health Insurance in Cities of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_NoHealthInsurance"
+                    ],
+                    "title": "Population Without Health Insurance in Cities of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Without Health Insurance in Cities of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WithPrivateHealthInsurance",
+                      "Count_Person_WithPrivateHealthInsuranceOnly",
+                      "Count_Person_WithPublicHealthInsurance",
+                      "Count_Person_WithPublicHealthInsuranceOnly"
+                    ],
+                    "title": "Type of Health Insurance Coverage in Placer County",
+                    "type": "LINE"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
             "title": "Type of Health Insurance Coverage"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_WithPrivateHealthInsurance"
+                    ],
+                    "title": "People With Private Health Insurance in Cities of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WithPrivateHealthInsurance"
+                    ],
+                    "title": "People With Private Health Insurance in Cities of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "People With Private Health Insurance in Cities of Placer County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_WithPrivateHealthInsuranceOnly"
+                    ],
+                    "title": "People With Only Private Health Insurance in Cities of Placer County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WithPrivateHealthInsuranceOnly"
+                    ],
+                    "title": "People With Only Private Health Insurance in Cities of Placer County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "People With Only Private Health Insurance in Cities of Placer County"
           }
         ],
         "statVarSpec": {
@@ -631,7 +1308,7 @@
             "name": "Neoplasms Deaths Among 55 - 64 Years Olds",
             "statVar": "Count_Death_55To64Years_Neoplasms"
           },
-          "Count_Death_65To74Years_MentalBehaviouralDisorders_multiple_place_bar_block": {
+          "Count_Death_65To74Years_MentalBehaviouralDisorders": {
             "name": "Deaths due to Mental and Behavioral Disorders (65 - 74 years)",
             "statVar": "Count_Death_65To74Years_MentalBehaviouralDisorders"
           },
@@ -639,7 +1316,7 @@
             "name": "Neoplasms Deaths Among 65 - 74 Years Olds",
             "statVar": "Count_Death_65To74Years_Neoplasms"
           },
-          "Count_Death_75To84Years_MentalBehaviouralDisorders_multiple_place_bar_block": {
+          "Count_Death_75To84Years_MentalBehaviouralDisorders": {
             "name": "Deaths due to Mental and Behavioral Disorders (75 - 84 years)",
             "statVar": "Count_Death_75To84Years_MentalBehaviouralDisorders"
           },
@@ -647,7 +1324,7 @@
             "name": "Neoplasms Deaths Among 75 - 84 Years Olds",
             "statVar": "Count_Death_75To84Years_Neoplasms"
           },
-          "Count_Death_85Years_MentalBehaviouralDisorders_multiple_place_bar_block": {
+          "Count_Death_85Years_MentalBehaviouralDisorders": {
             "name": "Deaths due to Mental and Behavioral Disorders (over 85 years)",
             "statVar": "Count_Death_85Years_MentalBehaviouralDisorders"
           },
@@ -663,19 +1340,19 @@
             "name": "Deaths From Neoplasms (Tumors or Abnormal Growths)",
             "statVar": "Count_Death_Neoplasms"
           },
-          "Count_Person_Female_NoHealthInsurance_multiple_place_bar_block": {
+          "Count_Person_Female_NoHealthInsurance": {
             "name": "Women With No Health Insurance",
             "statVar": "Count_Person_Female_NoHealthInsurance"
           },
-          "Count_Person_Female_WithHealthInsurance_multiple_place_bar_block": {
+          "Count_Person_Female_WithHealthInsurance": {
             "name": "Women With Health Insurance",
             "statVar": "Count_Person_Female_WithHealthInsurance"
           },
-          "Count_Person_Male_NoHealthInsurance_multiple_place_bar_block": {
+          "Count_Person_Male_NoHealthInsurance": {
             "name": "Men With No Health Insurance",
             "statVar": "Count_Person_Male_NoHealthInsurance"
           },
-          "Count_Person_Male_WithHealthInsurance_multiple_place_bar_block": {
+          "Count_Person_Male_WithHealthInsurance": {
             "name": "Men With Health Insurance",
             "statVar": "Count_Person_Male_WithHealthInsurance"
           },
@@ -683,23 +1360,31 @@
             "name": "Population Without Health Insurance",
             "statVar": "Count_Person_NoHealthInsurance"
           },
-          "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
-            "name": "American Indian/Alaska Natives With Disabilities",
+          "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone": {
+            "name": "Number of American Indian/Alaska Natives With Disabilities",
             "statVar": "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone"
           },
-          "Count_Person_WithDisability_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
-            "name": "Black/African Americans With Disabilities",
+          "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
+            "name": "Number of American Indian/Alaska Natives With Disabilities",
+            "statVar": "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone"
+          },
+          "Count_Person_WithDisability_BlackOrAfricanAmericanAlone": {
+            "name": "Number of Black/African Americans With Disabilities",
             "statVar": "Count_Person_WithDisability_BlackOrAfricanAmericanAlone"
           },
-          "Count_Person_WithDisability_Female_multiple_place_bar_block": {
+          "Count_Person_WithDisability_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
+            "name": "Number of Black/African Americans With Disabilities",
+            "statVar": "Count_Person_WithDisability_BlackOrAfricanAmericanAlone"
+          },
+          "Count_Person_WithDisability_Female": {
             "name": "Women With Disabilities",
             "statVar": "Count_Person_WithDisability_Female"
           },
           "Count_Person_WithDisability_HispanicOrLatino_multiple_place_bar_block": {
-            "name": "Hispanic/Latinos With Disabilities",
+            "name": "Number of Hispanic/Latinos With Disabilities",
             "statVar": "Count_Person_WithDisability_HispanicOrLatino"
           },
-          "Count_Person_WithDisability_Male_multiple_place_bar_block": {
+          "Count_Person_WithDisability_Male": {
             "name": "Men With Disabilities",
             "statVar": "Count_Person_WithDisability_Male"
           },
@@ -720,28 +1405,28 @@
             "statVar": "Count_Person_WithDisability_WhiteAloneNotHispanicOrLatino"
           },
           "Count_Person_WithDisability_WhiteAlone_multiple_place_bar_block": {
-            "name": "White Disbabled Population",
+            "name": "White Disabled Population",
             "statVar": "Count_Person_WithDisability_WhiteAlone"
           },
           "Count_Person_WithHealthInsurance": {
             "name": "Population With Health Insurance",
             "statVar": "Count_Person_WithHealthInsurance"
           },
-          "Count_Person_WithPrivateHealthInsuranceOnly_multiple_place_bar_block": {
-            "name": "People With Only Private Health Insurance",
-            "statVar": "Count_Person_WithPrivateHealthInsuranceOnly"
-          },
-          "Count_Person_WithPrivateHealthInsurance_multiple_place_bar_block": {
+          "Count_Person_WithPrivateHealthInsurance": {
             "name": "People With Private Health Insurance",
             "statVar": "Count_Person_WithPrivateHealthInsurance"
           },
-          "Count_Person_WithPublicHealthInsuranceOnly_multiple_place_bar_block": {
-            "name": "People With Only Public Health Insurance",
-            "statVar": "Count_Person_WithPublicHealthInsuranceOnly"
+          "Count_Person_WithPrivateHealthInsuranceOnly": {
+            "name": "People With Only Private Health Insurance",
+            "statVar": "Count_Person_WithPrivateHealthInsuranceOnly"
           },
-          "Count_Person_WithPublicHealthInsurance_multiple_place_bar_block": {
+          "Count_Person_WithPublicHealthInsurance": {
             "name": "People With Public Health Insurance",
             "statVar": "Count_Person_WithPublicHealthInsurance"
+          },
+          "Count_Person_WithPublicHealthInsuranceOnly": {
+            "name": "People With Only Public Health Insurance",
+            "statVar": "Count_Person_WithPublicHealthInsuranceOnly"
           },
           "Percent_Person_18OrMoreYears_WithDepression": {
             "name": "Depression",
@@ -753,17 +1438,17 @@
             "statVar": "Percent_Person_18OrMoreYears_WithHighBloodPressure_ReceivedTakingBloodPressureMedication",
             "unit": "%"
           },
-          "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening_multiple_place_bar_block": {
+          "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening": {
             "name": "Women 21 - 65 Years Who Received Cervical Cancer Screening",
             "statVar": "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening",
             "unit": "%"
           },
-          "Percent_Person_50To74Years_Female_ReceivedMammography_multiple_place_bar_block": {
+          "Percent_Person_50To74Years_Female_ReceivedMammography": {
             "name": "Women 50 - 74 Years, Who Received Mammography",
             "statVar": "Percent_Person_50To74Years_Female_ReceivedMammography",
             "unit": "%"
           },
-          "Percent_Person_50To75Years_ReceivedColorectalCancerScreening_multiple_place_bar_block": {
+          "Percent_Person_50To75Years_ReceivedColorectalCancerScreening": {
             "name": "Patients 50 - 75 Years Who Received Colorectal Cancer Screening",
             "statVar": "Percent_Person_50To75Years_ReceivedColorectalCancerScreening",
             "unit": "%"
@@ -776,6 +1461,11 @@
           "Percent_Person_ReceivedCholesterolScreening": {
             "name": "Prevalence: Cholesterol Screening",
             "statVar": "Percent_Person_ReceivedCholesterolScreening",
+            "unit": "%"
+          },
+          "Percent_Person_WithArthritis": {
+            "name": "Arthritis",
+            "statVar": "Percent_Person_WithArthritis",
             "unit": "%"
           },
           "Percent_Person_WithArthritis_multiple_place_bar_block": {
@@ -867,6 +1557,9 @@
       }
     ],
     "metadata": {
+      "containedPlaceTypes": {
+        "County": "City"
+      },
       "placeDcid": [
         "geoId/06061"
       ]
@@ -890,7 +1583,569 @@
       "place_type": "County"
     }
   ],
-  "relatedThings": {},
+  "relatedThings": {
+    "childPlaces": {
+      "City": [
+        {
+          "dcid": "geoId/0601276",
+          "name": "Alta",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0603204",
+          "name": "Auburn",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0611418",
+          "name": "Carnelian Bay",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0612216",
+          "name": "Cedar Flat",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0614498",
+          "name": "Colfax",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0619455",
+          "name": "Dollar Point",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0620298",
+          "name": "Dutch Flat",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0624834",
+          "name": "Foresthill",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0630693",
+          "name": "Granite Bay",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0638548",
+          "name": "Kings Beach",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0638604",
+          "name": "Kingvale",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0641474",
+          "name": "Lincoln",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0643140",
+          "name": "Loomis",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0646632",
+          "name": "Meadow Vista",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0651000",
+          "name": "Newcastle",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0651637",
+          "name": "North Auburn",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0656546",
+          "name": "Penryn",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0662364",
+          "name": "Rocklin",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0662664",
+          "name": "Rocklin",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0662938",
+          "name": "Roseville",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0671414",
+          "name": "Sheridan",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0676015",
+          "name": "Sunnyside-Tahoe City",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0677700",
+          "name": "Tahoe Vista",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0677728",
+          "name": "Tahoma",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q822230",
+          "name": "Squaw Valley",
+          "types": [
+            "City"
+          ]
+        }
+      ]
+    },
+    "childTopics": [
+      {
+        "dcid": "dc/topic/Arthritis",
+        "name": "Arthritis",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Asthma",
+        "name": "Asthma",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/BloodPressure",
+        "name": "Blood Pressure",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Cancer",
+        "name": "Cancer",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Cholesterol",
+        "name": "Cholesterol",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Diabetes",
+        "name": "Diabetes",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HeartDisease",
+        "name": "Heart Disease",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/MentalHealth",
+        "name": "Mental Health",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/KidneyDisease",
+        "name": "Kidney Disease",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Stroke",
+        "name": "Stroke",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "exploreMore": {
+      "Count_Death_45To54Years_Neoplasms": {
+        "gender": [
+          "Count_Death_45To54Years_Neoplasms_Female",
+          "Count_Death_45To54Years_Neoplasms_Male"
+        ]
+      },
+      "Count_Death_55To64Years_Neoplasms": {
+        "gender": [
+          "Count_Death_55To64Years_Neoplasms_Female",
+          "Count_Death_55To64Years_Neoplasms_Male"
+        ]
+      },
+      "Count_Death_65To74Years_Neoplasms": {
+        "gender": [
+          "Count_Death_65To74Years_Neoplasms_Female",
+          "Count_Death_65To74Years_Neoplasms_Male"
+        ],
+        "race": [
+          "Count_Death_65To74Years_Neoplasms_AsianOrPacificIslander",
+          "Count_Death_65To74Years_Neoplasms_White"
+        ]
+      },
+      "Count_Death_75To84Years_Neoplasms": {
+        "gender": [
+          "Count_Death_75To84Years_Neoplasms_Female",
+          "Count_Death_75To84Years_Neoplasms_Male"
+        ],
+        "race": [
+          "Count_Death_75To84Years_Neoplasms_AsianOrPacificIslander",
+          "Count_Death_75To84Years_Neoplasms_White"
+        ]
+      },
+      "Count_Death_MentalBehaviouralDisorders": {
+        "age": [
+          "Count_Death_65To74Years_MentalBehaviouralDisorders",
+          "Count_Death_75To84Years_MentalBehaviouralDisorders",
+          "Count_Death_85Years_MentalBehaviouralDisorders"
+        ]
+      },
+      "Count_Death_Neoplasms": {
+        "age": [
+          "Count_Death_35To44Years_Neoplasms",
+          "Count_Death_45To54Years_Neoplasms",
+          "Count_Death_55To64Years_Neoplasms",
+          "Count_Death_65To74Years_Neoplasms",
+          "Count_Death_75To84Years_Neoplasms",
+          "Count_Death_85Years_Neoplasms"
+        ]
+      },
+      "Count_Person_NoHealthInsurance": {
+        "gender": [
+          "Count_Person_Female_NoHealthInsurance",
+          "Count_Person_Male_NoHealthInsurance"
+        ]
+      },
+      "Count_Person_WithHealthInsurance": {
+        "gender": [
+          "Count_Person_Female_WithHealthInsurance",
+          "Count_Person_Male_WithHealthInsurance"
+        ]
+      }
+    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/HealthConditions",
+        "name": "Health Conditions",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Health",
+        "name": "Health",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [
+      {
+        "dcid": "geoId/06001",
+        "name": "Alameda",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/36005",
+        "name": "Bronx",
+        "types": [
+          "County"
+        ]
+      },
+      {
+        "dcid": "geoId/06013",
+        "name": "Contra Costa",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/17031",
+        "name": "Cook",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/39035",
+        "name": "Cuyahoga",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/48113",
+        "name": "Dallas",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/12031",
+        "name": "Duval",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/08041",
+        "name": "El Paso",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/51059",
+        "name": "Fairfax",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/13121",
+        "name": "Fulton",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/48201",
+        "name": "Harris",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/12057",
+        "name": "Hillsborough",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/15003",
+        "name": "Honolulu",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/08059",
+        "name": "Jefferson",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06029",
+        "name": "Kern",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/53033",
+        "name": "King",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06037",
+        "name": "Los Angeles",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/04013",
+        "name": "Maricopa",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/37119",
+        "name": "Mecklenburg",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/12086",
+        "name": "Miami-Dade",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06059",
+        "name": "Orange",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/36081",
+        "name": "Queens",
+        "types": [
+          "County"
+        ]
+      },
+      {
+        "dcid": "geoId/06065",
+        "name": "Riverside",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06071",
+        "name": "San Bernardino",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06073",
+        "name": "San Diego",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06075",
+        "name": "San Francisco",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06085",
+        "name": "Santa Clara",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/24047",
+        "name": "Worcester",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/HealthEquity",
+        "name": "Health Equity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HealthInsurance",
+        "name": "Health Insurance",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Mortality",
+        "name": "Mortality",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/PreventativeHealthAndBehavior",
+        "name": "Preventive Health and Behavior",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
   "svSource": "CURRENT_QUERY",
   "userMessages": [
     "See relevant statistics for Placer County based on the previous query."

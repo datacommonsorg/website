@@ -25,15 +25,15 @@ from server.lib.nl.detection import heuristic_detector
 from server.lib.nl.detection import llm_detector
 from server.lib.nl.detection import llm_fallback
 from server.lib.nl.detection import place
-from server.lib.nl.detection import rerank
 from server.lib.nl.detection import types
 from server.lib.nl.detection.place_utils import get_similar
 from server.lib.nl.detection.types import ActualDetectorType
-from server.lib.nl.detection.types import LlmApiType
+from server.lib.nl.detection.types import DetectionArgs
 from server.lib.nl.detection.types import PlaceDetection
 from server.lib.nl.detection.types import RequestedDetectorType
 from server.lib.nl.detection.utils import empty_var_candidates
 from server.lib.nl.detection.utils import get_multi_sv
+from shared.lib import constants
 import shared.lib.detected_variables as dutils
 
 _LLM_API_DETECTORS = [
@@ -51,16 +51,9 @@ MAX_CHILD_LIMIT = 50
 # For `hybrid` detection, it first calls Heuristic detector, and
 # based on `need_llm()`, decides to call the LLM detector.
 #
-def detect(detector_type: str,
-           original_query: str,
-           no_punct_query: str,
-           prev_utterance: Utterance,
-           embeddings_index_type: str,
-           query_detection_debug_logs: Dict,
-           mode: str,
-           counters: Counters,
-           rerank_fn: rerank.RerankCallable = None,
-           allow_triples: bool = False) -> types.Detection:
+def detect(detector_type: str, original_query: str, no_punct_query: str,
+           prev_utterance: Utterance, query_detection_debug_logs: Dict,
+           counters: Counters, dargs: DetectionArgs) -> types.Detection:
   #
   # In the absence of the PALM API key, fallback to heuristic.
   #
@@ -81,12 +74,9 @@ def detect(detector_type: str,
     llm_detection = llm_detector.detect(
         query=original_query,
         prev_utterance=prev_utterance,
-        index_type=embeddings_index_type,
         query_detection_debug_logs=query_detection_debug_logs,
-        mode=mode,
-        ctr=counters,
-        rerank_fn=rerank_fn,
-        allow_triples=allow_triples)
+        counters=counters,
+        dargs=dargs)
     return llm_detection
 
   #
@@ -95,12 +85,9 @@ def detect(detector_type: str,
   heuristic_detection = heuristic_detector.detect(
       orig_query=original_query,
       cleaned_query=no_punct_query,
-      index_type=embeddings_index_type,
       query_detection_debug_logs=query_detection_debug_logs,
-      mode=mode,
       counters=counters,
-      rerank_fn=rerank_fn,
-      allow_triples=allow_triples)
+      dargs=dargs)
   if detector_type == RequestedDetectorType.Heuristic.value:
     return heuristic_detection
 
@@ -126,12 +113,9 @@ def detect(detector_type: str,
   llm_detection = llm_detector.detect(
       query=original_query,
       prev_utterance=prev_utterance,
-      index_type=embeddings_index_type,
       query_detection_debug_logs=query_detection_debug_logs,
-      mode=mode,
-      ctr=counters,
-      rerank_fn=rerank_fn,
-      allow_triples=allow_triples)
+      counters=counters,
+      dargs=dargs)
   if not llm_detection:
     counters.err('info_llm_blocked', '')
     return None
@@ -140,16 +124,6 @@ def detect(detector_type: str,
     # Completely use LLM's detections.
     detection = llm_detection
     detection.detector = ActualDetectorType.HybridLLMFull
-  elif llm_type == llm_fallback.NeedLLM.ForVar:
-    # Use place stuff from heuristics
-    detection = llm_detection
-    detection.places_detected = heuristic_detection.places_detected
-    detection.detector = ActualDetectorType.HybridLLMVar
-  elif llm_type == llm_fallback.NeedLLM.ForPlace:
-    # Use place stuff from LLM
-    detection = heuristic_detection
-    detection.places_detected = llm_detection.places_detected
-    detection.detector = ActualDetectorType.HybridLLMPlace
   return detection
 
 
@@ -230,23 +204,32 @@ def construct_for_explore(entities: List[str], vars: List[str], child_type: str,
                                    entities_found=[],
                                    query_entities_mentioned=[])
   add_child_and_peer_places(places, child_type, counters, place_detection)
+  threshold = constants.SV_SCORE_DEFAULT_THRESHOLD
   if not cmp_entities and cmp_vars:
     # Multi SV case.
+    # Just matters that score > threshold here.
+    score = threshold + 0.1
     sv_detection = types.SVDetection(query='',
                                      single_sv=dutils.VarCandidates(
                                          svs=vars,
-                                         scores=[0.51] * len(vars),
+                                         scores=[score] * len(vars),
                                          sv2sentences={}),
                                      prop=empty_var_candidates(),
-                                     multi_sv=get_multi_sv(vars, cmp_vars, 1.0))
+                                     multi_sv=get_multi_sv(vars, cmp_vars, 1.0),
+                                     sv_threshold=threshold,
+                                     model_threshold=threshold)
   else:
+    # Thresholds don't matter here since the score is 1.0.
+    score = 1.0
     sv_detection = types.SVDetection(query='',
                                      single_sv=dutils.VarCandidates(
                                          svs=vars,
-                                         scores=[1.0] * len(vars),
+                                         scores=[score] * len(vars),
                                          sv2sentences={}),
                                      prop=empty_var_candidates(),
-                                     multi_sv=None)
+                                     multi_sv=None,
+                                     sv_threshold=threshold,
+                                     model_threshold=threshold)
   return types.Detection(original_query=query,
                          cleaned_query=query,
                          places_detected=place_detection,

@@ -179,10 +179,12 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
   const hideDebug =
     document.getElementById("metadata").dataset.hideDebug === "True" &&
     !debugParam;
+  const [isCollapsed, setIsCollapsed] = useState(true);
+  const [showDebug, setShowDebug] = useState(false);
+
   if (_.isEmpty(props.debugData) || hideDebug) {
     return <></>;
   }
-  const [showDebug, setShowDebug] = useState(false);
 
   const debugInfo = {
     status: props.debugData["status"],
@@ -196,7 +198,9 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
     entitiesResolved: props.debugData["entities_resolved"] || [],
     mainPlaceDCID: props.debugData["main_place_dcid"],
     mainPlaceName: props.debugData["main_place_name"],
+    queryIndexTypes: props.debugData["query_index_types"],
     queryWithoutPlaces: props.debugData["query_with_places_removed"],
+    queryWithoutStopWords: props.debugData["query_with_stop_words_removal"],
     queryDetectionDebugLogs: props.debugData["query_detection_debug_logs"],
     svScores: props.debugData["sv_matching"] || {},
     svSentences: props.debugData["svs_to_sentences"],
@@ -236,28 +240,42 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             <br></br>
           </Row>
           <Row>
-            <b>Execution Status: </b> {debugInfo.status}
+            <b>Execution Status: </b>{" "}
+            <span className="highlight">{debugInfo.status}</span>
           </Row>
           <Row>
-            <b>Detection Type: </b> {debugInfo.detectionType}
+            <b>Detection Type: </b>
+            <span className="highlight">{debugInfo.detectionType}</span>
           </Row>
           <Row>
             <b>Place Detection Type: </b>{" "}
-            {debugInfo.placeDetectionType.toUpperCase()}
+            <span className="highlight">
+              {debugInfo.placeDetectionType.toUpperCase()}
+            </span>
           </Row>
           <Row>
-            <b>Original Query: </b> {debugInfo.originalQuery}
+            <b>Original Query: </b>
+            <span className="highlight">{debugInfo.originalQuery}</span>
           </Row>
           <Row>
-            <b>Blocked:</b> {debugInfo.blocked.toString()}
+            <b>Blocked:</b>{" "}
+            <span className="highlight">{debugInfo.blocked.toString()}</span>
+          </Row>
+          <Row>
+            <b>Query index types: </b>
+            <span className="highlight">
+              {debugInfo.queryIndexTypes.join(", ")}
+            </span>
           </Row>
           <Row>
             <b>Query without places: </b>
-            {debugInfo.queryWithoutPlaces}
+            <span className="highlight">{debugInfo.queryWithoutPlaces}</span>
           </Row>
           <Row>
-            <b>Query used for variable detection: </b>
-            {debugInfo.svScores.Query || ""}
+            <b>Query without stop words: </b>
+            <span className="highlight">
+              {debugInfo.queryWithoutStopWords || ""}
+            </span>
           </Row>
           <Row>
             <b>Place Detection:</b>
@@ -265,18 +283,26 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
           <Row>
             <Col>
               Places Detected:{" "}
-              {debugInfo.placesDetected
-                ? debugInfo.placesDetected.join(", ")
-                : ""}
+              <span className="highlight">
+                {" "}
+                {debugInfo.placesDetected
+                  ? debugInfo.placesDetected.join(", ")
+                  : ""}
+              </span>
             </Col>
           </Row>
           <Row>
-            <Col>Places Resolved: {debugInfo.placesResolved}</Col>
+            <Col>
+              Places Resolved:
+              <span className="highlight">{debugInfo.placesResolved}</span>
+            </Col>
           </Row>
           <Row>
             <Col>
-              Main Place: {debugInfo.mainPlaceName} (dcid:{" "}
-              {debugInfo.mainPlaceDCID})
+              Main Place:
+              <span className="highlight">
+                {debugInfo.mainPlaceName} (dcid: {debugInfo.mainPlaceDCID})
+              </span>
             </Col>
           </Row>
           <Row>
@@ -288,13 +314,16 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             </Col>
           </Row>
           <Row>
-            <Col>Entities Resolved: {debugInfo.entitiesResolved}</Col>
+            <Col>
+              Entities Resolved:{" "}
+              <span className="highlight">{debugInfo.entitiesResolved}</span>
+            </Col>
           </Row>
           <Row>
             <b>Query Type Detection:</b>
           </Row>
           <Row>
-            <Col>Ranking classification: {debugInfo.rankingClassification}</Col>
+            <Col>Ranking classification: </Col>
           </Row>
           <Row>
             <Col>
@@ -339,7 +368,9 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
           <Row>
             <b>Single Variables Matches:</b>
           </Row>
-          <Row>Note: Variables with scores less than 0.5 are not used.</Row>
+          <Row>
+            Note: Variables with scores less than model threshold are not used.
+          </Row>
           <Row>
             <Col>
               {monoVarScoresElement(
@@ -399,51 +430,65 @@ export function DebugInfo(props: DebugInfoProps): JSX.Element {
             </Col>
           </Row>
           <Row>
-            <b>Query Fulfillment:</b>
+            <b
+              onClick={() => setIsCollapsed(!isCollapsed)}
+              style={{ cursor: "pointer" }}
+            >
+              <h3>SHOW MORE: {isCollapsed ? "[+]" : "[-]"}</h3>
+            </b>
           </Row>
-          {props.queryResult && (
-            <Row>
-              <Col>
-                Place Query Source: {props.queryResult.placeSource}
-                {props.queryResult.pastSourceContext
-                  ? "(" + props.queryResult.pastSourceContext + ")"
-                  : ""}
-              </Col>
-            </Row>
+          {!isCollapsed && (
+            <>
+              <Row>
+                <b>Query Fulfillment:</b>
+              </Row>
+              {props.queryResult && (
+                <Row>
+                  <Col>
+                    Place Query Source: {props.queryResult.placeSource}
+                    {props.queryResult.pastSourceContext
+                      ? "(" + props.queryResult.pastSourceContext + ")"
+                      : ""}
+                  </Col>
+                </Row>
+              )}
+              {props.queryResult && (
+                <Row>
+                  <Col>Variable Query Source: {props.queryResult.svSource}</Col>
+                </Row>
+              )}
+              {props.queryResult && props.queryResult.placeFallback && (
+                <Row>
+                  <Col>
+                    Place Fallback: &quot;
+                    {props.queryResult.placeFallback.origStr}
+                    &quot; to &quot;{props.queryResult.placeFallback.newStr}
+                    &quot;
+                  </Col>
+                </Row>
+              )}
+              <Row>
+                <Col>
+                  <b>Counters:</b>
+                  <pre>{JSON.stringify(debugInfo.counters, null, 2)}</pre>
+                </Col>
+              </Row>
+              <Row>
+                <b>Page Config:</b>
+              </Row>
+              <Row>
+                <Col>
+                  <pre>
+                    {JSON.stringify(
+                      props.queryResult ? props.queryResult.config : null,
+                      null,
+                      2
+                    )}
+                  </pre>
+                </Col>
+              </Row>
+            </>
           )}
-          {props.queryResult && (
-            <Row>
-              <Col>Variable Query Source: {props.queryResult.svSource}</Col>
-            </Row>
-          )}
-          {props.queryResult && props.queryResult.placeFallback && (
-            <Row>
-              <Col>
-                Place Fallback: &quot;{props.queryResult.placeFallback.origStr}
-                &quot; to &quot;{props.queryResult.placeFallback.newStr}&quot;
-              </Col>
-            </Row>
-          )}
-          <Row>
-            <Col>
-              <b>Counters:</b>
-              <pre>{JSON.stringify(debugInfo.counters, null, 2)}</pre>
-            </Col>
-          </Row>
-          <Row>
-            <b>Page Config:</b>
-          </Row>
-          <Row>
-            <Col>
-              <pre>
-                {JSON.stringify(
-                  props.queryResult ? props.queryResult.config : null,
-                  null,
-                  2
-                )}
-              </pre>
-            </Col>
-          </Row>
         </div>
       )}
     </>

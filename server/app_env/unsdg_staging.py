@@ -18,7 +18,7 @@ from server.app_env import local
 
 class Config(_base.Config):
   CUSTOM = True
-  GA_ACCOUNT = 'G-7QE2ET63E5'
+  GOOGLE_ANALYTICS_TAG_ID = 'G-7QE2ET63E5'
   SHOW_TOPIC = True
   NAME = "Data Commons"
   LOG_QUERY = True
@@ -31,11 +31,15 @@ class Config(_base.Config):
   GEO_JSON_PROP = "geoJsonCoordinatesUN"
   CUSTOM_DC_TEMPLATE_FOLDER = "unsdg"
   STAT_VAR_HIERARCHY_CONFIG = {
-      "disableSearch": True,
+      "disableSearch":
+          True,
       "nodes": [{
           "dcid": "dc/g/SDG"
       }, {
           "dcid": "dc/g/UN"
+      }, {
+          "dcid": "dc/g/Custom_UN",
+          "name": "12 UN Data Thematic Areas (ILO)"
       }]
   }
 

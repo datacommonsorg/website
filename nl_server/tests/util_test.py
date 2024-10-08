@@ -18,7 +18,7 @@ from unittest import mock
 
 from parameterized import parameterized
 
-from nl_server.util import use_anonymous_gcs_client
+from shared.lib.custom_dc_util import use_anonymous_gcs_client
 
 
 class TestUtil(unittest.TestCase):

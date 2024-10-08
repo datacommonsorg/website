@@ -262,8 +262,8 @@ function addHighlightOnHover(
       highlightArea.style("opacity", "0");
       tooltip.style("display", "none");
     })
-    .on("mousemove", (event) => {
-      const [mouseX] = d3.pointer(event, container.node());
+    .on("mousemove", () => {
+      const mouseX = d3.mouse(container.node() as HTMLElement)[0];
       if (mouseX > chartAreaBoundary.right) {
         highlightArea.style("opacity", "0");
         tooltip.style("display", "none");
@@ -493,7 +493,7 @@ export function drawLineChart(
         `line ${LEGEND_HIGHLIGHT_CLASS} ${legendKeyFn(dataGroup.label)}`
       )
       .attr("d", line)
-      .attr("part", () =>
+      .attr("part", (d) =>
         ["series", `series-variable-${dataGroup.label}`].join(" ")
       )
       .style("fill", "none")
@@ -513,7 +513,7 @@ export function drawLineChart(
         )
         .attr("cx", (d) => xScale(d.time))
         .attr("cy", (d) => yScale(d.value))
-        .attr("part", () =>
+        .attr("part", (d) =>
           ["series-point", `series-point-variable-${dataGroup.label}`].join(" ")
         )
         .attr("r", (d) => (d.value === null ? 0 : 3))

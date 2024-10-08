@@ -17,16 +17,16 @@ import sys
 
 import logging
 
-from nl_server.__init__ import create_app
+from nl_server.flask import create_app
 
 app = create_app()
 
 if __name__ == '__main__':
   # This is used when running locally only. When deploying to GKE,
   # a webserver process such as Gunicorn will serve the app.
-  logging.info("Run nl server in local mode")
+  logging.info(f"Run nl server in local mode (host=localhost), port={int(sys.argv[1])}")
 
   if len(sys.argv) == 3 and sys.argv[2] == 'opt':
-    app.run(host='127.0.0.1', port=int(sys.argv[1]))
+    app.run(host='0.0.0.0', port=int(sys.argv[1]))
   else:
-    app.run(host='127.0.0.1', port=int(sys.argv[1]), debug=True)
+    app.run(host='0.0.0.0', port=int(sys.argv[1]), debug=True)

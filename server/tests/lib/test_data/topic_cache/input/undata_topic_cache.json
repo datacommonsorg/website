@@ -1,0 +1,16 @@
+{
+  "nodes": [
+    {
+      "dcid": ["dc/svpg/undata_svpg1"],
+      "memberList": ["undata_sv1", "undata_sv2"],
+      "name": ["UNData SVPVG1"],
+      "typeOf": ["StatVarPeerGroup"]
+    },
+    {
+      "dcid": ["dc/topic/undata_topic1"],
+      "name": ["UNData Topic1"],
+      "relevantVariableList": ["undata_sv3"],
+      "typeOf": ["Topic"]
+    }
+  ]
+}

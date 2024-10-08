@@ -94,184 +94,16 @@
                       "country/SSD"
                     ],
                     "statVarKey": [
-                      "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F_multiple_place_bar_block"
+                      "sdg/SP_DYN_ADKL.AGE--Y10T14__SEX--F_multiple_place_bar_block",
+                      "sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F_multiple_place_bar_block"
                     ],
-                    "title": "Access to Modern Family Planning for Adult Women (${date})",
+                    "title": "Adolescent Birth Rate by Age (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: afghanistan 2015 demographic and health survey; albania 2008-2009 demographic and health survey; albania 2017-2018 demographic and health survey; algeria 2006 multiple indicator cluster survey; algeria 2012-2013 multiple indicator cluster survey; algeria 2018-2019 multiple indicator cluster survey; angola 2015-2016 demographic and health survey; argentina 2019-2020 multiple indicator cluster survey; armenia 2000 demographic and health survey; armenia 200...21431 more chars",
-            "title": "Access to Modern Family Planning for Adult Women"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/DZA",
-                      "country/MAR",
-                      "country/LBY",
-                      "country/TUN",
-                      "country/MLI",
-                      "country/ERI",
-                      "country/MWI",
-                      "country/SEN",
-                      "country/GMB"
-                    ],
-                    "statVarKey": [
-                      "WHO/SA_0000001432_multiple_place_bar_block"
-                    ],
-                    "title": "Prematurity and Low Birth Rate, Per 100,000 (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "infoMessage": "Data for \"South Sudan\" is currently unavailable. See the following statistics on the other places.",
-            "title": "Prematurity and Low Birth Rate, Per 100,000"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/DZA",
-                      "country/MAR",
-                      "country/LBY",
-                      "country/TUN",
-                      "country/MLI",
-                      "country/ERI",
-                      "country/MWI",
-                      "country/SEN",
-                      "country/GMB",
-                      "country/SSD"
-                    ],
-                    "statVarKey": [
-                      "sdg/SH_STA_MORT.SEX--F_multiple_place_bar_block"
-                    ],
-                    "title": "Maternal Mortality Ratio (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: estimates by WHO, UNICEF, UNFPA, world bank group and UNDESA/Population division. Geneva: world health organization; 2023.",
-            "title": "Maternal Mortality Ratio"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/DZA",
-                      "country/MAR",
-                      "country/LBY",
-                      "country/TUN",
-                      "country/MLI",
-                      "country/ERI",
-                      "country/MWI",
-                      "country/SEN",
-                      "country/GMB",
-                      "country/SSD"
-                    ],
-                    "statVarKey": [
-                      "sdg/SH_STA_BRTC_multiple_place_bar_block"
-                    ],
-                    "title": "Proportion of Births Attended by Skilled Health Personnel (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: 1993 contraceptive prevalence survey jamaica. Volume III - sexual experience contraceptive practice and fertility. Kingston, atlanta, GA: national family planning board [jamaica], centers for disease control and prevention (CDC); 1994; 1999 belize family health survey females. Belize: central statistical office; 2001; 2000 end decade multiple indicator cluster survey (EMICS). Draft preliminary report. Maseru: bureau of statistics [lesotho], united nation...275658 more chars",
-            "title": "Proportion of Births Attended by Skilled Health Personnel"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/DZA",
-                      "country/MAR",
-                      "country/LBY",
-                      "country/TUN",
-                      "country/MLI",
-                      "country/ERI",
-                      "country/MWI",
-                      "country/SEN",
-                      "country/GMB"
-                    ],
-                    "statVarKey": [
-                      "WHO/SA_0000001451_multiple_place_bar_block"
-                    ],
-                    "title": "Age-Standardized Death Rates, Prematurity and Low Birth Rate, Per 100,000 (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "infoMessage": "Data for \"South Sudan\" is currently unavailable. See the following statistics on the other places.",
-            "title": "Age-Standardized Death Rates, Prematurity and Low Birth Rate, Per 100,000"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/DZA",
-                      "country/MAR",
-                      "country/LBY",
-                      "country/TUN",
-                      "country/MLI",
-                      "country/ERI",
-                      "country/MWI",
-                      "country/SEN",
-                      "country/GMB",
-                      "country/SSD"
-                    ],
-                    "statVarKey": [
-                      "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female_multiple_place_bar_block"
-                    ],
-                    "title": "Female Infant Mortality Rate (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "description": "Infant mortality rate, female is the number of female infants dying before reaching one year of age, per 1,000 female live births in a given year. Estimates developed by the UN Inter-agency group for child mortality estimation (UNICEF, WHO, world bank, UN DESA population division) at www.Childmortality.Org.",
-            "title": "Female Infant Mortality Rate"
+            "title": "Adolescent Birth Rate by Age"
           },
           {
             "columns": [
@@ -305,6 +137,106 @@
               }
             ],
             "title": "Rate of Population Growth"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/DZA",
+                      "country/MAR",
+                      "country/LBY",
+                      "country/TUN",
+                      "country/MLI",
+                      "country/ERI",
+                      "country/MWI",
+                      "country/SEN",
+                      "country/GMB",
+                      "country/SSD"
+                    ],
+                    "statVarKey": [
+                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_multiple_place_bar_block"
+                    ],
+                    "title": "Infant Mortality Rate (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "description": "Infant mortality rate is the number of infants dying before reaching one year of age, per 1,000 live births in a given year. Estimates developed by the UN Inter-agency group for child mortality estimation (UNICEF, WHO, world bank, UN DESA population division) at www.Childmortality.Org.",
+            "title": "Infant Mortality Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/DZA",
+                      "country/MAR",
+                      "country/LBY",
+                      "country/TUN",
+                      "country/MLI",
+                      "country/ERI",
+                      "country/MWI",
+                      "country/SEN",
+                      "country/GMB",
+                      "country/SSD"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_multiple_place_bar_block"
+                    ],
+                    "title": "Population (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/DZA",
+                      "country/MAR",
+                      "country/LBY",
+                      "country/TUN",
+                      "country/MLI",
+                      "country/ERI",
+                      "country/MWI",
+                      "country/SEN",
+                      "country/GMB",
+                      "country/SSD"
+                    ],
+                    "statVarKey": [
+                      "WHO/CM_02_multiple_place_bar_block"
+                    ],
+                    "title": "Number of Infant Deaths (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Number of Infant Deaths"
           }
         ],
         "statVarSpec": {
@@ -312,9 +244,13 @@
             "name": "Crude Birth Rate",
             "statVar": "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
           },
-          "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female_multiple_place_bar_block": {
-            "name": "Female Infant Mortality Rate",
-            "statVar": "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female"
+          "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_multiple_place_bar_block": {
+            "name": "Infant Mortality Rate",
+            "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+          },
+          "Count_Person_multiple_place_bar_block": {
+            "name": "Population",
+            "statVar": "Count_Person"
           },
           "FertilityRate_Person_Female_multiple_place_bar_block": {
             "name": "Fertility Rate",
@@ -324,25 +260,17 @@
             "name": "Rate of Population Growth",
             "statVar": "GrowthRate_Count_Person"
           },
-          "WHO/SA_0000001432_multiple_place_bar_block": {
-            "name": "Prematurity And Low Birth Rate, Per 100,000",
-            "statVar": "WHO/SA_0000001432"
+          "WHO/CM_02_multiple_place_bar_block": {
+            "name": "Number Of Infant Deaths",
+            "statVar": "WHO/CM_02"
           },
-          "WHO/SA_0000001451_multiple_place_bar_block": {
-            "name": "Age-Standardized Death Rates, Prematurity And Low Birth Rate, Per 100,000",
-            "statVar": "WHO/SA_0000001451"
+          "sdg/SP_DYN_ADKL.AGE--Y10T14__SEX--F_multiple_place_bar_block": {
+            "name": "Adolescent birth rate [10 to 14 years old, Female]",
+            "statVar": "sdg/SP_DYN_ADKL.AGE--Y10T14__SEX--F"
           },
-          "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F_multiple_place_bar_block": {
-            "name": "Access to modern family planning for adult women",
-            "statVar": "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F"
-          },
-          "sdg/SH_STA_BRTC_multiple_place_bar_block": {
-            "name": "Proportion of births attended by skilled health personnel",
-            "statVar": "sdg/SH_STA_BRTC"
-          },
-          "sdg/SH_STA_MORT.SEX--F_multiple_place_bar_block": {
-            "name": "Maternal mortality ratio",
-            "statVar": "sdg/SH_STA_MORT.SEX--F"
+          "sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F_multiple_place_bar_block": {
+            "name": "Birth rate for adolescent women",
+            "statVar": "sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F"
           }
         }
       }
@@ -416,7 +344,24 @@
       "place_type": "Country"
     }
   ],
-  "relatedThings": {},
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Births",
+        "name": "Births",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [],
+    "peerPlaces": [],
+    "peerTopics": []
+  },
   "svSource": "CURRENT_QUERY",
   "userMessages": [
     "See comparison based on places in the previous answer."

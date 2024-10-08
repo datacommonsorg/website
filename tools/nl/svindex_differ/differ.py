@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ from datetime import datetime
 import difflib
 import os
 import pwd
+from typing import Callable
 
 from absl import app
 from absl import flags
@@ -29,26 +30,39 @@ from jinja2 import FileSystemLoader
 import requests
 import yaml
 
-from nl_server.embeddings_map import EmbeddingsMap
+import nl_server.config_reader as config_reader
+from nl_server.registry import Registry
 from nl_server.search import search_vars
 from shared.lib.detected_variables import VarCandidates
+import shared.lib.utils as shared_utils
 
-_SV_THRESHOLD = 0.5
 _NUM_SVS = 10
 _SUB_COLOR = '#ffaaaa'
 _ADD_COLOR = '#aaffaa'
 _PROPERTY_URL = 'https://autopush.api.datacommons.org/v2/node'
 _GCS_BUCKET = 'datcom-embedding-diffs'
-_LOCAL_EMBEDDINGS_YAML = 'deploy/nl/embeddings.yaml'
-_PROD_EMBEDDINGS_YAML = f'https://raw.githubusercontent.com/datacommonsorg/website/master/{_LOCAL_EMBEDDINGS_YAML}'
+_LOCAL_CATALOG_YAML = 'deploy/nl/catalog.yaml'
+_PROD_CATALOG_YAML = f'https://raw.githubusercontent.com/datacommonsorg/website/master/{_LOCAL_CATALOG_YAML}'
 
 FLAGS = flags.FLAGS
 
+_EMPTY_FN = ''
+_STRIP_STOP_WORDS_FN = 'STRIP_STOP_WORDS'
+_STRIP_STOP_WORDS_NO_EXCLUSION_FN = 'STRIP_STOP_WORDS_NO_EXCLUSION'
+
 flags.DEFINE_string('base_index', '',
-                    'Base index name in PROD `embeddings.yaml` file.')
-flags.DEFINE_string('test_index', '',
-                    'Test index name in local `embeddings.yaml`')
-flags.DEFINE_string('queryset', '', 'Full path to queryset CSV')
+                    'Base index name in PROD `catalog.yaml` file.')
+flags.DEFINE_string('test_index', '', 'Test index name in local `catalog.yaml`')
+flags.DEFINE_enum(
+    'base_query_transform', _EMPTY_FN,
+    [_STRIP_STOP_WORDS_FN, _STRIP_STOP_WORDS_NO_EXCLUSION_FN, _EMPTY_FN],
+    'Transform to perform on base query.')
+flags.DEFINE_enum(
+    'test_query_transform', _EMPTY_FN,
+    [_STRIP_STOP_WORDS_FN, _STRIP_STOP_WORDS_NO_EXCLUSION_FN, _EMPTY_FN],
+    'Transform to perform on test query.')
+flags.DEFINE_string('queryset', 'tools/nl/svindex_differ/queryset_vars.csv',
+                    'Full path to queryset CSV')
 
 _GCS_PREFIX = 'https://storage.mtls.cloud.google.com'
 _TEMPLATE = 'tools/nl/svindex_differ/template.html'
@@ -57,16 +71,25 @@ _REPORT = '/tmp/diff_report.html'
 AUTOPUSH_KEY = os.environ.get('AUTOPUSH_KEY')
 assert AUTOPUSH_KEY
 
+_ALL_STOP_WORDS = shared_utils.combine_stop_words()
 
-def _load_yaml(path: str, idx: str):
+_QUERY_TRANSFORM_FUNCS: dict[str, Callable[[str], str]] = {
+    _STRIP_STOP_WORDS_FN:
+        lambda q: shared_utils.remove_stop_words(q, _ALL_STOP_WORDS),
+    _STRIP_STOP_WORDS_NO_EXCLUSION_FN:
+        lambda q: shared_utils.remove_stop_words(q, _ALL_STOP_WORDS, {})
+}
+
+CatalogType = dict[str, dict[str, str]]
+
+
+def _load_yaml(path: str):
   if path.startswith('https://'):
     embeddings_dict = yaml.safe_load(requests.get(path).text)
   else:
     with open(path) as fp:
       embeddings_dict = yaml.full_load(fp)
-  assert idx in embeddings_dict
-  # Return just this index
-  return {idx: embeddings_dict[idx]}
+  return embeddings_dict
 
 
 def _get_sv_names(sv_dcids):
@@ -88,12 +111,12 @@ def _get_sv_names(sv_dcids):
   return result
 
 
-def _prune(res: VarCandidates):
+def _prune(res: VarCandidates, score_threshold: float):
   svs = []
   sv_info = {}
   for i, var in enumerate(res.svs):
     score = res.scores[i]
-    if i < _NUM_SVS and score >= _SV_THRESHOLD:
+    if i < _NUM_SVS and score >= score_threshold:
       svs.append(var)
       sv_info[var] = {
           'sv': var,
@@ -109,6 +132,26 @@ def _get_file_name():
   username = pwd.getpwuid(os.getuid()).pw_name
   date = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
   return f'{username}_{FLAGS.base_index}_{date}.html'
+
+
+def _get_embeddings(base_idx: str, test_idx: str, base_dict: CatalogType,
+                    test_dict: CatalogType):
+  nl_env = config_reader.read_env()
+  nl_env.default_indexes = [base_idx, test_idx]
+  nl_env.enabled_indexes = [base_idx, test_idx]
+
+  base_catalog = config_reader.read_catalog(catalog_dict=base_dict,
+                                            catalog_paths=[])
+  base_server_config = config_reader.get_server_config(base_catalog, nl_env)
+  base_registry = Registry(base_server_config)
+  base_embs = base_registry.get_index(base_idx)
+
+  test_catalog = config_reader.read_catalog(catalog_dict=test_dict,
+                                            catalog_paths=[])
+  test_server_config = config_reader.get_server_config(test_catalog, nl_env)
+  test_registry = Registry(test_server_config)
+  test_embs = test_registry.get_index(test_idx)
+  return base_embs, test_embs
 
 
 def _get_diff_table(diff_list, base_sv_info, test_sv_info):
@@ -160,14 +203,15 @@ def _get_diff_table(diff_list, base_sv_info, test_sv_info):
   return diff_table_rows
 
 
-def run_diff(base_idx: str, test_idx: str, base_dict: dict[str, dict[str, str]],
-             test_dict: dict[str, dict[str, str]], query_file: str,
+def run_diff(base_idx: str, test_idx: str,
+             base_query_transform: Callable[[str], str] | None,
+             test_query_transform: Callable[[str], str] | None,
+             base_dict: CatalogType, test_dict: CatalogType, query_file: str,
              output_file: str):
   env = Environment(loader=FileSystemLoader(os.path.dirname(_TEMPLATE)))
   template = env.get_template(os.path.basename(_TEMPLATE))
-
-  base = EmbeddingsMap(base_dict).get(base_idx)
-  test = EmbeddingsMap(test_dict).get(test_idx)
+  base_embs, test_embs = _get_embeddings(base_idx, test_idx, base_dict,
+                                         test_dict)
 
   # Get the list of diffs
   diffs = []
@@ -180,8 +224,19 @@ def run_diff(base_idx: str, test_idx: str, base_dict: dict[str, dict[str, str]],
       if not query or query.startswith('#') or query.startswith('//'):
         continue
       assert ';' not in query, 'Multiple query not yet supported'
-      base_svs, base_sv_info = _prune(search_vars([base], [query])[query])
-      test_svs, test_sv_info = _prune(search_vars([test], [query])[query])
+
+      base_query = base_query_transform(
+          query) if base_query_transform else query
+      base_svs, base_sv_info = _prune(
+          search_vars([base_embs], [base_query])[base_query],
+          base_embs.model.score_threshold)
+
+      test_query = test_query_transform(
+          query) if test_query_transform else query
+      test_svs, test_sv_info = _prune(
+          search_vars([test_embs], [test_query])[test_query],
+          test_embs.model.score_threshold)
+
       for sv in base_svs + test_svs:
         all_svs.add(sv)
       if base_svs != test_svs:
@@ -199,8 +254,8 @@ def run_diff(base_idx: str, test_idx: str, base_dict: dict[str, dict[str, str]],
   # Render the html with the diffs
   with open(output_file, 'w') as f:
     f.write(
-        template.render(base_file=base_dict[base_idx],
-                        test_file=test_dict[test_idx],
+        template.render(base_file=base_dict['indexes'][base_idx],
+                        test_file=test_dict['indexes'][test_idx],
                         diffs=diffs))
   print('')
   print(f'Saving locally to {output_file}')
@@ -221,11 +276,17 @@ def run_diff(base_idx: str, test_idx: str, base_dict: dict[str, dict[str, str]],
 def main(_):
   assert FLAGS.base_index and FLAGS.test_index and FLAGS.queryset
 
-  base_dict = _load_yaml(_LOCAL_EMBEDDINGS_YAML, FLAGS.base_index)
-  test_dict = _load_yaml(_PROD_EMBEDDINGS_YAML, FLAGS.test_index)
+  base_dict = _load_yaml(_PROD_CATALOG_YAML)
+  test_dict = _load_yaml(_LOCAL_CATALOG_YAML)
 
-  run_diff(FLAGS.base_index, FLAGS.test_index, base_dict, test_dict,
-           FLAGS.queryset, _REPORT)
+  base_transform, test_transform = None, None
+  if FLAGS.base_query_transform:
+    base_transform = _QUERY_TRANSFORM_FUNCS[FLAGS.base_query_transform]
+  if FLAGS.test_query_transform:
+    test_transform = _QUERY_TRANSFORM_FUNCS[FLAGS.test_query_transform]
+
+  run_diff(FLAGS.base_index, FLAGS.test_index, base_transform, test_transform,
+           base_dict, test_dict, FLAGS.queryset, _REPORT)
 
 
 if __name__ == "__main__":

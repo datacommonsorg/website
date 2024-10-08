@@ -41,6 +41,7 @@ import { GeoJsonData } from "../../chart/types";
 import { URL_PATH } from "../../constants/app/visualization_constants";
 import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { USA_PLACE_DCID } from "../../shared/constants";
+import { useLazyLoad } from "../../shared/hooks";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import {
   DataPointMetadata,
@@ -64,16 +65,16 @@ import {
   getHash,
 } from "../../utils/app/visualization_utils";
 import { stringifyFn } from "../../utils/axios";
+import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { getPointWithin, getSeriesWithin } from "../../utils/data_fetch_utils";
-import { datacommonsClient } from "../../utils/datacommons_client";
 import { getDateRange } from "../../utils/string_utils";
 import {
+  clearContainer,
   getDenomInfo,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
   ReplacementStrings,
-  showError,
   transformCsvHeader,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
@@ -127,6 +128,13 @@ export interface MapTilePropType {
   sources?: string[];
   // Optional: listen for property value changes with this event name
   subscribe?: string;
+  // Optional: Only load this component when it enters the viewport
+  lazyLoad?: boolean;
+  /**
+   * Optional: If lazy loading is enabled, load the component when it is within
+   * this margin of the viewport. Default: "0px"
+   */
+  lazyLoadMargin?: string;
 }
 
 // Api responses associated with a single layer of the map
@@ -188,9 +196,10 @@ export function MapTile(props: MapTilePropType): JSX.Element {
   const [mapChartData, setMapChartData] = useState<MapChartData | undefined>(
     null
   );
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [svgHeight, setSvgHeight] = useState(null);
   const [dateOverride, setDateOverride] = useState(null);
+  const { shouldLoad, containerRef } = useLazyLoad(props.lazyLoadMargin);
   const zoomParams = props.allowZoom
     ? {
         zoomInButtonId: `${ZOOM_IN_BUTTON_ID}-${props.id}`,
@@ -199,16 +208,20 @@ export function MapTile(props: MapTilePropType): JSX.Element {
     : null;
   const showZoomButtons =
     !!zoomParams && !!mapChartData && _.isEqual(mapChartData.props, props);
+  const dataCommonsClient = getDataCommonsClient(props.apiRoot);
 
   useEffect(() => {
+    if (props.lazyLoad && !shouldLoad) {
+      return;
+    }
     if (
       _.isEmpty(mapChartData) ||
       !_.isEqual(mapChartData.props, props) ||
       !_.isEqual(mapChartData.dateOverride, dateOverride)
     ) {
       (async () => {
-        setIsLoading(true);
         try {
+          setIsLoading(true);
           const data = await fetchData(props, dateOverride);
           if (
             data &&
@@ -239,6 +252,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
     legendContainer,
     mapContainer,
     dateOverride,
+    shouldLoad,
   ]);
 
   useEffect(() => {
@@ -269,17 +283,23 @@ export function MapTile(props: MapTilePropType): JSX.Element {
   }, [props, mapChartData, svgContainer, legendContainer, mapContainer]);
   useDrawOnResize(drawFn, svgContainer.current);
   useEffect(() => {
+    const eventHandler = (e: CustomEvent<ChartEventDetail>) => {
+      if (e.detail.property === "date") {
+        setDateOverride(e.detail.value);
+      }
+    };
+
     if (props.subscribe) {
-      self.addEventListener(
-        props.subscribe,
-        (e: CustomEvent<ChartEventDetail>) => {
-          if (e.detail.property === "date") {
-            setDateOverride(e.detail.value);
-          }
-        }
-      );
+      self.addEventListener(props.subscribe, eventHandler);
     }
-  }, []);
+
+    // Cleanup function to remove the event listener
+    return () => {
+      if (props.subscribe) {
+        self.removeEventListener(props.subscribe, eventHandler);
+      }
+    };
+  }, [props.subscribe]);
 
   return (
     <ChartTileContainer
@@ -287,7 +307,9 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       isLoading={isLoading}
       title={props.title}
       subtitle={props.subtitle}
+      apiRoot={props.apiRoot}
       sources={props.sources || (mapChartData && mapChartData.sources)}
+      forwardRef={containerRef}
       replacementStrings={
         mapChartData && getReplacementStrings(props, mapChartData)
       }
@@ -308,7 +330,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
             : undefined;
 
           rows.push(
-            ...(await datacommonsClient.getDataRows({
+            ...(await dataCommonsClient.getDataRows({
               childType,
               date,
               entityProps,
@@ -324,8 +346,13 @@ export function MapTile(props: MapTilePropType): JSX.Element {
       }}
       isInitialLoading={_.isNull(mapChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
-      hasErrorMsg={!_.isEmpty(mapChartData) && !!mapChartData.errorMsg}
+      errorMsg={!_.isEmpty(mapChartData) && mapChartData.errorMsg}
       footnote={props.footnote}
+      statVarSpecs={
+        !_.isEmpty(props.dataSpecs)
+          ? [props.dataSpecs[0].variable]
+          : [props.statVarSpec]
+      }
     >
       {showZoomButtons && !mapChartData.errorMsg && (
         <div className="map-zoom-button-section">
@@ -341,7 +368,10 @@ export function MapTile(props: MapTilePropType): JSX.Element {
         id={props.id}
         className="svg-container"
         ref={svgContainer}
-        style={{ minHeight: svgHeight }}
+        style={{
+          minHeight: svgHeight,
+          display: mapChartData && mapChartData.errorMsg ? "none" : "flex",
+        }}
       >
         <div className="error-msg" ref={errorMsgContainer}></div>
         <div className="map" ref={mapContainer}></div>
@@ -631,7 +661,7 @@ export function draw(
     // clear the map and legend before adding error message
     mapContainer.innerHTML = "";
     legendContainer.innerHTML = "";
-    showError(chartData.errorMsg, errorMsgContainer);
+    clearContainer(errorMsgContainer);
     return;
   }
   // clear the error message before drawing the map and legend

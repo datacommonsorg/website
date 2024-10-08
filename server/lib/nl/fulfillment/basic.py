@@ -15,12 +15,12 @@
 import copy
 from typing import List
 
-from server.lib.explore import params
 from server.lib.nl.common.constants import PROJECTED_TEMP_TOPIC
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RankingType
+from server.lib.nl.explore import params
 from server.lib.nl.fulfillment import containedin
 from server.lib.nl.fulfillment import ranking_across_places
 from server.lib.nl.fulfillment import ranking_across_vars
@@ -41,7 +41,6 @@ _PLACE_TYPE_FALLBACK_THRESHOLD_RANK = 5
 
 #
 # NOTE: basic is a layer on topic of simple, containedin, ranking_across_places and ranking_across_vars
-# The choice of the charts to show depends on the `explore_mode`
 #
 
 
@@ -64,10 +63,13 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
                             [p.dcid for p in places])
     return False
 
-  if state.explore_mode and chart_vars.source_topic != PROJECTED_TEMP_TOPIC:
-    return _populate_explore(state, chart_vars, places, chart_origin, rank)
+  if chart_vars.source_topic == PROJECTED_TEMP_TOPIC:
+    # PROJECTED_TEMP_TOPIC has some very custom handling in config-builder,
+    # that needs to be deprecated.
+    # TODO: Deprecate this flow completely!
+    return _populate_specific(state, chart_vars, places, chart_origin, rank)
   else:
-    return _populate_chat(state, chart_vars, places, chart_origin, rank)
+    return _populate_explore(state, chart_vars, places, chart_origin, rank)
 
 
 def _populate_explore(state: PopulateState, chart_vars: ChartVars,
@@ -133,9 +135,9 @@ def _populate_explore(state: PopulateState, chart_vars: ChartVars,
   return added
 
 
-def _populate_chat(state: PopulateState, chart_vars: ChartVars,
-                   places: List[Place], chart_origin: ChartOriginType,
-                   rank: int) -> bool:
+def _populate_specific(state: PopulateState, chart_vars: ChartVars,
+                       places: List[Place], chart_origin: ChartOriginType,
+                       rank: int) -> bool:
   if state.ranking_types:
     # Ranking query
     if state.place_type:

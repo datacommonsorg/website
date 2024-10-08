@@ -99,16 +99,16 @@
                     },
                     "statVarKey": [
                       "Count_Person_Illiterate_scatter",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_scatter"
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person_scatter"
                     ],
-                    "title": "Population: Illiterate (${yDate}) Vs. Population Below Poverty Line (${xDate}) in Administrative Area 1 Places of India",
+                    "title": "Population: Illiterate (${yDate}) Vs. Population Below Poverty Line (Per Capita) (${xDate}) in Administrative Area 1 Places of India",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Illiterate vs. Population Below poverty line"
+            "title": "Population: Illiterate vs. Population Below poverty line (Per Capita)"
           },
           {
             "columns": [
@@ -139,14 +139,95 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Population: Illiterate in Administrative Area 1 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Population Below Poverty Line (Per Capita) in Administrative Area 1 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Population Below Poverty Line (Per Capita) in Administrative Area 1 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Below Poverty Line (Per Capita) in Administrative Area 1 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Literate_scatter",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person_scatter"
+                    ],
+                    "title": "Population: Literate (${yDate}) Vs. Population Below Poverty Line (Per Capita) (${xDate}) in Administrative Area 1 Places of India",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Literate vs. Population Below poverty line (Per Capita)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Illiterate_scatter",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_scatter"
+                    ],
+                    "title": "Population: Illiterate (${yDate}) Vs. Population Below Poverty Line (${xDate}) in Administrative Area 1 Places of India",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Illiterate vs. Population Below poverty line"
           }
         ],
         "statVarSpec": {
           "Count_Person_BelowPovertyLevelInThePast12Months": {
             "name": "Population Below poverty line",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person": {
+            "name": "Population Below poverty line (Per Capita)",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person_scatter": {
+            "name": "Population Below poverty line (Per Capita)",
+            "noPerCapita": true,
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
           },
           "Count_Person_BelowPovertyLevelInThePast12Months_scatter": {
             "name": "Population Below poverty line",
@@ -419,6 +500,13 @@
           ]
         },
         {
+          "dcid": "wikidataId/Q2893890",
+          "name": "Kamtapur",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
           "dcid": "wikidataId/Q40888",
           "name": "Andaman and Nicobar Islands",
           "types": [
@@ -454,8 +542,22 @@
           ]
         },
         {
+          "dcid": "wikidataId/Q66743",
+          "name": "Puducherry",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
           "dcid": "wikidataId/Q677037",
           "name": "Telangana",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q77997266",
+          "name": "Dadra and Nagar Haveli and Daman and Diu",
           "types": [
             "AdministrativeArea1"
           ]
@@ -480,10 +582,6 @@
         "placeOfResidenceClassification": [
           "Count_Person_Illiterate_Rural",
           "Count_Person_Illiterate_Urban"
-        ],
-        "religion": [
-          "indianCensus/Count_Person_Religion_Buddhist_Illiterate",
-          "indianCensus/Count_Person_Religion_Christian_Illiterate"
         ]
       },
       "Count_Person_Literate": {

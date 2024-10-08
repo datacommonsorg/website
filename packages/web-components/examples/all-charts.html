@@ -328,15 +328,15 @@
       geoJsonProp="geoJsonCoordinatesUN"
     ></datacommons-map>
     <h2>Map with year slider</h2>
-    <datacommons-map 
+    <datacommons-map
       childplacetype="Country"
       date="HIGHEST_COVERAGE"
-      header="Poverty rate by country (${date})" 
+      header="Poverty rate by country (${date})"
       parentplace="Earth"
-      subscribe="dc-map-2" 
+      subscribe="dc-map-2"
       variable="sdg/SI_POV_DAY1">
       <div slot="footer">
-        <datacommons-slider 
+        <datacommons-slider
           childplacetype="Country"
           date="HIGHEST_COVERAGE"
           parentplace="Earth"
@@ -545,6 +545,19 @@
       stacked
       lollipop
     ></datacommons-bar>
+    <datacommons-bar
+      header="Median income by gender of select US states (entity links disabled)"
+      variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      places="geoId/01 geoId/02 geoId/04 geoId/05"
+      disableEntityLink
+    ></datacommons-bar>
+    <datacommons-bar
+      header="Median income by gender of select US states (stacked, entity links disabled)"
+      variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      places="geoId/01 geoId/02 geoId/04 geoId/05"
+      stacked
+      disableEntityLink
+    ></datacommons-bar>
     <h2>Scatter</h2>
     <datacommons-scatter
       header="Population vs Median Household Income for US States"
@@ -567,5 +580,17 @@
       placeNameProp="unDataLabel"
       sources="https://example.com/source1 https://example.com/source2"
     ></datacommons-scatter>
+    <h3>Setting "apiRoot"</h3>
+    <datacommons-line
+      apiroot="https://staging.unsdg.datacommons.org"
+      header="Youth Unemployment Rate (15 to 19 Years Old) by Educational Attendance Status in Mexico"
+      variables="ilo/UNE_3EAP_RT.AGE--Y15T19__EDUCATIONAL_ATTENDANCE--STU_EDU_NO ilo/UNE_3EAP_RT.AGE--Y15T19__EDUCATIONAL_ATTENDANCE--STU_EDU_YES"
+      places="country/MEX"
+      variablenameregex="(?<=\[)(.*?)(?=\])"
+      showexploremore="false"
+      defaultvariablename="Total"
+      timescale="year"
+      placenameprop="unDataLabel"
+    ></datacommons-line>
   </body>
 </html>

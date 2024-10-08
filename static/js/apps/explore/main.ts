@@ -26,13 +26,13 @@ import { URL_HASH_PARAMS } from "../../constants/app/explore_constants";
 import { loadLocaleData } from "../../i18n/i18n";
 import { App } from "./app";
 
-window.onload = () => {
+window.addEventListener("load", (): void => {
   loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
     () => {
       renderPage();
     }
   );
-};
+});
 
 function renderPage(): void {
   const hashParams = queryString.parse(window.location.hash);

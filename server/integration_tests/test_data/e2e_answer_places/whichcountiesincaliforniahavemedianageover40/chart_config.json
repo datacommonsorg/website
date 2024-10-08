@@ -33,9 +33,77 @@
               }
             ],
             "title": "Median Age of Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06091",
+                      "geoId/06105",
+                      "geoId/06063",
+                      "geoId/06009",
+                      "geoId/06043",
+                      "geoId/06057",
+                      "geoId/06005"
+                    ],
+                    "statVarKey": [
+                      "Median_Age_Person_Female_multiple_place_bar_block"
+                    ],
+                    "title": "Women's Median Age (${date}) - Top 7 of 24",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Women's Median Age"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06091",
+                      "geoId/06105",
+                      "geoId/06063",
+                      "geoId/06009",
+                      "geoId/06043",
+                      "geoId/06057",
+                      "geoId/06005"
+                    ],
+                    "statVarKey": [
+                      "Median_Age_Person_Male_multiple_place_bar_block"
+                    ],
+                    "title": "Men's Median Age (${date}) - Top 7 of 24",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Men's Median Age"
           }
         ],
         "statVarSpec": {
+          "Median_Age_Person_Female_multiple_place_bar_block": {
+            "name": "Women's Median Age",
+            "statVar": "Median_Age_Person_Female"
+          },
+          "Median_Age_Person_Male_multiple_place_bar_block": {
+            "name": "Men's Median Age",
+            "statVar": "Median_Age_Person_Male"
+          },
           "Median_Age_Person_multiple_place_bar_block": {
             "name": "Median Age of Population",
             "statVar": "Median_Age_Person"
@@ -422,12 +490,41 @@
         }
       ]
     },
-    "childTopics": [],
-    "exploreMore": {},
-    "mainTopics": [
+    "childTopics": [
       {
         "dcid": "dc/topic/AgeMedians",
         "name": "Age Medians",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/AgeDistribution",
+        "name": "Age Distribution",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/VeryOldAndVeryYoungPopulation",
+        "name": "Very Old and Very Young Population",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "exploreMore": {
+      "Median_Age_Person": {
+        "gender": [
+          "Median_Age_Person_Female",
+          "Median_Age_Person_Male"
+        ]
+      }
+    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Age",
+        "name": "Age",
         "types": [
           "Topic"
         ]
@@ -436,8 +533,8 @@
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/Age",
-        "name": "Age",
+        "dcid": "dc/topic/Demographics",
+        "name": "Demographics",
         "types": [
           "Topic"
         ]
@@ -797,15 +894,43 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/AgeDistribution",
-        "name": "Age Distribution",
+        "dcid": "dc/topic/Gender",
+        "name": "Gender",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/VeryOldAndVeryYoungPopulation",
-        "name": "Very Old and Very Young Population",
+        "dcid": "dc/topic/Race",
+        "name": "Population by Race",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Language",
+        "name": "Language Spoken At Home",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/MaritalStatus",
+        "name": "Marital Status",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Nationality",
+        "name": "Nationality",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Veterans",
+        "name": "Veterans",
         "types": [
           "Topic"
         ]

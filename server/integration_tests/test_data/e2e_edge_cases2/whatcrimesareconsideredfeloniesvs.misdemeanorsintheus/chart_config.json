@@ -10,38 +10,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "dc/e3jblh1b616b5"
-                    ],
-                    "title": "Population (Measured Based on Jurisdiction): Incarcerated, Unsentenced in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "dc/e3jblh1b616b5"
-                    ],
-                    "title": "Population (Measured Based on Jurisdiction): Incarcerated, Unsentenced in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population (Measured Based on Jurisdiction): Incarcerated, Unsentenced in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Count_CriminalActivities_CombinedCrime"
                     ],
                     "title": "Criminal Activities in United States",
@@ -96,128 +64,6 @@
             ],
             "denom": "Count_Person",
             "title": "Criminal Activities in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_CriminalActivities_LarcenyTheft"
-                    ],
-                    "title": "Larceny Theft Cases in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Larceny Theft Cases in United States",
-                    "statVarKey": [
-                      "Count_CriminalActivities_LarcenyTheft"
-                    ],
-                    "title": "Larceny Theft Cases in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Larceny Theft Cases"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_CriminalActivities_LarcenyTheft"
-                    ],
-                    "title": "Larceny Theft Cases in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_CriminalActivities_LarcenyTheft"
-                    ],
-                    "title": "Larceny Theft Cases in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Larceny Theft Cases in States of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_CriminalActivities_Burglary"
-                    ],
-                    "title": "Burglaries in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Burglaries in United States",
-                    "statVarKey": [
-                      "Count_CriminalActivities_Burglary"
-                    ],
-                    "title": "Burglaries in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Burglaries"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_CriminalActivities_Burglary"
-                    ],
-                    "title": "Burglaries in States of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_CriminalActivities_Burglary"
-                    ],
-                    "title": "Burglaries in States of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Burglaries in States of United States"
           },
           {
             "columns": [
@@ -311,6 +157,230 @@
             ],
             "denom": "Count_Person",
             "title": "Aggravated Assault Cases in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_Burglary"
+                    ],
+                    "title": "Burglaries in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_CriminalActivities_Burglary"
+                    ],
+                    "title": "Burglaries in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Burglaries in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_ForcibleRape"
+                    ],
+                    "title": "Forcible Rapes in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_CriminalActivities_ForcibleRape"
+                    ],
+                    "title": "Forcible Rapes in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Forcible Rapes in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_LarcenyTheft"
+                    ],
+                    "title": "Larceny Theft Cases in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_CriminalActivities_LarcenyTheft"
+                    ],
+                    "title": "Larceny Theft Cases in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Larceny Theft Cases in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_MotorVehicleTheft"
+                    ],
+                    "title": "Motor Vehicle Thefts in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_CriminalActivities_MotorVehicleTheft"
+                    ],
+                    "title": "Motor Vehicle Thefts in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Motor Vehicle Thefts in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_PropertyCrime"
+                    ],
+                    "title": "Property Related Crimes in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_CriminalActivities_PropertyCrime"
+                    ],
+                    "title": "Property Related Crimes in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Property Related Crimes in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_Robbery"
+                    ],
+                    "title": "Robberies in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_CriminalActivities_Robbery"
+                    ],
+                    "title": "Robberies in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Robberies in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_ViolentCrime"
+                    ],
+                    "title": "Violent Crimes in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_CriminalActivities_ViolentCrime"
+                    ],
+                    "title": "Violent Crimes in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Violent Crimes in States of United States"
           }
         ],
         "statVarSpec": {
@@ -334,6 +404,10 @@
             "name": "Criminal Activities",
             "statVar": "Count_CriminalActivities_CombinedCrime"
           },
+          "Count_CriminalActivities_ForcibleRape": {
+            "name": "Forcible Rapes",
+            "statVar": "Count_CriminalActivities_ForcibleRape"
+          },
           "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block": {
             "name": "Forcible Rapes",
             "statVar": "Count_CriminalActivities_ForcibleRape"
@@ -346,6 +420,10 @@
             "name": "Larceny Theft Cases",
             "statVar": "Count_CriminalActivities_LarcenyTheft"
           },
+          "Count_CriminalActivities_MotorVehicleTheft": {
+            "name": "Motor Vehicle Thefts",
+            "statVar": "Count_CriminalActivities_MotorVehicleTheft"
+          },
           "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block": {
             "name": "Motor Vehicle Thefts",
             "statVar": "Count_CriminalActivities_MotorVehicleTheft"
@@ -354,21 +432,29 @@
             "name": "Murder and Non Negligent Manslaughter Cases Per Capita",
             "statVar": "Count_CriminalActivities_MurderAndNonNegligentManslaughter_AsFractionOf_Count_Person"
           },
+          "Count_CriminalActivities_PropertyCrime": {
+            "name": "Property Related Crimes",
+            "statVar": "Count_CriminalActivities_PropertyCrime"
+          },
           "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block": {
             "name": "Property Related Crimes",
             "statVar": "Count_CriminalActivities_PropertyCrime"
+          },
+          "Count_CriminalActivities_Robbery": {
+            "name": "Robberies",
+            "statVar": "Count_CriminalActivities_Robbery"
           },
           "Count_CriminalActivities_Robbery_multiple_place_bar_block": {
             "name": "Robberies",
             "statVar": "Count_CriminalActivities_Robbery"
           },
-          "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block": {
+          "Count_CriminalActivities_ViolentCrime": {
             "name": "Violent Crimes",
             "statVar": "Count_CriminalActivities_ViolentCrime"
           },
-          "dc/e3jblh1b616b5": {
-            "name": "Population (Measured Based on Jurisdiction): Incarcerated, Unsentenced",
-            "statVar": "dc/e3jblh1b616b5"
+          "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block": {
+            "name": "Violent Crimes",
+            "statVar": "Count_CriminalActivities_ViolentCrime"
           }
         }
       }

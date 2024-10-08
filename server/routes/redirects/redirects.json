@@ -1,5 +1,5 @@
 {
-  "tech-soup-cemefi": "https://datacommons.org/tools/visualization#visType%3Dtimeline%26place%3Dcountry%2FMEX%26placeType%3DAdministrativeArea1%26sv%3D%7B%22dcid%22%3A%22sdg%2FAG_PRD_FIESMS.AGE--Y_GE15__SEX--F%22%7D___%7B%22dcid%22%3A%22sdg%2FAG_PRD_FIESMS.AGE--Y_GE15__SEX--M%22%7D___%7B%22dcid%22%3A%22sdg%2FAG_PRD_FIESMS%22%7D",
+  "tech-soup-cemefi": "/tools/visualization#visType%3Dtimeline%26place%3Dcountry%2FMEX%26placeType%3DAdministrativeArea1%26sv%3D%7B%22dcid%22%3A%22sdg%2FAG_PRD_FIESMS.AGE--Y_GE15__SEX--F%22%7D___%7B%22dcid%22%3A%22sdg%2FAG_PRD_FIESMS.AGE--Y_GE15__SEX--M%22%7D___%7B%22dcid%22%3A%22sdg%2FAG_PRD_FIESMS%22%7D",
   "demo": "/explore/#aq=Which+countries+in+Africa+have+had+the+greatest+increase+in+electricity+access?___How+has+poverty+changed+over+time+in+these+places?___How+has+life+expectency+increased+in+these+countries?___How+has+the+GDP+grown?___What+is+the+greenhouse+gas+emissions+from+these+places?___How+do+these+places+compare+with+the+US+and+Germany?&ae=1",
   "demo-africa-elec": "/explore/#aq=Which+countries+in+Africa+have+had+the+greatest+increase+in+electricity+access?___How+has+poverty+changed+over+time+in+these+places?___How+has+life+expectency+increased+in+these+countries?___How+has+the+GDP+grown?___What+is+the+greenhouse+gas+emissions+from+these+places?___How+do+these+places+compare+with+the+US+and+Germany?&ae=1",
   "demo-india": "/explore/#aq=Which+states+in+India+have+the+highest+poverty+levels+per+capita?___How+much+has+infant+mortality+changed+over+time+in+these+states?___How+does+the+literacy+rate+compare?___How+does+literacy+rate+compare+to+poverty+in+India?&ae=1",
@@ -8,7 +8,10 @@
   "demo-sustainability": "/explore/#aq=Tell+me+about+greenhouse+gas+emissions+in+Europe___What+are+the+top+greenhouse+gas+emitting+countries+in+Europe?___Show+me+a+plot+of+greenhouse+gas+emissions+by+country+in+Europe+vs+their+GDP___Show+me+a+plot+of+greenhouse+gas+emissions+per+capita+by+country+in+Europe+vs+their+GDP+per+capita&ae=1",
   "demo-california": "/explore/#aq=What+are+the+projected+temperature+extremes+across+California?___Where+were+the+major+fires+in+the+last+year+in+California?___Tell+me+more+about+Placer+County___What+were+the+most+common+jobs+there?&ae=1",
   "demo5": "/explore/#aq=Which+countries+in+Asia+spend+the+most+on+education___How+do+these+countries+compare+with+France___Which+countries+have+the+most+inward+remittances___How+does+that+correlate+with+debt&ae=1",
-  "dc-coverage-country": "https://datacommons.org/tools/visualization#visType%3Dmap%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Count_Variable_Country%22%7D",
-  "dc-coverage-aa1": "https://datacommons.org/tools/visualization#visType%3Dmap%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Count_Variable_AdministrativeArea1%22%7D",
-  "dc-coverage-aa2": "https://datacommons.org/tools/visualization#visType%3Dmap%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Count_Variable_AdministrativeArea2%22%7D"
+  "dc-coverage-country": "/tools/visualization#visType%3Dmap%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Count_Variable_Country%22%7D",
+  "dc-coverage-aa1": "/tools/visualization#visType%3Dmap%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Count_Variable_AdministrativeArea1%22%7D",
+  "dc-coverage-aa2": "/tools/visualization#visType%3Dmap%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Count_Variable_AdministrativeArea2%22%7D",
+  "video": "https://www.youtube.com/watch?v=O6iVsS-RDYI",
+  "form": "https://forms.gle/C816TLMyp5fBdDt67",
+  "DataGemmaPaper": "https://arxiv.org/abs/2409.13741"
 }

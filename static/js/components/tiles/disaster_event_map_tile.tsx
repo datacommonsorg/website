@@ -18,6 +18,7 @@
  * Component for rendering a disaster event map type tile.
  */
 
+import * as d3 from "d3";
 import _ from "lodash";
 import React, { memo, useContext, useEffect, useRef, useState } from "react";
 
@@ -38,7 +39,7 @@ import {
   EARTH_NAMED_TYPED_PLACE,
   USA_PLACE_DCID,
 } from "../../shared/constants";
-import { NamedPlace, NamedTypedPlace } from "../../shared/types";
+import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { isChildPlaceOf } from "../../tools/shared_util";
 import {
   DisasterEventPoint,
@@ -187,6 +188,7 @@ export const DisasterEventMapTile = memo(function DisasterEventMapTile(
     <ChartTileContainer
       id={props.id}
       title={props.title}
+      apiRoot={props.apiRoot}
       sources={chartData ? chartData.sources : new Set<string>()}
       replacementStrings={getReplacementStrings(props)}
       className={`${CSS_SELECTOR_PREFIX}-tile`}
@@ -552,13 +554,13 @@ export function draw(
       projection,
       () => props.eventTypeSpec[eventType].color,
       () => "none",
-      (event, geoFeature: GeoJsonFeature) => {
+      (geoFeature: GeoJsonFeature) => {
         if (infoCard) {
           onPointClicked(
             infoCard,
             svgContainer,
             pointsMap[geoFeature.properties.geoDcid],
-            event
+            d3.event
           );
         }
       }
@@ -576,13 +578,13 @@ export function draw(
       chartData.pathGeoJson[eventType],
       projection,
       () => props.eventTypeSpec[eventType].color,
-      (event, geoFeature) => {
+      (geoFeature: GeoJsonFeature) => {
         if (infoCard) {
           onPointClicked(
             infoCard,
             svgContainer,
             pointsMap[geoFeature.properties.geoDcid],
-            event
+            d3.event
           );
         }
       }
@@ -609,9 +611,9 @@ export function draw(
         ? MAP_POINTS_MIN_RADIUS_EARTH
         : MAP_POINTS_MIN_RADIUS
     );
-    pointsLayer.on("click", (event, point: DisasterEventPoint) => {
+    pointsLayer.on("click", (point: DisasterEventPoint) => {
       if (infoCard) {
-        onPointClicked(infoCard, svgContainer, point, event);
+        onPointClicked(infoCard, svgContainer, point, d3.event);
       }
     });
   }

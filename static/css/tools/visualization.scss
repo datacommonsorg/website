@@ -19,7 +19,6 @@
 @import "../place_selector";
 @import "../tiles.scss";
 @import "../draw_scatter.scss";
-@import "../bq_modal";
 @import "../source_selector";
 
 $selector-footer-height: 40px;
@@ -594,7 +593,6 @@ $selector-footer-height: 40px;
   .ranking-tile {
     display: flex;
     flex-wrap: wrap;
-    padding: 1rem;
 
     h4 {
       text-align: left;

@@ -10,37 +10,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Percent_Person_Children_WithAsthma"
-                    ],
-                    "title": "Percent of Children That Have Asthma in Counties of Nevada (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Percent_Person_Children_WithAsthma"
-                    ],
-                    "title": "Percent of Children That Have Asthma in Counties of Nevada (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Percent of Children That Have Asthma in Counties of Nevada"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Percent_Person_WithAsthma"
                     ],
                     "title": "Asthma in Nevada",
@@ -100,9 +69,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Death_DiseasesOfTheRespiratorySystem"
+                      "Percent_Person_Children_WithAsthma"
                     ],
-                    "title": "Deaths From Diseases of the Respiratory System in Counties of Nevada (${date})",
+                    "title": "Percent of Children That Have Asthma in Counties of Nevada (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -115,23 +84,18 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Death_DiseasesOfTheRespiratorySystem"
+                      "Percent_Person_Children_WithAsthma"
                     ],
-                    "title": "Deaths From Diseases of the Respiratory System in Counties of Nevada (${date})",
+                    "title": "Percent of Children That Have Asthma in Counties of Nevada (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Deaths From Diseases of the Respiratory System in Counties of Nevada"
+            "title": "Percent of Children That Have Asthma in Counties of Nevada"
           }
         ],
         "statVarSpec": {
-          "Count_Death_DiseasesOfTheRespiratorySystem": {
-            "name": "Deaths From Diseases of the Respiratory System",
-            "statVar": "Count_Death_DiseasesOfTheRespiratorySystem"
-          },
           "Percent_Person_Children_WithAsthma": {
             "name": "Percent of Children That Have Asthma",
             "statVar": "Percent_Person_Children_WithAsthma",

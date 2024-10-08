@@ -10,17 +10,28 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_EnrolledInKindergarten",
-                      "Count_Person_EnrolledInSchool"
+                      "Count_Person_DetailedEnrolledInKindergarten"
                     ],
-                    "title": "Population: Enrolled in Kindergarten and Population Currently Enrolled in School in Colorado",
+                    "title": "Population: Enrolled in Kindergarten in Colorado",
                     "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Enrolled in Kindergarten in Colorado",
+                    "statVarKey": [
+                      "Count_Person_DetailedEnrolledInKindergarten"
+                    ],
+                    "title": "Population: Enrolled in Kindergarten in Colorado",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: Enrolled in Kindergarten and Population Currently Enrolled in School"
+            "title": "Population: Enrolled in Kindergarten"
           },
           {
             "columns": [
@@ -28,17 +39,28 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_DetailedPrimarySchool",
-                      "Count_Person_EnrolledInSchool"
+                      "Count_Person_DetailedPrimarySchool"
                     ],
-                    "title": "Elementary School Students and Population Currently Enrolled in School in Colorado",
+                    "title": "Elementary School Students in Colorado",
                     "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Elementary School Students in Colorado",
+                    "statVarKey": [
+                      "Count_Person_DetailedPrimarySchool"
+                    ],
+                    "title": "Elementary School Students in Colorado",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Elementary School Students and Population Currently Enrolled in School"
+            "title": "Elementary School Students"
           },
           {
             "columns": [
@@ -46,17 +68,28 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_DetailedMiddleSchool",
-                      "Count_Person_EnrolledInSchool"
+                      "Count_Person_DetailedMiddleSchool"
                     ],
-                    "title": "Middle School Students and Population Currently Enrolled in School in Colorado",
+                    "title": "Middle School Students in Colorado",
                     "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Middle School Students in Colorado",
+                    "statVarKey": [
+                      "Count_Person_DetailedMiddleSchool"
+                    ],
+                    "title": "Middle School Students in Colorado",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Middle School Students and Population Currently Enrolled in School"
+            "title": "Middle School Students"
           },
           {
             "columns": [
@@ -64,20 +97,35 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_DetailedHighSchool",
-                      "Count_Person_EnrolledInSchool"
+                      "Count_Person_DetailedHighSchool"
                     ],
-                    "title": "High School Students and Population Currently Enrolled in School in Colorado",
+                    "title": "High School Students in Colorado",
                     "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "High School Students in Colorado",
+                    "statVarKey": [
+                      "Count_Person_DetailedHighSchool"
+                    ],
+                    "title": "High School Students in Colorado",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "High School Students and Population Currently Enrolled in School"
+            "title": "High School Students"
           }
         ],
         "statVarSpec": {
+          "Count_Person_DetailedEnrolledInKindergarten": {
+            "name": "Population: Enrolled in Kindergarten",
+            "statVar": "Count_Person_DetailedEnrolledInKindergarten"
+          },
           "Count_Person_DetailedHighSchool": {
             "name": "High School Students",
             "statVar": "Count_Person_DetailedHighSchool"
@@ -89,14 +137,6 @@
           "Count_Person_DetailedPrimarySchool": {
             "name": "Elementary School Students",
             "statVar": "Count_Person_DetailedPrimarySchool"
-          },
-          "Count_Person_EnrolledInKindergarten": {
-            "name": "Population: Enrolled in Kindergarten",
-            "statVar": "Count_Person_EnrolledInKindergarten"
-          },
-          "Count_Person_EnrolledInSchool": {
-            "name": "Population Currently Enrolled in School",
-            "statVar": "Count_Person_EnrolledInSchool"
           }
         }
       }
@@ -137,6 +177,19 @@
       }
     ],
     "exploreMore": {
+      "Count_Person_DetailedEnrolledInKindergarten": {
+        "race": [
+          "dc/1c4zcyw02n71g",
+          "dc/3n8g9we5yv7th",
+          "dc/556pqlh586bmc",
+          "dc/7g77dy8hfb1rg",
+          "dc/c6n2z7vh9sy31",
+          "dc/gr3zem8shyhbf",
+          "dc/ns1rqx6wy9909",
+          "dc/nt9cq96phw6nf",
+          "dc/qnphlls92tvs9"
+        ]
+      },
       "Count_Person_DetailedHighSchool": {
         "race": [
           "dc/1kt512ynvpmc2",
@@ -174,26 +227,6 @@
           "dc/p4jzvj8q1lnmd",
           "dc/wk2vjrzfgyq5d",
           "dc/x9e7150515yt7"
-        ]
-      },
-      "Count_Person_EnrolledInKindergarten": {
-        "gender": [
-          "dc/g8kg52zcxzw9f",
-          "dc/p34mhcpgtth76"
-        ]
-      },
-      "Count_Person_EnrolledInSchool": {
-        "gender": [
-          "Count_Person_3OrMoreYears_Female_EnrolledInSchool",
-          "Count_Person_3OrMoreYears_Male_EnrolledInSchool"
-        ],
-        "race": [
-          "dc/4wdtyd2bbf9m9",
-          "dc/5qnjtqc0w783b",
-          "dc/8cnhmxe67qddf",
-          "dc/jbv3zc0ezvcyc",
-          "dc/km8en9ep7bwh6",
-          "dc/zq864lhfql079"
         ]
       }
     },

@@ -15,6 +15,7 @@ screenshots/screenshot_url.json
 # Local env.
 *.swp
 .vscode
+.idea
 !.vscode/launch.json
 .env.list
 
@@ -26,7 +27,6 @@ tmp/
 .air.toml
 
 # Kubernetes
-gke/config.yaml
 gke/endpoints.yaml
 gke/mci.yaml
 endpoints.yaml
@@ -71,6 +71,7 @@ experimental/sdg-static/datacommons/nl_interface.min.css
 
 # Custom DC data
 dc-data/
+custom_dc/env.list
 
 # Topic cache
 gen_ordered_list_for_topics.mcf
@@ -89,6 +90,17 @@ ft_final_v20230717230459.all-MiniLM-L6-v2/
 
 **/eval/**/result
 
+# CDC ignores
 custom_dc/sample/datacommons/**
+custom_dc/data/*.db
 
 .cache/
+
+**/*.egg-info
+*.egg-info
+
+# Custom DC dev and terraform ignores
+build/cdc/dev/.env
+*.tfvars
+deploy/terraform-custom-datacommons/modules/backend.tf
+

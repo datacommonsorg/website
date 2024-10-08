@@ -9,28 +9,77 @@
               {
                 "tiles": [
                   {
-                    "answerMessageTileSpec": {
-                      "propertyExpr": "<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol"
+                    "answerTableTileSpec": {
+                      "columns": [
+                        {
+                          "header": "Date Created",
+                          "propertyExpr": "->dateCreated"
+                        },
+                        {
+                          "header": "Date Established",
+                          "propertyExpr": "->dateEstablished"
+                        },
+                        {
+                          "header": "Date Revised",
+                          "propertyExpr": "->dateRevised"
+                        },
+                        {
+                          "header": "Description",
+                          "propertyExpr": "->description"
+                        },
+                        {
+                          "header": "Has MeSH Qualifier",
+                          "propertyExpr": "->hasMeSHQualifier"
+                        },
+                        {
+                          "header": "Identifier",
+                          "propertyExpr": "->identifier"
+                        },
+                        {
+                          "header": "Medical Subject Heading ID",
+                          "propertyExpr": "->medicalSubjectHeadingID"
+                        },
+                        {
+                          "header": "Medical Subject Heading Tree Number",
+                          "propertyExpr": "->medicalSubjectHeadingTreeNumber"
+                        },
+                        {
+                          "header": "Name",
+                          "propertyExpr": "->name"
+                        },
+                        {
+                          "header": "National Library Of Medicine Classification Number",
+                          "propertyExpr": "->nationalLibraryOfMedicineClassificationNumber"
+                        },
+                        {
+                          "header": "Pharm GKBID",
+                          "propertyExpr": "->pharmGKBID"
+                        },
+                        {
+                          "header": "Provenance",
+                          "propertyExpr": "->provenance"
+                        },
+                        {
+                          "header": "Specialization Of",
+                          "propertyExpr": "->specializationOf"
+                        },
+                        {
+                          "header": "Synonym",
+                          "propertyExpr": "->synonym"
+                        },
+                        {
+                          "header": "Type Of",
+                          "propertyExpr": "->typeOf"
+                        }
+                      ]
                     },
                     "entities": [
-                      "bio/rs13317"
+                      "bio/D012873",
+                      "bio/D014178",
+                      "bio/D020132"
                     ],
-                    "title": "The associated genes for rs13317 are",
-                    "type": "ANSWER_MESSAGE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "entities": [
-                      "bio/rs13317"
-                    ],
-                    "type": "ENTITY_OVERVIEW"
+                    "title": "Here are all the properties for Genetic and Anticipation",
+                    "type": "ANSWER_TABLE"
                   }
                 ]
               }
@@ -44,8 +93,18 @@
   "debug": {},
   "entities": [
     {
-      "dcid": "bio/rs13317",
-      "name": "rs13317",
+      "dcid": "bio/D012873",
+      "name": "Genetic",
+      "type": ""
+    },
+    {
+      "dcid": "bio/D014178",
+      "name": "Genetic",
+      "type": ""
+    },
+    {
+      "dcid": "bio/D020132",
+      "name": "Anticipation",
       "type": ""
     }
   ],

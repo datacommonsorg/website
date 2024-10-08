@@ -19,7 +19,7 @@
  */
 
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import {
   ASYNC_ELEMENT_CLASS,
@@ -57,36 +57,33 @@ export interface HighlightTilePropType {
   sources?: string[];
 }
 
-interface HighlightData extends Observation {
+export interface HighlightData extends Observation {
   sources: Set<string>;
   numFractionDigits?: number;
   errorMsg: string;
 }
 
 export function HighlightTile(props: HighlightTilePropType): JSX.Element {
+  const containerRef = useRef(null);
   const [highlightData, setHighlightData] = useState<HighlightData | undefined>(
     null
   );
 
   useEffect(() => {
-    fetchData(props).then((data) => {
-      setHighlightData(data);
-    });
+    (async () => {
+      try {
+        const data = await fetchData(props);
+        setHighlightData(data);
+      } catch {
+        setHighlightData(null);
+      }
+    })();
   }, [props]);
 
   if (!highlightData) {
     return null;
   }
-  const rs: ReplacementStrings = {
-    placeName: props.place.name,
-    date: highlightData.date ? formatDate(highlightData.date) : "",
-  };
-  let description = "";
-  if (props.description) {
-    const dateString =
-      !props.description.includes("${date}") && rs.date ? " (${date})" : "";
-    description = formatString(props.description + dateString, rs);
-  }
+  const description = getDescription(highlightData, props);
   // TODO: The {...{ part: "container"}} syntax to set a part is a hacky
   // workaround to add a "part" attribute to a React element without npm errors.
   // This hack should be cleaned up.
@@ -104,6 +101,7 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
     <div
       className={`chart-container highlight-tile ${ASYNC_ELEMENT_HOLDER_CLASS}`}
       {...{ part: "container" }}
+      ref={containerRef}
     >
       {highlightData && !highlightData.errorMsg && (
         <>
@@ -125,13 +123,35 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
         <span>{highlightData.errorMsg}</span>
       )}
       {!_.isEmpty(highlightData.sources) && !highlightData.errorMsg && (
-        <TileSources sources={props.sources || highlightData.sources} />
+        <TileSources
+          apiRoot={props.apiRoot}
+          containerRef={containerRef}
+          sources={props.sources || highlightData.sources}
+          statVarSpecs={[props.statVarSpec]}
+        />
       )}
     </div>
   );
 }
 
-const fetchData = (props: HighlightTilePropType): Promise<HighlightData> => {
+export function getDescription(
+  highlightData: HighlightData,
+  props: HighlightTilePropType
+): string {
+  const rs: ReplacementStrings = {
+    placeName: props.place.name || "",
+    date: highlightData.date ? formatDate(highlightData.date) : "",
+  };
+  let description = "";
+  if (props.description) {
+    const dateString =
+      !props.description.includes("${date}") && rs.date ? " (${date})" : "";
+    description = formatString(props.description + dateString, rs);
+  }
+  return description;
+}
+
+export const fetchData = async (props: HighlightTilePropType) => {
   // Now assume highlight only talks about one stat var.
   const statPromise = getPoint(
     props.apiRoot,
@@ -142,63 +162,57 @@ const fetchData = (props: HighlightTilePropType): Promise<HighlightData> => {
   const denomPromise = props.statVarSpec.denom
     ? getSeries(props.apiRoot, [props.place.dcid], [props.statVarSpec.denom])
     : Promise.resolve(null);
-  return Promise.all([statPromise, denomPromise])
-    .then(([statResp, denomResp]) => {
-      const mainStatData =
-        statResp.data[props.statVarSpec.statVar][props.place.dcid];
-      let value = mainStatData.value;
-      const facet = statResp.facets[mainStatData.facet];
-      const sources = new Set();
-      if (facet && facet.provenanceUrl) {
-        sources.add(facet.provenanceUrl);
-      }
-      const { unit, scaling, numFractionDigits } = getStatFormat(
-        props.statVarSpec,
-        statResp
-      );
-      let numFractionDigitsUsed: number;
-      if (props.statVarSpec.denom) {
-        const denomInfo = getDenomInfo(
-          props.statVarSpec,
-          denomResp,
-          props.place.dcid,
-          mainStatData.date
-        );
-        if (denomInfo && value) {
-          value /= denomInfo.value;
-          sources.add(denomInfo.source);
-        } else {
-          value = null;
-        }
-      }
-      let errorMsg = "";
-      if (_.isUndefined(value) || _.isNull(value)) {
-        errorMsg = getNoDataErrorMsg([props.statVarSpec]);
-      } else {
-        // Only do additional calculations if value is not null or undefined
-
-        // If value is a decimal, calculate the numFractionDigits as the number of
-        // digits to get the first non-zero digit and the number after
-        // TODO: think about adding a limit to the number of digits.
-        numFractionDigitsUsed =
-          Math.abs(value) >= 1
-            ? numFractionDigits
-            : 1 - Math.floor(Math.log(Math.abs(value)) / Math.log(10));
-        if (scaling) {
-          value *= scaling;
-        }
-      }
-      const result = {
-        value,
-        date: mainStatData.date,
-        numFractionDigitsUsed,
-        unitDisplayName: unit,
-        sources,
-        errorMsg,
-      };
-      return result;
-    })
-    .catch(() => {
-      return null;
-    });
+  const [statResp, denomResp] = await Promise.all([statPromise, denomPromise]);
+  const mainStatData =
+    statResp.data[props.statVarSpec.statVar][props.place.dcid];
+  let value = mainStatData.value;
+  const facet = statResp.facets[mainStatData.facet];
+  const sources = new Set<string>();
+  if (facet && facet.provenanceUrl) {
+    sources.add(facet.provenanceUrl);
+  }
+  const { unit, scaling, numFractionDigits } = getStatFormat(
+    props.statVarSpec,
+    statResp
+  );
+  let numFractionDigitsUsed: number;
+  if (props.statVarSpec.denom) {
+    const denomInfo = getDenomInfo(
+      props.statVarSpec,
+      denomResp,
+      props.place.dcid,
+      mainStatData.date
+    );
+    if (denomInfo && value) {
+      value /= denomInfo.value;
+      sources.add(denomInfo.source);
+    } else {
+      value = null;
+    }
+  }
+  let errorMsg = "";
+  if (_.isUndefined(value) || _.isNull(value)) {
+    errorMsg = getNoDataErrorMsg([props.statVarSpec]);
+  } else {
+    // Only do additional calculations if value is not null or undefined
+    // If value is a decimal, calculate the numFractionDigits as the number of
+    // digits to get the first non-zero digit and the number after
+    // TODO: think about adding a limit to the number of digits.
+    numFractionDigitsUsed =
+      Math.abs(value) >= 1
+        ? numFractionDigits
+        : 1 - Math.floor(Math.log(Math.abs(value)) / Math.log(10));
+    if (scaling) {
+      value *= scaling;
+    }
+  }
+  const result: HighlightData = {
+    value,
+    date: mainStatData.date,
+    numFractionDigits: numFractionDigitsUsed,
+    unitDisplayName: unit,
+    sources,
+    errorMsg,
+  };
+  return result;
 };

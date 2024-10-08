@@ -48,20 +48,37 @@ _UNDATA_SERIES_TOPICS_FILE = 'un_who_series_topics.csv'
 _UNDATA_NL_DESCRIPTIONS_FILE = os.path.join(_TMP_DIR,
                                             'undata_nl_descriptions.csv')
 
-API_ROOT = "https://autopush.api.datacommons.org"
+_UNDATA_ILO_ROOT = "dc/g/Custom_UN"
+_UNDATA_ILO_TOPIC_JSON = '../../../server/config/nl_page/undata_ilo_topic_cache.json'
+_UNDATA_ILO_NON_COUNTRY_VARS = '../../../server/config/nl_page/undata_ilo_non_country_vars.json'
+_UNDATA_ILO_MCF_PATH = os.path.join(_TMP_DIR, 'custom_topics_undata_ilo.mcf')
+_UNDATA_ILO_VARIABLES_FILE = 'undata_ilo_variable_grouping.csv'
+_UNDATA_ILO_SERIES_TOPICS_FILE = 'un_ilo_series_topics.csv'
+_UNDATA_ILO_NL_DESCRIPTIONS_FILE = os.path.join(
+    _TMP_DIR, 'undata_ilo_nl_descriptions.csv')
+
+# TODO(dwnoble): Add command line flag to handle generating custom DC groups
+REMOVE_SVG_PREFIX = "Custom_"
+
+# TODO(dwnoble): Extract API_ROOT (and potentially some of the variables above)
+# to command line args or a config file
+API_ROOT = "https://staging.unsdg.datacommons.org"
 API_PATH_SVG_INFO = API_ROOT + '/v1/bulk/info/variable-group'
 API_PATH_PROP_OUT = API_ROOT + '/v1/bulk/property/values/out'
 
 
-def _svg2t(svg):
+def _svg2t(svg, remove_svg_prefix=""):
   # NOTE: Use small "sdg" to avoid overlap with prior topics.
-  return svg.replace('dc/g/SDG', 'dc/topic/sdg').replace('dc/g/', 'dc/topic/')
+  return svg.replace('dc/g/SDG',
+                     'dc/topic/sdg').replace('dc/g/', 'dc/topic/').replace(
+                         f"/{remove_svg_prefix}", "/")
 
 
-def download_svg_recursive(svgs: List[str], nodes: Dict[str, Dict],
-                           keep_vars: Set[str]):
+def download_svg_recursive(svgs: List[str],
+                           nodes: Dict[str, Dict],
+                           keep_vars: Set[str],
+                           remove_svg_prefix=""):
   resp = common.call_api(API_PATH_SVG_INFO, {'nodes': svgs})
-
   recurse_nodes = set()
   for data in resp.get('data', []):
     svg_id = data.get('node', '')
@@ -72,7 +89,7 @@ def download_svg_recursive(svgs: List[str], nodes: Dict[str, Dict],
     if not info:
       continue
 
-    tid = _svg2t(svg_id)
+    tid = _svg2t(svg_id, remove_svg_prefix)
     if tid in nodes:
       continue
 
@@ -87,7 +104,7 @@ def download_svg_recursive(svgs: List[str], nodes: Dict[str, Dict],
     for csvg in info.get('childStatVarGroups', []):
       if not csvg.get('id'):
         continue
-      members.append(_svg2t(csvg['id']))
+      members.append(_svg2t(csvg['id'], remove_svg_prefix))
       recurse_nodes.add(csvg['id'])
 
     if not members:
@@ -102,12 +119,15 @@ def download_svg_recursive(svgs: List[str], nodes: Dict[str, Dict],
     }
 
   if recurse_nodes:
-    download_svg_recursive(sorted(list(recurse_nodes)), nodes, keep_vars)
+    download_svg_recursive(sorted(list(recurse_nodes)), nodes, keep_vars,
+                           remove_svg_prefix)
 
 
-def download_svgs(init_nodes: List[str], keep_vars: Set[str]):
+def download_svgs(init_nodes: List[str],
+                  keep_vars: Set[str],
+                  remove_svg_prefix=""):
   nodes = {}
-  download_svg_recursive(init_nodes, nodes, keep_vars)
+  download_svg_recursive(init_nodes, nodes, keep_vars, remove_svg_prefix)
   return nodes
 
 
@@ -161,7 +181,7 @@ def load_variables(vars_file: str, vars: Variables, var_prefix: str,
       if grp not in vars.group_descriptions:
         desc = row.get('GROUPING DESCRIPTION', '')
         # Drop the stuff within [].  It has stuff like [ILO].
-        desc = re.sub("[\[].*?[\]]", '', desc)
+        desc = re.sub(r"[\[].*?[\]]", '', desc)
         # Remove the extra spaces.
         desc = ' '.join(desc.strip().split())
         desc = desc.replace(' ,', ',')
@@ -202,7 +222,6 @@ def load_variables(vars_file: str, vars: Variables, var_prefix: str,
 # This function helps drop those references first and then check if as a result
 # we dropped more Topic nodes, and then drop those refs, etc
 def drop_dangling_topic_refs(nodes: List[Dict]):
-
   new_nodes = []
   rounds = 0
   while True:
@@ -237,9 +256,11 @@ def drop_dangling_topic_refs(nodes: List[Dict]):
   return new_nodes
 
 
-def generate(init_nodes: List[str], filter_vars: Variables):
-  nodes = download_svgs(init_nodes, filter_vars.keep_vars)
-
+def generate(init_nodes: List[str],
+             filter_vars: Variables,
+             remove_svg_prefix="",
+             skip_assert=False):
+  nodes = download_svgs(init_nodes, filter_vars.keep_vars, remove_svg_prefix)
   final_nodes = []
   for topic, node in nodes.items():
     if not node.get('relevantVariableList'):
@@ -274,7 +295,11 @@ def generate(init_nodes: List[str], filter_vars: Variables):
       final_nodes.append(node)
 
   # Assert we have consumed everything!
-  assert not filter_vars.series2group2vars, filter_vars.series2group2vars
+  if not skip_assert:
+    assert not filter_vars.series2group2vars
+  elif filter_vars.series2group2vars:
+    print("Warning: filter_vars.series2group2vars is not empty:",
+          filter_vars.series2group2vars)
 
   final_nodes = drop_dangling_topic_refs(final_nodes)
 
@@ -369,6 +394,7 @@ def write_nl_descriptions(nl_desc_file: str, nodes: list[dict],
             'Override_Alternatives': '',
             'Curated_Alternatives': alt_name,
         })
+  print(f"Wrote NL descriptions to: {nl_desc_file}")
 
 
 def main(_):
@@ -390,7 +416,6 @@ def main(_):
     common.write_topic_mcf(_SDG_MCF_PATH, nodes)
     common.write_topic_json(_SDG_TOPIC_JSON, nodes)
   elif FLAGS.dc == 'undata':
-    # TODO: When we have one more past WHO, needs some work.
     load_variables(vars_file=_UNDATA_VARIABLES_FILE,
                    vars=vars,
                    var_prefix='',
@@ -402,6 +427,24 @@ def main(_):
     common.write_topic_json(_UNDATA_TOPIC_JSON, nodes)
     write_nl_descriptions(_UNDATA_NL_DESCRIPTIONS_FILE, nodes,
                           _UNDATA_SERIES_TOPICS_FILE, vars)
+  elif FLAGS.dc == 'undata_ilo':
+    load_variables(vars_file=_UNDATA_ILO_VARIABLES_FILE,
+                   vars=vars,
+                   var_prefix='',
+                   topic_prefix='dc/topic/',
+                   svpg_prefix='dc/svpg/ILO')
+    write_non_country_vars(_UNDATA_ILO_NON_COUNTRY_VARS, vars)
+    # TODO(dwnoble): Remove skip_assert here in a future iteration of the
+    # variable groupings (there are currenlty some ILO population types with no
+    # associated variables).
+    nodes = generate([_UNDATA_ILO_ROOT],
+                     vars,
+                     REMOVE_SVG_PREFIX,
+                     skip_assert=True)
+    common.write_topic_mcf(_UNDATA_ILO_MCF_PATH, nodes)
+    common.write_topic_json(_UNDATA_ILO_TOPIC_JSON, nodes)
+    write_nl_descriptions(_UNDATA_ILO_NL_DESCRIPTIONS_FILE, nodes,
+                          _UNDATA_ILO_SERIES_TOPICS_FILE, vars)
   print(f'Found {len(vars.keep_vars)} vars')
 
 

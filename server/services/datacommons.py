@@ -336,11 +336,12 @@ def resolve(nodes, prop):
   return post(url, {'nodes': nodes, 'property': prop})
 
 
-def nl_search_vars(queries, index_type, skip_topics=False):
+def nl_search_vars(queries, index_types: List[str], reranker=''):
   """Search sv from NL server."""
-  url = f'{current_app.config["NL_ROOT"]}/api/search_vars?idx={index_type}'
-  if skip_topics:
-    url = f'{url}&skip_topics={skip_topics}'
+  idx_params = ','.join(index_types)
+  url = f'{current_app.config["NL_ROOT"]}/api/search_vars?idx={idx_params}'
+  if reranker:
+    url = f'{url}&reranker={reranker}'
   return post(url, {'queries': queries})
 
 
@@ -350,8 +351,14 @@ def nl_detect_verbs(query):
   return get(url)
 
 
-def nl_embeddings_version_map():
-  return get(f'{current_app.config["NL_ROOT"]}/api/embeddings_version_map')
+def nl_encode(model, queries):
+  """Encode queries from NL server."""
+  url = f'{current_app.config["NL_ROOT"]}/api/encode'
+  return post(url, {'model': model, 'queries': queries})
+
+
+def nl_server_config():
+  return get(f'{current_app.config["NL_ROOT"]}/api/server_config')
 
 
 # =======================   V0 V0 V0 ================================

@@ -17,7 +17,7 @@
 :root {
   --dc-primary: #5d5f65;
   --link-color: #514ea3;
-  --footer-bg: white;
+  --footer-background: white;
   --dc-red-fade: #40d4e033;
 }
 
@@ -25,12 +25,16 @@
   background: white;
   box-shadow: 0 5px 5px 0 rgba(6, 6, 6, 0.18);
   z-index: 10;
+  position: sticky;
 }
 
 #main-nav a {
   color: var(--dc-primary) !important;
 }
 
+#main-header .navbar-brand {
+  display: flex;
+}
 .btn.btn-primary {
   background-color: var(--dc-primary);
 }

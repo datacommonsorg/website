@@ -1,0 +1,142 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/** Styles for /dev-place/<dcid> pages */
+
+@use "../base.scss";
+@use "../explore";
+
+// Left/right spacing shared across elements to ensure all text on the page
+// is left-justified to the same visual line, including the NL search bar text
+$text-alignment-spacing: 24px;
+
+// Border styling used to create a horizontal divider between sections
+$horizontal-divider-style: 1px solid rgba(0, 0, 0, 0.12);
+
+main {
+  // Leave space on top for navbar and bottom for footer
+  padding: 64px 0;
+}
+
+.page-content-container {
+  padding: 0 $text-alignment-spacing;
+}
+.title-section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  .place-info {
+    flex-grow: 1;
+
+    h1 {
+      color: var(--gm-3-ref-neutral-neutral-20);
+      font-size: 28px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 36px;
+    }
+
+    .subheader {
+      color: var(--gm-3-ref-neutral-neutral-20);
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 20px;
+      margin-bottom: 0;
+
+      a {
+        color: currentColor;
+      }
+    }
+  }
+
+  .dcid-and-knowledge-graph {
+    color: var(--gm-3-ref-neutral-neutral-40);
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px;
+    letter-spacing: 0.1px;
+  }
+}
+
+.explore-topics-box {
+  border-top: $horizontal-divider-style;
+  margin: 8px 0;
+  padding-top: 10px;
+}
+
+.summary-text {
+  color: var(--gm-3-ref-neutral-neutral-20);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  margin: 24px 0;
+}
+
+.charts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  margin: 24px 0;
+
+  .category {
+    .category-heading-container {
+      align-items: center;
+      border-bottom: $horizontal-divider-style;
+      display: flex;
+      flex-direction: row;
+
+      h2 {
+        flex-grow: 1;
+        font-size: 22px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 28px;
+      }
+
+      a {
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 20px;
+      }
+    }
+  }
+}
+
+.block.subtopic {
+  padding: 0;
+}
+
+.block-column {
+  width: 50%;
+  padding: 0px 10px 24px 10px;
+}
+
+.related-places {
+  width: fit-content;
+
+  .related-places-callout {
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 28px;
+  }
+}

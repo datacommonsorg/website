@@ -93,6 +93,9 @@ function getProcessedPointResponse(
     for (const variable of varGroup) {
       const entityObs = resp.data[variable];
       Object.values(entityObs).forEach((obs) => {
+        if (_.isEmpty(obs)) {
+          return;
+        }
         const unit = getObsUnit(resp.facets, obs);
         if (!unit2Count[unit]) {
           unit2Count[unit] = 0;
@@ -190,10 +193,7 @@ export function getSeries(
     params["facetIds"] = facetIds;
   }
   return axios
-    .get(`${apiRoot || ""}/api/observations/series`, {
-      params,
-      paramsSerializer: stringifyFn,
-    })
+    .post(`${apiRoot || ""}/api/observations/series`, params)
     .then((resp) => resp.data);
 }
 

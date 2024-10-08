@@ -15,15 +15,15 @@
 import copy
 from typing import List
 
-import server.lib.explore.existence as ext
-from server.lib.nl.common import constants
 from server.lib.nl.common.commentary import COMPARISON_MISSING_PLACE_MSG
+import server.lib.nl.common.existence_util as ext
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.fulfillment.utils import add_chart_to_utterance
+from server.lib.nl.fulfillment.utils import get_max_ans_places
 from server.lib.nl.fulfillment.utils import get_places_as_string
 
 
@@ -119,7 +119,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
 
   # If this is the top result, add to answer place.
   if rank == 0 and places:
-    ans_places = copy.deepcopy(places[:constants.MAX_ANSWER_PLACES])
+    ans_places = copy.deepcopy(get_max_ans_places(places, state.uttr))
     state.uttr.answerPlaces = ans_places
     state.uttr.counters.info('comparison_answer_places',
                              [p.dcid for p in ans_places])

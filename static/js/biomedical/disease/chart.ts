@@ -178,8 +178,7 @@ export function drawDiseaseGeneAssocChart(
     .call(
       handleMouseEvents,
       circleIDFunc,
-      (d: DiseaseGeneAssociationData) =>
-        `Gene Name: ${d.name}<br>Confidence Score: ${d.score}`
+      (d) => `Gene Name: ${d.name}<br>Confidence Score: ${d.score}`
     );
 }
 
@@ -221,7 +220,6 @@ export function drawDiseaseSymptomAssociationChart(
       })
     )
     .padding(1);
-
   svg
     .append("g")
     .attr("transform", "translate(0," + height + ")")
@@ -239,7 +237,6 @@ export function drawDiseaseSymptomAssociationChart(
   svg.append("g").call(d3.axisLeft(y));
   addYLabel(height, "Odds Ratio Associatiom Score", svg);
   const circleIDFunc = getElementIDFunc(id, "circle");
-
   // the circles
   svg
     .selectAll("disease-symptom-circle")
@@ -258,8 +255,7 @@ export function drawDiseaseSymptomAssociationChart(
     .call(
       handleMouseEvents,
       circleIDFunc,
-      (d: DiseaseSymptomAssociationData) =>
-        `Symptom: ${d.name}<br>Odds Ratio Association: ${d.oddsRatio}`
+      (d) => `Symptom: ${d.name}<br>Odds Ratio Association: ${d.oddsRatio}`
     );
 }
 /**

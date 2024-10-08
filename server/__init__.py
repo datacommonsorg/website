@@ -37,8 +37,8 @@ import server.lib.util as libutil
 import server.services.bigtable as bt
 from server.services.discovery import configure_endpoints_from_ingress
 from server.services.discovery import get_health_check_urls
-import shared.lib.gcp as lib_gcp
-from shared.lib.utils import is_debug_mode
+from shared.lib import gcp as lib_gcp
+from shared.lib import utils as lib_utils
 
 BLOCKLIST_SVG_FILE = "/datacommons/svg/blocklist_svg.json"
 
@@ -157,6 +157,12 @@ def register_routes_common(app):
   from server.routes.place import html as place_html
   app.register_blueprint(place_html.bp)
 
+  from server.routes.dev_place import api as dev_place_api
+  app.register_blueprint(dev_place_api.bp)
+
+  from server.routes.dev_place import html as dev_place_html
+  app.register_blueprint(dev_place_html.bp)
+
   from server.routes.ranking import html as ranking_html
   app.register_blueprint(ranking_html.bp)
 
@@ -203,6 +209,10 @@ def register_routes_common(app):
   from server.routes.shared_api import stats as shared_stats
   app.register_blueprint(shared_stats.bp)
 
+  from server.routes.shared_api.autocomplete import \
+      autocomplete as shared_autocomplete
+  app.register_blueprint(shared_autocomplete.bp)
+
   from server.routes.shared_api import variable as shared_variable
   app.register_blueprint(shared_variable.bp)
 
@@ -235,7 +245,7 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   cfg = lib_config.get_config()
 
-  if lib_gcp.in_google_network():
+  if lib_gcp.in_google_network() and not lib_utils.is_test_env():
     client = google.cloud.logging.Client()
     client.setup_logging()
   else:
@@ -247,7 +257,7 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     )
 
   log_level = logging.WARNING
-  if is_debug_mode():
+  if lib_utils.is_debug_mode():
     log_level = logging.INFO
   logging.getLogger('werkzeug').setLevel(log_level)
 
@@ -259,12 +269,9 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     raise Exception(
         'Set environment variable DC_API_KEY for local custom DC development')
 
-  app.config['NL_ROOT'] = nl_root
+  # Use NL_SERVICE_ROOT if it's set, otherwise use nl_root argument
+  app.config['NL_ROOT'] = os.environ.get("NL_SERVICE_ROOT_URL", nl_root)
   app.config['ENABLE_ADMIN'] = os.environ.get('ENABLE_ADMIN', '') == 'true'
-
-  if os.environ.get('ENABLE_EVAL_TOOL') == 'true':
-    import shared.model.loader as model_loader
-    app.config['VERTEX_AI_MODELS'] = model_loader.load()
 
   lib_cache.cache.init_app(app)
   lib_cache.model_cache.init_app(app)
@@ -310,6 +317,8 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
       "config/home_page/topics.json")
   app.config['HOMEPAGE_PARTNERS'] = libutil.get_json(
       "config/home_page/partners.json")
+  app.config['HOMEPAGE_SAMPLE_QUESTIONS'] = libutil.get_json(
+      "config/home_page/sample_questions.json")
 
   if cfg.TEST or cfg.LITE:
     app.config['MAPS_API_KEY'] = ''
@@ -402,6 +411,10 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
     blocklist_svg = ["dc/g/Uncategorized", "oecd/g/OECD"]
   app.config['BLOCKLIST_SVG'] = blocklist_svg
 
+  # Set whether to filter stat vars with low geographic coverage in the
+  # map and scatter tools.
+  app.config['MIN_STAT_VAR_GEO_COVERAGE'] = cfg.MIN_STAT_VAR_GEO_COVERAGE
+
   if not cfg.TEST:
     urls = get_health_check_urls()
     libutil.check_backend_ready(urls)
@@ -435,10 +448,20 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
       return
     values['hl'] = g.locale
 
-  # Provides locale parameter in all templates
+  # Provides locale and other common parameters in all templates
   @app.context_processor
-  def inject_locale():
-    return dict(locale=get_locale())
+  def inject_common_parameters():
+    common_variables = {
+        #TODO: replace HEADER_MENU with V2
+        'HEADER_MENU':
+            json.dumps(libutil.get_json("config/base/header.json")),
+        'FOOTER_MENU':
+            json.dumps(libutil.get_json("config/base/footer.json")),
+        'HEADER_MENU_V2':
+            json.dumps(libutil.get_json("config/base/header_v2.json")),
+    }
+    locale_variable = dict(locale=get_locale())
+    return {**common_variables, **locale_variable}
 
   @app.teardown_request
   def log_unhandled(e):
@@ -446,10 +469,25 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
       app.logger.error('Error thrown for request: %s\nerror: %s', request.url,
                        e)
 
+  # Attempt to retrieve the Google Analytics Tag ID (GOOGLE_ANALYTICS_TAG_ID):
+  # 1. First, check the environment variables for 'GOOGLE_ANALYTICS_TAG_ID'.
+  # 2. If not found, fallback to the application configuration ('GOOGLE_ANALYTICS_TAG_ID' in app.config).
+  # 3. If still not found, fallback to the deprecated application configuration ('GA_ACCOUNT' in app.config).
+  config_deprecated_ga_account = app.config['GA_ACCOUNT']
+  if config_deprecated_ga_account:
+    logging.warn(
+        "Use of GA_ACCOUNT is deprecated. Use the GOOGLE_ANALYTICS_TAG_ID environment variable instead."
+    )
+  config_google_analytics_tag_id = app.config['GOOGLE_ANALYTICS_TAG_ID']
+  google_analytics_tag_id = os.environ.get(
+      'GOOGLE_ANALYTICS_TAG_ID', config_google_analytics_tag_id or
+      config_deprecated_ga_account)
+
   # Jinja env
-  app.jinja_env.globals['GA_ACCOUNT'] = app.config['GA_ACCOUNT']
+  app.jinja_env.globals['GOOGLE_ANALYTICS_TAG_ID'] = google_analytics_tag_id
   app.jinja_env.globals['NAME'] = app.config['NAME']
   app.jinja_env.globals['LOGO_PATH'] = app.config['LOGO_PATH']
+  app.jinja_env.globals['LOGO_WIDTH'] = app.config['LOGO_WIDTH']
   app.jinja_env.globals['OVERRIDE_CSS_PATH'] = app.config['OVERRIDE_CSS_PATH']
   app.secret_key = os.urandom(24)
 

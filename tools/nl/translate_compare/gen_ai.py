@@ -79,7 +79,6 @@ def fetch_alt_query(query, variation="more casually"):
 
 def main(_):
   queries = [
-      "What is the breakdown of incarceration rates by race in the US",
       "What is the correlation between obesity and poverty across counties in the US"
   ]
   variations = [

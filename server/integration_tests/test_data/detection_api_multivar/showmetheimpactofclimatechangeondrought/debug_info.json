@@ -8,26 +8,40 @@
   "query_with_places_removed": "show me the impact of climate change on drought",
   "sv_matching": {
     "CosineScore": [
-      0.8618602752685547,
-      0.8366556167602539,
-      0.8204660415649414,
-      0.7946640253067017,
-      0.7720615863800049,
-      0.7232216000556946,
-      0.6951404213905334,
-      0.6518921256065369,
-      0.6400113105773926,
-      0.6347747445106506
+      0.8393685817718506,
+      0.7931121587753296,
+      0.7699977159500122,
+      0.7208102941513062,
+      0.7175307869911194,
+      0.6995436549186707,
+      0.6863453984260559,
+      0.674246072769165,
+      0.673050582408905,
+      0.6703541874885559,
+      0.6652891635894775,
+      0.6644605398178101,
+      0.6353793740272522,
+      0.6349935531616211,
+      0.6347004175186157,
+      0.6308181285858154,
+      0.6290862560272217,
+      0.6256593465805054,
+      0.6180377006530762,
+      0.6162121891975403,
+      0.6141721606254578,
+      0.6139706969261169,
+      0.6138609051704407,
+      0.6123875379562378
     ],
     "MultiSV": {
       "Candidates": [
         {
-          "AggCosineScore": 0.9324,
+          "AggCosineScore": 0.9394,
           "DelimBased": false,
           "Parts": [
             {
               "CosineScore": [
-                0.8647747039794922
+                0.8787480592727661
               ],
               "QueryPart": "show climate change",
               "SV": [
@@ -46,55 +60,27 @@
           ]
         },
         {
-          "AggCosineScore": 0.8407,
+          "AggCosineScore": 0.8304,
           "DelimBased": false,
           "Parts": [
             {
               "CosineScore": [
-                0.7687962055206299
+                0.7942371964454651,
+                0.7929015159606934
               ],
               "QueryPart": "show climate",
               "SV": [
+                "dc/topic/ProjectedClimateExtremes",
                 "dc/topic/ClimateChange"
               ]
             },
             {
               "CosineScore": [
-                0.9125531315803528,
-                0.8689357042312622
+                0.866513192653656
               ],
               "QueryPart": "change drought",
               "SV": [
-                "dc/topic/Drought",
-                "Count_DroughtEvent"
-              ]
-            }
-          ]
-        },
-        {
-          "AggCosineScore": 0.7151,
-          "DelimBased": false,
-          "Parts": [
-            {
-              "CosineScore": [
-                0.5150814056396484
-              ],
-              "QueryPart": "show",
-              "SV": [
-                "dc/topic/Visibility"
-              ]
-            },
-            {
-              "CosineScore": [
-                0.9151014089584351,
-                0.8943068981170654,
-                0.8703450560569763
-              ],
-              "QueryPart": "climate change drought",
-              "SV": [
-                "dc/topic/Drought",
-                "Count_DroughtEvent",
-                "Annual_ExpectedLoss_NaturalHazardImpact_DroughtEvent"
+                "dc/topic/Drought"
               ]
             }
           ]
@@ -105,14 +91,28 @@
     "SV": [
       "dc/topic/Drought",
       "Count_DroughtEvent",
+      "dc/topic/ClimateChange",
       "Annual_ExpectedLoss_NaturalHazardImpact_DroughtEvent",
       "PalmerDroughtSeverityIndex_Atmosphere",
-      "Mean_PalmerDroughtSeverityIndex",
-      "dc/topic/ClimateChange",
       "FemaNaturalHazardRiskIndex_NaturalHazardImpact_DroughtEvent",
-      "dc/topic/Rainfall",
+      "dc/topic/ProjectedClimateExtremes",
+      "dc/topic/Precipitation",
+      "Mean_PalmerDroughtSeverityIndex",
+      "dc/topic/sdg_13.3",
       "Mean_PalmerDroughtSeverityIndex_Forest",
-      "dc/topic/Precipitation"
+      "dc/topic/sdg_6.4.2",
+      "dc/topic/sdg_6.6.1",
+      "dc/topic/sdg_13.b.1",
+      "dc/topic/sdg_13.2.1",
+      "dc/topic/sdg_13.b",
+      "dc/topic/sdg_6.4.1",
+      "Annual_Emissions_GreenhouseGas",
+      "Mean_PrecipitableWater_Atmosphere",
+      "dc/topic/CO2Emissions",
+      "DewPointTemperature_SurfaceLevel",
+      "dc/topic/TemperaturePredictions",
+      "dc/topic/sdg_13.1",
+      "StandardizedPrecipitationEvapotranspirationIndex_Atmosphere"
     ]
   },
   "props_matching": {
@@ -129,7 +129,9 @@
     "query_transformations": {
       "place_detection_input": "show me the impact of climate change on drought",
       "place_detection_with_places_removed": "show me the impact of climate change on drought",
-      "sv_detection_query_index_type": "",
+      "sv_detection_query_index_types": [
+        "base_uae_mem"
+      ],
       "sv_detection_query_input": "show me the impact of climate change on drought",
       "sv_detection_query_stop_words_removal": "show climate change drought"
     }

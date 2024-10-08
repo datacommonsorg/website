@@ -85,7 +85,7 @@ class TestMergeSV(unittest.TestCase):
   ])
   def test_main(self, sv, sv_scores, want):
     self.maxDiff = None
-    inputs = [dvars.dict_to_var_detection_result(i) for i in sv_scores]
+    inputs = [dvars.test_dict_to_var_detection_result(i) for i in sv_scores]
     got = llm_detector._merge_sv_dicts(sv, inputs)
     self.assertEqual(dvars.var_detection_result_to_dict(got), want)
 

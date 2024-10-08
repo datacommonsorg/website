@@ -1,0 +1,137 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@import "base";
+
+#dc-eval-embeddings {
+  padding: 20px;
+}
+
+.main-content {
+  margin-top: 0;
+}
+
+.text-box-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+#checkbox-container {
+  font-size: 16px;
+
+  input {
+    margin: 3px;
+  }
+
+  label {
+    font-weight: 500;
+    line-height: 20px;
+    margin-right: 12px;
+  }
+}
+
+.app-section {
+  margin-bottom: 20px;
+
+  span {
+    font-size: 14px;
+    font-weight: 200;
+  }
+
+  form {
+    textarea {
+      display: block;
+      height: 100px;
+      width: 1200px;
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    button {
+      margin-top: 20px;
+      display: inline-block;
+      text-align: right;
+      font-weight: bold;
+      background-color: lightblue;
+    }
+  }
+
+  .query-section {
+    margin-bottom: 20px;
+    border: 1px solid #ccc; /* Light grey border */
+    padding: 10px;
+
+    .model-result-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: auto;
+
+      .index-score-box {
+        background-color: #f0f0f0; /* Light grey background */
+        border: 1px solid #ccc; /* Light grey border */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Horizontal offset, vertical offset, blur radius, color */
+        margin: 10px;
+        padding: 10px;
+        font-size: 13px;
+        word-wrap: break-word;
+        flex: 1;
+
+        .index-name {
+          font-size: 16px;
+          font-weight: bold;
+        }
+
+        table {
+          table-layout: "fixed";
+          width: 100%;
+
+          .new {
+            background-color: lightgreen;
+          }
+
+          .old {
+            background-color: lightcoral;
+          }
+
+          th,
+          td {
+            border: 1px solid black;
+            padding: 0.2rem;
+          }
+
+          .sentence-column {
+            width: 50%;
+            word-wrap: break-word;
+            max-width: 1px;
+          }
+
+          .stat-var-column {
+            width: 40%;
+            word-wrap: break-word;
+            max-width: 1px;
+          }
+
+          li a {
+            color: inherit;
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}

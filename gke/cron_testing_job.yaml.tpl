@@ -20,7 +20,7 @@ metadata:
   namespace: website
 spec:
   # Run every 4 hours
-  schedule: "0 */4 * * *"
+  schedule:
   successfulJobsHistoryLimit: 100
   failedJobsHistoryLimit: 100
   jobTemplate:

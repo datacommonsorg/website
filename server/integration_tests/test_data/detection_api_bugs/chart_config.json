@@ -15,25 +15,7 @@
   "comparisonEntities": [],
   "comparisonVariables": [
     "dc/topic/HousesByHomeValue",
-    "Count_HousingUnit_HomeValue35000To39999USDollar",
-    "Count_HousingUnit_HomeValue50000To59999USDollar",
-    "Count_HousingUnit_HomeValue175000To199999USDollar",
-    "Count_HousingUnit_HomeValue60000To69999USDollar",
-    "Count_HousingUnit_HomeValue200000To249999USDollar",
-    "Count_HousingUnit_HomeValue25000To29999USDollar",
-    "Count_HousingUnit_HomeValue250000To299999USDollar",
-    "Count_HousingUnit_HomeValue70000To79999USDollar",
-    "Count_HousingUnit_HomeValue40000To49999USDollar",
-    "dc/topic/HousesByOwnershipCost",
-    "Count_HousingUnit_HomeValue30000To34999USDollar",
-    "Count_HousingUnit_HomeValue20000To24999USDollar",
-    "Count_HousingUnit_HomeValue15000To19999USDollar",
-    "Count_HousingUnit_HomeValue80000To89999USDollar",
-    "Count_HousingUnit_HomeValue125000To149999USDollar",
-    "Count_HousingUnit_HomeValue90000To99999USDollar",
-    "Count_HousingUnit_HomeValue150000To174999USDollar",
-    "Count_HousingUnit_HomeValue2000000OrMoreUSDollar",
-    "Count_HousingUnit_HomeValueUpto10000USDollar"
+    "dc/topic/HousesByOwnershipCost"
   ],
   "context": {},
   "debug": {},
@@ -44,12 +26,9 @@
   "properties": [],
   "sessionId": "007_999999999",
   "variables": [
-    "Count_HousingUnit",
-    "Mean_HouseholdSize_HousingUnit_OccupiedHousingUnit",
-    "Count_HousingUnit_WithRent_2000To2499USDollar",
-    "Count_HousingUnit_WithRent_350To399USDollar",
-    "Count_HousingUnit_WithRent_800To899USDollar",
     "dc/topic/Housing",
-    "Count_HousingUnit_WithRent_1250To1499USDollar"
+    "Mean_HouseholdSize_HousingUnit_OccupiedHousingUnit",
+    "Mean_HouseholdSize_HousingUnit_OccupiedHousingUnit_RenterOccupied",
+    "Count_HousingUnit"
   ]
 }

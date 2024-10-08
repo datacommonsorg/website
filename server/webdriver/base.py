@@ -19,14 +19,9 @@ import sys
 from server.webdriver import shared
 from server.webdriver.base_utils import create_driver
 from shared.lib.test_server import NLWebServerTestCase
+from shared.lib.test_setup import set_up_macos_for_tests
 
-# Explicitly set multiprocessing start method to 'fork' so tests work with
-# python3.8+ on MacOS.
-# https://docs.python.org/3/library/multiprocessing.html#contexts-and-start-methods
-# This code must only be run once per execution.
-if sys.version_info >= (3, 8) and sys.platform == "darwin":
-  multiprocessing.set_start_method("fork")
-  os.environ['no_proxy'] = '*'
+set_up_macos_for_tests()
 
 
 # Base test class to setup the server.

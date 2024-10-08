@@ -15,6 +15,7 @@
 import urllib
 import urllib.request
 
+import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -61,6 +62,7 @@ class TestBrowser(WebdriverBaseTest):
         intro.text.startswith(
             'The Data Commons Knowledge Graph is constructed'))
 
+  @pytest.mark.skip(reason="needs mixer/data fix")
   def test_page_serve_mtv(self):
     """Test the browser page for MTV can be loaded successfully."""
     TITLE_TEXT = "Mountain View - Knowledge Graph - Data Commons"
@@ -255,7 +257,8 @@ class TestBrowser(WebdriverBaseTest):
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(loading_finished)
     first_result = self.driver.find_element(
         By.XPATH,
-        '//*[@id="stat-var-hierarchy-section"]/div[1]/div[1]/div[2]/div/div[1]')
+        '//*[@id="stat-var-hierarchy-section"]//div[contains(@class, "statvar-hierarchy-search-results")]/div[2]/div[1]'
+    )
     first_result.click()
 
     # Assert that the section Count_Person_Male_AsianAlone opened and shows at least one chart

@@ -15,9 +15,10 @@
 
 # Create API keys and store them in the config.
 
+CONFIG_YAML="../deploy/helm_charts/envs/$1.yaml"
 
-PROJECT_ID=$(yq eval '.project' config.yaml)
-DOMAIN=$(yq eval '.domain' config.yaml)
+PROJECT_ID=$(yq eval '.project' $CONFIG_YAML)
+DOMAIN=$(yq eval '.domain' $CONFIG_YAML)
 
 gcloud config set project $PROJECT_ID
 

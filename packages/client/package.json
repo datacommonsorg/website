@@ -28,6 +28,9 @@
     "test": "jest"
   },
   "devDependencies": {
+    "@babel/core": "^7.23.6",
+    "@babel/preset-env": "^7.23.6",
+    "@babel/preset-typescript": "^7.23.3",
     "@deck.gl/core": "^8.9.33",
     "@deck.gl/google-maps": "^8.9.33",
     "@deck.gl/layers": "^8.9.33",
@@ -44,18 +47,19 @@
     "@types/react-dom": "^18.2.17",
     "@types/react-syntax-highlighter": "^15.5.11",
     "@types/turf": "^3.5.32",
+    "babel-jest": "^29.7.0",
     "d3-scale": "^4.0.2",
     "jest": "^29.7.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-syntax-highlighter": "^15.5.0",
     "rollup-plugin-typescript-paths": "^1.5.0",
-    "ts-jest": "^29.1.2",
+    "ts-jest": "^29.1.1",
     "tslib": "^2.6.2",
     "typedoc": "^0.25.4",
     "vega-embed": "^6.24.0",
     "vega-lite": "^5.16.3",
-    "vite": "^5.2.10"
+    "vite": "^5.2.14"
   },
   "dependencies": {
     "lodash": "^4.17.21",

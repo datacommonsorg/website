@@ -35,12 +35,336 @@
             ],
             "denom": "Count_Person",
             "title": "Larceny Theft Cases in Cities of Santa Clara County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_CriminalActivities_CombinedCrime"
+                    ],
+                    "title": "Criminal Activities in Cities of Santa Clara County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_CombinedCrime"
+                    ],
+                    "title": "Criminal Activities in Cities of Santa Clara County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Criminal Activities in Cities of Santa Clara County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_CriminalActivities_AggravatedAssault"
+                    ],
+                    "title": "Aggravated Assault Cases in Cities of Santa Clara County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_AggravatedAssault"
+                    ],
+                    "title": "Aggravated Assault Cases in Cities of Santa Clara County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Aggravated Assault Cases in Cities of Santa Clara County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_CriminalActivities_Arson"
+                    ],
+                    "title": "Arson Crimes in Cities of Santa Clara County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_Arson"
+                    ],
+                    "title": "Arson Crimes in Cities of Santa Clara County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Arson Crimes in Cities of Santa Clara County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_CriminalActivities_Burglary"
+                    ],
+                    "title": "Burglaries in Cities of Santa Clara County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_Burglary"
+                    ],
+                    "title": "Burglaries in Cities of Santa Clara County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Burglaries in Cities of Santa Clara County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_CriminalActivities_ForcibleRape"
+                    ],
+                    "title": "Forcible Rapes in Cities of Santa Clara County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_ForcibleRape"
+                    ],
+                    "title": "Forcible Rapes in Cities of Santa Clara County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Forcible Rapes in Cities of Santa Clara County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_CriminalActivities_MotorVehicleTheft"
+                    ],
+                    "title": "Motor Vehicle Thefts in Cities of Santa Clara County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_MotorVehicleTheft"
+                    ],
+                    "title": "Motor Vehicle Thefts in Cities of Santa Clara County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Motor Vehicle Thefts in Cities of Santa Clara County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_CriminalActivities_PropertyCrime"
+                    ],
+                    "title": "Property Related Crimes in Cities of Santa Clara County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_PropertyCrime"
+                    ],
+                    "title": "Property Related Crimes in Cities of Santa Clara County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Property Related Crimes in Cities of Santa Clara County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_CriminalActivities_Robbery"
+                    ],
+                    "title": "Robberies in Cities of Santa Clara County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_Robbery"
+                    ],
+                    "title": "Robberies in Cities of Santa Clara County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Robberies in Cities of Santa Clara County"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_CriminalActivities_ViolentCrime"
+                    ],
+                    "title": "Violent Crimes in Cities of Santa Clara County (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_ViolentCrime"
+                    ],
+                    "title": "Violent Crimes in Cities of Santa Clara County (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Violent Crimes in Cities of Santa Clara County"
           }
         ],
         "statVarSpec": {
+          "Count_CriminalActivities_AggravatedAssault": {
+            "name": "Aggravated Assault Cases",
+            "statVar": "Count_CriminalActivities_AggravatedAssault"
+          },
+          "Count_CriminalActivities_Arson": {
+            "name": "Arson Crimes",
+            "statVar": "Count_CriminalActivities_Arson"
+          },
+          "Count_CriminalActivities_Burglary": {
+            "name": "Burglaries",
+            "statVar": "Count_CriminalActivities_Burglary"
+          },
+          "Count_CriminalActivities_CombinedCrime": {
+            "name": "Criminal Activities",
+            "statVar": "Count_CriminalActivities_CombinedCrime"
+          },
+          "Count_CriminalActivities_ForcibleRape": {
+            "name": "Forcible Rapes",
+            "statVar": "Count_CriminalActivities_ForcibleRape"
+          },
           "Count_CriminalActivities_LarcenyTheft": {
             "name": "Larceny Theft Cases",
             "statVar": "Count_CriminalActivities_LarcenyTheft"
+          },
+          "Count_CriminalActivities_MotorVehicleTheft": {
+            "name": "Motor Vehicle Thefts",
+            "statVar": "Count_CriminalActivities_MotorVehicleTheft"
+          },
+          "Count_CriminalActivities_PropertyCrime": {
+            "name": "Property Related Crimes",
+            "statVar": "Count_CriminalActivities_PropertyCrime"
+          },
+          "Count_CriminalActivities_Robbery": {
+            "name": "Robberies",
+            "statVar": "Count_CriminalActivities_Robbery"
+          },
+          "Count_CriminalActivities_ViolentCrime": {
+            "name": "Violent Crimes",
+            "statVar": "Count_CriminalActivities_ViolentCrime"
           }
         }
       }
@@ -72,7 +396,420 @@
       "place_type": "County"
     }
   ],
-  "relatedThings": {},
+  "relatedThings": {
+    "childPlaces": {
+      "City": [
+        {
+          "dcid": "geoId/0601458",
+          "name": "Alum Rock",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0601486",
+          "name": "Alviso",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0608848",
+          "name": "Buena Vista",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0608968",
+          "name": "Burbank",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0610088",
+          "name": "Cambrian Park",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0610345",
+          "name": "Campbell",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0617610",
+          "name": "Cupertino",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0620598",
+          "name": "East Foothills",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0627080",
+          "name": "Fruitdale",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0629504",
+          "name": "Gilroy",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0641282",
+          "name": "Lexington Hills",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0643280",
+          "name": "Los Altos",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0643294",
+          "name": "Los Altos Hills",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0644112",
+          "name": "Los Gatos",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0644378",
+          "name": "Loyola",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0647766",
+          "name": "Milpitas",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0648956",
+          "name": "Monte Sereno",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0649278",
+          "name": "Morgan Hill",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0649670",
+          "name": "Mountain View",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0655282",
+          "name": "Palo Alto",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0668000",
+          "name": "San Jose",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0668238",
+          "name": "San Martin",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0669084",
+          "name": "Santa Clara",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0670280",
+          "name": "Saratoga",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0671074",
+          "name": "Seven Trees",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0673906",
+          "name": "Stanford",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0677000",
+          "name": "Sunnyvale",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q1911837",
+          "name": "Cambrian Park",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q2214519",
+          "name": "Sunol-Midtown",
+          "types": [
+            "City"
+          ]
+        }
+      ]
+    },
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Crime",
+        "name": "Crime",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [],
+    "peerPlaces": [
+      {
+        "dcid": "geoId/06001",
+        "name": "Alameda",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/36005",
+        "name": "Bronx",
+        "types": [
+          "County"
+        ]
+      },
+      {
+        "dcid": "geoId/06013",
+        "name": "Contra Costa",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/17031",
+        "name": "Cook",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/39035",
+        "name": "Cuyahoga",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/48113",
+        "name": "Dallas",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/12031",
+        "name": "Duval",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/08041",
+        "name": "El Paso",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/51059",
+        "name": "Fairfax",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/13121",
+        "name": "Fulton",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/48201",
+        "name": "Harris",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/12057",
+        "name": "Hillsborough",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/15003",
+        "name": "Honolulu",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/08059",
+        "name": "Jefferson",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06029",
+        "name": "Kern",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/53033",
+        "name": "King",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06037",
+        "name": "Los Angeles",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/04013",
+        "name": "Maricopa",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/37119",
+        "name": "Mecklenburg",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/12086",
+        "name": "Miami-Dade",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06059",
+        "name": "Orange",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/36081",
+        "name": "Queens",
+        "types": [
+          "County"
+        ]
+      },
+      {
+        "dcid": "geoId/06065",
+        "name": "Riverside",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06071",
+        "name": "San Bernardino",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06073",
+        "name": "San Diego",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06075",
+        "name": "San Francisco",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/24047",
+        "name": "Worcester",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      }
+    ],
+    "peerTopics": []
+  },
   "svSource": "CURRENT_QUERY",
   "userMessages": []
 }

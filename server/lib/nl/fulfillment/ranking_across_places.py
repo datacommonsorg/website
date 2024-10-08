@@ -19,10 +19,10 @@ from typing import List
 from flask import current_app
 
 from server.lib import util as libutil
-import server.lib.explore.existence as ext
 from server.lib.nl.common import constants
 from server.lib.nl.common import utils
 from server.lib.nl.common import variable
+import server.lib.nl.common.existence_util as ext
 from server.lib.nl.common.rank_utils import filter_and_rank_places
 from server.lib.nl.common.rank_utils import filter_and_rank_places_per_capita
 from server.lib.nl.common.utterance import ChartOriginType
@@ -30,11 +30,13 @@ from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.detection.types import RankingType
+from server.lib.nl.explore import params
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 from server.lib.nl.fulfillment.utils import \
     classifications_of_type_from_utterance
+from server.lib.nl.fulfillment.utils import get_max_ans_places
 
 
 #
@@ -91,6 +93,7 @@ def populate(state: PopulateState,
     sv_place_latest_date = ext.get_sv_place_latest_date(chart_vars.svs, places,
                                                         state.place_type,
                                                         state.exist_checks)
+    ranking_count = _maybe_override_ranking_count(state, ranking_count)
     return add_chart_to_utterance(ChartType.RANKING_WITH_MAP,
                                   state,
                                   chart_vars,
@@ -119,8 +122,15 @@ def _compute_answer_places(state: PopulateState, place: List[Place], sv: str):
     # Reverse the order.
     ranked_places.reverse()
 
-  ans_places = copy.deepcopy(ranked_places[:constants.MAX_ANSWER_PLACES])
+  ans_places = copy.deepcopy(get_max_ans_places(ranked_places, state.uttr))
 
   state.uttr.answerPlaces = ans_places
   state.uttr.counters.info('ranking-across-places_answer_places',
                            [p.dcid for p in ans_places])
+
+
+def _maybe_override_ranking_count(state: PopulateState,
+                                  ranking_count: int) -> int:
+  if state.uttr == params.QueryMode.TOOLFORMER_RAG:
+    return constants.ABSOLUTE_MAX_PLACES_FOR_TABLES
+  return ranking_count

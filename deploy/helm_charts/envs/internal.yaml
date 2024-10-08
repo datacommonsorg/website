@@ -24,8 +24,10 @@ website:
   replicas: 2
 
 mixer:
+  useBaseBigtable: false
   useBranchBigtable: false
   useCustomBigtable: true
+  remoteMixerDomain: https://api.datacommons.org
 
 serviceAccount:
   name: website-ksa
@@ -36,6 +38,11 @@ ingress:
   certName: website-ssl-certificate
 nl:
   enabled: true
+  env:
+    default_indexes:
+      - medium_ft
+    enabled_indexes:
+      - medium_ft
 
 serviceGroups:
   recon: null

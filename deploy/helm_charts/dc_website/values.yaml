@@ -132,10 +132,14 @@ serviceGroups:
 ###############################################################################
 nl:
   enabled: false
-  embeddings:
-  models:
   memory: "2G"
   workers: 1
+  catalog: {}
+  env:
+    default_indexes: []
+    enabled_indexes: []
+    vertex_ai_models: {}
+    enable_reranking: false
 
 ###############################################################################
 # Config for Stat Var Groups which is shared between Website and Mixer
@@ -157,7 +161,7 @@ nodejs:
   nodePool:
 
 ###############################################################################
-# Config for Periodic Testing CronJob
+# Config for Cron Testing Job
 ###############################################################################
 cronTesting:
   enabled: false
@@ -174,3 +178,5 @@ cronTesting:
   enableAdversarial: true
   # node pool to use
   nodePool:
+  # schedule to run the cron tests on
+  schedule:

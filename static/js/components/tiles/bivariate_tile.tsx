@@ -30,6 +30,7 @@ import { GeoJsonData } from "../../chart/types";
 import { URL_PATH } from "../../constants/app/visualization_constants";
 import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { USA_PLACE_DCID } from "../../shared/constants";
+import { useLazyLoad } from "../../shared/hooks";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { getStatWithinPlace } from "../../tools/scatter/util";
@@ -41,18 +42,18 @@ import {
   getContextStatVar,
   getHash,
 } from "../../utils/app/visualization_utils";
+import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { getSeriesWithin } from "../../utils/data_fetch_utils";
-import { datacommonsClient } from "../../utils/datacommons_client";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
 import {
+  clearContainer,
   getDenomInfo,
   getFirstCappedStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarName,
   ReplacementStrings,
-  showError,
   transformCsvHeader,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
@@ -71,6 +72,13 @@ interface BivariateTilePropType {
   showExploreMore?: boolean;
   // API root
   apiRoot?: string;
+  // Optional: only load this component when it's near the viewport
+  lazyLoad?: boolean;
+  /**
+   * Optional: If lazy loading is enabled, load the component when it is within
+   * this margin of the viewport. Default: "0px"
+   */
+  lazyLoadMargin?: string;
 }
 
 interface RawData {
@@ -99,15 +107,18 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
   const [bivariateChartData, setBivariateChartData] = useState<
     BivariateChartData | undefined
   >(null);
-
+  const { shouldLoad, containerRef } = useLazyLoad(props.lazyLoadMargin);
   useEffect(() => {
+    if (props.lazyLoad && !shouldLoad) {
+      return;
+    }
     if (!bivariateChartData || !_.isEqual(bivariateChartData.props, props)) {
       (async () => {
         const data = await fetchData(props);
         setBivariateChartData(data);
       })();
     }
-  }, [props, bivariateChartData]);
+  }, [props, bivariateChartData, shouldLoad]);
 
   const drawFn = useCallback(() => {
     if (_.isEmpty(bivariateChartData)) {
@@ -125,6 +136,7 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
     <ChartTileContainer
       id={props.id}
       title={props.title}
+      apiRoot={props.apiRoot}
       sources={bivariateChartData && bivariateChartData.sources}
       replacementStrings={rs}
       className={`${props.className} bivariate-chart`}
@@ -132,13 +144,21 @@ export function BivariateTile(props: BivariateTilePropType): JSX.Element {
       getDataCsv={getDataCsvCallback(props)}
       isInitialLoading={_.isNull(bivariateChartData)}
       exploreLink={props.showExploreMore ? getExploreLink(props) : null}
-      hasErrorMsg={bivariateChartData && !!bivariateChartData.errorMsg}
+      errorMsg={bivariateChartData && bivariateChartData.errorMsg}
+      statVarSpecs={props.statVarSpec}
+      forwardRef={containerRef}
     >
       <div
         id={props.id}
         className="bivariate-svg-container"
         ref={svgContainer}
-        style={{ minHeight: props.svgChartHeight }}
+        style={{
+          minHeight: props.svgChartHeight,
+          display:
+            bivariateChartData && bivariateChartData.errorMsg
+              ? "none"
+              : "block",
+        }}
       />
       <div id="bivariate-legend-container" ref={legend} />
     </ChartTileContainer>
@@ -154,13 +174,14 @@ function getDataCsvCallback(
   props: BivariateTilePropType
 ): () => Promise<string> {
   return () => {
+    const dataCommonsClient = getDataCommonsClient(props.apiRoot);
     // Assume all variables will have the same date
     // TODO: Update getCsv to handle different dates for different variables
     const date = getFirstCappedStatVarSpecDate(props.statVarSpec);
     const perCapitaVariables = props.statVarSpec
       .filter((v) => v.denom)
       .map((v) => v.statVar);
-    return datacommonsClient.getCsv({
+    return dataCommonsClient.getCsv({
       childType: props.enclosedPlaceType,
       date,
       fieldDelimiter: CSV_FIELD_DELIMITER,
@@ -381,7 +402,7 @@ function draw(
   legend: React.RefObject<HTMLDivElement>
 ): void {
   if (chartData.errorMsg) {
-    showError(chartData.errorMsg, svgContainer.current);
+    clearContainer(svgContainer.current);
     return;
   }
   const width = svgContainer.current.offsetWidth;

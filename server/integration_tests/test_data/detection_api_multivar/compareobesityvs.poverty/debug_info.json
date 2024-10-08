@@ -8,39 +8,60 @@
   "query_with_places_removed": "compare obesity vs poverty",
   "sv_matching": {
     "CosineScore": [
-      0.8119865655899048,
-      0.7225801944732666,
-      0.7164521217346191,
-      0.6980432868003845,
-      0.6908258199691772,
-      0.6851561069488525,
-      0.6847794055938721,
-      0.6683323979377747,
-      0.6657034754753113,
-      0.6602827310562134,
-      0.6422476172447205,
-      0.6345553994178772,
-      0.6318432688713074,
-      0.6279779076576233
+      0.8778440952301025,
+      0.7967696785926819,
+      0.7624966502189636,
+      0.7499464750289917,
+      0.7484046220779419,
+      0.744289755821228,
+      0.7357544302940369,
+      0.7350348830223083,
+      0.7310351729393005,
+      0.7289621829986572,
+      0.7266256213188171,
+      0.7264258861541748,
+      0.7264258861541748,
+      0.7253912091255188,
+      0.7230079174041748,
+      0.713947594165802,
+      0.7126947641372681,
+      0.7094854116439819,
+      0.7085545659065247,
+      0.7085544466972351,
+      0.7078820466995239,
+      0.7077706456184387,
+      0.7045392394065857,
+      0.7024305462837219,
+      0.7004537582397461,
+      0.6994994878768921,
+      0.695670485496521,
+      0.6947909593582153,
+      0.6913240551948547
     ],
     "MultiSV": {
       "Candidates": [
         {
-          "AggCosineScore": 0.953,
+          "AggCosineScore": 0.9234,
           "DelimBased": true,
           "Parts": [
             {
               "CosineScore": [
-                0.9060236811637878
+                0.8467828035354614,
+                0.8316561579704285,
+                0.8201544284820557,
+                0.8177065253257751
               ],
               "QueryPart": "obesity",
               "SV": [
-                "Percent_Person_Obesity"
+                "Percent_Person_Obesity",
+                "WHO/NCD_BMI_30A",
+                "dc/4lvmzr1h1ylk1",
+                "dc/x13tvt8jsgrm4"
               ]
             },
             {
               "CosineScore": [
-                1.0000001192092896
+                1.0
               ],
               "QueryPart": "poverty",
               "SV": [
@@ -53,20 +74,35 @@
     },
     "Query": "compare obesity vs poverty",
     "SV": [
-      "Percent_Person_Obesity",
       "dc/topic/Poverty",
-      "dc/topic/Malnutrition",
-      "Count_Person_BelowPovertyLevelInThePast12Months",
-      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person",
-      "dc/topic/PovertyLevels",
-      "dc/topic/sdg_1.2",
-      "WHO/NCD_BMI_30A",
-      "Count_Person_Upto4Years_Overweight_AsFractionOf_Count_Person_Upto4Years",
+      "dc/topic/PovertyByRace",
       "dc/topic/SDG_1",
-      "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad",
+      "Percent_Person_Obesity",
+      "dc/topic/sdg_1.2",
+      "dc/topic/PovertyByGender",
+      "dc/topic/PovertyByLanguageSpokenAtHome",
+      "dc/topic/sdg_1.2.2",
+      "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+      "WHO/NCD_BMI_30A",
+      "dc/topic/Malnutrition",
+      "dc/topic/sdg_2.1.1",
+      "sdg/SN_ITK_DEFC",
+      "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months",
+      "dc/topic/PovertyByResidency",
+      "dc/topic/sdg_1",
+      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+      "dc/x13tvt8jsgrm4",
+      "dc/topic/FoodInsecurity",
+      "dc/topic/sdg_2.1.2",
+      "Count_Household_WithoutFoodStampsInThePast12Months_AbovePovertyLevelInThePast12Months",
       "dc/4lvmzr1h1ylk1",
-      "dc/topic/sdg_2.2.2",
-      "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine"
+      "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+      "Count_Household_WithFoodStampsInThePast12Months_AbovePovertyLevelInThePast12Months",
+      "dc/topic/HealthEquity",
+      "dc/topic/sdg_1.2.1",
+      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+      "Count_Person_Male_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces",
+      "sdg/SI_POV_DAY1"
     ]
   },
   "props_matching": {
@@ -83,7 +119,9 @@
     "query_transformations": {
       "place_detection_input": "compare obesity vs poverty",
       "place_detection_with_places_removed": "compare obesity vs poverty",
-      "sv_detection_query_index_type": "",
+      "sv_detection_query_index_types": [
+        "base_uae_mem"
+      ],
       "sv_detection_query_input": "compare obesity vs poverty",
       "sv_detection_query_stop_words_removal": "obesity poverty"
     }

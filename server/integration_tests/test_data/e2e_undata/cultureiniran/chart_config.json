@@ -1117,7 +1117,15 @@
   ],
   "relatedThings": {
     "childPlaces": {},
-    "childTopics": [],
+    "childTopics": [
+      {
+        "dcid": "dc/topic/UN_SUB_THEME_38",
+        "name": "Science, technology and innovation",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "exploreMore": {},
     "mainTopics": [
       {
@@ -1129,7 +1137,15 @@
       }
     ],
     "parentPlaces": [],
-    "parentTopics": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/UN",
+        "name": "12 UN Data Thematic Areas",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
     "peerPlaces": [
       {
         "dcid": "country/BRA",
@@ -1237,7 +1253,78 @@
         ]
       }
     ],
-    "peerTopics": []
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/UN_THEME_1",
+        "name": "1: Poverty and food security",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UN_THEME_2",
+        "name": "2: Health",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UN_THEME_3",
+        "name": "3: Children and youth",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UN_THEME_5",
+        "name": "5: Equality and human rights",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UN_THEME_6",
+        "name": "6: Economic development",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UN_THEME_8",
+        "name": "8: Drinking water, sanitation and hygiene",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UN_THEME_9",
+        "name": "9: Climate and the environment",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UN_THEME_10",
+        "name": "10: Population and demography",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UN_THEME_11",
+        "name": "11: Disasters and humanitarian action",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UN_THEME_12",
+        "name": "12: Governance and peace",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": []

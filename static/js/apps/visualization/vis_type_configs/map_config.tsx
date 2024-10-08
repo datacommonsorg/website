@@ -28,13 +28,9 @@ import { FacetSelector } from "../../../shared/facet_selector";
 import { GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA } from "../../../shared/ga_events";
 import { StatMetadata } from "../../../shared/stat_types";
 import { StatVarHierarchyType } from "../../../shared/types";
-import { getNonPcQuery, getPcQuery } from "../../../tools/map/bq_query_utils";
 import { getAllChildPlaceTypes } from "../../../tools/map/util";
 import { MemoizedInfoExamples } from "../../../tools/shared/info_examples";
-import {
-  getStatVarSpec,
-  isSelectionComplete,
-} from "../../../utils/app/visualization_utils";
+import { getStatVarSpec } from "../../../utils/app/visualization_utils";
 import { getFacetsWithin } from "../../../utils/data_fetch_utils";
 import { AppContextType } from "../app_context";
 import { ChartFooter } from "../chart_footer";
@@ -143,7 +139,6 @@ export function getChartArea(
               hover
             );
           }}
-          showLoadingSpinner={true}
         />
       </div>
     </>
@@ -175,41 +170,6 @@ function getInfoContent(): JSX.Element {
   );
 }
 
-function getSqlQueryFn(appContext: AppContextType): () => string {
-  return () => {
-    if (
-      !isSelectionComplete(
-        VisType.MAP,
-        appContext.places,
-        appContext.enclosedPlaceType,
-        appContext.statVars
-      )
-    ) {
-      return "";
-    }
-    const contextStatVar = appContext.statVars[0];
-    const statVarSpec = getStatVarSpec(contextStatVar, VisType.MAP);
-    if (statVarSpec.denom) {
-      return getPcQuery(
-        statVarSpec.statVar,
-        statVarSpec.denom,
-        appContext.places[0].dcid,
-        appContext.enclosedPlaceType,
-        contextStatVar.date,
-        contextStatVar.facetInfo || {}
-      );
-    } else {
-      return getNonPcQuery(
-        statVarSpec.statVar,
-        appContext.places[0].dcid,
-        appContext.enclosedPlaceType,
-        contextStatVar.date,
-        contextStatVar.facetInfo || {}
-      );
-    }
-  };
-}
-
 function getFooter(): string {
   const footer = document.getElementById("metadata").dataset.mapFooter || "";
   return footer ? `* ${footer}` : "";
@@ -218,13 +178,12 @@ function getFooter(): string {
 export const MAP_CONFIG = {
   displayName: "Map Explorer",
   svHierarchyType: StatVarHierarchyType.MAP,
-  svHierarchyNumExistence: 10,
+  svHierarchyNumExistence: globalThis.minStatVarGeoCoverage,
   singlePlace: true,
   getChildTypesFn: getAllChildPlaceTypes,
   numSv: 1,
   getChartArea,
   getInfoContent,
-  getSqlQueryFn,
   oldToolUrl: "/tools/map",
   getFooter,
 };

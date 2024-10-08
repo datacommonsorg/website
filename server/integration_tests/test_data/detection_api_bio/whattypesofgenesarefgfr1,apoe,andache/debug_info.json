@@ -8,46 +8,89 @@
     ", apoe ,",
     "ache"
   ],
-  "entities_resolved": "(name: FGFR1, dcid: bio/FGFR1); (name: FGFR1, dcid: bio/galGal5_FGFR1); (name: FGFR1, dcid: bio/galGal6_FGFR1); (name: FGFR1, dcid: bio/hg19_FGFR1); (name: FGFR1, dcid: bio/hg38_FGFR1); (name: Fgfr1, dcid: bio/mm10_Fgfr1); (name: Fgfr1, dcid: bio/mm9_Fgfr1); (name: APOE, dcid: bio/APOE); (name: APOE, dcid: bio/hg19_APOE); (name: APOE, dcid: bio/hg38_APOE); (name: Apoe, dcid: bio/mm10_Apoe); (name: Apoe, dcid: bio/mm9_Apoe); (name: ACHE, dcid: bio/ACHE); (name: ache, dcid: bio/danRer10_ache); (name: ache, dcid: bio/danRer11_ache); (name: ACHE, dcid: bio/galGal5_ACHE); (name: ACHE, dcid: bio/galGal6_ACHE); (name: ACHE, dcid: bio/hg19_ACHE); (name: ACHE, dcid: bio/hg38_ACHE); (name: Ache, dcid: bio/mm10_Ache); (name: Ache, dcid: bio/mm9_Ache); ",
+  "entities_resolved": "(name: FGFR1, dcid: bio/FGFR1); (name: APOE, dcid: bio/APOE); (name: ACHE, dcid: bio/ACHE); ",
   "query_with_places_removed": "what types of genes are and",
   "sv_matching": {
     "CosineScore": [
-      0.5237792134284973,
-      0.4192213714122772,
-      0.4010191857814789
+      0.5237788558006287,
+      0.44518929719924927,
+      0.4198145568370819,
+      0.41922125220298767,
+      0.4136667251586914,
+      0.4096524715423584,
+      0.4066111147403717,
+      0.40137141942977905,
+      0.40101921558380127,
+      0.40063756704330444,
+      0.3987462520599365,
+      0.3983607292175293,
+      0.39052334427833557,
+      0.3890331983566284,
+      0.38846108317375183,
+      0.3883824050426483,
+      0.3873300850391388,
+      0.3864220678806305,
+      0.38589635491371155,
+      0.385678768157959,
+      0.3854341208934784,
+      0.38533875346183777,
+      0.3818424642086029,
+      0.37970471382141113
     ],
     "MultiSV": {},
     "Query": "what types of genes are and",
     "SV": [
       "dc/topic/SDGBiodiversity",
+      "Count_Household_HouseholderRaceSomeOtherRaceAlone_FamilyHousehold",
+      "Count_Death_DiseasesOfTheGenitourinarySystem_BlackOrAfricanAmerican",
       "dc/topic/sdg_2.5.1",
-      "dc/topic/sdg_2.5"
+      "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Male_White",
+      "Mean_PrenatalVisitCount_BirthEvent_LiveBirth_MotherEthnicityUnknownOrNotStated",
+      "Count_Death_DiseasesOfTheGenitourinarySystem_Male",
+      "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_BlackOrAfricanAmerican",
+      "dc/topic/sdg_2.5",
+      "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Male",
+      "Count_Person_Producer_TwoOrMoreRaces",
+      "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female_White",
+      "dc/topic/sdg_15.6",
+      "Count_Person_WithDisability_TwoOrMoreRaces",
+      "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities",
+      "Area_Farm_Producer_TwoOrMoreRaces",
+      "Count_Death_Upto1Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female",
+      "Count_Death_Upto1Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_BlackOrAfricanAmerican",
+      "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female",
+      "Count_Person_ScheduledTribe_Male",
+      "dc/topic/DisabilitiesByRace",
+      "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_White",
+      "Count_Death_Upto1Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_Male",
+      "Count_Person_Male_SomeOtherRaceAlone"
     ]
   },
   "props_matching": {
     "CosineScore": [
       0.9086108803749084,
-      0.7445294260978699,
-      0.7330226302146912,
-      0.7175889015197754,
-      0.6834691762924194,
-      0.6590197086334229,
-      0.6340402364730835,
-      0.5988123416900635,
-      0.5958786010742188,
-      0.5850145816802979,
-      0.5810792446136475,
-      0.5432420969009399,
-      0.5399730801582336,
-      0.5320467352867126,
+      0.7445291876792908,
+      0.7330227494239807,
+      0.7175889611244202,
+      0.6834693551063538,
+      0.6590196490287781,
+      0.6340398192405701,
+      0.5988121628761292,
+      0.595878541469574,
+      0.5850147604942322,
+      0.5810789465904236,
+      0.5432419776916504,
+      0.5399730205535889,
+      0.5320467948913574,
       0.5309585928916931,
-      0.5142703056335449,
-      0.5125278234481812,
-      0.46105992794036865,
-      0.4441080093383789,
-      0.39822936058044434,
-      0.3944428861141205,
-      0.3922898471355438
+      0.5142701268196106,
+      0.5125278830528259,
+      0.4610598683357239,
+      0.4441079795360565,
+      0.3982292413711548,
+      0.3944430947303772,
+      0.3922898471355438,
+      0.38480237126350403
     ],
     "PROP": [
       "typeOfGene",
@@ -71,37 +114,20 @@
       "referenceAlleleNCBI",
       "observedAllele",
       "ncbiDNASequenceName",
-      "alleleOrigin"
+      "alleleOrigin",
+      "specializationOf"
     ]
   },
   "query_detection_debug_logs": {
     "dc_recognize_entities": {
       ", apoe ,": [
-        "bio/APOE",
-        "bio/hg19_APOE",
-        "bio/hg38_APOE",
-        "bio/mm10_Apoe",
-        "bio/mm9_Apoe"
+        "bio/APOE"
       ],
       "ache": [
-        "bio/ACHE",
-        "bio/danRer10_ache",
-        "bio/danRer11_ache",
-        "bio/galGal5_ACHE",
-        "bio/galGal6_ACHE",
-        "bio/hg19_ACHE",
-        "bio/hg38_ACHE",
-        "bio/mm10_Ache",
-        "bio/mm9_Ache"
+        "bio/ACHE"
       ],
       "fgfr1": [
-        "bio/FGFR1",
-        "bio/galGal5_FGFR1",
-        "bio/galGal6_FGFR1",
-        "bio/hg19_FGFR1",
-        "bio/hg38_FGFR1",
-        "bio/mm10_Fgfr1",
-        "bio/mm9_Fgfr1"
+        "bio/FGFR1"
       ]
     },
     "dc_recognize_places": {},
@@ -113,7 +139,10 @@
     "query_transformations": {
       "place_detection_input": "What types of genes are FGFR1, APOE, and ACHE",
       "place_detection_with_places_removed": "what types of genes are and",
-      "sv_detection_query_index_type": "bio_ft",
+      "sv_detection_query_index_types": [
+        "medium_ft",
+        "bio_ft"
+      ],
       "sv_detection_query_input": "what types of genes are and",
       "sv_detection_query_stop_words_removal": "types genes"
     }

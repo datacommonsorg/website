@@ -20,6 +20,7 @@ class Config(_base.Config):
   API_ROOT = 'https://api.datacommons.org'
   SCHEME = 'http'
   USE_MEMCACHE = False
+  ENABLE_BQ = True
 
 
 class DCConfig(Config):
@@ -31,3 +32,8 @@ class DCConfig(Config):
   SHOW_SUSTAINABILITY = True
   USE_LLM = True
   HIDE_DEBUG = False
+
+
+# This is only used for testing bad-words file before push.
+class BadWordsConfig(DCConfig):
+  BAD_WORDS_FILE = 'nl_bad_words_staging.txt'

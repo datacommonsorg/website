@@ -9,6 +9,257 @@
               {
                 "tiles": [
                   {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "geoId/22035"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_1To4Years_multiple_place_bar_block",
+                      "Count_Person_5To17Years_multiple_place_bar_block",
+                      "Count_Person_18To24Years_multiple_place_bar_block",
+                      "Count_Person_25To34Years_multiple_place_bar_block",
+                      "Count_Person_35To44Years_multiple_place_bar_block",
+                      "Count_Person_45To54Years_multiple_place_bar_block",
+                      "Count_Person_55To64Years_multiple_place_bar_block",
+                      "Count_Person_65To74Years_multiple_place_bar_block",
+                      "Count_Person_75OrMoreYears_multiple_place_bar_block"
+                    ],
+                    "title": "Age Distribution in East Carroll Parish (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Age Distribution"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_1To4Years"
+                    ],
+                    "title": "Population: 1-4 Years in Cities of East Carroll Parish (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_1To4Years"
+                    ],
+                    "title": "Population: 1-4 Years in Cities of East Carroll Parish (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 1-4 Years in Cities of East Carroll Parish"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_5To17Years"
+                    ],
+                    "title": "Population Aged 5 to 17 in Cities of East Carroll Parish (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_5To17Years"
+                    ],
+                    "title": "Population Aged 5 to 17 in Cities of East Carroll Parish (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Aged 5 to 17 in Cities of East Carroll Parish"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "geoId/22035"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_IncomeOfUpto9999USDollar_multiple_place_bar_block",
+                      "Count_Person_IncomeOf10000To14999USDollar_multiple_place_bar_block",
+                      "Count_Person_IncomeOf25000To34999USDollar_multiple_place_bar_block",
+                      "Count_Person_IncomeOf35000To49999USDollar_multiple_place_bar_block",
+                      "Count_Person_IncomeOf50000To64999USDollar_multiple_place_bar_block",
+                      "Count_Person_IncomeOf65000To74999USDollar_multiple_place_bar_block",
+                      "Count_Person_IncomeOf75000OrMoreUSDollar_multiple_place_bar_block"
+                    ],
+                    "title": "Population by Income Level in East Carroll Parish (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population by Income Level"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_IncomeOfUpto9999USDollar"
+                    ],
+                    "title": "Number of People Earning Up to $9,999 in Cities of East Carroll Parish (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_IncomeOfUpto9999USDollar"
+                    ],
+                    "title": "Number of People Earning Up to $9,999 in Cities of East Carroll Parish (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Number of People Earning Up to $9,999 in Cities of East Carroll Parish"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_IncomeOf10000To14999USDollar"
+                    ],
+                    "title": "Number of People Earning $10,000 and $14,999 in Cities of East Carroll Parish (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_IncomeOf10000To14999USDollar"
+                    ],
+                    "title": "Number of People Earning $10,000 and $14,999 in Cities of East Carroll Parish (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Number of People Earning $10,000 and $14,999 in Cities of East Carroll Parish"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_18OrMoreYears"
+                    ],
+                    "title": "Population: 18 Years or More in East Carroll Parish",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: 18 Years or More in East Carroll Parish",
+                    "statVarKey": [
+                      "Count_Person_18OrMoreYears"
+                    ],
+                    "title": "Population: 18 Years or More in East Carroll Parish",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 18 Years or More"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_18OrMoreYears"
+                    ],
+                    "title": "Population: 18 Years or More in Cities of East Carroll Parish (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_18OrMoreYears"
+                    ],
+                    "title": "Population: 18 Years or More in Cities of East Carroll Parish (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 18 Years or More in Cities of East Carroll Parish"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "Count_Person"
                     ],
@@ -128,767 +379,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Age_Person_Female",
-                      "Median_Age_Person_Male"
+                      "Count_Person_Upto18Years"
                     ],
-                    "title": "Median Age by Gender in East Carroll Parish",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Median Age by Gender"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person_Female"
-                    ],
-                    "title": "Women's Median Age in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Age_Person_Female"
-                    ],
-                    "title": "Women's Median Age in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Women's Median Age in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Median_Age_Person_Male"
-                    ],
-                    "title": "Men's Median Age in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Median_Age_Person_Male"
-                    ],
-                    "title": "Men's Median Age in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Men's Median Age in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/22035"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_1To4Years_multiple_place_bar_block",
-                      "Count_Person_5To17Years_multiple_place_bar_block",
-                      "Count_Person_18To24Years_multiple_place_bar_block",
-                      "Count_Person_25To34Years_multiple_place_bar_block",
-                      "Count_Person_35To44Years_multiple_place_bar_block",
-                      "Count_Person_45To54Years_multiple_place_bar_block",
-                      "Count_Person_55To64Years_multiple_place_bar_block",
-                      "Count_Person_65To74Years_multiple_place_bar_block",
-                      "Count_Person_75OrMoreYears_multiple_place_bar_block"
-                    ],
-                    "title": "Age Distribution in East Carroll Parish (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Age Distribution"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_1To4Years"
-                    ],
-                    "title": "Population: 1-4 Years in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_1To4Years"
-                    ],
-                    "title": "Population: 1-4 Years in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: 1-4 Years in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_5To17Years"
-                    ],
-                    "title": "Population Aged 5 to 17 in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_5To17Years"
-                    ],
-                    "title": "Population Aged 5 to 17 in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population Aged 5 to 17 in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_85OrMoreYears_Female",
-                      "Count_Person_85OrMoreYears_Male"
-                    ],
-                    "title": "Population 85 or Over by Gender in East Carroll Parish",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population 85 or Over by Gender"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_85OrMoreYears_Female"
-                    ],
-                    "title": "Women Over 85 in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_85OrMoreYears_Female"
-                    ],
-                    "title": "Women Over 85 in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Women Over 85 in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_85OrMoreYears_Male"
-                    ],
-                    "title": "Men Over 85 in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_85OrMoreYears_Male"
-                    ],
-                    "title": "Men Over 85 in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Men Over 85 in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Female",
-                      "Count_Person_Male"
-                    ],
-                    "title": "Population by Gender in East Carroll Parish",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population by Gender"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Female"
-                    ],
-                    "title": "Women in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Female"
-                    ],
-                    "title": "Women in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Women in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Male"
-                    ],
-                    "title": "Men in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Male"
-                    ],
-                    "title": "Men in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Men in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/22035"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_WhiteAlone_multiple_place_bar_block",
-                      "Count_Person_BlackOrAfricanAmericanAlone_multiple_place_bar_block",
-                      "Count_Person_HispanicOrLatino_multiple_place_bar_block",
-                      "Count_Person_AsianAlone_multiple_place_bar_block",
-                      "Count_Person_AmericanIndianAndAlaskaNativeAlone_multiple_place_bar_block",
-                      "Count_Person_AsianOrPacificIslander_multiple_place_bar_block",
-                      "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block",
-                      "Count_Person_SomeOtherRaceAlone_multiple_place_bar_block"
-                    ],
-                    "title": "Monoracial Breakdown in East Carroll Parish (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Monoracial Breakdown"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_WhiteAlone"
-                    ],
-                    "title": "White Monoracial Population in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_WhiteAlone"
-                    ],
-                    "title": "White Monoracial Population in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "White Monoracial Population in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_BlackOrAfricanAmericanAlone"
-                    ],
-                    "title": "Black Monoracial Population in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_BlackOrAfricanAmericanAlone"
-                    ],
-                    "title": "Black Monoracial Population in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Black Monoracial Population in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-                      "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-                      "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
-                      "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
-                      "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces"
-                    ],
-                    "title": "Monoracial/multiracial Breakdown in East Carroll Parish",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Monoracial/multiracial Breakdown"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/22035"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block",
-                      "Count_Person_HispanicOrLatino_AsianAlone_multiple_place_bar_block",
-                      "Count_Person_HispanicOrLatino_AsianOrPacificIslander_multiple_place_bar_block",
-                      "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone_multiple_place_bar_block",
-                      "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block",
-                      "Count_Person_HispanicOrLatino_TwoOrMoreRaces_multiple_place_bar_block",
-                      "Count_Person_HispanicOrLatino_WhiteAlone_multiple_place_bar_block",
-                      "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block",
-                      "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block",
-                      "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block",
-                      "Count_Person_HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block"
-                    ],
-                    "title": "Racial Breakdown With Hispanic Consideration in East Carroll Parish (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Racial Breakdown With Hispanic Consideration"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/22035"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block",
-                      "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block",
-                      "Count_Person_NotHispanicOrLatino_AsianAlone_multiple_place_bar_block",
-                      "Count_Person_NotHispanicOrLatino_AsianOrPacificIslander_multiple_place_bar_block",
-                      "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAlone_multiple_place_bar_block",
-                      "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block",
-                      "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block",
-                      "Count_Person_NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block",
-                      "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block",
-                      "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block",
-                      "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces_multiple_place_bar_block",
-                      "Count_Person_NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block"
-                    ],
-                    "title": "Racial Breakdown With Non Hispanic Consideration in East Carroll Parish (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Racial Breakdown With Non Hispanic Consideration"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_WhiteAloneNotHispanicOrLatino"
-                    ],
-                    "title": "White Hispanic Monoracial Population in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_WhiteAloneNotHispanicOrLatino"
-                    ],
-                    "title": "White Hispanic Monoracial Population in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "White Hispanic Monoracial Population in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome",
-                      "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome"
-                    ],
-                    "title": "Spoken English at Home in East Carroll Parish",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Spoken English at Home"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome"
-                    ],
-                    "title": "Population: English Spoken at Home in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome"
-                    ],
-                    "title": "Population: English Spoken at Home in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: English Spoken at Home in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome"
-                    ],
-                    "title": "Population: Some Language Other Than English Spoken at Home in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome"
-                    ],
-                    "title": "Population: Some Language Other Than English Spoken at Home in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Some Language Other Than English Spoken at Home in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/22035"
-                    ],
-                    "statVarKey": [
-                      "Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_ArabicSpokenAtHome_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_ArmenianSpokenAtHome_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_ChineseSpokenAtHome_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_FrenchInclPatoisCajunSpokenAtHome_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_GermanSpokenAtHome_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_GreekSpokenAtHome_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_GujaratiSpokenAtHome_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_HebrewSpokenAtHome_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_HindiSpokenAtHome_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_HungarianSpokenAtHome_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_ItalianSpokenAtHome_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_JapaneseSpokenAtHome_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_KoreanSpokenAtHome_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_LaotianSpokenAtHome_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_MonKhmerCambodianSpokenAtHome_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_NavajoSpokenAtHome_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_PersianSpokenAtHome_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_PolishSpokenAtHome_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_RussianSpokenAtHome_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_ScandinavianLanguagesSpokenAtHome_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_SerboCroatianSpokenAtHome_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_SpanishSpokenAtHome_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_TagalogSpokenAtHome_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_ThaiSpokenAtHome_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_UrduSpokenAtHome_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_VietnameseSpokenAtHome_multiple_place_bar_block",
-                      "Count_Person_5OrMoreYears_YiddishSpokenAtHome_multiple_place_bar_block"
-                    ],
-                    "title": "Non-English Languages Spoken at Home in East Carroll Parish (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Non-English Languages Spoken at Home"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome"
-                    ],
-                    "title": "Population: African Language Spoken at Home in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome"
-                    ],
-                    "title": "Population: African Language Spoken at Home in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: African Language Spoken at Home in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_5OrMoreYears_ArabicSpokenAtHome"
-                    ],
-                    "title": "Population: Arabic Spoken at Home in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_5OrMoreYears_ArabicSpokenAtHome"
-                    ],
-                    "title": "Population: Arabic Spoken at Home in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: Arabic Spoken at Home in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Divorced"
-                    ],
-                    "title": "Divorcees in East Carroll Parish",
+                    "title": "Population: 18 Years or Less in East Carroll Parish",
                     "type": "LINE"
                   }
                 ]
@@ -896,18 +389,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Divorcees in East Carroll Parish",
+                    "description": "Population: 18 Years or Less in East Carroll Parish",
                     "statVarKey": [
-                      "Count_Person_Divorced"
+                      "Count_Person_Upto18Years"
                     ],
-                    "title": "Divorcees in East Carroll Parish",
+                    "title": "Population: 18 Years or Less in East Carroll Parish",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Divorcees"
+            "title": "Population: 18 Years or Less"
           },
           {
             "columns": [
@@ -915,9 +408,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_Divorced"
+                      "Count_Person_Upto18Years"
                     ],
-                    "title": "Divorcees in Cities of East Carroll Parish (${date})",
+                    "title": "Population: 18 Years or Less in Cities of East Carroll Parish (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -930,156 +423,26 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Person_Divorced"
+                      "Count_Person_Upto18Years"
                     ],
-                    "title": "Divorcees in Cities of East Carroll Parish (${date})",
+                    "title": "Population: 18 Years or Less in Cities of East Carroll Parish (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Divorcees in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Divorced",
-                      "Count_Person_MarriedAndNotSeparated",
-                      "Count_Person_NeverMarried",
-                      "Count_Person_Widowed"
-                    ],
-                    "title": "Population by Marital Status in East Carroll Parish",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population by Marital Status"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_MarriedAndNotSeparated"
-                    ],
-                    "title": "Married and Non-Separated in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_MarriedAndNotSeparated"
-                    ],
-                    "title": "Married and Non-Separated in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Married and Non-Separated in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Female_Divorced",
-                      "Count_Person_Male_Divorced"
-                    ],
-                    "title": "Divorced Population by Gender in East Carroll Parish",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Divorced Population by Gender"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Female_Divorced"
-                    ],
-                    "title": "Divorced Women in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Female_Divorced"
-                    ],
-                    "title": "Divorced Women in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Divorced Women in Cities of East Carroll Parish"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Male_Divorced"
-                    ],
-                    "title": "Divorced Men in Cities of East Carroll Parish (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Male_Divorced"
-                    ],
-                    "title": "Divorced Men in Cities of East Carroll Parish (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Divorced Men in Cities of East Carroll Parish"
+            "title": "Population: 18 Years or Less in Cities of East Carroll Parish"
           }
         ],
         "statVarSpec": {
           "Count_Person": {
             "name": "Population",
             "statVar": "Count_Person"
+          },
+          "Count_Person_18OrMoreYears": {
+            "name": "Population: 18 Years or More",
+            "statVar": "Count_Person_18OrMoreYears"
           },
           "Count_Person_18To24Years_multiple_place_bar_block": {
             "name": "Population Aged 18 to 24 Years",
@@ -1109,134 +472,6 @@
             "name": "Population: 55 - 64 Years",
             "statVar": "Count_Person_55To64Years"
           },
-          "Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome": {
-            "name": "Population: African language spoken at home",
-            "statVar": "Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome"
-          },
-          "Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome_multiple_place_bar_block": {
-            "name": "Population: African language spoken at home",
-            "statVar": "Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome"
-          },
-          "Count_Person_5OrMoreYears_ArabicSpokenAtHome": {
-            "name": "Population: Arabic spoken at home",
-            "statVar": "Count_Person_5OrMoreYears_ArabicSpokenAtHome"
-          },
-          "Count_Person_5OrMoreYears_ArabicSpokenAtHome_multiple_place_bar_block": {
-            "name": "Population: Arabic spoken at home",
-            "statVar": "Count_Person_5OrMoreYears_ArabicSpokenAtHome"
-          },
-          "Count_Person_5OrMoreYears_ArmenianSpokenAtHome_multiple_place_bar_block": {
-            "name": "Population: Armenian spoken at home",
-            "statVar": "Count_Person_5OrMoreYears_ArmenianSpokenAtHome"
-          },
-          "Count_Person_5OrMoreYears_ChineseSpokenAtHome_multiple_place_bar_block": {
-            "name": "Population: Chinese spoken at home",
-            "statVar": "Count_Person_5OrMoreYears_ChineseSpokenAtHome"
-          },
-          "Count_Person_5OrMoreYears_FrenchInclPatoisCajunSpokenAtHome_multiple_place_bar_block": {
-            "name": "Population: French (incl. Patois Cajun) spoken at home",
-            "statVar": "Count_Person_5OrMoreYears_FrenchInclPatoisCajunSpokenAtHome"
-          },
-          "Count_Person_5OrMoreYears_GermanSpokenAtHome_multiple_place_bar_block": {
-            "name": "Population: German spoken at home",
-            "statVar": "Count_Person_5OrMoreYears_GermanSpokenAtHome"
-          },
-          "Count_Person_5OrMoreYears_GreekSpokenAtHome_multiple_place_bar_block": {
-            "name": "Population: Greek spoken at home",
-            "statVar": "Count_Person_5OrMoreYears_GreekSpokenAtHome"
-          },
-          "Count_Person_5OrMoreYears_GujaratiSpokenAtHome_multiple_place_bar_block": {
-            "name": "Population: Gujarati spoken at home",
-            "statVar": "Count_Person_5OrMoreYears_GujaratiSpokenAtHome"
-          },
-          "Count_Person_5OrMoreYears_HebrewSpokenAtHome_multiple_place_bar_block": {
-            "name": "Population: Hebrew spoken at home",
-            "statVar": "Count_Person_5OrMoreYears_HebrewSpokenAtHome"
-          },
-          "Count_Person_5OrMoreYears_HindiSpokenAtHome_multiple_place_bar_block": {
-            "name": "Population: Hindi spoken at home",
-            "statVar": "Count_Person_5OrMoreYears_HindiSpokenAtHome"
-          },
-          "Count_Person_5OrMoreYears_HungarianSpokenAtHome_multiple_place_bar_block": {
-            "name": "Population: Hungarian spoken at home",
-            "statVar": "Count_Person_5OrMoreYears_HungarianSpokenAtHome"
-          },
-          "Count_Person_5OrMoreYears_ItalianSpokenAtHome_multiple_place_bar_block": {
-            "name": "Population: Italian spoken at home",
-            "statVar": "Count_Person_5OrMoreYears_ItalianSpokenAtHome"
-          },
-          "Count_Person_5OrMoreYears_JapaneseSpokenAtHome_multiple_place_bar_block": {
-            "name": "Population: Japanese spoken at home",
-            "statVar": "Count_Person_5OrMoreYears_JapaneseSpokenAtHome"
-          },
-          "Count_Person_5OrMoreYears_KoreanSpokenAtHome_multiple_place_bar_block": {
-            "name": "Population: Korean spoken at home",
-            "statVar": "Count_Person_5OrMoreYears_KoreanSpokenAtHome"
-          },
-          "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome": {
-            "name": "Population: Some language other than English spoken at home",
-            "statVar": "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome"
-          },
-          "Count_Person_5OrMoreYears_LaotianSpokenAtHome_multiple_place_bar_block": {
-            "name": "Population: Laotian Spoken At Home",
-            "statVar": "Count_Person_5OrMoreYears_LaotianSpokenAtHome"
-          },
-          "Count_Person_5OrMoreYears_MonKhmerCambodianSpokenAtHome_multiple_place_bar_block": {
-            "name": "Population: Mon Khmer Cambodian Spoken At Home",
-            "statVar": "Count_Person_5OrMoreYears_MonKhmerCambodianSpokenAtHome"
-          },
-          "Count_Person_5OrMoreYears_NavajoSpokenAtHome_multiple_place_bar_block": {
-            "name": "Population: Navajo Spoken At Home",
-            "statVar": "Count_Person_5OrMoreYears_NavajoSpokenAtHome"
-          },
-          "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome": {
-            "name": "Population: English Spoken At Home",
-            "statVar": "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome"
-          },
-          "Count_Person_5OrMoreYears_PersianSpokenAtHome_multiple_place_bar_block": {
-            "name": "Population: Persian Spoken At Home",
-            "statVar": "Count_Person_5OrMoreYears_PersianSpokenAtHome"
-          },
-          "Count_Person_5OrMoreYears_PolishSpokenAtHome_multiple_place_bar_block": {
-            "name": "Population: Polish Spoken At Home",
-            "statVar": "Count_Person_5OrMoreYears_PolishSpokenAtHome"
-          },
-          "Count_Person_5OrMoreYears_RussianSpokenAtHome_multiple_place_bar_block": {
-            "name": "Population: Russian Spoken At Home",
-            "statVar": "Count_Person_5OrMoreYears_RussianSpokenAtHome"
-          },
-          "Count_Person_5OrMoreYears_ScandinavianLanguagesSpokenAtHome_multiple_place_bar_block": {
-            "name": "Population: Scandinavian Languages Spoken At Home",
-            "statVar": "Count_Person_5OrMoreYears_ScandinavianLanguagesSpokenAtHome"
-          },
-          "Count_Person_5OrMoreYears_SerboCroatianSpokenAtHome_multiple_place_bar_block": {
-            "name": "Population: Serbo Croatian Spoken At Home",
-            "statVar": "Count_Person_5OrMoreYears_SerboCroatianSpokenAtHome"
-          },
-          "Count_Person_5OrMoreYears_SpanishSpokenAtHome_multiple_place_bar_block": {
-            "name": "Population: Spanish Spoken At Home",
-            "statVar": "Count_Person_5OrMoreYears_SpanishSpokenAtHome"
-          },
-          "Count_Person_5OrMoreYears_TagalogSpokenAtHome_multiple_place_bar_block": {
-            "name": "Population: Tagalog Spoken At Home",
-            "statVar": "Count_Person_5OrMoreYears_TagalogSpokenAtHome"
-          },
-          "Count_Person_5OrMoreYears_ThaiSpokenAtHome_multiple_place_bar_block": {
-            "name": "Population: Thai Spoken At Home",
-            "statVar": "Count_Person_5OrMoreYears_ThaiSpokenAtHome"
-          },
-          "Count_Person_5OrMoreYears_UrduSpokenAtHome_multiple_place_bar_block": {
-            "name": "Population: Urdu Spoken At Home",
-            "statVar": "Count_Person_5OrMoreYears_UrduSpokenAtHome"
-          },
-          "Count_Person_5OrMoreYears_VietnameseSpokenAtHome_multiple_place_bar_block": {
-            "name": "Population: Vietnamese Spoken At Home",
-            "statVar": "Count_Person_5OrMoreYears_VietnameseSpokenAtHome"
-          },
-          "Count_Person_5OrMoreYears_YiddishSpokenAtHome_multiple_place_bar_block": {
-            "name": "Population: Yiddish Spoken At Home",
-            "statVar": "Count_Person_5OrMoreYears_YiddishSpokenAtHome"
-          },
           "Count_Person_5To17Years": {
             "name": "Population Aged 5 to 17",
             "statVar": "Count_Person_5To17Years"
@@ -1253,213 +488,49 @@
             "name": "Population Aged 75 and Up",
             "statVar": "Count_Person_75OrMoreYears"
           },
-          "Count_Person_85OrMoreYears_Female": {
-            "name": "Women over 85",
-            "statVar": "Count_Person_85OrMoreYears_Female"
+          "Count_Person_IncomeOf10000To14999USDollar": {
+            "name": "Number of People Earning $10,000 and $14,999",
+            "statVar": "Count_Person_IncomeOf10000To14999USDollar"
           },
-          "Count_Person_85OrMoreYears_Male": {
-            "name": "Men over 85",
-            "statVar": "Count_Person_85OrMoreYears_Male"
+          "Count_Person_IncomeOf10000To14999USDollar_multiple_place_bar_block": {
+            "name": "Number of People Earning $10,000 and $14,999",
+            "statVar": "Count_Person_IncomeOf10000To14999USDollar"
           },
-          "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces": {
-            "name": "American Indian and Alaska Native Population, Monoracial/Multiracial",
-            "statVar": "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces"
+          "Count_Person_IncomeOf25000To34999USDollar_multiple_place_bar_block": {
+            "name": "Number of People Earning $25,000 and $34,999",
+            "statVar": "Count_Person_IncomeOf25000To34999USDollar"
           },
-          "Count_Person_AmericanIndianAndAlaskaNativeAlone_multiple_place_bar_block": {
-            "name": "Population American Indian or Alaska Native Alone",
-            "statVar": "Count_Person_AmericanIndianAndAlaskaNativeAlone"
+          "Count_Person_IncomeOf35000To49999USDollar_multiple_place_bar_block": {
+            "name": "Number of People Earning $35,000 and $49,999",
+            "statVar": "Count_Person_IncomeOf35000To49999USDollar"
           },
-          "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces": {
-            "name": "Asian Population, Monoracial/Multiracial",
-            "statVar": "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces"
+          "Count_Person_IncomeOf50000To64999USDollar_multiple_place_bar_block": {
+            "name": "Number of People Earning Between $50,000 and $64,999",
+            "statVar": "Count_Person_IncomeOf50000To64999USDollar"
           },
-          "Count_Person_AsianAlone_multiple_place_bar_block": {
-            "name": "Population Asian Alone",
-            "statVar": "Count_Person_AsianAlone"
+          "Count_Person_IncomeOf65000To74999USDollar_multiple_place_bar_block": {
+            "name": "Number of People Earning Between $65,000 and $74,999",
+            "statVar": "Count_Person_IncomeOf65000To74999USDollar"
           },
-          "Count_Person_AsianOrPacificIslander_multiple_place_bar_block": {
-            "name": "Population Asian or Pacific Islander",
-            "statVar": "Count_Person_AsianOrPacificIslander"
+          "Count_Person_IncomeOf75000OrMoreUSDollar_multiple_place_bar_block": {
+            "name": "Number of People Earning $75,000 or More",
+            "statVar": "Count_Person_IncomeOf75000OrMoreUSDollar"
           },
-          "Count_Person_BlackOrAfricanAmericanAlone": {
-            "name": "Black Monoracial Population",
-            "statVar": "Count_Person_BlackOrAfricanAmericanAlone"
+          "Count_Person_IncomeOfUpto9999USDollar": {
+            "name": "Number of People Earning Up to $9,999",
+            "statVar": "Count_Person_IncomeOfUpto9999USDollar"
           },
-          "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces": {
-            "name": "Black Population, Monoracial/Multiracial",
-            "statVar": "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces"
+          "Count_Person_IncomeOfUpto9999USDollar_multiple_place_bar_block": {
+            "name": "Number of People Earning Up to $9,999",
+            "statVar": "Count_Person_IncomeOfUpto9999USDollar"
           },
-          "Count_Person_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
-            "name": "Black Monoracial Population",
-            "statVar": "Count_Person_BlackOrAfricanAmericanAlone"
-          },
-          "Count_Person_Divorced": {
-            "name": "Divorcees",
-            "statVar": "Count_Person_Divorced"
-          },
-          "Count_Person_Female": {
-            "name": "Women",
-            "statVar": "Count_Person_Female"
-          },
-          "Count_Person_Female_Divorced": {
-            "name": "Divorced Women",
-            "statVar": "Count_Person_Female_Divorced"
-          },
-          "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block": {
-            "name": "Hispanic American Indian Population",
-            "statVar": "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces"
-          },
-          "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
-            "name": "Hispanic American Indian Population",
-            "statVar": "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone"
-          },
-          "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block": {
-            "name": "Hispanic Asian Population",
-            "statVar": "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces"
-          },
-          "Count_Person_HispanicOrLatino_AsianAlone_multiple_place_bar_block": {
-            "name": "Hispanic Asian Population",
-            "statVar": "Count_Person_HispanicOrLatino_AsianAlone"
-          },
-          "Count_Person_HispanicOrLatino_AsianOrPacificIslander_multiple_place_bar_block": {
-            "name": "Hispanic Asian/Pacific Islander Population",
-            "statVar": "Count_Person_HispanicOrLatino_AsianOrPacificIslander"
-          },
-          "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
-            "name": "Hispanic African American Population",
-            "statVar": "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone"
-          },
-          "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block": {
-            "name": "Hispanic Native Hawaiian/Other Pacific Islander Population. Monoracial/Multiracial",
-            "statVar": "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces"
-          },
-          "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block": {
-            "name": "Hispanic Native Hawaiian/Other Pacific Islander Alone Population",
-            "statVar": "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone"
-          },
-          "Count_Person_HispanicOrLatino_TwoOrMoreRaces_multiple_place_bar_block": {
-            "name": "Hispanic Multiracial Population",
-            "statVar": "Count_Person_HispanicOrLatino_TwoOrMoreRaces"
-          },
-          "Count_Person_HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block": {
-            "name": "White Hispanic Population, Monoracial/Multiracial",
-            "statVar": "Count_Person_HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces"
-          },
-          "Count_Person_HispanicOrLatino_WhiteAlone_multiple_place_bar_block": {
-            "name": "White Hispanic Monoracial Population",
-            "statVar": "Count_Person_HispanicOrLatino_WhiteAlone"
-          },
-          "Count_Person_HispanicOrLatino_multiple_place_bar_block": {
-            "name": "Hispanic Population",
-            "statVar": "Count_Person_HispanicOrLatino"
-          },
-          "Count_Person_Male": {
-            "name": "Men",
-            "statVar": "Count_Person_Male"
-          },
-          "Count_Person_Male_Divorced": {
-            "name": "Divorced Men",
-            "statVar": "Count_Person_Male_Divorced"
-          },
-          "Count_Person_MarriedAndNotSeparated": {
-            "name": "Married and Non-Separated",
-            "statVar": "Count_Person_MarriedAndNotSeparated"
-          },
-          "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces": {
-            "name": "Native Hawaiian and Other Pacific Islander Population, Monoracial/Multiracial",
-            "statVar": "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces"
-          },
-          "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block": {
-            "name": "Population of Native Hawaiian or Other Pacific Islander Alone",
-            "statVar": "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone"
-          },
-          "Count_Person_NeverMarried": {
-            "name": "Never Married",
-            "statVar": "Count_Person_NeverMarried"
-          },
-          "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block": {
-            "name": "Non Hispanic Population Identifying as American Indian and Alaska Native, Monoracial/Multiracial",
-            "statVar": "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces"
-          },
-          "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
-            "name": "Non Hispanic Population Identifying as American Indian or Alaska Native Alone",
-            "statVar": "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone"
-          },
-          "Count_Person_NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block": {
-            "name": "Non Hispanic Population Identifying as Asian",
-            "statVar": "Count_Person_NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces"
-          },
-          "Count_Person_NotHispanicOrLatino_AsianAlone_multiple_place_bar_block": {
-            "name": "Non Hispanic Population Identifying as Asian Alone",
-            "statVar": "Count_Person_NotHispanicOrLatino_AsianAlone"
-          },
-          "Count_Person_NotHispanicOrLatino_AsianOrPacificIslander_multiple_place_bar_block": {
-            "name": "Non Hispanic Population Identifying as Asian or Pacific Islander",
-            "statVar": "Count_Person_NotHispanicOrLatino_AsianOrPacificIslander"
-          },
-          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block": {
-            "name": "Non Hispanic Population Identifying as Black or African American",
-            "statVar": "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces"
-          },
-          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
-            "name": "Non Hispanic Population Identifying as Black or African American Alone",
-            "statVar": "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAlone"
-          },
-          "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block": {
-            "name": "Non Hispanic Population Identifying as Native Hawaiian and Other Pacific Islander",
-            "statVar": "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces"
-          },
-          "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block": {
-            "name": "Non Hispanic Population Identifying as Native Hawaiian or Other Pacific Islander Alone",
-            "statVar": "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone"
-          },
-          "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces_multiple_place_bar_block": {
-            "name": "Non Hispanic Multiracial Population",
-            "statVar": "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces"
-          },
-          "Count_Person_NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block": {
-            "name": "Non Hispanic White Population, Monoracial/Multiracial",
-            "statVar": "Count_Person_NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces"
-          },
-          "Count_Person_SomeOtherRaceAlone_multiple_place_bar_block": {
-            "name": "Population Identifying as Some Other Race Alone",
-            "statVar": "Count_Person_SomeOtherRaceAlone"
-          },
-          "Count_Person_WhiteAlone": {
-            "name": "White Monoracial Population",
-            "statVar": "Count_Person_WhiteAlone"
-          },
-          "Count_Person_WhiteAloneNotHispanicOrLatino": {
-            "name": "White Hispanic Monoracial Population",
-            "statVar": "Count_Person_WhiteAloneNotHispanicOrLatino"
-          },
-          "Count_Person_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block": {
-            "name": "White Hispanic Monoracial Population",
-            "statVar": "Count_Person_WhiteAloneNotHispanicOrLatino"
-          },
-          "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces": {
-            "name": "White Population, Monoracial/Multiracial",
-            "statVar": "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces"
-          },
-          "Count_Person_WhiteAlone_multiple_place_bar_block": {
-            "name": "White Monoracial Population",
-            "statVar": "Count_Person_WhiteAlone"
-          },
-          "Count_Person_Widowed": {
-            "name": "Widowed Persons",
-            "statVar": "Count_Person_Widowed"
+          "Count_Person_Upto18Years": {
+            "name": "Population: 18 Years or Less",
+            "statVar": "Count_Person_Upto18Years"
           },
           "Median_Age_Person": {
             "name": "Median Age of Population",
             "statVar": "Median_Age_Person"
-          },
-          "Median_Age_Person_Female": {
-            "name": "Women's Median Age",
-            "statVar": "Median_Age_Person_Female"
-          },
-          "Median_Age_Person_Male": {
-            "name": "Men's Median Age",
-            "statVar": "Median_Age_Person_Male"
           }
         }
       }
@@ -1510,60 +581,11 @@
         }
       ]
     },
-    "childTopics": [
-      {
-        "dcid": "dc/topic/Age",
-        "name": "Age",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Gender",
-        "name": "Gender",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Race",
-        "name": "Population by Race",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Language",
-        "name": "Language Spoken At Home",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/MaritalStatus",
-        "name": "Marital Status",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Nationality",
-        "name": "Nationality",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Veterans",
-        "name": "Veterans",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "childTopics": [],
     "exploreMore": {
       "Count_Person": {
         "age": [
+          "Count_Person_18OrMoreYears",
           "Count_Person_18To24Years",
           "Count_Person_1To4Years",
           "Count_Person_25To34Years",
@@ -1572,136 +594,24 @@
           "Count_Person_55To64Years",
           "Count_Person_5To17Years",
           "Count_Person_65To74Years",
-          "Count_Person_75OrMoreYears"
+          "Count_Person_75OrMoreYears",
+          "Count_Person_Upto18Years"
         ],
-        "gender": [
-          "Count_Person_Female",
-          "Count_Person_Male"
-        ],
-        "languageSpokenAtHome": [
-          "Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome",
-          "Count_Person_5OrMoreYears_ArabicSpokenAtHome",
-          "Count_Person_5OrMoreYears_ArmenianSpokenAtHome",
-          "Count_Person_5OrMoreYears_ChineseSpokenAtHome",
-          "Count_Person_5OrMoreYears_FrenchInclPatoisCajunSpokenAtHome",
-          "Count_Person_5OrMoreYears_GermanSpokenAtHome",
-          "Count_Person_5OrMoreYears_GreekSpokenAtHome",
-          "Count_Person_5OrMoreYears_GujaratiSpokenAtHome",
-          "Count_Person_5OrMoreYears_HebrewSpokenAtHome",
-          "Count_Person_5OrMoreYears_HindiSpokenAtHome",
-          "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome",
-          "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome"
-        ],
-        "maritalStatus": [
-          "Count_Person_Divorced",
-          "Count_Person_MarriedAndNotSeparated",
-          "Count_Person_NeverMarried",
-          "Count_Person_Widowed"
-        ],
-        "race": [
-          "Count_Person_AmericanIndianAndAlaskaNativeAlone",
-          "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_AsianAlone",
-          "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_AsianOrPacificIslander",
-          "Count_Person_BlackOrAfricanAmericanAlone",
-          "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino",
-          "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_HispanicOrLatino_AsianAlone",
-          "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_AsianOrPacificIslander",
-          "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone",
-          "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
-          "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_HispanicOrLatino_TwoOrMoreRaces",
-          "Count_Person_HispanicOrLatino_WhiteAlone"
-        ]
-      },
-      "Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome": {
-        "abilityToSpeakEnglish": [
-          "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_AfricanLanguagesSpokenAtHome",
-          "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_AfricanLanguagesSpokenAtHome"
-        ]
-      },
-      "Count_Person_5OrMoreYears_ArabicSpokenAtHome": {
-        "abilityToSpeakEnglish": [
-          "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_ArabicSpokenAtHome",
-          "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_ArabicSpokenAtHome"
-        ]
-      },
-      "Count_Person_5OrMoreYears_ArmenianSpokenAtHome": {
-        "abilityToSpeakEnglish": [
-          "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_ArmenianSpokenAtHome",
-          "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_ArmenianSpokenAtHome"
-        ]
-      },
-      "Count_Person_5OrMoreYears_ChineseSpokenAtHome": {
-        "abilityToSpeakEnglish": [
-          "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_ChineseSpokenAtHome",
-          "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_ChineseSpokenAtHome"
-        ]
-      },
-      "Count_Person_5OrMoreYears_FrenchInclPatoisCajunSpokenAtHome": {
-        "abilityToSpeakEnglish": [
-          "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_FrenchInclPatoisCajunSpokenAtHome",
-          "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_FrenchInclPatoisCajunSpokenAtHome"
-        ]
-      },
-      "Count_Person_5OrMoreYears_GermanSpokenAtHome": {
-        "abilityToSpeakEnglish": [
-          "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_GermanSpokenAtHome",
-          "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_GermanSpokenAtHome"
-        ]
-      },
-      "Count_Person_5OrMoreYears_GreekSpokenAtHome": {
-        "abilityToSpeakEnglish": [
-          "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_GreekSpokenAtHome",
-          "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_GreekSpokenAtHome"
-        ]
-      },
-      "Count_Person_5OrMoreYears_GujaratiSpokenAtHome": {
-        "abilityToSpeakEnglish": [
-          "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_GujaratiSpokenAtHome",
-          "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_GujaratiSpokenAtHome"
-        ]
-      },
-      "Count_Person_5OrMoreYears_HebrewSpokenAtHome": {
-        "abilityToSpeakEnglish": [
-          "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_HebrewSpokenAtHome",
-          "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_HebrewSpokenAtHome"
-        ]
-      },
-      "Count_Person_5OrMoreYears_HindiSpokenAtHome": {
-        "abilityToSpeakEnglish": [
-          "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_HindiSpokenAtHome",
-          "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_HindiSpokenAtHome"
-        ]
-      },
-      "Count_Person_Divorced": {
-        "gender": [
-          "Count_Person_Female_Divorced",
-          "Count_Person_Male_Divorced"
-        ]
-      },
-      "Median_Age_Person": {
-        "gender": [
-          "Median_Age_Person_Female",
-          "Median_Age_Person_Male"
-        ],
-        "race": [
-          "Median_Age_Person_AmericanIndianOrAlaskaNativeAlone",
-          "Median_Age_Person_BlackOrAfricanAmericanAlone",
-          "Median_Age_Person_HispanicOrLatino"
+        "income": [
+          "Count_Person_IncomeOf10000To14999USDollar",
+          "Count_Person_IncomeOf25000To34999USDollar",
+          "Count_Person_IncomeOf35000To49999USDollar",
+          "Count_Person_IncomeOf50000To64999USDollar",
+          "Count_Person_IncomeOf65000To74999USDollar",
+          "Count_Person_IncomeOf75000OrMoreUSDollar",
+          "Count_Person_IncomeOfUpto9999USDollar"
         ]
       }
     },
     "mainTopics": [
       {
-        "dcid": "dc/topic/Demographics",
-        "name": "Demographics",
+        "dcid": "dc/topic/AgeDistribution",
+        "name": "Age Distribution",
         "types": [
           "Topic"
         ]
@@ -1710,8 +620,8 @@
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/Root",
-        "name": "Statistics",
+        "dcid": "dc/topic/Age",
+        "name": "Age",
         "types": [
           "Topic"
         ]
@@ -1917,36 +827,15 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/Health",
-        "name": "Health",
+        "dcid": "dc/topic/AgeMedians",
+        "name": "Age Medians",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Economy",
-        "name": "Economy",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/EducationHousingAndCommute",
-        "name": "Education, Housing and Commute",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Equity",
-        "name": "Equity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Sustainability",
-        "name": "Sustainability",
+        "dcid": "dc/topic/VeryOldAndVeryYoungPopulation",
+        "name": "Very Old and Very Young Population",
         "types": [
           "Topic"
         ]

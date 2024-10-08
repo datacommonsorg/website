@@ -102,6 +102,12 @@ export class DatacommonsBarComponent extends LitElement {
   childPlaceType!: string;
 
   /**
+   * Optional: specific date to show data for
+   */
+  @property()
+  date: string;
+
+  /**
    * Optional: list of specific colors to use in the chart.
    * The number of colors passed in should equal the number of variables.
    * The order of colors should match the order of variables.
@@ -196,6 +202,10 @@ export class DatacommonsBarComponent extends LitElement {
   @property({ type: Boolean, converter: convertBooleanAttribute })
   showExploreMore: boolean;
 
+  // Optional: listen for value changes with this event name
+  @property()
+  subscribe: string;
+
   // Optional: Regex used to process variable names
   // If provided, will only use the first case of the variable name that matches
   // this regex.
@@ -219,11 +229,16 @@ export class DatacommonsBarComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   sources?: string[];
 
-  render(): HTMLElement {
+  // Optional: Disable the entity href link for this component
+  @property({ type: Boolean, converter: convertBooleanAttribute })
+  disableEntityLink?: boolean;
+
+  render(): HTMLDivElement {
     const statVarDcids: string[] = this.variables;
     const statVarSpec = [];
     statVarDcids.forEach((statVarDcid) => {
       statVarSpec.push({
+        date: this.date,
         denom:
           this.perCapita && this.perCapita.includes(statVarDcid)
             ? DEFAULT_PER_CAPITA_DENOM
@@ -261,6 +276,8 @@ export class DatacommonsBarComponent extends LitElement {
       title: this.header || this.title,
       useLollipop: this.lollipop,
       yAxisMargin: this.yAxisMargin,
+      subscribe: this.subscribe,
+      disableEntityLink: this.disableEntityLink,
     };
 
     return createWebComponentElement(BarTile, barTileProps);

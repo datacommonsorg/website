@@ -162,6 +162,7 @@ spec:
               path: /healthz
               port: 6060
             failureThreshold: 30
+            periodSeconds: 10
             timeoutSeconds: 5
           readinessProbe:
             httpGet:
@@ -172,11 +173,13 @@ spec:
             # there's already NUM_WORKERS number of requests, need to wait
             # before /healthz can be served.
             timeoutSeconds: 300
+            periodSeconds: 10
           livenessProbe:
             httpGet:
               path: /healthz
               port: 6060
             timeoutSeconds: 300
+            periodSeconds: 10
           ports:
             - containerPort: 6060
         {{- end }}

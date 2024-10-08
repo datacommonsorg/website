@@ -39,64 +39,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_CriminalActivities_Robbery"
-                    ],
-                    "title": "Robberies in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Robberies in Sunnyvale",
-                    "statVarKey": [
-                      "Count_CriminalActivities_Robbery"
-                    ],
-                    "title": "Robberies in Sunnyvale",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Robberies"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_CriminalActivities_PropertyCrime"
-                    ],
-                    "title": "Property Related Crimes in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Property Related Crimes in Sunnyvale",
-                    "statVarKey": [
-                      "Count_CriminalActivities_PropertyCrime"
-                    ],
-                    "title": "Property Related Crimes in Sunnyvale",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Property Related Crimes"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Count_CriminalActivities_LarcenyTheft"
                     ],
                     "title": "Larceny Theft Cases in Sunnyvale",
@@ -119,10 +61,96 @@
             ],
             "denom": "Count_Person",
             "title": "Larceny Theft Cases"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_CriminalActivities_CombinedCrime"
+                    ],
+                    "title": "Criminal Activities in Sunnyvale",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Criminal Activities in Sunnyvale",
+                    "statVarKey": [
+                      "Count_CriminalActivities_CombinedCrime"
+                    ],
+                    "title": "Criminal Activities in Sunnyvale",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Criminal Activities"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/0677000"
+                    ],
+                    "statVarKey": [
+                      "Count_CriminalActivities_AggravatedAssault_multiple_place_bar_block",
+                      "Count_CriminalActivities_Arson_multiple_place_bar_block",
+                      "Count_CriminalActivities_Burglary_multiple_place_bar_block",
+                      "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block",
+                      "Count_CriminalActivities_LarcenyTheft_multiple_place_bar_block",
+                      "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block",
+                      "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block",
+                      "Count_CriminalActivities_Robbery_multiple_place_bar_block",
+                      "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block"
+                    ],
+                    "title": "Crimes by Type in Sunnyvale (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Crimes by Type"
           }
         ],
         "statVarSpec": {
+          "Count_CriminalActivities_AggravatedAssault_multiple_place_bar_block": {
+            "name": "Aggravated Assault Cases",
+            "statVar": "Count_CriminalActivities_AggravatedAssault"
+          },
+          "Count_CriminalActivities_Arson_multiple_place_bar_block": {
+            "name": "Arson Crimes",
+            "statVar": "Count_CriminalActivities_Arson"
+          },
+          "Count_CriminalActivities_Burglary_multiple_place_bar_block": {
+            "name": "Burglaries",
+            "statVar": "Count_CriminalActivities_Burglary"
+          },
+          "Count_CriminalActivities_CombinedCrime": {
+            "name": "Criminal Activities",
+            "statVar": "Count_CriminalActivities_CombinedCrime"
+          },
+          "Count_CriminalActivities_ForcibleRape_multiple_place_bar_block": {
+            "name": "Forcible Rapes",
+            "statVar": "Count_CriminalActivities_ForcibleRape"
+          },
           "Count_CriminalActivities_LarcenyTheft": {
+            "name": "Larceny Theft Cases",
+            "statVar": "Count_CriminalActivities_LarcenyTheft"
+          },
+          "Count_CriminalActivities_LarcenyTheft_multiple_place_bar_block": {
             "name": "Larceny Theft Cases",
             "statVar": "Count_CriminalActivities_LarcenyTheft"
           },
@@ -130,13 +158,21 @@
             "name": "Motor Vehicle Thefts",
             "statVar": "Count_CriminalActivities_MotorVehicleTheft"
           },
-          "Count_CriminalActivities_PropertyCrime": {
+          "Count_CriminalActivities_MotorVehicleTheft_multiple_place_bar_block": {
+            "name": "Motor Vehicle Thefts",
+            "statVar": "Count_CriminalActivities_MotorVehicleTheft"
+          },
+          "Count_CriminalActivities_PropertyCrime_multiple_place_bar_block": {
             "name": "Property Related Crimes",
             "statVar": "Count_CriminalActivities_PropertyCrime"
           },
-          "Count_CriminalActivities_Robbery": {
+          "Count_CriminalActivities_Robbery_multiple_place_bar_block": {
             "name": "Robberies",
             "statVar": "Count_CriminalActivities_Robbery"
+          },
+          "Count_CriminalActivities_ViolentCrime_multiple_place_bar_block": {
+            "name": "Violent Crimes",
+            "statVar": "Count_CriminalActivities_ViolentCrime"
           }
         }
       }
@@ -184,7 +220,22 @@
   "relatedThings": {
     "childPlaces": {},
     "childTopics": [],
-    "exploreMore": {},
+    "exploreMore": {
+      "Count_CriminalActivities_CombinedCrime": {
+        "crimeType": [
+          "Count_CriminalActivities_AggravatedAssault",
+          "Count_CriminalActivities_Arson",
+          "Count_CriminalActivities_Burglary",
+          "Count_CriminalActivities_ForcibleRape",
+          "Count_CriminalActivities_LarcenyTheft",
+          "Count_CriminalActivities_MotorVehicleTheft",
+          "Count_CriminalActivities_MurderAndNonNegligentManslaughter",
+          "Count_CriminalActivities_PropertyCrime",
+          "Count_CriminalActivities_Robbery",
+          "Count_CriminalActivities_ViolentCrime"
+        ]
+      }
+    },
     "mainTopics": [
       {
         "dcid": "dc/topic/Crime",

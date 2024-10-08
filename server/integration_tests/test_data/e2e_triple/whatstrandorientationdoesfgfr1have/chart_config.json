@@ -9,25 +9,10 @@
               {
                 "tiles": [
                   {
-                    "answerTableTileSpec": {
-                      "columns": [
-                        {
-                          "header": "Strand Orientation",
-                          "propertyExpr": "->strandOrientation"
-                        }
-                      ]
-                    },
                     "entities": [
-                      "bio/FGFR1",
-                      "bio/galGal5_FGFR1",
-                      "bio/galGal6_FGFR1",
-                      "bio/hg19_FGFR1",
-                      "bio/hg38_FGFR1",
-                      "bio/mm10_Fgfr1",
-                      "bio/mm9_Fgfr1"
+                      "bio/FGFR1"
                     ],
-                    "title": "The Strand Orientation for FGFR1 are as follows:",
-                    "type": "ANSWER_TABLE"
+                    "type": "ENTITY_OVERVIEW"
                   }
                 ]
               }
@@ -43,36 +28,6 @@
     {
       "dcid": "bio/FGFR1",
       "name": "FGFR1",
-      "type": ""
-    },
-    {
-      "dcid": "bio/galGal5_FGFR1",
-      "name": "FGFR1",
-      "type": ""
-    },
-    {
-      "dcid": "bio/galGal6_FGFR1",
-      "name": "FGFR1",
-      "type": ""
-    },
-    {
-      "dcid": "bio/hg19_FGFR1",
-      "name": "FGFR1",
-      "type": ""
-    },
-    {
-      "dcid": "bio/hg38_FGFR1",
-      "name": "FGFR1",
-      "type": ""
-    },
-    {
-      "dcid": "bio/mm10_Fgfr1",
-      "name": "Fgfr1",
-      "type": ""
-    },
-    {
-      "dcid": "bio/mm9_Fgfr1",
-      "name": "Fgfr1",
       "type": ""
     }
   ],

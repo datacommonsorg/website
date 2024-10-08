@@ -42,7 +42,8 @@ EmbeddingsResult = List[EmbeddingsMatch]
 #
 class EmbeddingsModel(ABC):
 
-  def __init__(self, returns_tensor=False):
+  def __init__(self, score_threshold: float, returns_tensor: bool = False):
+    self.score_threshold = score_threshold
     self.returns_tensor = returns_tensor
 
   @abstractmethod
@@ -57,7 +58,8 @@ class EmbeddingsModel(ABC):
 #
 class EmbeddingsStore(ABC):
 
-  def __init__(self, needs_tensor=False):
+  def __init__(self, healthcheck_query: str, needs_tensor=False):
+    self.healthcheck_query = healthcheck_query
     self.needs_tensor = needs_tensor
 
   @abstractmethod
