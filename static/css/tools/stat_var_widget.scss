@@ -120,8 +120,7 @@ $resize-handle-width: 5px;
 }
 
 #hierarchy-section {
-  width:auto;
-  overflow-wrap: break-word;
+  width: fit-content;
   padding: 0 8px 15px;
 }
 
@@ -166,15 +165,15 @@ $resize-handle-width: 5px;
   background-color: $transparent-red;
 }
 
-// .node-title {
-//   /**
-//    * Width of line items / nodes in the stat var selector tree
-//    * Calculated by taking the entire component width, subtracting margins, and
-//    * subtracting the resize handle
-//    */
-//   min-width: $widget-min-width - 2 * $container-outer-horizontal-margin -
-//     $resize-handle-width;
-// }
+.node-title {
+  /**
+   * Width of line items / nodes in the stat var selector tree
+   * Calculated by taking the entire component width, subtracting margins, and
+   * subtracting the resize handle
+   */
+  min-width: $widget-min-width - 2 * $container-outer-horizontal-margin -
+    $resize-handle-width;
+}
 
 form.node-title {
   padding-left: 2px;
@@ -191,7 +190,7 @@ form.node-title {
 
 #stat-var-hierarchy-section .node-title .material-icons + .title {
   font-size: $medium-font-size;
-  // line-height: 2em;
+  line-height: 2em;
 }
 
 #tree-widget-tooltip {
