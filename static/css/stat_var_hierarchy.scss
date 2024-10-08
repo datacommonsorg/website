@@ -58,9 +58,12 @@ $small-font-size: 0.75rem;
 }
 
 .node-title {
-  align-items: center;
   display: flex;
   margin-bottom: 4px;
+}
+
+.node-title input {
+  margin-top: 0.4rem;
 }
 
 .node-title .bullet + .title {
