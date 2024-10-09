@@ -1593,17 +1593,5 @@
     "url": "/explore/#q=Tell+me+about+California&mb=3&test=screenshot",
     "height": 3000,
     "async": true
-  },
-  {
-    "url": "/explore/#q=Tell+me+about+LevalloisPerret&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true,
-    "width": 800
-  },
-  {
-    "url": "/explore#q=Show%20me%20the%20breakdown%20of%20businesses%20by%20industry%20type%20in%20the%20US.",
-    "height": 3000,
-    "async": true,
-    "width": 800
   }
 ]

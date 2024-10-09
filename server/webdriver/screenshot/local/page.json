@@ -303,5 +303,11 @@
     "url": "/explore#q=Which%20state%20in%20the%20US%20has%20the%20most%20Tamil%20speakers%3F",
     "height": 3000,
     "async": true
+  },
+  {
+    "url": "/explore#q=Show%20me%20the%20breakdown%20of%20businesses%20by%20industry%20type%20in%20the%20US.",
+    "height": 3000,
+    "async": true,
+    "width": 800
   }
 ]
