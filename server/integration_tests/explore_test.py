@@ -718,6 +718,16 @@ class ExploreTestEE2(ExploreTest):
             'Native born vs. Median income in Sunnyvale',
         ])
 
+  def test_for_fars_crash_data(self):
+    self.run_detect_and_fulfill(
+        'fars_crash_data',
+        [
+            # A comparison timeline chart with 2 variables.
+            'Dark vs. daylight accident in USA states',
+            # Checking sv for place.
+            'number of accident during rain in USA',
+        ])
+
   def test_e2e_toolformer_rig_mode(self):
     self.run_detect_and_fulfill(
         'e2e_toolformer_rig_mode',
