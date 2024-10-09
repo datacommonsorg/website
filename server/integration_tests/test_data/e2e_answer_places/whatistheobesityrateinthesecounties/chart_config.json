@@ -234,6 +234,7 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
+  "test": "filter_test",
   "userMessages": [
     "See comparison based on places in the previous answer."
   ]

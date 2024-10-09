@@ -1625,6 +1625,7 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
+  "test": "filter_test",
   "userMessages": [
     "See relevant statistics for California based on the previous query."
   ]

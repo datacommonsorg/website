@@ -928,6 +928,7 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
+  "test": "filter_test",
   "userMessages": [
     "See relevant statistics based on the previous query."
   ]
