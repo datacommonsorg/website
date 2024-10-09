@@ -90,7 +90,7 @@ def login(driver):
 def run(driver, page_base_url, page_config):
   """Take screenshot and save to desired folders"""
 
-  width = WIDTH 
+  width = WIDTH
   if 'width' in page_config:
     width = page_config['width']
 
