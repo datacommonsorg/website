@@ -159,5 +159,7 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessages": []
+  "userMessages": [
+    "Data for \"Germany\" is currently unavailable. See the following statistics on the other places."
+  ]
 }

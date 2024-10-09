@@ -766,9 +766,6 @@
       }
     ]
   },
-  "showForm": true,
-  "svSource": "UNFULFILLED",
-  "userMessages": [
-    "Sorry, there were no relevant statistics about the topic for United States. See available topic categories with statistics for United States."
-  ]
+  "svSource": "CURRENT_QUERY",
+  "userMessages": []
 }

@@ -157,8 +157,6 @@
     "peerPlaces": [],
     "peerTopics": []
   },
-  "svSource": "CURRENT_QUERY",
-  "userMessages": [
-    "Low confidence in understanding your query. Displaying the closest results."
-  ]
+  "svSource": "UNKNOWN",
+  "userMessages": []
 }

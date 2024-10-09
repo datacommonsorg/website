@@ -10,18 +10,6 @@
     "name": "",
     "place_type": ""
   },
-  "placeFallback": {},
-  "placeSource": "CURRENT_QUERY",
-  "places": [
-    {
-      "dcid": "geoId/06",
-      "name": "California",
-      "place_type": "State"
-    }
-  ],
-  "relatedThings": {},
-  "showForm": true,
-  "svSource": "UNRECOGNIZED",
   "userMessages": [
     "Sorry, could not complete your request."
   ]

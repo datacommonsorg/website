@@ -485,7 +485,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessages": [
-    "Low confidence in understanding your query. Displaying the closest results."
-  ]
+  "userMessages": []
 }

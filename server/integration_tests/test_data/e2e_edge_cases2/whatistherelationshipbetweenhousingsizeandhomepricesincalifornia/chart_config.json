@@ -1596,8 +1596,7 @@
       }
     ]
   },
-  "svSource": "PARTIAL_PAST_QUERY",
-  "userMessages": [
-    "Low confidence in understanding your query. Displaying the closest results."
-  ]
+  "svSource": "CURRENT_QUERY",
+  "test": "filter_test",
+  "userMessages": []
 }
