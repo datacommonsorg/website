@@ -67,7 +67,7 @@ kgStoreConfig:
     project: datcom-un-staging
     instance: dc-graph
     tables:
-      - ilo_2024_07_02_14_25_51
+      - ilo_2024_10_03_09_37_24
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]
