@@ -12,34 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
-
 from selenium.webdriver.common.by import By
 
-from server.integration_tests.explore_test import ExploreTest
-from server.webdriver import shared
-from server.webdriver.base_utils import create_driver
+from server.webdriver.base import WebdriverBaseTest
 from server.webdriver.base_utils import find_elem
 from server.webdriver.base_utils import wait_elem
-
-# From project datcom-website-dev > Cloud Run: dc-autopush > Revisions
-CDC_AUTOPUSH_URL = 'https://dc-autopush-kqb7thiuka-uc.a.run.app'
+from server.webdriver.cdc_tests.base import CDC_AUTOPUSH_URL
 
 
-class CdcAutopushWebdriverTest(unittest.TestCase):
-
-  def setUp(self, preferences=None):
-    """Runs at the beginning of every individual test."""
-    # Maximum time, in seconds, before throwing a TimeoutException.
-    self.TIMEOUT_SEC = shared.TIMEOUT
-    self.driver = create_driver(preferences)
-    self._base_url = CDC_AUTOPUSH_URL
-
-  def tearDown(self):
-    """Runs at the end of every individual test."""
-    # Quit the ChromeDriver instance.
-    # NOTE: Every individual test starts a new ChromeDriver instance.
-    self.driver.quit()
+class CdcAutopushWebdriverTest(WebdriverBaseTest):
+  _base_url = CDC_AUTOPUSH_URL
 
   def test_homepage_load(self):
     """Tests that the base autopush URL loads successfully."""
@@ -65,12 +47,3 @@ class CdcAutopushWebdriverTest(unittest.TestCase):
                                '//*[contains(text(), "Average Annual Wage")]')
     self.assertIsNotNone(custom_sv_elem,
                          'Custom SV (Average Annual Wage) element not found')
-
-
-class CdcAutopushNLTest(ExploreTest):
-
-  def get_server_url(self):
-    return CDC_AUTOPUSH_URL
-
-  def test_cdc_nl(self):
-    self.run_detect_and_fulfill('cdc_nl', ['gender wage gap in europe'])

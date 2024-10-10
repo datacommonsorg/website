@@ -12,14 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from server.webdriver.base import WebdriverBaseTest
-from server.webdriver.shared_tests.map_test import MapTestMixin
-
-MAP_URL = '/tools/map'
-URL_HASH_1 = '#&sv=Median_Age_Person&pc=0&pd=geoId/06&pn=California&pt=State&ept=County'
-PLACE_SEARCH_CA = 'California'
+from server.app_env import _base
 
 
-# Class to test map tool.
-class TestMap(MapTestMixin, WebdriverBaseTest):
-  DATACOMMONS_STRING = "Data Commons"
+class Config(_base.Config):
+  CDC_WEBDRIVER = True
+  API_ROOT = 'https://dc-autopush-kqb7thiuka-uc.a.run.app'
+  SECRET_PROJECT = 'datcom-website-dev'
+  SCHEME = 'http'
+  SHOW_TOPIC = True
+  USE_LLM = True
+  ENABLE_BQ = True

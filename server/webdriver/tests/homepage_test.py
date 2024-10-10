@@ -11,18 +11,19 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+from server.webdriver.shared_tests.homepage_test import HomepageTestMixin
 from server.webdriver.base import WebdriverBaseTest
 
-
-class TestPlaceLanding(WebdriverBaseTest):
+# Class to test the browser page
+class TestPlaceLanding(HomepageTestMixin, WebdriverBaseTest):
   """Tests for Homepage."""
+  DATACOMMONS_STRING = "Data Commons"
 
-  def test_homepage_en(self):
+  def test_homepage_en_by_css(self):
     """Test homepage in EN."""
 
     self.driver.get(self.url_ + '/')
@@ -92,15 +93,14 @@ class TestPlaceLanding(WebdriverBaseTest):
   #       hero_msg.text.startswith('Data Commons – это открытая база данных'))
 
 
-# Tests for NL Search Bar AutoComplete feature.
-
+  # Tests for NL Search Bar AutoComplete feature.
   def test_homepage_autocomplete(self):
     """Test homepage autocomplete."""
 
     self.driver.get(self.url_ + '/?ac_on=true')
 
     title_present = EC.text_to_be_present_in_element(
-        (By.CSS_SELECTOR, '#main-nav .navbar-brand'), 'Data Commons')
+        (By.CSS_SELECTOR, '#main-nav .navbar-brand'), self.DATACOMMONS_STRING)
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(title_present)
 
     search_box_input = self.driver.find_element(By.ID, 'query-search-input')

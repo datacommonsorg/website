@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,15 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+from server.webdriver.cdc_tests.base import CDC_AUTOPUSH_URL
 from server.webdriver.base import WebdriverBaseTest
-from server.webdriver.shared_tests.map_test import MapTestMixin
+from server.webdriver.shared_tests.browser_test import BrowserTestMixin
 
-MAP_URL = '/tools/map'
-URL_HASH_1 = '#&sv=Median_Age_Person&pc=0&pd=geoId/06&pn=California&pt=State&ept=County'
-PLACE_SEARCH_CA = 'California'
+# Class to test the browser page for Custom DC
+class CdcAutopushBrowserWebdriverTest(BrowserTestMixin, WebdriverBaseTest):
+  DATACOMMONS_STRING = "Custom Data Commons"
 
-
-# Class to test map tool.
-class TestMap(MapTestMixin, WebdriverBaseTest):
-  DATACOMMONS_STRING = "Data Commons"
+  def get_server_url(self):
+    return CDC_AUTOPUSH_URL
+  

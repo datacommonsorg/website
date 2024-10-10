@@ -12,14 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from server.webdriver.base import WebdriverBaseTest
-from server.webdriver.shared_tests.map_test import MapTestMixin
 
-MAP_URL = '/tools/map'
-URL_HASH_1 = '#&sv=Median_Age_Person&pc=0&pd=geoId/06&pn=California&pt=State&ept=County'
-PLACE_SEARCH_CA = 'California'
-
-
-# Class to test map tool.
-class TestMap(MapTestMixin, WebdriverBaseTest):
-  DATACOMMONS_STRING = "Data Commons"
+# From project datcom-website-dev > Cloud Run: dc-autopush > Revisions
+CDC_AUTOPUSH_URL = 'https://dc-autopush-kqb7thiuka-uc.a.run.app'

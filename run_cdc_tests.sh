@@ -18,6 +18,6 @@ set -e
 ./run_test.sh --setup_python
 
 source .env/bin/activate
-export FLASK_ENV=test
+export FLASK_ENV=cdc_webdriver
 
 python3 -m pytest server/webdriver/cdc_tests/

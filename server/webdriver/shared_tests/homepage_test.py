@@ -11,15 +11,20 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-from server.webdriver.base import WebdriverBaseTest
-from server.webdriver.shared_tests.map_test import MapTestMixin
-
-MAP_URL = '/tools/map'
-URL_HASH_1 = '#&sv=Median_Age_Person&pc=0&pd=geoId/06&pn=California&pt=State&ept=County'
-PLACE_SEARCH_CA = 'California'
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 
-# Class to test map tool.
-class TestMap(MapTestMixin, WebdriverBaseTest):
-  DATACOMMONS_STRING = "Data Commons"
+# Mixins to test the homepage.
+class HomepageTestMixin():
+
+  def test_homepage_en(self):
+    """Test homepage in EN."""
+
+    self.driver.get(self.url_ + '/')
+
+    # Assert page title is correct
+    WebDriverWait(self.driver,
+                  self.TIMEOUT_SEC).until(EC.title_contains(self.DATACOMMONS_STRING))
+    self.assertEqual("- " + self.DATACOMMONS_STRING, self.driver.title)

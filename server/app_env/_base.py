@@ -23,6 +23,7 @@ class Config:
   TEST = False
   INTEGRATION = False
   WEBDRIVER = False
+  CDC_WEBDRIVER = False
   LOCAL = False
   LITE = False
   # If the deployment is a custom instance.
