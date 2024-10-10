@@ -7,40 +7,52 @@
     },
     {
       "contained_in_place_type": "DefaultType",
-      "had_default_type": false,
+      "had_default_type": true,
       "type": 4
     }
   ],
+  "client": "test_detect",
   "comparisonEntities": [],
   "comparisonVariables": [
-    "ReceiptsOrRevenue_Establishment_NAICSInformation_WithPayroll",
     "dc/xj2nk2bg60fg",
+    "ReceiptsOrRevenue_Establishment_NAICSInformation_WithPayroll",
+    "WagesAnnual_Establishment_NAICSInformation",
     "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue",
+    "dc/topic/Income",
+    "dc/topic/IndividualIncomeByIndustry",
+    "Count_Worker_NAICSInformation",
     "WagesTotal_Worker_NAICSInformation",
-    "USStateQuarterlyIndustryGDP_NAICS_51",
-    "WagesAnnual_Establishment_NAICSInformation"
+    "Count_Person_16OrMoreYears_WithEarnings",
+    "dc/topic/IndustriesByRevenue"
   ],
   "context": {},
   "debug": {},
   "entities": [
     "geoId/06"
   ],
+  "nonPlaceEntities": [],
+  "properties": [],
   "sessionId": "007_999999999",
   "variables": [
-    "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
-    "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita",
-    "InflationAdjustedGDP",
-    "USStateQuarterlyIndustryGDP_NAICS_81",
-    "dc/topic/IndustriesByGDP",
-    "USStateQuarterlyIndustryGDP_NAICS_55",
-    "dc/topic/GDPByIndustry",
-    "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction",
-    "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue",
-    "USStateQuarterlyIndustryGDP_NAICS_44_45",
-    "dc/topic/Economy",
-    "dc/topic/EconomicEquity",
-    "Amount_EconomicActivity_GrossDomesticProduction_RealValue",
     "dc/topic/GDP",
-    "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person"
+    "Amount_EconomicActivity_GrossDomesticProduction_Nominal",
+    "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction",
+    "Amount_EconomicActivity_GrossDomesticProduction_RealValue",
+    "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person",
+    "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita",
+    "dc/topic/Economy",
+    "dc/topic/GDPByIndustry",
+    "InflationAdjustedGDP",
+    "USStateQuarterlyIndustryGDP_NAICS_23",
+    "USStateQuarterlyIndustryGDP_NAICS_51",
+    "dc/topic/sdg_8.1.1",
+    "USStateQuarterlyIndustryGDP_NAICS_311_316&322_326",
+    "dc/topic/IndustriesByGDP",
+    "dc/topic/sdg_8.2.1",
+    "Amount_EconomicActivity_GrossDomesticProduction_NAICSConstruction_RealValue",
+    "Amount_EconomicActivity_GrossDomesticProduction_NAICSManagementOfCompaniesEnterprises_RealValue",
+    "USStateQuarterlyIndustryGDP_NAICS_22",
+    "dc/topic/GlobalEconomicActivity",
+    "dc/topic/EconomicEquity"
   ]
 }

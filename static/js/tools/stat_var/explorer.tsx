@@ -47,8 +47,7 @@ class Explorer extends Component<ExplorerPropType, unknown> {
             rel="noreferrer"
           >
             {this.props.statVar}
-          </a>{" "}
-          (Graph Browser)
+          </a>
         </h2>
         {this.props.description && (
           <h4 className="description-text">{this.props.description}</h4>

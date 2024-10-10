@@ -31,6 +31,8 @@ Add datacommonsorg/website repo as a remote:
 git remote add dc https://github.com/datacommonsorg/website.git
 ```
 
+Run the prerequisite steps in the [developer guide](docs/developer_guide.md).
+
 Every time when you want to send a Pull Request, do the following steps:
 
 ```shell
@@ -54,7 +56,8 @@ Wait for approval of the Pull Request and merge the change.
 
 ### Local Development
 
-Check steps in [developer guide](docs/developer_guide.md)
+Check steps in [developer guide](docs/developer_guide.md) for more detailed
+instructions.
 
 ## License
 
@@ -65,5 +68,3 @@ Apache 2.0
 For general questions or issues, please open an issue on our
 [issues](https://github.com/datacommonsorg/website/issues) page. For all other
 questions, please send an email to `support@datacommons.org`.
-
-**Note** - This is not an officially supported Google product.

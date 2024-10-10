@@ -171,17 +171,25 @@ export function getNamedTypedPlace(
  */
 export function getPlaceNames(
   dcids: string[],
-  apiRoot?: string,
-  prop?: string
+  options?: {
+    apiRoot?: string;
+    prop?: string;
+    signal?: AbortSignal;
+  }
 ): Promise<{ [key: string]: string }> {
   if (!dcids.length) {
     return Promise.resolve({});
   }
+  const requestOptions = options?.signal ? { signal: options.signal } : {};
   return axios
-    .post(`${apiRoot || ""}/api/place/name`, {
-      dcids,
-      prop,
-    })
+    .post(
+      `${options?.apiRoot || ""}/api/place/name`,
+      {
+        dcids,
+        prop: options?.prop,
+      },
+      requestOptions
+    )
     .then((resp) => {
       return resp.data;
     });
@@ -214,13 +222,21 @@ export async function getPlaceType(
  */
 export function getPlaceDisplayNames(
   dcids: string[],
-  apiRoot?: string
+  options?: {
+    apiRoot?: string;
+    signal?: AbortSignal;
+  }
 ): Promise<DisplayNameApiResponse> {
   if (!dcids.length) {
     return Promise.resolve({});
   }
+  const requestOptions = options?.signal ? { signal: options.signal } : {};
   return axios
-    .post(`${apiRoot || ""}/api/place/displayname`, { dcids })
+    .post(
+      `${options?.apiRoot || ""}/api/place/displayname`,
+      { dcids },
+      requestOptions
+    )
     .then((resp) => {
       return resp.data;
     })

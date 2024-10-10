@@ -30,7 +30,7 @@ export function getUnit(statMetadata: StatMetadata): string {
   if (statMetadata.unit) {
     return statMetadata.unit;
   }
-  if (statMetadata.scalingFactor === "100") {
+  if (Number(statMetadata.scalingFactor) === 100) {
     return "%";
   }
   return "";

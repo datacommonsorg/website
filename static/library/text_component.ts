@@ -18,7 +18,6 @@ import { css, CSSResult, LitElement, unsafeCSS } from "lit";
 import { customElement, property } from "lit/decorators.js";
 
 import tilesCssString from "../css/tiles.scss";
-
 import { TextTile, TextTilePropType } from "../js/components/tiles/text_tile";
 import { createWebComponentElement } from "./utils";
 
@@ -45,7 +44,7 @@ export class DatacommonsTextComponent extends LitElement {
   @property()
   link?: string;
 
-  render(): HTMLElement {
+  render(): HTMLDivElement {
     const textTileProps: TextTilePropType = {
       link: this.link,
     };

@@ -1,0 +1,42 @@
+{
+  "childEntityType": "",
+  "classifications": [
+    {
+      "type": 100
+    }
+  ],
+  "client": "test_detect",
+  "comparisonEntities": [],
+  "comparisonVariables": [],
+  "context": {},
+  "debug": {},
+  "entities": [
+    "Earth"
+  ],
+  "nonPlaceEntities": [],
+  "properties": [],
+  "sessionId": "007_999999999",
+  "test": "unittest",
+  "variables": [
+    "dc/topic/sdg_8.5.2",
+    "dc/topic/UN_SUB_THEME_42",
+    "dc/topic/ILOEMPNORMNB",
+    "dc/topic/UN_SUB_THEME_68",
+    "dc/topic/ILOEMPPUBLNB",
+    "dc/topic/sdg_9.2.2",
+    "dc/topic/ILOEMPCARENB",
+    "dc/topic/sdg_8",
+    "dc/topic/ILOEMPPIFLNB",
+    "dc/topic/ILOEMPPTERRT",
+    "dc/topic/ILOEMP5PIFNB",
+    "dc/topic/ILOEMPPIFLRT",
+    "dc/topic/ILOEMP5PIFRT",
+    "dc/topic/ILOEMPSTEMNB",
+    "dc/topic/ILOEMPCPIFRT",
+    "dc/topic/ILOEMPTEMPNB",
+    "dc/topic/ILOEMP5EMPNB",
+    "dc/topic/ILOEMPTEM1NB",
+    "dc/topic/sdg_8.3.1",
+    "dc/topic/sdg_8.8.2"
+  ]
+}

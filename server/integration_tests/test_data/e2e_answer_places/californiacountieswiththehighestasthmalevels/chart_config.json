@@ -1,4 +1,5 @@
 {
+  "client": "test_detect-and-fulfill",
   "config": {
     "categories": [
       {
@@ -92,45 +93,9 @@
               }
             ],
             "title": "Asthma"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Death_DiseasesOfTheRespiratorySystem"
-                    ],
-                    "title": "Deaths From Diseases of the Respiratory System in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_DiseasesOfTheRespiratorySystem"
-                    ],
-                    "title": "Deaths From Diseases of the Respiratory System in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Deaths From Diseases of the Respiratory System in Counties of California"
           }
         ],
         "statVarSpec": {
-          "Count_Death_DiseasesOfTheRespiratorySystem": {
-            "name": "Deaths From Diseases of the Respiratory System",
-            "statVar": "Count_Death_DiseasesOfTheRespiratorySystem"
-          },
           "Percent_Person_Children_WithAsthma": {
             "name": "Percent of Children That Have Asthma",
             "statVar": "Percent_Person_Children_WithAsthma",
@@ -155,6 +120,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "geoId/06",
@@ -972,5 +938,6 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "test": "filter_test",
+  "userMessages": []
 }

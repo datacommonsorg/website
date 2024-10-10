@@ -21,8 +21,10 @@
 import * as d3 from "d3";
 import _ from "lodash";
 
+import { MapChartData } from "../components/tiles/map_tile";
 import { formatNumber } from "../i18n/i18n";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
+import { DataPointMetadata, NamedPlace } from "../shared/types";
 import { isTemperatureStatVar, isWetBulbStatVar } from "../tools/shared_util";
 import { getColorFn } from "./base";
 
@@ -243,13 +245,17 @@ const genScaleImg = (
  * @param height height of the legend
  * @param color color scale to use for the legend
  * @param unit unit for the values on the legend
+ * @param label label for the legend bar
+ * @param variableId id to give the legend bar
  * @returns
  */
 export function generateLegend(
   svg: d3.Selection<SVGElement, any, any, any>,
   height: number,
   color: d3.ScaleLinear<number, number>,
-  unit: string
+  unit: string,
+  label?: string,
+  variableId?: string
 ): number {
   // Build a scale from color.domain() to the canvas height (from [height, 0]).
   // NOTE: This assumes the color domain is linear.
@@ -265,9 +271,10 @@ export function generateLegend(
   const yScale = d3.scaleLinear().domain(color.domain()).range(yScaleRange);
 
   const legend = svg.append("g").attr("class", LEGEND_CLASS_NAME);
-  legend
+  const colorBar = legend.append("g");
+  colorBar
     .append("image")
-    .attr("id", "legend-img")
+    .attr("id", `legend-img-${variableId}`)
     .attr("x", 0)
     .attr("y", 0)
     .attr("width", LEGEND_IMG_WIDTH)
@@ -292,7 +299,7 @@ export function generateLegend(
       );
     })
   );
-  legend
+  colorBar
     .append("g")
     .attr("id", "legend-axis")
     .call(
@@ -318,19 +325,36 @@ export function generateLegend(
     )
     .call((g) => g.select(".domain").remove());
 
-  const legendWidth = (
-    legend.select("#legend-axis").node() as SVGGraphicsElement
+  let legendWidth = (
+    colorBar.select("#legend-axis").node() as SVGGraphicsElement
   ).getBBox().width;
+
+  // Add label to color bar
+  if (label) {
+    const colorBarLabel = legend
+      .append("text")
+      .attr("part", "map-legend-label")
+      .attr("transform", "rotate(-90)") // rotation swaps x and y attributes
+      .attr("x", -height / 2)
+      .attr("y", 0)
+      .attr("text-anchor", "middle")
+      .attr("dominant-baseline", "hanging")
+      .style("fill", AXIS_TEXT_FILL)
+      .text(label);
+    const colorBarLabelBBox = colorBarLabel.node().getBBox();
+    legendWidth += colorBarLabelBBox.height;
+    colorBar.attr("transform", `translate(${colorBarLabelBBox.height}, 0)`);
+  }
+
   return legendWidth;
 }
 
 /**
- * Generate a svg that contains a color scale legend
+ * Generate a svg that contains a single color scale legend
  *
  * @param containerElement element to draw the legend in
  * @param height height of the legend
- * @param colorScale the color scale to use for the legend
- * @param unit unit of measurement
+ * @param legendData list of colorScale+unit+labels to add to legend
  * @param marginLeft left margin of the legend
  *
  * @return width of the svg including the margins
@@ -338,21 +362,115 @@ export function generateLegend(
 export function generateLegendSvg(
   containerElement: HTMLDivElement,
   height: number,
-  colorScale: d3.ScaleLinear<number, number>,
-  unit: string,
+  legendData: {
+    colorScale: d3.ScaleLinear<number, number>;
+    unit: string;
+    label?: string;
+  }[],
   marginLeft: number
 ): number {
   const container = d3.select(containerElement);
   container.selectAll("*").remove();
-  const svg = container.append("svg");
-  const legendWidth =
-    generateLegend(svg, height, colorScale, unit) + marginLeft;
-  svg
-    .attr("width", legendWidth)
-    .attr("height", height + LEGEND_MARGIN_VERTICAL * 2)
-    .select(`.${LEGEND_CLASS_NAME}`)
-    .attr("transform", `translate(${marginLeft}, ${LEGEND_MARGIN_VERTICAL})`);
-  return legendWidth;
+
+  let totalLegendWidth = 0;
+  legendData.forEach((scale, idx) => {
+    const svg = container.append("svg");
+    const id = scale.label ? scale.label.replaceAll(" ", "-") : `${idx}`;
+    const legendWidth =
+      generateLegend(
+        svg,
+        height,
+        scale.colorScale,
+        scale.unit,
+        scale.label,
+        id
+      ) + marginLeft;
+    svg
+      .attr("width", legendWidth)
+      .attr("height", height + LEGEND_MARGIN_VERTICAL * 2)
+      .select(`.${LEGEND_CLASS_NAME}`)
+      .attr("transform", `translate(0, ${LEGEND_MARGIN_VERTICAL})`);
+    totalLegendWidth += legendWidth;
+  });
+  return totalLegendWidth;
+}
+
+/**
+ * Draw legend with color bars for all variables in the map
+ * @param chartData chart data being plotted by the map
+ * @param height height of the legend being drawn
+ * @param legendContainer DOM element holding the legend
+ * @param colors mapping of variable to color scale to use
+ * @returns the width of the drawn legend in pixels and mapping of variables
+ *          to computed color scales
+ */
+export function drawLegendSvg(
+  chartData: MapChartData,
+  height: number,
+  legendContainer: HTMLDivElement,
+  colors?: { [variable: string]: string[] }
+): [
+  number,
+  {
+    [variable: string]: d3.ScaleLinear<number, number, never>;
+  }
+] {
+  // mapping of variable to values for computing color scale
+  const allValuesByVariable: { [variable: string]: number[] } = {};
+  const variableNames: { [variable: string]: string } = {};
+  const units: { [variable: string]: string } = {};
+  const colorScales: {
+    [variable: string]: d3.ScaleLinear<number, number, never>;
+  } = {};
+  for (const layer of chartData.layerData) {
+    // Build variable -> values mapping for color scale calculations
+    // Assumes each place and variable combination will only ever have 1 unique
+    // value.
+    allValuesByVariable[layer.variable.statVar] = Object.values(
+      layer.dataValues
+    );
+    variableNames[layer.variable.statVar] = layer.variable.name;
+    units[layer.variable.statVar] = layer.unit;
+  }
+
+  // Calculate color scales for each variable and add legends
+  const legendData: {
+    colorScale: d3.ScaleLinear<number, number, never>;
+    unit: string;
+    label?: string;
+  }[] = [];
+  const shouldShowLabels = Object.keys(allValuesByVariable).length > 1;
+  for (const variable in allValuesByVariable) {
+    // calculate color scale based on max/min values across all layers
+    const dataValues = allValuesByVariable[variable];
+    const customColors = colors && colors[variable];
+    const label = shouldShowLabels && variableNames[variable];
+    const colorScale = getColorScale(
+      variable,
+      d3.min(dataValues),
+      d3.mean(dataValues),
+      d3.max(dataValues),
+      undefined,
+      undefined,
+      customColors
+    );
+    colorScales[variable] = colorScale;
+    legendData.push({
+      colorScale,
+      label,
+      unit: units[variable],
+    });
+  }
+
+  // add legend
+  const legendWidth = generateLegendSvg(
+    legendContainer,
+    height,
+    legendData,
+    10
+  );
+
+  return [legendWidth, colorScales];
 }
 
 /**
@@ -385,4 +503,66 @@ export function highlightPlaceToggle(
   if (region.size()) {
     container.classed(HOVER_HIGHLIGHTED_CLASS_NAME, shouldHighlight);
   }
+}
+
+/**
+ * Create function that generates tooltip content
+ * @param chartData geojson and observation data for all layers of the map
+ */
+export function getTooltipHtmlFn(
+  chartData: MapChartData
+): (place: NamedPlace) => string {
+  // build mapping of all values, metadata, and variable units
+  // for a place/variable, to show in tooltip
+  const allDataValues: { [placeDcid: string]: { [variable: string]: number } } =
+    {};
+  const allMetadataValues: {
+    [placeDcid: string]: { [variable: string]: DataPointMetadata };
+  } = {};
+  const units: { [variable: string]: string } = {};
+  for (const layer of chartData.layerData) {
+    units[layer.variable.statVar] = layer.unit;
+    for (const place in layer.dataValues) {
+      if (!(place in allDataValues)) {
+        allDataValues[place] = {};
+      }
+      allDataValues[place][layer.variable.statVar] = layer.dataValues[place];
+
+      if (!(place in allMetadataValues)) {
+        allMetadataValues[place] = {};
+      }
+      allMetadataValues[place][layer.variable.statVar] = layer.metadata[place];
+    }
+  }
+
+  const getTooltipHtml = (place: NamedPlace) => {
+    const tooltipLines: string[] = [place.name];
+    if (place.dcid in allDataValues) {
+      const placeValues = allDataValues[place.dcid];
+      for (const variable in placeValues) {
+        let value = "Data Unavailable.";
+        const unit = units[variable];
+        // shows upto 2 precision digits for very low values
+        if (
+          Math.abs(placeValues[variable]) < 1 &&
+          Math.abs(placeValues[variable]) > 0
+        ) {
+          const dataValue = placeValues[variable];
+          value = formatNumber(Number(dataValue.toPrecision(2)), unit);
+        } else {
+          value = formatNumber(
+            Math.round((placeValues[variable] + Number.EPSILON) * 100) / 100,
+            unit
+          );
+        }
+        const date = ` (${
+          allMetadataValues[place.dcid][variable].placeStatDate
+        })`;
+        tooltipLines.push(`${variable}: ${value}${date}`);
+      }
+    }
+    return tooltipLines.join("<br />");
+  };
+
+  return getTooltipHtml;
 }

@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
 import os
 
 import google.auth
@@ -30,15 +31,20 @@ def get_config():
   try:
     cfg = import_string(config_class)()
     cfg.ENV = env
-    # USE_LOCAL_MIXER
-    if cfg.LOCAL and os.environ.get('USE_LOCAL_MIXER') == 'true':
-      cfg.API_ROOT = 'http://127.0.0.1:8081'
+    # Override the api mixer path (API_ROOT) if WEBSITE_MIXER_API_ROOT is set
+    if os.environ.get("WEBSITE_MIXER_API_ROOT"):
+      cfg.API_ROOT = os.environ.get("WEBSITE_MIXER_API_ROOT")
     # Set up secret project for GCP deployment
     if not cfg.LOCAL:
-      _, project_id = google.auth.default()
-      # For webdriver tests and integration test, the SECRET_PROJECT is
-      # overwritten to datcom-ci when running on cloudbuild.
-      cfg.SECRET_PROJECT = project_id
+      try:
+        _, project_id = google.auth.default()
+        # For webdriver tests and integration test, the SECRET_PROJECT is
+        # overwritten to datcom-ci when running on cloudbuild.
+        cfg.SECRET_PROJECT = project_id
+      except Exception as e:
+        logging.warning(
+            "GCP project is not detected and secret project is not set")
+
     return cfg
   except:
     raise ValueError("No valid config class is specified: %s" % config_class)

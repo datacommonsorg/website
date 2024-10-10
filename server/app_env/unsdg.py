@@ -18,17 +18,23 @@ from server.app_env import local
 
 class Config(_base.Config):
   CUSTOM = True
-  GA_ACCOUNT = 'G-7QE2ET63E5'
+  GOOGLE_ANALYTICS_TAG_ID = 'G-7QE2ET63E5'
   SHOW_TOPIC = True
   NAME = "Data Commons"
   LOG_QUERY = True
   LOGO_PATH = "/custom_dc/unsdg/logo.png"
   OVERRIDE_CSS_PATH = '/custom_dc/unsdg/overrides.css'
   SHOW_DISASTER = False
-  USE_PALM = True
+  USE_LLM = True
   ENABLE_PER_CAPITA = False
   MAP_TOOL_FOOTER = "The boundaries and names shown and the designations used on this and other maps throughout this publication do not imply official endorsement or acceptance by the United Nations."
   GEO_JSON_PROP = "geoJsonCoordinatesUN"
+  STAT_VAR_HIERARCHY_CONFIG = {
+      "disableSearch": True,
+      "nodes": [{
+          "dcid": "dc/g/SDG"
+      }]
+  }
 
 
 class LocalConfig(Config, local.Config):

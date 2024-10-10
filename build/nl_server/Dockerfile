@@ -23,15 +23,24 @@ WORKDIR /workspace
 
 COPY nl_app.py /workspace/nl_app.py
 COPY nl_server/requirements.txt /workspace/nl_server/requirements.txt
+COPY nl_requirements.txt /workspace/nl_requirements.txt
 # --no-cache-dir removes ~/.cache files, which can be a few GB.
-RUN pip install --upgrade pip setuptools light-the-torch
-RUN ltt install torch --cpuonly
-RUN pip3 install --no-cache-dir \
-    -r /workspace/nl_server/requirements.txt
+RUN pip install --upgrade pip setuptools
+RUN pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
+RUN pip3 install --no-cache-dir -r /workspace/nl_server/requirements.txt
 # Flask
 COPY nl_server/. /workspace/nl_server/
 COPY shared/. /workspace/shared/
 
+# Download nl files from gcs
+COPY deploy/nl/catalog.yaml .
+COPY build/nl_server/requirements.txt /workspace/build/nl_server/requirements.txt
+COPY build/nl_server/download_nl_files.py .
+RUN pip3 install -r /workspace/build/nl_server/requirements.txt
+RUN python3 download_nl_files.py
+
 # Run server
 WORKDIR /workspace
-CMD exec gunicorn --timeout 60 --bind :6060 nl_app:app
+# Use a large timeout because when there are more workers, NL server will take
+# longer to start
+CMD exec gunicorn --timeout 1000 --bind :6060 -w $((NUM_WORKERS + 0)) nl_app:app

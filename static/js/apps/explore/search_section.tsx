@@ -21,7 +21,10 @@
 import React from "react";
 
 import { NlSearchBar } from "../../components/nl_search_bar";
-import { URL_HASH_PARAMS } from "../../constants/app/explore_constants";
+import {
+  CLIENT_TYPES,
+  URL_HASH_PARAMS,
+} from "../../constants/app/explore_constants";
 import {
   GA_EVENT_NL_SEARCH,
   GA_PARAM_QUERY,
@@ -29,7 +32,7 @@ import {
   GA_VALUE_SEARCH_SOURCE_EXPLORE,
   triggerGAEvent,
 } from "../../shared/ga_events";
-import { getFeedbackLink } from "../../utils/nl_interface_utils";
+import { getFeedbackLink } from "../../utils/explore_utils";
 import { updateHash } from "../../utils/url_utils";
 
 // TODO (juliawu): Extract this out to a global flag we can set to remove
@@ -63,6 +66,7 @@ export function SearchSection(props: {
           [URL_HASH_PARAMS.QUERY]: q,
           [URL_HASH_PARAMS.PLACE]: "",
           [URL_HASH_PARAMS.TOPIC]: "",
+          [URL_HASH_PARAMS.CLIENT]: CLIENT_TYPES.QUERY,
         });
       }}
       placeholder={props.query}

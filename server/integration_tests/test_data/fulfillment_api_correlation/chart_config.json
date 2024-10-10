@@ -1,4 +1,5 @@
 {
+  "client": "test_fulfill",
   "config": {
     "categories": [
       {
@@ -13,16 +14,16 @@
                     },
                     "statVarKey": [
                       "dc/0gettc3bc60cb_scatter",
-                      "Percent_Person_Children_WithAsthma_scatter"
+                      "Percent_Person_WithAsthma_scatter"
                     ],
-                    "title": "Drive Alone (${yDate}) Vs. Percent of Children That Have Asthma (${xDate}) in Counties of California",
+                    "title": "Drive Alone (${yDate}) Vs. Asthma (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Drive alone vs. Percent of Children That Have Asthma"
+            "title": "Drive alone vs. Asthma"
           },
           {
             "columns": [
@@ -54,89 +55,6 @@
               }
             ],
             "title": "Drive Alone in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Percent_Person_Children_WithAsthma"
-                    ],
-                    "title": "Percent of Children That Have Asthma in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Percent_Person_Children_WithAsthma"
-                    ],
-                    "title": "Percent of Children That Have Asthma in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Percent of Children That Have Asthma in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "dc/6rltk4kf75612_scatter",
-                      "Percent_Person_WithAsthma_scatter"
-                    ],
-                    "title": "Work at Home (${yDate}) Vs. Asthma (${xDate}) in Counties of California",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Work at home vs. Asthma"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "dc/6rltk4kf75612"
-                    ],
-                    "title": "Work at Home in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "dc/6rltk4kf75612"
-                    ],
-                    "title": "Work at Home in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Work at Home in Counties of California"
           },
           {
             "columns": [
@@ -178,27 +96,6 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "dc/0gettc3bc60cb_scatter",
-                      "Percent_Person_WithAsthma_scatter"
-                    ],
-                    "title": "Drive Alone (${yDate}) Vs. Asthma (${xDate}) in Counties of California",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Drive alone vs. Asthma"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
                       "dc/6rltk4kf75612_scatter",
                       "Percent_Person_Children_WithAsthma_scatter"
                     ],
@@ -216,21 +113,125 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "dc/6rltk4kf75612"
+                    ],
+                    "title": "Work at Home in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/6rltk4kf75612"
+                    ],
+                    "title": "Work at Home in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Work at Home in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_Children_WithAsthma"
+                    ],
+                    "title": "Percent of Children That Have Asthma in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_Children_WithAsthma"
+                    ],
+                    "title": "Percent of Children That Have Asthma in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Percent of Children That Have Asthma in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "scatterTileSpec": {
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "dc/hbkh95kc7pkb6_scatter",
+                      "dc/0gettc3bc60cb_scatter",
                       "Percent_Person_Children_WithAsthma_scatter"
                     ],
-                    "title": "Public Transit (${yDate}) Vs. Percent of Children That Have Asthma (${xDate}) in Counties of California",
+                    "title": "Drive Alone (${yDate}) Vs. Percent of Children That Have Asthma (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Public Transit vs. Percent of Children That Have Asthma"
+            "title": "Drive alone vs. Percent of Children That Have Asthma"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "dc/6rltk4kf75612_scatter",
+                      "Percent_Person_WithAsthma_scatter"
+                    ],
+                    "title": "Work at Home (${yDate}) Vs. Asthma (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Work at home vs. Asthma"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "dc/hbkh95kc7pkb6_scatter",
+                      "Percent_Person_WithAsthma_scatter"
+                    ],
+                    "title": "Public Transit (${yDate}) Vs. Asthma (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Public Transit vs. Asthma"
           },
           {
             "columns": [
@@ -273,16 +274,16 @@
                     },
                     "statVarKey": [
                       "dc/hbkh95kc7pkb6_scatter",
-                      "Percent_Person_WithAsthma_scatter"
+                      "Percent_Person_Children_WithAsthma_scatter"
                     ],
-                    "title": "Public Transit (${yDate}) Vs. Asthma (${xDate}) in Counties of California",
+                    "title": "Public Transit (${yDate}) Vs. Percent of Children That Have Asthma (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Public Transit vs. Asthma"
+            "title": "Public Transit vs. Percent of Children That Have Asthma"
           },
           {
             "columns": [
@@ -294,16 +295,16 @@
                     },
                     "statVarKey": [
                       "dc/vp8cbt6k79t94_scatter",
-                      "Percent_Person_Children_WithAsthma_scatter"
+                      "Percent_Person_WithAsthma_scatter"
                     ],
-                    "title": "Walk to Work (${yDate}) Vs. Percent of Children That Have Asthma (${xDate}) in Counties of California",
+                    "title": "Walk to Work (${yDate}) Vs. Asthma (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Walk to work vs. Percent of Children That Have Asthma"
+            "title": "Walk to work vs. Asthma"
           },
           {
             "columns": [
@@ -346,16 +347,16 @@
                     },
                     "statVarKey": [
                       "dc/vp8cbt6k79t94_scatter",
-                      "Percent_Person_WithAsthma_scatter"
+                      "Percent_Person_Children_WithAsthma_scatter"
                     ],
-                    "title": "Walk to Work (${yDate}) Vs. Asthma (${xDate}) in Counties of California",
+                    "title": "Walk to Work (${yDate}) Vs. Percent of Children That Have Asthma (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Walk to work vs. Asthma"
+            "title": "Walk to work vs. Percent of Children That Have Asthma"
           }
         ],
         "statVarSpec": {
@@ -427,6 +428,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "geoId/06",
@@ -813,48 +815,7 @@
         ]
       }
     ],
-    "exploreMore": {
-      "dc/0gettc3bc60cb": {
-        "hasOccupation": [
-          "dc/b9plt3q5k6gyb",
-          "dc/jszfr5wd4f7pb",
-          "dc/k33ngtzpqxql6",
-          "dc/kt900ezddrf79",
-          "dc/r0delcsw86kc6",
-          "dc/wqbf0ppbmly7"
-        ]
-      },
-      "dc/6rltk4kf75612": {
-        "hasOccupation": [
-          "dc/7wt44yv38rew",
-          "dc/cs8fvwkmpmlpg",
-          "dc/dn2h9yfcgbkg2",
-          "dc/nfdf9rt7kbggb",
-          "dc/vh36nvvkwxz5g",
-          "dc/zf0wjwwyddbj4"
-        ]
-      },
-      "dc/hbkh95kc7pkb6": {
-        "hasOccupation": [
-          "dc/2hhr4qp4b4r0b",
-          "dc/4xklqxfc27w1f",
-          "dc/9vlv8l9dbgsk7",
-          "dc/j7lkt2ww5qsn5",
-          "dc/n2vhkpw0slkv5",
-          "dc/nvrxn11yxlen2"
-        ]
-      },
-      "dc/vp8cbt6k79t94": {
-        "hasOccupation": [
-          "dc/2r1c78wzvbq58",
-          "dc/bre4whrdn7pt7",
-          "dc/fgt7thnws9vx9",
-          "dc/n99t0lnl3fch6",
-          "dc/v33p7mwnpe9vb",
-          "dc/zcth2y8fqte1f"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/WorkCommute",
@@ -1328,5 +1289,5 @@
     ]
   },
   "svSource": "UNKNOWN",
-  "userMessage": ""
+  "userMessages": []
 }

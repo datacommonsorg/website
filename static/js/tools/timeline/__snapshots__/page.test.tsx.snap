@@ -78,7 +78,7 @@ exports[`Single place and single stat var 3`] = `
 `;
 
 exports[`Single place and single stat var 4`] = `
-"<div class=\\"dc-async-element-holder\\"><span class=\\"Collapsible__trigger is-open\\"><div class=\\"node-title\\"><i class=\\"material-icons\\">remove</i><span class=\\"title selected-node-title\\">Demographics<span class=\\"sv-count\\">(100)</span></span></div></span>
+"<div class=\\"dc-async-element-holder\\"><span class=\\"Collapsible__trigger is-open\\"><div class=\\"node-title\\"><i class=\\"material-icons\\">arrow_drop_down</i><span class=\\"title selected-node-title\\">Demographics<span class=\\"sv-count\\">(100)</span></span></div></span>
 <div class=\\"Collapsible__contentOuter\\" style=\\"height: 0px; transition: height 200ms linear; overflow: hidden;\\">
   <div class=\\"Collapsible__contentInner\\">
     <div class=\\"svg-node-child\\">
@@ -91,14 +91,14 @@ exports[`Single place and single stat var 4`] = `
     </div>
     <div class=\\"svg-node-child\\">
       <div>
-        <div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-closed\\"><div class=\\"node-title\\"><i class=\\"material-icons\\">add</i><span class=\\"title\\">Age<span class=\\"sv-count\\">(5)</span></span></div></span>
+        <div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-closed\\"><div class=\\"node-title\\"><i class=\\"material-icons\\">arrow_right</i><span class=\\"title\\">Age<span class=\\"sv-count\\">(5)</span></span></div></span>
         <div class=\\"Collapsible__contentOuter\\" style=\\"height: 0px; transition: height 200ms linear; overflow: hidden;\\">
           <div class=\\"Collapsible__contentInner\\"></div>
         </div>
       </div>
     </div>
     <div>
-      <div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-closed\\"><div class=\\"node-title\\"><i class=\\"material-icons\\">add</i><span class=\\"title\\">ArmedForcesStatus<span class=\\"sv-count\\">(5)</span></span></div></span>
+      <div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-closed\\"><div class=\\"node-title\\"><i class=\\"material-icons\\">arrow_right</i><span class=\\"title\\">ArmedForcesStatus<span class=\\"sv-count\\">(5)</span></span></div></span>
       <div class=\\"Collapsible__contentOuter\\" style=\\"height: 0px; transition: height 200ms linear; overflow: hidden;\\">
         <div class=\\"Collapsible__contentInner\\"></div>
       </div>
@@ -108,7 +108,7 @@ exports[`Single place and single stat var 4`] = `
 </div>
 </div>
 </div>
-<div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-closed\\"><div class=\\"node-title\\"><i class=\\"material-icons\\">add</i><span class=\\"title\\">Economics<span class=\\"sv-count\\">(100)</span></span></div></span>
+<div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-closed\\"><div class=\\"node-title\\"><i class=\\"material-icons\\">arrow_right</i><span class=\\"title\\">Economics<span class=\\"sv-count\\">(100)</span></span></div></span>
 <div class=\\"Collapsible__contentOuter\\" style=\\"height: 0px; transition: height 200ms linear; overflow: hidden;\\">
   <div class=\\"Collapsible__contentInner\\"></div>
 </div>
@@ -156,12 +156,12 @@ exports[`statVar not in PV-tree 1`] = `
 `;
 
 exports[`statVar not in PV-tree 2`] = `
-"<div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-closed\\"><div class=\\"node-title\\"><i class=\\"material-icons\\">add</i><span class=\\"title\\">Demographics<span class=\\"sv-count\\">(100)</span></span></div></span>
+"<div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-closed\\"><div class=\\"node-title\\"><i class=\\"material-icons\\">arrow_right</i><span class=\\"title\\">Demographics<span class=\\"sv-count\\">(100)</span></span></div></span>
 <div class=\\"Collapsible__contentOuter\\" style=\\"height: 0px; transition: height 200ms linear; overflow: hidden;\\">
   <div class=\\"Collapsible__contentInner\\"></div>
 </div>
 </div>
-<div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-closed\\"><div class=\\"node-title\\"><i class=\\"material-icons\\">add</i><span class=\\"title\\">Economics<span class=\\"sv-count\\">(100)</span></span></div></span>
+<div class=\\"Collapsible\\"><span class=\\"Collapsible__trigger is-closed\\"><div class=\\"node-title\\"><i class=\\"material-icons\\">arrow_right</i><span class=\\"title\\">Economics<span class=\\"sv-count\\">(100)</span></span></div></span>
 <div class=\\"Collapsible__contentOuter\\" style=\\"height: 0px; transition: height 200ms linear; overflow: hidden;\\">
   <div class=\\"Collapsible__contentInner\\"></div>
 </div>

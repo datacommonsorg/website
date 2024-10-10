@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
+import { PointApiResponse } from "@datacommonsorg/client";
 import React from "react";
 import ReactDOM from "react-dom";
+import { StyleSheetManager } from "styled-components";
 
 import {
   DEFAULT_API_ENDPOINT,
@@ -36,6 +38,9 @@ import {
  * @returns A string array of attribute values
  */
 export function convertArrayAttribute(attributeValue: string): string[] {
+  if (!attributeValue) {
+    return undefined;
+  }
   if (attributeValue.startsWith("[")) {
     // Parse as JSON if attribute value begins with a bracket
     return JSON.parse(attributeValue);
@@ -65,8 +70,10 @@ export function convertBooleanAttribute(attributeValue: string): boolean {
 export function createWebComponentElement(
   tile: (props: any) => JSX.Element,
   tileProps: any
-): HTMLElement {
+): HTMLDivElement {
   const container = document.createElement("div");
+  const styleHost = document.createElement("div");
+  container.appendChild(styleHost);
 
   // Add stylesheet for material icons to the shadow DOM
   for (const url of [
@@ -81,7 +88,14 @@ export function createWebComponentElement(
 
   // Create mount point and render tile in it
   const mountPoint = document.createElement("div");
-  ReactDOM.render(React.createElement(tile, tileProps), mountPoint);
+  const tileElement = React.createElement(tile, tileProps);
+  // Wrap tile in a StyleSheetManager to support styled-components styles
+  const wrappedTileElement = React.createElement(
+    StyleSheetManager,
+    { target: styleHost },
+    tileElement
+  );
+  ReactDOM.render(wrappedTileElement, mountPoint);
   container.appendChild(mountPoint);
 
   return container;
@@ -122,4 +136,28 @@ export function getApiRoot(apiRoot: string): string {
     return apiRoot;
   }
   return DEFAULT_API_ENDPOINT;
+}
+
+/**
+ * Extracts the min and max dates from the given PointApiResponse
+ * @param response PointApiResponse object
+ */
+export function getObservationDateRange(response: PointApiResponse): {
+  minDate: string;
+  maxDate: string;
+} {
+  let minDate = "";
+  let maxDate = "";
+  Object.keys(response.data).forEach((entityDcid) => {
+    Object.keys(response.data[entityDcid]).forEach((variableDcid) => {
+      const observation = response.data[entityDcid][variableDcid];
+      if (!minDate || observation.date < minDate) {
+        minDate = observation.date;
+      }
+      if (!maxDate || observation.date > maxDate) {
+        maxDate = observation.date;
+      }
+    });
+  });
+  return { minDate, maxDate };
 }

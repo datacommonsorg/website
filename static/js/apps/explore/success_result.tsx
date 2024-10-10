@@ -24,24 +24,26 @@ import React, { useEffect, useRef } from "react";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import {
+  CLIENT_TYPES,
+  SVG_CHART_HEIGHT,
   URL_DELIM,
   URL_HASH_PARAMS,
 } from "../../constants/app/explore_constants";
-import { SVG_CHART_HEIGHT } from "../../constants/app/nl_interface_constants";
 import {
   ExploreContext,
   NlSessionContext,
   RankingUnitUrlFuncContext,
 } from "../../shared/context";
-import {
-  QueryResult,
-  UserMessageInfo,
-} from "../../types/app/nl_interface_types";
+import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
+import {
+  isPlaceOverviewOnly,
+  shouldSkipPlaceOverview,
+} from "../../utils/explore_utils";
 import { getPlaceTypePlural } from "../../utils/string_utils";
 import { trimCategory } from "../../utils/subject_page_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
-import { DebugInfo } from "../nl_interface/debug_info";
+import { DebugInfo } from "./debug_info";
 import { RelatedPlace } from "./related_place";
 import { ResultHeaderSection } from "./result_header_section";
 import { SearchSection } from "./search_section";
@@ -56,31 +58,6 @@ interface SuccessResultPropType {
   queryResult: QueryResult;
   pageMetadata: SubjectPageMetadata;
   userMessage: UserMessageInfo;
-}
-
-// Whether or not there is only a single place overview tile in the page
-// metadata.
-function isPlaceOverviewOnly(pageMetadata: SubjectPageMetadata): boolean {
-  // false if no page metadata or config or categories
-  if (
-    !pageMetadata ||
-    !pageMetadata.pageConfig ||
-    !pageMetadata.pageConfig.categories
-  ) {
-    return false;
-  }
-  const categories = pageMetadata.pageConfig.categories;
-  // False if there is more than 1 tile
-  if (
-    categories.length !== 1 ||
-    categories[0].blocks.length !== 1 ||
-    categories[0].blocks[0].columns.length !== 1 ||
-    categories[0].blocks[0].columns[0].tiles.length !== 1
-  ) {
-    return false;
-  }
-  // True only if the one tile is of type PLACE_OVERVIEW
-  return categories[0].blocks[0].columns[0].tiles[0].type === "PLACE_OVERVIEW";
 }
 
 export function SuccessResult(props: SuccessResultPropType): JSX.Element {
@@ -134,6 +111,7 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
     };
   }, []);
   const placeOverviewOnly = isPlaceOverviewOnly(props.pageMetadata);
+  const emptyPlaceOverview = shouldSkipPlaceOverview(props.pageMetadata);
   return (
     <div
       className={`row explore-charts${
@@ -160,7 +138,7 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
           placeUrlVal={placeUrlVal}
           shouldShowTopics={placeOverviewOnly}
         />
-        {props.pageMetadata && props.pageMetadata.pageConfig && (
+        {props.pageMetadata && !_.isEmpty(props.pageMetadata.pageConfig) && (
           <>
             {!placeOverviewOnly && (
               <ResultHeaderSection
@@ -175,6 +153,7 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
                   [URL_HASH_PARAMS.PLACE]: dcid,
                   [URL_HASH_PARAMS.TOPIC]: topicUrlVal,
                   [URL_HASH_PARAMS.QUERY]: "",
+                  [URL_HASH_PARAMS.CLIENT]: CLIENT_TYPES.RANKING_PLACE,
                 })}`;
               }}
             >
@@ -199,27 +178,29 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
                 </ExploreContext.Provider>
               </NlSessionContext.Provider>
             </RankingUnitUrlFuncContext.Provider>
-            {!_.isEmpty(props.pageMetadata.childPlaces) && (
-              <RelatedPlace
-                relatedPlaces={props.pageMetadata.childPlaces[childPlaceType]}
-                topic={relatedPlaceTopic}
-                titleSuffix={
-                  getPlaceTypePlural(childPlaceType) +
-                  " in " +
-                  props.pageMetadata.place.name
-                }
-              ></RelatedPlace>
-            )}
-            {!_.isEmpty(props.pageMetadata.peerPlaces) && (
-              <RelatedPlace
-                relatedPlaces={props.pageMetadata.peerPlaces}
-                topic={relatedPlaceTopic}
-                titleSuffix={
-                  "other " +
-                  getPlaceTypePlural(props.pageMetadata.place.types[0])
-                }
-              ></RelatedPlace>
-            )}
+            {!emptyPlaceOverview &&
+              !_.isEmpty(props.pageMetadata.childPlaces) && (
+                <RelatedPlace
+                  relatedPlaces={props.pageMetadata.childPlaces[childPlaceType]}
+                  topic={relatedPlaceTopic}
+                  titleSuffix={
+                    getPlaceTypePlural(childPlaceType) +
+                    " in " +
+                    props.pageMetadata.place.name
+                  }
+                ></RelatedPlace>
+              )}
+            {!emptyPlaceOverview &&
+              !_.isEmpty(props.pageMetadata.peerPlaces) && (
+                <RelatedPlace
+                  relatedPlaces={props.pageMetadata.peerPlaces}
+                  topic={relatedPlaceTopic}
+                  titleSuffix={
+                    "other " +
+                    getPlaceTypePlural(props.pageMetadata.place.types[0])
+                  }
+                ></RelatedPlace>
+              )}
           </>
         )}
       </div>

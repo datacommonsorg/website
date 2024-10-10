@@ -9,8 +9,7 @@ This test invokes the DC `detect-and-fulfill` API for adversarial queries specif
 * The input TSVs are looked up by default in a child folder (relative to where the program is run) named `input` (use the `--input_dir` flag to override).
 * The output result CSVs are persisted by default in a child folder (relative to where the program is run) named `output` (use the `--output_dir` flag to override).
 * The generated reports are persisted in a `reports` folder under the output folder.
-* The API by default is invoked on `http://dev.datacommons.org` by default (use the `--base_url` flag to override).
-* The `llm_api` parameter used for invoking the API can be specified via the `--llm_api` flag (possible values: `chat` (default), `text`).
+* The API by default is invoked on `https://dev.datacommons.org` by default (use the `--base_url` flag to override).
 * Use the flag `dc` to switch between the `main` and `sdg` experiences (index, detection, fulfillment).
 
 Specify the `--help` flag to see full usage:
@@ -76,3 +75,11 @@ Note that leaving the `dc` flag to be empty will also default to the `--dc=main`
 ```shell
 python3 adversarial.py --mode=run_all --dc=sdg
 ```
+
+## NodeJs Query Test (nodejs_query.py)
+
+This test invokes the NodeJs `query` API and persists the results in output json files.
+
+* The output result jsons are persisted by default in a child folder (relative to where the program is run) named `output` (use the `--output_dir` flag to override).
+* The API by default is invoked on `https://dev.datacommons.org` by default (use the `--base_url` flag to override).
+* This test is run in gke by a cronjob.

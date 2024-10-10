@@ -22,8 +22,15 @@ class Config(_base.Config):
   OVERRIDE_CSS_PATH = '/custom_dc/custom/overrides.css'
   LOGO_PATH = "/custom_dc/worldbank/logo.svg"
   SHOW_DISASTER = False
-  DATA_SOURCE_DCID = 'dc/s/WorldBank'
-  DATA_SOURCE_NAME = 'World Bank'
+  STAT_VAR_HIERARCHY_CONFIG = {
+      "nodes": [{
+          "dcid": "dc/g/Root"
+      }, {
+          "dcid": "dc/g/Root",
+          "dataSourceDcid": "dc/s/WorldBank",
+          "name": "World Bank"
+      }]
+  }
 
 
 class LocalConfig(Config, local.Config):

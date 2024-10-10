@@ -1,0 +1,71 @@
+{
+  "charts": [
+    {
+      "data_csv": "rank,place,Women\r\n1,Los Angeles County,4999589\r\n2,San Diego County,1621850\r\n3,Orange County,1597214\r\n4,Riverside County,1209094\r\n5,San Bernardino County,1085738\r\n6,Santa Clara County,937879\r\n7,Alameda County,837262\r\n8,Sacramento County,800181\r\n9,Contra Costa County,589574\r\n10,Fresno County,501754",
+      "placeType": "County",
+      "places": [
+        "geoId/06"
+      ],
+      "srcs": [
+        {
+          "name": "census.gov",
+          "url": "https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html"
+        }
+      ],
+      "title": "Women in Counties of California (2022)",
+      "type": "TABLE",
+      "unit": "",
+      "vars": [
+        "Count_Person_Female"
+      ],
+      "dcUrl": "https://datacommons.org/explore#q=California%20counties%20with%20the%20highest%20female%20population"
+    },
+    {
+      "data_csv": "label,Women\r\n2022,19647157\r\n2021,19741309\r\n2020,19783141\r\n2019,19757199\r\n2018,19694991\r\n2017,19616268\r\n2016,19453236\r\n2015,19334329\r\n2014,19155401\r\n2013,18932713\r\n2012,18764048\r\n2011,18581482",
+      "legend": [
+        "Women"
+      ],
+      "places": [
+        "geoId/06"
+      ],
+      "srcs": [
+        {
+          "name": "census.gov",
+          "url": "https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html"
+        }
+      ],
+      "title": "Women in California",
+      "type": "LINE",
+      "unit": "",
+      "vars": [
+        "Count_Person_Female"
+      ],
+      "highlight": {
+        "date": "2022",
+        "value": 19647157
+      },
+      "chartUrl": "",
+      "dcUrl": "https://datacommons.org/explore#q=California%20counties%20with%20the%20highest%20female%20population"
+    },
+    {
+      "data_csv": "rank,place,Women over 85\r\n1,Los Angeles County,123561\r\n2,Orange County,42444\r\n3,San Diego County,36766\r\n4,Riverside County,25102\r\n5,Santa Clara County,23798\r\n6,Alameda County,20068\r\n7,Sacramento County,18889\r\n8,San Bernardino County,17799\r\n9,San Francisco County,14548\r\n10,Contra Costa County,14454",
+      "placeType": "County",
+      "places": [
+        "geoId/06"
+      ],
+      "srcs": [
+        {
+          "name": "census.gov",
+          "url": "https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html"
+        }
+      ],
+      "title": "Women Over 85 in Counties of California (2022)",
+      "type": "TABLE",
+      "unit": "",
+      "vars": [
+        "Count_Person_85OrMoreYears_Female"
+      ],
+      "dcUrl": "https://datacommons.org/explore#q=California%20counties%20with%20the%20highest%20female%20population"
+    }
+  ]
+}

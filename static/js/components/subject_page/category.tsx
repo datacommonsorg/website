@@ -48,12 +48,14 @@ export interface CategoryPropType {
   parentPlaces?: NamedPlace[];
   // Whether or not to show the explore more button.
   showExploreMore?: boolean;
+  // Whether to render tiles as web components
+  showWebComponents?: boolean;
 }
 
 export const Category = memo(function Category(
   props: CategoryPropType
 ): JSX.Element {
-  const svProvider = new StatVarProvider(props.config.statVarSpec);
+  const svProvider = new StatVarProvider(props.config.statVarSpec || {});
   const rs: ReplacementStrings = {
     placeName: props.place.name,
     placeDcid: props.place ? props.place.dcid : "",
@@ -99,7 +101,7 @@ function renderBlocks(
           continue;
         }
         for (const k of tile.statVarKey) {
-          const svSpec = svProvider.getSpec(k, block.denom);
+          const svSpec = svProvider.getSpec(k, { blockDenom: block.denom });
           if (visitedSV.has(svSpec.statVar)) {
             continue;
           }
@@ -142,6 +144,7 @@ function renderBlocks(
               description={block.description}
               place={props.place}
               commonSVSpec={commonSVSpec}
+              infoMessage={block.infoMessage}
             >
               <Block
                 id={id}
@@ -157,6 +160,7 @@ function renderBlocks(
                 parentPlaces={props.parentPlaces}
                 denom={block.denom}
                 startWithDenom={block.startWithDenom}
+                showWebComponents={props.showWebComponents}
               />
             </BlockContainer>
           </ErrorBoundary>

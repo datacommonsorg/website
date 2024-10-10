@@ -21,7 +21,7 @@
 import _ from "lodash";
 import React from "react";
 
-import { UserMessageInfo } from "../../types/app/nl_interface_types";
+import { UserMessageInfo } from "../../types/app/explore_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getTopics } from "../../utils/app/explore_utils";
 import { ItemList } from "./item_list";
@@ -41,7 +41,7 @@ interface UserMessagePropType {
 }
 
 export function UserMessage(props: UserMessagePropType): JSX.Element {
-  if (!props.userMessage || !props.userMessage.msg) {
+  if (!props.userMessage || _.isEmpty(props.userMessage.msgList)) {
     return null;
   }
 
@@ -49,26 +49,39 @@ export function UserMessage(props: UserMessagePropType): JSX.Element {
     ? getTopics(props.pageMetadata, props.placeUrlVal)
     : [];
 
+  const showLowConfidence =
+    props.userMessage.msgList.findIndex((msg) =>
+      msg.includes("Low confidence")
+    ) >= 0;
   return (
     <div className="user-message-container">
-      <div className="material-icons">info</div>
+      <div className="image-icon">
+        <img src="/images/explore-global-msg.svg" />
+      </div>
       <div className="user-message">
         <div className="user-message-text">
-          <span className="main-message">{props.userMessage.msg}</span>
+          {props.userMessage.msgList.map((msg, idx) => (
+            <span className="main-message" key={`user-msg-${idx}`}>
+              {msg}
+            </span>
+          ))}
           {props.userMessage.showForm && (
             <span className="sub-message">
               <a href={DATA_FORM_URL}>Fill out this form</a> to add data to
               answer this query.
             </span>
           )}
-          {!props.userMessage.showForm &&
-            props.userMessage.msg.includes("Low confidence") && (
-              <span className="sub-message">
-                <a href={LOW_CONFIDENCE_FORM_URL}>Flag inappropriate results</a>
-              </span>
-            )}
+          {!props.userMessage.showForm && showLowConfidence && (
+            <span className="sub-message">
+              <a href={LOW_CONFIDENCE_FORM_URL}>Flag inappropriate results</a>
+            </span>
+          )}
         </div>
-        {!_.isEmpty(topicList) && <ItemList items={topicList} />}
+        {!_.isEmpty(topicList) ? (
+          <ItemList items={topicList} />
+        ) : (
+          <div className="bottom-border" />
+        )}
       </div>
     </div>
   );

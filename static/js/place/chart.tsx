@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { DataCommonsClient } from "@datacommonsorg/client";
 import * as d3 from "d3";
 import _ from "lodash";
 import React from "react";
@@ -34,11 +35,13 @@ import {
   TrendData,
 } from "../chart/types";
 import { RankingUnit } from "../components/ranking_unit";
+import { MapLayerData } from "../components/tiles/map_tile";
 import { fetchData } from "../components/tiles/ranking_tile";
 import {
   ASYNC_ELEMENT_CLASS,
   ASYNC_ELEMENT_HOLDER_CLASS,
 } from "../constants/css_constants";
+import { CSV_FIELD_DELIMITER } from "../constants/tile_constants";
 import {
   formatNumber,
   intl,
@@ -57,11 +60,8 @@ import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedPlace } from "../shared/types";
 import { isDateTooFar, urlToDisplayText } from "../shared/util";
 import { RankingGroup, RankingPoint } from "../types/ranking_unit_types";
-import {
-  dataGroupsToCsv,
-  mapDataToCsv,
-  rankingPointsToCsv,
-} from "../utils/chart_csv_utils";
+import { defaultDataCommonsClient } from "../utils/data_commons_client";
+import { transformCsvHeader } from "../utils/tile_utils";
 import { ChartEmbed } from "./chart_embed";
 import { getChoroplethData, getGeoJsonData } from "./fetch";
 import { updatePageLayoutState } from "./place";
@@ -128,9 +128,9 @@ interface ChartPropType {
    */
   isUsaPlace: boolean;
   /**
-   * The place type for the ranking chart.
+   * The place type for the ranking or map chart.
    */
-  rankingPlaceType?: string;
+  enclosedPlaceType?: string;
   /**
    * The parent place dcid for ranking chart.
    */
@@ -162,6 +162,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
   rankingUrlByStatVar: { [key: string]: string };
   statsVars: string[];
   placeLinkSearch: string; // Search parameter string including '?'
+  dataCommonsClient: DataCommonsClient;
 
   constructor(props: ChartPropType) {
     super(props);
@@ -379,7 +380,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     } catch (e) {
       return;
     }
-    updatePageLayoutState();
+    // updatePageLayoutState();
   }
 
   componentWillUnmount(): void {
@@ -411,29 +412,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
   }
 
   /**
-   * Returns data used to draw chart as a CSV.
-   */
-  private dataCsv(): string {
-    // TODO(beets): Handle this.state.dataPoints too.
-    const dp = this.state.dataPoints;
-    if (dp && dp.length > 0) {
-      console.log("Implement CSV function for data points");
-      return;
-    }
-    if (this.state.choroplethDataGroup && this.state.geoJson) {
-      return mapDataToCsv(
-        [this.state.geoJson],
-        this.state.choroplethDataGroup.data
-      );
-    }
-    if (this.state.rankingGroup) {
-      const data = this.state.rankingGroup.points;
-      return rankingPointsToCsv(data, ["data"]);
-    }
-    return dataGroupsToCsv(this.state.dataGroups);
-  }
-
-  /**
    * Handle clicks on "embed chart" link.
    */
   private _handleEmbed(
@@ -448,7 +426,45 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     }
     this.embedModalElement.current.show(
       svgXml,
-      this.dataCsv(),
+      () => {
+        // Fetch data from "nearby" places if present, otherwise use primary
+        // place dcid
+        const entities = this.props.snapshot
+          ? this.props.snapshot.data.map((d) => d.dcid)
+          : [this.props.dcid];
+        // TODO: Address per-capita calculations, including calculations that
+        // use non-"Count_Person" denominators.
+        // Example: The "Marital Status Distribution" chart here:
+        // https://datacommons.org/place/geoId/06?category=Demographics
+        if (this.props.chartType === chartTypeEnum.LINE) {
+          // For line charts, return CSV series data
+          return defaultDataCommonsClient.getCsvSeries({
+            entities,
+            fieldDelimiter: CSV_FIELD_DELIMITER,
+            transformHeader: transformCsvHeader,
+            variables: this.props.statsVars,
+          });
+        } else if (this.props.parentPlaceDcid && this.props.enclosedPlaceType) {
+          // Ranking & map charts set parentPlaceDcid and rankingPlaceType
+          // Return csv results associated with this parent/child combination
+          return defaultDataCommonsClient.getCsv({
+            childType: this.props.enclosedPlaceType,
+            fieldDelimiter: CSV_FIELD_DELIMITER,
+            parentEntity: this.props.parentPlaceDcid,
+            transformHeader: transformCsvHeader,
+            variables: this.props.statsVars,
+          });
+        }
+        // All other charts should fetch data about specific entities and
+        // variables
+        return defaultDataCommonsClient.getCsv({
+          date: this.getDate(),
+          entities,
+          fieldDelimiter: CSV_FIELD_DELIMITER,
+          transformHeader: transformCsvHeader,
+          variables: this.props.statsVars,
+        });
+      },
       this.svgContainerElement.current.offsetWidth,
       CHART_HEIGHT,
       "",
@@ -470,7 +486,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         elem.offsetWidth,
         CHART_HEIGHT,
         this.state.dataGroups,
-        false,
         false,
         {
           unit: this.props.unit,
@@ -535,8 +550,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       const legendWidth = generateLegendSvg(
         this.legendContainerElement.current,
         CHART_HEIGHT,
-        colorScale,
-        this.props.unit,
+        [{ colorScale, unit: this.props.unit }],
         0
       );
       const mapWidth = elem.offsetWidth - legendWidth;
@@ -547,18 +561,17 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         CHART_HEIGHT,
         this.state.geoJson
       );
-      const geoJsonData = {};
-      geoJsonData[this.props.dcid] = {
+      const layerData: MapLayerData = {
+        colorScale,
+        dataValues: this.state.choroplethDataGroup.data,
         geoJson: this.state.geoJson,
-        shouldShowBoundaryLines: true,
+        showMapBoundaries: true,
       };
       drawD3Map(
         this.mapContainerElement.current,
-        geoJsonData,
+        [layerData],
         CHART_HEIGHT,
         mapWidth,
-        this.state.choroplethDataGroup.data,
-        colorScale,
         redirectAction,
         getTooltipHtml,
         () => true,
@@ -666,7 +679,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         // fetch, hence setting a dummy value here.
         fetchData({
           id: "",
-          enclosedPlaceType: this.props.rankingPlaceType,
+          enclosedPlaceType: this.props.enclosedPlaceType,
           parentPlace: this.props.parentPlaceDcid,
           rankingMetadata: {
             showHighest: true,
@@ -719,7 +732,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     if (this.props.chartType === chartTypeEnum.RANKING) {
       return (
         `/ranking/${this.statsVars[0]}` +
-        `/${this.props.rankingPlaceType}/${this.props.parentPlaceDcid}` +
+        `/${this.props.enclosedPlaceType}/${this.props.parentPlaceDcid}` +
         `?h=${this.props.dcid}&unit=${this.props.unit || ""}&scaling=${
           this.props.scaling || ""
         }`
@@ -746,18 +759,19 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       : this.props.snapshot.sources;
   }
 
-  private getDateString(): string {
+  private getDate(): string {
     if (this.props.chartType == chartTypeEnum.CHOROPLETH) {
-      return this.state.choroplethDataGroup
-        ? "(" + this.state.choroplethDataGroup.date + ")"
-        : "";
+      return this.state.choroplethDataGroup?.date || "";
     }
     if (this.props.chartType === chartTypeEnum.RANKING) {
-      return this.state.rankingGroup
-        ? "(" + this.state.rankingGroup.dateRange + ")"
-        : "";
+      return this.state.rankingGroup?.dateRange || "";
     }
-    return this.props.snapshot ? "(" + this.props.snapshot.date + ")" : "";
+    return this.props.snapshot?.date || "";
+  }
+
+  private getDateString(): string {
+    const date = this.getDate();
+    return date ? `(${date})` : "";
   }
 
   private getRankingChartData(data: RankingGroup): {

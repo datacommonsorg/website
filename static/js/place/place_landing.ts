@@ -17,11 +17,11 @@
 import { loadLocaleData } from "../i18n/i18n";
 import { initSearchAutocomplete } from "../shared/place_autocomplete";
 
-window.onload = () => {
+window.addEventListener("load", (): void => {
   const locale = document.getElementById("locale").dataset.lc;
   loadLocaleData(locale, [
     import(`../i18n/compiled-lang/${locale}/place.json`),
   ]).then(() => {
     initSearchAutocomplete("/place");
   });
-};
+});

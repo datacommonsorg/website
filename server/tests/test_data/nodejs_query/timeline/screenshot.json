@@ -2,265 +2,77 @@
   "charts": [
     {
       "data_csv": "label,Average Income for Family Households\r\n2019,105819\r\n2018,103731\r\n2017,99878\r\n2016,96309\r\n2015,93044\r\n2014,90140\r\n2013,86449\r\n2012,83141\r\n2011,79594\r\n2010,75645",
-      "srcs": [
-        {
-          "name": "data.census.gov",
-          "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2019.S1901"
-        }
-      ],
       "legend": [
         "Average Income for Family Households"
       ],
+      "places": [
+        "geoId/38"
+      ],
+      "srcs": [
+        {
+          "name": "data.census.gov",
+          "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2019.S1901"
+        }
+      ],
       "title": "Average Income for Family Households in North Dakota",
       "type": "LINE",
-      "chartUrl": ""
+      "unit": "Infl. adj. USD (CY)",
+      "vars": [
+        "Mean_Income_Household_FamilyHousehold"
+      ],
+      "highlight": {
+        "date": "2019",
+        "value": 105819
+      },
+      "chartUrl": "",
+      "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
+    },
+    {
+      "data_csv": "rank,place,Average Income for Family Households\r\n1,Williams County,126095\r\n2,Dunn County,122699\r\n3,Divide County,118649\r\n4,Mountrail County,118316\r\n5,McKenzie County,117604\r\n49,Pierce County,76245\r\n50,McIntosh County,75949\r\n51,Rolette County,72908\r\n52,Benson County,69206\r\n53,Sioux County,56872",
+      "placeType": "County",
+      "places": [
+        "geoId/38"
+      ],
+      "srcs": [
+        {
+          "name": "data.census.gov",
+          "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2019.S1901"
+        }
+      ],
+      "title": "Average Income for Family Households in Counties of North Dakota (2019)",
+      "type": "TABLE",
+      "unit": "Infl. adj. USD (CY)",
+      "vars": [
+        "Mean_Income_Household_FamilyHousehold"
+      ],
+      "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     },
     {
       "data_csv": "label,Median Family Household Income\r\n2019,86249\r\n2018,83272\r\n2017,80091\r\n2016,77277\r\n2015,74708\r\n2014,72770\r\n2013,70767\r\n2012,68293\r\n2011,65871\r\n2010,62920",
-      "srcs": [
-        {
-          "name": "data.census.gov",
-          "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2019.S1901"
-        }
-      ],
       "legend": [
         "Median Family Household Income"
       ],
+      "places": [
+        "geoId/38"
+      ],
+      "srcs": [
+        {
+          "name": "data.census.gov",
+          "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2019.S1901"
+        }
+      ],
       "title": "Median Family Household Income in North Dakota",
       "type": "LINE",
-      "chartUrl": ""
-    },
-    {
-      "data_csv": "label,Median Married Couple Family Household Income\r\n2019,96825\r\n2018,93643\r\n2017,89787\r\n2016,86919\r\n2015,84437\r\n2014,82236\r\n2013,79820\r\n2012,76946\r\n2011,73585\r\n2010,69952",
-      "srcs": [
-        {
-          "name": "data.census.gov",
-          "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2019.S1901"
-        }
+      "unit": "Infl. adj. USD (CY)",
+      "vars": [
+        "Median_Income_Household_FamilyHousehold"
       ],
-      "legend": [
-        "Median Married Couple Family Household Income"
-      ],
-      "title": "Median Married Couple Family Household Income in North Dakota",
-      "type": "LINE",
-      "chartUrl": ""
-    },
-    {
-      "data_csv": "label,Average Income for Married Couple Family Households\r\n2019,117934\r\n2018,115706\r\n2017,111105\r\n2016,107344\r\n2015,103913\r\n2014,100467\r\n2013,95868\r\n2012,92261\r\n2011,88071\r\n2010,83619",
-      "srcs": [
-        {
-          "name": "data.census.gov",
-          "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2019.S1901"
-        }
-      ],
-      "legend": [
-        "Average Income for Married Couple Family Households"
-      ],
-      "title": "Average Income for Married Couple Family Households in North Dakota",
-      "type": "LINE",
-      "chartUrl": ""
-    },
-    {
-      "data_csv": "label,Average Income for Nonfamily Households\r\n2019,52462\r\n2018,51729\r\n2017,50416\r\n2016,49357\r\n2015,47072\r\n2014,44346\r\n2013,42235\r\n2012,40393\r\n2011,37461\r\n2010,34769",
-      "srcs": [
-        {
-          "name": "data.census.gov",
-          "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2019.S1901"
-        }
-      ],
-      "legend": [
-        "Average Income for Nonfamily Households"
-      ],
-      "title": "Average Income for Nonfamily Households in North Dakota",
-      "type": "LINE",
-      "chartUrl": ""
-    },
-    {
-      "data_csv": "label,Household Median Income\r\n2021,68131\r\n2020,65315\r\n2019,64894\r\n2018,63473\r\n2017,61285\r\n2016,59114\r\n2015,57181\r\n2014,55579\r\n2013,53741\r\n2012,51641\r\n2011,49415",
-      "srcs": [
-        {
-          "name": "census.gov",
-          "url": "https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html"
-        }
-      ],
-      "legend": [
-        "Household Median Income"
-      ],
-      "title": "Household Median Income in North Dakota",
-      "type": "LINE",
-      "chartUrl": ""
-    },
-    {
-      "data_csv": "label,Individual Median Income\r\n2021,37861\r\n2020,36316\r\n2019,35499\r\n2018,34036\r\n2017,32336\r\n2016,31273\r\n2015,30422\r\n2014,29391\r\n2013,28157\r\n2012,27090\r\n2011,25925",
-      "srcs": [
-        {
-          "name": "census.gov",
-          "url": "https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html"
-        }
-      ],
-      "legend": [
-        "Individual Median Income"
-      ],
-      "title": "Individual Median Income in North Dakota",
-      "type": "LINE",
-      "chartUrl": ""
-    },
-    {
-      "data_csv": "label,North Dakota\r\n\"People Earning Up to $9,999\",83404\r\n\"People Earning $10,000 and $14,999\",43114\r\n\"People Earning $25,000 and $34,999\",69499\r\n\"People Earning $35,000 and $49,999\",92525\r\n\"People Earning Between $50,000 and $64,999\",72679\r\n\"People Earning Between $65,000 and $74,999\",32440\r\n\"People Earning $75,000 or More\",103625",
-      "srcs": [
-        {
-          "name": "census.gov",
-          "url": "https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html"
-        }
-      ],
-      "legend": [
-        "People Earning Up to $9,999",
-        "People Earning $10,000 and $14,999",
-        "People Earning $25,000 and $34,999",
-        "People Earning $35,000 and $49,999",
-        "People Earning Between $50,000 and $64,999",
-        "People Earning Between $65,000 and $74,999",
-        "People Earning $75,000 or More"
-      ],
-      "title": "Population by Income Level in North Dakota (2021)",
-      "type": "BAR",
-      "chartUrl": ""
-    },
-    {
-      "data_csv": "label,North Dakota\r\nMedian Incomes in Real Estate And Rental And Leasing,44618\r\nMedian Incomes in Health Care And Social Assistance,38807\r\nMedian Income of Manufacturing,50265\r\nMedian Incomes in Administrative And Support And Waste Management Services,31344\r\nMedian Incomes in Retail Trade,27079\r\nMedian Incomes in Public Administration,56174\r\nMedian Incomes in Accommodation And Food Services,18729\r\n\"Median Incomes in Mining, Quarrying, And Oil And Gas Extraction\",89117\r\nMedian Incomes in Educational Services,42253\r\n\"Median Incomes in Other Services, Except Public Administration\",34561\r\nMedian Incomes in Construction,51225\r\nMedian Incomes in Management of Companies And Enterprises,50404\r\nMedian Incomes in Information industry,48381\r\n\"Median Incomes in Agriculture, Forestry, Fishing And Hunting\",45144\r\nMedian Incomes in Transportation And Warehousing,51311",
-      "srcs": [
-        {
-          "name": "census.gov",
-          "url": "https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html"
-        }
-      ],
-      "legend": [
-        "Median Incomes in Real Estate And Rental And Leasing",
-        "Median Incomes in Health Care And Social Assistance",
-        "Median Income of Manufacturing",
-        "Median Incomes in Administrative And Support And Waste Management Services",
-        "Median Incomes in Retail Trade",
-        "Median Incomes in Public Administration",
-        "Median Incomes in Accommodation And Food Services",
-        "Median Incomes in Mining, Quarrying, And Oil And Gas Extraction",
-        "Median Incomes in Educational Services",
-        "Median Incomes in Other Services, Except Public Administration",
-        "Median Incomes in Construction",
-        "Median Incomes in Management of Companies And Enterprises",
-        "Median Incomes in Information industry",
-        "Median Incomes in Agriculture, Forestry, Fishing And Hunting",
-        "Median Incomes in Transportation And Warehousing"
-      ],
-      "title": "Individual Income by Industry Type in North Dakota (2021)",
-      "type": "BAR",
-      "chartUrl": ""
-    },
-    {
-      "data_csv": "label,Median Family Household Income,Median Married Couple Family Household Income,Nonfamily Household Median Income\r\n2019,86249,96825,38642\r\n2018,83272,93643,37577\r\n2017,80091,89787,35907\r\n2016,77277,86919,35176\r\n2015,74708,84437,33751\r\n2014,72770,82236,32577\r\n2013,70767,79820,31330\r\n2012,68293,76946,30195\r\n2011,65871,73585,27555\r\n2010,62920,69952,26089",
-      "srcs": [
-        {
-          "name": "data.census.gov",
-          "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2019.S1901"
-        }
-      ],
-      "legend": [
-        "Median Family Household Income",
-        "Median Married Couple Family Household Income",
-        "Nonfamily Household Median Income"
-      ],
-      "title": "Median Income by Household Type in North Dakota",
-      "type": "LINE",
-      "chartUrl": ""
-    },
-    {
-      "data_csv": "label,Mean Income Deficit of Household: Family Household\r\n2021,11145\r\n2020,10436\r\n2019,10311\r\n2018,10095\r\n2017,9868\r\n2016,9703\r\n2015,9487\r\n2014,9353\r\n2013,8959\r\n2012,8746\r\n2011,8539\r\n2010,8376",
-      "srcs": [
-        {
-          "name": "data.census.gov",
-          "url": "https://data.census.gov/cedsci/table?q=S1702&tid=ACSST5Y2019.S1702"
-        }
-      ],
-      "legend": [
-        "Mean Income Deficit of Household: Family Household"
-      ],
-      "title": "Mean Income Deficit of Household: Family Household in North Dakota",
-      "type": "LINE",
-      "chartUrl": ""
-    },
-    {
-      "data_csv": "label,\"Count of Household: Family Household, Owner Occupied\"\r\n2021,143535\r\n2020,144543\r\n2019,143675\r\n2018,143491\r\n2017,143265\r\n2016,141039\r\n2015,140246",
-      "srcs": [
-        {
-          "name": "data.census.gov",
-          "url": "https://data.census.gov/cedsci/table?q=S1702&tid=ACSST5Y2019.S1702"
-        }
-      ],
-      "legend": [
-        "Count of Household: Family Household, Owner Occupied"
-      ],
-      "title": "Count of Household: Family Household, Owner Occupied in North Dakota",
-      "type": "LINE",
-      "chartUrl": ""
-    },
-    {
-      "data_csv": "label,Count of Household: Family Household\r\n2021,187742\r\n2020,189465\r\n2019,189400\r\n2018,188288\r\n2017,187057\r\n2016,183466\r\n2015,181864\r\n2014,178003\r\n2013,175638\r\n2012,173196\r\n2011,171622",
-      "srcs": [
-        {
-          "name": "census.gov",
-          "url": "https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html"
-        }
-      ],
-      "legend": [
-        "Count of Household: Family Household"
-      ],
-      "title": "Count of Household: Family Household in North Dakota",
-      "type": "LINE",
-      "chartUrl": ""
-    },
-    {
-      "data_csv": "label,Average Income for Households\r\n2019,85476\r\n2018,84043\r\n2017,81334\r\n2016,78828\r\n2015,76185\r\n2014,73272\r\n2013,70235\r\n2012,67426\r\n2011,64106\r\n2010,60581",
-      "srcs": [
-        {
-          "name": "data.census.gov",
-          "url": "https://data.census.gov/cedsci/table?q=S1901&tid=ACSST5Y2019.S1901"
-        }
-      ],
-      "legend": [
-        "Average Income for Households"
-      ],
-      "title": "Average Income for Households in North Dakota",
-      "type": "LINE",
-      "chartUrl": ""
-    },
-    {
-      "data_csv": "label,Count of Household: Other Family Household\r\n2021,37394\r\n2020,36814\r\n2019,37493\r\n2018,37074\r\n2017,36572\r\n2016,36463\r\n2015,36097\r\n2014,34454\r\n2013,33338\r\n2012,32370\r\n2011,30908",
-      "srcs": [
-        {
-          "name": "census.gov",
-          "url": "https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html"
-        }
-      ],
-      "legend": [
-        "Count of Household: Other Family Household"
-      ],
-      "title": "Count of Household: Other Family Household in North Dakota",
-      "type": "LINE",
-      "chartUrl": ""
-    },
-    {
-      "data_csv": "label,Mean Income Deficit of Household: Married Couple Family Household\r\n2021,9392\r\n2020,8665\r\n2019,8812\r\n2018,8920\r\n2017,8599\r\n2016,8639\r\n2015,8711\r\n2014,8645\r\n2013,8072\r\n2012,8075\r\n2011,7641\r\n2010,7201",
-      "srcs": [
-        {
-          "name": "data.census.gov",
-          "url": "https://data.census.gov/cedsci/table?q=S1702&tid=ACSST5Y2019.S1702"
-        }
-      ],
-      "legend": [
-        "Mean Income Deficit of Household: Married Couple Family Household"
-      ],
-      "title": "Mean Income Deficit of Household: Married Couple Family Household in North Dakota",
-      "type": "LINE",
-      "chartUrl": ""
+      "highlight": {
+        "date": "2019",
+        "value": 86249
+      },
+      "chartUrl": "",
+      "dcUrl": "https://datacommons.org/explore#q=family%20earnings%20in%20north%20dakota"
     }
   ]
 }

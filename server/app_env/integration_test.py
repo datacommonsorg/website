@@ -15,9 +15,22 @@
 from server.app_env import _base
 
 
-class Config(_base.Config):
+class AutopushConfig(_base.Config):
   INTEGRATION = True
   API_ROOT = 'https://autopush.api.datacommons.org'
   SECRET_PROJECT = 'datcom-website-dev'
   SCHEME = 'http'
-  USE_PALM = True
+  USE_LLM = True
+
+
+class StagingConfig(_base.Config):
+  INTEGRATION = True
+  API_ROOT = 'https://staging.api.datacommons.org'
+  SECRET_PROJECT = 'datcom-website-staging'
+  SCHEME = 'http'
+  USE_LLM = True
+
+
+# This is only used for testing bad-words file before push.
+class BadWordsConfig(StagingConfig):
+  BAD_WORDS_FILE = 'nl_bad_words_staging.txt'

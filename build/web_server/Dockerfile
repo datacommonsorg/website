@@ -33,6 +33,10 @@ COPY packages/web-components/package.json /workspace/packages/web-components/pac
 COPY packages/web-components/package-lock.json /workspace/packages/web-components/package-lock.json
 RUN npm --prefix /workspace/packages/web-components install --omit=dev
 
+COPY packages/client/package.json /workspace/packages/client/package.json
+COPY packages/client/package-lock.json /workspace/packages/client/package-lock.json
+RUN npm --prefix /workspace/packages/client install
+
 COPY static/package.json /workspace/static/package.json
 COPY static/package-lock.json /workspace/static/package-lock.json
 RUN npm --prefix /workspace/static install --omit=dev
@@ -47,4 +51,6 @@ RUN npm run-script build
 COPY server/. /workspace/server/
 COPY shared/. /workspace/shared/
 WORKDIR /workspace
-CMD exec gunicorn --preload --timeout 1000 --bind :8080 -w 4 web_app:app
+# The number of workers (8) is the number of requests that the app can support
+# at a time.
+CMD exec gunicorn --preload --timeout 1000 --bind :8080 -w 8 web_app:app

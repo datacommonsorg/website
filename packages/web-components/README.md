@@ -60,14 +60,14 @@ To find the DCID of a place or variable:
 
 2. Search for places and variables with the [Data Commons Search](https://datacommons.org/search) page.
 
-3. Use the [Data Commons Graph Browser](https://datacommons.org/browser) to
+3. Use the [Data Commons Knowledge Graph](https://datacommons.org/browser) to
    understand the relationship between entities.
 
 > Example #1: Inspecting [Health / Health Insurance (Household) / No Health Insurance / Households Without Health Insurance](https://datacommons.org/tools/statvar#sv=Count_Household_NoHealthInsurance) shows us that the statistical variable `Count_Household_NoHealthInsurance` is available in the `United States` (DCID: `country/USA`) at `State`, `County`, and `City` levels.
 
 <img src="./docs/assets/stat-var-explorer.png" width="600"/>
 
-> Example #2 , the graph browser [country/USA](https://datacommons.org/browser/country/USA) page shows the DCIDs for all US states and territories.
+> Example #2 , the knowledge graph [country/USA](https://datacommons.org/browser/country/USA) page shows the DCIDs for all US states and territories.
 
 ## Styling
 

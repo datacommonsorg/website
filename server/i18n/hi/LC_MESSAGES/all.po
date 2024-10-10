@@ -82,8 +82,8 @@ msgstr "शिक्षा पर सरकारी खर्च"
 msgid "Government Expenditures on Military"
 msgstr "सेना पर सरकारी खर्च"
 
-msgid "Graph Browser"
-msgstr "ग्राफ़ ब्राउज़र"
+msgid "Knowledge Graph"
+msgstr "ज्ञान ग्राफ"
 
 msgid "Gross National Income"
 msgstr "सकल राष्ट्रीय आय"
@@ -706,3 +706,46 @@ msgstr "Water withdrawal rate"
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "खास जानकारी"
 
+#. Place containment. Gives context for where a place is located.
+msgid "%(placeType)s in %(parentPlaces)s"
+msgstr "%(parentPlaces)s में %(placeType)s"
+
+#. Place Types
+msgid "singular_administrative_area"
+msgstr "प्रशासकीय क्षेत्र"
+
+msgid "singular_administrative_area_level"
+msgstr "प्रशासकीय क्षेत्र %(level)s वाले इलाके"
+
+msgid "singular_borough"
+msgstr "नगर"
+
+msgid "singular_city"
+msgstr "शहर"
+
+msgid "singular_country"
+msgstr "देश"
+
+msgid "singular_county"
+msgstr "काउंटी"
+
+msgid "singular_eurostat_nuts"
+msgstr "यूरोस्टेट एनयूटीएस %(level)s वाले इलाके"
+
+msgid "singular_neighborhood"
+msgstr "आस-पड़ोस"
+
+msgid "singular_place"
+msgstr "जगह"
+
+msgid "singular_state"
+msgstr "राज्य"
+
+msgid "singular_town"
+msgstr "कस्बा"
+
+msgid "singular_village"
+msgstr "गांव"
+
+msgid "singular_zip_code"
+msgstr "पिन कोड"

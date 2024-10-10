@@ -34,11 +34,7 @@ class PageSubtitle extends React.Component<PageSubtitlePropsType> {
     const category = this.props.category;
     let elem: JSX.Element;
     if (category == "Overview") {
-      elem = (
-        <h2 className="col-12 pt-2" id="overview">
-          {this.props.categoryDisplayStr}
-        </h2>
-      );
+      elem = <></>;
     } else {
       elem = (
         <h2 className="category col-12 pt-2">

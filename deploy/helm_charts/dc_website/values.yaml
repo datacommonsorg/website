@@ -26,6 +26,21 @@ website:
     enabled: false
     configFile:
 
+  placeSummary:
+    enabled: true
+    data:
+      country:
+      geoid_0_2:
+      geoid_3_5:
+      geoid_6_9:
+      wikidataId:
+      others:
+
+  nodePool:
+
+  evalTool:
+    enabled: false
+
 nameOverride: ""
 fullnameOverride: ""
 
@@ -85,7 +100,8 @@ serviceGroups:
     resources:
       memoryRequest: "8G"
       memoryLimit: "8G"
-    useSearch: true
+    cacheSVG: true
+    nodePool:
   observation:
     urlPaths:
       - "/v2/observation"
@@ -93,13 +109,15 @@ serviceGroups:
     resources:
       memoryRequest: "2G"
       memoryLimit: "2G"
+    nodePool:
   node:
     urlPaths:
       - "/v2/node"
     replicas: 1
     resources:
-      memoryRequest: "2G"
-      memoryLimit: "2G"
+      memoryRequest: "3G"
+      memoryLimit: "3G"
+    nodePool:
   default:
     urlPaths:
       - "/*"
@@ -107,14 +125,21 @@ serviceGroups:
     resources:
       memoryRequest: "2G"
       memoryLimit: "2G"
+    nodePool:
 
 ###############################################################################
 # Config for NL
 ###############################################################################
 nl:
   enabled: false
-  embeddings:
-  models:
+  memory: "2G"
+  workers: 1
+  catalog: {}
+  env:
+    default_indexes: []
+    enabled_indexes: []
+    vertex_ai_models: {}
+    enable_reranking: false
 
 ###############################################################################
 # Config for Stat Var Groups which is shared between Website and Mixer
@@ -133,3 +158,25 @@ nodejs:
   env: "gke"
   replicas:
   apiRoot:
+  nodePool:
+
+###############################################################################
+# Config for Cron Testing Job
+###############################################################################
+cronTesting:
+  enabled: false
+  # These are the in-cluster service endpoints that are set during script
+  # deployment runtime.
+  webApiRoot:
+  nodejsRoot:
+  # The domain to use for screenshot tests. Screenshot tests will only run if
+  # this is set.
+  screenshotDomain:
+  # whether or not sanity tests are enabled
+  enableSanity: true
+  # whether or not adversarial tests are enabled
+  enableAdversarial: true
+  # node pool to use
+  nodePool:
+  # schedule to run the cron tests on
+  schedule:

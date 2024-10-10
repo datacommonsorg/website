@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import Dict, List
+import logging
+from typing import Dict
 
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import Detection
@@ -34,12 +35,21 @@ def result_with_debug_info(data_dict: Dict, status: str,
       'CosineScore':
           query_detection.svs_detected.single_sv.scores,
       'SV_to_Sentences':
-          query_detection.svs_detected.single_sv.sv2sentences,
+          query_detection.svs_detected.single_sv.sv2sentences_dict(),
       'MultiSV':
           dvars.multivar_candidates_to_dict(
               query_detection.svs_detected.multi_sv),
+      'Query':
+          query_detection.svs_detected.query
   }
-  svs_to_sentences = query_detection.svs_detected.single_sv.sv2sentences
+  svs_to_sentences = query_detection.svs_detected.single_sv.sv2sentences_dict()
+  props_dict = {
+      'PROP': query_detection.svs_detected.prop.svs,
+      'CosineScore': query_detection.svs_detected.prop.scores,
+      'PROP_to_Sentences':
+          query_detection.svs_detected.prop.sv2sentences_dict()
+  }
+  props_to_sentences = query_detection.svs_detected.prop.sv2sentences_dict()
 
   if svs_dict is None or not svs_dict:
     svs_dict = _empty_svs_score_dict()
@@ -54,6 +64,7 @@ def result_with_debug_info(data_dict: Dict, status: str,
   clustering_classification = "<None>"
   event_classification = "<None>"
   quantity_classification = "<None>"
+  date_classification = "<None>"
 
   general_parts = []
   for classification in query_detection.classifications:
@@ -75,6 +86,8 @@ def result_with_debug_info(data_dict: Dict, status: str,
       correlation_classification = 'DETECTED'
     elif classification.type == ClassificationType.QUANTITY:
       quantity_classification = str(classification.attributes)
+    elif classification.type == ClassificationType.DATE:
+      date_classification = str(classification.attributes)
     elif isinstance(classification.attributes, GeneralClassificationAttributes):
       typ = None
       if classification.type == ClassificationType.OVERVIEW:
@@ -83,8 +96,11 @@ def result_with_debug_info(data_dict: Dict, status: str,
         typ = 'Answer Places Reference'
       elif classification.type == ClassificationType.PER_CAPITA:
         typ = 'Per Capita'
+      elif classification.type == ClassificationType.TEMPORAL:
+        typ = 'Temporal'
+      trigger_words = ','.join(classification.attributes.trigger_words).strip()
       if typ:
-        general_parts.append(typ)
+        general_parts.append(f'{typ} ({trigger_words})')
 
   if general_parts:
     general_classification = ' | '.join(general_parts)
@@ -93,10 +109,11 @@ def result_with_debug_info(data_dict: Dict, status: str,
       'status': status,
       'original_query': query_detection.original_query,
       'detection_type': query_detection.detector,
-      'llm_api_type': query_detection.llm_api,
-      'place_detection_type': query_detection.place_detector,
+      'place_detection_type': "dc",
       'sv_matching': svs_dict,
       'svs_to_sentences': svs_to_sentences,
+      'props_matching': props_dict,
+      'props_to_sentences': props_to_sentences,
       'ranking_classification': ranking_classification,
       'general_classification': general_classification,
       'superlative_classification': superlative_classification,
@@ -107,20 +124,36 @@ def result_with_debug_info(data_dict: Dict, status: str,
       'correlation_classification': correlation_classification,
       'event_classification': event_classification,
       'quantity_classification': quantity_classification,
+      'date_classification': date_classification,
       'counters': debug_counters,
   }
 
   places_found_formatted = ""
   for place in query_detection.places_detected.places_found:
     places_found_formatted += f"(name: {place.name}, dcid: {place.dcid}); "
+  entities_found_formatted = ""
+  for entity in query_detection.places_detected.entities_found:
+    entities_found_formatted += f"(name: {entity.name}, dcid: {entity.dcid}); "
+
+  query_transformations = query_detection_debug_logs.get(
+      'query_transformations', {})
 
   debug_info.update({
       'places_detected':
           query_detection.places_detected.query_places_mentioned,
       'places_resolved':
           places_found_formatted,
+      'entities_detected':
+          query_detection.places_detected.query_entities_mentioned,
+      'entities_resolved':
+          entities_found_formatted,
+      'query_index_types':
+          query_transformations.get('sv_detection_query_index_types', []),
       'query_with_places_removed':
           query_detection.places_detected.query_without_place_substr,
+      'query_with_stop_words_removal':
+          query_transformations.get('sv_detection_query_stop_words_removal',
+                                    ''),
       'query_detection_debug_logs':
           query_detection_debug_logs,
   })

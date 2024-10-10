@@ -15,6 +15,25 @@
 
 from typing import Dict, FrozenSet, List, Set, Union
 
+import frozendict
+
+# These are words that come before rate, which together mean a specific metric
+# (like "fertility rate"). So if "fertility rate" appears in the query, we will
+# not infer PerCapita heuristic.
+# Note that we expect to find the full phrase with the word rate in the NL index
+# description
+_RATE_WORDS_TO_SKIP = [
+    "birth", "change", "exchange", "fertility", "literacy", "participation",
+    "unemployment", "withdrawal"
+]
+# negative look behinds in python require fixed width regex so need to create
+# 2 look behinds for each individual word to skip: one for rate and one for
+# rates
+_RATE_WORDS_LOOK_BEHINDS = ''.join([
+    f'(?<!{rate_word}\srate)(?<!{rate_word}\srates)'
+    for rate_word in _RATE_WORDS_TO_SKIP
+])
+
 STOP_WORDS: Set[str] = {
     'ourselves',
     'hers',
@@ -58,7 +77,6 @@ STOP_WORDS: Set[str] = {
     'the',
     'themselves',
     'until',
-    'below',
     'are',
     'we',
     'these',
@@ -78,7 +96,6 @@ STOP_WORDS: Set[str] = {
     'our',
     'their',
     'while',
-    'above',
     'both',
     'up',
     'to',
@@ -86,7 +103,6 @@ STOP_WORDS: Set[str] = {
     'had',
     'she',
     'all',
-    'no',
     'when',
     'at',
     'any',
@@ -110,7 +126,6 @@ STOP_WORDS: Set[str] = {
     'so',
     'can',
     'did',
-    'not',
     'now',
     'under',
     'he',
@@ -151,73 +166,8 @@ STOP_WORDS: Set[str] = {
     'across',
 }
 
-# TODO: remove this special casing when a better NER model is identified which
-# can always detect these.
-OVERRIDE_FOR_NER: FrozenSet[str] = frozenset([
-    'palo alto',
-    'mountain view',
-    'world',
-    'earth',
-    'africa',
-    'antarctica',
-    'asia',
-    'europe',
-    'north america',
-    'south america',
-    'oceania',
-    # San Francisco Bay Area(s)
-    'san francisco bay area',
-    'sf bay area',
-    'san francisco peninsula',
-    'san francisco north bay',
-    'san francisco south bay',
-    'san francisco east bay',
-    'sf peninsula',
-    'sf north bay',
-    'sf south bay',
-    'sf east bay',
-    # US
-    'united states',  # need this because the word "states" gets replaced.
-    'usa',
-])
-
-# Replace the detected place text with this alternate (shorter) place text.
-# The replacement text (value) should be contained within the detected text (key).
-# This is to ensure that the original query string does not need to be modified.
-# For example, if the query string contains "us states" and that is detected as a plce
-# string, we replce it with "us" only. This means that when detected place words/strings
-# are removed from the original query, "us" will be replaced and "states" will still
-# remain in the query. If the replacement string (value) is not contained within the
-# detected place (key), then the detected place and query may have nothing in common
-# which can lead to adverse downstream impact.
-SHORTEN_PLACE_DETECTION_STRING: Dict[str, str] = {
-    'us states': 'us',
-    'states us': 'us',
-    'usa states': 'usa',
-    'states usa': 'usa',
-}
-
-SPECIAL_PLACE_REPLACEMENTS: Dict[str, str] = {'us': 'United States'}
-
-SPECIAL_DCIDS_TO_PLACES: Dict[str, List[str]] = {
-    'Earth': ['earth', 'world'],
-    # Continents
-    'africa': ['africa'],
-    'antarctica': ['antarctica'],
-    'asia': ['asia'],
-    'europe': ['europe'],
-    'northamerica': ['north america', 'northamerica'],
-    'southamerica': [
-        'south america', 'southamerica', 'latin america', 'latinamerica'
-    ],
-    'oceania': ['oceania', 'australasia'],
-    # special places
-    'wikidataId/Q213205': ['san francisco bay area', 'sf bay area', 'bay area'],
-    'wikidataId/Q1827082': ['san francisco peninsula', 'sf peninsula'],
-    'wikidataId/Q3271856': ['san francisco south bay', 'sf south bay'],
-    'wikidataId/Q3271661': ['san francisco north bay', 'sf north bay'],
-    'wikidataId/Q2617944': ['san francisco east bay', 'sf east bay'],
-}
+# Exception list where stop words should be excluded
+STOP_WORDS_EXCLUSIONS = ['how many', 'number of']
 
 # Note: These heuristics should be revisited if we change
 # query preprocessing (e.g. stopwords, stemming)
@@ -265,7 +215,6 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
         "Comparison": [
             "compare(s|d)?",
             "comparison",
-            "(is|has|have)( a| the)? \w+er",
             # WARNING: These will conflate with Correlation
             "vs",
             "versus",
@@ -341,9 +290,75 @@ QUERY_CLASSIFICATION_HEURISTICS: Dict[str, Union[List[str], Dict[
         # together with ContainedInPlace.
         "AnswerPlacesReference": ["these", "those"],
         "PerCapita": [
-            "fraction", "percent", "percentage", "per capita", "percapita"
+            "fraction",
+            "percent",
+            "percentage",
+            "per capita",
+            "percapita",
+            "per person",
+            # remove "rate" or "rates" if is not preceded by certain words (used as one metric)
+            f"rates?{_RATE_WORDS_LOOK_BEHINDS}",
+        ],
+        "Temporal": [
+            # Day of week
+            "monday",
+            "tuesday",
+            "wednesday",
+            "thursday",
+            "friday",
+            "saturday",
+            "sunday",
+            # Month of year
+            "january",
+            "february",
+            "march",
+            "april",
+            "may",
+            "june",
+            "july",
+            "august",
+            "september",
+            "october",
+            "november",
+            "december",
+            # Season
+            "spring",
+            "summer",
+            "winter",
+            "autumn",
+            # Others
+            "today",
+            "yesterday",
+            "tomorrow",
         ]
     }
+
+# By default, we do not want to strip words from these heuristics because they
+# can match SVs too: events / superlatives / temporal / percapita.
+# We want to keep per capita because queries like "theft rates" without the
+# per capita stop words will become "theft" which has trouble matching plurals
+# and stat based descriptions.
+#
+# The key is heuristic type and the value is a list of exclusion patterns. If the
+# list is empty (default) all patterns are excluded from stop-words.
+HEURISTIC_TYPES_IN_VARIABLES = frozendict.frozendict({
+    "Event": [],
+    "Superlative": [],
+    "Temporal": [],
+    "PerCapita": [],
+})
+
+# For toolformer, we do want to strip words from PerCapita heuristics because
+# we care about top matches being more accurate.
+HEURISTIC_TYPES_IN_VARIABLES_TOOLFORMER = frozendict.frozendict({
+    "Event": [],
+    "Superlative": [],
+    "Temporal": [],
+    "Ranking": [
+        "richest", "poorest", "healthiest", "sickest", "illest", "strongest",
+        "weakest", "oldest", "youngest"
+    ]
+})
 
 PLACE_TYPE_TO_PLURALS: Dict[str, str] = {
     "place": "places",
@@ -403,11 +418,40 @@ NON_GEO_PLACE_TYPES: FrozenSet[str] = frozenset([
     "school",
 ])
 
+# The default Cosine score threshold beyond which Stat Vars
+# are considered as a match.
+SV_SCORE_DEFAULT_THRESHOLD = 0.5
+
+#
+# The Cosine high-confidence score threshold override.
+# NOTE: Used only when the model-threshold is lower than this.
+SV_SCORE_HIGH_CONFIDENCE_THRESHOLD = 0.7
+
+# The Cosine score threshold for mode=toolformer.
+# NOTE: Used only when the model-threshold is lower than this.
+SV_SCORE_TOOLFORMER_THRESHOLD = 0.8
+
 # A cosine score differential we use to indicate if scores
 # that differ by up to this amount are "near" SVs.
 # In Multi-SV detection, if the difference between successive scores exceeds
 # this threshold, then SVs at the lower score and below are ignored.
+# TODO: Maybe keep an eye on this for new model.
 MULTI_SV_SCORE_DIFFERENTIAL = 0.05
 
 # English language code.
 EN_LANG_CODE = 'en'
+
+# date query param value for requesting latest observations from REST v2 API
+# Observations for a particular variable and place may have different dates
+# (will return the most recently available data for particular place/variable
+# combination)
+DATE_LATEST = 'LATEST'
+
+# date query param value for requesting observations with the 'best coverage'
+# overall from /api/observations/point/* endpoints
+# Observations for a particular variable and place will always have the same
+# date
+DATE_HIGHEST_COVERAGE = 'HIGHEST_COVERAGE'
+
+# The name of the embeddings CSV file.
+EMBEDDINGS_FILE_NAME = 'embeddings.csv'

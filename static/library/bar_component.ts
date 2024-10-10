@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
+import { ChartSortOption } from "@datacommonsorg/web-components";
 import { css, CSSResult, LitElement, unsafeCSS } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import _ from "lodash";
 
 import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
-import { ChartSortOption } from "@datacommonsorg/web-components";
 import { BarTile, BarTilePropType } from "../js/components/tiles/bar_tile";
+import { DEFAULT_PER_CAPITA_DENOM } from "./constants";
 import {
   convertArrayAttribute,
   convertBooleanAttribute,
@@ -101,6 +102,12 @@ export class DatacommonsBarComponent extends LitElement {
   childPlaceType!: string;
 
   /**
+   * Optional: specific date to show data for
+   */
+  @property()
+  date: string;
+
+  /**
    * Optional: list of specific colors to use in the chart.
    * The number of colors passed in should equal the number of variables.
    * The order of colors should match the order of variables.
@@ -145,6 +152,10 @@ export class DatacommonsBarComponent extends LitElement {
    * */
   @property()
   parentPlace!: string;
+
+  // Optional: List of variable DCIDs to plot per capita
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  perCapita?: string[];
 
   /* Optional: List of DCIDs of places to plot
    * If provided, place and enclosePlaceType will be ignored
@@ -191,6 +202,10 @@ export class DatacommonsBarComponent extends LitElement {
   @property({ type: Boolean, converter: convertBooleanAttribute })
   showExploreMore: boolean;
 
+  // Optional: listen for value changes with this event name
+  @property()
+  subscribe: string;
+
   // Optional: Regex used to process variable names
   // If provided, will only use the first case of the variable name that matches
   // this regex.
@@ -210,12 +225,24 @@ export class DatacommonsBarComponent extends LitElement {
   @property()
   placeNameProp!: string;
 
-  render(): HTMLElement {
+  // Optional: List of sources for this component
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  sources?: string[];
+
+  // Optional: Disable the entity href link for this component
+  @property({ type: Boolean, converter: convertBooleanAttribute })
+  disableEntityLink?: boolean;
+
+  render(): HTMLDivElement {
     const statVarDcids: string[] = this.variables;
     const statVarSpec = [];
     statVarDcids.forEach((statVarDcid) => {
       statVarSpec.push({
-        denom: "",
+        date: this.date,
+        denom:
+          this.perCapita && this.perCapita.includes(statVarDcid)
+            ? DEFAULT_PER_CAPITA_DENOM
+            : "",
         log: false,
         name: "",
         scaling: 1,
@@ -242,12 +269,15 @@ export class DatacommonsBarComponent extends LitElement {
       showExploreMore: this.showExploreMore,
       showTooltipOnHover: true,
       sort: this.sort,
+      sources: this.sources,
       stacked: this.stacked,
       variables: statVarSpec,
       svgChartHeight: 200,
       title: this.header || this.title,
       useLollipop: this.lollipop,
       yAxisMargin: this.yAxisMargin,
+      subscribe: this.subscribe,
+      disableEntityLink: this.disableEntityLink,
     };
 
     return createWebComponentElement(BarTile, barTileProps);

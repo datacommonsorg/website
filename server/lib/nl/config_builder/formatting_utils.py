@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 import re
+from typing import Dict, List
 
 _SPECIAL_REPLACEMENTS = {
     " A ": " a ",
@@ -128,3 +129,13 @@ def make_sentence_case(input_string: str) -> str:
     output_str += "."
 
   return output_str
+
+
+def title_for_two_or_more_svs(svs: List[str], sv2name: Dict[str, str]) -> str:
+  if len(svs) == 2 and sv2name.get(svs[0]) and sv2name.get(svs[1]):
+    return f'{sv2name[svs[0]]} and {sv2name[svs[1]]}'
+  elif sv2name.get(svs[0]):
+    return f'{sv2name[svs[0]]} and more'
+
+  # This should very rarely, if ever, be used.
+  return 'Comparison of related variables'

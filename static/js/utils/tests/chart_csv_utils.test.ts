@@ -16,6 +16,7 @@
 
 import { DataGroup, DataPoint } from "../../chart/base";
 import { GeoJsonData } from "../../chart/types";
+import { StatVarSpec } from "../../shared/types";
 import { RankingPoint } from "../../types/ranking_unit_types";
 import {
   dataGroupsToCsv,
@@ -254,20 +255,29 @@ test("mapDataToCsv", () => {
     [testPlaceA]: 1,
     [testPlaceB]: 2,
   };
+  const testVariable = {
+    denom: "",
+    log: false,
+    name: "testVarName",
+    scaling: 1,
+    statVar: "testVarDcid",
+    unit: "",
+  };
   const cases: {
     name: string;
     geoJson: GeoJsonData;
     dataValues: { [placeDcid: string]: number };
     expected: string;
+    variable?: StatVarSpec;
   }[] = [
     {
-      name: "non empty geoJson and dataValues",
+      name: "non empty geoJson and dataValues, empty variable",
       geoJson: testGeoJson,
       dataValues: testDataValues,
-      expected: 'label,data\r\nPlaceA,1\r\n"PlaceB, test",2',
+      expected: 'place,data\r\nPlaceA,1\r\n"PlaceB, test",2',
     },
     {
-      name: "empty geoJson",
+      name: "empty geoJson, empty variable",
       geoJson: {
         type: "FeatureCollection",
         features: [],
@@ -276,18 +286,28 @@ test("mapDataToCsv", () => {
         },
       },
       dataValues: testDataValues,
-      expected: "label,data",
+      expected: "place,data",
     },
     {
-      name: "empty dataValues",
+      name: "empty dataValues, empty variable",
       geoJson: testGeoJson,
       dataValues: {},
-      expected: 'label,data\r\nPlaceA,N/A\r\n"PlaceB, test",N/A',
+      expected: 'place,data\r\nPlaceA,N/A\r\n"PlaceB, test",N/A',
+    },
+    {
+      name: "non empty geoJson, dataValues, variable",
+      geoJson: testGeoJson,
+      dataValues: testDataValues,
+      expected:
+        'place,variable,data\r\nPlaceA,testVarName,1\r\n"PlaceB, test",testVarName,2',
+      variable: testVariable,
     },
   ];
 
   for (const c of cases) {
-    const csv = mapDataToCsv([c.geoJson], c.dataValues);
+    const csv = mapDataToCsv([
+      { dataValues: c.dataValues, geoJson: c.geoJson, variable: c.variable },
+    ]);
     try {
       expect(csv).toEqual(c.expected);
     } catch (e) {

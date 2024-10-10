@@ -1,4 +1,5 @@
 {
+  "client": "test_fulfill",
   "config": {
     "categories": [
       {
@@ -25,6 +26,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "country/USA",
@@ -159,6 +161,8 @@
     "varToTopics": {}
   },
   "showForm": true,
-  "svSource": "UNFULFILLED",
-  "userMessage": "Sorry, there were no relevant statistics about the topic for United States of America."
+  "svSource": "UNRECOGNIZED",
+  "userMessages": [
+    "Could not recognize any topic from the query."
+  ]
 }

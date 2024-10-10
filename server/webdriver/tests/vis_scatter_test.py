@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import unittest
 import urllib
 import urllib.request
 
@@ -91,7 +92,7 @@ class TestVisScatter(WebdriverBaseTest):
                                            '.scatter-chart .chart-headers h4')
     self.assertEqual(
         chart_title.text,
-        "Population Without Health Insurance (2021) vs Female Population (2021)"
+        "Population Without Health Insurance (2022) vs Female Population (2022)"
     )
     chart = self.driver.find_element(By.ID, 'scatterplot')
     circles = chart.find_elements(By.TAG_NAME, 'circle')
@@ -137,12 +138,8 @@ class TestVisScatter(WebdriverBaseTest):
     self.driver.find_elements(By.CLASS_NAME,
                               'source-selector-trigger')[1].click()
     # Update the source for the Count_Person_Female sv
-    element_present = EC.element_to_be_clickable(
-        (By.NAME, 'Count_Person_Female'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    source_options = self.driver.find_elements(By.NAME, 'Count_Person_Female')
-    self.assertGreater(len(source_options), 3)
-    source_options[3].click()
+    shared.select_source(self.driver, "CDC_Mortality_UnderlyingCause",
+                         "Count_Person_Female")
     update_button = self.driver.find_element(By.CSS_SELECTOR,
                                              '.modal-footer .btn')
     update_button.click()
@@ -152,8 +149,11 @@ class TestVisScatter(WebdriverBaseTest):
                                            '.scatter-chart .chart-headers h4')
     self.assertEqual(
         chart_title.text,
-        "Population Without Health Insurance (2021) vs Female Population (2019)"
+        "Population Without Health Insurance (2022) vs Female Population (2004 to 2020)"
     )
+    chart_source = self.driver.find_element(
+        By.CSS_SELECTOR, '.scatter-chart .chart-headers .sources')
+    self.assertTrue("wonder.cdc.gov" in chart_source.text)
     chart = self.driver.find_element(By.ID, 'scatterplot')
     circles = chart.find_elements(By.TAG_NAME, 'circle')
     self.assertGreater(len(circles), 20)
@@ -245,7 +245,7 @@ class TestVisScatter(WebdriverBaseTest):
                                            '.scatter-chart .chart-headers h4')
     self.assertEqual(
         chart_title.text,
-        'Median Age of Population (2021) vs Median Income of a Population (2021)'
+        'Median Age of Population (2022) vs Median Income of a Population (2022)'
     )
     chart = self.driver.find_element(By.ID, 'scatterplot')
     circles = chart.find_elements(By.TAG_NAME, 'circle')

@@ -1,0 +1,25 @@
+{
+  "client": "test",
+  "config": {},
+  "context": {},
+  "debug": {},
+  "entities": [],
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "",
+    "name": "",
+    "place_type": ""
+  },
+  "placeFallback": {},
+  "placeSource": "UNRECOGNIZED",
+  "places": [
+    {
+      "dcid": "",
+      "name": "",
+      "place_type": ""
+    }
+  ],
+  "relatedThings": {},
+  "svSource": "CURRENT_QUERY",
+  "userMessages": []
+}

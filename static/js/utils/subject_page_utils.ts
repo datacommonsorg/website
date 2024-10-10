@@ -13,35 +13,64 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { ChartSortOption } from "@datacommonsorg/web-components";
 import axios from "axios";
 import _ from "lodash";
+import { defineMessages } from "react-intl";
 
-import { ChartSortOption } from "@datacommonsorg/web-components";
 import { GeoJsonData } from "../chart/types";
 import {
   NL_LARGE_TILE_CLASS,
   NL_MED_TILE_CLASS,
   NL_NUM_TILES_SHOWN,
   NL_SMALL_TILE_CLASS,
-} from "../constants/app/nl_interface_constants";
-import { NamedPlace, NamedTypedPlace } from "../shared/types";
+} from "../constants/app/explore_constants";
+import { intl } from "../i18n/i18n";
+import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../shared/types";
 import {
   ColumnConfig,
   SubjectPageConfig,
 } from "../types/subject_page_proto_types";
-import { SubjectPageMetadata } from "./../types/subject_page_types";
+import { SubjectPageMetadata } from "../types/subject_page_types";
 import { getFilteredParentPlaces } from "./app/disaster_dashboard_utils";
-import { isNlInterface } from "./nl_interface_utils";
+import { isNlInterface } from "./explore_utils";
 
 /**
  * Util functions used by subject page components.
  */
 
+const TITLE_MESSAGES = defineMessages({
+  titleWithPerCapitaAndDate: {
+    defaultMessage: "{variableName} (Per Capita in {date})",
+    description:
+      "Chart title for a chart with variable values that are per capita for a specific date",
+    id: "chart-title-with-per-capita-and-date",
+  },
+  titleWithPerCapitaOnly: {
+    defaultMessage: "{variableName} (Per Capita)",
+    description:
+      "Chart title for a chart with variable values that are per capita",
+    id: "chart-title-with-per-capita-no-date",
+  },
+  titleWithTwoVariables: {
+    defaultMessage: "{variable1} Vs. {variable2}",
+    description:
+      "Chart title for a chart comparing two different variables. For example, this could be Obesity Rate vs. Median Income.",
+    id: "chart-title-with-two-variables",
+  },
+  titleWithTwoVariablesAndLocation: {
+    defaultMessage: "{variable1} Vs. {variable2} in {placeType} of {place}",
+    description:
+      "Chart title for a chart comparing two different variables, for places of a specific type within a place. For example, this could be Obesity Rate Vs. Income in States of USA, or Housing vs Poverty in Countries of Europe.",
+    id: "chart-title-with-two-variables-and-location",
+  },
+});
+
 /**
  * Gets the relative link using the title of a section on the subject page
  * @param title title of the section to get the relative link for
  */
-export function getRelLink(title: string) {
+export function getRelLink(title: string): string {
   return title.replace(/ /g, "-");
 }
 
@@ -101,6 +130,7 @@ export function getColumnTileClassName(column: ColumnConfig): string {
  * @param selectedPlace the enclosing place to get geojson data for
  * @param placeType the place type to get geojson data for
  * @param parentPlaces parent places of the selected place
+ * @param apiRoot the stem of the API endpoint
  */
 export function fetchGeoJsonData(
   selectedPlace: NamedTypedPlace,
@@ -209,4 +239,97 @@ export function trimCategory(
     pageConfig.categories = categories;
   }
   return pageConfig;
+}
+
+/**
+ * Add "Per Capita" to a chart title.
+ *
+ * If the "date" replacement string is present, will add "Per Capita in" inside
+ * the same parentheses as the date. If date is not present, will add
+ * "(Per Capita)" to the end of the title.
+ *
+ * Assumes chart titles have the format <StatVarName> (${date}). Used for
+ * updating the chart titles when the "See per capita" checkbox is checked.
+ *
+ * @param title title of the chart to edit
+ * @param dateString format of the date replacement string to look for
+ * @returns new chart title that includes the string "Per Capita"
+ */
+export function addPerCapitaToTitle(
+  title: string,
+  dateString = "date"
+): string {
+  const dateStringPattern = `(\${${dateString}})`;
+  if (title && title.includes(dateStringPattern)) {
+    // title includes date
+    // extract part before ${date} to pass into formatMessage
+    const statVarName = title.slice(0, title.indexOf(dateStringPattern));
+    return intl.formatMessage(TITLE_MESSAGES.titleWithPerCapitaAndDate, {
+      date: `\${${dateString}}`,
+      variableName: statVarName,
+    });
+  }
+  // title does not include date, just add (Per Capita) to the end
+  return intl.formatMessage(TITLE_MESSAGES.titleWithPerCapitaOnly, {
+    variableName: title,
+  });
+}
+
+/**
+ * Add "Per Capita" to a chart title that compares two stat vars
+ *
+ * Adds "Per Capita" to the variables that have a denom in their spec. If xDate
+ * or yDate replacement strings are present, will add "Per Capita" inside the
+ * same parentheses as the corresponding variable date. If xDate or yDate is
+ * not present, will add "(Per Capita)" after the variable name instead.
+ *
+ * Assumes the first stat var in statVarSpecs is shown on the y-axis, and
+ * the second stat var in statVarSpecs is shown on the x-axis. Assumes the
+ * format of the title originally is "<y-axis stat var> Vs. <x-axis stat var> in
+ * <placeType> of <parentPlace>" or "<y-axis stat var> Vs. <x-axis stat var>".
+ *
+ * @param title title of chart to edit
+ * @param statVarSpecs stat vars being plotted by the chart
+ * @returns new chart title that includes "Per Capita" for vars with denom
+ */
+export function addPerCapitaToVersusTitle(
+  title: string,
+  statVarSpecs: StatVarSpec[]
+): string {
+  // Split title into constituent parts via regex groups:
+  //   xVar -> x-axis stat var
+  //   yVar -> y-axis stat var
+  //   vs -> " Vs. " or " vs. " or " Vs " or " vs "
+  //   location -> "in <placeType> of <place>", if present
+  const regex =
+    /^(?<yVar>.*?)(?<vs>\s[Vv]s\.?\s)(?<xVar>.*?)(?<location>\s+in\s(?<placeType>.*?)\sof\s(?<parentPlace>.*?))?$/;
+  const titleParts = title.match(regex).groups;
+  if (titleParts) {
+    // Edit xVar and yVar parts to include "Per Capita"
+    if (statVarSpecs?.[0].denom) {
+      titleParts.yVar = addPerCapitaToTitle(titleParts.yVar, "yDate");
+    }
+    if (statVarSpecs?.[1].denom) {
+      titleParts.xVar = addPerCapitaToTitle(titleParts.xVar, "xDate");
+    }
+    if (titleParts.placeType && titleParts.parentPlace) {
+      // include location in title if "in placeType of place" was found
+      return intl.formatMessage(
+        TITLE_MESSAGES.titleWithTwoVariablesAndLocation,
+        {
+          place: titleParts.parentPlace,
+          placeType: titleParts.placeType,
+          variable1: titleParts.yVar,
+          variable2: titleParts.xVar,
+        }
+      );
+    } else {
+      // otherwise, just return "y-axis stat var Vs. x-axis stat var"
+      return intl.formatMessage(TITLE_MESSAGES.titleWithTwoVariables, {
+        variable1: titleParts.yVar,
+        variable2: titleParts.xVar,
+      });
+    }
+  }
+  return title;
 }

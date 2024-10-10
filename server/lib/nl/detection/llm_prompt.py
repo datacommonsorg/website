@@ -20,16 +20,13 @@ from server.lib.util import get_repo_root
 
 @dataclass
 class Prompts:
-  # Prompt for full query detection for Chat API.
-  detection_chat: str
-  # Prompt for full query detection for Text API.
-  detection_text: str
+  # Prompt for full query detection for Gemini Pro Text API.
+  gemini_pro: str
 
 
 # Returns LLM prompt texts
 def get_prompts() -> Prompts:
-  return Prompts(detection_chat=_content("palm_prompt_chatapi.txt"),
-                 detection_text=_content("palm_prompt_textapi.txt"))
+  return Prompts(gemini_pro=_content("geminipro_prompt.txt"))
 
 
 def _content(fname) -> str:

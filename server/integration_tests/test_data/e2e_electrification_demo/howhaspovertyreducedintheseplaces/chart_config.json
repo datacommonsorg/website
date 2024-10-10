@@ -1,4 +1,5 @@
 {
+  "client": "test_detect-and-fulfill",
   "config": {
     "categories": [
       {
@@ -21,14 +22,14 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY18"
                     ],
-                    "title": "Proportion of Population Below International Poverty Line",
+                    "title": "Population Below International Poverty Line",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: Poverty and Inequality Portal, World Bank",
-            "title": "Proportion of Population Below International Poverty Line"
+            "title": "Population Below International Poverty Line"
           },
           {
             "columns": [
@@ -130,7 +131,7 @@
               }
             ],
             "footnote": "Includes data from the following sources: Poverty and Inequality Portal, World Bank",
-            "title": "Decrease in Proportion of Population Below International Poverty Line Over Time (Absolute Change)"
+            "title": "Decrease in Population Below International Poverty Line Over Time (Absolute Change)"
           },
           {
             "columns": [
@@ -232,20 +233,20 @@
               }
             ],
             "footnote": "Includes data from the following sources: Poverty and Inequality Portal, World Bank",
-            "title": "Decrease in Proportion of Population Below International Poverty Line Over Time (Percent Change)"
+            "title": "Decrease in Population Below International Poverty Line Over Time (Percent Change)"
           }
         ],
         "statVarSpec": {
           "sdg/SI_POV_DAY18": {
-            "name": "Proportion of population below international poverty line",
+            "name": "Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1"
           },
           "sdg/SI_POV_DAY1_growth_abs": {
-            "name": "Proportion of population below international poverty line",
+            "name": "Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1"
           },
           "sdg/SI_POV_DAY1_growth_pct": {
-            "name": "Proportion of population below international poverty line",
+            "name": "Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1"
           }
         }
@@ -259,6 +260,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "country/MLI",
@@ -360,5 +362,7 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "See comparison based on places in the previous answer."
+  "userMessages": [
+    "See comparison based on places in the previous answer."
+  ]
 }

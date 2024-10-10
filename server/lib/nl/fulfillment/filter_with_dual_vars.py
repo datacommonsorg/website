@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import copy
-import logging
 from typing import List
 
 from server.lib.nl.common import rank_utils
@@ -22,9 +21,12 @@ from server.lib.nl.common.topic import open_top_topics_ordered
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.common.utterance import Utterance
+from server.lib.nl.detection.date import get_date_range_strings
+from server.lib.nl.detection.date import get_date_string
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Place
 from server.lib.nl.fulfillment.types import ChartVars
+from server.lib.nl.fulfillment.types import ExistInfo
 from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.fulfillment.utils import add_chart_to_utterance
 
@@ -78,7 +80,6 @@ def set_overrides(state: PopulateState):
 # TODO: Consider deduping with filter_with_single_var.populate.
 def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
              chart_origin: ChartOriginType, _: int) -> bool:
-  logging.info('populate_cb for filter_with_dual_vars')
   if chart_vars.event:
     state.uttr.counters.err('filter-with-dual-vars_failed_cb_events', 1)
     return False
@@ -86,8 +87,8 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     state.uttr.counters.err('filter-with-dual-vars_failed_cb_toomanyplaces',
                             [p.dcid for p in places])
     return False
-  if len(chart_vars.svs) > 1:
-    state.uttr.counters.err('filter-with-dual-vars_failed_cb_toomanysvs',
+  if len(chart_vars.svs) > 1 and chart_vars.is_topic_peer_group:
+    state.uttr.counters.err('filter-with-dual-vars_failed_cb_peergroupsvs',
                             chart_vars.svs)
     return False
   if not state.place_type:
@@ -99,14 +100,20 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     # Just report we're done.
     return True
 
-  logging.info('Attempting to filter places')
   sv = chart_vars.svs[0]
-
+  date = ''
+  if state.single_date:
+    date = get_date_string(state.single_date)
+  elif state.date_range:
+    place_key = utils.get_place_key(places[0].dcid, state.place_type.value)
+    date = state.exist_checks.get(sv, {}).get(place_key,
+                                              ExistInfo()).latest_valid_date
   ranked_children = rank_utils.filter_and_rank_places(
       parent_place=places[0],
       child_type=state.place_type,
       sv=sv,
-      filter=state.quantity)
+      value_filter=state.quantity,
+      date=date)
 
   if not ranked_children:
     state.uttr.counters.err('filter-with-dual-vars_emptyresults', 1)
@@ -116,7 +123,6 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
   if show_lowest:
     ranked_children.reverse()
   shortlist = ranked_children[:_MAX_PLACES_TO_RETURN]
-  logging.info(f'shortlist is {shortlist}')
 
   place_dcids = [p.dcid for p in shortlist]
 
@@ -130,13 +136,20 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
   selected_svs = open_top_topics_ordered(selected_svs, state.uttr.counters)
 
   # Perform existence checks.
-  selected_svs, _ = utils.sv_existence_for_places(place_dcids, selected_svs,
-                                                  state.uttr.counters)
+  existing_svs, _ = utils.sv_existence_for_places_check_single_point(
+      place_dcids, selected_svs, state.single_date, state.date_range,
+      state.uttr.counters)
+  # Get the predicted latest dates from results of existence checks
+  sv_place_latest_date = {}
+  _, end_date = get_date_range_strings(state.date_range)
+  if end_date:
+    sv_place_latest_date = utils.get_predicted_latest_date(
+        existing_svs, state.date_range)
+  selected_svs = list(existing_svs.keys())
   if not selected_svs:
     state.uttr.counters.err('filter-with-dual-vars_selectedexistencefailed',
                             selected_svs)
     return False
-  logging.info(f'post-existence check vars: {selected_svs}')
 
   # Compute title suffix.
   if len(ranked_children) > _MAX_PLACES_TO_RETURN:
@@ -148,9 +161,13 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
   for sv in selected_svs:
     cv = copy.deepcopy(chart_vars)
     cv.svs = [sv]
-    logging.info(f'adding to dual-sv chart: {sv}')
-    found |= add_chart_to_utterance(ChartType.BAR_CHART, state, cv, shortlist,
-                                    chart_origin)
+    found |= add_chart_to_utterance(
+        ChartType.BAR_CHART,
+        state,
+        cv,
+        shortlist,
+        chart_origin,
+        sv_place_latest_date={sv: sv_place_latest_date.get(sv, {})})
 
   state.uttr.counters.info(
       'filter-with-dual-vars_ranked_places', {

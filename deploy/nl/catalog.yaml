@@ -1,0 +1,123 @@
+# Copyright 2024 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+#
+# This is the main config file for NL models and embeddings,
+# with two sections.
+#
+# models:
+# - type: what type of model serving infra? (LOCAL, VERTEXAI)
+# - usage: what is the model used for?  (EMBEDDINGS, RERANKING)
+# - score_threshold: For embeddings model, what is the cutoff threshold
+#                    below which we drop matches? (default: 0.5)
+#
+# indexes:
+# - store_type: what type of embeddings store?  (MEMORY, LANCEDB, VERTEXAI)
+# - model: the name of the associated model from `models` section
+# - embeddings_path: For MEMORY/LANCEDB, the path to the index files.
+#               Can be a local absolute path or GCS (gs://) path.
+# - healthcheck_query: if this index were the default index, what is
+#                      the query to use for health-checking the index?
+# - source_path: the input csv path.
+# - Additional params specific to VERTEXAI:
+#   - project_id
+#   - location
+#   - index_endpoint_root
+#   - index_endpoint
+#   - index_id
+# TODO: Move the VERTEXAI index params to per-env yamls.
+#
+# Additionally, every environment (prod, etc) may define the following
+# parameters if NL is enabled:
+# - default_indexes: Which indexes in `indexes` section are the default?
+# - enabled_indexes: What are the indexes to load on server start?
+# - enable_ranking: Should the RANKING models be loaded on server start?
+# - vertex_ai_models: Additional endpoint configuration for Vertex AI models
+#
+# NOTE: Ensure every VERTEXAI model below has parameters in the
+# env yaml files for all the environments you're enabling it for.
+#
+
+version: "1"
+
+indexes:
+  medium_ft:
+    store_type: MEMORY
+    embeddings_path: gs://datcom-nl-models/embeddings_medium_2024_05_09_18_01_32.ft_final_v20230717230459.all-MiniLM-L6-v2.csv
+    model: ft-final-v20230717230459-all-MiniLM-L6-v2
+    healthcheck_query: "Life expectancy"
+  sdg_ft:
+    store_type: MEMORY
+    source_path: ../../tools/nl/embeddings/input/sdg
+    embeddings_path: gs://datcom-nl-models/sdg_ft_2024_06_24_23_45_46/embeddings.csv
+    model: ft-final-v20230717230459-all-MiniLM-L6-v2
+    healthcheck_query: "Hunger"
+  undata_ft:
+    store_type: MEMORY
+    source_path: ../../tools/nl/embeddings/input/undata
+    embeddings_path: gs://datcom-nl-models/undata_ft_2024_06_24_23_47_04/embeddings.csv
+    model: ft-final-v20230717230459-all-MiniLM-L6-v2
+    healthcheck_query: "Hunger"
+  undata_ilo_ft:
+    store_type: MEMORY
+    source_path: ../../tools/nl/embeddings/input/undata_ilo
+    embeddings_path: gs://datcom-nl-models/undata_ilo_ft_2024_10_03_16_14_25/embeddings.csv
+    model: ft-final-v20230717230459-all-MiniLM-L6-v2
+    healthcheck_query: "Employment"
+  bio_ft:
+    store_type: MEMORY
+    source_path: ../../tools/nl/embeddings/input/bio
+    embeddings_path: gs://datcom-nl-models/bio_ft_2024_06_24_23_40_05/embeddings.csv
+    model: ft-final-v20230717230459-all-MiniLM-L6-v2
+    healthcheck_query: "Gene"
+  base_uae_lance:
+    store_type: LANCEDB
+    source_path: ../../tools/nl/embeddings/input/base
+    embeddings_path: gs://datcom-nl-models/base_uae_lance_2024_06_25_00_00_48
+    model: uae-large-v1-model
+    healthcheck_query: "Life expectancy"
+  base_uae_mem:
+    store_type: MEMORY
+    source_path: ../../tools/nl/embeddings/input/base
+    embeddings_path: gs://datcom-nl-models/base_uae_mem_2024_08_06_15_55_55/embeddings.csv
+    model: uae-large-v1-model
+    healthcheck_query: "Life expectancy"
+  base_mistral_mem:
+    store_type: MEMORY
+    source_path: ../../tools/nl/embeddings/input/base
+    embeddings_path: gs://datcom-nl-models/base_mistral_mem_2024_07_01_10_23_43/embeddings.csv
+    model: sfr-embedding-mistral-model
+    healthcheck_query: "Life expectancy"
+
+models:
+  uae-large-v1-model:
+    type: VERTEXAI
+    usage: EMBEDDINGS
+    # Use a higher threshold.
+    score_threshold: 0.7
+  sfr-embedding-mistral-model:
+    type: VERTEXAI
+    usage: EMBEDDINGS
+    score_threshold: 0.5
+  cross-encoder-ms-marco-miniilm-l6-v2:
+    type: VERTEXAI
+    usage: RERANKING
+  cross-encoder-mxbai-rerank-base-v1:
+    type: VERTEXAI
+    usage: RERANKING
+  ft-final-v20230717230459-all-MiniLM-L6-v2:
+    type: LOCAL
+    usage: EMBEDDINGS
+    gcs_folder: gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2
+    score_threshold: 0.5

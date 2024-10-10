@@ -73,7 +73,6 @@ class DevChart extends React.Component<DevChartPropType> {
         elem.current.offsetWidth,
         this.props.height,
         this.props.dataGroups,
-        false,
         true,
         {
           unit: this.props.unit,

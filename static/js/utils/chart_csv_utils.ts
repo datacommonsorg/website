@@ -23,8 +23,10 @@ import Papa from "papaparse";
 
 import { DataGroup, DataPoint } from "../chart/base";
 import { Point } from "../chart/draw_scatter";
-import { GeoJsonData } from "../chart/types";
+import { MapLayerData } from "../components/tiles/map_tile";
 import { RankingPoint } from "../types/ranking_unit_types";
+
+const DEFAULT_LABEL_HEADER = "label";
 
 // TODO(beets): Create DataPoints class and add this to that class.
 /**
@@ -48,7 +50,10 @@ function findDataPointOrNull(
  * Gets the csv (as a string) for a  list of data groups.
  * @param dataGroups data groups to get the csv for
  */
-export function dataGroupsToCsv(dataGroups: DataGroup[]): string {
+export function dataGroupsToCsv(
+  dataGroups: DataGroup[],
+  labelHeaderOverride?: string
+): string {
   if (!dataGroups || dataGroups.length == 0) {
     return "";
   }
@@ -58,8 +63,9 @@ export function dataGroupsToCsv(dataGroups: DataGroup[]): string {
     const dates = dg.value.map((dp) => dp.label);
     allLabels = new Set([...Array.from(allLabels), ...dates]);
   }
+  const labelHeader = labelHeaderOverride || DEFAULT_LABEL_HEADER;
   // Get the header row.
-  const header = ["label"];
+  const header = [labelHeader];
   for (const dg of dataGroups) {
     header.push(dg.label);
   }
@@ -155,23 +161,29 @@ export function dataPointsToCsv(dataPoints: DataPoint[]): string {
 
 /**
  * Gets the csv (as a string) for a map chart data
- * @param geoJson GeoJson used for the map
- * @param dataValues data values used in the map
+ * @param layerData geoJsons + data values plotted by the map
  */
-export function mapDataToCsv(
-  geoJsons: GeoJsonData[],
-  dataValues: { [placeDcid: string]: number }
-): string {
-  const header = ["label", "data"];
+export function mapDataToCsv(layerData: MapLayerData[]): string {
+  // check if at least one layer has a variable field provided
+  const hasVariable = layerData.some((layer) => layer.variable);
   const data = [];
-  for (const geoJson of geoJsons) {
-    for (const geo of geoJson.features) {
+  for (const layer of layerData) {
+    for (const geo of layer.geoJson.features) {
       if (!geo.id) {
         continue;
       }
-      const value = geo.id in dataValues ? dataValues[geo.id] : "N/A";
+      const value =
+        geo.id in layer.dataValues ? layer.dataValues[geo.id] || "N/A" : "N/A";
       const name = geo.properties.name || geo.id;
-      data.push([name, value]);
+      // only add variable column if a variable field is in layer data.
+      if (hasVariable) {
+        const variable = layer.variable
+          ? layer.variable.name || layer.variable.statVar
+          : "N/A";
+        data.push([name, variable, value]);
+      } else {
+        data.push([name, value]);
+      }
     }
   }
   // sort data by label column (alphabetically)
@@ -184,6 +196,9 @@ export function mapDataToCsv(
       return a[0] > b[0] ? 1 : -1;
     }
   });
+  const header = hasVariable
+    ? ["place", "variable", "data"]
+    : ["place", "data"];
   const rows = [header, ...data];
   return Papa.unparse(rows);
 }

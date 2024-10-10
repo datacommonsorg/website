@@ -16,9 +16,20 @@
 PROJECT_ID=$1
 CLUSTER_NAME=$2
 LOCATION=$3
+# Optional: Set REDIS_REGION if it is different from the cluster LOCATION arg
+REDIS_REGION=$4
+
+# Exit the script if there's an error
+set -e
 
 gcloud config set project $PROJECT_ID
 
+# Set default redis region if not passed in
+if [ -z "${REDIS_REGION}" ]; then
+  REDIS_REGION=$LOCATION
+fi
+
+# Set cluster region or zone
 if [[ $LOCATION =~ ^[a-z]+-[a-z0-9]+$ ]]; then
   REGION=$LOCATION
 else
@@ -27,9 +38,7 @@ fi
 gcloud container clusters get-credentials $CLUSTER_NAME \
   ${REGION:+--region=$REGION} ${ZONE:+--zone=$ZONE} --project=$PROJECT_ID
 
-
 POD_NAME=$(kubectl get pods -n website -l app=website-app -o=jsonpath='{.items[0].metadata.name}')
-HOST=$(gcloud redis instances describe webserver-cache --region="$REGION" --format="get(host)")
-echo $HOST
-script="import redis; redis_client = redis.StrictRedis(host=\"$HOST\", port=6379); resp = redis_client.flushall(asynchronous=True); print(resp)"
+HOST=$(gcloud redis instances describe webserver-cache --region="$REDIS_REGION" --format="get(host)")
+script="import redis; redis_client = redis.StrictRedis(host=\"$HOST\", port=6379); resp = redis_client.flushall(asynchronous=True); print(\"Clearing cache for $PROJECT_ID/$CLUSTER_NAME/$LOCATION, redis host $HOST:\",resp)"
 kubectl exec -it $POD_NAME -n website -- /bin/bash -c "python -c '$script'"

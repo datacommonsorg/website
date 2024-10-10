@@ -1,0 +1,86 @@
+{
+  "Count_Person": {
+    "dcid": "Count_Person",
+    "unit": "",
+    "scaling": "",
+    "name": "population",
+    "computePerCapita": false
+  },
+  "Median_Age_Person": {
+    "dcid": "Median_Age_Person",
+    "unit": "",
+    "scaling": "",
+    "name": "median age",
+    "computePerCapita": false
+  },
+  "Median_Income_Person": {
+    "dcid": "Median_Income_Person",
+    "unit": "$",
+    "scaling": "",
+    "name": "median income",
+    "computePerCapita": false
+  },
+  "UnemploymentRate_Person": {
+    "dcid": "UnemploymentRate_Person",
+    "unit": "%",
+    "scaling": "",
+    "name": "unemployment rate",
+    "computePerCapita": false
+  },
+  "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": {
+    "dcid": "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita",
+    "unit": "$",
+    "scaling": "",
+    "name": "nominal GDP per capita",
+    "computePerCapita": false
+  },
+  "GiniIndex_EconomicActivity": {
+    "dcid": "GiniIndex_EconomicActivity",
+    "unit": "",
+    "scaling": "",
+    "name": "Gini index",
+    "computePerCapita": false
+  },
+  "LifeExpectancy_Person": {
+    "dcid": "LifeExpectancy_Person",
+    "unit": "",
+    "scaling": "",
+    "name": "life expectancy",
+    "computePerCapita": false
+  },
+  "Percent_Person_Obesity": {
+    "dcid": "Percent_Person_Obesity",
+    "unit": "%",
+    "scaling": "",
+    "name": "percentage of people with obesity",
+    "computePerCapita": false
+  },
+  "Percent_Person_BingeDrinking": {
+    "dcid": "Percent_Person_BingeDrinking",
+    "unit": "%",
+    "scaling": "",
+    "name": "percentage of people who binge drink",
+    "computePerCapita": false
+  },
+  "Percent_Person_Smoking": {
+    "dcid": "Percent_Person_Smoking",
+    "unit": "%",
+    "scaling": "",
+    "name": "percentage of people who smoke",
+    "computePerCapita": false
+  },
+  "Amount_Consumption_Energy_PerCapita": {
+    "dcid": "Amount_Consumption_Energy_PerCapita",
+    "unit": "kg",
+    "scaling": "",
+    "name": "energy consumption per capita",
+    "computePerCapita": false
+  },
+  "Amount_Emissions_CarbonDioxide_PerCapita": {
+    "dcid": "Amount_Emissions_CarbonDioxide_PerCapita",
+    "unit": "t",
+    "scaling": "",
+    "name": "carbon dioxide emissions per capita",
+    "computePerCapita": false
+  }
+}

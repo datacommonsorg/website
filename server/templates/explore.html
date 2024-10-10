@@ -19,22 +19,20 @@
  {% set main_id = 'explore' %}
  {% set page_id = 'explore-page' %}
  {% set title = 'Explore' %}
- {% set subpage_title = '' %}
- {% set subpage_url = url_for('explore.page') %}
 
  {% block head %}
  <link rel="stylesheet" href={{url_for('static', filename='css/explore.min.css', t=config['VERSION'])}} >
  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
- <script src="https://datacommons.org/datacommons.js"></script>
+ <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
  {% endblock %}
 
  {% block content %}
  <div id="metadata" class="d-none" data-website-hash="{{ website_hash }}" data-hide-debug="{{ config['HIDE_DEBUG'] }}"></div>
  <div id="dc-explore"></div>
  {% endblock %}
+
  {% block footer %}
- <script
-   src={{url_for('static', filename='explore.js', t=config['VERSION'])}}></script>
- <script src="https://maps.googleapis.com/maps/api/js?key={{maps_api_key}}&libraries=places&language={{locale}}" async
-   defer></script>
+ <script src={{url_for('static', filename='explore.js', t=config['VERSION'])}}></script>
+ <script src="https://maps.googleapis.com/maps/api/js?key={{maps_api_key}}&libraries=places&language={{locale}}&loading=async" async
+  defer></script>
  {% endblock %}

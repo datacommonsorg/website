@@ -39,7 +39,7 @@ import {
   EARTH_NAMED_TYPED_PLACE,
   USA_PLACE_DCID,
 } from "../../shared/constants";
-import { NamedPlace, NamedTypedPlace } from "../../shared/types";
+import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { isChildPlaceOf } from "../../tools/shared_util";
 import {
   DisasterEventPoint,
@@ -59,6 +59,7 @@ import { fetchGeoJsonData } from "../../utils/subject_page_utils";
 import { ReplacementStrings } from "../../utils/tile_utils";
 import { DataFetchContext } from "../subject_page/data_fetch_context";
 import { ChartTileContainer } from "./chart_tile";
+import { MapLayerData } from "./map_tile";
 
 const ZOOM_IN_BUTTON_ID = "zoom-in-button";
 const ZOOM_OUT_BUTTON_ID = "zoom-out-button";
@@ -187,6 +188,7 @@ export const DisasterEventMapTile = memo(function DisasterEventMapTile(
     <ChartTileContainer
       id={props.id}
       title={props.title}
+      apiRoot={props.apiRoot}
       sources={chartData ? chartData.sources : new Set<string>()}
       replacementStrings={getReplacementStrings(props)}
       className={`${CSS_SELECTOR_PREFIX}-tile`}
@@ -508,18 +510,16 @@ export function draw(
     chartData.baseMapGeoJson,
     props.place.dcid
   );
-  const geoJsonData = {};
-  geoJsonData[props.place.dcid] = {
+  const layerData: MapLayerData = {
+    colorScale: null /* no color scale since no data shown on the base map */,
+    dataValues: {} /* no data values to show on the base map */,
     geoJson: chartData.baseMapGeoJson,
-    shouldShowBoundaryLines: true,
   };
   drawD3Map(
     svgContainer,
-    geoJsonData,
+    [layerData],
     svgHeight,
     svgWidth,
-    {} /* dataValues: no data values to show on the base map */,
-    null /* colorScale: no color scale since no data shown on the base map */,
     redirectAction || _.noop /* redirectAction */,
     (place: NamedPlace) => place.name || place.dcid /* getTooltipHtml */,
     (placeDcid: string) =>

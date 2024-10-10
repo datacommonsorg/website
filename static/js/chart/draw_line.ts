@@ -37,6 +37,7 @@ import {
   XLINKNS,
 } from "./draw_constants";
 import {
+  addChartTitle,
   addTooltip,
   addXAxis,
   addYAxis,
@@ -63,6 +64,7 @@ const YLABEL = {
 };
 // min distance between bottom of the tooltip and a datapoint
 const TOOLTIP_BOTTOM_OFFSET = 5;
+const HIGHLIGHT_DATE_CLASS = "highlight-date";
 
 /**
  * Gets the html content of a tooltip
@@ -79,7 +81,8 @@ function getTooltipContent(
   unit?: string
 ): string {
   let tooltipDate = "";
-  let tooltipContent = "";
+  // each item represents a row in the tooltip
+  const tooltipContent: { rowLabel: string; value: number }[] = [];
   const places = Object.keys(dataGroupsDict);
   for (const place of places) {
     for (const dataGroupLabel in rowLabels[place]) {
@@ -87,9 +90,8 @@ function getTooltipContent(
         (datagroup) => datagroup.label === dataGroupLabel
       );
       const rowLabel = rowLabels[place][dataGroupLabel];
-      let displayValue = "N/A";
       if (!dataGroup) {
-        tooltipContent += `${rowLabel}: ${displayValue}<br/>`;
+        tooltipContent.push({ rowLabel, value: null });
         continue;
       }
       const dataPoint = dataGroup.value.find(
@@ -97,17 +99,31 @@ function getTooltipContent(
       );
       if (dataPoint) {
         tooltipDate = dataPoint.label;
-        displayValue = !_.isNull(dataPoint.value)
-          ? formatNumber(dataPoint.value, unit)
-          : "N/A";
-        tooltipContent += `${rowLabel}: ${displayValue}<br/>`;
+        tooltipContent.push({ rowLabel, value: dataPoint.value });
       }
     }
   }
+  // sort the rows of content in the tooltip by highest value first
+  tooltipContent.sort((a, b) => {
+    if (a.value === null) {
+      return 1;
+    } else if (b.value === null) {
+      return -1;
+    } else {
+      return b.value - a.value;
+    }
+  });
+  // get the formatted string for each row of the content in the tooltip
+  const tooltipContentStrings = tooltipContent.map((content) => {
+    const displayValue = !_.isNull(content.value)
+      ? formatNumber(content.value, unit)
+      : "N/A";
+    return `${content.rowLabel}: ${displayValue}`;
+  });
   if (places.length === 1 && dataGroupsDict[places[0]].length === 1) {
-    return tooltipDate + tooltipContent;
+    return tooltipDate + tooltipContentStrings.join("<br/>");
   } else {
-    return `${tooltipDate}<br/>` + tooltipContent;
+    return `${tooltipDate}<br/>` + tooltipContentStrings.join("<br/>");
   }
 }
 
@@ -235,10 +251,14 @@ function addHighlightOnHover(
   );
   container
     .on("mouseover", () => {
+      // Hide any dots that were originally highlighted on the chart
+      container.selectAll(`.${HIGHLIGHT_DATE_CLASS}`).style("display", "none");
       highlightArea.style("opacity", "1");
       tooltip.style("display", "block");
     })
     .on("mouseout", () => {
+      // Restore the original highlighted dots
+      container.selectAll(`.${HIGHLIGHT_DATE_CLASS}`).style("display", "block");
       highlightArea.style("opacity", "0");
       tooltip.style("display", "none");
     })
@@ -323,10 +343,8 @@ function getTickFormatFn(
  * @param width
  * @param height
  * @param dataGroups
- * @param showAllDots
  * @param highlightOnHover
- * @param unit
- * @param handleDotClick
+ * @param options
  *
  * @return false if any series in the chart was filled in
  */
@@ -335,7 +353,6 @@ export function drawLineChart(
   width: number,
   height: number,
   dataGroups: DataGroup[],
-  showAllDots: boolean,
   highlightOnHover: boolean,
   options?: LineChartOptions
 ): boolean {
@@ -365,10 +382,15 @@ export function drawLineChart(
   const highlight = svg.append("g").attr("class", "highlight");
   const chart = svg.append("g").attr("class", "chart-area");
 
+  let marginTop = MARGIN.top;
+  if (options?.title) {
+    marginTop += addChartTitle(svg, options?.title, width);
+  }
+
   const yScale = d3
     .scaleLinear()
     .domain([minV, maxV])
-    .range([height - MARGIN.bottom, MARGIN.top])
+    .range([height - MARGIN.bottom, marginTop])
     .nice(NUM_Y_TICKS);
   const leftWidth = addYAxis(
     yAxis,
@@ -434,8 +456,12 @@ export function drawLineChart(
     });
     const hasGap = shouldFillInValues(dataset);
     hasFilledInValues = hasFilledInValues || hasGap;
+    // If there is a specific date to be highlighted on the chart, don't show
+    // any other dots unless options.showAllDots is set.
     const shouldAddDots =
-      dataset.length < MIN_POINTS_FOR_DOTS_ON_LINE_CHART || showAllDots;
+      (!options.highlightDate &&
+        dataset.length < MIN_POINTS_FOR_DOTS_ON_LINE_CHART) ||
+      options.showAllDots;
     const line = d3
       .line()
       .defined((d) => d[1] !== null) // Ignore points that are null
@@ -496,6 +522,22 @@ export function drawLineChart(
       if (options?.handleDotClick) {
         dots.on("click", options?.handleDotClick);
       }
+    }
+
+    if (options.highlightDate) {
+      const highlightedDot = dataGroup.value.find(
+        (dp) =>
+          dp.label === options.highlightDate ||
+          dp.date === options.highlightDate
+      );
+      chart
+        .insert("circle", ":first-child")
+        .attr("class", HIGHLIGHT_DATE_CLASS)
+        .attr("r", HIGHLIGHTING_DOT_R)
+        .style("fill", colorFn(dataGroup.label))
+        .style("stroke", "#fff")
+        .attr("cx", xScale(highlightedDot.time))
+        .attr("cy", yScale(highlightedDot.value));
     }
   }
 

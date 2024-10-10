@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# DNS
+domain: datacommons.iitm.ac.in
+ip: 34.111.65.19
+
 # Helm config
 project: datcom-iitm
 cluster_prefix: website

@@ -17,14 +17,15 @@ set -e
 
 ENV=$1
 REGION=$2
+NODES=$3
 
 if [[ $ENV == "" || $REGION == "" ]]; then
   echo "Missing arg 1 (env) and/or arg 2 (region)"
   exit 1
 fi
 
-PROJECT_ID=$(yq eval '.project' ../deploy/gke/$ENV.yaml)
-NODES=$(yq eval '.nodes' ../deploy/gke/$ENV.yaml)
+CONFIG_YAML="../deploy/helm_charts/envs/$1.yaml"
+PROJECT_ID=$(yq eval '.project' $CONFIG_YAML)
 
 CLUSTER_NAME="website-$REGION"
 
@@ -70,3 +71,22 @@ kubectl annotate serviceaccount \
   --namespace website \
   website-ksa \
   iam.gke.io/gcp-service-account=website-robot@$PROJECT_ID.iam.gserviceaccount.com
+
+# Get project number from project ID, to determine the default service account
+PROJECT_NUM=$(gcloud projects list --filter="$(gcloud config get-value project)" --format="value(PROJECT_NUMBER)")
+
+# Grant permissions to the default service account
+# This is needed for workload logging
+declare -a roles=(
+    "roles/logging.admin"
+    "roles/monitoring.admin"
+    "roles/storage.admin"
+    "roles/dataflow.worker"
+    "roles/bigtable.user"
+)
+for role in "${roles[@]}"
+do
+  gcloud projects add-iam-policy-binding $PROJECT_ID \
+    --member "serviceAccount:$PROJECT_NUM-compute@developer.gserviceaccount.com" \
+    --role $role
+done

@@ -82,8 +82,8 @@ msgstr "政府の教育支出"
 msgid "Government Expenditures on Military"
 msgstr "政府の軍事支出"
 
-msgid "Graph Browser"
-msgstr "グラフブラウザ"
+msgid "Knowledge Graph"
+msgstr "ナレッジグラフ"
 
 msgid "Gross National Income"
 msgstr "国民総所得"
@@ -706,3 +706,46 @@ msgstr "Water withdrawal rate"
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "概要"
 
+#. Place containment. Gives context for where a place is located.
+msgid "%(placeType)s in %(parentPlaces)s"
+msgstr "%(parentPlaces)s 内の %(placeType)s"
+
+#. Place Types
+msgid "singular_administrative_area"
+msgstr "行政区域"
+
+msgid "singular_administrative_area_level"
+msgstr "行政区域 %(level)s の地域"
+
+msgid "singular_borough"
+msgstr "特別区"
+
+msgid "singular_city"
+msgstr "都市"
+
+msgid "singular_country"
+msgstr "国"
+
+msgid "singular_county"
+msgstr "郡"
+
+msgid "singular_eurostat_nuts"
+msgstr "Eurostat NUTS %(level)s の地域"
+
+msgid "singular_neighborhood"
+msgstr "近隣地区"
+
+msgid "singular_place"
+msgstr "場所"
+
+msgid "singular_state"
+msgstr "州"
+
+msgid "singular_town"
+msgstr "町"
+
+msgid "singular_village"
+msgstr "村"
+
+msgid "singular_zip_code"
+msgstr "郵便番号"

@@ -37,17 +37,29 @@ const config = {
       __dirname + "/css/tools/stat_var.scss",
     ],
     dev: [__dirname + "/js/dev.ts", __dirname + "/css/dev.scss"],
+    diff: [__dirname + "/js/apps/diff/main.ts", __dirname + "/css/diff.scss"],
     timeline: [
       __dirname + "/js/tools/timeline/timeline.ts",
       __dirname + "/css/tools/timeline.scss",
     ],
     timeline_bulk_download: [__dirname + "/js/tools/timeline/bulk_download.ts"],
     mcf_playground: __dirname + "/js/mcf_playground.js",
+    base: [
+      __dirname + "/js/apps/base/main.ts",
+      __dirname + "/css/core.scss",
+    ],
     place: [
       __dirname + "/js/place/place.ts",
-      __dirname + "/css/place/place.scss",
+      __dirname + "/css/place/place_page.scss",
     ],
-    place_landing: [__dirname + "/js/place/place_landing.ts"],
+    place_landing: [
+      __dirname + "/js/place/place_landing.ts",
+      __dirname + "/css/place/place_landing.scss",
+    ],
+    dev_place: [
+      __dirname + "/js/place/dev_place.ts",
+      __dirname + "/css/place/dev_place_page.scss",
+    ],
     topic_page: [
       __dirname + "/js/apps/topic_page/main.ts",
       __dirname + "/css/topic_page.scss",
@@ -60,9 +72,16 @@ const config = {
       __dirname + "/js/apps/explore/main.ts",
       __dirname + "/css/explore.scss",
     ],
-    nl_interface: [
-      __dirname + "/js/apps/nl_interface/main.ts",
-      __dirname + "/css/nl_interface.scss",
+    eval_embeddings: [
+      __dirname + "/js/apps/eval_embeddings/main.ts",
+      __dirname + "/css/eval_embeddings.scss",
+    ],
+    eval_retrieval_generation: [
+      __dirname + "/js/apps/eval_retrieval_generation/main.ts",
+      __dirname + "/css/eval_retrieval_generation.scss",
+    ],
+    eval_retrieval_generation_sxs: [
+      __dirname + "/js/apps/eval_retrieval_generation/sxs/main.ts",
     ],
     ranking: [
       __dirname + "/js/ranking/ranking.ts",
@@ -71,6 +90,11 @@ const config = {
     browser: [
       __dirname + "/js/browser/browser.ts",
       __dirname + "/css/browser.scss",
+    ],
+    biomedical: __dirname + "/css/biomedical/biomedical_shared.scss",
+    biomedical_landing: [
+      __dirname + "/js/biomedical/landing/main.ts",
+      __dirname + "/css/biomedical/biomedical_landing.scss",
     ],
     disease: [
       __dirname + "/js/biomedical/disease/disease.ts",
@@ -105,7 +129,15 @@ const config = {
       __dirname + "/js/import_wizard2/import_wizard.ts",
       __dirname + "/css/import_wizard2.scss",
     ],
-    user: [__dirname + "/js/user/user.ts", __dirname + "/css/user.scss"],
+    about: [
+      __dirname + "/js/apps/about/main.ts",
+      __dirname + "/css/about.scss",
+    ],
+    admin: [__dirname + "/js/admin/main.ts", __dirname + "/css/admin.scss"],
+    build: [
+      __dirname + "/js/apps/build/main.ts",
+      __dirname + "/css/build.scss",
+    ],
     disaster_dashboard: [
       __dirname + "/js/apps/disaster_dashboard/main.ts",
       __dirname + "/css/disaster_dashboard.scss",
@@ -121,6 +153,10 @@ const config = {
     datacommons: [__dirname + "/library/index.ts"],
     homepage: [
       __dirname + "/js/apps/homepage/main.ts",
+      __dirname + "/css/homepage.scss",
+    ],
+    homepage_custom_dc: [
+      __dirname + "/js/apps/homepage/main_custom_dc.ts",
       __dirname + "/css/homepage.scss",
     ],
     visualization: [

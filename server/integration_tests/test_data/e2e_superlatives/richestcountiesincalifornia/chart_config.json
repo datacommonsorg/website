@@ -1,4 +1,5 @@
 {
+  "client": "test_detect-and-fulfill",
   "config": {
     "categories": [
       {
@@ -36,7 +37,7 @@
                 ]
               }
             ],
-            "title": "Household Median Income and More in Counties of California"
+            "title": "Household Median Income and Individual Median Income in Counties of California"
           },
           {
             "columns": [
@@ -50,7 +51,7 @@
                     "statVarKey": [
                       "Count_Person_IncomeOfUpto9999USDollar"
                     ],
-                    "title": "People Earning Up to $9,999 in Counties of California (${date})",
+                    "title": "Number of People Earning Up to $9,999 in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -65,7 +66,7 @@
                     "statVarKey": [
                       "Count_Person_IncomeOf10000To14999USDollar"
                     ],
-                    "title": "People Earning $10,000 and $14,999 in Counties of California (${date})",
+                    "title": "Number of People Earning $10,000 and $14,999 in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -80,7 +81,7 @@
                     "statVarKey": [
                       "Count_Person_IncomeOf25000To34999USDollar"
                     ],
-                    "title": "People Earning $25,000 and $34,999 in Counties of California (${date})",
+                    "title": "Number of People Earning $25,000 and $34,999 in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -95,7 +96,7 @@
                     "statVarKey": [
                       "Count_Person_IncomeOf35000To49999USDollar"
                     ],
-                    "title": "People Earning $35,000 and $49,999 in Counties of California (${date})",
+                    "title": "Number of People Earning $35,000 and $49,999 in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -110,7 +111,7 @@
                     "statVarKey": [
                       "Count_Person_IncomeOf50000To64999USDollar"
                     ],
-                    "title": "People Earning Between $50,000 and $64,999 in Counties of California (${date})",
+                    "title": "Number of People Earning Between $50,000 and $64,999 in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -125,7 +126,7 @@
                     "statVarKey": [
                       "Count_Person_IncomeOf65000To74999USDollar"
                     ],
-                    "title": "People Earning Between $65,000 and $74,999 in Counties of California (${date})",
+                    "title": "Number of People Earning Between $65,000 and $74,999 in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -140,7 +141,7 @@
                     "statVarKey": [
                       "Count_Person_IncomeOf75000OrMoreUSDollar"
                     ],
-                    "title": "People Earning $75,000 or More in Counties of California (${date})",
+                    "title": "Number of People Earning $75,000 or More in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -191,7 +192,7 @@
                     "statVarKey": [
                       "dc/3ex11eg2q9hp6"
                     ],
-                    "title": "Median Income of Manufacturing in Counties of California (${date})",
+                    "title": "Median Income of Manufacturing Workers in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -837,31 +838,31 @@
             "statVar": "Count_HousingUnit_HomeValueUpto49999USDollar"
           },
           "Count_Person_IncomeOf10000To14999USDollar": {
-            "name": "People Earning $10,000 and $14,999",
+            "name": "Number of People Earning $10,000 and $14,999",
             "statVar": "Count_Person_IncomeOf10000To14999USDollar"
           },
           "Count_Person_IncomeOf25000To34999USDollar": {
-            "name": "People Earning $25,000 and $34,999",
+            "name": "Number of People Earning $25,000 and $34,999",
             "statVar": "Count_Person_IncomeOf25000To34999USDollar"
           },
           "Count_Person_IncomeOf35000To49999USDollar": {
-            "name": "People Earning $35,000 and $49,999",
+            "name": "Number of People Earning $35,000 and $49,999",
             "statVar": "Count_Person_IncomeOf35000To49999USDollar"
           },
           "Count_Person_IncomeOf50000To64999USDollar": {
-            "name": "People Earning Between $50,000 and $64,999",
+            "name": "Number of People Earning Between $50,000 and $64,999",
             "statVar": "Count_Person_IncomeOf50000To64999USDollar"
           },
           "Count_Person_IncomeOf65000To74999USDollar": {
-            "name": "People Earning Between $65,000 and $74,999",
+            "name": "Number of People Earning Between $65,000 and $74,999",
             "statVar": "Count_Person_IncomeOf65000To74999USDollar"
           },
           "Count_Person_IncomeOf75000OrMoreUSDollar": {
-            "name": "People Earning $75,000 or More",
+            "name": "Number of People Earning $75,000 or More",
             "statVar": "Count_Person_IncomeOf75000OrMoreUSDollar"
           },
           "Count_Person_IncomeOfUpto9999USDollar": {
-            "name": "People Earning Up to $9,999",
+            "name": "Number of People Earning Up to $9,999",
             "statVar": "Count_Person_IncomeOfUpto9999USDollar"
           },
           "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts": {
@@ -909,7 +910,7 @@
             "statVar": "dc/2wgh04kx6es88"
           },
           "dc/3ex11eg2q9hp6": {
-            "name": "Median Income of Manufacturing",
+            "name": "Median Income of Manufacturing Workers",
             "statVar": "dc/3ex11eg2q9hp6"
           },
           "dc/4z9xy6wn8xns1": {
@@ -1018,6 +1019,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "geoId/06",
@@ -1411,14 +1413,7 @@
         ]
       }
     ],
-    "exploreMore": {
-      "Median_Income_Household": {
-        "benefitsStatus": [
-          "Median_Income_Household_WithFoodStampsInThePast12Months",
-          "Median_Income_Household_WithoutFoodStampsInThePast12Months"
-        ]
-      }
-    },
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Income",
@@ -1837,5 +1832,5 @@
   },
   "svSource": "UNKNOWN",
   "test": "unittest",
-  "userMessage": ""
+  "userMessages": []
 }

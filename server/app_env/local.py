@@ -17,13 +17,23 @@ from server.app_env import _base
 
 class Config(_base.Config):
   LOCAL = True
+  API_ROOT = 'https://api.datacommons.org'
+  SCHEME = 'http'
+  USE_MEMCACHE = False
+  ENABLE_BQ = True
+
+
+class DCConfig(Config):
   API_ROOT = 'https://autopush.api.datacommons.org'
   SECRET_PROJECT = 'datcom-website-dev'
-  SCHEME = 'http'
   GCS_BUCKET = 'datcom-website-autopush-resources'
-  USE_MEMCACHE = False
   LOG_QUERY = True
   SHOW_TOPIC = True
   SHOW_SUSTAINABILITY = True
-  USE_PALM = True
+  USE_LLM = True
   HIDE_DEBUG = False
+
+
+# This is only used for testing bad-words file before push.
+class BadWordsConfig(DCConfig):
+  BAD_WORDS_FILE = 'nl_bad_words_staging.txt'

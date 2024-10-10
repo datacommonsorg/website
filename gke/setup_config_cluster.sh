@@ -15,10 +15,31 @@
 
 set -e
 
+ENV=$1
+REGION=$2
+
+function help {
+  echo "Usage: $0 -n"
+  echo "-n       Setup nodejs service"
+  exit 1
+}
+
+while getopts ":n?" OPTION; do
+  case $OPTION in
+    n)
+      export SETUP_NODEJS=true
+      ;;
+    *)
+      help
+      ;;
+  esac
+done
+
 # https://cloud.google.com/kubernetes-engine/docs/how-to/ingress-for-anthos-setup
 
-PROJECT_ID=$(yq eval '.project' config.yaml)
-REGION=$(yq eval '.region.primary' config.yaml)
+CONFIG_YAML="../deploy/helm_charts/envs/$ENV.yaml"
+
+PROJECT_ID=$(yq eval '.project' $CONFIG_YAML)
 CLUSTER_NAME="website-$REGION"
 
 gcloud config set project $PROJECT_ID
@@ -27,11 +48,19 @@ gcloud beta container hub ingress enable \
   --config-membership=$CLUSTER_NAME
 
 cp mci.yaml.tpl mci.yaml
-export IP=$(yq eval '.ip' config.yaml)
+export IP=$(yq eval '.ip' $CONFIG_YAML)
 yq eval -i '.metadata.annotations."networking.gke.io/static-ip" = env(IP)' mci.yaml
+# If not setting up nodejs service, remove the nodejs path from the mci.yaml
+if [[ -z $SETUP_NODEJS ]]; then
+  yq eval -i 'del(.spec.template.spec.rules.[].http.paths[] | select(.backend.serviceName == "website-nodejs-mcs"))' mci.yaml
+fi
 
 kubectl apply -f backendconfig.yaml
 kubectl apply -f mci.yaml
-kubectl apply -f mcs.yaml
+kubectl apply -f website_mcs.yaml
+# If setting up nodejs service, apply the mcs yaml definition for nodejs
+if [[ $SETUP_NODEJS ]]; then
+  kubectl apply -f website_nodejs_mcs.yaml
+fi
 
 # Check the status: `kubectl describe mci website -n website`

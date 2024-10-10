@@ -17,45 +17,48 @@
 /**
  * Component that draws a chart based off the state of the visualization tool.
  */
-import _ from "lodash";
-import React, { useContext } from "react";
+import React, { useContext, useRef, useState } from "react";
 
-import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
-import { BqModal } from "../../tools/shared/bq_modal";
+import { STAT_VAR_SELECTOR_WIDTH } from "../../constants/tools_constants";
+import { DrawerResize } from "../../stat_var_hierarchy/drawer_resize";
 import { AppContext } from "./app_context";
 import { StatVarSelector } from "./stat_var_selector";
 import { VIS_TYPE_CONFIG } from "./vis_type_configs";
 
 export function Chart(): JSX.Element {
   const appContext = useContext(AppContext);
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [width, setWidth] = useState(STAT_VAR_SELECTOR_WIDTH);
+  const sidebarRef = useRef<HTMLDivElement>();
 
   const chartHeight = window.innerHeight * 0.45;
-  const showBqButton = !!VIS_TYPE_CONFIG[appContext.visType].getSqlQueryFn;
   const visTypeConfig = VIS_TYPE_CONFIG[appContext.visType];
   const footer = visTypeConfig.getFooter ? visTypeConfig.getFooter() : "";
 
   return (
     <div className="chart-section">
-      <div className="stat-var-selector-area" id="collapsible-variable-area">
-        <DrawerToggle
-          collapseElemId="collapsible-variable-area"
-          visibleElemId="stat-var-selector-content"
-        />
+      <div
+        className={`stat-var-selector-area ${isCollapsed ? "collapsed" : ""}`}
+        ref={sidebarRef}
+        style={{ width: isCollapsed ? undefined : width }}
+      >
         <div id="stat-var-selector-content">
           <div className="section-title">Variables</div>
-          <StatVarSelector />
+          <StatVarSelector hidden={isCollapsed} />
         </div>
+
+        <DrawerResize
+          collapsible={true}
+          isCollapsed={isCollapsed}
+          setIsCollapsed={setIsCollapsed}
+          setWidth={setWidth}
+          sidebarRef={sidebarRef}
+        />
       </div>
       <div className="chart-area">
         {visTypeConfig.getChartArea(appContext, chartHeight)}
         {footer && <div className="footer">{footer}</div>}
       </div>
-      {showBqButton && (
-        <BqModal
-          getSqlQuery={visTypeConfig.getSqlQueryFn(appContext)}
-          showButton={true}
-        />
-      )}
     </div>
   );
 }

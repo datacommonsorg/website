@@ -20,6 +20,7 @@
 
 import _ from "lodash";
 import React, { RefObject, useContext } from "react";
+import { Spinner } from "reactstrap";
 
 import { RankingUnitUrlFuncContext } from "../../js/shared/context";
 import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
@@ -77,6 +78,7 @@ interface RankingUnitPropType {
   errorMsg?: string;
   apiRoot?: string;
   entityType?: string;
+  isLoading?: boolean;
 }
 
 // Calculates ranks based on the order of data if no rank is provided.
@@ -91,28 +93,37 @@ function getRank(
   return numberOfTotalDataPoints ? numberOfTotalDataPoints - index : index + 1;
 }
 
-// Gets list of list of points to show where each list will be separated by ...
-// and each point will have the rank set.
-function getPointsList(props: RankingUnitPropType): RankingPoint[][] {
+/**
+ * Gets list of list of points to show where each list will be separated by ...
+ * and each point will have the rank set.
+ * @param topPoints list of top points (first list of points) to show
+ * @param bottomPoints list of bottom points (second list of points) to show
+ * @param isHighest whether or not the points are shown as highest to lowest or
+ *                  the other way around
+ * @param numDataPoints total number of points in the data.
+ */
+export function getPointsList(
+  topPoints: RankingPoint[],
+  bottomPoints: RankingPoint[],
+  isHighest: boolean,
+  numDataPoints?: number
+): RankingPoint[][] {
   const pointsList = [
-    props.topPoints.map((point, idx) => {
+    topPoints.map((point, idx) => {
       return {
         ...point,
-        rank: point.rank || getRank(props.isHighest, idx, props.numDataPoints),
+        rank: point.rank || getRank(isHighest, idx, numDataPoints),
       };
     }),
   ];
-  if (!_.isEmpty(props.bottomPoints)) {
+  if (!_.isEmpty(bottomPoints)) {
     const startIdx =
-      (props.numDataPoints || props.bottomPoints.length) -
-      props.bottomPoints.length;
+      (numDataPoints || bottomPoints.length) - bottomPoints.length;
     pointsList.push(
-      props.bottomPoints.map((point, idx) => {
+      bottomPoints.map((point, idx) => {
         return {
           ...point,
-          rank:
-            point.rank ||
-            getRank(props.isHighest, startIdx + idx, props.numDataPoints),
+          rank: point.rank || getRank(isHighest, startIdx + idx, numDataPoints),
         };
       })
     );
@@ -122,15 +133,24 @@ function getPointsList(props: RankingUnitPropType): RankingPoint[][] {
 
 export function RankingUnit(props: RankingUnitPropType): JSX.Element {
   const urlFunc = useContext(RankingUnitUrlFuncContext);
-  const pointsList = getPointsList(props);
-
+  const pointsList = getPointsList(
+    props.topPoints,
+    props.bottomPoints,
+    props.isHighest,
+    props.numDataPoints
+  );
   return (
     <div
       className={"ranking-list " + ASYNC_ELEMENT_CLASS}
       ref={props.forwardRef}
     >
       <div className="ranking-header-section">
-        <h4>{props.title}</h4>
+        <h4>
+          {props.isLoading ? (
+            <Spinner color="secondary" size="sm" className="mr-1" />
+          ) : null}
+          {props.title}
+        </h4>
         {props.headerChild}
       </div>
       {props.errorMsg ? (
@@ -246,6 +266,9 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                               </span>
                             </td>
                           ))}
+                        <td className="ranking-date-cell" title={point.date}>
+                          {point.date}
+                        </td>
                       </tr>
                     );
                   })}

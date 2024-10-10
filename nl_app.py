@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,25 +17,16 @@ import sys
 
 import logging
 
-from nl_server.__init__ import create_app
-
-logging.basicConfig(
-    level=logging.INFO,
-    format=
-    "\u3010%(asctime)s\u3011\u3010%(levelname)s\u3011\u3010 %(filename)s:%(lineno)s \u3011 %(message)s ",
-    datefmt="%H:%M:%S",
-)
+from nl_server.flask import create_app
 
 app = create_app()
 
 if __name__ == '__main__':
   # This is used when running locally only. When deploying to GKE,
   # a webserver process such as Gunicorn will serve the app.
-  logging.info("Run nl server in local mode")
+  logging.info(f"Run nl server in local mode (host=localhost), port={int(sys.argv[1])}")
 
   if len(sys.argv) == 3 and sys.argv[2] == 'opt':
-    log = logging.getLogger('werkzeug')
-    log.setLevel(logging.ERROR)
-    app.run(host='127.0.0.1', port=int(sys.argv[1]))
+    app.run(host='0.0.0.0', port=int(sys.argv[1]))
   else:
-    app.run(host='127.0.0.1', port=int(sys.argv[1]), debug=True)
+    app.run(host='0.0.0.0', port=int(sys.argv[1]), debug=True)

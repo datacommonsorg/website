@@ -14,9 +14,6 @@
 """Endpoints for Datacommons NL"""
 
 import copy
-import json
-import logging
-import os
 import time
 from typing import Dict
 
@@ -25,9 +22,6 @@ from flask import Blueprint
 from flask import current_app
 from flask import request
 
-import server.lib.explore.fulfiller_bridge as nl_fulfillment
-from server.lib.explore.params import DCNames
-from server.lib.explore.params import Params
 from server.lib.nl.common import serialize
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.counters as ctr
@@ -36,8 +30,13 @@ import server.lib.nl.common.utterance as nl_utterance
 import server.lib.nl.config_builder.base as config_builder
 import server.lib.nl.detection.detector as nl_detector
 from server.lib.nl.detection.utils import create_utterance
+import server.lib.nl.explore.fulfiller_bridge as nl_fulfillment
+from server.lib.nl.explore.params import Clients
+from server.lib.nl.explore.params import DCNames
+from server.lib.nl.explore.params import Params
 from server.lib.util import get_nl_disaster_config
-from server.routes.nl import helpers
+from server.routes.explore import helpers
+import server.services.bigtable as bt
 
 bp = Blueprint('explore_api', __name__, url_prefix='/api/explore')
 
@@ -48,8 +47,10 @@ bp = Blueprint('explore_api', __name__, url_prefix='/api/explore')
 @bp.route('/detect', methods=['POST'])
 def detect():
   debug_logs = {}
+  client = request.args.get(Params.CLIENT.value, Clients.DEFAULT.value)
+
   utterance, error_json = helpers.parse_query_and_detect(
-      request, 'explore', debug_logs)
+      request, 'explore', client, debug_logs)
   if error_json:
     return error_json
 
@@ -67,7 +68,8 @@ def detect():
                                          dbg_counters,
                                          debug_logs,
                                          has_data=True,
-                                         test=utterance.test)
+                                         test=utterance.test,
+                                         client=client)
 
 
 #
@@ -81,8 +83,6 @@ def detect():
 @bp.route('/fulfill', methods=['POST'])
 def fulfill():
   """Data handler."""
-  logging.info('NL Chart API: Enter')
-
   debug_logs = {}
   counters = ctr.Counters()
   return _fulfill_with_insight_ctx(request, debug_logs, counters)
@@ -96,6 +96,8 @@ def detect_and_fulfill():
   debug_logs = {}
 
   test = request.args.get(Params.TEST.value, '')
+  client = request.args.get(Params.CLIENT.value, Clients.DEFAULT.value)
+
   # First sanity DC name, if any.
   dc_name = request.get_json().get(Params.DC.value)
   if not dc_name:
@@ -103,10 +105,11 @@ def detect_and_fulfill():
   if dc_name not in set([it.value for it in DCNames]):
     return helpers.abort(f'Invalid Custom Data Commons Name {dc_name}',
                          '', [],
-                         test=test)
+                         test=test,
+                         client=client)
 
   utterance, error_json = helpers.parse_query_and_detect(
-      request, 'explore', debug_logs)
+      request, 'explore', client, debug_logs)
   if error_json:
     return error_json
 
@@ -115,6 +118,8 @@ def detect_and_fulfill():
       Params.EXP_MORE_DISABLED.value] = request.get_json().get(
           Params.EXP_MORE_DISABLED, "")
   utterance.insight_ctx[Params.DC.value] = dc_name
+  utterance.insight_ctx[Params.SKIP_RELATED_THINGS] = request.args.get(
+      Params.SKIP_RELATED_THINGS.value, '') == 'true'
 
   # Important to setup utterance for explore flow (this is really the only difference
   # between NL and Explore).
@@ -123,6 +128,36 @@ def detect_and_fulfill():
   utterance.counters.timeit('setup_for_explore', start)
 
   return _fulfill_with_chart_config(utterance, debug_logs)
+
+
+#
+# NOTE: `feedbackData` contains the logged payload.
+#
+# There are two types of feedback:
+# (1) Query-level: when `queryId` key is set
+# (2) Chart-level: when `chartId` field is set
+#
+# `chartId` is a json object that specifies the
+# location of a chart in the session by means of:
+#
+#   queryIdx, categoryIdx, blockIdx, columnIdx, tileIdx
+#
+# The last 4 are indexes into the corresponding fields in
+# the chart-config object (logged while processing the query),
+# and of type SubjectPageConfig proto.
+#
+@bp.route('/feedback', methods=['POST'])
+def feedback():
+  if (not current_app.config['LOG_QUERY']):
+    flask.abort(404)
+
+  session_id = request.json['sessionId']
+  feedback_data = request.json['feedbackData']
+  try:
+    bt.write_feedback(session_id, feedback_data)
+    return '', 200
+  except Exception as e:
+    return f'Failed to record feedback data {e}', 500
 
 
 #
@@ -135,8 +170,6 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
   if current_app.config['LOCAL']:
     # Reload configs for faster local iteration.
     disaster_config = get_nl_disaster_config()
-  else:
-    logging.info('Unable to load event configs!')
 
   cb_config = config_builder.Config(
       event_config=disaster_config,
@@ -148,9 +181,12 @@ def _fulfill_with_chart_config(utterance: nl_utterance.Utterance,
   fresp = nl_fulfillment.fulfill(utterance, cb_config)
   utterance.counters.timeit('fulfillment', start)
 
-  return helpers.prepare_response(utterance, fresp.chart_pb,
-                                  utterance.detection, debug_logs,
-                                  fresp.related_things)
+  return helpers.prepare_response(utterance,
+                                  fresp.chart_pb,
+                                  utterance.detection,
+                                  debug_logs,
+                                  fresp.related_things,
+                                  fulfill_user_msg=fresp.user_message)
 
 
 #
@@ -161,14 +197,18 @@ def _fulfill_with_insight_ctx(request: Dict, debug_logs: Dict,
                               counters: ctr.Counters) -> Dict:
   insight_ctx = request.get_json()
   test = request.args.get(Params.TEST.value, '')
+  client = request.args.get(Params.CLIENT.value, Clients.DEFAULT.value)
+  mode = request.args.get(Params.MODE.value, '')
   if not insight_ctx:
     return helpers.abort('Sorry, could not answer your query.',
                          '', [],
-                         test=test)
+                         test=test,
+                         client=client)
   if not insight_ctx.get('entities'):
     return helpers.abort('Could not recognize any places in the query.',
                          '', [],
-                         test=test)
+                         test=test,
+                         client=client)
 
   entities = insight_ctx.get(Params.ENTITIES.value, [])
   cmp_entities = insight_ctx.get(Params.CMP_ENTITIES.value, [])
@@ -184,7 +224,8 @@ def _fulfill_with_insight_ctx(request: Dict, debug_logs: Dict,
   if dc_name not in set([it.value for it in DCNames]):
     return helpers.abort(f'Invalid Custom Data Commons Name {dc_name}',
                          '', [],
-                         test=test)
+                         test=test,
+                         client=client)
 
   if not session_id:
     if current_app.config['LOG_QUERY']:
@@ -202,10 +243,15 @@ def _fulfill_with_insight_ctx(request: Dict, debug_logs: Dict,
       debug_logs, counters)
   counters.timeit('construct_for_explore', start)
   if not query_detection:
-    return helpers.abort(error_msg, '', [], test=test)
+    return helpers.abort(error_msg, '', [], test=test, client=client)
 
-  utterance = create_utterance(query_detection, None, counters, session_id,
-                               test)
+  utterance = create_utterance(query_detection,
+                               None,
+                               counters,
+                               session_id,
+                               test=test,
+                               client=client,
+                               mode=mode)
   utterance.insight_ctx = insight_ctx
   utterance.insight_ctx[Params.DC.value] = dc_name
   return _fulfill_with_chart_config(utterance, debug_logs)

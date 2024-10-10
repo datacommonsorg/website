@@ -13,21 +13,30 @@
 # limitations under the License.
 
 import copy
+import os
 from typing import Dict, List
 
-from server.lib.explore import params
+from flask import current_app
+
+from server.lib import util as libutil
 from server.lib.nl.common import constants
 from server.lib.nl.common import utils
+from server.lib.nl.common import variable
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import ContainedInPlaceType
+from server.lib.nl.detection.types import Entity
 from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import Place
+from server.lib.nl.explore import params
 from server.lib.nl.fulfillment.types import ChartSpec
 from server.lib.nl.fulfillment.types import ChartVars
+from server.lib.nl.fulfillment.types import ExistInfo
 from server.lib.nl.fulfillment.types import PopulateState
+from server.lib.nl.fulfillment.types import Sv2Place2Date
+from server.lib.nl.fulfillment.types import Sv2Place2Facet
 
 #
 # General utilities for retrieving stuff from past context.
@@ -55,6 +64,32 @@ def has_place(uttr: Utterance) -> bool:
     return True
 
   if uttr.insight_ctx and uttr.insight_ctx.get('entities'):
+    return True
+
+  return False
+
+
+def has_prop(uttr: Utterance) -> bool:
+  if not uttr:
+    return False
+
+  if uttr.properties:
+    return True
+
+  if uttr.insight_ctx and uttr.insight_ctx.get('properties'):
+    return True
+
+  return False
+
+
+def has_entity(uttr: Utterance) -> bool:
+  if not uttr:
+    return False
+
+  if uttr.places:
+    return True
+
+  if uttr.insight_ctx and uttr.insight_ctx.get('nonPlaceEntities'):
     return True
 
   return False
@@ -100,10 +135,14 @@ def add_chart_to_utterance(
     chart_vars: ChartVars,
     places: List[Place],
     primary_vs_secondary: ChartOriginType = ChartOriginType.PRIMARY_CHART,
-    ranking_count: int = 0) -> bool:
-  is_sdg = False
-  if state.uttr.insight_ctx and params.is_sdg(state.uttr.insight_ctx):
-    is_sdg = True
+    ranking_count: int = 0,
+    sv_place_facet: Sv2Place2Facet = None,
+    info_message: str = '',
+    entities: List[Entity] = [],
+    sv_place_latest_date: Sv2Place2Date = None) -> bool:
+  is_special_dc = False
+  if state.uttr.insight_ctx and params.is_special_dc(state.uttr.insight_ctx):
+    is_special_dc = True
   place_type = state.place_type
   if place_type and isinstance(place_type, ContainedInPlaceType):
     # TODO: What's the flow where the instance is string?
@@ -111,6 +150,8 @@ def add_chart_to_utterance(
   # Make a copy of chart-vars since it change.
   ch = ChartSpec(chart_type=chart_type,
                  svs=copy.deepcopy(chart_vars.svs),
+                 props=copy.deepcopy(chart_vars.props),
+                 entities=copy.deepcopy(entities),
                  event=chart_vars.event,
                  places=copy.deepcopy(places),
                  chart_vars=copy.deepcopy(chart_vars),
@@ -118,7 +159,12 @@ def add_chart_to_utterance(
                  ranking_types=copy.deepcopy(state.ranking_types),
                  ranking_count=ranking_count,
                  chart_origin=primary_vs_secondary,
-                 is_sdg=is_sdg)
+                 is_special_dc=is_special_dc,
+                 single_date=state.single_date,
+                 date_range=state.date_range,
+                 sv_place_facet=sv_place_facet,
+                 info_message=info_message,
+                 sv_place_latest_date=sv_place_latest_date)
   state.uttr.chartCandidates.append(ch)
   state.uttr.counters.info('num_chart_candidates', 1)
   return True
@@ -156,3 +202,78 @@ def get_default_contained_in_place(places: List[Place],
   if isinstance(ptype, str):
     ptype = ContainedInPlaceType(ptype)
   return constants.DEFAULT_PARENT_PLACES.get(ptype, None)
+
+
+# Get facet id to use when there are sv_place_facet specified. Gets the
+# facet id that has data for the most places.
+def get_facet_id(sv: str, sv_place_facet: Dict[str, Dict[str, str]],
+                 places: List[str]) -> str:
+  if not sv_place_facet:
+    return ''
+  sv_facets = sv_place_facet.get(sv, {})
+  facet_id_occurences = {}
+  facet_id_to_use = ""
+  for place in places:
+    place_facet_id = sv_facets.get(place, {}).get('facetId', '')
+    if not place_facet_id:
+      continue
+    place_facet_id_occurences = facet_id_occurences.get(place_facet_id, 0) + 1
+    facet_id_occurences[place_facet_id] = place_facet_id_occurences
+    if place_facet_id_occurences > facet_id_occurences.get(facet_id_to_use, 0):
+      facet_id_to_use = place_facet_id
+  return facet_id_to_use
+
+
+def is_coplottable(svs: List[str], places: List[Place],
+                   exist_checks: Dict[str, Dict[str, ExistInfo]]) -> bool:
+  """"
+  Function that checks if the given SVs are co-plottable in a timeline/bar.
+  That's true if the SVs are all either PC/no-PC, and have the same unit.
+
+  Args:
+    chart_vars: ChartVars to be plotted.
+    places: places to be plotted.
+  
+  Returns:
+    Boolean indicating whether the SVs are co-plottable in a timeline/bar chart.
+  """
+  if os.environ.get('FLASK_ENV') == 'test':
+    nopc_vars = libutil.get_nl_no_percapita_vars()
+  else:
+    nopc_vars = current_app.config['NOPC_VARS']
+
+  # Ensure all SVs have the same per-capita relevance.
+  pc_list = [variable.is_percapita_relevant(sv, nopc_vars) for sv in svs]
+  if any(pc_list) and not all(pc_list):
+    # Some SV is True, but not all.
+    return False
+
+  # Ensure all SVs have the same unit.
+  unit = None
+  for i, sv in enumerate(svs):
+    sv_exist_checks = exist_checks.get(sv, {})
+    for place in places:
+      u = sv_exist_checks.get(place.dcid, ExistInfo()).facet.get('unit', '')
+      if i > 0 and unit != u:
+        return False
+      unit = u
+
+  return True
+
+
+# Takes a list of place names and formats it into a single string.
+def get_places_as_string(places: List[str]) -> str:
+  if len(places) < 1:
+    return ''
+  elif len(places) == 1:
+    return places[0]
+  else:
+    return ', '.join(places[0:len(places) - 1]) + f' and {places[-1]}'
+
+
+def get_max_ans_places(places: List[Place], uttr: Utterance) -> List[Place]:
+  if uttr.mode == params.QueryMode.TOOLFORMER_RAG:
+    # In toolformer table mode there is very large limit.
+    return places[:constants.ABSOLUTE_MAX_PLACES_FOR_TABLES]
+
+  return places[:constants.MAX_ANSWER_PLACES]

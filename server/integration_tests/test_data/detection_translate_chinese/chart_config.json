@@ -11,8 +11,12 @@
       "contained_in_place_type": "City",
       "had_default_type": false,
       "type": 4
+    },
+    {
+      "type": 14
     }
   ],
+  "client": "test_detect",
   "comparisonEntities": [],
   "comparisonVariables": [],
   "context": {},
@@ -20,12 +24,16 @@
   "entities": [
     "geoId/06085"
   ],
+  "nonPlaceEntities": [],
+  "properties": [],
   "sessionId": "007_999999999",
   "variables": [
-    "Count_CriminalActivities_Robbery",
-    "Count_CriminalActivities_LarcenyTheft",
     "Count_CriminalActivities_MotorVehicleTheft",
+    "Count_CriminalActivities_LarcenyTheft",
+    "Count_CriminalActivities_Robbery",
+    "Count_CriminalActivities_Burglary",
     "Count_CriminalActivities_PropertyCrime",
-    "Count_CriminalActivities_CombinedCrime"
+    "Count_CriminalActivities_CombinedCrime",
+    "dc/topic/Crime"
   ]
 }

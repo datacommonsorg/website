@@ -24,6 +24,7 @@ import {
   RankingTile,
   RankingTilePropType,
 } from "../js/components/tiles/ranking_tile";
+import { DEFAULT_PER_CAPITA_DENOM } from "./constants";
 import {
   convertArrayAttribute,
   convertBooleanAttribute,
@@ -106,6 +107,11 @@ export class DatacommonsRankingComponent extends LitElement {
   @property({ type: Boolean, converter: convertBooleanAttribute })
   showExploreMore?: boolean;
 
+  // Optional: Set to true to show a highest-to-lowest ranking
+  // Default: highest-to-lowest, if showHighestLowest is false
+  @property({ type: Boolean, converter: convertBooleanAttribute })
+  showHighest?: boolean;
+
   // Optional: Set to true to show both top and bottom places in highest-to-lowest order.
   // Default: only show top places
   @property({ type: Boolean, converter: convertBooleanAttribute })
@@ -135,13 +141,17 @@ export class DatacommonsRankingComponent extends LitElement {
   @property({ type: Array<string>, converter: convertArrayAttribute })
   variables?: string[];
 
-  render(): HTMLElement {
+  // Optional: List of sources for this component
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  sources?: string[];
+
+  render(): HTMLDivElement {
     const variables = this.variables || [this.variable];
     const statVarSpecs = variables.map((statVar) => {
       return {
         denom:
           this.perCapita && this.perCapita.includes(statVar)
-            ? "Count_Person"
+            ? DEFAULT_PER_CAPITA_DENOM
             : "",
         log: false,
         name: "",
@@ -167,6 +177,7 @@ export class DatacommonsRankingComponent extends LitElement {
         showMultiColumn: this.showMultiColumn,
       },
       showExploreMore: this.showExploreMore,
+      sources: this.sources,
       variables: statVarSpecs,
       title: this.header || this.title,
     };

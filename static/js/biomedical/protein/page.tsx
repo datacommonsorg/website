@@ -151,7 +151,7 @@ export class Page extends React.Component<PagePropType, PageStateType> {
       <>
         <h2>{splitNodeName[0] + " (" + splitNodeName[1] + ")"}</h2>
         <h6>
-          <a href={proteinLink}>Graph Browser View</a>
+          <a href={proteinLink}>Knowledge Graph View</a>
         </h6>
         <p>
           <b>Description: </b>

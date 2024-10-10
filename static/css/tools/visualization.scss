@@ -19,7 +19,6 @@
 @import "../place_selector";
 @import "../tiles.scss";
 @import "../draw_scatter.scss";
-@import "../bq_modal";
 @import "../source_selector";
 
 $selector-footer-height: 40px;
@@ -89,17 +88,13 @@ $selector-footer-height: 40px;
   flex-direction: column;
   align-items: center;
   gap: 2px;
-  margin: 10px 16px 0 16px;
+  margin: 18px 16px 0 16px;
   cursor: pointer;
-  padding-bottom: 10px;
+  padding-bottom: 13px;
   font-weight: 500;
 
   .label {
     font-size: 14px;
-  }
-
-  .material-icons-outlined {
-    font-size: 24px;
   }
 }
 
@@ -266,6 +261,12 @@ $selector-footer-height: 40px;
   display: flex;
   flex-direction: column;
   cursor: default;
+  // Account for selector padding when setting the width to avoid scroll overflow
+  min-width: $widget-min-width + 2 * 16;
+
+  @include media-breakpoint-down(md) {
+    min-width: 300px;
+  }
 }
 
 .selector-container.disabled {
@@ -406,14 +407,12 @@ $selector-footer-height: 40px;
 // Stat var selector
 
 .stat-var-selector {
-  min-width: 400px;
-
   .selector-body {
     min-height: 350px;
   }
 
   .info-message {
-    max-width: 400px;
+    max-width: $widget-min-width;
   }
 
   .show-sv-toggle {
@@ -421,6 +420,7 @@ $selector-footer-height: 40px;
   }
 
   #stat-var-hierarchy-section {
+    padding: 0px;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -443,7 +443,7 @@ $selector-footer-height: 40px;
 
 #statvar-modal {
   .radio-selection-label {
-    padding-top: 1rem;
+    padding: 0.5rem 0;
   }
 
   .radio-selection-section {
@@ -464,12 +464,17 @@ $selector-footer-height: 40px;
   flex-grow: 1;
 
   .stat-var-selector-area {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 0;
+    flex-shrink: 0;
     position: relative;
+    width: $widget-min-width;
 
     #explore-menu-toggle {
       color: black;
       left: auto;
-      right: 0;
+      right: $resize-handle-width;
       top: 0;
     }
 
@@ -478,20 +483,32 @@ $selector-footer-height: 40px;
       display: flex;
       flex-direction: column;
       height: 100%;
+      overflow-y: hidden;
+      width: calc(100% - #{$resize-handle-width});
 
       .section-title {
         font-size: 20px;
         font-weight: 500;
-        margin-bottom: 16px;
       }
     }
 
     #stat-var-selector-content.hidden {
       display: none;
     }
+
+    .stat-var-resize-handle {
+      background: rgba(0, 0, 0, 0.2);
+
+      &:hover {
+        width: 3px;
+        background: rgba(0, 0, 0, 0.3);
+      }
+    }
   }
 
   .stat-var-selector-area.collapsed {
+    width: 0;
+
     #explore-menu-toggle {
       color: var(--gm-3-white);
       background-color: var(--gm-3-ref-neutral-neutral-40);
@@ -561,7 +578,7 @@ $selector-footer-height: 40px;
     .source-selector-open-modal-button {
       margin-top: 0;
     }
-    
+
     .footer {
       font-size: 13px;
     }
@@ -576,7 +593,6 @@ $selector-footer-height: 40px;
   .ranking-tile {
     display: flex;
     flex-wrap: wrap;
-    padding: 1rem;
 
     h4 {
       text-align: left;

@@ -16,6 +16,7 @@ from server.app_env import _base
 
 
 class Config(_base.Config):
-  GA_ACCOUNT = 'G-KWSES5WXZE'
-  USE_PALM = True
+  GOOGLE_ANALYTICS_TAG_ID = 'G-KWSES5WXZE'
+  USE_LLM = True
   LOG_QUERY = True
+  ENABLE_BQ = True

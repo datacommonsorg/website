@@ -19,9 +19,9 @@ from typing import Dict, List
 from flask import current_app
 
 from server.lib import fetch
-from server.lib.explore.params import DCNames
 from server.lib.nl.common import utils
 import server.lib.nl.common.counters as ctr
+from server.lib.nl.explore.params import DCNames
 
 TOPIC_RANK_LIMIT = 3
 MAX_TOPIC_SVS = 30
@@ -54,9 +54,6 @@ _TOPIC_DCID_TO_SV_OVERRIDE = {
         "Count_SolarPanel",
     ],
     "dc/topic/AgricultureEmissionsByGas": ["dc/svpg/AgricultureEmissionsByGas"],
-    "dc/topic/FossilFuelOperationsEmissionsByGas": [
-        "dc/svpg/FossilFuelOperationsEmissionsByGas"
-    ],
     "dc/topic/ManufacturingEmissionsByGas": [
         "dc/svpg/ManufacturingEmissionsByGas"
     ],
@@ -64,6 +61,8 @@ _TOPIC_DCID_TO_SV_OVERRIDE = {
     "dc/topic/TransportationEmissionsByGas": [
         "dc/svpg/TransportationEmissionsByGas"
     ],
+    # TODO(chejennifer): Try removing after bug with multi SVs is fixed (and
+    # when electrification demo looks ok without this topic)
     "dc/topic/SDG_1": [
         "sdg/SI_POV_DAY1",
         "dc/svpg/SI_POV_DAY1_ByAge",
@@ -73,18 +72,6 @@ _TOPIC_DCID_TO_SV_OVERRIDE = {
         "sdg/SP_ACS_BSRVSAN",
         "sdg/SI_POV_EMP1.AGE--Y_GE15",
         "dc/svpg/SI_POV_EMP1.AGE--Y_GE15_ByGender",
-    ],
-    "dc/topic/SDG_2": [
-        "sdg/SN_ITK_DEFC", "sdg/SH_STA_STNT.AGE--Y0T4",
-        "sdg/SH_STA_WAST.AGE--Y0T4"
-    ],
-    "dc/topic/SDG_3": [
-        "dc/svpg/SDG_3_WomensHealth",
-        "dc/svpg/SDG_3_PreventableChildDeaths",
-        "dc/svpg/SDG_3_EpidemicEradication",
-        "dc/svpg/SDG_3_HealthInsurance",
-        "dc/svpg/SDG_3_TobaccoAndAlcohol",
-        "dc/svpg/SDG_3_HealthWorkerDensity",
     ],
     "dc/topic/MaternalHealth": [
         "sdg/SH_STA_MORT.SEX--F",
@@ -188,38 +175,6 @@ _PEER_GROUP_TO_OVERRIDE = {
         "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F",
         "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M",
     ],
-    "dc/svpg/SDG_3_WomensHealth": [
-        "sdg/SH_STA_MORT.SEX--F",
-        "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F",
-        "sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F",
-        "sdg/SH_STA_ANEM.AGE--Y15T49__SEX--F",
-    ],
-    "dc/svpg/SDG_3_PreventableChildDeaths": [
-        "sdg/SH_DYN_IMRT.AGE--Y0",
-        "sdg/SH_DYN_MORT.AGE--Y0T4",
-        "sdg/SH_DYN_NMRT.AGE--M0",
-    ],
-    "dc/svpg/SDG_3_EpidemicEradication": [
-        "sdg/SH_HIV_INCD",
-        "sdg/SH_TBS_INCD",
-        "sdg/SH_HAP_HBSAG.AGE--Y0T4",
-        "sdg/SH_TRP_INTVN",
-    ],
-    "dc/svpg/SDG_3_HealthInsurance": [
-        "sdg/SH_ACS_UNHC",
-        "sdg/SH_XPD_EARN10",
-        "sdg/SH_XPD_EARN25",
-    ],
-    "dc/svpg/SDG_3_HealthWorkerDensity": [
-        "sdg/SH_MED_DEN.OCCUPATION--ISCO08_221",
-        "sdg/SH_MED_DEN.OCCUPATION--ISCO08_222_322",
-        "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2262",
-        "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2261",
-    ],
-    "dc/svpg/SDG_3_TobaccoAndAlcohol": [
-        "sdg/SH_PRV_SMOK.AGE--Y_GE15",
-        "sdg/SH_SUD_ALCOL.AGE--Y_GE15",
-    ],
 }
 
 SVPG_NAMES_OVERRIDE = {
@@ -254,18 +209,6 @@ SVPG_NAMES_OVERRIDE = {
         "Population below international poverty line in rural vs. urban areas",
     "dc/svpg/SI_POV_EMP1.AGE--Y_GE15_ByGender":
         "Employed population below international poverty line by gender",
-    "dc/svpg/SDG_3_WomensHealth":
-        "Women's health",
-    "dc/svpg/SDG_3_PreventableChildDeaths":
-        "Preventable newborn and children deaths",
-    "dc/svpg/SDG_3_EpidemicEradication":
-        "Ending epidemics",
-    "dc/svpg/SDG_3_HealthInsurance":
-        "Health coverage and financial risk",
-    "dc/svpg/SDG_3_HealthWorkerDensity":
-        "Health worker density",
-    "dc/svpg/SDG_3_TobaccoAndAlcohol":
-        "Tobacco and alcohol",
 
     # Temperature Prediction SVPGs.
     'dc/svpg/dc/topic/MaxTemperature95PercentLikelyAtLeastOncePerDecade_MaxTemperatureLikely5PctAtLeastOncePerDecadeByScenario':

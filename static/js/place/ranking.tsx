@@ -94,7 +94,7 @@ class Ranking extends React.Component<RankingPropsType, RankingStateType> {
                             },
                             {
                               rank: top,
-                              total: top + bottom,
+                              total: top + bottom - 1,
                             }
                           );
                         }

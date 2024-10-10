@@ -1,0 +1,1938 @@
+{
+  "client": "test_detect-and-fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female"
+                    ],
+                    "title": "Women in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Women in United States of America",
+                    "statVarKey": [
+                      "Count_Person_Female"
+                    ],
+                    "title": "Women in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female"
+                    ],
+                    "title": "Women in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female"
+                    ],
+                    "title": "Women in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female",
+                      "Count_Person_Male"
+                    ],
+                    "title": "Population by Gender in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Male"
+                    ],
+                    "title": "Men in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Male"
+                    ],
+                    "title": "Men in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Men in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_MarriedAndNotSeparated"
+                    ],
+                    "title": "Non-Separated Married Women in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Non-Separated Married Women in United States of America",
+                    "statVarKey": [
+                      "Count_Person_Female_MarriedAndNotSeparated"
+                    ],
+                    "title": "Non-Separated Married Women in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Non-Separated Married Women"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_MarriedAndNotSeparated"
+                    ],
+                    "title": "Non-Separated Married Women in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_MarriedAndNotSeparated"
+                    ],
+                    "title": "Non-Separated Married Women in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Non-Separated Married Women in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_Female"
+                    ],
+                    "title": "Count of Mortality Event: Female in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Mortality Event: Female in United States of America",
+                    "statVarKey": [
+                      "Count_Death_Female"
+                    ],
+                    "title": "Count of Mortality Event: Female in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Mortality Event: Female"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_TwoOrMoreRaces"
+                    ],
+                    "title": "Women Identifying as Multiracial in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Women Identifying as Multiracial in United States of America",
+                    "statVarKey": [
+                      "Count_Person_Female_TwoOrMoreRaces"
+                    ],
+                    "title": "Women Identifying as Multiracial in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women Identifying as Multiracial"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_TwoOrMoreRaces"
+                    ],
+                    "title": "Women Identifying as Multiracial in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_TwoOrMoreRaces"
+                    ],
+                    "title": "Women Identifying as Multiracial in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women Identifying as Multiracial in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
+                    ],
+                    "title": "Population: Female, Enrolled in School in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Female, Enrolled in School in United States of America",
+                    "statVarKey": [
+                      "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
+                    ],
+                    "title": "Population: Female, Enrolled in School in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Female, Enrolled in School"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
+                    ],
+                    "title": "Population: Female, Enrolled in School in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
+                    ],
+                    "title": "Population: Female, Enrolled in School in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Female, Enrolled in School in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_WithHealthInsurance"
+                    ],
+                    "title": "Women With Health Insurance in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Women With Health Insurance in United States of America",
+                    "statVarKey": [
+                      "Count_Person_Female_WithHealthInsurance"
+                    ],
+                    "title": "Women With Health Insurance in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women With Health Insurance"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_WithHealthInsurance"
+                    ],
+                    "title": "Women With Health Insurance in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_WithHealthInsurance"
+                    ],
+                    "title": "Women With Health Insurance in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women With Health Insurance in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_FullTimeYearRoundWorker"
+                    ],
+                    "title": "Population: 16-64 Years, Female, Full Time Year Round Worker in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: 16-64 Years, Female, Full Time Year Round Worker in United States of America",
+                    "statVarKey": [
+                      "Count_Person_Female_FullTimeYearRoundWorker"
+                    ],
+                    "title": "Population: 16-64 Years, Female, Full Time Year Round Worker in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 16-64 Years, Female, Full Time Year Round Worker"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_FullTimeYearRoundWorker"
+                    ],
+                    "title": "Population: 16-64 Years, Female, Full Time Year Round Worker in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_FullTimeYearRoundWorker"
+                    ],
+                    "title": "Population: 16-64 Years, Female, Full Time Year Round Worker in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 16-64 Years, Female, Full Time Year Round Worker in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Female"
+                    ],
+                    "title": "Women's Median Age in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Women's Median Age in United States of America",
+                    "statVarKey": [
+                      "Median_Age_Person_Female"
+                    ],
+                    "title": "Women's Median Age in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Women's Median Age"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Female"
+                    ],
+                    "title": "Women's Median Age in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Female"
+                    ],
+                    "title": "Women's Median Age in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Women's Median Age in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_AsianAlone"
+                    ],
+                    "title": "Asian Monoracial Women in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Asian Monoracial Women in United States of America",
+                    "statVarKey": [
+                      "Count_Person_Female_AsianAlone"
+                    ],
+                    "title": "Asian Monoracial Women in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Asian Monoracial Women"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_AsianAlone"
+                    ],
+                    "title": "Asian Monoracial Women in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_AsianAlone"
+                    ],
+                    "title": "Asian Monoracial Women in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Asian Monoracial Women in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_WhiteAlone"
+                    ],
+                    "title": "Women Identifying as White Alone in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Women Identifying as White Alone in United States of America",
+                    "statVarKey": [
+                      "Count_Person_Female_WhiteAlone"
+                    ],
+                    "title": "Women Identifying as White Alone in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women Identifying as White Alone"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_WhiteAlone"
+                    ],
+                    "title": "Women Identifying as White Alone in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_WhiteAlone"
+                    ],
+                    "title": "Women Identifying as White Alone in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women Identifying as White Alone in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Bachelors Degree or Higher, Female in United States of America",
+                    "statVarKey": [
+                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female"
+                    ],
+                    "title": "Population: Bachelors Degree or Higher, Female in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Bachelors Degree or Higher, Female"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female"
+                    ],
+                    "title": "Population: Bachelors Degree or Higher, Female in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female"
+                    ],
+                    "title": "Population: Bachelors Degree or Higher, Female in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Bachelors Degree or Higher, Female in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WithDisability_Female"
+                    ],
+                    "title": "Women With Disabilities in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Women With Disabilities in United States of America",
+                    "statVarKey": [
+                      "Count_Person_WithDisability_Female"
+                    ],
+                    "title": "Women With Disabilities in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women With Disabilities"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WithDisability_Female"
+                    ],
+                    "title": "Women With Disabilities in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_WithDisability_Female"
+                    ],
+                    "title": "Women With Disabilities in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women With Disabilities in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female"
+                    ],
+                    "title": "Bachelors, Women in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Bachelors, Women in United States of America",
+                    "statVarKey": [
+                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female"
+                    ],
+                    "title": "Bachelors, Women in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Bachelors, Women"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female"
+                    ],
+                    "title": "Bachelors, Women in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female"
+                    ],
+                    "title": "Bachelors, Women in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Bachelors, Women in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_ForeignBorn"
+                    ],
+                    "title": "Foreign Born Women in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Foreign Born Women in United States of America",
+                    "statVarKey": [
+                      "Count_Person_Female_ForeignBorn"
+                    ],
+                    "title": "Foreign Born Women in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Foreign Born Women"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_ForeignBorn"
+                    ],
+                    "title": "Foreign Born Women in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_ForeignBorn"
+                    ],
+                    "title": "Foreign Born Women in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Foreign Born Women in States of United States of America"
+          }
+        ],
+        "statVarSpec": {
+          "Count_Death_Female": {
+            "name": "Count of Mortality Event: Female",
+            "statVar": "Count_Death_Female"
+          },
+          "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female": {
+            "name": "Population: Bachelors Degree or Higher, Female",
+            "statVar": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female"
+          },
+          "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female": {
+            "name": "Bachelors, Women",
+            "statVar": "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female"
+          },
+          "Count_Person_3OrMoreYears_Female_EnrolledInSchool": {
+            "name": "Population: Female, Enrolled in School",
+            "statVar": "Count_Person_3OrMoreYears_Female_EnrolledInSchool"
+          },
+          "Count_Person_Female": {
+            "name": "Women",
+            "statVar": "Count_Person_Female"
+          },
+          "Count_Person_Female_AsianAlone": {
+            "name": "Asian Monoracial Women",
+            "statVar": "Count_Person_Female_AsianAlone"
+          },
+          "Count_Person_Female_ForeignBorn": {
+            "name": "Foreign Born Women",
+            "statVar": "Count_Person_Female_ForeignBorn"
+          },
+          "Count_Person_Female_FullTimeYearRoundWorker": {
+            "name": "Population: 16 - 64 Years, Female, Full Time Year Round Worker",
+            "statVar": "Count_Person_Female_FullTimeYearRoundWorker"
+          },
+          "Count_Person_Female_MarriedAndNotSeparated": {
+            "name": "Non-Separated Married Women",
+            "statVar": "Count_Person_Female_MarriedAndNotSeparated"
+          },
+          "Count_Person_Female_TwoOrMoreRaces": {
+            "name": "Women Identifying as Multiracial",
+            "statVar": "Count_Person_Female_TwoOrMoreRaces"
+          },
+          "Count_Person_Female_WhiteAlone": {
+            "name": "Women Identifying as White Alone",
+            "statVar": "Count_Person_Female_WhiteAlone"
+          },
+          "Count_Person_Female_WithHealthInsurance": {
+            "name": "Women With Health Insurance",
+            "statVar": "Count_Person_Female_WithHealthInsurance"
+          },
+          "Count_Person_Male": {
+            "name": "Men",
+            "statVar": "Count_Person_Male"
+          },
+          "Count_Person_WithDisability_Female": {
+            "name": "Women With Disabilities",
+            "statVar": "Count_Person_WithDisability_Female"
+          },
+          "Median_Age_Person_Female": {
+            "name": "Women's Median Age",
+            "statVar": "Median_Age_Person_Female"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "containedPlaceTypes": {
+        "Country": "State"
+      },
+      "placeDcid": [
+        "country/USA"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "entities": [],
+  "pastSourceContext": "United States of America",
+  "place": {
+    "dcid": "country/USA",
+    "name": "United States of America",
+    "place_type": "Country"
+  },
+  "placeFallback": {},
+  "placeSource": "DEFAULT",
+  "places": [
+    {
+      "dcid": "country/USA",
+      "name": "United States of America",
+      "place_type": "Country"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {
+      "State": [
+        {
+          "dcid": "geoId/01",
+          "name": "Alabama",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/02",
+          "name": "Alaska",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/04",
+          "name": "Arizona",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/05",
+          "name": "Arkansas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/06",
+          "name": "California",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/08",
+          "name": "Colorado",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/09",
+          "name": "Connecticut",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/10",
+          "name": "Delaware",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/11",
+          "name": "District of Columbia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/12",
+          "name": "Florida",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/13",
+          "name": "Georgia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/15",
+          "name": "Hawaii",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/16",
+          "name": "Idaho",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/17",
+          "name": "Illinois",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/18",
+          "name": "Indiana",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/19",
+          "name": "Iowa",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/20",
+          "name": "Kansas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/21",
+          "name": "Kentucky",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/22",
+          "name": "Louisiana",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/23",
+          "name": "Maine",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/24",
+          "name": "Maryland",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/25",
+          "name": "Massachusetts",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/26",
+          "name": "Michigan",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/27",
+          "name": "Minnesota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/28",
+          "name": "Mississippi",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/29",
+          "name": "Missouri",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/30",
+          "name": "Montana",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/31",
+          "name": "Nebraska",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/32",
+          "name": "Nevada",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/33",
+          "name": "New Hampshire",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/34",
+          "name": "New Jersey",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/35",
+          "name": "New Mexico",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/36",
+          "name": "New York",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/37",
+          "name": "North Carolina",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/38",
+          "name": "North Dakota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/39",
+          "name": "Ohio",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/40",
+          "name": "Oklahoma",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/41",
+          "name": "Oregon",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/42",
+          "name": "Pennsylvania",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/44",
+          "name": "Rhode Island",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/45",
+          "name": "South Carolina",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/46",
+          "name": "South Dakota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/47",
+          "name": "Tennessee",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/48",
+          "name": "Texas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/49",
+          "name": "Utah",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/50",
+          "name": "Vermont",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/51",
+          "name": "Virginia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/53",
+          "name": "Washington",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/54",
+          "name": "West Virginia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/55",
+          "name": "Wisconsin",
+          "types": [
+            "State"
+          ]
+        }
+      ]
+    },
+    "childTopics": [],
+    "exploreMore": {
+      "Count_Death_Female": {
+        "age": [
+          "Count_Death_10To14Years_Female",
+          "Count_Death_15To19Years_Female",
+          "Count_Death_15To64Years_Female",
+          "Count_Death_20To24Years_Female",
+          "Count_Death_25To29Years_Female",
+          "Count_Death_30To34Years_Female",
+          "Count_Death_35To39Years_Female",
+          "Count_Death_40To44Years_Female",
+          "Count_Death_45To49Years_Female",
+          "Count_Death_50To54Years_Female",
+          "Count_Death_55To59Years_Female",
+          "Count_Death_5To9Years_Female",
+          "Count_Death_60To64Years_Female",
+          "Count_Death_65OrMoreYears_Female",
+          "Count_Death_65To69Years_Female",
+          "Count_Death_70To74Years_Female",
+          "Count_Death_75To79Years_Female",
+          "Count_Death_80OrMoreYears_Female",
+          "Count_Death_Upto14Years_Female",
+          "Count_Death_Upto4Years_Female"
+        ],
+        "causeOfDeath": [
+          "Count_MortalityEvent_AIDS_Female",
+          "Count_MortalityEvent_AccidentalDischargeOfFirearms_Female",
+          "Count_MortalityEvent_AccidentalDrowningAndSubmersion_Female",
+          "Count_MortalityEvent_AccidentalExposureToSmokeFireAndFlames_Female",
+          "Count_MortalityEvent_AccidentalPoisoningAndExposureToNoxiousSubstances_Female",
+          "Count_MortalityEvent_Accidents(UnintentionalInjuries)_Female",
+          "Count_MortalityEvent_AcuteAndRapidlyProgressiveNephriticAndNephroticSyndrome_Female",
+          "Count_MortalityEvent_AcuteAndSubacuteEndocarditis_Female",
+          "Count_MortalityEvent_AcuteBronchitisAndBronchiolitis_Female",
+          "Count_MortalityEvent_AcuteMyocardialInfarction_Female",
+          "Count_MortalityEvent_AcuteRheumaticFeverAndChronicRheumaticHeartDiseases_Female",
+          "Count_MortalityEvent_AlcoholicLiverDisease_Female",
+          "Count_MortalityEvent_AllOtherAndUnspecifiedMalignantNeoplasms_Female",
+          "Count_MortalityEvent_AllOtherDiseases(Residual)_Female",
+          "Count_MortalityEvent_AllOtherFormsOfChronicIschemicHeartDisease_Female",
+          "Count_MortalityEvent_AllOtherFormsOfHeartDisease_Female",
+          "Count_MortalityEvent_AlzheimersDisease_Female",
+          "Count_MortalityEvent_AorticAneurysmAndDissection_Female"
+        ]
+      },
+      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female": {
+        "age": [
+          "Count_Person_18To24Years_EducationalAttainmentBachelorsDegreeOrHigher_Female",
+          "Count_Person_35To44Years_EducationalAttainmentBachelorsDegreeOrHigher_Female",
+          "Count_Person_45To64Years_EducationalAttainmentBachelorsDegreeOrHigher_Female"
+        ]
+      },
+      "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female": {
+        "age": [
+          "Count_Person_18To24Years_EducationalAttainmentBachelorsDegree_Female",
+          "Count_Person_25To34Years_EducationalAttainmentBachelorsDegree_Female",
+          "Count_Person_35To44Years_EducationalAttainmentBachelorsDegree_Female",
+          "Count_Person_45To64Years_EducationalAttainmentBachelorsDegree_Female",
+          "Count_Person_65OrMoreYears_EducationalAttainmentBachelorsDegree_Female"
+        ]
+      },
+      "Count_Person_Female": {
+        "age": [
+          "Count_Person_15To44Years_Female",
+          "Count_Person_21OrMoreYears_Female",
+          "Count_Person_60OrMoreYears_Female",
+          "Count_Person_62OrMoreYears_Female",
+          "Count_Person_65To66Years_Female",
+          "Count_Person_67To69Years_Female",
+          "Count_Person_Upto14Years_Female"
+        ],
+        "educationalAttainment": [
+          "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female",
+          "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegree_Female",
+          "Count_Person_EducationalAttainmentBachelorsDegree_Female"
+        ],
+        "race": [
+          "Count_Person_Female_AsianAlone",
+          "Count_Person_Female_TwoOrMoreRaces",
+          "Count_Person_Female_WhiteAlone"
+        ]
+      },
+      "Count_Person_Female_AsianAlone": {
+        "age": [
+          "Count_Person_0To4Years_Female_AsianAlone",
+          "Count_Person_0Years_Female_AsianAlone",
+          "Count_Person_10To14Years_Female_AsianAlone",
+          "Count_Person_10Years_Female_AsianAlone",
+          "Count_Person_11Years_Female_AsianAlone",
+          "Count_Person_12Years_Female_AsianAlone",
+          "Count_Person_13Years_Female_AsianAlone",
+          "Count_Person_14Years_Female_AsianAlone",
+          "Count_Person_15OrMoreYears_Female_AsianAlone",
+          "Count_Person_15To17Years_Female_AsianAlone",
+          "Count_Person_15To19Years_Female_AsianAlone",
+          "Count_Person_16Years_Female_AsianAlone",
+          "Count_Person_17Years_Female_AsianAlone",
+          "Count_Person_18To19Years_Female_AsianAlone",
+          "Count_Person_18Years_Female_AsianAlone",
+          "Count_Person_19Years_Female_AsianAlone",
+          "Count_Person_1Years_Female_AsianAlone",
+          "Count_Person_20To24Years_Female_AsianAlone",
+          "Count_Person_20Years_Female_AsianAlone",
+          "Count_Person_21Years_Female_AsianAlone",
+          "Count_Person_22Years_Female_AsianAlone",
+          "Count_Person_23Years_Female_AsianAlone",
+          "Count_Person_24Years_Female_AsianAlone",
+          "Count_Person_25OrMoreYears_Female_AsianAlone",
+          "Count_Person_25To29Years_Female_AsianAlone",
+          "Count_Person_25Years_Female_AsianAlone",
+          "Count_Person_26Years_Female_AsianAlone",
+          "Count_Person_27Years_Female_AsianAlone",
+          "Count_Person_28Years_Female_AsianAlone",
+          "Count_Person_29Years_Female_AsianAlone",
+          "Count_Person_2Years_Female_AsianAlone",
+          "Count_Person_30To34Years_Female_AsianAlone",
+          "Count_Person_30Years_Female_AsianAlone",
+          "Count_Person_31Years_Female_AsianAlone",
+          "Count_Person_32Years_Female_AsianAlone",
+          "Count_Person_33Years_Female_AsianAlone",
+          "Count_Person_34Years_Female_AsianAlone",
+          "Count_Person_35To39Years_Female_AsianAlone",
+          "Count_Person_35Years_Female_AsianAlone",
+          "Count_Person_36Years_Female_AsianAlone",
+          "Count_Person_37Years_Female_AsianAlone",
+          "Count_Person_38Years_Female_AsianAlone",
+          "Count_Person_39Years_Female_AsianAlone",
+          "Count_Person_3Years_Female_AsianAlone",
+          "Count_Person_40To44Years_Female_AsianAlone",
+          "Count_Person_40Years_Female_AsianAlone",
+          "Count_Person_41Years_Female_AsianAlone",
+          "Count_Person_42Years_Female_AsianAlone",
+          "Count_Person_43Years_Female_AsianAlone",
+          "Count_Person_44Years_Female_AsianAlone",
+          "Count_Person_45To49Years_Female_AsianAlone",
+          "Count_Person_45Years_Female_AsianAlone",
+          "Count_Person_46Years_Female_AsianAlone",
+          "Count_Person_47Years_Female_AsianAlone",
+          "Count_Person_48Years_Female_AsianAlone",
+          "Count_Person_49Years_Female_AsianAlone",
+          "Count_Person_4Years_Female_AsianAlone",
+          "Count_Person_50To54Years_Female_AsianAlone",
+          "Count_Person_50Years_Female_AsianAlone",
+          "Count_Person_51Years_Female_AsianAlone",
+          "Count_Person_52Years_Female_AsianAlone",
+          "Count_Person_53Years_Female_AsianAlone",
+          "Count_Person_54Years_Female_AsianAlone",
+          "Count_Person_55To59Years_Female_AsianAlone",
+          "Count_Person_55Years_Female_AsianAlone",
+          "Count_Person_56Years_Female_AsianAlone",
+          "Count_Person_57Years_Female_AsianAlone",
+          "Count_Person_58Years_Female_AsianAlone",
+          "Count_Person_59Years_Female_AsianAlone",
+          "Count_Person_5To9Years_Female_AsianAlone",
+          "Count_Person_60To64Years_Female_AsianAlone",
+          "Count_Person_60Years_Female_AsianAlone",
+          "Count_Person_61Years_Female_AsianAlone",
+          "Count_Person_62Years_Female_AsianAlone",
+          "Count_Person_63Years_Female_AsianAlone",
+          "Count_Person_64Years_Female_AsianAlone",
+          "Count_Person_65To69Years_Female_AsianAlone",
+          "Count_Person_65Years_Female_AsianAlone",
+          "Count_Person_66Years_Female_AsianAlone",
+          "Count_Person_67Years_Female_AsianAlone",
+          "Count_Person_68Years_Female_AsianAlone",
+          "Count_Person_69Years_Female_AsianAlone",
+          "Count_Person_6Years_Female_AsianAlone",
+          "Count_Person_70To74Years_Female_AsianAlone",
+          "Count_Person_70Years_Female_AsianAlone",
+          "Count_Person_71Years_Female_AsianAlone",
+          "Count_Person_72Years_Female_AsianAlone",
+          "Count_Person_73Years_Female_AsianAlone",
+          "Count_Person_74Years_Female_AsianAlone",
+          "Count_Person_75To79Years_Female_AsianAlone",
+          "Count_Person_75To84Years_Female_AsianAlone",
+          "Count_Person_75Years_Female_AsianAlone",
+          "Count_Person_76Years_Female_AsianAlone",
+          "Count_Person_77Years_Female_AsianAlone",
+          "Count_Person_78Years_Female_AsianAlone",
+          "Count_Person_79Years_Female_AsianAlone",
+          "Count_Person_7Years_Female_AsianAlone",
+          "Count_Person_80To84Years_Female_AsianAlone",
+          "Count_Person_80Years_Female_AsianAlone",
+          "Count_Person_81Years_Female_AsianAlone",
+          "Count_Person_82Years_Female_AsianAlone",
+          "Count_Person_83Years_Female_AsianAlone",
+          "Count_Person_84Years_Female_AsianAlone",
+          "Count_Person_85OrMoreYears_Female_AsianAlone",
+          "Count_Person_8Years_Female_AsianAlone",
+          "Count_Person_9Years_Female_AsianAlone"
+        ]
+      },
+      "Count_Person_Female_MarriedAndNotSeparated": {
+        "age": [
+          "Count_Person_15To19Years_Female_MarriedAndNotSeparated",
+          "Count_Person_20To34Years_Female_MarriedAndNotSeparated",
+          "Count_Person_35To44Years_Female_MarriedAndNotSeparated",
+          "Count_Person_45To54Years_Female_MarriedAndNotSeparated",
+          "Count_Person_55To64Years_Female_MarriedAndNotSeparated"
+        ]
+      },
+      "Count_Person_Female_TwoOrMoreRaces": {
+        "age": [
+          "Count_Person_0To4Years_Female_TwoOrMoreRaces",
+          "Count_Person_0Years_Female_TwoOrMoreRaces",
+          "Count_Person_10To14Years_Female_TwoOrMoreRaces",
+          "Count_Person_10Years_Female_TwoOrMoreRaces",
+          "Count_Person_11Years_Female_TwoOrMoreRaces",
+          "Count_Person_12Years_Female_TwoOrMoreRaces",
+          "Count_Person_13Years_Female_TwoOrMoreRaces",
+          "Count_Person_14Years_Female_TwoOrMoreRaces",
+          "Count_Person_15OrMoreYears_Female_TwoOrMoreRaces",
+          "Count_Person_15To17Years_Female_TwoOrMoreRaces",
+          "Count_Person_15To19Years_Female_TwoOrMoreRaces",
+          "Count_Person_16Years_Female_TwoOrMoreRaces",
+          "Count_Person_17Years_Female_TwoOrMoreRaces",
+          "Count_Person_18To19Years_Female_TwoOrMoreRaces",
+          "Count_Person_18Years_Female_TwoOrMoreRaces",
+          "Count_Person_19Years_Female_TwoOrMoreRaces",
+          "Count_Person_1Years_Female_TwoOrMoreRaces",
+          "Count_Person_20To24Years_Female_TwoOrMoreRaces",
+          "Count_Person_20Years_Female_TwoOrMoreRaces",
+          "Count_Person_21Years_Female_TwoOrMoreRaces",
+          "Count_Person_22Years_Female_TwoOrMoreRaces",
+          "Count_Person_23Years_Female_TwoOrMoreRaces",
+          "Count_Person_24Years_Female_TwoOrMoreRaces",
+          "Count_Person_25OrMoreYears_Female_TwoOrMoreRaces",
+          "Count_Person_25To29Years_Female_TwoOrMoreRaces",
+          "Count_Person_25Years_Female_TwoOrMoreRaces",
+          "Count_Person_26Years_Female_TwoOrMoreRaces",
+          "Count_Person_27Years_Female_TwoOrMoreRaces",
+          "Count_Person_28Years_Female_TwoOrMoreRaces",
+          "Count_Person_29Years_Female_TwoOrMoreRaces",
+          "Count_Person_2Years_Female_TwoOrMoreRaces",
+          "Count_Person_30To34Years_Female_TwoOrMoreRaces",
+          "Count_Person_30Years_Female_TwoOrMoreRaces",
+          "Count_Person_31Years_Female_TwoOrMoreRaces",
+          "Count_Person_32Years_Female_TwoOrMoreRaces",
+          "Count_Person_33Years_Female_TwoOrMoreRaces",
+          "Count_Person_34Years_Female_TwoOrMoreRaces",
+          "Count_Person_35To39Years_Female_TwoOrMoreRaces",
+          "Count_Person_35Years_Female_TwoOrMoreRaces",
+          "Count_Person_36Years_Female_TwoOrMoreRaces",
+          "Count_Person_37Years_Female_TwoOrMoreRaces",
+          "Count_Person_38Years_Female_TwoOrMoreRaces",
+          "Count_Person_39Years_Female_TwoOrMoreRaces",
+          "Count_Person_3Years_Female_TwoOrMoreRaces",
+          "Count_Person_40To44Years_Female_TwoOrMoreRaces",
+          "Count_Person_40Years_Female_TwoOrMoreRaces",
+          "Count_Person_41Years_Female_TwoOrMoreRaces",
+          "Count_Person_42Years_Female_TwoOrMoreRaces",
+          "Count_Person_43Years_Female_TwoOrMoreRaces",
+          "Count_Person_44Years_Female_TwoOrMoreRaces",
+          "Count_Person_45To49Years_Female_TwoOrMoreRaces",
+          "Count_Person_45Years_Female_TwoOrMoreRaces",
+          "Count_Person_46Years_Female_TwoOrMoreRaces",
+          "Count_Person_47Years_Female_TwoOrMoreRaces",
+          "Count_Person_48Years_Female_TwoOrMoreRaces",
+          "Count_Person_49Years_Female_TwoOrMoreRaces",
+          "Count_Person_4Years_Female_TwoOrMoreRaces",
+          "Count_Person_50To54Years_Female_TwoOrMoreRaces",
+          "Count_Person_50Years_Female_TwoOrMoreRaces",
+          "Count_Person_51Years_Female_TwoOrMoreRaces",
+          "Count_Person_52Years_Female_TwoOrMoreRaces",
+          "Count_Person_53Years_Female_TwoOrMoreRaces",
+          "Count_Person_54Years_Female_TwoOrMoreRaces",
+          "Count_Person_55To59Years_Female_TwoOrMoreRaces",
+          "Count_Person_55Years_Female_TwoOrMoreRaces",
+          "Count_Person_56Years_Female_TwoOrMoreRaces",
+          "Count_Person_57Years_Female_TwoOrMoreRaces",
+          "Count_Person_58Years_Female_TwoOrMoreRaces",
+          "Count_Person_59Years_Female_TwoOrMoreRaces",
+          "Count_Person_5To9Years_Female_TwoOrMoreRaces",
+          "Count_Person_60To64Years_Female_TwoOrMoreRaces",
+          "Count_Person_60Years_Female_TwoOrMoreRaces",
+          "Count_Person_61Years_Female_TwoOrMoreRaces",
+          "Count_Person_62Years_Female_TwoOrMoreRaces",
+          "Count_Person_63Years_Female_TwoOrMoreRaces",
+          "Count_Person_64Years_Female_TwoOrMoreRaces",
+          "Count_Person_65To69Years_Female_TwoOrMoreRaces",
+          "Count_Person_65Years_Female_TwoOrMoreRaces",
+          "Count_Person_66Years_Female_TwoOrMoreRaces",
+          "Count_Person_67Years_Female_TwoOrMoreRaces",
+          "Count_Person_68Years_Female_TwoOrMoreRaces",
+          "Count_Person_69Years_Female_TwoOrMoreRaces",
+          "Count_Person_6Years_Female_TwoOrMoreRaces",
+          "Count_Person_70To74Years_Female_TwoOrMoreRaces",
+          "Count_Person_70Years_Female_TwoOrMoreRaces",
+          "Count_Person_71Years_Female_TwoOrMoreRaces",
+          "Count_Person_72Years_Female_TwoOrMoreRaces",
+          "Count_Person_73Years_Female_TwoOrMoreRaces",
+          "Count_Person_74Years_Female_TwoOrMoreRaces",
+          "Count_Person_75To79Years_Female_TwoOrMoreRaces",
+          "Count_Person_75To84Years_Female_TwoOrMoreRaces",
+          "Count_Person_75Years_Female_TwoOrMoreRaces",
+          "Count_Person_76Years_Female_TwoOrMoreRaces",
+          "Count_Person_77Years_Female_TwoOrMoreRaces",
+          "Count_Person_78Years_Female_TwoOrMoreRaces",
+          "Count_Person_79Years_Female_TwoOrMoreRaces",
+          "Count_Person_7Years_Female_TwoOrMoreRaces",
+          "Count_Person_80To84Years_Female_TwoOrMoreRaces",
+          "Count_Person_80Years_Female_TwoOrMoreRaces",
+          "Count_Person_81Years_Female_TwoOrMoreRaces",
+          "Count_Person_82Years_Female_TwoOrMoreRaces",
+          "Count_Person_83Years_Female_TwoOrMoreRaces",
+          "Count_Person_84Years_Female_TwoOrMoreRaces",
+          "Count_Person_85OrMoreYears_Female_TwoOrMoreRaces",
+          "Count_Person_8Years_Female_TwoOrMoreRaces",
+          "Count_Person_9Years_Female_TwoOrMoreRaces"
+        ]
+      },
+      "Count_Person_Female_WhiteAlone": {
+        "age": [
+          "Count_Person_0To4Years_Female_WhiteAlone",
+          "Count_Person_0Years_Female_WhiteAlone",
+          "Count_Person_10To14Years_Female_WhiteAlone",
+          "Count_Person_10Years_Female_WhiteAlone",
+          "Count_Person_11Years_Female_WhiteAlone",
+          "Count_Person_12Years_Female_WhiteAlone",
+          "Count_Person_13Years_Female_WhiteAlone",
+          "Count_Person_14Years_Female_WhiteAlone",
+          "Count_Person_15OrMoreYears_Female_WhiteAlone",
+          "Count_Person_15To17Years_Female_WhiteAlone",
+          "Count_Person_15To19Years_Female_WhiteAlone",
+          "Count_Person_16Years_Female_WhiteAlone",
+          "Count_Person_17Years_Female_WhiteAlone",
+          "Count_Person_18To19Years_Female_WhiteAlone",
+          "Count_Person_18Years_Female_WhiteAlone",
+          "Count_Person_19Years_Female_WhiteAlone",
+          "Count_Person_1Years_Female_WhiteAlone",
+          "Count_Person_20To24Years_Female_WhiteAlone",
+          "Count_Person_20Years_Female_WhiteAlone",
+          "Count_Person_21Years_Female_WhiteAlone",
+          "Count_Person_22Years_Female_WhiteAlone",
+          "Count_Person_23Years_Female_WhiteAlone",
+          "Count_Person_24Years_Female_WhiteAlone",
+          "Count_Person_25OrMoreYears_Female_WhiteAlone",
+          "Count_Person_25To29Years_Female_WhiteAlone",
+          "Count_Person_25Years_Female_WhiteAlone",
+          "Count_Person_26Years_Female_WhiteAlone",
+          "Count_Person_27Years_Female_WhiteAlone",
+          "Count_Person_28Years_Female_WhiteAlone",
+          "Count_Person_29Years_Female_WhiteAlone",
+          "Count_Person_2Years_Female_WhiteAlone",
+          "Count_Person_30To34Years_Female_WhiteAlone",
+          "Count_Person_30Years_Female_WhiteAlone",
+          "Count_Person_31Years_Female_WhiteAlone",
+          "Count_Person_32Years_Female_WhiteAlone",
+          "Count_Person_33Years_Female_WhiteAlone",
+          "Count_Person_34Years_Female_WhiteAlone",
+          "Count_Person_35To39Years_Female_WhiteAlone",
+          "Count_Person_35Years_Female_WhiteAlone",
+          "Count_Person_36Years_Female_WhiteAlone",
+          "Count_Person_37Years_Female_WhiteAlone",
+          "Count_Person_38Years_Female_WhiteAlone",
+          "Count_Person_39Years_Female_WhiteAlone",
+          "Count_Person_3Years_Female_WhiteAlone",
+          "Count_Person_40To44Years_Female_WhiteAlone",
+          "Count_Person_40Years_Female_WhiteAlone",
+          "Count_Person_41Years_Female_WhiteAlone",
+          "Count_Person_42Years_Female_WhiteAlone",
+          "Count_Person_43Years_Female_WhiteAlone",
+          "Count_Person_44Years_Female_WhiteAlone",
+          "Count_Person_45To49Years_Female_WhiteAlone",
+          "Count_Person_45Years_Female_WhiteAlone",
+          "Count_Person_46Years_Female_WhiteAlone",
+          "Count_Person_47Years_Female_WhiteAlone",
+          "Count_Person_48Years_Female_WhiteAlone",
+          "Count_Person_49Years_Female_WhiteAlone",
+          "Count_Person_4Years_Female_WhiteAlone",
+          "Count_Person_50To54Years_Female_WhiteAlone",
+          "Count_Person_50Years_Female_WhiteAlone",
+          "Count_Person_51Years_Female_WhiteAlone",
+          "Count_Person_52Years_Female_WhiteAlone",
+          "Count_Person_53Years_Female_WhiteAlone",
+          "Count_Person_54Years_Female_WhiteAlone",
+          "Count_Person_55To59Years_Female_WhiteAlone",
+          "Count_Person_55Years_Female_WhiteAlone",
+          "Count_Person_56Years_Female_WhiteAlone",
+          "Count_Person_57Years_Female_WhiteAlone",
+          "Count_Person_58Years_Female_WhiteAlone",
+          "Count_Person_59Years_Female_WhiteAlone",
+          "Count_Person_5To9Years_Female_WhiteAlone",
+          "Count_Person_60To64Years_Female_WhiteAlone",
+          "Count_Person_60Years_Female_WhiteAlone",
+          "Count_Person_61Years_Female_WhiteAlone",
+          "Count_Person_62Years_Female_WhiteAlone",
+          "Count_Person_63Years_Female_WhiteAlone",
+          "Count_Person_64Years_Female_WhiteAlone",
+          "Count_Person_65To69Years_Female_WhiteAlone",
+          "Count_Person_65Years_Female_WhiteAlone",
+          "Count_Person_66Years_Female_WhiteAlone",
+          "Count_Person_67Years_Female_WhiteAlone",
+          "Count_Person_68Years_Female_WhiteAlone",
+          "Count_Person_69Years_Female_WhiteAlone",
+          "Count_Person_6Years_Female_WhiteAlone",
+          "Count_Person_70To74Years_Female_WhiteAlone",
+          "Count_Person_70Years_Female_WhiteAlone",
+          "Count_Person_71Years_Female_WhiteAlone",
+          "Count_Person_72Years_Female_WhiteAlone",
+          "Count_Person_73Years_Female_WhiteAlone",
+          "Count_Person_74Years_Female_WhiteAlone",
+          "Count_Person_75To79Years_Female_WhiteAlone",
+          "Count_Person_75To84Years_Female_WhiteAlone",
+          "Count_Person_75Years_Female_WhiteAlone",
+          "Count_Person_76Years_Female_WhiteAlone",
+          "Count_Person_77Years_Female_WhiteAlone",
+          "Count_Person_78Years_Female_WhiteAlone",
+          "Count_Person_79Years_Female_WhiteAlone",
+          "Count_Person_7Years_Female_WhiteAlone",
+          "Count_Person_80To84Years_Female_WhiteAlone",
+          "Count_Person_80Years_Female_WhiteAlone",
+          "Count_Person_81Years_Female_WhiteAlone",
+          "Count_Person_82Years_Female_WhiteAlone",
+          "Count_Person_83Years_Female_WhiteAlone",
+          "Count_Person_84Years_Female_WhiteAlone",
+          "Count_Person_85OrMoreYears_Female_WhiteAlone",
+          "Count_Person_8Years_Female_WhiteAlone",
+          "Count_Person_9Years_Female_WhiteAlone"
+        ]
+      },
+      "Count_Person_Female_WithHealthInsurance": {
+        "age": [
+          "dc/1h5c2xbpd0edb",
+          "dc/1hs676pfqqthd",
+          "dc/2ernkb6d9yem2",
+          "dc/48s0hzlshj354",
+          "dc/965mdb0c8tef9",
+          "dc/jjhxlkp3qk2m6",
+          "dc/kkbq8kzlm6tw4",
+          "dc/lwqlh3vtpzw51",
+          "dc/py9rzq2xytfe3",
+          "dc/q4lk959j0bgq",
+          "dc/whh1y53fj4p69",
+          "dc/y9xxbzfr8yb06"
+        ]
+      },
+      "Count_Person_Male": {
+        "age": [
+          "Count_Person_15To44Years_Male",
+          "Count_Person_21OrMoreYears_Male",
+          "Count_Person_60OrMoreYears_Male",
+          "Count_Person_62OrMoreYears_Male",
+          "Count_Person_65To66Years_Male",
+          "Count_Person_67To69Years_Male",
+          "Count_Person_Upto14Years_Male"
+        ]
+      },
+      "Median_Age_Person_Female": {
+        "race": [
+          "Median_Age_Person_Female_AsianAlone",
+          "Median_Age_Person_Female_TwoOrMoreRaces",
+          "Median_Age_Person_Female_WhiteAlone"
+        ]
+      }
+    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Gender",
+        "name": "Gender",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Demographics",
+        "name": "Demographics",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/Age",
+        "name": "Age",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Race",
+        "name": "Population by Race",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Language",
+        "name": "Language Spoken At Home",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/MaritalStatus",
+        "name": "Marital Status",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Nationality",
+        "name": "Nationality",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Veterans",
+        "name": "Veterans",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
+  "svSource": "CURRENT_QUERY",
+  "userMessages": [
+    "Could not recognize any place in the query. See relevant statistics for United States of America."
+  ]
+}

@@ -14,16 +14,33 @@
 
 from server.config.subject_page_pb2 import StatVarSpec
 from server.config.subject_page_pb2 import Tile
+from server.lib.nl.common.utils import get_place_key
 from server.lib.nl.config_builder import base
+from server.lib.nl.detection.date import get_date_string
 from server.lib.nl.detection.types import Place
-import server.lib.nl.fulfillment.types
+import server.lib.nl.fulfillment.types as types
 
 
-def map_chart_block(column, place: Place, pri_sv: str, child_type: str,
-                    sv2thing: server.lib.nl.fulfillment.types.SV2Thing):
+def map_chart_block(column,
+                    place: Place,
+                    pri_sv: str,
+                    child_type: str,
+                    sv2thing: types.SV2Thing,
+                    single_date: types.Date = None,
+                    date_range: types.Date = None,
+                    sv_place_latest_date=None):
   # The main tile
   tile = column.tiles.add()
-  tile.stat_var_key.append(pri_sv)
+  sv_key = pri_sv
+  date_string = ''
+  if single_date:
+    date_string = get_date_string(single_date)
+  elif date_range:
+    place_key = get_place_key(place.dcid, child_type)
+    date_string = sv_place_latest_date.get(pri_sv, {}).get(place_key, '')
+  if date_string:
+    sv_key += f'_{date_string}'
+  tile.stat_var_key.append(sv_key)
   tile.type = Tile.TileType.MAP
   tile.title = base.decorate_chart_title(title=sv2thing.name[pri_sv],
                                          place=place,
@@ -31,7 +48,8 @@ def map_chart_block(column, place: Place, pri_sv: str, child_type: str,
                                          child_type=child_type)
 
   stat_var_spec_map = {}
-  stat_var_spec_map[pri_sv] = StatVarSpec(stat_var=pri_sv,
+  stat_var_spec_map[sv_key] = StatVarSpec(stat_var=pri_sv,
                                           name=sv2thing.name[pri_sv],
-                                          unit=sv2thing.unit[pri_sv])
+                                          unit=sv2thing.unit[pri_sv],
+                                          date=date_string)
   return stat_var_spec_map

@@ -23,7 +23,12 @@ import {
   HighlightTile,
   HighlightTilePropType,
 } from "../js/components/tiles/highlight_tile";
-import { createWebComponentElement, getApiRoot } from "./utils";
+import { DEFAULT_PER_CAPITA_DENOM } from "./constants";
+import {
+  convertArrayAttribute,
+  createWebComponentElement,
+  getApiRoot,
+} from "./utils";
 
 /**
  * Web component for rendering a highlight tile.
@@ -61,6 +66,10 @@ export class DatacommonsHighlightComponent extends LitElement {
   @property()
   place!: string;
 
+  // Optional: List of variable DCIDs to plot per capita
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  perCapita?: string[];
+
   /**
    * @deprecated
    * Text to accompany the variable value
@@ -76,7 +85,11 @@ export class DatacommonsHighlightComponent extends LitElement {
   @property()
   variable!: string;
 
-  render(): HTMLElement {
+  // Optional: List of sources for this component
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  sources?: string[];
+
+  render(): HTMLDivElement {
     const highlightTileProps: HighlightTilePropType = {
       apiRoot: getApiRoot(this.apiRoot),
       description: this.header || this.description,
@@ -85,9 +98,13 @@ export class DatacommonsHighlightComponent extends LitElement {
         name: "",
         types: [],
       },
+      sources: this.sources,
       statVarSpec: {
         date: this.date,
-        denom: "",
+        denom:
+          this.perCapita && this.perCapita.includes(this.variable)
+            ? DEFAULT_PER_CAPITA_DENOM
+            : "",
         log: false,
         name: "",
         scaling: 1,

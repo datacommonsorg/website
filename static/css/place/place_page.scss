@@ -1,0 +1,349 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/** Styles for /place/<dcid> pages */
+
+@use "../shared/ranking_unit";
+@use "../shared/chart_embed";
+@import "../draw";
+@import "../draw_choropleth";
+@import "../shared/story_block.scss";
+@import "../shared/story_chart.scss";
+@import "../nl_search_bar";
+@import "place";
+@import "change_place_search_bar";
+
+$vertical-section-border: 1px solid var(--dc-gray-lite);
+$vertical-section-margin: 2rem;
+$sidebar-top-padding: 132px; // Keep in sync with place.ts: Y_SCROLL_LIMIT
+$chart-border: 0.5px solid #dee2e6;
+
+#dc-places {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  margin-top: 20px;
+
+  @include media-breakpoint-up(md) {
+    margin-left: 3rem;
+    margin-right: 3rem;
+  }
+}
+
+#dc-places a {
+  text-decoration: underline;
+}
+
+@include media-breakpoint-up(md) {
+  #dc-places #place-dcid {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+}
+
+#dc-places h4#place-dcid,
+#dc-places #place-highlight h4 {
+  color: var(--secondary);
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.4rem;
+}
+
+#dc-places #place-highlight span {
+  font-style: italic;
+}
+
+.btn-dc {
+  background-color: #9a0000;
+  border-color: none;
+  color: #fff;
+  padding: 0.2rem 0.6rem;
+}
+
+.btn-dc:hover {
+  color: #fff;
+}
+
+.btn-dc img {
+  height: 1rem;
+  vertical-align: sub;
+}
+
+.map-container {
+  height: 100%;
+  min-height: 160px;
+}
+
+#menu a {
+  color: var(--dc-gray);
+  display: inline-block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.2rem;
+  padding: 0.3rem 0;
+  text-decoration: none;
+}
+
+#menu .nav-item .nav-item a {
+  padding: 0.25rem 0 0.25rem 0.5rem;
+  font-size: 0.8rem;
+}
+
+#menu .nav-item .nav-item a.topic {
+  font-weight: 600;
+}
+
+#menu .nav-item .nav-item a {
+  font-weight: 300;
+}
+
+#menu a.active {
+  color: var(--link-color);
+}
+
+.feedback {
+  color: #70757a !important;
+  font-style: italic;
+  text-align: right;
+  text-decoration: none !important;
+}
+
+.block.topic-header {
+  margin-bottom: -1rem;
+}
+
+.block h3 {
+  color: inherit;
+}
+
+.ranking-chart-container {
+  padding-left: 0%;
+  padding-right: 0.25rem;
+  margin-bottom: 0.25rem;
+  width: inherit;
+}
+
+.ranking-chart-container h4 {
+  height: 1.5rem;
+  margin-top: -0.5rem;
+}
+
+.ranking-chart {
+  column-gap: 1.25rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  line-height: 120%;
+  margin-bottom: 1rem;
+  row-gap: 1.25rem;
+  width: 100%;
+}
+
+.ranking-chart h4 {
+  margin-top: 0rem;
+  text-align: center;
+}
+
+.map-container {
+  display: flex;
+
+  .map {
+    flex-grow: 1;
+  }
+}
+
+.overview-tile {
+  background-color: rgba(105, 145, 214, 0.03);
+  border-radius: 16px;
+  border: 1px solid #e1e3e1;
+  gap: 16px;
+  padding: 24px 27px 24px 27px;
+
+  .parent-places-container {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+  }
+
+  .place-highlight-container h4 {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    margin-bottom: 0px;
+  }
+}
+
+.place-summary-container {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  margin-bottom: 16px;
+}
+
+.place-summary-container:empty {
+  display: none;
+}
+
+.search-section {
+  // override distance between NL search bar and main content
+  margin-bottom: 44px;
+}
+
+#place-heading-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  @media only screen and (max-width: 420px) {
+    flex-direction: column;
+  }
+}
+
+#place-heading {
+  align-self: flex-end;
+  flex-grow: 3;
+  margin-bottom: 8px;
+}
+
+.chart-container {
+  border: $chart-border;
+  border-radius: 3px;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  position: relative;
+  padding: 10px;
+}
+
+.feedback,
+.factoid footer {
+  font-size: 0.7rem;
+  color: var(--dc-gray);
+  margin-top: 0.5rem;
+}
+
+.factoid .table thead th {
+  vertical-align: middle;
+}
+
+.factoid th,
+.factoid td {
+  font-size: 0.9rem;
+  padding: 0.25rem;
+}
+
+#sidebar-outer {
+  border-top: $vertical-section-border;
+  margin-top: $vertical-section-margin;
+  padding-top: $vertical-section-margin;
+
+  @include media-breakpoint-up(lg) {
+    border: none;
+    margin-top: 0;
+    padding-top: 0;
+  }
+}
+
+#sidebar-top-spacer {
+  height: $sidebar-top-padding;
+  margin: 0;
+  padding: 0;
+}
+
+#sidebar-region {
+  padding-top: 15px;
+  position: relative;
+  transition: transform 300ms linear;
+}
+
+#sidebar-region.fixed {
+  height: 100vh;
+  overflow-y: auto;
+  position: fixed;
+  top: 0;
+}
+
+#child-place-title {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+#child-place {
+  margin-top: 30px;
+}
+
+#child-place-head {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--dc-gray);
+}
+
+.child-place-group {
+  margin-bottom: 1rem;
+  margin-top: 0.5rem;
+}
+
+.child-place-type {
+  color: var(--dc-gray);
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.child-place-link {
+  color: var(--dc-gray);
+  color: var(--dc-gray);
+  display: inline-block;
+  font-size: 13px;
+  margin-right: 4px;
+  text-decoration: underline;
+}
+
+.explore-more-container {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+
+.outlinks a {
+  font-size: 0.7rem;
+  color: var(--dc-primary);
+  margin-left: 0.5rem;
+}
+
+.explore-more {
+  @include media-breakpoint-down(sm) {
+    display: none;
+  }
+}
+
+.source {
+  color: var(--dc-gray);
+  font-size: 0.7rem;
+  margin-top: 0.5rem;
+}
+
+.chart-block-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.chart-block {
+  margin-bottom: 15px;
+}

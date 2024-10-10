@@ -38,6 +38,11 @@ class TestPlaceI18nExplorer(WebdriverBaseTest):
                                                           'アジア 内の 国')
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(place_type_present)
 
+    economics_section_present = EC.text_to_be_present_in_element(
+        (By.ID, 'Economics'), '経済')
+    WebDriverWait(self.driver,
+                  self.TIMEOUT_SEC).until(economics_section_present)
+
     # TODO(beets): Re-enable this test after fixing flakiness in finding
     # the chart.
     # Test strings in GDP comparison chart
@@ -111,7 +116,7 @@ class TestPlaceI18nExplorer(WebdriverBaseTest):
     chart_title = self.driver.find_element(
         By.XPATH, '//*[@id="main-pane"]/section[5]/div/div[2]/div/h4')
     self.assertEqual(chart_title.text,
-                     'Population urbaine et rurale : autres pays(2019)')
+                     'Population urbaine et rurale : autres pays(2022)')
 
     # Click through to ranking
     pop_growth_rate_chip = self.driver.find_element(

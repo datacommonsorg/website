@@ -16,6 +16,7 @@
 
 jest.mock("axios");
 
+import { expect } from "@jest/globals";
 import axios from "axios";
 import * as d3 from "d3";
 import { when } from "jest-when";
@@ -157,19 +158,20 @@ export function axiosMock(): void {
 
   // get place names, geoId/05
   when(axios.post)
-    .calledWith("/api/place/name", {
-      dcids: ["geoId/05"],
-    })
+    .calledWith(
+      "/api/place/name",
+      {
+        dcids: ["geoId/05"],
+      },
+      expect.anything()
+    )
     .mockResolvedValue({ data: { "geoId/05": "Place" } });
 
   // get data, geoId/05,Count_Person
-  when(axios.get)
+  when(axios.post)
     .calledWith("/api/observations/series", {
-      params: {
-        variables: ["Count_Person"],
-        entities: ["geoId/05"],
-      },
-      paramsSerializer: stringifyFn,
+      variables: ["Count_Person"],
+      entities: ["geoId/05"],
     })
     .mockResolvedValue({
       data: {
@@ -352,7 +354,11 @@ export function axiosMock(): void {
     });
 
   when(axios.post)
-    .calledWith("/api/place/displayname", { dcids: ["geoId/05"] })
+    .calledWith(
+      "/api/place/displayname",
+      { dcids: ["geoId/05"] },
+      expect.anything()
+    )
     .mockResolvedValue({
       data: {
         "geoId/05": "Arkansas",
@@ -362,7 +368,31 @@ export function axiosMock(): void {
     .calledWith("/api/variable-group/info", {
       dcid: "dc/g/Root",
       entities: [],
-      numEntitiesExistence: undefined,
+      numEntitiesExistence: 0,
+    })
+    .mockResolvedValue({
+      data: {
+        childStatVarGroups: [
+          {
+            displayName: "Demographics",
+            id: "dc/g/Demographics",
+            specializedEntity: "Demographics",
+            descendentStatVarCount: 100,
+          },
+          {
+            displayName: "Economics",
+            id: "dc/g/Economics",
+            specializedEntity: "Economics",
+            descendentStatVarCount: 100,
+          },
+        ],
+      },
+    });
+  when(axios.post)
+    .calledWith("/api/variable-group/info", {
+      dcid: "dc/g/Root",
+      entities: [],
+      numEntitiesExistence: 1,
     })
     .mockResolvedValue({
       data: {
@@ -422,9 +452,71 @@ export function axiosMock(): void {
     });
   when(axios.post)
     .calledWith("/api/variable-group/info", {
+      dcid: "dc/g/Demographics",
+      entities: ["geoId/05"],
+      numEntitiesExistence: 1,
+    })
+    .mockResolvedValue({
+      data: {
+        childStatVarGroups: [
+          {
+            displayName: "Person By Age",
+            id: "dc/g/Person_Age",
+            specializedEntity: "Age",
+            descendentStatVarCount: 5,
+          },
+          {
+            displayName: "Person By ArmedForcesStatus",
+            id: "dc/g/Person_ArmedForcesStatus",
+            specializedEntity: "ArmedForcesStatus",
+            descendentStatVarCount: 5,
+          },
+        ],
+        childStatVars: [
+          {
+            displayName: "Count Of Person",
+            id: "Count_Person",
+            searchName: "Count Of Person",
+            hasData: true,
+          },
+          {
+            displayName: "Median age of person",
+            id: "Median_Age_Person",
+            searchName: "Median age of person",
+            hasData: true,
+          },
+        ],
+      },
+    });
+  when(axios.post)
+    .calledWith("/api/variable-group/info", {
       dcid: "dc/g/Root",
       entities: ["geoId/05"],
       numEntitiesExistence: undefined,
+    })
+    .mockResolvedValue({
+      data: {
+        childStatVarGroups: [
+          {
+            displayName: "Demographics",
+            id: "dc/g/Demographics",
+            specializedEntity: "Demographics",
+            descendentStatVarCount: 100,
+          },
+          {
+            displayName: "Economics",
+            id: "dc/g/Economics",
+            specializedEntity: "Economics",
+            descendentStatVarCount: 100,
+          },
+        ],
+      },
+    });
+  when(axios.post)
+    .calledWith("/api/variable-group/info", {
+      dcid: "dc/g/Root",
+      entities: ["geoId/05"],
+      numEntitiesExistence: 1,
     })
     .mockResolvedValue({
       data: {

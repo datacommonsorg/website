@@ -23,8 +23,9 @@ import * as d3 from "d3";
 import _ from "lodash";
 import React from "react";
 
-import { NL_SOURCE_REPLACEMENTS } from "../constants/app/nl_interface_constants";
+import { NL_SOURCE_REPLACEMENTS } from "../constants/app/explore_constants";
 import { SELF_PLACE_DCID_PLACEHOLDER } from "../constants/subject_page_constants";
+import { CSV_FIELD_DELIMITER } from "../constants/tile_constants";
 import {
   GA_EVENT_TILE_EXPLORE_MORE,
   GA_PARAM_URL,
@@ -33,12 +34,14 @@ import {
 import { PointApiResponse, SeriesApiResponse } from "../shared/stat_types";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
-import { urlToDisplayText } from "../shared/util";
+import { getCappedStatVarDate, urlToDisplayText } from "../shared/util";
+import { TileMetadataModal } from "../tools/shared/tile_metadata_modal";
 import { getMatchingObservation } from "../tools/shared_util";
 import { EventTypeSpec, TileConfig } from "../types/subject_page_proto_types";
 import { stringifyFn } from "./axios";
-import { isNlInterface } from "./nl_interface_utils";
+import { isNlInterface } from "./explore_utils";
 import { getUnit } from "./stat_metadata_utils";
+import { addPerCapitaToTitle } from "./subject_page_utils";
 
 const DEFAULT_PC_SCALING = 100;
 const DEFAULT_PC_UNIT = "%";
@@ -331,36 +334,40 @@ export function getTileEventTypeSpecs(
 }
 
 /**
- * Gets the JSX element for displaying a list of sources.
+ * Gets the JSX element for displaying a list of sources and stat vars.
  */
-export function getSourcesJsx(sources: Set<string>): JSX.Element {
+export function TileSources(props: {
+  sources: Set<string> | string[];
+  // If available, the stat vars to link to.
+  statVarSpecs?: StatVarSpec[];
+  containerRef?: React.RefObject<HTMLElement>;
+  apiRoot?: string;
+}): JSX.Element {
+  const { sources, statVarSpecs } = props;
   if (!sources) {
     return null;
   }
 
   const sourceList: string[] = Array.from(sources);
-  const seenSourceText = new Set();
+  //const seenSourceText = new Set();
   const sourcesJsx = sourceList.map((source, index) => {
     // HACK for updating source for NL interface
-    let processedSource = source;
+    let sourceUrl = source;
     if (isNlInterface()) {
-      processedSource = NL_SOURCE_REPLACEMENTS[source] || source;
+      sourceUrl = NL_SOURCE_REPLACEMENTS[source] || source;
     }
-    const sourceText = urlToDisplayText(processedSource);
-    if (seenSourceText.has(sourceText)) {
-      return null;
-    }
-    seenSourceText.add(sourceText);
+    const sourceText = urlToDisplayText(sourceUrl);
     return (
-      <span key={processedSource} {...{ part: "source" }}>
+      <span key={sourceUrl}>
         {index > 0 ? ", " : ""}
         <a
-          href={processedSource}
+          href={sourceUrl}
           rel="noreferrer"
           target="_blank"
+          title={sourceUrl}
           onClick={(event) => {
             triggerGAEvent(GA_EVENT_TILE_EXPLORE_MORE, {
-              [GA_PARAM_URL]: processedSource,
+              [GA_PARAM_URL]: sourceUrl,
             });
             return true;
           }}
@@ -373,7 +380,19 @@ export function getSourcesJsx(sources: Set<string>): JSX.Element {
   });
   return (
     <div className="sources" {...{ part: "source" }}>
-      Source: {sourcesJsx}
+      Source: <span {...{ part: "source-links" }}>{sourcesJsx}</span>
+      {statVarSpecs && statVarSpecs.length > 0 && (
+        <>
+          <span {...{ part: "source-separator" }}> • </span>
+          <span {...{ part: "source-show-metadata-link" }}>
+            <TileMetadataModal
+              apiRoot={props.apiRoot}
+              containerRef={props.containerRef}
+              statVarSpecs={statVarSpecs}
+            ></TileMetadataModal>
+          </span>
+        </>
+      )}
     </div>
   );
 }
@@ -401,11 +420,11 @@ export function getStatFormat(
   svSpec: StatVarSpec,
   statPointData?: PointApiResponse,
   statSeriesData?: SeriesApiResponse
-): { unit: string; scaling: number; numFractionDigits: number } {
+): { unit: string; scaling: number; numFractionDigits?: number } {
   const result = {
     unit: svSpec.unit,
     scaling: svSpec.scaling || 1,
-    numFractionDigits: NUM_FRACTION_DIGITS,
+    numFractionDigits: undefined,
   };
   // If unit was specified in the svSpec, use that unit
   if (result.unit) {
@@ -516,16 +535,13 @@ export function getNoDataErrorMsg(statVarSpec: StatVarSpec[]): string {
 }
 
 /**
- * Shows an error message in a container div
- * @param errorMsg the message to show
+ * Removes content from specified container
  * @param container the container div to show the message
  */
-export function showError(errorMsg: string, container: HTMLDivElement): void {
+export function clearContainer(container: HTMLDivElement): void {
   // Remove contents of the container
   const containerSelection = d3.select(container);
   containerSelection.selectAll("*").remove();
-  // Show error message in the container
-  containerSelection.html(errorMsg);
 }
 
 /**
@@ -543,4 +559,62 @@ export function getComparisonPlaces(
   return tileConfig.comparisonPlaces.map((p) =>
     p == SELF_PLACE_DCID_PLACEHOLDER ? place.dcid : p
   );
+}
+
+/**
+ * Transforms CSV column headers to make them more readable. Specifically:
+ * - Capitalizes header
+ * - Changes "dcid" to "DCID" (Example: "Entity dcid" -> "Entity DCID")
+ *
+ * @param columnHeader CSV column header
+ * @returns capitalized column header
+ */
+export function transformCsvHeader(columnHeader: string) {
+  if (columnHeader.length === 0) {
+    return columnHeader;
+  }
+  const capitalizedColumnHeader =
+    columnHeader[0].toUpperCase() + columnHeader.slice(1);
+  return capitalizedColumnHeader.replace(
+    `${CSV_FIELD_DELIMITER}dcid`,
+    `${CSV_FIELD_DELIMITER}DCID`
+  );
+}
+
+/**
+ * Gets the first date from a list of stat var spec objects
+ *
+ * Tiles in the subject config page currently operate with the assumption that
+ * all dates set for a subject page config will have the same date
+ *
+ * @param variables stat var spec variables
+ * @returns first date found or undefined if stat var spec list is empty
+ */
+export function getFirstCappedStatVarSpecDate(
+  variables: StatVarSpec[],
+  date?: string
+): string {
+  if (variables.length === 0) {
+    return "";
+  }
+  return getCappedStatVarDate(variables[0].statVar, date || variables[0].date);
+}
+
+/**
+ * Gets the description for a highlight tile given the tile config and block
+ * level denominator
+ *
+ * @param tile the tile config
+ * @param blockDenom the block level denominator
+ * @returns description for the highlight tile
+ */
+export function getHighlightTileDescription(
+  tile: TileConfig,
+  blockDenom?: string
+): string {
+  let description = tile.description.includes("${date}")
+    ? tile.description
+    : tile.description + " (${date})";
+  description = blockDenom ? addPerCapitaToTitle(description) : description;
+  return description;
 }

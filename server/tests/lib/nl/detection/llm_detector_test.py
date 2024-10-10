@@ -33,6 +33,7 @@ from server.lib.nl.detection.types import SuperlativeClassificationAttributes
 from server.lib.nl.detection.types import SuperlativeType
 from server.lib.nl.detection.types import TimeDeltaClassificationAttributes
 from server.lib.nl.detection.types import TimeDeltaType
+import shared.lib.detected_variables as dvars
 
 
 class TestMergeSV(unittest.TestCase):
@@ -84,8 +85,9 @@ class TestMergeSV(unittest.TestCase):
   ])
   def test_main(self, sv, sv_scores, want):
     self.maxDiff = None
-    got = llm_detector._merge_sv_dicts(sv, sv_scores)
-    self.assertEqual(got, want)
+    inputs = [dvars.test_dict_to_var_detection_result(i) for i in sv_scores]
+    got = llm_detector._merge_sv_dicts(sv, inputs)
+    self.assertEqual(dvars.var_detection_result_to_dict(got), want)
 
 
 class TestBuildClassifications(unittest.TestCase):

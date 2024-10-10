@@ -1,0 +1,88 @@
+dcid,sentence
+dcid,sentence
+dc/topic/ILOEAP5EAPNB,Labour Force current ILO Definition
+dc/topic/ILOEAP5WAPRT,Labour Force Participation Rate current ILO Definition
+dc/topic/ILOEAPDWA1RT,Labour Force Participation Rate seasonally Adjusted Series
+dc/topic/ILOEAPDWAPRT,Labour Force Participation Rate previous ILO Definition
+dc/topic/ILOEAPTEA1NB,Labour Force seasonally Adjusted Series
+dc/topic/ILOEAPTEAPNB,Labour Force previous ILO Definition
+dc/topic/ILOEAR4HRLNBPPP,Average Hourly Earnings of Employees
+dc/topic/ILOEAR4HRLNBUSD,Average Hourly Earnings of Employees
+dc/topic/ILOEAR4MTHNBPPP,Average Monthly Earnings of Employees
+dc/topic/ILOEAR4MTHNBUSD,Average Monthly Earnings of Employees
+dc/topic/ILOEARGGAPRT,Gender Pay Gap
+dc/topic/ILOEARXTLPRT,Low Pay Rate
+dc/topic/ILOEESTEESNB,Number of Employees
+dc/topic/ILOEESXPLVRT,Share of Employees With Access To Parental Leave
+dc/topic/ILOEESXTMPRT,Share of Temporary Employees
+dc/topic/ILOEIP5EETNB,"Youth Not in Employment, Education or Training NEET current ILO Definition"
+dc/topic/ILOEIP5EETRT,"Share of Youth Not in Employment, Education or Training NEET current ILO Definition"
+dc/topic/ILOEIP5EIPNB,Persons Outside The Labour Force current ILO Definition
+dc/topic/ILOEIP5PLFNB,Potential Labour Force current ILO Definition
+dc/topic/ILOEIP5WAPRT,Inactivity Rate current ILO Definition
+dc/topic/ILOEIPDWAPRT,Inactivity Rate previous ILO Definition
+dc/topic/ILOEIPNEETNB,"Youth Not in Employment, Education or Training NEET previous ILO Definition"
+dc/topic/ILOEIPNEETRT,"Share of Youth Not in Employment, Education or Training NEET previous ILO Definition"
+dc/topic/ILOEIPTEIPNB,Persons Outside The Labour Force previous ILO Definition
+dc/topic/ILOEIPWDISNB,Number of Discouraged Job-seekers
+dc/topic/ILOEIPWPLFNB,Potential Labour Force previous ILO Definition
+dc/topic/ILOEMP5EMPNB,Employment current ILO Definition
+dc/topic/ILOEMP5NIFNB,Informal Employment current ILO Definition
+dc/topic/ILOEMP5NIFRT,Informal Employment Rate current ILO Definition
+dc/topic/ILOEMP5PIFNB,Employment Outside The Formal Sector current ILO Definition
+dc/topic/ILOEMP5PIFRT,Share of Employment Outside The Formal Sector current ILO Definition
+dc/topic/ILOEMP5WAPRT,Employment-to-population Ratio current ILO Definition
+dc/topic/ILOEMPCARENB,Care Employment
+dc/topic/ILOEMPCNIFRT,Informal Care Employment Rate
+dc/topic/ILOEMPCPIFRT,Share of Care Employment Outside The Formal Sector
+dc/topic/ILOEMPDWA1RT,"Employment-to-population Ratio, Seasonally Adjusted Series"
+dc/topic/ILOEMPDWAPRT,Employment-to-population Ratio previous ILO Definition
+dc/topic/ILOEMPNIFLNB,Informal Employment previous ILO Definition
+dc/topic/ILOEMPNIFLRT,Informal Employment Rate previous ILO Definition
+dc/topic/ILOEMPNORMNB,"Employment, Normative Approach"
+dc/topic/ILOEMPPIFLNB,Employment Outside The Formal Sector previous ILO Definition
+dc/topic/ILOEMPPIFLRT,Share of Employment Outside The Formal Sector previous ILO Definition
+dc/topic/ILOEMPPTERRT,Part-time Employment Rate
+dc/topic/ILOEMPPUBLNB,Public Sector Employment
+dc/topic/ILOEMPSNIFRT,Informal Employment in STEM Occupations Rate
+dc/topic/ILOEMPSPIFRT,Share of Employment in STEM Occupations Outside The Formal Sector
+dc/topic/ILOEMPSTATNB,Employment by Educational Mismatch using Statistical Approach
+dc/topic/ILOEMPSTEMNB,Employment in STEM Occupations
+dc/topic/ILOEMPTEM1NB,"Employment, Seasonally Adjusted Series"
+dc/topic/ILOEMPTEMPNB,Employment previous ILO Definition
+dc/topic/ILOEMPTNIFRT,Informal Tourism Sector Employment Rate
+dc/topic/ILOEMPTOURNB,Tourism Sector Employment
+dc/topic/ILOEMPTPIFRT,Share of Tourism Sector Employment Outside The Formal Sector
+dc/topic/ILOFOW5SFPNB,Subsistence Foodstuff Producers current ILO Definition
+dc/topic/ILOFOW5SFPRT,Subsistence Foodstuff Production Rate current ILO Definition
+dc/topic/ILOGED2LFPRT,Prime-age Labour Force Participation Rate ILO Modelled Estimates
+dc/topic/ILOHOWTEMPNB,Mean Weekly Hours Actually Worked Per Employed Person
+dc/topic/ILOINJDAYSNB,Number of Days Lost Due To Cases of Occupational Injury With Temporary Incapacity for Work
+dc/topic/ILOINJFATLNB,Cases of Fatal Occupational Injury
+dc/topic/ILOINJFATLRT,Fatal Occupational Injuries Per 100'000 Workers
+dc/topic/ILOINJNFTLNB,Cases of Non-fatal Occupational Injury
+dc/topic/ILOINJNFTLRT,Non-fatal Occupational Injuries Per 100'000 Workers
+dc/topic/ILOLAC4HRLNBPPP,Hourly Labour Cost Per Employee
+dc/topic/ILOLAC4HRLNBUSD,Hourly Labour Cost Per Employee
+dc/topic/ILOLAIINSPNB,Number of Labour Inspectors
+dc/topic/ILOLAP2LIDRT,Labour Income Distribution ILO Modelled Estimates
+dc/topic/ILOLUU5LU2RT,Combined Rate of Time-related Underemployment And Unemployment LU2 current ILO Definition
+dc/topic/ILOLUU5LU3RT,Combined Rate of Unemployment And Potential Labour Force LU3 current ILO Definition
+dc/topic/ILOLUU5LU4RT,Composite Rate of Labour Underutilization LU4 current ILO Definition
+dc/topic/ILOLUUXLU2RT,Combined Rate of Time-related Underemployment And Unemployment LU2 previous ILO Definition
+dc/topic/ILOLUUXLU3RT,Combined Rate of Unemployment And Potential Labour Force LU3 previous ILO Definition
+dc/topic/ILOLUUXLU4RT,Composite Rate of Labour Underutilization LU4 previous ILO Definition
+dc/topic/ILOPOPXWAPNB,Working-age Population
+dc/topic/ILOSTRDAYSNB,Number of Days Not Worked Due To Strikes And Lockouts
+dc/topic/ILOSTRDAYSRT,Proportion of Days Not Worked Due To Strikes And Lockouts
+dc/topic/ILOSTRTSTRNB,Strikes And Lockouts
+dc/topic/ILOSTRWORKNB,Workers Involved in Strikes And Lockouts
+dc/topic/ILOTRUDEMPRT,Time-related Underemployment Rate
+dc/topic/ILOTRUTTRUNB,Time-related Underemployment
+dc/topic/ILOUNE5EAPRT,Unemployment Rate current ILO Definition
+dc/topic/ILOUNE5UNENB,Unemployment current ILO Definition
+dc/topic/ILOUNEDEA1RT,"Unemployment Rate, Seasonally Adjusted Series"
+dc/topic/ILOUNEDEAPRT,Unemployment Rate previous ILO Definition
+dc/topic/ILOUNETUN1NB,"Unemployment, Seasonally Adjusted Series"
+dc/topic/ILOUNETUNENB,Unemployment previous ILO Definition
+dc/topic/ILOWBLTWBLRT,Participation Rate in Work-based Learning

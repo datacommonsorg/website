@@ -19,8 +19,6 @@
 {% set main_id = 'bio_protein_landing' %}
 {% set page_id = 'page-bio_protein_landing' %}
 {% set title = 'Protein Explorer' %}
-{% set subpage_title = 'Protein Explorer' %}
-{% set subpage_url = url_for('protein.main') %}
 
 {% block head %}
   <link rel="stylesheet" href={{url_for('static', filename='css/protein.min.css', t=config['VERSION'])}} >
@@ -35,7 +33,7 @@
     <ul>
       <li class="type-list">
         <strong>Protein</strong>:
-        <a href="/bio/protein/bio/P53_HUMAN">Cellular tumor antigen p53</a>
+        <a href={{url_for('protein.node', dcid='bio/P53_HUMAN')}}>Cellular tumor antigen p53</a>
       </li>
     </ul>
   </div>

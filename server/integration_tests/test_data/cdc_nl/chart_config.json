@@ -1,0 +1,441 @@
+{
+  "client": "test_detect-and-fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "gender_wage_gap"
+                    ],
+                    "title": "Gender Wage Gap in Countries of Europe (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "gender_wage_gap"
+                    ],
+                    "title": "Gender Wage Gap in Countries of Europe (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Gender wage gap.",
+            "title": "Gender Wage Gap in Countries of Europe"
+          }
+        ],
+        "statVarSpec": {
+          "gender_wage_gap": {
+            "name": "Gender Wage Gap",
+            "statVar": "gender_wage_gap"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "containedPlaceTypes": {
+        "Continent": "Country"
+      },
+      "placeDcid": [
+        "europe"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "entities": [],
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "europe",
+    "name": "Europe",
+    "place_type": "Continent"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "europe",
+      "name": "Europe",
+      "place_type": "Continent"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {
+      "Country": [
+        {
+          "dcid": "country/ALA",
+          "name": "\u00c5land Islands",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ALB",
+          "name": "Albania",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AND",
+          "name": "Andorra",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ANT",
+          "name": "Netherlands Antilles",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ARM",
+          "name": "Armenia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AUT",
+          "name": "Austria",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AZE",
+          "name": "Azerbaijan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BEL",
+          "name": "Belgium",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BGR",
+          "name": "Bulgaria",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BIH",
+          "name": "Bosnia and Herzegovina",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BLM",
+          "name": "Saint Barth\u00e9lemy",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BLR",
+          "name": "Belarus",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CHE",
+          "name": "Switzerland",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CYP",
+          "name": "Cyprus",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CZE",
+          "name": "Czech Republic",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/DEU",
+          "name": "Germany",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/DNK",
+          "name": "Denmark",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ESP",
+          "name": "Spain",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/EST",
+          "name": "Estonia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/FIN",
+          "name": "Finland",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/FRA",
+          "name": "France",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/FRO",
+          "name": "Faroe Islands",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/FXX",
+          "name": "Metropolitan France",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/GBR",
+          "name": "United Kingdom",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/GEO",
+          "name": "Georgia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/GGY",
+          "name": "Guernsey",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/GIB",
+          "name": "Gibraltar",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/GLP",
+          "name": "Guadeloupe",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/GRC",
+          "name": "Greece",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/GUF",
+          "name": "French Guiana",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/HRV",
+          "name": "Croatia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/HUN",
+          "name": "Hungary",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/IMN",
+          "name": "Isle of Man",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/IRL",
+          "name": "Ireland",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ISL",
+          "name": "Iceland",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ITA",
+          "name": "Italy",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/JEY",
+          "name": "Jersey",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/KAZ",
+          "name": "Kazakhstan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/LIE",
+          "name": "Liechtenstein",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/LTU",
+          "name": "Lithuania",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/LUX",
+          "name": "Luxembourg",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/LVA",
+          "name": "Latvia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/MAF",
+          "name": "Saint Martin (French part)",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/MCO",
+          "name": "Monaco",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/MDA",
+          "name": "Moldova",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/MKD",
+          "name": "Macedonia [FYROM]",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/MLT",
+          "name": "Malta",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/MNE",
+          "name": "Montenegro",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/MTQ",
+          "name": "Martinique",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/MYT",
+          "name": "Mayotte",
+          "types": [
+            "Country"
+          ]
+        }
+      ]
+    },
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopics": [],
+    "parentPlaces": [],
+    "parentTopics": [],
+    "peerPlaces": [],
+    "peerTopics": []
+  },
+  "svSource": "CURRENT_QUERY",
+  "userMessages": []
+}

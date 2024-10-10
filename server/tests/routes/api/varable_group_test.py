@@ -46,8 +46,11 @@ class TestGetVariableGroupInfo(unittest.TestCase):
         return {}
 
     mock_result.side_effect = side_effect
-    response = app.test_client().get(
-        '/api/variable-group/info?dcid=dc/g/Root&entities=geoId/06')
+    response = app.test_client().post('/api/variable-group/info',
+                                      json={
+                                          "dcid": "dc/g/Root",
+                                          "entities": ["geoId/06"]
+                                      })
     assert response.status_code == 200
     result = json.loads(response.data)
     assert result == expected_result

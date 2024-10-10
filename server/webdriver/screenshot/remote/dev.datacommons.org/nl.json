@@ -1578,5 +1578,20 @@
     "url": "/explore#q=Which+country+has+the+highest+vaccination+rate+for+COVID&mb=4&test=screenshot",
     "height": 3000,
     "async": true
+  },
+  {
+    "url": "/explore#q=California+counties+with+the+biggest+increase+in+income+levels",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Poverty+vs.+unemployment+rate+in+districts+of+Tamil+Nadu",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore/#q=Tell+me+about+California&mb=3&test=screenshot",
+    "height": 3000,
+    "async": true
   }
 ]

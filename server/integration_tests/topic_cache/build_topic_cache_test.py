@@ -30,7 +30,7 @@ TOPIC_CACHE_JSON = 'server/config/nl_page/topic_cache.json'
 PROPS = set(['dcid', 'typeOf', 'name', 'memberList', 'relevantVariableList'])
 
 PARSER = 'mcf_parser.py'
-PARSER_URL = f'https://raw.githubusercontent.com/datacommonsorg/tools/master/kg_util/{PARSER}'
+PARSER_URL = f'https://raw.githubusercontent.com/datacommonsorg/import/master/simple/kg_util/{PARSER}'
 TOPIC_MCF = 'gen_ordered_list_for_topics.mcf'
 TOPIC_MCF_URL = f'https://raw.githubusercontent.com/datacommonsorg/schema/main/stat_vars/{TOPIC_MCF}'
 

@@ -1,67 +1,9 @@
 {
+  "client": "test_detect-and-fulfill",
   "config": {
     "categories": [
       {
         "blocks": [
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
-                    ],
-                    "title": "Population Below Poverty Line (Per Capita) in Administrative Area 1 Places of India (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
-                    ],
-                    "title": "Population Below Poverty Line (Per Capita) in Administrative Area 1 Places of India (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Population Below Poverty Line (Per Capita) in Administrative Area 1 Places of India"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
-                    ],
-                    "title": "Population Below Poverty Line (Per Capita) in India",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population Below Poverty Line (Per Capita) in India",
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
-                    ],
-                    "title": "Population Below Poverty Line (Per Capita) in India",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Population Below Poverty Line (Per Capita)"
-          },
           {
             "columns": [
               {
@@ -124,6 +66,65 @@
             "denom": "Count_Person",
             "startWithDenom": true,
             "title": "Population Below Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Population Below Poverty Line (Per Capita) in Administrative Area 1 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Population Below Poverty Line (Per Capita) in Administrative Area 1 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Below Poverty Line (Per Capita) in Administrative Area 1 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Population Below Poverty Line (Per Capita) in India",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population Below Poverty Line (Per Capita) in India",
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Population Below Poverty Line (Per Capita) in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Below Poverty Line (Per Capita)"
           },
           {
             "columns": [
@@ -218,7 +219,7 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1"
                     ],
-                    "title": "Proportion of Population Below International Poverty Line in India",
+                    "title": "Population Below International Poverty Line in India",
                     "type": "LINE"
                   }
                 ]
@@ -226,18 +227,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Proportion of Population Below International Poverty Line in India",
+                    "description": "Population Below International Poverty Line in India",
                     "statVarKey": [
                       "sdg/SI_POV_DAY1"
                     ],
-                    "title": "Proportion of Population Below International Poverty Line in India",
+                    "title": "Population Below International Poverty Line in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: poverty and inequality portal, world bank.",
-            "title": "Proportion of Population Below International Poverty Line"
+            "title": "Population Below International Poverty Line"
           },
           {
             "columns": [
@@ -297,9 +298,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O"
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
                     ],
-                    "title": "Proportion of Population Using Basic Drinking Water Services, by Location in India",
+                    "title": "Nominal GDP Per Capita in India",
                     "type": "LINE"
                   }
                 ]
@@ -307,18 +308,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Proportion of Population Using Basic Drinking Water Services, by Location in India",
+                    "description": "Nominal GDP Per Capita in India",
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVH2O"
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
                     ],
-                    "title": "Proportion of Population Using Basic Drinking Water Services, by Location in India",
+                    "title": "Nominal GDP Per Capita in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: WHO/UNICEF joint monitoring programme for water supply, sanitation and hygiene (2023).",
-            "title": "Proportion of Population Using Basic Drinking Water Services, by Location"
+            "title": "Nominal GDP Per Capita"
           },
           {
             "columns": [
@@ -326,9 +326,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVSAN"
+                      "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
                     ],
-                    "title": "Proportion of Population Using Basic Sanitation Services, by Location in India",
+                    "title": "Gross National Income Based on Purchasing Power Parity Per Capita in India",
                     "type": "LINE"
                   }
                 ]
@@ -336,130 +336,28 @@
               {
                 "tiles": [
                   {
-                    "description": "Proportion of Population Using Basic Sanitation Services, by Location in India",
+                    "description": "Gross National Income Based on Purchasing Power Parity Per Capita in India",
                     "statVarKey": [
-                      "sdg/SP_ACS_BSRVSAN"
+                      "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
                     ],
-                    "title": "Proportion of Population Using Basic Sanitation Services, by Location in India",
+                    "title": "Gross National Income Based on Purchasing Power Parity Per Capita in India",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: WHO/UNICEF joint monitoring programme for water supply, sanitation and hygiene (2023).",
-            "title": "Proportion of Population Using Basic Sanitation Services, by Location"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
-                    ],
-                    "title": "Employed Population Below International Poverty Line, by Sex and Age [15 Years Old and Over] in India",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Employed Population Below International Poverty Line, by Sex and Age [15 Years Old and Over] in India",
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
-                    ],
-                    "title": "Employed Population Below International Poverty Line, by Sex and Age [15 Years Old and Over] in India",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: source = ILO modelled estimates, nov.2022.",
-            "title": "Employed Population Below International Poverty Line, by Sex and Age [15 Years Old and Over]"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F",
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
-                    ],
-                    "title": "Employed Population Below International Poverty Line by Gender in India",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Employed Population Below International Poverty Line by Gender"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Mean_WagesMonthly_Worker"
-                    ],
-                    "title": "Mean Monthly Wages in Administrative Area 1 Places of India (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_WagesMonthly_Worker"
-                    ],
-                    "title": "Mean Monthly Wages in Administrative Area 1 Places of India (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "startWithDenom": true,
-            "title": "Mean Monthly Wages in Administrative Area 1 Places of India"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_WagesMonthly_Worker"
-                    ],
-                    "title": "Mean Monthly Wages in India",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Mean Monthly Wages in India",
-                    "statVarKey": [
-                      "Mean_WagesMonthly_Worker"
-                    ],
-                    "title": "Mean Monthly Wages in India",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "startWithDenom": true,
-            "title": "Mean Monthly Wages"
+            "title": "Gross National Income Based on Purchasing Power Parity Per Capita"
           }
         ],
         "statVarSpec": {
+          "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": {
+            "name": "Nominal GDP Per Capita",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
+          },
+          "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita": {
+            "name": "Gross National Income Based on Purchasing Power Parity Per Capita",
+            "statVar": "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
+          },
           "Count_Person_BelowPovertyLevelInThePast12Months": {
             "name": "Population Below poverty line",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
@@ -476,61 +374,37 @@
             "name": "Urban residents, Below Poverty Line",
             "statVar": "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
           },
-          "Mean_WagesMonthly_Worker": {
-            "name": "Mean Monthly Wages",
-            "statVar": "Mean_WagesMonthly_Worker"
-          },
           "sdg/SI_POV_DAY1": {
-            "name": "Proportion of population below international poverty line",
+            "name": "Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1"
           },
           "sdg/SI_POV_DAY1.AGE--Y0T14": {
-            "name": "Proportion of population below international poverty line [under 15 years old]",
+            "name": "Population Age Under 15 Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1.AGE--Y0T14"
           },
           "sdg/SI_POV_DAY1.AGE--Y15T64": {
-            "name": "Proportion of population below international poverty line [15 to 64 years old]",
+            "name": "Population Age 15 to 64 Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1.AGE--Y15T64"
           },
           "sdg/SI_POV_DAY1.AGE--Y_GE65": {
-            "name": "Proportion of population below international poverty line [65 years old and over]",
+            "name": "Population Age 65 or Older Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1.AGE--Y_GE65"
           },
           "sdg/SI_POV_DAY1.SEX--F": {
-            "name": "Proportion of population below international poverty line [Female]",
+            "name": "Women Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1.SEX--F"
           },
           "sdg/SI_POV_DAY1.SEX--M": {
-            "name": "Proportion of population below international poverty line [Male]",
+            "name": "Men Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1.SEX--M"
           },
           "sdg/SI_POV_DAY1.URBANISATION--R": {
-            "name": "Proportion of population below international poverty line [Rural]",
+            "name": "Rural Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1.URBANISATION--R"
           },
           "sdg/SI_POV_DAY1.URBANISATION--U": {
-            "name": "Proportion of population below international poverty line [Urban]",
+            "name": "Urban Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1.URBANISATION--U"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y_GE15": {
-            "name": "Employed population below international poverty line, by sex and age [15 years old and over]",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F": {
-            "name": "Employed population below international poverty line, by sex and age [15 years old and over, Female]",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M": {
-            "name": "Employed population below international poverty line, by sex and age [15 years old and over, Male]",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
-          },
-          "sdg/SP_ACS_BSRVH2O": {
-            "name": "Proportion of population using basic drinking water services, by location",
-            "statVar": "sdg/SP_ACS_BSRVH2O"
-          },
-          "sdg/SP_ACS_BSRVSAN": {
-            "name": "Proportion of population using basic sanitation services, by location",
-            "statVar": "sdg/SP_ACS_BSRVSAN"
           }
         }
       }
@@ -546,6 +420,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "country/IND",
@@ -782,6 +657,13 @@
           ]
         },
         {
+          "dcid": "wikidataId/Q2893890",
+          "name": "Kamtapur",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
           "dcid": "wikidataId/Q40888",
           "name": "Andaman and Nicobar Islands",
           "types": [
@@ -817,8 +699,22 @@
           ]
         },
         {
+          "dcid": "wikidataId/Q66743",
+          "name": "Puducherry",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
           "dcid": "wikidataId/Q677037",
           "name": "Telangana",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q77997266",
+          "name": "Dadra and Nagar Haveli and Daman and Diu",
           "types": [
             "AdministrativeArea1"
           ]
@@ -860,24 +756,6 @@
         "sdg_urbanisation": [
           "sdg/SI_POV_DAY1.URBANISATION--R",
           "sdg/SI_POV_DAY1.URBANISATION--U"
-        ]
-      },
-      "sdg/SI_POV_EMP1.AGE--Y_GE15": {
-        "sdg_sex": [
-          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F",
-          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
-        ]
-      },
-      "sdg/SP_ACS_BSRVH2O": {
-        "sdg_urbanisation": [
-          "sdg/SP_ACS_BSRVH2O.URBANISATION--R",
-          "sdg/SP_ACS_BSRVH2O.URBANISATION--U"
-        ]
-      },
-      "sdg/SP_ACS_BSRVSAN": {
-        "sdg_urbanisation": [
-          "sdg/SP_ACS_BSRVSAN.URBANISATION--R",
-          "sdg/SP_ACS_BSRVSAN.URBANISATION--U"
         ]
       }
     },
@@ -1021,9 +899,16 @@
         "types": [
           "Topic"
         ]
+      },
+      {
+        "dcid": "dc/topic/Agriculture",
+        "name": "Agriculture",
+        "types": [
+          "Topic"
+        ]
       }
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessages": []
 }

@@ -29,11 +29,9 @@ def img_diff(im1, im2):
   im1 = Image.open(io.BytesIO(im1))
   im2 = Image.open(io.BytesIO(im2))
 
-  # Ensure we have the same color channels (RGBA vs RGB)
-  if im1.mode != im2.mode:
-    raise ValueError(
-        ("Differing color modes:\n  {}\n  {}\n"
-         "Ensure image color modes are the same.").format(im1.mode, im2.mode))
+  # Convert to RGBA
+  im1 = im1.convert('RGBA')
+  im2 = im2.convert('RGBA')
 
   # Coerce 2nd dimensions to same as 1st
   im2 = im2.resize((im1.width, im1.height))

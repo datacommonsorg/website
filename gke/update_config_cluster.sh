@@ -16,19 +16,23 @@
 set -e
 
 function help {
-  echo "Usage: $0 -el"
-  echo "-e       Instance environment as defined under ../deploy/gke"
+  echo "Usage: $0 -eln"
+  echo "-e       Instance environment as defined under ../deploy/helm_charts/envs"
   echo "-l       GKE region Default: us-central1"
+  echo "-n       Setup nodejs service"
   exit 1
 }
 
-while getopts ":e:l:" OPTION; do
+while getopts ":e:l:n?" OPTION; do
   case $OPTION in
     e)
       ENV=$OPTARG
       ;;
     l)
       LOCATION=$OPTARG
+      ;;
+    n)
+      export SETUP_NODEJS=true
       ;;
     *)
       help
@@ -55,12 +59,21 @@ gcloud container clusters get-credentials $CLUSTER_NAME \
 
 # Update mci config
 cp mci.yaml.tpl mci.yaml
-export IP=$(gcloud compute addresses list --global --filter='name:website-ip' --format='value(ADDRESS)')
+export IP=$(gcloud compute addresses list --global --filter='name:dc-website-ip' --format='value(ADDRESS)')
 yq eval -i '.metadata.annotations."networking.gke.io/static-ip" = env(IP)' mci.yaml
+# If not setting up nodejs service, remove the nodejs path from the mci.yaml
+if [[ -z $SETUP_NODEJS ]]; then
+  yq eval -i 'del(.spec.template.spec.rules.[].http.paths[] | select(.backend.serviceName == "website-nodejs-mcs"))' mci.yaml
+fi
 
 # Apply configs
 kubectl apply -f backendconfig.yaml
 kubectl apply -f mci.yaml
-kubectl apply -f mcs.yaml
+kubectl apply -f website_mcs.yaml
+# If setting up nodejs service, apply the mcs yaml definition for nodejs
+if [[ $SETUP_NODEJS ]]; then
+  kubectl apply -f website_nodejs_mcs.yaml
+fi
+
 
 # Check the status: `kubectl describe mci website -n website`

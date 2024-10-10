@@ -62,8 +62,6 @@ const defaultModalSelected: ModalSelected = Object.freeze({
   y: false,
 });
 
-const NUM_ENTITIES_EXISTENCE = 10;
-
 interface StatVarChooserProps {
   openSvHierarchyModalCallback: () => void;
   openSvHierarchyModal: boolean;
@@ -164,10 +162,6 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
         }
         selectedSVs={selectedSvs}
         selectSV={(sv) => addStatVar(x, y, sv, setThirdStatVar, setModalOpen)}
-        numEntitiesExistence={Math.min(
-          NUM_ENTITIES_EXISTENCE,
-          samplePlaces.length
-        )}
       />
       {/* Modal for selecting 2 stat vars when a third is selected */}
       <Modal isOpen={modalOpen} backdrop="static" id="statvar-modal">
@@ -176,12 +170,8 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
         </ModalHeader>
         <ModalBody>
           <Container>
-            <div>
-              You selected:{" "}
-              <b>{thirdStatVar.info.title || thirdStatVar.dcid}</b>
-            </div>
             <div className="radio-selection-label">
-              Please choose 1 more statistical variable to keep:
+              Select the statistical variable to replace:
             </div>
             <div className="radio-selection-section">
               <FormGroup radio="true" row>
@@ -339,14 +329,14 @@ function confirmStatVars(
   setModalOpened: (open: boolean) => void
 ): void {
   if (modalSelected.y) {
-    x.set({
-      ...x.value,
+    y.set({
+      ...y.value,
       statVarInfo: thirdStatVar.info,
       statVarDcid: thirdStatVar.dcid,
     });
   } else if (modalSelected.x) {
-    y.set({
-      ...y.value,
+    x.set({
+      ...x.value,
       statVarInfo: thirdStatVar.info,
       statVarDcid: thirdStatVar.dcid,
     });

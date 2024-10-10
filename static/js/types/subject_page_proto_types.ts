@@ -130,11 +130,33 @@ export interface LineTileSpec {
   timeScale?: "YEAR" | "MONTH" | "DAY";
   variableNameRegex?: string;
   defaultVariableName?: string;
+  startDate?: string;
+  endDate?: string;
+  highlightDate?: string;
 }
 
 export interface MapTileSpec {
   colors?: string[];
   geoJsonProp?: string;
+}
+
+export interface DisplayValueSpec {
+  values: string[];
+  sources: string[];
+}
+
+export interface AnswerMessageTileSpec {
+  propertyExpr?: string;
+  displayValue?: DisplayValueSpec;
+}
+
+export interface AnswerTableColumn {
+  header: string;
+  propertyExpr: string;
+}
+
+export interface AnswerTableTileSpec {
+  columns: AnswerTableColumn[];
 }
 
 export interface TileConfig {
@@ -147,6 +169,7 @@ export interface TileConfig {
   hideFooter?: boolean;
   subtitle?: string;
   placeNameProp?: string;
+  entities?: string[];
   rankingTileSpec?: RankingTileSpec;
   disasterEventMapTileSpec?: DisasterEventMapTileSpec;
   topEventTileSpec?: TopEventTileSpec;
@@ -157,6 +180,8 @@ export interface TileConfig {
   donutTileSpec?: DonutTileSpec;
   lineTileSpec?: LineTileSpec;
   mapTileSpec?: MapTileSpec;
+  answerMessageTileSpec?: AnswerMessageTileSpec;
+  answerTableTileSpec?: AnswerTableTileSpec;
 }
 
 export interface ColumnConfig {
@@ -177,6 +202,7 @@ export interface BlockConfig {
   denom?: string;
   startWithDenom?: boolean;
   disasterBlockSpec?: DisasterBlockSpec;
+  infoMessage?: string;
 }
 
 export type StatVarSpecMap = Record<string, StatVarSpec>;
@@ -184,7 +210,7 @@ export type StatVarSpecMap = Record<string, StatVarSpec>;
 export interface CategoryConfig {
   title: string;
   description?: string;
-  statVarSpec: StatVarSpecMap;
+  statVarSpec?: StatVarSpecMap;
   blocks: BlockConfig[];
   dcid?: string;
   url?: string;

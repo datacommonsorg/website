@@ -19,6 +19,7 @@ import { NamedTypedPlace } from "./types";
 export const USA_PLACE_DCID = "country/USA";
 export const INDIA_PLACE_DCID = "country/IND";
 export const BANGLADESH_PLACE_DCID = "country/BGD";
+export const BRAZIL_PLACE_DCID = "country/BRA";
 export const NEPAL_PLACE_DCID = "country/NPL";
 export const PAKISTAN_PLACE_DCID = "country/PAK";
 export const CHINA_PLACE_DCID = "country/CHN";
@@ -138,3 +139,19 @@ export const PLACE_TYPES = new Set([
   "UNGeoRegion",
   "UsdaSummerMealSite",
 ]);
+
+/**
+ * date query param value for requesting latest overall available for
+ * /api/observations/point/* endpoints
+ */
+export const DATE_HIGHEST_COVERAGE = "HIGHEST_COVERAGE";
+
+/**
+ * date query param value for requesting latest observations from REST v2 API
+ */
+export const DATE_LATEST = "LATEST";
+
+/**
+ * AbortController cancelled code
+ */
+export const ABORT_CONTROLLER_CANCELLED = "ERR_CANCELED";

@@ -89,6 +89,7 @@ import { ScatterChartType } from "../tools/scatter/util";
 import { Chart as TimelineToolChart } from "../tools/timeline/chart";
 import * as dataFetcher from "../tools/timeline/data_fetcher";
 import { axiosMock } from "../tools/timeline/mock_functions";
+import { getNumEntitiesExistence } from "../utils/app/visualization_utils";
 import {
   GA_EVENT_PLACE_CATEGORY_CLICK,
   GA_EVENT_PLACE_CHART_CLICK,
@@ -398,9 +399,10 @@ const STAT_VAR_HIERARCHY_PROPS = {
   deselectSV: () => null,
 };
 
-beforeEach(() =>
-  jest.spyOn(axios, "get").mockImplementation(() => Promise.resolve(null))
-);
+beforeEach(() => {
+  jest.spyOn(axios, "get").mockImplementation(() => Promise.resolve(null));
+  jest.spyOn(axios, "post").mockImplementation(() => Promise.resolve(null));
+});
 
 // Unmount react trees that were mounted with render and clear all mocks.
 afterEach(() => {

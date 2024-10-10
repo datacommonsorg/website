@@ -1,4 +1,5 @@
 {
+  "client": "test_detect-and-fulfill",
   "config": {
     "categories": [
       {
@@ -98,57 +99,49 @@
               {
                 "tiles": [
                   {
+                    "description": "Age-Standardized Death Rates, Diabetes Mellitus, Per 100,000 in United States",
                     "statVarKey": [
-                      "WHO/SDG_SH_DTH_RNCOM_DiabetesMellitus"
+                      "WHO/SA_0000001440"
                     ],
-                    "title": "Non-Communicable Disease Deaths, by Disease & Sex, Diabetes Mellitus in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Non-Communicable Disease Deaths, by Disease & Sex, Diabetes Mellitus in United States",
-                    "statVarKey": [
-                      "WHO/SDG_SH_DTH_RNCOM_DiabetesMellitus"
-                    ],
-                    "title": "Non-Communicable Disease Deaths, by Disease & Sex, Diabetes Mellitus in United States",
+                    "title": "Age-Standardized Death Rates, Diabetes Mellitus, Per 100,000 in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Non-Communicable Disease Deaths, by Disease & Sex, Diabetes Mellitus"
+            "title": "Age-Standardized Death Rates, Diabetes Mellitus, Per 100,000"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
                     "statVarKey": [
-                      "Count_Person_20To79Years_Diabetes_AsFractionOf_Count_Person_20To79Years"
+                      "dc/xmpy89x1nh8cg"
                     ],
-                    "title": "Population: 20-79 Years, Diabetes (As Fraction of Count Person 20 to 79 Years) in United States",
-                    "type": "LINE"
+                    "title": "Percent of Men That Have Diabetes in Counties of United States (${date})",
+                    "type": "RANKING"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
-                    "description": "Population: 20-79 Years, Diabetes (As Fraction of Count Person 20 to 79 Years) in United States",
                     "statVarKey": [
-                      "Count_Person_20To79Years_Diabetes_AsFractionOf_Count_Person_20To79Years"
+                      "dc/xmpy89x1nh8cg"
                     ],
-                    "title": "Population: 20-79 Years, Diabetes (As Fraction of Count Person 20 to 79 Years) in United States",
-                    "type": "HIGHLIGHT"
+                    "title": "Percent of Men That Have Diabetes in Counties of United States (${date})",
+                    "type": "MAP"
                   }
                 ]
               }
             ],
-            "title": "Population: 20-79 Years, Diabetes (As Fraction of Count Person 20 to 79 Years)"
+            "denom": "Count_Person",
+            "title": "Percent of Men That Have Diabetes in Counties of United States"
           },
           {
             "columns": [
@@ -165,7 +158,6 @@
                 ]
               }
             ],
-            "denom": "Count_Person",
             "title": "Diabetes Mellitus, Per 100,000"
           },
           {
@@ -199,45 +191,9 @@
             ],
             "denom": "Count_Person",
             "title": "Percent of Women That Have Diabetes in Counties of United States"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "dc/xmpy89x1nh8cg"
-                    ],
-                    "title": "Percent of Men That Have Diabetes in Counties of United States (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "dc/xmpy89x1nh8cg"
-                    ],
-                    "title": "Percent of Men That Have Diabetes in Counties of United States (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Percent of Men That Have Diabetes in Counties of United States"
           }
         ],
         "statVarSpec": {
-          "Count_Person_20To79Years_Diabetes_AsFractionOf_Count_Person_20To79Years": {
-            "name": "Population: 20 - 79 Years, Diabetes (As Fraction of Count Person 20 To 79 Years)",
-            "statVar": "Count_Person_20To79Years_Diabetes_AsFractionOf_Count_Person_20To79Years"
-          },
           "Percent_Person_20OrMoreYears_WithDiabetes": {
             "name": "Percent of Population 20 Years or Older With Diabetes",
             "statVar": "Percent_Person_20OrMoreYears_WithDiabetes",
@@ -252,9 +208,9 @@
             "name": "Diabetes Mellitus, Per 100,000",
             "statVar": "WHO/SA_0000001421"
           },
-          "WHO/SDG_SH_DTH_RNCOM_DiabetesMellitus": {
-            "name": "Non-Communicable Disease Deaths, By Disease & Sex, Diabetes Mellitus",
-            "statVar": "WHO/SDG_SH_DTH_RNCOM_DiabetesMellitus"
+          "WHO/SA_0000001440": {
+            "name": "Age-Standardized Death Rates, Diabetes Mellitus, Per 100,000",
+            "statVar": "WHO/SA_0000001440"
           },
           "dc/nh3s4skee5483": {
             "name": "Percent of Women That Have Diabetes",
@@ -278,6 +234,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "country/USA",
@@ -843,5 +800,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessages": []
 }

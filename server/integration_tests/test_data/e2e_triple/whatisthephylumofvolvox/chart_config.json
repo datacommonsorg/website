@@ -1,0 +1,186 @@
+{
+  "client": "test_detect-and-fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "answerTableTileSpec": {
+                      "columns": [
+                        {
+                          "header": "Phylum",
+                          "propertyExpr": "->phylum"
+                        }
+                      ]
+                    },
+                    "entities": [
+                      "bio/D044446",
+                      "dc/003ye83smktt7",
+                      "dc/3rbv0rhm76sg8",
+                      "dc/5zhg2q9l2n378",
+                      "dc/953xfs4xh2bm5",
+                      "dc/9fzm6f7k7etm4",
+                      "dc/9xy7ymdmzyzdf",
+                      "dc/b090kbyb0sz5b",
+                      "dc/ccyhttectv5n2",
+                      "dc/cd735b0hd6nh8",
+                      "dc/ds26y3mt8z3c4",
+                      "dc/erp74w62y7x4h",
+                      "dc/fnqkx4gtrh1f7",
+                      "dc/fzfq3lff3kf34",
+                      "dc/ghtpcec74knl7",
+                      "dc/h8ncxq8y6bkj2",
+                      "dc/pdhk5jc41d636",
+                      "dc/vxzgmlszw0zfh",
+                      "dc/xvhwj1943wgf9",
+                      "dc/yg1kw13e813e9",
+                      "dc/z9x1mlh4pxzb7",
+                      "dc/zsn19vpl9fy76"
+                    ],
+                    "title": "The Phylum for Volvox are as follows:",
+                    "type": "ANSWER_TABLE"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "context": {},
+  "debug": {},
+  "entities": [
+    {
+      "dcid": "bio/D044446",
+      "name": "Volvox",
+      "type": ""
+    },
+    {
+      "dcid": "dc/003ye83smktt7",
+      "name": "Volvox",
+      "type": ""
+    },
+    {
+      "dcid": "dc/3rbv0rhm76sg8",
+      "name": "Volvox",
+      "type": ""
+    },
+    {
+      "dcid": "dc/5zhg2q9l2n378",
+      "name": "Volvox",
+      "type": ""
+    },
+    {
+      "dcid": "dc/953xfs4xh2bm5",
+      "name": "Volvox",
+      "type": ""
+    },
+    {
+      "dcid": "dc/9fzm6f7k7etm4",
+      "name": "Volvox",
+      "type": ""
+    },
+    {
+      "dcid": "dc/9xy7ymdmzyzdf",
+      "name": "Volvox",
+      "type": ""
+    },
+    {
+      "dcid": "dc/b090kbyb0sz5b",
+      "name": "Volvox",
+      "type": ""
+    },
+    {
+      "dcid": "dc/ccyhttectv5n2",
+      "name": "Volvox",
+      "type": ""
+    },
+    {
+      "dcid": "dc/cd735b0hd6nh8",
+      "name": "Volvox",
+      "type": ""
+    },
+    {
+      "dcid": "dc/ds26y3mt8z3c4",
+      "name": "Volvox",
+      "type": ""
+    },
+    {
+      "dcid": "dc/erp74w62y7x4h",
+      "name": "Volvox",
+      "type": ""
+    },
+    {
+      "dcid": "dc/fnqkx4gtrh1f7",
+      "name": "Volvox",
+      "type": ""
+    },
+    {
+      "dcid": "dc/fzfq3lff3kf34",
+      "name": "Volvox",
+      "type": ""
+    },
+    {
+      "dcid": "dc/ghtpcec74knl7",
+      "name": "Volvox",
+      "type": ""
+    },
+    {
+      "dcid": "dc/h8ncxq8y6bkj2",
+      "name": "Volvox",
+      "type": ""
+    },
+    {
+      "dcid": "dc/pdhk5jc41d636",
+      "name": "Volvox",
+      "type": ""
+    },
+    {
+      "dcid": "dc/vxzgmlszw0zfh",
+      "name": "Volvox",
+      "type": ""
+    },
+    {
+      "dcid": "dc/xvhwj1943wgf9",
+      "name": "Volvox",
+      "type": ""
+    },
+    {
+      "dcid": "dc/yg1kw13e813e9",
+      "name": "Volvox",
+      "type": ""
+    },
+    {
+      "dcid": "dc/z9x1mlh4pxzb7",
+      "name": "Volvox",
+      "type": ""
+    },
+    {
+      "dcid": "dc/zsn19vpl9fy76",
+      "name": "Volvox",
+      "type": ""
+    }
+  ],
+  "pastSourceContext": "",
+  "place": {},
+  "placeFallback": {},
+  "placeSource": "UNKNOWN",
+  "places": [],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopics": [],
+    "parentPlaces": [],
+    "parentTopics": [],
+    "peerPlaces": [],
+    "peerTopics": []
+  },
+  "svSource": "UNKNOWN",
+  "userMessages": []
+}

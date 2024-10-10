@@ -1,4 +1,5 @@
 {
+  "client": "test",
   "config": {
     "categories": [
       {
@@ -61,13 +62,14 @@
                     "statVarKey": [
                       "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person_multiple_place_bar_block"
                     ],
-                    "title": "Count of Birth Event: Live Birth (Per Capita) (${date})",
+                    "title": "Crude Birth Rate (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Count of Birth Event: Live Birth (Per Capita)"
+            "description": "Crude birth rate indicates the number of live births occurring during the year, per 1,000 population estimated at midyear. Subtracting the crude death rate from the crude birth rate provides the rate of natural increase, which is equal to the rate of population change in the absence of migration. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
+            "title": "Crude Birth Rate"
           },
           {
             "columns": [
@@ -92,149 +94,16 @@
                       "country/SSD"
                     ],
                     "statVarKey": [
-                      "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F_multiple_place_bar_block"
+                      "sdg/SP_DYN_ADKL.AGE--Y10T14__SEX--F_multiple_place_bar_block",
+                      "sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F_multiple_place_bar_block"
                     ],
-                    "title": "Proportion of Women of Reproductive Age Who Have Their Need for Family Planning Satisfied With Modern Methods [15 to 49 Years Old, Female] (${date})",
+                    "title": "Adolescent Birth Rate by Age (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: afghanistan 2015 demographic and health survey; albania 2008-2009 demographic and health survey; albania 2017-2018 demographic and health survey; algeria 2006 multiple indicator cluster survey; algeria 2012-2013 multiple indicator cluster survey; algeria 2018-2019 multiple indicator cluster survey; angola 2015-2016 demographic and health survey; argentina 2019-2020 multiple indicator cluster survey; armenia 2000 demographic and health survey; armenia 2005 demographic and health survey; armenia 2010 demographic and health survey; armenia 2015-16 demographic and health survey; azerbaijan 2001 reproductive health survey; azerbaijan 2006 demographic and health survey; bangladesh 2004 demographic and health survey; bangladesh 2007 demographic and health survey; bangladesh 2011 demographic and health survey; bangladesh 2012-2013 multiple indicator cluster survey; bangladesh 2014 demographic and health survey; bangladesh 2019 multiple indicator cluster survey; barbados 2012 multiple indicator cluster survey; belarus 2012 multiple indicator cluster survey; belarus 2019 multiple indicator cluster survey; belize 2011 multiple indicator cluster survey; belize 2015-2016 multiple indicator cluster survey; benin 2001 demographic and health survey; benin 2006 demographic and health survey; benin 2011-2012 demographic and health survey; benin 2014 multiple indicator cluster survey; benin 2017-2018 demographic and health survey; bhutan 2010 multiple indicator survey; bolivia 2003 demographic and health survey; bolivia 2008 demographic and health survey; bolivia 2016 demographic and health survey; bosnia and herzegovina 2011-2012 multiple indicator cluster survey; botswana 2007 family health survey - multiple indicator cluster survey; brazil 2006-2007 demographic and health survey; burkina faso 2003 demographic and health survey; burkina faso 2010 demographic and health survey; burkina faso 2014 PMA2020 round 1; burkina faso 2015 PMA2020 round 2; burkina faso 2016-2017 PMA2020 round 4; burkina faso 2017-2018 PMA2020 round 5; burkina faso 2018-2019 PMA2020 round 6; burkina faso 2021 PMA survey phase 2; burundi 2002 enqu\u00eate Socio-d\u00e9mographique et de sant\u00e9 de la reproduction; burundi 2010 demographic and health survey; burundi 2016 demographic and health survey; cambodia 2000 demographic and health survey; cambodia 2005 demographic and health survey; cambodia 2010 demographic and health survey; cambodia 2014 demographic and health survey; cameroon 2004 demographic and health survey; cameroon 2011 demographic and health survey; cameroon 2014 multiple indicator cluster survey; cameroon 2018 demographic and health survey; cape verde 2005 demographic and reproductive health survey; central african republic 2010 multiple indicator cluster survey; central african republic 2018-2019 multiple indicator cluster survey; chad 2004 demographic and health survey; chad 2010 multiple indicator cluster survey; chad 2014-2015 demographic and health survey; chad 2019 multiple indicator cluster survey; china 2001 national family planning and reproductive health survey; colombia 2000 demographic and health survey; colombia 2005 demographic and health survey; colombia 2010 demographic and health survey; colombia 2015 demographic and health survey; comoros 2012 demographic and health survey; congo 2005 demographic and health survey; congo 2011-2012 demographic and health survey; congo 2014-2015 multiple indicator cluster survey; costa rica 2010 encuesta nacional de salud sexual y reproductiva; costa rica 2011 multiple indicator cluster survey; costa rica 2018 multiple indicator cluster survey; cuba 2010-2011 multiple indicator cluster survey; cuba 2014 multiple indicator cluster survey; cuba 2019 multiple indicator cluster survey; czech republic 2005 generations and gender survey; czech republic 2008 generations and gender survey; c\u00f4te d'Ivoire 2011-2012 demographic and health survey; c\u00f4te d'Ivoire 2016 multiple indicator cluster survey; c\u00f4te d'Ivoire 2017 PMA2020 round 1; c\u00f4te d'Ivoire 2018 PMA2020 round 2; c\u00f4te d'Ivoire 2020 PMA survey phase 1; democratic People's republic of korea 2002 reproductive health survey; democratic People's republic of korea 2006 reproductive health survey; democratic People's republic of korea 2010 reproductive health survey; democratic People's republic of korea 2014 socio economic demographic health survey; democratic People's republic of korea 2017 multiple indicator cluster survey; democratic republic of the congo 2007 demographic and health survey; democratic republic of the congo 2010 multiple indicator cluster survey; democratic republic of the congo 2013-2014 demographic and health survey; democratic republic of the congo 2017-2018 multiple indicator cluster survey; dominican republic 2002 demographic and health survey; dominican republic 2007 demographic and health survey; dominican republic 2013 demographic and health survey; dominican republic 2014 multiple indicator cluster survey; dominican republic 2019 multiple indicator cluster survey; ecuador 2004 encuesta demogr\u00e1fica y de salud materna e infantil; ecuador 2012 encuesta nacional de salud y nutrici\u00f3n; ecuador 2018 encuesta nacional de salud y nutrici\u00f3n; egypt 2000 demographic and health survey; egypt 2003 demographic and health survey (interim); egypt 2005 demographic and health survey; egypt 2008 demographic and health survey; egypt 2014 demographic and health survey; el salvador 2002-2003 encuesta nacional de salud familiar; el salvador 2008 encuesta nacional de salud familiar; el salvador 2014 MICS; equatorial guinea 2011 demographic and health survey; eritrea 2002 demographic and health survey; eritrea 2010 population and health survey; estonia 2006 health behavior among estonian adult population; estonia 2010 health behavior among estonian adult population; estonia 2014 health behavior among estonian adult population; eswatini 2006-2007 demographic and health survey; eswatini 2010 multiple indicator cluster survey; eswatini 2014 multiple indicator cluster survey; ethiopia 2000 demographic and health survey; ethiopia 2005 demographic and health survey; ethiopia 2011 demographic and health survey; ethiopia 2014 PMA2020 round 2; ethiopia 2015 PMA2020 round 3; ethiopia 2016 demographic and health survey; ethiopia 2017 PMA2020 round 5; ethiopia 2018 PMA2020 round 6; ethiopia 2019 PMA cross sectional; ethiopia 2020 PMA cross sectional; france 2005 enqu\u00eate du barom\u00e8tre sant\u00e9; gabon 2000 demographic and health survey; gabon 2012 demographic and health survey; gambia 2010 multiple indicator cluster survey; gambia 2013 demographic and health survey; gambia 2018 multiple indicator cluster survey; gambia 2019-2020 demographic and health survey; georgia 2005 reproductive health survey; georgia 2010 reproductive health survey; georgia 2018 multiple indicator cluster survey; ghana 2003 demographic and health survey; ghana 2008 demographic and health survey; ghana 2011 multiple indicator cluster survey; ghana 2013 PMA2020 round 1; ghana 2014 demographic and health survey; ghana 2015 PMA2020 round 4; ghana 2016 PMA2020 round 5; ghana 2017-2018 multiple indicator cluster survey; guatemala 2002 encuesta nacional de salud materno infantil; guatemala 2008-2009 encuesta nacional de salud materno infantil; guatemala 2014-2015 encuesta nacional de salud materno infantil; guinea 2005 demographic and health survey; guinea 2012 demographic and health survey; guinea 2016 multiple indicator cluster survey; guinea 2018 demographic and health survey; Guinea-Bissau 2010 multiple indicator cluster survey; Guinea-Bissau 2014 multiple indicator cluster survey; Guinea-Bissau 2018-2019 multiple indicator cluster survey; guyana 2009 demographic and health survey; guyana 2014 multiple indicator cluster survey; guyana 2019-2020 multiple indicator cluster survey; haiti 2000 demographic and health survey; haiti 2005-2006 demographic and health survey; haiti 2012 demographic and health survey; haiti 2016-2017 demographic and health survey; honduras 2001 encuesta nacional de epidemiolog\u00eda y salud familiar; honduras 2005-2006 demographic and health survey; honduras 2011-2012 demographic and health survey; honduras 2019 multiple indicator cluster survey; india 2002-2004 district level household survey; india 2005-2006 demographic and health survey; india 2007-2008 district level household survey; india 2015-2016 demographic and health survey; indonesia 2002-2003 demographic and health survey; indonesia 2007 demographic and health survey; indonesia 2012 demographic and health survey (special); indonesia 2015 PMA2020 round 1; indonesia 2016-2017 PMA2020 round 2; indonesia 2017 demographic and health survey; iran (Islamic republic of) 2010 Multiple-Indicator demographic and health survey; iraq 2011 multiple indicator cluster survey; iraq 2018 multiple indicator cluster survey; jamaica 2002-2003 reproductive and health survey; jamaica 2008 reproductive and health survey; jordan 2002 demographic and health survey; jordan 2007 demographic and health survey; jordan 2009 demographic and health survey (interim); jordan 2012 demographic and health survey; jordan 2017-2018 demographic and health survey; kazakhstan 2010-2011 multiple indicator cluster survey; kazakhstan 2015 multiple indicator cluster survey; kazakhstan 2018 gender and generations survey; kenya 2003 demographic and health survey; kenya 2008-2009 demographic and health survey; kenya 2014 demographic and health survey; kenya 2015 PMA2020 round 4; kenya 2016 PMA2020 round 5; kenya 2017 PMA2020 round 6; kenya 2018 PMA2020 round 7; kenya 2019 PMA survey phase 1; kenya 2020 PMA survey phase 2; kiribati 2009 demographic and health survey; kiribati 2018-2019 multiple indicator cluster survey; kyrgyzstan 2012 demographic and health survey; kyrgyzstan 2014 multiple indicator cluster survey; kyrgyzstan 2018 multiple indicator cluster survey; lao People's democratic republic 2000 reproductive health survey; lao People's democratic republic 2005 reproductive health survey; lao People's democratic republic 2011-2012 social indicator survey (MICS/DHS); lao People's democratic republic 2017 social indicator survey II; lesotho 2004 demographic and health survey; lesotho 2009 demographic and health survey; lesotho 2014 demographic and health survey; lesotho 2018 multiple indicator cluster survey; liberia 2007 demographic and health survey; liberia 2013 demographic and health survey; liberia 2019-2020 demographic and health survey; libya 2007 family health survey; libya 2014 national family health survey; madagascar 2003-2004 demographic and health survey; madagascar 2008-2009 demographic and health survey; madagascar 2017 enquete menage sur la contraception; madagascar 2018 multiple indicator cluster survey; madagascar 2020 demographic and health survey; malawi 2000 demographic and health survey; malawi 2004 demographic and health survey; malawi 2010 demographic and health survey; malawi 2013-2014 multiple indicator cluster survey; malawi 2015-2016 demographic and health survey; malawi 2019-2020 multiple indicator cluster survey; maldives 2009 demographic and health survey; maldives 2016-2017 demographic and health survey; mali 2001 demographic and health survey; mali 2006 demographic and health survey; mali 2012-2013 demographic and health survey; mali 2015 multiple indicator cluster survey; mali 2018 demographic and health survey; marshall islands 2007 demographic health survey (national); mauritania 2000-2001 demographic and health survey; mauritania 2007 multiple indicator cluster survey; mauritania 2011 multiple indicator cluster survey; mauritania 2015 multiple indicator cluster survey; mauritania 2019-2020 demographic and health survey; mauritius 2002 contraceptive prevalence survey of mauritius and rodrigues islands; mauritius 2014 contraceptive prevalence survey; mexico 2003 encuesta nacional de salud reproductiva; mexico 2006 encuesta nacional de la din\u00e1mica demogr\u00e1fica; mexico 2009 encuesta nacional de la din\u00e1mica demogr\u00e1fica; mexico 2014 encuesta nacional de la din\u00e1mica demogr\u00e1fica; mexico 2015 encuesta nacional de ni\u00f1os, ni\u00f1as y mujeres; mexico 2018 encuesta nacional de la din\u00e1mica demogr\u00e1fica; moldova 2005 demographic and health survey; moldova 2012 multiple indicator cluster survey; moldova 2020 gender and generations survey; mongolia 2003 reproductive health survey; mongolia 2008 reproductive health survey; mongolia 2010-2011 multiple indicator cluster survey; mongolia 2013 multiple indicator cluster survey; mongolia 2018 multiple indicator cluster survey; montenegro 2013 multiple indicator cluster survey; montenegro 2018 multiple indicator cluster survey; morocco 2003-2004 demographic and health survey; morocco 2011 enqu\u00eate nationale sur la population et la sant\u00e9 familiale; morocco 2018 enqu\u00eate nationale sur la population et la sant\u00e9 familiale; mozambique 2003 demographic and health survey; mozambique 2011 demographic and health survey; mozambique 2015 HIV-AIDS indicator survey; myanmar 2001 fertility and reproductive health survey; myanmar 2015-2016 demographic and health survey; namibia 2000 demographic and health survey; namibia 2006-2007 demographic and health survey; namibia 2013 demographic and health survey; nauru 2007 demographic health survey (national); nepal 2001 demographic and health survey; nepal 2006 demographic and health survey; nepal 2011 demographic and health survey; nepal 2014 multiple indicator cluster survey; nepal 2016 demographic and health survey; nepal 2019 multiple indicator cluster survey; nicaragua 2001 demographic and health survey; nicaragua 2006-2007 reproductive and health survey; nicaragua 2011-2012 demographic and health survey; niger 2006 demographic and health survey; niger 2012 demographic and health survey; niger 2016 PMA2020 round 2; niger 2017 PMA2020 round 4; niger 2021 PMA survey phase 1; nigeria 2003 demographic and health survey; nigeria 2008 demographic and health survey; nigeria 2011 multiple indicator cluster survey; nigeria 2013 demographic and health survey; nigeria 2016 PMA2020 round 3; nigeria 2017 PMA2020 round 4; nigeria 2018 demographic and health survey; north macedonia 2011 multiple indicator cluster survey; north macedonia 2018-2019 multiple indicator cluster survey; oman 2008 reproductive health survey; oman 2014 multiple indicator cluster survey; pakistan 2000-2001 reproductive health and family planning survey; pakistan 2006-2007 demographic and health survey; pakistan 2012-2013 demographic and health survey; pakistan 2017-2018 demographic and health survey; panama 2013 multiple indicator cluster survey; panama 2014-2015 sexual and reproductive Health-Survey; papua new guinea 2006 demographic and health survey (national); papua new guinea 2016-2018 demographic and health survey; paraguay 2004 encuesta nacional de demograf\u00eda y salud sexual y reproductiva; paraguay 2008 encuesta nacional de demograf\u00eda y salud sexual y reproductiva; paraguay 2016 multiple indicator cluster survey; peru 2000 demographic and health survey; peru 2004-2006 demographic and health survey (continuous); peru 2007-2008 demographic and health survey (continuous); peru 2009 demographic and health survey (continuous); peru 2010 demographic and health survey (continuous); peru 2011 demographic and health survey (continuous); peru 2012 demographic and health survey (continuous); peru 2013 demographic and health survey (continuous); peru 2014 demographic and health survey (continuous); peru 2015 demographic and health survey (continuous); peru 2016 demographic and health survey (continuous); peru 2017 demographic and health survey (continuous); peru 2018 demographic and health survey (continuous); peru 2019 demographic and health survey (continuous); peru 2020 demographic and health survey (continuous); philippines 2003 demographic and health survey; philippines 2008 demographic and health survey; philippines 2011 family health survey; philippines 2013 demographic and health survey; philippines 2017 demographic and health survey; qatar 2012 multiple indicator cluster survey; romania 2004 reproductive and health survey; russian federation 2011 reproductive health survey; rwanda 2000 demographic and health survey; rwanda 2005 demographic and health survey; rwanda 2007-2008 demographic and health survey (interim); rwanda 2010 demographic and health survey; rwanda 2014-2015 demographic and health survey; rwanda 2019-2020 demographic and health survey; saint lucia 2012 multiple indicator cluster survey; samoa 2009 demographic and health survey; samoa 2014 demographic and health survey (national); samoa 2019-2020 multiple indicator cluster survey; sao tome and principe 2008-2009 demographic and health survey; sao tome and principe 2014 multiple indicator cluster survey; sao tome and principe 2019 multiple indicator cluster survey; senegal 2005 demographic and health survey; senegal 2010-2011 enqu\u00eate d\u00e9mographique et de sant\u00e9 \u00e0 indicateurs multiples; senegal 2012-2013 enqu\u00eate d\u00e9mographique et de sant\u00e9 continue; senegal 2014 demographic and health survey; senegal 2015 demographic and health survey; senegal 2016 demographic and health survey; senegal 2017 demographic and health survey; senegal 2018 demographic and health survey; senegal 2019 demographic and health survey; serbia 2010 multiple indicator cluster survey; serbia 2014 multiple indicator cluster survey; serbia 2019 multiple indicator cluster survey; sierra leone 2008 demographic and health survey; sierra leone 2010 multiple indicator cluster survey; sierra leone 2013 demographic and health survey; sierra leone 2017 multiple indicator cluster survey; sierra leone 2019 demographic and health survey; solomon islands 2006-2007 demographic and health survey; solomon islands 2015 demographic and health survey; somalia 2011 multiple indicator cluster survey (somaliland); somalia 2018-2019 health and demographic survey; south africa 2003 demographic and health survey; south africa 2016 demographic and health survey; south sudan 2010 household health survey second round; sri lanka 2000 demographic and health survey (national); sri lanka 2006-2007 demographic and health survey; sri lanka 2016 demographic and health survey (national); state of palestine 2010 family health survey; state of palestine 2014 MICS; state of palestine 2019-2020 MICS; sudan 2010 household health survey second round; sudan 2014 multiple indicator cluster survey; suriname 2010 multiple indicator cluster survey; suriname 2018 multiple indicator cluster survey; sweden 2013 contraception survey; sweden 2017 contraception survey; syrian arab republic 2009 family health survey; tajikistan 2012 demographic and health survey; tajikistan 2017 demographic and health survey; thailand 2006 reproductive health survey; thailand 2012-2013 multiple indicator cluster survey; thailand 2015-2016 multiple indicator cluster survey; thailand 2019 multiple indicator cluster survey; Timor-Leste 2009-2010 demographic and health survey; Timor-Leste 2016 demographic and health survey; togo 2010 multiple indicator cluster survey; togo 2013-2014 demographic and health survey; togo 2017 multiple indicator cluster survey; tonga 2012 demographic health survey (national); tonga 2019 multiple indicator cluster survey; trinidad and tobago 2006 multiple indicator cluster survey; trinidad and tobago 2011 multiple indicator cluster survey; tunisia 2001 family health survey; tunisia 2011-2012 multiple indicator cluster survey; tunisia 2018 multiple indicator cluster survey; turkey 2003 demographic and health survey; turkey 2008 demographic and health survey; turkey 2013 demographic and health survey; turkey 2018 demographic and health survey; turkmenistan 2000 demographic and health survey; turkmenistan 2015-2016 multiple indicator cluster survey; turkmenistan 2019 multiple indicator cluster survey; turks and caicos islands 2019-2020 multiple indicator cluster survey; tuvalu 2007 demographic health survey (national); tuvalu 2019-2020 multiple indicator cluster survey; uganda 2000-2001 demographic and health survey; uganda 2006 demographic and health survey; uganda 2011 demographic and health survey; uganda 2014 PMA2020 round 1; uganda 2015 PMA2020 round 3; uganda 2016 demographic and health survey; uganda 2017 PMA2020 round 5; uganda 2018 PMA2020 round 6; uganda 2020 PMA survey phase 1; uganda 2021 PMA survey phase 2; ukraine 2007 demographic and health survey; ukraine 2012 multiple indicator cluster survey; united kingdom 2010-2012 national survey of sexual attitudes and lifestyles; united nations, department of economic and social affairs, population division (2022). Estimates and projections of family planning indicators 2022; united republic of tanzania 2004-2005 demographic and health survey; united republic of tanzania 2010 demographic and health survey; united republic of tanzania 2015-2016 demographic and health survey; united states of america 2002 national survey of family growth; united states of america 2006-2008 national survey of family growth; united states of america 2013-2015 national survey of family growth; united states of america 2017-2019 national survey of family growth; vanuatu 2013 demographic and health survey; viet nam 2002 demographic and health survey; viet nam 2010-2011 multiple indicator cluster survey; viet nam 2013-2014 multiple indicator cluster survey; viet nam 2020-2021 multiple indicator cluster survey; yemen 2006 multiple indicator cluster survey; yemen 2013 demographic and health survey; zambia 2001-2002 demographic and health survey; zambia 2007 demographic and health survey; zambia 2013-2014 demographic and health survey; zambia 2018 demographic and health survey; zimbabwe 2005-2006 demographic and health survey; zimbabwe 2010-2011 demographic and health survey; zimbabwe 2014 multiple indicator cluster survey; zimbabwe 2015 demographic and health survey.",
-            "title": "Proportion of Women of Reproductive Age Who Have Their Need for Family Planning Satisfied With Modern Methods [15 to 49 Years Old, Female]"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/DZA",
-                      "country/MAR",
-                      "country/LBY",
-                      "country/TUN",
-                      "country/MLI",
-                      "country/ERI",
-                      "country/MWI",
-                      "country/SEN",
-                      "country/GMB"
-                    ],
-                    "statVarKey": [
-                      "WHO/SA_0000001432_multiple_place_bar_block"
-                    ],
-                    "title": "Prematurity and Low Birth Rate, Per 100,000 (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Prematurity and Low Birth Rate, Per 100,000"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/DZA",
-                      "country/MAR",
-                      "country/LBY",
-                      "country/TUN",
-                      "country/MLI",
-                      "country/ERI",
-                      "country/MWI",
-                      "country/SEN",
-                      "country/GMB"
-                    ],
-                    "statVarKey": [
-                      "WHO/SA_0000001451_multiple_place_bar_block"
-                    ],
-                    "title": "Age-Standardized Death Rates, Prematurity and Low Birth Rate, Per 100,000 (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Age-Standardized Death Rates, Prematurity and Low Birth Rate, Per 100,000"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/DZA",
-                      "country/MAR",
-                      "country/LBY",
-                      "country/TUN",
-                      "country/MLI",
-                      "country/ERI",
-                      "country/MWI",
-                      "country/SEN",
-                      "country/GMB",
-                      "country/SSD"
-                    ],
-                    "statVarKey": [
-                      "sdg/SH_STA_MORT.SEX--F_multiple_place_bar_block"
-                    ],
-                    "title": "Maternal Mortality Ratio [Female] (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: estimates by WHO, UNICEF, UNFPA, world bank group and UNDESA/Population division. Geneva: world health organization; 2023.",
-            "title": "Maternal Mortality Ratio [Female]"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/DZA",
-                      "country/MAR",
-                      "country/LBY",
-                      "country/TUN",
-                      "country/MLI",
-                      "country/ERI",
-                      "country/MWI",
-                      "country/SEN",
-                      "country/GMB",
-                      "country/SSD"
-                    ],
-                    "statVarKey": [
-                      "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female_multiple_place_bar_block"
-                    ],
-                    "title": "Female Infant Mortality Rate (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Female Infant Mortality Rate"
+            "title": "Adolescent Birth Rate by Age"
           },
           {
             "columns": [
@@ -292,26 +161,96 @@
                       "country/SSD"
                     ],
                     "statVarKey": [
-                      "WHO/MORT_MATERNALNUM_multiple_place_bar_block"
+                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_multiple_place_bar_block"
                     ],
-                    "title": "Number of Maternal Deaths (${date})",
+                    "title": "Infant Mortality Rate (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "title": "Number of Maternal Deaths"
+            "description": "Infant mortality rate is the number of infants dying before reaching one year of age, per 1,000 live births in a given year. Estimates developed by the UN Inter-agency group for child mortality estimation (UNICEF, WHO, world bank, UN DESA population division) at www.Childmortality.Org.",
+            "title": "Infant Mortality Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/DZA",
+                      "country/MAR",
+                      "country/LBY",
+                      "country/TUN",
+                      "country/MLI",
+                      "country/ERI",
+                      "country/MWI",
+                      "country/SEN",
+                      "country/GMB",
+                      "country/SSD"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_multiple_place_bar_block"
+                    ],
+                    "title": "Population (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/DZA",
+                      "country/MAR",
+                      "country/LBY",
+                      "country/TUN",
+                      "country/MLI",
+                      "country/ERI",
+                      "country/MWI",
+                      "country/SEN",
+                      "country/GMB",
+                      "country/SSD"
+                    ],
+                    "statVarKey": [
+                      "WHO/CM_02_multiple_place_bar_block"
+                    ],
+                    "title": "Number of Infant Deaths (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Number of Infant Deaths"
           }
         ],
         "statVarSpec": {
           "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person_multiple_place_bar_block": {
-            "name": "Count of Birth Event: Live Birth (Per Capita)",
+            "name": "Crude Birth Rate",
             "statVar": "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
           },
-          "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female_multiple_place_bar_block": {
-            "name": "Female Infant Mortality Rate",
-            "statVar": "Count_Death_0Years_Female_AsFractionOf_Count_BirthEvent_LiveBirth_Female"
+          "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_multiple_place_bar_block": {
+            "name": "Infant Mortality Rate",
+            "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+          },
+          "Count_Person_multiple_place_bar_block": {
+            "name": "Population",
+            "statVar": "Count_Person"
           },
           "FertilityRate_Person_Female_multiple_place_bar_block": {
             "name": "Fertility Rate",
@@ -321,25 +260,17 @@
             "name": "Rate of Population Growth",
             "statVar": "GrowthRate_Count_Person"
           },
-          "WHO/MORT_MATERNALNUM_multiple_place_bar_block": {
-            "name": "Number Of Maternal Deaths",
-            "statVar": "WHO/MORT_MATERNALNUM"
+          "WHO/CM_02_multiple_place_bar_block": {
+            "name": "Number Of Infant Deaths",
+            "statVar": "WHO/CM_02"
           },
-          "WHO/SA_0000001432_multiple_place_bar_block": {
-            "name": "Prematurity And Low Birth Rate, Per 100,000",
-            "statVar": "WHO/SA_0000001432"
+          "sdg/SP_DYN_ADKL.AGE--Y10T14__SEX--F_multiple_place_bar_block": {
+            "name": "Adolescent birth rate [10 to 14 years old, Female]",
+            "statVar": "sdg/SP_DYN_ADKL.AGE--Y10T14__SEX--F"
           },
-          "WHO/SA_0000001451_multiple_place_bar_block": {
-            "name": "Age-Standardized Death Rates, Prematurity And Low Birth Rate, Per 100,000",
-            "statVar": "WHO/SA_0000001451"
-          },
-          "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F_multiple_place_bar_block": {
-            "name": "Proportion of women of reproductive age who have their need for family planning satisfied with modern methods [15 to 49 years old, Female]",
-            "statVar": "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F"
-          },
-          "sdg/SH_STA_MORT.SEX--F_multiple_place_bar_block": {
-            "name": "Maternal mortality ratio [Female]",
-            "statVar": "sdg/SH_STA_MORT.SEX--F"
+          "sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F_multiple_place_bar_block": {
+            "name": "Birth rate for adolescent women",
+            "statVar": "sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F"
           }
         }
       }
@@ -352,6 +283,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "country/DZA",
@@ -412,7 +344,26 @@
       "place_type": "Country"
     }
   ],
-  "relatedThings": {},
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Births",
+        "name": "Births",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [],
+    "peerPlaces": [],
+    "peerTopics": []
+  },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "See comparison based on places in the previous answer."
+  "userMessages": [
+    "See comparison based on places in the previous answer."
+  ]
 }

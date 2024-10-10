@@ -15,7 +15,9 @@
 
 set -e
 
-PROJECT_ID=$(yq eval '.project' config.yaml)
+CONFIG_YAML="../deploy/helm_charts/envs/$1.yaml"
+
+PROJECT_ID=$(yq eval '.project' $CONFIG_YAML)
 NAME="website-robot"
 SERVICE_ACCOUNT="$NAME@$PROJECT_ID.iam.gserviceaccount.com"
 

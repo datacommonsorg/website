@@ -17,6 +17,7 @@ import logging
 import os
 import time
 
+from google.cloud import secretmanager
 from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import UnexpectedAlertPresentException
 from selenium.webdriver.common.by import By
@@ -25,11 +26,16 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver import shared
 
-# TODO(shifucun): add test for narrow width for mobile testing
 WIDTH = 1280
 SCREENSHOTS_FOLDER = 'screenshots'
 
 WAIT_TIMEOUT = 40
+
+_INSTANCE_WITH_IAP = [
+    'https://autopush.datacommons.org', 'https://staging.datacommons.org'
+]
+_SECRET_PROJECT = 'datcom-ci'
+_SECRET_NAME = 'webdriver-gmail-password'
 
 
 def prepare(page_config_dir):
@@ -51,15 +57,53 @@ def prepare(page_config_dir):
   return all_page_config
 
 
+# Google Sign In for IAP protected page
+def login(driver):
+  # Check if already login
+  try:
+    WebDriverWait(driver, 1).until(
+        EC.presence_of_element_located(
+            (By.XPATH, "//button[contains(., 'iap.googleapis.com')]")))
+  except TimeoutException:
+    return
+
+  username_input = WebDriverWait(driver, 1).until(
+      EC.presence_of_element_located((By.TAG_NAME, 'input')))
+  username_input.send_keys("datacommons.webdriver@gmail.com")
+  username_next_button = driver.find_element(By.XPATH,
+                                             "//button[contains(., 'Next')]")
+  driver.execute_script("arguments[0].click();", username_next_button)
+  # Enter password
+  secret_client = secretmanager.SecretManagerServiceClient()
+  secret_name = secret_client.secret_version_path(_SECRET_PROJECT, _SECRET_NAME,
+                                                  'latest')
+  secret_response = secret_client.access_secret_version(name=secret_name)
+  password = secret_response.payload.data.decode('UTF-8')
+  password_input = WebDriverWait(driver, WAIT_TIMEOUT).until(
+      EC.element_to_be_clickable((By.XPATH, "//input[@type='password']")))
+  password_input.send_keys(password)
+  password_next_button = driver.find_element(By.XPATH,
+                                             "//button[contains(., 'Next')]")
+  driver.execute_script("arguments[0].click();", password_next_button)
+
+
 def run(driver, page_base_url, page_config):
   """Take screenshot and save to desired folders"""
+
+  width = WIDTH
+  if 'width' in page_config:
+    width = page_config['width']
+
   # Set the window size. Testing different sizes.
-  driver.switch_to.new_window('window')
-  driver.set_window_size(width=WIDTH,
+  driver.set_window_size(width=width,
                          height=page_config['height'],
                          windowHandle='current')
   url = page_base_url + page_config['url']
   driver.get(url)
+
+  if page_base_url in _INSTANCE_WITH_IAP:
+    login(driver)
+
   # 'async' indicates whether this page fetches data or renders components
   # asyncronously. The web driver wait depends on it.
   if page_config['async']:

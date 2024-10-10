@@ -1,0 +1,38 @@
+{
+  "inputFiles": {
+    "average_annual_wage.csv": {
+      "entityType": "Country",
+      "provenance": "OECD Data"
+    },
+    "gender_wage_gap.csv": {
+      "entityType": "Country",
+      "provenance": "OECD Data"
+    }
+  },
+  "variables": {
+    "gender_wage_gap": {
+      "name": "Gender Wage Gap",
+      "description": "Gender Wage Gap",
+      "searchDescriptions": [
+        "The gender wage gap is defined as the difference between median earnings of men and women relative to median earnings of men."
+      ],
+      "group": "OECD"
+    },
+    "average_annual_wage": {
+      "name": "Average Annual Wage",
+      "description": "Average Annual Wage",
+      "searchDescriptions": [
+        "Average wages are obtained by dividing the national-accounts-based total wage bill by the average number of employees in the total economy, which is then multiplied by the ratio of the average usual weekly hours per full-time employee to the average usually weekly hours for all employees."
+      ],
+      "group": "OECD"
+    }
+  },
+  "sources": {
+    "oecd.org": {
+      "url": "https://oecd.org",
+      "provenances": {
+        "OECD Data": "https://data.oecd.org/"
+      }
+    }
+  }
+}

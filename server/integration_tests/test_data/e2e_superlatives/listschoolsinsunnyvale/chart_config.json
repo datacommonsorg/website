@@ -1,4 +1,5 @@
 {
+  "client": "test_detect-and-fulfill",
   "config": {
     "categories": [
       {
@@ -92,6 +93,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "geoId/0677000",
@@ -700,5 +702,5 @@
   },
   "svSource": "UNKNOWN",
   "test": "unittest",
-  "userMessage": ""
+  "userMessages": []
 }

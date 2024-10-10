@@ -28,7 +28,8 @@ def render_page(default_html, custom_dc_html, **context):
   """
   template_path = default_html
   if g.custom:
-    template_path = os.path.join('custom_dc', g.env, custom_dc_html)
+    template_path = os.path.join('custom_dc', g.custom_dc_template_folder,
+                                 custom_dc_html)
     if not os.path.exists(
         os.path.join(current_app.root_path, 'templates', template_path)):
       template_path = os.path.join('custom_dc/custom', custom_dc_html)

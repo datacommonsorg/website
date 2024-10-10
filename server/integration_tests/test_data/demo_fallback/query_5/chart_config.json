@@ -1,4 +1,5 @@
 {
+  "client": "test",
   "config": {
     "categories": [
       {
@@ -59,6 +60,35 @@
               }
             ],
             "title": "Nominal GDP Per Capita"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
+                    ],
+                    "title": "GDP (Real Value) in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "GDP (Real Value) in United States",
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
+                    ],
+                    "title": "GDP (Real Value) in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "GDP (Real Value)"
           },
           {
             "columns": [
@@ -133,29 +163,65 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA"
                     ],
-                    "title": "GDP (Real Value) in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "GDP (Real Value) in United States",
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
+                      "Count_Establishment_NAICSAdministrativeSupportWasteManagementRemediationServices_multiple_place_bar_block",
+                      "Count_Establishment_NAICSConstruction_multiple_place_bar_block",
+                      "Count_Establishment_NAICSFinanceInsurance_multiple_place_bar_block",
+                      "Count_Establishment_NAICSInformation_multiple_place_bar_block",
+                      "Count_Establishment_NAICSOtherServices_multiple_place_bar_block",
+                      "Count_Establishment_NAICSUtilities_multiple_place_bar_block",
+                      "dc/1j7jmy39fwhw5_multiple_place_bar_block",
+                      "dc/1wf1h5esex2d_multiple_place_bar_block",
+                      "dc/2c2e9bn8p7xz6_multiple_place_bar_block",
+                      "dc/2qgvm8lch89n5_multiple_place_bar_block",
+                      "dc/9pz1cse6yndtg_multiple_place_bar_block",
+                      "dc/br6elkd593zs1_multiple_place_bar_block",
+                      "dc/dc5hbzngddq37_multiple_place_bar_block",
+                      "dc/kcns4cvt14zx2_multiple_place_bar_block",
+                      "dc/mlf5e4m68h2k7_multiple_place_bar_block",
+                      "dc/tz59wt1hkl4y_multiple_place_bar_block",
+                      "dc/w8gp902jnk426_multiple_place_bar_block",
+                      "dc/x52jxxbwspczh_multiple_place_bar_block",
+                      "Count_Establishment_NAICSRealEstateRentalLeasing_multiple_place_bar_block",
+                      "Count_Establishment_NAICSPublicAdministration_multiple_place_bar_block",
+                      "Count_Establishment_NAICSNonclassifiable_multiple_place_bar_block"
                     ],
-                    "title": "GDP (Real Value) in United States",
-                    "type": "HIGHLIGHT"
+                    "title": "Number of Establishments by Industry in United States (${date})",
+                    "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "GDP (Real Value)"
+            "title": "Number of Establishments by Industry"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Establishment_FederalGovernmentOwnedEstablishment_NAICSTotalAllIndustries",
+                      "Count_Establishment_LocalGovernmentOwnedEstablishment_NAICSTotalAllIndustries",
+                      "Count_Establishment_PrivatelyOwnedEstablishment_NAICSTotalAllIndustries",
+                      "Count_Establishment_StateGovernmentOwnedEstablishment_NAICSTotalAllIndustries"
+                    ],
+                    "title": "Number of Establishments by Ownership Type in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Number of Establishments by Ownership Type"
           },
           {
             "columns": [
@@ -171,31 +237,418 @@
                       "country/USA"
                     ],
                     "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSAccommodationFoodServices_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSAdministrativeSupportWasteManagementRemediationServices_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSConstruction_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSEducationalServices_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSHealthCareSocialAssistance_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSManagementOfCompaniesEnterprises_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSMiningQuarryingOilGasExtraction_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSRetailTrade_RealValue_multiple_place_bar_block",
-                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSTransportationWarehousing_RealValue_multiple_place_bar_block"
+                      "Sales_Establishment_NAICSAccommodationFoodServices_WithPayroll_multiple_place_bar_block",
+                      "Receipts_Establishment_NAICSAdministrativeSupportWasteManagementRemediationServices_WithPayroll_multiple_place_bar_block",
+                      "ReceiptsOrRevenue_Establishment_NAICSArtsEntertainmentRecreation_WithPayroll_multiple_place_bar_block",
+                      "ReceiptsBillingsOrSales_Establishment_NAICSConstruction_WithPayroll_multiple_place_bar_block",
+                      "ReceiptsOrRevenue_Establishment_NAICSEducationalServices_WithPayroll_multiple_place_bar_block",
+                      "Revenue_Establishment_NAICSFinanceInsurance_WithPayroll_multiple_place_bar_block",
+                      "ReceiptsOrRevenue_Establishment_NAICSHealthCareSocialAssistance_WithPayroll_multiple_place_bar_block",
+                      "ReceiptsOrRevenue_Establishment_NAICSInformation_WithPayroll_multiple_place_bar_block",
+                      "Sales_Establishment_NAICSWholesaleTrade_WithPayroll_multiple_place_bar_block",
+                      "Revenue_Establishment_NAICSManagementOfCompaniesEnterprises_WithPayroll_multiple_place_bar_block",
+                      "ShipmentsOrReceipts_Establishment_NAICSMiningQuarryingOilGasExtraction_WithPayroll_multiple_place_bar_block",
+                      "ReceiptsOrRevenue_Establishment_NAICSOtherServices_WithPayroll_multiple_place_bar_block",
+                      "ReceiptsOrRevenue_Establishment_NAICSProfessionalScientificTechnicalServices_WithPayroll_multiple_place_bar_block",
+                      "Revenue_Establishment_NAICSRealEstateRentalLeasing_WithPayroll_multiple_place_bar_block",
+                      "Revenue_Establishment_NAICSUtilities_WithPayroll_multiple_place_bar_block",
+                      "dc/2hl1yfxglmq0c_multiple_place_bar_block",
+                      "dc/2kz6b9kvps8c9_multiple_place_bar_block",
+                      "dc/31hbegrgs0x05_multiple_place_bar_block",
+                      "dc/3wx4hzg5p6zdb_multiple_place_bar_block",
+                      "dc/41s8qer7mpew9_multiple_place_bar_block",
+                      "dc/4fbqq2v75fwbc_multiple_place_bar_block",
+                      "dc/8mty3dlrx26e5_multiple_place_bar_block",
+                      "dc/8vcbgqlfzwvtf_multiple_place_bar_block",
+                      "dc/9bcetmhgnge5f_multiple_place_bar_block",
+                      "dc/c0zdt686eek05_multiple_place_bar_block",
+                      "dc/d796515q44h02_multiple_place_bar_block",
+                      "dc/ekrg82bjht898_multiple_place_bar_block",
+                      "dc/f2g63f2rjbdyh_multiple_place_bar_block",
+                      "dc/g8sxhs8lzmb15_multiple_place_bar_block",
+                      "dc/gf47xlzfbd3t8_multiple_place_bar_block",
+                      "dc/ghk2rsfpsnc29_multiple_place_bar_block",
+                      "dc/gy5fk764jzhvd_multiple_place_bar_block",
+                      "dc/jxwhv6vc0rye7_multiple_place_bar_block",
+                      "dc/m46wj1egm7j56_multiple_place_bar_block",
+                      "dc/rw3t3r74kv7mc_multiple_place_bar_block",
+                      "dc/sythffk3c3ne7_multiple_place_bar_block",
+                      "dc/sz9ckd47e35b4_multiple_place_bar_block",
+                      "dc/zkmdz1rhlt7q8_multiple_place_bar_block"
                     ],
-                    "title": "GDP of the Finance and Insurance Industry and More in United States (${date})",
+                    "title": "Revenue by Industry Type in United States (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Related: GDP of the Finance and Insurance Industry and More"
+            "title": "Revenue by Industry Type"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Employed"
+                    ],
+                    "title": "Population With Current Employment in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population With Current Employment in United States",
+                    "statVarKey": [
+                      "Count_Person_Employed"
+                    ],
+                    "title": "Population With Current Employment in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population With Current Employment"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "UnemploymentRate_Person"
+                    ],
+                    "title": "Unemployment Rate in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Unemployment Rate in United States",
+                    "statVarKey": [
+                      "UnemploymentRate_Person"
+                    ],
+                    "title": "Unemployment Rate in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Unemployment Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "UnemploymentRate_Person_Female"
+                    ],
+                    "title": "Unemployment Rate of Females in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Unemployment Rate of Females in United States",
+                    "statVarKey": [
+                      "UnemploymentRate_Person_Female"
+                    ],
+                    "title": "Unemployment Rate of Females in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Unemployment Rate of Females"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA"
+                    ],
+                    "statVarKey": [
+                      "Count_Worker_NAICSAccommodationFoodServices_multiple_place_bar_block",
+                      "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices_multiple_place_bar_block",
+                      "Count_Worker_NAICSAgricultureForestryFishingHunting_multiple_place_bar_block",
+                      "Count_Worker_NAICSConstruction_multiple_place_bar_block",
+                      "Count_Worker_NAICSEducationalServices_multiple_place_bar_block",
+                      "Count_Worker_NAICSHealthCareSocialAssistance_multiple_place_bar_block",
+                      "dc/ndg1xk1e9frc2_multiple_place_bar_block",
+                      "Count_Worker_NAICSFinanceInsurance_multiple_place_bar_block",
+                      "Count_Worker_NAICSInformation_multiple_place_bar_block",
+                      "Count_Worker_NAICSArtsEntertainmentRecreation_multiple_place_bar_block",
+                      "Count_Worker_NAICSMiningQuarryingOilGasExtraction_multiple_place_bar_block",
+                      "Count_Worker_NAICSOtherServices_multiple_place_bar_block",
+                      "dc/8p97n7l96lgg8_multiple_place_bar_block",
+                      "Count_Worker_NAICSUtilities_multiple_place_bar_block",
+                      "dc/p69tpsldf99h7_multiple_place_bar_block",
+                      "Count_Worker_NAICSRealEstateRentalLeasing_multiple_place_bar_block",
+                      "Count_Worker_NAICSPublicAdministration_multiple_place_bar_block",
+                      "Count_Worker_NAICSWholesaleTrade_multiple_place_bar_block",
+                      "Count_Worker_NAICSProfessionalScientificTechnicalServices_multiple_place_bar_block",
+                      "Count_Worker_NAICSManagementOfCompaniesEnterprises_multiple_place_bar_block",
+                      "Count_Worker_NAICSNonclassifiable_multiple_place_bar_block"
+                    ],
+                    "title": "Categories of Jobs in United States (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Categories of Jobs"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Household Median Income in United States",
+                    "statVarKey": [
+                      "Median_Income_Household"
+                    ],
+                    "title": "Household Median Income in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Household Median Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Person"
+                    ],
+                    "title": "Individual Median Income in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Individual Median Income in United States",
+                    "statVarKey": [
+                      "Median_Income_Person"
+                    ],
+                    "title": "Individual Median Income in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Individual Median Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Population Below Poverty Line in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population Below Poverty Line in United States",
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Population Below Poverty Line in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Below Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_BelowPovertyLevelInThePast12Months",
+                      "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Impoverished Population by Gender in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Impoverished Population by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_multiple_place_bar_block",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_multiple_place_bar_block",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_multiple_place_bar_block",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces_multiple_place_bar_block",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_multiple_place_bar_block",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block"
+                    ],
+                    "title": "Impoverished Population by Race in United States (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Impoverished Population by Race"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Total Farm Area in United States",
+                    "statVarKey": [
+                      "Area_Farm"
+                    ],
+                    "title": "Total Farm Area in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Total Farm Area"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Farms in United States",
+                    "statVarKey": [
+                      "Count_Farm"
+                    ],
+                    "title": "Farms in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Farms"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Total Farm Income in United States",
+                    "statVarKey": [
+                      "Income_Farm"
+                    ],
+                    "title": "Total Farm Income in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Total Farm Income"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSAgricultureForestryFishingHunting"
+                    ],
+                    "title": "Agriculture, Forestry, Fishing, Hunting Workers in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Agriculture, Forestry, Fishing, Hunting Workers in United States",
+                    "statVarKey": [
+                      "Count_Worker_NAICSAgricultureForestryFishingHunting"
+                    ],
+                    "title": "Agriculture, Forestry, Fishing, Hunting Workers in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Agriculture, Forestry, Fishing, Hunting Workers"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/EN_MAT_DOMCMPG"
+                    ],
+                    "title": "Domestic Material Consumption Per Unit of GDP in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Domestic Material Consumption Per Unit of GDP in United States",
+                    "statVarKey": [
+                      "sdg/EN_MAT_DOMCMPG"
+                    ],
+                    "title": "Domestic Material Consumption Per Unit of GDP in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: eurostat; WESR / global material flows database.",
+            "title": "Domestic Material Consumption Per Unit of GDP"
           },
           {
             "columns": [
@@ -206,14 +659,14 @@
                       "Amount_EconomicActivity_GrossDomesticProduction_RealValue",
                       "Amount_EconomicActivity_GrossValueAdded_RealValue"
                     ],
-                    "title": "GDP (Real Value) and More in United States",
+                    "title": "GDP (Real Value) and Amount of Economic Activity (Real Value): Gross Value Added in United States",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Related: GDP (Real Value) and More"
+            "title": "Related: GDP (Real Value) and Amount of Economic Activity (Real Value): Gross Value Added"
           }
         ],
         "statVarSpec": {
@@ -273,14 +726,6 @@
             "name": "GDP of the Real Estate and Rental and Leasing Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_RealValue"
           },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSRetailTrade_RealValue_multiple_place_bar_block": {
-            "name": "Amount of Economic Activity (Real Value): Gross Domestic Production, Retail Trade (NAICS/44-45)",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSRetailTrade_RealValue"
-          },
-          "Amount_EconomicActivity_GrossDomesticProduction_NAICSTransportationWarehousing_RealValue_multiple_place_bar_block": {
-            "name": "Amount of Economic Activity (Real Value): Gross Domestic Production, Transportation And Warehousing (NAICS/48-49)",
-            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSTransportationWarehousing_RealValue"
-          },
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue_multiple_place_bar_block": {
             "name": "GDP of the Utilities Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue"
@@ -305,9 +750,429 @@
             "name": "Amount of Economic Activity (Real Value): Gross Value Added",
             "statVar": "Amount_EconomicActivity_GrossValueAdded_RealValue"
           },
+          "Area_Farm": {
+            "name": "Total Farm Area",
+            "statVar": "Area_Farm"
+          },
+          "Count_Establishment_FederalGovernmentOwnedEstablishment_NAICSTotalAllIndustries": {
+            "name": "Number of Establishments:Federal Govt owned",
+            "statVar": "Count_Establishment_FederalGovernmentOwnedEstablishment_NAICSTotalAllIndustries"
+          },
+          "Count_Establishment_LocalGovernmentOwnedEstablishment_NAICSTotalAllIndustries": {
+            "name": "Number of Establishments: Local Govt owned",
+            "statVar": "Count_Establishment_LocalGovernmentOwnedEstablishment_NAICSTotalAllIndustries"
+          },
+          "Count_Establishment_NAICSAdministrativeSupportWasteManagementRemediationServices_multiple_place_bar_block": {
+            "name": "Number of Establishments: Administrative, Support, Waste Management",
+            "statVar": "Count_Establishment_NAICSAdministrativeSupportWasteManagementRemediationServices"
+          },
+          "Count_Establishment_NAICSConstruction_multiple_place_bar_block": {
+            "name": "Number of Establishments: Construction",
+            "statVar": "Count_Establishment_NAICSConstruction"
+          },
+          "Count_Establishment_NAICSFinanceInsurance_multiple_place_bar_block": {
+            "name": "Number of Establishments: Finance and Insurance",
+            "statVar": "Count_Establishment_NAICSFinanceInsurance"
+          },
+          "Count_Establishment_NAICSInformation_multiple_place_bar_block": {
+            "name": "Number of Establishments: Information",
+            "statVar": "Count_Establishment_NAICSInformation"
+          },
+          "Count_Establishment_NAICSNonclassifiable_multiple_place_bar_block": {
+            "name": "Number of Establishments: Unclassified",
+            "statVar": "Count_Establishment_NAICSNonclassifiable"
+          },
+          "Count_Establishment_NAICSOtherServices_multiple_place_bar_block": {
+            "name": "Number of Establishments: Other Services",
+            "statVar": "Count_Establishment_NAICSOtherServices"
+          },
+          "Count_Establishment_NAICSPublicAdministration_multiple_place_bar_block": {
+            "name": "Number of Establishments: Public Administration",
+            "statVar": "Count_Establishment_NAICSPublicAdministration"
+          },
+          "Count_Establishment_NAICSRealEstateRentalLeasing_multiple_place_bar_block": {
+            "name": "Number of Establishments: Real Estate, Rental, Leasing",
+            "statVar": "Count_Establishment_NAICSRealEstateRentalLeasing"
+          },
+          "Count_Establishment_NAICSUtilities_multiple_place_bar_block": {
+            "name": "Number of Establishments: Utilities",
+            "statVar": "Count_Establishment_NAICSUtilities"
+          },
+          "Count_Establishment_PrivatelyOwnedEstablishment_NAICSTotalAllIndustries": {
+            "name": "Number of Establishments: Privately owned",
+            "statVar": "Count_Establishment_PrivatelyOwnedEstablishment_NAICSTotalAllIndustries"
+          },
+          "Count_Establishment_StateGovernmentOwnedEstablishment_NAICSTotalAllIndustries": {
+            "name": "Number of Establishments: State owned",
+            "statVar": "Count_Establishment_StateGovernmentOwnedEstablishment_NAICSTotalAllIndustries"
+          },
+          "Count_Farm": {
+            "name": "Farms",
+            "statVar": "Count_Farm"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months": {
+            "name": "Population Below poverty line",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone_multiple_place_bar_block": {
+            "name": "Asians Below Poverty Line",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsianAlone"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
+            "name": "Black or African Americans Below Poverty",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino_multiple_place_bar_block": {
+            "name": "Hispanic or Latino Americans Below Poverty Line",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_HispanicOrLatino"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block": {
+            "name": "Native Hawaiian or Other Pacific Islander Americans Below Poverty Line",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone_multiple_place_bar_block": {
+            "name": "Below Poverty Line (Other Race)",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces_multiple_place_bar_block": {
+            "name": "Below Poverty Line (Two or More Races)",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block": {
+            "name": "White Americans (Not Hispanic or Latino) Below Poverty Line",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone_multiple_place_bar_block": {
+            "name": "White Americans Below Poverty Line",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_WhiteAlone"
+          },
+          "Count_Person_Employed": {
+            "name": "Population With Current Employment",
+            "statVar": "Count_Person_Employed"
+          },
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
+            "name": "Women below Poverty Line",
+            "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
+            "name": "Males in Poverty (in last year)",
+            "statVar": "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Worker_NAICSAccommodationFoodServices_multiple_place_bar_block": {
+            "name": "Accommodation/Food Industry Workers",
+            "statVar": "Count_Worker_NAICSAccommodationFoodServices"
+          },
+          "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices_multiple_place_bar_block": {
+            "name": "Admin / Waste Management Service Industry Workers",
+            "statVar": "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices"
+          },
+          "Count_Worker_NAICSAgricultureForestryFishingHunting": {
+            "name": "Agriculture, Forestry, Fishing, Hunting Workers",
+            "statVar": "Count_Worker_NAICSAgricultureForestryFishingHunting"
+          },
+          "Count_Worker_NAICSAgricultureForestryFishingHunting_multiple_place_bar_block": {
+            "name": "Agriculture, Forestry, Fishing, Hunting Workers",
+            "statVar": "Count_Worker_NAICSAgricultureForestryFishingHunting"
+          },
+          "Count_Worker_NAICSArtsEntertainmentRecreation_multiple_place_bar_block": {
+            "name": "Arts, Entertainment, Recreation Industry Workers",
+            "statVar": "Count_Worker_NAICSArtsEntertainmentRecreation"
+          },
+          "Count_Worker_NAICSConstruction_multiple_place_bar_block": {
+            "name": "Population Working in the Construction Industry",
+            "statVar": "Count_Worker_NAICSConstruction"
+          },
+          "Count_Worker_NAICSEducationalServices_multiple_place_bar_block": {
+            "name": "Educational Services Industry Workers",
+            "statVar": "Count_Worker_NAICSEducationalServices"
+          },
+          "Count_Worker_NAICSFinanceInsurance_multiple_place_bar_block": {
+            "name": "Finance and Insurance Industry Workers",
+            "statVar": "Count_Worker_NAICSFinanceInsurance"
+          },
+          "Count_Worker_NAICSHealthCareSocialAssistance_multiple_place_bar_block": {
+            "name": "Health Care and Social Assistance Industry Workers",
+            "statVar": "Count_Worker_NAICSHealthCareSocialAssistance"
+          },
+          "Count_Worker_NAICSInformation_multiple_place_bar_block": {
+            "name": "Information Industry Workers",
+            "statVar": "Count_Worker_NAICSInformation"
+          },
+          "Count_Worker_NAICSManagementOfCompaniesEnterprises_multiple_place_bar_block": {
+            "name": "Population Working in the Management of Companies and Enterprises Industry",
+            "statVar": "Count_Worker_NAICSManagementOfCompaniesEnterprises"
+          },
+          "Count_Worker_NAICSMiningQuarryingOilGasExtraction_multiple_place_bar_block": {
+            "name": "Mining, Quarrying, Oil and Gas Extraction Industry Workers",
+            "statVar": "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
+          },
+          "Count_Worker_NAICSNonclassifiable_multiple_place_bar_block": {
+            "name": "Unclassified Workers",
+            "statVar": "Count_Worker_NAICSNonclassifiable"
+          },
+          "Count_Worker_NAICSOtherServices_multiple_place_bar_block": {
+            "name": "Other Services (except Public Admin) Workers",
+            "statVar": "Count_Worker_NAICSOtherServices"
+          },
+          "Count_Worker_NAICSProfessionalScientificTechnicalServices_multiple_place_bar_block": {
+            "name": "Professional, Scientific, and Technical Services Workers",
+            "statVar": "Count_Worker_NAICSProfessionalScientificTechnicalServices"
+          },
+          "Count_Worker_NAICSPublicAdministration_multiple_place_bar_block": {
+            "name": "Public Administration Workers",
+            "statVar": "Count_Worker_NAICSPublicAdministration"
+          },
+          "Count_Worker_NAICSRealEstateRentalLeasing_multiple_place_bar_block": {
+            "name": "Real Estate and Rental and Leasing Workers",
+            "statVar": "Count_Worker_NAICSRealEstateRentalLeasing"
+          },
+          "Count_Worker_NAICSUtilities_multiple_place_bar_block": {
+            "name": "Utilities Workers",
+            "statVar": "Count_Worker_NAICSUtilities"
+          },
+          "Count_Worker_NAICSWholesaleTrade_multiple_place_bar_block": {
+            "name": "Wholesale Trade Workers",
+            "statVar": "Count_Worker_NAICSWholesaleTrade"
+          },
           "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": {
             "name": "Growth Rate of GDP",
             "statVar": "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
+          },
+          "Income_Farm": {
+            "name": "Total Farm Income",
+            "statVar": "Income_Farm"
+          },
+          "Median_Income_Household": {
+            "name": "Household Median Income",
+            "statVar": "Median_Income_Household"
+          },
+          "Median_Income_Person": {
+            "name": "Individual Median Income",
+            "statVar": "Median_Income_Person"
+          },
+          "ReceiptsBillingsOrSales_Establishment_NAICSConstruction_WithPayroll_multiple_place_bar_block": {
+            "name": "Revenue of Establishments with Payroll: Construction",
+            "statVar": "ReceiptsBillingsOrSales_Establishment_NAICSConstruction_WithPayroll"
+          },
+          "ReceiptsOrRevenue_Establishment_NAICSArtsEntertainmentRecreation_WithPayroll_multiple_place_bar_block": {
+            "name": "Revenue of Establishments with Payroll: Arts, Entertainment, Recreation",
+            "statVar": "ReceiptsOrRevenue_Establishment_NAICSArtsEntertainmentRecreation_WithPayroll"
+          },
+          "ReceiptsOrRevenue_Establishment_NAICSEducationalServices_WithPayroll_multiple_place_bar_block": {
+            "name": "Revenue of Establishments with Payroll: Educational Services",
+            "statVar": "ReceiptsOrRevenue_Establishment_NAICSEducationalServices_WithPayroll"
+          },
+          "ReceiptsOrRevenue_Establishment_NAICSHealthCareSocialAssistance_WithPayroll_multiple_place_bar_block": {
+            "name": "Revenue of Establishments with Payroll: Health Care and Social Assistance",
+            "statVar": "ReceiptsOrRevenue_Establishment_NAICSHealthCareSocialAssistance_WithPayroll"
+          },
+          "ReceiptsOrRevenue_Establishment_NAICSInformation_WithPayroll_multiple_place_bar_block": {
+            "name": "Revenue of Establishments with Payroll: Information",
+            "statVar": "ReceiptsOrRevenue_Establishment_NAICSInformation_WithPayroll"
+          },
+          "ReceiptsOrRevenue_Establishment_NAICSOtherServices_WithPayroll_multiple_place_bar_block": {
+            "name": "Revenue of Establishments with Payroll: Other Services",
+            "statVar": "ReceiptsOrRevenue_Establishment_NAICSOtherServices_WithPayroll"
+          },
+          "ReceiptsOrRevenue_Establishment_NAICSProfessionalScientificTechnicalServices_WithPayroll_multiple_place_bar_block": {
+            "name": "Revenue of Establishments with Payroll: Professional, Scientific, Technical Services",
+            "statVar": "ReceiptsOrRevenue_Establishment_NAICSProfessionalScientificTechnicalServices_WithPayroll"
+          },
+          "Receipts_Establishment_NAICSAdministrativeSupportWasteManagementRemediationServices_WithPayroll_multiple_place_bar_block": {
+            "name": "Revenue of Establishments with Payroll: Administrative, Support, Waste Management",
+            "statVar": "Receipts_Establishment_NAICSAdministrativeSupportWasteManagementRemediationServices_WithPayroll"
+          },
+          "Revenue_Establishment_NAICSFinanceInsurance_WithPayroll_multiple_place_bar_block": {
+            "name": "Revenue of Establishments with Payroll: Finance and Insurance",
+            "statVar": "Revenue_Establishment_NAICSFinanceInsurance_WithPayroll"
+          },
+          "Revenue_Establishment_NAICSManagementOfCompaniesEnterprises_WithPayroll_multiple_place_bar_block": {
+            "name": "Revenue of Establishments with Payroll: Company Management",
+            "statVar": "Revenue_Establishment_NAICSManagementOfCompaniesEnterprises_WithPayroll"
+          },
+          "Revenue_Establishment_NAICSRealEstateRentalLeasing_WithPayroll_multiple_place_bar_block": {
+            "name": "Revenue of Establishments with Payroll: Real Estate, Rental, Leasing",
+            "statVar": "Revenue_Establishment_NAICSRealEstateRentalLeasing_WithPayroll"
+          },
+          "Revenue_Establishment_NAICSUtilities_WithPayroll_multiple_place_bar_block": {
+            "name": "Revenue of Establishments With Payroll: Utilities",
+            "statVar": "Revenue_Establishment_NAICSUtilities_WithPayroll"
+          },
+          "Sales_Establishment_NAICSAccommodationFoodServices_WithPayroll_multiple_place_bar_block": {
+            "name": "Revenue of Establishments with Payroll: Accommodation And Food Services",
+            "statVar": "Sales_Establishment_NAICSAccommodationFoodServices_WithPayroll"
+          },
+          "Sales_Establishment_NAICSWholesaleTrade_WithPayroll_multiple_place_bar_block": {
+            "name": "Revenue of Establishments with Payroll: Wholesale Trade",
+            "statVar": "Sales_Establishment_NAICSWholesaleTrade_WithPayroll"
+          },
+          "ShipmentsOrReceipts_Establishment_NAICSMiningQuarryingOilGasExtraction_WithPayroll_multiple_place_bar_block": {
+            "name": "Revenue of Establishments with Payroll: Mining, Quarrying, Oil & Gas",
+            "statVar": "ShipmentsOrReceipts_Establishment_NAICSMiningQuarryingOilGasExtraction_WithPayroll"
+          },
+          "UnemploymentRate_Person": {
+            "name": "Unemployment Rate",
+            "statVar": "UnemploymentRate_Person"
+          },
+          "UnemploymentRate_Person_Female": {
+            "name": "Unemployment Rate of Females",
+            "statVar": "UnemploymentRate_Person_Female"
+          },
+          "dc/1j7jmy39fwhw5_multiple_place_bar_block": {
+            "name": "Establishments in Agriculture, Forestry, Fishing And Hunting",
+            "statVar": "dc/1j7jmy39fwhw5"
+          },
+          "dc/1wf1h5esex2d_multiple_place_bar_block": {
+            "name": "Establishments in Manufacturing industry",
+            "statVar": "dc/1wf1h5esex2d"
+          },
+          "dc/2c2e9bn8p7xz6_multiple_place_bar_block": {
+            "name": "Establishments in Retail Trade industry",
+            "statVar": "dc/2c2e9bn8p7xz6"
+          },
+          "dc/2hl1yfxglmq0c_multiple_place_bar_block": {
+            "name": "Sales of Establishments With Payroll: Miscellaneous Store Retailers",
+            "statVar": "dc/2hl1yfxglmq0c"
+          },
+          "dc/2kz6b9kvps8c9_multiple_place_bar_block": {
+            "name": "Revenue of Establishment With Payroll: Couriers And Messengers",
+            "statVar": "dc/2kz6b9kvps8c9"
+          },
+          "dc/2qgvm8lch89n5_multiple_place_bar_block": {
+            "name": "Establishments in Wholesale Trade",
+            "statVar": "dc/2qgvm8lch89n5"
+          },
+          "dc/31hbegrgs0x05_multiple_place_bar_block": {
+            "name": "Sales of Establishments With Payroll: Sports, Hobby, Music Instrument, Book Stores",
+            "statVar": "dc/31hbegrgs0x05"
+          },
+          "dc/3wx4hzg5p6zdb_multiple_place_bar_block": {
+            "name": "Sales of Establishments With Payroll: Nonstore Retailers",
+            "statVar": "dc/3wx4hzg5p6zdb"
+          },
+          "dc/41s8qer7mpew9_multiple_place_bar_block": {
+            "name": "Sales of Establishments With Payroll: General Merchandise Stores",
+            "statVar": "dc/41s8qer7mpew9"
+          },
+          "dc/4fbqq2v75fwbc_multiple_place_bar_block": {
+            "name": "Revenue of Establishments With Payroll: Transportation And Warehousing",
+            "statVar": "dc/4fbqq2v75fwbc"
+          },
+          "dc/8mty3dlrx26e5_multiple_place_bar_block": {
+            "name": "Shipments or Receipts of Establishments With Payroll: Chemical Manufacturing",
+            "statVar": "dc/8mty3dlrx26e5"
+          },
+          "dc/8p97n7l96lgg8_multiple_place_bar_block": {
+            "name": "Transportation And Warehousing Workers",
+            "statVar": "dc/8p97n7l96lgg8"
+          },
+          "dc/8vcbgqlfzwvtf_multiple_place_bar_block": {
+            "name": "Shipments or Receipts of Establishments With Payroll: Printing And Related Support Activities",
+            "statVar": "dc/8vcbgqlfzwvtf"
+          },
+          "dc/9bcetmhgnge5f_multiple_place_bar_block": {
+            "name": "Shipments or Receipts of Establishments With Payroll: Furniture And Related Product Manufacturing",
+            "statVar": "dc/9bcetmhgnge5f"
+          },
+          "dc/9pz1cse6yndtg_multiple_place_bar_block": {
+            "name": "Establishments in Management of Companies And Enterprises",
+            "statVar": "dc/9pz1cse6yndtg"
+          },
+          "dc/br6elkd593zs1_multiple_place_bar_block": {
+            "name": "Establishments in Mining, Quarrying, And Oil And Gas Extraction",
+            "statVar": "dc/br6elkd593zs1"
+          },
+          "dc/c0zdt686eek05_multiple_place_bar_block": {
+            "name": "Shipments or Receipts of Establishment With Payroll: Miscellaneous Manufacturing",
+            "statVar": "dc/c0zdt686eek05"
+          },
+          "dc/d796515q44h02_multiple_place_bar_block": {
+            "name": "Shipments or Receipts of Establishments With Payroll: Paper Manufacturing",
+            "statVar": "dc/d796515q44h02"
+          },
+          "dc/dc5hbzngddq37_multiple_place_bar_block": {
+            "name": "Establishments in Arts, Entertainment, And Recreation",
+            "statVar": "dc/dc5hbzngddq37"
+          },
+          "dc/ekrg82bjht898_multiple_place_bar_block": {
+            "name": "Shipments or Receipts of Establishments With Payroll: Computer And Electronic Product Manufacturing",
+            "statVar": "dc/ekrg82bjht898"
+          },
+          "dc/f2g63f2rjbdyh_multiple_place_bar_block": {
+            "name": "Shipments or Receipts of Establishment With Payroll: Machinery Manufacturing",
+            "statVar": "dc/f2g63f2rjbdyh"
+          },
+          "dc/g8sxhs8lzmb15_multiple_place_bar_block": {
+            "name": "Sales of Establishments With Payroll: Retail Trade",
+            "statVar": "dc/g8sxhs8lzmb15"
+          },
+          "dc/gf47xlzfbd3t8_multiple_place_bar_block": {
+            "name": "Shipments or Receipts of Establishments With Payroll: Plastics And Rubber Products Manufacturing",
+            "statVar": "dc/gf47xlzfbd3t8"
+          },
+          "dc/ghk2rsfpsnc29_multiple_place_bar_block": {
+            "name": "Shipments or Receipts of Establishments With Payroll: Transportation Equipment Manufacturing",
+            "statVar": "dc/ghk2rsfpsnc29"
+          },
+          "dc/gy5fk764jzhvd_multiple_place_bar_block": {
+            "name": "Shipments or Receipts of Establishments With Payroll: Fabricated Metal Product Manufacturing",
+            "statVar": "dc/gy5fk764jzhvd"
+          },
+          "dc/jxwhv6vc0rye7_multiple_place_bar_block": {
+            "name": "Shipments or Receipts of Establishments With Payroll: Wood Product Manufacturing",
+            "statVar": "dc/jxwhv6vc0rye7"
+          },
+          "dc/kcns4cvt14zx2_multiple_place_bar_block": {
+            "name": "Establishments in Educational Services",
+            "statVar": "dc/kcns4cvt14zx2"
+          },
+          "dc/m46wj1egm7j56_multiple_place_bar_block": {
+            "name": "Shipments or Receipts of Establishments With Payroll: Petroleum And Coal Products Manufacturing",
+            "statVar": "dc/m46wj1egm7j56"
+          },
+          "dc/mlf5e4m68h2k7_multiple_place_bar_block": {
+            "name": "Establishment in Professional, Scientific, And Technical Services",
+            "statVar": "dc/mlf5e4m68h2k7"
+          },
+          "dc/ndg1xk1e9frc2_multiple_place_bar_block": {
+            "name": "Manufacturing Workers",
+            "statVar": "dc/ndg1xk1e9frc2"
+          },
+          "dc/p69tpsldf99h7_multiple_place_bar_block": {
+            "name": "Retail Trade Workers",
+            "statVar": "dc/p69tpsldf99h7"
+          },
+          "dc/rw3t3r74kv7mc_multiple_place_bar_block": {
+            "name": "Shipments or Receipts of Establishments With Payroll: Primary Metal Manufacturing",
+            "statVar": "dc/rw3t3r74kv7mc"
+          },
+          "dc/sythffk3c3ne7_multiple_place_bar_block": {
+            "name": "Revenue of Establishments With Payroll: Warehousing And Storage",
+            "statVar": "dc/sythffk3c3ne7"
+          },
+          "dc/sz9ckd47e35b4_multiple_place_bar_block": {
+            "name": "Shipments or Receipts of Establishments With Payroll: Electrical Equipment And Appliance Mfg.",
+            "statVar": "dc/sz9ckd47e35b4"
+          },
+          "dc/tz59wt1hkl4y_multiple_place_bar_block": {
+            "name": "Establishment in Health Care And Social Assistance",
+            "statVar": "dc/tz59wt1hkl4y"
+          },
+          "dc/w8gp902jnk426_multiple_place_bar_block": {
+            "name": "Establishments in Accommodation And Food Services",
+            "statVar": "dc/w8gp902jnk426"
+          },
+          "dc/x52jxxbwspczh_multiple_place_bar_block": {
+            "name": "Establishments in Transportation And Warehousing",
+            "statVar": "dc/x52jxxbwspczh"
+          },
+          "dc/zkmdz1rhlt7q8_multiple_place_bar_block": {
+            "name": "Shipments or Receipts of Establishments With Payroll: Nonmetallic Mineral Product Manufacturing",
+            "statVar": "dc/zkmdz1rhlt7q8"
+          },
+          "sdg/EN_MAT_DOMCMPG": {
+            "name": "Domestic material consumption per unit of GDP",
+            "statVar": "sdg/EN_MAT_DOMCMPG"
           }
         }
       }
@@ -320,6 +1185,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "country/USA",
@@ -335,7 +1201,217 @@
       "place_type": "Country"
     }
   ],
-  "relatedThings": {},
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [
+      {
+        "dcid": "dc/topic/GDPByIndustry",
+        "name": "GDP by Industry",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "exploreMore": {
+      "Amount_EconomicActivity_GrossDomesticProduction_RealValue": {
+        "naics": [
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSAccommodationFoodServices_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSAdministrativeSupportWasteManagementRemediationServices_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreationAccommodationFoodServices_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSConstruction_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSDurableGoodsManufacturing_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSEducationalServicesHealthCareSocialAssistance_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSEducationalServices_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsuranceRealEstateRentalLeasing_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSHealthCareSocialAssistance_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSManagementOfCompaniesEnterprises_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSManufacturing_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSMiningQuarryingOilGasExtraction_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSNaturalResourcesMining_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSNondurableGoodsManufacturing_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalAndBusinessServices_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSRetailTrade_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSTransportationWarehousing_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue",
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue"
+        ]
+      },
+      "Amount_EconomicActivity_GrossValueAdded_RealValue": {
+        "isic": [
+          "Amount_EconomicActivity_GrossValueAdded_ISICAgricultureHuntingForestryFishing_RealValue",
+          "Amount_EconomicActivity_GrossValueAdded_ISICConstruction_RealValue",
+          "Amount_EconomicActivity_GrossValueAdded_ISICManufacturing_RealValue",
+          "Amount_EconomicActivity_GrossValueAdded_ISICMiningManufacturingUtilities_RealValue",
+          "Amount_EconomicActivity_GrossValueAdded_ISICOtherActivities_RealValue",
+          "Amount_EconomicActivity_GrossValueAdded_ISICTransportStorageCommunications_RealValue",
+          "Amount_EconomicActivity_GrossValueAdded_ISICWholesaleRetailTradeRestaurantsHotels_RealValue"
+        ]
+      },
+      "dc/1wf1h5esex2d": {
+        "establishmentOwnership": [
+          "dc/n1mgflew2xqm8",
+          "dc/php87mcmrlfj1",
+          "dc/wnkqptsmsrvp4"
+        ]
+      },
+      "dc/2c2e9bn8p7xz6": {
+        "establishmentOwnership": [
+          "dc/4e1qwr08wwlhf",
+          "dc/7smjm7dsv0s7c",
+          "dc/feb4dws4vegs",
+          "dc/npmf27bsq4gyc"
+        ]
+      }
+    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/GDP",
+        "name": "GDP",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/GlobalEconomicActivity",
+        "name": "Global Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/EducationExpenditure",
+        "name": "Education Expenditure",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HealthcareExpenditure",
+        "name": "Healthcare Expenditure",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Remittance",
+        "name": "Remittance",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessages": []
 }

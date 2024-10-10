@@ -13,7 +13,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+set -e
+
 cd packages/web-components
+npm install --update
+cd ../client
 npm install --update
 cd ../../static
 npm install --update

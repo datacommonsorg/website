@@ -24,3 +24,6 @@ export const MATERIAL_ICONS_OUTLINED_STYLESHEET_URL =
 /** URL for Material Icons stylesheet to inject into web components */
 export const MATERIAL_ICONS_STYLESHEET_URL =
   "https://fonts.googleapis.com/icon?family=Material+Icons";
+
+/** Sets denom to this value for perCapita web components */
+export const DEFAULT_PER_CAPITA_DENOM = "Count_Person";

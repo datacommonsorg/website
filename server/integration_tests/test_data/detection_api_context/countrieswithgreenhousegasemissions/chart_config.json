@@ -7,6 +7,7 @@
       "type": 4
     }
   ],
+  "client": "test_detect",
   "comparisonEntities": [],
   "comparisonVariables": [],
   "context": {},
@@ -14,27 +15,29 @@
   "entities": [
     "Earth"
   ],
+  "nonPlaceEntities": [],
+  "properties": [],
   "sessionId": "007_999999999",
   "variables": [
     "Annual_Emissions_GreenhouseGas",
     "dc/topic/GreenhouseGasEmissions",
-    "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse",
-    "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherEnergyUse",
-    "Annual_Emissions_GreenhouseGas_OilAndGas",
-    "Annual_Emissions_CarbonDioxide_Power",
-    "Annual_Emissions_CarbonDioxide_FossilFuelOperations",
-    "Annual_Emissions_GreenhouseGas_WasteManagement",
-    "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherFossilFuelOperations",
-    "Annual_Emissions_GreenhouseGas_Agriculture",
-    "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherManufacturing",
-    "Annual_Emissions_GreenhouseGas_OpenBurningWaste",
-    "Annual_Emissions_GreenhouseGas_Manufacturing",
     "dc/topic/CO2Emissions",
-    "Annual_Emissions_CarbonDioxide_Agriculture",
-    "Annual_Emissions_Methane_ClimateTrace_OtherEnergyUse",
-    "Annual_Emissions_GreenhouseGas_ElectricityGeneration",
+    "dc/topic/sdg_13.2.2",
+    "dc/topic/Emissions",
+    "Annual_Emissions_GreenhouseGas_OilAndGas",
+    "dc/topic/TransportationEmissionsByGas",
+    "Annual_Emissions_GreenhouseGas_Agriculture",
+    "Annual_Emissions_GreenhouseGas_Transportation",
+    "Annual_Emissions_GreenhouseGas_StationaryCombustion_NonBiogenic",
+    "Annual_Emissions_GreenhouseGas_RiceCultivation",
     "Annual_Emissions_GreenhouseGas_OilAndGasProduction",
-    "Annual_Emissions_CarbonDioxide_Manufacturing",
-    "Annual_Emissions_CarbonDioxide_ClimateTrace_OtherManufacturing"
+    "dc/topic/PowerEmissionsByGas",
+    "dc/topic/ManufacturingEmissionsByGas",
+    "Annual_Emissions_GreenhouseGas_NonBiogenic",
+    "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking",
+    "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings",
+    "Annual_Emissions_GreenhouseGas_HydrogenProduction_NonBiogenic",
+    "Annual_Amount_Emissions_SCC_27_NaturalSources",
+    "dc/topic/AgricultureEmissionsByGas"
   ]
 }

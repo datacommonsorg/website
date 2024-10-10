@@ -17,10 +17,12 @@ from dataclasses import field
 import itertools
 from typing import Dict, List
 
-from server.lib.config import GLOBAL_CONFIG_BUCKET
+from server.lib import config as libconfig
 from shared.lib import gcs
 
-BAD_WORDS_FILE = 'nl_bad_words.txt'
+cfg = libconfig.get_config()
+BAD_WORDS_PATH = gcs.make_path(libconfig.GLOBAL_CONFIG_BUCKET,
+                               cfg.BAD_WORDS_FILE)
 _DELIM = ':'
 
 
@@ -67,12 +69,14 @@ class BannedWords:
   entries: Dict[str, Entry]
 
 
+EMPTY_BANNED_WORDS = BannedWords(entries={})
+
+
 #
 # Loads a list of bad words from a text file.
 #
 def load_bad_words() -> BannedWords:
-  local_file = gcs.download_file(bucket=GLOBAL_CONFIG_BUCKET,
-                                 filename=BAD_WORDS_FILE)
+  local_file = gcs.maybe_download(BAD_WORDS_PATH)
   return load_bad_words_file(local_file)
 
 
@@ -130,8 +134,7 @@ def load_bad_words_file(local_file: str, validate: bool = False) -> BannedWords:
 
 
 def validate_bad_words():
-  local_file = gcs.download_file(bucket=GLOBAL_CONFIG_BUCKET,
-                                 filename=BAD_WORDS_FILE)
+  local_file = gcs.maybe_download(BAD_WORDS_PATH)
   load_bad_words_file(local_file, validate=True)
 
 
@@ -139,7 +142,6 @@ def _validate(mode: str, line: str, bad_words: BannedWords, validate: bool):
   if not validate:
     return
   if mode == 'multi':
-    assert ' ' not in line, f'Line {line} has a ":" and a phrase!'
     words = sorted([w.strip() for w in line.split(_DELIM) if w.strip()])
     for w in words:
       if w in bad_words.entries:
@@ -161,6 +163,10 @@ def _validate(mode: str, line: str, bad_words: BannedWords, validate: bool):
 # Returns false if the query contains any bad word.
 #
 def is_safe(query: str, bad_words: BannedWords) -> bool:
+  # If bad words is empty, return True.
+  if not bad_words.entries:
+    return True
+
   qwords = [w.strip().lower() for w in query.split() if w.strip()]
   qwset = set(qwords)
   for word in qwords:

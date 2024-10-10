@@ -2,9 +2,10 @@
   "childEntityType": "",
   "classifications": [
     {
-      "type": 15
+      "type": 100
     }
   ],
+  "client": "test_detect",
   "comparisonEntities": [],
   "comparisonVariables": [],
   "context": {},
@@ -12,6 +13,8 @@
   "entities": [
     "country/USA"
   ],
+  "nonPlaceEntities": [],
+  "properties": [],
   "sessionId": "007_999999999",
   "variables": [
     "dc/topic/sdg_3",

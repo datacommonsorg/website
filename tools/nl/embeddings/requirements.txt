@@ -1,6 +1,5 @@
-absl-py
-datasets
-google-cloud-storage
-gspread
-parameterized
-sentence-transformers
+-r ../../../nl_requirements.txt
+
+absl-py==1.4.0
+dacite==1.8.1
+parameterized==0.8.1

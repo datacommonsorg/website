@@ -43,7 +43,7 @@ GEOJSON_MULTILINE_GEOMETRY = {
 class TestChoroplethPlaces(unittest.TestCase):
 
   @patch('server.routes.shared_api.choropleth.place_api.parent_places')
-  @patch('server.routes.shared_api.choropleth.place_api.get_place_type')
+  @patch('server.routes.shared_api.choropleth.place_api.api_place_type')
   def test_get_choropleth_display_level_has_display_level(
       self, mock_place_type, mock_parents):
     dcid = "test_dcid1"
@@ -53,7 +53,7 @@ class TestChoroplethPlaces(unittest.TestCase):
     assert result == (dcid, "AdministrativeArea1")
 
   @patch('server.routes.shared_api.choropleth.place_api.parent_places')
-  @patch('server.routes.shared_api.choropleth.place_api.get_place_type')
+  @patch('server.routes.shared_api.choropleth.place_api.api_place_type')
   def test_get_choropleth_display_level_equivalent_has_display_level(
       self, mock_place_type, mock_parents):
     dcid = "test_dcid2"
@@ -63,7 +63,7 @@ class TestChoroplethPlaces(unittest.TestCase):
     assert result == (dcid, "AdministrativeArea2")
 
   @patch('server.routes.shared_api.choropleth.place_api.parent_places')
-  @patch('server.routes.shared_api.choropleth.place_api.get_place_type')
+  @patch('server.routes.shared_api.choropleth.place_api.api_place_type')
   def test_get_choropleth_display_level_has_no_display_level(
       self, mock_place_type, mock_parents):
     dcid = "test_dcid3"
@@ -80,7 +80,7 @@ class TestChoroplethPlaces(unittest.TestCase):
     assert result == (None, None)
 
   @patch('server.routes.shared_api.choropleth.place_api.parent_places')
-  @patch('server.routes.shared_api.choropleth.place_api.get_place_type')
+  @patch('server.routes.shared_api.choropleth.place_api.api_place_type')
   def test_get_choropleth_display_level_parent_places(self, mock_place_type,
                                                       mock_parents):
     dcid = "test_dcid4"
@@ -97,7 +97,7 @@ class TestChoroplethPlaces(unittest.TestCase):
     assert result == (parent_dcid, "County")
 
   @patch('server.routes.shared_api.choropleth.place_api.parent_places')
-  @patch('server.routes.shared_api.choropleth.place_api.get_place_type')
+  @patch('server.routes.shared_api.choropleth.place_api.api_place_type')
   def test_get_choropleth_display_level_parent_has_equivalent(
       self, mock_place_type, mock_parents):
     dcid = "test_dcid5"
@@ -614,66 +614,71 @@ class TestGetNodeGeoJson(unittest.TestCase):
             "nodes": [dcid1, dcid2, dcid3, dcid4, dcid5],
             "geoJsonProp": geojson_prop
         })
-    assert response.status_code == 200
+    self.maxDiff = None
+    self.assertEqual(response.status_code, 200)
     response_data = json.loads(response.data)
-    assert response_data == {
-        'type': 'FeatureCollection',
-        'features': [{
-            'type': 'Feature',
-            'id': 'dcid1',
+    self.assertEqual(
+        response_data, {
+            'type': 'FeatureCollection',
+            'features': [{
+                'type': 'Feature',
+                'id': 'dcid1',
+                'properties': {
+                    'name': 'dcid1',
+                    'geoDcid': 'dcid1'
+                },
+                'geometry': {
+                    'type':
+                        'MultiPolygon',
+                    'coordinates':
+                        [[[[180.0, 40.0], [170.0, 40.0], [170.0, 50.0],
+                           [180.0, 50.0], [180.0, 40.0]]],
+                         [[[-170.0, 40.0], [-180.0, 40.0], [-180.0, 50.0],
+                           [-170.0, 50.0], [-170.0, 40.0]]]]
+                }
+            }, {
+                'type': 'Feature',
+                'id': 'dcid2',
+                'properties': {
+                    'name': 'dcid2',
+                    'geoDcid': 'dcid2'
+                },
+                'geometry': {
+                    'type':
+                        'MultiPolygon',
+                    'coordinates': [[[[100.0, 0.0], [100.0, 1.0], [101.0, 1.0],
+                                      [101.0, 0.0], [100.0, 0.0]]]]
+                }
+            }, {
+                'type': 'Feature',
+                'id': 'dcid3',
+                'properties': {
+                    'name': 'dcid3',
+                    'geoDcid': 'dcid3'
+                },
+                'geometry': {
+                    'type':
+                        'MultiPolygon',
+                    'coordinates':
+                        [[[[180.0, 40.0], [170.0, 40.0], [170.0, 50.0],
+                           [180.0, 50.0], [180.0, 40.0]]],
+                         [[[-170.0, 40.0], [-180.0, 40.0], [-180.0, 50.0],
+                           [-170.0, 50.0], [-170.0, 40.0]]]]
+                }
+            }, {
+                'type': 'Feature',
+                'id': 'dcid5',
+                'properties': {
+                    'name': 'dcid5',
+                    'geoDcid': 'dcid5'
+                },
+                'geometry': {
+                    'coordinates': [[[170.0, 45.0], [180.0, 45.0]],
+                                    [[-180.0, 45.0], [-170.0, 45.0]]],
+                    'type': 'MultiLineString'
+                }
+            }],
             'properties': {
-                'name': 'dcid1',
-                'geoDcid': 'dcid1'
-            },
-            'geometry': {
-                'type':
-                    'MultiPolygon',
-                'coordinates': [[[[100.0, 0.0], [100.0, 1.0], [101.0, 1.0],
-                                  [101.0, 0.0], [100.0, 0.0]]]]
+                'currentGeo': ''
             }
-        }, {
-            'type': 'Feature',
-            'id': 'dcid2',
-            'properties': {
-                'name': 'dcid2',
-                'geoDcid': 'dcid2'
-            },
-            'geometry': {
-                'type':
-                    'MultiPolygon',
-                'coordinates': [[[[100.0, 0.0], [100.0, 1.0], [101.0, 1.0],
-                                  [101.0, 0.0], [100.0, 0.0]]]]
-            }
-        }, {
-            'type': 'Feature',
-            'id': 'dcid3',
-            'properties': {
-                'name': 'dcid3',
-                'geoDcid': 'dcid3'
-            },
-            'geometry': {
-                'type':
-                    'MultiPolygon',
-                'coordinates': [[[[180.0, 40.0], [170.0, 40.0], [170.0, 50.0],
-                                  [180.0, 50.0], [180.0, 40.0]]],
-                                [[[-170.0, 40.0], [-180.0,
-                                                   40.0], [-180.0, 50.0],
-                                  [-170.0, 50.0], [-170.0, 40.0]]]]
-            }
-        }, {
-            'type': 'Feature',
-            'id': 'dcid5',
-            'properties': {
-                'name': 'dcid5',
-                'geoDcid': 'dcid5'
-            },
-            'geometry': {
-                'coordinates': [[[170.0, 45.0], [180.0, 45.0]],
-                                [[-180.0, 45.0], [-170.0, 45.0]]],
-                'type': 'MultiLineString'
-            }
-        }],
-        'properties': {
-            'currentGeo': ''
-        }
-    }
+        })

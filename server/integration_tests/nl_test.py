@@ -15,6 +15,7 @@
 import json
 import os
 
+from langdetect import detect as detect_lang
 import requests
 
 from shared.lib.test_server import NLWebServerTestCase
@@ -25,6 +26,8 @@ _TEST_MODE = os.environ['TEST_MODE']
 
 _TEST_DATA = 'test_data'
 
+_MAX_FOOTNOTE_LENGTH = 500
+
 
 class NLTest(NLWebServerTestCase):
 
@@ -32,14 +35,15 @@ class NLTest(NLWebServerTestCase):
   def run_sequence(self,
                    test_dir,
                    queries,
-                   idx='medium_ft',
-                   detector='hybridsafety',
+                   idx='base_uae_mem',
+                   detector='hybrid',
                    check_place_detection=False,
                    expected_detectors=[],
-                   place_detector='dc',
                    failure='',
                    test='',
-                   i18n=''):
+                   i18n='',
+                   i18n_lang='',
+                   mode=''):
     if detector == 'heuristic':
       detection_method = 'Heuristic Based'
     elif detector == 'llm':
@@ -51,13 +55,18 @@ class NLTest(NLWebServerTestCase):
       print('Issuing ', test_dir, f'query[{i}]', q)
       resp = requests.post(
           self.get_server_url() +
-          f'/api/nl/data?q={q}&idx={idx}&detector={detector}&place_detector={place_detector}&test={test}&i18n={i18n}',
+          f'/api/explore/detect-and-fulfill?q={q}&idx={idx}&detector={detector}&test={test}&i18n={i18n}&mode={mode}&client=test',
           json={
               'contextHistory': ctx
           }).json()
       if expected_detectors:
         detection_method = expected_detectors[i]
       ctx = resp['context']
+
+      if i18n and i18n_lang:
+        self.handle_i18n_response(resp, i18n_lang)
+        return
+
       self.handle_response(q, resp, test_dir, f'query_{i + 1}', failure,
                            check_place_detection, detection_method)
 
@@ -72,6 +81,12 @@ class NLTest(NLWebServerTestCase):
     dbg = resp['debug']
     resp['debug'] = {}
     resp['context'] = {}
+    for category in resp.get('config', {}).get('categories', []):
+      for block in category.get('blocks'):
+        block_footnote = block.get('footnote', '')
+        if len(block_footnote) > _MAX_FOOTNOTE_LENGTH:
+          block[
+              'footnote'] = f'{block_footnote[:_MAX_FOOTNOTE_LENGTH:]}...{len(block_footnote) - _MAX_FOOTNOTE_LENGTH} more chars'
     json_file = os.path.join(_dir, _TEST_DATA, test_dir, test_name,
                              'chart_config.json')
     if _TEST_MODE == 'write':
@@ -121,6 +136,36 @@ class NLTest(NLWebServerTestCase):
           self.assertEqual(dbg["places_resolved"], expected["places_resolved"])
           self.assertEqual(dbg["main_place_dcid"], expected["main_place_dcid"])
           self.assertEqual(dbg["main_place_name"], expected["main_place_name"])
+
+  def handle_i18n_response(self, resp, i18n_lang):
+    """The translation API does not always return the same translations.
+    This makes golden comparisons flaky.
+    So we instead extract the texts from the response and assert at least one of them is
+    in the expected language.
+    """
+    texts: list[str] = []
+    for category in resp.get("config", {}).get("categories", []):
+      for block in category.get("blocks", []):
+        for column in block.get("columns", []):
+          for tile in column.get("tiles", []):
+            title = tile.get("title")
+            if title:
+              texts.append(title)
+
+    self.assertTrue(len(texts) > 0)
+
+    success = False
+    detected = ""
+    for text in texts:
+      detected = detect_lang(text).lower()
+      if i18n_lang in detected:
+        success = True
+        break
+
+    self.assertTrue(success, f"wanted: {i18n_lang}, got {detected}")
+
+
+class NLTestDemo(NLTest):
 
   def test_textbox_sample(self):
     # This is the sample advertised in our textbox
@@ -183,9 +228,9 @@ class NLTest(NLWebServerTestCase):
             # instead we would pick contained-in from context (County).
             'GDP of countries in the US',
         ],
-        detector='hybridsafety',
+        detector='hybrid',
         expected_detectors=[
-            'Hybrid - LLM Safety',
+            'Hybrid - LLM Fallback',
             'Hybrid - Heuristic Based',
             'Hybrid - Heuristic Based',
             'Hybrid - Heuristic Based',
@@ -207,13 +252,16 @@ class NLTest(NLWebServerTestCase):
             "Prevalence of Asthma in California cities with hispanic population over 10000",
         ],
         # Use heuristic because LLM fallback is not very deterministic.
-        detector='heuristic')
+        detector='heuristic',
+        test='filter_test')
 
   def test_demo_climatetrace(self):
     self.run_sequence('demo_climatetrace',
                       ['Which countries emit the most greenhouse gases?'],
                       test='unittest')
 
+
+class NLTestMisc(NLTest):
   # This test uses DC's Recognize Places API.
   def test_place_detection_e2e_dc(self):
     self.run_sequence('place_detection_e2e_dc', [
@@ -230,7 +278,7 @@ class NLTest(NLWebServerTestCase):
     self.run_sequence('international', [
         'Where are the most rural districts in India',
         'Life expectancy across provinces of China',
-        'GDP of counties in the United Kingdom',
+        'GDP of counties in Spain',
         'Districts in Turkey with the highest fertility rate',
         'Floods in Brazil',
         'Drought in Africa',
@@ -254,7 +302,8 @@ class NLTest(NLWebServerTestCase):
         'translate_hindi',
         ['सांता क्लारा काउंटी के किन शहरों में सबसे अधिक चोरी होती है?'],
         check_place_detection=True,
-        i18n='true')
+        i18n='true',
+        i18n_lang='hi')
 
   def test_sdg(self):
     self.run_sequence('sdg', [
@@ -262,8 +311,43 @@ class NLTest(NLWebServerTestCase):
         'which countries have shown the greatest reduction?',
         'health in the world',
     ])
-
-    # def test_inappropriate_query(self):
     self.run_sequence('inappropriate_query',
                       ['how many wise asses live in sunnyvale?'],
                       failure='could not complete')
+
+  def test_strict_multi_verb(self):
+    self.run_sequence(
+        'strict_multi_verb',
+        [
+            # This query should return empty results in strict mode.
+            'how do i build and construct a house and sell it in california with low income',
+            # This query should be fine.
+            'tell me asian california population with low income',
+        ],
+        mode='strict',
+        expected_detectors=[
+            'Heuristic Based',
+            'Heuristic Based',
+        ])
+
+  def test_strict_default_place(self):
+    self.run_sequence(
+        'strict_default_place',
+        [
+            # These queries do not have a default place, so should fail.
+            'what does a diet for diabetes look like?',
+            'how to earn money online without investment',
+        ],
+        mode='strict',
+        failure='could not complete')
+
+  def test_strict_low_confidence(self):
+    self.run_sequence(
+        'strict_low_confidence',
+        [
+            # This query should return empty result because we don't
+            # return low-confidence results.
+            'number of headless drivers in california',
+        ],
+        mode='strict',
+        expected_detectors=['Hybrid - Heuristic Based'])

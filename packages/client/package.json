@@ -1,0 +1,68 @@
+{
+  "name": "@datacommonsorg/client",
+  "private": false,
+  "typings": "./dist/main.d.ts",
+  "version": "0.1.1-alpha",
+  "exports": {
+    ".": {
+      "import": "./dist/main.mjs",
+      "require": "./dist/main.umd.js",
+      "types": "./dist/main.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/main.umd.js",
+  "module": "./dist/main.mjs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/datacommonsorg/website",
+    "directory": "packages/client"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "build-watch": "tsc && vite build --watch",
+    "preview": "vite preview",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.6",
+    "@babel/preset-env": "^7.23.6",
+    "@babel/preset-typescript": "^7.23.3",
+    "@deck.gl/core": "^8.9.33",
+    "@deck.gl/google-maps": "^8.9.33",
+    "@deck.gl/layers": "^8.9.33",
+    "@deck.gl/react": "^8.9.33",
+    "@googlemaps/react-wrapper": "^1.1.35",
+    "@jest/globals": "^29.7.0",
+    "@rollup/plugin-typescript": "^11.1.5",
+    "@turf/rewind": "^7.0.0-alpha.2",
+    "@types/d3-scale": "^4.0.8",
+    "@types/geojson": "^7946.0.13",
+    "@types/google.maps": "^3.54.10",
+    "@types/lodash": "^4.14.202",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.17",
+    "@types/react-syntax-highlighter": "^15.5.11",
+    "@types/turf": "^3.5.32",
+    "babel-jest": "^29.7.0",
+    "d3-scale": "^4.0.2",
+    "jest": "^29.7.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-syntax-highlighter": "^15.5.0",
+    "rollup-plugin-typescript-paths": "^1.5.0",
+    "ts-jest": "^29.1.1",
+    "tslib": "^2.6.2",
+    "typedoc": "^0.25.4",
+    "vega-embed": "^6.24.0",
+    "vega-lite": "^5.16.3",
+    "vite": "^5.2.14"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "typescript": "^5.2.2"
+  }
+}

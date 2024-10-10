@@ -26,13 +26,13 @@ import Collapsible from "react-collapsible";
 import { ASYNC_ELEMENT_HOLDER_CLASS } from "../constants/css_constants";
 import { Context, ContextType } from "../shared/context";
 import {
+  NamedNode,
   RADIO_BUTTON_TYPES,
   StatVarGroupInfo,
   StatVarHierarchyNodeType,
   StatVarHierarchyType,
   StatVarInfo,
 } from "../shared/types";
-import { NamedNode } from "../shared/types";
 import { StatVarHierarchyNodeHeader } from "./node_header";
 import { StatVarGroupSection } from "./stat_var_group_section";
 import { StatVarSection } from "./stat_var_section";

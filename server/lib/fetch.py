@@ -70,6 +70,7 @@ def _get_processed_facets(facets):
   return result
 
 
+# TODO: include obsCount, earliestDate, and latestDate like obs_series
 def _convert_v2_obs_point(facet):
   result = {
       'facet': facet['facetId'],
@@ -84,7 +85,10 @@ def _convert_v2_obs_point(facet):
 
 def _convert_v2_obs_series(facet):
   result = {
-      'facet': facet['facetId'],
+      'facet': facet.get('facetId', ''),
+      'obsCount': facet.get('obsCount', 0),
+      'earliestDate': facet.get('earliestDate', ''),
+      'latestDate': facet.get('latestDate', '')
   }
   if 'observations' in facet:
     result['series'] = facet['observations']
@@ -92,6 +96,9 @@ def _convert_v2_obs_series(facet):
 
 
 # Returns a compact version of observation point API results
+# TODO update this function to always return the same structure. Right now,
+# if all_facets is true, the value for data[var][entity] is an array & if false,
+# the value is an object.
 def _compact_point(point_resp, all_facets):
   result = {
       'facets': {},
@@ -127,12 +134,15 @@ def _compact_point(point_resp, all_facets):
   return result
 
 
+# TODO update this function to always return the same structure. Right now,
+# if all_facets is true, the value for data[var][entity] is an array & if false,
+# the value is an object.
 def _compact_series(series_resp, all_facets):
   result = {
       'facets': {},
   }
   if all_facets:
-    result['facets'] = series_resp['facets']
+    result['facets'] = series_resp.get('facets', {})
   data = {}
   for var, var_obs in series_resp.get('byVariable', {}).items():
     data[var] = {}
@@ -211,7 +221,7 @@ def point_within_core(ancestor_entity,
 
 
 def series_core(entities, variables, all_facets, facet_ids=None):
-  """Fetchs observation series for given entities and variables.
+  """Fetches observation series for given entities and variables.
 
   The response is in the following format:
   {
@@ -242,21 +252,29 @@ def series_facet(entities, variables, all_facets):
     },
     "data": {
       <var_dcid>: {
-        <entity_dcid>: {
+        <entity_dcid>: [{
           "facet": <facet_id>,
-          "series": [
-            {
-              "value": <count_of_observations>
-            }
-          ]
-        }
+          "obsCount": <count of observations>,
+          "earliestDate": <earliest date of observations>,
+          "latestDate": <latest date of observations>
+        }, ...]
       }
     }
   }
 
   """
   resp = dc.series_facet(entities, variables)
-  return _compact_series(resp, all_facets)
+  compacted_series = _compact_series(resp, all_facets)
+  processed_series = {'facets': compacted_series.get('facets', {}), 'data': {}}
+  # Update compacted series so that the entity data is always a list.
+  for var, var_obs in compacted_series.get('data', {}).items():
+    processed_series['data'][var] = {}
+    for entity, entity_obs in var_obs.items():
+      if not all_facets:
+        processed_series['data'][var][entity] = [entity_obs]
+      else:
+        processed_series['data'][var][entity] = entity_obs
+  return processed_series
 
 
 def point_within_facet(ancestor_entity, descendent_type, variables, date,

@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import { ChartEventDetail } from "@datacommonsorg/web-components";
 import { css, CSSResult, LitElement, unsafeCSS } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import _ from "lodash";
@@ -23,6 +22,7 @@ import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
 import { MapTile, MapTilePropType } from "../js/components/tiles/map_tile";
 import { ContainedInPlaceSingleVariableDataSpec } from "../js/components/tiles/tile_types";
+import { DEFAULT_PER_CAPITA_DENOM } from "./constants";
 import {
   convertArrayAttribute,
   convertBooleanAttribute,
@@ -50,7 +50,6 @@ export class DatacommonsMapComponent extends LitElement {
   `;
 
   // Optional: Allow zoom and pan on map
-  // TODO: Add to documentation once zoom button bug gets fixed.
   @property({ type: Boolean })
   allowZoom: boolean;
 
@@ -78,6 +77,11 @@ export class DatacommonsMapComponent extends LitElement {
   @property()
   date: string;
 
+  // Optional: dates to fetch stat vars for, in matching order with
+  //           variables (plural).
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  dates?: string[];
+
   // Title of the chart
   @property()
   header!: string;
@@ -86,7 +90,7 @@ export class DatacommonsMapComponent extends LitElement {
   @property()
   parentPlace!: string;
 
-  // [Optional] DCIDs of places to plot. If provided, childPlaceTypes
+  // Optional: DCIDs of places to plot. If provided, childPlaceTypes
   // (plural) must also be provided, and parentPlace (singular) is ignored.
   @property({ type: Array<string>, converter: convertArrayAttribute })
   parentPlaces?: string[];
@@ -113,6 +117,14 @@ export class DatacommonsMapComponent extends LitElement {
   // Statistical variable DCID
   @property()
   variable!: string;
+
+  // Optional: DCIDs of variables. If provided, parentPlaces (plural) and
+  // childPlaceTypes (plural) must also be provided, and variable (singular)
+  // is ignored.  If fewer variables than parentPlaces are provided, the last
+  // variable will be used for the remaining parentPlaces.
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  variables?: string[];
+
   /**
    * @deprecated
    * DCID of the parent place
@@ -146,44 +158,51 @@ export class DatacommonsMapComponent extends LitElement {
   @property()
   placeNameProp: string;
 
+  // Optional: List of variable DCIDs to plot per capita
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  perCapita?: string[];
+
   // Optional: Property to use to get geojsons
   @property()
   geoJsonProp: string;
 
-  firstUpdated(): void {
-    if (this.subscribe) {
-      this.parentElement.addEventListener(
-        this.subscribe,
-        (e: CustomEvent<ChartEventDetail>) => {
-          if (e.detail.property === "date") {
-            this.date = e.detail.value;
-          }
-        }
-      );
-    }
-  }
+  // Optional: List of sources for this component
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  sources?: string[];
 
-  render(): HTMLElement {
+  render(): HTMLDivElement {
     let dataSpecs: ContainedInPlaceSingleVariableDataSpec[] = [];
     if (!_.isEmpty(this.parentPlaces) && !_.isEmpty(this.childPlaceTypes)) {
       this.parentPlaces.forEach((placeDcid, index) => {
+        const date = !_.isEmpty(this.dates)
+          ? this.dates[Math.min(index, this.dates.length - 1)]
+          : this.date;
         // If more parentPlaces than childPlaceTypes provided, use the
         // last childPlaceType provided for remaining parentPlaces.
-        const enclosedPlaceType =
-          this.childPlaceTypes[
-            Math.min(index, this.childPlaceTypes.length - 1)
-          ];
+        const enclosedPlaceType = !_.isEmpty(this.childPlaceTypes)
+          ? this.childPlaceTypes[
+              Math.min(index, this.childPlaceTypes.length - 1)
+            ]
+          : this.childPlaceType;
+        // If more parentPlaces than variables provided, use the last
+        // variable provided for remaining parentPlaces.
+        const variable = !_.isEmpty(this.variables)
+          ? this.variables[Math.min(index, this.variables.length - 1)]
+          : this.variable || this.statVarDcid;
         dataSpecs.push({
           enclosedPlaceType,
           parentPlace: placeDcid,
           variable: {
-            denom: "",
+            date,
+            denom:
+              this.perCapita && this.perCapita.includes(variable)
+                ? DEFAULT_PER_CAPITA_DENOM
+                : "",
             log: false,
             name: "",
             scaling: 1,
-            statVar: this.variable || this.statVarDcid,
+            statVar: variable,
             unit: "",
-            date: this.date,
           },
         });
       });
@@ -196,7 +215,10 @@ export class DatacommonsMapComponent extends LitElement {
           enclosedPlaceType: childPlaceType,
           parentPlace: place,
           variable: {
-            denom: "",
+            denom:
+              this.perCapita && this.perCapita.includes(variable)
+                ? DEFAULT_PER_CAPITA_DENOM
+                : "",
             log: false,
             name: "",
             scaling: 1,
@@ -207,6 +229,7 @@ export class DatacommonsMapComponent extends LitElement {
         },
       ];
     }
+
     // TODO: Remove placeholder values once Map Tile depreciates
     //       enclosedPlaceType, place, statVarSpec.
     const mapTileProps: MapTilePropType = {
@@ -222,6 +245,7 @@ export class DatacommonsMapComponent extends LitElement {
         types: [],
       },
       showExploreMore: this.showExploreMore,
+      sources: this.sources,
       statVarSpec: {
         denom: "",
         log: false,
@@ -235,6 +259,7 @@ export class DatacommonsMapComponent extends LitElement {
       title: this.header || this.title,
       placeNameProp: this.placeNameProp,
       geoJsonProp: this.geoJsonProp,
+      subscribe: this.subscribe,
     };
     return createWebComponentElement(MapTile, mapTileProps);
   }

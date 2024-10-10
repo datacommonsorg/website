@@ -40,13 +40,14 @@ import {
   GeoJsonFeatureProperties,
   MapPoint,
 } from "../../chart/types";
+import { MapLayerData } from "../../components/tiles/map_tile";
 import { BORDER_STROKE_COLOR } from "../../constants/map_constants";
 import { formatNumber } from "../../i18n/i18n";
 import {
   EUROPE_NAMED_TYPED_PLACE,
   USA_PLACE_DCID,
 } from "../../shared/constants";
-import { DataPointMetadata, NamedPlace } from "../../shared/types";
+import { DataPointMetadata, NamedPlace, StatVarSpec } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { isChildPlaceOf, shouldShowMapBoundaries } from "../shared_util";
 import { MAP_CONTAINER_ID, SECTION_CONTAINER_ID } from "./chart";
@@ -136,8 +137,7 @@ export function D3Map(props: D3MapProps): JSX.Element {
     const legendWidth = generateLegendSvg(
       legendContainerRef.current,
       legendHeight,
-      colorScale,
-      "",
+      [{ colorScale, unit: "" }],
       LEGEND_MARGIN_LEFT
     );
     const zoomParams = {
@@ -167,21 +167,28 @@ export function D3Map(props: D3MapProps): JSX.Element {
       projectionData,
       zoomDcid
     );
-    const geoJsonData = {};
-    geoJsonData[placeInfo.value.enclosingPlace.dcid] = {
+    const variable: StatVarSpec = {
+      denom: statVar.value.denom,
+      log: false,
+      scaling: 1,
+      statVar: statVar.value.dcid,
+      unit: props.unit,
+    };
+    const layerData: MapLayerData = {
+      colorScale,
+      dataValues: props.mapDataValues,
       geoJson: props.geoJsonData,
-      shouldShowBoundaryLines: shouldShowMapBoundaries(
+      showMapBoundaries: shouldShowMapBoundaries(
         placeInfo.value.selectedPlace,
         placeInfo.value.enclosedPlaceType
       ),
+      variable,
     };
     drawD3Map(
       mapContainerRef.current,
-      geoJsonData,
+      [layerData],
       height,
       width - legendWidth,
-      props.mapDataValues,
-      colorScale,
       redirectAction,
       getTooltipHtml(
         props.metadata,

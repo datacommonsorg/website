@@ -13,4 +13,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-./run.sh datcom-website-dev website-us-central1 us-central1
+SCRIPT_PATH=`dirname $0`
+$SCRIPT_PATH/run.sh datcom-website-dev website-us-central1 us-central1

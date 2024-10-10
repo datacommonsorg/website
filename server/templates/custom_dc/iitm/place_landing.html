@@ -18,8 +18,6 @@
 {% set main_id = 'dc-places-landing' %}
 {% set page_id = 'page-dc-places-landing' %}
 {% set title = _('Place Explorer') %}
-{% set subpage_title = _('Place Explorer') %}
-{% set subpage_url = url_for('place.place') %}
 
 {% macro place_url(dcid='') -%}
 {{ url_for('place.place', place_dcid=dcid) }}
@@ -119,6 +117,6 @@
   <script
     src={{url_for('static', filename='place_landing.js', t=config['VERSION'])}}></script>
   <script
-    src="https://maps.googleapis.com/maps/api/js?key={{maps_api_key}}&libraries=places&language={{locale}}"
+    src="https://maps.googleapis.com/maps/api/js?key={{maps_api_key}}&libraries=places&language={{locale}}&loading=async"
     async defer></script>
   {% endblock %}

@@ -87,7 +87,7 @@ class TestVisMap(WebdriverBaseTest):
     # Assert chart is correct.
     chart_title = self.driver.find_element(By.CSS_SELECTOR,
                                            '.map-chart .chart-headers h4')
-    self.assertEqual(chart_title.text, "Female Population (2021)")
+    self.assertEqual(chart_title.text, "Female Population (2022)")
     chart_map = self.driver.find_element(By.ID, 'map-items')
     map_regions = chart_map.find_elements(By.TAG_NAME, 'path')
     self.assertEqual(len(map_regions), 58)
@@ -118,7 +118,7 @@ class TestVisMap(WebdriverBaseTest):
     ranking_items = self.driver.find_elements(By.CSS_SELECTOR,
                                               '.ranking-list .place-name')
     self.assertEqual(len(ranking_items), 10)
-    self.assertEqual(ranking_items[0].text, 'Butte County, CA')
+    self.assertEqual(ranking_items[0].text, 'Alpine County, CA')
     self.assertEqual(ranking_items[9].text, 'Del Norte County, CA')
 
     # Edit source and assert results are correct.
@@ -128,25 +128,26 @@ class TestVisMap(WebdriverBaseTest):
     element_present = EC.presence_of_element_located(
         (By.CLASS_NAME, 'modal-body'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    source_options = self.driver.find_elements(By.CSS_SELECTOR,
-                                               '.source-selector-option input')
-    self.assertEqual(len(source_options), 5)
-    source_options[3].click()
+    shared.select_source(self.driver, "CDC_Mortality_UnderlyingCause",
+                         "Count_Person_Female")
     update_button = self.driver.find_element(By.CSS_SELECTOR,
                                              '.modal-footer .btn')
     update_button.click()
     shared.wait_for_loading(self.driver)
     chart_title = self.driver.find_element(By.CSS_SELECTOR,
                                            '.map-chart .chart-headers h4')
-    self.assertEqual(chart_title.text, "Female Population (2019)")
+    self.assertEqual(chart_title.text, "Female Population (2004 to 2020)")
+    chart_source = self.driver.find_element(
+        By.CSS_SELECTOR, '.map-chart .chart-headers .sources')
+    self.assertTrue("wonder.cdc.gov" in chart_source.text)
     chart_map = self.driver.find_element(By.ID, 'map-items')
     map_regions = chart_map.find_elements(By.TAG_NAME, 'path')
     self.assertEqual(len(map_regions), 58)
     ranking_items = self.driver.find_elements(By.CSS_SELECTOR,
                                               '.ranking-list .place-name')
     self.assertEqual(len(ranking_items), 10)
-    self.assertEqual(ranking_items[0].text, 'Nevada County, CA')
-    self.assertEqual(ranking_items[9].text, 'San Francisco County, CA')
+    self.assertEqual(ranking_items[0].text, 'Madera County, CA')
+    self.assertEqual(ranking_items[9].text, 'Tuolumne County, CA')
 
   def test_manually_enter_options(self):
     """Test entering place and stat var options manually will cause chart to
@@ -216,7 +217,7 @@ class TestVisMap(WebdriverBaseTest):
     shared.wait_for_loading(self.driver)
     chart_title = self.driver.find_element(By.CSS_SELECTOR,
                                            '.map-chart .chart-headers h4')
-    self.assertEqual(chart_title.text, "Median Age of Population (2021)")
+    self.assertEqual(chart_title.text, "Median Age of Population (2022)")
     chart_map = self.driver.find_element(By.ID, 'map-items')
     map_regions = chart_map.find_elements(By.TAG_NAME, 'path')
     self.assertEqual(len(map_regions), 58)
@@ -230,8 +231,8 @@ class TestVisMap(WebdriverBaseTest):
     ranking_items = self.driver.find_elements(By.CSS_SELECTOR,
                                               '.ranking-list .place-name')
     self.assertEqual(len(ranking_items), 10)
-    self.assertEqual(ranking_items[0].text, 'Trinity County, CA')
-    self.assertEqual(ranking_items[9].text, 'Kings County, CA')
+    self.assertEqual(ranking_items[0].text, 'Sierra County, CA')
+    self.assertEqual(ranking_items[9].text, 'Kern County, CA')
 
   def test_landing_page_link(self):
     """Test one of the links on the landing page

@@ -36,6 +36,7 @@ import {
   XLINKNS,
 } from "./draw_constants";
 import {
+  addChartTitle,
   addTooltip,
   addXAxis,
   addYAxis,
@@ -282,6 +283,11 @@ export function drawStackBarChart(
   const xAxis = svg.append("g").attr("class", "x axis");
   const tempYAxis = svg.append("g");
 
+  let marginTop = MARGIN.top;
+  if (options?.title) {
+    marginTop += addChartTitle(svg, options.title, chartWidth);
+  }
+
   const y = d3
     .scaleLinear()
     .domain([
@@ -289,7 +295,7 @@ export function drawStackBarChart(
       d3.max(series, (d) => d3.max(d, (d1) => d1[1])),
     ])
     .nice()
-    .rangeRound([chartHeight - MARGIN.bottom, MARGIN.top]);
+    .rangeRound([chartHeight - MARGIN.bottom, marginTop]);
 
   const leftWidth = addYAxis(
     tempYAxis,
@@ -311,13 +317,13 @@ export function drawStackBarChart(
     chartHeight,
     x,
     false,
-    labelToLink,
+    options?.disableEntityLink ? null : labelToLink,
     null,
     options?.apiRoot
   );
 
   // Update and redraw the y-axis based on the new x-axis height.
-  y.rangeRound([chartHeight - bottomHeight, MARGIN.top]);
+  y.rangeRound([chartHeight - bottomHeight, marginTop]);
   tempYAxis.remove();
   addYAxis(yAxis, chartWidth, y, TEXT_FONT_FAMILY, options?.unit);
   updateXAxis(xAxis, bottomHeight, chartHeight, y);
@@ -946,11 +952,16 @@ export function drawGroupBarChart(
   const xAxis = svg.append("g").attr("class", "x axis");
   const tempYAxis = svg.append("g");
 
+  let marginTop = MARGIN.top;
+  if (options?.title) {
+    marginTop += addChartTitle(svg, options.title, chartWidth);
+  }
+
   const y = d3
     .scaleLinear()
     .domain([minV, maxV])
     .nice()
-    .rangeRound([chartHeight - MARGIN.bottom, MARGIN.top]);
+    .rangeRound([chartHeight - MARGIN.bottom, marginTop]);
   const leftWidth = addYAxis(
     tempYAxis,
     chartWidth,
@@ -970,7 +981,7 @@ export function drawGroupBarChart(
     chartHeight,
     x0,
     false,
-    labelToLink,
+    options?.disableEntityLink ? null : labelToLink,
     null,
     options?.apiRoot
   );
@@ -982,7 +993,7 @@ export function drawGroupBarChart(
     .padding(0.05);
 
   // Update and redraw the y-axis based on the new x-axis height.
-  y.rangeRound([chartHeight - bottomHeight, MARGIN.top]);
+  y.rangeRound([chartHeight - bottomHeight, marginTop]);
   tempYAxis.remove();
   addYAxis(yAxis, chartWidth, y, TEXT_FONT_FAMILY, options?.unit);
   updateXAxis(xAxis, bottomHeight, chartHeight, y);
@@ -1102,6 +1113,10 @@ export function drawHorizontalBarChart(
   // The node must be attached before any getBBox() calls.
   containerElement.append(svg.node());
 
+  if (options?.title) {
+    marginTop += addChartTitle(svg, options.title, chartWidth);
+  }
+
   if (label) {
     // Add x-axis label in the top-middle of the axis
     svg
@@ -1109,7 +1124,7 @@ export function drawHorizontalBarChart(
       .attr("id", "x-axis-label")
       .attr("part", "x-axis-label")
       .attr("x", chartWidth / 2)
-      .attr("y", 0)
+      .attr("y", marginTop)
       .attr("fill", AXIS_TEXT_FILL)
       .attr("text-anchor", "middle")
       .attr("dominant-baseline", "hanging")

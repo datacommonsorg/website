@@ -55,7 +55,8 @@ export const SCATTER_URL_PATH = "/tools/scatter";
  * @param childType the type of place to get data for
  * @param statVars the stat vars to get data for
  * @param apiRoot API root
- *
+ * @param dateOverride Optional. Use this date instead of dates associated with
+ *        statVars
  */
 export async function getStatWithinPlace(
   parentPlace: string,
@@ -69,11 +70,7 @@ export async function getStatWithinPlace(
   // always send two requests for each stat var.
   const promises: Promise<PointApiResponse>[] = [];
   for (const statVar of statVars) {
-    let dataDate = getCappedStatVarDate(statVar.statVarDcid);
-    // If there is a specified date, get the data for that date.
-    if (statVar.date) {
-      dataDate = statVar.date;
-    }
+    const dataDate = getCappedStatVarDate(statVar.statVarDcid, statVar.date);
     const facetIds = statVar.facetId ? [statVar.facetId] : null;
     promises.push(
       getPointWithin(
@@ -120,11 +117,7 @@ export async function getStatAllWithinPlace(
   // always send two requests for each stat var.
   const promises: Promise<PointAllApiResponse>[] = [];
   for (const statVar of statVars) {
-    let dataDate = getCappedStatVarDate(statVar.statVarDcid);
-    // If there is a specified date, get the data for that date.
-    if (statVar.date) {
-      dataDate = statVar.date;
-    }
+    const dataDate = getCappedStatVarDate(statVar.statVarDcid, statVar.date);
     promises.push(
       axios
         .get<PointAllApiResponse>("/api/observations/point/within/all", {

@@ -33,14 +33,28 @@ class Place:
 
 
 @dataclass
+class Entity:
+  """Non Place Entity attributes."""
+  dcid: str
+  name: str
+  type: str
+
+
+@dataclass
 class PlaceDetection:
   """Various attributes of place detection."""
   query_original: str
+  # This will also remove non place entities if there are 3 or more non
+  # place entities found.
   query_without_place_substr: str
   # `query_places_mentioned` is a list of words in the query
   # identified as possible places.
   query_places_mentioned: List[str]
+  # `query_entities_mentioned` is a list of words in the query
+  # identified as possible entities.
+  query_entities_mentioned: List[str]
   places_found: List[Place]
+  entities_found: List[Entity]
   main_place: Place
   peer_places: List[Place] = field(default_factory=list)
   parent_places: List[Place] = field(default_factory=list)
@@ -55,8 +69,16 @@ class SVDetection:
   query: str
   # Single SV detection.
   single_sv: dvars.VarCandidates
+  # Detected variables that are properties.
+  prop: dvars.VarCandidates
   # Multi SV detection.
   multi_sv: dvars.MultiVarCandidates
+  # SV Threshold
+  sv_threshold: float
+  # The original model threshold.  This will be
+  # less than `sv_threshold` only when there is
+  # a threshold bump (from special mode).
+  model_threshold: float
 
 
 class RankingType(IntEnum):
@@ -328,6 +350,17 @@ class Date:
 @dataclass
 class DateClassificationAttributes(ClassificationAttributes):
   dates: List[Date]
+  is_single_date: bool
+
+  # List of strings which made this a date query. The order of strings matches
+  # the order of dates that it triggered.
+  # e.g., "in 2013", "in the last 5 years", "over the past decade", etc.
+  date_trigger_strings: List[str]
+
+
+@dataclass
+class DetailedActionClassificationAttributes(ClassificationAttributes):
+  actions: List[str]
 
 
 class ClassificationType(IntEnum):
@@ -345,7 +378,11 @@ class ClassificationType(IntEnum):
   DATE = 12
   ANSWER_PLACES_REFERENCE = 13
   PER_CAPITA = 14
-  UNKNOWN = 15
+  DETAILED_ACTION = 15
+  # Certain types of temporal attributes like
+  # month, day of the week, season, etc.
+  TEMPORAL = 16
+  UNKNOWN = 100
 
 
 @dataclass
@@ -362,11 +399,7 @@ class ActualDetectorType(str, Enum):
   # No fallback
   HybridHeuristic = "Hybrid - Heuristic Based"
   # Fallback to LLM fully
-  HybridLLMFull = "Hybrid - LLM Fallback (Full)"
-  # Fallback to LLM for place detection only
-  HybridLLMPlace = "Hybrid - LLM Fallback (Place)"
-  # Fallback to LLM for variable detection only
-  HybridLLMVar = "Hybrid - LLM Fallback (Variable)"
+  HybridLLMFull = "Hybrid - LLM Fallback"
   # LLM for safety check only
   HybridLLMSafety = "Hybrid - LLM Safety Check"
   # The case of no detector involved.
@@ -382,18 +415,8 @@ class RequestedDetectorType(str, Enum):
 
 
 class LlmApiType(str, Enum):
-  Chat = "chat"
-  Text = "text"
+  GeminiPro = "geminipro"
   Nop = "nop"
-
-
-class PlaceDetectorType(str, Enum):
-  # Represents the open-source NER implementation
-  NER = "ner"
-  # Represents the home-grown RecognizePlaces Recon API
-  DC = "dc"
-  # The case of no detector involved
-  NOP = "nop"
 
 
 @dataclass
@@ -406,5 +429,19 @@ class Detection:
   classifications: List[NLClassifier]
   llm_resp: Dict = field(default_factory=dict)
   detector: ActualDetectorType = ActualDetectorType.HybridHeuristic
-  place_detector: PlaceDetectorType = PlaceDetectorType.DC
-  llm_api: LlmApiType = LlmApiType.Nop
+
+
+@dataclass
+class DetectionArgs:
+  # Name of the embeddings index types to override ENV default
+  embeddings_index_types: List[str]
+  # Query mode. e.g., `strict`, `toolformer_rig`, `toolformer_rag`
+  mode: str
+  # Reranker model name
+  reranker: str
+  # Enable entities/triples detection (e.g., for biomed DC)
+  allow_triples: bool
+  # Include stop-words for query detection
+  include_stop_words: bool
+  # variable threshold to use
+  var_threshold: float

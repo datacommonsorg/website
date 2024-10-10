@@ -31,8 +31,9 @@ from flask import Response
 from flask import url_for
 from flask_babel import gettext
 
-from server import cache
+from server.lib.cache import cache
 import server.lib.range as lib_range
+from server.routes import TIMEOUT
 import server.routes.shared_api.place as place_api
 import server.services.datacommons as dc
 
@@ -394,7 +395,7 @@ def has_data(data):
 
 
 @bp.route('/data/<path:dcid>')
-@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def data(dcid):
   """Get chart spec and stats data of the landing page for a given place.
   """
@@ -402,7 +403,11 @@ def data(dcid):
   logging.info(
       "Landing Page: cache miss for place:%s and category:%s "
       " , fetching and processing data ...", dcid, request.args.get("category"))
+
   target_category = request.args.get("category")
+  if not target_category:
+    return "No 'category' specified", 400
+
   spec_and_stat = build_spec(current_app.config['CHART_CONFIG'],
                              target_category)
   new_stat_vars = current_app.config['NEW_STAT_VARS']

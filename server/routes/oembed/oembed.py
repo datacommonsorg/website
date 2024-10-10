@@ -22,8 +22,8 @@ from flask import current_app
 from flask import request
 from flask import Response
 
-from server import cache
-import server.lib.config as libconfig
+from server.lib.cache import cache
+from server.routes import TIMEOUT
 
 DEFAULT_WIDTH = 500
 DEFAULT_HEIGHT = 400
@@ -33,7 +33,7 @@ bp = Blueprint("oembed", __name__, url_prefix="/oembed")
 
 
 @bp.route("/", strict_slashes=False)
-@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def render_chart():
   response_format = request.args.get("format", type=str, default="json")
   if response_format not in ["json", "xml"]:

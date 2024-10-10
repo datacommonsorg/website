@@ -20,18 +20,14 @@
  */
 
 import _ from "lodash";
-import React, {
-  useContext,
-  useEffect,
-  useReducer,
-  useRef,
-  useState,
-} from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 
-import { loadSpinner, removeSpinner } from "../../shared/util";
+import {
+  getCappedStatVarDate,
+  loadSpinner,
+  removeSpinner,
+} from "../../shared/util";
 import { ENCLOSED_PLACE_TYPE_NAMES } from "../../utils/place_utils";
-import { BqModal } from "../shared/bq_modal";
-import { setUpBqButton } from "../shared/bq_utils";
 import { Chart, MAP_TYPE } from "./chart";
 import { emptyChartStore } from "./chart_store";
 import { useComputeBreadcrumbValues } from "./compute/breadcrumb";
@@ -41,7 +37,6 @@ import { useComputeLegendDomain } from "./compute/legend";
 import { useComputeMapPointValues } from "./compute/map_point";
 import { useComputeMapValueAndDate } from "./compute/map_value_dates";
 import { useComputeSampleDates } from "./compute/sample_dates";
-import { useGetSqlQuery } from "./compute/sql";
 import { Context } from "./context";
 import { useFetchAllDates } from "./fetcher/all_dates";
 import { useFetchAllStat } from "./fetcher/all_stat";
@@ -60,8 +55,7 @@ import { PlaceDetails } from "./place_details";
 import { useRenderReady } from "./ready_hooks";
 import { chartStoreReducer, metadataReducer, sourcesReducer } from "./reducer";
 import { TimeSlider } from "./time_slider";
-import { CHART_LOADER_SCREEN, getDate, getRankingLink } from "./util";
-import { shouldShowBorder } from "./util";
+import { CHART_LOADER_SCREEN, getRankingLink, shouldShowBorder } from "./util";
 
 export function ChartLoader(): JSX.Element {
   // +++++++  Context
@@ -126,20 +120,6 @@ export function ChartLoader(): JSX.Element {
       display.setDomain(legendDomain);
     }
   }, [display, legendDomain]);
-
-  // +++++++  BigQuery
-  // TODO: add webdriver test for BigQuery button to ensure query works
-  const getSqlQuery = useGetSqlQuery(chartStore);
-  const bqLink = useRef(setUpBqButton(getSqlQuery));
-  useEffect(() => {
-    const dom = bqLink.current;
-    if (dom) {
-      dom.style.display = "none"; // Enable BQlink with "inline-block";
-      return () => {
-        dom.style.display = "none";
-      };
-    }
-  }, []);
 
   // Set map type to leaflet if georaster data is available before data needed
   // for d3 maps
@@ -211,7 +191,7 @@ export function ChartLoader(): JSX.Element {
       );
     }
 
-    const date = getDate(statVar.value.dcid, dateCtx.value);
+    const date = getCappedStatVarDate(statVar.value.dcid, dateCtx.value);
     const rankingLink = getRankingLink(
       statVar.value,
       placeInfo.value.selectedPlace.dcid,
@@ -275,7 +255,6 @@ export function ChartLoader(): JSX.Element {
           />
         )}
         {footer && <div className="footer">* {footer}</div>}
-        <BqModal getSqlQuery={getSqlQuery} showButton={true} />
       </div>
     );
   }

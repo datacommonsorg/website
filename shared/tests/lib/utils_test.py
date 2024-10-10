@@ -56,7 +56,7 @@ class TestUtilsAddToSet(unittest.TestCase):
     # dictionary (of lists). The strings themselves are also sentences
     # which need to be split in to words.
     for ctype, d_vals in constants.QUERY_CLASSIFICATION_HEURISTICS.items():
-      if ctype == 'Event' or ctype == 'Superlative':
+      if ctype in constants.HEURISTIC_TYPES_IN_VARIABLES:
         continue
       vals_list = []
       if type(d_vals) == list:
@@ -76,8 +76,7 @@ class TestNLUtilsRemoveStopWordsAndPunctuation(unittest.TestCase):
       [
           "this is a random query",
           "random query",
-      ],
-      ["population of palo alto", "population palo alto"],
+      ], ["population of palo alto", "population palo alto"],
       ["tell me about life expectancy", "life expectancy"],
       ["what about Capitalization", "capitalization"],
       ["say something about crime in California counties", "crime california"],
@@ -90,13 +89,25 @@ class TestNLUtilsRemoveStopWordsAndPunctuation(unittest.TestCase):
       [
           "what is relationship between the sickest and healthiest people in the world",
           "people world"
-      ],
-      ["how does it correlate with heart disease", "heart disease"],
+      ], ["how does it correlate with heart disease", "heart disease"],
       ["best high schools in Florida counties", "schools florida"],
       [
           "interest rates among people who are living in poverty across US states",
           "interest rates people living poverty us"
       ],
+      [
+          "how many hispanics people in california",
+          "how many hispanics people california"
+      ],
+      [
+          "what is the number of students in new york",
+          "number of students new york"
+      ], ["unemployment rate in palo alto", "unemployment rate palo alto"],
+      ["rate of unemployment in palo alto", "rate unemployment palo alto"],
+      [
+          "what are the rates of uninsured people in california",
+          "rates uninsured people california"
+      ], ["obesity rate", "obesity rate"]
   ])
   def test_query_remove_stop_words(self, query, expected):
     stop_words = utils.combine_stop_words()
@@ -104,17 +115,73 @@ class TestNLUtilsRemoveStopWordsAndPunctuation(unittest.TestCase):
 
   @parameterized.expand([
       [
-          "this is a random query with no punctuation",
-          "this is a random query with no punctuation",
+          "this is a random query",
+          "random query",
       ],
+      # unemployment rate is a special case we don't want to strip
+      ["unemployment rate in palo alto", "unemployment rate palo alto"],
+      # following are all cases where rate/rates should be stripped
+      ["rate of unemployment in palo alto", "unemployment palo alto"],
       [
-          "people of palo alto, mountain view and California!",
-          "people of palo alto mountain view and California"
+          "what are the rates of uninsured people in california",
+          "uninsured people california"
       ],
-      ["America's population.growth", "America population growth"],
-      ["Is this a question?", "Is this a question"],
-      ["what about Santa@Clara*&^%", "what about Santa Clara"],
-      ["'===()@#$%^&---`~:|][{}/?><,.,\"", ""],
+      ["obesity rate", "obesity"]
   ])
+  def test_query_remove_stop_words_toolformer(self, query, expected):
+    stop_words = utils.combine_stop_words(
+        constants.HEURISTIC_TYPES_IN_VARIABLES_TOOLFORMER)
+    self.assertEqual(utils.remove_stop_words(query, stop_words), expected)
+
+  @parameterized.expand(
+      [[
+          "this is a random query with no punctuation",
+          "this is a random query with no punctuation",
+      ],
+       [
+           "people of palo alto, mountain view and California!",
+           "people of palo alto mountain view and California"
+       ], ["America's population.growth", "America population growth"],
+       ["Is this a question?", "Is this a question"],
+       ["what about Santa@Clara*&^%", "what about Santa Clara"],
+       ["'===()@#$%^&---`~:|][{}/?><,.,\"", ""],
+       ["query about St. Landry Parish", "query about St. Landry Parish"]])
   def test_query_remove_punctuation(self, query, expected):
     self.assertEqual(utils.remove_punctuations(query), expected)
+
+
+class TestUtilsEscapeStrings(unittest.TestCase):
+
+  @parameterized.expand([
+      [
+          '<test string>',
+          '&lt;test string&gt;',
+      ],
+      [
+          ['<test string 1>', '<test string 2>', '<test string 3>'],
+          [
+              '&lt;test string 1&gt;', '&lt;test string 2&gt;',
+              '&lt;test string 3&gt;'
+          ],
+      ],
+      [{
+          'key1': [{
+              'key2': '<test string 2>'
+          }],
+          'key3>': '<test string 3>',
+          'key4': {
+              'key4': '<test string 4>'
+          }
+      }, {
+          'key1': [{
+              'key2': '&lt;test string 2&gt;'
+          }],
+          'key3&gt;': '&lt;test string 3&gt;',
+          'key4': {
+              'key4': '&lt;test string 4&gt;'
+          }
+      }],
+  ])
+  def test_escape_strings(self, test_object, expected):
+    escaped_object = utils.escape_strings(test_object)
+    self.assertEqual(escaped_object, expected)

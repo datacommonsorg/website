@@ -1,4 +1,5 @@
 {
+  "client": "test_detect-and-fulfill",
   "config": {
     "categories": [
       {
@@ -97,17 +98,49 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Count_HousingUnit_scatter",
+                      "Count_HousingUnit_OwnerOccupied_scatter",
                       "Count_HousingUnit_HomeValue50000To99999USDollar_scatter"
                     ],
-                    "title": "Housing Units (${yDate}) Vs. Count of Housing Unit: 50,000-99,999 USD (${xDate}) in Counties of California",
+                    "title": "Owner-Occupied Homes (${yDate}) Vs. Count of Housing Unit: 50,000-99,999 USD (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Housing Units vs. Count of Housing Unit: 50,000 - 99,999 USD"
+            "title": "Owner-Occupied Homes vs. Count of Housing Unit: 50,000 - 99,999 USD"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_OwnerOccupied"
+                    ],
+                    "title": "Owner-Occupied Homes in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_OwnerOccupied"
+                    ],
+                    "title": "Owner-Occupied Homes in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Owner-Occupied Homes in Counties of California"
           },
           {
             "columns": [
@@ -150,17 +183,49 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Count_HousingUnit_scatter",
+                      "Count_HousingUnit_VacantHousingUnit_scatter",
                       "Count_HousingUnit_HomeValue100000To199999USDollar_scatter"
                     ],
-                    "title": "Housing Units (${yDate}) Vs. Count of Housing Unit: 100,000-199,999 USD (${xDate}) in Counties of California",
+                    "title": "Vacant Housing Units (${yDate}) Vs. Count of Housing Unit: 100,000-199,999 USD (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Housing Units vs. Count of Housing Unit: 100,000 - 199,999 USD"
+            "title": "Vacant Housing Units vs. Count of Housing Unit: 100,000 - 199,999 USD"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_VacantHousingUnit"
+                    ],
+                    "title": "Vacant Housing Units in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_VacantHousingUnit"
+                    ],
+                    "title": "Vacant Housing Units in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Vacant Housing Units in Counties of California"
           },
           {
             "columns": [
@@ -203,567 +268,17 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Count_HousingUnit_scatter",
+                      "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied_scatter",
                       "Count_HousingUnit_HomeValue200000To299999USDollar_scatter"
                     ],
-                    "title": "Housing Units (${yDate}) Vs. Count of Housing Unit: 200,000-299,999 USD (${xDate}) in Counties of California",
+                    "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied (${yDate}) Vs. Count of Housing Unit: 200,000-299,999 USD (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Housing Units vs. Count of Housing Unit: 200,000 - 299,999 USD"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue200000To299999USDollar"
-                    ],
-                    "title": "Count of Housing Unit: 200,000-299,999 USD in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue200000To299999USDollar"
-                    ],
-                    "title": "Count of Housing Unit: 200,000-299,999 USD in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Count of Housing Unit: 200,000-299,999 USD in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Mean_HouseholdSize_HousingUnit_OccupiedHousingUnit_scatter",
-                      "Count_HousingUnit_HomeValue35000To39999USDollar_scatter"
-                    ],
-                    "title": "Mean Household Size of Housing Unit: Occupied Housing Unit (${yDate}) Vs. Homes Valued Between $35,000 to $39,999 (${xDate}) in Counties of California",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Mean Household Size of Housing Unit: Occupied Housing Unit vs. Homes Valued Between $35,000 to $39,999"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Mean_HouseholdSize_HousingUnit_OccupiedHousingUnit"
-                    ],
-                    "title": "Mean Household Size of Housing Unit: Occupied Housing Unit in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Mean_HouseholdSize_HousingUnit_OccupiedHousingUnit"
-                    ],
-                    "title": "Mean Household Size of Housing Unit: Occupied Housing Unit in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Mean Household Size of Housing Unit: Occupied Housing Unit in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue35000To39999USDollar"
-                    ],
-                    "title": "Homes Valued Between $35,000 to $39,999 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue35000To39999USDollar"
-                    ],
-                    "title": "Homes Valued Between $35,000 to $39,999 in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Homes Valued Between $35,000 to $39,999 in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_WithRent_2000To2499USDollar_scatter",
-                      "Count_HousingUnit_HomeValue50000To59999USDollar_scatter"
-                    ],
-                    "title": "Count of Housing Unit: 2,000-2,499 USD (${yDate}) Vs. Homes Valued Between $50,000 to $59,999 (${xDate}) in Counties of California",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Count of Housing Unit: 2,000 - 2,499 USD vs. Homes Valued Between $50,000 to $59,999"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_WithRent_2000To2499USDollar"
-                    ],
-                    "title": "Count of Housing Unit: 2,000-2,499 USD in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_WithRent_2000To2499USDollar"
-                    ],
-                    "title": "Count of Housing Unit: 2,000-2,499 USD in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Count of Housing Unit: 2,000-2,499 USD in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue50000To59999USDollar"
-                    ],
-                    "title": "Homes Valued Between $50,000 to $59,999 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue50000To59999USDollar"
-                    ],
-                    "title": "Homes Valued Between $50,000 to $59,999 in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Homes Valued Between $50,000 to $59,999 in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_WithRent_350To399USDollar_scatter",
-                      "Count_HousingUnit_HomeValue175000To199999USDollar_scatter"
-                    ],
-                    "title": "Count of Housing Unit: 350-399 USD (${yDate}) Vs. Homes Valued Between $175,000 to $199,999 (${xDate}) in Counties of California",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Count of Housing Unit: 350 - 399 USD vs. Homes Valued Between $175,000 to $199,999"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_WithRent_350To399USDollar"
-                    ],
-                    "title": "Count of Housing Unit: 350-399 USD in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_WithRent_350To399USDollar"
-                    ],
-                    "title": "Count of Housing Unit: 350-399 USD in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Count of Housing Unit: 350-399 USD in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue175000To199999USDollar"
-                    ],
-                    "title": "Homes Valued Between $175,000 to $199,999 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue175000To199999USDollar"
-                    ],
-                    "title": "Homes Valued Between $175,000 to $199,999 in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Homes Valued Between $175,000 to $199,999 in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_WithRent_800To899USDollar_scatter",
-                      "Count_HousingUnit_HomeValue60000To69999USDollar_scatter"
-                    ],
-                    "title": "Count of Housing Unit: 800-899 USD (${yDate}) Vs. Homes Valued Between $60,000 to $69,999 (${xDate}) in Counties of California",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Count of Housing Unit: 800 - 899 USD vs. Homes Valued Between $60,000 to $69,999"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_WithRent_800To899USDollar"
-                    ],
-                    "title": "Count of Housing Unit: 800-899 USD in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_WithRent_800To899USDollar"
-                    ],
-                    "title": "Count of Housing Unit: 800-899 USD in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Count of Housing Unit: 800-899 USD in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue60000To69999USDollar"
-                    ],
-                    "title": "Homes Valued Between $60,000 to $69,999 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue60000To69999USDollar"
-                    ],
-                    "title": "Homes Valued Between $60,000 to $69,999 in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Homes Valued Between $60,000 to $69,999 in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_scatter",
-                      "Count_HousingUnit_HomeValue200000To249999USDollar_scatter"
-                    ],
-                    "title": "Housing Units (${yDate}) Vs. Homes Valued Between $200,000 to $249,999 (${xDate}) in Counties of California",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Housing Units vs. Homes Valued Between $200,000 to $249,999"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue200000To249999USDollar"
-                    ],
-                    "title": "Homes Valued Between $200,000 to $249,999 in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_HomeValue200000To249999USDollar"
-                    ],
-                    "title": "Homes Valued Between $200,000 to $249,999 in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Homes Valued Between $200,000 to $249,999 in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_OwnerOccupied_scatter",
-                      "Count_HousingUnit_HomeValue200000To249999USDollar_scatter"
-                    ],
-                    "title": "Owner-Occupied Homes (${yDate}) Vs. Homes Valued Between $200,000 to $249,999 (${xDate}) in Counties of California",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Owner-Occupied Homes vs. Homes Valued Between $200,000 to $249,999"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_OwnerOccupied"
-                    ],
-                    "title": "Owner-Occupied Homes in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_OwnerOccupied"
-                    ],
-                    "title": "Owner-Occupied Homes in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Owner-Occupied Homes in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_VacantHousingUnit_scatter",
-                      "Count_HousingUnit_HomeValue200000To249999USDollar_scatter"
-                    ],
-                    "title": "Vacant Housing Units (${yDate}) Vs. Homes Valued Between $200,000 to $249,999 (${xDate}) in Counties of California",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Vacant Housing Units vs. Homes Valued Between $200,000 to $249,999"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_HousingUnit_VacantHousingUnit"
-                    ],
-                    "title": "Vacant Housing Units in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_HousingUnit_VacantHousingUnit"
-                    ],
-                    "title": "Vacant Housing Units in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Vacant Housing Units in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied_scatter",
-                      "Count_HousingUnit_HomeValue200000To249999USDollar_scatter"
-                    ],
-                    "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied (${yDate}) Vs. Homes Valued Between $200,000 to $249,999 (${xDate}) in Counties of California",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied vs. Homes Valued Between $200,000 to $249,999"
+            "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied vs. Count of Housing Unit: 200,000 - 299,999 USD"
           },
           {
             "columns": [
@@ -795,6 +310,268 @@
               }
             ],
             "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue200000To299999USDollar"
+                    ],
+                    "title": "Count of Housing Unit: 200,000-299,999 USD in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue200000To299999USDollar"
+                    ],
+                    "title": "Count of Housing Unit: 200,000-299,999 USD in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Housing Unit: 200,000-299,999 USD in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_scatter",
+                      "Count_HousingUnit_HomeValue50000To99999USDollar_scatter"
+                    ],
+                    "title": "Housing Units (${yDate}) Vs. Count of Housing Unit: 50,000-99,999 USD (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Housing Units vs. Count of Housing Unit: 50,000 - 99,999 USD"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_scatter",
+                      "Count_HousingUnit_HomeValue100000To199999USDollar_scatter"
+                    ],
+                    "title": "Housing Units (${yDate}) Vs. Count of Housing Unit: 100,000-199,999 USD (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Housing Units vs. Count of Housing Unit: 100,000 - 199,999 USD"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_scatter",
+                      "Count_HousingUnit_HomeValue200000To299999USDollar_scatter"
+                    ],
+                    "title": "Housing Units (${yDate}) Vs. Count of Housing Unit: 200,000-299,999 USD (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Housing Units vs. Count of Housing Unit: 200,000 - 299,999 USD"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_OwnerOccupied_scatter",
+                      "Count_HousingUnit_HomeValueUpto49999USDollar_scatter"
+                    ],
+                    "title": "Owner-Occupied Homes (${yDate}) Vs. Count of Housing Unit: 49,999 USD or Less (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Owner-Occupied Homes vs. Count of Housing Unit: 49,999 USD or Less"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_OwnerOccupied_scatter",
+                      "Count_HousingUnit_HomeValue100000To199999USDollar_scatter"
+                    ],
+                    "title": "Owner-Occupied Homes (${yDate}) Vs. Count of Housing Unit: 100,000-199,999 USD (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Owner-Occupied Homes vs. Count of Housing Unit: 100,000 - 199,999 USD"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_OwnerOccupied_scatter",
+                      "Count_HousingUnit_HomeValue200000To299999USDollar_scatter"
+                    ],
+                    "title": "Owner-Occupied Homes (${yDate}) Vs. Count of Housing Unit: 200,000-299,999 USD (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Owner-Occupied Homes vs. Count of Housing Unit: 200,000 - 299,999 USD"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_VacantHousingUnit_scatter",
+                      "Count_HousingUnit_HomeValueUpto49999USDollar_scatter"
+                    ],
+                    "title": "Vacant Housing Units (${yDate}) Vs. Count of Housing Unit: 49,999 USD or Less (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Vacant Housing Units vs. Count of Housing Unit: 49,999 USD or Less"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_VacantHousingUnit_scatter",
+                      "Count_HousingUnit_HomeValue50000To99999USDollar_scatter"
+                    ],
+                    "title": "Vacant Housing Units (${yDate}) Vs. Count of Housing Unit: 50,000-99,999 USD (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Vacant Housing Units vs. Count of Housing Unit: 50,000 - 99,999 USD"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_VacantHousingUnit_scatter",
+                      "Count_HousingUnit_HomeValue200000To299999USDollar_scatter"
+                    ],
+                    "title": "Vacant Housing Units (${yDate}) Vs. Count of Housing Unit: 200,000-299,999 USD (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Vacant Housing Units vs. Count of Housing Unit: 200,000 - 299,999 USD"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied_scatter",
+                      "Count_HousingUnit_HomeValueUpto49999USDollar_scatter"
+                    ],
+                    "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied (${yDate}) Vs. Count of Housing Unit: 49,999 USD or Less (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied vs. Count of Housing Unit: 49,999 USD or Less"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied_scatter",
+                      "Count_HousingUnit_HomeValue50000To99999USDollar_scatter"
+                    ],
+                    "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied (${yDate}) Vs. Count of Housing Unit: 50,000-99,999 USD (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied vs. Count of Housing Unit: 50,000 - 99,999 USD"
           }
         ],
         "statVarSpec": {
@@ -810,22 +587,6 @@
             "name": "Count of Housing Unit: 100,000 - 199,999 USD",
             "statVar": "Count_HousingUnit_HomeValue100000To199999USDollar"
           },
-          "Count_HousingUnit_HomeValue175000To199999USDollar": {
-            "name": "Homes Valued Between $175,000 to $199,999",
-            "statVar": "Count_HousingUnit_HomeValue175000To199999USDollar"
-          },
-          "Count_HousingUnit_HomeValue175000To199999USDollar_scatter": {
-            "name": "Homes Valued Between $175,000 to $199,999",
-            "statVar": "Count_HousingUnit_HomeValue175000To199999USDollar"
-          },
-          "Count_HousingUnit_HomeValue200000To249999USDollar": {
-            "name": "Homes Valued Between $200,000 to $249,999",
-            "statVar": "Count_HousingUnit_HomeValue200000To249999USDollar"
-          },
-          "Count_HousingUnit_HomeValue200000To249999USDollar_scatter": {
-            "name": "Homes Valued Between $200,000 to $249,999",
-            "statVar": "Count_HousingUnit_HomeValue200000To249999USDollar"
-          },
           "Count_HousingUnit_HomeValue200000To299999USDollar": {
             "name": "Count of Housing Unit: 200,000 - 299,999 USD",
             "statVar": "Count_HousingUnit_HomeValue200000To299999USDollar"
@@ -834,22 +595,6 @@
             "name": "Count of Housing Unit: 200,000 - 299,999 USD",
             "statVar": "Count_HousingUnit_HomeValue200000To299999USDollar"
           },
-          "Count_HousingUnit_HomeValue35000To39999USDollar": {
-            "name": "Homes Valued Between $35,000 to $39,999",
-            "statVar": "Count_HousingUnit_HomeValue35000To39999USDollar"
-          },
-          "Count_HousingUnit_HomeValue35000To39999USDollar_scatter": {
-            "name": "Homes Valued Between $35,000 to $39,999",
-            "statVar": "Count_HousingUnit_HomeValue35000To39999USDollar"
-          },
-          "Count_HousingUnit_HomeValue50000To59999USDollar": {
-            "name": "Homes Valued Between $50,000 to $59,999",
-            "statVar": "Count_HousingUnit_HomeValue50000To59999USDollar"
-          },
-          "Count_HousingUnit_HomeValue50000To59999USDollar_scatter": {
-            "name": "Homes Valued Between $50,000 to $59,999",
-            "statVar": "Count_HousingUnit_HomeValue50000To59999USDollar"
-          },
           "Count_HousingUnit_HomeValue50000To99999USDollar": {
             "name": "Count of Housing Unit: 50,000 - 99,999 USD",
             "statVar": "Count_HousingUnit_HomeValue50000To99999USDollar"
@@ -857,14 +602,6 @@
           "Count_HousingUnit_HomeValue50000To99999USDollar_scatter": {
             "name": "Count of Housing Unit: 50,000 - 99,999 USD",
             "statVar": "Count_HousingUnit_HomeValue50000To99999USDollar"
-          },
-          "Count_HousingUnit_HomeValue60000To69999USDollar": {
-            "name": "Homes Valued Between $60,000 to $69,999",
-            "statVar": "Count_HousingUnit_HomeValue60000To69999USDollar"
-          },
-          "Count_HousingUnit_HomeValue60000To69999USDollar_scatter": {
-            "name": "Homes Valued Between $60,000 to $69,999",
-            "statVar": "Count_HousingUnit_HomeValue60000To69999USDollar"
           },
           "Count_HousingUnit_HomeValueUpto49999USDollar": {
             "name": "Count of Housing Unit: 49,999 USD or Less",
@@ -890,42 +627,9 @@
             "name": "Vacant Housing Units",
             "statVar": "Count_HousingUnit_VacantHousingUnit"
           },
-          "Count_HousingUnit_WithRent_2000To2499USDollar": {
-            "name": "Count of Housing Unit: 2,000 - 2,499 USD",
-            "statVar": "Count_HousingUnit_WithRent_2000To2499USDollar"
-          },
-          "Count_HousingUnit_WithRent_2000To2499USDollar_scatter": {
-            "name": "Count of Housing Unit: 2,000 - 2,499 USD",
-            "statVar": "Count_HousingUnit_WithRent_2000To2499USDollar"
-          },
-          "Count_HousingUnit_WithRent_350To399USDollar": {
-            "name": "Count of Housing Unit: 350 - 399 USD",
-            "statVar": "Count_HousingUnit_WithRent_350To399USDollar"
-          },
-          "Count_HousingUnit_WithRent_350To399USDollar_scatter": {
-            "name": "Count of Housing Unit: 350 - 399 USD",
-            "statVar": "Count_HousingUnit_WithRent_350To399USDollar"
-          },
-          "Count_HousingUnit_WithRent_800To899USDollar": {
-            "name": "Count of Housing Unit: 800 - 899 USD",
-            "statVar": "Count_HousingUnit_WithRent_800To899USDollar"
-          },
-          "Count_HousingUnit_WithRent_800To899USDollar_scatter": {
-            "name": "Count of Housing Unit: 800 - 899 USD",
-            "statVar": "Count_HousingUnit_WithRent_800To899USDollar"
-          },
           "Count_HousingUnit_scatter": {
             "name": "Housing Units",
             "statVar": "Count_HousingUnit"
-          },
-          "Mean_HouseholdSize_HousingUnit_OccupiedHousingUnit": {
-            "name": "Mean Household Size of Housing Unit: Occupied Housing Unit",
-            "statVar": "Mean_HouseholdSize_HousingUnit_OccupiedHousingUnit"
-          },
-          "Mean_HouseholdSize_HousingUnit_OccupiedHousingUnit_scatter": {
-            "name": "Mean Household Size of Housing Unit: Occupied Housing Unit",
-            "noPerCapita": true,
-            "statVar": "Mean_HouseholdSize_HousingUnit_OccupiedHousingUnit"
           },
           "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied": {
             "name": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied",
@@ -950,6 +654,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "geoId/06",
@@ -1434,6 +1139,12 @@
           "Count_HousingUnit_HomeValueUpto10000USDollar",
           "Count_HousingUnit_HomeValueUpto49999USDollar"
         ],
+        "householderRace": [
+          "Count_HousingUnit_HouseholderRaceAmericanIndianAndAlaskaNativeAlone",
+          "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone",
+          "Count_HousingUnit_HouseholderRaceAsianAlone",
+          "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone"
+        ],
         "numberOfRooms": [
           "Count_HousingUnit_WithTotal2Rooms",
           "Count_HousingUnit_WithTotal3Rooms",
@@ -1452,14 +1163,20 @@
       "Count_HousingUnit_OwnerOccupied": {
         "householderRace": [
           "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_OwnerOccupied",
-          "Count_HousingUnit_HouseholderRaceAsianAlone_OwnerOccupied",
-          "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone_OwnerOccupied",
-          "Count_HousingUnit_HouseholderRaceHispanicOrLatino_OwnerOccupied",
-          "Count_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_OwnerOccupied",
-          "Count_HousingUnit_HouseholderRaceSomeOtherRaceAlone_OwnerOccupied",
-          "Count_HousingUnit_HouseholderRaceTwoOrMoreRaces_OwnerOccupied",
-          "Count_HousingUnit_HouseholderRaceWhiteAloneNotHispanicOrLatino_OwnerOccupied",
-          "Count_HousingUnit_HouseholderRaceWhiteAlone_OwnerOccupied"
+          "Count_HousingUnit_HouseholderRaceAsianAlone_OwnerOccupied"
+        ]
+      },
+      "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied": {
+        "householderRace": [
+          "Median_HomeValue_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_OccupiedHousingUnit_OwnerOccupied",
+          "Median_HomeValue_HousingUnit_HouseholderRaceAsianAlone_OccupiedHousingUnit_OwnerOccupied",
+          "Median_HomeValue_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone_OccupiedHousingUnit_OwnerOccupied",
+          "Median_HomeValue_HousingUnit_HouseholderRaceHispanicOrLatino_OccupiedHousingUnit_OwnerOccupied",
+          "Median_HomeValue_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_OccupiedHousingUnit_OwnerOccupied",
+          "Median_HomeValue_HousingUnit_HouseholderRaceSomeOtherRaceAlone_OccupiedHousingUnit_OwnerOccupied",
+          "Median_HomeValue_HousingUnit_HouseholderRaceTwoOrMoreRaces_OccupiedHousingUnit_OwnerOccupied",
+          "Median_HomeValue_HousingUnit_HouseholderRaceWhiteAloneNotHispanicOrLatino_OccupiedHousingUnit_OwnerOccupied",
+          "Median_HomeValue_HousingUnit_HouseholderRaceWhiteAlone_OccupiedHousingUnit_OwnerOccupied"
         ]
       }
     },
@@ -1880,5 +1597,6 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "Low confidence in understanding your query. Displaying the closest results."
+  "test": "filter_test",
+  "userMessages": []
 }

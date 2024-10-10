@@ -1,0 +1,782 @@
+{
+    "country/ABW": {
+        "summary": "Aruba is a country in South America. The population in Aruba was 106,537 in 2021. The nominal GDP per capita in Aruba was $29,342.1 in 2021. The life expectancy in Aruba was 74.63 in 2021."
+    },
+    "country/AFG": {
+        "summary": "Afghanistan is a country in Asia. The population in Afghanistan was 40,099,462 in 2021. The nominal GDP per capita in Afghanistan was $363.67 in 2021. The life expectancy in Afghanistan was 61.98 in 2021. The carbon dioxide emissions per capita in Afghanistan was 0.22t in 2020."
+    },
+    "country/AGO": {
+        "summary": "Angola is a country in Africa. The population in Angola was 34,503,774 in 2021. The nominal GDP per capita in Angola was $1,903.72 in 2021. The Gini index in Angola was 51.3 in 2018. The life expectancy in Angola was 61.64 in 2021. The energy consumption per capita in Angola was 540.86kg in 2014. The carbon dioxide emissions per capita in Angola was 0.59t in 2020."
+    },
+    "country/AIA": {
+        "summary": "Anguilla is a country in North America. The population in Anguilla was 15,094 in 2011."
+    },
+    "country/ALB": {
+        "summary": "Albania is a country in Europe. The population in Albania was 2,862,427 in 2019. The nominal GDP per capita in Albania was $6,377.2 in 2021. The Gini index in Albania was 29.4 in 2020. The life expectancy in Albania was 76.46 in 2021. The energy consumption per capita in Albania was 808.46kg in 2014. The carbon dioxide emissions per capita in Albania was 1.54t in 2020."
+    },
+    "country/AND": {
+        "summary": "Andorra is a country in Europe. The population in Andorra was 76,177 in 2019. The nominal GDP per capita in Andorra was $42,072.34 in 2021. The carbon dioxide emissions per capita in Andorra was 5.78t in 2020."
+    },
+    "country/ANT": {
+        "summary": "Netherlands Antilles is a country in Europe. The population in Netherlands Antilles was 227,049 in 2009."
+    },
+    "country/ARE": {
+        "summary": "United Arab Emirates is a country in Asia. The population in United Arab Emirates was 9,365,145 in 2021. The nominal GDP per capita in United Arab Emirates was $44,315.55 in 2021. The Gini index in United Arab Emirates was 26 in 2018. The life expectancy in United Arab Emirates was 78.71 in 2021. The energy consumption per capita in United Arab Emirates was 7,975.79kg in 2014. The carbon dioxide emissions per capita in United Arab Emirates was 20.25t in 2020."
+    },
+    "country/ARG": {
+        "summary": "Argentina is a country in South America. The population in Argentina was 45,808,747 in 2021. The nominal GDP per capita in Argentina was $10,636.12 in 2021. The Gini index in Argentina was 42 in 2021. The life expectancy in Argentina was 75.39 in 2021. The energy consumption per capita in Argentina was 2,029.92kg in 2014. The carbon dioxide emissions per capita in Argentina was 3.41t in 2020."
+    },
+    "country/ARM": {
+        "summary": "Armenia is a country in Europe, Asia. The population in Armenia was 2,965,269 in 2019. The nominal GDP per capita in Armenia was $4,966.51 in 2021. The Gini index in Armenia was 27.9 in 2021. The life expectancy in Armenia was 72.04 in 2021. The energy consumption per capita in Armenia was 1,023.81kg in 2014. The carbon dioxide emissions per capita in Armenia was 2.4t in 2020."
+    },
+    "country/ASM": {
+        "summary": "American Samoa is a country in Oceania, North America. The population in American Samoa was 45,035 in 2021. The nominal GDP per capita in American Samoa was $15,743.31 in 2021."
+    },
+    "country/ATA": {
+        "summary": "Antarctica is a country in Antarctica."
+    },
+    "country/ATB": {
+        "summary": "British Antarctic Territory is a country in Antarctica."
+    },
+    "country/ATF": {
+        "summary": "French Southern Territories is a country in Antarctica, Africa. The population in French Southern Territories was 196 in 2012."
+    },
+    "country/ATG": {
+        "summary": "Antigua and Barbuda is a country in North America. The population in Antigua and Barbuda was 93,219 in 2021. The nominal GDP per capita in Antigua and Barbuda was $16,740.35 in 2021. The life expectancy in Antigua and Barbuda was 78.5 in 2021. The energy consumption per capita in Antigua and Barbuda was 1,780.14kg in 2007. The carbon dioxide emissions per capita in Antigua and Barbuda was 5.12t in 2020."
+    },
+    "country/ATN": {
+        "summary": "Dronning Maud Land is a country in Antarctica."
+    },
+    "country/AUS": {
+        "summary": "Australia is a country in Oceania. The population in Australia was 25,688,079 in 2021. The unemployment rate in Australia was 4% in 2023. The nominal GDP per capita in Australia was $60,444.5 in 2021. The Gini index in Australia was 34.3 in 2018. The life expectancy in Australia was 83.3 in 2021. The energy consumption per capita in Australia was 5,483.82kg in 2015. The carbon dioxide emissions per capita in Australia was 14.77t in 2020."
+    },
+    "country/AUT": {
+        "summary": "Austria is a country in Europe. The population in Austria was 8,858,775 in 2019. The unemployment rate in Austria was 5.2% in 2020. The nominal GDP per capita in Austria was $53,637.71 in 2021. The Gini index in Austria was 29.8 in 2020. The life expectancy in Austria was 81.24 in 2021. The energy consumption per capita in Austria was 3,800.3kg in 2015. The carbon dioxide emissions per capita in Austria was 6.63t in 2020."
+    },
+    "country/AZE": {
+        "summary": "Azerbaijan is a country in Europe, Asia. The population in Azerbaijan was 9,981,457 in 2019. The nominal GDP per capita in Azerbaijan was $5,408.05 in 2021. The Gini index in Azerbaijan was 26.6 in 2005. The life expectancy in Azerbaijan was 69.37 in 2021. The energy consumption per capita in Azerbaijan was 1,502.08kg in 2014. The carbon dioxide emissions per capita in Azerbaijan was 3.4t in 2020."
+    },
+    "country/BDI": {
+        "summary": "Burundi is a country in Africa. The population in Burundi was 12,551,213 in 2021. The nominal GDP per capita in Burundi was $221.16 in 2021. The Gini index in Burundi was 38.6 in 2013. The life expectancy in Burundi was 61.66 in 2021. The carbon dioxide emissions per capita in Burundi was 0.06t in 2020."
+    },
+    "country/BEL": {
+        "summary": "Belgium is a country in Europe. The population in Belgium was 11,455,519 in 2019. The unemployment rate in Belgium was 5.5% in 2020. The nominal GDP per capita in Belgium was $51,268.39 in 2021. The Gini index in Belgium was 26 in 2020. The life expectancy in Belgium was 81.89 in 2021. The energy consumption per capita in Belgium was 4,687.79kg in 2015. The carbon dioxide emissions per capita in Belgium was 7.4t in 2020."
+    },
+    "country/BEN": {
+        "summary": "Benin is a country in Africa. The population in Benin was 12,996,895 in 2021. The nominal GDP per capita in Benin was $1,361.1 in 2021. The Gini index in Benin was 37.9 in 2018. The life expectancy in Benin was 59.82 in 2021. The energy consumption per capita in Benin was 403.91kg in 2014. The carbon dioxide emissions per capita in Benin was 0.63t in 2020."
+    },
+    "country/BES": {
+        "summary": "Bonaire, Sint Eustatius and Saba is a country in North America. The population in Bonaire, Sint Eustatius and Saba was 25,987 in 2020."
+    },
+    "country/BFA": {
+        "summary": "Burkina Faso is a country in Africa. The population in Burkina Faso was 22,100,683 in 2021. The nominal GDP per capita in Burkina Faso was $893.08 in 2021. The Gini index in Burkina Faso was 43 in 2018. The life expectancy in Burkina Faso was 59.27 in 2021. The carbon dioxide emissions per capita in Burkina Faso was 0.25t in 2020."
+    },
+    "country/BGD": {
+        "summary": "Bangladesh is a country in Asia. The population in Bangladesh was 169,356,251 in 2021. The nominal GDP per capita in Bangladesh was $2,457.92 in 2021. The Gini index in Bangladesh was 31.8 in 2022. The life expectancy in Bangladesh was 72.38 in 2021. The energy consumption per capita in Bangladesh was 227.13kg in 2014. The carbon dioxide emissions per capita in Bangladesh was 0.51t in 2020."
+    },
+    "country/BGR": {
+        "summary": "Bulgaria is a country in Europe. The population in Bulgaria was 7,000,039 in 2019. The unemployment rate in Bulgaria was 4.4% in 2020. The nominal GDP per capita in Bulgaria was $12,222.24 in 2021. The Gini index in Bulgaria was 40.5 in 2020. The life expectancy in Bulgaria was 71.51 in 2021. The energy consumption per capita in Bulgaria was 2,477.66kg in 2014. The carbon dioxide emissions per capita in Bulgaria was 4.92t in 2020."
+    },
+    "country/BHR": {
+        "summary": "Bahrain is a country in Asia. The population in Bahrain was 1,463,265 in 2021. The nominal GDP per capita in Bahrain was $26,860.07 in 2021. The life expectancy in Bahrain was 78.76 in 2021. The energy consumption per capita in Bahrain was 10,798.12kg in 2014. The carbon dioxide emissions per capita in Bahrain was 21.98t in 2020."
+    },
+    "country/BHS": {
+        "summary": "Bahamas is a country in North America. The population in Bahamas was 407,906 in 2021. The nominal GDP per capita in Bahamas was $28,260.43 in 2021. The life expectancy in Bahamas was 71.6 in 2021. The energy consumption per capita in Bahamas was 1,982.3kg in 2007. The carbon dioxide emissions per capita in Bahamas was 6.04t in 2020."
+    },
+    "country/BIH": {
+        "summary": "Bosnia and Herzegovina is a country in Europe. The population in Bosnia and Herzegovina was 3,839,265 in 2012. The nominal GDP per capita in Bosnia and Herzegovina was $7,230.2 in 2021. The Gini index in Bosnia and Herzegovina was 33 in 2011. The life expectancy in Bosnia and Herzegovina was 75.3 in 2021. The energy consumption per capita in Bosnia and Herzegovina was 2,190.94kg in 2014. The carbon dioxide emissions per capita in Bosnia and Herzegovina was 6.31t in 2020."
+    },
+    "country/BLM": {
+        "summary": "Saint Barth\u00e9lemy is a country in North America, Europe. The population in Saint Barth\u00e9lemy was 9,131 in 2012."
+    },
+    "country/BLR": {
+        "summary": "Belarus is a country in Europe. The population in Belarus was 9,475,174 in 2019. The nominal GDP per capita in Belarus was $7,489.72 in 2021. The Gini index in Belarus was 24.4 in 2020. The life expectancy in Belarus was 72.37 in 2021. The energy consumption per capita in Belarus was 2,936.58kg in 2014. The carbon dioxide emissions per capita in Belarus was 5.84t in 2020."
+    },
+    "country/BLZ": {
+        "summary": "Belize is a country in North America. The population in Belize was 400,031 in 2021. The nominal GDP per capita in Belize was $6,228.27 in 2021. The Gini index in Belize was 53.3 in 1999. The life expectancy in Belize was 70.47 in 2021. The energy consumption per capita in Belize was 598.98kg in 2007. The carbon dioxide emissions per capita in Belize was 1.74t in 2020."
+    },
+    "country/BMU": {
+        "summary": "Bermuda is a country in North America. The population in Bermuda was 63,764 in 2021. The nominal GDP per capita in Bermuda was $111,774.67 in 2021. The life expectancy in Bermuda was 79.28 in 2021."
+    },
+    "country/BOL": {
+        "summary": "Bolivia is a country in South America. The population in Bolivia was 12,079,472 in 2021. The nominal GDP per capita in Bolivia was $3,345.2 in 2021. The Gini index in Bolivia was 40.9 in 2021. The life expectancy in Bolivia was 63.63 in 2021. The energy consumption per capita in Bolivia was 763.17kg in 2014. The carbon dioxide emissions per capita in Bolivia was 1.54t in 2020."
+    },
+    "country/BRA": {
+        "summary": "Brazil is a country in South America. The population in Brazil was 214,326,223 in 2021. The nominal GDP per capita in Brazil was $7,696.79 in 2021. The Gini index in Brazil was 52.9 in 2021. The life expectancy in Brazil was 72.75 in 2021. The energy consumption per capita in Brazil was 1,490.43kg in 2014. The carbon dioxide emissions per capita in Brazil was 1.94t in 2020."
+    },
+    "country/BRB": {
+        "summary": "Barbados is a country in North America. The population in Barbados was 281,200 in 2021. The nominal GDP per capita in Barbados was $17,225.46 in 2021. The life expectancy in Barbados was 77.57 in 2021. The energy consumption per capita in Barbados was 1,477.28kg in 2007. The carbon dioxide emissions per capita in Barbados was 3.9t in 2020."
+    },
+    "country/BRN": {
+        "summary": "Brunei is a country in Asia. The population in Brunei was 445,373 in 2021. The nominal GDP per capita in Brunei was $31,448.91 in 2021. The life expectancy in Brunei was 74.64 in 2021. The energy consumption per capita in Brunei was 8,529.73kg in 2014. The carbon dioxide emissions per capita in Brunei was 21.71t in 2020."
+    },
+    "country/BTN": {
+        "summary": "Bhutan is a country in Asia. The population in Bhutan was 777,486 in 2021. The nominal GDP per capita in Bhutan was $3,266.36 in 2021. The Gini index in Bhutan was 28.5 in 2022. The life expectancy in Bhutan was 71.81 in 2021. The energy consumption per capita in Bhutan was 357.97kg in 2007. The carbon dioxide emissions per capita in Bhutan was 1.34t in 2020."
+    },
+    "country/BVT": {
+        "summary": "Bouvet Island is a country in Antarctica."
+    },
+    "country/BWA": {
+        "summary": "Botswana is a country in Africa. The population in Botswana was 2,588,423 in 2021. The nominal GDP per capita in Botswana was $7,238.8 in 2021. The Gini index in Botswana was 53.3 in 2015. The life expectancy in Botswana was 61.14 in 2021. The energy consumption per capita in Botswana was 1,201.8kg in 2014. The carbon dioxide emissions per capita in Botswana was 2.26t in 2020."
+    },
+    "country/BYS": {
+        "summary": "The population in Byelorussian SSR was 10,300,000 in 1991."
+    },
+    "country/CAF": {
+        "summary": "Central African Republic is a country in Africa. The population in Central African Republic was 5,457,154 in 2021. The nominal GDP per capita in Central African Republic was $461.14 in 2021. The Gini index in Central African Republic was 43 in 2021. The life expectancy in Central African Republic was 53.9 in 2021. The carbon dioxide emissions per capita in Central African Republic was 0.04t in 2020."
+    },
+    "country/CAN": {
+        "summary": "Canada is a country in North America. The population in Canada was 38,226,498 in 2021. The nominal GDP per capita in Canada was $52,358.62 in 2021. The Gini index in Canada was 31.7 in 2019. The life expectancy in Canada was 82.6 in 2021. The energy consumption per capita in Canada was 7,631.34kg in 2015. The carbon dioxide emissions per capita in Canada was 13.6t in 2020."
+    },
+    "country/CCK": {
+        "summary": "Cocos (Keeling) Islands is a country in Asia, Oceania. The population in Cocos (Keeling) Islands was 596 in 2009."
+    },
+    "country/CHE": {
+        "summary": "Switzerland is a country in Europe. The population in Switzerland was 8,544,527 in 2019. The unemployment rate in Switzerland was 4.8% in 2020. The nominal GDP per capita in Switzerland was $91,991.6 in 2021. The Gini index in Switzerland was 33.1 in 2018. The life expectancy in Switzerland was 83.85 in 2021. The energy consumption per capita in Switzerland was 2,960.07kg in 2015. The carbon dioxide emissions per capita in Switzerland was 4.04t in 2020."
+    },
+    "country/CHL": {
+        "summary": "Chile is a country in South America. The population in Chile was 19,493,184 in 2021. The nominal GDP per capita in Chile was $16,247.4 in 2021. The Gini index in Chile was 44.9 in 2020. The life expectancy in Chile was 78.94 in 2021. The energy consumption per capita in Chile was 2,016.69kg in 2015. The carbon dioxide emissions per capita in Chile was 4.4t in 2020."
+    },
+    "country/CHN": {
+        "summary": "China is a country in Asia. The population in China was 1,412,360,000 in 2021. The nominal GDP per capita in China was $12,617.5 in 2021. The Gini index in China was 37.1 in 2020. The life expectancy in China was 78.21 in 2021. The energy consumption per capita in China was 2,224.35kg in 2014. The carbon dioxide emissions per capita in China was 7.76t in 2020."
+    },
+    "country/CIV": {
+        "summary": "C\u00f4te d'Ivoire is a country in Africa. The population in C\u00f4te d'Ivoire was 27,478,249 in 2021. The nominal GDP per capita in C\u00f4te d'Ivoire was $2,613.38 in 2021. The Gini index in C\u00f4te d'Ivoire was 37.2 in 2018. The life expectancy in C\u00f4te d'Ivoire was 58.6 in 2021. The energy consumption per capita in C\u00f4te d'Ivoire was 603.37kg in 2014. The carbon dioxide emissions per capita in C\u00f4te d'Ivoire was 0.41t in 2020."
+    },
+    "country/CMR": {
+        "summary": "Cameroon is a country in Africa. The population in Cameroon was 27,198,628 in 2021. The nominal GDP per capita in Cameroon was $1,666.93 in 2021. The Gini index in Cameroon was 46.6 in 2014. The life expectancy in Cameroon was 60.33 in 2021. The energy consumption per capita in Cameroon was 340.95kg in 2014. The carbon dioxide emissions per capita in Cameroon was 0.37t in 2020."
+    },
+    "country/COD": {
+        "summary": "Congo [DRC] is a country in Africa. The population in Congo [DRC] was 95,894,118 in 2021. The nominal GDP per capita in Congo [DRC] was $577.21 in 2021. The Gini index in Congo [DRC] was 42.1 in 2012. The life expectancy in Congo [DRC] was 59.19 in 2021. The energy consumption per capita in Congo [DRC] was 377.72kg in 2014. The carbon dioxide emissions per capita in Congo [DRC] was 0.03t in 2020."
+    },
+    "country/COG": {
+        "summary": "Congo [Republic] is a country in Africa. The population in Congo [Republic] was 5,835,806 in 2021. The nominal GDP per capita in Congo [Republic] was $2,290.38 in 2021. The Gini index in Congo [Republic] was 48.9 in 2011. The life expectancy in Congo [Republic] was 63.52 in 2021. The energy consumption per capita in Congo [Republic] was 531.48kg in 2014. The carbon dioxide emissions per capita in Congo [Republic] was 1.25t in 2020."
+    },
+    "country/COK": {
+        "summary": "Cook Islands is a country in Oceania. The population in Cook Islands was 17,459 in 2016."
+    },
+    "country/COL": {
+        "summary": "Colombia is a country in South America. The population in Colombia was 51,516,562 in 2021. The nominal GDP per capita in Colombia was $6,182.71 in 2021. The Gini index in Colombia was 51.5 in 2021. The life expectancy in Colombia was 72.83 in 2021. The energy consumption per capita in Colombia was 728.57kg in 2014. The carbon dioxide emissions per capita in Colombia was 1.55t in 2020."
+    },
+    "country/COM": {
+        "summary": "Comoros is a country in Africa. The population in Comoros was 821,625 in 2021. The nominal GDP per capita in Comoros was $1,577.47 in 2021. The Gini index in Comoros was 45.3 in 2014. The life expectancy in Comoros was 63.42 in 2021. The energy consumption per capita in Comoros was 66.46kg in 2007. The carbon dioxide emissions per capita in Comoros was 0.41t in 2020."
+    },
+    "country/CPV": {
+        "summary": "Cape Verde is a country in Africa. The population in Cape Verde was 587,925 in 2021. The nominal GDP per capita in Cape Verde was $3,557.84 in 2021. The Gini index in Cape Verde was 42.4 in 2015. The life expectancy in Cape Verde was 74.05 in 2021. The energy consumption per capita in Cape Verde was 204.07kg in 2007. The carbon dioxide emissions per capita in Cape Verde was 1.07t in 2020."
+    },
+    "country/CRI": {
+        "summary": "Costa Rica is a country in North America. The population in Costa Rica was 5,153,957 in 2021. The nominal GDP per capita in Costa Rica was $12,537.26 in 2021. The Gini index in Costa Rica was 47.2 in 2022. The life expectancy in Costa Rica was 77.02 in 2021. The energy consumption per capita in Costa Rica was 1,012.68kg in 2014. The carbon dioxide emissions per capita in Costa Rica was 1.36t in 2020."
+    },
+    "country/CSK": {
+        "summary": "The population in Czechoslovakia was 15,600,000 in 1993."
+    },
+    "country/CTE": {
+        "summary": "Canton and Enderbury Islands is a country in Oceania."
+    },
+    "country/CUB": {
+        "summary": "Cuba is a country in North America. The population in Cuba was 11,256,372 in 2021. The nominal GDP per capita in Cuba was $48,436.38 in 2021. The life expectancy in Cuba was 73.68 in 2021. The energy consumption per capita in Cuba was 1,032.39kg in 2014. The carbon dioxide emissions per capita in Cuba was 2.15t in 2020."
+    },
+    "country/CUW": {
+        "summary": "Cura\u00e7ao is a country in South America. The population in Cura\u00e7ao was 152,369 in 2021. The nominal GDP per capita in Cura\u00e7ao was $17,717.6 in 2021. The life expectancy in Cura\u00e7ao was 78.02 in 2017. The energy consumption per capita in Cura\u00e7ao was 12,650.86kg in 2014."
+    },
+    "country/CXR": {
+        "summary": "Christmas Island is a country in Asia, Oceania. The population in Christmas Island was 1,402 in 2010."
+    },
+    "country/CYM": {
+        "summary": "Cayman Islands is a country in North America. The population in Cayman Islands was 68,136 in 2021. The nominal GDP per capita in Cayman Islands was $88,475.6 in 2021. The life expectancy in Cayman Islands was 82.19 in 2010."
+    },
+    "country/CYP": {
+        "summary": "Cyprus is a country in Europe, Asia. The population in Cyprus was 875,899 in 2019. The unemployment rate in Cyprus was 6.9% in 2020. The nominal GDP per capita in Cyprus was $31,552.04 in 2021. The Gini index in Cyprus was 31.7 in 2020. The life expectancy in Cyprus was 81.2 in 2021. The energy consumption per capita in Cyprus was 1,676.21kg in 2014. The carbon dioxide emissions per capita in Cyprus was 5.47t in 2020."
+    },
+    "country/CZE": {
+        "summary": "Czech Republic is a country in Europe. The population in Czech Republic was 10,649,800 in 2019. The unemployment rate in Czech Republic was 2.7% in 2020. The nominal GDP per capita in Czech Republic was $26,822.51 in 2021. The Gini index in Czech Republic was 26.2 in 2020. The life expectancy in Czech Republic was 77.37 in 2021. The energy consumption per capita in Czech Republic was 3,860.0kg in 2015. The carbon dioxide emissions per capita in Czech Republic was 8.3t in 2020."
+    },
+    "country/DDR": {
+        "summary": "The population in German Democratic Republic was 16,111,000 in 1990."
+    },
+    "country/DEU": {
+        "summary": "Germany is a country in Europe. The population in Germany was 83,019,213 in 2019. The unemployment rate in Germany was 3.3% in 2019. The nominal GDP per capita in Germany was $51,203.55 in 2021. The Gini index in Germany was 31.7 in 2019. The life expectancy in Germany was 80.9 in 2021. The energy consumption per capita in Germany was 3,817.55kg in 2015. The carbon dioxide emissions per capita in Germany was 7.26t in 2020."
+    },
+    "country/DJI": {
+        "summary": "Djibouti is a country in Africa. The population in Djibouti was 1,105,557 in 2021. The nominal GDP per capita in Djibouti was $3,050.31 in 2021. The Gini index in Djibouti was 41.6 in 2017. The life expectancy in Djibouti was 62.3 in 2021. The energy consumption per capita in Djibouti was 165.28kg in 2007. The carbon dioxide emissions per capita in Djibouti was 0.39t in 2020."
+    },
+    "country/DMA": {
+        "summary": "Dominica is a country in North America. The population in Dominica was 72,412 in 2021. The nominal GDP per capita in Dominica was $7,668.16 in 2021. The life expectancy in Dominica was 72.81 in 2021. The energy consumption per capita in Dominica was 625.23kg in 2007. The carbon dioxide emissions per capita in Dominica was 2.26t in 2020."
+    },
+    "country/DNK": {
+        "summary": "Denmark is a country in Europe. The population in Denmark was 5,806,081 in 2019. The unemployment rate in Denmark was 6% in 2020. The nominal GDP per capita in Denmark was $68,007.76 in 2021. The Gini index in Denmark was 27.5 in 2020. The life expectancy in Denmark was 81.4 in 2021. The energy consumption per capita in Denmark was 2,816.61kg in 2015. The carbon dioxide emissions per capita in Denmark was 4.69t in 2020."
+    },
+    "country/DOM": {
+        "summary": "Dominican Republic is a country in North America. The population in Dominican Republic was 11,117,873 in 2021. The nominal GDP per capita in Dominican Republic was $8,476.75 in 2021. The Gini index in Dominican Republic was 38.5 in 2021. The life expectancy in Dominican Republic was 72.61 in 2021. The energy consumption per capita in Dominican Republic was 743.25kg in 2014. The carbon dioxide emissions per capita in Dominican Republic was 2.08t in 2020."
+    },
+    "country/DZA": {
+        "summary": "Algeria is a country in Africa. The population in Algeria was 44,177,969 in 2021. The nominal GDP per capita in Algeria was $3,700.31 in 2021. The Gini index in Algeria was 27.6 in 2011. The life expectancy in Algeria was 76.38 in 2021. The energy consumption per capita in Algeria was 1,333.14kg in 2014. The carbon dioxide emissions per capita in Algeria was 3.72t in 2020."
+    },
+    "country/ECU": {
+        "summary": "Ecuador is a country in South America. The population in Ecuador was 17,797,737 in 2021. The nominal GDP per capita in Ecuador was $5,965.13 in 2021. The Gini index in Ecuador was 45.5 in 2022. The life expectancy in Ecuador was 73.67 in 2021. The energy consumption per capita in Ecuador was 888.62kg in 2014. The carbon dioxide emissions per capita in Ecuador was 1.96t in 2020."
+    },
+    "country/EGY": {
+        "summary": "Egypt is a country in Asia, Africa. The population in Egypt was 109,262,178 in 2021. The nominal GDP per capita in Egypt was $3,886.72 in 2021. The Gini index in Egypt was 31.9 in 2019. The life expectancy in Egypt was 70.22 in 2021. The energy consumption per capita in Egypt was 782.76kg in 2014. The carbon dioxide emissions per capita in Egypt was 1.96t in 2020."
+    },
+    "country/ERI": {
+        "summary": "Eritrea is a country in Africa. The population in Eritrea was 3,620,312 in 2021. The life expectancy in Eritrea was 66.54 in 2021. The energy consumption per capita in Eritrea was 245.03kg in 2014. The carbon dioxide emissions per capita in Eritrea was 0.2t in 2020."
+    },
+    "country/ESH": {
+        "summary": "Western Sahara is a country in Africa. The population in Western Sahara was 582,000 in 2019."
+    },
+    "country/ESP": {
+        "summary": "Spain is a country in Europe. The population in Spain was 46,937,060 in 2019. The unemployment rate in Spain was 15.8% in 2020. The nominal GDP per capita in Spain was $30,103.51 in 2021. The Gini index in Spain was 34.9 in 2020. The life expectancy in Spain was 83.18 in 2021. The energy consumption per capita in Spain was 2,571.34kg in 2015. The carbon dioxide emissions per capita in Spain was 4.28t in 2020."
+    },
+    "country/EST": {
+        "summary": "Estonia is a country in Europe. The population in Estonia was 1,324,820 in 2019. The unemployment rate in Estonia was 8% in 2020. The nominal GDP per capita in Estonia was $27,943.7 in 2021. The Gini index in Estonia was 30.7 in 2020. The life expectancy in Estonia was 76.74 in 2021. The energy consumption per capita in Estonia was 4,173.33kg in 2015. The carbon dioxide emissions per capita in Estonia was 5.34t in 2020."
+    },
+    "country/ETH": {
+        "summary": "Ethiopia is a country in Africa. The population in Ethiopia was 120,283,026 in 2021. The nominal GDP per capita in Ethiopia was $925.0 in 2021. The Gini index in Ethiopia was 35 in 2015. The life expectancy in Ethiopia was 64.97 in 2021. The energy consumption per capita in Ethiopia was 484.96kg in 2014. The carbon dioxide emissions per capita in Ethiopia was 0.15t in 2020."
+    },
+    "country/FIN": {
+        "summary": "Finland is a country in Europe. The population in Finland was 5,517,919 in 2019. The unemployment rate in Finland was 7.8% in 2020. The nominal GDP per capita in Finland was $53,489.75 in 2021. The Gini index in Finland was 27.1 in 2020. The life expectancy in Finland was 81.93 in 2021. The energy consumption per capita in Finland was 5,924.7kg in 2015. The carbon dioxide emissions per capita in Finland was 6.57t in 2020."
+    },
+    "country/FJI": {
+        "summary": "Fiji is a country in Oceania. The population in Fiji was 924,610 in 2021. The nominal GDP per capita in Fiji was $4,646.54 in 2021. The Gini index in Fiji was 30.7 in 2019. The life expectancy in Fiji was 67.11 in 2021. The energy consumption per capita in Fiji was 588.34kg in 2007. The carbon dioxide emissions per capita in Fiji was 1.12t in 2020."
+    },
+    "country/FLK": {
+        "summary": "Falkland Islands [Islas Malvinas] is a country in South America. The population in Falkland Islands [Islas Malvinas] was 2,840 in 2012."
+    },
+    "country/FRA": {
+        "summary": "France is a country in Europe. The population in France was 67,012,883 in 2019. The unemployment rate in France was 6.9% in 2020. The nominal GDP per capita in France was $43,658.98 in 2021. The Gini index in France was 30.7 in 2020. The life expectancy in France was 82.32 in 2021. The energy consumption per capita in France was 3,692.02kg in 2015. The carbon dioxide emissions per capita in France was 3.95t in 2020."
+    },
+    "country/FRO": {
+        "summary": "Faroe Islands is a country in Europe. The population in Faroe Islands was 52,889 in 2021. The nominal GDP per capita in Faroe Islands was $69,010.17 in 2021. The life expectancy in Faroe Islands was 83.5 in 2021."
+    },
+    "country/FSM": {
+        "summary": "Federated States of Micronesia is a country in Oceania. The population in Federated States of Micronesia was 113,131 in 2021. The nominal GDP per capita in Federated States of Micronesia was $3,571.34 in 2021. The Gini index in Federated States of Micronesia was 40.1 in 2013. The life expectancy in Federated States of Micronesia was 70.71 in 2021. The carbon dioxide emissions per capita in Federated States of Micronesia was 0.96t in 2020."
+    },
+    "country/FXX": {
+        "summary": "Metropolitan France is a country in Europe. The population in Metropolitan France was 64,812,052 in 2019."
+    },
+    "country/GAB": {
+        "summary": "Gabon is a country in Africa. The population in Gabon was 2,341,179 in 2021. The nominal GDP per capita in Gabon was $8,635.8 in 2021. The Gini index in Gabon was 38 in 2017. The life expectancy in Gabon was 65.82 in 2021. The energy consumption per capita in Gabon was 2,580.44kg in 2014. The carbon dioxide emissions per capita in Gabon was 2.33t in 2020."
+    },
+    "country/GBR": {
+        "summary": "United Kingdom is a country in Europe. The population in United Kingdom was 66,647,112 in 2019. The unemployment rate in United Kingdom was 3.8% in 2020. The nominal GDP per capita in United Kingdom was $46,585.9 in 2021. The Gini index in United Kingdom was 32.6 in 2020. The life expectancy in United Kingdom was 80.7 in 2021. The energy consumption per capita in United Kingdom was 2,764.52kg in 2015. The carbon dioxide emissions per capita in United Kingdom was 4.6t in 2020."
+    },
+    "country/GEO": {
+        "summary": "Georgia is a country in Europe, Asia. The population in Georgia was 3,723,464 in 2019. The nominal GDP per capita in Georgia was $5,023.27 in 2021. The Gini index in Georgia was 34.2 in 2021. The life expectancy in Georgia was 71.69 in 2021. The energy consumption per capita in Georgia was 1,180.27kg in 2014. The carbon dioxide emissions per capita in Georgia was 2.75t in 2020."
+    },
+    "country/GGY": {
+        "summary": "Guernsey is a country in Europe. The population in Guernsey was 63,026 in 2016."
+    },
+    "country/GHA": {
+        "summary": "Ghana is a country in Africa. The population in Ghana was 32,833,031 in 2021. The nominal GDP per capita in Ghana was $2,410.88 in 2021. The Gini index in Ghana was 43.5 in 2016. The life expectancy in Ghana was 63.8 in 2021. The energy consumption per capita in Ghana was 320.39kg in 2014. The carbon dioxide emissions per capita in Ghana was 0.6t in 2020."
+    },
+    "country/GIB": {
+        "summary": "Gibraltar is a country in Europe. The population in Gibraltar was 32,669 in 2021. The life expectancy in Gibraltar was 79.33 in 2021. The energy consumption per capita in Gibraltar was 6,040.46kg in 2014."
+    },
+    "country/GIN": {
+        "summary": "Guinea is a country in Africa. The population in Guinea was 13,531,906 in 2021. The nominal GDP per capita in Guinea was $1,189.18 in 2021. The Gini index in Guinea was 29.6 in 2018. The life expectancy in Guinea was 58.89 in 2021. The carbon dioxide emissions per capita in Guinea was 0.34t in 2020."
+    },
+    "country/GLP": {
+        "summary": "Guadeloupe is a country in North America, Europe. The population in Guadeloupe was 395,700 in 2016."
+    },
+    "country/GMB": {
+        "summary": "Gambia is a country in Africa. The population in Gambia was 2,639,916 in 2021. The nominal GDP per capita in Gambia was $772.15 in 2021. The Gini index in Gambia was 38.8 in 2020. The life expectancy in Gambia was 62.08 in 2021. The energy consumption per capita in Gambia was 75.36kg in 2007. The carbon dioxide emissions per capita in Gambia was 0.24t in 2020."
+    },
+    "country/GNB": {
+        "summary": "Guinea-Bissau is a country in Africa. The population in Guinea-Bissau was 2,060,721 in 2021. The nominal GDP per capita in Guinea-Bissau was $795.12 in 2021. The Gini index in Guinea-Bissau was 34.8 in 2018. The life expectancy in Guinea-Bissau was 59.65 in 2021. The energy consumption per capita in Guinea-Bissau was 65.49kg in 2007. The carbon dioxide emissions per capita in Guinea-Bissau was 0.16t in 2020."
+    },
+    "country/GNQ": {
+        "summary": "Equatorial Guinea is a country in Africa. The population in Equatorial Guinea was 1,634,466 in 2021. The nominal GDP per capita in Equatorial Guinea was $7,506.67 in 2021. The life expectancy in Equatorial Guinea was 60.59 in 2021. The energy consumption per capita in Equatorial Guinea was 1,853.89kg in 2007. The carbon dioxide emissions per capita in Equatorial Guinea was 2.73t in 2020."
+    },
+    "country/GRC": {
+        "summary": "Greece is a country in Europe. The population in Greece was 10,724,599 in 2019. The nominal GDP per capita in Greece was $20,192.6 in 2021. The Gini index in Greece was 33.6 in 2020. The life expectancy in Greece was 80.18 in 2021. The energy consumption per capita in Greece was 2,182.07kg in 2015. The carbon dioxide emissions per capita in Greece was 4.77t in 2020."
+    },
+    "country/GRD": {
+        "summary": "Grenada is a country in North America. The population in Grenada was 124,610 in 2021. The nominal GDP per capita in Grenada was $9,010.51 in 2021. The life expectancy in Grenada was 74.94 in 2021. The energy consumption per capita in Grenada was 724.99kg in 2007. The carbon dioxide emissions per capita in Grenada was 2.62t in 2020."
+    },
+    "country/GRL": {
+        "summary": "Greenland is a country in North America. The population in Greenland was 56,653 in 2021. The nominal GDP per capita in Greenland was $57,116.41 in 2021. The life expectancy in Greenland was 71.15 in 2021."
+    },
+    "country/GTM": {
+        "summary": "Guatemala is a country in North America. The population in Guatemala was 17,109,746 in 2021. The nominal GDP per capita in Guatemala was $5,029.48 in 2021. The Gini index in Guatemala was 48.3 in 2014. The life expectancy in Guatemala was 69.24 in 2021. The energy consumption per capita in Guatemala was 863.57kg in 2014. The carbon dioxide emissions per capita in Guatemala was 1.0t in 2020."
+    },
+    "country/GUF": {
+        "summary": "French Guiana is a country in South America, Europe. The population in French Guiana was 294,071 in 2021."
+    },
+    "country/GUM": {
+        "summary": "Guam is a country in Oceania. The population in Guam was 170,534 in 2021. The nominal GDP per capita in Guam was $35,904.86 in 2021. The life expectancy in Guam was 76.66 in 2021."
+    },
+    "country/GUY": {
+        "summary": "Guyana is a country in South America. The population in Guyana was 804,567 in 2021. The nominal GDP per capita in Guyana was $9,998.54 in 2021. The Gini index in Guyana was 45.1 in 1998. The life expectancy in Guyana was 65.67 in 2021. The energy consumption per capita in Guyana was 660.92kg in 2007. The carbon dioxide emissions per capita in Guyana was 3.47t in 2020."
+    },
+    "country/HKG": {
+        "summary": "Hong Kong is a country in Asia. The population in Hong Kong was 7,413,100 in 2021. The nominal GDP per capita in Hong Kong was $49,764.79 in 2021. The life expectancy in Hong Kong was 85.49 in 2021. The energy consumption per capita in Hong Kong was 1,970.48kg in 2014."
+    },
+    "country/HMD": {
+        "summary": "Heard Island and McDonald Islands is a country in Antarctica, Oceania. The population in Heard Island and McDonald Islands was 0 in 2011."
+    },
+    "country/HND": {
+        "summary": "Honduras is a country in North America. The population in Honduras was 10,278,345 in 2021. The nominal GDP per capita in Honduras was $2,771.72 in 2021. The Gini index in Honduras was 48.2 in 2019. The life expectancy in Honduras was 70.12 in 2021. The energy consumption per capita in Honduras was 586.65kg in 2014. The carbon dioxide emissions per capita in Honduras was 0.87t in 2020."
+    },
+    "country/HRV": {
+        "summary": "Croatia is a country in Europe. The population in Croatia was 4,076,246 in 2019. The unemployment rate in Croatia was 8.6% in 2020. The nominal GDP per capita in Croatia was $17,747.79 in 2021. The Gini index in Croatia was 29.5 in 2020. The life expectancy in Croatia was 76.42 in 2021. The energy consumption per capita in Croatia was 1,897.84kg in 2014. The carbon dioxide emissions per capita in Croatia was 3.86t in 2020."
+    },
+    "country/HTI": {
+        "summary": "Haiti is a country in North America. The population in Haiti was 11,447,569 in 2021. The nominal GDP per capita in Haiti was $1,823.74 in 2021. The Gini index in Haiti was 41.1 in 2012. The life expectancy in Haiti was 63.19 in 2021. The energy consumption per capita in Haiti was 398.83kg in 2014. The carbon dioxide emissions per capita in Haiti was 0.28t in 2020."
+    },
+    "country/HUN": {
+        "summary": "Hungary is a country in Europe. The population in Hungary was 9,772,756 in 2019. The unemployment rate in Hungary was 4.9% in 2020. The nominal GDP per capita in Hungary was $18,772.14 in 2021. The Gini index in Hungary was 29.7 in 2020. The life expectancy in Hungary was 74.47 in 2021. The energy consumption per capita in Hungary was 2,432.75kg in 2015. The carbon dioxide emissions per capita in Hungary was 4.59t in 2020."
+    },
+    "country/IDN": {
+        "summary": "Indonesia is a country in Asia. The population in Indonesia was 273,753,191 in 2021. The nominal GDP per capita in Indonesia was $4,334.22 in 2021. The Gini index in Indonesia was 37.9 in 2022. The life expectancy in Indonesia was 67.57 in 2021. The percentage of people with obesity in Indonesia was 35.4% in 2018. The energy consumption per capita in Indonesia was 880.12kg in 2014. The carbon dioxide emissions per capita in Indonesia was 2.07t in 2020."
+    },
+    "country/IMN": {
+        "summary": "Isle of Man is a country in Europe. The population in Isle of Man was 84,263 in 2021. The nominal GDP per capita in Isle of Man was $79,530.61 in 2020. The life expectancy in Isle of Man was 80.53 in 2021."
+    },
+    "country/IND": {
+        "summary": "India is a country in Asia. The population in India was 1,407,563,842 in 2021. The unemployment rate in India was 6% in 2019. The nominal GDP per capita in India was $2,238.13 in 2021. The Gini index in India was 34.2 in 2021. The life expectancy in India was 67.24 in 2021. The energy consumption per capita in India was 630.9kg in 2014. The carbon dioxide emissions per capita in India was 1.58t in 2020."
+    },
+    "country/IOT": {
+        "summary": "British Indian Ocean Territory is a country in Asia."
+    },
+    "country/IRL": {
+        "summary": "Ireland is a country in Europe. The population in Ireland was 4,904,240 in 2019. The unemployment rate in Ireland was 5% in 2020. The nominal GDP per capita in Ireland was $100,172.08 in 2021. The Gini index in Ireland was 29.2 in 2020. The life expectancy in Ireland was 82.1 in 2021. The energy consumption per capita in Ireland was 2,819.88kg in 2015. The carbon dioxide emissions per capita in Ireland was 6.77t in 2020."
+    },
+    "country/IRN": {
+        "summary": "Iran is a country in Asia. The population in Iran was 87,923,432 in 2021. The nominal GDP per capita in Iran was $4,084.2 in 2021. The Gini index in Iran was 40.9 in 2019. The life expectancy in Iran was 73.88 in 2021. The energy consumption per capita in Iran was 2,964.86kg in 2014. The carbon dioxide emissions per capita in Iran was 7.06t in 2020."
+    },
+    "country/IRQ": {
+        "summary": "Iraq is a country in Asia. The population in Iraq was 43,533,592 in 2021. The nominal GDP per capita in Iraq was $4,770.84 in 2021. The Gini index in Iraq was 29.5 in 2012. The life expectancy in Iraq was 70.38 in 2021. The energy consumption per capita in Iraq was 1,346.55kg in 2014. The carbon dioxide emissions per capita in Iraq was 3.84t in 2020."
+    },
+    "country/ISL": {
+        "summary": "Iceland is a country in Europe. The population in Iceland was 356,991 in 2019. The unemployment rate in Iceland was 5% in 2020. The nominal GDP per capita in Iceland was $68,594.01 in 2021. The Gini index in Iceland was 26.1 in 2017. The life expectancy in Iceland was 83.12 in 2021. The energy consumption per capita in Iceland was 17,478.89kg in 2015. The carbon dioxide emissions per capita in Iceland was 3.95t in 2020."
+    },
+    "country/ISR": {
+        "summary": "Israel is a country in Asia. The population in Israel was 9,364,700 in 2021. The nominal GDP per capita in Israel was $52,166.81 in 2021. The Gini index in Israel was 38.6 in 2018. The life expectancy in Israel was 82.5 in 2021. The energy consumption per capita in Israel was 2,777.88kg in 2015. The carbon dioxide emissions per capita in Israel was 6.35t in 2020."
+    },
+    "country/ITA": {
+        "summary": "Italy is a country in Europe. The population in Italy was 60,359,546 in 2019. The unemployment rate in Italy was 9.7% in 2020. The nominal GDP per capita in Italy was $35,770.05 in 2021. The Gini index in Italy was 35.2 in 2020. The life expectancy in Italy was 82.8 in 2021. The energy consumption per capita in Italy was 2,481.75kg in 2015. The carbon dioxide emissions per capita in Italy was 4.73t in 2020."
+    },
+    "country/JAM": {
+        "summary": "Jamaica is a country in North America. The population in Jamaica was 2,827,695 in 2021. The nominal GDP per capita in Jamaica was $5,183.58 in 2021. The Gini index in Jamaica was 45.5 in 2004. The life expectancy in Jamaica was 70.5 in 2021. The energy consumption per capita in Jamaica was 1,008.64kg in 2014. The carbon dioxide emissions per capita in Jamaica was 2.07t in 2020."
+    },
+    "country/JEY": {
+        "summary": "Jersey is a country in Europe. The population in Jersey was 97,857 in 2011."
+    },
+    "country/JOR": {
+        "summary": "Jordan is a country in Asia. The population in Jordan was 11,148,278 in 2021. The nominal GDP per capita in Jordan was $4,046.93 in 2021. The Gini index in Jordan was 33.7 in 2010. The life expectancy in Jordan was 74.26 in 2021. The energy consumption per capita in Jordan was 944.74kg in 2014. The carbon dioxide emissions per capita in Jordan was 1.92t in 2020."
+    },
+    "country/JPN": {
+        "summary": "Japan is a country in Asia. The population in Japan was 125,681,593 in 2021. The unemployment rate in Japan was 2.9% in 2020. The nominal GDP per capita in Japan was $39,827.13 in 2021. The Gini index in Japan was 32.9 in 2013. The life expectancy in Japan was 84.45 in 2021. The energy consumption per capita in Japan was 3,428.56kg in 2015. The carbon dioxide emissions per capita in Japan was 8.03t in 2020."
+    },
+    "country/KAZ": {
+        "summary": "Kazakhstan is a country in Europe, Asia. The population in Kazakhstan was 19,000,988 in 2021. The nominal GDP per capita in Kazakhstan was $10,373.79 in 2021. The Gini index in Kazakhstan was 27.8 in 2018. The life expectancy in Kazakhstan was 70.23 in 2021. The energy consumption per capita in Kazakhstan was 4,434.64kg in 2014. The carbon dioxide emissions per capita in Kazakhstan was 11.3t in 2020."
+    },
+    "country/KEN": {
+        "summary": "Kenya is a country in Africa. The population in Kenya was 53,005,614 in 2021. The nominal GDP per capita in Kenya was $2,069.66 in 2021. The Gini index in Kenya was 38.7 in 2021. The life expectancy in Kenya was 61.43 in 2021. The energy consumption per capita in Kenya was 515.58kg in 2014. The carbon dioxide emissions per capita in Kenya was 0.37t in 2020."
+    },
+    "country/KGZ": {
+        "summary": "Kyrgyzstan is a country in Asia. The population in Kyrgyzstan was 6,691,800 in 2021. The nominal GDP per capita in Kyrgyzstan was $1,306.18 in 2021. The Gini index in Kyrgyzstan was 29 in 2020. The life expectancy in Kyrgyzstan was 71.9 in 2021. The energy consumption per capita in Kyrgyzstan was 650.4kg in 2014. The carbon dioxide emissions per capita in Kyrgyzstan was 1.38t in 2020."
+    },
+    "country/KHM": {
+        "summary": "Cambodia is a country in Asia. The population in Cambodia was 16,589,023 in 2021. The nominal GDP per capita in Cambodia was $1,625.24 in 2021. The life expectancy in Cambodia was 69.58 in 2021. The energy consumption per capita in Cambodia was 418.58kg in 2014. The carbon dioxide emissions per capita in Cambodia was 1.14t in 2020."
+    },
+    "country/KIR": {
+        "summary": "Kiribati is a country in Oceania. The population in Kiribati was 128,874 in 2021. The nominal GDP per capita in Kiribati was $1,766.14 in 2021. The Gini index in Kiribati was 27.8 in 2019. The life expectancy in Kiribati was 67.42 in 2021. The energy consumption per capita in Kiribati was 107.85kg in 2007. The carbon dioxide emissions per capita in Kiribati was 0.45t in 2020."
+    },
+    "country/KNA": {
+        "summary": "Saint Kitts and Nevis is a country in North America. The population in Saint Kitts and Nevis was 47,606 in 2021. The nominal GDP per capita in Saint Kitts and Nevis was $18,082.69 in 2021. The life expectancy in Saint Kitts and Nevis was 71.68 in 2021. The energy consumption per capita in Saint Kitts and Nevis was 1,765.39kg in 2007. The carbon dioxide emissions per capita in Saint Kitts and Nevis was 4.85t in 2020."
+    },
+    "country/KOR": {
+        "summary": "South Korea is a country in Asia. The population in South Korea was 51,744,876 in 2021. The nominal GDP per capita in South Korea was $34,997.78 in 2021. The Gini index in South Korea was 31.4 in 2016. The life expectancy in South Korea was 83.53 in 2021. The energy consumption per capita in South Korea was 5,413.35kg in 2015. The carbon dioxide emissions per capita in South Korea was 10.99t in 2020."
+    },
+    "country/KWT": {
+        "summary": "Kuwait is a country in Asia. The population in Kuwait was 4,250,114 in 2021. The nominal GDP per capita in Kuwait was $32,186.77 in 2021. The life expectancy in Kuwait was 78.67 in 2021. The energy consumption per capita in Kuwait was 9,006.5kg in 2014. The carbon dioxide emissions per capita in Kuwait was 21.17t in 2020."
+    },
+    "country/LAO": {
+        "summary": "Laos is a country in Asia. The population in Laos was 7,425,057 in 2021. The nominal GDP per capita in Laos was $2,535.62 in 2021. The Gini index in Laos was 38.8 in 2018. The life expectancy in Laos was 68.06 in 2021. The carbon dioxide emissions per capita in Laos was 2.62t in 2020."
+    },
+    "country/LBN": {
+        "summary": "Lebanon is a country in Asia. The population in Lebanon was 5,592,631 in 2021. The nominal GDP per capita in Lebanon was $4,136.15 in 2021. The Gini index in Lebanon was 31.8 in 2011. The life expectancy in Lebanon was 75.05 in 2021. The energy consumption per capita in Lebanon was 1,194.33kg in 2014. The carbon dioxide emissions per capita in Lebanon was 3.79t in 2020."
+    },
+    "country/LBR": {
+        "summary": "Liberia is a country in Africa. The population in Liberia was 5,193,416 in 2021. The nominal GDP per capita in Liberia was $675.66 in 2021. The Gini index in Liberia was 35.3 in 2016. The life expectancy in Liberia was 60.75 in 2021. The carbon dioxide emissions per capita in Liberia was 0.23t in 2020."
+    },
+    "country/LBY": {
+        "summary": "Libya is a country in Africa. The population in Libya was 6,735,277 in 2021. The nominal GDP per capita in Libya was $5,908.95 in 2021. The life expectancy in Libya was 71.91 in 2021. The energy consumption per capita in Libya was 2,930.37kg in 2014. The carbon dioxide emissions per capita in Libya was 6.68t in 2020."
+    },
+    "country/LCA": {
+        "summary": "Saint Lucia is a country in North America. The population in Saint Lucia was 179,651 in 2021. The nominal GDP per capita in Saint Lucia was $9,414.14 in 2021. The Gini index in Saint Lucia was 51.2 in 2016. The life expectancy in Saint Lucia was 71.11 in 2021. The energy consumption per capita in Saint Lucia was 764.1kg in 2007. The carbon dioxide emissions per capita in Saint Lucia was 2.79t in 2020."
+    },
+    "country/LIE": {
+        "summary": "Liechtenstein is a country in Europe. The population in Liechtenstein was 38,378 in 2019. The nominal GDP per capita in Liechtenstein was $184,083.32 in 2021. The life expectancy in Liechtenstein was 84.4 in 2021. The carbon dioxide emissions per capita in Liechtenstein was 3.66t in 2020."
+    },
+    "country/LKA": {
+        "summary": "Sri Lanka is a country in Asia. The population in Sri Lanka was 22,156,000 in 2021. The nominal GDP per capita in Sri Lanka was $3,994.25 in 2021. The Gini index in Sri Lanka was 37.7 in 2019. The life expectancy in Sri Lanka was 76.4 in 2021. The energy consumption per capita in Sri Lanka was 504.31kg in 2014. The carbon dioxide emissions per capita in Sri Lanka was 1.0t in 2020."
+    },
+    "country/LSO": {
+        "summary": "Lesotho is a country in Africa. The population in Lesotho was 2,281,454 in 2021. The nominal GDP per capita in Lesotho was $1,040.31 in 2021. The Gini index in Lesotho was 44.9 in 2017. The life expectancy in Lesotho was 53.06 in 2021. The energy consumption per capita in Lesotho was 9.58kg in 2007. The carbon dioxide emissions per capita in Lesotho was 1.03t in 2020."
+    },
+    "country/LTU": {
+        "summary": "Lithuania is a country in Europe. The population in Lithuania was 2,794,184 in 2019. The unemployment rate in Lithuania was 9% in 2020. The nominal GDP per capita in Lithuania was $23,712.54 in 2021. The Gini index in Lithuania was 36 in 2020. The life expectancy in Lithuania was 74.34 in 2021. The energy consumption per capita in Lithuania was 2,387.28kg in 2014. The carbon dioxide emissions per capita in Lithuania was 4.18t in 2020."
+    },
+    "country/LUX": {
+        "summary": "Luxembourg is a country in Europe. The population in Luxembourg was 613,894 in 2019. The unemployment rate in Luxembourg was 7.3% in 2020. The nominal GDP per capita in Luxembourg was $133,590.15 in 2021. The Gini index in Luxembourg was 33.4 in 2020. The life expectancy in Luxembourg was 82.75 in 2021. The energy consumption per capita in Luxembourg was 6,548.41kg in 2015. The carbon dioxide emissions per capita in Luxembourg was 12.46t in 2020."
+    },
+    "country/LVA": {
+        "summary": "Latvia is a country in Europe. The population in Latvia was 1,919,968 in 2019. The unemployment rate in Latvia was 9% in 2020. The nominal GDP per capita in Latvia was $21,080.18 in 2021. The Gini index in Latvia was 35.7 in 2020. The life expectancy in Latvia was 73.28 in 2021. The energy consumption per capita in Latvia was 2,176.84kg in 2014. The carbon dioxide emissions per capita in Latvia was 3.65t in 2020."
+    },
+    "country/MAC": {
+        "summary": "Macau is a country in Asia. The population in Macau was 686,607 in 2021. The nominal GDP per capita in Macau was $43,873.42 in 2021. The life expectancy in Macau was 85.4 in 2021."
+    },
+    "country/MAF": {
+        "summary": "Saint Martin (French part) is a country in North America, Europe. The population in Saint Martin (French part) was 31,948 in 2021. The nominal GDP per capita in Saint Martin (French part) was $21,920.02 in 2014. The life expectancy in Saint Martin (French part) was 80.38 in 2021."
+    },
+    "country/MAR": {
+        "summary": "Morocco is a country in Africa. The population in Morocco was 37,076,584 in 2021. The nominal GDP per capita in Morocco was $3,795.39 in 2021. The Gini index in Morocco was 39.5 in 2013. The life expectancy in Morocco was 74.04 in 2021. The energy consumption per capita in Morocco was 554.23kg in 2014. The carbon dioxide emissions per capita in Morocco was 1.82t in 2020."
+    },
+    "country/MCO": {
+        "summary": "Monaco is a country in Europe. The population in Monaco was 33,085 in 2005. The nominal GDP per capita in Monaco was $234,317.08 in 2021."
+    },
+    "country/MDA": {
+        "summary": "Moldova is a country in Europe. The population in Moldova was 3,550,852 in 2017. The nominal GDP per capita in Moldova was $5,235.64 in 2021. The Gini index in Moldova was 25.7 in 2021. The life expectancy in Moldova was 68.85 in 2021. The energy consumption per capita in Moldova was 1,155.26kg in 2014. The carbon dioxide emissions per capita in Moldova was 3.27t in 2020."
+    },
+    "country/MDG": {
+        "summary": "Madagascar is a country in Africa. The population in Madagascar was 28,915,653 in 2021. The nominal GDP per capita in Madagascar was $503.35 in 2021. The Gini index in Madagascar was 42.6 in 2012. The life expectancy in Madagascar was 64.48 in 2021. The carbon dioxide emissions per capita in Madagascar was 0.1t in 2020."
+    },
+    "country/MDV": {
+        "summary": "Maldives is a country in Asia. The population in Maldives was 521,457 in 2021. The nominal GDP per capita in Maldives was $10,366.26 in 2021. The Gini index in Maldives was 29.3 in 2019. The life expectancy in Maldives was 79.92 in 2021. The energy consumption per capita in Maldives was 919.64kg in 2007. The carbon dioxide emissions per capita in Maldives was 2.83t in 2020."
+    },
+    "country/MEX": {
+        "summary": "Mexico is a country in North America. The population in Mexico was 126,705,138 in 2021. The median age in Mexico was 29 in 2020. The nominal GDP per capita in Mexico was $10,045.68 in 2021. The Gini index in Mexico was 45.4 in 2020. The life expectancy in Mexico was 70.21 in 2021. The energy consumption per capita in Mexico was 1,559.12kg in 2015. The carbon dioxide emissions per capita in Mexico was 3.04t in 2020."
+    },
+    "country/MHL": {
+        "summary": "Marshall Islands is a country in Oceania. The population in Marshall Islands was 42,050 in 2021. The nominal GDP per capita in Marshall Islands was $6,172.15 in 2021. The Gini index in Marshall Islands was 35.5 in 2019. The life expectancy in Marshall Islands was 65.27 in 2021. The energy consumption per capita in Marshall Islands was 592.18kg in 2007. The carbon dioxide emissions per capita in Marshall Islands was 2.53t in 2020."
+    },
+    "country/MKD": {
+        "summary": "Macedonia [FYROM] is a country in Europe. The population in Macedonia [FYROM] was 2,077,132 in 2019. The nominal GDP per capita in Macedonia [FYROM] was $6,694.64 in 2021. The Gini index in Macedonia [FYROM] was 33.5 in 2019. The life expectancy in Macedonia [FYROM] was 74.54 in 2021. The energy consumption per capita in Macedonia [FYROM] was 1,268.68kg in 2014. The carbon dioxide emissions per capita in Macedonia [FYROM] was 3.28t in 2020."
+    },
+    "country/MLI": {
+        "summary": "Mali is a country in Africa. The population in Mali was 21,904,983 in 2021. The nominal GDP per capita in Mali was $881.51 in 2021. The Gini index in Mali was 36 in 2018. The life expectancy in Mali was 58.94 in 2021. The carbon dioxide emissions per capita in Mali was 0.2t in 2020."
+    },
+    "country/MLT": {
+        "summary": "Malta is a country in Europe. The population in Malta was 493,559 in 2019. The unemployment rate in Malta was 4.1% in 2020. The nominal GDP per capita in Malta was $34,218.21 in 2021. The Gini index in Malta was 31.4 in 2020. The life expectancy in Malta was 82.86 in 2021. The energy consumption per capita in Malta was 1,781.5kg in 2014. The carbon dioxide emissions per capita in Malta was 3.13t in 2020."
+    },
+    "country/MMR": {
+        "summary": "Myanmar [Burma] is a country in Asia. The population in Myanmar [Burma] was 53,798,084 in 2021. The nominal GDP per capita in Myanmar [Burma] was $1,210.54 in 2021. The Gini index in Myanmar [Burma] was 30.7 in 2017. The life expectancy in Myanmar [Burma] was 65.67 in 2021. The energy consumption per capita in Myanmar [Burma] was 378.07kg in 2014. The carbon dioxide emissions per capita in Myanmar [Burma] was 0.63t in 2020."
+    },
+    "country/MNE": {
+        "summary": "Montenegro is a country in Europe. The population in Montenegro was 622,182 in 2019. The nominal GDP per capita in Montenegro was $9,465.97 in 2021. The Gini index in Montenegro was 36.8 in 2018. The life expectancy in Montenegro was 73.82 in 2021. The energy consumption per capita in Montenegro was 1,538.26kg in 2014. The carbon dioxide emissions per capita in Montenegro was 4.07t in 2020."
+    },
+    "country/MNG": {
+        "summary": "Mongolia is a country in Asia. The population in Mongolia was 3,347,782 in 2021. The nominal GDP per capita in Mongolia was $4,566.14 in 2021. The Gini index in Mongolia was 32.7 in 2018. The life expectancy in Mongolia was 70.97 in 2021. The energy consumption per capita in Mongolia was 1,851.58kg in 2014. The carbon dioxide emissions per capita in Mongolia was 6.43t in 2020."
+    },
+    "country/MNP": {
+        "summary": "Northern Mariana Islands is a country in Oceania. The population in Northern Mariana Islands was 49,481 in 2021. The nominal GDP per capita in Northern Mariana Islands was $17,302.92 in 2020."
+    },
+    "country/MOZ": {
+        "summary": "Mozambique is a country in Africa. The population in Mozambique was 32,077,072 in 2021. The nominal GDP per capita in Mozambique was $491.84 in 2021. The Gini index in Mozambique was 50.5 in 2019. The life expectancy in Mozambique was 59.33 in 2021. The energy consumption per capita in Mozambique was 446.87kg in 2014. The carbon dioxide emissions per capita in Mozambique was 0.22t in 2020."
+    },
+    "country/MRT": {
+        "summary": "Mauritania is a country in Africa. The population in Mauritania was 4,614,974 in 2021. The nominal GDP per capita in Mauritania was $2,166.04 in 2021. The Gini index in Mauritania was 32.6 in 2014. The life expectancy in Mauritania was 64.36 in 2021. The carbon dioxide emissions per capita in Mauritania was 0.86t in 2020."
+    },
+    "country/MSR": {
+        "summary": "Montserrat is a country in North America. The population in Montserrat was 4,992 in 2020."
+    },
+    "country/MTQ": {
+        "summary": "Martinique is a country in North America, Europe. The population in Martinique was 376,480 in 2016."
+    },
+    "country/MUS": {
+        "summary": "Mauritius is a country in Africa. The population in Mauritius was 1,266,334 in 2021. The nominal GDP per capita in Mauritius was $9,062.72 in 2021. The Gini index in Mauritius was 36.8 in 2017. The life expectancy in Mauritius was 73.68 in 2021. The energy consumption per capita in Mauritius was 1,111.18kg in 2014. The carbon dioxide emissions per capita in Mauritius was 2.94t in 2020."
+    },
+    "country/MWI": {
+        "summary": "Malawi is a country in Africa. The population in Malawi was 19,889,742 in 2021. The nominal GDP per capita in Malawi was $633.61 in 2021. The Gini index in Malawi was 38.5 in 2019. The life expectancy in Malawi was 62.9 in 2021. The carbon dioxide emissions per capita in Malawi was 0.08t in 2020."
+    },
+    "country/MYS": {
+        "summary": "Malaysia is a country in Asia. The population in Malaysia was 33,573,874 in 2021. The nominal GDP per capita in Malaysia was $11,109.27 in 2021. The Gini index in Malaysia was 41.2 in 2018. The life expectancy in Malaysia was 74.88 in 2021. The energy consumption per capita in Malaysia was 2,930.85kg in 2014. The carbon dioxide emissions per capita in Malaysia was 7.38t in 2020."
+    },
+    "country/MYT": {
+        "summary": "Mayotte is a country in Africa, Europe. The population in Mayotte was 270,372 in 2019."
+    },
+    "country/NAM": {
+        "summary": "Namibia is a country in Africa. The population in Namibia was 2,530,151 in 2021. The nominal GDP per capita in Namibia was $4,919.19 in 2021. The Gini index in Namibia was 59.1 in 2015. The life expectancy in Namibia was 59.27 in 2021. The energy consumption per capita in Namibia was 805.07kg in 2014. The carbon dioxide emissions per capita in Namibia was 1.59t in 2020."
+    },
+    "country/NCL": {
+        "summary": "New Caledonia is a country in Oceania. The population in New Caledonia was 274,660 in 2021. The nominal GDP per capita in New Caledonia was $36,668.43 in 2021. The life expectancy in New Caledonia was 79.13 in 2021."
+    },
+    "country/NER": {
+        "summary": "Niger is a country in Africa. The population in Niger was 25,252,722 in 2021. The nominal GDP per capita in Niger was $590.63 in 2021. The Gini index in Niger was 37.3 in 2018. The life expectancy in Niger was 61.58 in 2021. The energy consumption per capita in Niger was 148.99kg in 2014. The carbon dioxide emissions per capita in Niger was 0.09t in 2020."
+    },
+    "country/NFK": {
+        "summary": "Norfolk Island is a country in Oceania. The population in Norfolk Island was 2,169 in 2011."
+    },
+    "country/NGA": {
+        "summary": "Nigeria is a country in Africa. The population in Nigeria was 213,401,323 in 2021. The unemployment rate in Nigeria was 21.4% in 2010. The nominal GDP per capita in Nigeria was $2,065.75 in 2021. The Gini index in Nigeria was 35.1 in 2018. The life expectancy in Nigeria was 52.68 in 2021. The energy consumption per capita in Nigeria was 750.97kg in 2014. The carbon dioxide emissions per capita in Nigeria was 0.54t in 2020."
+    },
+    "country/NIC": {
+        "summary": "Nicaragua is a country in North America. The population in Nicaragua was 6,850,540 in 2021. The nominal GDP per capita in Nicaragua was $2,064.93 in 2021. The Gini index in Nicaragua was 46.2 in 2014. The life expectancy in Nicaragua was 73.84 in 2021. The energy consumption per capita in Nicaragua was 589.91kg in 2014. The carbon dioxide emissions per capita in Nicaragua was 0.68t in 2020."
+    },
+    "country/NIU": {
+        "summary": "Niue is a country in Oceania. The population in Niue was 1,620 in 2018."
+    },
+    "country/NLD": {
+        "summary": "Netherlands is a country in Europe. The population in Netherlands was 17,282,163 in 2019. The unemployment rate in Netherlands was 4.5% in 2020. The nominal GDP per capita in Netherlands was $57,708.11 in 2021. The Gini index in Netherlands was 26 in 2020. The life expectancy in Netherlands was 81.46 in 2021. The energy consumption per capita in Netherlands was 4,233.04kg in 2015. The carbon dioxide emissions per capita in Netherlands was 7.47t in 2020."
+    },
+    "country/NOR": {
+        "summary": "Norway is a country in Europe. The population in Norway was 5,328,212 in 2019. The unemployment rate in Norway was 5.2% in 2020. The nominal GDP per capita in Norway was $90,655.39 in 2021. The Gini index in Norway was 27.7 in 2019. The life expectancy in Norway was 83.16 in 2021. The energy consumption per capita in Norway was 5,817.64kg in 2015. The carbon dioxide emissions per capita in Norway was 6.73t in 2020."
+    },
+    "country/NPL": {
+        "summary": "Nepal is a country in Asia. The population in Nepal was 30,034,989 in 2021. The nominal GDP per capita in Nepal was $1,229.39 in 2021. The Gini index in Nepal was 32.8 in 2010. The life expectancy in Nepal was 68.45 in 2021. The energy consumption per capita in Nepal was 425.67kg in 2014. The carbon dioxide emissions per capita in Nepal was 0.51t in 2020."
+    },
+    "country/NRU": {
+        "summary": "Nauru is a country in Oceania. The population in Nauru was 12,511 in 2021. The nominal GDP per capita in Nauru was $11,632.69 in 2021. The Gini index in Nauru was 32.4 in 2012. The life expectancy in Nauru was 63.62 in 2021. The carbon dioxide emissions per capita in Nauru was 3.36t in 2020."
+    },
+    "country/NZL": {
+        "summary": "New Zealand is a country in Oceania. The population in New Zealand was 5,111,400 in 2021. The median age in New Zealand was 38.2 in 2022. The nominal GDP per capita in New Zealand was $49,996.42 in 2021. The life expectancy in New Zealand was 82.21 in 2021. The energy consumption per capita in New Zealand was 4,431.51kg in 2015. The carbon dioxide emissions per capita in New Zealand was 6.16t in 2020."
+    },
+    "country/OMN": {
+        "summary": "Oman is a country in Asia. The population in Oman was 4,520,471 in 2021. The nominal GDP per capita in Oman was $19,509.47 in 2021. The life expectancy in Oman was 72.54 in 2021. The energy consumption per capita in Oman was 6,067.72kg in 2014. The carbon dioxide emissions per capita in Oman was 15.64t in 2020."
+    },
+    "country/PAK": {
+        "summary": "Pakistan is a country in Asia. The population in Pakistan was 231,402,117 in 2021. The nominal GDP per capita in Pakistan was $1,505.01 in 2021. The Gini index in Pakistan was 29.6 in 2018. The life expectancy in Pakistan was 66.1 in 2021. The energy consumption per capita in Pakistan was 431.63kg in 2014. The carbon dioxide emissions per capita in Pakistan was 0.81t in 2020."
+    },
+    "country/PAN": {
+        "summary": "Panama is a country in South America, North America. The population in Panama was 4,351,267 in 2021. The nominal GDP per capita in Panama was $15,491.29 in 2021. The Gini index in Panama was 50.9 in 2021. The life expectancy in Panama was 76.22 in 2021. The energy consumption per capita in Panama was 1,083.35kg in 2014. The carbon dioxide emissions per capita in Panama was 2.23t in 2020."
+    },
+    "country/PCN": {
+        "summary": "Pitcairn Islands is a country in Oceania. The population in Pitcairn Islands was 67 in 2011."
+    },
+    "country/PER": {
+        "summary": "Peru is a country in South America. The population in Peru was 33,715,471 in 2021. The nominal GDP per capita in Peru was $6,635.46 in 2021. The Gini index in Peru was 40.2 in 2021. The life expectancy in Peru was 72.38 in 2021. The energy consumption per capita in Peru was 783.35kg in 2014. The carbon dioxide emissions per capita in Peru was 1.4t in 2020."
+    },
+    "country/PHL": {
+        "summary": "Philippines is a country in Asia. The population in Philippines was 113,880,328 in 2021. The nominal GDP per capita in Philippines was $3,460.54 in 2021. The Gini index in Philippines was 40.7 in 2021. The life expectancy in Philippines was 69.27 in 2021. The energy consumption per capita in Philippines was 470.5kg in 2014. The carbon dioxide emissions per capita in Philippines was 1.19t in 2020."
+    },
+    "country/PLW": {
+        "summary": "Palau is a country in Oceania. The population in Palau was 18,024 in 2021. The nominal GDP per capita in Palau was $12,083.89 in 2021. The life expectancy in Palau was 69.13 in 2005. The energy consumption per capita in Palau was 4,803.68kg in 1990. The carbon dioxide emissions per capita in Palau was 8.8t in 2020."
+    },
+    "country/PNG": {
+        "summary": "Papua New Guinea is a country in Oceania. The population in Papua New Guinea was 9,949,437 in 2021. The nominal GDP per capita in Papua New Guinea was $2,644.54 in 2021. The Gini index in Papua New Guinea was 41.9 in 2009. The life expectancy in Papua New Guinea was 65.35 in 2021. The carbon dioxide emissions per capita in Papua New Guinea was 0.56t in 2020."
+    },
+    "country/POL": {
+        "summary": "Poland is a country in Europe. The population in Poland was 37,972,812 in 2019. The unemployment rate in Poland was 3.2% in 2020. The nominal GDP per capita in Poland was $17,999.83 in 2021. The Gini index in Poland was 28.8 in 2019. The life expectancy in Poland was 75.6 in 2021. The energy consumption per capita in Poland was 2,490.21kg in 2015. The carbon dioxide emissions per capita in Poland was 7.37t in 2020."
+    },
+    "country/PRI": {
+        "summary": "Puerto Rico is a country in North America. The population in Puerto Rico was 3,262,693 in 2021. The nominal GDP per capita in Puerto Rico was $32,601.57 in 2021. The life expectancy in Puerto Rico was 80.16 in 2021."
+    },
+    "country/PRK": {
+        "summary": "North Korea is a country in Asia. The population in North Korea was 25,971,909 in 2021. The life expectancy in North Korea was 73.28 in 2021. The energy consumption per capita in North Korea was 474.05kg in 2014. The carbon dioxide emissions per capita in North Korea was 2.03t in 2020."
+    },
+    "country/PRT": {
+        "summary": "Portugal is a country in Europe. The population in Portugal was 10,276,617 in 2019. The unemployment rate in Portugal was 8.1% in 2020. The nominal GDP per capita in Portugal was $24,598.47 in 2021. The Gini index in Portugal was 34.7 in 2020. The life expectancy in Portugal was 81.07 in 2021. The energy consumption per capita in Portugal was 2,131.68kg in 2015. The carbon dioxide emissions per capita in Portugal was 3.78t in 2020."
+    },
+    "country/PRY": {
+        "summary": "Paraguay is a country in South America. The population in Paraguay was 6,703,799 in 2021. The nominal GDP per capita in Paraguay was $5,959.44 in 2021. The Gini index in Paraguay was 45.1 in 2022. The life expectancy in Paraguay was 70.26 in 2021. The energy consumption per capita in Paraguay was 848.5kg in 2014. The carbon dioxide emissions per capita in Paraguay was 1.14t in 2020."
+    },
+    "country/PSE": {
+        "summary": "Palestinian Territories is a country in Asia. The population in Palestinian Territories was 4,922,749 in 2021. The nominal GDP per capita in Palestinian Territories was $3,678.64 in 2021. The Gini index in Palestinian Territories was 33.7 in 2016. The life expectancy in Palestinian Territories was 73.47 in 2021."
+    },
+    "country/PYF": {
+        "summary": "French Polynesia is a country in Oceania, Europe. The population in French Polynesia was 304,032 in 2021. The nominal GDP per capita in French Polynesia was $19,999.08 in 2021. The life expectancy in French Polynesia was 79.49 in 2021."
+    },
+    "country/QAT": {
+        "summary": "Qatar is a country in Asia. The population in Qatar was 2,688,235 in 2021. The nominal GDP per capita in Qatar was $66,838.33 in 2021. The life expectancy in Qatar was 79.27 in 2021. The energy consumption per capita in Qatar was 19,903.48kg in 2014. The carbon dioxide emissions per capita in Qatar was 31.73t in 2020."
+    },
+    "country/REU": {
+        "summary": "R\u00e9union is a country in Africa, Europe. The population in R\u00e9union was 859,959 in 2020."
+    },
+    "country/ROU": {
+        "summary": "Romania is a country in Europe. The population in Romania was 19,414,458 in 2019. The unemployment rate in Romania was 5.4% in 2020. The nominal GDP per capita in Romania was $14,927.12 in 2021. The Gini index in Romania was 34.6 in 2020. The life expectancy in Romania was 72.96 in 2021. The energy consumption per capita in Romania was 1,591.67kg in 2014. The carbon dioxide emissions per capita in Romania was 3.56t in 2020."
+    },
+    "country/RUS": {
+        "summary": "Russia is a country in Europe, Asia. The population in Russia was 143,666,931 in 2014. The nominal GDP per capita in Russia was $12,593.16 in 2021. The Gini index in Russia was 36 in 2020. The life expectancy in Russia was 69.36 in 2021. The energy consumption per capita in Russia was 4,942.88kg in 2014. The carbon dioxide emissions per capita in Russia was 11.23t in 2020."
+    },
+    "country/RWA": {
+        "summary": "Rwanda is a country in Africa. The population in Rwanda was 13,461,888 in 2021. The nominal GDP per capita in Rwanda was $821.23 in 2021. The Gini index in Rwanda was 43.7 in 2016. The life expectancy in Rwanda was 66.07 in 2021. The carbon dioxide emissions per capita in Rwanda was 0.11t in 2020."
+    },
+    "country/SAU": {
+        "summary": "Saudi Arabia is a country in Asia. The population in Saudi Arabia was 35,950,396 in 2021. The nominal GDP per capita in Saudi Arabia was $24,160.68 in 2021. The life expectancy in Saudi Arabia was 76.94 in 2021. The energy consumption per capita in Saudi Arabia was 6,645.96kg in 2014. The carbon dioxide emissions per capita in Saudi Arabia was 14.27t in 2020."
+    },
+    "country/SCG": {
+        "summary": "The population in Serbia and Montenegro was 10,832,545 in 2006."
+    },
+    "country/SDN": {
+        "summary": "Sudan is a country in Africa. The population in Sudan was 45,657,202 in 2021. The nominal GDP per capita in Sudan was $749.71 in 2021. The Gini index in Sudan was 34.2 in 2014. The life expectancy in Sudan was 65.27 in 2021. The energy consumption per capita in Sudan was 405.03kg in 2014. The carbon dioxide emissions per capita in Sudan was 0.47t in 2020."
+    },
+    "country/SEN": {
+        "summary": "Senegal is a country in Africa. The population in Senegal was 16,876,720 in 2021. The nominal GDP per capita in Senegal was $1,633.56 in 2021. The Gini index in Senegal was 38.3 in 2018. The life expectancy in Senegal was 67.09 in 2021. The energy consumption per capita in Senegal was 283.3kg in 2014. The carbon dioxide emissions per capita in Senegal was 0.65t in 2020."
+    },
+    "country/SGP": {
+        "summary": "Singapore is a country in Asia. The population in Singapore was 5,453,566 in 2021. The nominal GDP per capita in Singapore was $77,710.07 in 2021. The life expectancy in Singapore was 83.44 in 2021. The energy consumption per capita in Singapore was 5,121.8kg in 2014. The carbon dioxide emissions per capita in Singapore was 7.69t in 2020."
+    },
+    "country/SGS": {
+        "summary": "South Georgia and the South Sandwich Islands is a country in Antarctica. The population in South Georgia and the South Sandwich Islands was 30 in 2006."
+    },
+    "country/SHN": {
+        "summary": "Saint Helena is a country in Africa, Europe. The population in Saint Helena was 5,661 in 2008."
+    },
+    "country/SJM": {
+        "summary": "Svalbard and Jan Mayen is a country in Europe."
+    },
+    "country/SLB": {
+        "summary": "Solomon Islands is a country in Oceania. The population in Solomon Islands was 707,851 in 2021. The nominal GDP per capita in Solomon Islands was $2,232.54 in 2021. The Gini index in Solomon Islands was 37.1 in 2012. The life expectancy in Solomon Islands was 70.35 in 2021. The energy consumption per capita in Solomon Islands was 126.83kg in 2007. The carbon dioxide emissions per capita in Solomon Islands was 0.32t in 2020."
+    },
+    "country/SLE": {
+        "summary": "Sierra Leone is a country in Africa. The population in Sierra Leone was 8,420,641 in 2021. The nominal GDP per capita in Sierra Leone was $504.62 in 2021. The Gini index in Sierra Leone was 35.7 in 2018. The life expectancy in Sierra Leone was 60.06 in 2021. The carbon dioxide emissions per capita in Sierra Leone was 0.13t in 2020."
+    },
+    "country/SLV": {
+        "summary": "El Salvador is a country in North America. The population in El Salvador was 6,314,167 in 2021. The nominal GDP per capita in El Salvador was $4,664.31 in 2021. The Gini index in El Salvador was 38.8 in 2022. The life expectancy in El Salvador was 70.75 in 2021. The energy consumption per capita in El Salvador was 654.78kg in 2014. The carbon dioxide emissions per capita in El Salvador was 1.01t in 2020."
+    },
+    "country/SMR": {
+        "summary": "San Marino is a country in Europe. The population in San Marino was 34,453 in 2018. The nominal GDP per capita in San Marino was $54,982.45 in 2021."
+    },
+    "country/SOM": {
+        "summary": "Somalia is a country in Africa. The population in Somalia was 17,065,581 in 2021. The nominal GDP per capita in Somalia was $446.98 in 2021. The life expectancy in Somalia was 55.28 in 2021. The carbon dioxide emissions per capita in Somalia was 0.04t in 2020."
+    },
+    "country/SPM": {
+        "summary": "Saint Pierre and Miquelon is a country in North America, Europe. The population in Saint Pierre and Miquelon was 5,888 in 2011."
+    },
+    "country/SRB": {
+        "summary": "Serbia is a country in Europe. The population in Serbia was 6,963,764 in 2019. The nominal GDP per capita in Serbia was $9,230.17 in 2021. The Gini index in Serbia was 35 in 2020. The life expectancy in Serbia was 72.73 in 2021. The energy consumption per capita in Serbia was 1,859.43kg in 2014. The carbon dioxide emissions per capita in Serbia was 6.71t in 2020."
+    },
+    "country/SSD": {
+        "summary": "South Sudan is a country in Africa. The population in South Sudan was 10,748,272 in 2021. The nominal GDP per capita in South Sudan was $1,071.78 in 2015. The Gini index in South Sudan was 44.1 in 2016. The life expectancy in South Sudan was 54.98 in 2021. The energy consumption per capita in South Sudan was 62.45kg in 2014. The carbon dioxide emissions per capita in South Sudan was 0.16t in 2020."
+    },
+    "country/STP": {
+        "summary": "S\u00e3o Tom\u00e9 and Pr\u00edncipe is a country in Africa. The population in S\u00e3o Tom\u00e9 and Pr\u00edncipe was 223,107 in 2021. The nominal GDP per capita in S\u00e3o Tom\u00e9 and Pr\u00edncipe was $2,360.54 in 2021. The Gini index in S\u00e3o Tom\u00e9 and Pr\u00edncipe was 40.7 in 2017. The life expectancy in S\u00e3o Tom\u00e9 and Pr\u00edncipe was 67.59 in 2021. The energy consumption per capita in S\u00e3o Tom\u00e9 and Pr\u00edncipe was 259.06kg in 2007. The carbon dioxide emissions per capita in S\u00e3o Tom\u00e9 and Pr\u00edncipe was 0.65t in 2020."
+    },
+    "country/SUN": {
+        "summary": "The population in Union of Soviet Socialist Republics was 293,047,571 in 1991."
+    },
+    "country/SUR": {
+        "summary": "Suriname is a country in South America. The population in Suriname was 612,985 in 2021. The nominal GDP per capita in Suriname was $4,869.13 in 2021. The Gini index in Suriname was 57.9 in 1999. The life expectancy in Suriname was 70.27 in 2021. The energy consumption per capita in Suriname was 1,211.4kg in 2014. The carbon dioxide emissions per capita in Suriname was 4.29t in 2020."
+    },
+    "country/SVK": {
+        "summary": "Slovakia is a country in Europe. The population in Slovakia was 5,450,421 in 2019. The unemployment rate in Slovakia was 6.8% in 2020. The nominal GDP per capita in Slovakia was $21,782.86 in 2021. The Gini index in Slovakia was 23.2 in 2019. The life expectancy in Slovakia was 74.71 in 2021. The energy consumption per capita in Slovakia was 3,003.66kg in 2015. The carbon dioxide emissions per capita in Slovakia was 5.32t in 2020."
+    },
+    "country/SVN": {
+        "summary": "Slovenia is a country in Europe. The population in Slovenia was 2,080,908 in 2019. The unemployment rate in Slovenia was 4.7% in 2020. The nominal GDP per capita in Slovenia was $29,291.4 in 2021. The Gini index in Slovenia was 24 in 2020. The life expectancy in Slovenia was 80.88 in 2021. The energy consumption per capita in Slovenia was 3,174.87kg in 2015. The carbon dioxide emissions per capita in Slovenia was 5.93t in 2020."
+    },
+    "country/SWE": {
+        "summary": "Sweden is a country in Europe. The population in Sweden was 10,230,185 in 2019. The unemployment rate in Sweden was 9.2% in 2020. The nominal GDP per capita in Sweden was $61,143.22 in 2021. The Gini index in Sweden was 28.9 in 2020. The life expectancy in Sweden was 83.16 in 2021. The energy consumption per capita in Sweden was 5,102.79kg in 2015. The carbon dioxide emissions per capita in Sweden was 3.24t in 2020."
+    },
+    "country/SWZ": {
+        "summary": "Eswatini is a country in Africa. The population in Eswatini was 1,192,271 in 2021. The nominal GDP per capita in Eswatini was $3,982.91 in 2021. The Gini index in Eswatini was 54.6 in 2016. The life expectancy in Eswatini was 57.07 in 2021. The energy consumption per capita in Eswatini was 390.22kg in 2007. The carbon dioxide emissions per capita in Eswatini was 0.97t in 2020."
+    },
+    "country/SXM": {
+        "summary": "Sint Maarten is a country in North America. The population in Sint Maarten was 42,846 in 2021. The nominal GDP per capita in Sint Maarten was $32,316.6 in 2021. The life expectancy in Sint Maarten was 73.97 in 2021."
+    },
+    "country/SYC": {
+        "summary": "Seychelles is a country in Africa. The population in Seychelles was 99,258 in 2021. The nominal GDP per capita in Seychelles was $12,963.06 in 2021. The Gini index in Seychelles was 32.1 in 2018. The life expectancy in Seychelles was 73.4 in 2021. The energy consumption per capita in Seychelles was 2,410.83kg in 2007. The carbon dioxide emissions per capita in Seychelles was 6.08t in 2020."
+    },
+    "country/SYR": {
+        "summary": "Syria is a country in Asia. The population in Syria was 21,324,367 in 2021. The nominal GDP per capita in Syria was $537.21 in 2020. The Gini index in Syria was 37.5 in 2003. The life expectancy in Syria was 72.06 in 2021. The energy consumption per capita in Syria was 538.18kg in 2014. The carbon dioxide emissions per capita in Syria was 1.21t in 2020."
+    },
+    "country/TCA": {
+        "summary": "Turks and Caicos Islands is a country in North America, Europe. The population in Turks and Caicos Islands was 45,114 in 2021. The nominal GDP per capita in Turks and Caicos Islands was $23,158.64 in 2021. The life expectancy in Turks and Caicos Islands was 74.59 in 2021."
+    },
+    "country/TCD": {
+        "summary": "Chad is a country in Africa. The population in Chad was 17,179,740 in 2021. The nominal GDP per capita in Chad was $685.69 in 2021. The Gini index in Chad was 37.5 in 2018. The life expectancy in Chad was 52.52 in 2021. The carbon dioxide emissions per capita in Chad was 0.09t in 2020."
+    },
+    "country/TGO": {
+        "summary": "Togo is a country in Africa. The population in Togo was 8,644,829 in 2021. The nominal GDP per capita in Togo was $964.05 in 2021. The Gini index in Togo was 42.5 in 2018. The life expectancy in Togo was 61.62 in 2021. The energy consumption per capita in Togo was 452.95kg in 2014. The carbon dioxide emissions per capita in Togo was 0.29t in 2020."
+    },
+    "country/THA": {
+        "summary": "Thailand is a country in Asia. The population in Thailand was 71,601,103 in 2021. The nominal GDP per capita in Thailand was $7,060.9 in 2021. The Gini index in Thailand was 35.1 in 2021. The life expectancy in Thailand was 78.72 in 2021. The energy consumption per capita in Thailand was 1,926.16kg in 2014. The carbon dioxide emissions per capita in Thailand was 3.71t in 2020."
+    },
+    "country/TJK": {
+        "summary": "Tajikistan is a country in Asia. The population in Tajikistan was 9,750,064 in 2021. The nominal GDP per capita in Tajikistan was $916.69 in 2021. The Gini index in Tajikistan was 34 in 2015. The life expectancy in Tajikistan was 71.59 in 2021. The energy consumption per capita in Tajikistan was 336.85kg in 2014. The carbon dioxide emissions per capita in Tajikistan was 0.98t in 2020."
+    },
+    "country/TKL": {
+        "summary": "Tokelau is a country in Oceania. The population in Tokelau was 1,411 in 2011."
+    },
+    "country/TKM": {
+        "summary": "Turkmenistan is a country in Asia. The population in Turkmenistan was 6,341,855 in 2021. The nominal GDP per capita in Turkmenistan was $7,297.18 in 2020. The Gini index in Turkmenistan was 40.8 in 1998. The life expectancy in Turkmenistan was 69.26 in 2021. The energy consumption per capita in Turkmenistan was 4,723.34kg in 2014. The carbon dioxide emissions per capita in Turkmenistan was 10.18t in 2020."
+    },
+    "country/TLS": {
+        "summary": "East Timor is a country in Asia. The population in East Timor was 1,320,942 in 2021. The nominal GDP per capita in East Timor was $2,741.39 in 2021. The Gini index in East Timor was 28.7 in 2014. The life expectancy in East Timor was 67.74 in 2021. The energy consumption per capita in East Timor was 59.84kg in 2007. The carbon dioxide emissions per capita in East Timor was 0.34t in 2020."
+    },
+    "country/TON": {
+        "summary": "Tonga is a country in Oceania. The population in Tonga was 106,017 in 2021. The nominal GDP per capita in Tonga was $4,425.97 in 2021. The Gini index in Tonga was 33.5 in 2015. The life expectancy in Tonga was 70.99 in 2021. The energy consumption per capita in Tonga was 543.9kg in 2007. The carbon dioxide emissions per capita in Tonga was 1.12t in 2020."
+    },
+    "country/TTO": {
+        "summary": "Trinidad and Tobago is a country in South America. The population in Trinidad and Tobago was 1,525,663 in 2021. The nominal GDP per capita in Trinidad and Tobago was $16,032.5 in 2021. The Gini index in Trinidad and Tobago was 40.3 in 1992. The life expectancy in Trinidad and Tobago was 72.97 in 2021. The energy consumption per capita in Trinidad and Tobago was 13,489.04kg in 2014. The carbon dioxide emissions per capita in Trinidad and Tobago was 10.16t in 2020."
+    },
+    "country/TUN": {
+        "summary": "Tunisia is a country in Africa. The population in Tunisia was 12,262,946 in 2021. The nominal GDP per capita in Tunisia was $3,807.18 in 2021. The Gini index in Tunisia was 32.8 in 2015. The life expectancy in Tunisia was 73.77 in 2021. The energy consumption per capita in Tunisia was 920.07kg in 2014. The carbon dioxide emissions per capita in Tunisia was 2.41t in 2020."
+    },
+    "country/TUR": {
+        "summary": "Turkey is a country in Europe, Asia. The population in Turkey was 82,003,882 in 2019. The unemployment rate in Turkey was 14% in 2020. The nominal GDP per capita in Turkey was $9,661.23 in 2021. The Gini index in Turkey was 41.9 in 2019. The life expectancy in Turkey was 76.03 in 2021. The energy consumption per capita in Turkey was 1,628.21kg in 2015. The carbon dioxide emissions per capita in Turkey was 4.84t in 2020."
+    },
+    "country/TUV": {
+        "summary": "Tuvalu is a country in Oceania. The population in Tuvalu was 11,204 in 2021. The nominal GDP per capita in Tuvalu was $5,372.76 in 2021. The Gini index in Tuvalu was 39.1 in 2010. The life expectancy in Tuvalu was 64.55 in 2021. The carbon dioxide emissions per capita in Tuvalu was 0.6t in 2020."
+    },
+    "country/TWN": {
+        "summary": "Taiwan is a country in Asia. The population in Taiwan was 23,568,378 in 2020."
+    },
+    "country/TZA": {
+        "summary": "Tanzania is a country in Africa. The population in Tanzania was 63,588,334 in 2021. The nominal GDP per capita in Tanzania was $1,146.03 in 2021. The Gini index in Tanzania was 40.5 in 2018. The life expectancy in Tanzania was 66.2 in 2021. The energy consumption per capita in Tanzania was 488.72kg in 2014. The carbon dioxide emissions per capita in Tanzania was 0.23t in 2020."
+    },
+    "country/UGA": {
+        "summary": "Uganda is a country in Africa. The population in Uganda was 45,853,778 in 2021. The nominal GDP per capita in Uganda was $883.47 in 2021. The Gini index in Uganda was 42.7 in 2019. The life expectancy in Uganda was 62.7 in 2021. The carbon dioxide emissions per capita in Uganda was 0.13t in 2020."
+    },
+    "country/UKR": {
+        "summary": "Ukraine is a country in Europe. The population in Ukraine was 41,983,564 in 2019. The nominal GDP per capita in Ukraine was $4,827.85 in 2021. The Gini index in Ukraine was 25.6 in 2020. The life expectancy in Ukraine was 69.65 in 2021. The energy consumption per capita in Ukraine was 2,334.4kg in 2014. The carbon dioxide emissions per capita in Ukraine was 3.75t in 2020."
+    },
+    "country/UMI": {
+        "summary": "U.S. Minor Outlying Islands is a country in Oceania, North America. The population in U.S. Minor Outlying Islands was 300 in 2009."
+    },
+    "country/URY": {
+        "summary": "Uruguay is a country in South America. The population in Uruguay was 3,426,260 in 2021. The nominal GDP per capita in Uruguay was $17,924.0 in 2021. The Gini index in Uruguay was 40.8 in 2021. The life expectancy in Uruguay was 75.44 in 2021. The energy consumption per capita in Uruguay was 1,389.6kg in 2014. The carbon dioxide emissions per capita in Uruguay was 1.9t in 2020."
+    },
+    "country/USA": {
+        "summary": "United States of America is a country in North America. The population in United States of America was 333,287,557 in 2022. The median age in United States of America was 38.4 in 2021. The median income in United States of America was $34,429 in 2021. The unemployment rate in United States of America was 3.7% in 2024. The nominal GDP per capita in United States of America was $70,219.47 in 2021. The Gini index in United States of America was 39.8 in 2021. The life expectancy in United States of America was 76.33 in 2021. The percentage of people with obesity in United States of America was 33% in 2021. The percentage of people who binge drink in United States of America was 16.7% in 2021. The percentage of people who smoke in United States of America was 13.8% in 2021. The energy consumption per capita in United States of America was 6,804.0kg in 2015. The carbon dioxide emissions per capita in United States of America was 13.03t in 2020."
+    },
+    "country/UZB": {
+        "summary": "Uzbekistan is a country in Asia. The population in Uzbekistan was 34,915,100 in 2021. The nominal GDP per capita in Uzbekistan was $1,993.42 in 2021. The Gini index in Uzbekistan was 35.3 in 2003. The life expectancy in Uzbekistan was 70.86 in 2021. The energy consumption per capita in Uzbekistan was 1,419.48kg in 2013. The carbon dioxide emissions per capita in Uzbekistan was 3.38t in 2020."
+    },
+    "country/VAT": {
+        "summary": "Vatican City is a country in Europe. The population in Vatican City was 825 in 2019."
+    },
+    "country/VCT": {
+        "summary": "Saint Vincent and the Grenadines is a country in North America. The population in Saint Vincent and the Grenadines was 104,332 in 2021. The nominal GDP per capita in Saint Vincent and the Grenadines was $8,360.1 in 2021. The life expectancy in Saint Vincent and the Grenadines was 69.63 in 2021. The energy consumption per capita in Saint Vincent and the Grenadines was 631.63kg in 2007. The carbon dioxide emissions per capita in Saint Vincent and the Grenadines was 2.1t in 2020."
+    },
+    "country/VEN": {
+        "summary": "Venezuela is a country in South America. The population in Venezuela was 28,199,867 in 2021. The nominal GDP per capita in Venezuela was $15,975.73 in 2014. The Gini index in Venezuela was 44.8 in 2006. The life expectancy in Venezuela was 70.55 in 2021. The energy consumption per capita in Venezuela was 2,304.53kg in 2013. The carbon dioxide emissions per capita in Venezuela was 2.55t in 2020."
+    },
+    "country/VGB": {
+        "summary": "British Virgin Islands is a country in North America. The population in British Virgin Islands was 31,122 in 2021. The life expectancy in British Virgin Islands was 74.49 in 2021."
+    },
+    "country/VIR": {
+        "summary": "U.S. Virgin Islands is a country in North America. The population in U.S. Virgin Islands was 105,870 in 2021. The nominal GDP per capita in U.S. Virgin Islands was $39,552.17 in 2020. The life expectancy in U.S. Virgin Islands was 80.07 in 2021."
+    },
+    "country/VNM": {
+        "summary": "Vietnam is a country in Asia. The population in Vietnam was 97,468,029 in 2021. The nominal GDP per capita in Vietnam was $3,756.49 in 2021. The Gini index in Vietnam was 36.8 in 2020. The life expectancy in Vietnam was 73.62 in 2021. The energy consumption per capita in Vietnam was 663.89kg in 2013. The carbon dioxide emissions per capita in Vietnam was 3.68t in 2020."
+    },
+    "country/VUT": {
+        "summary": "Vanuatu is a country in Oceania. The population in Vanuatu was 319,137 in 2021. The nominal GDP per capita in Vanuatu was $3,044.57 in 2021. The Gini index in Vanuatu was 32.3 in 2019. The life expectancy in Vanuatu was 70.45 in 2021. The energy consumption per capita in Vanuatu was 153.28kg in 2007. The carbon dioxide emissions per capita in Vanuatu was 0.39t in 2020."
+    },
+    "country/WLF": {
+        "summary": "Wallis and Futuna is a country in Oceania, Europe. The population in Wallis and Futuna was 15,289 in 2009."
+    },
+    "country/WSM": {
+        "summary": "Samoa is a country in Oceania. The population in Samoa was 218,764 in 2021. The nominal GDP per capita in Samoa was $3,857.36 in 2021. The Gini index in Samoa was 38.7 in 2013. The life expectancy in Samoa was 72.77 in 2021. The energy consumption per capita in Samoa was 304.5kg in 2007. The carbon dioxide emissions per capita in Samoa was 0.96t in 2020."
+    },
+    "country/XKS": {
+        "summary": "Kosovo is a country in Europe. The population in Kosovo was 1,873,160 in 2020."
+    },
+    "country/YEM": {
+        "summary": "Yemen is a country in Asia. The population in Yemen was 32,981,641 in 2021. The nominal GDP per capita in Yemen was $603.71 in 2021. The Gini index in Yemen was 36.7 in 2014. The life expectancy in Yemen was 63.75 in 2021. The energy consumption per capita in Yemen was 306.31kg in 2013. The carbon dioxide emissions per capita in Yemen was 0.31t in 2020."
+    },
+    "country/YUG": {
+        "summary": "Yugoslavia is a country in Europe. The population in Yugoslavia was 23,229,846 in 1991."
+    },
+    "country/ZAF": {
+        "summary": "South Africa is a country in Africa. The population in South Africa was 59,392,255 in 2021. The nominal GDP per capita in South Africa was $7,055.06 in 2021. The Gini index in South Africa was 63 in 2014. The life expectancy in South Africa was 62.34 in 2021. The energy consumption per capita in South Africa was 2,686.38kg in 2014. The carbon dioxide emissions per capita in South Africa was 6.69t in 2020."
+    },
+    "country/ZMB": {
+        "summary": "Zambia is a country in Africa. The population in Zambia was 19,473,125 in 2021. The nominal GDP per capita in Zambia was $1,137.34 in 2021. The Gini index in Zambia was 55.9 in 2015. The life expectancy in Zambia was 61.22 in 2021. The energy consumption per capita in Zambia was 631.92kg in 2013. The carbon dioxide emissions per capita in Zambia was 0.4t in 2020."
+    },
+    "country/ZWE": {
+        "summary": "Zimbabwe is a country in Africa. The population in Zimbabwe was 15,993,524 in 2021. The nominal GDP per capita in Zimbabwe was $1,773.92 in 2021. The Gini index in Zimbabwe was 50.3 in 2019. The life expectancy in Zimbabwe was 59.25 in 2021. The energy consumption per capita in Zimbabwe was 832.57kg in 2013. The carbon dioxide emissions per capita in Zimbabwe was 0.53t in 2020."
+    }
+}

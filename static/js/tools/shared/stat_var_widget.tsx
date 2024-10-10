@@ -20,11 +20,12 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { createRef, useEffect } from "react";
+import React, { createRef, useEffect, useRef, useState } from "react";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
+import { STAT_VAR_SELECTOR_WIDTH } from "../../constants/tools_constants";
 import { NamedNode } from "../../shared/types";
-import { DrawerToggle } from "../../stat_var_hierarchy/drawer_toggle";
+import { DrawerResize } from "../../stat_var_hierarchy/drawer_resize";
 import { StatVarHierarchy } from "../../stat_var_hierarchy/stat_var_hierarchy";
 import { StatVarInfo } from "../timeline/chart_region";
 
@@ -49,8 +50,6 @@ interface StatVarWidgetPropsType {
   selectSV?: (sv: string) => void;
   // Whether to disable the alert when there are unavailable SVs.
   disableAlert?: boolean;
-  // Number of entities that should have data for each stat var (group) shown
-  numEntitiesExistence?: number;
 }
 
 export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
@@ -58,18 +57,9 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
   // reattached to the modal when it is opened on small screens.
   const svHierarchyModalRef = createRef<HTMLDivElement>();
   const svHierarchyContainerRef = createRef<HTMLDivElement>();
-
-  function onSvModalOpened(): void {
-    if (svHierarchyModalRef.current && svHierarchyContainerRef.current) {
-      svHierarchyModalRef.current.appendChild(svHierarchyContainerRef.current);
-    }
-  }
-
-  function onSvModalClosed(): void {
-    document
-      .getElementById("explore")
-      .appendChild(svHierarchyContainerRef.current);
-  }
+  const sidebarRef = useRef<HTMLDivElement>(null);
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [width, setWidth] = useState(STAT_VAR_SELECTOR_WIDTH);
 
   useEffect(() => {
     if (!_.isEmpty(props.sampleEntities) && !_.isEmpty(props.selectedSVs)) {
@@ -121,39 +111,55 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
 
   return (
     <>
-      <div className="d-none d-lg-flex explore-menu-container" id="explore">
-        {props.collapsible && (
-          <DrawerToggle
-            collapseElemId="explore"
-            visibleElemId="stat-var-hierarchy-section"
-          />
-        )}
+      <div
+        className={`d-none d-lg-flex explore-menu-container ${
+          isCollapsed ? "collapsed" : ""
+        }`}
+        id="explore"
+        ref={sidebarRef}
+        style={{ width }}
+      >
         <div ref={svHierarchyContainerRef} className="full-size">
           <StatVarHierarchy
+            hidden={isCollapsed}
             type={props.svHierarchyType}
             entities={props.sampleEntities}
             selectedSVs={Object.keys(props.selectedSVs)}
             selectSV={props.selectSV}
-            searchLabel={"Statistical Variables"}
+            searchLabel={"Statistical variables"}
             deselectSV={(sv) => props.deselectSVs([sv])}
-            numEntitiesExistence={props.numEntitiesExistence}
+            numEntitiesExistence={getNumEntitiesExistence()}
           />
         </div>
+        <DrawerResize
+          collapsible={props.collapsible}
+          isCollapsed={isCollapsed}
+          setIsCollapsed={setIsCollapsed}
+          setWidth={setWidth}
+          sidebarRef={sidebarRef}
+        />
       </div>
       <Modal
         isOpen={props.openSvHierarchyModal}
         toggle={props.openSvHierarchyModalCallback}
         className="modal-dialog-centered modal-lg"
         contentClassName="modal-sv-widget"
-        onOpened={onSvModalOpened}
-        onClosed={onSvModalClosed}
         scrollable={true}
       >
         <ModalHeader toggle={props.openSvHierarchyModalCallback}>
           Select Variables
         </ModalHeader>
         <ModalBody>
-          <div ref={svHierarchyModalRef} className="full-size"></div>
+          <StatVarHierarchy
+            hidden={isCollapsed}
+            type={props.svHierarchyType}
+            entities={props.sampleEntities}
+            selectedSVs={Object.keys(props.selectedSVs)}
+            selectSV={props.selectSV}
+            searchLabel={"Statistical variables"}
+            deselectSV={(sv) => props.deselectSVs([sv])}
+            numEntitiesExistence={getNumEntitiesExistence()}
+          />
         </ModalBody>
         <ModalFooter>
           <Button color="primary" onClick={props.openSvHierarchyModalCallback}>
@@ -163,4 +169,23 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
       </Modal>
     </>
   );
+
+  /**
+   * Get number of required entities for stat var filtering.
+   *
+   * NumEntitiesExistence is a parameter that sets the number of entities that
+   * should have data for each stat var (group) shown in the widget. For
+   * example, setting a value of 10 means that at least 10 entities must have
+   * data for a stat var for that stat var to show in the widget. This prevents
+   * showing users stat vars with low geographic coverage that lead to sparse
+   * charts.
+   *
+   * @returns minimum number of entities to use for stat var filtering
+   */
+  function getNumEntitiesExistence(): number {
+    return Math.min(
+      globalThis.minStatVarGeoCoverage || 1,
+      props.sampleEntities.length
+    );
+  }
 }

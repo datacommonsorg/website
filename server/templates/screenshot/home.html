@@ -25,6 +25,23 @@
 
 {% block content %}
   <div class="container">
+    <div>
+      <h5>URL parameters to use</h5>
+      <ul>
+        <li>
+          base_date: the base folder for all the diff comaprison. For example
+          "2024_06_06_21_00_05"
+        </li>
+        <li>
+          start_date (YYYY_MM_DD): the start date to fetch screenshots from. By
+          default is 30 days ago from now.
+        </li>
+        <li>
+          end_date (YYYY_MM_DD): the end date to fetch screenshots from. By
+          default is today.
+        </li>
+      </ul>
+    </div>
     <table>
       {% for item in data %}
         <tr>

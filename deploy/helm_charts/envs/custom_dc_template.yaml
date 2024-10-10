@@ -14,7 +14,6 @@
 
 # Helm config
 
-
 project:
 
 cluster_prefix: "datacommons"
@@ -47,7 +46,7 @@ serviceGroups:
   node: null
   default:
     replicas: 1
-    useSearch: true # No svg service, this needs to use search
+    cacheSVG: true # No svg service, this needs to use search
     resources:
       memoryRequest: "8G"
       memoryLimit: "8G"

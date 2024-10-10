@@ -22,6 +22,7 @@ import tilesCssString from "!!raw-loader!sass-loader!../css/tiles.scss";
 
 import { TimeScaleOption } from "../js/chart/types";
 import { LineTile, LineTilePropType } from "../js/components/tiles/line_tile";
+import { DEFAULT_PER_CAPITA_DENOM } from "./constants";
 import {
   convertArrayAttribute,
   convertBooleanAttribute,
@@ -112,6 +113,10 @@ export class DatacommonsLineComponent extends LitElement {
   @property()
   placeNameProp: string;
 
+  // Optional: List of variable DCIDs to plot per capita
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  perCapita?: string[];
+
   // Optional: Whether to show the "explore" link.
   // Default: false
   @property({ type: Boolean, converter: convertBooleanAttribute })
@@ -121,7 +126,19 @@ export class DatacommonsLineComponent extends LitElement {
   @property()
   timeScale?: TimeScaleOption;
 
-  render(): HTMLElement {
+  // Optional: Only show observations equal to or after this date.
+  @property()
+  startDate?: string;
+
+  // Optional: Only show observations equal to or before this date.
+  @property()
+  endDate?: string;
+
+  // Optional: List of sources for this component
+  @property({ type: Array<string>, converter: convertArrayAttribute })
+  sources?: string[];
+
+  render(): HTMLDivElement {
     const lineTileProps: LineTilePropType = {
       apiRoot: getApiRoot(this.apiRoot),
       colors: this.colors,
@@ -133,10 +150,16 @@ export class DatacommonsLineComponent extends LitElement {
         name: "",
         types: [],
       },
+      startDate: this.startDate,
+      endDate: this.endDate,
       showExploreMore: this.showExploreMore,
       showTooltipOnHover: true,
+      sources: this.sources,
       statVarSpec: this.variables.map((variable) => ({
-        denom: "",
+        denom:
+          this.perCapita && this.perCapita.includes(variable)
+            ? DEFAULT_PER_CAPITA_DENOM
+            : "",
         log: false,
         name: "",
         scaling: 1,

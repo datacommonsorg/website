@@ -35,13 +35,13 @@
 
 <head>
   {# Enable Google Analytics with cookieless tracking. #}
-  {% if GA_ACCOUNT %}
-  <script async src="https://www.googletagmanager.com/gtag/js?id={{ GA_ACCOUNT }}"></script>
+  {% if GOOGLE_ANALYTICS_TAG_ID %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_ANALYTICS_TAG_ID }}"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', '{{ GA_ACCOUNT }}', { client_storage: 'none', anonymize_ip: true });
+    gtag('config', '{{ GOOGLE_ANALYTICS_TAG_ID }}', { client_storage: 'none', anonymize_ip: true });
   </script>
   {% endif %}
   <title>{{ title }} - Feeding America Data Commons</title>
@@ -229,7 +229,6 @@
             {% block subfooter_extra %}{% endblock %}
             <a href="https://www.feedingamerica.org/privacy-policy/">Privacy Policy ›</a>
             <a href="https://www.feedingamerica.org/privacy-policy/donor-privacy-policy">Donor Privacy ›</a>
-            <a href="{{ url_for('static.disclaimers') }}">Disclaimers ›</a>
             <a href="{{ url_for('static.feedback') }}">Contact Us ›</a>
           </div>
         </div>
@@ -243,13 +242,13 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
   {# Enable Google Analytics with cookieless tracking. #}
-  {% if GA_ACCOUNT %}
-  {#<script async src="https://www.googletagmanager.com/gtag/js?id={{ GA_ACCOUNT }}"></script>
+  {% if GOOGLE_ANALYTICS_TAG_ID %}
+  {#<script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_ANALYTICS_TAG_ID }}"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', '{{ GA_ACCOUNT }}', { client_storage: 'none', anonymize_ip: true });
+    gtag('config', '{{ GOOGLE_ANALYTICS_TAG_ID }}', { client_storage: 'none', anonymize_ip: true });
   </script>#}
   {% endif %}
   {% block footer %}

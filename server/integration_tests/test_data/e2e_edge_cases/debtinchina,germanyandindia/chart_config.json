@@ -1,4 +1,5 @@
 {
+  "client": "test_detect-and-fulfill",
   "config": {
     "categories": [
       {
@@ -41,29 +42,29 @@
                     },
                     "comparisonPlaces": [
                       "country/CHN",
-                      "country/DEU",
                       "country/IND"
                     ],
                     "statVarKey": [
-                      "GiniIndex_EconomicActivity_multiple_place_bar_block"
+                      "sdg/DT_TDS_DECT_multiple_place_bar_block"
                     ],
-                    "title": "Gini Index of Economic Activity of a Population (${date})",
+                    "title": "Debt Service as a Proportion of Exports of Goods and Services (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Gini Index of Economic Activity of a Population"
+            "footnote": "Includes data from the following sources: world bank, international debt statistics.",
+            "title": "Debt Service as a Proportion of Exports of Goods and Services"
           }
         ],
         "statVarSpec": {
-          "GiniIndex_EconomicActivity_multiple_place_bar_block": {
-            "name": "Gini Index of Economic Activity of a Population",
-            "statVar": "GiniIndex_EconomicActivity"
-          },
           "sdg/DT_DOD_DECT_GN_ZS_multiple_place_bar_block": {
             "name": "External debt stocks as a proportion of GNI",
             "statVar": "sdg/DT_DOD_DECT_GN_ZS"
+          },
+          "sdg/DT_TDS_DECT_multiple_place_bar_block": {
+            "name": "Debt service as a proportion of exports of goods and services",
+            "statVar": "sdg/DT_TDS_DECT"
           }
         }
       }
@@ -76,6 +77,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "country/CHN",
@@ -157,5 +159,7 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessages": [
+    "Data for \"Germany\" is currently unavailable. See the following statistics on the other places."
+  ]
 }

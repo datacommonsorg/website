@@ -1,0 +1,421 @@
+{
+  "client": "test_fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Human Development Index Rank in United States of America",
+                    "statVarKey": [
+                      "who/CCO_2"
+                    ],
+                    "title": "Human Development Index Rank in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/CCO_2"
+                    ],
+                    "title": "Human Development Index Rank in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "description": "Human development index rank.",
+            "title": "Human Development Index Rank"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Mean Hemoglobin Level of Children Aged 6-59 Months in United States of America",
+                    "statVarKey": [
+                      "who/HEMOGLOBINLEVEL_CHILDREN_MEAN"
+                    ],
+                    "title": "Mean Hemoglobin Level of Children Aged 6-59 Months in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/HEMOGLOBINLEVEL_CHILDREN_MEAN"
+                    ],
+                    "title": "Mean Hemoglobin Level of Children Aged 6-59 Months in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "description": "Mean hemoglobin level of children aged 6-59 months.",
+            "title": "Mean Hemoglobin Level of Children Aged 6-59 Months"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Mean Hemoglobin Level of Non-Pregnant Women (Aged 15-49 Years) in United States of America",
+                    "statVarKey": [
+                      "who/HEMOGLOBINLEVEL_NONPREGNANT_MEAN"
+                    ],
+                    "title": "Mean Hemoglobin Level of Non-Pregnant Women (Aged 15-49 Years) in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/HEMOGLOBINLEVEL_NONPREGNANT_MEAN"
+                    ],
+                    "title": "Mean Hemoglobin Level of Non-Pregnant Women (Aged 15-49 Years) in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "description": "Mean hemoglobin level of non-pregnant women (aged 15-49 years).",
+            "title": "Mean Hemoglobin Level of Non-Pregnant Women (Aged 15-49 Years)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Mean Hemoglobin Level of Pregnant Women (Aged 15-49 Years) in United States of America",
+                    "statVarKey": [
+                      "who/HEMOGLOBINLEVEL_PREGNANT_MEAN"
+                    ],
+                    "title": "Mean Hemoglobin Level of Pregnant Women (Aged 15-49 Years) in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/HEMOGLOBINLEVEL_PREGNANT_MEAN"
+                    ],
+                    "title": "Mean Hemoglobin Level of Pregnant Women (Aged 15-49 Years) in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "description": "Mean hemoglobin level of pregnant women (aged 15-49 years).",
+            "title": "Mean Hemoglobin Level of Pregnant Women (Aged 15-49 Years)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Mean Hemoglobin Level of Women of Reproductive Age (Aged 15-49 Years) in United States of America",
+                    "statVarKey": [
+                      "who/HEMOGLOBINLEVEL_REPRODUCTIVEAGE_MEAN"
+                    ],
+                    "title": "Mean Hemoglobin Level of Women of Reproductive Age (Aged 15-49 Years) in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "who/HEMOGLOBINLEVEL_REPRODUCTIVEAGE_MEAN"
+                    ],
+                    "title": "Mean Hemoglobin Level of Women of Reproductive Age (Aged 15-49 Years) in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "description": "Mean hemoglobin level of women of reproductive age (aged 15-49 years).",
+            "title": "Mean Hemoglobin Level of Women of Reproductive Age (Aged 15-49 Years)"
+          }
+        ],
+        "statVarSpec": {
+          "who/CCO_2": {
+            "name": "Human development index rank",
+            "statVar": "who/CCO_2"
+          },
+          "who/HEMOGLOBINLEVEL_CHILDREN_MEAN": {
+            "name": "Mean hemoglobin level of children aged 6-59 months",
+            "statVar": "who/HEMOGLOBINLEVEL_CHILDREN_MEAN"
+          },
+          "who/HEMOGLOBINLEVEL_NONPREGNANT_MEAN": {
+            "name": "Mean hemoglobin level of non-pregnant women (aged 15-49 years)",
+            "statVar": "who/HEMOGLOBINLEVEL_NONPREGNANT_MEAN"
+          },
+          "who/HEMOGLOBINLEVEL_PREGNANT_MEAN": {
+            "name": "Mean hemoglobin level of pregnant women (aged 15-49 years)",
+            "statVar": "who/HEMOGLOBINLEVEL_PREGNANT_MEAN"
+          },
+          "who/HEMOGLOBINLEVEL_REPRODUCTIVEAGE_MEAN": {
+            "name": "Mean hemoglobin level of women of reproductive age (aged 15-49 years)",
+            "statVar": "who/HEMOGLOBINLEVEL_REPRODUCTIVEAGE_MEAN"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "country/USA"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "entities": [],
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "country/USA",
+    "name": "United States of America",
+    "place_type": "Country"
+  },
+  "placeFallback": {},
+  "placeSource": "UNKNOWN",
+  "places": [
+    {
+      "dcid": "country/USA",
+      "name": "United States of America",
+      "place_type": "Country"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [
+      {
+        "dcid": "dc/topic/UN_SUB_THEME_14",
+        "name": "Inequality and social protection",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UN_SUB_THEME_16",
+        "name": "Nutrition",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UN_SUB_THEME_13",
+        "name": "Poverty",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "exploreMore": {},
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/UN_THEME_1",
+        "name": "1: Poverty and food security",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/UN",
+        "name": "12 UN Data Thematic Areas",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/UN_THEME_2",
+        "name": "2: Health",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UN_THEME_3",
+        "name": "3: Children and youth",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UN_THEME_4",
+        "name": "4: Education and culture",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UN_THEME_5",
+        "name": "5: Equality and human rights",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UN_THEME_6",
+        "name": "6: Economic development",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UN_THEME_8",
+        "name": "8: Drinking water, sanitation and hygiene",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UN_THEME_9",
+        "name": "9: Climate and the environment",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UN_THEME_10",
+        "name": "10: Population and demography",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UN_THEME_11",
+        "name": "11: Disasters and humanitarian action",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UN_THEME_12",
+        "name": "12: Governance and peace",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
+  "svSource": "UNKNOWN",
+  "userMessages": []
+}

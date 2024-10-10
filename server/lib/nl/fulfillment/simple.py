@@ -15,11 +15,11 @@
 import copy
 from typing import List
 
-from server.lib.explore import params
-import server.lib.explore.existence as ext
+import server.lib.nl.common.existence_util as ext
 from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.detection.types import Place
+from server.lib.nl.explore import params
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.fulfillment.utils import add_chart_to_utterance
@@ -39,7 +39,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
   # Do not mutate the original.
   chart_vars = copy.deepcopy(chart_vars)
 
-  is_sdg = params.is_sdg(state.uttr.insight_ctx)
+  is_special_dc = params.is_special_dc(state.uttr.insight_ctx)
 
   if chart_vars.event:
     # This can happen if an event is part of a topic and it can be triggered
@@ -54,7 +54,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
       return False
     chart_vars.svs = eres.exist_svs
 
-    if is_sdg or len(chart_vars.svs) <= _MAX_VARS_PER_CHART:
+    if is_special_dc or len(chart_vars.svs) <= _MAX_VARS_PER_CHART:
       # For fewer SVs, comparing trends over time is nicer.
       chart_type = ChartType.TIMELINE_WITH_HIGHLIGHT
     else:
@@ -62,8 +62,21 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
       # (than, say, breaking it into multiple timeline charts)
       chart_type = ChartType.BAR_CHART
     chart_type = _maybe_demote(chart_type, eres.is_single_point, state)
-    return add_chart_to_utterance(chart_type, state, chart_vars, places,
-                                  chart_origin)
+    sv_place_facet = None
+    if chart_type == ChartType.TIMELINE_WITH_HIGHLIGHT and (state.date_range or
+                                                            state.single_date):
+      sv_place_facet = ext.get_sv_place_facet(chart_vars.svs, places,
+                                              state.exist_checks)
+    sv_place_latest_date = ext.get_sv_place_latest_date(chart_vars.svs, places,
+                                                        None,
+                                                        state.exist_checks)
+    return add_chart_to_utterance(chart_type,
+                                  state,
+                                  chart_vars,
+                                  places,
+                                  chart_origin,
+                                  sv_place_facet=sv_place_facet,
+                                  sv_place_latest_date=sv_place_latest_date)
   else:
     # If its not a peer-group add one chart at a time.
     added = False
@@ -76,8 +89,20 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
         return False
       chart_type = _maybe_demote(ChartType.TIMELINE_WITH_HIGHLIGHT,
                                  eres.is_single_point, state)
-      added |= add_chart_to_utterance(chart_type, state, chart_vars, places,
-                                      chart_origin)
+      sv_place_facet = None
+      if chart_type == ChartType.TIMELINE_WITH_HIGHLIGHT and (
+          state.date_range or state.single_date):
+        sv_place_facet = ext.get_sv_place_facet(chart_vars.svs, places,
+                                                state.exist_checks)
+      sv_place_latest_date = ext.get_sv_place_latest_date(
+          chart_vars.svs, places, None, state.exist_checks)
+      added |= add_chart_to_utterance(chart_type,
+                                      state,
+                                      chart_vars,
+                                      places,
+                                      chart_origin,
+                                      sv_place_facet=sv_place_facet,
+                                      sv_place_latest_date=sv_place_latest_date)
     return added
 
 

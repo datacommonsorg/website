@@ -13,163 +13,218 @@
 # limitations under the License.
 """Common Utility functions for Embeddings."""
 
+import csv
+from dataclasses import asdict
 from dataclasses import dataclass
+import datetime as datetime
+import glob
+import hashlib
+import itertools
+import logging
 import os
-from pathlib import Path
-from typing import Any, Dict, List, Tuple
+import time
+from typing import Dict, List
 
 import pandas as pd
+import yaml
 
-# Col names in the input files/sheets.
-DCID_COL = 'dcid'
+from nl_server import config_reader
+from nl_server.config import Catalog
+from nl_server.config import Env
+from nl_server.config import IndexConfig
+from nl_server.embeddings import EmbeddingsModel
+from nl_server.model.create import create_embeddings_model
+from shared.lib import constants
+from shared.lib import gcs
+from tools.nl.embeddings.file_manager import FileManager
 
-NAME_COL = 'Name'
-DESCRIPTION_COL = 'Description'
-CURATED_ALTERNATIVES_COL = 'Curated_Alternatives'
-OVERRIDE_COL = 'Override_Alternatives'
-
-ALTERNATIVES_COL = 'Alternatives'
-
-# Col names in the concatenated dataframe.
-COL_ALTERNATIVES = 'sentence'
+_COL_DCID = 'dcid'
+_COL_SENTENCE = 'sentence'
+_CHUNK_SIZE = 100
+_NUM_RETRIES = 3
+_LANCEDB_TABLE = 'datacommons'
+_MD5_SUM_FILE = 'md5sum.txt'
 
 
 @dataclass
-class Context:
-  # gspread client
-  gs: Any
-  # Model
-  model: Any
-  # GCS storage bucket
-  bucket: Any
-  # Temp dir
-  tmp: str
+class PreIndex:
+  text: str
+  dcid: str  # ';' concatenated dcids
 
 
-def two_digits(number: int) -> str:
-  return str(number).zfill(2)
+@dataclass
+class Embedding:
+  preindex: PreIndex
+  vector: List[float]
 
 
-def get_local_alternatives(local_filename: str,
-                           local_col_names: List[str]) -> pd.DataFrame:
-  df = pd.read_csv(local_filename).fillna("")
-  df = df[local_col_names]
-  return df
+def _chunk_list(data, chunk_size):
+  it = iter(data)
+  return iter(lambda: tuple(itertools.islice(it, chunk_size)), ())
 
 
-def merge_dataframes(df_1: pd.DataFrame, df_2: pd.DataFrame) -> pd.DataFrame:
-  # In case there is a column (besides DCID_COL) which is common, the merged copy
-  # will contain two columns (one with a postfix _x and one with a postfix _y.
-  # Concatenate the two to produce a final version.
-  df_1 = df_1.merge(df_2, how='left', on=DCID_COL,
-                    suffixes=("_x", "_y")).fillna("")
-
-  # Determine the columns which were common.
-  common_cols = set()
-  for col in df_1.columns:
-    if col.endswith("_x") or col.endswith("_y"):
-      common_cols.add(col.replace("_x", "").replace("_y", ""))
-
-  # Replace the common columns with their concatenation.
-  for col in common_cols:
-    df_1[col] = df_1[f"{col}_x"].str.cat(df_1[f"{col}_y"], sep=";")
-    df_1[col] = df_1[col].replace(to_replace="^;", value="", regex=True)
-    df_1 = df_1.drop(columns=[f"{col}_x", f"{col}_y"])
-
-  return df_1
+def get_md5sum(file_path: str) -> str:
+  with open(file_path, 'r') as f:
+    return hashlib.md5(f.read().encode('utf-8')).hexdigest()
 
 
-def concat_alternatives(alternatives: List[str],
-                        max_alternatives,
-                        delimiter=";") -> str:
-  alts = set(alternatives[0:max_alternatives])
-  return f"{delimiter}".join(sorted(alts))
+def get_model(catalog: Catalog, env: Env, model_name: str) -> EmbeddingsModel:
+  logging.info("Loading model")
+  model_config = catalog.models[model_name]
+  if model_name in env.vertex_ai_models:
+    vertex_ai_config = env.vertex_ai_models[model_name]
+    model_config = config_reader.merge_vertex_ai_configs(
+        model_config, vertex_ai_config)
+  return create_embeddings_model(model_config)
 
 
-def split_alt_string(alt_string: str) -> List[str]:
-  alts = []
-  for alt in alt_string.split(";"):
-    if alt:
-      alts.append(alt.strip())
-  return alts
+def load_existing_embeddings(embeddings_path: str) -> List[Embedding]:
+  """Load computed embeddings existing embeddings path."""
+  try:
+    if gcs.is_gcs_path(embeddings_path):
+      embeddings_path = gcs.maybe_download(embeddings_path)
+    df = pd.read_csv(embeddings_path)
+    embeddings = []
+    for _, row in df.iterrows():
+      dcid = row['dcid']
+      sentence = row['sentence']
+      vector = row.drop(labels=['dcid', 'sentence']).astype(float).tolist()
+      embeddings.append(Embedding(PreIndex(text=sentence, dcid=dcid), vector))
+    return embeddings
+  except Exception as e:
+    logging.error(e)
+    return []
 
 
-def add_sv(name: str, sv: str, text2sv: Dict[str, str],
-           dup_svs: List[List[str]]) -> None:
-  osv = text2sv.get(name)
-  if not osv or osv == sv:
-    text2sv[name] = sv
-    return
+def build_and_save_preindexes(fm: FileManager) -> List[PreIndex]:
+  """
+  Build preindex records from a directory of CSV files.
+  """
+  text2sv: Dict[str, set[str]] = {}
 
-  # This is a case of duplicate SV.  Prefer the human-curated, shorter SV.
-  # Track it.
-  pref, drop = sv, osv
-  if ((osv.startswith('dc/') and sv.startswith('dc/')) or
-      (not osv.startswith('dc/') and not sv.startswith('dc/'))):
-    # Both SVs are autogen or both aren't. Go by dcid len.
-    if len(osv) <= len(sv):
-      pref, drop = osv, sv
-  elif sv.startswith('dc/'):
-    # sv is autogen, prefer osv.
-    pref, drop = osv, sv
+  def _process(dcid: str, texts: List[str]):
+    for text in texts:
+      text = text.strip()
+      if text == '':
+        continue
+      if text not in text2sv:
+        text2sv[text] = set()
+      text2sv[text].add(dcid)
 
-  text2sv[name] = pref
-  dup_svs.append([pref, drop, name])
+  for file_name in glob.glob(fm.local_input_dir() + "/[!_]*.csv"):
+    with open(file_name) as f:
+      reader = csv.DictReader(f)
+      for row in reader:
+        dcid = row[_COL_DCID]
+        texts = row[_COL_SENTENCE].split(';')
+        _process(dcid, texts)
+
+  for file_name in glob.glob(fm.local_input_dir() + "*.yaml"):
+    with open(file_name) as f:
+      data = yaml.safe_load(f)
+      for dcid, texts in data.items():
+        _process(dcid, texts)
+
+  preindexes = [
+      PreIndex(text, ';'.join(sorted(dcids)))
+      for text, dcids in text2sv.items()
+  ]
+  preindexes.sort(key=lambda x: x.text)
+
+  # Write preindexes as CSV
+  with open(fm.preindex_csv_path(), 'w') as csvfile:
+    csv_writer = csv.writer(csvfile, delimiter=',')
+    csv_writer.writerow([_COL_SENTENCE, _COL_DCID])
+    for preindex in preindexes:
+      csv_writer.writerow([preindex.text, preindex.dcid])
+
+  # Write md5sum of preindexes as a file
+  with open(os.path.join(fm.local_output_dir(), _MD5_SUM_FILE), 'w') as f:
+    f.write(get_md5sum(fm.preindex_csv_path()))
+
+  return preindexes
 
 
-def dedup_texts(df: pd.DataFrame) -> Tuple[Dict[str, str], List[List[str]]]:
-  """Dedup multiple texts mapped to the same DCID and return a list."""
-  text2sv_dict = {}
-  dup_sv_rows = [['PreferredSV', 'DroppedSV', 'DuplicateName']]
-  for _, row in df.iterrows():
-    sv = row[DCID_COL].strip()
-
-    # All alternative sentences are retrieved from COL_ALTERNATIVES, which
-    # are expected to be delimited by ";" (semi-colon).
-    if COL_ALTERNATIVES in row:
-      alternatives = row[COL_ALTERNATIVES].split(';')
-      alternatives = [a.strip() for a in alternatives if a.strip()]
-      for alt in alternatives:
-        add_sv(alt, sv, text2sv_dict, dup_sv_rows)
-
-  return (text2sv_dict, dup_sv_rows)
-
-
-def get_texts_dcids(
-    text2sv_dict: Dict[str, str]) -> Tuple[List[str], List[str]]:
-  texts = sorted(list(text2sv_dict.keys()))
-  dcids = [text2sv_dict[k] for k in texts]
-  return (texts, dcids)
-
-
-def download_model_from_gcs(ctx: Context, model_folder_name: str) -> str:
-  # TODO: deprecate this in favor of the function  in nl_server.gcs
-  """Downloads a Sentence Tranformer model (or finetuned version) from GCS.
+def compute_embeddings(
+    model: EmbeddingsModel,
+    preindexes: List[PreIndex],
+    existing_embeddings: List[Embedding],
+) -> List[Embedding]:
+  """Compute embeddings for the given preindexes
 
   Args:
-    ctx: Context which has the GCS bucket information.
-    model_folder_name: the GCS bucket name for the model.
-  
-  Returns the path to the local directory where the model was downloaded to.
-  The downloaded model can then be loaded as:
-
-  ```
-      downloaded_model_path = download_model_from_gcs(ctx, gcs_model_folder_name)
-      model = SentenceTransformer(downloaded_model_path)
-  ```
+    model: The embeddings model object,
+    preindexes: A list of preindex to compute embeddings for
+    existing_embeddings: A list of embeddings from previous run.
+  Return:
+    A list of embeddings for the preindexes.
   """
-  local_dir = ctx.tmp
-  # Get list of files
-  blobs = ctx.bucket.list_blobs(prefix=model_folder_name)
-  for blob in blobs:
-    file_split = blob.name.split("/")
-    directory = local_dir
-    for p in file_split[0:-1]:
-      directory = os.path.join(directory, p)
-    Path(directory).mkdir(parents=True, exist_ok=True)
+  logging.info("Compute embeddings with size %s", len(preindexes))
+  start = time.time()
 
-    if blob.name.endswith("/"):
-      continue
-    blob.download_to_filename(os.path.join(directory, file_split[-1]))
+  result: List[Embedding] = []
+  preindexes_to_compute: List[PreIndex] = []
 
-  return os.path.join(local_dir, model_folder_name)
+  # Check each preindex, use existing embeddings vector if possible
+  existing_embeddings_map = {x.preindex.text: x for x in existing_embeddings}
+  for p in preindexes:
+    if p.text in existing_embeddings_map:
+      # Only use the saved sentence vector. The dcid might be different.
+      result.append(Embedding(p, existing_embeddings_map[p.text].vector))
+    else:
+      preindexes_to_compute.append(p)
+
+  # Compute embeddings with model inference
+  logging.info("%d embeddings need computation", len(preindexes_to_compute))
+  for i, chunk in enumerate(_chunk_list(preindexes_to_compute, _CHUNK_SIZE)):
+    logging.info('texts %d to %d', i * _CHUNK_SIZE, (i + 1) * _CHUNK_SIZE - 1)
+    for i in range(_NUM_RETRIES):
+      try:
+        resp = model.encode([x.text for x in chunk])
+        if len(resp) != len(chunk):
+          raise Exception(f'Expected {len(chunk)} but got {len(resp)}')
+        for i, vector in enumerate(resp):
+          result.append(
+              Embedding(PreIndex(chunk[i].text, chunk[i].dcid), vector))
+        break
+      except Exception as e:
+        logging.error('Exception: %s', e)
+
+  # Sort result
+  result.sort(key=lambda x: x.preindex.text)
+  logging.info(f'Computing embeddings took {time.time() - start} seconds')
+  return result
+
+
+def save_embeddings_memory(local_dir: str, embeddings: List[Embedding]):
+  """
+  Save embeddings as csv file.
+  """
+  df = pd.DataFrame([x.vector for x in embeddings])
+  df[_COL_DCID] = [x.preindex.dcid for x in embeddings]
+  df[_COL_SENTENCE] = [x.preindex.text for x in embeddings]
+  local_file = os.path.join(local_dir, constants.EMBEDDINGS_FILE_NAME)
+  df.to_csv(local_file, index=False)
+  logging.info("Saved embeddings to %s", local_file)
+
+
+def save_embeddings_lancedb(local_dir: str, embeddings: List[Embedding]):
+  # lancedb has issues in docker containers on certain platforms.
+  # Importing it as a global import causes failures in build_embeddings on those platforms for Custom DC (CDC).
+  # Since this method is never called for building CDC embeddings, we import it locally.
+  # This will need to be addressed before we can support lancedb in CDC.
+  import lancedb
+
+  db = lancedb.connect(local_dir)
+  records = [{
+      _COL_DCID: x.preindex.dcid,
+      _COL_SENTENCE: x.preindex.text,
+      'vector': x.vector
+  } for x in embeddings]
+  db.create_table(_LANCEDB_TABLE, records)
+  logging.info("Saved embeddings as lancedb file in %s", local_dir)
+
+
+def save_index_config(fm: FileManager, index_config: IndexConfig):
+  with open(fm.index_config_path(), 'w') as f:
+    yaml.dump(asdict(index_config), f)

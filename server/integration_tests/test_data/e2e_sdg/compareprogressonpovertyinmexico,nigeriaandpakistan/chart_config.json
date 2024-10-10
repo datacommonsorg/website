@@ -1,4 +1,5 @@
 {
+  "client": "test_detect-and-fulfill",
   "config": {
     "categories": [
       {
@@ -10,92 +11,7 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/MEX",
-                      "country/NGA",
-                      "country/PAK"
-                    ],
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y15T24_multiple_place_bar_block",
-                      "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F_multiple_place_bar_block",
-                      "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M_multiple_place_bar_block"
-                    ],
-                    "title": "Employed Population 15 to 24 Years Old Below International Poverty Line, by Sex (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Employed Population 15 to 24 Years Old Below International Poverty Line, by Sex"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/MEX",
-                      "country/NGA",
-                      "country/PAK"
-                    ],
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15_multiple_place_bar_block",
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F_multiple_place_bar_block",
-                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M_multiple_place_bar_block"
-                    ],
-                    "title": "Employed Population 15 Years Old and Over Below International Poverty Line, by Sex (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Employed Population 15 Years Old and Over Below International Poverty Line, by Sex"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/MEX",
-                      "country/NGA",
-                      "country/PAK"
-                    ],
-                    "statVarKey": [
-                      "sdg/SI_POV_EMP1.AGE--Y_GE25_multiple_place_bar_block",
-                      "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F_multiple_place_bar_block",
-                      "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M_multiple_place_bar_block"
-                    ],
-                    "title": "Employed Population 25 Years Old and Over Below International Poverty Line, by Sex (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Employed Population 25 Years Old and Over Below International Poverty Line, by Sex"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "country/MEX",
@@ -104,21 +20,21 @@
                     ],
                     "statVarKey": [
                       "sdg/SI_POV_DAY1_multiple_place_bar_block",
-                      "sdg/SI_POV_DAY1.AGE--Y_GE65_multiple_place_bar_block",
                       "sdg/SI_POV_DAY1.AGE--Y0T14_multiple_place_bar_block",
                       "sdg/SI_POV_DAY1.AGE--Y15T64_multiple_place_bar_block",
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65_multiple_place_bar_block",
                       "sdg/SI_POV_DAY1.SEX--F_multiple_place_bar_block",
                       "sdg/SI_POV_DAY1.SEX--M_multiple_place_bar_block",
                       "sdg/SI_POV_DAY1.URBANISATION--R_multiple_place_bar_block",
                       "sdg/SI_POV_DAY1.URBANISATION--U_multiple_place_bar_block"
                     ],
-                    "title": "Proportion of Population Below International Poverty Line (${date})",
+                    "title": "Proportion of Population Below International Poverty Line (%) (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Proportion of Population Below International Poverty Line"
+            "title": "Proportion of Population Below International Poverty Line (%)"
           },
           {
             "columns": [
@@ -127,8 +43,7 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "country/MEX",
@@ -144,7 +59,7 @@
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: burundi institute of statistics and economic studies; CONEVAL (Consejo nacional de evaluaci\u00f3n de la pol\u00edtica de desarrollo social); cities, towns and suburbs, rural areas; DANE; department of census and statistics; EUROSTAT; eurostat; ghana statistical service; institut national de la statistique (INSTAT); instituto nacional de estad\u00edstica (INE); instituto nacional de estat\u00edstica; la direcci\u00f3n general de estad\u00edstica y censos; la direction generale du plan, instituto nacional de estat\u00edstica (INE); ministerio de desarrollo social; ministry of economics and finance - directorate of economic and financial studies; ministry of economy, planning and development; ministry of planning development & special initiatives; ministry of social development; NESDC; namibia statistics agency (NSA); national bureau of statistics; national bureau of statistics (NBS); national institute of statistics and census (INEC), ministry of social development coordination and national secretary of planning and development; national institute of statistics of rwanda; national planning commission; national statistics bureau; national statistics and information authority (NSIA); secretar\u00eda t\u00e9cnica y de planificaci\u00f3n presidencia; secretar\u00eda de coordinaci\u00f3n general de gobierno, instituto nacional de estad\u00edstica INE; state statistical office; statistical committee of republic of armenia; statistics south africa; the national institute of statistics and census of costa rica; the palestinian central bureau of statistics (PCBS); the high commission of planning; uganda bureau of statistics.",
+            "footnote": "Includes data from the following sources: burundi institute of statistics and economic studies; CONEVAL (Consejo nacional de evaluaci\u00f3n de la pol\u00edtica de desarrollo social); central administration of statistics; cities, towns and suburbs, rural areas; DANE; department of census and statistics; EUROSTAT; eurostat; ghana statistical service; institut national de la statistique (INSTAT); instituto nacional de estad\u00edstica (INE); instituto nacional de estat\u00edstica; la direction generale du plan, insti...1306 more chars",
             "title": "Proportion of Population Living in Multidimensional Poverty"
           },
           {
@@ -154,8 +69,7 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "country/MEX",
@@ -171,7 +85,7 @@
                 ]
               }
             ],
-            "title": "Proportion of Population Living Below the National Poverty Line"
+            "title": "Proportion of Population Living Below the National Poverty Line (%)"
           },
           {
             "columns": [
@@ -180,8 +94,7 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "country/MEX",
@@ -193,13 +106,13 @@
                       "sdg/SD_MDP_ANDI.URBANISATION--R_multiple_place_bar_block",
                       "sdg/SD_MDP_ANDI.URBANISATION--U_multiple_place_bar_block"
                     ],
-                    "title": "Average Proportion of Deprivations for People Multidimensionally Poor (${date})",
+                    "title": "Average Proportion of Deprivations for People Multidimensionally Poor (%) (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Average Proportion of Deprivations for People Multidimensionally Poor"
+            "title": "Average Proportion of Deprivations for People Multidimensionally Poor (%)"
           },
           {
             "columns": [
@@ -208,8 +121,7 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "country/MEX",
@@ -224,7 +136,8 @@
                 ]
               }
             ],
-            "title": "Proportion of Population Living in Multidimensional Poverty, by Age Group"
+            "infoMessage": "Data for \"Pakistan\" is currently unavailable. See the following statistics on the other places.",
+            "title": "Proportion of Population Living in Multidimensional Poverty, by Age Group (%)"
           },
           {
             "columns": [
@@ -233,8 +146,7 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "country/MEX",
@@ -245,13 +157,13 @@
                       "sdg/SD_MDP_MUHC.URBANISATION--R_multiple_place_bar_block",
                       "sdg/SD_MDP_MUHC.URBANISATION--U_multiple_place_bar_block"
                     ],
-                    "title": "Proportion of Population Living in Multidimensional Poverty, by Location (${date})",
+                    "title": "Proportion of Population Living in Multidimensional Poverty, by Location (%) (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Proportion of Population Living in Multidimensional Poverty, by Location"
+            "title": "Proportion of Population Living in Multidimensional Poverty, by Location (%)"
           },
           {
             "columns": [
@@ -260,12 +172,12 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "country/MEX",
-                      "country/NGA"
+                      "country/NGA",
+                      "country/PAK"
                     ],
                     "statVarKey": [
                       "sdg/SI_COV_MATNL.SEX--F_multiple_place_bar_block"
@@ -276,7 +188,7 @@
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: ILO estimates based on country data compled through the ILO social security inquiry (SSI); ILO estimates based on country data compled through the ILO social security inquiry (SSI) 2021-2023; ILO estimates based on country data compled through the ILO social security inquiry (SSI). Based on information from federal programmes only.",
+            "footnote": "Includes data from the following sources: ILO estimates based on country data compled through the ILO social security inquiry (SSI).",
             "title": "Proportion of Mothers With Newborns Receiving Maternity Cash Benefit [Female]"
           },
           {
@@ -286,8 +198,7 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "country/MEX",
@@ -297,13 +208,13 @@
                     "statVarKey": [
                       "sdg/SI_COV_CHLD_multiple_place_bar_block"
                     ],
-                    "title": "Proportion of Children/Households Receiving Child/Family Cash Benefit, by Sex (${date})",
+                    "title": "Proportion of Children/Households Receiving Child/Family Cash Benefit (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Proportion of Children/Households Receiving Child/Family Cash Benefit, by Sex"
+            "title": "Proportion of Children/Households Receiving Child/Family Cash Benefit, by Sex (%)"
           },
           {
             "columns": [
@@ -312,8 +223,7 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "country/MEX",
@@ -321,15 +231,17 @@
                       "country/PAK"
                     ],
                     "statVarKey": [
-                      "sdg/SI_COV_WKINJRY_multiple_place_bar_block"
+                      "sdg/SI_COV_WKINJRY_multiple_place_bar_block",
+                      "sdg/SI_COV_WKINJRY.SEX--F_multiple_place_bar_block",
+                      "sdg/SI_COV_WKINJRY.SEX--M_multiple_place_bar_block"
                     ],
-                    "title": "Proportion of Employed Population Covered in the Event of Work Injury, by Sex (${date})",
+                    "title": "Proportion of Employed Population Covered in the Event of Work Injury, by Sex (%) (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Proportion of Employed Population Covered in the Event of Work Injury, by Sex"
+            "title": "Proportion of Employed Population Covered in the Event of Work Injury, by Sex (%)"
           },
           {
             "columns": [
@@ -338,8 +250,7 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "country/MEX",
@@ -349,13 +260,13 @@
                     "statVarKey": [
                       "sdg/SI_COV_POOR_multiple_place_bar_block"
                     ],
-                    "title": "Proportion of Poor Population Receiving Social Assistance Cash Benefit, by Sex (${date})",
+                    "title": "Proportion of Poor Population Receiving Social Assistance Cash Benefit (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Proportion of Poor Population Receiving Social Assistance Cash Benefit, by Sex"
+            "title": "Proportion of Poor Population Receiving Social Assistance Cash Benefit, by Sex (%)"
           },
           {
             "columns": [
@@ -364,8 +275,7 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "country/MEX",
@@ -373,15 +283,17 @@
                       "country/PAK"
                     ],
                     "statVarKey": [
-                      "sdg/SI_COV_PENSN_multiple_place_bar_block"
+                      "sdg/SI_COV_PENSN_multiple_place_bar_block",
+                      "sdg/SI_COV_PENSN.SEX--F_multiple_place_bar_block",
+                      "sdg/SI_COV_PENSN.SEX--M_multiple_place_bar_block"
                     ],
-                    "title": "Proportion of Population Above Statutory Pensionable Age Receiving a Pension, by Sex (${date})",
+                    "title": "Proportion of Population Above Statutory Pensionable Age Receiving a Pension, by Sex (%) (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Proportion of Population Above Statutory Pensionable Age Receiving a Pension, by Sex"
+            "title": "Proportion of Population Above Statutory Pensionable Age Receiving a Pension, by Sex (%)"
           },
           {
             "columns": [
@@ -390,8 +302,7 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "country/MEX",
@@ -401,16 +312,860 @@
                     "statVarKey": [
                       "sdg/SI_COV_BENFTS_multiple_place_bar_block"
                     ],
-                    "title": "Proportion of Population Covered by at Least One Social Protection Benefit, by Sex (${date})",
+                    "title": "Proportion of Population Covered by at Least One Social Protection Benefit (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Proportion of Population Covered by at Least One Social Protection Benefit, by Sex"
+            "title": "Proportion of Population Covered by at Least One Social Protection Benefit, by Sex (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_COV_LMKT_multiple_place_bar_block",
+                      "sdg/SI_COV_LMKT.INCOME_WEALTH_QUANTILE--Q1_multiple_place_bar_block"
+                    ],
+                    "title": "Proportion of Population Covered by Labour Market Programs (%) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Population Covered by Labour Market Programs (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_COV_SOCAST_multiple_place_bar_block",
+                      "sdg/SI_COV_SOCAST.INCOME_WEALTH_QUANTILE--Q1_multiple_place_bar_block"
+                    ],
+                    "title": "Proportion of Population Covered by Social Assistance Programs (%) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Population Covered by Social Assistance Programs (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_COV_SOCINS_multiple_place_bar_block",
+                      "sdg/SI_COV_SOCINS.INCOME_WEALTH_QUANTILE--Q1_multiple_place_bar_block"
+                    ],
+                    "title": "Proportion of Population Covered by Social Insurance Programs (%) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Population Covered by Social Insurance Programs (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_COV_DISAB_multiple_place_bar_block"
+                    ],
+                    "title": "Proportion of Population With Severe Disabilities Receiving Disability Cash Benefit (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Population With Severe Disabilities Receiving Disability Cash Benefit, by Sex (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_COV_UEMP_multiple_place_bar_block",
+                      "sdg/SI_COV_UEMP.SEX--F_multiple_place_bar_block",
+                      "sdg/SI_COV_UEMP.SEX--M_multiple_place_bar_block"
+                    ],
+                    "title": "Proportion of Unemployed Persons Receiving Unemployment Cash Benefit, by Sex (%) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Unemployed Persons Receiving Unemployment Cash Benefit, by Sex (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_COV_VULN_multiple_place_bar_block"
+                    ],
+                    "title": "Proportion of Vulnerable Population Receiving Social Assistance Cash Benefit (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Vulnerable Population Receiving Social Assistance Cash Benefit, by Sex (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O_multiple_place_bar_block",
+                      "sdg/SP_ACS_BSRVH2O.URBANISATION--R_multiple_place_bar_block",
+                      "sdg/SP_ACS_BSRVH2O.URBANISATION--U_multiple_place_bar_block"
+                    ],
+                    "title": "Proportion of Population Using Basic Drinking Water Services, by Location (%) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Population Using Basic Drinking Water Services, by Location (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN_multiple_place_bar_block",
+                      "sdg/SP_ACS_BSRVSAN.URBANISATION--R_multiple_place_bar_block",
+                      "sdg/SP_ACS_BSRVSAN.URBANISATION--U_multiple_place_bar_block"
+                    ],
+                    "title": "Proportion of Population Using Basic Sanitation Services, by Location (%) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Proportion of Population Using Basic Sanitation Services, by Location (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SP_LGL_LNDDOC_multiple_place_bar_block",
+                      "sdg/SP_LGL_LNDDOC.SEX--F_multiple_place_bar_block"
+                    ],
+                    "title": "Proportion of People With Legally Recognized Documentation of Their Rights to Land Out of Total Adult Population, by Sex (%) (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "infoMessage": "Data for \"Mexico\" is currently unavailable. See the following statistics on the other places.",
+            "title": "Proportion of People With Legally Recognized Documentation of Their Rights to Land Out of Total Adult Population, by Sex (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SP_LGL_LNDSTR_multiple_place_bar_block"
+                    ],
+                    "title": "Proportion of People With Secure Tenure Rights to Land Out of Total Adult Population (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "infoMessage": "Data for \"Mexico\" is currently unavailable. See the following statistics on the other places.",
+            "title": "Proportion of People With Secure Tenure Rights to Land Out of Total Adult Population, by Sex (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/VC_DSR_MMHN_multiple_place_bar_block"
+                    ],
+                    "title": "Number of Deaths and Missing Persons Attributed to Disasters (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "infoMessage": "Data for \"Nigeria\" is currently unavailable. See the following statistics on the other places.",
+            "title": "Number of Deaths and Missing Persons Attributed to Disasters"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/VC_DSR_MTMP_multiple_place_bar_block"
+                    ],
+                    "title": "Number of Deaths and Missing Persons Attributed to Disasters Per 100K Population (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "title": "Number of Deaths and Missing Persons Attributed to Disasters Per 100K Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/VC_DSR_MORT_multiple_place_bar_block"
+                    ],
+                    "title": "Number of Deaths Due to Disaster (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "title": "Number of Deaths Due to Disaster"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/VC_DSR_DAFF_multiple_place_bar_block"
+                    ],
+                    "title": "Number of Directly Affected Persons Attributed to Disasters Per 100K Population (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "title": "Number of Directly Affected Persons Attributed to Disasters Per 100K Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/VC_DSR_IJILN_multiple_place_bar_block"
+                    ],
+                    "title": "Number of Injured or Ill People Attributed to Disasters (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "title": "Number of Injured or Ill People Attributed to Disasters"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/VC_DSR_MISS_multiple_place_bar_block"
+                    ],
+                    "title": "Number of Missing Persons Due to Disaster (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "title": "Number of Missing Persons Due to Disaster"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/VC_DSR_AFFCT_multiple_place_bar_block"
+                    ],
+                    "title": "Number of People Affected by Disaster (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "title": "Number of People Affected by Disaster"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/VC_DSR_PDAN_multiple_place_bar_block"
+                    ],
+                    "title": "Number of People Whose Damaged Dwellings Were Attributed to Disasters (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "title": "Number of People Whose Damaged Dwellings Were Attributed to Disasters"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/VC_DSR_PDYN_multiple_place_bar_block"
+                    ],
+                    "title": "Number of People Whose Destroyed Dwellings Were Attributed to Disasters (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "title": "Number of People Whose Destroyed Dwellings Were Attributed to Disasters"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/VC_DSR_GDPLS_multiple_place_bar_block"
+                    ],
+                    "title": "Direct Economic Loss Attributed to Disasters (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "title": "Direct Economic Loss Attributed to Disasters"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/VC_DSR_LSGP_multiple_place_bar_block"
+                    ],
+                    "title": "Direct Economic Loss Attributed to Disasters Relative to GDP (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "title": "Direct Economic Loss Attributed to Disasters Relative to GDP"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/VC_DSR_HOLH_multiple_place_bar_block"
+                    ],
+                    "title": "Direct Economic Loss in the Housing Sector Attributed to Disasters (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "title": "Direct Economic Loss in the Housing Sector Attributed to Disasters"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/VC_DSR_CILN_multiple_place_bar_block"
+                    ],
+                    "title": "Direct Economic Loss Resulting From Damaged or Destroyed Critical Infrastructure Attributed to Disasters (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "title": "Direct Economic Loss Resulting From Damaged or Destroyed Critical Infrastructure Attributed to Disasters"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/VC_DSR_CHLN_multiple_place_bar_block"
+                    ],
+                    "title": "Direct Economic Loss to Cultural Heritage Damaged or Destroyed Attributed to Disasters (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "title": "Direct Economic Loss to Cultural Heritage Damaged or Destroyed Attributed to Disasters"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/VC_DSR_DDPA_multiple_place_bar_block"
+                    ],
+                    "title": "Direct Economic Loss to Other Damaged or Destroyed Productive Assets Attributed to Disasters (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "title": "Direct Economic Loss to Other Damaged or Destroyed Productive Assets Attributed to Disasters"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SG_DSR_LGRGSR_multiple_place_bar_block"
+                    ],
+                    "title": "Score of Adoption and Implementation of National Disaster Risk Reduction Strategies in Line With the Sendai Framework (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "title": "Score of Adoption and Implementation of National Disaster Risk Reduction Strategies in Line With the Sendai Framework"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SG_GOV_LOGV_multiple_place_bar_block"
+                    ],
+                    "title": "Number of Local Governments (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "title": "Number of Local Governments"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SG_DSR_SILN_multiple_place_bar_block"
+                    ],
+                    "title": "Number of Local Governments That Adopt and Implement Local Disaster Risk Reduction Strategies in Line With National Strategies (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "title": "Number of Local Governments That Adopt and Implement Local Disaster Risk Reduction Strategies in Line With National Strategies"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SG_DSR_SILS_multiple_place_bar_block"
+                    ],
+                    "title": "Proportion of Local Governments That Adopt and Implement Local Disaster Risk Reduction Strategies in Line With National Disaster Risk Reduction Strategies (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations office for disaster risk reduction (2024).",
+            "title": "Proportion of Local Governments That Adopt and Implement Local Disaster Risk Reduction Strategies in Line With National Disaster Risk Reduction Strategies"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/DC_ODA_POVLG_multiple_place_bar_block"
+                    ],
+                    "title": "Official Development Assistance Grants for Poverty Reduction (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: the organisation for economic Co-operation and development (OECD).",
+            "title": "Official Development Assistance Grants for Poverty Reduction"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SD_XPD_ESED_multiple_place_bar_block"
+                    ],
+                    "title": "Proportion of Total Government Spending on Essential Services, Education (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: BOOST initiative. Country-Data available at: https://www.Worldbank.Org/En/Programs/Boost-Portal/Country-Data; data extracted on 01 april 2022; expenditure by function of government (COFOG) - IMF data. Data available at: https://data.Imf.org/regular.Aspx?Key=61037799; data extracted on 01 april 2022; government finace statistics (GFS) database. Data available at: https://data.Imf.Org/; data extracted on 01 april 2022; IMF; data extracted on 01 april 2022;...132 more chars",
+            "title": "Proportion of Total Government Spending on Essential Services, Education"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SG_XPD_HLTH_multiple_place_bar_block"
+                    ],
+                    "title": "Proportion of Total Government Spending on Health (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: IMF.",
+            "title": "Proportion of Total Government Spending on Health"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SG_XPD_PROT_multiple_place_bar_block"
+                    ],
+                    "title": "Proportion of Total Government Spending on Social Protection (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: IMF.",
+            "title": "Proportion of Total Government Spending on Social Protection"
           }
         ],
         "statVarSpec": {
+          "sdg/DC_ODA_POVLG_multiple_place_bar_block": {
+            "name": "Official development assistance grants for poverty reduction",
+            "statVar": "sdg/DC_ODA_POVLG"
+          },
           "sdg/SD_MDP_ANDI.URBANISATION--R_multiple_place_bar_block": {
             "name": "Average proportion of deprivations for people multidimensionally poor [Rural]",
             "statVar": "sdg/SD_MDP_ANDI.URBANISATION--R"
@@ -439,28 +1194,116 @@
             "name": "Proportion of population living in multidimensional poverty",
             "statVar": "sdg/SD_MDP_MUHC"
           },
+          "sdg/SD_XPD_ESED_multiple_place_bar_block": {
+            "name": "Proportion of total government spending on essential services, education",
+            "statVar": "sdg/SD_XPD_ESED"
+          },
+          "sdg/SG_DSR_LGRGSR_multiple_place_bar_block": {
+            "name": "Score of adoption and implementation of national Disaster Risk Reduction strategies in line with the Sendai Framework",
+            "statVar": "sdg/SG_DSR_LGRGSR"
+          },
+          "sdg/SG_DSR_SILN_multiple_place_bar_block": {
+            "name": "Number of local governments that adopt and implement local Disaster Risk Reduction strategies in line with national strategies",
+            "statVar": "sdg/SG_DSR_SILN"
+          },
+          "sdg/SG_DSR_SILS_multiple_place_bar_block": {
+            "name": "Proportion of local governments that adopt and implement local disaster risk reduction strategies in line with national disaster risk reduction strategies",
+            "statVar": "sdg/SG_DSR_SILS"
+          },
+          "sdg/SG_GOV_LOGV_multiple_place_bar_block": {
+            "name": "Number of local governments",
+            "statVar": "sdg/SG_GOV_LOGV"
+          },
+          "sdg/SG_XPD_HLTH_multiple_place_bar_block": {
+            "name": "Proportion of total government spending on health",
+            "statVar": "sdg/SG_XPD_HLTH"
+          },
+          "sdg/SG_XPD_PROT_multiple_place_bar_block": {
+            "name": "Proportion of total government spending on social protection",
+            "statVar": "sdg/SG_XPD_PROT"
+          },
           "sdg/SI_COV_BENFTS_multiple_place_bar_block": {
-            "name": "Proportion of population covered by at least one social protection benefit, by sex",
+            "name": "Proportion of population covered by at least one social protection benefit",
             "statVar": "sdg/SI_COV_BENFTS"
           },
           "sdg/SI_COV_CHLD_multiple_place_bar_block": {
-            "name": "Proportion of children/households receiving child/family cash benefit, by sex",
+            "name": "Proportion of children/households receiving child/family cash benefit",
             "statVar": "sdg/SI_COV_CHLD"
+          },
+          "sdg/SI_COV_DISAB_multiple_place_bar_block": {
+            "name": "Proportion of population with severe disabilities receiving disability cash benefit",
+            "statVar": "sdg/SI_COV_DISAB"
+          },
+          "sdg/SI_COV_LMKT.INCOME_WEALTH_QUANTILE--Q1_multiple_place_bar_block": {
+            "name": "Proportion of population covered by labour market programs [Quantile 1 (poorest)]",
+            "statVar": "sdg/SI_COV_LMKT.INCOME_WEALTH_QUANTILE--Q1"
+          },
+          "sdg/SI_COV_LMKT_multiple_place_bar_block": {
+            "name": "Proportion of population covered by labour market programs",
+            "statVar": "sdg/SI_COV_LMKT"
           },
           "sdg/SI_COV_MATNL.SEX--F_multiple_place_bar_block": {
             "name": "Proportion of mothers with newborns receiving maternity cash benefit [Female]",
             "statVar": "sdg/SI_COV_MATNL.SEX--F"
           },
+          "sdg/SI_COV_PENSN.SEX--F_multiple_place_bar_block": {
+            "name": "Proportion of population above statutory pensionable age receiving a pension [Female]",
+            "statVar": "sdg/SI_COV_PENSN.SEX--F"
+          },
+          "sdg/SI_COV_PENSN.SEX--M_multiple_place_bar_block": {
+            "name": "Proportion of population above statutory pensionable age receiving a pension [Male]",
+            "statVar": "sdg/SI_COV_PENSN.SEX--M"
+          },
           "sdg/SI_COV_PENSN_multiple_place_bar_block": {
-            "name": "Proportion of population above statutory pensionable age receiving a pension, by sex",
+            "name": "Proportion of population above statutory pensionable age receiving a pension",
             "statVar": "sdg/SI_COV_PENSN"
           },
           "sdg/SI_COV_POOR_multiple_place_bar_block": {
-            "name": "Proportion of poor population receiving social assistance cash benefit, by sex",
+            "name": "Proportion of poor population receiving social assistance cash benefit",
             "statVar": "sdg/SI_COV_POOR"
           },
+          "sdg/SI_COV_SOCAST.INCOME_WEALTH_QUANTILE--Q1_multiple_place_bar_block": {
+            "name": "Proportion of population covered by social assistance programs [Quantile 1 (poorest)]",
+            "statVar": "sdg/SI_COV_SOCAST.INCOME_WEALTH_QUANTILE--Q1"
+          },
+          "sdg/SI_COV_SOCAST_multiple_place_bar_block": {
+            "name": "Proportion of population covered by social assistance programs",
+            "statVar": "sdg/SI_COV_SOCAST"
+          },
+          "sdg/SI_COV_SOCINS.INCOME_WEALTH_QUANTILE--Q1_multiple_place_bar_block": {
+            "name": "Proportion of population covered by social insurance programs [Quantile 1 (poorest)]",
+            "statVar": "sdg/SI_COV_SOCINS.INCOME_WEALTH_QUANTILE--Q1"
+          },
+          "sdg/SI_COV_SOCINS_multiple_place_bar_block": {
+            "name": "Proportion of population covered by social insurance programs",
+            "statVar": "sdg/SI_COV_SOCINS"
+          },
+          "sdg/SI_COV_UEMP.SEX--F_multiple_place_bar_block": {
+            "name": "Proportion of unemployed persons receiving unemployment cash benefit [Female]",
+            "statVar": "sdg/SI_COV_UEMP.SEX--F"
+          },
+          "sdg/SI_COV_UEMP.SEX--M_multiple_place_bar_block": {
+            "name": "Proportion of unemployed persons receiving unemployment cash benefit [Male]",
+            "statVar": "sdg/SI_COV_UEMP.SEX--M"
+          },
+          "sdg/SI_COV_UEMP_multiple_place_bar_block": {
+            "name": "Proportion of unemployed persons receiving unemployment cash benefit",
+            "statVar": "sdg/SI_COV_UEMP"
+          },
+          "sdg/SI_COV_VULN_multiple_place_bar_block": {
+            "name": "Proportion of vulnerable population receiving social assistance cash benefit",
+            "statVar": "sdg/SI_COV_VULN"
+          },
+          "sdg/SI_COV_WKINJRY.SEX--F_multiple_place_bar_block": {
+            "name": "Proportion of employed population covered in the event of work injury [Female]",
+            "statVar": "sdg/SI_COV_WKINJRY.SEX--F"
+          },
+          "sdg/SI_COV_WKINJRY.SEX--M_multiple_place_bar_block": {
+            "name": "Proportion of employed population covered in the event of work injury [Male]",
+            "statVar": "sdg/SI_COV_WKINJRY.SEX--M"
+          },
           "sdg/SI_COV_WKINJRY_multiple_place_bar_block": {
-            "name": "Proportion of employed population covered in the event of work injury, by sex",
+            "name": "Proportion of employed population covered in the event of work injury",
             "statVar": "sdg/SI_COV_WKINJRY"
           },
           "sdg/SI_POV_DAY1.AGE--Y0T14_multiple_place_bar_block": {
@@ -495,45 +1338,105 @@
             "name": "Proportion of population below international poverty line",
             "statVar": "sdg/SI_POV_DAY1"
           },
-          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F_multiple_place_bar_block": {
-            "name": "Employed population below international poverty line, by sex and age [15 to 24 years old, Female]",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M_multiple_place_bar_block": {
-            "name": "Employed population below international poverty line, by sex and age [15 to 24 years old, Male]",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y15T24_multiple_place_bar_block": {
-            "name": "Employed population below international poverty line, by sex and age [15 to 24 years old]",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y15T24"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F_multiple_place_bar_block": {
-            "name": "Employed population below international poverty line, by sex and age [15 years old and over, Female]",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M_multiple_place_bar_block": {
-            "name": "Employed population below international poverty line, by sex and age [15 years old and over, Male]",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y_GE15_multiple_place_bar_block": {
-            "name": "Employed population below international poverty line, by sex and age [15 years old and over]",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F_multiple_place_bar_block": {
-            "name": "Employed population below international poverty line, by sex and age [25 years old and over, Female]",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M_multiple_place_bar_block": {
-            "name": "Employed population below international poverty line, by sex and age [25 years old and over, Male]",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M"
-          },
-          "sdg/SI_POV_EMP1.AGE--Y_GE25_multiple_place_bar_block": {
-            "name": "Employed population below international poverty line, by sex and age [25 years old and over]",
-            "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE25"
-          },
           "sdg/SI_POV_NAHC_multiple_place_bar_block": {
             "name": "Proportion of population living below the national poverty line",
             "statVar": "sdg/SI_POV_NAHC"
+          },
+          "sdg/SP_ACS_BSRVH2O.URBANISATION--R_multiple_place_bar_block": {
+            "name": "Proportion of population using basic drinking water services [Rural]",
+            "statVar": "sdg/SP_ACS_BSRVH2O.URBANISATION--R"
+          },
+          "sdg/SP_ACS_BSRVH2O.URBANISATION--U_multiple_place_bar_block": {
+            "name": "Proportion of population using basic drinking water services [Urban]",
+            "statVar": "sdg/SP_ACS_BSRVH2O.URBANISATION--U"
+          },
+          "sdg/SP_ACS_BSRVH2O_multiple_place_bar_block": {
+            "name": "Proportion of population using basic drinking water services",
+            "statVar": "sdg/SP_ACS_BSRVH2O"
+          },
+          "sdg/SP_ACS_BSRVSAN.URBANISATION--R_multiple_place_bar_block": {
+            "name": "Proportion of population using basic sanitation services [Rural]",
+            "statVar": "sdg/SP_ACS_BSRVSAN.URBANISATION--R"
+          },
+          "sdg/SP_ACS_BSRVSAN.URBANISATION--U_multiple_place_bar_block": {
+            "name": "Proportion of population using basic sanitation services [Urban]",
+            "statVar": "sdg/SP_ACS_BSRVSAN.URBANISATION--U"
+          },
+          "sdg/SP_ACS_BSRVSAN_multiple_place_bar_block": {
+            "name": "Proportion of population using basic sanitation services",
+            "statVar": "sdg/SP_ACS_BSRVSAN"
+          },
+          "sdg/SP_LGL_LNDDOC.SEX--F_multiple_place_bar_block": {
+            "name": "Proportion of people with legally recognized documentation of their rights to land out of total adult population [Female]",
+            "statVar": "sdg/SP_LGL_LNDDOC.SEX--F"
+          },
+          "sdg/SP_LGL_LNDDOC_multiple_place_bar_block": {
+            "name": "Proportion of people with legally recognized documentation of their rights to land out of total adult population",
+            "statVar": "sdg/SP_LGL_LNDDOC"
+          },
+          "sdg/SP_LGL_LNDSTR_multiple_place_bar_block": {
+            "name": "Proportion of people with secure tenure rights to land out of total adult population",
+            "statVar": "sdg/SP_LGL_LNDSTR"
+          },
+          "sdg/VC_DSR_AFFCT_multiple_place_bar_block": {
+            "name": "Number of people affected by disaster",
+            "statVar": "sdg/VC_DSR_AFFCT"
+          },
+          "sdg/VC_DSR_CHLN_multiple_place_bar_block": {
+            "name": "Direct economic loss to cultural heritage damaged or destroyed attributed to disasters",
+            "statVar": "sdg/VC_DSR_CHLN"
+          },
+          "sdg/VC_DSR_CILN_multiple_place_bar_block": {
+            "name": "Direct economic loss resulting from damaged or destroyed critical infrastructure attributed to disasters",
+            "statVar": "sdg/VC_DSR_CILN"
+          },
+          "sdg/VC_DSR_DAFF_multiple_place_bar_block": {
+            "name": "Number of directly affected persons attributed to disasters per 100K population",
+            "statVar": "sdg/VC_DSR_DAFF"
+          },
+          "sdg/VC_DSR_DDPA_multiple_place_bar_block": {
+            "name": "Direct economic loss to other damaged or destroyed productive assets attributed to disasters",
+            "statVar": "sdg/VC_DSR_DDPA"
+          },
+          "sdg/VC_DSR_GDPLS_multiple_place_bar_block": {
+            "name": "Direct economic loss attributed to disasters",
+            "statVar": "sdg/VC_DSR_GDPLS"
+          },
+          "sdg/VC_DSR_HOLH_multiple_place_bar_block": {
+            "name": "Direct economic loss in the housing sector attributed to disasters",
+            "statVar": "sdg/VC_DSR_HOLH"
+          },
+          "sdg/VC_DSR_IJILN_multiple_place_bar_block": {
+            "name": "Number of injured or ill people attributed to disasters",
+            "statVar": "sdg/VC_DSR_IJILN"
+          },
+          "sdg/VC_DSR_LSGP_multiple_place_bar_block": {
+            "name": "Direct economic loss attributed to disasters relative to GDP",
+            "statVar": "sdg/VC_DSR_LSGP"
+          },
+          "sdg/VC_DSR_MISS_multiple_place_bar_block": {
+            "name": "Number of missing persons due to disaster",
+            "statVar": "sdg/VC_DSR_MISS"
+          },
+          "sdg/VC_DSR_MMHN_multiple_place_bar_block": {
+            "name": "Number of deaths and missing persons attributed to disasters",
+            "statVar": "sdg/VC_DSR_MMHN"
+          },
+          "sdg/VC_DSR_MORT_multiple_place_bar_block": {
+            "name": "Number of deaths due to disaster",
+            "statVar": "sdg/VC_DSR_MORT"
+          },
+          "sdg/VC_DSR_MTMP_multiple_place_bar_block": {
+            "name": "Number of deaths and missing persons attributed to disasters per 100K population",
+            "statVar": "sdg/VC_DSR_MTMP"
+          },
+          "sdg/VC_DSR_PDAN_multiple_place_bar_block": {
+            "name": "Number of people whose damaged dwellings were attributed to disasters",
+            "statVar": "sdg/VC_DSR_PDAN"
+          },
+          "sdg/VC_DSR_PDYN_multiple_place_bar_block": {
+            "name": "Number of people whose destroyed dwellings were attributed to disasters",
+            "statVar": "sdg/VC_DSR_PDYN"
           }
         }
       }
@@ -546,6 +1449,7 @@
   },
   "context": {},
   "debug": {},
+  "entities": [],
   "pastSourceContext": "",
   "place": {
     "dcid": "country/MEX",
@@ -612,6 +1516,13 @@
       {
         "dcid": "dc/topic/sdg_1.a",
         "name": "1.a: Ensure significant mobilization of resources from a variety of sources, including through enhanced development cooperation, in order to provide adequate and predictable means for developing countries, in particular least developed countries, to implement programmes and policies to end poverty in all its dimensions",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_1.b",
+        "name": "1.b: Create sound policy frameworks at the national, regional and international levels, based on pro-poor and gender-sensitive development strategies, to support accelerated investment in poverty eradication actions",
         "types": [
           "Topic"
         ]
@@ -753,6 +1664,15 @@
       }
     ],
     "varToTopics": {
+      "sdg/DC_ODA_POVLG": [
+        {
+          "dcid": "dc/topic/sdg_1.a.1",
+          "name": "1.a.1: Total official development assistance grants from all donors that focus on poverty reduction as a share of the recipient country\u2019s gross national income",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
       "sdg/SD_MDP_ANDI": [
         {
           "dcid": "dc/topic/sdg_1.2.2",
@@ -816,6 +1736,125 @@
           ]
         }
       ],
+      "sdg/SD_XPD_ESED": [
+        {
+          "dcid": "dc/topic/sdg_1.a.2",
+          "name": "1.a.2: Proportion of total government spending on essential services (education, health and social protection)",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SG_DSR_LGRGSR": [
+        {
+          "dcid": "dc/topic/sdg_1.5.3",
+          "name": "1.5.3: Number of countries that adopt and implement national disaster risk reduction strategies in line with the Sendai Framework for Disaster Risk Reduction 2015-2030",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.b.1",
+          "name": "11.b.1: Number of countries that adopt and implement national disaster risk reduction strategies in line with the Sendai Framework for Disaster Risk Reduction 2015-2030",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_13.1.2",
+          "name": "13.1.2: Number of countries that adopt and implement national disaster risk reduction strategies in line with the Sendai Framework for Disaster Risk Reduction 2015-2030",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SG_DSR_SILN": [
+        {
+          "dcid": "dc/topic/sdg_1.5.4",
+          "name": "1.5.4: Proportion of local governments that adopt and implement local disaster risk reduction strategies in line with national disaster risk reduction strategies",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.b.2",
+          "name": "11.b.2: Proportion of local governments that adopt and implement local disaster risk reduction strategies in line with national disaster risk reduction strategies",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_13.1.3",
+          "name": "13.1.3: Proportion of local governments that adopt and implement local disaster risk reduction strategies in line with national disaster risk reduction strategies",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SG_DSR_SILS": [
+        {
+          "dcid": "dc/topic/sdg_1.5.4",
+          "name": "1.5.4: Proportion of local governments that adopt and implement local disaster risk reduction strategies in line with national disaster risk reduction strategies",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.b.2",
+          "name": "11.b.2: Proportion of local governments that adopt and implement local disaster risk reduction strategies in line with national disaster risk reduction strategies",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_13.1.3",
+          "name": "13.1.3: Proportion of local governments that adopt and implement local disaster risk reduction strategies in line with national disaster risk reduction strategies",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SG_GOV_LOGV": [
+        {
+          "dcid": "dc/topic/sdg_1.5.4",
+          "name": "1.5.4: Proportion of local governments that adopt and implement local disaster risk reduction strategies in line with national disaster risk reduction strategies",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.b.2",
+          "name": "11.b.2: Proportion of local governments that adopt and implement local disaster risk reduction strategies in line with national disaster risk reduction strategies",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_13.1.3",
+          "name": "13.1.3: Proportion of local governments that adopt and implement local disaster risk reduction strategies in line with national disaster risk reduction strategies",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SG_XPD_HLTH": [
+        {
+          "dcid": "dc/topic/sdg_1.a.2",
+          "name": "1.a.2: Proportion of total government spending on essential services (education, health and social protection)",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SG_XPD_PROT": [
+        {
+          "dcid": "dc/topic/sdg_1.a.2",
+          "name": "1.a.2: Proportion of total government spending on essential services (education, health and social protection)",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
       "sdg/SI_COV_BENFTS": [
         {
           "dcid": "dc/topic/sdg_1.3.1",
@@ -826,6 +1865,33 @@
         }
       ],
       "sdg/SI_COV_CHLD": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "1.3.1: Proportion of population covered by social protection floors/systems, by sex, distinguishing children, unemployed persons, older persons, persons with disabilities, pregnant women, newborns, work-injury victims and the poor and the vulnerable",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_DISAB": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "1.3.1: Proportion of population covered by social protection floors/systems, by sex, distinguishing children, unemployed persons, older persons, persons with disabilities, pregnant women, newborns, work-injury victims and the poor and the vulnerable",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_LMKT": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "1.3.1: Proportion of population covered by social protection floors/systems, by sex, distinguishing children, unemployed persons, older persons, persons with disabilities, pregnant women, newborns, work-injury victims and the poor and the vulnerable",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_LMKT.INCOME_WEALTH_QUANTILE--Q1": [
         {
           "dcid": "dc/topic/sdg_1.3.1",
           "name": "1.3.1: Proportion of population covered by social protection floors/systems, by sex, distinguishing children, unemployed persons, older persons, persons with disabilities, pregnant women, newborns, work-injury victims and the poor and the vulnerable",
@@ -852,6 +1918,24 @@
           ]
         }
       ],
+      "sdg/SI_COV_PENSN.SEX--F": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "1.3.1: Proportion of population covered by social protection floors/systems, by sex, distinguishing children, unemployed persons, older persons, persons with disabilities, pregnant women, newborns, work-injury victims and the poor and the vulnerable",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_PENSN.SEX--M": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "1.3.1: Proportion of population covered by social protection floors/systems, by sex, distinguishing children, unemployed persons, older persons, persons with disabilities, pregnant women, newborns, work-injury victims and the poor and the vulnerable",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
       "sdg/SI_COV_POOR": [
         {
           "dcid": "dc/topic/sdg_1.3.1",
@@ -861,7 +1945,97 @@
           ]
         }
       ],
+      "sdg/SI_COV_SOCAST": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "1.3.1: Proportion of population covered by social protection floors/systems, by sex, distinguishing children, unemployed persons, older persons, persons with disabilities, pregnant women, newborns, work-injury victims and the poor and the vulnerable",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_SOCAST.INCOME_WEALTH_QUANTILE--Q1": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "1.3.1: Proportion of population covered by social protection floors/systems, by sex, distinguishing children, unemployed persons, older persons, persons with disabilities, pregnant women, newborns, work-injury victims and the poor and the vulnerable",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_SOCINS": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "1.3.1: Proportion of population covered by social protection floors/systems, by sex, distinguishing children, unemployed persons, older persons, persons with disabilities, pregnant women, newborns, work-injury victims and the poor and the vulnerable",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_SOCINS.INCOME_WEALTH_QUANTILE--Q1": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "1.3.1: Proportion of population covered by social protection floors/systems, by sex, distinguishing children, unemployed persons, older persons, persons with disabilities, pregnant women, newborns, work-injury victims and the poor and the vulnerable",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_UEMP": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "1.3.1: Proportion of population covered by social protection floors/systems, by sex, distinguishing children, unemployed persons, older persons, persons with disabilities, pregnant women, newborns, work-injury victims and the poor and the vulnerable",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_UEMP.SEX--F": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "1.3.1: Proportion of population covered by social protection floors/systems, by sex, distinguishing children, unemployed persons, older persons, persons with disabilities, pregnant women, newborns, work-injury victims and the poor and the vulnerable",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_UEMP.SEX--M": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "1.3.1: Proportion of population covered by social protection floors/systems, by sex, distinguishing children, unemployed persons, older persons, persons with disabilities, pregnant women, newborns, work-injury victims and the poor and the vulnerable",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_VULN": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "1.3.1: Proportion of population covered by social protection floors/systems, by sex, distinguishing children, unemployed persons, older persons, persons with disabilities, pregnant women, newborns, work-injury victims and the poor and the vulnerable",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
       "sdg/SI_COV_WKINJRY": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "1.3.1: Proportion of population covered by social protection floors/systems, by sex, distinguishing children, unemployed persons, older persons, persons with disabilities, pregnant women, newborns, work-injury victims and the poor and the vulnerable",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_WKINJRY.SEX--F": [
+        {
+          "dcid": "dc/topic/sdg_1.3.1",
+          "name": "1.3.1: Proportion of population covered by social protection floors/systems, by sex, distinguishing children, unemployed persons, older persons, persons with disabilities, pregnant women, newborns, work-injury victims and the poor and the vulnerable",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SI_COV_WKINJRY.SEX--M": [
         {
           "dcid": "dc/topic/sdg_1.3.1",
           "name": "1.3.1: Proportion of population covered by social protection floors/systems, by sex, distinguishing children, unemployed persons, older persons, persons with disabilities, pregnant women, newborns, work-injury victims and the poor and the vulnerable",
@@ -942,87 +2116,6 @@
           ]
         }
       ],
-      "sdg/SI_POV_EMP1.AGE--Y15T24": [
-        {
-          "dcid": "dc/topic/sdg_1.1.1",
-          "name": "1.1.1: Proportion of the population living below the international poverty line by sex, age, employment status and geographic location (urban/rural)",
-          "types": [
-            "Topic"
-          ]
-        }
-      ],
-      "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F": [
-        {
-          "dcid": "dc/topic/sdg_1.1.1",
-          "name": "1.1.1: Proportion of the population living below the international poverty line by sex, age, employment status and geographic location (urban/rural)",
-          "types": [
-            "Topic"
-          ]
-        }
-      ],
-      "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M": [
-        {
-          "dcid": "dc/topic/sdg_1.1.1",
-          "name": "1.1.1: Proportion of the population living below the international poverty line by sex, age, employment status and geographic location (urban/rural)",
-          "types": [
-            "Topic"
-          ]
-        }
-      ],
-      "sdg/SI_POV_EMP1.AGE--Y_GE15": [
-        {
-          "dcid": "dc/topic/sdg_1.1.1",
-          "name": "1.1.1: Proportion of the population living below the international poverty line by sex, age, employment status and geographic location (urban/rural)",
-          "types": [
-            "Topic"
-          ]
-        }
-      ],
-      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F": [
-        {
-          "dcid": "dc/topic/sdg_1.1.1",
-          "name": "1.1.1: Proportion of the population living below the international poverty line by sex, age, employment status and geographic location (urban/rural)",
-          "types": [
-            "Topic"
-          ]
-        }
-      ],
-      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M": [
-        {
-          "dcid": "dc/topic/sdg_1.1.1",
-          "name": "1.1.1: Proportion of the population living below the international poverty line by sex, age, employment status and geographic location (urban/rural)",
-          "types": [
-            "Topic"
-          ]
-        }
-      ],
-      "sdg/SI_POV_EMP1.AGE--Y_GE25": [
-        {
-          "dcid": "dc/topic/sdg_1.1.1",
-          "name": "1.1.1: Proportion of the population living below the international poverty line by sex, age, employment status and geographic location (urban/rural)",
-          "types": [
-            "Topic"
-          ]
-        }
-      ],
-      "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F": [
-        {
-          "dcid": "dc/topic/sdg_1.1.1",
-          "name": "1.1.1: Proportion of the population living below the international poverty line by sex, age, employment status and geographic location (urban/rural)",
-          "types": [
-            "Topic"
-          ]
-        }
-      ],
-      "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M": [
-        {
-          "dcid": "dc/topic/sdg_1.1.1",
-          "name": "1.1.1: Proportion of the population living below the international poverty line by sex, age, employment status and geographic location (urban/rural)",
-          "types": [
-            "Topic"
-          ]
-        }
-      ],
       "sdg/SI_POV_NAHC": [
         {
           "dcid": "dc/topic/sdg_1.2.1",
@@ -1031,9 +2124,393 @@
             "Topic"
           ]
         }
+      ],
+      "sdg/SP_ACS_BSRVH2O": [
+        {
+          "dcid": "dc/topic/sdg_1.4.1",
+          "name": "1.4.1: Proportion of population living in households with access to basic services",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SP_ACS_BSRVH2O.URBANISATION--R": [
+        {
+          "dcid": "dc/topic/sdg_1.4.1",
+          "name": "1.4.1: Proportion of population living in households with access to basic services",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SP_ACS_BSRVH2O.URBANISATION--U": [
+        {
+          "dcid": "dc/topic/sdg_1.4.1",
+          "name": "1.4.1: Proportion of population living in households with access to basic services",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SP_ACS_BSRVSAN": [
+        {
+          "dcid": "dc/topic/sdg_1.4.1",
+          "name": "1.4.1: Proportion of population living in households with access to basic services",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SP_ACS_BSRVSAN.URBANISATION--R": [
+        {
+          "dcid": "dc/topic/sdg_1.4.1",
+          "name": "1.4.1: Proportion of population living in households with access to basic services",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SP_ACS_BSRVSAN.URBANISATION--U": [
+        {
+          "dcid": "dc/topic/sdg_1.4.1",
+          "name": "1.4.1: Proportion of population living in households with access to basic services",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SP_LGL_LNDDOC": [
+        {
+          "dcid": "dc/topic/sdg_1.4.2",
+          "name": "1.4.2: Proportion of total adult population with secure tenure rights to land, (a) with legally recognized documentation, and (b) who perceive their rights to land as secure, by sex and type of tenure",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SP_LGL_LNDDOC.SEX--F": [
+        {
+          "dcid": "dc/topic/sdg_1.4.2",
+          "name": "1.4.2: Proportion of total adult population with secure tenure rights to land, (a) with legally recognized documentation, and (b) who perceive their rights to land as secure, by sex and type of tenure",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SP_LGL_LNDSTR": [
+        {
+          "dcid": "dc/topic/sdg_1.4.2",
+          "name": "1.4.2: Proportion of total adult population with secure tenure rights to land, (a) with legally recognized documentation, and (b) who perceive their rights to land as secure, by sex and type of tenure",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/VC_DSR_AFFCT": [
+        {
+          "dcid": "dc/topic/sdg_1.5.1",
+          "name": "1.5.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.5.1",
+          "name": "11.5.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_13.1.1",
+          "name": "13.1.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/VC_DSR_CHLN": [
+        {
+          "dcid": "dc/topic/sdg_1.5.2",
+          "name": "1.5.2: Direct economic loss attributed to disasters in relation to global gross domestic product (GDP)",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.5.2",
+          "name": "11.5.2: Direct economic loss attributed to disasters in relation to global gross domestic product (GDP)",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/VC_DSR_CILN": [
+        {
+          "dcid": "dc/topic/sdg_1.5.2",
+          "name": "1.5.2: Direct economic loss attributed to disasters in relation to global gross domestic product (GDP)",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.5.2",
+          "name": "11.5.2: Direct economic loss attributed to disasters in relation to global gross domestic product (GDP)",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/VC_DSR_DAFF": [
+        {
+          "dcid": "dc/topic/sdg_1.5.1",
+          "name": "1.5.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.5.1",
+          "name": "11.5.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_13.1.1",
+          "name": "13.1.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/VC_DSR_DDPA": [
+        {
+          "dcid": "dc/topic/sdg_1.5.2",
+          "name": "1.5.2: Direct economic loss attributed to disasters in relation to global gross domestic product (GDP)",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.5.2",
+          "name": "11.5.2: Direct economic loss attributed to disasters in relation to global gross domestic product (GDP)",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/VC_DSR_GDPLS": [
+        {
+          "dcid": "dc/topic/sdg_1.5.2",
+          "name": "1.5.2: Direct economic loss attributed to disasters in relation to global gross domestic product (GDP)",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.5.2",
+          "name": "11.5.2: Direct economic loss attributed to disasters in relation to global gross domestic product (GDP)",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/VC_DSR_HOLH": [
+        {
+          "dcid": "dc/topic/sdg_1.5.2",
+          "name": "1.5.2: Direct economic loss attributed to disasters in relation to global gross domestic product (GDP)",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.5.2",
+          "name": "11.5.2: Direct economic loss attributed to disasters in relation to global gross domestic product (GDP)",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/VC_DSR_IJILN": [
+        {
+          "dcid": "dc/topic/sdg_1.5.1",
+          "name": "1.5.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.5.1",
+          "name": "11.5.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_13.1.1",
+          "name": "13.1.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/VC_DSR_LSGP": [
+        {
+          "dcid": "dc/topic/sdg_1.5.2",
+          "name": "1.5.2: Direct economic loss attributed to disasters in relation to global gross domestic product (GDP)",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.5.2",
+          "name": "11.5.2: Direct economic loss attributed to disasters in relation to global gross domestic product (GDP)",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/VC_DSR_MISS": [
+        {
+          "dcid": "dc/topic/sdg_1.5.1",
+          "name": "1.5.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.5.1",
+          "name": "11.5.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_13.1.1",
+          "name": "13.1.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/VC_DSR_MMHN": [
+        {
+          "dcid": "dc/topic/sdg_1.5.1",
+          "name": "1.5.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.5.1",
+          "name": "11.5.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_13.1.1",
+          "name": "13.1.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/VC_DSR_MORT": [
+        {
+          "dcid": "dc/topic/sdg_1.5.1",
+          "name": "1.5.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.5.1",
+          "name": "11.5.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_13.1.1",
+          "name": "13.1.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/VC_DSR_MTMP": [
+        {
+          "dcid": "dc/topic/sdg_1.5.1",
+          "name": "1.5.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.5.1",
+          "name": "11.5.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_13.1.1",
+          "name": "13.1.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/VC_DSR_PDAN": [
+        {
+          "dcid": "dc/topic/sdg_1.5.1",
+          "name": "1.5.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.5.1",
+          "name": "11.5.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_13.1.1",
+          "name": "13.1.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/VC_DSR_PDYN": [
+        {
+          "dcid": "dc/topic/sdg_1.5.1",
+          "name": "1.5.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_11.5.1",
+          "name": "11.5.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",
+          "types": [
+            "Topic"
+          ]
+        },
+        {
+          "dcid": "dc/topic/sdg_13.1.1",
+          "name": "13.1.1: Number of deaths, missing persons and directly affected persons attributed to disasters per 100K population",
+          "types": [
+            "Topic"
+          ]
+        }
       ]
     }
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": ""
+  "userMessages": []
 }

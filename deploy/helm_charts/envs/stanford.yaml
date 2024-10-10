@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# DNS
+ip: 34.111.26.86
+domain: datacommons.stanford.edu
+
 # Helm config
 project: "datcom-stanford"
 cluster_prefix: "website"
@@ -64,5 +68,6 @@ kgStoreConfig:
       - magic-lab_2023_04_12_22_22_43
       - s3l_2023_06_09_10_45_33
       - center_for_ocean_sol_2023_10_12_16_24_44
+      - sustainable_systems_lab_2024_08_29_11_28_36
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]

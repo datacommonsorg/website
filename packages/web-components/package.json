@@ -11,7 +11,7 @@
     "rollup-plugin-typescript-paths": "^1.4.0",
     "tslib": "^2.6.2",
     "typescript": "^5.0.2",
-    "vite": "^4.4.5"
+    "vite": "^4.5.3"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.199",
@@ -39,7 +39,11 @@
   "main": "./dist/main.js",
   "module": "./dist/main.cjs",
   "name": "@datacommonsorg/web-components",
-  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/datacommonsorg/website",
+    "directory": "packages/web-components"
+  },
   "scripts": {
     "build": "tsc && vite build",
     "build-watch": "tsc && vite build --watch",
@@ -48,5 +52,5 @@
   },
   "type": "module",
   "typings": "./dist/main.d.ts",
-  "version": "0.0.0"
+  "version": "0.0.1"
 }

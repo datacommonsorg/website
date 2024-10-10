@@ -62,7 +62,7 @@ def get_facets_within():
                                   True)
 
 
-@bp.route('/')
+@bp.route('/', strict_slashes=False)
 def get_facets():
   """Gets the available facets for a list of stat vars for a list of places.
   """

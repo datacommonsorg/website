@@ -1,0 +1,16 @@
+{
+  "nodes": [
+    {
+      "dcid": ["dc/svpg/main_dc_svpg1"],
+      "memberList": ["main_dc_sv1", "main_dc_sv2"],
+      "name": ["Main DC SVPVG1"],
+      "typeOf": ["StatVarPeerGroup"]
+    },
+    {
+      "dcid": ["dc/topic/main_dc_topic1"],
+      "name": ["Main DC Topic1"],
+      "relevantVariableList": ["main_dc_sv3"],
+      "typeOf": ["Topic"]
+    }
+  ]
+}

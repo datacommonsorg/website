@@ -82,8 +82,8 @@ msgstr "정부의 교육비 지출"
 msgid "Government Expenditures on Military"
 msgstr "정부 군사비 지출"
 
-msgid "Graph Browser"
-msgstr "그래프 브라우저"
+msgid "Knowledge Graph"
+msgstr "지식 그래프"
 
 msgid "Gross National Income"
 msgstr "총국민소득"
@@ -706,3 +706,46 @@ msgstr "Water withdrawal rate"
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "개요"
 
+#. Place containment. Gives context for where a place is located.
+msgid "%(placeType)s in %(parentPlaces)s"
+msgstr "%(parentPlaces)s %(placeType)s"
+
+#. Place Types
+msgid "singular_administrative_area"
+msgstr "행정 구역"
+
+msgid "singular_administrative_area_level"
+msgstr "%(level)s급 행정 구역"
+
+msgid "singular_borough"
+msgstr "자치구"
+
+msgid "singular_city"
+msgstr "시"
+
+msgid "singular_country"
+msgstr "국가"
+
+msgid "singular_county"
+msgstr "카운티"
+
+msgid "singular_eurostat_nuts"
+msgstr "유럽 연합통계청 NUTS %(level)s급 장소"
+
+msgid "singular_neighborhood"
+msgstr "동네"
+
+msgid "singular_place"
+msgstr "장소"
+
+msgid "singular_state"
+msgstr "주"
+
+msgid "singular_town"
+msgstr "소도시"
+
+msgid "singular_village"
+msgstr "마을"
+
+msgid "singular_zip_code"
+msgstr "우편번호"

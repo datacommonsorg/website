@@ -14,6 +14,62 @@ data:
     {{- end }}
   {{- end }}
 
+{{- if .Values.website.placeSummary.enabled }}
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: place-summary-config-country
+  namespace: {{ .Values.namespace.name }}
+data:
+  place_summaries.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.country | quote }}
+
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: place-summary-config-geoid-0-2
+  namespace: {{ .Values.namespace.name }}
+data:
+  place_summaries.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.geoid_0_2 | quote }}
+
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: place-summary-config-geoid-3-5
+  namespace: {{ .Values.namespace.name }}
+data:
+  place_summaries.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.geoid_3_5 | quote }}
+
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: place-summary-config-geoid-6-9
+  namespace: {{ .Values.namespace.name }}
+data:
+  place_summaries.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.geoid_6_9 | quote }}
+
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: place-summary-config-wikidataid
+  namespace: {{ .Values.namespace.name }}
+data:
+  place_summaries.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.wikidataid | quote }}
+
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: place-summary-config-others
+  namespace: {{ .Values.namespace.name }}
+data:
+  place_summaries.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.others | quote }}
+{{- end }}
+
 
 {{- if .Values.nl.enabled }}
 ---
@@ -23,10 +79,9 @@ metadata:
   name: nl-config
   namespace: {{ .Values.namespace.name }}
 data:
-  embeddings.yaml: {{ required "NL embeddings file is required" .Values.nl.embeddings | quote }}
-  models.yaml: {{ required "NL models file is required" .Values.nl.models | quote }}
+  catalog.yaml: {{ required "NL catalog file is required" .Values.nl.catalog | quote }}
+  env.yaml: {{ toYaml .Values.nl.env | quote }}
 {{- end }}
-
 
 {{- if .Values.website.redis.enabled }}
 ---
@@ -48,3 +103,19 @@ metadata:
   namespace: {{ .Values.namespace.name }}
 data:
   blocklist_svg.json: {{ toJson .Values.svg.blocklistFile | quote }}
+
+
+{{- if .Values.cronTesting.enabled }}
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: cron-testing-config
+  namespace: {{ .Values.namespace.name }}
+data:
+  webApiRoot: {{ .Values.cronTesting.webApiRoot | quote }}
+  nodejsApiRoot: {{ .Values.cronTesting.nodejsApiRoot | quote }}
+  screenshotDomain: {{ .Values.cronTesting.screenshotDomain | quote | default "" }}
+  enableSanity: {{ .Values.cronTesting.enableSanity | quote }}
+  enableAdversarial: {{ .Values.cronTesting.enableAdversarial | quote }}
+{{- end }}

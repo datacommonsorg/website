@@ -20,11 +20,8 @@
 
 import React from "react";
 
-import {
-  QueryResult,
-  UserMessageInfo,
-} from "../../types/app/nl_interface_types";
-import { DebugInfo } from "../nl_interface/debug_info";
+import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
+import { DebugInfo } from "./debug_info";
 import { SearchSection } from "./search_section";
 import { UserMessage } from "./user_message";
 
@@ -40,7 +37,7 @@ interface ErrorResultPropType {
 
 export function ErrorResult(props: ErrorResultPropType): JSX.Element {
   const userMessage = {
-    msg: props.userMessage?.msg || DEFAULT_USER_MSG,
+    msgList: props.userMessage?.msgList || [DEFAULT_USER_MSG],
     showForm: props.userMessage?.showForm,
   };
   return (

@@ -1,0 +1,15 @@
+{
+  "client": "test_detect-and-fulfill",
+  "config": {},
+  "context": {},
+  "debug": {},
+  "failure": "Sorry, could not complete your request. No entity found in the query.",
+  "place": {
+    "dcid": "",
+    "name": "",
+    "place_type": ""
+  },
+  "userMessages": [
+    "Sorry, could not complete your request. No entity found in the query."
+  ]
+}

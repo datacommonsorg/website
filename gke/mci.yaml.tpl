@@ -19,7 +19,7 @@ metadata:
   namespace: website
   annotations:
     # multi-domain is the certificate name, it is set in setup_ssl.sh
-    networking.gke.io/pre-shared-certs: website-certificate
+    networking.gke.io/pre-shared-certs: dc-website-cert
     networking.gke.io/static-ip: <IP>
 spec:
   template:

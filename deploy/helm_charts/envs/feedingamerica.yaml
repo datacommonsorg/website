@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# DNS
+ip: 34.95.84.25
+domain: datacommons.feedingamerica.org
+
 # Helm config
 project: "datcom-feedingamerica"
 cluster_prefix: "website"
@@ -65,4 +69,3 @@ serviceGroups:
     replicas: 2
   default:
     replicas: 2
-

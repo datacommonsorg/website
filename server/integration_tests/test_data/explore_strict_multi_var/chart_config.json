@@ -1,0 +1,287 @@
+{
+  "client": "test_detect-and-fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_Obesity_scatter",
+                      "Percent_Person_SleepLessThan7Hours_scatter"
+                    ],
+                    "title": "Prevalence of Obesity (${yDate}) Vs. Percentage That Sleeps Less Than 7 Hours Per Night (${xDate}) in Counties of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence of Obesity vs. Percentage That Sleeps Less Than 7 Hours Per Night"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_Obesity"
+                    ],
+                    "title": "Prevalence of Obesity in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_Obesity"
+                    ],
+                    "title": "Prevalence of Obesity in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence of Obesity in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_Person_SleepLessThan7Hours"
+                    ],
+                    "title": "Percentage That Sleeps Less Than 7 Hours Per Night in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Person_SleepLessThan7Hours"
+                    ],
+                    "title": "Percentage That Sleeps Less Than 7 Hours Per Night in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Percentage That Sleeps Less Than 7 Hours Per Night in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "WHO/NCD_BMI_30A",
+                      "Percent_Person_SleepLessThan7Hours"
+                    ],
+                    "title": "% Obesity Among Adults, BMI >= 30 and Percentage That Sleeps Less Than 7 Hours Per Night in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "% Obesity Among Adults, BMI >= 30 and Percentage That Sleeps Less Than 7 Hours Per Night"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "dc/4lvmzr1h1ylk1_scatter",
+                      "Percent_Person_SleepLessThan7Hours_scatter"
+                    ],
+                    "title": "Prevalence: Female, Obesity (${yDate}) Vs. Percentage That Sleeps Less Than 7 Hours Per Night (${xDate}) in Counties of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence: Female, Obesity vs. Percentage That Sleeps Less Than 7 Hours Per Night"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/4lvmzr1h1ylk1"
+                    ],
+                    "title": "Prevalence: Female, Obesity in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/4lvmzr1h1ylk1"
+                    ],
+                    "title": "Prevalence: Female, Obesity in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence: Female, Obesity in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "dc/x13tvt8jsgrm4_scatter",
+                      "Percent_Person_SleepLessThan7Hours_scatter"
+                    ],
+                    "title": "Prevalence: Male, Obesity (${yDate}) Vs. Percentage That Sleeps Less Than 7 Hours Per Night (${xDate}) in Counties of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Prevalence: Male, Obesity vs. Percentage That Sleeps Less Than 7 Hours Per Night"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/x13tvt8jsgrm4"
+                    ],
+                    "title": "Prevalence: Male, Obesity in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/x13tvt8jsgrm4"
+                    ],
+                    "title": "Prevalence: Male, Obesity in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence: Male, Obesity in Counties of United States"
+          }
+        ],
+        "statVarSpec": {
+          "Percent_Person_Obesity": {
+            "name": "Prevalence of Obesity",
+            "statVar": "Percent_Person_Obesity",
+            "unit": "%"
+          },
+          "Percent_Person_Obesity_scatter": {
+            "name": "Prevalence of Obesity",
+            "noPerCapita": true,
+            "statVar": "Percent_Person_Obesity",
+            "unit": "%"
+          },
+          "Percent_Person_SleepLessThan7Hours": {
+            "name": "Percentage That Sleeps Less Than 7 Hours Per Night",
+            "statVar": "Percent_Person_SleepLessThan7Hours",
+            "unit": "%"
+          },
+          "Percent_Person_SleepLessThan7Hours_scatter": {
+            "name": "Percentage That Sleeps Less Than 7 Hours Per Night",
+            "noPerCapita": true,
+            "statVar": "Percent_Person_SleepLessThan7Hours",
+            "unit": "%"
+          },
+          "WHO/NCD_BMI_30A": {
+            "name": "% Obesity Among Adults, BMI >= 30",
+            "statVar": "WHO/NCD_BMI_30A"
+          },
+          "dc/4lvmzr1h1ylk1": {
+            "name": "Prevalence: Female, Obesity",
+            "statVar": "dc/4lvmzr1h1ylk1"
+          },
+          "dc/4lvmzr1h1ylk1_scatter": {
+            "name": "Prevalence: Female, Obesity",
+            "noPerCapita": true,
+            "statVar": "dc/4lvmzr1h1ylk1"
+          },
+          "dc/x13tvt8jsgrm4": {
+            "name": "Prevalence: Male, Obesity",
+            "statVar": "dc/x13tvt8jsgrm4"
+          },
+          "dc/x13tvt8jsgrm4_scatter": {
+            "name": "Prevalence: Male, Obesity",
+            "statVar": "dc/x13tvt8jsgrm4"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "containedPlaceTypes": {
+        "Country": "County"
+      },
+      "placeDcid": [
+        "country/USA"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "entities": [],
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "country/USA",
+    "name": "United States",
+    "place_type": "Country"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "country/USA",
+      "name": "United States",
+      "place_type": "Country"
+    }
+  ],
+  "relatedThings": {},
+  "svSource": "CURRENT_QUERY",
+  "userMessages": []
+}

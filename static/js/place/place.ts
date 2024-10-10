@@ -20,15 +20,26 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { PageData } from "../chart/types";
+import { NlSearchBar } from "../components/nl_search_bar";
 import { loadLocaleData } from "../i18n/i18n";
-import { initSearchAutocomplete } from "../shared/place_autocomplete";
+import {
+  GA_EVENT_NL_SEARCH,
+  GA_PARAM_QUERY,
+  GA_PARAM_SOURCE,
+  GA_VALUE_SEARCH_SOURCE_PLACE_PAGE,
+  triggerGAEvent,
+} from "../shared/ga_events";
 import { ChildPlace } from "./child_places_menu";
-import { MainPane } from "./main_pane";
+import { MainPane, showOverview } from "./main_pane";
 import { Menu } from "./menu";
 import { PageSubtitle } from "./page_subtitle";
-import { ParentPlace } from "./parent_breadcrumbs";
 import { PlaceHighlight } from "./place_highlight";
+import { PlaceSearch } from "./place_search";
 import { isPlaceInUsa } from "./util";
+
+// Temporarily hide NL search bar on frontend until backend pipelines are
+// implemented.
+const SHOW_NL_SEARCH_BAR = false;
 
 // Window scroll position to start fixing the sidebar.
 let yScrollLimit = 0;
@@ -39,23 +50,24 @@ const Y_SCROLL_WINDOW_BREAKPOINT = 992;
 // Margin to apply to the fixed sidebar top.
 const Y_SCROLL_MARGIN = 100;
 
-window.onload = () => {
+window.addEventListener("load", (): void => {
   try {
     renderPage();
-    initSearchAutocomplete("/place");
-    updatePageLayoutState();
-    maybeToggleFixedSidebar();
-    window.onresize = maybeToggleFixedSidebar;
+    // Disable sidebar pinning.
+    // TODO(beets): Delete this code.
+    // updatePageLayoutState();
+    // maybeToggleFixedSidebar();
+    // window.onresize = maybeToggleFixedSidebar;
   } catch (e) {
     return;
   }
-};
+});
 
 /**
  *  Make adjustments to sidebar scroll state based on the content.
  */
 function updatePageLayoutState(): void {
-  yScrollLimit = document.getElementById("main-pane").offsetTop;
+  yScrollLimit = document.getElementById("place-summary").offsetTop;
   document.getElementById("sidebar-top-spacer").style.height =
     yScrollLimit + "px";
   const sidebarOuterHeight =
@@ -123,6 +135,34 @@ async function getLandingPageData(
     });
 }
 
+/**
+ * Handler for NL search bar
+ * @param q search query entered by user
+ */
+function onSearch(q: string): void {
+  triggerGAEvent(GA_EVENT_NL_SEARCH, {
+    [GA_PARAM_QUERY]: q,
+    [GA_PARAM_SOURCE]: GA_VALUE_SEARCH_SOURCE_PLACE_PAGE,
+  });
+  window.location.href = `/explore#q=${encodeURIComponent(q)}`;
+}
+
+/**
+ * Set the text in the page-loading div to a sorry message.
+ * Set the text to empty if summary text is present on the page.
+ */
+function setErrorMessage(): void {
+  const summaryText = document.getElementById("place-summary").innerText;
+  const loadingElem = document.getElementById("page-loading");
+  if (summaryText) {
+    // If summary text is present, suppress "Sorry" message
+    loadingElem.innerHTML = "";
+  } else {
+    loadingElem.innerText =
+      "Sorry, there was an error loading charts for this place.";
+  }
+}
+
 function renderPage(): void {
   const urlParams = new URLSearchParams(window.location.search);
   const urlHash = window.location.hash;
@@ -145,15 +185,36 @@ function renderPage(): void {
     ]),
   ])
     .then(([landingPageData]) => {
-      const loadingElem = document.getElementById("page-loading");
       if (_.isEmpty(landingPageData)) {
-        loadingElem.innerText =
-          "Sorry, we don't have any charts to show for this place.";
+        setErrorMessage();
         return;
       }
+      const loadingElem = document.getElementById("page-loading");
       loadingElem.style.display = "none";
       const data: PageData = landingPageData;
       const isUsaPlace = isPlaceInUsa(dcid, data.parentPlaces);
+
+      if (SHOW_NL_SEARCH_BAR) {
+        ReactDOM.render(
+          React.createElement(NlSearchBar, {
+            initialValue: "",
+            inputId: "query-search-input",
+            onSearch,
+            placeholder: `Enter a question to explore`,
+            shouldAutoFocus: false,
+          }),
+          document.getElementById("nl-search-bar")
+        );
+      } else {
+        // when NL search bar is hidden, need to adjust spacing
+        document.getElementById("nl-search-bar").style.height = "2rem";
+      }
+
+      ReactDOM.render(
+        React.createElement(PlaceSearch, {}),
+        document.getElementById("place-search-container")
+      );
+
       ReactDOM.render(
         React.createElement(Menu, {
           pageChart: data.pageChart,
@@ -164,27 +225,18 @@ function renderPage(): void {
         document.getElementById("menu")
       );
 
-      // Earth has no parent places.
-      if (data.parentPlaces.length > 0) {
+      if (!showOverview(isUsaPlace, placeType, category)) {
         ReactDOM.render(
-          React.createElement(ParentPlace, {
-            names: data.names,
-            parentPlaces: data.parentPlaces,
-            placeType,
+          React.createElement(PlaceHighlight, {
+            dcid,
+            highlight: data.highlight,
           }),
-          document.getElementById("place-type")
+          document.getElementById("place-highlight")
         );
       }
-      ReactDOM.render(
-        React.createElement(PlaceHighlight, {
-          dcid,
-          highlight: data.highlight,
-        }),
-        document.getElementById("place-highlight")
-      );
 
       // Readjust sidebar based on parent places.
-      updatePageLayoutState();
+      // updatePageLayoutState();
 
       // Display child places alphabetically
       for (const placeType in data.allChildPlaces) {
@@ -216,6 +268,7 @@ function renderPage(): void {
         }),
         document.getElementById("subtitle")
       );
+
       ReactDOM.render(
         React.createElement(MainPane, {
           category,
@@ -229,6 +282,7 @@ function renderPage(): void {
           parentPlaces: data.parentPlaces,
           categoryStrings: data.categories,
           locale,
+          highlight: data.highlight,
         }),
         document.getElementById("main-pane")
       );
@@ -236,9 +290,7 @@ function renderPage(): void {
       window.location.hash = urlHash;
     })
     .catch(() => {
-      const loadingElem = document.getElementById("page-loading");
-      loadingElem.innerText =
-        "Sorry, there was an error loading charts for this place.";
+      setErrorMessage();
     });
 }
 

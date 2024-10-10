@@ -1,0 +1,15 @@
+{
+  "name": "@datacommonsorg/react-tiles",
+  "version": "0.0.1",
+  "description": "React-based tiles for visualizing data from datacommons.org",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/datacommonsorg/website/blob/master/packages/react-tiles"
+  },
+  "author": "datacommons.org",
+  "license": "Apache-2.0"
+}

@@ -13,9 +13,10 @@
 # limitations under the License.
 
 from dataclasses import dataclass
-import logging
 import re
 from typing import Dict, Set, Tuple
+
+from flask import current_app
 
 from server.config.subject_page_pb2 import Block
 from server.config.subject_page_pb2 import SubjectPageConfig
@@ -33,6 +34,9 @@ from server.lib.nl.fulfillment.types import ChartSpec
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import SV2Thing
 import server.lib.nl.fulfillment.utils as futils
+
+_OUT_ARROW = '->'
+_IN_ARROW = '<-'
 
 
 # Config structures.
@@ -55,15 +59,16 @@ class Builder:
 
     metadata = self.page_config.metadata
     # TODO: Revisit this choice.
-    main_place = uttr.rankedCharts[0].places[0]
-    metadata.place_dcid.append(main_place.dcid)
-    for ch in uttr.rankedCharts:
-      if (ch.chart_type == ChartType.MAP_CHART or
-          ch.chart_type == ChartType.RANKING_WITH_MAP or
-          ch.chart_type == ChartType.SCATTER_CHART):
-        metadata.contained_place_types[main_place.place_type] = \
-          ch.place_type
-        break
+    if uttr.rankedCharts[0].places:
+      main_place = uttr.rankedCharts[0].places[0]
+      metadata.place_dcid.append(main_place.dcid)
+      for ch in uttr.rankedCharts:
+        if (ch.chart_type == ChartType.MAP_CHART or
+            ch.chart_type == ChartType.RANKING_WITH_MAP or
+            ch.chart_type == ChartType.SCATTER_CHART):
+          metadata.contained_place_types[main_place.place_type] = \
+            ch.place_type
+          break
 
     self.category = self.page_config.categories.add()
     self.block = None
@@ -85,6 +90,7 @@ class Builder:
     if self.block:
       self.category.blocks.append(self.block)
     self.block = Block()
+    self.block.info_message = cspec.info_message
 
     if not skip_title:
       title, description, footnote = self.get_block_strings(cv, override_sv)
@@ -221,10 +227,8 @@ def is_sv_percapita(sv_name: str, sv_dcid: str) -> bool:
 
 def is_map_or_ranking_compatible(cspec: ChartSpec) -> bool:
   if len(cspec.places) > 1:
-    logging.error(f'Incompatible MAP/RANKING: too-many-places {cspec}')
     return False
   if not cspec.place_type:
-    logging.error(f'Incompatible MAP/RANKING: missing-place-type {cspec}')
     return False
   return True
 
@@ -232,6 +236,12 @@ def is_map_or_ranking_compatible(cspec: ChartSpec) -> bool:
 def place_overview_block(column):
   tile = column.tiles.add()
   tile.type = Tile.TileType.PLACE_OVERVIEW
+
+
+def entity_overview_block(column, entity):
+  tile = column.tiles.add()
+  tile.type = Tile.TileType.ENTITY_OVERVIEW
+  tile.entities.extend([entity.dcid])
 
 
 # Delete duplicate charts and cleanup any empties.
@@ -289,6 +299,30 @@ def _process_title_desc_footnote(builder: Builder,
     description = builder.sv2thing.description.get(cv.svs[0], '')
     footnote = builder.sv2thing.footnote.get(cv.svs[0], '')
   elif len(cv.svs) > 1 and builder.sv2thing.name.get(cv.svs[0]):
-    title = builder.sv2thing.name[cv.svs[0]] + ' and more'
-
+    title = formatting.title_for_two_or_more_svs(cv.svs, builder.sv2thing.name)
   return title, description, footnote
+
+
+# Gets the display name to use for a property expression
+def get_property_display_name(prop_expression: str) -> str:
+  override_prop_titles = current_app.config['NL_PROP_TITLES']
+  # try to get display name from override_prop_titles
+  display_name = override_prop_titles.get(prop_expression,
+                                          {}).get('displayName', '')
+
+  # If display name was not found in override prop titles, process the prop
+  # expression into a display name
+  if not display_name:
+    display_name = prop_expression
+    # remove any arrows from the display name
+    if display_name.startswith(_IN_ARROW) or display_name.startswith(
+        _OUT_ARROW):
+      display_name = display_name[len(_IN_ARROW):]
+    # break camelCase names into individual words with spaces
+    # e.g., dateCreated becomes date Created
+    display_name = re.sub(r'((?<=[a-z])[A-Z]|(?<!\A)[A-Z](?=[a-z]))', r' \1',
+                          display_name)
+    # capitalize the first letter without changing the rest of the string
+    # e.g., chembl ID will become Chembl ID
+    display_name = display_name[0].upper() + display_name[1:]
+  return display_name

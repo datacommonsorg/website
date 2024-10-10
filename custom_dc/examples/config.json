@@ -1,0 +1,41 @@
+{
+  "inputFiles": {
+    "countries.csv": {
+      "entityType": "Country"
+    },
+    "geoids.csv": {
+      "entityType": "",
+      "ignoreColumns": ["ignore1", "ignore2"]
+    },
+    "latlng.csv": {
+      "entityType": "Country"
+    },
+    "powerplants.csv": {
+      "entityType": "PowerPlant"
+    },
+    "s2cells.csv": {
+      "entityType": "S2CellLevel10"
+    },
+    "wikidataids.csv": {
+      "entityType": "Country"
+    }
+  },
+  "variables": {
+    "var1": {
+      "name": "Good var1 name",
+      "description": "Good var1 description",
+      "searchDescriptions": [
+        "Natural language sentence 1",
+        "Natural language sentence 2"
+      ],
+      "group": "Parent Group/Child Group 1"
+    },
+    "var2": {
+      "name": "Good var2 name",
+      "group": "Parent Group/Child Group 2"
+    },
+    "Variable 1": {
+      "group": "Parent Group"
+    }
+  }
+}

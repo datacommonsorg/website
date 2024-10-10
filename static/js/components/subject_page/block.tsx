@@ -18,34 +18,50 @@
  * Component for rendering a default block (block with no type).
  */
 
+// Import web components
+import "../../../library";
+
 import axios from "axios";
+import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
-import { Input } from "reactstrap";
+import { FormattedMessage } from "react-intl";
+import { Input, UncontrolledTooltip } from "reactstrap";
 
 import { getVariableNameProcessingFn } from "../../../library/utils";
 import { TimeScaleOption } from "../../chart/types";
-import { NL_NUM_BLOCKS_SHOWN } from "../../constants/app/nl_interface_constants";
+import { NL_NUM_BLOCKS_SHOWN } from "../../constants/app/explore_constants";
 import {
   COLUMN_ID_PREFIX,
   HIDE_COLUMN_CLASS,
   HIDE_TILE_CLASS,
   TILE_ID_PREFIX,
 } from "../../constants/subject_page_constants";
-import { NamedPlace, NamedTypedPlace } from "../../shared/types";
+import { intl } from "../../i18n/i18n";
+import { DATE_HIGHEST_COVERAGE, DATE_LATEST } from "../../shared/constants";
+import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { ColumnConfig, TileConfig } from "../../types/subject_page_proto_types";
+import { highestCoverageDatesEqualLatestDates } from "../../utils/app/explore_utils";
 import { stringifyFn } from "../../utils/axios";
-import { isNlInterface } from "../../utils/nl_interface_utils";
+import { isNlInterface } from "../../utils/explore_utils";
 import {
+  addPerCapitaToTitle,
+  addPerCapitaToVersusTitle,
   convertToSortType,
   getColumnTileClassName,
   getColumnWidth,
   getId,
   getMinTileIdxToHide,
 } from "../../utils/subject_page_utils";
-import { getComparisonPlaces } from "../../utils/tile_utils";
+import {
+  getComparisonPlaces,
+  getHighlightTileDescription,
+} from "../../utils/tile_utils";
+import { AnswerMessageTile } from "../tiles/answer_message_tile";
+import { AnswerTableTile } from "../tiles/answer_table_tile";
 import { BarTile } from "../tiles/bar_tile";
 import { BivariateTile } from "../tiles/bivariate_tile";
 import { DonutTile } from "../tiles/donut_tile";
+import { EntityOverviewTile } from "../tiles/entity_overview_tile";
 import { GaugeTile } from "../tiles/gauge_tile";
 import { HighlightTile } from "../tiles/highlight_tile";
 import { LineTile } from "../tiles/line_tile";
@@ -55,6 +71,13 @@ import { RankingTile } from "../tiles/ranking_tile";
 import { ScatterTile } from "../tiles/scatter_tile";
 import { Column } from "./column";
 import { StatVarProvider } from "./stat_var_provider";
+
+// Lazy load tiles (except map) when they are within 1000px of the viewport
+const EXPLORE_LAZY_LOAD_MARGIN = "1000px";
+
+// Lazy load the map tile can be slow, so only load when it directly overlaps
+// the viewport
+const EXPLORE_LAZY_LOAD_MARGIN_MAP = "0px";
 
 /**
  * Translates the line tile's timeScale enum to the TimeScaleOption type
@@ -87,9 +110,86 @@ export interface BlockPropType {
   showExploreMore?: boolean;
   denom?: string;
   startWithDenom?: boolean;
+  // Whether to render tiles as web components
+  showWebComponents?: boolean;
 }
 
 const NO_MAP_TOOL_PLACE_TYPES = new Set(["UNGeoRegion", "GeoRegion"]);
+const rankingTileLatestDataFooter = intl.formatMessage({
+  defaultMessage:
+    "This ranking includes data from several years for a comprehensive view of places.",
+  description:
+    "Description of a chart that shows data points from various years.",
+  id: "ranking-tile-latest-data-footer",
+});
+const rankingTileLatestDataAvailableFooter = intl.formatMessage({
+  defaultMessage:
+    "Ranking based on latest data available. Some places may be missing due to incomplete reporting that year.",
+  description:
+    "Description of a chart that shows the most recently available data.",
+  id: "ranking-tile-latest-data-available-footer",
+});
+
+/**
+ * Helper for determining if we should snap the charts in this block to the
+ * best available coverage
+ *
+ * Only show the checkbox if:
+ * (1) No date is set in the chart config columns (meaning date is "LATEST")
+ * (2) Chart types are map and/or ranking
+ * @returns boolean
+ */
+function eligibleForSnapToHighestCoverage(
+  columns: ColumnConfig[],
+  statVarProvider: StatVarProvider
+): boolean {
+  const tiles = _.flatten(_.flatten(columns.map((c) => c.tiles)));
+  const statVarKeys = _.flatten(tiles.map((tile) => tile.statVarKey));
+  const tileTypes = _.flatten(
+    _.flatten(columns.map((c) => c.tiles.map((tile) => tile.type)))
+  );
+  const statVarSpecs = statVarProvider.getSpecList(statVarKeys);
+
+  const isEligibleForSnapToHighestCoverage =
+    !_.find<StatVarSpec>(statVarSpecs, (statVarSpec) => !!statVarSpec.date) &&
+    !_.find(
+      tileTypes,
+      (tileType) => tileType !== "MAP" && tileType !== "RANKING"
+    );
+  return isEligibleForSnapToHighestCoverage;
+}
+
+/**
+ * Helper for determining if we should enable the "Snap to highest coverage"
+ * checkbox.
+ *
+ * Only enable the checkbox if the observations returned from highest coverage
+ * are different from those returned by the latest observation date
+ * (when date=LATEST)
+ * @returns boolean
+ */
+async function shouldEnableSnapToHighestCoverage(
+  placeDcid: string,
+  enclosedPlaceType: string,
+  columns: ColumnConfig[],
+  statVarProvider: StatVarProvider
+): Promise<boolean> {
+  // Check if highest coverage & latest date observations are the same
+  const tiles = _.flatten(_.flatten(columns.map((c) => c.tiles)));
+  const statVarKeys = _.flatten(tiles.map((tile) => tile.statVarKey));
+  const statVarSpecs = statVarProvider.getSpecList(statVarKeys);
+  const variableDcids = statVarSpecs.map((svs) => svs.statVar);
+  const isHighestCoverageDateEqualToLatestDates =
+    await highestCoverageDatesEqualLatestDates(
+      placeDcid,
+      enclosedPlaceType,
+      variableDcids
+    );
+
+  // Only enable the snap to highest coverage checkbox if the highest coverage
+  // and latest date observations are different
+  return !isHighestCoverageDateEqualToLatestDates;
+}
 
 export function Block(props: BlockPropType): JSX.Element {
   const minIdxToHide = getMinTileIdxToHide();
@@ -97,15 +197,29 @@ export function Block(props: BlockPropType): JSX.Element {
   const [overridePlaceTypes, setOverridePlaceTypes] =
     useState<Record<string, NamedTypedPlace>>();
   const [useDenom, setUseDenom] = useState(props.startWithDenom);
+  const isEligibleForSnapToHighestCoverage = eligibleForSnapToHighestCoverage(
+    props.columns,
+    props.statVarProvider
+  );
+  const [snapToHighestCoverage, setSnapToHighestCoverage] = useState(
+    isEligibleForSnapToHighestCoverage
+  );
+  const [
+    showSnapToHighestCoverageCheckbox,
+    setShowSnapToHighestCoverageCheckbox,
+  ] = useState(false);
+  const [enableSnapToLatestData, setEnableSnapToLatestData] = useState(true);
   const columnSectionRef = useRef(null);
   const expandoRef = useRef(null);
+  const snapToLatestDataInfoRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const overridePlaces = props.columns
       .map((c) => {
         return c.tiles.map((t) => t.placeDcidOverride);
       })
-      .flat();
+      .flat()
+      .filter((name) => !!name);
 
     if (!overridePlaces.length) {
       setOverridePlaceTypes({});
@@ -124,18 +238,82 @@ export function Block(props: BlockPropType): JSX.Element {
       });
   }, [props]);
 
+  useEffect(() => {
+    if (!isEligibleForSnapToHighestCoverage) {
+      return;
+    }
+    (async () => {
+      const enableSnapToHighestCoverage =
+        await shouldEnableSnapToHighestCoverage(
+          props.place.dcid,
+          props.enclosedPlaceType,
+          props.columns,
+          props.statVarProvider
+        );
+      setEnableSnapToLatestData(enableSnapToHighestCoverage);
+      setShowSnapToHighestCoverageCheckbox(true);
+    })();
+  }, [props]);
+
   return (
     <>
-      {props.denom && (
-        <div className="block-per-capita-toggle">
-          <Input
-            type="checkbox"
-            checked={useDenom}
-            onChange={() => setUseDenom(!useDenom)}
-          />
-          <span>See per capita</span>
-        </div>
-      )}
+      <div className="block-controls">
+        {props.denom && (
+          <span className="block-toggle">
+            <label>
+              <Input
+                type="checkbox"
+                checked={useDenom}
+                onChange={() => setUseDenom(!useDenom)}
+              />
+              <span>See per capita</span>
+            </label>
+          </span>
+        )}
+        {showSnapToHighestCoverageCheckbox && (
+          <span className="block-toggle">
+            <label>
+              <Input
+                checked={snapToHighestCoverage}
+                disabled={!enableSnapToLatestData}
+                onChange={() =>
+                  setSnapToHighestCoverage(!snapToHighestCoverage)
+                }
+                type="checkbox"
+              />
+              <span className={enableSnapToLatestData ? "" : "label-disabled"}>
+                <FormattedMessage
+                  description="Checkbox label for an option that tells a chart visualization to show the latest data available"
+                  defaultMessage="Snap to date with highest coverage"
+                  id="snap-to-latest-data-checkbox-label"
+                />
+              </span>
+            </label>
+            <span className="material-icons" ref={snapToLatestDataInfoRef}>
+              help_outlined
+            </span>
+            <UncontrolledTooltip
+              className="dc-tooltip"
+              placement="auto"
+              target={snapToLatestDataInfoRef}
+            >
+              {enableSnapToLatestData ? (
+                <FormattedMessage
+                  description="Informational message for a checkbox titled 'Snap to date with highest coverage' that adjusts what data is displayed in a chart."
+                  defaultMessage="'Snap to date with highest coverage' shows the most recent data with maximal coverage. Some places might be missing due to incomplete reporting that year."
+                  id="snap-to-latest-data-help-tooltip"
+                />
+              ) : (
+                <FormattedMessage
+                  description="Informational message for a disabled checkbox titled 'Snap to date with highest coverage' that adjusts what data is displayed in a chart. The message is explaining that the checkbox is disabled because the highest coverage data overlaps with the most recent data available."
+                  defaultMessage="The highest coverage data is also the latest data available for this chart."
+                  id="snap-to-latest-data-overlap-help-tooltip"
+                />
+              )}
+            </UncontrolledTooltip>
+          </span>
+        )}
+      </div>
       <div className="block-body row" ref={columnSectionRef}>
         {props.columns &&
           props.columns.map((column, idx) => {
@@ -149,15 +327,33 @@ export function Block(props: BlockPropType): JSX.Element {
                 id={id}
                 config={column}
                 width={columnWidth}
-                tiles={renderTiles(
-                  column.tiles,
-                  props,
-                  id,
-                  minIdxToHide,
-                  overridePlaceTypes,
-                  columnTileClassName,
-                  useDenom ? props.denom : ""
-                )}
+                tiles={
+                  props.showWebComponents
+                    ? renderWebComponents(
+                        column.tiles,
+                        props,
+                        id,
+                        minIdxToHide,
+                        overridePlaceTypes,
+                        columnTileClassName,
+                        useDenom ? props.denom : "",
+                        snapToHighestCoverage
+                          ? DATE_HIGHEST_COVERAGE
+                          : undefined
+                      )
+                    : renderTiles(
+                        column.tiles,
+                        props,
+                        id,
+                        minIdxToHide,
+                        overridePlaceTypes,
+                        columnTileClassName,
+                        useDenom ? props.denom : "",
+                        snapToHighestCoverage
+                          ? DATE_HIGHEST_COVERAGE
+                          : undefined
+                      )
+                }
               />
             );
           })}
@@ -198,7 +394,8 @@ function renderTiles(
   minIdxToHide: number,
   overridePlaces: Record<string, NamedTypedPlace>,
   tileClassName?: string,
-  blockDenom?: string
+  blockDenom?: string,
+  blockDate?: string
 ): JSX.Element {
   if (!tiles || !overridePlaces) {
     return <></>;
@@ -218,32 +415,38 @@ function renderTiles(
       : props.place;
     const comparisonPlaces = getComparisonPlaces(tile, place);
     const className = classNameList.join(" ");
+    // TODO(beets): Fix this for ranking tiles with highest/lowest title set.
+    let title = blockDenom ? addPerCapitaToTitle(tile.title) : tile.title;
     switch (tile.type) {
-      case "HIGHLIGHT":
+      case "HIGHLIGHT": {
         return (
           <HighlightTile
             key={id}
-            description={tile.description}
+            description={getHighlightTileDescription(tile, blockDenom)}
             place={place}
-            statVarSpec={props.statVarProvider.getSpec(
-              tile.statVarKey[0],
-              blockDenom
-            )}
+            statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0], {
+              blockDate,
+              blockDenom,
+            })}
           />
         );
+      }
+
       case "MAP":
         return (
           <MapTile
             key={id}
             id={id}
-            title={tile.title}
+            lazyLoad={true}
+            lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN_MAP}
+            title={title}
             subtitle={tile.subtitle}
             place={place}
             enclosedPlaceType={enclosedPlaceType}
-            statVarSpec={props.statVarProvider.getSpec(
-              tile.statVarKey[0],
-              blockDenom
-            )}
+            statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0], {
+              blockDate,
+              blockDenom,
+            })}
             svgChartHeight={props.svgChartHeight}
             className={className}
             showExploreMore={
@@ -265,14 +468,16 @@ function renderTiles(
           <LineTile
             key={id}
             id={id}
-            title={tile.title}
+            lazyLoad={true}
+            lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN}
+            title={title}
             subtitle={tile.subtitle}
             place={place}
             comparisonPlaces={comparisonPlaces}
-            statVarSpec={props.statVarProvider.getSpecList(
-              tile.statVarKey,
-              blockDenom
-            )}
+            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey, {
+              blockDate,
+              blockDenom,
+            })}
             svgChartHeight={props.svgChartHeight}
             className={className}
             showExploreMore={props.showExploreMore}
@@ -285,6 +490,9 @@ function renderTiles(
               tile.lineTileSpec?.variableNameRegex,
               tile.lineTileSpec?.defaultVariableName
             )}
+            startDate={tile.lineTileSpec?.startDate}
+            endDate={tile.lineTileSpec?.endDate}
+            highlightDate={tile.lineTileSpec?.highlightDate}
           />
         );
       case "RANKING":
@@ -292,17 +500,26 @@ function renderTiles(
           <RankingTile
             key={id}
             id={id}
-            title={tile.title}
+            lazyLoad={true}
+            lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN}
+            title={title}
             parentPlace={place.dcid}
             enclosedPlaceType={enclosedPlaceType}
-            variables={props.statVarProvider.getSpecList(
-              tile.statVarKey,
-              blockDenom
-            )}
+            variables={props.statVarProvider.getSpecList(tile.statVarKey, {
+              blockDate,
+              blockDenom,
+            })}
             rankingMetadata={tile.rankingTileSpec}
             className={className}
             showExploreMore={props.showExploreMore}
             hideFooter={tile.hideFooter}
+            footnote={
+              blockDate == DATE_LATEST
+                ? rankingTileLatestDataFooter
+                : blockDate === DATE_HIGHEST_COVERAGE
+                ? rankingTileLatestDataAvailableFooter
+                : undefined
+            }
           />
         );
       case "BAR":
@@ -316,6 +533,8 @@ function renderTiles(
             horizontal={tile.barTileSpec?.horizontal}
             id={id}
             key={id}
+            lazyLoad={true}
+            lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN}
             maxPlaces={tile.barTileSpec?.maxPlaces}
             maxVariables={tile.barTileSpec?.maxVariables}
             parentPlace={place.dcid}
@@ -326,12 +545,12 @@ function renderTiles(
             stacked={tile.barTileSpec?.stacked}
             subtitle={tile.subtitle}
             svgChartHeight={props.svgChartHeight}
-            title={tile.title}
+            title={title}
             useLollipop={tile.barTileSpec?.useLollipop}
-            variables={props.statVarProvider.getSpecList(
-              tile.statVarKey,
-              blockDenom
-            )}
+            variables={props.statVarProvider.getSpecList(tile.statVarKey, {
+              blockDate,
+              blockDenom,
+            })}
             xLabelLinkRoot={tile.barTileSpec?.xLabelLinkRoot}
             yAxisMargin={tile.barTileSpec?.yAxisMargin}
             placeNameProp={tile.placeNameProp}
@@ -341,19 +560,25 @@ function renderTiles(
             )}
           />
         );
-      case "SCATTER":
+      case "SCATTER": {
+        const statVarSpec = props.statVarProvider.getSpecList(tile.statVarKey, {
+          blockDate,
+          blockDenom,
+        });
+        title = blockDenom
+          ? addPerCapitaToVersusTitle(tile.title, statVarSpec)
+          : tile.title;
         return (
           <ScatterTile
             key={id}
             id={id}
-            title={tile.title}
+            lazyLoad={true}
+            lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN}
+            title={title}
             subtitle={tile.subtitle}
             place={place}
             enclosedPlaceType={enclosedPlaceType}
-            statVarSpec={props.statVarProvider.getSpecList(
-              tile.statVarKey,
-              blockDenom
-            )}
+            statVarSpec={statVarSpec}
             svgChartHeight={
               isNlInterface() ? props.svgChartHeight * 2 : props.svgChartHeight
             }
@@ -364,23 +589,32 @@ function renderTiles(
             placeNameProp={tile.placeNameProp}
           />
         );
-      case "BIVARIATE":
+      }
+
+      case "BIVARIATE": {
+        const statVarSpec = props.statVarProvider.getSpecList(tile.statVarKey, {
+          blockDate,
+          blockDenom,
+        });
+        title = blockDenom
+          ? addPerCapitaToVersusTitle(tile.title, statVarSpec)
+          : tile.title;
         return (
           <BivariateTile
             key={id}
             id={id}
-            title={tile.title}
+            lazyLoad={true}
+            lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN}
+            title={title}
             place={place}
             enclosedPlaceType={enclosedPlaceType}
-            statVarSpec={props.statVarProvider.getSpecList(
-              tile.statVarKey,
-              blockDenom
-            )}
+            statVarSpec={statVarSpec}
             svgChartHeight={props.svgChartHeight}
             className={className}
             showExploreMore={props.showExploreMore}
           />
         );
+      }
       case "GAUGE":
         return (
           <GaugeTile
@@ -388,18 +622,20 @@ function renderTiles(
             footnote={props.footnote}
             key={id}
             id={id}
+            lazyLoad={true}
+            lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN}
             place={place}
             /* "min: 0" value are stripped out when loading text protobufs, so add them back in here */
             range={{
               max: tile.gaugeTileSpec.range.max,
               min: tile.gaugeTileSpec.range.min || 0,
             }}
-            statVarSpec={props.statVarProvider.getSpec(
-              tile.statVarKey[0],
-              blockDenom
-            )}
+            statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0], {
+              blockDate,
+              blockDenom,
+            })}
             svgChartHeight={props.svgChartHeight}
-            title={tile.title}
+            title={title}
             subtitle={tile.subtitle}
           ></GaugeTile>
         );
@@ -408,18 +644,364 @@ function renderTiles(
           <DonutTile
             colors={tile.donutTileSpec?.colors}
             footnote={props.footnote}
-            key={`${id}-2`}
             id={id}
+            lazyLoad={true}
+            lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN}
+            key={`${id}-2`}
             pie={tile.donutTileSpec?.pie}
             place={place}
-            statVarSpec={props.statVarProvider.getSpecList(
-              tile.statVarKey,
-              blockDenom
-            )}
+            statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey, {
+              blockDate,
+              blockDenom,
+            })}
             svgChartHeight={props.svgChartHeight}
-            title={tile.title}
+            title={title}
             subtitle={tile.subtitle}
           ></DonutTile>
+        );
+      case "DESCRIPTION":
+        return (
+          <p key={id} className="description-tile">
+            {tile.description}
+          </p>
+        );
+      case "PLACE_OVERVIEW":
+        // TODO(gmechali): Switch to server-side redirection
+        return <PlaceOverviewTile key={id} place={place} />;
+      case "ANSWER_MESSAGE":
+        return (
+          <AnswerMessageTile
+            key={id}
+            title={tile.title}
+            entity={!_.isEmpty(tile.entities) ? tile.entities[0] : ""}
+            propertyExpr={tile.answerMessageTileSpec.propertyExpr}
+            displayValue={tile.answerMessageTileSpec.displayValue}
+          />
+        );
+      case "ANSWER_TABLE":
+        return (
+          <AnswerTableTile
+            columns={tile.answerTableTileSpec.columns}
+            entities={tile.entities}
+            key={id}
+            title={tile.title}
+          />
+        );
+      case "ENTITY_OVERVIEW":
+        return (
+          <EntityOverviewTile
+            key={id}
+            entity={!_.isEmpty(tile.entities) ? tile.entities[0] : ""}
+          />
+        );
+      default:
+        console.log("Tile type not supported:" + tile.type);
+    }
+  });
+  return <>{tilesJsx}</>;
+}
+
+function renderWebComponents(
+  tiles: TileConfig[],
+  props: BlockPropType,
+  columnId: string,
+  minIdxToHide: number,
+  overridePlaces: Record<string, NamedTypedPlace>,
+  tileClassName?: string,
+  blockDenom?: string,
+  blockDate?: string
+): JSX.Element {
+  if (!tiles || !overridePlaces) {
+    return <></>;
+  }
+  const tilesJsx = tiles.map((tile, i) => {
+    const id = getId(columnId, TILE_ID_PREFIX, i);
+    const enclosedPlaceType = props.enclosedPlaceType;
+    const classNameList = [];
+    if (tileClassName) {
+      classNameList.push(tileClassName);
+    }
+    if (i >= minIdxToHide) {
+      classNameList.push(HIDE_TILE_CLASS);
+    }
+    const place = tile.placeDcidOverride
+      ? overridePlaces[tile.placeDcidOverride]
+      : props.place;
+    const comparisonPlaces = getComparisonPlaces(tile, place);
+    const className = classNameList.join(" ");
+    // TODO(beets): Fix this for ranking tiles with highest/lowest title set.
+    const title = blockDenom ? addPerCapitaToTitle(tile.title) : tile.title;
+    switch (tile.type) {
+      case "HIGHLIGHT": {
+        let description = tile.description.includes("${date}")
+          ? tile.description
+          : tile.description + " (${date})";
+        description = blockDenom
+          ? addPerCapitaToTitle(description)
+          : description;
+        return (
+          <datacommons-highlight
+            key={id}
+            id={id}
+            description={description}
+            place={place.dcid}
+            variable={
+              props.statVarProvider.getSpec(tile.statVarKey[0], {
+                blockDate,
+                blockDenom,
+              }).statVar
+            }
+          />
+        );
+      }
+      case "MAP":
+        return (
+          <datacommons-map
+            key={id}
+            id={id}
+            header={title}
+            subheader={tile.subtitle}
+            parentPlace={place.dcid}
+            childPlaceType={enclosedPlaceType}
+            variable={
+              props.statVarProvider.getSpec(tile.statVarKey[0], {
+                blockDate,
+                blockDenom,
+              }).statVar
+            }
+            className={className}
+            {...(props.showExploreMore &&
+            props.place.types.every(
+              (type) => !NO_MAP_TOOL_PLACE_TYPES.has(type)
+            )
+              ? { showExploreMore: true }
+              : {})}
+            {...(tile.mapTileSpec?.geoJsonProp
+              ? { geoJsonProp: tile.mapTileSpec?.geoJsonProp }
+              : {})}
+            {...(tile.placeNameProp ? { placeNameProp: true } : {})}
+            parentPlaces={props.parentPlaces}
+            allowZoom={true}
+            {...(tile.mapTileSpec?.colors
+              ? { colors: tile.mapTileSpec?.colors.join(" ") }
+              : {})}
+            colors={tile.mapTileSpec?.colors}
+          />
+        );
+      case "LINE":
+        return (
+          <datacommons-line
+            key={id}
+            id={id}
+            header={title}
+            subheader={tile.subtitle}
+            parentPlace={place.dcid}
+            {...(comparisonPlaces
+              ? { places: comparisonPlaces.join(" ") }
+              : {})}
+            variables={props.statVarProvider
+              .getSpecList(tile.statVarKey, { blockDate, blockDenom })
+              .map((sv) => sv.statVar)
+              .join(" ")}
+            className={className}
+            showExploreMore={props.showExploreMore}
+            {...(tile.lineTileSpec?.colors
+              ? { colors: tile.lineTileSpec?.colors.join(" ") }
+              : {})}
+            footnote={props.footnote}
+            timeScale={getTimeScaleOption(tile.lineTileSpec?.timeScale)}
+            placeNameProp={tile.placeNameProp}
+            getProcessedSVNameFn={getVariableNameProcessingFn(
+              tile.lineTileSpec?.variableNameRegex,
+              tile.lineTileSpec?.defaultVariableName
+            )}
+          />
+        );
+      case "RANKING":
+        return (
+          <datacommons-ranking
+            key={id}
+            id={id}
+            header={title}
+            parentPlace={place.dcid}
+            childPlaceType={enclosedPlaceType}
+            variables={props.statVarProvider
+              .getSpecList(tile.statVarKey, { blockDate, blockDenom })
+              .map((sv) => sv.statVar)
+              .join(" ")}
+            {...(tile.rankingTileSpec?.highestTitle
+              ? { highestTitle: true }
+              : {})}
+            {...(tile.rankingTileSpec?.lowestTitle
+              ? { lowestTitle: true }
+              : {})}
+            {...(tile.rankingTileSpec?.rankingCount
+              ? { rankingCount: true }
+              : {})}
+            {...(tile.rankingTileSpec?.showHighestLowest
+              ? { showHighestLowest: true }
+              : {})}
+            {...(tile.rankingTileSpec?.showLowest ? { showLowest: true } : {})}
+            {...(tile.rankingTileSpec?.showHighest
+              ? { showHighest: true }
+              : {})}
+            {...(tile.rankingTileSpec?.showMultiColumn
+              ? { showMultiColumn: true }
+              : {})}
+            className={className}
+            {...(props.showExploreMore ? { showExploreMore: true } : {})}
+            {...(tile.hideFooter ? { hideFooter: true } : {})}
+          />
+        );
+      case "BAR":
+        return (
+          <datacommons-bar
+            {...(tile.barTileSpec?.colors
+              ? { colors: tile.barTileSpec?.colors.join(" ") }
+              : {})}
+            className={className}
+            childPlaceType={enclosedPlaceType}
+            horizontal={tile.barTileSpec?.horizontal}
+            id={id}
+            key={id}
+            {...(tile.barTileSpec?.maxPlaces
+              ? { maxPlaces: tile.barTileSpec?.maxPlaces }
+              : {})}
+            {...(tile.barTileSpec?.maxVariables
+              ? { maxVariables: tile.barTileSpec?.maxVariables }
+              : {})}
+            parentPlace={place.dcid}
+            {...(comparisonPlaces
+              ? { places: comparisonPlaces.join(" ") }
+              : {})}
+            showExploreMore={props.showExploreMore}
+            sort={convertToSortType(tile.barTileSpec?.sort)}
+            {...(tile.barTileSpec?.stacked ? { stacked: true } : {})}
+            subheader={tile.subtitle}
+            header={title}
+            {...(tile.barTileSpec?.useLollipop ? { useLollipop: true } : {})}
+            variables={props.statVarProvider
+              .getSpecList(tile.statVarKey, { blockDate, blockDenom })
+              .map((sv) => sv.statVar)
+              .join(" ")}
+            xLabelLinkRoot={tile.barTileSpec?.xLabelLinkRoot}
+            {...(tile.barTileSpec?.yAxisMargin ? { yAxisMargin: true } : {})}
+            placeNameProp={tile.placeNameProp}
+            {...(tile.barTileSpec?.variableNameRegex
+              ? { variableNameRegex: tile.barTileSpec?.variableNameRegex }
+              : {})}
+            {...(tile.barTileSpec?.defaultVariableName
+              ? { defaultVariableName: tile.barTileSpec?.defaultVariableName }
+              : {})}
+          />
+        );
+      case "SCATTER": {
+        const statVarSpec = props.statVarProvider.getSpecList(tile.statVarKey, {
+          blockDate,
+          blockDenom,
+        });
+        const title = blockDenom
+          ? addPerCapitaToVersusTitle(tile.title, statVarSpec)
+          : tile.title;
+        return (
+          <datacommons-scatter
+            key={id}
+            id={id}
+            header={title}
+            subheader={tile.subtitle}
+            parentPlace={place.dcid}
+            childPlaceType={enclosedPlaceType}
+            variables={statVarSpec.map((sv) => sv.statVar).join(" ")}
+            usePerCapita={statVarSpec
+              .map((sv) => (sv.denom ? sv.statVar : ""))
+              .join(" ")}
+            className={className}
+            {...(tile.scatterTileSpec?.highlightBottomLeft
+              ? { highlightBottomLeft: true }
+              : {})}
+            {...(tile.scatterTileSpec?.highlightBottomRight
+              ? { highlightBottomRight: true }
+              : {})}
+            {...(tile.scatterTileSpec?.highlightTopLeft
+              ? { highlightTopLeft: true }
+              : {})}
+            {...(tile.scatterTileSpec?.highlightTopRight
+              ? { highlightTopRight: true }
+              : {})}
+            {...(tile.scatterTileSpec?.showPlaceLabels
+              ? { showPlaceLabels: true }
+              : {})}
+            {...(tile.scatterTileSpec?.showQuadrants
+              ? { showQuadrants: true }
+              : {})}
+            showExploreMore={props.showExploreMore}
+            placeNameProp={tile.placeNameProp}
+          />
+        );
+      }
+
+      case "BIVARIATE": {
+        const statVarSpec = props.statVarProvider.getSpecList(tile.statVarKey, {
+          blockDate,
+          blockDenom,
+        });
+        const title = blockDenom
+          ? addPerCapitaToVersusTitle(tile.title, statVarSpec)
+          : tile.title;
+        return (
+          <BivariateTile
+            key={id}
+            id={id}
+            title={title}
+            place={place}
+            enclosedPlaceType={enclosedPlaceType}
+            statVarSpec={statVarSpec}
+            svgChartHeight={props.svgChartHeight}
+            className={className}
+            showExploreMore={props.showExploreMore}
+          />
+        );
+      }
+
+      case "GAUGE":
+        return (
+          <datacommons-gauge
+            {...(tile.gaugeTileSpec?.colors
+              ? { colors: tile.gaugeTileSpec?.colors.join(" ") }
+              : {})}
+            key={id}
+            id={id}
+            place={place.dcid}
+            /* "min: 0" value are stripped out when loading text protobufs, so add them back in here */
+            min={tile.gaugeTileSpec?.range.min || 0}
+            max={tile.gaugeTileSpec?.range.max}
+            variable={
+              props.statVarProvider.getSpec(tile.statVarKey[0], {
+                blockDate,
+                blockDenom,
+              }).statVar
+            }
+            header={title}
+            subheader={tile.subtitle}
+          />
+        );
+      case "DONUT":
+        return (
+          <datacommons-pie
+            {...(tile.gaugeTileSpec?.colors
+              ? { colors: tile.donutTileSpec?.colors.join(" ") }
+              : {})}
+            key={id}
+            id={id}
+            donut={!tile.donutTileSpec?.pie}
+            place={place.dcid}
+            variables={props.statVarProvider
+              .getSpecList(tile.statVarKey, { blockDate, blockDenom })
+              .map((sv) => sv.statVar)
+              .join(" ")}
+            header={title}
+            subheader={tile.subtitle}
+          />
         );
       case "DESCRIPTION":
         return (

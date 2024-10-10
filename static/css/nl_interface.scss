@@ -23,6 +23,13 @@
 @import "./shared/story_block";
 @import "./shared/story_chart";
 
+
+//
+// Note: Only a subset of this file gets used by explore.scss
+// TODO: Inline that subset in explore.scss and get rid of this file.
+//
+
+
 $page-vertical-padding: 2rem;
 $query-vertical-padding: 2rem 0 1rem 0;
 $page-background-color: #fff;

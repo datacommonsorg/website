@@ -15,15 +15,19 @@
 from flask import Blueprint
 from flask import request
 
-from server import cache
 from server.lib import fetch
+from server.lib.cache import cache
+from server.lib.util import fetch_highest_coverage
+from server.routes import TIMEOUT
+from shared.lib.constants import DATE_HIGHEST_COVERAGE
+from shared.lib.constants import DATE_LATEST
 
 # Define blueprint
 bp = Blueprint('point', __name__, url_prefix='/api/observations/point')
 
 
 @bp.route('', strict_slashes=False)
-@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def point():
   """Handler to get the observation point given multiple stat vars and places."""
   entities = list(filter(lambda x: x != "", request.args.getlist('entities')))
@@ -32,12 +36,18 @@ def point():
     return 'error: must provide a `entities` field', 400
   if not variables:
     return 'error: must provide a `variables` field', 400
-  date = request.args.get('date') or 'LATEST'
+  date = request.args.get('date') or DATE_LATEST
+  # Fetch recent observations with the highest entity coverage
+  if date == DATE_HIGHEST_COVERAGE:
+    return fetch_highest_coverage(entities=entities,
+                                  variables=variables,
+                                  all_facets=False)
+  # Fetch observations from a specific date or date = 'LATEST'
   return fetch.point_core(entities, variables, date, False)
 
 
 @bp.route('/all')
-@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def point_all():
   """Handler to get all the observation points given multiple stat vars and entities."""
   entities = list(filter(lambda x: x != "", request.args.getlist('entities')))
@@ -46,12 +56,18 @@ def point_all():
     return 'error: must provide a `entities` field', 400
   if not variables:
     return 'error: must provide a `variables` field', 400
-  date = request.args.get('date', '')
+  date = request.args.get('date') or DATE_LATEST
+  # Fetch recent observations with the highest entity coverage
+  if date == DATE_HIGHEST_COVERAGE:
+    return fetch_highest_coverage(entities=entities,
+                                  variables=variables,
+                                  all_facets=True)
+  # Fetch observations from a specific date or date = 'LATEST'
   return fetch.point_core(entities, variables, date, True)
 
 
 @bp.route('/within')
-@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def point_within():
   """Gets the observations for child entities of a certain place
   type contained in a parent entity at a given date. If no date given, will
@@ -68,14 +84,22 @@ def point_within():
   variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
   if not variables:
     return 'error: must provide a `variables` field', 400
-  date = request.args.get('date') or 'LATEST'
+  date = request.args.get('date') or DATE_LATEST
   facet_ids = list(filter(lambda x: x != "", request.args.getlist('facetIds')))
+  # Fetch recent observations with the highest entity coverage
+  if date == DATE_HIGHEST_COVERAGE:
+    return fetch_highest_coverage(parent_entity=parent_entity,
+                                  child_type=child_type,
+                                  variables=variables,
+                                  all_facets=False,
+                                  facet_ids=facet_ids)
+  # Fetch observations from a specific date or date = 'LATEST'
   return fetch.point_within_core(parent_entity, child_type, variables, date,
                                  False, facet_ids)
 
 
 @bp.route('/within/all')
-@cache.cache.cached(timeout=cache.TIMEOUT, query_string=True)
+@cache.cached(timeout=TIMEOUT, query_string=True)
 def point_within_all():
   """Gets the observations for child entities of a certain place
   type contained in a parent entity at a given date. If no date given, will
@@ -92,6 +116,13 @@ def point_within_all():
   variables = list(filter(lambda x: x != "", request.args.getlist('variables')))
   if not variables:
     return 'error: must provide a `variables` field', 400
-  date = request.args.get('date') or 'LATEST'
+  date = request.args.get('date') or DATE_LATEST
+  # Fetch recent observations with the highest entity coverage
+  if date == DATE_HIGHEST_COVERAGE:
+    return fetch_highest_coverage(parent_entity=parent_entity,
+                                  child_type=child_type,
+                                  variables=variables,
+                                  all_facets=True)
+  # Fetch observations from a specific date or date = 'LATEST'
   return fetch.point_within_core(parent_entity, child_type, variables, date,
                                  True)

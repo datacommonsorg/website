@@ -53,3 +53,11 @@ Optional:
 - `placeNameProp` _string_
 
   Optionally specify the property to use to get the place names.
+
+- `startDate` _string_
+
+  Optionally specify the latest date to show on the line chart in ISO-8601
+
+- `endDate` _string_
+
+  Optionally specify the latest date to show on the line chart in ISO-8601

@@ -25,8 +25,10 @@ from typing import Dict, List
 from server.lib.nl.common import counters as ctr
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Detection
+from server.lib.nl.detection.types import Entity
 from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import Place
+from server.lib.nl.explore.params import QueryMode
 from shared.lib.detected_variables import MultiVarCandidates
 
 
@@ -63,7 +65,8 @@ class QueryType(IntEnum):
   FILTER_WITH_SINGLE_VAR = 12
   # This is [median age in cities with population over 1M]
   FILTER_WITH_DUAL_VARS = 13
-  UNKNOWN = 14
+  TRIPLE = 14
+  UNKNOWN = 15
 
 
 # Type of chart.
@@ -76,6 +79,8 @@ class ChartType(IntEnum):
   SCATTER_CHART = 5
   EVENT_CHART = 6
   RANKED_TIMELINE_COLLECTION = 7
+  ANSWER = 8
+  ENTITY_OVERVIEW = 9
 
 
 class FulfillmentResult(str, Enum):
@@ -139,6 +144,10 @@ class Utterance:
   places: List[Place]
   # Primary variables
   svs: List[str]
+  # Primary entities
+  entities: List[Entity]
+  # Primary properties
+  properties: List[str]
   # List of detected classifications
   classifications: List[NLClassifier]
   # Computed chart candidates.
@@ -164,6 +173,8 @@ class Utterance:
   llm_resp: Dict
   sv_source: FulfillmentResult = FulfillmentResult.UNKNOWN
   place_source: FulfillmentResult = FulfillmentResult.UNKNOWN
+  properties_source: FulfillmentResult = FulfillmentResult.UNKNOWN
+  entities_source: FulfillmentResult = FulfillmentResult.UNKNOWN
   # This is more details on the *_source if it is from PAST query.
   # This is important for knowing the original place for a query
   # like [poverty across africa] -> [which countries have shown the greatest increase].
@@ -177,3 +188,7 @@ class Utterance:
   test: str = ''
   # For i18n enabled requests, this field encodes the language of the query.
   i18n_lang: str = ''
+  # The client calling NL backend API.
+  client: str = ''
+  # The mode for caller (currently just STRICT)
+  mode: QueryMode = None
