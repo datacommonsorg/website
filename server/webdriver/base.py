@@ -34,7 +34,6 @@ class WebdriverBaseTest(NLWebServerTestCase):
     self.TIMEOUT_SEC = shared.TIMEOUT
     self.driver = create_driver(preferences)
     # The URL of the Data Commons server.
-    self.URL = self.get_server_url()
     self.url_ = self.get_server_url()
 
   def tearDown(self):

@@ -11,9 +11,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from server.webdriver.shared_tests.homepage_test import HomepageTestMixin
 from server.webdriver.base import WebdriverBaseTest
 from server.webdriver.cdc_tests.base import CDC_AUTOPUSH_URL
+from server.webdriver.shared_tests.homepage_test import HomepageTestMixin
 
 
 # Class to test the home page for Custom DC

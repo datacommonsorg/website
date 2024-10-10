@@ -24,6 +24,7 @@ AUSTROBAILEYA_URL = '/browser/dc/bsmvthtq89217'
 LANDING_PAGE_URL = '/browser'
 SEARCH_INPUT = 'male asian count '
 
+
 # Mixins to test browser page.
 class BrowserTestMixin():
 
@@ -32,7 +33,7 @@ class BrowserTestMixin():
     TITLE_TEXT = "Knowledge Graph - " + self.DATACOMMONS_STRING
 
     # Load landing page.
-    self.driver.get(self.URL + LANDING_PAGE_URL)
+    self.driver.get(self.url_ + LANDING_PAGE_URL)
 
     # Assert 200 HTTP code: successful page load.
     req = urllib.request.Request(self.driver.current_url)
@@ -61,7 +62,7 @@ class BrowserTestMixin():
     TITLE_TEXT = "Count_Person - California - Knowledge Graph - " + self.DATACOMMONS_STRING
 
     # Load California population browser page.
-    self.driver.get(self.URL + CA_POPULATION_URL)
+    self.driver.get(self.url_ + CA_POPULATION_URL)
 
     # Assert 200 HTTP code: successful page load.
     req = urllib.request.Request(self.driver.current_url)
@@ -69,7 +70,7 @@ class BrowserTestMixin():
       self.assertEqual(response.getcode(), 200)
 
     # Assert 200 HTTP code: successful JS generation.
-    req = urllib.request.Request(self.URL + "/browser.js")
+    req = urllib.request.Request(self.url_ + "/browser.js")
     with urllib.request.urlopen(req) as response:
       self.assertEqual(response.getcode(), 200)
 
@@ -114,7 +115,7 @@ class BrowserTestMixin():
     TITLE_TEXT = "Austrobaileya scandens C.T.White - Knowledge Graph - " + self.DATACOMMONS_STRING
 
     # Load Austrobaileya browser page.
-    self.driver.get(self.URL + AUSTROBAILEYA_URL)
+    self.driver.get(self.url_ + AUSTROBAILEYA_URL)
 
     # Assert 200 HTTP code: successful page load.
     req = urllib.request.Request(self.driver.current_url)
@@ -122,7 +123,7 @@ class BrowserTestMixin():
       self.assertEqual(response.getcode(), 200)
 
     # Assert 200 HTTP code: successful JS generation.
-    req = urllib.request.Request(self.URL + "/browser.js")
+    req = urllib.request.Request(self.url_ + "/browser.js")
     with urllib.request.urlopen(req) as response:
       self.assertEqual(response.getcode(), 200)
 
@@ -167,7 +168,7 @@ class BrowserTestMixin():
   def test_stat_var_hierarchy(self):
     """Test that the stat var hierarchy can search properly"""
     # Load MTV browser page.
-    self.driver.get(self.URL + MTV_URL)
+    self.driver.get(self.url_ + MTV_URL)
 
     # Wait for the search box of the statvar hierarchy section to be present
     STAT_VAR_SEARCH_INPUT_XPATH = '//*[@id="stat-var-hierarchy-section"]/div[1]/div[1]/div/input'

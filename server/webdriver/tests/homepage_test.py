@@ -15,8 +15,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from server.webdriver.shared_tests.homepage_test import HomepageTestMixin
 from server.webdriver.base import WebdriverBaseTest
+from server.webdriver.shared_tests.homepage_test import HomepageTestMixin
+
 
 # Class to test the browser page
 class TestPlaceLanding(HomepageTestMixin, WebdriverBaseTest):
@@ -91,7 +92,6 @@ class TestPlaceLanding(HomepageTestMixin, WebdriverBaseTest):
   #   hero_msg = self.driver.find_elements(By.CLASS_NAME, 'lead')[0]
   #   self.assertTrue(
   #       hero_msg.text.startswith('Data Commons – это открытая база данных'))
-
 
   # Tests for NL Search Bar AutoComplete feature.
   def test_homepage_autocomplete(self):

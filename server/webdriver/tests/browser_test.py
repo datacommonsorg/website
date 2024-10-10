@@ -20,9 +20,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from server.webdriver.shared_tests.browser_test import BrowserTestMixin
 from server.webdriver.base import WebdriverBaseTest
 import server.webdriver.shared as shared
+from server.webdriver.shared_tests.browser_test import BrowserTestMixin
 
 MTV_URL = '/browser/geoId/0649670'
 CA_POPULATION_URL = '/browser/geoId/06?statVar=Count_Person'
@@ -34,7 +34,7 @@ SEARCH_INPUT = 'male asian count '
 # Class to test browser page
 class TestBrowser(BrowserTestMixin, WebdriverBaseTest):
   DATACOMMONS_STRING = "Data Commons"
-  
+
   @pytest.mark.skip(reason="needs mixer/data fix")
   def test_page_serve_mtv(self):
     """Test the browser page for MTV can be loaded successfully."""

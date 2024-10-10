@@ -25,6 +25,6 @@ class HomepageTestMixin():
     self.driver.get(self.url_ + '/')
 
     # Assert page title is correct
-    WebDriverWait(self.driver,
-                  self.TIMEOUT_SEC).until(EC.title_contains(self.DATACOMMONS_STRING))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.title_contains(self.DATACOMMONS_STRING))
     self.assertEqual("- " + self.DATACOMMONS_STRING, self.driver.title)

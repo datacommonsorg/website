@@ -14,11 +14,12 @@
 import os
 import urllib.request
 
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
-import server.webdriver.shared as shared
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support.ui import WebDriverWait
+
+import server.webdriver.shared as shared
 
 DOWNLOAD_URL = '/tools/download'
 PLACE_SEARCH_CA = 'California'
@@ -41,7 +42,7 @@ class DownloadTestMixin():
   def test_server_and_page(self):
     """Test the server can run successfully."""
     TITLE_TEXT = "Download Tool - " + self.DATACOMMONS_STRING
-    self.driver.get(self.URL + DOWNLOAD_URL)
+    self.driver.get(self.url_ + DOWNLOAD_URL)
 
     # Assert 200 HTTP code: successful page load.
     req = urllib.request.Request(self.driver.current_url)
@@ -49,7 +50,7 @@ class DownloadTestMixin():
       self.assertEqual(response.getcode(), 200)
 
     # Assert 200 HTTP code: successful JS generation.
-    req = urllib.request.Request(self.URL + '/download.js')
+    req = urllib.request.Request(self.url_ + '/download.js')
     with urllib.request.urlopen(req) as response:
       self.assertEqual(response.getcode(), 200)
 
@@ -62,7 +63,7 @@ class DownloadTestMixin():
     """
     Test entering options will show preview and allow download of a file
     """
-    self.driver.get(self.URL + DOWNLOAD_URL)
+    self.driver.get(self.url_ + DOWNLOAD_URL)
 
     # Wait until search box is present.
     element_present = EC.presence_of_element_located((By.ID, 'ac'))

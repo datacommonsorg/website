@@ -14,8 +14,9 @@
 
 import tempfile
 
-from server.webdriver.shared_tests.download_test import DownloadTestMixin
 from server.webdriver.base import WebdriverBaseTest
+from server.webdriver.shared_tests.download_test import DownloadTestMixin
+
 
 # Class to test download tool.
 class TestDownload(DownloadTestMixin, WebdriverBaseTest):

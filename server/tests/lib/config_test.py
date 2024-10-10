@@ -26,7 +26,6 @@ class TestConfig(unittest.TestCase):
   @parameterized.expand([('test', {
       'TEST': True,
       'WEBDRIVER': False,
-      'CDC_WEBDRIVER': False,
       'LOCAL': False,
       'LITE': False,
       'API_ROOT': 'api-root',
@@ -37,7 +36,6 @@ class TestConfig(unittest.TestCase):
                          ('local', {
                              'TEST': False,
                              'WEBDRIVER': False,
-                             'CDC_WEBDRIVER': False,
                              'LOCAL': True,
                              'LITE': False,
                              'API_ROOT': 'https://api.datacommons.org',
@@ -47,7 +45,6 @@ class TestConfig(unittest.TestCase):
                          ('production', {
                              'TEST': False,
                              'WEBDRIVER': False,
-                             'CDC_WEBDRIVER': False,
                              'LOCAL': False,
                              'LITE': False,
                              'API_ROOT': 'http://127.0.0.1:8081',
@@ -58,21 +55,9 @@ class TestConfig(unittest.TestCase):
                          ('webdriver', {
                              'TEST': False,
                              'WEBDRIVER': True,
-                             'CDC_WEBDRIVER': False,
                              'LOCAL': False,
                              'LITE': False,
                              'API_ROOT': 'https://autopush.api.datacommons.org',
-                             'SECRET_PROJECT': 'datcom-website-dev',
-                             'GOOGLE_ANALYTICS_TAG_ID': '',
-                             'SCHEME': 'http',
-                         }),
-                         ('cdc_webdriver', {
-                             'TEST': False,
-                             'WEBDRIVER': False,
-                             'CDC_WEBDRIVER': True,
-                             'LOCAL': False,
-                             'LITE': False,
-                             'API_ROOT': 'https://dc-autopush-kqb7thiuka-uc.a.run.app',
                              'SECRET_PROJECT': 'datcom-website-dev',
                              'GOOGLE_ANALYTICS_TAG_ID': '',
                              'SCHEME': 'http',
@@ -86,7 +71,6 @@ class TestConfig(unittest.TestCase):
   def assertConfigEqual(self, config, expected):
     self.assertEqual(config.TEST, expected['TEST'])
     self.assertEqual(config.WEBDRIVER, expected['WEBDRIVER'])
-    self.assertEqual(config.CDC_WEBDRIVER, expected['CDC_WEBDRIVER'])
     self.assertEqual(config.LOCAL, expected['LOCAL'])
     self.assertEqual(config.LITE, expected['LITE'])
     self.assertEqual(config.API_ROOT, expected['API_ROOT'])

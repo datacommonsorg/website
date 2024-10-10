@@ -14,12 +14,10 @@
 
 import tempfile
 
-from server.webdriver.shared_tests.download_test import DownloadTestMixin
-
-
 from server.webdriver.base import WebdriverBaseTest
-import server.webdriver.shared as shared
 from server.webdriver.cdc_tests.base import CDC_AUTOPUSH_URL
+import server.webdriver.shared as shared
+from server.webdriver.shared_tests.download_test import DownloadTestMixin
 
 
 # Class to test the download tool for Custom DC
@@ -28,7 +26,7 @@ class TestDownload(DownloadTestMixin, WebdriverBaseTest):
 
   def get_server_url(self):
     return CDC_AUTOPUSH_URL
-    
+
   def setUp(self):
     """
     In addition to the base test setUp, need to also create a temporary

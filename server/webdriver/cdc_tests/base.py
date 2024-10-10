@@ -12,6 +12,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 # From project datcom-website-dev > Cloud Run: dc-autopush > Revisions
 CDC_AUTOPUSH_URL = 'https://dc-autopush-kqb7thiuka-uc.a.run.app'
