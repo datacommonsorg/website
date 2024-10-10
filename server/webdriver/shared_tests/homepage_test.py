@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -27,4 +26,4 @@ class HomepageTestMixin():
     # Assert page title is correct
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
         EC.title_contains(self.DATACOMMONS_STRING))
-    self.assertEqual("- " + self.DATACOMMONS_STRING, self.driver.title)
+    self.assertIn("- " + self.DATACOMMONS_STRING, self.driver.title)

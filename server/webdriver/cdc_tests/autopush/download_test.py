@@ -16,7 +16,6 @@ import tempfile
 
 from server.webdriver.base import WebdriverBaseTest
 from server.webdriver.cdc_tests.base import CDC_AUTOPUSH_URL
-import server.webdriver.shared as shared
 from server.webdriver.shared_tests.download_test import DownloadTestMixin
 
 
