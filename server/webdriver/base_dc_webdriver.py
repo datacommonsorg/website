@@ -13,7 +13,6 @@
 # limitations under the License.
 from server.webdriver.base import WebdriverBaseTest
 
-# Base class for Custom DC Autopush webdriver tests.
 class BaseDcWebdriverTest(WebdriverBaseTest):
     """Base class for CDC Autopush webdriver tests."""
     dc_title_string = "Data Commons"
