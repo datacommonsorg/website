@@ -5,7 +5,7 @@ that allow drilling down into stats on queries:
 * [Main DC
   Dashboard](https://lookerstudio.google.com/c/u/0/reporting/0fbd2bf9-3e85-48e2-95f8-bb880f087d27/page/p_0zw216uvad)
 * [UNSDG
-  Dashboard](https://lookerstudio.google.com/c/reporting/ba70ded9-dde3-4c9d-9862-440025e3d081/page/dVqcD)
+  Dashboard](https://lookerstudio.google.com/c/u/0/reporting/70eeb6e4-c730-47be-a795-dc9d22525ab2/page/dVqcD)
 
 We add the `nl-query` BT table, where the queries get logged, as a BQ table.
 On top of that, a few [scheduled
