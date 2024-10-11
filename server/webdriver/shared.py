@@ -108,11 +108,14 @@ def charts_rendered(driver):
       return False
   return True
 
+
 def safe_url_open(url):
   """Execute urlopen and assert success."""
-  req = urllib.request.Request(url)
-  if url.startsWith('http'):
-    with urllib.request.urlopen(req) as response:
-        return response.getcode()
-  return 0
+  if not url.lower().startswith('http'):
+    raise ValueError(f'Invalid scheme in {url}. Expected http(s)://.')
 
+  req = urllib.request.Request(url)
+  if url.startswith('http'):
+    with urllib.request.urlopen(req) as response: # nosec B310
+      return response.getcode()
+  return 0
