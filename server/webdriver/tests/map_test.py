@@ -20,6 +20,6 @@ URL_HASH_1 = '#&sv=Median_Age_Person&pc=0&pd=geoId/06&pn=California&pt=State&ept
 PLACE_SEARCH_CA = 'California'
 
 
-# Class to test map tool.
 class TestMap(MapTestMixin, WebdriverBaseTest):
-  DATACOMMONS_STRING = "Data Commons"
+    """Class to test map tool. Tests come from MapTestMixin."""
+    DATACOMMONS_STRING = "Data Commons"

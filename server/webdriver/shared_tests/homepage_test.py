@@ -14,16 +14,14 @@
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-
-# Mixins to test the homepage.
 class HomepageTestMixin():
+    """Mixins to test the homepage."""
 
-  def test_homepage_en(self):
-    """Test homepage in EN."""
+    def test_homepage_en(self):
+        """Test homepage in EN."""
+        self.driver.get(self.url_ + '/')
 
-    self.driver.get(self.url_ + '/')
-
-    # Assert page title is correct
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
-        EC.title_contains(self.DATACOMMONS_STRING))
-    self.assertIn("- " + self.DATACOMMONS_STRING, self.driver.title)
+        # Assert page title is correct
+        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+            EC.title_contains(self.DATACOMMONS_STRING))
+        self.assertIn("- " + self.DATACOMMONS_STRING, self.driver.title)

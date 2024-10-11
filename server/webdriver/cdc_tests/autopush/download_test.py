@@ -14,31 +14,25 @@
 
 import tempfile
 
-from server.webdriver.base import WebdriverBaseTest
-from server.webdriver.cdc_tests.base import CDC_AUTOPUSH_URL
+from server.webdriver.cdc_tests.autopush.cdc_base_webdriver import CdcAutopushTestBase
 from server.webdriver.shared_tests.download_test import DownloadTestMixin
 
+class TestDownload(DownloadTestMixin, CdcAutopushTestBase):
+    """Class to test the download tool for Custom DC. Tests come from DownloadTestMixin"""
 
-# Class to test the download tool for Custom DC
-class TestDownload(DownloadTestMixin, WebdriverBaseTest):
-  DATACOMMONS_STRING = "Custom Data Commons"
+    def setUp(self):
+        """
+        In addition to the base test setUp, need to also create a temporary
+        directory to use for downloaded files
+        """
+        self.downloads_folder = tempfile.TemporaryDirectory()
+        preferences = {"download.default_directory": self.downloads_folder.name}
+        super().setUp(preferences)
 
-  def get_server_url(self):
-    return CDC_AUTOPUSH_URL
-
-  def setUp(self):
-    """
-    In addition to the base test setUp, need to also create a temporary
-    directory to use for downloaded files
-    """
-    self.downloads_folder = tempfile.TemporaryDirectory()
-    preferences = {"download.default_directory": self.downloads_folder.name}
-    super().setUp(preferences)
-
-  def tearDown(self):
-    """
-    In addition to base test tearDown, need to also clean up the temporary
-    directory that was created.
-    """
-    self.downloads_folder.cleanup()
-    super().tearDown()
+    def tearDown(self):
+        """
+        In addition to base test tearDown, need to also clean up the temporary
+        directory that was created.
+        """
+        self.downloads_folder.cleanup()
+        super().tearDown()

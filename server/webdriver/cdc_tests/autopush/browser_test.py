@@ -11,14 +11,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from server.webdriver.base import WebdriverBaseTest
-from server.webdriver.cdc_tests.base import CDC_AUTOPUSH_URL
+from server.webdriver.cdc_tests.autopush.cdc_base_webdriver import CdcAutopushTestBase
 from server.webdriver.shared_tests.browser_test import BrowserTestMixin
 
-
-# Class to test the browser page for Custom DC
-class CdcAutopushBrowserWebdriverTest(BrowserTestMixin, WebdriverBaseTest):
-  DATACOMMONS_STRING = "Custom Data Commons"
-
-  def get_server_url(self):
-    return CDC_AUTOPUSH_URL
+class CdcAutopushBrowserWebdriverTest(BrowserTestMixin, CdcAutopushTestBase):
+    """Class to test the browser page for Custom DC. Tests come from BrowserTestMixin."""
