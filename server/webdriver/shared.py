@@ -13,6 +13,9 @@
 # limitations under the License.
 """Common library for functions used by multiple webdriver tests"""
 
+import urllib
+import urllib.request
+
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -104,3 +107,12 @@ def charts_rendered(driver):
     if not dom_id:
       return False
   return True
+
+def safe_url_open(url):
+  """Execute urlopen and assert success."""
+  req = urllib.request.Request(url)
+  if url.startsWith('http'):
+    with urllib.request.urlopen(req) as response:
+        return response.getcode()
+  return 0
+

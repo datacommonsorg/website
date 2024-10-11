@@ -11,8 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import urllib
-import urllib.request
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -34,16 +32,10 @@ class MapTestMixin():
     self.driver.get(self.url_ + MAP_URL)
 
     # Assert 200 HTTP code: successful page load.
-    req = urllib.request.Request(self.driver.current_url)
-    #nosec
-    with urllib.request.urlopen(req) as response:
-      self.assertEqual(response.getcode(), 200)
+    self.assertEqual(shared.safe_url_open(self.driver.current_url), 200)
 
     # Assert 200 HTTP code: successful JS generation.
-    req = urllib.request.Request(self.url_ + '/map.js')
-    #nosec
-    with urllib.request.urlopen(req) as response:
-      self.assertEqual(response.getcode(), 200)
+    self.assertEqual(shared.safe_url_open(self.url_ + '/map.js'), 200)
 
     # Assert page title is correct.
     WebDriverWait(self.driver,

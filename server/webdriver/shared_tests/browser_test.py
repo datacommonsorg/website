@@ -18,6 +18,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+import server.webdriver.shared as shared
+
 MTV_URL = '/browser/geoId/0649670'
 CA_POPULATION_URL = '/browser/geoId/06?statVar=Count_Person'
 AUSTROBAILEYA_URL = '/browser/dc/bsmvthtq89217'
@@ -36,10 +38,7 @@ class BrowserTestMixin():
     self.driver.get(self.url_ + LANDING_PAGE_URL)
 
     # Assert 200 HTTP code: successful page load.
-    req = urllib.request.Request(self.driver.current_url)
-    #nosec
-    with urllib.request.urlopen(req) as response:
-      self.assertEqual(response.getcode(), 200)
+    self.assertEqual(shared.safe_url_open(self.driver.current_url), 200)
 
     # Assert page title is correct
     WebDriverWait(self.driver,
@@ -66,16 +65,10 @@ class BrowserTestMixin():
     self.driver.get(self.url_ + CA_POPULATION_URL)
 
     # Assert 200 HTTP code: successful page load.
-    req = urllib.request.Request(self.driver.current_url)
-    #nosec
-    with urllib.request.urlopen(req) as response:
-      self.assertEqual(response.getcode(), 200)
+    self.assertEqual(shared.safe_url_open(self.driver.current_url), 200)
 
     # Assert 200 HTTP code: successful JS generation.
-    req = urllib.request.Request(self.url_ + "/browser.js")
-    #nosec
-    with urllib.request.urlopen(req) as response:
-      self.assertEqual(response.getcode(), 200)
+    self.assertEqual(shared.safe_url_open(self.url_ + "/browser.js"), 200)
 
     # Assert page title is correct.
     WebDriverWait(self.driver,
@@ -123,16 +116,10 @@ class BrowserTestMixin():
     self.driver.get(self.url_ + AUSTROBAILEYA_URL)
 
     # Assert 200 HTTP code: successful page load.
-    req = urllib.request.Request(self.driver.current_url)
-    #nosec
-    with urllib.request.urlopen(req) as response:
-      self.assertEqual(response.getcode(), 200)
+    self.assertEqual(shared.safe_url_open(self.driver.current_url), 200)
 
     # Assert 200 HTTP code: successful JS generation.
-    req = urllib.request.Request(self.url_ + "/browser.js")
-    #nosec
-    with urllib.request.urlopen(req) as response:
-      self.assertEqual(response.getcode(), 200)
+    self.assertEqual(shared.safe_url_open(self.url_ + "/browser.js"), 200)
 
     # Assert page title is correct.
     WebDriverWait(self.driver,
