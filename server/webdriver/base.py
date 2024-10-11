@@ -18,19 +18,21 @@ from shared.lib.test_setup import set_up_macos_for_tests
 
 set_up_macos_for_tests()
 
+
 # Please refer to README.md to see the order of method execution during test.
 class WebdriverBaseTest(NLWebServerTestCase):
-    """Base test class to setup the server."""
-    def setUp(self, preferences=None):
-        """Runs at the beginning of every individual test."""
-        # Maximum time, in seconds, before throwing a TimeoutException.
-        self.TIMEOUT_SEC = shared.TIMEOUT
-        self.driver = create_driver(preferences)
-        # The URL of the Data Commons server.
-        self.url_ = self.get_server_url()
+  """Base test class to setup the server."""
 
-    def tearDown(self):
-        """Runs at the end of every individual test."""
-        # Quit the ChromeDriver instance.
-        # NOTE: Every individual test starts a new ChromeDriver instance.
-        self.driver.quit()
+  def setUp(self, preferences=None):
+    """Runs at the beginning of every individual test."""
+    # Maximum time, in seconds, before throwing a TimeoutException.
+    self.TIMEOUT_SEC = shared.TIMEOUT
+    self.driver = create_driver(preferences)
+    # The URL of the Data Commons server.
+    self.url_ = self.get_server_url()
+
+  def tearDown(self):
+    """Runs at the end of every individual test."""
+    # Quit the ChromeDriver instance.
+    # NOTE: Every individual test starts a new ChromeDriver instance.
+    self.driver.quit()

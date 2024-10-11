@@ -17,23 +17,24 @@ import tempfile
 from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
 from server.webdriver.shared_tests.download_test import DownloadTestMixin
 
-class TestDownload(DownloadTestMixin, BaseDcWebdriverTest):
-    """Class to test download tool. Tests come from DownloadTestMixin."""
-    dc_title_string = "Data Commons"
 
-    def setUp(self):
-        """
+class TestDownload(DownloadTestMixin, BaseDcWebdriverTest):
+  """Class to test download tool. Tests come from DownloadTestMixin."""
+  dc_title_string = "Data Commons"
+
+  def setUp(self):
+    """
         In addition to the base test setUp, need to also create a temporary
         directory to use for downloaded files
         """
-        self.downloads_folder = tempfile.TemporaryDirectory()
-        preferences = {"download.default_directory": self.downloads_folder.name}
-        super().setUp(preferences)
+    self.downloads_folder = tempfile.TemporaryDirectory()
+    preferences = {"download.default_directory": self.downloads_folder.name}
+    super().setUp(preferences)
 
-    def tearDown(self):
-        """
+  def tearDown(self):
+    """
         In addition to base test tearDown, need to also clean up the temporary
         directory that was created.
         """
-        self.downloads_folder.cleanup()
-        super().tearDown()
+    self.downloads_folder.cleanup()
+    super().tearDown()

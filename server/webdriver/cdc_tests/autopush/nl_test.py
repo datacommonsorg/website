@@ -13,11 +13,13 @@
 # limitations under the License.
 
 from server.integration_tests.explore_test import ExploreTest
-from server.webdriver.cdc_tests.autopush.cdc_base_webdriver import CdcAutopushTestBase
+from server.webdriver.cdc_tests.autopush.cdc_base_webdriver import \
+    CdcAutopushTestBase
+
 
 class CdcAutopushNLTest(ExploreTest, CdcAutopushTestBase):
-    """Class to test the natural language queries for Custom DC."""
+  """Class to test the natural language queries for Custom DC."""
 
-    def test_cdc_nl(self):
-        """Run Query on custom DC stat var."""
-        self.run_detect_and_fulfill('cdc_nl', ['gender wage gap in europe'])
+  def test_cdc_nl(self):
+    """Run Query on custom DC stat var."""
+    self.run_detect_and_fulfill('cdc_nl', ['gender wage gap in europe'])

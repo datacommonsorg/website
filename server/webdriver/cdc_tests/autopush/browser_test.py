@@ -11,8 +11,10 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from server.webdriver.cdc_tests.autopush.cdc_base_webdriver import CdcAutopushTestBase
+from server.webdriver.cdc_tests.autopush.cdc_base_webdriver import \
+    CdcAutopushTestBase
 from server.webdriver.shared_tests.browser_test import BrowserTestMixin
 
+
 class CdcAutopushBrowserWebdriverTest(BrowserTestMixin, CdcAutopushTestBase):
-    """Class to test the browser page for Custom DC. Tests come from BrowserTestMixin."""
+  """Class to test the browser page for Custom DC. Tests come from BrowserTestMixin."""
