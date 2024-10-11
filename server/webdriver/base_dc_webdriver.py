@@ -11,17 +11,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
+from server.webdriver.base import WebdriverBaseTest
 
-class HomepageTestMixin():
-    """Mixins to test the homepage."""
-
-    def test_homepage_en(self):
-        """Test homepage in EN."""
-        self.driver.get(self.url_ + '/')
-
-        # Assert page title is correct
-        WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
-            EC.title_contains(self.dc_title_string))
-        self.assertIn("- " + self.dc_title_string, self.driver.title)
+# Base class for Custom DC Autopush webdriver tests.
+class BaseDcWebdriverTest(WebdriverBaseTest):
+    """Base class for CDC Autopush webdriver tests."""
+    dc_title_string = "Data Commons"

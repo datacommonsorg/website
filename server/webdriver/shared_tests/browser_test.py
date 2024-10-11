@@ -29,7 +29,7 @@ class BrowserTestMixin():
 
     def test_page_landing(self):
         """Test the browser landing page can be loaded successfully."""
-        title_text = "Knowledge Graph - " + self.DATACOMMONS_STRING
+        title_text = "Knowledge Graph - " + self.dc_title_string
 
         # Load landing page.
         self.driver.get(self.url_ + LANDING_PAGE_URL)
@@ -58,7 +58,7 @@ class BrowserTestMixin():
 
     def test_page_serve_ca_population(self):
         """Test the browser page for California population can be loaded successfully."""
-        title_text = "Count_Person - California - Knowledge Graph - " + self.DATACOMMONS_STRING
+        title_text = "Count_Person - California - Knowledge Graph - " + self.dc_title_string
 
         # Load California population browser page.
         self.driver.get(self.url_ + CA_POPULATION_URL)
@@ -113,7 +113,7 @@ class BrowserTestMixin():
     def test_page_serve_austrobaileya(self):
         """Test the browser page for Austrobaileya scandens can be loaded successfully."""
         title_text = ("Austrobaileya scandens C.T.White - Knowledge Graph - "
-                       + self.DATACOMMONS_STRING)
+                       + self.dc_title_string)
 
         # Load Austrobaileya browser page.
         self.driver.get(self.url_ + AUSTROBAILEYA_URL)

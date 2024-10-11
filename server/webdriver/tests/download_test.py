@@ -14,12 +14,12 @@
 
 import tempfile
 
-from server.webdriver.base import WebdriverBaseTest
+from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
 from server.webdriver.shared_tests.download_test import DownloadTestMixin
 
-class TestDownload(DownloadTestMixin, WebdriverBaseTest):
+class TestDownload(DownloadTestMixin, BaseDcWebdriverTest):
     """Class to test download tool. Tests come from DownloadTestMixin."""
-    DATACOMMONS_STRING = "Data Commons"
+    dc_title_string = "Data Commons"
 
     def setUp(self):
         """

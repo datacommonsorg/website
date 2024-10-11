@@ -11,15 +11,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-from server.webdriver.base import WebdriverBaseTest
+from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
 from server.webdriver.shared_tests.map_test import MapTestMixin
 
 MAP_URL = '/tools/map'
 URL_HASH_1 = '#&sv=Median_Age_Person&pc=0&pd=geoId/06&pn=California&pt=State&ept=County'
 PLACE_SEARCH_CA = 'California'
 
-
-class TestMap(MapTestMixin, WebdriverBaseTest):
+class TestMap(MapTestMixin, BaseDcWebdriverTest):
     """Class to test map tool. Tests come from MapTestMixin."""
-    DATACOMMONS_STRING = "Data Commons"
+    dc_title_string = "Data Commons"

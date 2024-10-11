@@ -20,7 +20,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from server.webdriver.base import WebdriverBaseTest
+from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
 import server.webdriver.shared as shared
 from server.webdriver.shared_tests.browser_test import BrowserTestMixin
 
@@ -30,14 +30,14 @@ AUSTROBAILEYA_URL = '/browser/dc/bsmvthtq89217'
 LANDING_PAGE_URL = '/browser'
 SEARCH_INPUT = 'male asian count '
 
-class TestBrowser(BrowserTestMixin, WebdriverBaseTest):
+class TestBrowser(BrowserTestMixin, BaseDcWebdriverTest):
     """Class to test browser page. Some tests come from BrowserTestMixin."""
-    DATACOMMONS_STRING = "Data Commons"
+    dc_title_string = "Data Commons"
 
     @pytest.mark.skip(reason="needs mixer/data fix")
     def test_page_serve_mtv(self):
         """Test the browser page for MTV can be loaded successfully."""
-        title_text = "Mountain View - Knowledge Graph - " + self.DATACOMMONS_STRING
+        title_text = "Mountain View - Knowledge Graph - " + self.dc_title_string
 
         # Load MTV browser page.
         self.driver.get(self.url_ + MTV_URL)
@@ -134,7 +134,7 @@ class TestBrowser(BrowserTestMixin, WebdriverBaseTest):
         self.driver.switch_to.window(new_page)
 
         # Assert the title of the new page is correct
-        new_page_title = 'dc/o/y54f4zvqrzf67 - Knowledge Graph - ' + self.DATACOMMONS_STRING
+        new_page_title = 'dc/o/y54f4zvqrzf67 - Knowledge Graph - ' + self.dc_title_string
         WebDriverWait(self.driver,
                     self.TIMEOUT_SEC).until(EC.title_contains(new_page_title))
         self.assertEqual(new_page_title, self.driver.title)
@@ -181,7 +181,7 @@ class TestBrowser(BrowserTestMixin, WebdriverBaseTest):
         self.driver.switch_to.window(new_page)
 
         # Assert the title of the new page is correct
-        new_page_title = 'dc/o/y54f4zvqrzf67 - Knowledge Graph - ' + self.DATACOMMONS_STRING
+        new_page_title = 'dc/o/y54f4zvqrzf67 - Knowledge Graph - ' + self.dc_title_string
         WebDriverWait(self.driver,
                     self.TIMEOUT_SEC).until(EC.title_contains(new_page_title))
         self.assertEqual(new_page_title, self.driver.title)

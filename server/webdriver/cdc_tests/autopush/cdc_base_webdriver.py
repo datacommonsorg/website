@@ -17,7 +17,7 @@ from server.webdriver.cdc_tests.base import CDC_AUTOPUSH_URL
 # Base class for Custom DC Autopush webdriver tests.
 class CdcAutopushTestBase(WebdriverBaseTest):
     """Base class for CDC Autopush webdriver tests."""
-    DATACOMMONS_STRING = "Custom Data Commons"
+    dc_title_string = "Custom Data Commons"
 
     def get_server_url(self):
         return CDC_AUTOPUSH_URL

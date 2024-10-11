@@ -29,7 +29,7 @@ class MapTestMixin():
 
     def test_server_and_page(self):
         """Test the server can run successfully."""
-        title_text = "Map Explorer - " + self.DATACOMMONS_STRING
+        title_text = "Map Explorer - " + self.dc_title_string
         self.driver.get(self.url_ + MAP_URL)
 
         # Assert 200 HTTP code: successful page load.
@@ -110,7 +110,7 @@ class MapTestMixin():
 
         # Assert rankings page loaded
         new_page_title = ('Ranking by Median Age - States in United States of America - Place '
-                          + 'Rankings - ' + self.DATACOMMONS_STRING)
+                          + 'Rankings - ' + self.dc_title_string)
         WebDriverWait(self.driver,
                     self.TIMEOUT_SEC).until(EC.title_contains(new_page_title))
         self.assertEqual(new_page_title, self.driver.title)

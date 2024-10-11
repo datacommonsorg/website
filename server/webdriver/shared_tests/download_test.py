@@ -40,7 +40,7 @@ class DownloadTestMixin():
 
     def test_server_and_page(self):
         """Test the server can run successfully."""
-        title_text = "Download Tool - " + self.DATACOMMONS_STRING
+        title_text = "Download Tool - " + self.dc_title_string
         self.driver.get(self.url_ + DOWNLOAD_URL)
 
         # Assert 200 HTTP code: successful page load.
