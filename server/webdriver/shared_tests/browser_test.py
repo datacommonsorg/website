@@ -37,6 +37,7 @@ class BrowserTestMixin():
 
     # Assert 200 HTTP code: successful page load.
     req = urllib.request.Request(self.driver.current_url)
+    #nosec
     with urllib.request.urlopen(req) as response:
       self.assertEqual(response.getcode(), 200)
 
@@ -66,11 +67,13 @@ class BrowserTestMixin():
 
     # Assert 200 HTTP code: successful page load.
     req = urllib.request.Request(self.driver.current_url)
+    #nosec
     with urllib.request.urlopen(req) as response:
       self.assertEqual(response.getcode(), 200)
 
     # Assert 200 HTTP code: successful JS generation.
     req = urllib.request.Request(self.url_ + "/browser.js")
+    #nosec
     with urllib.request.urlopen(req) as response:
       self.assertEqual(response.getcode(), 200)
 
@@ -121,11 +124,13 @@ class BrowserTestMixin():
 
     # Assert 200 HTTP code: successful page load.
     req = urllib.request.Request(self.driver.current_url)
+    #nosec
     with urllib.request.urlopen(req) as response:
       self.assertEqual(response.getcode(), 200)
 
     # Assert 200 HTTP code: successful JS generation.
     req = urllib.request.Request(self.url_ + "/browser.js")
+    #nosec
     with urllib.request.urlopen(req) as response:
       self.assertEqual(response.getcode(), 200)
 
