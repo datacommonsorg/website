@@ -10,7 +10,7 @@
                 "tiles": [
                   {
                     "entities": [
-                      "bio/HeliothisArmigeraEntomopoxvirus"
+                      "bio/FGFR1"
                     ],
                     "type": "ENTITY_OVERVIEW"
                   }
@@ -26,8 +26,8 @@
   "debug": {},
   "entities": [
     {
-      "dcid": "bio/HeliothisArmigeraEntomopoxvirus",
-      "name": "Heliothis armigera entomopoxvirus",
+      "dcid": "bio/FGFR1",
+      "name": "FGFR1",
       "type": ""
     }
   ],
@@ -47,6 +47,7 @@
     "peerTopics": []
   },
   "svSource": "UNKNOWN",
-  "userMessage": "",
-  "userMessages": []
+  "userMessages": [
+    "See relevant information for FGFR1 based on the previous query."
+  ]
 }

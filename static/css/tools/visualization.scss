@@ -249,7 +249,7 @@ $selector-footer-height: 40px;
   justify-content: center;
   flex-grow: 1;
 
-  @include media-breakpoint-down(md) {
+  @media (max-width: 1350px) {
     flex-direction: column;
   }
 }
@@ -264,7 +264,7 @@ $selector-footer-height: 40px;
   // Account for selector padding when setting the width to avoid scroll overflow
   min-width: $widget-min-width + 2 * 16;
 
-  @include media-breakpoint-down(md) {
+  @media (max-width: 1350px) {
     min-width: 300px;
   }
 }

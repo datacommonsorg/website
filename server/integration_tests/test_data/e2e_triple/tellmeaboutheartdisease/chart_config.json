@@ -9,102 +9,10 @@
               {
                 "tiles": [
                   {
-                    "answerTableTileSpec": {
-                      "columns": [
-                        {
-                          "header": "Date Created",
-                          "propertyExpr": "->dateCreated"
-                        },
-                        {
-                          "header": "Date Established",
-                          "propertyExpr": "->dateEstablished"
-                        },
-                        {
-                          "header": "Date Revised",
-                          "propertyExpr": "->dateRevised"
-                        },
-                        {
-                          "header": "Description",
-                          "propertyExpr": "->description"
-                        },
-                        {
-                          "header": "Disease Ontology ID",
-                          "propertyExpr": "->diseaseOntologyID"
-                        },
-                        {
-                          "header": "Has MeSH Qualifier",
-                          "propertyExpr": "->hasMeSHQualifier"
-                        },
-                        {
-                          "header": "Identifier",
-                          "propertyExpr": "->identifier"
-                        },
-                        {
-                          "header": "Medical Dictionary For Regulatory Activities Id",
-                          "propertyExpr": "->medicalDictionaryForRegulatoryActivitiesId"
-                        },
-                        {
-                          "header": "Medical Subject Heading ID",
-                          "propertyExpr": "->medicalSubjectHeadingID"
-                        },
-                        {
-                          "header": "Medical Subject Heading Tree Number",
-                          "propertyExpr": "->medicalSubjectHeadingTreeNumber"
-                        },
-                        {
-                          "header": "Name",
-                          "propertyExpr": "->name"
-                        },
-                        {
-                          "header": "National Drug File Reference Terminology Code",
-                          "propertyExpr": "->nationalDrugFileReferenceTerminologyCode"
-                        },
-                        {
-                          "header": "National Library Of Medicine Classification Number",
-                          "propertyExpr": "->nationalLibraryOfMedicineClassificationNumber"
-                        },
-                        {
-                          "header": "Pharm GKBID",
-                          "propertyExpr": "->pharmGKBID"
-                        },
-                        {
-                          "header": "Provenance",
-                          "propertyExpr": "->provenance"
-                        },
-                        {
-                          "header": "Snomed CT",
-                          "propertyExpr": "->snomedCT"
-                        },
-                        {
-                          "header": "Specialization Of",
-                          "propertyExpr": "->specializationOf"
-                        },
-                        {
-                          "header": "Synonym",
-                          "propertyExpr": "->synonym"
-                        },
-                        {
-                          "header": "Type Of",
-                          "propertyExpr": "->typeOf"
-                        },
-                        {
-                          "header": "Umls Concept Unique ID",
-                          "propertyExpr": "->umlsConceptUniqueID"
-                        }
-                      ]
-                    },
                     "entities": [
-                      "bio/D002275",
-                      "bio/D003327",
-                      "bio/D006331",
-                      "bio/D006349",
-                      "bio/D011660",
-                      "bio/D012214",
-                      "bio/D017202",
                       "bio/DOID_114"
                     ],
-                    "title": "Here are all the properties for Carcinoid Heart Disease, Coronary Disease and 6 more others",
-                    "type": "ANSWER_TABLE"
+                    "type": "ENTITY_OVERVIEW"
                   }
                 ]
               }
@@ -117,41 +25,6 @@
   "context": {},
   "debug": {},
   "entities": [
-    {
-      "dcid": "bio/D002275",
-      "name": "Carcinoid Heart Disease",
-      "type": ""
-    },
-    {
-      "dcid": "bio/D003327",
-      "name": "Coronary Disease",
-      "type": ""
-    },
-    {
-      "dcid": "bio/D006331",
-      "name": "Heart Diseases",
-      "type": ""
-    },
-    {
-      "dcid": "bio/D006349",
-      "name": "Heart Valve Diseases",
-      "type": ""
-    },
-    {
-      "dcid": "bio/D011660",
-      "name": "Pulmonary Heart Disease",
-      "type": ""
-    },
-    {
-      "dcid": "bio/D012214",
-      "name": "Rheumatic Heart Disease",
-      "type": ""
-    },
-    {
-      "dcid": "bio/D017202",
-      "name": "Myocardial Ischemia",
-      "type": ""
-    },
     {
       "dcid": "bio/DOID_114",
       "name": "heart disease",
@@ -174,6 +47,5 @@
     "peerTopics": []
   },
   "svSource": "PAST_QUERY",
-  "userMessage": "",
   "userMessages": []
 }
