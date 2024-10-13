@@ -1,0 +1,28 @@
+{
+  "homepage": {
+    "title": "Commerce Data Hub",
+    "logoImageUrl": "/images/doc_logo.png",
+    "searchBackgroundImageUrl": "./images/doc_hero.png",
+    "pageHeader": "Explore the Commerce Department Data Commons"
+  },
+  "webApiEndpoint": "https://datacommons.org",
+  "placeholderQuery": "What is the unemployment rate in California",
+  "sampleQueries": {
+    "general": [
+      "What is the unemployment rate in California",
+      "What are the most common jobs in Texas",
+      "What is the median income in Santa Clara County"
+    ],
+    "specific": [
+      "Which industries have grown the most in California",
+      "Show me the breakdown of businesses by industry type in the US",
+      "Who are the most poor in Louisiana"
+    ],
+    "comparison": [
+      "What is the correlation between income and health insurance in the US",
+      "Which are the richest counties in California",
+      "What is the correlation between obesity and poverty across counties in the US"
+    ]
+  },
+  "footnotes": ["Powered by Google Data Commons"]
+}
