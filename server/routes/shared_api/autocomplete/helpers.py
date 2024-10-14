@@ -23,7 +23,6 @@ import requests
 MAPS_API_URL = "https://maps.googleapis.com/maps/api/place/autocomplete/json?"
 MIN_CHARACTERS_PER_QUERY = 3
 MAX_NUM_OF_QUERIES = 4
-RESPONSE_COUNT_LIMIT = 20
 DISPLAYED_RESPONSE_COUNT_LIMIT = 5
 
 
