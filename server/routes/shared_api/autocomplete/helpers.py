@@ -127,13 +127,15 @@ def predict(queries: List[str], lang: str) -> List[Dict]:
   responses = []
   place_ids = set()
   index = 0
-  while len(responses) < DISPLAYED_RESPONSE_COUNT_LIMIT and index < len(all_responses):
+  while len(responses) < DISPLAYED_RESPONSE_COUNT_LIMIT and index < len(
+      all_responses):
     if all_responses[index]['place_id'] not in place_ids:
       responses.append(all_responses[index])
       place_ids.add(all_responses[index]['place_id'])
-    index +=1
+    index += 1
 
   return responses
+
 
 def get_score(e: Dict) -> float:
   """Returns the score."""
