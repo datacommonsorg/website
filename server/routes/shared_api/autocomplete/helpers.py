@@ -71,7 +71,6 @@ def execute_maps_request(query: str, language: str) -> Dict:
   return json.loads(response.text)
 
 
-# def get_match_score(name: str, match_string: str) -> float:
 def get_match_score(e: Dict) -> float:
   """Computes a 'score' based on the matching words in two strings. Lowest
   score is best match.
