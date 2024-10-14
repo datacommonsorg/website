@@ -76,7 +76,7 @@ export function AutoCompleteInput(
   const isHeaderBar = props.barType == "header";
   let lang = "";
 
-  useEffect(() => {
+  useEffect(() => {  
     // One time initialization of event listener to clear suggested results on scroll.
     // It allows the user to navigate through the page without being annoyed by the results.
     window.addEventListener("scroll", () => {
@@ -88,6 +88,17 @@ export function AutoCompleteInput(
     const urlParams = new URLSearchParams(window.location.search);
     lang = urlParams.has("hl") ? urlParams.get("hl") : "en";
   }, []);
+
+
+  useEffect(() => {
+    // For the first load when q= param is set, we want to ensure the
+    // props.value is propagated if it doesn't match input text.
+    // Afterwards, the onInputchange method is responsible for updating
+    // the text.
+    if (props.value != inputText) {
+      changeText(props.value);
+    }
+  }, [props.value]);
 
   // Clear suggested results when click registered outside of component.
   useOutsideClickAlerter(wrapperRef, () => {
