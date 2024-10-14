@@ -14,7 +14,7 @@
 
 import json
 import re
-from typing import Dict, List, Tuple
+from typing import Dict, List
 from urllib.parse import urlencode
 
 from flask import current_app
@@ -73,7 +73,8 @@ def execute_maps_request(query: str, language: str) -> Dict:
 
 # def get_match_score(name: str, match_string: str) -> float:
 def get_match_score(e: Dict) -> float:
-  """Computes a 'score' based on the matching words in two strings.
+  """Computes a 'score' based on the matching words in two strings. Lowest
+  score is best match.
   Returns:
     Float score."""
   match_string = e['matched_query']
