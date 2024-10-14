@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 import os
+import tempfile
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -37,6 +38,23 @@ MAX_NUM_FILE_CHECK_TRIES = 3
 
 class DownloadTestMixin():
   """Mixins to test the download tool."""
+
+  def setUp(self):
+    """
+        In addition to the base test setUp, need to also create a temporary
+        directory to use for downloaded files
+        """
+    self.downloads_folder = tempfile.TemporaryDirectory()
+    preferences = {"download.default_directory": self.downloads_folder.name}
+    super().setUp(preferences)
+
+  def tearDown(self):
+    """
+        In addition to base test tearDown, need to also clean up the temporary
+        directory that was created.
+        """
+    self.downloads_folder.cleanup()
+    super().tearDown()
 
   def test_server_and_page(self):
     """Test the server can run successfully."""
