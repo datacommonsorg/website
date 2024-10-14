@@ -89,6 +89,16 @@ export function AutoCompleteInput(
     lang = urlParams.has("hl") ? urlParams.get("hl") : "en";
   }, []);
 
+  useEffect(() => {
+    // For the first load when q= param is set, we want to ensure the
+    // props.value is propagated if it doesn't match input text.
+    // Afterwards, the onInputchange method is responsible for updating
+    // the text.
+    if (props.value != inputText) {
+      changeText(props.value);
+    }
+  }, [props.value]);
+
   // Clear suggested results when click registered outside of component.
   useOutsideClickAlerter(wrapperRef, () => {
     setResults({ placeResults: [], svResults: [] });
