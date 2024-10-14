@@ -18,25 +18,16 @@
   "sessionId": "007_999999999",
   "test": "unittest",
   "variables": [
-    "dc/topic/ILOEMPNORMNB",
-    "dc/topic/ILOEMPPUBLNB",
-    "dc/topic/ILOEMPCARENB",
     "dc/topic/ILOEMPPIFLNB",
-    "dc/topic/ILOEMPPTERRT",
-    "dc/topic/ILOEMP5PIFNB",
+    "dc/topic/ILOEMPNORMNB",
+    "dc/topic/ILOEMPSTATNB",
     "dc/topic/ILOEMPPIFLRT",
-    "dc/topic/ILOEMP5PIFRT",
-    "dc/topic/ILOEMPSTEMNB",
-    "dc/topic/ILOEMPCPIFRT",
-    "dc/topic/ILOEMPTEMPNB",
-    "dc/topic/ILOEMP5EMPNB",
-    "dc/topic/ILOEMPTEM1NB",
-    "dc/topic/ILOEMPSPIFRT",
-    "dc/topic/ILOEMPNIFLNB",
-    "dc/topic/ILOEMPSNIFRT",
-    "dc/topic/ILOEMPCNIFRT",
-    "dc/topic/ILOEMPDWAPRT",
+    "dc/topic/ILOLUUXLUXNB",
+    "dc/topic/ILOEMPNIFLRT",
     "dc/topic/ILOEMP5NIFNB",
-    "dc/topic/ILOEMPDWA1RT"
+    "dc/topic/ILOEMP5PIFRT",
+    "dc/topic/ILOEMP5PIFNB",
+    "dc/topic/ILOLUUXLUXRT",
+    "dc/topic/ILOLAIINSPNB"
   ]
 }
