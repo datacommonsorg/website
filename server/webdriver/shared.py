@@ -116,6 +116,6 @@ def safe_url_open(url):
 
   req = urllib.request.Request(url)
   if url.startswith('http'):
-    with urllib.request.urlopen(req) as response: # nosec B310
+    with urllib.request.urlopen(req) as response:  # nosec B310
       return response.getcode()
   return 0
