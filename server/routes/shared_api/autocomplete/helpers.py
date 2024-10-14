@@ -14,7 +14,7 @@
 
 import json
 import re
-from typing import Dict, List
+from typing import Dict, List, Tuple
 from urllib.parse import urlencode
 
 from flask import current_app
@@ -23,7 +23,7 @@ import requests
 MAPS_API_URL = "https://maps.googleapis.com/maps/api/place/autocomplete/json?"
 MIN_CHARACTERS_PER_QUERY = 3
 MAX_NUM_OF_QUERIES = 4
-RESPONSE_COUNT_LIMIT = 10
+RESPONSE_COUNT_LIMIT = 20
 DISPLAYED_RESPONSE_COUNT_LIMIT = 5
 
 
@@ -71,52 +71,38 @@ def execute_maps_request(query: str, language: str) -> Dict:
   return json.loads(response.text)
 
 
-def get_match_score(name: str, match_string: str) -> float:
+# def get_match_score(name: str, match_string: str) -> float:
+def get_match_score(e: Dict) -> float:
   """Computes a 'score' based on the matching words in two strings.
   Returns:
     Float score."""
+  match_string = e['matched_query']
+  name = e['description']
   rgx = re.compile(r'\s+')
   words_in_name = re.split(rgx, name)
   words_in_str1 = re.split(rgx, match_string)
 
   score = 0
+  start_index = 0
   for str1_word in words_in_str1:
     str1_word = str1_word.lower()
-    for name_word in words_in_name:
+    for idx, name_word in enumerate(words_in_name):
+      if idx < start_index:
+        continue
+
       name_word = name_word.lower()
       if str1_word == name_word:
-        score += 1
+        start_index = idx + 1
+        score -= 1
         break
       elif str1_word in name_word:
-        score += 0.5
+        start_index = idx + 1
+        score -= 0.5
         break
       else:
-        score -= 1
+        score += 1
 
   return score
-
-
-def find_best_match(name: str, string1: str, string2: str) -> str:
-  """Finds the best match between string1 and string2 for name. We use a very
-  simple algorithm based on approximate accuracy.
-  Returns:
-    String that is the better match.
-  """
-
-  # Note that this function is implemented to find the best "matched_query", when the same response
-  # is found multiple times.
-  # For example:
-  #   name: "California, USA"
-  #   string1: "Of Calif"
-  #   string2: "Calif"
-  # should return "Calif" as a better match.
-  score1 = get_match_score(name, string1)
-  score2 = get_match_score(name, string2)
-
-  if score2 > score1:
-    return string2
-
-  return string1
 
 
 def predict(queries: List[str], lang: str) -> List[Dict]:
@@ -124,44 +110,31 @@ def predict(queries: List[str], lang: str) -> List[Dict]:
   Returns:
       List of json objects containing predictions from all queries issued after deduping.
   """
-  responses = []
-  place_ids = set()
-  duplicates = {}
-
+  all_responses = []
   for query in queries:
     predictions_for_query = execute_maps_request(query, lang)['predictions']
 
     for pred in predictions_for_query:
-      pred['matched_query'] = query
-      if pred['place_id'] not in place_ids:
-        place_ids.add(pred['place_id'])
-        responses.append(pred)
-      else:
-        if pred['place_id'] in duplicates:
-          # find best match
-          # print("Second dupe.")
-          bm = find_best_match(pred['description'],
-                               duplicates[pred['place_id']], query)
-          # print("BM won: ")
-          # print(bm)
-          duplicates[pred['place_id']] = bm
-        else:
-          # print("We're just getting our first dupe.")
-          duplicates[pred['place_id']] = query
+      result_pred = {}
+      result_pred['description'] = pred['description']
+      result_pred['place_id'] = pred['place_id']
+      result_pred['matched_query'] = query
+      result_pred['score'] = get_match_score(result_pred)
+      all_responses.append(result_pred)
 
-      if len(responses) >= RESPONSE_COUNT_LIMIT:
-        # prevent new loop to iterate through next answer.
-        break
+  all_responses.sort(key=get_score)
 
-    if len(responses) >= RESPONSE_COUNT_LIMIT:
-      # prevent new loop that will make new request to maps api.
-      break
-
-  responses = responses[:DISPLAYED_RESPONSE_COUNT_LIMIT]
-  for resp in responses:
-    if resp['place_id'] in duplicates:
-      best_match = find_best_match(resp['description'], resp['matched_query'],
-                                   duplicates[resp['place_id']])
-      resp["matched_query"] = best_match
+  responses = []
+  place_ids = set()
+  index = 0
+  while len(responses) < DISPLAYED_RESPONSE_COUNT_LIMIT and index < len(all_responses):
+    if all_responses[index]['place_id'] not in place_ids:
+      responses.append(all_responses[index])
+      place_ids.add(all_responses[index]['place_id'])
+    index +=1
 
   return responses
+
+def get_score(e: Dict) -> float:
+  """Returns the score."""
+  return e['score']
