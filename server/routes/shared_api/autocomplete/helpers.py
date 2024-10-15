@@ -20,6 +20,8 @@ from urllib.parse import urlencode
 from flask import current_app
 import requests
 
+from server.routes.shared_api.autocomplete.types import ScoredPrediction
+
 MAPS_API_URL = "https://maps.googleapis.com/maps/api/place/autocomplete/json?"
 MIN_CHARACTERS_PER_QUERY = 3
 MAX_NUM_OF_QUERIES = 4
@@ -70,13 +72,11 @@ def execute_maps_request(query: str, language: str) -> Dict:
   return json.loads(response.text)
 
 
-def get_match_score(e: Dict) -> float:
+def get_match_score(match_string: str, name: str) -> float:
   """Computes a 'score' based on the matching words in two strings. Lowest
   score is best match.
   Returns:
     Float score."""
-  match_string = e['matched_query']
-  name = e['description']
   rgx = re.compile(r'\s+')
   words_in_name = re.split(rgx, name)
   words_in_str1 = re.split(rgx, match_string)
@@ -114,12 +114,13 @@ def predict(queries: List[str], lang: str) -> List[Dict]:
     predictions_for_query = execute_maps_request(query, lang)['predictions']
 
     for pred in predictions_for_query:
-      result_pred = {}
-      result_pred['description'] = pred['description']
-      result_pred['place_id'] = pred['place_id']
-      result_pred['matched_query'] = query
-      result_pred['score'] = get_match_score(result_pred)
-      all_responses.append(result_pred)
+      scored_prediction = ScoredPrediction(description=pred['description'],
+                                           place_id=pred['place_id'],
+                                           matched_query=query,
+                                           score=get_match_score(
+                                               pred['matched_query'],
+                                               pred['description']))
+      all_responses.append(scored_prediction)
 
   all_responses.sort(key=get_score)
 
