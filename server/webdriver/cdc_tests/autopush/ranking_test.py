@@ -16,5 +16,5 @@ from server.webdriver.cdc_tests.autopush.cdc_base_webdriver import \
 from server.webdriver.shared_tests.ranking_test import RankingTestMixin
 
 
-class TestPlaceLanding(RankingTestMixin, CdcAutopushTestBase):
+class TestRanking(RankingTestMixin, CdcAutopushTestBase):
   """Class to test the ranking page for Custom DC. Tests come from RankingTestMixin."""
