@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,14 +11,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
-from server.webdriver.shared_tests.map_test import MapTestMixin
 
-MAP_URL = '/tools/map'
-URL_HASH_1 = '#&sv=Median_Age_Person&pc=0&pd=geoId/06&pn=California&pt=State&ept=County'
-PLACE_SEARCH_CA = 'California'
+from server.integration_tests.explore_test import ExploreTest
+from server.webdriver.cdc_tests.autopush.cdc_base_webdriver import \
+    CdcAutopushTestBase
 
 
-class TestMap(MapTestMixin, BaseDcWebdriverTest):
-  """Class to test map tool. Tests come from MapTestMixin."""
-  dc_title_string = "Data Commons"
+class CdcAutopushNLTest(ExploreTest, CdcAutopushTestBase):
+  """Class to test the natural language queries for Custom DC."""
+
+  def test_cdc_nl(self):
+    """Run Query on custom DC stat var."""
+    self.run_detect_and_fulfill('cdc_nl', ['gender wage gap in europe'])
