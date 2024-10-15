@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,14 +11,18 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
-from server.webdriver.shared_tests.map_test import MapTestMixin
-
-MAP_URL = '/tools/map'
-URL_HASH_1 = '#&sv=Median_Age_Person&pc=0&pd=geoId/06&pn=California&pt=State&ept=County'
-PLACE_SEARCH_CA = 'California'
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 
-class TestMap(MapTestMixin, BaseDcWebdriverTest):
-  """Class to test map tool. Tests come from MapTestMixin."""
-  dc_title_string = "Data Commons"
+class HomepageTestMixin():
+  """Mixins to test the homepage."""
+
+  def test_homepage_en(self):
+    """Test homepage in EN."""
+    self.driver.get(self.url_ + '/')
+
+    # Assert page title is correct
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.title_contains(self.dc_title_string))
+    self.assertIn("- " + self.dc_title_string, self.driver.title)
