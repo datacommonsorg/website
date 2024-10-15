@@ -18,4 +18,3 @@ from server.webdriver.shared_tests.download_test import DownloadTestMixin
 
 class TestDownload(DownloadTestMixin, BaseDcWebdriverTest):
   """Class to test download tool. Tests come from DownloadTestMixin."""
-  dc_title_string = "Data Commons"
