@@ -46,7 +46,7 @@ def autocomplete():
 
   place_ids = []
   for prediction in prediction_responses:
-    place_ids.append(prediction["place_id"])
+    place_ids.append(prediction.place_id)
 
   place_id_to_dcid = []
   if place_ids:
@@ -54,12 +54,12 @@ def autocomplete():
 
   final_predictions = []
   for prediction in prediction_responses:
-    if prediction['place_id'] in place_id_to_dcid:
+    if prediction.place_id in place_id_to_dcid:
       current_prediction = AutoCompleteResult(
-          name=prediction['description'],
+          name=prediction.description,
           match_type='location_search',
-          matched_query=prediction['matched_query'],
-          dcid=place_id_to_dcid[prediction['place_id']])
+          matched_query=prediction.matched_query,
+          dcid=place_id_to_dcid[prediction.place_id])
       final_predictions.append(current_prediction)
 
   return jsonify(AutoCompleteApiResponse(predictions=final_predictions))

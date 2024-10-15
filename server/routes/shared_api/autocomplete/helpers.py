@@ -77,7 +77,7 @@ def get_match_score(match_string: str, name: str) -> float:
   score is best match.
   Returns:
     Float score."""
-  rgx = re.compile(r'\s+')
+  rgx = re.compile(r'[\s|,]+')
   words_in_name = re.split(rgx, name)
   words_in_str1 = re.split(rgx, match_string)
 
@@ -104,7 +104,7 @@ def get_match_score(match_string: str, name: str) -> float:
   return score
 
 
-def predict(queries: List[str], lang: str) -> List[Dict]:
+def predict(queries: List[str], lang: str) -> List[ScoredPrediction]:
   """Trigger maps prediction api requests and parse the output. Remove duplication responses and limit the number of results.
   Returns:
       List of json objects containing predictions from all queries issued after deduping.
@@ -118,8 +118,7 @@ def predict(queries: List[str], lang: str) -> List[Dict]:
                                            place_id=pred['place_id'],
                                            matched_query=query,
                                            score=get_match_score(
-                                               pred['matched_query'],
-                                               pred['description']))
+                                               query, pred['description']))
       all_responses.append(scored_prediction)
 
   all_responses.sort(key=get_score)
@@ -129,14 +128,14 @@ def predict(queries: List[str], lang: str) -> List[Dict]:
   index = 0
   while len(responses) < DISPLAYED_RESPONSE_COUNT_LIMIT and index < len(
       all_responses):
-    if all_responses[index]['place_id'] not in place_ids:
+    if all_responses[index].place_id not in place_ids:
       responses.append(all_responses[index])
-      place_ids.add(all_responses[index]['place_id'])
+      place_ids.add(all_responses[index].place_id)
     index += 1
 
   return responses
 
 
-def get_score(e: Dict) -> float:
+def get_score(p: ScoredPrediction) -> float:
   """Returns the score."""
-  return e['score']
+  return p.score
