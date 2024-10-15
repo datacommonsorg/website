@@ -33,7 +33,6 @@ SEARCH_INPUT = 'male asian count '
 
 class TestBrowser(BrowserTestMixin, BaseDcWebdriverTest):
   """Class to test browser page. Some tests come from BrowserTestMixin."""
-  dc_title_string = "Data Commons"
 
   @pytest.mark.skip(reason="needs mixer/data fix")
   def test_page_serve_mtv(self):

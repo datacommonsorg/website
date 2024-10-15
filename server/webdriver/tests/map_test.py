@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
 from server.webdriver.shared_tests.map_test import MapTestMixin
 
@@ -21,4 +22,3 @@ PLACE_SEARCH_CA = 'California'
 
 class TestMap(MapTestMixin, BaseDcWebdriverTest):
   """Class to test map tool. Tests come from MapTestMixin."""
-  dc_title_string = "Data Commons"
