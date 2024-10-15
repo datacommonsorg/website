@@ -179,9 +179,9 @@ class VisMapTestMixin():
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
     place_type_inputs = self.driver.find_elements(By.CSS_SELECTOR,
                                                   '.place-type-selector label')
-    for input in place_type_inputs:
-      if input.text == 'County':
-        input.click()
+    for place_type_input in place_type_inputs:
+      if place_type_input.text == 'County':
+        place_type_input.click()
         break
 
     # Click continue

@@ -93,8 +93,8 @@ class VisScatterTestMixin():
     chart_option_inputs = self.driver.find_elements(
         By.CSS_SELECTOR,
         '.chart-footer-options .chart-option .form-check-input')
-    for input in chart_option_inputs:
-      input.click()
+    for chart_option_input in chart_option_inputs:
+      chart_option_input.click()
       shared.wait_for_loading(self.driver)
     y_axis_label = self.driver.find_element(By.CSS_SELECTOR,
                                             '#scatterplot .y-axis-label')
@@ -197,9 +197,9 @@ class VisScatterTestMixin():
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
     place_type_inputs = self.driver.find_elements(By.CSS_SELECTOR,
                                                   '.place-type-selector label')
-    for input in place_type_inputs:
-      if input.text == 'County':
-        input.click()
+    for chart_option_input in place_type_inputs:
+      if chart_option_input.text == 'County':
+        chart_option_input.click()
         break
 
     # Click continue
