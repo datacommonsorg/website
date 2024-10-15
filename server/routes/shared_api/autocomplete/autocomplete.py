@@ -15,9 +15,12 @@
 import json
 
 from flask import Blueprint
+from flask import jsonify
 from flask import request
 
 from server.routes.shared_api.autocomplete import helpers
+from server.routes.shared_api.autocomplete.types import AutoCompleteApiResponse
+from server.routes.shared_api.autocomplete.types import AutoCompleteResult
 from server.routes.shared_api.place import findplacedcid
 
 # TODO(gmechali): Add Stat Var search.
@@ -43,21 +46,20 @@ def autocomplete():
 
   place_ids = []
   for prediction in prediction_responses:
-    place_ids.append(prediction["place_id"])
+    place_ids.append(prediction.place_id)
 
   place_id_to_dcid = []
   if place_ids:
     place_id_to_dcid = json.loads(findplacedcid(place_ids).data)
 
   final_predictions = []
-  # TODO(gmechali): See if we can use typed dataclasses here.
   for prediction in prediction_responses:
-    current_prediction = {}
-    current_prediction['name'] = prediction['description']
-    current_prediction['match_type'] = 'location_search'
-    current_prediction['matched_query'] = prediction['matched_query']
-    if prediction['place_id'] in place_id_to_dcid:
-      current_prediction['dcid'] = place_id_to_dcid[prediction['place_id']]
+    if prediction.place_id in place_id_to_dcid:
+      current_prediction = AutoCompleteResult(
+          name=prediction.description,
+          match_type='location_search',
+          matched_query=prediction.matched_query,
+          dcid=place_id_to_dcid[prediction.place_id])
       final_predictions.append(current_prediction)
 
-  return {'predictions': final_predictions}
+  return jsonify(AutoCompleteApiResponse(predictions=final_predictions))
