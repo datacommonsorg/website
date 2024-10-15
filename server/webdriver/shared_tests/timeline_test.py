@@ -13,14 +13,12 @@
 # limitations under the License.
 
 import time
-import urllib
-import urllib.request
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from server.webdriver import shared
+import server.webdriver.shared as shared
 
 TIMELINE_URL = '/tools/timeline'
 URL_HASH_1 = '#&statsVar=Median_Age_Person__Median_Income_Person__Count_Person_Upto5Years'\
@@ -42,14 +40,10 @@ class TimelineTestMixin():
     self.driver.get(self.url_ + TIMELINE_URL)
 
     # Assert 200 HTTP code: successful page load.
-    req = urllib.request.Request(self.driver.current_url)
-    with urllib.request.urlopen(req) as response:
-      self.assertEqual(response.getcode(), 200)
+    self.assertEqual(shared.safe_url_open(self.driver.current_url), 200)
 
     # Assert 200 HTTP code: successful JS generation.
-    req = urllib.request.Request(self.url_ + "/timeline.js")
-    with urllib.request.urlopen(req) as response:
-      self.assertEqual(response.getcode(), 200)
+    self.assertEqual(shared.safe_url_open(self.url_ + "/timeline.js"), 200)
 
     # Assert page title is correct.
     WebDriverWait(self.driver,

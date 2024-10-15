@@ -12,15 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import urllib
-import urllib.request
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 
-from server.webdriver import shared
+import server.webdriver.shared as shared
 
 SCATTER_URL = '/tools/scatter'
 URL_HASH_1 = '#&svx=Median_Income_Person&svpx=0-3&svnx=Median_income&svy='\
@@ -38,14 +36,10 @@ class ScatterTestMixin():
     self.driver.get(self.url_ + SCATTER_URL)
 
     # Assert 200 HTTP code: successful page load.
-    req = urllib.request.Request(self.driver.current_url)
-    with urllib.request.urlopen(req) as response:
-      self.assertEqual(response.getcode(), 200)
+    self.assertEqual(shared.safe_url_open(self.driver.current_url), 200)
 
     # Assert 200 HTTP code: successful JS generation.
-    req = urllib.request.Request(self.url_ + '/scatter.js')
-    with urllib.request.urlopen(req) as response:
-      self.assertEqual(response.getcode(), 200)
+    self.assertEqual(shared.safe_url_open(self.url_ + '/scatter.js'), 200)
 
     # Assert page title is correct.
     WebDriverWait(self.driver,
