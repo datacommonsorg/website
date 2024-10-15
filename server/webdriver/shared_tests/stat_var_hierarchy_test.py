@@ -36,7 +36,6 @@ class StatVarHierarchyTestMixin():
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Get the count of the first category
-    # first_category = self.driver.find_element(By.CLASS_NAME, 'sv-count')
     agriculture_category = self.driver.find_element(
         By.XPATH, "//*[text()='Agriculture']")
     agriculture_count = agriculture_category.find_element(
@@ -85,7 +84,6 @@ class StatVarHierarchyTestMixin():
     agriculture_count = agriculture_category.find_element(
         By.CLASS_NAME, 'sv-count')
     count_text = agriculture_count.text
-
     count_text = rgx.search(count_text).group(0)
 
     count_filter = int(count_text.replace('(', '').replace(')', ''))
