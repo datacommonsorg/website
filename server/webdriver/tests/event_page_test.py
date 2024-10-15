@@ -20,7 +20,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from server.webdriver.base import WebdriverBaseTest
+from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
 
 BASE_PAGE_URL = '/event/'
 CYCLONE_NICOLE_DCID = 'cyclone/ibtracs_2022309N16290'
@@ -28,7 +28,7 @@ FIRE_EVENT_DCID = 'fire/imsr0003Fire20152836427'
 DROUGHT_EVENT_DCID = 'stormEvent/nws5512667'
 
 
-class TestEventPage(WebdriverBaseTest):
+class TestEventPage(BaseDcWebdriverTest):
   """Class to test Event Pages."""
 
   def test_page_cyclone(self):

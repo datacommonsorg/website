@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import re
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -34,10 +36,16 @@ class StatVarHierarchyTestMixin():
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
 
     # Get the count of the first category
-    first_category = self.driver.find_element(By.CLASS_NAME, 'sv-count')
-    categories = self.driver.find_elements(By.CLASS_NAME, 'sv-count')
-    # TODO(gmechali): Restart from here. get agriculture count.
-    count_text = first_category.text
+    # first_category = self.driver.find_element(By.CLASS_NAME, 'sv-count')
+    agriculture_category = self.driver.find_element(
+        By.XPATH, "//*[text()='Agriculture']")
+    agriculture_count = agriculture_category.find_element(
+        By.CLASS_NAME, 'sv-count')
+    count_text = agriculture_count.text
+
+    rgx = re.compile(r'\(([0-9]+)\)')
+    count_text = rgx.search(count_text).group(0)
+
     count_initial = int(count_text.replace('(', '').replace(')', ''))
 
     # Wait until search box is present.
@@ -72,8 +80,14 @@ class StatVarHierarchyTestMixin():
 
     # Get the count after filtering
     shared.wait_for_loading(self.driver)
-    first_category = self.driver.find_element(By.CLASS_NAME, 'sv-count')
-    count_text = first_category.text
+    agriculture_category = self.driver.find_element(
+        By.XPATH, "//*[text()='Agriculture']")
+    agriculture_count = agriculture_category.find_element(
+        By.CLASS_NAME, 'sv-count')
+    count_text = agriculture_count.text
+
+    count_text = rgx.search(count_text).group(0)
+
     count_filter = int(count_text.replace('(', '').replace(')', ''))
 
     self.assertGreater(count_initial, count_filter)

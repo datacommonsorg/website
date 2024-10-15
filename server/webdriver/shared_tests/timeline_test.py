@@ -36,7 +36,7 @@ class TimelineTestMixin():
 
   def test_server_and_page(self):
     """Test the server can run successfully."""
-    title_text = "Timelines Explorer - Data Commons"
+    title_text = "Timelines Explorer - " + self.dc_title_string
 
     # Load Timeline Tool page.
     self.driver.get(self.url_ + TIMELINE_URL)

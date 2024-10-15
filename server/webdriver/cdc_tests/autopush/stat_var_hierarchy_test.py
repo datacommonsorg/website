@@ -17,5 +17,5 @@ from server.webdriver.shared_tests.stat_var_hierarchy_test import \
     StatVarHierarchyTestMixin
 
 
-class TestScatter(StatVarHierarchyTestMixin, CdcAutopushTestBase):
+class TestStatVarHierarchy(StatVarHierarchyTestMixin, CdcAutopushTestBase):
   """Class to test the stat var hierarchy page for Custom DC. Tests come from StatVarHierarchyTestMixin."""
