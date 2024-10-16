@@ -130,8 +130,15 @@ export function AutoCompleteInput(
       hoveredIdx >= 0 &&
       results.placeResults.length >= hoveredIdx &&
       currentText.trim().endsWith(results.placeResults[hoveredIdx].name);
-    setHoveredIdx(-1);
 
+    if (selectionApplied) {
+      // Trigger Google Analytics event to track the index of the selected autocomplete result.
+      triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION, {
+        [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(hoveredIdx),
+      });
+    }
+
+    setHoveredIdx(-1);
     if (_.isEmpty(currentText) || selectionApplied) {
       // Reset all suggestion results.
       setResults({ placeResults: [], svResults: [] });
