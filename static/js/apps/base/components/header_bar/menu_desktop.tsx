@@ -93,68 +93,77 @@ const MenuDesktop = ({
   return (
     <div className="header-menu" ref={menuContainerRef}>
       <ul className="header-menu-list">
-        {menu.map((menuItem, index) => (
-          <li key={menuItem.label}>
-            {menuItem.url ? (
-              <a
-                className="menu-main-link"
-                href={resolveHref(menuItem.url, routes)}
-                onClick={() => {
-                  triggerGAEvent(GA_EVENT_HEADER_CLICK, {
-                    [GA_PARAM_ID]: `desktop main ${menuItem.id}`,
-                    [GA_PARAM_URL]: menuItem.url,
-                  });
-                  return true;
-                }}
-              >
-                {labels[menuItem.label]}
-              </a>
-            ) : (
-              <>
-                <button
-                  className="menu-main-button"
-                  onClick={(): void => {
+        {menu.map((menuItem, index) => {
+          const buttonId = slugify(`nav-${menuItem.label}-button`);
+          const dropdownId = slugify(`nav-${menuItem.label}-dropdown`);
+
+          return (
+            <li key={menuItem.label}>
+              {menuItem.url ? (
+                <a
+                  className="menu-main-link"
+                  href={resolveHref(menuItem.url, routes)}
+                  onClick={() => {
                     triggerGAEvent(GA_EVENT_HEADER_CLICK, {
-                      [GA_PARAM_ID]: `desktop ${menuItem.id}`,
+                      [GA_PARAM_ID]: `desktop main ${menuItem.id}`,
+                      [GA_PARAM_URL]: menuItem.url,
                     });
-                    return !menuItem.url && toggleMenu(index);
-                  }}
-                  onTouchEnd={(e): void => {
-                    if (!menuItem.url) itemMenuTouch(e, index);
+                    return true;
                   }}
                 >
-                  <span className="menu-main-label">
-                    {labels[menuItem.label]}
-                  </span>
-                  <span
-                    className={`material-icons-outlined menu-arrow-icon ${
-                      openMenu === index ? "open" : ""
-                    }`}
+                  {labels[menuItem.label]}
+                </a>
+              ) : (
+                <>
+                  <button
+                    id={buttonId}
+                    className="menu-main-button"
+                    onClick={(): void => {
+                      triggerGAEvent(GA_EVENT_HEADER_CLICK, {
+                        [GA_PARAM_ID]: `desktop ${menuItem.id}`,
+                      });
+                      return !menuItem.url && toggleMenu(index);
+                    }}
+                    onTouchEnd={(e): void => {
+                      if (!menuItem.url) itemMenuTouch(e, index);
+                    }}
+                    aria-expanded={openMenu === index}
+                    aria-controls={dropdownId}
                   >
-                    keyboard_arrow_down
-                  </span>
-                </button>
-                <div
-                  ref={(el: HTMLDivElement | null): void => {
-                    submenuRefs.current[index] = el;
-                  }}
-                  className="rich-menu-container"
-                  aria-labelledby={slugify(`nav-${menuItem.label}-dropdown`)}
-                  style={{
-                    maxHeight: openMenu === index ? `${panelHeight}px` : 0,
-                  }}
-                >
-                  <MenuDesktopRichMenu
-                    menuItem={menuItem}
-                    labels={labels}
-                    routes={routes}
-                    open={openMenu === index}
-                  />
-                </div>
-              </>
-            )}
-          </li>
-        ))}
+                    <span className="menu-main-label">
+                      {labels[menuItem.label]}
+                    </span>
+                    <span
+                      className={`material-icons-outlined menu-arrow-icon ${
+                        openMenu === index ? "open" : ""
+                      }`}
+                    >
+                      keyboard_arrow_down
+                    </span>
+                  </button>
+                  <div
+                    ref={(el: HTMLDivElement | null): void => {
+                      submenuRefs.current[index] = el;
+                    }}
+                    id={dropdownId}
+                    className="rich-menu-container"
+                    aria-labelledby={buttonId}
+                    style={{
+                      maxHeight: openMenu === index ? `${panelHeight}px` : 0,
+                    }}
+                  >
+                    <MenuDesktopRichMenu
+                      menuItem={menuItem}
+                      labels={labels}
+                      routes={routes}
+                      open={openMenu === index}
+                    />
+                  </div>
+                </>
+              )}
+            </li>
+          );
+        })}
       </ul>
       <div className={"panel"} style={{ height: panelHeight }} />
     </div>
