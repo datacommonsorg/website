@@ -77,6 +77,8 @@ export function AutoCompleteInput(
   const [hoveredIdx, setHoveredIdx] = useState(-1);
   const [triggerSearch, setTriggerSearch] = useState("");
   const [inputActive, setInputActive] = useState(false);
+  const [lastAutoCompleteSelection, setLastAutoCompleteSelection] =
+    useState("");
 
   const isHeaderBar = props.barType == "header";
   let lang = "";
@@ -128,24 +130,47 @@ export function AutoCompleteInput(
 
     const selectionApplied =
       hoveredIdx >= 0 &&
-      results.placeResults.length >= hoveredIdx &&
+      hoveredIdx < results.placeResults.length &&
       currentText.trim().endsWith(results.placeResults[hoveredIdx].name);
 
+    let lastSelection = lastAutoCompleteSelection;
     if (selectionApplied) {
-      // Trigger Google Analytics event to track the index of the selected autocomplete result.
-      triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION, {
-        [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(hoveredIdx),
-      });
-    }
-
-    setHoveredIdx(-1);
-    if (_.isEmpty(currentText) || selectionApplied) {
       // Reset all suggestion results.
       setResults({ placeResults: [], svResults: [] });
+      // Set the autocomplete selection.
+      setLastAutoCompleteSelection(results.placeResults[hoveredIdx].name);
+
+      if (selectionApplied) {
+        // Trigger Google Analytics event to track the index of the selected autocomplete result.
+        triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION, {
+          [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(hoveredIdx),
+        });
+      }
+      setHoveredIdx(-1);
       return;
+    } else if (_.isEmpty(currentText)) {
+      // Reset all suggestion results.
+      setResults({ placeResults: [], svResults: [] });
+      setLastAutoCompleteSelection("");
+      setHoveredIdx(-1);
+      return;
+    } else if (!currentText.includes(lastAutoCompleteSelection)) {
+      // If the user backspaces into the last selection, reset it.
+      lastSelection = "";
+      setLastAutoCompleteSelection(lastSelection);
+      // fall through
     }
 
-    sendDebouncedAutoCompleteRequest(currentText);
+    let queryForAutoComplete = currentText;
+    if (!_.isEmpty(lastSelection)) {
+      // if the last selection is still present, only send what comes after to autocomplete.
+      const splitQuery = queryForAutoComplete.split(lastSelection);
+      if (splitQuery.length == 2) {
+        queryForAutoComplete = splitQuery[1].trim();
+      }
+    }
+
+    sendDebouncedAutoCompleteRequest(queryForAutoComplete);
   }
 
   const triggerAutoCompleteRequest = useCallback(async (query: string) => {
