@@ -24,10 +24,10 @@ import React, { ReactElement } from "react";
 
 import Build from "../../components/content/build_your_own";
 import HeroVideo from "../../components/content/hero_video";
+import LinkChips, { LinkChip } from "../../components/content/link_chips";
 import Partners from "../../components/content/partners";
 import SampleQuestions from "../../components/content/sample_questions";
 import Tools from "../../components/content/tools";
-import Topics from "../../components/content/topics";
 import { GA_EVENT_HOMEPAGE_CLICK } from "../../shared/ga_events";
 import { Routes } from "../../shared/types/base";
 import {
@@ -56,10 +56,16 @@ export function App({
   sampleQuestions,
   routes,
 }: AppProps): ReactElement {
+  const topicLinkChips: LinkChip[] = topics.map((topic) => ({
+    id: topic.id,
+    title: topic.title,
+    url: topic.url,
+  }));
+
   return (
     <>
       <HeroVideo routes={routes} />
-      <Topics topics={topics} />
+      <LinkChips title={"Topics to explore"} linkChips={topicLinkChips} />
       <SampleQuestions sampleQuestions={sampleQuestions} />
       <Tools routes={routes} />
       <Build routes={routes} />
