@@ -135,18 +135,16 @@ export function AutoCompleteInput(
 
     let lastSelection = lastAutoCompleteSelection;
     if (selectionApplied) {
+      // Trigger Google Analytics event to track the index of the selected autocomplete result.
+      triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION, {
+        [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(hoveredIdx),
+      });
+
       // Reset all suggestion results.
       setResults({ placeResults: [], svResults: [] });
+      setHoveredIdx(-1);
       // Set the autocomplete selection.
       setLastAutoCompleteSelection(results.placeResults[hoveredIdx].name);
-
-      if (selectionApplied) {
-        // Trigger Google Analytics event to track the index of the selected autocomplete result.
-        triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION, {
-          [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(hoveredIdx),
-        });
-      }
-      setHoveredIdx(-1);
       return;
     } else if (_.isEmpty(currentText)) {
       // Reset all suggestion results.
