@@ -18,9 +18,9 @@
 
 @use "./new_variables" as var;
 @import "base";
-@import "./components/media_text";
-@import "./components/columns_text";
-@import "./components/quote";
+@import "./content/media_text";
+@import "./content/columns_text";
+@import "./content/quote";
 
 #about {
   // General Styles
