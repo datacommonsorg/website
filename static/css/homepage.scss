@@ -18,13 +18,13 @@
 
 @use "./new_variables" as var;
 @import "base";
-@import "./components/hero_video";
-@import "./components/sample_questions";
-@import "./components/tools";
-@import "./components/partners";
-@import "./components/build_your_own";
-@import "./components/chips";
-@import "./components/slide_carousel";
+@import "./content/hero_video";
+@import "./content/sample_questions";
+@import "./content/tools";
+@import "./content/partners";
+@import "./content/build_your_own";
+@import "./content/chips";
+@import "./content/slide_carousel";
 
 #homepage {
   // General Styles
