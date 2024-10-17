@@ -36,6 +36,10 @@ $h3-font-size: 1.2rem;
 
 $headings-font-weight: 600;
 
+/*
+  If the grid-breakpoints change, the TypeScript equivalent should be updated:
+  `static/js/apps/base/utilities/utilities.ts`, `export const BREAKPOINTS`
+ */
 $grid-breakpoints: (
   xs: 0,
   sm: 576px,
