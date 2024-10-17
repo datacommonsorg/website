@@ -15,7 +15,7 @@
  */
 
 /**
- * A component that renders the topics section of the home page.
+ * A component that renders a series of chips that function as links with titles
  */
 
 import React, { ReactElement } from "react";
@@ -26,33 +26,44 @@ import {
   GA_PARAM_URL,
   triggerGAEvent,
 } from "../../shared/ga_events";
-import { Topic } from "../../shared/types/homepage";
 
-interface TopicsProps {
-  //the topics passed from the backend through to the JavaScript via the templates
-  topics: Topic[];
+//an individual LinkChip comprising the title and url attributes of the chip.
+export interface LinkChip {
+  //a unique identifier for the chip (used for map keys)
+  id: string;
+  //the title of the chip - this will be the text of the link
+  title: string;
+  //the url of the chip link
+  url: string;
 }
 
-const Topics = ({ topics }: TopicsProps): ReactElement => {
+interface LinkChipsProps {
+  //the title of the component, displayed as a header above the chips
+  title?: string;
+  //the link
+  linkChips: LinkChip[];
+}
+
+const LinkChips = ({ title, linkChips }: LinkChipsProps): ReactElement => {
   return (
-    <section id="topics" className="topics">
+    <section id="chip-section" className="chip-section">
       <div className="container">
-        <h3>Topics to explore</h3>
-        <ul className="topics-container">
-          {topics.map((topic) => (
-            <li key={topic.id} className="topic-item">
+        {title && <h3>{title}</h3>}
+        <ul className="chip-container">
+          {linkChips.map((linkChip) => (
+            <li key={linkChip.id} className="chip-item">
               <a
-                href={topic.browseUrl}
+                href={linkChip.url}
                 onClick={(): void => {
                   triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
-                    [GA_PARAM_ID]: `topic ${topic.id}`,
-                    [GA_PARAM_URL]: topic.browseUrl,
+                    [GA_PARAM_ID]: `topic ${linkChip.id}`,
+                    [GA_PARAM_URL]: linkChip.url,
                   });
-                  window.location.href = topic.browseUrl;
+                  window.location.href = linkChip.url;
                 }}
               >
                 <span className="material-icons-outlined">arrow_forward</span>
-                {topic.title}
+                {linkChip.title}
               </a>
             </li>
           ))}
@@ -62,4 +73,4 @@ const Topics = ({ topics }: TopicsProps): ReactElement => {
   );
 };
 
-export default Topics;
+export default LinkChips;
