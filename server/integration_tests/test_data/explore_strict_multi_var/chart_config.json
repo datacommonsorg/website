@@ -91,23 +91,6 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "WHO/NCD_BMI_30A",
-                      "Percent_Person_SleepLessThan7Hours"
-                    ],
-                    "title": "% Obesity Among Adults, BMI >= 30 and Percentage That Sleeps Less Than 7 Hours Per Night in United States",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "% Obesity Among Adults, BMI >= 30 and Percentage That Sleeps Less Than 7 Hours Per Night"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "scatterTileSpec": {
                       "highlightTopRight": true
                     },
@@ -229,10 +212,6 @@
             "noPerCapita": true,
             "statVar": "Percent_Person_SleepLessThan7Hours",
             "unit": "%"
-          },
-          "WHO/NCD_BMI_30A": {
-            "name": "% Obesity Among Adults, BMI >= 30",
-            "statVar": "WHO/NCD_BMI_30A"
           },
           "dc/4lvmzr1h1ylk1": {
             "name": "Prevalence: Female, Obesity",
