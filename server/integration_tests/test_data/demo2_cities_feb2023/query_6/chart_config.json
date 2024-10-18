@@ -16,9 +16,9 @@
                       "country/TUN",
                       "country/MLI",
                       "country/ERI",
-                      "country/MWI",
                       "country/SEN",
                       "country/GMB",
+                      "country/MWI",
                       "country/SSD"
                     ],
                     "statVarKey": [
@@ -109,18 +109,6 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MWI",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Malawi",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "country/SEN",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_abs"
@@ -138,6 +126,18 @@
                       "LifeExpectancy_Person_growth_abs"
                     ],
                     "title": "Gambia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "country/MWI",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_abs"
+                    ],
+                    "title": "Malawi",
                     "type": "LINE"
                   }
                 ]
@@ -198,11 +198,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MWI",
+                    "placeDcidOverride": "country/GMB",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_pct"
                     ],
-                    "title": "Malawi",
+                    "title": "Gambia",
                     "type": "LINE"
                   }
                 ]
@@ -222,11 +222,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/ERI",
+                    "placeDcidOverride": "country/MWI",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_pct"
                     ],
-                    "title": "Eritrea",
+                    "title": "Malawi",
                     "type": "LINE"
                   }
                 ]
@@ -234,11 +234,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/GMB",
+                    "placeDcidOverride": "country/MAR",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_pct"
                     ],
-                    "title": "Gambia",
+                    "title": "Morocco",
                     "type": "LINE"
                   }
                 ]
@@ -258,11 +258,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "country/MAR",
+                    "placeDcidOverride": "country/ERI",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_pct"
                     ],
-                    "title": "Morocco",
+                    "title": "Eritrea",
                     "type": "LINE"
                   }
                 ]
