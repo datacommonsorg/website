@@ -37,35 +37,33 @@ const Footer = ({
   routes,
 }: FooterProps): ReactElement => {
   return (
-    <div id="main-footer-container">
-      <div className="container">
-        <div className="brand-byline">
-          <span className="brand-text">{labels["An initiative from"]}</span>
-          <img
-            className="brand-logo"
-            width="74"
-            height="25"
-            src={
-              brandLogoLight
-                ? "/images/google-logo-reverse.svg"
-                : "/images/google-logo.svg"
-            }
-            alt="Google logo"
-          />
-        </div>
-        <ul className="footer-links">
-          <li>
-            <a href="https://policies.google.com/terms">
-              {labels["Terms and Conditions"]}
-            </a>
-          </li>
-          <li>
-            <a href="https://policies.google.com/privacy?hl=en-US">
-              {labels["Privacy Policy"]}
-            </a>
-          </li>
-        </ul>
+    <div  id="main-footer-container">
+      <div className="brand-byline">
+        <span className="brand-text">{labels["An initiative from"]}</span>
+        <img
+          className="brand-logo"
+          width="74"
+          height="25"
+          src={
+            brandLogoLight
+              ? "/images/google-logo-reverse.svg"
+              : "/images/google-logo.svg"
+          }
+          alt="Google logo"
+        />
       </div>
+      <ul className="footer-links">
+        <li>
+          <a href="https://policies.google.com/terms">
+            {labels["Terms and Conditions"]}
+          </a>
+        </li>
+        <li>
+          <a href="https://policies.google.com/privacy?hl=en-US">
+            {labels["Privacy Policy"]}
+          </a>
+        </li>
+      </ul>
     </div>
   );
 };

@@ -712,22 +712,21 @@ section {
   }
 }
 
-// Needs refactor this overrides current styles
 #main-footer-container {
-  padding: 16px 0 !important;
-  .container {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    padding: 0  32px !important;
-    max-width: 1920px !important;
-    @include media-breakpoint-down(lg) {
-      padding: 0 24px !important;
-    }
-    @include media-breakpoint-down(sm) {
-      justify-content: center;
-      gap: 24px;
-    }
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 20px 0;
+  margin: auto;
+  max-width: 1310px;
+  @include media-breakpoint-down(lg) {
+    max-width: 100%!important;
+    padding: 20px calc(#{var.$spacing} * 3);
+  }
+  @media (max-width: 580px) {
+    justify-content: center;
+    gap: 10px;
   }
   .footer-links {
     display: flex;
