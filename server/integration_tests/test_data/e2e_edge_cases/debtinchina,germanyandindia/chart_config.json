@@ -93,11 +93,6 @@
       "place_type": "Country"
     },
     {
-      "dcid": "country/DEU",
-      "name": "Germany",
-      "place_type": "Country"
-    },
-    {
       "dcid": "country/IND",
       "name": "India",
       "place_type": "Country"

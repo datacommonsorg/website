@@ -387,13 +387,21 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening",
-                      "Percent_Person_50To74Years_Female_ReceivedMammography",
-                      "Percent_Person_50To75Years_ReceivedColorectalCancerScreening"
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06061"
                     ],
-                    "title": "Cancer Preventive Health in Placer County",
-                    "type": "LINE"
+                    "statVarKey": [
+                      "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening_multiple_place_bar_block",
+                      "Percent_Person_50To74Years_Female_ReceivedMammography_multiple_place_bar_block",
+                      "Percent_Person_50To75Years_ReceivedColorectalCancerScreening_multiple_place_bar_block"
+                    ],
+                    "title": "Cancer Preventive Health in Placer County (${date})",
+                    "type": "BAR"
                   }
                 ]
               }
@@ -1443,12 +1451,22 @@
             "statVar": "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening",
             "unit": "%"
           },
+          "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening_multiple_place_bar_block": {
+            "name": "Women 21 - 65 Years Who Received Cervical Cancer Screening",
+            "statVar": "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening",
+            "unit": "%"
+          },
           "Percent_Person_50To74Years_Female_ReceivedMammography": {
             "name": "Women 50 - 74 Years, Who Received Mammography",
             "statVar": "Percent_Person_50To74Years_Female_ReceivedMammography",
             "unit": "%"
           },
-          "Percent_Person_50To75Years_ReceivedColorectalCancerScreening": {
+          "Percent_Person_50To74Years_Female_ReceivedMammography_multiple_place_bar_block": {
+            "name": "Women 50 - 74 Years, Who Received Mammography",
+            "statVar": "Percent_Person_50To74Years_Female_ReceivedMammography",
+            "unit": "%"
+          },
+          "Percent_Person_50To75Years_ReceivedColorectalCancerScreening_multiple_place_bar_block": {
             "name": "Patients 50 - 75 Years Who Received Colorectal Cancer Screening",
             "statVar": "Percent_Person_50To75Years_ReceivedColorectalCancerScreening",
             "unit": "%"
