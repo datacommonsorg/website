@@ -186,62 +186,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "UnemploymentRate_Person"
-                    ],
-                    "title": "Unemployment Rate in Spain",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Unemployment Rate in Spain",
-                    "statVarKey": [
-                      "UnemploymentRate_Person"
-                    ],
-                    "title": "Unemployment Rate in Spain",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Unemployment Rate"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "UnemploymentRate_Person_Female"
-                    ],
-                    "title": "Unemployment Rate of Females in Spain",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Unemployment Rate of Females in Spain",
-                    "statVarKey": [
-                      "UnemploymentRate_Person_Female"
-                    ],
-                    "title": "Unemployment Rate of Females in Spain",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Unemployment Rate of Females"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "sdg/EN_MAT_DOMCMPG"
                     ],
                     "title": "Domestic Material Consumption Per Unit of GDP in Spain",
@@ -282,14 +226,6 @@
           "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction": {
             "name": "Growth Rate of GDP",
             "statVar": "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
-          },
-          "UnemploymentRate_Person": {
-            "name": "Unemployment Rate",
-            "statVar": "UnemploymentRate_Person"
-          },
-          "UnemploymentRate_Person_Female": {
-            "name": "Unemployment Rate of Females",
-            "statVar": "UnemploymentRate_Person_Female"
           },
           "sdg/EN_MAT_DOMCMPG": {
             "name": "Domestic material consumption per unit of GDP",
@@ -682,10 +618,25 @@
     },
     "childTopics": [],
     "exploreMore": {
-      "UnemploymentRate_Person_Female": {
-        "age": [
-          "UnemploymentRate_Person_25To74Years_Female",
-          "UnemploymentRate_Person_Upto25Years_Female"
+      "sdg/EN_MAT_DOMCMPG": {
+        "sdg_product": [
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF1",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF11",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF121",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF122",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF13",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF14",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF2",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF21",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF22",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF3",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF4",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF41",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF413",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF421",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF422",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF_AGG3A",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF_AGG3B"
         ]
       }
     },
@@ -816,13 +767,6 @@
       }
     ],
     "peerTopics": [
-      {
-        "dcid": "dc/topic/Debt",
-        "name": "Debt",
-        "types": [
-          "Topic"
-        ]
-      },
       {
         "dcid": "dc/topic/EducationExpenditure",
         "name": "Education Expenditure",
