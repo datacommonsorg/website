@@ -112,7 +112,7 @@ class PlaceI18nExplorerTestMixin():
     chart_title = self.driver.find_element(
         By.XPATH, '//*[@id="main-pane"]/section[5]/div/div[2]/div/h4')
     self.assertEqual(chart_title.text,
-                     'Population urbaine et rurale : autres pays(2022)')
+                     'Population urbaine et rurale : autres pays(2023)')
 
     # Click through to ranking
     pop_growth_rate_chip = self.driver.find_element(
