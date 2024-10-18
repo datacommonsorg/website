@@ -30,6 +30,11 @@ import React, {
 } from "react";
 import { Input, InputGroup } from "reactstrap";
 
+import {
+  GA_EVENT_AUTOCOMPLETE_SELECTION,
+  GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX,
+  triggerGAEvent,
+} from "../../shared/ga_events";
 import { stripPatternFromQuery } from "../../shared/util";
 import {
   useInsideClickAlerter,
@@ -130,6 +135,11 @@ export function AutoCompleteInput(
 
     let lastSelection = lastAutoCompleteSelection;
     if (selectionApplied) {
+      // Trigger Google Analytics event to track the index of the selected autocomplete result.
+      triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION, {
+        [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(hoveredIdx),
+      });
+
       // Reset all suggestion results.
       setResults({ placeResults: [], svResults: [] });
       setHoveredIdx(-1);
@@ -194,7 +204,7 @@ export function AutoCompleteInput(
       case "Enter":
         event.preventDefault();
         if (hoveredIdx >= 0) {
-          selectResult(results.placeResults[hoveredIdx]);
+          selectResult(results.placeResults[hoveredIdx], hoveredIdx);
         } else {
           props.onSearch();
         }
@@ -231,7 +241,12 @@ export function AutoCompleteInput(
     changeText(textDisplayed);
   }
 
-  function selectResult(result: AutoCompleteResult): void {
+  function selectResult(result: AutoCompleteResult, idx: number): void {
+    // Trigger Google Analytics event to track the index of the selected autocomplete result.
+    triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION, {
+      [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(idx),
+    });
+
     if (
       result["match_type"] == LOCATION_SEARCH &&
       stripPatternFromQuery(baseInput, result.matched_query).trim() === ""
