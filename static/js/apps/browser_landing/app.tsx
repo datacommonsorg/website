@@ -20,6 +20,11 @@
 
 import React, { ReactElement } from "react";
 
+import KnowledgeGraphBrowser from "../../components/knowledge_graph/knowledge_graph_browser";
+import { KnowledgeGraphCategory } from "../../shared/types/knowledge_graph";
+import knowledgeGraphData from "./knowledge_graph.json";
+
+const knowledgeGraph: KnowledgeGraphCategory[] = knowledgeGraphData;
 /**
  * Application container
  */
@@ -34,110 +39,7 @@ export function App(): ReactElement {
           can be used both to explore what data is available and to understand
           the graph structure.
         </p>
-        <ul>
-          <li className="type-list">
-            <strong>Cities</strong>:
-            <a href="/browser/geoId/4261000">Pittsburgh, PA</a>,
-            <a href="/browser/geoId/0649670">Mountain View, CA</a>,
-            <a href="/browser/geoId/4805000">Austin, TX</a>,
-            <a href="/browser/geoId/0606000">Berkeley, CA</a>,
-            <a href="/browser/City"> More ...</a>
-          </li>
-          <li className="type-list">
-            <strong>Counties</strong>:
-            <a href="/browser/geoId/06085">Santa Clara</a>,
-            <a href="/browser/geoId/12086">Miami-Dade</a>,
-            <a href="/browser/County">More ...</a>
-          </li>
-          <li className="type-list">
-            <strong>States</strong>:<a href="/browser/geoId/12">Florida</a>,
-            <a href="/browser/geoId/06">California</a>,
-            <a href="/browser/geoId/56">Wyoming</a>,
-            <a href="/browser/geoId/36">New York</a>,
-            <a href="/browser/State">More ...</a>
-          </li>
-          <li className="type-list">
-            <strong>Countries</strong>:
-            <a href="/browser/country/USA">United States</a>,
-            <a href="/browser/country/CAN">Canada</a>,
-            <a href="/browser/Country">More ...</a>
-          </li>
-          <li className="type-list">
-            <strong>Congressional Districts</strong>:
-            <a href="/browser/geoId/0618">CA-18</a>,
-            <a href="/browser/geoId/3601">NY-01</a>,
-            <a href="/browser/CongressionalDistrict">More ...</a>
-          </li>
-          <li className="type-list">
-            <strong>Elections</strong>:
-            <a href="/browser/election/2016_P_US00">
-              2016 US Presidential Election
-            </a>
-            ,
-            <a href="/browser/election/1990_S_MI00">
-              1990 US Senate Elections for Michigan
-            </a>
-            ,<a href="/browser/Election">More ...</a>
-          </li>
-          <li className="type-list">
-            <strong>Census Estimates </strong>:
-            <a href="/browser/geoId/06085?statVar=Count_Person_AsianAlone">
-              Asian Population in Santa Clara
-            </a>
-            ,
-            <a href="/browser/geoId/2255000?statVar=Count_Person_EducationalAttainmentMastersDegree">
-              Master Degree Holders in New Orleans
-            </a>
-          </li>
-          <li className="type-list">
-            <strong>Labor Statistics </strong>:
-            <a href="/browser/geoId/2507000?statVar=UnemploymentRate_Person">
-              Unemployment in Boston{" "}
-            </a>
-          </li>
-          <li className="type-list">
-            <strong>Crime Data</strong>:
-            <a href="/browser/geoId/1304000?statVar=Count_CriminalActivities_Robbery">
-              Violent Robbery in Atlanta, Georgia
-            </a>
-            ,
-            <a href="/browser/geoId/13?statVar=Count_CriminalActivities_LarcenyTheft">
-              Larceny-Theft in Georgia
-            </a>
-          </li>
-          <li className="type-list">
-            <strong>Health Data</strong>:
-            <a href="/browser/geoId/1304000?statVar=Percent_Person_WithDiabetes">
-              Prevalence of Diabetes in Atlanta
-            </a>
-          </li>
-          <li className="type-list">
-            <strong>DEA ARCOS</strong>:
-            <a href="/browser/geoId/54099?statVar=RetailDrugDistribution_DrugDistribution_Amphetamine">
-              Amphetamine distribution in Wayne County, WV
-            </a>
-          </li>
-          <li className="type-list">
-            <strong>Botanical Specimens</strong>:
-            <a href="/browser/dc/bsmvthtq89217">Austrobaileya scandens</a>,
-            <a href="/browser/BiologicalSpecimen">More ...</a>
-          </li>
-          <li className="type-list">
-            <strong>ENCODE (Encyclopedia Of DNA Elements)</strong>:
-            <a href="/browser/Lab">Labs</a>,
-            <a href="/browser/EncodeBiosampleType">Biosamples</a>,
-            <a href="/browser/EncodeExperiment">Experiments</a>,
-            <a href="/browser/EncodeBedFile">More ...</a>
-          </li>
-          <li className="type-list">
-            <strong>Public Schools and School Districts</strong>:
-            <a href="/browser/nces/062961004587">Henry M. Gunn High</a>,
-            <a href="/browser/nces/360007702877">Stuyvesant High School</a>,
-            <a href="/browser/geoId/sch3620580">
-              New York City Department of Education
-            </a>
-          </li>
-        </ul>
+        <KnowledgeGraphBrowser knowledgeGraph={knowledgeGraph} />
       </div>
     </>
   );
