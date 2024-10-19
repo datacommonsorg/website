@@ -41,3 +41,8 @@ export interface TopicConfig {
     sources: string[];
   };
 }
+
+export interface TopicData {
+  allTopics: string[];
+  topics: Record<string, TopicConfig>;
+}

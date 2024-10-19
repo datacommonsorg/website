@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 /**
  * Main component for DC Explore.
  */
-import React from "react";
+import React, { ReactElement } from "react";
 import { Container } from "reactstrap";
 
 import { NlSearchBar } from "../../components/nl_search_bar";
@@ -28,33 +28,33 @@ import {
   GA_VALUE_SEARCH_SOURCE_EXPLORE_LANDING,
   triggerGAEvent,
 } from "../../shared/ga_events";
-import { Topic, TopicConfig } from "../../shared/topic_config";
+import { Topic, TopicConfig, TopicData } from "../../shared/topic_config";
 import { TopicQueries } from "../../shared/topic_queries";
 import { Item, ItemList } from "../explore/item_list";
-import allTopics from "./topics.json";
+import topicData from "./topics.json";
+
+const topics: TopicData = topicData;
 
 /**
  * Application container
  */
-export function App(): JSX.Element {
-  const topic = window.location.href.split("/").pop().split("#")[0];
-  const currentTopic = allTopics.topics[topic] as TopicConfig;
-  const additionalTopics = allTopics.allTopics
+export function App(): ReactElement {
+  const topicSlug = window.location.href.split("/").pop().split("#")[0];
+  const topic = topics.topics[topicSlug] as TopicConfig;
+  const additionalTopics = topics.allTopics
     .map((name) => ({
       name,
-      title: allTopics.topics[name]?.title,
+      title: topics.topics[name]?.title,
     }))
-    .filter((item) => !item.title || item.name !== topic) as Topic[];
+    .filter((item) => !item.title || item.name !== topicSlug) as Topic[];
   const subTopicItems: Item[] =
-    currentTopic.subTopics?.map((query) => ({
+    topic.subTopics?.map((query) => ({
       text: query.title,
       url: `/explore#${query.url || "/"}`,
     })) || [];
 
-  let dc = "";
-  if (topic === "sdg") {
-    dc = "sdg";
-  }
+  const dc = topicSlug === "sdg" ? "sdg" : "";
+
   if (!topic) {
     return (
       <div className="explore-container">
@@ -69,8 +69,8 @@ export function App(): JSX.Element {
     );
   }
   const placeholderQuery =
-    currentTopic.examples?.general?.length > 0
-      ? currentTopic.examples.general[0]
+    topic.examples?.general?.length > 0
+      ? topic.examples.general[0]
       : { title: "family earnings in california" };
   const placeholderHref =
     `/explore#${placeholderQuery.url}` ||
@@ -80,7 +80,7 @@ export function App(): JSX.Element {
       <Container>
         <NlSearchBar
           inputId="query-search-input"
-          onSearch={(q) => {
+          onSearch={(q): void => {
             triggerGAEvent(GA_EVENT_NL_SEARCH, {
               [GA_PARAM_QUERY]: q,
               [GA_PARAM_SOURCE]: GA_VALUE_SEARCH_SOURCE_EXPLORE_LANDING,
@@ -96,17 +96,17 @@ export function App(): JSX.Element {
         />
         <div className="explore-title">
           <div className="explore-title-image">
-            <img src={currentTopic.image} />
+            <img alt={`${topic.title} image`} src={topic.image} />
           </div>
           <div className="explore-title-text">
-            <h1>{currentTopic.title}</h1>
+            <h1>{topic.title}</h1>
             <div className="explore-title-sub-topics">
               <ItemList items={subTopicItems} />
             </div>
           </div>
         </div>
         <TopicQueries
-          currentTopic={currentTopic}
+          currentTopic={topic}
           appName="explore"
           topicUrlPrefix="/explore/"
           additionalTopics={additionalTopics}
