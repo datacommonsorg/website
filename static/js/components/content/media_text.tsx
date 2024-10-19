@@ -20,21 +20,25 @@
 
 import React, { ReactElement } from "react";
 
-interface MediaTextProps {
+interface BaseMediaTextProps {
   //the type of media that will be displayed - either a video or an image, with a video representing a YouTube video
   mediaType: "video" | "image";
   //the source of the media - for video, this will be the video id, and for an image this will be the url
   mediaSource: string;
-  //the title that renders at the top of the component
-  title?: string;
   //the text (or other) content, given as the children of the component
   children: ReactElement;
 }
+
+//title: the title that renders at the top of the component. If an alt is not provided, the title is required.
+//alt: the alt text for the image. If the title is not provided, the alt is required.
+type MediaTextProps = BaseMediaTextProps &
+  ({ title: string; alt?: string } | { title?: string; alt: string });
 
 const MediaText = ({
   mediaType,
   mediaSource,
   title,
+  alt,
   children,
 }: MediaTextProps): ReactElement => {
   return (
@@ -48,7 +52,7 @@ const MediaText = ({
         <div className="media">
           {mediaType === "image" ? (
             <figure>
-              <img src={mediaSource} alt={title} />
+              <img src={mediaSource} alt={alt ?? title} />
             </figure>
           ) : (
             <div className="video-player">
