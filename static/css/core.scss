@@ -315,9 +315,11 @@ section {
     padding: 0 calc(#{var.$spacing} * 3);
     height: $header-desktop-height;
     gap: calc(#{var.$spacing} * 2);
+
     @include media-breakpoint-up(lg) {
       display: none;
     }
+
     @media (max-width: 620px) {
       display: grid;
       grid-template-columns: 1fr min-content;
@@ -330,6 +332,7 @@ section {
         grid-column: 1 / span 2;
       }
     }
+
     @media (max-width: 340px) {
       gap: 8px;
       height: $header-mobile-height-xs;
@@ -354,6 +357,7 @@ section {
         gap: 8px;
       }
     }
+
     .menu-main-link {
       font-size: 0.875rem;
       color: #5e5e5e;
@@ -412,9 +416,14 @@ section {
       z-index: 1000;
 
       .paper {
-        width: calc(100vw / 2 - 10px);
-        min-width: 300px;
-        max-width: 680px;
+        display: block;
+        width: 480px;
+        @media (max-width: 580px) {
+          width: 320px;
+        }
+        @media (max-width: 400px) {
+          width: 280px;
+        }
 
         .header {
           position: relative;
@@ -428,18 +437,19 @@ section {
         }
 
         .slide-wrapper {
-          display: flex;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
           width: 200%;
           min-height: calc(100vh - 50px);
           transition: transform 0.3s ease;
+
           &.slide-left {
             transform: translateX(-50%);
           }
 
           .panel {
-            flex: 1 1 50%;
-            max-width: 80%;
             box-sizing: border-box;
+            width: 100%;
             max-height: calc(100vh - 50px);
             overflow-y: auto;
             white-space: normal;
