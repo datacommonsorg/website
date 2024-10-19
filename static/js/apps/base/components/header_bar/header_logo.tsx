@@ -51,7 +51,7 @@ const HeaderLogo = ({
   return (
     <div className="navbar-brand">
       {logoPath && (
-        <div id="main-header-logo">
+        <div className="main-header-logo">
           <a
             href={routes["static.homepage"]}
             aria-label={labels["Back to homepage"]}

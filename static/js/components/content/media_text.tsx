@@ -38,7 +38,7 @@ const MediaText = ({
   children,
 }: MediaTextProps): ReactElement => {
   return (
-    <section id="text-images" className="text-images">
+    <section className="text-images">
       <div className="container">
         {title && (
           <div className="header">
