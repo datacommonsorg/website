@@ -20,13 +20,13 @@
 
 import React, { ReactElement, useEffect, useState } from "react";
 
-import { BREAKPOINTS } from "../../apps/base/utilities/utilities";
 import {
   GA_EVENT_HOMEPAGE_CLICK,
   GA_PARAM_ID,
   GA_PARAM_QUERY,
   triggerGAEvent,
 } from "../../shared/ga_events";
+import { BREAKPOINTS } from "../../shared/hooks/breakpoints";
 import { SampleQuestionCategory } from "../../shared/types/homepage";
 import SlideCarousel from "../elements/slide_carousel";
 
