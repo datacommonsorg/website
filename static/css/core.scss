@@ -211,7 +211,10 @@ section {
 
       .rich-menu-content {
         display: grid;
-        grid-template-columns: minmax(400px, 1fr) 1fr 1fr min-minmax(min-content, 1fr);
+        grid-template-columns: minmax(400px, 1fr) 1fr 1fr;
+        &.has-secondary {
+          grid-template-columns: minmax(400px, 1fr) 1fr 1fr 1fr;
+        }
         gap: calc(#{var.$spacing} * 4);
         margin: 0 auto;
         padding: calc(#{var.$spacing} * 4) 0;
@@ -296,7 +299,6 @@ section {
           border-left: 1px solid #f2f2f2;
         }
         .secondary-section {
-          grid-column: 4;
           border-left: 1px solid #f2f2f2;
         }
         .group {
