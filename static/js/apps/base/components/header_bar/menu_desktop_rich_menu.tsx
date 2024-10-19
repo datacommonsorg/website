@@ -42,7 +42,11 @@ const MenuDesktopRichMenu = ({
   open,
 }: MenuDesktopRichMenuProps): ReactElement => {
   return (
-    <div className={`rich-menu-content ${open ? "open" : ""}`}>
+    <div
+      className={`rich-menu-content ${open ? "open" : ""} ${
+        menuItem.secondarySectionGroups?.length > 0 ? "has-secondary" : ""
+      }`}
+    >
       <div className={"introduction-section"}>
         <h3>{labels[menuItem.introduction?.label ?? menuItem.label]}</h3>
         {menuItem.introduction?.description && (
