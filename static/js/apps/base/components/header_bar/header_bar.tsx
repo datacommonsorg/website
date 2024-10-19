@@ -20,6 +20,7 @@
 
 import React, { ReactElement } from "react";
 
+import useBreakpoints from "../../../../shared/hooks/breakpoints";
 import { HeaderMenu, Labels, Routes } from "../../../../shared/types/base";
 import HeaderBarSearch from "./header_bar_search";
 import HeaderLogo from "./header_logo";
@@ -52,6 +53,8 @@ const HeaderBar = ({
   labels,
   routes,
 }: HeaderBarProps): ReactElement => {
+  const { up, down } = useBreakpoints();
+
   return (
     <div id="main-header-container">
       <nav id="main-nav">
@@ -63,7 +66,9 @@ const HeaderBar = ({
             labels={labels}
             routes={routes}
           />
-          {showHeaderSearchBar && <HeaderBarSearch />}
+          {showHeaderSearchBar && up("lg") && (
+            <HeaderBarSearch inputId={"query-search-input-desktop"} />
+          )}
           <MenuDesktop menu={menu} labels={labels} routes={routes} />
         </div>
         <div className="navbar-menu-mobile">
@@ -74,7 +79,9 @@ const HeaderBar = ({
             labels={labels}
             routes={routes}
           />
-          {showHeaderSearchBar && <HeaderBarSearch />}
+          {showHeaderSearchBar && down("md") && (
+            <HeaderBarSearch inputId={"query-search-input-mobile"} />
+          )}
           <MenuMobile menu={menu} labels={labels} routes={routes} />
         </div>
       </nav>

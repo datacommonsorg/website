@@ -38,7 +38,7 @@ $headings-font-weight: 600;
 
 /*
   If the grid-breakpoints change, the TypeScript equivalent should be updated:
-  `static/js/apps/base/utilities/utilities.ts`, `export const BREAKPOINTS`
+  `static/js/shared/hooks/breakpoints.tsx`, `export const BREAKPOINTS`
  */
 $grid-breakpoints: (
   xs: 0,
