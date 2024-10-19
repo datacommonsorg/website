@@ -33,6 +33,12 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
 
 // Styles
 
+body.drawer-open {
+  @include media-breakpoint-down(md) {
+    overflow: hidden;
+  }
+}
+
 section {
   &.blue {
     background-color: var.$color-blue-bckg;
