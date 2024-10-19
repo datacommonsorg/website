@@ -134,7 +134,7 @@ const MenuMobile = ({
 
       <div
         className={`drawer ${open ? "open" : ""}`}
-        style={{ width: open ? `${drawerWidth}px` : 0 }}
+        style={{ width: open ? `` : 0 }}
         ref={drawerRef}
       >
         <div className="paper">
