@@ -22,6 +22,7 @@
 $header-desktop-height: 96px;
 $header-mobile-height: 152px;
 $header-mobile-height-xs: 128px;
+$header-max-width: 1728px;
 
 // Component Variables
 
@@ -89,7 +90,7 @@ section {
     gap: calc(#{var.$spacing} * 4);
     padding: 0 calc(#{var.$spacing} * 3);
     margin: auto;
-    max-width: 1728px;
+    max-width: $header-max-width;
     justify-content: space-between;
     height: $header-desktop-height;
     background: white;
@@ -129,17 +130,17 @@ section {
       justify-content: right;
       align-items: stretch;
       transition: flex-basis 0.4s ease-in-out;
-      @include media-breakpoint-up(xl) {
-        gap: 32px;
-      }
-      @include media-breakpoint-down(xl) {
-        gap: 16px;
-      }
       &-list {
         display: flex;
         align-items: stretch;
         list-style: none;
         margin: 0;
+        @include media-breakpoint-up(xl) {
+          gap: calc(#{var.$spacing} * 4);
+        }
+        @include media-breakpoint-down(xl) {
+          gap: calc(#{var.$spacing} * 2);
+        }
         li {
           display: flex;
           align-items: center;
@@ -204,11 +205,11 @@ section {
 
       .rich-menu-content {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        gap: 32px;
+        grid-template-columns: minmax(400px, 1fr) 1fr 1fr min-minmax(min-content, 1fr);
+        gap: calc(#{var.$spacing} * 4);
         margin: 0 auto;
-        padding: 32px;
-        max-width: 1920px;
+        padding: calc(#{var.$spacing} * 4) 0;
+        max-width: $header-max-width;
         font-family: $font-family-google-text;
         opacity: 0;
         transform: translate3d(0, -16px, 0);
