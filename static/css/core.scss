@@ -244,15 +244,17 @@ section {
           font-size: 1.4rem;
           font-weight: 100;
         }
-        h4 {
-          font-family: $font-family-google-title;
-          font-size: 1rem;
-          text-transform: uppercase;
-          color: #5e5e5e;
-          font-weight: 300;
-          margin: 0 0 32px 0;
+        .group {
+          h3 {
+            font-family: $font-family-google-title;
+            font-size: 1rem;
+            text-transform: uppercase;
+            color: #5e5e5e;
+            font-weight: 300;
+            margin: 0 0 32px 0;
+          }
         }
-        h5 {
+        h4 {
           font-family: $font-family-google-title;
           font-size: 1rem;
           font-weight: 500;
@@ -504,14 +506,16 @@ section {
               font-size: 1.4rem;
               font-weight: 100;
             }
-            h4 {
-              font-family: $font-family-google-title;
-              font-size: 1rem;
-              text-transform: uppercase;
-              color: #5e5e5e;
-              font-weight: 300;
+            .group {
+              h3 {
+                font-family: $font-family-google-title;
+                font-size: 1rem;
+                text-transform: uppercase;
+                color: #5e5e5e;
+                font-weight: 300;
+              }
             }
-            h5 {
+            h4 {
               font-family: $font-family-google-title;
               font-size: 1rem;
               font-weight: 500;

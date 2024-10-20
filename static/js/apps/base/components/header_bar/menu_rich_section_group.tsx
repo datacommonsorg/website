@@ -49,15 +49,15 @@ const MenuRichSectionGroup = ({
 
   return (
     <div className={"group"}>
-      {menuGroup.title && <h4>{menuGroup.title}</h4>}
+      {menuGroup.title && <h3>{menuGroup.title}</h3>}
       {menuGroup.items.map((item, index) => (
         <div key={index} className={"item"}>
           {item.title && item.url ? (
-            <h5>
+            <h4>
               <a
                 href={resolveHref(item.url, routes)}
                 className={"item-link"}
-                onClick={() => {
+                onClick={(): boolean => {
                   triggerGAEvent(GA_EVENT_HEADER_CLICK, {
                     [GA_PARAM_ID]: `${type} submenu ${menuGroup.id}-${index}`,
                     [GA_PARAM_URL]: item.url,
@@ -74,7 +74,7 @@ const MenuRichSectionGroup = ({
                 )}
                 {item.title}
               </a>
-            </h5>
+            </h4>
           ) : (
             <h5>{item.title}</h5>
           )}
