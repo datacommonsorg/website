@@ -31,22 +31,34 @@ const KnowledgeGraphBrowser = ({
   knowledgeGraph,
 }: KnowledgeGraphBrowserProps): ReactElement => {
   return (
-    <ul>
-      {knowledgeGraph.map((category) => (
-        <li key={category.title} className="type-list">
-          <strong>{category.title}</strong>:
-          {category.items.map((item, index) => (
-            <a key={item.endpoint} href={`/browser/${item.endpoint}`}>
-              {item.label}
-              {index < category.items.length - 1 ? ", " : ""}
-            </a>
-          ))}
-          {category.categoryEndpoint && (
-            <a href={`/browser/${category.categoryEndpoint}`}> More ...</a>
-          )}
-        </li>
-      ))}
-    </ul>
+    <section id="browser-items" className="browser-items">
+      <div className="container">
+        {knowledgeGraph.map((category) => (
+          <article key={category.title} className="item">
+            <header className="header">
+              <h3>{category.title}</h3>
+            </header>
+            <ul>
+              {category.items.map((item, index) => (
+                <li>
+                  <a key={item.endpoint} href={`/browser/${item.endpoint}`}>
+                    {item.label}
+                    {/* {index < category.items.length - 1 ? ", " : ""} */}
+                  </a>
+                </li>
+              ))}
+              {category.categoryEndpoint && (
+                <li>
+                  <a href={`/browser/${category.categoryEndpoint}`} className="more">
+                    <span className="text">Explore more</span>
+                  </a>
+                </li>
+              )}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </section>
   );
 };
 
