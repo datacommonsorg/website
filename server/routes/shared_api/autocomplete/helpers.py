@@ -70,7 +70,6 @@ def execute_maps_request(query: str, language: str) -> Dict:
       'language': language
   }
   response = requests.post(MAPS_API_URL + urlencode(request_obj), json={})
-  logging.info("Executed Google Maps Prediction API request.")
   return json.loads(response.text)
 
 
