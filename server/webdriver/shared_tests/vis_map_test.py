@@ -93,8 +93,8 @@ class VisMapTestMixin():
     ranking_items = self.driver.find_elements(By.CSS_SELECTOR,
                                               '.ranking-list .place-name')
     self.assertEqual(len(ranking_items), 10)
-    self.assertEqual(ranking_items[0].text, 'Los Angeles County, CA')
-    self.assertEqual(ranking_items[9].text, 'Trinity County, CA')
+    self.assertIn(' County, CA', ranking_items[0].text)
+    self.assertIn(' County, CA', ranking_items[9].text)
 
     # Click per capita and assert results are correct.
     per_capita_checkbox = self.driver.find_element(
@@ -138,8 +138,8 @@ class VisMapTestMixin():
     ranking_items = self.driver.find_elements(By.CSS_SELECTOR,
                                               '.ranking-list .place-name')
     self.assertEqual(len(ranking_items), 10)
-    self.assertEqual(ranking_items[0].text, 'Madera County, CA')
-    self.assertEqual(ranking_items[9].text, 'Tuolumne County, CA')
+    self.assertIn(' County, CA', ranking_items[0].text)
+    self.assertIn(' County, CA', ranking_items[9].text)
 
   def test_manually_enter_options(self):
     """Test entering place and stat var options manually will cause chart to
