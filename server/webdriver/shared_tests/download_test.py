@@ -23,16 +23,18 @@ from server.webdriver import shared
 
 DOWNLOAD_URL = '/tools/download'
 PLACE_SEARCH_CA = 'California'
-SKIP_CHECK='SKIP_CHECK'
+SKIP_CHECK = 'SKIP_CHECK'
 TABLE_HEADERS = [
     'placeDcid', 'placeName', 'Date:Median_Age_Person',
     'Value:Median_Age_Person', 'Source:Median_Age_Person', 'Date:Count_Person',
     'Value:Count_Person', 'Source:Count_Person'
 ]
+# SKIP_CHECK for the values that change with each import.
 TABLE_ROW_1 = [
-    'geoId/06001', 'Alameda County', SKIP_CHECK, '38.4',
+    'geoId/06001', 'Alameda County', SKIP_CHECK, SKIP_CHECK,
     'https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html',
-    SKIP_CHECK, '1628997', 'https://www2.census.gov/programs-surveys/popest/tables'
+    SKIP_CHECK, SKIP_CHECK,
+    'https://www2.census.gov/programs-surveys/popest/tables'
 ]
 MAX_NUM_FILE_CHECK_TRIES = 3
 
