@@ -146,7 +146,7 @@ class DownloadTestMixin():
     self.assertGreater(len(table_rows), 1)
     first_row_cells = table_rows[0].find_elements(By.TAG_NAME, 'td')
     for idx, cell in enumerate(first_row_cells):
-      if SKIP_CHECK not in cell:
+      if SKIP_CHECK not in TABLE_ROW_1[idx]:
         self.assertEqual(cell.text, TABLE_ROW_1[idx])
 
     # Click download
