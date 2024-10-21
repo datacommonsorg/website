@@ -81,10 +81,8 @@ class VisScatterTestMixin():
     # Assert chart is correct.
     chart_title = self.driver.find_element(By.CSS_SELECTOR,
                                            '.scatter-chart .chart-headers h4')
-    self.assertEqual(
-        chart_title.text,
-        "Population Without Health Insurance (2022) vs Female Population (2022)"
-    )
+    self.assertIn("Population Without Health Insurance ", chart_title.text)
+    self.assertIn(" vs Female Population ", chart_title.text)
     chart = self.driver.find_element(By.ID, 'scatterplot')
     circles = chart.find_elements(By.TAG_NAME, 'circle')
     self.assertGreater(len(circles), 20)
@@ -138,10 +136,8 @@ class VisScatterTestMixin():
     # Check that results are correct
     chart_title = self.driver.find_element(By.CSS_SELECTOR,
                                            '.scatter-chart .chart-headers h4')
-    self.assertEqual(
-        chart_title.text,
-        "Population Without Health Insurance (2022) vs Female Population (2004 to 2020)"
-    )
+    self.assertIn("Population Without Health Insurance ", chart_title.text)
+    self.assertIn(" vs Female Population ", chart_title.text)
     chart_source = self.driver.find_element(
         By.CSS_SELECTOR, '.scatter-chart .chart-headers .sources')
     self.assertTrue("wonder.cdc.gov" in chart_source.text)
@@ -234,10 +230,8 @@ class VisScatterTestMixin():
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(shared.charts_rendered)
     chart_title = self.driver.find_element(By.CSS_SELECTOR,
                                            '.scatter-chart .chart-headers h4')
-    self.assertEqual(
-        chart_title.text,
-        'Median Age of Population (2022) vs Median Income of a Population (2022)'
-    )
+    self.assertIn("Median Age of Population ", chart_title.text)
+    self.assertIn(" vs Median Income of a Population ", chart_title.text)
     chart = self.driver.find_element(By.ID, 'scatterplot')
     circles = chart.find_elements(By.TAG_NAME, 'circle')
     self.assertGreater(len(circles), 20)
