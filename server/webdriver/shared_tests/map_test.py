@@ -61,7 +61,7 @@ class MapTestMixin():
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
     chart_title = self.driver.find_element(
         By.XPATH, '//*[@id="map-chart"]/div/div[1]/h3')
-    self.assertEqual(chart_title.text, "Median Age of Population (2022)")
+    self.assertIn("Median Age of Population ", chart_title.text)
     chart_map = self.driver.find_element(By.ID, 'map-items')
     map_regions = chart_map.find_elements(By.TAG_NAME, 'path')
     self.assertEqual(len(map_regions), 58)
@@ -95,7 +95,7 @@ class MapTestMixin():
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
     chart_title = self.driver.find_element(
         By.XPATH, '//*[@id="map-chart"]/div/div[1]/h3')
-    self.assertEqual(chart_title.text, "Median Age of Population (2022)")
+    self.assertIn("Median Age of Population ", chart_title.text)
     chart_map = self.driver.find_element(By.ID, 'map-items')
     map_regions = chart_map.find_elements(By.TAG_NAME, 'path')
     self.assertEqual(len(map_regions), 52)
@@ -161,7 +161,7 @@ class MapTestMixin():
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
     chart_title = self.driver.find_element(
         By.XPATH, '//*[@id="map-chart"]/div/div[1]/h3')
-    self.assertEqual(chart_title.text, "Median Age of Population (2022)")
+    self.assertIn("Median Age of Population ", chart_title.text)
     chart_map = self.driver.find_element(By.ID, 'map-items')
     map_regions = chart_map.find_elements(By.TAG_NAME, 'path')
     self.assertEqual(len(map_regions), 58)

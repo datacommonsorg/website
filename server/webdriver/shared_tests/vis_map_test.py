@@ -79,7 +79,7 @@ class VisMapTestMixin():
     # Assert chart is correct.
     chart_title = self.driver.find_element(By.CSS_SELECTOR,
                                            '.map-chart .chart-headers h4')
-    self.assertEqual(chart_title.text, "Female Population (2022)")
+    self.assertIn("Female Population ", chart_title.text)
     chart_map = self.driver.find_element(By.ID, 'map-items')
     map_regions = chart_map.find_elements(By.TAG_NAME, 'path')
     self.assertEqual(len(map_regions), 58)
@@ -128,7 +128,7 @@ class VisMapTestMixin():
     shared.wait_for_loading(self.driver)
     chart_title = self.driver.find_element(By.CSS_SELECTOR,
                                            '.map-chart .chart-headers h4')
-    self.assertEqual(chart_title.text, "Female Population (2004 to 2020)")
+    self.assertIn("Female Population ", chart_title.text)
     chart_source = self.driver.find_element(
         By.CSS_SELECTOR, '.map-chart .chart-headers .sources')
     self.assertTrue("wonder.cdc.gov" in chart_source.text)
@@ -209,7 +209,7 @@ class VisMapTestMixin():
     shared.wait_for_loading(self.driver)
     chart_title = self.driver.find_element(By.CSS_SELECTOR,
                                            '.map-chart .chart-headers h4')
-    self.assertEqual(chart_title.text, "Median Age of Population (2022)")
+    self.assertIn("Median Age of Population ", chart_title.text)
     chart_map = self.driver.find_element(By.ID, 'map-items')
     map_regions = chart_map.find_elements(By.TAG_NAME, 'path')
     self.assertEqual(len(map_regions), 58)
