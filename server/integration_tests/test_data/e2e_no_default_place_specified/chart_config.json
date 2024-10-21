@@ -211,6 +211,38 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Death_Female"
+                    ],
+                    "title": "Count of Mortality Event: Female in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_Female"
+                    ],
+                    "title": "Count of Mortality Event: Female in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Mortality Event: Female in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Count_Person_Female_TwoOrMoreRaces"
                     ],
                     "title": "Women Identifying as Multiracial in United States of America",
@@ -1626,6 +1658,7 @@
         "age": [
           "Count_Person_0To4Years_Female_WhiteAlone",
           "Count_Person_0Years_Female_WhiteAlone",
+          "Count_Person_100Years_Female_WhiteAlone",
           "Count_Person_10To14Years_Female_WhiteAlone",
           "Count_Person_10Years_Female_WhiteAlone",
           "Count_Person_11Years_Female_WhiteAlone",
@@ -1728,7 +1761,22 @@
           "Count_Person_83Years_Female_WhiteAlone",
           "Count_Person_84Years_Female_WhiteAlone",
           "Count_Person_85OrMoreYears_Female_WhiteAlone",
+          "Count_Person_85Years_Female_WhiteAlone",
+          "Count_Person_86Years_Female_WhiteAlone",
+          "Count_Person_87Years_Female_WhiteAlone",
+          "Count_Person_88Years_Female_WhiteAlone",
+          "Count_Person_89Years_Female_WhiteAlone",
           "Count_Person_8Years_Female_WhiteAlone",
+          "Count_Person_90Years_Female_WhiteAlone",
+          "Count_Person_91Years_Female_WhiteAlone",
+          "Count_Person_92Years_Female_WhiteAlone",
+          "Count_Person_93Years_Female_WhiteAlone",
+          "Count_Person_94Years_Female_WhiteAlone",
+          "Count_Person_95Years_Female_WhiteAlone",
+          "Count_Person_96Years_Female_WhiteAlone",
+          "Count_Person_97Years_Female_WhiteAlone",
+          "Count_Person_98Years_Female_WhiteAlone",
+          "Count_Person_99Years_Female_WhiteAlone",
           "Count_Person_9Years_Female_WhiteAlone"
         ]
       },

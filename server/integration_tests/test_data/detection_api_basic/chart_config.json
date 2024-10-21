@@ -1,10 +1,6 @@
 {
   "childEntityType": "",
-  "classifications": [
-    {
-      "type": 100
-    }
-  ],
+  "classifications": [],
   "client": "test_detect",
   "comparisonEntities": [],
   "comparisonVariables": [],
@@ -17,13 +13,5 @@
   "properties": [],
   "sessionId": "007_999999999",
   "test": "unittest",
-  "variables": [
-    "dc/topic/CommuteTime",
-    "dc/topic/WorkCommute",
-    "dc/topic/CommuteMode",
-    "dc/topic/CommuteModeByOccupation",
-    "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome",
-    "dc/hbkh95kc7pkb6",
-    "dc/wc8q05drd74bd"
-  ]
+  "variables": []
 }
