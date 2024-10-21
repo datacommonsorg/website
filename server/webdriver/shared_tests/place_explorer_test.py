@@ -160,7 +160,7 @@ class PlaceExplorerTestMixin():
 
   def test_demographics_link(self):
     """Test the demographics link can work correctly."""
-    chart_title = "Median age by gender: states near California(2022)"
+    title_text = "Median age by gender: states near California"
     # Load California page.
     self.driver.get(self.url_ + CA_URL)
 
@@ -187,7 +187,7 @@ class PlaceExplorerTestMixin():
         By.XPATH, '//*[@id="main-pane"]/section[4]/div/div[2]/div/h4').text
 
     # Assert chart title is correct.
-    self.assertEqual(chart_title, chart_title)
+    self.assertIn(title_text, chart_title)
 
   def test_demographics_redirect_link(self):
     """Test a place page with demographics after a redirect."""
@@ -210,8 +210,7 @@ class PlaceExplorerTestMixin():
         By.XPATH, '//*[@id="main-pane"]/section[4]/div/div[2]/div/h4').text
 
     # Assert chart title is correct.
-    self.assertEqual("Median age by gender: states near California(2022)",
-                     chart_title)
+    self.assertIn("Median age by gender: states near California", chart_title)
 
   def test_explorer_redirect_place_explorer(self):
     """Test the redirection from explore to place explore for single place queries"""
