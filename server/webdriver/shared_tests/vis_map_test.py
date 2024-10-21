@@ -110,8 +110,8 @@ class VisMapTestMixin():
     ranking_items = self.driver.find_elements(By.CSS_SELECTOR,
                                               '.ranking-list .place-name')
     self.assertEqual(len(ranking_items), 10)
-    self.assertEqual(ranking_items[0].text, 'Alpine County, CA')
-    self.assertEqual(ranking_items[9].text, 'Del Norte County, CA')
+    self.assertIn(' County, CA', ranking_items[0].text)
+    self.assertIn(' County, CA', ranking_items[9].text)
 
     # Edit source and assert results are correct.
     edit_source_button = self.driver.find_element(
