@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import json
+import logging
 
 from flask import Blueprint
 from flask import jsonify
@@ -51,6 +52,7 @@ def autocomplete():
   place_id_to_dcid = []
   if place_ids:
     place_id_to_dcid = json.loads(findplacedcid(place_ids).data)
+  logging.info("Found %d place ID to DCID mappings.", len(place_id_to_dcid))
 
   final_predictions = []
   for prediction in prediction_responses:
@@ -61,5 +63,6 @@ def autocomplete():
           matched_query=prediction.matched_query,
           dcid=place_id_to_dcid[prediction.place_id])
       final_predictions.append(current_prediction)
+  logging.info("Returning a total of %d place predictions.", len(final_predictions))
 
   return jsonify(AutoCompleteApiResponse(predictions=final_predictions))

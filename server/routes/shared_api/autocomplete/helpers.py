@@ -14,6 +14,7 @@
 
 import json
 import re
+import logging
 from typing import Dict, List
 from urllib.parse import urlencode
 
@@ -69,6 +70,7 @@ def execute_maps_request(query: str, language: str) -> Dict:
       'language': language
   }
   response = requests.post(MAPS_API_URL + urlencode(request_obj), json={})
+  logging.info("Executed Google Maps Prediction API request.")
   return json.loads(response.text)
 
 
@@ -122,6 +124,7 @@ def predict(queries: List[str], lang: str) -> List[ScoredPrediction]:
       all_responses.append(scored_prediction)
 
   all_responses.sort(key=get_score)
+  logging.info("Received %d total place predictions.", len(all_responses))
 
   responses = []
   place_ids = set()
