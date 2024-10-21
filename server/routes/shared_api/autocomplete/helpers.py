@@ -13,8 +13,8 @@
 # limitations under the License.
 
 import json
-import re
 import logging
+import re
 from typing import Dict, List
 from urllib.parse import urlencode
 
@@ -123,7 +123,8 @@ def predict(queries: List[str], lang: str) -> List[ScoredPrediction]:
       all_responses.append(scored_prediction)
 
   all_responses.sort(key=get_score)
-  logging.info("[Place_Autocomplete] Received %d total place predictions.", len(all_responses))
+  logging.info("[Place_Autocomplete] Received %d total place predictions.",
+               len(all_responses))
 
   responses = []
   place_ids = set()
