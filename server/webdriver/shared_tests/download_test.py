@@ -24,14 +24,13 @@ from server.webdriver import shared
 DOWNLOAD_URL = '/tools/download'
 PLACE_SEARCH_CA = 'California'
 TABLE_HEADERS = [
-    'placeDcid', 'placeName', 'Date:Median_Age_Person',
-    'Value:Median_Age_Person', 'Source:Median_Age_Person', 'Date:Count_Person',
-    'Value:Count_Person', 'Source:Count_Person'
+    'placeDcid', 'placeName', 'Value:Median_Age_Person',
+    'Source:Median_Age_Person', 'Value:Count_Person', 'Source:Count_Person'
 ]
 TABLE_ROW_1 = [
-    'geoId/06001', 'Alameda County', '2022', '38.4',
+    'geoId/06001', 'Alameda County', '38.4',
     'https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html',
-    '2022', '1628997', 'https://www2.census.gov/programs-surveys/popest/tables'
+    '1628997', 'https://www2.census.gov/programs-surveys/popest/tables'
 ]
 MAX_NUM_FILE_CHECK_TRIES = 3
 
