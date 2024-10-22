@@ -51,7 +51,7 @@ $selector-footer-height: 40px;
 }
 
 .visualization-app {
-  width: 100%;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   overflow: auto;
@@ -111,6 +111,8 @@ $selector-footer-height: 40px;
 /* Selected options section */
 
 .selected-options-container {
+  width: 100vw;
+  margin: auto;
   display: flex;
   background-color: #faf9f9;
   padding: 12px 32px 12px 32px;

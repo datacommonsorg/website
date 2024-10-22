@@ -20,7 +20,7 @@
 
 import React, { ReactElement } from "react";
 
-import { Labels, Routes } from "../../shared/types/base";
+import { Labels } from "../../shared/types/base";
 import Footer from "./components/footer";
 
 interface FooterAppProps {
@@ -28,8 +28,6 @@ interface FooterAppProps {
   brandLogoLight: boolean;
   //the labels dictionary - all labels will be passed through this before being rendered. If no value exists, the dictionary will return the key that was sent.
   labels: Labels;
-  //the routes dictionary - this is used to convert routes to resolved urls
-  routes: Routes;
 }
 
 /**
@@ -38,9 +36,6 @@ interface FooterAppProps {
 export function FooterApp({
   brandLogoLight,
   labels,
-  routes,
 }: FooterAppProps): ReactElement {
-  return (
-    <Footer brandLogoLight={brandLogoLight} labels={labels} routes={routes} />
-  );
+  return <Footer brandLogoLight={brandLogoLight} labels={labels} />;
 }
