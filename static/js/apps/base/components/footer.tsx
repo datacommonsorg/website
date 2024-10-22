@@ -20,24 +20,18 @@
 
 import React, { ReactElement } from "react";
 
-import { Labels, Routes } from "../../../shared/types/base";
+import { Labels } from "../../../shared/types/base";
 
 interface FooterProps {
   //if true, will display an alternate, lighter version of the logo.
   brandLogoLight: boolean;
   //the labels dictionary - all labels will be passed through this before being rendered. If no value exists, the dictionary will return the key that was sent.
   labels: Labels;
-  //the routes dictionary - this is used to convert routes to resolved urls
-  routes: Routes;
 }
 
-const Footer = ({
-  brandLogoLight,
-  labels,
-  routes,
-}: FooterProps): ReactElement => {
+const Footer = ({ brandLogoLight, labels }: FooterProps): ReactElement => {
   return (
-    <div  id="main-footer-container">
+    <div id="main-footer-container">
       <div className="brand-byline">
         <span className="brand-text">{labels["An initiative from"]}</span>
         <img
