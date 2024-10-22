@@ -73,7 +73,6 @@ function renderPage(): void {
     React.createElement(FooterApp, {
       brandLogoLight,
       labels,
-      routes,
     }),
     document.getElementById("main-footer")
   );
