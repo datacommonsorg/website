@@ -72,6 +72,16 @@ def execute_maps_request(query: str, language: str) -> Dict:
   response = requests.post(MAPS_API_URL + urlencode(request_obj), json={})
   return json.loads(response.text)
 
+def bag_of_letters(text: str) -> Dict:
+    """Creates a bag-of-letters representation of a given string.
+    Returns:
+    dict: A dictionary where keys are letters and values are their counts.
+    """
+    bag = {}
+    for char in text.lower():
+        if char.isalpha():
+            bag[char] = bag.get(char, 0) + 1
+    return bag
 
 def get_match_score(match_string: str, name: str) -> float:
   """Computes a 'score' based on the matching words in two strings. Lowest
@@ -86,6 +96,7 @@ def get_match_score(match_string: str, name: str) -> float:
   start_index = 0
   for str1_word in words_in_str1:
     str1_word = str1_word.lower()
+    found_match = False
     for idx, name_word in enumerate(words_in_name):
       if idx < start_index:
         continue
@@ -94,13 +105,20 @@ def get_match_score(match_string: str, name: str) -> float:
       if str1_word == name_word:
         start_index = idx + 1
         score -= 1
+        found_match = True
         break
       elif str1_word in name_word:
         start_index = idx + 1
         score -= 0.5
+        found_match = True
         break
-      else:
-        score += 1
+      elif bag_of_letters(str1_word) == bag_of_letters(name_word):
+        start_index = idx + 1
+        found_match = True
+        score -= 0.25
+
+    if not found_match:
+      score += 1
 
   return score
 
@@ -125,6 +143,7 @@ def predict(queries: List[str], lang: str) -> List[ScoredPrediction]:
   all_responses.sort(key=get_score)
   logging.info("[Place_Autocomplete] Received %d total place predictions.",
                len(all_responses))
+  print(all_responses)
 
   responses = []
   place_ids = set()
