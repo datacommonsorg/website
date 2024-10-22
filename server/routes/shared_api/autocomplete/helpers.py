@@ -72,6 +72,7 @@ def execute_maps_request(query: str, language: str) -> Dict:
   response = requests.post(MAPS_API_URL + urlencode(request_obj), json={})
   return json.loads(response.text)
 
+
 def bag_of_letters(text: str) -> Dict:
     """Creates a bag-of-letters representation of a given string.
     Returns:
@@ -82,6 +83,28 @@ def bag_of_letters(text: str) -> Dict:
         if char.isalpha():
             bag[char] = bag.get(char, 0) + 1
     return bag
+
+
+def off_by_one_letter(str1_word: str, name_word: str) -> bool:
+  """Function to do off by one check.
+  Returns whether the two strings are off by at most one letter.
+  """
+  offby = 0
+  str1_bag = bag_of_letters(str1_word)
+  str2_bag = bag_of_letters(name_word)
+  for key, value in str1_bag.items():
+    if key in str2_bag:
+      offby += abs(str2_bag[key]-value)
+    else:
+      offby += value
+
+  # Add to offby for letters in str2 but not str1.
+  for key, value in str2_bag.items():
+    if key not in str1_bag:
+      offby += value
+
+  return offby <= 1
+
 
 def get_match_score(match_string: str, name: str) -> float:
   """Computes a 'score' based on the matching words in two strings. Lowest
@@ -112,7 +135,7 @@ def get_match_score(match_string: str, name: str) -> float:
         score -= 0.5
         found_match = True
         break
-      elif bag_of_letters(str1_word) == bag_of_letters(name_word):
+      elif off_by_one_letter(str1_word, name_word):
         start_index = idx + 1
         found_match = True
         score -= 0.25
