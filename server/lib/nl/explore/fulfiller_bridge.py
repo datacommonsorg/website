@@ -24,7 +24,7 @@ from server.lib.nl.common import utils
 import server.lib.nl.common.utterance as nl_uttr
 from server.lib.nl.config_builder import base
 import server.lib.nl.config_builder.builder as nl_config_builder
-from server.lib.nl.explore import extension
+from server.lib.nl.explore import topic_extension
 from server.lib.nl.explore import params
 from server.lib.nl.explore import related
 from server.lib.nl.fulfillment import existence
@@ -65,7 +65,7 @@ def fulfill(uttr: nl_uttr.Utterance, cb_config: base.Config) -> FulfillResp:
   if (not state.uttr.insight_ctx.get(params.Params.EXP_MORE_DISABLED) and
       not params.is_special_dc(state.uttr.insight_ctx)):
     explore_more_chart_vars_map = _get_explore_more_chart_vars(state)
-    explore_peer_groups = extension.chart_vars_to_explore_peer_groups(
+    explore_peer_groups = topic_extension.chart_vars_to_explore_peer_groups(
         state, explore_more_chart_vars_map)
 
   related_things = related.compute_related_things(state, plotted_orig_vars,
@@ -141,7 +141,7 @@ def _get_explore_more_chart_vars(
       explore_more_svs.update(cs.chart_vars.svs[:10])
 
   start = time.time()
-  explore_more_chart_vars_map = extension.explore_more(list(explore_more_svs))
+  explore_more_chart_vars_map = topic_extension.explore_more(list(explore_more_svs))
   state.uttr.counters.timeit('explore_more_sv_extensions', start)
 
   if explore_more_chart_vars_map:
