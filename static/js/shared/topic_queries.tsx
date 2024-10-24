@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
  * Component for topic page welcome message with query examples.
  */
 
-import React from "react";
+import React, { ReactElement } from "react";
 
 import { CLIENT_TYPES } from "../constants/app/explore_constants";
 import { formatNumber } from "../i18n/i18n";
@@ -31,7 +31,7 @@ interface TopicQueriesProps {
   topicUrlPrefix: string;
 }
 
-export function TopicQueries(props: TopicQueriesProps): JSX.Element {
+export function TopicQueries(props: TopicQueriesProps): ReactElement {
   return (
     <div className="topic-container">
       <div className="topic-queries">
@@ -95,7 +95,7 @@ interface QueryLinkProps {
   appName: string;
 }
 
-function QueryLink(props: QueryLinkProps): JSX.Element {
+function QueryLink(props: QueryLinkProps): ReactElement {
   const { query } = props;
   const cliParam = `client=${CLIENT_TYPES.LANDING}`;
   let url = `${window.location.origin}/${props.appName}#${cliParam}`;
