@@ -157,6 +157,9 @@ def register_routes_common(app):
   from server.routes.place import html as place_html
   app.register_blueprint(place_html.bp)
 
+  from server.routes.dev_place import api as dev_place_api
+  app.register_blueprint(dev_place_api.bp)
+
   from server.routes.dev_place import html as dev_place_html
   app.register_blueprint(dev_place_html.bp)
 
@@ -205,6 +208,10 @@ def register_routes_common(app):
 
   from server.routes.shared_api import stats as shared_stats
   app.register_blueprint(shared_stats.bp)
+
+  from server.routes.shared_api.autocomplete import \
+      autocomplete as shared_autocomplete
+  app.register_blueprint(shared_autocomplete.bp)
 
   from server.routes.shared_api import variable as shared_variable
   app.register_blueprint(shared_variable.bp)

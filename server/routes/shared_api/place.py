@@ -676,14 +676,7 @@ def descendent_names():
   return Response(json.dumps(result), 200, mimetype='application/json')
 
 
-@bp.route('/placeid2dcid')
-def placeid2dcid():
-  """API endpoint to get dcid based on place id.
-
-  This is to use together with the Google Maps Autocomplete API:
-  https://developers.google.com/places/web-service/autocomplete.
-  """
-  place_ids = request.args.getlist("placeIds")
+def findplacedcid(place_ids):
   if not place_ids:
     return 'error: must provide `placeIds` field', 400
   resp = fetch.resolve_id(place_ids, "placeId", "dcid")
@@ -695,6 +688,16 @@ def placeid2dcid():
         dcid = PLACE_OVERRIDE[dcid]
       result[place_id] = dcid
   return Response(json.dumps(result), 200, mimetype='application/json')
+
+
+@bp.route('/placeid2dcid')
+def placeid2dcid():
+  """API endpoint to get dcid based on place id.
+  This is to use together with the Google Maps Autocomplete API:
+  https://developers.google.com/places/web-service/autocomplete.
+  """
+  place_ids = request.args.getlist("placeIds")
+  return findplacedcid(place_ids)
 
 
 @bp.route('/coords2places')

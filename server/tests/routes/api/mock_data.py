@@ -11,6 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+from server.routes.shared_api.autocomplete.types import ScoredPrediction
 
 SERIES_WITHIN_ALL_FACETS = {
     'facets': {
@@ -415,3 +416,44 @@ POINT_WITHIN_2015_ALL_FACETS = {
         }
     }
 }
+
+RESOLVE_IDS_VALUES = {
+    'ChIJPV4oX_65j4ARVW8IJ6IJUYs': [{
+        'dcid': 'geoId/4210768'
+    }],
+    'ChIJPV4oX_65j4ARVW8IJ6IJUYs1': [{
+        'dcid': 'geoId/4210769'
+    }],
+    'ChIJPV4oX_65j4ARVW8IJ6IJUYs2': [{
+        'dcid': 'geoId/4210770'
+    }],
+    'ChIJPV4oX_65j4ARVW8IJ6IJUYs3': [{
+        'dcid': 'geoId/4210771'
+    }],
+    'ChIJPV4oX_65j4ARVW8IJ6IJUYs4': [{
+        'dcid': 'geoId/4210772'
+    }]
+}
+
+MAPS_PREDICTIONS_VALUES = [
+    ScoredPrediction(description='California, USA',
+                     place_id='ChIJPV4oX_65j4ARVW8IJ6IJUYs',
+                     matched_query='calif',
+                     score=-1),
+    ScoredPrediction(description='Califon, NJ, USA',
+                     place_id='ChIJPV4oX_65j4ARVW8IJ6IJUYs1',
+                     matched_query='calif',
+                     score=0),
+    ScoredPrediction(description='California, MD, USA',
+                     place_id='ChIJPV4oX_65j4ARVW8IJ6IJUYs2',
+                     matched_query='calif',
+                     score=1),
+    ScoredPrediction(description='California City, CA, USA',
+                     place_id='ChIJPV4oX_65j4ARVW8IJ6IJUYs3',
+                     matched_query='calif',
+                     score=2),
+    ScoredPrediction(description='California, PA, USA',
+                     place_id='ChIJPV4oX_65j4ARVW8IJ6IJUYs4',
+                     matched_query='calif',
+                     score=3),
+]

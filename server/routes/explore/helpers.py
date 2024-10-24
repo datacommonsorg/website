@@ -357,9 +357,6 @@ def prepare_response(utterance: nl_utterance.Utterance,
       'pastSourceContext': utterance.past_source_context,
       'relatedThings': related_things,
       'userMessages': user_messages,
-      # TODO: userMessage is currently in use by UN client. Deprecate this once
-      # that code is updated.
-      'userMessage': user_messages[0] if len(user_messages) > 0 else "",
   }
   if user_message.show_form:
     data_dict['showForm'] = True
@@ -430,9 +427,6 @@ def abort(error_message: str,
       'context': escaped_context_history,
       'failure': error_message,
       'userMessages': [error_message],
-      # TODO: userMessage is currently in use by UN client. Deprecate this once
-      # that code is updated.
-      'userMessage': error_message
   }
 
   if not counters:

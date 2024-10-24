@@ -171,6 +171,13 @@ export const GA_EVENT_HOMEPAGE_CLICK = "homepage_click";
  */
 export const GA_EVENT_BUILDPAGE_CLICK = "buildpage_click";
 
+/**
+ * Triggered on autocomplete selections.
+ * Parameters:
+ *   "result_index": <index of the selected autocomplete result>
+ */
+export const GA_EVENT_AUTOCOMPLETE_SELECTION = "autocomplete_select";
+
 // GA event parameters
 export const GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE =
   "place_category_click_source";
@@ -188,6 +195,7 @@ export const GA_PARAM_SOURCE = "source";
 export const GA_PARAM_TOPIC = "topic";
 export const GA_PARAM_PLACE = "place";
 export const GA_PARAM_TIMING_MS = "time_ms";
+export const GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX = "selection_index";
 
 //GA event parameter values
 export const GA_VALUE_PLACE_CHART_CLICK_STAT_VAR_CHIP = "stat var chip";

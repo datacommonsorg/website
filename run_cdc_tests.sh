@@ -18,6 +18,6 @@ set -e
 ./run_test.sh --setup_python
 
 source .env/bin/activate
-export FLASK_ENV=test
+export FLASK_ENV=webdriver
 
-python3 -m pytest server/webdriver/cdc_tests/
+python3 -m pytest --reruns 2 server/webdriver/cdc_tests/

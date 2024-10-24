@@ -21,9 +21,9 @@
                       "country/TUN",
                       "country/MLI",
                       "country/ERI",
-                      "country/MWI",
                       "country/SEN",
                       "country/GMB",
+                      "country/MWI",
                       "country/SSD"
                     ],
                     "statVarKey": [
@@ -54,9 +54,9 @@
                       "country/TUN",
                       "country/MLI",
                       "country/ERI",
-                      "country/MWI",
                       "country/SEN",
                       "country/GMB",
+                      "country/MWI",
                       "country/SSD"
                     ],
                     "statVarKey": [
@@ -88,9 +88,9 @@
                       "country/TUN",
                       "country/MLI",
                       "country/ERI",
-                      "country/MWI",
                       "country/SEN",
                       "country/GMB",
+                      "country/MWI",
                       "country/SSD"
                     ],
                     "statVarKey": [
@@ -122,9 +122,9 @@
                       "country/TUN",
                       "country/MLI",
                       "country/ERI",
-                      "country/MWI",
                       "country/SEN",
                       "country/GMB",
+                      "country/MWI",
                       "country/SSD"
                     ],
                     "statVarKey": [
@@ -155,9 +155,9 @@
                       "country/TUN",
                       "country/MLI",
                       "country/ERI",
-                      "country/MWI",
                       "country/SEN",
                       "country/GMB",
+                      "country/MWI",
                       "country/SSD"
                     ],
                     "statVarKey": [
@@ -189,9 +189,9 @@
                       "country/TUN",
                       "country/MLI",
                       "country/ERI",
-                      "country/MWI",
                       "country/SEN",
                       "country/GMB",
+                      "country/MWI",
                       "country/SSD"
                     ],
                     "statVarKey": [
@@ -222,9 +222,9 @@
                       "country/TUN",
                       "country/MLI",
                       "country/ERI",
-                      "country/MWI",
                       "country/SEN",
                       "country/GMB",
+                      "country/MWI",
                       "country/SSD"
                     ],
                     "statVarKey": [
@@ -324,11 +324,6 @@
       "place_type": "Country"
     },
     {
-      "dcid": "country/MWI",
-      "name": "Malawi",
-      "place_type": "Country"
-    },
-    {
       "dcid": "country/SEN",
       "name": "Senegal",
       "place_type": "Country"
@@ -336,6 +331,11 @@
     {
       "dcid": "country/GMB",
       "name": "Gambia",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/MWI",
+      "name": "Malawi",
       "place_type": "Country"
     },
     {
@@ -363,7 +363,6 @@
     "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "See comparison based on places in the previous answer.",
   "userMessages": [
     "See comparison based on places in the previous answer."
   ]

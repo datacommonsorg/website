@@ -194,6 +194,38 @@
                       "startDate": "2019"
                     },
                     "statVarKey": [
+                      "Count_Death_Female_1151455814"
+                    ],
+                    "title": "Count of Mortality Event: Female in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Mortality Event: Female in California",
+                    "statVarKey": [
+                      "Count_Death_Female"
+                    ],
+                    "title": "Count of Mortality Event: Female in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Mortality Event: Female"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "startDate": "2019"
+                    },
+                    "statVarKey": [
                       "Count_Person_Female_TwoOrMoreRaces_1145703171"
                     ],
                     "title": "Women Identifying as Multiracial in California",
@@ -854,81 +886,17 @@
             ],
             "denom": "Count_Person",
             "title": "Foreign Born Women"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "lineTileSpec": {
-                      "startDate": "2019"
-                    },
-                    "statVarKey": [
-                      "Count_Person_16OrMoreYears_Female_WithEarnings_1472009826"
-                    ],
-                    "title": "Population: 16 Years or More, Female, With Earnings in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: 16 Years or More, Female, With Earnings in California",
-                    "statVarKey": [
-                      "Count_Person_16OrMoreYears_Female_WithEarnings"
-                    ],
-                    "title": "Population: 16 Years or More, Female, With Earnings in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: 16 Years or More, Female, With Earnings"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_16OrMoreYears_Female_WithEarnings"
-                    ],
-                    "title": "Population: 16 Years or More, Female, With Earnings in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_16OrMoreYears_Female_WithEarnings"
-                    ],
-                    "title": "Population: 16 Years or More, Female, With Earnings in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population: 16 Years or More, Female, With Earnings in Counties of California"
           }
         ],
         "statVarSpec": {
-          "Count_Person_16OrMoreYears_Female_WithEarnings": {
-            "name": "Population: 16 Years or More, Female, With Earnings",
-            "statVar": "Count_Person_16OrMoreYears_Female_WithEarnings"
+          "Count_Death_Female": {
+            "name": "Count of Mortality Event: Female",
+            "statVar": "Count_Death_Female"
           },
-          "Count_Person_16OrMoreYears_Female_WithEarnings_1472009826": {
-            "facetId": "1472009826",
-            "name": "Population: 16 Years or More, Female, With Earnings",
-            "statVar": "Count_Person_16OrMoreYears_Female_WithEarnings"
+          "Count_Death_Female_1151455814": {
+            "facetId": "1151455814",
+            "name": "Count of Mortality Event: Female",
+            "statVar": "Count_Death_Female"
           },
           "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female": {
             "name": "Population: Bachelors Degree or Higher, Female",
@@ -1443,6 +1411,49 @@
     },
     "childTopics": [],
     "exploreMore": {
+      "Count_Death_Female": {
+        "age": [
+          "Count_Death_10To14Years_Female",
+          "Count_Death_15To19Years_Female",
+          "Count_Death_15To64Years_Female",
+          "Count_Death_20To24Years_Female",
+          "Count_Death_25To29Years_Female",
+          "Count_Death_30To34Years_Female",
+          "Count_Death_35To39Years_Female",
+          "Count_Death_40To44Years_Female",
+          "Count_Death_45To49Years_Female",
+          "Count_Death_50To54Years_Female",
+          "Count_Death_55To59Years_Female",
+          "Count_Death_5To9Years_Female",
+          "Count_Death_60To64Years_Female",
+          "Count_Death_65OrMoreYears_Female",
+          "Count_Death_65To69Years_Female",
+          "Count_Death_70To74Years_Female",
+          "Count_Death_75To79Years_Female",
+          "Count_Death_80OrMoreYears_Female",
+          "Count_Death_Upto14Years_Female",
+          "Count_Death_Upto4Years_Female"
+        ],
+        "causeOfDeath": [
+          "Count_MortalityEvent_AIDS_Female",
+          "Count_MortalityEvent_AccidentalDrowningAndSubmersion_Female",
+          "Count_MortalityEvent_AccidentalExposureToSmokeFireAndFlames_Female",
+          "Count_MortalityEvent_AccidentalPoisoningAndExposureToNoxiousSubstances_Female",
+          "Count_MortalityEvent_Accidents(UnintentionalInjuries)_Female",
+          "Count_MortalityEvent_AcuteAndRapidlyProgressiveNephriticAndNephroticSyndrome_Female",
+          "Count_MortalityEvent_AcuteAndSubacuteEndocarditis_Female",
+          "Count_MortalityEvent_AcuteBronchitisAndBronchiolitis_Female",
+          "Count_MortalityEvent_AcuteMyocardialInfarction_Female",
+          "Count_MortalityEvent_AcuteRheumaticFeverAndChronicRheumaticHeartDiseases_Female",
+          "Count_MortalityEvent_AlcoholicLiverDisease_Female",
+          "Count_MortalityEvent_AllOtherAndUnspecifiedMalignantNeoplasms_Female",
+          "Count_MortalityEvent_AllOtherDiseases(Residual)_Female",
+          "Count_MortalityEvent_AllOtherFormsOfChronicIschemicHeartDisease_Female",
+          "Count_MortalityEvent_AllOtherFormsOfHeartDisease_Female",
+          "Count_MortalityEvent_AlzheimersDisease_Female",
+          "Count_MortalityEvent_AorticAneurysmAndDissection_Female"
+        ]
+      },
       "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female": {
         "age": [
           "Count_Person_18To24Years_EducationalAttainmentBachelorsDegreeOrHigher_Female",
@@ -2231,6 +2242,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "",
   "userMessages": []
 }
