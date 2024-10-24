@@ -4370,6 +4370,7 @@ number of asian females living below poverty level in the past 12 months,Count_P
 number of asian or pacific islander females,Count_Person_Female_AsianOrPacificIslander
 number of asian people without health insurance,Count_Person_NoHealthInsurance_AsianAlone
 number of births,Count_BirthEvent
+number of death in vehicle accident,Count_MortalityEvent_VehicleCrashIncident
 number of deaths from diabetes,Count_MortalityEvent_Diabetes
 number of divorced Foreign Born people,Count_Person_15OrMoreYears_Divorced_ForeignBorn
 number of divorced Hispanic or Latino people,Count_Person_15OrMoreYears_Divorced_HispanicOrLatino
@@ -4510,6 +4511,13 @@ number of people without disabilities residing in nursing facilities,Count_Perso
 number of people without health insurance,Count_Person_NoHealthInsurance
 number of rooms in houses,dc/topic/HousesByRoomCount
 number of students enrolled,dc/topic/StudentEnrollmentLevels
+number of vehicle accident,Count_VehicleCrashIncident
+number of vehicle accident in rain or mist,Count_VehicleCrashIncident_RainOrMist
+number of vehicle accident in sleet or hail,Count_VehicleCrashIncident_SleetOrHail
+number of vehicle accident in snow,Count_VehicleCrashIncident_Snow
+number of vehicle accident in the dark,Count_VehicleCrashIncident_Dark
+number of vehicle accident in the daylight,Count_VehicleCrashIncident_Daylight
+number of vehicle accident involving school bus,Count_VehicleCrashIncident_InvolvedInCrash_SchoolBus
 number of white females living Above Poverty Level in the Past 12 months,Count_Person_Female_AbovePovertyLevelInThePast12Months_WhiteAlone
 number of white females living below poverty level in the past 12 months,Count_Person_Female_BelowPovertyLevelInThePast12Months_WhiteAlone
 number of white males,Count_Person_Male_WhiteAlone

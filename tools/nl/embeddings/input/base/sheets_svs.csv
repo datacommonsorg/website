@@ -3606,3 +3606,11 @@ sdg/SG_GEN_PARL.SEX--F,proportion of seats held by women in national parliaments
 Count_Person_Upto18Years,children population count
 Count_Person_18OrMoreYears,adult population count
 Count_Person_65OrMoreYears,senior population count
+Count_VehicleCrashIncident_Dark,number of vehicle accident in the dark
+Count_VehicleCrashIncident_Daylight,number of vehicle accident in the daylight
+Count_VehicleCrashIncident_RainOrMist,number of vehicle accident in rain or mist
+Count_VehicleCrashIncident_SleetOrHail,number of vehicle accident in sleet or hail
+Count_VehicleCrashIncident_Snow,number of vehicle accident in snow
+Count_VehicleCrashIncident_InvolvedInCrash_SchoolBus,number of vehicle accident involving school bus
+Count_MortalityEvent_VehicleCrashIncident,number of death in vehicle accident
+Count_VehicleCrashIncident,number of vehicle accident

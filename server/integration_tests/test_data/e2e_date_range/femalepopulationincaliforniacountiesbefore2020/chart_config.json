@@ -931,11 +931,6 @@
             "name": "Count of Mortality Event: Female",
             "statVar": "Count_Death_Female"
           },
-          "Count_Death_Female_2019": {
-            "date": "2019",
-            "name": "Count of Mortality Event: Female",
-            "statVar": "Count_Death_Female"
-          },
           "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female_1118952551": {
             "facetId": "1118952551",
             "name": "Population: Bachelors Degree or Higher, Female",

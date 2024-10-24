@@ -1,0 +1,1625 @@
+{
+  "client": "test_detect-and-fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_VehicleCrashIncident_RainOrMist"
+                    ],
+                    "title": "Count of Crash Incidents Where Rain or Mist Atmospheric Conditions Existed at the Time of the Crash in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_VehicleCrashIncident_RainOrMist"
+                    ],
+                    "title": "Count of Crash Incidents Where Rain or Mist Atmospheric Conditions Existed at the Time of the Crash in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Crash Incidents Where Rain or Mist Atmospheric Conditions Existed at the Time of the Crash in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HeavyRainEvent"
+                    ],
+                    "title": "Heavy Rains in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Heavy Rains in United States",
+                    "statVarKey": [
+                      "Count_HeavyRainEvent"
+                    ],
+                    "title": "Heavy Rains in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Heavy Rains"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HeavyRainEvent"
+                    ],
+                    "title": "Heavy Rains in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_HeavyRainEvent"
+                    ],
+                    "title": "Heavy Rains in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Heavy Rains in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Max_Rainfall",
+                      "Mean_Rainfall",
+                      "Min_Rainfall"
+                    ],
+                    "title": "Rainfall Amount in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Rainfall Amount"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_FloodEvent"
+                    ],
+                    "title": "Floods in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Floods in United States",
+                    "statVarKey": [
+                      "Count_FloodEvent"
+                    ],
+                    "title": "Floods in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Floods"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_FloodEvent"
+                    ],
+                    "title": "Floods in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_FloodEvent"
+                    ],
+                    "title": "Floods in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Floods in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_FlashFloodEvent"
+                    ],
+                    "title": "Count of Flash Flood Event in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Flash Flood Event in United States",
+                    "statVarKey": [
+                      "Count_FlashFloodEvent"
+                    ],
+                    "title": "Count of Flash Flood Event in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Flash Flood Event"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_FlashFloodEvent"
+                    ],
+                    "title": "Count of Flash Flood Event in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_FlashFloodEvent"
+                    ],
+                    "title": "Count of Flash Flood Event in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Flash Flood Event in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_VehicleCrashIncident_SleetOrHail"
+                    ],
+                    "title": "Count of Crash Incidents Where Sleet or Hail Atmospheric Conditions Existed at the Time of the Crash in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_VehicleCrashIncident_SleetOrHail"
+                    ],
+                    "title": "Count of Crash Incidents Where Sleet or Hail Atmospheric Conditions Existed at the Time of the Crash in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Crash Incidents Where Sleet or Hail Atmospheric Conditions Existed at the Time of the Crash in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_VehicleCrashIncident_Daylight"
+                    ],
+                    "title": "Count of Crash Incidents in Daylight in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_VehicleCrashIncident_Daylight"
+                    ],
+                    "title": "Count of Crash Incidents in Daylight in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Count of crash incidents where daylight level of light at the time of the crash.",
+            "title": "Count of Crash Incidents in Daylight in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_LightningEvent"
+                    ],
+                    "title": "Count of Lightning Event in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Lightning Event in United States",
+                    "statVarKey": [
+                      "Count_LightningEvent"
+                    ],
+                    "title": "Count of Lightning Event in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Lightning Event"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_LightningEvent"
+                    ],
+                    "title": "Count of Lightning Event in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_LightningEvent"
+                    ],
+                    "title": "Count of Lightning Event in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Lightning Event in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_VehicleCrashIncident_Dark"
+                    ],
+                    "title": "Count of Crash Incidents in the Dark in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_VehicleCrashIncident_Dark"
+                    ],
+                    "title": "Count of Crash Incidents in the Dark in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Count of crash incidents where dark level of light at the time of the crash.",
+            "title": "Count of Crash Incidents in the Dark in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_VehicleCrashIncident_Snow"
+                    ],
+                    "title": "Count of Crash Incidents Where Snow Atmospheric Conditions Existed at the Time of the Crash in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_VehicleCrashIncident_Snow"
+                    ],
+                    "title": "Count of Crash Incidents Where Snow Atmospheric Conditions Existed at the Time of the Crash in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Crash Incidents Where Snow Atmospheric Conditions Existed at the Time of the Crash in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_DebrisFlowEvent"
+                    ],
+                    "title": "Count of Debris Flow Event in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Debris Flow Event in United States",
+                    "statVarKey": [
+                      "Count_DebrisFlowEvent"
+                    ],
+                    "title": "Count of Debris Flow Event in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Debris Flow Event"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_DebrisFlowEvent"
+                    ],
+                    "title": "Count of Debris Flow Event in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_DebrisFlowEvent"
+                    ],
+                    "title": "Count of Debris Flow Event in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Debris Flow Event in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_TropicalStormEvent"
+                    ],
+                    "title": "Count of Tropical Storm Event in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Tropical Storm Event in United States",
+                    "statVarKey": [
+                      "Count_TropicalStormEvent"
+                    ],
+                    "title": "Count of Tropical Storm Event in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Tropical Storm Event"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_TropicalStormEvent"
+                    ],
+                    "title": "Count of Tropical Storm Event in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_TropicalStormEvent"
+                    ],
+                    "title": "Count of Tropical Storm Event in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Tropical Storm Event in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Area_DroughtEvent"
+                    ],
+                    "title": "Area of Drought Event in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Area of Drought Event in United States",
+                    "statVarKey": [
+                      "Area_DroughtEvent"
+                    ],
+                    "title": "Area of Drought Event in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Area of Drought Event"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Area_DroughtEvent"
+                    ],
+                    "title": "Area of Drought Event in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Area_DroughtEvent"
+                    ],
+                    "title": "Area of Drought Event in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Area of Drought Event in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_DroughtEvent"
+                    ],
+                    "title": "Droughts in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Droughts in United States",
+                    "statVarKey": [
+                      "Count_DroughtEvent"
+                    ],
+                    "title": "Droughts in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Droughts"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_DroughtEvent"
+                    ],
+                    "title": "Droughts in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_DroughtEvent"
+                    ],
+                    "title": "Droughts in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Droughts in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_PalmerDroughtSeverityIndex"
+                    ],
+                    "title": "Mean Palmer Drought Severity Index (PDSI) in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Mean Palmer Drought Severity Index (PDSI) in United States",
+                    "statVarKey": [
+                      "Mean_PalmerDroughtSeverityIndex"
+                    ],
+                    "title": "Mean Palmer Drought Severity Index (PDSI) in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Mean Palmer Drought Severity Index (PDSI)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_PalmerDroughtSeverityIndex"
+                    ],
+                    "title": "Mean Palmer Drought Severity Index (PDSI) in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Mean_PalmerDroughtSeverityIndex"
+                    ],
+                    "title": "Mean Palmer Drought Severity Index (PDSI) in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Mean Palmer Drought Severity Index (PDSI) in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Area_FloodEvent"
+                    ],
+                    "title": "Area of Flood Event in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Area of Flood Event in United States",
+                    "statVarKey": [
+                      "Area_FloodEvent"
+                    ],
+                    "title": "Area of Flood Event in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Area of Flood Event"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Area_FloodEvent"
+                    ],
+                    "title": "Area of Flood Event in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Area_FloodEvent"
+                    ],
+                    "title": "Area of Flood Event in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Area of Flood Event in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_FireEvent"
+                    ],
+                    "title": "Count of Fire Event in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Fire Event in United States",
+                    "statVarKey": [
+                      "Count_FireEvent"
+                    ],
+                    "title": "Count of Fire Event in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Fire Event"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_FireEvent"
+                    ],
+                    "title": "Count of Fire Event in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_FireEvent"
+                    ],
+                    "title": "Count of Fire Event in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Fire Event in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_WildlandFireEvent"
+                    ],
+                    "title": "Count of Wildland Fire Event in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Wildland Fire Event in United States",
+                    "statVarKey": [
+                      "Count_WildlandFireEvent"
+                    ],
+                    "title": "Count of Wildland Fire Event in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Wildland Fire Event"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_WildlandFireEvent"
+                    ],
+                    "title": "Count of Wildland Fire Event in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_WildlandFireEvent"
+                    ],
+                    "title": "Count of Wildland Fire Event in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Wildland Fire Event in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "BurnedArea_FireEvent"
+                    ],
+                    "title": "Total Area That Burned (Acres) in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Total Area That Burned (Acres) in United States",
+                    "statVarKey": [
+                      "BurnedArea_FireEvent"
+                    ],
+                    "title": "Total Area That Burned (Acres) in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Total Area That Burned (Acres)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "BurnedArea_FireEvent"
+                    ],
+                    "title": "Total Area That Burned (Acres) in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "BurnedArea_FireEvent"
+                    ],
+                    "title": "Total Area That Burned (Acres) in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Total Area That Burned (Acres) in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_BurnedArea_FireEvent"
+                    ],
+                    "title": "Percent of Area That Burned in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Percent of Area That Burned in United States",
+                    "statVarKey": [
+                      "Percent_BurnedArea_FireEvent"
+                    ],
+                    "title": "Percent of Area That Burned in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Percent of Area That Burned"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Percent_BurnedArea_FireEvent"
+                    ],
+                    "title": "Percent of Area That Burned in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Percent_BurnedArea_FireEvent"
+                    ],
+                    "title": "Percent of Area That Burned in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Percent of Area That Burned in States of United States"
+          }
+        ],
+        "statVarSpec": {
+          "Area_DroughtEvent": {
+            "name": "Area of Drought Event",
+            "statVar": "Area_DroughtEvent"
+          },
+          "Area_FloodEvent": {
+            "name": "Area of Flood Event",
+            "statVar": "Area_FloodEvent"
+          },
+          "BurnedArea_FireEvent": {
+            "name": "Total area that burned (Acres)",
+            "statVar": "BurnedArea_FireEvent"
+          },
+          "Count_DebrisFlowEvent": {
+            "name": "Count of Debris Flow Event",
+            "statVar": "Count_DebrisFlowEvent"
+          },
+          "Count_DroughtEvent": {
+            "name": "Droughts",
+            "statVar": "Count_DroughtEvent"
+          },
+          "Count_FireEvent": {
+            "name": "Count of Fire Event",
+            "statVar": "Count_FireEvent"
+          },
+          "Count_FlashFloodEvent": {
+            "name": "Count of Flash Flood Event",
+            "statVar": "Count_FlashFloodEvent"
+          },
+          "Count_FloodEvent": {
+            "name": "Floods",
+            "statVar": "Count_FloodEvent"
+          },
+          "Count_HeavyRainEvent": {
+            "name": "Heavy Rains",
+            "statVar": "Count_HeavyRainEvent"
+          },
+          "Count_LightningEvent": {
+            "name": "Count of Lightning Event",
+            "statVar": "Count_LightningEvent"
+          },
+          "Count_TropicalStormEvent": {
+            "name": "Count of Tropical Storm Event",
+            "statVar": "Count_TropicalStormEvent"
+          },
+          "Count_VehicleCrashIncident_Dark": {
+            "name": "Count of crash incidents in the dark",
+            "statVar": "Count_VehicleCrashIncident_Dark"
+          },
+          "Count_VehicleCrashIncident_Daylight": {
+            "name": "Count of crash incidents in daylight",
+            "statVar": "Count_VehicleCrashIncident_Daylight"
+          },
+          "Count_VehicleCrashIncident_RainOrMist": {
+            "name": "Count of crash incidents where rain or mist atmospheric conditions existed at the time of the crash",
+            "statVar": "Count_VehicleCrashIncident_RainOrMist"
+          },
+          "Count_VehicleCrashIncident_SleetOrHail": {
+            "name": "Count of crash incidents where sleet or hail atmospheric conditions existed at the time of the crash",
+            "statVar": "Count_VehicleCrashIncident_SleetOrHail"
+          },
+          "Count_VehicleCrashIncident_Snow": {
+            "name": "Count of crash incidents where snow atmospheric conditions existed at the time of the crash",
+            "statVar": "Count_VehicleCrashIncident_Snow"
+          },
+          "Count_WildlandFireEvent": {
+            "name": "Count of Wildland Fire Event",
+            "statVar": "Count_WildlandFireEvent"
+          },
+          "Max_Rainfall": {
+            "name": "Max Rainfall",
+            "statVar": "Max_Rainfall"
+          },
+          "Mean_PalmerDroughtSeverityIndex": {
+            "name": "Mean Palmer Drought Severity Index (PDSI)",
+            "statVar": "Mean_PalmerDroughtSeverityIndex"
+          },
+          "Mean_Rainfall": {
+            "name": "Mean Rainfall",
+            "statVar": "Mean_Rainfall"
+          },
+          "Min_Rainfall": {
+            "name": "Min Rainfall",
+            "statVar": "Min_Rainfall"
+          },
+          "Percent_BurnedArea_FireEvent": {
+            "name": "Percent of area that burned",
+            "statVar": "Percent_BurnedArea_FireEvent",
+            "unit": "%"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "containedPlaceTypes": {
+        "Country": "State"
+      },
+      "placeDcid": [
+        "country/USA"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "entities": [],
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "country/USA",
+    "name": "United States",
+    "place_type": "Country"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "country/USA",
+      "name": "United States",
+      "place_type": "Country"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {
+      "State": [
+        {
+          "dcid": "geoId/01",
+          "name": "Alabama",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/02",
+          "name": "Alaska",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/04",
+          "name": "Arizona",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/05",
+          "name": "Arkansas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/06",
+          "name": "California",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/08",
+          "name": "Colorado",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/09",
+          "name": "Connecticut",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/10",
+          "name": "Delaware",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/11",
+          "name": "District of Columbia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/12",
+          "name": "Florida",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/13",
+          "name": "Georgia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/15",
+          "name": "Hawaii",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/16",
+          "name": "Idaho",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/17",
+          "name": "Illinois",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/18",
+          "name": "Indiana",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/19",
+          "name": "Iowa",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/20",
+          "name": "Kansas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/21",
+          "name": "Kentucky",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/22",
+          "name": "Louisiana",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/23",
+          "name": "Maine",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/24",
+          "name": "Maryland",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/25",
+          "name": "Massachusetts",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/26",
+          "name": "Michigan",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/27",
+          "name": "Minnesota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/28",
+          "name": "Mississippi",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/29",
+          "name": "Missouri",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/30",
+          "name": "Montana",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/31",
+          "name": "Nebraska",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/32",
+          "name": "Nevada",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/33",
+          "name": "New Hampshire",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/34",
+          "name": "New Jersey",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/35",
+          "name": "New Mexico",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/36",
+          "name": "New York",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/37",
+          "name": "North Carolina",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/38",
+          "name": "North Dakota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/39",
+          "name": "Ohio",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/40",
+          "name": "Oklahoma",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/41",
+          "name": "Oregon",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/42",
+          "name": "Pennsylvania",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/44",
+          "name": "Rhode Island",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/45",
+          "name": "South Carolina",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/46",
+          "name": "South Dakota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/47",
+          "name": "Tennessee",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/48",
+          "name": "Texas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/49",
+          "name": "Utah",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/50",
+          "name": "Vermont",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/51",
+          "name": "Virginia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/53",
+          "name": "Washington",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/54",
+          "name": "West Virginia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/55",
+          "name": "Wisconsin",
+          "types": [
+            "State"
+          ]
+        }
+      ]
+    },
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Rainfall",
+        "name": "Rainfall",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Precipitation",
+        "name": "Precipitation",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/Snowfall",
+        "name": "Snowfall",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
+  "svSource": "CURRENT_QUERY",
+  "userMessage": "",
+  "userMessages": []
+}
