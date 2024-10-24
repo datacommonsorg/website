@@ -24,7 +24,7 @@ import React, { ReactElement } from "react";
 
 import Build from "../../components/content/build_your_own";
 import HeroVideo from "../../components/content/hero_video";
-import LinkChips, { LinkChip } from "../../components/content/link_chips";
+import { LinkChip, LinkChips } from "../../components/content/link_chips";
 import Partners from "../../components/content/partners";
 import SampleQuestions from "../../components/content/sample_questions";
 import Tools from "../../components/content/tools";
@@ -59,7 +59,7 @@ export function App({
   const topicLinkChips: LinkChip[] = topics.map((topic) => ({
     id: topic.id,
     title: topic.title,
-    url: topic.url,
+    url: topic.browseUrl,
   }));
 
   return (
