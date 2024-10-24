@@ -139,11 +139,3 @@ export const extractLabels = (elementId = "metadata-labels"): Labels => {
 
   return labels;
 };
-
-//A breakpoints constant object for responsiveness, for access on the TypeScript side.
-export const BREAKPOINTS = {
-  sm: 599,
-  md: 746,
-  mdExpanded: 859,
-  lg: 1440,
-};

@@ -18,7 +18,7 @@
  * A slide-based carousel that takes arbitrary ReactElements as slides
  */
 
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useRef, useState } from "react";
 
 import {
   GA_EVENT_HOMEPAGE_CLICK,
@@ -39,6 +39,7 @@ const SlideCarousel = ({
 }: SlideCarouselProps): ReactElement => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isInteracting, setIsInteracting] = useState(false);
+  const carouselRef = useRef<HTMLDivElement>(null);
 
   const goToSlide = (index: number): void => {
     setIsInteracting(true);
@@ -64,8 +65,42 @@ const SlideCarousel = ({
     }
   }, [autoslideInterval, slides.length, activeIndex, isInteracting]);
 
+  useEffect(() => {
+    const handleFocusIn = (event: FocusEvent): void => {
+      if (carouselRef.current) {
+        const focusedElement = event.target as HTMLElement;
+
+        const slideIndex = Array.from(
+          carouselRef.current.querySelectorAll(".carousel-slide")
+        ).findIndex((slide) => slide.contains(focusedElement));
+
+        if (slideIndex !== -1 && slideIndex !== activeIndex) {
+          setActiveIndex(slideIndex);
+        }
+
+        const innerCarousel = carouselRef.current?.querySelector(
+          ".carousel-inner"
+        ) as HTMLElement;
+        if (innerCarousel) {
+          innerCarousel.scrollLeft = 0;
+        }
+      }
+    };
+
+    const carouselElement = carouselRef.current;
+    if (carouselElement) {
+      carouselElement.addEventListener("focusin", handleFocusIn);
+    }
+
+    return () => {
+      if (carouselElement) {
+        carouselElement.removeEventListener("focusin", handleFocusIn);
+      }
+    };
+  }, [activeIndex]);
+
   return (
-    <div className="slide-carousel">
+    <div className="slide-carousel" ref={carouselRef}>
       <div className="carousel-inner">
         <div
           className="carousel-tape"
