@@ -44,7 +44,10 @@ interface LinkChipsProps {
   linkChips: LinkChip[];
 }
 
-const LinkChips = ({ title, linkChips }: LinkChipsProps): ReactElement => {
+export const LinkChips = ({
+  title,
+  linkChips,
+}: LinkChipsProps): ReactElement => {
   return (
     <section id="chip-section" className="chip-section">
       <div className="container">
@@ -72,5 +75,3 @@ const LinkChips = ({ title, linkChips }: LinkChipsProps): ReactElement => {
     </section>
   );
 };
-
-export default LinkChips;
