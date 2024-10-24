@@ -51,7 +51,7 @@ ADDITIONAL_CATALOG_PATH=$DC_NL_EMBEDDINGS_DIR/custom_catalog.yaml
 CUSTOM_EMBEDDINGS_INDEX=user_all_minilm_mem
 
 # Set IS_CUSTOM_DC var to true.
-# This is used by the embeddings builder to set up a custom dc env. 
+# This is used by the embeddings builder to set up a custom dc env.
 export IS_CUSTOM_DC=true
 
 if [[ $USE_SQLITE == "true" ]]; then
@@ -64,18 +64,30 @@ fi
 # cd into simple importer dir to run the importer.
 cd $WORKSPACE_DIR/import/simple
 
+# Pick import mode based on value of $SCHEMA_UPDATE_ONLY.
+if [[ $SCHEMA_UPDATE_ONLY == "true" ]]; then
+    MODE="schemaupdate"
+else
+    MODE="customdc"
+fi
+
 # Run importer.
 python3 -m stats.main \
     --input_dir=$INPUT_DIR \
-    --output_dir=$DC_OUTPUT_DIR
+    --output_dir=$DC_OUTPUT_DIR \
+    --mode=$MODE
 
 # cd back to workspace dir to run the embeddings builder.
 cd $WORKSPACE_DIR
 
-# Run embeddings builder.
-python3 -m tools.nl.embeddings.build_embeddings \
-    --embeddings_name=$CUSTOM_EMBEDDINGS_INDEX \
+if [[ $SCHEMA_UPDATE_ONLY == "true" ]]; then
+    echo "Skipping embeddings builder because run mode is schema update."
+    echo "Schema update complete."
+else
+    # Run embeddings builder.
+    python3 -m tools.nl.embeddings.build_embeddings \
+        --embeddings_name=$CUSTOM_EMBEDDINGS_INDEX \
     --output_dir=$DC_NL_EMBEDDINGS_DIR \
     --additional_catalog_path=$ADDITIONAL_CATALOG_PATH
-
-echo "Data loading completed."
+  echo "Data loading completed."
+fi
