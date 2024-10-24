@@ -50,7 +50,7 @@ COPY nl_requirements.txt ./nl_requirements.txt
 RUN python -m venv ./venv
 ENV PATH="/workspace/venv/bin:$PATH"
 RUN sed -i'' '/lancedb/d' /workspace/nl_requirements.txt \
-    && pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu \
+    && pip3 install torch==2.4.1 --extra-index-url https://download.pytorch.org/whl/cpu \
     && pip3 install -r ./tools/nl/embeddings/requirements.txt
 
 # Copy the embeddings builder module.

@@ -68,7 +68,7 @@ RUN python -m venv ./venv
 ENV PATH="/workspace/venv/bin:$PATH"
 RUN pip3 install --upgrade pip setuptools \
     && sed -i'' '/lancedb/d' /workspace/nl_requirements.txt \
-    && pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu \
+    && pip3 install torch==2.4.1 --extra-index-url https://download.pytorch.org/whl/cpu \
     && pip3 install --no-cache-dir -r /workspace/server/requirements.txt \
     && pip3 install --no-cache-dir -r /workspace/nl_server/requirements.txt
 

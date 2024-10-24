@@ -20,7 +20,7 @@ function setup_python {
   python3 -m venv .env
   source .env/bin/activate
   pip3 install -r server/requirements.txt
-  pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
+  pip3 install torch==2.4.1 --extra-index-url https://download.pytorch.org/whl/cpu
   pip3 install -r nl_server/requirements.txt
   deactivate
 }

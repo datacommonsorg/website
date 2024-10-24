@@ -8,7 +8,7 @@ pandas==2.1.1
 scikit-learn==1.3.1
 sentence-transformers==2.2.2
 spacy==3.7.4
-torchvision==0.17.2
+torchvision==0.19.1
 # TODO: this is pinned because latest huggingface_hub is not compatible with
 # sentence-transformers v2.2.2. Look into upgrading sentence-transformers to
 # v2.3.0 or newer
