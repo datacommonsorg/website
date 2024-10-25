@@ -74,15 +74,15 @@ def execute_maps_request(query: str, language: str) -> Dict:
 
 
 def bag_of_letters(text: str) -> Dict:
-    """Creates a bag-of-letters representation of a given string.
+  """Creates a bag-of-letters representation of a given string.
     Returns:
     dict: A dictionary where keys are letters and values are their counts.
     """
-    bag = {}
-    for char in text.lower():
-        if char.isalpha():
-            bag[char] = bag.get(char, 0) + 1
-    return bag
+  bag = {}
+  for char in text.lower():
+    if char.isalpha():
+      bag[char] = bag.get(char, 0) + 1
+  return bag
 
 
 def off_by_one_letter(str1_word: str, name_word: str) -> bool:
@@ -94,7 +94,7 @@ def off_by_one_letter(str1_word: str, name_word: str) -> bool:
   str2_bag = bag_of_letters(name_word)
   for key, value in str1_bag.items():
     if key in str2_bag:
-      offby += abs(str2_bag[key]-value)
+      offby += abs(str2_bag[key] - value)
     else:
       offby += value
 
