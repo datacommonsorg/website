@@ -15,6 +15,8 @@
 
 set -e
 
+echo "LOCALLOCALLOCALLOCALLOCALLOCALLOCALLOCALLOCALLOCALLOCALLOCAL"
+
 # Check for required variables.
 
 if [[ $DC_API_KEY == "" ]]; then
@@ -30,6 +32,16 @@ fi
 if [[ $OUTPUT_DIR == "" ]]; then
     echo "OUTPUT_DIR not specified."
     exit 1
+fi
+
+if [[ $DATA_RUN_MODE != "" ]]; then
+    if [[ $DATA_RUN_MODE != "schemaupdate" ]]; then
+      echo "DATA_RUN_MODE must be either empty or 'schemaupdate'"
+      exit 1
+    fi
+    echo "DATA_RUN_MODE=$DATA_RUN_MODE"
+else
+  DATA_RUN_MODE="customdc"
 fi
 
 echo "INPUT_DIR=$INPUT_DIR"
@@ -64,24 +76,17 @@ fi
 # cd into simple importer dir to run the importer.
 cd $WORKSPACE_DIR/import/simple
 
-# Pick import mode based on value of $SCHEMA_UPDATE_ONLY.
-if [[ $SCHEMA_UPDATE_ONLY == "true" ]]; then
-    MODE="schemaupdate"
-else
-    MODE="customdc"
-fi
-
 # Run importer.
 python3 -m stats.main \
     --input_dir=$INPUT_DIR \
     --output_dir=$DC_OUTPUT_DIR \
-    --mode=$MODE
+    --mode=$DATA_RUN_MODE
 
 # cd back to workspace dir to run the embeddings builder.
 cd $WORKSPACE_DIR
 
-if [[ $SCHEMA_UPDATE_ONLY == "true" ]]; then
-    echo "Skipping embeddings builder because run mode is schema update."
+if [[ $DATA_RUN_MODE == "schemaupdate" ]]; then
+    echo "Skipping embeddings builder because run mode is 'schemaupdate'."
     echo "Schema update complete."
 else
     # Run embeddings builder.
