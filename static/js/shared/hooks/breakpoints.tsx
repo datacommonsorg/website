@@ -6,7 +6,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
   applied in: `static/css/base.scss`
 
   If a page does not use default breakpoints and those breakpoints are required on
-  the TypeScript side, a separate breakpoint object should be created.
+  the TypeScript side, a separate breakpoint object can be created and passed into the hook.
 */
 export const BREAKPOINTS = {
   xs: 0,
@@ -23,9 +23,12 @@ type Breakpoints = Record<string, number>;
  For all comparison functions (up, down, only), the given size ("md", "lg", etc.) refers to
  the screen size range, not just a single breakpoint. This aligns with the equivalent Bootstrap media queries.
 
- - `up("md")`: Returns true if the window is at least in the "md" screen size range (768px or larger by default).
- - `down("md")`: Returns true if the window is in the "md" screen size range or smaller (i.e., smaller than the "lg" screen size).
- - `only("md")`: Returns true if the window is within the "md" screen size range (768px or larger and smaller than 1068px).
+ - `up("md")`: Returns true if the window is at least in the "md" screen size range
+    (768px or larger by default).
+ - `down("md")`: Returns true if the window is in the "md" screen size range or smaller
+    (i.e., smaller than the "lg" screen size).
+ - `only("md")`: Returns true if the window is within the "md" screen size range
+    (768px or larger and smaller than 1068px).
  */
 
 interface BreakpointInterface<B extends Breakpoints = Breakpoints> {
@@ -37,7 +40,7 @@ interface BreakpointInterface<B extends Breakpoints = Breakpoints> {
   only: (key: keyof B) => boolean;
 }
 
-function useBreakpoints<B extends Breakpoints = typeof BREAKPOINTS>(
+export function useBreakpoints<B extends Breakpoints = typeof BREAKPOINTS>(
   customBreakpoints?: B
 ): BreakpointInterface<B> {
   const breakpoints = customBreakpoints ?? (BREAKPOINTS as unknown as B);
@@ -111,5 +114,3 @@ function useBreakpoints<B extends Breakpoints = typeof BREAKPOINTS>(
 
   return { up, down, only };
 }
-
-export default useBreakpoints;
