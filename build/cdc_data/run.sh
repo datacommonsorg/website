@@ -15,8 +15,6 @@
 
 set -e
 
-echo "LOCALLOCALLOCALLOCALLOCALLOCALLOCALLOCALLOCALLOCALLOCALLOCAL"
-
 # Check for required variables.
 
 if [[ $DC_API_KEY == "" ]]; then
@@ -94,5 +92,5 @@ else
         --embeddings_name=$CUSTOM_EMBEDDINGS_INDEX \
     --output_dir=$DC_NL_EMBEDDINGS_DIR \
     --additional_catalog_path=$ADDITIONAL_CATALOG_PATH
-  echo "Data loading completed."
+  echo "Data loading complete."
 fi
