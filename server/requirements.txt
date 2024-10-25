@@ -37,5 +37,5 @@ requests==2.31.0
 selenium==4.21.0
 typing-extensions==4.10.0
 webdriver-manager==4.0.0
-Werkzeug==3.0.1
+Werkzeug==3.0.6
 wheel==0.38.1
