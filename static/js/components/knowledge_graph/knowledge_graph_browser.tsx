@@ -50,7 +50,7 @@ const KnowledgeGraphBrowser = ({
                     href={`/browser/${category.categoryEndpoint}`}
                     className="more"
                   >
-                    <span className="text">Explore more</span>
+                    <span className="text">& more to search from</span>
                   </a>
                 </li>
               )}
