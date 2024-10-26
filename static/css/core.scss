@@ -212,6 +212,9 @@ section {
       .rich-menu-content {
         display: grid;
         grid-template-columns: minmax(400px, 1fr) 1fr 1fr;
+        @include media-breakpoint-up(xl) {
+          grid-template-columns: minmax(400px, 1fr) 1fr 1fr 1fr;
+        }
         &.has-secondary {
           grid-template-columns: minmax(400px, 1fr) 1fr 1fr 1fr;
         }
