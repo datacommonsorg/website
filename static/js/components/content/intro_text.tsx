@@ -15,7 +15,7 @@
  */
 
 /**
- * A component to display a simple text block
+ * A component to display an introductory text block
  */
 
 import React, { ReactElement } from "react";
