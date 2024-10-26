@@ -26,6 +26,7 @@ import { KnowledgeGraphCategory } from "../../shared/types/knowledge_graph";
 import knowledgeGraphData from "./knowledge_graph.json";
 
 const knowledgeGraph: KnowledgeGraphCategory[] = knowledgeGraphData;
+
 /**
  * Application container
  */
@@ -37,9 +38,9 @@ export function App(): ReactElement {
           <h1>Knowledge Graph</h1>
           <p>
             The Data Commons Knowledge Graph is constructed by synthesizing a
-            single database from many different data sources. This knowledge graph
-            can be used both to explore what data is available and to understand
-            the graph structure.
+            single database from many different data sources. This knowledge
+            graph can be used both to explore what data is available and to
+            understand the graph structure.
           </p>
         </header>
       </IntroText>

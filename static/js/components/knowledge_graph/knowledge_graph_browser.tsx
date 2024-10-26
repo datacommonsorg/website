@@ -39,17 +39,17 @@ const KnowledgeGraphBrowser = ({
               <h3>{category.title}</h3>
             </header>
             <ul>
-              {category.items.map((item, index) => (
-                <li>
-                  <a key={item.endpoint} href={`/browser/${item.endpoint}`}>
-                    {item.label}
-                    {/* {index < category.items.length - 1 ? ", " : ""} */}
-                  </a>
+              {category.items.map((item) => (
+                <li key={item.endpoint}>
+                  <a href={`/browser/${item.endpoint}`}>{item.label}</a>
                 </li>
               ))}
               {category.categoryEndpoint && (
                 <li>
-                  <a href={`/browser/${category.categoryEndpoint}`} className="more">
+                  <a
+                    href={`/browser/${category.categoryEndpoint}`}
+                    className="more"
+                  >
                     <span className="text">Explore more</span>
                   </a>
                 </li>
