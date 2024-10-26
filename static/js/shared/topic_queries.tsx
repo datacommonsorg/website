@@ -18,7 +18,7 @@
  * Component for topic page welcome message with query examples.
  */
 
-import React, { ReactElement } from "react";
+import React, { ReactElement, useMemo } from "react";
 
 import { CLIENT_TYPES } from "../constants/app/explore_constants";
 import { Query, Topic, TopicConfig } from "./topic_config";
@@ -30,29 +30,69 @@ interface TopicQueriesProps {
   topicUrlPrefix: string;
 }
 
+const NUM_COLUMNS = 2;
+
 export function TopicQueries(props: TopicQueriesProps): ReactElement {
+  const generalTopicColumns = useMemo(() => {
+    const examples = props.currentTopic.examples.general;
+    const columnCount = Math.ceil(examples.length / NUM_COLUMNS);
+
+    return Array.from({ length: NUM_COLUMNS }, (_, column) =>
+      examples.slice(column * columnCount, column * columnCount + columnCount)
+    );
+  }, [props.currentTopic.examples.general]);
+
   return (
     <>
       {props.currentTopic.examples.general.length > 0 && (
         <div className="topic-block">
-          <div className="topic-list">
-            {props.currentTopic.examples.general.map((query, i) => (
-              <div className="topic-list-item" key={i}>
-                <QueryLink query={query} appName={props.appName} />
-              </div>
-            ))}
-          </div>
+          {generalTopicColumns.map((column, columnIndex) => (
+            <div
+              className="topic-section"
+              key={columnIndex}
+              style={{ border: "1px solid red" }}
+            >
+              {column.map((query, i) => (
+                <div className="topic-item" key={i}>
+                  <QueryLink query={query} appName={props.appName} />
+                </div>
+              ))}
+            </div>
+          ))}
         </div>
       )}
 
       <div className="topic-block">
-        <h3>Explore statistical variables around the world in the Map explorer tool</h3>
+        <h3>
+          Explore statistical variables around the world in the Map explorer
+          tool
+        </h3>
         <ul className="stats-list">
-          <li><a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit.</a></li>
-          <li><a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit.</a></li>
-          <li><a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit.</a></li>
-          <li><a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit.</a></li>
-          <li><a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit.</a></li>
+          <li>
+            <a href="#">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            </a>
+          </li>
         </ul>
       </div>
 
