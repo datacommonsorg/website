@@ -20,54 +20,90 @@
 
 .topic-block {
   margin: 60px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: calc(#{var.$spacing} * 3);
   h3 {
     @include var.title_lg;
-    margin-bottom: calc(#{var.$spacing} * 3);
+    grid-column: 1 / span 2;
+    max-width: 750px;
   }
 }
 
-.topic-list {
+.topic-section {
   margin: 0;
   padding: 0;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: min-content;
   gap: calc(#{var.$spacing} * 3);
+  align-items: start;
+  justify-content: start;
+  .topic-item {
+    display: block;
+    list-style: none;
+    a {
+      @include var.white-box;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      @include var.text_xl;
+      gap: 10px;
+      padding: calc(#{var.$spacing} * 3);
+      border-radius: calc(#{var.$spacing} * 4);
+    }
+  }
+  &:nth-of-type(1) {
+    .topic-item {
+      &:nth-of-type(3), &:nth-of-type(4) {
+        grid-column: 1 / span 2;
+      }
+      &:nth-of-type(7), &:nth-of-type(8) {
+        grid-column: 1 / span 2;
+      }
+    }
+  }
+  &:nth-of-type(2) {
+    .topic-item {
+      &:nth-of-type(1), &:nth-of-type(4) {
+        grid-column: 1 / span 2;
+      }
+      &:nth-of-type(7), &:nth-of-type(8) {
+        grid-column: 1 / span 2;
+      }
+    }
+  }
 }
 
-.topic-list-item {
-  display: block;
-  list-style: none;
-  a {
-    @include var.white-box;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    @include var.text_xl;
-    gap: 10px;
-    padding: calc(#{var.$spacing} * 3);
-    border-radius: calc(#{var.$spacing} * 4);
+.stats-block {
+  margin: 60px 0;
+  display: flex;
+  flex-direction: column;
+  gap: calc(#{var.$spacing} * 3);
+  h3 {
+    @include var.title_lg;
+    max-width: 750px;
   }
 }
 
 .stats-list {
   margin: 0;
   padding: 0;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   gap: calc(#{var.$spacing} * 3);
-}
-
-.stats-list li {
-  display: block;
-  list-style: none;
-  a {
-    @include var.text_sm;
-    background-color: #C2E7FF;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    padding: calc(#{var.$spacing} * 2) calc(#{var.$spacing} * 4);
-    border-radius: calc(#{var.$spacing} * 4);
+  li {
+    display: inline-block;
+    list-style: none;
+    a {
+      @include var.text_sm;
+      background-color: #C2E7FF;
+      display: flex;
+      align-items: center;
+      gap: var.$spacing;
+      padding: calc(#{var.$spacing} * 1.5) calc(#{var.$spacing} * 2);
+      border-radius: calc(#{var.$spacing} * 4);
+    }
   }
 }

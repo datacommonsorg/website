@@ -47,11 +47,11 @@ export function ComparisonQueries({
     <>
       {currentTopic.examples.general.length > 0 && (
         <div className="topic-block">
+          <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h3>
           {comparisonTopicColumns.map((column, columnIndex) => (
             <div
               className="topic-section"
               key={columnIndex}
-              style={{ border: "1px solid red" }}
             >
               {column.map((query, i) => (
                 <div className="topic-item" key={i}>

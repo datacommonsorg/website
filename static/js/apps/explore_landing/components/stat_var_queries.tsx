@@ -22,33 +22,38 @@ import React, { ReactElement } from "react";
 
 export function StatVarQueries(): ReactElement {
   return (
-    <div className="topic-block">
+    <div className="stats-block">
       <h3>
         Explore statistical variables around the world in the Map explorer tool
       </h3>
       <ul className="stats-list">
         <li>
           <a href="#">
+            <span className="material-icons-outlined">arrow_forward</span>
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
           </a>
         </li>
         <li>
           <a href="#">
+            <span className="material-icons-outlined">arrow_forward</span>
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
           </a>
         </li>
         <li>
           <a href="#">
+            <span className="material-icons-outlined">arrow_forward</span>
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
           </a>
         </li>
         <li>
           <a href="#">
+            <span className="material-icons-outlined">arrow_forward</span>
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
           </a>
         </li>
         <li>
           <a href="#">
+            <span className="material-icons-outlined">arrow_forward</span>
             Lorem ipsum dolor sit amet consectetur adipisicing elit.
           </a>
         </li>
