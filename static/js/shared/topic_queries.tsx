@@ -21,7 +21,6 @@
 import React, { ReactElement } from "react";
 
 import { CLIENT_TYPES } from "../constants/app/explore_constants";
-import { formatNumber } from "../i18n/i18n";
 import { Query, Topic, TopicConfig } from "./topic_config";
 
 interface TopicQueriesProps {
@@ -33,60 +32,43 @@ interface TopicQueriesProps {
 
 export function TopicQueries(props: TopicQueriesProps): ReactElement {
   return (
-    <div className="topic-container">
-      <div className="topic-queries">
-        {props.currentTopic.examples.general.length > 0 && (
-          <div className="topic-queries">
-            <div className="topic-title">Some examples to get started:</div>
-            <ul>
-              {props.currentTopic.examples.general.map((query, i) => (
-                <li key={i}>
-                  <QueryLink query={query} appName={props.appName} />
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-        {props.currentTopic.examples.comparison.length > 0 && (
-          <div className="topic-queries">
-            <div className="topic-title">Combine and compare data:</div>
-            <ul>
-              {props.currentTopic.examples.comparison.map((query, i) => (
-                <li key={i}>
-                  <QueryLink query={query} appName={props.appName} />
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+    <>
+      {props.currentTopic.examples.general.length > 0 && (
+        <div className="topic-block">
+          <ul className="topic-list">
+            {props.currentTopic.examples.general.map((query, i) => (
+              <li key={i}>
+                <QueryLink query={query} appName={props.appName} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <div className="topic-block">
+        <h3>Explore statistical variables around the world in the Map explorer tool</h3>
+        <ul className="stats-list">
+          <li><a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit.</a></li>
+          <li><a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit.</a></li>
+          <li><a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit.</a></li>
+          <li><a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit.</a></li>
+          <li><a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit.</a></li>
+        </ul>
       </div>
-      <div className="topic-sources">
-        Our {props.currentTopic.title.toLocaleLowerCase()} data spans over{" "}
-        <span
-          title={`${formatNumber(
-            props.currentTopic.meta.variableCount,
-            "",
-            true
-          )}`}
-        >
-          {formatNumber(props.currentTopic.meta.variableCount)}
-        </span>{" "}
-        statistical variables. We collect our{" "}
-        {props.currentTopic.title.toLocaleLowerCase()} information from sources
-        such as:{" "}
-        {props.currentTopic.meta.sources.map((s, i) => (
-          <span key={i}>
-            {props.currentTopic.meta.sources.length > 1 &&
-            i === props.currentTopic.meta.sources.length - 1
-              ? "and "
-              : ""}
-            {s}
-            {i === props.currentTopic.meta.sources.length - 1 ? "" : ", "}
-          </span>
-        ))}
-        {"."}
-      </div>
-    </div>
+
+      {props.currentTopic.examples.comparison.length > 0 && (
+        <div className="topic-block">
+          <h3>Compare data in relation to education, housing and commute</h3>
+          <ul className="topic-list">
+            {props.currentTopic.examples.comparison.map((query, i) => (
+              <li key={i}>
+                <QueryLink query={query} appName={props.appName} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </>
   );
 }
 

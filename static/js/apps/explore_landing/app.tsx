@@ -18,20 +18,12 @@
  * Main component for DC Explore.
  */
 import React, { ReactElement } from "react";
-import { Container } from "reactstrap";
-
-import { NlSearchBar } from "../../components/nl_search_bar";
-import {
-  GA_EVENT_NL_SEARCH,
-  GA_PARAM_QUERY,
-  GA_PARAM_SOURCE,
-  GA_VALUE_SEARCH_SOURCE_EXPLORE_LANDING,
-  triggerGAEvent,
-} from "../../shared/ga_events";
 import { Topic, TopicConfig, TopicData } from "../../shared/topic_config";
 import { TopicQueries } from "../../shared/topic_queries";
 import { Item, ItemList } from "../explore/item_list";
 import topicData from "./topics.json";
+import { formatNumber } from "../../i18n/i18n";
+import IntroText from "../../components/content/intro_text";
 
 const topics: TopicData = topicData;
 
@@ -57,14 +49,12 @@ export function App(): ReactElement {
 
   if (!topic) {
     return (
-      <div className="explore-container">
-        <Container>
-          <h1>
-            No topics found for {'"'}
-            {topic}
-            {'"'}
-          </h1>
-        </Container>
+      <div className="container explore-container">
+        <h1>
+          No topics found for {'"'}
+          {topic}
+          {'"'}
+        </h1>
       </div>
     );
   }
@@ -76,42 +66,46 @@ export function App(): ReactElement {
     `/explore#${placeholderQuery.url}` ||
     `/explore#q=${encodeURIComponent(placeholderQuery.title)}&dc=${dc}`;
   return (
-    <div className="explore-container">
-      <Container>
-        <NlSearchBar
-          inputId="query-search-input"
-          onSearch={(q): void => {
-            triggerGAEvent(GA_EVENT_NL_SEARCH, {
-              [GA_PARAM_QUERY]: q,
-              [GA_PARAM_SOURCE]: GA_VALUE_SEARCH_SOURCE_EXPLORE_LANDING,
-            });
-            window.location.href =
-              q.toLocaleLowerCase() === placeholderQuery.title.toLowerCase()
-                ? placeholderHref
-                : `/explore#q=${encodeURIComponent(q)}&dc=${dc}`;
-          }}
-          placeholder={"Enter a question to explore"}
-          initialValue={""}
-          shouldAutoFocus={false}
-        />
-        <div className="explore-title">
-          <div className="explore-title-image">
-            <img alt={`${topic.title} image`} src={topic.image} />
-          </div>
-          <div className="explore-title-text">
-            <h1>{topic.title}</h1>
-            <div className="explore-title-sub-topics">
-              <ItemList items={subTopicItems} />
-            </div>
-          </div>
-        </div>
-        <TopicQueries
-          currentTopic={topic}
-          appName="explore"
-          topicUrlPrefix="/explore/"
-          additionalTopics={additionalTopics}
-        />
-      </Container>
+    <div className="container explore-container">
+      <IntroText>
+        <header>
+          <h1>{topic.title}</h1>
+          <p>
+            Our {topic.title.toLocaleLowerCase()} data spans over{" "}
+            <span
+              title={`${formatNumber(
+                topic.meta.variableCount,
+                "",
+                true
+              )}`}
+            >
+              {formatNumber(topic.meta.variableCount)}
+            </span>{" "}
+            statistical variables. We collect our{" "}
+            {topic.title.toLocaleLowerCase()} information from sources
+            such as:{" "}
+            {topic.meta.sources.map((s, i) => (
+              <span key={i}>
+                {topic.meta.sources.length > 1 &&
+                i === topic.meta.sources.length - 1
+                  ? "and "
+                  : ""}
+                {s}
+                {i === topic.meta.sources.length - 1 ? "" : ", "}
+              </span>
+            ))}
+            {"."}
+          </p>
+        </header>
+      </IntroText>
+    
+      <TopicQueries
+        currentTopic={topic}
+        appName="explore"
+        topicUrlPrefix="/explore/"
+        additionalTopics={additionalTopics}
+      />
+      <ItemList items={subTopicItems} />
     </div>
   );
 }
