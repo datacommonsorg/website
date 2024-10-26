@@ -35,13 +35,13 @@ export function TopicQueries(props: TopicQueriesProps): ReactElement {
     <>
       {props.currentTopic.examples.general.length > 0 && (
         <div className="topic-block">
-          <ul className="topic-list">
+          <div className="topic-list">
             {props.currentTopic.examples.general.map((query, i) => (
-              <li key={i}>
+              <div className="topic-list-item" key={i}>
                 <QueryLink query={query} appName={props.appName} />
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       )}
 

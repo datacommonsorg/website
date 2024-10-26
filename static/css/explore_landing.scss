@@ -34,7 +34,7 @@
   gap: calc(#{var.$spacing} * 3);
 }
 
-.topic-list li {
+.topic-list-item {
   display: block;
   list-style: none;
   a {
