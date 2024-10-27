@@ -46,7 +46,7 @@ export function ComparisonQueries({
   return (
     <>
       {currentTopic.examples.general.length > 0 && (
-        <div className="topic-block">
+        <div className="container topic-block">
           <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h3>
           {comparisonTopicColumns.map((column, columnIndex) => (
             <div

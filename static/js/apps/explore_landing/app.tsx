@@ -56,11 +56,11 @@ export function App(): ReactElement {
     `/explore#${placeholderQuery.url}` ||
     `/explore#q=${encodeURIComponent(placeholderQuery.title)}&dc=${dc}`;*/
   return (
-    <div className="container explore-container">
+    <>
       <ExploreIntro topic={topic} />
       <TopicQueries currentTopic={topic} appName="explore" />
       <StatVarQueries />
       <ComparisonQueries currentTopic={topic} appName="explore" />
-    </div>
+    </>
   );
 }

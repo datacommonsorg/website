@@ -18,15 +18,40 @@
  @import "base";
  @import "./components/intro_text";
 
+
+#explore-landing {
+  &.main-content {
+    margin: 0;
+  }
+  .container {
+    padding: calc(#{var.$spacing} * 8) 0;
+    &.big {
+      padding: calc(#{var.$spacing} * 12) 0;
+      @include media-breakpoint-down(lg) {
+        padding: calc(#{var.$spacing} * 8) calc(#{var.$spacing} * 3);
+      }
+    }
+    @include media-breakpoint-down(lg) {
+      max-width: 100%!important;
+      padding: var.$container-horizontal-padding calc(#{var.$spacing} * 3);
+    }
+  }
+}
+
 .topic-block {
-  margin: 60px 0;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: calc(#{var.$spacing} * 3);
+  @include media-breakpoint-down(md) {
+    grid-template-columns: 1fr;
+  }
   h3 {
     @include var.title_lg;
     grid-column: 1 / span 2;
     max-width: 750px;
+    @include media-breakpoint-down(md) {
+      grid-column: 1;
+    }
   }
 }
 
@@ -39,6 +64,9 @@
   gap: calc(#{var.$spacing} * 3);
   align-items: start;
   justify-content: start;
+  @include media-breakpoint-down(sm) {
+    grid-template-columns: 1fr;
+  }
   .topic-item {
     display: block;
     list-style: none;
@@ -57,9 +85,15 @@
     .topic-item {
       &:nth-of-type(3), &:nth-of-type(4) {
         grid-column: 1 / span 2;
+        @include media-breakpoint-down(sm) {
+          grid-column: 1;
+        }
       }
       &:nth-of-type(7), &:nth-of-type(8) {
         grid-column: 1 / span 2;
+        @include media-breakpoint-down(sm) {
+          grid-column: 1;
+        }
       }
     }
   }
@@ -67,16 +101,21 @@
     .topic-item {
       &:nth-of-type(1), &:nth-of-type(4) {
         grid-column: 1 / span 2;
+        @include media-breakpoint-down(sm) {
+          grid-column: 1;
+        }
       }
       &:nth-of-type(7), &:nth-of-type(8) {
         grid-column: 1 / span 2;
+        @include media-breakpoint-down(sm) {
+          grid-column: 1;
+        }
       }
     }
   }
 }
 
 .stats-block {
-  margin: 60px 0;
   display: flex;
   flex-direction: column;
   gap: calc(#{var.$spacing} * 3);

@@ -22,7 +22,7 @@ import React, { ReactElement } from "react";
 
 export function StatVarQueries(): ReactElement {
   return (
-    <div className="stats-block">
+    <div className="container stats-block">
       <h3>
         Explore statistical variables around the world in the Map explorer tool
       </h3>

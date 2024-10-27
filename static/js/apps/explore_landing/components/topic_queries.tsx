@@ -44,7 +44,7 @@ export function TopicQueries({
   }, [currentTopic.examples.general]);
 
   return (
-    <>
+    <div className="container">
       {currentTopic.examples.general.length > 0 && (
         <div className="topic-block">
           <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h3>
@@ -62,6 +62,6 @@ export function TopicQueries({
           ))}
         </div>
       )}
-    </>
+    </div>
   );
 }
