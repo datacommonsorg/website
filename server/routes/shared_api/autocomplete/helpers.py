@@ -85,6 +85,7 @@ def bag_of_letters(text: str) -> Dict:
   return bag
 
 
+# TODO(gmechali): Look into a better typo algo e.g Levenshtein distance.
 def off_by_one_letter(str1_word: str, name_word: str) -> bool:
   """Function to do off by one check.
   Returns whether the two strings are off by at most one letter.
@@ -166,7 +167,6 @@ def predict(queries: List[str], lang: str) -> List[ScoredPrediction]:
   all_responses.sort(key=get_score)
   logging.info("[Place_Autocomplete] Received %d total place predictions.",
                len(all_responses))
-  print(all_responses)
 
   responses = []
   place_ids = set()

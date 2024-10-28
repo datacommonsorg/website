@@ -15,6 +15,7 @@ import json
 import unittest
 from unittest.mock import patch
 
+from server.routes.shared_api.autocomplete import helpers
 import server.tests.routes.api.mock_data as mock_data
 from web_app import app
 
@@ -65,3 +66,8 @@ class TestAutocomplete(unittest.TestCase):
 
     response_dict = json.loads(response.data.decode("utf-8"))
     self.assertEqual(len(response_dict["predictions"]), 5)
+
+  def test_off_by_one_true(self):
+    text = "Hello"
+    off_by_one_text = "Hallo"
+    self.assertTrue(helpers.off_by_one_letter(text, off_by_one_text))
