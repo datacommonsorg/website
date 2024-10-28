@@ -32,6 +32,16 @@ if [[ $OUTPUT_DIR == "" ]]; then
     exit 1
 fi
 
+if [[ $DATA_RUN_MODE != "" ]]; then
+    if [[ $DATA_RUN_MODE != "schemaupdate" ]]; then
+      echo "DATA_RUN_MODE must be either empty or 'schemaupdate'"
+      exit 1
+    fi
+    echo "DATA_RUN_MODE=$DATA_RUN_MODE"
+else
+  DATA_RUN_MODE="customdc"
+fi
+
 echo "INPUT_DIR=$INPUT_DIR"
 echo "OUTPUT_DIR=$OUTPUT_DIR"
 
@@ -51,7 +61,7 @@ ADDITIONAL_CATALOG_PATH=$DC_NL_EMBEDDINGS_DIR/custom_catalog.yaml
 CUSTOM_EMBEDDINGS_INDEX=user_all_minilm_mem
 
 # Set IS_CUSTOM_DC var to true.
-# This is used by the embeddings builder to set up a custom dc env. 
+# This is used by the embeddings builder to set up a custom dc env.
 export IS_CUSTOM_DC=true
 
 if [[ $USE_SQLITE == "true" ]]; then
@@ -67,15 +77,20 @@ cd $WORKSPACE_DIR/import/simple
 # Run importer.
 python3 -m stats.main \
     --input_dir=$INPUT_DIR \
-    --output_dir=$DC_OUTPUT_DIR
+    --output_dir=$DC_OUTPUT_DIR \
+    --mode=$DATA_RUN_MODE
 
 # cd back to workspace dir to run the embeddings builder.
 cd $WORKSPACE_DIR
 
-# Run embeddings builder.
-python3 -m tools.nl.embeddings.build_embeddings \
-    --embeddings_name=$CUSTOM_EMBEDDINGS_INDEX \
+if [[ $DATA_RUN_MODE == "schemaupdate" ]]; then
+    echo "Skipping embeddings builder because run mode is 'schemaupdate'."
+    echo "Schema update complete."
+else
+    # Run embeddings builder.
+    python3 -m tools.nl.embeddings.build_embeddings \
+        --embeddings_name=$CUSTOM_EMBEDDINGS_INDEX \
     --output_dir=$DC_NL_EMBEDDINGS_DIR \
     --additional_catalog_path=$ADDITIONAL_CATALOG_PATH
-
-echo "Data loading completed."
+  echo "Data loading complete."
+fi
