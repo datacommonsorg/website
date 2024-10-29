@@ -178,6 +178,13 @@ export const GA_EVENT_BUILDPAGE_CLICK = "buildpage_click";
  */
 export const GA_EVENT_AUTOCOMPLETE_SELECTION = "autocomplete_select";
 
+/**
+ * Triggered on autocomplete trigger.
+ * Parameters:
+ *    "query": <sample query>
+ */
+export const GA_EVENT_AUTOCOMPLETE_TRIGGERED = "autocomplete_trigger";
+
 // GA event parameters
 export const GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE =
   "place_category_click_source";
