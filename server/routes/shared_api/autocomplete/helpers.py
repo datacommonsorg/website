@@ -260,7 +260,7 @@ def predict(queries: List[str], lang: str) -> List[ScoredPrediction]:
 
 
 def fetch_place_id_to_dcid(
-    prediction_responses: List[ScoredPrediction]) -> Dict:
+    prediction_responses: List[ScoredPrediction]) -> Dict[str, str]:
   """Fetches the associated DCID for each place ID returned by Google.
   Returns:
     Mapping of Place ID to DCID."""
