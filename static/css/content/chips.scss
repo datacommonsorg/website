@@ -48,6 +48,9 @@
       gap: 10px;
       border-radius: calc(#{var.$spacing} * 10);
       padding: 10px calc(#{var.$spacing} * 3) 10px calc(#{var.$spacing} * 2);
+      .icon svg{
+        fill: #007bff;
+      }
     }
   }
 }
