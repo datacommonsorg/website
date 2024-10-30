@@ -22,6 +22,7 @@ from flask import current_app
 import requests
 
 from server.routes.shared_api.autocomplete.types import ScoredPrediction
+from server.routes.shared_api.place import findplacedcid
 
 MAPS_API_URL = "https://maps.googleapis.com/maps/api/place/autocomplete/json?"
 MIN_CHARACTERS_PER_QUERY = 3
@@ -112,13 +113,15 @@ def get_match_score(match_string: str, name: str) -> float:
   score is best match.
   Returns:
     Float score."""
+  
+  # TODO(gmechali): Replace weird characters in both input and like i with accent, o with two dots etc.
   rgx = re.compile(r'[\s|,]+')
   words_in_name = re.split(rgx, name)
   words_in_str1 = re.split(rgx, match_string)
 
   score = 0
   start_index = 0
-  for str1_word in words_in_str1:
+  for str1_idx, str1_word in enumerate(words_in_str1):
     str1_word = str1_word.lower()
     found_match = False
     for idx, name_word in enumerate(words_in_name):
@@ -126,6 +129,10 @@ def get_match_score(match_string: str, name: str) -> float:
         continue
 
       name_word = name_word.lower()
+      if idx == 0 and str1_idx == 0 and name_word.startswith(str1_word):
+        # boost score for start of query.
+        score -= 0.5
+
       if str1_word == name_word:
         start_index = idx + 1
         score -= 1
@@ -147,6 +154,42 @@ def get_match_score(match_string: str, name: str) -> float:
   return score
 
 
+def score_below_zero(pred: ScoredPrediction) -> bool:
+  """Returns whether the score is below 0."""
+  return pred.score < 0
+
+
+def prepend_continent_hack(responses: List[ScoredPrediction], queries: List[str]) -> List[ScoredPrediction]:
+  queries.reverse()
+  continent_responses = []
+  single_continents = [{'description': 'Europe', 'place_id': 'ChIJhdqtz4aI7UYRefD8s-aZ73I'},
+                          {'description': 'North America', 'place_id': 'ChIJnXKOaXELs1IRgqNhl4MoExM'},
+                          {'description': 'South America', 'place_id': 'ChIJtTRdNRw0CZQRK-PGyc8M1Gk'},
+                          {'description': 'Oceania', 'place_id': 'ChIJQbA4_Cu8QW4RbuvrxISzaks'},
+                          {'description': 'Africa', 'place_id': 'ChIJ1fWMlApsoBARs_CQnslwghA'},
+                          {'description': 'Asia', 'place_id': 'ChIJV-jLJIrxYzYRWfSg0_xrQak'}]
+  for continent in single_continents:
+    scored_prediction = ScoredPrediction(description=continent['description'],
+                                           place_id=continent['place_id'],
+                                           matched_query=queries[0],
+                                           score=get_match_score(queries[0], continent['description']))
+    continent_responses.append(scored_prediction)
+
+  if len(queries) > 1:
+    # double word continent hack
+    double_continents = [{'description': 'North America', 'place_id': 'ChIJnXKOaXELs1IRgqNhl4MoExM'},
+                            {'description': 'South America', 'place_id': 'ChIJtTRdNRw0CZQRK-PGyc8M1Gk'}]
+    for continent in double_continents:
+      scored_prediction = ScoredPrediction(description=continent['description'],
+                                            place_id=continent['place_id'],
+                                            matched_query=queries[1],
+                                            score=get_match_score(queries[1], continent['description']))
+      continent_responses.append(scored_prediction)
+
+  continent_responses = list(filter(score_below_zero, continent_responses))
+  return continent_responses + responses
+
+  
 def predict(queries: List[str], lang: str) -> List[ScoredPrediction]:
   """Trigger maps prediction api requests and parse the output. Remove duplication responses and limit the number of results.
   Returns:
@@ -164,14 +207,19 @@ def predict(queries: List[str], lang: str) -> List[ScoredPrediction]:
                                                query, pred['description']))
       all_responses.append(scored_prediction)
 
+  # single word continent hack
+  all_responses = prepend_continent_hack(all_responses, queries)
+
   all_responses.sort(key=get_score)
   logging.info("[Place_Autocomplete] Received %d total place predictions.",
                len(all_responses))
+  # all_responses = list(filter(score_below_zero, all_responses))
+
 
   responses = []
   place_ids = set()
   index = 0
-  while len(responses) < DISPLAYED_RESPONSE_COUNT_LIMIT and index < len(
+  while len(responses) < 2 * DISPLAYED_RESPONSE_COUNT_LIMIT and index < len(
       all_responses):
     if all_responses[index].place_id not in place_ids:
       responses.append(all_responses[index])
@@ -180,6 +228,27 @@ def predict(queries: List[str], lang: str) -> List[ScoredPrediction]:
 
   return responses
 
+def fetch_place_id_to_dcid(prediction_responses: List[ScoredPrediction]) -> Dict:
+  place_ids = []
+  for prediction in prediction_responses:
+    place_ids.append(prediction.place_id)
+
+  place_id_to_dcid = dict()
+  if place_ids:
+    place_id_to_dcid = json.loads(findplacedcid(place_ids).data)
+  
+  place_id_to_dcid['ChIJhdqtz4aI7UYRefD8s-aZ73I'] = 'europe'
+  place_id_to_dcid['ChIJtTRdNRw0CZQRK-PGyc8M1Gk'] = 'southamerica'
+  place_id_to_dcid['ChIJnXKOaXELs1IRgqNhl4MoExM'] = 'northamerica'
+  place_id_to_dcid['ChIJV-jLJIrxYzYRWfSg0_xrQak'] = 'asia'
+  place_id_to_dcid['ChIJS3WQM3uWuaQRdSAPdB--Um4'] = 'antarctica'
+  place_id_to_dcid['ChIJQbA4_Cu8QW4RbuvrxISzaks'] = 'oceania'
+  place_id_to_dcid['ChIJ1fWMlApsoBARs_CQnslwghA'] = 'africa'
+
+  logging.info("[Place_Autocomplete] Found %d place ID to DCID mappings.",
+               len(place_id_to_dcid))
+
+  return place_id_to_dcid
 
 def get_score(p: ScoredPrediction) -> float:
   """Returns the score."""

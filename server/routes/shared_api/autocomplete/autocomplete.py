@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import json
 import logging
 
 from flask import Blueprint
@@ -22,7 +21,6 @@ from flask import request
 from server.routes.shared_api.autocomplete import helpers
 from server.routes.shared_api.autocomplete.types import AutoCompleteApiResponse
 from server.routes.shared_api.autocomplete.types import AutoCompleteResult
-from server.routes.shared_api.place import findplacedcid
 
 # TODO(gmechali): Add Stat Var search.
 
@@ -45,15 +43,7 @@ def autocomplete():
   # Send requests to the Google Maps Predictions API.
   prediction_responses = helpers.predict(queries, lang)
 
-  place_ids = []
-  for prediction in prediction_responses:
-    place_ids.append(prediction.place_id)
-
-  place_id_to_dcid = []
-  if place_ids:
-    place_id_to_dcid = json.loads(findplacedcid(place_ids).data)
-  logging.info("[Place_Autocomplete] Found %d place ID to DCID mappings.",
-               len(place_id_to_dcid))
+  place_id_to_dcid = helpers.fetch_place_id_to_dcid(prediction_responses)
 
   final_predictions = []
   for prediction in prediction_responses:
@@ -64,6 +54,10 @@ def autocomplete():
           matched_query=prediction.matched_query,
           dcid=place_id_to_dcid[prediction.place_id])
       final_predictions.append(current_prediction)
+
+      if len(final_predictions) == helpers.DISPLAYED_RESPONSE_COUNT_LIMIT:
+        break
+
   logging.info(
       "[Place_Autocomplete] Returning a total of %d place predictions.",
       len(final_predictions))
