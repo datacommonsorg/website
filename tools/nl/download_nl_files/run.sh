@@ -19,4 +19,4 @@ source .env/bin/activate
 python3 -m pip install --upgrade pip
 python3 -m pip install -r nl_server/requirements.txt -q
 python3 -m pip install -r tools/nl/download_nl_files/requirements.txt -q
-python3 -m tools.nl.download_nl_files.download_nl_files 
+python3 -m tools.nl.download_nl_files.download_nl_files --catalog_path="deploy/nl/catalog.yaml"
