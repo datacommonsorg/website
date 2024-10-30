@@ -17,4 +17,3 @@ from server.webdriver.base import WebdriverBaseTest
 class BaseDcWebdriverTest(WebdriverBaseTest):
   """Base class for base DC webdriver tests."""
   dc_title_string = "Data Commons"
-  print('to trigger webdriver')
