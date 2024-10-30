@@ -49,14 +49,14 @@ CONTINENTS = [{
     'place_id': 'ChIJV-jLJIrxYzYRWfSg0_xrQak'
 }] + TWO_WORD_CONTINENTS
 CONTINENT_PLACE_ID_TO_DCID = {
-'ChIJhdqtz4aI7UYRefD8s-aZ73I': 'europe',
-  'ChIJtTRdNRw0CZQRK-PGyc8M1Gk': 'southamerica',
-  'ChIJnXKOaXELs1IRgqNhl4MoExM': 'northamerica',
-  'ChIJV-jLJIrxYzYRWfSg0_xrQak': 'asia',
-  'ChIJS3WQM3uWuaQRdSAPdB--Um4': 'antarctica',
-  'ChIJQbA4_Cu8QW4RbuvrxISzaks': 'oceania',
-  'ChIJ1fWMlApsoBARs_CQnslwghA': 'africa'
-  }
+    'ChIJhdqtz4aI7UYRefD8s-aZ73I': 'europe',
+    'ChIJtTRdNRw0CZQRK-PGyc8M1Gk': 'southamerica',
+    'ChIJnXKOaXELs1IRgqNhl4MoExM': 'northamerica',
+    'ChIJV-jLJIrxYzYRWfSg0_xrQak': 'asia',
+    'ChIJS3WQM3uWuaQRdSAPdB--Um4': 'antarctica',
+    'ChIJQbA4_Cu8QW4RbuvrxISzaks': 'oceania',
+    'ChIJ1fWMlApsoBARs_CQnslwghA': 'africa'
+}
 
 
 def find_queries(user_query: str) -> List[str]:
@@ -159,7 +159,7 @@ def get_match_score(match_string: str, name: str) -> float:
       name_word = name_word.lower()
       if idx == 0 and str1_idx == 0 and name_word.startswith(str1_word):
         # boost score for start of query.
-        score -= 0.5
+        score -= 0.25
 
       if str1_word == name_word:
         start_index = idx + 1
@@ -280,6 +280,7 @@ def fetch_place_id_to_dcid(
                len(place_id_to_dcid))
 
   return place_id_to_dcid
+
 
 def get_score(p: ScoredPrediction) -> float:
   """Returns the score."""
