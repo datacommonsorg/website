@@ -18,7 +18,7 @@
  * Standard version of the suggested results for the auto-complete capable NL Search bar.
  */
 
-import React, { ReactElement, useState, useEffect } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 
 import {
   GA_EVENT_AUTOCOMPLETE_TRIGGERED,
@@ -51,7 +51,7 @@ export function AutoCompleteSuggestions(
     if (!triggered && props.allResults.length > 0) {
       setTriggered(true);
       triggerGAEvent(GA_EVENT_AUTOCOMPLETE_TRIGGERED, {
-        [GA_PARAM_QUERY]: props.baseInput
+        [GA_PARAM_QUERY]: props.baseInput,
       });
     }
   }, [props.allResults]);
