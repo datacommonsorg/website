@@ -35,9 +35,8 @@ const NlSearchBarHeaderInline = ({
   const urlParams = new URLSearchParams(window.location.search);
   const isAutopushEnv = window.location.hostname == "autopush.datacommons.org";
   const enableAutoComplete =
-    isAutopushEnv || urlParams.has("ac_on")
-      ? urlParams.get("ac_on") == "true"
-      : false;
+    isAutopushEnv ||
+    (urlParams.has("ac_on") && urlParams.get("ac_on") == "true");
 
   return (
     <div className="header-search-section">
