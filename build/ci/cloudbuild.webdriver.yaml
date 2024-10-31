@@ -30,13 +30,26 @@ steps:
         # ./run_test.sh -b will build client packages.
         # These js files generated will be necessery for the flask_webdriver_test task.
         ./run_test.sh -b
+  
+  # Download the files needed for nl server to run. Do the download here because
+  # webdriver runs on mulitple processes & we only want to do the download once.
+  - id: download_nl_files
+    name: python:3.11.3
+    entrypoint: /bin/sh
+    waitFor:
+      - package_js
+    args:
+      - -c
+      - |
+        cd tools/nl/download_nl_files
+        ./run.sh
 
   # Run the webdriver tests
   - id: flask_webdriver_test
     name: gcr.io/datcom-ci/webdriver-chrome:2024-06-05
     entrypoint: /bin/sh
     waitFor:
-      - package_js
+      - download_nl_files
     args:
       - -c
       - |
