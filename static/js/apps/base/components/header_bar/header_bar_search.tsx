@@ -27,11 +27,17 @@ import {
   triggerGAEvent,
 } from "../../../../shared/ga_events";
 
-const HeaderBarSearch = (): ReactElement => {
+interface HeaderBarSearchProps {
+  inputId?: string;
+}
+
+const HeaderBarSearch = ({
+  inputId = "query-search-input",
+}: HeaderBarSearchProps): ReactElement => {
   return (
     <NlSearchBar
       variant="header-inline"
-      inputId="query-search-input"
+      inputId={inputId}
       onSearch={(q): void => {
         triggerGAEvent(GA_EVENT_NL_SEARCH, {
           [GA_PARAM_QUERY]: q,
