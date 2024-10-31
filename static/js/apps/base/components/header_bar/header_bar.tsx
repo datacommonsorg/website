@@ -66,9 +66,7 @@ const HeaderBar = ({
             labels={labels}
             routes={routes}
           />
-          {showHeaderSearchBar && up("lg") && (
-            <HeaderBarSearch inputId={"query-search-input-desktop"} />
-          )}
+          {showHeaderSearchBar && up("lg") && <HeaderBarSearch />}
           <MenuDesktop menu={menu} labels={labels} routes={routes} />
         </div>
         <div className="navbar-menu-mobile">
@@ -79,9 +77,7 @@ const HeaderBar = ({
             labels={labels}
             routes={routes}
           />
-          {showHeaderSearchBar && down("md") && (
-            <HeaderBarSearch inputId={"query-search-input-mobile"} />
-          )}
+          {showHeaderSearchBar && down("md") && <HeaderBarSearch />}
           <MenuMobile menu={menu} labels={labels} routes={routes} />
         </div>
       </nav>
