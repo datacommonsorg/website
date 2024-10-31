@@ -16,7 +16,7 @@
 
 /* Styles for the header reflected in version 2 of the homepage */
 
-@use "./new_variables" as var;
+@use "./variables" as var;
 @import "base";
 
 $header-desktop-height: 96px;
@@ -151,17 +151,16 @@ section {
 
         li {
           display: flex;
-          align-items: stretch;
+          align-items: center;
           margin: 0;
           padding: 0;
 
           .menu-main-button {
             border: 0;
-            padding: 0;
+            padding: 8px 0;
             margin: 0;
             display: flex;
             align-items: center;
-            height: 100%;
             background-color: transparent;
             .menu-main-label {
               font-size: 0.875rem;
@@ -185,7 +184,7 @@ section {
           .menu-main-link {
             display: flex;
             align-items: center;
-            height: 100%;
+            padding: 8px 0;
             color: #474747;
             transition: color 0.3s ease-in-out;
             font-size: 0.875rem;
@@ -244,15 +243,17 @@ section {
           font-size: 1.4rem;
           font-weight: 100;
         }
-        h4 {
-          font-family: $font-family-google-title;
-          font-size: 1rem;
-          text-transform: uppercase;
-          color: #5e5e5e;
-          font-weight: 300;
-          margin: 0 0 32px 0;
+        .group {
+          h3 {
+            font-family: $font-family-google-title;
+            font-size: 1rem;
+            text-transform: uppercase;
+            color: #5e5e5e;
+            font-weight: 300;
+            margin: 0 0 32px 0;
+          }
         }
-        h5 {
+        h4 {
           font-family: $font-family-google-title;
           font-size: 1rem;
           font-weight: 500;
@@ -504,14 +505,16 @@ section {
               font-size: 1.4rem;
               font-weight: 100;
             }
-            h4 {
-              font-family: $font-family-google-title;
-              font-size: 1rem;
-              text-transform: uppercase;
-              color: #5e5e5e;
-              font-weight: 300;
+            .group {
+              h3 {
+                font-family: $font-family-google-title;
+                font-size: 1rem;
+                text-transform: uppercase;
+                color: #5e5e5e;
+                font-weight: 300;
+              }
             }
-            h5 {
+            h4 {
               font-family: $font-family-google-title;
               font-size: 1rem;
               font-weight: 500;
@@ -603,8 +606,8 @@ section {
 
       .search-input-text {
         display: block;
-        padding: 0px;
-        margin: 0px;
+        padding: 0;
+        margin: 0;
         width: 150px;
         flex-grow: 10;
         height: 38px;
@@ -657,7 +660,7 @@ section {
       .search-input-result-section {
         display: flex;
         flex-direction: column;
-        padding: 10px 0px;
+        padding: 10px 0;
 
         .search-input-result {
           display: flex;
@@ -682,7 +685,7 @@ section {
     } 
 
     .result-divider {
-      margin: 0px;
+      margin: 0;
     }
   }
 
