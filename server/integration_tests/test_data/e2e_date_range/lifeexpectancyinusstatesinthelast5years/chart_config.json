@@ -155,6 +155,38 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Count_Death"
+                    ],
+                    "title": "Number of Deaths in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death"
+                    ],
+                    "title": "Number of Deaths in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Number of Deaths in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "lineTileSpec": {
                       "startDate": "2019"
                     },
@@ -277,6 +309,38 @@
               }
             ],
             "title": "Causes of Death"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_Female"
+                    ],
+                    "title": "Count of Mortality Event: Female in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_Female"
+                    ],
+                    "title": "Count of Mortality Event: Female in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Mortality Event: Female in States of United States"
           },
           {
             "columns": [
@@ -1579,6 +1643,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "",
   "userMessages": []
 }

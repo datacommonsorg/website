@@ -26,7 +26,7 @@ import { AutoCompleteResult } from "./auto_complete_input";
 interface AutoCompleteSuggestionsPropType {
   allResults: AutoCompleteResult[];
   baseInput: string;
-  onClick: (result: AutoCompleteResult) => void;
+  onClick: (result: AutoCompleteResult, idx: number) => void;
   hoveredIdx: number;
 }
 
@@ -56,7 +56,7 @@ export function AutoCompleteSuggestions(
                 <div
                   className="search-input-result"
                   key={"search-input-result-" + result.dcid}
-                  onClick={() => props.onClick(result)}
+                  onClick={() => props.onClick(result, idx)}
                 >
                   <span className="material-icons-outlined search-result-icon">
                     {getIcon(props.baseInput, result.matched_query)}

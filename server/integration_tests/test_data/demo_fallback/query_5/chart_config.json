@@ -347,34 +347,6 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "UnemploymentRate_Person_Female"
-                    ],
-                    "title": "Unemployment Rate of Females in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Unemployment Rate of Females in United States",
-                    "statVarKey": [
-                      "UnemploymentRate_Person_Female"
-                    ],
-                    "title": "Unemployment Rate of Females in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Unemployment Rate of Females"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "barTileSpec": {
                       "maxPlaces": 15,
                       "maxVariables": 15,
@@ -1014,10 +986,6 @@
             "name": "Unemployment Rate",
             "statVar": "UnemploymentRate_Person"
           },
-          "UnemploymentRate_Person_Female": {
-            "name": "Unemployment Rate of Females",
-            "statVar": "UnemploymentRate_Person_Female"
-          },
           "dc/1j7jmy39fwhw5_multiple_place_bar_block": {
             "name": "Establishments in Agriculture, Forestry, Fishing And Hunting",
             "statVar": "dc/1j7jmy39fwhw5"
@@ -1413,6 +1381,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "",
   "userMessages": []
 }

@@ -165,18 +165,9 @@ $resize-handle-width: 5px;
   background-color: $transparent-red;
 }
 
-.node-title {
-  /**
-   * Width of line items / nodes in the stat var selector tree
-   * Calculated by taking the entire component width, subtracting margins, and
-   * subtracting the resize handle
-   */
-  min-width: $widget-min-width - 2 * $container-outer-horizontal-margin -
-    $resize-handle-width;
-}
-
 form.node-title {
   padding-left: 2px;
+  align-items: flex-start;
 }
 
 #hierarchy-section .node-title:hover {

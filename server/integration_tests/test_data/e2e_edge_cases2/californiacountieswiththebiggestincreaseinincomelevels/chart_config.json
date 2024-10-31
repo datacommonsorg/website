@@ -1127,6 +1127,5 @@
   },
   "svSource": "CURRENT_QUERY",
   "test": "filter_test",
-  "userMessage": "",
   "userMessages": []
 }
