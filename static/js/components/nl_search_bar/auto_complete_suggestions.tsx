@@ -18,8 +18,13 @@
  * Standard version of the suggested results for the auto-complete capable NL Search bar.
  */
 
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 
+import {
+  GA_EVENT_AUTOCOMPLETE_TRIGGERED,
+  GA_PARAM_QUERY,
+  triggerGAEvent,
+} from "../../shared/ga_events";
 import { stripPatternFromQuery } from "../../shared/util";
 import { AutoCompleteResult } from "./auto_complete_input";
 
@@ -33,12 +38,23 @@ interface AutoCompleteSuggestionsPropType {
 export function AutoCompleteSuggestions(
   props: AutoCompleteSuggestionsPropType
 ): ReactElement {
+  const [triggered, setTriggered] = useState(false);
+
   function getIcon(query: string, matched_query: string): string {
     if (query == matched_query) {
       return "location_on";
     }
     return "search";
   }
+
+  useEffect(() => {
+    if (!triggered && props.allResults.length > 0) {
+      setTriggered(true);
+      triggerGAEvent(GA_EVENT_AUTOCOMPLETE_TRIGGERED, {
+        [GA_PARAM_QUERY]: props.baseInput,
+      });
+    }
+  }, [props.allResults]);
 
   return (
     <div className="search-results-place search-results-section">

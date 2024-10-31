@@ -287,6 +287,7 @@ export function AutoCompleteInput(
               id={props.inputId}
               invalid={props.invalid}
               placeholder={props.placeholder}
+              aria-label={props.placeholder}
               value={inputText}
               onChange={onInputChange}
               onKeyDown={(event) => handleKeydownEvent(event)}
