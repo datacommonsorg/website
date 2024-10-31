@@ -30,6 +30,11 @@ import React, {
 } from "react";
 import { Input, InputGroup } from "reactstrap";
 
+import {
+  GA_EVENT_AUTOCOMPLETE_SELECTION,
+  GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX,
+  triggerGAEvent,
+} from "../../shared/ga_events";
 import { stripPatternFromQuery } from "../../shared/util";
 import {
   useInsideClickAlerter,
@@ -72,6 +77,8 @@ export function AutoCompleteInput(
   const [hoveredIdx, setHoveredIdx] = useState(-1);
   const [triggerSearch, setTriggerSearch] = useState("");
   const [inputActive, setInputActive] = useState(false);
+  const [lastAutoCompleteSelection, setLastAutoCompleteSelection] =
+    useState("");
 
   const isHeaderBar = props.barType == "header";
   let lang = "";
@@ -88,6 +95,16 @@ export function AutoCompleteInput(
     const urlParams = new URLSearchParams(window.location.search);
     lang = urlParams.has("hl") ? urlParams.get("hl") : "en";
   }, []);
+
+  useEffect(() => {
+    // For the first load when q= param is set, we want to ensure the
+    // props.value is propagated if it doesn't match input text.
+    // Afterwards, the onInputchange method is responsible for updating
+    // the text.
+    if (props.value != inputText) {
+      changeText(props.value);
+    }
+  }, [props.value]);
 
   // Clear suggested results when click registered outside of component.
   useOutsideClickAlerter(wrapperRef, () => {
@@ -113,17 +130,45 @@ export function AutoCompleteInput(
 
     const selectionApplied =
       hoveredIdx >= 0 &&
-      results.placeResults.length >= hoveredIdx &&
+      hoveredIdx < results.placeResults.length &&
       currentText.trim().endsWith(results.placeResults[hoveredIdx].name);
-    setHoveredIdx(-1);
 
-    if (_.isEmpty(currentText) || selectionApplied) {
+    let lastSelection = lastAutoCompleteSelection;
+    if (selectionApplied) {
+      // Trigger Google Analytics event to track the index of the selected autocomplete result.
+      triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION, {
+        [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(hoveredIdx),
+      });
+
       // Reset all suggestion results.
       setResults({ placeResults: [], svResults: [] });
+      setHoveredIdx(-1);
+      // Set the autocomplete selection.
+      setLastAutoCompleteSelection(results.placeResults[hoveredIdx].name);
       return;
+    } else if (_.isEmpty(currentText)) {
+      // Reset all suggestion results.
+      setResults({ placeResults: [], svResults: [] });
+      setLastAutoCompleteSelection("");
+      setHoveredIdx(-1);
+      return;
+    } else if (!currentText.includes(lastAutoCompleteSelection)) {
+      // If the user backspaces into the last selection, reset it.
+      lastSelection = "";
+      setLastAutoCompleteSelection(lastSelection);
+      // fall through
     }
 
-    sendDebouncedAutoCompleteRequest(currentText);
+    let queryForAutoComplete = currentText;
+    if (!_.isEmpty(lastSelection)) {
+      // if the last selection is still present, only send what comes after to autocomplete.
+      const splitQuery = queryForAutoComplete.split(lastSelection);
+      if (splitQuery.length == 2) {
+        queryForAutoComplete = splitQuery[1].trim();
+      }
+    }
+
+    sendDebouncedAutoCompleteRequest(queryForAutoComplete);
   }
 
   const triggerAutoCompleteRequest = useCallback(async (query: string) => {
@@ -159,7 +204,7 @@ export function AutoCompleteInput(
       case "Enter":
         event.preventDefault();
         if (hoveredIdx >= 0) {
-          selectResult(results.placeResults[hoveredIdx]);
+          selectResult(results.placeResults[hoveredIdx], hoveredIdx);
         } else {
           props.onSearch();
         }
@@ -196,7 +241,12 @@ export function AutoCompleteInput(
     changeText(textDisplayed);
   }
 
-  function selectResult(result: AutoCompleteResult): void {
+  function selectResult(result: AutoCompleteResult, idx: number): void {
+    // Trigger Google Analytics event to track the index of the selected autocomplete result.
+    triggerGAEvent(GA_EVENT_AUTOCOMPLETE_SELECTION, {
+      [GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX]: String(idx),
+    });
+
     if (
       result["match_type"] == LOCATION_SEARCH &&
       stripPatternFromQuery(baseInput, result.matched_query).trim() === ""
@@ -237,6 +287,7 @@ export function AutoCompleteInput(
               id={props.inputId}
               invalid={props.invalid}
               placeholder={props.placeholder}
+              aria-label={props.placeholder}
               value={inputText}
               onChange={onInputChange}
               onKeyDown={(event) => handleKeydownEvent(event)}

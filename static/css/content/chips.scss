@@ -15,15 +15,16 @@
  */
 
 /**
- * Styles for the topics component located on the home page
+ * Styles for the LinkChips component and any other component that will display chips in the same way
  */
 
-.topics {
+.chip-section {
   h3 {
     @include var.title_xs;
     margin-bottom: calc(#{var.$spacing} * 3);
   }
-  .topics-container {
+
+  .chip-container {
     margin: 0;
     padding: 0;
     display: flex;
@@ -34,7 +35,8 @@
       max-width: 100%;
     }
   }
-  .topic-item {
+
+  .chip-item {
     display: block;
     list-style: none;
     a {

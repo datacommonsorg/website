@@ -93,11 +93,6 @@
       "place_type": "Country"
     },
     {
-      "dcid": "country/DEU",
-      "name": "Germany",
-      "place_type": "Country"
-    },
-    {
       "dcid": "country/IND",
       "name": "India",
       "place_type": "Country"
@@ -159,7 +154,6 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "Data for \"Germany\" is currently unavailable. See the following statistics on the other places.",
   "userMessages": [
     "Data for \"Germany\" is currently unavailable. See the following statistics on the other places."
   ]

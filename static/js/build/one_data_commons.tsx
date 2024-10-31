@@ -8,6 +8,7 @@ const OneDataCommons = (): ReactElement => {
     return [
       <MediaText
         key={0}
+        alt={"One Data Commons Website Screenshot"}
         mediaType="image"
         mediaSource="images/content/build/ONEData.png"
       >
