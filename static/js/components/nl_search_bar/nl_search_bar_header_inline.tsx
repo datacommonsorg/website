@@ -34,9 +34,9 @@ const NlSearchBarHeaderInline = ({
 }: NlSearchBarImplementationProps): ReactElement => {
   const urlParams = new URLSearchParams(window.location.search);
   const isAutopushEnv = window.location.hostname == "autopush.datacommons.org";
-  const enableAutoComplete = isAutopushEnv
-    ? true
-    : urlParams.has("ac_on") && urlParams.get("ac_on") == "true";
+  const enableAutoComplete =
+    isAutopushEnv ||
+    (urlParams.has("ac_on") && urlParams.get("ac_on") == "true");
 
   return (
     <div className="header-search-section">
