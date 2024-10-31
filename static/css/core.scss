@@ -16,7 +16,7 @@
 
 /* Styles for the header reflected in version 2 of the homepage */
 
-@use "./new_variables" as var;
+@use "./variables" as var;
 @import "base";
 
 $header-desktop-height: 96px;

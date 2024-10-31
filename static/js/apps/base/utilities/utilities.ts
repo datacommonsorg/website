@@ -140,10 +140,19 @@ export const extractLabels = (elementId = "metadata-labels"): Labels => {
   return labels;
 };
 
-//A breakpoints constant object for responsiveness, for access on the TypeScript side.
+/*
+  A breakpoints constant object for responsiveness, for access on the TypeScript side.
+  These are the default breakpoints for a page that does not have custom breakpoints and are
+  applied in: `static/css/base.scss`
+
+  If a page does not use default breakpoints and those breakpoints are required on
+  the TypeScript side, a separate breakpoint object should be created.
+*/
 export const BREAKPOINTS = {
-  sm: 599,
-  md: 746,
-  mdExpanded: 859,
-  lg: 1440,
+  xs: 0,
+  sm: 576,
+  md: 768,
+  lg: 1068,
+  xl: 1350,
+  xxl: 1400,
 };
