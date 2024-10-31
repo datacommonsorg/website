@@ -33,7 +33,8 @@ const NlSearchBarHeaderInline = ({
   shouldAutoFocus,
 }: NlSearchBarImplementationProps): ReactElement => {
   const urlParams = new URLSearchParams(window.location.search);
-  const enableAutoComplete = urlParams.has("ac_on")
+  const isAutopushEnv = window.location.hostname == "stat";
+  const enableAutoComplete = isAutopushEnv || urlParams.has("ac_on")
     ? urlParams.get("ac_on") == "true"
     : false;
 
