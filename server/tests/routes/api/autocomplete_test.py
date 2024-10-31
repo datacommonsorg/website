@@ -15,6 +15,7 @@ import json
 import unittest
 from unittest.mock import patch
 
+from server.routes.shared_api.autocomplete import helpers
 import server.tests.routes.api.mock_data as mock_data
 from web_app import app
 
@@ -65,3 +66,22 @@ class TestAutocomplete(unittest.TestCase):
 
     response_dict = json.loads(response.data.decode("utf-8"))
     self.assertEqual(len(response_dict["predictions"]), 5)
+
+  # Tests for helpers within autocomplete.
+  def test_bag_of_words_same(self):
+    """Tests that bag of words passes for same letters."""
+    text = "San"
+    reordered_text = "Sna"
+    self.assertTrue(helpers.off_by_one_letter(text, reordered_text))
+
+  def test_bag_of_words_off_by_one(self):
+    """Tests that bag of words passes when off by one."""
+    text = "Diego"
+    off_by_one_text = "Digo"
+    self.assertTrue(helpers.off_by_one_letter(text, off_by_one_text))
+
+  def test_bag_of_words_off_by_two(self):
+    """Tests that bag of words passes when off by two."""
+    text = "Diego"
+    off_by_one_text = "Diaga"
+    self.assertFalse(helpers.off_by_one_letter(text, off_by_one_text))
