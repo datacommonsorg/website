@@ -169,6 +169,7 @@ resource "google_secret_manager_secret_version" "dc_api_key_version" {
 resource "google_cloud_run_v2_service" "dc_web_service" {
   name     = "${var.namespace}-datacommons-web-service"
   location = var.region
+  deletion_protection = false
 
   template {
     containers {
@@ -320,6 +321,8 @@ resource "google_cloud_run_service_iam_member" "dc_web_service_invoker" {
 resource "google_cloud_run_v2_job" "dc_data_job" {
   name     = "${var.namespace}-datacommons-data-job"
   location = var.region
+  deletion_protection = false
+
   template { 
     template {
       containers {
