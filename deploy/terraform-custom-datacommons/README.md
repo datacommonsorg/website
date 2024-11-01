@@ -56,8 +56,8 @@ dc_api_key  = "your-api-key"
 
 - **region**: The [GCP region](https://cloud.google.com/about/locations) where resources will be deployed.
 - **enable_redis**: Set to true to enable redis caching (default: false)
-- **dc_web_service_image**: Docker image to use for the services container. Default: `gcr.io/datcom-ci/datacommons-services:stable`
-- **dc_data_job_image**: Docker image to use for the data loading job. Default: `gcr.io/datcom-ci/datacommons-data:stable`
+- **dc_web_service_image**: Docker image to use for the services container. Default: `gcr.io/datcom-ci/datacommons-services:stable`. Set to `gcr.io/datcom-ci/datacommons-services:latest` to use the latest web service image.
+- **dc_data_job_image**: Docker image to use for the data loading job. Default: `gcr.io/datcom-ci/datacommons-data:stable`. Set to `gcr.io/datcom-ci/datacommons-data:latest` to use the latest data job image.
 - **make_dc_web_service_public**: By default, the Data Commons web service is publicly accessible. Set this to `false` if your GCP account has restrictions on public access. [Reference](https://cloud.google.com/run/docs/authenticating/public).
 - **google_analytics_tag_id**: Set to your [Google Analytics Tag ID](https://support.google.com/analytics/answer/9539598) to enable Google Analytics tracking.
 
