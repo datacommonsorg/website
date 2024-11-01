@@ -15,7 +15,7 @@
 import json
 import logging
 import re
-from typing import Dict, List, Optional
+from typing import Dict, List
 from urllib.parse import urlencode
 
 from flask import current_app
