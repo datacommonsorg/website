@@ -50,7 +50,7 @@ dc_api_key  = "your-api-key"
 
 - **project_id**: The Google Cloud project ID where the resources will be created.
 - **namespace**: A unique namespace to differentiate multiple instances of custom Data Commons within the same project.
-- **dc_api_key**: Data Commons API key. [Request an API key](https://docs.google.com/forms/d/e/1FAIpQLSeVCR95YOZ56ABsPwdH1tPAjjIeVDtisLF-8oDYlOxYmNZ7LQ/viewform?resourcekey=0-yJ9nT9ST-TfoKNtmGIws-g)
+- **dc_api_key**: Data Commons API key. [Request an API key](https://apikeys.datacommons.org)
 
 #### Optional Configuration Variables
 
