@@ -22,6 +22,7 @@
 $header-desktop-height: 96px;
 $header-mobile-height: 152px;
 $header-mobile-height-xs: 128px;
+$header-max-width: 1728px;
 
 // Component Variables
 
@@ -31,6 +32,12 @@ $font-family-google-text: "Google Sans Text", Arial, sans-serif,
   "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 
 // Styles
+
+body.drawer-open {
+  @include media-breakpoint-down(md) {
+    overflow: hidden;
+  }
+}
 
 section {
   &.blue {
@@ -78,17 +85,16 @@ section {
 
 #main-nav {
   position: relative;
-  display: flex;
-  align-items: stretch;
+  width: 100vw;
   height: fit-content;
 
   .navbar-menu-large {
     display: flex;
-    flex-grow: 1;
-    align-items: stretch;
     gap: calc(#{var.$spacing} * 4);
+    padding: 0 calc(#{var.$spacing} * 3);
     margin: auto;
-    max-width: 1920px;
+    width: 100%;
+    max-width: $header-max-width;
     justify-content: space-between;
     height: $header-desktop-height;
     background: white;
@@ -109,12 +115,6 @@ section {
         font-size: 1rem !important;
       }
     }
-    @include media-breakpoint-up(xl) {
-      padding: 0 0 0 32px;
-    }
-    @include media-breakpoint-down(xl) {
-      padding: 0 0 0 16px;
-    }
 
     .panel {
       width: 100vw;
@@ -131,24 +131,18 @@ section {
 
     .header-menu {
       display: flex;
-      justify-content: right;
-      align-items: stretch;
-      transition: flex-basis 0.4s ease-in-out;
-
+      max-width: 450px;
       &-list {
         display: flex;
         align-items: stretch;
         list-style: none;
         margin: 0;
         @include media-breakpoint-up(xl) {
-          gap: 32px;
-          padding: 0 32px;
+          gap: calc(#{var.$spacing} * 4);
         }
         @include media-breakpoint-down(xl) {
-          gap: 16px;
-          padding: 0 16px 0 0;
+          gap: calc(#{var.$spacing} * 2);
         }
-
         li {
           display: flex;
           align-items: center;
@@ -172,8 +166,6 @@ section {
               padding: 0;
               display: inline-block;
               transition: transform 0.3s ease;
-              font-size: 1.45rem;
-              transform: translateY(1px);
             }
 
             .menu-arrow-icon.open {
@@ -213,11 +205,17 @@ section {
 
       .rich-menu-content {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        gap: 32px;
+        grid-template-columns: minmax(400px, 1fr) 1fr 1fr;
+        @include media-breakpoint-up(xl) {
+          grid-template-columns: minmax(400px, 1fr) 1fr 1fr 1fr;
+        }
+        &.has-secondary {
+          grid-template-columns: minmax(400px, 1fr) 1fr 1fr 1fr;
+        }
+        gap: calc(#{var.$spacing} * 4);
         margin: 0 auto;
-        padding: 32px;
-        max-width: 1920px;
+        padding: calc(#{var.$spacing} * 4) 0;
+        max-width: $header-max-width;
         font-family: $font-family-google-text;
         opacity: 0;
         transform: translate3d(0, -16px, 0);
@@ -298,7 +296,6 @@ section {
           border-left: 1px solid #f2f2f2;
         }
         .secondary-section {
-          grid-column: 4;
           border-left: 1px solid #f2f2f2;
         }
         .group {
@@ -319,26 +316,29 @@ section {
     display: flex;
     flex-grow: 1;
     justify-content: space-between;
-    align-items: stretch;
-    padding: 24px 16px;
-    gap: 16px;
+    align-items: center;
+    padding: 0 calc(#{var.$spacing} * 3);
+    height: $header-desktop-height;
+    gap: calc(#{var.$spacing} * 2);
+
     @include media-breakpoint-up(lg) {
       display: none;
     }
+
     @media (max-width: 620px) {
       display: grid;
       grid-template-columns: 1fr min-content;
+      grid-template-rows: min-content min-content;
       height: $header-mobile-height;
+      gap: calc(#{var.$spacing} * 2);
+      padding: calc(#{var.$spacing} * 2) calc(#{var.$spacing} * 3);
       .header-search-section {
         order: 3;
         grid-column: 1 / span 2;
-        .search-bar {
-          max-width: 100%;
-        }
       }
     }
+
     @media (max-width: 340px) {
-      padding: 16px;
       gap: 8px;
       height: $header-mobile-height-xs;
     }
@@ -361,17 +361,6 @@ section {
       @media (max-width: 340px) {
         gap: 8px;
       }
-    }
-
-    .header-search-section {
-      margin: 0;
-      padding: 0;
-    }
-    .search-bar {
-      max-width: 420px;
-    }
-    .search-input-text {
-      height: 40px;
     }
 
     .menu-main-link {
@@ -432,9 +421,14 @@ section {
       z-index: 1000;
 
       .paper {
-        width: calc(100vw / 2 - 10px);
-        min-width: 300px;
-        max-width: 680px;
+        display: block;
+        width: 480px;
+        @media (max-width: 580px) {
+          width: 320px;
+        }
+        @media (max-width: 400px) {
+          width: 280px;
+        }
 
         .header {
           position: relative;
@@ -448,18 +442,19 @@ section {
         }
 
         .slide-wrapper {
-          display: flex;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
           width: 200%;
           min-height: calc(100vh - 50px);
           transition: transform 0.3s ease;
+
           &.slide-left {
             transform: translateX(-50%);
           }
 
           .panel {
-            flex: 1 1 50%;
-            max-width: 80%;
             box-sizing: border-box;
+            width: 100%;
             max-height: calc(100vh - 50px);
             overflow-y: auto;
             white-space: normal;
@@ -569,18 +564,18 @@ section {
 }
 
 .header-search-section {
-  align-items: center;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   flex-shrink: 0;
-  flex-grow: 1;
-  height: fit-content;
-  margin: 24px 0;
+  flex-grow: 2;
   @include media-breakpoint-up(xl) {
     padding-right: 64px;
   }
   @include media-breakpoint-down(xl) {
     padding-right: 16px;
+  }
+  @include media-breakpoint-down(sm) {
+    padding-right: 0;
   }
 
   .search-bar {
@@ -712,22 +707,21 @@ section {
   }
 }
 
-// Needs refactor this overrides current styles
 #main-footer-container {
-  padding: 16px 0 !important;
-  .container {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    padding: 0  32px !important;
-    max-width: 1920px !important;
-    @include media-breakpoint-down(lg) {
-      padding: 0 24px !important;
-    }
-    @include media-breakpoint-down(sm) {
-      justify-content: center;
-      gap: 24px;
-    }
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 20px 0;
+  margin: auto;
+  max-width: 1310px;
+  @include media-breakpoint-down(lg) {
+    max-width: 100%!important;
+    padding: 20px calc(#{var.$spacing} * 3);
+  }
+  @media (max-width: 580px) {
+    justify-content: center;
+    gap: 10px;
   }
   .footer-links {
     display: flex;

@@ -16,14 +16,15 @@ AutoComplete API dataclass types
 """
 
 from dataclasses import dataclass
-from typing import List
+from typing import List, Optional
 
 
 @dataclass
 class ScoredPrediction:
   """Data type for a prediction with its score."""
   description: str
-  place_id: str
+  place_id: Optional[str]
+  place_dcid: Optional[str]
   matched_query: str
   score: float
 

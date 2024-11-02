@@ -28,35 +28,33 @@ MAPS_API_URL = "https://maps.googleapis.com/maps/api/place/autocomplete/json?"
 MIN_CHARACTERS_PER_QUERY = 3
 MAX_NUM_OF_QUERIES = 4
 DISPLAYED_RESPONSE_COUNT_LIMIT = 5
-TWO_WORD_CONTINENTS = [{
+# Additional places to hack in autocomplete
+TWO_WORD_CUSTOM_PLACES = [{
     'description': 'North America',
-    'place_id': 'ChIJnXKOaXELs1IRgqNhl4MoExM'
+    'place_dcid': 'northamerica'
 }, {
     'description': 'South America',
-    'place_id': 'ChIJtTRdNRw0CZQRK-PGyc8M1Gk'
+    'place_dcid': 'southamerica'
 }]
-CONTINENTS = [{
+CUSTOM_PLACES = [{
+    'description': 'World',
+    'place_dcid': 'Earth'
+}, {
+    'description': 'Earth',
+    'place_dcid': 'Earth'
+}, {
     'description': 'Europe',
-    'place_id': 'ChIJhdqtz4aI7UYRefD8s-aZ73I'
+    'place_dcid': 'europe'
 }, {
     'description': 'Oceania',
-    'place_id': 'ChIJQbA4_Cu8QW4RbuvrxISzaks'
+    'place_dcid': 'oceania'
 }, {
     'description': 'Africa',
-    'place_id': 'ChIJ1fWMlApsoBARs_CQnslwghA'
+    'place_dcid': 'africa'
 }, {
     'description': 'Asia',
-    'place_id': 'ChIJV-jLJIrxYzYRWfSg0_xrQak'
-}] + TWO_WORD_CONTINENTS
-CONTINENT_PLACE_ID_TO_DCID = {
-    'ChIJhdqtz4aI7UYRefD8s-aZ73I': 'europe',
-    'ChIJtTRdNRw0CZQRK-PGyc8M1Gk': 'southamerica',
-    'ChIJnXKOaXELs1IRgqNhl4MoExM': 'northamerica',
-    'ChIJV-jLJIrxYzYRWfSg0_xrQak': 'asia',
-    'ChIJS3WQM3uWuaQRdSAPdB--Um4': 'antarctica',
-    'ChIJQbA4_Cu8QW4RbuvrxISzaks': 'oceania',
-    'ChIJ1fWMlApsoBARs_CQnslwghA': 'africa'
-}
+    'place_dcid': 'asia'
+}] + TWO_WORD_CUSTOM_PLACES
 
 
 def find_queries(user_query: str) -> List[str]:
@@ -187,38 +185,41 @@ def score_below_zero(pred: ScoredPrediction) -> bool:
   return pred.score < 0
 
 
-def prepend_continent_hack(responses: List[ScoredPrediction],
-                           queries: List[str]) -> List[ScoredPrediction]:
-  """Prepend continents as responses in order to hack it in autocomplete.
+def prepend_custom_places_hack(responses: List[ScoredPrediction],
+                               queries: List[str]) -> List[ScoredPrediction]:
+  """Prepend custom places as responses in order to hack it in autocomplete.
   Returns:
     List of scored predictions."""
 
-  continent_responses = []
+  custom_places_responses = []
   single_word_query = queries[-1]
-  for continent in CONTINENTS:
-    scored_prediction = ScoredPrediction(description=continent['description'],
-                                         place_id=continent['place_id'],
+  for place in CUSTOM_PLACES:
+    scored_prediction = ScoredPrediction(description=place['description'],
+                                         place_id=None,
                                          matched_query=single_word_query,
+                                         place_dcid=place['place_dcid'],
                                          score=get_match_score(
                                              single_word_query,
-                                             continent['description']))
-    continent_responses.append(scored_prediction)
+                                             place['description']))
+    custom_places_responses.append(scored_prediction)
 
   if len(queries) > 1:
     two_word_query = queries[-2]
-    # If we have a 2 two word query, also place the two word continents as responses.
-    for continent in TWO_WORD_CONTINENTS:
-      scored_prediction = ScoredPrediction(description=continent['description'],
-                                           place_id=continent['place_id'],
+    # If we have a 2 two word query, also place the two word custom places as responses.
+    for place in TWO_WORD_CUSTOM_PLACES:
+      scored_prediction = ScoredPrediction(description=place['description'],
+                                           place_id=None,
                                            matched_query=two_word_query,
+                                           place_dcid=place['place_dcid'],
                                            score=get_match_score(
                                                two_word_query,
-                                               continent['description']))
-      continent_responses.append(scored_prediction)
+                                               place['description']))
+      custom_places_responses.append(scored_prediction)
 
-  # Only keep continents with a score below 0 as it implies it's close to the query.
-  continent_responses = list(filter(score_below_zero, continent_responses))
-  return continent_responses + responses
+  # Only keep custom places with a score below 0 as it implies it's close to the query.
+  custom_places_responses = list(
+      filter(score_below_zero, custom_places_responses))
+  return custom_places_responses + responses
 
 
 def predict(queries: List[str], lang: str) -> List[ScoredPrediction]:
@@ -233,14 +234,11 @@ def predict(queries: List[str], lang: str) -> List[ScoredPrediction]:
     for pred in predictions_for_query:
       scored_prediction = ScoredPrediction(description=pred['description'],
                                            place_id=pred['place_id'],
+                                           place_dcid=None,
                                            matched_query=query,
                                            score=get_match_score(
                                                query, pred['description']))
       all_responses.append(scored_prediction)
-
-  # Continent hack - Continents not supported by Google Maps Predictions API.
-  # This hack will always evaluate continents for each response. They will get filtered in/out based on the match_score we compute.
-  all_responses = prepend_continent_hack(all_responses, queries)
 
   all_responses.sort(key=get_score)
   logging.info("[Place_Autocomplete] Received %d total place predictions.",
@@ -273,13 +271,14 @@ def fetch_place_id_to_dcid(
   if place_ids:
     place_id_to_dcid = json.loads(findplacedcid(place_ids).data)
 
-  # Add hardcoded continent Place IDs to DCIDs.
-  place_id_to_dcid.update(CONTINENT_PLACE_ID_TO_DCID)
+  for prediction in prediction_responses:
+    if prediction.place_id in place_id_to_dcid:
+      prediction.place_dcid = place_id_to_dcid[prediction.place_id]
 
   logging.info("[Place_Autocomplete] Found %d place ID to DCID mappings.",
                len(place_id_to_dcid))
 
-  return place_id_to_dcid
+  return prediction_responses
 
 
 def get_score(p: ScoredPrediction) -> float:

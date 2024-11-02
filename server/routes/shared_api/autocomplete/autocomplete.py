@@ -43,16 +43,26 @@ def autocomplete():
   # Send requests to the Google Maps Predictions API.
   prediction_responses = helpers.predict(queries, lang)
 
-  place_id_to_dcid = helpers.fetch_place_id_to_dcid(prediction_responses)
+  # Augment responses with place DCID.
+  prediction_responses = helpers.fetch_place_id_to_dcid(prediction_responses)
+
+  # Custom places hack - Continents not supported by Google Maps Predictions API.
+  # This hack will always evaluate continents and a few custom places for each response.
+  # They will get filtered in/out based on the match_score we compute.
+  prediction_responses = helpers.prepend_custom_places_hack(
+      prediction_responses, queries)
+
+  prediction_responses.sort(key=helpers.get_score)
 
   final_predictions = []
   for prediction in prediction_responses:
-    if prediction.place_id in place_id_to_dcid:
+    # Only keep places that have a DCID.
+    if prediction.place_dcid:
       current_prediction = AutoCompleteResult(
           name=prediction.description,
           match_type='location_search',
           matched_query=prediction.matched_query,
-          dcid=place_id_to_dcid[prediction.place_id])
+          dcid=prediction.place_dcid)
       final_predictions.append(current_prediction)
 
       if len(final_predictions) == helpers.DISPLAYED_RESPONSE_COUNT_LIMIT:
