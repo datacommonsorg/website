@@ -13,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.a
  */
- 
- .intro-text {
+
+/* Styles for a general intro text component (used on pages such as browser landing and explorer landing) */
+
+.intro-text {
   .container {
     display: grid;
     grid-template-columns: 6fr 4fr;

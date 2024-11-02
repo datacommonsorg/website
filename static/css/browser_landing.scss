@@ -16,10 +16,10 @@
 
 /* Styles for the browser landing (knowledge graph page) */
 
-@use "./new_variables" as var;
+@use "./variables" as var;
 @import "base";
-@import "./components/browser_items";
-@import "./components/intro_text";
+@import "./content/browser_items";
+@import "./content/intro_text";
 
 #browser_landing {
   // General Styles
