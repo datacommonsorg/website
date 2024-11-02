@@ -103,7 +103,7 @@ const MenuDesktop = ({
                 <a
                   className="menu-main-link"
                   href={resolveHref(menuItem.url, routes)}
-                  onClick={() => {
+                  onClick={(): boolean => {
                     triggerGAEvent(GA_EVENT_HEADER_CLICK, {
                       [GA_PARAM_ID]: `desktop main ${menuItem.id}`,
                       [GA_PARAM_URL]: menuItem.url,
@@ -134,11 +134,19 @@ const MenuDesktop = ({
                       {labels[menuItem.label]}
                     </span>
                     <span
-                      className={`material-icons-outlined menu-arrow-icon ${
+                      className={`menu-arrow-icon ${
                         openMenu === index ? "open" : ""
                       }`}
                     >
-                      keyboard_arrow_down
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="24px"
+                        viewBox="0 -960 960 960"
+                        width="24px"
+                        fill="#5f6368"
+                      >
+                        <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />
+                      </svg>
                     </span>
                   </button>
                   <div
