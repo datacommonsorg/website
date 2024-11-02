@@ -27,7 +27,7 @@ interface KnowledgeGraphBrowserProps {
   knowledgeGraph: KnowledgeGraph;
 }
 
-const KnowledgeGraphBrowser = ({
+export const KnowledgeGraphBrowser = ({
   knowledgeGraph,
 }: KnowledgeGraphBrowserProps): ReactElement => {
   return (
@@ -61,5 +61,3 @@ const KnowledgeGraphBrowser = ({
     </section>
   );
 };
-
-export default KnowledgeGraphBrowser;
