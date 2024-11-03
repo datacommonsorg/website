@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
- @use "./new_variables" as var;
+ @use "./variables" as var;
  @import "base";
- @import "./components/intro_text";
+ @import "./content/intro_text";
 
 
 #explore-landing {
