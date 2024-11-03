@@ -15,11 +15,12 @@
  */
 
 /**
- * Component for topic page welcome message with query examples.
+ * Component for topic page comparison page with query examples.
  */
 
-import React, { ReactElement, useMemo } from "react";
+import React, { ReactElement } from "react";
 
+import { BrickWall } from "../../../components/content/brick_wall";
 import { TopicConfig } from "../../../shared/topic_config";
 import { QueryLink } from "./query_link";
 
@@ -28,40 +29,18 @@ interface ComparisonQueriesProps {
   currentTopic: TopicConfig;
 }
 
-const NUM_COLUMNS = 2;
-
 export function ComparisonQueries({
   appName,
   currentTopic,
 }: ComparisonQueriesProps): ReactElement {
-  const comparisonTopicColumns = useMemo(() => {
-    const examples = currentTopic.examples.comparison;
-    const columnCount = Math.ceil(examples.length / NUM_COLUMNS);
-
-    return Array.from({ length: NUM_COLUMNS }, (_, column) =>
-      examples.slice(column * columnCount, column * columnCount + columnCount)
-    );
-  }, [currentTopic.examples.comparison]);
+  const comparisonTopicQueries = currentTopic.examples.comparison.map(
+    (query) => <QueryLink key={query.url} query={query} appName={appName} />
+  );
 
   return (
-    <>
-      {currentTopic.examples.general.length > 0 && (
-        <div className="container topic-block">
-          <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h3>
-          {comparisonTopicColumns.map((column, columnIndex) => (
-            <div
-              className="topic-section"
-              key={columnIndex}
-            >
-              {column.map((query, i) => (
-                <div className="topic-item" key={i}>
-                  <QueryLink query={query} appName={appName} />
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-      )}
-    </>
+    <BrickWall
+      title={`Compare data in relation to ${currentTopic.title.toLowerCase()}`}
+      bricks={comparisonTopicQueries}
+    />
   );
 }

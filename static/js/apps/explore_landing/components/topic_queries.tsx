@@ -18,8 +18,9 @@
  * Component for topic page welcome message with query examples.
  */
 
-import React, { ReactElement, useMemo } from "react";
+import React, { ReactElement } from "react";
 
+import { BrickWall } from "../../../components/content/brick_wall";
 import { TopicConfig } from "../../../shared/topic_config";
 import { QueryLink } from "./query_link";
 
@@ -28,40 +29,13 @@ interface TopicQueriesProps {
   currentTopic: TopicConfig;
 }
 
-const NUM_COLUMNS = 2;
-
 export function TopicQueries({
   appName,
   currentTopic,
 }: TopicQueriesProps): ReactElement {
-  const generalTopicColumns = useMemo(() => {
-    const examples = currentTopic.examples.general;
-    const columnCount = Math.ceil(examples.length / NUM_COLUMNS);
+  const generalTopicQueries = currentTopic.examples.general.map((query) => (
+    <QueryLink key={query.url} query={query} appName={appName} />
+  ));
 
-    return Array.from({ length: NUM_COLUMNS }, (_, column) =>
-      examples.slice(column * columnCount, column * columnCount + columnCount)
-    );
-  }, [currentTopic.examples.general]);
-
-  return (
-    <div className="container">
-      {currentTopic.examples.general.length > 0 && (
-        <div className="topic-block">
-          <h3>Lorem ipsum dolor sit amet consectetur adipisicing elit.</h3>
-          {generalTopicColumns.map((column, columnIndex) => (
-            <div
-              className="topic-section"
-              key={columnIndex}
-            >
-              {column.map((query, i) => (
-                <div className="topic-item" key={i}>
-                  <QueryLink query={query} appName={appName} />
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
+  return <BrickWall bricks={generalTopicQueries} />;
 }

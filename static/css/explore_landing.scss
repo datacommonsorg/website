@@ -17,6 +17,7 @@
  @use "./variables" as var;
  @import "base";
  @import "./content/intro_text";
+ @import "./content/brick_wall";
 
 
 #explore-landing {
@@ -34,83 +35,6 @@
     @include media-breakpoint-down(lg) {
       max-width: 100%!important;
       padding: var.$container-horizontal-padding calc(#{var.$spacing} * 3);
-    }
-  }
-}
-
-.topic-block {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: calc(#{var.$spacing} * 3);
-  @include media-breakpoint-down(md) {
-    grid-template-columns: 1fr;
-  }
-  h3 {
-    @include var.title_lg;
-    grid-column: 1 / span 2;
-    max-width: 750px;
-    @include media-breakpoint-down(md) {
-      grid-column: 1;
-    }
-  }
-}
-
-.topic-section {
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: min-content;
-  gap: calc(#{var.$spacing} * 3);
-  align-items: start;
-  justify-content: start;
-  @include media-breakpoint-down(sm) {
-    grid-template-columns: 1fr;
-  }
-  .topic-item {
-    display: block;
-    list-style: none;
-    a {
-      @include var.white-box;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      @include var.text_xl;
-      gap: 10px;
-      padding: calc(#{var.$spacing} * 3);
-      border-radius: calc(#{var.$spacing} * 4);
-    }
-  }
-  &:nth-of-type(1) {
-    .topic-item {
-      &:nth-of-type(3), &:nth-of-type(4) {
-        grid-column: 1 / span 2;
-        @include media-breakpoint-down(sm) {
-          grid-column: 1;
-        }
-      }
-      &:nth-of-type(7), &:nth-of-type(8) {
-        grid-column: 1 / span 2;
-        @include media-breakpoint-down(sm) {
-          grid-column: 1;
-        }
-      }
-    }
-  }
-  &:nth-of-type(2) {
-    .topic-item {
-      &:nth-of-type(1), &:nth-of-type(4) {
-        grid-column: 1 / span 2;
-        @include media-breakpoint-down(sm) {
-          grid-column: 1;
-        }
-      }
-      &:nth-of-type(7), &:nth-of-type(8) {
-        grid-column: 1 / span 2;
-        @include media-breakpoint-down(sm) {
-          grid-column: 1;
-        }
-      }
     }
   }
 }
