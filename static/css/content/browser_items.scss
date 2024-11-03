@@ -24,17 +24,17 @@
     &:last-of-type {
       border-bottom: none;
     }
-    @include media-breakpoint-down(md) {
+    @include media-breakpoint-down(md) { 
       padding-bottom: calc(#{var.$spacing} * 6);
       margin-bottom: calc(#{var.$spacing} * 6);
     }
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(sm) { 
       padding-bottom: calc(#{var.$spacing} * 4);
       margin-bottom: calc(#{var.$spacing} * 4);
     }
     .header {
       h3 {
-        @include var.title_md;
+        @include var.title_md; 
         margin-bottom: calc(#{var.$spacing} * 3);
       }
     }
@@ -53,8 +53,8 @@
         gap: calc(#{var.$spacing} * 2) calc(#{var.$spacing} * 3);
         margin-left: 10%;
       }
-      li {
-        @include var.text_lg;
+      li { 
+        @include var.text_lg; 
         font-weight: 200;
         margin:0;
         padding: 0;
@@ -68,6 +68,5 @@
         }
       }
     }
-      
   }
 }

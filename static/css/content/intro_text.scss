@@ -21,15 +21,15 @@
     display: grid;
     grid-template-columns: 6fr 4fr;
     gap: calc(#{var.$spacing} * 2) calc(#{var.$spacing} * 6);
-    @include media-breakpoint-down(md) {
+    @include media-breakpoint-down(md) { 
       grid-template-columns: 1fr;
     }
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(sm) { 
       display: block;
     }
-  }
-  h1 {
-    @include var.title_lg;
+  }  
+  h1 { 
+    @include var.title_lg; 
     margin-bottom: calc(#{var.$spacing} * 3);
   }
 }
