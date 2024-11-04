@@ -93,7 +93,6 @@ class TestEventPage(BaseDcWebdriverTest):
     # assert there are 4+ charts
     self.assertGreater(len(charts), 4)
 
-
     # assert that the first chart has data
     line_present = EC.presence_of_element_located((By.CLASS_NAME, 'line'))
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(line_present)
