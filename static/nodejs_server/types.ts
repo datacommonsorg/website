@@ -60,12 +60,12 @@ export interface TileResult {
 
 // Properties to use for drawing a single chart
 export interface ChartProps {
-  // Dcid of the place shown in the chart. If it's a chart that shows children
-  // places such as map or ranking, this is the dcid of the parent place.
+  // DCID of the place shown in the chart. If it's a chart that shows children
+  // places such as map or ranking, this is the DCID of the parent place.
   place: string;
   // Type of place shown in the chart if it's a chart that shows children places
   enclosedPlaceType: string;
-  // Details about the variables to show in the chart including their dcids,
+  // Details about the variables to show in the chart including their DCIDs,
   // units, denominators, etc.
   statVarSpec: StatVarSpec[];
   // Details about the chart including the title, type of chart, etc.
@@ -80,9 +80,9 @@ export interface DebugInfo {
   timing: {
     // The time it took to generate the chart configurations for a given query
     getNlResult: number;
-    // time it took to generate a results given the chart configurations
+    // The time it took to generate results given the chart configurations
     getTileResults: number;
-    // total time it took to get from query to the results
+    // The total time it took to get from query to the results
     total: number;
   };
   // debug info from detect-and-fulfill endpoint
