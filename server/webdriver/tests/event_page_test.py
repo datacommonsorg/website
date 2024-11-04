@@ -92,7 +92,11 @@ class TestEventPage(BaseDcWebdriverTest):
     charts = chart_section.find_elements(By.CLASS_NAME, 'chart-container')
     # assert there are 4+ charts
     self.assertGreater(len(charts), 4)
+
+
     # assert that the first chart has data
+    line_present = EC.presence_of_element_located((By.CLASS_NAME, 'line'))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(line_present)
     chart_lines = charts[0].find_elements(By.CLASS_NAME, 'line')
     self.assertEqual(len(chart_lines), 1)
 
@@ -159,6 +163,8 @@ class TestEventPage(BaseDcWebdriverTest):
     # assert there are 4+ charts
     self.assertGreater(len(charts), 4)
     # assert that the first chart has data
+    line_present = EC.presence_of_element_located((By.CLASS_NAME, 'line'))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(line_present)
     chart_lines = charts[0].find_elements(By.CLASS_NAME, 'line')
     self.assertEqual(len(chart_lines), 1)
 
