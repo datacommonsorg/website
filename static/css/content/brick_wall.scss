@@ -41,7 +41,28 @@
   padding: 0;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: min-content;
+  &.row-count-0 {
+    grid-template-columns: 1fr;
+    grid-template-rows: max-content;
+  }
+  &.row-count-1 {
+    grid-template-rows: 1fr;
+  }
+  &.row-count-2 {
+    grid-template-rows: repeat( 2, min-content );
+  }
+  &.row-count-3 {
+    grid-template-rows: repeat( 3, min-content );
+  }
+  &.row-count-4 {
+    grid-template-rows: repeat( 4, min-content );
+  }
+  &.row-count-5 {
+    grid-template-rows: repeat( 5, min-content );
+  }
+  &.row-count-6 {
+    grid-template-rows: repeat( 6, min-content );
+  }
   gap: calc(#{var.$spacing} * 3);
   align-items: start;
   justify-content: start;

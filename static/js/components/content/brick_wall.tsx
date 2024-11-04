@@ -48,7 +48,7 @@ export const BrickWall = ({ title, bricks }: BrickWallProps): ReactElement => {
       <div className="brick-wall-block">
         <h3>{title}</h3>
         {brickColumns.map((column, columnIndex) => (
-          <div className="brick-wall-section" key={columnIndex}>
+          <div className={`brick-wall-section row-count-${column.length - 1}`} key={columnIndex}>
             {column.map((brick, i) => (
               <div className="brick-wall-item" key={i}>
                 {brick}
