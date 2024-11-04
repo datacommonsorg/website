@@ -191,6 +191,9 @@ def prepend_custom_places_hack(responses: List[ScoredPrediction],
   Returns:
     List of scored predictions."""
 
+  if len(queries) == 0:
+    return responses
+
   custom_places_responses = []
   single_word_query = queries[-1]
   for place in CUSTOM_PLACES:
