@@ -41,8 +41,12 @@ ncbiDNASequenceName,ncbiDNASequenceName;NCBI defined segment of DNA sequence nam
 imageUrl,imageUrl;url to an image of what the biological specimen looks like;what the entity looks like
 genomicCoordinates,genomicCoordinates;genomic coordinates
 availableStrength,availableStrength;dose approved for a drug
-<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol,GeneticVariantGeneAssociation;Gene associated with a genetic variant
-<-geneSymbol{typeOf:GeneticVariantGeneAssociation}->referenceSNPClusterID,GeneticVariantGeneAssociation;genetic variant associated with a gene
-<-diseaseOntologyID{typeOf:DiseaseGeneAssociation}->geneID,DiseaseGeneAssociation;Gene associated with a disease
-<-geneID{typeOf:DiseaseGeneAssociation}->diseaseOntologyID,DiseaseGeneAssociation;Disease associated with a gene
+<-variantID{typeOf:GeneGeneticVariantAssociation}->geneID,GeneticVariantGeneAssociation;Gene associated with a genetic variant
+<-geneID{typeOf:GeneGeneticVariantAssociation}->variantID,GeneticVariantGeneAssociation;genetic variant associated with a gene
+<-diseaseID{typeOf:DiseaseGeneAssociation}->geneID,DiseaseGeneAssociation;Gene associated with a disease
+<-geneID{typeOf:DiseaseGeneAssociation}->diseaseID,DiseaseGeneAssociation;Disease associated with a gene
+<-diseaseID{typeOf:DiseaseGeneticVariantAssociation}->geneticVariantID,DiseaseGeneticVariantAssociation;Genetic variant associated with a disease
+<-geneticVariantID{typeOf:DiseaseGeneticVariantAssociation}->diseaseID,DiseaseGeneticVariantAssociation;Disease associated with a genetic variant
+<-compoundID{typeOf:ChemicalCompoundGeneticVariantAssociation}->variantID,ChemicalCompoundGeneticVariantAssociation;genetic variant associated with a chemical compound
+<-variantID{typeOf:ChemicalCompoundGeneticVariantAssociation}->compoundID,ChemicalCompoundGeneticVariantAssociation;chemical compound associated with a genetic variant
 virusGenus,virusGenus;genus of a virus species
