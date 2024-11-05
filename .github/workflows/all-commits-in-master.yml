@@ -10,15 +10,20 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Fetch all history for accurate comparison
+          # Fetch all history for accurate comparison
+          fetch-depth: 0
+          # Check out the PR branch
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
 
       - name: Check if commits exist in master
         run: |
-          MASTER_BRANCH="master"
-          SOURCE_BRANCH=$(echo ${{ github.head_ref }})
+          git remote add dc https://github.com/datacommonsorg/website.git
+          git fetch dc
+          MASTER_BRANCH="dc/master"
 
           # Get the list of commits in the source branch that are not in the master branch
-          MISSING_COMMITS=$(git log --pretty="%H - %s" $MASTER_BRANCH..$SOURCE_BRANCH)
+          MISSING_COMMITS=$(git log --pretty="%H - %s" $MASTER_BRANCH..HEAD --)
 
           if [[ -n "$MISSING_COMMITS" ]]; then
             echo "ERROR: The following commits are not present in $MASTER_BRANCH:"
