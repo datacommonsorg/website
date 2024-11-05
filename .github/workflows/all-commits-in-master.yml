@@ -14,11 +14,13 @@ jobs:
 
       - name: Check if commits exist in master
         run: |
-          MASTER_BRANCH="master"
+          git remote add dc https://github.com/datacommonsorg/website.git
+          git fetch dc
+          MASTER_BRANCH="remotes/dc/master"
           SOURCE_BRANCH=$(echo ${{ github.head_ref }})
 
           # Get the list of commits in the source branch that are not in the master branch
-          MISSING_COMMITS=$(git log --pretty="%H - %s" $MASTER_BRANCH..$SOURCE_BRANCH)
+          MISSING_COMMITS=$(git log --pretty="%H - %s" $MASTER_BRANCH..$SOURCE_BRANCH --)
 
           if [[ -n "$MISSING_COMMITS" ]]; then
             echo "ERROR: The following commits are not present in $MASTER_BRANCH:"
