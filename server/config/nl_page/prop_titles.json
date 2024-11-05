@@ -17,7 +17,7 @@
   }, 
   "<-diseaseID{typeOf:DiseaseGeneticVariantAssociation}->geneticVariantID": {
     "displayName": "associated genetic variant",
-    "titleFormat": "The associated associated genetic variants for {entity} are"
+    "titleFormat": "The associated genetic variants for {entity} are"
   }, 
   "<-geneticVariantID{typeOf:DiseaseGeneticVariantAssociation}->diseaseID": {
     "displayName": "associated disease",

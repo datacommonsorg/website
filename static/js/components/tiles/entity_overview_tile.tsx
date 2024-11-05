@@ -19,6 +19,7 @@
  */
 
 import React from "react";
+
 import { URI_PREFIX } from "../../browser/constants";
 
 interface EntityOverviewTilePropType {
