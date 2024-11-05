@@ -165,7 +165,9 @@ def populate(state: PopulateState) -> bool:
     chart_entities.update(e.dcid for e in cspec.entities)
   overview_entities = state.uttr.entities
   if chart_entities:
-    overview_entities = [e for e in overview_entities if e.dcid in chart_entities]
+    overview_entities = [
+        e for e in overview_entities if e.dcid in chart_entities
+    ]
 
   # If there is a single entity to show overview for, add an entity overview chart
   if len(overview_entities) == 1:
