@@ -83,7 +83,7 @@ section {
   box-shadow: 0 1px 2px rgb(94, 94, 94, 0.1);
 }
 
-#main-nav {
+#main-navbar-container {
   position: relative;
   width: 100vw;
   height: fit-content;
@@ -112,7 +112,11 @@ section {
       align-items: center;
       white-space: nowrap;
       a {
+        color: #000;
         font-size: 1rem !important;
+        &:hover {
+          text-decoration: none;
+        }
       }
     }
 
@@ -348,7 +352,11 @@ section {
       align-items: center;
       white-space: nowrap;
       a {
+        color: #000;
         font-size: 1rem !important;
+        &:hover {
+          text-decoration: none;
+        }
       }
     }
 

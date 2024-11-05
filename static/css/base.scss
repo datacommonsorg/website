@@ -65,6 +65,12 @@ $headings-font-family: $font-family-sans-serif;
 
 @import "node_modules/bootstrap/scss/bootstrap";
 
+.main-content {
+  margin: 3rem auto 6rem;
+}
+
+// Main nave use in old template pages, needs to be refactored / moved
+
 :root {
   --font-family: "Roboto", "Helvetica Neue", Arial, sans-serif !important;
   --breakpoint-xl: 1040px;
@@ -79,38 +85,45 @@ $headings-font-family: $font-family-sans-serif;
   color: transparent !important;
 }
 
-#main-nav .nav-item a {
-  color: var(--gm-3-ref-neutral-neutral-40);
+// Main nave use in old template pages, needs to be refactored / moved
 
-  &:hover {
-    text-decoration: none;
+#main-nav {
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    #main-header-logo img {
+      width: 100%;
+      height: 40px;
+    }
+    a {
+      color: #000;
+      font-size: 22px;
+      font-style: normal;
+      font-weight: 400;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    span,
+    span a {
+      font-weight: 200;
+    }
+  }
+  .nav-item a {
+    color: var(--gm-3-ref-neutral-neutral-40);
+  
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  .sep {
+    color: var(--gm-3-ref-neutral-neutral-40);
+    display: inline-block;
+    margin: 0 0.5rem;
   }
 }
 
-#main-nav .navbar-brand a {
-  color: #000;
-  font-size: 22px;
-  font-style: normal;
-  font-weight: 400;
-  &:hover {
-    text-decoration: none;
-  }
-}
-
-#main-nav .navbar-brand span,
-#main-nav .navbar-brand span a {
-  font-weight: 200;
-}
-
-#main-nav .navbar-brand .sep {
-  color: var(--gm-3-ref-neutral-neutral-40);
-  display: inline-block;
-  margin: 0 0.5rem;
-}
-
-.main-content {
-  margin: 3rem auto 6rem;
-}
 
 /** CSE **/
 #main-header #___gcse_0 {
