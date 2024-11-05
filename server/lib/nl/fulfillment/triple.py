@@ -156,14 +156,25 @@ def populate(state: PopulateState) -> bool:
       # prop, return.
       # TODO: revisit how we want to handle multiple props
       break
-  # If there is a single entity, always add an entity overview chart
-  if len(state.uttr.entities) == 1:
+
+  # Get the entities to show in the overview tile. This should be the entities
+  # from previous charts that have been added, or if no charts were added, then
+  # it is the detected entities
+  chart_entities = set()
+  for cspec in state.uttr.chartCandidates:
+    chart_entities.update(e.dcid for e in cspec.entities)
+  overview_entities = state.uttr.entities
+  if chart_entities:
+    overview_entities = [e for e in overview_entities if e.dcid in chart_entities]
+
+  # If there is a single entity to show overview for, add an entity overview chart
+  if len(overview_entities) == 1:
     chart_title = _OVERVIEW_TITLE.format(
-        entity=_get_entity_string(state.uttr.entities))
+        entity=_get_entity_string(overview_entities))
     chart_added |= add_chart_to_utterance(ChartType.ENTITY_OVERVIEW,
                                           state,
                                           ChartVars(title=chart_title), [],
-                                          entities=state.uttr.entities)
+                                          entities=overview_entities)
   elif not chart_added:
     # If there is more than 1 entity and no charts added yet, add an overview
     chart_added = _add_multi_entity_overview(state)
