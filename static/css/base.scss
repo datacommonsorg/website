@@ -69,8 +69,6 @@ $headings-font-family: $font-family-sans-serif;
   margin: 3rem auto 6rem;
 }
 
-// Main nave use in old template pages, needs to be refactored / moved
-
 :root {
   --font-family: "Roboto", "Helvetica Neue", Arial, sans-serif !important;
   --breakpoint-xl: 1040px;
@@ -84,8 +82,6 @@ $headings-font-family: $font-family-sans-serif;
   height: 65px;
   color: transparent !important;
 }
-
-// Main nave use in old template pages, needs to be refactored / moved
 
 #main-nav {
   .navbar-brand {
