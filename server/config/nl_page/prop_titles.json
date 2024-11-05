@@ -1,19 +1,35 @@
 {
-  "<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol": {
+  "<-variantID{typeOf:GeneGeneticVariantAssociation}->geneID": {
     "displayName": "associated gene",
     "titleFormat": "The associated genes for {entity} are"
   }, 
-  "<-geneSymbol{typeOf:GeneticVariantGeneAssociation}->referenceSNPClusterID": {
+  "<-geneID{typeOf:GeneGeneticVariantAssociation}->variantID": {
     "displayName": "associated genetic variant",
     "titleFormat": "The associated genetic variants for {entity} are"
   }, 
-  "<-diseaseOntologyID{typeOf:DiseaseGeneAssociation}->geneID": {
+  "<-diseaseID{typeOf:DiseaseGeneAssociation}->geneID": {
     "displayName": "associated gene",
     "titleFormat": "The associated genes for {entity} are"
   }, 
-  "<-geneID{typeOf:DiseaseGeneAssociation}->diseaseOntologyID": {
+  "<-geneID{typeOf:DiseaseGeneAssociation}->diseaseID": {
     "displayName": "associated disease",
     "titleFormat": "The associated diseases for {entity} are"
+  }, 
+  "<-diseaseID{typeOf:DiseaseGeneticVariantAssociation}->geneticVariantID": {
+    "displayName": "associated genetic variant",
+    "titleFormat": "The associated associated genetic variants for {entity} are"
+  }, 
+  "<-geneticVariantID{typeOf:DiseaseGeneticVariantAssociation}->diseaseID": {
+    "displayName": "associated disease",
+    "titleFormat": "The associated diseases for {entity} are"
+  },
+  "<-compoundID{typeOf:ChemicalCompoundGeneticVariantAssociation}->variantID": {
+    "displayName": "associated genetic variant",
+    "titleFormat": "The associated genetic variants for {entity} are"
+  }, 
+  "<-variantID{typeOf:ChemicalCompoundGeneticVariantAssociation}->compoundID": {
+    "displayName": "associated chemical compound",
+    "titleFormat": "The associated chemical compounds for {entity} are"
   },
   "->mRNA": {
     "displayName": "mRNA"

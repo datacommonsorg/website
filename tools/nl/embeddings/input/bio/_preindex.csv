@@ -6,13 +6,17 @@ A unique ID for a Medical Subject Heading supplementary record,medicalSubjectHea
 An ID for a Medical Subject Heading descriptor record,medicalSubjectHeadingDescriptorID
 An ID for a Medical Subject Heading supplementary record,medicalSubjectHeadingSupplementaryRecordID
 ChEMBL identifier,chemblID
-Disease associated with a gene,<-geneID{typeOf:DiseaseGeneAssociation}->diseaseOntologyID
-DiseaseGeneAssociation,<-diseaseOntologyID{typeOf:DiseaseGeneAssociation}->geneID;<-geneID{typeOf:DiseaseGeneAssociation}->diseaseOntologyID
+ChemicalCompoundGeneticVariantAssociation,<-compoundID{typeOf:ChemicalCompoundGeneticVariantAssociation}->variantID;<-variantID{typeOf:ChemicalCompoundGeneticVariantAssociation}->compoundID
+Disease associated with a gene,<-geneID{typeOf:DiseaseGeneAssociation}->diseaseID
+Disease associated with a genetic variant,<-geneticVariantID{typeOf:DiseaseGeneticVariantAssociation}->diseaseID
+DiseaseGeneAssociation,<-diseaseID{typeOf:DiseaseGeneAssociation}->geneID;<-geneID{typeOf:DiseaseGeneAssociation}->diseaseID
+DiseaseGeneticVariantAssociation,<-diseaseID{typeOf:DiseaseGeneticVariantAssociation}->geneticVariantID;<-geneticVariantID{typeOf:DiseaseGeneticVariantAssociation}->diseaseID
 Ensembl ID,ensemblID
 Functional category of the genetic variant,geneticVariantFunctionalCategory
-Gene associated with a disease,<-diseaseOntologyID{typeOf:DiseaseGeneAssociation}->geneID
-Gene associated with a genetic variant,<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol
-GeneticVariantGeneAssociation,<-geneSymbol{typeOf:GeneticVariantGeneAssociation}->referenceSNPClusterID;<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol
+Gene associated with a disease,<-diseaseID{typeOf:DiseaseGeneAssociation}->geneID
+Gene associated with a genetic variant,<-variantID{typeOf:GeneGeneticVariantAssociation}->geneID
+Genetic variant associated with a disease,<-diseaseID{typeOf:DiseaseGeneticVariantAssociation}->geneticVariantID
+GeneticVariantGeneAssociation,<-geneID{typeOf:GeneGeneticVariantAssociation}->variantID;<-variantID{typeOf:GeneGeneticVariantAssociation}->geneID
 MeSH descriptor record ID,medicalSubjectHeadingDescriptorID
 MeSH supplementary record ID,medicalSubjectHeadingSupplementaryRecordID
 NCBI Taxonomy database identifier,ncbiTaxonID
@@ -51,6 +55,7 @@ antibodyType,antibodyType
 antigenType,antigenType
 availableStrength,availableStrength
 chemblID,chemblID
+chemical compound associated with a genetic variant,<-variantID{typeOf:ChemicalCompoundGeneticVariantAssociation}->compoundID
 chromosomeSize,chromosomeSize
 class,class
 "component that provides pharmacological activity or other direct effect in the diagnosis, cure, mitigation, treatment, or prevention of disease, or to affect the structure or any function of the body of man or animals",activeIngredient
@@ -62,7 +67,8 @@ full name of the gene,fullName
 fullName,fullName
 gene id,geneID
 geneID,geneID
-genetic variant associated with a gene,<-geneSymbol{typeOf:GeneticVariantGeneAssociation}->referenceSNPClusterID
+genetic variant associated with a chemical compound,<-compoundID{typeOf:ChemicalCompoundGeneticVariantAssociation}->variantID
+genetic variant associated with a gene,<-geneID{typeOf:GeneGeneticVariantAssociation}->variantID
 geneticVariantFunctionalCategory,geneticVariantFunctionalCategory
 genomic coordinates,genomicCoordinates
 genomicCoordinates,genomicCoordinates
