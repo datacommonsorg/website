@@ -127,6 +127,7 @@ class TimelineTestMixin():
     self.assertEqual(len(charts), 0)
 
     # Expand the Demographics section of the stat var hierarchy.
+    shared.wait_for_loading(self.driver)
     shared.click_sv_group(self.driver, "Demographics")
 
     # Wait until stat vars are present and click on Population.
