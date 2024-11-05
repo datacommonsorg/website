@@ -107,15 +107,18 @@ def _populate_prop_expression(state: PopulateState,
   entity_dcids = [e.dcid for e in state.uttr.entities]
   prop_values = get_property_value_from_expression(entity_dcids,
                                                    prop_expression)
-  if not any(prop_values.values()):
+  entities_with_value = [
+      e for e in state.uttr.entities if prop_values.get(e.dcid, [])
+  ]
+  if not entities_with_value:
     state.uttr.counters.err('triple_property_failed_existence', prop_expression)
     return False
-  title = _get_title(state.uttr.entities, prop_expression)
+  title = _get_title(entities_with_value, prop_expression)
   cv = ChartVars(props=[prop_expression], title=title)
   return add_chart_to_utterance(ChartType.ANSWER,
                                 state,
                                 cv, [],
-                                entities=state.uttr.entities)
+                                entities=entities_with_value)
 
 
 # The overview chart when there is more than 1 entity should be a table with
