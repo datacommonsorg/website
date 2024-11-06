@@ -120,11 +120,21 @@ class ExploreTest(NLWebServerTestCase):
     if 'variables' in resp:
       resp_var_to_score = {}
       for i, sv in enumerate(dbg['sv_matching']['SV']):
-        score = dbg['sv_matching']['CosineScore'][i]
-        resp_var_to_score[sv] = float("{:.6f}".format(score))
+        truncated_score = float("{:.6f}".format(
+            dbg['sv_matching']['CosineScore'][i]))
+        resp_var_to_score[sv] = truncated_score
+        dbg['sv_matching']['CosineScore'][i] = truncated_score
       sorted_variables = sorted(resp['variables'],
                                 key=lambda x: (-resp_var_to_score.get(x, 0), x))
       resp['variables'] = sorted_variables
+
+    # Truncate CosineScores to 6 decimals to reduce noisy diffs.
+    for candidate in dbg['sv_matching']['MultiSV'].get('Candidates', []):
+      for part in candidate.get('Parts', []):
+        for i, score in enumerate(part.get('CosineScore', [])):
+          part['CosineScore'][i] = float("{:.6f}".format(score))
+    for i, score in enumerate(dbg['props_matching'].get('CosineScore', [])):
+      dbg['props_matching']['CosineScore'][i] = float("{:.6f}".format(score))
 
     resp['debug'] = {}
     resp['context'] = {}
