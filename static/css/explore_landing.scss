@@ -38,11 +38,15 @@
       padding: var.$container-horizontal-padding calc(#{var.$spacing} * 3);
     }
   }
-}
 
-.chip-section {
-  h3 {
-    @include var.title_lg;
-    max-width: 750px;
+  .intro-text .container {
+    padding-bottom: 0;
+  }
+
+  .chip-section {
+    h3 {
+      @include var.title_lg;
+      max-width: 750px;
+    }
   }
 }
