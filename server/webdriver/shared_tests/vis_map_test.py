@@ -85,11 +85,17 @@ class VisMapTestMixin():
     self.assertEqual(len(map_regions), 58)
 
     # Assert rankings are correct.
+    elements_present = EC.presence_of_all_elements_located(
+        (By.CSS_SELECTOR, '.ranking-header-section h4'))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(elements_present)
     ranking_titles = self.driver.find_elements(By.CSS_SELECTOR,
                                                '.ranking-header-section h4')
     self.assertEqual(len(ranking_titles), 2)
     self.assertEqual(ranking_titles[0].text, 'Top Places')
     self.assertEqual(ranking_titles[1].text, 'Bottom Places')
+    elements_present = EC.presence_of_all_elements_located(
+        (By.CSS_SELECTOR, '.ranking-list .place-name'))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(elements_present)
     ranking_items = self.driver.find_elements(By.CSS_SELECTOR,
                                               '.ranking-list .place-name')
     self.assertEqual(len(ranking_items), 10)
@@ -215,11 +221,17 @@ class VisMapTestMixin():
     self.assertEqual(len(map_regions), 58)
 
     # Assert rankings are correct.
+    elements_present = EC.presence_of_all_elements_located(
+        (By.CSS_SELECTOR, '.ranking-header-section h4'))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(elements_present)
     ranking_titles = self.driver.find_elements(By.CSS_SELECTOR,
                                                '.ranking-header-section h4')
     self.assertEqual(len(ranking_titles), 2)
     self.assertEqual(ranking_titles[0].text, 'Top Places')
     self.assertEqual(ranking_titles[1].text, 'Bottom Places')
+    elements_present = EC.presence_of_all_elements_located(
+        (By.CSS_SELECTOR, '.ranking-list .place-name'))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(elements_present)
     ranking_items = self.driver.find_elements(By.CSS_SELECTOR,
                                               '.ranking-list .place-name')
     self.assertEqual(len(ranking_items), 10)
