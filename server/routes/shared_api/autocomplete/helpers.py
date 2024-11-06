@@ -136,12 +136,12 @@ def off_by_one_letter(str1_word: str, name_word: str) -> bool:
   return offby <= 1
 
 
-def sanitize_and_replace_non_ascii(input: str) -> str:
+def sanitize_and_replace_non_ascii(string: str) -> str:
   """Sanitize and replace non ascii.
   Returns:
     String sanitized and without accents, cedillas, or enye."""
-  nfkd_form = unicodedata.normalize('NFKD', input)
-  return u"".join([c for c in nfkd_form if not unicodedata.combining(c)])
+  nfkd_form = unicodedata.normalize('NFKD', string)
+  return "".join([c for c in nfkd_form if not unicodedata.combining(c)])
 
 
 def get_match_score(match_string: str, name: str) -> float:
