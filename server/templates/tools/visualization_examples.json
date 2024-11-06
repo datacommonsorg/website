@@ -11,16 +11,6 @@
         "url": "/tools/visualization?#visType%3Dmap%26place%3Dcountry%2FIND%26placeType%3DAdministrativeArea2%26sv%3D%7B\"dcid\"%3A\"DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45\"%7D"
       }]
     }, {
-      "header": "Greenhouse Gas Emissions",
-      "preposition": "across",
-      "examples": [{
-        "text": "states in USA",
-        "url": "/tools/visualization?#visType%3Dmap%26place%3Dcountry%2FUSA%26placeType%3DState%26sv%3D%7B\"dcid\"%3A\"Annual_Emissions_GreenhouseGas_NonBiogenic\"%7D"
-      }, {
-        "text": "counties in California",
-        "url": "/tools/visualization?#visType%3Dmap%26place%3DgeoId/06%26placeType%3DCounty%26sv%3D%7B\"dcid\"%3A\"Annual_Emissions_GreenhouseGas_NonBiogenic\"%7D"
-      }]
-    }, {
       "header": "Median Age",
       "preposition": "across counties in",
       "examples": [{
