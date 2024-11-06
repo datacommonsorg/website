@@ -20,10 +20,9 @@
 import React, { ReactElement } from "react";
 
 import { TopicConfig, TopicData } from "../../shared/topic_config";
-import { ComparisonQueries } from "./components/comparison_queries";
 import { ExploreIntro } from "./components/explore_intro";
+import { Queries } from "./components/queries";
 import { StatVarQueries } from "./components/stat_var_queries";
-import { TopicQueries } from "./components/topic_queries";
 import topicData from "./topics.json";
 
 const topics: TopicData = topicData;
@@ -48,7 +47,9 @@ export function App(): ReactElement {
       </div>
     );
   }
-  /*  const placeholderQuery =
+  /*
+    NOTE: The comments on this page existed as comments in the original template.
+    const placeholderQuery =
     topic.examples?.general?.length > 0
       ? topic.examples.general[0]
       : { title: "family earnings in california" };
@@ -58,9 +59,13 @@ export function App(): ReactElement {
   return (
     <>
       <ExploreIntro topic={topic} />
-      <TopicQueries currentTopic={topic} appName="explore" />
-      <StatVarQueries />
-      <ComparisonQueries currentTopic={topic} appName="explore" />
+      <Queries queries={topic.examples.general} appName="explore" />
+      <StatVarQueries queries={topic.examples.statvar ?? []} />
+      <Queries
+        title={`Compare data in relation to ${topic.title.toLowerCase()}`}
+        queries={topic.examples.comparison}
+        appName="explore"
+      />
     </>
   );
 }

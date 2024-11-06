@@ -15,27 +15,30 @@
  */
 
 /**
- * Component for topic page welcome message with query examples.
+ * Component for explore landing topic page - query examples displayed as
+ * interlocking bricks.
  */
 
 import React, { ReactElement } from "react";
 
 import { BrickWall } from "../../../components/content/brick_wall";
-import { TopicConfig } from "../../../shared/topic_config";
+import { Query } from "../../../shared/topic_config";
 import { QueryLink } from "./query_link";
 
 interface TopicQueriesProps {
+  title?: string;
   appName: string;
-  currentTopic: TopicConfig;
+  queries: Query[];
 }
 
-export function TopicQueries({
+export function Queries({
+  title,
+  queries,
   appName,
-  currentTopic,
 }: TopicQueriesProps): ReactElement {
-  const generalTopicQueries = currentTopic.examples.general.map((query) => (
+  const generalTopicQueries = queries.map((query) => (
     <QueryLink key={query.url} query={query} appName={appName} />
   ));
 
-  return <BrickWall bricks={generalTopicQueries} />;
+  return <BrickWall title={title} bricks={generalTopicQueries} />;
 }

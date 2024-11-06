@@ -34,6 +34,7 @@ export interface TopicConfig {
   examples: {
     general: Query[];
     comparison: Query[];
+    statvar?: Query[];
   };
   meta: {
     dataPointCount: number;

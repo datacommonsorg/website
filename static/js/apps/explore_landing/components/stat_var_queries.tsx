@@ -20,43 +20,31 @@
 
 import React, { ReactElement } from "react";
 
-export function StatVarQueries(): ReactElement {
+import { Query } from "../../../shared/topic_config";
+
+interface StatVarQueriesProps {
+  queries: Query[];
+}
+
+export function StatVarQueries({ queries }: StatVarQueriesProps): ReactElement {
+  if (queries.length === 0) {
+    return null;
+  }
   return (
     <div className="container stats-block">
       <h3>
-        Explore statistical variables around the world in the Map explorer tool
+        Explore statistical variables around the world in the Timeline explorer
+        tool
       </h3>
       <ul className="stats-list">
-        <li>
-          <a href="#">
-            <span className="material-icons-outlined">arrow_forward</span>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <span className="material-icons-outlined">arrow_forward</span>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <span className="material-icons-outlined">arrow_forward</span>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <span className="material-icons-outlined">arrow_forward</span>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <span className="material-icons-outlined">arrow_forward</span>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          </a>
-        </li>
+        {queries.map((query) => (
+          <li key={query.url}>
+            <a href={query.url}>
+              <span className="material-icons-outlined">arrow_forward</span>
+              {query.title}
+            </a>
+          </li>
+        ))}
       </ul>
     </div>
   );
