@@ -60,8 +60,8 @@
     display: inline-block;
     list-style: none;
     a {
+      @include var.blue-box;
       @include var.text_sm;
-      background-color: #C2E7FF;
       display: flex;
       align-items: center;
       gap: var.$spacing;

@@ -42,6 +42,7 @@
     list-style: none;
     a {
       @include var.white-box;
+      @include shadow;
       display: flex;
       flex-direction: column;
       align-items: flex-start;

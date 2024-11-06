@@ -74,10 +74,11 @@
     list-style: none;
     a {
       @include var.white-box;
+      @include shadow;
+      @include var.text_xl;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      @include var.text_xl;
       gap: 10px;
       padding: calc(#{var.$spacing} * 3);
       border-radius: calc(#{var.$spacing} * 4);

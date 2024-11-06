@@ -41,6 +41,7 @@
     list-style: none;
     a {
       @include var.white-box;
+      @include shadow;
       @include var.text_sm;
       display: flex;
       justify-content: center;
