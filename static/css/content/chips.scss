@@ -39,9 +39,28 @@
   .chip-item {
     display: block;
     list-style: none;
+    &.elevated {
+      a {
+        @include var.white-box;
+        @include var.shadow;
+        color: var.$color-blue;
+
+        .icon svg {
+          fill: var.$color-blue;
+        }
+      }
+    }
+    &.flat {
+      a {
+        @include var.blue-box;
+        color: var.$color-black;
+
+        .icon svg {
+          fill: var.$color-black;
+        }
+      }
+    }
     a {
-      @include var.white-box;
-      @include shadow;
       @include var.text_sm;
       display: flex;
       justify-content: center;
@@ -49,10 +68,6 @@
       gap: 10px;
       border-radius: calc(#{var.$spacing} * 10);
       padding: 10px calc(#{var.$spacing} * 3) 10px calc(#{var.$spacing} * 2);
-
-      .icon svg {
-        fill: #007bff;
-      }
     }
   }
 }

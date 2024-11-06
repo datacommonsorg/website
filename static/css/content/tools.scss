@@ -51,7 +51,7 @@
       }
       a {
         @include var.white-box;
-        @include shadow;
+        @include var.shadow;
         @include var.title_xs;
         display: flex;
         width: 100%;
