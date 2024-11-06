@@ -23,15 +23,18 @@ from server.webdriver import shared
 
 DOWNLOAD_URL = '/tools/download'
 PLACE_SEARCH_CA = 'California'
+SKIP_CHECK = 'SKIP_CHECK'
 TABLE_HEADERS = [
     'placeDcid', 'placeName', 'Date:Median_Age_Person',
     'Value:Median_Age_Person', 'Source:Median_Age_Person', 'Date:Count_Person',
     'Value:Count_Person', 'Source:Count_Person'
 ]
+# SKIP_CHECK for the values that change with each import.
 TABLE_ROW_1 = [
-    'geoId/06001', 'Alameda County', '2022', '38.4',
+    'geoId/06001', 'Alameda County', SKIP_CHECK, SKIP_CHECK,
     'https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html',
-    '2022', '1628997', 'https://www2.census.gov/programs-surveys/popest/tables'
+    SKIP_CHECK, SKIP_CHECK,
+    'https://www2.census.gov/programs-surveys/popest/tables'
 ]
 MAX_NUM_FILE_CHECK_TRIES = 3
 
@@ -145,7 +148,8 @@ class DownloadTestMixin():
     self.assertGreater(len(table_rows), 1)
     first_row_cells = table_rows[0].find_elements(By.TAG_NAME, 'td')
     for idx, cell in enumerate(first_row_cells):
-      self.assertEqual(cell.text, TABLE_ROW_1[idx])
+      if SKIP_CHECK not in TABLE_ROW_1[idx]:
+        self.assertEqual(cell.text, TABLE_ROW_1[idx])
 
     # Click download
     self.driver.find_element(By.XPATH,

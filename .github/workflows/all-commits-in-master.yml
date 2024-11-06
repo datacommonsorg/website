@@ -1,0 +1,34 @@
+name: all-commits-in-master
+
+on:
+  pull_request:
+    branches: [ "customdc_stable" ]
+
+jobs:
+  check_commits:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          # Fetch all history for accurate comparison
+          fetch-depth: 0
+          # Check out the PR branch
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+
+      - name: Check if commits exist in master
+        run: |
+          git remote add dc https://github.com/datacommonsorg/website.git
+          git fetch dc
+          MASTER_BRANCH="dc/master"
+
+          # Get the list of commits in the source branch that are not in the master branch
+          MISSING_COMMITS=$(git log --pretty="%H - %s" $MASTER_BRANCH..HEAD --)
+
+          if [[ -n "$MISSING_COMMITS" ]]; then
+            echo "ERROR: The following commits are not present in $MASTER_BRANCH:"
+            echo "$MISSING_COMMITS"
+            exit 1
+          fi
+
+          echo "All commits are present in $MASTER_BRANCH"

@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import json
+import logging
 
 from flask import Blueprint
 from flask import jsonify
@@ -21,7 +21,6 @@ from flask import request
 from server.routes.shared_api.autocomplete import helpers
 from server.routes.shared_api.autocomplete.types import AutoCompleteApiResponse
 from server.routes.shared_api.autocomplete.types import AutoCompleteResult
-from server.routes.shared_api.place import findplacedcid
 
 # TODO(gmechali): Add Stat Var search.
 
@@ -44,22 +43,33 @@ def autocomplete():
   # Send requests to the Google Maps Predictions API.
   prediction_responses = helpers.predict(queries, lang)
 
-  place_ids = []
-  for prediction in prediction_responses:
-    place_ids.append(prediction.place_id)
+  # Augment responses with place DCID.
+  prediction_responses = helpers.fetch_place_id_to_dcid(prediction_responses)
 
-  place_id_to_dcid = []
-  if place_ids:
-    place_id_to_dcid = json.loads(findplacedcid(place_ids).data)
+  # Custom places hack - Continents not supported by Google Maps Predictions API.
+  # This hack will always evaluate continents and a few custom places for each response.
+  # They will get filtered in/out based on the match_score we compute.
+  prediction_responses = helpers.prepend_custom_places_hack(
+      prediction_responses, queries)
+
+  prediction_responses.sort(key=helpers.get_score)
 
   final_predictions = []
   for prediction in prediction_responses:
-    if prediction.place_id in place_id_to_dcid:
+    # Only keep places that have a DCID.
+    if prediction.place_dcid:
       current_prediction = AutoCompleteResult(
           name=prediction.description,
           match_type='location_search',
           matched_query=prediction.matched_query,
-          dcid=place_id_to_dcid[prediction.place_id])
+          dcid=prediction.place_dcid)
       final_predictions.append(current_prediction)
+
+      if len(final_predictions) == helpers.DISPLAYED_RESPONSE_COUNT_LIMIT:
+        break
+
+  logging.info(
+      "[Place_Autocomplete] Returning a total of %d place predictions.",
+      len(final_predictions))
 
   return jsonify(AutoCompleteApiResponse(predictions=final_predictions))

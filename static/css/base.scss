@@ -20,11 +20,6 @@
 $full-footer-bg: #fafcff;
 $sub-footer-breakpoint: 596px;
 
-:root {
-  --font-family: "Roboto", "Helvetica Neue", Arial, sans-serif !important;
-  --breakpoint-xl: 1040px;
-}
-
 /** Bootstrap overrides **/
 $link-color: var(--link-color);
 $link-hover-color: $link-color;
@@ -35,6 +30,11 @@ $h2-font-size: 1.8rem;
 $h3-font-size: 1.2rem;
 
 $headings-font-weight: 600;
+
+/*
+  If the grid-breakpoints change, the TypeScript equivalent should be updated:
+  `static/js/shared/hooks/breakpoints.tsx`, `export const BREAKPOINTS`
+ */
 
 $grid-breakpoints: (
   xs: 0,
@@ -64,6 +64,11 @@ $font-family-sans-serif: "Google Sans", "Google Sans Text", -apple-system,
 $headings-font-family: $font-family-sans-serif;
 
 @import "node_modules/bootstrap/scss/bootstrap";
+
+:root {
+  --font-family: "Roboto", "Helvetica Neue", Arial, sans-serif !important;
+  --breakpoint-xl: 1040px;
+}
 
 :root.feedingamerica .navbar-brand > a {
   display: inline-block;
@@ -156,7 +161,7 @@ $headings-font-family: $font-family-sans-serif;
   background: var(--gm-3-white);
 }
 
-#main-header #main-header-logo {
+#main-header .main-header-logo {
   display: flex;
   align-items: center;
   img {
