@@ -107,7 +107,7 @@
           grid-column: 1;
         }
       }
-      &:nth-of-type(7), &:nth-of-type(8) {
+      &:nth-of-type(5), &:nth-of-type(8) {
         grid-column: 1 / span 2;
         @include media-breakpoint-down(sm) {
           grid-column: 1;
