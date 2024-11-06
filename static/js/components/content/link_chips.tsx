@@ -38,6 +38,8 @@ export interface LinkChip {
 }
 
 interface LinkChipsProps {
+  //the variant of the link chip to display: standard is a raised grey chip and flat is a flat blue chip
+  variant?: "standard" | "flat";
   //the title of the component, displayed as a header above the chips
   title?: string;
   //the link
@@ -45,11 +47,12 @@ interface LinkChipsProps {
 }
 
 export const LinkChips = ({
+  variant = "standard",
   title,
   linkChips,
 }: LinkChipsProps): ReactElement => {
   return (
-    <section id="chip-section" className="chip-section">
+    <section className={`chip-section ${variant}`}>
       <div className="container">
         {title && <h3>{title}</h3>}
         <ul className="chip-container">
