@@ -43,6 +43,7 @@ export function StatVarQueries({ queries }: StatVarQueriesProps): ReactElement {
       title={
         "Explore statistical variables around the world in the Timeline explorer tool"
       }
+      section="statvar"
       linkChips={statVarLinkChips}
     />
   );

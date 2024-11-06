@@ -38,10 +38,12 @@ export interface LinkChip {
 }
 
 interface LinkChipsProps {
-  //the variant of the link chip to display: standard is a raised grey chip and flat is a flat blue chip
+  //the variant of the link chip to display: elevated is a raised grey chip and flat is a flat blue chip
   variant?: "elevated" | "flat";
   //the title of the component, displayed as a header above the chips
   title?: string;
+  //the section gives location of the chip component in order to give context for the GA event
+  section: string;
   //the link
   linkChips: LinkChip[];
 }
@@ -49,6 +51,7 @@ interface LinkChipsProps {
 export const LinkChips = ({
   variant = "elevated",
   title,
+  section,
   linkChips,
 }: LinkChipsProps): ReactElement => {
   return (
@@ -62,7 +65,7 @@ export const LinkChips = ({
                 href={linkChip.url}
                 onClick={(): void => {
                   triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
-                    [GA_PARAM_ID]: `topic ${linkChip.id}`,
+                    [GA_PARAM_ID]: `${section} ${linkChip.id}`,
                     [GA_PARAM_URL]: linkChip.url,
                   });
                   window.location.href = linkChip.url;
