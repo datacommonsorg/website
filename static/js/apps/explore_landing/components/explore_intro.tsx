@@ -20,7 +20,7 @@
 
 import React, { ReactElement } from "react";
 
-import IntroText from "../../../components/content/intro_text";
+import { IntroText } from "../../../components/content/intro_text";
 import { formatNumber } from "../../../i18n/i18n";
 import { TopicConfig } from "../../../shared/topic_config";
 

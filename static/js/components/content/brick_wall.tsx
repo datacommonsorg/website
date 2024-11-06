@@ -17,8 +17,8 @@ const patterns = [
 ];
 
 export const BrickWall = ({ title, bricks }: BrickWallProps): ReactElement => {
-  // This function divides the bricks into columns (based on the NUM_COLUMNS above), and tracks the number of rows in each column.
-  // The number of rows isn't simple to calculate because it varies based on the pattern of the bricks.
+  // This function divides the bricks into columns (based on the NUM_COLUMNS above), and tracks the number of rows in
+  // each column. The number of rows isn't simple to calculate because it varies based on the pattern of the bricks.
   const { columns, numRows } = useMemo(() => {
     const columns: ReactElement[][] = Array.from(
       { length: NUM_COLUMNS },

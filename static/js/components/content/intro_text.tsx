@@ -25,12 +25,10 @@ interface IntroTextProps {
   children: ReactElement;
 }
 
-const IntroText = ({ children }: IntroTextProps): ReactElement => {
+export const IntroText = ({ children }: IntroTextProps): ReactElement => {
   return (
     <section id="intro-text" className="intro-text">
       <div className="container">{children}</div>
     </section>
   );
 };
-
-export default IntroText;
