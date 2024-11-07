@@ -119,10 +119,10 @@ class ExploreTest(NLWebServerTestCase):
     # TODO: Proper fix should be to make NL server more deterministic
     if 'variables' in resp:
       resp_var_to_score = {}
+      dbg['sv_matching']['CosineScore'] = _format_scores(
+          dbg['sv_matching']['CosineScore'])
       for i, sv in enumerate(dbg['sv_matching']['SV']):
-        truncated_score = _format_score(dbg['sv_matching']['CosineScore'][i])
-        resp_var_to_score[sv] = truncated_score
-        dbg['sv_matching']['CosineScore'][i] = truncated_score
+        resp_var_to_score[sv] = dbg['sv_matching']['CosineScore'][i]
       sorted_variables = sorted(resp['variables'],
                                 key=lambda x: (-resp_var_to_score.get(x, 0), x))
       resp['variables'] = sorted_variables
@@ -805,10 +805,6 @@ def _del_field(d: dict, path: str):
         tmp = tmp[p]
 
 
-# Helper function to consistently format a float score.
-def _format_score(score):
-  return float("{:.6f}".format(score))
-
-
+# Helper function to consistently format float scores.
 def _format_scores(scores):
-  return [_format_score(score) for score in scores]
+  return [float("{:.6f}".format(score)) for score in scores]
