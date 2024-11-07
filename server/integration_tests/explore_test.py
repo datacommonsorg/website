@@ -119,12 +119,22 @@ class ExploreTest(NLWebServerTestCase):
     # TODO: Proper fix should be to make NL server more deterministic
     if 'variables' in resp:
       resp_var_to_score = {}
+      dbg['sv_matching']['CosineScore'] = _format_scores(
+          dbg['sv_matching']['CosineScore'])
       for i, sv in enumerate(dbg['sv_matching']['SV']):
-        score = dbg['sv_matching']['CosineScore'][i]
-        resp_var_to_score[sv] = float("{:.6f}".format(score))
+        resp_var_to_score[sv] = dbg['sv_matching']['CosineScore'][i]
       sorted_variables = sorted(resp['variables'],
                                 key=lambda x: (-resp_var_to_score.get(x, 0), x))
       resp['variables'] = sorted_variables
+
+    # Truncate CosineScores to 6 decimals to reduce noisy diffs.
+    for candidate in dbg['sv_matching']['MultiSV'].get('Candidates', []):
+      for part in candidate.get('Parts', []):
+        if multisv_scores := part.get('CosineScore', []):
+          part['CosineScore'] = _format_scores(multisv_scores)
+
+    if props_scores := dbg['props_matching'].get('CosineScore', []):
+      dbg['props_matching']['CosineScore'] = _format_scores(props_scores)
 
     resp['debug'] = {}
     resp['context'] = {}
@@ -793,3 +803,8 @@ def _del_field(d: dict, path: str):
         del tmp[p]
       else:
         tmp = tmp[p]
+
+
+# Helper function to consistently format float scores.
+def _format_scores(scores):
+  return [float("{:.6f}".format(score)) for score in scores]
