@@ -120,8 +120,7 @@ class ExploreTest(NLWebServerTestCase):
     if 'variables' in resp:
       resp_var_to_score = {}
       for i, sv in enumerate(dbg['sv_matching']['SV']):
-        truncated_score = float("{:.6f}".format(
-            dbg['sv_matching']['CosineScore'][i]))
+        truncated_score = _format_score(dbg['sv_matching']['CosineScore'][i])
         resp_var_to_score[sv] = truncated_score
         dbg['sv_matching']['CosineScore'][i] = truncated_score
       sorted_variables = sorted(resp['variables'],
@@ -131,10 +130,11 @@ class ExploreTest(NLWebServerTestCase):
     # Truncate CosineScores to 6 decimals to reduce noisy diffs.
     for candidate in dbg['sv_matching']['MultiSV'].get('Candidates', []):
       for part in candidate.get('Parts', []):
-        for i, score in enumerate(part.get('CosineScore', [])):
-          part['CosineScore'][i] = float("{:.6f}".format(score))
-    for i, score in enumerate(dbg['props_matching'].get('CosineScore', [])):
-      dbg['props_matching']['CosineScore'][i] = float("{:.6f}".format(score))
+        if multisv_scores := part.get('CosineScore', []):
+          part['CosineScore'] = _format_scores(multisv_scores)
+
+    if props_scores := dbg['props_matching'].get('CosineScore', []):
+      dbg['props_matching']['CosineScore'] = _format_scores(props_scores)
 
     resp['debug'] = {}
     resp['context'] = {}
@@ -803,3 +803,12 @@ def _del_field(d: dict, path: str):
         del tmp[p]
       else:
         tmp = tmp[p]
+
+
+# Helper function to consistently format a float score.
+def _format_score(score):
+  return float("{:.6f}".format(score))
+
+
+def _format_scores(scores):
+  return [_format_score(score) for score in scores]
