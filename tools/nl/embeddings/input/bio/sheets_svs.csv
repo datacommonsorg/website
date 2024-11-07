@@ -1,30 +1,26 @@
 dcid,sentence
 ofVirusSpecies,ofVirusSpecies;The species of a virus isolate
 virusHost,virusHost;A specific organism or taxonomic group of organisms that are susceptible to be infected by a virus;host of a virus
-ncbiTaxonID,ncbiTaxonID;NCBI Taxonomy database identifier
-diseaseName,diseaseName;preferred disease name for the concept specified by disease identifiers;The name of the disease
-observedAllele,observedAllele;The sequences of the observed alleles from rs-fasta files.
-referenceAlleleNCBI,referenceAlleleNCBI;Reference genomic sequence from dbSNP;reference allele
+ncbiTaxId,ncbiTaxID;NCBI Taxonomy database identifier
+referenceAllele,referenceAllele;referenceAlleleNCBI;Reference genomic sequence from dbSNP;reference allele
 class,class
 phylum,phylum
 geneticVariantFunctionalCategory,geneticVariantFunctionalCategory;Functional category of the genetic variant
-hg19GenomicPosition,hg19GenomicPosition;The genomic position of a genetic variant using the hg19 assembly
-hg19GenomicLocation,hg19GenomicLocation;The genomic location of a genetic variant using the hg19 assembly
-hg38GenomicPosition,hg38GenomicPosition;The genomic position of a genetic variant using the hg38 assembly
-hg38GenomicLocation,hg38GenomicLocation;The genomic location of a genetic variant using the hg38 assembly
-hasRNATranscript,hasRNATranscript;Recorded transcript;RNA transcript that a gene has
+hgncID,hgncID;HUGO Gene Nomenclature Committee identifier
+inChIKey,InChIKey;International Chemical Identifier (InChI) Key
 strandOrientation,strandOrientation;The strand on which a given annotation is located;The orientation of the strand on which an annotation is located
 typeOfGene,typeOfGene;The type of gene
 omimID,omimID;OMIM database identifier
 icd10CMCode,"icd10CMCode;The disease diagnosis code for version 10 of the International Classification of Diseases (ICD), Clinical Modification"
 subClassificationOf,subClassificationOf;subclassification of
 snomedCT,snomedCT;Systematiized Nomenclature of Medicine (SNOMED) clinical terms (CT) code
-unifiedMedicalLanguageSystemConceptUniqueIdentifier,"unifiedMedicalLanguageSystemConceptUniqueIdentifier;Unified Medical Language System (UMLS) Concept Unique Identifier (CUI);""UMLS CUI"""
+umlsConceptUniqueID,umlsConceptUniqueID;Unified Medical Language System (UMLS) Concept Unique Identifier (CUI);UMLS CUI
 specializationOf,specializationOf;specialization of
 chemblID,chemblID;ChEMBL identifier
 simplifiedMolecularInputLineEntrySystem,simplifiedMolecularInputLineEntrySystem;Simplified Molecular Input Line Entry System (SMILE)
 medicalSubjectHeadingSupplementaryRecordID,medicalSubjectHeadingSupplementaryRecordID;A unique ID for a Medical Subject Heading supplementary record;An ID for a Medical Subject Heading supplementary record;MeSH supplementary record ID
 medicalSubjectHeadingDescriptorID,medicalSubjectHeadingDescriptorID;A unique ID for a Medical Subject Heading Descriptor record;An ID for a Medical Subject Heading descriptor record;MeSH descriptor record ID
+mechanismOfAction,mechanismOfAction;MOA;the biochemcial interaction through which a drug produces a pharmacological effect
 activeIngredient,"activeIngredient;component that provides pharmacological activity or other direct effect in the diagnosis, cure, mitigation, treatment, or prevention of disease, or to affect the structure or any function of the body of man or animals"
 administrationRoute,administrationRoute;The method by which a drug is administered
 dosageForm,dosageForm;physical form in which a drug is produced and dispensed
@@ -37,10 +33,7 @@ geneID,geneID;gene id
 ncbiProteinAccessionNumber,ncbiProteinAccessionNumber;NCBI protein accession number
 alleleOrigin,alleleOrigin;Variant allele origin;Origin of variant allele
 alleleType,alleleType;The allele of a genetic variant observed within a population;Type of allele
-ncbiDNASequenceName,ncbiDNASequenceName;NCBI defined segment of DNA sequence name;Name used by NIH NCBI to refer to a segment of DNA sequence
-imageUrl,imageUrl;url to an image of what the biological specimen looks like;what the entity looks like
-genomicCoordinates,genomicCoordinates;genomic coordinates
-availableStrength,availableStrength;dose approved for a drug
+hasGenomicCoordinates,genomicCoordinates;genomic coordinates
 <-variantID{typeOf:GeneGeneticVariantAssociation}->geneID,GeneticVariantGeneAssociation;Gene associated with a genetic variant
 <-geneID{typeOf:GeneGeneticVariantAssociation}->variantID,GeneticVariantGeneAssociation;genetic variant associated with a gene
 <-diseaseID{typeOf:DiseaseGeneAssociation}->geneID,DiseaseGeneAssociation;Gene associated with a disease
