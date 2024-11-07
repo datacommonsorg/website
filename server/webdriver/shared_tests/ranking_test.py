@@ -61,7 +61,7 @@ class RankingTestMixin():
     )
 
     title_present = EC.text_to_be_present_in_element(
-        (By.CSS_SELECTOR, '#main-nav .navbar-brand'), self.dc_title_string)
+        (By.CSS_SELECTOR, '#main-navbar-container .navbar-brand'), self.dc_title_string)
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(title_present)
 
     subtitle_present = EC.text_to_be_present_in_element(
@@ -108,7 +108,7 @@ class RankingTestMixin():
     )
 
     title_present = EC.text_to_be_present_in_element(
-        (By.CSS_SELECTOR, '#main-nav .navbar-brand'), self.dc_title_string)
+        (By.CSS_SELECTOR, '#main-navbar-container .navbar-brand'), self.dc_title_string)
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(title_present)
 
     subtitle_present = EC.text_to_be_present_in_element(
