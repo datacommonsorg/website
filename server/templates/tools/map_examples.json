@@ -10,16 +10,6 @@
       "url": "#%26sv%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26pc%3D0%26pd%3Dcountry%2FIND%26ept%3DAdministrativeArea2"
     }]
   }, {
-    "header": "Annual Non-Biogenic Carbon Dioxide Emissions",
-    "preposition": "across",
-    "examples": [{
-      "text": "states in USA",
-      "url": "#%26sv%3DAnnual_Emissions_CarbonDioxide_NonBiogenic%26pc%3D0%26pd%3Dcountry%2FUSA%26ept%3DState%26ppt%3DEpaReportingFacility"
-    }, {
-      "text": "facilities in Texas",
-      "url": "#%26sv%3DAnnual_Emissions_CarbonDioxide_NonBiogenic%26pc%3D0%26pd%3DgeoId%2F48%26ept%3DCounty%26ppt%3DEpaReportingFacility%26mp%3D1"
-    }]
-  }, {
     "header": "Water Withdrawal Rate",
     "preposition": "across counties in",
     "examples": [{
@@ -105,19 +95,6 @@
     }, {
       "text": "Median Income",
       "url": "#&sv=Median_Income_Person&pc=0&pd=country/USA&ept=State"
-    }]
-  }, {
-    "header": "Greenhouse Gas Emissions",
-    "preposition": "across",
-    "examples": [{
-      "text": "states in USA",
-      "url": "#&sv=Annual_Emissions_GreenhouseGas_NonBiogenic&pc=0&pd=country/USA&ept=State&ppt=EpaReportingFacility&mp=1"
-    }, {
-      "text": "counties in California",
-      "url": "#&sv=Annual_Emissions_GreenhouseGas_NonBiogenic&pc=0&pd=geoId/06&ept=County&ppt=EpaReportingFacility&mp=1"
-    }, {
-      "text": "Kern County",
-      "url": "#&sv=Annual_Emissions_GreenhouseGas_NonBiogenic&pc=0&pd=geoId/06029&ept=County&ppt=EpaReportingFacility&mp=1"
     }]
   }
 ]}
