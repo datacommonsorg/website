@@ -60,6 +60,10 @@ def need_llm(heuristic: Detection, prev_uttr: Utterance,
   need_sv = False
   need_place = False
 
+  # Do not use LLM when an entity has been identified.
+  if _has_entity(heuristic):
+    return NeedLLM.No
+
   # 1. If there was no SV or prop.
   if _has_no_sv(heuristic, ctr) and _has_no_prop(heuristic, ctr):
 
@@ -120,6 +124,10 @@ def _has_no_prop(d: Detection, ctr: counters.Counters) -> bool:
 
 def _has_no_entity(d: Detection) -> bool:
   return not d.places_detected or not d.places_detected.entities_found
+
+
+def _has_entity(d: Detection) -> bool:
+  return not _has_no_entity(d)
 
 
 #
