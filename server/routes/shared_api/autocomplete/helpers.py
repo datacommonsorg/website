@@ -16,6 +16,7 @@ import json
 import logging
 import re
 from typing import Dict, List
+import unicodedata
 from urllib.parse import urlencode
 
 from flask import current_app
@@ -135,11 +136,21 @@ def off_by_one_letter(str1_word: str, name_word: str) -> bool:
   return offby <= 1
 
 
+def sanitize_and_replace_non_ascii(string: str) -> str:
+  """Sanitize and replace non ascii.
+  Returns:
+    String sanitized and without accents, cedillas, or enye."""
+  nfkd_form = unicodedata.normalize('NFKD', string)
+  return "".join([c for c in nfkd_form if not unicodedata.combining(c)])
+
+
 def get_match_score(match_string: str, name: str) -> float:
   """Computes a 'score' based on the matching words in two strings. Lowest
   score is best match.
   Returns:
     Float score."""
+  name = sanitize_and_replace_non_ascii(name)
+  match_string = sanitize_and_replace_non_ascii(match_string)
 
   rgx = re.compile(r'[\s|,]+')
   words_in_name = re.split(rgx, name)
