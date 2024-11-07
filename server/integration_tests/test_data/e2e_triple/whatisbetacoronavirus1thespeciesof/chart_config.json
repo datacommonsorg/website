@@ -9,20 +9,28 @@
               {
                 "tiles": [
                   {
-                    "answerTableTileSpec": {
-                      "columns": [
-                        {
-                          "header": "Virus Host",
-                          "propertyExpr": "->virusHost"
-                        }
-                      ]
+                    "answerMessageTileSpec": {
+                      "propertyExpr": "->virusHost"
                     },
                     "entities": [
-                      "bio/Betacoronavirus1",
-                      "bio/D000073641"
+                      "bio/Betacoronavirus1"
                     ],
-                    "title": "The Virus Host for Betacoronavirus 1 are as follows:",
-                    "type": "ANSWER_TABLE"
+                    "title": "The Virus Host for Betacoronavirus 1 is:",
+                    "type": "ANSWER_MESSAGE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "entities": [
+                      "bio/Betacoronavirus1"
+                    ],
+                    "type": "ENTITY_OVERVIEW"
                   }
                 ]
               }
