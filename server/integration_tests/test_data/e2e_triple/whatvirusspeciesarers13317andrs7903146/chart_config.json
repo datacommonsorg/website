@@ -9,10 +9,109 @@
               {
                 "tiles": [
                   {
+                    "answerTableTileSpec": {
+                      "columns": [
+                        {
+                          "header": "Chrom",
+                          "propertyExpr": "->chrom"
+                        },
+                        {
+                          "header": "Clinical Annotation Count",
+                          "propertyExpr": "->clinicalAnnotationCount"
+                        },
+                        {
+                          "header": "Clinical Annotation Count Level1_2",
+                          "propertyExpr": "->clinicalAnnotationCountLevel1_2"
+                        },
+                        {
+                          "header": "Clinical Guideline Annotation Count",
+                          "propertyExpr": "->clinicalGuidelineAnnotationCount"
+                        },
+                        {
+                          "header": "Cytogenetic Map Location",
+                          "propertyExpr": "->cytogeneticMapLocation"
+                        },
+                        {
+                          "header": "Date Modified",
+                          "propertyExpr": "->dateModified"
+                        },
+                        {
+                          "header": "Description",
+                          "propertyExpr": "->description"
+                        },
+                        {
+                          "header": "Drug Label Annotation Count",
+                          "propertyExpr": "->drugLabelAnnotationCount"
+                        },
+                        {
+                          "header": "Full Name",
+                          "propertyExpr": "->fullName"
+                        },
+                        {
+                          "header": "Gene Symbol",
+                          "propertyExpr": "->geneSymbol"
+                        },
+                        {
+                          "header": "Genetic Variant Annotation Count",
+                          "propertyExpr": "->geneticVariantAnnotationCount"
+                        },
+                        {
+                          "header": "Has Genomic Coordinates",
+                          "propertyExpr": "->hasGenomicCoordinates"
+                        },
+                        {
+                          "header": "Name",
+                          "propertyExpr": "->name"
+                        },
+                        {
+                          "header": "Ncbi Gene ID",
+                          "propertyExpr": "->ncbiGeneID"
+                        },
+                        {
+                          "header": "Ncbi Sequence Gi Number",
+                          "propertyExpr": "->ncbiSequenceGiNumber"
+                        },
+                        {
+                          "header": "Of Species",
+                          "propertyExpr": "->ofSpecies"
+                        },
+                        {
+                          "header": "Pharm GKBID",
+                          "propertyExpr": "->pharmGKBID"
+                        },
+                        {
+                          "header": "Provenance",
+                          "propertyExpr": "->provenance"
+                        },
+                        {
+                          "header": "Pub Med ID",
+                          "propertyExpr": "->pubMedID"
+                        },
+                        {
+                          "header": "Ref Seq Genomic Accession",
+                          "propertyExpr": "->refSeqGenomicAccession"
+                        },
+                        {
+                          "header": "Rs ID",
+                          "propertyExpr": "->rsID"
+                        },
+                        {
+                          "header": "Synonym",
+                          "propertyExpr": "->synonym"
+                        },
+                        {
+                          "header": "Type Of",
+                          "propertyExpr": "->typeOf"
+                        }
+                      ]
+                    },
                     "entities": [
+                      "bio/ncbi_59246804",
+                      "bio/ncbi_59275321",
                       "bio/rs7903146"
                     ],
-                    "type": "ENTITY_OVERVIEW"
+                    "title": "Here are all the properties for are and rs7903146",
+                    "type": "ANSWER_TABLE"
                   }
                 ]
               }
@@ -25,6 +124,16 @@
   "context": {},
   "debug": {},
   "entities": [
+    {
+      "dcid": "bio/ncbi_59246804",
+      "name": "are",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_59275321",
+      "name": "are",
+      "type": ""
+    },
     {
       "dcid": "bio/rs7903146",
       "name": "rs7903146",
