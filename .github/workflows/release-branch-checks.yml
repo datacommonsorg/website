@@ -1,14 +1,14 @@
-name: all-commits-in-master
+name: Release branch checks
 
 on:
   pull_request:
     branches: [ "customdc_stable" ]
 
 jobs:
-  check_commits:
+  verify_all_commits_are_already_in_master:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           # Fetch all history for accurate comparison
           fetch-depth: 0
@@ -16,7 +16,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
 
-      - name: Check if commits exist in master
+      - name: Verify that all commits are already in the master branch
         run: |
           git remote add dc https://github.com/datacommonsorg/website.git
           git fetch dc
@@ -26,8 +26,14 @@ jobs:
           MISSING_COMMITS=$(git log --pretty="%H - %s" $MASTER_BRANCH..HEAD --)
 
           if [[ -n "$MISSING_COMMITS" ]]; then
+            echo ""
             echo "ERROR: The following commits are not present in $MASTER_BRANCH:"
+            echo ""
             echo "$MISSING_COMMITS"
+            echo ""
+            echo "PRs to release branches should only contain commits that are already in master."
+            echo "To fix this PR, reset its branch locally to a commit at or behind https://github.com/datacommonsorg/website/commits/master/ and then force-push it."
+            echo "Note that a release branch PR should be based on master and not the previous version of the release branch, which contains merge commits."
             exit 1
           fi
 
