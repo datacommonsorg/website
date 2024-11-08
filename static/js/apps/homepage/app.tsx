@@ -20,6 +20,7 @@
 
 //TODO: fold this into app.tsx when revamp is complete and final PR is ready.
 
+import { ThemeProvider } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import Build from "../../components/content/build_your_own";
@@ -35,6 +36,7 @@ import {
   SampleQuestionCategory,
   Topic,
 } from "../../shared/types/homepage";
+import theme from "../../theme/theme";
 
 interface AppProps {
   //the topics passed from the backend through to the JavaScript via the templates
@@ -63,7 +65,7 @@ export function App({
   }));
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <HeroVideo routes={routes} />
       <LinkChips
         title={"Topics to explore"}
@@ -74,6 +76,6 @@ export function App({
       <Tools routes={routes} />
       <Build routes={routes} />
       <Partners partners={partners} gaEvent={GA_EVENT_HOMEPAGE_CLICK} />
-    </>
+    </ThemeProvider>
   );
 }
