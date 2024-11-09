@@ -83,8 +83,8 @@ def need_llm(heuristic: Detection, prev_uttr: Utterance,
       ctr.info('info_fallback_no_sv_found', '')
       need_sv = True
 
-  # 2. If there was no place or entity.
-  if _has_no_place(heuristic) and _has_no_entity(heuristic):
+  # 2. If there was no place and no entity.
+  if _has_no_place(heuristic) and not _has_entity(heuristic):
 
     # For COUNTRY contained-in type, Earth is assumed
     # (e.g., countries with worst health), so exclude that.
@@ -122,12 +122,8 @@ def _has_no_prop(d: Detection, ctr: counters.Counters) -> bool:
       d.svs_detected.prop, d.svs_detected.sv_threshold, ctr)
 
 
-def _has_no_entity(d: Detection) -> bool:
-  return not d.places_detected or not d.places_detected.entities_found
-
-
 def _has_entity(d: Detection) -> bool:
-  return not _has_no_entity(d)
+  return d.places_detected and d.places_detected.entities_found
 
 
 #
