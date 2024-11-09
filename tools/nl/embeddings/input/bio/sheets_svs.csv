@@ -2,7 +2,7 @@ dcid,sentence
 ofVirusSpecies,ofVirusSpecies;The species of a virus isolate
 virusHost,virusHost;A specific organism or taxonomic group of organisms that are susceptible to be infected by a virus;host of a virus
 ncbiTaxId,ncbiTaxID;NCBI Taxonomy database identifier
-referenceAllele,referenceAllele;referenceAlleleNCBI;Reference genomic sequence from dbSNP;reference allele
+referenceAllele,Reference genomic sequence from dbSNP;reference allele
 class,class
 phylum,phylum
 geneticVariantFunctionalCategory,geneticVariantFunctionalCategory;Functional category of the genetic variant
@@ -20,7 +20,7 @@ chemblID,chemblID;ChEMBL identifier
 simplifiedMolecularInputLineEntrySystem,simplifiedMolecularInputLineEntrySystem;Simplified Molecular Input Line Entry System (SMILE)
 medicalSubjectHeadingSupplementaryRecordID,medicalSubjectHeadingSupplementaryRecordID;A unique ID for a Medical Subject Heading supplementary record;An ID for a Medical Subject Heading supplementary record;MeSH supplementary record ID
 medicalSubjectHeadingDescriptorID,medicalSubjectHeadingDescriptorID;A unique ID for a Medical Subject Heading Descriptor record;An ID for a Medical Subject Heading descriptor record;MeSH descriptor record ID
-mechanismOfAction,mechanismOfAction;MOA;the biochemcial interaction through which a drug produces a pharmacological effect
+mechanismOfAction,mechanismOfAction;MOA;the biochemical interaction through which a drug produces a pharmacological effect
 activeIngredient,"activeIngredient;component that provides pharmacological activity or other direct effect in the diagnosis, cure, mitigation, treatment, or prevention of disease, or to affect the structure or any function of the body of man or animals"
 administrationRoute,administrationRoute;The method by which a drug is administered
 dosageForm,dosageForm;physical form in which a drug is produced and dispensed
@@ -33,7 +33,7 @@ geneID,geneID;gene id
 ncbiProteinAccessionNumber,ncbiProteinAccessionNumber;NCBI protein accession number
 alleleOrigin,alleleOrigin;Variant allele origin;Origin of variant allele
 alleleType,alleleType;The allele of a genetic variant observed within a population;Type of allele
-hasGenomicCoordinates,genomicCoordinates;genomic coordinates
+hasGenomicCoordinates,genomic coordinates
 <-variantID{typeOf:GeneGeneticVariantAssociation}->geneID,GeneticVariantGeneAssociation;Gene associated with a genetic variant
 <-geneID{typeOf:GeneGeneticVariantAssociation}->variantID,GeneticVariantGeneAssociation;genetic variant associated with a gene
 <-diseaseID{typeOf:DiseaseGeneAssociation}->geneID,DiseaseGeneAssociation;Gene associated with a disease

@@ -78,7 +78,7 @@ indexes:
   bio_ft:
     store_type: MEMORY
     source_path: ../../tools/nl/embeddings/input/bio
-    embeddings_path: gs://datcom-nl-models/bio_ft_2024_11_06_16_50_25/embeddings.csv
+    embeddings_path: gs://datcom-nl-models/bio_ft_2024_11_08_19_00_38/embeddings.csv
     model: ft-final-v20230717230459-all-MiniLM-L6-v2
     healthcheck_query: "Gene"
   base_uae_lance:

@@ -62,7 +62,6 @@ genetic variant associated with a chemical compound,<-compoundID{typeOf:Chemical
 genetic variant associated with a gene,<-geneID{typeOf:GeneGeneticVariantAssociation}->variantID
 geneticVariantFunctionalCategory,geneticVariantFunctionalCategory
 genomic coordinates,hasGenomicCoordinates
-genomicCoordinates,hasGenomicCoordinates
 genus of a virus species,virusGenus
 hgncID,hgncID
 host of a virus,virusHost
@@ -78,8 +77,6 @@ omimID,omimID
 phylum,phylum
 physical form in which a drug is produced and dispensed,dosageForm
 reference allele,referenceAllele
-referenceAllele,referenceAllele
-referenceAlleleNCBI,referenceAllele
 simplifiedMolecularInputLineEntrySystem,simplifiedMolecularInputLineEntrySystem
 snomedCT,snomedCT
 specialization of,specializationOf
@@ -87,7 +84,7 @@ specializationOf,specializationOf
 strandOrientation,strandOrientation
 subClassificationOf,subClassificationOf
 subclassification of,subClassificationOf
-the biochemcial interaction through which a drug produces a pharmacological effect,mechanismOfAction
+the biochemical interaction through which a drug produces a pharmacological effect,mechanismOfAction
 type of antibody,antibodyType
 type of antigen,antigenType
 typeOfGene,typeOfGene
