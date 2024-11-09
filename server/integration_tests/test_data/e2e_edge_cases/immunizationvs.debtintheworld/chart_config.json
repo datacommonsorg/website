@@ -9,57 +9,6 @@
               {
                 "tiles": [
                   {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "WHO/WHS4_128_scatter",
-                      "sdg/DT_DOD_DECT_GN_ZS_scatter"
-                    ],
-                    "title": "Neonates Protected at Birth Against Neonatal Tetanus (Pab) (%) (${yDate}) Vs. External Debt Stocks as a Proportion of GNI (${xDate}) in the World",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ],
-            "title": "Neonates Protected At Birth Against Neonatal Tetanus (Pab) (%) vs. External debt stocks as a proportion of GNI"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/WHS4_128"
-                    ],
-                    "title": "Neonates Protected at Birth Against Neonatal Tetanus (Pab) (%) in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "WHO/WHS4_128"
-                    ],
-                    "title": "Neonates Protected at Birth Against Neonatal Tetanus (Pab) (%) in the World (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Neonates Protected at Birth Against Neonatal Tetanus (Pab) (%) in the World"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "statVarKey": [
                       "sdg/DT_DOD_DECT_GN_ZS"
                     ],
@@ -86,205 +35,11 @@
             ],
             "footnote": "Includes data from the following sources: world bank, international debt statistics.",
             "title": "External Debt Stocks as a Proportion of GNI in the World"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "WHO/WHS4_117_scatter",
-                      "sdg/DT_DOD_DECT_GN_ZS_scatter"
-                    ],
-                    "title": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%) (${yDate}) Vs. External Debt Stocks as a Proportion of GNI (${xDate}) in the World",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ],
-            "title": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%) vs. External debt stocks as a proportion of GNI"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/WHS4_117"
-                    ],
-                    "title": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%) in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "WHO/WHS4_117"
-                    ],
-                    "title": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%) in the World (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%) in the World"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "WHO/bcgv_Female_scatter",
-                      "sdg/DT_DOD_DECT_GN_ZS_scatter"
-                    ],
-                    "title": "% Bcg Immunization, Female One-Year-Old (${yDate}) Vs. External Debt Stocks as a Proportion of GNI (${xDate}) in the World",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ],
-            "title": "% Bcg Immunization, Female One-Year-Old vs. External debt stocks as a proportion of GNI"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/bcgv_Female"
-                    ],
-                    "title": "% Bcg Immunization, Female One-Year-Old in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "WHO/bcgv_Female"
-                    ],
-                    "title": "% Bcg Immunization, Female One-Year-Old in the World (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "% Bcg Immunization, Female One-Year-Old in the World"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "WHO/dptv_Female_scatter",
-                      "sdg/DT_DOD_DECT_GN_ZS_scatter"
-                    ],
-                    "title": "% Dtp3 Immunization, Female One-Year-Olds (${yDate}) Vs. External Debt Stocks as a Proportion of GNI (${xDate}) in the World",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ],
-            "title": "% Dtp3 Immunization, Female One-Year-Olds vs. External debt stocks as a proportion of GNI"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/dptv_Female"
-                    ],
-                    "title": "% Dtp3 Immunization, Female One-Year-Olds in the World (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "WHO/dptv_Female"
-                    ],
-                    "title": "% Dtp3 Immunization, Female One-Year-Olds in the World (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "% Dtp3 Immunization, Female One-Year-Olds in the World"
           }
         ],
         "statVarSpec": {
-          "WHO/WHS4_117": {
-            "name": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%)",
-            "statVar": "WHO/WHS4_117"
-          },
-          "WHO/WHS4_117_scatter": {
-            "name": "Hepatitis B (Hepb3) Immunization Coverage Among 1-Year-Olds (%)",
-            "noPerCapita": true,
-            "statVar": "WHO/WHS4_117"
-          },
-          "WHO/WHS4_128": {
-            "name": "Neonates Protected At Birth Against Neonatal Tetanus (Pab) (%)",
-            "statVar": "WHO/WHS4_128"
-          },
-          "WHO/WHS4_128_scatter": {
-            "name": "Neonates Protected At Birth Against Neonatal Tetanus (Pab) (%)",
-            "noPerCapita": true,
-            "statVar": "WHO/WHS4_128"
-          },
-          "WHO/bcgv_Female": {
-            "name": "% Bcg Immunization, Female One-Year-Old",
-            "statVar": "WHO/bcgv_Female"
-          },
-          "WHO/bcgv_Female_scatter": {
-            "name": "% Bcg Immunization, Female One-Year-Old",
-            "noPerCapita": true,
-            "statVar": "WHO/bcgv_Female"
-          },
-          "WHO/dptv_Female": {
-            "name": "% Dtp3 Immunization, Female One-Year-Olds",
-            "statVar": "WHO/dptv_Female"
-          },
-          "WHO/dptv_Female_scatter": {
-            "name": "% Dtp3 Immunization, Female One-Year-Olds",
-            "noPerCapita": true,
-            "statVar": "WHO/dptv_Female"
-          },
           "sdg/DT_DOD_DECT_GN_ZS": {
             "name": "External debt stocks as a proportion of GNI",
-            "statVar": "sdg/DT_DOD_DECT_GN_ZS"
-          },
-          "sdg/DT_DOD_DECT_GN_ZS_scatter": {
-            "name": "External debt stocks as a proportion of GNI",
-            "noPerCapita": true,
             "statVar": "sdg/DT_DOD_DECT_GN_ZS"
           }
         }
@@ -676,13 +431,6 @@
     "exploreMore": {},
     "mainTopics": [
       {
-        "dcid": "dc/topic/WHOImmunization",
-        "name": "Immunization",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
         "dcid": "dc/topic/Debt",
         "name": "Debt",
         "types": [
@@ -693,13 +441,6 @@
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/GlobalHealth",
-        "name": "Global Health",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
         "dcid": "dc/topic/GlobalEconomicActivity",
         "name": "Global Economic Activity",
         "types": [
@@ -709,13 +450,6 @@
     ],
     "peerPlaces": [],
     "peerTopics": [
-      {
-        "dcid": "dc/topic/WHOMortality",
-        "name": "Mortality",
-        "types": [
-          "Topic"
-        ]
-      },
       {
         "dcid": "dc/topic/GDP",
         "name": "GDP",

@@ -10,9 +10,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_NonBiogenic"
+                      "Annual_Emissions_GreenhouseGas"
                     ],
-                    "title": "Annual Emissions of Non Biogenic Greenhouse Gases in Fort Bend County",
+                    "title": "Greenhouse Gas Emissions in United States",
                     "type": "LINE"
                   }
                 ]
@@ -20,18 +20,55 @@
               {
                 "tiles": [
                   {
-                    "description": "Annual Emissions of Non Biogenic Greenhouse Gases in Fort Bend County",
+                    "description": "Greenhouse Gas Emissions in United States",
                     "statVarKey": [
-                      "Annual_Emissions_GreenhouseGas_NonBiogenic"
+                      "Annual_Emissions_GreenhouseGas"
                     ],
-                    "title": "Annual Emissions of Non Biogenic Greenhouse Gases in Fort Bend County",
+                    "title": "Greenhouse Gas Emissions in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Emissions of Non Biogenic Greenhouse Gases"
+            "description": "Annual emissions from all greenhouse gases measured in tonnes of CO\u2082 equivalents.",
+            "title": "Greenhouse Gas Emissions"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA"
+                    ],
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_Agriculture_multiple_place_bar_block",
+                      "Annual_Emissions_GreenhouseGas_ElectricityGeneration_multiple_place_bar_block",
+                      "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings_multiple_place_bar_block",
+                      "Annual_Emissions_GreenhouseGas_ForestryAndLandUse_multiple_place_bar_block",
+                      "Annual_Emissions_GreenhouseGas_Manufacturing_multiple_place_bar_block",
+                      "Annual_Emissions_GreenhouseGas_MineralExtraction_multiple_place_bar_block",
+                      "Annual_Emissions_GreenhouseGas_OilAndGas_multiple_place_bar_block",
+                      "Annual_Emissions_GreenhouseGas_Transportation_multiple_place_bar_block",
+                      "Annual_Emissions_GreenhouseGas_WasteManagement_multiple_place_bar_block",
+                      "Annual_Emissions_GreenhouseGas_CementProduction_multiple_place_bar_block",
+                      "Annual_Emissions_GreenhouseGas_SteelManufacturing_multiple_place_bar_block",
+                      "Annual_Emissions_GreenhouseGas_ForestFire_multiple_place_bar_block"
+                    ],
+                    "title": "Greenhouse Gas Emissions by Source in United States (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Greenhouse Gas Emissions by Source"
           },
           {
             "columns": [
@@ -39,9 +76,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Annual_Emissions_CarbonDioxide_NonBiogenic"
+                      "eia/INTL.4008-8-MMTCD.A"
                     ],
-                    "title": "Annual Emissions of Non Biogenic Carbon Dioxide in Fort Bend County",
+                    "title": "CO2 Emissions, Annual in United States",
                     "type": "LINE"
                   }
                 ]
@@ -49,18 +86,18 @@
               {
                 "tiles": [
                   {
-                    "description": "Annual Emissions of Non Biogenic Carbon Dioxide in Fort Bend County",
+                    "description": "CO2 Emissions, Annual in United States",
                     "statVarKey": [
-                      "Annual_Emissions_CarbonDioxide_NonBiogenic"
+                      "eia/INTL.4008-8-MMTCD.A"
                     ],
-                    "title": "Annual Emissions of Non Biogenic Carbon Dioxide in Fort Bend County",
+                    "title": "CO2 Emissions, Annual in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Emissions of Non Biogenic Carbon Dioxide"
+            "title": "CO2 Emissions, Annual"
           },
           {
             "columns": [
@@ -68,29 +105,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Annual_Emissions_Hydrofluorocarbon_NonBiogenic",
-                      "Annual_Emissions_NitrogenTrifluoride_NonBiogenic",
-                      "Annual_Emissions_Perfluorocarbon_NonBiogenic",
-                      "Annual_Emissions_SulfurHexafluoride_NonBiogenic"
+                      "Amount_Emissions_CarbonDioxide_PerCapita"
                     ],
-                    "title": "Flourinated Gas Emissions by Type in Fort Bend County",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Flourinated Gas Emissions by Type"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Annual_Emissions_Methane_NonBiogenic"
-                    ],
-                    "title": "Annual Emissions of Non Biogenic Methane in Fort Bend County",
+                    "title": "CO2 Emissions Per Capita in United States",
                     "type": "LINE"
                   }
                 ]
@@ -98,12 +115,63 @@
               {
                 "tiles": [
                   {
-                    "description": "Annual Emissions of Non Biogenic Methane in Fort Bend County",
+                    "description": "CO2 Emissions Per Capita in United States",
                     "statVarKey": [
-                      "Annual_Emissions_Methane_NonBiogenic"
+                      "Amount_Emissions_CarbonDioxide_PerCapita"
                     ],
-                    "title": "Annual Emissions of Non Biogenic Methane in Fort Bend County",
+                    "title": "CO2 Emissions Per Capita in United States",
                     "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "CO2 Emissions Per Capita"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA"
+                    ],
+                    "statVarKey": [
+                      "Annual_Emissions_CarbonDioxide_Agriculture_multiple_place_bar_block",
+                      "Annual_Emissions_CarbonDioxide_FuelCombustionInBuildings_multiple_place_bar_block",
+                      "Annual_Emissions_CarbonDioxide_FossilFuelOperations_multiple_place_bar_block",
+                      "Annual_Emissions_CarbonDioxide_Manufacturing_multiple_place_bar_block",
+                      "Annual_Emissions_CarbonDioxide_MineralExtraction_multiple_place_bar_block",
+                      "Annual_Emissions_CarbonDioxide_Power_multiple_place_bar_block",
+                      "Annual_Emissions_CarbonDioxide_Transportation_multiple_place_bar_block",
+                      "Annual_Emissions_CarbonDioxide_WasteManagement_multiple_place_bar_block"
+                    ],
+                    "title": "CO2 Emissions by Source in United States (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "CO2 Emissions by Source"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Annual_Emissions_Methane_Agriculture",
+                      "Annual_Emissions_Methane_FossilFuelOperations",
+                      "Annual_Emissions_Methane_OpenBurningWaste",
+                      "Annual_Emissions_Methane_WasteManagement"
+                    ],
+                    "title": "Methane Emissions by Source in United States",
+                    "type": "LINE"
                   }
                 ]
               }
@@ -116,23 +184,24 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "Annual_Emissions_NitrousOxide_NonBiogenic"
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA"
                     ],
-                    "title": "Annual Emissions of Non Biogenic Nitrous Oxide in Fort Bend County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Annual Emissions of Non Biogenic Nitrous Oxide in Fort Bend County",
                     "statVarKey": [
-                      "Annual_Emissions_NitrousOxide_NonBiogenic"
+                      "Annual_Emissions_NitrousOxide_Agriculture_multiple_place_bar_block",
+                      "Annual_Emissions_NitrousOxide_FuelCombustionForResidentialCommercialOnsiteHeating_multiple_place_bar_block",
+                      "Annual_Emissions_NitrousOxide_Manufacturing_multiple_place_bar_block",
+                      "Annual_Emissions_NitrousOxide_Transportation_multiple_place_bar_block",
+                      "Annual_Emissions_NitrousOxide_WasteManagement_multiple_place_bar_block",
+                      "Annual_Emissions_NitrousOxide_WastewaterTreatmentAndDischarge_multiple_place_bar_block"
                     ],
-                    "title": "Annual Emissions of Non Biogenic Nitrous Oxide in Fort Bend County",
-                    "type": "HIGHLIGHT"
+                    "title": "Nitrous Oxide Emissions by Source in United States (${date})",
+                    "type": "BAR"
                   }
                 ]
               }
@@ -145,34 +214,59 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_FuelCombustionForRoadVehicles"
+                    ],
+                    "title": "Annual Amount of Emissions: Fuel Combustion for Road Vehicles, Greenhouse Gas in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Annual Amount of Emissions: Fuel Combustion for Road Vehicles, Greenhouse Gas in United States",
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_FuelCombustionForRoadVehicles"
+                    ],
+                    "title": "Annual Amount of Emissions: Fuel Combustion for Road Vehicles, Greenhouse Gas in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Amount of Emissions: Fuel Combustion for Road Vehicles, Greenhouse Gas"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "barTileSpec": {
                       "maxPlaces": 15,
                       "maxVariables": 15,
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "geoId/48157"
+                      "country/USA"
                     ],
                     "statVarKey": [
-                      "Annual_Amount_Emissions_PM2.5_SCC_1_ExternalCombustion_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_PM2.5_SCC_2_InternalCombustionEngines_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_PM2.5_SCC_3_IndustrialProcesses_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_PM2.5_SCC_4_PetroleumAndSolventEvaporation_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_PM2.5_SCC_5_WasteDisposal_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_PM2.5_SCC_21_StationarySourceFuelCombustion_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_PM2.5_SCC_22_MobileSources_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_PM2.5_SCC_23_IndustrialProcesses_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_PM2.5_SCC_26_WasteDisposalTreatmentAndRecovery_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_PM2.5_SCC_28_MiscellaneousAreaSources_multiple_place_bar_block"
+                      "Annual_Emissions_GreenhouseGas_multiple_place_bar_block",
+                      "Annual_Amount_Emissions_CarbonDioxide_multiple_place_bar_block",
+                      "Annual_Amount_Emissions_CarbonMonoxide_multiple_place_bar_block",
+                      "Annual_Amount_Emissions_OxidesOfNitrogen_multiple_place_bar_block",
+                      "Annual_Amount_Emissions_OxidesOfSulfur_multiple_place_bar_block",
+                      "Annual_Amount_Emissions_VolatileOrganicCompound_multiple_place_bar_block"
                     ],
-                    "title": "PM 2.5 Emissions by Source in Fort Bend County (${date})",
+                    "title": "Greenhouse Gas Emissions and More in United States (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "PM 2.5 Emissions by Source"
+            "title": "Related: Greenhouse Gas Emissions and More"
           },
           {
             "columns": [
@@ -185,418 +279,259 @@
                       "sort": "DESCENDING"
                     },
                     "comparisonPlaces": [
-                      "geoId/48157"
+                      "country/USA"
                     ],
                     "statVarKey": [
-                      "Annual_Amount_Emissions_SulfurDioxide_SCC_1_ExternalCombustion_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_SulfurDioxide_SCC_2_InternalCombustionEngines_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_SulfurDioxide_SCC_3_IndustrialProcesses_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_SulfurDioxide_SCC_4_PetroleumAndSolventEvaporation_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_SulfurDioxide_SCC_5_WasteDisposal_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_SulfurDioxide_SCC_21_StationarySourceFuelCombustion_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_SulfurDioxide_SCC_22_MobileSources_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_SulfurDioxide_SCC_23_IndustrialProcesses_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_SulfurDioxide_SCC_26_WasteDisposalTreatmentAndRecovery_multiple_place_bar_block",
-                      "Annual_Amount_Emissions_SulfurDioxide_SCC_28_MiscellaneousAreaSources_multiple_place_bar_block",
-                      "Annual_Emissions_SulfurHexafluoride_NonBiogenic_multiple_place_bar_block"
+                      "Annual_Emissions_GreenhouseGas_Transportation_multiple_place_bar_block",
+                      "Annual_Emissions_CarbonDioxideEquivalent100YearGlobalWarmingPotential_Transportation_multiple_place_bar_block",
+                      "Annual_Emissions_CarbonDioxideEquivalent20YearGlobalWarmingPotential_Transportation_multiple_place_bar_block",
+                      "Annual_Emissions_CarbonDioxide_Transportation_multiple_place_bar_block",
+                      "Annual_Emissions_Methane_Transportation_multiple_place_bar_block",
+                      "Annual_Emissions_NitrousOxide_Transportation_multiple_place_bar_block"
                     ],
-                    "title": "Sulfur Dioxide Emissions by Source in Fort Bend County (${date})",
+                    "title": "Greenhouse Gas Emissions From Transportation and More in United States (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Sulfur Dioxide Emissions by Source"
+            "title": "Related: Greenhouse Gas Emissions From Transportation and More"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "Annual_Amount_Emissions_SCC_27_NaturalSources"
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA"
                     ],
-                    "title": "Annual Emissions: Natural Sources in Fort Bend County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Annual Emissions: Natural Sources in Fort Bend County",
                     "statVarKey": [
-                      "Annual_Amount_Emissions_SCC_27_NaturalSources"
+                      "Annual_Emissions_GreenhouseGas_FuelCombustionForRoadVehicles_multiple_place_bar_block",
+                      "Annual_Emissions_CarbonDioxideEquivalent100YearGlobalWarmingPotential_FuelCombustionForRoadVehicles_multiple_place_bar_block",
+                      "Annual_Emissions_CarbonDioxideEquivalent20YearGlobalWarmingPotential_FuelCombustionForRoadVehicles_multiple_place_bar_block",
+                      "Annual_Emissions_CarbonDioxide_FuelCombustionForRoadVehicles_multiple_place_bar_block",
+                      "Annual_Emissions_Methane_FuelCombustionForRoadVehicles_multiple_place_bar_block",
+                      "Annual_Emissions_NitrousOxide_FuelCombustionForRoadVehicles_multiple_place_bar_block"
                     ],
-                    "title": "Annual Emissions: Natural Sources in Fort Bend County",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Annual Emissions: Natural Sources"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Annual_Amount_Emissions_SCC_28_MiscellaneousAreaSources"
-                    ],
-                    "title": "Annual Emissions: Misc in Fort Bend County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Annual Emissions: Misc in Fort Bend County",
-                    "statVarKey": [
-                      "Annual_Amount_Emissions_SCC_28_MiscellaneousAreaSources"
-                    ],
-                    "title": "Annual Emissions: Misc in Fort Bend County",
-                    "type": "HIGHLIGHT"
+                    "title": "Annual Amount of Emissions: Fuel Combustion for Road Vehicles, Greenhouse Gas and More in United States (${date})",
+                    "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Annual Emissions: Misc"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Annual_Amount_Emissions_SCC_1_ExternalCombustion"
-                    ],
-                    "title": "Annual Emissions: External Combustion in Fort Bend County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Annual Emissions: External Combustion in Fort Bend County",
-                    "statVarKey": [
-                      "Annual_Amount_Emissions_SCC_1_ExternalCombustion"
-                    ],
-                    "title": "Annual Emissions: External Combustion in Fort Bend County",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Annual Emissions: External Combustion"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines"
-                    ],
-                    "title": "Annual Emissions: Internal Combustion Engines in Fort Bend County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Annual Emissions: Internal Combustion Engines in Fort Bend County",
-                    "statVarKey": [
-                      "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines"
-                    ],
-                    "title": "Annual Emissions: Internal Combustion Engines in Fort Bend County",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Annual Emissions: Internal Combustion Engines"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Annual_Amount_Emissions_SCC_25_StorageAndTransport"
-                    ],
-                    "title": "Annual Emissions: Storage and Transport in Fort Bend County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Annual Emissions: Storage and Transport in Fort Bend County",
-                    "statVarKey": [
-                      "Annual_Amount_Emissions_SCC_25_StorageAndTransport"
-                    ],
-                    "title": "Annual Emissions: Storage and Transport in Fort Bend County",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Annual Emissions: Storage and Transport"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Annual_Amount_Emissions_SCC_23_IndustrialProcesses"
-                    ],
-                    "title": "Annual Emissions: Industrial Processes in Fort Bend County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Annual Emissions: Industrial Processes in Fort Bend County",
-                    "statVarKey": [
-                      "Annual_Amount_Emissions_SCC_23_IndustrialProcesses"
-                    ],
-                    "title": "Annual Emissions: Industrial Processes in Fort Bend County",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Annual Emissions: Industrial Processes"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Annual_Amount_Emissions_SCC_3_IndustrialProcesses"
-                    ],
-                    "title": "Annual Emissions: Industrial Processes in Fort Bend County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Annual Emissions: Industrial Processes in Fort Bend County",
-                    "statVarKey": [
-                      "Annual_Amount_Emissions_SCC_3_IndustrialProcesses"
-                    ],
-                    "title": "Annual Emissions: Industrial Processes in Fort Bend County",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Annual Emissions: Industrial Processes"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Annual_Amount_Emissions_SCC_21_StationarySourceFuelCombustion"
-                    ],
-                    "title": "Annual Emissions: Stationary Source Fuel Combustion in Fort Bend County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Annual Emissions: Stationary Source Fuel Combustion in Fort Bend County",
-                    "statVarKey": [
-                      "Annual_Amount_Emissions_SCC_21_StationarySourceFuelCombustion"
-                    ],
-                    "title": "Annual Emissions: Stationary Source Fuel Combustion in Fort Bend County",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Annual Emissions: Stationary Source Fuel Combustion"
+            "title": "Related: Annual Amount of Emissions: Fuel Combustion for Road Vehicles, Greenhouse Gas and More"
           }
         ],
         "statVarSpec": {
-          "Annual_Amount_Emissions_PM2.5_SCC_1_ExternalCombustion_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions PM2.5, ExternalCombustion (1)",
-            "statVar": "Annual_Amount_Emissions_PM2.5_SCC_1_ExternalCombustion"
+          "Amount_Emissions_CarbonDioxide_PerCapita": {
+            "name": "CO2 Emissions Per Capita",
+            "statVar": "Amount_Emissions_CarbonDioxide_PerCapita"
           },
-          "Annual_Amount_Emissions_PM2.5_SCC_21_StationarySourceFuelCombustion_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions PM2.5, StationarySourceFuelCombustion (21)",
-            "statVar": "Annual_Amount_Emissions_PM2.5_SCC_21_StationarySourceFuelCombustion"
+          "Annual_Amount_Emissions_CarbonDioxide_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Carbon Dioxide",
+            "statVar": "Annual_Amount_Emissions_CarbonDioxide"
           },
-          "Annual_Amount_Emissions_PM2.5_SCC_22_MobileSources_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions PM2.5, MobileSources (22)",
-            "statVar": "Annual_Amount_Emissions_PM2.5_SCC_22_MobileSources"
+          "Annual_Amount_Emissions_CarbonMonoxide_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Carbon Monoxide",
+            "statVar": "Annual_Amount_Emissions_CarbonMonoxide"
           },
-          "Annual_Amount_Emissions_PM2.5_SCC_23_IndustrialProcesses_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions PM2.5, IndustrialProcesses (23)",
-            "statVar": "Annual_Amount_Emissions_PM2.5_SCC_23_IndustrialProcesses"
+          "Annual_Amount_Emissions_OxidesOfNitrogen_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Oxides of Nitrogen",
+            "statVar": "Annual_Amount_Emissions_OxidesOfNitrogen"
           },
-          "Annual_Amount_Emissions_PM2.5_SCC_26_WasteDisposalTreatmentAndRecovery_multiple_place_bar_block": {
-            "name": "Annual Amount Emissions PM2.5, WasteDisposalTreatmentAndRecovery (26)",
-            "statVar": "Annual_Amount_Emissions_PM2.5_SCC_26_WasteDisposalTreatmentAndRecovery"
+          "Annual_Amount_Emissions_OxidesOfSulfur_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Oxides of Sulfur",
+            "statVar": "Annual_Amount_Emissions_OxidesOfSulfur"
           },
-          "Annual_Amount_Emissions_PM2.5_SCC_28_MiscellaneousAreaSources_multiple_place_bar_block": {
-            "name": "Annual Emissions: PM 2.5, Misc Sources",
-            "statVar": "Annual_Amount_Emissions_PM2.5_SCC_28_MiscellaneousAreaSources"
+          "Annual_Amount_Emissions_VolatileOrganicCompound_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Volatile Organic Compound",
+            "statVar": "Annual_Amount_Emissions_VolatileOrganicCompound"
           },
-          "Annual_Amount_Emissions_PM2.5_SCC_2_InternalCombustionEngines_multiple_place_bar_block": {
-            "name": "Annual Emissions: PM 2.5, Internal Combustion Engine",
-            "statVar": "Annual_Amount_Emissions_PM2.5_SCC_2_InternalCombustionEngines"
+          "Annual_Emissions_CarbonDioxideEquivalent100YearGlobalWarmingPotential_FuelCombustionForRoadVehicles_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Fuel Combustion for Road Vehicles, Carbon Dioxide Equivalent 100 Year Global Warming Potential",
+            "statVar": "Annual_Emissions_CarbonDioxideEquivalent100YearGlobalWarmingPotential_FuelCombustionForRoadVehicles"
           },
-          "Annual_Amount_Emissions_PM2.5_SCC_3_IndustrialProcesses_multiple_place_bar_block": {
-            "name": "Annual Emissions: PM 2.5, Industrial Processes",
-            "statVar": "Annual_Amount_Emissions_PM2.5_SCC_3_IndustrialProcesses"
+          "Annual_Emissions_CarbonDioxideEquivalent100YearGlobalWarmingPotential_Transportation_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Transportation, Carbon Dioxide Equivalent 100 Year Global Warming Potential",
+            "statVar": "Annual_Emissions_CarbonDioxideEquivalent100YearGlobalWarmingPotential_Transportation"
           },
-          "Annual_Amount_Emissions_PM2.5_SCC_4_PetroleumAndSolventEvaporation_multiple_place_bar_block": {
-            "name": "Annual Emissions: PM 2.5, Petroleum & Solvent Evaporation",
-            "statVar": "Annual_Amount_Emissions_PM2.5_SCC_4_PetroleumAndSolventEvaporation"
+          "Annual_Emissions_CarbonDioxideEquivalent20YearGlobalWarmingPotential_FuelCombustionForRoadVehicles_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Fuel Combustion for Road Vehicles, Carbon Dioxide Equivalent 20 Year Global Warming Potential",
+            "statVar": "Annual_Emissions_CarbonDioxideEquivalent20YearGlobalWarmingPotential_FuelCombustionForRoadVehicles"
           },
-          "Annual_Amount_Emissions_PM2.5_SCC_5_WasteDisposal_multiple_place_bar_block": {
-            "name": "Annual Emissions: PM 2.5, Waste Disposal",
-            "statVar": "Annual_Amount_Emissions_PM2.5_SCC_5_WasteDisposal"
+          "Annual_Emissions_CarbonDioxideEquivalent20YearGlobalWarmingPotential_Transportation_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Transportation, Carbon Dioxide Equivalent 20 Year Global Warming Potential",
+            "statVar": "Annual_Emissions_CarbonDioxideEquivalent20YearGlobalWarmingPotential_Transportation"
           },
-          "Annual_Amount_Emissions_SCC_1_ExternalCombustion": {
-            "name": "Annual Emissions: External Combustion",
-            "statVar": "Annual_Amount_Emissions_SCC_1_ExternalCombustion"
+          "Annual_Emissions_CarbonDioxide_Agriculture_multiple_place_bar_block": {
+            "name": "CO\u2082 Emissions from Agriculture",
+            "statVar": "Annual_Emissions_CarbonDioxide_Agriculture"
           },
-          "Annual_Amount_Emissions_SCC_21_StationarySourceFuelCombustion": {
-            "name": "Annual Emissions: Stationary Source Fuel Combustion",
-            "statVar": "Annual_Amount_Emissions_SCC_21_StationarySourceFuelCombustion"
+          "Annual_Emissions_CarbonDioxide_FossilFuelOperations_multiple_place_bar_block": {
+            "name": "CO\u2082 Emissions from Fossil Fuel Operations",
+            "statVar": "Annual_Emissions_CarbonDioxide_FossilFuelOperations"
           },
-          "Annual_Amount_Emissions_SCC_23_IndustrialProcesses": {
-            "name": "Annual Emissions: Industrial Processes",
-            "statVar": "Annual_Amount_Emissions_SCC_23_IndustrialProcesses"
+          "Annual_Emissions_CarbonDioxide_FuelCombustionForRoadVehicles_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Fuel Combustion for Road Vehicles, Carbon Dioxide",
+            "statVar": "Annual_Emissions_CarbonDioxide_FuelCombustionForRoadVehicles"
           },
-          "Annual_Amount_Emissions_SCC_25_StorageAndTransport": {
-            "name": "Annual Emissions: Storage and Transport",
-            "statVar": "Annual_Amount_Emissions_SCC_25_StorageAndTransport"
+          "Annual_Emissions_CarbonDioxide_FuelCombustionInBuildings_multiple_place_bar_block": {
+            "name": "CO\u2082 Emissions from Fuel Combustion in Buildings",
+            "statVar": "Annual_Emissions_CarbonDioxide_FuelCombustionInBuildings"
           },
-          "Annual_Amount_Emissions_SCC_27_NaturalSources": {
-            "name": "Annual Emissions: Natural Sources",
-            "statVar": "Annual_Amount_Emissions_SCC_27_NaturalSources"
+          "Annual_Emissions_CarbonDioxide_Manufacturing_multiple_place_bar_block": {
+            "name": "CO\u2082 Emissions from Manufacturing",
+            "statVar": "Annual_Emissions_CarbonDioxide_Manufacturing"
           },
-          "Annual_Amount_Emissions_SCC_28_MiscellaneousAreaSources": {
-            "name": "Annual Emissions: Misc",
-            "statVar": "Annual_Amount_Emissions_SCC_28_MiscellaneousAreaSources"
+          "Annual_Emissions_CarbonDioxide_MineralExtraction_multiple_place_bar_block": {
+            "name": "CO\u2082 Emissions from Mineral Extraction",
+            "statVar": "Annual_Emissions_CarbonDioxide_MineralExtraction"
           },
-          "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines": {
-            "name": "Annual Emissions: Internal Combustion Engines",
-            "statVar": "Annual_Amount_Emissions_SCC_2_InternalCombustionEngines"
+          "Annual_Emissions_CarbonDioxide_Power_multiple_place_bar_block": {
+            "name": "CO\u2082 Emissions from Power Sector",
+            "statVar": "Annual_Emissions_CarbonDioxide_Power"
           },
-          "Annual_Amount_Emissions_SCC_3_IndustrialProcesses": {
-            "name": "Annual Emissions: Industrial Processes",
-            "statVar": "Annual_Amount_Emissions_SCC_3_IndustrialProcesses"
+          "Annual_Emissions_CarbonDioxide_Transportation_multiple_place_bar_block": {
+            "name": "CO\u2082 Emissions from Transportation",
+            "statVar": "Annual_Emissions_CarbonDioxide_Transportation"
           },
-          "Annual_Amount_Emissions_SulfurDioxide_SCC_1_ExternalCombustion_multiple_place_bar_block": {
-            "name": "Annual Emissions: Sulfur Dioxide, External Combustion",
-            "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_1_ExternalCombustion"
+          "Annual_Emissions_CarbonDioxide_WasteManagement_multiple_place_bar_block": {
+            "name": "CO\u2082 Emissions from Waste Management",
+            "statVar": "Annual_Emissions_CarbonDioxide_WasteManagement"
           },
-          "Annual_Amount_Emissions_SulfurDioxide_SCC_21_StationarySourceFuelCombustion_multiple_place_bar_block": {
-            "name": "Annual Emissions: Sulfur Dioxide, Stationary Source Fuel Combustion",
-            "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_21_StationarySourceFuelCombustion"
+          "Annual_Emissions_GreenhouseGas": {
+            "name": "Greenhouse Gas Emissions",
+            "statVar": "Annual_Emissions_GreenhouseGas"
           },
-          "Annual_Amount_Emissions_SulfurDioxide_SCC_22_MobileSources_multiple_place_bar_block": {
-            "name": "Annual Emissions: Sulfur Dioxide, Mobile Sources",
-            "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_22_MobileSources"
+          "Annual_Emissions_GreenhouseGas_Agriculture_multiple_place_bar_block": {
+            "name": "Greenhouse Gas Emissions from Agriculture",
+            "statVar": "Annual_Emissions_GreenhouseGas_Agriculture"
           },
-          "Annual_Amount_Emissions_SulfurDioxide_SCC_23_IndustrialProcesses_multiple_place_bar_block": {
-            "name": "Annual Emissions: Sulfur Dioxide, Industrial Processes",
-            "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_23_IndustrialProcesses"
+          "Annual_Emissions_GreenhouseGas_CementProduction_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Cement Production, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_CementProduction"
           },
-          "Annual_Amount_Emissions_SulfurDioxide_SCC_26_WasteDisposalTreatmentAndRecovery_multiple_place_bar_block": {
-            "name": "Annual Emissions: Sulfur Dioxide, Waste Treatment & Recovery",
-            "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_26_WasteDisposalTreatmentAndRecovery"
+          "Annual_Emissions_GreenhouseGas_ElectricityGeneration_multiple_place_bar_block": {
+            "name": "Greenhouse Gas Emissions from Electricity Generation",
+            "statVar": "Annual_Emissions_GreenhouseGas_ElectricityGeneration"
           },
-          "Annual_Amount_Emissions_SulfurDioxide_SCC_28_MiscellaneousAreaSources_multiple_place_bar_block": {
-            "name": "Annual Emissions: Sulfur Dioxide, Misc Sources",
-            "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_28_MiscellaneousAreaSources"
+          "Annual_Emissions_GreenhouseGas_ForestFire_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Forest Fire, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_ForestFire"
           },
-          "Annual_Amount_Emissions_SulfurDioxide_SCC_2_InternalCombustionEngines_multiple_place_bar_block": {
-            "name": "Annual Emissions: Sulfur Dioxide, Internal Combustion Engine",
-            "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_2_InternalCombustionEngines"
+          "Annual_Emissions_GreenhouseGas_ForestryAndLandUse_multiple_place_bar_block": {
+            "name": "Greenhouse Gas Emissions from Forestry and Land Use",
+            "statVar": "Annual_Emissions_GreenhouseGas_ForestryAndLandUse"
           },
-          "Annual_Amount_Emissions_SulfurDioxide_SCC_3_IndustrialProcesses_multiple_place_bar_block": {
-            "name": "Annual Emissions: Sulfur Dioxide, Industrial Processes",
-            "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_3_IndustrialProcesses"
+          "Annual_Emissions_GreenhouseGas_FuelCombustionForRoadVehicles": {
+            "name": "Annual Amount of Emissions: Fuel Combustion for Road Vehicles, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_FuelCombustionForRoadVehicles"
           },
-          "Annual_Amount_Emissions_SulfurDioxide_SCC_4_PetroleumAndSolventEvaporation_multiple_place_bar_block": {
-            "name": "Annual Emissions: Sulfur Dioxide, Petroleum & Solvent Evaporation",
-            "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_4_PetroleumAndSolventEvaporation"
+          "Annual_Emissions_GreenhouseGas_FuelCombustionForRoadVehicles_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Fuel Combustion for Road Vehicles, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_FuelCombustionForRoadVehicles"
           },
-          "Annual_Amount_Emissions_SulfurDioxide_SCC_5_WasteDisposal_multiple_place_bar_block": {
-            "name": "Annual Emissions: Sulfur Dioxide, Waste Disposal",
-            "statVar": "Annual_Amount_Emissions_SulfurDioxide_SCC_5_WasteDisposal"
+          "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings_multiple_place_bar_block": {
+            "name": "Greenhouse Gas Emissions from Fuel Combustion in Buildings",
+            "statVar": "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings"
           },
-          "Annual_Emissions_CarbonDioxide_NonBiogenic": {
-            "name": "Annual Emissions of Non Biogenic Carbon Dioxide",
-            "statVar": "Annual_Emissions_CarbonDioxide_NonBiogenic"
+          "Annual_Emissions_GreenhouseGas_Manufacturing_multiple_place_bar_block": {
+            "name": "Greenhouse Gas Emissions from Manufacturing",
+            "statVar": "Annual_Emissions_GreenhouseGas_Manufacturing"
           },
-          "Annual_Emissions_GreenhouseGas_NonBiogenic": {
-            "name": "Annual Emissions of Non Biogenic Greenhouse Gases",
-            "statVar": "Annual_Emissions_GreenhouseGas_NonBiogenic"
+          "Annual_Emissions_GreenhouseGas_MineralExtraction_multiple_place_bar_block": {
+            "name": "Greenhouse Gas Emissions from Mineral Extraction",
+            "statVar": "Annual_Emissions_GreenhouseGas_MineralExtraction"
           },
-          "Annual_Emissions_Hydrofluorocarbon_NonBiogenic": {
-            "name": "Annual Amount of Emissions: Non Biogenic Emission Source, Hydrofluorocarbon",
-            "statVar": "Annual_Emissions_Hydrofluorocarbon_NonBiogenic"
+          "Annual_Emissions_GreenhouseGas_OilAndGas_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Oil And Gas, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_OilAndGas"
           },
-          "Annual_Emissions_Methane_NonBiogenic": {
-            "name": "Annual Emissions of Non Biogenic Methane",
-            "statVar": "Annual_Emissions_Methane_NonBiogenic"
+          "Annual_Emissions_GreenhouseGas_SteelManufacturing_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Steel Manufacturing, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_SteelManufacturing"
           },
-          "Annual_Emissions_NitrogenTrifluoride_NonBiogenic": {
-            "name": "Annual Amount of Emissions: Non Biogenic Emission Source, Nitrogen Trifluoride",
-            "statVar": "Annual_Emissions_NitrogenTrifluoride_NonBiogenic"
+          "Annual_Emissions_GreenhouseGas_Transportation_multiple_place_bar_block": {
+            "name": "Greenhouse Gas Emissions from Transportation",
+            "statVar": "Annual_Emissions_GreenhouseGas_Transportation"
           },
-          "Annual_Emissions_NitrousOxide_NonBiogenic": {
-            "name": "Annual Emissions of Non Biogenic Nitrous Oxide",
-            "statVar": "Annual_Emissions_NitrousOxide_NonBiogenic"
+          "Annual_Emissions_GreenhouseGas_WasteManagement_multiple_place_bar_block": {
+            "name": "Greenhouse Gas Emissions from Waste Management",
+            "statVar": "Annual_Emissions_GreenhouseGas_WasteManagement"
           },
-          "Annual_Emissions_Perfluorocarbon_NonBiogenic": {
-            "name": "Annual Amount of Emissions: Non Biogenic Emission Source, Perfluorocarbon",
-            "statVar": "Annual_Emissions_Perfluorocarbon_NonBiogenic"
+          "Annual_Emissions_GreenhouseGas_multiple_place_bar_block": {
+            "name": "Greenhouse Gas Emissions",
+            "statVar": "Annual_Emissions_GreenhouseGas"
           },
-          "Annual_Emissions_SulfurHexafluoride_NonBiogenic": {
-            "name": "Annual Amount of Emissions: Non Biogenic Emission Source, Sulfur Hexafluoride",
-            "statVar": "Annual_Emissions_SulfurHexafluoride_NonBiogenic"
+          "Annual_Emissions_Methane_Agriculture": {
+            "name": "Annual Amount of Emissions: Agriculture, Methane",
+            "statVar": "Annual_Emissions_Methane_Agriculture"
           },
-          "Annual_Emissions_SulfurHexafluoride_NonBiogenic_multiple_place_bar_block": {
-            "name": "Annual Amount of Emissions: Non Biogenic Emission Source, Sulfur Hexafluoride",
-            "statVar": "Annual_Emissions_SulfurHexafluoride_NonBiogenic"
+          "Annual_Emissions_Methane_FossilFuelOperations": {
+            "name": "Annual Amount of Emissions: Fossil Fuel Operations, Methane",
+            "statVar": "Annual_Emissions_Methane_FossilFuelOperations"
+          },
+          "Annual_Emissions_Methane_FuelCombustionForRoadVehicles_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Fuel Combustion for Road Vehicles, Methane",
+            "statVar": "Annual_Emissions_Methane_FuelCombustionForRoadVehicles"
+          },
+          "Annual_Emissions_Methane_OpenBurningWaste": {
+            "name": "Annual Amount of Emissions: Open Burning Waste, Methane",
+            "statVar": "Annual_Emissions_Methane_OpenBurningWaste"
+          },
+          "Annual_Emissions_Methane_Transportation_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Transportation, Methane",
+            "statVar": "Annual_Emissions_Methane_Transportation"
+          },
+          "Annual_Emissions_Methane_WasteManagement": {
+            "name": "Annual Amount of Emissions: Waste Management, Methane",
+            "statVar": "Annual_Emissions_Methane_WasteManagement"
+          },
+          "Annual_Emissions_NitrousOxide_Agriculture_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Agriculture, Nitrous Oxide",
+            "statVar": "Annual_Emissions_NitrousOxide_Agriculture"
+          },
+          "Annual_Emissions_NitrousOxide_FuelCombustionForResidentialCommercialOnsiteHeating_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Fuel Combustion for Residential Commercial Onsite Heating, Nitrous Oxide",
+            "statVar": "Annual_Emissions_NitrousOxide_FuelCombustionForResidentialCommercialOnsiteHeating"
+          },
+          "Annual_Emissions_NitrousOxide_FuelCombustionForRoadVehicles_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Fuel Combustion for Road Vehicles, Nitrous Oxide",
+            "statVar": "Annual_Emissions_NitrousOxide_FuelCombustionForRoadVehicles"
+          },
+          "Annual_Emissions_NitrousOxide_Manufacturing_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Manufacturing, Nitrous Oxide",
+            "statVar": "Annual_Emissions_NitrousOxide_Manufacturing"
+          },
+          "Annual_Emissions_NitrousOxide_Transportation_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Transportation, Nitrous Oxide",
+            "statVar": "Annual_Emissions_NitrousOxide_Transportation"
+          },
+          "Annual_Emissions_NitrousOxide_WasteManagement_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Waste Management, Nitrous Oxide",
+            "statVar": "Annual_Emissions_NitrousOxide_WasteManagement"
+          },
+          "Annual_Emissions_NitrousOxide_WastewaterTreatmentAndDischarge_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Wastewater Treatment And Discharge, Nitrous Oxide",
+            "statVar": "Annual_Emissions_NitrousOxide_WastewaterTreatmentAndDischarge"
+          },
+          "eia/INTL.4008-8-MMTCD.A": {
+            "name": "CO2 emissions, Annual",
+            "statVar": "eia/INTL.4008-8-MMTCD.A"
           }
         }
       }
     ],
     "metadata": {
       "placeDcid": [
-        "geoId/48157"
+        "country/USA"
       ]
     }
   },
@@ -605,18 +540,18 @@
   "entities": [],
   "pastSourceContext": "",
   "place": {
-    "dcid": "geoId/48157",
-    "name": "Fort Bend County",
-    "place_type": "County"
+    "dcid": "country/USA",
+    "name": "United States",
+    "place_type": "Country"
   },
   "placeFallback": {
     "newPlace": {
       "country": null,
-      "dcid": "geoId/48157",
-      "name": "Fort Bend County",
-      "place_type": "County"
+      "dcid": "country/USA",
+      "name": "United States",
+      "place_type": "Country"
     },
-    "newStr": "Fort Bend County",
+    "newStr": "United States",
     "origPlace": {
       "country": "country/USA",
       "dcid": "geoId/4835000",
@@ -628,9 +563,9 @@
   "placeSource": "CURRENT_QUERY",
   "places": [
     {
-      "dcid": "geoId/48157",
-      "name": "Fort Bend County",
-      "place_type": "County"
+      "dcid": "country/USA",
+      "name": "United States",
+      "place_type": "Country"
     }
   ],
   "relatedThings": {
@@ -683,6 +618,6 @@
   },
   "svSource": "CURRENT_QUERY",
   "userMessages": [
-    "Sorry, there were no relevant statistics for Houston. See results for Fort Bend County."
+    "Sorry, there were no relevant statistics for Houston. See results for United States."
   ]
 }

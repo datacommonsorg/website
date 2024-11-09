@@ -592,23 +592,6 @@
               {
                 "tiles": [
                   {
-                    "description": "Diabetes Mellitus, Per 100,000 in United States",
-                    "statVarKey": [
-                      "WHO/SA_0000001421"
-                    ],
-                    "title": "Diabetes Mellitus, Per 100,000 in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Diabetes Mellitus, Per 100,000"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "statVarKey": [
                       "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
                     ],
@@ -660,6 +643,34 @@
               }
             ],
             "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_Female_AgeAdjusted_AsAFractionOf_Count_Person_Female"
+                    ],
+                    "title": "Female Mortality Rate (Age Adjusted) in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Female Mortality Rate (Age Adjusted) in United States",
+                    "statVarKey": [
+                      "Count_Death_Female_AgeAdjusted_AsAFractionOf_Count_Person_Female"
+                    ],
+                    "title": "Female Mortality Rate (Age Adjusted) in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Female Mortality Rate (Age Adjusted)"
           }
         ],
         "statVarSpec": {
@@ -743,6 +754,10 @@
             "name": "Count of Mortality Event: Female",
             "statVar": "Count_Death_Female"
           },
+          "Count_Death_Female_AgeAdjusted_AsAFractionOf_Count_Person_Female": {
+            "name": "Female Mortality Rate (Age Adjusted)",
+            "statVar": "Count_Death_Female_AgeAdjusted_AsAFractionOf_Count_Person_Female"
+          },
           "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person_multiple_place_bar_block": {
             "name": "% of Suicide Events",
             "statVar": "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
@@ -822,10 +837,6 @@
           "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth": {
             "name": "Average interval in months since last live birth",
             "statVar": "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth"
-          },
-          "WHO/SA_0000001421": {
-            "name": "Diabetes Mellitus, Per 100,000",
-            "statVar": "WHO/SA_0000001421"
           },
           "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F": {
             "name": "Infant mortality rate",

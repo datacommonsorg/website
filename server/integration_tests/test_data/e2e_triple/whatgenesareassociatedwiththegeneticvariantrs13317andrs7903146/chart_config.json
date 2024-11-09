@@ -9,28 +9,20 @@
               {
                 "tiles": [
                   {
-                    "answerMessageTileSpec": {
-                      "propertyExpr": "<-geneticVariantID{typeOf:DiseaseGeneticVariantAssociation}->diseaseID"
+                    "answerTableTileSpec": {
+                      "columns": [
+                        {
+                          "header": "Full Name",
+                          "propertyExpr": "->fullName"
+                        }
+                      ]
                     },
                     "entities": [
-                      "bio/rs7903146"
+                      "bio/ncbi_59246804",
+                      "bio/ncbi_59275321"
                     ],
-                    "title": "The associated diseases for rs7903146 are",
-                    "type": "ANSWER_MESSAGE"
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "entities": [
-                      "bio/rs7903146"
-                    ],
-                    "type": "ENTITY_OVERVIEW"
+                    "title": "The Full Name for are are as follows:",
+                    "type": "ANSWER_TABLE"
                   }
                 ]
               }
@@ -43,6 +35,16 @@
   "context": {},
   "debug": {},
   "entities": [
+    {
+      "dcid": "bio/ncbi_59246804",
+      "name": "are",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_59275321",
+      "name": "are",
+      "type": ""
+    },
     {
       "dcid": "bio/rs7903146",
       "name": "rs7903146",
@@ -65,7 +67,5 @@
     "peerTopics": []
   },
   "svSource": "UNKNOWN",
-  "userMessages": [
-    "Low confidence in understanding your query. Displaying the closest results."
-  ]
+  "userMessages": []
 }

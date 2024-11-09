@@ -9,10 +9,578 @@
               {
                 "tiles": [
                   {
+                    "answerTableTileSpec": {
+                      "columns": [
+                        {
+                          "header": "Alliance Of Genome Resources Id",
+                          "propertyExpr": "->allianceOfGenomeResourcesId"
+                        },
+                        {
+                          "header": "Alternate Gene Symbol",
+                          "propertyExpr": "->alternateGeneSymbol"
+                        },
+                        {
+                          "header": "Bovine Genome Database Id",
+                          "propertyExpr": "->bovineGenomeDatabaseId"
+                        },
+                        {
+                          "header": "Chicken Gene Nomenclature Consortium Id",
+                          "propertyExpr": "->chickenGeneNomenclatureConsortiumId"
+                        },
+                        {
+                          "header": "Chrom",
+                          "propertyExpr": "->chrom"
+                        },
+                        {
+                          "header": "Comparative Toxicogenomics DBID",
+                          "propertyExpr": "->comparativeToxicogenomicsDBID"
+                        },
+                        {
+                          "header": "Cytogenetic Map Location",
+                          "propertyExpr": "->cytogeneticMapLocation"
+                        },
+                        {
+                          "header": "Date Modified",
+                          "propertyExpr": "->dateModified"
+                        },
+                        {
+                          "header": "Description",
+                          "propertyExpr": "->description"
+                        },
+                        {
+                          "header": "Ensembl Gene Id",
+                          "propertyExpr": "->ensemblGeneId"
+                        },
+                        {
+                          "header": "Ensembl ID",
+                          "propertyExpr": "->ensemblID"
+                        },
+                        {
+                          "header": "Ensembl Rapid Release Id",
+                          "propertyExpr": "->ensemblRapidReleaseId"
+                        },
+                        {
+                          "header": "Full Name",
+                          "propertyExpr": "->fullName"
+                        },
+                        {
+                          "header": "Gen Atlas ID",
+                          "propertyExpr": "->genAtlasID"
+                        },
+                        {
+                          "header": "Gene Card ID",
+                          "propertyExpr": "->geneCardID"
+                        },
+                        {
+                          "header": "Gene Ortholog",
+                          "propertyExpr": "->geneOrtholog"
+                        },
+                        {
+                          "header": "Gene Symbol",
+                          "propertyExpr": "->geneSymbol"
+                        },
+                        {
+                          "header": "Has Cpic Dosing Guideline",
+                          "propertyExpr": "->hasCpicDosingGuideline"
+                        },
+                        {
+                          "header": "Has Genetic Variant Annotation",
+                          "propertyExpr": "->hasGeneticVariantAnnotation"
+                        },
+                        {
+                          "header": "Has Genomic Coordinates",
+                          "propertyExpr": "->hasGenomicCoordinates"
+                        },
+                        {
+                          "header": "Hgnc ID",
+                          "propertyExpr": "->hgncID"
+                        },
+                        {
+                          "header": "Is Very Important Pharmacogene",
+                          "propertyExpr": "->isVeryImportantPharmacogene"
+                        },
+                        {
+                          "header": "Mouse Genome Informatics Id",
+                          "propertyExpr": "->mouseGenomeInformaticsId"
+                        },
+                        {
+                          "header": "Name",
+                          "propertyExpr": "->name"
+                        },
+                        {
+                          "header": "Ncbi Gene ID",
+                          "propertyExpr": "->ncbiGeneID"
+                        },
+                        {
+                          "header": "Ncbi Sequence Gi Number",
+                          "propertyExpr": "->ncbiSequenceGiNumber"
+                        },
+                        {
+                          "header": "Of Species",
+                          "propertyExpr": "->ofSpecies"
+                        },
+                        {
+                          "header": "Online Mendelian Inheritance In Man ID",
+                          "propertyExpr": "->onlineMendelianInheritanceInManID"
+                        },
+                        {
+                          "header": "Pharm GKBID",
+                          "propertyExpr": "->pharmGKBID"
+                        },
+                        {
+                          "header": "Provenance",
+                          "propertyExpr": "->provenance"
+                        },
+                        {
+                          "header": "Pub Med ID",
+                          "propertyExpr": "->pubMedID"
+                        },
+                        {
+                          "header": "Rat Genome Database Id",
+                          "propertyExpr": "->ratGenomeDatabaseId"
+                        },
+                        {
+                          "header": "Ref Seq Genomic Accession",
+                          "propertyExpr": "->refSeqGenomicAccession"
+                        },
+                        {
+                          "header": "Related Pseudogene",
+                          "propertyExpr": "->relatedPseudogene"
+                        },
+                        {
+                          "header": "Synonym",
+                          "propertyExpr": "->synonym"
+                        },
+                        {
+                          "header": "Type Of",
+                          "propertyExpr": "->typeOf"
+                        },
+                        {
+                          "header": "Type Of Gene",
+                          "propertyExpr": "->typeOfGene"
+                        },
+                        {
+                          "header": "Vertebrate Gene Nomenclature Committee Id",
+                          "propertyExpr": "->vertebrateGeneNomenclatureCommitteeId"
+                        },
+                        {
+                          "header": "Xenbase Id",
+                          "propertyExpr": "->xenbaseId"
+                        }
+                      ]
+                    },
                     "entities": [
-                      "bio/FGFR1"
+                      "bio/FGFR1",
+                      "bio/ncbi_100029852",
+                      "bio/ncbi_100057614",
+                      "bio/ncbi_100074240",
+                      "bio/ncbi_100153248",
+                      "bio/ncbi_100174545",
+                      "bio/ncbi_100221243",
+                      "bio/ncbi_100351861",
+                      "bio/ncbi_100390192",
+                      "bio/ncbi_100472630",
+                      "bio/ncbi_100547498",
+                      "bio/ncbi_100559018",
+                      "bio/ncbi_100602423",
+                      "bio/ncbi_100662289",
+                      "bio/ncbi_100731156",
+                      "bio/ncbi_100773586",
+                      "bio/ncbi_100856477",
+                      "bio/ncbi_100914347",
+                      "bio/ncbi_100960708",
+                      "bio/ncbi_100988115",
+                      "bio/ncbi_101002603",
+                      "bio/ncbi_101033213",
+                      "bio/ncbi_101086055",
+                      "bio/ncbi_101152179",
+                      "bio/ncbi_101279623",
+                      "bio/ncbi_101338609",
+                      "bio/ncbi_101342270",
+                      "bio/ncbi_101364849",
+                      "bio/ncbi_101427669",
+                      "bio/ncbi_101534918",
+                      "bio/ncbi_101544250",
+                      "bio/ncbi_101588120",
+                      "bio/ncbi_101617102",
+                      "bio/ncbi_101629379",
+                      "bio/ncbi_101650479",
+                      "bio/ncbi_101691149",
+                      "bio/ncbi_101700324",
+                      "bio/ncbi_101822220",
+                      "bio/ncbi_101842486",
+                      "bio/ncbi_101914093",
+                      "bio/ncbi_101941076",
+                      "bio/ncbi_101977965",
+                      "bio/ncbi_101998996",
+                      "bio/ncbi_102024657",
+                      "bio/ncbi_102055369",
+                      "bio/ncbi_102085235",
+                      "bio/ncbi_102103637",
+                      "bio/ncbi_102144714",
+                      "bio/ncbi_102180282",
+                      "bio/ncbi_102253832",
+                      "bio/ncbi_102267776",
+                      "bio/ncbi_102386174",
+                      "bio/ncbi_102407288",
+                      "bio/ncbi_102423450",
+                      "bio/ncbi_102461506",
+                      "bio/ncbi_102484087",
+                      "bio/ncbi_102515264",
+                      "bio/ncbi_102531272",
+                      "bio/ncbi_102574117",
+                      "bio/ncbi_102734086",
+                      "bio/ncbi_102759202",
+                      "bio/ncbi_102836047",
+                      "bio/ncbi_102868898",
+                      "bio/ncbi_102898943",
+                      "bio/ncbi_102925907",
+                      "bio/ncbi_102942878",
+                      "bio/ncbi_102972346",
+                      "bio/ncbi_102989551",
+                      "bio/ncbi_103017733",
+                      "bio/ncbi_103066603",
+                      "bio/ncbi_103069902",
+                      "bio/ncbi_103107883",
+                      "bio/ncbi_103192070",
+                      "bio/ncbi_103215648",
+                      "bio/ncbi_103274944",
+                      "bio/ncbi_103290249",
+                      "bio/ncbi_103535383",
+                      "bio/ncbi_103560266",
+                      "bio/ncbi_103598755",
+                      "bio/ncbi_103614656",
+                      "bio/ncbi_103659146",
+                      "bio/ncbi_103745770",
+                      "bio/ncbi_103763194",
+                      "bio/ncbi_103822693",
+                      "bio/ncbi_103897295",
+                      "bio/ncbi_103912362",
+                      "bio/ncbi_104016019",
+                      "bio/ncbi_104068578",
+                      "bio/ncbi_104135322",
+                      "bio/ncbi_104148747",
+                      "bio/ncbi_104254434",
+                      "bio/ncbi_104301278",
+                      "bio/ncbi_104384843",
+                      "bio/ncbi_104553496",
+                      "bio/ncbi_104576676",
+                      "bio/ncbi_104679640",
+                      "bio/ncbi_104694904",
+                      "bio/ncbi_104828804",
+                      "bio/ncbi_104848740",
+                      "bio/ncbi_104987781",
+                      "bio/ncbi_105071441",
+                      "bio/ncbi_105105270",
+                      "bio/ncbi_105300315",
+                      "bio/ncbi_105476567",
+                      "bio/ncbi_105525157",
+                      "bio/ncbi_105590801",
+                      "bio/ncbi_105733510",
+                      "bio/ncbi_105815854",
+                      "bio/ncbi_105870403",
+                      "bio/ncbi_105992799",
+                      "bio/ncbi_106044374",
+                      "bio/ncbi_106492992",
+                      "bio/ncbi_106545617",
+                      "bio/ncbi_106824659",
+                      "bio/ncbi_106862051",
+                      "bio/ncbi_106896165",
+                      "bio/ncbi_106978376",
+                      "bio/ncbi_107113006",
+                      "bio/ncbi_107155394",
+                      "bio/ncbi_107213845",
+                      "bio/ncbi_107289991",
+                      "bio/ncbi_107323773",
+                      "bio/ncbi_107515961",
+                      "bio/ncbi_107535065",
+                      "bio/ncbi_108309970",
+                      "bio/ncbi_108403050",
+                      "bio/ncbi_108505671",
+                      "bio/ncbi_108512401",
+                      "bio/ncbi_108791453",
+                      "bio/ncbi_109262303",
+                      "bio/ncbi_109295541",
+                      "bio/ncbi_109317416",
+                      "bio/ncbi_109373149",
+                      "bio/ncbi_109456079",
+                      "bio/ncbi_109553304",
+                      "bio/ncbi_109688936",
+                      "bio/ncbi_110072166",
+                      "bio/ncbi_110126587",
+                      "bio/ncbi_110207578",
+                      "bio/ncbi_110299550",
+                      "bio/ncbi_110336809",
+                      "bio/ncbi_110387131",
+                      "bio/ncbi_110473397",
+                      "bio/ncbi_110563307",
+                      "bio/ncbi_110573154",
+                      "bio/ncbi_111173523",
+                      "bio/ncbi_111544121",
+                      "bio/ncbi_111938850",
+                      "bio/ncbi_112111651",
+                      "bio/ncbi_112306733",
+                      "bio/ncbi_112413123",
+                      "bio/ncbi_112629744",
+                      "bio/ncbi_112649669",
+                      "bio/ncbi_112834662",
+                      "bio/ncbi_112858029",
+                      "bio/ncbi_112916136",
+                      "bio/ncbi_112952906",
+                      "bio/ncbi_112965467",
+                      "bio/ncbi_112991606",
+                      "bio/ncbi_113193875",
+                      "bio/ncbi_113262086",
+                      "bio/ncbi_113420990",
+                      "bio/ncbi_113628878",
+                      "bio/ncbi_113884771",
+                      "bio/ncbi_113924319",
+                      "bio/ncbi_113958636",
+                      "bio/ncbi_113978937",
+                      "bio/ncbi_114000501",
+                      "bio/ncbi_114045132",
+                      "bio/ncbi_114066493",
+                      "bio/ncbi_114095896",
+                      "bio/ncbi_114224838",
+                      "bio/ncbi_114508370",
+                      "bio/ncbi_114585343",
+                      "bio/ncbi_114621844",
+                      "bio/ncbi_114681341",
+                      "bio/ncbi_114897510",
+                      "bio/ncbi_115092712",
+                      "bio/ncbi_115288965",
+                      "bio/ncbi_115350076",
+                      "bio/ncbi_115469362",
+                      "bio/ncbi_115512001",
+                      "bio/ncbi_115618404",
+                      "bio/ncbi_115646411",
+                      "bio/ncbi_115840502",
+                      "bio/ncbi_115912547",
+                      "bio/ncbi_116069056",
+                      "bio/ncbi_116234528",
+                      "bio/ncbi_116435512",
+                      "bio/ncbi_116462129",
+                      "bio/ncbi_116499369",
+                      "bio/ncbi_116516298",
+                      "bio/ncbi_116558317",
+                      "bio/ncbi_116581609",
+                      "bio/ncbi_116637829",
+                      "bio/ncbi_116746732",
+                      "bio/ncbi_116799432",
+                      "bio/ncbi_116821412",
+                      "bio/ncbi_116855379",
+                      "bio/ncbi_116914481",
+                      "bio/ncbi_116962981",
+                      "bio/ncbi_117007905",
+                      "bio/ncbi_117021283",
+                      "bio/ncbi_117059934",
+                      "bio/ncbi_117094867",
+                      "bio/ncbi_117362782",
+                      "bio/ncbi_117674750",
+                      "bio/ncbi_117722071",
+                      "bio/ncbi_117873025",
+                      "bio/ncbi_118009956",
+                      "bio/ncbi_118097182",
+                      "bio/ncbi_118177501",
+                      "bio/ncbi_118256011",
+                      "bio/ncbi_118546878",
+                      "bio/ncbi_118597682",
+                      "bio/ncbi_118622697",
+                      "bio/ncbi_118649562",
+                      "bio/ncbi_118728579",
+                      "bio/ncbi_118842877",
+                      "bio/ncbi_118887767",
+                      "bio/ncbi_118935682",
+                      "bio/ncbi_118993177",
+                      "bio/ncbi_119065040",
+                      "bio/ncbi_119140386",
+                      "bio/ncbi_119257820",
+                      "bio/ncbi_119530176",
+                      "bio/ncbi_119710874",
+                      "bio/ncbi_119713481",
+                      "bio/ncbi_119811944",
+                      "bio/ncbi_119848596",
+                      "bio/ncbi_119928140",
+                      "bio/ncbi_120238662",
+                      "bio/ncbi_120312914",
+                      "bio/ncbi_120397459",
+                      "bio/ncbi_120505592",
+                      "bio/ncbi_120595650",
+                      "bio/ncbi_120764055",
+                      "bio/ncbi_120865665",
+                      "bio/ncbi_120933172",
+                      "bio/ncbi_120986282",
+                      "bio/ncbi_121017369",
+                      "bio/ncbi_121060439",
+                      "bio/ncbi_121099239",
+                      "bio/ncbi_121149974",
+                      "bio/ncbi_121346743",
+                      "bio/ncbi_121359634",
+                      "bio/ncbi_121462200",
+                      "bio/ncbi_121489119",
+                      "bio/ncbi_121663069",
+                      "bio/ncbi_121935105",
+                      "bio/ncbi_122107616",
+                      "bio/ncbi_122158487",
+                      "bio/ncbi_122188167",
+                      "bio/ncbi_122217613",
+                      "bio/ncbi_122432228",
+                      "bio/ncbi_122473425",
+                      "bio/ncbi_122687705",
+                      "bio/ncbi_122740710",
+                      "bio/ncbi_122812066",
+                      "bio/ncbi_122889876",
+                      "bio/ncbi_122927312",
+                      "bio/ncbi_123026996",
+                      "bio/ncbi_123236988",
+                      "bio/ncbi_123362985",
+                      "bio/ncbi_123588895",
+                      "bio/ncbi_123626670",
+                      "bio/ncbi_123780346",
+                      "bio/ncbi_123807471",
+                      "bio/ncbi_123847952",
+                      "bio/ncbi_123933156",
+                      "bio/ncbi_124106269",
+                      "bio/ncbi_124231777",
+                      "bio/ncbi_124520453",
+                      "bio/ncbi_124983698",
+                      "bio/ncbi_125092758",
+                      "bio/ncbi_125123142",
+                      "bio/ncbi_125163506",
+                      "bio/ncbi_125317554",
+                      "bio/ncbi_125339698",
+                      "bio/ncbi_125414437",
+                      "bio/ncbi_125441423",
+                      "bio/ncbi_125626448",
+                      "bio/ncbi_125685203",
+                      "bio/ncbi_125923281",
+                      "bio/ncbi_126006406",
+                      "bio/ncbi_126051549",
+                      "bio/ncbi_126065537",
+                      "bio/ncbi_126504434",
+                      "bio/ncbi_126645383",
+                      "bio/ncbi_126961189",
+                      "bio/ncbi_127025218",
+                      "bio/ncbi_127044788",
+                      "bio/ncbi_127210336",
+                      "bio/ncbi_127220342",
+                      "bio/ncbi_127394701",
+                      "bio/ncbi_127482054",
+                      "bio/ncbi_127548241",
+                      "bio/ncbi_127668903",
+                      "bio/ncbi_128068375",
+                      "bio/ncbi_128089959",
+                      "bio/ncbi_128118971",
+                      "bio/ncbi_128150091",
+                      "bio/ncbi_128333755",
+                      "bio/ncbi_128403030",
+                      "bio/ncbi_128490904",
+                      "bio/ncbi_128576514",
+                      "bio/ncbi_128663645",
+                      "bio/ncbi_128800840",
+                      "bio/ncbi_128820213",
+                      "bio/ncbi_128831176",
+                      "bio/ncbi_128900067",
+                      "bio/ncbi_128949537",
+                      "bio/ncbi_128978671",
+                      "bio/ncbi_129042504",
+                      "bio/ncbi_129064807",
+                      "bio/ncbi_129131588",
+                      "bio/ncbi_129196709",
+                      "bio/ncbi_129342594",
+                      "bio/ncbi_129491526",
+                      "bio/ncbi_129515655",
+                      "bio/ncbi_129549407",
+                      "bio/ncbi_129643001",
+                      "bio/ncbi_129666273",
+                      "bio/ncbi_130026085",
+                      "bio/ncbi_130160489",
+                      "bio/ncbi_130262007",
+                      "bio/ncbi_130367929",
+                      "bio/ncbi_130487492",
+                      "bio/ncbi_130603950",
+                      "bio/ncbi_130830032",
+                      "bio/ncbi_130862598",
+                      "bio/ncbi_131094956",
+                      "bio/ncbi_131203823",
+                      "bio/ncbi_131394045",
+                      "bio/ncbi_131506723",
+                      "bio/ncbi_131568234",
+                      "bio/ncbi_131589574",
+                      "bio/ncbi_131747394",
+                      "bio/ncbi_131820646",
+                      "bio/ncbi_131894317",
+                      "bio/ncbi_132006317",
+                      "bio/ncbi_132085309",
+                      "bio/ncbi_132228629",
+                      "bio/ncbi_132340003",
+                      "bio/ncbi_132356642",
+                      "bio/ncbi_132417589",
+                      "bio/ncbi_132481231",
+                      "bio/ncbi_132512743",
+                      "bio/ncbi_132580696",
+                      "bio/ncbi_132691808",
+                      "bio/ncbi_132782814",
+                      "bio/ncbi_133050609",
+                      "bio/ncbi_133081191",
+                      "bio/ncbi_133210375",
+                      "bio/ncbi_133240011",
+                      "bio/ncbi_133279078",
+                      "bio/ncbi_133368378",
+                      "bio/ncbi_133775339",
+                      "bio/ncbi_134054801",
+                      "bio/ncbi_134151986",
+                      "bio/ncbi_134164844",
+                      "bio/ncbi_134361584",
+                      "bio/ncbi_134407481",
+                      "bio/ncbi_134428540",
+                      "bio/ncbi_134502736",
+                      "bio/ncbi_134526559",
+                      "bio/ncbi_134562645",
+                      "bio/ncbi_134602949",
+                      "bio/ncbi_134936489",
+                      "bio/ncbi_135192481",
+                      "bio/ncbi_135287060",
+                      "bio/ncbi_135317111",
+                      "bio/ncbi_135403713",
+                      "bio/ncbi_135456901",
+                      "bio/ncbi_135873608",
+                      "bio/ncbi_135998389",
+                      "bio/ncbi_136003469",
+                      "bio/ncbi_136055404",
+                      "bio/ncbi_136112305",
+                      "bio/ncbi_136141836",
+                      "bio/ncbi_136176884",
+                      "bio/ncbi_136302859",
+                      "bio/ncbi_136309122",
+                      "bio/ncbi_136372585",
+                      "bio/ncbi_136402705",
+                      "bio/ncbi_136567545",
+                      "bio/ncbi_136612758",
+                      "bio/ncbi_136662257",
+                      "bio/ncbi_137150943",
+                      "bio/ncbi_137216053",
+                      "bio/ncbi_137450336",
+                      "bio/ncbi_137463441",
+                      "bio/ncbi_137562857",
+                      "bio/ncbi_137675452",
+                      "bio/ncbi_137756000",
+                      "bio/ncbi_137845221",
+                      "bio/ncbi_138079229",
+                      "bio/ncbi_138121591",
+                      "bio/ncbi_138152113",
+                      "bio/ncbi_138265881",
+                      "bio/ncbi_14182",
+                      "bio/ncbi_281768",
+                      "bio/ncbi_396516",
+                      "bio/ncbi_464122",
+                      "bio/ncbi_548648",
+                      "bio/ncbi_700126",
+                      "bio/ncbi_780507",
+                      "bio/ncbi_79114"
                     ],
-                    "type": "ENTITY_OVERVIEW"
+                    "title": "Here are all the properties for FGFR1",
+                    "type": "ANSWER_TABLE"
                   }
                 ]
               }
@@ -28,6 +596,2041 @@
     {
       "dcid": "bio/FGFR1",
       "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_100029852",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_100057614",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_100074240",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_100153248",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_100174545",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_100221243",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_100351861",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_100390192",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_100472630",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_100547498",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_100559018",
+      "name": "fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_100602423",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_100662289",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_100731156",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_100773586",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_100856477",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_100914347",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_100960708",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_100988115",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_101002603",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_101033213",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_101086055",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_101152179",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_101279623",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_101338609",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_101342270",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_101364849",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_101427669",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_101534918",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_101544250",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_101588120",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_101617102",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_101629379",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_101650479",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_101691149",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_101700324",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_101822220",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_101842486",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_101914093",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_101941076",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_101977965",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_101998996",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_102024657",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_102055369",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_102085235",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_102103637",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_102144714",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_102180282",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_102253832",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_102267776",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_102386174",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_102407288",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_102423450",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_102461506",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_102484087",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_102515264",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_102531272",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_102574117",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_102734086",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_102759202",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_102836047",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_102868898",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_102898943",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_102925907",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_102942878",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_102972346",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_102989551",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_103017733",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_103066603",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_103069902",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_103107883",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_103192070",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_103215648",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_103274944",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_103290249",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_103535383",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_103560266",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_103598755",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_103614656",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_103659146",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_103745770",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_103763194",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_103822693",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_103897295",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_103912362",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_104016019",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_104068578",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_104135322",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_104148747",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_104254434",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_104301278",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_104384843",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_104553496",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_104576676",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_104679640",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_104694904",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_104828804",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_104848740",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_104987781",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_105071441",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_105105270",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_105300315",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_105476567",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_105525157",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_105590801",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_105733510",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_105815854",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_105870403",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_105992799",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_106044374",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_106492992",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_106545617",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_106824659",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_106862051",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_106896165",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_106978376",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_107113006",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_107155394",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_107213845",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_107289991",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_107323773",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_107515961",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_107535065",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_108309970",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_108403050",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_108505671",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_108512401",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_108791453",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_109262303",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_109295541",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_109317416",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_109373149",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_109456079",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_109553304",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_109688936",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_110072166",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_110126587",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_110207578",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_110299550",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_110336809",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_110387131",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_110473397",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_110563307",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_110573154",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_111173523",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_111544121",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_111938850",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_112111651",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_112306733",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_112413123",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_112629744",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_112649669",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_112834662",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_112858029",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_112916136",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_112952906",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_112965467",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_112991606",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_113193875",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_113262086",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_113420990",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_113628878",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_113884771",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_113924319",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_113958636",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_113978937",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_114000501",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_114045132",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_114066493",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_114095896",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_114224838",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_114508370",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_114585343",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_114621844",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_114681341",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_114897510",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_115092712",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_115288965",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_115350076",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_115469362",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_115512001",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_115618404",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_115646411",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_115840502",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_115912547",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_116069056",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_116234528",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_116435512",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_116462129",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_116499369",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_116516298",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_116558317",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_116581609",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_116637829",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_116746732",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_116799432",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_116821412",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_116855379",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_116914481",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_116962981",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_117007905",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_117021283",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_117059934",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_117094867",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_117362782",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_117674750",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_117722071",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_117873025",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_118009956",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_118097182",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_118177501",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_118256011",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_118546878",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_118597682",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_118622697",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_118649562",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_118728579",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_118842877",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_118887767",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_118935682",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_118993177",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_119065040",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_119140386",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_119257820",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_119530176",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_119710874",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_119713481",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_119811944",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_119848596",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_119928140",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_120238662",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_120312914",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_120397459",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_120505592",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_120595650",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_120764055",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_120865665",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_120933172",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_120986282",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_121017369",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_121060439",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_121099239",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_121149974",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_121346743",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_121359634",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_121462200",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_121489119",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_121663069",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_121935105",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_122107616",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_122158487",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_122188167",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_122217613",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_122432228",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_122473425",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_122687705",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_122740710",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_122812066",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_122889876",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_122927312",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_123026996",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_123236988",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_123362985",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_123588895",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_123626670",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_123780346",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_123807471",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_123847952",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_123933156",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_124106269",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_124231777",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_124520453",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_124983698",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_125092758",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_125123142",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_125163506",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_125317554",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_125339698",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_125414437",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_125441423",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_125626448",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_125685203",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_125923281",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_126006406",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_126051549",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_126065537",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_126504434",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_126645383",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_126961189",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_127025218",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_127044788",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_127210336",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_127220342",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_127394701",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_127482054",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_127548241",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_127668903",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_128068375",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_128089959",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_128118971",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_128150091",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_128333755",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_128403030",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_128490904",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_128576514",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_128663645",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_128800840",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_128820213",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_128831176",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_128900067",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_128949537",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_128978671",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_129042504",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_129064807",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_129131588",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_129196709",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_129342594",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_129491526",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_129515655",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_129549407",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_129643001",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_129666273",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_130026085",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_130160489",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_130262007",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_130367929",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_130487492",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_130603950",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_130830032",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_130862598",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_131094956",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_131203823",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_131394045",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_131506723",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_131568234",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_131589574",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_131747394",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_131820646",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_131894317",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_132006317",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_132085309",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_132228629",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_132340003",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_132356642",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_132417589",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_132481231",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_132512743",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_132580696",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_132691808",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_132782814",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_133050609",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_133081191",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_133210375",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_133240011",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_133279078",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_133368378",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_133775339",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_134054801",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_134151986",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_134164844",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_134361584",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_134407481",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_134428540",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_134502736",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_134526559",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_134562645",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_134602949",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_134936489",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_135192481",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_135287060",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_135317111",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_135403713",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_135456901",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_135873608",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_135998389",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_136003469",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_136055404",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_136112305",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_136141836",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_136176884",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_136302859",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_136309122",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_136372585",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_136402705",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_136567545",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_136612758",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_136662257",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_137150943",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_137216053",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_137450336",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_137463441",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_137562857",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_137675452",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_137756000",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_137845221",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_138079229",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_138121591",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_138152113",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_138265881",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_14182",
+      "name": "Fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_281768",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_396516",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_464122",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_548648",
+      "name": "fgfr1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_700126",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_780507",
+      "name": "FGFR1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_79114",
+      "name": "Fgfr1",
       "type": ""
     }
   ],
