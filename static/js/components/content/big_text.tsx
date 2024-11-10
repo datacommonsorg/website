@@ -15,9 +15,12 @@
  */
 
 /**
- * A component to display the build your own Data Commons block
+ * A component to display a big text
  */
 
+/** @jsxImportSource @emotion/react */
+
+import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import { resolveHref } from "../../apps/base/utilities/utilities";
@@ -27,36 +30,40 @@ import {
   GA_PARAM_URL,
   triggerGAEvent,
 } from "../../shared/ga_events";
+import { Routes } from "../../shared/types/base";
 
-interface BuildProps {
+interface BigTextProps {
   //the routes dictionary - this is used to convert routes to resolved urls
-  routes: Record<string, string>;
+  routes: Routes;
 }
 
-const Build = ({ routes }: BuildProps): ReactElement => {
+const BigText = ({ routes }: BigTextProps): ReactElement => {
+  const theme = useTheme();
   return (
-    <section id="build-your-own" className="build-your-own">
-      <div className="container">
-        <div className="header">
-          <h4>The United Nations Data Commons for the SDGs</h4>
-        </div>
-        <div className="video-player">
-          <iframe
-            src="https://www.youtube.com/embed/O6iVsS-RDYI"
-            title="YouTube video player"
-            style={{ border: "none" }}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerPolicy="strict-origin-when-cross-origin"
-            allowFullScreen
-          ></iframe>
-        </div>
-        <div className="video-description">
-          <p>
-            United Nations deployed a Data Commons to amplify the impact of
-            their Sustainable Development Goals data. With their deployed Data
-            Commons, the UN created a centralized repository, allowing for
-            dynamic storytelling and targeted analysis related to global
-            progress. <a
+    <section id="big-text" className="big-text" 
+      css={css`
+        background: ${theme.colors.background.alpha.dark}
+      `}
+    >
+      <div className="container"
+        css={css`
+          padding: ${theme.spacing.section}px ${theme.spacing.lg}px;
+        `}
+      >
+        <article
+          css={css`
+            max-width: 57%;
+          `}
+        >
+          <h3
+            css={css`
+              ${theme.typography.family.heading};
+              ${theme.typography.heading.sm};
+              color: ${theme.colors.text.alpha.light};
+            `}
+          >
+            Build your own Data Commons  Customize a private instance of the open-source Data Commons platform. You control the data you include and who has access.  
+            <a
               href={resolveHref("{static.build}", routes)}
               onClick={(): void => {
                 triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
@@ -64,14 +71,18 @@ const Build = ({ routes }: BuildProps): ReactElement => {
                   [GA_PARAM_URL]: "{static.build}",
                 });
               }}
+              css={css`
+                color: ${theme.colors.link.alpha.light};
+                margin-left: ${theme.spacing.sm}px;
+              `}
             >
               Learn more
             </a>
-          </p>
-        </div>
+          </h3>
+        </article>
       </div>
     </section>
   );
 };
 
-export default Build;
+export default BigText;

@@ -29,6 +29,7 @@ import { LinkChip, LinkChips } from "../../components/content/link_chips";
 import Partners from "../../components/content/partners";
 import SampleQuestions from "../../components/content/sample_questions";
 import Tools from "../../components/content/tools";
+import BigText from "../../components/content/big_text";
 import { GA_EVENT_HOMEPAGE_CLICK } from "../../shared/ga_events";
 import { Routes } from "../../shared/types/base";
 import {
@@ -74,6 +75,7 @@ export function App({
       />
       <SampleQuestions sampleQuestions={sampleQuestions} />
       <Tools routes={routes} />
+      <BigText routes={routes} />
       <Build routes={routes} />
       <Partners partners={partners} gaEvent={GA_EVENT_HOMEPAGE_CLICK} />
     </ThemeProvider>
