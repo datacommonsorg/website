@@ -40,11 +40,7 @@ const Tools = ({ routes }: ToolsProps): ReactElement => {
         <div className="header">
           <h3>Data Commons tools</h3>
           <p>
-            Data forms the foundation of science, policy, and journalism, but
-            its full potential is often limited. Data Commons addresses this by
-            offering data exploration tools and cloud-based APIs to access and
-            integrate cleaned datasets, boosting their usability across
-            different domains.
+          Data Commons addresses offers data exploration tools and cloud-based APIs to access and integrate cleaned datasets.
           </p>
         </div>
         <ul className="tools-buttons">
