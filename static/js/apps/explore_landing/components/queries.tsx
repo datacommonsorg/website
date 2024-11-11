@@ -15,34 +15,30 @@
  */
 
 /**
- * Component for rendering the sidebar of a subject page.
+ * Component for explore landing topic page - query examples displayed as
+ * interlocking bricks.
  */
 
 import React, { ReactElement } from "react";
 
-export interface Item {
-  text: string;
-  url: string;
+import { BrickWall } from "../../../components/content/brick_wall";
+import { Query } from "../../../shared/topic_config";
+import { QueryLink } from "./query_link";
+
+interface TopicQueriesProps {
+  title?: string;
+  appName: string;
+  queries: Query[];
 }
 
-interface ItemListPropType {
-  items: Item[];
-}
+export function Queries({
+  title,
+  queries,
+  appName,
+}: TopicQueriesProps): ReactElement {
+  const generalTopicQueries = queries.map((query) => (
+    <QueryLink key={query.url} query={query} appName={appName} />
+  ));
 
-export function ItemList(props: ItemListPropType): ReactElement {
-  return (
-    <div className="item-list-container">
-      <div className="item-list-inner">
-        {props.items.map((item, idx) => {
-          return (
-            <div key={idx} className="item-list-item">
-              <a className="item-list-text" href={item.url}>
-                {item.text}
-              </a>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
+  return <BrickWall title={title} bricks={generalTopicQueries} />;
 }
