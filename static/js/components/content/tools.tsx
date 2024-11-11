@@ -27,6 +27,7 @@ import {
   GA_PARAM_URL,
   triggerGAEvent,
 } from "../../shared/ga_events";
+import { Wrapper } from "./elements/Wrapper";
 
 interface ToolsProps {
   //the routes dictionary - this is used to convert routes to resolved urls
@@ -35,99 +36,92 @@ interface ToolsProps {
 
 const Tools = ({ routes }: ToolsProps): ReactElement => {
   return (
-    <section id="tools" className="tools">
-      <div className="container">
-        <div className="header">
-          <h3>Data Commons tools</h3>
-          <p>
-          Data Commons addresses offers data exploration tools and cloud-based APIs to access and integrate cleaned datasets.
-          </p>
-        </div>
-        <ul className="tools-buttons">
-          <li>
-            <a
-              href={resolveHref("{tools.visualization}#visType=map", routes)}
-              id="map-button"
-              onClick={(): void => {
-                triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
-                  [GA_PARAM_ID]: "tools",
-                  [GA_PARAM_URL]: "map",
-                });
-              }}
-            >
-              <span className="tool-icon map"></span>
-              Map Explorer
-            </a>
-          </li>
-          <li>
-            <a
-              href={resolveHref(
-                "{tools.visualization}#visType=scatter",
-                routes
-              )}
-              id="scatter-button"
-              onClick={(): void => {
-                triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
-                  [GA_PARAM_ID]: "tools",
-                  [GA_PARAM_URL]: "scatter",
-                });
-              }}
-            >
-              <span className="tool-icon scaterplot"></span>
-              Scatter Plot Explorer
-            </a>
-          </li>
-          <li>
-            <a
-              href={resolveHref(
-                "{tools.visualization}#visType=timeline",
-                routes
-              )}
-              id="timeline-button"
-              onClick={(): void => {
-                triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
-                  [GA_PARAM_ID]: "tools",
-                  [GA_PARAM_URL]: "timeline",
-                });
-              }}
-            >
-              <span className="tool-icon timeline"></span>
-              Timelines Explorer
-            </a>
-          </li>
-          <li>
-            <a
-              href={resolveHref("{tools.download}", routes)}
-              id="download-button"
-              onClick={(): void => {
-                triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
-                  [GA_PARAM_ID]: "tools",
-                  [GA_PARAM_URL]: "download",
-                });
-              }}
-            >
-              <span className="tool-icon download"></span>
-              Data Download Tool
-            </a>
-          </li>
-          <li>
-            <a
-              href="https://docs.datacommons.org/api/"
-              id="api-button"
-              onClick={(): void => {
-                triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
-                  [GA_PARAM_ID]: "tools",
-                  [GA_PARAM_URL]: "api",
-                });
-              }}
-            >
-              <span className="tool-icon api"></span>
-              API Access
-            </a>
-          </li>
-        </ul>
+    <Wrapper colorVariant="light">
+      <div className="header">
+        <h3>Data Commons tools</h3>
+        <p>
+          Data Commons addresses offers data exploration tools and cloud-based
+          APIs to access and integrate cleaned datasets.
+        </p>
       </div>
-    </section>
+      <ul className="tools-buttons">
+        <li>
+          <a
+            href={resolveHref("{tools.visualization}#visType=map", routes)}
+            id="map-button"
+            onClick={(): void => {
+              triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
+                [GA_PARAM_ID]: "tools",
+                [GA_PARAM_URL]: "map",
+              });
+            }}
+          >
+            <span className="tool-icon map"></span>
+            Map Explorer
+          </a>
+        </li>
+        <li>
+          <a
+            href={resolveHref("{tools.visualization}#visType=scatter", routes)}
+            id="scatter-button"
+            onClick={(): void => {
+              triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
+                [GA_PARAM_ID]: "tools",
+                [GA_PARAM_URL]: "scatter",
+              });
+            }}
+          >
+            <span className="tool-icon scaterplot"></span>
+            Scatter Plot Explorer
+          </a>
+        </li>
+        <li>
+          <a
+            href={resolveHref("{tools.visualization}#visType=timeline", routes)}
+            id="timeline-button"
+            onClick={(): void => {
+              triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
+                [GA_PARAM_ID]: "tools",
+                [GA_PARAM_URL]: "timeline",
+              });
+            }}
+          >
+            <span className="tool-icon timeline"></span>
+            Timelines Explorer
+          </a>
+        </li>
+        <li>
+          <a
+            href={resolveHref("{tools.download}", routes)}
+            id="download-button"
+            onClick={(): void => {
+              triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
+                [GA_PARAM_ID]: "tools",
+                [GA_PARAM_URL]: "download",
+              });
+            }}
+          >
+            <span className="tool-icon download"></span>
+            Data Download Tool
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://docs.datacommons.org/api/"
+            id="api-button"
+            onClick={(): void => {
+              triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
+                [GA_PARAM_ID]: "tools",
+                [GA_PARAM_URL]: "api",
+              });
+            }}
+          >
+            <span className="tool-icon api"></span>
+            API Access
+          </a>
+        </li>
+      </ul>
+    </Wrapper>
   );
 };
 
