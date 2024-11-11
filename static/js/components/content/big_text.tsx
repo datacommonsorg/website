@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /**
  * Copyright 2024 Google LLC
  *
@@ -40,19 +41,35 @@ interface BigTextProps {
 const BigText = ({ routes }: BigTextProps): ReactElement => {
   const theme = useTheme();
   return (
-    <section id="big-text" className="big-text" 
+    <section
       css={css`
-        background: ${theme.colors.background.alpha.dark}
+        background: ${theme.colors.background.alpha.dark};
       `}
     >
-      <div className="container"
+      <div
         css={css`
-          padding: ${theme.spacing.section}px ${theme.spacing.lg}px;
+          margin: auto;
+          width: 100%;
+          max-width: ${theme.width.xl}px;
+          padding: ${theme.spacing.section}px 0;
+          @media (max-width: ${theme.breakpoints.xl}px) {
+            padding: ${theme.spacing.section}px ${theme.spacing.lg}px;
+          }
+          @media (max-width: ${theme.breakpoints.lg}px) {
+            max-width: ${theme.width.lg}px;
+          }
+          @media (max-width: ${theme.breakpoints.md}px) {
+            max-width: 100%;
+          }
         `}
       >
         <article
           css={css`
-            max-width: 57%;
+            width: 100%;
+            max-width: ${theme.width.md}px;
+            @media (max-width: ${theme.breakpoints.md}px) {
+              max-width: 100%;
+            }
           `}
         >
           <h3
