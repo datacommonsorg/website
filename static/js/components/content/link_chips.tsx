@@ -68,7 +68,6 @@ export const LinkChips = ({
                     [GA_PARAM_ID]: `${section} ${linkChip.id}`,
                     [GA_PARAM_URL]: linkChip.url,
                   });
-                  window.location.href = linkChip.url;
                 }}
               >
                 <span className="icon">
