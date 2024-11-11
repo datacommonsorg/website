@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 /**
  * Copyright 2024 Google LLC
  *
@@ -32,6 +31,7 @@ import {
   triggerGAEvent,
 } from "../../shared/ga_events";
 import { Routes } from "../../shared/types/base";
+import { Wrapper } from "./elements/Wrapper";
 
 interface BigTextProps {
   //the routes dictionary - this is used to convert routes to resolved urls
@@ -41,64 +41,44 @@ interface BigTextProps {
 const BigText = ({ routes }: BigTextProps): ReactElement => {
   const theme = useTheme();
   return (
-    <section
-      css={css`
-        background: ${theme.colors.background.alpha.dark};
-      `}
-    >
-      <div
+    <Wrapper colorVariant="dark">
+      <article
         css={css`
-          margin: auto;
           width: 100%;
-          max-width: ${theme.width.xl}px;
-          padding: ${theme.spacing.section}px 0;
-          @media (max-width: ${theme.breakpoints.xl}px) {
-            padding: ${theme.spacing.section}px ${theme.spacing.lg}px;
-          }
-          @media (max-width: ${theme.breakpoints.lg}px) {
-            max-width: ${theme.width.lg}px;
-          }
+          max-width: ${theme.width.md}px;
           @media (max-width: ${theme.breakpoints.md}px) {
             max-width: 100%;
           }
         `}
       >
-        <article
+        <h3
           css={css`
-            width: 100%;
-            max-width: ${theme.width.md}px;
-            @media (max-width: ${theme.breakpoints.md}px) {
-              max-width: 100%;
-            }
+            ${theme.typography.family.heading};
+            ${theme.typography.heading.sm};
+            color: ${theme.colors.text.alpha.light};
           `}
         >
-          <h3
+          Build your own Data Commons Customize a private instance of the
+          open-source Data Commons platform. You control the data you include
+          and who has access.
+          <a
+            href={resolveHref("{static.build}", routes)}
+            onClick={(): void => {
+              triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
+                [GA_PARAM_ID]: "build-your-own",
+                [GA_PARAM_URL]: "{static.build}",
+              });
+            }}
             css={css`
-              ${theme.typography.family.heading};
-              ${theme.typography.heading.sm};
-              color: ${theme.colors.text.alpha.light};
+              color: ${theme.colors.link.alpha.light};
+              margin-left: ${theme.spacing.sm}px;
             `}
           >
-            Build your own Data Commons  Customize a private instance of the open-source Data Commons platform. You control the data you include and who has access.  
-            <a
-              href={resolveHref("{static.build}", routes)}
-              onClick={(): void => {
-                triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
-                  [GA_PARAM_ID]: "build-your-own",
-                  [GA_PARAM_URL]: "{static.build}",
-                });
-              }}
-              css={css`
-                color: ${theme.colors.link.alpha.light};
-                margin-left: ${theme.spacing.sm}px;
-              `}
-            >
-              Learn more
-            </a>
-          </h3>
-        </article>
-      </div>
-    </section>
+            Learn more
+          </a>
+        </h3>
+      </article>
+    </Wrapper>
   );
 };
 
