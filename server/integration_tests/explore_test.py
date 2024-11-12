@@ -761,14 +761,17 @@ class ExploreTestEE2(ExploreTest):
     self.run_detect_and_fulfill(
         'e2e_triple',
         [
+            # ----- Context Based Queries -----
             # Should have 'out' properties as answer
             'What strand orientation does FGFR1 have?',
             # Should use context for the entity
-            'what transcripts does it have',
+            'what genomic coordinates does it have',
             # Should use context for the property
-            'how about for P53',
+            'how about for PQLC3',
             # Should not use context because no entity or property found
             'what animal is that found in',
+
+            # ----- Singleton Queries -----
             # Should have 'in' properties as answer
             'What is Betacoronavirus 1 the species of',
             # Should have a chained property in the answer

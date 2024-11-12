@@ -9,11 +9,14 @@ $container-horizontal-padding: 3rem;
 
 $color-white-container: #F8FAFD;
 
+$color-black: #001D35;
+
 $color-blue:#0B57D0;
 $color-blue_pill_text:#041E49;
 $color-blue_light: #6991D6;
 $color-blue_pill_bckg:#E8F0FE;
 $color-blue-bckg: #F6F9FF;
+$color-blue-chip_bckg: #C2E7FF;
 
 $color-green:#146C2E;
 $color-green_pill_text:#072711;
@@ -127,11 +130,18 @@ $color-gray_pill_bckg:#E2E2EC;
 }
 
 @mixin white-box {
-  @include shadow;
   background-color: $color-white-container;
   text-decoration: none;
   &:hover {
-    background-color: rgba(11, 87, 208, 0.08);
+    background-color: rgba($color-blue, $alpha: 0.075);
+  }
+}
+
+@mixin blue-box {
+  background-color: $color-blue-chip_bckg;
+  text-decoration: none;
+  &:hover {
+    background-color: rgba($color-blue, $alpha: 0.2);
   }
 }
 

@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,101 +17,55 @@
 /**
  * Main component for DC Explore.
  */
-import React from "react";
-import { Container } from "reactstrap";
+import React, { ReactElement } from "react";
 
-import { NlSearchBar } from "../../components/nl_search_bar";
-import {
-  GA_EVENT_NL_SEARCH,
-  GA_PARAM_QUERY,
-  GA_PARAM_SOURCE,
-  GA_VALUE_SEARCH_SOURCE_EXPLORE_LANDING,
-  triggerGAEvent,
-} from "../../shared/ga_events";
-import { Topic, TopicConfig } from "../../shared/topic_config";
-import { TopicQueries } from "../../shared/topic_queries";
-import { Item, ItemList } from "../explore/item_list";
-import allTopics from "./topics.json";
+import { TopicConfig, TopicData } from "../../shared/topic_config";
+import { ExploreIntro } from "./components/explore_intro";
+import { Queries } from "./components/queries";
+import { StatVarQueries } from "./components/stat_var_queries";
+import topicData from "./topics.json";
+
+const topics: TopicData = topicData;
 
 /**
  * Application container
  */
-export function App(): JSX.Element {
-  const topic = window.location.href.split("/").pop().split("#")[0];
-  const currentTopic = allTopics.topics[topic] as TopicConfig;
-  const additionalTopics = allTopics.allTopics
-    .map((name) => ({
-      name,
-      title: allTopics.topics[name]?.title,
-    }))
-    .filter((item) => !item.title || item.name !== topic) as Topic[];
-  const subTopicItems: Item[] =
-    currentTopic.subTopics?.map((query) => ({
-      text: query.title,
-      url: `/explore#${query.url || "/"}`,
-    })) || [];
+export function App(): ReactElement {
+  const topicSlug = window.location.href.split("/").pop().split("#")[0];
+  const topic = topics.topics[topicSlug] as TopicConfig;
 
-  let dc = "";
-  if (topic === "sdg") {
-    dc = "sdg";
-  }
+  //const dc = topicSlug === "sdg" ? "sdg" : "";
+
   if (!topic) {
     return (
-      <div className="explore-container">
-        <Container>
-          <h1>
-            No topics found for {'"'}
-            {topic}
-            {'"'}
-          </h1>
-        </Container>
+      <div className="container explore-container">
+        <h1>
+          No topics found for {'"'}
+          {topic}
+          {'"'}
+        </h1>
       </div>
     );
   }
-  const placeholderQuery =
-    currentTopic.examples?.general?.length > 0
-      ? currentTopic.examples.general[0]
+  /*
+    NOTE: The comments on this page existed as comments in the original template.
+    const placeholderQuery =
+    topic.examples?.general?.length > 0
+      ? topic.examples.general[0]
       : { title: "family earnings in california" };
   const placeholderHref =
     `/explore#${placeholderQuery.url}` ||
-    `/explore#q=${encodeURIComponent(placeholderQuery.title)}&dc=${dc}`;
+    `/explore#q=${encodeURIComponent(placeholderQuery.title)}&dc=${dc}`;*/
   return (
-    <div className="explore-container">
-      <Container>
-        <NlSearchBar
-          inputId="query-search-input"
-          onSearch={(q) => {
-            triggerGAEvent(GA_EVENT_NL_SEARCH, {
-              [GA_PARAM_QUERY]: q,
-              [GA_PARAM_SOURCE]: GA_VALUE_SEARCH_SOURCE_EXPLORE_LANDING,
-            });
-            window.location.href =
-              q.toLocaleLowerCase() === placeholderQuery.title.toLowerCase()
-                ? placeholderHref
-                : `/explore#q=${encodeURIComponent(q)}&dc=${dc}`;
-          }}
-          placeholder={"Enter a question to explore"}
-          initialValue={""}
-          shouldAutoFocus={false}
-        />
-        <div className="explore-title">
-          <div className="explore-title-image">
-            <img src={currentTopic.image} />
-          </div>
-          <div className="explore-title-text">
-            <h1>{currentTopic.title}</h1>
-            <div className="explore-title-sub-topics">
-              <ItemList items={subTopicItems} />
-            </div>
-          </div>
-        </div>
-        <TopicQueries
-          currentTopic={currentTopic}
-          appName="explore"
-          topicUrlPrefix="/explore/"
-          additionalTopics={additionalTopics}
-        />
-      </Container>
-    </div>
+    <>
+      <ExploreIntro topic={topic} />
+      <Queries queries={topic.examples.general} appName="explore" />
+      <StatVarQueries queries={topic.examples.statvar ?? []} />
+      <Queries
+        title={`Compare data in relation to ${topic.title.toLowerCase()}`}
+        queries={topic.examples.comparison}
+        appName="explore"
+      />
+    </>
   );
 }

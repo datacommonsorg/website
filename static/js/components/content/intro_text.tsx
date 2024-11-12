@@ -15,34 +15,20 @@
  */
 
 /**
- * Component for rendering the sidebar of a subject page.
+ * A component to display an introductory text block
  */
 
 import React, { ReactElement } from "react";
 
-export interface Item {
-  text: string;
-  url: string;
+interface IntroTextProps {
+  //the content (text or other content) as a React element
+  children: ReactElement;
 }
 
-interface ItemListPropType {
-  items: Item[];
-}
-
-export function ItemList(props: ItemListPropType): ReactElement {
+export const IntroText = ({ children }: IntroTextProps): ReactElement => {
   return (
-    <div className="item-list-container">
-      <div className="item-list-inner">
-        {props.items.map((item, idx) => {
-          return (
-            <div key={idx} className="item-list-item">
-              <a className="item-list-text" href={item.url}>
-                {item.text}
-              </a>
-            </div>
-          );
-        })}
-      </div>
-    </div>
+    <section id="intro-text" className="intro-text">
+      <div className="container">{children}</div>
+    </section>
   );
-}
+};

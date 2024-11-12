@@ -34,10 +34,16 @@ export interface TopicConfig {
   examples: {
     general: Query[];
     comparison: Query[];
+    statvar?: Query[];
   };
   meta: {
     dataPointCount: number;
     variableCount: number;
     sources: string[];
   };
+}
+
+export interface TopicData {
+  allTopics: string[];
+  topics: Record<string, TopicConfig>;
 }
