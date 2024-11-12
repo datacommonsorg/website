@@ -12,160 +12,8 @@
                     "answerTableTileSpec": {
                       "columns": [
                         {
-                          "header": "Alliance Of Genome Resources Id",
-                          "propertyExpr": "->allianceOfGenomeResourcesId"
-                        },
-                        {
-                          "header": "Alternate Gene Symbol",
-                          "propertyExpr": "->alternateGeneSymbol"
-                        },
-                        {
-                          "header": "Bovine Genome Database Id",
-                          "propertyExpr": "->bovineGenomeDatabaseId"
-                        },
-                        {
-                          "header": "Chicken Gene Nomenclature Consortium Id",
-                          "propertyExpr": "->chickenGeneNomenclatureConsortiumId"
-                        },
-                        {
-                          "header": "Chrom",
-                          "propertyExpr": "->chrom"
-                        },
-                        {
-                          "header": "Comparative Toxicogenomics DBID",
-                          "propertyExpr": "->comparativeToxicogenomicsDBID"
-                        },
-                        {
-                          "header": "Cytogenetic Map Location",
-                          "propertyExpr": "->cytogeneticMapLocation"
-                        },
-                        {
-                          "header": "Date Modified",
-                          "propertyExpr": "->dateModified"
-                        },
-                        {
-                          "header": "Description",
-                          "propertyExpr": "->description"
-                        },
-                        {
-                          "header": "Ensembl Gene Id",
-                          "propertyExpr": "->ensemblGeneId"
-                        },
-                        {
-                          "header": "Ensembl ID",
-                          "propertyExpr": "->ensemblID"
-                        },
-                        {
-                          "header": "Ensembl Rapid Release Id",
-                          "propertyExpr": "->ensemblRapidReleaseId"
-                        },
-                        {
-                          "header": "Full Name",
-                          "propertyExpr": "->fullName"
-                        },
-                        {
-                          "header": "Gen Atlas ID",
-                          "propertyExpr": "->genAtlasID"
-                        },
-                        {
-                          "header": "Gene Card ID",
-                          "propertyExpr": "->geneCardID"
-                        },
-                        {
-                          "header": "Gene Ortholog",
-                          "propertyExpr": "->geneOrtholog"
-                        },
-                        {
-                          "header": "Gene Symbol",
-                          "propertyExpr": "->geneSymbol"
-                        },
-                        {
-                          "header": "Has Cpic Dosing Guideline",
-                          "propertyExpr": "->hasCpicDosingGuideline"
-                        },
-                        {
-                          "header": "Has Genetic Variant Annotation",
-                          "propertyExpr": "->hasGeneticVariantAnnotation"
-                        },
-                        {
                           "header": "Has Genomic Coordinates",
                           "propertyExpr": "->hasGenomicCoordinates"
-                        },
-                        {
-                          "header": "Hgnc ID",
-                          "propertyExpr": "->hgncID"
-                        },
-                        {
-                          "header": "Is Very Important Pharmacogene",
-                          "propertyExpr": "->isVeryImportantPharmacogene"
-                        },
-                        {
-                          "header": "Mouse Genome Informatics Id",
-                          "propertyExpr": "->mouseGenomeInformaticsId"
-                        },
-                        {
-                          "header": "Name",
-                          "propertyExpr": "->name"
-                        },
-                        {
-                          "header": "Ncbi Gene ID",
-                          "propertyExpr": "->ncbiGeneID"
-                        },
-                        {
-                          "header": "Ncbi Sequence Gi Number",
-                          "propertyExpr": "->ncbiSequenceGiNumber"
-                        },
-                        {
-                          "header": "Of Species",
-                          "propertyExpr": "->ofSpecies"
-                        },
-                        {
-                          "header": "Online Mendelian Inheritance In Man ID",
-                          "propertyExpr": "->onlineMendelianInheritanceInManID"
-                        },
-                        {
-                          "header": "Pharm GKBID",
-                          "propertyExpr": "->pharmGKBID"
-                        },
-                        {
-                          "header": "Provenance",
-                          "propertyExpr": "->provenance"
-                        },
-                        {
-                          "header": "Pub Med ID",
-                          "propertyExpr": "->pubMedID"
-                        },
-                        {
-                          "header": "Rat Genome Database Id",
-                          "propertyExpr": "->ratGenomeDatabaseId"
-                        },
-                        {
-                          "header": "Ref Seq Genomic Accession",
-                          "propertyExpr": "->refSeqGenomicAccession"
-                        },
-                        {
-                          "header": "Related Pseudogene",
-                          "propertyExpr": "->relatedPseudogene"
-                        },
-                        {
-                          "header": "Synonym",
-                          "propertyExpr": "->synonym"
-                        },
-                        {
-                          "header": "Type Of",
-                          "propertyExpr": "->typeOf"
-                        },
-                        {
-                          "header": "Type Of Gene",
-                          "propertyExpr": "->typeOfGene"
-                        },
-                        {
-                          "header": "Vertebrate Gene Nomenclature Committee Id",
-                          "propertyExpr": "->vertebrateGeneNomenclatureCommitteeId"
-                        },
-                        {
-                          "header": "Xenbase Id",
-                          "propertyExpr": "->xenbaseId"
                         }
                       ]
                     },
@@ -199,7 +47,6 @@
                       "bio/ncbi_101342270",
                       "bio/ncbi_101364849",
                       "bio/ncbi_101427669",
-                      "bio/ncbi_101534918",
                       "bio/ncbi_101544250",
                       "bio/ncbi_101588120",
                       "bio/ncbi_101617102",
@@ -421,7 +268,6 @@
                       "bio/ncbi_121663069",
                       "bio/ncbi_121935105",
                       "bio/ncbi_122107616",
-                      "bio/ncbi_122158487",
                       "bio/ncbi_122188167",
                       "bio/ncbi_122217613",
                       "bio/ncbi_122432228",
@@ -579,7 +425,7 @@
                       "bio/ncbi_780507",
                       "bio/ncbi_79114"
                     ],
-                    "title": "Here are all the properties for FGFR1",
+                    "title": "The Has Genomic Coordinates for FGFR1 are as follows:",
                     "type": "ANSWER_TABLE"
                   }
                 ]

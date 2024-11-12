@@ -65,7 +65,11 @@ export function App({
   return (
     <>
       <HeroVideo routes={routes} />
-      <LinkChips title={"Topics to explore"} linkChips={topicLinkChips} />
+      <LinkChips
+        title={"Topics to explore"}
+        section="topic"
+        linkChips={topicLinkChips}
+      />
       <SampleQuestions sampleQuestions={sampleQuestions} />
       <Tools routes={routes} />
       <Build routes={routes} />

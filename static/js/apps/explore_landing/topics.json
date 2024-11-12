@@ -63,6 +63,28 @@
             "title": "What is the correlation between diabetes and poverty across US counties",
             "url": "q=What+is+the+correlation+between+diabetes+and+poverty+across+US+counties"
           }
+        ],
+        "statvar": [
+          {
+            "title": "Population with household spending on health greater than 10% of total household in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22who%2FFINPROTECTION_CATA_TOT_10_LEVEL_SH%22%7D"
+          },
+          {
+            "title": "Total population pushed below a relative poverty line by household health expenditures in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22who%2FFINPROTECTION_IMP_NP_REL_LEVEL_MILLION%22%7D"
+          },
+          {
+            "title": "Mortality rate attributed to unsafe water, unsafe sanitation in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22who%2FWSH_1%22%7D"
+          },
+          {
+            "title": "Legal frameworks that promote, enforce and monitor gender equality -- Area 3: employment and economic benefits in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22sdg%2FSG_LGL_GENEQEMP%22%7D"
+          },
+          {
+            "title": "Legal frameworks that promote, enforce and monitor gender equality -- Area 2: violence against women in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22sdg%2FSG_LGL_GENEQVAW%22%7D"
+          }
         ]
       },
       "meta": {
@@ -194,6 +216,28 @@
             "title": "Compare the education expenditure in the US vs. Canada",
             "url": "q=Compare+the+education+expenditure+in+the+US+vs+Canada"
           }
+        ],
+        "statvar": [
+          {
+            "title": "Population in the labor force",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Count_Person_InLaborForce%22%7D"
+          },
+          {
+            "title": "Percent of females working between (15 to 64) in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Count_Person_15To64Years_Female_InLaborForce_AsFractionOf_Count_Person_15To64Years_Female%22%7D"
+          },
+          {
+            "title": "Outward Remittances in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Amount_Remittance_OutwardRemittance%22%7D"
+          },
+          {
+            "title": "Mobile Phone Subscriptions Per Person in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Amount_Remittance_OutwardRemittance%22%7D___%7B%22dcid%22%3A%22Count_Product_MobileCellularSubscription_AsFractionOf_Count_Person%22%7D"
+          },
+          {
+            "title": "Female Life Expectancy",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Amount_Remittance_OutwardRemittance%22%7D___%7B%22dcid%22%3A%22Count_Product_MobileCellularSubscription_AsFractionOf_Count_Person%22%7D___%7B%22dcid%22%3A%22LifeExpectancy_Person_Female%22%7D"
+          }
         ]
       },
       "meta": {
@@ -315,6 +359,28 @@
             "title": "Tell me about maternal mortality across countries in the world",
             "url": "q=Tell+me+about+maternal+mortality+across+countries+in+the+world"
           }
+        ],
+        "statvar": [
+          {
+            "title": "Fraction of 15+ Years Old Females Smoking",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Count_Person_15OrMoreYears_Female_Smoking_AsFractionOf_Count_Person_15OrMoreYears_Female%22%7D"
+          },
+          {
+            "title": "Fraction of 20 - 79 years old people who have diabetes",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Count_Person_20To79Years_Diabetes_AsFractionOf_Count_Person_20To79Years%22%7D"
+          },
+          {
+            "title": "Deaths Rate in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Count_Death_AsAFractionOfCount_Person%22%7D"
+          },
+          {
+            "title": "Crude birth rate in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22LifeExpectancy_Person%22%7D___%7B%22dcid%22%3A%22Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person%22%7D"
+          },
+          {
+            "title": "Male and female life expectancy in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22LifeExpectancy_Person_Male%22%7D___%7B%22dcid%22%3A%22LifeExpectancy_Person_Female%22%7D"
+          }
         ]
       },
       "meta": {
@@ -433,6 +499,32 @@
           {
             "title": "Median home value vs. Work from home population in US counties",
             "url": "q=Median+home+value+vs.+Work+from+home+population+in+US+counties"
+          }
+        ],
+        "statvar": [
+          {
+            "title": "Population living in rural areas around the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Count_Person_Rural%22%7D"
+          },
+          {
+            "title": "Population in the Labor Force in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Count_Person_InLaborForce%22%7D"
+          },
+          {
+            "title": "Population living in rural and urban areas around the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Count_Person_Rural%22%7D___%7B%22dcid%22%3A%22Count_Person_Urban%22%7D"
+          },
+          {
+            "title": "Median monthly gross rent of housing unit in the USA",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3Dcountry%2FUSA%26placeType%3DState%26sv%3D%7B%22dcid%22%3A%22Monthly_Median_GrossRent_HousingUnit%22%7D"
+          },
+          {
+            "title": "Count of Housing Unit: Without Mortgage, 800 USD or Less",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3Dcountry%2FUSA%26placeType%3DState%26sv%3D%7B%22dcid%22%3A%22dc%2Fq0p7fcll1lv8c%22%7D"
+          },
+          {
+            "title": "Commute time in the USA",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3Dcountry%2FUSA%26placeType%3DState%26sv%3D%7B%22dcid%22%3A%22dc%2Fe9gftzl2hm8h9%22%7D"
           }
         ]
       },
@@ -554,6 +646,28 @@
           {
             "title": "Foreign born population vs. PhD holders in California counties",
             "url": "q=Foreign+born+population+vs.+PhD+holders+in+California+counties"
+          }
+        ],
+        "statvar": [
+          {
+            "title": "Fertility rate in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22FertilityRate_Person_Female%22%7D"
+          },
+          {
+            "title": "Life expectancy in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22LifeExpectancy_Person%22%7D"
+          },
+          {
+            "title": "Rate of population growth in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22GrowthRate_Count_Person%22%7D"
+          },
+          {
+            "title": "Total population in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Count_Person%22%7D"
+          },
+          {
+            "title": "Population living in Urban areas in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Count_Person%22%7D___%7B%22dcid%22%3A%22Count_Person_Urban%22%7D"
           }
         ]
       },
@@ -685,6 +799,28 @@
           {
             "title": "What is the correlation of AQI vs. blood pressure in New Jersey",
             "url": "q=What+is+the+correlation+of+AQI+vs+blood+pressure+in+New+Jersey"
+          }
+        ],
+        "statvar": [
+          {
+            "title": "Carbon dioxide emissions from fuel combustion in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22sdg%2FEN_ATM_CO2%22%7D"
+          },
+          {
+            "title": "Annual Amount of Emissions: Aluminum Production, Carbon Dioxide",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Annual_Emissions_CarbonDioxide_AluminumProduction%22%7D"
+          },
+          {
+            "title": "Annual amount of emissions: agriculture, carbon dioxide",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Annual_Emissions_CarbonDioxide_Agriculture%22%7D"
+          },
+          {
+            "title": "Area of flood event(s) in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Area_FloodEvent%22%7D"
+          },
+          {
+            "title": "Count of fire events in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Count_FireEvent%22%7D"
           }
         ]
       },
