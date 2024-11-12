@@ -24,7 +24,7 @@
 import { css, useTheme } from "@emotion/react";
 import React, { ReactElement, ReactNode } from "react";
 
-interface ContainerProps {
+interface WrapperProps {
   colorVariant?: "base" | "light" | "dark";
   children?: ReactNode;
 }
@@ -32,7 +32,7 @@ interface ContainerProps {
 export const Wrapper = ({
   colorVariant = "base",
   children,
-}: ContainerProps): ReactElement => {
+}: WrapperProps): ReactElement => {
   const theme = useTheme();
 
   const background =
