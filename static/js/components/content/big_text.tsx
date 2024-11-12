@@ -31,7 +31,7 @@ import {
   triggerGAEvent,
 } from "../../shared/ga_events";
 import { Routes } from "../../shared/types/base";
-import { Wrapper } from "./elements/Wrapper";
+import { Wrapper } from "../elements/layout/wrapper";
 
 interface BigTextProps {
   //the routes dictionary - this is used to convert routes to resolved urls
