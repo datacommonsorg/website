@@ -27,7 +27,7 @@ import {
   GA_PARAM_URL,
   triggerGAEvent,
 } from "../../shared/ga_events";
-import { Wrapper } from "./elements/Wrapper";
+import { Wrapper } from "../elements/layout/wrapper";
 
 interface ToolsProps {
   //the routes dictionary - this is used to convert routes to resolved urls
