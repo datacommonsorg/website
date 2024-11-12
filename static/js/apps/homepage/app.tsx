@@ -23,13 +23,13 @@
 import { ThemeProvider } from "@emotion/react";
 import React, { ReactElement } from "react";
 
+import BigText from "../../components/content/big_text";
 import Build from "../../components/content/build_your_own";
 import HeroVideo from "../../components/content/hero_video";
 import { LinkChip, LinkChips } from "../../components/content/link_chips";
 import Partners from "../../components/content/partners";
 import SampleQuestions from "../../components/content/sample_questions";
 import Tools from "../../components/content/tools";
-import BigText from "../../components/content/big_text";
 import { GA_EVENT_HOMEPAGE_CLICK } from "../../shared/ga_events";
 import { Routes } from "../../shared/types/base";
 import {
