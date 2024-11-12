@@ -79,22 +79,40 @@ export function AutoCompleteInput(
   const [inputActive, setInputActive] = useState(false);
   const [lastAutoCompleteSelection, setLastAutoCompleteSelection] =
     useState("");
+  // Used to reduce sensitivity to scrolling for autocomplete result dismissal.
+  const [lastScrollYOnTrigger, setLastScrollYOnTrigger] = useState(0);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   const isHeaderBar = props.barType == "header";
   let lang = "";
 
   useEffect(() => {
     // One time initialization of event listener to clear suggested results on scroll.
-    // It allows the user to navigate through the page without being annoyed by the results.
     window.addEventListener("scroll", () => {
-      if (results.placeResults) {
-        setResults({ placeResults: [], svResults: [] });
-      }
+      setLastScrollY(window.scrollY);
     });
 
     const urlParams = new URLSearchParams(window.location.search);
     lang = urlParams.has("hl") ? urlParams.get("hl") : "en";
   }, []);
+
+  // Whenever any of the scrollY states change, recompute to see if we need to hide the results.
+  // We only hide the results when the user has scrolled past 15% of the window height.
+  // It allows the user to navigate through the page without being annoyed by the results,
+  // and to scroll through the results without them disappearing.
+  useEffect(() => {
+    if (
+      results.placeResults.length > 0 &&
+      Math.abs(lastScrollY - lastScrollYOnTrigger) > window.outerHeight * 0.15
+    ) {
+      setResults({ placeResults: [], svResults: [] });
+    }
+  }, [
+    lastScrollY,
+    setLastScrollY,
+    lastScrollYOnTrigger,
+    setLastScrollYOnTrigger,
+  ]);
 
   useEffect(() => {
     // For the first load when q= param is set, we want to ensure the
@@ -172,6 +190,7 @@ export function AutoCompleteInput(
   }
 
   const triggerAutoCompleteRequest = useCallback(async (query: string) => {
+    setLastScrollYOnTrigger(window.scrollY);
     await axios
       .get(`/api/autocomplete?query=${query}&hl=${lang}`, {})
       .then((response) => {
