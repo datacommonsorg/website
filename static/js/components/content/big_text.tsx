@@ -55,7 +55,7 @@ const BigText = ({ routes }: BigTextProps): ReactElement => {
           css={css`
             ${theme.typography.family.heading};
             ${theme.typography.heading.sm};
-            color: ${theme.colors.text.alpha.light};
+            color: ${theme.colors.text.primary.light};
           `}
         >
           Build your own Data Commons Customize a private instance of the
@@ -70,7 +70,7 @@ const BigText = ({ routes }: BigTextProps): ReactElement => {
               });
             }}
             css={css`
-              color: ${theme.colors.link.alpha.light};
+              color: ${theme.colors.link.primary.light};
               margin-left: ${theme.spacing.sm}px;
             `}
           >

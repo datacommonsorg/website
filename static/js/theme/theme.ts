@@ -11,13 +11,13 @@
  *   - [ xs, sm, md, lg, xl, xxl, huge, section]
  * - Colors
  *   - Text
- *     - [ Alpha, Beta, Gamma ]
+ *     - [ primary, Beta, Gamma ]
  *       - [ Base, Light, Dark ]
  *   - Background
- *     - [ Alpha, Beta, Gamma ]
+ *     - [ primary, Beta, Gamma ]
  *       - [ Base, Light, Dark ]
  *   - Link
- *     - [ Alpha, Beta, Gamma ]
+ *     - [ primary, Beta, Gamma ]
  *       - [ Base, Light, Dark ]
  * - Typography
  *   - Family
@@ -55,10 +55,16 @@ const WIDTH = {
   xl: 1310,
 };
 
-const DC_BLACK = "#303030";
-const DC_BLUE_DARK = "#041E49";
-const DC_BLUE_LIGHT = "#6991D6";
-const DC_BLUE_LIGHTER = "#F6F9FF";
+const DC_BLACK = "hsl(0, 0%, 18.82%)";
+const DC_WHITE = "hsl(216, 55.6%, 98.2%)";
+
+const DC_BLUE = "hsl(216.9, 90%, 42.9%)";
+const DC_BLUE_HOVER_LIGHT = "hsl(214, 64%, 96%)";
+// const DC_BLUE_HOVER_DARK = "hsl(217.3, 64.9%, 88.8%)";
+
+const DC_BLUE_DARK = "hsl(217.4, 89.6%, 15.1%)";
+const DC_BLUE_LIGHT = "hsl(218, 57.1%, 62.5%)";
+const DC_BLUE_LIGHTER = "hsl(220, 100%, 98.2%)";
 
 const theme: Theme = {
   breakpoints: BREAKPOINTS,
@@ -66,21 +72,22 @@ const theme: Theme = {
   width: WIDTH,
   colors: {
     text: {
-      alpha: {
+      primary: {
         base: DC_BLACK,
         dark: DC_BLUE_DARK,
         light: "white",
       },
     },
     background: {
-      alpha: {
+      primary: {
         base: "white",
         dark: DC_BLUE_DARK,
         light: DC_BLUE_LIGHTER,
       },
     },
     link: {
-      alpha: {
+      primary: {
+        base: DC_BLUE,
         light: DC_BLUE_LIGHT,
       },
     },
@@ -163,6 +170,24 @@ const theme: Theme = {
           lineHeight: "1.75rem",
         },
       },
+    },
+  },
+  box: {
+    primary: {
+      backgroundColor: DC_WHITE,
+      textDecoration: "none",
+      ["&:hover"]: {
+        backgroundColor: DC_BLUE_HOVER_LIGHT,
+      },
+    },
+  },
+  elevation: {
+    none: {
+      boxShadow: "none",
+    },
+    primary: {
+      boxShadow:
+        "0px 1px 2px hsla(0, 0%, 0%, 0.3), 0px 1px 3px 1px hsla(0, 0%, 0%, 0.15)",
     },
   },
 };

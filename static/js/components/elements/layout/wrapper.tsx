@@ -37,10 +37,10 @@ export const Wrapper = ({
 
   const background =
     colorVariant === "light"
-      ? theme.colors.background.alpha.light
+      ? theme.colors.background.primary.light
       : colorVariant === "dark"
-      ? theme.colors.background.alpha.dark
-      : theme.colors.background.alpha.base;
+      ? theme.colors.background.primary.dark
+      : theme.colors.background.primary.base;
 
   return (
     <section
