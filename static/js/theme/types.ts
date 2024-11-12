@@ -24,68 +24,68 @@ export interface Theme {
   };
   colors: {
     text?: {
-      alpha?: {
+      primary?: {
         base?: string;
         light?: string;
         dark?: string;
       };
-      beta?: {
+      secondary?: {
         base?: string;
         light?: string;
         dark?: string;
       };
-      gamma?: {
+      tertiary?: {
         base?: string;
         light?: string;
         dark?: string;
       };
     };
     background?: {
-      alpha?: {
+      primary?: {
         base?: string;
         light?: string;
         dark?: string;
       };
-      beta?: {
+      secondary?: {
         base?: string;
         light?: string;
         dark?: string;
       };
-      gamma?: {
+      tertiary?: {
         base?: string;
         light?: string;
         dark?: string;
       };
     };
     button?: {
-      alpha?: {
+      primary?: {
         base?: string;
         light?: string;
         dark?: string;
       };
-      beta?: {
+      secondary?: {
         base?: string;
         light?: string;
         dark?: string;
       };
-      gamma?: {
+      tertiary?: {
         base?: string;
         light?: string;
         dark?: string;
       };
     };
     link?: {
-      alpha?: {
+      primary?: {
         base?: string;
         light?: string;
         dark?: string;
       };
-      beta?: {
+      secondary?: {
         base?: string;
         light?: string;
         dark?: string;
       };
-      gamma?: {
+      tertiary?: {
         base?: string;
         light?: string;
         dark?: string;
@@ -240,6 +240,46 @@ export interface Theme {
               lineHeight?: string;
             };
       };
+    };
+  };
+  box: {
+    primary?: {
+      backgroundColor: string;
+      textDecoration: string;
+      [key: string]:
+        | string
+        | number
+        | {
+            backgroundColor: string;
+          };
+    };
+    secondary?: {
+      backgroundColor: string;
+      textDecoration: string;
+      [key: string]:
+        | string
+        | number
+        | {
+            backgroundColor: string;
+          };
+    };
+    tertiary?: {
+      backgroundColor: string;
+      textDecoration: string;
+      [key: string]:
+        | string
+        | number
+        | {
+            backgroundColor: string;
+          };
+    };
+  };
+  elevation: {
+    none: {
+      boxShadow: string;
+    };
+    primary: {
+      boxShadow: string;
     };
   };
 }
