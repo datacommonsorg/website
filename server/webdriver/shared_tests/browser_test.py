@@ -39,24 +39,21 @@ class BrowserTestMixin():
     self.assertEqual(shared.safe_url_open(self.driver.current_url), 200)
 
     # Assert page title is correct
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
-        EC.title_contains(title_text)
-    )
+    WebDriverWait(self.driver,
+                  self.TIMEOUT_SEC).until(EC.title_contains(title_text))
     self.assertIn(title_text, self.driver.title)
 
     # Wait for title to be present
     h1_locator = (By.CSS_SELECTOR, '#intro-text h1')
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
-        EC.text_to_be_present_in_element(h1_locator, 'Knowledge Graph')
-    )
+        EC.text_to_be_present_in_element(h1_locator, 'Knowledge Graph'))
     h1_element = self.driver.find_element(*h1_locator)
     self.assertEqual("Knowledge Graph", h1_element.text)
 
     # Assert intro is correct
     intro_locator = (By.CSS_SELECTOR, '#intro-text .container header p')
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
-        EC.presence_of_element_located(intro_locator)
-    )
+        EC.presence_of_element_located(intro_locator))
     intro_element = self.driver.find_element(*intro_locator)
     expected_intro_start = 'The Data Commons Knowledge Graph is constructed'
     self.assertTrue(
