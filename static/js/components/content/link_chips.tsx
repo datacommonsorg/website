@@ -26,6 +26,8 @@ import {
   GA_PARAM_URL,
   triggerGAEvent,
 } from "../../shared/ga_events";
+import { ArrowForward } from "../elements/icons/arrow_forward";
+import { Icon } from "../elements/icons/icon";
 
 //an individual LinkChip comprising the title and url attributes of the chip.
 export interface LinkChip {
@@ -57,7 +59,7 @@ export const LinkChips = ({
   return (
     <section className="chip-section">
       <div className="container">
-        {title && <h3>{title}</h3>}
+        {title && <h3>{title} </h3>}
         <ul className="chip-container">
           {linkChips.map((linkChip) => (
             <li key={linkChip.id} className={`chip-item ${variant}`}>
@@ -70,16 +72,7 @@ export const LinkChips = ({
                   });
                 }}
               >
-                <span className="icon">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    height="24px"
-                    viewBox="0 -960 960 960"
-                    width="24px"
-                  >
-                    <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
-                  </svg>
-                </span>
+                <Icon icon={ArrowForward} size={"24px"} />
                 {linkChip.title}
               </a>
             </li>
