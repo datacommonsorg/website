@@ -262,7 +262,11 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       pastSourceContext: fulfillData["pastSourceContext"],
       sessionId: pageMetadata.sessionId,
     });
-    setLoadingStatus(LoadingStatus.SUCCESS);
+    setLoadingStatus(
+      shouldSkipPlaceOverview(pageMetadata)
+        ? LoadingStatus.LOADING
+        : LoadingStatus.SUCCESS
+    );
   }
 
   function handleHashChange(): void {
