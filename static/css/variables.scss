@@ -169,8 +169,10 @@ $color-gray_pill_bckg:#E2E2EC;
     bottom: 0;
     left: 0;
     -webkit-mask-image: -webkit-radial-gradient(white, black);
+    mask-image: -webkit-radial-gradient(white, black);
     -webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
   }
 }
 

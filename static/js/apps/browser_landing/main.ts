@@ -11,25 +11,30 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License.a
+ * limitations under the License.
  */
 
-/* Styles for a general intro text component (used on pages such as browser landing and explorer landing) */
+/**
+ * Entry point for the browser landing (knowledge graph) page.
+ */
 
-.intro-text {
-  .container {
-    display: grid;
-    grid-template-columns: 6fr 4fr;
-    gap: calc(#{var.$spacing} * 2) calc(#{var.$spacing} * 6);
-    @include media-breakpoint-down(md) { 
-      grid-template-columns: 1fr;
+import React from "react";
+import ReactDOM from "react-dom";
+
+import { loadLocaleData } from "../../i18n/i18n";
+import { App } from "./app";
+
+window.addEventListener("load", (): void => {
+  loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
+    () => {
+      renderPage();
     }
-    @include media-breakpoint-down(sm) { 
-      display: block;
-    }
-  }  
-  h1 { 
-    @include var.title_lg; 
-    margin-bottom: calc(#{var.$spacing} * 3);
-  }
+  );
+});
+
+function renderPage(): void {
+  ReactDOM.render(
+    React.createElement(App, {}),
+    document.getElementById("app-container")
+  );
 }
