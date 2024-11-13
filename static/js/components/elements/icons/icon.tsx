@@ -22,8 +22,12 @@
 import React, { ReactElement, SVGProps } from "react";
 
 interface IconProps extends SVGProps<SVGSVGElement> {
+  //The SVG icon to be rendered by the icon component
   icon: (props: SVGProps<SVGSVGElement>) => ReactElement;
+  //The color of the SVG icon. If a color is not provided, this will be the
+  //color of the containing element.
   color?: string;
+  //the size of the icon. If not provided, this will default to 1em.
   size?: number | string;
 }
 
