@@ -211,12 +211,14 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       sessionId: "session" in fulfillData ? fulfillData["session"]["id"] : "",
       svSource: fulfillData["svSource"],
     };
+    let isPendingRedirect = false;
     if (
       pageMetadata &&
       pageMetadata.pageConfig &&
       pageMetadata.pageConfig.categories
     ) {
-      if (shouldSkipPlaceOverview(pageMetadata)) {
+      isPendingRedirect = shouldSkipPlaceOverview(pageMetadata);
+      if (isPendingRedirect) {
         const placeDcid = pageMetadata.place.dcid;
         const url = `/place/${placeDcid}`;
         window.location.replace(url);
@@ -263,9 +265,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       sessionId: pageMetadata.sessionId,
     });
     setLoadingStatus(
-      shouldSkipPlaceOverview(pageMetadata)
-        ? LoadingStatus.LOADING
-        : LoadingStatus.SUCCESS
+      isPendingRedirect ? LoadingStatus.LOADING : LoadingStatus.SUCCESS
     );
   }
 
