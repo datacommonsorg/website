@@ -76,3 +76,24 @@ h3 {
 #main-pane .button-dc {
   margin-top: -3px;
 }
+
+#page-loading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  svg {
+    animation: rotating 2s linear infinite;
+  }
+  p {
+    margin: 3px 0 0 0;
+  }
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
