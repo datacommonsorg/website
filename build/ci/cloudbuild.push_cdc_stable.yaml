@@ -1,0 +1,70 @@
+# Copyright 2024 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Updates stable-tagged Docker images for custom DC.
+# Assumes the stable branch is already checked out, which it should be
+# if this is triggered on push to branch for the stable branch.
+
+steps:
+  # Step 0: Initialize submods
+  - id: init-submods
+    name: gcr.io/cloud-builders/git
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        set -e
+        git submodule update --init --recursive
+    waitFor: ["-"]
+
+  # Step 1: Get a label that combines commit hashes.
+  - id: get-label
+    name: gcr.io/cloud-builders/git
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        set -e
+        ./scripts/get_commits_label.sh | tail -1 >"$_IMAGE_LABEL_PATH"
+    waitFor: ["init-submods"]
+
+  # Step 1: Services container
+  - id: build-and-tag-stable-services
+    name: gcr.io/datcom-ci/deploy-tool
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        set -e
+        image_label=$(cat "$_IMAGE_LABEL_PATH")
+        ./scripts/build_cdc_services_and_tag_stable.sh $image_label
+    waitFor: ["get-label"]
+
+  # Step 2: Data management container
+  - id: build-and-tag-stable-data
+    name: gcr.io/datcom-ci/deploy-tool
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        set -e
+        image_label=$(cat "$_IMAGE_LABEL_PATH")
+        ./scripts/build_cdc_data_and_tag_stable.sh $image_label
+    waitFor: ["get-label"]
+
+substitutions:
+  _IMAGE_LABEL_PATH: "/workspace/tmp_cdc_stable_image_label.txt"
+
+options:
+  machineType: "E2_HIGHCPU_32"
