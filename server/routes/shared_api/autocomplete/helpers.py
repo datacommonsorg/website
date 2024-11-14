@@ -57,6 +57,9 @@ CUSTOM_PLACES = [{
     'place_dcid': 'asia'
 }] + TWO_WORD_CUSTOM_PLACES
 
+# Exceptions for the 3 letter trigger rule. These queries can trigger on only two letters.
+TWO_LETTER_TRIGGERS = {"us"}
+
 
 def find_queries(user_query: str) -> List[str]:
   """Extracts subqueries to send to the Google Maps Predictions API from the entire user input.
@@ -78,8 +81,9 @@ def find_queries(user_query: str) -> List[str]:
     else:
       cumulative = word
 
-    # Only send queries 3 characters or longer.
-    if (len(cumulative) >= MIN_CHARACTERS_PER_QUERY):
+    # Only send queries 3 characters or longer, except for the exceptions in TWO_LETTER_TRIGGERS.
+    if (len(cumulative) >= MIN_CHARACTERS_PER_QUERY or
+        (len(cumulative) == 2 and cumulative.lower() in TWO_LETTER_TRIGGERS)):
       queries.append(cumulative)
 
   # Start by running the longer queries.
