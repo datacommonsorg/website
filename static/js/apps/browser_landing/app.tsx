@@ -35,8 +35,8 @@ export function App(): ReactElement {
     <>
       <IntroText>
         <header>
-          <h1>Knowledge Graph</h1>
-          <p>
+          <h1 id="kg-title">Knowledge Graph</h1>
+          <p id="kg-desc">
             The Data Commons Knowledge Graph is constructed by synthesizing a
             single database from many different data sources. This knowledge
             graph can be used both to explore what data is available and to
