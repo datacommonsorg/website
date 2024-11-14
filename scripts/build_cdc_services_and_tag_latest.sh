@@ -24,17 +24,14 @@
 set -e
 set -x
 
-image_label=$1
-if [[ $image_label = "" ]]; then
-  echo "Expected positional argument with image label."
-  echo "Usage: ./scripts/build_cdc_services_and_tag_latest.sh \$IMAGE_LABEL"
+commits_label=$1
+if [[ $commits_label = "" ]]; then
+  echo "Expected positional argument with commits label."
+  echo "Usage: ./scripts/build_cdc_services_and_tag_latest.sh \$COMMITS_LABEL"
   exit 1
 fi
 
-# Build a new image and push it to Container Registry, tagging it as latest
-DOCKER_BUILDKIT=1 docker build -f build/cdc_services/Dockerfile \
-  --tag "gcr.io/datcom-ci/datacommons-services:${image_label}" \
-  --tag gcr.io/datcom-ci/datacommons-services:latest \
-  .
-docker push "gcr.io/datcom-ci/datacommons-services:${image_label}"
-docker push gcr.io/datcom-ci/datacommons-services:latest
+./scripts/build_and_tag_cdc_image.sh \
+  --image-type services \
+  --commits-label "${commits_label}" \
+  --release-label "latest"
