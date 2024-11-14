@@ -14,12 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Creates a new custom DC data docker image and tags it latest.
+# Creates a new custom DC data docker image and tags it stable.
 # Also tags it with a custom label from an argument.
 
-# Usage: From root, ./scripts/build_cdc_data_and_tag_latest.sh $COMMITS_LABEL
+# Usage: From root, ./scripts/build_cdc_data_and_tag_stable.sh $COMMITS_LABEL
 
-# The latest image = gcr.io/datcom-ci/datacommons-data:latest
+# The stable image = gcr.io/datcom-ci/datacommons-data:stable
 
 set -e
 set -x
@@ -27,11 +27,11 @@ set -x
 commits_label=$1
 if [[ $commits_label = "" ]]; then
   echo "Expected positional argument with commits label."
-  echo "Usage: ./scripts/build_cdc_data_and_tag_latest.sh \$COMMITS_LABEL"
+  echo "Usage: ./scripts/build_cdc_data_and_tag_stable.sh \$COMMITS_LABEL"
   exit 1
 fi
 
 ./scripts/build_and_tag_cdc_image.sh \
   --image-type data \
   --commits-label "${commits_label}" \
-  --release-label "latest"
+  --release-label "stable"
