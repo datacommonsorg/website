@@ -20,8 +20,12 @@ steps:
   # Step 0: Initialize submods
   - id: init-submods
     name: gcr.io/cloud-builders/git
+    entrypoint: bash
     args:
-      - submodule update --init --recursive
+      - -c
+      - |
+        set -e
+        git submodule update --init --recursive
     waitFor: ["-"]
 
   # Step 1: Get a label that combines commit hashes.
