@@ -18,7 +18,12 @@
  * A component to display a media/text component. This component renders in two columns a piece of media (video or image) and text content
  */
 
+/** @jsxImportSource @emotion/react */
+
+import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
+
+import { Wrapper } from "../elements/layout/wrapper";
 
 interface BaseMediaTextProps {
   //the type of media that will be displayed - either a video or an image, with a video representing a YouTube video
@@ -27,6 +32,7 @@ interface BaseMediaTextProps {
   mediaSource: string;
   //the text (or other) content, given as the children of the component
   children: ReactElement;
+  wrapperVariant?: "naked" | "standard";
 }
 
 //title: the title that renders at the top of the component. If an alt is not provided, the title is required.
@@ -40,36 +46,36 @@ const MediaText = ({
   title,
   alt,
   children,
+  wrapperVariant,
 }: MediaTextProps): ReactElement => {
+  const theme = useTheme();
   return (
-    <section className="text-images">
-      <div className="container">
-        {title && (
-          <div className="header">
-            <h3> {title} </h3>
+    <Wrapper variant={wrapperVariant}>
+      {title && (
+        <div className="header">
+          <h3> {title} </h3>
+        </div>
+      )}
+      <div className="media">
+        {mediaType === "image" ? (
+          <figure>
+            <img src={mediaSource} alt={alt ?? title} />
+          </figure>
+        ) : (
+          <div className="video-player">
+            <iframe
+              src={`https://www.youtube.com/embed/${mediaSource}`}
+              title="YouTube video player"
+              style={{ border: "none" }}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            ></iframe>
           </div>
         )}
-        <div className="media">
-          {mediaType === "image" ? (
-            <figure>
-              <img src={mediaSource} alt={alt ?? title} />
-            </figure>
-          ) : (
-            <div className="video-player">
-              <iframe
-                src={`https://www.youtube.com/embed/${mediaSource}`}
-                title="YouTube video player"
-                style={{ border: "none" }}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-              ></iframe>
-            </div>
-          )}
-        </div>
-        <div className="text">{children}</div>
       </div>
-    </section>
+      <div className="text">{children}</div>
+    </Wrapper>
   );
 };
 

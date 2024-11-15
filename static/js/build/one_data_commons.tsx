@@ -7,6 +7,7 @@ const OneDataCommons = (): ReactElement => {
   const createSlides = (): ReactElement[] => {
     return [
       <MediaText
+        wrapperVariant="naked"
         key={0}
         alt={"One Data Commons Website Screenshot"}
         mediaType="image"

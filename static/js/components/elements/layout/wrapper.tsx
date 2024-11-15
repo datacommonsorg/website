@@ -25,45 +25,49 @@ import { css, useTheme } from "@emotion/react";
 import React, { ReactElement, ReactNode } from "react";
 
 interface WrapperProps {
+  variant?: "naked" | "standard";
   colorVariant?: "base" | "light" | "dark";
   children?: ReactNode;
 }
 
 export const Wrapper = ({
   colorVariant = "base",
+  variant = "standard",
   children,
 }: WrapperProps): ReactElement => {
   const theme = useTheme();
-
-  const background =
-    colorVariant === "light"
-      ? theme.colors.background.primary.light
-      : colorVariant === "dark"
-      ? theme.colors.background.primary.dark
-      : theme.colors.background.primary.base;
+  const color = theme.colors.background.primary[colorVariant ?? "base"];
 
   return (
     <section
-      css={css`
-        background: ${background};
-      `}
+      css={
+        variant === "naked"
+          ? undefined
+          : css`
+              background-color: ${color};
+            `
+      }
     >
       <div
-        css={css`
-          margin: auto;
-          width: 100%;
-          max-width: ${theme.width.xl}px;
-          padding: ${theme.spacing.section}px 0;
-          @media (max-width: ${theme.breakpoints.xl}px) {
-            padding: ${theme.spacing.section}px ${theme.spacing.lg}px;
-          }
-          @media (max-width: ${theme.breakpoints.lg}px) {
-            max-width: ${theme.width.lg}px;
-          }
-          @media (max-width: ${theme.breakpoints.md}px) {
-            max-width: 100%;
-          }
-        `}
+        css={
+          variant === "naked"
+            ? undefined
+            : css`
+                margin: auto;
+                width: 100%;
+                max-width: ${theme.width.xl}px;
+                padding: ${theme.spacing.section}px 0;
+                @media (max-width: ${theme.breakpoints.xl}px) {
+                  padding: ${theme.spacing.section}px ${theme.spacing.lg}px;
+                }
+                @media (max-width: ${theme.breakpoints.lg}px) {
+                  max-width: ${theme.width.lg}px;
+                }
+                @media (max-width: ${theme.breakpoints.md}px) {
+                  max-width: 100%;
+                }
+              `
+        }
       >
         {children}
       </div>
