@@ -56,7 +56,8 @@ const Build = ({ routes }: BuildProps): ReactElement => {
             their Sustainable Development Goals data. With their deployed Data
             Commons, the UN created a centralized repository, allowing for
             dynamic storytelling and targeted analysis related to global
-            progress. <a
+            progress.{" "}
+            <a
               href={resolveHref("{static.build}", routes)}
               onClick={(): void => {
                 triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {

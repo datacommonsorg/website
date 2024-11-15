@@ -18,6 +18,7 @@
  * Main component for the build page
  */
 
+import { ThemeProvider } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import OneDataCommons from "../../build/one_data_commons";
@@ -28,6 +29,7 @@ import Quote from "../../components/content/quote";
 import SimpleText from "../../components/content/simple_text";
 import { GA_EVENT_BUILDPAGE_CLICK } from "../../shared/ga_events";
 import { Partner } from "../../shared/types/homepage";
+import theme from "../../theme/theme";
 
 interface AppProps {
   //the partners passed from the backend through to the JavaScript via the templates
@@ -39,7 +41,7 @@ interface AppProps {
  */
 export function App({ partners }: AppProps): ReactElement {
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <Hero />
       <MediaText
         title="Your Data Commons at a glance"
@@ -91,6 +93,6 @@ export function App({ partners }: AppProps): ReactElement {
           </p>
         </>
       </SimpleText>
-    </>
+    </ThemeProvider>
   );
 }

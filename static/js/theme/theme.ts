@@ -75,12 +75,12 @@ const theme: Theme = {
       primary: {
         base: DC_BLACK,
         dark: DC_BLUE_DARK,
-        light: "white",
+        light: "#FFFFFF",
       },
     },
     background: {
       primary: {
-        base: "white",
+        base: "#FFFFFF",
         dark: DC_BLUE_DARK,
         light: DC_BLUE_LIGHTER,
       },
