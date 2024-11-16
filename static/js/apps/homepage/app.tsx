@@ -23,14 +23,20 @@
 import { ThemeProvider } from "@emotion/react";
 import React, { ReactElement } from "react";
 
+import { resolveHref } from "../../apps/base/utilities/utilities";
 import BigText from "../../components/content/big_text";
-import Build from "../../components/content/build_your_own";
 import HeroVideo from "../../components/content/hero_video";
 import { LinkChip, LinkChips } from "../../components/content/link_chips";
+import MediaText from "../../components/content/media_text";
 import Partners from "../../components/content/partners";
 import SampleQuestions from "../../components/content/sample_questions";
 import Tools from "../../components/content/tools";
-import { GA_EVENT_HOMEPAGE_CLICK } from "../../shared/ga_events";
+import {
+  GA_EVENT_HOMEPAGE_CLICK,
+  GA_PARAM_ID,
+  GA_PARAM_URL,
+  triggerGAEvent,
+} from "../../shared/ga_events";
 import { Routes } from "../../shared/types/base";
 import {
   Partner,
@@ -76,7 +82,29 @@ export function App({
       <SampleQuestions sampleQuestions={sampleQuestions} />
       <Tools routes={routes} />
       <BigText routes={routes} />
-      <Build routes={routes} />
+      <MediaText
+        mediaType="video"
+        mediaSource="O6iVsS-RDYI"
+        headerContent={<h4>The United Nations Data Commons for the SDGs</h4>}
+      >
+        <p>
+          United Nations deployed a Data Commons to amplify the impact of their
+          Sustainable Development Goals data. With their deployed Data Commons,
+          the UN created a centralized repository, allowing for dynamic
+          storytelling and targeted analysis related to global progress.{" "}
+          <a
+            href={resolveHref("{static.build}", routes)}
+            onClick={(): void => {
+              triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
+                [GA_PARAM_ID]: "build-your-own",
+                [GA_PARAM_URL]: "{static.build}",
+              });
+            }}
+          >
+            Learn more
+          </a>
+        </p>
+      </MediaText>
       <Partners partners={partners} gaEvent={GA_EVENT_HOMEPAGE_CLICK} />
     </ThemeProvider>
   );
