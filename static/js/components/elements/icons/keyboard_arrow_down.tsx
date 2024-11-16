@@ -26,10 +26,10 @@ export const KeyboardArrowDown = (
 ): ReactElement => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    height="24px"
+    height="1em"
     viewBox="0 -960 960 960"
-    width="24px"
-    fill="#e8eaed"
+    width="1em"
+    fill="currentColor"
     {...props}
   >
     <path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z" />

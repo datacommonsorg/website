@@ -15,13 +15,13 @@
  */
 
 /*
- * Material Icon: Arrow Forward
+ * Material Icon: Arrow Outward
  * Source: https://fonts.google.com/icons
  */
 
 import React, { ReactElement } from "react";
 
-export const ArrowForward = (
+export const ArrowOutward = (
   props: React.SVGProps<SVGSVGElement>
 ): ReactElement => (
   <svg
@@ -32,6 +32,6 @@ export const ArrowForward = (
     fill="currentColor"
     {...props}
   >
-    <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
+    <path d="m256-240-56-56 384-384H240v-80h480v480h-80v-344L256-240Z" />
   </svg>
 );

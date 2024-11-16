@@ -42,7 +42,7 @@ export const Icon = ({
       width={size}
       height={size}
       fill={color}
-      path={color}
+      stroke={color}
       {...props}
     />
   );
