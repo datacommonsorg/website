@@ -44,7 +44,10 @@ export function App({ partners }: AppProps): ReactElement {
     <ThemeProvider theme={theme}>
       <Hero />
       <MediaText
-        title="Your Data Commons at a glance"
+        headerContent={<h3>Your Data Commons at a glance</h3>}
+        alt={
+          "Graph describing the query process, from the user queries going trough the custom data commons installation then using the rest api to communicate with the base data commons to return the data to the custom data commons installation"
+        }
         mediaType="image"
         mediaSource="images/content/build/build_diagram.png"
       >

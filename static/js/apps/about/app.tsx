@@ -18,11 +18,13 @@
  * Main component for the about your own Data Commons page
  */
 
+import { ThemeProvider } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import MediaText from "../../components/content/media_text";
 import Quote from "../../components/content/quote";
 import { Routes } from "../../shared/types/base";
+import theme from "../../theme/theme";
 
 interface AppProps {
   //the routes dictionary - this is used to convert routes to resolved urls
@@ -35,7 +37,7 @@ interface AppProps {
 
 export function App({ routes }: AppProps): ReactElement {
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <section className="blue big">
         <Quote
           quote="Every moment around the world people and organizations are generating data that can be extraordinarily useful and I think we have to find the way to harness that to solve problems.
@@ -89,22 +91,20 @@ The challenge is that a lot of this data is very fragmented."
       </section>
 
       <MediaText
-        title="Who can use it"
+        headerContent={<h3>Who can use it</h3>}
         mediaType="video"
         mediaSource="O6iVsS-RDYI"
       >
-        <>
-          <p>
-            {" "}
-            Data Commons can be accessed by anyone here at Datacommons.org.
-            Students, researchers, journalists, non profits, policymakers, and
-            private enterprises can access the tools and allow them to
-            manipulate and make decisions based on data without the need to know
-            how to code. Software developers can use the REST, Python and Google
-            Sheets APIs, all of which are free for educational, academic and
-            journalistic research purposes.{" "}
-          </p>
-        </>
+        <p>
+          {" "}
+          Data Commons can be accessed by anyone here at Datacommons.org.
+          Students, researchers, journalists, non profits, policymakers, and
+          private enterprises can access the tools and allow them to manipulate
+          and make decisions based on data without the need to know how to code.
+          Software developers can use the REST, Python and Google Sheets APIs,
+          all of which are free for educational, academic and journalistic
+          research purposes.{" "}
+        </p>
       </MediaText>
 
       <section className="text-columns">
@@ -168,6 +168,6 @@ The challenge is that a lot of this data is very fragmented."
           </div>
         </div>
       </section>
-    </>
+    </ThemeProvider>
   );
 }
