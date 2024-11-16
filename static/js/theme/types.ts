@@ -281,5 +281,19 @@ export interface Theme {
     primary: {
       boxShadow: string;
     };
+    secondary: {
+      boxShadow: string;
+    };
+  };
+  radius: {
+    none: {
+      borderRadius: string;
+    };
+    primary: {
+      borderRadius: string;
+    };
+    secondary: {
+      borderRadius: string;
+    };
   };
 }

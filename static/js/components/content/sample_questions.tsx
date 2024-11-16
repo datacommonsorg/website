@@ -17,7 +17,9 @@
 /**
  * A component to display clickable sample questions on a carousel for the homepage
  */
+/** @jsxImportSource @emotion/react */
 
+import { css, useTheme } from "@emotion/react";
 import React, { ReactElement, useEffect, useState } from "react";
 
 import {
@@ -28,6 +30,8 @@ import {
 } from "../../shared/ga_events";
 import { BREAKPOINTS } from "../../shared/hooks/breakpoints";
 import { SampleQuestionCategory } from "../../shared/types/homepage";
+import theme from "../../theme/theme";
+import { Wrapper } from "../elements/layout/wrapper";
 import SlideCarousel from "../elements/slide_carousel";
 
 interface SampleQuestionsProps {
@@ -144,16 +148,26 @@ const SampleQuestions = ({
   const slides = createSlides();
 
   return (
-    <section id="sample-questions" className="sample-questions">
-      <div className="container">
-        <h3>Sample questions</h3>
-        {columnsPerSlide === 1 ? (
-          createSingleColumnLayout()
-        ) : (
-          <SlideCarousel slides={slides} />
-        )}
-      </div>
-    </section>
+    <Wrapper>
+      <header
+        css={css`
+          margin-bottom: ${theme.spacing.lg};
+        `}
+      >
+        <h3
+          css={css`
+            ${theme.typography.heading.xs}
+          `}
+        >
+          Sample questions
+        </h3>
+      </header>
+      {columnsPerSlide === 1 ? (
+        createSingleColumnLayout()
+      ) : (
+        <SlideCarousel slides={slides} />
+      )}
+    </Wrapper>
   );
 };
 

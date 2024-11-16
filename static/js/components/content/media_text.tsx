@@ -25,25 +25,22 @@ import React, { ReactElement } from "react";
 
 import { Wrapper } from "../elements/layout/wrapper";
 
-interface BaseMediaTextProps {
+interface MediaTextProps {
   //the type of media that will be displayed - either a video or an image, with a video representing a YouTube video
   mediaType: "video" | "image";
   //the source of the media - for video, this will be the video id, and for an image this will be the url
   mediaSource: string;
   //the text (or other) content, given as the children of the component
   children: ReactElement;
+  headerContent?: ReactElement;
+  alt?: string;
   wrapperVariant?: "naked" | "standard";
 }
-
-//title: the title that renders at the top of the component. If an alt is not provided, the title is required.
-//alt: the alt text for the image. If the title is not provided, the alt is required.
-type MediaTextProps = BaseMediaTextProps &
-  ({ title: string; alt?: string } | { title?: string; alt: string });
 
 const MediaText = ({
   mediaType,
   mediaSource,
-  title,
+  headerContent,
   alt,
   children,
   wrapperVariant,
@@ -51,30 +48,123 @@ const MediaText = ({
   const theme = useTheme();
   return (
     <Wrapper variant={wrapperVariant}>
-      {title && (
-        <div className="header">
-          <h3> {title} </h3>
-        </div>
-      )}
-      <div className="media">
-        {mediaType === "image" ? (
-          <figure>
-            <img src={mediaSource} alt={alt ?? title} />
-          </figure>
-        ) : (
-          <div className="video-player">
-            <iframe
-              src={`https://www.youtube.com/embed/${mediaSource}`}
-              title="YouTube video player"
-              style={{ border: "none" }}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-            ></iframe>
-          </div>
+      <article
+        css={css`
+          display: grid;
+          grid-template-columns: 6fr 4fr;
+          gap: ${theme.spacing.md}px ${theme.spacing.xxl}px;
+          @media (max-width: ${theme.breakpoints.md}px) {
+            gap: ${theme.spacing.md}px ${theme.spacing.xl}px;
+          }
+          @media (max-width: ${theme.breakpoints.sm}px) {
+            grid-template-columns: 1fr;
+            gap: ${theme.spacing.md}px;
+          }
+        `}
+      >
+        {headerContent && (
+          <header
+            css={css`
+              grid-column: 1 / span 2;
+              order: 0;
+              @media (max-width: ${theme.breakpoints.sm}px) {
+                grid-column: 1;
+              }
+              & > h3 {
+                ${theme.typography.heading.sm}
+              }
+              & > h4 {
+                ${theme.typography.heading.xs}
+              }
+              & > p {
+                ${theme.typography.text.md}
+              }
+            `}
+          >
+            {headerContent}
+          </header>
         )}
-      </div>
-      <div className="text">{children}</div>
+        <div className="media">
+          {mediaType === "image" ? (
+            <figure
+              css={css`
+                ${theme.elevation.secondary}
+                ${theme.radius.secondary}
+                overflow: hidden;
+                background-color: ${theme.colors.background.primary.light};
+              `}
+            >
+              <img
+                css={css`
+                  display: block;
+                  width: 100%;
+                  height: auto;
+                `}
+                src={mediaSource}
+                alt={alt}
+              />
+            </figure>
+          ) : (
+            <div
+              css={css`
+                ${theme.elevation.secondary}
+                ${theme.radius.secondary}
+                box-sizing: border-box;
+                position: relative;
+                width: 100%;
+                display: block;
+                border: none;
+                outline: none;
+                overflow: hidden;
+                padding-bottom: 56.25%;
+                border-radius: 20px;
+                background-color: ${theme.colors.background.primary.light};
+                & > iframe,
+                & > video {
+                  margin: 0;
+                  padding: 0;
+                  border: none;
+                  outline: none;
+                  isolation: isolate;
+                  box-sizing: border-box;
+                  display: block;
+                  width: 100%;
+                  height: 100%;
+                  position: absolute;
+                  top: 0;
+                  right: 0;
+                  bottom: 0;
+                  left: 0;
+                }
+              `}
+            >
+              <iframe
+                src={`https://www.youtube.com/embed/${mediaSource}`}
+                title="YouTube video player"
+                style={{ border: "none" }}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              ></iframe>
+            </div>
+          )}
+        </div>
+        <div
+          css={css`
+            & > h3 {
+              ${theme.typography.heading.sm}
+            }
+            & > h4 {
+              ${theme.typography.heading.xs}
+            }
+            & > p {
+              ${theme.typography.text.md}
+            }
+          `}
+        >
+          {children}
+        </div>
+      </article>
     </Wrapper>
   );
 };

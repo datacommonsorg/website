@@ -90,6 +90,7 @@ const Tools = ({ routes }: ToolsProps): ReactElement => {
             ${theme.box.primary}
             ${theme.elevation.primary}
             ${theme.typography.heading.xs};
+            ${theme.radius.primary}
             display: flex;
             width: 100%;
             height: 100%;
@@ -97,7 +98,6 @@ const Tools = ({ routes }: ToolsProps): ReactElement => {
             align-items: flex-start;
             gap: ${theme.spacing.md}px;
             padding: ${theme.spacing.lg}px;
-            border-radius: ${theme.spacing.xl}px;
             @media (max-width: ${theme.breakpoints.sm}px) {
               align-items: center;
             }

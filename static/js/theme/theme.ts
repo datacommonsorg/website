@@ -189,6 +189,20 @@ const theme: Theme = {
       boxShadow:
         "0px 1px 2px hsla(0, 0%, 0%, 0.3), 0px 1px 3px 1px hsla(0, 0%, 0%, 0.15)",
     },
+    secondary: {
+      boxShadow: "0 2px 5px hsla(0,0%,0%,0.1)",
+    },
+  },
+  radius: {
+    none: {
+      borderRadius: "0",
+    },
+    primary: {
+      borderRadius: "32px",
+    },
+    secondary: {
+      borderRadius: "20px",
+    },
   },
 };
 
