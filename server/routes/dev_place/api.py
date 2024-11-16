@@ -81,19 +81,33 @@ def place_charts(place_dcid: str):
   # Fetch place info
   place = place_utils.fetch_place(place_dcid, locale=g.locale)
 
+  # Determine child place type
+  child_place_type = place_utils.get_child_place_type(place)
+
   # Retrieve available place page charts
-  chart_config = copy.deepcopy(current_app.config['CHART_CONFIG'])
+  full_chart_config = copy.deepcopy(current_app.config['CHART_CONFIG'])
+
+  # Filter chart config by category
+  if place_category == OVERVIEW_CATEGORY:
+    chart_config = [c for c in full_chart_config if c.get("isOverview")]
+  else:
+    chart_config = [
+        c for c in full_chart_config if c["category"] == place_category
+    ]
 
   # Filter out place page charts that don't have any data for the current place_dcid
   filtered_chart_config = place_utils.filter_chart_config_by_place_dcid(
-      chart_config, place_dcid)
+      chart_config=chart_config,
+      place_dcid=place_dcid,
+      child_place_type=child_place_type)
 
   # Translate chart config titles
   translated_chart_config = place_utils.translate_chart_config(
       filtered_chart_config)
 
   # Extract charts to Chart objects used in PlaceChartsApiResponse object
-  charts = place_utils.chart_config_to_overview_charts(translated_chart_config)
+  charts = place_utils.chart_config_to_overview_charts(translated_chart_config,
+                                                       child_place_type)
 
   # Translate category strings
   translated_category_strings = place_utils.get_translated_category_strings(
@@ -127,13 +141,27 @@ def related_places(place_dcid: str):
   # Fetch place info
   place = place_utils.fetch_place(place_dcid, locale=g.locale)
 
-  # Fetch related places
-  nearby_places = place_utils.fetch_nearby_places(place, locale=g.locale)
-  similar_places = place_utils.fetch_similar_places(place, locale=g.locale)
-  child_places = place_utils.fetch_child_places(place, locale=g.locale)
+  # Fetch related, similar, and child place dcids
+  nearby_place_dcids = place_utils.fetch_nearby_place_dcids(place,
+                                                            locale=g.locale)
+  similar_place_dcids = place_utils.fetch_similar_place_dcids(place,
+                                                              locale=g.locale)
+  child_place_type = place_utils.get_child_place_type(place)
+  child_place_dcids = place_utils.fetch_child_place_dcids(place,
+                                                          child_place_type,
+                                                          locale=g.locale)
 
-  # TODO: Fetch child place type(s)
-  child_place_type = ""
+  # Fetch all place objects in one request to reduce latency (includes name and typeOf)
+  all_place_dcids = [
+      place_dcid, *nearby_place_dcids, *similar_place_dcids, *child_place_dcids
+  ]
+  all_places = place_utils.fetch_places(all_place_dcids, locale=g.locale)
+
+  # Get place objects for nearby, similar, and child places
+  all_place_by_dcid = {p.dcid: p for p in all_places}
+  nearby_places = [all_place_by_dcid[dcid] for dcid in nearby_place_dcids]
+  similar_places = [all_place_by_dcid[dcid] for dcid in similar_place_dcids]
+  child_places = [all_place_by_dcid[dcid] for dcid in child_place_dcids]
 
   response = RelatedPlacesApiResponse(
       childPlaceType=child_place_type,
