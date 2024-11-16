@@ -141,7 +141,7 @@ def related_places(place_dcid: str):
   # Fetch place info
   place = place_utils.fetch_place(place_dcid, locale=g.locale)
 
-  # Fetch related, similar, and child place dcids
+  # Fetch nearby, similar, and child place dcids
   nearby_place_dcids = place_utils.fetch_nearby_place_dcids(place,
                                                             locale=g.locale)
   similar_place_dcids = place_utils.fetch_similar_place_dcids(place,
