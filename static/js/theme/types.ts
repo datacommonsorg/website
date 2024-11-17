@@ -74,6 +74,33 @@ export interface Theme {
         dark?: string;
       };
     };
+    box: {
+      blue: {
+        text: string;
+        tag: string;
+        pill: string;
+      };
+      green: {
+        text: string;
+        tag: string;
+        pill: string;
+      };
+      red: {
+        text: string;
+        tag: string;
+        pill: string;
+      };
+      yellow: {
+        text: string;
+        tag: string;
+        pill: string;
+      };
+      gray: {
+        text: string;
+        tag: string;
+        pill: string;
+      };
+    };
     link?: {
       primary?: {
         base?: string;
