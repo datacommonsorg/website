@@ -27,7 +27,6 @@ import {
   triggerGAEvent,
 } from "../../shared/ga_events";
 import { ArrowForward } from "../elements/icons/arrow_forward";
-import { Icon } from "../elements/icons/icon";
 
 //an individual LinkChip comprising the title and url attributes of the chip.
 export interface LinkChip {
@@ -72,7 +71,7 @@ export const LinkChips = ({
                   });
                 }}
               >
-                <Icon icon={ArrowForward} size={"24px"} />
+                <ArrowForward height={"24px"} />
                 {linkChip.title}
               </a>
             </li>

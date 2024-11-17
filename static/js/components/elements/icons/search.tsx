@@ -15,15 +15,13 @@
  */
 
 /*
- * Material Icon: Arrow Back
+ * Material Icon: Search
  * Source: https://fonts.google.com/icons
  */
 
 import React, { ReactElement } from "react";
 
-export const ArrowBack = (
-  props: React.SVGProps<SVGSVGElement>
-): ReactElement => (
+export const Search = (props: React.SVGProps<SVGSVGElement>): ReactElement => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     height="1em"
@@ -31,6 +29,6 @@ export const ArrowBack = (
     fill="currentColor"
     {...props}
   >
-    <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z" />
+    <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
   </svg>
 );

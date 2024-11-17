@@ -625,6 +625,11 @@ section {
     border: none;
     border-color: var(--gm-3-ref-neutral-neutral-40);
 
+    .search-icon {
+      font-size: 24px;
+      line-height: 1;
+    }
+
     .search-bar-content {
       display: flex;
       flex-wrap: nowrap;
@@ -638,6 +643,9 @@ section {
         display: flex;
         align-items: center;
         color: #f1f1f1;
+        svg {
+          font-size: 24px;
+        }
       }
 
       .search-input-text {

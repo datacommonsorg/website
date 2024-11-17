@@ -18,7 +18,6 @@
 
 import React, { ReactElement, useEffect, useRef, useState } from "react";
 
-import { Icon } from "../../../../components/elements/icons/icon";
 import { KeyboardArrowDown } from "../../../../components/elements/icons/keyboard_arrow_down";
 import {
   GA_EVENT_HEADER_CLICK,
@@ -140,11 +139,7 @@ const MenuDesktop = ({
                         openMenu === index ? "open" : ""
                       }`}
                     >
-                      <Icon
-                        icon={KeyboardArrowDown}
-                        size={"24px"}
-                        color={"#5f6368"}
-                      />
+                      <KeyboardArrowDown height={"24px"} color={"#5f6368"} />
                     </span>
                   </button>
                   <div

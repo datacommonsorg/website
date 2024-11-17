@@ -40,6 +40,8 @@ import {
   useInsideClickAlerter,
   useOutsideClickAlerter,
 } from "../../utils/click_alerter";
+import { ArrowForward } from "../elements/icons/arrow_forward";
+import { Search } from "../elements/icons/search";
 import { AutoCompleteSuggestions } from "./auto_complete_suggestions";
 
 const DEBOUNCE_INTERVAL_MS = 100;
@@ -297,7 +299,9 @@ export function AutoCompleteInput(
         >
           <InputGroup className="search-bar-content">
             {isHeaderBar && (
-              <span className="material-icons-outlined">search</span>
+              <span className="search-icon">
+                <Search />
+              </span>
             )}
             <Input
               id={props.inputId}
@@ -312,9 +316,7 @@ export function AutoCompleteInput(
               autoFocus={props.shouldAutoFocus}
             ></Input>
             <div onClick={props.onSearch} id="rich-search-button">
-              {isHeaderBar && (
-                <span className="material-icons-outlined">arrow_forward</span>
-              )}
+              {isHeaderBar && <ArrowForward />}
             </div>
           </InputGroup>
         </div>

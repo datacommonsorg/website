@@ -28,7 +28,6 @@ export const ArrowForward = (
     xmlns="http://www.w3.org/2000/svg"
     height="1em"
     viewBox="0 -960 960 960"
-    width="1em"
     fill="currentColor"
     {...props}
   >
