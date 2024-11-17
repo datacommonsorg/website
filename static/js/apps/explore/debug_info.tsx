@@ -226,31 +226,39 @@ export function DebugInfo(props: DebugInfoProps): ReactElement {
 
   return (
     <>
-      <a className={`debug-info-open ${showDebug && "active"}`} onClick={toggleShowDebug}>
+      <a
+        className={`debug-info-open ${showDebug && "active"}`}
+        onClick={toggleShowDebug}
+      >
         <span className="material-icons">bug_report</span>
       </a>
       {showDebug && (
         <>
           <div className="debug-overlay"></div>
           <div className="nl-query-result-debug-info">
-
             <header>
-              <h3><span className="material-icons">bug_report</span> Debugging: options & information</h3>
+              <h3>
+                <span className="material-icons">bug_report</span> Debugging:
+                options & information
+              </h3>
               <a className="debug-info-close" onClick={toggleShowDebug}>
                 <span className="material-icons">close</span>
               </a>
             </header>
-            
-            <section>
 
+            <section>
               <div className="block">
                 <strong>Execution Status: </strong>
-                <span className="highlight">{debugInfo.status || '--' || '--'}</span>
+                <span className="highlight">
+                  {debugInfo.status || "--" || "--"}
+                </span>
               </div>
 
               <div className="block">
                 <strong>Detection Type: </strong>
-                <span className="highlight">{debugInfo.detectionType || '--'}</span>
+                <span className="highlight">
+                  {debugInfo.detectionType || "--"}
+                </span>
               </div>
 
               <div className="block">
@@ -262,12 +270,16 @@ export function DebugInfo(props: DebugInfoProps): ReactElement {
 
               <div className="block">
                 <strong>Original Query: </strong>
-                <span className="highlight">{debugInfo.originalQuery || '--'}</span>
+                <span className="highlight">
+                  {debugInfo.originalQuery || "--"}
+                </span>
               </div>
 
               <div className="block">
                 <strong>Blocked:</strong>
-                <span className="highlight">{debugInfo.blocked.toString() || '--'}</span>
+                <span className="highlight">
+                  {debugInfo.blocked.toString() || "--"}
+                </span>
               </div>
 
               <div className="block">
@@ -279,7 +291,9 @@ export function DebugInfo(props: DebugInfoProps): ReactElement {
 
               <div className="block">
                 <strong>Query without places: </strong>
-                <span className="highlight">{debugInfo.queryWithoutPlaces || '--'}</span>
+                <span className="highlight">
+                  {debugInfo.queryWithoutPlaces || "--"}
+                </span>
               </div>
 
               <div className="block">
@@ -290,10 +304,12 @@ export function DebugInfo(props: DebugInfoProps): ReactElement {
               </div>
 
               <div className="block">
-                <p><strong>Place Detection:</strong></p>
+                <p>
+                  <strong>Place Detection:</strong>
+                </p>
                 <ul>
                   <li>
-                    <strong>Places Detected:</strong> 
+                    <strong>Places Detected:</strong>
                     <span className="highlight">
                       {debugInfo?.placesDetected.length
                         ? debugInfo.placesDetected.join(", ")
@@ -303,19 +319,23 @@ export function DebugInfo(props: DebugInfoProps): ReactElement {
                   <li>
                     <strong>Places Resolved:</strong>
                     <span className="highlight">
-                      {debugInfo.placesResolved || '--'}</span>
+                      {debugInfo.placesResolved || "--"}
+                    </span>
                   </li>
                   <li>
                     <strong>Main Place:</strong>
                     <span className="highlight">
-                      {debugInfo.mainPlaceName || '--'} (dcid: {debugInfo.mainPlaceDCID})
+                      {debugInfo.mainPlaceName || "--"} (dcid:{" "}
+                      {debugInfo.mainPlaceDCID})
                     </span>
                   </li>
                 </ul>
               </div>
 
               <div className="block">
-                <p><strong>Entity Detection:</strong></p>
+                <p>
+                  <strong>Entity Detection:</strong>
+                </p>
                 <ul>
                   <li>
                     <strong>Entities Detected: </strong>
@@ -326,7 +346,7 @@ export function DebugInfo(props: DebugInfoProps): ReactElement {
                     </span>
                   </li>
                   <li>
-                    <strong>Entities Resolved:</strong> 
+                    <strong>Entities Resolved:</strong>
                     <span className="highlight">
                       {debugInfo?.entitiesResolved.length
                         ? debugInfo.entitiesResolved.join(", ")
@@ -337,52 +357,61 @@ export function DebugInfo(props: DebugInfoProps): ReactElement {
               </div>
 
               <div className="block">
-                <p><strong>Query Type Detection:</strong></p>
+                <p>
+                  <strong>Query Type Detection:</strong>
+                </p>
                 <ul>
                   <li>
                     <strong>Ranking classification:</strong>
-                    {debugInfo.rankingClassification || '--'}
+                    {debugInfo.rankingClassification || "--"}
                   </li>
                   <li>
                     <strong>Superlative type classification:</strong>
-                    {debugInfo.superlativeClassification || '--'}
+                    {debugInfo.superlativeClassification || "--"}
                   </li>
                   <li>
                     <strong>TimeDelta classification:</strong>
-                    {debugInfo.timeDeltaClassification || '--'}
+                    {debugInfo.timeDeltaClassification || "--"}
                   </li>
                   <li>
                     <strong>Comparison classification: </strong>
-                    {debugInfo.comparisonClassification || '--'}
+                    {debugInfo.comparisonClassification || "--"}
                   </li>
                   <li>
                     <strong>ContainedIn classification: </strong>
-                    {debugInfo.containedInClassification || '--'}
+                    {debugInfo.containedInClassification || "--"}
                   </li>
                   <li>
                     <strong>Correlation classification: </strong>
-                    {debugInfo.correlationClassification || '--'}
+                    {debugInfo.correlationClassification || "--"}
                   </li>
                   <li>
                     <strong>Event classification: </strong>
-                    {debugInfo.eventClassification || '--'}</li>
+                    {debugInfo.eventClassification || "--"}
+                  </li>
                   <li>
                     <strong>General classification: </strong>
-                    {debugInfo.generalClassification || '--'}</li>
+                    {debugInfo.generalClassification || "--"}
+                  </li>
                   <li>
                     <strong>Quantity classification: </strong>
-                    {debugInfo.quantityClassification || '--'}
+                    {debugInfo.quantityClassification || "--"}
                   </li>
                   <li>
                     <strong>Date classification: </strong>
-                    {debugInfo.dateClassification || '--'}
+                    {debugInfo.dateClassification || "--"}
                   </li>
                 </ul>
               </div>
 
               <div className="block">
-                <p><strong>Single Variables Matches:</strong></p>
-                <small>Note: Variables with scores less than model threshold are not used.</small>
+                <p>
+                  <strong>Single Variables Matches:</strong>
+                </p>
+                <small>
+                  Note: Variables with scores less than model threshold are not
+                  used.
+                </small>
 
                 {monoVarScoresElement(
                   Object.values(debugInfo.svScores.SV || {}),
@@ -404,8 +433,12 @@ export function DebugInfo(props: DebugInfoProps): ReactElement {
               </div>
 
               <div className="block">
-                <p><strong>Property Matches:</strong></p>
-                <small className="note">Note: Properties with scores less than 0.5 are not used.</small>
+                <p>
+                  <strong>Property Matches:</strong>
+                </p>
+                <small className="note">
+                  Note: Properties with scores less than 0.5 are not used.
+                </small>
                 {monoVarScoresElement(
                   Object.values(debugInfo.propScores.PROP || {}),
                   Object.values(debugInfo.propScores.CosineScore || {})
@@ -428,9 +461,7 @@ export function DebugInfo(props: DebugInfoProps): ReactElement {
               </div>
 
               <div className="show-more">
-                <a
-                  onClick={(): void => setIsCollapsed(!isCollapsed)}
-                >
+                <a onClick={(): void => setIsCollapsed(!isCollapsed)}>
                   {isCollapsed ? "Show More" : "Show Less"}
                 </a>
               </div>
@@ -438,7 +469,9 @@ export function DebugInfo(props: DebugInfoProps): ReactElement {
               {!isCollapsed && (
                 <>
                   <div className="block">
-                    <p><strong>Query Fulfillment:</strong></p>
+                    <p>
+                      <strong>Query Fulfillment:</strong>
+                    </p>
                     <ul>
                       {props.queryResult && (
                         <li>
@@ -460,7 +493,8 @@ export function DebugInfo(props: DebugInfoProps): ReactElement {
                           <strong>Place Fallback:</strong>
                           &quot;
                           {props.queryResult.placeFallback.origStr}
-                          &quot; to &quot;{props.queryResult.placeFallback.newStr}
+                          &quot; to &quot;
+                          {props.queryResult.placeFallback.newStr}
                           &quot;
                         </li>
                       )}
@@ -468,12 +502,16 @@ export function DebugInfo(props: DebugInfoProps): ReactElement {
                   </div>
 
                   <div className="block">
-                    <p><strong>Counters:</strong></p>
+                    <p>
+                      <strong>Counters:</strong>
+                    </p>
                     <pre>{JSON.stringify(debugInfo.counters, null, 2)}</pre>
                   </div>
-                      
+
                   <div className="block">
-                    <p><strong>Page Config:</strong></p>
+                    <p>
+                      <strong>Page Config:</strong>
+                    </p>
                     <pre>
                       {JSON.stringify(
                         props.queryResult ? props.queryResult.config : null,
@@ -484,7 +522,6 @@ export function DebugInfo(props: DebugInfoProps): ReactElement {
                   </div>
                 </>
               )}
-
             </section>
           </div>
         </>
