@@ -181,6 +181,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
 
   function processFulfillData(fulfillData: any, shouldSetQuery: boolean): void {
     setDebugData(fulfillData["debug"]);
+    globalThis.headerStore.setDebugObject(fulfillData["debug"]);
     const userMessage = {
       msgList: fulfillData["userMessages"] || [],
       showForm: !!fulfillData["showForm"],
@@ -246,16 +247,18 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         ) {
           const q = `${pageMetadata.mainTopics[0].name} vs. ${pageMetadata.mainTopics[1].name} in ${pageMetadata.place.name}`;
           setQuery(q);
+          globalThis.headerStore.setQueryString(q);
         } else if (pageMetadata.mainTopics[0].name) {
           const q = `${pageMetadata.mainTopics[0].name} in ${pageMetadata.place.name}`;
           setQuery(q);
+          globalThis.headerStore.setQueryString(q);
         }
       }
     }
     savedContext.current = fulfillData["context"] || [];
     setPageMetadata(pageMetadata);
     setUserMessage(userMessage);
-    setQueryResult({
+    const queryResult = {
       place: mainPlace,
       config: pageMetadata.pageConfig,
       svSource: fulfillData["svSource"],
@@ -263,7 +266,9 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       placeFallback: fulfillData["placeFallback"],
       pastSourceContext: fulfillData["pastSourceContext"],
       sessionId: pageMetadata.sessionId,
-    });
+    };
+    setQueryResult(queryResult);
+    globalThis.headerStore.setQueryResult(queryResult);
     setLoadingStatus(
       isPendingRedirect ? LoadingStatus.LOADING : LoadingStatus.SUCCESS
     );
@@ -308,6 +313,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     if (query) {
       client = client || CLIENT_TYPES.QUERY;
       setQuery(query);
+      globalThis.headerStore.setQueryString(query);
       fulfillmentPromise = fetchDetectAndFufillData(
         query,
         savedContext.current,
@@ -332,6 +338,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     } else {
       client = client || CLIENT_TYPES.ENTITY;
       setQuery("");
+      globalThis.headerStore.setQueryString("");
       fulfillmentPromise = fetchFulfillData(
         toApiList(place || DEFAULT_PLACE),
         toApiList(topic || DEFAULT_TOPIC),

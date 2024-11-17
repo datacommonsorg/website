@@ -21,7 +21,7 @@
 
   Optional variables:
 
-  is_show_header_search_bar: boolean, if true, a search bar will appear in the header. Default false.
+  is_hide_header_search_bar: boolean, if true, the header will not contain a search bar. Default false.
   is_hide_full_footer: boolean, if true, hides the full expanded footer. Default false
   is_hide_sub_footer: boolean, if true, hides the sub footer. Default false
   locale: string, value for html lang attr
@@ -108,7 +108,7 @@
   </script>
 </head>
 
-<body {% if not is_show_header_search_bar %}class="no-header-search-bar"{% endif %}>
+<body {% if is_hide_header_search_bar %}class="no-header-search-bar"{% endif %}>
 
 <div id="metadata-base" class="d-none"
   data-header="{{ HEADER_MENU_V2 }}"
@@ -118,7 +118,9 @@
   data-name="{{ NAME }}"
   data-show-disaster="{{ SHOW_DISASTER }}"
   data-show-sustainability="{{ SHOW_SUSTAINABILITY }}"
-  data-show-header-search-bar="{{ is_show_header_search_bar }}"
+  data-hide-header-search-bar="{{ is_hide_header_search_bar }}"
+  data-ga-value-search-source="{{ ga_value_search_source }}"
+  data-search-bar-hash-mode="{{ is_search_bar_hash_mode }}"
   data-hide-full-footer="{{ is_hide_full_footer }}"
   data-hide-sub-footer="{{ is_hide_sub_footer }}"
   data-subfooter-extra="{{ subfooter_extra_content|safe }}"
@@ -129,6 +131,7 @@
 {% include 'metadata/labels.html' %}
 {% include 'metadata/routes.html' %}
 
+<script src={{url_for('static', filename='headerStore.js', t=config['VERSION'])}} async></script>
 <script src={{url_for('static', filename='base.js', t=config['VERSION'])}} async></script>
 
 <div id="main">
