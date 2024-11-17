@@ -76,20 +76,85 @@ const SampleQuestions = ({
 
     for (let i = 0; i < sampleQuestions.length; i += columnsPerSlide) {
       slides.push(
-        <div className="questions-container" key={i}>
+        <div
+          css={css`
+            display: flex;
+            gap: ${theme.spacing.lg}px;
+            margin-bottom: ${theme.spacing.lg}px;
+            padding: ${theme.spacing.xs}px;
+          `}
+          key={i}
+        >
           {sampleQuestions
             .slice(i, i + columnsPerSlide)
             .map((category, index) => {
               const overallIndex = i + index;
 
               return (
-                <div key={category.category} className="questions-column">
+                <div
+                  key={category.category}
+                  css={css`
+                    display: flex;
+                    flex-basis: 100%;
+                    flex-grow: 1;
+                    flex-shrink: 1;
+                    flex-direction: column;
+                    gap: ${theme.spacing.lg}px;
+                  `}
+                >
                   {category.questions.map((question) => (
                     <div
                       key={question}
-                      className={`question-item ${
-                        colors[overallIndex % colors.length]
-                      }`}
+                      className={`${colors[overallIndex % colors.length]}`}
+                      css={css`
+                        display: block;
+                        list-style: none;
+                        &.green a {
+                          p {
+                            color: ${theme.colors.box.green.text};
+                          }
+                          small {
+                            color: ${theme.colors.box.green.tag};
+                            background-color: ${theme.colors.box.green.pill};
+                          }
+                        }
+                        &.blue a {
+                          p {
+                            color: ${theme.colors.box.blue.text};
+                          }
+                          small {
+                            color: ${theme.colors.box.blue.tag};
+                            background-color: ${theme.colors.box.blue.pill};
+                          }
+                        }
+                        &.red a {
+                          p {
+                            color: ${theme.colors.box.red.text};
+                          }
+                          small {
+                            color: ${theme.colors.box.red.tag};
+                            background-color: ${theme.colors.box.red.pill};
+                          }
+                        }
+                        &.yellow a {
+                          p {
+                            color: ${theme.colors.box.yellow.text};
+                          }
+                          small {
+                            color: ${theme.colors.box.yellow.tag};
+                            background-color: ${theme.colors.box.yellow.pill};
+                          }
+                        }
+                        &.gray a {
+                          p {
+                            color: ${theme.colors.box.gray.text};
+                          }
+                          small {
+                            color: ${theme.colors.box.gray.tag};
+                            background-color: ${theme.colors.box.gray.pill};
+                          }
+                        }
+                      `}
                     >
                       <a
                         href={`/explore#q=${encodeURIComponent(question)}`}
@@ -99,9 +164,37 @@ const SampleQuestions = ({
                             [GA_PARAM_QUERY]: question,
                           });
                         }}
+                        css={css`
+                          ${theme.box.primary}
+                          ${theme.elevation.primary}
+                          ${theme.radius.primary}
+                          display: flex;
+                          flex-direction: column;
+                          align-items: flex-start;
+                          gap: ${theme.spacing.sm}px;
+                          padding: ${theme.spacing.lg}px;
+                          &:hover {
+                            text-decoration: none;
+                          }
+                        `}
                       >
-                        <p>{question}</p>
-                        <small>{category.category}</small>
+                        <p
+                          css={css`
+                            ${theme.typography.text.xl}
+                          `}
+                        >
+                          {question}
+                        </p>
+                        <small
+                          css={css`
+                            ${theme.typography.text.xs}
+                            ${theme.radius.secondary}
+                          display: inline-block;
+                            padding: ${theme.spacing.xs}px ${theme.spacing.sm}px;
+                          `}
+                        >
+                          {category.category}
+                        </small>
                       </a>
                     </div>
                   ))}
@@ -116,14 +209,79 @@ const SampleQuestions = ({
 
   const createSingleColumnLayout = (): ReactElement => {
     return (
-      <div className="questions-container">
-        <div className="questions-column">
+      <div
+        css={css`
+          display: flex;
+          gap: ${theme.spacing.lg}px;
+          margin-bottom: ${theme.spacing.lg}px;
+          padding: ${theme.spacing.xs}px;
+        `}
+      >
+        <div
+          css={css`
+            display: flex;
+            flex-basis: 100%;
+            flex-grow: 1;
+            flex-shrink: 1;
+            flex-direction: column;
+            gap: ${theme.spacing.lg}px;
+          `}
+        >
           {sampleQuestions.map((category, index) => {
             const question = getRandomQuestionFromCategory(category);
             return (
               <div
                 key={category.category}
-                className={`question-item ${colors[index % colors.length]}`}
+                className={`${colors[index % colors.length]}`}
+                css={css`
+                  display: block;
+                  list-style: none;
+                  &.green a {
+                    p {
+                      color: ${theme.colors.box.green.text};
+                    }
+                    small {
+                      color: ${theme.colors.box.green.tag};
+                      background-color: ${theme.colors.box.green.pill};
+                    }
+                  }
+                  &.blue a {
+                    p {
+                      color: ${theme.colors.box.blue.text};
+                    }
+                    small {
+                      color: ${theme.colors.box.blue.tag};
+                      background-color: ${theme.colors.box.blue.pill};
+                    }
+                  }
+                  &.red a {
+                    p {
+                      color: ${theme.colors.box.red.text};
+                    }
+                    small {
+                      color: ${theme.colors.box.red.tag};
+                      background-color: ${theme.colors.box.red.pill};
+                    }
+                  }
+                  &.yellow a {
+                    p {
+                      color: ${theme.colors.box.yellow.text};
+                    }
+                    small {
+                      color: ${theme.colors.box.yellow.tag};
+                      background-color: ${theme.colors.box.yellow.pill};
+                    }
+                  }
+                  &.gray a {
+                    p {
+                      color: ${theme.colors.box.gray.text};
+                    }
+                    small {
+                      color: ${theme.colors.box.gray.tag};
+                      background-color: ${theme.colors.box.gray.pill};
+                    }
+                  }
+                `}
               >
                 <a
                   href={`/explore#q=${encodeURIComponent(question)}`}
@@ -133,9 +291,34 @@ const SampleQuestions = ({
                       [GA_PARAM_QUERY]: question,
                     });
                   }}
+                  css={css`
+                    ${theme.box.primary}
+                    ${theme.elevation.primary}
+                    ${theme.radius.primary}
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: ${theme.spacing.sm}px;
+                    padding: ${theme.spacing.lg}px;
+                  `}
                 >
-                  <p>{question}</p>
-                  <small>{category.category}</small>
+                  <p
+                    css={css`
+                      ${theme.typography.text.xl}
+                    `}
+                  >
+                    {question}
+                  </p>
+                  <small
+                    css={css`
+                      ${theme.typography.text.xs}
+                      ${theme.radius.secondary}
+                      display: inline-block;
+                      padding: ${theme.spacing.xs}px ${theme.spacing.sm}px;
+                    `}
+                  >
+                    {category.category}
+                  </small>
                 </a>
               </div>
             );
@@ -151,7 +334,7 @@ const SampleQuestions = ({
     <Wrapper>
       <header
         css={css`
-          margin-bottom: ${theme.spacing.lg};
+          margin-bottom: ${theme.spacing.lg}px;
         `}
       >
         <h3

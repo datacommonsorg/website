@@ -56,15 +56,32 @@ const WIDTH = {
 };
 
 const DC_BLACK = "hsl(0, 0%, 18.82%)";
-const DC_WHITE = "hsl(216, 55.6%, 98.2%)";
+const DC_WHITE = "hsl(255, 100%, 100%)";
+const DC_BONE = "hsl(216, 55.6%, 98.2%)";
 
 const DC_BLUE = "hsl(216.9, 90%, 42.9%)";
-const DC_BLUE_HOVER_LIGHT = "hsl(214, 64%, 96%)";
-// const DC_BLUE_HOVER_DARK = "hsl(217.3, 64.9%, 88.8%)";
+const DC_BLUE_PILL_TEXT = "hsl(217.4, 89.6%, 15.1%)";
+const DC_BLUE_PILL_BCKG = "hsl(218.2, 91.7%, 95.3%)";
 
 const DC_BLUE_DARK = "hsl(217.4, 89.6%, 15.1%)";
 const DC_BLUE_LIGHT = "hsl(218, 57.1%, 62.5%)";
 const DC_BLUE_LIGHTER = "hsl(220, 100%, 98.2%)";
+
+const DC_GREEN = "hsl(137.7, 68.8%, 25.1%)";
+const DC_GREEN_PILL_TEXT = "hsl(138.8, 69.6%, 9%)";
+const DC_GREEN_PILL_BCKG = "hsl(137.1, 55.3%, 85.1%)";
+
+const DC_RED = "hsl(3.2, 71.3%, 41%)";
+const DC_RED_PILL_TEXT = "hsl(3.3, 71.1%, 14.9%)";
+const DC_RED_PILL_BCKG = "hsl(4.1, 70.7%, 92%)";
+
+const DC_YELLOW = "hsl(35.3, 100%, 29%)";
+const DC_YELLOW_PILL_TEXT = "hsl(3.3, 71.1%, 14.9%)";
+const DC_YELLOW_PILL_BCKG = "hsl(40.4, 100%, 91%)";
+
+const DC_GRAY = "hsl(160, 2.2%, 27.3%)";
+const DC_GRAY_PILL_TEXT = DC_YELLOW;
+const DC_GRAY_PILL_BCKG = "hsl(240, 20.8%, 90.6%)";
 
 const theme: Theme = {
   breakpoints: BREAKPOINTS,
@@ -75,14 +92,41 @@ const theme: Theme = {
       primary: {
         base: DC_BLACK,
         dark: DC_BLUE_DARK,
-        light: "#FFFFFF",
+        light: DC_WHITE,
       },
     },
     background: {
       primary: {
-        base: "#FFFFFF",
+        base: DC_WHITE,
         dark: DC_BLUE_DARK,
         light: DC_BLUE_LIGHTER,
+      },
+    },
+    box: {
+      blue: {
+        text: DC_BLUE,
+        tag: DC_BLUE_PILL_TEXT,
+        pill: DC_BLUE_PILL_BCKG,
+      },
+      green: {
+        text: DC_GREEN,
+        tag: DC_GREEN_PILL_TEXT,
+        pill: DC_GREEN_PILL_BCKG,
+      },
+      red: {
+        text: DC_RED,
+        tag: DC_RED_PILL_TEXT,
+        pill: DC_RED_PILL_BCKG,
+      },
+      yellow: {
+        text: DC_YELLOW,
+        tag: DC_YELLOW_PILL_TEXT,
+        pill: DC_YELLOW_PILL_BCKG,
+      },
+      gray: {
+        text: DC_GRAY,
+        tag: DC_GRAY_PILL_TEXT,
+        pill: DC_GRAY_PILL_BCKG,
       },
     },
     link: {
@@ -174,10 +218,10 @@ const theme: Theme = {
   },
   box: {
     primary: {
-      backgroundColor: DC_WHITE,
+      backgroundColor: DC_BONE,
       textDecoration: "none",
       ["&:hover"]: {
-        backgroundColor: DC_BLUE_HOVER_LIGHT,
+        backgroundColor: DC_BLUE_PILL_BCKG,
       },
     },
   },
