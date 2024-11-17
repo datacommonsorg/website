@@ -21,8 +21,6 @@
 import React from "react";
 
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
-import { DebugInfo } from "./debug_info";
-import { SearchSection } from "./search_section";
 import { UserMessage } from "./user_message";
 
 const DEFAULT_USER_MSG = "Sorry, could not complete your request.";
@@ -42,19 +40,6 @@ export function ErrorResult(props: ErrorResultPropType): JSX.Element {
   };
   return (
     <div className="row explore-charts">
-      {props.query && (
-        <>
-          <SearchSection
-            query={props.query}
-            debugData={props.debugData}
-            exploreContext={props.exploreContext}
-          />
-          <DebugInfo
-            debugData={props.debugData}
-            queryResult={props.queryResult}
-          ></DebugInfo>
-        </>
-      )}
       <UserMessage userMessage={userMessage} shouldShowTopics={false} />
     </div>
   );

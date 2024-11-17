@@ -43,10 +43,8 @@ import {
 import { getPlaceTypePlural } from "../../utils/string_utils";
 import { trimCategory } from "../../utils/subject_page_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
-import { DebugInfo } from "./debug_info";
 import { RelatedPlace } from "./related_place";
 import { ResultHeaderSection } from "./result_header_section";
-import { SearchSection } from "./search_section";
 import { UserMessage } from "./user_message";
 
 const PAGE_ID = "explore";
@@ -118,19 +116,6 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
         placeOverviewOnly ? " place-overview-only" : ""
       }`}
     >
-      <div className="search-section-container" ref={searchSectionRef}>
-        <div className="search-section-content container">
-          <DebugInfo
-            debugData={props.debugData}
-            queryResult={props.queryResult}
-          ></DebugInfo>
-          <SearchSection
-            query={props.query}
-            debugData={props.debugData}
-            exploreContext={props.exploreContext}
-          />
-        </div>
-      </div>
       <div className="col-12" ref={chartSectionRef}>
         <UserMessage
           userMessage={props.userMessage}

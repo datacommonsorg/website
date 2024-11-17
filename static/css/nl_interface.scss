@@ -539,7 +539,7 @@ h3,
   text-align: right;
   font-size: 0.8rem;
   color: #dc3545;
-  transition: transform .5s ease-in-out;
+  transition: transform 0.4s ease-in-out;
   background: white;
   border-radius: 100px;
   @include media-breakpoint-up(xl) {
@@ -550,12 +550,11 @@ h3,
     right: 5px;
   }
   cursor: pointer;
-  // cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'  width='40' height='48' viewport='0 0 100 100' style='fill:black;font-size:24px;'><text y='50%'>🔨</text></svg>") 16 0,auto;
   &.active {
     color: #666666;
   }
   &:hover {
-    transform: rotate(45deg);
+    transform: rotate(25deg);
   }
 }
 
@@ -588,7 +587,7 @@ h3,
   header {
     position: sticky;
     top: 0;
-    padding: 32px 64px 16px 64px;
+    padding: 32px 32px 32px 32px;
     background: white;
     display: flex;
     justify-content: space-between;
@@ -599,6 +598,7 @@ h3,
       margin: 0;
       padding: 0;
       display: flex;
+      gap: 8px;
       align-items: center;
       &:hover {
         text-decoration: none;
