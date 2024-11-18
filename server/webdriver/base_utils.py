@@ -31,7 +31,15 @@ def create_driver(preferences=None):
   chrome_options.add_argument('--hide-scrollbars')
   if preferences:
     chrome_options.add_experimental_option("prefs", preferences)
-  driver = webdriver.Chrome(options=chrome_options)
+  try:
+    print("before creating driver")
+    driver = webdriver.Chrome(options=chrome_options)
+    print("after creating driver")
+  except Exception as e:
+    print("caught exception")
+    print(str(e))
+
+
   # Set a reliable window size for all tests (can be overwritten though)
   driver.set_window_size(DEFAULT_WIDTH, DEFAULT_HEIGHT)
   return driver
