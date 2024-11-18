@@ -29,8 +29,7 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
     self.driver.get(self.url_ + '/')
 
     title_present = EC.text_to_be_present_in_element(
-        (By.CSS_SELECTOR, '#main-navbar-container .navbar-brand'),
-        self.dc_title_string)
+        (By.CSS_SELECTOR, '.navbar-brand'), self.dc_title_string)
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(title_present)
 
     hero_msg = self.driver.find_elements(By.ID, 'hero')[0]
@@ -44,8 +43,7 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
     self.driver.get(self.url_ + '/?hl=it')
 
     title_present = EC.text_to_be_present_in_element(
-        (By.CSS_SELECTOR, '#main-navbar-container .navbar-brand'),
-        self.dc_title_string)
+        (By.CSS_SELECTOR, '.navbar-brand'), self.dc_title_string)
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(title_present)
 
     hero_msg = self.driver.find_elements(By.ID, 'hero')[0]
@@ -101,8 +99,7 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
     self.driver.get(self.url_ + '/?ac_on=true')
 
     title_present = EC.text_to_be_present_in_element(
-        (By.CSS_SELECTOR, '#main-navbar-container .navbar-brand'),
-        self.dc_title_string)
+        (By.CSS_SELECTOR, '.navbar-brand'), self.dc_title_string)
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(title_present)
 
     search_box_input = self.driver.find_element(By.ID, 'query-search-input')
