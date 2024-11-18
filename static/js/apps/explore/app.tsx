@@ -43,6 +43,7 @@ import {
   GA_PARAM_TOPIC,
   triggerGAEvent,
 } from "../../shared/ga_events";
+import { useQueryStore } from "../../shared/stores/query_store_hook";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { shouldSkipPlaceOverview } from "../../utils/explore_utils";
@@ -102,6 +103,12 @@ export function App(props: { isDemo: boolean }): JSX.Element {
   const savedContext = useRef([]);
   const autoPlayQueryList = useRef(getAutoPlayQueries());
   const [autoPlayQuery, setAutoPlayQuery] = useState("");
+
+  const {
+    setQueryString: setStoreQueryString,
+    setQueryResult: setStoreQueryResult,
+    setDebugData: setStoreDebugData,
+  } = useQueryStore();
 
   useEffect(() => {
     // If in demo mode, should input first autoplay query on mount.
@@ -181,7 +188,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
 
   function processFulfillData(fulfillData: any, shouldSetQuery: boolean): void {
     setDebugData(fulfillData["debug"]);
-    globalThis.queryStore.setDebugObject(fulfillData["debug"]);
+    setStoreDebugData(fulfillData["debug"]);
     const userMessage = {
       msgList: fulfillData["userMessages"] || [],
       showForm: !!fulfillData["showForm"],
@@ -247,11 +254,11 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         ) {
           const q = `${pageMetadata.mainTopics[0].name} vs. ${pageMetadata.mainTopics[1].name} in ${pageMetadata.place.name}`;
           setQuery(q);
-          globalThis.queryStore.setQueryString(q);
+          setStoreQueryString(q);
         } else if (pageMetadata.mainTopics[0].name) {
           const q = `${pageMetadata.mainTopics[0].name} in ${pageMetadata.place.name}`;
           setQuery(q);
-          globalThis.queryStore.setQueryString(q);
+          setStoreQueryString(q);
         }
       }
     }
@@ -268,7 +275,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       sessionId: pageMetadata.sessionId,
     };
     setQueryResult(queryResult);
-    globalThis.queryStore.setQueryResult(queryResult);
+    setStoreQueryResult(queryResult);
     setLoadingStatus(
       isPendingRedirect ? LoadingStatus.LOADING : LoadingStatus.SUCCESS
     );
@@ -313,7 +320,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     if (query) {
       client = client || CLIENT_TYPES.QUERY;
       setQuery(query);
-      globalThis.queryStore.setQueryString(query);
+      setStoreQueryString(query);
       fulfillmentPromise = fetchDetectAndFufillData(
         query,
         savedContext.current,
@@ -338,7 +345,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     } else {
       client = client || CLIENT_TYPES.ENTITY;
       setQuery("");
-      globalThis.queryStore.setQueryString("");
+      setStoreQueryString("");
       fulfillmentPromise = fetchFulfillData(
         toApiList(place || DEFAULT_PLACE),
         toApiList(topic || DEFAULT_TOPIC),
