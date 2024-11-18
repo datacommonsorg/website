@@ -29,15 +29,18 @@ interface QueryStoreData {
   placeholder: string;
   queryResult: QueryResult | null;
   debugData: any;
+  setQueryString: (query: string) => void;
+  setQueryResult: (result: QueryResult) => void;
+  setDebugData: (data: any) => void;
 }
 
 export const useQueryStore = (): QueryStoreData => {
-  const [queryString, setQueryString] = useState<string>("");
-  const [placeholder, setPlaceholder] = useState<string>(
+  const [queryString, setQueryStringState] = useState<string>("");
+  const [placeholder, setPlaceholderState] = useState<string>(
     "Enter a question to explore"
   );
-  const [queryResult, setQueryResult] = useState<QueryResult>(null);
-  const [debugData, setDebugData] = useState<any>({});
+  const [queryResult, setQueryResultState] = useState<QueryResult>(null);
+  const [debugData, setDebugDataState] = useState<any>({});
 
   useEffect(() => {
     const queryStore = (globalThis.queryStore as QueryStore) || null;
@@ -53,18 +56,18 @@ export const useQueryStore = (): QueryStoreData => {
       if (changeType === "queryString") {
         const newQueryString = store.getQueryString();
         if (newQueryString !== null) {
-          setQueryString(newQueryString);
-          setPlaceholder(newQueryString);
+          setQueryStringState(newQueryString);
+          setPlaceholderState(newQueryString);
         }
       } else if (changeType === "debugObject") {
         const newDebugObject = store.getDebugObject();
         if (newDebugObject !== null) {
-          setDebugData(newDebugObject);
+          setDebugDataState(newDebugObject);
         }
       } else if (changeType === "queryResult") {
         const newQueryResult = store.getQueryResult();
         if (newQueryResult !== null) {
-          setQueryResult(newQueryResult);
+          setQueryResultState(newQueryResult);
         }
       }
     };
@@ -77,5 +80,28 @@ export const useQueryStore = (): QueryStoreData => {
     };
   }, []);
 
-  return { queryString, placeholder, queryResult, debugData };
+  const setQueryString = (query: string): void => {
+    setQueryStringState(query);
+    globalThis.queryStore.setQueryString(query);
+  };
+
+  const setQueryResult = (result: QueryResult): void => {
+    setQueryResultState(result);
+    globalThis.queryStore.setQueryResult(result);
+  };
+
+  const setDebugData = (data: any): void => {
+    setDebugDataState(data);
+    globalThis.queryStore.setDebugObject(data);
+  };
+
+  return {
+    queryString,
+    placeholder,
+    queryResult,
+    debugData,
+    setQueryString,
+    setQueryResult,
+    setDebugData,
+  };
 };
