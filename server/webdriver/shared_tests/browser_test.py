@@ -44,21 +44,21 @@ class BrowserTestMixin():
     self.assertIn(title_text, self.driver.title)
 
     # Wait for title to be present
-    h1_locator = (By.CSS_SELECTOR, '#intro-text h1')
+    title_locator = (By.CSS_SELECTOR, '#kg-title')
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
-        EC.text_to_be_present_in_element(h1_locator, 'Knowledge Graph'))
-    h1_element = self.driver.find_element(*h1_locator)
-    self.assertEqual("Knowledge Graph", h1_element.text)
+        EC.text_to_be_present_in_element(title_locator, 'Knowledge Graph'))
+    title_element = self.driver.find_element(*title_locator)
+    self.assertEqual("Knowledge Graph", title_element.text)
 
     # Assert intro is correct
-    intro_locator = (By.CSS_SELECTOR, '#intro-text .container header p')
+    description_locator = (By.CSS_SELECTOR, '#kg-desc')
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
-        EC.presence_of_element_located(intro_locator))
-    intro_element = self.driver.find_element(*intro_locator)
-    expected_intro_start = 'The Data Commons Knowledge Graph is constructed'
+        EC.presence_of_element_located(description_locator))
+    description_element = self.driver.find_element(*description_locator)
+    expected_description_start = 'The Data Commons Knowledge Graph is constructed'
     self.assertTrue(
-        intro_element.text.startswith(expected_intro_start),
-        f"Intro text does not start with expected text. Found: {intro_element.text}"
+        description_element.text.startswith(expected_description_start),
+        f"Intro text does not start with expected text. Found: {description_element.text}"
     )
 
   def test_page_serve_ca_population(self):
