@@ -181,7 +181,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
 
   function processFulfillData(fulfillData: any, shouldSetQuery: boolean): void {
     setDebugData(fulfillData["debug"]);
-    globalThis.headerStore.setDebugObject(fulfillData["debug"]);
+    globalThis.queryStore.setDebugObject(fulfillData["debug"]);
     const userMessage = {
       msgList: fulfillData["userMessages"] || [],
       showForm: !!fulfillData["showForm"],
@@ -247,11 +247,11 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         ) {
           const q = `${pageMetadata.mainTopics[0].name} vs. ${pageMetadata.mainTopics[1].name} in ${pageMetadata.place.name}`;
           setQuery(q);
-          globalThis.headerStore.setQueryString(q);
+          globalThis.queryStore.setQueryString(q);
         } else if (pageMetadata.mainTopics[0].name) {
           const q = `${pageMetadata.mainTopics[0].name} in ${pageMetadata.place.name}`;
           setQuery(q);
-          globalThis.headerStore.setQueryString(q);
+          globalThis.queryStore.setQueryString(q);
         }
       }
     }
@@ -268,7 +268,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       sessionId: pageMetadata.sessionId,
     };
     setQueryResult(queryResult);
-    globalThis.headerStore.setQueryResult(queryResult);
+    globalThis.queryStore.setQueryResult(queryResult);
     setLoadingStatus(
       isPendingRedirect ? LoadingStatus.LOADING : LoadingStatus.SUCCESS
     );
@@ -313,7 +313,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     if (query) {
       client = client || CLIENT_TYPES.QUERY;
       setQuery(query);
-      globalThis.headerStore.setQueryString(query);
+      globalThis.queryStore.setQueryString(query);
       fulfillmentPromise = fetchDetectAndFufillData(
         query,
         savedContext.current,
@@ -338,7 +338,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     } else {
       client = client || CLIENT_TYPES.ENTITY;
       setQuery("");
-      globalThis.headerStore.setQueryString("");
+      globalThis.queryStore.setQueryString("");
       fulfillmentPromise = fetchFulfillData(
         toApiList(place || DEFAULT_PLACE),
         toApiList(topic || DEFAULT_TOPIC),

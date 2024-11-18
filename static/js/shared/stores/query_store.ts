@@ -15,21 +15,21 @@
  */
 
 /*
-  A store object with global scope to allow disparate and otherwise unrelated React root
-  points to be able to communicate with the header. This is primarily used by roots such
-  as the explore section implementation to communicate with the header.
+  A store object with global scope to allow disparate and otherwise unrelated React apps with
+  separate mount points to be able to communicate query result information. This is primarily
+  used by React apps such as the explore section to communicate with the header.
  */
 
 import { QueryResult } from "../../types/app/explore_types";
 
-type Listener = (store: HeaderStore, changeType: ChangeType) => void;
+type Listener = (store: QueryStore, changeType: ChangeType) => void;
 type ChangeType =
   | "debugObject"
   | "queryString"
   | "handleSearchFunction"
   | "queryResult";
 
-export class HeaderStore {
+export class QueryStore {
   private debugObject: any = null;
   private queryString: string | null = null;
   private handleSearchFunction: ((q: string) => void) | null = null;
@@ -85,6 +85,6 @@ export class HeaderStore {
   }
 }
 
-export const headerStore = new HeaderStore();
+export const queryStore = new QueryStore();
 
-globalThis.headerStore = headerStore;
+globalThis.queryStore = queryStore;

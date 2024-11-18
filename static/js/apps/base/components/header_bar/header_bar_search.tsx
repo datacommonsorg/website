@@ -16,7 +16,7 @@
 
 /* A wrapping component to render the header bar version of the search */
 
-import React, { ReactElement, useEffect, useState } from "react";
+import React, { ReactElement } from "react";
 
 import { NlSearchBar } from "../../../../components/nl_search_bar";
 import {
@@ -30,8 +30,7 @@ import {
   GA_VALUE_SEARCH_SOURCE_HOMEPAGE,
   triggerGAEvent,
 } from "../../../../shared/ga_events";
-import { HeaderStore } from "../../../../shared/stores/header_store";
-import { QueryResult } from "../../../../types/app/explore_types";
+import { useQueryStore } from "../../../../shared/stores/query_store_hook";
 import { updateHash } from "../../../../utils/url_utils";
 import { DebugInfo } from "../../../explore/debug_info";
 
@@ -46,55 +45,7 @@ const HeaderBarSearch = ({
   searchBarHashMode,
   gaValueSearchSource,
 }: HeaderBarSearchProps): ReactElement => {
-  const [queryString, setQueryString] = useState<string>("");
-  const [placeholder, setPlaceholder] = useState<string>(
-    "Enter a question to explore"
-  );
-  const [queryResult, setQueryResult] = useState<QueryResult>(null);
-  const [debugData, setDebugData] = useState<any>({});
-
-  /* 
-    The purpose of the following hook is to subscribe to changes in the header store
-    used to communicate between other React apps (such as the explore section) and the
-    header toolbar.
-   */
-
-  useEffect(() => {
-    const headerStore = (globalThis.headerStore as HeaderStore) || null;
-    const handleStoreUpdate = (
-      store: typeof headerStore,
-      changeType:
-        | "debugObject"
-        | "queryString"
-        | "handleSearchFunction"
-        | "queryResult"
-    ): void => {
-      if (changeType === "queryString") {
-        const newQueryString = store.getQueryString();
-        if (newQueryString !== null) {
-          setQueryString(newQueryString);
-          setPlaceholder(newQueryString);
-        }
-      } else if (changeType === "debugObject") {
-        const newDebugObject = store.getDebugObject();
-        if (newDebugObject !== null) {
-          setDebugData(newDebugObject);
-        }
-      } else if (changeType === "queryResult") {
-        const newQueryResult = store.getQueryResult();
-        if (newQueryResult !== null) {
-          setQueryResult(newQueryResult);
-        }
-      }
-    };
-
-    headerStore.subscribe(handleStoreUpdate);
-    handleStoreUpdate(headerStore, "queryString");
-
-    return () => {
-      headerStore.unsubscribe(handleStoreUpdate);
-    };
-  }, []);
+  const { queryString, placeholder, queryResult, debugData } = useQueryStore();
 
   return (
     <div className="header-search">
