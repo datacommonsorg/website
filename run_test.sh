@@ -129,8 +129,6 @@ function run_py_test {
 
 # Run test for webdriver automation test codes.
 function run_webdriver_test {
-  source .env/bin/activate
-  printf '\n\e[1;35m%-6s\e[m\n\n' "!!! Have you generated the prod client packages? Run './run_test.sh -b' first to do so"
   if [ ! -d server/dist  ]
   then
     echo "no dist folder, please run ./run_test.sh -b to build js first."
@@ -139,7 +137,22 @@ function run_webdriver_test {
   export FLASK_ENV=webdriver
   export ENABLE_MODEL=true
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
-  python3 -m pytest -n 5 --reruns 2 server/webdriver/tests/ ${@}
+  source .env/bin/activate
+  function cleanup() {
+    pkill -P $$ || true
+    deactivate
+    exit $exit_with
+  }
+  trap 'exit_with=$?; cleanup' EXIT
+  ./run_servers.sh &
+  servers_pid=$!
+  sleep 3
+  if ! ps -p $servers_pid > /dev/null; then
+    echo "Server script not started after 3 seconds."
+    exit 1
+  fi
+  python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ ${@}
+  kill $servers_pid
   deactivate
 }
 
