@@ -429,7 +429,7 @@ def multiple_property_values(nodes: List[str],
                                         props_expression))
 
   # Parse response into a structured dictionary
-  result = {}
+  result: Dict[str, Dict[str, List[str]]] = {}
   for node in nodes:
     resp_node_arcs = resp.get('data', {}).get(node).get('arcs', {})
     result[node] = {}
