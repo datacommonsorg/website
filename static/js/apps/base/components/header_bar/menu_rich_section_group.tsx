@@ -18,6 +18,8 @@
 
 import React, { ReactElement } from "react";
 
+import { ArrowOutward } from "../../../../components/elements/icons/arrow_outward";
+import { RssFeed } from "../../../../components/elements/icons/rss_feed";
 import {
   GA_EVENT_HEADER_CLICK,
   GA_PARAM_ID,
@@ -67,10 +69,14 @@ const MenuRichSectionGroup = ({
                 tabIndex={tabIndex}
               >
                 {item.linkType === "external" && (
-                  <span className="material-icons-outlined">arrow_outward</span>
+                  <span className="icon">
+                    <ArrowOutward />
+                  </span>
                 )}
                 {item.linkType === "rss" && (
-                  <span className="material-icons-outlined">rss_feed</span>
+                  <span className="icon">
+                    <RssFeed />
+                  </span>
                 )}
                 {item.title}
               </a>
