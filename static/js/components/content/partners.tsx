@@ -29,7 +29,6 @@ import {
   triggerGAEvent,
 } from "../../shared/ga_events";
 import { Partner } from "../../shared/types/homepage";
-import { Wrapper } from "../elements/layout/wrapper";
 
 interface PartnersProps {
   //the partners passed from the backend through to the JavaScript via the templates
@@ -38,13 +37,10 @@ interface PartnersProps {
   gaEvent: string;
 }
 
-const Partners = ({
-  partners,
-  gaEvent: ga_event,
-}: PartnersProps): ReactElement => {
+const Partners = ({ partners, gaEvent }: PartnersProps): ReactElement => {
   const theme = useTheme();
   return (
-    <Wrapper>
+    <>
       <header
         css={css`
           margin-bottom: ${theme.spacing.lg};
@@ -64,9 +60,8 @@ const Partners = ({
           justify-content: space-around;
           flex-wrap: wrap;
           gap: ${theme.spacing.lg}px;
-          margin: 0;
           padding: 0;
-          margin-top: ${theme.spacing.lg}px;
+          margin: ${theme.spacing.lg}px 0 0;
           @media (max-width: ${theme.breakpoints.sm}px) {
             justify-content: center;
           }
@@ -89,7 +84,7 @@ const Partners = ({
               rel="noopener noreferrer"
               className={partner.id}
               onClick={(): void => {
-                triggerGAEvent(ga_event, {
+                triggerGAEvent(gaEvent, {
                   [GA_PARAM_ID]: `partners ${partner.id}`,
                   [GA_PARAM_URL]: partner.url,
                 });
@@ -121,7 +116,7 @@ const Partners = ({
           </li>
         ))}
       </ul>
-    </Wrapper>
+    </>
   );
 };
 

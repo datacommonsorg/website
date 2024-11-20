@@ -23,11 +23,11 @@
 import { css, useTheme } from "@emotion/react";
 import React, { ReactElement, useEffect, useState } from "react";
 
-import { GA_EVENT_HOMEPAGE_CLICK } from "../../shared/ga_events";
-import { BREAKPOINTS } from "../../shared/hooks/breakpoints";
-import { SampleQuestionCategory } from "../../shared/types/homepage";
-import { Link, LinkBox } from "../elements/link_box";
-import SlideCarousel from "../elements/slide_carousel";
+import { Link, LinkBox } from "../../../components/elements/link_box";
+import SlideCarousel from "../../../components/elements/slide_carousel";
+import { GA_EVENT_HOMEPAGE_CLICK } from "../../../shared/ga_events";
+import { BREAKPOINTS } from "../../../shared/hooks/breakpoints";
+import { SampleQuestionCategory } from "../../../shared/types/homepage";
 
 interface SampleQuestionsProps {
   sampleQuestions: SampleQuestionCategory[];
@@ -54,7 +54,7 @@ const getRandomQuestionFromCategory = (
   return category.questions[randomIndex];
 };
 
-const SampleQuestions = ({
+export const SampleQuestions = ({
   sampleQuestions,
 }: SampleQuestionsProps): ReactElement => {
   const [columnsPerSlide, setColumnsPerSlide] = useState(() =>
@@ -190,5 +190,3 @@ const SampleQuestions = ({
     </>
   );
 };
-
-export default SampleQuestions;

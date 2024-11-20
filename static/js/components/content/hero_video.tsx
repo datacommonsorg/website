@@ -15,69 +15,35 @@
  */
 
 /**
- * A component to display the primary video hero component
+ * A component to display a video hero component
  */
 
 import React, { ReactElement } from "react";
 
-import { resolveHref } from "../../apps/base/utilities/utilities";
-import {
-  GA_EVENT_HOMEPAGE_CLICK,
-  GA_PARAM_ID,
-  GA_PARAM_URL,
-  triggerGAEvent,
-} from "../../shared/ga_events";
-import { Routes } from "../../shared/types/base";
-
-interface HeroProps {
-  //the routes dictionary - this is used to convert routes to resolved urls
-  routes: Routes;
+interface HeroVideoProps {
+  //a link to the video source
+  videoSource: string;
+  //a link to the poster image for the video
+  videoPosterSource: string;
+  //the content to be displayed alongside the video
+  children: ReactElement;
 }
 
-const Hero = ({ routes }: HeroProps): ReactElement => {
+export const HeroVideo = ({
+  videoSource,
+  videoPosterSource,
+  children,
+}: HeroVideoProps): ReactElement => {
   return (
     <section id="hero" className="hero">
       <div className="container">
         <div className="video-background">
-          <video
-            autoPlay
-            loop
-            muted
-            poster="/images/content/home_hero_poster.png"
-          >
-            <source
-              src="/images/content/home_hero_video.mp4"
-              type="video/mp4"
-            />
+          <video autoPlay loop muted poster={videoPosterSource}>
+            <source src={videoSource} type="video/mp4" />
           </video>
         </div>
-        <div className="big-description">
-          <h3>
-            Data Commons aggregates and harmonizes global, open data, giving
-            everyone the power to uncover insights with natural language
-            questions
-          </h3>
-          <p>
-            Data Commons&rsquo; open source foundation allows organizations to
-            create tailored, private instances, deciding on the openness of
-            their data contributions.{" "}
-            <a
-              href={resolveHref("{static.build}", routes)}
-              onClick={(): void => {
-                /* TODO: Pass in GA event so the component can be used on other pages. */
-                triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
-                  [GA_PARAM_ID]: `hero-video`,
-                  [GA_PARAM_URL]: "{static.build}",
-                });
-              }}
-            >
-              Build yours today
-            </a>
-          </p>
-        </div>
+        <div className="big-description">{children}</div>
       </div>
     </section>
   );
 };
-
-export default Hero;
