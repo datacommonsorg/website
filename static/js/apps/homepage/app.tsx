@@ -21,7 +21,6 @@
 import { ThemeProvider } from "@emotion/react";
 import React, { ReactElement } from "react";
 
-import { LinkChips } from "../../components/content/link_chips";
 import Partners from "../../components/content/partners";
 import Tools from "../../components/content/tools";
 import { Section } from "../../components/elements/layout/section";
@@ -67,15 +66,7 @@ export function App({
 
   return (
     <ThemeProvider theme={theme}>
-      <HomeHero routes={routes} />
-
-      <Section>
-        <LinkChips
-          title={"Topics to explore"}
-          section="topic"
-          linkChips={topicLinkChips}
-        />
-      </Section>
+      <HomeHero routes={routes} linkChips={topicLinkChips} />
 
       <Section>
         <SampleQuestions sampleQuestions={sampleQuestions} />

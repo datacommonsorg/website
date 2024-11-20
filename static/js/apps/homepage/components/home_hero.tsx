@@ -20,49 +20,39 @@
 
 import React, { ReactElement } from "react";
 
-import { HeroVideo } from "../../../components/content/hero_video";
-import {
-  GA_EVENT_HOMEPAGE_CLICK,
-  GA_PARAM_ID,
-  GA_PARAM_URL,
-  triggerGAEvent,
-} from "../../../shared/ga_events";
-import { Routes } from "../../../shared/types/base";
-import { resolveHref } from "../../base/utilities/utilities";
+import { HeroSimple } from "../../../components/content/hero_simple";
+import { LinkChips } from "../../../components/content/link_chips";
+import { Link, LinkChip } from "../../../components/elements/link_chip";
 
 interface HomeHeroProps {
-  //the routes dictionary - this is used to convert routes to resolved urls
-  routes: Routes;
+  //an array of links to be rendered by the component
+  linkChips: Link[];
 }
 
-export const HomeHero = ({ routes }: HomeHeroProps): ReactElement => {
+export const HomeHero = ({ linkChips }: HomeHeroProps): ReactElement => {
   return (
-    <HeroVideo
-      videoSource="/images/content/home_hero_video.mp4"
-      videoPosterSource="/images/content/home_hero_poster.png"
-    >
+    <HeroSimple>
       <>
         <h3>
           Data Commons aggregates and harmonizes global, open data, giving
           everyone the power to uncover insights with natural language questions
         </h3>
-        <p>
-          Data Commons&rsquo; open source foundation allows organizations to
-          create tailored, private instances, deciding on the openness of their
-          data contributions.{" "}
-          <a
-            href={resolveHref("{static.build}", routes)}
-            onClick={(): void => {
-              triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
-                [GA_PARAM_ID]: `hero-video`,
-                [GA_PARAM_URL]: "{static.build}",
-              });
+        <LinkChips
+          title={"Topics to explore"}
+          section="topic"
+          linkChips={linkChips}
+        />
+        <div>
+          <LinkChip
+            variant="flat"
+            linkChip={{
+              id: "data-sources",
+              title: "See all available data sources",
+              url: "https://docs.datacommons.org/datasets/",
             }}
-          >
-            Build yours today
-          </a>
-        </p>
+          />
+        </div>
       </>
-    </HeroVideo>
+    </HeroSimple>
   );
 };
