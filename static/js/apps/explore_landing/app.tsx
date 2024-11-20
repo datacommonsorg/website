@@ -17,9 +17,12 @@
 /**
  * Main component for DC Explore.
  */
+import { ThemeProvider } from "@emotion/react";
 import React, { ReactElement } from "react";
 
+import { Section } from "../../components/elements/layout/section";
 import { TopicConfig, TopicData } from "../../shared/topic_config";
+import theme from "../../theme/theme";
 import { ExploreIntro } from "./components/explore_intro";
 import { Queries } from "./components/queries";
 import { StatVarQueries } from "./components/stat_var_queries";
@@ -57,15 +60,20 @@ export function App(): ReactElement {
     `/explore#${placeholderQuery.url}` ||
     `/explore#q=${encodeURIComponent(placeholderQuery.title)}&dc=${dc}`;*/
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <ExploreIntro topic={topic} />
+
       <Queries queries={topic.examples.general} appName="explore" />
-      <StatVarQueries queries={topic.examples.statvar ?? []} />
+
+      <Section>
+        <StatVarQueries queries={topic.examples.statvar ?? []} />
+      </Section>
+
       <Queries
         title={`Compare data in relation to ${topic.title.toLowerCase()}`}
         queries={topic.examples.comparison}
         appName="explore"
       />
-    </>
+    </ThemeProvider>
   );
 }
