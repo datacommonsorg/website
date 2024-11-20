@@ -12,74 +12,29 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import multiprocessing
-import os
-import platform
-import socket
-import warnings
+import unittest
 
-from flask_testing import LiveServerTestCase
-
-from nl_server.flask import create_app as create_nl_app
-from server.__init__ import create_app as create_web_app
 import server.lib.util as libutil
 
-
-def find_open_port():
-  for port in range(12000, 13000):
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-      res = sock.connect_ex(('localhost', port))
-      if res != 0:
-        return port
+# Match the port used by run_servers.sh.
+# This differs from the port used by run_server.sh so tests can be run
+# without shutting down any active dev server.
+WEB_PORT = 8090
 
 
-is_nl_mode = os.environ.get('ENABLE_MODEL') == 'true'
-if is_nl_mode:
-  # Start NL server on an unused port, so multiple integration tests can
-  # run at the same time.
-  if platform.system() == 'Darwin' and platform.processor() == 'arm':
-    msg = '\n\n!!!!! IMPORTANT NOTE !!!!!!\n' \
-          'Detected MacOS ARM processor! You need to have a local ' \
-          'NL server running (using run_nl_server.sh).\n'
-    warnings.warn(msg)
-    nl_port = 6060
-    should_start_nl_server = False
-  else:
-    nl_port = find_open_port()
-    should_start_nl_server = True
-
-
-class NLWebServerTestCase(LiveServerTestCase):
+class NLWebServerTestCase(unittest.TestCase):
 
   @classmethod
   def setUpClass(cls):
-    if is_nl_mode:
-      if should_start_nl_server:
-
-        def start_nl_server(app):
-          app.run(port=nl_port, debug=False, use_reloader=False, threaded=True)
-
-        nl_app = create_nl_app()
-        # Create a thread that will contain our running server
-        cls.proc = multiprocessing.Process(target=start_nl_server,
-                                           args=(nl_app,),
-                                           daemon=True)
-        cls.proc.start()
-      else:
-        cls.proc = None
-      libutil.check_backend_ready(
-          ['http://127.0.0.1:{}/healthz'.format(nl_port)])
+    # If this check fail, you need to start up website and NL servers
+    # with ./run_servers.sh before running pytest.
+    libutil.check_backend_ready([f'{cls.get_class_server_url()}/healthz'])
 
   @classmethod
-  def tearDownClass(cls):
-    if is_nl_mode and cls.proc:
-      cls.proc.terminate()
+  def get_class_server_url(cls):
+    # A separate health check isn't needed for the NL server
+    # since the website server does one already.
+    return 'http://localhost:%s' % WEB_PORT
 
-  def create_app(self):
-    """Returns the Flask Server running Data Commons."""
-    if is_nl_mode:
-      app = create_web_app('http://127.0.0.1:{}'.format(nl_port))
-    else:
-      app = create_web_app()
-    app.config['LIVESERVER_PORT'] = 0
-    return app
+  def get_server_url(self):
+    return self.__class__.get_class_server_url()
