@@ -30,7 +30,9 @@ interface LinkChipsProps {
   //the variant of the link chip to display: elevated is a raised grey chip and flat is a flat blue chip
   variant?: "elevated" | "flat";
   //the title of the component, displayed as a header above the chips
-  title?: string;
+  header?: string;
+  //the typographical component for the header (defaults to "h3")
+  headerComponent?: "h3" | "h4" | "p";
   //the section gives location of the chip component in order to give context for the GA event
   section: string;
   //an array of links to be rendered by the component
@@ -39,23 +41,36 @@ interface LinkChipsProps {
 
 export const LinkChips = ({
   variant = "elevated",
-  title,
+  header,
+  headerComponent = "h3",
   section,
   linkChips,
 }: LinkChipsProps): ReactElement => {
   const theme = useTheme();
   return (
     <>
-      {title && (
-        <h3
+      {header && (
+        <header
           css={css`
-            ${theme.typography.family.heading};
-            ${theme.typography.heading.xs};
-            margin-bottom: ${theme.spacing.lg}px;
+            & > h3 {
+              ${theme.typography.family.heading};
+              ${theme.typography.heading.xs};
+              margin-bottom: ${theme.spacing.lg}px;
+            }
+
+            & > h4 {
+              ${theme.typography.heading.xs}
+            }
+
+            & > p {
+              ${theme.typography.text.md}
+            }
           `}
         >
-          {title}
-        </h3>
+          {(!headerComponent || headerComponent === "h3") && <h3>{header}</h3>}
+          {headerComponent === "h4" && <h4>{header}</h4>}
+          {headerComponent === "p" && <p>{header}</p>}
+        </header>
       )}
       <div
         css={css`
