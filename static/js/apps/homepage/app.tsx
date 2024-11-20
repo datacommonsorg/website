@@ -15,22 +15,21 @@
  */
 
 /**
- * Main component for Version 2 of the homepage.
+ * Main component for the homepage.
  */
-
-//TODO: fold this into app.tsx when revamp is complete and final PR is ready.
 
 import { ThemeProvider } from "@emotion/react";
 import React, { ReactElement } from "react";
 
-import { resolveHref } from "../../apps/base/utilities/utilities";
 import BigText from "../../components/content/big_text";
 import HeroVideo from "../../components/content/hero_video";
-import { LinkChip, LinkChips } from "../../components/content/link_chips";
+import { LinkChips } from "../../components/content/link_chips";
 import MediaText from "../../components/content/media_text";
 import Partners from "../../components/content/partners";
 import SampleQuestions from "../../components/content/sample_questions";
 import Tools from "../../components/content/tools";
+import { Section } from "../../components/elements/layout/section";
+import { Link } from "../../components/elements/link_chip";
 import {
   GA_EVENT_HOMEPAGE_CLICK,
   GA_PARAM_ID,
@@ -44,6 +43,7 @@ import {
   Topic,
 } from "../../shared/types/homepage";
 import theme from "../../theme/theme";
+import { resolveHref } from "../base/utilities/utilities";
 
 interface AppProps {
   //the topics passed from the backend through to the JavaScript via the templates
@@ -65,7 +65,7 @@ export function App({
   sampleQuestions,
   routes,
 }: AppProps): ReactElement {
-  const topicLinkChips: LinkChip[] = topics.map((topic) => ({
+  const topicLinkChips: Link[] = topics.map((topic) => ({
     id: topic.id,
     title: topic.title,
     url: topic.browseUrl,
@@ -74,15 +74,21 @@ export function App({
   return (
     <ThemeProvider theme={theme}>
       <HeroVideo routes={routes} />
-      <LinkChips
-        title={"Topics to explore"}
-        section="topic"
-        linkChips={topicLinkChips}
-      />
-      <SampleQuestions sampleQuestions={sampleQuestions} />
-      <Tools routes={routes} />
-      <BigText routes={routes} />
-      <MediaText
+
+      <Section>
+        <LinkChips
+          title={"Topics to explore"}
+          section="topic"
+          linkChips={topicLinkChips}
+        />
+      </Section>
+
+      <Section>
+        <SampleQuestions sampleQuestions={sampleQuestions} />
+      </Section>
+      {/*<Tools routes={routes} /> */}
+      {/*<BigText routes={routes} /> */}
+      {/*<MediaText
         mediaType="video"
         mediaSource="O6iVsS-RDYI"
         headerContent={<h4>The United Nations Data Commons for the SDGs</h4>}
@@ -104,8 +110,8 @@ export function App({
             Learn more
           </a>
         </p>
-      </MediaText>
-      <Partners partners={partners} gaEvent={GA_EVENT_HOMEPAGE_CLICK} />
+      </MediaText>*/}
+      {/*<Partners partners={partners} gaEvent={GA_EVENT_HOMEPAGE_CLICK} /> */}
     </ThemeProvider>
   );
 }

@@ -15,8 +15,8 @@
  */
 
 /**
- * A component that renders a link chip - a commonly used component that
- * displays a link inside a Material Design style chip.
+ * A component that renders a link chip - a commonly-used component that
+ * displays a link inside a Material Design-style chip.
  */
 
 /** @jsxImportSource @emotion/react */
@@ -31,8 +31,8 @@ import {
   triggerGAEvent,
 } from "../../shared/ga_events";
 
-//an individual LinkChip comprising the title and url attributes of the chip.
-export interface LinkChip {
+//an individual Link comprising an id, the title and url. This will be rendered in the LinkChip
+export interface Link {
   //a unique identifier for the chip (used for map keys)
   id: string;
   //the title of the chip - this will be the text of the link
@@ -45,7 +45,7 @@ interface LinkChipProps {
   //the variant of the link chip to display: elevated is a raised grey chip and flat is a flat blue chip
   variant?: "elevated" | "flat";
   //the link chip to be displayed
-  linkChip: LinkChip;
+  linkChip: Link;
   //the section gives location of the chip component in order to give context for the GA event
   section?: string;
 }
