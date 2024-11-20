@@ -14,10 +14,14 @@
 # limitations under the License.
 
 # Runs both NL and website servers.
-# Assumes that ./run_test.sh -b and ./run_test.sh --setup_python
-# have already been run, and that environment variables
-# (FLASK_ENV, ENABLE_MODEL, GOOGLE_CLOUD_PROJECT) are already set.
-# Server processes are silent unless '--verbose' is specified.
+#
+# - Assumes that ./run_test.sh -b and ./run_test.sh --setup_python
+#   have already been run, and that environment variables
+#   (FLASK_ENV, ENABLE_MODEL, GOOGLE_CLOUD_PROJECT) are already set.
+# - Both servers use different ports than the development server defaults:
+#   - Website server uses port 8090 instead of 8080.
+#   - NL server uses port 6070 instead of 6060.
+# - Server processes are silent unless '--verbose' is specified.
 
 set -e
 
@@ -28,36 +32,45 @@ fi
 
 exit_with=0
 
+# Kill forked processes, then exit with the status code stored in a variable.
+# Called on exit via trap, configured below.
 function cleanup() {
   pkill -P $$ || true
   exit $exit_with
 }
 
+# On exit, assign status code to a variable and call cleanup.
 trap 'exit_with=$?; cleanup' EXIT
+# Similar for SIGINT and SIGTERM, but specify that cleanup should exit with
+# status code 0 since it's part of normal operation to kill this script
+# when done with it.
 trap 'exit_with=0; cleanup' SIGINT SIGTERM
 
-if lsof -i :6060 > /dev/null 2>&1; then
-  echo "Port 6060 (for NL server) is already in use. Please stop the process using that port."
+if lsof -i :6070 > /dev/null 2>&1; then
+  echo "Port 6070 (for NL server) is already in use. Please stop the process using that port."
   exit 1
 fi
-if lsof -i :8080 > /dev/null 2>&1; then
-  echo "Port 8080 (for website server) is already in use. Please stop the process using that port."
+if lsof -i :8090 > /dev/null 2>&1; then
+  echo "Port 8090 (for website server) is already in use. Please stop the process using that port."
   exit 1
 fi
 
 echo "Starting NL Server..."
 if [[ $VERBOSE == "true" ]]; then
-  python3 nl_app.py 6060 &
+  python3 nl_app.py 6070 &
 else
-  python3 nl_app.py 6060 > /dev/null 2>&1 &
+  python3 nl_app.py 6070 > /dev/null 2>&1 &
 fi
 NL_PID=$!
 
+# Set NL server URL for local website server.
+export NL_SERVICE_ROOT_URL="http://localhost:6070"
+
 echo "Starting Website server..."
 if [[ $VERBOSE == "true" ]]; then
-  python3 web_app.py 8080 &
+  python3 web_app.py 8090 &
 else
-  python3 web_app.py 8080 > /dev/null 2>&1 &
+  python3 web_app.py 8090 > /dev/null 2>&1 &
 fi
 WEB_PID=$!
 

@@ -16,8 +16,10 @@ import unittest
 
 import server.lib.util as libutil
 
-NL_PORT = 6060
-WEB_PORT = 8080
+# Match the port used by run_servers.sh.
+# This differs from the port used by run_server.sh so tests can be run
+# without shutting down any active dev server.
+WEB_PORT = 8090
 
 
 class NLWebServerTestCase(unittest.TestCase):
@@ -30,7 +32,9 @@ class NLWebServerTestCase(unittest.TestCase):
 
   @classmethod
   def get_class_server_url(cls):
-    return 'http://localhost:8080'
+    # A separate health check isn't needed for the NL server
+    # since the website server does one already.
+    return 'http://localhost:%s' % WEB_PORT
 
   def get_server_url(self):
     return self.__class__.get_class_server_url()

@@ -25,7 +25,11 @@ function setup_python {
   deactivate
 }
 
+# Start website and NL servers in a subprocess and ensure they are stopped
+# if the test script exits before stop_servers is called.
 function start_servers() {
+  # Kill forked processes, then exit with the status code stored in a variable.
+  # Called on exit via trap, configured below.
   function cleanup() {
     pkill -P $$ || true
     if [[ -n "$VIRTUAL_ENV" ]]; then
@@ -33,16 +37,23 @@ function start_servers() {
     fi
     exit $exit_with
   }
+# On exit, assign status code to a variable and call cleanup.
   trap 'exit_with=$?; cleanup' EXIT
   ./run_servers.sh &
+  # Store the ID of the subprocess that is running website and NL servers.
   SERVERS_PID=$!
+  # Wait a few seconds and make sure the server script subprocess hasn't failed.
+  # Tests will time out eventually if health checks for website and NL servers
+  # don't pass, but this is quicker if the servers fail to start up immediately.
   sleep 3
   if ! ps -p $SERVERS_PID > /dev/null; then
-    echo "Server script not started after 3 seconds."
+    echo "Server script not running after 3 seconds."
     exit 1
   fi
 }
 
+# Stop the subprocess that is running website and NL servers and remove the
+# configuration for cleaning them up on exit.
 function stop_servers() {
   if ps -p $SERVERS_PID > /dev/null; then
     kill $SERVERS_PID
