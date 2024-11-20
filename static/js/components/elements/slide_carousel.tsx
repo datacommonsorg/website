@@ -23,37 +23,36 @@
 import { css, useTheme } from "@emotion/react";
 import React, { ReactElement, useEffect, useRef, useState } from "react";
 
-import {
-  GA_EVENT_HOMEPAGE_CLICK,
-  GA_PARAM_ID,
-  triggerGAEvent,
-} from "../../shared/ga_events";
-import { Wrapper } from "../elements/layout/wrapper";
+import { GA_PARAM_ID, triggerGAEvent } from "../../shared/ga_events";
 
 interface SlideCarouselProps {
   //an array of ReactElements, each of which will be a slide in the carousel
   slides: ReactElement[];
   //an optional autoslide interval - if set, the carousel will slide automatically at that interval until the user interacts with it
   autoslideInterval?: number | null;
+  //an optional GA event - if set, the carousel will trigger a GA event on the slide changing.
+  gaEvent?: string;
 }
 
 const SlideCarousel = ({
   slides,
   autoslideInterval,
+  gaEvent,
 }: SlideCarouselProps): ReactElement => {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isInteracting, setIsInteracting] = useState(false);
+  const [userHasInteracted, setUserHasInteracted] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
 
   const theme = useTheme();
 
   const goToSlide = (index: number): void => {
-    setIsInteracting(true);
+    setUserHasInteracted(true);
     setActiveIndex(index);
-    // TODO: Pass in GA event so the component can be used on other pages.
-    triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
-      [GA_PARAM_ID]: `carousel ${index}`,
-    });
+    if (gaEvent) {
+      triggerGAEvent(gaEvent, {
+        [GA_PARAM_ID]: `carousel ${index}`,
+      });
+    }
   };
 
   useEffect(() => {
@@ -63,13 +62,13 @@ const SlideCarousel = ({
   }, [slides.length, activeIndex]);
 
   useEffect(() => {
-    if (autoslideInterval && !isInteracting) {
+    if (autoslideInterval && !userHasInteracted) {
       const interval = setInterval(() => {
         setActiveIndex((prevIndex) => (prevIndex + 1) % slides.length);
       }, autoslideInterval);
       return () => clearInterval(interval);
     }
-  }, [autoslideInterval, slides.length, activeIndex, isInteracting]);
+  }, [autoslideInterval, slides.length, activeIndex, userHasInteracted]);
 
   useEffect(() => {
     const handleFocusIn = (event: FocusEvent): void => {
@@ -130,8 +129,6 @@ const SlideCarousel = ({
             transition: transform 0.5s ease;
             transform: translateX(-${(activeIndex * 100) / slides.length}%);
             width: ${slides.length * 100}%;
-            display: flex;
-            transition: transform 0.5s ease;
           `}
         >
           {slides.map((slide, index) => (

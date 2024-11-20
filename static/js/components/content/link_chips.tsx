@@ -24,7 +24,7 @@
 import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
-import { LinkChip } from "../elements/link_chip";
+import { Link, LinkChip } from "../elements/link_chip";
 
 interface LinkChipsProps {
   //the variant of the link chip to display: elevated is a raised grey chip and flat is a flat blue chip
@@ -33,8 +33,8 @@ interface LinkChipsProps {
   title?: string;
   //the section gives location of the chip component in order to give context for the GA event
   section: string;
-  //an array of link chips to be rendered by the component
-  linkChips: LinkChip[];
+  //an array of links to be rendered by the component
+  linkChips: Link[];
 }
 
 export const LinkChips = ({
@@ -45,42 +45,40 @@ export const LinkChips = ({
 }: LinkChipsProps): ReactElement => {
   const theme = useTheme();
   return (
-    <section className="chip-section">
-      <div className="container">
-        {title && (
-          <h3
-            css={css`
-              ${theme.typography.family.heading};
-              ${theme.typography.heading.xs};
-              margin-bottom: ${theme.spacing.lg}px;
-            `}
-          >
-            {title}
-          </h3>
-        )}
-        <div
+    <>
+      {title && (
+        <h3
           css={css`
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-wrap: wrap;
-            max-width: 80%;
-            gap: ${theme.spacing.md}px;
-            @media (max-width: ${theme.breakpoints.md}px) {
-              max-width: 100%;
-            }
+            ${theme.typography.family.heading};
+            ${theme.typography.heading.xs};
+            margin-bottom: ${theme.spacing.lg}px;
           `}
         >
-          {linkChips.map((linkChip) => (
-            <LinkChip
-              key={linkChip.id}
-              variant={variant}
-              section={section}
-              linkChip={linkChip}
-            />
-          ))}
-        </div>
+          {title}
+        </h3>
+      )}
+      <div
+        css={css`
+          margin: 0;
+          padding: 0;
+          display: flex;
+          flex-wrap: wrap;
+          max-width: 80%;
+          gap: ${theme.spacing.md}px;
+          @media (max-width: ${theme.breakpoints.md}px) {
+            max-width: 100%;
+          }
+        `}
+      >
+        {linkChips.map((linkChip) => (
+          <LinkChip
+            key={linkChip.id}
+            variant={variant}
+            section={section}
+            linkChip={linkChip}
+          />
+        ))}
       </div>
-    </section>
+    </>
   );
 };

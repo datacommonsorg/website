@@ -1,32 +1,23 @@
 /**
- * Theme Structure
+ * Copyright 2024 Google LLC
  *
- * See: https://css-tricks.com/what-do-you-name-color-variables/
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * # Constants
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
- * - Breakpoints
- *   - [ xs, sm, md, lg, xl ]
- * - Spacing
- *   - [ xs, sm, md, lg, xl, xxl, huge, section]
- * - Colors
- *   - Text
- *     - [ primary, Beta, Gamma ]
- *       - [ Base, Light, Dark ]
- *   - Background
- *     - [ primary, Beta, Gamma ]
- *       - [ Base, Light, Dark ]
- *   - Link
- *     - [ primary, Beta, Gamma ]
- *       - [ Base, Light, Dark ]
- * - Typography
- *   - Family
- *   - Text
- *     - [ xs, sm, md, lg, xl ]
- *   - Heading
- *     - [ xs, sm, md, lg, xl ]
- *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
+
+/**
+ * The default Emotion theme for Data Commons
+ */
+
 import { Theme } from "./types";
 
 const BREAKPOINTS = {
@@ -45,7 +36,12 @@ const SPACING = {
   xl: 32,
   xxl: 48,
   huge: 64,
-  section: 80,
+};
+
+const SECTIONS = {
+  compact: 0,
+  standard: 48,
+  large: 80,
 };
 
 const WIDTH = {
@@ -87,6 +83,7 @@ const DC_GRAY_PILL_BCKG = "hsl(240, 20.8%, 90.6%)";
 const theme: Theme = {
   breakpoints: BREAKPOINTS,
   spacing: SPACING,
+  sections: SECTIONS,
   width: WIDTH,
   colors: {
     text: {
@@ -124,7 +121,7 @@ const theme: Theme = {
         tag: DC_YELLOW_PILL_TEXT,
         pill: DC_YELLOW_PILL_BCKG,
       },
-      gray: {
+      grey: {
         text: DC_GRAY,
         tag: DC_GRAY_PILL_TEXT,
         pill: DC_GRAY_PILL_BCKG,
