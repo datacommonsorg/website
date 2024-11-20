@@ -331,7 +331,7 @@ const SampleQuestions = ({
 
   const slides = createSlides();
   return (
-    <Wrapper>
+    <Wrapper variant="compact">
       <header
         css={css`
           margin-bottom: ${theme.spacing.lg}px;
