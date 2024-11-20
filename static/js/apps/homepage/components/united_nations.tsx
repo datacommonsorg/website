@@ -22,7 +22,7 @@
 
 import React, { ReactElement } from "react";
 
-import MediaText from "../../../components/content/media_text";
+import { MediaText } from "../../../components/content/media_text";
 import {
   GA_EVENT_HOMEPAGE_CLICK,
   GA_PARAM_ID,
