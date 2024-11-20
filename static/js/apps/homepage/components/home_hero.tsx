@@ -54,7 +54,7 @@ export const HomeHero = ({ linkChips }: HomeHeroProps): ReactElement => {
           everyone the power to uncover insights with natural language questions
         </h1>
         <LinkChips
-          title={"Topics to explore"}
+          header={"Topics to explore"}
           section="topic"
           linkChips={linkChips}
         />
