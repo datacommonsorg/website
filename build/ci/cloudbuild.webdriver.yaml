@@ -30,7 +30,7 @@ steps:
         # ./run_test.sh -b will build client packages.
         # These js files generated will be necessery for the flask_webdriver_test task.
         ./run_test.sh -b
-  
+
   # Download the files needed for nl server to run. Do the download here because
   # webdriver runs on mulitple processes & we only want to do the download once.
   - id: download_nl_files
@@ -56,7 +56,7 @@ steps:
         ./run_test.sh --setup_python
         ./run_test.sh -w
 
-timeout: 1800s
+timeout: 2700s # 45 minutes
 
 options:
   machineType: "E2_HIGHCPU_32"
