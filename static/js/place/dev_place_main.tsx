@@ -23,16 +23,7 @@ import _ from "lodash";
 import React, { useEffect, useState } from "react";
 
 import { GoogleMap } from "../components/google_map";
-import { NlSearchBar } from "../components/nl_search_bar";
 import { SubjectPageMainPane } from "../components/subject_page/main_pane";
-import { intl } from "../i18n/i18n";
-import {
-  GA_EVENT_NL_SEARCH,
-  GA_PARAM_QUERY,
-  GA_PARAM_SOURCE,
-  GA_VALUE_SEARCH_SOURCE_PLACE_PAGE,
-  triggerGAEvent,
-} from "../shared/ga_events";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
 import {
   CategoryConfig,
@@ -45,20 +36,16 @@ import {
 } from "../utils/data_commons_client";
 
 /**
- * Handler for NL search bar
- * @param q search query entered by user
+ * Converts the API response from getPlaceCharts into a SubjectPageConfig object.
+ * Groups charts by category and creates the necessary configuration objects for
+ * rendering the subject page.
+ *
+ * @param placeChartsApiResponse The API response containing chart data
+ * @returns A SubjectPageConfig object with categories, tiles, and stat var specs
  */
-function onSearch(q: string): void {
-  triggerGAEvent(GA_EVENT_NL_SEARCH, {
-    [GA_PARAM_QUERY]: q,
-    [GA_PARAM_SOURCE]: GA_VALUE_SEARCH_SOURCE_PLACE_PAGE,
-  });
-  window.location.href = `/explore#q=${encodeURIComponent(q)}`;
-}
-
 function placeChartsApiResponsesToPageConfig(
   placeChartsApiResponse: PlaceChartsApiResponse
-) {
+): SubjectPageConfig {
   const chartsByCategory = _.groupBy(
     placeChartsApiResponse.charts,
     (item) => item.category
@@ -124,23 +111,16 @@ function placeChartsApiResponsesToPageConfig(
   return pageConfig;
 }
 
-export const SearchBar = () => {
-  return (
-    <NlSearchBar
-      initialValue=""
-      inputId="query-search-input"
-      onSearch={onSearch}
-      placeholder={intl.formatMessage({
-        defaultMessage: "Enter a question to explore",
-        description:
-          "Text inviting user to search for data using a question in natural language",
-        id: "nl-search-bar-placeholder-text",
-      })}
-      shouldAutoFocus={false}
-    />
-  );
-};
-
+/**
+ * Component that renders the header section of a place page.
+ * Displays the place name, category (if not Overview), and subheader text.
+ * Also shows the place DCID with a link to view it in the Knowledge Graph browser.
+ *
+ * @param props.category The current category being viewed
+ * @param props.place The place object containing name and DCID
+ * @param props.placeSubheader HTML string with additional place context
+ * @returns Header component for the place page
+ */
 const PlaceHeader = (props: {
   category: string;
   place: NamedTypedPlace;
@@ -167,6 +147,15 @@ const PlaceHeader = (props: {
   );
 };
 
+/**
+ * Component that renders the topic navigation tabs.
+ * Shows tabs for Overview and different categories like Economics, Health, etc.
+ * Highlights the currently selected category.
+ *
+ * @param props.category The currently selected category
+ * @param props.place The place object containing the DCID for generating URLs
+ * @returns Navigation component with topic tabs
+ */
 const PlaceTopicTabs = ({
   category,
   place,
@@ -255,6 +244,16 @@ const PlaceTopicTabs = ({
   );
 };
 
+/**
+ * Component that displays a table of key demographic statistics for a place.
+ *
+ * Fetches data for population, median income, median age, unemployment rate,
+ * and crime statistics using the Data Commons API. Displays the values in a
+ * formatted table with units and dates.
+ *
+ * @param props.placeDcid The DCID of the place to show statistics for
+ * @returns A table component showing key demographic statistics, or null if data not loaded
+ */
 const PlaceOverviewTable = (props: { placeDcid: string }) => {
   const { placeDcid } = props;
   const [dataRows, setDataRows] = useState<DataRow[]>([]);
@@ -310,6 +309,13 @@ const PlaceOverviewTable = (props: { placeDcid: string }) => {
   );
 };
 
+/**
+ * Displays an overview of a place including its name, summary, map and key statistics.
+ *
+ * @param props.place The place object containing name and dcid
+ * @param props.placeSummary A text summary describing the place
+ * @returns A component with the place overview including icon, name, summary, map and statistics table
+ */
 const PlaceOverview = (props: {
   place: NamedTypedPlace;
   placeSummary: string;
@@ -334,6 +340,13 @@ const PlaceOverview = (props: {
   );
 };
 
+/**
+ * Component that displays a list of child places for a given place.
+ *
+ * @param props.place The parent place containing name and dcid
+ * @param props.childPlaces Array of child places, each with name and dcid
+ * @returns A list of links to child places, or null if no child places exist
+ */
 const RelatedPlaces = (props: {
   place: NamedTypedPlace;
   childPlaces: NamedTypedPlace[];
@@ -360,6 +373,14 @@ const RelatedPlaces = (props: {
   );
 };
 
+/**
+ * Component that renders charts for a place using the SubjectPageMainPane.
+ *
+ * @param props.childPlaceType The type of child places (e.g. "State", "County")
+ * @param props.place The place object containing name, dcid and types
+ * @param props.pageConfig Configuration for the subject page including chart categories and specs
+ * @returns Component with charts for the place
+ */
 const PlaceCharts = (props: {
   childPlaceType: string;
   place: NamedTypedPlace;
@@ -378,14 +399,23 @@ const PlaceCharts = (props: {
   );
 };
 
+/**
+ * Main component for the dev place page. Manages state and data fetching for place information,
+ * related places, and chart data.
+ */
 export const DevPlaceMain = () => {
+  // Core place data
   const [place, setPlace] = useState<NamedTypedPlace>();
   const [placeSummary, setPlaceSummary] = useState<string>();
   const [placeSubheader, setPlaceSubheader] = useState<string>();
+
+  // API response data
   const [relatedPlacesApiResponse, setRelatedPlacesApiResponse] =
     useState<RelatedPlacesApiResponse>();
   const [placeChartsApiResponse, setPlaceChartsApiResponse] =
     useState<PlaceChartsApiResponse>();
+
+  // Derived place data
   const [childPlaceType, setChildPlaceType] = useState<string>();
   const [childPlaces, setChildPlaces] = useState<NamedTypedPlace[]>([]);
   const [pageConfig, setPageConfig] = useState<SubjectPageConfig>();
@@ -393,6 +423,10 @@ export const DevPlaceMain = () => {
   const urlParams = new URLSearchParams(window.location.search);
   const category = urlParams.get("category") || "Overview";
 
+  /**
+   * On initial load, get place metadata from the page's metadata element
+   * and set up initial place state.
+   */
   useEffect(() => {
     const pageMetadata = document.getElementById("page-metadata");
     if (!pageMetadata) {
@@ -408,6 +442,10 @@ export const DevPlaceMain = () => {
     setPlaceSubheader(pageMetadata.dataset.placeSubheader);
   }, []);
 
+  /**
+   * Once we have place data, fetch chart and related places data from the API.
+   * Updates state with API responses and derived data.
+   */
   useEffect(() => {
     if (!place) {
       return;
