@@ -41,7 +41,7 @@ const SPACING = {
 const SECTIONS = {
   compact: 0,
   standard: 48,
-  large: 80,
+  large: 110,
 };
 
 const WIDTH = {
