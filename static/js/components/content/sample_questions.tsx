@@ -17,27 +17,29 @@
 /**
  * A component to display clickable sample questions on a carousel for the homepage
  */
+
 /** @jsxImportSource @emotion/react */
 
 import { css, useTheme } from "@emotion/react";
 import React, { ReactElement, useEffect, useState } from "react";
 
-import {
-  GA_EVENT_HOMEPAGE_CLICK,
-  GA_PARAM_ID,
-  GA_PARAM_QUERY,
-  triggerGAEvent,
-} from "../../shared/ga_events";
+import { GA_EVENT_HOMEPAGE_CLICK } from "../../shared/ga_events";
 import { BREAKPOINTS } from "../../shared/hooks/breakpoints";
 import { SampleQuestionCategory } from "../../shared/types/homepage";
-import { Wrapper } from "../elements/layout/wrapper";
+import { Link, LinkBox } from "../elements/link_box";
 import SlideCarousel from "../elements/slide_carousel";
 
 interface SampleQuestionsProps {
   sampleQuestions: SampleQuestionCategory[];
 }
 
-const colors = ["green", "blue", "red", "yellow", "gray"];
+const colors: ("green" | "blue" | "red" | "yellow" | "grey")[] = [
+  "green",
+  "blue",
+  "red",
+  "yellow",
+  "grey",
+];
 
 const calculateColumnsPerSlide = (): number => {
   if (window.innerWidth < BREAKPOINTS.sm) return 1;
@@ -72,6 +74,12 @@ const SampleQuestions = ({
     };
   }, []);
 
+  const sampleQuestionToLink = (sampleQuestion: string): Link => ({
+    id: sampleQuestion,
+    title: sampleQuestion,
+    url: `/explore#q=${encodeURIComponent(sampleQuestion)}`,
+  });
+
   const createSlides = (): ReactElement[] => {
     const slides: ReactElement[] = [];
 
@@ -104,100 +112,13 @@ const SampleQuestions = ({
                   `}
                 >
                   {category.questions.map((question) => (
-                    <div
+                    <LinkBox
                       key={question}
-                      className={`${colors[overallIndex % colors.length]}`}
-                      css={css`
-                        display: block;
-                        list-style: none;
-                        &.green a {
-                          p {
-                            color: ${theme.colors.box.green.text};
-                          }
-                          small {
-                            color: ${theme.colors.box.green.tag};
-                            background-color: ${theme.colors.box.green.pill};
-                          }
-                        }
-                        &.blue a {
-                          p {
-                            color: ${theme.colors.box.blue.text};
-                          }
-                          small {
-                            color: ${theme.colors.box.blue.tag};
-                            background-color: ${theme.colors.box.blue.pill};
-                          }
-                        }
-                        &.red a {
-                          p {
-                            color: ${theme.colors.box.red.text};
-                          }
-                          small {
-                            color: ${theme.colors.box.red.tag};
-                            background-color: ${theme.colors.box.red.pill};
-                          }
-                        }
-                        &.yellow a {
-                          p {
-                            color: ${theme.colors.box.yellow.text};
-                          }
-                          small {
-                            color: ${theme.colors.box.yellow.tag};
-                            background-color: ${theme.colors.box.yellow.pill};
-                          }
-                        }
-                        &.gray a {
-                          p {
-                            color: ${theme.colors.box.gray.text};
-                          }
-                          small {
-                            color: ${theme.colors.box.gray.tag};
-                            background-color: ${theme.colors.box.gray.pill};
-                          }
-                        }
-                      `}
-                    >
-                      <a
-                        href={`/explore#q=${encodeURIComponent(question)}`}
-                        onClick={(): void => {
-                          triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
-                            [GA_PARAM_ID]: `sample-q ${index}-${overallIndex}`,
-                            [GA_PARAM_QUERY]: question,
-                          });
-                        }}
-                        css={css`
-                          ${theme.box.primary}
-                          ${theme.elevation.primary}
-                          ${theme.radius.primary}
-                          display: flex;
-                          flex-direction: column;
-                          align-items: flex-start;
-                          gap: ${theme.spacing.sm}px;
-                          padding: ${theme.spacing.lg}px;
-                          &:hover {
-                            text-decoration: none;
-                          }
-                        `}
-                      >
-                        <p
-                          css={css`
-                            ${theme.typography.text.xl}
-                          `}
-                        >
-                          {question}
-                        </p>
-                        <small
-                          css={css`
-                            ${theme.typography.text.xs}
-                            ${theme.radius.secondary}
-                          display: inline-block;
-                            padding: ${theme.spacing.xs}px ${theme.spacing.sm}px;
-                          `}
-                        >
-                          {category.category}
-                        </small>
-                      </a>
-                    </div>
+                      link={sampleQuestionToLink(question)}
+                      color={colors[overallIndex % colors.length]}
+                      section={`sample-q ${index}-${overallIndex}`}
+                      category={category.category}
+                    />
                   ))}
                 </div>
               );
@@ -231,97 +152,13 @@ const SampleQuestions = ({
           {sampleQuestions.map((category, index) => {
             const question = getRandomQuestionFromCategory(category);
             return (
-              <div
-                key={category.category}
-                className={`${colors[index % colors.length]}`}
-                css={css`
-                  display: block;
-                  list-style: none;
-                  &.green a {
-                    p {
-                      color: ${theme.colors.box.green.text};
-                    }
-                    small {
-                      color: ${theme.colors.box.green.tag};
-                      background-color: ${theme.colors.box.green.pill};
-                    }
-                  }
-                  &.blue a {
-                    p {
-                      color: ${theme.colors.box.blue.text};
-                    }
-                    small {
-                      color: ${theme.colors.box.blue.tag};
-                      background-color: ${theme.colors.box.blue.pill};
-                    }
-                  }
-                  &.red a {
-                    p {
-                      color: ${theme.colors.box.red.text};
-                    }
-                    small {
-                      color: ${theme.colors.box.red.tag};
-                      background-color: ${theme.colors.box.red.pill};
-                    }
-                  }
-                  &.yellow a {
-                    p {
-                      color: ${theme.colors.box.yellow.text};
-                    }
-                    small {
-                      color: ${theme.colors.box.yellow.tag};
-                      background-color: ${theme.colors.box.yellow.pill};
-                    }
-                  }
-                  &.gray a {
-                    p {
-                      color: ${theme.colors.box.gray.text};
-                    }
-                    small {
-                      color: ${theme.colors.box.gray.tag};
-                      background-color: ${theme.colors.box.gray.pill};
-                    }
-                  }
-                `}
-              >
-                <a
-                  href={`/explore#q=${encodeURIComponent(question)}`}
-                  onClick={(): void => {
-                    triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
-                      [GA_PARAM_ID]: `sample-q ${index}-single`,
-                      [GA_PARAM_QUERY]: question,
-                    });
-                  }}
-                  css={css`
-                    ${theme.box.primary}
-                    ${theme.elevation.primary}
-                    ${theme.radius.primary}
-                    display: flex;
-                    flex-direction: column;
-                    align-items: flex-start;
-                    gap: ${theme.spacing.sm}px;
-                    padding: ${theme.spacing.lg}px;
-                  `}
-                >
-                  <p
-                    css={css`
-                      ${theme.typography.text.xl}
-                    `}
-                  >
-                    {question}
-                  </p>
-                  <small
-                    css={css`
-                      ${theme.typography.text.xs}
-                      ${theme.radius.secondary}
-                      display: inline-block;
-                      padding: ${theme.spacing.xs}px ${theme.spacing.sm}px;
-                    `}
-                  >
-                    {category.category}
-                  </small>
-                </a>
-              </div>
+              <LinkBox
+                key={question}
+                link={sampleQuestionToLink(question)}
+                color={colors[index % colors.length]}
+                section={`sample-q ${index}-single`}
+                category={category.category}
+              />
             );
           })}
         </div>
@@ -331,7 +168,7 @@ const SampleQuestions = ({
 
   const slides = createSlides();
   return (
-    <Wrapper variant="compact">
+    <>
       <header
         css={css`
           margin-bottom: ${theme.spacing.lg}px;
@@ -348,9 +185,9 @@ const SampleQuestions = ({
       {columnsPerSlide === 1 ? (
         createSingleColumnLayout()
       ) : (
-        <SlideCarousel slides={slides} />
+        <SlideCarousel slides={slides} gaEvent={GA_EVENT_HOMEPAGE_CLICK} />
       )}
-    </Wrapper>
+    </>
   );
 };
 
