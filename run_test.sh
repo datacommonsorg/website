@@ -25,6 +25,31 @@ function setup_python {
   deactivate
 }
 
+function start_servers() {
+  function cleanup() {
+    pkill -P $$ || true
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+      deactivate
+    fi
+    exit $exit_with
+  }
+  trap 'exit_with=$?; cleanup' EXIT
+  ./run_servers.sh &
+  SERVERS_PID=$!
+  sleep 3
+  if ! ps -p $SERVERS_PID > /dev/null; then
+    echo "Server script not started after 3 seconds."
+    exit 1
+  fi
+}
+
+function stop_servers() {
+  if ps -p $SERVERS_PID > /dev/null; then
+    kill $SERVERS_PID
+  fi
+  trap - EXIT
+}
+
 # Run test for client side code.
 function run_npm_test {
   cd packages/web-components
@@ -100,14 +125,14 @@ function run_py_test {
   export FLASK_ENV=test
   export TOKENIZERS_PARALLELISM=false
   # Disabled nodejs e2e test to avoid dependency on dev
-  python3 -m pytest server/tests/ -s --ignore=server/tests/nodejs_e2e_test.py ${@}
-  python3 -m pytest shared/tests/ -s ${@}
-  python3 -m pytest nl_server/tests/ -s ${@}
+  python3 -m pytest -n auto server/tests/ -s --ignore=server/tests/nodejs_e2e_test.py ${@}
+  python3 -m pytest -n auto shared/tests/ -s ${@}
+  python3 -m pytest -n auto nl_server/tests/ -s ${@}
 
   # Tests within tools/nl/embeddings
   echo "Running tests within tools/nl/embeddings:"
   pip3 install -r tools/nl/embeddings/requirements.txt -q
-  python3 -m pytest tools/nl/embeddings/ -s ${@}
+  python3 -m pytest -n auto tools/nl/embeddings/ -s ${@}
 
   pip3 install yapf==0.40.2 -q
   if ! command -v isort &> /dev/null
@@ -138,21 +163,9 @@ function run_webdriver_test {
   export ENABLE_MODEL=true
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
   source .env/bin/activate
-  function cleanup() {
-    pkill -P $$ || true
-    deactivate
-    exit $exit_with
-  }
-  trap 'exit_with=$?; cleanup' EXIT
-  ./run_servers.sh &
-  servers_pid=$!
-  sleep 3
-  if ! ps -p $servers_pid > /dev/null; then
-    echo "Server script not started after 3 seconds."
-    exit 1
-  fi
+  start_servers
   python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ ${@}
-  kill $servers_pid
+  stop_servers
   deactivate
 }
 
@@ -170,7 +183,7 @@ function run_screenshot_test {
   export ENABLE_MODEL=true
   export DC_API_KEY=
   export LLM_API_KEY=
-  python3 -m pytest --reruns 2 server/webdriver/screenshot/ ${@}
+  python3 -m pytest -n auto --reruns 2 server/webdriver/screenshot/ ${@}
   deactivate
 }
 
@@ -189,8 +202,9 @@ function run_integration_test {
   export GOOGLE_CLOUD_PROJECT=datcom-website-staging
   export TEST_MODE=test
   export ENABLE_EVAL_TOOL=false
-
-  python3 -m pytest -vv --reruns 2 server/integration_tests/$1 ${@:2}
+  start_servers
+  python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/$1 ${@:2}
+  stop_servers
   deactivate
 }
 
@@ -209,11 +223,12 @@ function update_integration_test_golden {
     export ENV_PREFIX=Staging
   fi
   echo "Using ENV_PREFIX=$ENV_PREFIX"
-
+  start_servers
   # Should update topic cache first as it's used by the following tests.
-  python3 -m pytest -vv --reruns 2 server/integration_tests/topic_cache
-
-  python3 -m pytest -vv -n 5 --reruns 2 server/integration_tests/ ${@}
+  python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/topic_cache
+  python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/ ${@}
+  stop_servers
+  deactivate
 }
 
 function run_all_tests {
