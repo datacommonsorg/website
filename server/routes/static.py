@@ -90,6 +90,13 @@ def healthz():
   return "very healthy"
 
 
+# Alternate health check route in case /healthz is intercepted by infrastructure
+# (e.g. when running as a Cloud Run service)
+@bp.route('/health')
+def health():
+  return "super healthy"
+
+
 # TODO(beets): Move this to a separate handler so it won't be installed on all apps.
 @bp.route('/mcf_playground')
 def mcf_playground():
