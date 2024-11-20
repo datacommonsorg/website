@@ -15,37 +15,47 @@
  */
 
 /**
- * A component to display the columned hero component.
+ * A component to display textual content in two columns
  */
 
 import React, { ReactElement } from "react";
 
-interface HeroColumnsProps {
-  //the content of the two hero columns, given as slot props:
+interface TextColumnsProps {
+  //an optional header for the column section
+  header?: string;
+  //the content of the two columns, given as slot props:
   //<TextColumns.Left>...</TextColumns.Left><TextColumns.Right>...</TextColumns.Right>
   children: ReactElement | ReactElement[];
 }
 
-interface HeroColumnsSlotProps {
+interface TextColumnsSlotProps {
   //the content that populates either of the two columns
   children: ReactElement | ReactElement[] | string;
 }
 
-const HeroColumnsLeft = ({ children }: HeroColumnsSlotProps): ReactElement => {
+const TextColumnsLeft = ({ children }: TextColumnsSlotProps): ReactElement => {
   return <div className="col_left">{children}</div>;
 };
 
-const HeroColumnsRight = ({ children }: HeroColumnsSlotProps): ReactElement => {
+const TextColumnsRight = ({ children }: TextColumnsSlotProps): ReactElement => {
   return <div className="col_right">{children}</div>;
 };
 
-export const HeroColumns = ({ children }: HeroColumnsProps): ReactElement => {
+export const TextColumns = ({
+  header,
+  children,
+}: TextColumnsProps): ReactElement => {
   return (
-    <section id="hero-columns" className="hero-columns">
-      <div className="container big">{children}</div>
-    </section>
+    <>
+      {header && (
+        <header className="header">
+          <h3>{header}</h3>
+        </header>
+      )}
+      <div className="text_columns">{children}</div>
+    </>
   );
 };
 
-HeroColumns.Left = HeroColumnsLeft;
-HeroColumns.Right = HeroColumnsRight;
+TextColumns.Left = TextColumnsLeft;
+TextColumns.Right = TextColumnsRight;

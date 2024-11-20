@@ -37,6 +37,7 @@ export interface Theme {
   };
   sections: {
     compact: number;
+    small: number;
     standard: number;
     large: number;
   };

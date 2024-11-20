@@ -40,6 +40,7 @@ const SPACING = {
 
 const SECTIONS = {
   compact: 0,
+  small: 32,
   standard: 48,
   large: 110,
 };

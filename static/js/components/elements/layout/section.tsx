@@ -26,7 +26,7 @@ import React, { ReactElement, ReactNode } from "react";
 
 interface SectionProps {
   //a variant that determines the vertical (y) padding of the section
-  variant?: "standard" | "large" | "compact";
+  variant?: "standard" | "small" | "large" | "compact";
   //a variant that determines the background color of the section
   colorVariant?: "base" | "light" | "dark";
   //the content of the section
@@ -44,6 +44,8 @@ export const Section = ({
   const padding =
     variant === "large"
       ? theme.sections.large
+      : variant === "small"
+      ? theme.sections.small
       : variant === "compact"
       ? theme.sections.compact
       : theme.sections.standard;
