@@ -220,7 +220,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       isPendingRedirect = shouldSkipPlaceOverview(pageMetadata);
       if (isPendingRedirect) {
         const placeDcid = pageMetadata.place.dcid;
-        const url = `/place/${placeDcid}`;
+        const url = `/dev-place/${placeDcid}`;
         window.location.replace(url);
       }
       // Note: for category links, we only use the main-topic.
