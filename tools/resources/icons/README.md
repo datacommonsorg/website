@@ -9,16 +9,16 @@ Jinja templates or both.
 ### Script Usage
 
 To generate both a React component and an SVG of a Material UI icon, run the
-following command:
+following command from inside the `tools/resources/icons` directory:
 
 ```bash
-python3 generate_icon.py {icon_name}
+./run.sh {icon_name}
 ````
 
 For example:
 
 ```bash
-python3 generate_icon.py arrow_forward
+./run.sh arrow_forward
 ````
 
 This will download the SVG from the Material UI repository, process it and 
@@ -30,15 +30,15 @@ generate two files:
 To generate only the SVG for the templates, run either of the following commands:
 
 ```bash
-python3 generate_icon.py -f arrow_forward
-python3 generate_icon.py --flask arrow_forward
+./run.sh -f arrow_forward
+./run.sh --flask arrow_forward
 ```
 
 To generate only the React component run either of the following commands:
 
 ```bash
-python3 generate_icon.py -r arrow_forward
-python3 generate_icon.py --react arrow_forward
+./run.sh -r arrow_forward
+./run.sh --react arrow_forward
 ```
 
 It is recommended to run the prettier on the generated `.tsx` file.

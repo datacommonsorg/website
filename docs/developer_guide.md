@@ -359,4 +359,4 @@ The Data Commons site makes use of Material Design icons. In certain cases, font
 flashes of unstyled content that can be avoided by using SVG icons.
 
 We have provided tools to facilitate the creation and use of Material SVG icons in both the Jinja template and in React components. 
-For instructions  on how to generate and use these SVGs and components, please see: [Icon Readme](../tools/resources/README.md):
+For instructions  on how to generate and use these SVGs and components, please see: [Icon Readme](../tools/resources/icons/README.md):

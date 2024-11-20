@@ -151,7 +151,7 @@ def main():
   generate_flask_svg = args.flask or not (args.react or args.flask)
 
   script_dir = os.path.dirname(os.path.abspath(__file__))
-  root_dir = os.path.abspath(os.path.join(script_dir, '..', '..'))
+  root_dir = os.path.abspath(os.path.join(script_dir, '..', '..', '..'))
 
   html_icons_dir = os.path.join(root_dir, 'server', 'templates', 'resources',
                                 'icons')
