@@ -30,7 +30,6 @@ import {
   GA_PARAM_URL,
   triggerGAEvent,
 } from "../../shared/ga_events";
-import { Wrapper } from "../elements/layout/wrapper";
 
 interface ToolsProps {
   //the routes dictionary - this is used to convert routes to resolved urls
@@ -40,7 +39,7 @@ interface ToolsProps {
 const Tools = ({ routes }: ToolsProps): ReactElement => {
   const theme = useTheme();
   return (
-    <Wrapper>
+    <>
       <div
         css={css`
           width: 100%;
@@ -219,7 +218,7 @@ const Tools = ({ routes }: ToolsProps): ReactElement => {
           </a>
         </li>
       </ul>
-    </Wrapper>
+    </>
   );
 };
 

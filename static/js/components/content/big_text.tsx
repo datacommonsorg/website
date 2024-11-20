@@ -15,7 +15,7 @@
  */
 
 /**
- * A component to display a big text
+ * A component to display a large bold text section
  */
 
 /** @jsxImportSource @emotion/react */
@@ -23,63 +23,32 @@
 import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
-import { resolveHref } from "../../apps/base/utilities/utilities";
-import {
-  GA_EVENT_HOMEPAGE_CLICK,
-  GA_PARAM_ID,
-  GA_PARAM_URL,
-  triggerGAEvent,
-} from "../../shared/ga_events";
-import { Routes } from "../../shared/types/base";
-import { Wrapper } from "../elements/layout/wrapper";
-
 interface BigTextProps {
-  //the routes dictionary - this is used to convert routes to resolved urls
-  routes: Routes;
+  //the content that will be displayed inside the text section
+  children: ReactElement;
 }
 
-const BigText = ({ routes }: BigTextProps): ReactElement => {
+export const BigText = ({ children }: BigTextProps): ReactElement => {
   const theme = useTheme();
   return (
-    <Wrapper colorVariant="dark">
-      <article
+    <article
+      css={css`
+        width: 100%;
+        max-width: ${theme.width.md}px;
+        @media (max-width: ${theme.breakpoints.md}px) {
+          max-width: 100%;
+        }
+      `}
+    >
+      <h3
         css={css`
-          width: 100%;
-          max-width: ${theme.width.md}px;
-          @media (max-width: ${theme.breakpoints.md}px) {
-            max-width: 100%;
-          }
+          ${theme.typography.family.heading};
+          ${theme.typography.heading.sm};
+          color: ${theme.colors.text.primary.light};
         `}
       >
-        <h3
-          css={css`
-            ${theme.typography.family.heading};
-            ${theme.typography.heading.sm};
-            color: ${theme.colors.text.primary.light};
-          `}
-        >
-          Build your own Data Commons Customize a private instance of the
-          open-source Data Commons platform. You control the data you include
-          and who has access.
-          <a
-            href={resolveHref("{static.build}", routes)}
-            onClick={(): void => {
-              triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
-                [GA_PARAM_ID]: "build-your-own",
-                [GA_PARAM_URL]: "{static.build}",
-              });
-            }}
-            css={css`
-              color: ${theme.colors.link.primary.light};
-              margin-left: ${theme.spacing.sm}px;
-            `}
-          >
-            Learn more
-          </a>
-        </h3>
-      </article>
-    </Wrapper>
+        {children}
+      </h3>
+    </article>
   );
 };
-
-export default BigText;
