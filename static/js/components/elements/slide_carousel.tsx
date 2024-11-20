@@ -163,6 +163,7 @@ const SlideCarousel = ({
             css={css`
               display: flex;
               gap: ${theme.spacing.md}px;
+              margin: 0;
               padding: 0;
             `}
           >
