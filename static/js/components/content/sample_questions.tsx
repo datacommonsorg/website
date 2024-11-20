@@ -30,7 +30,6 @@ import {
 } from "../../shared/ga_events";
 import { BREAKPOINTS } from "../../shared/hooks/breakpoints";
 import { SampleQuestionCategory } from "../../shared/types/homepage";
-import theme from "../../theme/theme";
 import { Wrapper } from "../elements/layout/wrapper";
 import SlideCarousel from "../elements/slide_carousel";
 
@@ -59,6 +58,8 @@ const SampleQuestions = ({
   const [columnsPerSlide, setColumnsPerSlide] = useState(() =>
     calculateColumnsPerSlide()
   );
+
+  const theme = useTheme();
 
   useEffect(() => {
     const handleResize = (): void => {
@@ -329,7 +330,6 @@ const SampleQuestions = ({
   };
 
   const slides = createSlides();
-
   return (
     <Wrapper>
       <header

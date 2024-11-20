@@ -18,6 +18,9 @@
  * A slide-based carousel that takes arbitrary ReactElements as slides
  */
 
+/** @jsxImportSource @emotion/react */
+
+import { css, useTheme } from "@emotion/react";
 import React, { ReactElement, useEffect, useRef, useState } from "react";
 
 import {
@@ -25,6 +28,7 @@ import {
   GA_PARAM_ID,
   triggerGAEvent,
 } from "../../shared/ga_events";
+import { Wrapper } from "../elements/layout/wrapper";
 
 interface SlideCarouselProps {
   //an array of ReactElements, each of which will be a slide in the carousel
@@ -40,6 +44,8 @@ const SlideCarousel = ({
   const [activeIndex, setActiveIndex] = useState(0);
   const [isInteracting, setIsInteracting] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
+
+  const theme = useTheme();
 
   const goToSlide = (index: number): void => {
     setIsInteracting(true);
@@ -100,25 +106,42 @@ const SlideCarousel = ({
   }, [activeIndex]);
 
   return (
-    <div className="slide-carousel" ref={carouselRef}>
-      <div className="carousel-inner">
+    <div
+      className="slide-carousel"
+      ref={carouselRef}
+      css={css`
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+      `}
+    >
+      <div
+        className="carousel-inner"
+        css={css`
+          position: relative;
+          width: 100%;
+          overflow: hidden;
+        `}
+      >
         <div
           className="carousel-tape"
-          style={{
-            transform: `translateX(-${(activeIndex * 100) / slides.length}%)`,
-            width: `${slides.length * 100}%`,
-            display: "flex",
-            transition: "transform 0.5s ease",
-          }}
+          css={css`
+            display: flex;
+            transition: transform 0.5s ease;
+            transform: translateX(-${(activeIndex * 100) / slides.length}%);
+            width: ${slides.length * 100}%;
+            display: flex;
+            transition: transform 0.5s ease;
+          `}
         >
           {slides.map((slide, index) => (
             <div
               key={index}
               className="carousel-slide"
-              style={{
-                width: `calc(100% / ${slides.length})`,
-                flexShrink: 0,
-              }}
+              css={css`
+                width: calc(100% / ${slides.length});
+                flex-shrink: 0;
+              `}
             >
               {slide}
             </div>
@@ -126,8 +149,23 @@ const SlideCarousel = ({
         </div>
       </div>
       {slides.length > 1 && (
-        <div className="carousel-dots-wrapper">
-          <ul className="carousel-dots">
+        <div
+          className="carousel-dots-wrapper"
+          css={css`
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            padding-top: ${theme.spacing.md}px;
+          `}
+        >
+          <ul
+            className="carousel-dots"
+            css={css`
+              display: flex;
+              gap: ${theme.spacing.md}px;
+              padding: 0;
+            `}
+          >
             {slides.map((_, index) => (
               <li
                 key={index}
@@ -135,6 +173,18 @@ const SlideCarousel = ({
                   index === activeIndex ? "active" : ""
                 }`}
                 onClick={(): void => goToSlide(index)}
+                css={css`
+                  display: inline-block;
+                  width: 10px;
+                  height: 10px;
+                  background: white;
+                  border: 1px solid ${theme.colors.link.primary.base};
+                  border-radius: 50%;
+                  cursor: pointer;
+                  &.active {
+                    background: ${theme.colors.link.primary.base};
+                  }
+                `}
               />
             ))}
           </ul>
