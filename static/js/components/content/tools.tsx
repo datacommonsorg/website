@@ -40,7 +40,7 @@ interface ToolsProps {
 const Tools = ({ routes }: ToolsProps): ReactElement => {
   const theme = useTheme();
   return (
-    <Wrapper colorVariant="light">
+    <Wrapper>
       <div
         css={css`
           width: 100%;
