@@ -49,9 +49,10 @@ export const HomeHero = ({ linkChips }: HomeHeroProps): ReactElement => {
           css={css`
             ${theme.typography.heading.xl}
             margin-bottom: ${theme.spacing.xxl}px;
-          `}>
-          Data Commons aggregates and harmonizes global, open data, giving
-          everyone the power to uncover insights with natural language questions
+          `}
+        >
+          Data Commons brings together the world&apos;s public data, harmonized
+          for your exploration
         </h1>
         <LinkChips
           header={"Topics to explore"}
@@ -61,7 +62,8 @@ export const HomeHero = ({ linkChips }: HomeHeroProps): ReactElement => {
         <div
           css={css`
             margin-top: ${theme.spacing.xxl}px;
-          `}>
+          `}
+        >
           <LinkChip
             variant="flat"
             linkChip={{

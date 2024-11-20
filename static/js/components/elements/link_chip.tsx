@@ -60,23 +60,37 @@ export const LinkChip = ({
   const chipStyles = css`
     ${variant === "elevated" ? theme.box.primary : theme.box.secondary};
     ${variant === "elevated" ? theme.elevation.primary : ""};
-    ${variant === "elevated"
-      ? theme.colors.link.primary.base
-      : theme.colors.text.primary.base};
     ${theme.typography.family.text};
     ${theme.typography.text.md};
     ${theme.radius.primary};
+    color: ${variant === "elevated"
+      ? theme.colors.link.primary.base
+      : theme.colors.text.primary.base};
     line-height: 1rem;
     display: inline-flex;
     justify-content: center;
     align-items: center;
     gap: ${theme.spacing.sm}px;
     padding: 10px ${theme.spacing.lg}px 10px ${theme.spacing.md}px;
+    transition: background-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
 
-    .icon > svg {
-      fill: ${variant === "elevated"
+    &:hover {
+      text-decoration: none;
+      color: ${variant === "elevated"
         ? theme.colors.link.primary.base
         : theme.colors.text.primary.base};
+      .icon {
+        transform: translateX(2px);
+      }
+    }
+
+    .icon {
+      transition: transform 0.1s ease-in-out;
+      svg {
+        fill: ${variant === "elevated"
+          ? theme.colors.link.primary.base
+          : theme.colors.text.primary.base};
+      }
     }
   `;
 
