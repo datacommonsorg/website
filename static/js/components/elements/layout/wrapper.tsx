@@ -25,7 +25,7 @@ import { css, useTheme } from "@emotion/react";
 import React, { ReactElement, ReactNode } from "react";
 
 interface WrapperProps {
-  variant?: "naked" | "standard";
+  variant?: "naked" | "standard" | "compact";
   colorVariant?: "base" | "light" | "dark";
   children?: ReactNode;
 }
@@ -58,7 +58,10 @@ export const Wrapper = ({
                 max-width: ${theme.width.xl}px;
                 padding: ${theme.spacing.section}px 0;
                 @media (max-width: ${theme.breakpoints.xl}px) {
-                  padding: ${theme.spacing.section}px ${theme.spacing.lg}px;
+                  padding: ${variant === "compact"
+                      ? "0"
+                      : theme.spacing.section}px
+                    ${theme.spacing.lg}px;
                 }
                 @media (max-width: ${theme.breakpoints.lg}px) {
                   max-width: ${theme.width.lg}px;
