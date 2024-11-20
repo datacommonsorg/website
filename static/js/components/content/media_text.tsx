@@ -39,7 +39,7 @@ interface MediaTextProps {
   children: ReactElement;
 }
 
-const MediaText = ({
+export const MediaText = ({
   mediaType,
   mediaSource,
   header,
@@ -170,5 +170,3 @@ const MediaText = ({
     </article>
   );
 };
-
-export default MediaText;
