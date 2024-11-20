@@ -257,6 +257,7 @@ const PlaceTopicTabs = ({
 const PlaceOverviewTable = (props: { placeDcid: string }) => {
   const { placeDcid } = props;
   const [dataRows, setDataRows] = useState<DataRow[]>([]);
+  // Fetch key demographic statistics for the place when it changes
   useEffect(() => {
     (async () => {
       const placeOverviewDataRows = await defaultDataCommonsClient.getDataRows({
