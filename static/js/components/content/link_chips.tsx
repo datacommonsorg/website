@@ -15,11 +15,8 @@
  */
 
 /**
- * A component that renders a series of chips that function as links with titles
- */
-
-/**
- * A component to display a big text
+ * A component that renders a block of link chips (Material Design-inspired
+ * chips that act as links
  */
 
 /** @jsxImportSource @emotion/react */
@@ -27,23 +24,7 @@
 import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
-import {
-  GA_EVENT_HOMEPAGE_CLICK,
-  GA_PARAM_ID,
-  GA_PARAM_URL,
-  triggerGAEvent,
-} from "../../shared/ga_events";
-import { ArrowForward } from "../elements/icons/arrow_forward";
-
-//an individual LinkChip comprising the title and url attributes of the chip.
-export interface LinkChip {
-  //a unique identifier for the chip (used for map keys)
-  id: string;
-  //the title of the chip - this will be the text of the link
-  title: string;
-  //the url of the chip link
-  url: string;
-}
+import { LinkChip } from "../elements/link_chip";
 
 interface LinkChipsProps {
   //the variant of the link chip to display: elevated is a raised grey chip and flat is a flat blue chip
@@ -52,7 +33,7 @@ interface LinkChipsProps {
   title?: string;
   //the section gives location of the chip component in order to give context for the GA event
   section: string;
-  //the link
+  //an array of link chips to be rendered by the component
   linkChips: LinkChip[];
 }
 
@@ -77,7 +58,7 @@ export const LinkChips = ({
             {title}
           </h3>
         )}
-        <ul
+        <div
           css={css`
             margin: 0;
             padding: 0;
@@ -91,59 +72,14 @@ export const LinkChips = ({
           `}
         >
           {linkChips.map((linkChip) => (
-            <li
+            <LinkChip
               key={linkChip.id}
-              className={`${variant}`}
-              css={css`
-                display: block;
-                list-style: none;
-                &.elevated {
-                  a {
-                    ${theme.box.primary};
-                    ${theme.elevation.primary};
-                    ${theme.colors.link.primary.base};
-                    .icon > svg {
-                      fill: ${theme.colors.link.primary.base};
-                    }
-                  }
-                }
-                &.flat {
-                  a {
-                    ${theme.box.secondary};
-                    ${theme.colors.text.primary.base};
-                    .icon > svg {
-                      fill: ${theme.colors.text.primary.base};
-                    }
-                  }
-                }
-              `}
-            >
-              <a
-                href={linkChip.url}
-                onClick={(): void => {
-                  triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
-                    [GA_PARAM_ID]: `${section} ${linkChip.id}`,
-                    [GA_PARAM_URL]: linkChip.url,
-                  });
-                }}
-                css={css`
-                  ${theme.typography.family.text};
-                  ${theme.typography.text.md};
-                  ${theme.radius.primary};
-                  line-height: 1rem;
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  gap: ${theme.spacing.sm}px;
-                  padding: 10px ${theme.spacing.lg}px 10px ${theme.spacing.md}px;
-                `}
-              >
-                <ArrowForward height={"24px"} />
-                {linkChip.title}
-              </a>
-            </li>
+              variant={variant}
+              section={section}
+              linkChip={linkChip}
+            />
           ))}
-        </ul>
+        </div>
       </div>
     </section>
   );

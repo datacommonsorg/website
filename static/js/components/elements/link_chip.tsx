@@ -1,0 +1,114 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * A component that renders a link chip - a commonly used component that
+ * displays a link inside a Material Design style chip.
+ */
+
+/** @jsxImportSource @emotion/react */
+
+import { css, useTheme } from "@emotion/react";
+import React, { ReactElement } from "react";
+
+import {
+  GA_EVENT_HOMEPAGE_CLICK,
+  GA_PARAM_ID,
+  GA_PARAM_URL,
+  triggerGAEvent,
+} from "../../shared/ga_events";
+
+//an individual LinkChip comprising the title and url attributes of the chip.
+export interface LinkChip {
+  //a unique identifier for the chip (used for map keys)
+  id: string;
+  //the title of the chip - this will be the text of the link
+  title: string;
+  //the url of the chip link
+  url: string;
+}
+
+interface LinkChipProps {
+  //the variant of the link chip to display: elevated is a raised grey chip and flat is a flat blue chip
+  variant?: "elevated" | "flat";
+  //the link chip to be displayed
+  linkChip: LinkChip;
+  //the section gives location of the chip component in order to give context for the GA event
+  section?: string;
+}
+
+export const LinkChip = ({
+  variant = "elevated",
+  linkChip,
+  section = "",
+}: LinkChipProps): ReactElement => {
+  const theme = useTheme();
+
+  const chipStyles = css`
+    ${variant === "elevated" ? theme.box.primary : theme.box.secondary};
+    ${variant === "elevated" ? theme.elevation.primary : ""};
+    ${variant === "elevated"
+      ? theme.colors.link.primary.base
+      : theme.colors.text.primary.base};
+    ${theme.typography.family.text};
+    ${theme.typography.text.md};
+    ${theme.radius.primary};
+    line-height: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: ${theme.spacing.sm}px;
+    padding: 10px ${theme.spacing.lg}px 10px ${theme.spacing.md}px;
+
+    .icon > svg {
+      fill: ${variant === "elevated"
+        ? theme.colors.link.primary.base
+        : theme.colors.text.primary.base};
+    }
+  `;
+
+  return (
+    <div
+      key={linkChip.id}
+      css={css`
+        display: block;
+      `}
+    >
+      <a
+        href={linkChip.url}
+        onClick={(): void => {
+          triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
+            [GA_PARAM_ID]: `${section} ${linkChip.id}`,
+            [GA_PARAM_URL]: linkChip.url,
+          });
+        }}
+        css={chipStyles}
+      >
+        <span className="icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 -960 960 960"
+            width="24px"
+          >
+            <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
+          </svg>
+        </span>
+        {linkChip.title}
+      </a>
+    </div>
+  );
+};
