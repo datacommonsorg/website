@@ -67,7 +67,7 @@ export const LinkChip = ({
     ${theme.typography.text.md};
     ${theme.radius.primary};
     line-height: 1rem;
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
     gap: ${theme.spacing.sm}px;

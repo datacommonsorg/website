@@ -18,6 +18,9 @@
  * A component to display the home hero component
  */
 
+/** @jsxImportSource @emotion/react */
+
+import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import { HeroSimple } from "../../../components/content/hero_simple";
@@ -30,19 +33,35 @@ interface HomeHeroProps {
 }
 
 export const HomeHero = ({ linkChips }: HomeHeroProps): ReactElement => {
+  const theme = useTheme();
   return (
     <HeroSimple>
-      <>
-        <h3>
+      <div
+        css={css`
+          width: 100%;
+          max-width: ${theme.width.md}px;
+          @media (max-width: ${theme.breakpoints.md}px) {
+            max-width: 100%;
+          }
+        `}
+      >
+        <h1
+          css={css`
+            ${theme.typography.heading.xl}
+            margin-bottom: ${theme.spacing.xxl}px;
+          `}>
           Data Commons aggregates and harmonizes global, open data, giving
           everyone the power to uncover insights with natural language questions
-        </h3>
+        </h1>
         <LinkChips
           title={"Topics to explore"}
           section="topic"
           linkChips={linkChips}
         />
-        <div>
+        <div
+          css={css`
+            margin-top: ${theme.spacing.xxl}px;
+          `}>
           <LinkChip
             variant="flat"
             linkChip={{
@@ -52,7 +71,7 @@ export const HomeHero = ({ linkChips }: HomeHeroProps): ReactElement => {
             }}
           />
         </div>
-      </>
+      </div>
     </HeroSimple>
   );
 };
