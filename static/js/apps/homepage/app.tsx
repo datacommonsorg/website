@@ -66,7 +66,7 @@ export function App({
 
   return (
     <ThemeProvider theme={theme}>
-      <HomeHero routes={routes} linkChips={topicLinkChips} />
+      <HomeHero linkChips={topicLinkChips} />
 
       <Section>
         <SampleQuestions sampleQuestions={sampleQuestions} />
