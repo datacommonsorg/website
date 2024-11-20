@@ -18,6 +18,13 @@
  * A component that renders a series of chips that function as links with titles
  */
 
+/**
+ * A component to display a big text
+ */
+
+/** @jsxImportSource @emotion/react */
+
+import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import {
@@ -55,13 +62,62 @@ export const LinkChips = ({
   section,
   linkChips,
 }: LinkChipsProps): ReactElement => {
+  const theme = useTheme();
   return (
     <section className="chip-section">
       <div className="container">
-        {title && <h3>{title} </h3>}
-        <ul className="chip-container">
+        {title && (
+          <h3
+            css={css`
+              ${theme.typography.family.heading};
+              ${theme.typography.heading.xs};
+              margin-bottom: ${theme.spacing.lg}px;
+            `}
+          >
+            {title}
+          </h3>
+        )}
+        <ul
+          css={css`
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 80%;
+            gap: ${theme.spacing.md}px;
+            @media (max-width: ${theme.breakpoints.md}px) {
+              max-width: 100%;
+            }
+          `}
+        >
           {linkChips.map((linkChip) => (
-            <li key={linkChip.id} className={`chip-item ${variant}`}>
+            <li
+              key={linkChip.id}
+              className={`${variant}`}
+              css={css`
+                display: block;
+                list-style: none;
+                &.elevated {
+                  a {
+                    ${theme.box.primary};
+                    ${theme.elevation.primary};
+                    ${theme.colors.link.primary.base};
+                    .icon > svg {
+                      fill: ${theme.colors.link.primary.base};
+                    }
+                  }
+                }
+                &.flat {
+                  a {
+                    ${theme.box.secondary};
+                    ${theme.colors.text.primary.base};
+                    .icon > svg {
+                      fill: ${theme.colors.text.primary.base};
+                    }
+                  }
+                }
+              `}
+            >
               <a
                 href={linkChip.url}
                 onClick={(): void => {
@@ -70,6 +126,17 @@ export const LinkChips = ({
                     [GA_PARAM_URL]: linkChip.url,
                   });
                 }}
+                css={css`
+                  ${theme.typography.family.text};
+                  ${theme.typography.text.md};
+                  ${theme.radius.primary};
+                  line-height: 1rem;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  gap: ${theme.spacing.sm}px;
+                  padding: 10px ${theme.spacing.lg}px 10px ${theme.spacing.md}px;
+                `}
               >
                 <ArrowForward height={"24px"} />
                 {linkChip.title}

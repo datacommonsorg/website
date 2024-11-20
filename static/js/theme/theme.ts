@@ -65,7 +65,8 @@ const DC_BLUE_PILL_BCKG = "hsl(218.2, 91.7%, 95.3%)";
 
 const DC_BLUE_DARK = "hsl(217.4, 89.6%, 15.1%)";
 const DC_BLUE_LIGHT = "hsl(218, 57.1%, 62.5%)";
-const DC_BLUE_LIGHTER = "hsl(220, 100%, 98.2%)";
+const DC_BLUE_LIGHTER = "hsl(203.6, 100%, 88%)";
+const DC_BLUE_WHITE = "hsl(220, 100%, 98.2%)";
 
 const DC_GREEN = "hsl(137.7, 68.8%, 25.1%)";
 const DC_GREEN_PILL_TEXT = "hsl(138.8, 69.6%, 9%)";
@@ -99,7 +100,7 @@ const theme: Theme = {
       primary: {
         base: DC_WHITE,
         dark: DC_BLUE_DARK,
-        light: DC_BLUE_LIGHTER,
+        light: DC_BLUE_WHITE,
       },
     },
     box: {
@@ -133,6 +134,7 @@ const theme: Theme = {
       primary: {
         base: DC_BLUE,
         light: DC_BLUE_LIGHT,
+        dark: DC_BLUE_DARK,
       },
     },
   },
@@ -156,7 +158,7 @@ const theme: Theme = {
         fontWeight: 400,
       },
       sm: {
-        fontSize: "0.875",
+        fontSize: "0.875rem",
         lineHeight: "1.25rem",
         fontWeight: 400,
       },
@@ -222,6 +224,13 @@ const theme: Theme = {
       textDecoration: "none",
       ["&:hover"]: {
         backgroundColor: DC_BLUE_PILL_BCKG,
+      },
+    },
+    secondary: {
+      backgroundColor: DC_BLUE_PILL_BCKG,
+      textDecoration: "none",
+      ["&:hover"]: {
+        backgroundColor: DC_BLUE_LIGHTER,
       },
     },
   },
