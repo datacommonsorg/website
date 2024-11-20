@@ -54,20 +54,21 @@ const WIDTH = {
 
 const DC_BLACK = "hsl(0, 0%, 18.82%)";
 const DC_WHITE = "hsl(255, 100%, 100%)";
-const DC_BONE = "hsl(216, 55.6%, 98.2%)";
+const DC_BONE = "hsl(216, 55%, 98%)";
 
-const DC_BLUE = "hsl(216.9, 90%, 42.9%)";
-const DC_BLUE_PILL_TEXT = "hsl(217.4, 89.6%, 15.1%)";
-const DC_BLUE_PILL_BCKG = "hsl(218.2, 91.7%, 95.3%)";
+const DC_BLUE = "hsl(217, 90%, 43%)";
+const DC_BLUE_PILL_TEXT = "hsl(217, 90%, 15%)";
+const DC_BLUE_PILL_BCKG = "hsl(218, 92%, 95%)";
+const DC_BLUE_PILL_BCKG_HOVER = "hsl(204, 90%, 80%)";
 
 const DC_BLUE_DARK = "hsl(217.4, 89.6%, 15.1%)";
 const DC_BLUE_LIGHT = "hsl(218, 57.1%, 62.5%)";
-const DC_BLUE_LIGHTER = "hsl(203.6, 100%, 88%)";
+const DC_BLUE_LIGHTER = "hsl(204, 100%, 88%)";
 const DC_BLUE_WHITE = "hsl(220, 100%, 98.2%)";
 
-const DC_GREEN = "hsl(137.7, 68.8%, 25.1%)";
-const DC_GREEN_PILL_TEXT = "hsl(138.8, 69.6%, 9%)";
-const DC_GREEN_PILL_BCKG = "hsl(137.1, 55.3%, 85.1%)";
+const DC_GREEN = "hsl(137, 68%, 25%)";
+const DC_GREEN_PILL_TEXT = "hsl(139, 70%, 9%)";
+const DC_GREEN_PILL_BCKG = "hsl(137, 55%, 85%)";
 
 const DC_RED = "hsl(3.2, 71.3%, 41%)";
 const DC_RED_PILL_TEXT = "hsl(3.3, 71.1%, 14.9%)";
@@ -225,10 +226,10 @@ const theme: Theme = {
       },
     },
     secondary: {
-      backgroundColor: DC_BLUE_PILL_BCKG,
+      backgroundColor: DC_BLUE_LIGHTER,
       textDecoration: "none",
       ["&:hover"]: {
-        backgroundColor: DC_BLUE_LIGHTER,
+        backgroundColor: DC_BLUE_PILL_BCKG_HOVER,
       },
     },
   },
