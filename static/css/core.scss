@@ -266,10 +266,15 @@ section {
           }
         }
         h4 {
+          display: inline-flex;
+          align-items: center;
           font-family: $font-family-google-title;
           font-size: 1rem;
           font-weight: 500;
           margin-bottom: 16px;
+          .icon {
+            font-size: 20px;
+          }
         }
         p,
         .link-item,
@@ -292,8 +297,10 @@ section {
                 text-decoration: underline;
               }
             }
-            .material-icons-outlined {
-              font-size: 18px;
+            .icon {
+              display: flex;
+              align-items: center;
+              font-size: 17px;
             }
           }
         }
@@ -404,16 +411,14 @@ section {
       padding: 0;
       background-color: transparent;
       cursor: pointer;
-      .material-icons-outline {
-        color: #5e5e5e;
+      color: #5e5e5e;
+      font-size: 32px;
+      transform: translateY(1px); // Optical correction
+      @media (max-width: 340px) {
+        font-size: 24px;
       }
-      .big {
-        font-size: 32px;
-        color: #5e5e5e;
-        transform: translateY(1px); // Optical correction
-        @media (max-width: 340px) {
-          font-size: 24px;
-        }
+      &.menu-toggle-close, &.menu-toggle-back {
+        font-size: 24px;
       }
     }
 
@@ -511,6 +516,9 @@ section {
                   border: 0;
                   margin: 0;
                   color: #474747;
+                  .icon {
+                    font-size: 24px;
+                  }
                 }
               }
             }
@@ -561,8 +569,10 @@ section {
                     text-decoration: underline;
                   }
                 }
-                .material-icons-outlined {
-                  font-size: 18px;
+                .icon {
+                  display: flex;
+                  align-items: center;
+                  font-size: 17px;
                 }
               }
             }
@@ -615,6 +625,11 @@ section {
     border: none;
     border-color: var(--gm-3-ref-neutral-neutral-40);
 
+    .search-icon {
+      font-size: 24px;
+      line-height: 1;
+    }
+
     .search-bar-content {
       display: flex;
       flex-wrap: nowrap;
@@ -628,6 +643,9 @@ section {
         display: flex;
         align-items: center;
         color: #f1f1f1;
+        svg {
+          font-size: 24px;
+        }
       }
 
       .search-input-text {

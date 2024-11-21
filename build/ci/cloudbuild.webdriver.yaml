@@ -15,7 +15,7 @@
 steps:
   # Build the static files
   - id: package_js
-    name: gcr.io/datcom-ci/node:2024-06-11
+    name: gcr.io/datcom-ci/node:2024-11-19
     entrypoint: /bin/bash
     waitFor: ["-"]
     args:
@@ -31,32 +31,26 @@ steps:
         # These js files generated will be necessery for the flask_webdriver_test task.
         ./run_test.sh -b
 
-  # Download the files needed for nl server to run. Do the download here because
-  # webdriver runs on mulitple processes & we only want to do the download once.
-  - id: download_nl_files
+  - id: setup_python
     name: python:3.11.3
-    entrypoint: /bin/sh
-    waitFor:
-      - package_js
+    entrypoint: /bin/bash
+    waitFor: ["-"]
     args:
       - -c
       - |
-        cd tools/nl/download_nl_files
-        ./run.sh
+        ./run_test.sh --setup_python
 
   # Run the webdriver tests
   - id: flask_webdriver_test
     name: gcr.io/datcom-ci/webdriver-chrome:2024-06-05
     entrypoint: /bin/sh
-    waitFor:
-      - download_nl_files
+    waitFor: ["package_js", "setup_python"]
     args:
       - -c
       - |
-        ./run_test.sh --setup_python
         ./run_test.sh -w
 
-timeout: 2700s # 45 minutes
+timeout: 1800s # 30 minutes
 
 options:
   machineType: "E2_HIGHCPU_32"
