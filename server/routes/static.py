@@ -79,12 +79,6 @@ def feedback():
   return lib_render.render_page("static/feedback.html", "feedback.html")
 
 
-# TODO(beets): Move this to a separate handler so it won't be installed on all apps.
-@bp.route('/translator')
-def translator_handler():
-  return render_template('translator.html')
-
-
 @bp.route('/healthz')
 def healthz():
   return "very healthy"
