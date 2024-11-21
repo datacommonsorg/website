@@ -72,6 +72,7 @@ export function AutoCompleteInput(
   props: AutoCompleteInputPropType
 ): ReactElement {
   const wrapperRef = useRef(null);
+  const controller = useRef(new AbortController());
   const [baseInput, setBaseInput] = useState("");
   const [inputText, setInputText] = useState("");
   // TODO(gmechali): Implement stat var search.
@@ -89,6 +90,7 @@ export function AutoCompleteInput(
 
   const isHeaderBar = props.barType == "header";
   let lang = "";
+
 
   useEffect(() => {
     // One time initialization of event listener to clear suggested results on scroll.
@@ -190,16 +192,30 @@ export function AutoCompleteInput(
 
   const triggerAutoCompleteRequest = useCallback(async (query: string) => {
     setLastScrollYOnTrigger(window.scrollY);
+    // Abort the previous request
+    if (controller.current) {
+      controller.current.abort(); 
+    }
+
+    // Create a new AbortController for the current request
+    controller.current = new AbortController(); 
+
     await axios
-      .get(`/api/autocomplete?query=${query}&hl=${lang}`, {})
+      .get(`/api/autocomplete?query=${query}&hl=${lang}`, {
+        signal: controller.current.signal 
+      })
       .then((response) => {
-        setResults({
-          placeResults: response["data"]["predictions"],
-          svResults: [],
-        });
+        if (!controller.current.signal.aborted) { 
+          setResults({
+            placeResults: response["data"]["predictions"],
+            svResults: [],
+          });
+        }
       })
       .catch((err) => {
-        console.log("Error fetching autocomplete suggestions: " + err);
+        if (!axios.isCancel(err)) {  
+          console.log("Error fetching autocomplete suggestions: " + err);
+        }
       });
   }, []);
 
