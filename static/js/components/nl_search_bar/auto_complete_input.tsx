@@ -91,7 +91,6 @@ export function AutoCompleteInput(
   const isHeaderBar = props.barType == "header";
   let lang = "";
 
-
   useEffect(() => {
     // One time initialization of event listener to clear suggested results on scroll.
     window.addEventListener("scroll", () => {
@@ -194,18 +193,18 @@ export function AutoCompleteInput(
     setLastScrollYOnTrigger(window.scrollY);
     // Abort the previous request
     if (controller.current) {
-      controller.current.abort(); 
+      controller.current.abort();
     }
 
     // Create a new AbortController for the current request
-    controller.current = new AbortController(); 
+    controller.current = new AbortController();
 
     await axios
       .get(`/api/autocomplete?query=${query}&hl=${lang}`, {
-        signal: controller.current.signal 
+        signal: controller.current.signal,
       })
       .then((response) => {
-        if (!controller.current.signal.aborted) { 
+        if (!controller.current.signal.aborted) {
           setResults({
             placeResults: response["data"]["predictions"],
             svResults: [],
@@ -213,7 +212,7 @@ export function AutoCompleteInput(
         }
       })
       .catch((err) => {
-        if (!axios.isCancel(err)) {  
+        if (!axios.isCancel(err)) {
           console.log("Error fetching autocomplete suggestions: " + err);
         }
       });

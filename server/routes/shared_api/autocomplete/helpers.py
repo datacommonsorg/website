@@ -56,8 +56,9 @@ CUSTOM_PLACES = [{
     'description': 'Asia',
     'place_dcid': 'asia'
 }] + TWO_WORD_CUSTOM_PLACES
-SKIP_AUTOCOMPLETE_TRIGGER = ["tell", "me", "show", "about", "which", "what", "when", "how"]
-
+SKIP_AUTOCOMPLETE_TRIGGER = [
+    "tell", "me", "show", "about", "which", "what", "when", "how"
+]
 
 # Exceptions for the 3 letter trigger rule. These queries can trigger on only two letters.
 TWO_LETTER_TRIGGERS = {"us"}
