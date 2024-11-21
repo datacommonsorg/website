@@ -28,7 +28,7 @@ class NLWebServerTestCase(unittest.TestCase):
   def setUpClass(cls):
     # If this check fail, you need to start up website and NL servers
     # with ./run_servers.sh before running pytest.
-    libutil.check_backend_ready([f'{cls.get_class_server_url()}/healthz'])
+    libutil.check_backend_ready([f'{cls.get_class_server_url()}/health'])
 
   @classmethod
   def get_class_server_url(cls):
