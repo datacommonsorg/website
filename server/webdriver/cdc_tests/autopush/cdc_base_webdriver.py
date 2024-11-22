@@ -19,5 +19,6 @@ class CdcAutopushTestBase(WebdriverBaseTest):
   """Base class for CDC Autopush webdriver tests."""
   dc_title_string = "Custom Data Commons"
 
-  def get_server_url(self):
+  @classmethod
+  def get_class_server_url(cls):
     return CDC_AUTOPUSH_URL
