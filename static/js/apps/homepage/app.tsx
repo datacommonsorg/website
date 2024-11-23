@@ -22,7 +22,6 @@ import { ThemeProvider } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import Partners from "../../components/content/partners";
-import Tools from "../../components/content/tools";
 import { Section } from "../../components/elements/layout/section";
 import { Link } from "../../components/elements/link_chip";
 import { GA_EVENT_HOMEPAGE_CLICK } from "../../shared/ga_events";
@@ -36,6 +35,7 @@ import theme from "../../theme/theme";
 import { BuildYourOwn } from "./components/build_your_own";
 import { HomeHero } from "./components/home_hero";
 import { SampleQuestions } from "./components/sample_questions";
+import Tools from "./components/tools";
 import { UnitedNations } from "./components/united_nations";
 
 interface AppProps {
