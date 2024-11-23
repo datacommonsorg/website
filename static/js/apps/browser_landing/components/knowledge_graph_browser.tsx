@@ -20,7 +20,7 @@
 
 import React, { ReactElement } from "react";
 
-import { KnowledgeGraph } from "../../shared/types/knowledge_graph";
+import { KnowledgeGraph } from "../../../shared/types/knowledge_graph";
 
 interface KnowledgeGraphBrowserProps {
   //an object containing the categorized links that make up the knowledge graph

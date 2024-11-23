@@ -21,8 +21,8 @@
 import React, { ReactElement } from "react";
 
 import { IntroText } from "../../components/content/intro_text";
-import { KnowledgeGraphBrowser } from "../../components/knowledge_graph/knowledge_graph_browser";
 import { KnowledgeGraphCategory } from "../../shared/types/knowledge_graph";
+import { KnowledgeGraphBrowser } from "./components/knowledge_graph_browser";
 import knowledgeGraphData from "./knowledge_graph.json";
 
 const knowledgeGraph: KnowledgeGraphCategory[] = knowledgeGraphData;
