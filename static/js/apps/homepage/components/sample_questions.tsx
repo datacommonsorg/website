@@ -41,17 +41,20 @@ const colors: ("green" | "blue" | "red" | "yellow" | "grey")[] = [
   "grey",
 ];
 
+const MAX_QUESTIONS_PER_CATEGORY = 2;
+
 const calculateColumnsPerSlide = (): number => {
   if (window.innerWidth < BREAKPOINTS.sm) return 1;
   if (window.innerWidth < BREAKPOINTS.md) return 2;
   return 3;
 };
 
-const getRandomQuestionFromCategory = (
-  category: SampleQuestionCategory
-): string => {
-  const randomIndex = Math.floor(Math.random() * category.questions.length);
-  return category.questions[randomIndex];
+const getRandomQuestionsFromCategory = (
+  category: SampleQuestionCategory,
+  count: number
+): string[] => {
+  const shuffled = category.questions.slice().sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, Math.min(count, category.questions.length));
 };
 
 export const SampleQuestions = ({
@@ -98,6 +101,10 @@ export const SampleQuestions = ({
             .slice(i, i + columnsPerSlide)
             .map((category, index) => {
               const overallIndex = i + index;
+              const randomQuestions = getRandomQuestionsFromCategory(
+                category,
+                MAX_QUESTIONS_PER_CATEGORY
+              );
 
               return (
                 <div
@@ -111,7 +118,7 @@ export const SampleQuestions = ({
                     gap: ${theme.spacing.lg}px;
                   `}
                 >
-                  {category.questions.map((question) => (
+                  {randomQuestions.map((question) => (
                     <LinkBox
                       key={question}
                       link={sampleQuestionToLink(question)}
@@ -150,8 +157,8 @@ export const SampleQuestions = ({
           `}
         >
           {sampleQuestions.map((category, index) => {
-            const question = getRandomQuestionFromCategory(category);
-            return (
+            const randomQuestions = getRandomQuestionsFromCategory(category, 1);
+            return randomQuestions.map((question) => (
               <LinkBox
                 key={question}
                 link={sampleQuestionToLink(question)}
@@ -159,7 +166,7 @@ export const SampleQuestions = ({
                 section={`sample-q ${index}-single`}
                 category={category.category}
               />
-            );
+            ));
           })}
         </div>
       </div>
