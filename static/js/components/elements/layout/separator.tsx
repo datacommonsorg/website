@@ -15,7 +15,8 @@
  */
 
 /**
- * A page separator that optionaly adds either space and or border
+ * A page separator that adds either space and or border to a page.
+ * The spacing is in the same proportions as the section components.
  */
 
 /** @jsxImportSource @emotion/react */
@@ -23,17 +24,17 @@
 import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
-interface SectionProps {
-  //a variant that determines the vertical (y) padding of the section
+interface SeparatorProps {
+  //a variant that determines the vertical (y) padding added to the page
   variant?: "standard" | "small" | "large" | "compact";
-  //a variant that determines the visibility of the border
+  //a variant that determines the visibility of the border - defaults to true
   border?: boolean;
 }
 
 export const Separator = ({
   variant = "compact",
   border = true,
-}: SectionProps): ReactElement => {
+}: SeparatorProps): ReactElement => {
   const theme = useTheme();
 
   const padding =
