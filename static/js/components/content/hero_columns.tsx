@@ -18,6 +18,9 @@
  * A component to display the columned hero component.
  */
 
+/** @jsxImportSource @emotion/react */
+
+import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 interface HeroColumnsProps {
@@ -32,18 +35,78 @@ interface HeroColumnsSlotProps {
 }
 
 const HeroColumnsLeft = ({ children }: HeroColumnsSlotProps): ReactElement => {
-  return <div className="col_left">{children}</div>;
+  const theme = useTheme();
+  return (
+    <header
+      css={css`
+        display: flex;
+        flex-direction: column;
+        gap: ${theme.spacing.xxl}px;
+        @media (max-width: ${theme.breakpoints.sm}px) {
+          gap: ${theme.spacing.md}px;
+        }
+      `}
+    >
+      {children}
+    </header>
+  );
 };
 
 const HeroColumnsRight = ({ children }: HeroColumnsSlotProps): ReactElement => {
-  return <div className="col_right">{children}</div>;
+  const theme = useTheme();
+  return (
+    <div
+      css={css`
+        display: flex;
+        flex-direction: column;
+        gap: ${theme.spacing.xxl}px;
+        @media (max-width: ${theme.breakpoints.sm}px) {
+          gap: ${theme.spacing.md}px;
+          margin-bottom: ${theme.spacing.xxl}px;
+        }
+      `}
+    >
+      {children}
+    </div>
+  );
 };
 
 export const HeroColumns = ({ children }: HeroColumnsProps): ReactElement => {
+  const theme = useTheme();
   return (
-    <section id="hero-columns" className="hero-columns">
-      <div className="container big">{children}</div>
-    </section>
+    <article
+      css={css`
+        display: grid;
+        grid-template-columns: 6fr 4fr;
+        gap: ${theme.spacing.xl}px;
+        @media (max-width: ${theme.breakpoints.sm}px) {
+          display: block;
+        }
+        & > div,
+        & > header {
+          color: ${theme.colors.text.primary.light};
+          a {
+            color: ${theme.colors.link.primary.light};
+          }
+          h2,
+          h1 {
+            ${theme.typography.family.heading};
+            ${theme.typography.heading.xl};
+          }
+          h3,
+          h4 {
+            ${theme.typography.family.heading};
+            ${theme.typography.heading.xs};
+          }
+          p {
+            ${theme.typography.family.text};
+            ${theme.typography.text.md};
+          }
+        }
+      `}
+    >
+      {children}
+    </article>
   );
 };
 

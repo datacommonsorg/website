@@ -36,15 +36,7 @@ export const HomeHero = ({ linkChips }: HomeHeroProps): ReactElement => {
   const theme = useTheme();
   return (
     <HeroSimple>
-      <div
-        css={css`
-          width: 100%;
-          max-width: ${theme.width.md}px;
-          @media (max-width: ${theme.breakpoints.md}px) {
-            max-width: 100%;
-          }
-        `}
-      >
+      <>
         <h1
           css={css`
             ${theme.typography.heading.xl}
@@ -56,6 +48,7 @@ export const HomeHero = ({ linkChips }: HomeHeroProps): ReactElement => {
         </h1>
         <LinkChips
           header={"Topics to explore"}
+          headerComponent="h4"
           section="topic"
           linkChips={linkChips}
         />
@@ -73,7 +66,7 @@ export const HomeHero = ({ linkChips }: HomeHeroProps): ReactElement => {
             }}
           />
         </div>
-      </div>
+      </>
     </HeroSimple>
   );
 };
