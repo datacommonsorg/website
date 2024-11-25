@@ -15,31 +15,26 @@
  */
 
 /**
- * A page section that defines a block of content with standard spacing,
- * widths and colors.
+ * A page separator that optionaly adds either space and or border
  */
 
 /** @jsxImportSource @emotion/react */
 
 import { css, useTheme } from "@emotion/react";
-import React, { ReactElement, ReactNode } from "react";
+import React, { ReactElement } from "react";
 
 interface SectionProps {
   //a variant that determines the vertical (y) padding of the section
   variant?: "standard" | "small" | "large" | "compact";
-  //a variant that determines the background color of the section
-  colorVariant?: "base" | "light" | "dark";
-  //the content of the section
-  children?: ReactNode;
+  //a variant that determines the visibility of the border
+  border?: boolean;
 }
 
-export const Section = ({
-  colorVariant = "base",
-  variant = "standard",
-  children,
+export const Separator = ({
+  variant = "compact",
+  border = true,
 }: SectionProps): ReactElement => {
   const theme = useTheme();
-  const color = theme.colors.background.primary[colorVariant ?? "base"];
 
   const padding =
     variant === "large"
@@ -51,30 +46,24 @@ export const Section = ({
       : theme.sections.standard;
 
   return (
-    <section
+    <div
       css={css`
-        background-color: ${color};
+        margin: auto;
+        width: 100%;
+        max-width: ${theme.width.xl}px;
+        padding: ${padding}px ${theme.spacing.lg}px;
+        border-bottom: ${border === false ? "0" : "1px"} solid
+          ${theme.colors.border.primary.light};
+        @media (max-width: ${theme.breakpoints.xl}px) {
+          padding: ${padding}px ${theme.spacing.lg}px;
+        }
+        @media (max-width: ${theme.breakpoints.lg}px) {
+          max-width: ${theme.width.lg}px;
+        }
+        @media (max-width: ${theme.breakpoints.md}px) {
+          max-width: 100%;
+        }
       `}
-    >
-      <div
-        css={css`
-          margin: auto;
-          width: 100%;
-          max-width: ${theme.width.xl}px;
-          padding: ${padding}px 0;
-          @media (max-width: ${theme.breakpoints.xl}px) {
-            padding: ${padding}px ${theme.spacing.lg}px;
-          }
-          @media (max-width: ${theme.breakpoints.lg}px) {
-            max-width: ${theme.width.lg}px;
-          }
-          @media (max-width: ${theme.breakpoints.md}px) {
-            max-width: 100%;
-          }
-        `}
-      >
-        {children}
-      </div>
-    </section>
+    ></div>
   );
 };

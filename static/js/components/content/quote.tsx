@@ -18,23 +18,50 @@
  * A component to display a splash quote
  */
 
+/** @jsxImportSource @emotion/react */
+
+import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 interface QuoteProps {
+  //a variant that determines the alignment
+  alignment?: "left" | "center" | "right";
   //the quote content
   quote: string;
   //the person or organization responsible for the quote
   byline: string;
 }
 
-const Quote = ({ quote, byline }: QuoteProps): ReactElement => {
+const Quote = ({
+  alignment = "center",
+  quote,
+  byline,
+}: QuoteProps): ReactElement => {
+  const theme = useTheme();
+
   return (
-    <section id="quote" className="quote">
-      <div className="container">
-        <blockquote>“{quote}”</blockquote>
-        <p>- {byline}</p>
-      </div>
-    </section>
+    <article
+      css={css`
+        text-align: ${alignment};
+      `}
+    >
+      <blockquote
+        css={css`
+          ${theme.typography.family.heading};
+          ${theme.typography.heading.xl};
+        `}
+      >
+        “{quote}”
+      </blockquote>
+      <p
+        css={css`
+          ${theme.typography.family.text};
+          ${theme.typography.text.lg};
+        `}
+      >
+        - {byline}
+      </p>
+    </article>
   );
 };
 

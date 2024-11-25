@@ -41,18 +41,20 @@ const SPACING = {
 const SECTIONS = {
   compact: 0,
   small: 32,
-  standard: 48,
+  standard: 64,
   large: 110,
 };
 
 const WIDTH = {
-  sm: 0,
-  md: 645,
+  xs: 0,
+  sm: 645,
+  md: 750,
   lg: 1040,
   xl: 1310,
 };
 
 const DC_BLACK = "hsl(0, 0%, 18.82%)";
+
 const DC_WHITE = "hsl(255, 100%, 100%)";
 const DC_BONE = "hsl(216, 55%, 98%)";
 
@@ -81,6 +83,7 @@ const DC_YELLOW_PILL_BCKG = "hsl(40.4, 100%, 91%)";
 const DC_GRAY = "hsl(160, 2.2%, 27.3%)";
 const DC_GRAY_PILL_TEXT = DC_YELLOW;
 const DC_GRAY_PILL_BCKG = "hsl(240, 20.8%, 90.6%)";
+const DC_GRAY_LIGHT = "hsl(0, 0%, 78%)";
 
 const theme: Theme = {
   breakpoints: BREAKPOINTS,
@@ -100,6 +103,13 @@ const theme: Theme = {
         base: DC_WHITE,
         dark: DC_BLUE_DARK,
         light: DC_BLUE_WHITE,
+      },
+    },
+    border: {
+      primary: {
+        base: DC_WHITE,
+        dark: DC_BLUE_DARK,
+        light: DC_GRAY_LIGHT,
       },
     },
     box: {
@@ -130,6 +140,13 @@ const theme: Theme = {
       },
     },
     link: {
+      primary: {
+        base: DC_BLUE,
+        light: DC_BLUE_LIGHT,
+        dark: DC_BLUE_DARK,
+      },
+    },
+    button: {
       primary: {
         base: DC_BLUE,
         light: DC_BLUE_LIGHT,
@@ -248,6 +265,9 @@ const theme: Theme = {
   radius: {
     none: {
       borderRadius: "0",
+    },
+    full: {
+      borderRadius: "1000px",
     },
     primary: {
       borderRadius: "32px",

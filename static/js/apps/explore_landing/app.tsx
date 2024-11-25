@@ -61,19 +61,25 @@ export function App(): ReactElement {
     `/explore#q=${encodeURIComponent(placeholderQuery.title)}&dc=${dc}`;*/
   return (
     <ThemeProvider theme={theme}>
-      <ExploreIntro topic={topic} />
+      <Section>
+        <ExploreIntro topic={topic} />
+      </Section>
 
-      <Queries queries={topic.examples.general} appName="explore" />
+      <Section variant="compact">
+        <Queries queries={topic.examples.general} appName="explore" />
+      </Section>
 
       <Section>
         <StatVarQueries queries={topic.examples.statvar ?? []} />
       </Section>
 
-      <Queries
-        title={`Compare data in relation to ${topic.title.toLowerCase()}`}
-        queries={topic.examples.comparison}
-        appName="explore"
-      />
+      <Section>
+        <Queries
+          title={`Compare data in relation to ${topic.title.toLowerCase()}`}
+          queries={topic.examples.comparison}
+          appName="explore"
+        />
+      </Section>
     </ThemeProvider>
   );
 }

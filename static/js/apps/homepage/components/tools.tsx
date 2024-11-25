@@ -40,10 +40,10 @@ const Tools = ({ routes }: ToolsProps): ReactElement => {
   const theme = useTheme();
   return (
     <>
-      <div
+      <header
         css={css`
           width: 100%;
-          max-width: ${theme.width.md}px;
+          max-width: ${theme.width.sm}px;
           margin-bottom: ${theme.spacing.xl}px;
           @media (max-width: ${theme.breakpoints.md}px) {
             max-width: 100%;
@@ -54,6 +54,7 @@ const Tools = ({ routes }: ToolsProps): ReactElement => {
           css={css`
             ${theme.typography.family.heading};
             ${theme.typography.heading.md};
+            margin-bottom: ${theme.spacing.xl}px;
           `}
         >
           Data Commons tools
@@ -67,7 +68,7 @@ const Tools = ({ routes }: ToolsProps): ReactElement => {
           Data Commons addresses offers data exploration tools and cloud-based
           APIs to access and integrate cleaned datasets.
         </p>
-      </div>
+      </header>
       <div
         css={css`
           display: flex;

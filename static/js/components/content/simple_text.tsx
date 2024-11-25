@@ -17,7 +17,9 @@
 /**
  * A component to display a simple text block
  */
+/** @jsxImportSource @emotion/react */
 
+import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 interface SimpleTextProps {
@@ -26,10 +28,23 @@ interface SimpleTextProps {
 }
 
 const SimpleText = ({ children }: SimpleTextProps): ReactElement => {
+  const theme = useTheme();
   return (
-    <section id="simple-text" className="simple-text">
-      <div className="container">{children}</div>
-    </section>
+    <article
+      css={css`
+        h3 {
+          ${theme.typography.family.heading};
+          ${theme.typography.heading.sm};
+          margin-bottom: ${theme.spacing.lg}px;
+        }
+        p {
+          ${theme.typography.family.text};
+          ${theme.typography.text.md};
+        }
+      `}
+    >
+      {children}
+    </article>
   );
 };
 

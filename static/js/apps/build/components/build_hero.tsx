@@ -26,7 +26,7 @@ export const BuildHero = (): ReactElement => {
   return (
     <HeroColumns>
       <HeroColumns.Left>
-        <h2 className="title">
+        <h2>
           Build your Data Commons, overlay your data with global data, and let
           everyone in your organization uncover insights with natural language
           questions.{" "}

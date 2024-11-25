@@ -65,6 +65,13 @@ export interface Theme {
         dark?: string;
       };
     };
+    border?: {
+      primary?: {
+        base?: string;
+        light?: string;
+        dark?: string;
+      };
+    };
     background?: {
       primary?: {
         base?: string;
@@ -339,6 +346,9 @@ export interface Theme {
   };
   radius: {
     none: {
+      borderRadius: string;
+    };
+    full: {
       borderRadius: string;
     };
     primary: {

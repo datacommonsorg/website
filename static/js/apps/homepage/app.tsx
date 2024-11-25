@@ -23,6 +23,7 @@ import React, { ReactElement } from "react";
 
 import Partners from "../../components/content/partners";
 import { Section } from "../../components/elements/layout/section";
+import { Separator } from "../../components/elements/layout/separator";
 import { Link } from "../../components/elements/link_chip";
 import { GA_EVENT_HOMEPAGE_CLICK } from "../../shared/ga_events";
 import { Routes } from "../../shared/types/base";
@@ -66,15 +67,19 @@ export function App({
 
   return (
     <ThemeProvider theme={theme}>
-      <HomeHero linkChips={topicLinkChips} />
+      <Section colorVariant="light">
+        <HomeHero linkChips={topicLinkChips} />
+      </Section>
 
       <Section>
         <SampleQuestions sampleQuestions={sampleQuestions} />
       </Section>
 
-      <Section variant="large" colorVariant="light">
+      <Section variant="small">
         <Tools routes={routes} />
       </Section>
+
+      <Separator border={false} variant="small" />
 
       <Section variant="large" colorVariant="dark">
         <BuildYourOwn routes={routes} />
@@ -83,6 +88,8 @@ export function App({
       <Section>
         <UnitedNations routes={routes} />
       </Section>
+
+      <Separator />
 
       <Section>
         <Partners partners={partners} gaEvent={GA_EVENT_HOMEPAGE_CLICK} />

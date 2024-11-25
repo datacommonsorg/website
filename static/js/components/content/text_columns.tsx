@@ -18,6 +18,9 @@
  * A component to display textual content in two columns
  */
 
+/** @jsxImportSource @emotion/react */
+
+import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 interface TextColumnsProps {
@@ -34,26 +37,77 @@ interface TextColumnsSlotProps {
 }
 
 const TextColumnsLeft = ({ children }: TextColumnsSlotProps): ReactElement => {
-  return <div className="col_left">{children}</div>;
+  return <div>{children}</div>;
 };
 
 const TextColumnsRight = ({ children }: TextColumnsSlotProps): ReactElement => {
-  return <div className="col_right">{children}</div>;
+  return <div>{children}</div>;
 };
 
 export const TextColumns = ({
   header,
   children,
 }: TextColumnsProps): ReactElement => {
+  const theme = useTheme();
   return (
-    <>
+    <article
+      css={css`
+        display: grid;
+        grid-template-columns: 6fr 4fr;
+        gap: ${theme.spacing.lg}px ${theme.spacing.xl}px;
+        @media (max-width: ${theme.breakpoints.sm}px) {
+          display: block;
+        }
+        & > div {
+          h3,
+          h4 {
+            ${theme.typography.family.heading};
+            ${theme.typography.heading.xl};
+            margin-bottom: ${theme.spacing.lg}px;
+          }
+          p {
+            ${theme.typography.family.text};
+            ${theme.typography.text.md};
+          }
+          ul {
+            margin: 0;
+            padding-left: ${theme.spacing.xl}px;
+          }
+          a.btn-primary {
+            ${theme.radius.full};
+            ${theme.typography.family.text};
+            ${theme.typography.text.md};
+            padding: ${theme.spacing.md}px ${theme.spacing.xl}px;
+            background-color: ${theme.colors.button.primary.base};
+            &:hover {
+              ${theme.elevation.primary}
+            }
+          }
+        }
+      `}
+    >
       {header && (
-        <header className="header">
-          <h3>{header}</h3>
+        <header
+          css={css`
+            grid-column: 1 / span 2;
+            order: 0;
+            @media (max-width: ${theme.breakpoints.sm}px) {
+              grid-column: 1;
+            }
+          `}
+        >
+          <h3
+            css={css`
+              ${theme.typography.family.heading};
+              ${theme.typography.heading.xl};
+            `}
+          >
+            {header}
+          </h3>
         </header>
       )}
-      <div className="text_columns">{children}</div>
-    </>
+      {children}
+    </article>
   );
 };
 

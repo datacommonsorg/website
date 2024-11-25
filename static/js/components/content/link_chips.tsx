@@ -54,12 +54,14 @@ export const LinkChips = ({
           css={css`
             & > h3 {
               ${theme.typography.family.heading};
-              ${theme.typography.heading.xs};
+              ${theme.typography.heading.md};
               margin-bottom: ${theme.spacing.lg}px;
             }
 
             & > h4 {
+              ${theme.typography.family.heading};
               ${theme.typography.heading.xs}
+              margin-bottom: ${theme.spacing.lg}px;
             }
 
             & > p {
