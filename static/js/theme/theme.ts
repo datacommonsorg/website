@@ -217,20 +217,24 @@ const theme: Theme = {
         fontSize: "2rem",
         lineHeight: "2.5rem",
         fontWeight: 300,
+        [`@media (max-width: ${BREAKPOINTS.md}px)`]: {
+          fontSize: "1.75rem",
+          lineHeight: "2.25rem",
+        },
       },
       lg: {
         fontSize: "2.25rem",
         lineHeight: "2.75rem",
         fontWeight: 300,
+        [`@media (max-width: ${BREAKPOINTS.md}px)`]: {
+          fontSize: "2rem",
+          lineHeight: "2.5rem",
+        },
       },
       xl: {
-        fontSize: "2.25rem",
+        fontSize: "3rem",
         lineHeight: "2.75rem",
         fontWeight: 300,
-        [`@media (max-width: ${BREAKPOINTS.sm}px)`]: {
-          fontSize: "1.375rem",
-          lineHeight: "1.75rem",
-        },
       },
     },
   },

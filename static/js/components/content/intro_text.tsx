@@ -41,7 +41,7 @@ export const IntroText = ({ children }: IntroTextProps): ReactElement => {
         h2,
         h1 {
           ${theme.typography.family.heading}
-          ${theme.typography.heading.xl}
+          ${theme.typography.heading.lg}
           margin-bottom: ${theme.spacing.xl}px;
         }
         p {
