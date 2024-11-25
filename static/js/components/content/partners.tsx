@@ -43,7 +43,7 @@ const Partners = ({ partners, gaEvent }: PartnersProps): ReactElement => {
     <>
       <header
         css={css`
-          margin-bottom: ${theme.spacing.lg};
+          margin-bottom: ${theme.spacing.lg}px;
         `}
       >
         <h3

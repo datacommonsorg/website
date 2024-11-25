@@ -34,7 +34,7 @@ export const BigText = ({ children }: BigTextProps): ReactElement => {
     <article
       css={css`
         width: 100%;
-        max-width: ${theme.width.md}px;
+        max-width: ${theme.width.sm}px;
         @media (max-width: ${theme.breakpoints.md}px) {
           max-width: 100%;
         }

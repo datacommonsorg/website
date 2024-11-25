@@ -19,13 +19,16 @@
  * This is set as a carousel with the anticipation that more items
  * will be added. If we do not, it can be simplified.
  */
+/** @jsxImportSource @emotion/react */
 
+import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import { MediaText } from "../../../components/content/media_text";
 import SlideCarousel from "../../../components/elements/slide_carousel";
 
 export const OneDataCommons = (): ReactElement => {
+  const theme = useTheme();
   const createSlides = (): ReactElement[] => {
     return [
       <MediaText
@@ -55,8 +58,23 @@ export const OneDataCommons = (): ReactElement => {
 
   return (
     <>
-      <header className="header">
-        <h3>ONE Data Commons</h3>
+      <header
+        css={css`
+          width: 100%;
+          max-width: ${theme.width.sm}px;
+          margin-bottom: ${theme.spacing.lg}px;
+          @media (max-width: ${theme.breakpoints.md}px) {
+            max-width: 100%;
+          }
+        `}
+      >
+        <h3
+          css={css`
+            ${theme.typography.heading.lg}
+          `}
+        >
+          ONE Data Commons
+        </h3>
       </header>
       <SlideCarousel slides={slides} />
     </>

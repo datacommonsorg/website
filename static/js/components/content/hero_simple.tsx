@@ -17,7 +17,9 @@
 /**
  * A component to display the primary video hero component
  */
+/** @jsxImportSource @emotion/react */
 
+import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 interface SimpleHeroProps {
@@ -26,9 +28,18 @@ interface SimpleHeroProps {
 }
 
 export const HeroSimple = ({ children }: SimpleHeroProps): ReactElement => {
+  const theme = useTheme();
   return (
-    <section id="hero" className="hero">
-      <div className="container">{children}</div>
-    </section>
+    <article
+      css={css`
+        width: 100%;
+        max-width: ${theme.width.sm}px;
+        @media (max-width: ${theme.breakpoints.md}px) {
+          max-width: 100%;
+        }
+      `}
+    >
+      {children}
+    </article>
   );
 };

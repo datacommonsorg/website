@@ -23,6 +23,7 @@ import React, { ReactElement } from "react";
 
 import Partners from "../../components/content/partners";
 import { Section } from "../../components/elements/layout/section";
+import { Separator } from "../../components/elements/layout/separator";
 import { GA_EVENT_BUILDPAGE_CLICK } from "../../shared/ga_events";
 import { Partner } from "../../shared/types/homepage";
 import theme from "../../theme/theme";
@@ -43,15 +44,17 @@ interface AppProps {
 export function App({ partners }: AppProps): ReactElement {
   return (
     <ThemeProvider theme={theme}>
-      <BuildHero />
+      <Section colorVariant="dark" variant="large">
+        <BuildHero />
+      </Section>
 
       <Section>
         <DataCommonsGlance />
       </Section>
 
-      <hr className="separator" />
+      <Separator />
 
-      <Section variant="small">
+      <Section>
         <OneQuote />
       </Section>
 
@@ -63,7 +66,7 @@ export function App({ partners }: AppProps): ReactElement {
         <Partners partners={partners} gaEvent={GA_EVENT_BUILDPAGE_CLICK} />
       </Section>
 
-      <hr className="separator" />
+      <Separator />
 
       <Section>
         <GetStarted />
