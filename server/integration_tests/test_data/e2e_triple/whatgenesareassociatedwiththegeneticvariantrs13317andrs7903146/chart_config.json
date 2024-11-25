@@ -9,6 +9,24 @@
               {
                 "tiles": [
                   {
+                    "answerMessageTileSpec": {
+                      "propertyExpr": "<-geneticVariantID{typeOf:DiseaseGeneticVariantAssociation}->diseaseID"
+                    },
+                    "entities": [
+                      "bio/rs7903146"
+                    ],
+                    "title": "The associated diseases for rs7903146 are",
+                    "type": "ANSWER_MESSAGE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "entities": [
                       "bio/rs7903146"
                     ],
@@ -47,5 +65,7 @@
     "peerTopics": []
   },
   "svSource": "UNKNOWN",
-  "userMessages": []
+  "userMessages": [
+    "Low confidence in understanding your query. Displaying the closest results."
+  ]
 }

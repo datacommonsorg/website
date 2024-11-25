@@ -20,7 +20,7 @@
 @import "base";
 
 $header-desktop-height: 96px;
-$header-mobile-height: 152px;
+$header-mobile-height: 142px;
 $header-mobile-height-xs: 128px;
 $header-max-width: 1728px;
 
@@ -83,7 +83,7 @@ section {
   box-shadow: 0 1px 2px rgb(94, 94, 94, 0.1);
 }
 
-#main-nav {
+#main-navbar-container {
   position: relative;
   width: 100vw;
   height: fit-content;
@@ -110,9 +110,23 @@ section {
       display: flex;
       flex-shrink: 0;
       align-items: center;
-      white-space: nowrap;
-      a {
-        font-size: 1rem !important;
+      gap: calc(#{var.$spacing} * 2);
+      .main-header-logo {
+        img {
+          display: block;
+          margin: 0;
+          padding: 0;
+          max-width: 35px;
+        }
+      }
+      .main-header-name {
+        margin: 0;
+        padding: 0;
+        color: #000;
+        font-size: 1rem;
+        &:hover {
+          text-decoration: none;
+        }
       }
     }
 
@@ -252,10 +266,15 @@ section {
           }
         }
         h4 {
+          display: inline-flex;
+          align-items: center;
           font-family: $font-family-google-title;
           font-size: 1rem;
           font-weight: 500;
           margin-bottom: 16px;
+          .icon {
+            font-size: 20px;
+          }
         }
         p,
         .link-item,
@@ -278,8 +297,10 @@ section {
                 text-decoration: underline;
               }
             }
-            .material-icons-outlined {
-              font-size: 18px;
+            .icon {
+              display: flex;
+              align-items: center;
+              font-size: 17px;
             }
           }
         }
@@ -346,9 +367,23 @@ section {
       display: flex;
       flex-shrink: 0;
       align-items: center;
-      white-space: nowrap;
-      a {
-        font-size: 1rem !important;
+      gap: calc(#{var.$spacing} * 2);
+      .main-header-logo {
+        img {
+          display: block;
+          margin: 0;
+          padding: 0;
+          max-width: 35px;
+        }
+      }
+      .main-header-name {
+        margin: 0;
+        padding: 0;
+        color: #000;
+        font-size: 1rem;
+        &:hover {
+          text-decoration: none;
+        }
       }
     }
 
@@ -376,16 +411,14 @@ section {
       padding: 0;
       background-color: transparent;
       cursor: pointer;
-      .material-icons-outline {
-        color: #5e5e5e;
+      color: #5e5e5e;
+      font-size: 32px;
+      transform: translateY(1px); // Optical correction
+      @media (max-width: 340px) {
+        font-size: 24px;
       }
-      .big {
-        font-size: 32px;
-        color: #5e5e5e;
-        transform: translateY(1px); // Optical correction
-        @media (max-width: 340px) {
-          font-size: 24px;
-        }
+      &.menu-toggle-close, &.menu-toggle-back {
+        font-size: 24px;
       }
     }
 
@@ -483,6 +516,9 @@ section {
                   border: 0;
                   margin: 0;
                   color: #474747;
+                  .icon {
+                    font-size: 24px;
+                  }
                 }
               }
             }
@@ -533,8 +569,10 @@ section {
                     text-decoration: underline;
                   }
                 }
-                .material-icons-outlined {
-                  font-size: 18px;
+                .icon {
+                  display: flex;
+                  align-items: center;
+                  font-size: 17px;
                 }
               }
             }
@@ -565,7 +603,7 @@ section {
 .header-search-section {
   display: flex;
   flex-direction: column;
-  margin: 24px 0;
+  padding-top: 22px;
   flex-shrink: 0;
   flex-grow: 2;
   @include media-breakpoint-up(xl) {
@@ -577,12 +615,20 @@ section {
   @include media-breakpoint-down(sm) {
     padding-right: 0;
   }
+  @media (max-width: 620px) {
+    padding-top: 0;
+  }
 
   .search-bar {
     align-items: center;
     background: var(--gm-3-ref-primary-primary-100);
     border: none;
     border-color: var(--gm-3-ref-neutral-neutral-40);
+
+    .search-icon {
+      font-size: 24px;
+      line-height: 1;
+    }
 
     .search-bar-content {
       display: flex;
@@ -597,6 +643,9 @@ section {
         display: flex;
         align-items: center;
         color: #f1f1f1;
+        svg {
+          font-size: 24px;
+        }
       }
 
       .search-input-text {

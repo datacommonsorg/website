@@ -57,7 +57,7 @@ const HeaderBar = ({
 
   return (
     <div id="main-header-container">
-      <nav id="main-nav">
+      <nav id="main-navbar-container">
         <div className="navbar-menu-large">
           <HeaderLogo
             name={name}

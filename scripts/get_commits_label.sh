@@ -5,7 +5,7 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#      http://www.apache.org/licenses/LICENSE-2.0
+#      https://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,17 +13,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Reassigns the customdc_stable tag to the HEAD commit on the specified remote.
+# Make a label for container images using the combined commit hash of website
+# and its submods.
 
-set -e
+# Optionally use the commit before HEAD for the main repo.
+if [[ "$1" == "--head-is-temporary" ]]; then
+  website_rev="$(git rev-parse --short HEAD~1)"
+else
+  website_rev="$(git rev-parse --short HEAD)"
+fi
+mixer_rev="$(git rev-parse --short HEAD:mixer)"
+import_rev="$(git rev-parse --short HEAD:import)"
+image_label="${website_rev}-${mixer_rev}-${import_rev}"
 
-TAG_NAME=customdc_stable
-
-read -p "Enter name of remote where the tag should be created (e.g. upstream, dc): " REMOTE_NAME
-
-git push $REMOTE_NAME :refs/tags/$TAG_NAME
-git tag -fa $TAG_NAME
-git push $REMOTE_NAME refs/tags/$TAG_NAME
-
-echo "Tag URL: https://github.com/datacommonsorg/website/releases/tag/customdc_stable"
-
+echo "$image_label"

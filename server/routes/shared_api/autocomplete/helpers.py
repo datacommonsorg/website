@@ -16,6 +16,7 @@ import json
 import logging
 import re
 from typing import Dict, List
+import unicodedata
 from urllib.parse import urlencode
 
 from flask import current_app
@@ -55,6 +56,12 @@ CUSTOM_PLACES = [{
     'description': 'Asia',
     'place_dcid': 'asia'
 }] + TWO_WORD_CUSTOM_PLACES
+SKIP_AUTOCOMPLETE_TRIGGER = [
+    "tell", "me", "show", "about", "which", "what", "when", "how"
+]
+
+# Exceptions for the 3 letter trigger rule. These queries can trigger on only two letters.
+TWO_LETTER_TRIGGERS = {"us"}
 
 
 def find_queries(user_query: str) -> List[str]:
@@ -66,6 +73,12 @@ def find_queries(user_query: str) -> List[str]:
   words_in_query = re.split(rgx, user_query)
   queries = []
   cumulative = ""
+
+  last_word = words_in_query[-1].lower().strip()
+  if last_word in SKIP_AUTOCOMPLETE_TRIGGER:
+    # don't return any queries.
+    return []
+
   for word in reversed(words_in_query):
     # Extract at most 3 subqueries.
     if len(queries) >= MAX_NUM_OF_QUERIES:
@@ -77,8 +90,9 @@ def find_queries(user_query: str) -> List[str]:
     else:
       cumulative = word
 
-    # Only send queries 3 characters or longer.
-    if (len(cumulative) >= MIN_CHARACTERS_PER_QUERY):
+    # Only send queries 3 characters or longer, except for the exceptions in TWO_LETTER_TRIGGERS.
+    if (len(cumulative) >= MIN_CHARACTERS_PER_QUERY or
+        (len(cumulative) == 2 and cumulative.lower() in TWO_LETTER_TRIGGERS)):
       queries.append(cumulative)
 
   # Start by running the longer queries.
@@ -135,11 +149,21 @@ def off_by_one_letter(str1_word: str, name_word: str) -> bool:
   return offby <= 1
 
 
+def sanitize_and_replace_non_ascii(string: str) -> str:
+  """Sanitize and replace non ascii.
+  Returns:
+    String sanitized and without accents, cedillas, or enye."""
+  nfkd_form = unicodedata.normalize('NFKD', string)
+  return "".join([c for c in nfkd_form if not unicodedata.combining(c)])
+
+
 def get_match_score(match_string: str, name: str) -> float:
   """Computes a 'score' based on the matching words in two strings. Lowest
   score is best match.
   Returns:
     Float score."""
+  name = sanitize_and_replace_non_ascii(name)
+  match_string = sanitize_and_replace_non_ascii(match_string)
 
   rgx = re.compile(r'[\s|,]+')
   words_in_name = re.split(rgx, name)

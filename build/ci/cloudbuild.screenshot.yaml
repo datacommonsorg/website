@@ -15,7 +15,7 @@
 steps:
   # Build the static files
   - id: package_js
-    name: gcr.io/datcom-ci/node:2024-06-11
+    name: gcr.io/datcom-ci/node:2024-11-19
     entrypoint: /bin/bash
     waitFor: ["-"]
     args:

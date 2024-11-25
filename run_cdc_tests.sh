@@ -20,4 +20,9 @@ set -e
 source .env/bin/activate
 export FLASK_ENV=webdriver
 
-python3 -m pytest --reruns 2 server/webdriver/cdc_tests/
+# Like run_test.sh, use flag -g for updating goldens.
+if [[ "$1" == "-g" ]]; then
+  export TEST_MODE=write
+fi
+
+python3 -m pytest -n auto --reruns 2 server/webdriver/cdc_tests/
