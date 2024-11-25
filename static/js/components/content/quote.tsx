@@ -48,7 +48,7 @@ const Quote = ({
       <blockquote
         css={css`
           ${theme.typography.family.heading};
-          ${theme.typography.heading.xl};
+          ${theme.typography.heading.lg};
         `}
       >
         “{quote}”

@@ -62,7 +62,7 @@ export const TextColumns = ({
           h3,
           h4 {
             ${theme.typography.family.heading};
-            ${theme.typography.heading.xl};
+            ${theme.typography.heading.lg};
             margin-bottom: ${theme.spacing.lg}px;
           }
           p {
@@ -99,7 +99,7 @@ export const TextColumns = ({
           <h3
             css={css`
               ${theme.typography.family.heading};
-              ${theme.typography.heading.xl};
+              ${theme.typography.heading.lg};
             `}
           >
             {header}

@@ -91,7 +91,7 @@ export const HeroColumns = ({ children }: HeroColumnsProps): ReactElement => {
           h2,
           h1 {
             ${theme.typography.family.heading};
-            ${theme.typography.heading.xl};
+            ${theme.typography.heading.lg};
           }
           h3,
           h4 {

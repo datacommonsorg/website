@@ -39,7 +39,7 @@ export const HomeHero = ({ linkChips }: HomeHeroProps): ReactElement => {
       <>
         <h1
           css={css`
-            ${theme.typography.heading.xl}
+            ${theme.typography.heading.lg}
             margin-bottom: ${theme.spacing.xxl}px;
           `}
         >
