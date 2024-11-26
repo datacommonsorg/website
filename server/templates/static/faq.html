@@ -57,42 +57,25 @@
     <dd>The LLMs powering Data Commons’ Explore interface use generative AI to
       identify the most likely response to your query. As we continue to improve
       the interface, we will look to provide more options that allow the user to
-      select sources themselves. For now, you can always click the “Explore in …”
-      Tool setting to change the source of data.
+      select sources themselves.
 
-    <dt>Q: Can I submit or suggest data I think should be added to Data Commons?
+    <dt>Q: Is my data suitable to the base Data Commons </dt>
+
+    <dt>Q: How do I suggest data I think should be added to Data Commons?
     <dd>Yes, Data Commons is meant to be for the community, by the community and
-      we welcome new submissions or suggestions. If you’d like to submit data,
-      please review <a
-      href="https://github.com/datacommonsorg/data/tree/master/docs">these
-      resources</a> and follow <a
-      href="https://github.com/datacommonsorg/data">this development
-      process</a>. If you have a suggestion, please use <a
-      href="https://docs.google.com/forms/d/17BlSP8xLadDJFiimPvJQmoPWI_XV52ujhS59rW1lq3w/edit">this
-      Google Form</a>.
-
-    <dt>Q: How can we access data in Data Commons?
-    <dd>The data in knowledge graph can be accessed through the
-      <a href="{{ url_for('browser.browser_main') }}">Data Commons Knowledge Graph</a>,
-      <a href="{{ url_for('tools.visualization')}}">Data Commons Visualization tools</a>,
-      and APIs for
-      <a href="https://docs.datacommons.org/api/python">Python</a>,
-      <a href="https://docs.datacommons.org/api/rest/v2">REST</a> and
-      <a href="https://docs.datacommons.org/api/sheets">Google Sheets</a>.
-
+      we welcome new submissions or suggestions. If you are interested in importing your data to Data Commons, 
+      please file a <a href="https://issuetracker.google.com/issues/new?component=1660823&template=2053232" target="_blank">data request</a> in our issue tracker.
     <dt>Q: Where can I download all the data?
     <dd>Given the size and evolving nature of the Data Commons knowledge graph,
-      we prefer you access it via the APIs. If your project needs local access to
-      a large fraction of the Data Commons Knowledge Graph, please <a
-      href="https://docs.google.com/forms/d/17XRFdbXHomz5cwAwSAg1jUj3r3TxGT_HABgXhSM1204/edit?resourcekey=0-yJ9nT9ST-TfoKNtmGIws-g">fill
-      out this form</a>.
+      you cannot download _all_ the data. You can download all the data pertaining to a specific subset of metrics (variables).
+      You can use the <a href="https://datacommons.org/tools/download">Data Download Tool</a> to download CSV files, or you can use the
+      <a href="docs.datacommons.org/api/ target="_blank">APIs</a> to programmatically retrieve data in JSON format.
 
     <dt>Q: How do we know if the data is accurate?
     <dd>Data Commons provides an access mechanism to data, but cannot ensure
       accuracy. To provide as much context as possible, answers to queries will
       include the provenance (source of the data). The choice of which data to use
-      is up to individuals. If you find something you think is in error, we would
-      love to <a href="{{ url_for('static.feedback') }}">hear from you</a>.
+      is up to individuals. If you find something you think is in error, please file a bug </a>.
 
     <dt>Q: How often is the data refreshed?
     <dd>Different data sources refresh at different frequencies. We try to keep
