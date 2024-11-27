@@ -26,7 +26,6 @@
 {% block content %}
 <div class="container">
   <h1>Frequently Asked Questions </h1>
-  {% toc %}
   <dl>
     <dt>Q: What is Data Commons?
     <dd>Data Commons, an open source initiative from Google, organizes the
@@ -90,14 +89,14 @@
       select sources themselves.
 
     <dt>Q: Is my data suitable for adding to Data Commons?</dt>
-    <dd>Data Commons is intended for public, statistical, macrodata that benefits by being joined with other macrodata to derive deeper insights. Your data is a good
+    <dd>Data Commons is intended for public, statistical, macro data that benefits by being joined with other macrodata to derive deeper insights. Your data is a good
     fit for Data Commons if it meets the following criteria:
     <ul>
-    <li>It can be licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons BY</a> (CC BY) agreement</li>.
-    <li>It is <pre-aggregated class=""></pre-aggregated></li>
+    <li>It can be licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons BY</a> (CC BY) agreement.</li>
+    <li>It is pre-aggregated up to a minimal level that is common to other datasets; for example, an administrative area.</li>
     </ul>
-    You can run your own Data Commons instance for data that is private and not appropriate for CC BY licensing. However, micro-data, i.e. individual-level data,
-    cannot currently be aggregated by Data Commons. In general, if there is no way to join your data with existing Data Commons data, on a common entity
+    You can run your own Data Commons instance for data that is private and not appropriate for CC BY licensing. However, micro data, i.e. individual-level data,
+    cannot currently be aggregated by Data Commons. In general, if there is no way to join your data with existing Data Commons datasets, on a common entity
     such as an administrative area or institution, there isn't much benefit to using Data Commons. 
     To determine whether your data is best served by the base Data Commons (Google-run datacommons.org) or by a custom instance that you run yourself,
     see the <a href="https://docs.datacommons.org/custom_dc/faq.html" target="_blank">Custom Data Commons FAQ</a>.
@@ -111,7 +110,7 @@
   
       <dt>Q: Where can I download all the data?
     <dd>Given the size and evolving nature of the Data Commons knowledge graph,
-      you cannot download _all_ the data. You can download all the data pertaining to a specific subset of metrics (variables).
+      you cannot download <em>all</em> the data. You can download all the data pertaining to a specific subset of metrics (variables).
       You can use the <a href="https://datacommons.org/tools/download">Data Download Tool</a> to download CSV files, or you can use the
       <a href="https://docs.datacommons.org/api/" target="_blank">APIs</a> to programmatically retrieve data in JSON format.
 
