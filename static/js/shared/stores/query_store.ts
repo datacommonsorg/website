@@ -23,7 +23,7 @@
 import { QueryResult } from "../../types/app/explore_types";
 
 type Listener = (store: QueryStore, changeType: ChangeType) => void;
-type ChangeType =
+export type ChangeType =
   | "debugObject"
   | "queryString"
   | "handleSearchFunction"

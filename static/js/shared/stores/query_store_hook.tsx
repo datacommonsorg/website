@@ -22,7 +22,7 @@
 import { useEffect, useState } from "react";
 
 import { QueryResult } from "../../types/app/explore_types";
-import { QueryStore } from "./query_store";
+import { ChangeType, QueryStore } from "./query_store";
 
 interface QueryStoreData {
   queryString: string;
@@ -42,16 +42,20 @@ export const useQueryStore = (): QueryStoreData => {
   const [queryResult, setQueryResultState] = useState<QueryResult>(null);
   const [debugData, setDebugDataState] = useState<any>({});
 
+  /**
+   * This useEffect subscribes to the QueryStore and updates the component's state whenever the store changes,
+   * ensuring that the local state of the hook reflect the current store state. This local state is then
+   * provided to the component that consumes the hook, allowing the hook to act as an intermediary between
+   * the store and the consuming component.
+   *
+   * The subscription is then cleaned on component unmount.
+   */
   useEffect(() => {
     const queryStore = (globalThis.queryStore as QueryStore) || null;
 
     const handleStoreUpdate = (
       store: typeof queryStore,
-      changeType:
-        | "debugObject"
-        | "queryString"
-        | "handleSearchFunction"
-        | "queryResult"
+      changeType: ChangeType
     ): void => {
       if (changeType === "queryString") {
         const newQueryString = store.getQueryString();
