@@ -35,11 +35,19 @@ window.addEventListener("load", (): void => {
 });
 
 function renderPage(): void {
+  const metadataContainer = document.getElementById("metadata-base");
+
   const hashParams = queryString.parse(window.location.hash);
+  //if there is no metadataContainer, we do not hide the searchbar (as we are in a base where the flags
+  //are not prepared)
+  const hideHeaderSearchBar =
+    !metadataContainer ||
+    metadataContainer.dataset.hideHeaderSearchBar?.toLowerCase() === "true";
+
   // use demo mode when there are autoplay queries in the url hash
   const isDemo = !!hashParams[URL_HASH_PARAMS.AUTO_PLAY_QUERY];
   ReactDOM.render(
-    React.createElement(App, { isDemo }),
+    React.createElement(App, { isDemo, hideHeaderSearchBar }),
     document.getElementById("dc-explore")
   );
 }
