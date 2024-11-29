@@ -21,7 +21,7 @@
 import axios from "axios";
 import _ from "lodash";
 import queryString from "query-string";
-import React, { useEffect, useRef, useState } from "react";
+import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { RawIntlProvider } from "react-intl";
 import { Container } from "reactstrap";
 
@@ -88,10 +88,18 @@ function getAutoPlayQueries(): string[] {
   return toApiList(queryListParam);
 }
 
+interface AppProps {
+  //true if the app is in demo mode
+  isDemo: boolean;
+  //if true, there is no header bar search, and so we display search inline
+  //if false, there is a header bar search, and so we do not display search inline
+  hideHeaderSearchBar: boolean;
+}
+
 /**
  * Application container
  */
-export function App(props: { isDemo: boolean }): JSX.Element {
+export function App(props: AppProps): ReactElement {
   const [loadingStatus, setLoadingStatus] = useState<string>(
     props.isDemo ? LoadingStatus.DEMO_INIT : LoadingStatus.LOADING
   );
@@ -147,6 +155,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
             exploreContext={exploreContext}
             queryResult={queryResult}
             userMessage={userMessage}
+            hideHeaderSearchBar={props.hideHeaderSearchBar}
           />
         )}
         {loadingStatus === LoadingStatus.LOADING && (
@@ -171,6 +180,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
             queryResult={queryResult}
             pageMetadata={pageMetadata}
             userMessage={userMessage}
+            hideHeaderSearchBar={props.hideHeaderSearchBar}
           />
         )}
       </Container>
