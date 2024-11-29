@@ -275,10 +275,9 @@
     position: relative;
   }
 
-  .debug-info-toggle {
-    top: -0.5rem;
-    right: 1.5rem;
-    padding: 0;
+  .debug-info-open {
+    top: 20px!important;
+    right: -10px!important;
   }
 }
 
