@@ -1,4 +1,5 @@
-# Copyright 2023 Google LLC
+#!/bin/bash
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,15 +12,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""Data Commons translator page."""
 
-from flask import Blueprint
-from flask import render_template
-
-bp = Blueprint('static', __name__)
-
-
-# TODO(beets): Move this to a separate handler so it won't be installed on all apps.
-@bp.route('/translator')
-def translator():
-  return render_template('translator.html')
+python3 -m venv .env
+source .env/bin/activate
+python3 -m pip install --upgrade pip
+pip3 install -r requirements.txt
+python3 generate_icon.py "$@"

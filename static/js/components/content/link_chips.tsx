@@ -26,6 +26,7 @@ import {
   GA_PARAM_URL,
   triggerGAEvent,
 } from "../../shared/ga_events";
+import { ArrowForward } from "../elements/icons/arrow_forward";
 
 //an individual LinkChip comprising the title and url attributes of the chip.
 export interface LinkChip {
@@ -38,43 +39,39 @@ export interface LinkChip {
 }
 
 interface LinkChipsProps {
+  //the variant of the link chip to display: elevated is a raised grey chip and flat is a flat blue chip
+  variant?: "elevated" | "flat";
   //the title of the component, displayed as a header above the chips
   title?: string;
+  //the section gives location of the chip component in order to give context for the GA event
+  section: string;
   //the link
   linkChips: LinkChip[];
 }
 
 export const LinkChips = ({
+  variant = "elevated",
   title,
+  section,
   linkChips,
 }: LinkChipsProps): ReactElement => {
   return (
-    <section id="chip-section" className="chip-section">
+    <section className="chip-section">
       <div className="container">
-        {title && <h3>{title}</h3>}
+        {title && <h3>{title} </h3>}
         <ul className="chip-container">
           {linkChips.map((linkChip) => (
-            <li key={linkChip.id} className="chip-item">
+            <li key={linkChip.id} className={`chip-item ${variant}`}>
               <a
                 href={linkChip.url}
                 onClick={(): void => {
                   triggerGAEvent(GA_EVENT_HOMEPAGE_CLICK, {
-                    [GA_PARAM_ID]: `topic ${linkChip.id}`,
+                    [GA_PARAM_ID]: `${section} ${linkChip.id}`,
                     [GA_PARAM_URL]: linkChip.url,
                   });
-                  window.location.href = linkChip.url;
                 }}
               >
-                <span className="icon">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    height="24px"
-                    viewBox="0 -960 960 960"
-                    width="24px"
-                  >
-                    <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
-                  </svg>
-                </span>
+                <ArrowForward height={"24px"} />
                 {linkChip.title}
               </a>
             </li>

@@ -30,7 +30,7 @@ SERVICE_ACCOUNT="$NAME@$PROJECT_ID.iam.gserviceaccount.com"
 
 # Data store project roles
 declare -a store_roles=(
-    "roles/bigquery.admin"   # BigQuery
+    "roles/bigquery.dataViewer"   # BigQuery
     "roles/bigtable.reader" # Bigtable
     "roles/storage.objectViewer" # Branch Cache Read
     "roles/pubsub.editor" # Branch Cache Subscription

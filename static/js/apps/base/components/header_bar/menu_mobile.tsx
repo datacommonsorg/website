@@ -24,6 +24,10 @@ import React, {
   useState,
 } from "react";
 
+import { ArrowBack } from "../../../../components/elements/icons/arrow_back";
+import { ArrowForward } from "../../../../components/elements/icons/arrow_forward";
+import { Close } from "../../../../components/elements/icons/close";
+import { Menu } from "../../../../components/elements/icons/menu";
 import {
   GA_EVENT_HEADER_CLICK,
   GA_PARAM_ID,
@@ -119,7 +123,7 @@ const MenuMobile = ({
         ))}
       </div>
       <button className="menu-toggle" onClick={toggleDrawer}>
-        <span className="material-icons-outlined big">menu</span>
+        <Menu />
       </button>
 
       <div className={`overlay ${open ? "open" : ""}`} onClick={toggleDrawer} />
@@ -133,18 +137,18 @@ const MenuMobile = ({
           <div className="header">
             <button
               onClick={toggleDrawer}
-              className="menu-toggle"
+              className="menu-toggle menu-toggle-close"
               tabIndex={tabIndex}
             >
-              <span className="material-icons-outlined">close</span>
+              <Close />
             </button>
             {selectedPrimaryItemIndex !== null && (
               <button
                 onClick={handleBackClick}
-                className="menu-toggle"
+                className="menu-toggle menu-toggle-back"
                 tabIndex={tabIndex}
               >
-                <span className="material-icons-outlined">arrow_back</span>
+                <ArrowBack />
               </button>
             )}
           </div>
@@ -182,8 +186,8 @@ const MenuMobile = ({
                           tabIndex={tabIndex}
                         >
                           <span>{labels[item.label]}</span>
-                          <span className="material-icons-outlined">
-                            arrow_forward
+                          <span className="icon">
+                            <ArrowForward />
                           </span>
                         </button>
                       </>

@@ -18,6 +18,8 @@
 
 import React, { ReactElement } from "react";
 
+import { ArrowOutward } from "../../../../components/elements/icons/arrow_outward";
+import { RssFeed } from "../../../../components/elements/icons/rss_feed";
 import { HeaderMenuItemLink, Routes } from "../../../../shared/types/base";
 import { resolveHref } from "../../utilities/utilities";
 
@@ -48,10 +50,12 @@ const MenuRichLinkGroup = ({
                 className={"link"}
                 tabIndex={tabIndex}
               >
-                <span className="material-icons-outlined">rss_feed</span>
+                <span className="icon">
+                  <RssFeed />
+                </span>
                 <span className="link-title">RSS Feed</span>
               </a>
-              {link.title && <p>• {link.title}</p>}
+              {link.title && <span>• {link.title}</span>}
             </>
           ) : (
             <a
@@ -60,7 +64,9 @@ const MenuRichLinkGroup = ({
               tabIndex={tabIndex}
             >
               {link.linkType === "external" && (
-                <span className="material-icons-outlined">arrow_outward</span>
+                <span className="icon">
+                  <ArrowOutward />
+                </span>
               )}
               <span className="link-title">{link.title}</span>
             </a>

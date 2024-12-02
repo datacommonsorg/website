@@ -102,6 +102,16 @@ def get_multi_sv_pair(
   return parts
 
 
+# Gets the prop score of the prop used in the chart spec
+def get_top_prop_score(detection: Detection, cspec: ChartSpec) -> float:
+  if cspec.props and detection.svs_detected.prop:
+    prop_set = set(cspec.props)
+    for idx, prop in enumerate(detection.svs_detected.prop.svs):
+      if prop in prop_set:
+        return detection.svs_detected.prop.scores[idx]
+  return 0
+
+
 # Gets the SV score of the first chart in chart_specs
 def get_top_sv_score(detection: Detection, cspec: ChartSpec) -> float:
   # Note that we look for the detected SVs in the `orig_sv_map` field

@@ -9,10 +9,20 @@
               {
                 "tiles": [
                   {
+                    "answerTableTileSpec": {
+                      "columns": [
+                        {
+                          "header": "Has Genomic Coordinates",
+                          "propertyExpr": "->hasGenomicCoordinates"
+                        }
+                      ]
+                    },
                     "entities": [
-                      "bio/FGFR1"
+                      "bio/ncbi_109457387",
+                      "bio/ncbi_421941"
                     ],
-                    "type": "ENTITY_OVERVIEW"
+                    "title": "The Has Genomic Coordinates for PQLC3 are as follows:",
+                    "type": "ANSWER_TABLE"
                   }
                 ]
               }
@@ -26,8 +36,13 @@
   "debug": {},
   "entities": [
     {
-      "dcid": "bio/FGFR1",
-      "name": "FGFR1",
+      "dcid": "bio/ncbi_109457387",
+      "name": "PQLC3",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_421941",
+      "name": "PQLC3",
       "type": ""
     }
   ],
@@ -48,6 +63,6 @@
   },
   "svSource": "UNKNOWN",
   "userMessages": [
-    "See relevant information for FGFR1 based on the previous query."
+    "See relevant information based on the previous query."
   ]
 }

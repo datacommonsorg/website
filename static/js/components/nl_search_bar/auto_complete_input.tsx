@@ -40,6 +40,8 @@ import {
   useInsideClickAlerter,
   useOutsideClickAlerter,
 } from "../../utils/click_alerter";
+import { ArrowForward } from "../elements/icons/arrow_forward";
+import { Search } from "../elements/icons/search";
 import { AutoCompleteSuggestions } from "./auto_complete_suggestions";
 
 const DEBOUNCE_INTERVAL_MS = 100;
@@ -70,6 +72,7 @@ export function AutoCompleteInput(
   props: AutoCompleteInputPropType
 ): ReactElement {
   const wrapperRef = useRef(null);
+  const controller = useRef(new AbortController());
   const [baseInput, setBaseInput] = useState("");
   const [inputText, setInputText] = useState("");
   // TODO(gmechali): Implement stat var search.
@@ -79,22 +82,37 @@ export function AutoCompleteInput(
   const [inputActive, setInputActive] = useState(false);
   const [lastAutoCompleteSelection, setLastAutoCompleteSelection] =
     useState("");
+  // Used to reduce sensitivity to scrolling for autocomplete result dismissal.
+  // Tracks the last scrollY value at time of autocomplete request.
+  const [lastScrollYOnTrigger, setLastScrollYOnTrigger] = useState(0);
+  // Tracks the last scrollY value for current height offsett.
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   const isHeaderBar = props.barType == "header";
   let lang = "";
 
   useEffect(() => {
     // One time initialization of event listener to clear suggested results on scroll.
-    // It allows the user to navigate through the page without being annoyed by the results.
     window.addEventListener("scroll", () => {
-      if (results.placeResults) {
-        setResults({ placeResults: [], svResults: [] });
-      }
+      setLastScrollY(window.scrollY);
     });
 
     const urlParams = new URLSearchParams(window.location.search);
     lang = urlParams.has("hl") ? urlParams.get("hl") : "en";
   }, []);
+
+  // Whenever any of the scrollY states change, recompute to see if we need to hide the results.
+  // We only hide the results when the user has scrolled past 15% of the window height since the autocomplete request.
+  // It allows the user to navigate through the page without being annoyed by the results,
+  // and to scroll through the results without them disappearing.
+  useEffect(() => {
+    if (
+      results.placeResults.length > 0 &&
+      Math.abs(lastScrollY - lastScrollYOnTrigger) > window.outerHeight * 0.15
+    ) {
+      setResults({ placeResults: [], svResults: [] });
+    }
+  }, [lastScrollY, lastScrollYOnTrigger]);
 
   useEffect(() => {
     // For the first load when q= param is set, we want to ensure the
@@ -172,16 +190,31 @@ export function AutoCompleteInput(
   }
 
   const triggerAutoCompleteRequest = useCallback(async (query: string) => {
+    setLastScrollYOnTrigger(window.scrollY);
+    // Abort the previous request
+    if (controller.current) {
+      controller.current.abort();
+    }
+
+    // Create a new AbortController for the current request
+    controller.current = new AbortController();
+
     await axios
-      .get(`/api/autocomplete?query=${query}&hl=${lang}`, {})
+      .get(`/api/autocomplete?query=${query}&hl=${lang}`, {
+        signal: controller.current.signal,
+      })
       .then((response) => {
-        setResults({
-          placeResults: response["data"]["predictions"],
-          svResults: [],
-        });
+        if (!controller.current.signal.aborted) {
+          setResults({
+            placeResults: response["data"]["predictions"],
+            svResults: [],
+          });
+        }
       })
       .catch((err) => {
-        console.log("Error fetching autocomplete suggestions: " + err);
+        if (!axios.isCancel(err)) {
+          console.log("Error fetching autocomplete suggestions: " + err);
+        }
       });
   }, []);
 
@@ -281,7 +314,9 @@ export function AutoCompleteInput(
         >
           <InputGroup className="search-bar-content">
             {isHeaderBar && (
-              <span className="material-icons-outlined">search</span>
+              <span className="search-icon">
+                <Search />
+              </span>
             )}
             <Input
               id={props.inputId}
@@ -296,9 +331,7 @@ export function AutoCompleteInput(
               autoFocus={props.shouldAutoFocus}
             ></Input>
             <div onClick={props.onSearch} id="rich-search-button">
-              {isHeaderBar && (
-                <span className="material-icons-outlined">arrow_forward</span>
-              )}
+              {isHeaderBar && <ArrowForward />}
             </div>
           </InputGroup>
         </div>
