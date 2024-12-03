@@ -25,8 +25,15 @@ jobs:
           git fetch dc
           MASTER_BRANCH="dc/master"
 
-          # Get the list of commits in the source branch that are not in the master branch
-          MISSING_COMMITS=$(git log --pretty="%H - %s" $MASTER_BRANCH..HEAD --)
+          # Get the list of commits in the source branch that are not in the master branch.
+          # Exclude merge commits only if this is the final run in the merge queue.
+          # This way the only merge commits that end up in the final commit history
+          # are the ones added by GitHub when merging PRs.
+          if [[ ${{ github.event_name }}  == 'merge_group' ]]; then
+            MISSING_COMMITS=$(git log --pretty="%H - %s" --no-merges $MASTER_BRANCH..HEAD --)
+          else
+            MISSING_COMMITS=$(git log --pretty="%H - %s" $MASTER_BRANCH..HEAD --)
+          fi
 
           if [[ -n "$MISSING_COMMITS" ]]; then
             echo ""
