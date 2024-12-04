@@ -1,4 +1,5 @@
-# Copyright 2023 Google LLC
+#!/bin/bash
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,17 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from server.app_env import _base
-from server.app_env import local
-
-
-class Config(_base.Config):
-  CUSTOM = True
-  NAME = "Climate TRACE Data Commons"
-  LOGO_PATH = "/custom_dc/climate_trace/logo.svg"
-  OVERRIDE_CSS_PATH = '/custom_dc/climate_trace/overrides.css'
-  SHOW_DISASTER = False
-
-
-class LocalConfig(Config, local.Config):
-  pass
+python3 -m venv .env
+source .env/bin/activate
+python3 -m pip install --upgrade pip
+pip3 install -r requirements.txt
+python3 generate_icon.py "$@"
