@@ -30,9 +30,9 @@ echo "Remote for main repo is '${upstream_remote}'".
 # Check out the latest release tag
 # The latest tag will start with the letter "v", example "v2.0.12".
 # sort -V uses "version" sorting to get the latest tag
-git fetch $upstream_remote --tags
+git fetch "$upstream_remote" --tags
 latest_release_tag=$(git tag -l "v*" | sort -V | tail -n1)
-git checkout $latest_release_tag
+git checkout "$latest_release_tag"
 
 # Confirm before updating the tag
 read -r -p "Update the website prod tag to point to '$latest_release_tag'? [y/n] " response
@@ -43,8 +43,8 @@ fi
 
 # Delete the old prod tag locally and remotely
 git tag -d prod
-git push $upstream_remote :refs/tags/prod
+git push "$upstream_remote" :refs/tags/prod
 
 # Tag release as prod & push to github
 git tag prod
-git push $upstream_remote prod
+git push "$upstream_remote" prod
