@@ -33,7 +33,10 @@ _OUTPUT_FILE = 'differ_results.json'
 _GOLDEN_FOLDER = 'goldens'
 _DIFF_SUCCESS_MSG = 'Success'
 _EMAIL_SUBJECT_KEY = 'subject'
-_EMAIL_SUBJECT_TEMPLATE = '[{env}] Failure: Nodejs Query Test'
+# Use parentheses instead of square brackets to wrap env because otherwise
+# Google Groups will ignore that part of the subject when deciding how to
+# group conversations.
+_EMAIL_SUBJECT_TEMPLATE = '({env}) Failure: Nodejs Query Test'
 _EMAIL_MESSAGE_KEY = 'message'
 _EMAIL_MESSAGE_TEMPLATE = 'There were diffs found when testing Nodejs Query results against goldens in {env}.<br><br><b>Nodejs Query Results</b>: {test_path}<br><b>Diff results</b>: {results_path}<br>Instructions for debugging: https://playbooks-preview.corp.google.com/datacommons/index.md?cl=head#debugging-nodejs-query-diffs'
 
