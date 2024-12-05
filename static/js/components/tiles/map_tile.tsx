@@ -354,7 +354,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
           ? [props.dataSpecs[0].variable]
           : [props.statVarSpec]
       }
-      sourceCode={getWebComponentSourceCode(props, mapChartData)}
+      sourceCode={getWebComponentSourceCode(mapChartData)}
     >
       {showZoomButtons && !mapChartData.errorMsg && (
         <div className="map-zoom-button-section">
@@ -757,39 +757,40 @@ function getExploreLink(props: MapTilePropType): {
  * @param props this tile's props
  * @returns HTML used to embed this tile as a web component
  */
-function getWebComponentSourceCode(
-  props: MapTilePropType,
-  mapChartData: MapChartData
-): string {
-  let perCapitaVariables = "";
-  let variables = "";
-  let places = props.place.dcid;
-  let enclosedPlaceTypes = props.enclosedPlaceType;
-  if (mapChartData) {
-    // Get all places and types in the chart
-    places = mapChartData.layerData.map((layer) => layer.place.dcid).join(" ");
-    enclosedPlaceTypes = mapChartData.layerData
-      .map((layer) => layer.enclosedPlaceType)
-      .join(" ");
-    // Get unique variables
-    variables = _.uniq(
-      mapChartData.layerData.map((layer) => {
-        return layer.variable.statVar;
-      })
-    ).join(" ");
-    // Cet list of variables that are per capita
-    perCapitaVariables = mapChartData.layerData
-      .map((layer) => {
-        return layer.variable;
-      })
-      .filter((variable) => {
-        return variable?.denom == "Count_Person";
-      })
-      .map((variable) => {
-        return variable?.statVar;
-      })
-      .join(" ");
+export function getWebComponentSourceCode(mapChartData: MapChartData): string {
+  if (!mapChartData) {
+    return "";
   }
+
+  const props = mapChartData.props;
+
+  // Get all places and types in the chart
+  const places = mapChartData.layerData
+    .map((layer) => layer.place.dcid)
+    .join(" ");
+  const enclosedPlaceTypes = mapChartData.layerData
+    .map((layer) => layer.enclosedPlaceType)
+    .join(" ");
+
+  // Get unique variables
+  const variables = _.uniq(
+    mapChartData.layerData.map((layer) => {
+      return layer.variable.statVar;
+    })
+  ).join(" ");
+
+  // Cet list of variables that are per capita
+  const perCapitaVariables = mapChartData.layerData
+    .map((layer) => {
+      return layer.variable;
+    })
+    .filter((variable) => {
+      return variable?.denom == "Count_Person";
+    })
+    .map((variable) => {
+      return variable?.statVar;
+    })
+    .join(" ");
 
   // Check if a specific date is being used for all variables
   let date = "";
