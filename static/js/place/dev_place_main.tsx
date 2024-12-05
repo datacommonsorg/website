@@ -37,6 +37,7 @@ import {
   defaultDataCommonsClient,
   defaultDataCommonsWebClient,
 } from "../utils/data_commons_client";
+import { isPlaceDcidInUsa } from "./util";
 
 /**
  * Returns the stat var key for a chart.
@@ -357,6 +358,7 @@ const PlaceOverview = (props: {
   placeSummary: string;
 }) => {
   const { place, placeSummary } = props;
+  const isInUsa = isPlaceDcidInUsa(place.dcid);
   return (
     <div className="place-overview">
       <div className="place-icon">
@@ -365,10 +367,13 @@ const PlaceOverview = (props: {
       <div className="place-name">{place.name}</div>
       <div className="place-summary">{placeSummary}</div>
       <div className="row place-map">
-        <div className="col-md-3">
-          <GoogleMap dcid={place.dcid}></GoogleMap>
-        </div>
+        {isInUsa && (
+          <div className="col-md-3">
+            <GoogleMap dcid={place.dcid}></GoogleMap>
+          </div>
+        )}
         <div className="col-md-9">
+          {!isInUsa && <br></br>}
           <PlaceOverviewTable placeDcid={place.dcid} />
         </div>
       </div>

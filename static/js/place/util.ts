@@ -18,6 +18,16 @@ import { defineMessages } from "react-intl";
 import { intl } from "../i18n/i18n";
 import { USA_PLACE_DCID } from "../shared/constants";
 
+/*
+ * Returns true if the place is in the USA by comparing the place DCID format
+ * only.
+ */
+export function isPlaceDcidInUsa(dcid: string): boolean {
+  // TODO(gmechali): We should expose an endpoint to fetch only the parent
+  // place DCIDs and use isPlaceInUsa.
+  const regex = /^(geoId\/\d{2}|\d{5}|\d{7})|(zip\/\d{5})$/;
+  return regex.test(dcid);
+}
 /**
  * Given a list of parent places, return true if the place is in USA.
  */
