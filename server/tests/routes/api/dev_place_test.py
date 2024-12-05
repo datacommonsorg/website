@@ -92,12 +92,13 @@ class TestPlaceAPI(unittest.TestCase):
       self.assertEqual(5, len(response_json["charts"][2]["denominator"]))
       self.assertEqual(5, len(response_json["charts"][3]["denominator"]))
 
+  @patch('server.routes.shared_api.place.parent_places')
   @patch('server.routes.dev_place.utils.fetch.raw_property_values')
   @patch('server.routes.dev_place.utils.fetch.multiple_property_values')
   @patch('server.routes.dev_place.utils.fetch.descendent_places')
   def test_related_places(self, mock_descendent_places,
                           mock_multiple_property_values,
-                          mock_raw_property_values):
+                          mock_raw_property_values, mock_parent_places):
     """Test the /api/dev-place/related-places endpoint. Mocks fetch.* and dc.* calls."""
 
     with app.app_context():
@@ -139,6 +140,18 @@ class TestPlaceAPI(unittest.TestCase):
 
       mock_raw_property_values.side_effect = mock_raw_property_values_side_effect
 
+      # Define side effects for mock_parent_places_
+      def mock_parent_places_side_effect(dcids, include_admin_areas):
+        return {
+            'dcid': 'geoId/06',
+            'parents': [{
+                'type': 'Country',
+                'dcid': 'country/USA'
+            }]
+        }
+
+      mock_parent_places.side_effect = mock_parent_places_side_effect
+
       # Send a GET request to the related-places endpoint
       response = app.test_client().get(
           f'/api/dev-place/related-places/{place_dcid}')
@@ -155,6 +168,7 @@ class TestPlaceAPI(unittest.TestCase):
       self.assertIn('nearbyPlaces', response_json)
       self.assertIn('place', response_json)
       self.assertIn('similarPlaces', response_json)
+      self.assertIn('parentPlaces', response_json)
 
       # Check the place field
       self.assertEqual(response_json['place']['dcid'], place_dcid)
@@ -186,12 +200,14 @@ class TestPlaceAPI(unittest.TestCase):
       # Check the 'childPlaceType' field
       self.assertEqual(response_json['childPlaceType'], "State")
 
+  @patch('server.routes.shared_api.place.parent_places')
   @patch('server.routes.dev_place.utils.fetch.raw_property_values')
   @patch('server.routes.dev_place.utils.fetch.multiple_property_values')
   @patch('server.routes.dev_place.utils.fetch.descendent_places')
   def test_related_places_es_locale(self, mock_descendent_places,
                                     mock_multiple_property_values,
-                                    mock_raw_property_values):
+                                    mock_raw_property_values,
+                                    mock_parent_places):
     """Test the /api/dev-place/related-places endpoint with 'es' locale."""
     with app.app_context():
       # Sample place_dcid
@@ -266,6 +282,18 @@ class TestPlaceAPI(unittest.TestCase):
           return {node: [] for node in nodes}
 
       mock_raw_property_values.side_effect = mock_raw_property_values_side_effect
+
+      # Define side effects for mock_parent_places_
+      def mock_parent_places_side_effect(dcids, include_admin_areas):
+        return {
+            'dcid': 'geoId/06',
+            'parents': [{
+                'type': 'Country',
+                'dcid': 'country/USA'
+            }]
+        }
+
+      mock_parent_places.side_effect = mock_parent_places_side_effect
 
       mock_descendent_places.return_value = {
           'country/USA': ['geoId/06', 'geoId/07']
