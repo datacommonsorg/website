@@ -40,6 +40,10 @@
         text-indent: -12px;
       }
 
+      .item-list-text.selected {
+        text-decoration: underline;
+      }
+
       .item-list-text:hover {
         cursor: pointer;
       }

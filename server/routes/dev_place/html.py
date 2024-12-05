@@ -40,6 +40,7 @@ def dev_place(place_dcid=None):
       place_dcid)
   place_names = place_api.get_i18n_name([place_dcid]) or {}
   place_name = place_names.get(place_dcid, place_dcid)
+  # Place summaries are currently only supported in English
   if g.locale == DEFAULT_LOCALE:
     place_summary = get_place_summaries(place_dcid).get(place_dcid,
                                                         {}).get("summary", "")

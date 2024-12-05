@@ -281,11 +281,13 @@ def chart_config_to_overview_charts(chart_config, child_place_type: str):
           unit=page_config_related_chart.get("unit"),
       )
       if page_config_related_chart.get("denominator"):
+        # Related charts only specify one denominator, so we repeat it for each stat var
         related_chart.denominator = [
             page_config_related_chart.get("denominator")
-        ]
+        ] * len(chart.statisticalVariableDcids)
       if is_map_chart:
         related_chart.childPlaceType = child_place_type
+      charts.append(related_chart)
 
   return charts
 
