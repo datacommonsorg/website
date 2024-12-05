@@ -17,9 +17,13 @@ from unittest.mock import patch
 
 from server.routes.dev_place.types import Place
 import server.routes.dev_place.utils as place_utils
-from server.tests.routes.api.mock_data import MULTIPLE_PROPERTY_VALUES_RESPONSE, MULTIPLE_PROPERTY_VALUES_RESPONSE_WITH_LANGUAGES, OSERVATION_POINT_RESPONSE, OSERVATION_WITHIN_POINT_RESPONSE, SAMPLE_PLACE_PAGE_CHART_CONFIG
+from server.tests.routes.api.mock_data import MULTIPLE_PROPERTY_VALUES_RESPONSE
+from server.tests.routes.api.mock_data import \
+    MULTIPLE_PROPERTY_VALUES_RESPONSE_WITH_LANGUAGES
+from server.tests.routes.api.mock_data import OSERVATION_POINT_RESPONSE
+from server.tests.routes.api.mock_data import OSERVATION_WITHIN_POINT_RESPONSE
+from server.tests.routes.api.mock_data import SAMPLE_PLACE_PAGE_CHART_CONFIG
 from web_app import app
-
 
 
 class TestPlaceAPI(unittest.TestCase):
@@ -64,8 +68,9 @@ class TestPlaceAPI(unittest.TestCase):
       self.assertIn('translatedCategoryStrings', response_json)
 
       # Check that the 'charts' field contains the expected number of charts
-      # Since only two charts have data (Crime and one Education stat var), we expect two charts
-      self.assertEqual(len(response_json['charts']), 2)
+      # Two charts have data (Crime and one Education stat var), and each has a
+      # related chart, so we expect four charts
+      self.assertEqual(len(response_json['charts']), 4)
 
       # Optionally, check that the charts have the correct titles
       chart_titles = [chart['title'] for chart in response_json['charts']]
@@ -82,7 +87,10 @@ class TestPlaceAPI(unittest.TestCase):
       self.assertIn('Education', response_json['translatedCategoryStrings'])
 
       # Ensure the denominator is present in chart results
-      self.assertEqual(5, len(response_json["charts"][1]["denominator"]))
+      self.assertEqual(None, response_json["charts"][0]["denominator"])
+      self.assertEqual(1, len(response_json["charts"][1]["denominator"]))
+      self.assertEqual(5, len(response_json["charts"][2]["denominator"]))
+      self.assertEqual(5, len(response_json["charts"][3]["denominator"]))
 
   @patch('server.routes.dev_place.utils.fetch.raw_property_values')
   @patch('server.routes.dev_place.utils.fetch.multiple_property_values')

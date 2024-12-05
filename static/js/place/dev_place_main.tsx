@@ -22,8 +22,8 @@ import {
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
-
 import { RawIntlProvider } from "react-intl";
+
 import { GoogleMap } from "../components/google_map";
 import { SubjectPageMainPane } from "../components/subject_page/main_pane";
 import { intl } from "../i18n/i18n";
