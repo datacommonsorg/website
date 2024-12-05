@@ -53,6 +53,24 @@ def get_place_html_link(place_dcid: str, place_name: str) -> str:
   return f'<a href="{url}">{place_name}</a>'
 
 
+def get_parent_places(dcid: str) -> List[Place]:
+  """Gets the parent places for a given DCID
+  
+  Args:
+    dcid: dcid of the place to get parents for
+    
+  Returns:
+    A list of places that are all the parents of the given DCID.
+  """
+  parents_resp = place_api.parent_places([dcid],
+                                        include_admin_areas=True).get(dcid, [])
+  all_parents = []
+  for parent in parents_resp:
+    all_parents.append(Place(dcid=parent['dcid'], name=parent['name'], types=parent['type']))
+
+  return all_parents
+
+
 def get_place_type_with_parent_places_links(dcid: str) -> str:
   """Get '<place type> in <parent places>' with html links for a given DCID
   
@@ -68,28 +86,27 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
   place_type_display_name = place_api.get_place_type_i18n_name(place_type)
 
   # Get parent places
-  all_parents = place_api.parent_places([dcid],
-                                        include_admin_areas=True).get(dcid, [])
+  all_parents = get_parent_places(dcid)
 
   # Filter parents to only the types desired
   parents_to_include = [
       parent for parent in all_parents
-      if parent['type'] in PARENT_PLACE_TYPES_TO_HIGHLIGHT
+      if parent.types in PARENT_PLACE_TYPES_TO_HIGHLIGHT
   ]
 
   # Fetch the localized names of the parents
-  parent_dcids = [parent['dcid'] for parent in parents_to_include]
+  parent_dcids = [parent.dcid for parent in parents_to_include]
   localized_names = place_api.get_i18n_name(parent_dcids)
   places_with_names = [
       parent for parent in parents_to_include
-      if parent['dcid'] in localized_names.keys()
+      if parent.dcid in localized_names.keys()
   ]
 
   # Generate <a href=place page url> tag for each parent place
   links = [
-      get_place_html_link(place_dcid=parent['dcid'],
-                          place_name=localized_names.get(parent['dcid']))
-      if parent['type'] != 'Continent' else localized_names.get(parent['dcid'])
+      get_place_html_link(place_dcid=parent.dcid,
+                          place_name=localized_names.get(parent.dcid))
+      if parent.types != 'Continent' else localized_names.get(parent.dcid)
       for parent in places_with_names
   ]
 
