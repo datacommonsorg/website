@@ -16,14 +16,17 @@
 
 import { DataRow } from "@datacommonsorg/client";
 import {
+  Chart,
   PlaceChartsApiResponse,
   RelatedPlacesApiResponse,
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 
+import { RawIntlProvider } from "react-intl";
 import { GoogleMap } from "../components/google_map";
 import { SubjectPageMainPane } from "../components/subject_page/main_pane";
+import { intl } from "../i18n/i18n";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
 import {
   CategoryConfig,
@@ -34,6 +37,27 @@ import {
   defaultDataCommonsClient,
   defaultDataCommonsWebClient,
 } from "../utils/data_commons_client";
+
+/**
+ * Returns the stat var key for a chart.
+ *
+ * A stat var key is a unique identifier for a statistical variable for the
+ * given chart, including its DCID, denominator, log, scaling, and unit.
+ *
+ * @param chart The chart object
+ * @param variableDcid The variable DCID
+ * @param denom The denominator DCID
+ * @returns The stat var key
+ */
+function getStatVarKey(
+  chart: Chart,
+  variableDcid: string,
+  denom?: string
+): string {
+  return `${variableDcid}_denom_${denom}_log_${false}_scaling_${
+    chart.scaling
+  }_unit_${chart.unit}`;
+}
 
 /**
  * Converts the API response from getPlaceCharts into a SubjectPageConfig object.
@@ -59,7 +83,17 @@ function placeChartsApiResponsesToPageConfig(
           description: chart.description,
           title: chart.title,
           type: chart.type,
-          statVarKey: chart.statisticalVariableDcids,
+          statVarKey: chart.statisticalVariableDcids.map(
+            (variableDcid, variableIdx) => {
+              const denom =
+                chart.denominator &&
+                chart.denominator.length ===
+                  chart.statisticalVariableDcids.length
+                  ? chart.denominator[variableIdx]
+                  : undefined;
+              return getStatVarKey(chart, variableDcid, denom);
+            }
+          ),
         };
       });
 
@@ -71,7 +105,8 @@ function placeChartsApiResponsesToPageConfig(
             chart.denominator.length === chart.statisticalVariableDcids.length
               ? chart.denominator[variableIdx]
               : undefined;
-          statVarSpec[variableDcid] = {
+          const statVarKey = getStatVarKey(chart, variableDcid, denom);
+          statVarSpec[statVarKey] = {
             denom,
             log: false,
             scaling: chart.scaling,
@@ -478,7 +513,7 @@ export const DevPlaceMain = () => {
     return <div>Loading...</div>;
   }
   return (
-    <>
+    <RawIntlProvider value={intl}>
       <PlaceHeader
         category={category}
         place={place}
@@ -494,6 +529,6 @@ export const DevPlaceMain = () => {
           pageConfig={pageConfig}
         />
       )}
-    </>
+    </RawIntlProvider>
   );
 };

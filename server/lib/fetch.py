@@ -407,7 +407,7 @@ def multiple_property_values(nodes: List[str],
   Fetches specified properties for given nodes using the /v2/node API.
 
   Args:
-      nodes (List[str]): List of node identifiers.
+      nodes (List[str]): List of node dcids.
       props (List[str]): Properties to retrieve for each node.
       out (bool): If True, fetches outgoing properties; otherwise, incoming (default: True).
 

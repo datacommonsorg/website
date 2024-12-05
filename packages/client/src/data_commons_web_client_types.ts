@@ -146,8 +146,7 @@ export type ObservationDatesApiResponse = {
 };
 
 type ChartType = "BAR" | "LINE" | "MAP" | "RANKING";
-
-interface Chart {
+export interface Chart {
   type: ChartType;
   title: string;
   category: string;
@@ -159,7 +158,7 @@ interface Chart {
   scaling?: number; // Optional
 }
 
-interface Place {
+export interface Place {
   dcid: string;
   name: string;
   types: string[];

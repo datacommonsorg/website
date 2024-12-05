@@ -17,62 +17,9 @@ from unittest.mock import patch
 
 from server.routes.dev_place.types import Place
 import server.routes.dev_place.utils as place_utils
+from server.tests.routes.api.mock_data import MULTIPLE_PROPERTY_VALUES_RESPONSE, MULTIPLE_PROPERTY_VALUES_RESPONSE_WITH_LANGUAGES, OSERVATION_POINT_RESPONSE, OSERVATION_WITHIN_POINT_RESPONSE, SAMPLE_PLACE_PAGE_CHART_CONFIG
 from web_app import app
 
-SAMPLE_CHART_CONFIG = [{
-    "category": "Crime",
-    "titleId": "CHART_TITLE-Total_crime",
-    "title": "Total crime",
-    "description": "Total number of criminal incidents",
-    "statsVars": ["Count_CriminalActivities_CombinedCrime"],
-    "isOverview": True,
-    "relatedChart": {
-        "titleId": "CHART_TITLE-Crime_rate",
-        "title": "Crimes per 100,000 people",
-        "description": "Total number of criminal incidents per 100,000 people",
-        "scale": True,
-        "denominator": "Count_Person",
-        "scaling": 100000
-    }
-}, {
-    "category":
-        "Education",
-    "titleId":
-        "CHART_TITLE-Educational_attainment",
-    "title":
-        "Education attainment",
-    "denominator": [
-        "Sample_Denominator_1", "Sample_Denominator_2", "Sample_Denominator_3",
-        "Sample_Denominator_4", "Sample_Denominator_5"
-    ],
-    "description":
-        "Number of people who have attained various educational milestones, e.g. completed high school or have a bachelor's degree",
-    "statsVars": [
-        "Count_Person_EducationalAttainmentNoSchoolingCompleted",
-        "Count_Person_EducationalAttainmentRegularHighSchoolDiploma",
-        "Count_Person_EducationalAttainmentBachelorsDegree",
-        "Count_Person_EducationalAttainmentMastersDegree",
-        "Count_Person_EducationalAttainmentDoctorateDegree"
-    ],
-    "isOverview":
-        True,
-    "relatedChart": {
-        "titleId":
-            "CHART_TITLE-Educational_attainment_rate",
-        "title":
-            "Education attainment rate",
-        "description":
-            "Percentage of the adult population who have attained various educational milestones, e.g. completed high school or have a bachelor's degree",
-        "scale":
-            True,
-        "denominator":
-            "Count_Person_25OrMoreYears",
-        "scaling":
-            100,
-        "unit":
-            "%"
-    }
-}]
 
 
 class TestPlaceAPI(unittest.TestCase):
@@ -91,72 +38,15 @@ class TestPlaceAPI(unittest.TestCase):
       place_dcid = "country/USA"
 
       # Override the CHART_CONFIG with sample values
-      app.config['CHART_CONFIG'] = SAMPLE_CHART_CONFIG
+      app.config['CHART_CONFIG'] = SAMPLE_PLACE_PAGE_CHART_CONFIG
 
       # Mock obs_point call with a properly structured response
-      mock_obs_point.return_value = {
-          "byVariable": {
-              "Count_CriminalActivities_CombinedCrime": {
-                  "byEntity": {
-                      place_dcid: {
-                          "dates": {
-                              "2022": {
-                                  "value": 1000
-                              }
-                          }
-                      }
-                  }
-              },
-              # Include one education stat var to simulate data availability
-              "Count_Person_EducationalAttainmentBachelorsDegree": {
-                  "byEntity": {
-                      place_dcid: {
-                          "dates": {
-                              "2022": {
-                                  "value": 500
-                              }
-                          }
-                      }
-                  }
-              }
-          }
-      }
+      mock_obs_point.return_value = OSERVATION_POINT_RESPONSE
 
       # Mock obs_point_within for finding child places existence check for map-based stat vars
-      mock_obs_point_within.return_value = {
-          "byVariable": {
-              "Count_CriminalActivities_CombinedCrime": {
-                  "byEntity": {
-                      "geoId/123": {
-                          "dates": {
-                              "2022": {
-                                  "value": 200
-                              }
-                          }
-                      }
-                  }
-              },
-              # Simulate a child place with data for an educational stat var
-              "Count_Person_EducationalAttainmentMastersDegree": {
-                  "byEntity": {
-                      "geoId/456": {
-                          "dates": {
-                              "2022": {
-                                  "value": 50
-                              }
-                          }
-                      }
-                  }
-              }
-          }
-      }
+      mock_obs_point_within.return_value = OSERVATION_WITHIN_POINT_RESPONSE
 
-      mock_multiple_property_values.return_value = {
-          "country/USA": {
-              "typeOf": ["Country"],
-              "name": ['United States']
-          }
-      }
+      mock_multiple_property_values.return_value = MULTIPLE_PROPERTY_VALUES_RESPONSE
 
       # Mock fetch.raw_property_values to return empty lists (no nearby or similar places)
       mock_raw_property_values.return_value = {place_dcid: []}
@@ -207,43 +97,7 @@ class TestPlaceAPI(unittest.TestCase):
       place_dcid = 'country/USA'
 
       # Define side effects for mock_multiple_property_values
-      mock_multiple_property_values.return_value = {
-          'country/USA': {
-              'typeOf': ['Country'],
-              'name': ['United States of America'],
-              'nameWithLanguage': []
-          },
-          'country/CAN': {
-              'typeOf': ['Country'],
-              'name': ['Canada'],
-              'nameWithLanguage': []
-          },
-          'country/MEX': {
-              'typeOf': ['Country'],
-              'name': ['Mexico'],
-              'nameWithLanguage': []
-          },
-          'country/GBR': {
-              'typeOf': ['Country'],
-              'name': ['United Kingdom'],
-              'nameWithLanguage': []
-          },
-          'country/AUS': {
-              'typeOf': ['Country'],
-              'name': ['Australia'],
-              'nameWithLanguage': []
-          },
-          'geoId/06': {
-              'typeOf': ['State'],
-              'name': ['California'],
-              'nameWithLanguage': []
-          },
-          'geoId/07': {
-              'typeOf': ['State'],
-              'name': ['New York'],
-              'nameWithLanguage': []
-          }
-      }
+      mock_multiple_property_values.return_value = MULTIPLE_PROPERTY_VALUES_RESPONSE_WITH_LANGUAGES
 
       # Mock descendent_places to return child places
       mock_descendent_places.return_value = {
