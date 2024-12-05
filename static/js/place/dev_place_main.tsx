@@ -359,7 +359,7 @@ const PlaceOverview = (props: {
   parentPlaces: NamedTypedPlace[];
 }) => {
   const { place, placeSummary, parentPlaces } = props;
-  const isInUsa = isPlaceContainedInUsa(place.dcid, parentPlaces.map(place => place.dcid))
+  const isInUsa = isPlaceContainedInUsa(parentPlaces.map(place => place.dcid))
   return (
     <div className="place-overview">
       <div className="place-icon">
