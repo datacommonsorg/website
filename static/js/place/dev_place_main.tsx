@@ -359,7 +359,9 @@ const PlaceOverview = (props: {
   parentPlaces: NamedTypedPlace[];
 }) => {
   const { place, placeSummary, parentPlaces } = props;
-  const isInUsa = isPlaceContainedInUsa(parentPlaces.map(place => place.dcid))
+  const isInUsa = isPlaceContainedInUsa(
+    parentPlaces.map((place) => place.dcid)
+  );
   return (
     <div className="place-overview">
       <div className="place-icon">
@@ -528,7 +530,11 @@ export const DevPlaceMain = () => {
         placeSubheader={placeSubheader}
       />
       <PlaceTopicTabs category={category} place={place} />
-      <PlaceOverview place={place} placeSummary={placeSummary} parentPlaces={parentPlaces}/>
+      <PlaceOverview
+        place={place}
+        placeSummary={placeSummary}
+        parentPlaces={parentPlaces}
+      />
       <RelatedPlaces place={place} childPlaces={childPlaces} />
       {place && pageConfig && (
         <PlaceCharts

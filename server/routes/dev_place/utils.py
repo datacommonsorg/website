@@ -62,11 +62,12 @@ def get_parent_places(dcid: str) -> List[Place]:
   Returns:
     A list of places that are all the parents of the given DCID.
   """
-  parents_resp = place_api.parent_places([dcid],
-                                        include_admin_areas=True).get(dcid, [])
+  parents_resp = place_api.parent_places([dcid], include_admin_areas=True).get(
+      dcid, [])
   all_parents = []
   for parent in parents_resp:
-    all_parents.append(Place(dcid=parent['dcid'], name=parent['name'], types=parent['type']))
+    all_parents.append(
+        Place(dcid=parent['dcid'], name=parent['name'], types=parent['type']))
 
   return all_parents
 

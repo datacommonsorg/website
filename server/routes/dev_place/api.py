@@ -164,12 +164,10 @@ def related_places(place_dcid: str):
   similar_places = [all_place_by_dcid[dcid] for dcid in similar_place_dcids]
   child_places = [all_place_by_dcid[dcid] for dcid in child_place_dcids]
 
-  response = RelatedPlacesApiResponse(
-      childPlaceType=child_place_type,
-      childPlaces=child_places,
-      nearbyPlaces=nearby_places,
-      place=place,
-      similarPlaces=similar_places,
-      parentPlaces=parent_places
-  )
+  response = RelatedPlacesApiResponse(childPlaceType=child_place_type,
+                                      childPlaces=child_places,
+                                      nearbyPlaces=nearby_places,
+                                      place=place,
+                                      similarPlaces=similar_places,
+                                      parentPlaces=parent_places)
   return jsonify(response)
