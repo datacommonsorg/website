@@ -73,3 +73,9 @@ serviceGroups:
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]
+
+cronTesting:
+  enabled: true
+  screenshotDomain: "staging.datacommons.org"
+  nodePool: "default-pool"
+  schedule: "* * 31 2 *" # invalid day for month -> never run automatically
