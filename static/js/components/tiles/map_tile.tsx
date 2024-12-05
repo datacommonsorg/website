@@ -70,6 +70,7 @@ import { getPointWithin, getSeriesWithin } from "../../utils/data_fetch_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
   clearContainer,
+  getChartTitle,
   getDenomInfo,
   getNoDataErrorMsg,
   getStatFormat,
@@ -353,6 +354,7 @@ export function MapTile(props: MapTilePropType): JSX.Element {
           ? [props.dataSpecs[0].variable]
           : [props.statVarSpec]
       }
+      sourceCode={getWebComponentSourceCode(props, mapChartData)}
     >
       {showZoomButtons && !mapChartData.errorMsg && (
         <div className="map-zoom-button-section">
@@ -748,4 +750,94 @@ function getExploreLink(props: MapTilePropType): {
     displayText: "Map Tool",
     url: `${props.apiRoot || ""}${URL_PATH}#${hash}`,
   };
+}
+
+/**
+ * Get the HTML that can be used to embed this tile as a web component
+ * @param props this tile's props
+ * @returns HTML used to embed this tile as a web component
+ */
+function getWebComponentSourceCode(
+  props: MapTilePropType,
+  mapChartData: MapChartData
+): string {
+  let perCapitaVariables = "";
+  let variables = "";
+  let places = props.place.dcid;
+  let enclosedPlaceTypes = props.enclosedPlaceType;
+  if (mapChartData) {
+    // Get all places and types in the chart
+    places = mapChartData.layerData.map((layer) => layer.place.dcid).join(" ");
+    enclosedPlaceTypes = mapChartData.layerData
+      .map((layer) => layer.enclosedPlaceType)
+      .join(" ");
+    // Get unique variables
+    variables = _.uniq(
+      mapChartData.layerData.map((layer) => {
+        return layer.variable.statVar;
+      })
+    ).join(" ");
+    // Cet list of variables that are per capita
+    perCapitaVariables = mapChartData.layerData
+      .map((layer) => {
+        return layer.variable;
+      })
+      .filter((variable) => {
+        return variable?.denom == "Count_Person";
+      })
+      .map((variable) => {
+        return variable?.statVar;
+      })
+      .join(" ");
+  }
+
+  // Check if a specific date is being used for all variables
+  let date = "";
+  if (
+    mapChartData?.layerData.length > 0 &&
+    mapChartData.layerData.every((layer) => layer.variable.date)
+  ) {
+    date = mapChartData.layerData[0]?.variable?.date || "";
+  }
+
+  // Generate title with replacement strings filled in
+  const replacementStrings =
+    mapChartData && getReplacementStrings(props, mapChartData);
+  const header = getChartTitle(props.title, replacementStrings);
+
+  let sourceCode = `<script src="https://datacommons.org/datacommons.js"></script>
+<datacommons-map
+  \theader="${header}"
+  \tchildPlaceTypes="${enclosedPlaceTypes}"
+  \tparentPlaces="${places}"
+  \tvariables="${variables}"`;
+  if (date) {
+    sourceCode += `\n\tdate="${date}"`;
+  }
+  if (props.allowZoom) {
+    sourceCode += "\n\tallowZoom";
+  }
+  if (props.apiRoot) {
+    sourceCode += `\n\tapiRoot="${props.apiRoot}"`;
+  }
+  if (props.colors) {
+    sourceCode += `\n\tcolors="${props.colors.join(" ")}"`;
+  }
+  if (props.footnote) {
+    sourceCode += `\n\tfootnote="${props.footnote}"`;
+  }
+  if (props.geoJsonProp) {
+    sourceCode += `\n\tgeoJsonProp="${props.geoJsonProp}"`;
+  }
+  if (perCapitaVariables) {
+    sourceCode += `\n\tperCapita="${perCapitaVariables}"`;
+  }
+  if (props.placeNameProp) {
+    sourceCode += `\n\tplaceNameProp="${props.placeNameProp}"`;
+  }
+  if (props.sources) {
+    sourceCode += `\n\tplaceNameProp="${props.sources.join(" ")}"`;
+  }
+  sourceCode += `\n></datacommons-map>`;
+  return sourceCode;
 }

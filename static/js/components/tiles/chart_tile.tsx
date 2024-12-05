@@ -36,6 +36,7 @@ import {
 import { NlChartFeedback } from "../nl_feedback";
 import { ChartFooter } from "./chart_footer";
 import { LoadingHeader } from "./loading_header";
+
 interface ChartTileContainerProp {
   id: string;
   isLoading?: boolean;
@@ -68,6 +69,8 @@ interface ChartTileContainerProp {
   forwardRef?: MutableRefObject<HTMLDivElement | null>;
   // Optional: Chart height
   chartHeight?: number;
+  // Optional: Code to show when clicking "Embed this chart"
+  sourceCode?: string;
 }
 
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
@@ -117,9 +120,11 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
         {props.children}
       </div>
       <ChartFooter
+        containerRef={containerRef}
         handleEmbed={showEmbed ? handleEmbed : null}
         exploreLink={props.exploreLink}
         footnote={props.footnote}
+        sourceCode={props.sourceCode}
       >
         <NlChartFeedback id={props.id} />
       </ChartFooter>
@@ -129,7 +134,7 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
     </div>
   );
 
-  // Handle when chart embed is clicked .
+  // Handle when chart download is clicked .
   function handleEmbed(): void {
     const chartTitle = props.title
       ? formatString(props.title, props.replacementStrings)

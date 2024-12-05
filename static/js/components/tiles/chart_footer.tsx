@@ -26,17 +26,23 @@ import {
   GA_PARAM_TILE_TYPE,
   triggerGAEvent,
 } from "../../shared/ga_events";
+import { TileCodeModal } from "../../tools/shared/tile_code_modal";
 
 // Number of characters in footnote to show before "show more"
 const FOOTNOTE_CHAR_LIMIT = 150;
 
 interface ChartFooterPropType {
+  // Reference to containing chart tile element
+  containerRef?: React.RefObject<HTMLElement>;
+  // Callback to download chart
   handleEmbed?: () => void;
   // Link to explore more. Only show explore button if this object is non-empty.
   exploreLink?: { displayText: string; url: string };
   children?: React.ReactNode;
   // Text to show above buttons
   footnote?: string;
+  // Code to show API users for embedding the chart to their websites
+  sourceCode?: string;
 }
 
 export function ChartFooter(props: ChartFooterPropType): JSX.Element {
@@ -81,6 +87,15 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
                 >
                   Explore in {props.exploreLink.displayText}
                 </a>
+              </div>
+            )}
+            {props.sourceCode && (
+              <div className="outlink-item">
+                <span className="material-icons-outlined">code</span>
+                <TileCodeModal
+                  sourceCode={props.sourceCode}
+                  containerRef={props.containerRef}
+                />
               </div>
             )}
           </div>
