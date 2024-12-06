@@ -317,7 +317,10 @@ const PlaceOverviewTable = (props: { placeDcid: string }) => {
     <table className="table">
       <thead>
         <tr>
-          <th scope="col" colSpan={2}>
+          <th
+            scope="col"
+            colSpan={2}
+          >
             Key Demographics
           </th>
           <th scope="col"></th>
@@ -400,8 +403,11 @@ const RelatedPlaces = (props: {
   if (!childPlaces || childPlaces.length === 0) {
     return null;
   }
+
   const NUM_PLACES = 15;
   const showToggle = childPlaces.length > NUM_PLACES;
+  const truncatedPlaces = childPlaces.slice(0, NUM_PLACES);
+
   const toggleShowMore = () => {
     setIsCollapsed(!isCollapsed);
   };
@@ -411,18 +417,13 @@ const RelatedPlaces = (props: {
       <div className="related-places-callout">Places in {place.name}</div>
       <div className="item-list-container">
         <div className="item-list-inner">
-          {childPlaces
-            .slice(
-              0,
-              showToggle && isCollapsed ? NUM_PLACES : childPlaces.length
-            )
-            .map((place) => (
-              <div key={place.dcid} className="item-list-item">
-                <a className="item-list-text" href={`/dev-place/${place.dcid}`}>
-                  {place.name}
-                </a>
-              </div>
-            ))}
+          {(isCollapsed ? truncatedPlaces : childPlaces).map((place) => (
+            <div key={place.dcid} className="item-list-item">
+              <a className="item-list-text" href={`/dev-place/${place.dcid}`}>
+                {place.name}
+              </a>
+            </div>
+          ))}
         </div>
       </div>
       {showToggle && (
@@ -551,13 +552,19 @@ export const DevPlaceMain = () => {
         place={place}
         placeSubheader={placeSubheader}
       />
-      <PlaceTopicTabs category={category} place={place} />
+      <PlaceTopicTabs
+        category={category}
+        place={place}
+      />
       <PlaceOverview
         place={place}
         placeSummary={placeSummary}
         parentPlaces={parentPlaces}
       />
-      <RelatedPlaces place={place} childPlaces={childPlaces} />
+      <RelatedPlaces
+        place={place}
+        childPlaces={childPlaces}
+      />
       {place && pageConfig && (
         <PlaceCharts
           place={place}
