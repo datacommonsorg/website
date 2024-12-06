@@ -20,7 +20,8 @@
 
 import React, { ReactElement } from "react";
 
-import { LinkChip, LinkChips } from "../../../components/content/link_chips";
+import { LinkChips } from "../../../components/content/link_chips";
+import { Link } from "../../../components/elements/link_chip";
 import { Query } from "../../../shared/topic_config";
 
 interface StatVarQueriesProps {
@@ -28,7 +29,7 @@ interface StatVarQueriesProps {
 }
 
 export function StatVarQueries({ queries }: StatVarQueriesProps): ReactElement {
-  const statVarLinkChips: LinkChip[] = queries.map((query) => ({
+  const statVarLinkChips: Link[] = queries.map((query) => ({
     id: query.url,
     title: query.title,
     url: query.url,
@@ -40,9 +41,10 @@ export function StatVarQueries({ queries }: StatVarQueriesProps): ReactElement {
   return (
     <LinkChips
       variant="flat"
-      title={
+      header={
         "Explore statistical variables around the world in the Timeline explorer tool"
       }
+      headerComponent="h3"
       section="statvar"
       linkChips={statVarLinkChips}
     />
