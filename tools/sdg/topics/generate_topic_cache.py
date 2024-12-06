@@ -222,10 +222,11 @@ def _to_triple(parser_triple: list[str], local2dcid: dict[str, str]) -> Triple:
     return Triple(subject_id, _predicate, object_value=value)
 
 
-def _filter_triples_by_type(triples: list[Triple], type: str) -> list[Triple]:
+def _filter_triples_by_type(triples: list[Triple],
+                            type_of: str) -> list[Triple]:
   filter_dcids = set()
   for triple in triples:
-    if triple.predicate == _PREDICATE_TYPE_OF and triple.object_id == type:
+    if triple.predicate == _PREDICATE_TYPE_OF and triple.object_id == type_of:
       filter_dcids.add(triple.subject_id)
 
   return list(filter(lambda triple: triple.subject_id in filter_dcids, triples))
