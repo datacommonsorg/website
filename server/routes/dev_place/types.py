@@ -68,3 +68,4 @@ class RelatedPlacesApiResponse:
   nearbyPlaces: List[Place]
   place: Place
   similarPlaces: List[Place]
+  parentPlaces: List[Place] = None
