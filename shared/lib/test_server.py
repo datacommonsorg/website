@@ -16,7 +16,7 @@ import unittest
 
 import server.lib.util as libutil
 
-# Match the port used by run_servers.sh.
+# Match the port used by run_nl_and_web_servers.sh.
 # This differs from the port used by run_server.sh so tests can be run
 # without shutting down any active dev server.
 WEB_PORT = 8090
@@ -27,7 +27,7 @@ class NLWebServerTestCase(unittest.TestCase):
   @classmethod
   def setUpClass(cls):
     # If this check fail, you need to start up website and NL servers
-    # with ./run_servers.sh before running pytest.
+    # with ./run_nl_and_web_servers.sh before running pytest.
     libutil.check_backend_ready([f'{cls.get_class_server_url()}/health'])
 
   @classmethod
