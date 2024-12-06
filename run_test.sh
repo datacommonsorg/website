@@ -37,9 +37,9 @@ function start_servers() {
     fi
     exit $exit_with
   }
-# On exit, assign status code to a variable and call cleanup.
+  # On exit, assign status code to a variable and call cleanup.
   trap 'exit_with=$?; cleanup' EXIT
-  ./run_servers.sh &
+  ./run_nl_and_web_servers.sh &
   # Store the ID of the subprocess that is running website and NL servers.
   SERVERS_PID=$!
   # Wait a few seconds and make sure the server script subprocess hasn't failed.
@@ -274,80 +274,80 @@ command=""  # Initialize command variable
 
 while [[ "$#" -gt 0 ]]; do
   case "$1" in
-    -p | -w | --explore | --nl | --setup_python | -g | -o | -b | -l | -c | -s | -f | -a)
-        if [[ -n "$command" ]]; then
-            # If a command has already been set, break the loop to process it with the collected extra_args
-            break
-        fi
+  -p | -w | --explore | --nl | --setup_python | -g | -o | -b | -l | -c | -s | -f | -a)
+    if [[ -n "$command" ]]; then
+      # If a command has already been set, break the loop to process it with the collected extra_args
+      break
+    fi
         command=$1  # Store the command to call the appropriate function
         shift  # Move to the next command-line argument
-        ;;
-    *)
-        if [[ -n "$command" ]]; then
-            # Collect extra args only if a command is already set
-            extra_args+=("$1")
-        else
-            echo "Unknown option: $1"
-            help
-            exit 1
-        fi
-        shift
-        ;;
+    ;;
+  *)
+    if [[ -n "$command" ]]; then
+      # Collect extra args only if a command is already set
+      extra_args+=("$1")
+    else
+      echo "Unknown option: $1"
+      help
+      exit 1
+    fi
+    shift
+    ;;
   esac
 done
 
 # Use "${extra_args[@]}" to correctly pass array elements as separate words
 case "$command" in
-  -p)
-      echo -e "### Running server tests"
-      run_py_test "${extra_args[@]}"
-      ;;
-  -w)
-      echo -e "### Running webdriver tests"
-      run_webdriver_test "${extra_args[@]}"
-      ;;
-  --explore)
-      echo --explore "### Running explore page integration tests"
-      run_integration_test explore_test.py "${extra_args[@]}"
-      ;;
-  --nl)
-      echo --nl "### Running nl page integration tests"
-      run_integration_test nl_test.py "${extra_args[@]}"
-      ;;
-  --setup_python)
-      echo --setup_python "### Set up python environment"
-      setup_python
-      ;;
-  -g)
-      echo -e "### Updating integration test goldens"
-      update_integration_test_golden "${extra_args[@]}"
-      ;;
-  -o)
-      echo -e "### Production flag enabled"
-      PROD=true
-      ;;
-  -b)
-      echo -e "### Build client-side packages"
+-p)
+  echo -e "### Running server tests"
+  run_py_test "${extra_args[@]}"
+  ;;
+-w)
+  echo -e "### Running webdriver tests"
+  run_webdriver_test "${extra_args[@]}"
+  ;;
+--explore)
+  echo --explore "### Running explore page integration tests"
+  run_integration_test explore_test.py "${extra_args[@]}"
+  ;;
+--nl)
+  echo --nl "### Running nl page integration tests"
+  run_integration_test nl_test.py "${extra_args[@]}"
+  ;;
+--setup_python)
+  echo --setup_python "### Set up python environment"
+  setup_python
+  ;;
+-g)
+  echo -e "### Updating integration test goldens"
+  update_integration_test_golden "${extra_args[@]}"
+  ;;
+-o)
+  echo -e "### Production flag enabled"
+  PROD=true
+  ;;
+-b)
+  echo -e "### Build client-side packages"
       run_npm_build "${PROD:-false}"  # Use the value of PROD or default to false
-      ;;
-  -l)
-      echo -e "### Running lint"
-      run_npm_lint_test
-      ;;
-  -c)
-      echo -e "### Running client tests"
-      run_npm_test "${extra_args[@]}"
-      ;;
-  -s)
-      echo -e "### Running screenshot tests"
-      run_screenshot_test "${extra_args[@]}"
-      ;;
-  -f)
-      echo -e "### Fix lint errors"
-      run_lint_fix
-      ;;
-  -a)
-      echo -e "### Running all tests"
-      run_all_tests
-      ;;
+  ;;
+-l)
+  echo -e "### Running lint"
+  run_npm_lint_test
+  ;;
+-c)
+  echo -e "### Running client tests"
+  run_npm_test "${extra_args[@]}"
+  ;;
+-s)
+  echo -e "### Running screenshot tests"
+  run_screenshot_test "${extra_args[@]}"
+  ;;
+-f)
+  echo -e "### Fix lint errors"
+  run_lint_fix
+  ;;
+-a)
+  echo -e "### Running all tests"
+  run_all_tests
+  ;;
 esac
