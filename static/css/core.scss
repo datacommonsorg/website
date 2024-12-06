@@ -352,7 +352,7 @@ section {
       height: $header-mobile-height;
       gap: calc(#{var.$spacing} * 2);
       padding: calc(#{var.$spacing} * 2) calc(#{var.$spacing} * 3);
-      .header-search-section {
+      .header-search {
         order: 3;
         grid-column: 1 / span 2;
       }
@@ -600,7 +600,8 @@ section {
   }
 }
 
-.header-search-section {
+.header-search {
+  position: relative;
   display: flex;
   flex-direction: column;
   padding-top: 22px;
@@ -625,7 +626,7 @@ section {
     border: none;
     border-color: var(--gm-3-ref-neutral-neutral-40);
 
-    .search-icon {
+    .search-bar-icon {
       font-size: 24px;
       line-height: 1;
     }

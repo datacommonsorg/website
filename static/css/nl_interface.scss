@@ -1,18 +1,18 @@
 /**
- * Copyright 2022 Google LLC
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+* Copyright 2022 Google LLC
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*      http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 
 @use "./shared/subject_page";
 @use "./nl_search_bar";
@@ -519,41 +519,158 @@ h3,
   text-decoration: underline;
 }
 
-.debug-info-toggle {
+// Debug modal
+
+.debug-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background-color: rgba($color: #000000, $alpha: 0.7);
+  z-index: 99;
+}
+
+.debug-info-open {
+  position: absolute;
+  right: -10px;
+  top: 35px;
   display: block;
   text-align: right;
-}
-
-.debug-info-toggle.show {
-  color: #666;
   font-size: 0.8rem;
-  padding-top: 0.5em;
-  margin-bottom: -1em;
-  position: absolute;
-  top: 0.5rem;
-  right: 2rem;
+  color: #dc3545;
+  transition: transform 0.4s ease-in-out;
+  background: white;
+  border-radius: 100px;
+  @include media-breakpoint-up(xl) {
+    right: 30px;
+  }
+  @media (max-width: 620px) {
+    top: -10px;
+    right: 5px;
+  }
+  cursor: pointer;
+  &.active {
+    color: #666666;
+  }
+  &:hover {
+    transform: rotate(25deg);
+  }
 }
 
-.debug-info-toggle.hide {
-  font-weight: bold;
+.debug-info-close {
+  margin: 0;
+  padding: 0;
+  color: #dc3545;
+  cursor: pointer;
+  .material-icons {
+    font-size: 2rem;
+    font-weight: 900;
+  }
 }
 
 .nl-query-result-debug-info {
+  position: fixed;
+  z-index: 100;
+  overflow: scroll;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  width: calc(100vw - 100px);
+  max-width: 1920px;
+  height: calc(100vh - 100px);
   background: white;
-  padding: 2em;
-  font-size: 0.8em;
   border: 1px solid var(--gray);
-  max-width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
 
-  table,
-  th,
-  tr,
-  td {
-    border: 1px solid black;
+  header {
+    position: sticky;
+    top: 0;
+    padding: 32px 32px 32px 32px;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #ccc;
+    h3, a {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    h3 span {
+      transition: transform .5s ease-in-out;
+      &:hover {
+        transform: translateY(-5px) rotate(45deg);
+      }
+    }
   }
 
-  .feedback-link {
-    padding: 1rem 0;
+  section {
+    padding: 32px 64px 64px 64px;
+  }
+
+  .show-more {
+    width: 100%;
+    margin: 30px 0;
+    a {
+      display: block;
+      cursor: pointer;
+      padding: 8px 16px;
+      border-radius: 100px;
+      background: #0b57d0;
+      color: white;
+      font-size: 1.2rem;
+      text-align: center;
+    }
+  }
+
+  .block {
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f5f5f5;
+    
+    strong {
+      margin-right: 10px;
+    }
+
+    .highlight {
+      background-color: #d3e3fd;
+      padding: 2px 8px;
+      border-radius: 100px;
+    }
+
+    pre {
+      font-family: 'Courier New', Courier, monospace;
+      padding: 24px;
+      background-color: #f5f5f5;
+    }
+
+    table, ul, pre {
+      display: block;
+      width: 100%;
+      margin: 20px 0;
+    }
+
+    li {
+      line-height: 1.8rem;
+    }
+
+    th,
+    td {
+      padding: 8px 16px;
+      border: 1px solid black;
+    }
+
+    .feedback-link {
+      padding: 1rem 0;
+    }
   }
 }
 

@@ -20,7 +20,7 @@
 
 import _ from "lodash";
 import queryString from "query-string";
-import React, { useEffect, useRef } from "react";
+import React, { ReactElement, useEffect, useRef } from "react";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import {
@@ -52,20 +52,29 @@ import { UserMessage } from "./user_message";
 const PAGE_ID = "explore";
 
 interface SuccessResultPropType {
+  //the query string that brought up the given results
   query: string;
+  //an object containing the debug data
   debugData: any;
+  //the explore context
   exploreContext: any;
+  //an object containing the results of the query.
   queryResult: QueryResult;
+  //page metadata (containing information such as places, topics)
   pageMetadata: SubjectPageMetadata;
+  //an object containing a list of messages that is passed into the user message component
   userMessage: UserMessageInfo;
+  //if true, there is no header bar search, and so we display search inline
+  //if false, there is a header bar search, and so we do not display search inline
+  hideHeaderSearchBar: boolean;
 }
 
-export function SuccessResult(props: SuccessResultPropType): JSX.Element {
+export function SuccessResult(props: SuccessResultPropType): ReactElement {
+  const searchSectionRef = useRef<HTMLDivElement>(null);
+  const chartSectionRef = useRef<HTMLDivElement>(null);
   if (!props.pageMetadata) {
     return null;
   }
-  const searchSectionRef = useRef<HTMLDivElement>(null);
-  const chartSectionRef = useRef<HTMLDivElement>(null);
   const childPlaceType = !_.isEmpty(props.pageMetadata.childPlaces)
     ? Object.keys(props.pageMetadata.childPlaces)[0]
     : "";
@@ -118,19 +127,21 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
         placeOverviewOnly ? " place-overview-only" : ""
       }`}
     >
-      <div className="search-section-container" ref={searchSectionRef}>
-        <div className="search-section-content container">
-          <DebugInfo
-            debugData={props.debugData}
-            queryResult={props.queryResult}
-          ></DebugInfo>
-          <SearchSection
-            query={props.query}
-            debugData={props.debugData}
-            exploreContext={props.exploreContext}
-          />
+      {props.hideHeaderSearchBar && (
+        <div className="search-section-container" ref={searchSectionRef}>
+          <div className="search-section-content container">
+            <DebugInfo
+              debugData={props.debugData}
+              queryResult={props.queryResult}
+            ></DebugInfo>
+            <SearchSection
+              query={props.query}
+              debugData={props.debugData}
+              exploreContext={props.exploreContext}
+            />
+          </div>
         </div>
-      </div>
+      )}
       <div className="col-12" ref={chartSectionRef}>
         <UserMessage
           userMessage={props.userMessage}
