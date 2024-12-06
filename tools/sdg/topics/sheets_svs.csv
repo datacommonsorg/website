@@ -1,0 +1,681 @@
+dcid,sentence
+dc/topic/SDGAGFLSINDEX,Global food loss index
+dc/topic/SDGAGFLSPCT,Food loss percentage
+dc/topic/SDGAGFOODWST,Food waste
+dc/topic/SDGAGFOODWSTPC,Food waste per capita
+dc/topic/SDGAGFPACFPI,Indicator of Food Price Anomalies (IFPA) by Consumer Price Index of Food
+dc/topic/SDGAGFPACOMM,Indicator of Food Price Anomalies (IFPA) by Product
+dc/topic/SDGAGFPAHMFP,"Proportion of countries recording abnormally high or moderately high food prices, according to the Indicator of Food Price Anomalies"
+dc/topic/SDGAGLNDAGRBIO,Proportion of agricultural land area that has achieved an acceptable or desirable level of use of agro-biodiversity supportive practices
+dc/topic/SDGAGLNDAGRWAG,Proportion of agricultural land area that has achieved an acceptable or desirable level of wage rate in agriculture
+dc/topic/SDGAGLNDDGRD,Proportion of land that is degraded over total land area
+dc/topic/SDGAGLNDFERTMG,Proportion of agricultural land area that has achieved an acceptable or desirable level of management of fertilizers
+dc/topic/SDGAGLNDFIES,Proportion of agricultural land area that has achieved an acceptable or desirable level of food security
+dc/topic/SDGAGLNDFOVH,Proportion of agricultural land area that has achieved an acceptable or desirable level of farm output value per hectare
+dc/topic/SDGAGLNDFRST,Forest area as a proportion of total land area
+dc/topic/SDGAGLNDFRSTBIOPHA,Above-ground biomass in forest
+dc/topic/SDGAGLNDFRSTCERT,Forest area certified under an independently verified certification scheme
+dc/topic/SDGAGLNDFRSTCHG,Annual forest area change rate
+dc/topic/SDGAGLNDFRSTMGT,Proportion of forest area with a long-term management plan
+dc/topic/SDGAGLNDFRSTN,Forest area
+dc/topic/SDGAGLNDFRSTPRCT,Proportion of forest area within legally established protected areas
+dc/topic/SDGAGLNDH2OAVAIL,Proportion of agricultural land area that has achieved an acceptable or desirable level of variation in water availability
+dc/topic/SDGAGLNDLNDSTR,Proportion of agricultural land area that has achieved an acceptable or desirable level of secure tenure rights to agricultural land
+dc/topic/SDGAGLNDNFI,Proportion of agricultural land area that has achieved an acceptable or desirable level of net farm income
+dc/topic/SDGAGLNDPSTCDSMG,Proportion of agricultural land area that has achieved an acceptable or desirable level of management of pesticides
+dc/topic/SDGAGLNDRMM,Proportion of agricultural land area that has achieved an acceptable or desirable level of risk mitigation mechanisms
+dc/topic/SDGAGLNDSDGRD,Proportion of agricultural land area that has achieved an acceptable or desirable level of soil degradation
+dc/topic/SDGAGLNDSUST,Proportion of agricultural area under productive and sustainable agriculture
+dc/topic/SDGAGLNDSUSTPRXCSS,"Progress toward productive and sustainable agriculture, current status score (proxy)"
+dc/topic/SDGAGLNDSUSTPRXTS,"Progress toward productive and sustainable agriculture, trend score (proxy)"
+dc/topic/SDGAGLNDTOTL,Land area
+dc/topic/SDGAGPRDAGVAS,Agriculture value added share of GDP
+dc/topic/SDGAGPRDFIESMS,Prevalence of moderate or severe food insecurity in the population
+dc/topic/SDGAGPRDFIESMSN,Population in moderate or severe food insecurity
+dc/topic/SDGAGPRDFIESS,Prevalence of severe food insecurity in the population
+dc/topic/SDGAGPRDFIESSN,Population in severe food insecurity
+dc/topic/SDGAGPRDORTIND,Agriculture orientation index for government expenditures
+dc/topic/SDGAGPRDXSUBDY,Agricultural export subsidies
+dc/topic/SDGAGXPDAGSGB,Agriculture share of Government Expenditure
+dc/topic/SDGBNCABXOKAGDZS,Current account balance as a proportion of GDP
+dc/topic/SDGBNKLTPTXLCD,"Portfolio investment, net (Balance of Payments)"
+dc/topic/SDGBXKLTDINVWDGDZS,"Foreign direct investment, net inflows, as a proportion of GDP"
+dc/topic/SDGBXTRFPWKR,Volume of remittances as a proportion of total GDP
+dc/topic/SDGDCENVTECHEXP,Amount of tracked exported Environmentally Sound Technologies
+dc/topic/SDGDCENVTECHIMP,Amount of tracked imported Environmentally Sound Technologies
+dc/topic/SDGDCENVTECHINV,Total investment in Environment Sound Technologies
+dc/topic/SDGDCENVTECHREXP,Amount of tracked re-exported Environmentally Sound Technologies
+dc/topic/SDGDCENVTECHRIMP,Amount of tracked re-imported Environmentally Sound Technologies
+dc/topic/SDGDCENVTECHTT,Total trade of tracked Environmentally Sound Technologies
+dc/topic/SDGDCFINCLIMB,"Climate-specific financial support provided via bilateral, regional and other channels"
+dc/topic/SDGDCFINCLIMM,Climate-specific financial support provided via multilateral channels
+dc/topic/SDGDCFINCLIMT,Total climate-specific financial support provided
+dc/topic/SDGDCFINGEN,Core/general contributions provided to multilateral institutions
+dc/topic/SDGDCFINTOT,Total financial support provided
+dc/topic/SDGDCFTATOTAL,Total official development assistance (gross disbursement) for technical cooperation
+dc/topic/SDGDCODABDVDL,Total outbound official development assistance for biodiversity
+dc/topic/SDGDCODABDVL,Total inbound official development assistance for biodiversity
+dc/topic/SDGDCODALDCG,Net outbound official development assistance (ODA) to LDCs as a percentage of OECD-DAC donors' GNI
+dc/topic/SDGDCODALDCS,Net inbound official development assistance (ODA) to LDCs from OECD-DAC countries
+dc/topic/SDGDCODALLDC,Net outbound official development assistance (ODA) to landlocked developing countries from OECD-DAC countries
+dc/topic/SDGDCODALLDCG,Net outbound official development assistance (ODA) to landlocked developing countries as a percentage of OECD-DAC donors' GNI
+dc/topic/SDGDCODAPOVDLG,"Outbound official development assistance grants for poverty reduction, as percentage of GNI"
+dc/topic/SDGDCODAPOVG,Official development assistance grants for poverty reduction (percentage of GNI)
+dc/topic/SDGDCODAPOVLG,"Inbound official development assistance grants for poverty reduction, as a percentage of GNI"
+dc/topic/SDGDCODASIDS,Net outbound official development assistance (ODA) to small island states (SIDS) from OECD-DAC countries
+dc/topic/SDGDCODASIDSG,Net outbound official development assistance (ODA) to small island states (SIDS) as a percentage of OECD-DAC donors' GNI
+dc/topic/SDGDCODATOTG,Net outbound official development assistance (ODA) as a percentage of OECD-DAC donors' GNI
+dc/topic/SDGDCODATOTGGE,Outbound official development assistance (ODA) as a percentage of OECD-DAC donors' GNI on grant equivalent basis
+dc/topic/SDGDCODATOTL,Net outbound official development assistance (ODA) from OECD-DAC countries
+dc/topic/SDGDCODATOTLGE,Outbound official development assistance (ODA) from OECD-DAC countries on grant equivalent basis
+dc/topic/SDGDCOSSDGRT,Gross receipts by developing countries of official sustainable development grants
+dc/topic/SDGDCOSSDMPF,Gross receipts by developing countries of mobilised private finance (MPF) - on an experimental basis
+dc/topic/SDGDCOSSDOFFCL,Gross receipts by developing countries of official concessional sustainable development loans
+dc/topic/SDGDCOSSDOFFNL,Gross receipts by developing countries of official non-concessional sustainable development loans
+dc/topic/SDGDCOSSDPRVGRT,Gross receipts by developing countries of private grants
+dc/topic/SDGDCTOFAGRL,Total inbound official flows (disbursements) for agriculture
+dc/topic/SDGDCTOFHLTHL,"Total inbound official development assistance to medical research and basic health sectors, gross disbursement"
+dc/topic/SDGDCTOFHLTHNT,"Total inbound official development assistance to medical research and basic health sectors, net disbursement"
+dc/topic/SDGDCTOFINFRAL,Total inbound official flows for infrastructure
+dc/topic/SDGDCTOFSCHIPSL,Total inbound official flows for scholarships
+dc/topic/SDGDCTOFTRDCMDL,Total outbound official flows (commitments) for Aid for Trade
+dc/topic/SDGDCTOFTRDCML,Total inbound official flows (commitments) for Aid for Trade
+dc/topic/SDGDCTOFTRDDBMDL,Total outbound official flows (disbursement) for Aid for Trade
+dc/topic/SDGDCTOFTRDDBML,Total inbound official flows (disbursement) for Aid for Trade
+dc/topic/SDGDCTOFWASHL,Total inbound official development assistance (gross disbursement) for water supply and sanitation
+dc/topic/SDGDCTRFTFDV,Total inbound resource flows for development
+dc/topic/SDGDCTRFTOTDL,Total outbound assistance for development
+dc/topic/SDGDCTRFTOTL,Total inbound assistance for development
+dc/topic/SDGDIILLIN,Total value of inward illicit financial flows by Type of flow
+dc/topic/SDGDIILLOUT,Total value of outward illicit financial flows by Type of flow
+dc/topic/SDGDPDODDLD2CRCGZ1,"Gross public sector debt, Central Government, as a proportion of GDP"
+dc/topic/SDGDTDODDECTGNZS,External debt stocks as a proportion of GNI
+dc/topic/SDGDTTDSDECT,Debt service as a proportion of exports of goods and services
+dc/topic/SDGEGACSELEC,Proportion of population with access to electricity
+dc/topic/SDGEGEGYCLEAN,Proportion of population with primary reliance on clean fuels and technology
+dc/topic/SDGEGEGYPRIM,Energy intensity level of primary energy
+dc/topic/SDGEGEGYRNEW,Installed renewable electricity-generating capacity
+dc/topic/SDGEGFECRNEW,Share of renewable energy in the total final energy consumption
+dc/topic/SDGEGIFFRANDN,"International financial flows to developing countries in support of clean energy research and development and renewable energy production, including in hybrid systems"
+dc/topic/SDGEGTBAH2CO,Proportion of transboundary basins (river and lake basins and aquifers) with an operational arrangement for water cooperation
+dc/topic/SDGEGTBAH2COAQ,Proportion of transboundary aquifers with an operational arrangement for water cooperation
+dc/topic/SDGEGTBAH2CORL,Proportion of transboundary river and lake basins with an operational arrangement for water cooperation
+dc/topic/SDGENACSURBOPENSP,Average share of urban population with convenient access to open public spaces
+dc/topic/SDGENADAPCOM,Number of countries with adaptation communications by Report
+dc/topic/SDGENADAPCOMDV,Number of least developed countries and small island developing States with adaptation communications by Report
+dc/topic/SDGENATMCO2,Carbon dioxide emissions from fuel combustion
+dc/topic/SDGENATMCO2GDP,Carbon dioxide emissions per unit of GDP at purchaning power parity rates
+dc/topic/SDGENATMCO2MVA,Carbon dioxide emissions from manufacturing industries per unit of manufacturing value added by Major division of ISIC Rev. 4
+dc/topic/SDGENATMGHGTAIP,"Total greenhouse gas emissions (excluding land use, land-use changes and forestry) for Annex I Parties to the United Nations Framework Convention on Climate Change"
+dc/topic/SDGENATMGHGTNAIP,"Total greenhouse gas emissions (excluding land use, land-use changes and forestry) for non-Annex I Parties to the United Nations Framework Convention on Climate Change"
+dc/topic/SDGENATMPM25,Annual mean levels of fine particulate matter (population-weighted)
+dc/topic/SDGENBIUREPAIP,"Countries with biennial reports, Annex I Parties to the United Nations Framework Convention on Climate Change by Report"
+dc/topic/SDGENBIUREPNAIP,"Countries with biennial update reports, non-Annex I Parties to the United Nations Framework Convention on Climate Change by Report"
+dc/topic/SDGENBIUREPNAIPDV,"Least developed countries and small island developing States with biennial update reports, non-Annex I Parties  to the United Nations Framework Convention on Climate Change by Report"
+dc/topic/SDGENEWTCOLLPCAP,Electronic waste collected per capita
+dc/topic/SDGENEWTCOLLR,Proportion of electronic waste that is collected
+dc/topic/SDGENEWTCOLLV,Total electronic waste collected
+dc/topic/SDGENEWTGENPCAP,Electronic waste generated per capita
+dc/topic/SDGENEWTGENV,Total electronic waste generated
+dc/topic/SDGENEWTRCYPCAP,Electronic waste recycled per capita
+dc/topic/SDGENEWTRCYR,Proportion of electronic waste that is recycled
+dc/topic/SDGENEWTRCYV,Total electronic waste recycled
+dc/topic/SDGENH2OGRAMBQ,Proportion of groundwater bodies with good ambient water quality
+dc/topic/SDGENH2OOPAMBQ,Proportion of open water bodies with good ambient water quality
+dc/topic/SDGENH2ORVAMBQ,Proportion of river water bodies with good ambient water quality
+dc/topic/SDGENH2OWBAMBQ,Proportion of bodies of water with good ambient water quality
+dc/topic/SDGENHAZEXP,Hazardous waste exported
+dc/topic/SDGENHAZGENGDP,Hazardous waste generated per unit of GDP
+dc/topic/SDGENHAZGENV,Hazardous waste generated
+dc/topic/SDGENHAZIMP,Hazardous waste imported
+dc/topic/SDGENHAZPCAP,"Hazardous waste generated, per capita"
+dc/topic/SDGENHAZTREATV,Hazardous waste treated by Type of waste treatment
+dc/topic/SDGENHAZTRTDISR,Proportion of hazardous waste that is treated or disposed
+dc/topic/SDGENHAZTRTDISV,Hazardous waste treated or disposed
+dc/topic/SDGENLKRVPWAC,Change in permanent water area of lakes and rivers
+dc/topic/SDGENLKRVPWAN,Permanent water area of lakes and rivers
+dc/topic/SDGENLKRVPWAP,Permanent water area of lakes and rivers as a proportion of total land area
+dc/topic/SDGENLKRVSWAC,Change in seasonal water area of lakes and rivers
+dc/topic/SDGENLKRVSWAN,Seasonal water area of lakes and rivers
+dc/topic/SDGENLKRVSWAP,Seasonal water area of lakes and rivers as a proportion of total land area
+dc/topic/SDGENLKWQLTRB,Lake water quality: turbidity by Deviation level
+dc/topic/SDGENLKWQLTRST,Lake water quality: trophic state by Deviation level
+dc/topic/SDGENLNDCNSPOP,Ratio of land consumption rate to population growth rate
+dc/topic/SDGENLNDINDQTHSNG,Proportion of urban population living in inadequate housing
+dc/topic/SDGENLNDSLUM,Proportion of urban population living in slums by Type of location
+dc/topic/SDGENMARBEALITSQ,Beach litter per square kilometer
+dc/topic/SDGENMARBEALITBP,Proportion of beach litter originating from national land-based sources that ends in the beach
+dc/topic/SDGENMARBEALITBV,Total beach litter originating from national land-based sources that ends in the beach
+dc/topic/SDGENMARBEALITEXP,Total beach litter originating from national land-based sources that is exported
+dc/topic/SDGENMARBEALITOP,Proportion of beach litter originating from national land-based sources that ends in the ocean
+dc/topic/SDGENMARBEALITOV,Total beach litter originating from national land-based sources that ends in the ocean
+dc/topic/SDGENMARCHLANM,"Chlorophyll-a anomaly, remote sensing by Chlorophyll-a Concentration Frequency"
+dc/topic/SDGENMARCHLDEV,"Chlorophyll-a deviations, remote sensing"
+dc/topic/SDGENMARPLASDD,Floating plastic debris density
+dc/topic/SDGENMATDOMCMPC,Domestic material consumption per capita
+dc/topic/SDGENMATDOMCMPG,Domestic material consumption per unit of GDP
+dc/topic/SDGENMATDOMCMPT,Domestic material consumption
+dc/topic/SDGENMATFTPRPC,Material footprint per capita
+dc/topic/SDGENMATFTPRPG,Material footprint per unit of GDP
+dc/topic/SDGENMATFTPRTN,Material footprint
+dc/topic/SDGENMWTCOLLV,Municipal waste collected
+dc/topic/SDGENMWTEXP,Municipal waste exported
+dc/topic/SDGENMWTGENV,Municipal waste generated
+dc/topic/SDGENMWTIMP,Municipal waste imported
+dc/topic/SDGENMWTRCYR,Proportion of municipal waste recycled
+dc/topic/SDGENMWTRCYV,Municipal waste recycled
+dc/topic/SDGENMWTTREATR,Proportion of municipal waste treated by Type of waste treatment
+dc/topic/SDGENMWTTREATV,Municipal waste treated by type of treatment by Type of waste treatment
+dc/topic/SDGENNAAPLAN,Countries with national adaptation plans
+dc/topic/SDGENNAAPLANDV,Least developed countries and small island developing States with national adaptation plans
+dc/topic/SDGENNACOMAIP,"Countries with national communications, Annex I Parties to the United Nations Framework Convention on Climate Change by Report"
+dc/topic/SDGENNACOMNAIP,"Countries with national communications, non-Annex I Parties by Report"
+dc/topic/SDGENNACOMNAIPDV,"Least developed countries and small island developing States with national communications, non-Annex I Parties to the United Nations Framework Convention on Climate Change by Report"
+dc/topic/SDGENNADCONTR,Countries with nationally determined contributions by Report
+dc/topic/SDGENNADCONTRDV,Least developed countries and small island developing States with nationally determined contributions by Report
+dc/topic/SDGENREFWASCOL,Municipal Solid Waste collection coverage
+dc/topic/SDGENRSRVMNWAC,Change in minimum reservoir water area
+dc/topic/SDGENRSRVMNWAN,Minimum reservoir water area
+dc/topic/SDGENRSRVMNWAP,Minimum reservoir water area as a proportion of total land area
+dc/topic/SDGENRSRVMXWAN,Maxiumum reservoir water area
+dc/topic/SDGENRSRVMXWAP,Maximum reservoir water area as a proportion of total land area
+dc/topic/SDGENSCPECSYBA,Countries using ecosystem-based approaches to managing marine areas
+dc/topic/SDGENSCPFRMN,Number of companies publishing sustainability reports with disclosure by dimension
+dc/topic/SDGENSCPFSHGDP,Sustainable fisheries as a proportion of GDP
+dc/topic/SDGENTWTGENV,Total waste generation
+dc/topic/SDGENURBOPENSP,Average share of the built-up area of cities that is open space for public use for all
+dc/topic/SDGENWBEHMWTL,Extent of human made wetlands
+dc/topic/SDGENWBEINWTL,Extent of inland wetlands
+dc/topic/SDGENWBEMANGC,Mangrove total area change
+dc/topic/SDGENWBEMANGN,Mangrove area
+dc/topic/SDGENWBENDQTGRW,Quantity of nationally derived groundwater
+dc/topic/SDGENWBENDQTRVR,Quantity of nationally derived water fromrivers
+dc/topic/SDGENWBEWTLN,Wetlands area
+dc/topic/SDGENWBEWTLP,Wetlands area as a proportion of total land area
+dc/topic/SDGENWWTGEN,Total wastewater generated
+dc/topic/SDGENWWTTREAT,Total wastewater treated
+dc/topic/SDGENWWTTREATR,Proportion of wastewater treated
+dc/topic/SDGENWWTTREATRSF,Proportion of wastewater safely treated
+dc/topic/SDGENWWTTREATSF,Total wastewater safely treated
+dc/topic/SDGENWWTWWDS,Proportion of safely treated domestic wastewater flows
+dc/topic/SDGERBDYABT2NP,Countries that established national targets in accordance with Aichi Biodiversity Target 2 of the Strategic Plan for Biodiversity 2011-2020 in their National Biodiversity Strategy and Action Plans
+dc/topic/SDGERBDYSEEA,"Countries with integrated biodiversity values into national accounting and reporting systems, defined as implementation of the System of Environmental-Economic Accounting"
+dc/topic/SDGERCBDABSCLRHS,"Countries that have legislative, administrative and policy framework or measures reported to the Access and Benefit-Sharing Clearing-House"
+dc/topic/SDGERCBDNAGOYA,Countries that are parties to the Nagoya Protocol
+dc/topic/SDGERCBDORSPGRFA,"Countries that have legislative, administrative and policy framework or measures reported through the Online Reporting System on Compliance  of the International Treaty on Plant Genetic Resources for Food and Agriculture (PGRFA)"
+dc/topic/SDGERCBDPTYPGRFA,Countries that are contracting Parties to the International Treaty on Plant Genetic Resources for Food and Agriculture (PGRFA)
+dc/topic/SDGERCBDSMTA,Total reported number of Standard Material Transfer Agreements (SMTAs) transferring plant genetic resources for food and agriculture to the country
+dc/topic/SDGERFFSCMPTCD,Fossil-fuel subsidies (consumption and production)
+dc/topic/SDGERFFSCMPTGDP,Fossil-fuel subsidies (consumption and production) as a proportion of total GDP
+dc/topic/SDGERFFSCMPTPCCD,Fossil-fuel subsidies (consumption and production) per capita
+dc/topic/SDGERGRFANIMKPT,Number of local breeds kept in the country
+dc/topic/SDGERGRFANIMKPTTRB,Number of transboundary breeds (including extinct ones)
+dc/topic/SDGERGRFANIMRCNTN,Number of local breeds for which sufficient genetic resources are stored for reconstitution
+dc/topic/SDGERGRFANIMRCNTNTRB,Number of transboundary breeds for which sufficient genetic resources are stored for reconstitution
+dc/topic/SDGERGRFPLNTSTOR,Plant genetic resources accessions stored ex situ
+dc/topic/SDGERH2OFWTL,Proportion of fish stocks within biologically sustainable levels (not overexploited)
+dc/topic/SDGERH2OIWRMD,Degree of implementation of integrated water resources management
+dc/topic/SDGERH2OIWRMDEE,Degree of implementation of integrated water resources management: enabling environment
+dc/topic/SDGERH2OIWRMDFI,Degree of implementation of integrated water resources management: financing
+dc/topic/SDGERH2OIWRMDIP,Degree of implementation of integrated water resources management: institutions and participation
+dc/topic/SDGERH2OIWRMDMI,Degree of implementation of integrated water resources management: management instruments
+dc/topic/SDGERH2OIWRMP,Proportion of countries by category of implementation of integrated water resources management (IWRM) by Level of implementation
+dc/topic/SDGERH2OPARTIC,Proportion of countries with high level of users/communities participating in planning programs in rural drinking-water supply by Type of location
+dc/topic/SDGERH2OPRDU,Countries with procedures in law or policy for participation by service users/communities in planning program in rural drinking-water supply by Type of location
+dc/topic/SDGERH2OPROCED,Proportion of countries with clearly defined procedures in law or policy for participation by service users/communities in planning program in rural drinking-water supply by Type of location
+dc/topic/SDGERH2ORURP,"Countries with users/communities participating in planning programs in rural drinking-water supply, by level of participation by Type of location"
+dc/topic/SDGERH2OSTRESS,Level of water stress: freshwater withdrawal as a proportion of available freshwater resources
+dc/topic/SDGERH2OWUEYST,Water use efficiency
+dc/topic/SDGERIASGLOFUN,Recipient countries of global funding with access to any funding from global financial mechanisms for projects related to invasive alien species  management
+dc/topic/SDGERIASGLOFUNP,Proportion of recipient countries of global funding with access to any funding from global financial mechanisms for projects related to invasive alien species  management
+dc/topic/SDGERIASLEGIS,"Countriees with a legislation, regulation, or act related to the prevention of introduction and management of Invasive Alien Species"
+dc/topic/SDGERIASNATBUD,Countries with an allocation from the national budget to manage the threat of invasive alien species
+dc/topic/SDGERIASNATBUDP,Proportion of countries with allocation from the national budget to manage the threat of invasive alien species
+dc/topic/SDGERIASNBSAP,Countries with alignment of National Biodiversity Strategy and Action Plan (NBSAP) targets  to target 9 of the Aichi Biodiversity set out in the Strategic Plan for Biodiversity 2011-2020
+dc/topic/SDGERIASNBSAPP,Proportion of countries with alignment of National Biodiversity Strategy and Action Plan (NBSAP) targets  to target 9 of the Aichi Biodiversity target 9 set out in the Strategic Plan for Biodiversity 2011-2020
+dc/topic/SDGERMRNMPA,Average proportion of Marine Key Biodiversity Areas (KBAs) covered by protected areas
+dc/topic/SDGERMTNDGRDA,Area of degraded mountain land
+dc/topic/SDGERMTNDGRDP,Proportion of degraded mountain land
+dc/topic/SDGERMTNGRNCOV,Area of mountain green cover by Type of land cover
+dc/topic/SDGERMTNGRNCVI,Mountain Green Cover Index by Type of land cover
+dc/topic/SDGERMTNTOTL,Mountain area
+dc/topic/SDGERNOEXLBREDN,Number of local breeds (not extinct)
+dc/topic/SDGERPTDFRHWTR,Average proportion of Freshwater Key Biodiversity Areas (KBAs) covered by protected areas
+dc/topic/SDGERPTDMTN,Average proportion of Mountain Key Biodiversity Areas (KBAs) covered by protected areas
+dc/topic/SDGERPTDTERR,Average proportion of Terrestrial Key Biodiversity Areas (KBAs) covered by protected areas
+dc/topic/SDGERRDEOSEX,National ocean science expenditure as a share of total research and development funding
+dc/topic/SDGERREGSSFRAR,Degree of application of a legal/regulatory/policy/institutional framework which recognizes and protects access rights for small-scale fisheries
+dc/topic/SDGERREGUNFCIM,"Degree of implementation of international instruments aiming to combat illegal, unreported and unregulated fishing"
+dc/topic/SDGERRSKLBREDS,Proportion of local breeds classified as being at risk of extinction as a share of local breeds with known level of extinction risk
+dc/topic/SDGERRSKLST,Red List Index
+dc/topic/SDGERUNCLOSIMPLE,Score for the implementation of UNCLOS and its two implementing agreements
+dc/topic/SDGERUNCLOSRATACC,Score for the ratification of and accession to UNCLOS and its two implementing agreements
+dc/topic/SDGERUNKLBREDN,Number of local breeds with unknown risk status
+dc/topic/SDGERWATPART,Countries with users/communities participating in planning programs in water resources planning and management
+dc/topic/SDGERWATPARTIC,Proportion of countries with high level of users/communities participating in planning programs in water resources planning and management
+dc/topic/SDGERWATPRDU,Countries with procedures in law or policy for participation by service users/communities in planning program in water resources planning and management
+dc/topic/SDGERWATPROCED,Proportion of countries with clearly defined procedures in law or policy for participation by service users/communities in planning program in water resources planning and management
+dc/topic/SDGERWLDTRPOACH,"Proportion of traded wildlife that was poached or illicitly trafficked by Plants, animals and derived products"
+dc/topic/SDGFBATMTOTL,"Number of automated teller machines (ATMs) per 100, 000 adults (15 years old and over)"
+dc/topic/SDGFBBNKACCSS,Proportion of adults (15 years and older) with an account at a financial institution or mobile-money-service provider by Age group
+dc/topic/SDGFBBNKACCSSILF,Proportion of adults (15 years and older) active in labor force with an account at a financial institution or mobile-money-service provider by Age group
+dc/topic/SDGFBBNKACCSSOLF,Proportion of adults (15 years and older) out of labor force with an account at a financial institution or mobile-money-service provider
+dc/topic/SDGFBBNKCAPAZS,Bank capital to assets ratio
+dc/topic/SDGFBCBKBRCH,"Number of commercial bank branches per 100, 000 adults (15 years old and over)"
+dc/topic/SDGFCACCSSID,Proportion of small-scale manufacturing industries with a loan or line of credit
+dc/topic/SDGFIFSIFSANL,Non-performing loans to total gross loans
+dc/topic/SDGFIFSIFSERA,Rate of return on assets
+dc/topic/SDGFIFSIFSKA,Ratio of regulatory capital to assets
+dc/topic/SDGFIFSIFSKNL,Ratio of non-performing loans (net of provisions) to capital
+dc/topic/SDGFIFSIFSKRTC,Ratio of regulatory tier-1 capital to risk-weighted assets
+dc/topic/SDGFIFSIFSLS,Ratio of liquid assets to short term liabilities
+dc/topic/SDGFIFSIFSSNO,Ratio of net open position in foreign exchange to capital
+dc/topic/SDGFIRESTOTLMO,Total reserves in months of imports
+dc/topic/SDGFMLBLBMNYIRZS,Ratio of broad money to total reserves
+dc/topic/SDGFMLBLBMNYZG,Annual growth of broad money
+dc/topic/SDGFPCPITOTLZG,Annual inflation (consumer prices)
+dc/topic/SDGGBPOPSCIERD,Number of full-time-equivalent researchers per million inhabitants
+dc/topic/SDGGBXPDCULNATPB,Total public expenditure per capita on cultural and natural heritage at purchansing-power parity rates
+dc/topic/SDGGBXPDCULNATPBPV,Total public and private expenditure per capita on cultural and natural heritage at purchasing-power parity rates
+dc/topic/SDGGBXPDCULNATPV,Total private expenditure per capita spent on cultural and natural heritage at purchasing-power parity rates
+dc/topic/SDGGBXPDCULPBPV,Total public and private expenditure per capita on cultural heritage at purchasing-power parity rates
+dc/topic/SDGGBXPDNATPBPV,Total public and private expenditure per capita on natural heritage at purchasing-power parity rates
+dc/topic/SDGGBXPDRSDV,Research and development expenditure as a proportion of GDP
+dc/topic/SDGGCBALCASHGDZS,Cash surplus/deficit as a proportion of GDP
+dc/topic/SDGGCGOBTAXD,Proportion of domestic budget funded by domestic taxes
+dc/topic/SDGGCTAXTOTLGDZS,Tax revenue as a proportion of GDP
+dc/topic/SDGGFCOMPPPI,Monetary amount committed to public-private partnerships for infrastructure in nominal terms
+dc/topic/SDGGFCOMPPPIKD,Monetary amount committed to public-private partnerships for infrastructure in real terms
+dc/topic/SDGGFFRNFDI,Foreign direct investment (FDI) inflows
+dc/topic/SDGGFXPDGBPC,Primary government expenditures as a proportion of original approved budget
+dc/topic/SDGGRG14GDP,Total bugetary revenue of the central government as a proportion of GDP
+dc/topic/SDGGRG14XDC,"Total government revenue, in local currency"
+dc/topic/SDGICFRMBRIB,Incidence of bribery (proportion of firms experiencing at least one bribe payment request)
+dc/topic/SDGICGENMGTL,Proportion of women in managerial positions - previous definition (15 years old and over)
+dc/topic/SDGICGENMGTL19ICLS,Proportion of women in managerial positions - current definition (15 years old and over)
+dc/topic/SDGICGENMGTN,Proportion of women in senior and middle management positions - previous definition (15 years old and over)
+dc/topic/SDGICGENMGTN19ICLS,Proportion of women in senior and middle management positions - current definition (15 years old and over)
+dc/topic/SDGIQSPIPIL4,Performance index of data sources (Pillar 4 of Statistical Performance Indicators)
+dc/topic/SDGIQSPIPIL5,Performance index of data Infrastructure (Pillar 5 of Statistical Performance Indicators)
+dc/topic/SDGISRDPFRGVOL,Freight volume by Mode of transport
+dc/topic/SDGISRDPLULFRG,"Freight loaded and unloaded, maritime transport"
+dc/topic/SDGISRDPPFVOL,Passenger volume by Mode of transport
+dc/topic/SDGISRDPPORFVOL,"Container port traffic, maritime transport"
+dc/topic/SDGITMOB2GNTWK,Proportion of population covered by at least a 2G mobile network
+dc/topic/SDGITMOB3GNTWK,Proportion of population covered by at least a 3G mobile network
+dc/topic/SDGITMOB4GNTWK,Proportion of population covered by at least a 4G mobile network
+dc/topic/SDGITMOBOWN,Proportion of individuals who own a mobile telephone
+dc/topic/SDGITNETBBND,Fixed broadband subscriptions per 100 inhabitants
+dc/topic/SDGITNETBBNDN,Number of fixed broadband subscriptions
+dc/topic/SDGITUSEii99,Proportion of individuals using the Internet
+dc/topic/SDGIUCORBRIB,Prevalence rate of bribery
+dc/topic/SDGIUDMKICRS,Proportion of population who believe decision-making is inclusive and responsive
+dc/topic/SDGIUDMKINCL,Proportion of population who believe decision-making is inclusive
+dc/topic/SDGIUDMKRESP,Proportion of population who believe decision-making is responsive
+dc/topic/SDGNECONGOVTKDZG,Annual growth of final consumption expenditure of the general government
+dc/topic/SDGNECONPRVTKDZG,Annual growth of final consumption expenditure of households and non-profit institutions serving households (NPISHs)
+dc/topic/SDGNEEXPGNFSKDZG,Annual growth of exports of goods and services
+dc/topic/SDGNEGDITOTLKDZG,Annual growth of the gross capital formation
+dc/topic/SDGNEIMPGNFSKDZG,Annual growth of imports of goods and services
+dc/topic/SDGNVINDSSIS,Proportion of small-scale manufacturing industries in total manufacturing value added
+dc/topic/SDGNVINDTECH,Proportion of medium and high-tech manufacturing value added in total value added
+dc/topic/SDGNYGDPMKTPKDZG,Annual GDP growth
+dc/topic/SDGNYGDPPCAP,Annual growth rate of real GDP per capita
+dc/topic/SDGPANUSATLS,Alternative conversion factor used by the Development Economics Group (DEC)
+dc/topic/SDGPDAGRLSFP,Productivity of large-scale food producers (agricultural output per labour day at purchasing-power parity rates)
+dc/topic/SDGPDAGRSSFP,Productivity of small-scale food producers (agricultural output per labour day at purchasing-power parity rates)
+dc/topic/SDGSDCPAUPRDP,"Countries that have national urban policies or regional development plans that respond to population dynamics, ensure balanced territorial development, and increase local fiscal space"
+dc/topic/SDGSDMDPANDI,Average proportion of deprivations experienced by multidimensionally poor people
+dc/topic/SDGSDMDPANDIHH,Average share of weighted deprivations experienced by total households (intensity)
+dc/topic/SDGSDMDPCSMP,Proportion of children living in child-specific multidimensional poverty (under 18 years old)
+dc/topic/SDGSDMDPMUHHC,Proportion of households living in multidimensional poverty
+dc/topic/SDGSDXPDESED,"Proportion of total government spending on essential services, education"
+dc/topic/SDGSDXPDMNPO,"Proportion of government spending in health, direct social transfers and education which benefit the monetary poor"
+dc/topic/SDGSEACCHNDWSH,Proportion of schools with basic handwashing facilities by Education level
+dc/topic/SDGSEACSCMPTR,Proportion of schools with access to computers for pedagogical purposes by Education level
+dc/topic/SDGSEACSELECT,Proportion of schools with access to electricity by Education level
+dc/topic/SDGSEACSH2O,Proportion of schools with access to basic drinking water by Education level
+dc/topic/SDGSEACSINTNT,Proportion of schools with access to the internet for pedagogical purposes by Education level
+dc/topic/SDGSEACSSANIT,Proportion of schools with access to single-sex basic sanitation by Education level
+dc/topic/SDGSEADTACTS,Proportion of youth and adults with information and communications technology (ICT) skills (15 to 24 years old) by Type of skill
+dc/topic/SDGSEADTEDUCTRN,Participation rate in formal and non-formal education and training by Age group
+dc/topic/SDGSEADTFUNS,Proportion of population achieving at least a fixed level of proficiency in functional skills (16 to 65 years old) by Type of skill
+dc/topic/SDGSEAGPCPRA,Adjusted gender parity index for completion rate by Education level
+dc/topic/SDGSEALPCPLR,Adjusted location parity index for completion rate by Education level
+dc/topic/SDGSEAWPCPRA,Adjusted wealth parity index for completion rate by Education level
+dc/topic/SDGSEDEVONTRK,"Proportion of children aged 24−59 months who are developmentally on track in at least three of the following domains: literacy-numeracy, physical development, social-emotional development, and learning by Age group"
+dc/topic/SDGSEGCEDESDCUR,Extent to which global citizenship education and education for sustainable development are mainstreamed in curricula
+dc/topic/SDGSEGCEDESDNEP,Extent to which global citizenship education and education for sustainable development are mainstreamed in national education policies
+dc/topic/SDGSEGCEDESDSAS,Extent to which global citizenship education and education for sustainable development are mainstreamed in student assessment
+dc/topic/SDGSEGCEDESDTED,Extent to which global citizenship education and education for sustainable development are mainstreamed in teacher education
+dc/topic/SDGSEGPIICTS,Gender parity index for youth/adults with information and communications technology (ICT) skills by Type of skill
+dc/topic/SDGSEGPIPART,Adjusted gender parity index for participation rate in formal and non-formal education and training by Age group
+dc/topic/SDGSEGPIPTNPRE,Adjusted gender parity index for participation rate in organized learning (one year before the official primary entry age)
+dc/topic/SDGSEGPITCAQ,Adjusted gender parity index for the proportion of teachers with the minimum required qualifications by Education level
+dc/topic/SDGSEIMPFPOF,Adjusted immigration status parity index for achieving at least a fixed level of proficiency in functional skills (16 to 65 years old) by Type of skill
+dc/topic/SDGSEINFDSBL,Proportion of schools with access to adapted infrastructure and materials for students with disabilities by Education level
+dc/topic/SDGSELGPACHI,Adjusted language test parity index for achieving a minimum proficiency level in reading and mathematics (Minimum proficiency in mathematics) by Education level
+dc/topic/SDGSENAPACHI,Adjusted immigration status parity index for achieving a minimum proficiency level in reading and mathematics (Minimum proficiency in mathematics) by Education level
+dc/topic/SDGSEPREPARTN,Participation rate in organized learning (one year before the official primary entry age)
+dc/topic/SDGSETOTCPLR,School completion rate by Education level
+dc/topic/SDGSETOTGPI,Adjusted gender parity index for achieving a minimum proficiency level in reading and mathematics (Minimum proficiency in mathematics) by Education level
+dc/topic/SDGSETOTGPIFS,Adjusted gender parity index for achieving at least a fixed level of proficiency in functional skills (16 to 65 years old) by Type of skill
+dc/topic/SDGSETOTPRFL,Proportion of children and young people achieving a minimum proficiency level in reading and mathematics (Minimum proficiency in mathematics) by Education level
+dc/topic/SDGSETOTRUPI,Adjusted rural to urban parity index for achieving a minimum proficiency level in reading and mathematics (Minimum proficiency in mathematics) by Education level
+dc/topic/SDGSETOTSESPI,Adjusted low to high socio-economic parity index for achieving a minimum proficiency level in reading and mathematics (Minimum proficiency in mathematics) by Education level
+dc/topic/SDGSETOTSESPIFS,Adjusted low to high socio-economic parity status index for achieving at least a fixed level of proficiency in functional skills (16 to 65 years old) by Type of skill
+dc/topic/SDGSETRAGRDL,Proportion of teachers with the minimum required qualifications (Pre-primary education) by Sex
+dc/topic/SDGSGCPAMIGRP,"Proportion of countries with migration policies to facilitate orderly, safe, regular and responsible migration and mobility of people"
+dc/topic/SDGSGCPAMIGRS,"Countries with migration policies to facilitate orderly, safe, regular and responsible migration and mobility of people"
+dc/topic/SDGSGCPAOFDI,"Number of countries with an outward investment promotion scheme which can benefit developing countries, including LDCs"
+dc/topic/SDGSGCPASDEVP,Mechanisms in place to enhance policy coherence for sustainable development
+dc/topic/SDGSGDMKJDC,"Proportion of positions held by persons under 45 years of age in the judiciary, compared to national distributions"
+dc/topic/SDGSGDMKJDCCNS,Proportions of positions held by persons under 45 years of age in the Constitutional Court
+dc/topic/SDGSGDMKJDCHGR,Proportions of positions held by persons under 45 years of age in the Higher Courts
+dc/topic/SDGSGDMKJDCLWR,Proportions of positions held by persons under 45 years of age in the Lower Courts
+dc/topic/SDGSGDMKPARLCCJC,Number of chairs of permanent parliamentary committees held by women 46 years old and over: Joint Committees
+dc/topic/SDGSGDMKPARLCCLC,Number of chairs of permanent parliamentary committees held by women 46 years old and over: Lower Chamber or Unicameral Committees
+dc/topic/SDGSGDMKPARLCCUC,Number of chairs of permanent parliamentary committees held by women years old and over: Upper Chamber Committees
+dc/topic/SDGSGDMKPARLMPLC,Female representation ratio in parliament (proportion of women in parliament divided by the proportion of women in the national population eligible by age): Lower chamber or unicameral
+dc/topic/SDGSGDMKPARLMPUC,Female representation ratio in parliament (proportion of women in parliament divided by the proportion of women in the national population eligible by age): Upper chamber
+dc/topic/SDGSGDMKPARLSPLC,"Number of persons 46 years and over who are speakers in parliement, by sex: Lower Chamber or Unicameral Committees"
+dc/topic/SDGSGDMKPARLSPUC,"Number of persons 46 years old and over who are speakers in parliement, by sex: Upper Chamber Committees"
+dc/topic/SDGSGDMKPARLYNLC,Number of youth in parliament (age 45 or below): Lower Chamber or Unicameral by Age group
+dc/topic/SDGSGDMKPARLYNUC,Number of youth in parliament (age 45 or below): Upper Chamber by Age group
+dc/topic/SDGSGDMKPARLYPLC,Proportion of youth in parliament (age 45 or below): Lower Chamber or Unicameral by Age group
+dc/topic/SDGSGDMKPARLYPUC,Proportion of youth in parliament (age 45 or below): Upper Chamber by Age group
+dc/topic/SDGSGDMKPARLYRLC,Youth representation ratio in parliament (proportion of members in parliament aged 45 or below divided by the share of individuals aged 45 or below in the national population eligible by age): Lower Chamber or Unicameral by Age group
+dc/topic/SDGSGDMKPARLYRUC,Youth representation ratio in parliament (proportion of members in parliament aged 45 or below divided by the share of individuals aged 45 or below in the national population eligible by age): Upper Chamber or Unicameral by Age group
+dc/topic/SDGSGDMKPSRVC,Proportion of positions in the public service held by specific groups compared to national distributions
+dc/topic/SDGSGDSRLGRGSR,Score of adoption and implementation of national disaster-risk reduction strategies in line with the Sendai Framework
+dc/topic/SDGSGDSRSFDRR,Number of countries that reported having a national disaster-risk reduction strategy which is aligned to the Sendai Framework
+dc/topic/SDGSGDSRSILN,Number of local governments that adopt and implement local disaster-risk reduction strategies in line with national strategies
+dc/topic/SDGSGDSRSILS,Proportion of local governments that adopt and implement local disaster-risk reduction strategies in line with national disaster-risk reduction strategies
+dc/topic/SDGSGGENEQPWN,Proportion of countries with systems to track and make public allocations for gender equality and women's empowerment
+dc/topic/SDGSGGENEQPWNN,Countries with systems to track and make public allocations for gender equality and women's empowerment
+dc/topic/SDGSGGENLOCGELS,Proportion of elected seats in deliberative bodies of local government held by women by Sex
+dc/topic/SDGSGGENPARL,Proportion of seats in national parliaments held by women by Sex
+dc/topic/SDGSGGENPARLN,Number of seats in national parliaments held by women by Sex
+dc/topic/SDGSGGENPARLNT,Current number of seats in national parliaments
+dc/topic/SDGSGGOVLOGV,Number of local governments
+dc/topic/SDGSGHAZCMRBASEL,"Parties meeting their commitments and obligations in transmitting information as required by Basel Convention on hazardous waste, and other chemicals"
+dc/topic/SDGSGHAZCMRMNMT,"Parties meeting their commitments and obligations in transmitting information as required by Minamata Convention on hazardous waste, and other chemicals"
+dc/topic/SDGSGHAZCMRMNTRL,"Parties meeting their commitments and obligations in transmitting information as required by Montreal Protocol on hazardous waste, and other chemicals"
+dc/topic/SDGSGHAZCMRROTDAM,"Parties meeting their commitments and obligations in transmitting information as required by Rotterdam Convention on hazardous waste, and other chemicals"
+dc/topic/SDGSGHAZCMRSTHOLM,"Parties meeting their commitments and obligations in transmitting information as required by Stockholm Convention on hazardous waste, and other chemicals"
+dc/topic/SDGSGINFACCSS,"Countries that adopt and implement constitutional, statutory and/or policy guarantees for public access to information"
+dc/topic/SDGSGINTMBRDEV,Proportion of members of developing countries in international organizations by International organization
+dc/topic/SDGSGINTVRTDEV,Proportion of voting rights of developing countries in international organizations by International organization
+dc/topic/SDGSGLGLGENEQEMP,"Level of achievement regarding legal frameworks that promote, enforce and monitor gender equality with respect to employment and economic benefits (Area 3)"
+dc/topic/SDGSGLGLGENEQLFP,"Level of achievement regarding legal frameworks that promote, enforce and monitor gender equality with respect to overarching legal frameworks and public life (Area 1)"
+dc/topic/SDGSGLGLGENEQMAR,"Level of achievement regarding legal frameworks that promote, enforce and monitor gender equality with respect to marriage and family (Area 4)"
+dc/topic/SDGSGLGLGENEQVAW,"Level of achievement regarding legal frameworks that promote, enforce and monitor gender equality with respect to violence against women (Area 2)"
+dc/topic/SDGSGLGLLNDFEMOD,Degree to which the legal framework (including customary law) guarantees women’s equal rights to land ownership and/or control
+dc/topic/SDGSGNHRCMPLNC,Countries with National Human Rights Institutions in compliance with the Paris Principles
+dc/topic/SDGSGNHRIMPL,Proportion of countries with independent National Human Rights Institutions in compliance with the Paris Principles
+dc/topic/SDGSGNHRINTEXST,Proportion of countries that applied for accreditation as independent National Human Rights Institutions in compliance with the Paris Principles
+dc/topic/SDGSGPLNMSTKSDGP,Number of provider countries reporting progress in multi-stakeholder development effectiveness monitoring frameworks that support the achievement of the sustainable development goals
+dc/topic/SDGSGPLNMSTKSDGR,Number of recipient countries reporting progress in multi-stakeholder development effectiveness monitoring frameworks that support the achievement of the sustainable development goals
+dc/topic/SDGSGPLNPRPOLRES,Extent of use of country-owned results frameworks and planning tools by providers of development cooperation - data by provider
+dc/topic/SDGSGPLNPRVNDI,Proportion of project objectives of new development interventions drawn from country-led result frameworks - data by provider
+dc/topic/SDGSGPLNPRVRICTRY,Proportion of results indicators drawn from country-led results frameworks - data by provider
+dc/topic/SDGSGPLNPRVRIMON,Proportion of results indicators which will be monitored using government sources and monitoring systems - data by provider
+dc/topic/SDGSGPLNRECNDI,Proportion of project objectives in new development interventions drawn from country-led result frameworks - data by recipient
+dc/topic/SDGSGPLNRECRICTRY,Proportion of results indicators drawn from country-led results frameworks - data by recipient
+dc/topic/SDGSGPLNRECRIMON,Proportion of results indicators which will be monitored using government sources and monitoring systems - data by recipient
+dc/topic/SDGSGPLNREPOLRES,Extent of use of country-owned results frameworks and planning tools by providers of development cooperation - data by recipient
+dc/topic/SDGSGREGBRTH,Proportion of children under 5 years of age whose births have been registered with a civil authority by Age group
+dc/topic/SDGSGREGBRTH90,Proportion of countries with birth registration data that are at least 90 percent complete
+dc/topic/SDGSGREGBRTH90N,Countries with birth registration data that are at least 90 percent complete
+dc/topic/SDGSGREGCENSUS,Proportion of countries that have conducted at least one population and housing census in the last 10 years
+dc/topic/SDGSGREGCENSUSN,Countries that have conducted at least one population and housing census in the last 10 years
+dc/topic/SDGSGREGDETH75,Proportion of countries with death registration data that are at least 75 percent complete
+dc/topic/SDGSGREGDETH75N,Countries with death registration data that are at least 75 percent complete
+dc/topic/SDGSGSCPCNTRY,Countries with sustainable consumption and production (SCP) national action plans or SCP mainstreamed as a priority or target into national policies
+dc/topic/SDGSGSCPPOLINS,Countries with policy instrument for sustainable consumption and production by Policy instrument
+dc/topic/SDGSGSCPPROCN,Number of countries implementing sustainable public procurement policies and action plans by Level of implementation
+dc/topic/SDGSGSCPPROCNHS,Number of countries implementing sustainable public procurement policies and action plans at higher subnational level by level of implementation (Artigas) by Level of implementation
+dc/topic/SDGSGSCPPROCNLS,Number of countries implementing sustainable public procurement policies and action plans at lower subnational level by level of implementation (Ayuntamiento de Barcelona) by Level of implementation
+dc/topic/SDGSGSCPTOTLN,"Number of policies, instruments and mechanism in place for sustainable consumption and production"
+dc/topic/SDGSGSTTCAPTY,Dollar value of all resources made available to strengthen statistical capacity in developing countries
+dc/topic/SDGSGSTTFPOS,Countries with national statistical legislation that complies with the Fundamental Principles of Official Statistics
+dc/topic/SDGSGSTTNSDSFDDNR,Countries with national statistical plans with funding from donors
+dc/topic/SDGSGSTTNSDSFDGVT,Countries with national statistical plans with funding from government
+dc/topic/SDGSGSTTNSDSFDOTHR,Countries with national statistical plans with funding from others
+dc/topic/SDGSGSTTNSDSFND,Countries with national statistical plans that are fully funded
+dc/topic/SDGSGSTTNSDSIMPL,Countries with national statistical plans that are under implementation
+dc/topic/SDGSGSTTODIN,Open Data Inventory (ODIN) Coverage Index
+dc/topic/SDGSGXPDEDUC,Proportion of total government spending on essential services: education
+dc/topic/SDGSGXPDESSRV,Proportion of total government spending on essential services
+dc/topic/SDGSGXPDHLTH,Proportion of total government spending on essential services: health
+dc/topic/SDGSGXPDPROT,Proportion of total government spending on essential services: social protection
+dc/topic/SDGSHAAPASMORT,Age-standardized mortality rate attributed to ambient air pollution
+dc/topic/SDGSHACSDTP3,Proportion of the target population who received 3 doses of diphtheria-tetanus-pertussis (DTP3) vaccine
+dc/topic/SDGSHACSHPV,Proportion of the target population who received the final dose of human papillomavirus (HPV) vaccine
+dc/topic/SDGSHACSMCV2,Proportion of the target population who received measles-containing-vaccine second-dose (MCV2)
+dc/topic/SDGSHACSPCV3,Proportion of the target population who received a 3rd dose of pneumococcal conjugate (PCV3) vaccine
+dc/topic/SDGSHACSUNHC,Universal health coverage (UHC) service coverage index
+dc/topic/SDGSHALCCONSPT,Alcohol consumption per capita among individuals aged 15 years and older within a calendar year
+dc/topic/SDGSHBLDECOLI,"Percentage of bloodstream infection due to Escherichia coli resistant to 3rd-generation cephalosporin (e.g., ESBL- E. coli) among patients seeking care and whose blood sample is taken and tested"
+dc/topic/SDGSHBLDMRSA,Percentage of bloodstream infection due to methicillin-resistant Staphylococcus aureus (MRSA) among patients seeking care and whose blood sample is taken and tested
+dc/topic/SDGSHDTHNCD,Number of deaths attributed to non-communicable diseases by Disease
+dc/topic/SDGSHDTHNCOM,"Mortality rate attributed to cardiovascular disease, cancer, diabetes or chronic respiratory disease (probability) (30 to 70 years old) by Sex"
+dc/topic/SDGSHDYNIMRT,Infant mortality rate (under 1 year old) by Sex
+dc/topic/SDGSHDYNIMRTN,Infant deaths (under 1 year old) by Sex
+dc/topic/SDGSHDYNMORT,Under-five mortality rate (under 5 years old) by Sex
+dc/topic/SDGSHDYNMORTN,Under-five deaths (under 5 years old) by Sex
+dc/topic/SDGSHDYNNMRT,Neonatal mortality rate
+dc/topic/SDGSHDYNNMRTN,Neonatal deaths
+dc/topic/SDGSHFPLINFM,"Proportion of women who make their own informed decisions regarding sexual relations, contraceptive use and reproductive health care (15 to 49 years old)"
+dc/topic/SDGSHFPLINFMCU,Proportion of women who make their own informed decisions regarding contraceptive use (15 to 49 years old)
+dc/topic/SDGSHFPLINFMRH,Proportion of women who make their own informed decisions regarding reproductive health care (15 to 49 years old)
+dc/topic/SDGSHFPLINFMSR,Proportion of women who make their own informed decisions regarding sexual relations (15 to 49 years old)
+dc/topic/SDGSHFPLMTMM,Proportion of women of reproductive age (aged 15-49 years) who have their need for family planning satisfied with modern methods
+dc/topic/SDGSHH2OSAFE,Proportion of population using safely managed drinking water services
+dc/topic/SDGSHHAPASMORT,Age-standardized mortality rate attributed to household air pollution
+dc/topic/SDGSHHAPHBSAG,Prevalence of hepatitis B surface antigen (HBsAg) (under 5 years old)
+dc/topic/SDGSHHIVINCD,"Number of new HIV infections per 1, 000 uninfected population"
+dc/topic/SDGSHHLFEMED,Proportion of health facilities that have a core set of relevant essential medicines available and affordable on a sustainable basis
+dc/topic/SDGSHIHRCAPS,International Health Regulations (IHR) capacity
+dc/topic/SDGSHLGRACSRHE,"Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education"
+dc/topic/SDGSHLGRACSRHEC1,"Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education (maternity care component)"
+dc/topic/SDGSHLGRACSRHEC10,"Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education (HIV testing and counsellilng component)"
+dc/topic/SDGSHLGRACSRHEC11,"Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education (HIV treatment and care component)"
+dc/topic/SDGSHLGRACSRHEC12,"Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education (HIV Confidentiality component)"
+dc/topic/SDGSHLGRACSRHEC13,"Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education (HPV Vaccine component)"
+dc/topic/SDGSHLGRACSRHEC2,"Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education (life-saving commodities component)"
+dc/topic/SDGSHLGRACSRHEC3,"Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education (abortion component)"
+dc/topic/SDGSHLGRACSRHEC4,"Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education (post-abortion care component)"
+dc/topic/SDGSHLGRACSRHEC5,"Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education (contraceptive services component)"
+dc/topic/SDGSHLGRACSRHEC6,"Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education (consent for contraceptive services component)"
+dc/topic/SDGSHLGRACSRHEC7,"Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education (emergency contraception component)"
+dc/topic/SDGSHLGRACSRHEC8,"Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education (comprehensive sexuality education curriculum laws component)"
+dc/topic/SDGSHLGRACSRHEC9,"Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education (comprehensive sexuality education curriculum topics component)"
+dc/topic/SDGSHLGRACSRHES1,"Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education (maternity care section)"
+dc/topic/SDGSHLGRACSRHES2,"Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education (contraception and family planning section)"
+dc/topic/SDGSHLGRACSRHES3,"Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education (comprehensive sexuality education and information section)"
+dc/topic/SDGSHLGRACSRHES4,"Extent to which countries have laws and regulations that guarantee full and equal access to women and men aged 15 years and older to sexual and reproductive health care, information and education (HIV and HPV)"
+dc/topic/SDGSHMEDDEN,Health worker density by Professionals (ISCO08 - 2)
+dc/topic/SDGSHMEDHWRKDIS,Health worker distribution (Female) by Professionals (ISCO08 - 2)
+dc/topic/SDGSHPRVSMOK,Age-standardized prevalence of current tobacco use among persons aged 15 years and older
+dc/topic/SDGSHSANDEFECT,Proportion of population practicing open defecation
+dc/topic/SDGSHSANHNDWSH,Proportion of population with basic handwashing facilities on premises
+dc/topic/SDGSHSANSAFE,Proportion of population using safely managed sanitation services
+dc/topic/SDGSHSTAANEM,Proportion of women aged 15-49 years with anaemia
+dc/topic/SDGSHSTAANEMNPRG,Proportion of non-pregnant women aged 15-49 years with anaemia
+dc/topic/SDGSHSTAANEMPREG,"Proportion of women aged 15-49 years with anaemia, pregnant"
+dc/topic/SDGSHSTAASAIRP,Age-standardized mortality rate attributed to household and ambient air pollution
+dc/topic/SDGSHSTABRTC,Proportion of births attended by skilled health personnel
+dc/topic/SDGSHSTAFGMS,Proportion of girls and women aged 15-49 years who have undergone female genital mutilation by Age group
+dc/topic/SDGSHSTAMALR,"Malaria incidence per 1, 000 population at risk"
+dc/topic/SDGSHSTAMORT,Maternal mortality ratio
+dc/topic/SDGSHSTAPOISN,Mortality rate attributed to unintentional poisonings
+dc/topic/SDGSHSTASCIDE,Suicide mortality rate
+dc/topic/SDGSHSTASCIDEN,Number of deaths attributed to suicide
+dc/topic/SDGSHSTASTNT,Proportion of children moderately or severely stunted
+dc/topic/SDGSHSTASTNTN,Children moderately or severely stunted
+dc/topic/SDGSHSTATRAF,Death rate due to road traffic injuries
+dc/topic/SDGSHSTATRAFN,Number of deaths rate due to road traffic injuries
+dc/topic/SDGSHSTAWASHARI,"Mortality rate attributed to unsafe water, unsafe sanitation and lack of hygiene from diarrhoea, intestinal nematode infections, malnutrition and acute respiratory infections"
+dc/topic/SDGSHSTAWAST,Proportion of children moderately or severely wasted
+dc/topic/SDGSHSTAWASTN,Children moderately or severely wasted
+dc/topic/SDGSHSUDALCOL,"Alcohol use disorders, 12-month prevalence (15 years old and over) by Sex"
+dc/topic/SDGSHSUDTREAT,"Coverage of treatment interventions (pharmacological, psychosocial and rehabilitation and aftercare services) for substance use disorders by Type of substance"
+dc/topic/SDGSHTBSINCD,Tuberculosis incidence
+dc/topic/SDGSHTRPINTVN,Number of people requiring interventions against neglected tropical diseases
+dc/topic/SDGSHXPDEARN10,Proportion of population with large household expenditures on health (greater than 10%) as a share of total household expenditure or income
+dc/topic/SDGSHXPDEARN25,Proportion of population with large household expenditures on health (greater than 25%) as a share of total household expenditure or income
+dc/topic/SDGSIAGRLSFP,"Average income of large-scale food producers, at purchasing-power parity rates"
+dc/topic/SDGSIAGRSSFP,"Average income of small-scale food producers, at purchasing-power parity rates"
+dc/topic/SDGSICOVBENFTS,ILO Proportion of population covered by at least one social protection benefit
+dc/topic/SDGSICOVCHLD,ILO Proportion of children/households receiving child/family cash benefit by Sex
+dc/topic/SDGSICOVDISAB,ILO Proportion of population with severe disabilities receiving disability cash benefit
+dc/topic/SDGSICOVLMKT,World Bank Proportion of population covered by labour market programs
+dc/topic/SDGSICOVMATNL,ILO Proportion of mothers with newborns receiving maternity cash benefit by Age group
+dc/topic/SDGSICOVPENSN,"ILO Proportion of population above statutory pensionable age receiving a pension, by Age group"
+dc/topic/SDGSICOVPOOR,ILO Proportion of poor population receiving social assistance cash benefit
+dc/topic/SDGSICOVSOCAST,World Bank Proportion of population covered by social assistance programs
+dc/topic/SDGSICOVSOCINS,World Bank Proportion of population covered by social insurance programs
+dc/topic/SDGSICOVUEMP,ILO Proportion of unemployed persons receiving unemployment cash benefit by Age group
+dc/topic/SDGSICOVVULN,ILO Proportion of vulnerable population receiving social assistance cash benefit by Sex
+dc/topic/SDGSICOVWKINJRY,ILO Proportion of employed population covered in the event of work injury by Sex
+dc/topic/SDGSIDSTFISP,"Redistributive impact of fiscal policy, Gini index by Fiscal intervention stage"
+dc/topic/SDGSIHEITOTL,Growth rates of household expenditure or income per capita
+dc/topic/SDGSIPOV50MI,Proportion of people living below 50 percent of median income by Quantile
+dc/topic/SDGSIPOVDAY1,Proportion of population below international poverty line
+dc/topic/SDGSIPOVEMP1,Employed population below international poverty line by Age group
+dc/topic/SDGSIPOVNAHC,Proportion of population living below the national poverty line
+dc/topic/SDGSIRMTCOST,Average remittance costs of sending $200 to a receiving country as a proportion of the amount remitted
+dc/topic/SDGSIRMTCOSTBC,Average remittance costs of sending $200 in a corridor as a proportion of the amount remitted
+dc/topic/SDGSIRMTCOSTSC,SmaRT average remittance costs of sending $200 in a corridor as a proportion of the amount remitted
+dc/topic/SDGSIRMTCOSTSND,Average remittance costs of sending $200 for a sending country as a proportion of the amount remitted
+dc/topic/SDGSLCPAYEMP,"Existence of a developed and operationalized national strategy for youth employment, as a distinct strategy or as part of a national employment strategy"
+dc/topic/SDGSLDOMTSPD,Proportion of time spent on unpaid domestic chores and care work (10 to 14 years old) by Sex
+dc/topic/SDGSLDOMTSPDCW,Proportion of time spent on unpaid care work (10 to 14 years old) by Sex
+dc/topic/SDGSLDOMTSPDDC,Proportion of time spent on unpaid domestic chores (10 to 14 years old) by Sex
+dc/topic/SDGSLEMPEARN,Average hourly earnings of employees in local currency by Age group
+dc/topic/SDGSLEMPFTLINJUR,Fatal occupational injuries among employees
+dc/topic/SDGSLEMPGTOTL,Labour share of GDP by Age group
+dc/topic/SDGSLEMPINJUR,Non-fatal occupational injuries among employees
+dc/topic/SDGSLEMPPCAP,Annual growth rate of real GDP per employed person (15 years old and over)
+dc/topic/SDGSLEMPRCOSTMO,Migrant recruitment costs (number of months of earnings) by Sex
+dc/topic/SDGSLISVIFEM,"Proportion of informal employment, previous definition (15 years old and over)"
+dc/topic/SDGSLISVIFEM19ICLS,"Proportion of informal employment, current definition (15 years old and over)"
+dc/topic/SDGSLLBRNTLCPL,Level of national compliance with labour rights (freedom of association and collective bargaining) based on International Labour Organization (ILO) textual sources and national legislation
+dc/topic/SDGSLTLFCHLDEA,Proportion of children engaged in economic activity by Age group
+dc/topic/SDGSLTLFCHLDEC,Proportion of children engaged in economic activity and household chores by Age group
+dc/topic/SDGSLTLFMANF,Manufacturing employment as a proportion of total employment - previous definition
+dc/topic/SDGSLTLFMANF19ICLS,Manufacturing employment as a proportion of total employment - current definition
+dc/topic/SDGSLTLFNEET,"Proportion of youth not in education, employment or training - previous definition by Age group"
+dc/topic/SDGSLTLFNEET19ICLS,"Proportion of youth not in education, employment or training - current definition by Age group"
+dc/topic/SDGSLTLFUEM,Unemployment rate by sex and age - previous definition by Age group
+dc/topic/SDGSLTLFUEMDIS,Unemployment rate by sex and disability - previous definition (15 years old and over)
+dc/topic/SDGSLTLFUEMDIS19ICLS,Unemployment rate by sex and disability - current definition (15 years old and over)
+dc/topic/SDGSLTLFUEM19ICLS,Unemployment rate by sex and age - current definition by Age group
+dc/topic/SDGSMDTHMIGR,Total deaths and disappearances recorded during migration
+dc/topic/SDGSMPOPREFGOR,"Number of refugees per 100, 000 population"
+dc/topic/SDGSNITKDEFC,Prevalence of undernourishment
+dc/topic/SDGSNITKDEFCN,Number of undernourished people
+dc/topic/SDGSNSTAOVWGT,Proportion of children under 5 years old moderately or severely overweight
+dc/topic/SDGSNSTAOVWGTN,Children under 5 years old moderately or severely overweight
+dc/topic/SDGSPACSBSRVH2O,Proportion of population using basic drinking water services
+dc/topic/SDGSPACSBSRVSAN,Proportion of population using basic sanitation services
+dc/topic/SDGSPDISPRESOL,Proportion of the population who have experienced a dispute in the past two years who accessed a formal or informal dispute resolution mechanism
+dc/topic/SDGSPDYNADKL,Adolescent birth rate
+dc/topic/SDGSPDYNMRBF15,Proportion of women aged 20-24 years who were married or in a union before age 15
+dc/topic/SDGSPDYNMRBF18,Proportion of women aged 20-24 years who were married or in a union before age 18
+dc/topic/SDGSPGNPWNOWNS,Share of women among owners or rights-bearers of agricultural land
+dc/topic/SDGSPLGLLNDAGSEC,Proportion of total agricultural population with ownership or secure rights over agricultural land
+dc/topic/SDGSPLGLLNDDOC,Proportion of people with legally recognized documentation of their rights to land out of total adult population by Sex
+dc/topic/SDGSPLGLLNDSEC,Proportion of people who perceive their rights to land as secure out of total adult population
+dc/topic/SDGSPLGLLNDSTR,Proportion of people with secure tenure rights to land out of total adult population by Sex
+dc/topic/SDGSPPSROSATISGOV,Proportion of population who say that overall they are satisfied with the quality of government services
+dc/topic/SDGSPPSROSATISHLTH,Proportion of population who say that overall they are satisfied with the quality of healthcare services
+dc/topic/SDGSPPSROSATISPRM,Proportion of population who say that overall they are satisfied with the quality of primary education services
+dc/topic/SDGSPPSROSATISSEC,Proportion of population who say that overall they are satisfied with the quality of secondary education services
+dc/topic/SDGSPPSRSATISGOV,Proportion of population satisfied with their last experience of government services (25 to 34 years old) by Service attribute
+dc/topic/SDGSPPSRSATISHLTH,Proportion of population satisfied with their last experience of public healthcare services (25 to 34 years old) by Service attribute
+dc/topic/SDGSPPSRSATISPRM,Proportion of population satisfied with their last experience of public primary education services (25 to 34 years old) by Service attribute
+dc/topic/SDGSPPSRSATISSEC,Proportion of population satisfied with their last experience of public secondary education services (25 to 34 years old) by Service attribute
+dc/topic/SDGSPRODR2KM,Proportion of the rural population who live within 2 km of an all-season road
+dc/topic/SDGSPTRNPUBL,Proportion of population that has convenient access to public transport
+dc/topic/SDGSTEEVACCSEEA,Implementation of standard accounting tools to monitor the economic and environmental aspects of tourism (SEEA tables)
+dc/topic/SDGSTEEVACCTSA,Implementation of standard accounting tools to monitor the economic and environmental aspects of tourism (Tourism Satellite Account tables)
+dc/topic/SDGSTEEVSTDACCT,Implementation of standard accounting tools to monitor the economic and environmental aspects of tourism (number of tables)
+dc/topic/SDGSTGDPZS,Tourism direct GDP as a proportion of total GDP
+dc/topic/SDGTGVALTOTLGDZS,Merchandise trade as a proportion of GDP
+dc/topic/SDGTMTAXDMFN,"Average tariff applied by developed countries, most-favored nation status"
+dc/topic/SDGTMTAXDPRF,"Average tariff applied by developed countries, preferential status"
+dc/topic/SDGTMTAXWMFN,"Worldwide weighted tariff-average, most-favoured-nation status"
+dc/topic/SDGTMTAXWMPS,"Worldwide weighted tariff-average, preferential status"
+dc/topic/SDGTMTRFZERO,Proportion of tariff lines applied to imports with zero-tariff
+dc/topic/SDGTXEXPGBMRCH,Developing countries’ and least developed countries’ share of global merchandise exports
+dc/topic/SDGTXEXPGBSVR,Developing countries’ and least developed countries’ share of global services exports
+dc/topic/SDGTXIMPGBMRCH,Developing countries’ and least developed countries’ share of global merchandise imports
+dc/topic/SDGTXIMPGBSVR,Developing countries’ and least developed countries’ share of global services imports
+dc/topic/SDGVCARMSZTRACE,"Proportion of seized, found or surrendered arms whose illicit origin or context has been traced or established by a competent authority in line with international instruments"
+dc/topic/SDGVCDSRAFFCT,Number of people affected by disasters
+dc/topic/SDGVCDSRAGLH,Direct agriculture loss attributed to disasters
+dc/topic/SDGVCDSRBSDN,Number of disruptions to basic services attributed to disasters
+dc/topic/SDGVCDSRCDAN,Number of damaged critical infrastructure attributed to disasters
+dc/topic/SDGVCDSRCDYN,Number of other destroyed or damaged critical infrastructure units and facilities attributed to disasters
+dc/topic/SDGVCDSRCHLN,Direct economic loss to cultural heritage damaged or destroyed attributed to disasters
+dc/topic/SDGVCDSRCILN,Direct economic loss resulting from damaged or destroyed critical infrastructure attributed to disasters
+dc/topic/SDGVCDSRDAFF,"Number of directly affected persons attributed to disasters per 100, 000 population"
+dc/topic/SDGVCDSRDDPA,Direct economic loss to other damaged or destroyed productive assets attributed to disasters
+dc/topic/SDGVCDSREFDN,Number of destroyed or damaged educational facilities attributed to disasters
+dc/topic/SDGVCDSRESDN,Number of disruptions to educational services attributed to disasters
+dc/topic/SDGVCDSRGDPLS,Direct economic loss attributed to disasters
+dc/topic/SDGVCDSRHFDN,Number of destroyed or damaged health facilities attributed to disasters
+dc/topic/SDGVCDSRHOLH,Direct economic loss in the housing sector attributed to disasters
+dc/topic/SDGVCDSRHSDN,Number of disruptions to health services attributed to disasters
+dc/topic/SDGVCDSRIJILN,Number of injured or ill people attributed to disasters
+dc/topic/SDGVCDSRLSGP,Direct economic loss attributed to disasters relative to GDP
+dc/topic/SDGVCDSRMISS,Number of missing persons due to disaster
+dc/topic/SDGVCDSRMMHN,Number of deaths and missing persons attributed to disasters
+dc/topic/SDGVCDSRMORT,Number of deaths due to disaster
+dc/topic/SDGVCDSRMTMP,"Number of deaths and missing persons attributed to disasters per 100, 000 population"
+dc/topic/SDGVCDSROBDN,Number of disruptions to other basic services attributed to disasters
+dc/topic/SDGVCDSRPDAN,Number of people whose damaged dwellings were attributed to disasters
+dc/topic/SDGVCDSRPDLN,"Number of people whose livelihoods were disrupted or destroyed, attributed to disasters"
+dc/topic/SDGVCDSRPDYN,Number of people whose destroyed dwellings were attributed to disasters
+dc/topic/SDGVCDTHTOCVN,Number of conflict-related deaths (civilians)
+dc/topic/SDGVCDTHTONCVN,Number of conflict-related deaths (non-civilians)
+dc/topic/SDGVCDTHTOTN,Number of total conflict-related deaths
+dc/topic/SDGVCDTHTOTPT,Conflict-related total death rate
+dc/topic/SDGVCDTHTOTR,"Number of total conflict-related deaths per 100, 000 population"
+dc/topic/SDGVCDTHTOUNN,Number of conflict-related deaths (unknown)
+dc/topic/SDGVCHTFDETV,Detected victims of human trafficking
+dc/topic/SDGVCHTFDETVFL,"Detected victims of human trafficking for forced labour, servitude and slavery"
+dc/topic/SDGVCHTFDETVFLR,"Detected victims of human trafficking for forced labour, servitude and slavery"
+dc/topic/SDGVCHTFDETVOG,Detected victims of human trafficking for removal of organ
+dc/topic/SDGVCHTFDETVOGR,Detected victims of human trafficking for removal of organ
+dc/topic/SDGVCHTFDETVOP,Detected victims of human trafficking for other purposes
+dc/topic/SDGVCHTFDETVOPR,Detected victims of human trafficking for other purposes
+dc/topic/SDGVCHTFDETVR,Detected victims of human trafficking
+dc/topic/SDGVCHTFDETVSX,Detected victims of human trafficking for sexual exploitation
+dc/topic/SDGVCHTFDETVSXR,Detected victims of human trafficking for sexual exploitation
+dc/topic/SDGVCIHRPSRC,"Number of victims of intentional homicide per 100, 000 population"
+dc/topic/SDGVCIHRPSRCN,Number of victims of intentional homicide
+dc/topic/SDGVCPRRPHYV,Police reporting rate for physical assault in the previous 12 months
+dc/topic/SDGVCPRRPHYVIO,Police reporting rate for physical violence in the previous 12 months
+dc/topic/SDGVCPRRPSYCHV,Police reporting rate for psychological violence in the previous 12 months
+dc/topic/SDGVCPRRROBB,Police reporting rate for robbery in the previous 12 months
+dc/topic/SDGVCPRRSEXV,Police reporting rate for sexual assault in the previous 12 months
+dc/topic/SDGVCPRRSEXVIO,Police reporting rate for sexual violence in the previous 12 months
+dc/topic/SDGVCPRSUNSNT,Unsentenced detainees as a proportion of overall prison population
+dc/topic/SDGVCSNSWALNDRK,Proportion of population that feel safe walking alone around the area they live after dark
+dc/topic/SDGVCVAWMARR,Proportion of ever-partnered women and girls subjected to physical and/or sexual violence by a current or former intimate partner in the previous 12 months by Age group
+dc/topic/SDGVCVAWMTUHRA,"Number of cases of killings of human rights defenders, journalists and trade unionists"
+dc/topic/SDGVCVAWMTUHRAN,"Countries with at least one verified case of killings of human rights defenders, journalists, and trade unionists"
+dc/topic/SDGVCVAWPHYPYV,Proportion of children aged 1-14 years who experienced physical punishment and/or psychological aggression by caregivers in last month by Age group
+dc/topic/SDGVCVAWSXVLN,Proportion of population aged 18-29 years who experienced sexual violence by age\xa018 (18 to 29 years old) by Sex
+dc/topic/SDGVCVOCENFDIS,"Number of cases of enforced disappearance of human rights defenders, journalists and trade unionists"
+dc/topic/SDGVCVOHSXPH,"Proportion of persons victim of non-sexual or sexual harassment, in the previous 12 months"
+dc/topic/SDGVCVOVGDSD,Proportion of population reporting having felt discriminated against
+dc/topic/SDGVCVOVPHYL,Proportion of population subjected to physical violence in the previous 12 months
+dc/topic/SDGVCVOVPHYASLT,Proportion of population subjected to physical assault in the previous 12 months
+dc/topic/SDGVCVOVPSYCHL,Proportion of population subjected to psychological violence in the previous 12 months
+dc/topic/SDGVCVOVROBB,Proportion of population subjected to robbery in the previous 12 months
+dc/topic/SDGVCVOVSEXL,Proportion of population subjected to sexual violence in the previous 12 months
+dc/topic/SDGVCVOVSEXASLT,Proportion of population subjected to sexual assault in the previous 12 months
