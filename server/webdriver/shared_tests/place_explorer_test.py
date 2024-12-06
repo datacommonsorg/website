@@ -331,3 +331,15 @@ class PlaceExplorerTestMixin():
     # Check the title text
     page_title = self.driver.find_element(By.ID, 'place-name').text
     self.assertEqual(page_title, place_name_text)
+
+  def test_dev_place_overview_california(self):
+    """Ensure experimental dev place page content loads"""
+    self.driver.get(self.url_ + '/place/geoId/06?force_dev_places=true')
+
+    # For the dev place page, the related places callout is under the
+    # .related-places-callout div.
+    related_places_callout_el_present = EC.presence_of_element_located(
+        (By.CLASS_NAME, 'related-places-callout'))
+    related_places_callout_el = WebDriverWait(
+        self.driver, self.TIMEOUT_SEC).until(related_places_callout_el_present)
+    self.assertEqual(related_places_callout_el.text, 'Places in California')

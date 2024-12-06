@@ -193,9 +193,11 @@ const PlaceHeader = (props: {
  * @returns Navigation component with topic tabs
  */
 const PlaceTopicTabs = ({
+  forceDevPlaces,
   category,
   place,
 }: {
+  forceDevPlaces: boolean;
   category: string;
   place: NamedTypedPlace;
 }) => {
@@ -209,7 +211,9 @@ const PlaceTopicTabs = ({
               className={`item-list-text ${
                 category === "Overview" ? "selected" : ""
               }`}
-              href={`/dev-place/${place.dcid}`}
+              href={`/place/${place.dcid}${
+                forceDevPlaces ? "?force_dev_places=true" : ""
+              }`}
             >
               Overview
             </a>
@@ -219,7 +223,9 @@ const PlaceTopicTabs = ({
               className={`item-list-text ${
                 category === "Economics" ? "selected" : ""
               }`}
-              href={`/dev-place/${place.dcid}?category=Economics`}
+              href={`/place/${place.dcid}?category=Economics${
+                forceDevPlaces ? "&force_dev_places=true" : ""
+              }`}
             >
               Economics
             </a>
@@ -229,7 +235,9 @@ const PlaceTopicTabs = ({
               className={`item-list-text ${
                 category === "Health" ? "selected" : ""
               }`}
-              href={`/dev-place/${place.dcid}?category=Health`}
+              href={`/place/${place.dcid}?category=Health${
+                forceDevPlaces ? "&force_dev_places=true" : ""
+              }`}
             >
               Health
             </a>
@@ -239,7 +247,9 @@ const PlaceTopicTabs = ({
               className={`item-list-text ${
                 category === "Equity" ? "selected" : ""
               }`}
-              href={`/dev-place/${place.dcid}?category=Equity`}
+              href={`/place/${place.dcid}?category=Equity${
+                forceDevPlaces ? "&force_dev_places=true" : ""
+              }`}
             >
               Equity
             </a>
@@ -249,7 +259,9 @@ const PlaceTopicTabs = ({
               className={`item-list-text ${
                 category === "Demographics" ? "selected" : ""
               }`}
-              href={`/dev-place/${place.dcid}?category=Demographics`}
+              href={`/place/${place.dcid}?category=Demographics${
+                forceDevPlaces ? "&force_dev_places=true" : ""
+              }`}
             >
               Demographics
             </a>
@@ -259,7 +271,9 @@ const PlaceTopicTabs = ({
               className={`item-list-text ${
                 category === "Environment" ? "selected" : ""
               }`}
-              href={`/dev-place/${place.dcid}?category=Environment`}
+              href={`/place/${place.dcid}?category=Environment${
+                forceDevPlaces ? "&force_dev_places=true" : ""
+              }`}
             >
               Environment
             </a>
@@ -269,7 +283,9 @@ const PlaceTopicTabs = ({
               className={`item-list-text ${
                 category === "Energy" ? "selected" : ""
               }`}
-              href={`/dev-place/${place.dcid}?category=Energy`}
+              href={`/place/${place.dcid}?category=Energy${
+                forceDevPlaces ? "&force_dev_places=true" : ""
+              }`}
             >
               Energy
             </a>
@@ -406,7 +422,7 @@ const RelatedPlaces = (props: {
         <div className="item-list-inner">
           {childPlaces.map((place) => (
             <div key={place.dcid} className="item-list-item">
-              <a className="item-list-text" href={`/dev-place/${place.dcid}`}>
+              <a className="item-list-text" href={`/place/${place.dcid}`}>
                 {place.name}
               </a>
             </div>
@@ -467,6 +483,7 @@ export const DevPlaceMain = () => {
 
   const urlParams = new URLSearchParams(window.location.search);
   const category = urlParams.get("category") || "Overview";
+  const forceDevPlaces = urlParams.get("force_dev_places") === "true";
 
   /**
    * On initial load, get place metadata from the page's metadata element
@@ -529,7 +546,11 @@ export const DevPlaceMain = () => {
         place={place}
         placeSubheader={placeSubheader}
       />
-      <PlaceTopicTabs category={category} place={place} />
+      <PlaceTopicTabs
+        category={category}
+        place={place}
+        forceDevPlaces={forceDevPlaces}
+      />
       <PlaceOverview
         place={place}
         placeSummary={placeSummary}
