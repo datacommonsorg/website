@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,25 +14,23 @@
  * limitations under the License.
  */
 
-/**
- * @fileoverview Translator javascript.
+/*
+ * Material Icon: Arrow Back
+ * Source: https://fonts.google.com/icons
  */
 
-import React from "react";
-import ReactDOM from "react-dom";
+import React, { ReactElement } from "react";
 
-import { mapping, sparql } from "./constants";
-import { Page } from "./page";
-
-/**
- * Update translation results when schema mapping or query changes.
- */
-window.addEventListener("load", (): void => {
-  ReactDOM.render(
-    React.createElement(Page, {
-      mapping,
-      sparql: sparql.observation,
-    }),
-    document.getElementById("translator")
-  );
-});
+export const ArrowBack = (
+  props: React.SVGProps<SVGSVGElement>
+): ReactElement => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    height="1em"
+    viewBox="0 -960 960 960"
+    fill="currentColor"
+    {...props}
+  >
+    <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z" />
+  </svg>
+);

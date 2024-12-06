@@ -25,4 +25,4 @@ if [[ "$1" == "-g" ]]; then
   export TEST_MODE=write
 fi
 
-python3 -m pytest -n 5 --reruns 2 server/webdriver/cdc_tests/
+python3 -m pytest -n auto --reruns 2 server/webdriver/cdc_tests/

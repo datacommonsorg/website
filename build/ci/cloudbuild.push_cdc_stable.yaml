@@ -16,6 +16,14 @@
 # Assumes the stable branch is already checked out, which it should be
 # if this is triggered on push to branch for the stable branch.
 
+################################################################################
+
+# NOTE: Logs-based metrics for this build are dependent on step numbers.
+# For this reason, please either add new steps at the end of the file OR
+# update ALL metrics when adding/removing steps.
+
+################################################################################
+
 steps:
   # Step 0: Initialize submods
   - id: init-submods
@@ -36,10 +44,11 @@ steps:
       - -c
       - |
         set -e
+        set -o pipefail
         ./scripts/get_commits_label.sh | tail -1 >"$_IMAGE_LABEL_PATH"
     waitFor: ["init-submods"]
 
-  # Step 1: Services container
+  # Step 2: Services container
   - id: build-and-tag-stable-services
     name: gcr.io/datcom-ci/deploy-tool
     entrypoint: bash
@@ -51,7 +60,7 @@ steps:
         ./scripts/build_cdc_services_and_tag_stable.sh $image_label
     waitFor: ["get-label"]
 
-  # Step 2: Data management container
+  # Step 3: Data management container
   - id: build-and-tag-stable-data
     name: gcr.io/datcom-ci/deploy-tool
     entrypoint: bash

@@ -17,8 +17,11 @@ import os
 
 import flask
 from flask import current_app
+from flask import g
 
+from server.lib.i18n import DEFAULT_LOCALE
 import server.routes.dev_place.utils as utils
+from server.routes.place.html import get_place_summaries
 import server.routes.shared_api.place as place_api
 
 bp = flask.Blueprint('dev_place', __name__, url_prefix='/dev-place')
@@ -28,14 +31,21 @@ bp = flask.Blueprint('dev_place', __name__, url_prefix='/dev-place')
 # TODO(juliawu): Move this to the default place route once development is done.
 @bp.route('/<path:place_dcid>')
 def dev_place(place_dcid=None):
-  if os.environ.get('FLASK_ENV') not in ['local', 'autopush', 'dev'
-                                        ] or not place_dcid:
+  if os.environ.get('FLASK_ENV') not in [
+      'local', 'autopush', 'dev', 'webdriver'
+  ] or not place_dcid:
     flask.abort(404)
 
   place_type_with_parent_places_links = utils.get_place_type_with_parent_places_links(
       place_dcid)
   place_names = place_api.get_i18n_name([place_dcid]) or {}
   place_name = place_names.get(place_dcid, place_dcid)
+  # Place summaries are currently only supported in English
+  if g.locale == DEFAULT_LOCALE:
+    place_summary = get_place_summaries(place_dcid).get(place_dcid,
+                                                        {}).get("summary", "")
+  else:
+    place_summary = ""
 
   return flask.render_template(
       'dev_place.html',
@@ -43,4 +53,4 @@ def dev_place(place_dcid=None):
       place_dcid=place_dcid,
       place_name=place_name,
       place_type_with_parent_places_links=place_type_with_parent_places_links,
-  )
+      place_summary=place_summary)
