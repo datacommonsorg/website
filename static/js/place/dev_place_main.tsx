@@ -317,10 +317,7 @@ const PlaceOverviewTable = (props: { placeDcid: string }) => {
     <table className="table">
       <thead>
         <tr>
-          <th
-            scope="col"
-            colSpan={2}
-          >
+          <th scope="col" colSpan={2}>
             Key Demographics
           </th>
           <th scope="col"></th>
@@ -552,19 +549,13 @@ export const DevPlaceMain = () => {
         place={place}
         placeSubheader={placeSubheader}
       />
-      <PlaceTopicTabs
-        category={category}
-        place={place}
-      />
+      <PlaceTopicTabs category={category} place={place} />
       <PlaceOverview
         place={place}
         placeSummary={placeSummary}
         parentPlaces={parentPlaces}
       />
-      <RelatedPlaces
-        place={place}
-        childPlaces={childPlaces}
-      />
+      <RelatedPlaces place={place} childPlaces={childPlaces} />
       {place && pageConfig && (
         <PlaceCharts
           place={place}
