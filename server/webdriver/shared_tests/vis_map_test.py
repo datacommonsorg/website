@@ -26,6 +26,35 @@ PLACE_SEARCH_CA = 'California'
 class VisMapTestMixin():
   """Mixins to test the map visualization page."""
 
+  def get_ranking_items(self, wait_for_loading=True):
+    if wait_for_loading:
+      elements_present = EC.presence_of_all_elements_located(
+          (By.CSS_SELECTOR, '.ranking-list .place-name'))
+      WebDriverWait(self.driver, self.TIMEOUT_SEC).until(elements_present)
+      ranking_items = self.driver.find_elements(By.CSS_SELECTOR,
+                                                '.ranking-list .place-name')
+      names_loaded = []
+      for i, _ in enumerate(ranking_items):
+        names_loaded.append(
+            EC.text_to_be_present_in_element((
+                By.XPATH,
+                f'(//*[contains(@class, "ranking-list")]//*[contains(@class,"place-name")])[{i+1}]'
+            ), ','))
+
+      WebDriverWait(self.driver,
+                    self.TIMEOUT_SEC).until(EC.all_of(*names_loaded))
+    ranking_items = self.driver.find_elements(By.CSS_SELECTOR,
+                                              '.ranking-list .place-name')
+    return ranking_items
+
+  def get_chart_map_regions(self):
+    # Wait for map to load
+    element_present = EC.presence_of_element_located((By.ID, 'map-items'))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
+    # Return all <path> elements in the map SVG
+    return self.driver.find_elements(
+        By.XPATH, '//*[@id="map-items"]//*[local-name()="path"]')
+
   def test_server_and_page(self):
     """Test the server can run successfully."""
     self.driver.get(self.url_ + MAP_URL)
@@ -80,9 +109,7 @@ class VisMapTestMixin():
     chart_title = self.driver.find_element(By.CSS_SELECTOR,
                                            '.map-chart .chart-headers h4')
     self.assertIn("Female Population ", chart_title.text)
-    chart_map = self.driver.find_element(By.ID, 'map-items')
-    map_regions = chart_map.find_elements(By.TAG_NAME, 'path')
-    self.assertEqual(len(map_regions), 58)
+    self.assertEqual(len(self.get_chart_map_regions()), 58)
 
     # Assert rankings are correct.
     elements_present = EC.presence_of_all_elements_located(
@@ -93,11 +120,7 @@ class VisMapTestMixin():
     self.assertEqual(len(ranking_titles), 2)
     self.assertEqual(ranking_titles[0].text, 'Top Places')
     self.assertEqual(ranking_titles[1].text, 'Bottom Places')
-    elements_present = EC.presence_of_all_elements_located(
-        (By.CSS_SELECTOR, '.ranking-list .place-name'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(elements_present)
-    ranking_items = self.driver.find_elements(By.CSS_SELECTOR,
-                                              '.ranking-list .place-name')
+    ranking_items = self.get_ranking_items()
     self.assertEqual(len(ranking_items), 10)
     self.assertIn(' County, CA', ranking_items[0].text)
     self.assertIn(' County, CA', ranking_items[9].text)
@@ -108,13 +131,8 @@ class VisMapTestMixin():
         '.chart-footer-options .chart-option .form-check-input')
     per_capita_checkbox.click()
     shared.wait_for_loading(self.driver)
-    element_present = EC.presence_of_element_located((By.ID, 'map-items'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-    chart_map = self.driver.find_element(By.ID, 'map-items')
-    map_regions = chart_map.find_elements(By.TAG_NAME, 'path')
-    self.assertEqual(len(map_regions), 58)
-    ranking_items = self.driver.find_elements(By.CSS_SELECTOR,
-                                              '.ranking-list .place-name')
+    self.assertEqual(len(self.get_chart_map_regions()), 58)
+    ranking_items = self.get_ranking_items(wait_for_loading=False)
     self.assertEqual(len(ranking_items), 10)
     self.assertIn(' County, CA', ranking_items[0].text)
     self.assertIn(' County, CA', ranking_items[9].text)
@@ -138,11 +156,8 @@ class VisMapTestMixin():
     chart_source = self.driver.find_element(
         By.CSS_SELECTOR, '.map-chart .chart-headers .sources')
     self.assertTrue("wonder.cdc.gov" in chart_source.text)
-    chart_map = self.driver.find_element(By.ID, 'map-items')
-    map_regions = chart_map.find_elements(By.TAG_NAME, 'path')
-    self.assertEqual(len(map_regions), 58)
-    ranking_items = self.driver.find_elements(By.CSS_SELECTOR,
-                                              '.ranking-list .place-name')
+    self.assertEqual(len(self.get_chart_map_regions()), 58)
+    ranking_items = self.get_ranking_items(wait_for_loading=False)
     self.assertEqual(len(ranking_items), 10)
     self.assertIn(' County, CA', ranking_items[0].text)
     self.assertIn(' County, CA', ranking_items[9].text)
@@ -216,9 +231,7 @@ class VisMapTestMixin():
     chart_title = self.driver.find_element(By.CSS_SELECTOR,
                                            '.map-chart .chart-headers h4')
     self.assertIn("Median Age of Population ", chart_title.text)
-    chart_map = self.driver.find_element(By.ID, 'map-items')
-    map_regions = chart_map.find_elements(By.TAG_NAME, 'path')
-    self.assertEqual(len(map_regions), 58)
+    self.assertEqual(len(self.get_chart_map_regions()), 58)
 
     # Assert rankings are correct.
     elements_present = EC.presence_of_all_elements_located(
@@ -229,11 +242,7 @@ class VisMapTestMixin():
     self.assertEqual(len(ranking_titles), 2)
     self.assertEqual(ranking_titles[0].text, 'Top Places')
     self.assertEqual(ranking_titles[1].text, 'Bottom Places')
-    elements_present = EC.presence_of_all_elements_located(
-        (By.CSS_SELECTOR, '.ranking-list .place-name'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(elements_present)
-    ranking_items = self.driver.find_elements(By.CSS_SELECTOR,
-                                              '.ranking-list .place-name')
+    ranking_items = self.get_ranking_items()
     self.assertEqual(len(ranking_items), 10)
     self.assertEqual(ranking_items[0].text, 'Sierra County, CA')
     self.assertEqual(ranking_items[9].text, 'Kern County, CA')

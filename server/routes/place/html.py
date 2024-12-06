@@ -267,12 +267,8 @@ def is_seo_experiment_enabled(place_dcid: str, category: str,
 
 
 # Dev place page experiment groups for countries and US states
-# Calculated offline using:
-# >>> import random
-# >>> DEV_PLACE_ALL_COUNTRY_DCIDS = ["country/ABW","country/AFG","country/AGO","country/ALB","country/AND","country/ANT","country/ARE","country/ARG","country/ARM","country/ASM","country/ATF","country/ATG","country/AUS","country/AUT","country/AZE","country/BDI","country/BEL","country/BEN","country/BES","country/BFA","country/BGD","country/BGR","country/BHR","country/BHS","country/BIH","country/BLM","country/BLR","country/BLZ","country/BMU","country/BOL","country/BRA","country/BRB","country/BRN","country/BTN","country/BWA","country/CAF","country/CAN","country/CCK","country/CHE","country/CHL","country/CHN","country/CIV","country/CMR","country/COD","country/COG","country/COK","country/COL","country/COM","country/CPV","country/CRI","country/CUB","country/CUW","country/CXR","country/CYM","country/CYP","country/CZE","country/DEU","country/DJI","country/DMA","country/DNK","country/DOM","country/DZA","country/ECU","country/EGY","country/ERI","country/ESH","country/ESP","country/EST","country/ETH","country/FIN","country/FJI","country/FLK","country/FRA","country/FRO","country/FSM","country/FXX","country/GAB","country/GBR","country/GEO","country/GGY","country/GHA","country/GIB","country/GIN","country/GLP","country/GMB","country/GNB","country/GNQ","country/GRC","country/GRD","country/GRL","country/GTM","country/GUF","country/GUM","country/GUY","country/HKG","country/HMD","country/HND","country/HRV","country/HTI","country/HUN","country/IDN","country/IMN","country/IND","country/IRL","country/IRN","country/IRQ","country/ISL","country/ISR","country/ITA","country/JAM","country/JEY","country/JOR","country/JPN","country/KAZ","country/KEN","country/KGZ","country/KHM","country/KIR","country/KNA","country/KOR","country/KWT","country/LAO","country/LBN","country/LBR","country/LBY","country/LCA","country/LIE","country/LKA","country/LSO","country/LTU","country/LUX","country/LVA","country/MAC","country/MAF","country/MAR","country/MCO","country/MDA","country/MDG","country/MDV","country/MEX","country/MHL","country/MKD","country/MLI","country/MLT","country/MMR","country/MNE","country/MNG","country/MNP","country/MOZ","country/MRT","country/MSR","country/MTQ","country/MUS","country/MWI","country/MYS","country/MYT","country/NAM","country/NCL","country/NER","country/NFK","country/NGA","country/NIC","country/NIU","country/NLD","country/NOR","country/NPL","country/NRU","country/NZL","country/OMN","country/PAK","country/PAN","country/PCN","country/PER","country/PHL","country/PLW","country/PNG","country/POL","country/PRI","country/PRK","country/PRT","country/PRY","country/PSE","country/PYF","country/QAT","country/REU","country/ROU","country/RUS","country/RWA","country/SAU","country/SDN","country/SEN","country/SGP","country/SHN","country/SLB","country/SLE","country/SLV","country/SMR","country/SOM","country/SPM","country/SRB","country/SSD","country/STP","country/SUR","country/SVK","country/SVN","country/SWE","country/SWZ","country/SXM","country/SYC","country/SYR","country/TCA","country/TCD","country/TGO","country/THA","country/TJK","country/TKL","country/TKM","country/TLS","country/TON","country/TTO","country/TUN","country/TUR","country/TUV","country/TWN","country/TZA","country/UGA","country/UKR","country/UMI","country/URY","country/USA","country/UZB","country/VAT","country/VCT","country/VEN","country/VGB","country/VIR","country/VNM","country/VUT","country/WLF","country/WSM","country/XKS","country/YEM","country/YUG","country/ZAF","country/ZMB","country/ZWE"]
-# >>> DEV_PLACE_ALL_US_STATE_DCIDS = ["geoId/01","geoId/02","geoId/04","geoId/05","geoId/06","geoId/08","geoId/09","geoId/10","geoId/11","geoId/12","geoId/13","geoId/15","geoId/16","geoId/17","geoId/18","geoId/19","geoId/20","geoId/21","geoId/22","geoId/23","geoId/24","geoId/25","geoId/26","geoId/27","geoId/28","geoId/29","geoId/30","geoId/31","geoId/32","geoId/33","geoId/34","geoId/35","geoId/36","geoId/37","geoId/38","geoId/39","geoId/40","geoId/41","geoId/42","geoId/44","geoId/45","geoId/46","geoId/47","geoId/48","geoId/49","geoId/50","geoId/51","geoId/53","geoId/54","geoId/55","geoId/56","geoId/72"]
-# >>> DEV_PLACE_EXPERIMENT_COUNTRY_DCIDS = random.sample(DEV_PLACE_ALL_COUNTRY_DCIDS, int(len(DEV_PLACE_ALL_COUNTRY_DCIDS) * 0.1))
-# >>> DEV_PLACE_EXPERIMENT_US_STATE_DCIDS = random.sample(DEV_PLACE_ALL_US_STATE_DCIDS, int(len(DEV_PLACE_ALL_US_STATE_DCIDS) * 0.1))
+# Calculated offline using instructions here:
+# https://github.com/datacommonsorg/website/pull/4773
 DEV_PLACE_EXPERIMENT_COUNTRY_DCIDS: List[str] = [
     'country/TLS', 'country/HUN', 'country/VEN', 'country/JAM', 'country/RWA',
     'country/GGY', 'country/NGA', 'country/COD', 'country/COG', 'country/SVN',
@@ -290,12 +286,20 @@ DEV_PLACE_EXPERIMENT_DCIDS: Set[str] = set(DEV_PLACE_EXPERIMENT_COUNTRY_DCIDS +
 def is_dev_place_experiment_enabled(place_dcid: str, locale: str,
                                     request_args: MultiDict[str, str]) -> bool:
   """Determine if dev place experiment should be enabled for the page"""
+  # Disable dev place experiment for non-dev environments
+  # TODO(dwnoble): Remove this before prod release
+  if os.environ.get('FLASK_ENV') not in [
+      'local', 'autopush', 'dev', 'webdriver'
+  ] or not place_dcid:
+    return False
+
   # Force dev place experiment for testing
   if request_args.get("force_dev_places") == "true":
     return True
   # Disable dev place experiment for testing
   if request_args.get("disable_dev_places") == "true":
     return False
+
   # Experiment is enabled for English pages for countries and US states in the experiment group
   if locale == 'en' and place_dcid in DEV_PLACE_EXPERIMENT_DCIDS:
     return True

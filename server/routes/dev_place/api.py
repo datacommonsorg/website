@@ -150,6 +150,7 @@ def related_places(place_dcid: str):
   child_place_dcids = place_utils.fetch_child_place_dcids(place,
                                                           child_place_type,
                                                           locale=g.locale)
+  parent_places = place_utils.get_parent_places(place.dcid)
 
   # Fetch all place objects in one request to reduce latency (includes name and typeOf)
   all_place_dcids = [
@@ -163,11 +164,10 @@ def related_places(place_dcid: str):
   similar_places = [all_place_by_dcid[dcid] for dcid in similar_place_dcids]
   child_places = [all_place_by_dcid[dcid] for dcid in child_place_dcids]
 
-  response = RelatedPlacesApiResponse(
-      childPlaceType=child_place_type,
-      childPlaces=child_places,
-      nearbyPlaces=nearby_places,
-      place=place,
-      similarPlaces=similar_places,
-  )
+  response = RelatedPlacesApiResponse(childPlaceType=child_place_type,
+                                      childPlaces=child_places,
+                                      nearbyPlaces=nearby_places,
+                                      place=place,
+                                      similarPlaces=similar_places,
+                                      parentPlaces=parent_places)
   return jsonify(response)

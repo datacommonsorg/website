@@ -37,6 +37,7 @@ import {
   defaultDataCommonsClient,
   defaultDataCommonsWebClient,
 } from "../utils/data_commons_client";
+import { isPlaceContainedInUsa } from "./util";
 
 /**
  * Returns the stat var key for a chart.
@@ -371,8 +372,12 @@ const PlaceOverviewTable = (props: { placeDcid: string }) => {
 const PlaceOverview = (props: {
   place: NamedTypedPlace;
   placeSummary: string;
+  parentPlaces: NamedTypedPlace[];
 }) => {
-  const { place, placeSummary } = props;
+  const { place, placeSummary, parentPlaces } = props;
+  const isInUsa = isPlaceContainedInUsa(
+    parentPlaces.map((place) => place.dcid)
+  );
   return (
     <div className="place-overview">
       <div className="place-icon">
@@ -381,10 +386,13 @@ const PlaceOverview = (props: {
       <div className="place-name">{place.name}</div>
       <div className="place-summary">{placeSummary}</div>
       <div className="row place-map">
-        <div className="col-md-3">
-          <GoogleMap dcid={place.dcid}></GoogleMap>
-        </div>
+        {isInUsa && (
+          <div className="col-md-3">
+            <GoogleMap dcid={place.dcid}></GoogleMap>
+          </div>
+        )}
         <div className="col-md-9">
+          {!isInUsa && <br></br>}
           <PlaceOverviewTable placeDcid={place.dcid} />
         </div>
       </div>
@@ -470,6 +478,7 @@ export const DevPlaceMain = () => {
   // Derived place data
   const [childPlaceType, setChildPlaceType] = useState<string>();
   const [childPlaces, setChildPlaces] = useState<NamedTypedPlace[]>([]);
+  const [parentPlaces, setParentPlaces] = useState<NamedTypedPlace[]>([]);
   const [pageConfig, setPageConfig] = useState<SubjectPageConfig>();
 
   const urlParams = new URLSearchParams(window.location.search);
@@ -522,6 +531,7 @@ export const DevPlaceMain = () => {
       );
       setChildPlaceType(relatedPlacesApiResponse.childPlaceType);
       setChildPlaces(relatedPlacesApiResponse.childPlaces);
+      setParentPlaces(relatedPlacesApiResponse.parentPlaces);
       setPageConfig(pageConfig);
     })();
   }, [place]);
@@ -541,7 +551,11 @@ export const DevPlaceMain = () => {
         place={place}
         forceDevPlaces={forceDevPlaces}
       />
-      <PlaceOverview place={place} placeSummary={placeSummary} />
+      <PlaceOverview
+        place={place}
+        placeSummary={placeSummary}
+        parentPlaces={parentPlaces}
+      />
       <RelatedPlaces place={place} childPlaces={childPlaces} />
       {place && pageConfig && (
         <PlaceCharts

@@ -186,4 +186,5 @@ export interface RelatedPlacesApiResponse {
   nearbyPlaces: Place[];
   place: Place;
   similarPlaces: Place[];
+  parentPlaces: Place[];
 }
