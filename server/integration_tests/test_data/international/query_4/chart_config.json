@@ -460,34 +460,6 @@
               }
             ],
             "title": "Population"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/CM_02"
-                    ],
-                    "title": "Number of Infant Deaths in Turkey",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Number of Infant Deaths in Turkey",
-                    "statVarKey": [
-                      "WHO/CM_02"
-                    ],
-                    "title": "Number of Infant Deaths in Turkey",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Number of Infant Deaths"
           }
         ],
         "statVarSpec": {
@@ -526,10 +498,6 @@
           "IncrementalCount_Person": {
             "name": "Population Change",
             "statVar": "IncrementalCount_Person"
-          },
-          "WHO/CM_02": {
-            "name": "Number Of Infant Deaths",
-            "statVar": "WHO/CM_02"
           },
           "sdg/SP_DYN_ADKL.AGE--Y10T14__SEX--F": {
             "name": "Adolescent birth rate [10 to 14 years old, Female]",

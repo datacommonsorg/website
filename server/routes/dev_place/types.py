@@ -32,6 +32,7 @@ class Chart:
   denominator: Optional[List[str]] = None
   unit: Optional[str] = None
   scaling: Optional[float] = None
+  childPlaceType: Optional[str] = None
 
   def __post_init__(self):
     # Custom validator for the `type` field
@@ -60,10 +61,11 @@ class PlaceChartsApiResponse:
 @dataclass
 class RelatedPlacesApiResponse:
   """
-  API Response for /api/dev-place/related_charts/charts/<place_dcid>
+  API Response for /api/dev-place/related-places/<place_dcid>
   """
   childPlaceType: str
   childPlaces: List[Place]
   nearbyPlaces: List[Place]
   place: Place
   similarPlaces: List[Place]
+  parentPlaces: List[Place] = None

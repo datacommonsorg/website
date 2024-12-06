@@ -698,6 +698,17 @@ function renderTiles(
         console.log("Tile type not supported:" + tile.type);
     }
   });
+  if (tilesJsx.length > 1) {
+    return (
+      <div className="row">
+        {tilesJsx.map((tileJsx, tileJsxIndex) => (
+          <div key={tileJsxIndex} className="col-xl-6">
+            {tileJsx}
+          </div>
+        ))}
+      </div>
+    );
+  }
   return <>{tilesJsx}</>;
 }
 

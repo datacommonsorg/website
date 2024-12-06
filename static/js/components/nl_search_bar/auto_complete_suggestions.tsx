@@ -41,7 +41,7 @@ export function AutoCompleteSuggestions(
   const [triggered, setTriggered] = useState(false);
 
   function getIcon(query: string, matched_query: string): string {
-    if (query == matched_query) {
+    if (query.trim() == matched_query.trim()) {
       return "location_on";
     }
     return "search";

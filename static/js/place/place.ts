@@ -190,7 +190,11 @@ function renderPage(): void {
         return;
       }
       const loadingElem = document.getElementById("page-loading");
+      const sidebarElem = document.getElementById("sidebar-outer");
+      const mainPaneElem = document.getElementById("main-pane");
       loadingElem.style.display = "none";
+      sidebarElem.style.opacity = "1";
+      mainPaneElem.style.opacity = "1";
       const data: PageData = landingPageData;
       const isUsaPlace = isPlaceInUsa(dcid, data.parentPlaces);
 
@@ -205,9 +209,6 @@ function renderPage(): void {
           }),
           document.getElementById("nl-search-bar")
         );
-      } else {
-        // when NL search bar is hidden, need to adjust spacing
-        document.getElementById("nl-search-bar").style.height = "2rem";
       }
 
       ReactDOM.render(

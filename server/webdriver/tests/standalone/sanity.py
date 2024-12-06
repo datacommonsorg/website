@@ -145,7 +145,7 @@ class WebsiteSanityTest:
     time.sleep(1)
 
     # topic items
-    topic_items = find_elems(self.driver, By.CLASS_NAME, "topic-item")
+    topic_items = find_elems(self.driver, By.CLASS_NAME, "chip-item")
     if topic_items is None or len(topic_items) == 0:
       self.add_result(fail_result(page, start, "No topic items."))
       return
