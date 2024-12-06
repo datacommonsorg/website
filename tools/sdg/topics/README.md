@@ -39,3 +39,16 @@ To run it:
 export DC_API_KEY=<AUTOPUSH KEY>
 python3 enum_topics.py
 ```
+
+
+## Generate Topic Cache
+
+Generates topic cache JSON and NL sentences CSV from an input MCF file with Topic and StatVarPeerGroup nodes.
+
+> NOTE: The core topics script takes a CSV and generates the MCF, JSON and CSV. This script takes a MCF and generates the JSON and CSV.
+
+To run it:
+
+```bash
+./generate_topic_cache.sh
+```
