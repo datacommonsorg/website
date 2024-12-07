@@ -313,6 +313,7 @@ def chart_config_to_overview_charts(chart_config, child_place_type: str):
 # Maps each parent place type to a list of valid child place types.
 # This hierarchy defines how places are related in terms of containment.
 PLACE_TYPES_TO_CHILD_PLACE_TYPES = {
+    "Continent": ["Country"],
     "GeoRegion": ["Country", "City"],
     "Country": [
         "State", "EurostatNUTS1", "EurostatNUTS2", "AdministrativeArea1"
