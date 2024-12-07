@@ -34,7 +34,7 @@
     "@types/react-table": "^7.7.12",
     "@types/reactstrap": "^8.7.1",
     "@types/resize-observer-browser": "^0.1.6",
-    "axios": "^1.6.8",
+    "axios": "^1.7.7",
     "bootstrap": "^4.5.2",
     "canvas": "2.11.2",
     "copy-webpack-plugin": "^9.0.1",
