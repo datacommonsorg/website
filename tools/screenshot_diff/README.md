@@ -13,4 +13,4 @@ git pull dc --tags
 ./diff.sh
 ```
 
-If you get a message to manually trigger a website cron testing job, you can do this by going to the [GKE console](https://pantheon.corp.google.com/kubernetes/cronjob/us-central1/website-us-central1/website/cron-testing) and clicking "Run now" ([screenshot](https://screenshot.googleplex.com/BoUb2yLuLVAsJJm)).
+If you get a message to manually trigger a website cron testing job, you can do this by going to the [GKE console](https://pantheon.corp.google.com/kubernetes/cronjob/us-central1/website-us-central1/website/cron-testing) and clicking "Run now" ([screenshot](https://screenshot.googleplex.com/BoUb2yLuLVAsJJm)). Once that job completes, run the script again to get a link to see the diffs.
