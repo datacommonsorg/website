@@ -24,7 +24,7 @@ import flask
 from flask import current_app
 from flask import g
 from flask_babel import gettext
-from multidict import MultiDict
+from werkzeug.datastructures import MultiDict
 
 from server.lib.cache import cache
 from server.lib.config import GLOBAL_CONFIG_BUCKET
