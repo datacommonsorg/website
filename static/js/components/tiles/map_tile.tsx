@@ -808,10 +808,10 @@ export function getWebComponentSourceCode(mapChartData: MapChartData): string {
 
   let sourceCode = `<script src="https://datacommons.org/datacommons.js"></script>
 <datacommons-map
-  \theader="${header}"
-  \tchildPlaceTypes="${enclosedPlaceTypes}"
-  \tparentPlaces="${places}"
-  \tvariables="${variables}"`;
+\theader="${header}"
+\tchildPlaceTypes="${enclosedPlaceTypes}"
+\tparentPlaces="${places}"
+\tvariables="${variables}"`;
   if (date) {
     sourceCode += `\n\tdate="${date}"`;
   }
