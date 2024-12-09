@@ -36,6 +36,7 @@ import { DatacommonsRankingComponent } from "./ranking_component";
 import { DatacommonsScatterComponent } from "./scatter_component";
 import { DatacommonsSliderComponent } from "./slider_component";
 import { DatacommonsTextComponent } from "./text_component";
+import { addStylesheets } from "./utils";
 
 globalThis.datacommons = {
   DatacommonsBarComponent,
@@ -56,27 +57,8 @@ globalThis.datacommons = {
 };
 
 /**
- * Adds Google Sans and material icons to <head>
+ * Adds Google Sans and material symbols/icons to <head>
  * Web components can't load external fonts directly, so instead add them
  * directly to the parent page
  */
-function loadStyles() {
-  const googleSansEl = document.createElement("link");
-  googleSansEl.href =
-    "https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500;700&family=Google+Sans+Text:wght@300;400;500;700&display=swap";
-  googleSansEl.rel = "stylesheet";
-  const materialIconsEl = document.createElement("link");
-  materialIconsEl.href =
-    "https://fonts.googleapis.com/icon?family=Material+Icons&display=block";
-  materialIconsEl.rel = "stylesheet";
-  const materialIconsOutlinedEl = document.createElement("link");
-  materialIconsOutlinedEl.href =
-    "https://fonts.googleapis.com/icon?family=Material+Icons+Outlined&display=block";
-  materialIconsOutlinedEl.rel = "stylesheet";
-  document.head.appendChild(googleSansEl);
-  document.head.appendChild(materialIconsEl);
-  document.head.appendChild(materialIconsOutlinedEl);
-}
-
-// Append font styles to page
-loadStyles();
+addStylesheets(document.head);

@@ -30,44 +30,63 @@ const ICON_SELECTED_TIMEOUT = 2000;
 
 /* Base Button Component*/
 
-const StyledButton = styled.button`
+export const StyledButton = styled.button`
   align-items: center;
-  background: var(--button-background-color, transparent);
+  background: ${(props) => props.theme.background};
   border: 1px solid #747775;
   border-radius: 100px;
-  color: var(--button-text-color, black);
+  color: ${(props) => props.theme.color};
+  cursor: pointer;
   display: flex;
   font-size: 14px;
   font-weight: 500;
   gap: 8px;
   justify-content: center;
   line-height: 20px;
-  padding: 10px 24px 10px 16px;
+  padding: 10px 24px;
   text-align: center;
   width: fit-content;
 
   &:hover {
-    background-color: var(--button-highlight-background-color, transparent);
+    background-color: ${(props) => props.theme.hoverBackgroundColor};
+    box-shadow: ${(props) => props.theme.hoverBoxShadow};
   }
   .icon {
     font-size: 18px;
   }
 `;
 
+const defaultColorTheme = {
+  background: "var(--button-background-color, transparent)",
+  color: "var(--button-text-color, black)",
+  hoverBackgroundColor: "var(--button-highlight-background-color, transparent)",
+  hoverBoxShadow: "none",
+};
+
+const emphasizedColorTheme = {
+  background: "var(--button-emphasized-background-color, transparent)",
+  color: "var(--button-emphasized-text-color, black)",
+  hoverBackgroundColor:
+    "var(--button-emphasized-background-color, transparent)",
+  hoverBoxShadow:
+    "0px 1px 2px 0px rgba(0, 0, 0, 0.30), 0px 1px 3px 1px rgba(0, 0, 0, 0.15)",
+};
+
 interface ButtonProps {
+  children?: React.ReactNode;
   // Class name to add to button
   class?: string;
+  // Whether to use emphasized styling
+  emphasized?: boolean;
   // Icon to show on button to the left of text
   icon?: string;
   // Icon to show temporarily when button is clicked
   iconWhenClicked?: string;
-  // Text to show on button
-  label: string;
   // Handler for what happens when button is clicked
   onClick: () => void;
 }
 
-function IconButton(props: ButtonProps): JSX.Element {
+export function IconButton(props: ButtonProps): JSX.Element {
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const timerRef = useRef<NodeJS.Timeout>(null);
 
@@ -89,13 +108,14 @@ function IconButton(props: ButtonProps): JSX.Element {
     <StyledButton
       onClick={onClickHandler}
       className={`button ${props.class || ""}`}
+      theme={props.emphasized ? emphasizedColorTheme : defaultColorTheme}
     >
       {props.icon && (
         <span className="material-symbols-outlined icon">
           {(isClicked && props.iconWhenClicked) || props.icon}
         </span>
       )}
-      {props.label}
+      {props.children}
     </StyledButton>
   );
 }
@@ -113,8 +133,9 @@ export function CopyButton(props: CopyButtonProps): JSX.Element {
       icon="file_copy"
       iconWhenClicked="done"
       onClick={() => navigator.clipboard.writeText(props.textToCopy)}
-      label="Copy"
-    ></IconButton>
+    >
+      Copy
+    </IconButton>
   );
 }
 
@@ -133,7 +154,8 @@ export function DownloadButton(props: DownloadButtonProps): JSX.Element {
       icon="download"
       iconWhenClicked="download_done"
       onClick={() => saveToFile(props.filename, props.content)}
-      label="Download"
-    ></IconButton>
+    >
+      Download
+    </IconButton>
   );
 }

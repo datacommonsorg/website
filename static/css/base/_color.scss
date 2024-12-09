@@ -65,4 +65,9 @@ $dc-primary-color: #467bd5;
   --button-background-color: var(--gm-3-white);
   --button-highlight-background-color: #ecf2fc;
   --table-link-color: var(--link-color);
+  --button-emphasized-text-color: var(--gm-3-white);
+  --button-emphasized-background-color: var(--gm-3-sys-light-primary);
+  --button-emphasized-highlight-background-color: var(
+    --gm-3-ref-secondary-secondary-30
+  );
 }
