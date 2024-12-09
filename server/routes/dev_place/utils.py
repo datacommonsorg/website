@@ -49,7 +49,7 @@ def get_place_html_link(place_dcid: str, place_name: str) -> str:
   Returns:
     An html anchor tag linking to a place page.
   """
-  url = flask.url_for('dev_place.dev_place', place_dcid=place_dcid)
+  url = flask.url_for('place.place', place_dcid=place_dcid)
   return f'<a href="{url}">{place_name}</a>'
 
 
