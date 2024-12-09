@@ -21,7 +21,7 @@
 import axios from "axios";
 import _ from "lodash";
 import queryString from "query-string";
-import React, { useEffect, useRef, useState } from "react";
+import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { RawIntlProvider } from "react-intl";
 import { Container } from "reactstrap";
 
@@ -43,6 +43,7 @@ import {
   GA_PARAM_TOPIC,
   triggerGAEvent,
 } from "../../shared/ga_events";
+import { useQueryStore } from "../../shared/stores/query_store_hook";
 import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { shouldSkipPlaceOverview } from "../../utils/explore_utils";
@@ -87,10 +88,18 @@ function getAutoPlayQueries(): string[] {
   return toApiList(queryListParam);
 }
 
+interface AppProps {
+  //true if the app is in demo mode
+  isDemo: boolean;
+  //if true, there is no header bar search, and so we display search inline
+  //if false, there is a header bar search, and so we do not display search inline
+  hideHeaderSearchBar: boolean;
+}
+
 /**
  * Application container
  */
-export function App(props: { isDemo: boolean }): JSX.Element {
+export function App(props: AppProps): ReactElement {
   const [loadingStatus, setLoadingStatus] = useState<string>(
     props.isDemo ? LoadingStatus.DEMO_INIT : LoadingStatus.LOADING
   );
@@ -102,6 +111,12 @@ export function App(props: { isDemo: boolean }): JSX.Element {
   const savedContext = useRef([]);
   const autoPlayQueryList = useRef(getAutoPlayQueries());
   const [autoPlayQuery, setAutoPlayQuery] = useState("");
+
+  const {
+    setQueryString: setStoreQueryString,
+    setQueryResult: setStoreQueryResult,
+    setDebugData: setStoreDebugData,
+  } = useQueryStore();
 
   useEffect(() => {
     // If in demo mode, should input first autoplay query on mount.
@@ -140,6 +155,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
             exploreContext={exploreContext}
             queryResult={queryResult}
             userMessage={userMessage}
+            hideHeaderSearchBar={props.hideHeaderSearchBar}
           />
         )}
         {loadingStatus === LoadingStatus.LOADING && (
@@ -164,6 +180,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
             queryResult={queryResult}
             pageMetadata={pageMetadata}
             userMessage={userMessage}
+            hideHeaderSearchBar={props.hideHeaderSearchBar}
           />
         )}
       </Container>
@@ -181,6 +198,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
 
   function processFulfillData(fulfillData: any, shouldSetQuery: boolean): void {
     setDebugData(fulfillData["debug"]);
+    setStoreDebugData(fulfillData["debug"]);
     const userMessage = {
       msgList: fulfillData["userMessages"] || [],
       showForm: !!fulfillData["showForm"],
@@ -246,16 +264,18 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         ) {
           const q = `${pageMetadata.mainTopics[0].name} vs. ${pageMetadata.mainTopics[1].name} in ${pageMetadata.place.name}`;
           setQuery(q);
+          setStoreQueryString(q);
         } else if (pageMetadata.mainTopics[0].name) {
           const q = `${pageMetadata.mainTopics[0].name} in ${pageMetadata.place.name}`;
           setQuery(q);
+          setStoreQueryString(q);
         }
       }
     }
     savedContext.current = fulfillData["context"] || [];
     setPageMetadata(pageMetadata);
     setUserMessage(userMessage);
-    setQueryResult({
+    const queryResult = {
       place: mainPlace,
       config: pageMetadata.pageConfig,
       svSource: fulfillData["svSource"],
@@ -263,7 +283,9 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       placeFallback: fulfillData["placeFallback"],
       pastSourceContext: fulfillData["pastSourceContext"],
       sessionId: pageMetadata.sessionId,
-    });
+    };
+    setQueryResult(queryResult);
+    setStoreQueryResult(queryResult);
     setLoadingStatus(
       isPendingRedirect ? LoadingStatus.LOADING : LoadingStatus.SUCCESS
     );
@@ -308,6 +330,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     if (query) {
       client = client || CLIENT_TYPES.QUERY;
       setQuery(query);
+      setStoreQueryString(query);
       fulfillmentPromise = fetchDetectAndFufillData(
         query,
         savedContext.current,
@@ -332,6 +355,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     } else {
       client = client || CLIENT_TYPES.ENTITY;
       setQuery("");
+      setStoreQueryString("");
       fulfillmentPromise = fetchFulfillData(
         toApiList(place || DEFAULT_PLACE),
         toApiList(topic || DEFAULT_TOPIC),

@@ -314,7 +314,7 @@ export function AutoCompleteInput(
         >
           <InputGroup className="search-bar-content">
             {isHeaderBar && (
-              <span className="search-icon">
+              <span className="search-bar-icon">
                 <Search />
               </span>
             )}
