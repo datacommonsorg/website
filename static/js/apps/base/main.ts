@@ -43,12 +43,17 @@ function renderPage(): void {
   ) as HeaderMenu[];
 
   //TODO: once confirmed, remove the footer menu json and types.
-
   const name = metadataContainer.dataset.name;
   const logoPath = metadataContainer.dataset.logoPath;
   const logoWidth = metadataContainer.dataset.logoWidth;
-  const showHeaderSearchBar =
-    metadataContainer.dataset.showHeaderSearchBar.toLowerCase() === "true";
+  const hideHeaderSearchBar =
+    metadataContainer.dataset.hideHeaderSearchBar.toLowerCase() === "true";
+  const searchBarHashMode =
+    metadataContainer.dataset.searchBarHashMode.toLowerCase() === "true";
+  const gaValueSearchSource =
+    metadataContainer.dataset.gaValueSearchSource.trim() === ""
+      ? null
+      : metadataContainer.dataset.gaValueSearchSource.toLowerCase();
   const brandLogoLight =
     metadataContainer.dataset.brandLogoLight.toLowerCase() === "true";
 
@@ -62,7 +67,9 @@ function renderPage(): void {
       logoPath,
       logoWidth,
       headerMenu,
-      showHeaderSearchBar,
+      hideHeaderSearchBar,
+      searchBarHashMode,
+      gaValueSearchSource,
       labels,
       routes,
     }),

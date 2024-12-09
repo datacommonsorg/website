@@ -17,47 +17,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { NlSearchBar } from "../components/nl_search_bar";
-import { intl } from "../i18n/i18n";
-import {
-  GA_EVENT_NL_SEARCH,
-  GA_PARAM_QUERY,
-  GA_PARAM_SOURCE,
-  GA_VALUE_SEARCH_SOURCE_PLACE_PAGE,
-  triggerGAEvent,
-} from "../shared/ga_events";
+import { DevPlaceMain } from "./dev_place_main";
 
 window.addEventListener("load", (): void => {
   renderPage();
 });
 
-/**
- * Handler for NL search bar
- * @param q search query entered by user
- */
-function onSearch(q: string): void {
-  triggerGAEvent(GA_EVENT_NL_SEARCH, {
-    [GA_PARAM_QUERY]: q,
-    [GA_PARAM_SOURCE]: GA_VALUE_SEARCH_SOURCE_PLACE_PAGE,
-  });
-  window.location.href = `/explore#q=${encodeURIComponent(q)}`;
-}
-
 function renderPage(): void {
-  // Render NL search bar
   ReactDOM.render(
-    React.createElement(NlSearchBar, {
-      initialValue: "",
-      inputId: "query-search-input",
-      onSearch,
-      placeholder: intl.formatMessage({
-        defaultMessage: "Enter a question to explore",
-        description:
-          "Text inviting user to search for data using a question in natural language",
-        id: "nl-search-bar-placeholder-text",
-      }),
-      shouldAutoFocus: false,
-    }),
-    document.getElementById("nl-search-bar")
+    React.createElement(DevPlaceMain, {}),
+    document.getElementById("place-page-content")
   );
 }

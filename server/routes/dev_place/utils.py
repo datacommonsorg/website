@@ -14,7 +14,7 @@
 """Helper functions for place page routes"""
 
 import re
-from typing import Dict, List
+from typing import Callable, Dict, List, Set
 
 import flask
 from flask_babel import gettext
@@ -49,8 +49,27 @@ def get_place_html_link(place_dcid: str, place_name: str) -> str:
   Returns:
     An html anchor tag linking to a place page.
   """
-  url = flask.url_for('dev_place.dev_place', place_dcid=place_dcid)
+  url = flask.url_for('place.place', place_dcid=place_dcid)
   return f'<a href="{url}">{place_name}</a>'
+
+
+def get_parent_places(dcid: str) -> List[Place]:
+  """Gets the parent places for a given DCID
+  
+  Args:
+    dcid: dcid of the place to get parents for
+    
+  Returns:
+    A list of places that are all the parents of the given DCID.
+  """
+  parents_resp = place_api.parent_places([dcid], include_admin_areas=True).get(
+      dcid, [])
+  all_parents = []
+  for parent in parents_resp:
+    all_parents.append(
+        Place(dcid=parent['dcid'], name=parent['name'], types=parent['type']))
+
+  return all_parents
 
 
 def get_place_type_with_parent_places_links(dcid: str) -> str:
@@ -68,28 +87,27 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
   place_type_display_name = place_api.get_place_type_i18n_name(place_type)
 
   # Get parent places
-  all_parents = place_api.parent_places([dcid],
-                                        include_admin_areas=True).get(dcid, [])
+  all_parents = get_parent_places(dcid)
 
   # Filter parents to only the types desired
   parents_to_include = [
       parent for parent in all_parents
-      if parent['type'] in PARENT_PLACE_TYPES_TO_HIGHLIGHT
+      if parent.types in PARENT_PLACE_TYPES_TO_HIGHLIGHT
   ]
 
   # Fetch the localized names of the parents
-  parent_dcids = [parent['dcid'] for parent in parents_to_include]
+  parent_dcids = [parent.dcid for parent in parents_to_include]
   localized_names = place_api.get_i18n_name(parent_dcids)
   places_with_names = [
       parent for parent in parents_to_include
-      if parent['dcid'] in localized_names.keys()
+      if parent.dcid in localized_names.keys()
   ]
 
   # Generate <a href=place page url> tag for each parent place
   links = [
-      get_place_html_link(place_dcid=parent['dcid'],
-                          place_name=localized_names.get(parent['dcid']))
-      if parent['type'] != 'Continent' else localized_names.get(parent['dcid'])
+      get_place_html_link(place_dcid=parent.dcid,
+                          place_name=localized_names.get(parent.dcid))
+      if parent.types != 'Continent' else localized_names.get(parent.dcid)
       for parent in places_with_names
   ]
 
@@ -101,7 +119,8 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
 
 
 def filter_chart_config_by_place_dcid(chart_config: List[Dict],
-                                      place_dcid: str):
+                                      place_dcid: str,
+                                      child_place_type=str):
   """
   Filters the chart configuration to only include charts that have data for a specific place DCID.
   
@@ -113,19 +132,39 @@ def filter_chart_config_by_place_dcid(chart_config: List[Dict],
       List[Dict]: A filtered list of chart configurations where at least one statistical variable has data for the specified place.
   """
   # Get a flat list of all statistical variable dcids in the chart config
-  all_stat_var_dcids = []
+  non_map_stat_var_dcids = []
+  map_stat_var_dcids = []
   for config in chart_config:
-    all_stat_var_dcids.extend(config["statsVars"])
+    if config.get("isChoropleth"):
+      map_stat_var_dcids.extend(config["statsVars"])
+    else:
+      non_map_stat_var_dcids.extend(config["statsVars"])
+    denominator = config.get("relatedChart", {}).get("denominator", None)
+    if denominator:
+      non_map_stat_var_dcids.extend(denominator)
 
-  # Filter out statistical variables that don't have data for our place_dcid
+  # Find non-map stat vars that have data for our place dcid
   obs_point_response = dc.obs_point(entities=[place_dcid],
-                                    variables=all_stat_var_dcids)
-  stat_vars_with_observations = [
-      stat_var_dcid for stat_var_dcid in all_stat_var_dcids
+                                    variables=non_map_stat_var_dcids)
+  non_map_stat_vars_with_observations = [
+      stat_var_dcid for stat_var_dcid in non_map_stat_var_dcids
       if obs_point_response["byVariable"].get(stat_var_dcid, {}).get(
           "byEntity", {}).get(place_dcid, {})
   ]
-  stat_vars_with_observations_set = set(stat_vars_with_observations)
+
+  # Find map stat vars that have data for our child places
+  obs_point_within_response = dc.obs_point_within(place_dcid,
+                                                  child_place_type,
+                                                  variables=map_stat_var_dcids)
+  map_stat_vars_with_observations = [
+      stat_var_dcid for stat_var_dcid in map_stat_var_dcids
+      if obs_point_within_response["byVariable"].get(stat_var_dcid, {}).get(
+          "byEntity", {})
+  ]
+
+  # Build set of all stat vars that have data for our place & children places
+  stat_vars_with_observations_set = set(non_map_stat_vars_with_observations)
+  stat_vars_with_observations_set.update(map_stat_vars_with_observations)
 
   # Filter out chart config entries that don't have any data
   filtered_chart_config = [
@@ -193,32 +232,30 @@ def fetch_places(place_dcids: List[str], locale=DEFAULT_LOCALE) -> List[Place]:
   Returns:
       List[Place]: A list of Place objects with names in the specified locale.
   """
-  place_types = fetch.property_values(place_dcids, 'typeOf')
-  place_name = fetch.property_values(place_dcids, 'name')
-
+  props = ['typeOf', 'name']
   # Only fetch names with locale-specific tags if the desired locale is non-english
-  place_name_with_languages = {}
   if locale != DEFAULT_LOCALE:
-    place_name_with_languages = fetch.property_values(place_dcids,
-                                                      'nameWithLanguage')
+    props.append('nameWithLanguage')
+  multi_places_props = fetch.multiple_property_values(place_dcids, props)
 
   places = []
   for place_dcid in place_dcids:
-    place_name_with_languages_strs = place_name_with_languages.get(
-        place_dcid, [])
+    place_props = multi_places_props.get(place_dcid, {})
+    place_name_with_languages_strs = place_props.get('nameWithLanguage', [])
     name_with_locale = select_string_with_locale(place_name_with_languages_strs,
                                                  locale=locale)
-    default_name = next(iter(place_name.get(place_dcid, []))) or ''
 
+    place_names = place_props.get('name', [])
+    default_name = place_names[0] if place_names else place_dcid
+
+    place_types = place_props.get('typeOf', [])
     # Use the name with locale if available, otherwise fall back to the default ('en') name
     name = name_with_locale or default_name
-    places.append(
-        Place(dcid=place_dcid, name=name, types=place_types[place_dcid]))
-    place_types[place_dcid]
+    places.append(Place(dcid=place_dcid, name=name, types=place_types))
   return places
 
 
-def chart_config_to_overview_charts(chart_config):
+def chart_config_to_overview_charts(chart_config, child_place_type: str):
   """
   Converts the given chart configuration into a list of Chart objects for API responses.
 
@@ -232,6 +269,7 @@ def chart_config_to_overview_charts(chart_config):
   charts = []
   for page_config_item in chart_config:
     denominator = page_config_item.get("denominator", None)
+    is_map_chart = page_config_item.get("isChoropleth", False)
     chart = Chart(
         category=page_config_item.get("category"),
         description=page_config_item.get("description"),
@@ -239,53 +277,133 @@ def chart_config_to_overview_charts(chart_config):
         statisticalVariableDcids=page_config_item.get("statsVars", []),
         title=page_config_item.get("title"),
         topicDcids=[],
-        type="MAP" if page_config_item.get("isChoropleth", False) else "LINE",
+        type="MAP" if is_map_chart else "LINE",
         unit=page_config_item.get("unit"),
     )
     if denominator:
       chart.denominator = denominator
+    if is_map_chart:
+      chart.childPlaceType = child_place_type
     charts.append(chart)
+
+    if page_config_item.get("relatedChart", {}).get("title"):
+      page_config_related_chart = page_config_item.get("relatedChart", {})
+      related_chart = Chart(
+          category=page_config_item.get("category"),
+          description=page_config_related_chart.get("description"),
+          scaling=page_config_related_chart.get("scaling"),
+          statisticalVariableDcids=page_config_item.get("statsVars", []),
+          title=page_config_related_chart.get("title"),
+          topicDcids=[],
+          type="MAP" if is_map_chart else "LINE",
+          unit=page_config_related_chart.get("unit"),
+      )
+      if page_config_related_chart.get("denominator"):
+        # Related charts only specify one denominator, so we repeat it for each stat var
+        related_chart.denominator = [
+            page_config_related_chart.get("denominator")
+        ] * len(chart.statisticalVariableDcids)
+      if is_map_chart:
+        related_chart.childPlaceType = child_place_type
+      charts.append(related_chart)
 
   return charts
 
 
+# Maps each parent place type to a list of valid child place types.
+# This hierarchy defines how places are related in terms of containment.
 PLACE_TYPES_TO_CHILD_PLACE_TYPES = {
-    "Country":
-        set(["State", "EurostatNUTS1", "EurostatNUTS2", "AdministrativeArea1"]),
-    "State":
-        set(["County"]),
-    "County":
-        set(["City", "Town", "Village", "Borough"])
+    "Continent": ["Country"],
+    "GeoRegion": ["Country", "City"],
+    "Country": [
+        "State", "EurostatNUTS1", "EurostatNUTS2", "AdministrativeArea1"
+    ],
+    "State": ["County", "AdministrativeArea2"],
+    "AdministrativeArea1": ["County", "AdministrativeArea2"],
+    "County": [
+        "City", "Town", "Village", "Borough", "AdministrativeArea3",
+        "CensusZipCodeTabulationArea"
+    ],
+    "AdministrativeArea2": [
+        "City", "Town", "Village", "Borough", "AdministrativeArea3",
+        "CensusZipCodeTabulationArea"
+    ],
 }
 
+# List of callable expressions for matching specific parent places to their primary child place type.
+# These are used for overriding or customizing the default hierarchy in certain cases.
+PLACE_MATCH_EXPRESSIONS: Callable[[Place], str | None] = [
+    # Matches "Earth" (type "Place") and returns "Continent"
+    lambda place: "Continent" if "Place" in place.types else None,
+    # Use "State" instead of AdministrativeArea1 for country/USA
+    lambda place: "State" if place.dcid == "country/USA" else None,
+    # Use "Country" for all  "UNGeoRegion"
+    lambda place: "Country" if "UNGeoRegion" in place.types else None,
+    # Use "County" instead of AdministrativeArea2 for US states
+    lambda place: "County" if re.match(r"geoId/\d\d$", place.dcid) else None
+]
+
+# Default set of valid child place types. These are used when specific mappings or matches are unavailable.
 DEFAULT_CHILD_PLACE_TYPES = set([
     "Country", "State", "County", "City", "Town", "Village", "Borough",
     "CensusZipCodeTabulationArea", "EurostatNUTS1", "EurostatNUTS2",
     "EurostatNUTS3", "AdministrativeArea1", "AdministrativeArea2",
-    "AdministrativeArea3", "AdministrativeArea4", "AdministrativeArea5",
-    "Continent"
+    "AdministrativeArea3", "AdministrativeArea4", "AdministrativeArea5"
 ])
 
 
-def fetch_child_places(place: Place, locale=DEFAULT_LOCALE) -> List[Place]:
-  # Get all possible child places
+def get_child_place_type(place: Place) -> str | None:
+  """
+  Determines the primary child place type for a given place.
+
+  This function uses custom matching rules and fallback hierarchies to decide
+  the most relevant child place type for a given place.
+
+  Args:
+      place (Place): The place object to analyze.
+
+  Returns:
+      str | None: The primary child place type for the given place, or None if no match is found.
+  """
+  # Attempt to directly match a child place type using the custom expressions.
+  for f in PLACE_MATCH_EXPRESSIONS:
+    matched_child_place_type = f(place)
+    if matched_child_place_type:
+      return matched_child_place_type
+
+  # Fetch all possible child places for the given place using its containment property.
   raw_property_values_response = fetch.raw_property_values(
       nodes=[place.dcid], prop="containedInPlace", out=False)
-  child_place_types = DEFAULT_CHILD_PLACE_TYPES
+
+  # Determine the order of child place types based on the parent type.
+  ordered_child_place_types = DEFAULT_CHILD_PLACE_TYPES
   for place_type in place.types:
     if place_type in PLACE_TYPES_TO_CHILD_PLACE_TYPES:
-      child_place_types = PLACE_TYPES_TO_CHILD_PLACE_TYPES[place_type]
+      ordered_child_place_types = PLACE_TYPES_TO_CHILD_PLACE_TYPES[place_type]
       break
 
-  # Filter out child places by type
-  child_place_dcids = []
+  # Collect all types of child places found in the property values response.
+  child_place_types = set()
   for raw_property_value in raw_property_values_response.get(place.dcid, []):
-    types = set(raw_property_value.get("types", []))
-    if types & child_place_types:
-      child_place_dcids.append(raw_property_value["dcid"])
+    child_place_types.update(raw_property_value.get("types", []))
 
-  places = fetch_places(place_dcids=child_place_dcids, locale=locale)
-  return places
+  # Return the first child place type that matches the ordered list of possible child types.
+  for primary_place_type_candidate in ordered_child_place_types:
+    if primary_place_type_candidate in child_place_types:
+      return primary_place_type_candidate
+
+  # If no matching child place type is found, return None.
+  return None
+
+
+def fetch_child_place_dcids(place: Place,
+                            child_place_type: str,
+                            locale=DEFAULT_LOCALE) -> List[str]:
+  # Get all possible child places
+  descendent_places_result = fetch.descendent_places(
+      [place.dcid], descendent_type=child_place_type)
+  child_place_dcids = descendent_places_result.get(place.dcid, [])
+  return child_place_dcids
 
 
 def translate_chart_config(chart_config: List[Dict]):
@@ -399,7 +517,7 @@ def parse_nearby_value(nearby_value: str):
     return place_dcid, None, None
 
 
-def fetch_nearby_places(place: Place, locale=DEFAULT_LOCALE) -> List[Place]:
+def fetch_nearby_place_dcids(place: Place, locale=DEFAULT_LOCALE) -> List[str]:
   """
   Fetches nearby places for a given place, sorted by distance.
 
@@ -408,7 +526,7 @@ def fetch_nearby_places(place: Place, locale=DEFAULT_LOCALE) -> List[Place]:
       locale (str, optional): Locale to optionally translate result into. Defaults to DEFAULT_LOCALE.
 
   Returns:
-      List[Place]: A list of nearby Place objects, sorted by distance from the input place.
+      List[str]: A list of nearby place DCIDs, sorted by distance from the input place.
   """
   nearby_places_response = fetch.raw_property_values(nodes=[place.dcid],
                                                      prop="nearbyPlaces",
@@ -422,10 +540,10 @@ def fetch_nearby_places(place: Place, locale=DEFAULT_LOCALE) -> List[Place]:
 
   sorted_place_distances = sorted(place_distances, key=lambda x: x[1])
   nearby_place_dcids = [item[0] for item in sorted_place_distances]
-  return fetch_places(place_dcids=nearby_place_dcids, locale=locale)
+  return nearby_place_dcids
 
 
-def fetch_similar_places(place: Place, locale=DEFAULT_LOCALE) -> List[Place]:
+def fetch_similar_place_dcids(place: Place, locale=DEFAULT_LOCALE) -> List[str]:
   """
   Fetches similar places to the given place, based on its cohort type.
 
@@ -434,7 +552,7 @@ def fetch_similar_places(place: Place, locale=DEFAULT_LOCALE) -> List[Place]:
       locale (str, optional): Locale to optionally translate result into. Defaults to DEFAULT_LOCALE.
 
   Returns:
-      List[Place]: A list of `Place` objects that are similar to the input place, based on the cohort type.
+      List[Place]: A list of place DCIDs that are similar to the input place, based on the cohort type.
                     If no cohort is found for the place, returns an empty list.
   """
   # Determine the cohort type for the given place based on its type and DCID
@@ -454,9 +572,5 @@ def fetch_similar_places(place: Place, locale=DEFAULT_LOCALE) -> List[Place]:
       for item in place_cohort_members_response.get(place_cohort, [])
   ]
 
-  # Fetch the place details, including names and types
-  similar_places = fetch_places(place_dcids=place_cohort_member_dcids,
-                                locale=locale)
-
-  # Return the list of similar places
-  return similar_places
+  # Return the list of similar place dcids
+  return place_cohort_member_dcids
