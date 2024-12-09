@@ -420,6 +420,7 @@ const RelatedPlaces = (props: {
   const NUM_PLACES = 15;
   const showToggle = childPlaces.length > NUM_PLACES;
   const truncatedPlaces = childPlaces.slice(0, NUM_PLACES);
+  const numPlacesCollapsed = childPlaces.length - NUM_PLACES;
 
   const toggleShowMore = () => {
     setIsCollapsed(!isCollapsed);
@@ -442,7 +443,7 @@ const RelatedPlaces = (props: {
       {showToggle && (
         <div className="show-more-toggle" onClick={toggleShowMore}>
           <span className="show-more-toggle-text">
-            {isCollapsed ? "Show more" : "Show less"}
+            {isCollapsed ? `Show ${numPlacesCollapsed} more` : "Show less"}
           </span>
           <span className="material-icons-outlined">
             {isCollapsed ? "expand_more" : "expand_less"}
