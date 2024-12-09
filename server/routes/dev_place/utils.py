@@ -232,7 +232,7 @@ def fetch_places(place_dcids: List[str], locale=DEFAULT_LOCALE) -> List[Place]:
   Returns:
       List[Place]: A list of Place objects with names in the specified locale.
   """
-  props = ['typeOf', 'name']
+  props = ['typeOf', 'name', 'dissolutionDate']
   # Only fetch names with locale-specific tags if the desired locale is non-english
   if locale != DEFAULT_LOCALE:
     props.append('nameWithLanguage')
@@ -244,6 +244,10 @@ def fetch_places(place_dcids: List[str], locale=DEFAULT_LOCALE) -> List[Place]:
     place_name_with_languages_strs = place_props.get('nameWithLanguage', [])
     name_with_locale = select_string_with_locale(place_name_with_languages_strs,
                                                  locale=locale)
+
+    if place_props.get('dissolutionDate', []):
+      # skip places that have a dissolution date.
+      continue
 
     place_names = place_props.get('name', [])
     default_name = place_names[0] if place_names else place_dcid

@@ -160,9 +160,9 @@ def related_places(place_dcid: str):
 
   # Get place objects for nearby, similar, and child places
   all_place_by_dcid = {p.dcid: p for p in all_places}
-  nearby_places = [all_place_by_dcid[dcid] for dcid in nearby_place_dcids]
-  similar_places = [all_place_by_dcid[dcid] for dcid in similar_place_dcids]
-  child_places = [all_place_by_dcid[dcid] for dcid in child_place_dcids]
+  nearby_places = [all_place_by_dcid[dcid] for dcid in nearby_place_dcids if dcid in all_place_by_dcid]
+  similar_places = [all_place_by_dcid[dcid] for dcid in similar_place_dcids if dcid in all_place_by_dcid]
+  child_places = [all_place_by_dcid[dcid] for dcid in child_place_dcids if dcid in all_place_by_dcid]
 
   response = RelatedPlacesApiResponse(childPlaceType=child_place_type,
                                       childPlaces=child_places,
