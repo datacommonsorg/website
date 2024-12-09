@@ -779,7 +779,7 @@ export function getWebComponentSourceCode(mapChartData: MapChartData): string {
     })
   ).join(" ");
 
-  // Cet list of variables that are per capita
+  // Get list of variables that are per capita
   const perCapitaVariables = mapChartData.layerData
     .map((layer) => {
       return layer.variable;

@@ -19,9 +19,12 @@
  */
 
 import React, { useState } from "react";
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
-import { CopyButton } from "../../components/form_components/icon_buttons";
+import {
+  CopyButton,
+  IconButton,
+} from "../../components/form_components/icon_buttons";
 
 interface TileCodeModalPropType {
   containerRef?: React.RefObject<HTMLElement>;
@@ -77,14 +80,14 @@ export function TileCodeModal(props: TileCodeModalPropType): JSX.Element {
           </ModalBody>
           <ModalFooter>
             <CopyButton textToCopy={props.sourceCode} />
-            <Button
-              className="modal-close"
+            <IconButton
+              emphasized
               onClick={() => {
                 setModalOpen(false);
               }}
             >
               Close
-            </Button>
+            </IconButton>
           </ModalFooter>
         </Modal>
       )}
