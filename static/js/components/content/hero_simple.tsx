@@ -15,31 +15,27 @@
  */
 
 /**
- * A component to display a simple text block
+ * A component to display the primary video hero component
  */
 /** @jsxImportSource @emotion/react */
 
 import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
-interface SimpleTextProps {
-  //the content (text or other content) as a React element
+interface SimpleHeroProps {
+  //the content to be displayed alongside the video
   children: ReactElement;
 }
 
-const SimpleText = ({ children }: SimpleTextProps): ReactElement => {
+export const HeroSimple = ({ children }: SimpleHeroProps): ReactElement => {
   const theme = useTheme();
   return (
     <article
       css={css`
-        h3 {
-          ${theme.typography.family.heading};
-          ${theme.typography.heading.sm};
-          margin-bottom: ${theme.spacing.lg}px;
-        }
-        p {
-          ${theme.typography.family.text};
-          ${theme.typography.text.md};
+        width: 100%;
+        max-width: ${theme.width.sm}px;
+        @media (max-width: ${theme.breakpoints.md}px) {
+          max-width: 100%;
         }
       `}
     >
@@ -47,5 +43,3 @@ const SimpleText = ({ children }: SimpleTextProps): ReactElement => {
     </article>
   );
 };
-
-export default SimpleText;

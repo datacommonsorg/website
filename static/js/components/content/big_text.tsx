@@ -15,37 +15,40 @@
  */
 
 /**
- * A component to display a simple text block
+ * A component to display a large bold text section
  */
+
 /** @jsxImportSource @emotion/react */
 
 import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
-interface SimpleTextProps {
-  //the content (text or other content) as a React element
+interface BigTextProps {
+  //the content that will be displayed inside the text section
   children: ReactElement;
 }
 
-const SimpleText = ({ children }: SimpleTextProps): ReactElement => {
+export const BigText = ({ children }: BigTextProps): ReactElement => {
   const theme = useTheme();
   return (
     <article
       css={css`
-        h3 {
-          ${theme.typography.family.heading};
-          ${theme.typography.heading.sm};
-          margin-bottom: ${theme.spacing.lg}px;
-        }
-        p {
-          ${theme.typography.family.text};
-          ${theme.typography.text.md};
+        width: 100%;
+        max-width: ${theme.width.sm}px;
+        @media (max-width: ${theme.breakpoints.md}px) {
+          max-width: 100%;
         }
       `}
     >
-      {children}
+      <h3
+        css={css`
+          ${theme.typography.family.heading};
+          ${theme.typography.heading.sm};
+          color: ${theme.colors.text.primary.light};
+        `}
+      >
+        {children}
+      </h3>
     </article>
   );
 };
-
-export default SimpleText;

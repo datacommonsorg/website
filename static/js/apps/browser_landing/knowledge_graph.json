@@ -3,12 +3,12 @@
     "title": "Cities",
     "items": [
       {
-        "endpoint": "geoId/4261000",
-        "label": "Pittsburgh, PA"
+        "endpoint": "nuts/DE3",
+        "label": "Berlin, Germany"
       },
       {
-        "endpoint": "geoId/0649670",
-        "label": "Mountain View, CA"
+        "endpoint": "wikidataId/Q1861",
+        "label": "Bangkok, Thailand"
       },
       {
         "endpoint": "geoId/4805000",
@@ -17,6 +17,10 @@
       {
         "endpoint": "geoId/0606000",
         "label": "Berkeley, CA"
+      },
+      {
+        "endpoint": "geoId/0667000",
+        "label": "San Francisco, CA"
       }
     ],
     "categoryEndpoint": "City"
@@ -26,11 +30,19 @@
     "items": [
       {
         "endpoint": "geoId/06085",
-        "label": "Santa Clara"
+        "label": "Santa Clara County"
       },
       {
         "endpoint": "geoId/12086",
-        "label": "Miami-Dade"
+        "label": "Miami-Dade County"
+      },
+      {
+        "endpoint": "geoId/13259",
+        "label": "Stewart County"
+      },
+      {
+        "endpoint": "geoId/17031",
+        "label": "Cook County"
       }
     ],
     "categoryEndpoint": "County"
@@ -39,16 +51,24 @@
     "title": "States",
     "items": [
       {
-        "endpoint": "geoId/06",
-        "label": "Florida"
+        "endpoint": "wikidataId/Q1164",
+        "label": "Assam, India"
       },
       {
-        "endpoint": "geoId/56",
-        "label": "Wyoming"
+        "endpoint": "wikidataId/Q1171",
+        "label": "Goa, India"
+      },
+      {
+        "endpoint": "wikidataId/Q309478",
+        "label": "Al Qadarif, Sudan"
       },
       {
         "endpoint": "geoId/36",
-        "label": "New York"
+        "label": "New York, USA"
+      },
+      {
+        "endpoint": "geoId/48",
+        "label": "Texas, USA"
       }
     ],
     "categoryEndpoint": "State"
@@ -57,12 +77,24 @@
     "title": "Countries",
     "items": [
       {
-        "endpoint": "country/USA",
-        "label": "United States"
+        "endpoint": "country/SDN",
+        "label": "Sudan"
       },
       {
         "endpoint": "country/CAN",
         "label": "Canada"
+      },
+      {
+        "endpoint": "country/IND",
+        "label": "India"
+      },
+      {
+        "endpoint": "country/DEU",
+        "label": "Germany"
+      },
+      {
+        "endpoint": "country/USA",
+        "label": "United States"
       }
     ],
     "categoryEndpoint": "Country"
@@ -72,86 +104,52 @@
     "items": [
       {
         "endpoint": "geoId/0618",
-        "label": "CA-18"
+        "label": "District 18 (113th Congress), California"
       },
       {
         "endpoint": "geoId/3601",
-        "label": "NY-01"
+        "label": "District 1 (113th Congress), New York"
+      },
+      {
+        "endpoint": "geoId/0101",
+        "label": "District 1 (113th Congress), Alabama"
+      },
+      {
+        "endpoint": "geoId/1501",
+        "label": "District 1 (113th Congress), Hawaii"
+      },
+      {
+        "endpoint": "geoId/4801",
+        "label": "District 1 (113th Congress), Texas"
       }
     ],
     "categoryEndpoint": "CongressionalDistrict"
   },
   {
-    "title": "Elections",
+    "title": "Public Schools and School Districts",
     "items": [
       {
-        "endpoint": "election/2016_P_US00",
-        "label": "2016 US Presidential Election"
+        "endpoint": "nces/062961004587",
+        "label": "Henry M. Gunn High"
       },
       {
-        "endpoint": "election/1990_S_MI00",
-        "label": "1990 US Senate Elections for Michigan"
+        "endpoint": "nces/360007702877",
+        "label": "Stuyvesant High School"
+      },
+      {
+        "endpoint": "geoId/sch3620580",
+        "label": "New York City Department of Education"
+      },
+      {
+        "endpoint": "nces/010001802104",
+        "label": "Alabama School Of Fine Arts"
+      },
+      {
+        "endpoint": "nces/170993006725",
+        "label": "Englewood Stem High School"
       }
     ],
-    "categoryEndpoint": "Election"
-  },
-  {
-    "title": "Census Estimates",
-    "items": [
-      {
-        "endpoint": "geoId/06085?statVar=Count_Person_AsianAlone",
-        "label": "Asian Population in Santa Clara"
-      },
-      {
-        "endpoint": "geoId/2255000?statVar=Count_Person_EducationalAttainmentMastersDegree",
-        "label": "Master Degree Holders in New Orleans"
-      }
-    ]
-  },
-  {
-    "title": "Labor Statistics",
-    "items": [
-      {
-        "endpoint": "geoId/2507000?statVar=UnemploymentRate_Person",
-        "label": "Unemployment in Boston"
-      },
-      {
-        "endpoint": "geoId/1304000?statVar=Count_CriminalActivities_Robbery",
-        "label": "Violent Robbery in Atlanta, Georgia"
-      },
-      {
-        "endpoint": "geoId/13?statVar=Count_CriminalActivities_LarcenyTheft",
-        "label": "Larceny-Theft in Georgia"
-      }
-    ]
-  },
-  {
-    "title": "Health Data",
-    "items": [
-      {
-        "endpoint": "geoId/1304000?statVar=Percent_Person_WithDiabetes",
-        "label": "Prevalence of Diabetes in Atlanta"
-      }
-    ]
-  },
-  {
-    "title": "DEA ARCOS",
-    "items": [
-      {
-        "endpoint": "geoId/54099?statVar=RetailDrugDistribution_DrugDistribution_Amphetamine",
-        "label": "Amphetamine distribution in Wayne County, WV"
-      }
-    ]
-  },
-  {
-    "title": "Botanical Specimens",
-    "items": [
-      {
-        "endpoint": "dc/bsmvthtq89217",
-        "label": "Austrobaileya scandens"
-      }
-    ],
-    "categoryEndpoint": "BiologicalSpecimen"
+    "categoryEndpoint": "PublicSchool"
   },
   {
     "title": "ENCODE (Encyclopedia Of DNA Elements)",
@@ -170,22 +168,5 @@
       }
     ],
     "categoryEndpoint": "EncodeBedFile"
-  },
-  {
-    "title": "Public Schools and School Districts",
-    "items": [
-      {
-        "endpoint": "nces/062961004587",
-        "label": "Henry M. Gunn High"
-      },
-      {
-        "endpoint": "nces/360007702877",
-        "label": "Stuyvesant High School"
-      },
-      {
-        "endpoint": "geoId/sch3620580",
-        "label": "New York City Department of Education"
-      }
-    ]
   }
 ]
