@@ -244,6 +244,7 @@ def fetch_places(place_dcids: List[str], locale=DEFAULT_LOCALE) -> List[Place]:
     place_name_with_languages_strs = place_props.get('nameWithLanguage', [])
     name_with_locale = select_string_with_locale(place_name_with_languages_strs,
                                                  locale=locale)
+
     place_names = place_props.get('name', [])
     default_name = place_names[0] if place_names else place_dcid
     dissolved = bool(place_props.get('dissolutionDate'))
