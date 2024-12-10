@@ -42,7 +42,7 @@ export const BuildHero = (): ReactElement => {
         <div>
           <h4>Build and deploy your own</h4>
           <p>
-            Launch your own Data Commons and customize it with your own data
+            Launch your own Data Commons and customize it with your own data to
             better engage your specific audience
           </p>
         </div>
