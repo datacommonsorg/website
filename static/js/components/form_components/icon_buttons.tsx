@@ -33,7 +33,7 @@ const ICON_SELECTED_TIMEOUT = 2000;
 export const StyledButton = styled.button`
   align-items: center;
   background: ${(props) => props.theme.background};
-  border: 1px solid #747775;
+  border: ${(props) => props.theme.border};
   border-radius: 100px;
   color: ${(props) => props.theme.color};
   cursor: pointer;
@@ -58,6 +58,7 @@ export const StyledButton = styled.button`
 
 const defaultColorTheme = {
   background: "var(--button-background-color, transparent)",
+  border: "1px solid #747775",
   color: "var(--button-text-color, black)",
   hoverBackgroundColor: "var(--button-highlight-background-color, transparent)",
   hoverBoxShadow: "none",
@@ -65,6 +66,7 @@ const defaultColorTheme = {
 
 const emphasizedColorTheme = {
   background: "var(--button-emphasized-background-color, transparent)",
+  border: "1px solid var(--button-emphasized-background-color, transparent)",
   color: "var(--button-emphasized-text-color, black)",
   hoverBackgroundColor:
     "var(--button-emphasized-background-color, transparent)",
