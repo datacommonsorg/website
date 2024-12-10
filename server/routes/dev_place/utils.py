@@ -252,7 +252,11 @@ def fetch_places(place_dcids: List[str], locale=DEFAULT_LOCALE) -> List[Place]:
     place_types = place_props.get('typeOf', [])
     # Use the name with locale if available, otherwise fall back to the default ('en') name
     name = name_with_locale or default_name
-    places.append(Place(dcid=place_dcid, name=name, types=place_types, dissolved=dissolved))
+    places.append(
+        Place(dcid=place_dcid,
+              name=name,
+              types=place_types,
+              dissolved=dissolved))
   return places
 
 
