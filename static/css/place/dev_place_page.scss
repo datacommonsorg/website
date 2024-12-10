@@ -28,7 +28,7 @@ $horizontal-divider-style: 1px solid rgba(0, 0, 0, 0.12);
 
 main {
   // Leave space on top for navbar and bottom for footer
-  padding: 24px 0;
+  padding: 48px 0 24px 0;
 }
 
 .page-content-container {
@@ -157,5 +157,17 @@ main {
     font-style: normal;
     font-weight: 400;
     line-height: 28px;
+  }
+
+  .show-more-toggle {
+    align-items: center;
+    color: var(--link-color);
+    cursor: pointer;
+    display: flex;
+    gap: 2px;
+    font-size: 14px;
+    font-weight: 500;
+    padding-left: 8px;
+    padding-top: 16px;
   }
 }

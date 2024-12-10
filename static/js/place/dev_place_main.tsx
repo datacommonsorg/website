@@ -411,16 +411,27 @@ const RelatedPlaces = (props: {
   place: NamedTypedPlace;
   childPlaces: NamedTypedPlace[];
 }) => {
+  const [isCollapsed, setIsCollapsed] = useState(true);
   const { place, childPlaces } = props;
   if (!childPlaces || childPlaces.length === 0) {
     return null;
   }
+
+  const NUM_PLACES = 15;
+  const showToggle = childPlaces.length > NUM_PLACES;
+  const truncatedPlaces = childPlaces.slice(0, NUM_PLACES);
+  const numPlacesCollapsed = childPlaces.length - NUM_PLACES;
+
+  const toggleShowMore = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
   return (
     <div className="related-places">
       <div className="related-places-callout">Places in {place.name}</div>
       <div className="item-list-container">
         <div className="item-list-inner">
-          {childPlaces.map((place) => (
+          {(isCollapsed ? truncatedPlaces : childPlaces).map((place) => (
             <div key={place.dcid} className="item-list-item">
               <a className="item-list-text" href={`/place/${place.dcid}`}>
                 {place.name}
@@ -429,6 +440,16 @@ const RelatedPlaces = (props: {
           ))}
         </div>
       </div>
+      {showToggle && (
+        <div className="show-more-toggle" onClick={toggleShowMore}>
+          <span className="show-more-toggle-text">
+            {isCollapsed ? `Show ${numPlacesCollapsed} more` : "Show less"}
+          </span>
+          <span className="material-icons-outlined">
+            {isCollapsed ? "expand_more" : "expand_less"}
+          </span>
+        </div>
+      )}
     </div>
   );
 };
