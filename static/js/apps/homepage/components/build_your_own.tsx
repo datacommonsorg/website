@@ -43,7 +43,7 @@ export const BuildYourOwn = ({ routes }: BuildYourOwnProps): ReactElement => {
   return (
     <BigText>
       <>
-        Build your own Data Commons Customize a private instance of the
+        Build your own Data Commons: customize a private instance of the
         open-source Data Commons platform. You control the data you include and
         who has access.
         <a
