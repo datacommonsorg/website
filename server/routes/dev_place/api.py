@@ -159,10 +159,10 @@ def related_places(place_dcid: str):
   all_places = place_utils.fetch_places(all_place_dcids, locale=g.locale)
 
   # Get place objects for nearby, similar, and child places
-  all_place_by_dcid = {p.dcid: p for p in all_places if not p.dissolved}
-  nearby_places = [all_place_by_dcid[dcid] for dcid in nearby_place_dcids]
-  similar_places = [all_place_by_dcid[dcid] for dcid in similar_place_dcids]
-  child_places = [all_place_by_dcid[dcid] for dcid in child_place_dcids]
+  all_place_by_dcid = {p.dcid: p for p in all_places}
+  nearby_places = [all_place_by_dcid[dcid] for dcid in nearby_place_dcids if not all_place_by_dcid[dcid].dissolved]
+  similar_places = [all_place_by_dcid[dcid] for dcid in similar_place_dcids if not all_place_by_dcid[dcid].dissolved]
+  child_places = [all_place_by_dcid[dcid] for dcid in child_place_dcids if not all_place_by_dcid[dcid].dissolved]
 
   response = RelatedPlacesApiResponse(childPlaceType=child_place_type,
                                       childPlaces=child_places,
