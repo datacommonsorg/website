@@ -51,7 +51,7 @@ export function App({ routes }: AppProps): ReactElement {
       </Section>
 
       <Section>
-        <WhoCanUse />
+        <WhoCanUse routes={routes} />
       </Section>
 
       <Section>
