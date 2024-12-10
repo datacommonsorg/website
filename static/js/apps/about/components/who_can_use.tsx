@@ -23,8 +23,14 @@
 import React, { ReactElement } from "react";
 
 import { MediaText } from "../../../components/content/media_text";
+import { Routes } from "../../../shared/types/base";
 
-export const WhoCanUse = (): ReactElement => {
+interface WhoCanUseProps {
+  //the routes dictionary - this is used to convert routes to resolved urls
+  routes: Routes;
+}
+
+export const WhoCanUse = ({ routes }: WhoCanUseProps): ReactElement => {
   return (
     <MediaText
       mediaType="video"
@@ -33,13 +39,13 @@ export const WhoCanUse = (): ReactElement => {
       headerComponent="h3"
     >
       <p>
-        Data Commons can be accessed by anyone here at Datacommons.org.
-        Students, researchers, journalists, non profits, policymakers, and
-        private enterprises can access the tools and allow them to manipulate
-        and make decisions based on data without the need to know how to code.
-        Software developers can use the REST, Python and Google Sheets APIs, all
-        of which are free for educational, academic and journalistic research
-        purposes.
+        Data Commons can be accessed by anyone here at{" "}
+        <a href={routes["static.homepage"]}>Datacommons.org</a>. Students,
+        researchers, journalists, non profits, policymakers, and private
+        enterprises can access the tools and allow them to manipulate and make
+        decisions based on data without the need to know how to code. Software
+        developers can use the REST, Python and Google Sheets APIs, all of which
+        are free for educational, academic and journalistic research purposes.
       </p>
     </MediaText>
   );
