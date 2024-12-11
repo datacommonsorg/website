@@ -73,7 +73,7 @@ variable "dc_gcs_data_bucket_path_override" {
 }
 
 variable "dc_gcs_data_bucket_location" {
-  description = "Data Commons data bucket GCS location"
+  description = "Data Commons GCS data bucket location"
   type        = string
   default     = "US"
 }
