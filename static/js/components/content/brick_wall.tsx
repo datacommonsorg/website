@@ -39,7 +39,7 @@ export const BrickWall = ({ title, bricks }: BrickWallProps): ReactElement => {
   const theme = useTheme();
   // This function divides the bricks into columns (based on the NUM_COLUMNS above), and tracks the number of rows in
   // each column. The number of rows isn't simple to calculate because it varies based on the pattern of the bricks.
-  const { columns, numRows } = useMemo(() => {
+  const { columns, numRows, maxRows } = useMemo(() => {
     const columns: ReactElement[][] = Array.from(
       { length: NUM_COLUMNS },
       () => []
@@ -64,12 +64,26 @@ export const BrickWall = ({ title, bricks }: BrickWallProps): ReactElement => {
       currentColumn = (currentColumn + 1) % NUM_COLUMNS;
     }
 
-    return { columns, numRows };
+    const maxRows = Math.max(...numRows);
+
+    return { columns, numRows, maxRows };
   }, [bricks]);
 
   if (bricks.length === 0) {
     return null;
   }
+
+  const rowStyles = [...Array(maxRows)]
+    .map(
+      (_, i) => `
+    &.row-count-${i} {
+      grid-template-rows: ${
+        i === 0 ? "max-content" : i === 1 ? "1fr" : `repeat(${i}, min-content)`
+      };
+    }
+  `
+    )
+    .join("");
 
   return (
     <div
@@ -77,7 +91,7 @@ export const BrickWall = ({ title, bricks }: BrickWallProps): ReactElement => {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: ${theme.spacing.lg}px;
-        @media (max-width: ${theme.breakpoints.sm}px) {
+        @media (max-width: ${theme.breakpoints.md}px) {
           grid-template-columns: 1fr;
         }
       `}
@@ -88,7 +102,7 @@ export const BrickWall = ({ title, bricks }: BrickWallProps): ReactElement => {
             grid-column: 1 / span 2;
             width: 100%;
             max-width: ${theme.width.md}px;
-            @media (max-width: ${theme.breakpoints.sm}px) {
+            @media (max-width: ${theme.breakpoints.md}px) {
               grid-column: 1;
             }
           `}
@@ -115,44 +129,21 @@ export const BrickWall = ({ title, bricks }: BrickWallProps): ReactElement => {
             align-items: start;
             justify-content: start;
             grid-template-columns: 1fr 1fr;
-            &.row-count-0 {
-              grid-template-columns: 1fr;
-              grid-template-rows: max-content;
-            }
-            &.row-count-1 {
-              grid-template-rows: 1fr;
-            }
-            &.row-count-2 {
-              grid-template-rows: repeat(2, min-content);
-            }
-            &.row-count-3 {
-              grid-template-rows: repeat(3, min-content);
-            }
-            &.row-count-4 {
-              grid-template-rows: repeat(4, min-content);
-            }
-            &.row-count-5 {
-              grid-template-rows: repeat(5, min-content);
-            }
-            &.row-count-6 {
-              grid-template-rows: repeat(6, min-content);
-            }
+
             @media (max-width: ${theme.breakpoints.sm}px) {
               grid-template-columns: 1fr;
             }
+
+            ${rowStyles}
+
             &:nth-of-type(1) {
               & > div {
                 &:nth-of-type(3),
-                &:nth-of-type(4) {
-                  grid-column: 1 / span 2;
-                  @include media-breakpoint-down(sm) {
-                    grid-column: 1;
-                  }
-                }
+                &:nth-of-type(4),
                 &:nth-of-type(7),
                 &:nth-of-type(8) {
                   grid-column: 1 / span 2;
-                  @include media-breakpoint-down(sm) {
+                  @media (max-width: ${theme.breakpoints.sm}px) {
                     grid-column: 1;
                   }
                 }
@@ -161,16 +152,11 @@ export const BrickWall = ({ title, bricks }: BrickWallProps): ReactElement => {
             &:nth-of-type(2) {
               & > div {
                 &:nth-of-type(1),
-                &:nth-of-type(4) {
-                  grid-column: 1 / span 2;
-                  @include media-breakpoint-down(sm) {
-                    grid-column: 1;
-                  }
-                }
+                &:nth-of-type(4),
                 &:nth-of-type(5),
                 &:nth-of-type(8) {
                   grid-column: 1 / span 2;
-                  @include media-breakpoint-down(sm) {
+                  @media (max-width: ${theme.breakpoints.sm}px) {
                     grid-column: 1;
                   }
                 }
@@ -182,7 +168,9 @@ export const BrickWall = ({ title, bricks }: BrickWallProps): ReactElement => {
             <div
               key={i}
               css={css`
-                display: block;
+                @media (max-width: ${theme.breakpoints.sm}px) {
+                  grid-column: 1;
+                }
                 a {
                   ${theme.box.primary}
                   ${theme.elevation.primary}
