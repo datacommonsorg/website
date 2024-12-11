@@ -91,6 +91,10 @@ main {
   .place-map {
     margin-top: 16px;
   }
+  .table thead th {
+    border-bottom: 1px solid var(--gm-3-ref-neutral-neutral-70, #ababab);
+    border-top: none;
+  }
 }
 .summary-text {
   color: var(--gm-3-ref-neutral-neutral-20);
