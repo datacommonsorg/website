@@ -18,6 +18,9 @@
  * A component to display a category of the knowledge graph
  */
 
+/** @jsxImportSource @emotion/react */
+
+import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import { KnowledgeGraph } from "../../../shared/types/knowledge_graph";
@@ -30,34 +33,104 @@ interface KnowledgeGraphBrowserProps {
 export const KnowledgeGraphBrowser = ({
   knowledgeGraph,
 }: KnowledgeGraphBrowserProps): ReactElement => {
+  const theme = useTheme();
   return (
-    <section id="browser-items" className="browser-items">
-      <div className="container">
-        {knowledgeGraph.map((category) => (
-          <article key={category.title} className="item">
-            <header className="header">
-              <h3>{category.title}</h3>
-            </header>
-            <ul>
-              {category.items.map((item) => (
-                <li key={item.endpoint}>
-                  <a href={`/browser/${item.endpoint}`}>{item.label}</a>
-                </li>
-              ))}
-              {category.categoryEndpoint && (
-                <li>
-                  <a
-                    href={`/browser/${category.categoryEndpoint}`}
-                    className="more"
-                  >
-                    <span className="text">& more to search from</span>
-                  </a>
-                </li>
-              )}
-            </ul>
-          </article>
-        ))}
-      </div>
-    </section>
+    <>
+      {knowledgeGraph.map((category) => (
+        <article
+          key={category.title}
+          css={css`
+            padding-bottom: ${theme.spacing.huge}px;
+            margin-bottom: ${theme.spacing.huge}px;
+            border-bottom: 1px solid rgba(220, 220, 220, 0.3);
+            &:last-of-type {
+              border-bottom: none;
+            }
+          `}
+        >
+          <header
+            css={css`
+              margin-bottom: ${theme.spacing.lg}px;
+            `}
+          >
+            <h3
+              css={css`
+                ${theme.typography.family.heading};
+                ${theme.typography.heading.md};
+              `}
+            >
+              {category.title}
+            </h3>
+          </header>
+          <ul
+            css={css`
+              margin: 0;
+              margin-left: 200px;
+              padding: 0;
+              display: grid;
+              grid-template-columns: 1fr 1fr 1fr;
+              gap: ${theme.spacing.md}px ${theme.spacing.lg}px;
+              @media (max-width: ${theme.breakpoints.lg}px) {
+                margin-left: 100px;
+              }
+              @media (max-width: ${theme.breakpoints.md}px) {
+                grid-template-columns: 1fr 1fr;
+              }
+              @media (max-width: ${theme.breakpoints.sm}px) {
+                grid-template-columns: 1fr;
+                margin-left: 10%;
+              }
+            `}
+          >
+            {category.items.map((item) => (
+              <li
+                key={item.endpoint}
+                css={css`
+                  ${theme.typography.family.text};
+                  ${theme.typography.text.lg};
+                  margin: 0;
+                  padding: 0;
+                  list-style: none;
+                  display: block;
+                `}
+              >
+                <a href={`/browser/${item.endpoint}`}>{item.label}</a>
+              </li>
+            ))}
+            {category.categoryEndpoint && (
+              <li
+                css={css`
+                  ${theme.typography.family.text};
+                  ${theme.typography.text.lg};
+                  margin: 0;
+                  padding: 0;
+                  list-style: none;
+                  display: block;
+                `}
+              >
+                <a
+                  href={`/browser/${category.categoryEndpoint}`}
+                  css={css`
+                    ${theme.typography.family.text};
+                    ${theme.typography.text.lg};
+                    margin: 0;
+                    padding: 0;
+                    list-style: none;
+                    display: flex;
+                    align-content: center;
+                    color: ${theme.colors.link.secondary.base};
+                    &:hover {
+                      color: ${theme.colors.link.secondary.dark};
+                    }
+                  `}
+                >
+                  & more to search from
+                </a>
+              </li>
+            )}
+          </ul>
+        </article>
+      ))}
+    </>
   );
 };

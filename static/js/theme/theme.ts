@@ -145,6 +145,11 @@ const theme: Theme = {
         light: DC_BLUE_LIGHT,
         dark: DC_BLUE_DARK,
       },
+      secondary: {
+        base: DC_GRAY,
+        light: DC_GRAY_LIGHT,
+        dark: DC_BLACK,
+      },
     },
     button: {
       primary: {
