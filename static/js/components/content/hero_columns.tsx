@@ -62,7 +62,6 @@ export const HeroColumns = ({
         display: grid;
         grid-template-columns: ${layout};
         gap: ${theme.spacing.xl}px;
-        align-items: center;
         @media (max-width: ${theme.breakpoints.sm}px) {
           grid-template-columns: 1fr;
         }
