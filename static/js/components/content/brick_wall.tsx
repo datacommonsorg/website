@@ -73,18 +73,6 @@ export const BrickWall = ({ title, bricks }: BrickWallProps): ReactElement => {
     return null;
   }
 
-  const rowStyles = [...Array(maxRows)]
-    .map(
-      (_, i) => `
-    &.row-count-${i} {
-      grid-template-rows: ${
-        i === 0 ? "max-content" : i === 1 ? "1fr" : `repeat(${i}, min-content)`
-      };
-    }
-  `
-    )
-    .join("");
-
   return (
     <>
       {title && (

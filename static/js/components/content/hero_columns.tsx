@@ -38,6 +38,7 @@ const HeroColumnsLeft = ({ children }: HeroColumnsSlotProps): ReactElement => {
   const theme = useTheme();
   return (
     <header
+      id="hero"
       css={css`
         display: flex;
         flex-direction: column;

@@ -31,6 +31,7 @@ export const HeroSimple = ({ children }: SimpleHeroProps): ReactElement => {
   const theme = useTheme();
   return (
     <article
+      id="hero"
       css={css`
         width: 100%;
         max-width: ${theme.width.sm}px;
