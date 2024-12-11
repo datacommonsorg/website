@@ -72,10 +72,10 @@ export const MediaText = ({
               grid-column: 1;
             }
             & > h3 {
-              ${theme.typography.heading.sm}
+              ${theme.typography.heading.md}
             }
             & > h4 {
-              ${theme.typography.heading.xs}
+              ${theme.typography.heading.sm}
             }
             & > p {
               ${theme.typography.text.md}

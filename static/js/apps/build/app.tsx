@@ -58,7 +58,7 @@ export function App({ partners }: AppProps): ReactElement {
         <OneQuote />
       </Section>
 
-      <Section colorVariant="light" variant="small">
+      <Section colorVariant="light">
         <OneDataCommons />
       </Section>
 
