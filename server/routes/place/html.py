@@ -273,8 +273,8 @@ DEV_PLACE_EXPERIMENT_COUNTRY_DCIDS: List[str] = [
     'country/TLS', 'country/HUN', 'country/VEN', 'country/JAM', 'country/RWA',
     'country/GGY', 'country/NGA', 'country/COD', 'country/COG', 'country/SVN',
     'country/LSO', 'country/LBN', 'country/LCA', 'country/NFK', 'country/TTO',
-    'country/SGP', 'country/PYF', 'country/PRK', 'country/RUS', 'country/LVA',
-    'country/SUR', 'country/PRY', 'country/IND', 'country/MDV'
+    'country/SGP', 'country/PYF', 'country/PRK', 'country/LVA', 'country/SUR',
+    'country/PRY', 'country/MDV'
 ]
 DEV_PLACE_EXPERIMENT_US_STATE_DCIDS: List[str] = [
     'geoId/56', 'geoId/04', 'geoId/41', 'geoId/20', 'geoId/37'
