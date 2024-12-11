@@ -40,7 +40,6 @@ export const HomeHero = ({ linkChips }: HomeHeroProps): ReactElement => {
         <h1
           css={css`
             ${theme.typography.heading.lg}
-            margin-bottom: ${theme.spacing.xxl}px;
           `}
         >
           Data Commons brings together the world&apos;s public data, harmonized
