@@ -46,6 +46,7 @@ class Place:
   dcid: str
   name: str
   types: List[str]
+  dissolved: bool = False
 
 
 @dataclass

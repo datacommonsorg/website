@@ -42,12 +42,12 @@ export const UnitedNations = ({ routes }: UnitedNationsProps): ReactElement => {
     <MediaText
       mediaType="video"
       mediaSource="O6iVsS-RDYI"
-      header={"The United Nations Data Commons for the SDGs"}
+      header={"The United Nations deployed its own Data Commons"}
     >
       <p>
-        United Nations deployed a Data Commons to amplify the impact of their
-        Sustainable Development Goals data. With their deployed Data Commons,
-        the UN created a centralized repository, allowing for dynamic
+        The United Nations deployed its own Data Commons to track their
+        Sustainable Development Goals data around the world. With this, the UN
+        is able to offer a centralized repository, allowing for dynamic
         storytelling and targeted analysis related to global progress.{" "}
         <a
           href={resolveHref("{static.build}", routes)}
