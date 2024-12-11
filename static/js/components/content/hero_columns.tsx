@@ -42,6 +42,11 @@ const HeroColumnsLeft = ({ children }: HeroColumnsSlotProps): ReactElement => {
         display: flex;
         flex-direction: column;
         gap: ${theme.spacing.xxl}px;
+        h2,
+        h1 {
+          ${theme.typography.family.heading};
+          ${theme.typography.heading.lg};
+        }
         @media (max-width: ${theme.breakpoints.sm}px) {
           gap: ${theme.spacing.md}px;
         }
@@ -62,7 +67,6 @@ const HeroColumnsRight = ({ children }: HeroColumnsSlotProps): ReactElement => {
         gap: ${theme.spacing.xxl}px;
         @media (max-width: ${theme.breakpoints.sm}px) {
           gap: ${theme.spacing.md}px;
-          margin-bottom: ${theme.spacing.xxl}px;
         }
       `}
     >
@@ -80,7 +84,7 @@ export const HeroColumns = ({ children }: HeroColumnsProps): ReactElement => {
         grid-template-columns: 6fr 4fr;
         gap: ${theme.spacing.xl}px;
         @media (max-width: ${theme.breakpoints.sm}px) {
-          display: block;
+          grid-template-columns: 1fr;
         }
         & > div,
         & > header {
@@ -88,15 +92,11 @@ export const HeroColumns = ({ children }: HeroColumnsProps): ReactElement => {
           a {
             color: ${theme.colors.link.primary.light};
           }
-          h2,
-          h1 {
-            ${theme.typography.family.heading};
-            ${theme.typography.heading.lg};
-          }
           h3,
           h4 {
-            ${theme.typography.family.heading};
-            ${theme.typography.heading.xs};
+            ${theme.typography.family.text};
+            ${theme.typography.text.md};
+            font-weight: 900;
           }
           p {
             ${theme.typography.family.text};

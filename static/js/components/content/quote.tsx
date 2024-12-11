@@ -49,6 +49,9 @@ const Quote = ({
         css={css`
           ${theme.typography.family.heading};
           ${theme.typography.heading.lg};
+          @media (max-width: ${theme.breakpoints.sm}px) {
+            ${theme.typography.heading.sm};
+          }
         `}
       >
         “{quote}”
