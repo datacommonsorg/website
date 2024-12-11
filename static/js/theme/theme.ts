@@ -212,13 +212,17 @@ const theme: Theme = {
         fontSize: "1.75rem",
         lineHeight: "2.25rem",
         fontWeight: 300,
+        [`@media (max-width: ${BREAKPOINTS.md}px)`]: {
+          fontSize: "1.5rem",
+          lineHeight: "2rem",
+        },
       },
       md: {
         fontSize: "2rem",
         lineHeight: "2.5rem",
         fontWeight: 300,
         [`@media (max-width: ${BREAKPOINTS.md}px)`]: {
-          fontSize: "1.75rem",
+          fontSize: "1.7rem",
           lineHeight: "2.25rem",
         },
       },
@@ -228,13 +232,17 @@ const theme: Theme = {
         fontWeight: 300,
         [`@media (max-width: ${BREAKPOINTS.md}px)`]: {
           fontSize: "2rem",
-          lineHeight: "2.5rem",
+          lineHeight: "2.7rem",
         },
       },
       xl: {
         fontSize: "3rem",
         lineHeight: "2.75rem",
         fontWeight: 300,
+        [`@media (max-width: ${BREAKPOINTS.md}px)`]: {
+          fontSize: "2.4rem",
+          lineHeight: "2.75rem",
+        },
       },
     },
   },
