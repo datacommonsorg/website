@@ -124,7 +124,7 @@ export const KnowledgeGraphBrowser = ({
                     }
                   `}
                 >
-                  & more to search from
+                  & more
                 </a>
               </li>
             )}
