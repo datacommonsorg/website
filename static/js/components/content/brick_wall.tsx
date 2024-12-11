@@ -38,10 +38,10 @@ const patterns = [
 export const BrickWall = ({ title, bricks }: BrickWallProps): ReactElement => {
   const theme = useTheme();
 
-  // This function spreads the bricks among the columns, effectively generating the mortar pattern based on the pattern set
-  // given above. Each column is represented by an object containing the bricks, and a patternEntry array that gives the corresponding
-  // pattern type for the brick at that index (i.e., does the brick take up two spaces or one). This is used in the component to
-  // correctly style the bricks.
+  // This function spreads the bricks among the columns, effectively generating the mortar pattern based on the
+  // pattern set given above. Each column is represented by an object containing the bricks, and a patternEntry
+  // array that gives the corresponding pattern type for the brick at that index (i.e., does the brick take up
+  // two spaces or one). This is used in the component to correctly style the bricks.
   const { columnData } = useMemo(() => {
     const columnData: { bricks: ReactElement[]; patternEntries: number[] }[] = [
       { bricks: [], patternEntries: [] },

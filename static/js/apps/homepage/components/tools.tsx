@@ -36,7 +36,7 @@ interface ToolsProps {
   routes: Record<string, string>;
 }
 
-const Tools = ({ routes }: ToolsProps): ReactElement => {
+export const Tools = ({ routes }: ToolsProps): ReactElement => {
   const theme = useTheme();
   return (
     <>
@@ -123,5 +123,3 @@ const Tools = ({ routes }: ToolsProps): ReactElement => {
     </>
   );
 };
-
-export default Tools;
