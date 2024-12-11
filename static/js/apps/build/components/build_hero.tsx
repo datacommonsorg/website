@@ -18,42 +18,74 @@
  * A component to display the build page hero.
  */
 
+/** @jsxImportSource @emotion/react */
+
+import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
 import { HeroColumns } from "../../../components/content/hero_columns";
 
 export const BuildHero = (): ReactElement => {
+  const theme = useTheme();
   return (
-    <HeroColumns>
+    <HeroColumns variant="right">
       <HeroColumns.Left>
-        <h2>
+        <h2
+          css={css`
+            ${theme.typography.family.heading};
+            ${theme.typography.heading.lg};
+            color: ${theme.colors.text.primary.light};
+          `}
+        >
           Build your Data Commons, overlay your data with global data, and let
           everyone in your organization uncover insights with natural language
           questions.{" "}
           <a
             href="https://docs.datacommons.org/custom_dc?utm_source=buildpage_hero"
             title="Build your own Data Commons"
+            css={css`
+              ${theme.typography.family.heading};
+              ${theme.typography.heading.lg};
+              color: ${theme.colors.link.primary.light};
+            `}
           >
             Learn how
           </a>
         </h2>
       </HeroColumns.Left>
       <HeroColumns.Right>
-        <div>
+        <div
+          css={css`
+            & > h4 {
+              ${theme.typography.family.text};
+              ${theme.typography.text.md};
+              color: ${theme.colors.text.primary.light};
+              font-weight: 900;
+            }
+            & > p {
+              ${theme.typography.family.text};
+              ${theme.typography.text.md};
+              color: ${theme.colors.text.primary.light};
+              margin-bottom: ${theme.spacing.xxl}px;
+              @media (max-width: ${theme.breakpoints.sm}px) {
+                margin-bottom: ${theme.spacing.lg}px;
+              }
+              &:last-of-type {
+                margin-bottom: 0;
+              }
+            }
+          `}
+        >
           <h4>Build and deploy your own</h4>
           <p>
             Launch your own Data Commons and customize it with your own data to
             better engage your specific audience
           </p>
-        </div>
-        <div>
           <h4>Explore data with natural language</h4>
           <p>
             Ask questions in your own words and get answers directly from your
             data
           </p>
-        </div>
-        <div>
           <h4>Gain actionable insights</h4>
           <p>
             Find actionable insights from your data in connection to global data{" "}

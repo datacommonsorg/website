@@ -67,7 +67,7 @@ export function App({
 
   return (
     <ThemeProvider theme={theme}>
-      <Section colorVariant="light">
+      <Section colorVariant="light" variant="large">
         <HomeHero linkChips={topicLinkChips} />
       </Section>
 

@@ -27,6 +27,7 @@ interface HeroColumnsProps {
   //the content of the two hero columns, given as slot props:
   //<TextColumns.Left>...</TextColumns.Left><TextColumns.Right>...</TextColumns.Right>
   children: ReactElement | ReactElement[];
+  variant?: "half" | "left" | "right";
 }
 
 interface HeroColumnsSlotProps {
@@ -35,74 +36,35 @@ interface HeroColumnsSlotProps {
 }
 
 const HeroColumnsLeft = ({ children }: HeroColumnsSlotProps): ReactElement => {
-  const theme = useTheme();
-  return (
-    <header
-      id="hero"
-      css={css`
-        display: flex;
-        flex-direction: column;
-        gap: ${theme.spacing.xxl}px;
-        h2,
-        h1 {
-          ${theme.typography.family.heading};
-          ${theme.typography.heading.lg};
-        }
-        @media (max-width: ${theme.breakpoints.sm}px) {
-          gap: ${theme.spacing.md}px;
-        }
-      `}
-    >
-      {children}
-    </header>
-  );
+  return <header id="hero">{children}</header>;
 };
 
 const HeroColumnsRight = ({ children }: HeroColumnsSlotProps): ReactElement => {
-  const theme = useTheme();
-  return (
-    <div
-      css={css`
-        display: flex;
-        flex-direction: column;
-        gap: ${theme.spacing.xxl}px;
-        @media (max-width: ${theme.breakpoints.sm}px) {
-          gap: ${theme.spacing.md}px;
-        }
-      `}
-    >
-      {children}
-    </div>
-  );
+  return <div>{children}</div>;
 };
 
-export const HeroColumns = ({ children }: HeroColumnsProps): ReactElement => {
+export const HeroColumns = ({
+  children,
+  variant = "half",
+}: HeroColumnsProps): ReactElement => {
   const theme = useTheme();
+
+  const layout =
+    variant === "left"
+      ? "4fr 6fr"
+      : variant === "right"
+      ? "6fr 4fr"
+      : "5fr 5fr";
+
   return (
     <article
       css={css`
         display: grid;
-        grid-template-columns: 6fr 4fr;
+        grid-template-columns: ${layout};
         gap: ${theme.spacing.xl}px;
+        align-items: center;
         @media (max-width: ${theme.breakpoints.sm}px) {
           grid-template-columns: 1fr;
-        }
-        & > div,
-        & > header {
-          color: ${theme.colors.text.primary.light};
-          a {
-            color: ${theme.colors.link.primary.light};
-          }
-          h3,
-          h4 {
-            ${theme.typography.family.text};
-            ${theme.typography.text.md};
-            font-weight: 900;
-          }
-          p {
-            ${theme.typography.family.text};
-            ${theme.typography.text.md};
-          }
         }
       `}
     >
