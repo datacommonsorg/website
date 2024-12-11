@@ -37,159 +37,124 @@ const patterns = [
 
 export const BrickWall = ({ title, bricks }: BrickWallProps): ReactElement => {
   const theme = useTheme();
-  // This function divides the bricks into columns (based on the NUM_COLUMNS above), and tracks the number of rows in
-  // each column. The number of rows isn't simple to calculate because it varies based on the pattern of the bricks.
-  const { columns, numRows, maxRows } = useMemo(() => {
-    const columns: ReactElement[][] = Array.from(
-      { length: NUM_COLUMNS },
-      () => []
-    );
-    const numRows: number[] = Array(NUM_COLUMNS).fill(0);
-    const patternIndices = Array(NUM_COLUMNS).fill(0);
 
+  // This function spreads the bricks among the columns, effectively generating the mortar pattern based on the pattern set
+  // given above. Each column is represented by an object containing the bricks, and a patternEntry array that gives the corresponding
+  // pattern type for the brick at that index (i.e., does the brick take up two spaces or one). This is used in the component to
+  // correctly style the bricks.
+  const { columnData } = useMemo(() => {
+    const columnData: { bricks: ReactElement[]; patternEntries: number[] }[] = [
+      { bricks: [], patternEntries: [] },
+      { bricks: [], patternEntries: [] },
+    ];
+
+    const patternIndices = [0, 0];
     let currentColumn = 0;
+    let i = 0;
 
-    for (let i = 0; i < bricks.length; ) {
-      const columnPattern = patterns[currentColumn % patterns.length];
-      const currentPattern = columnPattern[patternIndices[currentColumn]];
+    while (i < bricks.length) {
+      const pattern = patterns[currentColumn];
+      const entry = pattern[patternIndices[currentColumn]];
 
-      for (let j = 0; j < currentPattern && i < bricks.length; j++, i++) {
-        columns[currentColumn].push(bricks[i]);
+      for (let j = 0; j < entry && i < bricks.length; j++, i++) {
+        columnData[currentColumn].bricks.push(bricks[i]);
+        columnData[currentColumn].patternEntries.push(entry);
       }
 
-      numRows[currentColumn]++;
       patternIndices[currentColumn] =
-        (patternIndices[currentColumn] + 1) % columnPattern.length;
-
+        (patternIndices[currentColumn] + 1) % pattern.length;
       currentColumn = (currentColumn + 1) % NUM_COLUMNS;
     }
 
-    const maxRows = Math.max(...numRows);
-
-    return { columns, numRows, maxRows };
+    return { columnData };
   }, [bricks]);
 
   if (bricks.length === 0) {
     return null;
   }
 
-  const rowStyles = [...Array(maxRows)]
-    .map(
-      (_, i) => `
-    &.row-count-${i} {
-      grid-template-rows: ${
-        i === 0 ? "max-content" : i === 1 ? "1fr" : `repeat(${i}, min-content)`
-      };
-    }
-  `
-    )
-    .join("");
-
   return (
-    <div
-      css={css`
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: ${theme.spacing.lg}px;
-        @media (max-width: ${theme.breakpoints.md}px) {
-          grid-template-columns: 1fr;
-        }
-      `}
-    >
+    <>
       {title && (
         <header
           css={css`
-            grid-column: 1 / span 2;
-            width: 100%;
-            max-width: ${theme.width.md}px;
-            @media (max-width: ${theme.breakpoints.md}px) {
-              grid-column: 1;
-            }
+            margin-bottom: ${theme.spacing.xl}px;
           `}
         >
           <h3
             css={css`
-              ${theme.typography.family.heading}
-              ${theme.typography.heading.md}
+              ${theme.typography.family.heading};
+              ${theme.typography.heading.md};
             `}
           >
             {title}
           </h3>
         </header>
       )}
-      {columns.map((column, columnIndex) => (
-        <div
-          className={`row-count-${numRows[columnIndex]}`}
-          key={columnIndex}
-          css={css`
-            margin: 0;
-            padding: 0;
-            display: grid;
-            gap: ${theme.spacing.lg}px;
-            align-items: start;
-            justify-content: start;
-            grid-template-columns: 1fr 1fr;
-
-            @media (max-width: ${theme.breakpoints.sm}px) {
-              grid-template-columns: 1fr;
-            }
-
-            ${rowStyles}
-
-            &:nth-of-type(1) {
-              & > div {
-                &:nth-of-type(3),
-                &:nth-of-type(4),
-                &:nth-of-type(7),
-                &:nth-of-type(8) {
-                  grid-column: 1 / span 2;
-                  @media (max-width: ${theme.breakpoints.sm}px) {
-                    grid-column: 1;
-                  }
-                }
-              }
-            }
-            &:nth-of-type(2) {
-              & > div {
-                &:nth-of-type(1),
-                &:nth-of-type(4),
-                &:nth-of-type(5),
-                &:nth-of-type(8) {
-                  grid-column: 1 / span 2;
-                  @media (max-width: ${theme.breakpoints.sm}px) {
-                    grid-column: 1;
-                  }
-                }
-              }
-            }
-          `}
-        >
-          {column.map((brick, i) => (
+      <div
+        css={css`
+          display: grid;
+          grid-template-columns: repeat(${NUM_COLUMNS}, 1fr);
+          gap: ${theme.spacing.lg}px;
+          @media (max-width: ${theme.breakpoints.md}px) {
+            grid-template-columns: 1fr;
+          }
+        `}
+      >
+        {columnData.map((column, columnIndex) => (
+          <div
+            key={columnIndex}
+            css={css`
+              display: block;
+            `}
+          >
             <div
-              key={i}
               css={css`
+                display: grid;
+                gap: ${theme.spacing.lg}px;
+                grid-template-columns: 1fr 1fr;
                 @media (max-width: ${theme.breakpoints.sm}px) {
-                  grid-column: 1;
-                }
-                a {
-                  ${theme.box.primary}
-                  ${theme.elevation.primary}
-                  ${theme.typography.family.text}
-                  ${theme.typography.text.xl}
-                  ${theme.radius.primary}
-                  display: flex;
-                  flex-direction: column;
-                  align-items: flex-start;
-                  gap: ${theme.spacing.md}px;
-                  padding: ${theme.spacing.lg}px;
+                  grid-template-columns: 1fr;
                 }
               `}
             >
-              {brick}
+              {column.bricks.map((brick, i) => {
+                const isSingleBrickRow = column.patternEntries[i] === 1;
+
+                return (
+                  <div
+                    key={i}
+                    css={css`
+                      ${isSingleBrickRow &&
+                      css`
+                        grid-column: 1 / span 2;
+                        @media (max-width: ${theme.breakpoints.sm}px) {
+                          grid-column: 1;
+                        }
+                      `}
+
+                      a {
+                        ${theme.box.primary}
+                        ${theme.elevation.primary}
+                        ${theme.typography.family.text}
+                        ${theme.typography.text.xl}
+                        ${theme.radius.primary}
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-start;
+                        gap: ${theme.spacing.md}px;
+                        padding: ${theme.spacing.lg}px;
+                      }
+                    `}
+                  >
+                    {brick}
+                  </div>
+                );
+              })}
             </div>
-          ))}
-        </div>
-      ))}
-    </div>
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
