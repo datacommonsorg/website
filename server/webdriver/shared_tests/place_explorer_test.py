@@ -301,3 +301,17 @@ class PlaceExplorerTestMixin():
     related_places_callout_el = WebDriverWait(
         self.driver, self.TIMEOUT_SEC).until(related_places_callout_el_present)
     self.assertEqual(related_places_callout_el.text, 'Places in California')
+
+    # Assert the "Download" link is present in charts
+    download_link_present = EC.presence_of_element_located(
+        (By.CLASS_NAME, 'download-outlink'))
+    download_link_el = WebDriverWait(
+        self.driver, self.TIMEOUT_SEC).until(download_link_present)
+    self.assertTrue('Download' in download_link_el.text)
+
+    # Assert the "Explore in ... Tool" link is present in charts
+    explore_in_link_present = EC.presence_of_element_located(
+        (By.CLASS_NAME, 'explore-in-outlink'))
+    explore_in_link_el = WebDriverWait(
+        self.driver, self.TIMEOUT_SEC).until(explore_in_link_present)
+    self.assertTrue('Explore in' in explore_in_link_el.text)
