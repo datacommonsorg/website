@@ -191,7 +191,7 @@
                       "startDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Death_1151455814"
+                      "Count_Death_1437305810"
                     ],
                     "title": "Number of Deaths in United States",
                     "type": "LINE"
@@ -351,7 +351,7 @@
                       "startDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Death_Female_1151455814"
+                      "Count_Death_Female_1437305810"
                     ],
                     "title": "Count of Mortality Event: Female in United States",
                     "type": "LINE"
@@ -656,7 +656,7 @@
                       "startDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_1151455814"
+                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_1123266408"
                     ],
                     "title": "Mortality Rate (Age Adjusted, Per Capita) in United States",
                     "type": "LINE"
@@ -849,8 +849,8 @@
             "name": "Infant Mortality Rate",
             "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
           },
-          "Count_Death_1151455814": {
-            "facetId": "1151455814",
+          "Count_Death_1437305810": {
+            "facetId": "1437305810",
             "name": "Number of Deaths",
             "statVar": "Count_Death"
           },
@@ -870,8 +870,8 @@
             "name": "Mortality Rate (Age Adjusted, Per Capita)",
             "statVar": "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
           },
-          "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_1151455814": {
-            "facetId": "1151455814",
+          "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_1123266408": {
+            "facetId": "1123266408",
             "name": "Mortality Rate (Age Adjusted, Per Capita)",
             "statVar": "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
           },
@@ -936,8 +936,8 @@
             "name": "Count of Mortality Event: Female",
             "statVar": "Count_Death_Female"
           },
-          "Count_Death_Female_1151455814": {
-            "facetId": "1151455814",
+          "Count_Death_Female_1437305810": {
+            "facetId": "1437305810",
             "name": "Count of Mortality Event: Female",
             "statVar": "Count_Death_Female"
           },
