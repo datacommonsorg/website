@@ -18,12 +18,12 @@
 
 # Optionally use the commit before HEAD for the main repo.
 if [[ "$1" == "--head-is-temporary" ]]; then
-  website_rev="$(git rev-parse --short HEAD~1)"
+  website_rev="$(git rev-parse --short=7 HEAD~1)"
 else
-  website_rev="$(git rev-parse --short HEAD)"
+  website_rev="$(git rev-parse --short=7 HEAD)"
 fi
-mixer_rev="$(git rev-parse --short HEAD:mixer)"
-import_rev="$(git rev-parse --short HEAD:import)"
+mixer_rev="$(git rev-parse --short=7 HEAD:mixer)"
+import_rev="$(git rev-parse --short=7 HEAD:import)"
 image_label="${website_rev}-${mixer_rev}-${import_rev}"
 
 echo "$image_label"

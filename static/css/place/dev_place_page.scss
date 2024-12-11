@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-/** Styles for /dev-place/<dcid> pages */
+/** Styles for dev /place/<dcid> pages */
 
 @use "../base.scss";
 @use "../explore";
@@ -28,7 +28,7 @@ $horizontal-divider-style: 1px solid rgba(0, 0, 0, 0.12);
 
 main {
   // Leave space on top for navbar and bottom for footer
-  padding: 64px 0;
+  padding: 48px 0 24px 0;
 }
 
 .page-content-container {
@@ -58,10 +58,6 @@ main {
       font-weight: 500;
       line-height: 20px;
       margin-bottom: 0;
-
-      a {
-        color: currentColor;
-      }
     }
   }
 
@@ -75,12 +71,27 @@ main {
   }
 }
 
-.explore-topics-box {
-  border-top: $horizontal-divider-style;
-  margin: 8px 0;
-  padding-top: 10px;
+.place-overview {
+  border-radius: 8px;
+  border: 1px solid var(--GM3-ref-neutral-neutral90, #e3e3e3);
+  background: rgba(211, 227, 253, 0.1);
+  padding: 28px;
+  .place-name {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+  }
+  .place-summary {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+  }
+  .place-map {
+    margin-top: 16px;
+  }
 }
-
 .summary-text {
   color: var(--gm-3-ref-neutral-neutral-20);
   font-size: 14px;
@@ -88,6 +99,13 @@ main {
   font-weight: 400;
   line-height: 20px;
   margin: 24px 0;
+}
+
+.explore-topics-box {
+  border-top: $horizontal-divider-style;
+  margin: 8px 0;
+  padding-top: 10px;
+  margin-bottom: 32px;
 }
 
 .charts-container {
@@ -131,12 +149,25 @@ main {
 }
 
 .related-places {
-  width: fit-content;
+  width: "100%";
+  margin-top: 16px;
 
   .related-places-callout {
     font-size: 22px;
     font-style: normal;
     font-weight: 400;
     line-height: 28px;
+  }
+
+  .show-more-toggle {
+    align-items: center;
+    color: var(--link-color);
+    cursor: pointer;
+    display: flex;
+    gap: 2px;
+    font-size: 14px;
+    font-weight: 500;
+    padding-left: 8px;
+    padding-top: 16px;
   }
 }
