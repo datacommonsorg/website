@@ -31,13 +31,13 @@ interface ExploreIntroProps {
 export const ExploreIntro = ({ topic }: ExploreIntroProps): ReactElement => {
   return (
     <IntroText>
-      <header>
+      <>
         <h1>{topic.title}</h1>
         <p>
           Our {topic.title.toLocaleLowerCase()} data spans over{" "}
-          <span title={`${formatNumber(topic.meta.variableCount, "", true)}`}>
+          <strong title={`${formatNumber(topic.meta.variableCount, "", true)}`}>
             {formatNumber(topic.meta.variableCount)}
-          </span>{" "}
+          </strong>{" "}
           statistical variables. We collect our{" "}
           {topic.title.toLocaleLowerCase()} information from sources such as:{" "}
           {topic.meta.sources.map((s, i) => (
@@ -52,7 +52,7 @@ export const ExploreIntro = ({ topic }: ExploreIntroProps): ReactElement => {
           ))}
           {"."}
         </p>
-      </header>
+      </>
     </IntroText>
   );
 };
