@@ -39,7 +39,7 @@ variable "google_analytics_tag_id" {
   default     = null
 }
 
-# Optional: If blank will use generated maps API key
+# Optional: If blank, will generate a Maps API key. 
 variable "maps_api_key" {
   description = "Google Maps API Key"
   type        = string
@@ -64,6 +64,116 @@ variable billing_project_id {
   default     = null
 }
 
+# Data Commons Cloud Storage bucket variables
+# If not set, the default is <namespace>-datacommons-data-<project_id>
+variable "dc_gcs_data_bucket_path_override" {
+  description = "Custom GCS data bucket path."
+  type        = string
+  default     = ""
+}
+
+variable "dc_gcs_data_bucket_location" {
+  description = "Data Commons data bucket GCS location"
+  type        = string
+  default     = "US"
+}
+
+## Data Commons Cloud SQL instance variables
+variable "mysql_instance_name" {
+  description = "The name of the MySQL instance"
+  type        = string
+  default     = "datacommons-mysql-instance"
+}
+
+variable mysql_database_name {
+  description = "MySQL database name"
+  type        = string
+  default     = "datacommons"
+}
+
+variable "mysql_database_version" {
+  description = "The version of MySQL"
+  type        = string
+  default     = "MYSQL_8_0"
+}
+
+variable "mysql_cpu_count" {
+  description = "Number of CPUs for the MySQL instance"
+  type        = number
+  default     = 2
+}
+
+# See https://cloud.google.com/sql/docs/mysql/instance-settings
+# for valid memory values
+variable "mysql_memory_size_mb" {
+  description = "Memory size for the MySQL instance in MB"
+  type        = number
+  default     = 7680
+}
+
+variable "mysql_storage_size_gb" {
+  description = "SSD storage size for the MySQL instance in GB"
+  type        = number
+  default     = 20
+}
+
+variable "mysql_user" {
+  description = "The username for the MySQL instance"
+  type        = string
+  default     = "datacommons"
+}
+
+variable "mysql_deletion_protection" {
+  description = "Mysql deletion protection"
+  type        = bool
+  default     = false
+}
+
+## Data Commons Cloud Run service variables
+variable "dc_web_service_image" {
+  description = "Container image for Cloud Run service"
+  type        = string
+  default     = "gcr.io/datcom-ci/datacommons-services:stable"
+}
+
+variable "dc_web_service_cpu" {
+  description = "CPU limit for the Data Commons service container"
+  type        = string
+  default     = "4"
+}
+
+variable "dc_web_service_memory" {
+  description = "Memory limit for the Data Commons service container"
+  type        = string
+  default     = "16G"
+}
+
+variable "make_dc_web_service_public" {
+  description = "Whether to make the Data Commons Cloud Run service publicly accessible"
+  type        = bool
+  default     = true
+}
+
+## Data Commons Cloud Run job variables
+variable "dc_data_job_image" {
+  description = "The container image for the data job"
+  type        = string
+  default     = "gcr.io/datcom-ci/datacommons-data:stable"
+}
+
+variable "dc_data_job_cpu" {
+  description = "CPU limit for the Data Commons data loading job"
+  type        = string
+  default     = "2"
+}
+
+variable "dc_data_job_memory" {
+  description = "Memory limit for the Data Commons data loading job"
+  type        = string
+  default     = "8G"
+}
+
+## Data Commons Cloud VPC Network variables
 variable "vpc_network_name" {
   description = "VPC network name to use"
   type        = string
@@ -82,6 +192,7 @@ variable "vpc_base_cidr_block" {
   default     = "10.8.0.0/24"
 }
 
+## Data Commons Cloud Redis Memorystore instance variables
 variable "enable_redis" {
   description = "Enable redis instance in this deployment"
   type        = bool
@@ -121,121 +232,4 @@ variable "redis_replica_count" {
   description = "Redis reserved IP range"
   type        = number
   default     = 1
-}
-
-variable "mysql_instance_name" {
-  description = "The name of the MySQL instance"
-  type        = string
-  default     = "datacommons-mysql-instance"
-}
-
-variable "mysql_database_version" {
-  description = "The version of MySQL"
-  type        = string
-  default     = "MYSQL_8_0"
-}
-
-variable "mysql_cpu_count" {
-  description = "Number of CPUs for the MySQL instance"
-  type        = number
-  default     = 2
-}
-
-# See https://cloud.google.com/sql/docs/mysql/instance-settings
-# for valid memory values
-variable "mysql_memory_size_mb" {
-  description = "Memory size for the MySQL instance in MB"
-  type        = number
-  default     = 7680
-}
-
-variable "mysql_storage_size_gb" {
-  description = "SSD storage size for the MySQL instance in GB"
-  type        = number
-  default     = 20
-}
-
-variable mysql_database_name {
-  description = "MySQL database name"
-  type        = string
-  default     = "datacommons"
-}
-
-variable "mysql_user" {
-  description = "The username for the MySQL instance"
-  type        = string
-  default     = "datacommons"
-}
-
-variable "mysql_deletion_protection" {
-  description = "Mysql deletion protection"
-  type        = bool
-  default     = false
-}
-
-## Data Commons Cloud Run service variables
-variable "dc_web_service_image" {
-  description = "Container image for Cloud Run service"
-  type        = string
-  default     = "gcr.io/datcom-ci/datacommons-services:stable"
-}
-
-variable "dc_web_service_cpu" {
-  description = "CPU limit for the Data Commons service container"
-  type        = string
-  default     = "4"
-}
-
-variable "dc_web_service_memory" {
-  description = "Memory limit for the Data Commons service container"
-  type        = string
-  default     = "16G"
-}
-
-variable "dc_data_job_image" {
-  description = "The container image for the data job"
-  type        = string
-  default     = "gcr.io/datcom-ci/datacommons-data:stable"
-}
-
-variable "dc_data_job_cpu" {
-  description = "CPU limit for the Data Commons data loading job"
-  type        = string
-  default     = "2"
-}
-
-variable "dc_data_job_memory" {
-  description = "Memory limit for the Data Commons data loading job"
-  type        = string
-  default     = "8G"
-}
-
-variable "dc_api_hostname" {
-  description = "Data Commons API hostname"
-  type        = string
-  default     = "api.datacommons.org"
-}
-
-variable "dc_api_protocol" {
-  description = "Data Commons API protocol"
-  type        = string
-  default     = "https"
-}
-
-variable "dc_gcs_data_bucket_path_override" {
-  description = "[Optional] Set a custom GCS data bucket path"
-  type        = string
-  default     = ""
-}
-
-variable "dc_gcs_data_bucket_location" {
-  description = "Data Commons data bucket GCS location"
-  type        = string
-  default     = "US"
-}
-
-variable "make_dc_web_service_public" {
-  description = "Whether to make the Data Commons Cloud Run service publicly accessible"
-  type        = bool
-  default     = true
 }
