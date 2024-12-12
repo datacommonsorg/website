@@ -471,10 +471,11 @@ const PlaceCharts = (props: {
   return (
     <div className="charts-container">
       <SubjectPageMainPane
-        id="place-subject-page"
-        place={place}
-        pageConfig={pageConfig}
         defaultEnclosedPlaceType={childPlaceType}
+        id="place-subject-page"
+        pageConfig={pageConfig}
+        place={place}
+        showExploreMore={true}
       />
     </div>
   );

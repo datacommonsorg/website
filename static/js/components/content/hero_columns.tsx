@@ -15,54 +15,101 @@
  */
 
 /**
- * A component to display the columned her component.
+ * A component to display the columned hero component.
  */
 
+/** @jsxImportSource @emotion/react */
+
+import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
-const HeroColumns = (): ReactElement => {
+interface HeroColumnsProps {
+  //the content of the two hero columns, given as slot props:
+  //<TextColumns.Left>...</TextColumns.Left><TextColumns.Right>...</TextColumns.Right>
+  children: ReactElement | ReactElement[];
+}
+
+interface HeroColumnsSlotProps {
+  //the content that populates either of the two columns
+  children: ReactElement | ReactElement[] | string;
+}
+
+const HeroColumnsLeft = ({ children }: HeroColumnsSlotProps): ReactElement => {
+  const theme = useTheme();
   return (
-    <section id="hero-columns" className="hero-columns">
-      <div className="container big">
-        <div className="col_right">
-          <h2 className="title">
-            Build your Data Commons, overlay your data with global data, and let
-            everyone in your organization uncover insights with natural language
-            questions.{" "}
-            <a
-              href="https://docs.datacommons.org/custom_dc?utm_source=buildpage_hero"
-              title="Build your own Data Commons"
-            >
-              Learn how
-            </a>
-          </h2>
-        </div>
-        <div className="col_left">
-          <div>
-            <h4>Build and deploy your own</h4>
-            <p>
-              Launch your own Data Commons and customize it with your own data
-              to better engage your specific audience
-            </p>
-          </div>
-          <div>
-            <h4>Explore data with natural language</h4>
-            <p>
-              Ask questions in your own words and get answers directly from your
-              data
-            </p>
-          </div>
-          <div>
-            <h4>Gain actionable insights</h4>
-            <p>
-              Find actionable insights from your data in connection to global
-              data{" "}
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <header
+      id="hero"
+      css={css`
+        display: flex;
+        flex-direction: column;
+        gap: ${theme.spacing.xxl}px;
+        h2,
+        h1 {
+          ${theme.typography.family.heading};
+          ${theme.typography.heading.lg};
+        }
+        @media (max-width: ${theme.breakpoints.sm}px) {
+          gap: ${theme.spacing.md}px;
+        }
+      `}
+    >
+      {children}
+    </header>
   );
 };
 
-export default HeroColumns;
+const HeroColumnsRight = ({ children }: HeroColumnsSlotProps): ReactElement => {
+  const theme = useTheme();
+  return (
+    <div
+      css={css`
+        display: flex;
+        flex-direction: column;
+        gap: ${theme.spacing.xxl}px;
+        @media (max-width: ${theme.breakpoints.sm}px) {
+          gap: ${theme.spacing.md}px;
+        }
+      `}
+    >
+      {children}
+    </div>
+  );
+};
+
+export const HeroColumns = ({ children }: HeroColumnsProps): ReactElement => {
+  const theme = useTheme();
+  return (
+    <article
+      css={css`
+        display: grid;
+        grid-template-columns: 6fr 4fr;
+        gap: ${theme.spacing.xl}px;
+        @media (max-width: ${theme.breakpoints.sm}px) {
+          grid-template-columns: 1fr;
+        }
+        & > div,
+        & > header {
+          color: ${theme.colors.text.primary.light};
+          a {
+            color: ${theme.colors.link.primary.light};
+          }
+          h3,
+          h4 {
+            ${theme.typography.family.text};
+            ${theme.typography.text.md};
+            font-weight: 900;
+          }
+          p {
+            ${theme.typography.family.text};
+            ${theme.typography.text.md};
+          }
+        }
+      `}
+    >
+      {children}
+    </article>
+  );
+};
+
+HeroColumns.Left = HeroColumnsLeft;
+HeroColumns.Right = HeroColumnsRight;
