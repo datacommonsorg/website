@@ -14,11 +14,20 @@
 
 # Run Python tests, lint, etc.
 steps:
-  - id: flask_test
+  - id: setup_python
     name: python:3.11.3
-    entrypoint: /bin/sh
+    entrypoint: /bin/bash
+    waitFor: ["-"]
     args:
       - -c
       - |
         ./run_test.sh --setup_python
+
+  - id: flask_test
+    name: python:3.11.3
+    entrypoint: /bin/sh
+    waitFor: ["setup_python"]
+    args:
+      - -c
+      - |
         ./run_test.sh -p
