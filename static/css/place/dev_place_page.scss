@@ -87,7 +87,7 @@ main {
     .block-title {
       background: none;
       border-bottom: $horizontal-divider-style;
-      color: var(--gm-3-ref-neutral-neutral-20);
+      color: var(--gm-3-ref-neutral-neutral-20, #303030);
       font-size: 22px;
       font-style: normal;
       font-weight: 400;
