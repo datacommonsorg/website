@@ -27,7 +27,8 @@ interface HeroColumnsProps {
   //the content of the two hero columns, given as slot props:
   //<TextColumns.Left>...</TextColumns.Left><TextColumns.Right>...</TextColumns.Right>
   children: ReactElement | ReactElement[];
-  variant?: "half" | "left" | "right";
+  //the size ratio of the two columns, with the default being equal
+  columnRatioVariant?: "equal" | "left-larger" | "right-larger";
 }
 
 interface HeroColumnsSlotProps {
@@ -45,14 +46,14 @@ const HeroColumnsRight = ({ children }: HeroColumnsSlotProps): ReactElement => {
 
 export const HeroColumns = ({
   children,
-  variant = "half",
+  columnRatioVariant = "equal",
 }: HeroColumnsProps): ReactElement => {
   const theme = useTheme();
 
   const layout =
-    variant === "left"
+    columnRatioVariant === "right-larger"
       ? "4fr 6fr"
-      : variant === "right"
+      : columnRatioVariant === "left-larger"
       ? "6fr 4fr"
       : "5fr 5fr";
 

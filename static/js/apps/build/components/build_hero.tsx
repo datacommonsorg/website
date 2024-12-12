@@ -28,7 +28,7 @@ import { HeroColumns } from "../../../components/content/hero_columns";
 export const BuildHero = (): ReactElement => {
   const theme = useTheme();
   return (
-    <HeroColumns variant="right">
+    <HeroColumns columnRatioVariant="left-larger">
       <HeroColumns.Left>
         <h2
           css={css`
