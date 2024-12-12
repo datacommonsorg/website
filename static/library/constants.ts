@@ -17,6 +17,10 @@
 /** Default website API endpoint for datacommons library */
 export const DEFAULT_API_ENDPOINT = "https://datacommons.org";
 
+/** URL for Google Sans Text to inject into web components */
+export const GOOGLE_SANS_URL =
+  "https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500;700&family=Google+Sans+Text:wght@300;400;500;700&display=swap";
+
 /** URL for Material Icons Outlined stylesheet to inject into web components */
 export const MATERIAL_ICONS_OUTLINED_STYLESHEET_URL =
   "https://fonts.googleapis.com/icon?family=Material+Icons+Outlined";
@@ -24,6 +28,10 @@ export const MATERIAL_ICONS_OUTLINED_STYLESHEET_URL =
 /** URL for Material Icons stylesheet to inject into web components */
 export const MATERIAL_ICONS_STYLESHEET_URL =
   "https://fonts.googleapis.com/icon?family=Material+Icons";
+
+/** URL for Material Symbols Outlined stylesheet to inject into web components */
+export const MATERIAL_SYMBOLS_OUTLINED_STYLESHEET_URL =
+  "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined";
 
 /** Sets denom to this value for perCapita web components */
 export const DEFAULT_PER_CAPITA_DENOM = "Count_Person";
