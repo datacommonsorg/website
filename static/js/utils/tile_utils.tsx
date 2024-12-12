@@ -380,7 +380,8 @@ export function TileSources(props: {
   });
   return (
     <div className="sources" {...{ part: "source" }}>
-      {sourcesJsx.length > 1 ? "Sources" : "Source"}: <span {...{ part: "source-links" }}>{sourcesJsx}</span>
+      {sourcesJsx.length > 1 ? "Sources" : "Source"}:{" "}
+      <span {...{ part: "source-links" }}>{sourcesJsx}</span>
       {statVarSpecs && statVarSpecs.length > 0 && (
         <>
           <span {...{ part: "source-separator" }}> • </span>
