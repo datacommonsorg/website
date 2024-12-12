@@ -50,6 +50,8 @@ interface LinkBoxProps {
   category?: string;
   //the section gives location of the chip component in order to give context for the GA event
   section?: string;
+  //the data-testid for the link box
+  dataTestId?: string;
 }
 
 export const LinkBox = ({
@@ -57,6 +59,7 @@ export const LinkBox = ({
   link,
   category,
   section = "",
+  dataTestId,
 }: LinkBoxProps): ReactElement => {
   const theme = useTheme();
 
@@ -95,7 +98,7 @@ export const LinkBox = ({
   `;
 
   return (
-    <div css={containerStyles}>
+    <div css={containerStyles} data-testid={dataTestId}>
       <a
         href={link.url}
         onClick={(): void => {
