@@ -236,8 +236,8 @@ const theme: Theme = {
         lineHeight: "2.75rem",
         fontWeight: 300,
         [`@media (max-width: ${BREAKPOINTS.md}px)`]: {
-          fontSize: "2rem",
-          lineHeight: "2.7rem",
+          fontSize: "1.8rem",
+          lineHeight: "2.4rem",
         },
       },
       xl: {

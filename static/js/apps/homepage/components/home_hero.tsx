@@ -23,7 +23,7 @@
 import { css, useTheme } from "@emotion/react";
 import React, { ReactElement } from "react";
 
-import { HeroSimple } from "../../../components/content/hero_simple";
+import { HeroColumns } from "../../../components/content/hero_columns";
 import { LinkChips } from "../../../components/content/link_chips";
 import { Link, LinkChip } from "../../../components/elements/link_chip";
 
@@ -35,17 +35,18 @@ interface HomeHeroProps {
 export const HomeHero = ({ linkChips }: HomeHeroProps): ReactElement => {
   const theme = useTheme();
   return (
-    <HeroSimple>
-      <>
+    <HeroColumns>
+      <HeroColumns.Left>
         <h1
           css={css`
             ${theme.typography.heading.lg}
-            margin-bottom: ${theme.spacing.xxl}px;
           `}
         >
           Data Commons brings together the world&apos;s public data, harmonized
           for your exploration
         </h1>
+      </HeroColumns.Left>
+      <HeroColumns.Right>
         <LinkChips
           header={"Topics to explore"}
           headerComponent="h4"
@@ -66,7 +67,7 @@ export const HomeHero = ({ linkChips }: HomeHeroProps): ReactElement => {
             }}
           />
         </div>
-      </>
-    </HeroSimple>
+      </HeroColumns.Right>
+    </HeroColumns>
   );
 };

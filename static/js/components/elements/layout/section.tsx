@@ -71,6 +71,9 @@ export const Section = ({
           @media (max-width: ${theme.breakpoints.md}px) {
             max-width: 100%;
           }
+          @media (max-width: ${theme.breakpoints.sm}px) {
+            padding: ${theme.spacing.huge}px ${theme.spacing.lg}px;
+          }
         `}
       >
         {children}
