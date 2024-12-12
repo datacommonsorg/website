@@ -225,7 +225,10 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
   ]
 
   # Create a dictionary mapping parent types to their order in the highlight list
-  type_order = {parent_type: i for i, parent_type in enumerate(PARENT_PLACE_TYPES_TO_HIGHLIGHT)}
+  type_order = {
+      parent_type: i
+      for i, parent_type in enumerate(PARENT_PLACE_TYPES_TO_HIGHLIGHT)
+  }
 
   # Sort the parents_to_include list using the type_order dictionary
   parents_to_include.sort(key=lambda parent: type_order.get(parent['type']))
