@@ -20,10 +20,6 @@
 @import "../base";
 @import "../explore";
 
-// Left/right spacing shared across elements to ensure all text on the page
-// is left-justified to the same visual line, including the NL search bar text
-$text-alignment-spacing: 24px;
-
 // Border styling used to create a horizontal divider between sections
 $horizontal-divider-style: 1px solid rgba(0, 0, 0, 0.12);
 
@@ -56,29 +52,48 @@ main {
   }
 
   // Overwrite default subject-page-main-pane style to align charts
-  #subject-page-main-pane .block .row {
-    margin: 0;
-
-    .block-column {
+  #subject-page-main-pane {
+    .category {
+      margin: 48px 0;
       padding: 0;
 
-      .col-xl-6 {
-        flex-grow: 1;
-        flex-shrink: 1;
-        flex-basis: calc(50% - #{$chart-horizontal-spacing/2});
-        padding: 0;
+      .block .row {
+        margin: 0;
 
-        .chart-container {
-          height: 100%;
-          margin: 0;
+        .block-column {
+          padding: 0;
+
+          .col-xl-6 {
+            flex-basis: calc(50% - #{$chart-horizontal-spacing/2});
+            flex-grow: 1;
+            flex-shrink: 1;
+            padding: 0;
+
+            .chart-container {
+              height: 100%;
+              margin: 0;
+            }
+          }
+
+          .row {
+            column-gap: 24px;
+            margin: 0;
+            row-gap: 42px;
+          }
         }
       }
+    }
 
-      .row {
-        column-gap: 24px;
-        margin: 0;
-        row-gap: 42px;
-      }
+    .block-title {
+      background: none;
+      border-bottom: $horizontal-divider-style;
+      color: var(--gm-3-ref-neutral-neutral-20);
+      font-size: 22px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 28px;
+      margin: 0 0 24px 0;
+      padding: 0 0 12px 0;
     }
   }
 }
