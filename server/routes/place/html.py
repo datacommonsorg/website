@@ -232,8 +232,6 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
 
   # Sort the parents_to_include list using the type_order dictionary
   parents_to_include.sort(key=lambda parent: type_order.get(parent['type']))
-  print("So now we have\n")
-  print(parents_to_include)
 
   parent_dcids = [parent['dcid'] for parent in parents_to_include]
   localized_names = place_api.get_i18n_name(parent_dcids)
@@ -483,8 +481,6 @@ def place_landing(error_msg=''):
 def dev_place(place_dcid=None):
   place_type_with_parent_places_links = utils.get_place_type_with_parent_places_links(
       place_dcid)
-  print("HELLOW ORLDDDD\n\n\n")
-  print(place_type_with_parent_places_links)
   place_names = place_api.get_i18n_name([place_dcid]) or {}
   place_name = place_names.get(place_dcid, place_dcid)
   # Place summaries are currently only supported in English
