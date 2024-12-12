@@ -367,7 +367,9 @@ const PlaceOverviewTable = (props: { placeDcid: string }) => {
         {dataRows && (
           <tr>
             <td>
-              <TileSources containerRef={containerRef} sources={sourceUrls} />
+              <div className="chart-container">
+                <TileSources containerRef={containerRef} sources={sourceUrls} />
+              </div>
             </td>
             <td></td>
             <td></td>
