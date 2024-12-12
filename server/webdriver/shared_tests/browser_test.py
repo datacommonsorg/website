@@ -44,16 +44,17 @@ class BrowserTestMixin():
     self.assertIn(title_text, self.driver.title)
 
     # Wait for title to be present
-    title_locator = (By.CSS_SELECTOR, '#kg-title')
+    title_locator = (By.TAG_NAME, 'h1')
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
         EC.text_to_be_present_in_element(title_locator, 'Knowledge Graph'))
     title_element = self.driver.find_element(*title_locator)
-    self.assertEqual("Knowledge Graph", title_element.text)
+    self.assertEqual(
+        "Knowledge Graph", title_element.text,
+        f"Expected title 'Knowledge Graph', but found: {title_element.text}")
 
     # Assert intro is correct
-    description_locator = (By.CSS_SELECTOR, '#kg-desc')
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
-        EC.presence_of_element_located(description_locator))
+    description_locator = (
+        By.XPATH, "//h1[text()='Knowledge Graph']/following-sibling::p")
     description_element = self.driver.find_element(*description_locator)
     expected_description_start = 'The Data Commons Knowledge Graph is constructed'
     self.assertTrue(
