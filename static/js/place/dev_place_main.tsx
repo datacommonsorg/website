@@ -21,7 +21,7 @@ import {
   RelatedPlacesApiResponse,
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { RawIntlProvider } from "react-intl";
 
 import { GoogleMap } from "../components/google_map";
@@ -37,6 +37,7 @@ import {
   defaultDataCommonsClient,
   defaultDataCommonsWebClient,
 } from "../utils/data_commons_client";
+import { TileSources } from "../utils/tile_utils";
 import { isPlaceContainedInUsa } from "./util";
 
 /**
@@ -309,6 +310,7 @@ const PlaceTopicTabs = ({
 const PlaceOverviewTable = (props: { placeDcid: string }) => {
   const { placeDcid } = props;
   const [dataRows, setDataRows] = useState<DataRow[]>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
   // Fetch key demographic statistics for the place when it changes
   useEffect(() => {
     (async () => {
@@ -329,6 +331,11 @@ const PlaceOverviewTable = (props: { placeDcid: string }) => {
   if (!dataRows) {
     return null;
   }
+  const sourceUrls = new Set(
+    dataRows.map((dataRow) => {
+      return dataRow.variable.observation.metadata.provenanceUrl;
+    })
+  );
   return (
     <table className="table">
       <thead>
@@ -357,6 +364,15 @@ const PlaceOverviewTable = (props: { placeDcid: string }) => {
             </tr>
           );
         })}
+        {dataRows && (
+          <tr>
+            <td>
+              <TileSources containerRef={containerRef} sources={sourceUrls} />
+            </td>
+            <td></td>
+            <td></td>
+          </tr>
+        )}
       </tbody>
     </table>
   );
