@@ -101,6 +101,7 @@ export const LinkChip = ({
       css={css`
         display: block;
       `}
+      data-testid={`chip-item-${linkChip.id}`}
     >
       <a
         href={linkChip.url}
