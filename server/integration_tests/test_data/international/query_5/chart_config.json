@@ -512,13 +512,6 @@
         "types": [
           "Topic"
         ]
-      },
-      {
-        "dcid": "dc/topic/Earthquake",
-        "name": "Earthquake",
-        "types": [
-          "Topic"
-        ]
       }
     ]
   },
