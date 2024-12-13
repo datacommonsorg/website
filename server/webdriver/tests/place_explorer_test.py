@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import time
-
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -30,7 +28,6 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
     """Ensure experimental dev place page content loads"""
     self.driver.get(self.url_ + '/place/geoId/06?force_dev_places=true')
 
-    time.sleep(1000)
     # For the dev place page, the related places callout is under the
     # .related-places-callout div.
     related_places_callout_el_present = EC.presence_of_element_located(
@@ -52,4 +49,3 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
     explore_in_link_el = WebDriverWait(
         self.driver, self.TIMEOUT_SEC).until(explore_in_link_present)
     self.assertTrue('Explore in' in explore_in_link_el.text)
-    time.sleep(100000)
