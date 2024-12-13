@@ -194,7 +194,7 @@
                       "startDate": "2019"
                     },
                     "statVarKey": [
-                      "Count_Death_Female_1151455814"
+                      "Count_Death_Female_1437305810"
                     ],
                     "title": "Count of Mortality Event: Female in California",
                     "type": "LINE"
@@ -893,8 +893,8 @@
             "name": "Count of Mortality Event: Female",
             "statVar": "Count_Death_Female"
           },
-          "Count_Death_Female_1151455814": {
-            "facetId": "1151455814",
+          "Count_Death_Female_1437305810": {
+            "facetId": "1437305810",
             "name": "Count of Mortality Event: Female",
             "statVar": "Count_Death_Female"
           },

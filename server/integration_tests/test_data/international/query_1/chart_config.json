@@ -451,34 +451,6 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "UnemploymentRate_Person_Rural"
-                    ],
-                    "title": "Unemployment Rate: Rural in India",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Unemployment Rate: Rural in India",
-                    "statVarKey": [
-                      "UnemploymentRate_Person_Rural"
-                    ],
-                    "title": "Unemployment Rate: Rural in India",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Unemployment Rate: Rural"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "rankingTileSpec": {
                       "rankingCount": 10,
                       "showHighest": true
@@ -723,6 +695,56 @@
             ],
             "denom": "Count_Person",
             "title": "Population: 6 Years or Less, Rural, Christianity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "indianCensus/Count_Person_Religion_Muslim_Rural"
+                    ],
+                    "title": "Population: Rural, Islam in Administrative Area 2 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "indianCensus/Count_Person_Religion_Muslim_Rural"
+                    ],
+                    "title": "Population: Rural, Islam in Administrative Area 2 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Rural, Islam in Administrative Area 2 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Rural, Islam in India",
+                    "statVarKey": [
+                      "indianCensus/Count_Person_Religion_Muslim_Rural"
+                    ],
+                    "title": "Population: Rural, Islam in India",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Rural, Islam"
           }
         ],
         "statVarSpec": {
@@ -774,10 +796,6 @@
             "name": "Population: Rural, Worker",
             "statVar": "Count_Person_Workers_Rural"
           },
-          "UnemploymentRate_Person_Rural": {
-            "name": "Unemployment Rate: Rural",
-            "statVar": "UnemploymentRate_Person_Rural"
-          },
           "indianCensus/Count_Person_Religion_Christian_Rural": {
             "name": "Population: Rural, Christianity",
             "statVar": "indianCensus/Count_Person_Religion_Christian_Rural"
@@ -785,6 +803,10 @@
           "indianCensus/Count_Person_Religion_Christian_YearsUpto6_Rural": {
             "name": "Population: 6 Years or Less, Rural, Christianity",
             "statVar": "indianCensus/Count_Person_Religion_Christian_YearsUpto6_Rural"
+          },
+          "indianCensus/Count_Person_Religion_Muslim_Rural": {
+            "name": "Population: Rural, Islam",
+            "statVar": "indianCensus/Count_Person_Religion_Muslim_Rural"
           }
         }
       }
@@ -1188,15 +1210,13 @@
           "Count_Person_Illiterate_Rural",
           "Count_Person_Literate_Rural"
         ],
+        "religion": [
+          "indianCensus/Count_Person_Religion_Christian_Rural",
+          "indianCensus/Count_Person_Religion_Muslim_Rural"
+        ],
         "workerStatus": [
           "Count_Person_NonWorker_Rural",
           "Count_Person_Workers_Rural"
-        ]
-      },
-      "UnemploymentRate_Person_Rural": {
-        "gender": [
-          "UnemploymentRate_Person_Rural_Female",
-          "UnemploymentRate_Person_Rural_Male"
         ]
       },
       "indianCensus/Count_Person_Religion_Christian_YearsUpto6_Rural": {
