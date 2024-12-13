@@ -43,6 +43,13 @@ const Tab = ({ label, value }: TabProps): ReactElement => {
 
   const isSelected = selectedValue === tabValue;
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>): void => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      onChange(tabValue);
+    }
+  };
+
   return (
     <button
       role="tab"
@@ -61,6 +68,7 @@ const Tab = ({ label, value }: TabProps): ReactElement => {
         transition: color 0.3s ease;
       `}
       onClick={(): void => onChange(tabValue)}
+      onKeyDown={handleKeyDown}
       tabIndex={isSelected ? 0 : -1}
       ref={tabRef}
     >
