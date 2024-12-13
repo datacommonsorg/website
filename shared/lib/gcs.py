@@ -71,7 +71,7 @@ def download_blob(bucket_name: str,
     # Create the directory if it doesn't exist.
     local_dir = os.path.dirname(local_file_path)
     if not os.path.exists(local_dir):
-      os.makedirs(local_dir)
+      os.makedirs(local_dir, exist_ok=True)
     # Download the file.
     blob.download_to_filename(local_file_path)
     count += 1
