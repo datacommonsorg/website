@@ -40,12 +40,23 @@ interface HeaderBarSearchProps {
   gaValueSearchSource?: string;
 }
 
+// The search query param name. Used to pre-populate the search bar.
+const QUERY_PARAM = "q";
+
 const HeaderBarSearch = ({
   inputId = "query-search-input",
   searchBarHashMode,
   gaValueSearchSource,
 }: HeaderBarSearchProps): ReactElement => {
   const { queryString, placeholder, queryResult, debugData } = useQueryStore();
+
+  // Get the query string from the url params.
+  const urlParams = new URLSearchParams(window.location.search);
+  const urlQuery = urlParams.get(QUERY_PARAM) || "";
+
+  // If the search bar is in hash mode, use the query string from the url params.
+  // Otherwise, use the query string from the query store.
+  const initialValue = searchBarHashMode ? queryString : urlQuery;
 
   return (
     <div className="header-search">
@@ -75,7 +86,7 @@ const HeaderBarSearch = ({
           }
         }}
         placeholder={placeholder}
-        initialValue={queryString}
+        initialValue={initialValue}
         shouldAutoFocus={false}
       />
       <DebugInfo debugData={debugData} queryResult={queryResult}></DebugInfo>

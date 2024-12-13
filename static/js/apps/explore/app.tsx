@@ -196,7 +196,18 @@ export function App(props: AppProps): ReactElement {
     return hasPlace || fulfillData["entities"];
   }
 
-  function processFulfillData(fulfillData: any, shouldSetQuery: boolean): void {
+  /**
+   * Process the fulfill data from the search API response.
+   *
+   * This processes the fulfill data by setting up page metadata, debug data, and user
+   * messages for rendering the explore page. However, if the fulfill response only
+   * contains place information, a page overview configuration, but no charts, it will
+   * redirect to /place/{placeDcid} instead.
+   *
+   * @param fulfillData The fulfill data from the search API response
+   * @param userQuery The user's search query
+   */
+  function processFulfillData(fulfillData: any, userQuery?: string): void {
     setDebugData(fulfillData["debug"]);
     setStoreDebugData(fulfillData["debug"]);
     const userMessage = {
@@ -238,7 +249,8 @@ export function App(props: AppProps): ReactElement {
       isPendingRedirect = shouldSkipPlaceOverview(pageMetadata);
       if (isPendingRedirect) {
         const placeDcid = pageMetadata.place.dcid;
-        const url = `/place/${placeDcid}`;
+        // If the user has a query, append it to the url
+        const url = `/place/${placeDcid}${userQuery ? `?q=${userQuery}` : ""}`;
         window.location.replace(url);
       }
       // Note: for category links, we only use the main-topic.
@@ -253,7 +265,7 @@ export function App(props: AppProps): ReactElement {
         }
       }
       if (
-        shouldSetQuery &&
+        !userQuery &&
         !_.isEmpty(pageMetadata.mainTopics) &&
         pageMetadata.place.name
       ) {
@@ -347,7 +359,7 @@ export function App(props: AppProps): ReactElement {
         includeStopWords
       )
         .then((resp) => {
-          processFulfillData(resp, false);
+          processFulfillData(resp, query);
         })
         .catch(() => {
           setLoadingStatus(LoadingStatus.FAILED);
@@ -371,7 +383,7 @@ export function App(props: AppProps): ReactElement {
         client
       )
         .then((resp) => {
-          processFulfillData(resp, true);
+          processFulfillData(resp);
         })
         .catch(() => {
           setLoadingStatus(LoadingStatus.FAILED);
