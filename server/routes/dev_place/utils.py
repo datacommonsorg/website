@@ -27,7 +27,7 @@ import server.routes.shared_api.place as place_api
 from server.services import datacommons as dc
 
 # Parent place types to include in listing of containing places at top of page
-PARENT_PLACE_TYPES_TO_HIGHLIGHT = {
+PARENT_PLACE_TYPES_TO_HIGHLIGHT = [
     'County',
     'AdministrativeArea2',
     'EurostatNUTS2',
@@ -36,7 +36,7 @@ PARENT_PLACE_TYPES_TO_HIGHLIGHT = {
     'EurostatNUTS1',
     'Country',
     'Continent',
-}
+]
 
 
 def get_place_html_link(place_dcid: str, place_name: str) -> str:
@@ -94,6 +94,15 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
       parent for parent in all_parents
       if parent.types in PARENT_PLACE_TYPES_TO_HIGHLIGHT
   ]
+
+  # Create a dictionary mapping parent types to their order in the highlight list
+  type_order = {
+      parent_type: i
+      for i, parent_type in enumerate(PARENT_PLACE_TYPES_TO_HIGHLIGHT)
+  }
+
+  # Sort the parents_to_include list using the type_order dictionary
+  parents_to_include.sort(key=lambda parent: type_order.get(parent.types))
 
   # Fetch the localized names of the parents
   parent_dcids = [parent.dcid for parent in parents_to_include]
