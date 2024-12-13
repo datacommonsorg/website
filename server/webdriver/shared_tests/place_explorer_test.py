@@ -183,11 +183,13 @@ class PlaceExplorerTestMixin():
     # Assert page title is correct, and that the query string is set in the url.
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
         EC.title_contains('United States of America'))
-    self.assertTrue("place/country/USA?q=United%20States%20Of%20America" in self.driver.current_url)
+    self.assertTrue("place/country/USA?q=United%20States%20Of%20America" in
+                    self.driver.current_url)
 
     # Ensure the query string is set in the NL Search Bar.
     search_bar = self.driver.find_element(By.ID, "query-search-input")
-    self.assertEqual(search_bar.get_attribute("value"), "United States Of America")
+    self.assertEqual(search_bar.get_attribute("value"),
+                     "United States Of America")
 
   def test_ranking_chart_present(self):
     """Test basic ranking chart."""
