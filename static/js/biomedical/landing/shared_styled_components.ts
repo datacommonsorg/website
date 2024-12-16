@@ -23,11 +23,11 @@ import { styled } from "styled-components";
 import { BREAKPOINTS } from "./constants";
 
 export const SectionWithBackground = styled.section`
-  background: ${(props): any => props.theme.highlightColors.light};
+  background: ${(props) => props.theme.highlightColors.light};
 `;
 
 export const ContentContainer = styled.div`
-  color: ${(props): any => props.theme.text.textColor};
+  color: ${(props) => props.theme.text.textColor};
   display: flex;
   flex-direction: column;
   font-size: 22px;

@@ -43,7 +43,7 @@ const CardContainer = styled.a`
 `;
 
 const Text = styled.div`
-  color: ${(props): any => props.theme.textColor || "#146C2E"};
+  color: ${(props) => props.theme.textColor || "#146C2E"};
   font-size: 24px;
   font-weight: 400;
   line-height: 32px;

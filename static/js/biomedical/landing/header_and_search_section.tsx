@@ -64,7 +64,7 @@ const StyledText = styled.div`
   }
 
   h2 {
-    color: ${(props): any => props.theme.header.textColor};
+    color: ${(props) => props.theme.header.textColor};
     font-size: 22px;
     font-weight: 400;
     line-height: 28px;

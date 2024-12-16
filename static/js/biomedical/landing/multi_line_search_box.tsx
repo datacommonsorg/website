@@ -84,7 +84,7 @@ export function MultiLineSearchBox(
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Dynamically resize search box height to show entire query
-  const setSearchBoxHeight = (): any => {
+  const setSearchBoxHeight = () => {
     inputRef.current.style.height = "inherit";
     inputRef.current.style.height = `${inputRef.current.scrollHeight}px`;
   };
