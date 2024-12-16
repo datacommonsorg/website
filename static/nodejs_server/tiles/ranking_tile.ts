@@ -194,10 +194,7 @@ export async function getRankingTileResult(
   place: string,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
-  apiRoot: string,
-  urlRoot: string,
-  useChartUrl: boolean,
-  apikey?: string
+  apiRoot: string
 ): Promise<TileResult[]> {
   const tileProp = getTileProp(
     id,
