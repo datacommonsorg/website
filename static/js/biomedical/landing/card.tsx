@@ -57,10 +57,10 @@ const Text = styled.div`
 
 const Tag = styled.div`
   align-items: center;
-  background-color: ${(props): any =>
+  background-color: ${(props) =>
     props.theme.tagBackgroundColor || "#C4EED0"};
   border-radius: 28px;
-  color: ${(props): any => props.theme.tagLabelColor || "#072711"};
+  color: ${(props) => props.theme.tagLabelColor || "#072711"};
   display: flex;
   font-size: 12px;
   font-weight: 500;

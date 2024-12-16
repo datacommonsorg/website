@@ -48,10 +48,10 @@ const StyledText = styled.div`
   flex-grow: 1;
 
   a {
-    color: ${(props): any => props.theme.text.linkColor};
+    color: ${(props) => props.theme.text.linkColor};
   }
   h1 {
-    color: ${(props): any => props.theme.header.textColor};
+    color: ${(props) => props.theme.header.textColor};
     font-size: 36px;
     font-weight: 400;
     line-height: 44px;
@@ -77,7 +77,7 @@ const StyledText = styled.div`
   }
 
   h3 {
-    color: ${(props): any => props.theme.header.textColorLight};
+    color: ${(props) => props.theme.header.textColorLight};
     font-size: 22px;
     font-weight: 400;
     line-height: 28px;

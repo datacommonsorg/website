@@ -42,11 +42,11 @@ export const ContentContainer = styled.div`
   }
 
   a {
-    color: ${(props): any => props.theme.highlightColors.dark};
+    color: ${(props) => props.theme.highlightColors.dark};
   }
 
   h2 {
-    color: ${(props): any => props.theme.header.textColor};
+    color: ${(props) => props.theme.header.textColor};
     font-size: 32px;
     font-weight: 400;
     line-height: 40px;

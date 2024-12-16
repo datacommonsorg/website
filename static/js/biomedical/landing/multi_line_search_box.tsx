@@ -45,13 +45,13 @@ const StyledInputGroup = styled(InputGroup)`
   }
 
   &:focus-within {
-    outline: 3px solid ${(props): any => props.theme.highlightColors.main};
+    outline: 3px solid ${(props) => props.theme.highlightColors.main};
   }
 `;
 
 const StyledInput = styled(Input)`
   border: none;
-  color: ${(props): any => props.theme.header.textColorLight};
+  color: ${(props) => props.theme.header.textColorLight};
   font-size: 16px;
   font-weight: 500;
   line-height: 24px;
