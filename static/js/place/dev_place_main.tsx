@@ -336,15 +336,17 @@ const PlaceOverviewTable = (props: { placeDcid: string }) => {
       return dataRow.variable.observation.metadata.provenanceUrl;
     })
   );
-  const statVarDcids = dataRows.map((dr) => { return dr.variable.dcid;});
+  const statVarDcids = dataRows.map((dr) => {
+    return dr.variable.dcid;
+  });
 
   const statVarSpecs: StatVarSpec[] = statVarDcids.map((dcid) => {
     return {
       statVar: dcid,
-      denom: '',  // Initialize with an empty string or a default denominator if applicable
-      unit: '',   // Initialize with an empty string or a default unit if applicable
-      scaling: 1,  // Initialize with a default scaling factor
-      log: false,  // Initialize with a default log value
+      denom: "", // Initialize with an empty string or a default denominator if applicable
+      unit: "", // Initialize with an empty string or a default unit if applicable
+      scaling: 1, // Initialize with a default scaling factor
+      log: false, // Initialize with a default log value
     };
   });
 
@@ -380,7 +382,11 @@ const PlaceOverviewTable = (props: { placeDcid: string }) => {
           <tr>
             <td>
               <div className="chart-container">
-                <TileSources containerRef={containerRef} sources={sourceUrls} statVarSpecs={statVarSpecs} />
+                <TileSources
+                  containerRef={containerRef}
+                  sources={sourceUrls}
+                  statVarSpecs={statVarSpecs}
+                />
               </div>
             </td>
             <td></td>
