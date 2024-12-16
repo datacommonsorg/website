@@ -114,7 +114,7 @@ function getFacetSelector(
     return result;
   });
   const chartSvs = new Set(chartSvInfo.map((sv) => sv.dcid));
-  const onSvFacetIdUpdated = (svFacetId: Record<string, string>) => {
+  const onSvFacetIdUpdated = (svFacetId: Record<string, string>): void => {
     const facetsChanged = chartSvInfo.filter(
       (sv): boolean => sv.facetId !== svFacetId[sv.dcid]
     );

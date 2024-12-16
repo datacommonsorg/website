@@ -45,13 +45,13 @@ const StyledInputGroup = styled(InputGroup)`
   }
 
   &:focus-within {
-    outline: 3px solid ${(props) => props.theme.highlightColors.main};
+    outline: 3px solid ${(props): any => props.theme.highlightColors.main};
   }
 `;
 
 const StyledInput = styled(Input)`
   border: none;
-  color: ${(props) => props.theme.header.textColorLight};
+  color: ${(props): any => props.theme.header.textColorLight};
   font-size: 16px;
   font-weight: 500;
   line-height: 24px;
@@ -84,7 +84,7 @@ export function MultiLineSearchBox(
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Dynamically resize search box height to show entire query
-  const setSearchBoxHeight = () => {
+  const setSearchBoxHeight = (): any => {
     inputRef.current.style.height = "inherit";
     inputRef.current.style.height = `${inputRef.current.scrollHeight}px`;
   };
@@ -109,10 +109,10 @@ export function MultiLineSearchBox(
         autoFocus={false}
         innerRef={inputRef}
         invalid={false}
-        onChange={(e) => {
+        onChange={(e): void => {
           setValue(e.target.value);
         }}
-        onKeyDown={(e) => {
+        onKeyDown={(e): void => {
           if (e.key === "Enter") {
             e.preventDefault(); // don't add \n to search query
             handleSearch();

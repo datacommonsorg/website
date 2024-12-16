@@ -254,7 +254,7 @@ function interactionGraphTicked(
   /**
    * Clamps given x coordinate between left/right boundaries of bounding box
    */
-  function clampX(x: number) {
+  function clampX(x: number): number {
     return _.clamp(
       x,
       -width / 2 + MAX_NODE_RADIUS,
@@ -265,7 +265,7 @@ function interactionGraphTicked(
   /**
    * Clamps given y coordinate between top/bottom boundaries of bounding box
    */
-  function clampY(y: number) {
+  function clampY(y: number): number {
     return _.clamp(
       y,
       -height / 2 + MAX_NODE_RADIUS,
