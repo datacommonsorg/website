@@ -126,7 +126,7 @@ function getRankingUnitResult(
     rankingGroup.numDataPoints
   );
   const result: TileResult = {
-    data_csv: rankingPointsToCsv(pointsList.flat(), rankingGroup.svName),
+    dataCsv: rankingPointsToCsv(pointsList.flat(), rankingGroup.svName),
     placeType: enclosedPlaceType,
     places: [place],
     srcs: getSources(rankingGroup.sources),
