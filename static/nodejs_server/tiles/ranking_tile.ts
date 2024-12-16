@@ -236,11 +236,7 @@ export async function getRankingTileResult(
             true,
             place,
             enclosedPlaceType,
-            statVarSpec,
-            urlRoot,
-            useChartUrl,
-            apiRoot,
-            apikey
+            statVarSpec
           )
         );
       }
@@ -258,10 +254,7 @@ export async function getRankingTileResult(
             false,
             place,
             enclosedPlaceType,
-            statVarSpec,
-            urlRoot,
-            useChartUrl,
-            apiRoot
+            statVarSpec
           )
         );
       }
