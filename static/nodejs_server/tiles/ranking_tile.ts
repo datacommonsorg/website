@@ -108,7 +108,7 @@ function getRankingUnitResult(
   isHighest: boolean,
   place: string,
   enclosedPlaceType: string,
-  statVarSpec: StatVarSpec[],
+  statVarSpec: StatVarSpec[]
 ): TileResult {
   const { topPoints, bottomPoints } = getRankingUnitPoints(
     tileConfig?.rankingTileSpec,

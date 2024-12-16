@@ -80,13 +80,14 @@ test("shouldFillInValues", () => {
 beforeEach(() => {
   // JSDom does not define SVGTSpanElements, and use SVGElement instead. Defines
   // a shim for getComputedTextLength where each character is 1 px wide.
-  (window.SVGElement as any).prototype.getComputedTextLength = function (): number {
-    // Title elements don't contribute to width
-    if (this.tagName === "title") {
-      return 0;
-    }
-    return this.textContent.length;
-  };
+  (window.SVGElement as any).prototype.getComputedTextLength =
+    function (): number {
+      // Title elements don't contribute to width
+      if (this.tagName === "title") {
+        return 0;
+      }
+      return this.textContent.length;
+    };
 
   // JSDom does not define SVGTSpanElements, and use SVGElement instead. Defines
   // a shim for getBBox (only returns width) where each character is 1 px wide.
