@@ -18,8 +18,6 @@
  * Functions for getting results for a highlight tile
  */
 
-import _ from "lodash";
-
 import {
   fetchData,
   getDescription,

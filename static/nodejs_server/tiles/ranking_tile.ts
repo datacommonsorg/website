@@ -109,10 +109,6 @@ function getRankingUnitResult(
   place: string,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
-  urlRoot: string,
-  useChartUrl: boolean,
-  apiRoot: string,
-  apikey?: string
 ): TileResult {
   const { topPoints, bottomPoints } = getRankingUnitPoints(
     tileConfig?.rankingTileSpec,

@@ -80,7 +80,7 @@ test("shouldFillInValues", () => {
 beforeEach(() => {
   // JSDom does not define SVGTSpanElements, and use SVGElement instead. Defines
   // a shim for getComputedTextLength where each character is 1 px wide.
-  (window.SVGElement as any).prototype.getComputedTextLength = function () {
+  (window.SVGElement as any).prototype.getComputedTextLength = function (): number {
     // Title elements don't contribute to width
     if (this.tagName === "title") {
       return 0;
@@ -101,12 +101,6 @@ beforeEach(() => {
 });
 
 describe("wrap tests", () => {
-  interface TestData {
-    width: number;
-    label: string;
-    expectedLabels: string[];
-    shouldOverflow: boolean;
-  }
   test.each`
     width | label                             | expectedLabels                              | shouldOverflow
     ${4}  | ${"ab-d e f"}                     | ${["ab-", "d e", "f"]}                      | ${false}
