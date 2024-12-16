@@ -310,7 +310,7 @@ const PlaceTopicTabs = ({
 const PlaceOverviewTable = (props: { placeDcid: string }) => {
   const { placeDcid } = props;
   const [dataRows, setDataRows] = useState<DataRow[]>([]);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef(null);
   // Fetch key demographic statistics for the place when it changes
   useEffect(() => {
     (async () => {
@@ -336,8 +336,22 @@ const PlaceOverviewTable = (props: { placeDcid: string }) => {
       return dataRow.variable.observation.metadata.provenanceUrl;
     })
   );
+  const statVarDcids = dataRows.map((dr) => {
+    return dr.variable.dcid;
+  });
+
+  const statVarSpecs: StatVarSpec[] = statVarDcids.map((dcid) => {
+    return {
+      statVar: dcid,
+      denom: "", // Initialize with an empty string or a default denominator if applicable
+      unit: "", // Initialize with an empty string or a default unit if applicable
+      scaling: 1, // Initialize with a default scaling factor
+      log: false, // Initialize with a default log value
+    };
+  });
+
   return (
-    <table className="table">
+    <table className="table" ref={containerRef}>
       <thead>
         <tr>
           <th scope="col" colSpan={2}>
@@ -368,7 +382,11 @@ const PlaceOverviewTable = (props: { placeDcid: string }) => {
           <tr>
             <td>
               <div className="chart-container">
-                <TileSources containerRef={containerRef} sources={sourceUrls} />
+                <TileSources
+                  containerRef={containerRef}
+                  sources={sourceUrls}
+                  statVarSpecs={statVarSpecs}
+                />
               </div>
             </td>
             <td></td>
