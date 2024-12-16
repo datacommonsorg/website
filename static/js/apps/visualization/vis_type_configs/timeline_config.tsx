@@ -60,7 +60,7 @@ function getSvChips(
             color={
               appContext.places.length == 1 ? COLORS[idx % COLORS.length] : ""
             }
-            removeChip={() => {
+            removeChip={(): void => {
               appContext.setStatVars(
                 appContext.statVars.filter(
                   (statVar) => statVar.dcid !== sv.dcid
@@ -116,7 +116,7 @@ function getFacetSelector(
   const chartSvs = new Set(chartSvInfo.map((sv) => sv.dcid));
   const onSvFacetIdUpdated = (svFacetId: Record<string, string>) => {
     const facetsChanged = chartSvInfo.filter(
-      (sv) => sv.facetId !== svFacetId[sv.dcid]
+      (sv): boolean => sv.facetId !== svFacetId[sv.dcid]
     );
     if (_.isEmpty(facetsChanged)) {
       return;
@@ -163,7 +163,7 @@ function getChartArea(
           : [
               {
                 isChecked: chartSvInfo[0].isPerCapita,
-                onUpdated: (isChecked: boolean) => {
+                onUpdated: (isChecked: boolean): void => {
                   const newStatVars = _.cloneDeep(appContext.statVars);
                   appContext.statVars.forEach((sv, idx) => {
                     if (chartSvs.has(sv.dcid)) {
