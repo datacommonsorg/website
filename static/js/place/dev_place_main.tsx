@@ -21,7 +21,7 @@ import {
   RelatedPlacesApiResponse,
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { RawIntlProvider } from "react-intl";
 
 import { GoogleMap } from "../components/google_map";
@@ -37,6 +37,7 @@ import {
   defaultDataCommonsClient,
   defaultDataCommonsWebClient,
 } from "../utils/data_commons_client";
+import { TileSources } from "../utils/tile_utils";
 import { isPlaceContainedInUsa } from "./util";
 
 /**
@@ -309,6 +310,7 @@ const PlaceTopicTabs = ({
 const PlaceOverviewTable = (props: { placeDcid: string }) => {
   const { placeDcid } = props;
   const [dataRows, setDataRows] = useState<DataRow[]>([]);
+  const containerRef = useRef(null);
   // Fetch key demographic statistics for the place when it changes
   useEffect(() => {
     (async () => {
@@ -329,8 +331,27 @@ const PlaceOverviewTable = (props: { placeDcid: string }) => {
   if (!dataRows) {
     return null;
   }
+  const sourceUrls = new Set(
+    dataRows.map((dataRow) => {
+      return dataRow.variable.observation.metadata.provenanceUrl;
+    })
+  );
+  const statVarDcids = dataRows.map((dr) => {
+    return dr.variable.dcid;
+  });
+
+  const statVarSpecs: StatVarSpec[] = statVarDcids.map((dcid) => {
+    return {
+      statVar: dcid,
+      denom: "", // Initialize with an empty string or a default denominator if applicable
+      unit: "", // Initialize with an empty string or a default unit if applicable
+      scaling: 1, // Initialize with a default scaling factor
+      log: false, // Initialize with a default log value
+    };
+  });
+
   return (
-    <table className="table">
+    <table className="table" ref={containerRef}>
       <thead>
         <tr>
           <th scope="col" colSpan={2}>
@@ -357,6 +378,21 @@ const PlaceOverviewTable = (props: { placeDcid: string }) => {
             </tr>
           );
         })}
+        {dataRows && (
+          <tr>
+            <td>
+              <div className="chart-container">
+                <TileSources
+                  containerRef={containerRef}
+                  sources={sourceUrls}
+                  statVarSpecs={statVarSpecs}
+                />
+              </div>
+            </td>
+            <td></td>
+            <td></td>
+          </tr>
+        )}
       </tbody>
     </table>
   );

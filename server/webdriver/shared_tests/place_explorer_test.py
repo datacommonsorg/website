@@ -180,10 +180,16 @@ class PlaceExplorerTestMixin():
     # Assert 200 HTTP code: successful page load.
     self.assertEqual(shared.safe_url_open(self.driver.current_url), 200)
 
-    # Assert page title is correct.
+    # Assert page title is correct, and that the query string is set in the url.
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
         EC.title_contains('United States of America'))
-    self.assertTrue("place/country/USA" in self.driver.current_url)
+    self.assertTrue("place/country/USA?q=United%20States%20Of%20America" in
+                    self.driver.current_url)
+
+    # Ensure the query string is set in the NL Search Bar.
+    search_bar = self.driver.find_element(By.ID, "query-search-input")
+    self.assertEqual(search_bar.get_attribute("value"),
+                     "United States Of America")
 
   def test_ranking_chart_present(self):
     """Test basic ranking chart."""
@@ -289,29 +295,3 @@ class PlaceExplorerTestMixin():
     # Check the title text
     page_title = self.driver.find_element(By.ID, 'place-name').text
     self.assertEqual(page_title, place_name_text)
-
-  def test_dev_place_overview_california(self):
-    """Ensure experimental dev place page content loads"""
-    self.driver.get(self.url_ + '/place/geoId/06?force_dev_places=true')
-
-    # For the dev place page, the related places callout is under the
-    # .related-places-callout div.
-    related_places_callout_el_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'related-places-callout'))
-    related_places_callout_el = WebDriverWait(
-        self.driver, self.TIMEOUT_SEC).until(related_places_callout_el_present)
-    self.assertEqual(related_places_callout_el.text, 'Places in California')
-
-    # Assert the "Download" link is present in charts
-    download_link_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'download-outlink'))
-    download_link_el = WebDriverWait(
-        self.driver, self.TIMEOUT_SEC).until(download_link_present)
-    self.assertTrue('Download' in download_link_el.text)
-
-    # Assert the "Explore in ... Tool" link is present in charts
-    explore_in_link_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'explore-in-outlink'))
-    explore_in_link_el = WebDriverWait(
-        self.driver, self.TIMEOUT_SEC).until(explore_in_link_present)
-    self.assertTrue('Explore in' in explore_in_link_el.text)

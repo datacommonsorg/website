@@ -10,35 +10,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Population Below Poverty Line in Tamil Nadu",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population Below Poverty Line in Tamil Nadu",
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Population Below Poverty Line in Tamil Nadu",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population Below Poverty Line"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
                     ],
                     "title": "Population Below Poverty Line (Per Capita) in Tamil Nadu",
@@ -63,10 +34,6 @@
           }
         ],
         "statVarSpec": {
-          "Count_Person_BelowPovertyLevelInThePast12Months": {
-            "name": "Population Below poverty line",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
-          },
           "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person": {
             "name": "Population Below poverty line (Per Capita)",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
@@ -116,23 +83,8 @@
   ],
   "relatedThings": {
     "childPlaces": {},
-    "childTopics": [
-      {
-        "dcid": "dc/topic/PovertyByResidency",
-        "name": "Poverty by Residency",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
-    "exploreMore": {
-      "Count_Person_BelowPovertyLevelInThePast12Months": {
-        "placeOfResidenceClassification": [
-          "Count_Person_Rural_BelowPovertyLevelInThePast12Months",
-          "Count_Person_Urban_BelowPovertyLevelInThePast12Months"
-        ]
-      }
-    },
+    "childTopics": [],
+    "exploreMore": {},
     "mainTopics": [
       {
         "dcid": "dc/topic/Poverty",

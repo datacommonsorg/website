@@ -494,7 +494,7 @@
             "statVar": "Count_Person_5OrMoreYears_SpanishSpokenAtHome_ForeignBorn"
           },
           "Count_Person_ForeignBorn": {
-            "name": "Population: Foreign Born",
+            "name": "Population: Foreign Born, Foreign Born",
             "statVar": "Count_Person_ForeignBorn"
           },
           "Count_Person_ForeignBorn_PlaceOfBirthCaribbean_multiple_place_bar_block": {
@@ -669,26 +669,6 @@
           "dc/hbqhxpwsdvyj8",
           "dc/sqqee4d2eczw4",
           "dc/ves02m300f6lc"
-        ]
-      },
-      "Count_Person_ForeignBorn": {
-        "age": [
-          "Count_Person_15OrMoreYears_ForeignBorn",
-          "Count_Person_18To24Years_ForeignBorn",
-          "Count_Person_25To34Years_ForeignBorn",
-          "Count_Person_35To44Years_ForeignBorn",
-          "Count_Person_45To54Years_ForeignBorn",
-          "Count_Person_55To59Years_ForeignBorn",
-          "Count_Person_5To17Years_ForeignBorn",
-          "Count_Person_60To61Years_ForeignBorn",
-          "Count_Person_62To64Years_ForeignBorn",
-          "Count_Person_65To74Years_ForeignBorn",
-          "Count_Person_75OrMoreYears_ForeignBorn",
-          "Count_Person_Upto5Years_ForeignBorn"
-        ],
-        "incomeStatus": [
-          "dc/dyhxtqe2pxhl5",
-          "dc/gvnh5cpl9h1rf"
         ]
       },
       "Count_Person_ForeignBorn_PlaceOfBirthCaribbean": {

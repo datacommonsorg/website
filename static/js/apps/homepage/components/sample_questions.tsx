@@ -118,13 +118,14 @@ export const SampleQuestions = ({
                     gap: ${theme.spacing.lg}px;
                   `}
                 >
-                  {randomQuestions.map((question) => (
+                  {randomQuestions.map((question, questionIndex) => (
                     <LinkBox
                       key={question}
                       link={sampleQuestionToLink(question)}
                       color={colors[overallIndex % colors.length]}
                       section={`sample-q ${index}-${overallIndex}`}
                       category={category.category}
+                      dataTestId={`question-item-${questionIndex}`}
                     />
                   ))}
                 </div>
