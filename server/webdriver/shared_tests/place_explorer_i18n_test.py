@@ -16,6 +16,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+from server.webdriver import shared
 
 class PlaceI18nExplorerTestMixin():
   """Mixins to test the i18n place explorer page."""
@@ -136,3 +137,22 @@ class PlaceI18nExplorerTestMixin():
     self.assertEqual(
         self.driver.find_element(By.TAG_NAME, 'h1').text,
         'Classement par Taux de croissance de la population')
+
+  def test_explorer_redirect_place_explorer_keeps_locale(self):
+    """Test the redirection from explore to place explore for single place queries keeps the locale"""
+    usa_explore_fr_locale = '/explore?hl=fr#q=United%20States%20Of%20America'
+
+    start_url = self.url_ + usa_explore_fr_locale
+    self.driver.get(start_url)
+
+    # Assert 200 HTTP code: successful page load.
+    self.assertEqual(shared.safe_url_open(self.driver.current_url), 200)
+
+    # Assert localized page title is correct, and that the query string is set in the url.
+    WebDriverWait(self.driver, 3).until(
+      EC.title_contains('États-Unis'))
+    self.assertTrue("place/country/USA?q=United+States+Of+America&hl=fr" in self.driver.current_url)
+
+    # Ensure the query string is set in the NL Search Bar.
+    search_bar = self.driver.find_element(By.ID, "query-search-input")
+    self.assertEqual(search_bar.get_attribute("value"), "United States Of America")

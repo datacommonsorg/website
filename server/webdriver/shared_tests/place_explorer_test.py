@@ -183,7 +183,7 @@ class PlaceExplorerTestMixin():
     # Assert page title is correct, and that the query string is set in the url.
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
         EC.title_contains('United States of America'))
-    self.assertTrue("place/country/USA?q=United%20States%20Of%20America" in
+    self.assertTrue("place/country/USA?q=United+States+Of+America" in
                     self.driver.current_url)
 
     # Ensure the query string is set in the NL Search Bar.
