@@ -19,6 +19,8 @@
 @use "../base.scss";
 @use "../explore";
 
+@import "../shared/tiles.scss";
+
 // Left/right spacing shared across elements to ensure all text on the page
 // is left-justified to the same visual line, including the NL search bar text
 $text-alignment-spacing: 24px;
