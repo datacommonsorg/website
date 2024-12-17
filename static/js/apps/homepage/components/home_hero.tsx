@@ -34,6 +34,14 @@ interface HomeHeroProps {
 
 export const HomeHero = ({ linkChips }: HomeHeroProps): ReactElement => {
   const theme = useTheme();
+
+  linkChips.push({
+    id: "data-sources",
+    title: "See all available data sources",
+    url: "https://docs.datacommons.org/datasets/",
+    variant: "flat",
+  });
+
   return (
     <HeroColumns>
       <HeroColumns.Left>
@@ -53,20 +61,6 @@ export const HomeHero = ({ linkChips }: HomeHeroProps): ReactElement => {
           section="topic"
           linkChips={linkChips}
         />
-        <div
-          css={css`
-            margin-top: ${theme.spacing.xxl}px;
-          `}
-        >
-          <LinkChip
-            variant="flat"
-            linkChip={{
-              id: "data-sources",
-              title: "See all available data sources",
-              url: "https://docs.datacommons.org/datasets/",
-            }}
-          />
-        </div>
       </HeroColumns.Right>
     </HeroColumns>
   );

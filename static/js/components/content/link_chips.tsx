@@ -27,8 +27,6 @@ import React, { ReactElement } from "react";
 import { Link, LinkChip } from "../elements/link_chip";
 
 interface LinkChipsProps {
-  //the variant of the link chip to display: elevated is a raised grey chip and flat is a flat blue chip
-  variant?: "elevated" | "flat";
   //the title of the component, displayed as a header above the chips
   header?: string;
   //the typographical component for the header (defaults to "h3")
@@ -47,6 +45,14 @@ export const LinkChips = ({
   linkChips,
 }: LinkChipsProps): ReactElement => {
   const theme = useTheme();
+
+  linkChips.map((lc) => {
+    if (!lc.variant) {
+      lc.variant = variant;
+    }
+    return lc;
+  });
+
   return (
     <>
       {header && (
@@ -88,12 +94,7 @@ export const LinkChips = ({
         `}
       >
         {linkChips.map((linkChip) => (
-          <LinkChip
-            key={linkChip.id}
-            variant={variant}
-            section={section}
-            linkChip={linkChip}
-          />
+          <LinkChip key={linkChip.id} section={section} linkChip={linkChip} />
         ))}
       </div>
     </>
