@@ -18,6 +18,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver import shared
 
+
 class PlaceI18nExplorerTestMixin():
   """Mixins to test the i18n place explorer page."""
 
@@ -149,10 +150,11 @@ class PlaceI18nExplorerTestMixin():
     self.assertEqual(shared.safe_url_open(self.driver.current_url), 200)
 
     # Assert localized page title is correct, and that the query string is set in the url.
-    WebDriverWait(self.driver, 3).until(
-      EC.title_contains('États-Unis'))
-    self.assertTrue("place/country/USA?q=United+States+Of+America&hl=fr" in self.driver.current_url)
+    WebDriverWait(self.driver, 3).until(EC.title_contains('États-Unis'))
+    self.assertTrue("place/country/USA?q=United+States+Of+America&hl=fr" in
+                    self.driver.current_url)
 
     # Ensure the query string is set in the NL Search Bar.
     search_bar = self.driver.find_element(By.ID, "query-search-input")
-    self.assertEqual(search_bar.get_attribute("value"), "United States Of America")
+    self.assertEqual(search_bar.get_attribute("value"),
+                     "United States Of America")
