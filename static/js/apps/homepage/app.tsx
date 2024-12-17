@@ -63,6 +63,7 @@ export function App({
     id: topic.id,
     title: topic.title,
     url: topic.browseUrl,
+    variant: "elevated",
   }));
 
   return (
