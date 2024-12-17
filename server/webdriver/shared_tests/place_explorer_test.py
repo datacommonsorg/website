@@ -116,48 +116,6 @@ class PlaceExplorerTestMixin():
                                           "place-highlight-in-overview").text
     self.assertTrue(place_type.startswith("Population:"))
 
-  def test_place_search(self):
-    """Test the place search box can work correctly."""
-    california_title = "California - Place Explorer - " + self.dc_title_string
-    # Load USA page.
-    self.driver.get(self.url_ + USA_URL)
-
-    # Wait until "Change Place" toggle has loaded.
-    element_present = EC.visibility_of_element_located(
-        (By.ID, 'change-place-toggle-text'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-
-    # Click on Change place
-    change_place_toggle = self.driver.find_element(By.ID,
-                                                   'change-place-toggle-text')
-    change_place_toggle.click()
-
-    # Wait until the search bar is visible.
-    element_present = EC.visibility_of_element_located(
-        (By.ID, 'place-autocomplete'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-
-    # Search for California in search bar
-    search_box = self.driver.find_element(By.ID, "place-autocomplete")
-    search_box.send_keys(PLACE_SEARCH)
-
-    # Wait until the place name has loaded.
-    element_present = EC.presence_of_element_located(
-        (By.CSS_SELECTOR, '.pac-item:nth-child(1)'))
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(element_present)
-
-    # Select the first result from the list and click on it.
-    first_result = self.driver.find_element(By.CSS_SELECTOR,
-                                            '.pac-item:nth-child(1)')
-    first_result.click()
-
-    # Wait until the page loads and the title is correct.
-    WebDriverWait(self.driver,
-                  self.TIMEOUT_SEC).until(EC.title_contains(california_title))
-
-    # Assert page title is correct.
-    self.assertEqual(california_title, self.driver.title)
-
   def test_demographics_link(self):
     """Test the demographics link can work correctly."""
     title_text = "Median age by gender: states near California"
@@ -222,10 +180,16 @@ class PlaceExplorerTestMixin():
     # Assert 200 HTTP code: successful page load.
     self.assertEqual(shared.safe_url_open(self.driver.current_url), 200)
 
-    # Assert page title is correct.
+    # Assert page title is correct, and that the query string is set in the url.
     WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
         EC.title_contains('United States of America'))
-    self.assertTrue("place/country/USA" in self.driver.current_url)
+    self.assertTrue("place/country/USA?q=United%20States%20Of%20America" in
+                    self.driver.current_url)
+
+    # Ensure the query string is set in the NL Search Bar.
+    search_bar = self.driver.find_element(By.ID, "query-search-input")
+    self.assertEqual(search_bar.get_attribute("value"),
+                     "United States Of America")
 
   def test_ranking_chart_present(self):
     """Test basic ranking chart."""

@@ -35,7 +35,8 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
     hero_msg = self.driver.find_elements(By.ID, 'hero')[0]
     self.assertTrue(
         hero_msg.text.startswith(
-            'Data Commons aggregates and harmonizes global, open data'))
+            'Data Commons brings together the world\'s public data, harmonized for your exploration'
+        ))
 
   def test_homepage_it(self):
     """Test homepage in IT."""
@@ -49,7 +50,8 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
     hero_msg = self.driver.find_elements(By.ID, 'hero')[0]
     self.assertTrue(
         hero_msg.text.startswith(
-            'Data Commons aggregates and harmonizes global, open data'))
+            'Data Commons brings together the world\'s public data, harmonized for your exploration'
+        ))
 
   # def test_hero_all_langs(self):
   #   """Test hero message translation in *all* languages.

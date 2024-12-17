@@ -57,7 +57,7 @@ CUSTOM_PLACES = [{
     'place_dcid': 'asia'
 }] + TWO_WORD_CUSTOM_PLACES
 SKIP_AUTOCOMPLETE_TRIGGER = [
-    "tell", "me", "show", "about", "which", "what", "when", "how"
+    "tell", "me", "show", "about", "which", "what", "when", "how", "the"
 ]
 
 # Exceptions for the 3 letter trigger rule. These queries can trigger on only two letters.
@@ -75,7 +75,9 @@ def find_queries(user_query: str) -> List[str]:
   cumulative = ""
 
   last_word = words_in_query[-1].lower().strip()
-  if last_word in SKIP_AUTOCOMPLETE_TRIGGER:
+  if last_word in SKIP_AUTOCOMPLETE_TRIGGER or (
+      last_word == "" and len(words_in_query) > 1 and
+      words_in_query[-2].lower().strip() in SKIP_AUTOCOMPLETE_TRIGGER):
     # don't return any queries.
     return []
 
