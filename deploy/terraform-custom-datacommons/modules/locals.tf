@@ -26,6 +26,12 @@ locals {
   # Use var.billing_project_id if set, otherwise use project_id for billing
   billing_project_id = var.billing_project_id != null ? var.billing_project_id : var.project_id
 
+  # Data Commons API hostname
+  dc_api_hostname = "api.datacommons.org"
+  
+  # Data Commons API protocol
+  dc_api_protocol = "https"
+
   # Data Commons API root url
   dc_api_root = "${var.dc_api_protocol}://${var.dc_api_hostname}"
 
