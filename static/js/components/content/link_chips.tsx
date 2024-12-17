@@ -27,6 +27,8 @@ import React, { ReactElement } from "react";
 import { Link, LinkChip } from "../elements/link_chip";
 
 interface LinkChipsProps {
+  //the variant of the link chip to display: elevated is a raised grey chip and flat is a flat blue chip
+  variant?: "elevated" | "flat";
   //the title of the component, displayed as a header above the chips
   header?: string;
   //the typographical component for the header (defaults to "h3")
