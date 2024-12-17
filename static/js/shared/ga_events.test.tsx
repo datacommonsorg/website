@@ -68,7 +68,7 @@ import { Menu } from "../place/menu";
 import { DataPointMetadata } from "../shared/types";
 import { StatVarHierarchy } from "../stat_var_hierarchy/stat_var_hierarchy";
 import { StatVarHierarchySearch } from "../stat_var_hierarchy/stat_var_search";
-import { MAP_TYPE, Chart as MapToolChart } from "../tools/map/chart";
+import { Chart as MapToolChart, MAP_TYPE } from "../tools/map/chart";
 import {
   Context as MapContext,
   DisplayOptionsWrapper as MapDisplayOptionsWrapper,
