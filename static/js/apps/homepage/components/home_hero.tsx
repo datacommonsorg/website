@@ -42,8 +42,8 @@ export const HomeHero = ({ linkChips }: HomeHeroProps): ReactElement => {
             ${theme.typography.heading.lg}
           `}
         >
-          Data Commons brings together the world&apos;s public data, harmonized
-          for your exploration
+          Data Commons brings together the world&apos;s public data, making it
+          simple to explore
         </h1>
       </HeroColumns.Left>
       <HeroColumns.Right>

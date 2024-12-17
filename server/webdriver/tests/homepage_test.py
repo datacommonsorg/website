@@ -35,7 +35,7 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
     hero_msg = self.driver.find_elements(By.ID, 'hero')[0]
     self.assertTrue(
         hero_msg.text.startswith(
-            'Data Commons brings together the world\'s public data, harmonized for your exploration'
+            "Data Commons brings together the world's public data, making it simple to explore"
         ))
 
   def test_homepage_it(self):
@@ -50,7 +50,7 @@ class TestHomepage(HomepageTestMixin, BaseDcWebdriverTest):
     hero_msg = self.driver.find_elements(By.ID, 'hero')[0]
     self.assertTrue(
         hero_msg.text.startswith(
-            'Data Commons brings together the world\'s public data, harmonized for your exploration'
+            "Data Commons brings together the world's public data, making it simple to explore"
         ))
 
   # def test_hero_all_langs(self):
