@@ -21,8 +21,10 @@ import { StyleSheetManager } from "styled-components";
 
 import {
   DEFAULT_API_ENDPOINT,
+  GOOGLE_SANS_URL,
   MATERIAL_ICONS_OUTLINED_STYLESHEET_URL,
   MATERIAL_ICONS_STYLESHEET_URL,
+  MATERIAL_SYMBOLS_OUTLINED_STYLESHEET_URL,
 } from "./constants";
 
 /** Library of helper functions shared across web components */
@@ -62,6 +64,24 @@ export function convertBooleanAttribute(attributeValue: string): boolean {
 }
 
 /**
+ * Add stylesheets as link elements to the DOM
+ * @param container containing element to inject stylesheets into
+ */
+export function addStylesheets(container: HTMLElement): void {
+  for (const url of [
+    GOOGLE_SANS_URL,
+    MATERIAL_ICONS_OUTLINED_STYLESHEET_URL,
+    MATERIAL_ICONS_STYLESHEET_URL,
+    MATERIAL_SYMBOLS_OUTLINED_STYLESHEET_URL,
+  ]) {
+    const link = document.createElement("link");
+    link.setAttribute("rel", "stylesheet");
+    link.setAttribute("href", url);
+    container.appendChild(link);
+  }
+}
+
+/**
  * Create the HTML web component for a tile.
  * @param tile React function to create the Tile's JSX
  * @param tileProps the tile's props
@@ -76,15 +96,7 @@ export function createWebComponentElement(
   container.appendChild(styleHost);
 
   // Add stylesheet for material icons to the shadow DOM
-  for (const url of [
-    MATERIAL_ICONS_OUTLINED_STYLESHEET_URL,
-    MATERIAL_ICONS_STYLESHEET_URL,
-  ]) {
-    const link = document.createElement("link");
-    link.setAttribute("rel", "stylesheet");
-    link.setAttribute("href", url);
-    container.appendChild(link);
-  }
+  addStylesheets(container);
 
   // Create mount point and render tile in it
   const mountPoint = document.createElement("div");

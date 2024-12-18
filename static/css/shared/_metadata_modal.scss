@@ -21,10 +21,10 @@
 @use "./modal.scss";
 @use "../base";
 
-
 .metadata-modal {
   // TODO(beets): Apply these styles to all modals.
   .modal-content {
+    border: none;
     border-radius: 28px;
   }
   .modal-header {
@@ -53,7 +53,7 @@
     padding: 0 24px 12px;
 
     /* body/medium */
-    font-size: .9rem;
+    font-size: 0.9rem;
     font-weight: 400;
     line-height: 1.4;
   }
@@ -65,7 +65,7 @@
     color: var(--gm-3-sys-light-primary);
 
     /* label/large */
-    font-size: .9rem;
+    font-size: 0.9rem;
     font-style: normal;
     font-weight: 500;
     line-height: 1.4;
@@ -91,7 +91,7 @@
 
       a {
         /* button/button */
-        font-size: .9rem;
+        font-size: 0.9rem;
         font-style: normal;
         font-weight: 500;
         line-height: 1.4;
