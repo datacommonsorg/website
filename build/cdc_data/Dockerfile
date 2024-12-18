@@ -81,4 +81,4 @@ RUN chmod +x run.sh
 ENV PATH="/workspace/venv/bin:$PATH"
 
 # Set the default command to run the script.
-CMD ./run.sh
+CMD ["./run.sh"]
