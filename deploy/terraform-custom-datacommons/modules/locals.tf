@@ -32,13 +32,7 @@ locals {
   # Data Commons API protocol
   dc_api_protocol = "https"
 
-  # Data Commons API hostname
-  dc_api_hostname = "api.datacommons.org"
-  
-  # Data Commons API protocol
-  dc_api_protocol = "https"
-
-  # Data Commons API root url
+  # Data Commons API root URL
   dc_api_root = "${local.dc_api_protocol}://${local.dc_api_hostname}"
   
   # Shared environment variables used by the Data Commons web service and the Data
