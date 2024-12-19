@@ -23,6 +23,7 @@ import {
   CLIENT_TYPES,
   URL_HASH_PARAMS,
 } from "../../../../constants/app/explore_constants";
+import { localizeLink } from "../../../../i18n/i18n";
 import {
   GA_EVENT_NL_SEARCH,
   GA_PARAM_QUERY,
@@ -82,7 +83,12 @@ const HeaderBarSearch = ({
               [GA_PARAM_SOURCE]:
                 gaValueSearchSource ?? GA_VALUE_SEARCH_SOURCE_HOMEPAGE,
             });
-            window.location.href = `/explore#q=${encodeURIComponent(q)}`;
+            // Localize the url to maintain the current page's locale.
+            const localizedUrl = localizeLink(`/explore`);
+            const localizedUrlWithQuery = `${localizedUrl}#q=${encodeURIComponent(
+              q
+            )}`;
+            window.location.href = localizedUrlWithQuery;
           }
         }}
         placeholder={placeholder}
