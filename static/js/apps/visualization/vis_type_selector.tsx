@@ -32,7 +32,7 @@ export function VisTypeSelector(): JSX.Element {
         return (
           <div
             className={`vis-type-option${visType === type ? " selected" : ""}`}
-            onClick={() => setVisType(type)}
+            onClick={(): void => setVisType(type)}
             key={type}
           >
             <span className="label">{visTypeConfig.displayName}</span>

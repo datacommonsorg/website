@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-import { NamedNode } from "../../shared/types";
-
 // types file containing different disease-specific interfaces
 
 export interface DiseaseGeneAssociationData {

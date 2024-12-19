@@ -32,6 +32,12 @@ locals {
   # Data Commons API protocol
   dc_api_protocol = "https"
 
+  # Data Commons API hostname
+  dc_api_hostname = "api.datacommons.org"
+  
+  # Data Commons API protocol
+  dc_api_protocol = "https"
+
   # Data Commons API root url
   dc_api_root = "${local.dc_api_protocol}://${local.dc_api_hostname}"
   

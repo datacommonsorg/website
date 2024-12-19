@@ -23,6 +23,7 @@ import {
   CLIENT_TYPES,
   URL_HASH_PARAMS,
 } from "../../../../constants/app/explore_constants";
+import { localizeLink } from "../../../../i18n/i18n";
 import {
   GA_EVENT_NL_SEARCH,
   GA_PARAM_QUERY,
@@ -40,12 +41,23 @@ interface HeaderBarSearchProps {
   gaValueSearchSource?: string;
 }
 
+// The search query param name. Used to pre-populate the search bar.
+const QUERY_PARAM = "q";
+
 const HeaderBarSearch = ({
   inputId = "query-search-input",
   searchBarHashMode,
   gaValueSearchSource,
 }: HeaderBarSearchProps): ReactElement => {
   const { queryString, placeholder, queryResult, debugData } = useQueryStore();
+
+  // Get the query string from the url params.
+  const urlParams = new URLSearchParams(window.location.search);
+  const urlQuery = urlParams.get(QUERY_PARAM) || "";
+
+  // If the search bar is in hash mode, use the query string from the url params.
+  // Otherwise, use the query string from the query store.
+  const initialValue = searchBarHashMode ? queryString : urlQuery;
 
   return (
     <div className="header-search">
@@ -71,11 +83,16 @@ const HeaderBarSearch = ({
               [GA_PARAM_SOURCE]:
                 gaValueSearchSource ?? GA_VALUE_SEARCH_SOURCE_HOMEPAGE,
             });
-            window.location.href = `/explore#q=${encodeURIComponent(q)}`;
+            // Localize the url to maintain the current page's locale.
+            const localizedUrl = localizeLink(`/explore`);
+            const localizedUrlWithQuery = `${localizedUrl}#q=${encodeURIComponent(
+              q
+            )}`;
+            window.location.href = localizedUrlWithQuery;
           }
         }}
         placeholder={placeholder}
-        initialValue={queryString}
+        initialValue={initialValue}
         shouldAutoFocus={false}
       />
       <DebugInfo debugData={debugData} queryResult={queryResult}></DebugInfo>
