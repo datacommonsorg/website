@@ -131,7 +131,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
                   title={this.props.statVarInfos[statVar].title}
                   color={color}
                   removeChip={this.props.removeStatVar}
-                  onTextClick={(): WindowProxy | null =>
+                  onTextClick={(): WindowProxy =>
                     window.open(`/tools/statvar#sv=${statVar}`)
                   }
                 />
