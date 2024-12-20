@@ -19,6 +19,7 @@ from server.lib.nl.common import constants
 from server.lib.nl.common.utterance import FulfillmentResult
 from server.lib.nl.common.utterance import Utterance
 from server.lib.nl.detection.utils import compute_final_threshold
+from server.lib.nl.detection.utils import get_top_prop_score
 from server.lib.nl.detection.utils import get_top_sv_score
 from server.lib.nl.explore import params
 from shared.lib.constants import SV_SCORE_HIGH_CONFIDENCE_THRESHOLD
@@ -35,6 +36,10 @@ COMPARISON_MISSING_PLACE_MSG = 'Data for "{missing_places}" is currently unavail
 
 def place_from_context(u: Utterance) -> str:
   return f'See relevant statistics{_ctx("for", u.past_source_context)} based on the previous query.'
+
+
+def topic_from_context(_) -> str:
+  return 'See relevant statistics based on the previous query.'
 
 
 def entity_from_context(u: Utterance) -> str:
@@ -139,6 +144,8 @@ def user_message(uttr: Utterance) -> UserMessage:
       callback = cmp_places_from_answer
     elif uttr.place_source == FulfillmentResult.PAST_QUERY and uttr.sv_source == FulfillmentResult.CURRENT_QUERY:
       callback = place_from_context
+    elif uttr.place_source == FulfillmentResult.CURRENT_QUERY and uttr.sv_source == FulfillmentResult.PAST_QUERY:
+      callback = topic_from_context
     elif uttr.place_source == FulfillmentResult.PAST_QUERY and uttr.sv_source == FulfillmentResult.PAST_QUERY:
       callback = place_from_context
     elif uttr.place_source == FulfillmentResult.DEFAULT and uttr.past_source_context != constants.EARTH.name:
@@ -160,11 +167,22 @@ def user_message(uttr: Utterance) -> UserMessage:
       uttr.detection.svs_detected.model_threshold,
       SV_SCORE_HIGH_CONFIDENCE_THRESHOLD)
 
-  if (uttr.rankedCharts and
-      (uttr.sv_source == FulfillmentResult.CURRENT_QUERY or
-       uttr.sv_source == FulfillmentResult.PARTIAL_PAST_QUERY) and
-      get_top_sv_score(uttr.detection, uttr.rankedCharts[0])
-      < low_confidence_score_report_threshold):
+  # Get top variable score either from the detected props or svs depending on
+  # what is being shown in the first chart
+  top_variable_score = None
+  if uttr.rankedCharts:
+    if uttr.rankedCharts[0].svs and (
+        uttr.sv_source == FulfillmentResult.CURRENT_QUERY or
+        uttr.sv_source == FulfillmentResult.PARTIAL_PAST_QUERY):
+      top_variable_score = get_top_sv_score(uttr.detection,
+                                            uttr.rankedCharts[0])
+    elif uttr.rankedCharts[
+        0].props and uttr.properties_source == FulfillmentResult.CURRENT_QUERY:
+      top_variable_score = get_top_prop_score(uttr.detection,
+                                              uttr.rankedCharts[0])
+
+  if (top_variable_score and
+      (top_variable_score < low_confidence_score_report_threshold)):
     # We're showing charts for SVs in the current user query and the
     # top-score is below the threshold, so report message.
     msg_list.append(LOW_CONFIDENCE_SCORE_MESSAGE)

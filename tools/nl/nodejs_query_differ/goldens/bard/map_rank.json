@@ -1,7 +1,7 @@
 {
   "charts": [
     {
-      "data_csv": "rank,place,Prevalence of Obesity\r\n1,San Bernardino County,38.1\r\n2,Imperial County,38\r\n3,Fresno County,36.8\r\n4,Kern County,36.6\r\n5,Riverside County,36.2\r\n6,Madera County,35.9\r\n7,Tulare County,35.5\r\n8,Kings County,35.1\r\n9,Stanislaus County,34.8\r\n10,Tehama County,34.2",
+      "dataCsv": "rank,place,Prevalence of Obesity\r\n1,Fresno County,39\r\n2,Imperial County,38.5\r\n3,Tulare County,38\r\n4,Kern County,35.9\r\n5,Madera County,35.2\r\n6,San Bernardino County,35.1\r\n7,Stanislaus County,34.7\r\n8,Merced County,34.5\r\n9,Glenn County,34.1\r\n10,Riverside County,34",
       "placeType": "County",
       "places": [
         "geoId/06"
@@ -12,7 +12,7 @@
           "url": "https://www.cdc.gov/places/index.html"
         }
       ],
-      "title": "Prevalence of Obesity in Counties of California (2021)",
+      "title": "Prevalence of Obesity in Counties of California (2022)",
       "type": "TABLE",
       "unit": "%",
       "vars": [
@@ -22,7 +22,7 @@
       "chartUrl": ""
     },
     {
-      "data_csv": "label,Prevalence of Obesity\r\n2021,28.7630009388167\r\n2020,29.0011697264701\r\n2018,26.5610266256205\r\n2017,24.7490113165035\r\n2016,24.8973586521783\r\n2015,24.3597558272971\r\n2014,24.7177574137183",
+      "dataCsv": "label,Prevalence of Obesity\r\n2022,28.3282038770148\r\n2021,28.7491989947528\r\n2020,28.9606745009575\r\n2018,26.5610266256205\r\n2017,24.7490113165035\r\n2016,24.8973586521783\r\n2015,24.3597558272971\r\n2014,24.7177574137183",
       "legend": [
         "Prevalence of Obesity"
       ],
@@ -42,14 +42,14 @@
         "Percent_Person_Obesity"
       ],
       "highlight": {
-        "date": "2021",
-        "value": 28.7630009388167
+        "date": "2022",
+        "value": 28.3282038770148
       },
       "chartUrl": "",
       "dcUrl": "https://datacommons.org/explore#q=counties%20in%20california%20with%20highest%20obesity"
     },
     {
-      "data_csv": "rank,place,\"Prevalence: Female, Obesity\"\r\n1,San Bernardino County,39\r\n2,Fresno County,37\r\n3,Stanislaus County,34.8\r\n4,San Joaquin County,34.8\r\n5,Riverside County,33.9\r\n6,Madera County,33.8\r\n7,Kern County,33.6\r\n8,Tulare County,33.2\r\n9,Imperial County,33\r\n10,Sacramento County,31.5",
+      "dataCsv": "rank,place,\"Prevalence: Female, Obesity\"\r\n1,San Bernardino County,39\r\n2,Fresno County,37\r\n3,Stanislaus County,34.8\r\n4,San Joaquin County,34.8\r\n5,Riverside County,33.9\r\n6,Madera County,33.8\r\n7,Kern County,33.6\r\n8,Tulare County,33.2\r\n9,Imperial County,33\r\n10,Sacramento County,31.5",
       "placeType": "County",
       "places": [
         "geoId/06"

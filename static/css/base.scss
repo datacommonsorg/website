@@ -20,11 +20,6 @@
 $full-footer-bg: #fafcff;
 $sub-footer-breakpoint: 596px;
 
-:root {
-  --font-family: "Roboto", "Helvetica Neue", Arial, sans-serif !important;
-  --breakpoint-xl: 1040px;
-}
-
 /** Bootstrap overrides **/
 $link-color: var(--link-color);
 $link-hover-color: $link-color;
@@ -35,6 +30,11 @@ $h2-font-size: 1.8rem;
 $h3-font-size: 1.2rem;
 
 $headings-font-weight: 600;
+
+/*
+  If the grid-breakpoints change, the TypeScript equivalent should be updated:
+  `static/js/shared/hooks/breakpoints.tsx`, `export const BREAKPOINTS`
+ */
 
 $grid-breakpoints: (
   xs: 0,
@@ -65,6 +65,15 @@ $headings-font-family: $font-family-sans-serif;
 
 @import "node_modules/bootstrap/scss/bootstrap";
 
+.main-content {
+  margin: 3rem auto 6rem;
+}
+
+:root {
+  --font-family: "Roboto", "Helvetica Neue", Arial, sans-serif !important;
+  --breakpoint-xl: 1040px;
+}
+
 :root.feedingamerica .navbar-brand > a {
   display: inline-block;
   background: url(https://secure.feedingamerica.org/assets/images/sprites2018.png);
@@ -74,38 +83,44 @@ $headings-font-family: $font-family-sans-serif;
   color: transparent !important;
 }
 
-#main-nav .nav-item a {
-  color: var(--gm-3-ref-neutral-neutral-40);
-
-  &:hover {
-    text-decoration: none;
+#main-nav {
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    a {
+      color: #000;
+      font-size: 22px;
+      font-style: normal;
+      font-weight: 400;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    span,
+    span a {
+      font-weight: 200;
+    }
+    .main-header-logo {
+      img {
+        max-height: 35px;
+      }
+    }
+  }
+  .nav-item a {
+    color: var(--gm-3-ref-neutral-neutral-40);
+  
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  .sep {
+    color: var(--gm-3-ref-neutral-neutral-40);
+    display: inline-block;
+    margin: 0 0.5rem;
   }
 }
 
-#main-nav .navbar-brand a {
-  color: #000;
-  font-size: 22px;
-  font-style: normal;
-  font-weight: 400;
-  &:hover {
-    text-decoration: none;
-  }
-}
-
-#main-nav .navbar-brand span,
-#main-nav .navbar-brand span a {
-  font-weight: 200;
-}
-
-#main-nav .navbar-brand .sep {
-  color: var(--gm-3-ref-neutral-neutral-40);
-  display: inline-block;
-  margin: 0 0.5rem;
-}
-
-.main-content {
-  margin: 3rem auto 6rem;
-}
 
 /** CSE **/
 #main-header #___gcse_0 {
@@ -154,15 +169,6 @@ $headings-font-family: $font-family-sans-serif;
 /** Shared page elements **/
 #main-header {
   background: var(--gm-3-white);
-}
-
-#main-header #main-header-logo {
-  display: flex;
-  align-items: center;
-  img {
-    height: 28px;
-    margin-right: 12px;
-  }
 }
 
 #main-header .nav-item.dropdown {

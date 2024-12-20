@@ -1,5 +1,5 @@
 /**
- * Copyright 2023 Google LLC
+ * Copyright 2024 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,7 @@
  * Types for the NL interface.
  */
 
-import { Node } from "../../shared/api_response_types";
-import { NamedNode, NamedTypedPlace } from "../../shared/types";
+import { NamedTypedPlace } from "../../shared/types";
 import { SubjectPageConfig } from "../subject_page_proto_types";
 
 export interface PlaceFallback {
@@ -62,7 +61,7 @@ export interface SVScores {
 export interface SentenceScore {
   sentence: string;
   score: number;
-  rerankScore: number;
+  rerank_score: number;
 }
 
 export interface DebugInfo {

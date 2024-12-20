@@ -38,30 +38,52 @@
             "url": "q=Tell+me+about+economic+equity+in+California"
           },
           {
-            "title": "What about health equity in Santa Clara County",
+            "title": "What about health equity in Santa Clara County?",
             "url": "q=What+about+health+equity+in+Santa+Clara+County"
           },
           {
-            "title": "What is the number of poor hispanic women in Santa Clara County",
+            "title": "What is the number of poor hispanic women in Santa Clara County?",
             "url": "q=What+is+the+number+of+poor+hispanic+women+in+Santa+Clara+County"
           },
           {
-            "title": "Which counties in the US have the highest unemployment rate",
+            "title": "Which counties in the US have the highest unemployment rate?",
             "url": "q=Which+counties+in+the+US+have+the+highest+unemployment+rate"
           },
           {
-            "title": "Which counties in the US have the highest rates of uninsured",
+            "title": "Which counties in the US have the highest rates of uninsured?",
             "url": "q=Which+counties+in+the+US+have+the+highest+rates+of+uninsured"
           },
           {
-            "title": "Which countries have the lowest Gini index",
+            "title": "Which countries have the lowest Gini index?",
             "url": "q=Which+countries+have+the+lowest+Gini+index"
           }
         ],
         "comparison": [
           {
-            "title": "What is the correlation between diabetes and poverty across US counties",
+            "title": "What is the correlation between diabetes and poverty across US counties?",
             "url": "q=What+is+the+correlation+between+diabetes+and+poverty+across+US+counties"
+          }
+        ],
+        "statvar": [
+          {
+            "title": "Population with household spending on health greater than 10% of total household in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22who%2FFINPROTECTION_CATA_TOT_10_LEVEL_SH%22%7D"
+          },
+          {
+            "title": "Total population pushed below a relative poverty line by household health expenditures in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22who%2FFINPROTECTION_IMP_NP_REL_LEVEL_MILLION%22%7D"
+          },
+          {
+            "title": "Mortality rate attributed to unsafe water, unsafe sanitation in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22who%2FWSH_1%22%7D"
+          },
+          {
+            "title": "Legal frameworks that promote, enforce and monitor gender equality -- Area 3: employment and economic benefits in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22sdg%2FSG_LGL_GENEQEMP%22%7D"
+          },
+          {
+            "title": "Legal frameworks that promote, enforce and monitor gender equality -- Area 2: violence against women in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22sdg%2FSG_LGL_GENEQVAW%22%7D"
           }
         ]
       },
@@ -133,15 +155,15 @@
       "examples": {
         "general": [
           {
-            "title": "What are the most common jobs in Texas",
+            "title": "What are the most common jobs in Texas?",
             "url": "q=What+are+the+most+common+jobs+in+Texas"
           },
           {
-            "title": "What is the median income in Santa Clara County",
+            "title": "What is the median income in Santa Clara County?",
             "url": "q=What+is+the+median+income+in+Santa+Clara+County"
           },
           {
-            "title": "Which industries have grown the most in California",
+            "title": "Which industries have grown the most in California?",
             "url": "q=Which+industries+have+grown+the+most+in+California"
           },
           {
@@ -149,7 +171,7 @@
             "url": "q=Show+me+the+breakdown+of+businesses+by+industry+type+in+the+US"
           },
           {
-            "title": "Who are the most poor in Louisiana",
+            "title": "Who are the most poor in Louisiana?",
             "url": "q=Who+are+the+most+poor+in+Louisiana"
           },
           {
@@ -157,42 +179,64 @@
             "url": "q=Tell+me+about+the+economy+in+Brazil"
           },
           {
-            "title": "What is the GDP of Iran",
+            "title": "What is the GDP of Iran?",
             "url": "q=What+is+the+GDP+of+Iran"
           }
         ],
         "comparison": [
           {
-            "title": "How does the GDP of USA compare with that of China",
+            "title": "How does the GDP of USA compare with that of China?",
             "url": "q=How+does+the+GDP+of+USA+compare+with+that+of+China"
           },
           {
-            "title": "What is the correlation between income and health insurance in the US",
+            "title": "What is the correlation between income and health insurance in the US?",
             "url": "q=What+is+the+correlation+between+income+and+health+insurance+in+the+US"
           },
           {
-            "title": "Which are the richest counties in California",
+            "title": "Which are the richest counties in California?",
             "url": "q=Which+are+the+richest+counties+in+California"
           },
           {
-            "title": "What is the correlation between GDP and remittances across countries in Africa",
+            "title": "What is the correlation between GDP and remittances across countries in Africa?",
             "url": "q=What+is+the+correlation+between+GDP+and+remittances+across+countries+in+Africa"
           },
           {
-            "title": "Which countries have the most incoming remittances",
+            "title": "Which countries have the most incoming remittances?",
             "url": "q=Which+countries+have+the+most+incoming+remittances"
           },
           {
-            "title": "What is the correlation between obesity and poverty across counties in the US",
+            "title": "What is the correlation between obesity and poverty across counties in the US?",
             "url": "q=What+is+the+correlation+between+obesity+and+poverty+across+counties+in+the+US"
           },
           {
-            "title": "How does debt correlate with GDP for countries in Europe",
+            "title": "How does debt correlate with GDP for countries in Europe?",
             "url": "q=How+does+debt+correlate+with+GDP+for+countries+in+Europe"
           },
           {
             "title": "Compare the education expenditure in the US vs. Canada",
             "url": "q=Compare+the+education+expenditure+in+the+US+vs+Canada"
+          }
+        ],
+        "statvar": [
+          {
+            "title": "Population in the labor force",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Count_Person_InLaborForce%22%7D"
+          },
+          {
+            "title": "Percent of females working between (15 to 64) in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Count_Person_15To64Years_Female_InLaborForce_AsFractionOf_Count_Person_15To64Years_Female%22%7D"
+          },
+          {
+            "title": "Outward Remittances in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Amount_Remittance_OutwardRemittance%22%7D"
+          },
+          {
+            "title": "Mobile Phone Subscriptions Per Person in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Amount_Remittance_OutwardRemittance%22%7D___%7B%22dcid%22%3A%22Count_Product_MobileCellularSubscription_AsFractionOf_Count_Person%22%7D"
+          },
+          {
+            "title": "Female Life Expectancy",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Amount_Remittance_OutwardRemittance%22%7D___%7B%22dcid%22%3A%22Count_Product_MobileCellularSubscription_AsFractionOf_Count_Person%22%7D___%7B%22dcid%22%3A%22LifeExpectancy_Person_Female%22%7D"
           }
         ]
       },
@@ -246,11 +290,11 @@
       "examples": {
         "general": [
           {
-            "title": "What are the leading causes of death in the US",
+            "title": "What are the leading causes of death in the US?",
             "url": "q=What+are+the+leading+causes+of+death+in+the+US"
           },
           {
-            "title": "Which are the biggest health issues in Arizona",
+            "title": "Which are the biggest health issues in Arizona?",
             "url": "q=Which+are+the+biggest+health+issues+in+Arizona"
           },
           {
@@ -262,19 +306,19 @@
             "url": "q=Tell+me+about+health+insurance+in+Kansas"
           },
           {
-            "title": "What is the prevalance of Asthma across California counties",
-            "url": "q=What+is+the+prevalance+of+Asthma+across+California+counties"
+            "title": "What is the prevalence of Asthma across California counties?",
+            "url": "q=What+is+the+prevalence+of+Asthma+across+California+counties"
           },
           {
-            "title": "What are the rates of child immunization in Pakistan",
+            "title": "What are the rates of child immunization in Pakistan?",
             "url": "q=What+are+the+rates+of+child+immunization+in+Pakistan"
           },
           {
-            "title": "How does life Expectancy vary across countries in Africa",
+            "title": "How does life expectancy vary across countries in Africa?",
             "url": "q=How+does+life+Expectancy+vary+across+countries+in+Africa"
           },
           {
-            "title": "Which counties in Illinois have seen the greatest increase in the number of cancer deaths",
+            "title": "Which counties in Illinois have seen the greatest increase in the number of cancer deaths?",
             "url": "q=Which+counties+in+Illinois+have+seen+the+greatest+increase+in+the+number+of+cancer+deaths"
           }
         ],
@@ -284,11 +328,11 @@
             "url": "q=Compare+mortality+in+the+US+vs+Spain+vs+Nigeria"
           },
           {
-            "title": "What is the correlation between obesity and unemployment in the US counties",
+            "title": "What is the correlation between obesity and unemployment in the US counties?",
             "url": "q=What+is+the+correlation+between+obesity+and+unemployment+in+the+US+counties"
           },
           {
-            "title": "How does child immunizations correlate with life expectancy in Asia",
+            "title": "How does child immunizations correlate with life expectancy in Asia?",
             "url": "q=How+does+child+immunizations+correlate+with+life+expectancy+in+Asia"
           },
           {
@@ -296,11 +340,11 @@
             "url": "q=Compare+health+conditions+vs+median+age+in+Alameda+County"
           },
           {
-            "title": "Does obesity correlate with lack of sleep in US counties",
+            "title": "Does obesity correlate with lack of sleep in US counties?",
             "url": "q=Does+obesity+correlate+with+lack+of+sleep+in+US+counties"
           },
           {
-            "title": "Which countries have the best immunization rates in the world",
+            "title": "Which countries have the best immunization rates in the world?",
             "url": "q=Which+countries+have+the+best+immunization+rates+in+the+world"
           },
           {
@@ -308,12 +352,34 @@
             "url": "q=Tell+me+about+infant+mortality+in+the+world"
           },
           {
-            "title": "How does life expectancy vary across US states",
+            "title": "How does life expectancy vary across US states?",
             "url": "q=How+does+life+expectancy+vary+across+US+states"
           },
           {
             "title": "Tell me about maternal mortality across countries in the world",
             "url": "q=Tell+me+about+maternal+mortality+across+countries+in+the+world"
+          }
+        ],
+        "statvar": [
+          {
+            "title": "Fraction of 15+ Years Old Females Smoking",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Count_Person_15OrMoreYears_Female_Smoking_AsFractionOf_Count_Person_15OrMoreYears_Female%22%7D"
+          },
+          {
+            "title": "Fraction of 20 - 79 years old people who have diabetes",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Count_Person_20To79Years_Diabetes_AsFractionOf_Count_Person_20To79Years%22%7D"
+          },
+          {
+            "title": "Deaths Rate in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Count_Death_AsAFractionOfCount_Person%22%7D"
+          },
+          {
+            "title": "Crude birth rate in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22LifeExpectancy_Person%22%7D___%7B%22dcid%22%3A%22Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person%22%7D"
+          },
+          {
+            "title": "Male and female life expectancy in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22LifeExpectancy_Person_Male%22%7D___%7B%22dcid%22%3A%22LifeExpectancy_Person_Female%22%7D"
           }
         ]
       },
@@ -373,35 +439,35 @@
       "examples": {
         "general": [
           {
-            "title": "Which states have the most college educated in the US",
+            "title": "Which states have the most college educated in the US?",
             "url": "q=Which+states+have+the+most+college+educated+in+the+US"
           },
           {
-            "title": "Which grades have the most enrollment in Palo Alto Schools",
+            "title": "Which grades have the most enrollment in Palo Alto Schools?",
             "url": "q=Which+grades+have+the+most+enrollment+in+Palo+Alto+Schools"
           },
           {
-            "title": "How have house rents in Mountain View changed",
+            "title": "How have house rents in Mountain View changed?",
             "url": "q=How+have+house+rents+in+Mountain+View+changed"
           },
           {
-            "title": "How much time do people in San Francisco spend commuting",
+            "title": "How much time do people in San Francisco spend commuting?",
             "url": "q=How+much+time+do+people+in+San+Francisco+spend+commuting"
           },
           {
-            "title": "What are the most common bachelors majors in Texas",
+            "title": "What are the most common bachelors majors in Texas?",
             "url": "q=What+are+the+most+common+bachelors+majors+in+Texas"
           },
           {
-            "title": "What is the demographics of students in Sunnyvale",
-            "url": "q=What+is+the+demographics+of+students+in+Sunnyvale"
+            "title": "What are the demographics of students in Sunnyvale?",
+            "url": "q=What+are+the+demographics+of+students+in+Sunnyvale"
           },
           {
-            "title": "Which US county has the most number of PhDs",
-            "url": "q=which+US+county+has+the+most+number+of+PhDs"
+            "title": "Which US county has the most number of PhDs?",
+            "url": "q=Which+US+county+has+the+most+number+of+PhDs"
           },
           {
-            "title": "When were the houses in NYC built",
+            "title": "When were the houses in NYC built?",
             "url": "q=When+were+the+houses+in+NYC+built"
           },
           {
@@ -411,7 +477,7 @@
         ],
         "comparison": [
           {
-            "title": "How do the most common bachelors majors in Berkeley compare with Austin",
+            "title": "How do the most common bachelors majors in Berkeley compare with Austin?",
             "url": "q=How+do+the+most+common+bachelors+majors+in+Berkeley+compare+with+Austin"
           },
           {
@@ -419,11 +485,11 @@
             "url": "q=Compare+the+number+of+rooms+per+house+in+New+York+City+vs+Salt+Lake+City"
           },
           {
-            "title": "How does educational attainment correlate with poverty in Florida",
+            "title": "How does educational attainment correlate with poverty in Florida?",
             "url": "q=How+does+educational+attainment+correlate+with+poverty+in+Florida"
           },
           {
-            "title": "How does median rent correlate with diabetes in California counties",
+            "title": "How does median rent correlate with diabetes in California counties?",
             "url": "q=How+does+median+rent+correlate+with+diabetes+in+California+counties"
           },
           {
@@ -433,6 +499,32 @@
           {
             "title": "Median home value vs. Work from home population in US counties",
             "url": "q=Median+home+value+vs.+Work+from+home+population+in+US+counties"
+          }
+        ],
+        "statvar": [
+          {
+            "title": "Population living in rural areas around the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Count_Person_Rural%22%7D"
+          },
+          {
+            "title": "Population in the Labor Force in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Count_Person_InLaborForce%22%7D"
+          },
+          {
+            "title": "Population living in rural and urban areas around the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Count_Person_Rural%22%7D___%7B%22dcid%22%3A%22Count_Person_Urban%22%7D"
+          },
+          {
+            "title": "Median monthly gross rent of housing unit in the USA",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3Dcountry%2FUSA%26placeType%3DState%26sv%3D%7B%22dcid%22%3A%22Monthly_Median_GrossRent_HousingUnit%22%7D"
+          },
+          {
+            "title": "Count of Housing Unit: Without Mortgage, 800 USD or Less",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3Dcountry%2FUSA%26placeType%3DState%26sv%3D%7B%22dcid%22%3A%22dc%2Fq0p7fcll1lv8c%22%7D"
+          },
+          {
+            "title": "Commute time in the USA",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3Dcountry%2FUSA%26placeType%3DState%26sv%3D%7B%22dcid%22%3A%22dc%2Fe9gftzl2hm8h9%22%7D"
           }
         ]
       },
@@ -486,19 +578,19 @@
       "examples": {
         "general": [
           {
-            "title": "What is the racial distribution of the US",
+            "title": "What is the racial distribution of the US?",
             "url": "q=What+is+the+racial+distribution+of+the+US"
           },
           {
-            "title": "What languages are spoken at home in California",
+            "title": "What languages are spoken at home in California?",
             "url": "q=What+languages+are+spoken+at+home+in+California"
           },
           {
-            "title": "Which state in the US has the most Tamil speakers",
+            "title": "Which state in the US has the most Tamil speakers?",
             "url": "q=Which+state+in+the+US+has+the+most+Tamil+speakers"
           },
           {
-            "title": "Which counties in the US have most immigrants",
+            "title": "Which counties in the US have most immigrants?",
             "url": "q=Which+counties+in+the+US+have+most+immigrants"
           },
           {
@@ -506,7 +598,7 @@
             "url": "q=tell+me+about+immigrants+in+florida"
           },
           {
-            "title": "Which country has the most old people",
+            "title": "Which country has the most old people?",
             "url": "q=Which+country+has+the+most+old+people"
           },
           {
@@ -514,15 +606,15 @@
             "url": "q=Tell+me+statistics+on+married+people+in+New+York+State"
           },
           {
-            "title": "What is the median age in Texas",
+            "title": "What is the median age in Texas?",
             "url": "q=What+is+the+median+age+in+Texas"
           },
           {
-            "title": "Which state in the US has most people of Caribbean origin",
+            "title": "Which state in the US has most people of Caribbean origin?",
             "url": "q=Which+state+in+the+US+has+most+people+of+Caribbean+origin"
           },
           {
-            "title": "What are the demographics of divorced people in California",
+            "title": "What are the demographics of divorced people in California?",
             "url": "q=What+are+the+demographics+of+divorced+people+in+California"
           },
           {
@@ -554,6 +646,28 @@
           {
             "title": "Foreign born population vs. PhD holders in California counties",
             "url": "q=Foreign+born+population+vs.+PhD+holders+in+California+counties"
+          }
+        ],
+        "statvar": [
+          {
+            "title": "Fertility rate in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22FertilityRate_Person_Female%22%7D"
+          },
+          {
+            "title": "Life expectancy in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22LifeExpectancy_Person%22%7D"
+          },
+          {
+            "title": "Rate of population growth in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22GrowthRate_Count_Person%22%7D"
+          },
+          {
+            "title": "Total population in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Count_Person%22%7D"
+          },
+          {
+            "title": "Population living in Urban areas in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Count_Person%22%7D___%7B%22dcid%22%3A%22Count_Person_Urban%22%7D"
           }
         ]
       },
@@ -633,11 +747,11 @@
       "examples": {
         "general": [
           {
-            "title": "What are the sources of greenhouse gas emissions in the US",
+            "title": "What are the sources of greenhouse gas emissions in the US?",
             "url": "q=What+are+the+sources+of+greenhouse+gas+emissions+in+the+US"
           },
           {
-            "title": "What are the major emissions in Harris County, Texas",
+            "title": "What are the major emissions in Harris County, Texas?",
             "url": "q=What+are+the+major+emissions+in+Harris+County,+Texas"
           },
           {
@@ -645,11 +759,11 @@
             "url": "q=Tell+me+about+pollution+in+Los+Angeles+County"
           },
           {
-            "title": "What are the projected temperature extremes across the counties in Montana",
+            "title": "What are the projected temperature extremes across the counties in Montana?",
             "url": "q=What+are+the+projected+temperature+extremes+across+the+counties+in+Montana"
           },
           {
-            "title": "What is the electricity usage of the US",
+            "title": "What is the electricity usage of the US?",
             "url": "q=What+is+the+electricity+usage+of+the+US"
           },
           {
@@ -657,34 +771,56 @@
             "url": "q=Floods+in+Pakistan"
           },
           {
-            "title": "What is the solar energy consumption in the US",
+            "title": "What is the solar energy consumption in the US?",
             "url": "q=What+is+the+solar+energy+consumption+in+the+US"
           },
           {
-            "title": "Which counties in the US have the most smoke pollution",
+            "title": "Which counties in the US have the most smoke pollution?",
             "url": "q=Which+counties+in+the+US+have+the+most+smoke+pollution"
           },
           {
-            "title": "What are the top sources of CO2 emissions in the US",
+            "title": "What are the top sources of CO2 emissions in the US?",
             "url": "q=What+are+the+top+sources+of+CO2+emissions+in+the+US"
           },
           {
-            "title": "Which countries have the most greenhouse gas emissions",
+            "title": "Which countries have the most greenhouse gas emissions?",
             "url": "q=Which+countries+have+the+most+greenhouse+gas+emissions"
           }
         ],
         "comparison": [
           {
-            "title": "How does PM2.5 correlate with asthma across US counties",
+            "title": "How does PM2.5 correlate with asthma across US counties?",
             "url": "q=How+does+PM2.5+correlate+with+asthma+across+US+counties"
           },
           {
-            "title": "How do solar installations correlate with median income across US counties",
+            "title": "How do solar installations correlate with median income across US counties?",
             "url": "q=How+do+solar+installations+correlate+with+median+income+across+US+counties"
           },
           {
-            "title": "What is the correlation of AQI vs. blood pressure in New Jersey",
+            "title": "What is the correlation of AQI vs. blood pressure in New Jersey?",
             "url": "q=What+is+the+correlation+of+AQI+vs+blood+pressure+in+New+Jersey"
+          }
+        ],
+        "statvar": [
+          {
+            "title": "Carbon dioxide emissions from fuel combustion in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22sdg%2FEN_ATM_CO2%22%7D"
+          },
+          {
+            "title": "Annual Amount of Emissions: Aluminum Production, Carbon Dioxide",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Annual_Emissions_CarbonDioxide_AluminumProduction%22%7D"
+          },
+          {
+            "title": "Annual amount of emissions: agriculture, carbon dioxide",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Annual_Emissions_CarbonDioxide_Agriculture%22%7D"
+          },
+          {
+            "title": "Area of flood event(s) in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Area_FloodEvent%22%7D"
+          },
+          {
+            "title": "Count of fire events in the world",
+            "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22Count_FireEvent%22%7D"
           }
         ]
       },
@@ -754,19 +890,19 @@
             "url": "q=Access+to+primary+school+education+in+Afghanistan&dc=sdg"
           },
           {
-            "title": "How is the world combating unregulated fishing",
+            "title": "How is the world combating unregulated fishing?",
             "url": "q=How+is+the+world+combating+unregulated+fishing?&dc=sdg"
           },
           {
-            "title": "How has access to electricity improved in Kenya",
+            "title": "How has access to electricity improved in Kenya?",
             "url": "q=How+has+access+to+electricity+improved+in+Kenya?&dc=sdg"
           },
           {
-            "title": "How has informal employment changed over time in Bangladesh",
+            "title": "How has informal employment changed over time in Bangladesh?",
             "url": "q=How+has+informal+employment+changed+over+time+in+Bangladesh?&dc=sdg"
           },
           {
-            "title": "How much food goes wasted around the world",
+            "title": "How much food goes wasted around the world?",
             "url": "q=How+much+food+goes+wasted+around+the+world?&dc=sdg"
           }
         ],

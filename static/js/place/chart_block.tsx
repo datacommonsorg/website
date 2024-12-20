@@ -157,6 +157,7 @@ export class ChartBlock extends React.Component<ChartBlockPropType> {
         <Chart
           key={id}
           id={id}
+          locale={this.props.locale}
           dcid={this.props.dcid}
           chartType={chartTypeEnum.LINE}
           trend={this.props.data.trend}
@@ -261,6 +262,7 @@ export class ChartBlock extends React.Component<ChartBlockPropType> {
         const id = randDomId();
         chartElements.push(
           <Chart
+            locale={this.props.locale}
             chartType={chartTypeEnum.CHOROPLETH}
             enclosedPlaceType={
               isEarth ? EARTH_ENCLOSED_PLACE_TYPE : this.props.childPlaceType
@@ -279,6 +281,7 @@ export class ChartBlock extends React.Component<ChartBlockPropType> {
         const id = randDomId();
         chartElements.push(
           <Chart
+            locale={this.props.locale}
             key={id}
             id={id}
             snapshot={this.props.data.nearby}
@@ -297,6 +300,7 @@ export class ChartBlock extends React.Component<ChartBlockPropType> {
         const id = randDomId();
         chartElements.push(
           <Chart
+            locale={this.props.locale}
             key={id}
             id={id}
             snapshot={this.props.data.child}
@@ -314,6 +318,7 @@ export class ChartBlock extends React.Component<ChartBlockPropType> {
         const id = randDomId();
         chartElements.push(
           <Chart
+            locale={this.props.locale}
             key={id}
             id={id}
             snapshot={this.props.data.similar}
@@ -331,6 +336,7 @@ export class ChartBlock extends React.Component<ChartBlockPropType> {
         const id = randDomId();
         chartElements.push(
           <Chart
+            locale={this.props.locale}
             key={id}
             id={id}
             snapshot={this.props.data.parent}
@@ -349,6 +355,7 @@ export class ChartBlock extends React.Component<ChartBlockPropType> {
         const id = randDomId();
         chartElements.push(
           <Chart
+            locale={this.props.locale}
             key={id}
             id={id}
             snapshot={this.props.data.nearby}
@@ -366,6 +373,7 @@ export class ChartBlock extends React.Component<ChartBlockPropType> {
         const id = randDomId();
         chartElements.push(
           <Chart
+            locale={this.props.locale}
             key={id}
             id={id}
             snapshot={this.props.data.similar}
@@ -384,6 +392,7 @@ export class ChartBlock extends React.Component<ChartBlockPropType> {
           const id = randDomId();
           chartElements.push(
             <Chart
+              locale={this.props.locale}
               key={id}
               id={id}
               snapshot={this.props.data.child}
@@ -410,6 +419,7 @@ export class ChartBlock extends React.Component<ChartBlockPropType> {
           }
           chartElements.push(
             <Chart
+              locale={this.props.locale}
               key={id}
               id={id}
               snapshot={snapshotData}
@@ -430,6 +440,7 @@ export class ChartBlock extends React.Component<ChartBlockPropType> {
         const id = randDomId();
         chartElements.push(
           <Chart
+            locale={this.props.locale}
             chartType={chartTypeEnum.CHOROPLETH}
             enclosedPlaceType={
               isEarth ? EARTH_ENCLOSED_PLACE_TYPE : this.props.childPlaceType
@@ -450,6 +461,7 @@ export class ChartBlock extends React.Component<ChartBlockPropType> {
         const id = randDomId();
         chartElements.push(
           <Chart
+            locale={this.props.locale}
             key={id}
             id={id}
             dcid={this.props.dcid}

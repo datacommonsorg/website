@@ -15,7 +15,7 @@
  */
 
 /**
- * Entry point for Version 2 of the home page.
+ * Entry point for the home page.
  */
 
 import React from "react";
