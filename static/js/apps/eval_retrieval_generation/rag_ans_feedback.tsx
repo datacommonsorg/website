@@ -111,14 +111,14 @@ export function RagAnsFeedback(): JSX.Element {
       });
   };
 
-  const enableReeval = () => {
+  const enableReeval = (): void => {
     setResponse({
       counts: EMPTY_COUNTS,
       isSubmitted: false,
     });
   };
 
-  const onCountUpdated = (count: number, countKey: string) => {
+  const onCountUpdated = (count: number, countKey: string): void => {
     if (response.isSubmitted) {
       return;
     }
@@ -154,7 +154,9 @@ export function RagAnsFeedback(): JSX.Element {
               >
                 <ClaimCounter
                   count={response.counts[cntKey]}
-                  onCountUpdated={(count) => onCountUpdated(count, cntKey)}
+                  onCountUpdated={(count): void =>
+                    onCountUpdated(count, cntKey)
+                  }
                   label={COUNTER_LABELS[cntKey]}
                 />
               </div>
@@ -180,7 +182,9 @@ export function RagAnsFeedback(): JSX.Element {
               >
                 <ClaimCounter
                   count={response.counts[cntKey]}
-                  onCountUpdated={(count) => onCountUpdated(count, cntKey)}
+                  onCountUpdated={(count): void =>
+                    onCountUpdated(count, cntKey)
+                  }
                   label={COUNTER_LABELS[cntKey]}
                 />
               </div>

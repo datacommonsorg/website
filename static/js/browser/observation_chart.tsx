@@ -100,7 +100,7 @@ export class ObservationChart extends React.Component<
       <>
         <button
           className="btn btn-sm btn-light chart-toggle"
-          onClick={() =>
+          onClick={(): void =>
             this.setState({ showTableView: !this.state.showTableView })
           }
         >
@@ -132,7 +132,7 @@ export class ObservationChart extends React.Component<
                         <tr
                           className={obsTableRowClass}
                           key={obs.date}
-                          onClick={() => this.redirectToObsPage(obs.date)}
+                          onClick={(): void => this.redirectToObsPage(obs.date)}
                         >
                           <td>{obs.date}</td>
                           <td
