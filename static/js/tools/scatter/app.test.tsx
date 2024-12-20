@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+/* eslint-disable camelcase */
+
 jest.mock("axios");
 
 import { act, waitFor } from "@testing-library/react";
