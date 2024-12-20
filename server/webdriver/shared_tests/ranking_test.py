@@ -72,22 +72,20 @@ class RankingTestMixin():
     self.assertEqual(
         self.driver.find_element(
             By.XPATH, '//*[@id="main-pane"]/div/h3/a').get_attribute('href'),
-        self.url_ +
-        '/ranking/Count_Person/Country/?h=country%2FIND&hl=hi')
+        self.url_ + '/ranking/Count_Person/Country/?h=country%2FIND&hl=hi')
 
     table = self.driver.find_element(By.XPATH, '//*[@id="main-pane"]/div/table')
     headers = table.find_elements(By.XPATH, './/thead/tr/th')
     self.assertEqual(headers[0].text, 'रैंक')
     self.assertEqual(headers[1].text, 'देश')
-    self.assertEqual(headers[2].text, 'किलोग्राम')
+    self.assertEqual(headers[2].text, 'मान')
     rows = table.find_elements(By.XPATH, './/tbody/tr')
     self.assertGreater(len(rows), 0)
 
   def test_population_top_ranking_ko(self):
     """Test translations are displayed correctly in korean, as well as top rankings rendered correctly."""
-    self.driver.get(
-        self.url_ +
-        '/ranking/Count_Person/Country/?h=country%2FKOR&hl=ko')
+    self.driver.get(self.url_ +
+                    '/ranking/Count_Person/Country/?h=country%2FKOR&hl=ko')
 
     title_present = EC.text_to_be_present_in_element(
         (By.CSS_SELECTOR, '.navbar-brand'), self.dc_title_string)
@@ -107,12 +105,12 @@ class RankingTestMixin():
     headers = table.find_elements(By.XPATH, './/thead/tr/th')
     self.assertEqual(headers[0].text, '순위')
     self.assertEqual(headers[1].text, '국가')
-    self.assertEqual(headers[2].text, '킬로그램')
+    self.assertEqual(headers[2].text, '값')
     rows = table.find_elements(By.XPATH, './/tbody/tr')
     self.assertGreater(len(rows), 0)
 
     chart = self.driver.find_element(By.CLASS_NAME, 'chart-container')
     y_text = chart.find_elements(By.CLASS_NAME,
                                  'y')[0].find_elements(By.TAG_NAME, 'text')
-    self.assertEqual(y_text[0].text, '0kg')
-    self.assertEqual(y_text[-1].text, '12억kg')
+    self.assertEqual(y_text[0].text, '0')
+    self.assertEqual(y_text[-1].text, '12억')
