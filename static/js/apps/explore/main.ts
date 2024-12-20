@@ -26,17 +26,19 @@ import { URL_HASH_PARAMS } from "../../constants/app/explore_constants";
 import { loadLocaleData } from "../../i18n/i18n";
 import { App } from "./app";
 
-window.addEventListener("load", (): void => {
-  loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
-    () => {
-      renderPage();
-    }
-  );
+window.addEventListener("load", async (): Promise<void> => {
+  const metadataContainer = document.getElementById("metadata-base");
+  const locale = metadataContainer.dataset.locale;
+  await loadLocaleData(locale, [
+    import(`../../i18n/compiled-lang/${locale}/place.json`),
+    import(`../../i18n/compiled-lang/${locale}/units.json`),
+    import(`../../i18n/compiled-lang/${locale}/stats_var_labels.json`),
+  ]);
+
+  renderPage(metadataContainer);
 });
 
-function renderPage(): void {
-  const metadataContainer = document.getElementById("metadata-base");
-
+function renderPage(metadataContainer: HTMLElement): void {
   const hashParams = queryString.parse(window.location.hash);
   //if there is no metadataContainer, we do not hide the searchbar (as we are in a base where the flags
   //are not prepared)

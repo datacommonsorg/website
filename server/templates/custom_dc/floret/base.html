@@ -73,6 +73,8 @@
 </head>
 
 <body>
+  {# Set page locale. #}
+  <div id="metadata-base" class="d-none" data-locale="{{ locale }}"></div>
   <div id="main">
     <main id="{{ main_id }}" class="main-content">
       {% block content %}
