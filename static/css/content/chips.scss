@@ -39,8 +39,28 @@
   .chip-item {
     display: block;
     list-style: none;
+    &.elevated {
+      a {
+        @include var.white-box;
+        @include var.shadow;
+        color: var.$color-blue;
+
+        .icon svg {
+          fill: var.$color-blue;
+        }
+      }
+    }
+    &.flat {
+      a {
+        @include var.blue-box;
+        color: var.$color-black;
+
+        .icon svg {
+          fill: var.$color-black;
+        }
+      }
+    }
     a {
-      @include var.white-box;
       @include var.text_sm;
       display: flex;
       justify-content: center;

@@ -109,10 +109,10 @@ export function MultiLineSearchBox(
         autoFocus={false}
         innerRef={inputRef}
         invalid={false}
-        onChange={(e) => {
+        onChange={(e): void => {
           setValue(e.target.value);
         }}
-        onKeyDown={(e) => {
+        onKeyDown={(e): void => {
           if (e.key === "Enter") {
             e.preventDefault(); // don't add \n to search query
             handleSearch();

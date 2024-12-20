@@ -145,7 +145,8 @@ class WebsiteSanityTest:
     time.sleep(1)
 
     # topic items
-    topic_items = find_elems(self.driver, By.CLASS_NAME, "topic-item")
+    topic_items = find_elems(self.driver, By.CSS_SELECTOR,
+                             '[data-testid^="chip-item-"]')
     if topic_items is None or len(topic_items) == 0:
       self.add_result(fail_result(page, start, "No topic items."))
       return
@@ -171,7 +172,8 @@ class WebsiteSanityTest:
           ))
 
     # question items
-    question_items = find_elems(self.driver, By.CLASS_NAME, "question-item")
+    question_items = find_elems(self.driver, By.CSS_SELECTOR,
+                                '[data-testid^="question-item-"]')
     if question_items is None or len(question_items) == 0:
       self.add_result(fail_result(page, start, "No question items."))
       return
@@ -215,32 +217,20 @@ class WebsiteSanityTest:
 
     page.title = self.driver.title if page.title is None else page.title
 
-    # topics
-    topics = find_elems(self.driver, By.CLASS_NAME, "item-list-text")
-    if topics is None or len(topics) == 0:
-      self.add_result(fail_result(page, start, "No topics."))
-      return
-
     # queries
-    queries_parent = find_elem(
-        self.driver,
-        By.CSS_SELECTOR,
-        "#dc-explore-landing > div > div > div.topic-container > div.topic-queries",
-    )
-    if queries_parent is None:
-      self.add_result(fail_result(page, start, "No queries."))
-      return
-    queries = find_elems(queries_parent, By.TAG_NAME, "a")
+    queries = find_elems(self.driver, By.CSS_SELECTOR,
+                         '[data-testid^="query-link-"]')
     if queries is None or len(queries) == 0:
-      self.add_result(fail_result(page, start, "No queries."))
+      self.add_result(
+          fail_result(page, start,
+                      "No query links found in explore landing page."))
       return
 
     # Pass
     self.add_result(pass_result(page, start))
 
-    explore_links = topics + queries
     explore_pages = []
-    for link in explore_links:
+    for link in queries:
       explore_pages.append(
           WebPage(
               PageType.EXPLORE,

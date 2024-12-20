@@ -18,6 +18,7 @@
 
 import React, { ReactElement, useEffect, useRef, useState } from "react";
 
+import { KeyboardArrowDown } from "../../../../components/elements/icons/keyboard_arrow_down";
 import {
   GA_EVENT_HEADER_CLICK,
   GA_PARAM_ID,
@@ -103,7 +104,7 @@ const MenuDesktop = ({
                 <a
                   className="menu-main-link"
                   href={resolveHref(menuItem.url, routes)}
-                  onClick={() => {
+                  onClick={(): boolean => {
                     triggerGAEvent(GA_EVENT_HEADER_CLICK, {
                       [GA_PARAM_ID]: `desktop main ${menuItem.id}`,
                       [GA_PARAM_URL]: menuItem.url,
@@ -134,11 +135,11 @@ const MenuDesktop = ({
                       {labels[menuItem.label]}
                     </span>
                     <span
-                      className={`material-icons-outlined menu-arrow-icon ${
+                      className={`menu-arrow-icon ${
                         openMenu === index ? "open" : ""
                       }`}
                     >
-                      keyboard_arrow_down
+                      <KeyboardArrowDown height={"24px"} color={"#5f6368"} />
                     </span>
                   </button>
                   <div

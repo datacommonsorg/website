@@ -36,10 +36,6 @@
                           "propertyExpr": "->dateRevised"
                         },
                         {
-                          "header": "Description",
-                          "propertyExpr": "->description"
-                        },
-                        {
                           "header": "Has Inherited Divsion",
                           "propertyExpr": "->hasInheritedDivsion"
                         },
@@ -74,6 +70,10 @@
                         {
                           "header": "Scientific Name",
                           "propertyExpr": "->scientificName"
+                        },
+                        {
+                          "header": "Scope Note",
+                          "propertyExpr": "->scopeNote"
                         },
                         {
                           "header": "Specialization Of",

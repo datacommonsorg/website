@@ -18,8 +18,6 @@
  * Functions for getting results for a disaster map tile
  */
 
-import _ from "lodash";
-
 import { fetchDisasterEventData } from "../../js/components/subject_page/disaster_event_block";
 import {
   DisasterEventMapTilePropType,

@@ -80,6 +80,7 @@ const HeaderLogo = ({
           });
           return true;
         }}
+        className="main-header-name"
       >
         {name}
       </a>

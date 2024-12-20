@@ -101,12 +101,6 @@ beforeEach(() => {
 });
 
 describe("wrap tests", () => {
-  interface TestData {
-    width: number;
-    label: string;
-    expectedLabels: string[];
-    shouldOverflow: boolean;
-  }
   test.each`
     width | label                             | expectedLabels                              | shouldOverflow
     ${4}  | ${"ab-d e f"}                     | ${["ab-", "d e", "f"]}                      | ${false}
