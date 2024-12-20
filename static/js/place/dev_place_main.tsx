@@ -21,7 +21,7 @@ import {
   RelatedPlacesApiResponse,
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { RawIntlProvider } from "react-intl";
 
 import { GoogleMap } from "../components/google_map";
@@ -37,6 +37,7 @@ import {
   defaultDataCommonsClient,
   defaultDataCommonsWebClient,
 } from "../utils/data_commons_client";
+import { TileSources } from "../utils/tile_utils";
 import { isPlaceContainedInUsa } from "./util";
 
 /**
@@ -193,9 +194,11 @@ const PlaceHeader = (props: {
  * @returns Navigation component with topic tabs
  */
 const PlaceTopicTabs = ({
+  forceDevPlaces,
   category,
   place,
 }: {
+  forceDevPlaces: boolean;
   category: string;
   place: NamedTypedPlace;
 }) => {
@@ -209,7 +212,9 @@ const PlaceTopicTabs = ({
               className={`item-list-text ${
                 category === "Overview" ? "selected" : ""
               }`}
-              href={`/dev-place/${place.dcid}`}
+              href={`/place/${place.dcid}${
+                forceDevPlaces ? "?force_dev_places=true" : ""
+              }`}
             >
               Overview
             </a>
@@ -219,7 +224,9 @@ const PlaceTopicTabs = ({
               className={`item-list-text ${
                 category === "Economics" ? "selected" : ""
               }`}
-              href={`/dev-place/${place.dcid}?category=Economics`}
+              href={`/place/${place.dcid}?category=Economics${
+                forceDevPlaces ? "&force_dev_places=true" : ""
+              }`}
             >
               Economics
             </a>
@@ -229,7 +236,9 @@ const PlaceTopicTabs = ({
               className={`item-list-text ${
                 category === "Health" ? "selected" : ""
               }`}
-              href={`/dev-place/${place.dcid}?category=Health`}
+              href={`/place/${place.dcid}?category=Health${
+                forceDevPlaces ? "&force_dev_places=true" : ""
+              }`}
             >
               Health
             </a>
@@ -239,7 +248,9 @@ const PlaceTopicTabs = ({
               className={`item-list-text ${
                 category === "Equity" ? "selected" : ""
               }`}
-              href={`/dev-place/${place.dcid}?category=Equity`}
+              href={`/place/${place.dcid}?category=Equity${
+                forceDevPlaces ? "&force_dev_places=true" : ""
+              }`}
             >
               Equity
             </a>
@@ -249,7 +260,9 @@ const PlaceTopicTabs = ({
               className={`item-list-text ${
                 category === "Demographics" ? "selected" : ""
               }`}
-              href={`/dev-place/${place.dcid}?category=Demographics`}
+              href={`/place/${place.dcid}?category=Demographics${
+                forceDevPlaces ? "&force_dev_places=true" : ""
+              }`}
             >
               Demographics
             </a>
@@ -259,7 +272,9 @@ const PlaceTopicTabs = ({
               className={`item-list-text ${
                 category === "Environment" ? "selected" : ""
               }`}
-              href={`/dev-place/${place.dcid}?category=Environment`}
+              href={`/place/${place.dcid}?category=Environment${
+                forceDevPlaces ? "&force_dev_places=true" : ""
+              }`}
             >
               Environment
             </a>
@@ -269,7 +284,9 @@ const PlaceTopicTabs = ({
               className={`item-list-text ${
                 category === "Energy" ? "selected" : ""
               }`}
-              href={`/dev-place/${place.dcid}?category=Energy`}
+              href={`/place/${place.dcid}?category=Energy${
+                forceDevPlaces ? "&force_dev_places=true" : ""
+              }`}
             >
               Energy
             </a>
@@ -293,6 +310,7 @@ const PlaceTopicTabs = ({
 const PlaceOverviewTable = (props: { placeDcid: string }) => {
   const { placeDcid } = props;
   const [dataRows, setDataRows] = useState<DataRow[]>([]);
+  const containerRef = useRef(null);
   // Fetch key demographic statistics for the place when it changes
   useEffect(() => {
     (async () => {
@@ -313,8 +331,27 @@ const PlaceOverviewTable = (props: { placeDcid: string }) => {
   if (!dataRows) {
     return null;
   }
+  const sourceUrls = new Set(
+    dataRows.map((dataRow) => {
+      return dataRow.variable.observation.metadata.provenanceUrl;
+    })
+  );
+  const statVarDcids = dataRows.map((dr) => {
+    return dr.variable.dcid;
+  });
+
+  const statVarSpecs: StatVarSpec[] = statVarDcids.map((dcid) => {
+    return {
+      statVar: dcid,
+      denom: "", // Initialize with an empty string or a default denominator if applicable
+      unit: "", // Initialize with an empty string or a default unit if applicable
+      scaling: 1, // Initialize with a default scaling factor
+      log: false, // Initialize with a default log value
+    };
+  });
+
   return (
-    <table className="table">
+    <table className="table" ref={containerRef}>
       <thead>
         <tr>
           <th scope="col" colSpan={2}>
@@ -341,6 +378,21 @@ const PlaceOverviewTable = (props: { placeDcid: string }) => {
             </tr>
           );
         })}
+        {dataRows && (
+          <tr>
+            <td>
+              <div className="chart-container">
+                <TileSources
+                  containerRef={containerRef}
+                  sources={sourceUrls}
+                  statVarSpecs={statVarSpecs}
+                />
+              </div>
+            </td>
+            <td></td>
+            <td></td>
+          </tr>
+        )}
       </tbody>
     </table>
   );
@@ -395,24 +447,45 @@ const RelatedPlaces = (props: {
   place: NamedTypedPlace;
   childPlaces: NamedTypedPlace[];
 }) => {
+  const [isCollapsed, setIsCollapsed] = useState(true);
   const { place, childPlaces } = props;
   if (!childPlaces || childPlaces.length === 0) {
     return null;
   }
+
+  const NUM_PLACES = 15;
+  const showToggle = childPlaces.length > NUM_PLACES;
+  const truncatedPlaces = childPlaces.slice(0, NUM_PLACES);
+  const numPlacesCollapsed = childPlaces.length - NUM_PLACES;
+
+  const toggleShowMore = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
   return (
     <div className="related-places">
       <div className="related-places-callout">Places in {place.name}</div>
       <div className="item-list-container">
         <div className="item-list-inner">
-          {childPlaces.map((place) => (
+          {(isCollapsed ? truncatedPlaces : childPlaces).map((place) => (
             <div key={place.dcid} className="item-list-item">
-              <a className="item-list-text" href={`/dev-place/${place.dcid}`}>
+              <a className="item-list-text" href={`/place/${place.dcid}`}>
                 {place.name}
               </a>
             </div>
           ))}
         </div>
       </div>
+      {showToggle && (
+        <div className="show-more-toggle" onClick={toggleShowMore}>
+          <span className="show-more-toggle-text">
+            {isCollapsed ? `Show ${numPlacesCollapsed} more` : "Show less"}
+          </span>
+          <span className="material-icons-outlined">
+            {isCollapsed ? "expand_more" : "expand_less"}
+          </span>
+        </div>
+      )}
     </div>
   );
 };
@@ -434,10 +507,11 @@ const PlaceCharts = (props: {
   return (
     <div className="charts-container">
       <SubjectPageMainPane
-        id="place-subject-page"
-        place={place}
-        pageConfig={pageConfig}
         defaultEnclosedPlaceType={childPlaceType}
+        id="place-subject-page"
+        pageConfig={pageConfig}
+        place={place}
+        showExploreMore={true}
       />
     </div>
   );
@@ -467,6 +541,7 @@ export const DevPlaceMain = () => {
 
   const urlParams = new URLSearchParams(window.location.search);
   const category = urlParams.get("category") || "Overview";
+  const forceDevPlaces = urlParams.get("force_dev_places") === "true";
 
   /**
    * On initial load, get place metadata from the page's metadata element
@@ -529,7 +604,11 @@ export const DevPlaceMain = () => {
         place={place}
         placeSubheader={placeSubheader}
       />
-      <PlaceTopicTabs category={category} place={place} />
+      <PlaceTopicTabs
+        category={category}
+        place={place}
+        forceDevPlaces={forceDevPlaces}
+      />
       <PlaceOverview
         place={place}
         placeSummary={placeSummary}

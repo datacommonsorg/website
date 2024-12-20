@@ -108,11 +108,7 @@ function getRankingUnitResult(
   isHighest: boolean,
   place: string,
   enclosedPlaceType: string,
-  statVarSpec: StatVarSpec[],
-  urlRoot: string,
-  useChartUrl: boolean,
-  apiRoot: string,
-  apikey?: string
+  statVarSpec: StatVarSpec[]
 ): TileResult {
   const { topPoints, bottomPoints } = getRankingUnitPoints(
     tileConfig?.rankingTileSpec,
@@ -126,7 +122,7 @@ function getRankingUnitResult(
     rankingGroup.numDataPoints
   );
   const result: TileResult = {
-    data_csv: rankingPointsToCsv(pointsList.flat(), rankingGroup.svName),
+    dataCsv: rankingPointsToCsv(pointsList.flat(), rankingGroup.svName),
     placeType: enclosedPlaceType,
     places: [place],
     srcs: getSources(rankingGroup.sources),
@@ -198,10 +194,7 @@ export async function getRankingTileResult(
   place: string,
   enclosedPlaceType: string,
   statVarSpec: StatVarSpec[],
-  apiRoot: string,
-  urlRoot: string,
-  useChartUrl: boolean,
-  apikey?: string
+  apiRoot: string
 ): Promise<TileResult[]> {
   const tileProp = getTileProp(
     id,
@@ -240,11 +233,7 @@ export async function getRankingTileResult(
             true,
             place,
             enclosedPlaceType,
-            statVarSpec,
-            urlRoot,
-            useChartUrl,
-            apiRoot,
-            apikey
+            statVarSpec
           )
         );
       }
@@ -262,10 +251,7 @@ export async function getRankingTileResult(
             false,
             place,
             enclosedPlaceType,
-            statVarSpec,
-            urlRoot,
-            useChartUrl,
-            apiRoot
+            statVarSpec
           )
         );
       }

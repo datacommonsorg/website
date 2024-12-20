@@ -27,7 +27,7 @@ import server.routes.shared_api.place as place_api
 from server.services import datacommons as dc
 
 # Parent place types to include in listing of containing places at top of page
-PARENT_PLACE_TYPES_TO_HIGHLIGHT = {
+PARENT_PLACE_TYPES_TO_HIGHLIGHT = [
     'County',
     'AdministrativeArea2',
     'EurostatNUTS2',
@@ -36,7 +36,7 @@ PARENT_PLACE_TYPES_TO_HIGHLIGHT = {
     'EurostatNUTS1',
     'Country',
     'Continent',
-}
+]
 
 
 def get_place_html_link(place_dcid: str, place_name: str) -> str:
@@ -49,7 +49,7 @@ def get_place_html_link(place_dcid: str, place_name: str) -> str:
   Returns:
     An html anchor tag linking to a place page.
   """
-  url = flask.url_for('dev_place.dev_place', place_dcid=place_dcid)
+  url = flask.url_for('place.place', place_dcid=place_dcid)
   return f'<a href="{url}">{place_name}</a>'
 
 
@@ -94,6 +94,15 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
       parent for parent in all_parents
       if parent.types in PARENT_PLACE_TYPES_TO_HIGHLIGHT
   ]
+
+  # Create a dictionary mapping parent types to their order in the highlight list
+  type_order = {
+      parent_type: i
+      for i, parent_type in enumerate(PARENT_PLACE_TYPES_TO_HIGHLIGHT)
+  }
+
+  # Sort the parents_to_include list using the type_order dictionary
+  parents_to_include.sort(key=lambda parent: type_order.get(parent.types))
 
   # Fetch the localized names of the parents
   parent_dcids = [parent.dcid for parent in parents_to_include]
@@ -232,7 +241,7 @@ def fetch_places(place_dcids: List[str], locale=DEFAULT_LOCALE) -> List[Place]:
   Returns:
       List[Place]: A list of Place objects with names in the specified locale.
   """
-  props = ['typeOf', 'name']
+  props = ['typeOf', 'name', 'dissolutionDate']
   # Only fetch names with locale-specific tags if the desired locale is non-english
   if locale != DEFAULT_LOCALE:
     props.append('nameWithLanguage')
@@ -247,11 +256,16 @@ def fetch_places(place_dcids: List[str], locale=DEFAULT_LOCALE) -> List[Place]:
 
     place_names = place_props.get('name', [])
     default_name = place_names[0] if place_names else place_dcid
+    dissolved = bool(place_props.get('dissolutionDate'))
 
     place_types = place_props.get('typeOf', [])
     # Use the name with locale if available, otherwise fall back to the default ('en') name
     name = name_with_locale or default_name
-    places.append(Place(dcid=place_dcid, name=name, types=place_types))
+    places.append(
+        Place(dcid=place_dcid,
+              name=name,
+              types=place_types,
+              dissolved=dissolved))
   return places
 
 
@@ -313,6 +327,7 @@ def chart_config_to_overview_charts(chart_config, child_place_type: str):
 # Maps each parent place type to a list of valid child place types.
 # This hierarchy defines how places are related in terms of containment.
 PLACE_TYPES_TO_CHILD_PLACE_TYPES = {
+    "Continent": ["Country"],
     "GeoRegion": ["Country", "City"],
     "Country": [
         "State", "EurostatNUTS1", "EurostatNUTS2", "AdministrativeArea1"
