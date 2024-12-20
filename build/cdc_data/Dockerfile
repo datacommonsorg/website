@@ -22,7 +22,7 @@ RUN mkdir -p /tmp/datcom-nl-models \
 
 
 # #### Stage 2: Install python dependencies. ####
-FROM python:3.11.4-slim AS file-copier
+FROM python:3.11.4-slim AS dependencies-installer
 
 WORKDIR /workspace
 
@@ -56,8 +56,8 @@ ENV ENV=${ENV}
 WORKDIR /workspace
 
 # Copy models and dependencies.
-COPY --from=file-copier /workspace/ .
-COPY --from=file-copier /workspace/venv /workspace/venv
+COPY --from=dependencies-installer /workspace/ .
+COPY --from=dependencies-installer /workspace/venv /workspace/venv
 COPY --from=model-downloader /tmp/datcom-nl-models /tmp/datcom-nl-models
 
 # Copy the embeddings builder module.
