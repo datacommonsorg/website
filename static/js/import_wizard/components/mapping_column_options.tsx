@@ -68,7 +68,7 @@ export function MappingColumnOptions(
             type="radio"
             name="mapping-type"
             checked={props.column.type === MappingType.COLUMN_HEADER}
-            onChange={() =>
+            onChange={(): void =>
               updateColumn(
                 MappingType.COLUMN_HEADER,
                 props.column.headerMappedThing
@@ -86,7 +86,7 @@ export function MappingColumnOptions(
                 className="column-option-dropdown"
                 type="select"
                 value={props.column.headerMappedThing}
-                onChange={(e) =>
+                onChange={(e): void =>
                   updateColumn(
                     MappingType.COLUMN_HEADER,
                     e.target.value as MappedThing
@@ -112,7 +112,7 @@ export function MappingColumnOptions(
             type="radio"
             name="mapping-type"
             checked={props.column.type === MappingType.COLUMN}
-            onChange={() =>
+            onChange={(): void =>
               updateColumn(MappingType.COLUMN, props.column.columnMappedThing)
             }
           />
@@ -124,7 +124,7 @@ export function MappingColumnOptions(
               className="column-option-dropdown"
               type="select"
               value={props.column.columnMappedThing}
-              onChange={(e) =>
+              onChange={(e): void =>
                 updateColumn(MappingType.COLUMN, e.target.value as MappedThing)
               }
             >
@@ -151,7 +151,7 @@ export function MappingColumnOptions(
             type="radio"
             name="mapping-type"
             checked={_.isEmpty(props.column.type)}
-            onChange={() => updateColumn(null, null)}
+            onChange={(): void => updateColumn(null, null)}
           />
           Skip this column
         </Label>
@@ -159,7 +159,7 @@ export function MappingColumnOptions(
       <div className="unit-input">
         If the values in this column have an associated unit, enter it here:
         <form
-          onSubmit={(event) => {
+          onSubmit={(event): void => {
             event.preventDefault();
             updateColumnUnit();
           }}
@@ -167,7 +167,7 @@ export function MappingColumnOptions(
           <Input
             className="constant-value-input"
             type="text"
-            onChange={(e) => {
+            onChange={(e): void => {
               const val = e.target.value;
               setUnitInput(val);
             }}
@@ -252,7 +252,7 @@ export function MappingColumnOptions(
           className="column-option-dropdown"
           type="select"
           value={typeVal}
-          onChange={(e) =>
+          onChange={(e): void =>
             updateColumn(mappingType, MappedThing.PLACE, e.target.value)
           }
         >
@@ -269,7 +269,7 @@ export function MappingColumnOptions(
           className="column-option-dropdown"
           type="select"
           value={propertyVal}
-          onChange={(e) =>
+          onChange={(e): void =>
             updateColumn(
               mappingType,
               MappedThing.PLACE,
