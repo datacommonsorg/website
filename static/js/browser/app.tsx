@@ -139,14 +139,11 @@ export class BrowserPage extends React.Component<
             </div>
           )}
           {showInArcSection && (
-            <div className="table-page-section">
-              <h3>In Arcs</h3>
-              <InArcSection
-                nodeName={this.props.nodeName}
-                dcid={this.props.dcid}
-                provDomain={this.state.provDomain}
-              />
-            </div>
+            <InArcSection
+              nodeName={this.props.nodeName}
+              dcid={this.props.dcid}
+              provDomain={this.state.provDomain}
+            />
           )}
           {this.props.pageDisplayType === PageDisplayType.PLACE_STAT_VAR && (
             <div className="table-page-section">

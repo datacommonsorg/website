@@ -41,19 +41,26 @@ class BrowserTestMixin():
     # Assert page title is correct
     WebDriverWait(self.driver,
                   self.TIMEOUT_SEC).until(EC.title_contains(title_text))
-    self.assertEqual(title_text, self.driver.title)
+    self.assertIn(title_text, self.driver.title)
 
     # Wait for title to be present
-    title_present = EC.text_to_be_present_in_element((By.TAG_NAME, 'h1'),
-                                                     'Knowledge Graph')
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(title_present)
+    title_locator = (By.TAG_NAME, 'h1')
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.text_to_be_present_in_element(title_locator, 'Knowledge Graph'))
+    title_element = self.driver.find_element(*title_locator)
+    self.assertEqual(
+        "Knowledge Graph", title_element.text,
+        f"Expected title 'Knowledge Graph', but found: {title_element.text}")
 
     # Assert intro is correct
-    intro = self.driver.find_element(By.XPATH,
-                                     '//*[@id="browser_landing"]/div/p[1]')
+    description_locator = (
+        By.XPATH, "//h1[text()='Knowledge Graph']/following-sibling::p")
+    description_element = self.driver.find_element(*description_locator)
+    expected_description_start = 'The Data Commons Knowledge Graph is constructed'
     self.assertTrue(
-        intro.text.startswith(
-            'The Data Commons Knowledge Graph is constructed'))
+        description_element.text.startswith(expected_description_start),
+        f"Intro text does not start with expected text. Found: {description_element.text}"
+    )
 
   def test_page_serve_ca_population(self):
     """Test the browser page for California population can be loaded successfully."""

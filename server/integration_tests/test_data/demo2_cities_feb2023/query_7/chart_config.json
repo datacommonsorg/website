@@ -204,39 +204,6 @@
               }
             ],
             "title": "Population"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/DZA",
-                      "country/MAR",
-                      "country/LBY",
-                      "country/TUN",
-                      "country/MLI",
-                      "country/ERI",
-                      "country/SEN",
-                      "country/GMB",
-                      "country/MWI",
-                      "country/SSD"
-                    ],
-                    "statVarKey": [
-                      "WHO/CM_02_multiple_place_bar_block"
-                    ],
-                    "title": "Number of Infant Deaths (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Number of Infant Deaths"
           }
         ],
         "statVarSpec": {
@@ -259,10 +226,6 @@
           "GrowthRate_Count_Person_multiple_place_bar_block": {
             "name": "Rate of Population Growth",
             "statVar": "GrowthRate_Count_Person"
-          },
-          "WHO/CM_02_multiple_place_bar_block": {
-            "name": "Number Of Infant Deaths",
-            "statVar": "WHO/CM_02"
           },
           "sdg/SP_DYN_ADKL.AGE--Y10T14__SEX--F_multiple_place_bar_block": {
             "name": "Adolescent birth rate [10 to 14 years old, Female]",

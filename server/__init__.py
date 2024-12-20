@@ -160,9 +160,6 @@ def register_routes_common(app):
   from server.routes.dev_place import api as dev_place_api
   app.register_blueprint(dev_place_api.bp)
 
-  from server.routes.dev_place import html as dev_place_html
-  app.register_blueprint(dev_place_html.bp)
-
   from server.routes.ranking import html as ranking_html
   app.register_blueprint(ranking_html.bp)
 
@@ -181,9 +178,6 @@ def register_routes_common(app):
 
   from server.routes.ranking import api as ranking_api
   app.register_blueprint(ranking_api.bp)
-
-  from server.routes.translator import api as translator_api
-  app.register_blueprint(translator_api.bp)
 
   from server.routes.nl import api as nl_api
   app.register_blueprint(nl_api.bp)

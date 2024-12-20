@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-/* data used for mock functions for nodejs server tests. */
+/* eslint-disable camelcase */
 
+/* data used for mock functions for nodejs server tests. */
 export const TIMELINE_NL_RESP = {
   data: {
     client: "ui_query",

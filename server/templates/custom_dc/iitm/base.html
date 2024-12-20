@@ -53,9 +53,13 @@
   {% block head %}
   {% endblock %}
   <link href="/custom_dc/iitm/style.css" rel="stylesheet">
+  <script src={{url_for('static', filename='queryStore.js', t=config['VERSION'])}} async></script>
 </head>
 
 <body id="iitm-india">
+  {# Set page locale. #}
+  <div id="metadata-base" class="d-none" data-locale="{{ locale }}"></div>
+  
   <div id="main">
     
     {% if is_homepage %}
