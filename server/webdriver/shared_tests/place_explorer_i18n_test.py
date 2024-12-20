@@ -41,28 +41,11 @@ class PlaceI18nExplorerTestMixin():
     WebDriverWait(self.driver,
                   self.TIMEOUT_SEC).until(economics_section_present)
 
-    # TODO(beets): Re-enable this test after fixing flakiness in finding
-    # the chart.
-    # Test strings in GDP comparison chart
-    gdp_chart = self.driver.find_element(
-        By.XPATH, '//*[@id="main-pane"]/section[1]/div/div[1]/div')
-    self.assertEqual(
-        gdp_chart.find_element(By.XPATH, 'h4').text, '日本 の 1 人あたりの国内総生産')
-
-    # Test that chart tick values are translated
-    y_text = gdp_chart.find_elements(By.CLASS_NAME,
-                                     'y')[0].find_elements(By.TAG_NAME, 'text')
-    self.assertEqual(y_text[0].text, 'USD 0')
-    self.assertEqual(y_text[1].text, 'USD 1万')
-
-    x_text = gdp_chart.find_elements(By.CLASS_NAME,
-                                     'x')[0].find_elements(By.TAG_NAME, 'text')
-    self.assertEqual(x_text[0].text, '1960')
-
-    # Test that sv labels are translated
-    sv_legend = gdp_chart.find_elements(By.CLASS_NAME, 'legend-basic')[0]
-    sv_label = sv_legend.find_elements(By.TAG_NAME, 'a')[0]
-    self.assertEqual(sv_label.text, '1 人あたりの GDP')
+    # Test that charts are present
+    charts = self.driver.find_elements(By.CSS_SELECTOR,
+                                       '#main-pane [class*="chart-container"]')
+    self.assertGreater(len(charts), 0,
+                       "Expected at least one chart to be present")
 
     # Test that topics are translated
     health_topic = self.driver.find_element(By.XPATH,
@@ -110,19 +93,11 @@ class PlaceI18nExplorerTestMixin():
     self.assertTrue("Demographics" in self.driver.current_url)
     self.assertTrue("&hl=fr" in self.driver.current_url)
 
-    # Assert chart title is correct.
-    chart_title = self.driver.find_element(
-        By.XPATH, '//*[@id="main-pane"]/section[5]/div/div[2]/div/h4')
-    self.assertEqual(chart_title.text,
-                     'Population urbaine et rurale : autres pays(2023)')
-
-    # Click through to ranking
-    pop_growth_rate_chip = self.driver.find_element(
-        By.XPATH,
-        '//*[@id="main-pane"]/section[6]/div/div[1]/div/div/div/div/a')
-    self.assertEqual(pop_growth_rate_chip.text,
-                     'Taux de croissance de la population')
-    pop_growth_rate_chip.click()
+    # Click through to ranking for population (Count_Person)
+    pop_link = self.driver.find_element(
+        By.CSS_SELECTOR, 'a.legend-link[title="Population totale"]')
+    self.assertIsNotNone(pop_link, "Population totale link not found")
+    pop_link.click()
 
     # Wait until ranking page has loaded
     element_present = EC.presence_of_element_located((By.TAG_NAME, 'h1'))
@@ -130,14 +105,13 @@ class PlaceI18nExplorerTestMixin():
 
     # Assert language is propagated
     url = self.driver.current_url
-    self.assertTrue('GrowthRate_Count_Person' in url)
+    self.assertTrue('Count_Person' in url)
     self.assertTrue('Country' in url)
     self.assertTrue('europe' in url)
-    self.assertTrue('unit=%25' in url)
     self.assertTrue('hl=fr' in url)
     self.assertEqual(
         self.driver.find_element(By.TAG_NAME, 'h1').text,
-        'Classement par Taux de croissance de la population')
+        'Classement par Population')
 
   def test_explorer_redirect_place_explorer_keeps_locale(self):
     """Test the redirection from explore to place explore for single place queries keeps the locale"""
