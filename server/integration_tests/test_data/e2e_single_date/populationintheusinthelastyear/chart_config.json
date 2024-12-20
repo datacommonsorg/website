@@ -916,7 +916,7 @@
                       "startDate": "2023"
                     },
                     "statVarKey": [
-                      "Count_Death_1151455814"
+                      "Count_Death_1437305810"
                     ],
                     "title": "Number of Deaths in United States",
                     "type": "LINE"
@@ -977,8 +977,8 @@
             "name": "Number of Deaths",
             "statVar": "Count_Death"
           },
-          "Count_Death_1151455814": {
-            "facetId": "1151455814",
+          "Count_Death_1437305810": {
+            "facetId": "1437305810",
             "name": "Number of Deaths",
             "statVar": "Count_Death"
           },

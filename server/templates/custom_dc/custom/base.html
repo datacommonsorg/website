@@ -62,9 +62,13 @@
   {% if OVERRIDE_CSS_PATH %}
   <link href="{{ OVERRIDE_CSS_PATH }}" rel="stylesheet">
   {% endif %}
+  <script src={{url_for('static', filename='queryStore.js', t=config['VERSION'])}} async></script>
 </head>
 
 <body>
+  {# Set page locale. #}
+  <div id="metadata-base" class="d-none" data-locale="{{ locale }}"></div>
+
   <div id="main">
     <header id="main-header">
       <nav class="navbar navbar-dark navbar-expand-lg col" id="main-nav">

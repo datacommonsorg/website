@@ -14,9 +14,11 @@
 """Place Ranking related handlers."""
 
 import json
+import logging
 
 import flask
 
+from server.lib.util import error_response
 import server.routes.shared_api.place as place_api
 import server.services.datacommons as dc
 
@@ -48,11 +50,11 @@ def ranking_api(stat_var, place_type, place=None):
   delete_keys = BOTTOM_KEYS_DEL if is_show_bottom else TOP_KEYS_DEL
 
   ranking_results = dc.place_ranking(stat_var, place_type, place, is_per_capita)
-  if 'data' not in ranking_results:
-    flask.abort(500)
+  if 'data' not in ranking_results or stat_var not in ranking_results['data']:
+    message = f"Ranking data not found for place={place}, place_type={place_type}, stat_var={stat_var}. ranking_results={ranking_results}"
+    logging.info(message)
+    return error_response(message, status_code=404)
   data = ranking_results['data']
-  if stat_var not in ranking_results['data']:
-    flask.abort(500)
 
   # split rankAll to top/bottom if it's larger than RANK_SIZE
   if 'rankAll' in data[stat_var]:
