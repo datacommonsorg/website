@@ -82,7 +82,7 @@ class Page extends Component<unknown, PageStateType> {
     this.toggleSvHierarchyModal = this.toggleSvHierarchyModal.bind(this);
   }
 
-  private handleHashChange = () => {
+  private handleHashChange = (): void => {
     const dataset = getUrlToken(SV_URL_PARAMS.DATASET);
     const source = getUrlToken(SV_URL_PARAMS.SOURCE);
     const sv = getUrlToken(SV_URL_PARAMS.STAT_VAR);
@@ -117,9 +117,9 @@ class Page extends Component<unknown, PageStateType> {
           collapsible={false}
           svHierarchyType={StatVarHierarchyType.STAT_VAR}
           sampleEntities={entities}
-          deselectSVs={() => updateHash({ [SV_URL_PARAMS.STAT_VAR]: "" })}
+          deselectSVs={(): void => updateHash({ [SV_URL_PARAMS.STAT_VAR]: "" })}
           selectedSVs={svs}
-          selectSV={(sv) => updateHash({ [SV_URL_PARAMS.STAT_VAR]: sv })}
+          selectSV={(sv): void => updateHash({ [SV_URL_PARAMS.STAT_VAR]: sv })}
           disableAlert={true}
         />
         <div id="plot-container">

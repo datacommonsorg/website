@@ -43,7 +43,7 @@ const CardContainer = styled.a`
 `;
 
 const Text = styled.div`
-  color: ${(props) => props.theme.textColor || "#146C2E"};
+  color: ${(props: CardProps): string => props.theme.textColor || "#146C2E"};
   font-size: 24px;
   font-weight: 400;
   line-height: 32px;
@@ -57,9 +57,11 @@ const Text = styled.div`
 
 const Tag = styled.div`
   align-items: center;
-  background-color: ${(props) => props.theme.tagBackgroundColor || "#C4EED0"};
+  background-color: ${(props: CardProps): string =>
+    props.theme.tagBackgroundColor || "#C4EED0"};
   border-radius: 28px;
-  color: ${(props) => props.theme.tagLabelColor || "#072711"};
+  color: ${(props: CardProps): string =>
+    props.theme.tagLabelColor || "#072711"};
   display: flex;
   font-size: 12px;
   font-weight: 500;
