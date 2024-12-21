@@ -79,10 +79,9 @@ metadata:
   name: nl-config
   namespace: {{ .Values.namespace.name }}
 data:
-  embeddings.yaml: {{ required "NL embeddings file is required" .Values.nl.embeddings | quote }}
-  models.yaml: {{ required "NL models file is required" .Values.nl.models | quote }}
+  catalog.yaml: {{ required "NL catalog file is required" .Values.nl.catalog | quote }}
+  env.yaml: {{ toYaml .Values.nl.env | quote }}
 {{- end }}
-
 
 {{- if .Values.website.redis.enabled }}
 ---
@@ -116,6 +115,7 @@ metadata:
 data:
   webApiRoot: {{ .Values.cronTesting.webApiRoot | quote }}
   nodejsApiRoot: {{ .Values.cronTesting.nodejsApiRoot | quote }}
-  screenshotDomain: {{ .Values.cronTesting.screenshotDomain | quote }}
+  screenshotDomain: {{ .Values.cronTesting.screenshotDomain | quote | default "" }}
   enableSanity: {{ .Values.cronTesting.enableSanity | quote }}
+  enableAdversarial: {{ .Values.cronTesting.enableAdversarial | quote }}
 {{- end }}

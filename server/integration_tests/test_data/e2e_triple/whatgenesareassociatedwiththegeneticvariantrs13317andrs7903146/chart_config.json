@@ -9,20 +9,28 @@
               {
                 "tiles": [
                   {
-                    "answerTableTileSpec": {
-                      "columns": [
-                        {
-                          "header": "associated gene",
-                          "propertyExpr": "<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol"
-                        }
-                      ]
+                    "answerMessageTileSpec": {
+                      "propertyExpr": "<-geneticVariantID{typeOf:DiseaseGeneticVariantAssociation}->diseaseID"
                     },
                     "entities": [
-                      "bio/rs13317",
                       "bio/rs7903146"
                     ],
-                    "title": "The associated genes for rs13317 and rs7903146 are",
-                    "type": "ANSWER_TABLE"
+                    "title": "The associated diseases for rs7903146 are",
+                    "type": "ANSWER_MESSAGE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "entities": [
+                      "bio/rs7903146"
+                    ],
+                    "type": "ENTITY_OVERVIEW"
                   }
                 ]
               }
@@ -35,11 +43,6 @@
   "context": {},
   "debug": {},
   "entities": [
-    {
-      "dcid": "bio/rs13317",
-      "name": "rs13317",
-      "type": ""
-    },
     {
       "dcid": "bio/rs7903146",
       "name": "rs7903146",
@@ -61,7 +64,7 @@
     "peerPlaces": [],
     "peerTopics": []
   },
-  "svSource": "CURRENT_QUERY",
+  "svSource": "UNKNOWN",
   "userMessages": [
     "Low confidence in understanding your query. Displaying the closest results."
   ]

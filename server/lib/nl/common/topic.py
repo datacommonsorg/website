@@ -19,9 +19,9 @@ from typing import Dict, List
 from flask import current_app
 
 from server.lib import fetch
-from server.lib.explore.params import DCNames
 from server.lib.nl.common import utils
 import server.lib.nl.common.counters as ctr
+from server.lib.nl.explore.params import DCNames
 
 TOPIC_RANK_LIMIT = 3
 MAX_TOPIC_SVS = 30
@@ -54,9 +54,6 @@ _TOPIC_DCID_TO_SV_OVERRIDE = {
         "Count_SolarPanel",
     ],
     "dc/topic/AgricultureEmissionsByGas": ["dc/svpg/AgricultureEmissionsByGas"],
-    "dc/topic/FossilFuelOperationsEmissionsByGas": [
-        "dc/svpg/FossilFuelOperationsEmissionsByGas"
-    ],
     "dc/topic/ManufacturingEmissionsByGas": [
         "dc/svpg/ManufacturingEmissionsByGas"
     ],

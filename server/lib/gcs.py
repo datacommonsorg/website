@@ -55,16 +55,19 @@ def read_blob(bucket_name, blob_name):
   return blob.download_as_bytes()
 
 
-def list_folder(bucket_name, prefix, start_offset):
+def list_folder(bucket_name, prefix, start_offset='', end_offset=''):
   storage_client = storage.Client()
   bucket = storage_client.get_bucket(bucket_name)
-  blobs = bucket.list_blobs(prefix=prefix, start_offset=start_offset)
+  start_offset = prefix + '/' + start_offset
+  end_offset = prefix + '/' + end_offset
+  blobs = bucket.list_blobs(prefix=prefix,
+                            start_offset=start_offset,
+                            end_offset=end_offset)
   folders = set()
   for blob in blobs:
     parts = blob.name.split('/')
-    # A sub directory blob is in the form of <prefix>/sub-directory/...
-    # It should have >= 3 parts.
-    if len(parts) >= 3:
+    # A sub directory blob is in the form of <prefix>/sub-directory/
+    if len(parts) == 3:
       folders.add(parts[1])
   res = list(folders)
   res.sort()

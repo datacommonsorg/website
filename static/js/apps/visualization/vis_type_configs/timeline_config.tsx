@@ -27,7 +27,6 @@ import { FacetSelector } from "../../../shared/facet_selector";
 import { GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA } from "../../../shared/ga_events";
 import { StatVarHierarchyType } from "../../../shared/types";
 import { MemoizedInfoExamples } from "../../../tools/shared/info_examples";
-import { getTimelineSqlQuery } from "../../../tools/timeline/bq_query_utils";
 import { getStatVarGroups } from "../../../utils/app/timeline_utils";
 import { getStatVarSpec } from "../../../utils/app/visualization_utils";
 import { getFacets } from "../../../utils/data_fetch_utils";
@@ -61,7 +60,7 @@ function getSvChips(
             color={
               appContext.places.length == 1 ? COLORS[idx % COLORS.length] : ""
             }
-            removeChip={() => {
+            removeChip={(): void => {
               appContext.setStatVars(
                 appContext.statVars.filter(
                   (statVar) => statVar.dcid !== sv.dcid
@@ -115,9 +114,9 @@ function getFacetSelector(
     return result;
   });
   const chartSvs = new Set(chartSvInfo.map((sv) => sv.dcid));
-  const onSvFacetIdUpdated = (svFacetId: Record<string, string>) => {
+  const onSvFacetIdUpdated = (svFacetId: Record<string, string>): void => {
     const facetsChanged = chartSvInfo.filter(
-      (sv) => sv.facetId !== svFacetId[sv.dcid]
+      (sv): boolean => sv.facetId !== svFacetId[sv.dcid]
     );
     if (_.isEmpty(facetsChanged)) {
       return;
@@ -164,7 +163,7 @@ function getChartArea(
           : [
               {
                 isChecked: chartSvInfo[0].isPerCapita,
-                onUpdated: (isChecked: boolean) => {
+                onUpdated: (isChecked: boolean): void => {
                   const newStatVars = _.cloneDeep(appContext.statVars);
                   appContext.statVars.forEach((sv, idx) => {
                     if (chartSvs.has(sv.dcid)) {
@@ -188,7 +187,6 @@ function getChartArea(
               svgChartHeight={chartHeight}
               place={appContext.places[0]}
               colors={COLORS}
-              showLoadingSpinner={true}
               showTooltipOnHover={true}
             />
             <ChartFooter
@@ -229,54 +227,11 @@ function getInfoContent(): JSX.Element {
   );
 }
 
-function getSqlQueryFn(appContext: AppContextType): () => string {
-  const { chartOrder, groups } = groupStatVars(appContext);
-  // map of stat var dcid to the stat var object in the context.
-  const svToContextSv = {};
-  appContext.statVars.forEach((sv) => {
-    svToContextSv[sv.dcid] = sv;
-  });
-  const chartIdToOptions = {};
-  for (const chartId of chartOrder) {
-    // use a sample stat var in the group to determine that chart's
-    // options. This assumes all charts in a group will have the same options
-    const sampleSv = groups[chartId][0];
-    const sampleContextSv = svToContextSv[sampleSv];
-    const sampleSvSpec = getStatVarSpec(sampleContextSv, VisType.TIMELINE);
-    chartIdToOptions[chartId] = {
-      // TODO: update this when implementing delta
-      delta: false,
-      denom: sampleSvSpec.denom,
-      perCapita: !!sampleSvSpec.denom,
-    };
-  }
-  // map of stat var dcid to the facet id.
-  const metahashMap = {};
-  // map of stat var dcid to map of facet id to stat metadata.
-  const metadataMap = {};
-  appContext.statVars.forEach((sv) => {
-    metahashMap[sv.dcid] = sv.facetId || "";
-    if (sv.facetId) {
-      metadataMap[sv.dcid] = { [sv.facetId]: sv.facetInfo || {} };
-    }
-  });
-  return () => {
-    return getTimelineSqlQuery(
-      { chartOrder, chartIdToOptions, chartIdToStatVars: groups },
-      appContext.places.map((place) => place.dcid),
-      metahashMap,
-      metadataMap
-    );
-  };
-}
-
 export const TIMELINE_CONFIG = {
   displayName: "Timeline",
-  icon: "timeline",
   svHierarchyType: StatVarHierarchyType.TIMELINE,
   skipEnclosedPlaceType: true,
   getChartArea,
   getInfoContent,
-  getSqlQueryFn,
   oldToolUrl: "/tools/timeline",
 };

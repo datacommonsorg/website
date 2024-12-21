@@ -21,6 +21,7 @@ class Config(_base.Config):
   GCS_BUCKET = 'datcom-website-autopush-resources'
   HIDE_DEBUG = False
   LOG_QUERY = True
+  OVERRIDE_CSS_PATH = "/css/biomedical_landing.min.css"
   SHOW_TOPIC = True
   USE_LLM = True
   USE_MEMCACHE = False
@@ -28,4 +29,5 @@ class Config(_base.Config):
 
 class LocalConfig(local.Config):
   API_ROOT = 'https://autopush.api.datacommons.org'
+  OVERRIDE_CSS_PATH = "/css/biomedical_landing.min.css"
   SECRET_PROJECT = 'datcom-biomedical'

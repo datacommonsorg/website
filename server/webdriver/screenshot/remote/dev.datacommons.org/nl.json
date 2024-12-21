@@ -1588,5 +1588,10 @@
     "url": "/explore#q=Poverty+vs.+unemployment+rate+in+districts+of+Tamil+Nadu",
     "height": 3000,
     "async": true
+  },
+  {
+    "url": "/explore/#q=Tell+me+about+California&mb=3&test=screenshot",
+    "height": 3000,
+    "async": true
   }
 ]

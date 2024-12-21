@@ -103,7 +103,7 @@ def get_choropleth_display_level(geoDcid):
     display_level = SPECIAL_CHOROPLETH_DISPLAY_LEVEL_MAP[geoDcid]
     return geoDcid, display_level
 
-  place_type = place_api.get_place_type(geoDcid)
+  place_type = place_api.api_place_type(geoDcid)
   display_level = None
   if place_type in CHOROPLETH_DISPLAY_LEVEL_MAP:
     display_level = CHOROPLETH_DISPLAY_LEVEL_MAP[place_type]
@@ -293,6 +293,9 @@ def geojson():
 
 
 @bp.route('/node-geojson', methods=['POST'])
+@cache.cached(timeout=TIMEOUT,
+              query_string=True,
+              make_cache_key=lib_util.post_body_cache_key)
 def node_geojson():
   """Gets geoJson data for a list of nodes and a specified property to use to
      get the geoJson data"""

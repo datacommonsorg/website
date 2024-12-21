@@ -19,7 +19,6 @@
 
 from typing import List
 
-from server.lib.explore.params import Params
 from server.lib.nl.common import constants
 from server.lib.nl.common import serialize
 import server.lib.nl.common.utils as utils
@@ -30,6 +29,7 @@ from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import NLClassifier
 from server.lib.nl.detection.types import Place
 import server.lib.nl.detection.utils as dutils
+from server.lib.nl.explore.params import Params
 from server.lib.nl.fulfillment.handlers import route_comparison_or_correlation
 from server.lib.nl.fulfillment.utils import get_default_contained_in_place
 import server.lib.nl.fulfillment.utils as futils
@@ -42,7 +42,6 @@ _MAX_RETURNED_VARS = 20
 # context in both the utterance inline and in `insight_ctx`.
 #
 # TODO: Handle OVERVIEW query (for Explore)
-# TODO: Handle entities and properties
 def merge_with_context(uttr: nl_uttr.Utterance, default_place: Place = None):
   data_dict = {}
 
@@ -100,13 +99,15 @@ def merge_with_context(uttr: nl_uttr.Utterance, default_place: Place = None):
   main_vars, cmp_vars = _detect_vars(
       uttr, query_type == nl_uttr.QueryType.CORRELATION_ACROSS_VARS)
 
-  # 6. Detect entities leveraging context
-  entities = _detect_entities(uttr)
-
-  # 7. Detect properties leveraging context
+  # 6. Detect properties leveraging context
   properties = _detect_props(uttr)
 
-  # 6. Populate the returned dict
+  # 7. Detect entities leveraging context. Should detect entities after
+  #    properties because we only want to use context if properties didn't use
+  #    context.
+  entities = _detect_entities(uttr)
+
+  # 8. Populate the returned dict
   data_dict.update({
       Params.ENTITIES.value:
           places,
@@ -351,12 +352,16 @@ def _detect_entities(uttr: nl_uttr.Utterance) -> List[str]:
   # If places were detected in the current query, don't try to use any past entities
   elif uttr.places and uttr.place_source != nl_uttr.FulfillmentResult.PAST_QUERY:
     uttr.entities_source = nl_uttr.FulfillmentResult.UNRECOGNIZED
+  # If no properties were detected in the current query, don't try to use past entities
+  # to prevent using both the properties and entities of the previous query
+  elif not uttr.properties or uttr.properties_source == nl_uttr.FulfillmentResult.PAST_QUERY:
+    uttr.entities_source = nl_uttr.FulfillmentResult.UNRECOGNIZED
   else:
     # If there were entities detected in the previous query, use those entities
     if uttr.prev_utterance and uttr.prev_utterance.entities:
-      entities = uttr.prev_utterance.entities
-      uttr.entities = entities
-      uttr.counters.info('insight_entity_ctx', [e.dcid for e in entities])
+      uttr.entities = uttr.prev_utterance.entities
+      entities = [e.dcid for e in uttr.entities]
+      uttr.counters.info('insight_entity_ctx', entities)
       uttr.entities_source = nl_uttr.FulfillmentResult.PAST_QUERY
   return entities
 

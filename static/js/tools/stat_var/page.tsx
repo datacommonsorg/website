@@ -59,6 +59,9 @@ interface PageStateType {
   showSvHierarchyModal: boolean;
 }
 
+// TODO: Add webdriver tests for the stat var explorer, including when
+//       various stat var properties are missing as could be possible in
+//       custom DC.
 class Page extends Component<unknown, PageStateType> {
   constructor(props: unknown) {
     super(props);
@@ -121,7 +124,11 @@ class Page extends Component<unknown, PageStateType> {
         />
         <div id="plot-container">
           <div className="container">
-            <h1 className="mb-4">Statistical Variable Explorer</h1>
+            <h1 className="tool-header">Statistical Variable Explorer</h1>
+            <p className="tool-description">
+              The Statistical Variable Explorer provides information about each
+              statistical variable, such as metadata, observations, etc.
+            </p>
             <DatasetSelector
               dataset={this.state.dataset}
               datasets={this.state.datasets}
@@ -327,42 +334,41 @@ class Page extends Component<unknown, PageStateType> {
       .then((resp) => resp.data);
     Promise.all([descriptionPromise, displayNamePromise, summaryPromise])
       .then(([descriptionResult, displayNameResult, summaryResult]) => {
+        const description =
+          descriptionResult[sv].length > 0
+            ? descriptionResult[sv][0].value
+            : "";
+        let displayName =
+          displayNameResult[sv].length > 0
+            ? displayNameResult[sv][0].value
+            : "";
+        displayName = displayName || description;
+        const urlMap = {};
         const provIds = [];
         for (const provId in summaryResult[sv]?.provenanceSummary) {
           provIds.push(provId);
         }
-        if (provIds.length === 0) {
-          return;
-        }
-        axios
-          .get<PropertyValues>("/api/node/propvals/out", {
-            params: { dcids: provIds, prop: "url" },
-            paramsSerializer: stringifyFn,
-          })
-          .then((resp) => {
-            const urlMap = {};
-            for (const dcid in resp.data) {
-              urlMap[dcid] =
-                resp.data[dcid].length > 0 ? resp.data[dcid][0].value : "";
-            }
-            const description =
-              descriptionResult[sv].length > 0
-                ? descriptionResult[sv][0].value
-                : "";
-            let displayName =
-              displayNameResult[sv].length > 0
-                ? displayNameResult[sv][0].value
-                : "";
-            displayName = displayName || description;
-            this.setState({
-              description,
-              displayName,
-              error: false,
-              statVar: sv,
-              summary: summaryResult[sv],
-              urls: urlMap,
+        if (provIds.length > 0) {
+          axios
+            .get<PropertyValues>("/api/node/propvals/out", {
+              params: { dcids: provIds, prop: "url" },
+              paramsSerializer: stringifyFn,
+            })
+            .then((resp) => {
+              for (const dcid in resp.data) {
+                urlMap[dcid] =
+                  resp.data[dcid].length > 0 ? resp.data[dcid][0].value : "";
+              }
             });
-          });
+        }
+        this.setState({
+          description,
+          displayName,
+          error: false,
+          statVar: sv,
+          summary: summaryResult[sv],
+          urls: urlMap,
+        });
       })
       .catch(() => {
         this.setState({

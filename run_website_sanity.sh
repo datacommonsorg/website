@@ -17,8 +17,22 @@ set -e
 
 # DC Instance domain like: "dev.datacommons.org", "datacommons.org"
 domain=$1
+# Check if the domain is set
+if [[ -z "$domain" ]]; then
+  echo "Error: Domain is not set."
+  echo "Usage: $0 <domain> [NO_PIP]"
+  echo "Example: $0 autopush.datacommons.org"
+  exit 1
+fi
+
+# Prepend https:// if no protocol is specified
+if [[ ! "$domain" =~ ^http:// && ! "$domain" =~ ^https:// ]]; then
+  domain="https://$domain"
+fi
+
 echo "Domain: $domain"
 
+# Set to true if you don't want to install the dependencies
 NO_PIP=$2
 
 export FLASK_ENV=webdriver
@@ -32,6 +46,6 @@ if [[ $NO_PIP != "true" ]]; then
 fi
 
 date_str=$(TZ="America/Los_Angeles" date +"%Y_%m_%d_%H_%M_%S")
-python3 server/webdriver/tests/standalone/sanity.py --mode=home --url="https://$domain"
+python3 server/webdriver/tests/standalone/sanity.py --mode=home --url="$domain"
 gsutil cp ./output/*.csv gs://datcom-website-sanity/$domain/$date_str/
 rm ./output/*.csv

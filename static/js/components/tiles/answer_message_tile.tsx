@@ -28,6 +28,7 @@ import {
 } from "../../constants/css_constants";
 import { DisplayValueSpec } from "../../types/subject_page_proto_types";
 import { stringifyFn } from "../../utils/axios";
+import { CopyButton } from "../form_components/icon_buttons";
 
 export interface AnswerMessageTilePropType {
   // Title to use
@@ -40,16 +41,49 @@ export interface AnswerMessageTilePropType {
   displayValue?: DisplayValueSpec;
 }
 
+interface AnswerMessageTileData {
+  // Inline value to show as the answer
+  displayValue: DisplayValueSpec;
+  // Name of the entity to show the answer for
+  entityName: string;
+}
+
+/**
+ * Bold and italicize an entity's name in the title
+ * @param title tile title containing entity's name
+ * @param entityName name of the entity to highlight
+ * @returns JSX element containing stylized element
+ */
+function highlightEntities(title: string, entityName: string): JSX.Element {
+  const entityIndex = title.indexOf(entityName);
+  if (entityIndex == -1) {
+    return <span>{title}</span>;
+  }
+  return (
+    <span>
+      {title.slice(0, entityIndex)}
+      <b>
+        <i>{entityName}</i>
+      </b>
+      {title.slice(entityIndex + entityName.length)}
+    </span>
+  );
+}
+
 export function AnswerMessageTile(
   props: AnswerMessageTilePropType
 ): JSX.Element {
+  // Values to display
   const [answerData, setAnswerData] = useState<DisplayValueSpec | undefined>(
     props.displayValue
   );
+  // Name of entity the tile is about
+  const [entityName, setEntityName] = useState<string>("");
 
   useEffect(() => {
     fetchData(props).then((data) => {
-      setAnswerData(data);
+      setAnswerData(data.displayValue);
+      setEntityName(data.entityName);
     });
   }, [props]);
 
@@ -57,26 +91,38 @@ export function AnswerMessageTile(
     return null;
   }
 
+  const answerValues = answerData.values.join(", ");
+
   return (
     <div
       className={`chart-container answer-message-tile ${ASYNC_ELEMENT_HOLDER_CLASS}`}
     >
       <div className={`answer-message ${ASYNC_ELEMENT_CLASS}`}>
-        <span>{props.title}</span>
-        <span>{answerData.values.join(", ")}</span>
+        {highlightEntities(props.title, entityName)}
+        <span>{answerValues}</span>
       </div>
-      <div className="source">source: {answerData.sources.join(", ")}</div>
+      <div className="source">Source: {answerData.sources.join(", ")}</div>
+      <CopyButton textToCopy={answerValues}></CopyButton>
     </div>
   );
 }
 
 const fetchData = async (
   props: AnswerMessageTilePropType
-): Promise<DisplayValueSpec> => {
-  if (props.displayValue || _.isEmpty(props.propertyExpr)) {
-    return Promise.resolve(props.displayValue);
+): Promise<AnswerMessageTileData> => {
+  let entityName = "";
+  if (_.isEmpty(props.propertyExpr) && props.displayValue) {
+    return Promise.resolve({ displayValue: props.displayValue, entityName });
   }
   try {
+    // Get the name of the entity this tile is about
+    const nameResp = await axios.get("/api/node/propvals/out", {
+      params: { dcids: [props.entity], prop: "name" },
+      paramsSerializer: stringifyFn,
+    });
+    const names = nameResp.data[props.entity] || [];
+    entityName = !_.isEmpty(names) ? names[0].value : "";
+    // Get property values of the entity
     const propResp = await axios.get(`/api/node/propvals`, {
       params: { dcids: [props.entity], propExpr: props.propertyExpr },
       paramsSerializer: stringifyFn,
@@ -88,12 +134,13 @@ const fetchData = async (
       values.add(respVal.name || respVal.value || respVal.dcid);
       provIds.add(respVal.provenanceId);
     });
+    // Get URLs of the sources of those values
     const provIdList = Array.from(provIds);
     const provIdUrlResp = await axios.get(`/api/node/propvals/out`, {
       params: { dcids: provIdList, prop: "url" },
       paramsSerializer: stringifyFn,
     });
-    return {
+    const displayValue: DisplayValueSpec = {
       sources: provIdList
         .map((provId) => {
           const urlValues = provIdUrlResp.data[provId];
@@ -106,6 +153,7 @@ const fetchData = async (
         .filter((url) => !!url),
       values: Array.from(values),
     };
+    return { displayValue, entityName };
   } catch (e) {
     return null;
   }

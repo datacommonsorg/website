@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,14 +18,21 @@ import logging
 import os
 import re
 import time
+from typing import List, Set
 
 import flask
 from flask import current_app
 from flask import g
 from flask_babel import gettext
+from werkzeug.datastructures import MultiDict
 
+from server.lib.cache import cache
+from server.lib.config import GLOBAL_CONFIG_BUCKET
 from server.lib.i18n import AVAILABLE_LANGUAGES
+from server.lib.i18n import DEFAULT_LOCALE
+import server.routes.dev_place.utils as utils
 import server.routes.shared_api.place as place_api
+import shared.lib.gcs as gcs
 from shared.lib.place_summaries import get_shard_filename_by_dcid
 from shared.lib.place_summaries import get_shard_name
 
@@ -54,7 +61,8 @@ CANONICAL_DOMAIN = 'datacommons.org'
 PLACE_SUMMARY_DIR = "/datacommons/place-summary/"
 
 # Parent place types to include in listing of containing places at top of page
-PARENT_PLACE_TYPES_TO_HIGHLIGHT = {
+# Keep sorted!
+PARENT_PLACE_TYPES_TO_HIGHLIGHT = [
     'County',
     'AdministrativeArea2',
     'EurostatNUTS2',
@@ -63,7 +71,52 @@ PARENT_PLACE_TYPES_TO_HIGHLIGHT = {
     'EurostatNUTS1',
     'Country',
     'Continent',
-}
+]
+
+# Location of manually written templates for SEO experimentation in GCS bucket
+SEO_EXPERIMENT_HTML_GCS_DIR = "seo_experiments/active"
+
+# Location of manually written templates for SEO experimentation on local disk
+SEO_EXPERIMENT_HTML_LOCAL_DIR = "config/seo_experiments/html_templates/active/"
+
+# Map DCID of SEO experiment places to their template filename
+SEO_EXPERIMENT_DCID_TO_HTML = {"country/EGY": "Egypt.html"}
+
+
+def get_seo_experiment_template(dcid: str, use_local_template=False) -> str:
+  """Load page template for SEO experiments
+  
+  If a file cannot be found or read, will return empty string instead.
+
+  Args:
+    dcid: dcid of the place the page is about
+    use_local_template: if True, will read from local config file instead of
+                        GCS. Used in development for writing new templates.
+  """
+  experiment_template = ""
+  try:
+    filename = SEO_EXPERIMENT_DCID_TO_HTML[dcid]
+
+    if use_local_template:
+      # Load template from local path
+      template_filepath = os.path.join(current_app.root_path,
+                                       SEO_EXPERIMENT_HTML_LOCAL_DIR, filename)
+      with open(template_filepath, 'r', errors='ignore') as f:
+        experiment_template = f.read()
+
+    else:
+      # Load template from GCS
+      gcs_filepath = gcs.make_path(
+          GLOBAL_CONFIG_BUCKET,
+          os.path.join(SEO_EXPERIMENT_HTML_GCS_DIR, filename))
+      output = gcs.read_to_string(gcs_filepath)
+      return output
+
+  except Exception as e:
+    logging.error(
+        f"Encountered exception while attempting to load experiment place page template for {dcid}: {e}"
+    )
+  return experiment_template
 
 
 def get_place_summaries(dcid: str) -> dict:
@@ -95,7 +148,7 @@ def get_place_summaries(dcid: str) -> dict:
 def generate_link_headers(place_dcid: str, category: str,
                           current_locale: str) -> str:
   """Generate canonical and alternate link HTTP headers
-  
+
   Search crawlers look for rel="canonical" link headers to determine which
   version of a page to crawl and rel="alternative" link headers to identify
   different localized versions of the same page.
@@ -104,7 +157,7 @@ def generate_link_headers(place_dcid: str, category: str,
     place_dcid: DCID of the place the page is about
     category: category of the page
     current_locale: locale of the page
-  
+
   Returns:
     String to pass as value for 'Link' HTTP header
   """
@@ -135,7 +188,7 @@ def generate_link_headers(place_dcid: str, category: str,
 
 def is_canonical_domain(url: str) -> bool:
   """Check if a url is on the canonical domain
-  
+
   Used to determine if the request's URL is on the main DC instance.
   Both HTTP and HTTPS urls are matched, and both canonical and staging URLs
   are matched.
@@ -143,7 +196,7 @@ def is_canonical_domain(url: str) -> bool:
 
   Args:
     url: url to check
-  
+
   Returns:
     True if request is to the canonical domain, False otherwise
   """
@@ -160,7 +213,7 @@ def get_place_html_link(place_dcid: str, place_name: str) -> str:
 def get_place_type_with_parent_places_links(dcid: str) -> str:
   """Get '<place type> in <parent places>' with html links for a given DCID"""
   # Get place type in localized, human-readable format
-  place_type = place_api.get_place_type(dcid)
+  place_type = place_api.api_place_type(dcid)
   place_type_display_name = place_api.get_place_type_i18n_name(place_type)
 
   # Get parent places and their localized names
@@ -170,6 +223,16 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
       parent for parent in all_parents
       if parent['type'] in PARENT_PLACE_TYPES_TO_HIGHLIGHT
   ]
+
+  # Create a dictionary mapping parent types to their order in the highlight list
+  type_order = {
+      parent_type: i
+      for i, parent_type in enumerate(PARENT_PLACE_TYPES_TO_HIGHLIGHT)
+  }
+
+  # Sort the parents_to_include list using the type_order dictionary
+  parents_to_include.sort(key=lambda parent: type_order.get(parent['type']))
+
   parent_dcids = [parent['dcid'] for parent in parents_to_include]
   localized_names = place_api.get_i18n_name(parent_dcids)
   places_with_names = [
@@ -191,9 +254,75 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
   return ''
 
 
+def is_seo_experiment_enabled(place_dcid: str, category: str,
+                              locale: str) -> bool:
+  """Determine if SEO experiment should be enabled for the page
+  
+  Args:
+    place_dcid: dcid of the place the page is about
+    category: page category, e.g. "Economics", "Health". Use "" for an
+              overview page.
+    locale: which i18n language locale the page is in.
+  """
+  # Use SEO experiment templates on English overview pages for places in
+  # the experiment group only.
+  # Do not release experiment to prod while templates are still being written.
+  # TODO(juliawu): Once all templates are ready, enable the experiment on
+  #                staging and prod.
+  if place_dcid in SEO_EXPERIMENT_DCID_TO_HTML.keys(
+  ) and not category and locale == 'en' and os.environ.get('FLASK_ENV') in [
+      'local', 'autopush', 'dev'
+  ]:
+    return True
+  return False
+
+
+# Dev place page experiment groups for countries and US states
+# Calculated offline using instructions here:
+# https://github.com/datacommonsorg/website/pull/4773
+DEV_PLACE_EXPERIMENT_COUNTRY_DCIDS: List[str] = [
+    'country/TLS', 'country/HUN', 'country/VEN', 'country/JAM', 'country/RWA',
+    'country/GGY', 'country/NGA', 'country/COD', 'country/COG', 'country/SVN',
+    'country/LSO', 'country/LBN', 'country/LCA', 'country/NFK', 'country/TTO',
+    'country/SGP', 'country/PYF', 'country/PRK', 'country/LVA', 'country/SUR',
+    'country/PRY', 'country/MDV'
+]
+DEV_PLACE_EXPERIMENT_US_STATE_DCIDS: List[str] = [
+    'geoId/56', 'geoId/04', 'geoId/41', 'geoId/20', 'geoId/37'
+]
+DEV_PLACE_EXPERIMENT_DCIDS: Set[str] = set(DEV_PLACE_EXPERIMENT_COUNTRY_DCIDS +
+                                           DEV_PLACE_EXPERIMENT_US_STATE_DCIDS)
+
+
+def is_dev_place_experiment_enabled(place_dcid: str, locale: str,
+                                    request_args: MultiDict[str, str]) -> bool:
+  """Determine if dev place experiment should be enabled for the page"""
+  # Disable dev place experiment for non-dev environments
+  # TODO(dwnoble): Remove this before prod release
+  if os.environ.get('FLASK_ENV') not in [
+      'local', 'autopush', 'dev', 'webdriver'
+  ] or not place_dcid:
+    return False
+
+  # Force dev place experiment for testing
+  if request_args.get("force_dev_places") == "true":
+    return True
+  # Disable dev place experiment for testing
+  if request_args.get("disable_dev_places") == "true":
+    return False
+
+  # Experiment is enabled for English pages for countries and US states in the experiment group
+  if locale == 'en' and place_dcid in DEV_PLACE_EXPERIMENT_DCIDS:
+    return True
+  return False
+
+
 @bp.route('', strict_slashes=False)
 @bp.route('/<path:place_dcid>')
+@cache.cached(query_string=True)
 def place(place_dcid=None):
+  if is_dev_place_experiment_enabled(place_dcid, g.locale, flask.request.args):
+    return dev_place(place_dcid=place_dcid)
   redirect_args = dict(flask.request.args)
 
   # Strip trailing slashes from place dcids
@@ -236,7 +365,10 @@ def place(place_dcid=None):
   if not place_dcid:
     return place_landing()
 
-  place_type = place_api.get_place_type(place_dcid)
+  place_type = place_api.api_place_type(place_dcid)
+  if not place_type:
+    return place_landing(error_msg=f'Place "{place_dcid}" not found')
+
   place_type_with_parent_places_links = get_place_type_with_parent_places_links(
       place_dcid)
   place_names = place_api.get_i18n_name([place_dcid])
@@ -249,6 +381,9 @@ def place(place_dcid=None):
   locale = flask.request.args.get('hl')
   if locale not in AVAILABLE_LANGUAGES:
     locale = 'en'
+
+  if category not in CATEGORIES:
+    category = None
 
   is_overview = (not category) or (category == 'Overview')
 
@@ -266,9 +401,45 @@ def place(place_dcid=None):
   # Block pages from being indexed if not on the main DC domain. This prevents
   # crawlers from indexing dev or custom DC versions of the place pages.
   block_indexing = not is_canonical_domain(flask.request.base_url)
-  logging.info(f"flask.requests.base_url is {flask.request.base_url}")
-  logging.info(f"Block indexing on place pages? {block_indexing}")
 
+  # Render SEO experimental pages
+  if is_seo_experiment_enabled(place_dcid, category, locale):
+    experiment_template = ""
+    try:
+      # Allow "useLocalTemplate=true" in the request to render template from
+      # local config instead of GCS
+      use_local_template = flask.request.args.get('useLocalTemplate')
+      # Fetch template from GCS and log the timing
+      start_time = time.time()
+      experiment_template = get_seo_experiment_template(place_dcid,
+                                                        use_local_template)
+      elapsed_time = (time.time() - start_time) * 1000
+      logging.info(
+          f"Loading experiment place page template for {place_name} (DCID: {place_dcid}) took {elapsed_time:.2f} milliseconds."
+      )
+      # Load response
+      response = flask.make_response(
+          flask.render_template_string(
+              experiment_template,
+              place_type=place_type,
+              place_name=place_name,
+              place_dcid=place_dcid,
+              place_type_with_parent_places_links=
+              place_type_with_parent_places_links,
+              category=category if category else '',
+              place_summary=place_summary.get('summary')
+              if place_summary and locale == 'en' else '',
+              maps_api_key=current_app.config['MAPS_API_KEY'],
+              block_indexing=block_indexing))
+      response.headers.set('Link',
+                           generate_link_headers(place_dcid, category, locale))
+      return response
+    except Exception as e:
+      logging.error(
+          f"Encountered exception while loading experiment place page template for {place_name} (DCID: {place_dcid}). Falling back to default place page template: {e}"
+      )
+
+  # Default to place.html template
   response = flask.make_response(
       flask.render_template(
           'place.html',
@@ -286,7 +457,7 @@ def place(place_dcid=None):
   return response
 
 
-def place_landing():
+def place_landing(error_msg=''):
   """Returns filled template for the place landing page."""
   template_file = os.path.join('custom_dc', g.env, 'place_landing.html')
   dcid_json = os.path.join('custom_dc', g.env, 'place_landing_dcids.json')
@@ -301,5 +472,28 @@ def place_landing():
     place_names = place_api.get_display_name(landing_dcids)
     return flask.render_template(
         template_file,
+        error_msg=error_msg,
         place_names=place_names,
         maps_api_key=current_app.config['MAPS_API_KEY'])
+
+
+# Dev place experiment route
+def dev_place(place_dcid=None):
+  place_type_with_parent_places_links = utils.get_place_type_with_parent_places_links(
+      place_dcid)
+  place_names = place_api.get_i18n_name([place_dcid]) or {}
+  place_name = place_names.get(place_dcid, place_dcid)
+  # Place summaries are currently only supported in English
+  if g.locale == DEFAULT_LOCALE:
+    place_summary = get_place_summaries(place_dcid).get(place_dcid,
+                                                        {}).get("summary", "")
+  else:
+    place_summary = ""
+
+  return flask.render_template(
+      'dev_place.html',
+      maps_api_key=current_app.config['MAPS_API_KEY'],
+      place_dcid=place_dcid,
+      place_name=place_name,
+      place_type_with_parent_places_links=place_type_with_parent_places_links,
+      place_summary=place_summary)

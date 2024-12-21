@@ -13,25 +13,32 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Must provide the test index file.
-if [ $# -ne 2 ]; then
-  echo "Usage: $0 (small | medium_ft) <test-index-file>"
+if [ $# -lt 1 ]; then
+  echo "Usage: $0 <BASE_INDEX> [<TEST_INDEX>] [py flags]"
   exit 1
 fi
 
-SIZE="$1"
+BASE=$1
+# TEST same as BASE if second arg is not set
+TEST=${2:-$BASE}
+
+if [[ $# -gt 3 ]]; then
+  # When there are more than 2 args plumb the rest to py program.
+  shift
+  shift
+  extra_args="$@"
+else
+  extra_args=""
+fi
 
 # Install all the requirements. Need `nl_server` too since the tool uses it.
 cd ../../..
 python3 -m venv .env
 source .env/bin/activate
 python3 -m pip install --upgrade pip
-pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu
-pip3 install -r nl_server/requirements.txt
-pip3 install -r tools/nl/svindex_differ/requirements.txt
-
-# Get the production embeddings.
-PROD=$(curl -s https://raw.githubusercontent.com/datacommonsorg/website/master/deploy/nl/embeddings.yaml | awk '$1=="'$SIZE':"{ print $2; }')
+pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu -q
+pip3 install -r nl_server/requirements.txt -q
+pip3 install -r tools/nl/svindex_differ/requirements.txt -q
 
 # Set TOKENIZERS_PARALLELISM to false to solve a warning from huggingface's
 # transfomers library as mentioned here:
@@ -39,4 +46,8 @@ PROD=$(curl -s https://raw.githubusercontent.com/datacommonsorg/website/master/d
 export TOKENIZERS_PARALLELISM=false
 
 # Diff production embeddings against test.
-python3 -m tools.nl.svindex_differ.differ --base="$PROD" --test="$2" --queryset=tools/nl/svindex_differ/queryset_vars.csv --indextype="$SIZE"
+export FLASK_ENV=local
+python3 -W default -m tools.nl.svindex_differ.differ \
+  --base_index="$BASE" \
+  --test_index="$TEST" \
+  $extra_args

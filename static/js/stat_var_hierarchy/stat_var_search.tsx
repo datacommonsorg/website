@@ -111,16 +111,13 @@ export class StatVarHierarchySearch extends React.Component<
           }
         }}
       >
-        {this.props.searchLabel && (
-          <div className="title">{this.props.searchLabel}</div>
-        )}
         <div className="search-input-container" tabIndex={-1}>
           <input
             className="statvar-search-input form-control"
             type="text"
             value={this.state.query}
             onChange={this.onInputChanged}
-            placeholder="Search or explore below"
+            placeholder="Filter statistical variables"
           />
           {!_.isEmpty(this.state.query) && (
             <span
@@ -130,47 +127,54 @@ export class StatVarHierarchySearch extends React.Component<
               clear
             </span>
           )}
+          {renderResults && (
+            <div className="statvar-hierarchy-search-results" tabIndex={-1}>
+              {showResultCount && (
+                <div className="result-count-message">
+                  {this.getResultCountString(
+                    this.state.svgResults.length,
+                    numStatVars
+                  )}
+                </div>
+              )}
+              {!_.isEmpty(this.state.svgResults) && (
+                <div className="svg-search-results">
+                  {this.getSvgResultJsx(this.state.svgResults)}
+                </div>
+              )}
+              {!_.isEmpty(this.state.svResults) && (
+                <div className="sv-search-results">
+                  {this.state.svResults.map((sv) => {
+                    return (
+                      <div
+                        className="search-result-value"
+                        onClick={this.onResultSelected(sv.dcid)}
+                        key={sv.dcid}
+                      >
+                        {getHighlightedJSX(
+                          sv.dcid,
+                          sv.name,
+                          this.state.matches
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+              {this.state.showNoResultsMessage && (
+                <div className="no-results-message">No Results</div>
+              )}
+              {showLoading && (
+                <div className="sv-search-loading">
+                  <div id="sv-search-spinner"></div>
+                  <span>Loading</span>
+                </div>
+              )}
+            </div>
+          )}
         </div>
-        {renderResults && (
-          <div className="statvar-hierarchy-search-results" tabIndex={-1}>
-            {showResultCount && (
-              <div className="result-count-message">
-                {this.getResultCountString(
-                  this.state.svgResults.length,
-                  numStatVars
-                )}
-              </div>
-            )}
-            {!_.isEmpty(this.state.svgResults) && (
-              <div className="svg-search-results">
-                {this.getSvgResultJsx(this.state.svgResults)}
-              </div>
-            )}
-            {!_.isEmpty(this.state.svResults) && (
-              <div className="sv-search-results">
-                {this.state.svResults.map((sv) => {
-                  return (
-                    <div
-                      className="search-result-value"
-                      onClick={this.onResultSelected(sv.dcid)}
-                      key={sv.dcid}
-                    >
-                      {getHighlightedJSX(sv.dcid, sv.name, this.state.matches)}
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-            {this.state.showNoResultsMessage && (
-              <div className="no-results-message">No Results</div>
-            )}
-            {showLoading && (
-              <div className="sv-search-loading">
-                <div id="sv-search-spinner"></div>
-                <span>Loading</span>
-              </div>
-            )}
-          </div>
+        {this.props.searchLabel && (
+          <div className="title">{this.props.searchLabel}</div>
         )}
       </div>
     );

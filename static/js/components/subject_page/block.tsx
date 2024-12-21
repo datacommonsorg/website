@@ -29,7 +29,7 @@ import { Input, UncontrolledTooltip } from "reactstrap";
 
 import { getVariableNameProcessingFn } from "../../../library/utils";
 import { TimeScaleOption } from "../../chart/types";
-import { NL_NUM_BLOCKS_SHOWN } from "../../constants/app/nl_interface_constants";
+import { NL_NUM_BLOCKS_SHOWN } from "../../constants/app/explore_constants";
 import {
   COLUMN_ID_PREFIX,
   HIDE_COLUMN_CLASS,
@@ -42,7 +42,7 @@ import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { ColumnConfig, TileConfig } from "../../types/subject_page_proto_types";
 import { highestCoverageDatesEqualLatestDates } from "../../utils/app/explore_utils";
 import { stringifyFn } from "../../utils/axios";
-import { isNlInterface } from "../../utils/nl_interface_utils";
+import { isNlInterface } from "../../utils/explore_utils";
 import {
   addPerCapitaToTitle,
   addPerCapitaToVersusTitle,
@@ -52,7 +52,10 @@ import {
   getId,
   getMinTileIdxToHide,
 } from "../../utils/subject_page_utils";
-import { getComparisonPlaces } from "../../utils/tile_utils";
+import {
+  getComparisonPlaces,
+  getHighlightTileDescription,
+} from "../../utils/tile_utils";
 import { AnswerMessageTile } from "../tiles/answer_message_tile";
 import { AnswerTableTile } from "../tiles/answer_table_tile";
 import { BarTile } from "../tiles/bar_tile";
@@ -68,6 +71,13 @@ import { RankingTile } from "../tiles/ranking_tile";
 import { ScatterTile } from "../tiles/scatter_tile";
 import { Column } from "./column";
 import { StatVarProvider } from "./stat_var_provider";
+
+// Lazy load tiles (except map) when they are within 1000px of the viewport
+const EXPLORE_LAZY_LOAD_MARGIN = "1000px";
+
+// Lazy load the map tile can be slow, so only load when it directly overlaps
+// the viewport
+const EXPLORE_LAZY_LOAD_MARGIN_MAP = "0px";
 
 /**
  * Translates the line tile's timeScale enum to the TimeScaleOption type
@@ -208,7 +218,8 @@ export function Block(props: BlockPropType): JSX.Element {
       .map((c) => {
         return c.tiles.map((t) => t.placeDcidOverride);
       })
-      .flat();
+      .flat()
+      .filter((name) => !!name);
 
     if (!overridePlaces.length) {
       setOverridePlaceTypes({});
@@ -404,19 +415,14 @@ function renderTiles(
       : props.place;
     const comparisonPlaces = getComparisonPlaces(tile, place);
     const className = classNameList.join(" ");
+    // TODO(beets): Fix this for ranking tiles with highest/lowest title set.
     let title = blockDenom ? addPerCapitaToTitle(tile.title) : tile.title;
     switch (tile.type) {
       case "HIGHLIGHT": {
-        let description = tile.description.includes("${date}")
-          ? tile.description
-          : tile.description + " (${date})";
-        description = blockDenom
-          ? addPerCapitaToTitle(description)
-          : description;
         return (
           <HighlightTile
             key={id}
-            description={description}
+            description={getHighlightTileDescription(tile, blockDenom)}
             place={place}
             statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0], {
               blockDate,
@@ -431,6 +437,8 @@ function renderTiles(
           <MapTile
             key={id}
             id={id}
+            lazyLoad={true}
+            lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN_MAP}
             title={title}
             subtitle={tile.subtitle}
             place={place}
@@ -460,6 +468,8 @@ function renderTiles(
           <LineTile
             key={id}
             id={id}
+            lazyLoad={true}
+            lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN}
             title={title}
             subtitle={tile.subtitle}
             place={place}
@@ -490,6 +500,8 @@ function renderTiles(
           <RankingTile
             key={id}
             id={id}
+            lazyLoad={true}
+            lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN}
             title={title}
             parentPlace={place.dcid}
             enclosedPlaceType={enclosedPlaceType}
@@ -521,6 +533,8 @@ function renderTiles(
             horizontal={tile.barTileSpec?.horizontal}
             id={id}
             key={id}
+            lazyLoad={true}
+            lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN}
             maxPlaces={tile.barTileSpec?.maxPlaces}
             maxVariables={tile.barTileSpec?.maxVariables}
             parentPlace={place.dcid}
@@ -558,6 +572,8 @@ function renderTiles(
           <ScatterTile
             key={id}
             id={id}
+            lazyLoad={true}
+            lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN}
             title={title}
             subtitle={tile.subtitle}
             place={place}
@@ -587,6 +603,8 @@ function renderTiles(
           <BivariateTile
             key={id}
             id={id}
+            lazyLoad={true}
+            lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN}
             title={title}
             place={place}
             enclosedPlaceType={enclosedPlaceType}
@@ -604,6 +622,8 @@ function renderTiles(
             footnote={props.footnote}
             key={id}
             id={id}
+            lazyLoad={true}
+            lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN}
             place={place}
             /* "min: 0" value are stripped out when loading text protobufs, so add them back in here */
             range={{
@@ -624,8 +644,10 @@ function renderTiles(
           <DonutTile
             colors={tile.donutTileSpec?.colors}
             footnote={props.footnote}
-            key={`${id}-2`}
             id={id}
+            lazyLoad={true}
+            lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN}
+            key={`${id}-2`}
             pie={tile.donutTileSpec?.pie}
             place={place}
             statVarSpec={props.statVarProvider.getSpecList(tile.statVarKey, {
@@ -644,6 +666,7 @@ function renderTiles(
           </p>
         );
       case "PLACE_OVERVIEW":
+        // TODO(gmechali): Switch to server-side redirection
         return <PlaceOverviewTile key={id} place={place} />;
       case "ANSWER_MESSAGE":
         return (
@@ -675,6 +698,17 @@ function renderTiles(
         console.log("Tile type not supported:" + tile.type);
     }
   });
+  if (tilesJsx.length > 1) {
+    return (
+      <div className="row">
+        {tilesJsx.map((tileJsx, tileJsxIndex) => (
+          <div key={tileJsxIndex} className="col-xl-6">
+            {tileJsx}
+          </div>
+        ))}
+      </div>
+    );
+  }
   return <>{tilesJsx}</>;
 }
 
@@ -706,6 +740,7 @@ function renderWebComponents(
       : props.place;
     const comparisonPlaces = getComparisonPlaces(tile, place);
     const className = classNameList.join(" ");
+    // TODO(beets): Fix this for ranking tiles with highest/lowest title set.
     const title = blockDenom ? addPerCapitaToTitle(tile.title) : tile.title;
     switch (tile.type) {
       case "HIGHLIGHT": {

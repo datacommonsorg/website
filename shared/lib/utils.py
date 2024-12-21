@@ -14,10 +14,18 @@
 """Utility functions shared across servers."""
 
 import copy
+import os
 import re
-from typing import List, Set
+from typing import Dict, List, Set
+
+from markupsafe import escape
 
 import shared.lib.constants as constants
+
+_PLACEHOLDER_MAP = {
+    f"__PLACEHOLDER_{i}__": exclusion
+    for i, exclusion in enumerate(constants.STOP_WORDS_EXCLUSIONS)
+}
 
 
 def _add_to_set_from_list(set_strings: Set[str],
@@ -30,15 +38,19 @@ def _add_to_set_from_list(set_strings: Set[str],
     set_strings.add(v_str.lower())
 
 
-def _add_classification_heuristics(set_strings: Set[str]) -> None:
+def _add_classification_heuristics(
+    set_strings: Set[str], heuristics_to_skip: Dict[str, List[str]]) -> None:
   """Adds (in place) relevant stop words in QUERY_CLASSIFICATION_HEURISTICS.
 
     Args:
         set_strings: the set of Strings to add to.
     """
   for (ctype, v) in constants.QUERY_CLASSIFICATION_HEURISTICS.items():
-    if ctype in constants.HEURISTIC_TYPES_IN_VARIABLES:
-      continue
+    words_to_exclude = []
+    if ctype in heuristics_to_skip:
+      words_to_exclude = heuristics_to_skip[ctype]
+      if not words_to_exclude:
+        continue
     if isinstance(v, list):
       # If 'v' is a list, add all the words.
       _add_to_set_from_list(set_strings, v)
@@ -48,9 +60,38 @@ def _add_classification_heuristics(set_strings: Set[str]) -> None:
           _add_to_set_from_list(set_strings, val_list)
           for (_, val_list) in v.items()
       ]
+    for word in words_to_exclude:
+      if word in set_strings:
+        set_strings.remove(word)
 
 
-def remove_stop_words(input_str: str, stop_words: Set[str]) -> str:
+# Function to replace exclusions with placeholders
+def replace_exclusions_with_placeholders(text, placeholder_map):
+  for placeholder, exclusion in placeholder_map.items():
+    text = re.sub(re.escape(exclusion), placeholder, text)
+  return text
+
+
+# Function to remove words in remove_list but not protected exclusions
+def remove_words(text, remove_list):
+  for words in remove_list:
+    # Using regex based replacements.
+    text = re.sub(rf"\b{words}\b", "", text)
+    # Also replace multiple spaces with a single space.
+    text = re.sub(r" +", " ", text)
+  return text
+
+
+# Function to restore placeholders back to exclusions
+def restore_exclusions_with_placeholders(text, placeholder_map):
+  for placeholder, exclusion in placeholder_map.items():
+    text = re.sub(re.escape(placeholder), exclusion, text)
+  return text
+
+
+def remove_stop_words(input_str: str,
+                      stop_words: Set[str],
+                      placeholder_map=_PLACEHOLDER_MAP) -> str:
   """Remove stop words from a string and return the remaining in lower case."""
 
   # Note: we are removing the full sequence of words in every entry in `stop_words`.
@@ -62,13 +103,18 @@ def remove_stop_words(input_str: str, stop_words: Set[str]) -> str:
   # Example: if looking for "cat" in sentence "cat is a catty animal. i love a cat  but not cats"
   # the words "citty" and "cats" will not be matched.
   input_str = input_str.lower()
-  for words in stop_words:
-    # Using regex based replacements.
-    input_str = re.sub(rf"\b{words}\b", "", input_str)
-    # Also replace multiple spaces with a single space.
-    input_str = re.sub(r" +", " ", input_str)
 
-  # Return after removing the beginning and trailing white spaces.
+  # Protect exclusions
+  input_str = replace_exclusions_with_placeholders(input_str, placeholder_map)
+
+  # Remove words in remove_list
+  input_str = remove_words(input_str, stop_words)
+
+  # Restore exclusions
+  input_str = restore_exclusions_with_placeholders(input_str, placeholder_map)
+
+  # Clean up extra spaces
+  input_str = re.sub(r'\s+', ' ', input_str).strip()
   return input_str.strip()
 
 
@@ -92,13 +138,20 @@ def list_place_type_stopwords() -> List[str]:
   return place_type_stop_words
 
 
-def combine_stop_words() -> Set[str]:
+# TODO: decouple words removal from detected attributes. Today, the removal
+# blanket removes anything that matches, including the various attribute/
+# classification triggers and contained_in place types (and their plurals).
+# This may not always be the best thing to do.
+def combine_stop_words(
+    heuristics_to_skip: Dict[str,
+                             List[str]] = constants.HEURISTIC_TYPES_IN_VARIABLES
+) -> List[str]:
   """Returns all the combined stop words from the various constants."""
   # Make a copy.
   stop_words = copy.deepcopy(constants.STOP_WORDS)
 
   # Now add the words in the classification heuristics.
-  _add_classification_heuristics(stop_words)
+  _add_classification_heuristics(stop_words, heuristics_to_skip)
 
   _add_to_set_from_list(stop_words, list_place_type_stopwords())
 
@@ -111,8 +164,9 @@ def combine_stop_words() -> Set[str]:
 def remove_punctuations(s, include_comma=False):
   s = s.replace('\'s', '')
 
-  # First replace all periods (.) which cannot be considered decimals.
-  s = re.sub(r'(?<!\d)\.(?!\d)', ' ', s)
+  # First replace all periods (.) which cannot be considered decimals or part
+  # of an abbreviation in a place name like St. Landry Parish.
+  s = re.sub(r'(?<!\d)(?<!St|st)\.(?!\d)', ' ', s)
 
   # Now replace all punctuation which is not a period (.)
   if include_comma:
@@ -120,3 +174,31 @@ def remove_punctuations(s, include_comma=False):
   else:
     s = re.sub(r'[^\w\s.]', ' ', s)
   return " ".join(s.split())
+
+
+def is_debug_mode() -> bool:
+  return os.environ.get('DEBUG', '').lower() == 'true'
+
+
+# Converts a passed in object and escapes all the strings in it.
+def escape_strings(data):
+  if isinstance(data, dict):
+    escaped_dict = {}
+    for k, v in data.items():
+      escaped_dict[str(escape(k))] = escape_strings(v)
+    return escaped_dict
+  elif isinstance(data, list):
+    for i, item in enumerate(data):
+      data[i] = escape_strings(item)
+    return data
+  elif isinstance(data, str):
+    return str(escape(data))
+  else:
+    # Otherwise, assume data is of a type that doesn't need escaping and just
+    # return it as is.
+    return data
+
+
+def is_test_env() -> bool:
+  env = os.environ.get('FLASK_ENV', '')
+  return env in ['integration_test', 'test', 'webdriver']

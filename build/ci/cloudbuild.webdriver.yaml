@@ -1,4 +1,4 @@
-# Copyright 2019 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 steps:
   # Build the static files
   - id: package_js
-    name: gcr.io/datcom-ci/node:2023-05-18
+    name: gcr.io/datcom-ci/node:2024-11-19
     entrypoint: /bin/bash
     waitFor: ["-"]
     args:
@@ -31,19 +31,26 @@ steps:
         # These js files generated will be necessery for the flask_webdriver_test task.
         ./run_test.sh -b
 
-  # Run the webdriver tests
-  - id: flask_webdriver_test
-    name: gcr.io/datcom-ci/webdriver-chrome:2023-12-11
-    entrypoint: /bin/sh
-    waitFor:
-      - package_js
+  - id: setup_python
+    name: python:3.11.3
+    entrypoint: /bin/bash
+    waitFor: ["-"]
     args:
       - -c
       - |
         ./run_test.sh --setup_python
+
+  # Run the webdriver tests
+  - id: flask_webdriver_test
+    name: gcr.io/datcom-ci/webdriver-chrome:2024-06-05
+    entrypoint: /bin/sh
+    waitFor: ["package_js", "setup_python"]
+    args:
+      - -c
+      - |
         ./run_test.sh -w
 
-timeout: 1800s
+timeout: 1800s # 30 minutes
 
 options:
   machineType: "E2_HIGHCPU_32"

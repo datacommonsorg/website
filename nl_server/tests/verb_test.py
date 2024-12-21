@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,32 +13,18 @@
 # limitations under the License.
 """Tests for verbs (in nl_attribute_model.py)."""
 
-import logging
 import unittest
 
-from diskcache import Cache
 from parameterized import parameterized
 
-from nl_server.loader import NL_CACHE_PATH
-from nl_server.loader import NL_MODEL_CACHE_KEY
-from nl_server.nl_attribute_model import NLAttributeModel
+from nl_server.model.attribute_model import AttributeModel
 
 
 class TestVerbs(unittest.TestCase):
 
   @classmethod
   def setUpClass(cls) -> None:
-
-    # Look for the Embeddings model in the cache if it exists.
-    cache = Cache(NL_CACHE_PATH)
-    cache.expire()
-    cls.nl_model = cache.get(NL_MODEL_CACHE_KEY)
-    if not cls.nl_model:
-      logging.error(
-          'Could not load model from the cache for these tests. Loading a new model object.'
-      )
-      # Using the default model.
-      cls.nl_model = NLAttributeModel()
+    cls.nl_model = AttributeModel()
 
   @parameterized.expand([
       # All these queries should detect places.

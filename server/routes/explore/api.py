@@ -22,10 +22,6 @@ from flask import Blueprint
 from flask import current_app
 from flask import request
 
-import server.lib.explore.fulfiller_bridge as nl_fulfillment
-from server.lib.explore.params import Clients
-from server.lib.explore.params import DCNames
-from server.lib.explore.params import Params
 from server.lib.nl.common import serialize
 import server.lib.nl.common.constants as constants
 import server.lib.nl.common.counters as ctr
@@ -34,8 +30,13 @@ import server.lib.nl.common.utterance as nl_utterance
 import server.lib.nl.config_builder.base as config_builder
 import server.lib.nl.detection.detector as nl_detector
 from server.lib.nl.detection.utils import create_utterance
+import server.lib.nl.explore.fulfiller_bridge as nl_fulfillment
+from server.lib.nl.explore.params import Clients
+from server.lib.nl.explore.params import DCNames
+from server.lib.nl.explore.params import Params
 from server.lib.util import get_nl_disaster_config
-from server.routes.nl import helpers
+from server.routes.explore import helpers
+import server.services.bigtable as bt
 
 bp = Blueprint('explore_api', __name__, url_prefix='/api/explore')
 
@@ -117,6 +118,8 @@ def detect_and_fulfill():
       Params.EXP_MORE_DISABLED.value] = request.get_json().get(
           Params.EXP_MORE_DISABLED, "")
   utterance.insight_ctx[Params.DC.value] = dc_name
+  utterance.insight_ctx[Params.SKIP_RELATED_THINGS] = request.args.get(
+      Params.SKIP_RELATED_THINGS.value, '') == 'true'
 
   # Important to setup utterance for explore flow (this is really the only difference
   # between NL and Explore).
@@ -125,6 +128,36 @@ def detect_and_fulfill():
   utterance.counters.timeit('setup_for_explore', start)
 
   return _fulfill_with_chart_config(utterance, debug_logs)
+
+
+#
+# NOTE: `feedbackData` contains the logged payload.
+#
+# There are two types of feedback:
+# (1) Query-level: when `queryId` key is set
+# (2) Chart-level: when `chartId` field is set
+#
+# `chartId` is a json object that specifies the
+# location of a chart in the session by means of:
+#
+#   queryIdx, categoryIdx, blockIdx, columnIdx, tileIdx
+#
+# The last 4 are indexes into the corresponding fields in
+# the chart-config object (logged while processing the query),
+# and of type SubjectPageConfig proto.
+#
+@bp.route('/feedback', methods=['POST'])
+def feedback():
+  if (not current_app.config['LOG_QUERY']):
+    flask.abort(404)
+
+  session_id = request.json['sessionId']
+  feedback_data = request.json['feedbackData']
+  try:
+    bt.write_feedback(session_id, feedback_data)
+    return '', 200
+  except Exception as e:
+    return f'Failed to record feedback data {e}', 500
 
 
 #

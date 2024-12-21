@@ -21,7 +21,7 @@
 import axios from "axios";
 import _ from "lodash";
 import queryString from "query-string";
-import React, { useEffect, useRef, useState } from "react";
+import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { RawIntlProvider } from "react-intl";
 import { Container } from "reactstrap";
 
@@ -32,7 +32,7 @@ import {
   URL_DELIM,
   URL_HASH_PARAMS,
 } from "../../constants/app/explore_constants";
-import { intl } from "../../i18n/i18n";
+import { intl, localizeLink } from "../../i18n/i18n";
 import {
   GA_EVENT_NL_DETECT_FULFILL,
   GA_EVENT_NL_FULFILL,
@@ -43,11 +43,10 @@ import {
   GA_PARAM_TOPIC,
   triggerGAEvent,
 } from "../../shared/ga_events";
-import {
-  QueryResult,
-  UserMessageInfo,
-} from "../../types/app/nl_interface_types";
+import { useQueryStore } from "../../shared/stores/query_store_hook";
+import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
+import { shouldSkipPlaceOverview } from "../../utils/explore_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
 import { AutoPlay } from "./autoplay";
 import { ErrorResult } from "./error_result";
@@ -89,10 +88,18 @@ function getAutoPlayQueries(): string[] {
   return toApiList(queryListParam);
 }
 
+interface AppProps {
+  //true if the app is in demo mode
+  isDemo: boolean;
+  //if true, there is no header bar search, and so we display search inline
+  //if false, there is a header bar search, and so we do not display search inline
+  hideHeaderSearchBar: boolean;
+}
+
 /**
  * Application container
  */
-export function App(props: { isDemo: boolean }): JSX.Element {
+export function App(props: AppProps): ReactElement {
   const [loadingStatus, setLoadingStatus] = useState<string>(
     props.isDemo ? LoadingStatus.DEMO_INIT : LoadingStatus.LOADING
   );
@@ -104,6 +111,12 @@ export function App(props: { isDemo: boolean }): JSX.Element {
   const savedContext = useRef([]);
   const autoPlayQueryList = useRef(getAutoPlayQueries());
   const [autoPlayQuery, setAutoPlayQuery] = useState("");
+
+  const {
+    setQueryString: setStoreQueryString,
+    setQueryResult: setStoreQueryResult,
+    setDebugData: setStoreDebugData,
+  } = useQueryStore();
 
   useEffect(() => {
     // If in demo mode, should input first autoplay query on mount.
@@ -142,6 +155,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
             exploreContext={exploreContext}
             queryResult={queryResult}
             userMessage={userMessage}
+            hideHeaderSearchBar={props.hideHeaderSearchBar}
           />
         )}
         {loadingStatus === LoadingStatus.LOADING && (
@@ -166,6 +180,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
             queryResult={queryResult}
             pageMetadata={pageMetadata}
             userMessage={userMessage}
+            hideHeaderSearchBar={props.hideHeaderSearchBar}
           />
         )}
       </Container>
@@ -181,10 +196,26 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     return hasPlace || fulfillData["entities"];
   }
 
-  function processFulfillData(fulfillData: any, shouldSetQuery: boolean): void {
+  /**
+   * Process the fulfill data from the search API response.
+   *
+   * This processes the fulfill data by setting up page metadata, debug data, and user
+   * messages for rendering the explore page. However, if the fulfill response only
+   * contains place information, a page overview configuration, but no charts, it will
+   * redirect to /place/{placeDcid} instead.
+   *
+   * @param fulfillData The fulfill data from the search API response
+   * @param userQuery The user's search query
+   */
+  function processFulfillData(fulfillData: any, userQuery?: string): void {
     setDebugData(fulfillData["debug"]);
+    setStoreDebugData(fulfillData["debug"]);
+    const userMessage = {
+      msgList: fulfillData["userMessages"] || [],
+      showForm: !!fulfillData["showForm"],
+    };
     if (!isFulfillDataValid) {
-      setUserMessage(fulfillData["userMessage"]);
+      setUserMessage(userMessage);
       setLoadingStatus(LoadingStatus.FAILED);
       return;
     }
@@ -193,25 +224,37 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       name: fulfillData["place"]["name"],
       types: [fulfillData["place"]["place_type"]],
     };
+    const relatedThings = fulfillData["relatedThings"] || {};
     const pageMetadata: SubjectPageMetadata = {
       place: mainPlace,
       places: fulfillData["places"],
       pageConfig: fulfillData["config"],
-      childPlaces: fulfillData["relatedThings"]["childPlaces"],
-      peerPlaces: fulfillData["relatedThings"]["peerPlaces"],
-      parentPlaces: fulfillData["relatedThings"]["parentPlaces"],
-      parentTopics: fulfillData["relatedThings"]["parentTopics"],
-      childTopics: fulfillData["relatedThings"]["childTopics"],
-      peerTopics: fulfillData["relatedThings"]["peerTopics"],
-      exploreMore: fulfillData["relatedThings"]["exploreMore"],
-      mainTopics: fulfillData["relatedThings"]["mainTopics"],
+      childPlaces: relatedThings["childPlaces"],
+      peerPlaces: relatedThings["peerPlaces"],
+      parentPlaces: relatedThings["parentPlaces"],
+      parentTopics: relatedThings["parentTopics"],
+      childTopics: relatedThings["childTopics"],
+      peerTopics: relatedThings["peerTopics"],
+      exploreMore: relatedThings["exploreMore"],
+      mainTopics: relatedThings["mainTopics"],
       sessionId: "session" in fulfillData ? fulfillData["session"]["id"] : "",
+      svSource: fulfillData["svSource"],
     };
+    let isPendingRedirect = false;
     if (
       pageMetadata &&
       pageMetadata.pageConfig &&
       pageMetadata.pageConfig.categories
     ) {
+      isPendingRedirect = shouldSkipPlaceOverview(pageMetadata);
+      if (isPendingRedirect) {
+        const placeDcid = pageMetadata.place.dcid;
+        // If the user has a query, append it to the url
+        const url = `/place/${placeDcid}${userQuery ? `?q=${userQuery}` : ""}`;
+        // Localize the url to maintain the current page's locale.
+        const localizedUrl = localizeLink(url);
+        window.location.replace(localizedUrl);
+      }
       // Note: for category links, we only use the main-topic.
       for (const category of pageMetadata.pageConfig.categories) {
         if (category.dcid) {
@@ -224,7 +267,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         }
       }
       if (
-        shouldSetQuery &&
+        !userQuery &&
         !_.isEmpty(pageMetadata.mainTopics) &&
         pageMetadata.place.name
       ) {
@@ -235,20 +278,18 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         ) {
           const q = `${pageMetadata.mainTopics[0].name} vs. ${pageMetadata.mainTopics[1].name} in ${pageMetadata.place.name}`;
           setQuery(q);
+          setStoreQueryString(q);
         } else if (pageMetadata.mainTopics[0].name) {
           const q = `${pageMetadata.mainTopics[0].name} in ${pageMetadata.place.name}`;
           setQuery(q);
+          setStoreQueryString(q);
         }
       }
     }
-    const userMessage = {
-      msgList: fulfillData["userMessages"] || [],
-      showForm: !!fulfillData["showForm"],
-    };
     savedContext.current = fulfillData["context"] || [];
     setPageMetadata(pageMetadata);
     setUserMessage(userMessage);
-    setQueryResult({
+    const queryResult = {
       place: mainPlace,
       config: pageMetadata.pageConfig,
       svSource: fulfillData["svSource"],
@@ -256,8 +297,12 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       placeFallback: fulfillData["placeFallback"],
       pastSourceContext: fulfillData["pastSourceContext"],
       sessionId: pageMetadata.sessionId,
-    });
-    setLoadingStatus(LoadingStatus.SUCCESS);
+    };
+    setQueryResult(queryResult);
+    setStoreQueryResult(queryResult);
+    setLoadingStatus(
+      isPendingRedirect ? LoadingStatus.LOADING : LoadingStatus.SUCCESS
+    );
   }
 
   function handleHashChange(): void {
@@ -274,9 +319,11 @@ export function App(props: { isDemo: boolean }): JSX.Element {
       hashParams[URL_HASH_PARAMS.DISABLE_EXPLORE_MORE]
     );
     const detector = getSingleParam(hashParams[URL_HASH_PARAMS.DETECTOR]);
-    const llmApi = getSingleParam(hashParams[URL_HASH_PARAMS.LLM_API]);
     const testMode = getSingleParam(hashParams[URL_HASH_PARAMS.TEST_MODE]);
     const i18n = getSingleParam(hashParams[URL_HASH_PARAMS.I18N]);
+    const includeStopWords = getSingleParam(
+      hashParams[URL_HASH_PARAMS.INCLUDE_STOP_WORDS]
+    );
     const defaultPlace = getSingleParam(
       hashParams[URL_HASH_PARAMS.DEFAULT_PLACE]
     );
@@ -297,6 +344,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     if (query) {
       client = client || CLIENT_TYPES.QUERY;
       setQuery(query);
+      setStoreQueryString(query);
       fulfillmentPromise = fetchDetectAndFufillData(
         query,
         savedContext.current,
@@ -304,16 +352,16 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         idx,
         disableExploreMore,
         detector,
-        llmApi,
         testMode,
         i18n,
         client,
         defaultPlace,
         mode,
-        reranker
+        reranker,
+        includeStopWords
       )
         .then((resp) => {
-          processFulfillData(resp, false);
+          processFulfillData(resp, query);
         })
         .catch(() => {
           setLoadingStatus(LoadingStatus.FAILED);
@@ -321,6 +369,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
     } else {
       client = client || CLIENT_TYPES.ENTITY;
       setQuery("");
+      setStoreQueryString("");
       fulfillmentPromise = fetchFulfillData(
         toApiList(place || DEFAULT_PLACE),
         toApiList(topic || DEFAULT_TOPIC),
@@ -336,7 +385,7 @@ export function App(props: { isDemo: boolean }): JSX.Element {
         client
       )
         .then((resp) => {
-          processFulfillData(resp, true);
+          processFulfillData(resp);
         })
         .catch(() => {
           setLoadingStatus(LoadingStatus.FAILED);
@@ -416,20 +465,17 @@ const fetchDetectAndFufillData = async (
   idx: string,
   disableExploreMore: string,
   detector: string,
-  llmApi: string,
   testMode: string,
   i18n: string,
   client: string,
   defaultPlace: string,
   mode: string,
-  reranker: string
+  reranker: string,
+  includeStopWords: string
 ) => {
   const argsMap = new Map<string, string>();
   if (detector) {
     argsMap.set(URL_HASH_PARAMS.DETECTOR, detector);
-  }
-  if (llmApi) {
-    argsMap.set(URL_HASH_PARAMS.LLM_API, llmApi);
   }
   if (testMode) {
     argsMap.set(URL_HASH_PARAMS.TEST_MODE, testMode);
@@ -448,6 +494,9 @@ const fetchDetectAndFufillData = async (
   }
   if (reranker) {
     argsMap.set(URL_HASH_PARAMS.RERANKER, reranker);
+  }
+  if (includeStopWords) {
+    argsMap.set(URL_HASH_PARAMS.INCLUDE_STOP_WORDS, includeStopWords);
   }
   if (idx) {
     argsMap.set(URL_HASH_PARAMS.IDX, idx);

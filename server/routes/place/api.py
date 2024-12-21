@@ -403,7 +403,11 @@ def data(dcid):
   logging.info(
       "Landing Page: cache miss for place:%s and category:%s "
       " , fetching and processing data ...", dcid, request.args.get("category"))
+
   target_category = request.args.get("category")
+  if not target_category:
+    return "No 'category' specified", 400
+
   spec_and_stat = build_spec(current_app.config['CHART_CONFIG'],
                              target_category)
   new_stat_vars = current_app.config['NEW_STAT_VARS']

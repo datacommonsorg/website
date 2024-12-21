@@ -15,22 +15,16 @@
 # Interface for variable detection
 #
 
-import time
 from typing import Dict, List
 
-import server.lib.nl.common.counters as ctr
 from server.lib.nl.detection import query_util
-from server.lib.nl.detection import rerank
+from server.lib.nl.detection.types import DetectionArgs
+import server.lib.nl.detection.utils as dutils
+from server.lib.nl.explore import params
 from server.services import datacommons as dc
 from shared.lib import constants
 import shared.lib.detected_variables as vars
 import shared.lib.utils as shared_utils
-
-# TODO: decouple words removal from detected attributes. Today, the removal
-# blanket removes anything that matches, including the various attribute/
-# classification triggers and contained_in place types (and their plurals).
-# This may not always be the best thing to do.
-ALL_STOP_WORDS = shared_utils.combine_stop_words()
 
 # A value higher than the highest score.
 _HIGHEST_SCORE = 1.0
@@ -46,13 +40,17 @@ _MAX_MULTIVAR_PARTS = 2
 # calls the NL Server and returns a dict with both single-SV and multi-SV
 # (if relevant) detections.  For more details see create_sv_detection().
 #
-def detect_vars(orig_query: str,
-                index_type: str,
-                counters: ctr.Counters,
-                debug_logs: Dict,
-                threshold: float = constants.SV_SCORE_DEFAULT_THRESHOLD,
-                rerank_fn: rerank.RerankCallable = None,
-                skip_topics: bool = False) -> vars.VarDetectionResult:
+def detect_vars(orig_query: str, debug_logs: Dict,
+                dargs: DetectionArgs) -> vars.VarDetectionResult:
+
+  # Get the list of stop words to use depending on if this is toolformer mode
+  # or not.
+  if params.is_toolformer_mode(dargs.mode):
+    stop_words = shared_utils.combine_stop_words(
+        constants.HEURISTIC_TYPES_IN_VARIABLES_TOOLFORMER)
+  else:
+    stop_words = shared_utils.combine_stop_words()
+
   #
   # 1. Prepare all the queries for embeddings lookup, both mono-var and multi-var.
   #
@@ -61,47 +59,50 @@ def detect_vars(orig_query: str,
   # the potential areas for improvement. For now, this removal blanket removes
   # any words in ALL_STOP_WORDS which includes contained_in places and their
   # plurals and any other query attribution/classification trigger words.
-  query_monovar = shared_utils.remove_stop_words(orig_query,
-                                                 query_util.ALL_STOP_WORDS)
+  if dargs.include_stop_words:
+    query_monovar = orig_query
+  else:
+    query_monovar = shared_utils.remove_stop_words(orig_query, stop_words)
+  if not query_monovar.strip():
+    # Empty user query!  Return empty results
+    return dutils.empty_var_detection_result()
   all_queries = [query_monovar]
 
   # Try to detect multiple SVs.  Use the original query so that
   # the logic can rely on stop-words like `vs`, `and`, etc as hints
   # for SV delimiters.
-  multi_querysets, multi_queries = _prepare_multivar_queries(orig_query)
+  multi_querysets, multi_queries = _prepare_multivar_queries(
+      orig_query, stop_words)
   all_queries.extend(multi_queries)
 
   #
   # 2. Lookup embeddings with both single-var and multi-var queries.
   #
   # Make API call to the NL models/embeddings server.
-  query2results = dc.nl_search_vars(all_queries, index_type, skip_topics)
+  resp = dc.nl_search_vars(all_queries, dargs.embeddings_index_types,
+                           dargs.reranker)
   query2results = {
-      q: vars.dict_to_var_candidates(r) for q, r in query2results.items()
+      q: vars.dict_to_var_candidates(r) for q, r in resp['queryResults'].items()
   }
+  debug_logs.update(resp.get('debugLogs', {}))
+  model_threshold = resp['scoreThreshold']
 
   #
   # 3. Prepare result candidates.
   #
+  # If caller had an overriden threshold bump, apply that.
+  threshold_override = params.sv_threshold_override(dargs)
+  multi_var_threshold = dutils.compute_final_threshold(model_threshold,
+                                                       threshold_override)
   result_monovar = query2results[query_monovar]
   result_multivar = _prepare_multivar_candidates(multi_querysets, query2results,
-                                                 threshold)
+                                                 multi_var_threshold)
 
-  #
-  # 4. Maybe, rerank
-  # TODO:  Consider reranking for multi-var too.
-  #
-  if rerank_fn:
-    start = time.time()
-    result_monovar = rerank.rerank(rerank_fn, query_monovar, result_monovar,
-                                   debug_logs)
-    counters.timeit('var_reranking', start)
-
-  debug_logs["sv_detection_query_index_type"] = index_type
   debug_logs["sv_detection_query_input"] = orig_query
   debug_logs["sv_detection_query_stop_words_removal"] = query_monovar
   return vars.VarDetectionResult(single_var=result_monovar,
-                                 multi_var=result_multivar)
+                                 multi_var=result_multivar,
+                                 model_threshold=model_threshold)
 
 
 #
@@ -109,12 +110,14 @@ def detect_vars(orig_query: str,
 # TODO: Fix the query upstream to ensure the punctuations aren't stripped.
 #
 def _prepare_multivar_queries(
-    query: str) -> tuple[List[query_util.QuerySet], List[str]]:
+    query: str,
+    stop_words: List[str]) -> tuple[List[query_util.QuerySet], List[str]]:
   #
   # Prepare a combination of query-sets.
   #
   querysets = query_util.prepare_multivar_querysets(query,
-                                                    max_svs=_MAX_MULTIVAR_PARTS)
+                                                    max_svs=_MAX_MULTIVAR_PARTS,
+                                                    stop_words=stop_words)
 
   # Make a unique list of query strings
   all_queries = set()

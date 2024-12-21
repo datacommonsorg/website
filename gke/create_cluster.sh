@@ -17,14 +17,15 @@ set -e
 
 ENV=$1
 REGION=$2
+NODES=$3
 
 if [[ $ENV == "" || $REGION == "" ]]; then
   echo "Missing arg 1 (env) and/or arg 2 (region)"
   exit 1
 fi
 
-PROJECT_ID=$(yq eval '.project' ../deploy/gke/$ENV.yaml)
-NODES=$(yq eval '.nodes' ../deploy/gke/$ENV.yaml)
+CONFIG_YAML="../deploy/helm_charts/envs/$1.yaml"
+PROJECT_ID=$(yq eval '.project' $CONFIG_YAML)
 
 CLUSTER_NAME="website-$REGION"
 

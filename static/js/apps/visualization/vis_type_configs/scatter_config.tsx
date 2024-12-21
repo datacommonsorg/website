@@ -174,7 +174,6 @@ function getChartArea(
           showPlaceLabels: appContext.displayOptions.scatterPlaceLabels,
           showQuadrants: appContext.displayOptions.scatterQuadrants,
         }}
-        showLoadingSpinner={true}
       />
       <ChartFooter
         inputSections={[
@@ -224,9 +223,8 @@ function getInfoContent(): JSX.Element {
 
 export const SCATTER_CONFIG = {
   displayName: "Scatter Plot",
-  icon: "scatter_plot",
   svHierarchyType: StatVarHierarchyType.SCATTER,
-  svHierarchyNumExistence: 10,
+  svHierarchyNumExistence: globalThis.minStatVarGeoCoverage,
   singlePlace: true,
   numSv: 2,
   getChartArea,

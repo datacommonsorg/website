@@ -39,8 +39,6 @@ export const ORDERED_VIS_TYPE = [
 export interface VisTypeConfig {
   // display name to use for the vis type
   displayName: string;
-  // icon to use to represent the vis type
-  icon: string;
   // stat var hierarchy type to use for this vis type
   svHierarchyType: string;
   // function to get the component to render in the chart area
@@ -66,8 +64,6 @@ export interface VisTypeConfig {
   // the min number of entities that should have data for a stat var to be
   // shown in the hierarchy. Default is 1.
   svHierarchyNumExistence?: number;
-  // the function to use to get the BQ SQL query.
-  getSqlQueryFn?: (appContext: AppContextType) => () => string;
   // function to get a footer for the tool.
   getFooter?: () => string;
 }

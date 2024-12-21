@@ -109,7 +109,7 @@ msgid "Government Expenditures on Military"
 msgstr ""
 
 #. The name of a tool to browse the Data Commons knowledge graph.
-msgid "Graph Browser"
+msgid "Knowledge Graph"
 msgstr ""
 
 #. Link to worldwide rankings for Gross National Income, by country.

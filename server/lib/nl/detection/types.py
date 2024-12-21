@@ -21,7 +21,6 @@ from enum import IntEnum
 from typing import Dict, List, Optional
 
 from shared.lib import detected_variables as dvars
-from shared.lib.constants import SV_SCORE_DEFAULT_THRESHOLD
 
 
 @dataclass
@@ -74,8 +73,12 @@ class SVDetection:
   prop: dvars.VarCandidates
   # Multi SV detection.
   multi_sv: dvars.MultiVarCandidates
-  # Input SV Threshold
-  sv_threshold: float = SV_SCORE_DEFAULT_THRESHOLD
+  # SV Threshold
+  sv_threshold: float
+  # The original model threshold.  This will be
+  # less than `sv_threshold` only when there is
+  # a threshold bump (from special mode).
+  model_threshold: float
 
 
 class RankingType(IntEnum):
@@ -396,11 +399,7 @@ class ActualDetectorType(str, Enum):
   # No fallback
   HybridHeuristic = "Hybrid - Heuristic Based"
   # Fallback to LLM fully
-  HybridLLMFull = "Hybrid - LLM Fallback (Full)"
-  # Fallback to LLM for place detection only
-  HybridLLMPlace = "Hybrid - LLM Fallback (Place)"
-  # Fallback to LLM for variable detection only
-  HybridLLMVar = "Hybrid - LLM Fallback (Variable)"
+  HybridLLMFull = "Hybrid - LLM Fallback"
   # LLM for safety check only
   HybridLLMSafety = "Hybrid - LLM Safety Check"
   # The case of no detector involved.
@@ -416,7 +415,6 @@ class RequestedDetectorType(str, Enum):
 
 
 class LlmApiType(str, Enum):
-  Palm = "palm"
   GeminiPro = "geminipro"
   Nop = "nop"
 
@@ -431,4 +429,19 @@ class Detection:
   classifications: List[NLClassifier]
   llm_resp: Dict = field(default_factory=dict)
   detector: ActualDetectorType = ActualDetectorType.HybridHeuristic
-  llm_api: LlmApiType = LlmApiType.Nop
+
+
+@dataclass
+class DetectionArgs:
+  # Name of the embeddings index types to override ENV default
+  embeddings_index_types: List[str]
+  # Query mode. e.g., `strict`, `toolformer_rig`, `toolformer_rag`
+  mode: str
+  # Reranker model name
+  reranker: str
+  # Enable entities/triples detection (e.g., for biomed DC)
+  allow_triples: bool
+  # Include stop-words for query detection
+  include_stop_words: bool
+  # variable threshold to use
+  var_threshold: float

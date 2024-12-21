@@ -13,6 +13,9 @@
 # limitations under the License.
 """Common library for functions used by multiple webdriver tests"""
 
+import urllib
+import urllib.request
+
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -104,3 +107,15 @@ def charts_rendered(driver):
     if not dom_id:
       return False
   return True
+
+
+def safe_url_open(url):
+  """Execute urlopen and assert success."""
+  if not url.lower().startswith('http'):
+    raise ValueError(f'Invalid scheme in {url}. Expected http(s)://.')
+
+  req = urllib.request.Request(url)
+  if url.startswith('http'):
+    with urllib.request.urlopen(req) as response:  # nosec B310
+      return response.getcode()
+  return 0

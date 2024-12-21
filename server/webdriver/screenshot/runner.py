@@ -26,7 +26,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from server.webdriver import shared
 
-# TODO(shifucun): add test for narrow width for mobile testing
 WIDTH = 1280
 SCREENSHOTS_FOLDER = 'screenshots'
 
@@ -90,8 +89,13 @@ def login(driver):
 
 def run(driver, page_base_url, page_config):
   """Take screenshot and save to desired folders"""
+
+  width = WIDTH
+  if 'width' in page_config:
+    width = page_config['width']
+
   # Set the window size. Testing different sizes.
-  driver.set_window_size(width=WIDTH,
+  driver.set_window_size(width=width,
                          height=page_config['height'],
                          windowHandle='current')
   url = page_base_url + page_config['url']

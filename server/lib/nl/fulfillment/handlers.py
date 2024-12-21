@@ -26,6 +26,7 @@ from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import ContainedInClassificationAttributes
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import NLClassifier
+import server.lib.nl.explore.params as params
 from server.lib.nl.fulfillment import basic
 from server.lib.nl.fulfillment import comparison
 from server.lib.nl.fulfillment import correlation
@@ -200,6 +201,26 @@ def _classification_to_query_type(cl: NLClassifier,
 
   if query_type == QueryType.BASIC:
     query_type = _maybe_remap_basic(uttr)
+
+  if (params.is_special_dc(uttr.insight_ctx) and
+      query_type in [QueryType.EVENT, QueryType.SUPERLATIVE]):
+    # Superlative introduces custom SVs not relevant for SDG.
+    # And we don't do event maps for SDG.
+    query_type = QueryType.BASIC
+
+  if (params.is_toolformer_mode(uttr.mode) and
+      query_type == QueryType.CORRELATION_ACROSS_VARS):
+    # Don't do correlation for toolformer because scatter charts aren't
+    # supported and toolformer queries should be single var
+    query_type = QueryType.BASIC
+
+  if (not detection_utils.is_llm_detection(uttr.detection) and
+      uttr.test != 'filter_test' and query_type
+      in [QueryType.FILTER_WITH_SINGLE_VAR, QueryType.FILTER_WITH_DUAL_VARS]):
+    # Filter queries are hard to interpret correctly using
+    # just heuristics. So unless this was LLM that did detection,
+    # do not fulfill it.
+    query_type = QueryType.BASIC
 
   return query_type
 

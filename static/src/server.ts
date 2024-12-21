@@ -14,47 +14,37 @@
  * limitations under the License.
  */
 
-import axios from "axios";
 import express, { Request, Response } from "express";
 import { JSDOM } from "jsdom";
 import _ from "lodash";
 import sharp from "sharp";
 
-import {
-  fetchDisasterEventData,
-  getBlockEventTypeSpecs,
-} from "../js/components/subject_page/disaster_event_block";
-import { StatVarProvider } from "../js/components/subject_page/stat_var_provider";
 import { NamedTypedPlace, StatVarSpec } from "../js/shared/types";
 import {
-  BlockConfig,
   EventTypeSpec,
   TileConfig,
 } from "../js/types/subject_page_proto_types";
 import {
-  getDate,
-  getSeverityFilters,
-} from "../js/utils/disaster_event_map_utils";
-import { getTileEventTypeSpecs } from "../js/utils/tile_utils";
-import { getBarChart, getBarTileResult } from "../nodejs_server/bar_tile";
-import {
+  BARD_CLIENT_URL_PARAM,
   CHART_ID,
   CHART_INFO_PARAMS,
   CHART_PARAMS,
 } from "../nodejs_server/constants";
+import { getQueryResult } from "../nodejs_server/query";
+import { getBarChart, getBarTileResult } from "../nodejs_server/tiles/bar_tile";
+import { getDisasterMapChart } from "../nodejs_server/tiles/disaster_map_tile";
 import {
-  getDisasterMapChart,
-  getDisasterMapTileResult,
-} from "../nodejs_server/disaster_map_tile";
-import { getLineChart, getLineTileResult } from "../nodejs_server/line_tile";
-import { getMapChart, getMapTileResult } from "../nodejs_server/map_tile";
-import { getRankingTileResult } from "../nodejs_server/ranking_tile";
+  getLineChart,
+  getLineTileResult,
+} from "../nodejs_server/tiles/line_tile";
+import { getMapChart, getMapTileResult } from "../nodejs_server/tiles/map_tile";
 import {
   getScatterChart,
   getScatterTileResult,
-} from "../nodejs_server/scatter_tile";
+} from "../nodejs_server/tiles/scatter_tile";
+import { decompressChartProps } from "../nodejs_server/tiles/utils";
 import { TileResult } from "../nodejs_server/types";
-import { decompressChartProps } from "../nodejs_server/utils";
+
 const app = express();
 const APP_CONFIGS = {
   local: {
@@ -96,24 +86,12 @@ const CHAR_WIDTHS = [
 const CHAR_AVG_WIDTH = 5.0341796875;
 // Height of a 10px Roboto character.
 const CHAR_HEIGHT = 13;
-const NS_TO_MS_SCALE_FACTOR = BigInt(1000000);
-const MS_TO_S_SCALE_FACTOR = 1000;
 // The param value for the chartUrl param which indicates using svg
 const CHART_URL_PARAM_SVG = "0";
 // The param value that indicates the param is truthy.
 const URL_PARAM_VALUE_TRUTHY = "1";
-const QUERY_MAX_RESULTS = 3;
-// The param value for the client param if the client is Bard. Default is Bard.
-const BARD_CLIENT_URL_PARAM = "bard";
-// Allowed chart types if client is Bard.
-const BARD_ALLOWED_CHARTS = new Set(["LINE", "BAR", "RANKING", "SCATTER"]);
-// The root to use to form the dc link in the tile results
-// TODO: update this to use bard.datacommons.org
-const DC_URL_ROOT = "https://datacommons.org/explore#q=";
 // Size of the PNG to return for the chart query
 const PNG_WIDTH = 1600;
-// Default mode to use when making nl calls
-const DEFAULT_NL_MODE = "strict";
 
 const dom = new JSDOM(
   `<html><body><div id="dom-id" style="width:500px"></div></body></html>`,
@@ -240,172 +218,6 @@ function getTileResult(
   }
 }
 
-// Get a list of tile result promises for all the tiles in the block
-function getBlockTileResults(
-  id: string,
-  block: BlockConfig,
-  place: NamedTypedPlace,
-  enclosedPlaceType: string,
-  svSpec: Record<string, StatVarSpec>,
-  urlRoot: string,
-  useChartUrl: boolean,
-  apikey: string,
-  allowedTilesTypes?: Set<string>
-): Promise<TileResult[] | TileResult>[] {
-  const tilePromises = [];
-  const svProvider = new StatVarProvider(svSpec);
-  const blockDenom = block.startWithDenom ? block.denom : "";
-  block.columns.forEach((column, colIdx) => {
-    column.tiles.forEach((tile, tileIdx) => {
-      if (allowedTilesTypes && !allowedTilesTypes.has(tile.type)) {
-        return;
-      }
-      const tileId = `${id}-col${colIdx}-tile${tileIdx}`;
-      let tileSvSpec = null;
-      switch (tile.type) {
-        case "LINE":
-          tileSvSpec = svProvider.getSpecList(tile.statVarKey, { blockDenom });
-          tilePromises.push(
-            getLineTileResult(
-              tileId,
-              tile,
-              place,
-              tileSvSpec,
-              CONFIG.apiRoot,
-              urlRoot,
-              useChartUrl,
-              apikey
-            )
-          );
-          break;
-        case "SCATTER":
-          tileSvSpec = svProvider.getSpecList(tile.statVarKey, { blockDenom });
-          tilePromises.push(
-            getScatterTileResult(
-              tileId,
-              tile,
-              place,
-              enclosedPlaceType,
-              tileSvSpec,
-              CONFIG.apiRoot,
-              urlRoot,
-              useChartUrl,
-              apikey
-            )
-          );
-          break;
-        case "BAR":
-          tileSvSpec = svProvider.getSpecList(tile.statVarKey, { blockDenom });
-          tilePromises.push(
-            getBarTileResult(
-              tileId,
-              tile,
-              place.dcid,
-              enclosedPlaceType,
-              tileSvSpec,
-              CONFIG.apiRoot,
-              urlRoot,
-              useChartUrl,
-              apikey
-            )
-          );
-          break;
-        case "MAP":
-          tileSvSpec = svProvider.getSpec(tile.statVarKey[0], { blockDenom });
-          tilePromises.push(
-            getMapTileResult(
-              tileId,
-              tile,
-              place,
-              enclosedPlaceType,
-              tileSvSpec,
-              CONFIG.apiRoot,
-              urlRoot,
-              useChartUrl,
-              apikey
-            )
-          );
-          break;
-        case "RANKING":
-          tileSvSpec = svProvider.getSpecList(tile.statVarKey, { blockDenom });
-          tilePromises.push(
-            getRankingTileResult(
-              tileId,
-              tile,
-              place.dcid,
-              enclosedPlaceType,
-              tileSvSpec,
-              CONFIG.apiRoot,
-              urlRoot,
-              useChartUrl,
-              apikey
-            )
-          );
-          break;
-        default:
-          break;
-      }
-    });
-  });
-  return tilePromises;
-}
-
-// Get a list of tile result promises for all the tiles in the disaster block
-function getDisasterBlockTileResults(
-  id: string,
-  block: BlockConfig,
-  place: NamedTypedPlace,
-  enclosedPlaceType: string,
-  eventTypeSpec: Record<string, EventTypeSpec>,
-  urlRoot: string,
-  useChartUrl: boolean,
-  apikey: string,
-  allowedTilesTypes?: Set<string>
-): Promise<TileResult>[] {
-  const blockEventTypeSpec = getBlockEventTypeSpecs(
-    eventTypeSpec,
-    block.columns
-  );
-  const disasterEventDataPromise = fetchDisasterEventData(
-    blockEventTypeSpec,
-    place.dcid,
-    getDate(id, block.disasterBlockSpec || {}, place),
-    getSeverityFilters(eventTypeSpec, id),
-    null,
-    CONFIG.apiRoot
-  );
-  const tilePromises = [];
-  block.columns.forEach((column, colIdx) => {
-    column.tiles.forEach((tile, tileIdx) => {
-      if (allowedTilesTypes && !allowedTilesTypes.has(tile.type)) {
-        return;
-      }
-      const tileEventTypeSpec = getTileEventTypeSpecs(eventTypeSpec, tile);
-      const tileId = `${id}-col${colIdx}-tile${tileIdx}`;
-      switch (tile.type) {
-        case "DISASTER_EVENT_MAP":
-          tilePromises.push(
-            getDisasterMapTileResult(
-              tileId,
-              tile,
-              place,
-              enclosedPlaceType,
-              tileEventTypeSpec,
-              disasterEventDataPromise,
-              CONFIG.apiRoot,
-              urlRoot,
-              useChartUrl,
-              apikey
-            )
-          );
-        default:
-          return null;
-      }
-    });
-  });
-  return tilePromises;
-}
-
 // Get the chart html for a tile
 function getTileChart(
   tileConfig: TileConfig,
@@ -475,23 +287,12 @@ function getTileChart(
   }
 }
 
-// Get the elapsed time in seconds given the start and end times in nanoseconds.
-function getElapsedTime(startTime: bigint, endTime: bigint): number {
-  // Dividing bigints will cause decimals to be lost. Therefore, convert ns to
-  // ms first and convert that to number type. Then convert the ms to s to get
-  // seconds with decimal precision.
-  return (
-    Number((endTime - startTime) / NS_TO_MS_SCALE_FACTOR) / MS_TO_S_SCALE_FACTOR
-  );
-}
-
 // Prevents returning 304 status if same GET request gets hit multiple times.
 // This is needed for health checks to pass which require a 200 status.
 app.disable("etag");
 
 app.get("/nodejs/query", (req: Request, res: Response) => {
-  const startTime = process.hrtime.bigint();
-  const query = req.query.q;
+  const query = req.query.q as string;
   const useChartUrl = req.query.chartUrl !== CHART_URL_PARAM_SVG;
   // If the value for allCharts param is truthy, we should return all charts.
   // Otherwise, return QUERY_MAX_RESULTS number of charts.
@@ -502,128 +303,32 @@ app.get("/nodejs/query", (req: Request, res: Response) => {
   const host = req.headers["x-forwarded-host"] || req.headers.host;
   const apikey = (req.query.apikey as string) || "";
   const urlRoot = `${protocol}://${host}`;
-  const client = req.query.client || BARD_CLIENT_URL_PARAM;
-  const allowedTileTypes =
-    client === BARD_CLIENT_URL_PARAM ? BARD_ALLOWED_CHARTS : null;
-  const mode = req.query.mode || DEFAULT_NL_MODE;
-  res.setHeader("Content-Type", "application/json");
-  axios
-    // Set "mode=strict" to use heuristic detector, disable using default place,
-    // use a higher SV threshold and avoid multi-verb queries
-    .post(
-      `${CONFIG.apiRoot}/api/explore/detect-and-fulfill?q=${query}&mode=${mode}&client=${client}`,
-      {}
-    )
-    .then((resp) => {
-      const nlResultTime = process.hrtime.bigint();
-      const mainPlace = resp.data["place"] || {};
-      const place = {
-        dcid: mainPlace["dcid"],
-        name: mainPlace["name"],
-        types: [mainPlace["place_type"]],
-      };
-      const config = resp.data["config"] || {};
-      let enclosedPlaceType = "";
-      if (
-        config["metadata"] &&
-        config["metadata"]["containedPlaceTypes"] &&
-        !_.isEmpty(place.types)
-      ) {
-        enclosedPlaceType =
-          config["metadata"]["containedPlaceTypes"][place.types[0]] ||
-          enclosedPlaceType;
-      }
-
-      // If no place, return here
-      if (!place.dcid) {
-        res.status(200).send({ charts: [] });
-        return;
-      }
-
-      // Get a list of tile result promises
-      const tilePromises: Array<Promise<TileResult[] | TileResult>> = [];
-      const categories = config["categories"] || [];
-      categories.forEach((category, catIdx) => {
-        if (!allResults && tilePromises.length >= QUERY_MAX_RESULTS) {
-          return;
-        }
-        const svSpec = {};
-        for (const sv in category["statVarSpec"]) {
-          svSpec[sv] = category["statVarSpec"][sv];
-        }
-        category.blocks.forEach((block, blkIdx) => {
-          if (!allResults && tilePromises.length >= QUERY_MAX_RESULTS) {
-            return;
-          }
-          const blockId = `cat${catIdx}-blk${blkIdx}`;
-          let blockTilePromises = [];
-          switch (block.type) {
-            case "DISASTER_EVENT":
-              blockTilePromises = getDisasterBlockTileResults(
-                blockId,
-                block,
-                place,
-                enclosedPlaceType,
-                config["metadata"]["eventTypeSpec"],
-                urlRoot,
-                useChartUrl,
-                apikey,
-                allowedTileTypes
-              );
-              break;
-            default:
-              blockTilePromises = getBlockTileResults(
-                blockId,
-                block,
-                place,
-                enclosedPlaceType,
-                svSpec,
-                urlRoot,
-                useChartUrl,
-                apikey,
-                allowedTileTypes
-              );
-          }
-          tilePromises.push(...blockTilePromises);
-        });
-      });
-
-      // If no tiles return here.
-      if (tilePromises.length < 1) {
-        res.status(200).send({ charts: [] });
-        return;
-      }
-
-      Promise.all(tilePromises)
-        .then((tileResults) => {
-          const processedResults = tileResults
-            .flat(1)
-            .filter((result) => result !== null);
-          processedResults.forEach((result) => {
-            result.dcUrl = DC_URL_ROOT + encodeURIComponent(query as string);
-          });
-          const endTime = process.hrtime.bigint();
-          const debug = {
-            timing: {
-              getNlResult: getElapsedTime(startTime, nlResultTime),
-              getTileResults: getElapsedTime(nlResultTime, endTime),
-              total: getElapsedTime(startTime, endTime),
-            },
-            debug: resp.data["debug"] || {},
-          };
-          res
-            .status(200)
-            .send(JSON.stringify({ charts: processedResults, debug }));
-        })
-        .catch(() => {
-          res.status(500).send({ err: "Error fetching data." });
-          [];
-        });
-    })
-    .catch((error) => {
-      console.error("Error making request:\n", error.message);
-      res.status(500).send({ err: "Error fetching data." });
-    });
+  const client = (req.query.client as string) || BARD_CLIENT_URL_PARAM;
+  const mode = (req.query.mode as string) || "";
+  const varThreshold = (req.query.varThreshold as string) || "";
+  const wantRelatedQuestions =
+    req.query.relatedQuestions === URL_PARAM_VALUE_TRUTHY;
+  const idx = (req.query.idx as string) || "";
+  getQueryResult(
+    query,
+    useChartUrl,
+    allResults,
+    CONFIG.apiRoot,
+    apikey,
+    urlRoot,
+    client,
+    mode,
+    varThreshold,
+    wantRelatedQuestions,
+    idx
+  ).then((result) => {
+    res.setHeader("Content-Type", "application/json");
+    if (result.err) {
+      res.status(500).send(result);
+    } else {
+      res.status(200).send(JSON.stringify(result));
+    }
+  });
 });
 
 app.get("/nodejs/chart", (req: Request, res: Response) => {

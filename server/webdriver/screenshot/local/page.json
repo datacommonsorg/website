@@ -100,46 +100,6 @@
     "async": true
   },
   {
-    "url": "/nl/#q=What+are+the+projected+temperature+extremes+across+california&a=True&d=True&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true
-  },
-  {
-    "url": "/nl/#q=family+earnings+in+california&a=True&d=True&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true
-  },
-  {
-    "url": "/nl/#q=top+jobs+in+santa+clara+county&a=True&d=True&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true
-  },
-  {
-    "url": "/nl/#q=counties+in+california+with+highest+obesity&a=True&d=True&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true
-  },
-  {
-    "url": "/nl/#q=obesity+vs.+poverty+in+counties+of+california&a=True&d=True&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true
-  },
-  {
-    "url": "/nl/#q=fires+in+california&a=True&d=True&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true
-  },
-  {
-    "url": "/nl/#q=counties+in+california+with+highest+obesity&a=True&d=True&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true
-  },
-  {
-    "url": "/nl/#q=Prevalence+of+Asthma+in+California+cities+with+hispanic+population+over+10000&a=True&d=True&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true
-  },
-  {
     "url": "/tools/map#%26sv%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26ept%3DCounty",
     "height": 1200,
     "async": true
@@ -295,86 +255,6 @@
     "async": true
   },
   {
-    "url": "/nl/#q=Obesity+vs+Unemployment+in+the+US+counties&a=True&d=True&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true
-  },
-  {
-    "url": "/nl/#q=Businesses+by+industry+in+New+York+State&a=True&d=True&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true
-  },
-  {
-    "url": "/nl/#q=Health+equity+in+Santa+Clara+County&a=True&d=True&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true
-  },
-  {
-    "url": "/nl/#q=Incarceration+rates+by+race+in+the+US&a=True&d=True&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true
-  },
-  {
-    "url": "/nl#q=health+behaviors+in+India+vs+Norway&a=True&d=True&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true
-  },
-  {
-    "url": "/nl/#q=High+blood+pressure+vs+Asthma+in+Alabama&a=True&d=True&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true
-  },
-  {
-    "url": "/nl/#q=School+Enrollment+in+California&a=True&d=True&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true
-  },
-  {
-    "url": "/nl/#q=Student+demographics+among+schools+in+Sunnyvale&a=True&d=True&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true
-  },
-  {
-    "url": "/nl/#q=Housing+in+Oakland&a=True&d=True&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true
-  },
-  {
-    "url": "/nl/#q=Compare+modes+of+commute+between+NYC+and+Chicago&a=True&d=True&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true
-  },
-  {
-    "url": "/nl/#q=Rental+prices+in+Oakland+vs+Berkeley&a=True&d=True&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true
-  },
-  {
-    "url": "/nl/#q=Median+home+value+vs.+hypertension+in+US+counties&a=True&d=True&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true
-  },
-  {
-    "url": "/nl/#q=Gender+distribution+in+the+US&a=True&d=True&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true
-  },
-  {
-    "url": "/nl/#q=Foreign+born+population+vs.+PhD+holders+in+California+counties&a=True&d=True&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true
-  },
-  {
-    "url": "/nl/#q=Green+jobs+in+the+US&a=True&d=True&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true
-  },
-  {
-    "url": "/nl/#q=AQI+vs+blood+pressure+in+New+Jersey&a=True&d=True&mb=3&test=screenshot",
-    "height": 3000,
-    "async": true
-  },
-  {
     "url": "/topic/dev/geoId/06",
     "height": 8000,
     "async": true
@@ -393,5 +273,41 @@
     "url": "/topic/dev/asia?wc=true",
     "height": 3000,
     "async": true
+  },
+  {
+    "url": "/topic/equity/country/USA?wc=true",
+    "height": 8000,
+    "async": true
+  },
+  {
+    "url": "/explore/education-housing-commute",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore/demographics",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#t=dc/topic/Language&p=country/USA",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#client=ui_landing&q=How+does+PM2.5+correlate+with+asthma+across+US+counties",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which%20state%20in%20the%20US%20has%20the%20most%20Tamil%20speakers%3F",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Show%20me%20the%20breakdown%20of%20businesses%20by%20industry%20type%20in%20the%20US.",
+    "height": 3000,
+    "async": true,
+    "width": 800
   }
 ]

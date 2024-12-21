@@ -25,7 +25,8 @@ if [[ $ENV == "" ]]; then
   exit 1
 fi
 
-PROJECT_ID=$(yq eval '.project' config.yaml)
+CONFIG_YAML="../deploy/helm_charts/envs/$ENV.yaml"
+PROJECT_ID=$(yq eval '.project' $CONFIG_YAML)
 AUTH="$(gcloud auth print-access-token)"
 ENVIRONMENT_NAME=website-environment
 APIGEE_CONFIG_PATH=../deploy/apigee
@@ -59,3 +60,9 @@ curl -H "Authorization: Bearer $AUTH" -X POST \
 echo "*** Confirming deployment"
 curl -H "Authorization: Bearer $AUTH" \
   "https://apigee.googleapis.com/v1/organizations/$PROJECT_ID/environments/$ENVIRONMENT_NAME/apis/$PROXY_NAME/revisions/$REVISION/deployments"
+
+
+echo "*** Enabling DNS peering between default network and website.internal. dns suffix ***"
+gcloud services peered-dns-domains create apigee-website-cloud-dns-peering \
+    --network=default \
+    --dns-suffix=website.internal.

@@ -82,8 +82,8 @@ msgstr "Staatliche Ausgaben für Bildung"
 msgid "Government Expenditures on Military"
 msgstr "Staatliche Ausgaben für das Militär"
 
-msgid "Graph Browser"
-msgstr "Graph Browser"
+msgid "Knowledge Graph"
+msgstr "Knowledge Graph"
 
 msgid "Gross National Income"
 msgstr "Bruttonationaleinkommen"

@@ -18,9 +18,7 @@
 
 {% set main_id = 'bio_browser_landing' %}
 {% set page_id = 'page-bio_browser_landing' %}
-{% set title = 'Biomedical Graph Browser' %}
-{% set subpage_title = 'Biomedical Graph Browser' %}
-{% set subpage_url = url_for('browser.bio_browser_main') %}
+{% set title = 'Biomedical Knowledge Graph' %}
 
 {% block head %}
   <link rel="stylesheet" href={{url_for('static', filename='css/browser.min.css', t=config['VERSION'])}} >
@@ -28,11 +26,11 @@
 
 {% block content %}
   <div class="container">
-    <h1 class="mb-4">Graph Browser</h1>
+    <h1 class="mb-4">Knowledge Graph</h1>
     <p>
       The Biomedical Data Commons Graph is constructed by synthesizing a single
       database from many different data sources.
-      This graph browser can be used both to explore what data is available and to understand the graph structure.
+      This knowledge graph can be used both to explore what data is available and to understand the graph structure.
     </p>
     {# TODO: Use a config to drive these lists #}
     <ul>

@@ -1,0 +1,93 @@
+sentence,dcid
+A specific organism or taxonomic group of organisms that are susceptible to be infected by a virus,virusHost
+A unique ID for a Medical Subject Heading Descriptor record,medicalSubjectHeadingDescriptorID
+A unique ID for a Medical Subject Heading supplementary record,medicalSubjectHeadingSupplementaryRecordID
+An ID for a Medical Subject Heading descriptor record,medicalSubjectHeadingDescriptorID
+An ID for a Medical Subject Heading supplementary record,medicalSubjectHeadingSupplementaryRecordID
+ChEMBL identifier,chemblID
+ChemicalCompoundGeneticVariantAssociation,<-compoundID{typeOf:ChemicalCompoundGeneticVariantAssociation}->variantID;<-variantID{typeOf:ChemicalCompoundGeneticVariantAssociation}->compoundID
+Disease associated with a gene,<-geneID{typeOf:DiseaseGeneAssociation}->diseaseID
+Disease associated with a genetic variant,<-geneticVariantID{typeOf:DiseaseGeneticVariantAssociation}->diseaseID
+DiseaseGeneAssociation,<-diseaseID{typeOf:DiseaseGeneAssociation}->geneID;<-geneID{typeOf:DiseaseGeneAssociation}->diseaseID
+DiseaseGeneticVariantAssociation,<-diseaseID{typeOf:DiseaseGeneticVariantAssociation}->geneticVariantID;<-geneticVariantID{typeOf:DiseaseGeneticVariantAssociation}->diseaseID
+Ensembl ID,ensemblID
+Functional category of the genetic variant,geneticVariantFunctionalCategory
+Gene associated with a disease,<-diseaseID{typeOf:DiseaseGeneAssociation}->geneID
+Gene associated with a genetic variant,<-variantID{typeOf:GeneGeneticVariantAssociation}->geneID
+Genetic variant associated with a disease,<-diseaseID{typeOf:DiseaseGeneticVariantAssociation}->geneticVariantID
+GeneticVariantGeneAssociation,<-geneID{typeOf:GeneGeneticVariantAssociation}->variantID;<-variantID{typeOf:GeneGeneticVariantAssociation}->geneID
+HUGO Gene Nomenclature Committee identifier,hgncID
+InChIKey,inChIKey
+International Chemical Identifier (InChI) Key,inChIKey
+MOA,mechanismOfAction
+MeSH descriptor record ID,medicalSubjectHeadingDescriptorID
+MeSH supplementary record ID,medicalSubjectHeadingSupplementaryRecordID
+NCBI Taxonomy database identifier,ncbiTaxId
+NCBI protein accession number,ncbiProteinAccessionNumber
+OMIM database identifier,omimID
+Origin of variant allele,alleleOrigin
+Reference genomic sequence from dbSNP,referenceAllele
+Simplified Molecular Input Line Entry System (SMILE),simplifiedMolecularInputLineEntrySystem
+Size of chromosome,chromosomeSize
+Systematiized Nomenclature of Medicine (SNOMED) clinical terms (CT) code,snomedCT
+The allele of a genetic variant observed within a population,alleleType
+"The disease diagnosis code for version 10 of the International Classification of Diseases (ICD), Clinical Modification",icd10CMCode
+The method by which a drug is administered,administrationRoute
+The orientation of the strand on which an annotation is located,strandOrientation
+The species of a virus isolate,ofVirusSpecies
+The strand on which a given annotation is located,strandOrientation
+The type of gene,typeOfGene
+Type of allele,alleleType
+UMLS CUI,umlsConceptUniqueID
+Unified Medical Language System (UMLS) Concept Unique Identifier (CUI),umlsConceptUniqueID
+Variant allele origin,alleleOrigin
+activeIngredient,activeIngredient
+administrationRoute,administrationRoute
+alleleOrigin,alleleOrigin
+alleleType,alleleType
+antibodyType,antibodyType
+antigenType,antigenType
+chemblID,chemblID
+chemical compound associated with a genetic variant,<-variantID{typeOf:ChemicalCompoundGeneticVariantAssociation}->compoundID
+chromosomeSize,chromosomeSize
+class,class
+"component that provides pharmacological activity or other direct effect in the diagnosis, cure, mitigation, treatment, or prevention of disease, or to affect the structure or any function of the body of man or animals",activeIngredient
+dosageForm,dosageForm
+ensemblID,ensemblID
+full name of the gene,fullName
+fullName,fullName
+gene id,geneID
+geneID,geneID
+genetic variant associated with a chemical compound,<-compoundID{typeOf:ChemicalCompoundGeneticVariantAssociation}->variantID
+genetic variant associated with a gene,<-geneID{typeOf:GeneGeneticVariantAssociation}->variantID
+geneticVariantFunctionalCategory,geneticVariantFunctionalCategory
+genomic coordinates,hasGenomicCoordinates
+genus of a virus species,virusGenus
+hgncID,hgncID
+host of a virus,virusHost
+icd10CMCode,icd10CMCode
+mechanismOfAction,mechanismOfAction
+medicalSubjectHeadingDescriptorID,medicalSubjectHeadingDescriptorID
+medicalSubjectHeadingSupplementaryRecordID,medicalSubjectHeadingSupplementaryRecordID
+ncbiProteinAccessionNumber,ncbiProteinAccessionNumber
+ncbiTaxID,ncbiTaxId
+number of nucleotides in a chromosome,chromosomeSize
+ofVirusSpecies,ofVirusSpecies
+omimID,omimID
+phylum,phylum
+physical form in which a drug is produced and dispensed,dosageForm
+reference allele,referenceAllele
+simplifiedMolecularInputLineEntrySystem,simplifiedMolecularInputLineEntrySystem
+snomedCT,snomedCT
+specialization of,specializationOf
+specializationOf,specializationOf
+strandOrientation,strandOrientation
+subClassificationOf,subClassificationOf
+subclassification of,subClassificationOf
+the biochemical interaction through which a drug produces a pharmacological effect,mechanismOfAction
+type of antibody,antibodyType
+type of antigen,antigenType
+typeOfGene,typeOfGene
+umlsConceptUniqueID,umlsConceptUniqueID
+virusGenus,virusGenus
+virusHost,virusHost

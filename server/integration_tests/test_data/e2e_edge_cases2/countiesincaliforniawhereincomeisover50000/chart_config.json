@@ -9,43 +9,31 @@
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "geoId/06085",
-                      "geoId/06081",
-                      "geoId/06041",
-                      "geoId/06075",
-                      "geoId/06001",
-                      "geoId/06013",
-                      "geoId/06061"
-                    ],
+                    "description": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 4,999 USD or Less in Los Angeles County",
                     "statVarKey": [
-                      "Median_Income_Household_multiple_place_bar_block"
+                      "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf4999OrLessUSDollar_WithEarnings"
                     ],
-                    "title": "Household Median Income (${date}) - Top 7 of 57",
-                    "type": "BAR"
+                    "title": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 4,999 USD or Less in Los Angeles County",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Household Median Income"
+            "denom": "Count_Person",
+            "title": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 4,999 USD or Less"
           }
         ],
         "statVarSpec": {
-          "Median_Income_Household_multiple_place_bar_block": {
-            "name": "Household Median Income",
-            "statVar": "Median_Income_Household"
+          "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf4999OrLessUSDollar_WithEarnings": {
+            "name": "Non-Institutionalized Civilian Adults With No Health Insurance, Earnings 4,999 USD or Less",
+            "statVar": "Count_Person_16OrMoreYears_NoHealthInsurance_IncomeOf4999OrLessUSDollar_WithEarnings"
           }
         }
       }
     ],
     "metadata": {
       "placeDcid": [
-        "geoId/06085"
+        "geoId/06037"
       ]
     }
   },
@@ -422,41 +410,12 @@
         }
       ]
     },
-    "childTopics": [
-      {
-        "dcid": "dc/topic/IndividualIncomeDistribution",
-        "name": "Individual Income Distribution",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/IndividualIncomeByIndustry",
-        "name": "Individual Income by Industry",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/HouseholdIncomeDistribution",
-        "name": "Household Income Distribution",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
-    "exploreMore": {
-      "Median_Income_Household": {
-        "benefitsStatus": [
-          "Median_Income_Household_WithFoodStampsInThePast12Months",
-          "Median_Income_Household_WithoutFoodStampsInThePast12Months"
-        ]
-      }
-    },
+    "childTopics": [],
+    "exploreMore": {},
     "mainTopics": [
       {
-        "dcid": "dc/topic/Income",
-        "name": "Income",
+        "dcid": "dc/topic/NoHealthInsuranceByIncome",
+        "name": "No Health Insurance by Income",
         "types": [
           "Topic"
         ]
@@ -465,8 +424,8 @@
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/Economy",
-        "name": "Economy",
+        "dcid": "dc/topic/NoHealthInsurance",
+        "name": "No Health Insurance",
         "types": [
           "Topic"
         ]
@@ -826,43 +785,15 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/Businesses",
-        "name": "Businesses",
+        "dcid": "dc/topic/NoHealthInsuranceByGender",
+        "name": "No Health Insurance by Gender",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/EconomicActivity",
-        "name": "Economic Activity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Employment",
-        "name": "Employment",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/GlobalEconomicActivity",
-        "name": "Global Economic Activity",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Poverty",
-        "name": "Poverty",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Agriculture",
-        "name": "Agriculture",
+        "dcid": "dc/topic/NoHealthInsuranceByRace",
+        "name": "No Health Insurance by Race",
         "types": [
           "Topic"
         ]
@@ -870,5 +801,6 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
+  "test": "filter_test",
   "userMessages": []
 }

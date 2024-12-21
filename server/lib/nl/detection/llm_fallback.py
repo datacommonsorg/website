@@ -31,10 +31,8 @@ from shared.lib import utils as sh_utils
 
 class NeedLLM(Enum):
   No = 1
-  ForPlace = 2
-  ForVar = 3
-  ForSafety = 4
-  Fully = 5
+  ForSafety = 2
+  Fully = 3
 
 
 # Any score below this value does not qualify for fallback. This
@@ -62,6 +60,10 @@ def need_llm(heuristic: Detection, prev_uttr: Utterance,
   need_sv = False
   need_place = False
 
+  # Do not use LLM when an entity has been identified.
+  if _has_entity(heuristic):
+    return NeedLLM.No
+
   # 1. If there was no SV or prop.
   if _has_no_sv(heuristic, ctr) and _has_no_prop(heuristic, ctr):
 
@@ -81,8 +83,8 @@ def need_llm(heuristic: Detection, prev_uttr: Utterance,
       ctr.info('info_fallback_no_sv_found', '')
       need_sv = True
 
-  # 2. If there was no place or entity.
-  if _has_no_place(heuristic) and _has_no_entity(heuristic):
+  # 2. If there was no place and no entity.
+  if _has_no_place(heuristic) and not _has_entity(heuristic):
 
     # For COUNTRY contained-in type, Earth is assumed
     # (e.g., countries with worst health), so exclude that.
@@ -100,12 +102,8 @@ def need_llm(heuristic: Detection, prev_uttr: Utterance,
     need_sv = True
 
   llm_type = NeedLLM.No
-  if need_sv and need_place:
+  if need_sv or need_place:
     llm_type = NeedLLM.Fully
-  elif need_sv:
-    llm_type = NeedLLM.ForVar
-  elif need_place:
-    llm_type = NeedLLM.ForPlace
 
   return llm_type
 
@@ -124,8 +122,8 @@ def _has_no_prop(d: Detection, ctr: counters.Counters) -> bool:
       d.svs_detected.prop, d.svs_detected.sv_threshold, ctr)
 
 
-def _has_no_entity(d: Detection) -> bool:
-  return not d.places_detected or not d.places_detected.entities_found
+def _has_entity(d: Detection) -> bool:
+  return d.places_detected and d.places_detected.entities_found
 
 
 #
@@ -207,7 +205,7 @@ def _is_multi_sv_delimited(d: Detection, places_mentioned: List[str],
   # Find all sv sub-part indexes.
   vidx_list = []
   for p in multi_sv.parts:
-    vidx = query.find(p.query_part)
+    vidx = dutils.find_word_boundary(query, p.query_part)
     if vidx == -1:
       ctr.err('failed_fallback_svidxmissing', p.query_part)
       return False
@@ -215,7 +213,7 @@ def _is_multi_sv_delimited(d: Detection, places_mentioned: List[str],
 
   for place in places_mentioned:
     # Find place idx.
-    pidx = query.find(place)
+    pidx = dutils.find_word_boundary(query, place)
     if pidx == -1:
       ctr.err('failed_fallback_placeidxmissing', place)
       return False

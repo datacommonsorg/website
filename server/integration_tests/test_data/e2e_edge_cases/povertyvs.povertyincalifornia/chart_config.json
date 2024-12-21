@@ -13,6 +13,89 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_scatter",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person_scatter"
+                    ],
+                    "title": "Population Below Poverty Line (${yDate}) Vs. Population Below Poverty Line (Per Capita) (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Below poverty line vs. Population Below poverty line (Per Capita)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Population Below Poverty Line in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Population Below Poverty Line in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Below Poverty Line in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Population Below Poverty Line (Per Capita) in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Population Below Poverty Line (Per Capita) in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Below Poverty Line (Per Capita) in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
                       "Count_Person_Female_BelowPovertyLevelInThePast12Months_scatter",
                       "Count_Person_Male_BelowPovertyLevelInThePast12Months_scatter"
                     ],
@@ -91,6 +174,23 @@
           }
         ],
         "statVarSpec": {
+          "Count_Person_BelowPovertyLevelInThePast12Months": {
+            "name": "Population Below poverty line",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person": {
+            "name": "Population Below poverty line (Per Capita)",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person_scatter": {
+            "name": "Population Below poverty line (Per Capita)",
+            "noPerCapita": true,
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
+          },
+          "Count_Person_BelowPovertyLevelInThePast12Months_scatter": {
+            "name": "Population Below poverty line",
+            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
+          },
           "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
             "name": "Women below Poverty Line",
             "statVar": "Count_Person_Female_BelowPovertyLevelInThePast12Months"
@@ -516,12 +616,36 @@
       }
     ],
     "exploreMore": {
+      "Count_Person_BelowPovertyLevelInThePast12Months": {
+        "age": [
+          "Count_Person_12To17Years_BelowPovertyLevelInThePast12Months",
+          "Count_Person_18To59Years_BelowPovertyLevelInThePast12Months",
+          "Count_Person_5OrMoreYears_BelowPovertyLevelInThePast12Months",
+          "Count_Person_60To74Years_BelowPovertyLevelInThePast12Months",
+          "Count_Person_6To11Years_BelowPovertyLevelInThePast12Months",
+          "Count_Person_75To84Years_BelowPovertyLevelInThePast12Months",
+          "Count_Person_85OrMoreYears_BelowPovertyLevelInThePast12Months",
+          "Count_Person_Upto6Years_BelowPovertyLevelInThePast12Months"
+        ],
+        "gender": [
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_Male_BelowPovertyLevelInThePast12Months"
+        ]
+      },
       "Count_Person_Female_BelowPovertyLevelInThePast12Months": {
         "age": [
           "Count_Person_12To14Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_15Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_16To17Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_18To24Years_Female_BelowPovertyLevelInThePast12Months",
           "Count_Person_25To34Years_Female_BelowPovertyLevelInThePast12Months",
           "Count_Person_35To44Years_Female_BelowPovertyLevelInThePast12Months",
           "Count_Person_45To54Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_55To64Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_5Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_65To74Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_6To11Years_Female_BelowPovertyLevelInThePast12Months",
+          "Count_Person_75OrMoreYears_Female_BelowPovertyLevelInThePast12Months",
           "Count_Person_Upto5Years_Female_BelowPovertyLevelInThePast12Months"
         ],
         "maritalStatus": [
@@ -531,31 +655,28 @@
         "race": [
           "Count_Person_Female_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone",
           "Count_Person_Female_BelowPovertyLevelInThePast12Months_AsianAlone",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_SomeOtherRaceAlone",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_WhiteAlone",
-          "Count_Person_Female_BelowPovertyLevelInThePast12Months_WhiteAloneNotHispanicOrLatino"
+          "Count_Person_Female_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone"
         ]
       },
       "Count_Person_Male_BelowPovertyLevelInThePast12Months": {
         "age": [
           "Count_Person_12To14Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_15Years_Male_BelowPovertyLevelInThePast12Months",
           "Count_Person_16To17Years_Male_BelowPovertyLevelInThePast12Months",
           "Count_Person_18To24Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_25To34Years_Male_BelowPovertyLevelInThePast12Months",
           "Count_Person_35To44Years_Male_BelowPovertyLevelInThePast12Months",
           "Count_Person_45To54Years_Male_BelowPovertyLevelInThePast12Months",
           "Count_Person_55To64Years_Male_BelowPovertyLevelInThePast12Months",
-          "Count_Person_75OrMoreYears_Male_BelowPovertyLevelInThePast12Months"
+          "Count_Person_5Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_65To74Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_6To11Years_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_75OrMoreYears_Male_BelowPovertyLevelInThePast12Months",
+          "Count_Person_Upto5Years_Male_BelowPovertyLevelInThePast12Months"
         ],
-        "race": [
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_AmericanIndianOrAlaskaNativeAlone",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_AsianAlone",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_BlackOrAfricanAmericanAlone",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_HispanicOrLatino",
-          "Count_Person_Male_BelowPovertyLevelInThePast12Months_NativeHawaiianOrOtherPacificIslanderAlone"
+        "maritalStatus": [
+          "Count_Person_Male_DivorcedInThePast12Months_BelowPovertyLevelInThePast12Months",
+          "Count_Person_Male_MarriedInThePast12Months_BelowPovertyLevelInThePast12Months"
         ]
       }
     },

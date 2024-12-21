@@ -11,15 +11,18 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+"""LanceDB Embeddings store."""
 
-from typing import Dict, List
+from typing import List
 
 import lancedb
 
+from nl_server.cache import get_cache_root
+from nl_server.config import LanceDBIndexConfig
 from nl_server.embeddings import EmbeddingsMatch
 from nl_server.embeddings import EmbeddingsResult
 from nl_server.embeddings import EmbeddingsStore
-from shared.lib.detected_variables import SentenceScore
+from shared.lib import gcs
 
 TABLE_NAME = 'datacommons'
 
@@ -33,8 +36,23 @@ DISTANCE_COL = '_distance'
 class LanceDBStore(EmbeddingsStore):
   """Manages the embeddings."""
 
-  def __init__(self, lance_db_dir: str) -> None:
-    super().__init__(needs_tensor=False)
+  def __init__(self, idx_info: LanceDBIndexConfig) -> None:
+    super().__init__(healthcheck_query=idx_info.healthcheck_query,
+                     needs_tensor=False)
+
+    if idx_info.embeddings_path.startswith('/'):
+      lance_db_dir = idx_info.embeddings_path
+    elif gcs.is_gcs_path(idx_info.embeddings_path):
+      lance_db_dir = gcs.maybe_download(idx_info.embeddings_path,
+                                        get_cache_root())
+      if not lance_db_dir:
+        raise AssertionError(
+            f'Embeddings not downloaded from GCS. Please check the path: {idx_info.embeddings_path}'
+        )
+    else:
+      raise AssertionError(
+          f'"embeddings_path" path must start with `/` or `gs://`: {idx_info.embeddings_path}'
+      )
 
     self.db = lancedb.connect(lance_db_dir)
     self.table = self.db.open_table(TABLE_NAME)

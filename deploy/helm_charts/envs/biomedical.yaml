@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# DNS
+domain: biomedical.datacommons.org
+ip: 34.49.89.118
+
 # Helm config
 project: "datcom-biomedical"
 cluster_prefix: "website"
@@ -42,3 +46,12 @@ serviceGroups:
 
 nl:
   enabled: true
+  env:
+    default_indexes:
+      - bio_ft
+      - medium_ft
+    enabled_indexes:
+      - bio_ft
+      - medium_ft
+      - sdg_ft
+      - undata_ft

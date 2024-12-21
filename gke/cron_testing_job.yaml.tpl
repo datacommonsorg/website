@@ -20,7 +20,7 @@ metadata:
   namespace: website
 spec:
   # Run every 4 hours
-  schedule: "0 */4 * * *"
+  schedule:
   successfulJobsHistoryLimit: 100
   failedJobsHistoryLimit: 100
   jobTemplate:
@@ -59,4 +59,9 @@ spec:
                 configMapKeyRef:
                   name: cron-testing-config
                   key: enableSanity
+            - name: ENABLE_ADVERSARIAL
+              valueFrom: 
+                configMapKeyRef:
+                  name: cron-testing-config
+                  key: enableAdversarial
           restartPolicy: Never

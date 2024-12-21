@@ -587,3 +587,54 @@ categories {
     }
   }
 }
+
+
+categories {
+  title: "Test Answer tiles"
+  blocks {
+    columns {
+      tiles {
+        type: ANSWER_MESSAGE
+        title: "the associated genes for rs13317 are",
+        answer_message_tile_spec {
+          property_expr: "<-referencesnpclusterid{typeof:geneticvariantgeneassociation}->genesymbol"
+        }
+        entities: [
+          "bio/rs13317"
+        ],
+      }
+      tiles {
+        answer_table_tile_spec {
+          columns: [
+            {
+              header: "Phylum",
+              property_expr: "->phylum"
+            }
+          ]
+        }
+        entities: [
+          "bio/D031211",
+          "dc/243ey64hwbn34",
+          "dc/2hv02sq2ry0r6",
+          "dc/c29yfdfcgxzyg",
+          "dc/e33hxjfjh7x07",
+          "dc/gsbgxt3v7n4w3",
+          "dc/q4embh4k403zd",
+          "dc/ss25j8cd5gsq",
+          "dc/v359bd9cc2q02",
+          "dc/vs98cmjjblzb5",
+          "dc/wq2j4gte42ysg",
+          "dc/yb99f7tx3f4nf"
+        ]
+        title: "The Phylum for Corylus are as follows:"
+        type: ANSWER_TABLE
+      }
+    }
+  }
+  stat_var_spec {
+    key: 'male_population'
+    value {
+      stat_var: "Count_Person_Male"
+    }
+  }
+}

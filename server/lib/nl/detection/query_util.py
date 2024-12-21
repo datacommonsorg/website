@@ -20,12 +20,6 @@ from typing import List
 
 from shared.lib import utils
 
-# TODO: decouple words removal from detected attributes. Today, the removal
-# blanket removes anything that matches, including the various attribute/
-# classification triggers and contained_in place types (and their plurals).
-# This may not always be the best thing to do.
-ALL_STOP_WORDS = utils.combine_stop_words()
-
 # Use comma, "vs.", semi-colon, "and", ampersand as delimiters.
 _REGEX_DELIMITERS = r',|vs|;|and|&'
 # Regex to extract out substrings within double quotes.
@@ -100,14 +94,14 @@ def get_parts_via_delimiters(query):
   return parts
 
 
-def _prepare_queryset_via_delimiters(query: str,
-                                     querysets: List[QuerySet]) -> int:
+def _prepare_queryset_via_delimiters(query: str, querysets: List[QuerySet],
+                                     stop_words: List[str]) -> int:
   parts = get_parts_via_delimiters(query)
   if len(parts) == 1:
     return 0
   cleaned_parts = []
   for p in parts:
-    p = utils.remove_stop_words(utils.remove_punctuations(p), ALL_STOP_WORDS)
+    p = utils.remove_stop_words(utils.remove_punctuations(p), stop_words)
     if p:
       cleaned_parts.append(p)
   if not cleaned_parts:
@@ -123,13 +117,14 @@ def _prepare_queryset_via_delimiters(query: str,
 #
 # Returns combinations of |query| string parts of upto _MAX_SVS splits.
 #
-def prepare_multivar_querysets(query: str, max_svs: int) -> List[QuerySet]:
+def prepare_multivar_querysets(query: str, max_svs: int,
+                               stop_words: List[str]) -> List[QuerySet]:
   querysets: List[QuerySet] = []
 
-  delim_nsplits = _prepare_queryset_via_delimiters(query, querysets)
+  delim_nsplits = _prepare_queryset_via_delimiters(query, querysets, stop_words)
 
   query = utils.remove_punctuations(query)
-  query = utils.remove_stop_words(query, ALL_STOP_WORDS)
+  query = utils.remove_stop_words(query, stop_words)
 
   query_parts = [x.strip() for x in query.split(' ') if x.strip()]
   max_splits = min(max_svs, len(query_parts))

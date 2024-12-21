@@ -8,39 +8,60 @@
   "query_with_places_removed": "compare obesity vs poverty",
   "sv_matching": {
     "CosineScore": [
-      0.81198650598526,
-      0.7225803732872009,
-      0.7164518237113953,
-      0.6980434656143188,
-      0.6908260583877563,
-      0.6851560473442078,
-      0.6847792863845825,
-      0.6683323979377747,
-      0.6657033562660217,
-      0.6602826118469238,
-      0.6422473788261414,
-      0.6345549821853638,
-      0.6318432092666626,
-      0.6279777884483337
+      0.877844,
+      0.79677,
+      0.762497,
+      0.749946,
+      0.748405,
+      0.74429,
+      0.735754,
+      0.735035,
+      0.731035,
+      0.728962,
+      0.726626,
+      0.726426,
+      0.726426,
+      0.725391,
+      0.723008,
+      0.713948,
+      0.712695,
+      0.709485,
+      0.708555,
+      0.708554,
+      0.707882,
+      0.707771,
+      0.704539,
+      0.702431,
+      0.700454,
+      0.699499,
+      0.69567,
+      0.694791,
+      0.691324
     ],
     "MultiSV": {
       "Candidates": [
         {
-          "AggCosineScore": 0.953,
+          "AggCosineScore": 0.9234,
           "DelimBased": true,
           "Parts": [
             {
               "CosineScore": [
-                0.9060242176055908
+                0.846783,
+                0.831656,
+                0.820154,
+                0.817707
               ],
               "QueryPart": "obesity",
               "SV": [
-                "Percent_Person_Obesity"
+                "Percent_Person_Obesity",
+                "WHO/NCD_BMI_30A",
+                "dc/4lvmzr1h1ylk1",
+                "dc/x13tvt8jsgrm4"
               ]
             },
             {
               "CosineScore": [
-                1.0000001192092896
+                1.0
               ],
               "QueryPart": "poverty",
               "SV": [
@@ -53,20 +74,35 @@
     },
     "Query": "compare obesity vs poverty",
     "SV": [
-      "Percent_Person_Obesity",
       "dc/topic/Poverty",
-      "dc/topic/Malnutrition",
-      "Count_Person_BelowPovertyLevelInThePast12Months",
-      "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person",
-      "dc/topic/PovertyLevels",
-      "dc/topic/sdg_1.2",
-      "WHO/NCD_BMI_30A",
-      "Count_Person_Upto4Years_Overweight_AsFractionOf_Count_Person_Upto4Years",
+      "dc/topic/PovertyByRace",
       "dc/topic/SDG_1",
-      "Count_Person_1OrMoreYears_PovertyStatusDetermined_DifferentHouseAbroad",
+      "Percent_Person_Obesity",
+      "dc/topic/sdg_1.2",
+      "dc/topic/PovertyByGender",
+      "dc/topic/PovertyByLanguageSpokenAtHome",
+      "dc/topic/sdg_1.2.2",
+      "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+      "WHO/NCD_BMI_30A",
+      "dc/topic/Malnutrition",
+      "dc/topic/sdg_2.1.1",
+      "sdg/SN_ITK_DEFC",
+      "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months",
+      "dc/topic/PovertyByResidency",
+      "dc/topic/sdg_1",
+      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+      "dc/x13tvt8jsgrm4",
+      "dc/topic/FoodInsecurity",
+      "dc/topic/sdg_2.1.2",
+      "Count_Household_WithoutFoodStampsInThePast12Months_AbovePovertyLevelInThePast12Months",
       "dc/4lvmzr1h1ylk1",
-      "dc/topic/sdg_2.2.2",
-      "Count_Person_1OrMoreYears_1To1.49RatioToPovertyLine"
+      "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+      "Count_Household_WithFoodStampsInThePast12Months_AbovePovertyLevelInThePast12Months",
+      "dc/topic/HealthEquity",
+      "dc/topic/sdg_1.2.1",
+      "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
+      "Count_Person_Male_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces",
+      "sdg/SI_POV_DAY1"
     ]
   },
   "props_matching": {
@@ -83,7 +119,9 @@
     "query_transformations": {
       "place_detection_input": "compare obesity vs poverty",
       "place_detection_with_places_removed": "compare obesity vs poverty",
-      "sv_detection_query_index_type": "",
+      "sv_detection_query_index_types": [
+        "base_uae_mem"
+      ],
       "sv_detection_query_input": "compare obesity vs poverty",
       "sv_detection_query_stop_words_removal": "obesity poverty"
     }

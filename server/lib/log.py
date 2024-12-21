@@ -85,5 +85,5 @@ class ExtremeCallLogger:
 
     if cases:
       msg = ' | '.join(cases)
-      stack = ''.join(traceback.format_stack(limit=15))
+      stack = ''.join(traceback.format_stack(limit=10))
       logging.error(f'ExtremeCall # {msg} #\nStack Trace:\n{stack}')

@@ -14,18 +14,20 @@
                       "dc/p69tpsldf99h7",
                       "Count_Worker_NAICSAccommodationFoodServices",
                       "Count_Worker_NAICSConstruction",
-                      "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
                       "Count_Worker_NAICSProfessionalScientificTechnicalServices",
-                      "Count_Worker_NAICSArtsEntertainmentRecreation",
                       "Count_Worker_NAICSEducationalServices",
-                      "Count_Worker_NAICSRealEstateRentalLeasing",
+                      "Count_Worker_NAICSArtsEntertainmentRecreation",
+                      "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices",
                       "Count_Worker_NAICSOtherServices",
                       "Count_Worker_NAICSFinanceInsurance",
+                      "Count_Worker_NAICSRealEstateRentalLeasing",
                       "Count_Worker_NAICSPublicAdministration",
                       "Count_Worker_NAICSWholesaleTrade",
                       "dc/8p97n7l96lgg8",
                       "Count_Worker_NAICSUtilities",
+                      "Count_Worker_NAICSManagementOfCompaniesEnterprises",
                       "Count_Worker_NAICSInformation",
+                      "Count_Worker_NAICSNonclassifiable",
                       "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
                     ],
                     "title": "Categories of Jobs in Placer County",
@@ -45,7 +47,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSHealthCareSocialAssistance_growth_abs"
                     ],
-                    "title": "Health Care and Social Assistance Industry in Placer County",
+                    "title": "Health Care and Social Assistance Industry Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -56,7 +58,7 @@
                     "statVarKey": [
                       "dc/p69tpsldf99h7_growth_abs"
                     ],
-                    "title": "Retail Trade in Placer County",
+                    "title": "Retail Trade Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -67,7 +69,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSAccommodationFoodServices_growth_abs"
                     ],
-                    "title": "Accomodation/Food Industry in Placer County",
+                    "title": "Accommodation/Food Industry Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -78,18 +80,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSConstruction_growth_abs"
                     ],
-                    "title": "Construction Industry in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices_growth_abs"
-                    ],
-                    "title": "Admin / Waste Management Service Industry in Placer County",
+                    "title": "Population Working in the Construction Industry in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -100,18 +91,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSProfessionalScientificTechnicalServices_growth_abs"
                     ],
-                    "title": "Professional, Scientific, and Technical Services in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSArtsEntertainmentRecreation_growth_abs"
-                    ],
-                    "title": "Arts, Entertainment, Recreation Industry in Placer County",
+                    "title": "Professional, Scientific, and Technical Services Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -122,7 +102,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSEducationalServices_growth_abs"
                     ],
-                    "title": "Educational Services Industry in Placer County",
+                    "title": "Educational Services Industry Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -131,9 +111,20 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Worker_NAICSRealEstateRentalLeasing_growth_abs"
+                      "Count_Worker_NAICSArtsEntertainmentRecreation_growth_abs"
                     ],
-                    "title": "Real Estate and Rental and Leasing in Placer County",
+                    "title": "Arts, Entertainment, Recreation Industry Workers in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices_growth_abs"
+                    ],
+                    "title": "Admin / Waste Management Service Industry Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -144,7 +135,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSOtherServices_growth_abs"
                     ],
-                    "title": "Other Services (Except Public Admin) in Placer County",
+                    "title": "Other Services (Except Public Admin) Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -155,7 +146,18 @@
                     "statVarKey": [
                       "Count_Worker_NAICSFinanceInsurance_growth_abs"
                     ],
-                    "title": "Finance and Insurance Industry in Placer County",
+                    "title": "Finance and Insurance Industry Workers in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSRealEstateRentalLeasing_growth_abs"
+                    ],
+                    "title": "Real Estate and Rental and Leasing Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -166,7 +168,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSPublicAdministration_growth_abs"
                     ],
-                    "title": "Public Administration in Placer County",
+                    "title": "Public Administration Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -177,7 +179,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSWholesaleTrade_growth_abs"
                     ],
-                    "title": "Wholesale Trade in Placer County",
+                    "title": "Wholesale Trade Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -188,7 +190,7 @@
                     "statVarKey": [
                       "dc/8p97n7l96lgg8_growth_abs"
                     ],
-                    "title": "Transportation and Warehousing in Placer County",
+                    "title": "Transportation and Warehousing Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -199,7 +201,18 @@
                     "statVarKey": [
                       "Count_Worker_NAICSUtilities_growth_abs"
                     ],
-                    "title": "Utilities in Placer County",
+                    "title": "Utilities Workers in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSManagementOfCompaniesEnterprises_growth_abs"
+                    ],
+                    "title": "Population Working in the Management of Companies and Enterprises Industry in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -210,7 +223,18 @@
                     "statVarKey": [
                       "Count_Worker_NAICSInformation_growth_abs"
                     ],
-                    "title": "Information Industry in Placer County",
+                    "title": "Information Industry Workers in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSNonclassifiable_growth_abs"
+                    ],
+                    "title": "Unclassified Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -221,7 +245,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSMiningQuarryingOilGasExtraction_growth_abs"
                     ],
-                    "title": "Mining, Quarrying, Oil and Gas Extraction Industry in Placer County",
+                    "title": "Mining, Quarrying, Oil and Gas Extraction Industry Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -236,9 +260,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices_growth_pct"
+                      "Count_Worker_NAICSNonclassifiable_growth_pct"
                     ],
-                    "title": "Admin / Waste Management Service Industry in Placer County",
+                    "title": "Unclassified Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -249,7 +273,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSProfessionalScientificTechnicalServices_growth_pct"
                     ],
-                    "title": "Professional, Scientific, and Technical Services in Placer County",
+                    "title": "Professional, Scientific, and Technical Services Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -260,7 +284,18 @@
                     "statVarKey": [
                       "Count_Worker_NAICSHealthCareSocialAssistance_growth_pct"
                     ],
-                    "title": "Health Care and Social Assistance Industry in Placer County",
+                    "title": "Health Care and Social Assistance Industry Workers in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices_growth_pct"
+                    ],
+                    "title": "Admin / Waste Management Service Industry Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -271,7 +306,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSArtsEntertainmentRecreation_growth_pct"
                     ],
-                    "title": "Arts, Entertainment, Recreation Industry in Placer County",
+                    "title": "Arts, Entertainment, Recreation Industry Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -282,40 +317,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSUtilities_growth_pct"
                     ],
-                    "title": "Utilities in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSRealEstateRentalLeasing_growth_pct"
-                    ],
-                    "title": "Real Estate and Rental and Leasing in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSMiningQuarryingOilGasExtraction_growth_pct"
-                    ],
-                    "title": "Mining, Quarrying, Oil and Gas Extraction Industry in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "dc/8p97n7l96lgg8_growth_pct"
-                    ],
-                    "title": "Transportation and Warehousing in Placer County",
+                    "title": "Utilities Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -326,7 +328,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSWholesaleTrade_growth_pct"
                     ],
-                    "title": "Wholesale Trade in Placer County",
+                    "title": "Wholesale Trade Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -335,9 +337,20 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct"
+                      "Count_Worker_NAICSRealEstateRentalLeasing_growth_pct"
                     ],
-                    "title": "Accomodation/Food Industry in Placer County",
+                    "title": "Real Estate and Rental and Leasing Workers in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/8p97n7l96lgg8_growth_pct"
+                    ],
+                    "title": "Transportation and Warehousing Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -348,7 +361,18 @@
                     "statVarKey": [
                       "Count_Worker_NAICSConstruction_growth_pct"
                     ],
-                    "title": "Construction Industry in Placer County",
+                    "title": "Population Working in the Construction Industry in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSAccommodationFoodServices_growth_pct"
+                    ],
+                    "title": "Accommodation/Food Industry Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -359,18 +383,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSOtherServices_growth_pct"
                     ],
-                    "title": "Other Services (Except Public Admin) in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "dc/p69tpsldf99h7_growth_pct"
-                    ],
-                    "title": "Retail Trade in Placer County",
+                    "title": "Other Services (Except Public Admin) Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -381,7 +394,18 @@
                     "statVarKey": [
                       "Count_Worker_NAICSFinanceInsurance_growth_pct"
                     ],
-                    "title": "Finance and Insurance Industry in Placer County",
+                    "title": "Finance and Insurance Industry Workers in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/p69tpsldf99h7_growth_pct"
+                    ],
+                    "title": "Retail Trade Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -392,7 +416,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSEducationalServices_growth_pct"
                     ],
-                    "title": "Educational Services Industry in Placer County",
+                    "title": "Educational Services Industry Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -403,7 +427,18 @@
                     "statVarKey": [
                       "Count_Worker_NAICSPublicAdministration_growth_pct"
                     ],
-                    "title": "Public Administration in Placer County",
+                    "title": "Public Administration Workers in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSManagementOfCompaniesEnterprises_growth_pct"
+                    ],
+                    "title": "Population Working in the Management of Companies and Enterprises Industry in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -414,7 +449,18 @@
                     "statVarKey": [
                       "Count_Worker_NAICSInformation_growth_pct"
                     ],
-                    "title": "Information Industry in Placer County",
+                    "title": "Information Industry Workers in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSMiningQuarryingOilGasExtraction_growth_pct"
+                    ],
+                    "title": "Mining, Quarrying, Oil and Gas Extraction Industry Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -431,7 +477,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSHealthCareSocialAssistance_growth_pc"
                     ],
-                    "title": "Health Care and Social Assistance Industry in Placer County",
+                    "title": "Health Care and Social Assistance Industry Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -442,7 +488,7 @@
                     "statVarKey": [
                       "dc/p69tpsldf99h7_growth_pc"
                     ],
-                    "title": "Retail Trade in Placer County",
+                    "title": "Retail Trade Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -453,7 +499,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSAccommodationFoodServices_growth_pc"
                     ],
-                    "title": "Accomodation/Food Industry in Placer County",
+                    "title": "Accommodation/Food Industry Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -464,18 +510,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSConstruction_growth_pc"
                     ],
-                    "title": "Construction Industry in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices_growth_pc"
-                    ],
-                    "title": "Admin / Waste Management Service Industry in Placer County",
+                    "title": "Population Working in the Construction Industry in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -486,18 +521,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSProfessionalScientificTechnicalServices_growth_pc"
                     ],
-                    "title": "Professional, Scientific, and Technical Services in Placer County",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Worker_NAICSArtsEntertainmentRecreation_growth_pc"
-                    ],
-                    "title": "Arts, Entertainment, Recreation Industry in Placer County",
+                    "title": "Professional, Scientific, and Technical Services Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -508,7 +532,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSEducationalServices_growth_pc"
                     ],
-                    "title": "Educational Services Industry in Placer County",
+                    "title": "Educational Services Industry Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -517,9 +541,20 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Worker_NAICSRealEstateRentalLeasing_growth_pc"
+                      "Count_Worker_NAICSArtsEntertainmentRecreation_growth_pc"
                     ],
-                    "title": "Real Estate and Rental and Leasing in Placer County",
+                    "title": "Arts, Entertainment, Recreation Industry Workers in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices_growth_pc"
+                    ],
+                    "title": "Admin / Waste Management Service Industry Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -530,7 +565,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSOtherServices_growth_pc"
                     ],
-                    "title": "Other Services (Except Public Admin) in Placer County",
+                    "title": "Other Services (Except Public Admin) Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -541,7 +576,18 @@
                     "statVarKey": [
                       "Count_Worker_NAICSFinanceInsurance_growth_pc"
                     ],
-                    "title": "Finance and Insurance Industry in Placer County",
+                    "title": "Finance and Insurance Industry Workers in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSRealEstateRentalLeasing_growth_pc"
+                    ],
+                    "title": "Real Estate and Rental and Leasing Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -552,7 +598,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSPublicAdministration_growth_pc"
                     ],
-                    "title": "Public Administration in Placer County",
+                    "title": "Public Administration Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -563,7 +609,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSWholesaleTrade_growth_pc"
                     ],
-                    "title": "Wholesale Trade in Placer County",
+                    "title": "Wholesale Trade Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -574,7 +620,7 @@
                     "statVarKey": [
                       "dc/8p97n7l96lgg8_growth_pc"
                     ],
-                    "title": "Transportation and Warehousing in Placer County",
+                    "title": "Transportation and Warehousing Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -585,7 +631,18 @@
                     "statVarKey": [
                       "Count_Worker_NAICSUtilities_growth_pc"
                     ],
-                    "title": "Utilities in Placer County",
+                    "title": "Utilities Workers in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSManagementOfCompaniesEnterprises_growth_pc"
+                    ],
+                    "title": "Population Working in the Management of Companies and Enterprises Industry in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -596,7 +653,18 @@
                     "statVarKey": [
                       "Count_Worker_NAICSInformation_growth_pc"
                     ],
-                    "title": "Information Industry in Placer County",
+                    "title": "Information Industry Workers in Placer County",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Worker_NAICSNonclassifiable_growth_pc"
+                    ],
+                    "title": "Unclassified Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -607,7 +675,7 @@
                     "statVarKey": [
                       "Count_Worker_NAICSMiningQuarryingOilGasExtraction_growth_pc"
                     ],
-                    "title": "Mining, Quarrying, Oil and Gas Extraction Industry in Placer County",
+                    "title": "Mining, Quarrying, Oil and Gas Extraction Industry Workers in Placer County",
                     "type": "LINE"
                   }
                 ]
@@ -619,275 +687,307 @@
         ],
         "statVarSpec": {
           "Count_Worker_NAICSAccommodationFoodServices": {
-            "name": "Accomodation/Food Industry",
+            "name": "Accommodation/Food Industry Workers",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
           },
           "Count_Worker_NAICSAccommodationFoodServices_growth_abs": {
-            "name": "Accomodation/Food Industry",
+            "name": "Accommodation/Food Industry Workers",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
           },
           "Count_Worker_NAICSAccommodationFoodServices_growth_pc": {
-            "name": "Accomodation/Food Industry",
+            "name": "Accommodation/Food Industry Workers",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
           },
           "Count_Worker_NAICSAccommodationFoodServices_growth_pct": {
-            "name": "Accomodation/Food Industry",
+            "name": "Accommodation/Food Industry Workers",
             "statVar": "Count_Worker_NAICSAccommodationFoodServices"
           },
           "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices": {
-            "name": "Admin / Waste Management Service Industry",
+            "name": "Admin / Waste Management Service Industry Workers",
             "statVar": "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices"
           },
           "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices_growth_abs": {
-            "name": "Admin / Waste Management Service Industry",
+            "name": "Admin / Waste Management Service Industry Workers",
             "statVar": "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices"
           },
           "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices_growth_pc": {
-            "name": "Admin / Waste Management Service Industry",
+            "name": "Admin / Waste Management Service Industry Workers",
             "statVar": "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices"
           },
           "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices_growth_pct": {
-            "name": "Admin / Waste Management Service Industry",
+            "name": "Admin / Waste Management Service Industry Workers",
             "statVar": "Count_Worker_NAICSAdministrativeSupportWasteManagementRemediationServices"
           },
           "Count_Worker_NAICSArtsEntertainmentRecreation": {
-            "name": "Arts, Entertainment, Recreation Industry",
+            "name": "Arts, Entertainment, Recreation Industry Workers",
             "statVar": "Count_Worker_NAICSArtsEntertainmentRecreation"
           },
           "Count_Worker_NAICSArtsEntertainmentRecreation_growth_abs": {
-            "name": "Arts, Entertainment, Recreation Industry",
+            "name": "Arts, Entertainment, Recreation Industry Workers",
             "statVar": "Count_Worker_NAICSArtsEntertainmentRecreation"
           },
           "Count_Worker_NAICSArtsEntertainmentRecreation_growth_pc": {
-            "name": "Arts, Entertainment, Recreation Industry",
+            "name": "Arts, Entertainment, Recreation Industry Workers",
             "statVar": "Count_Worker_NAICSArtsEntertainmentRecreation"
           },
           "Count_Worker_NAICSArtsEntertainmentRecreation_growth_pct": {
-            "name": "Arts, Entertainment, Recreation Industry",
+            "name": "Arts, Entertainment, Recreation Industry Workers",
             "statVar": "Count_Worker_NAICSArtsEntertainmentRecreation"
           },
           "Count_Worker_NAICSConstruction": {
-            "name": "Construction Industry",
+            "name": "Population Working in the Construction Industry",
             "statVar": "Count_Worker_NAICSConstruction"
           },
           "Count_Worker_NAICSConstruction_growth_abs": {
-            "name": "Construction Industry",
+            "name": "Population Working in the Construction Industry",
             "statVar": "Count_Worker_NAICSConstruction"
           },
           "Count_Worker_NAICSConstruction_growth_pc": {
-            "name": "Construction Industry",
+            "name": "Population Working in the Construction Industry",
             "statVar": "Count_Worker_NAICSConstruction"
           },
           "Count_Worker_NAICSConstruction_growth_pct": {
-            "name": "Construction Industry",
+            "name": "Population Working in the Construction Industry",
             "statVar": "Count_Worker_NAICSConstruction"
           },
           "Count_Worker_NAICSEducationalServices": {
-            "name": "Educational Services Industry",
+            "name": "Educational Services Industry Workers",
             "statVar": "Count_Worker_NAICSEducationalServices"
           },
           "Count_Worker_NAICSEducationalServices_growth_abs": {
-            "name": "Educational Services Industry",
+            "name": "Educational Services Industry Workers",
             "statVar": "Count_Worker_NAICSEducationalServices"
           },
           "Count_Worker_NAICSEducationalServices_growth_pc": {
-            "name": "Educational Services Industry",
+            "name": "Educational Services Industry Workers",
             "statVar": "Count_Worker_NAICSEducationalServices"
           },
           "Count_Worker_NAICSEducationalServices_growth_pct": {
-            "name": "Educational Services Industry",
+            "name": "Educational Services Industry Workers",
             "statVar": "Count_Worker_NAICSEducationalServices"
           },
           "Count_Worker_NAICSFinanceInsurance": {
-            "name": "Finance and Insurance Industry",
+            "name": "Finance and Insurance Industry Workers",
             "statVar": "Count_Worker_NAICSFinanceInsurance"
           },
           "Count_Worker_NAICSFinanceInsurance_growth_abs": {
-            "name": "Finance and Insurance Industry",
+            "name": "Finance and Insurance Industry Workers",
             "statVar": "Count_Worker_NAICSFinanceInsurance"
           },
           "Count_Worker_NAICSFinanceInsurance_growth_pc": {
-            "name": "Finance and Insurance Industry",
+            "name": "Finance and Insurance Industry Workers",
             "statVar": "Count_Worker_NAICSFinanceInsurance"
           },
           "Count_Worker_NAICSFinanceInsurance_growth_pct": {
-            "name": "Finance and Insurance Industry",
+            "name": "Finance and Insurance Industry Workers",
             "statVar": "Count_Worker_NAICSFinanceInsurance"
           },
           "Count_Worker_NAICSHealthCareSocialAssistance": {
-            "name": "Health Care and Social Assistance Industry",
+            "name": "Health Care and Social Assistance Industry Workers",
             "statVar": "Count_Worker_NAICSHealthCareSocialAssistance"
           },
           "Count_Worker_NAICSHealthCareSocialAssistance_growth_abs": {
-            "name": "Health Care and Social Assistance Industry",
+            "name": "Health Care and Social Assistance Industry Workers",
             "statVar": "Count_Worker_NAICSHealthCareSocialAssistance"
           },
           "Count_Worker_NAICSHealthCareSocialAssistance_growth_pc": {
-            "name": "Health Care and Social Assistance Industry",
+            "name": "Health Care and Social Assistance Industry Workers",
             "statVar": "Count_Worker_NAICSHealthCareSocialAssistance"
           },
           "Count_Worker_NAICSHealthCareSocialAssistance_growth_pct": {
-            "name": "Health Care and Social Assistance Industry",
+            "name": "Health Care and Social Assistance Industry Workers",
             "statVar": "Count_Worker_NAICSHealthCareSocialAssistance"
           },
           "Count_Worker_NAICSInformation": {
-            "name": "Information Industry",
+            "name": "Information Industry Workers",
             "statVar": "Count_Worker_NAICSInformation"
           },
           "Count_Worker_NAICSInformation_growth_abs": {
-            "name": "Information Industry",
+            "name": "Information Industry Workers",
             "statVar": "Count_Worker_NAICSInformation"
           },
           "Count_Worker_NAICSInformation_growth_pc": {
-            "name": "Information Industry",
+            "name": "Information Industry Workers",
             "statVar": "Count_Worker_NAICSInformation"
           },
           "Count_Worker_NAICSInformation_growth_pct": {
-            "name": "Information Industry",
+            "name": "Information Industry Workers",
             "statVar": "Count_Worker_NAICSInformation"
           },
+          "Count_Worker_NAICSManagementOfCompaniesEnterprises": {
+            "name": "Population Working in the Management of Companies and Enterprises Industry",
+            "statVar": "Count_Worker_NAICSManagementOfCompaniesEnterprises"
+          },
+          "Count_Worker_NAICSManagementOfCompaniesEnterprises_growth_abs": {
+            "name": "Population Working in the Management of Companies and Enterprises Industry",
+            "statVar": "Count_Worker_NAICSManagementOfCompaniesEnterprises"
+          },
+          "Count_Worker_NAICSManagementOfCompaniesEnterprises_growth_pc": {
+            "name": "Population Working in the Management of Companies and Enterprises Industry",
+            "statVar": "Count_Worker_NAICSManagementOfCompaniesEnterprises"
+          },
+          "Count_Worker_NAICSManagementOfCompaniesEnterprises_growth_pct": {
+            "name": "Population Working in the Management of Companies and Enterprises Industry",
+            "statVar": "Count_Worker_NAICSManagementOfCompaniesEnterprises"
+          },
           "Count_Worker_NAICSMiningQuarryingOilGasExtraction": {
-            "name": "Mining, Quarrying, Oil and Gas Extraction Industry",
+            "name": "Mining, Quarrying, Oil and Gas Extraction Industry Workers",
             "statVar": "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
           },
           "Count_Worker_NAICSMiningQuarryingOilGasExtraction_growth_abs": {
-            "name": "Mining, Quarrying, Oil and Gas Extraction Industry",
+            "name": "Mining, Quarrying, Oil and Gas Extraction Industry Workers",
             "statVar": "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
           },
           "Count_Worker_NAICSMiningQuarryingOilGasExtraction_growth_pc": {
-            "name": "Mining, Quarrying, Oil and Gas Extraction Industry",
+            "name": "Mining, Quarrying, Oil and Gas Extraction Industry Workers",
             "statVar": "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
           },
           "Count_Worker_NAICSMiningQuarryingOilGasExtraction_growth_pct": {
-            "name": "Mining, Quarrying, Oil and Gas Extraction Industry",
+            "name": "Mining, Quarrying, Oil and Gas Extraction Industry Workers",
             "statVar": "Count_Worker_NAICSMiningQuarryingOilGasExtraction"
           },
+          "Count_Worker_NAICSNonclassifiable": {
+            "name": "Unclassified Workers",
+            "statVar": "Count_Worker_NAICSNonclassifiable"
+          },
+          "Count_Worker_NAICSNonclassifiable_growth_abs": {
+            "name": "Unclassified Workers",
+            "statVar": "Count_Worker_NAICSNonclassifiable"
+          },
+          "Count_Worker_NAICSNonclassifiable_growth_pc": {
+            "name": "Unclassified Workers",
+            "statVar": "Count_Worker_NAICSNonclassifiable"
+          },
+          "Count_Worker_NAICSNonclassifiable_growth_pct": {
+            "name": "Unclassified Workers",
+            "statVar": "Count_Worker_NAICSNonclassifiable"
+          },
           "Count_Worker_NAICSOtherServices": {
-            "name": "Other Services (except Public Admin)",
+            "name": "Other Services (except Public Admin) Workers",
             "statVar": "Count_Worker_NAICSOtherServices"
           },
           "Count_Worker_NAICSOtherServices_growth_abs": {
-            "name": "Other Services (except Public Admin)",
+            "name": "Other Services (except Public Admin) Workers",
             "statVar": "Count_Worker_NAICSOtherServices"
           },
           "Count_Worker_NAICSOtherServices_growth_pc": {
-            "name": "Other Services (except Public Admin)",
+            "name": "Other Services (except Public Admin) Workers",
             "statVar": "Count_Worker_NAICSOtherServices"
           },
           "Count_Worker_NAICSOtherServices_growth_pct": {
-            "name": "Other Services (except Public Admin)",
+            "name": "Other Services (except Public Admin) Workers",
             "statVar": "Count_Worker_NAICSOtherServices"
           },
           "Count_Worker_NAICSProfessionalScientificTechnicalServices": {
-            "name": "Professional, Scientific, and Technical Services",
+            "name": "Professional, Scientific, and Technical Services Workers",
             "statVar": "Count_Worker_NAICSProfessionalScientificTechnicalServices"
           },
           "Count_Worker_NAICSProfessionalScientificTechnicalServices_growth_abs": {
-            "name": "Professional, Scientific, and Technical Services",
+            "name": "Professional, Scientific, and Technical Services Workers",
             "statVar": "Count_Worker_NAICSProfessionalScientificTechnicalServices"
           },
           "Count_Worker_NAICSProfessionalScientificTechnicalServices_growth_pc": {
-            "name": "Professional, Scientific, and Technical Services",
+            "name": "Professional, Scientific, and Technical Services Workers",
             "statVar": "Count_Worker_NAICSProfessionalScientificTechnicalServices"
           },
           "Count_Worker_NAICSProfessionalScientificTechnicalServices_growth_pct": {
-            "name": "Professional, Scientific, and Technical Services",
+            "name": "Professional, Scientific, and Technical Services Workers",
             "statVar": "Count_Worker_NAICSProfessionalScientificTechnicalServices"
           },
           "Count_Worker_NAICSPublicAdministration": {
-            "name": "Public Administration",
+            "name": "Public Administration Workers",
             "statVar": "Count_Worker_NAICSPublicAdministration"
           },
           "Count_Worker_NAICSPublicAdministration_growth_abs": {
-            "name": "Public Administration",
+            "name": "Public Administration Workers",
             "statVar": "Count_Worker_NAICSPublicAdministration"
           },
           "Count_Worker_NAICSPublicAdministration_growth_pc": {
-            "name": "Public Administration",
+            "name": "Public Administration Workers",
             "statVar": "Count_Worker_NAICSPublicAdministration"
           },
           "Count_Worker_NAICSPublicAdministration_growth_pct": {
-            "name": "Public Administration",
+            "name": "Public Administration Workers",
             "statVar": "Count_Worker_NAICSPublicAdministration"
           },
           "Count_Worker_NAICSRealEstateRentalLeasing": {
-            "name": "Real Estate and Rental and Leasing",
+            "name": "Real Estate and Rental and Leasing Workers",
             "statVar": "Count_Worker_NAICSRealEstateRentalLeasing"
           },
           "Count_Worker_NAICSRealEstateRentalLeasing_growth_abs": {
-            "name": "Real Estate and Rental and Leasing",
+            "name": "Real Estate and Rental and Leasing Workers",
             "statVar": "Count_Worker_NAICSRealEstateRentalLeasing"
           },
           "Count_Worker_NAICSRealEstateRentalLeasing_growth_pc": {
-            "name": "Real Estate and Rental and Leasing",
+            "name": "Real Estate and Rental and Leasing Workers",
             "statVar": "Count_Worker_NAICSRealEstateRentalLeasing"
           },
           "Count_Worker_NAICSRealEstateRentalLeasing_growth_pct": {
-            "name": "Real Estate and Rental and Leasing",
+            "name": "Real Estate and Rental and Leasing Workers",
             "statVar": "Count_Worker_NAICSRealEstateRentalLeasing"
           },
           "Count_Worker_NAICSUtilities": {
-            "name": "Utilities",
+            "name": "Utilities Workers",
             "statVar": "Count_Worker_NAICSUtilities"
           },
           "Count_Worker_NAICSUtilities_growth_abs": {
-            "name": "Utilities",
+            "name": "Utilities Workers",
             "statVar": "Count_Worker_NAICSUtilities"
           },
           "Count_Worker_NAICSUtilities_growth_pc": {
-            "name": "Utilities",
+            "name": "Utilities Workers",
             "statVar": "Count_Worker_NAICSUtilities"
           },
           "Count_Worker_NAICSUtilities_growth_pct": {
-            "name": "Utilities",
+            "name": "Utilities Workers",
             "statVar": "Count_Worker_NAICSUtilities"
           },
           "Count_Worker_NAICSWholesaleTrade": {
-            "name": "Wholesale Trade",
+            "name": "Wholesale Trade Workers",
             "statVar": "Count_Worker_NAICSWholesaleTrade"
           },
           "Count_Worker_NAICSWholesaleTrade_growth_abs": {
-            "name": "Wholesale Trade",
+            "name": "Wholesale Trade Workers",
             "statVar": "Count_Worker_NAICSWholesaleTrade"
           },
           "Count_Worker_NAICSWholesaleTrade_growth_pc": {
-            "name": "Wholesale Trade",
+            "name": "Wholesale Trade Workers",
             "statVar": "Count_Worker_NAICSWholesaleTrade"
           },
           "Count_Worker_NAICSWholesaleTrade_growth_pct": {
-            "name": "Wholesale Trade",
+            "name": "Wholesale Trade Workers",
             "statVar": "Count_Worker_NAICSWholesaleTrade"
           },
           "dc/8p97n7l96lgg8": {
-            "name": "Transportation And Warehousing",
+            "name": "Transportation And Warehousing Workers",
             "statVar": "dc/8p97n7l96lgg8"
           },
           "dc/8p97n7l96lgg8_growth_abs": {
-            "name": "Transportation And Warehousing",
+            "name": "Transportation And Warehousing Workers",
             "statVar": "dc/8p97n7l96lgg8"
           },
           "dc/8p97n7l96lgg8_growth_pc": {
-            "name": "Transportation And Warehousing",
+            "name": "Transportation And Warehousing Workers",
             "statVar": "dc/8p97n7l96lgg8"
           },
           "dc/8p97n7l96lgg8_growth_pct": {
-            "name": "Transportation And Warehousing",
+            "name": "Transportation And Warehousing Workers",
             "statVar": "dc/8p97n7l96lgg8"
           },
           "dc/p69tpsldf99h7": {
-            "name": "Retail Trade",
+            "name": "Retail Trade Workers",
             "statVar": "dc/p69tpsldf99h7"
           },
           "dc/p69tpsldf99h7_growth_abs": {
-            "name": "Retail Trade",
+            "name": "Retail Trade Workers",
             "statVar": "dc/p69tpsldf99h7"
           },
           "dc/p69tpsldf99h7_growth_pc": {
-            "name": "Retail Trade",
+            "name": "Retail Trade Workers",
             "statVar": "dc/p69tpsldf99h7"
           },
           "dc/p69tpsldf99h7_growth_pct": {
-            "name": "Retail Trade",
+            "name": "Retail Trade Workers",
             "statVar": "dc/p69tpsldf99h7"
           }
         }
@@ -917,7 +1017,435 @@
       "place_type": "County"
     }
   ],
-  "relatedThings": {},
+  "relatedThings": {
+    "childPlaces": {
+      "City": [
+        {
+          "dcid": "geoId/0601276",
+          "name": "Alta",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0603204",
+          "name": "Auburn",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0611418",
+          "name": "Carnelian Bay",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0612216",
+          "name": "Cedar Flat",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0614498",
+          "name": "Colfax",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0619455",
+          "name": "Dollar Point",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0620298",
+          "name": "Dutch Flat",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0624834",
+          "name": "Foresthill",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0630693",
+          "name": "Granite Bay",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0638548",
+          "name": "Kings Beach",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0638604",
+          "name": "Kingvale",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0641474",
+          "name": "Lincoln",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0643140",
+          "name": "Loomis",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0646632",
+          "name": "Meadow Vista",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0651000",
+          "name": "Newcastle",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0651637",
+          "name": "North Auburn",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0656546",
+          "name": "Penryn",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0662364",
+          "name": "Rocklin",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0662664",
+          "name": "Rocklin",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0662938",
+          "name": "Roseville",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0671414",
+          "name": "Sheridan",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0676015",
+          "name": "Sunnyside-Tahoe City",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0677700",
+          "name": "Tahoe Vista",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/0677728",
+          "name": "Tahoma",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q822230",
+          "name": "Squaw Valley",
+          "types": [
+            "City"
+          ]
+        }
+      ]
+    },
+    "childTopics": [],
+    "exploreMore": {
+      "Count_Worker_NAICSProfessionalScientificTechnicalServices": {
+        "establishmentOwnership": [
+          "Count_Worker_FederalGovernmentOwnedEstablishment_NAICSProfessionalScientificTechnicalServices",
+          "Count_Worker_LocalGovernmentOwnedEstablishment_NAICSProfessionalScientificTechnicalServices"
+        ]
+      },
+      "dc/8p97n7l96lgg8": {
+        "establishmentOwnership": [
+          "dc/wkn0fmqw6ezxc",
+          "dc/wnrvlpncdkj38"
+        ]
+      }
+    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Jobs",
+        "name": "Jobs",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Employment",
+        "name": "Employment",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [
+      {
+        "dcid": "geoId/06001",
+        "name": "Alameda",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/36005",
+        "name": "Bronx",
+        "types": [
+          "County"
+        ]
+      },
+      {
+        "dcid": "geoId/06013",
+        "name": "Contra Costa",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/17031",
+        "name": "Cook",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/39035",
+        "name": "Cuyahoga",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/48113",
+        "name": "Dallas",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/12031",
+        "name": "Duval",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/08041",
+        "name": "El Paso",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/51059",
+        "name": "Fairfax",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/13121",
+        "name": "Fulton",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/48201",
+        "name": "Harris",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/12057",
+        "name": "Hillsborough",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/15003",
+        "name": "Honolulu",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/08059",
+        "name": "Jefferson",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06029",
+        "name": "Kern",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/53033",
+        "name": "King",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06037",
+        "name": "Los Angeles",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/04013",
+        "name": "Maricopa",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/37119",
+        "name": "Mecklenburg",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/12086",
+        "name": "Miami-Dade",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06059",
+        "name": "Orange",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/36081",
+        "name": "Queens",
+        "types": [
+          "County"
+        ]
+      },
+      {
+        "dcid": "geoId/06065",
+        "name": "Riverside",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06071",
+        "name": "San Bernardino",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06073",
+        "name": "San Diego",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06075",
+        "name": "San Francisco",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06085",
+        "name": "Santa Clara",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/24047",
+        "name": "Worcester",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/UnemploymentRate",
+        "name": "Unemployment Rate",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/UnpaidFamilyWorkers",
+        "name": "Unpaid Family Workers",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
   "svSource": "CURRENT_QUERY",
   "userMessages": [
     "See relevant statistics for Placer County based on the previous query."

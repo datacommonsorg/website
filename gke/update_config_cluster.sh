@@ -17,7 +17,7 @@ set -e
 
 function help {
   echo "Usage: $0 -eln"
-  echo "-e       Instance environment as defined under ../deploy/gke"
+  echo "-e       Instance environment as defined under ../deploy/helm_charts/envs"
   echo "-l       GKE region Default: us-central1"
   echo "-n       Setup nodejs service"
   exit 1

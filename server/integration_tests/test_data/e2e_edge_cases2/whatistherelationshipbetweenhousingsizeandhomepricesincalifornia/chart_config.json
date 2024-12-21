@@ -13,17 +13,17 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts_scatter",
-                      "Count_Person_EnrolledInKindergarten_scatter"
+                      "Count_HousingUnit_scatter",
+                      "Count_HousingUnit_HomeValueUpto49999USDollar_scatter"
                     ],
-                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage (${yDate}) Vs. Population: Enrolled in Kindergarten (${xDate}) in Counties of California",
+                    "title": "Housing Units (${yDate}) Vs. Count of Housing Unit: 49,999 USD or Less (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage vs. Population: Enrolled in Kindergarten"
+            "title": "Housing Units vs. Count of Housing Unit: 49,999 USD or Less"
           },
           {
             "columns": [
@@ -31,9 +31,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
+                      "Count_HousingUnit"
                     ],
-                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage in Counties of California (${date})",
+                    "title": "Housing Units in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -46,15 +46,16 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
+                      "Count_HousingUnit"
                     ],
-                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage in Counties of California (${date})",
+                    "title": "Housing Units in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage in Counties of California"
+            "denom": "Count_Person",
+            "title": "Housing Units in Counties of California"
           },
           {
             "columns": [
@@ -62,9 +63,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_EnrolledInKindergarten"
+                      "Count_HousingUnit_HomeValueUpto49999USDollar"
                     ],
-                    "title": "Population: Enrolled in Kindergarten in Counties of California (${date})",
+                    "title": "Count of Housing Unit: 49,999 USD or Less in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -77,15 +78,16 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Person_EnrolledInKindergarten"
+                      "Count_HousingUnit_HomeValueUpto49999USDollar"
                     ],
-                    "title": "Population: Enrolled in Kindergarten in Counties of California (${date})",
+                    "title": "Count of Housing Unit: 49,999 USD or Less in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Population: Enrolled in Kindergarten in Counties of California"
+            "denom": "Count_Person",
+            "title": "Count of Housing Unit: 49,999 USD or Less in Counties of California"
           },
           {
             "columns": [
@@ -96,17 +98,17 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts_scatter",
-                      "Count_Person_DetailedPrimarySchool_scatter"
+                      "Count_HousingUnit_OwnerOccupied_scatter",
+                      "Count_HousingUnit_HomeValue50000To99999USDollar_scatter"
                     ],
-                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage (${yDate}) Vs. Elementary School Students (${xDate}) in Counties of California",
+                    "title": "Owner-Occupied Homes (${yDate}) Vs. Count of Housing Unit: 50,000-99,999 USD (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage vs. Elementary School Students"
+            "title": "Owner-Occupied Homes vs. Count of Housing Unit: 50,000 - 99,999 USD"
           },
           {
             "columns": [
@@ -114,9 +116,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
+                      "Count_HousingUnit_OwnerOccupied"
                     ],
-                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage in Counties of California (${date})",
+                    "title": "Owner-Occupied Homes in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -129,15 +131,16 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
+                      "Count_HousingUnit_OwnerOccupied"
                     ],
-                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage in Counties of California (${date})",
+                    "title": "Owner-Occupied Homes in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage in Counties of California"
+            "denom": "Count_Person",
+            "title": "Owner-Occupied Homes in Counties of California"
           },
           {
             "columns": [
@@ -145,9 +148,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_DetailedPrimarySchool"
+                      "Count_HousingUnit_HomeValue50000To99999USDollar"
                     ],
-                    "title": "Elementary School Students in Counties of California (${date})",
+                    "title": "Count of Housing Unit: 50,000-99,999 USD in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -160,15 +163,16 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Person_DetailedPrimarySchool"
+                      "Count_HousingUnit_HomeValue50000To99999USDollar"
                     ],
-                    "title": "Elementary School Students in Counties of California (${date})",
+                    "title": "Count of Housing Unit: 50,000-99,999 USD in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Elementary School Students in Counties of California"
+            "denom": "Count_Person",
+            "title": "Count of Housing Unit: 50,000-99,999 USD in Counties of California"
           },
           {
             "columns": [
@@ -179,38 +183,17 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts_scatter",
-                      "Count_Person_DetailedPrimarySchool_scatter"
+                      "Count_HousingUnit_VacantHousingUnit_scatter",
+                      "Count_HousingUnit_HomeValue100000To199999USDollar_scatter"
                     ],
-                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage (${yDate}) Vs. Elementary School Students (${xDate}) in Counties of California",
+                    "title": "Vacant Housing Units (${yDate}) Vs. Count of Housing Unit: 100,000-199,999 USD (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage vs. Elementary School Students"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts_scatter",
-                      "Count_Person_DetailedMiddleSchool_scatter"
-                    ],
-                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage (${yDate}) Vs. Middle School Students (${xDate}) in Counties of California",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage vs. Middle School Students"
+            "title": "Vacant Housing Units vs. Count of Housing Unit: 100,000 - 199,999 USD"
           },
           {
             "columns": [
@@ -218,9 +201,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_DetailedMiddleSchool"
+                      "Count_HousingUnit_VacantHousingUnit"
                     ],
-                    "title": "Middle School Students in Counties of California (${date})",
+                    "title": "Vacant Housing Units in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -233,36 +216,16 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Person_DetailedMiddleSchool"
+                      "Count_HousingUnit_VacantHousingUnit"
                     ],
-                    "title": "Middle School Students in Counties of California (${date})",
+                    "title": "Vacant Housing Units in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Middle School Students in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
-                    },
-                    "statVarKey": [
-                      "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts_scatter",
-                      "Count_Person_DetailedHighSchool_scatter"
-                    ],
-                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage (${yDate}) Vs. High School Students (${xDate}) in Counties of California",
-                    "type": "SCATTER"
-                  }
-                ]
-              }
-            ],
             "denom": "Count_Person",
-            "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage vs. High School Students"
+            "title": "Vacant Housing Units in Counties of California"
           },
           {
             "columns": [
@@ -270,9 +233,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_DetailedHighSchool"
+                      "Count_HousingUnit_HomeValue100000To199999USDollar"
                     ],
-                    "title": "High School Students in Counties of California (${date})",
+                    "title": "Count of Housing Unit: 100,000-199,999 USD in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -285,15 +248,16 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Person_DetailedHighSchool"
+                      "Count_HousingUnit_HomeValue100000To199999USDollar"
                     ],
-                    "title": "High School Students in Counties of California (${date})",
+                    "title": "Count of Housing Unit: 100,000-199,999 USD in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "High School Students in Counties of California"
+            "denom": "Count_Person",
+            "title": "Count of Housing Unit: 100,000-199,999 USD in Counties of California"
           },
           {
             "columns": [
@@ -304,17 +268,79 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts_scatter",
-                      "Count_Person_EnrolledInKindergarten_scatter"
+                      "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied_scatter",
+                      "Count_HousingUnit_HomeValue200000To299999USDollar_scatter"
                     ],
-                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage (${yDate}) Vs. Population: Enrolled in Kindergarten (${xDate}) in Counties of California",
+                    "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied (${yDate}) Vs. Count of Housing Unit: 200,000-299,999 USD (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage vs. Population: Enrolled in Kindergarten"
+            "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied vs. Count of Housing Unit: 200,000 - 299,999 USD"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied"
+                    ],
+                    "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied"
+                    ],
+                    "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue200000To299999USDollar"
+                    ],
+                    "title": "Count of Housing Unit: 200,000-299,999 USD in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_HomeValue200000To299999USDollar"
+                    ],
+                    "title": "Count of Housing Unit: 200,000-299,999 USD in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Housing Unit: 200,000-299,999 USD in Counties of California"
           },
           {
             "columns": [
@@ -325,17 +351,17 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts_scatter",
-                      "Count_Person_DetailedMiddleSchool_scatter"
+                      "Count_HousingUnit_scatter",
+                      "Count_HousingUnit_HomeValue50000To99999USDollar_scatter"
                     ],
-                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage (${yDate}) Vs. Middle School Students (${xDate}) in Counties of California",
+                    "title": "Housing Units (${yDate}) Vs. Count of Housing Unit: 50,000-99,999 USD (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage vs. Middle School Students"
+            "title": "Housing Units vs. Count of Housing Unit: 50,000 - 99,999 USD"
           },
           {
             "columns": [
@@ -346,69 +372,273 @@
                       "highlightTopRight": true
                     },
                     "statVarKey": [
-                      "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts_scatter",
-                      "Count_Person_DetailedHighSchool_scatter"
+                      "Count_HousingUnit_scatter",
+                      "Count_HousingUnit_HomeValue100000To199999USDollar_scatter"
                     ],
-                    "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage (${yDate}) Vs. High School Students (${xDate}) in Counties of California",
+                    "title": "Housing Units (${yDate}) Vs. Count of Housing Unit: 100,000-199,999 USD (${xDate}) in Counties of California",
                     "type": "SCATTER"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage vs. High School Students"
+            "title": "Housing Units vs. Count of Housing Unit: 100,000 - 199,999 USD"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_scatter",
+                      "Count_HousingUnit_HomeValue200000To299999USDollar_scatter"
+                    ],
+                    "title": "Housing Units (${yDate}) Vs. Count of Housing Unit: 200,000-299,999 USD (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Housing Units vs. Count of Housing Unit: 200,000 - 299,999 USD"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_OwnerOccupied_scatter",
+                      "Count_HousingUnit_HomeValueUpto49999USDollar_scatter"
+                    ],
+                    "title": "Owner-Occupied Homes (${yDate}) Vs. Count of Housing Unit: 49,999 USD or Less (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Owner-Occupied Homes vs. Count of Housing Unit: 49,999 USD or Less"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_OwnerOccupied_scatter",
+                      "Count_HousingUnit_HomeValue100000To199999USDollar_scatter"
+                    ],
+                    "title": "Owner-Occupied Homes (${yDate}) Vs. Count of Housing Unit: 100,000-199,999 USD (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Owner-Occupied Homes vs. Count of Housing Unit: 100,000 - 199,999 USD"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_OwnerOccupied_scatter",
+                      "Count_HousingUnit_HomeValue200000To299999USDollar_scatter"
+                    ],
+                    "title": "Owner-Occupied Homes (${yDate}) Vs. Count of Housing Unit: 200,000-299,999 USD (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Owner-Occupied Homes vs. Count of Housing Unit: 200,000 - 299,999 USD"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_VacantHousingUnit_scatter",
+                      "Count_HousingUnit_HomeValueUpto49999USDollar_scatter"
+                    ],
+                    "title": "Vacant Housing Units (${yDate}) Vs. Count of Housing Unit: 49,999 USD or Less (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Vacant Housing Units vs. Count of Housing Unit: 49,999 USD or Less"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_VacantHousingUnit_scatter",
+                      "Count_HousingUnit_HomeValue50000To99999USDollar_scatter"
+                    ],
+                    "title": "Vacant Housing Units (${yDate}) Vs. Count of Housing Unit: 50,000-99,999 USD (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Vacant Housing Units vs. Count of Housing Unit: 50,000 - 99,999 USD"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Count_HousingUnit_VacantHousingUnit_scatter",
+                      "Count_HousingUnit_HomeValue200000To299999USDollar_scatter"
+                    ],
+                    "title": "Vacant Housing Units (${yDate}) Vs. Count of Housing Unit: 200,000-299,999 USD (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Vacant Housing Units vs. Count of Housing Unit: 200,000 - 299,999 USD"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied_scatter",
+                      "Count_HousingUnit_HomeValueUpto49999USDollar_scatter"
+                    ],
+                    "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied (${yDate}) Vs. Count of Housing Unit: 49,999 USD or Less (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied vs. Count of Housing Unit: 49,999 USD or Less"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied_scatter",
+                      "Count_HousingUnit_HomeValue50000To99999USDollar_scatter"
+                    ],
+                    "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied (${yDate}) Vs. Count of Housing Unit: 50,000-99,999 USD (${xDate}) in Counties of California",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied vs. Count of Housing Unit: 50,000 - 99,999 USD"
           }
         ],
         "statVarSpec": {
-          "Count_Person_DetailedHighSchool": {
-            "name": "High School Students",
-            "statVar": "Count_Person_DetailedHighSchool"
+          "Count_HousingUnit": {
+            "name": "Housing Units",
+            "statVar": "Count_HousingUnit"
           },
-          "Count_Person_DetailedHighSchool_scatter": {
-            "name": "High School Students",
-            "statVar": "Count_Person_DetailedHighSchool"
+          "Count_HousingUnit_HomeValue100000To199999USDollar": {
+            "name": "Count of Housing Unit: 100,000 - 199,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue100000To199999USDollar"
           },
-          "Count_Person_DetailedMiddleSchool": {
-            "name": "Middle School Students",
-            "statVar": "Count_Person_DetailedMiddleSchool"
+          "Count_HousingUnit_HomeValue100000To199999USDollar_scatter": {
+            "name": "Count of Housing Unit: 100,000 - 199,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue100000To199999USDollar"
           },
-          "Count_Person_DetailedMiddleSchool_scatter": {
-            "name": "Middle School Students",
-            "statVar": "Count_Person_DetailedMiddleSchool"
+          "Count_HousingUnit_HomeValue200000To299999USDollar": {
+            "name": "Count of Housing Unit: 200,000 - 299,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue200000To299999USDollar"
           },
-          "Count_Person_DetailedPrimarySchool": {
-            "name": "Elementary School Students",
-            "statVar": "Count_Person_DetailedPrimarySchool"
+          "Count_HousingUnit_HomeValue200000To299999USDollar_scatter": {
+            "name": "Count of Housing Unit: 200,000 - 299,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue200000To299999USDollar"
           },
-          "Count_Person_DetailedPrimarySchool_scatter": {
-            "name": "Elementary School Students",
-            "statVar": "Count_Person_DetailedPrimarySchool"
+          "Count_HousingUnit_HomeValue50000To99999USDollar": {
+            "name": "Count of Housing Unit: 50,000 - 99,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue50000To99999USDollar"
           },
-          "Count_Person_EnrolledInKindergarten": {
-            "name": "Population: Enrolled in Kindergarten",
-            "statVar": "Count_Person_EnrolledInKindergarten"
+          "Count_HousingUnit_HomeValue50000To99999USDollar_scatter": {
+            "name": "Count of Housing Unit: 50,000 - 99,999 USD",
+            "statVar": "Count_HousingUnit_HomeValue50000To99999USDollar"
           },
-          "Count_Person_EnrolledInKindergarten_scatter": {
-            "name": "Population: Enrolled in Kindergarten",
-            "statVar": "Count_Person_EnrolledInKindergarten"
+          "Count_HousingUnit_HomeValueUpto49999USDollar": {
+            "name": "Count of Housing Unit: 49,999 USD or Less",
+            "statVar": "Count_HousingUnit_HomeValueUpto49999USDollar"
           },
-          "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts": {
-            "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage",
-            "statVar": "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
+          "Count_HousingUnit_HomeValueUpto49999USDollar_scatter": {
+            "name": "Count of Housing Unit: 49,999 USD or Less",
+            "statVar": "Count_HousingUnit_HomeValueUpto49999USDollar"
           },
-          "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts_scatter": {
-            "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): With Mortgage",
+          "Count_HousingUnit_OwnerOccupied": {
+            "name": "Owner-Occupied Homes",
+            "statVar": "Count_HousingUnit_OwnerOccupied"
+          },
+          "Count_HousingUnit_OwnerOccupied_scatter": {
+            "name": "Owner-Occupied Homes",
+            "statVar": "Count_HousingUnit_OwnerOccupied"
+          },
+          "Count_HousingUnit_VacantHousingUnit": {
+            "name": "Vacant Housing Units",
+            "statVar": "Count_HousingUnit_VacantHousingUnit"
+          },
+          "Count_HousingUnit_VacantHousingUnit_scatter": {
+            "name": "Vacant Housing Units",
+            "statVar": "Count_HousingUnit_VacantHousingUnit"
+          },
+          "Count_HousingUnit_scatter": {
+            "name": "Housing Units",
+            "statVar": "Count_HousingUnit"
+          },
+          "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied": {
+            "name": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied",
+            "statVar": "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied"
+          },
+          "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied_scatter": {
+            "name": "Median Home Value of Housing Unit: Occupied Housing Unit, Owner Occupied",
             "noPerCapita": true,
-            "statVar": "Median_Cost_HousingUnit_WithMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
-          },
-          "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts": {
-            "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage",
-            "statVar": "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
-          },
-          "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts_scatter": {
-            "name": "Median Cost of Housing Unit (Selected Monthly Owner Costs): Without Mortgage",
-            "noPerCapita": true,
-            "statVar": "Median_Cost_HousingUnit_WithoutMortgage_OccupiedHousingUnit_OwnerOccupied_SelectedMonthlyOwnerCosts"
+            "statVar": "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied"
           }
         }
       }
@@ -797,71 +1027,170 @@
     },
     "childTopics": [
       {
-        "dcid": "dc/topic/StudentPopulation",
-        "name": "Student Population",
+        "dcid": "dc/topic/RentalHouses",
+        "name": "Rental Houses",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HouseOccupants",
+        "name": "House Occupants",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HouseFeatures",
+        "name": "House Features",
         "types": [
           "Topic"
         ]
       }
     ],
     "exploreMore": {
-      "Count_Person_DetailedHighSchool": {
-        "race": [
-          "dc/1kt512ynvpmc2",
-          "dc/3bg4r46ly61q9",
-          "dc/4hzyqndyzntm",
-          "dc/9q73ecfhmd0y9",
-          "dc/cc8wk2n0ywd9",
-          "dc/dxsxcw009pdm4",
-          "dc/dzfdgrtcv5h7",
-          "dc/fh4td3znm3l4g",
-          "dc/g8537zqf45wl3"
+      "Count_HousingUnit": {
+        "cashRentStatus": [
+          "Count_HousingUnit_NoCashRent",
+          "Count_HousingUnit_WithCashRent"
+        ],
+        "dateBuilt": [
+          "Count_HousingUnit_1940To1949DateBuilt",
+          "Count_HousingUnit_1950To1959DateBuilt",
+          "Count_HousingUnit_1960To1969DateBuilt",
+          "Count_HousingUnit_1970To1979DateBuilt",
+          "Count_HousingUnit_1980To1989DateBuilt",
+          "Count_HousingUnit_1990To1999DateBuilt",
+          "Count_HousingUnit_2000To2004DateBuilt",
+          "Count_HousingUnit_2000To2009DateBuilt",
+          "Count_HousingUnit_2005OrLaterDateBuilt",
+          "Count_HousingUnit_2010OrLaterDateBuilt",
+          "Count_HousingUnit_2010To2013DateBuilt",
+          "Count_HousingUnit_2014OrLaterDateBuilt",
+          "Count_HousingUnit_Before1939DateBuilt",
+          "dc/btvj7k04hldhg",
+          "dc/gq1p3lek49lz7"
+        ],
+        "facilities": [
+          "Count_HousingUnit_CompleteKitchenFacilities_OccupiedHousingUnit",
+          "Count_HousingUnit_CompletePlumbingFacilities_OccupiedHousingUnit",
+          "Count_HousingUnit_IncompleteKitchenFacilities_OccupiedHousingUnit",
+          "Count_HousingUnit_IncompletePlumbingFacilities_OccupiedHousingUnit"
+        ],
+        "grossRent": [
+          "Count_HousingUnit_WithRent_1000To1249USDollar",
+          "Count_HousingUnit_WithRent_100To149USDollar",
+          "Count_HousingUnit_WithRent_1250To1499USDollar",
+          "Count_HousingUnit_WithRent_1500To1999USDollar",
+          "Count_HousingUnit_WithRent_150To199USDollar",
+          "Count_HousingUnit_WithRent_2000OrMoreUSDollar",
+          "Count_HousingUnit_WithRent_2000To2499USDollar",
+          "Count_HousingUnit_WithRent_200To249USDollar",
+          "Count_HousingUnit_WithRent_2500To2999USDollar",
+          "Count_HousingUnit_WithRent_250To299USDollar",
+          "Count_HousingUnit_WithRent_3000To3499USDollar",
+          "Count_HousingUnit_WithRent_300To349USDollar",
+          "Count_HousingUnit_WithRent_3500OrMoreUSDollar",
+          "Count_HousingUnit_WithRent_350To399USDollar",
+          "Count_HousingUnit_WithRent_400To449USDollar",
+          "Count_HousingUnit_WithRent_450To499USDollar",
+          "Count_HousingUnit_WithRent_500To549USDollar",
+          "Count_HousingUnit_WithRent_550To599USDollar",
+          "Count_HousingUnit_WithRent_600To649USDollar",
+          "Count_HousingUnit_WithRent_650To699USDollar",
+          "Count_HousingUnit_WithRent_700To749USDollar",
+          "Count_HousingUnit_WithRent_750To799USDollar",
+          "Count_HousingUnit_WithRent_800To899USDollar",
+          "Count_HousingUnit_WithRent_900To999USDollar",
+          "Count_HousingUnit_WithRent_Upto100USDollar"
+        ],
+        "homeValue": [
+          "Count_HousingUnit_HomeValue1000000OrMoreUSDollar",
+          "Count_HousingUnit_HomeValue1000000To1499999USDollar",
+          "Count_HousingUnit_HomeValue100000To124999USDollar",
+          "Count_HousingUnit_HomeValue100000To199999USDollar",
+          "Count_HousingUnit_HomeValue10000To14999USDollar",
+          "Count_HousingUnit_HomeValue125000To149999USDollar",
+          "Count_HousingUnit_HomeValue1500000To1999999USDollar",
+          "Count_HousingUnit_HomeValue150000To174999USDollar",
+          "Count_HousingUnit_HomeValue15000To19999USDollar",
+          "Count_HousingUnit_HomeValue175000To199999USDollar",
+          "Count_HousingUnit_HomeValue2000000OrMoreUSDollar",
+          "Count_HousingUnit_HomeValue200000To249999USDollar",
+          "Count_HousingUnit_HomeValue200000To299999USDollar",
+          "Count_HousingUnit_HomeValue20000To24999USDollar",
+          "Count_HousingUnit_HomeValue250000To299999USDollar",
+          "Count_HousingUnit_HomeValue25000To29999USDollar",
+          "Count_HousingUnit_HomeValue300000To399999USDollar",
+          "Count_HousingUnit_HomeValue300000To499999USDollar",
+          "Count_HousingUnit_HomeValue30000To34999USDollar",
+          "Count_HousingUnit_HomeValue35000To39999USDollar",
+          "Count_HousingUnit_HomeValue400000To499999USDollar",
+          "Count_HousingUnit_HomeValue40000To49999USDollar",
+          "Count_HousingUnit_HomeValue500000To749999USDollar",
+          "Count_HousingUnit_HomeValue500000To999999USDollar",
+          "Count_HousingUnit_HomeValue50000To59999USDollar",
+          "Count_HousingUnit_HomeValue50000To99999USDollar",
+          "Count_HousingUnit_HomeValue60000To69999USDollar",
+          "Count_HousingUnit_HomeValue70000To79999USDollar",
+          "Count_HousingUnit_HomeValue750000To999999USDollar",
+          "Count_HousingUnit_HomeValue80000To89999USDollar",
+          "Count_HousingUnit_HomeValue90000To99999USDollar",
+          "Count_HousingUnit_HomeValueUpto10000USDollar",
+          "Count_HousingUnit_HomeValueUpto49999USDollar"
+        ],
+        "householderRace": [
+          "Count_HousingUnit_HouseholderRaceAmericanIndianAndAlaskaNativeAlone",
+          "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone",
+          "Count_HousingUnit_HouseholderRaceAsianAlone",
+          "Count_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone"
+        ],
+        "numberOfRooms": [
+          "Count_HousingUnit_WithTotal2Rooms",
+          "Count_HousingUnit_WithTotal3Rooms",
+          "Count_HousingUnit_WithTotal4Rooms",
+          "Count_HousingUnit_WithTotal5Rooms",
+          "Count_HousingUnit_WithTotal6Rooms",
+          "Count_HousingUnit_WithTotal7Rooms",
+          "Count_HousingUnit_WithTotal8Rooms",
+          "Count_HousingUnit_WithTotal9OrMoreRooms"
+        ],
+        "occupancyStatus": [
+          "Count_HousingUnit_OccupiedHousingUnit",
+          "Count_HousingUnit_VacantHousingUnit"
         ]
       },
-      "Count_Person_DetailedMiddleSchool": {
-        "race": [
-          "dc/6zbb7s5nx6rxb",
-          "dc/b3nmcj3w1lhed",
-          "dc/c57vzg7l74577",
-          "dc/c75qlm98pmcb2",
-          "dc/e2szvml8jkld8",
-          "dc/g4fthg3t3y5td",
-          "dc/njgzb8knf11n8",
-          "dc/qvf1yrhwzp8rd",
-          "dc/zvr6djt1p9gj3"
+      "Count_HousingUnit_OwnerOccupied": {
+        "householderRace": [
+          "Count_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_OwnerOccupied",
+          "Count_HousingUnit_HouseholderRaceAsianAlone_OwnerOccupied"
         ]
       },
-      "Count_Person_DetailedPrimarySchool": {
-        "race": [
-          "dc/68cg2z97cpl7d",
-          "dc/b6h698m2vmdcc",
-          "dc/bf85zc6wypd2h",
-          "dc/e4y4hqq6mjfsh",
-          "dc/env3140jqssg8",
-          "dc/jhjdplbeg26k1",
-          "dc/p4jzvj8q1lnmd",
-          "dc/wk2vjrzfgyq5d",
-          "dc/x9e7150515yt7"
-        ]
-      },
-      "Count_Person_EnrolledInKindergarten": {
-        "gender": [
-          "dc/g8kg52zcxzw9f",
-          "dc/p34mhcpgtth76"
+      "Median_HomeValue_HousingUnit_OccupiedHousingUnit_OwnerOccupied": {
+        "householderRace": [
+          "Median_HomeValue_HousingUnit_HouseholderRaceAmericanIndianOrAlaskaNativeAlone_OccupiedHousingUnit_OwnerOccupied",
+          "Median_HomeValue_HousingUnit_HouseholderRaceAsianAlone_OccupiedHousingUnit_OwnerOccupied",
+          "Median_HomeValue_HousingUnit_HouseholderRaceBlackOrAfricanAmericanAlone_OccupiedHousingUnit_OwnerOccupied",
+          "Median_HomeValue_HousingUnit_HouseholderRaceHispanicOrLatino_OccupiedHousingUnit_OwnerOccupied",
+          "Median_HomeValue_HousingUnit_HouseholderRaceNativeHawaiianOrOtherPacificIslanderAlone_OccupiedHousingUnit_OwnerOccupied",
+          "Median_HomeValue_HousingUnit_HouseholderRaceSomeOtherRaceAlone_OccupiedHousingUnit_OwnerOccupied",
+          "Median_HomeValue_HousingUnit_HouseholderRaceTwoOrMoreRaces_OccupiedHousingUnit_OwnerOccupied",
+          "Median_HomeValue_HousingUnit_HouseholderRaceWhiteAloneNotHispanicOrLatino_OccupiedHousingUnit_OwnerOccupied",
+          "Median_HomeValue_HousingUnit_HouseholderRaceWhiteAlone_OccupiedHousingUnit_OwnerOccupied"
         ]
       }
     },
     "mainTopics": [
       {
-        "dcid": "dc/topic/HousesByOwnershipCost",
-        "name": "Houses by Ownership Cost",
+        "dcid": "dc/topic/Housing",
+        "name": "Housing",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Schools",
-        "name": "Schools",
+        "dcid": "dc/topic/HousesByHomeValue",
+        "name": "Houses by Home Value",
         "types": [
           "Topic"
         ]
@@ -870,15 +1199,15 @@
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/HomeOwnership",
-        "name": "Home Ownership",
+        "dcid": "dc/topic/EducationHousingAndCommute",
+        "name": "Education, Housing and Commute",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/Education",
-        "name": "Education",
+        "dcid": "dc/topic/HomeOwnership",
+        "name": "Home Ownership",
         "types": [
           "Topic"
         ]
@@ -1238,8 +1567,22 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/HousesByHomeValue",
-        "name": "Houses by Home Value",
+        "dcid": "dc/topic/Education",
+        "name": "Education",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/WorkCommute",
+        "name": "Commute",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HousesByOwnershipCost",
+        "name": "Houses by Ownership Cost",
         "types": [
           "Topic"
         ]
@@ -1250,25 +1593,10 @@
         "types": [
           "Topic"
         ]
-      },
-      {
-        "dcid": "dc/topic/EducationalAttainment",
-        "name": "Educational Attainment",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/SchoolType",
-        "name": "School Type",
-        "types": [
-          "Topic"
-        ]
       }
     ]
   },
-  "svSource": "PARTIAL_PAST_QUERY",
-  "userMessages": [
-    "Low confidence in understanding your query. Displaying the closest results."
-  ]
+  "svSource": "CURRENT_QUERY",
+  "test": "filter_test",
+  "userMessages": []
 }

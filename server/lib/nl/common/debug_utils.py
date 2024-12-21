@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import cast, Dict
+import logging
+from typing import Dict
 
 from server.lib.nl.detection.types import ClassificationType
 from server.lib.nl.detection.types import Detection
@@ -108,7 +109,6 @@ def result_with_debug_info(data_dict: Dict, status: str,
       'status': status,
       'original_query': query_detection.original_query,
       'detection_type': query_detection.detector,
-      'llm_api_type': query_detection.llm_api,
       'place_detection_type': "dc",
       'sv_matching': svs_dict,
       'svs_to_sentences': svs_to_sentences,
@@ -135,6 +135,9 @@ def result_with_debug_info(data_dict: Dict, status: str,
   for entity in query_detection.places_detected.entities_found:
     entities_found_formatted += f"(name: {entity.name}, dcid: {entity.dcid}); "
 
+  query_transformations = query_detection_debug_logs.get(
+      'query_transformations', {})
+
   debug_info.update({
       'places_detected':
           query_detection.places_detected.query_places_mentioned,
@@ -144,8 +147,13 @@ def result_with_debug_info(data_dict: Dict, status: str,
           query_detection.places_detected.query_entities_mentioned,
       'entities_resolved':
           entities_found_formatted,
+      'query_index_types':
+          query_transformations.get('sv_detection_query_index_types', []),
       'query_with_places_removed':
           query_detection.places_detected.query_without_place_substr,
+      'query_with_stop_words_removal':
+          query_transformations.get('sv_detection_query_stop_words_removal',
+                                    ''),
       'query_detection_debug_logs':
           query_detection_debug_logs,
   })

@@ -35,13 +35,13 @@
 
 <head>
   {# Enable Google Analytics with cookieless tracking. #}
-  {% if GA_ACCOUNT %}
-  <script async src="https://www.googletagmanager.com/gtag/js?id={{ GA_ACCOUNT }}"></script>
+  {% if GOOGLE_ANALYTICS_TAG_ID %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_ANALYTICS_TAG_ID }}"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-    gtag('config', '{{ GA_ACCOUNT }}', {
+    gtag('config', '{{ GOOGLE_ANALYTICS_TAG_ID }}', {
       client_storage: 'none',
       anonymize_ip: true,
       {{ ("place_category: '{}'"|safe).format(place_category) if place_category is defined else ""}}
@@ -64,9 +64,12 @@
   {% if OVERRIDE_CSS_PATH %}
   <link href="{{ OVERRIDE_CSS_PATH }}" rel="stylesheet">
   {% endif %}
+  <script src={{url_for('static', filename='queryStore.js', t=config['VERSION'])}} async></script>
 </head>
 
 <body>
+  {# Set page locale. #}
+  <div id="metadata-base" class="d-none" data-locale="{{ locale }}"></div>
   <div id="main">
     <header id="main-header">
       <nav class="navbar navbar-dark navbar-expand-lg col" id="main-nav">
@@ -97,7 +100,7 @@
                   <a class="dropdown-item" href="{{ url_for('disasters.disaster_dashboard') }}">Natural Disaster Dashboard</a>
                   <a class="dropdown-item" href="{{ url_for('place.place') }}">{% trans %}Place Explorer{% endtrans
                     %}</a>
-                  <a class="dropdown-item" href="{{ url_for('browser.browser_main') }}">{% trans %}Graph Browser{%
+                  <a class="dropdown-item" href="{{ url_for('browser.browser_main') }}">{% trans %}Knowledge Graph{%
                     endtrans %}</a>
                   <a class="dropdown-item" href="{{ url_for('tools.timeline') }}">{% trans %}Timelines Explorer{%
                     endtrans %}</a>
@@ -116,12 +119,12 @@
                 <a class="nav-link dropdown-toggle" href="#" id="nav-doc-dropdown" role="button" data-toggle="dropdown"
                   aria-haspopup="true" aria-expanded="false">{% trans %}Documentation{% endtrans %}</a>
                 <div class="dropdown-menu" aria-labelledby="nav-doc-dropdown">
-                  <a class="dropdown-item" href="http://docs.datacommons.org">{% trans %}Documentation{% endtrans %}</a>
-                  <a class="dropdown-item" href="http://docs.datacommons.org/api">{% trans %}APIs{% endtrans %}</a>
+                  <a class="dropdown-item" href="https://docs.datacommons.org">{% trans %}Documentation{% endtrans %}</a>
+                  <a class="dropdown-item" href="https://docs.datacommons.org/api">{% trans %}APIs{% endtrans %}</a>
                   {# TODO: UNCOMMENT TO RE-ENABLE BIGQUERY #}
-                  {#<a class="dropdown-item" href="http://docs.datacommons.org/bigquery">{% trans %}BigQuery{% endtrans
+                  {#<a class="dropdown-item" href="https://docs.datacommons.org/bigquery">{% trans %}BigQuery{% endtrans
                     %}</a>#}
-                  <a class="dropdown-item" href="http://docs.datacommons.org/tutorials">{% trans %}Tutorials{% endtrans
+                  <a class="dropdown-item" href="https://docs.datacommons.org/tutorials">{% trans %}Tutorials{% endtrans
                     %}</a>
                   <a class="dropdown-item" href="https://docs.datacommons.org/contributing/">{% trans %}Contribute{%
                     endtrans %}</a>
@@ -135,7 +138,7 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="nav-about-dropdown">
                   <a class="dropdown-item" href="{{ url_for('static.about') }}">{% trans %}About Data Commons{% endtrans
                     %}</a>
-                  <a class="dropdown-item" href="https://docs.datacommons.org/blog.html">{% trans %}Blog{% endtrans
+                  <a class="dropdown-item" href="https://blog.datacommons.org">{% trans %}Blog{% endtrans
                     %}</a>
                   <a class="dropdown-item" href="https://docs.datacommons.org/datasets/">{% trans %}Data Sources{%
                     endtrans %}</a>
@@ -170,7 +173,7 @@
             {# TRANSLATORS: The name of a tool to browse statistics about a place. #}
             <a href="{{ url_for('place.place') }}">{% trans %}Place Explorer{% endtrans %}</a>
             {# TRANSLATORS: The name of a tool to browse the Data Commons knowledge graph. #}
-            <a href="{{ url_for('browser.browser_main') }}">{% trans %}Graph Browser{% endtrans %}</a>
+            <a href="{{ url_for('browser.browser_main') }}">{% trans %}Knowledge Graph{% endtrans %}</a>
             {# TRANSLATORS: The name of a tool to explore timeline charts of statistical variables for places. #}
             <a href="{{ url_for('tools.timeline') }}">{% trans %}Timelines Explorer{% endtrans %}</a>
             {# TRANSLATORS: The name of a tool to explore scatter plots of statistical variables for places. #}
@@ -187,14 +190,14 @@
             {# TRANSLATORS: The label for a list of documentation links. #}
             <h6>{% trans %}Documentation{% endtrans %}</h6>
             {# TRANSLATORS: The label for a link to our documentation site. #}
-            <a href="http://docs.datacommons.org">{% trans %}Documentation{% endtrans %}</a>
+            <a href="https://docs.datacommons.org">{% trans %}Documentation{% endtrans %}</a>
             {# TRANSLATORS: The label for a link to our API documentation. #}
-            <a href="http://docs.datacommons.org/api">{% trans %}APIs{% endtrans %}</a>
+            <a href="https://docs.datacommons.org/api">{% trans %}APIs{% endtrans %}</a>
             {# TODO: UNCOMMENT TO RE-ENABLE BIGQUERY #}
             {# TRANSLATORS: The label for a link to BigQuery integration starter docs. #}
-            {#<a href="http://docs.datacommons.org/bigquery">{% trans %}BigQuery{% endtrans %}</a>#}
+            {#<a href="https://docs.datacommons.org/bigquery">{% trans %}BigQuery{% endtrans %}</a>#}
             {# TRANSLATORS: The label for a link to our API tutorials. #}
-            <a href="http://docs.datacommons.org/tutorials">{% trans %}Tutorials{% endtrans %}</a>
+            <a href="https://docs.datacommons.org/tutorials">{% trans %}Tutorials{% endtrans %}</a>
             {# TRANSLATORS: The label for a link to instructions about contributing to the project. #}
             <a href="https://docs.datacommons.org/contributing/">{% trans %}Contribute{% endtrans %}</a>
             {# TRANSLATORS: The label for a link to the project's github repository (for open sourced code). #}
@@ -206,7 +209,7 @@
             {# TRANSLATORS: The label for a link to the project's about page. #}
             <a href="{{ url_for('static.about') }}">{% trans %}About Data Commons{% endtrans %}</a>
             {# TRANSLATORS: The label for a link to the project's blog. #}
-            <a href="https://docs.datacommons.org/blog.html">{% trans %}Blog{% endtrans %}</a>
+            <a href="https://blog.datacommons.org/">{% trans %}Blog{% endtrans %}</a>
             {# TRANSLATORS: The label for a link to data sources included in the Data Commons knowledge graph. #}
             <a href="https://docs.datacommons.org/datasets/">{% trans %}Data Sources{% endtrans %}</a>
             {# TRANSLATORS: The label for a link to instructions about sending feedback. #}
@@ -232,8 +235,6 @@
                 <a href="https://policies.google.com/terms">{% trans %}Terms and Conditions{% endtrans %}</a>
                 {# TRANSLATORS: The label for a link to site privacy policy. #}
                 <a href="https://policies.google.com/privacy?hl=en-US">{% trans %}Privacy Policy{% endtrans %}</a>
-                {# TRANSLATORS: The label for a link to site disclaimers. #}
-                <a href="{{ url_for('static.disclaimers') }}">{% trans %}Disclaimers{% endtrans %}</a>
               </div>
             </div>
           </div>

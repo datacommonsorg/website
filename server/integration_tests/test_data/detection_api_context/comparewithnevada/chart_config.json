@@ -20,17 +20,12 @@
   "properties": [],
   "sessionId": "007_999999999",
   "variables": [
+    "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome",
+    "dc/hbkh95kc7pkb6",
+    "dc/topic/CommuteMode",
+    "dc/topic/CommuteModeByOccupation",
     "dc/topic/CommuteTime",
     "dc/topic/WorkCommute",
-    "dc/topic/CommuteModeByOccupation",
-    "dc/topic/CommuteMode",
-    "dc/vgwx3kjjzz8wf",
-    "dc/62gn48xpbqew9",
-    "dc/1fw0t5m6459gb",
-    "dc/kt900ezddrf79",
-    "dc/slp5hywj7b9c1",
-    "Count_Household_With2AvailableVehicles",
-    "Count_Household_With3AvailableVehicles",
-    "Count_Household_With1AvailableVehicles"
+    "dc/wc8q05drd74bd"
   ]
 }

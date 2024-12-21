@@ -1,19 +1,21 @@
-## Deploy Website to Multiple GKE Clusters
+# Deploy Website to Multiple GKE Clusters
 
 You should have owner/editor role to perform the following tasks.
 
-### Prerequisites
+## Prerequisites
 
 - Register a website domain on Google Domain or other registrars.
 
-- Make a copy of the `config.yaml.tpl` as `config.yaml` in the same folder and fill out the following
-  fields
+- Make a copy of the `config.yaml.tpl` as `<ENV>.yaml` and copied it over to
+  `deploy/helm_charts/envs/<ENV>.yaml` and fill in the following fields:
 
   - `project`: the hosting GCP project
   - `domain`: domain of the the website
-  - `region.primary`: region for Kubernetes cluster
-  - `storage-project`: base Data Commons project (set this to `datcom-store`)
-  - `control-project`: set this to `datcom-204919`
+
+  ```text
+    > The filename used will be the `<ENV>` in subsequent commands. E.g. if you
+    > named the yaml file `staging.yaml`, then the `ENV` below is `staging`.
+  ```
 
 - Install the following tools:
 
@@ -23,73 +25,68 @@ You should have owner/editor role to perform the following tasks.
   - [`kustomize`](https://kustomize.io/)
   - [`yq` 4.x](https://github.com/mikefarah/yq#install)
 
-### One time setup
+## One time setup
 
-1.  Run the following scripts sequentially. Retry any script if errors occur.
+1. Run the following scripts sequentially. Retry any script if errors occur.
 
-    ```bash
-    # Update gcloud
-    gcloud components update
-    gcloud auth login
+   ```bash
+   # Update gcloud
+   gcloud components update
+   gcloud auth login
 
-    # Enable GCP services
-    ./enable_services.sh
+   # Enable GCP services
+   ./enable_services.sh <ENV>
 
-    # Create a static IP for the domain (Skip this step if you are using apigee proxy)
-    ./create_ip.sh
+   # Create a static IP for the domain (Skip this step if you are using apigee proxy)
+   ./create_ip.sh <ENV>
 
-    # Create api key for web client maps and places API
-    ./create_api_key.sh
+   # Create api key for web client maps and places API
+   ./create_api_key.sh  <ENV>
 
-    # Create robot account
-    ./create_robot_account.sh
+   # Create robot account
+   ./create_robot_account.sh <ENV>
 
-    # Config robot account IAM in the project
-    ./add_policy_binding.sh
+   # Config robot account IAM in the project
+   ./add_policy_binding.sh <ENV>
 
-    # [Ask Data Commons team to run this] Get permission to read Data Commons data
-    ./get_storage_permission.sh
+   # [Ask Data Commons team to run this] Get permission to read Data Commons data
+   ./get_storage_permission.sh <ENV>
 
-    # Create SSL certificate
-    ./setup_ssl.sh
+   # [Ask Data Commons team to run this] Only if using Vertex AI: Grant permissions for service account to run Vertex AI models
+   ./grant_vertex_ai_permissions.sh <ENV>
 
-    # Deploy esp service
-    ./setup_esp.sh
+   # Create SSL certificate
+   ./setup_ssl.sh <ENV>
 
-    # [For apigee configurations only] Configure internal load balancer network and dns settings
-    ./configure_internal_load_balancer.sh
-    ```
+   # Deploy esp service
+   ./setup_esp.sh <ENV>
 
-1.  Copy the `config.yaml` file into the `/deploy/gke` folder. Rename
-    the file to describe the environment the clusters are being used for.
+   # [For apigee configurations only] Configure internal load balancer network and dns settings
+   ./configure_internal_load_balancer.sh <ENV> <REGION>
+   ```
 
-    ```text
-      > The filename used will be the `<ENV>` in subsequent commands. E.g. if you
-      > named the yaml file `staging.yaml`, then the `ENV` below is `staging`.
-    ```
+1. Run the following scripts sequentially.
 
-1.  Run the following scripts sequentially.
+   ```bash
+   # Create cluster. Run this for all the regions
+   ./create_cluster.sh <ENV> <REGION> <NODES>
 
-    ```bash
-    # Create clusters
-    ./create_all_clusters.sh <ENV>
-
-    # Deploy helm
-    ../scripts/deploy_gke_helm.sh -e <ENV> -l <REGION>
-    ```
+   # Deploy helm
+   ../scripts/deploy_gke_helm.sh -e <ENV> -l <REGION>
+   ```
 
 1. (Optional) If you're using multiple clusters, run the following script to
    setup multi-cluster ingress and services. Use the "-n" flag to include the nodejs server in the setup.
 
-    ```bash
-    # Set up multi-cluster ingress and service WITHOUT nodejs
-    ./setup_config_cluster.sh
+   ```bash
+   # Set up multi-cluster ingress and service WITHOUT nodejs
+   ./setup_config_cluster.sh <ENV> <REGION>
 
-    # Set up multi-cluster ingress and service WITH nodejs
-    ./setup_config_cluster.sh -n
-    ```
+   # Set up multi-cluster ingress and service WITH nodejs
+   ./setup_config_cluster.sh <ENV> <REGION> -n
+   ```
 
-### DNS setup
+## DNS setup
 
 - [Configure the DNS in the domain
   registrar](https://cloud.google.com/load-balancing/docs/ssl-certificates/google-managed-certs#update-dns).
@@ -105,7 +102,7 @@ You should have owner/editor role to perform the following tasks.
   Ingress](mci.yaml.tpl). If they are not linked, need to manually add the
   certificate to the load balancing ([example setup in GCP](ssl.png)).
 
-### Add a new cluster
+## Add a new cluster
 
 If new cluster is needed to scale, then run:
 
@@ -130,9 +127,11 @@ gcloud config set project <PROJECT>
 
 where `<ENV>` refers to the name of the instance and `<REGION>` is the region of the cluster.
 
-## Add a periodic testing job
+## Add a cron testing job
 
-To add a cronjob to run periodic testing against a cluster, run:
+Note: By default, the added cron testing job will run every 4 hours. If you want the job to run on a different schedule, update the `schedule` field in [cron_testing_job.yaml.tpl](./cron_testing_job.yaml.tpl) before setting up the job.
+
+To set up cron testing for a cluster, run:
 
 ```bash
 ./setup_cron_testing.sh -e <ENV> -l <REGION>
@@ -147,12 +146,18 @@ Use [Apigee](https://cloud.google.com/apigee) for API key management, throttling
 
 - Open GCP console
 - Navigate to Apigee console
-- Click "Enable" button (wait ~1 hour to complete)
+- Click "Customize your setup" button
+- Follow steps, ensuring that apigee is configured to run in the same region as your GKE cluster (setup takes ~1 hour to complete)
+- Use the apigee console to create a new "Instance" in the same region as your GKE cluster. Ensure logging is enabled for the instance.
+- Use the apigee console to create a new "Environment Group" (navigate to "Environment" section then choose "Environment Group"). Add applicable hostnames to the environment.
+- Use the apigee console to create a new "Environment" for the website named "website-environment" with pricing type "Intermediate". Associate this environment with the above instance.
 - Deploy proxy configuration
 
 ```bash
 ../deploy_proxy.sh <ENV>
 ```
 
+- Manually update the apigee load balancer to use the `dc-website-cert` certificate
+- Ensure a DNS entry is created that points to the apigee load balancer (see b/348045295)
 - In the apigee console, [create an "API Product", "App", and "Developer" to instance to generate an API Key](https://cloud.google.com/apigee/docs/api-platform/security/api-keys).
 - Include your API key in URL to access Data Commons. Visit https://<your-host>/?apikey=<your-api-key>

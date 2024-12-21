@@ -19,7 +19,7 @@ import ReactDOM from "react-dom";
 
 import { App } from "./app";
 
-window.onload = () => {
+window.addEventListener("load", (): void => {
   const images1 = JSON.parse(
     document.getElementById("screenshot-data").dataset.images1
   );
@@ -44,4 +44,4 @@ window.onload = () => {
     React.createElement(App, { data }),
     document.getElementById("dc-screenshot")
   );
-};
+});

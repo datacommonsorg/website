@@ -21,7 +21,7 @@
 import _ from "lodash";
 import React from "react";
 
-import { UserMessageInfo } from "../../types/app/nl_interface_types";
+import { UserMessageInfo } from "../../types/app/explore_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
 import { getTopics } from "../../utils/app/explore_utils";
 import { ItemList } from "./item_list";

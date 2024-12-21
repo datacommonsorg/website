@@ -19,7 +19,6 @@
 @import "../place_selector";
 @import "../tiles.scss";
 @import "../draw_scatter.scss";
-@import "../bq_modal";
 @import "../source_selector";
 
 $selector-footer-height: 40px;
@@ -52,7 +51,7 @@ $selector-footer-height: 40px;
 }
 
 .visualization-app {
-  width: 100%;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   overflow: auto;
@@ -89,17 +88,13 @@ $selector-footer-height: 40px;
   flex-direction: column;
   align-items: center;
   gap: 2px;
-  margin: 10px 16px 0 16px;
+  margin: 18px 16px 0 16px;
   cursor: pointer;
-  padding-bottom: 10px;
+  padding-bottom: 13px;
   font-weight: 500;
 
   .label {
     font-size: 14px;
-  }
-
-  .material-icons-outlined {
-    font-size: 24px;
   }
 }
 
@@ -116,6 +111,8 @@ $selector-footer-height: 40px;
 /* Selected options section */
 
 .selected-options-container {
+  width: 100vw;
+  margin: auto;
   display: flex;
   background-color: #faf9f9;
   padding: 12px 32px 12px 32px;
@@ -254,7 +251,7 @@ $selector-footer-height: 40px;
   justify-content: center;
   flex-grow: 1;
 
-  @include media-breakpoint-down(md) {
+  @media (max-width: 1350px) {
     flex-direction: column;
   }
 }
@@ -269,7 +266,7 @@ $selector-footer-height: 40px;
   // Account for selector padding when setting the width to avoid scroll overflow
   min-width: $widget-min-width + 2 * 16;
 
-  @include media-breakpoint-down(md) {
+  @media (max-width: 1350px) {
     min-width: 300px;
   }
 }
@@ -425,6 +422,7 @@ $selector-footer-height: 40px;
   }
 
   #stat-var-hierarchy-section {
+    padding: 0px;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -447,7 +445,7 @@ $selector-footer-height: 40px;
 
 #statvar-modal {
   .radio-selection-label {
-    padding-top: 1rem;
+    padding: 0.5rem 0;
   }
 
   .radio-selection-section {
@@ -493,7 +491,6 @@ $selector-footer-height: 40px;
       .section-title {
         font-size: 20px;
         font-weight: 500;
-        margin-bottom: 16px;
       }
     }
 
@@ -598,7 +595,6 @@ $selector-footer-height: 40px;
   .ranking-tile {
     display: flex;
     flex-wrap: wrap;
-    padding: 1rem;
 
     h4 {
       text-align: left;

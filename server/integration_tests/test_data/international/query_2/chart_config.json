@@ -16,9 +16,52 @@
                     "type": "MAP"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in Administrative Area 1 Places of China (${date})",
+                    "type": "RANKING"
+                  }
+                ]
               }
             ],
             "title": "Life Expectancy in Administrative Area 1 Places of China"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in China",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Life Expectancy in China",
+                    "statVarKey": [
+                      "LifeExpectancy_Person"
+                    ],
+                    "title": "Life Expectancy in China",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Life Expectancy"
           },
           {
             "columns": [
@@ -36,6 +79,27 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female"
+                    ],
+                    "title": "Female Life Expectancy in Administrative Area 1 Places of China (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "description": "Life expectancy at birth indicates the number of years a newborn infant would live if prevailing patterns of mortality at the time of its birth were to stay the same throughout its life. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
+            "title": "Female Life Expectancy in Administrative Area 1 Places of China"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "LifeExpectancy_Person_Male"
                     ],
@@ -43,12 +107,334 @@
                     "type": "MAP"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Male Life Expectancy in Administrative Area 1 Places of China (${date})",
+                    "type": "RANKING"
+                  }
+                ]
               }
             ],
-            "title": "Life Expectancy by Gender in Administrative Area 1 Places of China"
+            "description": "Life expectancy at birth indicates the number of years a newborn infant would live if prevailing patterns of mortality at the time of its birth were to stay the same throughout its life. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
+            "title": "Male Life Expectancy in Administrative Area 1 Places of China"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "LifeExpectancy_Person_Female",
+                      "LifeExpectancy_Person_Male"
+                    ],
+                    "title": "Life Expectancy by Gender in China",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Life Expectancy by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death"
+                    ],
+                    "title": "Number of Deaths in Administrative Area 1 Places of China (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death"
+                    ],
+                    "title": "Number of Deaths in Administrative Area 1 Places of China (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Number of Deaths in Administrative Area 1 Places of China"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Number of Deaths in China",
+                    "statVarKey": [
+                      "Count_Death"
+                    ],
+                    "title": "Number of Deaths in China",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Number of Deaths"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Deaths Per Capita in Administrative Area 1 Places of China (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Deaths Per Capita in Administrative Area 1 Places of China (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Deaths Per Capita in Administrative Area 1 Places of China"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Deaths Per Capita in China",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Deaths Per Capita in China",
+                    "statVarKey": [
+                      "Count_Death_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Deaths Per Capita in China",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Deaths Per Capita"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
+                    ],
+                    "title": "% of Suicide Events in China",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "% of Suicide Events in China",
+                    "statVarKey": [
+                      "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
+                    ],
+                    "title": "% of Suicide Events in China",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Causes of Death"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_DYN_NMRT.AGE--M0"
+                    ],
+                    "title": "Neonatal Mortality Rate in China",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Neonatal Mortality Rate in China",
+                    "statVarKey": [
+                      "sdg/SH_DYN_NMRT.AGE--M0"
+                    ],
+                    "title": "Neonatal Mortality Rate in China",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations Inter-agency group for child mortality estimation (UN IGME), 2024.",
+            "title": "Neonatal Mortality Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F",
+                      "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M"
+                    ],
+                    "title": "Infant Mortality Rate by Gender in China",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Infant Mortality Rate by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_MORT.SEX--F"
+                    ],
+                    "title": "Maternal Mortality Ratio in China",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Maternal Mortality Ratio in China",
+                    "statVarKey": [
+                      "sdg/SH_STA_MORT.SEX--F"
+                    ],
+                    "title": "Maternal Mortality Ratio in China",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: estimates by WHO, UNICEF, UNFPA, world bank group and UNDESA/Population division. Geneva: world health organization; 2023.",
+            "title": "Maternal Mortality Ratio"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+                    ],
+                    "title": "Infant Mortality Rate in China",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Infant Mortality Rate in China",
+                    "statVarKey": [
+                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+                    ],
+                    "title": "Infant Mortality Rate in China",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "description": "Infant mortality rate is the number of infants dying before reaching one year of age, per 1,000 live births in a given year. Estimates developed by the UN Inter-agency group for child mortality estimation (UNICEF, WHO, world bank, UN DESA population division) at www.Childmortality.Org.",
+            "title": "Infant Mortality Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+                    ],
+                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in China",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in China",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+                    ],
+                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in China",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)"
           }
         ],
         "statVarSpec": {
+          "Count_Death": {
+            "name": "Number of Deaths",
+            "statVar": "Count_Death"
+          },
+          "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": {
+            "name": "Infant Mortality Rate",
+            "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+          },
+          "Count_Death_AsAFractionOfCount_Person": {
+            "name": "Deaths Per Capita",
+            "statVar": "Count_Death_AsAFractionOfCount_Person"
+          },
+          "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person": {
+            "name": "% of Suicide Events",
+            "statVar": "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
+          },
+          "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent": {
+            "name": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)",
+            "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+          },
           "LifeExpectancy_Person": {
             "name": "Life Expectancy",
             "statVar": "LifeExpectancy_Person"
@@ -60,6 +446,22 @@
           "LifeExpectancy_Person_Male": {
             "name": "Male Life Expectancy",
             "statVar": "LifeExpectancy_Person_Male"
+          },
+          "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F": {
+            "name": "Infant mortality rate",
+            "statVar": "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F"
+          },
+          "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M": {
+            "name": "Infant mortality rate [under 1 year old, Male]",
+            "statVar": "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M"
+          },
+          "sdg/SH_DYN_NMRT.AGE--M0": {
+            "name": "Neonatal mortality rate",
+            "statVar": "sdg/SH_DYN_NMRT.AGE--M0"
+          },
+          "sdg/SH_STA_MORT.SEX--F": {
+            "name": "Maternal mortality ratio",
+            "statVar": "sdg/SH_STA_MORT.SEX--F"
           }
         }
       }
@@ -91,7 +493,387 @@
       "place_type": "Country"
     }
   ],
-  "relatedThings": {},
+  "relatedThings": {
+    "childPlaces": {
+      "AdministrativeArea1": [
+        {
+          "dcid": "country/MAC",
+          "name": "Macau",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q11725",
+          "name": "Chongqing",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q11736",
+          "name": "Tianjin",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q15175",
+          "name": "Guangdong",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q15176",
+          "name": "Guangxi Zhuang Autonomous Region",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q16963",
+          "name": "Jiangsu",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q16967",
+          "name": "Zhejiang",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q17269",
+          "name": "Tibet Autonomous Region",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q19206",
+          "name": "Heilongjiang",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q19770",
+          "name": "Sichuan",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q21208",
+          "name": "Hebei",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q34800",
+          "name": "Xinjiang",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q40956",
+          "name": "Anhui",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q41079",
+          "name": "Inner Mongolia",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q41705",
+          "name": "Fujian",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q42200",
+          "name": "Hainan",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q42392",
+          "name": "Gansu",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q43194",
+          "name": "Yunnan",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q43407",
+          "name": "Shandong",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q43684",
+          "name": "Henan",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q43934",
+          "name": "Liaoning",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q45208",
+          "name": "Jilin",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q45761",
+          "name": "Hunan",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q45833",
+          "name": "Qinghai",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q46862",
+          "name": "Hubei",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q46913",
+          "name": "Shanxi",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q47097",
+          "name": "Guizhou",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q47974",
+          "name": "Shaanxi",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q57052",
+          "name": "Jiangxi",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q57251",
+          "name": "Taiwan Province, People's Republic of China",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q57448",
+          "name": "Ningxia Hui Autonomous Region",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q8686",
+          "name": "Shanghai",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        },
+        {
+          "dcid": "wikidataId/Q956",
+          "name": "Beijing",
+          "types": [
+            "AdministrativeArea1"
+          ]
+        }
+      ]
+    },
+    "childTopics": [],
+    "exploreMore": {
+      "LifeExpectancy_Person": {
+        "gender": [
+          "LifeExpectancy_Person_Female",
+          "LifeExpectancy_Person_Male"
+        ]
+      }
+    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/LifeExpectancy",
+        "name": "Life Expectancy",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Mortality",
+        "name": "Mortality",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/USA",
+        "name": "United States",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/CausesOfDeath",
+        "name": "Causes of Death",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/InfantMortality",
+        "name": "Infant Mortality",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
   "svSource": "CURRENT_QUERY",
   "userMessages": []
 }

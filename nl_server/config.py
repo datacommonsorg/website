@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,114 +13,116 @@
 # limitations under the License.
 
 from dataclasses import dataclass
+from dataclasses import field
 from enum import Enum
-import logging
-import os
 from typing import Dict, List
 
-from nl_server import gcs
-from nl_server.util import use_anonymous_gcs_client
-from shared.lib.gcs import download_gcs_file
-from shared.lib.gcs import is_gcs_path
-
-# Index constants.  Passed in `url=`
-CUSTOM_DC_INDEX: str = 'custom_ft'
-DEFAULT_INDEX_TYPE: str = 'medium_ft'
-
-# The default base model we use.
-EMBEDDINGS_BASE_MODEL_NAME: str = 'all-MiniLM-L6-v2'
-
-# App Config constants.
-NL_MODEL_KEY: str = 'NL_MODEL'
-NL_EMBEDDINGS_KEY: str = 'NL_EMBEDDINGS'
-NL_EMBEDDINGS_VERSION_KEY: str = 'NL_EMBEDDINGS_VERSION_MAP'
+import dacite
 
 
 class StoreType(str, Enum):
   MEMORY = 'MEMORY'
   LANCEDB = 'LANCEDB'
+  VERTEXAI = 'VERTEXAI'
 
 
-# Defines one embeddings index config.
-@dataclass
-class EmbeddingsIndex:
-  # Name provided in the yaml file, and set in `idx=` URL param.
-  name: str
-
-  # Values are: MEMORY, LANCEDB
-  store_type: StoreType
-
-  # File name provided in the yaml file.
-  embeddings_path: str
-  # Local path.
-  embeddings_local_path: str
-
-  # Model name.
-  model_name: str = ""
-  # Model local path.
-  model_local_path: str = ""
+class ModelType(str, Enum):
+  LOCAL = 'LOCAL'
+  VERTEXAI = 'VERTEXAI'
 
 
-#
-# Validates the config input, downloads all the files and returns a list of Indexes to load.
-# The input `embeddings_map` is the dict representation of `embeddings.yaml`:
-#   index-type => field (e.g., model) => value
-#
-def load(embeddings_map: Dict[str, Dict[str, str]]) -> List[EmbeddingsIndex]:
-  # Create Index objects.
-  indexes = parse(embeddings_map)
-
-  #
-  # Download all the models.
-  #
-  models_set = set([i.model_name for i in indexes if i.model_name])
-  model2path = {d: gcs.download_folder(d) for d in models_set}
-  for idx in indexes:
-    if idx.model_name:
-      idx.model_local_path = model2path[idx.model_name]
-
-  return indexes
+class ModelUsage(str, Enum):
+  EMBEDDINGS = 'EMBEDDINGS'
+  RERANKING = 'RERANKING'
 
 
-#
-# Parse the input `embeddings.yaml` dict representation, with structure:
-#   index-type => field (e.g., model) => value
-#
-def parse(embeddings_map: Dict[str, Dict[str, str]]) -> List[EmbeddingsIndex]:
-  indexes: List[EmbeddingsIndex] = []
+@dataclass(kw_only=True)
+class ModelConfig:
+  type: str = None
+  usage: str = None
+  score_threshold: float = None
 
-  for key, value_map in embeddings_map.items():
-    # Let this fail if the enum isn't valid.
-    store_type = StoreType(value_map['store'])
-    path = value_map['embeddings']
-    model_name = value_map['model']
 
-    if path.startswith('/'):
-      # Value is an absolute path
-      file_name = os.path.basename(path)
-      local_path = path
-    elif is_gcs_path(path):
-      logging.info('Downloading embeddings from GCS path: %s', path)
-      if store_type == StoreType.MEMORY:
-        local_path = download_gcs_file(
-            path, use_anonymous_client=use_anonymous_gcs_client())
-      elif store_type == StoreType.LANCEDB:
-        local_path = gcs.download_folder(path)
-      if not local_path:
-        logging.warning(
-            'Embeddings not downloaded from GCS and will be ignored. Please check the path: %s',
-            path)
-        continue
-      file_name = path
-    else:
-      raise AssertionError(
-          f'"embeddings" path must start with `/` or `gs://`: {path}')
+@dataclass(kw_only=True)
+class VertexAIModelConfig(ModelConfig):
+  project_id: str = None
+  location: str = None
+  prediction_endpoint_id: str = None
 
-    idx = EmbeddingsIndex(name=key,
-                          store_type=store_type,
-                          embeddings_path=file_name,
-                          embeddings_local_path=local_path,
-                          model_name=model_name)
-    indexes.append(idx)
 
-  return indexes
+@dataclass(kw_only=True)
+class LocalModelConfig(ModelConfig):
+  gcs_folder: str = None
+
+
+@dataclass(kw_only=True)
+class IndexConfig:
+  store_type: str = None
+  source_path: str = None
+  model: str = None
+  healthcheck_query: str = 'health'
+
+
+@dataclass(kw_only=True)
+class MemoryIndexConfig(IndexConfig):
+  embeddings_path: str = None
+
+
+@dataclass(kw_only=True)
+class LanceDBIndexConfig(IndexConfig):
+  embeddings_path: str = None
+
+
+@dataclass(kw_only=True)
+class VertexAIIndexConfig(IndexConfig):
+  project_id: str = None
+  location: str = None
+  index_endpoint_root: str = None
+  index_endpoint: str = None
+  index_id: str = None
+
+
+# Check
+# https://github.com/datacommonsorg/website/assets/5951856/81bfdf68-0119-4755-95f3-2742cc74655c
+# to see the relation between the following configs and the Registry object.
+
+
+@dataclass(kw_only=True)
+class Catalog:
+  """
+  This represents the full catalog of models and indexes.
+
+  Only a subset of them are enabled/used by the Env config at runtime.
+  """
+  version: str = None
+  indexes: Dict[str, IndexConfig]
+  models: Dict[str, ModelConfig]
+
+
+@dataclass(kw_only=True)
+class Env:
+  """
+  A class to represent the NL server environment config.
+  This object is used with the Catalog object to configure the server.
+  """
+  default_indexes: List[str]
+  enabled_indexes: List[str]
+  vertex_ai_models: Dict[str, VertexAIModelConfig] = field(default_factory=dict)
+  enable_reranking: bool = False
+
+  def from_dict(d):
+    return dacite.from_dict(data_class=Env, data=d)
+
+
+@dataclass(kw_only=True)
+class ServerConfig:
+  """
+  A class to hold the runtime server config.
+
+  This config is obtained from the catalog and environment config.
+  """
+  version: str
+  default_indexes: List[str]
+  indexes: Dict[str, IndexConfig]
+  models: Dict[str, ModelConfig]
+  enable_reranking: bool

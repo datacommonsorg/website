@@ -26,9 +26,11 @@ from server.lib.nl.common.utterance import ChartOriginType
 from server.lib.nl.common.utterance import ChartType
 from server.lib.nl.detection.date import get_date_range_strings
 from server.lib.nl.detection.types import Place
+from server.lib.nl.explore import params
 from server.lib.nl.fulfillment.types import ChartVars
 from server.lib.nl.fulfillment.types import PopulateState
 from server.lib.nl.fulfillment.utils import add_chart_to_utterance
+from server.lib.nl.fulfillment.utils import get_max_ans_places
 
 
 # Demo HACK! to avoid tiny countries to bubble up on top.
@@ -51,7 +53,10 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     state.uttr.counters.err(
         'time-delta-across-places_failed_cb_notimedeltatypes', 1)
     return False
-  if len(chart_vars.svs) > 1 and chart_vars.is_topic_peer_group:
+  if (len(chart_vars.svs) > 1 and chart_vars.is_topic_peer_group and
+      not state.uttr.mode != params.QueryMode.TOOLFORMER_RAG):
+    # In toolformer-table mode we process this even on peer-groups to get some
+    # tables.
     state.uttr.counters.err('time-delta-across-places_failed_cb_peergroupsvs',
                             chart_vars.svs)
     return False
@@ -83,6 +88,9 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     child_places = utils.get_all_child_places([parent_place],
                                               state.place_type.value,
                                               state.uttr.counters)
+  if not child_places:
+    state.uttr.counters.err('time-delta-across-places_failed_no_childplaces', 1)
+    return False
 
   dcid2place = {c.dcid: c for c in child_places}
   dcids = list(dcid2place.keys())
@@ -123,7 +131,7 @@ def populate(state: PopulateState, chart_vars: ChartVars, places: List[Place],
     ranked_places = []
     for d in ranked_dcids:
       ranked_places.append(dcid2place[d])
-    ranked_places = ranked_places[:constants.MAX_ANSWER_PLACES]
+    ranked_places = get_max_ans_places(ranked_places, state.uttr)
 
     sv_place_facet = {}
     if state.date_range or sv in constants.SVS_TO_CHECK_FACET:

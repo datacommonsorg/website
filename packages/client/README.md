@@ -8,7 +8,7 @@ JavaScript client for fetching Data Commons data as CSV, JSON, or GeoJSON.
 - [Data Commons Documentation](https://docs.datacommons.org)
 - [Data Commons Statistical Variable Explorer](https://datacommons.org/tools/statvar)
 - [Data Commons Statistical Place Explorer](https://datacommons.org/place)
-- [Data Commons Statistical Graph Browser](https://datacommons.org/browser)
+- [Data Commons Statistical Knowledge Graph](https://datacommons.org/browser)
 
 ## Usage
 
@@ -38,7 +38,7 @@ To find the DCID of a entity or variable:
 
 1. Browse all 175K+ variables with the [Data Commons Statistical Variable Explorer](https://datacommons.org/tools/statvar).
 2. Search for entities and variables with the [Data Commons Search](https://datacommons.org/search) page.
-3. Use the [Data Commons Graph Browser](https://datacommons.org/browser) to understand the relationship between entities.
+3. Use the [Data Commons Knowledge Graph](https://datacommons.org/browser) to understand the relationship between entities.
 
 ### Data Requests
 

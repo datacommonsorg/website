@@ -136,7 +136,7 @@ POPULATION_DCID = "Count_Person"
 bp = Blueprint("api_place", __name__, url_prefix='/api/place')
 
 
-def get_place_types(place_dcids):
+def get_place_type(place_dcids):
   place_types = fetch.property_values(place_dcids, 'typeOf')
   ret = {}
   for dcid in place_dcids:
@@ -144,8 +144,8 @@ def get_place_types(place_dcids):
     # "AdministrativeArea"
     chosen_type = ''
     for place_type in place_types[dcid]:
-      if not chosen_type or chosen_type.startswith('AdministrativeArea') \
-              or chosen_type == 'Place':
+      if (chosen_type in ['', 'Place'] or
+          chosen_type.startswith('AdministrativeArea')):
         chosen_type = place_type
     ret[escape(dcid)] = chosen_type
   return ret
@@ -171,8 +171,8 @@ def get_place_type_i18n_name(place_type: str) -> str:
 
 @bp.route('/type/<path:place_dcid>')
 @cache.memoize(timeout=TIMEOUT)
-def get_place_type(place_dcid):
-  return get_place_types([place_dcid])[place_dcid]
+def api_place_type(place_dcid):
+  return get_place_type([place_dcid]).get(place_dcid, '')
 
 
 @bp.route('/name', methods=['GET', 'POST'])
@@ -257,7 +257,7 @@ def api_i18n_name():
 def get_named_typed_place():
   """Returns data for NamedTypedPlace, a dictionary of key -> NamedTypedPlace."""
   dcids = request.args.getlist('dcids')
-  place_types = get_place_types(dcids)
+  place2type = get_place_type(dcids)
   place_names = names(dcids)
   ret = {}
   for dcid in dcids:
@@ -265,7 +265,7 @@ def get_named_typed_place():
     ret[dcid] = {
         'dcid': escape(dcid),
         'name': place_names[dcid],
-        'types': place_types[dcid]
+        'types': place2type.get(dcid, ''),
     }
   return Response(json.dumps(ret), 200, mimetype='application/json')
 
@@ -330,12 +330,13 @@ def child_fetch(parent_dcid):
   place_dcids = place_dcids + overlaps_response.get(parent_dcid, [])
 
   # Filter by wanted place types
-  place_type = get_place_type(parent_dcid)
-  wanted_types = WANTED_PLACE_TYPES.get(place_type, ALL_WANTED_PLACE_TYPES)
+  parent_place_type = api_place_type(parent_dcid)
+  wanted_types = WANTED_PLACE_TYPES.get(parent_place_type,
+                                        ALL_WANTED_PLACE_TYPES)
 
-  place_types = fetch.property_values(place_dcids, 'typeOf')
+  place2types = fetch.property_values(place_dcids, 'typeOf')
   wanted_dcids = set()
-  for dcid, types in place_types.items():
+  for dcid, types in place2types.items():
     for t in types:
       if t in wanted_types:
         wanted_dcids.add(dcid)
@@ -355,7 +356,7 @@ def child_fetch(parent_dcid):
   place_names = fetch.property_values(wanted_dcids, 'name')
   result = collections.defaultdict(list)
   for place_dcid in wanted_dcids:
-    for place_type in place_types[place_dcid]:
+    for place_type in place2types[place_dcid]:
       place_pop = pop.get(place_dcid, 0)
       if place_pop > 0 or parent_dcid == 'Earth':  # Continents do not have population
         place_name = place_names.get(place_dcid, place_dcid)
@@ -398,7 +399,10 @@ def parent_places(dcids, include_admin_areas=False):
       A dictionary of lists of containedInPlace, keyed by dcid.
   """
   result = {dcid: {} for dcid in dcids}
-  place_info = dc.get_place_info(dcids)
+  try:
+    place_info = dc.get_place_info(dcids)
+  except ValueError:
+    return result
   for item in place_info.get('data', []):
     if 'node' not in item or 'info' not in item:
       continue
@@ -484,7 +488,7 @@ def get_ranking_url(containing_dcid,
 @cache.cached(timeout=TIMEOUT, query_string=True)
 def api_ranking(dcid):
   """Get the ranking information for a given place."""
-  current_place_type = get_place_type(dcid)
+  current_place_type = api_place_type(dcid)
   parents = parent_places([dcid])[dcid]
   parent_i18n_names = get_i18n_name([x['dcid'] for x in parents], False)
   should_return_all = request.args.get('all', '') == "1"
@@ -672,14 +676,9 @@ def descendent_names():
   return Response(json.dumps(result), 200, mimetype='application/json')
 
 
-@bp.route('/placeid2dcid')
-def placeid2dcid():
-  """API endpoint to get dcid based on place id.
-
-  This is to use together with the Google Maps Autocomplete API:
-  https://developers.google.com/places/web-service/autocomplete.
-  """
-  place_ids = request.args.getlist("placeIds")
+def findplacedcid(place_ids):
+  if not place_ids:
+    return 'error: must provide `placeIds` field', 400
   resp = fetch.resolve_id(place_ids, "placeId", "dcid")
   result = {}
   for place_id, dcids in resp.items():
@@ -689,6 +688,16 @@ def placeid2dcid():
         dcid = PLACE_OVERRIDE[dcid]
       result[place_id] = dcid
   return Response(json.dumps(result), 200, mimetype='application/json')
+
+
+@bp.route('/placeid2dcid')
+def placeid2dcid():
+  """API endpoint to get dcid based on place id.
+  This is to use together with the Google Maps Autocomplete API:
+  https://developers.google.com/places/web-service/autocomplete.
+  """
+  place_ids = request.args.getlist("placeIds")
+  return findplacedcid(place_ids)
 
 
 @bp.route('/coords2places')

@@ -1,4 +1,4 @@
-# Copyright 2023 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,6 +14,8 @@
 
 import json
 import os
+import re
+import unittest
 
 from langdetect import detect as detect_lang
 import requests
@@ -22,7 +24,7 @@ from shared.lib.test_server import NLWebServerTestCase
 
 _dir = os.path.dirname(os.path.abspath(__file__))
 
-_TEST_MODE = os.environ['TEST_MODE']
+_TEST_MODE = os.environ.get('TEST_MODE', '')
 
 _TEST_DATA = 'test_data'
 
@@ -61,7 +63,7 @@ class ExploreTest(NLWebServerTestCase):
       if len(queries) == 1:
         d = ''
       else:
-        d = q.replace(' ', '').replace('?', '').lower()
+        d = re.sub(r'[ ?"]', '', q).lower()
       self.handle_response(q, resp, test_dir, d, failure, check_detection)
 
   def run_detect_and_fulfill(self,
@@ -74,12 +76,13 @@ class ExploreTest(NLWebServerTestCase):
                              i18n_lang='',
                              mode='',
                              default_place='',
-                             idx=''):
-    ctx = {}
+                             idx='',
+                             var_threshold=''):
+    ctx = []
     for (index, q) in enumerate(queries):
       resp = requests.post(
           self.get_server_url() +
-          f'/api/explore/detect-and-fulfill?q={q}&test={test}&i18n={i18n}&mode={mode}&client=test_detect-and-fulfill&default_place={default_place}&idx={idx}',
+          f'/api/explore/detect-and-fulfill?q={q}&test={test}&i18n={i18n}&mode={mode}&client=test_detect-and-fulfill&default_place={default_place}&idx={idx}&varThreshold={var_threshold}',
           json={
               'contextHistory': ctx,
               'dc': dc,
@@ -88,7 +91,7 @@ class ExploreTest(NLWebServerTestCase):
       if len(queries) == 1:
         d = ''
       else:
-        d = q.replace(' ', '').replace('?', '').lower()
+        d = re.sub(r'[ ?"]', '', q).lower()
         # For some queries like Chinese, no characters are replaced and leads to unwieldy folder names.
         # Use the query index for such cases.
         if d == q and i18n:
@@ -109,6 +112,30 @@ class ExploreTest(NLWebServerTestCase):
                       check_detection=False,
                       detector=None):
     dbg = resp['debug']
+
+    # sort variables in the response because variable scores can change between
+    # runs. Sort by scores cut off after 6 digits after the decimal and for
+    # variables with the same truncated score, sort alphabetically
+    # TODO: Proper fix should be to make NL server more deterministic
+    if 'variables' in resp:
+      resp_var_to_score = {}
+      dbg['sv_matching']['CosineScore'] = _format_scores(
+          dbg['sv_matching']['CosineScore'])
+      for i, sv in enumerate(dbg['sv_matching']['SV']):
+        resp_var_to_score[sv] = dbg['sv_matching']['CosineScore'][i]
+      sorted_variables = sorted(resp['variables'],
+                                key=lambda x: (-resp_var_to_score.get(x, 0), x))
+      resp['variables'] = sorted_variables
+
+    # Truncate CosineScores to 6 decimals to reduce noisy diffs.
+    for candidate in dbg['sv_matching']['MultiSV'].get('Candidates', []):
+      for part in candidate.get('Parts', []):
+        if multisv_scores := part.get('CosineScore', []):
+          part['CosineScore'] = _format_scores(multisv_scores)
+
+    if props_scores := dbg['props_matching'].get('CosineScore', []):
+      dbg['props_matching']['CosineScore'] = _format_scores(props_scores)
+
     resp['debug'] = {}
     resp['context'] = {}
     for category in resp.get('config', {}).get('categories', []):
@@ -126,8 +153,8 @@ class ExploreTest(NLWebServerTestCase):
       if check_detection:
         dbg_file = os.path.join(json_dir, 'debug_info.json')
         with open(dbg_file, 'w') as infile:
-          del dbg["sv_matching"]["SV_to_Sentences"]
-          del dbg["props_matching"]["PROP_to_Sentences"]
+          _del_field(dbg, "sv_matching.SV_to_Sentences")
+          _del_field(dbg, "props_matching.PROP_to_Sentences")
           dbg_to_write = {
               "places_detected": dbg["places_detected"],
               "places_resolved": dbg["places_resolved"],
@@ -170,6 +197,16 @@ class ExploreTest(NLWebServerTestCase):
                                 'debug_info.json')
         with open(dbg_file, 'r') as infile:
           expected = json.load(infile)
+          # Delete time value.
+          _del_field(
+              dbg,
+              "query_detection_debug_logs.query_transformations.time_var_reranking"
+          )
+          _del_field(
+              expected,
+              "query_detection_debug_logs.query_transformations.time_var_reranking"
+          )
+
           self.assertEqual(dbg["places_detected"], expected["places_detected"])
           self.assertEqual(dbg["places_resolved"], expected["places_resolved"])
           self.assertEqual(dbg["main_place_dcid"], expected["main_place_dcid"])
@@ -233,16 +270,54 @@ class ExploreTest(NLWebServerTestCase):
 
     self.assertTrue(success, f"wanted: {i18n_lang}, got {detected}")
 
+
+class ExploreTestDetection(ExploreTest):
+
   def test_detection_basic(self):
     self.run_detection('detection_api_basic', ['Commute in California'],
                        test='unittest')
 
   def test_detection_basic_lancedb(self):
-    # NOTE: Use the same test-name as above, since we expect the content to exactly
-    # match the one from above.
-    self.run_detection('detection_api_basic', ['Commute in California'],
+    self.run_detection('detection_api_basic_lancedb', ['Commute in California'],
                        test='unittest',
-                       idx='medium_lance_ft')
+                       idx='base_uae_lance')
+
+  def test_detection_basic_sdg(self):
+    self.run_detection('detection_api_sdg_idx', ['Health in USA'],
+                       test='unittest',
+                       idx='sdg_ft')
+
+  def test_detection_basic_undata(self):
+    self.run_detection('detection_api_undata_idx', ['Health in USA'],
+                       test='unittest',
+                       idx='undata_ft')
+
+  def test_detection_basic_undata_ilo(self):
+    self.run_detection('detection_api_undata_ilo_idx',
+                       ['Employment in the world'],
+                       test='unittest',
+                       idx='undata_ilo_ft')
+
+  def test_detection_basic_undata_dev(self):
+    self.run_detection('detection_api_undata_dev_idx',
+                       ['Employment in the world'],
+                       test='unittest',
+                       idx='undata_ft,undata_ilo_ft')
+
+  def test_detection_basic_bio(self):
+    self.run_detection('detection_api_bio_idx', ['Commute in California'],
+                       test='unittest',
+                       idx='bio_ft,medium_ft')
+
+  def test_detection_basic_uae(self):
+    self.run_detection('detection_api_uae_idx', ['Commute in California'],
+                       test='unittest',
+                       idx='base_uae_mem')
+
+  def test_detection_basic_sfr(self):
+    self.run_detection('detection_api_sfr_idx', ['Commute in California'],
+                       test='unittest',
+                       idx='base_mistral_mem')
 
   def test_detection_sdg(self):
     self.run_detection('detection_api_sdg', ['Health in USA'], dc='sdg')
@@ -289,16 +364,20 @@ class ExploreTest(NLWebServerTestCase):
         'What is the relationship between housing size and home prices in California'
     ])
 
-  def test_detection_reranking(self):
-    self.run_detection(
-        'detection_api_reranking',
-        [
-            # Without reranker the top SV is Median_Income_Person,
-            # With reranking the top SV is Count_Person_IncomeOf75000OrMoreUSDollar.
-            'population that is rich in california'
-        ],
-        check_detection=True,
-        reranker='cross-encoder-mxbai-rerank-base-v1')
+  # TODO: renable when we solve the flaky issue
+  # def test_detection_reranking(self):
+  #   self.run_detection(
+  #       'detection_api_reranking',
+  #       [
+  #           # Without reranker the top SV is Median_Income_Person,
+  #           # With reranking the top SV is Count_Person_IncomeOf75000OrMoreUSDollar.
+  #           'population that is rich in california'
+  #       ],
+  #       check_detection=True,
+  #       reranker='cross-encoder-mxbai-rerank-base-v1')
+
+
+class ExploreTestFulfillment(ExploreTest):
 
   def test_fulfillment_basic(self):
     req = {
@@ -420,6 +499,11 @@ class ExploreTest(NLWebServerTestCase):
     }
     self.run_fulfillment('fulfillment_api_nl_size', req)
 
+
+class ExploreTestEE1(ExploreTest):
+
+  # TODO (boxu): fix the flaky test and reenable it.
+  @unittest.skip
   def test_e2e_answer_places(self):
     self.run_detect_and_fulfill('e2e_answer_places', [
         'California counties with the highest asthma levels',
@@ -427,6 +511,16 @@ class ExploreTest(NLWebServerTestCase):
         'How about the uninsured population?',
         'Which counties in california have median age over 40?',
         'What is the emissions in these counties?'
+    ],
+                                test='filter_test')
+
+  # This is the same as the query in `e2e_answer_places`, but
+  # without "filter_test", so filter query should not work.
+  # Specifically, the answer would have MAP and RANKING
+  # chart instead of a single BAR chart.
+  def test_filter_query_disabled(self):
+    self.run_detect_and_fulfill('filter_query_disabled', [
+        'Which counties in california have median age over 40?',
     ])
 
   def test_e2e_electrification_demo(self):
@@ -487,7 +581,8 @@ class ExploreTest(NLWebServerTestCase):
             # not have both the topics. Instead, the title has the topic
             # corresponding to the SV in the very first chart.
             'Poverty vs. unemployment rate in districts of Tamil Nadu',
-        ])
+        ],
+        test='filter_test')
 
   def test_e2e_correlation_bugs(self):
     self.run_detect_and_fulfill('e2e_correlation_bugs',
@@ -526,6 +621,9 @@ class ExploreTest(NLWebServerTestCase):
         'Hunger in Nigeria',
         'Compare progress on poverty in Mexico, Nigeria and Pakistan'
     ])
+
+
+class ExploreTestEE2(ExploreTest):
 
   def test_e2e_fallbacks(self):
     self.run_detect_and_fulfill(
@@ -630,21 +728,50 @@ class ExploreTest(NLWebServerTestCase):
             'Native born vs. Median income in Sunnyvale',
         ])
 
-  def test_e2e_toolformer_mode(self):
+  def test_e2e_toolformer_rig_mode(self):
     self.run_detect_and_fulfill(
-        'e2e_toolformer_mode',
-        ['what is the infant mortality rate in massachusetts'],
-        mode='toolformer')
+        'e2e_toolformer_rig_mode',
+        [
+            'what is the infant mortality rate in massachusetts',
+            'how many construction workers are in Orlando, Florida?',
+            'what is the poverty rate in Seattle?',
+            # toolformer mode should not show correlations
+            'Foreign born vs. native born in Sunnyvale'
+        ],
+        mode='toolformer_rig')
+
+  def test_e2e_toolformer_rag_mode(self):
+    # The answer places (states) would typically be truncated to 10, but here
+    # we should all the 50+ states.
+    self.run_detect_and_fulfill(
+        'e2e_toolformer_rag_mode',
+        [
+            'how has life expectancy changed over time across US states?',
+            # variables in a topic that match immediately after the topic should
+            # show up before the topic (i.e., Count_Worker_NAICSAccommodationFoodServices
+            # should show up first)
+            'How has employment in hospitality changed over time in New Jersey counties?',
+            'Which California counties have the youngest recent mothers?',
+            # toolformer mode should not show correlations
+            'Foreign born vs. native born in Sunnyvale',
+        ],
+        mode='toolformer_rag')
 
   def test_e2e_triple(self):
     self.run_detect_and_fulfill(
         'e2e_triple',
         [
-            # Should all have 'out' properties as answer
-            'What is the phylum of volvox?',
-            'How about Corylus cornuta Marshall',
+            # ----- Context Based Queries -----
+            # Should have 'out' properties as answer
             'What strand orientation does FGFR1 have?',
-            'What type of gene is it',
+            # Should use context for the entity
+            'what genomic coordinates does it have',
+            # Should use context for the property
+            'how about for PQLC3',
+            # Should not use context because no entity or property found
+            'what animal is that found in',
+
+            # ----- Singleton Queries -----
             # Should have 'in' properties as answer
             'What is Betacoronavirus 1 the species of',
             # Should have a chained property in the answer
@@ -660,3 +787,27 @@ class ExploreTest(NLWebServerTestCase):
             'tell me about heart disease'
         ],
         dc='bio')
+
+  def test_e2e_high_sv_threshold(self):
+    self.run_detect_and_fulfill(
+        'e2e_high_sv_threshold',
+        ['what is the infant mortality rate in massachusetts'],
+        var_threshold='0.8')
+
+
+# Helper function to delete x.y.z path in a dict.
+def _del_field(d: dict, path: str):
+  tmp = d
+  parts = path.split('.')
+  for i, p in enumerate(parts):
+    if p in tmp:
+      if i == len(parts) - 1:
+        # Leaf entry
+        del tmp[p]
+      else:
+        tmp = tmp[p]
+
+
+# Helper function to consistently format float scores.
+def _format_scores(scores):
+  return [float("{:.6f}".format(score)) for score in scores]

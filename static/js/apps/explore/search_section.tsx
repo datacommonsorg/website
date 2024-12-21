@@ -32,7 +32,7 @@ import {
   GA_VALUE_SEARCH_SOURCE_EXPLORE,
   triggerGAEvent,
 } from "../../shared/ga_events";
-import { getFeedbackLink } from "../../utils/nl_interface_utils";
+import { getFeedbackLink } from "../../utils/explore_utils";
 import { updateHash } from "../../utils/url_utils";
 
 // TODO (juliawu): Extract this out to a global flag we can set to remove

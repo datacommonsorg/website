@@ -85,6 +85,110 @@
               }
             ],
             "title": "Diabetes in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "dc/4lvmzr1h1ylk1_scatter",
+                      "Percent_Person_WithDiabetes_scatter"
+                    ],
+                    "title": "Prevalence: Female, Obesity (${yDate}) Vs. Diabetes (${xDate}) in Counties of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence: Female, Obesity vs. Diabetes"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/4lvmzr1h1ylk1"
+                    ],
+                    "title": "Prevalence: Female, Obesity in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/4lvmzr1h1ylk1"
+                    ],
+                    "title": "Prevalence: Female, Obesity in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence: Female, Obesity in Counties of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "scatterTileSpec": {
+                      "highlightTopRight": true
+                    },
+                    "statVarKey": [
+                      "dc/x13tvt8jsgrm4_scatter",
+                      "Percent_Person_WithDiabetes_scatter"
+                    ],
+                    "title": "Prevalence: Male, Obesity (${yDate}) Vs. Diabetes (${xDate}) in Counties of United States",
+                    "type": "SCATTER"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "startWithDenom": true,
+            "title": "Prevalence: Male, Obesity vs. Diabetes"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "dc/x13tvt8jsgrm4"
+                    ],
+                    "title": "Prevalence: Male, Obesity in Counties of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "dc/x13tvt8jsgrm4"
+                    ],
+                    "title": "Prevalence: Male, Obesity in Counties of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence: Male, Obesity in Counties of United States"
           }
         ],
         "statVarSpec": {
@@ -109,6 +213,23 @@
             "noPerCapita": true,
             "statVar": "Percent_Person_WithDiabetes",
             "unit": "%"
+          },
+          "dc/4lvmzr1h1ylk1": {
+            "name": "Prevalence: Female, Obesity",
+            "statVar": "dc/4lvmzr1h1ylk1"
+          },
+          "dc/4lvmzr1h1ylk1_scatter": {
+            "name": "Prevalence: Female, Obesity",
+            "noPerCapita": true,
+            "statVar": "dc/4lvmzr1h1ylk1"
+          },
+          "dc/x13tvt8jsgrm4": {
+            "name": "Prevalence: Male, Obesity",
+            "statVar": "dc/x13tvt8jsgrm4"
+          },
+          "dc/x13tvt8jsgrm4_scatter": {
+            "name": "Prevalence: Male, Obesity",
+            "statVar": "dc/x13tvt8jsgrm4"
           }
         }
       }

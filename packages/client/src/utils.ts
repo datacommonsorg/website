@@ -24,6 +24,8 @@ import {
 } from "./data_commons_client_types";
 import { Observation } from "./data_commons_web_client_types";
 
+export const DEFAULT_WEB_API_ROOT = "https://datacommons.org";
+
 /**
  * Default override for facets / stat metadata for particular unit dcids.
  * Used by DataCommonsClient (DataCommonsWebClient will still return raw values)
@@ -309,4 +311,21 @@ export function isDateInRange(
     return false;
   }
   return true;
+}
+
+/**
+ * Parses the website apiRoot parameter for DataCommonsClient and
+ * DataCommonsWebClient
+ *
+ * - Defaults to "https://datacommons.org" if apiRoot is undefined or ""
+ * - If apiRoot is "/", returns an empty string that indicates we should use the
+ * current hostname as the website API root.
+ * - Otherwise, uses the website api root specified with trailing slashes
+ * stripped
+ *
+ * @param apiRoot Data Commons Website API root
+ * @returns API root URL
+ */
+export function parseWebsiteApiRoot(apiRoot?: string): string {
+  return apiRoot ? apiRoot.replace(/\/$/, "") : DEFAULT_WEB_API_ROOT;
 }

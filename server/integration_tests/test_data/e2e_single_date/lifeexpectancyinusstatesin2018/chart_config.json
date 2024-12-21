@@ -149,9 +149,898 @@
               }
             ],
             "title": "Life Expectancy by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_2018"
+                    ],
+                    "title": "Number of Deaths in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_2018"
+                    ],
+                    "title": "Number of Deaths in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Number of Deaths in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "highlightDate": "2018"
+                    },
+                    "statVarKey": [
+                      "Count_Death_2018_1437305810"
+                    ],
+                    "title": "Number of Deaths in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Number of Deaths in United States",
+                    "statVarKey": [
+                      "Count_Death_2018"
+                    ],
+                    "title": "Number of Deaths in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Number of Deaths"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "highlightDate": "2018"
+                    },
+                    "statVarKey": [
+                      "Count_Death_AsAFractionOfCount_Person_2018_1113810078"
+                    ],
+                    "title": "Deaths Per Capita in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Deaths Per Capita in United States",
+                    "statVarKey": [
+                      "Count_Death_AsAFractionOfCount_Person_2018"
+                    ],
+                    "title": "Deaths Per Capita in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Deaths Per Capita"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_DiseasesOfTheCirculatorySystem_2018"
+                    ],
+                    "title": "Deaths From Diseases of the Circulatory System in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_DiseasesOfTheCirculatorySystem_2018"
+                    ],
+                    "title": "Deaths From Diseases of the Circulatory System in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Deaths From Diseases of the Circulatory System in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA"
+                    ],
+                    "statVarKey": [
+                      "Count_Death_DiseasesOfTheCirculatorySystem_multiple_place_bar_block_2018",
+                      "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person_multiple_place_bar_block_2018",
+                      "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_multiple_place_bar_block_2018",
+                      "Count_Death_CertainInfectiousParasiticDiseases_multiple_place_bar_block_2018",
+                      "Count_Death_Neoplasms_multiple_place_bar_block_2018",
+                      "Count_Death_AbnormalNotClassfied_multiple_place_bar_block_2018",
+                      "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_multiple_place_bar_block_2018",
+                      "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_multiple_place_bar_block_2018",
+                      "Count_MortalityEvent_Assault(Homicide)_multiple_place_bar_block_2018",
+                      "Count_MortalityEvent_Suicide_multiple_place_bar_block_2018"
+                    ],
+                    "title": "Causes of Death in United States (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Causes of Death"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_Female_2018"
+                    ],
+                    "title": "Count of Mortality Event: Female in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_Female_2018"
+                    ],
+                    "title": "Count of Mortality Event: Female in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Mortality Event: Female in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "highlightDate": "2018"
+                    },
+                    "statVarKey": [
+                      "Count_Death_Female_2018_1437305810"
+                    ],
+                    "title": "Count of Mortality Event: Female in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Mortality Event: Female in United States",
+                    "statVarKey": [
+                      "Count_Death_Female_2018"
+                    ],
+                    "title": "Count of Mortality Event: Female in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Mortality Event: Female"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_AbnormalNotClassfied_Female_2018"
+                    ],
+                    "title": "Female Deaths Due to Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_AbnormalNotClassfied_Female_2018"
+                    ],
+                    "title": "Female Deaths Due to Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Female Deaths Due to Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female_2018"
+                    ],
+                    "title": "Female Deaths Due to Certain Conditions Originating in the Perinatal Period in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female_2018"
+                    ],
+                    "title": "Female Deaths Due to Certain Conditions Originating in the Perinatal Period in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Female Deaths Due to Certain Conditions Originating in the Perinatal Period in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA"
+                    ],
+                    "statVarKey": [
+                      "Count_Death_AbnormalNotClassfied_Female_multiple_place_bar_block_2018",
+                      "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female_multiple_place_bar_block_2018",
+                      "Count_Death_CertainInfectiousParasiticDiseases_Female_multiple_place_bar_block_2018",
+                      "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female_multiple_place_bar_block_2018",
+                      "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Female_multiple_place_bar_block_2018",
+                      "Count_Death_DiseasesOfTheCirculatorySystem_Female_multiple_place_bar_block_2018",
+                      "Count_Death_Neoplasms_Female_multiple_place_bar_block_2018",
+                      "Count_MortalityEvent_Assault(Homicide)_Female_multiple_place_bar_block_2018"
+                    ],
+                    "title": "Causes of Female Mortality in United States (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Causes of Female Mortality"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "highlightDate": "2018"
+                    },
+                    "statVarKey": [
+                      "sdg/SH_DYN_NMRT.AGE--M0_2018_2966989201"
+                    ],
+                    "title": "Neonatal Mortality Rate in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Neonatal Mortality Rate in United States",
+                    "statVarKey": [
+                      "sdg/SH_DYN_NMRT.AGE--M0_2018"
+                    ],
+                    "title": "Neonatal Mortality Rate in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: united nations Inter-agency group for child mortality estimation (UN IGME), 2024.",
+            "title": "Neonatal Mortality Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_2018"
+                    ],
+                    "title": "Mortality Events (1 Years or Less): Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified) in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_2018"
+                    ],
+                    "title": "Mortality Events (1 Years or Less): Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified) in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Mortality Events (1 Years or Less): Symptoms, Signs and Abnormal Clinical and Laboratory Findings, Not Elsewhere Classified) in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod_2018"
+                    ],
+                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod_2018"
+                    ],
+                    "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA"
+                    ],
+                    "statVarKey": [
+                      "Count_Death_Upto1Years_AbnormalNotClassfied_multiple_place_bar_block_2018",
+                      "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod_multiple_place_bar_block_2018",
+                      "Count_Death_Upto1Years_CertainInfectiousParasiticDiseases_multiple_place_bar_block_2018",
+                      "Count_Death_Upto1Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_multiple_place_bar_block_2018",
+                      "Count_Death_Upto1Years_DiseasesOfTheCirculatorySystem_multiple_place_bar_block_2018",
+                      "Count_Death_Upto1Years_Neoplasms_multiple_place_bar_block_2018"
+                    ],
+                    "title": "Causes of Infant Mortality in United States (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Causes of Infant Mortality"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "highlightDate": "2018"
+                    },
+                    "statVarKey": [
+                      "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F_2018_2966989201",
+                      "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M_2018_2966989201"
+                    ],
+                    "title": "Infant Mortality Rate by Gender in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Infant Mortality Rate by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_2018"
+                    ],
+                    "title": "Mortality Rate (Age Adjusted, Per Capita) in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_2018"
+                    ],
+                    "title": "Mortality Rate (Age Adjusted, Per Capita) in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Mortality Rate (Age Adjusted, Per Capita) in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "highlightDate": "2018"
+                    },
+                    "statVarKey": [
+                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_2018_1151455814"
+                    ],
+                    "title": "Mortality Rate (Age Adjusted, Per Capita) in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Mortality Rate (Age Adjusted, Per Capita) in United States",
+                    "statVarKey": [
+                      "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_2018"
+                    ],
+                    "title": "Mortality Rate (Age Adjusted, Per Capita) in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Mortality Rate (Age Adjusted, Per Capita)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth_2018"
+                    ],
+                    "title": "Average Interval in Months Since Last Live Birth in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth_2018"
+                    ],
+                    "title": "Average Interval in Months Since Last Live Birth in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Average Interval in Months Since Last Live Birth in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "highlightDate": "2018"
+                    },
+                    "statVarKey": [
+                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_2018_606064963"
+                    ],
+                    "title": "Infant Mortality Rate in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Infant Mortality Rate in United States",
+                    "statVarKey": [
+                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_2018"
+                    ],
+                    "title": "Infant Mortality Rate in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "description": "Infant mortality rate is the number of infants dying before reaching one year of age, per 1,000 live births in a given year. Estimates developed by the UN Inter-agency group for child mortality estimation (UNICEF, WHO, world bank, UN DESA population division) at www.Childmortality.Org.",
+            "title": "Infant Mortality Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_2018"
+                    ],
+                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_2018"
+                    ],
+                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_2018"
+                    ],
+                    "title": "Median Age of Population in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_2018"
+                    ],
+                    "title": "Median Age of Population in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Population in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "highlightDate": "2018"
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_2018_3357919774"
+                    ],
+                    "title": "Median Age of Population in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age of Population in United States",
+                    "statVarKey": [
+                      "Median_Age_Person_2018"
+                    ],
+                    "title": "Median Age of Population in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Population"
           }
         ],
         "statVarSpec": {
+          "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_2018": {
+            "date": "2018",
+            "name": "Infant Mortality Rate",
+            "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+          },
+          "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth_2018_606064963": {
+            "date": "2018",
+            "facetId": "606064963",
+            "name": "Infant Mortality Rate",
+            "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+          },
+          "Count_Death_2018": {
+            "date": "2018",
+            "name": "Number of Deaths",
+            "statVar": "Count_Death"
+          },
+          "Count_Death_2018_1437305810": {
+            "date": "2018",
+            "facetId": "1437305810",
+            "name": "Number of Deaths",
+            "statVar": "Count_Death"
+          },
+          "Count_Death_AbnormalNotClassfied_Female_2018": {
+            "date": "2018",
+            "name": "Female Deaths Due To Symptoms, Signs And Abnormal Clinical And Laboratory Findings, Not Elsewhere Classified",
+            "statVar": "Count_Death_AbnormalNotClassfied_Female"
+          },
+          "Count_Death_AbnormalNotClassfied_Female_multiple_place_bar_block_2018": {
+            "date": "2018",
+            "name": "Female Deaths Due To Symptoms, Signs And Abnormal Clinical And Laboratory Findings, Not Elsewhere Classified",
+            "statVar": "Count_Death_AbnormalNotClassfied_Female"
+          },
+          "Count_Death_AbnormalNotClassfied_multiple_place_bar_block_2018": {
+            "date": "2018",
+            "name": "Deaths Due To Abnormal Symptoms, Signs And Clinical And Laboratory Findings",
+            "statVar": "Count_Death_AbnormalNotClassfied"
+          },
+          "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_2018": {
+            "date": "2018",
+            "name": "Mortality Rate (Age Adjusted, Per Capita)",
+            "statVar": "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
+          },
+          "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person_2018_1151455814": {
+            "date": "2018",
+            "facetId": "1151455814",
+            "name": "Mortality Rate (Age Adjusted, Per Capita)",
+            "statVar": "Count_Death_AgeAdjusted_AsAFractionOf_Count_Person"
+          },
+          "Count_Death_AsAFractionOfCount_Person_2018": {
+            "date": "2018",
+            "name": "Deaths Per Capita",
+            "statVar": "Count_Death_AsAFractionOfCount_Person"
+          },
+          "Count_Death_AsAFractionOfCount_Person_2018_1113810078": {
+            "date": "2018",
+            "facetId": "1113810078",
+            "name": "Deaths Per Capita",
+            "statVar": "Count_Death_AsAFractionOfCount_Person"
+          },
+          "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female_2018": {
+            "date": "2018",
+            "name": "Female Deaths Due To Certain Conditions Originating in The Perinatal Period",
+            "statVar": "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female"
+          },
+          "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female_multiple_place_bar_block_2018": {
+            "date": "2018",
+            "name": "Female Deaths Due To Certain Conditions Originating in The Perinatal Period",
+            "statVar": "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female"
+          },
+          "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_multiple_place_bar_block_2018": {
+            "date": "2018",
+            "name": "Deaths Due To Certain Conditions Originating in The Perinatal Period",
+            "statVar": "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod"
+          },
+          "Count_Death_CertainInfectiousParasiticDiseases_Female_multiple_place_bar_block_2018": {
+            "date": "2018",
+            "name": "Female Deaths Due To Certain Infectious And Parasitic Diseases",
+            "statVar": "Count_Death_CertainInfectiousParasiticDiseases_Female"
+          },
+          "Count_Death_CertainInfectiousParasiticDiseases_multiple_place_bar_block_2018": {
+            "date": "2018",
+            "name": "Deaths Due To Certain Infectious And Parasitic Diseases",
+            "statVar": "Count_Death_CertainInfectiousParasiticDiseases"
+          },
+          "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female_multiple_place_bar_block_2018": {
+            "date": "2018",
+            "name": "Female Deaths Due To Congenital Malformations, Deformations And Chromosomal Abnormalities",
+            "statVar": "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female"
+          },
+          "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_multiple_place_bar_block_2018": {
+            "date": "2018",
+            "name": "Deaths Due To Congenital Malformations, Deformations And Chromosomal Abnormalities",
+            "statVar": "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities"
+          },
+          "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Female_multiple_place_bar_block_2018": {
+            "date": "2018",
+            "name": "Female Deaths Due To Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism",
+            "statVar": "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Female"
+          },
+          "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_multiple_place_bar_block_2018": {
+            "date": "2018",
+            "name": "Deaths Due To Diseases of The Blood And Blood-forming Organs And Certain Disorders Involving The Immune Mechanism",
+            "statVar": "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders"
+          },
+          "Count_Death_DiseasesOfTheCirculatorySystem_2018": {
+            "date": "2018",
+            "name": "Deaths From Diseases of the Circulatory System",
+            "statVar": "Count_Death_DiseasesOfTheCirculatorySystem"
+          },
+          "Count_Death_DiseasesOfTheCirculatorySystem_Female_multiple_place_bar_block_2018": {
+            "date": "2018",
+            "name": "Female Deaths Due To Diseases of The Circulatory System",
+            "statVar": "Count_Death_DiseasesOfTheCirculatorySystem_Female"
+          },
+          "Count_Death_DiseasesOfTheCirculatorySystem_multiple_place_bar_block_2018": {
+            "date": "2018",
+            "name": "Deaths From Diseases of the Circulatory System",
+            "statVar": "Count_Death_DiseasesOfTheCirculatorySystem"
+          },
+          "Count_Death_Female_2018": {
+            "date": "2018",
+            "name": "Count of Mortality Event: Female",
+            "statVar": "Count_Death_Female"
+          },
+          "Count_Death_Female_2018_1437305810": {
+            "date": "2018",
+            "facetId": "1437305810",
+            "name": "Count of Mortality Event: Female",
+            "statVar": "Count_Death_Female"
+          },
+          "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person_multiple_place_bar_block_2018": {
+            "date": "2018",
+            "name": "% of Suicide Events",
+            "statVar": "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
+          },
+          "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent_2018": {
+            "date": "2018",
+            "name": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)",
+            "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+          },
+          "Count_Death_Neoplasms_Female_multiple_place_bar_block_2018": {
+            "date": "2018",
+            "name": "Female Deaths Due To Neoplasms",
+            "statVar": "Count_Death_Neoplasms_Female"
+          },
+          "Count_Death_Neoplasms_multiple_place_bar_block_2018": {
+            "date": "2018",
+            "name": "Deaths From Neoplasms (Tumors or Abnormal Growths)",
+            "statVar": "Count_Death_Neoplasms"
+          },
+          "Count_Death_Upto1Years_AbnormalNotClassfied_2018": {
+            "date": "2018",
+            "name": "Mortality Events (1 Years or Less): Symptoms, Signs And Abnormal Clinical And Laboratory Findings, Not Elsewhere Classified)",
+            "statVar": "Count_Death_Upto1Years_AbnormalNotClassfied"
+          },
+          "Count_Death_Upto1Years_AbnormalNotClassfied_multiple_place_bar_block_2018": {
+            "date": "2018",
+            "name": "Mortality Events (1 Years or Less): Symptoms, Signs And Abnormal Clinical And Laboratory Findings, Not Elsewhere Classified)",
+            "statVar": "Count_Death_Upto1Years_AbnormalNotClassfied"
+          },
+          "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod_2018": {
+            "date": "2018",
+            "name": "Mortality Events (1 Years or Less): Certain Conditions Originating in The Perinatal Period)",
+            "statVar": "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
+          },
+          "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod_multiple_place_bar_block_2018": {
+            "date": "2018",
+            "name": "Mortality Events (1 Years or Less): Certain Conditions Originating in The Perinatal Period)",
+            "statVar": "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod"
+          },
+          "Count_Death_Upto1Years_CertainInfectiousParasiticDiseases_multiple_place_bar_block_2018": {
+            "date": "2018",
+            "name": "Mortality Events (1 Years or Less): Certain Infectious And Parasitic Diseases)",
+            "statVar": "Count_Death_Upto1Years_CertainInfectiousParasiticDiseases"
+          },
+          "Count_Death_Upto1Years_CongenitalMalformationsDeformationsChromosomalAbnormalities_multiple_place_bar_block_2018": {
+            "date": "2018",
+            "name": "Mortality Events (1 Years or Less): Q00-Q99 ( Congenital Malformations, Deformations And Chromosomal Abnormalities)",
+            "statVar": "Count_Death_Upto1Years_CongenitalMalformationsDeformationsChromosomalAbnormalities"
+          },
+          "Count_Death_Upto1Years_DiseasesOfTheCirculatorySystem_multiple_place_bar_block_2018": {
+            "date": "2018",
+            "name": "Mortality Events (1 Years or Less): Diseases of The Circulatory System",
+            "statVar": "Count_Death_Upto1Years_DiseasesOfTheCirculatorySystem"
+          },
+          "Count_Death_Upto1Years_Neoplasms_multiple_place_bar_block_2018": {
+            "date": "2018",
+            "name": "Neoplasms Deaths Among Infants",
+            "statVar": "Count_Death_Upto1Years_Neoplasms"
+          },
+          "Count_MortalityEvent_Assault(Homicide)_Female_multiple_place_bar_block_2018": {
+            "date": "2018",
+            "name": "Count of Mortality Event: Assault(Homicide), Female",
+            "statVar": "Count_MortalityEvent_Assault(Homicide)_Female"
+          },
+          "Count_MortalityEvent_Assault(Homicide)_multiple_place_bar_block_2018": {
+            "date": "2018",
+            "name": "Count of Mortality Event: Assault(Homicide)",
+            "statVar": "Count_MortalityEvent_Assault(Homicide)"
+          },
+          "Count_MortalityEvent_Suicide_multiple_place_bar_block_2018": {
+            "date": "2018",
+            "name": "Count of Mortality Event: Suicide",
+            "statVar": "Count_MortalityEvent_Suicide"
+          },
           "LifeExpectancy_Person_2018": {
             "date": "2018",
             "name": "Life Expectancy",
@@ -184,6 +1073,45 @@
             "facetId": "2776657033",
             "name": "Male Life Expectancy",
             "statVar": "LifeExpectancy_Person_Male"
+          },
+          "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth_2018": {
+            "date": "2018",
+            "name": "Average interval in months since last live birth",
+            "statVar": "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth"
+          },
+          "Median_Age_Person_2018": {
+            "date": "2018",
+            "name": "Median Age of Population",
+            "statVar": "Median_Age_Person"
+          },
+          "Median_Age_Person_2018_3357919774": {
+            "date": "2018",
+            "facetId": "3357919774",
+            "name": "Median Age of Population",
+            "statVar": "Median_Age_Person"
+          },
+          "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F_2018_2966989201": {
+            "date": "2018",
+            "facetId": "2966989201",
+            "name": "Infant mortality rate",
+            "statVar": "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F"
+          },
+          "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M_2018_2966989201": {
+            "date": "2018",
+            "facetId": "2966989201",
+            "name": "Infant mortality rate [under 1 year old, Male]",
+            "statVar": "sdg/SH_DYN_IMRT.AGE--Y0__SEX--M"
+          },
+          "sdg/SH_DYN_NMRT.AGE--M0_2018": {
+            "date": "2018",
+            "name": "Neonatal mortality rate",
+            "statVar": "sdg/SH_DYN_NMRT.AGE--M0"
+          },
+          "sdg/SH_DYN_NMRT.AGE--M0_2018_2966989201": {
+            "date": "2018",
+            "facetId": "2966989201",
+            "name": "Neonatal mortality rate",
+            "statVar": "sdg/SH_DYN_NMRT.AGE--M0"
           }
         }
       }
@@ -572,10 +1500,55 @@
     },
     "childTopics": [],
     "exploreMore": {
+      "Count_Death": {
+        "causeOfDeath": [
+          "Count_Death_AbnormalNotClassfied",
+          "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod",
+          "Count_Death_CertainInfectiousParasiticDiseases",
+          "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities",
+          "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders",
+          "Count_Death_DiseasesOfTheCirculatorySystem",
+          "Count_Death_Neoplasms",
+          "Count_MortalityEvent_Assault(Homicide)",
+          "Count_MortalityEvent_Suicide"
+        ]
+      },
+      "Count_Death_AsAFractionOfCount_Person": {
+        "causeOfDeath": [
+          "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person",
+          "Count_MortalityEvent_Assault(Homicide)_AsAFractionOf_Count_Person",
+          "Count_MortalityEvent_ICD10/A00-B99_AsAFractionOf_Count_Person",
+          "Count_MortalityEvent_ICD10/C00-D48_AsAFractionOf_Count_Person",
+          "Count_MortalityEvent_ICD10/D50-D89_AsAFractionOf_Count_Person",
+          "Count_MortalityEvent_ICD10/I00-I99_AsAFractionOf_Count_Person",
+          "Count_MortalityEvent_ICD10/P00-P96_AsAFractionOf_Count_Person",
+          "Count_MortalityEvent_ICD10/Q00-Q99_AsAFractionOf_Count_Person",
+          "Count_MortalityEvent_ICD10/R00-R99_AsAFractionOf_Count_Person",
+          "Count_MortalityEvent_Suicide_AsAFractionOf_Count_Person"
+        ]
+      },
+      "Count_Death_Female": {
+        "causeOfDeath": [
+          "Count_Death_AbnormalNotClassfied_Female",
+          "Count_Death_CertainConditionsOriginatingInThePerinatalPeriod_Female",
+          "Count_Death_CertainInfectiousParasiticDiseases_Female",
+          "Count_Death_CongenitalMalformationsDeformationsChromosomalAbnormalities_Female",
+          "Count_Death_DiseasesOfBloodAndBloodFormingOrgansAndImmuneDisorders_Female",
+          "Count_Death_DiseasesOfTheCirculatorySystem_Female",
+          "Count_Death_Neoplasms_Female",
+          "Count_MortalityEvent_Assault(Homicide)_Female"
+        ]
+      },
       "LifeExpectancy_Person": {
         "gender": [
           "LifeExpectancy_Person_Female",
           "LifeExpectancy_Person_Male"
+        ]
+      },
+      "Median_Age_Person": {
+        "gender": [
+          "Median_Age_Person_Female",
+          "Median_Age_Person_Male"
         ]
       }
     },

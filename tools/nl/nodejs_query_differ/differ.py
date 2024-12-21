@@ -33,7 +33,10 @@ _OUTPUT_FILE = 'differ_results.json'
 _GOLDEN_FOLDER = 'goldens'
 _DIFF_SUCCESS_MSG = 'Success'
 _EMAIL_SUBJECT_KEY = 'subject'
-_EMAIL_SUBJECT_TEMPLATE = '[{env}] Failure: Nodejs Query Test'
+# Use parentheses instead of square brackets to wrap env because otherwise
+# Google Groups will ignore that part of the subject when deciding how to
+# group conversations.
+_EMAIL_SUBJECT_TEMPLATE = '({env}) Failure: Nodejs Query Test'
 _EMAIL_MESSAGE_KEY = 'message'
 _EMAIL_MESSAGE_TEMPLATE = 'There were diffs found when testing Nodejs Query results against goldens in {env}.<br><br><b>Nodejs Query Results</b>: {test_path}<br><b>Diff results</b>: {results_path}<br>Instructions for debugging: https://playbooks-preview.corp.google.com/datacommons/index.md?cl=head#debugging-nodejs-query-diffs'
 
@@ -70,22 +73,18 @@ flags.DEFINE_enum(
     short_name='m')
 
 
-def get_test_folder(bucket):
-  """Gets the test folder name"""
-  test_folder = FLAGS.test_folder
-  if not test_folder:
-    blobs = bucket.list_blobs(prefix=FLAGS.env)
-    # Get all the dates where there have been cron testing runs done
-    dates = set()
-    for b in blobs:
-      date = b.name[len(FLAGS.env) + 1:].split('/')[0]
-      if date != _GOLDEN_FOLDER:
-        dates.add(date)
-    sorted_dates = sorted(dates, reverse=True)
-    if len(sorted_dates) < 1:
-      return
-    test_folder = sorted_dates[0]
-  return test_folder
+def get_test_folder(bucket, env):
+  """Gets the test folder name for an environment"""
+  blobs = bucket.list_blobs(prefix=env)
+  # Get all the dates where there have been cron testing runs done
+  dates = set()
+  for b in blobs:
+    date = b.name[len(env) + 1:].split('/')[0]
+    dates.add(date)
+  sorted_dates = sorted(dates, reverse=True)
+  if len(sorted_dates) < 1:
+    return ""
+  return sorted_dates[0]
 
 
 def get_diff(test_blobs):
@@ -163,35 +162,53 @@ def output_failure_email(results, test_folder, results_path):
     logging.info(f'email template saved at: {email_file}')
 
 
-def update_goldens(new_golden_blobs):
-  """Updates golden files with the new golden blobs"""
-  for b in new_golden_blobs:
-    filename = b.name.split('/')[-1]
-    golden = json.loads(b.download_as_string())
-    if 'debug' in golden:
-      del golden['debug']
-    with open(f'{_GOLDEN_FOLDER}/{FLAGS.env}/{filename}', 'w') as out:
-      out.write(json.dumps(golden, indent=2))
+def update_goldens(gcs_bucket):
+  """Updates all the golden files with new golden blobs"""
+  # Iterate through each environment that we have goldens for
+  for env in os.listdir(_GOLDEN_FOLDER):
+    env_golden_folder = f'{_GOLDEN_FOLDER}/{env}'
+
+    # remove all the current goldens
+    for filename in os.listdir(env_golden_folder):
+      os.remove(f'{env_golden_folder}/{filename}')
+
+    # get the test blobs
+    test_folder_date = get_test_folder(gcs_bucket, env)
+    test_folder = f'{env}/{test_folder_date}/nodejs_query/'
+    test_blobs = gcs_bucket.list_blobs(prefix=test_folder)
+
+    # add the new test blobs to the goldens folder
+    for b in test_blobs:
+      filename = b.name.split('/')[-1]
+      if filename == 'differ_results.json':
+        continue
+      golden = json.loads(b.download_as_string())
+      if 'debug' in golden:
+        del golden['debug']
+      with open(f'{_GOLDEN_FOLDER}/{env}/{filename}', 'w') as out:
+        out.write(json.dumps(golden, indent=2))
 
 
 def main(_):
   sc = storage.Client()
   bucket = sc.get_bucket(f'{_GCS_BUCKET}')
 
-  # Get the test blobs
-  test_folder = get_test_folder(bucket)
-  if not test_folder:
-    logging.info("Could not get test_folder name, please enter one manually.")
-    return
-  test_folder = f'{FLAGS.env}/{test_folder}/nodejs_query/'
-  test_blobs = bucket.list_blobs(prefix=test_folder)
-
-  # Use the test blobs for updating goldens or getting diffs
   if FLAGS.mode == Mode.UPDATE_GOLDENS:
-    update_goldens(test_blobs)
+    # Update goldens for every environment we have goldens for
+    update_goldens(bucket)
   else:
+    test_folder_date = FLAGS.test_folder or get_test_folder(bucket, FLAGS.env)
+    if not test_folder_date:
+      logging.info("Could not get test_folder name, please enter one manually.")
+      return
+    # Get the test blobs
+    test_folder = f'{FLAGS.env}/{test_folder_date}/nodejs_query/'
+    test_blobs = bucket.list_blobs(prefix=test_folder)
+    # Get the diffs
     results = get_diff(test_blobs)
+    # Output the diffs
     results_path = output_results(results, bucket)
+    # Output a failure email based on the results
     output_failure_email(results, test_folder, results_path)
 
 

@@ -12,34 +12,55 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from dataclasses import asdict
 import json
-from typing import Dict, List
+import logging
+from typing import List
 
 from flask import Blueprint
 from flask import current_app
 from flask import request
 from markupsafe import escape
 
-from nl_server import config
-from nl_server import loader
+from nl_server import registry
 from nl_server import search
 from nl_server.embeddings import Embeddings
-from nl_server.util import is_custom_dc
+from nl_server.registry import Registry
+from nl_server.registry import REGISTRY_KEY
+from shared.lib import constants
 from shared.lib.detected_variables import var_candidates_to_dict
-from shared.lib.detected_variables import VarCandidates
 
 bp = Blueprint('main', __name__, url_prefix='/')
+
+#
+# A global bool to ensure we keep failing healthz till we
+# load the default embeddings fully on the server.
+#
+default_embeddings_loaded = False
 
 
 @bp.route('/healthz')
 def healthz():
-  nl_embeddings = current_app.config[config.NL_EMBEDDINGS_KEY].get(
-      config.DEFAULT_INDEX_TYPE)
-  result: VarCandidates = search.search_vars(
-      [nl_embeddings], ['life expectancy'])['life expectancy']
-  if result.svs and 'Expectancy' in result.svs[0]:
-    return 'OK', 200
-  return 'Service Unavailable', 500
+  return 'NL Server is healthy', 200
+
+
+@bp.route('/api/encode', methods=['POST'])
+def encode():
+  """Returns a list of embeddings for each input query.
+
+  Dict[str, List[float]]
+  """
+  model_name = request.json.get('model', '')
+  queries = request.json.get('queries')
+  if not queries:
+    return json.dumps({})
+  queries = [str(escape(q)) for q in queries]
+  reg: Registry = current_app.config[REGISTRY_KEY]
+  model = reg.get_embedding_model(model_name)
+  query_embeddings = model.encode(queries)
+  if model.returns_tensor:
+    query_embeddings = query_embeddings.tolist()
+  return json.dumps({q: e for q, e in zip(queries, query_embeddings)})
 
 
 @bp.route('/api/search_vars/', methods=['POST'])
@@ -55,22 +76,38 @@ def search_vars():
   queries = request.json.get('queries', [])
   queries = [str(escape(q)) for q in queries]
 
-  idx = str(escape(request.args.get('idx', config.DEFAULT_INDEX_TYPE)))
-  if not idx:
-    idx = config.DEFAULT_INDEX_TYPE
-
+  # TODO: clean up skip topics, may not be used anymore
   skip_topics = False
   if request.args.get('skip_topics'):
     skip_topics = True
 
-  nl_embeddings = _get_indexes(idx)
-  results: Dict[str,
-                VarCandidates] = search.search_vars(nl_embeddings, queries,
-                                                    skip_topics)
-  json_result = {
-      q: var_candidates_to_dict(result) for q, result in results.items()
-  }
-  return json.dumps(json_result)
+  reg: Registry = current_app.config[REGISTRY_KEY]
+
+  reranker_name = str(escape(request.args.get('reranker', '')))
+  reranker_model = reg.get_reranking_model(
+      reranker_name) if reranker_name else None
+
+  default_indexes = reg.server_config().default_indexes
+  idx_type_str = str(escape(request.args.get('idx', '')))
+  if not idx_type_str:
+    idx_types = default_indexes
+  else:
+    idx_types = idx_type_str.split(',')
+  if not idx_types:
+    logging.error('No index type is found!')
+    return 'No index type is found!', 500
+
+  embeddings = _get_indexes(reg, idx_types)
+
+  debug_logs = {'sv_detection_query_index_types': idx_types}
+  results = search.search_vars(embeddings, queries, skip_topics, reranker_model,
+                               debug_logs)
+  q2result = {q: var_candidates_to_dict(result) for q, result in results.items()}
+  return json.dumps({
+      'queryResults': q2result,
+      'scoreThreshold': _get_threshold(embeddings),
+      'debugLogs': debug_logs
+  })
 
 
 @bp.route('/api/detect_verbs/', methods=['GET'])
@@ -80,35 +117,42 @@ def detect_verbs():
   List[str]
   """
   query = str(escape(request.args.get('q')))
-  nl_model = current_app.config[config.NL_MODEL_KEY]
-  return json.dumps(nl_model.detect_verbs(query.strip()))
+  reg: Registry = current_app.config[REGISTRY_KEY]
+  return json.dumps(reg.get_attribute_model().detect_verbs(query.strip()))
 
 
-@bp.route('/api/embeddings_version_map/', methods=['GET'])
+@bp.route('/api/server_config/', methods=['GET'])
 def embeddings_version_map():
-  return json.dumps(current_app.config[config.NL_EMBEDDINGS_VERSION_KEY])
+  reg: Registry = current_app.config[REGISTRY_KEY]
+  server_config = reg.server_config()
+  return json.dumps(asdict(server_config))
 
 
-@bp.route('/api/load/', methods=['GET'])
+@bp.route('/api/load/', methods=['POST'])
 def load():
-  loader.load_custom_embeddings(current_app)
-  return json.dumps(current_app.config[config.NL_EMBEDDINGS_VERSION_KEY])
+  additional_catalog_path = request.json.get('additional_catalog_path', None)
+  try:
+    current_app.config[REGISTRY_KEY] = registry.build(
+        additional_catalog_path=additional_catalog_path)
+  except Exception as e:
+    logging.error(f'Server registry not built due to error: {str(e)}')
+  reg: Registry = current_app.config[REGISTRY_KEY]
+  server_config = reg.server_config()
+  return json.dumps(asdict(server_config))
 
 
-def _get_indexes(idx: str) -> List[Embeddings]:
-  nl_embeddings: List[Embeddings] = []
-
-  emb_map = current_app.config[config.NL_EMBEDDINGS_KEY]
-
-  if is_custom_dc() and idx != config.CUSTOM_DC_INDEX:
-    # Order custom index first, so that when the score is the same
-    # Custom DC will be preferred.
-    emb = emb_map.get(config.CUSTOM_DC_INDEX)
+def _get_indexes(reg: Registry, idx_types: List[str]) -> List[Embeddings]:
+  embeddings: List[Embeddings] = []
+  for idx in idx_types:
+    emb = reg.get_index(idx)
     if emb:
-      nl_embeddings.append(emb)
+      embeddings.append(emb)
+  return embeddings
 
-  emb = emb_map.get(idx)
-  if emb:
-    nl_embeddings.append(emb)
 
-  return nl_embeddings
+# NOTE: Custom DC embeddings addition needs to ensures that the
+#       base vs. custom models do not use different thresholds
+def _get_threshold(embeddings: List[Embeddings]) -> float:
+  if embeddings:
+    return embeddings[0].model.score_threshold
+  return constants.SV_SCORE_DEFAULT_THRESHOLD

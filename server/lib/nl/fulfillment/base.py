@@ -16,7 +16,6 @@ import copy
 import time
 from typing import List
 
-from server.lib.explore import params
 from server.lib.nl.common import constants
 from server.lib.nl.common import utils
 from server.lib.nl.common import variable
@@ -26,6 +25,7 @@ from server.lib.nl.common.utterance import PlaceFallback
 from server.lib.nl.common.utterance import QueryType
 from server.lib.nl.detection.types import ContainedInPlaceType
 from server.lib.nl.detection.types import Place
+from server.lib.nl.explore import params
 from server.lib.nl.fulfillment import simple
 from server.lib.nl.fulfillment.existence import chart_vars_fetch
 from server.lib.nl.fulfillment.existence import ExtensionExistenceCheckTracker
@@ -39,7 +39,7 @@ from server.lib.nl.fulfillment.utils import handle_contained_in_type
 # With 3 per row max, allow up to 2 rows, without any per-capita.
 _DEFAULT_MAX_NUM_CHARTS = 15
 # TODO: This is a temp hack for undata DC.
-_EXTREME_MAX_NUM_CHARTS = 50
+_EXTREME_MAX_NUM_CHARTS = 200
 
 # Do not do extension API calls for more than these many SVs
 _MAX_EXTENSION_SVS = 5
@@ -438,10 +438,9 @@ def clear_fallback(state: PopulateState):
 
 
 def _get_max_num_charts(state: PopulateState) -> int:
-  # For non-SDG special DCs use a much higher limit of charts
+  # For special DCs use a much higher limit of charts
   # shown. NOTE: This is a hack to allow mix of topics from
   # multiple sources.
-  if (params.is_special_dc(state.uttr.insight_ctx) and
-      not params.is_sdg(state.uttr.insight_ctx)):
+  if params.is_special_dc(state.uttr.insight_ctx):
     return _EXTREME_MAX_NUM_CHARTS
   return _DEFAULT_MAX_NUM_CHARTS

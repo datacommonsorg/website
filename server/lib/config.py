@@ -31,9 +31,9 @@ def get_config():
   try:
     cfg = import_string(config_class)()
     cfg.ENV = env
-    # USE_LOCAL_MIXER
-    if cfg.LOCAL and os.environ.get('USE_LOCAL_MIXER') == 'true':
-      cfg.API_ROOT = 'http://127.0.0.1:8081'
+    # Override the api mixer path (API_ROOT) if WEBSITE_MIXER_API_ROOT is set
+    if os.environ.get("WEBSITE_MIXER_API_ROOT"):
+      cfg.API_ROOT = os.environ.get("WEBSITE_MIXER_API_ROOT")
     # Set up secret project for GCP deployment
     if not cfg.LOCAL:
       try:
@@ -53,11 +53,3 @@ def get_config():
 def is_test_env():
   env = os.environ.get('FLASK_ENV')
   return env in ['integration_test', 'test']
-
-
-def is_highest_coverage_enabled() -> bool:
-  """
-  Returns true if querying by highest coverage is enabled.
-  Highest coverage currently not available in SQL custom DC environments
-  """
-  return os.environ.get('IS_CUSTOM_DC', '').lower() != 'true'

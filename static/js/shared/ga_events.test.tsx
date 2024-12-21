@@ -143,6 +143,7 @@ const PLACE_CHART_PROPS = {
   dcid: PLACE_DCID,
   id: "",
   isUsaPlace: true,
+  locale: "en",
   names: { [PLACE_DCID]: PLACE_NAME },
   rankingTemplateUrl: "",
   statsVars: [STAT_VAR_1],
@@ -398,9 +399,10 @@ const STAT_VAR_HIERARCHY_PROPS = {
   deselectSV: () => null,
 };
 
-beforeEach(() =>
-  jest.spyOn(axios, "get").mockImplementation(() => Promise.resolve(null))
-);
+beforeEach(() => {
+  jest.spyOn(axios, "get").mockImplementation(() => Promise.resolve(null));
+  jest.spyOn(axios, "post").mockImplementation(() => Promise.resolve(null));
+});
 
 // Unmount react trees that were mounted with render and clear all mocks.
 afterEach(() => {

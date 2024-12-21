@@ -15,13 +15,20 @@
 import json
 import os
 
+from flask import current_app
 import requests
 
 # Per GCP region Redis config. This is a mounted volume for the website container.
 _REDIS_CONFIG = '/datacommons/redis/redis.json'
+REDIS_HOST = os.environ.get('REDIS_HOST', '')
+REDIS_PORT = os.environ.get('REDIS_PORT', '6379')
 
 
 def get_redis_config():
+  # First check environment for redis configuration
+  if REDIS_HOST:
+    return {"host": REDIS_HOST, "port": REDIS_PORT}
+  # Next try local redis config file (used in gke)
   if not os.path.isfile(_REDIS_CONFIG):
     return None
   with open(_REDIS_CONFIG) as f:

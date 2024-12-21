@@ -65,7 +65,7 @@ def sustainability_explorer(place_dcid=None):
     return flask.render_template(
         'sustainability.html',
         place_metadata=place_metadata,
-        config=None,
+        subject_config=None,
         maps_api_key=current_app.config['MAPS_API_KEY'])
 
   subject_config.metadata.contained_place_types.clear()

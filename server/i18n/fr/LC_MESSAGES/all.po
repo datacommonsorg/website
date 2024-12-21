@@ -82,8 +82,8 @@ msgstr "Dépenses publiques en éducation"
 msgid "Government Expenditures on Military"
 msgstr "Dépenses publiques militaires"
 
-msgid "Graph Browser"
-msgstr "Exploration des données"
+msgid "Knowledge Graph"
+msgstr "Graphe de connaissances"
 
 msgid "Gross National Income"
 msgstr "Revenu National Brut"

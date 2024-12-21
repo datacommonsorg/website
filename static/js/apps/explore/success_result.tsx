@@ -20,29 +20,30 @@
 
 import _ from "lodash";
 import queryString from "query-string";
-import React, { useEffect, useRef } from "react";
+import React, { ReactElement, useEffect, useRef } from "react";
 
 import { SubjectPageMainPane } from "../../components/subject_page/main_pane";
 import {
   CLIENT_TYPES,
+  SVG_CHART_HEIGHT,
   URL_DELIM,
   URL_HASH_PARAMS,
 } from "../../constants/app/explore_constants";
-import { SVG_CHART_HEIGHT } from "../../constants/app/nl_interface_constants";
 import {
   ExploreContext,
   NlSessionContext,
   RankingUnitUrlFuncContext,
 } from "../../shared/context";
-import {
-  QueryResult,
-  UserMessageInfo,
-} from "../../types/app/nl_interface_types";
+import { QueryResult, UserMessageInfo } from "../../types/app/explore_types";
 import { SubjectPageMetadata } from "../../types/subject_page_types";
+import {
+  isPlaceOverviewOnly,
+  shouldSkipPlaceOverview,
+} from "../../utils/explore_utils";
 import { getPlaceTypePlural } from "../../utils/string_utils";
 import { trimCategory } from "../../utils/subject_page_utils";
 import { getUpdatedHash } from "../../utils/url_utils";
-import { DebugInfo } from "../nl_interface/debug_info";
+import { DebugInfo } from "./debug_info";
 import { RelatedPlace } from "./related_place";
 import { ResultHeaderSection } from "./result_header_section";
 import { SearchSection } from "./search_section";
@@ -51,45 +52,29 @@ import { UserMessage } from "./user_message";
 const PAGE_ID = "explore";
 
 interface SuccessResultPropType {
+  //the query string that brought up the given results
   query: string;
+  //an object containing the debug data
   debugData: any;
+  //the explore context
   exploreContext: any;
+  //an object containing the results of the query.
   queryResult: QueryResult;
+  //page metadata (containing information such as places, topics)
   pageMetadata: SubjectPageMetadata;
+  //an object containing a list of messages that is passed into the user message component
   userMessage: UserMessageInfo;
+  //if true, there is no header bar search, and so we display search inline
+  //if false, there is a header bar search, and so we do not display search inline
+  hideHeaderSearchBar: boolean;
 }
 
-// Whether or not there is only a single place overview tile in the page
-// metadata.
-function isPlaceOverviewOnly(pageMetadata: SubjectPageMetadata): boolean {
-  // false if no page metadata or config or categories
-  if (
-    !pageMetadata ||
-    !pageMetadata.pageConfig ||
-    !pageMetadata.pageConfig.categories
-  ) {
-    return false;
-  }
-  const categories = pageMetadata.pageConfig.categories;
-  // False if there is more than 1 tile
-  if (
-    categories.length !== 1 ||
-    categories[0].blocks.length !== 1 ||
-    categories[0].blocks[0].columns.length !== 1 ||
-    categories[0].blocks[0].columns[0].tiles.length !== 1
-  ) {
-    return false;
-  }
-  // True only if the one tile is of type PLACE_OVERVIEW
-  return categories[0].blocks[0].columns[0].tiles[0].type === "PLACE_OVERVIEW";
-}
-
-export function SuccessResult(props: SuccessResultPropType): JSX.Element {
+export function SuccessResult(props: SuccessResultPropType): ReactElement {
+  const searchSectionRef = useRef<HTMLDivElement>(null);
+  const chartSectionRef = useRef<HTMLDivElement>(null);
   if (!props.pageMetadata) {
     return null;
   }
-  const searchSectionRef = useRef<HTMLDivElement>(null);
-  const chartSectionRef = useRef<HTMLDivElement>(null);
   const childPlaceType = !_.isEmpty(props.pageMetadata.childPlaces)
     ? Object.keys(props.pageMetadata.childPlaces)[0]
     : "";
@@ -135,25 +120,28 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
     };
   }, []);
   const placeOverviewOnly = isPlaceOverviewOnly(props.pageMetadata);
+  const emptyPlaceOverview = shouldSkipPlaceOverview(props.pageMetadata);
   return (
     <div
       className={`row explore-charts${
         placeOverviewOnly ? " place-overview-only" : ""
       }`}
     >
-      <div className="search-section-container" ref={searchSectionRef}>
-        <div className="search-section-content container">
-          <DebugInfo
-            debugData={props.debugData}
-            queryResult={props.queryResult}
-          ></DebugInfo>
-          <SearchSection
-            query={props.query}
-            debugData={props.debugData}
-            exploreContext={props.exploreContext}
-          />
+      {props.hideHeaderSearchBar && (
+        <div className="search-section-container" ref={searchSectionRef}>
+          <div className="search-section-content container">
+            <DebugInfo
+              debugData={props.debugData}
+              queryResult={props.queryResult}
+            ></DebugInfo>
+            <SearchSection
+              query={props.query}
+              debugData={props.debugData}
+              exploreContext={props.exploreContext}
+            />
+          </div>
         </div>
-      </div>
+      )}
       <div className="col-12" ref={chartSectionRef}>
         <UserMessage
           userMessage={props.userMessage}
@@ -201,27 +189,29 @@ export function SuccessResult(props: SuccessResultPropType): JSX.Element {
                 </ExploreContext.Provider>
               </NlSessionContext.Provider>
             </RankingUnitUrlFuncContext.Provider>
-            {!_.isEmpty(props.pageMetadata.childPlaces) && (
-              <RelatedPlace
-                relatedPlaces={props.pageMetadata.childPlaces[childPlaceType]}
-                topic={relatedPlaceTopic}
-                titleSuffix={
-                  getPlaceTypePlural(childPlaceType) +
-                  " in " +
-                  props.pageMetadata.place.name
-                }
-              ></RelatedPlace>
-            )}
-            {!_.isEmpty(props.pageMetadata.peerPlaces) && (
-              <RelatedPlace
-                relatedPlaces={props.pageMetadata.peerPlaces}
-                topic={relatedPlaceTopic}
-                titleSuffix={
-                  "other " +
-                  getPlaceTypePlural(props.pageMetadata.place.types[0])
-                }
-              ></RelatedPlace>
-            )}
+            {!emptyPlaceOverview &&
+              !_.isEmpty(props.pageMetadata.childPlaces) && (
+                <RelatedPlace
+                  relatedPlaces={props.pageMetadata.childPlaces[childPlaceType]}
+                  topic={relatedPlaceTopic}
+                  titleSuffix={
+                    getPlaceTypePlural(childPlaceType) +
+                    " in " +
+                    props.pageMetadata.place.name
+                  }
+                ></RelatedPlace>
+              )}
+            {!emptyPlaceOverview &&
+              !_.isEmpty(props.pageMetadata.peerPlaces) && (
+                <RelatedPlace
+                  relatedPlaces={props.pageMetadata.peerPlaces}
+                  topic={relatedPlaceTopic}
+                  titleSuffix={
+                    "other " +
+                    getPlaceTypePlural(props.pageMetadata.place.types[0])
+                  }
+                ></RelatedPlace>
+              )}
           </>
         )}
       </div>

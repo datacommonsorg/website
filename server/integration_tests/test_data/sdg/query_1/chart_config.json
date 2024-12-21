@@ -12,8 +12,52 @@
                     "statVarKey": [
                       "sdg/SI_POV_DAY1"
                     ],
+                    "title": "Population Below International Poverty Line in Africa",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population Below International Poverty Line in Africa",
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1"
+                    ],
+                    "title": "Population Below International Poverty Line in Africa",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: poverty and inequality portal, world bank.",
+            "title": "Population Below International Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1"
+                    ],
                     "title": "Population Below International Poverty Line in Countries of Africa (${date})",
                     "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1"
+                    ],
+                    "title": "Population Below International Poverty Line in Countries of Africa (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
@@ -37,6 +81,27 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1.AGE--Y0T14"
+                    ],
+                    "title": "Population Age Under 15 Below International Poverty Line in Countries of Africa (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: poverty and inequality portal, world bank.",
+            "title": "Population Age Under 15 Below International Poverty Line in Countries of Africa"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.AGE--Y15T64"
                     ],
@@ -48,16 +113,21 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
-                      "sdg/SI_POV_DAY1.AGE--Y_GE65"
+                      "sdg/SI_POV_DAY1.AGE--Y15T64"
                     ],
-                    "title": "Population Age 65 or Older Below International Poverty Line in Countries of Africa (${date})",
-                    "type": "MAP"
+                    "title": "Population Age 15 to 64 Below International Poverty Line in Countries of Africa (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Population Below International Poverty Line by Age in Countries of Africa"
+            "footnote": "Includes data from the following sources: poverty and inequality portal, world bank.",
+            "title": "Population Age 15 to 64 Below International Poverty Line in Countries of Africa"
           },
           {
             "columns": [
@@ -75,6 +145,27 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1.SEX--F"
+                    ],
+                    "title": "Women Below International Poverty Line in Countries of Africa (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: poverty and inequality portal, world bank.",
+            "title": "Women Below International Poverty Line in Countries of Africa"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.SEX--M"
                     ],
@@ -82,9 +173,25 @@
                     "type": "MAP"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1.SEX--M"
+                    ],
+                    "title": "Men Below International Poverty Line in Countries of Africa (${date})",
+                    "type": "RANKING"
+                  }
+                ]
               }
             ],
-            "title": "Population Below International Poverty Line by Gender in Countries of Africa"
+            "footnote": "Includes data from the following sources: poverty and inequality portal, world bank.",
+            "title": "Men Below International Poverty Line in Countries of Africa"
           },
           {
             "columns": [
@@ -102,6 +209,27 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1.URBANISATION--U"
+                    ],
+                    "title": "Urban Population Below International Poverty Line in Countries of Africa (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: poverty and inequality portal, world bank.",
+            "title": "Urban Population Below International Poverty Line in Countries of Africa"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "sdg/SI_POV_DAY1.URBANISATION--R"
                     ],
@@ -109,101 +237,25 @@
                     "type": "MAP"
                   }
                 ]
-              }
-            ],
-            "title": "Population Below International Poverty Line in Rural Vs. Urban Areas in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SI_POV_NAHC"
-                    ],
-                    "title": "Employed Population Below International Poverty Line in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Proportion of Population Living Below the National Poverty Line (%) in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SD_MDP_ANDI"
-                    ],
-                    "title": "Average Deprivations for Population in Poverty in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
               },
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
-                      "sdg/SD_MDP_ANDI.URBANISATION--R"
+                      "sdg/SI_POV_DAY1.URBANISATION--R"
                     ],
-                    "title": "Average Deprivation for Impoverished Rural Population in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SD_MDP_ANDI.URBANISATION--U"
-                    ],
-                    "title": "Average Deprivation for Impoverished Urban Population in Countries of Africa (${date})",
-                    "type": "MAP"
+                    "title": "Rural Population Below International Poverty Line in Countries of Africa (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Average Proportion of Deprivations for People Multidimensionally Poor (%) in Countries of Africa"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SD_MDP_CSMP.AGE--Y0T17"
-                    ],
-                    "title": "Impoverished Children Under 18 Years in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SD_MDP_CSMP.AGE--Y0T17__URBANISATION--R"
-                    ],
-                    "title": "Impoverished Children in Rural Areas in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "sdg/SD_MDP_CSMP.AGE--Y0T17__URBANISATION--U"
-                    ],
-                    "title": "Impoverished Children in Urban Areas in Countries of Africa (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "title": "Proportion of Children Living in Child-Specific Multidimensional Poverty (%) in Countries of Africa"
+            "footnote": "Includes data from the following sources: poverty and inequality portal, world bank.",
+            "title": "Rural Population Below International Poverty Line in Countries of Africa"
           },
           {
             "columns": [
@@ -221,6 +273,27 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O"
+                    ],
+                    "title": "Population Using Basic Drinking Water Services in Countries of Africa (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: WHO/UNICEF joint monitoring programme for water supply, sanitation and hygiene (2023).",
+            "title": "Population Using Basic Drinking Water Services in Countries of Africa"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "sdg/SP_ACS_BSRVSAN"
                     ],
@@ -232,6 +305,56 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN"
+                    ],
+                    "title": "Population Using Basic Sanitation Services in Countries of Africa (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: WHO/UNICEF joint monitoring programme for water supply, sanitation and hygiene (2023).",
+            "title": "Population Using Basic Sanitation Services in Countries of Africa"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
+                    ],
+                    "title": "Employed Population Aged 15 or Over Below International Poverty Line in Africa",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Employed Population Aged 15 or Over Below International Poverty Line in Africa",
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
+                    ],
+                    "title": "Employed Population Aged 15 or Over Below International Poverty Line in Africa",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: ILO modelled estimates, nov.2023.",
+            "title": "Employed Population Aged 15 or Over Below International Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "sdg/SI_POV_EMP1.AGE--Y_GE15"
                     ],
@@ -239,9 +362,42 @@
                     "type": "MAP"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15"
+                    ],
+                    "title": "Employed Population Aged 15 or Over Below International Poverty Line in Countries of Africa (${date})",
+                    "type": "RANKING"
+                  }
+                ]
               }
             ],
-            "title": "Population Below International Poverty Line and More in Countries of Africa"
+            "footnote": "Includes data from the following sources: ILO modelled estimates, nov.2023.",
+            "title": "Employed Population Aged 15 or Over Below International Poverty Line in Countries of Africa"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F",
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
+                    ],
+                    "title": "Employed Population Below International Poverty Line by Gender in Africa",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Employed Population Below International Poverty Line by Gender"
           },
           {
             "columns": [
@@ -259,6 +415,27 @@
               {
                 "tiles": [
                   {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F"
+                    ],
+                    "title": "Employed Women Aged 15 or Over Below International Poverty Line in Countries of Africa (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: ILO modelled estimates, nov.2023.",
+            "title": "Employed Women Aged 15 or Over Below International Poverty Line in Countries of Africa"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "statVarKey": [
                       "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
                     ],
@@ -266,36 +443,28 @@
                     "type": "MAP"
                   }
                 ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
+                    ],
+                    "title": "Employed Men Aged 15 or Over Below International Poverty Line in Countries of Africa (${date})",
+                    "type": "RANKING"
+                  }
+                ]
               }
             ],
-            "title": "Employed Population Below International Poverty Line by Gender in Countries of Africa"
+            "footnote": "Includes data from the following sources: ILO modelled estimates, nov.2023.",
+            "title": "Employed Men Aged 15 or Over Below International Poverty Line in Countries of Africa"
           }
         ],
         "statVarSpec": {
-          "sdg/SD_MDP_ANDI": {
-            "name": "Average Deprivations for Population in Poverty",
-            "statVar": "sdg/SD_MDP_ANDI"
-          },
-          "sdg/SD_MDP_ANDI.URBANISATION--R": {
-            "name": "Average Deprivation for Impoverished Rural Population",
-            "statVar": "sdg/SD_MDP_ANDI.URBANISATION--R"
-          },
-          "sdg/SD_MDP_ANDI.URBANISATION--U": {
-            "name": "Average Deprivation for Impoverished Urban Population",
-            "statVar": "sdg/SD_MDP_ANDI.URBANISATION--U"
-          },
-          "sdg/SD_MDP_CSMP.AGE--Y0T17": {
-            "name": "Impoverished Children Under 18 Years",
-            "statVar": "sdg/SD_MDP_CSMP.AGE--Y0T17"
-          },
-          "sdg/SD_MDP_CSMP.AGE--Y0T17__URBANISATION--R": {
-            "name": "Impoverished Children in Rural Areas",
-            "statVar": "sdg/SD_MDP_CSMP.AGE--Y0T17__URBANISATION--R"
-          },
-          "sdg/SD_MDP_CSMP.AGE--Y0T17__URBANISATION--U": {
-            "name": "Impoverished Children in Urban Areas",
-            "statVar": "sdg/SD_MDP_CSMP.AGE--Y0T17__URBANISATION--U"
-          },
           "sdg/SI_POV_DAY1": {
             "name": "Population Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1"
@@ -307,10 +476,6 @@
           "sdg/SI_POV_DAY1.AGE--Y15T64": {
             "name": "Population Age 15 to 64 Below International Poverty Line",
             "statVar": "sdg/SI_POV_DAY1.AGE--Y15T64"
-          },
-          "sdg/SI_POV_DAY1.AGE--Y_GE65": {
-            "name": "Population Age 65 or Older Below International Poverty Line",
-            "statVar": "sdg/SI_POV_DAY1.AGE--Y_GE65"
           },
           "sdg/SI_POV_DAY1.SEX--F": {
             "name": "Women Below International Poverty Line",
@@ -339,10 +504,6 @@
           "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M": {
             "name": "Employed Men Aged 15 or Over Below International Poverty Line",
             "statVar": "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
-          },
-          "sdg/SI_POV_NAHC": {
-            "name": "Employed Population Below International Poverty Line",
-            "statVar": "sdg/SI_POV_NAHC"
           },
           "sdg/SP_ACS_BSRVH2O": {
             "name": "Population Using Basic Drinking Water Services",
@@ -382,7 +543,384 @@
       "place_type": "Continent"
     }
   ],
-  "relatedThings": {},
+  "relatedThings": {
+    "childPlaces": {
+      "Country": [
+        {
+          "dcid": "country/AGO",
+          "name": "Angola",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATF",
+          "name": "French Southern Territories",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BDI",
+          "name": "Burundi",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BEN",
+          "name": "Benin",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BFA",
+          "name": "Burkina Faso",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BWA",
+          "name": "Botswana",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CAF",
+          "name": "Central African Republic",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CIV",
+          "name": "C\u00f4te d'Ivoire",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CMR",
+          "name": "Cameroon",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/COD",
+          "name": "Congo [DRC]",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/COG",
+          "name": "Congo [Republic]",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/COM",
+          "name": "Comoros",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CPV",
+          "name": "Cape Verde",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/DJI",
+          "name": "Djibouti",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/DZA",
+          "name": "Algeria",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/EGY",
+          "name": "Egypt",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ERI",
+          "name": "Eritrea",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ESH",
+          "name": "Western Sahara",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ETH",
+          "name": "Ethiopia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/GAB",
+          "name": "Gabon",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/GHA",
+          "name": "Ghana",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/GIN",
+          "name": "Guinea",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/GMB",
+          "name": "Gambia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/GNB",
+          "name": "Guinea-Bissau",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/GNQ",
+          "name": "Equatorial Guinea",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/KEN",
+          "name": "Kenya",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/LBR",
+          "name": "Liberia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/LBY",
+          "name": "Libya",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/LSO",
+          "name": "Lesotho",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/MAR",
+          "name": "Morocco",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/MDG",
+          "name": "Madagascar",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/MLI",
+          "name": "Mali",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/MOZ",
+          "name": "Mozambique",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/MRT",
+          "name": "Mauritania",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/MUS",
+          "name": "Mauritius",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/MWI",
+          "name": "Malawi",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/MYT",
+          "name": "Mayotte",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/NAM",
+          "name": "Namibia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/NER",
+          "name": "Niger",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/NGA",
+          "name": "Nigeria",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/REU",
+          "name": "R\u00e9union",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/RWA",
+          "name": "Rwanda",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/SDN",
+          "name": "Sudan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/SEN",
+          "name": "Senegal",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/SHN",
+          "name": "Saint Helena",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/SLE",
+          "name": "Sierra Leone",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/SOM",
+          "name": "Somalia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/SSD",
+          "name": "South Sudan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/STP",
+          "name": "S\u00e3o Tom\u00e9 and Pr\u00edncipe",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/SWZ",
+          "name": "Eswatini",
+          "types": [
+            "Country"
+          ]
+        }
+      ]
+    },
+    "childTopics": [],
+    "exploreMore": {
+      "sdg/SI_POV_EMP1.AGE--Y_GE15": {
+        "sdg_sex": [
+          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F",
+          "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M"
+        ]
+      }
+    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Poverty",
+        "name": "Poverty",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [],
+    "peerPlaces": [],
+    "peerTopics": []
+  },
   "svSource": "CURRENT_QUERY",
   "userMessages": []
 }

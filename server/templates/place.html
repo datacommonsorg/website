@@ -15,6 +15,8 @@ limitations under the License.
 #}
 {%- extends BASE_HTML -%}
 
+{% from 'macros/icons.html' import inline_svg %}
+
 {% set main_id = 'dc-places' %}
 {% set page_id = 'page-dc-places' %}
 {% if category == '' %}
@@ -24,8 +26,6 @@ limitations under the License.
   {% set title = place_name + ' - '+ _('CHART_TITLE-CHART_CATEGORY-{category}'.format(category=category)) + ' - ' + _('Place Explorer') %}
   {% set description = _('Statistics about {category} in {place_name}.'.format(category=category, place_name=place_name)) %}
 {% endif %}
-{% set subpage_title = _('Place Explorer') %}
-{% set subpage_url = url_for('place.place') %}
 {% set place_category = category %}
 
 {% block head %}
@@ -46,32 +46,34 @@ limitations under the License.
 <div id="body" class="container-fluid">
   <div id="nl-search-bar"></div>
   <div id="body-row" class="row">
-    <div id="sidebar-outer" class="col-md-3x col-lg-2 order-last order-lg-0">
-      <div id="sidebar-top-spacer" class="d-none d-lg-block"></div>
+    <div id="sidebar-outer" class="col-md-3x col-xl-2 order-last order-xl-0">
+      <div id="sidebar-top-spacer" class="d-none d-xl-block"></div>
       <div id="sidebar-region">
         <div id="menu"></div>
         <div id="child-place"></div>
       </div>
     </div>
-    <div id="main" class="col-md-9x col-lg-10">
+    <div id="main-place" class="col-md-12 col-xl-10">
       <div id="title" data-dcid="{{ place_dcid }}">
         <div id="place-heading-container">
           <div id="place-heading">
             <h1 id="place-name" data-pn="{{ place_name }}">{{ place_name }}</h1>
             <h3 id="place-type" data-pt="{{ place_type }}">{{ place_type_with_parent_places_links | safe }}</h3>
-            <h3 id="locale" data-lc="{{ locale }}"></h3>
             <div id="place-highlight"></div>
           </div>
-          <div id="place-change-ui">
-            <div id="place-search-container"></div>
+          <div class="dcid-and-knowledge-graph">
+            dcid:&nbsp;<a href="/browser/{{ place_dcid }}">{{ place_dcid }}</a>
           </div>
         </div>
       </div>
       <div id="subtitle" class="row"></div>
       <div id="place-summary" class="row-col place-summary-container">{{ place_summary }}</div>
       <div id="main-pane" class="row"></div>
-      {# TRANSLATORS: A message shown on the page while the content is loading. #}
-      <div id="page-loading" className="mt-4">{% trans %}Loading...{% endtrans %}</div>
+      <div id="page-loading" class="mt-4">
+        {{ inline_svg('progress_activity') }}
+        {# TRANSLATORS: A message shown on the page while the content is loading. #}
+        <p>{% trans %}Loading{% endtrans %}</p>
+      </div>
     </div>
   </div>
 </div>
@@ -94,6 +96,6 @@ limitations under the License.
 
 {% block footer %}
 <script src={{url_for('static', filename='place.js' , t=config['VERSION'])}}></script>
-<script src="https://maps.googleapis.com/maps/api/js?key={{maps_api_key}}&libraries=places&language={{locale}}" async
+<script src="https://maps.googleapis.com/maps/api/js?key={{maps_api_key}}&libraries=places&language={{locale}}&loading=async" async
   defer></script>
 {% endblock %}

@@ -30,7 +30,7 @@ class TestConfig(unittest.TestCase):
       'LITE': False,
       'API_ROOT': 'api-root',
       'SECRET_PROJECT': '',
-      'GA_ACCOUNT': '',
+      'GOOGLE_ANALYTICS_TAG_ID': '',
       'SCHEME': 'http',
   }),
                          ('local', {
@@ -39,7 +39,7 @@ class TestConfig(unittest.TestCase):
                              'LOCAL': True,
                              'LITE': False,
                              'API_ROOT': 'https://api.datacommons.org',
-                             'GA_ACCOUNT': '',
+                             'GOOGLE_ANALYTICS_TAG_ID': '',
                              'SCHEME': 'http',
                          }),
                          ('production', {
@@ -49,7 +49,7 @@ class TestConfig(unittest.TestCase):
                              'LITE': False,
                              'API_ROOT': 'http://127.0.0.1:8081',
                              'SECRET_PROJECT': '',
-                             'GA_ACCOUNT': 'G-KWSES5WXZE',
+                             'GOOGLE_ANALYTICS_TAG_ID': 'G-KWSES5WXZE',
                              'SCHEME': 'https',
                          }),
                          ('webdriver', {
@@ -59,7 +59,7 @@ class TestConfig(unittest.TestCase):
                              'LITE': False,
                              'API_ROOT': 'https://autopush.api.datacommons.org',
                              'SECRET_PROJECT': 'datcom-website-dev',
-                             'GA_ACCOUNT': '',
+                             'GOOGLE_ANALYTICS_TAG_ID': '',
                              'SCHEME': 'http',
                          })])
   def test_format_title(self, env, expected):
@@ -74,5 +74,6 @@ class TestConfig(unittest.TestCase):
     self.assertEqual(config.LOCAL, expected['LOCAL'])
     self.assertEqual(config.LITE, expected['LITE'])
     self.assertEqual(config.API_ROOT, expected['API_ROOT'])
-    self.assertEqual(config.GA_ACCOUNT, expected['GA_ACCOUNT'])
+    self.assertEqual(config.GOOGLE_ANALYTICS_TAG_ID,
+                     expected['GOOGLE_ANALYTICS_TAG_ID'])
     self.assertEqual(config.SCHEME, expected['SCHEME'])

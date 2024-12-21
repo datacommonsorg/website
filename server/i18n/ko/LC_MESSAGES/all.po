@@ -82,8 +82,8 @@ msgstr "정부의 교육비 지출"
 msgid "Government Expenditures on Military"
 msgstr "정부 군사비 지출"
 
-msgid "Graph Browser"
-msgstr "그래프 브라우저"
+msgid "Knowledge Graph"
+msgstr "지식 그래프"
 
 msgid "Gross National Income"
 msgstr "총국민소득"

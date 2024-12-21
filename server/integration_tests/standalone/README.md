@@ -10,7 +10,6 @@ This test invokes the DC `detect-and-fulfill` API for adversarial queries specif
 * The output result CSVs are persisted by default in a child folder (relative to where the program is run) named `output` (use the `--output_dir` flag to override).
 * The generated reports are persisted in a `reports` folder under the output folder.
 * The API by default is invoked on `https://dev.datacommons.org` by default (use the `--base_url` flag to override).
-* The `llm_api` parameter used for invoking the API can be specified via the `--llm_api` flag (possible values: `chat` (default), `text`).
 * Use the flag `dc` to switch between the `main` and `sdg` experiences (index, detection, fulfillment).
 
 Specify the `--help` flag to see full usage:

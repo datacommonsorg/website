@@ -102,10 +102,153 @@
               {
                 "tiles": [
                   {
+                    "lineTileSpec": {
+                      "startDate": "2014"
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_3795540742"
+                    ],
+                    "title": "Median Age of Population in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age of Population in California",
+                    "statVarKey": [
+                      "Median_Age_Person"
+                    ],
+                    "title": "Median Age of Population in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person"
+                    ],
+                    "title": "Median Age of Population in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person"
+                    ],
+                    "title": "Median Age of Population in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Population in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "startDate": "2014"
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Female_3795540742",
+                      "Median_Age_Person_Male_3795540742"
+                    ],
+                    "title": "Median Age by Gender in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Female"
+                    ],
+                    "title": "Women's Median Age in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Female"
+                    ],
+                    "title": "Women's Median Age in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Women's Median Age in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Male"
+                    ],
+                    "title": "Men's Median Age in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Male"
+                    ],
+                    "title": "Men's Median Age in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Men's Median Age in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "geoId/06"
@@ -203,28 +346,17 @@
                       "startDate": "2014"
                     },
                     "statVarKey": [
-                      "dc/gvnh5cpl9h1rf_1145703171"
+                      "Count_Person_85OrMoreYears_Female_1145703171",
+                      "Count_Person_85OrMoreYears_Male_1145703171"
                     ],
-                    "title": "Population: With Income, Foreign Born in California",
+                    "title": "Population 85 or Over by Gender in California",
                     "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: With Income, Foreign Born in California",
-                    "statVarKey": [
-                      "dc/gvnh5cpl9h1rf"
-                    ],
-                    "title": "Population: With Income, Foreign Born in California",
-                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: With Income, Foreign Born"
+            "title": "Population 85 or Over by Gender"
           },
           {
             "columns": [
@@ -232,9 +364,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "dc/gvnh5cpl9h1rf"
+                      "Count_Person_85OrMoreYears_Female"
                     ],
-                    "title": "Population: With Income, Foreign Born in Counties of California (${date})",
+                    "title": "Women Over 85 in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -247,16 +379,48 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "dc/gvnh5cpl9h1rf"
+                      "Count_Person_85OrMoreYears_Female"
                     ],
-                    "title": "Population: With Income, Foreign Born in Counties of California (${date})",
+                    "title": "Women Over 85 in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: With Income, Foreign Born in Counties of California"
+            "title": "Women Over 85 in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_85OrMoreYears_Male"
+                    ],
+                    "title": "Men Over 85 in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_85OrMoreYears_Male"
+                    ],
+                    "title": "Men Over 85 in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Men Over 85 in Counties of California"
           },
           {
             "columns": [
@@ -267,28 +431,17 @@
                       "startDate": "2014"
                     },
                     "statVarKey": [
-                      "dc/v78t45118s0bb_1145703171"
+                      "Count_Person_Female_1145703171",
+                      "Count_Person_Male_1145703171"
                     ],
-                    "title": "Population: With Income, Born in State of Residence in California",
+                    "title": "Population by Gender in California",
                     "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population: With Income, Born in State of Residence in California",
-                    "statVarKey": [
-                      "dc/v78t45118s0bb"
-                    ],
-                    "title": "Population: With Income, Born in State of Residence in California",
-                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: With Income, Born in State of Residence"
+            "title": "Population by Gender"
           },
           {
             "columns": [
@@ -296,9 +449,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "dc/v78t45118s0bb"
+                      "Count_Person_Female"
                     ],
-                    "title": "Population: With Income, Born in State of Residence in Counties of California (${date})",
+                    "title": "Women in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -311,16 +464,704 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "dc/v78t45118s0bb"
+                      "Count_Person_Female"
                     ],
-                    "title": "Population: With Income, Born in State of Residence in Counties of California (${date})",
+                    "title": "Women in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Population: With Income, Born in State of Residence in Counties of California"
+            "title": "Women in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Male"
+                    ],
+                    "title": "Men in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Male"
+                    ],
+                    "title": "Men in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Men in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_WhiteAlone_multiple_place_bar_block",
+                      "Count_Person_BlackOrAfricanAmericanAlone_multiple_place_bar_block",
+                      "Count_Person_HispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_AsianAlone_multiple_place_bar_block",
+                      "Count_Person_AmericanIndianAndAlaskaNativeAlone_multiple_place_bar_block",
+                      "Count_Person_AsianOrPacificIslander_multiple_place_bar_block",
+                      "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block",
+                      "Count_Person_SomeOtherRaceAlone_multiple_place_bar_block"
+                    ],
+                    "title": "Monoracial Breakdown in California (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Monoracial Breakdown"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WhiteAlone"
+                    ],
+                    "title": "White Monoracial Population in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_WhiteAlone"
+                    ],
+                    "title": "White Monoracial Population in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "White Monoracial Population in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Black Monoracial Population in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Black Monoracial Population in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Black Monoracial Population in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "startDate": "2014"
+                    },
+                    "statVarKey": [
+                      "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881",
+                      "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881",
+                      "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881",
+                      "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881",
+                      "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881"
+                    ],
+                    "title": "Monoracial/multiracial Breakdown in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Monoracial/multiracial Breakdown"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces"
+                    ],
+                    "title": "American Indian and Alaska Native Population, Monoracial/Multiracial in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces"
+                    ],
+                    "title": "American Indian and Alaska Native Population, Monoracial/Multiracial in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "American Indian and Alaska Native Population, Monoracial/Multiracial in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces"
+                    ],
+                    "title": "Asian Population, Monoracial/Multiracial in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces"
+                    ],
+                    "title": "Asian Population, Monoracial/Multiracial in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Asian Population, Monoracial/Multiracial in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block",
+                      "Count_Person_HispanicOrLatino_AsianAlone_multiple_place_bar_block",
+                      "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone_multiple_place_bar_block",
+                      "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block",
+                      "Count_Person_HispanicOrLatino_TwoOrMoreRaces_multiple_place_bar_block",
+                      "Count_Person_HispanicOrLatino_WhiteAlone_multiple_place_bar_block",
+                      "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block",
+                      "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block",
+                      "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block",
+                      "Count_Person_HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block"
+                    ],
+                    "title": "Racial Breakdown With Hispanic Consideration in California (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Racial Breakdown With Hispanic Consideration"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone"
+                    ],
+                    "title": "Hispanic American Indian Population in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone"
+                    ],
+                    "title": "Hispanic American Indian Population in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Hispanic American Indian Population in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_HispanicOrLatino_AsianAlone"
+                    ],
+                    "title": "Hispanic Asian Population in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_HispanicOrLatino_AsianAlone"
+                    ],
+                    "title": "Hispanic Asian Population in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Hispanic Asian Population in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block",
+                      "Count_Person_NotHispanicOrLatino_AsianAlone_multiple_place_bar_block",
+                      "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAlone_multiple_place_bar_block",
+                      "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block",
+                      "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block",
+                      "Count_Person_NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block",
+                      "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block",
+                      "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block",
+                      "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces_multiple_place_bar_block",
+                      "Count_Person_NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block"
+                    ],
+                    "title": "Racial Breakdown With Non Hispanic Consideration in California (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Racial Breakdown With Non Hispanic Consideration"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WhiteAloneNotHispanicOrLatino"
+                    ],
+                    "title": "White Hispanic Monoracial Population in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_WhiteAloneNotHispanicOrLatino"
+                    ],
+                    "title": "White Hispanic Monoracial Population in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "White Hispanic Monoracial Population in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone"
+                    ],
+                    "title": "Non Hispanic Population Identifying as American Indian or Alaska Native Alone in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone"
+                    ],
+                    "title": "Non Hispanic Population Identifying as American Indian or Alaska Native Alone in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Non Hispanic Population Identifying as American Indian or Alaska Native Alone in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "startDate": "2014"
+                    },
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_1145703171",
+                      "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_1145703171"
+                    ],
+                    "title": "Spoken English at Home in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Spoken English at Home"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome"
+                    ],
+                    "title": "Population: English Spoken at Home in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome"
+                    ],
+                    "title": "Population: English Spoken at Home in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: English Spoken at Home in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome"
+                    ],
+                    "title": "Population: Some Language Other Than English Spoken at Home in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome"
+                    ],
+                    "title": "Population: Some Language Other Than English Spoken at Home in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Some Language Other Than English Spoken at Home in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_ArabicSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_ArmenianSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_BengaliSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_ChineseSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_FrenchInclPatoisCajunSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_GermanSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_GreekSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_GujaratiSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_HaitianSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_HebrewSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_HindiSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_HungarianSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_ItalianSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_JapaneseSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_KhmerSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_KoreanSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_LaotianSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_MalayalamKannadaOrOtherDravidianLanguagesSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_MonKhmerCambodianSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_NavajoSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_NepaliMarathiOrOtherIndicLanguagesSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_PersianSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_PolishSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_PortugueseSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_PunjabiSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_RussianSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_ScandinavianLanguagesSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_SerboCroatianSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_SpanishSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_TagalogSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_TamilSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_TeluguSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_ThaiSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_UkrainianOrOtherSlavicLanguagesSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_UrduSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_VietnameseSpokenAtHome_multiple_place_bar_block",
+                      "Count_Person_5OrMoreYears_YiddishSpokenAtHome_multiple_place_bar_block"
+                    ],
+                    "title": "Non-English Languages Spoken at Home in California (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Non-English Languages Spoken at Home"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome"
+                    ],
+                    "title": "Population: African Language Spoken at Home in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome"
+                    ],
+                    "title": "Population: African Language Spoken at Home in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: African Language Spoken at Home in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_ArabicSpokenAtHome"
+                    ],
+                    "title": "Population: Arabic Spoken at Home in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_ArabicSpokenAtHome"
+                    ],
+                    "title": "Population: Arabic Spoken at Home in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Arabic Spoken at Home in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "startDate": "2014"
+                    },
+                    "statVarKey": [
+                      "Count_Person_Divorced_1145703171"
+                    ],
+                    "title": "Divorcees in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Divorcees in California",
+                    "statVarKey": [
+                      "Count_Person_Divorced"
+                    ],
+                    "title": "Divorcees in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Divorcees"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Divorced"
+                    ],
+                    "title": "Divorcees in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Divorced"
+                    ],
+                    "title": "Divorcees in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Divorcees in Counties of California"
           }
         ],
         "statVarSpec": {
@@ -361,6 +1202,184 @@
             "name": "Population: 55 - 64 Years",
             "statVar": "Count_Person_55To64Years"
           },
+          "Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome": {
+            "name": "Population: African language spoken at home",
+            "statVar": "Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: African language spoken at home",
+            "statVar": "Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_ArabicSpokenAtHome": {
+            "name": "Population: Arabic spoken at home",
+            "statVar": "Count_Person_5OrMoreYears_ArabicSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_ArabicSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Arabic spoken at home",
+            "statVar": "Count_Person_5OrMoreYears_ArabicSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_ArmenianSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Armenian spoken at home",
+            "statVar": "Count_Person_5OrMoreYears_ArmenianSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_BengaliSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Bengali spoken at home",
+            "statVar": "Count_Person_5OrMoreYears_BengaliSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_ChineseSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Chinese spoken at home",
+            "statVar": "Count_Person_5OrMoreYears_ChineseSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_FrenchInclPatoisCajunSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: French (incl. Patois Cajun) spoken at home",
+            "statVar": "Count_Person_5OrMoreYears_FrenchInclPatoisCajunSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_GermanSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: German spoken at home",
+            "statVar": "Count_Person_5OrMoreYears_GermanSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_GreekSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Greek spoken at home",
+            "statVar": "Count_Person_5OrMoreYears_GreekSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_GujaratiSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Gujarati spoken at home",
+            "statVar": "Count_Person_5OrMoreYears_GujaratiSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_HaitianSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Haitian spoken at home",
+            "statVar": "Count_Person_5OrMoreYears_HaitianSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_HebrewSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Hebrew spoken at home",
+            "statVar": "Count_Person_5OrMoreYears_HebrewSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_HindiSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Hindi spoken at home",
+            "statVar": "Count_Person_5OrMoreYears_HindiSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_HungarianSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Hungarian spoken at home",
+            "statVar": "Count_Person_5OrMoreYears_HungarianSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_ItalianSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Italian spoken at home",
+            "statVar": "Count_Person_5OrMoreYears_ItalianSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_JapaneseSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Japanese spoken at home",
+            "statVar": "Count_Person_5OrMoreYears_JapaneseSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_KhmerSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Khmer spoken at home",
+            "statVar": "Count_Person_5OrMoreYears_KhmerSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_KoreanSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Korean spoken at home",
+            "statVar": "Count_Person_5OrMoreYears_KoreanSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome": {
+            "name": "Population: Some language other than English spoken at home",
+            "statVar": "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome_1145703171": {
+            "facetId": "1145703171",
+            "name": "Population: Some language other than English spoken at home",
+            "statVar": "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_LaotianSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Laotian Spoken At Home",
+            "statVar": "Count_Person_5OrMoreYears_LaotianSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_MalayalamKannadaOrOtherDravidianLanguagesSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Malayalam Kannada Or Other Dravidian Languages Spoken At Home",
+            "statVar": "Count_Person_5OrMoreYears_MalayalamKannadaOrOtherDravidianLanguagesSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_MonKhmerCambodianSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Mon Khmer Cambodian Spoken At Home",
+            "statVar": "Count_Person_5OrMoreYears_MonKhmerCambodianSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_NavajoSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Navajo Spoken At Home",
+            "statVar": "Count_Person_5OrMoreYears_NavajoSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_NepaliMarathiOrOtherIndicLanguagesSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Nepali Marathi Or Other Indic Languages Spoken At Home",
+            "statVar": "Count_Person_5OrMoreYears_NepaliMarathiOrOtherIndicLanguagesSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome": {
+            "name": "Population: English Spoken At Home",
+            "statVar": "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome_1145703171": {
+            "facetId": "1145703171",
+            "name": "Population: English Spoken At Home",
+            "statVar": "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_PersianSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Persian Spoken At Home",
+            "statVar": "Count_Person_5OrMoreYears_PersianSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_PolishSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Polish Spoken At Home",
+            "statVar": "Count_Person_5OrMoreYears_PolishSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_PortugueseSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Portuguese Spoken At Home",
+            "statVar": "Count_Person_5OrMoreYears_PortugueseSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_PunjabiSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Punjabi Spoken At Home",
+            "statVar": "Count_Person_5OrMoreYears_PunjabiSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_RussianSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Russian Spoken At Home",
+            "statVar": "Count_Person_5OrMoreYears_RussianSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_ScandinavianLanguagesSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Scandinavian Languages Spoken At Home",
+            "statVar": "Count_Person_5OrMoreYears_ScandinavianLanguagesSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_SerboCroatianSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Serbo-Croatian Spoken At Home",
+            "statVar": "Count_Person_5OrMoreYears_SerboCroatianSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_SpanishSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Spanish Spoken At Home",
+            "statVar": "Count_Person_5OrMoreYears_SpanishSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_TagalogSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Tagalog Spoken At Home",
+            "statVar": "Count_Person_5OrMoreYears_TagalogSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_TamilSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Tamil Spoken At Home",
+            "statVar": "Count_Person_5OrMoreYears_TamilSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_TeluguSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Telugu Spoken At Home",
+            "statVar": "Count_Person_5OrMoreYears_TeluguSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_ThaiSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Thai Spoken At Home",
+            "statVar": "Count_Person_5OrMoreYears_ThaiSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_UkrainianOrOtherSlavicLanguagesSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Ukrainian Or Other Slavic Languages Spoken At Home",
+            "statVar": "Count_Person_5OrMoreYears_UkrainianOrOtherSlavicLanguagesSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_UrduSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Urdu Spoken At Home",
+            "statVar": "Count_Person_5OrMoreYears_UrduSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_VietnameseSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Vietnamese Spoken At Home",
+            "statVar": "Count_Person_5OrMoreYears_VietnameseSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_YiddishSpokenAtHome_multiple_place_bar_block": {
+            "name": "Population: Yiddish Spoken At Home",
+            "statVar": "Count_Person_5OrMoreYears_YiddishSpokenAtHome"
+          },
           "Count_Person_5To17Years": {
             "name": "Population Aged 5 to 17",
             "statVar": "Count_Person_5To17Years"
@@ -377,6 +1396,199 @@
             "name": "Population Aged 75 and Up",
             "statVar": "Count_Person_75OrMoreYears"
           },
+          "Count_Person_85OrMoreYears_Female": {
+            "name": "Women over 85",
+            "statVar": "Count_Person_85OrMoreYears_Female"
+          },
+          "Count_Person_85OrMoreYears_Female_1145703171": {
+            "facetId": "1145703171",
+            "name": "Women over 85",
+            "statVar": "Count_Person_85OrMoreYears_Female"
+          },
+          "Count_Person_85OrMoreYears_Male": {
+            "name": "Men over 85",
+            "statVar": "Count_Person_85OrMoreYears_Male"
+          },
+          "Count_Person_85OrMoreYears_Male_1145703171": {
+            "facetId": "1145703171",
+            "name": "Men over 85",
+            "statVar": "Count_Person_85OrMoreYears_Male"
+          },
+          "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces": {
+            "name": "American Indian and Alaska Native Population, Monoracial/Multiracial",
+            "statVar": "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881": {
+            "facetId": "3935616881",
+            "name": "American Indian and Alaska Native Population, Monoracial/Multiracial",
+            "statVar": "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_AmericanIndianAndAlaskaNativeAlone_multiple_place_bar_block": {
+            "name": "Population American Indian or Alaska Native Alone",
+            "statVar": "Count_Person_AmericanIndianAndAlaskaNativeAlone"
+          },
+          "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces": {
+            "name": "Asian Population, Monoracial/Multiracial",
+            "statVar": "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881": {
+            "facetId": "3935616881",
+            "name": "Asian Population, Monoracial/Multiracial",
+            "statVar": "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_AsianAlone_multiple_place_bar_block": {
+            "name": "Population Asian Alone",
+            "statVar": "Count_Person_AsianAlone"
+          },
+          "Count_Person_AsianOrPacificIslander_multiple_place_bar_block": {
+            "name": "Population Asian or Pacific Islander",
+            "statVar": "Count_Person_AsianOrPacificIslander"
+          },
+          "Count_Person_BlackOrAfricanAmericanAlone": {
+            "name": "Black Monoracial Population",
+            "statVar": "Count_Person_BlackOrAfricanAmericanAlone"
+          },
+          "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881": {
+            "facetId": "3935616881",
+            "name": "Black Population, Monoracial/Multiracial",
+            "statVar": "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
+            "name": "Black Monoracial Population",
+            "statVar": "Count_Person_BlackOrAfricanAmericanAlone"
+          },
+          "Count_Person_Divorced": {
+            "name": "Divorcees",
+            "statVar": "Count_Person_Divorced"
+          },
+          "Count_Person_Divorced_1145703171": {
+            "facetId": "1145703171",
+            "name": "Divorcees",
+            "statVar": "Count_Person_Divorced"
+          },
+          "Count_Person_Female": {
+            "name": "Women",
+            "statVar": "Count_Person_Female"
+          },
+          "Count_Person_Female_1145703171": {
+            "facetId": "1145703171",
+            "name": "Women",
+            "statVar": "Count_Person_Female"
+          },
+          "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block": {
+            "name": "Hispanic American Indian Population",
+            "statVar": "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone": {
+            "name": "Hispanic American Indian Population",
+            "statVar": "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone"
+          },
+          "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
+            "name": "Hispanic American Indian Population",
+            "statVar": "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone"
+          },
+          "Count_Person_HispanicOrLatino_AsianAlone": {
+            "name": "Hispanic Asian Population",
+            "statVar": "Count_Person_HispanicOrLatino_AsianAlone"
+          },
+          "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block": {
+            "name": "Hispanic Asian Population",
+            "statVar": "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_HispanicOrLatino_AsianAlone_multiple_place_bar_block": {
+            "name": "Hispanic Asian Population",
+            "statVar": "Count_Person_HispanicOrLatino_AsianAlone"
+          },
+          "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
+            "name": "Hispanic African American Population",
+            "statVar": "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone"
+          },
+          "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block": {
+            "name": "Hispanic Native Hawaiian/Other Pacific Islander Population. Monoracial/Multiracial",
+            "statVar": "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block": {
+            "name": "Hispanic Native Hawaiian/Other Pacific Islander Alone Population",
+            "statVar": "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone"
+          },
+          "Count_Person_HispanicOrLatino_TwoOrMoreRaces_multiple_place_bar_block": {
+            "name": "Hispanic Multiracial Population",
+            "statVar": "Count_Person_HispanicOrLatino_TwoOrMoreRaces"
+          },
+          "Count_Person_HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block": {
+            "name": "White Hispanic Population, Monoracial/Multiracial",
+            "statVar": "Count_Person_HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_HispanicOrLatino_WhiteAlone_multiple_place_bar_block": {
+            "name": "White Hispanic Monoracial Population",
+            "statVar": "Count_Person_HispanicOrLatino_WhiteAlone"
+          },
+          "Count_Person_HispanicOrLatino_multiple_place_bar_block": {
+            "name": "Hispanic Population",
+            "statVar": "Count_Person_HispanicOrLatino"
+          },
+          "Count_Person_Male": {
+            "name": "Men",
+            "statVar": "Count_Person_Male"
+          },
+          "Count_Person_Male_1145703171": {
+            "facetId": "1145703171",
+            "name": "Men",
+            "statVar": "Count_Person_Male"
+          },
+          "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881": {
+            "facetId": "3935616881",
+            "name": "Native Hawaiian and Other Pacific Islander Population, Monoracial/Multiracial",
+            "statVar": "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block": {
+            "name": "Population of Native Hawaiian or Other Pacific Islander Alone",
+            "statVar": "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone"
+          },
+          "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block": {
+            "name": "Non Hispanic Population Identifying as American Indian and Alaska Native, Monoracial/Multiracial",
+            "statVar": "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone": {
+            "name": "Non Hispanic Population Identifying as American Indian or Alaska Native Alone",
+            "statVar": "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone"
+          },
+          "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
+            "name": "Non Hispanic Population Identifying as American Indian or Alaska Native Alone",
+            "statVar": "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone"
+          },
+          "Count_Person_NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block": {
+            "name": "Non Hispanic Population Identifying as Asian",
+            "statVar": "Count_Person_NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_NotHispanicOrLatino_AsianAlone_multiple_place_bar_block": {
+            "name": "Non Hispanic Population Identifying as Asian Alone",
+            "statVar": "Count_Person_NotHispanicOrLatino_AsianAlone"
+          },
+          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block": {
+            "name": "Non Hispanic Population Identifying as Black or African American",
+            "statVar": "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
+            "name": "Non Hispanic Population Identifying as Black or African American Alone",
+            "statVar": "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAlone"
+          },
+          "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block": {
+            "name": "Non Hispanic Population Identifying as Native Hawaiian and Other Pacific Islander",
+            "statVar": "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block": {
+            "name": "Non Hispanic Population Identifying as Native Hawaiian or Other Pacific Islander Alone",
+            "statVar": "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone"
+          },
+          "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces_multiple_place_bar_block": {
+            "name": "Non Hispanic Multiracial Population",
+            "statVar": "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces"
+          },
+          "Count_Person_NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block": {
+            "name": "Non Hispanic White Population, Monoracial/Multiracial",
+            "statVar": "Count_Person_NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
           "Count_Person_PerArea": {
             "name": "Population Density",
             "statVar": "Count_Person_PerArea"
@@ -386,23 +1598,57 @@
             "name": "Population Density",
             "statVar": "Count_Person_PerArea"
           },
-          "dc/gvnh5cpl9h1rf": {
-            "name": "Population: With Income, Foreign Born",
-            "statVar": "dc/gvnh5cpl9h1rf"
+          "Count_Person_SomeOtherRaceAlone_multiple_place_bar_block": {
+            "name": "Population Identifying as Some Other Race Alone",
+            "statVar": "Count_Person_SomeOtherRaceAlone"
           },
-          "dc/gvnh5cpl9h1rf_1145703171": {
-            "facetId": "1145703171",
-            "name": "Population: With Income, Foreign Born",
-            "statVar": "dc/gvnh5cpl9h1rf"
+          "Count_Person_WhiteAlone": {
+            "name": "White Monoracial Population",
+            "statVar": "Count_Person_WhiteAlone"
           },
-          "dc/v78t45118s0bb": {
-            "name": "Population: With Income, Born in State of Residence",
-            "statVar": "dc/v78t45118s0bb"
+          "Count_Person_WhiteAloneNotHispanicOrLatino": {
+            "name": "White Hispanic Monoracial Population",
+            "statVar": "Count_Person_WhiteAloneNotHispanicOrLatino"
           },
-          "dc/v78t45118s0bb_1145703171": {
-            "facetId": "1145703171",
-            "name": "Population: With Income, Born in State of Residence",
-            "statVar": "dc/v78t45118s0bb"
+          "Count_Person_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block": {
+            "name": "White Hispanic Monoracial Population",
+            "statVar": "Count_Person_WhiteAloneNotHispanicOrLatino"
+          },
+          "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881": {
+            "facetId": "3935616881",
+            "name": "White Population, Monoracial/Multiracial",
+            "statVar": "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_WhiteAlone_multiple_place_bar_block": {
+            "name": "White Monoracial Population",
+            "statVar": "Count_Person_WhiteAlone"
+          },
+          "Median_Age_Person": {
+            "name": "Median Age of Population",
+            "statVar": "Median_Age_Person"
+          },
+          "Median_Age_Person_3795540742": {
+            "facetId": "3795540742",
+            "name": "Median Age of Population",
+            "statVar": "Median_Age_Person"
+          },
+          "Median_Age_Person_Female": {
+            "name": "Women's Median Age",
+            "statVar": "Median_Age_Person_Female"
+          },
+          "Median_Age_Person_Female_3795540742": {
+            "facetId": "3795540742",
+            "name": "Women's Median Age",
+            "statVar": "Median_Age_Person_Female"
+          },
+          "Median_Age_Person_Male": {
+            "name": "Men's Median Age",
+            "statVar": "Median_Age_Person_Male"
+          },
+          "Median_Age_Person_Male_3795540742": {
+            "facetId": "3795540742",
+            "name": "Men's Median Age",
+            "statVar": "Median_Age_Person_Male"
           }
         }
       }
@@ -858,36 +2104,124 @@
           "Count_Person_65To74Years",
           "Count_Person_75OrMoreYears",
           "Count_Person_Upto9Years"
+        ],
+        "gender": [
+          "Count_Person_Female",
+          "Count_Person_Male"
+        ],
+        "languageSpokenAtHome": [
+          "Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome",
+          "Count_Person_5OrMoreYears_ArabicSpokenAtHome",
+          "Count_Person_5OrMoreYears_ArmenianSpokenAtHome",
+          "Count_Person_5OrMoreYears_BengaliSpokenAtHome",
+          "Count_Person_5OrMoreYears_ChineseSpokenAtHome",
+          "Count_Person_5OrMoreYears_FrenchInclPatoisCajunSpokenAtHome",
+          "Count_Person_5OrMoreYears_GermanSpokenAtHome",
+          "Count_Person_5OrMoreYears_GreekSpokenAtHome",
+          "Count_Person_5OrMoreYears_GujaratiSpokenAtHome",
+          "Count_Person_5OrMoreYears_HaitianSpokenAtHome",
+          "Count_Person_5OrMoreYears_LanguageOtherThanEnglishSpokenAtHome",
+          "Count_Person_5OrMoreYears_OnlyEnglishSpokenAtHome"
+        ],
+        "race": [
+          "Count_Person_AmericanIndianAndAlaskaNativeAlone",
+          "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_AsianAlone",
+          "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_AsianOrPacificIslander",
+          "Count_Person_BlackOrAfricanAmericanAlone",
+          "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_HispanicOrLatino",
+          "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_HispanicOrLatino_AsianAlone",
+          "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone",
+          "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_HispanicOrLatino_TwoOrMoreRaces",
+          "Count_Person_HispanicOrLatino_WhiteAlone",
+          "Count_Person_HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NativeHawaiianAndOtherPacificIslanderAlone",
+          "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_NotHispanicOrLatino_AsianAlone"
         ]
       },
-      "Count_Person_18To24Years": {
-        "placeOfBirth": [
-          "Count_Person_18To24Years_BornInOtherStateInTheUnitedStates",
-          "Count_Person_18To24Years_BornInStateOfResidence",
-          "Count_Person_18To24Years_ForeignBorn",
-          "Count_Person_18To24Years_NativeBornOutsideTheUnitedStates"
-        ],
-        "residenceType": [
-          "Count_Person_18To24Years_ResidesInAdultCorrectionalFacilities",
-          "Count_Person_18To24Years_ResidesInCollegeOrUniversityStudentHousing",
-          "Count_Person_18To24Years_ResidesInGroupQuarters",
-          "Count_Person_18To24Years_ResidesInInstitutionalizedGroupQuarters",
-          "Count_Person_18To24Years_ResidesInNoninstitutionalizedGroupQuarters",
-          "Count_Person_18To24Years_ResidesInNursingFacilities"
-        ],
-        "residentStatus": [
-          "Count_Person_18To24Years_DifferentHouseAbroad",
-          "Count_Person_18To24Years_DifferentHouseInDifferentCountyDifferentState",
-          "Count_Person_18To24Years_DifferentHouseInDifferentCountySameState",
-          "Count_Person_18To24Years_DifferentHouseInSameCounty"
+      "Count_Person_5OrMoreYears_AfricanLanguagesSpokenAtHome": {
+        "abilityToSpeakEnglish": [
+          "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_AfricanLanguagesSpokenAtHome",
+          "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_AfricanLanguagesSpokenAtHome"
         ]
       },
-      "Count_Person_1To4Years": {
-        "residentStatus": [
-          "Count_Person_1To4Years_DifferentHouseAbroad",
-          "Count_Person_1To4Years_DifferentHouseInDifferentCountyDifferentState",
-          "Count_Person_1To4Years_DifferentHouseInDifferentCountySameState",
-          "Count_Person_1To4Years_DifferentHouseInSameCounty"
+      "Count_Person_5OrMoreYears_ArabicSpokenAtHome": {
+        "abilityToSpeakEnglish": [
+          "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_ArabicSpokenAtHome",
+          "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_ArabicSpokenAtHome"
+        ]
+      },
+      "Count_Person_5OrMoreYears_ArmenianSpokenAtHome": {
+        "abilityToSpeakEnglish": [
+          "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_ArmenianSpokenAtHome",
+          "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_ArmenianSpokenAtHome"
+        ]
+      },
+      "Count_Person_5OrMoreYears_BengaliSpokenAtHome": {
+        "abilityToSpeakEnglish": [
+          "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_BengaliSpokenAtHome",
+          "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_BengaliSpokenAtHome"
+        ]
+      },
+      "Count_Person_5OrMoreYears_ChineseSpokenAtHome": {
+        "abilityToSpeakEnglish": [
+          "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_ChineseSpokenAtHome",
+          "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_ChineseSpokenAtHome"
+        ]
+      },
+      "Count_Person_5OrMoreYears_FrenchInclPatoisCajunSpokenAtHome": {
+        "abilityToSpeakEnglish": [
+          "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_FrenchInclPatoisCajunSpokenAtHome",
+          "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_FrenchInclPatoisCajunSpokenAtHome"
+        ]
+      },
+      "Count_Person_5OrMoreYears_GermanSpokenAtHome": {
+        "abilityToSpeakEnglish": [
+          "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_GermanSpokenAtHome",
+          "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_GermanSpokenAtHome"
+        ]
+      },
+      "Count_Person_5OrMoreYears_GreekSpokenAtHome": {
+        "abilityToSpeakEnglish": [
+          "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_GreekSpokenAtHome",
+          "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_GreekSpokenAtHome"
+        ]
+      },
+      "Count_Person_5OrMoreYears_GujaratiSpokenAtHome": {
+        "abilityToSpeakEnglish": [
+          "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_GujaratiSpokenAtHome",
+          "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_GujaratiSpokenAtHome"
+        ]
+      },
+      "Count_Person_5OrMoreYears_HaitianSpokenAtHome": {
+        "abilityToSpeakEnglish": [
+          "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_HaitianSpokenAtHome",
+          "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_HaitianSpokenAtHome"
+        ]
+      },
+      "Median_Age_Person": {
+        "gender": [
+          "Median_Age_Person_Female",
+          "Median_Age_Person_Male"
+        ],
+        "race": [
+          "Median_Age_Person_AmericanIndianOrAlaskaNativeAlone",
+          "Median_Age_Person_AsianAlone",
+          "Median_Age_Person_BlackOrAfricanAmericanAlone",
+          "Median_Age_Person_HispanicOrLatino",
+          "Median_Age_Person_NativeHawaiianOrOtherPacificIslanderAlone"
         ]
       }
     },

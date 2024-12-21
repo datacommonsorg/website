@@ -17,7 +17,6 @@ from flask import request
 
 from server.lib import fetch
 from server.lib.cache import cache
-from server.lib.config import is_highest_coverage_enabled
 from server.lib.util import fetch_highest_coverage
 from server.routes import TIMEOUT
 from shared.lib.constants import DATE_HIGHEST_COVERAGE
@@ -38,6 +37,12 @@ def point():
   if not variables:
     return 'error: must provide a `variables` field', 400
   date = request.args.get('date') or DATE_LATEST
+  # Fetch recent observations with the highest entity coverage
+  if date == DATE_HIGHEST_COVERAGE:
+    return fetch_highest_coverage(entities=entities,
+                                  variables=variables,
+                                  all_facets=False)
+  # Fetch observations from a specific date or date = 'LATEST'
   return fetch.point_core(entities, variables, date, False)
 
 
@@ -52,6 +57,12 @@ def point_all():
   if not variables:
     return 'error: must provide a `variables` field', 400
   date = request.args.get('date') or DATE_LATEST
+  # Fetch recent observations with the highest entity coverage
+  if date == DATE_HIGHEST_COVERAGE:
+    return fetch_highest_coverage(entities=entities,
+                                  variables=variables,
+                                  all_facets=True)
+  # Fetch observations from a specific date or date = 'LATEST'
   return fetch.point_core(entities, variables, date, True)
 
 
@@ -74,10 +85,6 @@ def point_within():
   if not variables:
     return 'error: must provide a `variables` field', 400
   date = request.args.get('date') or DATE_LATEST
-  # If querying by highest coverage is disabled, default to DATE_LATEST
-  # TODO: Remove this check once b/336358566 is resolved
-  if date == DATE_HIGHEST_COVERAGE and not is_highest_coverage_enabled():
-    date = DATE_LATEST
   facet_ids = list(filter(lambda x: x != "", request.args.getlist('facetIds')))
   # Fetch recent observations with the highest entity coverage
   if date == DATE_HIGHEST_COVERAGE:
@@ -110,10 +117,6 @@ def point_within_all():
   if not variables:
     return 'error: must provide a `variables` field', 400
   date = request.args.get('date') or DATE_LATEST
-  # If querying by highest coverage is disabled, default to DATE_LATEST
-  # TODO: Remove this check once b/336358566 is resolved
-  if date == DATE_HIGHEST_COVERAGE and not is_highest_coverage_enabled():
-    date = DATE_LATEST
   # Fetch recent observations with the highest entity coverage
   if date == DATE_HIGHEST_COVERAGE:
     return fetch_highest_coverage(parent_entity=parent_entity,

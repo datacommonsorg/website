@@ -27,15 +27,13 @@ Uploads an embedding model to Vertex AI Model Registry. The supported
 `MODEL_NAME` can be found in `model.list`.
 
 ```bash
-./upload.sh <MODEL_NAME>
+./upload.sh [MODEL_NAME] [PROJECT_ID]
 ```
 
 ## Deploy Model for Online Prediction
 
-In GCP [Vertex AI
-Model Registry](https://pantheon.corp.google.com/vertex-ai/models?mods=-monitoring_api_staging&project=google.com:datcom-store-dev),
-click into the uploaded model, choose "DEPLOY & TEST" and deploy the model to an
-endpoint with necessary hardware resources.
+In GCP Vertex AI Model Registry, click into the uploaded model, choose "DEPLOY &
+TEST" and deploy the model to an endpoint with necessary hardware resources.
 
 ## Send Prediction
 

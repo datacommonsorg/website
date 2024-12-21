@@ -26,20 +26,30 @@ import { URL_HASH_PARAMS } from "../../constants/app/explore_constants";
 import { loadLocaleData } from "../../i18n/i18n";
 import { App } from "./app";
 
-window.onload = () => {
-  loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
-    () => {
-      renderPage();
-    }
-  );
-};
+window.addEventListener("load", async (): Promise<void> => {
+  const metadataContainer = document.getElementById("metadata-base");
+  const locale = metadataContainer.dataset.locale;
+  await loadLocaleData(locale, [
+    import(`../../i18n/compiled-lang/${locale}/place.json`),
+    import(`../../i18n/compiled-lang/${locale}/units.json`),
+    import(`../../i18n/compiled-lang/${locale}/stats_var_labels.json`),
+  ]);
 
-function renderPage(): void {
+  renderPage(metadataContainer);
+});
+
+function renderPage(metadataContainer: HTMLElement): void {
   const hashParams = queryString.parse(window.location.hash);
+  //if there is no metadataContainer, we do not hide the searchbar (as we are in a base where the flags
+  //are not prepared)
+  const hideHeaderSearchBar =
+    !metadataContainer ||
+    metadataContainer.dataset.hideHeaderSearchBar?.toLowerCase() === "true";
+
   // use demo mode when there are autoplay queries in the url hash
   const isDemo = !!hashParams[URL_HASH_PARAMS.AUTO_PLAY_QUERY];
   ReactDOM.render(
-    React.createElement(App, { isDemo }),
+    React.createElement(App, { isDemo, hideHeaderSearchBar }),
     document.getElementById("dc-explore")
   );
 }

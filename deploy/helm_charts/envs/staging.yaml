@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# DNS
+ip: 35.186.255.58
+domain: staging.datacommons.org
+
 # Helm config
 project: "datcom-website-staging"
 cluster_prefix: "website"
@@ -23,6 +27,15 @@ website:
   flaskEnv: staging
   replicas: 6
   enableModel: true
+  redis:
+    enabled: true
+    configFile: |
+      {
+        "us-central1": {
+          "host": "10.127.249.59",
+          "port": "6379"
+        }
+      }
 
 ingress:
   enabled: false
@@ -32,6 +45,20 @@ serviceAccount:
 
 nl:
   enabled: true
+  env:
+    default_indexes:
+      - base_uae_mem
+    enabled_indexes:
+      - base_uae_mem
+      - medium_ft
+      - sdg_ft
+      - undata_ft
+    vertex_ai_models:
+      uae-large-v1-model:
+        project_id: datcom-nl
+        location: us-central1
+        prediction_endpoint_id: "8435477397553283072"
+    enable_reranking: false
 
 serviceGroups:
   recon: null
@@ -46,3 +73,9 @@ serviceGroups:
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]
+
+cronTesting:
+  enabled: true
+  screenshotDomain: "staging.datacommons.org"
+  nodePool: "default-pool"
+  schedule: "* * 31 2 *" # invalid day for month -> never run automatically
