@@ -463,22 +463,15 @@ export class DatacommonsSliderComponent extends LitElement {
     `;
   }
 
-  private defaultHeader() {
+  private defaultHeader(): TemplateResult {
     return html`<h4 part="header">Explore trends over time</h4>`;
   }
 
-  private getDateText() {
+  private getDateText(): string {
     if (this._value < 0 || this._value >= this._dates.length) {
       return "Unknown";
     }
     return this._dates[this._value];
-  }
-
-  private getEndDateText() {
-    if (this._dates.length === 0) {
-      return "Unknown";
-    }
-    return this._dates[this._dates.length - 1];
   }
 
   private onSliderChange(e: Event): void {
@@ -523,7 +516,7 @@ export class DatacommonsSliderComponent extends LitElement {
     );
   }
 
-  private async fetchObservationDates() {
+  private async fetchObservationDates(): Promise<void> {
     const apiRoot = getApiRoot(this.apiRoot);
     const dataCommonsWebClient = new DataCommonsWebClient({ apiRoot });
     if (
