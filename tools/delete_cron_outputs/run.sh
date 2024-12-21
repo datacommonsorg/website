@@ -17,7 +17,13 @@ set -e
 
 # Delete GCS folders that are older than this many days
 MAX_DAYS_OLD=90
-PARENT_FOLDERS=("gs://datcom-website-periodic-testing/bard" "gs://datcom-website-periodic-testing/autopush" "gs://datcom-website-screenshot/autopush.datacommons.org/")
+PARENT_FOLDERS=(
+  "gs://datcom-website-periodic-testing/bard"
+  "gs://datcom-website-periodic-testing/autopush"
+  "gs://datcom-website-screenshot/autopush.datacommons.org/"
+  "gs://datcom-website-periodic-testing/staging"
+  "gs://datcom-website-screenshot/staging.datacommons.org/"
+)
 CURRENT_TS=$(TZ="America/Los_Angeles" date +"%s")
 
 for parent_folder in "${PARENT_FOLDERS[@]}"; do
@@ -29,10 +35,10 @@ for parent_folder in "${PARENT_FOLDERS[@]}"; do
     folder_timestamp=$(date -j -f "%Y_%m_%d_%H_%M_%S" "$folder_name" +"%s")
     # get the difference in days between current timestamp and folder timestamp
     timestamp_difference=$((CURRENT_TS - folder_timestamp))
-    days_difference=$(( timestamp_difference / (60*60*24) ))
+    days_difference=$((timestamp_difference / (60 * 60 * 24)))
     # delete the folder if its older than MAX_DAYS_OLD
     if [[ "$days_difference" -gt "$MAX_DAYS_OLD" ]]; then
-      gsutil rm -r $folder
+      gsutil -m rm -r $folder
       echo "deleted $folder"
     fi
   done

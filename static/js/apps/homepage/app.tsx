@@ -15,19 +15,16 @@
  */
 
 /**
- * Main component for Version 2 of the homepage.
+ * Main component for the homepage.
  */
 
-//TODO: fold this into app.tsx when revamp is complete and final PR is ready.
-
+import { ThemeProvider } from "@emotion/react";
 import React, { ReactElement } from "react";
 
-import Build from "../../components/content/build_your_own";
-import HeroVideo from "../../components/content/hero_video";
 import Partners from "../../components/content/partners";
-import SampleQuestions from "../../components/content/sample_questions";
-import Tools from "../../components/content/tools";
-import Topics from "../../components/content/topics";
+import { Section } from "../../components/elements/layout/section";
+import { Separator } from "../../components/elements/layout/separator";
+import { Link } from "../../components/elements/link_chip";
 import { GA_EVENT_HOMEPAGE_CLICK } from "../../shared/ga_events";
 import { Routes } from "../../shared/types/base";
 import {
@@ -35,6 +32,12 @@ import {
   SampleQuestionCategory,
   Topic,
 } from "../../shared/types/homepage";
+import theme from "../../theme/theme";
+import { BuildYourOwn } from "./components/build_your_own";
+import { HomeHero } from "./components/home_hero";
+import { SampleQuestions } from "./components/sample_questions";
+import { Tools } from "./components/tools";
+import { UnitedNations } from "./components/united_nations";
 
 interface AppProps {
   //the topics passed from the backend through to the JavaScript via the templates
@@ -56,14 +59,42 @@ export function App({
   sampleQuestions,
   routes,
 }: AppProps): ReactElement {
+  const topicLinkChips: Link[] = topics.map((topic) => ({
+    id: topic.id,
+    title: topic.title,
+    url: topic.browseUrl,
+    variant: "elevated",
+  }));
+
   return (
-    <>
-      <HeroVideo routes={routes} />
-      <Topics topics={topics} />
-      <SampleQuestions sampleQuestions={sampleQuestions} />
-      <Tools routes={routes} />
-      <Build routes={routes} />
-      <Partners partners={partners} gaEvent={GA_EVENT_HOMEPAGE_CLICK} />
-    </>
+    <ThemeProvider theme={theme}>
+      <Section colorVariant="light" variant="large">
+        <HomeHero linkChips={topicLinkChips} />
+      </Section>
+
+      <Section>
+        <SampleQuestions sampleQuestions={sampleQuestions} />
+      </Section>
+
+      <Section variant="small">
+        <Tools routes={routes} />
+      </Section>
+
+      <Separator border={false} variant="small" />
+
+      <Section variant="large" colorVariant="dark">
+        <BuildYourOwn routes={routes} />
+      </Section>
+
+      <Section>
+        <UnitedNations routes={routes} />
+      </Section>
+
+      <Separator />
+
+      <Section>
+        <Partners partners={partners} gaEvent={GA_EVENT_HOMEPAGE_CLICK} />
+      </Section>
+    </ThemeProvider>
   );
 }

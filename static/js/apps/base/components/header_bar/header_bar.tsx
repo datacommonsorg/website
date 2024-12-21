@@ -20,6 +20,7 @@
 
 import React, { ReactElement } from "react";
 
+import { useBreakpoints } from "../../../../shared/hooks/breakpoints";
 import { HeaderMenu, Labels, Routes } from "../../../../shared/types/base";
 import HeaderBarSearch from "./header_bar_search";
 import HeaderLogo from "./header_logo";
@@ -31,13 +32,18 @@ interface HeaderBarProps {
   name: string;
   //a path to the logo to be displayed in the header
   logoPath: string;
-  //the width of the logo - if provided, this will be used to prevent content bouncing as the logo loads in after the rest of the content.
+  //the width of the logo - if provided, this will be used to prevent content bouncing.
   logoWidth: string;
   //the data that will populate the header menu.
   menu: HeaderMenu[];
-  //if set true, the header menu will show - this value is pulled in from the page template and will default to false.
-  showHeaderSearchBar: boolean;
-  //the labels dictionary - all labels will be passed through this before being rendered. If no value exists, the dictionary will return the key that was sent.
+  //if set true, the header menu will be hidden - value is taken from the template and will default to false.
+  hideHeaderSearchBar: boolean;
+  //if set true, the search bar will operate in "hash mode", changing the hash rather than redirecting.
+  searchBarHashMode: boolean;
+  //the Google Analytics tag associated with a search action
+  gaValueSearchSource: string | null;
+  // the labels dictionary - all labels will be passed through this before being rendered.
+  // If no value exists, the dictionary will return the key that was sent.
   labels: Labels;
   //the routes dictionary - this is used to convert routes to resolved urls
   routes: Routes;
@@ -48,13 +54,17 @@ const HeaderBar = ({
   logoPath,
   logoWidth,
   menu,
-  showHeaderSearchBar,
+  hideHeaderSearchBar,
+  searchBarHashMode,
+  gaValueSearchSource,
   labels,
   routes,
 }: HeaderBarProps): ReactElement => {
+  const { up, down } = useBreakpoints();
+
   return (
     <div id="main-header-container">
-      <nav id="main-nav">
+      <nav id="main-navbar-container">
         <div className="navbar-menu-large">
           <HeaderLogo
             name={name}
@@ -63,7 +73,12 @@ const HeaderBar = ({
             labels={labels}
             routes={routes}
           />
-          {showHeaderSearchBar && <HeaderBarSearch />}
+          {!hideHeaderSearchBar && up("lg") && (
+            <HeaderBarSearch
+              searchBarHashMode={searchBarHashMode}
+              gaValueSearchSource={gaValueSearchSource}
+            />
+          )}
           <MenuDesktop menu={menu} labels={labels} routes={routes} />
         </div>
         <div className="navbar-menu-mobile">
@@ -74,7 +89,12 @@ const HeaderBar = ({
             labels={labels}
             routes={routes}
           />
-          {showHeaderSearchBar && <HeaderBarSearch />}
+          {!hideHeaderSearchBar && down("md") && (
+            <HeaderBarSearch
+              searchBarHashMode={searchBarHashMode}
+              gaValueSearchSource={gaValueSearchSource}
+            />
+          )}
           <MenuMobile menu={menu} labels={labels} routes={routes} />
         </div>
       </nav>

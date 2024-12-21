@@ -1,0 +1,73 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* Styles for the build your own component located on the about page */
+
+.build-your-own {
+  .container {
+    padding: calc(#{var.$spacing} * 12) 0;
+    display: grid;
+    grid-template-columns: 6fr 4fr;
+    gap: calc(#{var.$spacing} * 2) calc(#{var.$spacing} * 6);
+    @include media-breakpoint-down(sm) {
+      display: block;
+    }
+  }
+  .header {
+    grid-column: 1;
+    order: 0;
+    @include media-breakpoint-down(sm) {
+      margin-bottom: calc(#{var.$spacing} * 3);
+    }
+    h3 {
+      @include var.title_md;
+      margin-bottom: calc(#{var.$spacing} * 3);
+    }
+    h4 {
+      @include var.title_xs;
+    }
+    p {
+      @include var.text_lg;
+      margin-bottom: calc(#{var.$spacing} * 4);
+    }
+  }
+  .video-container {
+    display: grid;
+    grid-template-columns: 6fr 4fr;
+    gap: calc(#{var.$spacing} * 6);
+    @include media-breakpoint-down(sm) {
+      display: block;
+    }
+  }
+  .video-description {
+    grid-column: 2;
+    grid-row: 2 / span 2;
+    p {
+      @include var.text_md;
+    }
+  }
+  .video-player {
+    @include var.responsive-video;
+    grid-column: 1;
+    grid-row: 2;
+    padding-bottom: 56.25%;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    @include media-breakpoint-down(sm) {
+      margin-bottom: calc(#{var.$spacing} * 3);
+    }
+  }
+}

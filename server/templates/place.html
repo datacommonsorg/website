@@ -15,6 +15,8 @@ limitations under the License.
 #}
 {%- extends BASE_HTML -%}
 
+{% from 'macros/icons.html' import inline_svg %}
+
 {% set main_id = 'dc-places' %}
 {% set page_id = 'page-dc-places' %}
 {% if category == '' %}
@@ -57,19 +59,21 @@ limitations under the License.
           <div id="place-heading">
             <h1 id="place-name" data-pn="{{ place_name }}">{{ place_name }}</h1>
             <h3 id="place-type" data-pt="{{ place_type }}">{{ place_type_with_parent_places_links | safe }}</h3>
-            <h3 id="locale" data-lc="{{ locale }}"></h3>
             <div id="place-highlight"></div>
           </div>
-          <div id="place-change-ui">
-            <div id="place-search-container"></div>
+          <div class="dcid-and-knowledge-graph">
+            dcid:&nbsp;<a href="/browser/{{ place_dcid }}">{{ place_dcid }}</a>
           </div>
         </div>
       </div>
       <div id="subtitle" class="row"></div>
       <div id="place-summary" class="row-col place-summary-container">{{ place_summary }}</div>
       <div id="main-pane" class="row"></div>
-      {# TRANSLATORS: A message shown on the page while the content is loading. #}
-      <div id="page-loading" className="mt-4">{% trans %}Loading...{% endtrans %}</div>
+      <div id="page-loading" class="mt-4">
+        {{ inline_svg('progress_activity') }}
+        {# TRANSLATORS: A message shown on the page while the content is loading. #}
+        <p>{% trans %}Loading{% endtrans %}</p>
+      </div>
     </div>
   </div>
 </div>

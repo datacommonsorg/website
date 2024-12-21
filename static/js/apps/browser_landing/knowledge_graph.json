@@ -1,0 +1,172 @@
+[
+  {
+    "title": "Cities",
+    "items": [
+      {
+        "endpoint": "nuts/DE3",
+        "label": "Berlin, Germany"
+      },
+      {
+        "endpoint": "wikidataId/Q1861",
+        "label": "Bangkok, Thailand"
+      },
+      {
+        "endpoint": "geoId/4805000",
+        "label": "Austin, TX"
+      },
+      {
+        "endpoint": "geoId/0606000",
+        "label": "Berkeley, CA"
+      },
+      {
+        "endpoint": "geoId/0667000",
+        "label": "San Francisco, CA"
+      }
+    ],
+    "categoryEndpoint": "City"
+  },
+  {
+    "title": "Counties",
+    "items": [
+      {
+        "endpoint": "geoId/06085",
+        "label": "Santa Clara County"
+      },
+      {
+        "endpoint": "geoId/12086",
+        "label": "Miami-Dade County"
+      },
+      {
+        "endpoint": "geoId/13259",
+        "label": "Stewart County"
+      },
+      {
+        "endpoint": "geoId/17031",
+        "label": "Cook County"
+      }
+    ],
+    "categoryEndpoint": "County"
+  },
+  {
+    "title": "States",
+    "items": [
+      {
+        "endpoint": "wikidataId/Q1164",
+        "label": "Assam, India"
+      },
+      {
+        "endpoint": "wikidataId/Q1171",
+        "label": "Goa, India"
+      },
+      {
+        "endpoint": "wikidataId/Q309478",
+        "label": "Al Qadarif, Sudan"
+      },
+      {
+        "endpoint": "geoId/36",
+        "label": "New York, USA"
+      },
+      {
+        "endpoint": "geoId/48",
+        "label": "Texas, USA"
+      }
+    ],
+    "categoryEndpoint": "State"
+  },
+  {
+    "title": "Countries",
+    "items": [
+      {
+        "endpoint": "country/SDN",
+        "label": "Sudan"
+      },
+      {
+        "endpoint": "country/CAN",
+        "label": "Canada"
+      },
+      {
+        "endpoint": "country/IND",
+        "label": "India"
+      },
+      {
+        "endpoint": "country/DEU",
+        "label": "Germany"
+      },
+      {
+        "endpoint": "country/USA",
+        "label": "United States"
+      }
+    ],
+    "categoryEndpoint": "Country"
+  },
+  {
+    "title": "Congressional Districts",
+    "items": [
+      {
+        "endpoint": "geoId/0618",
+        "label": "District 18 (113th Congress), California"
+      },
+      {
+        "endpoint": "geoId/3601",
+        "label": "District 1 (113th Congress), New York"
+      },
+      {
+        "endpoint": "geoId/0101",
+        "label": "District 1 (113th Congress), Alabama"
+      },
+      {
+        "endpoint": "geoId/1501",
+        "label": "District 1 (113th Congress), Hawaii"
+      },
+      {
+        "endpoint": "geoId/4801",
+        "label": "District 1 (113th Congress), Texas"
+      }
+    ],
+    "categoryEndpoint": "CongressionalDistrict"
+  },
+  {
+    "title": "Public Schools and School Districts",
+    "items": [
+      {
+        "endpoint": "nces/062961004587",
+        "label": "Henry M. Gunn High"
+      },
+      {
+        "endpoint": "nces/360007702877",
+        "label": "Stuyvesant High School"
+      },
+      {
+        "endpoint": "geoId/sch3620580",
+        "label": "New York City Department of Education"
+      },
+      {
+        "endpoint": "nces/010001802104",
+        "label": "Alabama School Of Fine Arts"
+      },
+      {
+        "endpoint": "nces/170993006725",
+        "label": "Englewood Stem High School"
+      }
+    ],
+    "categoryEndpoint": "PublicSchool"
+  },
+  {
+    "title": "ENCODE (Encyclopedia Of DNA Elements)",
+    "items": [
+      {
+        "endpoint": "Lab",
+        "label": "Labs"
+      },
+      {
+        "endpoint": "EncodeBiosampleType",
+        "label": "Biosamples"
+      },
+      {
+        "endpoint": "EncodeExperiment",
+        "label": "Experiments"
+      }
+    ],
+    "categoryEndpoint": "EncodeBedFile"
+  }
+]
