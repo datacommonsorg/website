@@ -142,7 +142,7 @@
                     "statVarKey": [
                       "Count_Person_ForeignBorn"
                     ],
-                    "title": "Population: Foreign Born in Mexico City",
+                    "title": "Population: Foreign Born, Foreign Born in Mexico City",
                     "type": "LINE"
                   }
                 ]
@@ -150,11 +150,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Population: Foreign Born in Mexico City",
+                    "description": "Population: Foreign Born, Foreign Born in Mexico City",
                     "statVarKey": [
                       "Count_Person_ForeignBorn"
                     ],
-                    "title": "Population: Foreign Born in Mexico City",
+                    "title": "Population: Foreign Born, Foreign Born in Mexico City",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -206,7 +206,7 @@
             "statVar": "Count_Person_Female"
           },
           "Count_Person_ForeignBorn": {
-            "name": "Population: Foreign Born",
+            "name": "Population: Foreign Born, Foreign Born",
             "statVar": "Count_Person_ForeignBorn"
           },
           "Count_Person_Male": {
@@ -461,6 +461,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "",
   "userMessages": []
 }

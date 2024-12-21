@@ -34,7 +34,6 @@
               }
             ],
             "denom": "Count_Person",
-            "description": "Gender wage gap.",
             "title": "Gender Wage Gap in Countries of Europe"
           }
         ],
@@ -437,6 +436,5 @@
     "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "",
   "userMessages": []
 }

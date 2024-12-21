@@ -1,0 +1,68 @@
+{
+  "client": "test_detect-and-fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "answerTableTileSpec": {
+                      "columns": [
+                        {
+                          "header": "Has Genomic Coordinates",
+                          "propertyExpr": "->hasGenomicCoordinates"
+                        }
+                      ]
+                    },
+                    "entities": [
+                      "bio/ncbi_109457387",
+                      "bio/ncbi_421941"
+                    ],
+                    "title": "The Has Genomic Coordinates for PQLC3 are as follows:",
+                    "type": "ANSWER_TABLE"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "context": {},
+  "debug": {},
+  "entities": [
+    {
+      "dcid": "bio/ncbi_109457387",
+      "name": "PQLC3",
+      "type": ""
+    },
+    {
+      "dcid": "bio/ncbi_421941",
+      "name": "PQLC3",
+      "type": ""
+    }
+  ],
+  "pastSourceContext": "",
+  "place": {},
+  "placeFallback": {},
+  "placeSource": "UNKNOWN",
+  "places": [],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopics": [],
+    "parentPlaces": [],
+    "parentTopics": [],
+    "peerPlaces": [],
+    "peerTopics": []
+  },
+  "svSource": "UNKNOWN",
+  "userMessages": [
+    "See relevant information based on the previous query."
+  ]
+}

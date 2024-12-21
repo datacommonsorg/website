@@ -34,10 +34,10 @@ COPY shared/. /workspace/shared/
 
 # Download nl files from gcs
 COPY deploy/nl/catalog.yaml .
-COPY build/nl_server/requirements.txt /workspace/build/nl_server/requirements.txt
-COPY build/nl_server/download_nl_files.py .
-RUN pip3 install -r /workspace/build/nl_server/requirements.txt
-RUN python3 download_nl_files.py
+COPY tools/nl/download_nl_files/requirements.txt /workspace/download_nl_files/requirements.txt
+COPY tools/nl/download_nl_files/download_nl_files.py .
+RUN pip3 install -r /workspace/download_nl_files/requirements.txt
+RUN python3 download_nl_files.py --is_docker_mode=True
 
 # Run server
 WORKDIR /workspace

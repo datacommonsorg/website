@@ -210,6 +210,25 @@ $chart-border: 0.5px solid #dee2e6;
   flex-wrap: wrap;
   justify-content: space-between;
 
+  .dcid-and-knowledge-graph {
+    align-items: flex-end;
+    color: var(--gm-3-ref-neutral-neutral-40);
+    display: flex;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    margin-left: auto;
+    padding: 10px 12px 10px 0;
+    text-align: right;
+
+    a {
+      color: var(--link-color);
+      text-decoration: none;
+    }
+  }
+
   @media only screen and (max-width: 420px) {
     flex-direction: column;
   }
@@ -248,10 +267,17 @@ $chart-border: 0.5px solid #dee2e6;
   padding: 0.25rem;
 }
 
+#main-pane {
+  opacity: 0;
+  transition: opacity 0.7s ease-in-out;
+}
+
 #sidebar-outer {
   border-top: $vertical-section-border;
   margin-top: $vertical-section-margin;
   padding-top: $vertical-section-margin;
+  opacity: 0;
+  transition: opacity 0.7s ease-in-out;
 
   @include media-breakpoint-up(lg) {
     border: none;
@@ -269,7 +295,7 @@ $chart-border: 0.5px solid #dee2e6;
 #sidebar-region {
   padding-top: 15px;
   position: relative;
-  transition: transform 300ms linear;
+  transition: transform 300ms ease-in-out;
 }
 
 #sidebar-region.fixed {

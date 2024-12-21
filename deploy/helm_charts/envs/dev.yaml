@@ -87,4 +87,4 @@ cronTesting:
   enabled: true
   screenshotDomain: "dev.datacommons.org"
   nodePool: "default-pool"
-  schedule: "* * 31 2 *"
+  schedule: "* * 31 2 *" # invalid day for month -> never run automatically

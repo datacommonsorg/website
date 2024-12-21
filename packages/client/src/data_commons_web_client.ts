@@ -21,7 +21,9 @@
 import {
   ApiNodePropvalOutResponse,
   ObservationDatesApiResponse,
+  PlaceChartsApiResponse,
   PointApiResponse,
+  RelatedPlacesApiResponse,
   SeriesApiResponse,
 } from "./data_commons_web_client_types";
 import { parseWebsiteApiRoot, toURLSearchParams } from "./utils";
@@ -202,6 +204,38 @@ class DataCommonsWebClient {
     const url = `${this.apiRoot || ""}/api/observation-dates?${queryString}`;
     const response = await fetch(url);
     return (await response.json()) as ObservationDatesApiResponse;
+  }
+
+  /**
+   * Gets place charts for the given category
+   * Uses /api/dev-place/charts/<placeDcid> endpoint
+   * @param params.category [optional] place category
+   * @param params.placeDcid place dcid to fetch data for
+   */
+  async getPlaceCharts(params: {
+    category?: string;
+    placeDcid: string;
+  }): Promise<PlaceChartsApiResponse> {
+    const url = `${this.apiRoot || ""}/api/dev-place/charts/${
+      params.placeDcid
+    }${params.category ? "?category=" + params.category : ""}`;
+    const response = await fetch(url);
+    return (await response.json()) as PlaceChartsApiResponse;
+  }
+
+  /**
+   * Gets related place info charts for the given place
+   * Uses /api/dev-place/related-places/<placeDcid> endpoint
+   * @param params.placeDcid place dcid to fetch data for
+   */
+  async getRelatedPLaces(params: {
+    placeDcid: string;
+  }): Promise<RelatedPlacesApiResponse> {
+    const url = `${this.apiRoot || ""}/api/dev-place/related-places/${
+      params.placeDcid
+    }`;
+    const response = await fetch(url);
+    return (await response.json()) as RelatedPlacesApiResponse;
   }
 }
 
