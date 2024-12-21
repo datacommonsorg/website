@@ -67,7 +67,7 @@ export function PlaceSelector(props: {
                   <span>{place.name || place.dcid}</span>
                   <span
                     className="material-icons-outlined"
-                    onClick={() => removePlace(place.dcid)}
+                    onClick={(): void => removePlace(place.dcid)}
                   >
                     close
                   </span>
@@ -93,7 +93,7 @@ export function PlaceSelector(props: {
           {!_.isEmpty(selectedPlaces) && (
             <div
               className="primary-button continue-button"
-              onClick={() => {
+              onClick={(): void => {
                 setPlaces(selectedPlaces);
                 if (props.onNewSelection) {
                   props.onNewSelection();

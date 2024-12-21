@@ -29,7 +29,6 @@ import { Chart } from "./chart";
 import { Info } from "./info";
 import { SelectedOptions } from "./selected_options";
 import { SelectorPane } from "./selector_pane";
-import { VIS_TYPE_CONFIG } from "./vis_type_configs";
 import { VisTypeSelector } from "./vis_type_selector";
 
 export function App(): JSX.Element {
@@ -72,12 +71,12 @@ function MainPane(): JSX.Element {
 
   return (
     <>
-      {showInfo && <Info onStartClicked={() => setShowInfo(false)} />}
+      {showInfo && <Info onStartClicked={(): void => setShowInfo(false)} />}
       {!showInfo && (
         <>
           <SelectedOptions />
           {isSelectionComplete(visType, places, enclosedPlaceType, statVars) ? (
-            <RankingUnitUrlFuncContext.Provider value={() => null}>
+            <RankingUnitUrlFuncContext.Provider value={(): null => null}>
               <Chart />
             </RankingUnitUrlFuncContext.Provider>
           ) : (

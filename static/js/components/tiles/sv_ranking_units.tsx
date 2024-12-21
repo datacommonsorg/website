@@ -88,9 +88,6 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
       chartHeight = divEl.offsetHeight;
       chartWidth = divEl.offsetWidth;
     }
-    const points = isHighest
-      ? rankingGroup.points.slice().reverse()
-      : rankingGroup.points;
     showChartEmbed(
       chartWidth,
       chartHeight,
@@ -123,7 +120,9 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
           {!props.hideFooter && (
             <ChartFooter
               handleEmbed={
-                props.errorMsg ? null : () => handleEmbed(true, chartTitle)
+                props.errorMsg
+                  ? null
+                  : (): void => handleEmbed(true, chartTitle)
               }
               exploreLink={
                 props.showExploreMore && !props.errorMsg
@@ -158,7 +157,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
               )}
               {!props.hideFooter && (
                 <ChartFooter
-                  handleEmbed={() => handleEmbed(true, chartTitle)}
+                  handleEmbed={(): void => handleEmbed(true, chartTitle)}
                   exploreLink={
                     props.showExploreMore ? getExploreLink(props, true) : null
                   }
@@ -189,7 +188,7 @@ export function SvRankingUnits(props: SvRankingUnitsProps): JSX.Element {
               )}
               {!props.hideFooter && (
                 <ChartFooter
-                  handleEmbed={() => handleEmbed(false, chartTitle)}
+                  handleEmbed={(): void => handleEmbed(false, chartTitle)}
                   exploreLink={
                     props.showExploreMore ? getExploreLink(props, false) : null
                   }
@@ -245,7 +244,10 @@ export function getRankingUnitTitle(
  * @param rankingGroup Chart ranking group
  * @returns formatted title
  */
-function getChartTitle(tileConfigTitle: string, rankingGroup: RankingGroup) {
+function getChartTitle(
+  tileConfigTitle: string,
+  rankingGroup: RankingGroup
+): string {
   const rs = {
     date: rankingGroup.dateRange,
     placeName: "",

@@ -159,7 +159,11 @@ export function SuccessResult(props: SuccessResultPropType): ReactElement {
               />
             )}
             <RankingUnitUrlFuncContext.Provider
-              value={(dcid: string, placeType?: string, apiRoot?: string) => {
+              value={(
+                dcid: string,
+                placeType?: string,
+                apiRoot?: string
+              ): string => {
                 return `${apiRoot || ""}/explore/#${getUpdatedHash({
                   [URL_HASH_PARAMS.PLACE]: dcid,
                   [URL_HASH_PARAMS.TOPIC]: topicUrlVal,

@@ -32,14 +32,14 @@ export function ClaimCounter(props: ClaimCounterPropType): JSX.Element {
       <div className="button-container">
         <button
           className="btn-count"
-          onClick={() => props.onCountUpdated(props.count - 1)}
+          onClick={(): void => props.onCountUpdated(props.count - 1)}
         >
           -
         </button>
         <span className="count-text">{props.count}</span>
         <button
           className="btn-count"
-          onClick={() => props.onCountUpdated(props.count + 1)}
+          onClick={(): void => props.onCountUpdated(props.count + 1)}
         >
           +
         </button>

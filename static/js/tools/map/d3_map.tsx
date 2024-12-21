@@ -228,7 +228,7 @@ export function D3Map(props: D3MapProps): JSX.Element {
         projection,
         props.mapPointValues
           ? null
-          : () =>
+          : (): string =>
               "black" /* getPointColor: if there are mapPointValues, addMapPoints will color the points accordingly */,
         getTooltipHtml(
           props.metadata,
@@ -314,7 +314,7 @@ const getMapRedirectAction =
     displayOptions: DisplayOptions,
     europeanCountries: Array<NamedPlace>
   ) =>
-  (geoProperties: GeoJsonFeatureProperties) => {
+  (geoProperties: GeoJsonFeatureProperties): void => {
     const selectedPlace = {
       dcid: geoProperties.geoDcid,
       name: geoProperties.name,
@@ -349,7 +349,7 @@ const getTooltipHtml =
     unit: string,
     statVarTitle?: string
   ) =>
-  (place: NamedPlace) => {
+  (place: NamedPlace): string => {
     let titleHtml = `<b>${place.name || place.dcid}</b>`;
     if (statVarTitle) {
       titleHtml = `<b>${statVarTitle}</b><br />` + titleHtml;
@@ -387,7 +387,7 @@ const getTooltipHtml =
 
 const canClickRegion =
   (placeInfo: PlaceInfo, europeanCountries: Array<NamedPlace>) =>
-  (placeDcid: string) => {
+  (placeDcid: string): boolean => {
     const enclosingPlace =
       europeanCountries.findIndex((country) => country.dcid === placeDcid) > -1
         ? EUROPE_NAMED_TYPED_PLACE

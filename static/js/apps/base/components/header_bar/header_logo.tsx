@@ -55,12 +55,11 @@ const HeaderLogo = ({
           <a
             href={routes["static.homepage"]}
             aria-label={labels["Back to homepage"]}
-            onClick={() => {
+            onClick={(): void => {
               triggerGAEvent(GA_EVENT_HEADER_CLICK, {
                 [GA_PARAM_ID]: "dc-logo",
                 [GA_PARAM_URL]: "{static.homepage}",
               });
-              return true;
             }}
           >
             <img
@@ -73,12 +72,11 @@ const HeaderLogo = ({
       )}
       <a
         href={routes["static.homepage"]}
-        onClick={() => {
+        onClick={(): void => {
           triggerGAEvent(GA_EVENT_HEADER_CLICK, {
             [GA_PARAM_ID]: "dc-name",
             [GA_PARAM_URL]: "{static.homepage}",
           });
-          return true;
         }}
         className="main-header-name"
       >

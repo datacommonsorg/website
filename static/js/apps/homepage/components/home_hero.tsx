@@ -25,7 +25,7 @@ import React, { ReactElement } from "react";
 
 import { HeroColumns } from "../../../components/content/hero_columns";
 import { LinkChips } from "../../../components/content/link_chips";
-import { Link, LinkChip } from "../../../components/elements/link_chip";
+import { Link } from "../../../components/elements/link_chip";
 
 interface HomeHeroProps {
   //an array of links to be rendered by the component

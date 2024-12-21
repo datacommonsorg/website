@@ -337,10 +337,12 @@ export function App(props: AppProps): ReactElement {
       : topic
       ? `T: ${topic} | P: ${place} - `
       : "";
+    /* eslint-disable camelcase */
     triggerGAEvent(GA_EVENT_PAGE_VIEW, {
       page_title: `${gaTitle}${document.title}`,
       page_location: window.location.href.replace("#", "?"),
     });
+    /* eslint-enable camelcase */
     if (query) {
       client = client || CLIENT_TYPES.QUERY;
       setQuery(query);

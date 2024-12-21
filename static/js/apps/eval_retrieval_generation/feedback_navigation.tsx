@@ -150,7 +150,7 @@ export function FeedbackNavigation(
   const currStageIdx = feedbackStageList.indexOf(feedbackStage);
 
   // Button Actions
-  const prevQuery = async () => {
+  const prevQuery = async (): Promise<void> => {
     if (await props.checkAndSubmit()) {
       let targetId = sessionQueryId - 1;
       while (!(targetId in userQuery)) {
@@ -162,7 +162,7 @@ export function FeedbackNavigation(
     }
   };
 
-  const prev = async () => {
+  const prev = async (): Promise<void> => {
     if (await props.checkAndSubmit()) {
       if (feedbackStage === FeedbackStage.CALLS) {
         setSessionCallId(sessionCallId - 1);
@@ -170,13 +170,13 @@ export function FeedbackNavigation(
     }
   };
 
-  const prevEvalStage = async () => {
+  const prevEvalStage = async (): Promise<void> => {
     if (await props.checkAndSubmit()) {
       setFeedbackStage(feedbackStageList[currStageIdx - 1]);
     }
   };
 
-  const next = async () => {
+  const next = async (): Promise<void> => {
     if (await props.checkAndSubmit()) {
       if (feedbackStage === FeedbackStage.CALLS) {
         setSessionCallId(sessionCallId + 1);
@@ -184,7 +184,7 @@ export function FeedbackNavigation(
     }
   };
 
-  const nextQuery = async () => {
+  const nextQuery = async (): Promise<void> => {
     if (await props.checkAndSubmit()) {
       let targetId = sessionQueryId + 1;
       while (!(targetId in userQuery)) {
@@ -196,14 +196,14 @@ export function FeedbackNavigation(
     }
   };
 
-  const nextEvalStage = async () => {
+  const nextEvalStage = async (): Promise<void> => {
     if (await props.checkAndSubmit()) {
       setFeedbackStage(feedbackStageList[currStageIdx + 1]);
       setSessionCallId(NEW_QUERY_CALL_ID);
     }
   };
 
-  const finish = async () => {
+  const finish = async (): Promise<void> => {
     if (await props.checkAndSubmit()) {
       alert("All evaluations completed.");
     }

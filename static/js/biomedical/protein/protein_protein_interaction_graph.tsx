@@ -131,7 +131,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
           <ButtonToolbar>
             <Button
               className="ppi-toggle-button btn btn-sm btn-light shadow-none mr-2"
-              onClick={() =>
+              onClick={(): void =>
                 this.setState({ showTableView: !this.state.showTableView })
               }
             >
@@ -177,7 +177,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
                 type="number"
                 min={MIN_DEPTH}
                 max={MAX_DEPTH}
-                onChange={(e) => {
+                onChange={(e): void => {
                   this.setState({ depth: Number(e.target.value) });
                 }}
                 value={this.state.depth}
@@ -193,7 +193,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
                 type="number"
                 min={MIN_NUM_INTERACTORS}
                 max={MAX_NUM_INTERACTORS}
-                onChange={(e) => {
+                onChange={(e): void => {
                   this.setState({ numInteractions: Number(e.target.value) });
                 }}
                 value={this.state.numInteractions}
@@ -210,7 +210,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
                 min={MIN_SCORE_THRESHOLD}
                 max={MAX_SCORE_THRESHOLD}
                 step={0.1}
-                onChange={(e) => {
+                onChange={(e): void => {
                   this.setState({ scoreThreshold: Number(e.target.value) });
                 }}
                 value={this.state.scoreThreshold}
@@ -222,7 +222,7 @@ export class ProteinProteinInteractionGraph extends React.Component<
           <Col className="form-group align-self-end" md={2}>
             <Button
               className="ppi-update-button"
-              onClick={() => {
+              onClick={(): void => {
                 this.fetchData();
               }}
             >

@@ -72,7 +72,7 @@ export function MappingTableHeader(
             return (
               <th
                 key={`mapping-info-${columnIdx}`}
-                onClick={() => props.onColumnSelected(columnIdx)}
+                onClick={(): void => props.onColumnSelected(columnIdx)}
               >
                 <>
                   <div className={isMapped ? "mapping-header-info" : ""}>
@@ -105,11 +105,11 @@ export function MappingTableHeader(
                     ? props.highlightedColumnRef
                     : null
                 }
-                onClick={() => props.onColumnSelected(columnIdx)}
+                onClick={(): void => props.onColumnSelected(columnIdx)}
               >
                 {editHeaderState.colIdx === columnIdx ? (
                   <form
-                    onSubmit={(event) => {
+                    onSubmit={(event): void => {
                       event.preventDefault();
                       onHeaderUpdated();
                     }}
@@ -118,12 +118,12 @@ export function MappingTableHeader(
                       className="header-input"
                       type="text"
                       multiple={true}
-                      onChange={(e) => {
+                      onChange={(e): void => {
                         const val = e.target.value;
                         setEditHeaderState({ ...editHeaderState, header: val });
                       }}
                       value={editHeaderState.header}
-                      onBlur={() => onHeaderUpdated()}
+                      onBlur={(): void => onHeaderUpdated()}
                       autoFocus={true}
                     />
                   </form>
@@ -131,7 +131,7 @@ export function MappingTableHeader(
                   <div>
                     <span>{info.column.header}</span>
                     <i
-                      onClick={() =>
+                      onClick={(): void =>
                         setEditHeaderState({
                           colIdx: columnIdx,
                           header: info.column.header,

@@ -73,7 +73,7 @@ export function MappingTableBody(props: MappingTableBodyProps): JSX.Element {
                       className={
                         props.selectedColumn === idx ? "highlighted-col" : ""
                       }
-                      onClick={() => props.onColumnSelected(idx)}
+                      onClick={(): void => props.onColumnSelected(idx)}
                     >
                       ...
                     </td>
@@ -90,7 +90,7 @@ export function MappingTableBody(props: MappingTableBodyProps): JSX.Element {
                     className={
                       props.selectedColumn === cellIdx ? "highlighted-col" : ""
                     }
-                    onClick={() => props.onColumnSelected(cellIdx)}
+                    onClick={(): void => props.onColumnSelected(cellIdx)}
                   >
                     {cell}
                   </td>

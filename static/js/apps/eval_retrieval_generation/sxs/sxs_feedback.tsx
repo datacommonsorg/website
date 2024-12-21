@@ -64,7 +64,7 @@ export function SxsFeedback(props: SxsFeedbackPropType): JSX.Element {
     });
   }, [props.leftSheetId, props.rightSheetId, props.sessionId, sessionQueryId]);
 
-  const checkAndSubmit = () => {
+  const checkAndSubmit = (): Promise<boolean> => {
     if (!preference) {
       if (reason) {
         alert("Please choose a preferred answer.");

@@ -69,19 +69,19 @@ export function Navigation(props: NavigationPropType): JSX.Element {
   const atEnd = currentIdIndex === props.sortedQueryIds.length - 1;
 
   // Button Actions
-  const prevQuery = async () => {
+  const prevQuery = async (): Promise<void> => {
     if (await props.checkAndSubmit()) {
       setSessionQueryId(props.sortedQueryIds[currentIdIndex - 1]);
     }
   };
 
-  const nextQuery = async () => {
+  const nextQuery = async (): Promise<void> => {
     if (await props.checkAndSubmit()) {
       setSessionQueryId(props.sortedQueryIds[currentIdIndex + 1]);
     }
   };
 
-  const finish = async () => {
+  const finish = async (): Promise<void> => {
     if (await props.checkAndSubmit()) {
       alert("All evaluations completed.");
     }

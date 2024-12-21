@@ -40,7 +40,7 @@ export function EvalList(): JSX.Element {
   const [modalOpen, setModalOpen] = useState(false);
   const [queryCompletionStatus, setQueryCompletionStatus] = useState({});
 
-  const toggleModal = () => void setModalOpen(!modalOpen);
+  const toggleModal = (): void => setModalOpen(!modalOpen);
 
   const orderedQueries: Query[] = Object.keys(allQuery)
     .sort((a, b) => {
@@ -48,7 +48,7 @@ export function EvalList(): JSX.Element {
     })
     .map((queryId) => allQuery[queryId]);
 
-  const openModal = () => {
+  const openModal = (): void => {
     setModalOpen(true);
     const queryFeedbackPromises = Promise.all(
       orderedQueries.map((query) => getAllFields(getPath(sheetId, query.id)))
@@ -111,7 +111,7 @@ export function EvalList(): JSX.Element {
               <Input
                 type="checkbox"
                 checked={userEvalsOnly}
-                onChange={() => {
+                onChange={(): void => {
                   setUserEvalsOnly(!userEvalsOnly);
                 }}
               />
@@ -128,7 +128,7 @@ export function EvalList(): JSX.Element {
             return (
               <div
                 className={`eval-list-query${completed ? " completed" : ""}`}
-                onClick={() => {
+                onClick={(): void => {
                   setFeedbackStage(getFirstFeedbackStage(evalType));
                   setSessionQueryId(query.id);
                   setSessionCallId(NEW_QUERY_CALL_ID);
@@ -149,7 +149,7 @@ export function EvalList(): JSX.Element {
         </div>
         <div className="footer">
           <Button
-            onClick={() => setModalOpen(false)}
+            onClick={(): void => setModalOpen(false)}
             className="btn-transparent"
           >
             <div>Close</div>

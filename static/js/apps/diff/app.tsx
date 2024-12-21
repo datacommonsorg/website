@@ -28,7 +28,7 @@ const INIT_URL: AppUrl = {
   path: "",
 };
 
-function splitUrl(url: string) {
+function splitUrl(url: string): { domain: string; path: string } {
   const urlObj = new URL(url);
   const domain = `${urlObj.protocol}//${urlObj.host}`;
   const path = `${urlObj.pathname}${urlObj.search}${urlObj.hash}`;
@@ -43,7 +43,7 @@ export function App(): JSX.Element {
   const [inputUrl, setInputUrl] = useState<AppUrl>(INIT_URL);
 
   useEffect(() => {
-    const handleMessage = (event) => {
+    const handleMessage = (event): void => {
       if (event.data.type === "URLResponse") {
         const iframeURL = event.data.url;
         const { path } = splitUrl(iframeURL);
@@ -51,12 +51,12 @@ export function App(): JSX.Element {
       }
     };
     window.addEventListener("message", handleMessage);
-    return () => {
+    return (): void => {
       window.removeEventListener("message", handleMessage);
     };
   }, [url]);
 
-  const onKeyDown = (e) => {
+  const onKeyDown = (e): void => {
     if (e.key === "Enter") {
       {
         const { domain, path } = splitUrl(inputUrl.domain1);
@@ -86,7 +86,7 @@ export function App(): JSX.Element {
         <input
           type="text"
           value={inputUrl.domain1}
-          onChange={(e) => {
+          onChange={(e): void => {
             setInputUrl({
               domain1: e.target.value,
               domain2: inputUrl.domain2,
@@ -103,7 +103,7 @@ export function App(): JSX.Element {
         <input
           type="text"
           value={inputUrl.domain2}
-          onChange={(e) => {
+          onChange={(e): void => {
             setInputUrl({
               domain1: inputUrl.domain1,
               domain2: e.target.value,
@@ -121,7 +121,7 @@ export function App(): JSX.Element {
         ref={ref}
         value={inputUrl.path}
         placeholder="Enter path starting with /"
-        onChange={(e) => {
+        onChange={(e): void => {
           setInputUrl({
             domain1: inputUrl.domain1,
             domain2: inputUrl.domain2,
@@ -135,7 +135,7 @@ export function App(): JSX.Element {
           ref={iframeRef1}
           id="iframe1"
           src={`${url.domain1}${url.path}`}
-          onLoad={() => {
+          onLoad={(): void => {
             iframeRef1.current.contentWindow.postMessage(
               "Request URL",
               url.domain1
@@ -146,7 +146,7 @@ export function App(): JSX.Element {
           ref={iframeRef2}
           id="iframe2"
           src={`${url.domain2}${url.path}`}
-          onLoad={() => {
+          onLoad={(): void => {
             iframeRef2.current.contentWindow.postMessage(
               "Request URL",
               url.domain2

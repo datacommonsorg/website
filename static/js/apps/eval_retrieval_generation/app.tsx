@@ -72,7 +72,10 @@ export function App(props: AppPropType): JSX.Element {
   const [allCall, setAllCall] = useState<Record<number, DcCalls>>(null);
   const [evalType, setEvalType] = useState<EvalType>(null);
 
-  async function handleUserSignIn(user: User, credential: OAuthCredential) {
+  async function handleUserSignIn(
+    user: User,
+    credential: OAuthCredential
+  ): Promise<void> {
     if (credential.accessToken) {
       setUser(user); // Set the user state to the signed-in user
       const doc = new GoogleSpreadsheet(props.sheetId, {

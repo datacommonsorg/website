@@ -26,10 +26,12 @@ const DEFAULT_DESCRIPTION = 'Count_Person,"population number"';
 const DEFAULT_QUERY_STRING = "how many population";
 const DEFAULT_INDEX = "base_uae_mem";
 
+/* eslint-disable camelcase */
 const _INDEX_NAME_ANNOTATION = {
   base_uae_mem: " (PROD)",
   medium_ft: " (CUSTOM DC)",
 };
+/* eslint-enable camelcase */
 
 interface AppPropType {
   indexes: Record<string, Record<string, string>>;
@@ -59,7 +61,9 @@ export function App(props: AppPropType): JSX.Element {
     DEFAULT_INDEX,
   ]);
 
-  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCheckboxChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     const { name, checked } = event.target;
     setCheckedIndexes((prevCheckedIndexes) =>
       checked
@@ -85,7 +89,7 @@ export function App(props: AppPropType): JSX.Element {
     });
   }, [checkedIndexes, input, props.indexes]);
 
-  const handleApply = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleApply = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     if (queryElem.current) {
       setInput({
@@ -98,11 +102,11 @@ export function App(props: AppPropType): JSX.Element {
   const handleFileUpload = (
     event: React.ChangeEvent<HTMLInputElement>,
     textArea: HTMLTextAreaElement
-  ) => {
+  ): void => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = (e) => {
+      reader.onload = (e): void => {
         const text = e.target?.result as string;
         textArea.value = text;
       };
@@ -141,7 +145,7 @@ export function App(props: AppPropType): JSX.Element {
             <input
               type="file"
               accept=".txt"
-              onChange={(e) => handleFileUpload(e, queryElem.current)}
+              onChange={(e): void => handleFileUpload(e, queryElem.current)}
             />
           </div>
           <div>
@@ -160,7 +164,9 @@ export function App(props: AppPropType): JSX.Element {
             <input
               type="file"
               accept=".csv"
-              onChange={(e) => handleFileUpload(e, descriptionElem.current)}
+              onChange={(e): void =>
+                handleFileUpload(e, descriptionElem.current)
+              }
             />
           </div>
           <button type="submit">Apply</button>

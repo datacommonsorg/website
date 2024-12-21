@@ -109,7 +109,7 @@ export function Chart(props: ChartPropsType): JSX.Element {
       .catch(() => setGeoJsonFetched(true));
   }, []);
 
-  function replot() {
+  function replot(): void {
     if (!_.isEmpty(props.points)) {
       if (svgContainerRef.current) {
         clearSVGs();
@@ -360,7 +360,7 @@ function redirectAction(placeDcid: string): void {
   window.open(uri);
 }
 
-function getTitle(dates: string[], statVarLabel: string) {
+function getTitle(dates: string[], statVarLabel: string): string {
   const dateRange = `(${getDateRange(dates)})`;
   return `${statVarLabel} ${dateRange}`;
 }
@@ -373,7 +373,7 @@ const getMapTooltipHtml =
     xPerCapita: boolean,
     yPerCapita: boolean
   ) =>
-  (place: NamedPlace) => {
+  (place: NamedPlace): string => {
     const point = points[place.dcid];
     if (_.isEmpty(point)) {
       return (

@@ -22,7 +22,7 @@ import { act, waitFor } from "@testing-library/react";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 import axios from "axios";
 import Cheerio from "cheerio";
-import Enzyme, { mount, ReactWrapper } from "enzyme";
+import Enzyme, { mount } from "enzyme";
 import { when } from "jest-when";
 import React, { useEffect } from "react";
 
@@ -74,8 +74,13 @@ beforeEach(() => {
   window.infoConfig = {};
 
   // Stub getComputedTextLength and getBBox in SVGElement as they do not exist in d3node
-  SVGElement.prototype.getComputedTextLength = () => 100;
-  SVGElement.prototype.getBBox = () => ({ x: 1, y: 1, width: 1, height: 1 });
+  SVGElement.prototype.getComputedTextLength = (): number => 100;
+  SVGElement.prototype.getBBox = (): {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  } => ({ x: 1, y: 1, width: 1, height: 1 });
 });
 
 function mockAxios(): void {
@@ -740,7 +745,7 @@ test("all functionalities", async () => {
   });
 
   // Clicking swap axis should successfully swap the x and y axis
-  await act(async () => {
+  await act(async (): Promise<void> => {
     app.find("#swap-axes").at(0).simulate("click");
   });
   await app.update();
