@@ -12,6 +12,9 @@
 # below:
 .git
 .gitignore
+#!include:.gitignore
+#!include:.dockerignore
+!mcf_parser.py
 
 # Python pycache:
 **/__pycache__/**

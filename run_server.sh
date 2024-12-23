@@ -22,7 +22,6 @@ function cleanup {
 }
 trap cleanup SIGINT
 
-
 source .env/bin/activate
 
 PORT=8080
@@ -36,32 +35,37 @@ function help {
   echo "-x       Enable embedding eval playground"
   echo "-d       [Local dev] Enable disaster JSON cache"
   echo "-l       [Local dev] Use local mixer"
+  echo "-g       [Local dev] Use Gunicorn"
   exit 1
 }
 
-while getopts ":e:p:m?d?l?x" OPTION; do
+while getopts ":e:p:m?d?l?xg" OPTION; do
   case $OPTION in
-    e)
-      export FLASK_ENV=$OPTARG
-      ;;
-    p)
-      export PORT=$OPTARG
-      ;;
-    m)
-      export ENABLE_MODEL=true
-      ;;
-    x)
-      export ENABLE_EVAL_TOOL=false
-      ;;
-    d)
-      export ENABLE_DISASTER_JSON=true
-      ;;
-    l)
-      export USE_LOCAL_MIXER=true
-      ;;
-    *)
-      help
-      ;;
+  e)
+    export FLASK_ENV=$OPTARG
+    ;;
+  p)
+    export PORT=$OPTARG
+    ;;
+  m)
+    export ENABLE_MODEL=true
+    ;;
+  x)
+    export ENABLE_EVAL_TOOL=false
+    ;;
+  d)
+    export ENABLE_DISASTER_JSON=true
+    ;;
+  l)
+    # Use local mixer
+    export WEBSITE_MIXER_API_ROOT=http://127.0.0.1:8081
+    ;;
+  g)
+    USE_GUNICORN=true
+    ;;
+  *)
+    help
+    ;;
   esac
 done
 
@@ -70,11 +74,17 @@ export GOOGLE_CLOUD_PROJECT=datcom-website-dev
 # Set flask env
 if [[ $FLASK_ENV == "" ]]; then
   export FLASK_ENV="local"
-  export ENV_PREFIX="DC"
+  if [[ $ENV_PREFIX == "" ]]; then
+    export ENV_PREFIX="DC"
+  fi
 else
   export ENV_PREFIX="Local"
 fi
 echo "Starting localhost with FLASK_ENV='$FLASK_ENV' on port='$PORT'"
 
-protoc -I=./server/config/ --python_out=./server/config ./server/config/subject_page.proto
-python3 web_app.py $PORT
+if [[ $USE_GUNICORN ]]; then
+  gunicorn --log-level info --preload --timeout 1000 --bind localhost:${PORT} -w 4 web_app:app
+else
+  protoc -I=./server/config/ --python_out=./server/config ./server/config/subject_page.proto
+  python3 web_app.py $PORT
+fi

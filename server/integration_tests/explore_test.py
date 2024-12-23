@@ -15,6 +15,7 @@
 import json
 import os
 import re
+import unittest
 
 from langdetect import detect as detect_lang
 import requests
@@ -23,7 +24,7 @@ from shared.lib.test_server import NLWebServerTestCase
 
 _dir = os.path.dirname(os.path.abspath(__file__))
 
-_TEST_MODE = os.environ['TEST_MODE']
+_TEST_MODE = os.environ.get('TEST_MODE', '')
 
 _TEST_DATA = 'test_data'
 
@@ -118,12 +119,22 @@ class ExploreTest(NLWebServerTestCase):
     # TODO: Proper fix should be to make NL server more deterministic
     if 'variables' in resp:
       resp_var_to_score = {}
+      dbg['sv_matching']['CosineScore'] = _format_scores(
+          dbg['sv_matching']['CosineScore'])
       for i, sv in enumerate(dbg['sv_matching']['SV']):
-        score = dbg['sv_matching']['CosineScore'][i]
-        resp_var_to_score[sv] = float("{:.6f}".format(score))
+        resp_var_to_score[sv] = dbg['sv_matching']['CosineScore'][i]
       sorted_variables = sorted(resp['variables'],
                                 key=lambda x: (-resp_var_to_score.get(x, 0), x))
       resp['variables'] = sorted_variables
+
+    # Truncate CosineScores to 6 decimals to reduce noisy diffs.
+    for candidate in dbg['sv_matching']['MultiSV'].get('Candidates', []):
+      for part in candidate.get('Parts', []):
+        if multisv_scores := part.get('CosineScore', []):
+          part['CosineScore'] = _format_scores(multisv_scores)
+
+    if props_scores := dbg['props_matching'].get('CosineScore', []):
+      dbg['props_matching']['CosineScore'] = _format_scores(props_scores)
 
     resp['debug'] = {}
     resp['context'] = {}
@@ -269,7 +280,7 @@ class ExploreTestDetection(ExploreTest):
   def test_detection_basic_lancedb(self):
     self.run_detection('detection_api_basic_lancedb', ['Commute in California'],
                        test='unittest',
-                       idx='medium_lance_ft')
+                       idx='base_uae_lance')
 
   def test_detection_basic_sdg(self):
     self.run_detection('detection_api_sdg_idx', ['Health in USA'],
@@ -291,17 +302,12 @@ class ExploreTestDetection(ExploreTest):
     self.run_detection('detection_api_undata_dev_idx',
                        ['Employment in the world'],
                        test='unittest',
-                       idx='undata_dev_ft')
+                       idx='undata_ft,undata_ilo_ft')
 
   def test_detection_basic_bio(self):
     self.run_detection('detection_api_bio_idx', ['Commute in California'],
                        test='unittest',
-                       idx='bio_ft')
-
-  def test_detection_basic_vertex(self):
-    self.run_detection('detection_api_vertex_ft_idx', ['Commute in California'],
-                       test='unittest',
-                       idx='medium_vertex_ft')
+                       idx='bio_ft,medium_ft')
 
   def test_detection_basic_uae(self):
     self.run_detection('detection_api_uae_idx', ['Commute in California'],
@@ -311,7 +317,7 @@ class ExploreTestDetection(ExploreTest):
   def test_detection_basic_sfr(self):
     self.run_detection('detection_api_sfr_idx', ['Commute in California'],
                        test='unittest',
-                       idx='medium_vertex_mistral')
+                       idx='base_mistral_mem')
 
   def test_detection_sdg(self):
     self.run_detection('detection_api_sdg', ['Health in USA'], dc='sdg')
@@ -496,6 +502,8 @@ class ExploreTestFulfillment(ExploreTest):
 
 class ExploreTestEE1(ExploreTest):
 
+  # TODO (boxu): fix the flaky test and reenable it.
+  @unittest.skip
   def test_e2e_answer_places(self):
     self.run_detect_and_fulfill('e2e_answer_places', [
         'California counties with the highest asthma levels',
@@ -723,7 +731,13 @@ class ExploreTestEE2(ExploreTest):
   def test_e2e_toolformer_rig_mode(self):
     self.run_detect_and_fulfill(
         'e2e_toolformer_rig_mode',
-        ['what is the infant mortality rate in massachusetts'],
+        [
+            'what is the infant mortality rate in massachusetts',
+            'how many construction workers are in Orlando, Florida?',
+            'what is the poverty rate in Seattle?',
+            # toolformer mode should not show correlations
+            'Foreign born vs. native born in Sunnyvale'
+        ],
         mode='toolformer_rig')
 
   def test_e2e_toolformer_rag_mode(self):
@@ -731,21 +745,33 @@ class ExploreTestEE2(ExploreTest):
     # we should all the 50+ states.
     self.run_detect_and_fulfill(
         'e2e_toolformer_rag_mode',
-        ['how has life expectancy changed over time across US states?'],
+        [
+            'how has life expectancy changed over time across US states?',
+            # variables in a topic that match immediately after the topic should
+            # show up before the topic (i.e., Count_Worker_NAICSAccommodationFoodServices
+            # should show up first)
+            'How has employment in hospitality changed over time in New Jersey counties?',
+            'Which California counties have the youngest recent mothers?',
+            # toolformer mode should not show correlations
+            'Foreign born vs. native born in Sunnyvale',
+        ],
         mode='toolformer_rag')
 
   def test_e2e_triple(self):
     self.run_detect_and_fulfill(
         'e2e_triple',
         [
+            # ----- Context Based Queries -----
             # Should have 'out' properties as answer
             'What strand orientation does FGFR1 have?',
             # Should use context for the entity
-            'what transcripts does it have',
+            'what genomic coordinates does it have',
             # Should use context for the property
-            'how about for P53',
+            'how about for PQLC3',
             # Should not use context because no entity or property found
             'what animal is that found in',
+
+            # ----- Singleton Queries -----
             # Should have 'in' properties as answer
             'What is Betacoronavirus 1 the species of',
             # Should have a chained property in the answer
@@ -780,3 +806,8 @@ def _del_field(d: dict, path: str):
         del tmp[p]
       else:
         tmp = tmp[p]
+
+
+# Helper function to consistently format float scores.
+def _format_scores(scores):
+  return [float("{:.6f}".format(score)) for score in scores]

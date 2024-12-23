@@ -34,13 +34,13 @@
 
 <head>
   {# Enable Google Analytics with cookieless tracking. #}
-  {% if GA_ACCOUNT %}
-  <script async src="https://www.googletagmanager.com/gtag/js?id={{ GA_ACCOUNT }}"></script>
+  {% if GOOGLE_ANALYTICS_TAG_ID %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_ANALYTICS_TAG_ID }}"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', '{{ GA_ACCOUNT }}', { client_storage: 'none', anonymize_ip: true });
+    gtag('config', '{{ GOOGLE_ANALYTICS_TAG_ID }}', { client_storage: 'none', anonymize_ip: true });
   </script>
   {% endif %}
   <title>{{ title }} - India Data Commons</title>
@@ -53,9 +53,13 @@
   {% block head %}
   {% endblock %}
   <link href="/custom_dc/iitm/style.css" rel="stylesheet">
+  <script src={{url_for('static', filename='queryStore.js', t=config['VERSION'])}} async></script>
 </head>
 
 <body id="iitm-india">
+  {# Set page locale. #}
+  <div id="metadata-base" class="d-none" data-locale="{{ locale }}"></div>
+  
   <div id="main">
     
     {% if is_homepage %}
@@ -104,9 +108,9 @@
               </li>
               <li class="nav-item dropdown"><a data-toggle="dropdown" aria-expanded="false" class="dropdown-toggle nav-link" href="#">Documentation</a>
                 <div role="menu" class="dropdown-menu">
-                  <a class="dropdown-item" href="http://docs.datacommons.org" target="_blank">Documentation</a>
-                  <a class="dropdown-item" href="http://docs.datacommons.org/api" target="_blank">APIs</a>
-                  <a class="dropdown-item" href="http://docs.datacommons.org/tutorials" target="_blank">Tutorials</a>
+                  <a class="dropdown-item" href="https://docs.datacommons.org" target="_blank">Documentation</a>
+                  <a class="dropdown-item" href="https://docs.datacommons.org/api" target="_blank">APIs</a>
+                  <a class="dropdown-item" href="https://docs.datacommons.org/tutorials" target="_blank">Tutorials</a>
                   <a class="dropdown-item" href="/about#contribute">Contribute</a>
                 </div>
               </li>
@@ -159,9 +163,9 @@
           <div class="col-sm-6 col-md-4">
             <h3 class="text-info pb-2 ">Documentation</h3>
             <ul class="list-unstyled d-inline-block d-sm-block">
-              <li class="mb-2"><a class="footer-links" href="http://docs.datacommons.org" target="_blank">Documentation</a></li>
-              <li class="mb-2"><a class="footer-links" href="http://docs.datacommons.org/api" target="_blank">APIs</a></li>
-              <li class="mb-2"><a class="footer-links" href="http://docs.datacommons.org/tutorials" target="_blank">Tutorials</a></li>
+              <li class="mb-2"><a class="footer-links" href="https://docs.datacommons.org" target="_blank">Documentation</a></li>
+              <li class="mb-2"><a class="footer-links" href="https://docs.datacommons.org/api" target="_blank">APIs</a></li>
+              <li class="mb-2"><a class="footer-links" href="https://docs.datacommons.org/tutorials" target="_blank">Tutorials</a></li>
               <li class="mb-2"><a class="footer-links" href="/about#contribute">Contribute</a></li>
               <li class="mb-2"><a class="footer-links" href="http://github.com/datacommonsorg" target="_blank">Github Repository</a></li>
             </ul>
@@ -197,8 +201,6 @@
               <a class="footer-links" target="_blank" href="https://www.iitm.ac.in/terms-use">{% trans %}Terms Of Use{% endtrans %}</a>
               {# TRANSLATORS: The label for a link to site privacy policy. #}
               <a class="footer-links" target="_blank" href="https://www.iitm.ac.in/privacy-policy">{% trans %}Privacy Policy{% endtrans %}</a>
-              {# TRANSLATORS: The label for a link to site disclaimers. #}
-              <a class="footer-links" href="{{ url_for('static.disclaimers') }}">{% trans %}Disclaimers{% endtrans %}</a>
               <span style="display: inline; font-weight: 600;">&nbsp;&nbsp;| &nbsp;&nbsp;India Data Commons</span>
             </div>
           </div>

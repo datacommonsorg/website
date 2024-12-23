@@ -18,15 +18,11 @@ from absl import app
 from absl import flags
 import requests
 
-import shared.lib.utils as shared_utils
-
 FLAGS = flags.FLAGS
 
 flags.DEFINE_string('queryset', '', 'Full path to queryset CSV')
 flags.DEFINE_string('queryset_vars', '', 'Full path to output queryset CSV')
 flags.DEFINE_string('endpoint', 'https://dev.datacommons.org', 'URL endpoint')
-
-_ALL_STOP_WORDS = shared_utils.combine_stop_words()
 
 
 def _url():
@@ -57,9 +53,7 @@ def clean_vars(query_file, output_file):
           failed_queries.append(query)
           continue
         resp = resp.json()
-        query_sans_places = resp['debug']['query_with_places_removed']
-        query_final = shared_utils.remove_stop_words(query_sans_places,
-                                                     _ALL_STOP_WORDS)
+        query_final = resp['debug']['query_with_places_removed']
         if not query_final:
           print('-> -EMPTY-')
           continue

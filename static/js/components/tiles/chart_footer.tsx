@@ -40,9 +40,6 @@ interface ChartFooterPropType {
 }
 
 export function ChartFooter(props: ChartFooterPropType): JSX.Element {
-  if (!props.handleEmbed && !props.exploreLink) {
-    return null;
-  }
   return (
     <>
       <slot name="footer" {...{ part: "footer" }}>
@@ -52,7 +49,7 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
         <div className="main-footer-section">
           <div className="outlinks">
             {props.handleEmbed && (
-              <div className="outlink-item">
+              <div className="outlink-item download-outlink">
                 <span className="material-icons-outlined">download</span>
                 <a
                   href="#"
@@ -69,7 +66,7 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
               </div>
             )}
             {props.exploreLink && (
-              <div className="outlink-item">
+              <div className="outlink-item explore-in-outlink">
                 <span className="material-icons-outlined">timeline</span>
                 <a
                   href={props.exploreLink.url}

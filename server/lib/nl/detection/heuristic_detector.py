@@ -29,11 +29,19 @@ from server.lib.nl.detection.types import SimpleClassificationAttributes
 from server.lib.nl.explore import params
 from server.lib.nl.explore.params import QueryMode
 
+TOOLFORMER_QUERY_REPLACEMENTS = {"residents": "people", "global": "world"}
+
 
 def detect(orig_query: str, cleaned_query: str,
            query_detection_debug_logs: Dict, counters: Counters,
            dargs: DetectionArgs) -> Detection:
-  place_detection = place.detect_from_query_dc(orig_query,
+  # If in toolformer mode, process the query by replacing strings in
+  # the query
+  query_with_string_replacements = orig_query
+  if (params.is_toolformer_mode(dargs.mode)):
+    query_with_string_replacements = dutils.replace_strings_in_query(
+        orig_query, TOOLFORMER_QUERY_REPLACEMENTS)
+  place_detection = place.detect_from_query_dc(query_with_string_replacements,
                                                query_detection_debug_logs,
                                                dargs.allow_triples)
 

@@ -8,57 +8,60 @@
   "query_with_places_removed": "compare obesity vs poverty",
   "sv_matching": {
     "CosineScore": [
-      0.8778441548347473,
-      0.8041589260101318,
-      0.7967697381973267,
-      0.7624962329864502,
-      0.7490016222000122,
-      0.7484045624732971,
-      0.7442891597747803,
-      0.7357535362243652,
-      0.7350345849990845,
-      0.7310352325439453,
-      0.7266256809234619,
-      0.72642582654953,
-      0.7230073809623718,
-      0.7192580103874207,
-      0.7148402333259583,
-      0.7139471769332886,
-      0.7126944065093994,
-      0.7112095355987549,
-      0.7085545063018799,
-      0.7085545063018799,
-      0.7080712914466858,
-      0.7078816890716553,
-      0.7053747177124023,
-      0.7033880949020386,
-      0.702430009841919,
-      0.7004527449607849,
-      0.6995818018913269,
-      0.6994994878768921,
-      0.6956697702407837,
-      0.6947900652885437
+      0.877844,
+      0.79677,
+      0.762497,
+      0.749946,
+      0.748405,
+      0.74429,
+      0.735754,
+      0.735035,
+      0.731035,
+      0.728962,
+      0.726626,
+      0.726426,
+      0.726426,
+      0.725391,
+      0.723008,
+      0.713948,
+      0.712695,
+      0.709485,
+      0.708555,
+      0.708554,
+      0.707882,
+      0.707771,
+      0.704539,
+      0.702431,
+      0.700454,
+      0.699499,
+      0.69567,
+      0.694791,
+      0.691324
     ],
     "MultiSV": {
       "Candidates": [
         {
-          "AggCosineScore": 0.9478,
+          "AggCosineScore": 0.9234,
           "DelimBased": true,
           "Parts": [
             {
               "CosineScore": [
-                0.8955401182174683,
-                0.8525744676589966
+                0.846783,
+                0.831656,
+                0.820154,
+                0.817707
               ],
               "QueryPart": "obesity",
               "SV": [
                 "Percent_Person_Obesity",
-                "WHO/NCD_BMI_30A"
+                "WHO/NCD_BMI_30A",
+                "dc/4lvmzr1h1ylk1",
+                "dc/x13tvt8jsgrm4"
               ]
             },
             {
               "CosineScore": [
-                1.0000001192092896
+                1.0
               ],
               "QueryPart": "poverty",
               "SV": [
@@ -72,35 +75,34 @@
     "Query": "compare obesity vs poverty",
     "SV": [
       "dc/topic/Poverty",
-      "Percent_Person_Obesity",
       "dc/topic/PovertyByRace",
       "dc/topic/SDG_1",
-      "WHO/NCD_BMI_30A",
+      "Percent_Person_Obesity",
       "dc/topic/sdg_1.2",
       "dc/topic/PovertyByGender",
       "dc/topic/PovertyByLanguageSpokenAtHome",
       "dc/topic/sdg_1.2.2",
       "Count_Household_HouseholderAge65OrMoreYears_FamilyHousehold_BelowPovertyLevelInThePast12Months",
+      "WHO/NCD_BMI_30A",
       "dc/topic/Malnutrition",
+      "dc/topic/sdg_2.1.1",
       "sdg/SN_ITK_DEFC",
-      "dc/topic/PovertyByResidency",
       "Count_Household_WithFoodStampsInThePast12Months_BelowPovertyLevelInThePast12Months",
-      "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
+      "dc/topic/PovertyByResidency",
       "dc/topic/sdg_1",
       "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months",
-      "dc/4lvmzr1h1ylk1",
+      "dc/x13tvt8jsgrm4",
       "dc/topic/FoodInsecurity",
       "dc/topic/sdg_2.1.2",
-      "WHO/NCD_BMI_18A",
       "Count_Household_WithoutFoodStampsInThePast12Months_AbovePovertyLevelInThePast12Months",
-      "WHO/NUTOVERWEIGHTPREV",
-      "dc/x13tvt8jsgrm4",
+      "dc/4lvmzr1h1ylk1",
+      "Count_Household_MarriedCoupleFamilyHousehold_BelowPovertyLevelInThePast12Months",
       "Count_Household_WithFoodStampsInThePast12Months_AbovePovertyLevelInThePast12Months",
       "dc/topic/HealthEquity",
-      "WHO/NUTRITION_WA_2",
       "dc/topic/sdg_1.2.1",
       "Count_Person_BelowPovertyLevelInThePast12Months_TwoOrMoreRaces",
-      "Count_Person_Male_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces"
+      "Count_Person_Male_AbovePovertyLevelInThePast12Months_TwoOrMoreRaces",
+      "sdg/SI_POV_DAY1"
     ]
   },
   "props_matching": {

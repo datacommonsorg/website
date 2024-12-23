@@ -213,8 +213,7 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "geoId/06"
@@ -940,9 +939,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Age_Person_HispanicOrLatino"
+                      "Median_Age_Person_NoHealthInsurance"
                     ],
-                    "title": "Median Age of Hispanic or Latino Population in Counties of California (${date})",
+                    "title": "Median Age of Population With No Health Insurance in Counties of California (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -955,15 +954,15 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Median_Age_Person_HispanicOrLatino"
+                      "Median_Age_Person_NoHealthInsurance"
                     ],
-                    "title": "Median Age of Hispanic or Latino Population in Counties of California (${date})",
+                    "title": "Median Age of Population With No Health Insurance in Counties of California (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Median Age of Hispanic or Latino Population in Counties of California"
+            "title": "Median Age of Population With No Health Insurance in Counties of California"
           },
           {
             "columns": [
@@ -971,9 +970,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Median_Age_Person_HispanicOrLatino"
+                      "Median_Age_Person_NoHealthInsurance"
                     ],
-                    "title": "Median Age of Hispanic or Latino Population in California",
+                    "title": "Median Age of Population With No Health Insurance in California",
                     "type": "LINE"
                   }
                 ]
@@ -981,17 +980,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Median Age of Hispanic or Latino Population in California",
+                    "description": "Median Age of Population With No Health Insurance in California",
                     "statVarKey": [
-                      "Median_Age_Person_HispanicOrLatino"
+                      "Median_Age_Person_NoHealthInsurance"
                     ],
-                    "title": "Median Age of Hispanic or Latino Population in California",
+                    "title": "Median Age of Population With No Health Insurance in California",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Median Age of Hispanic or Latino Population"
+            "title": "Median Age of Population With No Health Insurance"
           }
         ],
         "statVarSpec": {
@@ -1079,10 +1078,6 @@
             "name": "Median Age: Foreign Born",
             "statVar": "Median_Age_Person_ForeignBorn"
           },
-          "Median_Age_Person_HispanicOrLatino": {
-            "name": "Median Age of Hispanic or Latino Population",
-            "statVar": "Median_Age_Person_HispanicOrLatino"
-          },
           "Median_Age_Person_Male": {
             "name": "Men's Median Age",
             "statVar": "Median_Age_Person_Male"
@@ -1098,6 +1093,10 @@
           "Median_Age_Person_Native": {
             "name": "Median Age: Native",
             "statVar": "Median_Age_Person_Native"
+          },
+          "Median_Age_Person_NoHealthInsurance": {
+            "name": "Median Age of Population With No Health Insurance",
+            "statVar": "Median_Age_Person_NoHealthInsurance"
           },
           "Median_Age_Person_TwoOrMoreRaces": {
             "name": "Median Age of Multiracial Population",
@@ -1558,7 +1557,6 @@
         "race": [
           "Median_Age_Person_AsianAlone",
           "Median_Age_Person_BlackOrAfricanAmericanAlone",
-          "Median_Age_Person_HispanicOrLatino",
           "Median_Age_Person_TwoOrMoreRaces",
           "Median_Age_Person_WhiteAlone"
         ]
@@ -1959,6 +1957,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "",
   "userMessages": []
 }

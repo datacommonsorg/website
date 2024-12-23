@@ -25,7 +25,7 @@ namespace:
 
 website:
   flaskEnv: unsdg
-  replicas: 50
+  replicas: 10
   redis:
     enabled: true
     configFile: |
@@ -41,6 +41,7 @@ serviceAccount:
 
 ingress:
   enabled: true
+  enableMixer: true
 
 nl:
   enabled: true
@@ -55,13 +56,17 @@ nl:
 serviceGroups:
   recon: null
   svg:
-    replicas: 5
+    replicas: 3
   node:
-    replicas: 50
+    replicas: 3
   observation:
-    replicas: 50
+    replicas: 3
   default:
-    replicas: 30
+    replicas: 3
+    cacheSVG: true # For REST api support
+    resources:
+      memoryRequest: "8G"
+      memoryLimit: "8G"
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]

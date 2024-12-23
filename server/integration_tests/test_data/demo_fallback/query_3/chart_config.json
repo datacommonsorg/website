@@ -71,6 +71,35 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_CriminalActivities_MurderAndNonNegligentManslaughter"
+                    ],
+                    "title": "Murder and Non Negligent Manslaughter Cases in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Murder and Non Negligent Manslaughter Cases in California",
+                    "statVarKey": [
+                      "Count_CriminalActivities_MurderAndNonNegligentManslaughter"
+                    ],
+                    "title": "Murder and Non Negligent Manslaughter Cases in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Murder and Non Negligent Manslaughter Cases"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Count_CriminalIncidents_IsHateCrime"
                     ],
                     "title": "Hate Crime Incidents in California",
@@ -112,35 +141,6 @@
             ],
             "denom": "Count_Person",
             "title": "Hate Crime Cases by Type"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_CriminalActivities_MurderAndNonNegligentManslaughter"
-                    ],
-                    "title": "Murder and Non Negligent Manslaughter Cases in California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Murder and Non Negligent Manslaughter Cases in California",
-                    "statVarKey": [
-                      "Count_CriminalActivities_MurderAndNonNegligentManslaughter"
-                    ],
-                    "title": "Murder and Non Negligent Manslaughter Cases in California",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Murder and Non Negligent Manslaughter Cases"
           },
           {
             "columns": [
@@ -387,7 +387,6 @@
     "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "Sorry, there were no relevant statistics for counties in California. See results for California.",
   "userMessages": [
     "Sorry, there were no relevant statistics for counties in California. See results for California."
   ]

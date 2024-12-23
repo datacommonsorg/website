@@ -96,7 +96,8 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
   i18n = i18n_str and i18n_str.lower() == 'true'
 
   # Index-type default is in nl_server.
-  embeddings_index_type = request.args.get(params.Params.INDEX.value, '')
+  idx_param_str = request.args.get(params.Params.INDEX.value, '')
+  embeddings_index_types = [x.strip() for x in idx_param_str.split(',')]
   original_query = request.args.get('q')
   if not original_query:
     err_json = helpers.abort(
@@ -109,7 +110,8 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
   if request.get_json():
     context_history = request.get_json().get('contextHistory', [])
   dc = request.get_json().get('dc', '')
-  embeddings_index_type = params.dc_to_embedding_type(dc, embeddings_index_type)
+  embeddings_index_types = params.dc_to_embedding_types(dc,
+                                                        embeddings_index_types)
 
   detector_type = request.args.get(params.Params.DETECTOR.value,
                                    default=RequestedDetectorType.Hybrid.value,
@@ -121,6 +123,9 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
   if mode == QueryMode.STRICT:
     # Strict mode is compatible only with Heuristic Detector!
     detector_type = RequestedDetectorType.Heuristic.value
+    use_default_place = False
+  elif params.is_toolformer_mode(mode):
+    # do not use default place for toolformer
     use_default_place = False
 
   counters = ctr.Counters()
@@ -189,7 +194,7 @@ def parse_query_and_detect(request: Dict, backend: str, client: str,
       params.Params.INCLUDE_STOP_WORDS.value, '')
 
   detection_args = DetectionArgs(
-      embeddings_index_type=embeddings_index_type,
+      embeddings_index_types=embeddings_index_types,
       mode=mode,
       reranker=reranker,
       allow_triples=allow_triples,
@@ -352,9 +357,6 @@ def prepare_response(utterance: nl_utterance.Utterance,
       'pastSourceContext': utterance.past_source_context,
       'relatedThings': related_things,
       'userMessages': user_messages,
-      # TODO: userMessage is currently in use by UN client. Deprecate this once
-      # that code is updated.
-      'userMessage': user_messages[0] if len(user_messages) > 0 else "",
   }
   if user_message.show_form:
     data_dict['showForm'] = True
@@ -425,9 +427,6 @@ def abort(error_message: str,
       'context': escaped_context_history,
       'failure': error_message,
       'userMessages': [error_message],
-      # TODO: userMessage is currently in use by UN client. Deprecate this once
-      # that code is updated.
-      'userMessage': error_message
   }
 
   if not counters:

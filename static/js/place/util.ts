@@ -19,12 +19,9 @@ import { intl } from "../i18n/i18n";
 import { USA_PLACE_DCID } from "../shared/constants";
 
 /**
- * Given a list of parent places, return true if the place is in USA.
+ * Given a list of parent places, return true if one of them is the USA country DCID.
  */
-export function isPlaceInUsa(dcid: string, parentPlaces: string[]): boolean {
-  if (dcid === USA_PLACE_DCID) {
-    return true;
-  }
+export function isPlaceContainedInUsa(parentPlaces: string[]): boolean {
   for (const parent of parentPlaces) {
     if (parent === USA_PLACE_DCID) {
       return true;
@@ -32,6 +29,13 @@ export function isPlaceInUsa(dcid: string, parentPlaces: string[]): boolean {
   }
   return false;
 }
+/**
+ * Given a DCID and list of parent places, returns whether this dcid is the USA, or contained in the USA.
+ */
+export function isPlaceInUsa(dcid: string, parentPlaces: string[]): boolean {
+  return dcid === USA_PLACE_DCID || isPlaceContainedInUsa(parentPlaces);
+}
+
 /**
  * A set of place types to render a choropleth for.
  */

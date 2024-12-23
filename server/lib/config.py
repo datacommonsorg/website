@@ -31,9 +31,9 @@ def get_config():
   try:
     cfg = import_string(config_class)()
     cfg.ENV = env
-    # USE_LOCAL_MIXER
-    if cfg.LOCAL and os.environ.get('USE_LOCAL_MIXER') == 'true':
-      cfg.API_ROOT = 'http://127.0.0.1:8081'
+    # Override the api mixer path (API_ROOT) if WEBSITE_MIXER_API_ROOT is set
+    if os.environ.get("WEBSITE_MIXER_API_ROOT"):
+      cfg.API_ROOT = os.environ.get("WEBSITE_MIXER_API_ROOT")
     # Set up secret project for GCP deployment
     if not cfg.LOCAL:
       try:

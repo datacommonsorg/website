@@ -37,174 +37,6 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "Percent_Person_Obesity"
-                    ],
-                    "title": "Prevalence of Obesity in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Prevalence of Obesity in Sunnyvale",
-                    "statVarKey": [
-                      "Percent_Person_Obesity"
-                    ],
-                    "title": "Prevalence of Obesity in Sunnyvale",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Prevalence of Obesity"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Percent_Person_WithChronicObstructivePulmonaryDisease"
-                    ],
-                    "title": "Chronic Obstructive Pulmonary Disease in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Chronic Obstructive Pulmonary Disease in Sunnyvale",
-                    "statVarKey": [
-                      "Percent_Person_WithChronicObstructivePulmonaryDisease"
-                    ],
-                    "title": "Chronic Obstructive Pulmonary Disease in Sunnyvale",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Chronic Obstructive Pulmonary Disease"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Percent_Person_PhysicalInactivity"
-                    ],
-                    "title": "Prevalence of Physical Inactivity in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Prevalence of Physical Inactivity in Sunnyvale",
-                    "statVarKey": [
-                      "Percent_Person_PhysicalInactivity"
-                    ],
-                    "title": "Prevalence of Physical Inactivity in Sunnyvale",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Prevalence of Physical Inactivity"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Percent_Person_Smoking"
-                    ],
-                    "title": "Prevalence of Smoking in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Prevalence of Smoking in Sunnyvale",
-                    "statVarKey": [
-                      "Percent_Person_Smoking"
-                    ],
-                    "title": "Prevalence of Smoking in Sunnyvale",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Prevalence of Smoking"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Percent_Person_WithHighBloodPressure"
-                    ],
-                    "title": "High Blood Pressure in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "High Blood Pressure in Sunnyvale",
-                    "statVarKey": [
-                      "Percent_Person_WithHighBloodPressure"
-                    ],
-                    "title": "High Blood Pressure in Sunnyvale",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "High Blood Pressure"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Percent_Person_WithArthritis"
-                    ],
-                    "title": "Arthritis in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Arthritis in Sunnyvale",
-                    "statVarKey": [
-                      "Percent_Person_WithArthritis"
-                    ],
-                    "title": "Arthritis in Sunnyvale",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Arthritis"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "barTileSpec": {
                       "maxPlaces": 15,
                       "maxVariables": 15,
@@ -237,26 +69,6 @@
               }
             ],
             "title": "Related: Asthma and More"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Percent_Person_Obesity",
-                      "Percent_Person_BingeDrinking",
-                      "Percent_Person_PhysicalInactivity",
-                      "Percent_Person_SleepLessThan7Hours",
-                      "Percent_Person_Smoking"
-                    ],
-                    "title": "Prevalence of Obesity and More in Sunnyvale",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Related: Prevalence of Obesity and More"
           }
         ],
         "statVarSpec": {
@@ -270,39 +82,9 @@
             "statVar": "Percent_Person_18OrMoreYears_WithPoorGeneralHealth",
             "unit": "%"
           },
-          "Percent_Person_BingeDrinking": {
-            "name": "Prevalence of Binge Drinking",
-            "statVar": "Percent_Person_BingeDrinking",
-            "unit": "%"
-          },
-          "Percent_Person_Obesity": {
-            "name": "Prevalence of Obesity",
-            "statVar": "Percent_Person_Obesity",
-            "unit": "%"
-          },
-          "Percent_Person_PhysicalInactivity": {
-            "name": "Prevalence of Physical Inactivity",
-            "statVar": "Percent_Person_PhysicalInactivity",
-            "unit": "%"
-          },
-          "Percent_Person_SleepLessThan7Hours": {
-            "name": "Percentage That Sleeps Less Than 7 Hours Per Night",
-            "statVar": "Percent_Person_SleepLessThan7Hours",
-            "unit": "%"
-          },
-          "Percent_Person_Smoking": {
-            "name": "Prevalence of Smoking",
-            "statVar": "Percent_Person_Smoking",
-            "unit": "%"
-          },
           "Percent_Person_WithAllTeethLoss_multiple_place_bar_block": {
             "name": "Prevalance of Complete Tooth Loss in the Population",
             "statVar": "Percent_Person_WithAllTeethLoss",
-            "unit": "%"
-          },
-          "Percent_Person_WithArthritis": {
-            "name": "Arthritis",
-            "statVar": "Percent_Person_WithArthritis",
             "unit": "%"
           },
           "Percent_Person_WithArthritis_multiple_place_bar_block": {
@@ -330,11 +112,6 @@
             "statVar": "Percent_Person_WithChronicKidneyDisease",
             "unit": "%"
           },
-          "Percent_Person_WithChronicObstructivePulmonaryDisease": {
-            "name": "Chronic Obstructive Pulmonary Disease",
-            "statVar": "Percent_Person_WithChronicObstructivePulmonaryDisease",
-            "unit": "%"
-          },
           "Percent_Person_WithChronicObstructivePulmonaryDisease_multiple_place_bar_block": {
             "name": "Chronic Obstructive Pulmonary Disease",
             "statVar": "Percent_Person_WithChronicObstructivePulmonaryDisease",
@@ -348,11 +125,6 @@
           "Percent_Person_WithDiabetes_multiple_place_bar_block": {
             "name": "Diabetes",
             "statVar": "Percent_Person_WithDiabetes",
-            "unit": "%"
-          },
-          "Percent_Person_WithHighBloodPressure": {
-            "name": "High Blood Pressure",
-            "statVar": "Percent_Person_WithHighBloodPressure",
             "unit": "%"
           },
           "Percent_Person_WithHighBloodPressure_multiple_place_bar_block": {
@@ -409,83 +181,12 @@
   ],
   "relatedThings": {
     "childPlaces": {},
-    "childTopics": [
-      {
-        "dcid": "dc/topic/Arthritis",
-        "name": "Arthritis",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Asthma",
-        "name": "Asthma",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/BloodPressure",
-        "name": "Blood Pressure",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Cancer",
-        "name": "Cancer",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Cholesterol",
-        "name": "Cholesterol",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Diabetes",
-        "name": "Diabetes",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/HeartDisease",
-        "name": "Heart Disease",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/MentalHealth",
-        "name": "Mental Health",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/KidneyDisease",
-        "name": "Kidney Disease",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
-        "dcid": "dc/topic/Stroke",
-        "name": "Stroke",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "childTopics": [],
     "exploreMore": {},
     "mainTopics": [
       {
-        "dcid": "dc/topic/HealthConditions",
-        "name": "Health Conditions",
+        "dcid": "dc/topic/Asthma",
+        "name": "Asthma",
         "types": [
           "Topic"
         ]
@@ -494,8 +195,8 @@
     "parentPlaces": [],
     "parentTopics": [
       {
-        "dcid": "dc/topic/Health",
-        "name": "Health",
+        "dcid": "dc/topic/HealthConditions",
+        "name": "Health Conditions",
         "types": [
           "Topic"
         ]
@@ -855,22 +556,64 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/HealthEquity",
-        "name": "Health Equity",
+        "dcid": "dc/topic/Arthritis",
+        "name": "Arthritis",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/HealthInsurance",
-        "name": "Health Insurance",
+        "dcid": "dc/topic/BloodPressure",
+        "name": "Blood Pressure",
         "types": [
           "Topic"
         ]
       },
       {
-        "dcid": "dc/topic/PreventativeHealthAndBehavior",
-        "name": "Preventive Health and Behavior",
+        "dcid": "dc/topic/Cancer",
+        "name": "Cancer",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Cholesterol",
+        "name": "Cholesterol",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Diabetes",
+        "name": "Diabetes",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HeartDisease",
+        "name": "Heart Disease",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/MentalHealth",
+        "name": "Mental Health",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/KidneyDisease",
+        "name": "Kidney Disease",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Stroke",
+        "name": "Stroke",
         "types": [
           "Topic"
         ]
@@ -878,7 +621,6 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "See relevant statistics for Sunnyvale based on the previous query.",
   "userMessages": [
     "See relevant statistics for Sunnyvale based on the previous query."
   ]

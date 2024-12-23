@@ -19,7 +19,6 @@
 @import "../place_selector";
 @import "../tiles.scss";
 @import "../draw_scatter.scss";
-@import "../bq_modal";
 @import "../source_selector";
 
 $selector-footer-height: 40px;
@@ -52,7 +51,7 @@ $selector-footer-height: 40px;
 }
 
 .visualization-app {
-  width: 100%;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   overflow: auto;
@@ -112,6 +111,8 @@ $selector-footer-height: 40px;
 /* Selected options section */
 
 .selected-options-container {
+  width: 100vw;
+  margin: auto;
   display: flex;
   background-color: #faf9f9;
   padding: 12px 32px 12px 32px;
@@ -250,7 +251,7 @@ $selector-footer-height: 40px;
   justify-content: center;
   flex-grow: 1;
 
-  @include media-breakpoint-down(md) {
+  @media (max-width: 1350px) {
     flex-direction: column;
   }
 }
@@ -265,7 +266,7 @@ $selector-footer-height: 40px;
   // Account for selector padding when setting the width to avoid scroll overflow
   min-width: $widget-min-width + 2 * 16;
 
-  @include media-breakpoint-down(md) {
+  @media (max-width: 1350px) {
     min-width: 300px;
   }
 }

@@ -18,33 +18,19 @@ from typing import Dict
 from nl_server import config_reader
 from nl_server.config import IndexConfig
 from nl_server.config import ModelConfig
-from nl_server.config import ModelType
 from nl_server.config import ModelUsage
 from nl_server.config import ServerConfig
 from nl_server.config import StoreType
 from nl_server.embeddings import Embeddings
 from nl_server.embeddings import EmbeddingsModel
 from nl_server.model.attribute_model import AttributeModel
-from nl_server.model.sentence_transformer import LocalSentenceTransformerModel
-from nl_server.model.vertexai import VertexAIEmbeddingsModel
-from nl_server.model.vertexai import VertexAIRerankingModel
+from nl_server.model.create import create_embeddings_model
 from nl_server.ranking import RerankingModel
 from nl_server.store.memory import MemoryEmbeddingsStore
 from nl_server.store.vertexai import VertexAIStore
 from shared.lib.custom_dc_util import is_custom_dc
 
 REGISTRY_KEY: str = 'REGISTRY'
-
-
-def create_model(model_config: ModelConfig) -> EmbeddingsModel:
-  if model_config.type == ModelType.VERTEXAI:
-    if model_config.usage == ModelUsage.EMBEDDINGS:
-      return VertexAIEmbeddingsModel(model_config)
-    elif model_config.usage == ModelUsage.RERANKING:
-      return VertexAIRerankingModel(model_config)
-  elif model_config.type == ModelType.LOCAL:
-    return LocalSentenceTransformerModel(model_config)
-  raise ValueError(f'Unknown model type: {model_config.type}')
 
 
 class Registry:
@@ -97,7 +83,7 @@ class Registry:
 
       # try creating a model object from the model info
       try:
-        self.name_to_model[model_name] = create_model(model_config)
+        self.name_to_model[model_name] = create_embeddings_model(model_config)
       except Exception as e:
         logging.error(f'error loading model {model_name}: {str(e)} ')
         raise e
@@ -132,13 +118,19 @@ class Registry:
           model=self.name_to_model[idx_info.model], store=store)
 
 
-def build() -> Registry:
+def build(additional_catalog: dict = None,
+          additional_catalog_path: str = None) -> Registry:
   """
   Build the registry based on available catalog and environment config files.
-
   This also get all the model/index resources downloaded and ready to use.
+
+  Args:
+    additional_catalog: additional catalog config to be merged with the default
+    catalog.
   """
-  catalog = config_reader.read_catalog()
+  catalog = config_reader.read_catalog(
+      catalog_dict=additional_catalog,
+      additional_catalog_path=additional_catalog_path)
   env = config_reader.read_env()
   server_config = config_reader.get_server_config(catalog, env)
   return Registry(server_config)

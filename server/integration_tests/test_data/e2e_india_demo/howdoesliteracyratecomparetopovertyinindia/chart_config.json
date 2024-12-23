@@ -9,88 +9,26 @@
               {
                 "tiles": [
                   {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
                     },
-                    "statVarKey": [
-                      "Count_Person_Literate_scatter",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_scatter"
+                    "comparisonPlaces": [
+                      "country/IND"
                     ],
-                    "title": "Population: Literate (${yDate}) Vs. Population Below Poverty Line (${xDate}) in Administrative Area 1 Places of India",
-                    "type": "SCATTER"
+                    "statVarKey": [
+                      "Count_Person_Literate_multiple_place_bar_block",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
+                    ],
+                    "title": "Population: Literate and Population Below Poverty Line in India (${date})",
+                    "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
-            "title": "Population: Literate vs. Population Below poverty line"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_Literate"
-                    ],
-                    "title": "Population: Literate in Administrative Area 1 Places of India (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_Literate"
-                    ],
-                    "title": "Population: Literate in Administrative Area 1 Places of India (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "startWithDenom": true,
-            "title": "Population: Literate in Administrative Area 1 Places of India"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Population Below Poverty Line in Administrative Area 1 Places of India (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Population Below Poverty Line in Administrative Area 1 Places of India (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "startWithDenom": true,
-            "title": "Population Below Poverty Line in Administrative Area 1 Places of India"
+            "title": "Population: Literate and Population Below Poverty Line"
           },
           {
             "columns": [
@@ -111,7 +49,6 @@
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
             "title": "Population: Illiterate vs. Population Below poverty line (Per Capita)"
           },
           {
@@ -195,7 +132,6 @@
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
             "title": "Population: Literate vs. Population Below poverty line (Per Capita)"
           },
           {
@@ -203,29 +139,60 @@
               {
                 "tiles": [
                   {
-                    "scatterTileSpec": {
-                      "highlightTopRight": true
+                    "statVarKey": [
+                      "Count_Person_Literate"
+                    ],
+                    "title": "Population: Literate in Administrative Area 1 Places of India (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "Count_Person_Illiterate_scatter",
-                      "Count_Person_BelowPovertyLevelInThePast12Months_scatter"
+                      "Count_Person_Literate"
                     ],
-                    "title": "Population: Illiterate (${yDate}) Vs. Population Below Poverty Line (${xDate}) in Administrative Area 1 Places of India",
-                    "type": "SCATTER"
+                    "title": "Population: Literate in Administrative Area 1 Places of India (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Population: Literate in Administrative Area 1 Places of India"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/IND"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Illiterate_multiple_place_bar_block",
+                      "Count_Person_BelowPovertyLevelInThePast12Months_multiple_place_bar_block"
+                    ],
+                    "title": "Population: Illiterate and Population Below Poverty Line in India (${date})",
+                    "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "startWithDenom": true,
-            "title": "Population: Illiterate vs. Population Below poverty line"
+            "title": "Population: Illiterate and Population Below Poverty Line"
           }
         ],
         "statVarSpec": {
-          "Count_Person_BelowPovertyLevelInThePast12Months": {
-            "name": "Population Below poverty line",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
-          },
           "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person": {
             "name": "Population Below poverty line (Per Capita)",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
@@ -235,11 +202,15 @@
             "noPerCapita": true,
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
           },
-          "Count_Person_BelowPovertyLevelInThePast12Months_scatter": {
+          "Count_Person_BelowPovertyLevelInThePast12Months_multiple_place_bar_block": {
             "name": "Population Below poverty line",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
           },
           "Count_Person_Illiterate": {
+            "name": "Population: Illiterate",
+            "statVar": "Count_Person_Illiterate"
+          },
+          "Count_Person_Illiterate_multiple_place_bar_block": {
             "name": "Population: Illiterate",
             "statVar": "Count_Person_Illiterate"
           },
@@ -248,6 +219,10 @@
             "statVar": "Count_Person_Illiterate"
           },
           "Count_Person_Literate": {
+            "name": "Population: Literate",
+            "statVar": "Count_Person_Literate"
+          },
+          "Count_Person_Literate_multiple_place_bar_block": {
             "name": "Population: Literate",
             "statVar": "Count_Person_Literate"
           },
@@ -588,10 +563,6 @@
         "placeOfResidenceClassification": [
           "Count_Person_Illiterate_Rural",
           "Count_Person_Illiterate_Urban"
-        ],
-        "religion": [
-          "indianCensus/Count_Person_Religion_Buddhist_Illiterate",
-          "indianCensus/Count_Person_Religion_Christian_Illiterate"
         ]
       },
       "Count_Person_Literate": {
@@ -729,13 +700,6 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/Employment",
-        "name": "Employment",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
         "dcid": "dc/topic/GlobalEconomicActivity",
         "name": "Global Economic Activity",
         "types": [
@@ -759,6 +723,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "",
   "userMessages": []
 }

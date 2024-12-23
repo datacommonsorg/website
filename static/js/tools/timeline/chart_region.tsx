@@ -22,8 +22,6 @@ import { StatMetadata } from "../../shared/stat_types";
 import { StatVarInfo } from "../../shared/stat_var";
 import { saveToFile } from "../../shared/util";
 import { getStatVarGroups } from "../../utils/app/timeline_utils";
-import { BqModal } from "../shared/bq_modal";
-import { getTimelineSqlQuery } from "./bq_query_utils";
 import { Chart } from "./chart";
 import { StatData } from "./data_fetcher";
 import {
@@ -57,7 +55,6 @@ interface ChartRegionPropsType {
 class ChartRegion extends Component<ChartRegionPropsType> {
   downloadLink: HTMLAnchorElement;
   bulkDownloadLink: HTMLAnchorElement;
-  bqLink: HTMLAnchorElement;
   allStatData: { [key: string]: StatData };
   // map of stat var dcid to map of metahash to source metadata
   metadataMap: Record<string, Record<string, StatMetadata>>;
@@ -70,7 +67,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
       "download-link"
     ) as HTMLAnchorElement;
     if (this.downloadLink) {
-      this.downloadLink.onclick = () => {
+      this.downloadLink.onclick = (): void => {
         saveToFile("export.csv", this.createDataCsv(this.props.placeName));
       };
     }
@@ -78,7 +75,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
       "bulk-download-link"
     ) as HTMLAnchorElement;
     if (this.bulkDownloadLink) {
-      this.bulkDownloadLink.onclick = () => {
+      this.bulkDownloadLink.onclick = (): void => {
         // Carry over hash params, which is used by the bulk download tool for
         // stat var parsing.
         window.location.href = window.location.href.replace(
@@ -87,8 +84,6 @@ class ChartRegion extends Component<ChartRegionPropsType> {
         );
       };
     }
-    // TODO: uncomment to re-enable opening big query
-    // this.bqLink = setUpBqButton(this.getSqlQuery);
   }
 
   render(): JSX.Element {
@@ -103,11 +98,6 @@ class ChartRegion extends Component<ChartRegionPropsType> {
       this.props.statVarOrder,
       this.props.statVarInfo
     );
-    if (this.bqLink) {
-      this.bqLink.style.display = this.shouldShowBqButton(chartGroupInfo)
-        ? "inline-block"
-        : "none";
-    }
     return (
       <React.Fragment>
         {chartGroupInfo.chartOrder.map((mprop) => {
@@ -124,7 +114,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
               denom={chartGroupInfo.chartIdToOptions[mprop].denom}
               delta={chartGroupInfo.chartIdToOptions[mprop].delta}
               onDataUpdate={this.onDataUpdate.bind(this)}
-              removeStatVar={(statVar) => {
+              removeStatVar={(statVar): void => {
                 removeToken("statsVar", statVarSep, statVar);
                 setMetahash({ [statVar]: "" });
               }}
@@ -132,24 +122,17 @@ class ChartRegion extends Component<ChartRegionPropsType> {
                 getMetahash(),
                 chartGroupInfo.chartIdToStatVars[mprop]
               )}
-              onMetadataMapUpdate={(metadataMap) => {
+              onMetadataMapUpdate={(metadataMap): void => {
                 this.metadataMap = { ...this.metadataMap, ...metadataMap };
               }}
             ></Chart>
           );
         }, this)}
-        <BqModal
-          getSqlQuery={this.getSqlQuery(chartGroupInfo).bind(this)}
-          showButton={this.shouldShowBqButton(chartGroupInfo)}
-        />
       </React.Fragment>
     );
   }
 
-  componentWillUnmount() {
-    if (this.bqLink) {
-      this.bqLink.style.display = "none";
-    }
+  componentWillUnmount(): void {
     if (this.downloadLink) {
       this.downloadLink.style.display = "none";
     }
@@ -158,7 +141,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     }
   }
 
-  private onDataUpdate(groupId: string, data: StatData) {
+  private onDataUpdate(groupId: string, data: StatData): void {
     this.allStatData[groupId] = data;
     const displayStyle =
       Object.keys(this.allStatData).length > 0 ? "inline-block" : "none";
@@ -201,7 +184,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     };
   }
 
-  private createDataCsv(placeNames: Record<string, string>) {
+  private createDataCsv(placeNames: Record<string, string>): string {
     // Get all the dates
     let allDates = new Set<string>();
     for (const mprop in this.allStatData) {
@@ -254,24 +237,6 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     }
     return result;
   }
-
-  private shouldShowBqButton(chartGroupInfo: ChartGroupInfo): boolean {
-    for (const mprop of Object.keys(chartGroupInfo.chartIdToStatVars)) {
-      if (!getChartOption(mprop, "delta")) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  private getSqlQuery = (chartGroupInfo: ChartGroupInfo) => () => {
-    return getTimelineSqlQuery(
-      chartGroupInfo,
-      Object.keys(this.props.placeName),
-      getMetahash(),
-      this.metadataMap
-    );
-  };
 }
 
 export { ChartRegion, ChartRegionPropsType, StatVarInfo };

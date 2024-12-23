@@ -13,7 +13,7 @@
 # limitations under the License.
 
 from enum import Enum
-from typing import Dict
+from typing import Dict, List
 
 from server.lib.nl.detection.types import DetectionArgs
 from shared.lib import constants
@@ -49,6 +49,8 @@ class Params(str, Enum):
   DETECTOR = 'detector'
   INDEX = 'idx'
   RERANKER = 'reranker'
+  # If set, then don't get related things
+  SKIP_RELATED_THINGS = 'skipRelatedThings'
 
 
 class DCNames(str, Enum):
@@ -124,18 +126,18 @@ def is_bio(insight_ctx: Dict) -> bool:
   return insight_ctx.get(Params.DC.value) == DCNames.BIO_DC.value
 
 
-def dc_to_embedding_type(dc: str, embeddings_type: str) -> str:
+def dc_to_embedding_types(dc: str, embeddings_types: List[str]) -> List[str]:
   if dc in SDG_DC_LIST:
-    return 'sdg_ft'
+    return ['sdg_ft']
   elif dc == DCNames.UNDATA_DC.value:
-    return 'undata_ft'
+    return ['undata_ft']
   elif dc == DCNames.UNDATA_ILO_DC.value:
-    return 'undata_ilo_ft'
+    return ['undata_ilo_ft']
   elif dc == DCNames.UNDATA_DEV_DC.value:
-    return 'undata_dev_ft'
+    return ['undata_ft', 'undata_ilo_ft']
   elif dc == DCNames.BIO_DC.value:
-    return 'bio_ft'
-  return embeddings_type
+    return ['medium_ft', 'bio_ft']
+  return embeddings_types
 
 
 def is_toolformer_mode(mode: QueryMode) -> bool:

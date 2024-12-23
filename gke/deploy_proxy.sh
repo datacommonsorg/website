@@ -60,3 +60,9 @@ curl -H "Authorization: Bearer $AUTH" -X POST \
 echo "*** Confirming deployment"
 curl -H "Authorization: Bearer $AUTH" \
   "https://apigee.googleapis.com/v1/organizations/$PROJECT_ID/environments/$ENVIRONMENT_NAME/apis/$PROXY_NAME/revisions/$REVISION/deployments"
+
+
+echo "*** Enabling DNS peering between default network and website.internal. dns suffix ***"
+gcloud services peered-dns-domains create apigee-website-cloud-dns-peering \
+    --network=default \
+    --dns-suffix=website.internal.

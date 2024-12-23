@@ -9,11 +9,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Undernourished People in Nigeria",
+                    "description": "Number of Undernourished People in Nigeria",
                     "statVarKey": [
                       "sdg/SN_ITK_DEFCN"
                     ],
-                    "title": "Undernourished People in Nigeria",
+                    "title": "Number of Undernourished People in Nigeria",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -24,14 +24,14 @@
                     "statVarKey": [
                       "sdg/SN_ITK_DEFCN"
                     ],
-                    "title": "Undernourished People in Nigeria",
+                    "title": "Number of Undernourished People in Nigeria",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO).",
-            "title": "Undernourished People"
+            "title": "Number of Undernourished People"
           },
           {
             "columns": [
@@ -67,11 +67,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Moderately or Severely Food Insecure People in Nigeria",
+                    "description": "Population in Moderate or Severe Food Insecurity in Nigeria",
                     "statVarKey": [
                       "sdg/AG_PRD_FIESMSN"
                     ],
-                    "title": "Moderately or Severely Food Insecure People in Nigeria",
+                    "title": "Population in Moderate or Severe Food Insecurity in Nigeria",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -82,25 +82,25 @@
                     "statVarKey": [
                       "sdg/AG_PRD_FIESMSN"
                     ],
-                    "title": "Moderately or Severely Food Insecure People in Nigeria",
+                    "title": "Population in Moderate or Severe Food Insecurity in Nigeria",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO); national entity.",
-            "title": "Moderately or Severely Food Insecure People"
+            "title": "Population in Moderate or Severe Food Insecurity"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Severely Food Insecure People in Nigeria",
+                    "description": "Population in Severe Food Insecurity in Nigeria",
                     "statVarKey": [
                       "sdg/AG_PRD_FIESSN"
                     ],
-                    "title": "Severely Food Insecure People in Nigeria",
+                    "title": "Population in Severe Food Insecurity in Nigeria",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -111,25 +111,25 @@
                     "statVarKey": [
                       "sdg/AG_PRD_FIESSN"
                     ],
-                    "title": "Severely Food Insecure People in Nigeria",
+                    "title": "Population in Severe Food Insecurity in Nigeria",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO); national entity.",
-            "title": "Severely Food Insecure People"
+            "title": "Population in Severe Food Insecurity"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Prevalence of Moderate or Severe Food Insecurity in Nigeria",
+                    "description": "Prevalence of Moderate or Severe Food Insecurity in the Population in Nigeria",
                     "statVarKey": [
                       "sdg/AG_PRD_FIESMS"
                     ],
-                    "title": "Prevalence of Moderate or Severe Food Insecurity in Nigeria",
+                    "title": "Prevalence of Moderate or Severe Food Insecurity in the Population in Nigeria",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -140,25 +140,25 @@
                     "statVarKey": [
                       "sdg/AG_PRD_FIESMS"
                     ],
-                    "title": "Prevalence of Moderate or Severe Food Insecurity in Nigeria",
+                    "title": "Prevalence of Moderate or Severe Food Insecurity in the Population in Nigeria",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO); national entity.",
-            "title": "Prevalence of Moderate or Severe Food Insecurity"
+            "title": "Prevalence of Moderate or Severe Food Insecurity in the Population"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Prevalence of Severe Food Insecurity in Nigeria",
+                    "description": "Prevalence of Severe Food Insecurity in the Population in Nigeria",
                     "statVarKey": [
                       "sdg/AG_PRD_FIESS"
                     ],
-                    "title": "Prevalence of Severe Food Insecurity in Nigeria",
+                    "title": "Prevalence of Severe Food Insecurity in the Population in Nigeria",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -169,14 +169,14 @@
                     "statVarKey": [
                       "sdg/AG_PRD_FIESS"
                     ],
-                    "title": "Prevalence of Severe Food Insecurity in Nigeria",
+                    "title": "Prevalence of Severe Food Insecurity in the Population in Nigeria",
                     "type": "LINE"
                   }
                 ]
               }
             ],
             "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO); national entity.",
-            "title": "Prevalence of Severe Food Insecurity"
+            "title": "Prevalence of Severe Food Insecurity in the Population"
           },
           {
             "columns": [
@@ -584,11 +584,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Local Breeds Kept in the Country in Nigeria",
+                    "description": "Number of Local Breeds Kept in the Country in Nigeria",
                     "statVarKey": [
                       "sdg/ER_GRF_ANIMKPT"
                     ],
-                    "title": "Local Breeds Kept in the Country in Nigeria",
+                    "title": "Number of Local Breeds Kept in the Country in Nigeria",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -599,25 +599,25 @@
                     "statVarKey": [
                       "sdg/ER_GRF_ANIMKPT"
                     ],
-                    "title": "Local Breeds Kept in the Country in Nigeria",
+                    "title": "Number of Local Breeds Kept in the Country in Nigeria",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: abteilung biodiversit\u00e4t und genetik. Institut f\u00fcr biologische landwirtschaft und biodiversit\u00e4t; administration des services techniques de l\u2019Agriculture (ASTA); agriculture research & extension authority (AREA); agriculture research organization (ARO). Ministry of agriculture; agriculture and Agri-Food canada. Saskatoon research development centre; animal production research institute. APRI; animal resources directorate. Ministry of agriculture; animal we...8804 more chars",
-            "title": "Local Breeds Kept in the Country"
+            "footnote": "Includes data from the following sources: abteilung biodiversit\u00e4t und genetik. Institut f\u00fcr biologische landwirtschaft und biodiversit\u00e4t; administration des services techniques de l\u2019Agriculture (ASTA); agriculture directorate; agriculture research & extension authority (AREA); agriculture research organization (ARO). Ministry of agriculture; agriculture and Agri-Food canada. Saskatoon research development centre; animal production research institute. APRI; animal resources directorate. Ministry ...8734 more chars",
+            "title": "Number of Local Breeds Kept in the Country"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Transboundary Breeds in Nigeria",
+                    "description": "Number of Transboundary Breeds in Nigeria",
                     "statVarKey": [
                       "sdg/ER_GRF_ANIMKPT_TRB"
                     ],
-                    "title": "Transboundary Breeds in Nigeria",
+                    "title": "Number of Transboundary Breeds in Nigeria",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -628,14 +628,14 @@
                     "statVarKey": [
                       "sdg/ER_GRF_ANIMKPT_TRB"
                     ],
-                    "title": "Transboundary Breeds in Nigeria",
+                    "title": "Number of Transboundary Breeds in Nigeria",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: abteilung biodiversit\u00e4t und genetik. Institut f\u00fcr biologische landwirtschaft und biodiversit\u00e4t; administration des services techniques de l\u2019Agriculture (ASTA); agriculture research & extension authority (AREA); agriculture research organization (ARO). Ministry of agriculture; agriculture and Agri-Food canada. Saskatoon research development centre; animal production research institute. APRI; animal resources directorate. Ministry of agriculture; animal we...9293 more chars",
-            "title": "Transboundary Breeds"
+            "footnote": "Includes data from the following sources: abteilung biodiversit\u00e4t und genetik. Institut f\u00fcr biologische landwirtschaft und biodiversit\u00e4t; administration des services techniques de l\u2019Agriculture (ASTA); agriculture directorate; agriculture research & extension authority (AREA); agriculture research organization (ARO). Ministry of agriculture; agriculture and Agri-Food canada. Saskatoon research development centre; animal production research institute. APRI; animal resources directorate. Ministry ...9085 more chars",
+            "title": "Number of Transboundary Breeds"
           },
           {
             "columns": [
@@ -663,7 +663,7 @@
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: EMBRAPA-Alelo (http://alelo.Cenargen.Embrapa.Br). Genesys (https://www.genesys-pgr.Org) and FAO-WIEWS (http://www.Fao.Org/Wiews); FAO-WIEWS (http://www.Fao.Org/Wiews); FAO-WIEWS (http://www.Fao.Org/Wiews) and EURISCO (http://eurisco.ipk-gatersleben.De); FAO-WIEWS (http://www.Fao.Org/Wiews) and genesys (https://www.genesys-pgr.Org); FAO-WIEWS (http://www.Fao.Org/Wiews) for CATIE. ICBA and SPGRC. Genesys (https://www.genesys-pgr.Org) for CePaCT. And EURISC...585 more chars",
+            "footnote": "Includes data from the following sources: EMBRAPA-Alelo (http://alelo.Cenargen.Embrapa.Br). Genesys (https://www.genesys-pgr.Org) and FAO-WIEWS (http://www.Fao.Org/Wiews); FAO-WIEWS (http://www.Fao.Org/Wiews); FAO-WIEWS (http://www.Fao.Org/Wiews) and EURISCO (http://eurisco.ipk-gatersleben.De); FAO-WIEWS (http://www.Fao.Org/Wiews) and genesys (https://www.genesys-pgr.Org); FAO-WIEWS (http://www.Fao.Org/Wiews) for CATIE. ICBA and SPGRC. Genesys (https://www.genesys-pgr.Org) for CePaCT. And EURISC...464 more chars",
             "title": "Plant Genetic Resources Accessions Stored Ex Situ"
           },
           {
@@ -671,11 +671,11 @@
               {
                 "tiles": [
                   {
-                    "description": "Local Breeds in Nigeria",
+                    "description": "Number of Local Breeds in Nigeria",
                     "statVarKey": [
                       "sdg/ER_NOEX_LBREDN"
                     ],
-                    "title": "Local Breeds in Nigeria",
+                    "title": "Number of Local Breeds in Nigeria",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -686,25 +686,25 @@
                     "statVarKey": [
                       "sdg/ER_NOEX_LBREDN"
                     ],
-                    "title": "Local Breeds in Nigeria",
+                    "title": "Number of Local Breeds in Nigeria",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: abteilung biodiversit\u00e4t und genetik. Institut f\u00fcr biologische landwirtschaft und biodiversit\u00e4t; administration des services techniques de l\u2019Agriculture (ASTA); agriculture research & extension authority (AREA); agriculture research organization (ARO). Ministry of agriculture; agriculture and Agri-Food canada. Saskatoon research development centre; animal production research institute. APRI; animal resources directorate. Ministry of agriculture; animal we...8759 more chars",
-            "title": "Local Breeds"
+            "footnote": "Includes data from the following sources: abteilung biodiversit\u00e4t und genetik. Institut f\u00fcr biologische landwirtschaft und biodiversit\u00e4t; administration des services techniques de l\u2019Agriculture (ASTA); agriculture directorate; agriculture research & extension authority (AREA); agriculture research organization (ARO). Ministry of agriculture; agriculture and Agri-Food canada. Saskatoon research development centre; animal production research institute. APRI; animal resources directorate. Ministry ...8689 more chars",
+            "title": "Number of Local Breeds"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "description": "Local Breeds With Unknown Risk Status in Nigeria",
+                    "description": "Number of Local Breeds With Unknown Risk Status in Nigeria",
                     "statVarKey": [
                       "sdg/ER_UNK_LBREDN"
                     ],
-                    "title": "Local Breeds With Unknown Risk Status in Nigeria",
+                    "title": "Number of Local Breeds With Unknown Risk Status in Nigeria",
                     "type": "HIGHLIGHT"
                   }
                 ]
@@ -715,14 +715,14 @@
                     "statVarKey": [
                       "sdg/ER_UNK_LBREDN"
                     ],
-                    "title": "Local Breeds With Unknown Risk Status in Nigeria",
+                    "title": "Number of Local Breeds With Unknown Risk Status in Nigeria",
                     "type": "LINE"
                   }
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: abteilung biodiversit\u00e4t und genetik. Institut f\u00fcr biologische landwirtschaft und biodiversit\u00e4t; administration des services techniques de l\u2019Agriculture (ASTA); agriculture research & extension authority (AREA); agriculture research organization (ARO). Ministry of agriculture; agriculture and Agri-Food canada. Saskatoon research development centre; animal production research institute. APRI; animal resources directorate. Ministry of agriculture; animal we...8759 more chars",
-            "title": "Local Breeds With Unknown Risk Status"
+            "footnote": "Includes data from the following sources: abteilung biodiversit\u00e4t und genetik. Institut f\u00fcr biologische landwirtschaft und biodiversit\u00e4t; administration des services techniques de l\u2019Agriculture (ASTA); agriculture directorate; agriculture research & extension authority (AREA); agriculture research organization (ARO). Ministry of agriculture; agriculture and Agri-Food canada. Saskatoon research development centre; animal production research institute. APRI; animal resources directorate. Ministry ...8689 more chars",
+            "title": "Number of Local Breeds With Unknown Risk Status"
           },
           {
             "columns": [
@@ -750,7 +750,7 @@
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: data from the international monetary fund (IMF) and FAO imputed data. UNSD national accounts estimates; data from the international monetary fund (IMF) and FAO estimates. UNSD national accounts estimates; data from the international monetary fund (IMF) and official data from online national ministry of agriculture and/or ministry of fisheries. UNSD national accounts estimates; data from the international monetary fund (IMF) and official data from online ...4959 more chars",
+            "footnote": "Includes data from the following sources: country data (estimated). UNSD national accounts estimates; data from the international monetary fund (estimated) and FAO imputed data. UNSD national accounts estimates; data from the international monetary fund (estimated) and FAO estimates. UNSD national accounts estimates; data from the international monetary fund (estimated) and official data from online national ministry of agricultur and/or ministry of fisheries. UNSD national accounts estimates; d...6176 more chars",
             "title": "Agriculture Orientation Index for Government Expenditures"
           },
           {
@@ -779,7 +779,7 @@
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: data from the international monetary fund (IMF); data from the international monetary fund (IMF) and FAO imputed data; data from the international monetary fund (IMF) and FAO estimates; data from the international monetary fund (IMF) and official data from online national ministry of agriculture and/or ministry of fisheries; data from the international monetary fund (IMF) and official data from online national ministry of finance. Ministry of budget. Tre...3491 more chars",
+            "footnote": "Includes data from the following sources: country data (estimated). UNSD national accounts estimates; data from the international monetary fund (estimated) and FAO imputed data. UNSD national accounts estimates; data from the international monetary fund (estimated) and FAO estimates. UNSD national accounts estimates; data from the international monetary fund (estimated) and official data from online national ministry of agricultur and/or ministry of fisheries. UNSD national accounts estimates; d...6211 more chars",
             "title": "Agriculture Share of Government Expenditure"
           },
           {
@@ -808,7 +808,7 @@
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: FAO calculation based on UNSD national account estimates.",
+            "footnote": "Includes data from the following sources: UNSD national account estimates.",
             "title": "Agriculture Value Added Share of GDP"
           },
           {
@@ -915,51 +915,51 @@
             "statVar": "sdg/AG_PRD_AGVAS"
           },
           "sdg/AG_PRD_FIESMS": {
-            "name": "Prevalence of moderate or severe food insecurity",
+            "name": "Prevalence of moderate or severe food insecurity in the population",
             "statVar": "sdg/AG_PRD_FIESMS"
           },
           "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--F": {
-            "name": "Prevalence of moderate or severe food insecurity [15 years old and over, Female]",
+            "name": "Prevalence of moderate or severe food insecurity in the population [15 years old and over, Female]",
             "statVar": "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--F"
           },
           "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--M": {
-            "name": "Prevalence of moderate or severe food insecurity [15 years old and over, Male]",
+            "name": "Prevalence of moderate or severe food insecurity in the population [15 years old and over, Male]",
             "statVar": "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--M"
           },
           "sdg/AG_PRD_FIESMSN": {
-            "name": "moderately or severely food insecure people",
+            "name": "Population in moderate or severe food insecurity",
             "statVar": "sdg/AG_PRD_FIESMSN"
           },
           "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--F": {
-            "name": "moderately or severely food insecure people [15 years old and over, Female]",
+            "name": "Population in moderate or severe food insecurity [15 years old and over, Female]",
             "statVar": "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--F"
           },
           "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--M": {
-            "name": "moderately or severely food insecure people [15 years old and over, Male]",
+            "name": "Population in moderate or severe food insecurity [15 years old and over, Male]",
             "statVar": "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--M"
           },
           "sdg/AG_PRD_FIESS": {
-            "name": "Prevalence of severe food insecurity",
+            "name": "Prevalence of severe food insecurity in the population",
             "statVar": "sdg/AG_PRD_FIESS"
           },
           "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--F": {
-            "name": "Prevalence of severe food insecurity [15 years old and over, Female]",
+            "name": "Prevalence of severe food insecurity in the population [15 years old and over, Female]",
             "statVar": "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--F"
           },
           "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--M": {
-            "name": "Prevalence of severe food insecurity [15 years old and over, Male]",
+            "name": "Prevalence of severe food insecurity in the population [15 years old and over, Male]",
             "statVar": "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--M"
           },
           "sdg/AG_PRD_FIESSN": {
-            "name": "severely food insecure people",
+            "name": "Population in severe food insecurity",
             "statVar": "sdg/AG_PRD_FIESSN"
           },
           "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--F": {
-            "name": "severely food insecure people [15 years old and over, Female]",
+            "name": "Population in severe food insecurity [15 years old and over, Female]",
             "statVar": "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--F"
           },
           "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--M": {
-            "name": "severely food insecure people [15 years old and over, Male]",
+            "name": "Population in severe food insecurity [15 years old and over, Male]",
             "statVar": "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--M"
           },
           "sdg/AG_PRD_ORTIND": {
@@ -975,11 +975,11 @@
             "statVar": "sdg/DC_TOF_AGRL"
           },
           "sdg/ER_GRF_ANIMKPT": {
-            "name": "local breeds kept in the country",
+            "name": "Number of local breeds kept in the country",
             "statVar": "sdg/ER_GRF_ANIMKPT"
           },
           "sdg/ER_GRF_ANIMKPT_TRB": {
-            "name": "transboundary breeds",
+            "name": "Number of transboundary breeds",
             "statVar": "sdg/ER_GRF_ANIMKPT_TRB"
           },
           "sdg/ER_GRF_PLNTSTOR": {
@@ -987,11 +987,11 @@
             "statVar": "sdg/ER_GRF_PLNTSTOR"
           },
           "sdg/ER_NOEX_LBREDN": {
-            "name": "local breeds",
+            "name": "Number of local breeds",
             "statVar": "sdg/ER_NOEX_LBREDN"
           },
           "sdg/ER_UNK_LBREDN": {
-            "name": "local breeds with unknown risk status",
+            "name": "Number of local breeds with unknown risk status",
             "statVar": "sdg/ER_UNK_LBREDN"
           },
           "sdg/PD_AGR_LSFP": {
@@ -1075,7 +1075,7 @@
             "statVar": "sdg/SN_ITK_DEFC"
           },
           "sdg/SN_ITK_DEFCN": {
-            "name": "undernourished people",
+            "name": "Number of undernourished people",
             "statVar": "sdg/SN_ITK_DEFCN"
           },
           "sdg/SN_STA_OVWGT.AGE--Y0T4": {
@@ -1845,6 +1845,5 @@
     }
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "",
   "userMessages": []
 }

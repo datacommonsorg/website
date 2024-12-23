@@ -13,11 +13,11 @@
 # limitations under the License.
 """LanceDB Embeddings store."""
 
-import logging
 from typing import List
 
 import lancedb
 
+from nl_server.cache import get_cache_root
 from nl_server.config import LanceDBIndexConfig
 from nl_server.embeddings import EmbeddingsMatch
 from nl_server.embeddings import EmbeddingsResult
@@ -43,7 +43,8 @@ class LanceDBStore(EmbeddingsStore):
     if idx_info.embeddings_path.startswith('/'):
       lance_db_dir = idx_info.embeddings_path
     elif gcs.is_gcs_path(idx_info.embeddings_path):
-      lance_db_dir = gcs.maybe_download(idx_info.embeddings_path)
+      lance_db_dir = gcs.maybe_download(idx_info.embeddings_path,
+                                        get_cache_root())
       if not lance_db_dir:
         raise AssertionError(
             f'Embeddings not downloaded from GCS. Please check the path: {idx_info.embeddings_path}'

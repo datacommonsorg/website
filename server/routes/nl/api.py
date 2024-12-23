@@ -19,32 +19,29 @@ import flask
 from flask import Blueprint
 from flask import request
 
-from server.lib.cache import model_cache
-from server.routes import TIMEOUT
 from server.services import datacommons as dc
 
 bp = Blueprint('nl_api', __name__, url_prefix='/api/nl')
 
 
-@bp.route('/encode-vector')
-@model_cache.cached(timeout=TIMEOUT, query_string=True)
+@bp.route('/encode-vector', methods=['POST'])
 def encode_vector():
   """Retrieves the embedding vector for a given query and model.
   """
-  query = request.args.get('query')
   model = request.args.get('model')
-  return json.dumps(dc.nl_encode(model, query))
+  queries = request.json.get('queries', [])
+  return json.dumps(dc.nl_encode(model, queries))
 
 
-@bp.route('/search-vector')
-@model_cache.cached(timeout=TIMEOUT, query_string=True)
+@bp.route('/search-vector', methods=['POST'])
 def search_vector():
   """Performs vector search for a given query and embedding index.
   """
-  query = request.args.get('query')
-  index = request.args.get('index')
-  if not query:
-    flask.abort(400, 'Must provde a `query`')
-  if not index:
-    flask.abort(400, 'Must provde an `index`')
-  return dc.nl_search_vars([query], index)
+  idx = request.args.get('idx')
+  if not idx:
+    flask.abort(400, 'Must provide an `idx`')
+  queries = request.json.get('queries')
+  if not queries:
+    flask.abort(400, 'Must provide a `queries` in POST data')
+
+  return dc.nl_search_vars(queries, idx.split(','))

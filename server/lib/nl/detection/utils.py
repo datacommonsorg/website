@@ -16,7 +16,7 @@
 # TODO: rename to variable_utils.py
 
 import re
-from typing import List
+from typing import Dict, List
 
 from server.lib.fetch import property_values
 from server.lib.nl.common import constants
@@ -100,6 +100,16 @@ def get_multi_sv_pair(
       parts = c.parts
       break
   return parts
+
+
+# Gets the prop score of the prop used in the chart spec
+def get_top_prop_score(detection: Detection, cspec: ChartSpec) -> float:
+  if cspec.props and detection.svs_detected.prop:
+    prop_set = set(cspec.props)
+    for idx, prop in enumerate(detection.svs_detected.prop.svs):
+      if prop in prop_set:
+        return detection.svs_detected.prop.scores[idx]
+  return 0
 
 
 # Gets the SV score of the first chart in chart_specs
@@ -309,3 +319,14 @@ def find_word_boundary(haystack: str, needle: str):
   if match:
     return match.start()
   return -1
+
+
+# Replaces strings in a query given a dictionary where key is the original
+# string and value is the replacement string to use
+def replace_strings_in_query(query: str, replacements: Dict[str, str]) -> str:
+  processed_query = query
+  for orig, new in replacements.items():
+    # surround the original string with \b to ensure we're only replacing at a
+    # word boundary
+    processed_query = re.sub(rf"\b{orig}\b", new, processed_query)
+  return processed_query
