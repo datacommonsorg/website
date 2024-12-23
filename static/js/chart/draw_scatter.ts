@@ -200,7 +200,10 @@ function getScale(
  * @param axis axis to format ticks for
  * @param scaleType type of scale used in the axis
  */
-function formatAxisTicks(axis: d3.Axis<d3.AxisDomain>, scaleType: ScaleType) {
+function formatAxisTicks(
+  axis: d3.Axis<d3.AxisDomain>,
+  scaleType: ScaleType
+): void {
   if (scaleType === ScaleType.SYMLOG) {
     axis.tickFormat((d: number) => {
       return formatNumber(d.valueOf());
@@ -283,7 +286,7 @@ function addQuadrants(
   yMean: number,
   chartWidth: number,
   chartHeight: number
-) {
+): void {
   quadrant
     .append("line")
     .attr("x1", xScale(xMean))
@@ -537,7 +540,7 @@ function addTooltip(
   yPerCapita: boolean
 ): void {
   const div = d3.select(tooltip).style("visibility", "hidden");
-  const onTooltipMouseover = (point: Point) => {
+  const onTooltipMouseover = (point: Point): void => {
     const element = getTooltipElement(
       point,
       xLabel,
@@ -573,7 +576,7 @@ function addTooltip(
       .style("top", top + "px")
       .style("visibility", "visible");
   };
-  const onTooltipMouseout = () => {
+  const onTooltipMouseout = (): void => {
     div.style("visibility", "hidden");
   };
   dots.on("mouseover", onTooltipMouseover).on("mouseout", onTooltipMouseout);
@@ -588,7 +591,7 @@ function addRegressionLine(
   yScale: ScatterScale,
   points: { [placeDcid: string]: Point },
   xMinMax: [number, number]
-) {
+): void {
   const regression = d3Regression
     .regressionLinear()
     .x((point) => point.xVal)

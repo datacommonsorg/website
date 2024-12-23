@@ -13,6 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/* eslint-disable camelcase */
+
 import _ from "lodash";
 
 import { Mapping, TypeProperty } from "../types";

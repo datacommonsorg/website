@@ -30,7 +30,7 @@ export function useComputeMapPointValues(
   dispatchChartStore: Dispatch<ChartStoreAction>,
   dispatchSources: Dispatch<Set<string>>,
   dispatchMetadata: Dispatch<Record<string, DataPointMetadata>>
-) {
+): void {
   const { statVar, placeInfo, dateCtx } = useContext(Context);
   const mapPointStatReady = useMapPointStatReady(chartStore);
   useEffect(() => {

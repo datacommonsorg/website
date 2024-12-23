@@ -193,7 +193,7 @@ function addHighlightOnHover(
   let hideFn: ReturnType<typeof setTimeout> = null;
 
   // define tooltip mouse behavior
-  const mouseoverFn = function () {
+  const mouseoverFn = function (): void {
     if (hideFn) {
       clearTimeout(hideFn);
     }
@@ -204,7 +204,7 @@ function addHighlightOnHover(
     svg.selectAll("rect, circle").style("opacity", 0.5);
     d3.select(this).style("opacity", 1);
   };
-  const mouseoutFn = function () {
+  const mouseoutFn = function (): void {
     // Slightly delay hiding tooltip and resetting styling so quickly mousing
     // over a stream of bars doesn't result in the tooltip flickering in and out
     hideFn = setTimeout(() => {
@@ -212,7 +212,7 @@ function addHighlightOnHover(
       tooltip.style("display", "none");
     }, HIGHLIGHT_TIMEOUT);
   };
-  const mousemoveFn = function () {
+  const mousemoveFn = function (): void {
     const [mouseX, mouseY] = d3.mouse(container.node() as HTMLElement);
     positionTooltip(tooltip, mouseX, mouseY, chartAreaBoundary);
   };

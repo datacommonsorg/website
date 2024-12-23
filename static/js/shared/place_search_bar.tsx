@@ -112,7 +112,7 @@ class PlaceSearchBar extends Component<PlaceSearchBarPropType> {
           this.getPlaceAndRender(customPlace)
         )
       );
-      this.ac.addListener("place_changed", (e) => this.getPlaceAndRender(null));
+      this.ac.addListener("place_changed", () => this.getPlaceAndRender(null));
     }
     this.setPlaceholder();
   }
@@ -126,10 +126,11 @@ class PlaceSearchBar extends Component<PlaceSearchBarPropType> {
     return HARDCODED_RESULTS[inputVal.toLowerCase()];
   }
 
+  /* eslint-disable camelcase */
   private onAutocompleteKeyUp(
     e,
     onMouseDown: (customPlace: { name: string; place_id?: string }) => void
-  ) {
+  ): void {
     // Test for, and respond to, a few hardcoded results.
     const inputVal = (e.target as HTMLInputElement).value;
     const dcid = PlaceSearchBar.getHardcodedResultDcid(inputVal);
@@ -183,8 +184,9 @@ class PlaceSearchBar extends Component<PlaceSearchBarPropType> {
       }
     }
   }
+  /* eslint-enable camelcase */
 
-  private setPlaceholder() {
+  private setPlaceholder(): void {
     this.inputElem.current.value = "";
     const numPlaces = Object.keys(this.props.places).length;
     this.inputElem.current.disabled = false;

@@ -101,7 +101,7 @@ export function MappingPreviewSection(
           </Button>
           <Button
             className="nav-btn"
-            onClick={() => props.onContinueClicked(!_.isEmpty(errorList))}
+            onClick={(): void => props.onContinueClicked(!_.isEmpty(errorList))}
           >
             Continue
           </Button>
