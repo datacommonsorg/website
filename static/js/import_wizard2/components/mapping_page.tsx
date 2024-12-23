@@ -22,7 +22,6 @@
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 import { Button } from "reactstrap";
-import { container } from "webpack";
 
 import { TEMPLATE_MAPPING_COMPONENTS } from "../templates";
 import {
@@ -152,7 +151,7 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
                   csvData={props.csvData}
                   valueMap={valueMap}
                   onBackClicked={props.onBackClicked}
-                  onContinueClicked={(hasError: boolean) => {
+                  onContinueClicked={(hasError: boolean): void => {
                     if (hasError) {
                       scrollToPreview();
                     } else {
@@ -169,7 +168,7 @@ export function MappingPage(props: MappingPageProps): JSX.Element {
                 </Button>
                 <Button
                   className="nav-btn"
-                  onClick={() => {
+                  onClick={(): void => {
                     setShowPreview(true);
                   }}
                 >
