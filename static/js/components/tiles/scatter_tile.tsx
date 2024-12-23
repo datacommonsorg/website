@@ -134,7 +134,7 @@ export function ScatterTile(props: ScatterTilePropType): JSX.Element {
       // only re-fetch if the props that affect data fetch are not equal
       return;
     }
-    (async () => {
+    (async (): Promise<void> => {
       try {
         setIsLoading(true);
         const data = await fetchData(props);
@@ -294,7 +294,9 @@ function getPopulationPromise(
   }
 }
 
-export const fetchData = async (props: ScatterTilePropType) => {
+export const fetchData = async (
+  props: ScatterTilePropType
+): Promise<ScatterChartData> => {
   if (props.statVarSpec.length < 2) {
     // TODO: add error message
     return;

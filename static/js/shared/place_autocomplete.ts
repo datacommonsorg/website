@@ -67,7 +67,8 @@ function queryAutocompleteService(placeName: string, urlPrefix: string): void {
 }
 
 const queryAutocompleteCallback =
-  (placeName: string, urlPrefix: string) => (predictions, status) => {
+  (placeName: string, urlPrefix: string) =>
+  (predictions, status): void => {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
       getPlaceAndRender(predictions[0].place_id, placeName, urlPrefix);
     } else {

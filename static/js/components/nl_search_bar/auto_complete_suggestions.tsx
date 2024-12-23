@@ -40,8 +40,8 @@ export function AutoCompleteSuggestions(
 ): ReactElement {
   const [triggered, setTriggered] = useState(false);
 
-  function getIcon(query: string, matched_query: string): string {
-    if (query.trim() == matched_query.trim()) {
+  function getIcon(query: string, matchedQuery: string): string {
+    if (query.trim() == matchedQuery.trim()) {
       return "location_on";
     }
     return "search";
@@ -72,16 +72,16 @@ export function AutoCompleteSuggestions(
                 <div
                   className="search-input-result"
                   key={"search-input-result-" + result.dcid}
-                  onClick={() => props.onClick(result, idx)}
+                  onClick={(): void => props.onClick(result, idx)}
                 >
                   <span className="material-icons-outlined search-result-icon">
-                    {getIcon(props.baseInput, result.matched_query)}
+                    {getIcon(props.baseInput, result.matchedQuery)}
                   </span>
                   <div className="query-result">
                     <span>
                       {stripPatternFromQuery(
                         props.baseInput,
-                        result.matched_query
+                        result.matchedQuery
                       )}
                       <span className="query-suggestion">{result.name}</span>
                     </span>

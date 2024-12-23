@@ -68,7 +68,7 @@ export function downloadFile(fileName: string, file: Blob | File): void {
   const url = window.URL.createObjectURL(file);
   link.setAttribute("href", url);
   link.setAttribute("download", fileName);
-  link.onclick = () => {
+  link.onclick = (): void => {
     setTimeout(() => window.URL.revokeObjectURL(url));
   };
   link.click();

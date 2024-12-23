@@ -31,10 +31,10 @@ export function LoadingHeader(props: {
   isLoading: boolean;
   title?: string;
 }): JSX.Element {
-  const { isLoading, title, ...headerProps } = props;
+  const { isLoading, title } = props;
   return (
     <h4 {...{ part: "header" }}>
-      {props.isLoading ? (
+      {isLoading ? (
         <>
           <Spinner color="secondary" size="sm" className="mr-1" />
           {title ? title : "Loading..."}

@@ -493,7 +493,7 @@ export function drawLineChart(
         `line ${LEGEND_HIGHLIGHT_CLASS} ${legendKeyFn(dataGroup.label)}`
       )
       .attr("d", line)
-      .attr("part", (d) =>
+      .attr("part", () =>
         ["series", `series-variable-${dataGroup.label}`].join(" ")
       )
       .style("fill", "none")
@@ -513,7 +513,7 @@ export function drawLineChart(
         )
         .attr("cx", (d) => xScale(d.time))
         .attr("cy", (d) => yScale(d.value))
-        .attr("part", (d) =>
+        .attr("part", () =>
           ["series-point", `series-point-variable-${dataGroup.label}`].join(" ")
         )
         .attr("r", (d) => (d.value === null ? 0 : 3))
@@ -549,7 +549,7 @@ export function drawLineChart(
       top: 0,
     };
     const dataGroupsDict = { [DATAGROUP_UNKNOWN_PLACE]: dataGroups };
-    const highlightColorFn = (_: string, dataGroup: DataGroup) => {
+    const highlightColorFn = (_: string, dataGroup: DataGroup): string => {
       return colorFn(dataGroup.label);
     };
 
@@ -813,7 +813,7 @@ export function drawGroupLineChart(
     right: width - legendWidth + LEGEND.marginLeft,
     top: 0,
   };
-  const highlightColorFn = (place: string, dataGroup: DataGroup) => {
+  const highlightColorFn = (place: string, dataGroup: DataGroup): string => {
     return plotParams.lines[place + dataGroup.label].color;
   };
   addHighlightOnHover(

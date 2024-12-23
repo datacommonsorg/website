@@ -50,12 +50,17 @@ declare global {
 }
 
 beforeAll(() => {
-  SVGElement.prototype.getComputedTextLength = () => 100;
-  SVGElement.prototype.getBBox = () => ({ x: 1, y: 1, width: 1, height: 1 });
+  SVGElement.prototype.getComputedTextLength = (): number => 100;
+  SVGElement.prototype.getBBox = (): {
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  } => ({ x: 1, y: 1, width: 1, height: 1 });
 });
 
 function mockAxios(): void {
-  mockedAxios.post.mockImplementation((url, options) => {
+  mockedAxios.post.mockImplementation((url, _) => {
     if (url === "/api/place/name") {
       return Promise.resolve({
         data: {
@@ -74,8 +79,9 @@ function mockAxios(): void {
     return Promise.resolve({});
   });
 
-  mockedAxios.get.mockImplementation((url, options) => {
+  mockedAxios.get.mockImplementation((url, _) => {
     if (url === "/api/observations/point/within") {
+      /* eslint-disable camelcase */
       return Promise.resolve({
         data: {
           data: {
@@ -111,6 +117,7 @@ function mockAxios(): void {
           },
         },
       });
+      /* eslint-enable camelcase */
     } else if (url === "/api/node/propvals/out") {
       return Promise.resolve({
         data: { sector_property: [] },

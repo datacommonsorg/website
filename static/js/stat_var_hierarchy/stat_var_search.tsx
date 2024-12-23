@@ -20,7 +20,7 @@
  */
 
 import _ from "lodash";
-import React, { ChangeEvent } from "react";
+import React from "react";
 
 import {
   GA_EVENT_TOOL_STAT_VAR_SEARCH_NO_RESULT,

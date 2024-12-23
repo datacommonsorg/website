@@ -59,7 +59,7 @@ export function Carousel(props: CarouselPropType): JSX.Element {
         })}
       </div>
       <div
-        onClick={() => setIdxStart((idxStart + 1) % props.items.length)}
+        onClick={(): void => setIdxStart((idxStart + 1) % props.items.length)}
         className="navigation-button"
       >
         <span className="material-icons-outlined">navigate_next</span>

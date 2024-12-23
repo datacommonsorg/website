@@ -70,7 +70,7 @@ export function HighlightTile(props: HighlightTilePropType): JSX.Element {
   );
 
   useEffect(() => {
-    (async () => {
+    (async (): Promise<void> => {
       try {
         const data = await fetchData(props);
         setHighlightData(data);
@@ -151,7 +151,9 @@ export function getDescription(
   return description;
 }
 
-export const fetchData = async (props: HighlightTilePropType) => {
+export const fetchData = async (
+  props: HighlightTilePropType
+): Promise<HighlightData> => {
   // Now assume highlight only talks about one stat var.
   const statPromise = getPoint(
     props.apiRoot,

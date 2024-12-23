@@ -128,7 +128,7 @@ export function LineTile(props: LineTilePropType): JSX.Element {
       return;
     }
     if (!chartData || !_.isEqual(chartData.props, props)) {
-      (async () => {
+      (async (): Promise<void> => {
         try {
           setIsLoading(true);
           const data = await fetchData(props);
@@ -231,7 +231,7 @@ function getDataCsvCallback(props: LineTilePropType): () => Promise<string> {
  * @param props LineTile props
  * @returns Array of place dcids
  */
-function getPlaceDcids(props: LineTilePropType) {
+function getPlaceDcids(props: LineTilePropType): string[] {
   return props.comparisonPlaces && props.comparisonPlaces.length > 0
     ? props.comparisonPlaces
     : [props.place.dcid];
@@ -246,7 +246,9 @@ export function getReplacementStrings(
   };
 }
 
-export const fetchData = async (props: LineTilePropType) => {
+export const fetchData = async (
+  props: LineTilePropType
+): Promise<LineChartData> => {
   const facetToVariable = { [EMPTY_FACET_ID_KEY]: [] };
   for (const spec of props.statVarSpec) {
     const facetId = spec.facetId || EMPTY_FACET_ID_KEY;

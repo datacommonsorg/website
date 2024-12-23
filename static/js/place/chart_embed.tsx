@@ -379,7 +379,7 @@ class ChartEmbed extends React.Component<
     saveToFile(`${basename}.csv`, this.state.dataCsv);
   }
 
-  async componentDidUpdate() {
+  async componentDidUpdate(): Promise<void> {
     if (!this.state.dataCsv && this.state.getDataCsv) {
       try {
         const dataCsv = await this.state.getDataCsv();
