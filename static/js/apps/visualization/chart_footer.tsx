@@ -58,7 +58,7 @@ export function ChartFooter(props: ChartFooterPropType): JSX.Element {
                     <Input
                       type="checkbox"
                       checked={input.isChecked}
-                      onChange={() => {
+                      onChange={(): void => {
                         input.onUpdated(!input.isChecked);
                         if (!input.isChecked && input.gaEventParam) {
                           triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {

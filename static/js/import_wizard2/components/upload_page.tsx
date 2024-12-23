@@ -73,18 +73,18 @@ export function UploadPage(props: UploadPageProps): JSX.Element {
             <div className="file-options-input">
               <span>Header row:</span>
               <form
-                onSubmit={(event) => {
+                onSubmit={(event): void => {
                   event.preventDefault();
                   onFileOptionsSubmitted();
                 }}
               >
                 <Input
                   type="number"
-                  onChange={(e) => {
+                  onChange={(e): void => {
                     const val = Number(e.target.value);
                     setHeaderRowInput(val);
                   }}
-                  onBlur={() => onFileOptionsSubmitted()}
+                  onBlur={(): void => onFileOptionsSubmitted()}
                   value={headerRowInput}
                   min={1}
                 />
@@ -94,18 +94,18 @@ export function UploadPage(props: UploadPageProps): JSX.Element {
             <div className="file-options-input">
               <span>First data row:</span>
               <form
-                onSubmit={(event) => {
+                onSubmit={(event): void => {
                   event.preventDefault();
                   onFileOptionsSubmitted();
                 }}
               >
                 <Input
                   type="number"
-                  onChange={(e) => {
+                  onChange={(e): void => {
                     const val = Number(e.target.value);
                     setFirstDataRowInput(val);
                   }}
-                  onBlur={() => onFileOptionsSubmitted()}
+                  onBlur={(): void => onFileOptionsSubmitted()}
                   value={firstDataRowInput}
                   min={1}
                 />
@@ -115,18 +115,18 @@ export function UploadPage(props: UploadPageProps): JSX.Element {
             <div className="file-options-input">
               <span>Last data row:</span>
               <form
-                onSubmit={(event) => {
+                onSubmit={(event): void => {
                   event.preventDefault();
                   onFileOptionsSubmitted();
                 }}
               >
                 <Input
                   type="number"
-                  onChange={(e) => {
+                  onChange={(e): void => {
                     const val = Number(e.target.value);
                     setLastDataRowInput(val);
                   }}
-                  onBlur={() => onFileOptionsSubmitted()}
+                  onBlur={(): void => onFileOptionsSubmitted()}
                   value={lastDataRowInput}
                   min={1}
                 />
