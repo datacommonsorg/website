@@ -163,12 +163,20 @@ function renderPage(): void {
   // Get category and render menu.
   const category = urlParams.get("category") || "Overview";
   const seed = urlParams.get("seed") || "0";
+
+  // Get place data
   const dcid = document.getElementById("title").dataset.dcid;
   const placeName = document.getElementById("place-name").dataset.pn;
   const placeType = document.getElementById("place-type").dataset.pt;
-  const locale = document.getElementById("locale").dataset.lc;
+
+  // Get locale
+  const metadataContainer = document.getElementById("metadata-base");
+  const locale = metadataContainer.dataset.locale;
+
+  // Get landing page data
   const landingPagePromise = getLandingPageData(dcid, category, locale, seed);
 
+  // Load locale data
   Promise.all([
     landingPagePromise,
     loadLocaleData(locale, [

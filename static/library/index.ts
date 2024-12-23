@@ -60,7 +60,7 @@ globalThis.datacommons = {
  * Web components can't load external fonts directly, so instead add them
  * directly to the parent page
  */
-function loadStyles() {
+function loadStyles(): void {
   const googleSansEl = document.createElement("link");
   googleSansEl.href =
     "https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500;700&family=Google+Sans+Text:wght@300;400;500;700&display=swap";

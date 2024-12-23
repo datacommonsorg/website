@@ -25,10 +25,16 @@ locals {
 
   # Use var.billing_project_id if set, otherwise use project_id for billing
   billing_project_id = var.billing_project_id != null ? var.billing_project_id : var.project_id
+  
+   # Data Commons API hostname
+  dc_api_hostname = "api.datacommons.org"
 
-  # Data Commons API root url
-  dc_api_root = "${var.dc_api_protocol}://${var.dc_api_hostname}"
+  # Data Commons API protocol
+  dc_api_protocol = "https"
 
+  # Data Commons API root URL
+  dc_api_root = "${local.dc_api_protocol}://${local.dc_api_hostname}"
+  
   # Shared environment variables used by the Data Commons web service and the Data
   # Commons data loading job
   cloud_run_shared_env_variables = [

@@ -66,7 +66,7 @@ export function TileMetadataModal(
   const [modalOpen, setModalOpen] = useState(false);
   const [statVarNames, setStatVarNames] = useState<DcidNameTuple[]>([]);
   const dcids = new Set<string>();
-  const toggleModal = () => setModalOpen(!modalOpen);
+  const toggleModal = (): void => setModalOpen(!modalOpen);
   const dataCommonsClient = getDataCommonsClient(props.apiRoot);
   if (props.statVarSpecs) {
     for (const spec of props.statVarSpecs) {
@@ -81,7 +81,7 @@ export function TileMetadataModal(
     // Only fetch data once the modal is opened.
     if (!modalOpen) return;
     if (dcids.size == statVarNames.length) return;
-    (async () => {
+    (async (): Promise<void> => {
       const responseObj = await dataCommonsClient.getFirstNodeValues({
         dcids: [...dcids],
         prop: "name",
@@ -100,7 +100,7 @@ export function TileMetadataModal(
     <>
       <a
         href="#"
-        onClick={(e) => {
+        onClick={(e): void => {
           e.preventDefault();
           setModalOpen(true);
         }}
@@ -147,7 +147,7 @@ export function TileMetadataModal(
           <ModalFooter>
             <Button
               className="modal-close"
-              onClick={() => {
+              onClick={(): void => {
                 setModalOpen(false);
               }}
             >

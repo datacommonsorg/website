@@ -27,17 +27,19 @@ import { FooterApp } from "./footer_app";
 import { HeaderApp } from "./header_app";
 import { extractLabels, extractRoutes } from "./utilities/utilities";
 
-window.addEventListener("load", (): void => {
-  loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
-    () => {
-      renderPage();
-    }
-  );
+window.addEventListener("load", async (): Promise<void> => {
+  // Load locale data
+  const metadataContainer = document.getElementById("metadata-base");
+  const locale = metadataContainer.dataset.locale;
+  await loadLocaleData(locale, [
+    import(`../../i18n/compiled-lang/${locale}/units.json`),
+  ]);
+
+  // Render the page
+  renderPage(metadataContainer);
 });
 
-function renderPage(): void {
-  const metadataContainer = document.getElementById("metadata-base");
-
+async function renderPage(metadataContainer: HTMLElement): Promise<void> {
   const headerMenu = JSON.parse(
     metadataContainer.dataset.header
   ) as HeaderMenu[];

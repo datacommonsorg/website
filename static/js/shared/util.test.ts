@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+/* eslint-disable camelcase */
+
 import { MAX_DATE, MAX_YEAR } from "./constants";
 import { getCappedStatVarDate, isDateTooFar } from "./util";
 
