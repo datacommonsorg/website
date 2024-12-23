@@ -47,6 +47,11 @@ const Y_SCROLL_MARGIN = 100;
 window.addEventListener("load", (): void => {
   try {
     renderPage();
+    // Disable sidebar pinning.
+    // TODO(beets): Delete this code.
+    // updatePageLayoutState();
+    // maybeToggleFixedSidebar();
+    // window.onresize = maybeToggleFixedSidebar;
   } catch (e) {
     return;
   }
@@ -69,6 +74,44 @@ function updatePageLayoutState(): void {
 }
 
 /**
+ *  Toggle fixed sidebar based on window width.
+ */
+function maybeToggleFixedSidebar(): void {
+  if (window.innerWidth < Y_SCROLL_WINDOW_BREAKPOINT) {
+    document.removeEventListener("scroll", adjustMenuPosition);
+    document.getElementById("sidebar-region").classList.remove("fixed");
+    return;
+  }
+  document.addEventListener("scroll", adjustMenuPosition);
+  document.getElementById("sidebar-region").style.width =
+    document.getElementById("sidebar-top-spacer").offsetWidth + "px";
+  adjustMenuPosition();
+}
+
+/**
+ * Update fixed sidebar based on the window scroll.
+ */
+function adjustMenuPosition(): void {
+  const topicsEl = document.getElementById("sidebar-region");
+  if (window.scrollY > yScrollLimit) {
+    const calcTop = window.scrollY - yScrollLimit - Y_SCROLL_MARGIN;
+    if (calcTop > sidebarTopMax) {
+      topicsEl.style.top = sidebarTopMax + "px";
+      topicsEl.classList.remove("fixed");
+      return;
+    }
+    topicsEl.classList.add("fixed");
+    if (topicsEl.style.top != "0") {
+      topicsEl.style.top = "0";
+      topicsEl.scrollTop = 0;
+    }
+  } else {
+    topicsEl.classList.remove("fixed");
+    topicsEl.style.top = "0";
+  }
+}
+
+/**
  * Get the landing page data
  */
 async function getLandingPageData(
@@ -84,6 +127,18 @@ async function getLandingPageData(
     .then((resp) => {
       return resp.data;
     });
+}
+
+/**
+ * Handler for NL search bar
+ * @param q search query entered by user
+ */
+function onSearch(q: string): void {
+  triggerGAEvent(GA_EVENT_NL_SEARCH, {
+    [GA_PARAM_QUERY]: q,
+    [GA_PARAM_SOURCE]: GA_VALUE_SEARCH_SOURCE_PLACE_PAGE,
+  });
+  window.location.href = `/explore#q=${encodeURIComponent(q)}`;
 }
 
 /**
