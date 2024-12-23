@@ -41,13 +41,13 @@ export class ErrorBoundary extends React.Component<
     this.state = { hasError: false };
   }
 
-  componentDidCatch(error, info) {
+  componentDidCatch(error, info): void {
     // Display fallback UI
     this.setState({ hasError: true });
     console.log(error, info);
   }
 
-  render() {
+  render(): React.ReactNode {
     if (this.state.hasError) {
       // You can render any custom fallback UI
       return (

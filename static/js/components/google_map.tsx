@@ -150,7 +150,7 @@ function drawMarker(
  * @param geoJson A complete geoJson feature collection.
  * @param map map to draw in
  */
-function drawGeoJson(geoJson: any, map: google.maps.Map) {
+function drawGeoJson(geoJson: any, map: google.maps.Map): void {
   map.data.addGeoJson(geoJson);
   const bounds = new google.maps.LatLngBounds();
   map.data.forEach(function (feature) {
