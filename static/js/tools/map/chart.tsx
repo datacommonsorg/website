@@ -170,12 +170,12 @@ export function Chart(props: ChartProps): JSX.Element {
         mMethods={null}
         svFacetId={{ [statVarDcid]: statVar.value.metahash }}
         facetList={props.facetList}
-        onSvFacetIdUpdated={(svFacetId) =>
+        onSvFacetIdUpdated={(svFacetId): void =>
           statVar.setMetahash(svFacetId[statVar.value.dcid])
         }
         hideIsRatio={props.mapType === MAP_TYPE.LEAFLET}
         isPerCapita={statVar.value.perCapita}
-        onIsPerCapitaUpdated={(isPerCapita: boolean) =>
+        onIsPerCapitaUpdated={(isPerCapita: boolean): void =>
           statVar.setPerCapita(isPerCapita)
         }
       >
@@ -187,7 +187,9 @@ export function Chart(props: ChartProps): JSX.Element {
                   id="show-installations"
                   type="checkbox"
                   checked={display.value.showMapPoints}
-                  onChange={(e) => display.setShowMapPoints(e.target.checked)}
+                  onChange={(e): void =>
+                    display.setShowMapPoints(e.target.checked)
+                  }
                 />
                 Show Installations
               </Label>
@@ -199,7 +201,7 @@ export function Chart(props: ChartProps): JSX.Element {
   );
 }
 
-const onDateRangeMouseOver = () => {
+const onDateRangeMouseOver = (): void => {
   const offset = 20;
   const left =
     (d3.select(`#${DATE_RANGE_INFO_ID}`).node() as HTMLElement).offsetLeft +
@@ -209,6 +211,6 @@ const onDateRangeMouseOver = () => {
     .style("visibility", "visible");
 };
 
-const onDateRangeMouseOut = () => {
+const onDateRangeMouseOut = (): void => {
   d3.select(`#${DATE_RANGE_INFO_TEXT_ID}`).style("visibility", "hidden");
 };

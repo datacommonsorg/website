@@ -70,22 +70,22 @@ function Emoji(props: EmojiPropType): JSX.Element {
   const [isPopUpVisible, setPopUpVisible] = useState(false);
   const [textInput, setTextInput] = useState("");
 
-  const handleElementClick = () => {
+  const handleElementClick = (): void => {
     if (props.saved) {
       return;
     }
     setPopUpVisible(true);
   };
 
-  const handlePopUpClose = () => {
+  const handlePopUpClose = (): void => {
     setPopUpVisible(false);
   };
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event): void => {
     setTextInput(event.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (): void => {
     // Do something with the submitted text, for example, send it to a server.
     props.action(props.option.sentiment, textInput);
     // Close the pop-up after submission
@@ -100,7 +100,7 @@ function Emoji(props: EmojiPropType): JSX.Element {
             props.saved ? "feedback-emoji-dim" : ""
           }`}
           id={`${props.id}-${props.option.sentiment}`}
-          onClick={() => handleElementClick()}
+          onClick={(): void => handleElementClick()}
         >
           {props.option.icon}
         </span>

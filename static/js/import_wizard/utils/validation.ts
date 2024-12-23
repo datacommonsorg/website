@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import _, { mapValues } from "lodash";
+import _ from "lodash";
 
 import {
   MAPPED_THING_NAMES,

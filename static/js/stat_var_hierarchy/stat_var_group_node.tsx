@@ -33,7 +33,10 @@ import {
   StatVarHierarchyType,
   StatVarInfo,
 } from "../shared/types";
-import { StatVarHierarchyNodeHeader } from "./node_header";
+import {
+  StatVarHierarchyNodeHeader,
+  StatVarHierarchyNodeHeaderPropType,
+} from "./node_header";
 import { StatVarGroupSection } from "./stat_var_group_section";
 import { StatVarSection } from "./stat_var_section";
 
@@ -184,7 +187,12 @@ export class StatVarGroupNode extends React.Component<
       : this.state.childSVG.filter((svg) => {
           return svg.descendentStatVarCount > 0 || svgOnSvPath.has(svg.id);
         });
-    const getTrigger = (opened: boolean) => {
+    const getTrigger = (
+      opened: boolean
+    ): React.CElement<
+      StatVarHierarchyNodeHeaderPropType,
+      StatVarHierarchyNodeHeader
+    > => {
       return React.createElement(StatVarHierarchyNodeHeader, {
         childrenStatVarCount: this.props.data.descendentStatVarCount,
         highlighted: this.props.isSelected,
