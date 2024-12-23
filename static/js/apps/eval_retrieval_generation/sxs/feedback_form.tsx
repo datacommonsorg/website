@@ -36,12 +36,12 @@ interface FeedbackFormProps {
 }
 
 export function FeedbackForm(props: FeedbackFormProps): JSX.Element {
-  const handlePreferenceChange = (event: FormEvent<HTMLInputElement>) => {
+  const handlePreferenceChange = (event: FormEvent<HTMLInputElement>): void => {
     const { value } = event.target as HTMLInputElement;
     props.setPreference(value as SxsPreference);
   };
 
-  const handleReasonChange = (event: FormEvent<HTMLTextAreaElement>) => {
+  const handleReasonChange = (event: FormEvent<HTMLTextAreaElement>): void => {
     const { value } = event.target as HTMLInputElement;
     props.setReason(value ?? "");
   };

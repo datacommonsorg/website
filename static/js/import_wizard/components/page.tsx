@@ -45,19 +45,21 @@ export function Page(): JSX.Element {
   return (
     <>
       <UploadSection
-        onCsvProcessed={(csv) => setCsv(csv)}
-        onPredictionRetrieved={(prediction) => setPredictedMapping(prediction)}
+        onCsvProcessed={(csv): void => setCsv(csv)}
+        onPredictionRetrieved={(prediction): void =>
+          setPredictedMapping(prediction)
+        }
         placeDetector={placeDetector.current}
       />
       {showMapping && (
         <MappingSection
           csvData={csv}
           predictedMapping={predictedMapping}
-          onCorrectedMappingUpdated={() => {
+          onCorrectedMappingUpdated={(): void => {
             setShowPreview(false);
             setShowValueMap(false);
           }}
-          onCorrectionsSubmitted={(mapping, csv) => {
+          onCorrectionsSubmitted={(mapping, csv): void => {
             setShowValueMap(true);
             setCorrections({ mapping, csv });
           }}
@@ -66,11 +68,11 @@ export function Page(): JSX.Element {
       )}
       {showValueMap && (
         <ValueMapSection
-          onValueMapSubmitted={(valueMap) => {
+          onValueMapSubmitted={(valueMap): void => {
             setShowPreview(true);
             setValueMap(valueMap);
           }}
-          onValueMapUpdated={() => {
+          onValueMapUpdated={(): void => {
             setShowPreview(false);
           }}
           valueMap={valueMap}
