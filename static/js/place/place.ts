@@ -30,10 +30,6 @@ import { isPlaceInUsa } from "./util";
 
 // Window scroll position to start fixing the sidebar.
 let yScrollLimit = 0;
-// Max top position for the sidebar, relative to #sidebar-outer.
-let sidebarTopMax = 0;
-// Margin to apply to the fixed sidebar top.
-const Y_SCROLL_MARGIN = 100;
 
 window.addEventListener("load", (): void => {
   try {
@@ -50,13 +46,6 @@ function updatePageLayoutState(): void {
   yScrollLimit = document.getElementById("place-summary").offsetTop;
   document.getElementById("sidebar-top-spacer").style.height =
     yScrollLimit + "px";
-  const sidebarOuterHeight =
-    document.getElementById("sidebar-outer").offsetHeight;
-  const sidebarRegionHeight =
-    document.getElementById("sidebar-region").offsetHeight;
-  const footerHeight = document.getElementById("main-footer").offsetHeight;
-  sidebarTopMax =
-    sidebarOuterHeight - sidebarRegionHeight - Y_SCROLL_MARGIN - footerHeight;
 }
 
 /**

@@ -56,7 +56,9 @@ export const RankingUnitUrlFuncContext = createContext(
 
 export const SdgContext = createContext({
   sdgIndex: null,
+  /* eslint-disable */
   setSdgIndex: (_: number): void => {
     return;
   },
+  /* eslint-enable */
 });
