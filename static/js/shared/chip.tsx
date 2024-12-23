@@ -43,7 +43,7 @@ export function Chip(props: ChipPropsType): JSX.Element {
         className={`chip-text${
           props.onTextClick ? " chip-clickable-text" : ""
         }`}
-        onClick={() => {
+        onClick={(): void => {
           if (props.onTextClick) {
             props.onTextClick();
           }
@@ -54,7 +54,7 @@ export function Chip(props: ChipPropsType): JSX.Element {
       <button className="chip-action">
         <i
           className="material-icons"
-          onClick={() => props.removeChip(props.id)}
+          onClick={(): void => props.removeChip(props.id)}
         >
           cancel
         </i>

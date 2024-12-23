@@ -31,7 +31,7 @@ const DOWN_ARROW_HTML = <i className="material-icons">arrow_drop_down</i>;
 const RIGHT_ARROW_HTML = <i className="material-icons">arrow_right</i>;
 const TOOLTIP_TOP_OFFSET = 10;
 
-interface StatVarHierarchyNodeHeaderPropType {
+export interface StatVarHierarchyNodeHeaderPropType {
   childrenStatVarCount: number;
   selectionCount: number;
   title: string;
@@ -76,7 +76,7 @@ export class StatVarHierarchyNodeHeader extends React.Component<StatVarHierarchy
         <span
           className={className}
           onMouseMove={this.props.showTooltip ? this.mouseMoveAction : null}
-          onMouseOut={() => hideTooltip()}
+          onMouseOut={(): void => hideTooltip()}
         >
           {this.props.title}
           {this.props.childrenStatVarCount > 0 &&
@@ -90,7 +90,7 @@ export class StatVarHierarchyNodeHeader extends React.Component<StatVarHierarchy
     );
   }
 
-  private mouseMoveAction = (e) => {
+  private mouseMoveAction = (e): void => {
     const containerClientRect = (
       d3.select(`#${SV_HIERARCHY_SECTION_ID}`).node() as HTMLElement
     ).getBoundingClientRect();

@@ -133,7 +133,7 @@ export function PlaceDetails(props: PlaceDetailsPropType): JSX.Element {
   );
 }
 
-function highlightPlace(e: React.MouseEvent<HTMLAnchorElement>) {
+function highlightPlace(e: React.MouseEvent<HTMLAnchorElement>): void {
   const target = e.target as HTMLAnchorElement;
   const placeDcid = target.dataset.geodcid;
   highlightPlaceToggle(
@@ -143,7 +143,7 @@ function highlightPlace(e: React.MouseEvent<HTMLAnchorElement>) {
   );
 }
 
-function unhighlightPlace(e: React.MouseEvent<HTMLAnchorElement>) {
+function unhighlightPlace(e: React.MouseEvent<HTMLAnchorElement>): void {
   const target = e.target as HTMLAnchorElement;
   const placeDcid = target.dataset.geodcid;
   highlightPlaceToggle(

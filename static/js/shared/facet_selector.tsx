@@ -109,7 +109,7 @@ export function FacetSelector(props: FacetSelectorPropType): JSX.Element {
         className={`${SELECTOR_PREFIX}-open-modal-button`}
         size="sm"
         color="light"
-        onClick={() => setModalOpen(true)}
+        onClick={(): void => setModalOpen(true)}
       >
         Edit {Object.keys(props.svFacetId).length > 1 ? "Sources" : "Source"}
       </Button>
@@ -118,7 +118,7 @@ export function FacetSelector(props: FacetSelectorPropType): JSX.Element {
         className={`${SELECTOR_PREFIX}-modal`}
         style={{ maxWidth: MODAL_MAX_WIDTH }}
       >
-        <ModalHeader toggle={() => setModalOpen(false)}>
+        <ModalHeader toggle={(): void => setModalOpen(false)}>
           Source Selector
         </ModalHeader>
         <ModalBody>
@@ -228,7 +228,7 @@ function getFacetOptionJsx(
             type="radio"
             name={facetInfo.dcid}
             defaultChecked={selectedFacetId === facetId}
-            onClick={() => {
+            onClick={(): void => {
               setModalSelections({
                 ...modalSelections,
                 [facetInfo.dcid]: facetId,

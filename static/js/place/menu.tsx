@@ -53,7 +53,7 @@ class MenuCategory extends React.Component<MenuCategoryPropsType> {
           href={hrefString}
           className={`nav-link ${selectCategory === category ? "active" : ""}`}
           text={this.props.categoryDisplayStr}
-          handleClick={() =>
+          handleClick={(): void =>
             triggerGAEvent(GA_EVENT_PLACE_CATEGORY_CLICK, {
               [GA_PARAM_PLACE_CATEGORY_CLICK]: category,
               [GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE]:
@@ -128,7 +128,7 @@ class Menu extends React.Component<MenuPropsType> {
                 description:
                   "Text for header or subheader of Overview charts on place pages.",
               })}
-              handleClick={() =>
+              handleClick={(): void =>
                 triggerGAEvent(GA_EVENT_PLACE_CATEGORY_CLICK, {
                   [GA_PARAM_PLACE_CATEGORY_CLICK]:
                     GA_VALUE_PLACE_CATEGORY_CLICK_OVERVIEW,
