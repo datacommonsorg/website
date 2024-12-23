@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-/* eslint-disable camelcase */
-
 import _ from "lodash";
 
 import { Mapping, TypeProperty } from "../types";
@@ -247,6 +245,7 @@ test("jsonParsingColumnIncorrect", () => {
 });
 
 test("jsonParsingPropIncorrect", () => {
+  /* eslint-disable */
   const resp = {
     Place: {
       type: "column",
@@ -260,6 +259,7 @@ test("jsonParsingPropIncorrect", () => {
       headers: null,
     },
   };
+  /* eslint-enable */
   const got: Mapping = detection.parseDetectionApiResponse(resp);
   expect(_.isEmpty(got)).toBe(true);
 });
