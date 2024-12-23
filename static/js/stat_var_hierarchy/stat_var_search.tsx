@@ -20,7 +20,7 @@
  */
 
 import _ from "lodash";
-import React from "react";
+import React, { ChangeEvent } from "react";
 
 import {
   GA_EVENT_TOOL_STAT_VAR_SEARCH_NO_RESULT,
@@ -195,7 +195,9 @@ export class StatVarHierarchySearch extends React.Component<
     return result;
   }
 
-  private onInputChanged = (event): void => {
+  private onInputChanged = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     this.setState({ showResults: true });
     const query = event.target.value;
     // When the seach text is fully removed, should call onSelectChange to

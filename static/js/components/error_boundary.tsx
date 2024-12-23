@@ -21,7 +21,7 @@
  * does not catch async errors.
  */
 
-import React from "react";
+import React, { ErrorInfo } from "react";
 
 interface ErrorBoundaryPropType {
   // Custom element to display when there's an error instead of the default.
@@ -41,7 +41,7 @@ export class ErrorBoundary extends React.Component<
     this.state = { hasError: false };
   }
 
-  componentDidCatch(error, info): void {
+  componentDidCatch(error: Error, info: ErrorInfo): void {
     // Display fallback UI
     this.setState({ hasError: true });
     console.log(error, info);

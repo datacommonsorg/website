@@ -90,7 +90,7 @@ export class StatVarHierarchyNodeHeader extends React.Component<StatVarHierarchy
     );
   }
 
-  private mouseMoveAction = (e): void => {
+  private mouseMoveAction = (e: MouseEvent): void => {
     const containerClientRect = (
       d3.select(`#${SV_HIERARCHY_SECTION_ID}`).node() as HTMLElement
     ).getBoundingClientRect();
