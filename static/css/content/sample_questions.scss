@@ -1,0 +1,108 @@
+/**
+ * Copyright 2024 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* Styles for the sample questions component, a component that renders sample questions in columns */
+
+.sample-questions {
+h3 {
+  @include var.title_xs;
+  margin-bottom: calc(#{var.$spacing} * 3);
+}
+.questions-container {
+  display: flex;
+  gap: calc(#{var.$spacing} * 3);
+  margin-bottom: calc(#{var.$spacing} * 3);
+  padding: 4px; // account for boxes shadows
+}
+
+.questions-column {
+  display: flex;
+  flex-basis: 100%;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-direction: column;
+  gap: calc(#{var.$spacing} * 3);
+}
+
+.question-item {
+  display: block;
+  list-style: none;
+  a {
+    @include var.white-box;
+    @include var.shadow;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: calc(#{var.$spacing} * 3);
+    border-radius: calc(#{var.$spacing} * 4);
+    p {
+      @include var.text_xl;
+    }
+    small {
+      @include var.text_xs;
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 24px;
+    }
+  }
+  &.green a {
+    p {
+      color: var.$color-green;
+    }
+    small {
+      color: var.$color-green_pill_text;
+      background-color: var.$color-green_pill_bckg;
+    }
+  }
+  &.blue a {
+    p {
+      color: var.$color-blue;
+    }
+    small {
+      color: var.$color-blue_pill_text;
+      background-color: var.$color-blue_pill_bckg;
+    }
+  }
+  &.red a {
+    p {
+      color: var.$color-red;
+    }
+    small {
+      color: var.$color-red_pill_text;
+      background-color: var.$color-red_pill_bckg;
+    }
+  }
+  &.yellow a {
+    p {
+      color: var.$color-yellow;
+    }
+    small {
+      color: var.$color-yellow_pill_text;
+      background-color: var.$color-yellow_pill_bckg;
+    }
+  }
+  &.gray a {
+    p {
+      color: var.$color-gray;
+    }
+    small {
+      color: var.$color-gray_pill_text;
+      background-color: var.$color-gray_pill_bckg;
+    }
+  }
+}
+}

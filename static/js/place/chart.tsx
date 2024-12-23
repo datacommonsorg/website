@@ -64,7 +64,6 @@ import { defaultDataCommonsClient } from "../utils/data_commons_client";
 import { transformCsvHeader } from "../utils/tile_utils";
 import { ChartEmbed } from "./chart_embed";
 import { getChoroplethData, getGeoJsonData } from "./fetch";
-import { updatePageLayoutState } from "./place";
 
 const CHART_HEIGHT = 194;
 const MIN_CHOROPLETH_DATAPOINTS = 9;
@@ -139,6 +138,10 @@ interface ChartPropType {
    * The chart spec.
    */
   spec?: ChartBlockData;
+  /**
+   * The locale of the page.
+   */
+  locale: string;
 }
 
 interface ChartStateType {
@@ -380,7 +383,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     } catch (e) {
       return;
     }
-    updatePageLayoutState();
+    // updatePageLayoutState();
   }
 
   componentWillUnmount(): void {
@@ -648,10 +651,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         break;
       case chartTypeEnum.CHOROPLETH:
         Promise.all([
-          getGeoJsonData(
-            this.props.dcid,
-            document.getElementById("locale").dataset.lc
-          ),
+          getGeoJsonData(this.props.dcid, this.props.locale),
           getChoroplethData(this.props.dcid, this.props.spec),
         ]).then(([geoJsonData, choroplethData]) => {
           if (

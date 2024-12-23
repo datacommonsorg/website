@@ -21,8 +21,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from server.webdriver.base import WebdriverBaseTest
 
 
-# Class to test disaster page
 class TestCharts(WebdriverBaseTest):
+  """Class to test disaster page."""
 
   def test_server_and_page(self):
     """Test the server can run successfully."""

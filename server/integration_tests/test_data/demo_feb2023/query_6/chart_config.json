@@ -106,23 +106,6 @@
               {
                 "tiles": [
                   {
-                    "description": "Percent of Children That Have Asthma in Placer County",
-                    "statVarKey": [
-                      "Percent_Person_Children_WithAsthma"
-                    ],
-                    "title": "Percent of Children That Have Asthma in Placer County",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Percent of Children That Have Asthma"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "statVarKey": [
                       "Percent_Person_WithAsthma"
                     ],
@@ -145,6 +128,23 @@
               }
             ],
             "title": "Asthma"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Percent of Children That Have Asthma in Placer County",
+                    "statVarKey": [
+                      "Percent_Person_Children_WithAsthma"
+                    ],
+                    "title": "Percent of Children That Have Asthma in Placer County",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Percent of Children That Have Asthma"
           },
           {
             "columns": [
@@ -387,13 +387,21 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening",
-                      "Percent_Person_50To74Years_Female_ReceivedMammography",
-                      "Percent_Person_50To75Years_ReceivedColorectalCancerScreening"
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06061"
                     ],
-                    "title": "Cancer Preventive Health in Placer County",
-                    "type": "LINE"
+                    "statVarKey": [
+                      "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening_multiple_place_bar_block",
+                      "Percent_Person_50To74Years_Female_ReceivedMammography_multiple_place_bar_block",
+                      "Percent_Person_50To75Years_ReceivedColorectalCancerScreening_multiple_place_bar_block"
+                    ],
+                    "title": "Cancer Preventive Health in Placer County (${date})",
+                    "type": "BAR"
                   }
                 ]
               }
@@ -872,7 +880,7 @@
                     "statVarKey": [
                       "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone"
                     ],
-                    "title": "American Indian/Alaska Natives With Disabilities in Cities of Placer County (${date})",
+                    "title": "Number of American Indian/Alaska Natives With Disabilities in Cities of Placer County (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -883,14 +891,14 @@
                     "statVarKey": [
                       "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone"
                     ],
-                    "title": "American Indian/Alaska Natives With Disabilities in Cities of Placer County (${date})",
+                    "title": "Number of American Indian/Alaska Natives With Disabilities in Cities of Placer County (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "American Indian/Alaska Natives With Disabilities in Cities of Placer County"
+            "title": "Number of American Indian/Alaska Natives With Disabilities in Cities of Placer County"
           },
           {
             "columns": [
@@ -904,7 +912,7 @@
                     "statVarKey": [
                       "Count_Person_WithDisability_BlackOrAfricanAmericanAlone"
                     ],
-                    "title": "Black/African Americans With Disabilities in Cities of Placer County (${date})",
+                    "title": "Number of Black/African Americans With Disabilities in Cities of Placer County (${date})",
                     "type": "RANKING"
                   }
                 ]
@@ -915,14 +923,14 @@
                     "statVarKey": [
                       "Count_Person_WithDisability_BlackOrAfricanAmericanAlone"
                     ],
-                    "title": "Black/African Americans With Disabilities in Cities of Placer County (${date})",
+                    "title": "Number of Black/African Americans With Disabilities in Cities of Placer County (${date})",
                     "type": "MAP"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Black/African Americans With Disabilities in Cities of Placer County"
+            "title": "Number of Black/African Americans With Disabilities in Cities of Placer County"
           },
           {
             "columns": [
@@ -1361,19 +1369,19 @@
             "statVar": "Count_Person_NoHealthInsurance"
           },
           "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone": {
-            "name": "American Indian/Alaska Natives With Disabilities",
+            "name": "Number of American Indian/Alaska Natives With Disabilities",
             "statVar": "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone"
           },
           "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
-            "name": "American Indian/Alaska Natives With Disabilities",
+            "name": "Number of American Indian/Alaska Natives With Disabilities",
             "statVar": "Count_Person_WithDisability_AmericanIndianOrAlaskaNativeAlone"
           },
           "Count_Person_WithDisability_BlackOrAfricanAmericanAlone": {
-            "name": "Black/African Americans With Disabilities",
+            "name": "Number of Black/African Americans With Disabilities",
             "statVar": "Count_Person_WithDisability_BlackOrAfricanAmericanAlone"
           },
           "Count_Person_WithDisability_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
-            "name": "Black/African Americans With Disabilities",
+            "name": "Number of Black/African Americans With Disabilities",
             "statVar": "Count_Person_WithDisability_BlackOrAfricanAmericanAlone"
           },
           "Count_Person_WithDisability_Female": {
@@ -1381,7 +1389,7 @@
             "statVar": "Count_Person_WithDisability_Female"
           },
           "Count_Person_WithDisability_HispanicOrLatino_multiple_place_bar_block": {
-            "name": "Hispanic/Latinos With Disabilities",
+            "name": "Number of Hispanic/Latinos With Disabilities",
             "statVar": "Count_Person_WithDisability_HispanicOrLatino"
           },
           "Count_Person_WithDisability_Male": {
@@ -1443,12 +1451,22 @@
             "statVar": "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening",
             "unit": "%"
           },
+          "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening_multiple_place_bar_block": {
+            "name": "Women 21 - 65 Years Who Received Cervical Cancer Screening",
+            "statVar": "Percent_Person_21To65Years_Female_ReceivedCervicalCancerScreening",
+            "unit": "%"
+          },
           "Percent_Person_50To74Years_Female_ReceivedMammography": {
             "name": "Women 50 - 74 Years, Who Received Mammography",
             "statVar": "Percent_Person_50To74Years_Female_ReceivedMammography",
             "unit": "%"
           },
-          "Percent_Person_50To75Years_ReceivedColorectalCancerScreening": {
+          "Percent_Person_50To74Years_Female_ReceivedMammography_multiple_place_bar_block": {
+            "name": "Women 50 - 74 Years, Who Received Mammography",
+            "statVar": "Percent_Person_50To74Years_Female_ReceivedMammography",
+            "unit": "%"
+          },
+          "Percent_Person_50To75Years_ReceivedColorectalCancerScreening_multiple_place_bar_block": {
             "name": "Patients 50 - 75 Years Who Received Colorectal Cancer Screening",
             "statVar": "Percent_Person_50To75Years_ReceivedColorectalCancerScreening",
             "unit": "%"
@@ -2147,7 +2165,6 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "See relevant statistics for Placer County based on the previous query.",
   "userMessages": [
     "See relevant statistics for Placer County based on the previous query."
   ]

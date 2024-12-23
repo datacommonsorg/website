@@ -101,7 +101,7 @@ function saveToCsv(
   saveToFile("datacommons_data.csv", csv);
 }
 
-window.onload = function () {
+window.addEventListener("load", (): void => {
   const statVars = Array.from(getTokensFromUrl("statsVar", "__"));
   const statVarDisplay = document.getElementById("statVars");
   statVarDisplay.innerText = statVars.join(", ");
@@ -114,4 +114,4 @@ window.onload = function () {
       downloadBulkData(statVars, ptype, "country/USA");
     });
   }
-};
+});

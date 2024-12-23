@@ -433,8 +433,8 @@ class Detection:
 
 @dataclass
 class DetectionArgs:
-  # Name of the embeddings index type to override ENV default
-  embeddings_index_type: str
+  # Name of the embeddings index types to override ENV default
+  embeddings_index_types: List[str]
   # Query mode. e.g., `strict`, `toolformer_rig`, `toolformer_rag`
   mode: str
   # Reranker model name

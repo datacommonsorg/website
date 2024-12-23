@@ -31,9 +31,9 @@ website and mixer changes.
 
 **WARNING**: Make sure to go through each of the following steps.
 
-- Python 3.11
+- Python
 
-  Confirm the Python3 version is 3.11.x. Otherwise install/upgrade your Python
+  Confirm the Python3 version is 3.11 or above. Otherwise install/upgrade your Python
   and confirm the version:
 
   ```bash
@@ -43,6 +43,15 @@ website and mixer changes.
   Set up your Python environment and update packages with:
   ```bash
   ./run_test.sh --setup_python
+  ```
+
+  If using version 3.12.x or above, you also need to run the following command, on macOs:
+  ```bash
+  brew install python-setuptools
+  ```
+  or for linux:
+  ```bash
+  pip install python-setuptools
   ```
 
 - Node.js 18.4.0
@@ -59,7 +68,7 @@ website and mixer changes.
 - Protoc 3.21.9
 
   Install [`protoc`](https://grpc.io/docs/protoc-installation/) at version
-  3.21.9.
+  [3.21.9](https://github.com/protocolbuffers/protobuf/releases/tag/v21.9).
 
 - [Optional] gcloud
 
@@ -343,3 +352,11 @@ the same region.
 ### Testing cloudbuild changes
 
 To test .yaml cloudbuild files, you can use cloud-build-local to dry run the file before actually pushing. Find documentation for how to install and use cloud-build-local [here](https://github.com/GoogleCloudPlatform/cloud-build-local).
+
+### Inline Icons
+
+The Data Commons site makes use of Material Design icons. In certain cases, font-based Material Design icon usage can result in
+flashes of unstyled content that can be avoided by using SVG icons.
+
+We have provided tools to facilitate the creation and use of Material SVG icons in both the Jinja template and in React components. 
+For instructions  on how to generate and use these SVGs and components, please see: [Icon Readme](../tools/resources/icons/README.md):

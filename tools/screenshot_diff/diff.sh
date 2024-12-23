@@ -15,7 +15,8 @@
 
 set -e
 
-prod_commit_date=$(git log -1 --date=format:"%Y_%m_%d_%H_%M_%S" --format="%ad" prod)
+prod_tag=$(git tag -l "v*" | sort -V | tail -n1)
+prod_commit_date=$(git log -1 --date=format:"%Y_%m_%d_%H_%M_%S" --format="%ad" $prod_tag)
 latest_commit_date=$(git log -1 --date=format:"%Y_%m_%d_%H_%M_%S" --format="%ad")
 
 prod_screenshot=""

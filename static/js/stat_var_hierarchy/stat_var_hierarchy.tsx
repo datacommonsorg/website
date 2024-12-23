@@ -344,6 +344,7 @@ export class StatVarHierarchy extends React.Component<
         searchSelectionCleared,
         expandedPath: searchSelectionCleared ? this.state.focusPath : [],
       });
+      this.togglePath(selection, path);
     });
   }
 

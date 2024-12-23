@@ -21,9 +21,9 @@
                       "country/TUN",
                       "country/MLI",
                       "country/ERI",
-                      "country/MWI",
                       "country/SEN",
                       "country/GMB",
+                      "country/MWI",
                       "country/SSD"
                     ],
                     "statVarKey": [
@@ -54,9 +54,9 @@
                       "country/TUN",
                       "country/MLI",
                       "country/ERI",
-                      "country/MWI",
                       "country/SEN",
                       "country/GMB",
+                      "country/MWI",
                       "country/SSD"
                     ],
                     "statVarKey": [
@@ -88,9 +88,9 @@
                       "country/TUN",
                       "country/MLI",
                       "country/ERI",
-                      "country/MWI",
                       "country/SEN",
                       "country/GMB",
+                      "country/MWI",
                       "country/SSD"
                     ],
                     "statVarKey": [
@@ -122,9 +122,9 @@
                       "country/TUN",
                       "country/MLI",
                       "country/ERI",
-                      "country/MWI",
                       "country/SEN",
                       "country/GMB",
+                      "country/MWI",
                       "country/SSD"
                     ],
                     "statVarKey": [
@@ -155,9 +155,9 @@
                       "country/TUN",
                       "country/MLI",
                       "country/ERI",
-                      "country/MWI",
                       "country/SEN",
                       "country/GMB",
+                      "country/MWI",
                       "country/SSD"
                     ],
                     "statVarKey": [
@@ -189,21 +189,21 @@
                       "country/TUN",
                       "country/MLI",
                       "country/ERI",
-                      "country/MWI",
                       "country/SEN",
                       "country/GMB",
+                      "country/MWI",
                       "country/SSD"
                     ],
                     "statVarKey": [
-                      "WHO/CM_02_multiple_place_bar_block"
+                      "Count_Person_multiple_place_bar_block"
                     ],
-                    "title": "Number of Infant Deaths (${date})",
+                    "title": "Population (${date})",
                     "type": "BAR"
                   }
                 ]
               }
             ],
-            "title": "Number of Infant Deaths"
+            "title": "Population"
           }
         ],
         "statVarSpec": {
@@ -215,6 +215,10 @@
             "name": "Infant Mortality Rate",
             "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
           },
+          "Count_Person_multiple_place_bar_block": {
+            "name": "Population",
+            "statVar": "Count_Person"
+          },
           "FertilityRate_Person_Female_multiple_place_bar_block": {
             "name": "Fertility Rate",
             "statVar": "FertilityRate_Person_Female"
@@ -222,10 +226,6 @@
           "GrowthRate_Count_Person_multiple_place_bar_block": {
             "name": "Rate of Population Growth",
             "statVar": "GrowthRate_Count_Person"
-          },
-          "WHO/CM_02_multiple_place_bar_block": {
-            "name": "Number Of Infant Deaths",
-            "statVar": "WHO/CM_02"
           },
           "sdg/SP_DYN_ADKL.AGE--Y10T14__SEX--F_multiple_place_bar_block": {
             "name": "Adolescent birth rate [10 to 14 years old, Female]",
@@ -287,11 +287,6 @@
       "place_type": "Country"
     },
     {
-      "dcid": "country/MWI",
-      "name": "Malawi",
-      "place_type": "Country"
-    },
-    {
       "dcid": "country/SEN",
       "name": "Senegal",
       "place_type": "Country"
@@ -299,6 +294,11 @@
     {
       "dcid": "country/GMB",
       "name": "Gambia",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/MWI",
+      "name": "Malawi",
       "place_type": "Country"
     },
     {
@@ -326,7 +326,6 @@
     "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "See comparison based on places in the previous answer.",
   "userMessages": [
     "See comparison based on places in the previous answer."
   ]

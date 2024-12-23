@@ -146,6 +146,45 @@ export const GA_EVENT_TILE_EXPLORE_MORE = "tile_explore_more";
  */
 export const GA_EVENT_TILE_SOURCE = "tile_source";
 
+/**
+ * Triggered on header menu & navigation clicks.
+ * Parameters:
+ *    "id": desktop|mobile main|submenu <menu_id> ?<index>
+ *    "url": <destination source URL>
+ */
+export const GA_EVENT_HEADER_CLICK = "header_click";
+
+/**
+ * Triggered on homepage clicks.
+ * Parameters:
+ *    "id": topic|sample-q single|<id>
+ *    "url"?: <destination source URL>
+ *    "query"?: <sample query>
+ */
+export const GA_EVENT_HOMEPAGE_CLICK = "homepage_click";
+
+/**
+ * Triggered on build / custom_dc clicks.
+ * Parameters:
+ *    "id": topic|sample-q single|<id>
+ *    "url": <destination source URL>
+ */
+export const GA_EVENT_BUILDPAGE_CLICK = "buildpage_click";
+
+/**
+ * Triggered on autocomplete selections.
+ * Parameters:
+ *   "result_index": <index of the selected autocomplete result>
+ */
+export const GA_EVENT_AUTOCOMPLETE_SELECTION = "autocomplete_select";
+
+/**
+ * Triggered on autocomplete trigger.
+ * Parameters:
+ *    "query": <sample query>
+ */
+export const GA_EVENT_AUTOCOMPLETE_TRIGGERED = "autocomplete_trigger";
+
 // GA event parameters
 export const GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE =
   "place_category_click_source";
@@ -158,10 +197,12 @@ export const GA_PARAM_TOOL_CHART_OPTION = "tool_chart_option";
 export const GA_PARAM_TILE_TYPE = "type";
 export const GA_PARAM_QUERY = "query";
 export const GA_PARAM_URL = "url";
+export const GA_PARAM_ID = "id";
 export const GA_PARAM_SOURCE = "source";
 export const GA_PARAM_TOPIC = "topic";
 export const GA_PARAM_PLACE = "place";
 export const GA_PARAM_TIMING_MS = "time_ms";
+export const GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX = "selection_index";
 
 //GA event parameter values
 export const GA_VALUE_PLACE_CHART_CLICK_STAT_VAR_CHIP = "stat var chip";

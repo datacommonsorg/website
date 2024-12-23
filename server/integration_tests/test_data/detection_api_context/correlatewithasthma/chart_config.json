@@ -20,9 +20,9 @@
     "dc/topic/WorkCommute",
     "dc/topic/CommuteMode",
     "dc/topic/CommuteModeByOccupation",
-    "dc/h7ft916g93ys2",
-    "dc/fyc3yvjy0xw6g",
-    "dc/hbkh95kc7pkb6"
+    "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome",
+    "dc/hbkh95kc7pkb6",
+    "dc/wc8q05drd74bd"
   ],
   "context": {},
   "debug": {},
@@ -33,9 +33,10 @@
   "properties": [],
   "sessionId": "007_999999999",
   "variables": [
+    "dc/topic/Asthma",
+    "dc/topic/AsthmaFemalePopulationByAge",
     "Percent_Person_WithAsthma",
     "Percent_Person_Children_WithAsthma",
-    "dc/topic/AsthmaFemalePopulationByAge",
     "dc/topic/AsthmaMalePopulationByAge",
     "dc/topic/HealthConditions",
     "dc/topic/Health"

@@ -20,7 +20,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { PageData } from "../chart/types";
-import { NlSearchBar } from "../components/nl_search_bar";
 import { loadLocaleData } from "../i18n/i18n";
 import {
   GA_EVENT_NL_SEARCH,
@@ -34,12 +33,7 @@ import { MainPane, showOverview } from "./main_pane";
 import { Menu } from "./menu";
 import { PageSubtitle } from "./page_subtitle";
 import { PlaceHighlight } from "./place_highlight";
-import { PlaceSearch } from "./place_search";
 import { isPlaceInUsa } from "./util";
-
-// Temporarily hide NL search bar on frontend until backend pipelines are
-// implemented.
-const SHOW_NL_SEARCH_BAR = false;
 
 // Window scroll position to start fixing the sidebar.
 let yScrollLimit = 0;
@@ -50,16 +44,18 @@ const Y_SCROLL_WINDOW_BREAKPOINT = 992;
 // Margin to apply to the fixed sidebar top.
 const Y_SCROLL_MARGIN = 100;
 
-window.onload = () => {
+window.addEventListener("load", (): void => {
   try {
     renderPage();
-    updatePageLayoutState();
-    maybeToggleFixedSidebar();
-    window.onresize = maybeToggleFixedSidebar;
+    // Disable sidebar pinning.
+    // TODO(beets): Delete this code.
+    // updatePageLayoutState();
+    // maybeToggleFixedSidebar();
+    // window.onresize = maybeToggleFixedSidebar;
   } catch (e) {
     return;
   }
-};
+});
 
 /**
  *  Make adjustments to sidebar scroll state based on the content.
@@ -167,12 +163,20 @@ function renderPage(): void {
   // Get category and render menu.
   const category = urlParams.get("category") || "Overview";
   const seed = urlParams.get("seed") || "0";
+
+  // Get place data
   const dcid = document.getElementById("title").dataset.dcid;
   const placeName = document.getElementById("place-name").dataset.pn;
   const placeType = document.getElementById("place-type").dataset.pt;
-  const locale = document.getElementById("locale").dataset.lc;
+
+  // Get locale
+  const metadataContainer = document.getElementById("metadata-base");
+  const locale = metadataContainer.dataset.locale;
+
+  // Get landing page data
   const landingPagePromise = getLandingPageData(dcid, category, locale, seed);
 
+  // Load locale data
   Promise.all([
     landingPagePromise,
     loadLocaleData(locale, [
@@ -188,30 +192,13 @@ function renderPage(): void {
         return;
       }
       const loadingElem = document.getElementById("page-loading");
+      const sidebarElem = document.getElementById("sidebar-outer");
+      const mainPaneElem = document.getElementById("main-pane");
       loadingElem.style.display = "none";
+      sidebarElem.style.opacity = "1";
+      mainPaneElem.style.opacity = "1";
       const data: PageData = landingPageData;
       const isUsaPlace = isPlaceInUsa(dcid, data.parentPlaces);
-
-      if (SHOW_NL_SEARCH_BAR) {
-        ReactDOM.render(
-          React.createElement(NlSearchBar, {
-            initialValue: "",
-            inputId: "query-search-input",
-            onSearch,
-            placeholder: `Enter a question to explore`,
-            shouldAutoFocus: false,
-          }),
-          document.getElementById("nl-search-bar")
-        );
-      } else {
-        // when NL search bar is hidden, need to adjust spacing
-        document.getElementById("nl-search-bar").style.height = "2rem";
-      }
-
-      ReactDOM.render(
-        React.createElement(PlaceSearch, {}),
-        document.getElementById("place-search-container")
-      );
 
       ReactDOM.render(
         React.createElement(Menu, {
@@ -234,7 +221,7 @@ function renderPage(): void {
       }
 
       // Readjust sidebar based on parent places.
-      updatePageLayoutState();
+      // updatePageLayoutState();
 
       // Display child places alphabetically
       for (const placeType in data.allChildPlaces) {

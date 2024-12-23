@@ -37,10 +37,14 @@ import {
   getDate,
   getSeverityFilters,
 } from "../js/utils/disaster_event_map_utils";
-import { getTileEventTypeSpecs } from "../js/utils/tile_utils";
-import { BARD_CLIENT_URL_PARAM } from "./constants";
+import {
+  getHighlightTileDescription,
+  getTileEventTypeSpecs,
+} from "../js/utils/tile_utils";
+import { BARD_CLIENT_URL_PARAM, TOOLFORMER_RIG_MODE } from "./constants";
 import { getBarTileResult } from "./tiles/bar_tile";
 import { getDisasterMapTileResult } from "./tiles/disaster_map_tile";
+import { getHighlightTileResult } from "./tiles/highlight_tile";
 import { getLineTileResult } from "./tiles/line_tile";
 import { getMapTileResult } from "./tiles/map_tile";
 import { getRankingTileResult } from "./tiles/ranking_tile";
@@ -50,8 +54,10 @@ import { QueryResult, TileResult } from "./types";
 const NS_TO_MS_SCALE_FACTOR = BigInt(1000000);
 const MS_TO_S_SCALE_FACTOR = 1000;
 const QUERY_MAX_RESULTS = 3;
-// Allowed chart types if client is Bard.
+// Allowed chart types if mode is Bard.
 const BARD_ALLOWED_CHARTS = new Set(["LINE", "BAR", "RANKING", "SCATTER"]);
+// Allowed chart types if mode is toolformer rig
+const TOOLFORMER_RIG_ALLOWED_CHARTS = new Set(["LINE", "HIGHLIGHT"]);
 // The root to use to form the dc link in the tile results
 // TODO: update this to use bard.datacommons.org
 const DC_URL_ROOT = "https://datacommons.org/explore#q=";
@@ -81,7 +87,8 @@ function getBlockTileResults(
   useChartUrl: boolean,
   apikey: string,
   apiRoot: string,
-  allowedTilesTypes?: Set<string>
+  allowedTilesTypes?: Set<string>,
+  mode?: string
 ): Promise<TileResult[] | TileResult>[] {
   const tilePromises = [];
   const svProvider = new StatVarProvider(svSpec);
@@ -105,7 +112,8 @@ function getBlockTileResults(
               apiRoot,
               urlRoot,
               useChartUrl,
-              apikey
+              apikey,
+              mode
             )
           );
           break;
@@ -137,7 +145,8 @@ function getBlockTileResults(
               apiRoot,
               urlRoot,
               useChartUrl,
-              apikey
+              apikey,
+              mode
             )
           );
           break;
@@ -166,11 +175,15 @@ function getBlockTileResults(
               place.dcid,
               enclosedPlaceType,
               tileSvSpec,
-              apiRoot,
-              urlRoot,
-              useChartUrl,
-              apikey
+              apiRoot
             )
+          );
+          break;
+        case "HIGHLIGHT":
+          tileSvSpec = svProvider.getSpec(tile.statVarKey[0], { blockDenom });
+          tile.description = getHighlightTileDescription(tile, blockDenom);
+          tilePromises.push(
+            getHighlightTileResult(tileId, tile, place, tileSvSpec, apiRoot)
           );
           break;
         default:
@@ -282,8 +295,15 @@ export async function getQueryResult(
   idx?: string
 ): Promise<QueryResult> {
   const startTime = process.hrtime.bigint();
-  const allowedTileTypes =
-    client === BARD_CLIENT_URL_PARAM ? BARD_ALLOWED_CHARTS : null;
+
+  let allowedTileTypes = null;
+  // if mode is empty or mode=bard, use BARD_ALLOWED_CHARTS
+  // if mode=toolformer_rig, use TOOLFORMER_RIG_ALLOWED_CHARTS
+  if (!mode || mode === BARD_CLIENT_URL_PARAM) {
+    allowedTileTypes = BARD_ALLOWED_CHARTS;
+  } else if (mode === TOOLFORMER_RIG_MODE) {
+    allowedTileTypes = TOOLFORMER_RIG_ALLOWED_CHARTS;
+  }
 
   // Get the nl detect-and-fulfill result for the query
   // TODO: only generate related things when we need to generate related question
@@ -293,6 +313,7 @@ export async function getQueryResult(
     client,
     idx,
     mode,
+    skipRelatedThings: wantRelatedQuestions ? "" : "true",
     varThreshold,
   };
   Object.keys(params)
@@ -380,7 +401,8 @@ export async function getQueryResult(
             useChartUrl,
             apikey,
             apiRoot,
-            allowedTileTypes
+            allowedTileTypes,
+            mode
           );
       }
       tilePromises.push(...blockTilePromises);
@@ -415,6 +437,7 @@ export async function getQueryResult(
       getTileResults: getElapsedTime(nlResultTime, endTime),
       total: getElapsedTime(startTime, endTime),
     },
+    websiteCommit: process.env.WEBSITE_HASH || "",
   };
   const result: QueryResult = { charts: processedResults, debug };
   if (wantRelatedQuestions) {

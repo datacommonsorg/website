@@ -27,6 +27,15 @@ website:
   flaskEnv: staging
   replicas: 6
   enableModel: true
+  redis:
+    enabled: true
+    configFile: |
+      {
+        "us-central1": {
+          "host": "10.127.249.59",
+          "port": "6379"
+        }
+      }
 
 ingress:
   enabled: false
@@ -64,3 +73,9 @@ serviceGroups:
 
 svg:
   blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]
+
+cronTesting:
+  enabled: true
+  screenshotDomain: "staging.datacommons.org"
+  nodePool: "default-pool"
+  schedule: "* * 31 2 *" # invalid day for month -> never run automatically

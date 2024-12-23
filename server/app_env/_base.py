@@ -52,7 +52,9 @@ class Config:
                            os.environ.get('MIXER_HASH'))
   API_ROOT = 'http://127.0.0.1:8081'  # Port for Kubernetes ESP.
   SECRET_PROJECT = ''
+  # Deprecated. Use the GOOGLE_ANALYTICS_TAG_ID environment variable instead of GA_ACCOUNT
   GA_ACCOUNT = ''
+  GOOGLE_ANALYTICS_TAG_ID = ''
   SCHEME = 'https'
   # Additional stat vars that need to be fetched for place page data.
   # This is only needed for local development when cache is not up to date.
@@ -60,6 +62,10 @@ class Config:
   # If set, will be used in the main header of the default base template. Must
   # be the full serving path from /static folder.
   LOGO_PATH = '/images/dc-logo.svg'
+  # If set, this width will be applied to the logo in the default base template,
+  # in order to prevent content bouncing.
+  # TODO: Determine this automatically by looking at the file in the LOGO_PATH.
+  LOGO_WIDTH = '28px'
   # If set, will be included on all pages, after base DC css as verbatim
   # overrides in the default base template. Will not be compiled. Must be the
   # full serving path from /static folder.
@@ -87,3 +93,8 @@ class Config:
   # all stat vars available for a given entity. Setting a value > 1 prevents
   # users from encountering almost-empty maps and sparse scatter plots.
   MIN_STAT_VAR_GEO_COVERAGE = 10
+  # NL Bad words file.
+  BAD_WORDS_FILE = 'nl_bad_words.txt'
+  # Whether to enable BigQuery for instance. This is primarily used for
+  # accessing the observation browser pages.
+  ENABLE_BQ = False

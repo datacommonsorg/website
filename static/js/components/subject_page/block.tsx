@@ -52,7 +52,10 @@ import {
   getId,
   getMinTileIdxToHide,
 } from "../../utils/subject_page_utils";
-import { getComparisonPlaces } from "../../utils/tile_utils";
+import {
+  getComparisonPlaces,
+  getHighlightTileDescription,
+} from "../../utils/tile_utils";
 import { AnswerMessageTile } from "../tiles/answer_message_tile";
 import { AnswerTableTile } from "../tiles/answer_table_tile";
 import { BarTile } from "../tiles/bar_tile";
@@ -416,16 +419,10 @@ function renderTiles(
     let title = blockDenom ? addPerCapitaToTitle(tile.title) : tile.title;
     switch (tile.type) {
       case "HIGHLIGHT": {
-        let description = tile.description.includes("${date}")
-          ? tile.description
-          : tile.description + " (${date})";
-        description = blockDenom
-          ? addPerCapitaToTitle(description)
-          : description;
         return (
           <HighlightTile
             key={id}
-            description={description}
+            description={getHighlightTileDescription(tile, blockDenom)}
             place={place}
             statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0], {
               blockDate,
@@ -669,6 +666,7 @@ function renderTiles(
           </p>
         );
       case "PLACE_OVERVIEW":
+        // TODO(gmechali): Switch to server-side redirection
         return <PlaceOverviewTile key={id} place={place} />;
       case "ANSWER_MESSAGE":
         return (
@@ -700,6 +698,17 @@ function renderTiles(
         console.log("Tile type not supported:" + tile.type);
     }
   });
+  if (tilesJsx.length > 1) {
+    return (
+      <div className="row">
+        {tilesJsx.map((tileJsx, tileJsxIndex) => (
+          <div key={tileJsxIndex} className="col-xl-6">
+            {tileJsx}
+          </div>
+        ))}
+      </div>
+    );
+  }
   return <>{tilesJsx}</>;
 }
 

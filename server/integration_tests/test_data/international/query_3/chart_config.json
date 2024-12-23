@@ -99,35 +99,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "sdg/NY_GDP_PCAP"
-                    ],
-                    "title": "Annual Growth Rate of Real GDP Per Capita in Spain",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Annual Growth Rate of Real GDP Per Capita in Spain",
-                    "statVarKey": [
-                      "sdg/NY_GDP_PCAP"
-                    ],
-                    "title": "Annual Growth Rate of Real GDP Per Capita in Spain",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "footnote": "Includes data from the following sources: united nations, department of economic and social affairs, statistics division (AMA).",
-            "title": "Annual Growth Rate of Real GDP Per Capita"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
                     ],
                     "title": "Growth Rate of GDP in Spain",
@@ -156,27 +127,30 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "UnemploymentRate_Person"
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person"
                     ],
-                    "title": "Unemployment Rate in Spain",
-                    "type": "LINE"
+                    "title": "Economic Activity: Nominal GDP (Nominal, Per Capita) in Eurostat Nuts 3 Places of Spain (${date})",
+                    "type": "MAP"
                   }
                 ]
               },
               {
                 "tiles": [
                   {
-                    "description": "Unemployment Rate in Spain",
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
                     "statVarKey": [
-                      "UnemploymentRate_Person"
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person"
                     ],
-                    "title": "Unemployment Rate in Spain",
-                    "type": "HIGHLIGHT"
+                    "title": "Economic Activity: Nominal GDP (Nominal, Per Capita) in Eurostat Nuts 3 Places of Spain (${date})",
+                    "type": "RANKING"
                   }
                 ]
               }
             ],
-            "title": "Unemployment Rate"
+            "title": "Economic Activity: Nominal GDP (Nominal, Per Capita) in Eurostat Nuts 3 Places of Spain"
           },
           {
             "columns": [
@@ -184,9 +158,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "UnemploymentRate_Person_Female"
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person"
                     ],
-                    "title": "Unemployment Rate of Females in Spain",
+                    "title": "Economic Activity: Nominal GDP (Nominal, Per Capita) in Spain",
                     "type": "LINE"
                   }
                 ]
@@ -194,17 +168,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Unemployment Rate of Females in Spain",
+                    "description": "Economic Activity: Nominal GDP (Nominal, Per Capita) in Spain",
                     "statVarKey": [
-                      "UnemploymentRate_Person_Female"
+                      "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person"
                     ],
-                    "title": "Unemployment Rate of Females in Spain",
+                    "title": "Economic Activity: Nominal GDP (Nominal, Per Capita) in Spain",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Unemployment Rate of Females"
+            "title": "Economic Activity: Nominal GDP (Nominal, Per Capita)"
           },
           {
             "columns": [
@@ -232,7 +206,7 @@
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: WESR / global material flows database.",
+            "footnote": "Includes data from the following sources: eurostat; WESR / global material flows database.",
             "title": "Domestic Material Consumption Per Unit of GDP"
           }
         ],
@@ -240,6 +214,10 @@
           "Amount_EconomicActivity_GrossDomesticProduction_Nominal": {
             "name": "GDP (Nominal Value)",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+          },
+          "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person": {
+            "name": "Economic Activity: Nominal GDP (Nominal, Per Capita)",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_Nominal_AsAFractionOf_Count_Person"
           },
           "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita": {
             "name": "Nominal GDP Per Capita",
@@ -249,21 +227,9 @@
             "name": "Growth Rate of GDP",
             "statVar": "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
           },
-          "UnemploymentRate_Person": {
-            "name": "Unemployment Rate",
-            "statVar": "UnemploymentRate_Person"
-          },
-          "UnemploymentRate_Person_Female": {
-            "name": "Unemployment Rate of Females",
-            "statVar": "UnemploymentRate_Person_Female"
-          },
           "sdg/EN_MAT_DOMCMPG": {
             "name": "Domestic material consumption per unit of GDP",
             "statVar": "sdg/EN_MAT_DOMCMPG"
-          },
-          "sdg/NY_GDP_PCAP": {
-            "name": "Annual growth rate of real GDP per capita",
-            "statVar": "sdg/NY_GDP_PCAP"
           }
         }
       }
@@ -652,10 +618,25 @@
     },
     "childTopics": [],
     "exploreMore": {
-      "UnemploymentRate_Person_Female": {
-        "age": [
-          "UnemploymentRate_Person_25To74Years_Female",
-          "UnemploymentRate_Person_Upto25Years_Female"
+      "sdg/EN_MAT_DOMCMPG": {
+        "sdg_product": [
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF1",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF11",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF121",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF122",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF13",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF14",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF2",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF21",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF22",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF3",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF4",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF41",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF413",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF421",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF422",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF_AGG3A",
+          "sdg/EN_MAT_DOMCMPG.PRODUCT--MF_AGG3B"
         ]
       }
     },
@@ -787,13 +768,6 @@
     ],
     "peerTopics": [
       {
-        "dcid": "dc/topic/Debt",
-        "name": "Debt",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
         "dcid": "dc/topic/EducationExpenditure",
         "name": "Education Expenditure",
         "types": [
@@ -817,6 +791,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "",
   "userMessages": []
 }

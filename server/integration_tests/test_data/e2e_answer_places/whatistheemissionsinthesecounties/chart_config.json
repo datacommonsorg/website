@@ -601,6 +601,38 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Annual_Amount_Emissions_SCC_23_IndustrialProcesses"
+                    ],
+                    "title": "Annual Emissions: Industrial Processes in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Annual_Amount_Emissions_SCC_23_IndustrialProcesses"
+                    ],
+                    "title": "Annual Emissions: Industrial Processes in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Emissions: Industrial Processes in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Annual_Amount_Emissions_SCC_3_IndustrialProcesses"
                     ],
                     "title": "Annual Emissions: Industrial Processes in Counties of California (${date})",
@@ -658,38 +690,6 @@
             ],
             "denom": "Count_Person",
             "title": "Annual Emissions: Stationary Source Fuel Combustion in Counties of California"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Annual_Amount_Emissions_SCC_22_MobileSources"
-                    ],
-                    "title": "Annual Emissions: Mobile Sources in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Annual_Amount_Emissions_SCC_22_MobileSources"
-                    ],
-                    "title": "Annual Emissions: Mobile Sources in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Annual Emissions: Mobile Sources in Counties of California"
           }
         ],
         "statVarSpec": {
@@ -709,9 +709,9 @@
             "name": "Annual Emissions: Stationary Source Fuel Combustion",
             "statVar": "Annual_Amount_Emissions_SCC_21_StationarySourceFuelCombustion"
           },
-          "Annual_Amount_Emissions_SCC_22_MobileSources": {
-            "name": "Annual Emissions: Mobile Sources",
-            "statVar": "Annual_Amount_Emissions_SCC_22_MobileSources"
+          "Annual_Amount_Emissions_SCC_23_IndustrialProcesses": {
+            "name": "Annual Emissions: Industrial Processes",
+            "statVar": "Annual_Amount_Emissions_SCC_23_IndustrialProcesses"
           },
           "Annual_Amount_Emissions_SCC_25_StorageAndTransport": {
             "name": "Annual Emissions: Storage and Transport",
@@ -1626,7 +1626,6 @@
   },
   "svSource": "CURRENT_QUERY",
   "test": "filter_test",
-  "userMessage": "See relevant statistics for California based on the previous query.",
   "userMessages": [
     "See relevant statistics for California based on the previous query."
   ]

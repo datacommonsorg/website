@@ -37,12 +37,15 @@ const config = {
       __dirname + "/css/tools/stat_var.scss",
     ],
     dev: [__dirname + "/js/dev.ts", __dirname + "/css/dev.scss"],
+    diff: [__dirname + "/js/apps/diff/main.ts", __dirname + "/css/diff.scss"],
     timeline: [
       __dirname + "/js/tools/timeline/timeline.ts",
       __dirname + "/css/tools/timeline.scss",
     ],
     timeline_bulk_download: [__dirname + "/js/tools/timeline/bulk_download.ts"],
     mcf_playground: __dirname + "/js/mcf_playground.js",
+    queryStore: path.resolve(__dirname, "js/shared/stores/query_store.ts"),
+    base: [__dirname + "/js/apps/base/main.ts", __dirname + "/css/core.scss"],
     place: [
       __dirname + "/js/place/place.ts",
       __dirname + "/css/place/place_page.scss",
@@ -71,9 +74,12 @@ const config = {
       __dirname + "/js/apps/eval_embeddings/main.ts",
       __dirname + "/css/eval_embeddings.scss",
     ],
-    eval_rig: [
-      __dirname + "/js/apps/eval_rig/main.ts",
-      __dirname + "/css/eval_rig.scss",
+    eval_retrieval_generation: [
+      __dirname + "/js/apps/eval_retrieval_generation/main.ts",
+      __dirname + "/css/eval_retrieval_generation.scss",
+    ],
+    eval_retrieval_generation_sxs: [
+      __dirname + "/js/apps/eval_retrieval_generation/sxs/main.ts",
     ],
     ranking: [
       __dirname + "/js/ranking/ranking.ts",
@@ -82,6 +88,10 @@ const config = {
     browser: [
       __dirname + "/js/browser/browser.ts",
       __dirname + "/css/browser.scss",
+    ],
+    browser_landing: [
+      __dirname + "/js/apps/browser_landing/main.ts",
+      __dirname + "/css/browser_landing.scss",
     ],
     biomedical: __dirname + "/css/biomedical/biomedical_shared.scss",
     biomedical_landing: [
@@ -101,10 +111,6 @@ const config = {
       __dirname + "/js/apps/screenshot/main.ts",
       __dirname + "/css/screenshot.scss",
     ],
-    translator: [
-      __dirname + "/js/translator/translator.ts",
-      __dirname + "/css/translator.scss",
-    ],
     search: [
       __dirname + "/js/search/search.ts",
       __dirname + "/css/search.scss",
@@ -121,7 +127,15 @@ const config = {
       __dirname + "/js/import_wizard2/import_wizard.ts",
       __dirname + "/css/import_wizard2.scss",
     ],
+    about: [
+      __dirname + "/js/apps/about/main.ts",
+      __dirname + "/css/about.scss",
+    ],
     admin: [__dirname + "/js/admin/main.ts", __dirname + "/css/admin.scss"],
+    build: [
+      __dirname + "/js/apps/build/main.ts",
+      __dirname + "/css/build.scss",
+    ],
     disaster_dashboard: [
       __dirname + "/js/apps/disaster_dashboard/main.ts",
       __dirname + "/css/disaster_dashboard.scss",

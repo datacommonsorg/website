@@ -15,6 +15,8 @@
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 DEFAULT_HEIGHT = 1200
 DEFAULT_WIDTH = 1200
@@ -33,3 +35,38 @@ def create_driver(preferences=None):
   # Set a reliable window size for all tests (can be overwritten though)
   driver.set_window_size(DEFAULT_WIDTH, DEFAULT_HEIGHT)
   return driver
+
+
+def find_elem(parent, by: str, value: str):
+  """
+  Finds an element within the parent element with the specified by string and value.
+  Returns None if not found.
+  """
+  try:
+    return parent.find_element(by, value)
+  except:
+    return None
+
+
+def find_elems(parent, by: str, value: str):
+  """
+  Finds elements within the parent element with the specified by string and value.
+  Returns None if not found.
+  """
+  try:
+    return parent.find_elements(by, value)
+  except:
+    return None
+
+
+def wait_elem(driver, by: str, value: str, timeout_seconds: float = 5):
+  """
+  Waits for an element within the parent element with the specified by string and value.
+  Uses a default timeout of 5 seconds.
+  Returns None if not found.
+  """
+  try:
+    return WebDriverWait(driver, timeout_seconds).until(
+        EC.presence_of_element_located((by, value)))
+  except:
+    return None

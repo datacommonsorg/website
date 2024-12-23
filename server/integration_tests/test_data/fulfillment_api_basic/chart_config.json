@@ -386,9 +386,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "dc/e9gftzl2hm8h9"
+                      "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome"
                     ],
-                    "title": "Total Commute Time in Santa Clara County",
+                    "title": "Mean Commute Time: 16 Years or More, Work Commute, Employed, Worked Outside of Home in Santa Clara County",
                     "type": "LINE"
                   }
                 ]
@@ -396,19 +396,17 @@
               {
                 "tiles": [
                   {
-                    "description": "Total Commute Time in Santa Clara County",
+                    "description": "Mean Commute Time: 16 Years or More, Work Commute, Employed, Worked Outside of Home in Santa Clara County",
                     "statVarKey": [
-                      "dc/e9gftzl2hm8h9"
+                      "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome"
                     ],
-                    "title": "Total Commute Time in Santa Clara County",
+                    "title": "Mean Commute Time: 16 Years or More, Work Commute, Employed, Worked Outside of Home in Santa Clara County",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "description": "Total time spent on a single commute across all workers.",
-            "title": "Total Commute Time"
+            "title": "Mean Commute Time: 16 Years or More, Work Commute, Employed, Worked Outside of Home"
           },
           {
             "columns": [
@@ -416,9 +414,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "dc/e9gftzl2hm8h9"
+                      "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome"
                     ],
-                    "title": "Total Commute Time in Cities of Santa Clara County (${date})",
+                    "title": "Mean Commute Time: 16 Years or More, Work Commute, Employed, Worked Outside of Home in Cities of Santa Clara County (${date})",
                     "type": "MAP"
                   }
                 ]
@@ -431,17 +429,15 @@
                       "showHighestLowest": true
                     },
                     "statVarKey": [
-                      "dc/e9gftzl2hm8h9"
+                      "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome"
                     ],
-                    "title": "Total Commute Time in Cities of Santa Clara County (${date})",
+                    "title": "Mean Commute Time: 16 Years or More, Work Commute, Employed, Worked Outside of Home in Cities of Santa Clara County (${date})",
                     "type": "RANKING"
                   }
                 ]
               }
             ],
-            "denom": "Count_Person",
-            "description": "Total time spent on a single commute across all workers.",
-            "title": "Total Commute Time in Cities of Santa Clara County"
+            "title": "Mean Commute Time: 16 Years or More, Work Commute, Employed, Worked Outside of Home in Cities of Santa Clara County"
           },
           {
             "columns": [
@@ -545,6 +541,10 @@
           }
         ],
         "statVarSpec": {
+          "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome": {
+            "name": "Mean Commute Time: 16 Years or More, Work Commute, Employed, Worked Outside of Home",
+            "statVar": "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome"
+          },
           "dc/0gettc3bc60cb": {
             "name": "Drive alone",
             "statVar": "dc/0gettc3bc60cb"
@@ -616,10 +616,6 @@
           "dc/dn2h9yfcgbkg2_multiple_place_bar_block": {
             "name": "Population: Worked At Home, Service Occupations",
             "statVar": "dc/dn2h9yfcgbkg2"
-          },
-          "dc/e9gftzl2hm8h9": {
-            "name": "Total Commute Time",
-            "statVar": "dc/e9gftzl2hm8h9"
           },
           "dc/exr9t81en1h34_multiple_place_bar_block": {
             "name": "Population: 16 Years or More, 25 - 29 Minute, Employed And Working, in Labor Force, Outside of Home",
@@ -1217,6 +1213,5 @@
   },
   "svSource": "UNKNOWN",
   "test": "unittest",
-  "userMessage": "",
   "userMessages": []
 }

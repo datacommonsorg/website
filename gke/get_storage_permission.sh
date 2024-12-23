@@ -21,10 +21,7 @@ set -e
 
 CONFIG_YAML="../deploy/helm_charts/envs/$1.yaml"
 
-PROJECT_ID=$1
-if [[ $PROJECT_ID == "" ]]; then
-  PROJECT_ID=$(yq eval '.project' $CONFIG_YAML)
-fi
+PROJECT_ID=$(yq eval '.project' $CONFIG_YAML)
 
 STORE_PROJECT_ID=datcom-store
 CONTROL_PROJECT_ID=datcom-204919
@@ -33,7 +30,7 @@ SERVICE_ACCOUNT="$NAME@$PROJECT_ID.iam.gserviceaccount.com"
 
 # Data store project roles
 declare -a store_roles=(
-    "roles/bigquery.admin"   # BigQuery
+    "roles/bigquery.dataViewer"   # BigQuery
     "roles/bigtable.reader" # Bigtable
     "roles/storage.objectViewer" # Branch Cache Read
     "roles/pubsub.editor" # Branch Cache Subscription
