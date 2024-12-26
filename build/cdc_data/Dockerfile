@@ -46,7 +46,12 @@ ARG PIP_NO_CACHE_DIR=1
 # Create a virtual env, add it to path, and install all requirements.
 RUN python -m venv /workspace/venv
 ENV PATH="/workspace/venv/bin:$PATH"
+
+# TODO: Install requirements for embeddings importer and data importer in separate virtual envs.
+# Install embeddings importer requirements.
 RUN pip3 install -r ./import/simple/requirements.txt
+
+# Install data requirements.
 # Remove lancedb - it is not used by custom dc.
 RUN sed -i'' '/lancedb/d' /workspace/nl_requirements.txt \
     && pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu \
