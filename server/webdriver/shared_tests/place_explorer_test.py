@@ -295,3 +295,26 @@ class PlaceExplorerTestMixin():
     # Check the title text
     page_title = self.driver.find_element(By.ID, 'place-name').text
     self.assertEqual(page_title, place_name_text)
+
+  def test_export_chart_data(self):
+    """Tests the export chart data button works correctly for group bar charts."""
+    # Load CA housing page
+    ca_housing_url = CA_URL + "?category=Housing"
+    self.driver.get(self.url_ + ca_housing_url)
+
+    # Wait for trend chart to load
+    trend_chart = EC.presence_of_element_located(
+        (By.CSS_SELECTOR, '[data-testclass~="is-snapshot"]'))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(trend_chart)
+
+    # Find and click export link for group bar chart
+    export_link = self.driver.find_element(
+        By.XPATH,
+        "//*[@data-testclass='is-snapshot chart-type-GROUP_BAR']//div[contains(@class,'outlinks')]//a[text()='Export']"
+    )
+    export_link.click()
+
+    # Wait for entity DCID text to appear in dialog
+    entity_dcid_present = EC.text_to_be_present_in_element(
+        (By.CLASS_NAME, "copy-svg"), "Entity DCID")
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(entity_dcid_present)
