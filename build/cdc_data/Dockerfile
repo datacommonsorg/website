@@ -21,10 +21,16 @@ RUN mkdir -p /tmp/datcom-nl-models \
     && gsutil -m cp -R gs://datcom-nl-models/ft_final_v20230717230459.all-MiniLM-L6-v2/ /tmp/datcom-nl-models/
 
 
-# #### Stage 2: Install python dependencies. ####
-FROM python:3.11.4-slim AS dependencies-installer
+# #### Stage 2: Python runtime. ####
+FROM python:3.11.4-slim AS runner
+
+ARG ENV
+ENV ENV=${ENV}
 
 WORKDIR /workspace
+
+# Copy models
+COPY --from=model-downloader /tmp/datcom-nl-models /tmp/datcom-nl-models
 
 # Copy simple importer requirements.
 COPY import/simple/requirements.txt ./import/simple/requirements.txt
@@ -45,20 +51,6 @@ RUN pip3 install -r ./import/simple/requirements.txt
 RUN sed -i'' '/lancedb/d' /workspace/nl_requirements.txt \
     && pip3 install torch==2.2.2 --extra-index-url https://download.pytorch.org/whl/cpu \
     && pip3 install -r ./tools/nl/embeddings/requirements.txt
-
-
-# #### Stage 3: Runtime env. ####
-FROM python:3.11.4-slim AS runner
-
-ARG ENV
-ENV ENV=${ENV}
-
-WORKDIR /workspace
-
-# Copy models and dependencies.
-COPY --from=dependencies-installer /workspace/ .
-COPY --from=dependencies-installer /workspace/venv /workspace/venv
-COPY --from=model-downloader /tmp/datcom-nl-models /tmp/datcom-nl-models
 
 # Copy the embeddings builder module.
 COPY tools/nl/embeddings/. ./tools/nl/embeddings/
