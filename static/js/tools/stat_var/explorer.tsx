@@ -47,8 +47,7 @@ class Explorer extends Component<ExplorerPropType, unknown> {
             rel="noreferrer"
           >
             {this.props.statVar}
-          </a>{" "}
-          (Graph Browser)
+          </a>
         </h2>
         {this.props.description && (
           <h4 className="description-text">{this.props.description}</h4>
@@ -57,13 +56,13 @@ class Explorer extends Component<ExplorerPropType, unknown> {
         {this.props.summary?.placeTypeSummary && (
           <h4 className="highlight-text">
             Total number of places:{" "}
-            {formatNumber(this.getNumberOfPlaces(), undefined, true)}
+            {formatNumber(this.getNumberOfPlaces(), "", true)}
           </h4>
         )}
         {this.props.summary?.provenanceSummary && (
           <h4 className="highlight-text">
             Total number of sources:{" "}
-            {formatNumber(provenanceSummaryList.length, undefined, true)}
+            {formatNumber(provenanceSummaryList.length, "", true)}
           </h4>
         )}
         {/* The only children passed in should be the stat var explorer button */}
@@ -83,7 +82,7 @@ class Explorer extends Component<ExplorerPropType, unknown> {
             {provenanceSummaryList.map((element) => {
               const url =
                 element.provId in this.props.urls
-                  ? this.props.urls[element.provId][0]
+                  ? this.props.urls[element.provId]
                   : "";
               return (
                 <Provenance

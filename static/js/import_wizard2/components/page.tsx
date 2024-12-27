@@ -18,10 +18,11 @@
  * Main component for the import wizard.
  */
 
-import _ from "lodash";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import { CsvData } from "../types";
+import { TEMPLATE_OPTIONS, TEMPLATE_PREDICTION_VALIDATION } from "../templates";
+import { Mapping, ValueMap } from "../types";
+import { DownloadPage } from "./download_page";
 import { Info } from "./info";
 import { MappingPage } from "./mapping_page";
 import { TemplateSelectionPage } from "./template_selection_page";
@@ -32,6 +33,7 @@ enum PageType {
   MAPPING,
   TEMPLATE,
   UPLOAD,
+  DOWNLOAD,
 }
 // The order in which the different pages should appear
 const ORDERED_PAGES = [
@@ -39,53 +41,78 @@ const ORDERED_PAGES = [
   PageType.TEMPLATE,
   PageType.UPLOAD,
   PageType.MAPPING,
+  PageType.DOWNLOAD,
 ];
 
 export function Page(): JSX.Element {
   const [currPage, setCurrPage] = useState(0);
-  const [templateId, setTemplateId] = useState(null);
+  const [templateId, setTemplateId] = useState(
+    Object.keys(TEMPLATE_OPTIONS).sort()[0]
+  );
+  const [uploadedFile, setUploadedFile] = useState(null);
   const [csvData, setCsvData] = useState(null);
+  // TODO: call detection API to get predicted mappings
+  const [predictedMapping, setPredictedMapping] = useState<Mapping>(new Map());
+  const [userMapping, setUserMapping] = useState<Mapping>(new Map());
+  // TODO: get valueMap from MappingSectionComponent
+  const [valueMap, setValueMap] = useState<ValueMap>({});
+
   const currPageType = ORDERED_PAGES[currPage];
+
+  useEffect(() => {
+    if (!csvData || !templateId) {
+      return;
+    }
+    // TODO: Use actual prediction from server-side detection API.
+    const predictedMapping = new Map();
+    setPredictedMapping(predictedMapping);
+    const userMappingFn = TEMPLATE_PREDICTION_VALIDATION[templateId];
+    setUserMapping(userMappingFn(predictedMapping));
+  }, [csvData, templateId]);
 
   return (
     <>
       {currPageType === PageType.INFO && (
-        <Info onStartClicked={() => setCurrPage(currPage + 1)} />
+        <Info onStartClicked={(): void => setCurrPage(currPage + 1)} />
       )}
       {currPageType === PageType.TEMPLATE && (
         <TemplateSelectionPage
-          onContinueClicked={(templateId) => {
-            setTemplateId(templateId);
-            setCurrPage(currPage + 1);
+          onContinueClicked={(): void => {
+            setCurrPage((prev) => prev + 1);
           }}
           selectedTemplate={templateId}
+          onTemplateChanged={setTemplateId}
+          uploadedFile={uploadedFile}
+          onUploadedFileChanged={setUploadedFile}
         />
       )}
       {currPageType === PageType.UPLOAD && (
         <UploadPage
-          onBackClicked={() => setCurrPage(currPage - 1)}
-          onContinueClicked={(csvData: CsvData) => {
-            setCsvData(csvData);
-            setCurrPage(currPage + 1);
-          }}
+          uploadedFile={uploadedFile}
+          csvData={csvData}
+          onCsvDataUpdated={setCsvData}
+          onBackClicked={(): void => setCurrPage((prev) => prev - 1)}
+          onContinueClicked={(): void => setCurrPage((prev) => prev + 1)}
         />
       )}
       {currPageType === PageType.MAPPING && (
         <MappingPage
+          userMapping={userMapping}
+          onUserMappingUpdated={setUserMapping}
           csvData={csvData}
           selectedTemplate={templateId}
-          onChangeFile={() => {
-            const uploadPage = ORDERED_PAGES.findIndex(
-              (pageType) => pageType === PageType.UPLOAD
-            );
-            setCurrPage(uploadPage);
-          }}
-          onChangeTemplate={() => {
-            const templatePage = ORDERED_PAGES.findIndex(
-              (pageType) => pageType === PageType.TEMPLATE
-            );
-            setCurrPage(templatePage);
-          }}
+          onBackClicked={(): void => setCurrPage((prev) => prev - 1)}
+          onContinueClicked={(): void => setCurrPage((prev) => prev + 1)}
+        />
+      )}
+      {currPageType === PageType.DOWNLOAD && (
+        <DownloadPage
+          originalFile={uploadedFile}
+          predictedMapping={predictedMapping}
+          correctedMapping={userMapping}
+          csvData={csvData}
+          valueMap={valueMap}
+          onBackClicked={(): void => setCurrPage((prev) => prev - 1)}
         />
       )}
     </>

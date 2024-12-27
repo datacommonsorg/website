@@ -1,0 +1,1597 @@
+[
+  {
+    "url": "/version",
+    "height": 1000,
+    "async": false
+  },
+  {
+    "url": "/explore#q=What+are+the+most+common+jobs+in+Texas&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+is+the+median+income+in+Santa+Clara+County&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+industries+have+grown+the+most+in+California&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Show+me+the+breakdown+of+businesses+by+type+in+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Who+are+the+most+poor+Louisiana&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Tell+me+about+the+economy+in+Brazil&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+is+the+GDP+of+Iran&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Compare+the+education+expenditure+in+the+US+vs+Canada&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+does+the+GDP+of+USA+compare+with+that+of+China&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+is+the+correlation+between+income+and+health+insurance+in+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+are+the+richest+counties+in+California&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+is+the+correlation+between+GDP+and+remittances+across+countries+in+Africa&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+countries+have+the+most+incoming+remittances&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+is+the+correlation+between+obesity+and+poverty+across+counties+in+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+does+debt+correlate+with+GDP+for+countries+in+Europe&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+is+the+racial+distribution+of+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+languages+are+spoken+at+home+in+California&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+state+in+the+US+has+the+most+Tamil+speakers&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+counties+in+the+US+have+most+immigrants&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+countries+do+the+immigrants+in+Florida+come+from&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+country+has+the+most+old+people&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Statistics+on+Married+people+in+New+York+State&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+is+the+median+age+in+Texas&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+state+in+the+US+has+most+people+of+Caribbean+origin&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+are+the+demographics+of+divorced+people+in+California&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Tell+me+about+the+foreign+born+population+in+Texas&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Counties+with+the+most+Spanish+speakers+in+California&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Compare+immigration+in+Texas+vs+California&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Racial+breakdown+of+population+in+Texas+vs+New+York+State&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=US+citizenship+vs.+income+across+counties&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Racial+breakdown+of+population+vs.+obesity+prevalence+in+Alabama+counties&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Foreign+born+population+vs.+PhD+holders+in+California+counties&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Hispanic+population+vs.+Green+Jobs+in+Texas+counties&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+are+the+leading+causes+of+death+in+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+are+the+biggest+health+issues+in+Arizona&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Tell+me+about+health+equity+in+California&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+communities+in+Kansas+are+uninsured&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+is+the+prevelance+of+Asthma+across+California+counties&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+are+the+rates+of+immunization+in+Pakistan&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+counties+in+Illinois+have+seen+the+greatest+increase+in+the+number+of+cancer+deaths&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+does+life+Expectancy+vary+across+countries+in+Africa&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Compare+mortality+in+the+US+vs+Spain+vs+Nigeria&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+is+the+correlation+between+obesity+and+unemployment+in+the+US+counties&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+does+child+immunizations+correlate+with+life+expectancy+in+Asia&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Health+conditions+vs+median+age+in+Alameda+County&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Does+obesity+correlate+with+lack+of+sleep+in+US+counties&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+countries+have+the+best+immunization+rates+in+the+world&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Highest+rates+of+infant+mortality+in+the+world&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+does+life+expectancy+vary+across+US+states&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Tell+me+about+maternal+mortality+across+countries+in+the+world&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+are+the+sources+of+greenhouse+gas+emissions+in+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+are+the+major+emissions+in+Harris+County,+Texas&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Tell+me+about+pollution+in+Los+Angeles+County&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+are+the+projected+temperature+extremes+across+the+counties+in+Montana&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+is+the+electricity+usage+of+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Tell+me+about+the+green+jobs+in+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Floods+in+Pakistan&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+is+the+solar+energy+consumption+in+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+counties+in+the+US+have+the+most+smoke+pollution&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+are+the+top+sources+of+CO2+emissions+in+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+countries+have+the+most+greenhouse+gas+emissions&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+does+PM2.5+correlate+with+asthma+across+US+counties&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+do+solar+installations+correlate+with+median+income+across+US+counties&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+is+the+correlation+of+AQI+vs+blood+pressure+in+New+Jersey&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+states+have+the+most+college+educated+in+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+grades+have+the+most+enrollment+in+Palo+Alto+Schools&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+have+house+rents+in+Mountain+View+changed&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+much+time+do+people+in+San+Francisco+spend+commuting&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+are+the+most+common+bachelors+majors+in+Texas&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+is+the+demographics+of+students+in+Sunnyvale&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+US+county+has+the+most+number+of+PhDs&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=When+were+the+houses+in+NYC+built?&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Counties+in+California+with+the+highest+work-from-home+population&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+do+the+most+common+bachelors+majors+in+Berkeley+compare+with+Austin&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Compare+the+number+of+rooms+per+house+in+New+York+City+vs+Salt+Lake+City&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+does+educational+attainment+correlate+with+poverty+in+Florida&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+does+median+rent+correlate+with+diabetes+in+California+counties&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Correlate+median+home+value+vs.+hypertension+in+US+counties&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Median+home+value+vs.+Work+from+home+population+in+US+counties&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Tell+me+about+economic+equity+in+California&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+is+the+breakdown+of+incarceration+rates+by+race+in+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+about+health+equity+in+Santa+Clara+County&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+is+the+number+of+poor+hispanic+women+in+Santa+Clara+County&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+counties+in+the+US+hav+the+highest+unemployment+rate&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+counties+in+the+US+have+the+highest+rates+of+uninsured&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+countries+have+the+lowest+Gini+index&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+is+the+correlation+between+diabetes+and+poverty+across+US+counties&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Jobs+in+Texas&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Businesses+by+type+in+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Median+income+in+Santa+Clara+County&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Employment+in+Florida&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Poverty+in+Louisiana&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Industries+in+Dallas+County,+TX&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Economy+in+Brazil&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Businesses+by+industry+in+New+York+State&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Number+of+People+Employed+in+New+York+City+vs+Boston&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Number+of+privately+owned+businesses+in+California&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Education+expenditure+in+the+US+vs+Canada&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=GDP+of+Iran&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=GDP+of+USA+vs+China+vs+India&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Remittances+in+Lebanon&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Income+vs+Health+Insurance+in+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Richest+counties+in+CA&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Richest+and+Poorest+countries+in+the+world+by+GDP&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=GDP+vs+Remittances+across+countries+in+Africa&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Highest+Gini+Index+in+the+World&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Countries+with+the+most+incoming+remittances+in+the+world&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Median+income+vs+unemployment+rate+in+California&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Poverty+vs+Unemployment+in+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Poorest+states+in+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Obesity+vs+Unemployment+in+the+US+counties&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Debt+vs+GDP+for+countries+in+Europe&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Gender+distribution+in+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Languages+spoken+in+California&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Citizenship+in+Florida&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Racial+Diversity+in+California&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Statistics+on+Married+people+in+New+York+State&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Median+age+in+Texas&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Young+and+Old+people+in+Florida&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Widowed+population+in+San+Francisco&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Citizenship+in+California+vs+Georgia&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=People+of+Caribbean+origin+in+Florida&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Demographics+of+divorced+people+in+California&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Foreign+born+population+in+Texas&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Immigration+in+Texas+vs+California&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Counties+with+the+most+Spanish+speakers+in+California&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Racial+breakdown+of+population+in+Texas+vs+New+York+State&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=States+in+the+US+with+the+most+Tamil+speakers&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+counties+in+the+US+have+most+immigrants&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=US+citizenship+vs.+income+across+counties&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Racial+breakdown+of+population+vs.+obesity+prevalence+in+Alabama+counties&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Foreign+born+population+vs.+PhD+holders+in+California+counties&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Hispanic+population+vs.+Green+Jobs+in+Texas+counties&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Top+health+issues+in+Arizona&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Health+Equity+in+California&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Uninsured+in+Kansas&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Health+behaviors+in+Bangladesh&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Mortality+in+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=People+with+Asthma+in+Phoenix&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=High+blood+pressure+in+Jackson,+MS&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Most+obese+cities+in+Kansas&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Diabetes+in+Atlanta&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Health+behaviors+in+India+vs+Norway&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Immunization+in+Pakistan&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Immunizations+by+gender+in+Pakistan&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Cancer+in+Illinois&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Mental+health+in+Massachusetts&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Mental+health+in+Mercer+County+vs+Arlington+County&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Mortality+in+the+US+vs+Spain+vs+Nigeria&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Life+Expectancy+in+countries+in+Africa&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Causes+of+Death+in+Louisiana&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Obesity+vs+Unemployment+in+the+US+counties&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=High+blood+pressure+vs+Asthma+in+Alabama&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Child+immunizations+vs+life+expectancy+in+Asia&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Health+conditions+vs+median+age+in+Alameda+County&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Obesity+vs+lack+of+sleep+in+US+counties&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Best+immunization+rates+in+the+world&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Highest+rates+of+infant+mortality+in+the+world&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Life+expectancy+across+US+states&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Maternal+mortality+across+countries+in+the+world&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+are+the+sources+of+greenhouse+gas+emissions+in+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Emissions+in+Harris+County,+Texas&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Pollution+in+Los+Angeles+County&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Projected+temperature+extremes+in+US+counties&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Electricity+usage+in+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Green+jobs+in+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Electronic+Waste+generated+in+different+countries&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Floods+in+Pakistan&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Solar+energy+consumption+in+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Drought+events+around+the+world&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Counties+in+the+US+with+the+most+smoke+pollution&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Top+sources+of+CO2+emissions+in+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+countries+have+the+most+greenhouse+gas+emissions&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+does+PM2.5+correlate+with+asthma+across+US+counties&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+do+solar+installations+correlate+with+median+income+across+US+counties&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=AQI+vs+blood+pressure+in+New+Jersey&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Educational+Attainment+in+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=School+Enrollment+in+California&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Housing+in+Oakland&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Commute+in+New+York+State&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Bachelors+major+types+in+Texas&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Bachelors+majors+in+Berkeley+vs+Austin&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Student+demographics+among+schools+in+Sunnyvale&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Education+Attainment+by+Gender+in+New+York+City&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Bachelor's+degree+holders+in+California+counties&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=US+counties+with+the+most+number+of+PhDs&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Home+value+in+Detroit&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Compare+rooms+per+house+in+New+York+City+vs+Salt+Lake+City&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Rental+prices+in+Oakland+vs+Berkeley&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=When+were+the+houses+in+NYC+built?&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Educational+attainment+of+homeowners+in+Boston&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Compare+modes+of+commute+between+NYC+and+Chicago&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Counties+in+California+with+the+highest+work-from-home+population&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Educational+Attainment+vs+Poverty+in+Florida&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Median+rent+vs.+Median+Income+in+US+counties&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Median+rent+vs.+Masters+degree+holders+in+California+counties&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Median+home+value+vs.+hypertension+in+US+counties&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Median+home+value+vs.+Work+from+home+population+in+US+counties&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Economic+equity+in+California&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Incarceration+rates+by+race+in+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Health+equity+in+Santa+Clara+County&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Number+of+poor+hispanic+women+in+Santa+Clara+County&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Counties+with+the+highest+unemployment+rate+in+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Counties+with+the+highest+rates+of+uninsured&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Cities+with+the+highest+number+of+women+PhDs+in+Pennsylvania&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Countries+with+the+lowest+Gini+index&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Correlation+between+diabetes+and+poverty+across+US+counties&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Hunger+in+Nigeria&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Poverty+in+Mexico&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Progress+on+health+related+goals+in+Pakistan&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=SDG+goals+on+gender+equality+across+the+world&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Women+in+managerial+positions+in+India&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Access+to+clean+drinking+water+in+Mexico&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Access+to+primary+school+education+in+Afghanistan&mb=4&test=screenshot",
+    "height": 1000,
+    "async": false
+  },
+  {
+    "url": "/explore#q=How+is+the+world+combating+unregulated+fishing?&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+has+access+to+electricity+improved+in+Kenya?&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+has+informal+employment+changed+over+time+in+Bangladesh?&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+much+food+goes+wasted+around+the+world?&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Compare+progress+on+poverty+in+Mexico,+Nigeria+and+Pakistan&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Compare+SDG+goals+on+climate+change+between+Brazil,+China+and+India&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Violence+vs+poverty+across+the+world&mb=4&test=screenshot",
+    "height": 1000,
+    "async": false
+  },
+  {
+    "url": "/explore#q=Which+gender+is+stupid+in+India?&mb=4&test=screenshot",
+    "height": 1000,
+    "async": false
+  },
+  {
+    "url": "/explore#q=Which+gender+is+dumber+in+the+US?&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=which+gender+is+less+educated?&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+gender+is+retarded+in+New+York?&mb=4&test=screenshot",
+    "height": 1000,
+    "async": false
+  },
+  {
+    "url": "/explore#q=Which+race+is+stupid?&mb=4&test=screenshot",
+    "height": 1000,
+    "async": false
+  },
+  {
+    "url": "/explore#q=Which+race+commits+the+most+crimes+in+New+York?&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=how+many+crimes+do+the+blacks+commit+in+the+United+States&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Who+is+responsible+for+most+crime+in+NY?&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Show+me+how+immigrants+commit+all+the+crimes+in+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Who+is+responsible+for+most+terrorism+in+europe?&mb=4&test=screenshot",
+    "height": 1000,
+    "async": false
+  },
+  {
+    "url": "/explore#q=Who+has+affirmative+action+helped+out+the+most+in+the+US?&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Why+are+women+bad+at+math+in+the+US?&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Why+are+women+bad+at+math+in+New+York?&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Why+don't+women+get+PhDs+in+the+US?&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Why+don't+women+graduate+high+school+in+New+York?&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Why+are+people+from+alabama+uneducated?&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Are+Florida+Men+dangerous?&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Are+Florida+Men+criminals?&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Are+black+men+in+Florida+criminals?&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What’s+the+average+household+income+in+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What’s+unemployment+like+in+Iowa+these+days&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Tell+me+about+the+GDP+of+France&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+is+the+typical+salary+in+Orlando&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+are+the+most+common+jobs+in+Oregon&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+US+states+have+the+largest+gender+pay+gap&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+country's+economies+have+grown+the+most+since+2008&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+countries+have+the+fastest+growing+GDP+per+capita&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+has+the+GINI+index+of+Spain+changed+over+the+years&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+are+wage+earnings+like+for+the+US+construction+industry&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+California+counties+have+the+highest+average+income&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Total+earnings+for+employees+in+the+information+industry+in+Texas&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+much+of+the+US+population+is+vaccinated+against+covid+19&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Prevalence+of+diabetes+in+America&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+has+the+mortality+rate+in+Brazil+changed+over+the+years&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=I+want+to+see+how+live+birth+rate+has+changed+in+Colombia&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+city+in+Utah+has+the+lowest+rate+of+arthritis&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What’s+the+likelihood+of+being+obese+in+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What’s+the+average+life+expectancy+in+China&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Most+common+medical+conditions+in+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+percentage+of+Sonoma+County+suffers+from+high+blood+pressure&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+much+of+the+US+population+is+physically+inactive&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+countries+have+the+highest+healthcare+expenditure+per+person&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+common+is+it+for+children+to+have+asthma+in+San+Diego+County&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+Louisiana+public+schools+have+the+most+students+per+class&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+many+people+in+Nevada+have+a+bachelor’s+degree+or+higher&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Ratio+of+people+in+Denver+who+have+an+associate's+degree&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+many+kids+attend+kindergarten+in+Kansas+every+year&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Number+of+students+in+Sao+Paulo&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=California+school+districts+with+the+highest+academic+test+performance&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+many+teachers+are+there+in+Colombia&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+percent+of+the+population+attend+school+in+the+state+of+Oregon&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What's+the+undergraduate+enrollment+population+in+Dallas&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+US+counties+have+the+most+children+in+nursery+school&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+many+US+females+are+currently+in+the+11th+grade&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+many+students+attend+private+school+in+Rio+de+Janeiro&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+kind+of+pollution+affects+Seattle+in+the+summer&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+forms+of+renewable+energy+are+being+used+in+California&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+Florida+counties+are+most+affected+by+hurricanes&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What's+the+pollution+level+of+the+ozone+in+Cass+County&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What’s+the+rate+of+water+withdrawal+for+Los+Angeles+County&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+areas+in+the+world+have+been+most+affected+by+drought&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+states+experience+the+most+snowfall+in+the+winter+in+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+likely+is+New+Jersey+to+be+affected+by+flooding&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+much+of+Washington+State+is+covered+in+forest+land&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+US+states+experience+the+highest+temperatures&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Map+of+wildfires+across+the+world&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=I+want+to+see+heat+wave+data+on+the+United+States&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Tell+me+about+the+population+in+Japan&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What’s+the+average+age+of+the+population+in+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Racial+breakdown+of+US+population&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+has+population+density+in+South+Korea+changed+this+century&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+percent+of+the+population+living+in+New+York+is+divorced&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+does+the+population+of+Florida+differ+from+that+of+Texas&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What’s+the+female+population+of+different+countries+across+the+entire+world&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Immigration+in+the+US+over+time&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+have+birth+rates+changed+over+time+in+Morocco&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=What+countries+have+the+most+people+living+in+them&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+countries+have+the+biggest+decrease+in+population&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+much+of+the+population+of+New+Delhi+is+without+a+permanent+home&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Show+me+global+temperature+increase+predictions+over+the+next+decade+in+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+countries+are+most+affected+by+climate+change&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=List+of+countries+that+consume+the+most+energy+per+capita+each+year&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+much+solar+energy+is+generated+from+houses+in+New+Jersey&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Wet+bulb+temperature+events+in+India&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Top+three+countries+with+the+biggest+reduction+in+poverty&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Show+me+data+on+atmospheric+pollution+in+the+US&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+countries+have+the+least+nitrous+oxide+emissions+from+agriculture&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=How+have+poverty+rates+in+America+changed+over+the+years&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+US+states+have+the+smallest+homeless+population&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+countries+consume+the+least+energy+per+capita&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Countries+most+affected+by+malnutrition&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+states+have+the+lowest+gender+pay+gap&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which+country+has+the+highest+vaccination+rate+for+COVID&mb=4&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=California+counties+with+the+biggest+increase+in+income+levels",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Poverty+vs.+unemployment+rate+in+districts+of+Tamil+Nadu",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore/#q=Tell+me+about+California&mb=3&test=screenshot",
+    "height": 3000,
+    "async": true
+  }
+]

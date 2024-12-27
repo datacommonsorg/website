@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,27 +24,37 @@ import { useCallback, useContext } from "react";
 import { MAP_TYPE } from "./chart";
 import { ChartStore } from "./chart_store";
 import { Context } from "./context";
+import { shouldShowBorder } from "./util";
 
-export function useGeoJsonReady(chartStore: ChartStore) {
+export function useGeoJsonReady(chartStore: ChartStore): () => boolean {
   const { placeInfo } = useContext(Context);
 
   return useCallback(() => {
     const c = chartStore.geoJson.context;
+    // if we should show border, check that border data is ready
+    const borderIsReady =
+      !shouldShowBorder(placeInfo.value.enclosedPlaceType) ||
+      !_.isEmpty(chartStore.borderGeoJson.data);
     return (
       !chartStore.geoJson.error &&
       !_.isEmpty(c) &&
+      !_.isEmpty(chartStore.geoJson.data) &&
+      !_.isEmpty(chartStore.geoJson.data.features) &&
       placeInfo.value.enclosingPlace.dcid === c.placeInfo.enclosingPlace.dcid &&
-      placeInfo.value.enclosedPlaceType === c.placeInfo.enclosedPlaceType
+      placeInfo.value.enclosedPlaceType === c.placeInfo.enclosedPlaceType &&
+      borderIsReady
     );
   }, [
     chartStore.geoJson.context,
+    chartStore.geoJson.data,
     chartStore.geoJson.error,
     placeInfo.value.enclosingPlace.dcid,
     placeInfo.value.enclosedPlaceType,
+    chartStore.borderGeoJson.data,
   ]);
 }
 
-export function useDefaultStatReady(chartStore: ChartStore) {
+export function useDefaultStatReady(chartStore: ChartStore): () => boolean {
   const { dateCtx, placeInfo, statVar } = useContext(Context);
   return useCallback(() => {
     const c = chartStore.defaultStat.context;
@@ -66,7 +76,7 @@ export function useDefaultStatReady(chartStore: ChartStore) {
   ]);
 }
 
-export function useAllStatReady(chartStore: ChartStore) {
+export function useAllStatReady(chartStore: ChartStore): () => boolean {
   const { dateCtx, placeInfo, statVar } = useContext(Context);
   return useCallback(() => {
     const c = chartStore.allStat.context;
@@ -88,7 +98,7 @@ export function useAllStatReady(chartStore: ChartStore) {
   ]);
 }
 
-export function useDenomStatReady(chartStore: ChartStore) {
+export function useDenomStatReady(chartStore: ChartStore): () => boolean {
   const { placeInfo, statVar } = useContext(Context);
   return useCallback(() => {
     const c = chartStore.denomStat.context;
@@ -108,7 +118,7 @@ export function useDenomStatReady(chartStore: ChartStore) {
   ]);
 }
 
-export function useBreadcrumbStatReady(chartStore: ChartStore) {
+export function useBreadcrumbStatReady(chartStore: ChartStore): () => boolean {
   const { dateCtx, placeInfo, statVar } = useContext(Context);
   return useCallback(() => {
     const c = chartStore.breadcrumbStat.context;
@@ -128,7 +138,9 @@ export function useBreadcrumbStatReady(chartStore: ChartStore) {
   ]);
 }
 
-export function useBreadcrumbDenomStatReady(chartStore: ChartStore) {
+export function useBreadcrumbDenomStatReady(
+  chartStore: ChartStore
+): () => boolean {
   const { placeInfo, statVar } = useContext(Context);
   return useCallback(() => {
     const c = chartStore.breadcrumbDenomStat.context;
@@ -146,7 +158,7 @@ export function useBreadcrumbDenomStatReady(chartStore: ChartStore) {
   ]);
 }
 
-export function useMapPointStatReady(chartStore: ChartStore) {
+export function useMapPointStatReady(chartStore: ChartStore): () => boolean {
   const { dateCtx, placeInfo, statVar } = useContext(Context);
   return useCallback(() => {
     const c = chartStore.mapPointStat.context;
@@ -170,7 +182,9 @@ export function useMapPointStatReady(chartStore: ChartStore) {
   ]);
 }
 
-export function useMapPointCoordinateReady(chartStore: ChartStore) {
+export function useMapPointCoordinateReady(
+  chartStore: ChartStore
+): () => boolean {
   const { placeInfo } = useContext(Context);
   return useCallback(() => {
     const c = chartStore.mapPointCoordinate.context;
@@ -188,7 +202,7 @@ export function useMapPointCoordinateReady(chartStore: ChartStore) {
   ]);
 }
 
-export function useAllDatesReady(chartStore: ChartStore) {
+export function useAllDatesReady(chartStore: ChartStore): () => boolean {
   const { placeInfo, statVar } = useContext(Context);
   return useCallback(() => {
     const c = chartStore.allDates.context;
@@ -208,7 +222,7 @@ export function useAllDatesReady(chartStore: ChartStore) {
   ]);
 }
 
-export function useStatVarSummaryReady(chartStore: ChartStore) {
+export function useStatVarSummaryReady(chartStore: ChartStore): () => boolean {
   const { statVar } = useContext(Context);
   return useCallback(() => {
     const c = chartStore.statVarSummary.context;
@@ -224,7 +238,9 @@ export function useStatVarSummaryReady(chartStore: ChartStore) {
   ]);
 }
 
-export function useMapValuesDatesReady(chartStore: ChartStore) {
+export function useMapValuesDatesReady(
+  chartStore: ChartStore
+): (checkDate: boolean) => boolean {
   const { dateCtx, statVar, placeInfo } = useContext(Context);
   return useCallback(
     (checkDate: boolean) => {
@@ -250,7 +266,9 @@ export function useMapValuesDatesReady(chartStore: ChartStore) {
   );
 }
 
-export function useBreadcrumbValuesReady(chartStore: ChartStore) {
+export function useBreadcrumbValuesReady(
+  chartStore: ChartStore
+): (checkDate: boolean) => boolean {
   const { dateCtx, statVar, placeInfo } = useContext(Context);
   return useCallback(
     (checkDate: boolean) => {
@@ -279,7 +297,9 @@ export function useBreadcrumbValuesReady(chartStore: ChartStore) {
 }
 
 // Check if data is ready to render.
-export function useRenderReady(chartStore: ChartStore) {
+export function useRenderReady(
+  chartStore: ChartStore
+): (mapType: MAP_TYPE) => boolean {
   const { display, statVar } = useContext(Context);
   const breadcrumbValueReady = useBreadcrumbValuesReady(chartStore);
   const mapValuesDatesReady = useMapValuesDatesReady(chartStore);

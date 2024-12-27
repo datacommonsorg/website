@@ -30,6 +30,42 @@
   text-shadow: rgba(0, 0, 0, 0.3) 0px 0 5px;
 }
 
+.legend-basic {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-top: 6px;
+}
+
+.legend-basic .legend-item {
+  align-items: center;
+  display: flex;
+  font-size: 10px;
+  padding-top: 5px;
+  margin-right: 12px;
+  max-width: calc(100% - 18px);
+}
+
+.legend-basic .legend-item .legend-color {
+  flex-shrink: 0;
+  height: 12px;
+  margin-right: 4px;
+  width: 12px;
+  border-radius: 50%;
+}
+
+.legend-basic .legend-item a.legend-link {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.legend-basic .legend-item a.legend-link:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
 .legend-line {
   stroke-width: 2;
 }
@@ -38,12 +74,16 @@
   font-size: 12px;
 }
 
-#draw-tooltip {
+.draw-tooltip {
   background-color: rgb(59, 59, 59, 0.7);
-  color: var(--dc-white);
-  font-size: 0.8rem;
+  color: var(--gm-3-white, #fff);
+  font-size: 0.7rem;
   border-radius: 3px;
   border: 0.5px solid var(--dc-gray-lite);
   padding: 0.3rem;
   cursor: default;
+  max-height: 200px;
+  max-width: 200px;
+  overflow: auto;
+  word-wrap: wrap;
 }

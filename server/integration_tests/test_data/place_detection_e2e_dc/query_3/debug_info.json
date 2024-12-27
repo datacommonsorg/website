@@ -1,0 +1,8 @@
+{
+  "places_detected": [
+    "florida"
+  ],
+  "places_resolved": "(name: Florida, dcid: geoId/12); ",
+  "main_place_dcid": "geoId/12",
+  "main_place_name": "Florida"
+}

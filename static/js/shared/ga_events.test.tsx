@@ -18,16 +18,38 @@ jest.mock("axios");
 jest.mock("../chart/draw_d3_map");
 jest.mock("../chart/draw_map_utils");
 jest.mock("../chart/draw_scatter");
-jest.mock("../chart/draw", () => {
-  const originalModule = jest.requireActual("../chart/draw");
+jest.mock("../chart/draw_bar", () => {
+  const originalModule = jest.requireActual("../chart/draw_bar");
   return {
     __esModule: true,
     ...originalModule,
     drawGroupBarChart: jest.fn(),
     drawGroupLineChart: jest.fn(),
-    drawHistogram: jest.fn(),
-    drawLineChart: jest.fn(),
     drawStackBarChart: jest.fn(),
+  };
+});
+jest.mock("../chart/draw_histogram", () => {
+  const originalModule = jest.requireActual("../chart/draw_histogram");
+  return {
+    __esModule: true,
+    ...originalModule,
+    drawHistogram: jest.fn(),
+  };
+});
+jest.mock("../chart/draw_line", () => {
+  const originalModule = jest.requireActual("../chart/draw_line");
+  return {
+    __esModule: true,
+    ...originalModule,
+    drawLineChart: jest.fn(),
+    wrap: jest.fn(),
+  };
+});
+jest.mock("../chart/draw_utils", () => {
+  const originalModule = jest.requireActual("../chart/draw_utils");
+  return {
+    __esModule: true,
+    ...originalModule,
     wrap: jest.fn(),
   };
 });
@@ -38,7 +60,7 @@ import React from "react";
 import { IntlProvider } from "react-intl";
 
 import { getColorFn } from "../chart/base";
-import { appendLegendElem } from "../chart/draw";
+import { appendLegendElem } from "../chart/draw_utils";
 import { chartTypeEnum, GeoJsonData, MapPoint } from "../chart/types";
 import { Chart as PlaceChart } from "../place/chart";
 import { ChartHeader } from "../place/chart_header";
@@ -61,11 +83,12 @@ import {
   DisplayOptionsWrapper as ScatterDisplayOptionsWrapper,
   IsLoadingWrapper as ScatterIsLoadingWrapper,
   PlaceInfoWrapper as ScatterPlaceInfoWrapper,
+  SHOW_POPULATION_OFF,
 } from "../tools/scatter/context";
 import { ScatterChartType } from "../tools/scatter/util";
 import { Chart as TimelineToolChart } from "../tools/timeline/chart";
 import * as dataFetcher from "../tools/timeline/data_fetcher";
-import { axios_mock } from "../tools/timeline/mock_functions";
+import { axiosMock } from "../tools/timeline/mock_functions";
 import {
   GA_EVENT_PLACE_CATEGORY_CLICK,
   GA_EVENT_PLACE_CHART_CLICK,
@@ -120,6 +143,7 @@ const PLACE_CHART_PROPS = {
   dcid: PLACE_DCID,
   id: "",
   isUsaPlace: true,
+  locale: "en",
   names: { [PLACE_DCID]: PLACE_NAME },
   rankingTemplateUrl: "",
   statsVars: [STAT_VAR_1],
@@ -143,7 +167,7 @@ const MAP_PROPS = {
   geoJsonData: {
     features: [],
     properties: {
-      current_geo: PLACE_DCID,
+      currentGeo: PLACE_DCID,
     },
     type: "FeatureCollection",
   } as GeoJsonData,
@@ -165,8 +189,8 @@ const MAP_PROPS = {
   ],
   sampleDates: [],
   metahash: "",
-  onPlay: () => null,
-  updateDate: () => null,
+  onPlay: (): null => null,
+  updateDate: (): null => null,
   geoRaster: null,
   mapType: MAP_TYPE.D3,
   children: null,
@@ -176,12 +200,12 @@ const MAP_PROPS = {
 const TIMELINE_PROPS = {
   denom: "",
   delta: false,
-  mprop: "",
-  onDataUpdate: () => null,
-  onMetadataMapUpdate: () => null,
+  chartId: "",
+  onDataUpdate: (): null => null,
+  onMetadataMapUpdate: (): null => null,
   placeNameMap: { [PLACE_DCID]: PLACE_NAME },
   pc: false,
-  removeStatVar: () => null,
+  removeStatVar: (): null => null,
   statVarInfos: { [STAT_VAR_1]: { title: "" } } as Record<string, StatVarInfo>,
   svFacetId: { [STAT_VAR_1]: "" },
 };
@@ -216,6 +240,7 @@ const SCATTER_PROPS = {
     showLabels: false,
     chartType: ScatterChartType.SCATTER,
     showDensity: false,
+    showPopulation: SHOW_POPULATION_OFF,
     showRegression: false,
   } as ScatterDisplayOptionsWrapper,
   sources: new Set<string>([""]),
@@ -232,13 +257,13 @@ const SCATTER_PROPS = {
       metadataMap: {},
     },
   ],
-  onSvFacetIdUpdated: () => null,
+  onSvFacetIdUpdated: (): null => null,
 };
 
 const MAP_CONTEXT = {
   dateCtx: {
     value: "",
-    set: () => null,
+    set: (): null => null,
   },
   isLoading: {} as MapIsLoadingWrapper,
   display: {
@@ -342,11 +367,13 @@ const SCATTER_CONTEXT = {
     showLabels: false,
     chartType: ScatterChartType.SCATTER,
     showDensity: false,
+    showPopulation: SHOW_POPULATION_OFF,
     showRegression: false,
     setQuadrants: () => null,
     setLabels: () => null,
     setChartType: () => null,
     setDensity: () => null,
+    setPopulation: () => null,
     setRegression: () => null,
   } as ScatterDisplayOptionsWrapper,
   isLoading: {} as ScatterIsLoadingWrapper,
@@ -368,13 +395,14 @@ const STAT_VAR_HIERARCHY_PROPS = {
   type: StatVarHierarchyType.TIMELINE,
   entities: [{ name: PLACE_NAME, dcid: PLACE_DCID }],
   selectedSVs: [STAT_VAR_2],
-  selectSV: () => null,
-  deselectSV: () => null,
+  selectSV: (): null => null,
+  deselectSV: (): null => null,
 };
 
-beforeEach(() =>
-  jest.spyOn(axios, "get").mockImplementation(() => Promise.resolve(null))
-);
+beforeEach(() => {
+  jest.spyOn(axios, "get").mockImplementation(() => Promise.resolve(null));
+  jest.spyOn(axios, "post").mockImplementation(() => Promise.resolve(null));
+});
 
 // Unmount react trees that were mounted with render and clear all mocks.
 afterEach(() => {
@@ -575,7 +603,9 @@ describe("test ga event place chart click", () => {
 
     //Render the component.
     const statVarChip = render(<div id={ID} />);
-    appendLegendElem(ID, getColorFn([""]), [{ label: STAT_VAR_1 }]);
+    appendLegendElem(statVarChip.baseElement, getColorFn([""]), [
+      { label: STAT_VAR_1 },
+    ]);
     // Prevent window navigation.
     const chartStatVarChip = statVarChip.getByText(STAT_VAR_1);
     chartStatVarChip.addEventListener(
@@ -784,7 +814,7 @@ describe("test ga event tool stat var click", () => {
     const mockgtag = jest.fn();
     window.gtag = mockgtag;
     // Mock child stat var groups.
-    axios_mock();
+    axiosMock();
 
     // When the component is rendered.
     const statVarHierarchy = render(
@@ -837,8 +867,8 @@ describe("test ga event tool place add", () => {
         types: null,
       } as NamedTypedPlace,
       enclosedPlaceType: "",
-      onPlaceSelected: () => null,
-      onEnclosedPlaceTypeSelected: () => null,
+      onPlaceSelected: (): null => null,
+      onEnclosedPlaceTypeSelected: (): null => null,
     };
     // Mock gtag.
     const mockgtag = jest.fn();
@@ -849,10 +879,10 @@ describe("test ga event tool place add", () => {
         places: {
           Autocomplete: jest.fn().mockImplementation((elem) => {
             return {
-              addListener: (_placeChanged, callback) => {
+              addListener: (_placeChanged, callback): void => {
                 elem.addEventListener("change", callback);
               },
-              getPlace: () => {
+              getPlace: (): { name: string } => {
                 return { name: PLACE_ADDED };
               },
             };
@@ -895,7 +925,7 @@ describe("test ga event tool stat var search no result", () => {
     // Render the component.
     const props = {
       entities: [""],
-      onSelectionChange: () => null,
+      onSelectionChange: (): null => null,
     };
     const statVarSearch = render(<StatVarHierarchySearch {...props} />);
 

@@ -25,12 +25,14 @@ export interface StatMetadata {
   observationPeriod?: string;
   scalingFactor?: string;
   unit?: string;
+  unitDisplayName?: string;
 }
 
 export interface Observation {
   date: string;
   value: number;
   facet?: string;
+  unitDisplayName?: string;
 }
 
 export interface EntityObservation {
@@ -55,6 +57,9 @@ export interface Series {
   // series field is guaranteed to set from Flask.
   series: Observation[];
   facet?: string;
+  earliestDate?: string;
+  latestDate?: string;
+  obsCount?: number;
 }
 
 export interface EntitySeries {

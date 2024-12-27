@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,8 +13,8 @@
 # limitations under the License.
 
 import collections
+
 from google.cloud import storage
-from base64 import b64encode
 
 
 def list_blobs(bucket_name, max_blobs):
@@ -48,20 +48,27 @@ def list_blobs(bucket_name, max_blobs):
   return d
 
 
-def list_png(bucket_name, prefix):
-  """Return a list of images in a given bucket and folder prefix.
-
-  Args:
-    bucket_name: the bucket where the image is stored.
-    prefix: the folder prefix
-  Returns:
-    An array of base64 encoded images.
-  """
+def read_blob(bucket_name, blob_name):
   storage_client = storage.Client()
   bucket = storage_client.get_bucket(bucket_name)
-  blobs = bucket.list_blobs(prefix=prefix)
-  result = []
-  for b in blobs:
-    if b.name.endswith('png'):
-      result.append(b64encode(b.download_as_string()).decode("utf-8"))
-  return result
+  blob = bucket.get_blob(blob_name)
+  return blob.download_as_bytes()
+
+
+def list_folder(bucket_name, prefix, start_offset='', end_offset=''):
+  storage_client = storage.Client()
+  bucket = storage_client.get_bucket(bucket_name)
+  start_offset = prefix + '/' + start_offset
+  end_offset = prefix + '/' + end_offset
+  blobs = bucket.list_blobs(prefix=prefix,
+                            start_offset=start_offset,
+                            end_offset=end_offset)
+  folders = set()
+  for blob in blobs:
+    parts = blob.name.split('/')
+    # A sub directory blob is in the form of <prefix>/sub-directory/
+    if len(parts) == 3:
+      folders.add(parts[1])
+  res = list(folders)
+  res.sort()
+  return res

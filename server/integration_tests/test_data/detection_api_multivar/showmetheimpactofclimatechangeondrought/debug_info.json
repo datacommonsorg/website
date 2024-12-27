@@ -1,0 +1,139 @@
+{
+  "places_detected": [],
+  "places_resolved": "",
+  "main_place_dcid": "<None>",
+  "main_place_name": "<None>",
+  "entities_detected": [],
+  "entities_resolved": "",
+  "query_with_places_removed": "show me the impact of climate change on drought",
+  "sv_matching": {
+    "CosineScore": [
+      0.839369,
+      0.793112,
+      0.769998,
+      0.72081,
+      0.717531,
+      0.699544,
+      0.686345,
+      0.674246,
+      0.673051,
+      0.670354,
+      0.665289,
+      0.664461,
+      0.635379,
+      0.634994,
+      0.6347,
+      0.630818,
+      0.629086,
+      0.625659,
+      0.618038,
+      0.616212,
+      0.614172,
+      0.613971,
+      0.613861,
+      0.612388
+    ],
+    "MultiSV": {
+      "Candidates": [
+        {
+          "AggCosineScore": 0.9394,
+          "DelimBased": false,
+          "Parts": [
+            {
+              "CosineScore": [
+                0.878748
+              ],
+              "QueryPart": "show climate change",
+              "SV": [
+                "dc/topic/ClimateChange"
+              ]
+            },
+            {
+              "CosineScore": [
+                1.0
+              ],
+              "QueryPart": "drought",
+              "SV": [
+                "dc/topic/Drought"
+              ]
+            }
+          ]
+        },
+        {
+          "AggCosineScore": 0.8304,
+          "DelimBased": false,
+          "Parts": [
+            {
+              "CosineScore": [
+                0.794237,
+                0.792901
+              ],
+              "QueryPart": "show climate",
+              "SV": [
+                "dc/topic/ProjectedClimateExtremes",
+                "dc/topic/ClimateChange"
+              ]
+            },
+            {
+              "CosineScore": [
+                0.866513
+              ],
+              "QueryPart": "change drought",
+              "SV": [
+                "dc/topic/Drought"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "Query": "show me the impact of climate change on drought",
+    "SV": [
+      "dc/topic/Drought",
+      "Count_DroughtEvent",
+      "dc/topic/ClimateChange",
+      "Annual_ExpectedLoss_NaturalHazardImpact_DroughtEvent",
+      "PalmerDroughtSeverityIndex_Atmosphere",
+      "FemaNaturalHazardRiskIndex_NaturalHazardImpact_DroughtEvent",
+      "dc/topic/ProjectedClimateExtremes",
+      "dc/topic/Precipitation",
+      "Mean_PalmerDroughtSeverityIndex",
+      "dc/topic/sdg_13.3",
+      "Mean_PalmerDroughtSeverityIndex_Forest",
+      "dc/topic/sdg_6.4.2",
+      "dc/topic/sdg_6.6.1",
+      "dc/topic/sdg_13.b.1",
+      "dc/topic/sdg_13.2.1",
+      "dc/topic/sdg_13.b",
+      "dc/topic/sdg_6.4.1",
+      "Annual_Emissions_GreenhouseGas",
+      "Mean_PrecipitableWater_Atmosphere",
+      "dc/topic/CO2Emissions",
+      "DewPointTemperature_SurfaceLevel",
+      "dc/topic/TemperaturePredictions",
+      "dc/topic/sdg_13.1",
+      "StandardizedPrecipitationEvapotranspirationIndex_Atmosphere"
+    ]
+  },
+  "props_matching": {
+    "CosineScore": [],
+    "PROP": []
+  },
+  "query_detection_debug_logs": {
+    "dc_recognize_places": {},
+    "main_place_inferred": null,
+    "original_query": "show me the impact of climate change on drought",
+    "place_dcid_inference": "Place DCID Inference did not trigger (no place strings found).",
+    "place_resolution": "Place resolution did not trigger (no place dcids found).",
+    "places_found_str": [],
+    "query_transformations": {
+      "place_detection_input": "show me the impact of climate change on drought",
+      "place_detection_with_places_removed": "show me the impact of climate change on drought",
+      "sv_detection_query_index_types": [
+        "base_uae_mem"
+      ],
+      "sv_detection_query_input": "show me the impact of climate change on drought",
+      "sv_detection_query_stop_words_removal": "show climate change drought"
+    }
+  }
+}

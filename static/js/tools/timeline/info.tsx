@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import _ from "lodash";
 import React, { Component } from "react";
 
 import { MemoizedInfoExamples } from "../shared/info_examples";
@@ -29,11 +30,13 @@ class Info extends Component {
           one or more statistical variables in the pane. There are thousands of
           statistical variables to choose from, arranged in a topical hierarchy.
         </p>
-        <p>
-          Or you can start your exploration from these interesting points ...
-        </p>
+        {!_.isEmpty(window.infoConfig["timeline"]) && (
+          <p>
+            Or you can start your exploration from these interesting points ...
+          </p>
+        )}
 
-        <MemoizedInfoExamples />
+        <MemoizedInfoExamples configKey="timeline" />
 
         <p>Take the data and use it on your site!</p>
         <p>

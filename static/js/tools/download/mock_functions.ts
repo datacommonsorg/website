@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,13 +16,15 @@
 
 /* mocked axios calls for Page test for download tool. */
 
+/* eslint-disable camelcase */
+
 jest.mock("axios");
 import axios from "axios";
 import { when } from "jest-when";
 
 import { stringifyFn } from "../../utils/axios";
 
-export function axios_mock(): void {
+export function axiosMock(): void {
   // Mock all the async axios call.
   axios.get = jest.fn();
   axios.post = jest.fn();
@@ -71,7 +73,7 @@ export function axios_mock(): void {
 
   // get statvar properties Count_Person
   when(axios.get)
-    .calledWith("/api/stats/stats-var-property?dcid=Count_Person")
+    .calledWith("/api/stats/stat-var-property?dcids=Count_Person")
     .mockResolvedValue({
       data: {
         Count_Person: {
@@ -86,7 +88,7 @@ export function axios_mock(): void {
 
   // get statvar properties Median_Age_Person
   when(axios.get)
-    .calledWith("/api/stats/stats-var-property?dcid=Median_Age_Person")
+    .calledWith("/api/stats/stat-var-property?dcids=Median_Age_Person")
     .mockResolvedValue({
       data: {
         Median_Age_Person: {
@@ -110,34 +112,46 @@ export function axios_mock(): void {
     .mockResolvedValue({ data: { "geoId/06": "California" } });
 
   // get root stat var group
-  when(axios.get)
-    .calledWith("/api/variable-group/info?dcid=dc/g/Root")
+  when(axios.post)
+    .calledWith("/api/variable-group/info", {
+      dcid: "dc/g/Root",
+      entities: [],
+      numEntitiesExistence: 0,
+    })
     .mockResolvedValue(rootGroupsData);
 
   // get root stat var group for places in geoId/06
-  when(axios.get)
-    .calledWith(
-      "/api/variable-group/info?dcid=dc/g/Root&entities=geoId/06001&entities=geoId/06002"
-    )
+  when(axios.post)
+    .calledWith("/api/variable-group/info", {
+      dcid: "dc/g/Root",
+      entities: ["geoId/06001", "geoId/06002"],
+      numEntitiesExistence: 1,
+    })
     .mockResolvedValue(rootGroupsData);
 
-  when(axios.get)
-    .calledWith(
-      "/api/variable-group/info?dcid=dc/g/Root&entities=geoId/06002&entities=geoId/06001"
-    )
+  when(axios.post)
+    .calledWith("/api/variable-group/info", {
+      dcid: "dc/g/Root",
+      entities: ["geoId/06002", "geoId/06001"],
+      numEntitiesExistence: 1,
+    })
     .mockResolvedValue(rootGroupsData);
 
   // get demographics stat var group for places in geoId/06
-  when(axios.get)
-    .calledWith(
-      "/api/variable-group/info?dcid=dc%2Fg%2FDemographics&entities=geoId/06001&entities=geoId/06002"
-    )
+  when(axios.post)
+    .calledWith("/api/variable-group/info", {
+      dcid: "dc/g/Demographics",
+      entities: ["geoId/06001", "geoId/06002"],
+      numEntitiesExistence: 1,
+    })
     .mockResolvedValue(demographicsGroupsData);
 
-  when(axios.get)
-    .calledWith(
-      "/api/variable-group/info?dcid=dc%2Fg%2FDemographics&entities=geoId/06002&entities=geoId/06001"
-    )
+  when(axios.post)
+    .calledWith("/api/variable-group/info", {
+      dcid: "dc/g/Demographics",
+      entities: ["geoId/06002", "geoId/06001"],
+      numEntitiesExistence: 1,
+    })
     .mockResolvedValue(demographicsGroupsData);
 
   // stat var info for demographics node
@@ -185,7 +199,7 @@ export function axios_mock(): void {
 
   // get places in for counties in geoId/06
   when(axios.get)
-    .calledWith("/api/place/places-in?dcid=geoId/06&placeType=County")
+    .calledWith("/api/place/descendent?dcids=geoId/06&descendentType=County")
     .mockResolvedValue({
       data: {
         "geoId/06": ["geoId/06001", "geoId/06002"],
@@ -194,9 +208,9 @@ export function axios_mock(): void {
 
   // get parent place for geoId/06
   when(axios.get)
-    .calledWith("/api/place/parent/geoId/06")
+    .calledWith("/api/place/parent?dcid=geoId/06")
     .mockResolvedValue({
-      data: ["country/USA"],
+      data: [{ dcid: "country/USA", type: "Country", name: "United States" }],
     });
 
   // get facets within place for Count_Person
@@ -204,17 +218,27 @@ export function axios_mock(): void {
     .calledWith("/api/facets/within", {
       params: {
         childType: "County",
-        maxDate: "latest",
-        minDate: "latest",
-        parentPlace: "geoId/06",
-        statVars: ["Count_Person"],
+        date: "LATEST",
+        parentEntity: "geoId/06",
+        variables: ["Count_Person"],
       },
       paramsSerializer: stringifyFn,
     })
     .mockResolvedValue({
       data: {
-        Count_Person: {
-          importName: "Facet1",
+        data: {
+          Count_Person: {
+            "": [
+              {
+                facet: "facetId1",
+              },
+            ],
+          },
+        },
+        facets: {
+          facetId1: {
+            importName: "Facet1",
+          },
         },
       },
     });
@@ -223,17 +247,27 @@ export function axios_mock(): void {
     .calledWith("/api/facets/within", {
       params: {
         childType: "County",
-        maxDate: "",
-        minDate: "2020",
-        parentPlace: "geoId/06",
-        statVars: ["Count_Person"],
+        date: "",
+        parentEntity: "geoId/06",
+        variables: ["Count_Person"],
       },
       paramsSerializer: stringifyFn,
     })
     .mockResolvedValue({
       data: {
-        Count_Person: {
-          importName: "Facet1",
+        data: {
+          Count_Person: {
+            "": [
+              {
+                facet: "facetId1",
+              },
+            ],
+          },
+        },
+        facets: {
+          facetId1: {
+            importName: "Facet1",
+          },
         },
       },
     });
@@ -243,41 +277,65 @@ export function axios_mock(): void {
     .calledWith("/api/facets/within", {
       params: {
         childType: "County",
-        maxDate: "",
-        minDate: "2020",
-        parentPlace: "geoId/06",
-        statVars: ["Count_Person", "Median_Age_Person"],
+        date: "",
+        parentEntity: "geoId/06",
+        variables: ["Count_Person", "Median_Age_Person"],
       },
       paramsSerializer: stringifyFn,
     })
     .mockResolvedValue({
       data: {
-        Count_Person: {
-          importName: "Facet1",
+        data: {
+          Count_Person: {
+            "": [
+              {
+                facet: "facetId1",
+              },
+            ],
+          },
+          Median_Age_Person: {
+            "": [
+              {
+                facet: "facetId1",
+              },
+            ],
+          },
         },
-        Median_Age_Person: {
-          importName: "Facet1",
+        facets: {
+          facetId1: {
+            importName: "Facet1",
+          },
         },
       },
     });
 
   // get place stats vars for places in geoId/06
   when(axios.post)
-    .calledWith("/api/place/stat-vars/union", {
-      dcids: ["geoId/06001", "geoId/06002"],
-      statVars: ["Count_Person"],
+    .calledWith("/api/observation/existence", {
+      entities: ["geoId/06001", "geoId/06002"],
+      variables: ["Count_Person"],
     })
     .mockResolvedValue({
-      data: ["Count_Person"],
+      data: {
+        Count_Person: {
+          "geoId/06001": true,
+          "geoId/06002": true,
+        },
+      },
     });
 
   when(axios.post)
-    .calledWith("/api/place/stat-vars/union", {
-      dcids: ["geoId/06002", "geoId/06001"],
-      statVars: ["Count_Person"],
+    .calledWith("/api/observation/existence", {
+      entities: ["geoId/06002", "geoId/06001"],
+      variables: ["Count_Person"],
     })
     .mockResolvedValue({
-      data: ["Count_Person"],
+      data: {
+        Count_Person: {
+          "geoId/06001": true,
+          "geoId/06002": true,
+        },
+      },
     });
 
   // get csv

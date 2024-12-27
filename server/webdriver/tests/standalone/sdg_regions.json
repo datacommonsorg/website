@@ -1,0 +1,364 @@
+{
+    "regions": {
+        "AustraliaAndNewZealand": {
+            "dcid": "AustraliaAndNewZealand",
+            "name": "Australia and New Zealand"
+        },
+        "Caribbean": {
+            "dcid": "Caribbean",
+            "name": "Caribbean"
+        },
+        "CentralAmerica": {
+            "dcid": "CentralAmerica",
+            "name": "Central America (including Mexico)"
+        },
+        "CentralAsia": {
+            "dcid": "CentralAsia",
+            "name": "Central Asia"
+        },
+        "ChannelIslands": {
+            "dcid": "ChannelIslands",
+            "name": "Channel Islands"
+        },
+        "EasternAfrica": {
+            "dcid": "EasternAfrica",
+            "name": "Eastern Africa"
+        },
+        "EasternAsia": {
+            "dcid": "EasternAsia",
+            "name": "Eastern Asia"
+        },
+        "EasternEurope": {
+            "dcid": "EasternEurope",
+            "name": "Eastern Europe (including Northern Asia)"
+        },
+        "LatinAmericaAndCaribbean": {
+            "dcid": "LatinAmericaAndCaribbean",
+            "name": "Latin America and the Caribbean"
+        },
+        "Melanesia": {
+            "dcid": "Melanesia",
+            "name": "Melanesia"
+        },
+        "Micronesia": {
+            "dcid": "Micronesia",
+            "name": "Micronesia"
+        },
+        "MiddleAfrica": {
+            "dcid": "MiddleAfrica",
+            "name": "Middle Africa"
+        },
+        "NorthernAfrica": {
+            "dcid": "NorthernAfrica",
+            "name": "Northern Africa"
+        },
+        "NorthernEurope": {
+            "dcid": "NorthernEurope",
+            "name": "Northern Europe"
+        },
+        "Polynesia": {
+            "dcid": "Polynesia",
+            "name": "Polynesia"
+        },
+        "SouthEasternAsia": {
+            "dcid": "SouthEasternAsia",
+            "name": "South-Eastern Asia"
+        },
+        "SouthernAfrica": {
+            "dcid": "SouthernAfrica",
+            "name": "Southern Africa"
+        },
+        "SouthernAsia": {
+            "dcid": "SouthernAsia",
+            "name": "Southern Asia"
+        },
+        "SouthernEurope": {
+            "dcid": "SouthernEurope",
+            "name": "Southern Europe"
+        },
+        "SubSaharanAfrica": {
+            "dcid": "SubSaharanAfrica",
+            "name": "Sub-Saharan Africa"
+        },
+        "WesternAfrica": {
+            "dcid": "WesternAfrica",
+            "name": "Western Africa"
+        },
+        "WesternAsia": {
+            "dcid": "WesternAsia",
+            "name": "Western Asia"
+        },
+        "WesternEurope": {
+            "dcid": "WesternEurope",
+            "name": "Western Europe"
+        },
+        "EuropeanUnion": {
+            "dcid": "EuropeanUnion",
+            "name": "European Union"
+        },
+        "africa": {
+            "dcid": "africa",
+            "name": "Africa"
+        },
+        "antarctica": {
+            "dcid": "antarctica",
+            "name": "Antarctica"
+        },
+        "asia": {
+            "dcid": "asia",
+            "name": "Asia"
+        },
+        "europe": {
+            "dcid": "europe",
+            "name": "Europe"
+        },
+        "northamerica": {
+            "dcid": "northamerica",
+            "name": "North America"
+        },
+        "oceania": {
+            "dcid": "oceania",
+            "name": "Oceania"
+        },
+        "southamerica": {
+            "dcid": "southamerica",
+            "name": "South America"
+        },
+        "undata-geo/G00000930": {
+            "dcid": "undata-geo/G00000930",
+            "name": "England and Wales"
+        },
+        "undata-geo/G00001610": {
+            "dcid": "undata-geo/G00001610",
+            "name": "Kosovo"
+        },
+        "undata-geo/G00002100": {
+            "dcid": "undata-geo/G00002100",
+            "name": "Netherlands Antilles (former, excl. Aruba)"
+        },
+        "undata-geo/G00002230": {
+            "dcid": "undata-geo/G00002230",
+            "name": "Northern Ireland"
+        },
+        "undata-geo/G00002720": {
+            "dcid": "undata-geo/G00002720",
+            "name": "Sark"
+        },
+        "undata-geo/G00002740": {
+            "dcid": "undata-geo/G00002740",
+            "name": "Scotland"
+        },
+        "undata-geo/G00002770": {
+            "dcid": "undata-geo/G00002770",
+            "name": "Serbia and Montenegro [former]"
+        },
+        "undata-geo/G00002870": {
+            "dcid": "undata-geo/G00002870",
+            "name": "Socialist Federal Republic of Yugoslavia [former]"
+        },
+        "undata-geo/G00003000": {
+            "dcid": "undata-geo/G00003000",
+            "name": "Sudan [former]"
+        },
+        "undata-geo/G00003070": {
+            "dcid": "undata-geo/G00003070",
+            "name": "Taiwan province of China"
+        },
+        "undata-geo/G00101900": {
+            "dcid": "undata-geo/G00101900",
+            "name": "Africa, not elsewhere specified"
+        },
+        "undata-geo/G00103000": {
+            "dcid": "undata-geo/G00103000",
+            "name": "Northern Africa and Western Asia"
+        },
+        "undata-geo/G00116000": {
+            "dcid": "undata-geo/G00116000",
+            "name": "Central and Southern Asia"
+        },
+        "undata-geo/G00122000": {
+            "dcid": "undata-geo/G00122000",
+            "name": "Eastern and South-eastern Asia"
+        },
+        "undata-geo/G00126000": {
+            "dcid": "undata-geo/G00126000",
+            "name": "Europe and Northern America"
+        },
+        "undata-geo/G00134000": {
+            "dcid": "undata-geo/G00134000",
+            "name": "Americas"
+        },
+        "undata-geo/G00136000": {
+            "dcid": "undata-geo/G00136000",
+            "name": "Northern America"
+        },
+        "undata-geo/G00145000": {
+            "dcid": "undata-geo/G00145000",
+            "name": "Oceania excluding Australia and New Zealand"
+        },
+        "undata-geo/G00151000": {
+            "dcid": "undata-geo/G00151000",
+            "name": "Middle East"
+        },
+        "undata-geo/G00152000": {
+            "dcid": "undata-geo/G00152000",
+            "name": "Middle East and North Africa"
+        },
+        "undata-geo/G00162000": {
+            "dcid": "undata-geo/G00162000",
+            "name": "Central and Eastern Europe"
+        },
+        "undata-geo/G00202010": {
+            "dcid": "undata-geo/G00202010",
+            "name": "FAO Major Fishing Area: Atlantic, Eastern Central"
+        },
+        "undata-geo/G00202020": {
+            "dcid": "undata-geo/G00202020",
+            "name": "FAO Major Fishing Area: Atlantic, Northeast"
+        },
+        "undata-geo/G00202030": {
+            "dcid": "undata-geo/G00202030",
+            "name": "FAO Major Fishing Area: Atlantic, Northwest"
+        },
+        "undata-geo/G00202040": {
+            "dcid": "undata-geo/G00202040",
+            "name": "FAO Major Fishing Area: Atlantic, Southeast"
+        },
+        "undata-geo/G00202050": {
+            "dcid": "undata-geo/G00202050",
+            "name": "FAO Major Fishing Area: Atlantic, Southwest"
+        },
+        "undata-geo/G00202060": {
+            "dcid": "undata-geo/G00202060",
+            "name": "FAO Major Fishing Area: Atlantic, Western Central"
+        },
+        "undata-geo/G00202070": {
+            "dcid": "undata-geo/G00202070",
+            "name": "FAO Major Fishing Area: Indian Ocean, Eastern"
+        },
+        "undata-geo/G00202080": {
+            "dcid": "undata-geo/G00202080",
+            "name": "FAO Major Fishing Area: Indian Ocean, Western"
+        },
+        "undata-geo/G00202090": {
+            "dcid": "undata-geo/G00202090",
+            "name": "FAO Major Fishing Area: Mediterranean and Black Sea"
+        },
+        "undata-geo/G00202100": {
+            "dcid": "undata-geo/G00202100",
+            "name": "FAO Major Fishing Area: Pacific, Eastern Central"
+        },
+        "undata-geo/G00202110": {
+            "dcid": "undata-geo/G00202110",
+            "name": "FAO Major Fishing Area: Pacific, Northeast"
+        },
+        "undata-geo/G00202120": {
+            "dcid": "undata-geo/G00202120",
+            "name": "FAO Major Fishing Area: Pacific, Northwest"
+        },
+        "undata-geo/G00202130": {
+            "dcid": "undata-geo/G00202130",
+            "name": "FAO Major Fishing Area: Pacific, Southeast"
+        },
+        "undata-geo/G00202140": {
+            "dcid": "undata-geo/G00202140",
+            "name": "FAO Major Fishing Area: Pacific, Southwest"
+        },
+        "undata-geo/G00202150": {
+            "dcid": "undata-geo/G00202150",
+            "name": "FAO Major Fishing Area: Pacific, Western Central"
+        },
+        "undata-geo/G00401000": {
+            "dcid": "undata-geo/G00401000",
+            "name": "Developed economies"
+        },
+        "undata-geo/G00402000": {
+            "dcid": "undata-geo/G00402000",
+            "name": "Developing economies"
+        },
+        "undata-geo/G00403000": {
+            "dcid": "undata-geo/G00403000",
+            "name": "Landlocked developing countries (LLDCs)"
+        },
+        "undata-geo/G00404000": {
+            "dcid": "undata-geo/G00404000",
+            "name": "Least developed countries (LDCs)"
+        },
+        "undata-geo/G00405000": {
+            "dcid": "undata-geo/G00405000",
+            "name": "Small Island Developing States (SIDS)"
+        },
+        "undata-geo/G00407920": {
+            "dcid": "undata-geo/G00407920",
+            "name": "Non-OECD: Americas, not elsewhere specified"
+        },
+        "undata-geo/G00407930": {
+            "dcid": "undata-geo/G00407930",
+            "name": "Non-OECD: Asia, not elsewhere specified"
+        },
+        "undata-geo/G00407960": {
+            "dcid": "undata-geo/G00407960",
+            "name": "Non-OECD: Oceania, not elsewhere specified"
+        },
+        "undata-geo/G00500200": {
+            "dcid": "undata-geo/G00500200",
+            "name": "Development Assistance Committee (DAC)"
+        },
+        "undata-geo/G00500360": {
+            "dcid": "undata-geo/G00500360",
+            "name": "European Union (EU) Institutions"
+        },
+        "undata-geo/G00600110": {
+            "dcid": "undata-geo/G00600110",
+            "name": "Food and Agriculture Organization (FAO) International Centers"
+        },
+        "undata-geo/G00600120": {
+            "dcid": "undata-geo/G00600120",
+            "name": "Food and Agriculture Organization (FAO) Regional Centers"
+        },
+        "undata-geo/G00800100": {
+            "dcid": "undata-geo/G00800100",
+            "name": "Caucasus and Central Asia"
+        },
+        "undata-geo/G00800120": {
+            "dcid": "undata-geo/G00800120",
+            "name": "Central and Southern Asia (excl. India)"
+        },
+        "undata-geo/G00800150": {
+            "dcid": "undata-geo/G00800150",
+            "name": "Eastern Asia (excl. Japan and China)"
+        },
+        "undata-geo/G00800160": {
+            "dcid": "undata-geo/G00800160",
+            "name": "Eastern Asia (excl. Japan)"
+        },
+        "undata-geo/G00800240": {
+            "dcid": "undata-geo/G00800240",
+            "name": "Belgium and Luxembourg"
+        },
+        "undata-geo/G00800370": {
+            "dcid": "undata-geo/G00800370",
+            "name": "Western Asia (excl. Armenia, Azerbaijan, Cyprus, Israel and Georgia)"
+        },
+        "undata-geo/G00800410": {
+            "dcid": "undata-geo/G00800410",
+            "name": "Iraq (Central Region)"
+        },
+        "undata-geo/G00800420": {
+            "dcid": "undata-geo/G00800420",
+            "name": "Iraq (Kurdistan Region)"
+        },
+        "undata-geo/G00800480": {
+            "dcid": "undata-geo/G00800480",
+            "name": "Northern Africa (excl. Sudan)"
+        },
+        "undata-geo/G00800500": {
+            "dcid": "undata-geo/G00800500",
+            "name": "Sub-Saharan Africa (incl. Sudan)"
+        },
+        "undata-geo/G99999999": {
+            "dcid": "undata-geo/G99999999",
+            "name": "Source geographies without a corresponding geography in UNdata"
+        }
+    }
+}

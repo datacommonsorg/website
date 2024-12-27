@@ -1,97 +1,121 @@
-# Copyright 2022 Google LLC
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     https://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: {{ include "dc-website.fullname" . }}-githash
+  name: ingress-config
   namespace: {{ .Values.namespace.name }}
 data:
-  website_hash.txt: {{ required "website githash is required" .Values.website.githash | quote }}
-  mixer_hash.txt: {{ required "mixer githash is required" .Values.mixer.githash | quote }}
-
----
-
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: {{ include "dc-website.fullname" . }}-store-config
-  namespace: {{ .Values.namespace.name }}
-data:
-  bigquery.version: {{ required "bigqueryVersion is required." .Values.kgStoreConfig.bigqueryVersion }}
-  base_bigtable_info.yaml: {{  required "baseBigtableInfo is required." .Values.kgStoreConfig.baseBigtableInfo | quote }}
-  custom_bigtable_info.yaml: {{ .Values.kgStoreConfig.customBigtableInfo | quote }}
-
----
-
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: {{ include "dc-website.fullname" . }}-ai-config
-  namespace: {{ .Values.namespace.name }}
-data:
-  ai.yaml: |
-    us-central1:
-      protocol: rest
-      endpoint_id: "2621578768245850112"
-      deployed_model_id: "1265982086267797504"
-
----
-
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: {{ include "dc-website.fullname" . }}-website-config
-  namespace: {{ .Values.namespace.name }}
-data:
-  flaskEnv: {{ required "Flask env is required." .Values.website.flaskEnv }}
-  secretProject: {{ required "Flask secret project is required." .Values.website.secretGCPProjectID }}
-
-
----
-
-# Below are mixer only configs.
-
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: {{ include "dc-website.fullname" . }}-memdb-config
-  namespace: {{ .Values.namespace.name }}
-data:
-  memdb.json: {{ .Values.memdbJSON | quote }}
-
-
----
-
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: {{ include "dc-website.fullname" . }}-mixer-config
-  namespace: {{ .Values.namespace.name }}
-data:
-  mixerProject: {{ required "Mixer GCP project is required." .Values.mixer.gcpProjectID }}
-  serviceName:  {{ required "Mixer service name is required." .Values.mixer.serviceName }}
-
----
-
-kind: ConfigMap
-apiVersion: v1
-metadata:
-  name: {{ include "dc-website.fullname" . }}-schema-mapping
-  namespace: {{ .Values.namespace.name }}
-data:
-  {{- range $key, $val := .Values.mixer.schemaConfigs }}
-  {{ $key }}: |
-    {{- $val | nindent 4 }}
+  rules: |
+  {{- range $serviceName, $group := .Values.serviceGroups }}
+    {{- if $group }}
+      dc-mixer-{{ $serviceName }}:
+      {{- range $index, $urlPath := $group.urlPaths }}
+        - {{ $urlPath }}
+      {{- end }}
+    {{- end }}
   {{- end }}
+
+{{- if .Values.website.placeSummary.enabled }}
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: place-summary-config-country
+  namespace: {{ .Values.namespace.name }}
+data:
+  place_summaries.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.country | quote }}
+
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: place-summary-config-geoid-0-2
+  namespace: {{ .Values.namespace.name }}
+data:
+  place_summaries.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.geoid_0_2 | quote }}
+
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: place-summary-config-geoid-3-5
+  namespace: {{ .Values.namespace.name }}
+data:
+  place_summaries.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.geoid_3_5 | quote }}
+
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: place-summary-config-geoid-6-9
+  namespace: {{ .Values.namespace.name }}
+data:
+  place_summaries.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.geoid_6_9 | quote }}
+
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: place-summary-config-wikidataid
+  namespace: {{ .Values.namespace.name }}
+data:
+  place_summaries.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.wikidataid | quote }}
+
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: place-summary-config-others
+  namespace: {{ .Values.namespace.name }}
+data:
+  place_summaries.json: {{ required "Place summary config is required" .Values.website.placeSummary.data.others | quote }}
+{{- end }}
+
+
+{{- if .Values.nl.enabled }}
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: nl-config
+  namespace: {{ .Values.namespace.name }}
+data:
+  catalog.yaml: {{ required "NL catalog file is required" .Values.nl.catalog | quote }}
+  env.yaml: {{ toYaml .Values.nl.env | quote }}
+{{- end }}
+
+{{- if .Values.website.redis.enabled }}
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: redis-config
+  namespace: {{ .Values.namespace.name }}
+data:
+  redis.json: {{ required "Redis config file is required" .Values.website.redis.configFile | quote }}
+{{- end }}
+
+
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: blocklist-svg
+  namespace: {{ .Values.namespace.name }}
+data:
+  blocklist_svg.json: {{ toJson .Values.svg.blocklistFile | quote }}
+
+
+{{- if .Values.cronTesting.enabled }}
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: cron-testing-config
+  namespace: {{ .Values.namespace.name }}
+data:
+  webApiRoot: {{ .Values.cronTesting.webApiRoot | quote }}
+  nodejsApiRoot: {{ .Values.cronTesting.nodejsApiRoot | quote }}
+  screenshotDomain: {{ .Values.cronTesting.screenshotDomain | quote | default "" }}
+  enableSanity: {{ .Values.cronTesting.enableSanity | quote }}
+  enableAdversarial: {{ .Values.cronTesting.enableAdversarial | quote }}
+{{- end }}

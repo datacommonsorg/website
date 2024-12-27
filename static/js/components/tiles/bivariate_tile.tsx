@@ -20,27 +20,44 @@
 
 import axios from "axios";
 import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import ReactDOMServer from "react-dom/server";
 
+import { VisType } from "../../apps/visualization/vis_type_configs";
 import { BivariateProperties, drawBivariate } from "../../chart/draw_bivariate";
 import { Point } from "../../chart/draw_scatter";
 import { GeoJsonData } from "../../chart/types";
+import { URL_PATH } from "../../constants/app/visualization_constants";
+import { CSV_FIELD_DELIMITER } from "../../constants/tile_constants";
 import { USA_PLACE_DCID } from "../../shared/constants";
+import { useLazyLoad } from "../../shared/hooks";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
-import { NamedPlace, NamedTypedPlace } from "../../shared/types";
-import { StatVarSpec } from "../../shared/types";
+import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { getStatWithinPlace } from "../../tools/scatter/util";
 import {
   isChildPlaceOf,
   shouldShowMapBoundaries,
 } from "../../tools/shared_util";
-import { stringifyFn } from "../../utils/axios";
-import { scatterDataToCsv } from "../../utils/chart_csv_utils";
+import {
+  getContextStatVar,
+  getHash,
+} from "../../utils/app/visualization_utils";
+import { getDataCommonsClient } from "../../utils/data_commons_client";
+import { getSeriesWithin } from "../../utils/data_fetch_utils";
 import { getStringOrNA } from "../../utils/number_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
-import { getStatVarName, ReplacementStrings } from "../../utils/tile_utils";
+import {
+  clearContainer,
+  getDenomInfo,
+  getFirstCappedStatVarSpecDate,
+  getNoDataErrorMsg,
+  getStatFormat,
+  getStatVarName,
+  ReplacementStrings,
+  transformCsvHeader,
+} from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
+import { useDrawOnResize } from "./use_draw_on_resize";
 
 interface BivariateTilePropType {
   id: string;
@@ -51,6 +68,17 @@ interface BivariateTilePropType {
   svgChartHeight: number;
   // Extra classes to add to the container.
   className?: string;
+  // Whether or not to show the explore more button.
+  showExploreMore?: boolean;
+  // API root
+  apiRoot?: string;
+  // Optional: only load this component when it's near the viewport
+  lazyLoad?: boolean;
+  /**
+   * Optional: If lazy loading is enabled, load the component when it is within
+   * this margin of the viewport. Default: "0px"
+   */
+  lazyLoadMargin?: string;
 }
 
 interface RawData {
@@ -69,75 +97,100 @@ interface BivariateChartData {
   sources: Set<string>;
   isUsaPlace: boolean;
   showMapBoundaries: boolean;
+  props: BivariateTilePropType;
+  errorMsg: string;
 }
 
 export function BivariateTile(props: BivariateTilePropType): JSX.Element {
   const svgContainer = useRef(null);
   const legend = useRef(null);
-  const [rawData, setRawData] = useState<RawData | undefined>(null);
   const [bivariateChartData, setBivariateChartData] = useState<
     BivariateChartData | undefined
   >(null);
-
+  const { shouldLoad, containerRef } = useLazyLoad(props.lazyLoadMargin);
   useEffect(() => {
-    fetchData(
-      props.place.dcid,
-      props.enclosedPlaceType,
-      props.statVarSpec,
-      setRawData
-    );
-  }, [props]);
-
-  useEffect(() => {
-    if (rawData) {
-      processData(
-        rawData,
-        props.statVarSpec,
-        props.place,
-        props.enclosedPlaceType,
-        setBivariateChartData
-      );
+    if (props.lazyLoad && !shouldLoad) {
+      return;
     }
-  }, [props, rawData]);
-
-  useEffect(() => {
-    if (bivariateChartData) {
-      draw(bivariateChartData, props, svgContainer, legend);
+    if (!bivariateChartData || !_.isEqual(bivariateChartData.props, props)) {
+      (async () => {
+        const data = await fetchData(props);
+        setBivariateChartData(data);
+      })();
     }
-  }, [bivariateChartData, props]);
+  }, [props, bivariateChartData, shouldLoad]);
 
-  if (!bivariateChartData) {
-    return null;
-  }
+  const drawFn = useCallback(() => {
+    if (_.isEmpty(bivariateChartData)) {
+      return;
+    }
+    draw(bivariateChartData, props, svgContainer, legend);
+  }, [props, bivariateChartData]);
+
+  useDrawOnResize(drawFn, svgContainer.current);
+
   const rs: ReplacementStrings = {
-    place: props.place.dcid,
-    date: "",
+    placeName: props.place.dcid,
   };
   return (
     <ChartTileContainer
+      id={props.id}
       title={props.title}
-      sources={bivariateChartData.sources}
+      apiRoot={props.apiRoot}
+      sources={bivariateChartData && bivariateChartData.sources}
       replacementStrings={rs}
       className={`${props.className} bivariate-chart`}
       allowEmbed={true}
-      getDataCsv={() =>
-        scatterDataToCsv(
-          bivariateChartData.xStatVar.statVar,
-          bivariateChartData.xStatVar.denom,
-          bivariateChartData.yStatVar.statVar,
-          bivariateChartData.yStatVar.denom,
-          bivariateChartData.points
-        )
-      }
+      getDataCsv={getDataCsvCallback(props)}
+      isInitialLoading={_.isNull(bivariateChartData)}
+      exploreLink={props.showExploreMore ? getExploreLink(props) : null}
+      errorMsg={bivariateChartData && bivariateChartData.errorMsg}
+      statVarSpecs={props.statVarSpec}
+      forwardRef={containerRef}
     >
       <div
         id={props.id}
         className="bivariate-svg-container"
         ref={svgContainer}
+        style={{
+          minHeight: props.svgChartHeight,
+          display:
+            bivariateChartData && bivariateChartData.errorMsg
+              ? "none"
+              : "block",
+        }}
       />
       <div id="bivariate-legend-container" ref={legend} />
     </ChartTileContainer>
   );
+}
+
+/**
+ * Returns callback for fetching chart CSV data
+ * @param props Chart properties
+ * @returns Async function for fetching chart CSV
+ */
+function getDataCsvCallback(
+  props: BivariateTilePropType
+): () => Promise<string> {
+  return () => {
+    const dataCommonsClient = getDataCommonsClient(props.apiRoot);
+    // Assume all variables will have the same date
+    // TODO: Update getCsv to handle different dates for different variables
+    const date = getFirstCappedStatVarSpecDate(props.statVarSpec);
+    const perCapitaVariables = props.statVarSpec
+      .filter((v) => v.denom)
+      .map((v) => v.statVar);
+    return dataCommonsClient.getCsv({
+      childType: props.enclosedPlaceType,
+      date,
+      fieldDelimiter: CSV_FIELD_DELIMITER,
+      parentEntity: props.place.dcid,
+      perCapitaVariables,
+      transformHeader: transformCsvHeader,
+      variables: props.statVarSpec.map((v) => v.statVar),
+    });
+  };
 }
 
 function getPopulationPromise(
@@ -154,84 +207,76 @@ function getPopulationPromise(
   if (_.isEmpty(variables)) {
     return Promise.resolve(null);
   } else {
-    return axios
-      .get("/api/observations/series/within", {
-        params: {
-          parent_entity: placeDcid,
-          child_type: enclosedPlaceType,
-          variables: variables,
-        },
-        paramsSerializer: stringifyFn,
-      })
-      .then((resp) => resp.data);
+    return getSeriesWithin("", placeDcid, enclosedPlaceType, variables);
   }
 }
 
-function fetchData(
-  placeDcid: string,
-  enclosedPlaceType: string,
-  statVarSpec: StatVarSpec[],
-  setRawData: (data: RawData) => void
-): void {
-  if (statVarSpec.length < 2) {
+export const fetchData = async (props: BivariateTilePropType) => {
+  if (props.statVarSpec.length < 2) {
     // TODO: add error message
     return;
   }
   const geoJsonPromise: Promise<GeoJsonData> = axios
     .get(
-      `/api/choropleth/geojson?placeDcid=${placeDcid}&placeType=${enclosedPlaceType}`
+      `/api/choropleth/geojson?placeDcid=${props.place.dcid}&placeType=${props.enclosedPlaceType}`
     )
     .then((resp) => resp.data);
   const placeStatsPromise: Promise<PointApiResponse> = getStatWithinPlace(
-    placeDcid,
-    enclosedPlaceType,
+    props.place.dcid,
+    props.enclosedPlaceType,
     [
-      { statVarDcid: statVarSpec[0].statVar },
-      { statVarDcid: statVarSpec[1].statVar },
+      { statVarDcid: props.statVarSpec[0].statVar },
+      { statVarDcid: props.statVarSpec[1].statVar },
     ]
   );
   const populationPromise: Promise<SeriesApiResponse> = getPopulationPromise(
-    placeDcid,
-    enclosedPlaceType,
-    statVarSpec
+    props.place.dcid,
+    props.enclosedPlaceType,
+    props.statVarSpec
   );
   const placeNamesPromise = axios
     .get(
-      `/api/place/places-in-names?dcid=${placeDcid}&placeType=${enclosedPlaceType}`
+      `/api/place/descendent/name?dcid=${props.place.dcid}&descendentType=${props.enclosedPlaceType}`
     )
     .then((resp) => resp.data);
   const parentPlacesPromise = axios
-    .get(`/api/place/parent/${placeDcid}`)
+    .get(`/api/place/parent?dcid=${props.place.dcid}`)
     .then((resp) => resp.data);
-  Promise.all([
-    placeStatsPromise,
-    populationPromise,
-    placeNamesPromise,
-    geoJsonPromise,
-    parentPlacesPromise,
-  ])
-    .then(([placeStats, population, placeNames, geoJson, parentPlaces]) => {
-      setRawData({
-        geoJson,
-        placeStats,
-        population,
-        placeNames,
-        parentPlaces,
-      });
-    })
-    .catch(() => {
-      // TODO: add error message
-      setRawData(null);
-    });
-}
+  try {
+    const [placeStats, population, placeNames, geoJson, parentPlaces] =
+      await Promise.all([
+        placeStatsPromise,
+        populationPromise,
+        placeNamesPromise,
+        geoJsonPromise,
+        parentPlacesPromise,
+      ]);
+    const rawData = {
+      placeStats,
+      population,
+      placeNames,
+      geoJson,
+      parentPlaces,
+    };
+    return rawToChart(
+      props,
+      rawData,
+      props.statVarSpec,
+      props.place,
+      props.enclosedPlaceType
+    );
+  } catch (error) {
+    return null;
+  }
+};
 
-function processData(
+function rawToChart(
+  props: BivariateTilePropType,
   rawData: RawData,
   statVarSpec: StatVarSpec[],
   place: NamedTypedPlace,
-  enclosedPlaceType: string,
-  setChartdata: (data: BivariateChartData) => void
-): void {
+  enclosedPlaceType: string
+): BivariateChartData {
   const xStatVar = statVarSpec[0];
   const yStatVar = statVarSpec[1];
   const xPlacePointStat = rawData.placeStats.data[xStatVar.statVar];
@@ -241,22 +286,20 @@ function processData(
   }
   const points = {};
   const sources: Set<string> = new Set();
+  const xUnitScaling = getStatFormat(xStatVar, rawData.placeStats);
+  const yUnitScaling = getStatFormat(yStatVar, rawData.placeStats);
   for (const place in xPlacePointStat) {
     const namedPlace = {
       dcid: place,
       name: rawData.placeNames[place] || place,
     };
+    // get place chart data with no per capita or scaling.
     const placeChartData = getPlaceScatterData(
       namedPlace,
       xPlacePointStat,
       yPlacePointStat,
       rawData.population,
-      rawData.placeStats.facets,
-      xStatVar.denom,
-      yStatVar.denom,
-      null,
-      xStatVar.scaling,
-      yStatVar.scaling
+      rawData.placeStats.facets
     );
     if (!placeChartData) {
       console.log(`BIVARIATE: No data for ${place}, skipping`);
@@ -267,9 +310,51 @@ function processData(
         sources.add(source);
       }
     });
-    points[place] = placeChartData.point;
+    const point = placeChartData.point;
+    if (xStatVar.denom) {
+      const denomInfo = getDenomInfo(
+        xStatVar,
+        rawData.population,
+        place,
+        point.xDate
+      );
+      if (!denomInfo) {
+        // skip this data point because missing denom data.
+        continue;
+      }
+      point.xVal /= denomInfo.value;
+      point.xPopDate = denomInfo.date;
+      point.xPopVal = denomInfo.value;
+      sources.add(denomInfo.source);
+    }
+    if (xUnitScaling.scaling) {
+      point.xVal *= xUnitScaling.scaling;
+    }
+    if (yStatVar.denom) {
+      const denomInfo = getDenomInfo(
+        yStatVar,
+        rawData.population,
+        place,
+        point.yDate
+      );
+      if (!denomInfo) {
+        // skip this data point because missing denom data.
+        continue;
+      }
+      point.yVal /= denomInfo.value;
+      point.yPopDate = denomInfo.date;
+      point.yPopVal = denomInfo.value;
+      sources.add(denomInfo.source);
+    }
+    if (yUnitScaling.scaling) {
+      point.yVal *= yUnitScaling.scaling;
+    }
+    points[place] = point;
   }
-  setChartdata({
+  const errorMsg = _.isEmpty(points)
+    ? getNoDataErrorMsg(props.statVarSpec)
+    : "";
+  return {
     xStatVar,
     yStatVar,
     points,
@@ -281,7 +366,9 @@ function processData(
       rawData.parentPlaces
     ),
     showMapBoundaries: shouldShowMapBoundaries(place, enclosedPlaceType),
-  });
+    props,
+    errorMsg,
+  };
 }
 
 const getTooltipHtml =
@@ -314,6 +401,10 @@ function draw(
   svgContainer: React.RefObject<HTMLDivElement>,
   legend: React.RefObject<HTMLDivElement>
 ): void {
+  if (chartData.errorMsg) {
+    clearContainer(svgContainer.current);
+    return;
+  }
   const width = svgContainer.current.offsetWidth;
   const yLabel = getStatVarName(
     chartData.yStatVar.statVar,
@@ -340,7 +431,7 @@ function draw(
   };
 
   drawBivariate(
-    props.id,
+    svgContainer,
     legend,
     chartData.points,
     chartData.geoJson,
@@ -348,4 +439,21 @@ function draw(
     _.noop,
     getTooltipHtml(chartData.points, xLabel, yLabel)
   );
+}
+
+function getExploreLink(props: BivariateTilePropType): {
+  displayText: string;
+  url: string;
+} {
+  const hash = getHash(
+    VisType.SCATTER,
+    [props.place.dcid],
+    props.enclosedPlaceType,
+    props.statVarSpec.slice(0, 2).map((svSpec) => getContextStatVar(svSpec)),
+    {}
+  );
+  return {
+    displayText: "Scatter Tool",
+    url: `${props.apiRoot || ""}${URL_PATH}#${hash}`,
+  };
 }

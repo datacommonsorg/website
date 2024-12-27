@@ -15,7 +15,7 @@
 
 set -e
 
-PROJECT_ID=$(yq eval '.project' config.yaml)
+PROJECT_ID=$(yq eval '.project' "../deploy/helm_charts/envs/$1.yaml")
 
 gcloud services enable --project=$PROJECT_ID \
   anthos.googleapis.com \
@@ -28,4 +28,8 @@ gcloud services enable --project=$PROJECT_ID \
   servicecontrol.googleapis.com \
   maps-backend.googleapis.com \
   places-backend.googleapis.com \
-  secretmanager.googleapis.com
+  secretmanager.googleapis.com \
+  api.datacommons.org \
+  generativelanguage.googleapis.com \
+  bigtableadmin.googleapis.com \
+  dataflow.googleapis.com

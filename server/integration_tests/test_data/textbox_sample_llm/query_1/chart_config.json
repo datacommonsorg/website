@@ -1,0 +1,370 @@
+{
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_Income_Household_FamilyHousehold"
+                    ],
+                    "title": "Average Income for Family Households in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_FamilyHousehold"
+                    ],
+                    "title": "Median Income for Family Households in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Income_Household_MarriedCoupleFamilyHousehold"
+                    ],
+                    "title": "Median Income for Married Couple Family Households in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_Income_Household_MarriedCoupleFamilyHousehold"
+                    ],
+                    "title": "Average Income for Married Couple Family Households in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_Income_Household_NonfamilyHousehold"
+                    ],
+                    "title": "Average Income for Nonfamily Households in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_IncomeDeficit_Household_FamilyHousehold"
+                    ],
+                    "title": "Mean Income Deficit of Household: Family Household in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_OwnerOccupied"
+                    ],
+                    "title": "Count of Household: Family Household, Owner Occupied in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_OwnerOccupied_pc"
+                    ],
+                    "title": "Per Capita Count of Household: Family Household, Owner Occupied in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold"
+                    ],
+                    "title": "Count of Household: Family Household in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_pc"
+                    ],
+                    "title": "Per Capita Count of Household: Family Household in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_Income_Household"
+                    ],
+                    "title": "Average Income for Households in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_OtherFamilyHousehold"
+                    ],
+                    "title": "Count of Household: Other Family Household in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Household_OtherFamilyHousehold_pc"
+                    ],
+                    "title": "Per Capita Count of Household: Other Family Household in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Mean_IncomeDeficit_Household_MarriedCoupleFamilyHousehold"
+                    ],
+                    "title": "Mean Income Deficit of Household: Married Couple Family Household in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Family Households Below the Poverty Level in the Past Year in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_pc"
+                    ],
+                    "title": "Per Capita Family Households Below the Poverty Level in the Past Year in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
+                    ],
+                    "title": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months in California",
+                    "type": "LINE"
+                  },
+                  {
+                    "statVarKey": [
+                      "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months_pc"
+                    ],
+                    "title": "Per Capita Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "statVarSpec": {
+          "Count_Household_FamilyHousehold": {
+            "name": "Count of Household: Family Household",
+            "statVar": "Count_Household_FamilyHousehold"
+          },
+          "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months": {
+            "name": "Family Households Below the Poverty Level in the Past Year",
+            "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months_pc": {
+            "denom": "Count_Person",
+            "name": "Family Households Below the Poverty Level in the Past Year",
+            "statVar": "Count_Household_FamilyHousehold_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Household_FamilyHousehold_OwnerOccupied": {
+            "name": "Count of Household: Family Household, Owner Occupied",
+            "statVar": "Count_Household_FamilyHousehold_OwnerOccupied"
+          },
+          "Count_Household_FamilyHousehold_OwnerOccupied_pc": {
+            "denom": "Count_Person",
+            "name": "Count of Household: Family Household, Owner Occupied",
+            "statVar": "Count_Household_FamilyHousehold_OwnerOccupied"
+          },
+          "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months": {
+            "name": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months",
+            "statVar": "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months_pc": {
+            "denom": "Count_Person",
+            "name": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months",
+            "statVar": "Count_Household_FamilyHousehold_With1Worker_BelowPovertyLevelInThePast12Months"
+          },
+          "Count_Household_FamilyHousehold_pc": {
+            "denom": "Count_Person",
+            "name": "Count of Household: Family Household",
+            "statVar": "Count_Household_FamilyHousehold"
+          },
+          "Count_Household_OtherFamilyHousehold": {
+            "name": "Count of Household: Other Family Household",
+            "statVar": "Count_Household_OtherFamilyHousehold"
+          },
+          "Count_Household_OtherFamilyHousehold_pc": {
+            "denom": "Count_Person",
+            "name": "Count of Household: Other Family Household",
+            "statVar": "Count_Household_OtherFamilyHousehold"
+          },
+          "Mean_IncomeDeficit_Household_FamilyHousehold": {
+            "name": "Mean Income Deficit of Household: Family Household",
+            "statVar": "Mean_IncomeDeficit_Household_FamilyHousehold"
+          },
+          "Mean_IncomeDeficit_Household_MarriedCoupleFamilyHousehold": {
+            "name": "Mean Income Deficit of Household: Married Couple Family Household",
+            "statVar": "Mean_IncomeDeficit_Household_MarriedCoupleFamilyHousehold"
+          },
+          "Mean_Income_Household": {
+            "name": "Average Income for Households",
+            "statVar": "Mean_Income_Household"
+          },
+          "Mean_Income_Household_FamilyHousehold": {
+            "name": "Average Income for Family Households",
+            "statVar": "Mean_Income_Household_FamilyHousehold"
+          },
+          "Mean_Income_Household_MarriedCoupleFamilyHousehold": {
+            "name": "Average Income for Married Couple Family Households",
+            "statVar": "Mean_Income_Household_MarriedCoupleFamilyHousehold"
+          },
+          "Mean_Income_Household_NonfamilyHousehold": {
+            "name": "Average Income for Nonfamily Households",
+            "statVar": "Mean_Income_Household_NonfamilyHousehold"
+          },
+          "Median_Income_Household_FamilyHousehold": {
+            "name": "Median Income for Family Households",
+            "statVar": "Median_Income_Household_FamilyHousehold"
+          },
+          "Median_Income_Household_MarriedCoupleFamilyHousehold": {
+            "name": "Median Income for Married Couple Family Households",
+            "statVar": "Median_Income_Household_MarriedCoupleFamilyHousehold"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "geoId/06"
+      ]
+    },
+    "suggestions": {
+      "NL_RELATED_PLACE": {},
+      "NL_RELATED_VAR": {
+        "items": [
+          {
+            "displayName": "Count of Household: Family Household, Owner Occupied",
+            "nlQuery": "Count of Household: Family Household, Owner Occupied California"
+          },
+          {
+            "displayName": "Count of Household: Family Household",
+            "nlQuery": "Count of Household: Family Household California"
+          },
+          {
+            "displayName": "Average Income for Households",
+            "nlQuery": "Average Income for Households California"
+          },
+          {
+            "displayName": "Count of Household: Other Family Household",
+            "nlQuery": "Count of Household: Other Family Household California"
+          },
+          {
+            "displayName": "Mean Income Deficit of Household: Married Couple Family Household",
+            "nlQuery": "Mean Income Deficit of Household: Married Couple Family Household California"
+          },
+          {
+            "displayName": "Family Households Below the Poverty Level in the Past Year",
+            "nlQuery": "Family Households Below the Poverty Level in the Past Year California"
+          },
+          {
+            "displayName": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months",
+            "nlQuery": "Count of Household: Family Household, Worker 1, Below Poverty Level in The Past 12 Months California"
+          }
+        ]
+      }
+    }
+  },
+  "context": {},
+  "debug": {},
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "geoId/06",
+    "name": "California",
+    "place_type": "State"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "svSource": "CURRENT_QUERY"
+}

@@ -23,6 +23,7 @@ import * as d3 from "d3";
 import _ from "lodash";
 import React from "react";
 
+import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
 import { Context, ContextType } from "../shared/context";
 import {
   RADIO_BUTTON_TYPES,
@@ -139,7 +140,7 @@ export class StatVarSectionInput extends React.Component<
     } else if (this.props.selected) {
       className = "node-title highlighted-node-title";
     }
-    let displayName = this.props.statVar.displayName;
+    let displayName = this.props.statVar.displayName || this.props.statVar.id;
     // Only replace prefix in display name if prefix is shorter than display
     // name.
     if (
@@ -159,10 +160,14 @@ export class StatVarSectionInput extends React.Component<
           disabled={!this.props.statVar.hasData}
         />
         <label
-          className={this.state.checked ? "selected-node-title" : ""}
+          className={
+            this.state.checked
+              ? `selected-node-title ${ASYNC_ELEMENT_CLASS}`
+              : ""
+          }
           htmlFor={sectionId}
           onMouseMove={this.mouseMoveAction(this.props.statVar.hasData)}
-          onMouseOut={() => hideTooltip()}
+          onMouseOut={(): void => hideTooltip()}
         >
           {displayName}
         </label>
@@ -219,7 +224,7 @@ export class StatVarSectionInput extends React.Component<
   private getTooltipHtml(hasData: boolean): string {
     let html = `<b>${
       this.props.statVar.displayName || this.props.statVar.id
-    }</b></br>`;
+    }</b></br><span>dcid: ${this.props.statVar.id}</span></br>`;
     html += hasData
       ? ""
       : "This statistical variable has no data for any of the chosen places.";
@@ -252,18 +257,20 @@ export class StatVarSectionInput extends React.Component<
     return html;
   }
 
-  private mouseMoveAction = (hasData: boolean) => (e) => {
-    const html = this.getTooltipHtml(hasData);
-    if (_.isEmpty(html)) {
-      return;
-    }
-    const left = e.pageX;
-    const containerY = (
-      d3.select(`#${SV_HIERARCHY_SECTION_ID}`).node() as HTMLElement
-    ).getBoundingClientRect().y;
-    const top = e.pageY - containerY + TOOLTIP_TOP_OFFSET;
-    showTooltip(html, { left, top });
-  };
+  private mouseMoveAction =
+    (hasData: boolean) =>
+    (e): void => {
+      const html = this.getTooltipHtml(hasData);
+      if (_.isEmpty(html)) {
+        return;
+      }
+      const containerClientRect = (
+        d3.select(`#${SV_HIERARCHY_SECTION_ID}`).node() as HTMLElement
+      ).getBoundingClientRect();
+      const top = e.pageY - containerClientRect.y + TOOLTIP_TOP_OFFSET;
+      const left = e.pageX - containerClientRect.x;
+      showTooltip(html, { left, top });
+    };
 }
 
 StatVarSectionInput.contextType = Context;

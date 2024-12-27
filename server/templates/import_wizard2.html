@@ -16,14 +16,13 @@
 
 {%- extends BASE_HTML -%}
 
-{% set subpage_title = "Import Wizard" %}
-{% set subpage_url = url_for('import_wizard.main_new') %}
 {% set title = "Import Wizard" %}
 {% set main_id = 'main-import-wizard' %}
 {% set page_id = 'page-import-wizard' %}
 
 {% block head %}
   <link rel="stylesheet" href={{url_for('static', filename='css/import_wizard2.min.css')}} >
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 {% endblock %}
 
 {% block content %}

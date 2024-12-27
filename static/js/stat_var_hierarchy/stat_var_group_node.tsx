@@ -23,16 +23,20 @@ import _ from "lodash";
 import React from "react";
 import Collapsible from "react-collapsible";
 
+import { ASYNC_ELEMENT_HOLDER_CLASS } from "../constants/css_constants";
 import { Context, ContextType } from "../shared/context";
 import {
+  NamedNode,
   RADIO_BUTTON_TYPES,
   StatVarGroupInfo,
   StatVarHierarchyNodeType,
   StatVarHierarchyType,
   StatVarInfo,
 } from "../shared/types";
-import { NamedNode } from "../shared/types";
-import { StatVarHierarchyNodeHeader } from "./node_header";
+import {
+  StatVarHierarchyNodeHeader,
+  StatVarHierarchyNodeHeaderPropType,
+} from "./node_header";
 import { StatVarGroupSection } from "./stat_var_group_section";
 import { StatVarSection } from "./stat_var_section";
 
@@ -62,6 +66,10 @@ interface StatVarGroupNodePropType {
   showAllSV: boolean;
   // path of svgs that should be expanded.
   expandedPath: string[];
+  // Number of entities that should have data for each stat var (group) shown
+  numEntitiesExistence?: number;
+  // Source constraint for the node
+  dataSource?: string;
 }
 
 interface StatVarGroupNodeStateType {
@@ -179,7 +187,12 @@ export class StatVarGroupNode extends React.Component<
       : this.state.childSVG.filter((svg) => {
           return svg.descendentStatVarCount > 0 || svgOnSvPath.has(svg.id);
         });
-    const getTrigger = (opened: boolean) => {
+    const getTrigger = (
+      opened: boolean
+    ): React.CElement<
+      StatVarHierarchyNodeHeaderPropType,
+      StatVarHierarchyNodeHeader
+    > => {
       return React.createElement(StatVarHierarchyNodeHeader, {
         childrenStatVarCount: this.props.data.descendentStatVarCount,
         highlighted: this.props.isSelected,
@@ -187,8 +200,12 @@ export class StatVarGroupNode extends React.Component<
         opened,
         selectionCount: this.state.selectionCount,
         title: triggerTitle,
+        showTooltip: this.props.path.length > 1,
+        nodeDcid: this.props.data.id,
       });
     };
+    const shouldOpen =
+      this.state.isOpen && !_.isNull(this.state.dataFetchedEntities);
     return (
       <>
         {!_.isEmpty(this.state.errorMessage) && (
@@ -197,16 +214,14 @@ export class StatVarGroupNode extends React.Component<
         <Collapsible
           trigger={getTrigger(false)}
           triggerWhenOpen={getTrigger(true)}
-          open={this.state.isOpen && !_.isNull(this.state.dataFetchedEntities)}
+          open={shouldOpen}
           handleTriggerClick={() => {
             this.setState({ isOpen: !this.state.isOpen });
           }}
           transitionTime={200}
           onOpen={this.scrollToHighlighted}
           containerElementProps={
-            this.props.isSelected
-              ? { className: "highlighted-stat-var-group" }
-              : {}
+            shouldOpen ? { className: ASYNC_ELEMENT_HOLDER_CLASS } : {}
           }
         >
           <>
@@ -229,6 +244,8 @@ export class StatVarGroupNode extends React.Component<
                 entities={this.props.entities}
                 showAllSV={this.props.showAllSV}
                 expandedPath={this.props.expandedPath}
+                numEntitiesExistence={this.props.numEntitiesExistence}
+                dataSource={this.props.dataSource}
               />
             )}
           </>
@@ -238,18 +255,23 @@ export class StatVarGroupNode extends React.Component<
   }
 
   private fetchData(): void {
-    // stat var (group) dcid can contain [/_-.&], need to encode here.
-    // Example: dc/g/Person_Citizenship-NotAUSCitizen_CorrectionalFacilityOperator-StateOperated&FederallyOperated&PrivatelyOperated
-    let url = `/api/variable-group/info?dcid=${encodeURIComponent(
-      this.props.data.id
-    )}`;
     const entityList = this.props.entities;
-    for (const entity of entityList) {
-      url += `&entities=${entity.dcid}`;
+    this.dataFetchingEntities = this.props.entities;
+    let numEntitiesExistence = this.props.numEntitiesExistence;
+    // When dataSource is specified, the stat var group node info fetch should
+    // also be constrained by the data source. So adding the data source dcid
+    // to the `entities` list for this purpose.
+    const entityDcids = entityList.map((entity) => entity.dcid);
+    if (this.props.dataSource) {
+      entityDcids.push(this.props.dataSource);
+      numEntitiesExistence = entityDcids.length;
     }
-    this.dataFetchingEntities = entityList;
     axios
-      .get(url)
+      .post("/api/variable-group/info", {
+        dcid: this.props.data.id,
+        entities: entityDcids,
+        numEntitiesExistence,
+      })
       .then((resp) => {
         const data = resp.data;
         const childSV: StatVarInfo[] = data["childStatVars"] || [];

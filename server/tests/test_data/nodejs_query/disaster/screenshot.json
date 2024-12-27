@@ -1,0 +1,78 @@
+{
+  "charts": [
+    {
+      "dataCsv": "label,Count of Fire Event\r\n2024-03,41\r\n2024-02,234\r\n2024-01,296",
+      "legend": [
+        "Count of Fire Event"
+      ],
+      "places": [
+        "geoId/06"
+      ],
+      "srcs": [
+        {
+          "name": "firms.modaps.eosdis.nasa.gov",
+          "url": "https://firms.modaps.eosdis.nasa.gov/active_fire/"
+        }
+      ],
+      "title": "Count of Fire Event in California",
+      "type": "LINE",
+      "unit": "",
+      "vars": [
+        "Count_FireEvent"
+      ],
+      "highlight": {
+        "date": "2024-03",
+        "value": 41
+      },
+      "chartUrl": "",
+      "dcUrl": "https://datacommons.org/explore#q=fires%20in%20california"
+    },
+    {
+      "dataCsv": "rank,place,Count of Fire Event\r\n1,Los Angeles County,9\r\n2,Butte County,8\r\n3,Solano County,7\r\n4,Tuolumne County,5\r\n5,Plumas County,5\r\n50,Kings County,1\r\n51,Kern County,1\r\n52,Inyo County,1\r\n53,Alpine County,1\r\n54,Alameda County,1",
+      "placeType": "County",
+      "places": [
+        "geoId/06"
+      ],
+      "srcs": [
+        {
+          "name": "firms.modaps.eosdis.nasa.gov",
+          "url": "https://firms.modaps.eosdis.nasa.gov/active_fire/"
+        }
+      ],
+      "title": "Count of Fire Event in Counties of California (Jan, 2024 to Mar, 2024)",
+      "type": "TABLE",
+      "unit": "",
+      "vars": [
+        "Count_FireEvent"
+      ],
+      "dcUrl": "https://datacommons.org/explore#q=fires%20in%20california"
+    },
+    {
+      "dataCsv": "label,Count of Wildland Fire Event\r\n2023-03,19\r\n2023-02,484\r\n2023-01,377\r\n2022-12,474\r\n2022-11,783\r\n2022-10,1015\r\n2022-09,1233\r\n2022-08,1550\r\n2022-07,2150\r\n2022-06,1900\r\n2022-05,1590\r\n2022-04,989\r\n2022-03,891\r\n2022-02,762\r\n2022-01,503\r\n2021-12,441\r\n2021-11,715\r\n2021-10,1141\r\n2021-09,1309\r\n2021-08,1682\r\n2021-07,2241\r\n2021-06,1491\r\n2021-05,1237\r\n2021-04,877\r\n2021-03,459\r\n2021-02,370\r\n2021-01,489\r\n2020-12,743\r\n2020-11,596\r\n2020-10,817\r\n2020-09,969\r\n2020-08,1678\r\n2020-07,2037\r\n2020-06,1588\r\n2020-05,903\r\n2020-04,314\r\n2020-03,224\r\n2020-02,399\r\n2020-01,173\r\n2019-12,137\r\n2019-11,577\r\n2019-10,889\r\n2019-09,975\r\n2019-08,1079\r\n2019-07,1033\r\n2019-06,526\r\n2019-05,221\r\n2019-04,209\r\n2019-03,108\r\n2019-02,47\r\n2019-01,78\r\n2018-12,84\r\n2018-11,287\r\n2018-10,334\r\n2018-09,378\r\n2018-08,528\r\n2018-07,924\r\n2018-06,582\r\n2018-05,269\r\n2018-04,181\r\n2018-03,74\r\n2018-02,176\r\n2018-01,172\r\n2017-12,327\r\n2017-11,211\r\n2017-10,503\r\n2017-09,636\r\n2017-08,879\r\n2017-07,988\r\n2017-06,607\r\n2017-05,367\r\n2017-04,116\r\n2017-03,20\r\n2017-02,15\r\n2017-01,11\r\n2016-12,14\r\n2016-11,41\r\n2016-10,129\r\n2016-09,259\r\n2016-08,351\r\n2016-07,376\r\n2016-06,314\r\n2016-05,120\r\n2016-04,55\r\n2016-03,22\r\n2016-02,25\r\n2016-01,15\r\n2015-12,22\r\n2015-11,48\r\n2015-10,167\r\n2015-09,232\r\n2015-08,396\r\n2015-07,870\r\n2015-06,463\r\n2015-05,168\r\n2015-04,121\r\n2015-03,57\r\n2015-02,42\r\n2015-01,32\r\n2014-12,21\r\n2014-11,69\r\n2014-10,110\r\n2014-09,222\r\n2014-08,427\r\n2014-07,796\r\n2014-06,365\r\n2014-05,87\r\n2014-04,5",
+      "legend": [
+        "Count of Wildland Fire Event"
+      ],
+      "places": [
+        "geoId/06"
+      ],
+      "srcs": [
+        {
+          "name": "data-nifc.opendata.arcgis.com",
+          "url": "https://data-nifc.opendata.arcgis.com/datasets/nifc::wfigs-wildland-fire-locations-full-history/about"
+        }
+      ],
+      "title": "Count of Wildland Fire Event in California",
+      "type": "LINE",
+      "unit": "",
+      "vars": [
+        "Count_WildlandFireEvent"
+      ],
+      "highlight": {
+        "date": "2023-03",
+        "value": 19
+      },
+      "chartUrl": "",
+      "dcUrl": "https://datacommons.org/explore#q=fires%20in%20california"
+    }
+  ]
+}

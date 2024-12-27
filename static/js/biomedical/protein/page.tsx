@@ -19,6 +19,7 @@
  */
 
 import axios from "axios";
+import _ from "lodash";
 import React from "react";
 
 import { GraphNodes } from "../../shared/types";
@@ -32,6 +33,8 @@ import {
   drawVarGeneAssocChart,
   drawVarSigAssocChart,
   drawVarTypeAssocChart,
+  ProteinNumData,
+  ProteinStrData,
 } from "./chart";
 import {
   getChemicalGeneAssoc,
@@ -45,6 +48,7 @@ import {
 } from "./data_processing_utils";
 import { ProteinProteinInteractionGraph } from "./protein_protein_interaction_graph";
 import { BioDcid } from "./types";
+
 export interface PagePropType {
   dcid: string;
   nodeName: string;
@@ -52,6 +56,13 @@ export interface PagePropType {
 
 export interface PageStateType {
   data: GraphNodes;
+  tissueScore: ProteinStrData[];
+  interactionScore: InteractingProteinType[];
+  diseaseGeneAssoc: DiseaseAssociationType[];
+  varGeneAssoc: ProteinVarType[];
+  varTypeAssoc: ProteinNumData[];
+  varSigAssoc: ProteinNumData[];
+  chemGeneAssoc: ProteinNumData[];
 }
 
 export interface ProteinVarType {
@@ -83,7 +94,16 @@ export interface InteractingProteinType {
 export class Page extends React.Component<PagePropType, PageStateType> {
   constructor(props: PagePropType) {
     super(props);
-    this.state = { data: null };
+    this.state = {
+      data: null,
+      tissueScore: null,
+      interactionScore: null,
+      diseaseGeneAssoc: null,
+      varGeneAssoc: null,
+      varTypeAssoc: null,
+      varSigAssoc: null,
+      chemGeneAssoc: null,
+    };
   }
 
   componentDidMount(): void {
@@ -91,31 +111,33 @@ export class Page extends React.Component<PagePropType, PageStateType> {
   }
 
   componentDidUpdate(): void {
-    const tissueScore = getTissueScore(this.state.data);
-    const interactionScore = getProteinInteraction(
-      this.state.data,
-      this.props.nodeName
-    );
-    const diseaseGeneAssoc = getDiseaseGeneAssoc(this.state.data);
-    const varGeneAssoc = getVarGeneAssoc(this.state.data);
-    const varTypeAssoc = getVarTypeAssoc(this.state.data);
-    const varSigAssoc = getVarSigAssoc(this.state.data);
-    const chemGeneAssoc = getChemicalGeneAssoc(this.state.data);
-    drawTissueScoreChart("tissue-score-chart", tissueScore);
-    drawTissueLegend("tissue-score-legend", tissueScore);
+    drawTissueScoreChart("tissue-score-chart", this.state.tissueScore);
+    drawTissueLegend("tissue-score-legend", this.state.tissueScore);
     drawProteinInteractionChart(
       "protein-confidence-score-chart",
-      interactionScore
+      this.state.interactionScore
     );
     // drawProteinInteractionGraph("protein-interaction-graph", interactionScore);
     drawDiseaseGeneAssocChart(
       "disease-gene-association-chart",
-      diseaseGeneAssoc
+      this.state.diseaseGeneAssoc
     );
-    drawVarGeneAssocChart("variant-gene-association-chart", varGeneAssoc);
-    drawVarTypeAssocChart("variant-type-association-chart", varTypeAssoc);
-    drawVarSigAssocChart("variant-significance-association-chart", varSigAssoc);
-    drawChemGeneAssocChart("chemical-gene-association-chart", chemGeneAssoc);
+    drawVarGeneAssocChart(
+      "variant-gene-association-chart",
+      this.state.varGeneAssoc
+    );
+    drawVarTypeAssocChart(
+      "variant-type-association-chart",
+      this.state.varTypeAssoc
+    );
+    drawVarSigAssocChart(
+      "variant-significance-association-chart",
+      this.state.varSigAssoc
+    );
+    drawChemGeneAssocChart(
+      "chemical-gene-association-chart",
+      this.state.chemGeneAssoc
+    );
   }
 
   render(): JSX.Element {
@@ -129,68 +151,106 @@ export class Page extends React.Component<PagePropType, PageStateType> {
       <>
         <h2>{splitNodeName[0] + " (" + splitNodeName[1] + ")"}</h2>
         <h6>
-          <a href={proteinLink}>Graph Browser View</a>
+          <a href={proteinLink}>Knowledge Graph View</a>
         </h6>
         <p>
           <b>Description: </b>
           {proteinDescription}
         </p>
-        <h5>Protein Tissue Expression</h5>
-        <p>
-          {splitNodeName[0]} expression level (none, low, medium, or high)
-          detected in each tissue as reported by The Human Protein Atlas. The
-          color of the bar indicates the organ from which the tissue derives
-          (legend bottom panel).
-        </p>
-        <div id="tissue-score-chart"></div>
-        <div id="tissue-score-legend"></div>
-        <h5>Protein Protein Interaction</h5>
-        <p>
-          The interaction score of {splitNodeName[0]} with other proteins as
-          reported by The Molecular INTeraction Database (MINT). The top 10
-          associations by interaction score are displayed.
-        </p>
-        <div id="protein-confidence-score-chart"></div>
-        <ProteinProteinInteractionGraph
-          centerProteinDcid={this.props.dcid as BioDcid}
-        ></ProteinProteinInteractionGraph>
-        <h5>Disease Gene Association</h5>
-        <p>
-          The association score of {splitNodeName[0]} with diseases as reported
-          by DISEASES by Jensen Lab. Associations were determined by text mining
-          of the literature. The top 10 associations by association score are
-          displayed.
-        </p>
-        <div id="disease-gene-association-chart"></div>
-        <h5>Variant Gene Association</h5>
-        <p>
-          Genetic variants that are associated with expression level of{" "}
-          {splitNodeName[0]} in a specific tissue in humans (legend top right
-          panel) as reported by the Genotype Expression (GTEx) project.
-        </p>
-        <div id="variant-gene-association-chart"></div>
-        <h5>Variant Type Association</h5>
-        <p>
-          The count of genetic variants by functional category as reported by
-          NCBI dbSNP, which are associated with regulation of {splitNodeName[0]}{" "}
-          expression by the Genotype Expression (GTEx) project.
-        </p>
-        <div id="variant-type-association-chart"></div>
-        <h5>Variant Gene Significance Association</h5>
-        <p>
-          The count of genetic variants by clinical significance as reported by
-          NCBI ClinVar, which are associated with regulation of{" "}
-          {splitNodeName[0]} expression by the Genotype Expression (GTEx)
-          project.
-        </p>
-        <div id="variant-significance-association-chart"></div>
-        <h5>Drug Gene Association</h5>
-        <p>
-          The number of drugs that are associated, ambiguously associated, or
-          not associated with regulation of {splitNodeName[0]} as reported by
-          pharmGKB.
-        </p>
-        <div id="chemical-gene-association-chart"></div>
+        {!_.isEmpty(this.state.tissueScore) && (
+          <>
+            <h5>Protein Tissue Expression</h5>
+            <p>
+              {splitNodeName[0]} expression level (none, low, medium, or high)
+              detected in each tissue as reported by The Human Protein Atlas.
+              The color of the bar indicates the organ from which the tissue
+              derives (legend bottom panel).
+            </p>
+            <div id="tissue-score-chart"></div>
+            <div id="tissue-score-legend"></div>
+          </>
+        )}
+        {!_.isEmpty(this.state.interactionScore) && (
+          <>
+            <h5>Protein Protein Interaction</h5>
+            <>
+              <p>
+                The interaction score of {splitNodeName[0]} with other proteins
+                as reported by The Molecular INTeraction Database (MINT). The
+                top 10 associations by interaction score are displayed.
+              </p>
+              <div id="protein-confidence-score-chart"></div>
+              <ProteinProteinInteractionGraph
+                centerProteinDcid={this.props.dcid as BioDcid}
+              ></ProteinProteinInteractionGraph>
+            </>
+          </>
+        )}
+        {!_.isEmpty(this.state.diseaseGeneAssoc) && (
+          <>
+            <h5>Disease Gene Association</h5>
+            <p>
+              The association score of {splitNodeName[0]} with diseases as
+              reported by DISEASES by Jensen Lab. Associations were determined
+              by text mining of the literature. The top 10 associations by
+              association score are displayed.
+            </p>
+            <div id="disease-gene-association-chart"></div>
+          </>
+        )}
+        {!_.isEmpty(this.state.varGeneAssoc) && (
+          <>
+            <h5>Variant Gene Association</h5>
+            <p>
+              Genetic variants that are associated with expression level of{" "}
+              {splitNodeName[0]} in a specific tissue in humans (legend top
+              right panel) as reported by the Genotype Expression (GTEx)
+              project.
+            </p>
+            <div id="variant-gene-association-chart"></div>
+          </>
+        )}
+        {!_.isEmpty(this.state.varTypeAssoc) && (
+          <>
+            <h5>Variant Type Association</h5>
+            <>
+              <p>
+                The count of genetic variants by functional category as reported
+                by NCBI dbSNP, which are associated with regulation of{" "}
+                {splitNodeName[0]} expression by the Genotype Expression (GTEx)
+                project.
+              </p>
+              <div id="variant-type-association-chart"></div>
+            </>
+          </>
+        )}
+        {!_.isEmpty(this.state.varTypeAssoc) && (
+          <>
+            <h5>Variant Gene Significance Association</h5>
+            <>
+              <p>
+                The count of genetic variants by clinical significance as
+                reported by NCBI ClinVar, which are associated with regulation
+                of {splitNodeName[0]} expression by the Genotype Expression
+                (GTEx) project.
+              </p>
+              <div id="variant-significance-association-chart"></div>
+            </>
+          </>
+        )}
+        {!_.isEmpty(this.state.chemGeneAssoc) && (
+          <>
+            <h5>Drug Gene Association</h5>
+            <>
+              <p>
+                The number of drugs that are associated, ambiguously associated,
+                or not associated with regulation of {splitNodeName[0]} as
+                reported by pharmGKB.
+              </p>
+              <div id="chemical-gene-association-chart"></div>
+            </>
+          </>
+        )}
       </>
     );
   }
@@ -199,6 +259,13 @@ export class Page extends React.Component<PagePropType, PageStateType> {
     axios.get("/api/protein/" + this.props.dcid).then((resp) => {
       this.setState({
         data: resp.data,
+        tissueScore: getTissueScore(resp.data),
+        interactionScore: getProteinInteraction(resp.data, this.props.nodeName),
+        diseaseGeneAssoc: getDiseaseGeneAssoc(resp.data),
+        varGeneAssoc: getVarGeneAssoc(resp.data),
+        varTypeAssoc: getVarTypeAssoc(resp.data),
+        varSigAssoc: getVarSigAssoc(resp.data),
+        chemGeneAssoc: getChemicalGeneAssoc(resp.data),
       });
     });
   }

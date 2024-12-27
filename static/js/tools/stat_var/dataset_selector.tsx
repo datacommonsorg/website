@@ -22,7 +22,8 @@ import React from "react";
 import { Card, Container, CustomInput } from "reactstrap";
 
 import { NamedNode } from "../../shared/types";
-import { SV_URL_PARAMS, updateHash } from "./util";
+import { updateHash } from "../../utils/url_utils";
+import { SV_URL_PARAMS } from "./stat_var_constants";
 
 const CSS_PREFIX = "dataset-selector";
 
@@ -42,13 +43,13 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
     <>
       <Card className={`${CSS_PREFIX}-card`}>
         <Container fluid={true} className={`${CSS_PREFIX}-container`}>
-          <div className={`${CSS_PREFIX}-label`}>Show variables for</div>
+          <div className={`${CSS_PREFIX}-label`}>Filter variables by</div>
           <CustomInput
             id={`${CSS_PREFIX}-source-custom-input`}
             className={`${CSS_PREFIX}-custom-input`}
             type="select"
             value={props.source}
-            onChange={(e) => {
+            onChange={(e): void => {
               const dcid = e.currentTarget.value ? e.currentTarget.value : "";
               updateHash({
                 [SV_URL_PARAMS.SOURCE]: dcid,
@@ -56,7 +57,7 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
               });
             }}
           >
-            <option value="">Select a source to filter by (optional)</option>
+            <option value="">Data source</option>
             {props.sources.map((s) => {
               return (
                 <option
@@ -74,12 +75,12 @@ export function DatasetSelector(props: DatasetSelectorProps): JSX.Element {
             className={`${CSS_PREFIX}-custom-input`}
             type="select"
             value={props.dataset}
-            onChange={(e) => {
+            onChange={(e): void => {
               const dcid = e.currentTarget.value ? e.currentTarget.value : "";
               updateHash({ [SV_URL_PARAMS.DATASET]: dcid });
             }}
           >
-            <option value="">Select a dataset (optional)</option>
+            <option value="">Dataset</option>
             {props.datasets.map((d) => {
               return (
                 <option

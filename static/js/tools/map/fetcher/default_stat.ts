@@ -18,18 +18,14 @@
  * Fetch the default (best available) stat data
  */
 
-import axios from "axios";
 import _ from "lodash";
 import { Dispatch, useContext, useEffect } from "react";
 
-import {
-  EntityObservationWrapper,
-  PointApiResponse,
-} from "../../../shared/stat_types";
-import { stringifyFn } from "../../../utils/axios";
+import { EntityObservationWrapper } from "../../../shared/stat_types";
+import { getCappedStatVarDate } from "../../../shared/util";
+import { getPointWithin } from "../../../utils/data_fetch_utils";
 import { ChartDataType, ChartStoreAction } from "../chart_store";
 import { Context } from "../context";
-import { getDate } from "../util";
 
 export function useFetchDefaultStat(
   dispatch: Dispatch<ChartStoreAction>
@@ -61,24 +57,21 @@ export function useFetchDefaultStat(
         },
       },
     };
-    const date = getDate(statVar.value.dcid, dateCtx.value);
-    axios
-      .get<PointApiResponse>("/api/observations/point/within", {
-        params: {
-          child_type: placeInfo.value.enclosedPlaceType,
-          date: date,
-          parent_entity: placeInfo.value.enclosingPlace.dcid,
-          variables: [statVar.value.dcid],
-        },
-        paramsSerializer: stringifyFn,
-      })
+    const date = getCappedStatVarDate(statVar.value.dcid, dateCtx.value);
+    getPointWithin(
+      "",
+      placeInfo.value.enclosedPlaceType,
+      placeInfo.value.enclosingPlace.dcid,
+      [statVar.value.dcid],
+      date
+    )
       .then((resp) => {
-        if (_.isEmpty(resp.data.data[statVar.value.dcid])) {
+        if (_.isEmpty(resp.data[statVar.value.dcid])) {
           action.error = "error fetching default stat data";
         } else {
           action.payload = {
-            data: resp.data.data[statVar.value.dcid],
-            facets: resp.data.facets,
+            data: resp.data[statVar.value.dcid],
+            facets: resp.facets,
           } as EntityObservationWrapper;
         }
         console.log(`[Map Fetch] default stat for date: ${date}`);

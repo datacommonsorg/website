@@ -22,6 +22,7 @@ import { Button, Col, FormGroup, Input, Label, Row } from "reactstrap";
 import { Chip } from "../../shared/chip";
 import { FacetSelector } from "../../shared/facet_selector";
 import { PlaceSelector } from "../../shared/place_selector";
+import { PointAllApiResponse, StatMetadata } from "../../shared/stat_types";
 import { getStatVarInfo } from "../../shared/stat_var";
 import { NamedTypedPlace } from "../../shared/types";
 import { stringifyFn } from "../../utils/axios";
@@ -90,7 +91,7 @@ export function Page(props: PagePropType): JSX.Element {
   // request object used to get facetListPromise
   const facetsReqObj = useRef({});
   const [isSvModalOpen, updateSvModalOpen] = useState(false);
-  const toggleSvModalCallback = () => updateSvModalOpen(!isSvModalOpen);
+  const toggleSvModalCallback = (): void => updateSvModalOpen(!isSvModalOpen);
 
   useEffect(() => {
     if (showPreview) {
@@ -114,13 +115,23 @@ export function Page(props: PagePropType): JSX.Element {
     } else if (selectedOptions.dateType === DownloadDateTypes.LATEST) {
       minDate = DATE_LATEST;
       maxDate = DATE_LATEST;
+    } else {
+      if (!isValidDateInput(minDate) || !isValidDateInput(maxDate)) {
+        return;
+      }
+    }
+    let date = "";
+    if (minDate && maxDate && minDate == maxDate) {
+      date = minDate;
+      if (date == "latest") {
+        date = "LATEST";
+      }
     }
     const reqObj = {
-      statVars: Object.keys(selectedOptions.selectedStatVars),
-      parentPlace: selectedOptions.selectedPlace.dcid,
       childType: selectedOptions.enclosedPlaceType,
-      minDate: minDate,
-      maxDate: maxDate,
+      date,
+      parentEntity: selectedOptions.selectedPlace.dcid,
+      variables: Object.keys(selectedOptions.selectedStatVars),
     };
     // if req object is the same as the one used for current
     // svSourceListPromise, then don't need to update svSourceListPromise
@@ -135,14 +146,20 @@ export function Page(props: PagePropType): JSX.Element {
           paramsSerializer: stringifyFn,
         })
         .then((resp) => {
-          const facetMap = resp.data;
+          const facetResp: PointAllApiResponse = resp.data;
           const sourceSelectorFacetList = [];
           for (const sv in selectedOptions.selectedStatVars) {
-            sourceSelectorFacetList.push({
-              dcid: sv,
-              name: selectedOptions.selectedStatVars[sv].title || sv,
-              metadataMap: sv in facetMap ? facetMap[sv] : {},
-            });
+            if (sv in facetResp.data) {
+              const metadataMap: Record<string, StatMetadata> = {};
+              for (const item of facetResp.data[sv][""]) {
+                metadataMap[item.facet] = facetResp.facets[item.facet];
+              }
+              sourceSelectorFacetList.push({
+                dcid: sv,
+                metadataMap,
+                name: selectedOptions.selectedStatVars[sv].title || sv,
+              });
+            }
           }
           return sourceSelectorFacetList;
         })
@@ -174,12 +191,12 @@ export function Page(props: PagePropType): JSX.Element {
           <PlaceSelector
             selectedPlace={selectedOptions.selectedPlace}
             enclosedPlaceType={selectedOptions.enclosedPlaceType}
-            onPlaceSelected={(place) =>
+            onPlaceSelected={(place): void =>
               setSelectedOptions((prev) => {
                 return { ...prev, selectedPlace: place, enclosedPlaceType: "" };
               })
             }
-            onEnclosedPlaceTypeSelected={(enclosedPlaceType) =>
+            onEnclosedPlaceTypeSelected={(enclosedPlaceType): void =>
               setSelectedOptions((prev) => {
                 return { ...prev, enclosedPlaceType };
               })
@@ -198,7 +215,7 @@ export function Page(props: PagePropType): JSX.Element {
                       defaultChecked={
                         selectedOptions.dateType === DownloadDateTypes.LATEST
                       }
-                      onClick={() =>
+                      onClick={(): void =>
                         setSelectedOptions((prev) => {
                           return {
                             ...prev,
@@ -219,7 +236,7 @@ export function Page(props: PagePropType): JSX.Element {
                       defaultChecked={
                         selectedOptions.dateType === DownloadDateTypes.ALL
                       }
-                      onClick={() =>
+                      onClick={(): void =>
                         setSelectedOptions((prev) => {
                           return { ...prev, dateType: DownloadDateTypes.ALL };
                         })
@@ -237,7 +254,7 @@ export function Page(props: PagePropType): JSX.Element {
                       defaultChecked={
                         selectedOptions.dateType === DownloadDateTypes.RANGE
                       }
-                      onClick={() =>
+                      onClick={(): void =>
                         setSelectedOptions((prev) => {
                           return { ...prev, dateType: DownloadDateTypes.RANGE };
                         })
@@ -258,7 +275,7 @@ export function Page(props: PagePropType): JSX.Element {
                                 : ""
                             }`}
                             type="text"
-                            onChange={(e) => {
+                            onChange={(e): void => {
                               const date = e.target.value;
                               setSelectedOptions((prev) => {
                                 return { ...prev, minDate: date };
@@ -269,7 +286,9 @@ export function Page(props: PagePropType): JSX.Element {
                               DownloadDateTypes.RANGE
                             }
                             value={selectedOptions.minDate}
-                            onBlur={(e) => validateDate(e.target.value, true)}
+                            onBlur={(e): void =>
+                              validateDate(e.target.value, true)
+                            }
                           />
                         </FormGroup>
                       </div>
@@ -285,7 +304,7 @@ export function Page(props: PagePropType): JSX.Element {
                                 : ""
                             }`}
                             type="text"
-                            onChange={(e) => {
+                            onChange={(e): void => {
                               const date = e.target.value;
                               setSelectedOptions((prev) => {
                                 return { ...prev, maxDate: date };
@@ -296,7 +315,9 @@ export function Page(props: PagePropType): JSX.Element {
                               DownloadDateTypes.RANGE
                             }
                             value={selectedOptions.maxDate}
-                            onBlur={(e) => validateDate(e.target.value, false)}
+                            onBlur={(e): void =>
+                              validateDate(e.target.value, false)
+                            }
                           />
                         </FormGroup>
                       </div>
@@ -339,7 +360,7 @@ export function Page(props: PagePropType): JSX.Element {
                 <FacetSelector
                   svFacetId={selectedOptions.selectedFacets}
                   facetListPromise={facetListPromise}
-                  onSvFacetIdUpdated={(svFacetId) => {
+                  onSvFacetIdUpdated={(svFacetId): void => {
                     setSelectedOptions((prev) => {
                       return { ...prev, selectedFacets: svFacetId };
                     });
@@ -507,8 +528,12 @@ export function Page(props: PagePropType): JSX.Element {
     window.location.hash = urlParams.toString();
   }
 
+  function isValidDateInput(date: string): boolean {
+    return _.isEmpty(date) || isValidDate(date);
+  }
+
   function validateDate(date: string, isMinDate: boolean): void {
-    const dateError = !_.isEmpty(date) && !isValidDate(date);
+    const dateError = !isValidDateInput(date);
     setValidationErrors((prev) => {
       return {
         ...prev,

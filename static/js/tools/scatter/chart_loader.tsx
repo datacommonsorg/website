@@ -19,7 +19,6 @@
  * and passing the data to a `Chart` component that plots the scatter plot.
  */
 
-import axios from "axios";
 import _ from "lodash";
 import React, { useContext, useEffect, useState } from "react";
 
@@ -35,10 +34,9 @@ import {
   StatMetadata,
 } from "../../shared/stat_types";
 import { saveToFile } from "../../shared/util";
-import { stringifyFn } from "../../utils/axios";
 import { scatterDataToCsv } from "../../utils/chart_csv_utils";
+import { getSeriesWithin } from "../../utils/data_fetch_utils";
 import { getPlaceScatterData } from "../../utils/scatter_data_utils";
-import { getUnit } from "../shared_util";
 import { Chart } from "./chart";
 import {
   Axis,
@@ -160,7 +158,10 @@ function useCache(): Cache {
    * re-retreive data.
    */
   useEffect(() => {
-    if (!areDataLoaded(cache, xVal, yVal, placeVal)) {
+    if (
+      !isLoading.areDataLoading &&
+      !areDataLoaded(cache, xVal, yVal, placeVal)
+    ) {
       loadData(x, y, placeVal, isLoading, setCache);
     }
   }, [xVal, yVal, placeVal]);
@@ -201,16 +202,12 @@ async function loadData(
       populationSvList.add(axis.denom);
     }
   }
-  const populationPromise: Promise<SeriesApiResponse> = axios
-    .get("/api/observations/series/within", {
-      params: {
-        parent_entity: place.enclosingPlace.dcid,
-        child_type: place.enclosedPlaceType,
-        variables: Array.from(populationSvList),
-      },
-      paramsSerializer: stringifyFn,
-    })
-    .then((resp) => resp.data);
+  const populationPromise: Promise<SeriesApiResponse> = getSeriesWithin(
+    "",
+    place.enclosingPlace.dcid,
+    place.enclosedPlaceType,
+    Array.from(populationSvList)
+  );
   Promise.all([statResponsePromise, statAllResponsePromise, populationPromise])
     .then(([statResponse, statAllResponse, populationData]) => {
       let metadataMap = statResponse.facets || {};
@@ -339,6 +336,8 @@ function getChartData(
       : [place.lowerBound, place.upperBound];
   const points = {};
   const sources: Set<string> = new Set();
+  let xUnit = "";
+  let yUnit = "";
   for (const namedPlace of place.enclosedPlaces) {
     const xDenom = x.perCapita ? x.denom : null;
     const yDenom = y.perCapita ? y.denom : null;
@@ -361,15 +360,9 @@ function getChartData(
       }
     });
     points[namedPlace.dcid] = placeChartData.point;
+    xUnit = xUnit || placeChartData.xUnit;
+    yUnit = yUnit || placeChartData.yUnit;
   }
-  const xUnit = getUnit(
-    Object.values(cache.statVarsData[x.statVarDcid]),
-    cache.metadataMap
-  );
-  const yUnit = getUnit(
-    Object.values(cache.statVarsData[y.statVarDcid]),
-    cache.metadataMap
-  );
   return { points, sources, xUnit, yUnit };
 }
 
@@ -420,7 +413,12 @@ function areDataLoaded(
   y: Axis,
   place: PlaceInfo
 ): boolean {
-  if (_.isEmpty(cache) || _.isEmpty(cache.xAxis) || _.isEmpty(cache.yAxis)) {
+  if (
+    _.isEmpty(cache) ||
+    _.isEmpty(cache.xAxis) ||
+    _.isEmpty(cache.yAxis) ||
+    _.isEmpty(cache.place)
+  ) {
     return false;
   }
   const xStatVar = x.statVarDcid;
@@ -434,7 +432,7 @@ function areDataLoaded(
     cache.yAxis.date === y.date &&
     cache.xAxis.denom === x.denom &&
     cache.yAxis.denom === y.denom &&
-    cache.place.enclosingPlace === place.enclosingPlace &&
+    cache.place.enclosingPlace.dcid === place.enclosingPlace.dcid &&
     cache.place.enclosedPlaceType === place.enclosedPlaceType
   );
 }

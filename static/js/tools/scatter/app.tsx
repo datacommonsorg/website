@@ -21,6 +21,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Container, Row } from "reactstrap";
 
+import { Spinner } from "../../components/spinner";
 import { ChartLoader } from "./chart_loader";
 import {
   Axis,
@@ -31,7 +32,6 @@ import {
 } from "./context";
 import { MemoizedInfo } from "./info";
 import { PlaceOptions } from "./place_and_type_options";
-import { Spinner } from "./spinner";
 import { StatVarChooser } from "./statvar";
 import {
   applyHash,
@@ -61,7 +61,12 @@ function App(): JSX.Element {
         <Container fluid={true}>
           {!showChart && (
             <Row>
-              <h1 className="mb-4">Scatter Plot Explorer</h1>
+              <div className="app-header">
+                <h1 className="mb-4">Scatter Plot Explorer</h1>
+                <a href="/tools/visualization#visType%3Dscatter">
+                  Go back to the new Data Commons
+                </a>
+              </div>
             </Row>
           )}
           <Row>

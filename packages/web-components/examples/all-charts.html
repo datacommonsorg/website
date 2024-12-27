@@ -1,0 +1,596 @@
+<html>
+  <head>
+    <!-- https://gist.github.com/dwnoble/822ce6018bb41113c866d703760c1def -->
+    <script src="https://datacommons.org/datacommons.js"></script>
+    <style>
+      /**
+       * Example component styling using shadow part identifiers
+       */
+      #styled-bar::part(x-axis) {
+        stroke: #111a1b;
+        stroke-width: 2px;
+      }
+      #styled-bar::part(x-axis-text),
+      #styled-bar::part(y-axis-text) {
+        font-weight: bold;
+        text-decoration: none;
+      }
+      #styled-bar::part(y-axis-tick) {
+        stroke-dasharray: unset;
+      }
+      #styled-bar-multivariable::part(
+          series-place-geoId\/20-variable-Median_Income_Person_15OrMoreYears_Male_WithIncome
+        ) {
+        fill: green;
+      }
+      #styled-map::part(container) {
+        border-radius: 10px;
+        border: 1px solid #f5f5f5;
+        box-shadow: 1px 2px 6px rgba(3, 7, 18, 0.04),
+          5px 8px 25px rgba(3, 7, 18, 0.08);
+      }
+      #styled-map::part(legend) {
+        border: 1px solid #e1e1e1;
+        padding: 5px 8px;
+        border-radius: 10px;
+      }
+      #styled-map::part(header) {
+        font-weight: 200;
+        font-size: 16px;
+        margin-bottom: 16px;
+        color: #111a1b;
+      }
+      #styled-map::part(place-path) {
+        fill: #e9e9e9;
+      }
+      #styled-map::part(place-path-geoId\/12),
+      #styled-map::part(place-path-geoId\/13),
+      #styled-map::part(place-path-geoId\/06) {
+        fill-opacity: 1;
+        fill: #e76f51;
+        stroke: #b72a53;
+        stroke-width: 2px;
+      }
+
+      #styled-line::part(series-variable-Mean_PalmerDroughtSeverityIndex) {
+        stroke: purple;
+      }
+      #styled-line::part(legend-color-Mean_PalmerDroughtSeverityIndex) {
+        background: purple;
+        border-radius: 10px;
+        width: 10px;
+        height: 10px;
+      }
+      #bar-with-subheader::part(subheader) {
+        color: grey;
+        font-size: 0.85rem;
+        font-weight: 200;
+      }
+      #highlight-styled {
+        --dc-headings-font-family: monospace;
+        --dc-font-family: serif;
+      }
+    </style>
+  </head>
+  <body style="max-width: 40vw; margin: auto">
+    <h1>Datacommons Web Components</h1>
+    <h2>Bar Chart</h2>
+    <datacommons-bar
+      id="bar-with-subheader"
+      header="Most populous states in the US"
+      parentPlace="country/USA"
+      childPlaceType="State"
+      variables="Count_Person"
+      maxPlaces="15"
+    >
+      <p slot="subheader">(top 15 places)</p>
+      <p slot="footer">
+        Custom footer here. This is a long custom footer. Lorem ipsum dolor sit
+        amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </p>
+    </datacommons-bar>
+    <datacommons-bar
+      header="Population of select US states"
+      variables="Count_Person"
+      places="geoId/01 geoId/02 geoId/04 geoId/05"
+      sort="ascending"
+      colors="orange"
+    ></datacommons-bar>
+    <datacommons-bar
+      header="Median income by gender of select US states (grouped)"
+      variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      places="geoId/01 geoId/02 geoId/04 geoId/05"
+      colors="#4287f5 #f542a4"
+    ></datacommons-bar>
+    <datacommons-bar
+      header="Median income by gender of select US states (grouped, with regex matching)"
+      variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      places="geoId/01 geoId/02 geoId/04 geoId/05"
+      colors="#4287f5 #f542a4"
+      variableNameRegex="(Men|Women)"
+    ></datacommons-bar>
+    <datacommons-bar
+      header="Median income by gender of select US states (stacked)"
+      variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      places="geoId/01 geoId/02 geoId/04 geoId/05"
+      stacked
+      colors="#4287f5 #f542a4"
+    ></datacommons-bar>
+    <datacommons-bar
+      header="Median income by gender of select US states (horizontal, stacked, sorted descending)"
+      variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      places="geoId/01 geoId/02 geoId/04 geoId/20 geoId/21 geoId/22 geoId/23 geoId/24 geoId/25"
+      stacked
+      horizontal
+      sort="descending"
+      colors="#4287f5 #f542a4"
+    ></datacommons-bar>
+    <datacommons-bar
+      barHeight="6"
+      header="Median income by gender (horizontal, grouped, sorted ascending)"
+      variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      parentPlace="country/USA"
+      childPlaceType="State"
+      horizontal
+      sort="ascending"
+      maxPlaces="52"
+      yAxisMargin="100"
+      colors="#4287f5 #f542a4"
+    ></datacommons-bar>
+    <datacommons-bar
+      id="styled-bar"
+      header="Styled: Mean Palmer Drought Severity Index in the USA"
+      parentPlace="country/USA"
+      childPlaceType="State"
+      variables="Mean_PalmerDroughtSeverityIndex"
+      maxPlaces="15"
+    ></datacommons-bar>
+    <datacommons-bar
+      id="styled-bar-multivariable"
+      header="Styled: Median income by gender of select US states (horizontal, stacked, sorted descending)"
+      variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      places="geoId/01 geoId/02 geoId/04 geoId/20 geoId/21 geoId/22 geoId/23 geoId/24 geoId/25"
+      stacked
+      horizontal
+      sort="descending"
+    ></datacommons-bar>
+    <datacommons-bar
+      header="Population Of Netherlands and USA (with place name prop)"
+      variables="Count_Person"
+      places="country/USA country/NLD geoId/06"
+      placeNameProp="unDataLabel"
+    ></datacommons-bar>
+    <datacommons-bar
+      header="Population With Moderate or Severe Food Insecurity in United States"
+      variables="sdg/AG_PRD_FIESMSN"
+      parentPlace="Earth"
+      childPlaceType="Country"
+    ></datacommons-bar>
+    <datacommons-bar
+      header="Percent of Population With Moderate or Severe Food Insecurity in United States"
+      variables="sdg/AG_PRD_FIESMSN"
+      parentPlace="Earth"
+      childPlaceType="Country"
+      perCapita="sdg/AG_PRD_FIESMSN"
+    ></datacommons-bar>
+    <datacommons-bar
+      header="Custom Source Median income by gender of select US states (stacked)"
+      variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      places="geoId/01 geoId/02 geoId/04 geoId/05"
+      stacked
+      sources="https://example.com/source1 https://example.com/source2"
+    ></datacommons-bar>
+    <h2>Pie/Donut</h2>
+    <datacommons-pie
+      header="California Farms by Size"
+      place="geoId/06"
+      variables="Count_Farm_1To9.9Acre Count_Farm_10To49.9Acre Count_Farm_50To179Acre Count_Farm_180To499Acre Count_Farm_500To999Acre Count_1000OnwardsAcre"
+    >
+      <div slot="footer">
+        <ul>
+          <li>custom footer item 1</li>
+          <li>custom footer item 2</li>
+        </ul>
+      </div>
+    </datacommons-pie>
+    <datacommons-pie
+      header="California Farms by Size"
+      place="geoId/06"
+      variables="Count_Farm_1To9.9Acre Count_Farm_10To49.9Acre Count_Farm_50To179Acre Count_Farm_180To499Acre Count_Farm_500To999Acre Count_1000OnwardsAcre"
+      donut
+    ></datacommons-pie>
+    <datacommons-pie
+      header="Custom Source California Farms by Size"
+      place="geoId/06"
+      variables="Count_Farm_1To9.9Acre Count_Farm_10To49.9Acre Count_Farm_50To179Acre Count_Farm_180To499Acre Count_Farm_500To999Acre Count_1000OnwardsAcre"
+      donut
+      sources="https://example.com/source"
+    ></datacommons-pie>
+    <h2>Gauge</h2>
+    <datacommons-gauge
+      header="Percentage of US Population that are Internet Users"
+      place="country/USA"
+      variable="Count_Person_IsInternetUser_PerCapita"
+      min="0"
+      max="100"
+    ></datacommons-gauge>
+    <datacommons-gauge
+      header="Population With Moderate or Severe Food Insecurity in United States"
+      variable="sdg/AG_PRD_FIESMSN"
+      place="country/USA"
+      min="0"
+      max="331000000"
+    ></datacommons-gauge>
+    <datacommons-gauge
+      header="Percent of Population With Moderate or Severe Food Insecurity in United States"
+      variable="sdg/AG_PRD_FIESMSN"
+      place="country/USA"
+      perCapita="sdg/AG_PRD_FIESMSN"
+      min="0"
+      max="100"
+    ></datacommons-gauge>
+    <datacommons-gauge
+      header="Custom Sources Percent of Population With Moderate or Severe Food Insecurity in United States"
+      variable="sdg/AG_PRD_FIESMSN"
+      place="country/USA"
+      perCapita="sdg/AG_PRD_FIESMSN"
+      min="0"
+      max="100"
+      sources="https://example.com/source"
+    ></datacommons-gauge>
+    <h2>Highlight</h2>
+    <datacommons-highlight
+      description="Population of the United States"
+      place="country/USA"
+      variable="Count_Person"
+      date="2020"
+    ></datacommons-highlight>
+    <datacommons-highlight
+      description="Population of the United States"
+      place="country/USA"
+      variable="Count_Person"
+    ></datacommons-highlight>
+    <datacommons-highlight
+      description="Population of the United States (styled fonts)"
+      id="highlight-styled"
+      place="country/USA"
+      variable="Count_Person"
+      date="2020"
+    ></datacommons-highlight>
+    <datacommons-highlight
+      header="Population With Moderate or Severe Food Insecurity in United States"
+      variable="sdg/AG_PRD_FIESMSN"
+      place="country/USA"
+    ></datacommons-highlight>
+    <datacommons-highlight
+      header="Percent of Population With Moderate or Severe Food Insecurity in United States"
+      variable="sdg/AG_PRD_FIESMSN"
+      place="country/USA"
+      perCapita="sdg/AG_PRD_FIESMSN"
+    ></datacommons-highlight>
+    <datacommons-highlight
+      header="Local Breeds With Adequate Genetic Resources for Reconstitution in United States"
+      variable="sdg/ER_GRF_ANIMRCNTN"
+      place="country/USA"
+    ></datacommons-highlight>
+    <datacommons-highlight
+      header="Custom Source Local Breeds With Adequate Genetic Resources for Reconstitution in United States"
+      variable="sdg/ER_GRF_ANIMRCNTN"
+      place="country/USA"
+      sources="https://example.com/source"
+    ></datacommons-highlight>
+    <h2>Map</h2>
+    <datacommons-map
+      header="Population"
+      parentPlace="country/USA"
+      childPlaceType="State"
+      variable="Count_Person"
+      colors="red"
+    ></datacommons-map>
+    <datacommons-map
+      header="Population (with place name prop)"
+      parentPlace="Earth"
+      childPlaceType="Country"
+      variable="Count_Person"
+      placeNameProp="unDataLabel"
+    ></datacommons-map>
+    <!-- Test deprecated attributes placeDcid, enclosedPlaceType, and statVarDcid -->
+    <datacommons-map
+      header="California: Annual_ExpectedLoss_NaturalHazardImpact"
+      placeDcid="geoId/06"
+      enclosedPlaceType="County"
+      statVarDcid="Annual_ExpectedLoss_NaturalHazardImpact"
+    ></datacommons-map>
+    <datacommons-map
+      id="styled-map"
+      header="Styled map: Three most populous US states"
+      parentPlace="country/USA"
+      childPlaceType="State"
+      variable="Count_Person"
+    ></datacommons-map>
+    <h2>UN Map Comparisons</h2>
+    <datacommons-map
+      header="World Bank Boundaries - Earth"
+      parentPlace="Earth"
+      childPlaceType="Country"
+      variable="Count_Person"
+    ></datacommons-map>
+    <datacommons-map
+      header="UN Boundaries - Earth"
+      parentPlace="Earth"
+      childPlaceType="Country"
+      variable="Count_Person"
+      geoJsonProp="geoJsonCoordinatesUN"
+    ></datacommons-map>
+    <h2>Map with year slider</h2>
+    <datacommons-map
+      childplacetype="Country"
+      date="HIGHEST_COVERAGE"
+      header="Poverty rate by country (${date})"
+      parentplace="Earth"
+      subscribe="dc-map-2"
+      variable="sdg/SI_POV_DAY1">
+      <div slot="footer">
+        <datacommons-slider
+          childplacetype="Country"
+          date="HIGHEST_COVERAGE"
+          parentplace="Earth"
+          publish="dc-map-2"
+          variable="sdg/SI_POV_DAY1"
+          >
+        </datacommons-slider>
+      </div>
+    </datacommons-map>
+    <datacommons-map
+      header="Population"
+      parentPlace="country/USA"
+      childPlaceType="State"
+      subscribe="dc-map"
+      variable="Count_Person"
+    ></datacommons-map>
+    <datacommons-slider
+      publish="dc-map"
+      variable="Count_Person"
+      parentPlace="country/USA"
+      childPlaceType="State"
+    ></datacommons-slider>
+    <datacommons-map
+      header="Population With Moderate or Severe Food Insecurity in the World"
+      parentPlace="Earth"
+      childPlaceType="Country"
+      variable="sdg/AG_PRD_FIESMSN"
+    ></datacommons-map>
+    <datacommons-map
+      header="Percent of Population With Moderate or Severe Food Insecurity in the World"
+      parentPlace="Earth"
+      childPlaceType="Country"
+      variable="sdg/AG_PRD_FIESMSN"
+      perCapita="sdg/AG_PRD_FIESMSN"
+    ></datacommons-map>
+    <datacommons-map
+      header="Custom Source Percent of Population With Moderate or Severe Food Insecurity in the World"
+      parentPlace="Earth"
+      childPlaceType="Country"
+      variable="sdg/AG_PRD_FIESMSN"
+      perCapita="sdg/AG_PRD_FIESMSN"
+      sources="https://example.com/source1 https://example.com/source2"
+    ></datacommons-map>
+    <h2>Ranking</h2>
+    <datacommons-ranking
+      header="US States with the Highest Population"
+      parentPlace="country/USA"
+      childPlaceType="State"
+      variable="Count_Person"
+    ></datacommons-ranking>
+    <datacommons-ranking
+      header="US States with the Lowest Population"
+      parentPlace="country/USA"
+      childPlaceType="State"
+      variable="Count_Person"
+      showLowest
+    ></datacommons-ranking>
+    <datacommons-ranking
+      header="Custom Sources US States with the Lowest Population"
+      parentPlace="country/USA"
+      childPlaceType="State"
+      variable="Count_Person"
+      showLowest
+      sources="https://example.com/source1 https://example.com/source2"
+    ></datacommons-ranking>
+    <h3>Line</h3>
+    <datacommons-line
+      header="US Population Over Time"
+      place="country/USA"
+      variables="Count_Person"
+      colors="blue"
+    ></datacommons-line>
+    <datacommons-line
+      header="US Population Since 2000"
+      place="country/USA"
+      variables="Count_Person"
+      colors="blue"
+      startDate="2000"
+    ></datacommons-line>
+    <datacommons-line
+      header="US Population Until 2000"
+      place="country/USA"
+      variables="Count_Person"
+      colors="blue"
+      endDate="2000"
+    ></datacommons-line>
+    <datacommons-line
+      header="US Population in the 1990s"
+      place="country/USA"
+      variables="Count_Person"
+      colors="blue"
+      startDate="1990"
+      endDate="1999"
+    ></datacommons-line>
+    <datacommons-line
+      header="Max and Min Temperature (Difference Relative To Base Date): Relative To 1990"
+      place="country/USA"
+      variables="DifferenceRelativeToBaseDate1990_Max_Temperature DifferenceRelativeToBaseDate1990_Min_Temperature"
+    ></datacommons-line>
+    <datacommons-line
+      header="Max and Min Temperature (Difference Relative To Base Date): Relative To 1990 (With Regex Matching)"
+      place="country/USA"
+      variables="DifferenceRelativeToBaseDate1990_Max_Temperature DifferenceRelativeToBaseDate1990_Min_Temperature"
+      variableNameRegex="(.*?)(?=:)"
+    ></datacommons-line>
+    <datacommons-line
+      header="Mean Palmer Drought Severity Index (PDSI) in the US"
+      place="country/USA"
+      variables="Mean_PalmerDroughtSeverityIndex"
+    ></datacommons-line>
+    <datacommons-line
+      id="styled-line"
+      header="Styled: Mean Palmer Drought Severity Index (PDSI) in the US"
+      place="country/USA"
+      variables="Mean_PalmerDroughtSeverityIndex"
+    ></datacommons-line>
+    <datacommons-line
+      header="Population Of California, Texas, and New York State"
+      places="geoId/06 geoId/48 geoId/36"
+      variables="Count_Person"
+      colors="green red blue"
+    ></datacommons-line>
+    <datacommons-line
+      header="Population Of Counties of Rhode Island"
+      parentPlace="geoId/44"
+      childPlaceType="County"
+      variables="Count_Person"
+    ></datacommons-line>
+    <datacommons-line
+      header="Population Of California, Texas, and New York State, by gender"
+      places="geoId/06 geoId/48 geoId/36"
+      variables="Count_Person_Male Count_Person_Female"
+    ></datacommons-line>
+    <datacommons-line
+      header="Population Of Netherlands and USA (with place name prop)"
+      places="country/NLD country/USA geoId/06"
+      variables="Count_Person"
+      placeNameProp="unDataLabel"
+    ></datacommons-line>
+    <datacommons-line
+      header="Line chart using years in the x-axis"
+      places="country/COL"
+      variables="sdg/SI_POV_NAHC"
+      timeScale="year"
+    ></datacommons-line>
+    <datacommons-line
+      header="Population With Moderate or Severe Food Insecurity in United States"
+      places="country/USA"
+      variables="sdg/AG_PRD_FIESMSN"
+    ></datacommons-line>
+    <datacommons-line
+      header="Percent of Population With Moderate or Severe Food Insecurity in United States"
+      places="country/USA"
+      variables="sdg/AG_PRD_FIESMSN"
+      perCapita="sdg/AG_PRD_FIESMSN"
+    ></datacommons-line>
+    <datacommons-line
+      header="Custom Source Percent of Population With Moderate or Severe Food Insecurity in United States"
+      places="country/USA"
+      variables="sdg/AG_PRD_FIESMSN"
+      perCapita="sdg/AG_PRD_FIESMSN"
+      sources="https://example.com/source1 https://example.com/source2"
+    ></datacommons-line>
+    <h2>Lollipop</h2>
+    <datacommons-bar
+      header="Population in States of United States"
+      parentPlace="country/USA"
+      childPlaceType="State"
+      variables="Count_Person"
+      lollipop
+    ></datacommons-bar>
+    <datacommons-bar
+      header="Population in Alaska, Alabama, and Arizona"
+      variables="Count_Person"
+      places="geoId/01 geoId/02 geoId/04"
+      lollipop
+    ></datacommons-bar>
+    <datacommons-bar
+      header="Median income by gender for Alaska, Alabama, and Arizona"
+      variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      places="geoId/01 geoId/02 geoId/04"
+      lollipop
+      colors="#4287f5 #f542a4"
+    ></datacommons-bar>
+    <datacommons-bar
+      header="Median income by gender for counties in Alaska"
+      variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      parentPlace="geoId/02"
+      childPlaceType="County"
+      lollipop
+      colors="#4287f5 #f542a4"
+    ></datacommons-bar>
+    <datacommons-bar
+      header="Median income by gender for counties in Alaska (horizontal, stacked, lollipop)"
+      variables="Median_Income_Person Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      parentPlace="geoId/02"
+      childPlaceType="County"
+      lollipop
+      horizontal
+      stacked
+    ></datacommons-bar>
+    <datacommons-bar
+      header="Median income by gender of select US states (stacked, lollipop)"
+      variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      places="geoId/01 geoId/02 geoId/04 geoId/05"
+      stacked
+      lollipop
+    ></datacommons-bar>
+    <datacommons-bar
+      header="Median income by gender of select US states (entity links disabled)"
+      variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      places="geoId/01 geoId/02 geoId/04 geoId/05"
+      disableEntityLink
+    ></datacommons-bar>
+    <datacommons-bar
+      header="Median income by gender of select US states (stacked, entity links disabled)"
+      variables="Median_Income_Person_15OrMoreYears_Male_WithIncome Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      places="geoId/01 geoId/02 geoId/04 geoId/05"
+      stacked
+      disableEntityLink
+    ></datacommons-bar>
+    <h2>Scatter</h2>
+    <datacommons-scatter
+      header="Population vs Median Household Income for US States"
+      variables="Count_Person Median_Income_Household"
+      parentPlace="country/USA"
+      childPlaceType="State"
+    ></datacommons-scatter>
+    <datacommons-scatter
+      header="Population vs Cell Subscription for Countries in Europe (with place name prop)"
+      variables="Count_Person Count_Product_MobileCellularSubscription_AsFractionOf_Count_Person"
+      parentPlace="europe"
+      childPlaceType="Country"
+      placeNameProp="unDataLabel"
+    ></datacommons-scatter>
+    <datacommons-scatter
+      header="Custom Source Population vs Cell Subscription for Countries in Europe (with place name prop)"
+      variables="Count_Person Count_Product_MobileCellularSubscription_AsFractionOf_Count_Person"
+      parentPlace="europe"
+      childPlaceType="Country"
+      placeNameProp="unDataLabel"
+      sources="https://example.com/source1 https://example.com/source2"
+    ></datacommons-scatter>
+    <h3>Setting "apiRoot"</h3>
+    <datacommons-line
+      apiroot="https://staging.unsdg.datacommons.org"
+      header="Youth Unemployment Rate (15 to 19 Years Old) by Educational Attendance Status in Mexico"
+      variables="ilo/UNE_3EAP_RT.AGE--Y15T19__EDUCATIONAL_ATTENDANCE--STU_EDU_NO ilo/UNE_3EAP_RT.AGE--Y15T19__EDUCATIONAL_ATTENDANCE--STU_EDU_YES"
+      places="country/MEX"
+      variablenameregex="(?<=\[)(.*?)(?=\])"
+      showexploremore="false"
+      defaultvariablename="Total"
+      timescale="year"
+      placenameprop="unDataLabel"
+    ></datacommons-line>
+  </body>
+</html>

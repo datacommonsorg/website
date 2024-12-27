@@ -1,0 +1,77 @@
+{"timeline": [
+  {
+    "header": "Water Withdrawal Rates",
+    "preposition": "for",
+    "examples": [{
+      "text": "California",
+      "url": "#place=geoId%2F06&statsVar=WithdrawalRate_Water_Thermoelectric__WithdrawalRate_Water_PublicSupply__WithdrawalRate_Water_Irrigation__WithdrawalRate_Water_Aquaculture"
+    }, {
+      "text": "Imperial County",
+      "url": "#place=geoId%2F06025&statsVar=WithdrawalRate_Water_Irrigation__WithdrawalRate_Water_Irrigation_FreshWater_GroundWater__WithdrawalRate_Water_Irrigation_SurfaceWater&chart=%7B\"withdrawalRate\"%3A%7B\"pc\"%3Afalse%2C\"delta\"%3Afalse%7D%7D"
+    }]
+  }, {
+    "header": "University towns",
+    "preposition": "by",
+    "examples": [{
+      "text": "age",
+      "url": "#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsVar=Median_Age_Person"
+    }, {
+      "text": "income",
+      "url": "#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsVar=Median_Income_Person"
+    }, {
+      "text": "crime",
+      "url": "#&place=geoId/0606000,geoId/2511000,geoId/2603000,geoId/1777005,geoId/1225175,geoId/4815976&statsVar=Count_CriminalActivities_ViolentCrime"
+    }]
+  }, {
+    "header": "Close by but very different",
+    "subheaders": [{
+      "title": "Berkeley & Piedmont",
+      "examples": [{
+        "text": "poverty",
+        "url": "#place=geoId%2F0606000%2CgeoId%2F0656938&statsVar=Count_Person_BelowPovertyLevelInThePast12Months&chart=%7B%22count%22%3A%7B%22pc%22%3Atrue%2C%22denom%22%3A%22Count_Person%22%7D%7D"
+      }, {
+        "text": "age distribution",
+        "url": "#&&place=geoId/0606000,geoId/0656938&statsVar=Count_Person_18To24Years__Count_Person_35To44Years__Count_Person_45To54Years__Count_Person_65To74Years"
+      }, {
+        "text": "education",
+        "url": "#&&place=geoId/0606000,geoId/0656938&pc=1&statsVar=Count_Person_EducationalAttainmentBachelorsDegree__Count_Person_EducationalAttainmentMastersDegree__Count_Person_EducationalAttainmentDoctorateDegree&chart=%7B%22count%22%3A%7B%22denom%22%3A%22Count_Person%22%7D%7D"
+      }]
+    }, {
+      "title": "Palo Alto & East Palo Alto",
+      "examples": [{
+        "text": "race",
+        "url": "#&&place=geoId/0655282,geoId/0620956&statsVar=Count_Person_AsianAlone__Count_Person_BlackOrAfricanAmericanAlone__Count_Person_NativeHawaiianOrOtherPacificIslanderAlone__Count_Person_WhiteAlone&chart=%7B%22count%22%3A%7B%22pc%22%3Atrue%2C%22denom%22%3A%22Count_Person%22%7D%7D"
+      }, {
+        "text": "income",
+        "url": "#&&place=geoId/0655282,geoId/0620956&&statsVar=Median_Income_Person"
+      }, {
+        "text": "employment",
+        "url": "#&&place=geoId/0655282,geoId/0620956&pc=1&statsVar=Count_Person_Employed&chart=%7B%22count%22%3A%7B%22denom%22%3A%22Count_Person%22%7D%7D"
+      }, {
+        "text": "marital status",
+        "url": "#&&place=geoId/0655282,geoId/0620956&pc=1&statsVar=Count_Person_Divorced__Count_Person_MarriedAndNotSeparated__Count_Person_NeverMarried&chart=%7B%22count%22%3A%7B%22denom%22%3A%22Count_Person%22%7D%7D"
+      }]
+    }]
+  }, {
+    "header": "Extremes",
+    "subheaders": [{
+      "title": "Santa Clara County vs Imperial County",
+      "examples": [{
+        "text": "Richest vs. Poorest CA counties",
+        "url": "#&&place=geoId/06085,geoId/06025&statsVar=Median_Income_Person"
+      }, {
+        "text": "Cause of Death",
+        "url": "#&&place=geoId/06085,geoId/06025&statsVar=Count_Death_DiseasesOfTheCirculatorySystem__Count_Death_ExternalCauses"
+      }]
+    }, {
+      "title": "Atlanta vs West Jordan",
+      "examples": [{
+        "text": "Highest vs Lowest Income Disparity",
+        "url": "#&&place=geoId/1304000,geoId/4982950&statsVar=Median_Income_Person"
+      }, {
+        "text": "gender balance",
+        "url": "#&&place=geoId/1304000,geoId/4982950&pc=1&statsVar=Count_Person_Female__Count_Person_Male&chart=%7B%22count%22%3A%7B%22denom%22%3A%22Count_Person%22%7D%7D"
+      }]
+    }]
+  }
+]}

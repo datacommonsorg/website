@@ -90,7 +90,7 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
     );
     setSamplePlaces(samplePlaces);
   }, [place.value.enclosedPlaces]);
-  const closeModal = () => {
+  const closeModal = (): void => {
     setThirdStatVar(emptyStatVar);
     setModalOpen(false);
   };
@@ -155,13 +155,15 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
         collapsible={true}
         svHierarchyType={StatVarHierarchyType.SCATTER}
         sampleEntities={samplePlaces}
-        deselectSVs={(svList: string[]) =>
+        deselectSVs={(svList: string[]): void =>
           svList.forEach((sv) => {
             removeStatVar(x, y, sv);
           })
         }
         selectedSVs={selectedSvs}
-        selectSV={(sv) => addStatVar(x, y, sv, setThirdStatVar, setModalOpen)}
+        selectSV={(sv): void =>
+          addStatVar(x, y, sv, setThirdStatVar, setModalOpen)
+        }
       />
       {/* Modal for selecting 2 stat vars when a third is selected */}
       <Modal isOpen={modalOpen} backdrop="static" id="statvar-modal">
@@ -170,12 +172,8 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
         </ModalHeader>
         <ModalBody>
           <Container>
-            <div>
-              You selected:{" "}
-              <b>{thirdStatVar.info.title || thirdStatVar.dcid}</b>
-            </div>
             <div className="radio-selection-label">
-              Please choose 1 more statistical variable to keep:
+              Select the statistical variable to replace:
             </div>
             <div className="radio-selection-section">
               <FormGroup radio="true" row>
@@ -185,7 +183,9 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
                     type="radio"
                     name="statvar"
                     defaultChecked={modalSelected.x}
-                    onClick={() => setModalSelected({ x: true, y: false })}
+                    onClick={(): void =>
+                      setModalSelected({ x: true, y: false })
+                    }
                   />
                   {xTitle}
                 </Label>
@@ -197,7 +197,9 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
                     type="radio"
                     name="statvar"
                     defaultChecked={modalSelected.y}
-                    onClick={() => setModalSelected({ x: false, y: true })}
+                    onClick={(): void =>
+                      setModalSelected({ x: false, y: true })
+                    }
                   />
                   {yTitle}
                 </Label>
@@ -208,7 +210,7 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
         <ModalFooter>
           <Button
             color="primary"
-            onClick={() =>
+            onClick={(): void =>
               confirmStatVars(
                 x,
                 y,
@@ -245,7 +247,7 @@ function addStatVar(
   svDcid: string,
   setThirdStatVar: (statVar: StatVar) => void,
   setModalOpen: (open: boolean) => void
-) {
+): void {
   getStatVarInfo([svDcid])
     .then((info) => {
       const svInfo = info[svDcid] ? info[svDcid] : {};
@@ -302,7 +304,7 @@ function addStatVarHelper(
  * @param statVar
  * @param nodePath
  */
-function removeStatVar(x: AxisWrapper, y: AxisWrapper, svDcid: string) {
+function removeStatVar(x: AxisWrapper, y: AxisWrapper, svDcid: string): void {
   const statVarX = x.value.statVarDcid;
   const statVarY = y.value.statVarDcid;
   if (statVarX === svDcid) {
@@ -333,14 +335,14 @@ function confirmStatVars(
   setModalOpened: (open: boolean) => void
 ): void {
   if (modalSelected.y) {
-    x.set({
-      ...x.value,
+    y.set({
+      ...y.value,
       statVarInfo: thirdStatVar.info,
       statVarDcid: thirdStatVar.dcid,
     });
   } else if (modalSelected.x) {
-    y.set({
-      ...y.value,
+    x.set({
+      ...x.value,
       statVarInfo: thirdStatVar.info,
       statVarDcid: thirdStatVar.dcid,
     });

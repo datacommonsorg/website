@@ -16,7 +16,7 @@
 
 import _ from "lodash";
 
-import { MAX_DATE, MAX_YEAR } from "./constants";
+import { MAX_DATE, MAX_YEAR, SOURCE_DISPLAY_NAME } from "./constants";
 
 // This has to be in sync with server/__init__.py
 export const placeExplorerCategories = [
@@ -39,6 +39,11 @@ const NO_DATE_CAP_RCP_STATVARS = [
   // These stat vars compare against historical observed data, so we do not want
   // to hardcode the default date.
   "DifferenceRelativeToObservationalData_",
+  // These SVs are not a time-series, but a single value across multi-decadal time-horizons.
+  "ProjectedMax_Until_",
+  "ProjectedMin_Until_",
+  // All PDF probability projections should be excluded.
+  "PctProb_",
 ];
 
 // used to set fields in an object
@@ -54,24 +59,16 @@ export function randDomId(): string {
 }
 
 /**
- * Saves csv to filename.
- * @param {filename} string
- * @param {contents} string
- * @return void
+ * Downloads a file under a given filename.
+ * @param filename name to download the file to
+ * @param file the file to download
  */
-export function saveToFile(filename: string, contents: string): void {
-  let mimeType = "text/plan";
-  if (filename.match(/\.csv$/i)) {
-    mimeType = "text/csv;chartset=utf-8";
-  } else if (filename.match(/\.svg$/i)) {
-    mimeType = "image/svg+xml;chartset=utf-8";
-  }
-  const blob = new Blob([contents], { type: mimeType });
+export function downloadFile(fileName: string, file: Blob | File): void {
   const link = document.createElement("a");
-  const url = window.URL.createObjectURL(blob);
+  const url = window.URL.createObjectURL(file);
   link.setAttribute("href", url);
-  link.setAttribute("download", filename);
-  link.onclick = () => {
+  link.setAttribute("download", fileName);
+  link.onclick = (): void => {
     setTimeout(() => window.URL.revokeObjectURL(url));
   };
   link.click();
@@ -79,12 +76,33 @@ export function saveToFile(filename: string, contents: string): void {
 }
 
 /**
- * Get the domain from a url.
+ * Saves csv to filename.
+ * @param {filename} string
+ * @param {contents} string
+ * @return void
  */
-export function urlToDomain(url: string): string {
+export function saveToFile(filename: string, contents: string): void {
+  let mimeType = "text/plain";
+  if (filename.match(/\.csv$/i)) {
+    mimeType = "text/csv;charset=utf-8";
+  } else if (filename.match(/\.svg$/i)) {
+    mimeType = "image/svg+xml;charset=utf-8";
+  }
+  const blob = new Blob([contents], { type: mimeType });
+  downloadFile(filename, blob);
+}
+
+/**
+ * Get display text from a url.
+ */
+export function urlToDisplayText(url: string): string {
   if (!url) {
     return "";
   }
+  if (url in SOURCE_DISPLAY_NAME) {
+    return SOURCE_DISPLAY_NAME[url];
+  }
+  // Use domain as the default display name
   return url
     .replace("http://", "")
     .replace("https://", "")
@@ -96,24 +114,37 @@ export function isDateTooFar(date: string): boolean {
   return date.slice(0, 4) > MAX_YEAR;
 }
 
-export function getCappedStatVarDate(statVar: string): string {
+/**
+ * Hack for handling stat vars with dates with (predicted) dates in the future.
+ * If a defaultDate is specified, always return that.
+ * If variable has future observations, return either MAX_YEAR or MAX_DATE
+ * Otherwise, return ""
+ * TODO: Find a better way to accomodate variables with dates in the future
+ */
+export function getCappedStatVarDate(
+  statVarDcid: string,
+  defaultDate = ""
+): string {
+  if (defaultDate) {
+    return defaultDate;
+  }
   // Only want to cap stat var date for stat vars with RCP or SSP.
-  if (!statVar.includes("_RCP") && !statVar.includes("_SSP")) {
+  if (!statVarDcid.includes("_RCP") && !statVarDcid.includes("_SSP")) {
     return "";
   }
   for (const svSubstring of NO_DATE_CAP_RCP_STATVARS) {
-    if (statVar.includes(svSubstring)) {
+    if (statVarDcid.includes(svSubstring)) {
       return "";
     }
   }
   // Wet bulb temperature is observed at P1Y, so need to use year for the date.
   if (
-    statVar.includes("WetBulbTemperature") ||
-    statVar.includes("AggregateMin_Percentile") ||
-    statVar.includes("AggregateMax_Percentile") ||
-    statVar.includes("AggregateMin_Median") ||
-    statVar.includes("AggregateMax_Median") ||
-    statVar.includes("NumberOfMonths_")
+    statVarDcid.includes("WetBulbTemperature") ||
+    statVarDcid.includes("AggregateMin_Percentile") ||
+    statVarDcid.includes("AggregateMax_Percentile") ||
+    statVarDcid.includes("AggregateMin_Median") ||
+    statVarDcid.includes("AggregateMax_Median") ||
+    statVarDcid.includes("NumberOfMonths_")
   ) {
     return MAX_YEAR;
   }
@@ -146,4 +177,19 @@ export function removeSpinner(containerId: string): void {
       browserScreens[0].classList.remove("d-block");
     }
   }
+}
+
+/**
+ * Removes the pattern parameter from the query if that substring is present at the end.
+ * @param query the string from which to remove the pattern
+ * @param pattern a string which we want to find and remove from the query.
+ * @returns the query with the pattern removed if it was found.
+ */
+export function stripPatternFromQuery(query: string, pattern: string): string {
+  const regex = new RegExp("(?:.(?!" + pattern + "))+([,;\\s])?$", "i");
+
+  // Returns the query without the pattern parameter.
+  // E.g.: query: "population of Calif", pattern: "Calif",
+  // returns "population of "
+  return query.replace(regex, "");
 }

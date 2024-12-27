@@ -36,8 +36,23 @@ resource "helm_release" "datcom_website" {
   # timeout    = 300
 
   set {
+    name  = "resourceSuffix"
+    value = var.resource_suffix
+  }
+
+  set {
+    name  = "website.image.tag"
+    value = var.website_githash
+  }
+
+  set {
     name  = "website.githash"
     value = var.website_githash
+  }
+
+  set {
+    name  = "mixer.image.tag"
+    value = var.mixer_githash
   }
 
   set {
@@ -66,7 +81,7 @@ resource "helm_release" "datcom_website" {
   }
 
   set {
-    name  = "mixer.gcpProjectID"
+    name  = "mixer.hostProject"
     value = var.project_id
   }
 

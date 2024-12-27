@@ -17,6 +17,7 @@
 @import "../base";
 
 body {
+  font-family: $font-family-sans-serif;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -30,22 +31,6 @@ body {
   margin: 0 !important;
 }
 
-#main-footer {
-  margin-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-#main-footer .container {
-  max-width: 100% !important;
-  padding-left: 31px !important;
-  padding-right: 31px !important;
-}
-
-#main-footer #sub-footer {
-  border-top: none !important;
-  margin-bottom: 0 !important;
-  padding-bottom: 1.5rem !important;
-}
 
 @include media-breakpoint-up(lg) {
   #main {
@@ -105,10 +90,34 @@ body {
   padding: 15px;
 }
 
+#stat-var-hierarchy-section {
+  padding-top: 24px;
+}
+
 .modal #stat-var-hierarchy-section.hidden {
   visibility: visible !important;
 }
 
 .modal .statvar-hierarchy-search-section .title {
   display: none;
+}
+
+.app-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  a:hover {
+    outline: 1px solid var(--dc-primary);
+    border-color: var(--dc-primary);
+  }
+
+  a {
+    font-size: 14px;
+    border: 1px solid #747775;
+    border-radius: 100px;
+    padding: 10px 24px;
+    text-decoration: none;
+  }
 }

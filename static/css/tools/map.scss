@@ -21,7 +21,6 @@
 @import "../place_selector";
 @import "../source_selector";
 @import "../tool_chart_footer";
-@import "../bq_modal";
 
 // TODO(chejennifer): factor out some common styling
 
@@ -33,6 +32,11 @@
 
 .chart-region {
   flex-grow: 1;
+
+  .footer {
+    font-size: 13px;
+    margin-top: 1rem;
+  }
 }
 
 .chart-section {
@@ -187,7 +191,6 @@
   stroke: black;
 }
 
-
 /* Time Slider Styles */
 
 .time-slider-container {
@@ -297,4 +300,8 @@
 
 #chart-container .leaflet-container {
   background: white;
+}
+
+#placeholder-container .footer {
+  font-size: 13px;
 }

@@ -18,18 +18,14 @@
  * Fetch the map point stat data.
  */
 
-import axios from "axios";
 import _ from "lodash";
 import { Dispatch, useContext, useEffect } from "react";
 
-import {
-  EntityObservationWrapper,
-  PointApiResponse,
-} from "../../../shared/stat_types";
-import { stringifyFn } from "../../../utils/axios";
+import { EntityObservationWrapper } from "../../../shared/stat_types";
+import { getCappedStatVarDate } from "../../../shared/util";
+import { getPointWithin } from "../../../utils/data_fetch_utils";
 import { ChartDataType, ChartStoreAction } from "../chart_store";
 import { Context } from "../context";
-import { getDate } from "../util";
 
 export function useFetchMapPointStat(
   dispatch: Dispatch<ChartStoreAction>
@@ -62,24 +58,21 @@ export function useFetchMapPointStat(
       },
     };
     const usedSV = statVar.value.mapPointSv || statVar.value.dcid;
-    const date = getDate(usedSV, dateCtx.value);
-    axios
-      .get<PointApiResponse>("/api/observations/point/within", {
-        params: {
-          child_type: placeInfo.value.mapPointPlaceType,
-          date: date,
-          parent_entity: placeInfo.value.enclosingPlace.dcid,
-          variables: [usedSV],
-        },
-        paramsSerializer: stringifyFn,
-      })
+    const date = getCappedStatVarDate(usedSV, dateCtx.value);
+    getPointWithin(
+      "",
+      placeInfo.value.mapPointPlaceType,
+      placeInfo.value.enclosingPlace.dcid,
+      [usedSV],
+      date
+    )
       .then((resp) => {
-        if (_.isEmpty(resp.data.data[usedSV])) {
+        if (_.isEmpty(resp.data[usedSV])) {
           action.error = "error fetching map point stat data";
         } else {
           action.payload = {
-            data: resp.data.data[usedSV],
-            facets: resp.data.facets,
+            data: resp.data[usedSV],
+            facets: resp.facets,
           } as EntityObservationWrapper;
         }
         console.log(`[Map Fetch] map point stat for: ${date}`);

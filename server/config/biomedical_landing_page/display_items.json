@@ -1,0 +1,90 @@
+{
+  "highlights": [
+    {
+      "label": "Proteins",
+      "value": 38120
+    },
+    {
+      "label": "Diseases",
+      "value": 13955
+    },
+    {
+      "label": "Genes",
+      "value": 681043
+    },
+    {
+      "label": "Drugs",
+      "value": 63328433
+    }
+  ],
+  "sample-questions": [
+    {
+      "category": "Ecology",
+      "themeColor": "mutedBlue",
+      "cards": [
+        {
+          "text": "How many species are there of Chlamydia?"
+        },
+        {
+          "text": "What is the host of Betapapillomavirus 1?"
+        },
+        {
+          "text": "What phylum does volvox belong to?"
+        }
+      ]
+    },
+    {
+      "category": "Genomics",
+      "themeColor": "blue",
+      "cards": [
+        {
+          "text": "What genes are associated with rs13317?"
+        },
+        {
+          "text": "What functional region of the genome is rs13317 located?"
+        },
+        {
+          "text": "What are the transcripts of FGFR1?"
+        }
+      ]
+    },
+    {
+      "category": "Pharmacology",
+      "themeColor": "red",
+      "cards": [
+        {
+          "text": "How is Bactocill administered?"
+        },
+        {
+          "text": "What is the chembl ID of acetaminophen?"
+        },
+        {
+          "text": "What's the dosage form of Aggrenox?"
+        }
+      ]
+    }
+  ],
+  "sample-analysis": [
+    {
+      "category": "Notebook • Case Study",
+      "themeColor": "mutedBlue",
+      "cards": [
+        {
+          "openInNewTab": true,
+          "text": "Covid-19 feature exploration analysis (by Google Health)",
+          "url": "https://colab.research.google.com/github/datacommonsorg/api-python/blob/master/notebooks/COVID_19_Feature_Exploration_Analysis_with_Data_Commons.ipynb"
+        },
+        {
+          "openInNewTab": true,
+          "text": "Analyzing Genomic Data with Biomedical Data Commons",
+          "url": "https://colab.research.google.com/github/datacommonsorg/api-python/blob/master/notebooks/analyzing_genomic_data.ipynb"
+        },
+        {
+          "openInNewTab": true,
+          "text": "Drug Discovery with Biomedical Data Commons",
+          "url": "https://colab.research.google.com/github/datacommonsorg/api-python/blob/master/notebooks/Drug_Discovery_With_Data_Commons.ipynb"
+        }
+      ]
+    }
+  ]
+}

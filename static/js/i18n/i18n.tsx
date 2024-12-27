@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,6 +45,12 @@ function loadLocaleData(
   modules: Promise<Record<any, any>>[]
 ): Promise<void> {
   const allMessages = {};
+  // If no i18n modules are provided, just set the locale and return.
+  if (modules.length === 0) {
+    intl = createIntl({ locale, messages: {} }, intlCache);
+    return Promise.resolve();
+  }
+  // Otherwise, set the locale and load the i18n modules.
   return Promise.all(modules)
     .then((messages) => {
       for (const msg of messages) {
@@ -53,7 +59,7 @@ function loadLocaleData(
       intl = createIntl({ locale, messages: allMessages }, intlCache);
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
       intl = createIntl({ locale, messages: {} }, intlCache);
     });
 }
@@ -75,7 +81,7 @@ function translateVariableString(id: string): string {
   }
   return intl.formatMessage({
     // Matching ID as above
-    id: id,
+    id,
     // Default Message in English.
     // Can consider suppressing log error when translation not found.
     defaultMessage: id,
@@ -107,11 +113,15 @@ function localizeSearchParams(searchParams: URLSearchParams): URLSearchParams {
  * @return potentially updated href
  */
 function localizeLink(href: string): string {
-  const url = new URL(href, document.location.origin);
-  url.search = localizeSearchParams(
-    new URLSearchParams(url.searchParams)
-  ).toString();
-  return url.toString();
+  try {
+    const url = new URL(href, document.location.origin);
+    url.search = localizeSearchParams(
+      new URLSearchParams(url.searchParams)
+    ).toString();
+    return url.toString();
+  } catch (e) {
+    return href;
+  }
 }
 
 /**
@@ -120,9 +130,11 @@ function localizeLink(href: string): string {
 interface LocalizedLinkProps {
   className?: string;
   href: string;
-  text: string;
+  text: string | JSX.Element;
   // Callback function when a link is clicked.
   handleClick?: () => void;
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
 }
 
 /**
@@ -133,12 +145,14 @@ interface LocalizedLinkProps {
  * @return An <a> tag JSX element.
  */
 function LocalizedLink(props: LocalizedLinkProps): JSX.Element {
-  const href = localizeLink(props.href);
+  const href = props.href ? localizeLink(props.href) : null;
   return (
     <a
       href={href}
       className={props.className ? props.className : null}
       onClick={props.handleClick}
+      onMouseEnter={props.onMouseEnter}
+      onMouseLeave={props.onMouseLeave}
     >
       {props.text}
     </a>
@@ -165,6 +179,9 @@ function formatNumber(
   useDefaultFormat?: boolean,
   numFractionDigits?: number
 ): string {
+  if (isNaN(value)) {
+    return "-";
+  }
   if (useDefaultFormat) {
     return Intl.NumberFormat(intl.locale).format(value);
   }
@@ -182,7 +199,6 @@ function formatNumber(
     delete formatOptions.maximumSignificantDigits;
   }
 
-  let shouldAddUnit = false;
   let unitKey: string;
   switch (unit) {
     case "₹":
@@ -191,74 +207,73 @@ function formatNumber(
       formatOptions.currencyDisplay = "code";
       break;
     case "$":
+    case "USDollar":
       formatOptions.style = "currency";
       formatOptions.currency = "USD";
       formatOptions.currencyDisplay = "code";
       break;
     case "%":
+    case "Percent":
+    case "Percentage":
       formatOptions.style = "percent";
       value = value / 100; // Values are scaled by formatter for percent display
       break;
+    case "MetricTon":
     case "t":
-      shouldAddUnit = true;
       unitKey = "metric-ton";
       break;
+    case "Millions of tonnes":
+      unitKey = "mega-ton";
+      break;
     case "kWh":
-      shouldAddUnit = true;
       unitKey = "kilowatt-hour";
       break;
     case "GWh":
-      shouldAddUnit = true;
       unitKey = "gigawatt-hour";
       break;
     case "g":
-      shouldAddUnit = true;
       unitKey = "gram";
       break;
     case "kg":
-      shouldAddUnit = true;
       unitKey = "kilogram";
       break;
     case "L":
-      shouldAddUnit = true;
       unitKey = "liter";
       break;
     case "celsius":
-      shouldAddUnit = true;
+    case "Celsius":
       unitKey = "celsius";
       break;
     case "μg/m³":
-      shouldAddUnit = true;
       unitKey = "micro-gram-per-cubic-meter";
       break;
+    case "MetricTonCO2e":
     case "MTCO2e":
-      shouldAddUnit = true;
       unitKey = "metric-tons-of-co2";
       break;
     case "per-million":
-      shouldAddUnit = true;
       unitKey = "per-million";
       break;
     case "¢/kWh":
-      shouldAddUnit = true;
       unitKey = "cent-per-kilowatt";
       break;
     case "ppb":
-      shouldAddUnit = true;
       unitKey = "ppb";
       break;
     case "mgd":
-      shouldAddUnit = true;
       unitKey = "million-gallon-per-day";
+      break;
+    default:
+      unitKey = unit;
   }
   let returnText = Intl.NumberFormat(intl.locale, formatOptions).format(value);
-  if (shouldAddUnit) {
+  if (unitKey) {
     returnText = intl.formatMessage(
       {
         id: unitKey,
         defaultMessage: `{0} {unit}`,
       },
-      { 0: returnText, unit: unit }
+      { 0: returnText, unit }
     );
   }
   return returnText;
@@ -277,14 +292,19 @@ function formatNumber(
  * @return localized display string for the number
  */
 function translateUnit(unit: string): string {
-  let messageId;
+  let messageId: string;
   switch (unit) {
     case "$":
       return "USD";
+    case "Percent":
+    case "Percentage":
     case "%":
       return "%";
     case "t":
       messageId = "metric-ton-display";
+      break;
+    case "Millions of tonnes":
+      messageId = "mega-ton-display";
       break;
     case "kWh":
       messageId = "kilowatt-hour-display";
@@ -298,6 +318,14 @@ function translateUnit(unit: string): string {
     case "L":
       messageId = "liter-display";
       break;
+    case "celsius":
+    case "Celsius":
+      messageId = "celsius-display";
+      break;
+    case "Knot":
+    case "Millibar":
+    case "SquareKilometer":
+      messageId = `${unit}-display`;
     default:
       return unit;
   }

@@ -21,6 +21,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row } from "reactstrap";
 
+import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { ChartLoader } from "./chart_loader";
 import { Context, ContextType, useInitialContext } from "./context";
 import { Info } from "./info";
@@ -41,16 +42,15 @@ import {
 
 function App(): JSX.Element {
   const [isSvModalOpen, updateSvModalOpen] = useState(false);
-  const toggleSvModalCallback = () => updateSvModalOpen(!isSvModalOpen);
+  const toggleSvModalCallback = (): void => updateSvModalOpen(!isSvModalOpen);
 
-  // Show the BigQuery button when there is a chart
   return (
     <React.StrictMode>
       <StatVarChooser
         openSvHierarchyModal={isSvModalOpen}
         openSvHierarchyModalCallback={toggleSvModalCallback}
       />
-      <div id="plot-container">
+      <div id="plot-container" className={ASYNC_ELEMENT_HOLDER_CLASS}>
         <Container fluid={true}>
           <Row>
             <Title />
@@ -77,7 +77,7 @@ export function AppWithContext(): JSX.Element {
   const store = useInitialContext(params);
 
   useEffect(() => updateHash(store), [store]);
-  window.onhashchange = () => applyHash(store);
+  window.onhashchange = (): void => applyHash(store);
 
   return (
     <Context.Provider value={store}>

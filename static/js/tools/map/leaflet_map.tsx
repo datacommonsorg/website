@@ -61,6 +61,7 @@ export function LeafletMap(props: LeafletMapProps): JSX.Element {
 
   const [errorMessage, setErrorMessage] = useState("");
   const chartContainerRef = useRef<HTMLDivElement>();
+  const legendContainerRef = useRef<HTMLDivElement>(null);
   const leafletMap = useRef(null);
   const geotiffLayer = useRef(null);
   const geojsonLayer = useRef(null);
@@ -119,10 +120,9 @@ export function LeafletMap(props: LeafletMapProps): JSX.Element {
     );
     const legendHeight = height * LEGEND_HEIGHT_SCALING;
     generateLegendSvg(
-      LEGEND_CONTAINER_ID,
+      legendContainerRef.current,
       legendHeight,
-      colorScale,
-      "",
+      [{ colorScale, unit: "" }],
       LEGEND_MARGIN_LEFT
     );
     if (geotiffLayer.current) {
@@ -176,7 +176,7 @@ export function LeafletMap(props: LeafletMapProps): JSX.Element {
           style={{ height: chartHeight }}
         >
           <div id={MAP_CONTAINER_ID}></div>
-          <div id={LEGEND_CONTAINER_ID}></div>
+          <div id={LEGEND_CONTAINER_ID} ref={legendContainerRef}></div>
         </div>
       </div>
     );

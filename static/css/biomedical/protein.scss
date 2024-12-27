@@ -15,7 +15,7 @@
  */
 
 @import "../base";
-@import "./shared.scss";
+@import "./biomedical_shared.scss";
 
 .interaction-link {
   stroke: #ccc;
@@ -30,7 +30,7 @@
 }
 
 .protein-node-label {
-  font-family: "Public Sans", sans-serif;
+  font-family: $font-family-sans-serif;
   font-size: 8px;
   fill: #222;
   text-anchor: middle;

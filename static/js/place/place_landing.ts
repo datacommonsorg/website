@@ -15,13 +15,16 @@
  */
 
 import { loadLocaleData } from "../i18n/i18n";
-import { initSearchAutocomplete } from "./place_autocomplete";
+import { initSearchAutocomplete } from "../shared/place_autocomplete";
 
-window.onload = () => {
-  const locale = document.getElementById("locale").dataset.lc;
+window.addEventListener("load", (): void => {
+  // Get locale from metadata
+  const metadataContainer = document.getElementById("metadata-base");
+  const locale = metadataContainer.dataset.locale;
+
   loadLocaleData(locale, [
     import(`../i18n/compiled-lang/${locale}/place.json`),
   ]).then(() => {
-    initSearchAutocomplete();
+    initSearchAutocomplete("/place");
   });
-};
+});

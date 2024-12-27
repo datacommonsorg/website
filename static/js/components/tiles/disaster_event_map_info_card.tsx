@@ -16,10 +16,13 @@
 
 /**
  * Component for the content of the info card.
+ * TODO: Use display properties & unit from spec.
  */
 import React from "react";
 
+import { formatNumber } from "../../i18n/i18n";
 import { DisasterEventPoint } from "../../types/disaster_event_map_types";
+import { formatPropertyValue } from "../../utils/property_value_utils";
 
 interface DisasterEventMapInfoCardPropType {
   // The event data to show info about
@@ -31,6 +34,7 @@ interface DisasterEventMapInfoCardPropType {
 export function DisasterEventMapInfoCard(
   props: DisasterEventMapInfoCardPropType
 ): JSX.Element {
+  const seenProps = new Set();
   return (
     <div className="disaster-event-map-info-card-content">
       <div className="disaster-event-map-info-card-header">
@@ -46,17 +50,34 @@ export function DisasterEventMapInfoCard(
         {props.eventData.endDate && (
           <span>End Date: {props.eventData.endDate}</span>
         )}
-        {props.eventData.severity &&
-          Object.keys(props.eventData.severity).map((prop) => {
+        {props.eventData.displayProps &&
+          Object.keys(props.eventData.displayProps).map((prop) => {
+            if (seenProps.has(prop)) {
+              return;
+            }
+            seenProps.add(prop);
             return (
               <span key={prop}>
-                {prop}: {props.eventData.severity[prop]}
+                {prop}:{" "}
+                {formatPropertyValue(props.eventData.displayProps[prop])}
               </span>
             );
           })}
-        <span>
-          <a href={`/event/${props.eventData.placeDcid}`}>More info</a>
-        </span>
+        {props.eventData.severity &&
+          Object.keys(props.eventData.severity).map((prop) => {
+            if (seenProps.has(prop)) {
+              return;
+            }
+            seenProps.add(prop);
+            return (
+              <span key={prop}>
+                {prop}: {formatNumber(props.eventData.severity[prop])}
+              </span>
+            );
+          })}
+      </div>
+      <div className="disaster-event-map-info-card-footer">
+        <a href={`/event/${props.eventData.placeDcid}`}>More info</a>
       </div>
     </div>
   );

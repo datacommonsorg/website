@@ -1,0 +1,5028 @@
+{
+  "dc/topic/sdgAGFPACOMM": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Indicator of Food Price Anomalies"
+  },
+  "dc/topic/sdgAGFPACOMM_sdgproduct": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Indicator of Food Price Anomalies by Product"
+  },
+  "dc/topic/sdgAGFPAHMFP": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Countries With High Food Prices"
+  },
+  "dc/topic/sdgAGFPAHMFP_sdgseverityOfPriceLevels": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Countries With High Food Prices by Price Level Severity"
+  },
+  "dc/topic/sdgAGPRDFIESMS": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Moderate or Severe Food Insecurity"
+  },
+  "dc/topic/sdgAGPRDFIESMSN": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population With Moderate or Severe Food Insecurity"
+  },
+  "dc/topic/sdgAGPRDFIESMSN_age": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population With Moderate or Severe Food Insecurity by Age"
+  },
+  "dc/topic/sdgAGPRDFIESMSN_age-SDGAgeEnumYGE15": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Age 15 and Over With Moderate or Severe Food Insecurity"
+  },
+  "dc/topic/sdgAGPRDFIESMSN_age-SDGAgeEnumYGE15_gender": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Age 15 and Over With Moderate or Severe Food Insecurity by Gender"
+  },
+  "dc/topic/sdgAGPRDFIESMSN_gender": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population With Moderate or Severe Food Insecurity by Gender"
+  },
+  "dc/topic/sdgAGPRDFIESMS_age": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Moderate or Severe Food Insecurity by Age"
+  },
+  "dc/topic/sdgAGPRDFIESMS_age-SDGAgeEnumYGE15": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Moderate or Severe Food Insecurity in Population Age 15 or Older"
+  },
+  "dc/topic/sdgAGPRDFIESMS_age-SDGAgeEnumYGE15_gender": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Moderate or Severe Food Insecurity in Population Age 15 or Older by Gender"
+  },
+  "dc/topic/sdgAGPRDFIESMS_gender": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Moderate or Severe Food Insecurity by Gender"
+  },
+  "dc/topic/sdgAGPRDFIESS": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Severe Food Insecurity"
+  },
+  "dc/topic/sdgAGPRDFIESSN": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population With Severe Food Insecurity"
+  },
+  "dc/topic/sdgAGPRDFIESSN_age": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population With Severe Food Insecurity by Age"
+  },
+  "dc/topic/sdgAGPRDFIESSN_age-SDGAgeEnumYGE15": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Age 15 and Over With Severe Food Insecurity"
+  },
+  "dc/topic/sdgAGPRDFIESSN_age-SDGAgeEnumYGE15_gender": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Age 15 and Over With Severe Food Insecurity by Gender"
+  },
+  "dc/topic/sdgAGPRDFIESSN_gender": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population With Severe Food Insecurity by Gender"
+  },
+  "dc/topic/sdgAGPRDFIESS_age": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Severe Food Insecurity by Age"
+  },
+  "dc/topic/sdgAGPRDFIESS_age-SDGAgeEnumYGE15": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Severe Food Insecurity in Population Age 15 or Older"
+  },
+  "dc/topic/sdgAGPRDFIESS_age-SDGAgeEnumYGE15_gender": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Severe Food Insecurity in Population Age 15 or Older by Gender"
+  },
+  "dc/topic/sdgAGPRDFIESS_gender": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Severe Food Insecurity by Gender"
+  },
+  "dc/topic/sdgPDAGRLSFP": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Productivity of Large-Scale Food Producers"
+  },
+  "dc/topic/sdgPDAGRLSFP_gender": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Productivity of Large-Scale Food Producers by Gender"
+  },
+  "dc/topic/sdgPDAGRSSFP": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Productivity of Small-Scale Food Producers"
+  },
+  "dc/topic/sdgPDAGRSSFP_gender": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Productivity of Small-Scale Food Producers by Gender"
+  },
+  "dc/topic/sdgSDMDPANDI": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Deprivation for Impoverished Population"
+  },
+  "dc/topic/sdgSDMDPANDIHH": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Weighted Deprivations Among All Households"
+  },
+  "dc/topic/sdgSDMDPANDIHH_sdgurbanisation": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Average Weighted Deprivations of Total Households by Urbanization"
+  },
+  "dc/topic/sdgSDMDPANDI_sdgurbanisation": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Average Deprivation For Impoverished Population by Urbanization"
+  },
+  "dc/topic/sdgSDMDPCSMP": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Children in Poverty"
+  },
+  "dc/topic/sdgSDMDPCSMP_age": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Impoverished Children by Age"
+  },
+  "dc/topic/sdgSDMDPCSMP_age-SDGAgeEnumY0T17": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Impoverished Children Under 18 Years"
+  },
+  "dc/topic/sdgSDMDPCSMP_age-SDGAgeEnumY0T17_sdgurbanisation": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Impoverished Children Under 18 Years by Urbanization"
+  },
+  "dc/topic/sdgSDMDPCSMP_sdgurbanisation": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Impoverished Children by Urbanization"
+  },
+  "dc/topic/sdgSDMDPMUHC": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population in Poverty"
+  },
+  "dc/topic/sdgSDMDPMUHC_age": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Impoverished Population by Age"
+  },
+  "dc/topic/sdgSDMDPMUHC_gender": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Impoverished Population by Gender"
+  },
+  "dc/topic/sdgSDMDPMUHC_sdgurbanisation": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Impoverished Population by Urbanization"
+  },
+  "dc/topic/sdgSDMDPMUHHC": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Households in Poverty"
+  },
+  "dc/topic/sdgSDMDPMUHHC_sdgurbanisation": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Impoverished Population by Urbanization"
+  },
+  "dc/topic/sdgSIAGRLSFP": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Average Earnings of Large-Scale Food Producers"
+  },
+  "dc/topic/sdgSIAGRLSFP_gender": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Average Income of Large-Scale Food Producers by Gender"
+  },
+  "dc/topic/sdgSIAGRSSFP": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Average Earnings of Small-Scale Food Producers"
+  },
+  "dc/topic/sdgSIAGRSSFP_gender": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Average Income of Small-Scale Food Producers by Gender"
+  },
+  "dc/topic/sdgSICOVBENFTS": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population With Social Protection Benefits"
+  },
+  "dc/topic/sdgSICOVBENFTS_gender": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population With Social Protection Benefits by Gender"
+  },
+  "dc/topic/sdgSICOVCHLD": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Children/Households Receiving Family Cash Benefit"
+  },
+  "dc/topic/sdgSICOVCHLD_gender": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Children/Households Receiving Family Cash Benefit by Gender"
+  },
+  "dc/topic/sdgSICOVDISAB": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Severely Disabled Population Receiving Disability Cash Benefit"
+  },
+  "dc/topic/sdgSICOVDISAB_gender": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population With Severe Disabilities Receiving Disability Cash Benefit by Gender"
+  },
+  "dc/topic/sdgSICOVLMKT": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Covered by Labour Market Programs"
+  },
+  "dc/topic/sdgSICOVPENSN": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Above Retirement Age Receiving Pension"
+  },
+  "dc/topic/sdgSICOVPENSN_gender": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Above Retirement Age Receiving Pension by Gender"
+  },
+  "dc/topic/sdgSICOVPOOR": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Vulnerable Population Receiving Social Assistance Cash Benefit"
+  },
+  "dc/topic/sdgSICOVPOOR_gender": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Poor Population Receiving Social Assistance Cash Benefit by Gender"
+  },
+  "dc/topic/sdgSICOVSOCAST": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Covered by Social Assistance Programs"
+  },
+  "dc/topic/sdgSICOVSOCINS": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Covered by Social Insurance Programs"
+  },
+  "dc/topic/sdgSICOVUEMP": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Unemployed Population Receiving Unemployment Cash Benefit"
+  },
+  "dc/topic/sdgSICOVUEMP_gender": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Unemployed Population Receiving Unemployment Cash Benefit by Gender"
+  },
+  "dc/topic/sdgSICOVVULN": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Vulnerable Population Receiving Social Assistance Cash Benefit"
+  },
+  "dc/topic/sdgSICOVVULN_gender": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Vulnerable Population Receiving Social Assistance Cash Benefit by Gender"
+  },
+  "dc/topic/sdgSICOVWKINJRY": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Employed Population Covered for Work Injury"
+  },
+  "dc/topic/sdgSICOVWKINJRY_gender": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Employed Population Covered for Work Injury by Gender"
+  },
+  "dc/topic/sdgSIPOVDAY1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Below International Poverty Line"
+  },
+  "dc/topic/sdgSIPOVDAY1_age": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Below International Poverty Line by Age"
+  },
+  "dc/topic/sdgSIPOVDAY1_gender": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Below International Poverty Line by Gender"
+  },
+  "dc/topic/sdgSIPOVDAY1_sdgurbanisation": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Below International Poverty Line by Urbanization"
+  },
+  "dc/topic/sdgSIPOVEMP1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Employed Population Below International Poverty Line"
+  },
+  "dc/topic/sdgSIPOVEMP1_age": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Employed Population Below International Poverty Line by Age"
+  },
+  "dc/topic/sdgSIPOVEMP1_age-SDGAgeEnumY15T24": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Employed Population Age 15 to 24 Below International Poverty Line"
+  },
+  "dc/topic/sdgSIPOVEMP1_age-SDGAgeEnumY15T24_gender": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Employed Population Age 15 to 24 Below International Poverty Line by Gender"
+  },
+  "dc/topic/sdgSIPOVEMP1_age-SDGAgeEnumYGE15": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Employed Population Aged 15 or Over Below International Poverty Line"
+  },
+  "dc/topic/sdgSIPOVEMP1_age-SDGAgeEnumYGE15_gender": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Employed Population Aged 15 or Over Below International Poverty Line by Gender"
+  },
+  "dc/topic/sdgSIPOVEMP1_age-SDGAgeEnumYGE25": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Employed Population Aged 25 or Over Below International Poverty Line"
+  },
+  "dc/topic/sdgSIPOVEMP1_age-SDGAgeEnumYGE25_gender": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Employed Population Aged 25 or Over Below International Poverty Line by Gender"
+  },
+  "dc/topic/sdgSIPOVEMP1_age_gender-SDGSexEnumF": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Employed Women Below International Poverty Line by Age"
+  },
+  "dc/topic/sdgSIPOVEMP1_age_gender-SDGSexEnumM": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Employed Men Below International Poverty Line by Age"
+  },
+  "dc/topic/sdgSIPOVEMP1_gender": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Employed Population Below International Poverty Line by Gender"
+  },
+  "dc/topic/sdgSIPOVEMP1_gender-SDGSexEnumF": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Employed Women Below International Poverty Line"
+  },
+  "dc/topic/sdgSIPOVEMP1_gender-SDGSexEnumM": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Employed Men Below International Poverty Line"
+  },
+  "dc/topic/sdgSIPOVNAHC": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Below National Poverty Line"
+  },
+  "dc/topic/sdgSPACSBSRVH2O": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Using Basic Drinking Water Services"
+  },
+  "dc/topic/sdgSPACSBSRVH2O_sdgurbanisation": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Using Basic Drinking Water Services by Urbanization"
+  },
+  "dc/topic/sdgSPACSBSRVSAN": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Using Basic Sanitation Services"
+  },
+  "dc/topic/sdgSPACSBSRVSAN_sdgurbanisation": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Using Basic Sanitation Services by Urbanization"
+  },
+  "dc/topic/sdgSPLGLLNDDOC": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Adults With Legally Recognized Land Rights"
+  },
+  "dc/topic/sdgSPLGLLNDSTR": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Adults With Secure Tenure Land Rights"
+  },
+  "dc/topic/sdg_1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "No Poverty"
+  },
+  "dc/topic/sdg_1.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "End Poverty by 2030"
+  },
+  "dc/topic/sdg_1.1.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Below the Poverty Line"
+  },
+  "dc/topic/sdg_1.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Reduce Poverty by Half by 2030"
+  },
+  "dc/topic/sdg_1.2.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Below The Poverty Line By Gender And Age"
+  },
+  "dc/topic/sdg_1.2.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Of All Ages Below The Poverty Line"
+  },
+  "dc/topic/sdg_1.3": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Social Protection Systems"
+  },
+  "dc/topic/sdg_1.3.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Covered By Social Protection Systems"
+  },
+  "dc/topic/sdg_1.4": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Equal Rights and Access to Basic Services by 2030"
+  },
+  "dc/topic/sdg_1.4.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Households with Access to Basic Services"
+  },
+  "dc/topic/sdg_1.4.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population with Secure Land Rights"
+  },
+  "dc/topic/sdg_1.5": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Reduce Extreme Climate Events And Disasters By 2030"
+  },
+  "dc/topic/sdg_1.5.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Deaths from Disasters Per 100k Capita"
+  },
+  "dc/topic/sdg_1.5.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Economic Loss from Disasters"
+  },
+  "dc/topic/sdg_1.5.3": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Countries With Disaster Risk Reduction"
+  },
+  "dc/topic/sdg_1.5.4": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Local Governments With Disaster Risk Reduction"
+  },
+  "dc/topic/sdg_1.a": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Resource Mobilization"
+  },
+  "dc/topic/sdg_1.a.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Grants for Poverty Reduction"
+  },
+  "dc/topic/sdg_1.a.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Government Expenditure On Essential Services"
+  },
+  "dc/topic/sdg_1.b": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Poverty Eradication Policy Frameworks"
+  },
+  "dc/topic/sdg_1.b.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Public Social Spending"
+  },
+  "dc/topic/sdg_10": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Reduce Inequality"
+  },
+  "dc/topic/sdg_10.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Increase Income Growth for Bottom 40% by 2030"
+  },
+  "dc/topic/sdg_10.1.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Household Expenditure Growth Rates"
+  },
+  "dc/topic/sdg_10.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Empower Social, Economic, and Political Inclusion"
+  },
+  "dc/topic/sdg_10.2.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Below 50% Median Income by Demographics"
+  },
+  "dc/topic/sdg_10.3": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Ensure Equal Opportunity and Reduce Inequalities"
+  },
+  "dc/topic/sdg_10.3.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Who Have Experienced Discrimination or Harassment"
+  },
+  "dc/topic/sdg_10.4": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Policies for Greater Equality and Labor Share"
+  },
+  "dc/topic/sdg_10.4.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Labour Share of GDP"
+  },
+  "dc/topic/sdg_10.4.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Redistributive Impact of Fiscal Policy"
+  },
+  "dc/topic/sdg_10.5": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Regulation and Monitoring of Global Financial Markets"
+  },
+  "dc/topic/sdg_10.5.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Financial Soundness Indicators"
+  },
+  "dc/topic/sdg_10.6": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Developing Countries Representation in Global Institutions"
+  },
+  "dc/topic/sdg_10.6.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Members and Voting Rights of Developing Countries in International Organizations"
+  },
+  "dc/topic/sdg_10.7": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Facilitate Safe and Orderly Migration"
+  },
+  "dc/topic/sdg_10.7.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Employee's Recruitment Cost as Percent of Income"
+  },
+  "dc/topic/sdg_10.7.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Countries With Responsible Migration Policies"
+  },
+  "dc/topic/sdg_10.7.3": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Who Died or Disappeared During Migration"
+  },
+  "dc/topic/sdg_10.7.4": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Refugee Population by Country of Origin"
+  },
+  "dc/topic/sdg_10.a": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Special Treatment for Developing Countries"
+  },
+  "dc/topic/sdg_10.a.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Tariff Lines on Imports From Developing Countries"
+  },
+  "dc/topic/sdg_10.b": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Financial Flows to Countries in Need"
+  },
+  "dc/topic/sdg_10.b.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Resource Flows for Development"
+  },
+  "dc/topic/sdg_10.c": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Reduce Remittance Transaction Costs by 2030"
+  },
+  "dc/topic/sdg_10.c.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Remittance Costs as a Proportion of Remitted Amount"
+  },
+  "dc/topic/sdg_11": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Sustainable Cities and Communities"
+  },
+  "dc/topic/sdg_11.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Safe and Affordable Housing by 2030"
+  },
+  "dc/topic/sdg_11.1.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Urban Population in Inadequate Housing"
+  },
+  "dc/topic/sdg_11.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Accessible and Safe Transport Systems by 2030"
+  },
+  "dc/topic/sdg_11.2.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Access to Public Transport by Demographics"
+  },
+  "dc/topic/sdg_11.3": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Enhance Inclusive and Sustainable Urbanization by 2030"
+  },
+  "dc/topic/sdg_11.3.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Land Consumption vs. Population Growth"
+  },
+  "dc/topic/sdg_11.3.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Cities With Civil Society Participation in Planning"
+  },
+  "dc/topic/sdg_11.4": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Protect Cultural and Natural Heritage"
+  },
+  "dc/topic/sdg_11.4.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Expenditure on Heritage Preservation by Source"
+  },
+  "dc/topic/sdg_11.5": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Reduce Deaths and Losses From Disasters by 2030"
+  },
+  "dc/topic/sdg_11.5.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Deaths, Missing Persons, and Affected Persons From Disasters"
+  },
+  "dc/topic/sdg_11.5.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Economic Losses From Disasters Relative to GDP"
+  },
+  "dc/topic/sdg_11.5.3": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Damage to Infrastructure and Service Disruptions From Disasters"
+  },
+  "dc/topic/sdg_11.6": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Reduce Environmental Impact From Cities by 2030"
+  },
+  "dc/topic/sdg_11.6.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Municipal Waste Managed in Controlled Facilities"
+  },
+  "dc/topic/sdg_11.6.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Fine Particulate Matter Levels in Cities"
+  },
+  "dc/topic/sdg_11.7": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Universal Access to Safe, Green Public Spaces by 2030"
+  },
+  "dc/topic/sdg_11.7.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Open Space in Cities for Public Use"
+  },
+  "dc/topic/sdg_11.7.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Physical or Sexual Harassment Prevalence"
+  },
+  "dc/topic/sdg_11.a": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Positive Links Between Urban and Rural Areas"
+  },
+  "dc/topic/sdg_11.a.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "National Policies for Balanced Territorial Development"
+  },
+  "dc/topic/sdg_11.b": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Integrated Policies for Inclusive, Resilient Cities"
+  },
+  "dc/topic/sdg_11.b.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "National Disaster Risk Reduction Strategies Adoption"
+  },
+  "dc/topic/sdg_11.b.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Local Disaster Risk Reduction Strategies Adoption"
+  },
+  "dc/topic/sdg_11.c": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Support for Sustainable and Resilient Buildings"
+  },
+  "dc/topic/sdg_12": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Responsible Consumption and Production"
+  },
+  "dc/topic/sdg_12.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Sustainable Consumption and Production Patterns"
+  },
+  "dc/topic/sdg_12.1.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Countries Adopting Policies for Sustainable Consumption"
+  },
+  "dc/topic/sdg_12.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Achieve Sustainable Natural Resource Use by 2030"
+  },
+  "dc/topic/sdg_12.2.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Material Footprint"
+  },
+  "dc/topic/sdg_12.2.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Domestic Material Consumption"
+  },
+  "dc/topic/sdg_12.3": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Reduce Food Waste by 2030"
+  },
+  "dc/topic/sdg_12.3.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Food Loss and Food Waste Indices"
+  },
+  "dc/topic/sdg_12.4": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Environmentally Sound Chemicals and Waste Management"
+  },
+  "dc/topic/sdg_12.4.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Hazardous Waste Environmental Agreements"
+  },
+  "dc/topic/sdg_12.4.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Hazardous Waste Generation and Treatment"
+  },
+  "dc/topic/sdg_12.5": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Substantially Reduce Waste Generation by 2030"
+  },
+  "dc/topic/sdg_12.5.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "National Recycling Rate"
+  },
+  "dc/topic/sdg_12.6": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Encourage Sustainable Practices for Companies"
+  },
+  "dc/topic/sdg_12.6.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Companies Publishing Sustainability Reports"
+  },
+  "dc/topic/sdg_12.7": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Promote Sustainable Public Procurement"
+  },
+  "dc/topic/sdg_12.7.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Degree of Sustainable Procurement Policies"
+  },
+  "dc/topic/sdg_12.8": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Promote Sustainable Development Awareness by 2030"
+  },
+  "dc/topic/sdg_12.8.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Global Citizenship Education and Sustainable Education"
+  },
+  "dc/topic/sdg_12.a": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Strengthen Scientific Capacity for Sustainable Consumption"
+  },
+  "dc/topic/sdg_12.a.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Renewable Energy Capacity in Developing Countries"
+  },
+  "dc/topic/sdg_12.b": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Tools to Monitor Sustainable Impacts of Tourism"
+  },
+  "dc/topic/sdg_12.b.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Implement Accounting Tools for Tourism Sustainability"
+  },
+  "dc/topic/sdg_12.c": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Rationalize Inefficient Fossil-Fuel Subsidies"
+  },
+  "dc/topic/sdg_12.c.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Fossil-Fuel Subsidies Per Unit of GDP"
+  },
+  "dc/topic/sdg_13": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Climate Action"
+  },
+  "dc/topic/sdg_13.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Resilience to Climate Hazards and Natural Disasters"
+  },
+  "dc/topic/sdg_13.1.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Deaths and Missing Persons From Natural Disasters"
+  },
+  "dc/topic/sdg_13.1.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Adopt and Implement National Disaster Risk Reduction Strategies"
+  },
+  "dc/topic/sdg_13.1.3": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Adopt and Implement Local Disaster Risk Reduction Strategies"
+  },
+  "dc/topic/sdg_13.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Integrate Climate Change Measures Into Policies"
+  },
+  "dc/topic/sdg_13.2.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Countries With Climate Contributions and Plans"
+  },
+  "dc/topic/sdg_13.2.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Total Greenhouse Gas Emissions Per Year"
+  },
+  "dc/topic/sdg_13.3": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Improve Climate Change Awareness and Impact Reduction"
+  },
+  "dc/topic/sdg_13.3.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Global Citizenship Education and Sustainable Education"
+  },
+  "dc/topic/sdg_13.a": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Mobilize $100 Billion Annually for Climate Actions"
+  },
+  "dc/topic/sdg_13.a.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Amounts Provided Toward Mobilization for Climate Change"
+  },
+  "dc/topic/sdg_13.b": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Build Capacity for Climate Planning in Developing Countries"
+  },
+  "dc/topic/sdg_13.b.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Least Developed Countries With Climate Contributions and Plans"
+  },
+  "dc/topic/sdg_14": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Life Below Water"
+  },
+  "dc/topic/sdg_14.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Prevent and Reduce Marine Pollution"
+  },
+  "dc/topic/sdg_14.1.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Index of Coastal Eutrophication and Plastic Debris Density"
+  },
+  "dc/topic/sdg_14.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Sustainably Manage Marine and Coastal Ecosystems"
+  },
+  "dc/topic/sdg_14.2.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Countries Using Ecosystem-Based Marine Management"
+  },
+  "dc/topic/sdg_14.3": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Impacts of Ocean Acidification"
+  },
+  "dc/topic/sdg_14.3.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Average Marine Acidity (pH) at Sampling Stations"
+  },
+  "dc/topic/sdg_14.4": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Regulate Harvesting and End Overfishing"
+  },
+  "dc/topic/sdg_14.4.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Proportion of Fish Stocks at Sustainable Levels"
+  },
+  "dc/topic/sdg_14.5": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Conserve 10% of Coastal and Marine Areas"
+  },
+  "dc/topic/sdg_14.5.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Coverage of Marine Protected Areas"
+  },
+  "dc/topic/sdg_14.6": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Prohibit Harmful Fisheries Subsidies"
+  },
+  "dc/topic/sdg_14.6.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Implementation of Instruments Against Illegal Fishing"
+  },
+  "dc/topic/sdg_14.7": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Increase Economic Benefits in Island States by 2030"
+  },
+  "dc/topic/sdg_14.7.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Sustainable Fisheries' Contribution to GDP"
+  },
+  "dc/topic/sdg_14.a": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Enhance Marine Technology Research in Developing Countries"
+  },
+  "dc/topic/sdg_14.a.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Allocation of Research Budget to Marine Technology"
+  },
+  "dc/topic/sdg_14.b": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Provide Access for Small-Scale Fishers"
+  },
+  "dc/topic/sdg_14.b.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Application of Access Rights for Small-Scale Fisheries"
+  },
+  "dc/topic/sdg_14.c": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Implement International Law for Ocean Conservation"
+  },
+  "dc/topic/sdg_14.c.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Progress in Adopting Ocean Conservation Instruments"
+  },
+  "dc/topic/sdg_15": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Life on Land"
+  },
+  "dc/topic/sdg_15.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Conserve and Restore Terrestrial Ecosystems"
+  },
+  "dc/topic/sdg_15.1.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Forest Area Coverage"
+  },
+  "dc/topic/sdg_15.1.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Terrestrial and Freshwater Biodiversity Site Protection"
+  },
+  "dc/topic/sdg_15.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Promote Sustainable Forest Management and Restoration"
+  },
+  "dc/topic/sdg_15.2.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Progress Towards Sustainable Forest Management"
+  },
+  "dc/topic/sdg_15.3": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Combat Desertification and Restore Degraded Land by 2030"
+  },
+  "dc/topic/sdg_15.3.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Proportion of Degraded Land"
+  },
+  "dc/topic/sdg_15.4": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Conserve Mountain Ecosystems by 2030"
+  },
+  "dc/topic/sdg_15.4.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Protection Coverage for Mountain Biodiversity Sites"
+  },
+  "dc/topic/sdg_15.4.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Mountain Green Cover Index"
+  },
+  "dc/topic/sdg_15.5": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Reduce Habitat Degradation, Halt Biodiversity Loss, and Prevent Extinction"
+  },
+  "dc/topic/sdg_15.5.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Red List Index"
+  },
+  "dc/topic/sdg_15.6": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Benefits From Genetic Resources Utilization"
+  },
+  "dc/topic/sdg_15.6.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Adoption of Frameworks for Fair Sharing of Genetic Resource Benefits"
+  },
+  "dc/topic/sdg_15.7": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "End Poaching and Trafficking of Protected Flora and Fauna"
+  },
+  "dc/topic/sdg_15.7.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Proportion of Traded Wildlife From Illegal Sources"
+  },
+  "dc/topic/sdg_15.8": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Reduce Impact of Invasive Alien Species"
+  },
+  "dc/topic/sdg_15.8.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Adoption of Legislation and Resources for Invasive Species Control"
+  },
+  "dc/topic/sdg_15.9": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Integrate Ecosystem and Biodiversity Values Into Planning"
+  },
+  "dc/topic/sdg_15.9.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Biodiversity Planning and Integration Into National Accounting"
+  },
+  "dc/topic/sdg_15.a": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Mobilize Financial Resources for Biodiversity Conservation and Ecosystems"
+  },
+  "dc/topic/sdg_15.a.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Financial Assistance and Revenue for Biodiversity"
+  },
+  "dc/topic/sdg_15.b": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Sustainable Forest Management"
+  },
+  "dc/topic/sdg_15.b.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Financial Assistance and Revenue for Biodiversity"
+  },
+  "dc/topic/sdg_15.c": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Combat Poaching and Trafficking While Empowering Local Communities"
+  },
+  "dc/topic/sdg_15.c.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Proportion of Traded Wildlife From Illegal Sources"
+  },
+  "dc/topic/sdg_16": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Peace and Justice Strong Institutions"
+  },
+  "dc/topic/sdg_16.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Reduce Violence and Death"
+  },
+  "dc/topic/sdg_16.1.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Victims of Intentional Homicide"
+  },
+  "dc/topic/sdg_16.1.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Conflict-Related Deaths"
+  },
+  "dc/topic/sdg_16.1.3": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Subjected to Physical, Psychological, and Sexual Violence"
+  },
+  "dc/topic/sdg_16.1.4": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Feeling Safe Walking Alone After Dark"
+  },
+  "dc/topic/sdg_16.10": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Public Information Access and Fundamental Freedoms"
+  },
+  "dc/topic/sdg_16.10.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Violence Against Journalists and Human Rights Advocates"
+  },
+  "dc/topic/sdg_16.10.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Adoption of Policies for Public Access to Information"
+  },
+  "dc/topic/sdg_16.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "End Violence, Trafficking, and Torture Against Children"
+  },
+  "dc/topic/sdg_16.2.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Kids Aged 1-17 Subjected to Punishment or Aggression"
+  },
+  "dc/topic/sdg_16.2.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Victims of Human Trafficking by Demographics"
+  },
+  "dc/topic/sdg_16.2.3": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Age 18-29 Who Experienced Sexual Violence as Children"
+  },
+  "dc/topic/sdg_16.3": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Promote Rule of Law and Ensure Equal Access to Justice"
+  },
+  "dc/topic/sdg_16.3.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Violence Victims Reporting to Authorities or Mechanisms"
+  },
+  "dc/topic/sdg_16.3.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Unsentenced Detainees"
+  },
+  "dc/topic/sdg_16.3.3": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Dispute Resolution Mechanisms"
+  },
+  "dc/topic/sdg_16.4": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Reduce Illicit Flows, Arms, and Organized Crime by 2030"
+  },
+  "dc/topic/sdg_16.4.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Total Value of Illicit Financial Flows"
+  },
+  "dc/topic/sdg_16.4.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Proportion of Seized Arms With Illicit Origin"
+  },
+  "dc/topic/sdg_16.5": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Reduce Corruption and Bribery"
+  },
+  "dc/topic/sdg_16.5.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Experiencing Bribery by Public Officials"
+  },
+  "dc/topic/sdg_16.5.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Businesses Experiencing Bribery by Public Officials"
+  },
+  "dc/topic/sdg_16.6": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Develop Effective, Transparent Institutions"
+  },
+  "dc/topic/sdg_16.6.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Government Expenditures as Percent of Original Approved Budget"
+  },
+  "dc/topic/sdg_16.6.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Satisfied With Public Services"
+  },
+  "dc/topic/sdg_16.7": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Ensure Inclusive, Participatory Decision-Making"
+  },
+  "dc/topic/sdg_16.7.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Positions in National and Local Institutions"
+  },
+  "dc/topic/sdg_16.7.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Inclusive and Responsive Decision-Making Perception"
+  },
+  "dc/topic/sdg_16.8": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Developing Country Participation in Global Governance"
+  },
+  "dc/topic/sdg_16.8.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "International Voting Rights of Developing Countries"
+  },
+  "dc/topic/sdg_16.9": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Legal Identity for All by 2030"
+  },
+  "dc/topic/sdg_16.9.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Birth Registration for Children Under 5 Years"
+  },
+  "dc/topic/sdg_16.a": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Strengthen National Institutions Against Violence, Terrorism, and Crime"
+  },
+  "dc/topic/sdg_16.a.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Independent National Human Rights Institutions"
+  },
+  "dc/topic/sdg_16.b": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Non-Discriminatory Laws and Policies for Sustainable Development"
+  },
+  "dc/topic/sdg_16.b.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Personal Experiences of Discrimination"
+  },
+  "dc/topic/sdg_17": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Partnerships to Achieve SDG Goals"
+  },
+  "dc/topic/sdg_17.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Domestic Resource Mobilization"
+  },
+  "dc/topic/sdg_17.1.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Total Government Revenue (Per GDP)"
+  },
+  "dc/topic/sdg_17.1.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Domestic Budget Funded by Domestic Taxes"
+  },
+  "dc/topic/sdg_17.10": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Universal Multilateral Trading Under World Trade Organization"
+  },
+  "dc/topic/sdg_17.10.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Worldwide Weighted Tariff-Average"
+  },
+  "dc/topic/sdg_17.11": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Increase Exports of Developing Countries"
+  },
+  "dc/topic/sdg_17.11.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Developing Countries Share of Global Exports"
+  },
+  "dc/topic/sdg_17.12": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Market Access for Least Developed Countries"
+  },
+  "dc/topic/sdg_17.12.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Weighted Average Tariffs Per Country"
+  },
+  "dc/topic/sdg_17.13": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Policy Coordination and Policy Coherence"
+  },
+  "dc/topic/sdg_17.13.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Macroeconomic Dashboard"
+  },
+  "dc/topic/sdg_17.14": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Enhance Policy Coherence for Sustainable Development"
+  },
+  "dc/topic/sdg_17.14.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Policy Coherence Mechanisms for Sustainable Development"
+  },
+  "dc/topic/sdg_17.15": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Respecting Policy Autonomy for Development"
+  },
+  "dc/topic/sdg_17.15.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Use of Country's Own Frameworks for Development"
+  },
+  "dc/topic/sdg_17.16": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Global Partnership for Sustainable Development"
+  },
+  "dc/topic/sdg_17.16.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Effective Development Monitoring for Sustainability Goals"
+  },
+  "dc/topic/sdg_17.17": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Public-Private and Civil Society Partnerships"
+  },
+  "dc/topic/sdg_17.17.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Amount Committed to Public-Private Partnerships for Infrastructure"
+  },
+  "dc/topic/sdg_17.18": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Support Developing Countries on Availability of Data"
+  },
+  "dc/topic/sdg_17.18.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Statistical Capacity Indicator for SDG Monitoring"
+  },
+  "dc/topic/sdg_17.18.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "National Statistical Legislation"
+  },
+  "dc/topic/sdg_17.18.3": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Funding and Executing National Statistical Plans"
+  },
+  "dc/topic/sdg_17.19": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Develop Progress Measurements for SDG by 2030"
+  },
+  "dc/topic/sdg_17.19.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Resources for Strengthening Statistical Capacity"
+  },
+  "dc/topic/sdg_17.19.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Census, Birth, and Death Registration"
+  },
+  "dc/topic/sdg_17.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Meeting Official Development Assistance Pledges"
+  },
+  "dc/topic/sdg_17.2.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Net Official Development Assistance"
+  },
+  "dc/topic/sdg_17.3": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Mobilize Financial Resources for Developing Countries"
+  },
+  "dc/topic/sdg_17.3.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Additional Resources for Developing Countries"
+  },
+  "dc/topic/sdg_17.3.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Volume of Remittances (Per GDP)"
+  },
+  "dc/topic/sdg_17.4": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Debt Sustainability and Relief Efforts"
+  },
+  "dc/topic/sdg_17.4.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Debt Service Compared to Exports"
+  },
+  "dc/topic/sdg_17.5": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Investment Regimes for Least Developed Countries"
+  },
+  "dc/topic/sdg_17.5.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Adoption of Investment Promotion Regimes"
+  },
+  "dc/topic/sdg_17.6": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Cooperation on Science, Tech, and Innovation"
+  },
+  "dc/topic/sdg_17.6.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Fixed Internet Broadband Subscriptions"
+  },
+  "dc/topic/sdg_17.7": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Favorable Tech Dissemination to Developing Countries"
+  },
+  "dc/topic/sdg_17.7.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Funding for Environmentally Sound Technologies"
+  },
+  "dc/topic/sdg_17.8": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Operationalize Technology Bank and Science"
+  },
+  "dc/topic/sdg_17.8.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Using the Internet"
+  },
+  "dc/topic/sdg_17.9": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Support Developing Countries in Implementing SDG"
+  },
+  "dc/topic/sdg_17.9.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Financial Value Supporting Developing Countries to Implement SDG"
+  },
+  "dc/topic/sdg_2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Zero Hunger"
+  },
+  "dc/topic/sdg_2.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "End Hunger by 2030"
+  },
+  "dc/topic/sdg_2.1.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Undernourishment"
+  },
+  "dc/topic/sdg_2.1.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Food Insecurity"
+  },
+  "dc/topic/sdg_2.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "End Malnutrition by 2030"
+  },
+  "dc/topic/sdg_2.2.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Height Stunting for Children Under 5"
+  },
+  "dc/topic/sdg_2.2.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Malnutrition (wasting and overweight) for Children Under 5"
+  },
+  "dc/topic/sdg_2.2.3": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Anemia"
+  },
+  "dc/topic/sdg_2.3": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Double Agricultural Productivity by 2030"
+  },
+  "dc/topic/sdg_2.3.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Agricultural Productivity by Class Type"
+  },
+  "dc/topic/sdg_2.3.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Average Agricultural Income of Small-Scale Producers"
+  },
+  "dc/topic/sdg_2.4": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Ensure Sustainable Food Production Systems by 2030"
+  },
+  "dc/topic/sdg_2.4.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Sustainable Agricultural Area"
+  },
+  "dc/topic/sdg_2.5": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Seed and Plant Banks for Genetic Diversity"
+  },
+  "dc/topic/sdg_2.5.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Plant and Animal Conservation"
+  },
+  "dc/topic/sdg_2.5.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Local Breeds at Risk"
+  },
+  "dc/topic/sdg_2.a": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Rural Development Investment"
+  },
+  "dc/topic/sdg_2.a.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Government Agricultural Spending Focus"
+  },
+  "dc/topic/sdg_2.a.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Agriculture Sector Funding"
+  },
+  "dc/topic/sdg_2.b": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Agricultural Trade Distortion Elimination"
+  },
+  "dc/topic/sdg_2.b.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Agricultural Export Subsidies"
+  },
+  "dc/topic/sdg_2.c": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Food Commodity Markets"
+  },
+  "dc/topic/sdg_2.c.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Food Price Anomalies"
+  },
+  "dc/topic/sdg_3": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Good Health and Well-Being"
+  },
+  "dc/topic/sdg_3.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Reduce Maternal Mortality Ratio by 2030"
+  },
+  "dc/topic/sdg_3.1.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Maternal Mortality Ratio"
+  },
+  "dc/topic/sdg_3.1.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Births Assisted by Skilled Health Personnel"
+  },
+  "dc/topic/sdg_3.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "End Preventable Deaths Under 5 Years Old by 2030"
+  },
+  "dc/topic/sdg_3.2.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Under 5 Mortality Rate"
+  },
+  "dc/topic/sdg_3.2.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Neonatal Mortality Rate"
+  },
+  "dc/topic/sdg_3.3": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "End Communicable Disease by 2030"
+  },
+  "dc/topic/sdg_3.3.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "New HIV Infections Per 1000 Capita"
+  },
+  "dc/topic/sdg_3.3.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Tuberculosis Per 100k Capita"
+  },
+  "dc/topic/sdg_3.3.3": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Malaria Per 100k Capita"
+  },
+  "dc/topic/sdg_3.3.4": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Hepatitis B Per 100k Capita"
+  },
+  "dc/topic/sdg_3.3.5": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Needing Interventions Against Neglected Tropical Diseases"
+  },
+  "dc/topic/sdg_3.4": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Reduce Non-Communicable Disease Mortality by One-Third by 2030"
+  },
+  "dc/topic/sdg_3.4.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Mortality rate from cardiovascular disease, cancer, diabetes or chronic respiratory disease"
+  },
+  "dc/topic/sdg_3.4.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Suicide mortality rate"
+  },
+  "dc/topic/sdg_3.5": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Prevention and treatment of substance abuse"
+  },
+  "dc/topic/sdg_3.5.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "treatment interventions for substance abuse disorders"
+  },
+  "dc/topic/sdg_3.5.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "alcohol consumption per capita"
+  },
+  "dc/topic/sdg_3.6": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "reduce road traffic deaths and industries by half"
+  },
+  "dc/topic/sdg_3.6.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "mortality rate from road traffic injuries"
+  },
+  "dc/topic/sdg_3.7": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "universal access to sexual and reproductive health services by 2030"
+  },
+  "dc/topic/sdg_3.7.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Women with Satisfied Family Planning Needs"
+  },
+  "dc/topic/sdg_3.7.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Adolescent birth rate per 1000 female adolescents"
+  },
+  "dc/topic/sdg_3.8": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "universal health coverage and access"
+  },
+  "dc/topic/sdg_3.8.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Essential health services coverage"
+  },
+  "dc/topic/sdg_3.8.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Households with High health expenses"
+  },
+  "dc/topic/sdg_3.9": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Reduce harm from pollution by 2030"
+  },
+  "dc/topic/sdg_3.9.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Deaths from household air pollution"
+  },
+  "dc/topic/sdg_3.9.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Deaths from unsafe water and sanitation"
+  },
+  "dc/topic/sdg_3.9.3": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Deaths from unintentional poisoning"
+  },
+  "dc/topic/sdg_3.a": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Strengthen tobacco control globally"
+  },
+  "dc/topic/sdg_3.a.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Tobacco use prevalence for age 15 and up"
+  },
+  "dc/topic/sdg_3.b": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Accessible medicines and vaccines"
+  },
+  "dc/topic/sdg_3.b.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population covered by national vaccines"
+  },
+  "dc/topic/sdg_3.b.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Aid for medical research and health"
+  },
+  "dc/topic/sdg_3.b.3": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Availability and affordability of essential medicines"
+  },
+  "dc/topic/sdg_3.c": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Boost health workforce and financing in developing nations"
+  },
+  "dc/topic/sdg_3.c.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Health worker density and distribution"
+  },
+  "dc/topic/sdg_3.d": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Improve global health risk management"
+  },
+  "dc/topic/sdg_3.d.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Preparedness for health emergencies"
+  },
+  "dc/topic/sdg_3.d.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Infections from antimicrobial-resistant organisms"
+  },
+  "dc/topic/sdg_4": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Quality Education"
+  },
+  "dc/topic/sdg_4.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Free and equitable primary and secondary education by 2030"
+  },
+  "dc/topic/sdg_4.1.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Proficiency in reading and math by gender"
+  },
+  "dc/topic/sdg_4.1.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Education completion rates"
+  },
+  "dc/topic/sdg_4.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "quality Early childhood development education"
+  },
+  "dc/topic/sdg_4.2.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "On-track development in children aged 24-59 months"
+  },
+  "dc/topic/sdg_4.2.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Participation in early learning programs"
+  },
+  "dc/topic/sdg_4.3": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Equal access for women to higher education by 2030"
+  },
+  "dc/topic/sdg_4.3.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Participation in education and training"
+  },
+  "dc/topic/sdg_4.4": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Boost ICT skills for jobs by 2030"
+  },
+  "dc/topic/sdg_4.4.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "ICT skills in youth and adults"
+  },
+  "dc/topic/sdg_4.5": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Gender and Access Equality in Education by 2030"
+  },
+  "dc/topic/sdg_4.5.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Equity indices for education indicators"
+  },
+  "dc/topic/sdg_4.6": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Achieve literacy and numeracy by 2030"
+  },
+  "dc/topic/sdg_4.6.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Proficiency in literacy and numeracy"
+  },
+  "dc/topic/sdg_4.7": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Teach for sustainable development by 2030"
+  },
+  "dc/topic/sdg_4.7.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Global citizenship and sustainable education"
+  },
+  "dc/topic/sdg_4.a": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Safe and inclusive learning facilities"
+  },
+  "dc/topic/sdg_4.a.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Schools providing basic services"
+  },
+  "dc/topic/sdg_4.b": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Expand education scholarships in developing countries by 2030"
+  },
+  "dc/topic/sdg_4.b.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Development aid for education scholarships"
+  },
+  "dc/topic/sdg_4.c": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Increase qualified teachers in developing countries by 2030"
+  },
+  "dc/topic/sdg_4.c.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Teacher qualifications by education level"
+  },
+  "dc/topic/sdg_5": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Gender Equality"
+  },
+  "dc/topic/sdg_5.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "End gender discrimination"
+  },
+  "dc/topic/sdg_5.1.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "enforce non-discrimination against women and girls"
+  },
+  "dc/topic/sdg_5.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "end violence against women and girls"
+  },
+  "dc/topic/sdg_5.2.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Sexual violence from a partner in the last year"
+  },
+  "dc/topic/sdg_5.2.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Sexual violence not from a partner in the last year"
+  },
+  "dc/topic/sdg_5.3": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "eliminate Early marriage and female genital mutilation"
+  },
+  "dc/topic/sdg_5.3.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Women Age 20-24 who married before adulthood"
+  },
+  "dc/topic/sdg_5.3.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Women who have undergone genital mutilation by age"
+  },
+  "dc/topic/sdg_5.4": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Recognize unpaid care and domestic work"
+  },
+  "dc/topic/sdg_5.4.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Unpaid domestic work by age, sex, and location"
+  },
+  "dc/topic/sdg_5.5": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Ensure women's leadership opportunities"
+  },
+  "dc/topic/sdg_5.5.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Women's representation in national parliaments and local governments"
+  },
+  "dc/topic/sdg_5.5.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Proportion of women in managerial positions"
+  },
+  "dc/topic/sdg_5.6": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Ensure sexual and reproductive health and rights"
+  },
+  "dc/topic/sdg_5.6.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Women's decisions on sexual health"
+  },
+  "dc/topic/sdg_5.6.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Access to sexual and reproductive health care and information"
+  },
+  "dc/topic/sdg_5.a": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Equal economic rights for women"
+  },
+  "dc/topic/sdg_5.a.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Women's land ownership in agriculture"
+  },
+  "dc/topic/sdg_5.a.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Countries with Legal guarantee of women's land rights"
+  },
+  "dc/topic/sdg_5.b": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Technology for women's empowerment"
+  },
+  "dc/topic/sdg_5.b.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Mobile phone ownership by gender"
+  },
+  "dc/topic/sdg_5.c": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Policies promoting gender equality"
+  },
+  "dc/topic/sdg_5.c.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Tracking allocations for gender equality"
+  },
+  "dc/topic/sdg_6": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Clean Water and Sanitation"
+  },
+  "dc/topic/sdg_6.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Universal access to safe drinking water by 2030"
+  },
+  "dc/topic/sdg_6.1.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population with safe drinking water"
+  },
+  "dc/topic/sdg_6.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Achieve sanitation and hygiene for all by 2030"
+  },
+  "dc/topic/sdg_6.2.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population with managed sanitation and hand-washing"
+  },
+  "dc/topic/sdg_6.3": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Improve water quality by 2030"
+  },
+  "dc/topic/sdg_6.3.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Treated domestic and industrial wastewater"
+  },
+  "dc/topic/sdg_6.3.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Bodies of water with ambient water quality"
+  },
+  "dc/topic/sdg_6.4": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Increase water-use efficiency and reduce water scarcity by 2030"
+  },
+  "dc/topic/sdg_6.4.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Change in water-use efficiency over time"
+  },
+  "dc/topic/sdg_6.4.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Level of water stress"
+  },
+  "dc/topic/sdg_6.5": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Implement integrated water resources management by 2030"
+  },
+  "dc/topic/sdg_6.5.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Degree of water resources management"
+  },
+  "dc/topic/sdg_6.5.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Trans-boundary basin area with potential water cooperation"
+  },
+  "dc/topic/sdg_6.6": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Protect and restore water-related ecosystems by 2030"
+  },
+  "dc/topic/sdg_6.6.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Change in water-related ecosystems over time"
+  },
+  "dc/topic/sdg_6.a": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Support developing countries in water and sanitation activities by 2030"
+  },
+  "dc/topic/sdg_6.a.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Official development assistance for water and sanitation"
+  },
+  "dc/topic/sdg_6.b": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Involve local communities in water management"
+  },
+  "dc/topic/sdg_6.b.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Local communities' participation in water management"
+  },
+  "dc/topic/sdg_7": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Affordable and Clean Energy"
+  },
+  "dc/topic/sdg_7.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Universal access to affordable, reliable energy by 2030"
+  },
+  "dc/topic/sdg_7.1.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population with electricity access"
+  },
+  "dc/topic/sdg_7.1.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population relying on clean fuels and tech"
+  },
+  "dc/topic/sdg_7.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Increase renewable energy share by 2030"
+  },
+  "dc/topic/sdg_7.2.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Share of renewable energy in total energy consumption"
+  },
+  "dc/topic/sdg_7.3": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Double global energy efficiency by 2030"
+  },
+  "dc/topic/sdg_7.3.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Energy intensity (measured by primary energy and GDP)"
+  },
+  "dc/topic/sdg_7.a": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Facilitate access to clean energy research and tech by 2030"
+  },
+  "dc/topic/sdg_7.a.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Financial support for clean energy in developing countries"
+  },
+  "dc/topic/sdg_7.b": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Expand infrastructure and tech for energy services in developing countries by 2030"
+  },
+  "dc/topic/sdg_7.b.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Renewable energy capacity in developing nations"
+  },
+  "dc/topic/sdg_8": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Decent Work and Economic Growth"
+  },
+  "dc/topic/sdg_8.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Sustain economic growth per capita, at least 7% in LDCs"
+  },
+  "dc/topic/sdg_8.1.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "GDP per capita annual growth rate"
+  },
+  "dc/topic/sdg_8.10": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Strengthen financial access for all"
+  },
+  "dc/topic/sdg_8.10.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Bank branches and ATMs per adults"
+  },
+  "dc/topic/sdg_8.10.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Financial account ownership for adults"
+  },
+  "dc/topic/sdg_8.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Boost productivity through diversification and innovation"
+  },
+  "dc/topic/sdg_8.2.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Annual GDP growth per employed person"
+  },
+  "dc/topic/sdg_8.3": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Policies for Job Creation and Enterprise Development"
+  },
+  "dc/topic/sdg_8.3.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Informal Employment by Sector and Gender"
+  },
+  "dc/topic/sdg_8.4": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Improve Resource Efficiency in Consumption and Production by 2030"
+  },
+  "dc/topic/sdg_8.4.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Material Footprint"
+  },
+  "dc/topic/sdg_8.4.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Domestic Material Consumption"
+  },
+  "dc/topic/sdg_8.5": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Full Employment and Equal Pay by 2030"
+  },
+  "dc/topic/sdg_8.5.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Average Hourly Earnings by Demographics"
+  },
+  "dc/topic/sdg_8.5.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Unemployment Rate by Demographics"
+  },
+  "dc/topic/sdg_8.6": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Reduce Youth Not in Employment/Education in 2030"
+  },
+  "dc/topic/sdg_8.6.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Youth Not in Education or Work"
+  },
+  "dc/topic/sdg_8.7": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "End Forced Labor by 2025"
+  },
+  "dc/topic/sdg_8.7.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Child Labor by Age, Gender, and Type"
+  },
+  "dc/topic/sdg_8.8": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Protect Labor Rights and Safety"
+  },
+  "dc/topic/sdg_8.8.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Occupational Injuries and Deaths"
+  },
+  "dc/topic/sdg_8.8.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "National Compliance With Labor Laws"
+  },
+  "dc/topic/sdg_8.9": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Promote Sustainable Tourism by 2030"
+  },
+  "dc/topic/sdg_8.9.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Tourism GDP"
+  },
+  "dc/topic/sdg_8.a": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Increase Aid for Trade Support for Developing Countries"
+  },
+  "dc/topic/sdg_8.a.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Aid for Trade Commitments and Disbursements"
+  },
+  "dc/topic/sdg_8.b": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Develop and Implement Youth Employment Strategy"
+  },
+  "dc/topic/sdg_8.b.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "National Strategy for Youth Employment"
+  },
+  "dc/topic/sdg_9": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Industry, Innovation, and Infrastructure"
+  },
+  "dc/topic/sdg_9.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Develop Sustainable and Accessible Infrastructure"
+  },
+  "dc/topic/sdg_9.1.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Rural Population Near All-Season Roads"
+  },
+  "dc/topic/sdg_9.1.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Passenger and Freight Volumes by Transport Mode"
+  },
+  "dc/topic/sdg_9.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Promote Inclusive and Sustainable Industry by 2030"
+  },
+  "dc/topic/sdg_9.2.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Manufacturing's Contribution to GDP and Jobs"
+  },
+  "dc/topic/sdg_9.2.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Manufacturing Employment"
+  },
+  "dc/topic/sdg_9.3": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Small-Scale Enterprises' Financial Access"
+  },
+  "dc/topic/sdg_9.3.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Value Added to Total Industry by Small-Scale Industries"
+  },
+  "dc/topic/sdg_9.3.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Small-Scale Industries With a Loan or Credit Line"
+  },
+  "dc/topic/sdg_9.4": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Sustainable Industry and Clean Technology by 2030"
+  },
+  "dc/topic/sdg_9.4.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "CO2 Emissions Per Unit of Value Added"
+  },
+  "dc/topic/sdg_9.5": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Enhance Scientific Research and Technological Capabilities by 2030"
+  },
+  "dc/topic/sdg_9.5.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Research and Development Spending (Per GDP)"
+  },
+  "dc/topic/sdg_9.5.2": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Researchers Per Million Inhabitants"
+  },
+  "dc/topic/sdg_9.a": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Support Resilient Infrastructure in Developing Nations"
+  },
+  "dc/topic/sdg_9.a.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "International Support for Infrastructure"
+  },
+  "dc/topic/sdg_9.b": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Boost Technology Development in Developing Countries"
+  },
+  "dc/topic/sdg_9.b.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "High-Tech Industry's Value Added Share"
+  },
+  "dc/topic/sdg_9.c": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Value Added to Total Industry by High-Tech Industries"
+  },
+  "dc/topic/sdg_9.c.1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Covered by a Mobile Network"
+  },
+  "sdg/AG_FPA_CFPI": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Indicator of Food Price Anomalies"
+  },
+  "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_111": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Wheat Food Price Anomalies"
+  },
+  "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_112": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Maize Food Price Anomalies"
+  },
+  "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_113": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Rice Food Price Anomalies"
+  },
+  "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_114": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Sorghum Food Price Anomalies"
+  },
+  "sdg/AG_FPA_COMM.PRODUCT--CPC2_1_118": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Millet Food Price Anomalies"
+  },
+  "sdg/AG_FPA_HMFP": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Countries With High Food Prices"
+  },
+  "sdg/AG_FPA_HMFP.SEVERITY_OF_PRICE_LEVELS--SPL_A": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Countries With Abnormally High Food Prices"
+  },
+  "sdg/AG_FPA_HMFP.SEVERITY_OF_PRICE_LEVELS--SPL_M": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Countries With Moderately High Food Prices"
+  },
+  "sdg/AG_LND_AGRBIO": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Farmland Promoting Agro-Biodiversity"
+  },
+  "sdg/AG_LND_AGRWAG": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Farmland With Fair Wage Rates"
+  },
+  "sdg/AG_LND_FERTMG": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Farmland Practicing Responsible Fertilizer Management"
+  },
+  "sdg/AG_LND_FIES": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Farmland Ensuring Adequate Food Security"
+  },
+  "sdg/AG_LND_FOVH": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Farmland With Desired Farm Output Value Per Hectare"
+  },
+  "sdg/AG_LND_H2OAVAIL": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Farmland Managing Water Availability"
+  },
+  "sdg/AG_LND_LNDSTR": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Farmland With Secure Tenure Rights"
+  },
+  "sdg/AG_LND_NFI": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Farmland Achieving Positive Net Farm Income"
+  },
+  "sdg/AG_LND_PSTCDSMG": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Farmland Using Safe Pesticide Practices"
+  },
+  "sdg/AG_LND_RMM": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Farmland Implementing Effective Risk Mitigation"
+  },
+  "sdg/AG_LND_SDGRD": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Farmland Managing Soil Degradation Effectively"
+  },
+  "sdg/AG_LND_SUST": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Farmland Using Productive and Sustainable Practices"
+  },
+  "sdg/AG_PRD_AGVAS": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Agriculture Value Added Share of GDP"
+  },
+  "sdg/AG_PRD_FIESMS": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Moderate or Severe Food Insecurity"
+  },
+  "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--F": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Moderate or Severe Food Insecurity in Women Age 15 or Older"
+  },
+  "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--M": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Moderate or Severe Food Insecurity in Men Age 15 or Older"
+  },
+  "sdg/AG_PRD_FIESMSN": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population With Moderate or Severe Food Insecurity"
+  },
+  "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--F": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Women Age 15 and Over With Moderate or Severe Food Insecurity"
+  },
+  "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--M": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Men Age 15 and Over With Moderate or Severe Food Insecurity"
+  },
+  "sdg/AG_PRD_FIESS": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Severe Food Insecurity"
+  },
+  "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--F": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Severe Food Insecurity in Women Age 15 or Older"
+  },
+  "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--M": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Severe Food Insecurity in Men Age 15 or Older"
+  },
+  "sdg/AG_PRD_FIESSN": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population With Severe Food Insecurity"
+  },
+  "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--F": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Women Age 15 and Over With Severe Food Insecurity"
+  },
+  "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--M": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Men Age 15 and Over With Severe Food Insecurity"
+  },
+  "sdg/AG_PRD_ORTIND": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Agriculture Orientation Index for Government Expenditures"
+  },
+  "sdg/AG_PRD_XSUBDY": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Agricultural Export Subsidies"
+  },
+  "sdg/AG_XPD_AGSGB": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Agriculture Share of Government Expenditure"
+  },
+  "sdg/DC_ODA_POVDLG": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Grants for Poverty Reduction"
+  },
+  "sdg/DC_ODA_POVLG": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Grants for Poverty Reduction"
+  },
+  "sdg/DC_TOF_AGRL": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Total Official Flows for Agriculture"
+  },
+  "sdg/ER_GRF_ANIMKPT": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Local Breeds in the Country"
+  },
+  "sdg/ER_GRF_ANIMKPT_TRB": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Transboundary Breeds"
+  },
+  "sdg/ER_GRF_ANIMRCNTN": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Local Breeds With Adequate Genetic Resources for Reconstitution"
+  },
+  "sdg/ER_GRF_ANIMRCNTN_TRB": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Transboundary Breeds With Adequate Genetic Resources for Reconstitution"
+  },
+  "sdg/ER_GRF_PLNTSTOR": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Ex Situ Stored Plant Genetic Resources"
+  },
+  "sdg/ER_NOEX_LBREDN": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Local Breeds"
+  },
+  "sdg/ER_RSK_LBREDS": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "At-Risk Local Breeds Among Known Extinction Risk Levels"
+  },
+  "sdg/ER_UNK_LBREDN": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Local Breeds With Unknown Risk Status"
+  },
+  "sdg/PD_AGR_LSFP": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Productivity of Large-Scale Food Producers"
+  },
+  "sdg/PD_AGR_LSFP.SEX--F": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Productivity of Large-Scale Female Food Producers"
+  },
+  "sdg/PD_AGR_LSFP.SEX--M": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Productivity of Large-Scale Male Food Producers"
+  },
+  "sdg/PD_AGR_SSFP": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Productivity of Small-Scale Food Producers"
+  },
+  "sdg/PD_AGR_SSFP.SEX--F": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Productivity of Small-Scale Female Food Producers"
+  },
+  "sdg/PD_AGR_SSFP.SEX--M": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Productivity of Small-Scale Male Food Producers"
+  },
+  "sdg/SD_MDP_ANDI": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Average Deprivations for Population in Poverty"
+  },
+  "sdg/SD_MDP_ANDI.URBANISATION--R": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Average Deprivation for Impoverished Rural Population"
+  },
+  "sdg/SD_MDP_ANDI.URBANISATION--U": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Average Deprivation for Impoverished Urban Population"
+  },
+  "sdg/SD_MDP_ANDIHH": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Average Weighted Deprivations of Total Households"
+  },
+  "sdg/SD_MDP_ANDIHH.URBANISATION--R": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Average Weighted Deprivations of Total Rural Households"
+  },
+  "sdg/SD_MDP_ANDIHH.URBANISATION--U": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Average Weighted Deprivations of Total Urban Households"
+  },
+  "sdg/SD_MDP_CSMP.AGE--Y0T17": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Impoverished Children Under 18 Years"
+  },
+  "sdg/SD_MDP_CSMP.AGE--Y0T17__URBANISATION--R": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Impoverished Children in Rural Areas"
+  },
+  "sdg/SD_MDP_CSMP.AGE--Y0T17__URBANISATION--U": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Impoverished Children in Urban Areas"
+  },
+  "sdg/SD_MDP_MUHC": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population in Poverty"
+  },
+  "sdg/SD_MDP_MUHC.AGE--Y0T15": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Impoverished Children Under 16 Years"
+  },
+  "sdg/SD_MDP_MUHC.AGE--Y0T17": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Impoverished Children Under 18 Years"
+  },
+  "sdg/SD_MDP_MUHC.AGE--Y0T5": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Impoverished Population Under 6 Years"
+  },
+  "sdg/SD_MDP_MUHC.AGE--Y0T9": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Impoverished Children Under 10 Years"
+  },
+  "sdg/SD_MDP_MUHC.SEX--F": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Impoverished Women"
+  },
+  "sdg/SD_MDP_MUHC.SEX--M": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Impoverished Men"
+  },
+  "sdg/SD_MDP_MUHC.URBANISATION--R": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Impoverished Rural Population"
+  },
+  "sdg/SD_MDP_MUHC.URBANISATION--U": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Impoverished Urban Population"
+  },
+  "sdg/SD_MDP_MUHHC": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Households in Poverty"
+  },
+  "sdg/SD_MDP_MUHHC.URBANISATION--R": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Impoverished Rural Households"
+  },
+  "sdg/SD_MDP_MUHHC.URBANISATION--U": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Impoverished Urban Households"
+  },
+  "sdg/SD_XPD_ESED": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Government Spending on Essential Services and Education"
+  },
+  "sdg/SG_DSR_LGRGSR": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Adoption and Implementation of National DRR Strategies"
+  },
+  "sdg/SG_DSR_SFDRR": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Countries With a National DRR Strategy"
+  },
+  "sdg/SG_DSR_SILN": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Local Governments Adopting and Implementing DRR Strategies"
+  },
+  "sdg/SG_DSR_SILS": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Prevalence of Local Government Adoption and Implementation of DRR Strategies"
+  },
+  "sdg/SG_GOV_LOGV": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Local Governments"
+  },
+  "sdg/SH_ACS_UNHC": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Universal health coverage index"
+  },
+  "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Infant mortality rate"
+  },
+  "sdg/SH_DYN_MORT.AGE--Y0T4__SEX--F": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Mortality rate for children under 5 years"
+  },
+  "sdg/SH_DYN_NMRT.AGE--M0": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Neonatal mortality rate"
+  },
+  "sdg/SH_FPL_MTMM.AGE--Y15T49__SEX--F": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Access to modern family planning for adult women"
+  },
+  "sdg/SH_HAP_HBSAG.AGE--Y0T4": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Prevalence of hepatitis B in children under 5 years"
+  },
+  "sdg/SH_HIV_INCD": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Incidence of HIV infections"
+  },
+  "sdg/SH_MED_DEN.OCCUPATION--ISCO08_221": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Density of medical doctors"
+  },
+  "sdg/SH_MED_DEN.OCCUPATION--ISCO08_222_322": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Density of nurses and midwives"
+  },
+  "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2261": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Density of dentists"
+  },
+  "sdg/SH_MED_DEN.OCCUPATION--ISCO08_2262": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Density of pharmacists"
+  },
+  "sdg/SH_PRV_SMOK.AGE--Y_GE15": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Prevalence of tobacco use among 15 years or older"
+  },
+  "sdg/SH_STA_ANEM.AGE--Y15T49__SEX--F": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Anemia in Women Age 15 to 49"
+  },
+  "sdg/SH_STA_ANEM_NPRG.AGE--Y15T49__SEX--F": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Anemia in Non-Pregnant Women Age 15 to 49"
+  },
+  "sdg/SH_STA_ANEM_PREG.AGE--Y15T49__SEX--F": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Anemia in Pregnant Women Age 15 to 49"
+  },
+  "sdg/SH_STA_MORT.SEX--F": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Maternal mortality ratio"
+  },
+  "sdg/SH_STA_STNT.AGE--Y0T4": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Moderate or Severe Stunting in Population Under 5"
+  },
+  "sdg/SH_STA_STNTN.AGE--Y0T4": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Children Under 5 With Moderate or Severe Stunting"
+  },
+  "sdg/SH_STA_WAST.AGE--Y0T4": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Wasting Prevalence of Children Under 5"
+  },
+  "sdg/SH_STA_WASTN.AGE--Y0T4": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Children Under 5 With Wasting"
+  },
+  "sdg/SH_SUD_ALCOL.AGE--Y_GE15": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Prevalence of alcohol use disorder among 15 years or older"
+  },
+  "sdg/SH_TBS_INCD": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Incidence of Tuberculosis"
+  },
+  "sdg/SH_TRP_INTVN": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Need for intervention against neglected tropical diseases"
+  },
+  "sdg/SH_XPD_EARN10": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population with health spending over 10% of household expenditure or income"
+  },
+  "sdg/SH_XPD_EARN25": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population with health spending over 25% of household expenditure or income"
+  },
+  "sdg/SI_AGR_LSFP": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Average Earnings of Large-Scale Food Producers"
+  },
+  "sdg/SI_AGR_LSFP.SEX--F": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Average Earnings of Large-Scale Female Food Producers"
+  },
+  "sdg/SI_AGR_LSFP.SEX--M": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Average Earnings of Large-Scale Male Food Producers"
+  },
+  "sdg/SI_AGR_SSFP": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Average Earnings of Small-Scale Food Producers"
+  },
+  "sdg/SI_AGR_SSFP.SEX--F": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Average Earnings of Small-Scale Female Food Producers"
+  },
+  "sdg/SI_AGR_SSFP.SEX--M": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Average Earnings of Small-Scale Male Food Producers"
+  },
+  "sdg/SI_COV_BENFTS": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population With Social Protection Benefits"
+  },
+  "sdg/SI_COV_BENFTS.SEX--F": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Women With Social Protection Benefits"
+  },
+  "sdg/SI_COV_BENFTS.SEX--M": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Men With Social Protection Benefits"
+  },
+  "sdg/SI_COV_CHLD": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Children/Households Receiving Family Cash Benefit"
+  },
+  "sdg/SI_COV_CHLD.SEX--F": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Girls/Households Receiving Family Cash Benefit"
+  },
+  "sdg/SI_COV_CHLD.SEX--M": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Boys/Households Receiving Family Cash Benefit"
+  },
+  "sdg/SI_COV_DISAB": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Severely Disabled Population Receiving Disability Cash Benefit"
+  },
+  "sdg/SI_COV_DISAB.SEX--F": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Women With Severe Disabilities Receiving Disability Cash Benefit"
+  },
+  "sdg/SI_COV_DISAB.SEX--M": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Men With Severe Disabilities Receiving Disability Cash Benefit"
+  },
+  "sdg/SI_COV_LMKT": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Covered by Labour Market Programs"
+  },
+  "sdg/SI_COV_LMKT.INCOME_WEALTH_QUANTILE--Q1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Above Retirement Age Receiving Pension"
+  },
+  "sdg/SI_COV_MATNL.SEX--F": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Mothers With Newborns Receiving Maternity Cash Benefit"
+  },
+  "sdg/SI_COV_PENSN": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Vulnerable Population Receiving Social Assistance Cash Benefit"
+  },
+  "sdg/SI_COV_PENSN.SEX--F": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Women Above Retirement Age Receiving Pension"
+  },
+  "sdg/SI_COV_PENSN.SEX--M": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Men Above Retirement Age Receiving Pension"
+  },
+  "sdg/SI_COV_POOR": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Covered by Social Assistance Programs"
+  },
+  "sdg/SI_COV_POOR.SEX--F": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Female Vulnerable Population Receiving Social Assistance Cash Benefit"
+  },
+  "sdg/SI_COV_POOR.SEX--M": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Male Vulnerable Population Receiving Social Assistance Cash Benefit"
+  },
+  "sdg/SI_COV_SOCAST": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Covered by Social Insurance Programs"
+  },
+  "sdg/SI_COV_SOCAST.INCOME_WEALTH_QUANTILE--Q1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Covered by Social Insurance Programs in Poorest Quantile"
+  },
+  "sdg/SI_COV_SOCINS": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Covered by Social Insurance Programs"
+  },
+  "sdg/SI_COV_SOCINS.INCOME_WEALTH_QUANTILE--Q1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Covered by Social Insurance Programs in Poorest Quantile"
+  },
+  "sdg/SI_COV_UEMP": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Unemployed Population Receiving Unemployment Cash Benefit"
+  },
+  "sdg/SI_COV_UEMP.SEX--F": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Female Unemployed Population Receiving Unemployment Cash Benefit"
+  },
+  "sdg/SI_COV_UEMP.SEX--M": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Male Unemployed Population Receiving Unemployment Cash Benefit"
+  },
+  "sdg/SI_COV_VULN": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Vulnerable Population Receiving Social Assistance Cash Benefit"
+  },
+  "sdg/SI_COV_VULN.SEX--F": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Female Vulnerable Population Receiving Social Assistance Cash Benefit"
+  },
+  "sdg/SI_COV_VULN.SEX--M": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Male Vulnerable Population Receiving Social Assistance Cash Benefit"
+  },
+  "sdg/SI_COV_WKINJRY": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Employed Population Covered for Work Injury"
+  },
+  "sdg/SI_COV_WKINJRY.SEX--F": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Female Employed Population Covered for Work Injury"
+  },
+  "sdg/SI_COV_WKINJRY.SEX--M": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Male Employed Population Covered for Work Injury"
+  },
+  "sdg/SI_POV_DAY1": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Below International Poverty Line"
+  },
+  "sdg/SI_POV_DAY1.AGE--Y0T14": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Age Under 15 Below International Poverty Line"
+  },
+  "sdg/SI_POV_DAY1.AGE--Y15T64": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Age 15 to 64 Below International Poverty Line"
+  },
+  "sdg/SI_POV_DAY1.AGE--Y_GE65": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Age 65 or Older Below International Poverty Line"
+  },
+  "sdg/SI_POV_DAY1.SEX--F": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Women Below International Poverty Line"
+  },
+  "sdg/SI_POV_DAY1.SEX--M": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Men Below International Poverty Line"
+  },
+  "sdg/SI_POV_DAY1.URBANISATION--R": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Rural Population Below International Poverty Line"
+  },
+  "sdg/SI_POV_DAY1.URBANISATION--U": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Urban Population Below International Poverty Line"
+  },
+  "sdg/SI_POV_EMP1.AGE--Y15T24": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Employed Population Age 15 to 24 Below International Poverty Line"
+  },
+  "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--F": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Employed Women Age 15 to 24 Below International Poverty Line"
+  },
+  "sdg/SI_POV_EMP1.AGE--Y15T24__SEX--M": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Employed Men Age 14 to 24 Below International Poverty Line"
+  },
+  "sdg/SI_POV_EMP1.AGE--Y_GE15": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Employed Population Aged 15 or Over Below International Poverty Line"
+  },
+  "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--F": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Employed Women Aged 15 or Over Below International Poverty Line"
+  },
+  "sdg/SI_POV_EMP1.AGE--Y_GE15__SEX--M": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Employed Men Aged 15 or Over Below International Poverty Line"
+  },
+  "sdg/SI_POV_EMP1.AGE--Y_GE25": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Employed Population Aged 25 or Over Below International Poverty Line"
+  },
+  "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--F": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Employed Women Aged 25 or Over Below International Poverty Line"
+  },
+  "sdg/SI_POV_EMP1.AGE--Y_GE25__SEX--M": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Employed Men Aged 25 or Over Below International Poverty Line"
+  },
+  "sdg/SI_POV_NAHC": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Employed Population Below International Poverty Line"
+  },
+  "sdg/SI_POV_NAHC.URBANISATION--U": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Urban Population Below National Poverty Line"
+  },
+  "sdg/SN_ITK_DEFC": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Undernourishment"
+  },
+  "sdg/SN_ITK_DEFCN": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Undernourished Population"
+  },
+  "sdg/SN_STA_OVWGT.AGE--Y0T4": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Overweight Prevalence of Children Under 5"
+  },
+  "sdg/SN_STA_OVWGTN.AGE--Y0T4": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Overweight Children Under 5"
+  },
+  "sdg/SP_ACS_BSRVH2O": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Using Basic Drinking Water Services"
+  },
+  "sdg/SP_ACS_BSRVH2O.URBANISATION--R": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Rural Population Using Basic Drinking Water Services"
+  },
+  "sdg/SP_ACS_BSRVH2O.URBANISATION--U": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Urban Population Using Basic Drinking Water Services"
+  },
+  "sdg/SP_ACS_BSRVSAN": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Using Basic Sanitation Services"
+  },
+  "sdg/SP_ACS_BSRVSAN.URBANISATION--R": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Rural Population Using Basic Sanitation Services"
+  },
+  "sdg/SP_ACS_BSRVSAN.URBANISATION--U": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Urban Population Using Basic Sanitation Services"
+  },
+  "sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Birth rate for adolescent women"
+  },
+  "sdg/SP_LGL_LNDDOC": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Adults With Legally Recognized Land Rights"
+  },
+  "sdg/SP_LGL_LNDDOC.SEX--F": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Female Adults With Legally Recognized Land Rights"
+  },
+  "sdg/SP_LGL_LNDSEC": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Who Feel Secure in Land Rights"
+  },
+  "sdg/SP_LGL_LNDSTR": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Adults With Secure Tenure Land Rights"
+  },
+  "sdg/SP_LGL_LNDSTR.SEX--F": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Female Adults With Secure Tenure Land Rights"
+  },
+  "sdg/VC_DSR_AFFCT": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Affected by Disasters"
+  },
+  "sdg/VC_DSR_AGLH": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Direct Agriculture Loss From Disasters"
+  },
+  "sdg/VC_DSR_CHLN": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Direct Economic Loss From Disaster-Caused Cultural Heritage Damage"
+  },
+  "sdg/VC_DSR_CILN": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Direct Economic Loss From Disaster-Caused Infrastructure Damage"
+  },
+  "sdg/VC_DSR_DAFF": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population Affected by Disasters Per 100k Capita"
+  },
+  "sdg/VC_DSR_DDPA": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Direct Economic Loss From Disaster-Caused Productive Asset Damage"
+  },
+  "sdg/VC_DSR_GDPLS": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Direct Economic Loss From Disasters"
+  },
+  "sdg/VC_DSR_IJILN": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Injured or Ill Population From Disasters"
+  },
+  "sdg/VC_DSR_LSGP": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Direct Economic Loss From Disasters (Relative to GDP)"
+  },
+  "sdg/VC_DSR_MISS": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Missing Persons From Disasters"
+  },
+  "sdg/VC_DSR_MMHN": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Deaths and Missing Persons From Disasters"
+  },
+  "sdg/VC_DSR_MORT": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Deaths From Disasters"
+  },
+  "sdg/VC_DSR_MTMP": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Deaths and Missing Persons From Disasters Per 100k Capita"
+  },
+  "sdg/VC_DSR_PDAN": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population With Damaged Dwellings From Disasters"
+  },
+  "sdg/VC_DSR_PDLN": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population With Affected Livelihoods From Disasters"
+  },
+  "sdg/VC_DSR_PDYN": {
+    "blocklist": [
+      "sdg",
+      "sdgmini"
+    ],
+    "title": "Population With Destroyed Dwellings From Disasters"
+  }
+}

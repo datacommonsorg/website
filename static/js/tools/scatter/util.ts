@@ -25,6 +25,7 @@ import { DEFAULT_POPULATION_DCID } from "../../shared/constants";
 import { PointAllApiResponse, PointApiResponse } from "../../shared/stat_types";
 import { getCappedStatVarDate } from "../../shared/util";
 import { stringifyFn } from "../../utils/axios";
+import { getPointWithin } from "../../utils/data_fetch_utils";
 import {
   Axis,
   ContextType,
@@ -33,12 +34,18 @@ import {
   EmptyPlace,
   FieldToAbbreviation,
   PlaceInfo,
+  PointScaleState,
+  SHOW_POPULATION_LINEAR,
+  SHOW_POPULATION_LOG,
+  SHOW_POPULATION_OFF,
 } from "./context";
 
 export enum ScatterChartType {
   SCATTER,
   MAP,
 }
+
+export const SCATTER_URL_PATH = "/tools/scatter";
 
 /**
  * Returns a promise that will get all the data from preferred sources for
@@ -47,12 +54,15 @@ export enum ScatterChartType {
  * @param parentPlace the place to get data within
  * @param childType the type of place to get data for
  * @param statVars the stat vars to get data for
- *
+ * @param apiRoot API root
+ * @param dateOverride Optional. Use this date instead of dates associated with
+ *        statVars
  */
 export async function getStatWithinPlace(
   parentPlace: string,
   childType: string,
-  statVars: { statVarDcid: string; date?: string }[]
+  statVars: { statVarDcid: string; date?: string; facetId?: string }[],
+  apiRoot?: string
 ): Promise<PointApiResponse> {
   // There are two stat vars for scatter plot.
   //
@@ -60,23 +70,18 @@ export async function getStatWithinPlace(
   // always send two requests for each stat var.
   const promises: Promise<PointApiResponse>[] = [];
   for (const statVar of statVars) {
-    let dataDate = getCappedStatVarDate(statVar.statVarDcid);
-    // If there is a specified date, get the data for that date.
-    if (statVar.date) {
-      dataDate = statVar.date;
-    }
+    const dataDate = getCappedStatVarDate(statVar.statVarDcid, statVar.date);
+    const facetIds = statVar.facetId ? [statVar.facetId] : null;
     promises.push(
-      axios
-        .get<PointApiResponse>("/api/observations/point/within", {
-          params: {
-            parent_entity: parentPlace,
-            child_type: childType,
-            variables: [statVar.statVarDcid],
-            date: dataDate,
-          },
-          paramsSerializer: stringifyFn,
-        })
-        .then((resp) => resp.data)
+      getPointWithin(
+        apiRoot,
+        childType,
+        parentPlace,
+        [statVar.statVarDcid],
+        dataDate,
+        [],
+        facetIds
+      )
     );
   }
   return Promise.all(promises).then((responses) => {
@@ -112,19 +117,15 @@ export async function getStatAllWithinPlace(
   // always send two requests for each stat var.
   const promises: Promise<PointAllApiResponse>[] = [];
   for (const statVar of statVars) {
-    let dataDate = getCappedStatVarDate(statVar.statVarDcid);
-    // If there is a specified date, get the data for that date.
-    if (statVar.date) {
-      dataDate = statVar.date;
-    }
+    const dataDate = getCappedStatVarDate(statVar.statVarDcid, statVar.date);
     promises.push(
       axios
         .get<PointAllApiResponse>("/api/observations/point/within/all", {
           params: {
-            parent_entity: parentPlace,
-            child_type: childType,
-            variables: [statVar.statVarDcid],
+            childType,
             date: dataDate,
+            parentEntity: parentPlace,
+            variables: [statVar.statVarDcid],
           },
           paramsSerializer: stringifyFn,
         })
@@ -145,41 +146,11 @@ export async function getStatAllWithinPlace(
 }
 
 /**
- * Parses the hash and updates the context accordingly.
- * @param context
- */
-export function applyHash(context: ContextType): void {
-  const params = new URLSearchParams(
-    decodeURIComponent(location.hash).replace("#", "?")
-  );
-  context.x.set(applyHashAxis(params, true));
-  context.y.set(applyHashAxis(params, false));
-  context.place.set(applyHashPlace(params));
-  context.display.setQuadrants(
-    applyHashBoolean(params, FieldToAbbreviation.showQuadrant)
-  );
-  context.display.setLabels(
-    applyHashBoolean(params, FieldToAbbreviation.showLabels)
-  );
-  const chartType =
-    params.get(FieldToAbbreviation.chartType) === "1"
-      ? ScatterChartType.MAP
-      : ScatterChartType.SCATTER;
-  context.display.setChartType(chartType);
-  context.display.setDensity(
-    applyHashBoolean(params, FieldToAbbreviation.showDensity)
-  );
-  context.display.setRegression(
-    applyHashBoolean(params, FieldToAbbreviation.showRegression)
-  );
-}
-
-/**
  * Appends "x" or "y" to the key based on `isX`.
  * @param key
  * @param isX
  */
-function addSuffix(key: string, isX: boolean) {
+function addSuffix(key: string, isX: boolean): string {
   return `${key}${isX ? "x" : "y"}`;
 }
 
@@ -220,7 +191,7 @@ function applyHashPlace(params: URLSearchParams): PlaceInfo {
   const dcid = params.get(FieldToAbbreviation.enclosingPlaceDcid);
   if (dcid) {
     place.enclosingPlace = {
-      dcid: dcid,
+      dcid,
       name: "",
       types: null,
     };
@@ -246,6 +217,21 @@ export function applyHashBoolean(
   return val === "1";
 }
 
+/**
+ * Fetches a population point scale state from the given url query params
+ * @param params url query parameters
+ * @returns PointScaleState value
+ */
+export function applyHashPopulation(params: URLSearchParams): PointScaleState {
+  const val = params.get(FieldToAbbreviation.showPopulation) || "";
+  if (val.toLowerCase() === SHOW_POPULATION_LINEAR) {
+    return SHOW_POPULATION_LINEAR;
+  } else if (val.toLowerCase() === SHOW_POPULATION_LOG) {
+    return SHOW_POPULATION_LOG;
+  }
+  return SHOW_POPULATION_OFF;
+}
+
 export function updateHashBoolean(
   hash: string,
   key: string,
@@ -257,6 +243,36 @@ export function updateHashBoolean(
   return hash;
 }
 
+/**
+ * Parses the hash and updates the context accordingly.
+ * @param context
+ */
+export function applyHash(context: ContextType): void {
+  const params = new URLSearchParams(
+    decodeURIComponent(location.hash).replace("#", "?")
+  );
+  context.x.set(applyHashAxis(params, true));
+  context.y.set(applyHashAxis(params, false));
+  context.place.set(applyHashPlace(params));
+  context.display.setQuadrants(
+    applyHashBoolean(params, FieldToAbbreviation.showQuadrant)
+  );
+  context.display.setLabels(
+    applyHashBoolean(params, FieldToAbbreviation.showLabels)
+  );
+  const chartType =
+    params.get(FieldToAbbreviation.chartType) === "1"
+      ? ScatterChartType.MAP
+      : ScatterChartType.SCATTER;
+  context.display.setChartType(chartType);
+  context.display.setDensity(
+    applyHashBoolean(params, FieldToAbbreviation.showDensity)
+  );
+  context.display.setRegression(
+    applyHashBoolean(params, FieldToAbbreviation.showRegression)
+  );
+  context.display.setPopulation(applyHashPopulation(params));
+}
 /**
  * Updates the hash based on the context and returns the new hash.
  * If there are multiple denominators for a statvar, only the first
@@ -274,7 +290,7 @@ export function updateHash(context: ContextType): void {
   const newHash = encodeURIComponent(hash);
   const currentHash = location.hash.replace("#", "");
   if (newHash && newHash !== currentHash) {
-    history.pushState({}, "", `/tools/scatter#${newHash}`);
+    history.pushState({}, "", `${SCATTER_URL_PATH}#${newHash}`);
   }
 }
 
@@ -294,7 +310,7 @@ function appendEntry(hash: string, key: string, value: string): string {
  * @param axis
  * @param isX
  */
-function updateHashAxis(hash: string, axis: Axis, isX: boolean): string {
+export function updateHashAxis(hash: string, axis: Axis, isX: boolean): string {
   if (_.isEqual(axis, EmptyAxis)) {
     return hash;
   }
@@ -330,7 +346,7 @@ function updateHashAxis(hash: string, axis: Axis, isX: boolean): string {
  * @param hash
  * @param place
  */
-function updateHashPlace(hash: string, place: PlaceInfo): string {
+export function updateHashPlace(hash: string, place: PlaceInfo): string {
   if (_.isEqual(place, EmptyPlace)) {
     return hash;
   }
@@ -352,7 +368,7 @@ function updateHashPlace(hash: string, place: PlaceInfo): string {
 function updateHashDisplayOptions(
   hash: string,
   display: DisplayOptionsWrapper
-) {
+): string {
   hash = updateHashBoolean(
     hash,
     FieldToAbbreviation.showQuadrant,
@@ -378,7 +394,11 @@ function updateHashDisplayOptions(
     FieldToAbbreviation.chartType,
     display.chartType === ScatterChartType.MAP
   );
-
+  hash = appendEntry(
+    hash,
+    FieldToAbbreviation.showPopulation,
+    display.showPopulation
+  );
   return hash;
 }
 

@@ -19,60 +19,113 @@
  */
 
 import _ from "lodash";
-import React, { useRef } from "react";
+import React, { MutableRefObject, useRef } from "react";
 
+import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
+import { INITIAL_LOADING_CLASS } from "../../constants/tile_constants";
 import { ChartEmbed } from "../../place/chart_embed";
-import { urlToDomain } from "../../shared/util";
-import { formatString, ReplacementStrings } from "../../utils/tile_utils";
-
+import { IconPlaceholder } from "../../shared/components";
+import { StatVarSpec } from "../../shared/types";
+import {
+  formatString,
+  getChartTitle,
+  getMergedSvg,
+  ReplacementStrings,
+  TileSources,
+} from "../../utils/tile_utils";
+import { NlChartFeedback } from "../nl_feedback";
+import { ChartFooter } from "./chart_footer";
+import { LoadingHeader } from "./loading_header";
 interface ChartTileContainerProp {
+  id: string;
+  isLoading?: boolean;
   title: string;
-  sources: Set<string>;
+  sources: Set<string> | string[];
   children: React.ReactNode;
   replacementStrings: ReplacementStrings;
   // Whether or not to allow chart embedding action.
   allowEmbed: boolean;
   // callback function for getting the chart data as a csv. Only used for
   // embedding.
-  getDataCsv?: () => string;
+  getDataCsv?: () => Promise<string>;
   // Extra classes to add to the container.
   className?: string;
+  // Whether or not this is the initial loading state.
+  isInitialLoading?: boolean;
+  // Object used for the explore link
+  exploreLink?: { displayText: string; url: string };
+  // Optional: Error message
+  errorMsg?: string;
+  // Text to show in footer
+  footnote?: string;
+  // Subtitle text
+  subtitle?: string;
+  // Stat Vars for metadata rendering.
+  statVarSpecs?: StatVarSpec[];
+  // API root used for DC tool links.
+  apiRoot?: string;
+  // Optional ref for tile container element
+  forwardRef?: MutableRefObject<HTMLDivElement | null>;
+  // Optional: Chart height
+  chartHeight?: number;
 }
 
 export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const embedModalElement = useRef<ChartEmbed>(null);
-  const title = props.title
-    ? formatString(props.title, props.replacementStrings)
+  // on initial loading, hide the title text
+  const title = !props.isInitialLoading
+    ? getChartTitle(props.title, props.replacementStrings)
     : "";
+  const showSources = !_.isEmpty(props.sources) && !props.errorMsg;
+  const showEmbed =
+    props.allowEmbed && !props.isInitialLoading && !props.errorMsg;
   return (
     <div
-      className={`chart-container ${props.className ? props.className : ""}`}
+      className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS} ${
+        props.className ? props.className : ""
+      } ${props.isLoading ? "loading" : ""}`}
+      {...{ part: "container" }}
       ref={containerRef}
     >
-      {title && <h4>{title}</h4>}
-      {props.children}
-      <footer id="chart-container-footer">
-        {!_.isEmpty(props.sources) && (
-          <div className="sources">
-            Data from {getSourcesJsx(props.sources)}
-          </div>
-        )}
-        <div className="outlinks">
-          {props.allowEmbed && (
-            <a
-              href="#"
-              onClick={(event) => {
-                event.preventDefault();
-                handleEmbed();
-              }}
-            >
-              Export
-            </a>
+      <div
+        className={`chart-content ${
+          props.isInitialLoading ? INITIAL_LOADING_CLASS : ""
+        }`}
+        ref={props.forwardRef}
+      >
+        <div className="chart-headers">
+          {props.errorMsg && <h4 className="text-danger">{props.errorMsg}</h4>}
+          <LoadingHeader isLoading={props.isLoading} title={title} />
+          <slot name="subheader" {...{ part: "subheader" }}>
+            {props.subtitle && !props.isInitialLoading ? (
+              <div className="subheader">{props.subtitle}</div>
+            ) : null}
+          </slot>
+          {showSources && (
+            <TileSources
+              apiRoot={props.apiRoot}
+              containerRef={containerRef}
+              sources={props.sources}
+              statVarSpecs={props.statVarSpecs}
+            />
           )}
         </div>
-      </footer>
-      {props.allowEmbed && <ChartEmbed ref={embedModalElement} />}
+        {props.errorMsg && (
+          <IconPlaceholder height={props.chartHeight} iconName="warning" />
+        )}
+        {props.children}
+      </div>
+      <ChartFooter
+        handleEmbed={showEmbed ? handleEmbed : null}
+        exploreLink={props.exploreLink}
+        footnote={props.footnote}
+      >
+        <NlChartFeedback id={props.id} />
+      </ChartFooter>
+      {showEmbed && (
+        <ChartEmbed container={containerRef.current} ref={embedModalElement} />
+      )}
     </div>
   );
 
@@ -81,48 +134,16 @@ export function ChartTileContainer(props: ChartTileContainerProp): JSX.Element {
     const chartTitle = props.title
       ? formatString(props.title, props.replacementStrings)
       : "";
-    const svgElemList = containerRef.current.getElementsByTagName("svg");
-    const svgElem = svgElemList.length ? svgElemList.item(0) : null;
-    let svgXml = "";
-    let svgWidth = 0;
-    let svgHeight = 0;
-    if (svgElem) {
-      svgXml = svgElem.outerHTML;
-      const svgBBox = svgElem.getBBox();
-      svgWidth = svgBBox.width;
-      svgHeight = svgBBox.height;
-    }
+    const { svgXml, height, width } = getMergedSvg(containerRef.current);
     embedModalElement.current.show(
       svgXml,
-      props.getDataCsv ? props.getDataCsv() : "",
-      svgWidth,
-      svgHeight,
+      props.getDataCsv,
+      width,
+      height,
+      "",
       chartTitle,
       "",
       Array.from(props.sources)
     );
   }
-}
-
-function getSourcesJsx(sources: Set<string>): JSX.Element[] {
-  if (!sources) {
-    return null;
-  }
-
-  const sourceList: string[] = Array.from(sources);
-  const seenSourceDomains = new Set();
-  const sourcesJsx = sourceList.map((source, index) => {
-    const domain = urlToDomain(source);
-    if (seenSourceDomains.has(domain)) {
-      return null;
-    }
-    seenSourceDomains.add(domain);
-    return (
-      <span key={source}>
-        {index > 0 ? ", " : ""}
-        <a href={source}>{domain}</a>
-      </span>
-    );
-  });
-  return sourcesJsx;
 }

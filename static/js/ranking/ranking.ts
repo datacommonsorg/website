@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,43 +18,45 @@
  * @fileoverview Entry point for Ranking pages
  */
 
-import React from "react";
-import ReactDOM from "react-dom";
-
 import { loadLocaleData } from "../i18n/i18n";
-import { Page } from "./ranking_page";
+import { renderRankingComponent } from "./component";
 
-window.onload = () => {
+window.addEventListener("load", (): void => {
+  // Get page metadata
   const withinPlace = document.getElementById("within-place-dcid").dataset.pwp;
   const placeType = document.getElementById("place-type").dataset.pt;
   const placeName = document.getElementById("place-name").dataset.pn;
   const statVar = document.getElementById("stat-var").dataset.sv;
-  const locale = document.getElementById("locale").dataset.lc;
   const isPerCapita = JSON.parse(
     document.getElementById("per-capita").dataset.pc.toLowerCase()
   );
+
+  // Get locale from metadata
+  const metadataContainer = document.getElementById("metadata-base");
+  const locale = metadataContainer.dataset.locale;
+
+  // Get scaling
   const urlParams = new URLSearchParams(window.location.search);
   const unit = urlParams.get("unit");
   let scaling = Number(urlParams.get("scaling"));
   scaling = isNaN(scaling) || scaling == 0 ? 1 : scaling;
   const date = urlParams.get("date");
+
+  // Load locale data
   loadLocaleData(locale, [
     import(`../i18n/compiled-lang/${locale}/place.json`),
     import(`../i18n/compiled-lang/${locale}/stats_var_titles.json`),
     import(`../i18n/compiled-lang/${locale}/units.json`),
   ]).then(() => {
-    ReactDOM.render(
-      React.createElement(Page, {
-        placeName,
-        placeType,
-        withinPlace,
-        statVar,
-        isPerCapita,
-        unit,
-        scaling,
-        date,
-      }),
-      document.getElementById("main-pane")
-    );
+    renderRankingComponent(document.getElementById("main-pane"), {
+      placeName,
+      placeType,
+      withinPlace,
+      statVar,
+      isPerCapita,
+      unit,
+      scaling,
+      date,
+    });
   });
-};
+});

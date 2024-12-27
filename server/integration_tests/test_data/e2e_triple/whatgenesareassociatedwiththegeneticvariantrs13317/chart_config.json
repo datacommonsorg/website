@@ -1,0 +1,212 @@
+{
+  "client": "test_detect-and-fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "answerTableTileSpec": {
+                      "columns": [
+                        {
+                          "header": "Abbreviation",
+                          "propertyExpr": "->abbreviation"
+                        },
+                        {
+                          "header": "Alternate Name",
+                          "propertyExpr": "->alternateName"
+                        },
+                        {
+                          "header": "Biological Host",
+                          "propertyExpr": "->biologicalHost"
+                        },
+                        {
+                          "header": "Date Created",
+                          "propertyExpr": "->dateCreated"
+                        },
+                        {
+                          "header": "Date Established",
+                          "propertyExpr": "->dateEstablished"
+                        },
+                        {
+                          "header": "Date Revised",
+                          "propertyExpr": "->dateRevised"
+                        },
+                        {
+                          "header": "Has Inherited Divsion",
+                          "propertyExpr": "->hasInheritedDivsion"
+                        },
+                        {
+                          "header": "Has MeSH Qualifier",
+                          "propertyExpr": "->hasMeSHQualifier"
+                        },
+                        {
+                          "header": "Identifier",
+                          "propertyExpr": "->identifier"
+                        },
+                        {
+                          "header": "Medical Subject Heading Tree Number",
+                          "propertyExpr": "->medicalSubjectHeadingTreeNumber"
+                        },
+                        {
+                          "header": "Name",
+                          "propertyExpr": "->name"
+                        },
+                        {
+                          "header": "Ncbi Tax Id",
+                          "propertyExpr": "->ncbiTaxId"
+                        },
+                        {
+                          "header": "Proposal For Last Change",
+                          "propertyExpr": "->proposalForLastChange"
+                        },
+                        {
+                          "header": "Provenance",
+                          "propertyExpr": "->provenance"
+                        },
+                        {
+                          "header": "Scientific Name",
+                          "propertyExpr": "->scientificName"
+                        },
+                        {
+                          "header": "Scope Note",
+                          "propertyExpr": "->scopeNote"
+                        },
+                        {
+                          "header": "Specialization Of",
+                          "propertyExpr": "->specializationOf"
+                        },
+                        {
+                          "header": "Taxon Division",
+                          "propertyExpr": "->taxonDivision"
+                        },
+                        {
+                          "header": "Taxon History URL",
+                          "propertyExpr": "->taxonHistoryURL"
+                        },
+                        {
+                          "header": "Taxon Rank",
+                          "propertyExpr": "->taxonRank"
+                        },
+                        {
+                          "header": "Taxon Top Level Category",
+                          "propertyExpr": "->taxonTopLevelCategory"
+                        },
+                        {
+                          "header": "Type Of",
+                          "propertyExpr": "->typeOf"
+                        },
+                        {
+                          "header": "Version Of Last Change",
+                          "propertyExpr": "->versionOfLastChange"
+                        },
+                        {
+                          "header": "Virus Class",
+                          "propertyExpr": "->virusClass"
+                        },
+                        {
+                          "header": "Virus Family",
+                          "propertyExpr": "->virusFamily"
+                        },
+                        {
+                          "header": "Virus Genome Composition",
+                          "propertyExpr": "->virusGenomeComposition"
+                        },
+                        {
+                          "header": "Virus Genus",
+                          "propertyExpr": "->virusGenus"
+                        },
+                        {
+                          "header": "Virus Host",
+                          "propertyExpr": "->virusHost"
+                        },
+                        {
+                          "header": "Virus Kingdom",
+                          "propertyExpr": "->virusKingdom"
+                        },
+                        {
+                          "header": "Virus Last Taxonomic Change",
+                          "propertyExpr": "->virusLastTaxonomicChange"
+                        },
+                        {
+                          "header": "Virus Order",
+                          "propertyExpr": "->virusOrder"
+                        },
+                        {
+                          "header": "Virus Phylum",
+                          "propertyExpr": "->virusPhylum"
+                        },
+                        {
+                          "header": "Virus Realm",
+                          "propertyExpr": "->virusRealm"
+                        },
+                        {
+                          "header": "Virus Species",
+                          "propertyExpr": "->virusSpecies"
+                        },
+                        {
+                          "header": "Virus Subfamily",
+                          "propertyExpr": "->virusSubfamily"
+                        },
+                        {
+                          "header": "Virus Subgenus",
+                          "propertyExpr": "->virusSubgenus"
+                        },
+                        {
+                          "header": "Virus Suborder",
+                          "propertyExpr": "->virusSuborder"
+                        }
+                      ]
+                    },
+                    "entities": [
+                      "bio/Betacoronavirus1",
+                      "bio/D000073641"
+                    ],
+                    "title": "Here are all the properties for Betacoronavirus 1",
+                    "type": "ANSWER_TABLE"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "context": {},
+  "debug": {},
+  "entities": [
+    {
+      "dcid": "bio/Betacoronavirus1",
+      "name": "Betacoronavirus 1",
+      "type": ""
+    },
+    {
+      "dcid": "bio/D000073641",
+      "name": "Betacoronavirus 1",
+      "type": ""
+    }
+  ],
+  "pastSourceContext": "",
+  "place": {},
+  "placeFallback": {},
+  "placeSource": "UNKNOWN",
+  "places": [],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopics": [],
+    "parentPlaces": [],
+    "parentTopics": [],
+    "peerPlaces": [],
+    "peerTopics": []
+  },
+  "svSource": "UNKNOWN",
+  "userMessages": [
+    "See relevant information for Betacoronavirus 1 based on the previous query."
+  ]
+}

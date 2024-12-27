@@ -1,0 +1,94 @@
+{#-
+  Copyright 2023 Google LLC
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -#}
+  {#-
+  Required variables:
+  title: page title
+  main_id: DOM Element ID for the main content block
+  page_id: DOM Element ID for the html element
+
+  Optional variables:
+  is_hide_full_footer: boolean, if true, hides the full expanded footer. Default false
+  is_hide_sub_footer: boolean, if true, hides the sub footer. Default false
+  subpage_title: string, if specified, will be displayed in the header next to Data Commons
+  locale: string, value for html lang attr
+  brand_logo_light: boolean, if true, use the light colored logo in the footer. Default false which uses the dark colored logo.
+  manual_ga_pageview: boolean, if true, will set the Google Analytics config to
+      stop pageview tracking, relying on the app to do all pageview tracking.
+
+  Blocks to override:
+  head - additional head elements
+  content - main page content
+-#}
+<!DOCTYPE html>
+
+<html lang={{ locale }} id={{ page_id }}>
+
+<head>
+  {# Enable Google Analytics with cookieless tracking. #}
+  {% if GOOGLE_ANALYTICS_TAG_ID %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_ANALYTICS_TAG_ID }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', '{{ GOOGLE_ANALYTICS_TAG_ID }}', {
+      client_storage: 'none',
+      anonymize_ip: true,
+      {{ ("place_category: '{}',"|safe).format(place_category) if place_category is defined else "" }}
+      {{ ("send_page_view: false,"|safe) if manual_ga_pageview else "" }}
+    });
+  </script>
+  {% endif %}
+
+  <title>{{ title }}{{' - ' if title else ''}}Data Commons</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500;700&family=Google+Sans+Text:wght@300;400;500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined&display=block">
+  {% block head %}
+  {% endblock %}
+  {% if OVERRIDE_CSS_PATH %}
+  <link href="{{ OVERRIDE_CSS_PATH }}" rel="stylesheet">
+  {% endif %}
+  <script>
+    globalThis.isCustomDC = {{ config['CUSTOM']|int }};
+    globalThis.STAT_VAR_HIERARCHY_CONFIG = {{ config['STAT_VAR_HIERARCHY_CONFIG'] | tojson }};
+  </script>
+  <script src={{url_for('static', filename='queryStore.js', t=config['VERSION'])}} async></script>
+</head>
+
+<body>
+  {# Set page locale. #}
+  <div id="metadata-base" class="d-none" data-locale="{{ locale }}"></div>
+  <div id="main">
+    <main id="{{ main_id }}" class="main-content">
+      {% block content %}
+      {% endblock %}
+    </main>
+  </div>
+  <footer id="main-footer">
+    <div class="container">
+    </div>
+  </footer>
+  {# Compile this down (or manually implement). Used only for nav bar so far #}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  {% block footer %}
+  {% endblock %}
+</body>
+
+</html>

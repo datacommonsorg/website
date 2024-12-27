@@ -1,5 +1,5 @@
 /**
- * Copyright 2020 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +22,7 @@ import axios from "axios";
 import _ from "lodash";
 import React from "react";
 
+import { PropertyValues } from "../shared/api_response_types";
 import { loadSpinner, removeSpinner } from "../shared/util";
 import { InArcSubsection } from "./in_arc_subsection";
 import { InArcValue } from "./types";
@@ -32,7 +33,6 @@ const LOADING_CONTAINER_ID = "browser-in-arc-section";
 interface InArcSectionsPropType {
   nodeName: string;
   dcid: string;
-  labels: string[];
   provDomain: { [key: string]: URL };
 }
 interface InArcSectionStateType {
@@ -59,64 +59,70 @@ export class InArcSection extends React.Component<
   }
 
   render(): JSX.Element {
-    if (!_.isEmpty(this.state.errorMessage)) {
-      return <div className="error-message">{this.state.errorMessage}</div>;
+    if (_.isEmpty(this.state.parentTypes)) {
+      return null;
     }
     return (
-      <div id={LOADING_CONTAINER_ID} className="loading-spinner-container">
-        {this.state.parentTypes.map((parentType) => {
-          const arcsByPredicate = this.state.data[parentType];
-          return Object.keys(arcsByPredicate).map((predicate) => {
-            return (
-              <InArcSubsection
-                nodeName={this.props.nodeName}
-                parentType={parentType}
-                property={predicate}
-                arcValues={arcsByPredicate[predicate]}
-                provDomain={this.props.provDomain}
-                key={parentType + predicate}
-              />
-            );
-          });
-        })}
-        <div id="browser-screen" className="screen">
-          <div id="spinner"></div>
-        </div>
+      <div className="table-page-section">
+        <h3>In Arcs</h3>
+        {!_.isEmpty(this.state.errorMessage) ? (
+          <div className="error-message">{this.state.errorMessage}</div>
+        ) : (
+          <div id={LOADING_CONTAINER_ID} className="loading-spinner-container">
+            {this.state.parentTypes.map((parentType) => {
+              const arcsByPredicate = this.state.data[parentType];
+              return Object.keys(arcsByPredicate).map((predicate) => {
+                return (
+                  <InArcSubsection
+                    nodeName={this.props.nodeName}
+                    parentType={parentType}
+                    property={predicate}
+                    arcValues={arcsByPredicate[predicate]}
+                    provDomain={this.props.provDomain}
+                    key={parentType + predicate}
+                  />
+                );
+              });
+            })}
+            <div id="browser-screen" className="screen">
+              <div id="spinner"></div>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
 
-  private fetchData(): void {
-    if (_.isEmpty(this.props.labels)) {
-      return;
+  private processTriplesResponse(
+    triplesData: PropertyValues
+  ): Record<string, Record<string, InArcValue[]>> {
+    const inArcsByTypeAndPredicate = {};
+    for (const pred in triplesData) {
+      const values = triplesData[pred];
+      for (const value of values) {
+        if (_.isEmpty(value.types)) {
+          continue;
+        }
+        for (const type of value.types) {
+          if (!(type in inArcsByTypeAndPredicate)) {
+            inArcsByTypeAndPredicate[type] = {};
+          }
+          if (!(pred in inArcsByTypeAndPredicate[type])) {
+            inArcsByTypeAndPredicate[type][pred] = [];
+          }
+          inArcsByTypeAndPredicate[type][pred].push(value);
+        }
+      }
     }
-    const propValuesPromises = this.props.labels.map((label) => {
-      return axios
-        .get(`/api/browser/propvals/${label}/${this.props.dcid}`)
-        .then((resp) => resp.data);
-    });
+    return inArcsByTypeAndPredicate;
+  }
+
+  private fetchData(): void {
     loadSpinner(LOADING_CONTAINER_ID);
-    Promise.all(propValuesPromises)
-      .then((propValuesData) => {
-        const inArcsByTypeAndPredicate = {};
-        propValuesData.forEach((valuesData) => {
-          if (!valuesData) {
-            return;
-          }
-          const predicate = valuesData.property;
-          const values = valuesData.values["in"];
-          for (const value of values) {
-            for (const type of value.types) {
-              if (!(type in inArcsByTypeAndPredicate)) {
-                inArcsByTypeAndPredicate[type] = {};
-              }
-              if (!(predicate in inArcsByTypeAndPredicate[type])) {
-                inArcsByTypeAndPredicate[type][predicate] = [];
-              }
-              inArcsByTypeAndPredicate[type][predicate].push(value);
-            }
-          }
-        });
+    axios
+      .get(`/api/node/triples/in/${this.props.dcid}`)
+      .then((resp) => {
+        const inArcsByTypeAndPredicate = this.processTriplesResponse(resp.data);
         const parentTypes = Object.keys(inArcsByTypeAndPredicate).filter(
           (type) => !IGNORED_PARENT_TYPES.has(type)
         );

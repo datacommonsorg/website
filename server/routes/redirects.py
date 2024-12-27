@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,16 @@
 browser.datacommons.org with datacommons.org
 """
 
-from flask import Blueprint, current_app, redirect, request, url_for
+import json
+
+from flask import Blueprint
+from flask import current_app
+from flask import redirect
+from flask import request
+from flask import url_for
+
+from server.lib.config import GLOBAL_CONFIG_BUCKET
+from shared.lib import gcs
 
 bp = Blueprint(
     "redirects",
@@ -51,6 +60,13 @@ def scatter():
               code=302))
 
 
+# Note: The trailing '/' helps in redirecting `/nlnext/#q=some+query+here` to `/nl/#q=some+query+here`
+@bp.route('/nlnext/')
+@bp.route('/nlnext')
+def nlnext():
+  return redirect(url_for('nl.page'), code=302)
+
+
 @bp.route('/datasets')
 def datasets():
   return redirect('https://docs.datacommons.org/datasets/', code=302)
@@ -83,3 +99,29 @@ def explore():
   return redirect('https://datacommons.org' +
                   url_for('place.place', place_dcid=request.args.get('dcid')),
                   code=302)
+
+
+@bp.route('/insights/')
+def insights():
+  return redirect(
+      url_for('explore.page',
+              _scheme=current_app.config.get('SCHEME', 'https'),
+              code=302))
+
+
+@bp.route('/demo')
+def demo():
+  return redirect('/link/demo', code=302)
+
+
+def load_redirects(name):
+  local_file = gcs.maybe_download(
+      gcs.make_path(GLOBAL_CONFIG_BUCKET, 'redirects.json'))
+  with open(local_file) as fp:
+    mapping = json.load(fp)
+    return mapping.get(name, '/')
+
+
+@bp.route('/link/<path:name>')
+def link(name):
+  return redirect(load_redirects(name), code=302)

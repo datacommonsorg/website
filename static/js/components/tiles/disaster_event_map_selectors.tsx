@@ -18,67 +18,79 @@
  * Component for rendering the selectors section for a disaster event map tile.
  */
 
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CustomInput } from "reactstrap";
 
 import {
+  DATE_OPTION_1Y_KEY,
+  DATE_OPTION_3Y_KEY,
   DATE_OPTION_6M_KEY,
   DATE_OPTION_30D_KEY,
+  DEFAULT_DATE,
+  PLACE_DEFAULT_DATE,
 } from "../../constants/disaster_event_map_constants";
-import { NamedPlace } from "../../shared/types";
+import { NamedTypedPlace } from "../../shared/types";
+import { EventTypeSpec } from "../../types/subject_page_proto_types";
+import {
+  fetchDateList,
+  getUseCache,
+} from "../../utils/disaster_event_map_utils";
 
 const DATE_OPTION_DISPLAY_NAMES = {
   [DATE_OPTION_30D_KEY]: "Last 30 days",
   [DATE_OPTION_6M_KEY]: "Last 6 months",
+  [DATE_OPTION_1Y_KEY]: "Last year",
+  [DATE_OPTION_3Y_KEY]: "Last 3 years",
 };
 
 interface DisasterEventMapSelectorsPropType {
-  // List of places to show in the breadcrumbs
-  breadcrumbPlaces: NamedPlace[];
-  // Selected date
-  selectedDate: string;
-  // List of available date options
-  dateOptions: string[];
-  // Callback when new place is selected
-  onPlaceSelected: (place: NamedPlace) => void;
-  // Callback when new date is selected
-  onDateSelected: (date: string) => void;
+  // id of the block this component is in.
+  blockId: string;
+  // Map of eventType id to EventTypeSpec
+  eventTypeSpec: Record<string, EventTypeSpec>;
+  // Place to show the event map for
+  place: NamedTypedPlace;
+  // The selected date
+  date: string;
+  // Function to run to set a new date
+  setDate: (date: string) => void;
+  children?: React.ReactNode;
 }
 
 export function DisasterEventMapSelectors(
   props: DisasterEventMapSelectorsPropType
 ): JSX.Element {
+  const [dateOptions, setDateOptions] = useState([]);
+  // Whether date options retrieved are from the cache or not.
+  const dateOptionsUseCache = useRef<boolean>(null);
+
+  useEffect(() => {
+    // When props change, update date options & update the hash change listener.
+    updateDateOptions(props.eventTypeSpec, props.place.dcid);
+
+    function handleHashChange(): void {
+      updateDateOptions(props.eventTypeSpec, props.place.dcid);
+    }
+
+    window.addEventListener("hashchange", handleHashChange);
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+    };
+  }, [props]);
+
   return (
     <div className="disaster-event-map-selectors-section">
-      <div className="disaster-event-map-breadcrumbs">
-        {props.breadcrumbPlaces.map((crumb, i) => {
-          return (
-            <div
-              key={crumb.dcid}
-              className={`disaster-event-map-breadcrumb-entry${
-                i === props.breadcrumbPlaces.length - 1 ? "-selected" : ""
-              }`}
-              onClick={() => props.onPlaceSelected(crumb)}
-            >
-              <span>{crumb.name}</span>
-              {i < props.breadcrumbPlaces.length - 1 && (
-                <i className="material-icons">chevron_right</i>
-              )}
-            </div>
-          );
-        })}
-      </div>
       <div className="disaster-event-map-date-selector">
         Date:
         <CustomInput
           id="disaster-event-map-date-selector-input"
           type="select"
-          value={props.selectedDate}
+          value={props.date}
           onChange={(e) => {
-            props.onDateSelected(e.target.value);
+            props.setDate(e.target.value);
           }}
         >
-          {props.dateOptions.map((date) => {
+          {dateOptions.map((date) => {
             return (
               <option value={date} key={date}>
                 {DATE_OPTION_DISPLAY_NAMES[date] || date}
@@ -87,6 +99,49 @@ export function DisasterEventMapSelectors(
           })}
         </CustomInput>
       </div>
+      {props.children}
     </div>
   );
+
+  /**
+   * Updates date info given an event type spec
+   */
+  function updateDateOptions(
+    eventTypeSpec: Record<string, EventTypeSpec>,
+    selectedPlace: string
+  ): void {
+    const eventTypeDcids = Object.values(eventTypeSpec).flatMap(
+      (spec) => spec.eventTypeDcids
+    );
+    const useCache = getUseCache();
+    if (
+      dateOptionsUseCache.current &&
+      dateOptionsUseCache.current === useCache
+    ) {
+      return;
+    }
+    dateOptionsUseCache.current = useCache;
+    const customDateOptions = [
+      DATE_OPTION_30D_KEY,
+      DATE_OPTION_6M_KEY,
+      DATE_OPTION_1Y_KEY,
+      DATE_OPTION_3Y_KEY,
+    ];
+    fetchDateList(eventTypeDcids, selectedPlace, useCache)
+      .then((dateList) => {
+        const currDate = props.date;
+        const dateOptions = [...customDateOptions, ...dateList];
+        setDateOptions(dateOptions);
+        // if current date is not in the new date options, set selected date to be
+        // default.
+        if (dateOptions.findIndex((date) => date === currDate) < 0) {
+          props.setDate(PLACE_DEFAULT_DATE[props.place.dcid] || DEFAULT_DATE);
+        }
+      })
+      .catch(() => {
+        setDateOptions(customDateOptions);
+        // if empty date list, set selected date to be default.
+        props.setDate(PLACE_DEFAULT_DATE[props.place.dcid] || DEFAULT_DATE);
+      });
+  }
 }

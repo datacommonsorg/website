@@ -33,7 +33,7 @@ import {
   GA_VALUE_TOOL_CHART_OPTION_PER_CAPITA,
   triggerGAEvent,
 } from "../../shared/ga_events";
-import { urlToDomain } from "../../shared/util";
+import { urlToDisplayText } from "../../shared/util";
 
 interface ToolChartFooterPropType {
   // Id of the chart this footer is being added to.
@@ -81,6 +81,7 @@ export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
           {!_.isEmpty(props.sources) && (
             <div className={`${SELECTOR_PREFIX}-metadata`}>
               <span>Data from {getSourcesJsx(props.sources)}</span>
+              {globalThis.viaGoogle ? " via Google" : ""}
             </div>
           )}
           {!_.isEmpty(mMethods) && (
@@ -92,7 +93,7 @@ export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
           )}
         </div>
         <div
-          onClick={() => setChartOptionsOpened(!chartOptionsOpened)}
+          onClick={(): void => setChartOptionsOpened(!chartOptionsOpened)}
           className={`${SELECTOR_PREFIX}-options-button`}
         >
           <span>Chart Options</span>
@@ -109,7 +110,7 @@ export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
                     id={ratioCheckboxId}
                     type="checkbox"
                     checked={props.isPerCapita}
-                    onChange={() => {
+                    onChange={(): void => {
                       props.onIsPerCapitaUpdated(!props.isPerCapita);
                       if (!props.isPerCapita) {
                         triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
@@ -128,7 +129,7 @@ export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
           <FacetSelector
             svFacetId={props.svFacetId}
             facetListPromise={Promise.resolve(props.facetList)}
-            onSvFacetIdUpdated={(svFacetId) => {
+            onSvFacetIdUpdated={(svFacetId): void => {
               props.onSvFacetIdUpdated(svFacetId);
               triggerGAEvent(GA_EVENT_TOOL_CHART_OPTION_CLICK, {
                 [GA_PARAM_TOOL_CHART_OPTION]:
@@ -147,19 +148,19 @@ export function ToolChartFooter(props: ToolChartFooterPropType): JSX.Element {
 
 function getSourcesJsx(sources: Set<string>): JSX.Element[] {
   const sourceList: string[] = Array.from(sources);
-  const seenSourceDomains = new Set();
+  const seenSourceText = new Set();
   const sourcesJsx = sourceList.map((source, index) => {
-    const domain = urlToDomain(source);
-    if (seenSourceDomains.has(domain)) {
+    const sourceText = urlToDisplayText(source);
+    if (seenSourceText.has(sourceText)) {
       return null;
     }
-    seenSourceDomains.add(domain);
+    seenSourceText.add(sourceText);
     // handle relative url that doesn't contain https or http or www
-    const processedUrl = domain === source ? "https://" + source : source;
+    const processedUrl = sourceText === source ? "https://" + source : source;
     return (
       <span key={source}>
         {index > 0 ? ", " : ""}
-        <a href={processedUrl}>{domain}</a>
+        <a href={processedUrl}>{sourceText}</a>
       </span>
     );
   });

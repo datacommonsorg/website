@@ -1,0 +1,29 @@
+{
+  "childEntityType": "",
+  "classifications": [
+    {
+      "type": 100
+    }
+  ],
+  "client": "test_detect",
+  "comparisonEntities": [],
+  "comparisonVariables": [],
+  "context": {},
+  "debug": {},
+  "entities": [
+    "geoId/06"
+  ],
+  "nonPlaceEntities": [],
+  "properties": [],
+  "sessionId": "007_999999999",
+  "test": "unittest",
+  "variables": [
+    "dc/topic/CommuteTime",
+    "dc/topic/WorkCommute",
+    "dc/topic/CommuteMode",
+    "dc/topic/CommuteModeByOccupation",
+    "Mean_CommuteTime_Person_Years16Onwards_WorkCommute_Employed_WorkedOutsideOfHome",
+    "dc/hbkh95kc7pkb6",
+    "dc/wc8q05drd74bd"
+  ]
+}

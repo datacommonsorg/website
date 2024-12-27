@@ -1,0 +1,11 @@
+-r ../nl_requirements.txt
+
+dacite==1.8.1
+Flask==2.3.2
+google-cloud-logging==3.10.0
+gunicorn==22.0.0
+markupsafe==2.1.2
+Werkzeug==3.0.1
+# Downloading the named-entity recognition (NER) library spacy and the large EN model
+# using the guidelines here: https://spacy.io/usage/models#production
+en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.7.1/en_core_web_sm-3.7.1-py3-none-any.whl

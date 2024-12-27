@@ -1,0 +1,75 @@
+# Copyright 2023 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# DNS
+ip: 34.120.161.85
+domain: datacommons.org
+
+# Helm config
+project: "datcom-website-prod"
+cluster_prefix: "website"
+
+namespace:
+  name: "website"
+
+website:
+  flaskEnv: production
+  replicas: 150
+  redis:
+    enabled: true
+    configFile: |
+      {
+        "us-central1": {
+          "host": "10.167.58.139",
+          "port": "6379"
+        },
+        "us-west1": {
+          "host": "10.158.101.59",
+          "port": "6379"
+        }
+      }
+
+serviceAccount:
+  name: website-ksa
+
+nl:
+  enabled: true
+  env:
+    default_indexes:
+      - base_uae_mem
+    enabled_indexes:
+      - base_uae_mem
+      - medium_ft
+      - sdg_ft
+      - undata_ft
+    vertex_ai_models:
+      uae-large-v1-model:
+        project_id: datcom-nl
+        location: us-central1
+        prediction_endpoint_id: "430892009855647744"
+    enable_reranking: false
+
+serviceGroups:
+  recon: null
+  svg:
+    replicas: 10
+  observation:
+    replicas: 100
+  node:
+    replicas: 100
+  default:
+    replicas: 50
+
+svg:
+  blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]

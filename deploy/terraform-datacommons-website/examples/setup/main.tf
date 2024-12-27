@@ -13,6 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+terraform {
+  backend "gcs" {}
+}
 
 resource "random_id" "rnd" {
   byte_length = 4
@@ -43,11 +46,14 @@ module "enabled_google_apis" {
   disable_services_on_destroy = false
   activate_apis = [
     "apikeys.googleapis.com",
+    "bigtableadmin.googleapis.com",
     "binaryauthorization.googleapis.com",
+    "cloudbuild.googleapis.com",
     "cloudfunctions.googleapis.com",
     "compute.googleapis.com",
     "container.googleapis.com",
     "containerregistry.googleapis.com",
+    "dataflow.googleapis.com",
     "dns.googleapis.com",
     "domains.googleapis.com",
     "iam.googleapis.com",
@@ -78,6 +84,9 @@ resource "google_compute_global_address" "dc_website_ingress_ip" {
 }
 
 resource "google_dns_managed_zone" "datacommons_zone" {
+
+  count = var.register_domain ? 1 : 0
+
   name          = format("datacommons%s", local.resource_suffix)
   dns_name      = format("%s.", local.dc_website_domain)
   project       = var.project_id
@@ -92,8 +101,11 @@ resource "google_dns_managed_zone" "datacommons_zone" {
 }
 
 resource "google_dns_record_set" "website_record" {
-  name         = "${google_dns_managed_zone.datacommons_zone.dns_name}"
-  managed_zone = google_dns_managed_zone.datacommons_zone.name
+
+  count = var.register_domain ? 1 : 0
+
+  name         = "${google_dns_managed_zone.datacommons_zone[0].dns_name}"
+  managed_zone = google_dns_managed_zone.datacommons_zone[0].name
   type         = "A"
   ttl          = 300
   project      = var.project_id
@@ -119,6 +131,9 @@ locals {
 # null_resource isn't a cloud resource.
 # It is used for running the script to represent "create" method.
 resource "null_resource" "cloud_domain" {
+
+  count = var.register_domain ? 1 : 0
+
   provisioner "local-exec" {
     command = "sh register_dc_website_domain.sh"
     working_dir = path.module
@@ -135,7 +150,7 @@ resource "null_resource" "cloud_domain" {
       CONTACT_LOCALITY                    = var.contact_locality
       ARRAY_CONTACT_ADDRESSES             = local.single_quoted_array_contact_addresses
       ARRAY_CONTACT_RECIPIENTS            = local.single_quoted_array_contact_recipients
-      DNS_ZONE_NAME                       = google_dns_managed_zone.datacommons_zone.name
+      DNS_ZONE_NAME                       = google_dns_managed_zone.datacommons_zone[0].name
     }
   }
 

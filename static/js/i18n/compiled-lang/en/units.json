@@ -1,4 +1,52 @@
 {
+  "Knot": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " kn"
+    }
+  ],
+  "Knot-display": [
+    {
+      "type": 0,
+      "value": "kn"
+    }
+  ],
+  "Millibar": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " mbar"
+    }
+  ],
+  "Millibar-display": [
+    {
+      "type": 0,
+      "value": "mbar"
+    }
+  ],
+  "SquareKilometer": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " km²"
+    }
+  ],
+  "SquareKilometer-display": [
+    {
+      "type": 0,
+      "value": "km²"
+    }
+  ],
   "celsius": [
     {
       "type": 1,
@@ -111,6 +159,22 @@
       "value": "liters"
     }
   ],
+  "mega-ton": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " Mt"
+    }
+  ],
+  "mega-ton-display": [
+    {
+      "type": 0,
+      "value": "mega-tons"
+    }
+  ],
   "metric-ton": [
     {
       "type": 1,
@@ -189,6 +253,22 @@
     {
       "type": 0,
       "value": "/million"
+    }
+  ],
+  "percent": [
+    {
+      "type": 1,
+      "value": "0"
+    },
+    {
+      "type": 0,
+      "value": " %"
+    }
+  ],
+  "percent-display": [
+    {
+      "type": 0,
+      "value": "%"
     }
   ],
   "ppb": [

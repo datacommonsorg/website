@@ -2,7 +2,7 @@
 
 ## Description
 
-node is a Docker image based on node:17.9.0-slim that comes with a pre-installed
+node is a Docker image based on node:18.4.0-slim that comes with a pre-installed
 node_module based on the Data Commons
 [package.json](https://github.com/datacommonsorg/website/blob/master/static/package.json)
 

@@ -49,35 +49,41 @@ export function PreviewTable(props: PreviewTableProps): JSX.Element {
   orderedDataRows.splice(emptyRowIdx, 0, EMPTY_ROW_INDICATOR);
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>{props.csvData.headerRow}</th>
-          {props.csvData.orderedColumns.map((col) => {
-            return <th key={col.columnIdx}>{col.header}</th>;
+    <div className="file-preview-section">
+      <div className="file-preview-name">
+        <b>Your File: </b>
+        {props.csvData ? props.csvData.rawCsvFile.name : "No file chosen"}
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>{props.csvData.headerRow}</th>
+            {props.csvData.orderedColumns.map((col) => {
+              return <th key={col.columnIdx}>{col.header}</th>;
+            })}
+          </tr>
+        </thead>
+        <tbody>
+          {orderedDataRows.map((csvRowNum, rowIdx) => {
+            const csvRow =
+              csvRowNum === EMPTY_ROW_INDICATOR
+                ? new Array(props.csvData.orderedColumns.length).fill(
+                    EMPTY_ROW_FILLER
+                  )
+                : props.csvData.rowsForDisplay.get(csvRowNum);
+            const rowNum =
+              csvRowNum === EMPTY_ROW_INDICATOR ? EMPTY_ROW_FILLER : csvRowNum;
+            return (
+              <tr key={`row-${rowIdx}`}>
+                <td className="row-num">{rowNum.toString()}</td>
+                {csvRow.map((cell, cellIdx) => {
+                  return <td key={`row-${rowIdx}-cell-${cellIdx}`}>{cell}</td>;
+                })}
+              </tr>
+            );
           })}
-        </tr>
-      </thead>
-      <tbody>
-        {orderedDataRows.map((csvRowNum, rowIdx) => {
-          const csvRow =
-            csvRowNum === EMPTY_ROW_INDICATOR
-              ? new Array(props.csvData.orderedColumns.length).fill(
-                  EMPTY_ROW_FILLER
-                )
-              : props.csvData.rowsForDisplay.get(csvRowNum);
-          const rowNum =
-            csvRowNum === EMPTY_ROW_INDICATOR ? EMPTY_ROW_FILLER : csvRowNum;
-          return (
-            <tr key={`row-${rowIdx}`}>
-              <td className="row-num">{rowNum.toString()}</td>
-              {csvRow.map((cell, cellIdx) => {
-                return <td key={`row-${rowIdx}-cell-${cellIdx}`}>{cell}</td>;
-              })}
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
   );
 }

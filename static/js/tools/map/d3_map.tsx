@@ -30,6 +30,7 @@ import React, {
 
 import {
   addMapPoints,
+  addPolygonLayer,
   drawD3Map,
   getProjection,
 } from "../../chart/draw_d3_map";
@@ -39,12 +40,14 @@ import {
   GeoJsonFeatureProperties,
   MapPoint,
 } from "../../chart/types";
+import { MapLayerData } from "../../components/tiles/map_tile";
+import { BORDER_STROKE_COLOR } from "../../constants/map_constants";
 import { formatNumber } from "../../i18n/i18n";
 import {
   EUROPE_NAMED_TYPED_PLACE,
   USA_PLACE_DCID,
 } from "../../shared/constants";
-import { DataPointMetadata, NamedPlace } from "../../shared/types";
+import { DataPointMetadata, NamedPlace, StatVarSpec } from "../../shared/types";
 import { loadSpinner, removeSpinner } from "../../shared/util";
 import { isChildPlaceOf, shouldShowMapBoundaries } from "../shared_util";
 import { MAP_CONTAINER_ID, SECTION_CONTAINER_ID } from "./chart";
@@ -55,6 +58,7 @@ import {
   getParentPlaces,
   getRedirectLink,
 } from "./util";
+import { shouldShowBorder } from "./util";
 
 interface D3MapProps {
   geoJsonData: GeoJsonData;
@@ -64,6 +68,8 @@ interface D3MapProps {
   mapPointValues: { [dcid: string]: number };
   mapPoints: Array<MapPoint>;
   europeanCountries: Array<NamedPlace>;
+  // Geojson for drawing border of containing place
+  borderGeoJsonData?: GeoJsonData;
 }
 
 const LEGEND_CONTAINER_ID = "choropleth-legend";
@@ -78,7 +84,9 @@ export function D3Map(props: D3MapProps): JSX.Element {
   const { placeInfo, statVar, display } = useContext(Context);
 
   const [errorMessage, setErrorMessage] = useState("");
-  const chartContainerRef = useRef<HTMLDivElement>();
+  const chartContainerRef = useRef<HTMLDivElement>(null);
+  const mapContainerRef = useRef<HTMLDivElement>(null);
+  const legendContainerRef = useRef<HTMLDivElement>(null);
 
   const draw = useCallback(() => {
     if (
@@ -127,10 +135,9 @@ export function D3Map(props: D3MapProps): JSX.Element {
     );
     const legendHeight = height * LEGEND_HEIGHT_SCALING;
     const legendWidth = generateLegendSvg(
-      LEGEND_CONTAINER_ID,
+      legendContainerRef.current,
       legendHeight,
-      colorScale,
-      "",
+      [{ colorScale, unit: "" }],
       LEGEND_MARGIN_LEFT
     );
     const zoomParams = {
@@ -142,21 +149,46 @@ export function D3Map(props: D3MapProps): JSX.Element {
       USA_PLACE_DCID,
       placeInfo.value.parentPlaces
     );
+    const shouldUseBorderData =
+      placeInfo.value.enclosedPlaceType &&
+      shouldShowBorder(placeInfo.value.enclosedPlaceType) &&
+      props.borderGeoJsonData;
+    // Use border data to calculate projection if using borders.
+    // This prevents borders from being cutoff when enclosed places don't
+    // provide wall to wall coverage.
+    const projectionData = shouldUseBorderData
+      ? props.borderGeoJsonData
+      : props.geoJsonData;
     const projection = getProjection(
       isUSAPlace,
       placeInfo.value.enclosingPlace.dcid,
       width - legendWidth,
-      height
+      height,
+      projectionData,
+      zoomDcid
     );
-    document.getElementById(MAP_CONTAINER_ID).innerHTML = "";
+    const variable: StatVarSpec = {
+      denom: statVar.value.denom,
+      log: false,
+      scaling: 1,
+      statVar: statVar.value.dcid,
+      unit: props.unit,
+    };
+    const layerData: MapLayerData = {
+      colorScale,
+      dataValues: props.mapDataValues,
+      geoJson: props.geoJsonData,
+      showMapBoundaries: shouldShowMapBoundaries(
+        placeInfo.value.selectedPlace,
+        placeInfo.value.enclosedPlaceType
+      ),
+      variable,
+    };
     drawD3Map(
-      MAP_CONTAINER_ID,
-      props.geoJsonData,
+      mapContainerRef.current,
+      [layerData],
       height,
       width - legendWidth,
-      props.mapDataValues,
-      "",
-      colorScale,
       redirectAction,
       getTooltipHtml(
         props.metadata,
@@ -165,16 +197,22 @@ export function D3Map(props: D3MapProps): JSX.Element {
         props.unit
       ),
       canClickRegion(placeInfo.value, props.europeanCountries),
-      false,
-      shouldShowMapBoundaries(
-        placeInfo.value.selectedPlace,
-        placeInfo.value.enclosedPlaceType
-      ),
       projection,
-      placeInfo.value.enclosingPlace.dcid,
       zoomDcid,
       zoomParams
     );
+    // Draw borders
+    if (shouldUseBorderData) {
+      addPolygonLayer(
+        mapContainerRef.current,
+        props.borderGeoJsonData,
+        projection,
+        () => "none",
+        () => BORDER_STROKE_COLOR,
+        () => null,
+        false
+      );
+    }
     if (display.value.showMapPoints) {
       let mapPointSvTitle = "";
       if (statVar.value.mapPointSv !== statVar.value.dcid) {
@@ -183,18 +221,18 @@ export function D3Map(props: D3MapProps): JSX.Element {
             ? statVar.value.info[statVar.value.mapPointSv].title
             : "";
       }
-      const filteredMapPoints = props.mapPoints.filter((point) => {
-        return point.placeDcid in props.mapPointValues;
-      });
       addMapPoints(
-        MAP_CONTAINER_ID,
-        filteredMapPoints,
-        props.mapPointValues,
+        mapContainerRef.current,
+        props.mapPoints,
+        props.mapPointValues || {},
         projection,
-        null,
+        props.mapPointValues
+          ? null
+          : (): string =>
+              "black" /* getPointColor: if there are mapPointValues, addMapPoints will color the points accordingly */,
         getTooltipHtml(
           props.metadata,
-          props.mapPointValues,
+          props.mapPointValues || {},
           false,
           mapPointSvTitle || statVar.value.mapPointSv
         )
@@ -202,6 +240,7 @@ export function D3Map(props: D3MapProps): JSX.Element {
     }
     removeSpinner(CHART_LOADER_SCREEN);
   }, [
+    props.borderGeoJsonData,
     props.europeanCountries,
     props.geoJsonData,
     props.mapDataValues,
@@ -216,7 +255,10 @@ export function D3Map(props: D3MapProps): JSX.Element {
 
   // Replot when data changes.
   useEffect(() => {
-    if (display.value.showMapPoints && !props.mapPoints) {
+    if (
+      display.value.showMapPoints &&
+      (_.isNull(props.mapPoints) || _.isUndefined(props.mapPoints))
+    ) {
       loadSpinner(SECTION_CONTAINER_ID);
       return;
     } else {
@@ -249,8 +291,8 @@ export function D3Map(props: D3MapProps): JSX.Element {
     return (
       <div className="map-section-container">
         <div id={CHART_CONTAINER_ID} ref={chartContainerRef}>
-          <div id={MAP_CONTAINER_ID}></div>
-          <div id={LEGEND_CONTAINER_ID}></div>
+          <div id={MAP_CONTAINER_ID} ref={mapContainerRef}></div>
+          <div id={LEGEND_CONTAINER_ID} ref={legendContainerRef}></div>
         </div>
         <div className="zoom-button-section">
           <div id={ZOOM_IN_BUTTON_ID} className="zoom-button">
@@ -272,7 +314,7 @@ const getMapRedirectAction =
     displayOptions: DisplayOptions,
     europeanCountries: Array<NamedPlace>
   ) =>
-  (geoProperties: GeoJsonFeatureProperties) => {
+  (geoProperties: GeoJsonFeatureProperties): void => {
     const selectedPlace = {
       dcid: geoProperties.geoDcid,
       name: geoProperties.name,
@@ -307,7 +349,7 @@ const getTooltipHtml =
     unit: string,
     statVarTitle?: string
   ) =>
-  (place: NamedPlace) => {
+  (place: NamedPlace): string => {
     let titleHtml = `<b>${place.name || place.dcid}</b>`;
     if (statVarTitle) {
       titleHtml = `<b>${statVarTitle}</b><br />` + titleHtml;
@@ -345,7 +387,7 @@ const getTooltipHtml =
 
 const canClickRegion =
   (placeInfo: PlaceInfo, europeanCountries: Array<NamedPlace>) =>
-  (placeDcid: string) => {
+  (placeDcid: string): boolean => {
     const enclosingPlace =
       europeanCountries.findIndex((country) => country.dcid === placeDcid) > -1
         ? EUROPE_NAMED_TYPED_PLACE

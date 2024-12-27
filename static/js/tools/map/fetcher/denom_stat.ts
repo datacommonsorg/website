@@ -18,15 +18,11 @@
  * Fetch the stat data for denominator stat var
  */
 
-import axios from "axios";
 import _ from "lodash";
 import { Dispatch, useContext, useEffect } from "react";
 
-import {
-  EntitySeriesWrapper,
-  SeriesApiResponse,
-} from "../../../shared/stat_types";
-import { stringifyFn } from "../../../utils/axios";
+import { EntitySeriesWrapper } from "../../../shared/stat_types";
+import { getSeriesWithin } from "../../../utils/data_fetch_utils";
 import { ChartDataType, ChartStoreAction } from "../chart_store";
 import { Context } from "../context";
 
@@ -56,22 +52,19 @@ export function useFetchDenomStat(dispatch: Dispatch<ChartStoreAction>): void {
         },
       },
     };
-    axios
-      .get<SeriesApiResponse>("/api/observations/series/within", {
-        params: {
-          child_type: placeInfo.value.enclosedPlaceType,
-          parent_entity: placeInfo.value.enclosingPlace.dcid,
-          variables: [statVar.value.denom],
-        },
-        paramsSerializer: stringifyFn,
-      })
+    getSeriesWithin(
+      "",
+      placeInfo.value.enclosingPlace.dcid,
+      placeInfo.value.enclosedPlaceType,
+      [statVar.value.denom]
+    )
       .then((resp) => {
-        if (_.isEmpty(resp.data.data[statVar.value.denom])) {
+        if (_.isEmpty(resp.data[statVar.value.denom])) {
           action.error = "error fetching denom stat data";
         } else {
           action.payload = {
-            data: resp.data.data[statVar.value.denom],
-            facets: resp.data.facets,
+            data: resp.data[statVar.value.denom],
+            facets: resp.facets,
           } as EntitySeriesWrapper;
         }
         console.log("[Map Fetch] denom stat");

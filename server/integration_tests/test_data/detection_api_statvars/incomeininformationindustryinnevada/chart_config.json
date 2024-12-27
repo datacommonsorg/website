@@ -1,0 +1,31 @@
+{
+  "childEntityType": "",
+  "classifications": [
+    {
+      "type": 100
+    }
+  ],
+  "client": "test_detect",
+  "comparisonEntities": [],
+  "comparisonVariables": [],
+  "context": {},
+  "debug": {},
+  "entities": [
+    "geoId/32"
+  ],
+  "nonPlaceEntities": [],
+  "properties": [],
+  "sessionId": "007_999999999",
+  "variables": [
+    "dc/xj2nk2bg60fg",
+    "ReceiptsOrRevenue_Establishment_NAICSInformation_WithPayroll",
+    "WagesAnnual_Establishment_NAICSInformation",
+    "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue",
+    "dc/topic/Income",
+    "dc/topic/IndividualIncomeByIndustry",
+    "Count_Worker_NAICSInformation",
+    "WagesTotal_Worker_NAICSInformation",
+    "Count_Person_16OrMoreYears_WithEarnings",
+    "dc/topic/IndustriesByRevenue"
+  ]
+}

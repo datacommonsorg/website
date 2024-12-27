@@ -1,0 +1,935 @@
+{
+  "client": "test_detect-and-fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06105",
+                      "geoId/06093",
+                      "geoId/06091",
+                      "geoId/06063",
+                      "geoId/06051",
+                      "geoId/06049",
+                      "geoId/06043",
+                      "geoId/06027",
+                      "geoId/06021",
+                      "geoId/06011"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_NoHealthInsurance_multiple_place_bar_block"
+                    ],
+                    "title": "Population Without Health Insurance (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Without Health Insurance"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06105",
+                      "geoId/06093",
+                      "geoId/06091",
+                      "geoId/06063",
+                      "geoId/06051",
+                      "geoId/06049",
+                      "geoId/06043",
+                      "geoId/06027",
+                      "geoId/06021",
+                      "geoId/06011"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Female_NoHealthInsurance_multiple_place_bar_block",
+                      "Count_Person_Male_NoHealthInsurance_multiple_place_bar_block"
+                    ],
+                    "title": "Uninsured by Gender (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Uninsured by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06105",
+                      "geoId/06093",
+                      "geoId/06091",
+                      "geoId/06063",
+                      "geoId/06051",
+                      "geoId/06049",
+                      "geoId/06043",
+                      "geoId/06027",
+                      "geoId/06021",
+                      "geoId/06011"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_NoHealthInsurance_WhiteAlone_multiple_place_bar_block",
+                      "Count_Person_NoHealthInsurance_BlackOrAfricanAmericanAlone_multiple_place_bar_block",
+                      "Count_Person_NoHealthInsurance_HispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_NoHealthInsurance_AsianAlone_multiple_place_bar_block",
+                      "Count_Person_NoHealthInsurance_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block",
+                      "Count_Person_NoHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block"
+                    ],
+                    "title": "Uninsured by Race (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Uninsured by Race"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06105",
+                      "geoId/06093",
+                      "geoId/06091",
+                      "geoId/06063",
+                      "geoId/06051",
+                      "geoId/06049",
+                      "geoId/06043",
+                      "geoId/06027",
+                      "geoId/06021",
+                      "geoId/06011"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_WithHealthInsurance_multiple_place_bar_block"
+                    ],
+                    "title": "Population With Health Insurance (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population With Health Insurance"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06105",
+                      "geoId/06093",
+                      "geoId/06091",
+                      "geoId/06063",
+                      "geoId/06051",
+                      "geoId/06049",
+                      "geoId/06043",
+                      "geoId/06027",
+                      "geoId/06021",
+                      "geoId/06011"
+                    ],
+                    "statVarKey": [
+                      "Percent_Person_18To64Years_ReceivedNoHealthInsurance_multiple_place_bar_block"
+                    ],
+                    "title": "Percentage of Population Aged 18-64 With No Health Insurance (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Percentage of Population Aged 18-64 With No Health Insurance"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06105",
+                      "geoId/06093",
+                      "geoId/06091",
+                      "geoId/06063",
+                      "geoId/06051",
+                      "geoId/06049",
+                      "geoId/06043",
+                      "geoId/06027",
+                      "geoId/06021",
+                      "geoId/06011"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_WithPublicHealthInsurance_multiple_place_bar_block"
+                    ],
+                    "title": "People With Public Health Insurance (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "People With Public Health Insurance"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06105",
+                      "geoId/06093",
+                      "geoId/06091",
+                      "geoId/06063",
+                      "geoId/06051",
+                      "geoId/06049",
+                      "geoId/06043",
+                      "geoId/06027",
+                      "geoId/06021",
+                      "geoId/06011"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_WithPrivateHealthInsurance_multiple_place_bar_block"
+                    ],
+                    "title": "People With Private Health Insurance (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "People With Private Health Insurance"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06105",
+                      "geoId/06093",
+                      "geoId/06091",
+                      "geoId/06063",
+                      "geoId/06051",
+                      "geoId/06049",
+                      "geoId/06043",
+                      "geoId/06027",
+                      "geoId/06021",
+                      "geoId/06011"
+                    ],
+                    "statVarKey": [
+                      "Percent_Person_18To64Years_Female_NoHealthInsurance_multiple_place_bar_block"
+                    ],
+                    "title": "Percentage of Women (18 to 64 Years Old) Without Health Insurance (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Percentage of Women (18 to 64 Years Old) Without Health Insurance"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06105",
+                      "geoId/06093",
+                      "geoId/06091",
+                      "geoId/06063",
+                      "geoId/06051",
+                      "geoId/06049",
+                      "geoId/06043",
+                      "geoId/06027",
+                      "geoId/06021",
+                      "geoId/06011"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_WithMedicareCoverage_multiple_place_bar_block"
+                    ],
+                    "title": "People With Medicare Coverage (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "People With Medicare Coverage"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06105",
+                      "geoId/06093",
+                      "geoId/06091",
+                      "geoId/06063",
+                      "geoId/06051",
+                      "geoId/06049",
+                      "geoId/06043",
+                      "geoId/06027",
+                      "geoId/06021",
+                      "geoId/06011"
+                    ],
+                    "statVarKey": [
+                      "Percent_Person_18To64Years_Male_NoHealthInsurance_multiple_place_bar_block"
+                    ],
+                    "title": "Percentage of Men (18 to 64 Years Old) Without Health Insurance (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Percentage of Men (18 to 64 Years Old) Without Health Insurance"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06105",
+                      "geoId/06093",
+                      "geoId/06091",
+                      "geoId/06063",
+                      "geoId/06051",
+                      "geoId/06049",
+                      "geoId/06043",
+                      "geoId/06027",
+                      "geoId/06021",
+                      "geoId/06011"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_WithHealthInsurance_WhiteAlone_multiple_place_bar_block"
+                    ],
+                    "title": "White Population With Health Insurance (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "White Population With Health Insurance"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06105",
+                      "geoId/06093",
+                      "geoId/06091",
+                      "geoId/06063",
+                      "geoId/06051",
+                      "geoId/06049",
+                      "geoId/06043",
+                      "geoId/06027",
+                      "geoId/06021",
+                      "geoId/06011"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Female_WithHealthInsurance_multiple_place_bar_block"
+                    ],
+                    "title": "Women With Health Insurance (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women With Health Insurance"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06105",
+                      "geoId/06093",
+                      "geoId/06091",
+                      "geoId/06063",
+                      "geoId/06051",
+                      "geoId/06049",
+                      "geoId/06043",
+                      "geoId/06027",
+                      "geoId/06021",
+                      "geoId/06011"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_WithHealthInsurance_AsianAlone_multiple_place_bar_block"
+                    ],
+                    "title": "Asian Population With Health Insurance (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Asian Population With Health Insurance"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06105",
+                      "geoId/06093",
+                      "geoId/06091",
+                      "geoId/06063",
+                      "geoId/06051",
+                      "geoId/06049",
+                      "geoId/06043",
+                      "geoId/06027",
+                      "geoId/06021",
+                      "geoId/06011"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Male_WithHealthInsurance_multiple_place_bar_block"
+                    ],
+                    "title": "Men With Health Insurance (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Men With Health Insurance"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06105",
+                      "geoId/06093",
+                      "geoId/06091",
+                      "geoId/06063",
+                      "geoId/06051",
+                      "geoId/06049",
+                      "geoId/06043",
+                      "geoId/06027",
+                      "geoId/06021",
+                      "geoId/06011"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_WithHealthInsurance_BlackOrAfricanAmericanAlone_multiple_place_bar_block"
+                    ],
+                    "title": "Black or African American Alone Population With Health Insurance (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Black or African American Alone Population With Health Insurance"
+          }
+        ],
+        "statVarSpec": {
+          "Count_Person_Female_NoHealthInsurance_multiple_place_bar_block": {
+            "name": "Women With No Health Insurance",
+            "statVar": "Count_Person_Female_NoHealthInsurance"
+          },
+          "Count_Person_Female_WithHealthInsurance_multiple_place_bar_block": {
+            "name": "Women With Health Insurance",
+            "statVar": "Count_Person_Female_WithHealthInsurance"
+          },
+          "Count_Person_Male_NoHealthInsurance_multiple_place_bar_block": {
+            "name": "Men With No Health Insurance",
+            "statVar": "Count_Person_Male_NoHealthInsurance"
+          },
+          "Count_Person_Male_WithHealthInsurance_multiple_place_bar_block": {
+            "name": "Men With Health Insurance",
+            "statVar": "Count_Person_Male_WithHealthInsurance"
+          },
+          "Count_Person_NoHealthInsurance_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
+            "name": "American Indian or Alaska Native With No Health Insurance",
+            "statVar": "Count_Person_NoHealthInsurance_AmericanIndianOrAlaskaNativeAlone"
+          },
+          "Count_Person_NoHealthInsurance_AsianAlone_multiple_place_bar_block": {
+            "name": "Asian With No Health Insurance",
+            "statVar": "Count_Person_NoHealthInsurance_AsianAlone"
+          },
+          "Count_Person_NoHealthInsurance_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
+            "name": "Black or African American With No Health Insurance",
+            "statVar": "Count_Person_NoHealthInsurance_BlackOrAfricanAmericanAlone"
+          },
+          "Count_Person_NoHealthInsurance_HispanicOrLatino_multiple_place_bar_block": {
+            "name": "Hispanic or Latino With No Health Insurance",
+            "statVar": "Count_Person_NoHealthInsurance_HispanicOrLatino"
+          },
+          "Count_Person_NoHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block": {
+            "name": "Native Hawaiian or Other Pacific Islander With No Health Insurance",
+            "statVar": "Count_Person_NoHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone"
+          },
+          "Count_Person_NoHealthInsurance_WhiteAlone_multiple_place_bar_block": {
+            "name": "White With No Health Insurance",
+            "statVar": "Count_Person_NoHealthInsurance_WhiteAlone"
+          },
+          "Count_Person_NoHealthInsurance_multiple_place_bar_block": {
+            "name": "Population Without Health Insurance",
+            "statVar": "Count_Person_NoHealthInsurance"
+          },
+          "Count_Person_WithHealthInsurance_AsianAlone_multiple_place_bar_block": {
+            "name": "Asian Population With Health Insurance",
+            "statVar": "Count_Person_WithHealthInsurance_AsianAlone"
+          },
+          "Count_Person_WithHealthInsurance_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
+            "name": "Black or African American Alone Population With Health Insurance",
+            "statVar": "Count_Person_WithHealthInsurance_BlackOrAfricanAmericanAlone"
+          },
+          "Count_Person_WithHealthInsurance_WhiteAlone_multiple_place_bar_block": {
+            "name": "White Population With Health Insurance",
+            "statVar": "Count_Person_WithHealthInsurance_WhiteAlone"
+          },
+          "Count_Person_WithHealthInsurance_multiple_place_bar_block": {
+            "name": "Population With Health Insurance",
+            "statVar": "Count_Person_WithHealthInsurance"
+          },
+          "Count_Person_WithMedicareCoverage_multiple_place_bar_block": {
+            "name": "People With Medicare Coverage",
+            "statVar": "Count_Person_WithMedicareCoverage"
+          },
+          "Count_Person_WithPrivateHealthInsurance_multiple_place_bar_block": {
+            "name": "People With Private Health Insurance",
+            "statVar": "Count_Person_WithPrivateHealthInsurance"
+          },
+          "Count_Person_WithPublicHealthInsurance_multiple_place_bar_block": {
+            "name": "People With Public Health Insurance",
+            "statVar": "Count_Person_WithPublicHealthInsurance"
+          },
+          "Percent_Person_18To64Years_Female_NoHealthInsurance_multiple_place_bar_block": {
+            "name": "Percentage of Women (18 to 64 Years Old) Without Health Insurance",
+            "statVar": "Percent_Person_18To64Years_Female_NoHealthInsurance",
+            "unit": "%"
+          },
+          "Percent_Person_18To64Years_Male_NoHealthInsurance_multiple_place_bar_block": {
+            "name": "Percentage of Men (18 to 64 Years Old) Without Health Insurance",
+            "statVar": "Percent_Person_18To64Years_Male_NoHealthInsurance",
+            "unit": "%"
+          },
+          "Percent_Person_18To64Years_ReceivedNoHealthInsurance_multiple_place_bar_block": {
+            "name": "Percentage of Population Aged 18-64 With No Health Insurance",
+            "statVar": "Percent_Person_18To64Years_ReceivedNoHealthInsurance",
+            "unit": "%"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "geoId/06105"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "entities": [],
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "geoId/06105",
+    "name": "Trinity County",
+    "place_type": "County"
+  },
+  "placeFallback": {},
+  "placeSource": "PAST_QUERY",
+  "places": [
+    {
+      "dcid": "geoId/06105",
+      "name": "Trinity County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06093",
+      "name": "Siskiyou County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06091",
+      "name": "Sierra County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06063",
+      "name": "Plumas County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06051",
+      "name": "Mono County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06049",
+      "name": "Modoc County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06043",
+      "name": "Mariposa County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06027",
+      "name": "Inyo County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06021",
+      "name": "Glenn County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06011",
+      "name": "Colusa County",
+      "place_type": "County"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [
+      {
+        "dcid": "dc/topic/HealthInsuranceType",
+        "name": "Health Insurance Type",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/NoHealthInsurance",
+        "name": "No Health Insurance",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "exploreMore": {
+      "Count_Person_Female_NoHealthInsurance": {
+        "age": [
+          "Count_Person_18To64Years_Female_NoHealthInsurance",
+          "Count_Person_21To64Years_Female_NoHealthInsurance",
+          "dc/001qmh9sdqzeb",
+          "dc/0flj62fpwwxd",
+          "dc/bhlcb3wz4b3v2",
+          "dc/g1957rtkkrnpg",
+          "dc/jx2q10tbnwhf3",
+          "dc/jydkzj9v0yb2",
+          "dc/kbd1j4tv1r383",
+          "dc/mex82c8gfd403",
+          "dc/qb6th3c5tcd92",
+          "dc/qhwj3qx90h4pd",
+          "dc/xkfbhgbnzhm8d",
+          "dc/zj152fzswgrw6"
+        ]
+      },
+      "Count_Person_Female_WithHealthInsurance": {
+        "age": [
+          "Count_Person_18To64Years_Female_WithHealthInsurance",
+          "Count_Person_21To64Years_Female_WithHealthInsurance",
+          "dc/1h5c2xbpd0edb",
+          "dc/1hs676pfqqthd",
+          "dc/2ernkb6d9yem2",
+          "dc/48s0hzlshj354",
+          "dc/965mdb0c8tef9",
+          "dc/jjhxlkp3qk2m6",
+          "dc/kkbq8kzlm6tw4",
+          "dc/lwqlh3vtpzw51",
+          "dc/py9rzq2xytfe3",
+          "dc/q4lk959j0bgq",
+          "dc/whh1y53fj4p69",
+          "dc/y9xxbzfr8yb06"
+        ]
+      },
+      "Count_Person_Male_NoHealthInsurance": {
+        "age": [
+          "Count_Person_18To64Years_Male_NoHealthInsurance",
+          "Count_Person_21To64Years_Male_NoHealthInsurance",
+          "dc/1qdvp8x0t3l11",
+          "dc/260gxgmeglpb",
+          "dc/33z5t6xqjepp1",
+          "dc/4rdkjc2485w42",
+          "dc/5vygmpjw3vn0g",
+          "dc/f2jnw7jpb3kfb",
+          "dc/fwqlkjjch0dg5",
+          "dc/j88b1fy7045j1",
+          "dc/l8j7ggjt8yx8b",
+          "dc/nn4xz2lv98h5c",
+          "dc/ywjqcxc244sx2",
+          "dc/z2nb2y5n1lp27"
+        ]
+      },
+      "Count_Person_Male_WithHealthInsurance": {
+        "age": [
+          "Count_Person_18To64Years_Male_WithHealthInsurance",
+          "Count_Person_21To64Years_Male_WithHealthInsurance",
+          "dc/1n4mf17q78xtd",
+          "dc/b3n86k0h3h2w",
+          "dc/gqzpqrnpyjbfd",
+          "dc/gwzrfyg9jtrr8",
+          "dc/j8se7wv2gbdfd",
+          "dc/js56cehzj7wf4",
+          "dc/szxvr8qqrgnx1",
+          "dc/ve6s1v1eyrbt7",
+          "dc/wp3txgscfen9c",
+          "dc/y6tzpetgq89v4",
+          "dc/yrmj9vp8b8n1d",
+          "dc/zyhtyhs9efej3"
+        ]
+      },
+      "Count_Person_NoHealthInsurance": {
+        "age": [
+          "Count_Person_18OrMoreYears_NoHealthInsurance",
+          "Count_Person_18To24Years_NoHealthInsurance",
+          "Count_Person_18To64Years_NoHealthInsurance",
+          "Count_Person_19To25Years_NoHealthInsurance",
+          "Count_Person_19To64Years_NoHealthInsurance",
+          "Count_Person_21To64Years_NoHealthInsurance",
+          "dc/6cd3lft0vm4f5",
+          "dc/e8e2b0m921k68",
+          "dc/kk8cqe86becs4"
+        ],
+        "gender": [
+          "Count_Person_Female_NoHealthInsurance",
+          "Count_Person_Male_NoHealthInsurance"
+        ],
+        "householdIncome": [
+          "Count_Person_NoHealthInsurance_100000OrMoreInflationAdjustedUSDCurrentYear_ResidesInHousehold",
+          "Count_Person_NoHealthInsurance_25000OrLessInflationAdjustedUSDCurrentYear_ResidesInHousehold",
+          "Count_Person_NoHealthInsurance_25000To49999InflationAdjustedUSDCurrentYear_ResidesInHousehold",
+          "Count_Person_NoHealthInsurance_50000To74999InflationAdjustedUSDCurrentYear_ResidesInHousehold",
+          "Count_Person_NoHealthInsurance_75000To99999InflationAdjustedUSDCurrentYear_ResidesInHousehold"
+        ],
+        "householdType": [
+          "Count_Person_NoHealthInsurance_FamilyHousehold",
+          "Count_Person_NoHealthInsurance_MarriedCoupleFamilyHousehold",
+          "Count_Person_NoHealthInsurance_NonfamilyHouseholdAndOtherLivingArrangements",
+          "Count_Person_NoHealthInsurance_OtherFamilyHousehold",
+          "Count_Person_NoHealthInsurance_SingleFatherFamilyHousehold",
+          "Count_Person_NoHealthInsurance_SingleMotherFamilyHousehold"
+        ],
+        "race": [
+          "Count_Person_NoHealthInsurance_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_NoHealthInsurance_AsianAlone",
+          "Count_Person_NoHealthInsurance_BlackOrAfricanAmericanAlone",
+          "Count_Person_NoHealthInsurance_HispanicOrLatino",
+          "Count_Person_NoHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_NoHealthInsurance_OneRace",
+          "Count_Person_NoHealthInsurance_SomeOtherRaceAlone",
+          "Count_Person_NoHealthInsurance_TwoOrMoreRaces",
+          "Count_Person_NoHealthInsurance_WhiteAlone",
+          "Count_Person_NoHealthInsurance_WhiteAloneNotHispanicOrLatino"
+        ]
+      },
+      "Count_Person_WithHealthInsurance": {
+        "age": [
+          "Count_Person_18OrMoreYears_WithHealthInsurance",
+          "Count_Person_18To24Years_WithHealthInsurance",
+          "Count_Person_18To64Years_WithHealthInsurance",
+          "Count_Person_19To25Years_WithHealthInsurance",
+          "Count_Person_19To64Years_WithHealthInsurance"
+        ],
+        "gender": [
+          "Count_Person_Female_WithHealthInsurance",
+          "Count_Person_Male_WithHealthInsurance"
+        ],
+        "race": [
+          "Count_Person_WithHealthInsurance_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_WithHealthInsurance_AsianAlone",
+          "Count_Person_WithHealthInsurance_BlackOrAfricanAmericanAlone",
+          "Count_Person_WithHealthInsurance_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_WithHealthInsurance_SomeOtherRaceAlone",
+          "Count_Person_WithHealthInsurance_TwoOrMoreRaces",
+          "Count_Person_WithHealthInsurance_WhiteAlone",
+          "Count_Person_WithHealthInsurance_WhiteAloneNotHispanicOrLatino"
+        ]
+      },
+      "Count_Person_WithMedicareCoverage": {
+        "age": [
+          "Count_Person_18OrLessYears_WithMedicareCoverage",
+          "Count_Person_18To64Years_WithMedicareCoverage",
+          "Count_Person_19OrLessYears_WithMedicareCoverage",
+          "Count_Person_19To64Years_WithMedicareCoverage",
+          "Count_Person_65OrMoreYears_WithMedicareCoverage"
+        ]
+      },
+      "Count_Person_WithPrivateHealthInsurance": {
+        "age": [
+          "Count_Person_18To24Years_WithPrivateHealthInsurance",
+          "Count_Person_19To25Years_WithPrivateHealthInsurance"
+        ]
+      },
+      "Count_Person_WithPublicHealthInsurance": {
+        "age": [
+          "Count_Person_18To24Years_WithPublicHealthInsurance",
+          "Count_Person_19To25Years_WithPublicHealthInsurance"
+        ]
+      },
+      "Percent_Person_18To64Years_Female_NoHealthInsurance": {
+        "familyIncome": [
+          "dc/580lp655hysv",
+          "dc/65wl19b3nw2h",
+          "dc/bzcnetd3pryhb",
+          "dc/hcg8bgt9ne75h",
+          "dc/s0ywx1qw7v582"
+        ]
+      },
+      "Percent_Person_18To64Years_Male_NoHealthInsurance": {
+        "familyIncome": [
+          "dc/4y2x596pytve6",
+          "dc/qs60zzbnmyx95",
+          "dc/t99qwdy76dbv2",
+          "dc/xyqvew3z6zrt7",
+          "dc/ypjr28dcw2zm4"
+        ]
+      }
+    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/HealthInsurance",
+        "name": "Health Insurance",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Health",
+        "name": "Health",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/HealthConditions",
+        "name": "Health Conditions",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HealthEquity",
+        "name": "Health Equity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Mortality",
+        "name": "Mortality",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/PreventativeHealthAndBehavior",
+        "name": "Preventive Health and Behavior",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
+  "svSource": "CURRENT_QUERY",
+  "test": "filter_test",
+  "userMessages": [
+    "See relevant statistics based on the previous query."
+  ]
+}

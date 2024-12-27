@@ -33,6 +33,7 @@ import {
   ScatterPlotProperties,
 } from "../../chart/draw_scatter";
 import { GeoJsonData, GeoJsonFeatureProperties } from "../../chart/types";
+import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { USA_PLACE_DCID } from "../../shared/constants";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
 import {
@@ -108,7 +109,7 @@ export function Chart(props: ChartPropsType): JSX.Element {
       .catch(() => setGeoJsonFetched(true));
   }, []);
 
-  function replot() {
+  function replot(): void {
     if (!_.isEmpty(props.points)) {
       if (svgContainerRef.current) {
         clearSVGs();
@@ -138,11 +139,15 @@ export function Chart(props: ChartPropsType): JSX.Element {
       }
     }, DEBOUNCE_INTERVAL_MS);
     const resizeObserver = new ResizeObserver(debouncedHandler);
-    if (chartContainerRef.current) {
-      resizeObserver.observe(chartContainerRef.current);
+    // The value of chartContainerRef.current may change between setting the
+    // observe and unobserving during cleanup, so we store the current value
+    // in a variable.
+    const currentChartContainerElement = chartContainerRef.current;
+    if (currentChartContainerElement) {
+      resizeObserver.observe(currentChartContainerElement);
     }
     return () => {
-      resizeObserver.unobserve(chartContainerRef.current);
+      resizeObserver.unobserve(currentChartContainerElement);
       debouncedHandler.cancel();
     };
   }, [props, chartContainerRef, geoJsonFetched]);
@@ -169,7 +174,9 @@ export function Chart(props: ChartPropsType): JSX.Element {
           <span>vs</span>
           <h3>{xTitle}</h3>
         </div>
-        <div className="scatter-chart-container">
+        <div
+          className={`scatter-chart-container ${ASYNC_ELEMENT_HOLDER_CLASS}`}
+        >
           <div id={SVG_CONTAINER_ID} ref={svgContainerRef}></div>
           <div id={MAP_LEGEND_CONTAINER_ID} ref={mapLegendRef}></div>
           <div id="scatter-tooltip" ref={tooltipRef} />
@@ -223,8 +230,10 @@ function plot(
     yLog: props.yLog,
     showQuadrants: props.display.showQuadrants,
     showDensity: props.display.showDensity,
+    showPopulation: props.display.showPopulation,
     showLabels: props.display.showLabels,
     showRegression: props.display.showRegression,
+    highlightPoints: [],
   };
   const ScatterPlotProperties: ScatterPlotProperties = {
     width: svgContainerRealWidth,
@@ -236,8 +245,8 @@ function plot(
   };
   if (props.display.chartType === ScatterChartType.SCATTER) {
     drawScatter(
-      svgContainerRef,
-      tooltipRef,
+      svgContainerRef.current,
+      tooltipRef.current,
       ScatterPlotProperties,
       scatterPlotOptions,
       props.points,
@@ -271,7 +280,7 @@ function plot(
       ),
     };
     drawBivariate(
-      SVG_CONTAINER_ID,
+      svgContainerRef,
       mapLegendRef,
       props.points,
       geoJsonData,
@@ -351,7 +360,7 @@ function redirectAction(placeDcid: string): void {
   window.open(uri);
 }
 
-function getTitle(dates: string[], statVarLabel: string) {
+function getTitle(dates: string[], statVarLabel: string): string {
   const dateRange = `(${getDateRange(dates)})`;
   return `${statVarLabel} ${dateRange}`;
 }
@@ -364,7 +373,7 @@ const getMapTooltipHtml =
     xPerCapita: boolean,
     yPerCapita: boolean
   ) =>
-  (place: NamedPlace) => {
+  (place: NamedPlace): string => {
     const point = points[place.dcid];
     if (_.isEmpty(point)) {
       return (

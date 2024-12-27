@@ -1,0 +1,1888 @@
+{
+  "client": "test_detect-and-fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "startDate": "2023"
+                    },
+                    "statVarKey": [
+                      "Count_Person_2176550201"
+                    ],
+                    "title": "Population in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population in United States",
+                    "statVarKey": [
+                      "Count_Person"
+                    ],
+                    "title": "Population in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person"
+                    ],
+                    "title": "Population in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person"
+                    ],
+                    "title": "Population in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Population in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "startDate": "2023"
+                    },
+                    "statVarKey": [
+                      "Count_Person_PerArea_1151455814"
+                    ],
+                    "title": "Population Density in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population Density in United States",
+                    "statVarKey": [
+                      "Count_Person_PerArea"
+                    ],
+                    "title": "Population Density in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Density"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_PerArea"
+                    ],
+                    "title": "Population Density in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_PerArea"
+                    ],
+                    "title": "Population Density in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Density in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "startDate": "2023"
+                    },
+                    "statVarKey": [
+                      "GrowthRate_Count_Person_3981252704"
+                    ],
+                    "title": "Rate of Population Growth in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Rate of Population Growth in United States",
+                    "statVarKey": [
+                      "GrowthRate_Count_Person"
+                    ],
+                    "title": "Rate of Population Growth in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Rate of Population Growth"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_85OrMoreYears_Female"
+                    ],
+                    "title": "Women Over 85 in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_85OrMoreYears_Female"
+                    ],
+                    "title": "Women Over 85 in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women Over 85 in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_85OrMoreYears_Male"
+                    ],
+                    "title": "Men Over 85 in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_85OrMoreYears_Male"
+                    ],
+                    "title": "Men Over 85 in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Men Over 85 in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "startDate": "2023"
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_3999249536",
+                      "Count_Person_Male_3999249536"
+                    ],
+                    "title": "Population by Gender in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female"
+                    ],
+                    "title": "Women in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female"
+                    ],
+                    "title": "Women in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Male"
+                    ],
+                    "title": "Men in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Male"
+                    ],
+                    "title": "Men in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Men in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "startDate": "2023"
+                    },
+                    "statVarKey": [
+                      "Count_Person_WhiteAlone_3935616881",
+                      "Count_Person_BlackOrAfricanAmericanAlone_3935616881",
+                      "Count_Person_HispanicOrLatino_2317674805",
+                      "Count_Person_AsianAlone_3935616881",
+                      "Count_Person_AmericanIndianAndAlaskaNativeAlone_3935616881"
+                    ],
+                    "title": "Monoracial Breakdown in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Monoracial Breakdown"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WhiteAlone"
+                    ],
+                    "title": "White Monoracial Population in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_WhiteAlone"
+                    ],
+                    "title": "White Monoracial Population in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "White Monoracial Population in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Black Monoracial Population in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Black Monoracial Population in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Black Monoracial Population in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "startDate": "2023"
+                    },
+                    "statVarKey": [
+                      "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881",
+                      "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881",
+                      "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881",
+                      "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881",
+                      "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881"
+                    ],
+                    "title": "Monoracial/multiracial Breakdown in United States",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Monoracial/multiracial Breakdown"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces"
+                    ],
+                    "title": "American Indian and Alaska Native Population, Monoracial/Multiracial in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces"
+                    ],
+                    "title": "American Indian and Alaska Native Population, Monoracial/Multiracial in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "American Indian and Alaska Native Population, Monoracial/Multiracial in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces"
+                    ],
+                    "title": "Asian Population, Monoracial/Multiracial in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces"
+                    ],
+                    "title": "Asian Population, Monoracial/Multiracial in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Asian Population, Monoracial/Multiracial in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block",
+                      "Count_Person_HispanicOrLatino_AsianAlone_multiple_place_bar_block",
+                      "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone_multiple_place_bar_block",
+                      "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block",
+                      "Count_Person_HispanicOrLatino_TwoOrMoreRaces_multiple_place_bar_block",
+                      "Count_Person_HispanicOrLatino_WhiteAlone_multiple_place_bar_block",
+                      "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block",
+                      "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block",
+                      "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block",
+                      "Count_Person_HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block"
+                    ],
+                    "title": "Racial Breakdown With Hispanic Consideration in United States (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Racial Breakdown With Hispanic Consideration"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone"
+                    ],
+                    "title": "Hispanic American Indian Population in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone"
+                    ],
+                    "title": "Hispanic American Indian Population in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Hispanic American Indian Population in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_HispanicOrLatino_AsianAlone"
+                    ],
+                    "title": "Hispanic Asian Population in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_HispanicOrLatino_AsianAlone"
+                    ],
+                    "title": "Hispanic Asian Population in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Hispanic Asian Population in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block",
+                      "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block",
+                      "Count_Person_NotHispanicOrLatino_AsianAlone_multiple_place_bar_block",
+                      "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAlone_multiple_place_bar_block",
+                      "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block",
+                      "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block",
+                      "Count_Person_NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block",
+                      "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block",
+                      "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block",
+                      "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces_multiple_place_bar_block",
+                      "Count_Person_NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block"
+                    ],
+                    "title": "Racial Breakdown With Non Hispanic Consideration in United States (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Racial Breakdown With Non Hispanic Consideration"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_WhiteAloneNotHispanicOrLatino"
+                    ],
+                    "title": "White Hispanic Monoracial Population in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_WhiteAloneNotHispanicOrLatino"
+                    ],
+                    "title": "White Hispanic Monoracial Population in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "White Hispanic Monoracial Population in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone"
+                    ],
+                    "title": "Non Hispanic Population Identifying as American Indian or Alaska Native Alone in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone"
+                    ],
+                    "title": "Non Hispanic Population Identifying as American Indian or Alaska Native Alone in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Non Hispanic Population Identifying as American Indian or Alaska Native Alone in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "startDate": "2023"
+                    },
+                    "statVarKey": [
+                      "Count_Person_Urban_3615161630"
+                    ],
+                    "title": "Population Living in Urban Areas in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population Living in Urban Areas in United States",
+                    "statVarKey": [
+                      "Count_Person_Urban"
+                    ],
+                    "title": "Population Living in Urban Areas in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Urban population refers to people living in urban areas as defined by national statistical offices. It is calculated using world bank population estimates and urban ratios from the united nations world urbanization prospects. Aggregation of urban and rural population may not add up to total population because of different country coverages. World bank staff estimates based on the united nations population Division's world urbanization prospects: 2018 revision.",
+            "title": "Population Living in Urban Areas"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "startDate": "2023"
+                    },
+                    "statVarKey": [
+                      "Count_Person_Employed_3707913853"
+                    ],
+                    "title": "Population With Current Employment in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population With Current Employment in United States",
+                    "statVarKey": [
+                      "Count_Person_Employed"
+                    ],
+                    "title": "Population With Current Employment in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population With Current Employment"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Employed"
+                    ],
+                    "title": "Population With Current Employment in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Employed"
+                    ],
+                    "title": "Population With Current Employment in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population With Current Employment in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "startDate": "2023"
+                    },
+                    "statVarKey": [
+                      "Count_Person_Rural_3615161630"
+                    ],
+                    "title": "Population Living in Rural Areas in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population Living in Rural Areas in United States",
+                    "statVarKey": [
+                      "Count_Person_Rural"
+                    ],
+                    "title": "Population Living in Rural Areas in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Rural population refers to people living in rural areas as defined by national statistical offices. It is calculated as the difference between total population and urban population. Aggregation of urban and rural population may not add up to total population because of different country coverages. World bank staff estimates based on the united nations population Division's world urbanization prospects: 2018 revision.",
+            "title": "Population Living in Rural Areas"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "startDate": "2023"
+                    },
+                    "statVarKey": [
+                      "Count_Person_InLaborForce_3707913853"
+                    ],
+                    "title": "Population in the Labor Force in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population in the Labor Force in United States",
+                    "statVarKey": [
+                      "Count_Person_InLaborForce"
+                    ],
+                    "title": "Population in the Labor Force in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population in the Labor Force"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_InLaborForce"
+                    ],
+                    "title": "Population in the Labor Force in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_InLaborForce"
+                    ],
+                    "title": "Population in the Labor Force in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population in the Labor Force in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "startDate": "2023"
+                    },
+                    "statVarKey": [
+                      "Count_Person_ResidesInHousehold_1926704588"
+                    ],
+                    "title": "Population: Household in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Household in United States",
+                    "statVarKey": [
+                      "Count_Person_ResidesInHousehold"
+                    ],
+                    "title": "Population: Household in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Household"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "lineTileSpec": {
+                      "startDate": "2023"
+                    },
+                    "statVarKey": [
+                      "Count_Death_1437305810"
+                    ],
+                    "title": "Number of Deaths in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Number of Deaths in United States",
+                    "statVarKey": [
+                      "Count_Death"
+                    ],
+                    "title": "Number of Deaths in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Number of Deaths"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death"
+                    ],
+                    "title": "Number of Deaths in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death"
+                    ],
+                    "title": "Number of Deaths in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Number of Deaths in States of United States"
+          }
+        ],
+        "statVarSpec": {
+          "Count_Death": {
+            "name": "Number of Deaths",
+            "statVar": "Count_Death"
+          },
+          "Count_Death_1437305810": {
+            "facetId": "1437305810",
+            "name": "Number of Deaths",
+            "statVar": "Count_Death"
+          },
+          "Count_Person": {
+            "name": "Population",
+            "statVar": "Count_Person"
+          },
+          "Count_Person_2176550201": {
+            "facetId": "2176550201",
+            "name": "Population",
+            "statVar": "Count_Person"
+          },
+          "Count_Person_85OrMoreYears_Female": {
+            "name": "Women over 85",
+            "statVar": "Count_Person_85OrMoreYears_Female"
+          },
+          "Count_Person_85OrMoreYears_Male": {
+            "name": "Men over 85",
+            "statVar": "Count_Person_85OrMoreYears_Male"
+          },
+          "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces": {
+            "name": "American Indian and Alaska Native Population, Monoracial/Multiracial",
+            "statVar": "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881": {
+            "facetId": "3935616881",
+            "name": "American Indian and Alaska Native Population, Monoracial/Multiracial",
+            "statVar": "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_AmericanIndianAndAlaskaNativeAlone_3935616881": {
+            "facetId": "3935616881",
+            "name": "Population American Indian or Alaska Native Alone",
+            "statVar": "Count_Person_AmericanIndianAndAlaskaNativeAlone"
+          },
+          "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces": {
+            "name": "Asian Population, Monoracial/Multiracial",
+            "statVar": "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881": {
+            "facetId": "3935616881",
+            "name": "Asian Population, Monoracial/Multiracial",
+            "statVar": "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_AsianAlone_3935616881": {
+            "facetId": "3935616881",
+            "name": "Population Asian Alone",
+            "statVar": "Count_Person_AsianAlone"
+          },
+          "Count_Person_BlackOrAfricanAmericanAlone": {
+            "name": "Black Monoracial Population",
+            "statVar": "Count_Person_BlackOrAfricanAmericanAlone"
+          },
+          "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881": {
+            "facetId": "3935616881",
+            "name": "Black Population, Monoracial/Multiracial",
+            "statVar": "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_BlackOrAfricanAmericanAlone_3935616881": {
+            "facetId": "3935616881",
+            "name": "Black Monoracial Population",
+            "statVar": "Count_Person_BlackOrAfricanAmericanAlone"
+          },
+          "Count_Person_Employed": {
+            "name": "Population With Current Employment",
+            "statVar": "Count_Person_Employed"
+          },
+          "Count_Person_Employed_3707913853": {
+            "facetId": "3707913853",
+            "name": "Population With Current Employment",
+            "statVar": "Count_Person_Employed"
+          },
+          "Count_Person_Female": {
+            "name": "Women",
+            "statVar": "Count_Person_Female"
+          },
+          "Count_Person_Female_3999249536": {
+            "facetId": "3999249536",
+            "name": "Women",
+            "statVar": "Count_Person_Female"
+          },
+          "Count_Person_HispanicOrLatino_2317674805": {
+            "facetId": "2317674805",
+            "name": "Hispanic Population",
+            "statVar": "Count_Person_HispanicOrLatino"
+          },
+          "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block": {
+            "name": "Hispanic American Indian Population",
+            "statVar": "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone": {
+            "name": "Hispanic American Indian Population",
+            "statVar": "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone"
+          },
+          "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
+            "name": "Hispanic American Indian Population",
+            "statVar": "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone"
+          },
+          "Count_Person_HispanicOrLatino_AsianAlone": {
+            "name": "Hispanic Asian Population",
+            "statVar": "Count_Person_HispanicOrLatino_AsianAlone"
+          },
+          "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block": {
+            "name": "Hispanic Asian Population",
+            "statVar": "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_HispanicOrLatino_AsianAlone_multiple_place_bar_block": {
+            "name": "Hispanic Asian Population",
+            "statVar": "Count_Person_HispanicOrLatino_AsianAlone"
+          },
+          "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
+            "name": "Hispanic African American Population",
+            "statVar": "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone"
+          },
+          "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block": {
+            "name": "Hispanic Native Hawaiian/Other Pacific Islander Population. Monoracial/Multiracial",
+            "statVar": "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block": {
+            "name": "Hispanic Native Hawaiian/Other Pacific Islander Alone Population",
+            "statVar": "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone"
+          },
+          "Count_Person_HispanicOrLatino_TwoOrMoreRaces_multiple_place_bar_block": {
+            "name": "Hispanic Multiracial Population",
+            "statVar": "Count_Person_HispanicOrLatino_TwoOrMoreRaces"
+          },
+          "Count_Person_HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block": {
+            "name": "White Hispanic Population, Monoracial/Multiracial",
+            "statVar": "Count_Person_HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_HispanicOrLatino_WhiteAlone_multiple_place_bar_block": {
+            "name": "White Hispanic Monoracial Population",
+            "statVar": "Count_Person_HispanicOrLatino_WhiteAlone"
+          },
+          "Count_Person_InLaborForce": {
+            "name": "Population in the Labor Force",
+            "statVar": "Count_Person_InLaborForce"
+          },
+          "Count_Person_InLaborForce_3707913853": {
+            "facetId": "3707913853",
+            "name": "Population in the Labor Force",
+            "statVar": "Count_Person_InLaborForce"
+          },
+          "Count_Person_Male": {
+            "name": "Men",
+            "statVar": "Count_Person_Male"
+          },
+          "Count_Person_Male_3999249536": {
+            "facetId": "3999249536",
+            "name": "Men",
+            "statVar": "Count_Person_Male"
+          },
+          "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881": {
+            "facetId": "3935616881",
+            "name": "Native Hawaiian and Other Pacific Islander Population, Monoracial/Multiracial",
+            "statVar": "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block": {
+            "name": "Non Hispanic Population Identifying as American Indian and Alaska Native, Monoracial/Multiracial",
+            "statVar": "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone": {
+            "name": "Non Hispanic Population Identifying as American Indian or Alaska Native Alone",
+            "statVar": "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone"
+          },
+          "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone_multiple_place_bar_block": {
+            "name": "Non Hispanic Population Identifying as American Indian or Alaska Native Alone",
+            "statVar": "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone"
+          },
+          "Count_Person_NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block": {
+            "name": "Non Hispanic Population Identifying as Asian",
+            "statVar": "Count_Person_NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_NotHispanicOrLatino_AsianAlone_multiple_place_bar_block": {
+            "name": "Non Hispanic Population Identifying as Asian Alone",
+            "statVar": "Count_Person_NotHispanicOrLatino_AsianAlone"
+          },
+          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block": {
+            "name": "Non Hispanic Population Identifying as Black or African American",
+            "statVar": "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAlone_multiple_place_bar_block": {
+            "name": "Non Hispanic Population Identifying as Black or African American Alone",
+            "statVar": "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAlone"
+          },
+          "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block": {
+            "name": "Non Hispanic Population Identifying as Native Hawaiian and Other Pacific Islander",
+            "statVar": "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone_multiple_place_bar_block": {
+            "name": "Non Hispanic Population Identifying as Native Hawaiian or Other Pacific Islander Alone",
+            "statVar": "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone"
+          },
+          "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces_multiple_place_bar_block": {
+            "name": "Non Hispanic Multiracial Population",
+            "statVar": "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces"
+          },
+          "Count_Person_NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces_multiple_place_bar_block": {
+            "name": "Non Hispanic White Population, Monoracial/Multiracial",
+            "statVar": "Count_Person_NotHispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_PerArea": {
+            "name": "Population Density",
+            "statVar": "Count_Person_PerArea"
+          },
+          "Count_Person_PerArea_1151455814": {
+            "facetId": "1151455814",
+            "name": "Population Density",
+            "statVar": "Count_Person_PerArea"
+          },
+          "Count_Person_ResidesInHousehold": {
+            "name": "Population: Household",
+            "statVar": "Count_Person_ResidesInHousehold"
+          },
+          "Count_Person_ResidesInHousehold_1926704588": {
+            "facetId": "1926704588",
+            "name": "Population: Household",
+            "statVar": "Count_Person_ResidesInHousehold"
+          },
+          "Count_Person_Rural": {
+            "name": "Population Living in Rural Areas",
+            "statVar": "Count_Person_Rural"
+          },
+          "Count_Person_Rural_3615161630": {
+            "facetId": "3615161630",
+            "name": "Population Living in Rural Areas",
+            "statVar": "Count_Person_Rural"
+          },
+          "Count_Person_Urban": {
+            "name": "Population Living in Urban Areas",
+            "statVar": "Count_Person_Urban"
+          },
+          "Count_Person_Urban_3615161630": {
+            "facetId": "3615161630",
+            "name": "Population Living in Urban Areas",
+            "statVar": "Count_Person_Urban"
+          },
+          "Count_Person_WhiteAlone": {
+            "name": "White Monoracial Population",
+            "statVar": "Count_Person_WhiteAlone"
+          },
+          "Count_Person_WhiteAloneNotHispanicOrLatino": {
+            "name": "White Hispanic Monoracial Population",
+            "statVar": "Count_Person_WhiteAloneNotHispanicOrLatino"
+          },
+          "Count_Person_WhiteAloneNotHispanicOrLatino_multiple_place_bar_block": {
+            "name": "White Hispanic Monoracial Population",
+            "statVar": "Count_Person_WhiteAloneNotHispanicOrLatino"
+          },
+          "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881": {
+            "facetId": "3935616881",
+            "name": "White Population, Monoracial/Multiracial",
+            "statVar": "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces"
+          },
+          "Count_Person_WhiteAlone_3935616881": {
+            "facetId": "3935616881",
+            "name": "White Monoracial Population",
+            "statVar": "Count_Person_WhiteAlone"
+          },
+          "GrowthRate_Count_Person": {
+            "name": "Rate of Population Growth",
+            "statVar": "GrowthRate_Count_Person"
+          },
+          "GrowthRate_Count_Person_3981252704": {
+            "facetId": "3981252704",
+            "name": "Rate of Population Growth",
+            "statVar": "GrowthRate_Count_Person"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "containedPlaceTypes": {
+        "Country": "State"
+      },
+      "placeDcid": [
+        "country/USA"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "entities": [],
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "country/USA",
+    "name": "United States",
+    "place_type": "Country"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "country/USA",
+      "name": "United States",
+      "place_type": "Country"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {
+      "State": [
+        {
+          "dcid": "geoId/01",
+          "name": "Alabama",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/02",
+          "name": "Alaska",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/04",
+          "name": "Arizona",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/05",
+          "name": "Arkansas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/06",
+          "name": "California",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/08",
+          "name": "Colorado",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/09",
+          "name": "Connecticut",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/10",
+          "name": "Delaware",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/11",
+          "name": "District of Columbia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/12",
+          "name": "Florida",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/13",
+          "name": "Georgia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/15",
+          "name": "Hawaii",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/16",
+          "name": "Idaho",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/17",
+          "name": "Illinois",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/18",
+          "name": "Indiana",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/19",
+          "name": "Iowa",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/20",
+          "name": "Kansas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/21",
+          "name": "Kentucky",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/22",
+          "name": "Louisiana",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/23",
+          "name": "Maine",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/24",
+          "name": "Maryland",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/25",
+          "name": "Massachusetts",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/26",
+          "name": "Michigan",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/27",
+          "name": "Minnesota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/28",
+          "name": "Mississippi",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/29",
+          "name": "Missouri",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/30",
+          "name": "Montana",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/31",
+          "name": "Nebraska",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/32",
+          "name": "Nevada",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/33",
+          "name": "New Hampshire",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/34",
+          "name": "New Jersey",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/35",
+          "name": "New Mexico",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/36",
+          "name": "New York",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/37",
+          "name": "North Carolina",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/38",
+          "name": "North Dakota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/39",
+          "name": "Ohio",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/40",
+          "name": "Oklahoma",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/41",
+          "name": "Oregon",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/42",
+          "name": "Pennsylvania",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/44",
+          "name": "Rhode Island",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/45",
+          "name": "South Carolina",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/46",
+          "name": "South Dakota",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/47",
+          "name": "Tennessee",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/48",
+          "name": "Texas",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/49",
+          "name": "Utah",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/50",
+          "name": "Vermont",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/51",
+          "name": "Virginia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/53",
+          "name": "Washington",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/54",
+          "name": "West Virginia",
+          "types": [
+            "State"
+          ]
+        },
+        {
+          "dcid": "geoId/55",
+          "name": "Wisconsin",
+          "types": [
+            "State"
+          ]
+        }
+      ]
+    },
+    "childTopics": [
+      {
+        "dcid": "dc/topic/Age",
+        "name": "Age",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Gender",
+        "name": "Gender",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Race",
+        "name": "Population by Race",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Language",
+        "name": "Language Spoken At Home",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/MaritalStatus",
+        "name": "Marital Status",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Nationality",
+        "name": "Nationality",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Veterans",
+        "name": "Veterans",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "exploreMore": {
+      "Count_Person": {
+        "gender": [
+          "Count_Person_Female",
+          "Count_Person_Male"
+        ],
+        "placeOfResidenceClassification": [
+          "Count_Person_Rural",
+          "Count_Person_Urban"
+        ],
+        "race": [
+          "Count_Person_AmericanIndianAndAlaskaNativeAlone",
+          "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_AsianAlone",
+          "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_BlackOrAfricanAmericanAlone",
+          "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_HispanicOrLatino",
+          "Count_Person_HispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_HispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_HispanicOrLatino_AsianAlone",
+          "Count_Person_HispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_HispanicOrLatino_BlackOrAfricanAmericanAlone",
+          "Count_Person_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_HispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_HispanicOrLatino_TwoOrMoreRaces",
+          "Count_Person_HispanicOrLatino_WhiteAlone",
+          "Count_Person_HispanicOrLatino_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NotHispanicOrLatino_AmericanIndianOrAlaskaNativeAlone",
+          "Count_Person_NotHispanicOrLatino_AsianAlone",
+          "Count_Person_NotHispanicOrLatino_AsianAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAlone",
+          "Count_Person_NotHispanicOrLatino_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces",
+          "Count_Person_NotHispanicOrLatino_NativeHawaiianOrOtherPacificIslanderAlone",
+          "Count_Person_NotHispanicOrLatino_TwoOrMoreRaces",
+          "Count_Person_WhiteAlone",
+          "Count_Person_WhiteAloneNotHispanicOrLatino",
+          "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces"
+        ]
+      }
+    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Demographics",
+        "name": "Demographics",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Root",
+        "name": "Statistics",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/Health",
+        "name": "Health",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Economy",
+        "name": "Economy",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/EducationHousingAndCommute",
+        "name": "Education, Housing and Commute",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Equity",
+        "name": "Equity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Sustainability",
+        "name": "Sustainability",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
+  "svSource": "CURRENT_QUERY",
+  "userMessages": []
+}

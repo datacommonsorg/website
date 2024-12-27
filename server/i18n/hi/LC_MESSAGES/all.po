@@ -13,6 +13,9 @@ msgstr "Data Commons के बारे में जानकारी"
 msgid "Blog"
 msgstr "ब्लॉग"
 
+msgid "Cities, India"
+msgstr "Cities, India"
+
 msgid "Cities, United States"
 msgstr "संयुक्त राज्य अमेरिका के शहर"
 
@@ -29,13 +32,16 @@ msgid "Data Commons"
 msgstr "Data Commons"
 
 msgid "Data Download Tool"
-msgstr ""
+msgstr "Data Download Tool"
 
 msgid "Data Sources"
-msgstr "डेटा स्रोत"
+msgstr "डेटा सोर्स"
 
 msgid "Disclaimers"
 msgstr "खंंडन"
+
+msgid "Districts, India"
+msgstr "Districts, India"
 
 msgid "Documentation"
 msgstr "दस्तावेज़"
@@ -45,6 +51,9 @@ msgstr "दुनिया भर में इकॉनमिक इंडि�
 
 msgid "Enter a country, state, county or city"
 msgstr "देश, राज्य, काउंटी या शहर का नाम डालें"
+
+msgid "Enter a country, state, district or city"
+msgstr "Enter a country, state, district or city"
 
 msgid "Explore"
 msgstr "एक्सप्लोर करें"
@@ -73,8 +82,8 @@ msgstr "शिक्षा पर सरकारी खर्च"
 msgid "Government Expenditures on Military"
 msgstr "सेना पर सरकारी खर्च"
 
-msgid "Graph Browser"
-msgstr "ग्राफ़ ब्राउज़र"
+msgid "Knowledge Graph"
+msgstr "ज्ञान ग्राफ"
 
 msgid "Gross National Income"
 msgstr "सकल राष्ट्रीय आय"
@@ -103,8 +112,14 @@ msgstr "लोड हो रहा है..."
 msgid "Map Explorer"
 msgstr "मैप एक्सप्लोरर"
 
+msgid "Maps Explorer"
+msgstr "Maps Explorer"
+
 msgid "Median Income, United States"
 msgstr "संयुक्त राज्य अमेरिका में औसत आय"
+
+msgid "Natural Language Explorer"
+msgstr "Natural Language Explorer"
 
 msgid "PLACE_EXPLORER_INTRO"
 msgstr "<p>जगह एक्सप्लोर करने वाले टूल से आपको किसी जगह का सबसे ज़रूरी डेटा समझने में मदद मिलती है. यह टूल किसी जगह के बारे में शिक्षा और अर्थशास्त्र से जुड़ा डेटा, चार्ट में दिखाता है. इस डेटा में लोगों की जानकारी (जैसे, उम्र, लिंग, आय, शिक्षा वगैरह) भी शामिल होती है. साथ ही, अन्य जगहों का डेटा भी दिखाया जाता है, ताकि तुलना की जा सके. आप मेट्रिक के हिसाब से अलग-अलग जगहों की रैंक भी देख सकते हैं. इन मेट्रिक में बेरोज़गारी, अपराध, और आय शामिल हैं.</p><p>आप ऊपर दिए गए खोज बॉक्स का इस्तेमाल करके, अपने पसंदीदा शहर, पिन कोड, देश, राज्य या देश के हिसाब से डेटा के चार्ट देख सकते हैं.</p><p>इसके अलावा, आप सबसे मशहूर कुछ जगहों को एक्सप्लोर कर सकते हैं ...</p>"
@@ -128,19 +143,25 @@ msgid "Scatter Plot Explorer"
 msgstr "स्कैटर प्लॉट एक्सप्लोरर"
 
 msgid "Scatter Plots"
-msgstr ""
+msgstr "Scatter Plots"
+
+msgid "States, India"
+msgstr "States, India"
 
 msgid "States, United States"
 msgstr "संयुक्त राज्य अमेरिका के राज्य"
 
 msgid "Statistical Variable Explorer"
-msgstr ""
+msgstr "Statistical Variable Explorer"
+
+msgid "Terms Of Use"
+msgstr "Terms Of Use"
 
 msgid "Terms and Conditions"
 msgstr "नियम और शर्तें"
 
 msgid "Timeline Charts"
-msgstr ""
+msgstr "Timeline Charts"
 
 msgid "Timelines Explorer"
 msgstr "टाइमलाइन एक्सप्लोर करने वाला टूल"
@@ -176,7 +197,7 @@ msgid "CHART_TITLE-Alcohol_consumption_per_capita"
 msgstr "अल्कोहल की प्रति व्यक्ति खपत (सालाना)"
 
 msgid "CHART_TITLE-Annual_emissions_greenhouse_gas"
-msgstr "Annual greenhouse gas emissions from large facilities"
+msgstr "Annual greenhouse gas emissions"
 
 msgid "CHART_TITLE-Arson"
 msgstr "आगज़नी"
@@ -190,11 +211,17 @@ msgstr "लिंग के हिसाब से असोसिएट डि�
 msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "लिंग के हिसाब से ऐसे लोगों की दर जो स्नातक हैं"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Air"
+msgstr "Air"
+
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "अपराध"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Demographics"
 msgstr "लोगों की जानकारी, जैसे कि उम्र, लिंग, आय, शिक्षा वगैरह"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Disasters"
+msgstr "Disasters"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Economics"
 msgstr "अर्थशास्त्र"
@@ -202,11 +229,14 @@ msgstr "अर्थशास्त्र"
 msgid "CHART_TITLE-CHART_CATEGORY-Education"
 msgstr "शिक्षा"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Emissions"
+msgstr "Emissions"
+
 msgid "CHART_TITLE-CHART_CATEGORY-Energy"
 msgstr "Energy"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Environment"
-msgstr "Environment"
+msgstr "एनवायरमेंट"
 
 msgid "CHART_TITLE-CHART_CATEGORY-Equity"
 msgstr "इक्विटी"
@@ -217,8 +247,20 @@ msgstr "स्वास्थ्य"
 msgid "CHART_TITLE-CHART_CATEGORY-Housing"
 msgstr "घर"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Income"
+msgstr "Income"
+
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "खास जानकारी"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Poverty"
+msgstr "Poverty"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Temperature"
+msgstr "Temperature"
+
+msgid "CHART_TITLE-CHART_CATEGORY-Water"
+msgstr "Water"
 
 msgid "CHART_TITLE-Children_employed"
 msgstr "नौकरी करने वाले बच्चों की संख्या"
@@ -661,3 +703,49 @@ msgstr "Nitrous oxide emissions (non-biogenic)"
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Water withdrawal rate"
 
+msgid "CHART_TITLE-CHART_CATEGORY-Overview"
+msgstr "खास जानकारी"
+
+#. Place containment. Gives context for where a place is located.
+msgid "%(placeType)s in %(parentPlaces)s"
+msgstr "%(parentPlaces)s में %(placeType)s"
+
+#. Place Types
+msgid "singular_administrative_area"
+msgstr "प्रशासकीय क्षेत्र"
+
+msgid "singular_administrative_area_level"
+msgstr "प्रशासकीय क्षेत्र %(level)s वाले इलाके"
+
+msgid "singular_borough"
+msgstr "नगर"
+
+msgid "singular_city"
+msgstr "शहर"
+
+msgid "singular_country"
+msgstr "देश"
+
+msgid "singular_county"
+msgstr "काउंटी"
+
+msgid "singular_eurostat_nuts"
+msgstr "यूरोस्टेट एनयूटीएस %(level)s वाले इलाके"
+
+msgid "singular_neighborhood"
+msgstr "आस-पड़ोस"
+
+msgid "singular_place"
+msgstr "जगह"
+
+msgid "singular_state"
+msgstr "राज्य"
+
+msgid "singular_town"
+msgstr "कस्बा"
+
+msgid "singular_village"
+msgstr "गांव"
+
+msgid "singular_zip_code"
+msgstr "पिन कोड"

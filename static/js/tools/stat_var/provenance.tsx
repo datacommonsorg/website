@@ -22,7 +22,7 @@ import React, { Component } from "react";
 
 import { formatNumber } from "../../i18n/i18n";
 import { ProvenanceSummary } from "../../shared/types";
-import { urlToDomain } from "../../shared/util";
+import { urlToDisplayText } from "../../shared/util";
 
 interface ProvenancePropType {
   provId: string;
@@ -51,25 +51,17 @@ class Provenance extends Component<ProvenancePropType, unknown> {
               <li>
                 Source:{" "}
                 <a href={this.props.url} target="_blank" rel="noreferrer">
-                  {urlToDomain(this.props.url)}
+                  {urlToDisplayText(this.props.url)}
                 </a>
               </li>
             )}
             <li>
               Total observations:{" "}
-              {formatNumber(
-                this.props.summary.observationCount,
-                undefined,
-                true
-              )}
+              {formatNumber(this.props.summary.observationCount, "", true)}
             </li>
             <li>
               Total time series:{" "}
-              {formatNumber(
-                this.props.summary.timeSeriesCount,
-                undefined,
-                true
-              )}
+              {formatNumber(this.props.summary.timeSeriesCount, "", true)}
             </li>
             {this.props.summary.releaseFrequency && (
               <li>Release frequency: {this.props.summary.releaseFrequency}</li>
@@ -119,10 +111,10 @@ class Provenance extends Component<ProvenancePropType, unknown> {
                     </ul>
                   </td>
                   <td className="number-column">
-                    {formatNumber(element.observationCount, undefined, true)}
+                    {formatNumber(element.observationCount, "", true)}
                   </td>
                   <td className="number-column">
-                    {formatNumber(element.timeSeriesCount, undefined, true)}
+                    {formatNumber(element.timeSeriesCount, "", true)}
                   </td>
                   <td>
                     <span>{element.earliestDate}</span>

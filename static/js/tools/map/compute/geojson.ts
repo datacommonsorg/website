@@ -1,5 +1,5 @@
 /**
- * Copyright 2022 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@ import { Dispatch, useContext, useEffect } from "react";
 import { GeoJsonData } from "../../../chart/types";
 import { ChartDataType, ChartStore, ChartStoreAction } from "../chart_store";
 import { Context } from "../context";
-import { useDefaultStatReady, useGeoJsonReady } from "../ready_hooks";
+import { useDefaultStatReady } from "../ready_hooks";
 import { getGeoJsonDataFeatures, MANUAL_GEOJSON_DISTANCES } from "../util";
 
 // For IPCC grid data, geoJson features is calculated based on the grid
@@ -30,16 +30,15 @@ import { getGeoJsonDataFeatures, MANUAL_GEOJSON_DISTANCES } from "../util";
 export function useUpdateGeoJson(
   chartStore: ChartStore,
   dispatch: Dispatch<ChartStoreAction>
-) {
+): void {
   const { placeInfo } = useContext(Context);
-  const geoJsonReady = useGeoJsonReady(chartStore);
   const defaultStatReady = useDefaultStatReady(chartStore);
 
   useEffect(() => {
     if (
       placeInfo.value.enclosedPlaceType in MANUAL_GEOJSON_DISTANCES &&
-      geoJsonReady() &&
       defaultStatReady() &&
+      !_.isEmpty(chartStore.geoJson.data) &&
       _.isEmpty(chartStore.geoJson.data.features)
     ) {
       console.log("update geo json data features");
@@ -50,9 +49,10 @@ export function useUpdateGeoJson(
       dispatch({
         type: ChartDataType.GEO_JSON,
         error: null,
+        context: chartStore.geoJson.context,
         payload: {
           type: "FeatureCollection",
-          properties: { current_geo: placeInfo.value.enclosingPlace.dcid },
+          properties: { currentGeo: placeInfo.value.enclosingPlace.dcid },
           features: geoJsonFeatures,
         } as GeoJsonData,
       });
@@ -62,7 +62,6 @@ export function useUpdateGeoJson(
     chartStore.defaultStat,
     placeInfo.value.enclosedPlaceType,
     placeInfo.value.enclosingPlace.dcid,
-    geoJsonReady,
     defaultStatReady,
     dispatch,
   ]);

@@ -19,53 +19,94 @@
  */
 
 import _ from "lodash";
-import React from "react";
+import React, { memo, useContext } from "react";
 
+import { CATEGORY_ID_PREFIX } from "../../constants/subject_page_constants";
 import { SVG_CHART_HEIGHT } from "../../constants/tile_constants";
-import { NamedTypedPlace } from "../../shared/types";
-import { randDomId } from "../../shared/util";
+import { SdgContext } from "../../shared/context";
+import { NamedPlace, NamedTypedPlace } from "../../shared/types";
 import { SubjectPageConfig } from "../../types/subject_page_proto_types";
+import { getId } from "../../utils/subject_page_utils";
 import { ErrorBoundary } from "../error_boundary";
 import { Category } from "./category";
+import { DataFetchContextProvider } from "./data_fetch_context";
 
 interface SubjectPageMainPanePropType {
+  // Id for this subject page.
+  id: string;
   // The place to show the page for.
   place: NamedTypedPlace;
   // Config of the page
   pageConfig: SubjectPageConfig;
   // Height, in px, for the tile SVG charts.
   svgChartHeight?: number;
+  // parent places of the place to show the page for.
+  parentPlaces?: NamedPlace[];
+  // Whether or not to show the explore more button on tiles.
+  showExploreMore?: boolean;
+  // Whether to to render tiles as web components
+  showWebComponents?: boolean;
+  // Default enclosed place type
+  defaultEnclosedPlaceType?: string;
 }
 
-export function SubjectPageMainPane(
+export const SubjectPageMainPane = memo(function SubjectPageMainPane(
   props: SubjectPageMainPanePropType
 ): JSX.Element {
+  const { sdgIndex } = useContext(SdgContext);
+
   // TODO(shifucun): Further clean up default place type, child place type etc
   // from subject page client components. The component should respect whatever
   // the input prop is.
-  const placeType = props.place.types[0];
-  const enclosedPlaceType = props.pageConfig.metadata.containedPlaceTypes
-    ? props.pageConfig.metadata.containedPlaceTypes[placeType]
-    : "";
+  let enclosedPlaceType = props.defaultEnclosedPlaceType || "";
+  for (const placeType of props.place.types) {
+    if (
+      props.pageConfig.metadata &&
+      props.pageConfig.metadata.containedPlaceTypes &&
+      placeType in props.pageConfig.metadata.containedPlaceTypes
+    ) {
+      enclosedPlaceType =
+        props.pageConfig.metadata.containedPlaceTypes[placeType];
+    }
+  }
+  let data = null;
+  if (!_.isEmpty(props.pageConfig) && !_.isEmpty(props.pageConfig.categories)) {
+    data = props.pageConfig.categories;
+  }
+  if (sdgIndex != null) {
+    data = data.slice(sdgIndex, sdgIndex + 1);
+  }
+
   return (
     <div id="subject-page-main-pane">
-      {!_.isEmpty(props.pageConfig) &&
-        props.pageConfig.categories.map((category) => {
-          const id = randDomId();
-          return (
-            <ErrorBoundary key={id}>
-              <Category
-                place={props.place}
-                enclosedPlaceType={enclosedPlaceType}
-                config={category}
-                eventTypeSpec={props.pageConfig.metadata.eventTypeSpec}
-                svgChartHeight={
-                  props.svgChartHeight ? props.svgChartHeight : SVG_CHART_HEIGHT
-                }
-              />
-            </ErrorBoundary>
-          );
-        })}
+      <DataFetchContextProvider id={props.id}>
+        {data &&
+          data.map((category, idx) => {
+            const id = getId(props.id, CATEGORY_ID_PREFIX, idx);
+            // TODO: just use DataFetchContextProvider for fetching data and
+            // remove DataContext.
+            return (
+              <ErrorBoundary key={id} customError={<></>}>
+                <Category
+                  id={id}
+                  place={props.place}
+                  enclosedPlaceType={enclosedPlaceType}
+                  config={category}
+                  eventTypeSpec={props.pageConfig.metadata?.eventTypeSpec || {}}
+                  svgChartHeight={
+                    // TODO: Unroll this for NL and use container offset from CSS instead.
+                    props.svgChartHeight
+                      ? props.svgChartHeight
+                      : SVG_CHART_HEIGHT
+                  }
+                  showExploreMore={props.showExploreMore}
+                  parentPlaces={props.parentPlaces}
+                  showWebComponents={props.showWebComponents}
+                />
+              </ErrorBoundary>
+            );
+          })}
+      </DataFetchContextProvider>
     </div>
   );
-}
+});

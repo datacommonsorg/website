@@ -15,12 +15,17 @@
 
 set -e
 
-REGION=$1
-if [[ $REGION == "" ]]; then
-  REGION=$(yq eval '.region.primary' config.yaml)
+ENV=$1
+REGION=$2
+
+if [[ $ENV == "" || $REGION == "" ]]; then
+  echo "Missing arg 1 (env) and/or arg 2 (region)"
+  exit 1
 fi
 
-PROJECT_ID=$(yq eval '.project' config.yaml)
+CONFIG_YAML="../deploy/helm_charts/envs/$1.yaml"
+
+PROJECT_ID=$(yq eval '.project' $CONFIG_YAML)
 
 gcloud config set project $PROJECT_ID
 

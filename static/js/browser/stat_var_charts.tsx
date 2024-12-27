@@ -58,12 +58,14 @@ export class StatVarCharts extends React.Component<
       opened: false,
       selectionCount: 0,
       title: this.props.statVar.displayName,
+      showTooltip: false,
+      nodeDcid: this.props.statVar.id,
     });
     return (
       <Collapsible
         trigger={trigger}
         open={this.props.selected}
-        onOpening={() => this.setState({ renderContent: true })}
+        onOpening={(): void => this.setState({ renderContent: true })}
         containerElementProps={
           this.props.selected ? { className: "highlighted-stat-var" } : {}
         }
@@ -90,12 +92,12 @@ export class StatVarCharts extends React.Component<
     );
   }
 
-  private onClickStatVarLink = () => {
+  private onClickStatVarLink = (): void => {
     const uri = URI_PREFIX + this.props.statVar.id;
     window.open(uri);
   };
 
-  private onClickPlaceStatVarLink = () => {
+  private onClickPlaceStatVarLink = (): void => {
     const uri = `${URI_PREFIX}${this.props.place.dcid}?statVar=${this.props.statVar.id}`;
     window.open(uri);
   };

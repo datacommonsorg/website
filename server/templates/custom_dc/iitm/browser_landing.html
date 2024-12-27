@@ -18,9 +18,7 @@ limitations under the License.
 
 {% set main_id = 'browser_landing' %}
 {% set page_id = 'page-browser_landing' %}
-{% set title = 'Graph Browser' %}
-{% set subpage_title = 'Graph Browser' %}
-{% set subpage_url = url_for('browser.browser_main') %}
+{% set title = 'Knowledge Graph' %}
 
 {% block head %}
   <link rel="stylesheet" href={{url_for('static', filename='css/browser.min.css', t=config['VERSION'])}} >
@@ -28,11 +26,11 @@ limitations under the License.
 
 {% block content %}
   <div class="container">
-    <h1 class="mb-4">Graph Browser</h1>
+    <h1 class="mb-4">Knowledge Graph</h1>
     <p>
-        The Data Commons Graph is constructed by synthesizing a single
+        The Data Commons Knowledge Graph is constructed by synthesizing a single
         database from many different data sources.
-        This graph browser can be used both to explore what data is available and to understand the graph structure.
+        This knowledge graph can be used both to explore what data is available and to understand the graph structure.
     </p>
     <p>
         You can use the search box above or start looking around from some well known starting points:

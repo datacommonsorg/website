@@ -34,6 +34,13 @@ export interface DiseaseSymptomAssociationData {
   oddsRatio: number;
 }
 
+export interface DiseaseTreeNode {
+  // name of current node in the tree
+  name: string;
+  // array of disease child name and corresponding children
+  children: DiseaseTreeNode[];
+}
+
 export interface CompoundDiseaseTreatmentData {
   // node name and link
   node: string;

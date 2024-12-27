@@ -21,6 +21,7 @@ variable "project_id" {
 variable "contact_email" {
   type        = string
   description = "Contact email for domain. Must be a valid email and will be used for activating the domain."
+  default     = null
 }
 
 variable "website_robot_account_id" {
@@ -29,9 +30,15 @@ variable "website_robot_account_id" {
   default     = "website-robot"
 }
 
+variable "register_domain" {
+  type        = bool
+  description = "Enabling this flag will register a new domain in Cloud Domains and configure the DNS in Cloud DNS."
+  default     = false
+}
+
 variable "dc_website_domain" {
   type        = string
-  description = "Custom DC website domain to register."
+  description = "Custom DC website domain to register. Will be ignored if register_domain is false."
   default     = null
 }
 

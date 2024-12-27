@@ -13,6 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+variable "mixer_githash" {
+  type        =  string
+  description = "Determines which DC Mixer image to use."
+}
+
+variable "website_githash" {
+  type = string
+  description = "website image hash."
+}
+
 variable "project_id" {
   type        = string
   description = "This is the same GCP project id from the setup step."
@@ -35,10 +45,21 @@ variable "cluster_name_prefix" {
   default     = "datacommons"
 }
 
-variable "region" {
+variable "location" {
   type        =  string
-  description = "GCP region where the cluster will be created in."
-  default     = "us-central1"
+  description = <<EOF
+Location of the GCP resources to be created.
+
+Can be regional, like "us-central1". Or zonal like "us-central1-a"
+
+Major difference between regional and zonal is that for GKE cluster, regional
+clusters will have nodes in each zone of that region, giving higher availability,
+but is more expensive.
+
+For regional only resources, if zonal location is specified, the region
+will be parsed from the zone.
+EOF
+  default     = "us-central1-a"
 }
 
 variable "global_static_ip_name" {

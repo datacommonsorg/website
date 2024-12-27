@@ -23,10 +23,14 @@ $subtopic-color: #222;
   font-weight: 600;
   font-size: 1rem;
   text-transform: uppercase;
-  margin: 15px -12px 10px -12px;
   padding: 6px 12px;
   border-radius: 3px;
   background: $subtopic-background;
+}
+
+.block .block-footer {
+  margin-top: 1rem;
+  font-size: 0.8rem;
 }
 
 .block h3 a {
@@ -58,4 +62,17 @@ $subtopic-color: #222;
   display: flex;
   flex-direction: column;
   padding: 0.5rem;
+}
+
+.block .block-msg {
+  padding: 0 5px 25px 5px;
+
+  mark {
+    background: var(--gm-3-ref-primary-primary-95);
+    color: var(--gm-3-ref-neutral-neutral-20);
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 500;
+    line-height: 24px;
+  }
 }

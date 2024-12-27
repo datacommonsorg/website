@@ -1,0 +1,240 @@
+{
+  "client": "test_fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Children Moderately or Severely Stunted [Under 5 Years Old] in Central Asia",
+                    "statVarKey": [
+                      "sdg/SH_STA_STNTN.AGE--Y0T4"
+                    ],
+                    "title": "Children Moderately or Severely Stunted [Under 5 Years Old] in Central Asia",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_STNTN.AGE--Y0T4"
+                    ],
+                    "title": "Children Moderately or Severely Stunted [Under 5 Years Old] in Central Asia",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: source: joint child malnutrition estimates (2023 edition), united nations Children's fund (UNICEF), world health organisation (WHO) and the world bank group.",
+            "title": "Children Moderately or Severely Stunted [Under 5 Years Old]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_STNTN.AGE--Y0T4"
+                    ],
+                    "title": "Children Moderately or Severely Stunted [Under 5 Years Old] in Countries of Central Asia (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: source: joint child malnutrition estimates (2023 edition), united nations Children's fund (UNICEF), world health organisation (WHO) and the world bank group.",
+            "title": "Children Moderately or Severely Stunted [Under 5 Years Old] in Countries of Central Asia"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Proportion of Children Moderately or Severely Stunted [Under 5 Years Old] in Central Asia",
+                    "statVarKey": [
+                      "sdg/SH_STA_STNT.AGE--Y0T4"
+                    ],
+                    "title": "Proportion of Children Moderately or Severely Stunted [Under 5 Years Old] in Central Asia",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_STNT.AGE--Y0T4"
+                    ],
+                    "title": "Proportion of Children Moderately or Severely Stunted [Under 5 Years Old] in Central Asia",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: source: joint child malnutrition estimates (2023 edition), united nations Children's fund (UNICEF), world health organisation (WHO) and the world bank group.",
+            "title": "Proportion of Children Moderately or Severely Stunted [Under 5 Years Old]"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_STNT.AGE--Y0T4"
+                    ],
+                    "title": "Proportion of Children Moderately or Severely Stunted [Under 5 Years Old] in Countries of Central Asia (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: source: joint child malnutrition estimates (2023 edition), united nations Children's fund (UNICEF), world health organisation (WHO) and the world bank group.",
+            "title": "Proportion of Children Moderately or Severely Stunted [Under 5 Years Old] in Countries of Central Asia"
+          }
+        ],
+        "statVarSpec": {
+          "sdg/SH_STA_STNT.AGE--Y0T4": {
+            "name": "Proportion of children moderately or severely stunted [under 5 years old]",
+            "statVar": "sdg/SH_STA_STNT.AGE--Y0T4"
+          },
+          "sdg/SH_STA_STNTN.AGE--Y0T4": {
+            "name": "Children moderately or severely stunted [under 5 years old]",
+            "statVar": "sdg/SH_STA_STNTN.AGE--Y0T4"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "containedPlaceTypes": {
+        "UNGeoRegion": "Country"
+      },
+      "placeDcid": [
+        "CentralAsia"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "entities": [],
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "CentralAsia",
+    "name": "Central Asia",
+    "place_type": "UNGeoRegion"
+  },
+  "placeFallback": {},
+  "placeSource": "UNKNOWN",
+  "places": [
+    {
+      "dcid": "CentralAsia",
+      "name": "Central Asia",
+      "place_type": "UNGeoRegion"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {
+      "Country": [
+        {
+          "dcid": "country/KAZ",
+          "name": "Kazakhstan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/KGZ",
+          "name": "Kyrgyzstan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/TJK",
+          "name": "Tajikistan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/TKM",
+          "name": "Turkmenistan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/UZB",
+          "name": "Uzbekistan",
+          "types": [
+            "Country"
+          ]
+        }
+      ]
+    },
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/sdg_2.2.1",
+        "name": "2.2.1: Prevalence of stunting (height for age <-2 standard deviation from the median of the World Health Organization (WHO) Child Growth Standards) among children under 5 years of age",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/sdg_2.2",
+        "name": "2.2: By 2030, end all forms of malnutrition, including achieving, by 2025, the internationally agreed targets on stunting and wasting in children under 5 years of age, and address the nutritional needs of adolescent girls, pregnant and lactating women and older persons",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/sdg_2.2.2",
+        "name": "2.2.2: Prevalence of malnutrition (weight for height >+2 or <-2 standard deviation from the median of the WHO Child Growth Standards) among children under 5 years of age, by type (wasting and overweight)",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdg_2.2.3",
+        "name": "2.2.3: Prevalence of anaemia in women aged 15 to 49 years, by pregnancy status (percentage)",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "varToTopics": {
+      "sdg/SH_STA_STNT.AGE--Y0T4": [
+        {
+          "dcid": "dc/topic/sdg_2.2.1",
+          "name": "2.2.1: Prevalence of stunting (height for age <-2 standard deviation from the median of the World Health Organization (WHO) Child Growth Standards) among children under 5 years of age",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SH_STA_STNTN.AGE--Y0T4": [
+        {
+          "dcid": "dc/topic/sdg_2.2.1",
+          "name": "2.2.1: Prevalence of stunting (height for age <-2 standard deviation from the median of the World Health Organization (WHO) Child Growth Standards) among children under 5 years of age",
+          "types": [
+            "Topic"
+          ]
+        }
+      ]
+    }
+  },
+  "svSource": "UNKNOWN",
+  "userMessages": []
+}

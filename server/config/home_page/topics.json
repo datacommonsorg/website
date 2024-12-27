@@ -1,0 +1,62 @@
+[
+  {
+    "id": "economics",
+    "title": "Economics",
+    "description": "Business, Economic Activity, Employment, Income, Poverty, and Agriculture",
+    "url": "/nl#topic=economics",
+    "browseUrl": "/explore/economics",
+    "icon": "area_chart",
+    "sprite-index": 2,
+    "image": "/images/topic-economics.svg"
+  },
+  {
+    "id": "demographics",
+    "title": "Demographics",
+    "description": "Age, Gender, Race, Population by race, Language Spoken at Home, Marital Status, Nationality",
+    "url": "/nl#topic=demographics",
+    "browseUrl": "/explore/demographics",
+    "icon": "family_restroom",
+    "sprite-index": 5,
+    "image": "/images/topic-demographics.svg"
+  },
+  {
+    "id": "health",
+    "title": "Health",
+    "description": "Health Conditions, Health Equity, Health Insurance, Mortality, Preventive Health and Behavior",
+    "url": "/nl#topic=health",
+    "browseUrl": "/explore/health",
+    "icon": "area_chart",
+    "sprite-index": 4,
+    "image": "/images/topic-health.svg"
+  },
+  {
+    "id": "sustainability",
+    "title": "Sustainability",
+    "description": "Emissions, Natural Disasters, Temperature, Precipitation, Agriculture, Energy, and more",
+    "url": "/nl#topic=sustainability",
+    "browseUrl": "/explore/sustainability",
+    "icon": "eco",
+    "sprite-index": 1,
+    "image": "/images/topic-sustainability.svg"
+  },
+  {
+    "id": "education-housing-commute",
+    "title": "Education, housing, and commute",
+    "description": "Educational Attainment, Home Ownership, and more",
+    "url": "/nl#topic=education-housing-commute",
+    "browseUrl": "/explore/education-housing-commute",
+    "icon": "school",
+    "sprite-index": 3,
+    "image": "/images/topic-education.svg"
+  },
+  {
+    "id": "equity",
+    "title": "Equity",
+    "description": "Economic Equity, Education Equity, Health Equity, Justice System Equity and more",
+    "url": "/nl#topic=equity",
+    "browseUrl": "/explore/equity",
+    "icon": "public",
+    "sprite-index": 0,
+    "image": "/images/topic-equity.svg"
+  }
+]

@@ -22,10 +22,11 @@ import axios from "axios";
 import React from "react";
 
 import { DataGroup, DataPoint } from "../chart/base";
-import { drawLineChart } from "../chart/draw";
+import { drawLineChart } from "../chart/draw_line";
 import { Series, StatMetadata } from "../shared/stat_types";
 import { randDomId } from "../shared/util";
-import { getUnit } from "../utils/stat_metadata";
+import { stringifyFn } from "../utils/axios";
+import { getUnit } from "../utils/stat_metadata_utils";
 import { URI_PREFIX } from "./constants";
 
 // Chart size
@@ -99,7 +100,7 @@ export class ObservationChart extends React.Component<
       <>
         <button
           className="btn btn-sm btn-light chart-toggle"
-          onClick={() =>
+          onClick={(): void =>
             this.setState({ showTableView: !this.state.showTableView })
           }
         >
@@ -131,7 +132,7 @@ export class ObservationChart extends React.Component<
                         <tr
                           className={obsTableRowClass}
                           key={obs.date}
-                          onClick={() => this.redirectToObsPage(obs.date)}
+                          onClick={(): void => this.redirectToObsPage(obs.date)}
                         >
                           <td>{obs.date}</td>
                           <td
@@ -192,14 +193,16 @@ export class ObservationChart extends React.Component<
     });
     const dataGroups = [new DataGroup(this.props.statVarId, data)];
     drawLineChart(
-      this.chartId,
+      this.svgContainerRef.current,
       this.svgContainerRef.current.offsetWidth,
       HEIGHT,
       dataGroups,
       true,
-      true,
-      getUnit(this.props.metadata),
-      this.props.canClickObs ? this.handleDotClick : null
+      {
+        handleDotClick: this.props.canClickObs ? this.handleDotClick : null,
+        showAllDots: true,
+        unit: getUnit(this.props.metadata),
+      }
     );
   }
 
@@ -215,15 +218,22 @@ export class ObservationChart extends React.Component<
     // TODO(chejennifer): triggers pop up warning because opening the new tab
     // is not result of user action. Find better way to do this.
     this.loadSpinner();
-    let request = `/api/browser/observation-id?place=${this.props.placeDcid}&statVar=${this.props.statVarId}&date=${date}`;
+    const params = {
+      date,
+      place: this.props.placeDcid,
+      statVar: this.props.statVarId,
+    };
     if (this.props.metadata.measurementMethod) {
-      request = `${request}&measurementMethod=${this.props.metadata.measurementMethod}`;
+      params["measurementMethod"] = this.props.metadata.measurementMethod;
     }
     if (this.props.metadata.observationPeriod) {
-      request = `${request}&obsPeriod=${this.props.metadata.observationPeriod}`;
+      params["obsPeriod"] = this.props.metadata.observationPeriod;
     }
     axios
-      .get(request)
+      .get("/api/browser/observation-id", {
+        params,
+        paramsSerializer: stringifyFn,
+      })
       .then((resp) => {
         this.removeSpinner();
         const obsDcid = resp.data;

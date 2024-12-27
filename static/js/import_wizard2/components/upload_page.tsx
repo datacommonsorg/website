@@ -19,7 +19,7 @@
  */
 import _ from "lodash";
 import Papa from "papaparse";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Input } from "reactstrap";
 
 import { Column, CsvData } from "../types";
@@ -33,52 +33,58 @@ const DEFAULT_FIRST_DATA_ROW = 2;
 const UNDEFINED_LAST_DATA_ROW = -1;
 
 interface UploadPageProps {
-  onContinueClicked: (csv: CsvData) => void;
+  uploadedFile: File;
+  csvData: CsvData;
+  onCsvDataUpdated: (csvData: CsvData) => void;
+  onContinueClicked: () => void;
   onBackClicked: () => void;
 }
 
 export function UploadPage(props: UploadPageProps): JSX.Element {
-  const [isUploadingData, setIsUploadingData] = useState(false);
   const [isUpdatingData, setIsUpdatingData] = useState(false);
-  const [uploadedFile, setUploadedFile] = useState(null);
-  const [csvData, setCsvData] = useState(null);
   // TODO: add input validation for headerRow, firstDataRow, and lastDataRow
-  const [headerRowInput, setHeaderRowInput] = useState(DEFAULT_HEADER_ROW);
+  const [headerRowInput, setHeaderRowInput] = useState(
+    props.csvData ? props.csvData.headerRow : DEFAULT_HEADER_ROW
+  );
   const [firstDataRowInput, setFirstDataRowInput] = useState(
-    DEFAULT_FIRST_DATA_ROW
+    props.csvData ? props.csvData.firstDataRow : DEFAULT_FIRST_DATA_ROW
   );
   const [lastDataRowInput, setLastDataRowInput] = useState(
-    UNDEFINED_LAST_DATA_ROW
+    props.csvData ? props.csvData.lastDataRow : UNDEFINED_LAST_DATA_ROW
   );
+
+  useEffect(() => {
+    if (props.csvData && props.csvData.rawCsvFile === props.uploadedFile) {
+      return;
+    }
+    setIsUpdatingData(true);
+    processFile(props.uploadedFile, DEFAULT_HEADER_ROW, DEFAULT_FIRST_DATA_ROW);
+  }, [props.csvData, props.uploadedFile]);
 
   return (
     <>
-      <h2>Step 2: Upload your data file</h2>
-      <div className="upload-section-container">
-        <input
-          type="file"
-          accept=".csv"
-          onChange={(event) => onFileUpload(event.target.files)}
-        />
-        {!_.isEmpty(csvData) && (
-          <div className="file-options-section">
-            <div className="file-options-header">File Details</div>
+      <h2>Add File Details</h2>
+      <div className="file-details-page-content">
+        <div className="file-details-page-section">
+          <div className="file-details-inputs">
+            <div>Please add details to help us understand the dataset.</div>
+            <div>*=required</div>
             {/* Input for header row */}
             <div className="file-options-input">
               <span>Header row:</span>
               <form
-                onSubmit={(event) => {
+                onSubmit={(event): void => {
                   event.preventDefault();
                   onFileOptionsSubmitted();
                 }}
               >
                 <Input
                   type="number"
-                  onChange={(e) => {
+                  onChange={(e): void => {
                     const val = Number(e.target.value);
                     setHeaderRowInput(val);
                   }}
-                  onBlur={() => onFileOptionsSubmitted()}
+                  onBlur={(): void => onFileOptionsSubmitted()}
                   value={headerRowInput}
                   min={1}
                 />
@@ -88,18 +94,18 @@ export function UploadPage(props: UploadPageProps): JSX.Element {
             <div className="file-options-input">
               <span>First data row:</span>
               <form
-                onSubmit={(event) => {
+                onSubmit={(event): void => {
                   event.preventDefault();
                   onFileOptionsSubmitted();
                 }}
               >
                 <Input
                   type="number"
-                  onChange={(e) => {
+                  onChange={(e): void => {
                     const val = Number(e.target.value);
                     setFirstDataRowInput(val);
                   }}
-                  onBlur={() => onFileOptionsSubmitted()}
+                  onBlur={(): void => onFileOptionsSubmitted()}
                   value={firstDataRowInput}
                   min={1}
                 />
@@ -109,52 +115,41 @@ export function UploadPage(props: UploadPageProps): JSX.Element {
             <div className="file-options-input">
               <span>Last data row:</span>
               <form
-                onSubmit={(event) => {
+                onSubmit={(event): void => {
                   event.preventDefault();
                   onFileOptionsSubmitted();
                 }}
               >
                 <Input
                   type="number"
-                  onChange={(e) => {
+                  onChange={(e): void => {
                     const val = Number(e.target.value);
                     setLastDataRowInput(val);
                   }}
-                  onBlur={() => onFileOptionsSubmitted()}
+                  onBlur={(): void => onFileOptionsSubmitted()}
                   value={lastDataRowInput}
                   min={1}
                 />
               </form>
             </div>
           </div>
-        )}
-      </div>
-      {!_.isEmpty(csvData) && (
-        <div className="upload-section-container">
-          <PreviewTable csvData={csvData} />
-          <div
-            id="screen"
-            style={{ display: isUpdatingData ? "block" : "none" }}
-          >
+          <div className="navigation-section">
+            <Button className="nav-btn" onClick={props.onBackClicked}>
+              Back
+            </Button>
+            <Button className="nav-btn" onClick={props.onContinueClicked}>
+              Continue
+            </Button>
+          </div>
+        </div>
+        <div className="file-details-page-section">
+          {!_.isEmpty(props.csvData) && (
+            <PreviewTable csvData={props.csvData}></PreviewTable>
+          )}
+          <div style={{ display: isUpdatingData ? "block" : "none" }}>
             <div id="spinner"></div>
           </div>
         </div>
-      )}
-      <div className="navigation-section">
-        <Button className="nav-btn" onClick={props.onBackClicked}>
-          Back
-        </Button>
-        {!_.isEmpty(csvData) && (
-          <Button
-            className="nav-btn cont-btn"
-            onClick={() => props.onContinueClicked(csvData)}
-          >
-            Continue
-          </Button>
-        )}
-      </div>
-      <div id="screen" style={{ display: isUploadingData ? "block" : "none" }}>
-        <div id="spinner"></div>
       </div>
     </>
   );
@@ -192,7 +187,7 @@ export function UploadPage(props: UploadPageProps): JSX.Element {
         Array.from(sampleColumnValues.get(colIdx))
       );
     }
-    setCsvData(csv);
+    props.onCsvDataUpdated(csv);
     if (csv.headerRow !== headerRowInput) {
       setHeaderRowInput(csv.headerRow);
     }
@@ -202,7 +197,6 @@ export function UploadPage(props: UploadPageProps): JSX.Element {
     if (csv.lastDataRow !== lastDataRowInput) {
       setLastDataRowInput(csv.lastDataRow);
     }
-    setIsUploadingData(false);
     setIsUpdatingData(false);
   }
 
@@ -236,7 +230,6 @@ export function UploadPage(props: UploadPageProps): JSX.Element {
         onParseComplete(csv, sampleColumnValues);
       },
       error: () => {
-        setIsUploadingData(false);
         setIsUpdatingData(false);
         alert("sorry, there was a problem processing the uploaded file");
       },
@@ -271,28 +264,18 @@ export function UploadPage(props: UploadPageProps): JSX.Element {
     });
   }
 
-  function onFileUpload(files: FileList): void {
-    if (files.length < 1) {
-      // TODO: handle malformed csv
-      return;
-    }
-    setIsUploadingData(true);
-    setUploadedFile(files[0]);
-    processFile(files[0], DEFAULT_HEADER_ROW, DEFAULT_FIRST_DATA_ROW);
-  }
-
   function onFileOptionsSubmitted(): void {
-    if (_.isEmpty(csvData) || !uploadedFile) {
+    if (_.isEmpty(props.csvData) || !props.uploadedFile) {
       return;
     }
     if (
-      csvData.headerRow !== headerRowInput ||
-      csvData.firstDataRow !== firstDataRowInput ||
-      csvData.lastDataRow !== lastDataRowInput
+      props.csvData.headerRow !== headerRowInput ||
+      props.csvData.firstDataRow !== firstDataRowInput ||
+      props.csvData.lastDataRow !== lastDataRowInput
     ) {
       setIsUpdatingData(true);
       processFile(
-        uploadedFile,
+        props.uploadedFile,
         headerRowInput,
         firstDataRowInput,
         lastDataRowInput

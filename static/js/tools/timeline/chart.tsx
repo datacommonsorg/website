@@ -18,7 +18,8 @@ import React, { Component } from "react";
 import { FormGroup, Input, Label } from "reactstrap";
 
 import { computePlotParams, PlotParams } from "../../chart/base";
-import { drawGroupLineChart } from "../../chart/draw";
+import { drawGroupLineChart } from "../../chart/draw_line";
+import { ASYNC_ELEMENT_HOLDER_CLASS } from "../../constants/css_constants";
 import { Chip } from "../../shared/chip";
 import { FacetSelectorFacetInfo } from "../../shared/facet_selector";
 import {
@@ -49,7 +50,7 @@ import { setChartOption, setMetahash } from "./util";
 const CHART_HEIGHT = 300;
 
 interface ChartPropsType {
-  mprop: string; // measured property
+  chartId: string; // id used for this chart
   placeNameMap: Record<string, string>; // Place dcid to name mapping.
   statVarInfos: Record<string, StatVarInfo>;
   pc: boolean;
@@ -107,7 +108,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     // Stats var chip color is independent of places, so pick one place to
     // provide a key for style look up.
     const placeName = Object.values(this.props.placeNameMap)[0];
-    const deltaCheckboxId = `delta-cb-${this.props.mprop}`;
+    const deltaCheckboxId = `delta-cb-${this.props.chartId}`;
     const facetList = this.getFacetList(statVars);
     const svFacetId = {};
     for (const sv of statVars) {
@@ -115,7 +116,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
         sv in this.props.svFacetId ? this.props.svFacetId[sv] : "";
     }
     return (
-      <div className="chart-container">
+      <div className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS}`}>
         <div className="card">
           <div className="statVarChipRegion">
             {statVars.map((statVar) => {
@@ -130,7 +131,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
                   title={this.props.statVarInfos[statVar].title}
                   color={color}
                   removeChip={this.props.removeStatVar}
-                  onTextClick={() =>
+                  onTextClick={(): WindowProxy | null =>
                     window.open(`/tools/statvar#sv=${statVar}`)
                   }
                 />
@@ -140,7 +141,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
           <div ref={this.svgContainer} className="chart-svg"></div>
         </div>
         <ToolChartFooter
-          chartId={this.props.mprop}
+          chartId={this.props.chartId}
           sources={
             this.state.statData ? this.state.statData.sources : new Set()
           }
@@ -151,11 +152,11 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
           }
           svFacetId={svFacetId}
           facetList={facetList}
-          onSvFacetIdUpdated={(svFacetId) => setMetahash(svFacetId)}
+          onSvFacetIdUpdated={(svFacetId): void => setMetahash(svFacetId)}
           hideIsRatio={false}
           isPerCapita={this.props.pc}
-          onIsPerCapitaUpdated={(isPerCapita: boolean) =>
-            setChartOption(this.props.mprop, "pc", isPerCapita)
+          onIsPerCapitaUpdated={(isPerCapita: boolean): void =>
+            setChartOption(this.props.chartId, "pc", isPerCapita)
           }
         >
           <span className="chart-option">
@@ -166,9 +167,9 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
                   className="is-delta-input"
                   type="checkbox"
                   checked={this.props.delta}
-                  onChange={() => {
+                  onChange={(): void => {
                     setChartOption(
-                      this.props.mprop,
+                      this.props.chartId,
                       "delta",
                       !this.props.delta
                     );
@@ -205,8 +206,8 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       this.resizeObserver.disconnect();
     }
     // reset the options to default value if the chart is removed
-    setChartOption(this.props.mprop, "pc", false);
-    setChartOption(this.props.mprop, "delta", false);
+    setChartOption(this.props.chartId, "pc", false);
+    setChartOption(this.props.chartId, "delta", false);
   }
 
   componentDidUpdate(
@@ -246,7 +247,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     this.processData();
   }
 
-  private handleWindowResize() {
+  private handleWindowResize(): void {
     if (!this.svgContainer.current) {
       return;
     }
@@ -270,7 +271,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     });
   }
 
-  private loadRawData() {
+  private loadRawData(): void {
     const places = Object.keys(this.props.placeNameMap);
     const statVars = Object.keys(this.props.statVarInfos);
     fetchRawData(places, statVars, this.props.denom)
@@ -283,7 +284,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       });
   }
 
-  private processData() {
+  private processData(): void {
     if (!this.state.rawData) {
       return;
     }
@@ -332,21 +333,25 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     for (const statVar in statData.data) {
       for (const place in statData.data[statVar]) {
         const series = statData.data[statVar][place];
-        if (series && series.facet && statData.facets[series.facet].unit) {
-          units.add(statData.facets[series.facet].unit);
+        if (!series || !series.facet || !statData.facets[series.facet]) {
+          continue;
+        }
+        const unit = statData.facets[series.facet].unit;
+        if (unit) {
+          units.add(unit);
         }
       }
       this.units = Array.from(units).sort();
     }
 
-    this.props.onDataUpdate(this.props.mprop, statData);
+    this.props.onDataUpdate(this.props.chartId, statData);
     this.setState({ statData, ipccModels });
   }
 
   /**
    * Draw chart in current svg container based on stats data.
    */
-  private drawChart() {
+  private drawChart(): void {
     const dataGroupsDict = {};
     if (!this.state.statData) {
       return;
@@ -371,9 +376,11 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       this.props.statVarInfos,
       dataGroupsDict,
       this.plotParams,
-      this.ylabel(),
-      this.units.join(", "),
-      modelsDataGroupsDict
+      {
+        modelsDataGroupsDict,
+        unit: this.units.join(", "),
+        ylabel: this.ylabel(),
+      }
     );
   }
 

@@ -1,0 +1,640 @@
+# Copyright 2023 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+## This file specifies the topic page config for poverty in USA
+
+metadata {
+  topic_id: "test"
+  topic_name: "Test for tile spec"
+  place_dcid: "geoId/06"
+  contained_place_types {
+    key: "State"
+    value: "County"
+  }
+  event_type_spec {
+    key: "fire"
+    value {
+      id: "fire"
+      name: "Fire"
+      event_type_dcids: "WildlandFireEvent"
+      event_type_dcids: "WildfireEvent"
+      event_type_dcids: "FireEvent"
+      color: "#f01212"
+      default_severity_filter: {
+        prop: "area"
+        display_name: "Area"
+        unit: "SquareKilometer"
+        upper_limit: 1000
+        lower_limit: 50
+      }
+      place_type_severity_filter {
+        key: "Continent"
+        value {
+          lower_limit: 300
+        }
+      }
+      place_type_severity_filter {
+        key: "Planet"
+        value {
+          lower_limit: 500
+        }
+      }
+      end_date_prop: "endDate"
+      end_date_prop: "containmentDate"
+      end_date_prop: "controlledDate"
+      display_prop {
+        prop: "area"
+        display_name: "Area"
+        unit: "SquareKilometer"
+      }
+    }
+  }
+}
+
+categories {
+  title: "Test ranking tile with many stat vars"
+
+  blocks {
+    title: "Projected highest increase in min temperature in different scenarios"
+    columns {
+      tiles {
+        type: RANKING
+        title: "Increase in min temperatures across scenarios"
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+          show_multi_column: true
+        }
+        stat_var_key: "rcp_26"
+        stat_var_key: "rcp_45"
+        stat_var_key: "rcp_60"
+      }
+    }
+  }
+  blocks {
+    title: "Projected highest decrease in min temperature in different scenarios"
+    columns {
+      tiles {
+        type: RANKING
+        ranking_tile_spec {
+          show_highest: true
+          show_lowest: true
+        }
+        stat_var_key: "rcp_26"
+        stat_var_key: "rcp_45"
+        stat_var_key: "rcp_60"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "rcp_26"
+    value {
+      stat_var: "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP26"
+      unit: "Celsius"
+      name: "RCP 2.6"
+    }
+  }
+  stat_var_spec {
+    key: "rcp_45"
+    value {
+      stat_var: "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP45"
+      unit: "Celsius"
+      name: "RCP 4.5"
+    }
+  }
+  stat_var_spec {
+    key: "rcp_60"
+    value {
+      stat_var: "ProjectedMax_Until_2050_DifferenceRelativeToBaseDate1981To2010_Max_Temperature_RCP60"
+      unit: "Celsius"
+      name: "RCP 6.0"
+    }
+  }
+}
+
+categories {
+  title: "Test tile place override"
+  blocks {
+    title: "Should be China or Madrid, not California"
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "is the life expectancy in ${placeName} (${date})"
+        stat_var_key: "life_expectancy"
+        place_dcid_override: "country/CHN"
+      }
+      tiles {
+        type: LINE
+        title: "Life expectancy in ${placeName}"
+        stat_var_key: "life_expectancy"
+        place_dcid_override: "country/CHN"
+      }
+    }
+    columns {
+      tiles {
+        type: HIGHLIGHT
+        description: "is the life expectancy in ${placeName} (${date})"
+        stat_var_key: "life_expectancy"
+        place_dcid_override: "nuts/ES300"
+      }
+      tiles {
+        type: LINE
+        title: "Life expectancy in ${placeName}"
+        stat_var_key: "life_expectancy"
+        place_dcid_override: "nuts/ES300"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "life_expectancy"
+    value {
+      stat_var: "LifeExpectancy_Person"
+      name: "Average lifespan"
+    }
+  }
+}
+
+categories {
+  title: "Test date replacement in title"
+  blocks {
+    columns {
+      tiles {
+        type: MAP
+        title: "Total number of earthquakes - ${date}"
+        stat_var_key: "earthquake_all"
+      }
+      tiles {
+        type: BAR
+        title: "Frequency of earthquakes by magnitude - ${date}"
+        stat_var_key: "earthquake_mag_3"
+        stat_var_key: "earthquake_mag_4"
+        stat_var_key: "earthquake_mag_5"
+      }
+    }
+    columns {
+      tiles {
+        type: SCATTER
+        title: "Poverty rate (${xDate}) vs. Uninsurance rate (${yDate})"
+        stat_var_key: 'poverty_rate'
+        stat_var_key: 'uninsurance_rate'
+      }
+      tiles {
+        type: RANKING
+        stat_var_key: 'poverty_rate'
+        title: "Poverty rate - ${date}"
+        ranking_tile_spec {
+          show_highest: true
+          highest_title: "Highest by poverty rate - ${date}"
+          show_lowest: true
+          lowest_title: "Lowest by poverty rate - ${date}"
+        }
+      }
+      tiles {
+        type: RANKING
+        stat_var_key: 'poverty_rate'
+        title: "Poverty rate - ${date}"
+        ranking_tile_spec {
+          show_highest: true
+        }
+      }
+    }
+  }
+  stat_var_spec {
+    key: "earthquake_all"
+    value {
+      stat_var: "Count_EarthquakeEvent"
+      name: "All magnitudes"
+    }
+  }
+  stat_var_spec {
+    key: "earthquake_mag_3"
+    value {
+      stat_var: "Count_EarthquakeEvent_M3To4"
+      name: "magnitude 3 to 4"
+    }
+  }
+  stat_var_spec {
+    key: "earthquake_mag_4"
+    value {
+      stat_var: "Count_EarthquakeEvent_M4To5"
+      name: "magnitude 4 to 5"
+    }
+  }
+  stat_var_spec {
+    key: "earthquake_mag_5"
+    value {
+      stat_var: "Count_EarthquakeEvent_M5To6"
+      name: "magnitude 5 to 6"
+    }
+  }
+  stat_var_spec {
+    key: 'poverty_rate'
+    value {
+      stat_var: "Count_Person_BelowPovertyLevelInThePast12Months"
+      denom: "Count_Person"
+      unit: "%"
+      scaling: 100
+      name: "Poverty rate"
+    }
+  }
+  stat_var_spec {
+    key: 'uninsurance_rate'
+    value {
+      stat_var: "Count_Person_NoHealthInsurance"
+      denom: "Count_Person"
+      unit: "%"
+      scaling: 100
+      name: "Uninsurance rate"
+    }
+  }
+}
+
+categories {
+  title: "Test block with per capita toggle"
+  blocks {
+    title: "Test block with per capita toggle"
+    denom: "Count_Person"
+    start_with_denom: false
+    columns {
+      tiles {
+        type: LINE
+        title: "Population in ${placeName}"
+        stat_var_key: 'female_population'
+        stat_var_key: 'male_population'
+      }
+      tiles {
+        type: MAP
+        title: "Female population in ${placeName}"
+        stat_var_key: 'female_population'
+      }
+    }
+    columns {
+      tiles {
+        type: BAR
+        title: "Population in ${placeName}"
+        stat_var_key: 'female_population'
+        stat_var_key: 'male_population'
+      }
+      tiles {
+        type: RANKING
+        stat_var_key: 'female_population'
+        stat_var_key: 'male_population'
+        ranking_tile_spec {
+          show_highest: true
+        }
+      }
+    }
+  }
+  stat_var_spec {
+    key: 'female_population'
+    value {
+      stat_var: "Count_Person_Female"
+    }
+  }
+  stat_var_spec {
+    key: 'male_population'
+    value {
+      stat_var: "Count_Person_Male"
+    }
+  }
+}
+
+categories {
+  title: "Test ranking tile with single list"
+  blocks {
+    denom: "Count_Person"
+    start_with_denom: false
+    columns {
+      tiles {
+        type: RANKING
+        stat_var_key: 'female_population'
+        stat_var_key: 'male_population'
+        ranking_tile_spec {
+          show_highest_lowest: true
+        }
+      }
+    }
+  }
+  stat_var_spec {
+    key: 'female_population'
+    value {
+      stat_var: "Count_Person_Female"
+    }
+  }
+  stat_var_spec {
+    key: 'male_population'
+    value {
+      stat_var: "Count_Person_Male"
+    }
+  }
+}
+
+categories {
+  title: "Disaster block with selected date"
+  blocks {
+    type: DISASTER_EVENT
+    columns {
+      tiles {
+        type: DISASTER_EVENT_MAP
+        disaster_event_map_tile_spec: {
+          point_event_type_key: "fire"
+        }
+      }
+      tiles {
+        type: HISTOGRAM
+        title: "Number of fires"
+        histogram_tile_spec {
+          event_type_key: "fire"
+        }
+      }
+    }
+    columns {
+      tiles {
+        type: TOP_EVENT
+        title: "Most severe fires"
+        top_event_tile_spec {
+          event_type_key: "fire"
+          show_start_date: true
+          ranking_count: 20
+        }
+      }
+    }
+    disaster_block_spec {
+      date: "2015"
+    }
+  }
+  blocks {
+    type: DISASTER_EVENT
+    columns {
+      tiles {
+        type: DISASTER_EVENT_MAP
+        disaster_event_map_tile_spec: {
+          point_event_type_key: "fire"
+        }
+      }
+      tiles {
+        type: HISTOGRAM
+        title: "Number of fires"
+        histogram_tile_spec {
+          event_type_key: "fire"
+        }
+      }
+    }
+    columns {
+      tiles {
+        type: TOP_EVENT
+        title: "Most severe fires"
+        top_event_tile_spec {
+          event_type_key: "fire"
+          show_start_date: true
+          ranking_count: 20
+        }
+      }
+    }
+    disaster_block_spec {
+      date_range: THIRTY_DAYS
+    }
+  }
+
+  stat_var_spec {
+    key: "fire_count"
+    value {
+      stat_var: "Count_FireEvent"
+      name: "Count of fires (${date})"
+    }
+  }
+  stat_var_spec {
+    key: "fire_area"
+    value {
+      stat_var: "Area_FireEvent"
+      name: "Area affected by fires (${date})"
+    }
+  }
+}
+
+categories {
+  title: "Testing subtitle"
+  blocks: {
+    columns {
+      tiles {
+        type: LINE
+        title: "Population"
+        subtitle: "Over time"
+        stat_var_key: "Count_Person"
+      }
+    }
+    columns {
+      tiles {
+        type: GAUGE
+        title: "California Population"
+        subtitle: "Compared to overall USA population"
+        stat_var_key: "Count_Person"
+        gauge_tile_spec {
+          range {
+            min: 0
+            max: 331900000
+          }
+        }
+      }
+    }
+  }
+  blocks: {
+    columns {
+      tiles {
+        type: DONUT
+        title: "Median income"
+        subtitle: "Age 15+"
+        stat_var_key: "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+        stat_var_key: "Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Count of COVID-19 Cases"
+        subtitle: "Cumulative"
+        stat_var_key: "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase"
+        stat_var_key: "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
+        stat_var_key: "Count_MortalityEvent_HypertensiveHeartDisease"
+        line_tile_spec: {
+          timeScale: MONTH
+          variable_name_regex: "(?=.*)(?<=\\().*(?=\\))"
+          default_variable_name: "Hypertension"
+        }
+      }
+    }
+  }
+  blocks: {
+    columns: {
+      tiles {
+        type: HIGHLIGHT
+        description: "Population"
+        stat_var_key: "Count_Person"
+      }
+    }
+  }
+  stat_var_spec {
+    key: "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+    value {
+      stat_var: "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+      name: "GDP"
+    }
+  }
+  stat_var_spec {
+    key: "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+    value {
+      stat_var: "Median_Income_Person_15OrMoreYears_Male_WithIncome"
+      name: "Median income (men, age 15+)"
+    }
+  }
+  stat_var_spec {
+    key: "Median_Income_Person_15OrMoreYears_Female_WithIncome"
+    value {
+      stat_var: "Median_Income_Person_15OrMoreYears_Female_WithIncome"
+      name: "Median income (women, age 15+)"
+    }
+  }
+  stat_var_spec {
+    key: "Count_Person"
+    value {
+      stat_var: "Count_Person"
+      name: "Population"
+      date: "1999"
+    }
+  }
+  stat_var_spec {
+    key: "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase",
+    value: {
+      stat_var: "CumulativeCount_MedicalConditionIncident_COVID_19_ConfirmedOrProbableCase"
+      name: "Cumulative Count (COVID-19 Cases)"
+    }
+  }
+  stat_var_spec {
+    key: "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased",
+    value: {
+      stat_var: "CumulativeCount_MedicalConditionIncident_COVID_19_PatientDeceased"
+      name: "Cumulative Count (COVID-19 Deaths)"
+    }
+  }
+  stat_var_spec {
+    key: "Count_MortalityEvent_HypertensiveHeartDisease",
+    value: {
+      stat_var: "Count_MortalityEvent_HypertensiveHeartDisease"
+      name: "Hypertensive Heart Disease"
+    }
+  }
+}
+
+
+categories {
+  title: "Test line with date range"
+  blocks {
+    title: "Test line with with date range"
+    columns {
+      tiles {
+        type: LINE
+        title: "Population in ${placeName} after 2012"
+        stat_var_key: 'female_population'
+        stat_var_key: 'male_population'
+        line_tile_spec {
+          start_date: '2012-01'
+        }
+      }
+      tiles {
+        type: LINE
+        title: "Population in ${placeName} before 2020"
+        stat_var_key: 'female_population'
+        stat_var_key: 'male_population'
+        line_tile_spec {
+          end_date: '2020-01'
+        }
+      }
+    }
+    columns {
+      tiles {
+        type: LINE
+        title: "Population in ${placeName} between 2014 and 2019"
+        stat_var_key: 'female_population'
+        stat_var_key: 'male_population'
+        line_tile_spec {
+          start_date: '2014'
+          end_date: '2019'
+        }
+      }
+    }
+  }
+  stat_var_spec {
+    key: 'female_population'
+    value {
+      stat_var: "Count_Person_Female"
+    }
+  }
+  stat_var_spec {
+    key: 'male_population'
+    value {
+      stat_var: "Count_Person_Male"
+    }
+  }
+}
+
+
+categories {
+  title: "Test Answer tiles"
+  blocks {
+    columns {
+      tiles {
+        type: ANSWER_MESSAGE
+        title: "the associated genes for rs13317 are",
+        answer_message_tile_spec {
+          property_expr: "<-referencesnpclusterid{typeof:geneticvariantgeneassociation}->genesymbol"
+        }
+        entities: [
+          "bio/rs13317"
+        ],
+      }
+      tiles {
+        answer_table_tile_spec {
+          columns: [
+            {
+              header: "Phylum",
+              property_expr: "->phylum"
+            }
+          ]
+        }
+        entities: [
+          "bio/D031211",
+          "dc/243ey64hwbn34",
+          "dc/2hv02sq2ry0r6",
+          "dc/c29yfdfcgxzyg",
+          "dc/e33hxjfjh7x07",
+          "dc/gsbgxt3v7n4w3",
+          "dc/q4embh4k403zd",
+          "dc/ss25j8cd5gsq",
+          "dc/v359bd9cc2q02",
+          "dc/vs98cmjjblzb5",
+          "dc/wq2j4gte42ysg",
+          "dc/yb99f7tx3f4nf"
+        ]
+        title: "The Phylum for Corylus are as follows:"
+        type: ANSWER_TABLE
+      }
+    }
+  }
+  stat_var_spec {
+    key: 'male_population'
+    value {
+      stat_var: "Count_Person_Male"
+    }
+  }
+}

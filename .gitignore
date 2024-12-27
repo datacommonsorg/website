@@ -3,17 +3,21 @@ __pycache__/
 .pytest_cache
 *.pyc
 .env/
-test_screenshots/
+screenshots/*.png
+screenshots/screenshot_url.json
 
 # Production static files
-server/dist/**
+**/dist/**
 !server/dist/.empty
 
 **/node_modules/**
 
 # Local env.
-.vscode
 *.swp
+.vscode
+.idea
+!.vscode/launch.json
+.env.list
 
 # Mac
 .DS_Store
@@ -23,17 +27,22 @@ tmp/
 .air.toml
 
 # Kubernetes
-gke/config.yaml
 gke/endpoints.yaml
 gke/mci.yaml
+endpoints.yaml
+gke/*.crt
+gke/*.key
 
 mixer-grpc.*.pb
 deploy/overlays/**/endpoints.yaml
 deploy/overlays/**/kustomize-build.yaml
 deploy/overlays/**/kustomize-deployed.yaml
+deploy/overlays/kustomization.yaml
 
 deploy/git/mixer_hash.txt
 deploy/git/website_hash.txt
+
+deploy/apigee/**/*.zip
 
 # Helm
 build/helm/**/*.tgz
@@ -46,3 +55,52 @@ build/helm/**/*.tgz
 *.tfstate
 *.tfstate.*
 pylist.json
+
+pytest_log.txt
+
+
+tools/sdg/sdg.textproto
+tools/sdg/subject_page_pb2.py
+
+*diff_report.html
+
+# Experimental - ignore symbolic links
+experimental/sdg-static/datacommons/datacommons.js
+experimental/sdg-static/datacommons/ranking.min.css
+experimental/sdg-static/datacommons/nl_interface.min.css
+
+# Custom DC data
+dc-data/
+custom_dc/env.list
+
+# Topic cache
+gen_ordered_list_for_topics.mcf
+mcf_parser.py
+
+# Test output files
+output/
+
+# wireit files
+.wireit
+
+# finetuned model
+ft_final_v20230717230459.all-MiniLM-L6-v2/
+
+# model eval output
+
+**/eval/**/result
+
+# CDC ignores
+custom_dc/sample/datacommons/**
+custom_dc/data/*.db
+
+.cache/
+
+**/*.egg-info
+*.egg-info
+
+# Custom DC dev and terraform ignores
+build/cdc/dev/.env
+*.tfvars
+deploy/terraform-custom-datacommons/modules/backend.tf
+

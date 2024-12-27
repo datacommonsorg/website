@@ -19,131 +19,33 @@ import _ from "lodash";
 import React from "react";
 import ReactDOM from "react-dom";
 
-import {
-  CachedChoroplethData,
-  CachedRankingChartData,
-  GeoJsonData,
-  PageData,
-} from "../chart/types";
+import { PageData } from "../chart/types";
 import { loadLocaleData } from "../i18n/i18n";
-import { EARTH_NAMED_TYPED_PLACE, USA_PLACE_DCID } from "../shared/constants";
 import { ChildPlace } from "./child_places_menu";
-import { MainPane } from "./main_pane";
+import { MainPane, showOverview } from "./main_pane";
 import { Menu } from "./menu";
 import { PageSubtitle } from "./page_subtitle";
-import { ParentPlace } from "./parent_breadcrumbs";
-import { initSearchAutocomplete } from "./place_autocomplete";
 import { PlaceHighlight } from "./place_highlight";
-import { isPlaceInUsa, USA_PLACE_TYPES_WITH_CHOROPLETH } from "./util";
+import { isPlaceInUsa } from "./util";
 
 // Window scroll position to start fixing the sidebar.
 let yScrollLimit = 0;
-// Max top position for the sidebar, relative to #sidebar-outer.
-let sidebarTopMax = 0;
-// Only trigger fixed sidebar beyond this window width.
-const Y_SCROLL_WINDOW_BREAKPOINT = 992;
-// Margin to apply to the fixed sidebar top.
-const Y_SCROLL_MARGIN = 100;
 
-window.onload = () => {
+window.addEventListener("load", (): void => {
   try {
     renderPage();
-    initSearchAutocomplete();
-    updatePageLayoutState();
-    maybeToggleFixedSidebar();
-    window.onresize = maybeToggleFixedSidebar;
   } catch (e) {
     return;
   }
-};
+});
 
 /**
  *  Make adjustments to sidebar scroll state based on the content.
  */
 function updatePageLayoutState(): void {
-  yScrollLimit = document.getElementById("main-pane").offsetTop;
+  yScrollLimit = document.getElementById("place-summary").offsetTop;
   document.getElementById("sidebar-top-spacer").style.height =
     yScrollLimit + "px";
-  const sidebarOuterHeight =
-    document.getElementById("sidebar-outer").offsetHeight;
-  const sidebarRegionHeight =
-    document.getElementById("sidebar-region").offsetHeight;
-  const footerHeight = document.getElementById("main-footer").offsetHeight;
-  sidebarTopMax =
-    sidebarOuterHeight - sidebarRegionHeight - Y_SCROLL_MARGIN - footerHeight;
-}
-
-/**
- *  Toggle fixed sidebar based on window width.
- */
-function maybeToggleFixedSidebar(): void {
-  if (window.innerWidth < Y_SCROLL_WINDOW_BREAKPOINT) {
-    document.removeEventListener("scroll", adjustMenuPosition);
-    document.getElementById("sidebar-region").classList.remove("fixed");
-    return;
-  }
-  document.addEventListener("scroll", adjustMenuPosition);
-  document.getElementById("sidebar-region").style.width =
-    document.getElementById("sidebar-top-spacer").offsetWidth + "px";
-  adjustMenuPosition();
-}
-
-/**
- * Update fixed sidebar based on the window scroll.
- */
-function adjustMenuPosition(): void {
-  const topicsEl = document.getElementById("sidebar-region");
-  if (window.scrollY > yScrollLimit) {
-    const calcTop = window.scrollY - yScrollLimit - Y_SCROLL_MARGIN;
-    if (calcTop > sidebarTopMax) {
-      topicsEl.style.top = sidebarTopMax + "px";
-      topicsEl.classList.remove("fixed");
-      return;
-    }
-    topicsEl.classList.add("fixed");
-    if (topicsEl.style.top != "0") {
-      topicsEl.style.top = "0";
-      topicsEl.scrollTop = 0;
-    }
-  } else {
-    topicsEl.classList.remove("fixed");
-    topicsEl.style.top = "0";
-  }
-}
-
-/**
- * Get the geo json info for choropleth charts.
- */
-async function getGeoJsonData(
-  dcid: string,
-  placeType: string,
-  locale: string
-): Promise<GeoJsonData> {
-  if (shouldMakeChoroplethCalls(dcid, placeType)) {
-    return axios
-      .get(`/api/choropleth/geojson?placeDcid=${dcid}&hl=${locale}`)
-      .then((resp) => {
-        return resp.data;
-      });
-  } else {
-    return Promise.resolve(null);
-  }
-}
-
-/**
- * Get the stat var data for choropleth charts.
- */
-async function getChoroplethData(
-  dcid: string,
-  placeType: string
-): Promise<CachedChoroplethData> {
-  if (shouldMakeChoroplethCalls(dcid, placeType)) {
-    return axios.get(`/api/choropleth/data/${dcid}`).then((resp) => {
-      return resp.data;
-    });
-  } else {
-    return Promise.resolve({});
-  }
 }
 
 /**
@@ -152,28 +54,32 @@ async function getChoroplethData(
 async function getLandingPageData(
   dcid: string,
   category: string,
-  locale: string
+  locale: string,
+  seed: string
 ): Promise<PageData> {
   return axios
-    .get(`/api/landingpage/data/${dcid}?category=${category}&hl=${locale}`)
+    .get(
+      `/api/landingpage/data/${dcid}?category=${category}&hl=${locale}&seed=${seed}`
+    )
     .then((resp) => {
       return resp.data;
     });
 }
 
-function shouldMakeChoroplethCalls(dcid: string, placeType: string): boolean {
-  const isEarth = dcid === EARTH_NAMED_TYPED_PLACE.dcid;
-  const isInUSA: boolean =
-    dcid.startsWith("geoId") || dcid.startsWith(USA_PLACE_DCID);
-  return isEarth || (isInUSA && USA_PLACE_TYPES_WITH_CHOROPLETH.has(placeType));
-}
-
-async function getRankingChartData(
-  dcid: string
-): Promise<CachedRankingChartData> {
-  return axios.get(`/api/place/ranking_chart/${dcid}`).then((resp) => {
-    return resp.data;
-  });
+/**
+ * Set the text in the page-loading div to a sorry message.
+ * Set the text to empty if summary text is present on the page.
+ */
+function setErrorMessage(): void {
+  const summaryText = document.getElementById("place-summary").innerText;
+  const loadingElem = document.getElementById("page-loading");
+  if (summaryText) {
+    // If summary text is present, suppress "Sorry" message
+    loadingElem.innerHTML = "";
+  } else {
+    loadingElem.innerText =
+      "Sorry, there was an error loading charts for this place.";
+  }
 }
 
 function renderPage(): void {
@@ -181,15 +87,21 @@ function renderPage(): void {
   const urlHash = window.location.hash;
   // Get category and render menu.
   const category = urlParams.get("category") || "Overview";
+  const seed = urlParams.get("seed") || "0";
+
+  // Get place data
   const dcid = document.getElementById("title").dataset.dcid;
   const placeName = document.getElementById("place-name").dataset.pn;
   const placeType = document.getElementById("place-type").dataset.pt;
-  const locale = document.getElementById("locale").dataset.lc;
-  const landingPagePromise = getLandingPageData(dcid, category, locale);
-  const chartGeoJsonPromise = getGeoJsonData(dcid, placeType, locale);
-  const choroplethDataPromise = getChoroplethData(dcid, placeType);
-  const rankingChartPromise = getRankingChartData(dcid);
 
+  // Get locale
+  const metadataContainer = document.getElementById("metadata-base");
+  const locale = metadataContainer.dataset.locale;
+
+  // Get landing page data
+  const landingPagePromise = getLandingPageData(dcid, category, locale, seed);
+
+  // Load locale data
   Promise.all([
     landingPagePromise,
     loadLocaleData(locale, [
@@ -200,15 +112,19 @@ function renderPage(): void {
     ]),
   ])
     .then(([landingPageData]) => {
-      const loadingElem = document.getElementById("page-loading");
       if (_.isEmpty(landingPageData)) {
-        loadingElem.innerText =
-          "Sorry, we don't have any charts to show for this place.";
+        setErrorMessage();
         return;
       }
+      const loadingElem = document.getElementById("page-loading");
+      const sidebarElem = document.getElementById("sidebar-outer");
+      const mainPaneElem = document.getElementById("main-pane");
       loadingElem.style.display = "none";
+      sidebarElem.style.opacity = "1";
+      mainPaneElem.style.opacity = "1";
       const data: PageData = landingPageData;
       const isUsaPlace = isPlaceInUsa(dcid, data.parentPlaces);
+
       ReactDOM.render(
         React.createElement(Menu, {
           pageChart: data.pageChart,
@@ -219,27 +135,18 @@ function renderPage(): void {
         document.getElementById("menu")
       );
 
-      // Earth has no parent places.
-      if (data.parentPlaces.length > 0) {
+      if (!showOverview(isUsaPlace, placeType, category)) {
         ReactDOM.render(
-          React.createElement(ParentPlace, {
-            names: data.names,
-            parentPlaces: data.parentPlaces,
-            placeType,
+          React.createElement(PlaceHighlight, {
+            dcid,
+            highlight: data.highlight,
           }),
-          document.getElementById("place-type")
+          document.getElementById("place-highlight")
         );
       }
-      ReactDOM.render(
-        React.createElement(PlaceHighlight, {
-          dcid,
-          highlight: data.highlight,
-        }),
-        document.getElementById("place-highlight")
-      );
 
       // Readjust sidebar based on parent places.
-      updatePageLayoutState();
+      // updatePageLayoutState();
 
       // Display child places alphabetically
       for (const placeType in data.allChildPlaces) {
@@ -265,12 +172,13 @@ function renderPage(): void {
 
       ReactDOM.render(
         React.createElement(PageSubtitle, {
-          category: category,
+          category,
           categoryDisplayStr: data.categories[category],
           dcid,
         }),
         document.getElementById("subtitle")
       );
+
       ReactDOM.render(
         React.createElement(MainPane, {
           category,
@@ -280,13 +188,11 @@ function renderPage(): void {
           pageChart: data.pageChart,
           placeName,
           placeType,
-          geoJsonData: chartGeoJsonPromise,
-          choroplethData: choroplethDataPromise,
           childPlacesType: data.childPlacesType,
           parentPlaces: data.parentPlaces,
           categoryStrings: data.categories,
-          rankingChartData: rankingChartPromise,
           locale,
+          highlight: data.highlight,
         }),
         document.getElementById("main-pane")
       );
@@ -294,9 +200,7 @@ function renderPage(): void {
       window.location.hash = urlHash;
     })
     .catch(() => {
-      const loadingElem = document.getElementById("page-loading");
-      loadingElem.innerText =
-        "Sorry, there was an error loading charts for this place.";
+      setErrorMessage();
     });
 }
 

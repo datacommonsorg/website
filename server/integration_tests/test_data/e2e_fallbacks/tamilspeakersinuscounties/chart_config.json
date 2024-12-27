@@ -1,0 +1,237 @@
+{
+  "client": "test_detect-and-fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_TamilSpokenAtHome"
+                    ],
+                    "title": "Population: Tamil Spoken at Home in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_TamilSpokenAtHome"
+                    ],
+                    "title": "Population: Tamil Spoken at Home in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Tamil Spoken at Home in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_TamilSpokenAtHome"
+                    ],
+                    "title": "Population: Tamil Spoken at Home in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Tamil Spoken at Home in United States",
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_TamilSpokenAtHome"
+                    ],
+                    "title": "Population: Tamil Spoken at Home in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Tamil Spoken at Home"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_MalayalamKannadaOrOtherDravidianLanguagesSpokenAtHome"
+                    ],
+                    "title": "Population: Malayalam Kannada or Other Dravidian Languages Spoken at Home in States of United States (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_MalayalamKannadaOrOtherDravidianLanguagesSpokenAtHome"
+                    ],
+                    "title": "Population: Malayalam Kannada or Other Dravidian Languages Spoken at Home in States of United States (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Malayalam Kannada or Other Dravidian Languages Spoken at Home in States of United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_MalayalamKannadaOrOtherDravidianLanguagesSpokenAtHome"
+                    ],
+                    "title": "Population: Malayalam Kannada or Other Dravidian Languages Spoken at Home in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: Malayalam Kannada or Other Dravidian Languages Spoken at Home in United States",
+                    "statVarKey": [
+                      "Count_Person_5OrMoreYears_MalayalamKannadaOrOtherDravidianLanguagesSpokenAtHome"
+                    ],
+                    "title": "Population: Malayalam Kannada or Other Dravidian Languages Spoken at Home in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Malayalam Kannada or Other Dravidian Languages Spoken at Home"
+          }
+        ],
+        "statVarSpec": {
+          "Count_Person_5OrMoreYears_MalayalamKannadaOrOtherDravidianLanguagesSpokenAtHome": {
+            "name": "Population: Malayalam Kannada Or Other Dravidian Languages Spoken At Home",
+            "statVar": "Count_Person_5OrMoreYears_MalayalamKannadaOrOtherDravidianLanguagesSpokenAtHome"
+          },
+          "Count_Person_5OrMoreYears_TamilSpokenAtHome": {
+            "name": "Population: Tamil Spoken At Home",
+            "statVar": "Count_Person_5OrMoreYears_TamilSpokenAtHome"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "containedPlaceTypes": {
+        "Country": "State"
+      },
+      "placeDcid": [
+        "country/USA"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "entities": [],
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "country/USA",
+    "name": "United States",
+    "place_type": "Country"
+  },
+  "placeFallback": {
+    "newPlace": {
+      "country": "country/USA",
+      "dcid": "country/USA",
+      "name": "United States",
+      "place_type": "Country"
+    },
+    "newStr": "states in United States",
+    "newType": "State",
+    "origPlace": {
+      "country": "country/USA",
+      "dcid": "country/USA",
+      "name": "United States",
+      "place_type": "Country"
+    },
+    "origStr": "counties in United States",
+    "origType": "County"
+  },
+  "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "country/USA",
+      "name": "United States",
+      "place_type": "Country"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [],
+    "exploreMore": {
+      "Count_Person_5OrMoreYears_MalayalamKannadaOrOtherDravidianLanguagesSpokenAtHome": {
+        "abilityToSpeakEnglish": [
+          "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_MalayalamKannadaOrOtherDravidianLanguagesSpokenAtHome",
+          "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_MalayalamKannadaOrOtherDravidianLanguagesSpokenAtHome"
+        ]
+      },
+      "Count_Person_5OrMoreYears_TamilSpokenAtHome": {
+        "abilityToSpeakEnglish": [
+          "Count_Person_SpeakEnglishLessThanVeryWell_5OrMoreYears_TamilSpokenAtHome",
+          "Count_Person_SpeakEnglishVeryWell_5OrMoreYears_TamilSpokenAtHome"
+        ]
+      }
+    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/NonEnglishLanguageAtHome",
+        "name": "Non-English Languages",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Language",
+        "name": "Language Spoken At Home",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/EnglishLanguageAtHome",
+        "name": "English Language",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
+  "svSource": "CURRENT_QUERY",
+  "userMessages": [
+    "Sorry, there were no relevant statistics for counties in United States. See results for states in United States."
+  ]
+}

@@ -19,29 +19,36 @@
 
 set -e
 
-PROJECT_ID=$1
-if [[ $PROJECT_ID == "" ]]; then
-  PROJECT_ID=$(yq eval '.project' config.yaml)
-fi
+CONFIG_YAML="../deploy/helm_charts/envs/$1.yaml"
 
-STORE_PROJECT_ID=$2
-if [[ $STORE_PROJECT_ID == "" ]]; then
-  STORE_PROJECT_ID=$(yq eval '.storage_project' config.yaml)
-fi
+PROJECT_ID=$(yq eval '.project' $CONFIG_YAML)
 
+STORE_PROJECT_ID=datcom-store
+CONTROL_PROJECT_ID=datcom-204919
 NAME="website-robot"
 SERVICE_ACCOUNT="$NAME@$PROJECT_ID.iam.gserviceaccount.com"
 
 # Data store project roles
-declare -a roles=(
-    "roles/bigquery.admin"   # BigQuery
+declare -a store_roles=(
+    "roles/bigquery.dataViewer"   # BigQuery
     "roles/bigtable.reader" # Bigtable
     "roles/storage.objectViewer" # Branch Cache Read
     "roles/pubsub.editor" # Branch Cache Subscription
 )
-for role in "${roles[@]}"
+for role in "${store_roles[@]}"
 do
   gcloud projects add-iam-policy-binding $STORE_PROJECT_ID \
+    --member serviceAccount:$SERVICE_ACCOUNT \
+    --role $role
+done
+
+# Control project roles
+declare -a control_roles=(
+    "roles/pubsub.publisher"
+)
+for role in "${control_roles[@]}"
+do
+  gcloud projects add-iam-policy-binding $CONTROL_PROJECT_ID \
     --member serviceAccount:$SERVICE_ACCOUNT \
     --role $role
 done

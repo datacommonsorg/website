@@ -19,7 +19,7 @@
  */
 
 import _ from "lodash";
-import React from "react";
+import React, { useRef, useState } from "react";
 import { Input } from "reactstrap";
 
 import {
@@ -27,88 +27,110 @@ import {
   SeverityFilter,
 } from "../../types/subject_page_proto_types";
 
+const DELAY_MS = 700;
+
 interface DisasterEventMapFiltersPropType {
-  // map of disaster type to severity filter for that disaster type
-  severityFilters: Record<string, SeverityFilter>;
   // map of disaster type to information about that event type
   eventTypeSpec: Record<string, EventTypeSpec>;
-  // callback function when severity filters are updated.
-  onSeverityFiltersUpdated: (
-    severityFilters: Record<string, SeverityFilter>
-  ) => void;
-  // height to set this component to.
-  height: number;
+  // id of the block this component is in.
+  blockId: string;
+  // severity filters
+  severityFilters: Record<string, SeverityFilter>;
+  // function to run to set severity filters
+  setSeverityFilters: (filters: Record<string, SeverityFilter>) => void;
 }
 
 export function DisasterEventMapFilters(
   props: DisasterEventMapFiltersPropType
 ): JSX.Element {
+  const delayTimer = useRef(null);
+  const [severityFilterInputs, setSeverityFilterInputs] = useState(
+    props.severityFilters
+  );
+
   function onFilterInputChanged(
     disasterType: string,
     newVal: number,
     isUpperLimit: boolean
   ): void {
-    const updatedSeverityFilters = _.cloneDeep(props.severityFilters);
+    // TODO (chejennifer): putting the entire severity filter into the url
+    // makes a very long hash. Find a better way to save filter information
+    // in the url.
+    const updatedSeverityFilters = _.cloneDeep(severityFilterInputs);
     if (isUpperLimit) {
       updatedSeverityFilters[disasterType].upperLimit = newVal;
     } else {
       updatedSeverityFilters[disasterType].lowerLimit = newVal;
     }
-    props.onSeverityFiltersUpdated(updatedSeverityFilters);
+    setSeverityFilterInputs(updatedSeverityFilters);
+    clearTimeout(delayTimer.current);
+    delayTimer.current = setTimeout(
+      () => props.setSeverityFilters(updatedSeverityFilters),
+      DELAY_MS
+    );
+  }
+
+  function updateFilter(): void {
+    clearTimeout(delayTimer.current);
+    props.setSeverityFilters(severityFilterInputs);
   }
 
   return (
-    <div
-      className={"disaster-event-map-severity-filters"}
-      style={props.height ? { height: props.height } : {}}
-    >
-      <h6>Severity Filters</h6>
-      {Object.keys(props.severityFilters).map((disasterType) => {
-        const disasterTypeName = props.eventTypeSpec[disasterType].name;
-        const severityFilter = props.severityFilters[disasterType];
-        return (
-          <div
-            className="disaster-type-filters"
-            key={`${disasterType}-filters`}
-          >
-            <div className="disaster-type-name">{disasterTypeName}</div>
+    <div className={"disaster-event-map-severity-filters"}>
+      <h3>Filters</h3>
+      <div className="row">
+        {Object.keys(severityFilterInputs).map((disasterType) => {
+          const disasterTypeName = props.eventTypeSpec[disasterType].name;
+          const severityFilter = severityFilterInputs[disasterType];
+          return (
             <div
-              className="prop-filter"
-              key={`${disasterType}-${severityFilter.prop}-filter`}
+              className="disaster-type-filters col"
+              key={`${disasterType}-filters`}
             >
-              <span>{severityFilter.prop}</span>
-              <div className="prop-filter-input">
-                <span>min: </span>
-                <Input
-                  type="number"
-                  onChange={(e) =>
-                    onFilterInputChanged(
-                      disasterType,
-                      Number(e.target.value),
-                      false /* isUpperLimit */
-                    )
-                  }
-                  value={severityFilter.lowerLimit}
-                />
+              <div className="disaster-type-name">
+                {disasterTypeName} ({severityFilter.prop})
               </div>
-              <div className="prop-filter-input">
-                <span>max: </span>
-                <Input
-                  type="number"
-                  onChange={(e) =>
-                    onFilterInputChanged(
-                      disasterType,
-                      Number(e.target.value),
-                      true /* isUpperLimit */
-                    )
-                  }
-                  value={severityFilter.upperLimit}
-                />
+              <div
+                className="prop-filter"
+                key={`${disasterType}-${severityFilter.prop}-filter`}
+              >
+                <div className="prop-filter-input">
+                  <span>min: </span>
+                  <Input
+                    type="number"
+                    onChange={(e) =>
+                      onFilterInputChanged(
+                        disasterType,
+                        Number(e.target.value),
+                        false /* isUpperLimit */
+                      )
+                    }
+                    value={severityFilter.lowerLimit}
+                    onBlur={() => updateFilter()}
+                    onKeyPress={(e) => e.key === "Enter" && updateFilter()}
+                  />
+                </div>
+                <div className="prop-filter-input">
+                  <span>max: </span>
+                  <Input
+                    type="number"
+                    onChange={(e) =>
+                      onFilterInputChanged(
+                        disasterType,
+                        Number(e.target.value),
+                        true /* isUpperLimit */
+                      )
+                    }
+                    value={severityFilter.upperLimit}
+                    onBlur={() => updateFilter()}
+                    onKeyPress={(e) => e.key === "Enter" && updateFilter()}
+                  />
+                </div>
               </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 }

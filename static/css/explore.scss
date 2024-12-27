@@ -1,0 +1,311 @@
+/**
+ * Copyright 2023 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@use "./shared/subject_page";
+@use "./nl_search_bar";
+@import "./tools/base_tools";
+@import "./draw";
+@import "./draw_choropleth";
+@import "./draw_scatter";
+@import "./shared/item_list";
+@import "./shared/story_block";
+@import "./shared/story_chart";
+@import "./nl_interface";
+
+#main {
+  height: auto;
+  min-height: 100vh;
+}
+
+#main-header {
+  height: 64px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+#main-nav {
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+#explore.main-content {
+  flex-grow: 1;
+  padding-top: 40px;
+}
+
+#insight-lhs {
+  padding-right: 20px;
+}
+
+.explore-container {
+  display: flex;
+  flex-direction: column;
+
+  h1 {
+    font-size: 2rem;
+    margin: 3rem 0;
+  }
+
+  .explore-charts {
+    font-size: 1.25rem;
+  }
+
+  .explore-charts.place-overview-only {
+    #subject-page-main-pane {
+      .category {
+        padding-top: 0;
+      }
+
+      .block {
+        padding-top: 0;
+      }
+    }
+  }
+}
+
+#explore-more-section {
+  padding: 24px;
+  border-radius: var(--border-radius-primary);
+  border: var(--border-primary);
+  background: var(--gm-3-white);
+  margin-top: 24px;
+
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+
+  .explore-more-box {
+    display: flex;
+  }
+  .explore-more-prompt {
+    line-height: 24px;
+  }
+}
+
+.topics-box {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #efefef;
+
+  .topics-head {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--dc-gray);
+  }
+
+  .topic-link {
+    color: var(--dc-gray);
+    font-size: 13px;
+    margin-right: 4px;
+    text-decoration: underline;
+    display: inline-block;
+  }
+}
+
+#child-places {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #efefef;
+
+  #child-place-head {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--dc-gray);
+  }
+
+  .child-place-group {
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .child-place-type {
+    color: var(--dc-gray);
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  .child-place-link {
+    color: var(--dc-gray);
+    font-size: 13px;
+    margin-right: 4px;
+    text-decoration: underline;
+    color: var(--dc-gray);
+    display: inline-block;
+  }
+}
+
+#parent-places {
+  #parent-place-head {
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--dc-gray);
+  }
+
+  .parent-place-link {
+    color: var(--dc-gray);
+    font-size: 13px;
+    text-decoration: underline;
+    color: var(--dc-gray);
+    display: inline-block;
+  }
+}
+
+#place-callout {
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 36px;
+  color: var(--gm-3-ref-neutral-neutral-20);
+  padding-bottom: 16px;
+
+  .place-callout-link {
+    color: inherit;
+  }
+
+  .place-callout-link:hover {
+    color: var(--link-color);
+    text-decoration: underline;
+  }
+}
+
+.topic-item {
+  width: 100%;
+}
+
+.sub-topic-group {
+  margin-left: 10px;
+}
+
+#user-message {
+  margin-top: 1rem;
+  padding-bottom: 1rem;
+  width: 100%;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--dc-gray);
+}
+
+.explore-topics-box {
+  display: flex;
+  .explore-relevant-topics {
+    min-width: 120px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 24px;
+    color: rgb(94, 94, 94);
+  }
+}
+
+.related-places,
+.user-message-container {
+  padding: 24px;
+  border-radius: var(--border-radius-primary);
+  border: var(--border-primary);
+  background: var(--gm-3-white);
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.related-places .related-places-callout {
+  margin-bottom: 16px;
+}
+
+.user-message-container {
+  display: flex;
+  gap: 15px;
+  border: none;
+  background: none;
+  align-items: stretch;
+
+  .user-message {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+
+    .user-message-text {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex-grow: 1;
+      justify-content: center;
+
+      .main-message {
+        font-size: 16px;
+      }
+
+      .sub-message {
+        font-size: 14px;
+      }
+    }
+
+    .item-list-container {
+      margin-top: 16px;
+      margin-left: -8px;
+    }
+
+    .bottom-border {
+      border-bottom: var(--border-primary);
+    }
+  }
+}
+
+.chart-container.map-chart {
+  flex-grow: 1;
+}
+
+.search-section-container {
+  width: 100%;
+
+  .search-section-content {
+    position: relative;
+  }
+
+  .debug-info-open {
+    top: 20px!important;
+    right: -10px!important;
+  }
+}
+
+.search-section-container.sticky {
+  position: fixed;
+  left: 0;
+  background-color: var(--gm-3-ref-primary-primary-99);
+  z-index: 9;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
+  padding: 16px 0;
+  transition: all ease-out 0.2s;
+
+  .search-section {
+    margin: 0;
+  }
+
+  #query-search-input {
+    height: 30px;
+    font-size: 13px;
+  }
+
+  .search-bar .search-bar-content #rich-search-button {
+    height: 30px;
+    width: 30px;
+    background-size: contain;
+  }
+}
+
+#ranking-table-container {
+  margin-left: 24px;
+}

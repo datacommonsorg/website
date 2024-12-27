@@ -18,6 +18,7 @@ const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const FixStyleOnlyEntriesPlugin = require("webpack-remove-empty-scripts");
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 
 const smp = new SpeedMeasurePlugin();
 
@@ -36,28 +37,49 @@ const config = {
       __dirname + "/css/tools/stat_var.scss",
     ],
     dev: [__dirname + "/js/dev.ts", __dirname + "/css/dev.scss"],
+    diff: [__dirname + "/js/apps/diff/main.ts", __dirname + "/css/diff.scss"],
     timeline: [
       __dirname + "/js/tools/timeline/timeline.ts",
       __dirname + "/css/tools/timeline.scss",
     ],
     timeline_bulk_download: [__dirname + "/js/tools/timeline/bulk_download.ts"],
     mcf_playground: __dirname + "/js/mcf_playground.js",
+    queryStore: path.resolve(__dirname, "js/shared/stores/query_store.ts"),
+    base: [__dirname + "/js/apps/base/main.ts", __dirname + "/css/core.scss"],
     place: [
       __dirname + "/js/place/place.ts",
-      __dirname + "/css/place/place.scss",
+      __dirname + "/css/place/place_page.scss",
     ],
-    place_landing: [__dirname + "/js/place/place_landing.ts"],
-    rich_search: [
-      __dirname + "/js/rich_search/rich_search.ts",
-      __dirname + "/css/rich_search.scss",
+    place_landing: [
+      __dirname + "/js/place/place_landing.ts",
+      __dirname + "/css/place/place_landing.scss",
+    ],
+    dev_place: [
+      __dirname + "/js/place/dev_place.ts",
+      __dirname + "/css/place/dev_place_page.scss",
     ],
     topic_page: [
       __dirname + "/js/apps/topic_page/main.ts",
       __dirname + "/css/topic_page.scss",
     ],
-    nl_interface: [
-      __dirname + "/js/apps/nl_interface/main.ts",
-      __dirname + "/css/nl_interface.scss",
+    explore_landing: [
+      __dirname + "/js/apps/explore_landing/main.ts",
+      __dirname + "/css/explore_landing.scss",
+    ],
+    explore: [
+      __dirname + "/js/apps/explore/main.ts",
+      __dirname + "/css/explore.scss",
+    ],
+    eval_embeddings: [
+      __dirname + "/js/apps/eval_embeddings/main.ts",
+      __dirname + "/css/eval_embeddings.scss",
+    ],
+    eval_retrieval_generation: [
+      __dirname + "/js/apps/eval_retrieval_generation/main.ts",
+      __dirname + "/css/eval_retrieval_generation.scss",
+    ],
+    eval_retrieval_generation_sxs: [
+      __dirname + "/js/apps/eval_retrieval_generation/sxs/main.ts",
     ],
     ranking: [
       __dirname + "/js/ranking/ranking.ts",
@@ -66,6 +88,15 @@ const config = {
     browser: [
       __dirname + "/js/browser/browser.ts",
       __dirname + "/css/browser.scss",
+    ],
+    browser_landing: [
+      __dirname + "/js/apps/browser_landing/main.ts",
+      __dirname + "/css/browser_landing.scss",
+    ],
+    biomedical: __dirname + "/css/biomedical/biomedical_shared.scss",
+    biomedical_landing: [
+      __dirname + "/js/biomedical/landing/main.ts",
+      __dirname + "/css/biomedical/biomedical_landing.scss",
     ],
     disease: [
       __dirname + "/js/biomedical/disease/disease.ts",
@@ -76,9 +107,9 @@ const config = {
       __dirname + "/css/biomedical/protein.scss",
     ],
     static: __dirname + "/css/static.scss",
-    translator: [
-      __dirname + "/js/translator/translator.ts",
-      __dirname + "/css/translator.scss",
+    screenshot: [
+      __dirname + "/js/apps/screenshot/main.ts",
+      __dirname + "/css/screenshot.scss",
     ],
     search: [
       __dirname + "/js/search/search.ts",
@@ -96,18 +127,39 @@ const config = {
       __dirname + "/js/import_wizard2/import_wizard.ts",
       __dirname + "/css/import_wizard2.scss",
     ],
-    user: [__dirname + "/js/user/user.ts", __dirname + "/css/user.scss"],
-    disaster_dashboard_v0: [
-      __dirname + "/js/disaster_dashboard_v0/disaster_dashboard.ts",
-      __dirname + "/css/disaster_dashboard_v0.scss",
+    about: [
+      __dirname + "/js/apps/about/main.ts",
+      __dirname + "/css/about.scss",
+    ],
+    admin: [__dirname + "/js/admin/main.ts", __dirname + "/css/admin.scss"],
+    build: [
+      __dirname + "/js/apps/build/main.ts",
+      __dirname + "/css/build.scss",
+    ],
+    disaster_dashboard: [
+      __dirname + "/js/apps/disaster_dashboard/main.ts",
+      __dirname + "/css/disaster_dashboard.scss",
     ],
     event: [
       __dirname + "/js/apps/event/main.ts",
       __dirname + "/css/event.scss",
     ],
-    disaster_dashboard: [
-      __dirname + "/js/apps/disaster_dashboard/main.ts",
-      __dirname + "/css/disaster_dashboard.scss",
+    sustainability: [
+      __dirname + "/js/apps/sustainability/main.ts",
+      __dirname + "/css/sustainability.scss",
+    ],
+    datacommons: [__dirname + "/library/index.ts"],
+    homepage: [
+      __dirname + "/js/apps/homepage/main.ts",
+      __dirname + "/css/homepage.scss",
+    ],
+    homepage_custom_dc: [
+      __dirname + "/js/apps/homepage/main_custom_dc.ts",
+      __dirname + "/css/homepage.scss",
+    ],
+    visualization: [
+      __dirname + "/js/apps/visualization/main.ts",
+      __dirname + "/css/tools/visualization.scss",
     ],
   },
   output: {
@@ -119,13 +171,6 @@ const config = {
   },
   module: {
     rules: [
-      {
-        test: /\.(js|jsx|ts|tsx)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-        },
-      },
       {
         test: /\.(ts|tsx)$/,
         loader: "ts-loader",
@@ -153,6 +198,7 @@ const config = {
     ],
   },
   plugins: [
+    new NodePolyfillPlugin(),
     new CopyPlugin({
       patterns: [
         { from: "css/**/*.css" },
@@ -175,7 +221,7 @@ module.exports = (env, argv) => {
   // If in development, disable optimization.minimize.
   // development and production are arguments.
   if (argv.mode === "development") {
-    config.devtool = "eval-cheap-module-source-map";
+    config.devtool = "source-map";
   }
 
   return argv.mode === "development" ? config : smp.wrap(config);

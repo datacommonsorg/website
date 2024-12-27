@@ -1,0 +1,241 @@
+{
+  "client": "test_detect-and-fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06105",
+                      "geoId/06093",
+                      "geoId/06091",
+                      "geoId/06063",
+                      "geoId/06051",
+                      "geoId/06049",
+                      "geoId/06043",
+                      "geoId/06027",
+                      "geoId/06021",
+                      "geoId/06011"
+                    ],
+                    "statVarKey": [
+                      "Percent_Person_Obesity_multiple_place_bar_block"
+                    ],
+                    "title": "Prevalence of Obesity (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence of Obesity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06105",
+                      "geoId/06093",
+                      "geoId/06091",
+                      "geoId/06063",
+                      "geoId/06051",
+                      "geoId/06049",
+                      "geoId/06043",
+                      "geoId/06027",
+                      "geoId/06021",
+                      "geoId/06011"
+                    ],
+                    "statVarKey": [
+                      "dc/x13tvt8jsgrm4_multiple_place_bar_block"
+                    ],
+                    "title": "Prevalence: Male, Obesity (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "startWithDenom": true,
+            "title": "Prevalence: Male, Obesity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06105",
+                      "geoId/06093",
+                      "geoId/06091",
+                      "geoId/06063",
+                      "geoId/06051",
+                      "geoId/06049",
+                      "geoId/06043",
+                      "geoId/06027",
+                      "geoId/06021",
+                      "geoId/06011"
+                    ],
+                    "statVarKey": [
+                      "dc/4lvmzr1h1ylk1_multiple_place_bar_block"
+                    ],
+                    "title": "Prevalence: Female, Obesity (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence: Female, Obesity"
+          }
+        ],
+        "statVarSpec": {
+          "Percent_Person_Obesity_multiple_place_bar_block": {
+            "name": "Prevalence of Obesity",
+            "statVar": "Percent_Person_Obesity",
+            "unit": "%"
+          },
+          "dc/4lvmzr1h1ylk1_multiple_place_bar_block": {
+            "name": "Prevalence: Female, Obesity",
+            "statVar": "dc/4lvmzr1h1ylk1"
+          },
+          "dc/x13tvt8jsgrm4_multiple_place_bar_block": {
+            "name": "Prevalence: Male, Obesity",
+            "statVar": "dc/x13tvt8jsgrm4"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "geoId/06105"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "entities": [],
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "geoId/06105",
+    "name": "Trinity County",
+    "place_type": "County"
+  },
+  "placeFallback": {},
+  "placeSource": "PAST_ANSWER",
+  "places": [
+    {
+      "dcid": "geoId/06105",
+      "name": "Trinity County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06093",
+      "name": "Siskiyou County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06091",
+      "name": "Sierra County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06063",
+      "name": "Plumas County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06051",
+      "name": "Mono County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06049",
+      "name": "Modoc County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06043",
+      "name": "Mariposa County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06027",
+      "name": "Inyo County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06021",
+      "name": "Glenn County",
+      "place_type": "County"
+    },
+    {
+      "dcid": "geoId/06011",
+      "name": "Colusa County",
+      "place_type": "County"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [],
+    "exploreMore": {
+      "Percent_Person_Obesity": {
+        "gender": [
+          "dc/4lvmzr1h1ylk1",
+          "dc/x13tvt8jsgrm4"
+        ]
+      }
+    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/HealthBehavior",
+        "name": "Health Behavior",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/PreventativeHealthAndBehavior",
+        "name": "Preventive Health and Behavior",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/PreventativeHealth",
+        "name": "Preventive Health",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
+  "svSource": "CURRENT_QUERY",
+  "test": "filter_test",
+  "userMessages": [
+    "See comparison based on places in the previous answer."
+  ]
+}

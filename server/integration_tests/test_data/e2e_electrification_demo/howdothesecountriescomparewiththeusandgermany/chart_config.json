@@ -1,0 +1,840 @@
+{
+  "client": "test_detect-and-fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA",
+                      "country/DEU",
+                      "country/ETH",
+                      "country/MAR",
+                      "country/KEN",
+                      "country/GHA",
+                      "country/UGA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/MLI",
+                      "country/RWA",
+                      "country/SOM"
+                    ],
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_multiple_place_bar_block"
+                    ],
+                    "title": "Greenhouse Gas Emissions (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "description": "Annual emissions from all greenhouse gases measured in tonnes of CO\u2082 equivalents.",
+            "title": "Greenhouse Gas Emissions"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA",
+                      "country/DEU",
+                      "country/ETH",
+                      "country/MAR",
+                      "country/KEN",
+                      "country/GHA",
+                      "country/UGA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/MLI",
+                      "country/RWA",
+                      "country/SOM"
+                    ],
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_Agriculture_multiple_place_bar_block",
+                      "Annual_Emissions_GreenhouseGas_ElectricityGeneration_multiple_place_bar_block",
+                      "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings_multiple_place_bar_block",
+                      "Annual_Emissions_GreenhouseGas_ForestryAndLandUse_multiple_place_bar_block",
+                      "Annual_Emissions_GreenhouseGas_Manufacturing_multiple_place_bar_block",
+                      "Annual_Emissions_GreenhouseGas_MineralExtraction_multiple_place_bar_block",
+                      "Annual_Emissions_GreenhouseGas_OilAndGas_multiple_place_bar_block",
+                      "Annual_Emissions_GreenhouseGas_Transportation_multiple_place_bar_block",
+                      "Annual_Emissions_GreenhouseGas_WasteManagement_multiple_place_bar_block",
+                      "Annual_Emissions_GreenhouseGas_CementProduction_multiple_place_bar_block",
+                      "Annual_Emissions_GreenhouseGas_SteelManufacturing_multiple_place_bar_block",
+                      "Annual_Emissions_GreenhouseGas_ForestFire_multiple_place_bar_block"
+                    ],
+                    "title": "Greenhouse Gas Emissions by Source (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Greenhouse Gas Emissions by Source"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA",
+                      "country/DEU",
+                      "country/ETH",
+                      "country/MAR",
+                      "country/KEN",
+                      "country/GHA",
+                      "country/UGA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/MLI",
+                      "country/RWA",
+                      "country/SOM"
+                    ],
+                    "statVarKey": [
+                      "eia/INTL.4008-8-MMTCD.A_multiple_place_bar_block"
+                    ],
+                    "title": "CO2 Emissions, Annual (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "CO2 Emissions, Annual"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA",
+                      "country/DEU",
+                      "country/ETH",
+                      "country/MAR",
+                      "country/KEN",
+                      "country/GHA",
+                      "country/UGA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/MLI",
+                      "country/RWA",
+                      "country/SOM"
+                    ],
+                    "statVarKey": [
+                      "Amount_Emissions_CarbonDioxide_PerCapita_multiple_place_bar_block"
+                    ],
+                    "title": "CO2 Emissions Per Capita (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "CO2 Emissions Per Capita"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA",
+                      "country/DEU",
+                      "country/ETH",
+                      "country/MAR",
+                      "country/KEN",
+                      "country/GHA",
+                      "country/UGA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/MLI",
+                      "country/RWA",
+                      "country/SOM"
+                    ],
+                    "statVarKey": [
+                      "Annual_Emissions_CarbonDioxide_Agriculture_multiple_place_bar_block",
+                      "Annual_Emissions_CarbonDioxide_FuelCombustionInBuildings_multiple_place_bar_block",
+                      "Annual_Emissions_CarbonDioxide_FossilFuelOperations_multiple_place_bar_block",
+                      "Annual_Emissions_CarbonDioxide_Manufacturing_multiple_place_bar_block",
+                      "Annual_Emissions_CarbonDioxide_MineralExtraction_multiple_place_bar_block",
+                      "Annual_Emissions_CarbonDioxide_Power_multiple_place_bar_block",
+                      "Annual_Emissions_CarbonDioxide_Transportation_multiple_place_bar_block",
+                      "Annual_Emissions_CarbonDioxide_WasteManagement_multiple_place_bar_block"
+                    ],
+                    "title": "CO2 Emissions by Source (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "CO2 Emissions by Source"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA",
+                      "country/ETH",
+                      "country/MAR",
+                      "country/KEN",
+                      "country/GHA",
+                      "country/UGA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/MLI",
+                      "country/RWA",
+                      "country/SOM"
+                    ],
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_RiceCultivation_multiple_place_bar_block"
+                    ],
+                    "title": "Annual Amount of Emissions: Rice Cultivation, Greenhouse Gas (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "infoMessage": "Data for \"Germany\" is currently unavailable. See the following statistics on the other places.",
+            "title": "Annual Amount of Emissions: Rice Cultivation, Greenhouse Gas"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA",
+                      "country/GHA"
+                    ],
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_OilAndGasProduction_multiple_place_bar_block"
+                    ],
+                    "title": "Annual Amount of Emissions: Oil and Gas Production, Greenhouse Gas (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "infoMessage": "Data for \"Germany, Ethiopia, Morocco, Kenya, Uganda, Senegal, Guinea, Mali, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places.",
+            "title": "Annual Amount of Emissions: Oil and Gas Production, Greenhouse Gas"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA",
+                      "country/DEU",
+                      "country/ETH",
+                      "country/KEN",
+                      "country/UGA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/MLI",
+                      "country/RWA",
+                      "country/SOM"
+                    ],
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking_multiple_place_bar_block"
+                    ],
+                    "title": "Annual Amount of Emissions: Fuel Combustion for Cooking, Greenhouse Gas (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "infoMessage": "Data for \"Morocco and Ghana\" is currently unavailable. See the following statistics on the other places.",
+            "title": "Annual Amount of Emissions: Fuel Combustion for Cooking, Greenhouse Gas"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA",
+                      "country/DEU"
+                    ],
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_FuelCombustionForRefrigerationAirConditioning_multiple_place_bar_block"
+                    ],
+                    "title": "Annual Amount of Emissions: Fuel Combustion for Refrigeration Air Conditioning, Greenhouse Gas (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "infoMessage": "Data for \"Ethiopia, Morocco, Kenya, Ghana, Uganda, Senegal, Guinea, Mali, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places.",
+            "title": "Annual Amount of Emissions: Fuel Combustion for Refrigeration Air Conditioning, Greenhouse Gas"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA",
+                      "country/DEU",
+                      "country/ETH",
+                      "country/MAR",
+                      "country/KEN",
+                      "country/GHA",
+                      "country/UGA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/MLI",
+                      "country/RWA",
+                      "country/SOM"
+                    ],
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_ManagedSoils_multiple_place_bar_block"
+                    ],
+                    "title": "Annual Amount of Emissions: Managed Soils, Greenhouse Gas (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Amount of Emissions: Managed Soils, Greenhouse Gas"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA",
+                      "country/DEU",
+                      "country/ETH",
+                      "country/MAR",
+                      "country/KEN",
+                      "country/GHA",
+                      "country/UGA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/MLI",
+                      "country/RWA",
+                      "country/SOM"
+                    ],
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_WastewaterTreatmentAndDischarge_multiple_place_bar_block"
+                    ],
+                    "title": "Annual Amount of Emissions: Wastewater Treatment and Discharge, Greenhouse Gas (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Amount of Emissions: Wastewater Treatment and Discharge, Greenhouse Gas"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA",
+                      "country/DEU",
+                      "country/ETH",
+                      "country/MAR",
+                      "country/KEN",
+                      "country/GHA",
+                      "country/UGA",
+                      "country/SEN",
+                      "country/GIN",
+                      "country/MLI",
+                      "country/RWA",
+                      "country/SOM"
+                    ],
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_FuelCombustionForRoadVehicles_multiple_place_bar_block"
+                    ],
+                    "title": "Annual Amount of Emissions: Fuel Combustion for Road Vehicles, Greenhouse Gas (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Annual Amount of Emissions: Fuel Combustion for Road Vehicles, Greenhouse Gas"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA",
+                      "country/DEU",
+                      "country/ETH",
+                      "country/KEN"
+                    ],
+                    "statVarKey": [
+                      "Annual_Emissions_GreenhouseGas_PetrochemicalProduction_multiple_place_bar_block"
+                    ],
+                    "title": "Annual Amount of Emissions: Petrochemical Production, Greenhouse Gas (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "infoMessage": "Data for \"Morocco, Ghana, Uganda, Senegal, Guinea, Mali, Rwanda and Somalia\" is currently unavailable. See the following statistics on the other places.",
+            "title": "Annual Amount of Emissions: Petrochemical Production, Greenhouse Gas"
+          }
+        ],
+        "statVarSpec": {
+          "Amount_Emissions_CarbonDioxide_PerCapita_multiple_place_bar_block": {
+            "name": "CO2 Emissions Per Capita",
+            "statVar": "Amount_Emissions_CarbonDioxide_PerCapita"
+          },
+          "Annual_Emissions_CarbonDioxide_Agriculture_multiple_place_bar_block": {
+            "name": "CO\u2082 Emissions from Agriculture",
+            "statVar": "Annual_Emissions_CarbonDioxide_Agriculture"
+          },
+          "Annual_Emissions_CarbonDioxide_FossilFuelOperations_multiple_place_bar_block": {
+            "name": "CO\u2082 Emissions from Fossil Fuel Operations",
+            "statVar": "Annual_Emissions_CarbonDioxide_FossilFuelOperations"
+          },
+          "Annual_Emissions_CarbonDioxide_FuelCombustionInBuildings_multiple_place_bar_block": {
+            "name": "CO\u2082 Emissions from Fuel Combustion in Buildings",
+            "statVar": "Annual_Emissions_CarbonDioxide_FuelCombustionInBuildings"
+          },
+          "Annual_Emissions_CarbonDioxide_Manufacturing_multiple_place_bar_block": {
+            "name": "CO\u2082 Emissions from Manufacturing",
+            "statVar": "Annual_Emissions_CarbonDioxide_Manufacturing"
+          },
+          "Annual_Emissions_CarbonDioxide_MineralExtraction_multiple_place_bar_block": {
+            "name": "CO\u2082 Emissions from Mineral Extraction",
+            "statVar": "Annual_Emissions_CarbonDioxide_MineralExtraction"
+          },
+          "Annual_Emissions_CarbonDioxide_Power_multiple_place_bar_block": {
+            "name": "CO\u2082 Emissions from Power Sector",
+            "statVar": "Annual_Emissions_CarbonDioxide_Power"
+          },
+          "Annual_Emissions_CarbonDioxide_Transportation_multiple_place_bar_block": {
+            "name": "CO\u2082 Emissions from Transportation",
+            "statVar": "Annual_Emissions_CarbonDioxide_Transportation"
+          },
+          "Annual_Emissions_CarbonDioxide_WasteManagement_multiple_place_bar_block": {
+            "name": "CO\u2082 Emissions from Waste Management",
+            "statVar": "Annual_Emissions_CarbonDioxide_WasteManagement"
+          },
+          "Annual_Emissions_GreenhouseGas_Agriculture_multiple_place_bar_block": {
+            "name": "Greenhouse Gas Emissions from Agriculture",
+            "statVar": "Annual_Emissions_GreenhouseGas_Agriculture"
+          },
+          "Annual_Emissions_GreenhouseGas_CementProduction_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Cement Production, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_CementProduction"
+          },
+          "Annual_Emissions_GreenhouseGas_ElectricityGeneration_multiple_place_bar_block": {
+            "name": "Greenhouse Gas Emissions from Electricity Generation",
+            "statVar": "Annual_Emissions_GreenhouseGas_ElectricityGeneration"
+          },
+          "Annual_Emissions_GreenhouseGas_ForestFire_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Forest Fire, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_ForestFire"
+          },
+          "Annual_Emissions_GreenhouseGas_ForestryAndLandUse_multiple_place_bar_block": {
+            "name": "Greenhouse Gas Emissions from Forestry and Land Use",
+            "statVar": "Annual_Emissions_GreenhouseGas_ForestryAndLandUse"
+          },
+          "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Fuel Combustion for Cooking, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking"
+          },
+          "Annual_Emissions_GreenhouseGas_FuelCombustionForRefrigerationAirConditioning_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Fuel Combustion for Refrigeration Air Conditioning, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_FuelCombustionForRefrigerationAirConditioning"
+          },
+          "Annual_Emissions_GreenhouseGas_FuelCombustionForRoadVehicles_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Fuel Combustion for Road Vehicles, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_FuelCombustionForRoadVehicles"
+          },
+          "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings_multiple_place_bar_block": {
+            "name": "Greenhouse Gas Emissions from Fuel Combustion in Buildings",
+            "statVar": "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings"
+          },
+          "Annual_Emissions_GreenhouseGas_ManagedSoils_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Managed Soils, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_ManagedSoils"
+          },
+          "Annual_Emissions_GreenhouseGas_Manufacturing_multiple_place_bar_block": {
+            "name": "Greenhouse Gas Emissions from Manufacturing",
+            "statVar": "Annual_Emissions_GreenhouseGas_Manufacturing"
+          },
+          "Annual_Emissions_GreenhouseGas_MineralExtraction_multiple_place_bar_block": {
+            "name": "Greenhouse Gas Emissions from Mineral Extraction",
+            "statVar": "Annual_Emissions_GreenhouseGas_MineralExtraction"
+          },
+          "Annual_Emissions_GreenhouseGas_OilAndGasProduction_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Oil And Gas Production, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_OilAndGasProduction"
+          },
+          "Annual_Emissions_GreenhouseGas_OilAndGas_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Oil And Gas, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_OilAndGas"
+          },
+          "Annual_Emissions_GreenhouseGas_PetrochemicalProduction_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Petrochemical Production, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_PetrochemicalProduction"
+          },
+          "Annual_Emissions_GreenhouseGas_RiceCultivation_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Rice Cultivation, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_RiceCultivation"
+          },
+          "Annual_Emissions_GreenhouseGas_SteelManufacturing_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Steel Manufacturing, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_SteelManufacturing"
+          },
+          "Annual_Emissions_GreenhouseGas_Transportation_multiple_place_bar_block": {
+            "name": "Greenhouse Gas Emissions from Transportation",
+            "statVar": "Annual_Emissions_GreenhouseGas_Transportation"
+          },
+          "Annual_Emissions_GreenhouseGas_WasteManagement_multiple_place_bar_block": {
+            "name": "Greenhouse Gas Emissions from Waste Management",
+            "statVar": "Annual_Emissions_GreenhouseGas_WasteManagement"
+          },
+          "Annual_Emissions_GreenhouseGas_WastewaterTreatmentAndDischarge_multiple_place_bar_block": {
+            "name": "Annual Amount of Emissions: Wastewater Treatment And Discharge, Greenhouse Gas",
+            "statVar": "Annual_Emissions_GreenhouseGas_WastewaterTreatmentAndDischarge"
+          },
+          "Annual_Emissions_GreenhouseGas_multiple_place_bar_block": {
+            "name": "Greenhouse Gas Emissions",
+            "statVar": "Annual_Emissions_GreenhouseGas"
+          },
+          "eia/INTL.4008-8-MMTCD.A_multiple_place_bar_block": {
+            "name": "CO2 emissions, Annual",
+            "statVar": "eia/INTL.4008-8-MMTCD.A"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "country/USA"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "entities": [],
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "country/USA",
+    "name": "United States",
+    "place_type": "Country"
+  },
+  "placeFallback": {},
+  "placeSource": "PAST_ANSWER",
+  "places": [
+    {
+      "dcid": "country/USA",
+      "name": "United States",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/DEU",
+      "name": "Germany",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/ETH",
+      "name": "Ethiopia",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/MAR",
+      "name": "Morocco",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/KEN",
+      "name": "Kenya",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/GHA",
+      "name": "Ghana",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/UGA",
+      "name": "Uganda",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/SEN",
+      "name": "Senegal",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/GIN",
+      "name": "Guinea",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/MLI",
+      "name": "Mali",
+      "place_type": "Country"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [
+      {
+        "dcid": "dc/topic/GreenhouseGasEmissions",
+        "name": "Greenhouse Gasses",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/CO2Emissions",
+        "name": "Carbondioxide ( CO2)",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Emissions_Methane_EmissionsbySource",
+        "name": "Methane",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Emissions_NitrousOxide_EmissionsbySource",
+        "name": "Nitrous Oxide",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "exploreMore": {
+      "Annual_Emissions_GreenhouseGas": {
+        "emissionSource": [
+          "Annual_Emissions_GreenhouseGas_Agriculture",
+          "Annual_Emissions_GreenhouseGas_AluminumProduction",
+          "Annual_Emissions_GreenhouseGas_BauxiteMining",
+          "Annual_Emissions_GreenhouseGas_BiologicalTreatmentOfSolidWasteAndBiogenic",
+          "Annual_Emissions_GreenhouseGas_CementProduction",
+          "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherEnergyUse",
+          "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherManufacturing",
+          "Annual_Emissions_GreenhouseGas_ClimateTrace_OtherTransportation",
+          "Annual_Emissions_GreenhouseGas_CopperMining",
+          "Annual_Emissions_GreenhouseGas_CroplandFire",
+          "Annual_Emissions_GreenhouseGas_ElectricityGeneration",
+          "Annual_Emissions_GreenhouseGas_ElectricityGenerationFromThermalPowerPlant",
+          "Annual_Emissions_GreenhouseGas_EntericFermentation",
+          "Annual_Emissions_GreenhouseGas_ForestClearing",
+          "Annual_Emissions_GreenhouseGas_ForestFire",
+          "Annual_Emissions_GreenhouseGas_ForestryAndLandUse",
+          "Annual_Emissions_GreenhouseGas_FuelCombustionForAviation",
+          "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking",
+          "Annual_Emissions_GreenhouseGas_FuelCombustionForRailways",
+          "Annual_Emissions_GreenhouseGas_FuelCombustionForRefrigerationAirConditioning",
+          "Annual_Emissions_GreenhouseGas_FuelCombustionForResidentialCommercialOnsiteHeating",
+          "Annual_Emissions_GreenhouseGas_FuelCombustionForRoadVehicles",
+          "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings",
+          "Annual_Emissions_GreenhouseGas_IronMining",
+          "Annual_Emissions_GreenhouseGas_ManagedSoils",
+          "Annual_Emissions_GreenhouseGas_Manufacturing",
+          "Annual_Emissions_GreenhouseGas_ManureManagement",
+          "Annual_Emissions_GreenhouseGas_MaritimeShipping",
+          "Annual_Emissions_GreenhouseGas_MaritimeTransport",
+          "Annual_Emissions_GreenhouseGas_MineralExtraction",
+          "Annual_Emissions_GreenhouseGas_OilAndGas",
+          "Annual_Emissions_GreenhouseGas_OilAndGasProduction",
+          "Annual_Emissions_GreenhouseGas_OpenBurningWaste",
+          "Annual_Emissions_GreenhouseGas_PetrochemicalProduction",
+          "Annual_Emissions_GreenhouseGas_PetroleumRefining",
+          "Annual_Emissions_GreenhouseGas_PulpAndPaperManufacturing",
+          "Annual_Emissions_GreenhouseGas_RiceCultivation",
+          "Annual_Emissions_GreenhouseGas_RockQuarry",
+          "Annual_Emissions_GreenhouseGas_SandQuarry",
+          "Annual_Emissions_GreenhouseGas_SavannaFire",
+          "Annual_Emissions_GreenhouseGas_ShrublandFire",
+          "Annual_Emissions_GreenhouseGas_SolidFuelTransformation",
+          "Annual_Emissions_GreenhouseGas_SolidWasteDisposal",
+          "Annual_Emissions_GreenhouseGas_SteelManufacturing",
+          "Annual_Emissions_GreenhouseGas_Transportation",
+          "Annual_Emissions_GreenhouseGas_WasteManagement",
+          "Annual_Emissions_GreenhouseGas_WastewaterTreatmentAndDischarge"
+        ]
+      }
+    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Emissions",
+        "name": "Emissions",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Sustainability",
+        "name": "Sustainability",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/Temperatures",
+        "name": "Temperature",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Precipitation",
+        "name": "Precipitation",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/NaturalDisasters",
+        "name": "Natural Disasters",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Agriculture",
+        "name": "Agriculture",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Energy",
+        "name": "Energy",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/GreenJobs",
+        "name": "Green Jobs",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/LandUseAndCoverage",
+        "name": "Land Use and Coverage",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/OceanHealth",
+        "name": "Ocean Health",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/ProductionConsumptionandWaste",
+        "name": "Production Consumption and Waste",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
+  "svSource": "PAST_QUERY",
+  "userMessages": [
+    "See comparison based on places in the previous answer."
+  ]
+}

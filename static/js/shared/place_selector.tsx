@@ -126,13 +126,13 @@ export function PlaceSelector(props: PlaceSelectorProps): JSX.Element {
                   ? { [props.selectedPlace.dcid]: props.selectedPlace.name }
                   : {}
               }
-              addPlace={(e) => {
+              addPlace={(e): void => {
                 selectPlace(e, props.onPlaceSelected);
                 triggerGAEvent(GA_EVENT_TOOL_PLACE_ADD, {
                   [GA_PARAM_PLACE_DCID]: e,
                 });
               }}
-              removePlace={() =>
+              removePlace={(): void =>
                 unselectPlace(props.onPlaceSelected, setChildPlaceTypes)
               }
               numPlacesLimit={1}
@@ -146,7 +146,7 @@ export function PlaceSelector(props: PlaceSelectorProps): JSX.Element {
                 id={`${SELECTOR_PREFIX}-place-type`}
                 type="select"
                 value={props.enclosedPlaceType}
-                onChange={(e) =>
+                onChange={(e): void =>
                   selectEnclosedPlaceType(e, props.onEnclosedPlaceTypeSelected)
                 }
                 className="pac-target-input"
@@ -182,7 +182,10 @@ export function PlaceSelector(props: PlaceSelectorProps): JSX.Element {
           alert(
             `Sorry, we don't support ${props.selectedPlace.name}. Please select a different place.`
           );
-        } else if (newChildPlaceTypes.length === 1) {
+        } else if (
+          newChildPlaceTypes.length === 1 &&
+          !props.enclosedPlaceType
+        ) {
           props.onEnclosedPlaceTypeSelected(newChildPlaceTypes[0]);
         }
         setChildPlaceTypes(newChildPlaceTypes);

@@ -18,6 +18,7 @@
  * Info page before a chart is shown.
  */
 
+import _ from "lodash";
 import React from "react";
 
 import { MemoizedInfoExamples } from "../shared/info_examples";
@@ -40,9 +41,13 @@ function Info(): JSX.Element {
           hierarchy.
         </li>
       </ol>
-      <p>Or you can start your exploration from these interesting points ...</p>
+      {!_.isEmpty(window.infoConfig["scatter"]) && (
+        <p>
+          Or you can start your exploration from these interesting points ...
+        </p>
+      )}
 
-      <MemoizedInfoExamples />
+      <MemoizedInfoExamples configKey="scatter" />
 
       <p>Take the data and use it on your site!</p>
       <p>

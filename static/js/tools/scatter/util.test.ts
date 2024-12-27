@@ -14,7 +14,13 @@
  * limitations under the License.
  */
 
-import { ContextType } from "./context";
+import {
+  Axis,
+  ContextType,
+  PlaceInfo,
+  PointScaleState,
+  SHOW_POPULATION_LINEAR,
+} from "./context";
 import { applyHash, ScatterChartType, updateHash } from "./util";
 
 const TestContext = {
@@ -69,10 +75,11 @@ const TestContext = {
     showDensity: true,
     chartType: ScatterChartType.SCATTER,
     showRegression: true,
+    showPopulation: SHOW_POPULATION_LINEAR,
   },
 } as unknown as ContextType;
 const Hash =
-  "#%26svx%3DCount_Person%26lx%3D1%26dx%3DCount_Person%26svy%3DCount_HousingUnit%26pcy%3D1%26dy%3DCount_Person%26epd%3DgeoId%2F10%26ept%3DCounty%26ub%3D99999%26qd%3D1%26ld%3D1%26dd%3D1%26rg%3D1";
+  "#%26svx%3DCount_Person%26lx%3D1%26dx%3DCount_Person%26svy%3DCount_HousingUnit%26pcy%3D1%26dy%3DCount_Person%26epd%3DgeoId%2F10%26ept%3DCounty%26ub%3D99999%26qd%3D1%26ld%3D1%26dd%3D1%26rg%3D1%26pp%3Dlinear";
 
 test("updateHash", () => {
   history.pushState = jest.fn();
@@ -86,16 +93,21 @@ test("updateHash", () => {
 
 test("applyHash", () => {
   const context = { x: {}, y: {}, place: {}, display: {} } as ContextType;
-  context.x.set = (value) => (context.x.value = value);
-  context.y.set = (value) => (context.y.value = value);
-  context.place.set = (value) => (context.place.value = value);
-  context.display.setQuadrants = (value) =>
+  context.x.set = (value): Axis => (context.x.value = value);
+  context.y.set = (value): Axis => (context.y.value = value);
+  context.place.set = (value): PlaceInfo => (context.place.value = value);
+  context.display.setQuadrants = (value): boolean =>
     (context.display.showQuadrants = value);
-  context.display.setLabels = (value) => (context.display.showLabels = value);
-  context.display.setChartType = (value) => (context.display.chartType = value);
-  context.display.setDensity = (value) => (context.display.showDensity = value);
-  context.display.setRegression = (value) =>
+  context.display.setLabels = (value): boolean =>
+    (context.display.showLabels = value);
+  context.display.setChartType = (value): ScatterChartType =>
+    (context.display.chartType = value);
+  context.display.setDensity = (value): boolean =>
+    (context.display.showDensity = value);
+  context.display.setRegression = (value): boolean =>
     (context.display.showRegression = value);
+  context.display.setPopulation = (value): PointScaleState =>
+    (context.display.showPopulation = value);
   location.hash = Hash;
   applyHash(context);
   expect(context.x.value).toEqual(TestContext.x.value);
@@ -115,5 +127,8 @@ test("applyHash", () => {
   expect(context.display.showDensity).toEqual(TestContext.display.showDensity);
   expect(context.display.showRegression).toEqual(
     TestContext.display.showRegression
+  );
+  expect(context.display.showPopulation).toEqual(
+    TestContext.display.showPopulation
   );
 });

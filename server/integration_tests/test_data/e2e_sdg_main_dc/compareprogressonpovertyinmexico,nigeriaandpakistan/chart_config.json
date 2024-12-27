@@ -1,0 +1,313 @@
+{
+  "client": "test_detect-and-fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1_multiple_place_bar_block"
+                    ],
+                    "title": "Population Below International Poverty Line (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: poverty and inequality portal, world bank.",
+            "title": "Population Below International Poverty Line"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1.AGE--Y0T14_multiple_place_bar_block",
+                      "sdg/SI_POV_DAY1.AGE--Y15T64_multiple_place_bar_block",
+                      "sdg/SI_POV_DAY1.AGE--Y_GE65_multiple_place_bar_block"
+                    ],
+                    "title": "Population Below International Poverty Line by Age (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Below International Poverty Line by Age"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1.SEX--F_multiple_place_bar_block",
+                      "sdg/SI_POV_DAY1.SEX--M_multiple_place_bar_block"
+                    ],
+                    "title": "Population Below International Poverty Line by Gender (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Below International Poverty Line by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SI_POV_DAY1.URBANISATION--U_multiple_place_bar_block",
+                      "sdg/SI_POV_DAY1.URBANISATION--R_multiple_place_bar_block"
+                    ],
+                    "title": "Population Below International Poverty Line in Rural Vs. Urban Areas (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Below International Poverty Line in Rural Vs. Urban Areas"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVH2O_multiple_place_bar_block"
+                    ],
+                    "title": "Population Using Basic Drinking Water Services (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: WHO/UNICEF joint monitoring programme for water supply, sanitation and hygiene (2023).",
+            "title": "Population Using Basic Drinking Water Services"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/MEX",
+                      "country/NGA",
+                      "country/PAK"
+                    ],
+                    "statVarKey": [
+                      "sdg/SP_ACS_BSRVSAN_multiple_place_bar_block"
+                    ],
+                    "title": "Population Using Basic Sanitation Services (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: WHO/UNICEF joint monitoring programme for water supply, sanitation and hygiene (2023).",
+            "title": "Population Using Basic Sanitation Services"
+          }
+        ],
+        "statVarSpec": {
+          "sdg/SI_POV_DAY1.AGE--Y0T14_multiple_place_bar_block": {
+            "name": "Population Age Under 15 Below International Poverty Line",
+            "statVar": "sdg/SI_POV_DAY1.AGE--Y0T14"
+          },
+          "sdg/SI_POV_DAY1.AGE--Y15T64_multiple_place_bar_block": {
+            "name": "Population Age 15 to 64 Below International Poverty Line",
+            "statVar": "sdg/SI_POV_DAY1.AGE--Y15T64"
+          },
+          "sdg/SI_POV_DAY1.AGE--Y_GE65_multiple_place_bar_block": {
+            "name": "Population Age 65 or Older Below International Poverty Line",
+            "statVar": "sdg/SI_POV_DAY1.AGE--Y_GE65"
+          },
+          "sdg/SI_POV_DAY1.SEX--F_multiple_place_bar_block": {
+            "name": "Women Below International Poverty Line",
+            "statVar": "sdg/SI_POV_DAY1.SEX--F"
+          },
+          "sdg/SI_POV_DAY1.SEX--M_multiple_place_bar_block": {
+            "name": "Men Below International Poverty Line",
+            "statVar": "sdg/SI_POV_DAY1.SEX--M"
+          },
+          "sdg/SI_POV_DAY1.URBANISATION--R_multiple_place_bar_block": {
+            "name": "Rural Population Below International Poverty Line",
+            "statVar": "sdg/SI_POV_DAY1.URBANISATION--R"
+          },
+          "sdg/SI_POV_DAY1.URBANISATION--U_multiple_place_bar_block": {
+            "name": "Urban Population Below International Poverty Line",
+            "statVar": "sdg/SI_POV_DAY1.URBANISATION--U"
+          },
+          "sdg/SI_POV_DAY1_multiple_place_bar_block": {
+            "name": "Population Below International Poverty Line",
+            "statVar": "sdg/SI_POV_DAY1"
+          },
+          "sdg/SP_ACS_BSRVH2O_multiple_place_bar_block": {
+            "name": "Population Using Basic Drinking Water Services",
+            "statVar": "sdg/SP_ACS_BSRVH2O"
+          },
+          "sdg/SP_ACS_BSRVSAN_multiple_place_bar_block": {
+            "name": "Population Using Basic Sanitation Services",
+            "statVar": "sdg/SP_ACS_BSRVSAN"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "country/MEX"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "entities": [],
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "country/MEX",
+    "name": "Mexico",
+    "place_type": "Country"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "country/MEX",
+      "name": "Mexico",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/NGA",
+      "name": "Nigeria",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/PAK",
+      "name": "Pakistan",
+      "place_type": "Country"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [],
+    "exploreMore": {
+      "sdg/SI_POV_DAY1": {
+        "age": [
+          "sdg/SI_POV_DAY1.AGE--Y0T14",
+          "sdg/SI_POV_DAY1.AGE--Y15T64",
+          "sdg/SI_POV_DAY1.AGE--Y_GE65"
+        ],
+        "sdg_sex": [
+          "sdg/SI_POV_DAY1.SEX--F",
+          "sdg/SI_POV_DAY1.SEX--M"
+        ],
+        "sdg_urbanisation": [
+          "sdg/SI_POV_DAY1.URBANISATION--R",
+          "sdg/SI_POV_DAY1.URBANISATION--U"
+        ]
+      },
+      "sdg/SP_ACS_BSRVH2O": {
+        "sdg_urbanisation": [
+          "sdg/SP_ACS_BSRVH2O.URBANISATION--R",
+          "sdg/SP_ACS_BSRVH2O.URBANISATION--U"
+        ]
+      },
+      "sdg/SP_ACS_BSRVSAN": {
+        "sdg_urbanisation": [
+          "sdg/SP_ACS_BSRVSAN.URBANISATION--R",
+          "sdg/SP_ACS_BSRVSAN.URBANISATION--U"
+        ]
+      }
+    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Poverty",
+        "name": "Poverty",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Economy",
+        "name": "Economy",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/GlobalEconomicActivity",
+        "name": "Global Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
+  "svSource": "CURRENT_QUERY",
+  "userMessages": []
+}

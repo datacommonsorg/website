@@ -9,83 +9,104 @@
   "license": "Apache-2.0",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode=production --progress --config webpack.config.js",
-    "dev-build": "webpack --mode=development --progress --config webpack.config.js",
-    "watch": "webpack --mode=development --progress --config webpack.config.js --watch",
+    "build": "wireit",
     "compile": "formatjs compile-folder",
+    "dev-build": "wireit",
+    "dev:nodemon": "wireit",
     "extract": "formatjs extract",
     "lint": "eslint --fix .",
+    "test": "wireit",
     "test-lint": "eslint .",
-    "test": "NODE_ICU_DATA=node_modules/full-icu jest --unhandled-rejections=strict"
+    "watch": "wireit"
   },
   "dependencies": {
-    "@babel/core": "^7.11.6",
-    "@babel/preset-env": "^7.11.5",
-    "@babel/preset-react": "^7.10.4",
+    "@datacommonsorg/client": "file:../packages/client",
+    "@datacommonsorg/web-components": "file:../packages/web-components",
     "@types/d3": "^5.7.2",
     "@types/d3-scale": "^4.0.2",
-    "@types/googlemaps": "^3.39.13",
-    "@types/js-cookie": "^2.2.6",
+    "@types/express": "^4.17.17",
+    "@types/googlemaps": "^3.43.3",
     "@types/lodash": "^4.14.161",
-    "@types/reactstrap": "^8.5.1",
+    "@types/node": "^18.16.3",
+    "@types/react": "^17.0.2",
+    "@types/react-csv": "^1.1.3",
+    "@types/react-dom": "^17.0.2",
+    "@types/react-table": "^7.7.12",
+    "@types/reactstrap": "^8.7.1",
     "@types/resize-observer-browser": "^0.1.6",
-    "axios": "^0.21.2",
-    "babel-loader": "^8.1.0",
-    "babel-polyfill": "^6.26.0",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "axios": "^1.7.7",
     "bootstrap": "^4.5.2",
+    "canvas": "2.11.2",
     "copy-webpack-plugin": "^9.0.1",
-    "css-loader": "^3.6.0",
+    "css-loader": "^6.8.1",
+    "csv-string": "^4.1.1",
     "d3": "^7.8.0",
     "d3-geo": "^2.0.1",
     "d3-regression": "^1.2.8",
+    "easy-peasy": "^6.0.1",
+    "express": "^4.21.2",
     "file-loader": "^6.1.0",
+    "firebase": "^10.12.2",
+    "full-icu": "^1.4.0",
     "geo-albers-usa-territories": "0.1.0",
     "geoblaze": "^1.2.0",
+    "geojson-rewind": "0.3.1",
     "georaster-layer-for-leaflet": "^3.10.0",
+    "google-spreadsheet": "^4.1.2",
     "html-webpack-plugin": "^4.4.1",
-    "js-cookie": "^2.2.1",
+    "intersection-observer": "^0.12.2",
+    "js-md5": "^0.8.3",
+    "jsdom": "^22.0.0",
     "jszip": "^3.10.0",
     "leaflet": "^1.9.1",
+    "lit": "^2.7.5",
     "lodash": "^4.17.21",
-    "moment": "^2.29.2",
-    "pako": "^1.0.11",
+    "node-polyfill-webpack-plugin": "^2.0.1",
+    "nodemon": "^2.0.22",
     "papaparse": "^5.3.2",
-    "prop-types": "^15.7.2",
+    "pure-rand": "^6.1.0",
     "qs": "^6.11.0",
-    "react": "^16.13.1",
+    "query-string": "^8.1.0",
+    "raw-loader": "^4.0.2",
+    "react": "^17.0.2",
     "react-collapsible": "2.8.3",
     "react-csv": "^2.2.2",
-    "react-dom": "^16.13.1",
+    "react-dom": "^17.0.2",
     "react-intl": "^6.0.4",
+    "react-markdown": "^8.0.7",
     "react-table": "^7.8.0",
-    "reactstrap": "^8.6.0",
+    "reactstrap": "^8.7.1",
+    "rehype-raw": "^7.0.0",
+    "remark-gfm": "^3.0.1",
     "resize-observer-polyfill": "^1.5.1",
     "sass": "^1.3.0",
     "sass-loader": "^8.0.2",
+    "sdbm": "^2.0.0",
+    "sharp": "0.32.6",
     "speed-measure-webpack-plugin": "^1.5.0",
+    "style-loader": "^1.2.1",
+    "styled-components": "6.1.8",
     "ts-loader": "^9.3.1",
+    "ts-node": "^10.9.1",
     "typescript": "^4.7.4",
-    "webpack": "^5.73.0",
-    "webpack-cli": "^4.10.0",
-    "webpack-remove-empty-scripts": "^0.6.3"
+    "webpack": "^5.94.0",
+    "webpack-cli": "^5.1.1",
+    "webpack-remove-empty-scripts": "^0.6.3",
+    "wireit": "^0.14.0",
+    "xmlserializer": "0.6.1"
   },
   "devDependencies": {
-    "@babel/polyfill": "^7.11.5",
-    "@babel/preset-typescript": "^7.10.4",
     "@formatjs/cli": "^2.13.12",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^10.4.9",
+    "@types/enzyme": "^3.10.14",
     "@types/jest": "^28.1.3",
-    "@types/node": "^18.8.3",
-    "@types/react": "^16.9.49",
-    "@types/react-csv": "^1.1.3",
-    "@types/react-table": "^7.7.12",
     "@typescript-eslint/eslint-plugin": "^5.27.0",
     "@typescript-eslint/parser": "^5.27.0",
-    "babel-eslint": "^10.1.0",
-    "babel-jest": "^28.1.1",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.8.0",
     "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.4",
     "enzyme-to-json": "^3.5.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^6.11.0",
@@ -93,15 +114,66 @@
     "eslint-plugin-react": "^7.20.6",
     "eslint-plugin-react-hooks": "^4.3.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
-    "full-icu": "^1.4.0",
     "jest": "^28.1.1",
     "jest-each": "^28.1.1",
     "jest-environment-jsdom": "^28.1.1",
     "jest-when": "^3.5.1",
     "prettier": "^2.7.1",
     "pretty": "^2.0.0",
-    "react-test-renderer": "^16.13.1",
-    "style-loader": "^1.2.1",
+    "react-test-renderer": "^17.0.2",
     "ts-jest": "^28.0.5"
+  },
+  "wireit": {
+    "build-web-components-watch": {
+      "command": "cd ../packages/web-components && npm run build-watch",
+      "service": {
+        "readyWhen": {
+          "lineMatches": "built in"
+        }
+      }
+    },
+    "build-client-watch": {
+      "command": "cd ../packages/client && npm run build-watch",
+      "service": {
+        "readyWhen": {
+          "lineMatches": "built in"
+        }
+      }
+    },
+    "build": {
+      "command": "webpack --mode=production --progress --config webpack.config.js",
+      "dependencies": [
+        "../packages/web-components:build",
+        "../packages/client:build"
+      ]
+    },
+    "dev:nodemon": {
+      "command": "nodemon --watch src --ext ts,tsx --exec ts-node src/server.ts",
+      "dependencies": [
+        "build-web-components-watch",
+        "build-client-watch"
+      ]
+    },
+    "dev-build": {
+      "command": "webpack --mode=development --progress --config webpack.config.js",
+      "dependencies": [
+        "../packages/web-components:build",
+        "../packages/client:build"
+      ]
+    },
+    "test": {
+      "command": "NODE_ICU_DATA=node_modules/full-icu jest --unhandled-rejections=strict",
+      "dependencies": [
+        "../packages/web-components:build",
+        "../packages/client:build"
+      ]
+    },
+    "watch": {
+      "command": "webpack --mode=development --progress --config webpack.config.js --watch",
+      "dependencies": [
+        "build-web-components-watch",
+        "build-client-watch"
+      ]
+    }
   }
 }

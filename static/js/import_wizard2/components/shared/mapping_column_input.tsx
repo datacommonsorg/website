@@ -22,12 +22,21 @@ import _ from "lodash";
 import React from "react";
 import { Input } from "reactstrap";
 
-import { Column, MappingType, MappingVal } from "../../types";
+import {
+  Column,
+  MAPPED_THING_NAMES,
+  MappedThing,
+  MappingType,
+  MappingVal,
+} from "../../types";
 
 interface MappingColumnInputProps {
+  mappedThing: MappedThing;
   mappingVal: MappingVal;
   onMappingValUpdate: (mappingVal: MappingVal) => void;
   orderedColumns: Array<Column>;
+  isRequired: boolean;
+  children?: React.ReactNode;
 }
 
 export function MappingColumnInput(
@@ -44,26 +53,34 @@ export function MappingColumnInput(
       });
     }
   }
-
+  const mappedThingString =
+    MAPPED_THING_NAMES[props.mappedThing] || props.mappedThing;
+  const label = `${mappedThingString}${props.isRequired ? "* " : ""}`;
   return (
-    <Input
-      className="column-option-dropdown"
-      type="select"
-      value={
-        !_.isEmpty(props.mappingVal) && !_.isEmpty(props.mappingVal.column)
-          ? props.mappingVal.column.columnIdx
-          : ""
-      }
-      onChange={(e) => onSelectionChange(e.target.value)}
-    >
-      <option value="" key="">
-        Select a column title
-      </option>
-      {props.orderedColumns.map((column, i) => (
-        <option value={i} key={column.id}>
-          Column: &ldquo;{column.header}&rdquo;
-        </option>
-      ))}
-    </Input>
+    <div className="mapping-input-section mapping-column-input">
+      <div className="mapping-input-label">{label}</div>
+      <div className="mapping-input-form">
+        <Input
+          className="column-option-dropdown"
+          type="select"
+          value={
+            !_.isEmpty(props.mappingVal) && !_.isEmpty(props.mappingVal.column)
+              ? props.mappingVal.column.columnIdx
+              : ""
+          }
+          onChange={(e) => onSelectionChange(e.target.value)}
+        >
+          <option value="" key="">
+            Select a column title
+          </option>
+          {props.orderedColumns.map((column, i) => (
+            <option value={i} key={column.id}>
+              Column: &ldquo;{column.header}&rdquo;
+            </option>
+          ))}
+        </Input>
+        {props.children}
+      </div>
+    </div>
   );
 }

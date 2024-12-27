@@ -24,6 +24,11 @@ variable "dc_website_domain" {
   description = "Domain name that you own that will be used for the Data Commons website."
 }
 
+variable "location" {
+  type        = string
+  description = "region to create the API key secret. Ex: us-central1"
+}
+
 variable "resource_suffix" {
   type        = string
   description = "This string is added to all resources created in this moudle for uniqueness."

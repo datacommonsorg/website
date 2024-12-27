@@ -1,0 +1,35 @@
+{
+  "timeline": [
+    {
+      "header": "Prevalence of severe food insecurity",
+      "preposition": "in",
+      "examples": [{
+        "text": "South Sudan, Central African Republic, Congo [Republic]",
+        "url": "/tools/visualization#visType%3Dtimeline%26place%3Dcountry%2FSSD___country%2FCOG___country%2FCAF%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22sdg%2FAG_PRD_FIESS%22%7D"
+      }]
+    }, {
+      "header": "Neonatal mortality rate",
+      "preposition": "in",
+      "examples": [{
+        "text": "San Marino, Belarus, Estonia",
+        "url": "/tools/visualization#visType%3Dtimeline%26place%3Dcountry%2FSMR___country%2FBLR___country%2FEST%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22sdg%2FSH_DYN_NMRT.AGE--M0%22%7D"
+      }]
+    }, {
+      "header": "Access to clean fuels and technology",
+      "preposition": "in",
+      "examples": [{
+        "text": "Vietnam, Ukraine, Turkey",
+        "url": "/tools/visualization#visType%3Dtimeline%26place%3Dcountry%2FUKR___country%2FTUR___country%2FVNM%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22sdg%2FEG_EGY_CLEAN%22%7D"
+      }, {
+        "text": "Worldwide",
+        "url": "/tools/visualization#visType%3Dtimeline%26place%3DEarth%26placeType%3DAdministrativeArea1%26sv%3D%7B%22dcid%22%3A%22sdg%2FEG_EGY_CLEAN%22%7D"
+      }]
+    }, {
+      "header": "Employed population 15-24 years old below international poverty line, by sex",
+      "preposition": "in",
+      "examples": [{
+        "text": "Mexico, Nigeria, Pakistan",
+        "url": "/tools/visualization#visType%3Dtimeline%26place%3Dcountry%2FMEX___country%2FNGA___country%2FPAK%26sv%3D%7B%22dcid%22%3A%22sdg%2FSI_POV_EMP1.AGE--Y15T24%22%7D___%7B%22dcid%22%3A%22sdg%2FSI_POV_EMP1.AGE--Y15T24__SEX--F%22%7D___%7B%22dcid%22%3A%22sdg%2FSI_POV_EMP1.AGE--Y15T24__SEX--M%22%7D"
+      }]
+    }
+]}

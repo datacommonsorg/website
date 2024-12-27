@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
+/* eslint-disable camelcase */
+
+import { expect } from "@jest/globals";
 import axios from "axios";
 import { when } from "jest-when";
 
@@ -30,8 +33,9 @@ import {
   TimelineRawData,
 } from "./data_fetcher";
 
-function axios_mock(): void {
+function axiosMock(): void {
   axios.get = jest.fn();
+  axios.post = jest.fn();
   when(axios.get)
     .calledWith("/api/observations/series", {
       params: {
@@ -217,8 +221,12 @@ function axios_mock(): void {
       },
     });
 
-  when(axios.get)
-    .calledWith("/api/place/displayname?dcid=geoId/05&dcid=geoId/06")
+  when(axios.post)
+    .calledWith(
+      "/api/place/displayname",
+      { dcids: ["geoId/05", "geoId/06"] },
+      expect.anything()
+    )
     .mockResolvedValue({
       data: {
         "geoId/05": "Arkansas",
@@ -235,7 +243,7 @@ beforeAll(() => {
 });
 
 test("fetch raw data", () => {
-  axios_mock();
+  axiosMock();
   return fetchRawData(
     ["geoId/05", "geoId/06"],
     ["Count_Person", "Count_Person_Male"],

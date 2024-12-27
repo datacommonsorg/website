@@ -17,6 +17,7 @@
 import * as d3 from "d3";
 import React from "react";
 
+import { MapLayerData } from "../components/tiles/map_tile";
 import { NamedPlace } from "../shared/types";
 import { getStringOrNA } from "../utils/number_utils";
 import { drawD3Map, getProjection } from "./draw_d3_map";
@@ -97,10 +98,9 @@ function drawMapLegend(
   xUnit?: string,
   yUnit?: string
 ): void {
-  const legendSvg = d3
-    .select(legendRef.current)
-    .append("svg")
-    .attr("width", svgWidth);
+  const container = d3.select(legendRef.current);
+  container.selectAll("*").remove();
+  const legendSvg = container.append("svg").attr("width", svgWidth);
   const legendContainer = legendSvg.append("g");
   const legendLabels = legendContainer
     .append("text")
@@ -280,7 +280,7 @@ export interface BivariateProperties {
  * @param getTooltipHtml function to get the html to show in the tooltip
  */
 export function drawBivariate(
-  containerId: string,
+  containerRef: React.RefObject<HTMLDivElement>,
   legendRef: React.RefObject<HTMLDivElement>,
   points: { [placeDcid: string]: Point },
   geoJson: GeoJsonData,
@@ -327,22 +327,23 @@ export function drawBivariate(
     properties.isUsaPlace,
     properties.placeDcid,
     properties.width,
-    properties.height
+    properties.height,
+    geoJson
   );
-  drawD3Map(
-    containerId,
+  const layerData: MapLayerData = {
+    colorScale,
+    dataValues: dataPoints,
     geoJson,
+    showMapBoundaries: properties.showMapBoundaries,
+  };
+  drawD3Map(
+    containerRef.current,
+    [layerData],
     properties.height,
     properties.width,
-    dataPoints,
-    "",
-    colorScale,
     redirectAction,
     getTooltipHtml,
     () => true,
-    false,
-    properties.showMapBoundaries,
-    projection,
-    properties.placeDcid
+    projection
   );
 }

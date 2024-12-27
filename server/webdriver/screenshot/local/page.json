@@ -1,0 +1,313 @@
+[
+  {
+    "url": "/version",
+    "height": 1000,
+    "async": false
+  },
+  {
+    "url": "/",
+    "height": 4000,
+    "async": false
+  },
+  {
+    "url": "/place/country/USA?topic=Demographics&seed=1",
+    "height": 4400,
+    "async": true
+  },
+  {
+    "url": "/place/geoId/0649670?seed=1",
+    "height": 4000,
+    "async": true
+  },
+  {
+    "url": "/place/geoId/06085",
+    "height": 4000,
+    "async": true
+  },
+  {
+    "url": "/place/geoId/06/?category=Demographics&seed=1",
+    "height": 4000,
+    "async": true
+  },
+  {
+    "url": "/place/country/IND?hl=hi&seed=1",
+    "height": 4000,
+    "async": true
+  },
+  {
+    "url": "/place/geoId/1304000/?utm_medium=explore&mprop=count&popt=Person&hl=en&seed=1",
+    "height": 4000,
+    "async": true
+  },
+  {
+    "url": "/browser/geoId/06",
+    "height": 2000,
+    "async": true
+  },
+  {
+    "url": "/browser/geoId/06085?statVar=Count_Person_AsianAlone",
+    "height": 2000,
+    "async": true
+  },
+  {
+    "url": "/disasters/Earth",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/disasters/country/BRA",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/tools/timeline#&place=geoId/0606000,geoId/2511000&statsVar=Median_Age_Person",
+    "height": 1000,
+    "async": true
+  },
+  {
+    "url": "/tools/visualization#visType%3Dtimeline%26place%3DgeoId%2F0606000___geoId%2F2511000%26placeType%3DCensusZipCodeTabulationArea%26sv%3D%7B%22dcid%22%3A%22Median_Age_Person%22%7D",
+    "height": 1000,
+    "async": true
+  },
+  {
+    "url": "/ranking/Median_Income_Person/County/country/USA",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/tools/map#%26sv%3DAnnual_Emissions_CarbonDioxide_NonBiogenic%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26ept%3DState%26ppt%3DEpaReportingFacility",
+    "height": 1200,
+    "async": true
+  },
+  {
+    "url": "/tools/visualization?#visType%3Dmap%26place%3Dcountry%2FUSA%26placeType%3DState%26sv%3D%7B%22dcid%22%3A%22Annual_Emissions_GreenhouseGas_NonBiogenic%22%7D",
+    "height": 1200,
+    "async": true
+  },
+  {
+    "url": "/tools/scatter#%26svx%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26dx%3DCount_Person%26svy%3DPercent_Person_WithCoronaryHeartDisease%26dy%3DCount_Person%26epd%3DgeoId%2F12%26ept%3DCounty%26pp%3D",
+    "height": 1200,
+    "async": true
+  },
+  {
+    "url": "/tools/visualization?#visType%3Dscatter%26place%3Dcountry%2FUSA%26placeType%3DCounty%26sv%3D%7B%22dcid%22%3A%22Percent_Person_WithCoronaryHeartDisease%22%7D___%7B%22dcid%22%3A%22DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%22%7D",
+    "height": 1200,
+    "async": true
+  },
+  {
+    "url": "/tools/statvar#sv=Mean_WagesDaily_Worker",
+    "height": 1200,
+    "async": true
+  },
+  {
+    "url": "/tools/map#%26sv%3DDifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FUSA%26ept%3DCounty",
+    "height": 1200,
+    "async": true
+  },
+  {
+    "url": "/tools/visualization?#visType%3Dmap%26place%3Dcountry%2FUSA%26placeType%3DCounty%26sv%3D%7B%22dcid%22%3A%22DifferenceRelativeToBaseDate2006_Max_Temperature_RCP45%22%7D",
+    "height": 1200,
+    "async": true
+  },
+  {
+    "url": "/tools/map#%26sv%3DMaxTemp_Daily_Hist_1PctProb_Greater_Atleast1DayAYear_CMIP6_GFDL-CM4_SSP245%26pc%3D0%26denom%3DCount_Person%26pd%3Dcountry%2FIND%26ept%3DAdministrativeArea2",
+    "height": 1200,
+    "async": true
+  },
+  {
+    "url": "/tools/visualization?#visType%3Dmap%26place%3DgeoId%2F08%26placeType%3DCounty%26sv%3D%7B%22dcid%22%3A%22Count_Person_EducationalAttainmentBachelorsDegreeOrHigher%22%2C%22pc%22%3A%221%22%7D",
+    "height": 1200,
+    "async": true
+  },
+  {
+    "url": "/tools/visualization#visType=timeline",
+    "height": 1200,
+    "async": false
+  },
+  {
+    "url": "/tools/visualization#visType=map",
+    "height": 1200,
+    "async": false
+  },
+  {
+    "url": "/tools/visualization#visType=scatter",
+    "height": 1200,
+    "async": false
+  },
+  {
+    "url": "/browser/fire/irwinId/04745f7c-3f8b-47a4-8efe-c8f3c84742d9",
+    "height": 1080,
+    "async": true
+  },
+  {
+    "url": "/explore/economics",
+    "height": 1080,
+    "async": false
+  },
+  {
+    "url": "/explore/demographics",
+    "height": 1080,
+    "async": false
+  },
+  {
+    "url": "/explore/health",
+    "height": 1080,
+    "async": false
+  },
+  {
+    "url": "/explore/sustainability",
+    "height": 1080,
+    "async": false
+  },
+  {
+    "url": "/explore/education-housing-commute",
+    "height": 1080,
+    "async": false
+  },
+  {
+    "url": "/explore/equity",
+    "height": 1080,
+    "async": false
+  },
+  {
+    "url": "/explore/sdg",
+    "height": 1080,
+    "async": false
+  },
+  {
+    "url": "/explore/#q=Obesity+vs+Unemployment+in+the+US+counties&mb=3&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore/#q=Businesses+by+industry+in+New+York+State&mb=3&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore/#q=Health+equity+in+Santa+Clara+County&mb=3&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore/#q=Incarceration+rates+by+race+in+the+US&mb=3&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore/#q=health+behaviors+in+India+vs+Norway&mb=3&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore/#q=High+blood+pressure+vs+Asthma+in+Alabama&mb=3&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore/#q=School+Enrollment+in+California&mb=3&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore/#q=Student+demographics+among+schools+in+Sunnyvale&mb=3&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Housing+in+Oakland&mb=3&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore/#q=Compare+modes+of+commute+between+NYC+and+Chicago&mb=3&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore/#q=Rental+prices+in+Oakland+vs+Berkeley&mb=3&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore/#q=Median+home+value+vs.+hypertension+in+US+counties&mb=3&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore/#q=Gender+distribution+in+the+US&mb=3&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore/#q=Foreign+born+population+vs.+PhD+holders+in+California+counties&mb=3&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore/#q=Green+jobs+in+the+US&mb=3&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore/#q=AQI+vs+blood+pressure+in+New+Jersey&mb=3&test=screenshot",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/topic/dev/geoId/06",
+    "height": 8000,
+    "async": true
+  },
+  {
+    "url": "/topic/dev/asia",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/topic/dev/geoId/06?wc=true",
+    "height": 8000,
+    "async": true
+  },
+  {
+    "url": "/topic/dev/asia?wc=true",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/topic/equity/country/USA?wc=true",
+    "height": 8000,
+    "async": true
+  },
+  {
+    "url": "/explore/education-housing-commute",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore/demographics",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#t=dc/topic/Language&p=country/USA",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#client=ui_landing&q=How+does+PM2.5+correlate+with+asthma+across+US+counties",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Which%20state%20in%20the%20US%20has%20the%20most%20Tamil%20speakers%3F",
+    "height": 3000,
+    "async": true
+  },
+  {
+    "url": "/explore#q=Show%20me%20the%20breakdown%20of%20businesses%20by%20industry%20type%20in%20the%20US.",
+    "height": 3000,
+    "async": true,
+    "width": 800
+  }
+]

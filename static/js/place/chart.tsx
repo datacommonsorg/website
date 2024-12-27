@@ -14,31 +14,34 @@
  * limitations under the License.
  */
 
+import { DataCommonsClient } from "@datacommonsorg/client";
 import * as d3 from "d3";
 import _ from "lodash";
 import React from "react";
 import { FormattedMessage } from "react-intl";
 
 import { DataGroup, DataPoint, expandDataPoints } from "../chart/base";
-import {
-  drawGroupBarChart,
-  drawLineChart,
-  drawStackBarChart,
-} from "../chart/draw";
+import { drawGroupBarChart, drawStackBarChart } from "../chart/draw_bar";
 import { drawD3Map, getProjection } from "../chart/draw_d3_map";
-import { getColorScale } from "../chart/draw_map_utils";
+import { drawLineChart } from "../chart/draw_line";
+import { generateLegendSvg, getColorScale } from "../chart/draw_map_utils";
 import {
-  CachedChoroplethData,
-  CachedRankingChartData,
+  ChartBlockData,
   chartTypeEnum,
   ChoroplethDataGroup,
   GeoJsonData,
   GeoJsonFeatureProperties,
-  RankingChartDataGroup,
   SnapshotData,
   TrendData,
 } from "../chart/types";
 import { RankingUnit } from "../components/ranking_unit";
+import { MapLayerData } from "../components/tiles/map_tile";
+import { fetchData } from "../components/tiles/ranking_tile";
+import {
+  ASYNC_ELEMENT_CLASS,
+  ASYNC_ELEMENT_HOLDER_CLASS,
+} from "../constants/css_constants";
+import { CSV_FIELD_DELIMITER } from "../constants/tile_constants";
 import {
   formatNumber,
   intl,
@@ -55,15 +58,12 @@ import {
 } from "../shared/ga_events";
 import { getStatsVarLabel } from "../shared/stats_var_labels";
 import { NamedPlace } from "../shared/types";
-import { isDateTooFar, urlToDomain } from "../shared/util";
-import { RankingPoint } from "../types/ranking_unit_types";
-import {
-  dataGroupsToCsv,
-  mapDataToCsv,
-  rankingPointsToCsv,
-} from "../utils/chart_csv_utils";
+import { isDateTooFar, urlToDisplayText } from "../shared/util";
+import { RankingGroup, RankingPoint } from "../types/ranking_unit_types";
+import { defaultDataCommonsClient } from "../utils/data_commons_client";
+import { transformCsvHeader } from "../utils/tile_utils";
 import { ChartEmbed } from "./chart_embed";
-import { updatePageLayoutState } from "./place";
+import { getChoroplethData, getGeoJsonData } from "./fetch";
 
 const CHART_HEIGHT = 194;
 const MIN_CHOROPLETH_DATAPOINTS = 9;
@@ -111,14 +111,6 @@ interface ChartPropType {
    */
   scaling?: number;
   /**
-   * Promise for Geojson data for choropleth for current dcid.
-   */
-  geoJsonData?: Promise<GeoJsonData>;
-  /**
-   * Promise for Values of statvar/denominator combinations for choropleth for current dcid
-   */
-  choroplethData?: Promise<CachedChoroplethData>;
-  /**
    * All stats vars for this chart
    */
   statsVars: string[];
@@ -135,9 +127,21 @@ interface ChartPropType {
    */
   isUsaPlace: boolean;
   /**
-   * Promise for ranking chart data for current dcid.
+   * The place type for the ranking or map chart.
    */
-  rankingChartData?: Promise<CachedRankingChartData>;
+  enclosedPlaceType?: string;
+  /**
+   * The parent place dcid for ranking chart.
+   */
+  parentPlaceDcid?: string;
+  /**
+   * The chart spec.
+   */
+  spec?: ChartBlockData;
+  /**
+   * The locale of the page.
+   */
+  locale: string;
 }
 
 interface ChartStateType {
@@ -145,7 +149,7 @@ interface ChartStateType {
   dataGroups?: DataGroup[];
   choroplethDataGroup?: ChoroplethDataGroup;
   geoJson?: GeoJsonData;
-  rankingChartDataGroup?: RankingChartDataGroup;
+  rankingGroup?: RankingGroup;
   elemWidth: number;
   display: boolean;
   showModal: boolean;
@@ -155,16 +159,23 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
   chartElement: React.RefObject<HTMLDivElement>;
   svgContainerElement: React.RefObject<HTMLDivElement>;
   embedModalElement: React.RefObject<ChartEmbed>;
+  mapContainerElement: React.RefObject<HTMLDivElement>;
+  legendContainerElement: React.RefObject<HTMLDivElement>;
   dcid: string;
   rankingUrlByStatVar: { [key: string]: string };
   statsVars: string[];
   placeLinkSearch: string; // Search parameter string including '?'
+  dataCommonsClient: DataCommonsClient;
 
   constructor(props: ChartPropType) {
     super(props);
     this.chartElement = React.createRef();
     this.svgContainerElement = React.createRef();
     this.embedModalElement = React.createRef();
+    if (props.chartType === chartTypeEnum.CHOROPLETH) {
+      this.mapContainerElement = React.createRef();
+      this.legendContainerElement = React.createRef();
+    }
 
     this.state = {
       display: true,
@@ -216,8 +227,9 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       console.log(`Skipping ${this.props.title} - missing sources`);
       return null;
     }
+    sources.sort();
     const sourcesJsx = sources.map((source, index) => {
-      const domain = urlToDomain(source);
+      const sourceText = urlToDisplayText(source);
       return (
         <span key={source}>
           <a
@@ -229,15 +241,27 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
               })
             }
           >
-            {domain}
+            {sourceText}
           </a>
           {index < sources.length - 1 ? ", " : ""}
         </span>
       );
     });
     return (
-      <div className="col">
-        <div className="chart-container" ref={this.chartElement}>
+      <div
+        className="col"
+        data-testclass={`${
+          this.props.trend
+            ? "is-trend"
+            : this.props.snapshot
+            ? "is-snapshot"
+            : ""
+        } chart-type-${this.props.chartType}`}
+      >
+        <div
+          className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS}`}
+          ref={this.chartElement}
+        >
           <h4>
             {this.props.title}
             <span className="sub-title">{dateString}</span>
@@ -247,18 +271,24 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
             ref={this.svgContainerElement}
             className="svg-container"
           >
+            {this.props.chartType === chartTypeEnum.CHOROPLETH && (
+              <div className="map-container">
+                <div className="map" ref={this.mapContainerElement}></div>
+                <div ref={this.legendContainerElement}></div>
+              </div>
+            )}
             {this.props.chartType === chartTypeEnum.RANKING &&
-              this.state.rankingChartDataGroup && (
-                <div className="ranking-chart-container">
+              this.state.rankingGroup && (
+                <div
+                  className={"ranking-chart-container " + ASYNC_ELEMENT_CLASS}
+                >
                   <h4>{this.getRankingChartContainerTitle()}</h4>
                   <div className="ranking-chart">
                     <RankingUnit
                       title="Highest"
-                      points={
-                        this.state.rankingChartDataGroup.rankingData.highest
-                      }
+                      topPoints={this.state.rankingGroup.rankingData.highest}
                       isHighest={true}
-                      unit={this.props.unit}
+                      unit={[this.props.unit]}
                       highlightedDcid={this.props.dcid}
                       hideValue={
                         this.state.elemWidth <= MIN_WIDTH_TO_SHOW_RANKING_VALUE
@@ -266,14 +296,10 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
                     />
                     <RankingUnit
                       title="Lowest"
-                      points={
-                        this.state.rankingChartDataGroup.rankingData.lowest
-                      }
+                      topPoints={this.state.rankingGroup.rankingData.lowest}
                       isHighest={false}
-                      unit={this.props.unit}
-                      numDataPoints={
-                        this.state.rankingChartDataGroup.numDataPoints
-                      }
+                      unit={[this.props.unit]}
+                      numDataPoints={this.state.rankingGroup.numDataPoints}
                       highlightedDcid={this.props.dcid}
                       hideValue={
                         this.state.elemWidth <= MIN_WIDTH_TO_SHOW_RANKING_VALUE
@@ -366,7 +392,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     } catch (e) {
       return;
     }
-    updatePageLayoutState();
+    // updatePageLayoutState();
   }
 
   componentWillUnmount(): void {
@@ -398,29 +424,6 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
   }
 
   /**
-   * Returns data used to draw chart as a CSV.
-   */
-  private dataCsv(): string {
-    // TODO(beets): Handle this.state.dataPoints too.
-    const dp = this.state.dataPoints;
-    if (dp && dp.length > 0) {
-      console.log("Implement CSV function for data points");
-      return;
-    }
-    if (this.state.choroplethDataGroup && this.state.geoJson) {
-      return mapDataToCsv(
-        this.state.geoJson,
-        this.state.choroplethDataGroup.data
-      );
-    }
-    if (this.state.rankingChartDataGroup) {
-      const data = this.state.rankingChartDataGroup.data;
-      return rankingPointsToCsv(data);
-    }
-    return dataGroupsToCsv(this.state.dataGroups);
-  }
-
-  /**
    * Handle clicks on "embed chart" link.
    */
   private _handleEmbed(
@@ -435,9 +438,48 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     }
     this.embedModalElement.current.show(
       svgXml,
-      this.dataCsv(),
+      () => {
+        // Fetch data from "nearby" places if present, otherwise use primary
+        // place dcid
+        const entities = this.props.snapshot
+          ? this.props.snapshot.data.map((d) => d.dcid)
+          : [this.props.dcid];
+        // TODO: Address per-capita calculations, including calculations that
+        // use non-"Count_Person" denominators.
+        // Example: The "Marital Status Distribution" chart here:
+        // https://datacommons.org/place/geoId/06?category=Demographics
+        if (this.props.chartType === chartTypeEnum.LINE) {
+          // For line charts, return CSV series data
+          return defaultDataCommonsClient.getCsvSeries({
+            entities,
+            fieldDelimiter: CSV_FIELD_DELIMITER,
+            transformHeader: transformCsvHeader,
+            variables: this.statsVars,
+          });
+        } else if (this.props.parentPlaceDcid && this.props.enclosedPlaceType) {
+          // Ranking & map charts set parentPlaceDcid and rankingPlaceType
+          // Return csv results associated with this parent/child combination
+          return defaultDataCommonsClient.getCsv({
+            childType: this.props.enclosedPlaceType,
+            fieldDelimiter: CSV_FIELD_DELIMITER,
+            parentEntity: this.props.parentPlaceDcid,
+            transformHeader: transformCsvHeader,
+            variables: this.statsVars,
+          });
+        }
+        // All other charts should fetch data about specific entities and
+        // variables
+        return defaultDataCommonsClient.getCsv({
+          date: this.getDate(),
+          entities,
+          fieldDelimiter: CSV_FIELD_DELIMITER,
+          transformHeader: transformCsvHeader,
+          variables: this.statsVars,
+        });
+      },
       this.svgContainerElement.current.offsetWidth,
       CHART_HEIGHT,
+      "",
       this.props.title,
       this.getDateString(),
       this.getSources()
@@ -446,17 +488,20 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
 
   drawChart(): void {
     const chartType = this.props.chartType;
-    const elem = document.getElementById(this.props.id);
-    elem.innerHTML = "";
+    const elem = document.getElementById(this.props.id) as HTMLDivElement;
+    if (chartType !== chartTypeEnum.CHOROPLETH) {
+      elem.innerHTML = "";
+    }
     if (chartType === chartTypeEnum.LINE) {
       const isCompleteLine = drawLineChart(
-        this.props.id,
+        elem,
         elem.offsetWidth,
         CHART_HEIGHT,
         this.state.dataGroups,
         false,
-        false,
-        this.props.unit
+        {
+          unit: this.props.unit,
+        }
       );
       if (!isCompleteLine) {
         this.chartElement.current.querySelectorAll(
@@ -465,19 +510,25 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       }
     } else if (chartType === chartTypeEnum.STACK_BAR) {
       drawStackBarChart(
+        this.svgContainerElement.current,
         this.props.id,
         elem.offsetWidth,
         CHART_HEIGHT,
         this.state.dataGroups,
-        this.props.unit
+        {
+          unit: this.props.unit,
+        }
       );
     } else if (chartType === chartTypeEnum.GROUP_BAR) {
       drawGroupBarChart(
+        elem,
         this.props.id,
         elem.offsetWidth,
         CHART_HEIGHT,
         this.state.dataGroups,
-        this.props.unit
+        {
+          unit: this.props.unit,
+        }
       );
     } else if (
       chartType === chartTypeEnum.CHOROPLETH &&
@@ -508,27 +559,35 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         d3.mean(dataValues),
         d3.max(dataValues)
       );
+      const legendWidth = generateLegendSvg(
+        this.legendContainerElement.current,
+        CHART_HEIGHT,
+        [{ colorScale, unit: this.props.unit }],
+        0
+      );
+      const mapWidth = elem.offsetWidth - legendWidth;
       const projection = getProjection(
         this.props.isUsaPlace,
         this.props.dcid,
-        elem.offsetWidth,
-        CHART_HEIGHT
-      );
-      drawD3Map(
-        this.props.id,
-        this.state.geoJson,
+        mapWidth,
         CHART_HEIGHT,
-        elem.offsetWidth,
-        this.state.choroplethDataGroup.data,
-        this.props.unit,
+        this.state.geoJson
+      );
+      const layerData: MapLayerData = {
         colorScale,
+        dataValues: this.state.choroplethDataGroup.data,
+        geoJson: this.state.geoJson,
+        showMapBoundaries: true,
+      };
+      drawD3Map(
+        this.mapContainerElement.current,
+        [layerData],
+        CHART_HEIGHT,
+        mapWidth,
         redirectAction,
         getTooltipHtml,
         () => true,
-        true,
-        true,
-        projection,
-        this.props.dcid
+        projection
       );
     }
   }
@@ -538,6 +597,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
     const allDates = new Set<string>();
     // TODO(datcom): handle i18n for scaled numbers
     const scaling = this.props.scaling ? this.props.scaling : 1;
+    const sv = !_.isEmpty(this.props.statsVars) ? this.props.statsVars[0] : "";
     switch (this.props.chartType) {
       case chartTypeEnum.LINE:
         for (const statVar in this.props.trend.series) {
@@ -595,63 +655,77 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
           );
         }
         this.setState({
-          dataGroups: dataGroups,
+          dataGroups,
         });
         break;
       case chartTypeEnum.CHOROPLETH:
-        if (this.props.geoJsonData && this.props.choroplethData) {
-          Promise.all([this.props.geoJsonData, this.props.choroplethData]).then(
-            ([geoJsonData, choroplethData]) => {
-              const sv = !_.isEmpty(this.props.statsVars)
-                ? this.props.statsVars[0]
-                : "";
-              const svData = choroplethData[sv];
-              if (
-                _.isEmpty(svData) ||
-                _.isEmpty(geoJsonData) ||
-                svData.numDataPoints < MIN_CHOROPLETH_DATAPOINTS
-              ) {
-                this.setState({
-                  display: false,
-                });
-              } else {
-                this.setState({
-                  choroplethDataGroup: svData,
-                  geoJson: geoJsonData,
-                });
-              }
-            }
-          );
-        }
+        Promise.all([
+          getGeoJsonData(this.props.dcid, this.props.locale),
+          getChoroplethData(this.props.dcid, this.props.spec),
+        ]).then(([geoJsonData, choroplethData]) => {
+          if (
+            _.isEmpty(choroplethData) ||
+            _.isEmpty(geoJsonData) ||
+            choroplethData.numDataPoints < MIN_CHOROPLETH_DATAPOINTS
+          ) {
+            this.setState({
+              display: false,
+            });
+          } else {
+            this.setState({
+              choroplethDataGroup: choroplethData,
+              geoJson: geoJsonData,
+            });
+          }
+        });
         break;
       case chartTypeEnum.RANKING:
-        if (this.props.rankingChartData) {
-          this.props.rankingChartData
-            .then((rankingChartData) => {
-              if (_.isEmpty(this.props.statsVars)) {
-                this.setState({ display: false });
-                return;
-              }
-              const sv = this.props.statsVars[0];
-              const svData = rankingChartData[sv];
-              // Do not display the ranking chart if total data points is less than the MIN_RANKING_DATAPOINTS
-              if (
-                _.isEmpty(svData) ||
-                svData.numDataPoints < MIN_RANKING_DATAPOINTS
-              ) {
-                this.setState({ display: false });
-                return;
-              }
-              for (const data of svData.data) {
-                data.value = data.value * scaling;
-              }
-              svData.rankingData = this.getRankingChartData(svData);
-              this.setState({ rankingChartDataGroup: svData });
-            })
-            .catch(() => {
-              this.setState({ display: false });
-            });
+        if (_.isEmpty(sv)) {
+          this.setState({ display: false });
+          return;
         }
+        // Fields like unit, denom, scaling and etc. are not used for data
+        // fetch, hence setting a dummy value here.
+        fetchData({
+          id: "",
+          enclosedPlaceType: this.props.enclosedPlaceType,
+          parentPlace: this.props.parentPlaceDcid,
+          rankingMetadata: {
+            showHighest: true,
+            showLowest: true,
+            showMultiColumn: false,
+          },
+          variables: [
+            {
+              denom: "",
+              log: false,
+              scaling: 1,
+              statVar: sv,
+              unit: "",
+            },
+          ],
+          title: "",
+        })
+          .then((rankingChartData) => {
+            const svData = rankingChartData[sv];
+            svData.points.reverse();
+            // Do not display the ranking chart if total data points is less than the MIN_RANKING_DATAPOINTS
+            if (
+              _.isEmpty(svData) ||
+              svData.numDataPoints < MIN_RANKING_DATAPOINTS
+            ) {
+              this.setState({ display: false });
+              return;
+            }
+            for (const data of svData.points) {
+              data.value = data.value * scaling;
+            }
+            svData.rankingData = this.getRankingChartData(svData);
+            this.setState({ rankingGroup: svData });
+          })
+          .catch(() => {
+            this.setState({ display: false });
+          });
         break;
       default:
         break;
@@ -665,9 +739,13 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         : "";
     }
     if (this.props.chartType === chartTypeEnum.RANKING) {
-      return this.state.rankingChartDataGroup
-        ? this.state.rankingChartDataGroup.exploreUrl
-        : "";
+      return (
+        `/ranking/${this.statsVars[0]}` +
+        `/${this.props.enclosedPlaceType}/${this.props.parentPlaceDcid}` +
+        `?h=${this.props.dcid}&unit=${this.props.unit || ""}&scaling=${
+          this.props.scaling || ""
+        }`
+      );
     }
     return this.props.trend
       ? this.props.trend.exploreUrl
@@ -681,8 +759,8 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
         : [];
     }
     if (this.props.chartType === chartTypeEnum.RANKING) {
-      return this.state.rankingChartDataGroup
-        ? this.state.rankingChartDataGroup.sources
+      return this.state.rankingGroup
+        ? Array.from(this.state.rankingGroup.sources)
         : [];
     }
     return this.props.trend
@@ -690,21 +768,22 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       : this.props.snapshot.sources;
   }
 
-  private getDateString(): string {
+  private getDate(): string {
     if (this.props.chartType == chartTypeEnum.CHOROPLETH) {
-      return this.state.choroplethDataGroup
-        ? "(" + this.state.choroplethDataGroup.date + ")"
-        : "";
+      return this.state.choroplethDataGroup?.date || "";
     }
     if (this.props.chartType === chartTypeEnum.RANKING) {
-      return this.state.rankingChartDataGroup
-        ? "(" + this.state.rankingChartDataGroup.date + ")"
-        : "";
+      return this.state.rankingGroup?.dateRange || "";
     }
-    return this.props.snapshot ? "(" + this.props.snapshot.date + ")" : "";
+    return this.props.snapshot?.date || "";
   }
 
-  private getRankingChartData(data: RankingChartDataGroup): {
+  private getDateString(): string {
+    const date = this.getDate();
+    return date ? `(${date})` : "";
+  }
+
+  private getRankingChartData(data: RankingGroup): {
     lowest: RankingPoint[];
     highest: RankingPoint[];
   } {
@@ -714,33 +793,35 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       data.numDataPoints <= MAX_RANKING_DATAPOINTS
     ) {
       const sliceNumber = Math.floor(data.numDataPoints / 2);
-      lowestAndHighestDataPoints.lowest = data.data
+      lowestAndHighestDataPoints.lowest = data.points
         .slice(-sliceNumber)
         .reverse();
-      lowestAndHighestDataPoints.highest = data.data.slice(0, sliceNumber);
+      lowestAndHighestDataPoints.highest = data.points.slice(0, sliceNumber);
       return lowestAndHighestDataPoints;
     }
     const sliceNumber = Math.floor(MAX_RANKING_DATAPOINTS / 2);
-    lowestAndHighestDataPoints.lowest = data.data.slice(-sliceNumber).reverse();
-    lowestAndHighestDataPoints.highest = data.data.slice(0, sliceNumber);
+    lowestAndHighestDataPoints.lowest = data.points
+      .slice(-sliceNumber)
+      .reverse();
+    lowestAndHighestDataPoints.highest = data.points.slice(0, sliceNumber);
     return lowestAndHighestDataPoints;
   }
 
   private getRankingChartContainerTitle(): string {
     const placeName = this.props.names[this.props.dcid] || this.props.dcid;
-    const currentPlaceRankAndValue = this.state.rankingChartDataGroup.data.find(
-      ({ placeDcid }) => placeDcid === this.props.dcid
-    );
-    if (!currentPlaceRankAndValue) {
-      return "";
+    for (let i = 0; i < this.state.rankingGroup.points.length; i++) {
+      const item = this.state.rankingGroup.points[i];
+      if (item.placeDcid === this.props.dcid) {
+        const value = formatNumber(
+          item.value,
+          this.props.unit,
+          false,
+          NUM_FRACTION_DIGITS
+        );
+        return `${placeName} ranks ${i + 1} (${value})`;
+      }
     }
-    const value = formatNumber(
-      currentPlaceRankAndValue.value,
-      this.props.unit,
-      false,
-      NUM_FRACTION_DIGITS
-    );
-    return `${placeName} ranks ${currentPlaceRankAndValue.rank} (${value})`;
+    return "";
   }
 }
 

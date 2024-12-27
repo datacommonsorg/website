@@ -14,32 +14,15 @@
  * limitations under the License.
  */
 
-$dc-primary-color: #660000;
+@import "./base/color";
+@import "./base/box";
 
-:root {
-  --font-family: "Roboto", "Helvetica Neue", Arial, sans-serif !important;
-  --breakpoint-xl: 1040px;
-  --dc-red-lite: #9a0000;
-  --dc-red-fade: #f0e6e7;
-  --dc-gray: #3b3b3b;
-  --dc-gray-lite: #ccc;
-  --dc-white: #fff;
-  --dc-blue: #67adff;
-  --dc-error: #dc3545;
-  // Following vars are overwritten in custom dc modes
-  --dc-primary: #{$dc-primary-color};
-  --link-color: #{$dc-primary-color};
-  --footer-bg: #f0f0f0;
-}
+$full-footer-bg: #fafcff;
+$sub-footer-breakpoint: 596px;
 
 /** Bootstrap overrides **/
 $link-color: var(--link-color);
 $link-hover-color: $link-color;
-
-$font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-  "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-  "Segoe UI Symbol";
-$headings-font-family: "Public Sans", $font-family-sans-serif;
 
 $font-size-base: 1.1rem;
 $h1-font-size: 2rem;
@@ -48,35 +31,47 @@ $h3-font-size: 1.2rem;
 
 $headings-font-weight: 600;
 
+/*
+  If the grid-breakpoints change, the TypeScript equivalent should be updated:
+  `static/js/shared/hooks/breakpoints.tsx`, `export const BREAKPOINTS`
+ */
+
 $grid-breakpoints: (
   xs: 0,
   sm: 576px,
   md: 768px,
-  lg: 992px,
-  xl: 1600px,
+  lg: 1068px,
+  xl: 1350px,
 );
 
 $container-max-widths: (
   sm: 540px,
   md: 720px,
-  lg: 960px,
-  xl: 1500px,
+  lg: 1038px,
+  xl: 1310px,
 );
 
-$hover-box-shadow: 0 1px 3px 1px rgb(66 66 66 / 20%),
-  0 2px 8px 4px rgb(66 66 66 / 10%);
+$hover-box-shadow: 0px 0px 2px rgba(3, 7, 18, 0.03),
+  0px 0px 6px rgba(3, 7, 18, 0.06), 1px 1px 14px rgba(3, 7, 18, 0.1);
 
 $theme-colors: (
   "primary": $dc-primary-color,
 );
 
-@import "~bootstrap/scss/bootstrap";
+$font-family-sans-serif: "Google Sans", "Google Sans Text", -apple-system,
+  BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif,
+  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$headings-font-family: $font-family-sans-serif;
 
-#main-nav .navbar-brand {
-  font-size: 1.1rem;
-  line-height: 24px;
-  display: flex;
-  align-items: center;
+@import "node_modules/bootstrap/scss/bootstrap";
+
+.main-content {
+  margin: 3rem auto 6rem;
+}
+
+:root {
+  --font-family: "Roboto", "Helvetica Neue", Arial, sans-serif !important;
+  --breakpoint-xl: 1040px;
 }
 
 :root.feedingamerica .navbar-brand > a {
@@ -88,21 +83,44 @@ $theme-colors: (
   color: transparent !important;
 }
 
-#main-nav .navbar-brand a {
-  color: #fff;
-  font-weight: 500;
+#main-nav {
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    a {
+      color: #000;
+      font-size: 22px;
+      font-style: normal;
+      font-weight: 400;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    span,
+    span a {
+      font-weight: 200;
+    }
+    .main-header-logo {
+      img {
+        max-height: 35px;
+      }
+    }
+  }
+  .nav-item a {
+    color: var(--gm-3-ref-neutral-neutral-40);
+  
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  .sep {
+    color: var(--gm-3-ref-neutral-neutral-40);
+    display: inline-block;
+    margin: 0 0.5rem;
+  }
 }
 
-#main-nav .navbar-brand span,
-#main-nav .navbar-brand span a {
-  font-weight: 200;
-  letter-spacing: 2px;
-  margin-left: 0.4rem;
-}
-
-.main-content {
-  margin: 3rem auto 6rem;
-}
 
 /** CSE **/
 #main-header #___gcse_0 {
@@ -150,9 +168,7 @@ $theme-colors: (
 
 /** Shared page elements **/
 #main-header {
-  padding: 0.5rem 0;
-  background: var(--dc-primary);
-  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.1);
+  background: var(--gm-3-white);
 }
 
 #main-header .nav-item.dropdown {
@@ -172,41 +188,28 @@ $theme-colors: (
 }
 
 #main-footer {
-  background: var(--footer-bg);
-  margin-top: 3rem;
-  padding-top: 3rem;
+  background: $full-footer-bg;
   /* Trick to get the footer to extend to the bottom of short pages */
-  box-shadow: 0 50vh 0 50vh var(--footer-bg);
+  box-shadow: 0 50vh 0 50vh var(--footer-background);
 }
 
-#main-footer,
-#main-footer h6 {
-  font-size: 0.9rem;
-}
+.brand-byline {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: var(--gm-3-ref-neutral-neutral-40);
+  .brand-text {
+    font-size: 0.75em;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
 
-#main-footer #sub-footer {
-  border-top: 1px solid $gray-300;
-  padding-top: 1.5rem;
-  padding-bottom: 3rem;
-  line-height: 2.5rem;
-}
-
-#sub-footer .btn,
-#sub-footer a {
-  margin-right: 0.75rem;
-}
-
-#sub-footer a:last-of-type {
-  margin-right: 0;
-}
-
-#main-footer section a {
-  display: block;
-}
-
-#main-footer .col-12,
-#main-footer .col-sm-6 {
-  margin-bottom: 2rem;
+  .brand-logo {
+    margin-left: 0.3em;
+    margin-top: -0.2em;
+    height: 1.4em;
+  }
 }
 
 /* Spinner */
@@ -216,7 +219,7 @@ $theme-colors: (
   position: absolute;
   left: 0;
   top: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.02);
   z-index: 100;
   width: 100%;
   height: 100%;
@@ -245,6 +248,28 @@ $theme-colors: (
   animation: spin 1s infinite linear;
 }
 
+#spinner-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#spinner-text::after {
+  content: "Still loading ...";
+  z-index: 10;
+  margin-top: 150px;
+  margin-left: 20px;
+  font-size: 20px;
+  color: var(--gm-3-ref-neutral-neutral-40);
+  opacity: 0; /* Initially hidden */
+  animation: fadeIn 0.5s forwards 3s; /* Animation after 3s delay */
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -255,7 +280,19 @@ $theme-colors: (
   }
 }
 
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
 #navbar-search-icon {
   display: flex;
   align-items: center;
+}
+
+// Bootstrap adds a red focus state which looks like an error.
+.form-control:focus {
+  border-color: var(--dark) !important;
+  box-shadow: 0 0 0 0.2rem rgb(0 0 0 / 15%) !important;
 }

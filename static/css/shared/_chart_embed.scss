@@ -33,7 +33,7 @@
   display: none;
 }
 
-.modal .modal-chart-container>svg {
+.modal .modal-chart-container > svg {
   visibility: hidden;
 }
 
@@ -52,4 +52,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.modal {
+  .modal-textarea {
+    overflow-wrap: normal;
+    overflow-x: scroll;
+    white-space: pre;
+  }
 }

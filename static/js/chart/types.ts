@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { RankingPoint } from "../types/ranking_unit_types";
+import { DataGroup } from "./base";
 
 export const chartTypeEnum = {
   LINE: "LINE",
@@ -96,10 +96,6 @@ export interface PageData {
   highlight: PageHighlight;
 }
 
-export interface CachedChoroplethData {
-  [statVar: string]: ChoroplethDataGroup;
-}
-
 export interface ChoroplethDataGroup {
   date: string;
   data: {
@@ -117,7 +113,7 @@ export interface GeoJsonFeatureProperties {
 }
 
 export type GeoJsonFeature = GeoJSON.Feature<
-  GeoJSON.MultiPolygon,
+  GeoJSON.MultiPolygon | GeoJSON.MultiLineString,
   GeoJsonFeatureProperties
 >;
 
@@ -125,7 +121,7 @@ export interface GeoJsonData extends GeoJSON.FeatureCollection {
   type: "FeatureCollection";
   features: Array<GeoJsonFeature>;
   properties: {
-    current_geo: string;
+    currentGeo: string;
   };
 }
 
@@ -142,22 +138,52 @@ export interface MapPoint {
   longitude: number;
 }
 
-// RankingChartDataGroup represents the rankings of several places based on a specific stat var.
-// It is used for the ranking chart.
-export interface RankingChartDataGroup {
-  date: string;
-  data: {
-    rank: number;
-    value: number;
-    placeDcid: string;
-    placeName: string;
-  }[];
-  numDataPoints: number;
-  exploreUrl: string;
-  sources: string[];
-  // Optional for storing the processed rankingData
-  rankingData?: { lowest: RankingPoint[]; highest: RankingPoint[] };
+export interface ChartOptions {
+  apiRoot?: string;
+  // specific colors to use
+  colors?: string[];
+  // whether to draw chart in lollipop style, used for bar charts
+  lollipop?: boolean;
+  // whether to draw tooltips on hover
+  showTooltipOnHover?: boolean;
+  // list of stat var DCIDs, in the order the colors should be applied
+  statVarColorOrder?: string[];
+  unit?: string;
+  // Use an svg version of the legend that is added as part of the svg chart and
+  // has no interactions.
+  useSvgLegend?: boolean;
+  // If set, adds title to the top of the chart
+  title?: string;
+  // Optional: Disable the place href link for this component
+  disableEntityLink?: boolean;
 }
 
-// A map from statvar dcid to RankingChartDataGroup
-export type CachedRankingChartData = Record<string, RankingChartDataGroup>;
+export interface GroupLineChartOptions extends ChartOptions {
+  ylabel?: string;
+  modelsDataGroupsDict?: { [place: string]: DataGroup[] };
+}
+export interface HistogramOptions extends ChartOptions {
+  fillColor?: string;
+}
+
+export interface HorizontalBarChartOptions extends ChartOptions {
+  showTooltipOnHover?: boolean;
+  stacked?: boolean;
+  style?: {
+    barHeight?: number;
+    yAxisMargin?: number;
+  };
+}
+
+export type TimeScaleOption = "year" | "month" | "day";
+
+export interface LineChartOptions extends ChartOptions {
+  handleDotClick?: (dotData: DotDataPoint) => void;
+  timeScale?: TimeScaleOption;
+  // If set, all other dots should be removed and only the dot at this date
+  // should be shown, If showAllDots is also set, all other dots will still be
+  // shown, but this one will be slightly larger.
+  highlightDate?: string;
+  // If set to true, should show all data points as dots on the line
+  showAllDots?: boolean;
+}

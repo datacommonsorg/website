@@ -20,20 +20,15 @@
  */
 
 import _ from "lodash";
-import React, {
-  useContext,
-  useEffect,
-  useReducer,
-  useRef,
-  useState,
-} from "react";
+import React, { useContext, useEffect, useReducer, useState } from "react";
 
-import { loadSpinner, removeSpinner } from "../../shared/util";
-import { getUnit } from "../../tools/shared_util";
+import {
+  getCappedStatVarDate,
+  loadSpinner,
+  removeSpinner,
+} from "../../shared/util";
 import { ENCLOSED_PLACE_TYPE_NAMES } from "../../utils/place_utils";
-import { BqModal } from "../shared/bq_modal";
-import { setUpBqButton } from "../shared/bq_utils";
-import { Chart, CHART_CONTAINER_ID, MAP_TYPE } from "./chart";
+import { Chart, MAP_TYPE } from "./chart";
 import { emptyChartStore } from "./chart_store";
 import { useComputeBreadcrumbValues } from "./compute/breadcrumb";
 import { useComputeFacetList } from "./compute/facets";
@@ -42,10 +37,10 @@ import { useComputeLegendDomain } from "./compute/legend";
 import { useComputeMapPointValues } from "./compute/map_point";
 import { useComputeMapValueAndDate } from "./compute/map_value_dates";
 import { useComputeSampleDates } from "./compute/sample_dates";
-import { useGetSqlQuery } from "./compute/sql";
 import { Context } from "./context";
 import { useFetchAllDates } from "./fetcher/all_dates";
 import { useFetchAllStat } from "./fetcher/all_stat";
+import { useFetchBorderGeoJson } from "./fetcher/border_geojson";
 import { useFetchBreadcrumbDenomStat } from "./fetcher/breadcrumb_denom_stat";
 import { useFetchBreadcrumbStat } from "./fetcher/breadcrumb_stat";
 import { useFetchDefaultStat } from "./fetcher/default_stat";
@@ -60,7 +55,7 @@ import { PlaceDetails } from "./place_details";
 import { useRenderReady } from "./ready_hooks";
 import { chartStoreReducer, metadataReducer, sourcesReducer } from "./reducer";
 import { TimeSlider } from "./time_slider";
-import { CHART_LOADER_SCREEN, getDate, getRankingLink } from "./util";
+import { CHART_LOADER_SCREEN, getRankingLink, shouldShowBorder } from "./util";
 
 export function ChartLoader(): JSX.Element {
   // +++++++  Context
@@ -88,6 +83,7 @@ export function ChartLoader(): JSX.Element {
   useFetchGeoRaster(dispatchChartStore);
   useFetchAllDates(dispatchChartStore);
   useFetchStatVarSummary(dispatchChartStore);
+  useFetchBorderGeoJson(dispatchChartStore);
 
   // +++++++  Dispatcher for computations
   const [sources, dispatchSources] = useReducer(
@@ -125,18 +121,6 @@ export function ChartLoader(): JSX.Element {
     }
   }, [display, legendDomain]);
 
-  // +++++++  BigQuery
-  // TODO: add webdriver test for BigQuery button to ensure query works
-  const getSqlQuery = useGetSqlQuery(chartStore);
-  const bqLink = useRef(setUpBqButton(getSqlQuery));
-  useEffect(() => {
-    const dom = bqLink.current;
-    dom.style.display = "none"; // Enable BQlink with "inline-block";
-    return () => {
-      dom.style.display = "none";
-    };
-  }, []);
-
   // Set map type to leaflet if georaster data is available before data needed
   // for d3 maps
   useEffect(() => {
@@ -160,6 +144,11 @@ export function ChartLoader(): JSX.Element {
       placeInfo.value.enclosedPlaceType
     ) {
       loadSpinner(CHART_LOADER_SCREEN);
+    } else {
+      // If there is a spinner on the screen, but one of stat var, enclosing
+      // place or enclosed place type becomes empty, we should remove that
+      // spinner.
+      removeSpinner(CHART_LOADER_SCREEN);
     }
   }, [
     statVar.value.dcid,
@@ -202,18 +191,16 @@ export function ChartLoader(): JSX.Element {
       );
     }
 
-    const date = getDate(statVar.value.dcid, dateCtx.value);
-    const unit = getUnit(
-      Object.values(chartStore.defaultStat.data.data),
-      chartStore.defaultStat.data.facets
-    );
+    const date = getCappedStatVarDate(statVar.value.dcid, dateCtx.value);
     const rankingLink = getRankingLink(
       statVar.value,
       placeInfo.value.selectedPlace.dcid,
       placeInfo.value.enclosedPlaceType,
       date,
-      unit
+      chartStore.mapValuesDates.data.unit
     );
+
+    const footer = document.getElementById("metadata").dataset.footer || "";
     return (
       <div className="chart-region">
         <Chart
@@ -223,7 +210,7 @@ export function ChartLoader(): JSX.Element {
           breadcrumbDataValues={chartStore.breadcrumbValues.data}
           dates={chartStore.mapValuesDates.data.mapDates}
           sources={sources}
-          unit={unit}
+          unit={chartStore.mapValuesDates.data.unit}
           mapPointValues={chartStore.mapPointValues.data}
           mapPoints={chartStore.mapPointCoordinate.data}
           europeanCountries={europeanCountries}
@@ -231,6 +218,11 @@ export function ChartLoader(): JSX.Element {
           facetList={facetList}
           geoRaster={chartStore.geoRaster.data}
           mapType={mapType}
+          borderGeoJsonData={
+            shouldShowBorder(placeInfo.value.enclosedPlaceType)
+              ? chartStore.borderGeoJson.data
+              : undefined
+          }
         >
           {display.value.showTimeSlider &&
             sampleDates &&
@@ -255,14 +247,14 @@ export function ChartLoader(): JSX.Element {
             breadcrumbDataValues={chartStore.breadcrumbValues.data}
             mapDataValues={chartStore.mapValuesDates.data.mapValues}
             metadata={metadata}
-            unit={unit}
+            unit={chartStore.mapValuesDates.data.unit}
             geoJsonFeatures={
               chartStore.geoJson.data ? chartStore.geoJson.data.features : []
             }
             europeanCountries={europeanCountries}
           />
         )}
-        <BqModal getSqlQuery={getSqlQuery} showButton={true} />
+        {footer && <div className="footer">* {footer}</div>}
       </div>
     );
   }

@@ -21,8 +21,10 @@
 import _ from "lodash";
 
 import { GeoJsonFeature } from "../../chart/types";
+import { NO_FULL_COVERAGE_PLACE_TYPES } from "../../constants/map_constants";
 import {
   BANGLADESH_PLACE_DCID,
+  BRAZIL_PLACE_DCID,
   CHINA_PLACE_DCID,
   DEFAULT_POPULATION_DCID,
   EUROPE_NAMED_TYPED_PLACE,
@@ -45,13 +47,13 @@ import {
   ProvenanceSummary,
   SampleDates,
 } from "../../shared/types";
-import { getCappedStatVarDate } from "../../shared/util";
+import { getUnit } from "../../utils/stat_metadata_utils";
 import { getDateRange } from "../../utils/string_utils";
-import { getMatchingObservation, isChildPlaceOf } from "../shared_util";
+import { getMatchingObservation } from "../shared_util";
 import { DisplayOptions, PlaceInfo, StatVar } from "./context";
 
 const URL_PARAM_DOMAIN_SEPARATOR = ":";
-const URL_PARAM_KEYS = {
+export const URL_PARAM_KEYS = {
   SELECTED_PLACE_DCID: "pd",
   ENCLOSED_PLACE_TYPE: "ept",
   MAP_POINTS_PLACE_TYPE: "ppt",
@@ -72,6 +74,57 @@ const SV_REGEX_INSTALLATION_MAPPING = {
 };
 
 const NUM_SAMPLE_DATES = 10;
+
+const ALL_PLACE_CHILD_TYPES = {
+  Planet: ["Country"],
+  Continent: ["Country", IPCC_PLACE_50_TYPE_DCID],
+  Country: [IPCC_PLACE_50_TYPE_DCID],
+  OceanicBasin: ["GeoGridPlace_1Deg"],
+};
+
+const USA_CHILD_PLACE_TYPES = {
+  Country: ["State", "County"],
+  State: ["County", "City", "CensusTract", "CensusZipCodeTabulationArea"],
+  County: ["County", "City", "CensusTract", "CensusZipCodeTabulationArea"],
+  CensusRegion: ["State", "County"],
+  CensusDivision: ["State", "County"],
+};
+
+const AA1_AA2_CHILD_PLACE_TYPES = {
+  Country: ["AdministrativeArea1", "AdministrativeArea2"],
+  AdministrativeArea1: ["AdministrativeArea2"],
+  State: ["AdministrativeArea2"],
+  AdministrativeArea2: ["AdministrativeArea2"],
+};
+
+const AA1_AA3_CHILD_PLACE_TYPES = {
+  AdministrativeArea1: ["AdministrativeArea3"],
+  AdministrativeArea2: ["AdministrativeArea3"],
+  Country: ["AdministrativeArea1", "AdministrativeArea3"],
+  State: ["AdministrativeArea3"],
+};
+
+const EUROPE_CHILD_PLACE_TYPES = {
+  Continent: ["EurostatNUTS1", "EurostatNUTS2", "EurostatNUTS3"],
+  Country: ["EurostatNUTS1", "EurostatNUTS2", "EurostatNUTS3"],
+  EurostatNUTS1: ["EurostatNUTS2", "EurostatNUTS3"],
+  EurostatNUTS2: ["EurostatNUTS3"],
+  EurostatNUTS3: ["EurostatNUTS3"],
+};
+
+const AA1_AA2_PLACES = new Set([
+  BANGLADESH_PLACE_DCID,
+  BRAZIL_PLACE_DCID,
+  CHINA_PLACE_DCID,
+  INDIA_PLACE_DCID,
+  NEPAL_PLACE_DCID,
+]);
+
+const CHILD_PLACE_TYPE_MAPPING = {
+  [USA_PLACE_DCID]: USA_CHILD_PLACE_TYPES,
+  [PAKISTAN_PLACE_DCID]: AA1_AA3_CHILD_PLACE_TYPES,
+  [EUROPE_NAMED_TYPED_PLACE.dcid]: EUROPE_CHILD_PLACE_TYPES,
+};
 
 export const CHART_LOADER_SCREEN = "chart-loader-screen";
 
@@ -97,58 +150,9 @@ export const ALL_MAP_PLACE_TYPES = {
   EurostatNUTS3: "",
 };
 
-export const ALL_PLACE_CHILD_TYPES = {
-  Planet: ["Country"],
-  Continent: ["Country", IPCC_PLACE_50_TYPE_DCID],
-  Country: [IPCC_PLACE_50_TYPE_DCID],
-};
-
-export const USA_CHILD_PLACE_TYPES = {
-  Country: ["State", "County"],
-  State: ["County"],
-  County: ["County"],
-  CensusRegion: ["State", "County"],
-  CensusDivision: ["State", "County"],
-};
-
-export const AA1_AA2_CHILD_PLACE_TYPES = {
-  Country: ["AdministrativeArea1", "AdministrativeArea2"],
-  AdministrativeArea1: ["AdministrativeArea2"],
-  State: ["AdministrativeArea2"],
-  AdministrativeArea2: ["AdministrativeArea2"],
-};
-
-export const AA1_AA3_CHILD_PLACE_TYPES = {
-  AdministrativeArea1: ["AdministrativeArea3"],
-  AdministrativeArea2: ["AdministrativeArea3"],
-  Country: ["AdministrativeArea1", "AdministrativeArea3"],
-  State: ["AdministrativeArea3"],
-};
-
-export const EUROPE_CHILD_PLACE_TYPES = {
-  Continent: ["EurostatNUTS1", "EurostatNUTS2", "EurostatNUTS3"],
-  Country: ["EurostatNUTS1", "EurostatNUTS2", "EurostatNUTS3"],
-  EurostatNUTS1: ["EurostatNUTS2", "EurostatNUTS3"],
-  EurostatNUTS2: ["EurostatNUTS3"],
-  EurostatNUTS3: ["EurostatNUTS3"],
-};
-
-export const CHILD_PLACE_TYPE_MAPPING = {
-  [USA_PLACE_DCID]: USA_CHILD_PLACE_TYPES,
-  [INDIA_PLACE_DCID]: AA1_AA2_CHILD_PLACE_TYPES,
-  [BANGLADESH_PLACE_DCID]: AA1_AA2_CHILD_PLACE_TYPES,
-  [NEPAL_PLACE_DCID]: AA1_AA2_CHILD_PLACE_TYPES,
-  [CHINA_PLACE_DCID]: AA1_AA2_CHILD_PLACE_TYPES,
-  [PAKISTAN_PLACE_DCID]: AA1_AA3_CHILD_PLACE_TYPES,
-  [EUROPE_NAMED_TYPED_PLACE.dcid]: EUROPE_CHILD_PLACE_TYPES,
-};
-
-export const ENCLOSED_PLACE_TYPE_NAMES = {
-  [IPCC_PLACE_50_TYPE_DCID]: "0.5 Arc Degree",
-};
-
 export const MANUAL_GEOJSON_DISTANCES = {
   [IPCC_PLACE_50_TYPE_DCID]: 0.5,
+  ["GeoGridPlace_1Deg"]: 1.0,
 };
 
 // list of place types in the US in the order of high to low granularity.
@@ -391,26 +395,25 @@ export function getAllChildPlaceTypes(
   place: NamedTypedPlace,
   parentPlaces: NamedPlace[]
 ): string[] {
-  let mapType = "";
-  if (place.dcid in CHILD_PLACE_TYPE_MAPPING) {
-    mapType = place.dcid;
+  let mapTypeChildTypes = {};
+  if (place.types.indexOf("Eurostat") === 0) {
+    // If place is a Eurostat place, use the europe child place types
+    mapTypeChildTypes = EUROPE_CHILD_PLACE_TYPES;
   } else {
-    for (const mapPlaceDcid in CHILD_PLACE_TYPE_MAPPING) {
-      if (
-        mapPlaceDcid === EUROPE_NAMED_TYPED_PLACE.dcid &&
-        place.types.indexOf("Eurostat") === 0
-      ) {
-        mapType = mapPlaceDcid;
+    // Iterate through parent places (including the current place) to figure out
+    // which child place type mapping to use.
+    for (const parentPlace of [place, ...parentPlaces]) {
+      if (parentPlace.dcid in CHILD_PLACE_TYPE_MAPPING) {
+        mapTypeChildTypes = CHILD_PLACE_TYPE_MAPPING[parentPlace.dcid];
         break;
       }
-      if (isChildPlaceOf(place.dcid, mapPlaceDcid, parentPlaces)) {
-        mapType = mapPlaceDcid;
+      if (AA1_AA2_PLACES.has(parentPlace.dcid)) {
+        mapTypeChildTypes = AA1_AA2_CHILD_PLACE_TYPES;
         break;
       }
     }
   }
   const childPlaceTypes = [];
-  const mapTypeChildTypes = CHILD_PLACE_TYPE_MAPPING[mapType] || {};
   for (const type of place.types) {
     if (type in mapTypeChildTypes) {
       childPlaceTypes.push(...mapTypeChildTypes[type]);
@@ -463,6 +466,7 @@ interface PlaceChartData {
   sources: Array<string>;
   date: string;
   value: number;
+  unit?: string;
 }
 
 /**
@@ -520,7 +524,8 @@ export function getPlaceChartData(
     sources.push(popSource);
   }
   sources.push(statVarSource);
-  return { metadata, sources, date: placeStatDate, value };
+  const unit = getUnit(metadataMap[facetId]);
+  return { metadata, sources, date: placeStatDate, value, unit };
 }
 
 /**
@@ -683,19 +688,6 @@ export function getLegendBounds(
   return legendBounds;
 }
 
-export function getDate(statVar: string, date: string): string {
-  let res = "";
-  const cappedDate = getCappedStatVarDate(statVar);
-  // If there is a specified date, get the data for that date. If no specified
-  // date, still need to cut data for prediction data that extends to 2099
-  if (date) {
-    res = date;
-  } else if (cappedDate) {
-    res = cappedDate;
-  }
-  return res;
-}
-
 export function getGeoJsonDataFeatures(
   placeDcids: string[],
   enclosedPlaceType: string
@@ -762,4 +754,14 @@ export function getRankingLink(
   params += unit ? `&unit=${unit}` : "";
   params += date ? `&date=${date}` : "";
   return `/ranking/${statVar.dcid}/${placeType}/${placeDcid}?${params}`;
+}
+
+/**
+ * Determine whether to show a border around enclosed places.
+ * Only draw border if enclosed place type does not have 'wall-to-wall'
+ * coverage of the enclosing place.
+ * @param enclosedPlaceType the type (city, county, etc) of the enclosed places
+ */
+export function shouldShowBorder(enclosedPlaceType: string): boolean {
+  return NO_FULL_COVERAGE_PLACE_TYPES.includes(enclosedPlaceType);
 }

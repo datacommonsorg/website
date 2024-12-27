@@ -15,13 +15,8 @@
  */
 
 /**
- * Styling for disaster dashboard.
+ * Styling for disaster dashboard
  */
 
-@use "base";
-@use "./shared/subject_page";
-@import "./draw";
-@import "./draw_choropleth";
-@import "./draw_scatter";
-@import "./shared/story_block";
-@import "./shared/story_chart";
+@use "./base_subject_page";
+@use "./place/place_search";

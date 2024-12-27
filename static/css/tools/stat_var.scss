@@ -33,6 +33,10 @@
   text-transform: none;
 }
 
+#stat-var-explorer a {
+  text-decoration: underline;
+}
+
 #stat-var-explorer .description-text {
   color: var(--secondary);
   font-size: 1rem;
@@ -63,20 +67,41 @@
   text-decoration: underline;
 }
 
+#plot-container .tool-header {
+  color: #212529;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 36px;
+}
+
+#plot-container .tool-description {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+
 .dataset-selector-card {
+  border: 1px solid #dee2e6;
+  border-radius: 16px;
   overflow: visible;
-  padding: 15px 0;
+  padding: 16px 1px;
+  margin: 12px 0 24px 0;
 }
 
 .dataset-selector-container {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  font-size: .9rem;
+  font-size: 0.9rem;
   justify-content: center;
 }
 
 .dataset-selector-label {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
   margin: 0.5rem;
 }
 
@@ -95,12 +120,30 @@
   box-shadow: none;
 }
 
+.start-instruction-tile {
+  background-color: #c2e7ff33;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding: 20px 24px;
+
+  .icon {
+    font-size: 32px;
+  }
+}
+
+#main .start-instruction-text {
+  font-size: 24px;
+  line-height: 32px;
+}
+
 #place-type-summary-section .type-column {
   width: 30%;
 }
 
-#place-type-summary-section
-.node-table tr > td:last-of-type,
+#place-type-summary-section .node-table tr > td:last-of-type,
 .node-table tr > th:last-of-type {
   width: 50%;
 }

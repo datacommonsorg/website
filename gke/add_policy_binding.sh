@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2020 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,9 +15,8 @@
 
 set -e
 
-PROJECT_ID=$(yq eval '.project' config.yaml)
-STORE_PROJECT_ID=$(yq eval '.storage_project' config.yaml)
-TMCF_CSV_BUCKET=$(yq eval '.tmcf_csv_bucket' config.yaml)
+CONFIG_YAML="../deploy/helm_charts/envs/$1.yaml"
+PROJECT_ID=$(yq eval '.project' $CONFIG_YAML)
 
 NAME="website-robot"
 SERVICE_ACCOUNT="$NAME@$PROJECT_ID.iam.gserviceaccount.com"
@@ -32,6 +31,9 @@ declare -a roles=(
     "roles/bigquery.jobUser"   # Query BigQuery
     "roles/pubsub.editor" # TMCF + CSV GCS data change subscription
     "roles/secretmanager.secretAccessor"
+    "roles/bigtable.user"
+    "roles/dataflow.admin"
+    "roles/storage.admin"
 )
 for role in "${roles[@]}"
 do
@@ -39,8 +41,3 @@ do
     --member serviceAccount:$SERVICE_ACCOUNT \
     --role $role
 done
-
-# Read CSV and TMCF from GCS
-if [[ $TMCF_CSV_BUCKET != '' ]]; then
-  gsutil iam ch serviceAccount:$SERVICE_ACCOUNT:roles/storage.objectViewer gs://$TMCF_CSV_BUCKET
-fi

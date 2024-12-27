@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-import { MapPoint } from "../chart/types";
+import { GeoJsonFeature, MapPoint } from "../chart/types";
 import { NamedPlace, NamedTypedPlace } from "../shared/types";
+import { EventTypeSpec, SeverityFilter } from "./subject_page_proto_types";
 
 /**
  * Types used for disaster event maps
@@ -67,7 +68,11 @@ export interface DisasterEventPoint extends MapPoint {
   disasterType: string;
   startDate: string;
   severity: { [prop: string]: number };
+  displayProps?: { [prop: string]: string };
+  affectedPlaces: string[];
   provenanceId: string;
+  polygonGeoJson?: GeoJsonFeature;
+  pathGeoJson?: GeoJsonFeature;
   endDate?: string;
 }
 
@@ -75,4 +80,19 @@ export interface DisasterEventPoint extends MapPoint {
 export interface DisasterEventPointData {
   eventPoints: DisasterEventPoint[];
   provenanceInfo: Record<string, EventApiProvenanceInfo>;
+}
+
+// Data about a set of map points to show on a map.
+export interface MapPointsData {
+  points: DisasterEventPoint[];
+  values: { [placeDcid: string]: number };
+}
+
+// List of options used when getting disaster event data.
+export interface DisasterDataOptions {
+  eventTypeSpec: EventTypeSpec;
+  selectedDate: string;
+  severityFilters: Record<string, SeverityFilter>;
+  useCache: boolean;
+  place: string;
 }

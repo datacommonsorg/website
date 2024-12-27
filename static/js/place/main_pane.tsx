@@ -17,13 +17,7 @@
 import React from "react";
 import { RawIntlProvider } from "react-intl";
 
-import {
-  CachedChoroplethData,
-  CachedRankingChartData,
-  ChartBlockData,
-  GeoJsonData,
-  PageChart,
-} from "../chart/types";
+import { ChartBlockData, PageChart, PageHighlight } from "../chart/types";
 import { intl } from "../i18n/i18n";
 import { randDomId } from "../shared/util";
 import { ChartBlock } from "./chart_block";
@@ -61,14 +55,6 @@ interface MainPanePropType {
    */
   names: { [key: string]: string };
   /**
-   * Promise for Geojson data for choropleth for current dcid.
-   */
-  geoJsonData: Promise<GeoJsonData>;
-  /**
-   * Promise for Values of statvar/denominator combinations for choropleth for current dcid
-   */
-  choroplethData: Promise<CachedChoroplethData>;
-  /**
    * Place type for the list of child places used for contained charts
    */
   childPlacesType: string;
@@ -81,13 +67,22 @@ interface MainPanePropType {
    */
   categoryStrings: { string: string };
   /**
-   * Promise for ranking chart data.
-   */
-  rankingChartData: Promise<CachedRankingChartData>;
-  /**
    * The locale of the page.
    */
   locale: string;
+  /**
+   * Highlighted data to show in overview
+   */
+  highlight?: PageHighlight;
+}
+
+export function showOverview(
+  isUsaPlace: boolean,
+  placeType: string,
+  category: string
+): boolean {
+  // Only Show map and ranking for US places.
+  return isUsaPlace && placeType !== "Country" && category === "Overview";
 }
 
 class MainPane extends React.Component<MainPanePropType> {
@@ -95,19 +90,10 @@ class MainPane extends React.Component<MainPanePropType> {
     super(props);
   }
 
-  showOverview(): boolean {
-    // Only Show map and ranking for US places.
-    return (
-      this.props.isUsaPlace &&
-      this.props.placeType !== "Country" &&
-      this.props.category === "Overview"
-    );
-  }
-
   renderChartBlock(data: ChartBlockData, category: string): JSX.Element {
     return (
       <ChartBlock
-        key={data.title + randDomId()}
+        key={data.title + "-" + randDomId()}
         dcid={this.props.dcid}
         placeName={this.props.placeName}
         placeType={this.props.placeType}
@@ -115,12 +101,9 @@ class MainPane extends React.Component<MainPanePropType> {
         names={this.props.names}
         data={data}
         locale={this.props.locale}
-        geoJsonData={this.props.geoJsonData}
-        choroplethData={this.props.choroplethData}
         childPlaceType={this.props.childPlacesType}
         parentPlaces={this.props.parentPlaces}
         category={category}
-        rankingChartData={this.props.rankingChartData}
       />
     );
   }
@@ -131,8 +114,19 @@ class MainPane extends React.Component<MainPanePropType> {
     const topics = Object.keys(categoryData);
     return (
       <RawIntlProvider value={intl}>
-        {this.showOverview() && (
-          <Overview dcid={this.props.dcid} locale={this.props.locale} />
+        {showOverview(
+          this.props.isUsaPlace,
+          this.props.placeType,
+          this.props.category
+        ) && (
+          <Overview
+            dcid={this.props.dcid}
+            showRanking={true}
+            locale={this.props.locale}
+            highlight={this.props.highlight}
+            names={this.props.names}
+            placeType={this.props.placeType}
+          />
         )}
         {topics.map((topic: string, index: number) => {
           if (isOverview) {

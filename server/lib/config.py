@@ -12,53 +12,44 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import logging
 import os
 
+import google.auth
 from werkzeug.utils import import_string
 
-ENV = {
-    # Production
-    'production',
-    # Staging
-    'staging',
-    # Autopush
-    'autopush',
-    # Custom
-    'custom',
-    'feedingamerica',
-    'stanford',
-    'stanford-staging',
-    'tidal',
-    'iitm',
-    # Dev
-    'dev',
-    # Test
-    'test',
-    # Webdriver
-    'webdriver',
-    # Minikube
-    'minikube',
-    # Local
-    'local',
-    'local-lite',
-    'local-custom',
-    'local-iitm',
-    'local-feedingamerica',
-    'local-stanford',
-}
-
-
-def map_config_string(env):
-  index = env.find('-')
-  env_list = list(env)
-  env_list[index + 1] = env[index + 1].upper()
-  env_list[0] = env[0].upper()
-  env_updated = "".join(env_list).replace('-', '')
-  return 'configmodule.{}Config'.format(env_updated)
+#
+# This is a global config bucket shared by all website instances.
+#
+GLOBAL_CONFIG_BUCKET = 'datcom-website-config'
 
 
 def get_config():
   env = os.environ.get('FLASK_ENV')
-  if env in ENV:
-    return import_string(map_config_string(env))()
-  raise ValueError("No valid FLASK_ENV is specified: %s" % env)
+  prefix = os.environ.get('ENV_PREFIX', '')
+  config_class = 'server.app_env.{}.{}Config'.format(env, prefix)
+  try:
+    cfg = import_string(config_class)()
+    cfg.ENV = env
+    # Override the api mixer path (API_ROOT) if WEBSITE_MIXER_API_ROOT is set
+    if os.environ.get("WEBSITE_MIXER_API_ROOT"):
+      cfg.API_ROOT = os.environ.get("WEBSITE_MIXER_API_ROOT")
+    # Set up secret project for GCP deployment
+    if not cfg.LOCAL:
+      try:
+        _, project_id = google.auth.default()
+        # For webdriver tests and integration test, the SECRET_PROJECT is
+        # overwritten to datcom-ci when running on cloudbuild.
+        cfg.SECRET_PROJECT = project_id
+      except Exception as e:
+        logging.warning(
+            "GCP project is not detected and secret project is not set")
+
+    return cfg
+  except:
+    raise ValueError("No valid config class is specified: %s" % config_class)
+
+
+def is_test_env():
+  env = os.environ.get('FLASK_ENV')
+  return env in ['integration_test', 'test']

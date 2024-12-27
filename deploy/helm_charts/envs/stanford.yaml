@@ -1,0 +1,73 @@
+# Copyright 2023 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# DNS
+ip: 34.111.26.86
+domain: datacommons.stanford.edu
+
+# Helm config
+project: "datcom-stanford"
+cluster_prefix: "website"
+
+namespace:
+  name: "website"
+
+website:
+  flaskEnv: stanford
+  replicas: 4
+  redis:
+    enabled: true
+    configFile: |
+      {
+        "us-central1": {
+          "host": "10.59.4.219",
+          "port": "6379"
+        }
+      }
+
+mixer:
+  useBaseBigtable: false
+  useBranchBigtable: false
+  useCustomBigtable: true
+  foldRemoteRootSvg: true
+  remoteMixerDomain: https://api.datacommons.org
+
+serviceAccount:
+  name: website-ksa
+
+nl:
+  enabled: false
+
+serviceGroups:
+  recon: null
+  observation:
+    replicas: 6
+  node:
+    replicas: 6
+  svg:
+    replicas: 2
+  default:
+    replicas: 3
+
+kgStoreConfig:
+  customBigtableInfo: |
+    project: datcom-stanford
+    instance: dc-graph
+    tables:
+      - magic-lab_2023_04_12_22_22_43
+      - s3l_2023_06_09_10_45_33
+      - center_for_ocean_sol_2023_10_12_16_24_44
+      - sustainable_systems_lab_2024_08_29_11_28_36
+svg:
+  blocklistFile: ["dc/g/Uncategorized", "oecd/g/OECD"]

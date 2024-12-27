@@ -36,15 +36,15 @@ function removeSpinner(): void {
  */
 function downloadBulkData(
   statVars: string[],
-  placeType: string,
+  descendentType: string,
   ancestorDcid: string
 ): void {
   loadSpinner();
   axios
-    .get("/api/place/places-in-names", {
+    .get("/api/place/descendent/name", {
       params: {
         dcid: ancestorDcid,
-        placeType,
+        descendentType,
       },
     })
     .then((resp) => {
@@ -101,7 +101,7 @@ function saveToCsv(
   saveToFile("datacommons_data.csv", csv);
 }
 
-window.onload = function () {
+window.addEventListener("load", (): void => {
   const statVars = Array.from(getTokensFromUrl("statsVar", "__"));
   const statVarDisplay = document.getElementById("statVars");
   statVarDisplay.innerText = statVars.join(", ");
@@ -114,4 +114,4 @@ window.onload = function () {
       downloadBulkData(statVars, ptype, "country/USA");
     });
   }
-};
+});

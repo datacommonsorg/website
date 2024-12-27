@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
+import { expect } from "@jest/globals";
+import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 import Enzyme, { shallow } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
 import _ from "lodash";
 import React from "react";
 
@@ -68,9 +69,9 @@ test("getResultCountString", () => {
     },
   ];
   for (const c of cases) {
-    const resultCountString = wrapper
-      .instance()
-      .getResultCountString(c.numSvg, c.numSv);
+    const resultCountString = (
+      wrapper.instance() as StatVarHierarchySearch
+    ).getResultCountString(c.numSvg, c.numSv);
     try {
       expect(resultCountString).toEqual(c.wantString);
     } catch (e) {

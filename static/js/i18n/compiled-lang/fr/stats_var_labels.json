@@ -86,7 +86,7 @@
   "Amount_Emissions_CarbonDioxide_PerCapita": [
     {
       "type": 0,
-      "value": "Émissions de CO2"
+      "value": "Carbon Dioxide Emissions"
     }
   ],
   "Amount_Remittance_InwardRemittance": [
@@ -1400,7 +1400,7 @@
   "Median_Age_Person": [
     {
       "type": 0,
-      "value": "Âge moyen"
+      "value": "Âge médian"
     }
   ],
   "Median_Age_Person_AmericanIndianOrAlaskaNativeAlone": [
@@ -1466,7 +1466,7 @@
   "Median_Income_Household": [
     {
       "type": 0,
-      "value": "Revenu moyen du foyer"
+      "value": "Revenu médian du foyer"
     }
   ],
   "Median_Income_Household_HouseholderRaceAmericanIndianOrAlaskaNativeAlone": [
@@ -1508,7 +1508,7 @@
   "Median_Income_Person": [
     {
       "type": 0,
-      "value": "Revenu moyen"
+      "value": "Revenu médian"
     }
   ],
   "Median_Income_Person_15OrMoreYears_Female_WithIncome": [
@@ -1682,7 +1682,7 @@
   "WithdrawalRate_Water": [
     {
       "type": 0,
-      "value": "Water withdrawal rate"
+      "value": "Water Withdrawal Rate"
     }
   ],
   "indianCensus/Count_Person_Religion_Buddhist": [

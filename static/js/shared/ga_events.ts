@@ -29,6 +29,12 @@ export function triggerGAEvent(
 }
 
 /**
+ * Triggered on soft page navigations. To track all page views (and disable GA page view tracking), set
+ * manual_ga_pageview: true in the Jinja page render.
+ */
+export const GA_EVENT_PAGE_VIEW = "page_view";
+
+/**
  * Event name: place_category_click
  * Triggered when: users click on the category redirect link in the place explorer page.
  * Parameters with value: {
@@ -83,6 +89,102 @@ export const GA_EVENT_TOOL_STAT_VAR_SEARCH_NO_RESULT =
  */
 export const GA_EVENT_TOOL_CHART_OPTION_CLICK = "tool_chart_option_click";
 
+/**
+ * Triggered when query is submitted in NL search.
+ * Parameters:
+ *   "query": search query
+ *   "source": "homepage" | "explore_landing" | "explore"
+ */
+export const GA_EVENT_NL_SEARCH = "explore_search_q";
+
+/**
+ * Triggered when detection results are returned in NL search.
+ * Parameters:
+ *   "query": search query
+ *   "time_ms": e2e request/response timing in ms.
+ */
+export const GA_EVENT_NL_DETECT_FULFILL = "explore_detect_fulfill";
+
+/**
+ * Triggered when detection results are returned in NL search.
+ * Parameters:
+ *   "topic": array of topics
+ *   "time_ms": e2e request/response timing in ms.
+ */
+export const GA_EVENT_NL_FULFILL = "explore_fulfill";
+
+/**
+ * Triggered when "download" button is clicked on a tile.
+ * Parameters:
+ *    "type": "Timeline Tool" | "Scatter Tool" | "Map Tool" | ""
+ */
+export const GA_EVENT_TILE_DOWNLOAD = "tile_download";
+
+/**
+ * Triggered when "download image" button is clicked on a tile download modal.
+ * Parameters: None
+ */
+export const GA_EVENT_TILE_DOWNLOAD_IMG = "tile_download_image";
+
+/**
+ * Triggered when "download CSV" button is clicked on a tile download modal.
+ * Parameters: None
+ */
+export const GA_EVENT_TILE_DOWNLOAD_CSV = "tile_download_csv";
+
+/**
+ * Triggered when "Explore in ..." is clicked on Explore tiles.
+ * Parameters:
+ *    "type": "Timeline Tool" | "Scatter Tool" | "Map Tool"
+ */
+export const GA_EVENT_TILE_EXPLORE_MORE = "tile_explore_more";
+
+/**
+ * Triggered when tile source link is clicked.
+ * Parameters:
+ *    "url": <destination source URL>
+ */
+export const GA_EVENT_TILE_SOURCE = "tile_source";
+
+/**
+ * Triggered on header menu & navigation clicks.
+ * Parameters:
+ *    "id": desktop|mobile main|submenu <menu_id> ?<index>
+ *    "url": <destination source URL>
+ */
+export const GA_EVENT_HEADER_CLICK = "header_click";
+
+/**
+ * Triggered on homepage clicks.
+ * Parameters:
+ *    "id": topic|sample-q single|<id>
+ *    "url"?: <destination source URL>
+ *    "query"?: <sample query>
+ */
+export const GA_EVENT_HOMEPAGE_CLICK = "homepage_click";
+
+/**
+ * Triggered on build / custom_dc clicks.
+ * Parameters:
+ *    "id": topic|sample-q single|<id>
+ *    "url": <destination source URL>
+ */
+export const GA_EVENT_BUILDPAGE_CLICK = "buildpage_click";
+
+/**
+ * Triggered on autocomplete selections.
+ * Parameters:
+ *   "result_index": <index of the selected autocomplete result>
+ */
+export const GA_EVENT_AUTOCOMPLETE_SELECTION = "autocomplete_select";
+
+/**
+ * Triggered on autocomplete trigger.
+ * Parameters:
+ *    "query": <sample query>
+ */
+export const GA_EVENT_AUTOCOMPLETE_TRIGGERED = "autocomplete_trigger";
+
 // GA event parameters
 export const GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE =
   "place_category_click_source";
@@ -92,6 +194,15 @@ export const GA_PARAM_STAT_VAR = "stat_var";
 export const GA_PARAM_PLACE_DCID = "place_dcid";
 export const GA_PARAM_SEARCH_TERM = "search_term";
 export const GA_PARAM_TOOL_CHART_OPTION = "tool_chart_option";
+export const GA_PARAM_TILE_TYPE = "type";
+export const GA_PARAM_QUERY = "query";
+export const GA_PARAM_URL = "url";
+export const GA_PARAM_ID = "id";
+export const GA_PARAM_SOURCE = "source";
+export const GA_PARAM_TOPIC = "topic";
+export const GA_PARAM_PLACE = "place";
+export const GA_PARAM_TIMING_MS = "time_ms";
+export const GA_PARAM_AUTOCOMPLETE_SELECTION_INDEX = "selection_index";
 
 //GA event parameter values
 export const GA_VALUE_PLACE_CHART_CLICK_STAT_VAR_CHIP = "stat var chip";
@@ -109,6 +220,16 @@ export const GA_VALUE_TOOL_CHART_OPTION_SWAP = "swap x and y axis";
 export const GA_VALUE_TOOL_CHART_OPTION_SHOW_QUADRANTS = "show quadrants";
 export const GA_VALUE_TOOL_CHART_OPTION_SHOW_LABELS = "show labels";
 export const GA_VALUE_TOOL_CHART_OPTION_SHOW_DENSITY = "show density";
+export const GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_OFF =
+  "show population off";
+export const GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_LINEAR =
+  "show population linear";
+export const GA_VALUE_TOOL_CHART_OPTION_SHOW_POPULATION_LOG =
+  "show population log";
 export const GA_VALUE_TOOL_CHART_OPTION_EDIT_SOURCES = "edit sources";
 export const GA_VALUE_TOOL_CHART_OPTION_FILTER_BY_POPULATION =
   "filter by population";
+export const GA_VALUE_SEARCH_SOURCE_EXPLORE = "explore";
+export const GA_VALUE_SEARCH_SOURCE_EXPLORE_LANDING = "explore_landing";
+export const GA_VALUE_SEARCH_SOURCE_HOMEPAGE = "homepage";
+export const GA_VALUE_SEARCH_SOURCE_PLACE_PAGE = "place";

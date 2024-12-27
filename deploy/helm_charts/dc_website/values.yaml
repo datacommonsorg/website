@@ -2,28 +2,44 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-# Website service config.
+###############################################################################
+# Config for Website
+###############################################################################
 website:
-  # Domain is a the domain that the installer owns.
-  # The installer is responsible for adding an "A" record in
-  # the DNS that points to the global static ip referred in this file.
-  domain:
   githash:
 
   image:
-    repository: gcr.io/datcom-ci/datacommons-website
+    project: "datcom-ci"
     pullPolicy: Always
-    tag: "custom-api-root"
+    tag:
 
-  flaskEnv:
-  secretGCPProjectID:
+  flaskEnv: "custom"
 
   # IAP(Identity Aware Proxy) config.
-  # iap can be enabled independently of ingress.
+  # IAP can be enabled independently of ingress.
   iap:
     enabled: false
-    clientID:
-    secret:
+
+  replicas: 1
+
+  redis:
+    enabled: false
+    configFile:
+
+  placeSummary:
+    enabled: true
+    data:
+      country:
+      geoid_0_2:
+      geoid_3_5:
+      geoid_6_9:
+      wikidataId:
+      others:
+
+  nodePool:
+
+  evalTool:
+    enabled: false
 
 nameOverride: ""
 fullnameOverride: ""
@@ -41,26 +57,22 @@ serviceAccount:
 
 ingress:
   name: website-ingress
-  enabled:
-  annotations: { kubernetes.io/ingress.global-static-ip-name: mixer-ip }
+  ipName: dc-website-ip
+  certName: dc-website-cert
+  enabled: false
 
 ###############################################################################
 # Config for Mixer helm chart
 ###############################################################################
-
 mixer:
   githash:
 
   image:
-    repository: gcr.io/datcom-ci/datacommons-mixer
+    project: "datcom-ci"
     pullPolicy: Always
-    tag: "latest"
+    tag:
 
-    useTMCFCSVData: false
-    tmcfCSVBucket: ""
-    tmcfCSVFolder: ""
-
-    gcpProjectID:
+    hostProject:
     serviceName:
 
     schemaConfigs:
@@ -68,18 +80,103 @@ mixer:
 esp:
   image:
     repository: gcr.io/endpoints-release/endpoints-runtime
-    tag: "1"
+    tag: "2"
     pullPolicy: Always
-
-replicas:
-  default: 1
 
 kgStoreConfig:
   bigqueryVersion:
   baseBigtableInfo:
   customBigtableInfo: ""
 
-memdbJSON: ""
+serviceGroups:
+  svg:
+    urlPaths:
+      - "/place/stat-var-group/*"
+      - "/stat-var/*"
+      - "/v1/variable/*"
+      - "/v1/bulk/info/variable-group"
+      - "/v1/bulk/info/variable"
+    replicas: 1
+    resources:
+      memoryRequest: "8G"
+      memoryLimit: "8G"
+    cacheSVG: true
+    nodePool:
+  observation:
+    urlPaths:
+      - "/v2/observation"
+    replicas: 1
+    resources:
+      memoryRequest: "2G"
+      memoryLimit: "2G"
+    nodePool:
+  node:
+    urlPaths:
+      - "/v2/node"
+    replicas: 1
+    resources:
+      memoryRequest: "3G"
+      memoryLimit: "3G"
+    nodePool:
+  default:
+    urlPaths:
+      - "/*"
+    replicas: 1
+    resources:
+      memoryRequest: "2G"
+      memoryLimit: "2G"
+    nodePool:
+
 ###############################################################################
-# END Config for Mixer helm chart
+# Config for NL
 ###############################################################################
+nl:
+  enabled: false
+  memory: "2G"
+  workers: 1
+  catalog: {}
+  env:
+    default_indexes: []
+    enabled_indexes: []
+    vertex_ai_models: {}
+    enable_reranking: false
+
+###############################################################################
+# Config for Stat Var Groups which is shared between Website and Mixer
+###############################################################################
+svg:
+  blocklistFile: []
+
+###############################################################################
+# Config for NodeJS Server
+###############################################################################
+nodejs:
+  # If nodejs is enabled, must also enable nl.
+  # When enabling the NodeJS server for the first time for a project, need to
+  # update the cluster config by following instructions here: https://github.com/datacommonsorg/website/blob/master/gke/README.md
+  enabled: false
+  env: "gke"
+  replicas:
+  apiRoot:
+  nodePool:
+
+###############################################################################
+# Config for Cron Testing Job
+###############################################################################
+cronTesting:
+  enabled: false
+  # These are the in-cluster service endpoints that are set during script
+  # deployment runtime.
+  webApiRoot:
+  nodejsRoot:
+  # The domain to use for screenshot tests. Screenshot tests will only run if
+  # this is set.
+  screenshotDomain:
+  # whether or not sanity tests are enabled
+  enableSanity: true
+  # whether or not adversarial tests are enabled
+  enableAdversarial: true
+  # node pool to use
+  nodePool:
+  # schedule to run the cron tests on
+  schedule:

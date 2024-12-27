@@ -1,0 +1,94 @@
+{#
+ Copyright 2023 Google LLC
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+#}
+{%- extends BASE_HTML -%}
+
+{% set main_id = 'screenshot' %}
+{% set page_id = 'page-screenshot-home' %}
+{% set title = 'Screenshot Home Page' %}
+
+{% block head %}
+  <link rel="stylesheet" href={{url_for('static', filename='css/screenshot.min.css')}}>
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div>
+      <h5>URL parameters to use</h5>
+      <ul>
+        <li>
+          base_date: the base folder for all the diff comaprison. For example
+          "2024_06_06_21_00_05"
+        </li>
+        <li>
+          start_date (YYYY_MM_DD): the start date to fetch screenshots from. By
+          default is 30 days ago from now.
+        </li>
+        <li>
+          end_date (YYYY_MM_DD): the end date to fetch screenshots from. By
+          default is today.
+        </li>
+      </ul>
+    </div>
+    <table>
+      {% for item in data %}
+        <tr>
+          {% if domain %}
+            <th>
+              {{item['date']}}
+            </th>
+            <th>
+              <a href="/screenshot/date/{{item['date']}}?domain={{domain}}">this</a>
+            </th>
+            <th>
+              <a
+              href="/screenshot/compare/{{item['prev_date']}}...{{item['date']}}?domain={{domain}}">diff
+              (vs last)</a>
+            </th>
+            {% if item['base_date'] %}
+              <th>
+                <a
+                href="/screenshot/compare/{{item['base_date']}}...{{item['date']}}?domain={{domain}}">diff
+                (vs base)</a>
+              </th>
+            {% endif %}
+          {% else %}
+            <th style="width:65%;">
+              <a href="{{item['url']}}">{{item['message']}}</a>
+            </th>
+            <th>
+              {{item['sha']}}
+            </th>
+            <th>
+              <a href="/screenshot/commit/{{item['sha']}}">this</a>
+            </th>
+            <th style="width:15%;">
+              <a
+              href="/screenshot/compare/{{item['prev_sha']}}...{{item['sha']}}">diff
+              (vs last)</a>
+            </th>
+            {% if item['base_sha'] %}
+              <th style="width:15%;">
+                <a
+                href="/screenshot/compare/{{item['base_sha']}}...{{item['sha']}}">diff
+                (vs base)</a>
+              </th>
+            {% endif %}
+          {% endif %}
+        </tr>
+      {% endfor %}
+    </table>
+  </div>
+{% endblock %}

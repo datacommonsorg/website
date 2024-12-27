@@ -1,0 +1,52 @@
+/**
+ * Copyright 2023 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+:root {
+  --dc-primary: #5d5f65;
+  --link-color: #514ea3;
+  --footer-background: white;
+  --dc-red-fade: #40d4e033;
+}
+
+#main-header {
+  background: white;
+  box-shadow: 0 5px 5px 0 rgba(6, 6, 6, 0.18);
+  z-index: 10;
+  position: sticky;
+}
+
+#main-nav a {
+  color: var(--dc-primary) !important;
+}
+
+#main-header .navbar-brand {
+  display: flex;
+}
+.btn.btn-primary {
+  background-color: var(--dc-primary);
+}
+
+#main-pane #explore {
+  background-color: var(--dc-primary);
+}
+
+#main-pane #plot-container {
+  background: none;
+}
+
+#main-footer {
+  border-top: 1px solid #efefef;
+}

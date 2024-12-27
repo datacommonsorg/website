@@ -13,11 +13,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Create an API key for maps and places API and store it in the config.
+# Create API keys and store them in the config.
 
+CONFIG_YAML="../deploy/helm_charts/envs/$1.yaml"
 
-PROJECT_ID=$(yq eval '.project' config.yaml)
-DOMAIN=$(yq eval '.domain' config.yaml)
+PROJECT_ID=$(yq eval '.project' $CONFIG_YAML)
+DOMAIN=$(yq eval '.domain' $CONFIG_YAML)
 
 gcloud config set project $PROJECT_ID
 
@@ -35,3 +36,31 @@ touch /tmp/dc-website-api-key
 > /tmp/dc-website-api-key
 echo "$KEY_STRING" >> /tmp/dc-website-api-key
 gcloud secrets create maps-api-key --data-file=/tmp/dc-website-api-key
+
+# Create API key for Data Commons API
+gcloud alpha services api-keys create \
+  --display-name=mixer-api-key \
+  --allowed-referrers=$DOMAIN \
+  --api-target=service=api.datacommons.org
+
+API_KEY_NAME=$(gcloud alpha services api-keys list --filter='displayName=mixer-api-key' --format='value(name)')
+KEY_STRING=$(gcloud alpha services api-keys get-key-string $API_KEY_NAME --format='value(keyString)')
+
+touch /tmp/mixer-api-key
+> /tmp/mixer-api-key
+echo "$KEY_STRING" >> /tmp/mixer-api-key
+gcloud secrets create mixer-api-key --data-file=/tmp/mixer-api-key
+
+# Create API key for Generative Language API
+gcloud alpha services api-keys create \
+  --display-name=nl-palm-api-key \
+  --allowed-referrers=$DOMAIN \
+  --api-target=service=generativelanugage.googleapis.com
+
+API_KEY_NAME=$(gcloud alpha services api-keys list --filter='displayName=nl-palm-api-key' --format='value(name)')
+KEY_STRING=$(gcloud alpha services api-keys get-key-string $API_KEY_NAME --format='value(keyString)')
+
+touch /tmp/palm-api-key
+> /tmp/palm-api-key
+echo "$KEY_STRING" >> /tmp/palm-api-key
+gcloud secrets create palm-api-key --data-file=/tmp/palm-api-key

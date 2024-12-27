@@ -18,23 +18,28 @@
  * Component for rendering the header of a stat var node.
  */
 
+import * as d3 from "d3";
 import React from "react";
 
 import { Context, ContextType } from "../shared/context";
 import { StatVarHierarchyNodeType } from "../shared/types";
 import { StatVarHierarchyType } from "../shared/types";
+import { hideTooltip, showTooltip, SV_HIERARCHY_SECTION_ID } from "./util";
 
 const BULLET_POINT_HTML = <span className="bullet">&#8226;</span>;
-const DOWN_ARROW_HTML = <i className="material-icons">remove</i>;
-const RIGHT_ARROW_HTML = <i className="material-icons">add</i>;
+const DOWN_ARROW_HTML = <i className="material-icons">arrow_drop_down</i>;
+const RIGHT_ARROW_HTML = <i className="material-icons">arrow_right</i>;
+const TOOLTIP_TOP_OFFSET = 10;
 
-interface StatVarHierarchyNodeHeaderPropType {
+export interface StatVarHierarchyNodeHeaderPropType {
   childrenStatVarCount: number;
   selectionCount: number;
   title: string;
   opened: boolean;
   highlighted: boolean;
   nodeType: StatVarHierarchyNodeType;
+  showTooltip: boolean;
+  nodeDcid: string;
 }
 
 export class StatVarHierarchyNodeHeader extends React.Component<StatVarHierarchyNodeHeaderPropType> {
@@ -68,17 +73,31 @@ export class StatVarHierarchyNodeHeader extends React.Component<StatVarHierarchy
         }
       >
         {prefixHtml}
-        <span className={className}>
+        <span
+          className={className}
+          onMouseMove={this.props.showTooltip ? this.mouseMoveAction : null}
+          onMouseOut={(): void => hideTooltip()}
+        >
           {this.props.title}
           {this.props.childrenStatVarCount > 0 &&
             this.props.nodeType !== StatVarHierarchyNodeType.STAT_VAR && (
               <span className="sv-count">
-                ({this.props.childrenStatVarCount})
+                ({this.props.childrenStatVarCount.toLocaleString()})
               </span>
             )}
         </span>
       </div>
     );
   }
+
+  private mouseMoveAction = (e: React.MouseEvent<HTMLSpanElement>): void => {
+    const containerClientRect = (
+      d3.select(`#${SV_HIERARCHY_SECTION_ID}`).node() as HTMLElement
+    ).getBoundingClientRect();
+    const top = e.pageY - containerClientRect.y + TOOLTIP_TOP_OFFSET;
+    const left = e.pageX - containerClientRect.x;
+    const tooltipHtml = `<b>${this.props.title}</b></br><span>dcid: ${this.props.nodeDcid}</span>`;
+    showTooltip(tooltipHtml, { left, top });
+  };
 }
 StatVarHierarchyNodeHeader.contextType = Context;

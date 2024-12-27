@@ -18,29 +18,37 @@
  * Entrypoint file for disaster dashboard.
  */
 
+import "../../i18n/compiled-lang/en/units.json";
+
 import React from "react";
 import ReactDOM from "react-dom";
 
+import { loadLocaleData } from "../../i18n/i18n";
+import { initSearchAutocomplete } from "../../shared/place_autocomplete";
+import { loadSubjectPageMetadataFromPage } from "../../utils/subject_page_utils";
 import { App } from "./app";
 
-window.onload = () => {
-  renderPage();
-};
+window.addEventListener("load", (): void => {
+  loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
+    () => {
+      renderPage();
+    }
+  );
+});
 
 function renderPage(): void {
-  const placeDcid = document.getElementById("place").dataset.dcid;
-  const placeName = document.getElementById("place").dataset.name || placeDcid;
-  const placeType = document.getElementById("place").dataset.type;
-  const dashboardConfig = JSON.parse(
-    document.getElementById("dashboard-config").dataset.config
-  );
-  const place = { dcid: placeDcid, name: placeName, types: [placeType] };
+  const metadata = loadSubjectPageMetadataFromPage();
+  if (!metadata) {
+    return;
+  }
 
   ReactDOM.render(
     React.createElement(App, {
-      place,
-      dashboardConfig,
+      metadata,
     }),
     document.getElementById("body")
   );
+
+  // Load this after the place-autocomplete input is rendered.
+  initSearchAutocomplete("/disasters");
 }

@@ -5,6 +5,12 @@
   "metric-ton-display": {
     "defaultMessage": "metric tons"
   },
+  "mega-ton": {
+    "defaultMessage": "{0} Mt"
+  },
+  "mega-ton-display": {
+    "defaultMessage": "mega-tons"
+  },
   "kilowatt-hour": {
     "defaultMessage": "{0} kWh"
   },
@@ -76,5 +82,29 @@
   },
   "million-gallon-per-day-display": {
     "defaultMessage": "MGD"
+  },
+  "Knot": {
+    "defaultMessage": "{0} kn"
+  },
+  "Knot-display": {
+    "defaultMessage": "kn"
+  },
+  "Millibar": {
+    "defaultMessage": "{0} mbar"
+  },
+  "Millibar-display": {
+    "defaultMessage": "mbar"
+  },
+  "SquareKilometer": {
+    "defaultMessage": "{0} km²"
+  },
+  "SquareKilometer-display": {
+    "defaultMessage": "km²"
+  },
+  "percent": {
+    "defaultMessage": "{0} %"
+  },
+  "percent-display": {
+    "defaultMessage": "%"
   }
 }

@@ -29,7 +29,7 @@ import {
 } from "../shared/stat_types";
 import { loadSpinner, randDomId, removeSpinner } from "../shared/util";
 import { stringifyFn } from "../utils/axios";
-import { getUnit } from "../utils/stat_metadata";
+import { getUnit } from "../utils/stat_metadata_utils";
 import { ObservationChart } from "./observation_chart";
 
 const IGNORED_SOURCE_SERIES_MMETHODS = new Set([
@@ -111,7 +111,7 @@ export class ObservationChartSection extends React.Component<
                 idx={index}
                 statVarId={this.props.statVarId}
                 placeDcid={this.props.placeDcid}
-                canClickObs={true}
+                canClickObs={globalThis.enableBQ}
                 statVarName={this.props.statVarName}
               />
               <p className="metadata">provenance: {metadata.provenanceUrl}</p>
@@ -152,7 +152,7 @@ export class ObservationChartSection extends React.Component<
         }
         this.setState({
           seriesList: filteredSeries,
-          facets: facets,
+          facets,
           infoMessage: _.isEmpty(filteredSeries)
             ? `No charts for ${this.props.statVarId} in ${this.props.placeName}`
             : "",

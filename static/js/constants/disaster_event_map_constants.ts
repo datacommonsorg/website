@@ -22,3 +22,24 @@
 export const DATE_OPTION_30D_KEY = "lastThirtyDays";
 // The key to use for date option of last 6 months.
 export const DATE_OPTION_6M_KEY = "lastSixMonths";
+// The key to use for date option of last 1 year.
+export const DATE_OPTION_1Y_KEY = "lastYear";
+// The key to use for date option of last 3 years.
+export const DATE_OPTION_3Y_KEY = "last3Year";
+// Special overrides for default date for a place. If place is not in this map,
+// its default date will be DATE_OPTION_3Y_KEY
+export const PLACE_DEFAULT_DATE = {
+  Earth: DATE_OPTION_1Y_KEY,
+};
+export const DEFAULT_DATE = DATE_OPTION_3Y_KEY;
+export const PROTO_DATE_MAPPING = {
+  THIRTY_DAYS: DATE_OPTION_30D_KEY,
+  SIX_MONTHS: DATE_OPTION_6M_KEY,
+  ONE_YEAR: DATE_OPTION_1Y_KEY,
+  THREE_YEARS: DATE_OPTION_3Y_KEY,
+};
+export const URL_HASH_PARAM_KEYS = {
+  SEVERITY_FILTER: "filter",
+  DATE: "date",
+  USE_JSON: "json",
+};

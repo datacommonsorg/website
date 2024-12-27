@@ -1,0 +1,1019 @@
+{
+  "client": "test",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "FertilityRate_Person_Female"
+                    ],
+                    "title": "Fertility Rate in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "FertilityRate_Person_Female"
+                    ],
+                    "title": "Fertility Rate in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Fertility Rate in Eurostat Nuts 3 Places of Turkey"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "FertilityRate_Person_Female"
+                    ],
+                    "title": "Fertility Rate in Turkey",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Fertility Rate in Turkey",
+                    "statVarKey": [
+                      "FertilityRate_Person_Female"
+                    ],
+                    "title": "Fertility Rate in Turkey",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Fertility Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_BirthEvent_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Count of Birth Event (Per Capita) in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_BirthEvent_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Count of Birth Event (Per Capita) in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Birth Event (Per Capita) in Eurostat Nuts 3 Places of Turkey"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_BirthEvent_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Count of Birth Event (Per Capita) in Turkey",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Birth Event (Per Capita) in Turkey",
+                    "statVarKey": [
+                      "Count_BirthEvent_AsAFractionOfCount_Person"
+                    ],
+                    "title": "Count of Birth Event (Per Capita) in Turkey",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Birth Event (Per Capita)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Crude Birth Rate in Turkey",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Crude Birth Rate in Turkey",
+                    "statVarKey": [
+                      "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
+                    ],
+                    "title": "Crude Birth Rate in Turkey",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "description": "Crude birth rate indicates the number of live births occurring during the year, per 1,000 population estimated at midyear. Subtracting the crude death rate from the crude birth rate provides the rate of natural increase, which is equal to the rate of population change in the absence of migration. (1) united nations population division. World population prospects: 2019 revision. (2) census reports and other statistical publications from national statistical offices, (3) eurostat: demographic statistics, (4) united nations statistical division. Population and vital statistics report (various years), (5) u.S. Census bureau: international database, and (6) secretariat of the pacific community: statistics and demography programme.",
+            "title": "Crude Birth Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_BirthEvent"
+                    ],
+                    "title": "Count of Birth Event in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_BirthEvent"
+                    ],
+                    "title": "Count of Birth Event in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Birth Event in Eurostat Nuts 3 Places of Turkey"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_BirthEvent"
+                    ],
+                    "title": "Count of Birth Event in Turkey",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Birth Event in Turkey",
+                    "statVarKey": [
+                      "Count_BirthEvent"
+                    ],
+                    "title": "Count of Birth Event in Turkey",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Birth Event"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SP_DYN_ADKL.AGE--Y10T14__SEX--F",
+                      "sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F"
+                    ],
+                    "title": "Adolescent Birth Rate by Age in Turkey",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Adolescent Birth Rate by Age"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "GrowthRate_Count_Person"
+                    ],
+                    "title": "Rate of Population Growth in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "GrowthRate_Count_Person"
+                    ],
+                    "title": "Rate of Population Growth in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Rate of Population Growth in Eurostat Nuts 3 Places of Turkey"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "GrowthRate_Count_Person"
+                    ],
+                    "title": "Rate of Population Growth in Turkey",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Rate of Population Growth in Turkey",
+                    "statVarKey": [
+                      "GrowthRate_Count_Person"
+                    ],
+                    "title": "Rate of Population Growth in Turkey",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Rate of Population Growth"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "IncrementalCount_Person"
+                    ],
+                    "title": "Population Change in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "IncrementalCount_Person"
+                    ],
+                    "title": "Population Change in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Change in Eurostat Nuts 3 Places of Turkey"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "IncrementalCount_Person"
+                    ],
+                    "title": "Population Change in Turkey",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population Change in Turkey",
+                    "statVarKey": [
+                      "IncrementalCount_Person"
+                    ],
+                    "title": "Population Change in Turkey",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Population Change"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+                    ],
+                    "title": "Infant Mortality Rate in Turkey",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Infant Mortality Rate in Turkey",
+                    "statVarKey": [
+                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+                    ],
+                    "title": "Infant Mortality Rate in Turkey",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "description": "Infant mortality rate is the number of infants dying before reaching one year of age, per 1,000 live births in a given year. Estimates developed by the UN Inter-agency group for child mortality estimation (UNICEF, WHO, world bank, UN DESA population division) at www.Childmortality.Org.",
+            "title": "Infant Mortality Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+                    ],
+                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in Turkey",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in Turkey",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+                    ],
+                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in Turkey",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person"
+                    ],
+                    "title": "Population in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person"
+                    ],
+                    "title": "Population in Eurostat Nuts 3 Places of Turkey (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "title": "Population in Eurostat Nuts 3 Places of Turkey"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person"
+                    ],
+                    "title": "Population in Turkey",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population in Turkey",
+                    "statVarKey": [
+                      "Count_Person"
+                    ],
+                    "title": "Population in Turkey",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Population"
+          }
+        ],
+        "statVarSpec": {
+          "Count_BirthEvent": {
+            "name": "Count of Birth Event",
+            "statVar": "Count_BirthEvent"
+          },
+          "Count_BirthEvent_AsAFractionOfCount_Person": {
+            "name": "Count of Birth Event (Per Capita)",
+            "statVar": "Count_BirthEvent_AsAFractionOfCount_Person"
+          },
+          "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person": {
+            "name": "Crude Birth Rate",
+            "statVar": "Count_BirthEvent_LiveBirth_AsFractionOf_Count_Person"
+          },
+          "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": {
+            "name": "Infant Mortality Rate",
+            "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+          },
+          "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent": {
+            "name": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)",
+            "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+          },
+          "Count_Person": {
+            "name": "Population",
+            "statVar": "Count_Person"
+          },
+          "FertilityRate_Person_Female": {
+            "name": "Fertility Rate",
+            "statVar": "FertilityRate_Person_Female"
+          },
+          "GrowthRate_Count_Person": {
+            "name": "Rate of Population Growth",
+            "statVar": "GrowthRate_Count_Person"
+          },
+          "IncrementalCount_Person": {
+            "name": "Population Change",
+            "statVar": "IncrementalCount_Person"
+          },
+          "sdg/SP_DYN_ADKL.AGE--Y10T14__SEX--F": {
+            "name": "Adolescent birth rate [10 to 14 years old, Female]",
+            "statVar": "sdg/SP_DYN_ADKL.AGE--Y10T14__SEX--F"
+          },
+          "sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F": {
+            "name": "Birth rate for adolescent women",
+            "statVar": "sdg/SP_DYN_ADKL.AGE--Y15T19__SEX--F"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "containedPlaceTypes": {
+        "Country": "EurostatNUTS3"
+      },
+      "placeDcid": [
+        "country/TUR"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "entities": [],
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "country/TUR",
+    "name": "Turkey",
+    "place_type": "Country"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "country/TUR",
+      "name": "Turkey",
+      "place_type": "Country"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {
+      "EurostatNUTS3": [
+        {
+          "dcid": "nuts/TR100",
+          "name": "Istanbul Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR211",
+          "name": "Tekirdag",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR212",
+          "name": "Edirne Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR213",
+          "name": "Kirklareli",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR221",
+          "name": "Balikesir",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR222",
+          "name": "\u00c7anakkale Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR310",
+          "name": "Izmir",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR321",
+          "name": "Aydin",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR322",
+          "name": "Denizli Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR323",
+          "name": "Mugla",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR331",
+          "name": "Manisa Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR332",
+          "name": "Afyon",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR333",
+          "name": "K\u00fctahya Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR334",
+          "name": "Usak",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR411",
+          "name": "Bursa Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR412",
+          "name": "Eskisehir",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR413",
+          "name": "Bilecik Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR421",
+          "name": "Kocaeli",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR422",
+          "name": "Sakarya Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR423",
+          "name": "D\u00fczce Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR424",
+          "name": "Bolu Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR425",
+          "name": "Yalova Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR510",
+          "name": "Ankara Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR521",
+          "name": "Konya Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR522",
+          "name": "Karaman Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR611",
+          "name": "Antalya Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR612",
+          "name": "Isparta Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR613",
+          "name": "Burdur Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR621",
+          "name": "Adana Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR622",
+          "name": "I\u00e7el",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR631",
+          "name": "Hatay",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR632",
+          "name": "Kahramanmaras",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR633",
+          "name": "Osmaniye Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR711",
+          "name": "Kirikkale",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR712",
+          "name": "Aksaray Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR713",
+          "name": "Nigde",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR714",
+          "name": "Nevsehir",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR715",
+          "name": "Kirsehir",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR721",
+          "name": "Kayseri Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR722",
+          "name": "Sivas Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR723",
+          "name": "Yozgat Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR811",
+          "name": "Zonguldak Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR812",
+          "name": "Karab\u00fck Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR813",
+          "name": "Bartin",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR821",
+          "name": "Kastamonu Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR822",
+          "name": "\u00c7ankiri",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR823",
+          "name": "Sinop Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR831",
+          "name": "Samsun Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR832",
+          "name": "Tokat Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        },
+        {
+          "dcid": "nuts/TR833",
+          "name": "\u00c7orum Province",
+          "types": [
+            "EurostatNUTS3"
+          ]
+        }
+      ]
+    },
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Births",
+        "name": "Births",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [],
+    "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NGA",
+        "name": "Nigeria",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/USA",
+        "name": "United States",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
+    "peerTopics": []
+  },
+  "svSource": "CURRENT_QUERY",
+  "userMessages": []
+}

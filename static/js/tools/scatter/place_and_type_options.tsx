@@ -107,7 +107,7 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
               ? "selected-chart-option"
               : "chart-type-option"
           }`}
-          onClick={() => display.setChartType(ScatterChartType.SCATTER)}
+          onClick={(): void => display.setChartType(ScatterChartType.SCATTER)}
         >
           <i className="material-icons-outlined">scatter_plot</i>
         </div>
@@ -117,7 +117,7 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
               ? "selected-chart-option"
               : "chart-type-option"
           }`}
-          onClick={() => display.setChartType(ScatterChartType.MAP)}
+          onClick={(): void => display.setChartType(ScatterChartType.MAP)}
         >
           <i className="material-icons-outlined">public</i>
         </div>
@@ -135,7 +135,7 @@ function loadEnclosedPlaces(
   let placeNamesRetrieved = false;
   axios
     .get(
-      `/api/place/places-in-names?dcid=${placeDcid}&placeType=${enclosedPlaceType}`
+      `/api/place/descendent/name?dcid=${placeDcid}&descendentType=${enclosedPlaceType}`
     )
     .then((resp) => {
       const enclosedPlacesToNames = resp.data;
@@ -143,7 +143,7 @@ function loadEnclosedPlaces(
         const enclosedPlaces = Object.keys(enclosedPlacesToNames).map(
           (dcid) => {
             return {
-              dcid: dcid,
+              dcid,
               name: enclosedPlacesToNames[dcid],
             };
           }

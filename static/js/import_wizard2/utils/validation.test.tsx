@@ -50,7 +50,7 @@ test("Fail_MalformedMappingVal", () => {
   const expected = [
     "Place: missing value for COLUMN type ",
     "Place mapping is missing placeProperty",
-    "Name of Variable: missing value for COLUMN_HEADER type",
+    "Dcid of Variable: missing value for COLUMN_HEADER type",
     "Date: missing value for FILE_CONSTANT type",
     "Unit: missing value for COLUMN_CONSTANT type",
   ];
@@ -76,7 +76,7 @@ test("Fail_MissingRequiredPropsAndMultipleColumnHeaders", () => {
   ]);
   const expected = [
     "Missing required mapping for Place",
-    "Missing required mapping for Name of Variable",
+    "Missing required mapping for Dcid of Variable",
     "Missing required mapping for Date",
     "Observation Value: must be a COLUMN type",
     "Multiple columnHeader mappings found: Unit, Value",
@@ -110,6 +110,73 @@ test("Fail_ValueMissing", () => {
     ],
   ]);
   const expected = ["Unable to detect 'Observation Value' column"];
+  expect(checkMappings(input)).toEqual(expected);
+});
+
+test("Fail_NullInColumnHeaderValue", () => {
+  const input: Mapping = new Map([
+    [
+      MappedThing.PLACE,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "iso", header: "iso", columnIdx: 1 },
+        placeProperty: { dcid: "isoCode", displayName: "isoCode" },
+      },
+    ],
+    [
+      MappedThing.STAT_VAR,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "indicators", header: "indicators", columnIdx: 2 },
+      },
+    ],
+    [
+      MappedThing.DATE,
+      {
+        type: MappingType.COLUMN_HEADER,
+        headers: [
+          { id: "a", header: "a", columnIdx: 1 },
+          null,
+          { id: "a", header: "abc", columnIdx: 1 },
+        ],
+      },
+    ],
+  ]);
+  const expected = ["Date: incomplete value for COLUMN_HEADER type"];
+  expect(checkMappings(input)).toEqual(expected);
+});
+
+test("Fail_DuplicateColumnHeaderValue", () => {
+  const input: Mapping = new Map([
+    [
+      MappedThing.PLACE,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "iso", header: "iso", columnIdx: 1 },
+        placeProperty: { dcid: "isoCode", displayName: "isoCode" },
+      },
+    ],
+    [
+      MappedThing.STAT_VAR,
+      {
+        type: MappingType.COLUMN,
+        column: { id: "indicators", header: "indicators", columnIdx: 2 },
+      },
+    ],
+    [
+      MappedThing.DATE,
+      {
+        type: MappingType.COLUMN_HEADER,
+        headers: [
+          { id: "a", header: "a", columnIdx: 1 },
+          { id: "a", header: "abc", columnIdx: 1 },
+        ],
+      },
+    ],
+  ]);
+  const expected = [
+    "Date: found duplicate column in the value for COLUMN_HEADER type",
+  ];
   expect(checkMappings(input)).toEqual(expected);
 });
 

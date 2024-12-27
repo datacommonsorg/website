@@ -19,7 +19,6 @@
  */
 
 import axios from "axios";
-import _ from "lodash";
 import { Dispatch, useContext, useEffect } from "react";
 
 import { MapPoint } from "../../../chart/types";
@@ -59,7 +58,7 @@ export function useFetchMapPointCoordinate(
         paramsSerializer: stringifyFn,
       })
       .then((resp) => {
-        if (_.isEmpty(resp.data)) {
+        if (resp.status !== 200) {
           action.error = "error fetching map point coordinate data";
         } else {
           action.payload = resp.data as Array<MapPoint>;

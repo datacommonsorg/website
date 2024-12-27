@@ -25,16 +25,26 @@ export interface NamedNode {
   dcid: string;
 }
 
+export interface NamedTypedNode {
+  name: string;
+  dcid: string;
+  types: Array<string>;
+  provenanceId?: string;
+}
+
 export type NamedPlace = NamedNode;
+export type NamedTypedPlace = NamedTypedNode;
 
 /**
- * Place with name and its types.
+ * Place with name and population.
  */
-export interface NamedTypedPlace {
+export interface NamedPopPlace {
   dcid: string;
   name: string;
-  types: Array<string>;
+  pop: number;
 }
+
+export type ChildPlacesByType = Record<string, Array<NamedTypedPlace>>;
 
 /**
  * Enum type of the stat var hierarchy wizard.
@@ -72,10 +82,11 @@ export interface StatVarGroupInfo {
 
 export interface StatVarGroupNodeType {
   absoluteName: string;
-  level: number;
+  level?: number;
   parent?: string;
-  childStatVarGroups?: Array<{ id: string; specializedEntity: string }>;
+  childStatVarGroups?: StatVarGroupInfo[];
   childStatVars?: StatVarNodeType[];
+  descendentStatVarCount?: number;
 }
 
 export interface StatVarNodeType {
@@ -189,6 +200,13 @@ export interface StatVarSpec {
   scaling: number;
   log: boolean;
   name?: string;
+  date?: string;
+  // Whether to block setting the denominator to "per capita".
+  // Used in subject pages for variables where dividing by population does
+  // not make sense.
+  // Set to "true" to block toggling per capita in subject pages.
+  noPerCapita?: boolean;
+  facetId?: string;
 }
 
 export interface SampleDates {
@@ -203,15 +221,4 @@ export interface DataPointMetadata {
   placeStatDate: string;
   statVarSource: string;
   errorMessage?: string;
-}
-
-// Stores a single property value.
-// Parameters match output of "nodes" from the triples API or "values" from the property values API.
-// You can think of this as representing a single node in the KG.
-export interface PropertyValue {
-  provenanceId: string;
-  dcid?: string;
-  name?: string;
-  value?: string;
-  types?: Array<string>;
 }

@@ -1,7 +1,7 @@
 #. The label for a link to project homepage.
 #, python-format
-msgid "%(project)s is a Google supported project"
-msgstr "%(project)s is a Google supported project"
+msgid "%(project)s is a Google project"
+msgstr "%(project)s is a Google project"
 
 #. The label for a link to our API documentation.
 msgid "APIs"
@@ -17,6 +17,10 @@ msgstr "About Data Commons"
 #. The label for a link to the project's blog.
 msgid "Blog"
 msgstr "Blog"
+
+#. Heading for a list of cities in India. See this message on https://datacommons.org/place
+msgid "Cities, India"
+msgstr ""
 
 #. Heading for a list of cities in the US. See this message on https://datacommons.org/place
 msgid "Cities, United States"
@@ -50,6 +54,10 @@ msgstr "Data Sources"
 msgid "Disclaimers"
 msgstr "Disclaimers"
 
+#. Heading for a list of districts in India. See this message on https://datacommons.org/place
+msgid "Districts, India"
+msgstr ""
+
 #. The label for a list of documentation links.
 #. The label for a link to our documentation site.
 msgid "Documentation"
@@ -62,6 +70,9 @@ msgstr "Economic Indicators, Worldwide"
 #. A hint shown in the search box, asking users to search for places.
 msgid "Enter a country, state, county or city"
 msgstr "Enter a country, state, county or city"
+
+msgid "Enter a country, state, district or city"
+msgstr ""
 
 #. The label for a collection of exploration tools.
 msgid "Explore"
@@ -98,8 +109,8 @@ msgid "Government Expenditures on Military"
 msgstr "Government Expenditures on Military"
 
 #. The name of a tool to browse the Data Commons knowledge graph.
-msgid "Graph Browser"
-msgstr "Graph Browser"
+msgid "Knowledge Graph"
+msgstr "Knowledge Graph"
 
 #. Link to worldwide rankings for Gross National Income, by country.
 msgid "Gross National Income"
@@ -136,9 +147,15 @@ msgstr "Loading..."
 msgid "Map Explorer"
 msgstr ""
 
+msgid "Maps Explorer"
+msgstr ""
+
 #. Heading for a list of links to rankings of places in the US, by their median income. See this message on https://datacommons.org/place
 msgid "Median Income, United States"
 msgstr "Median Income, United States"
+
+msgid "Natural Language Explorer"
+msgstr ""
 
 #. The name of a tool to browse statistics about a place.
 msgid "PLACE_EXPLORER_INTRO"
@@ -171,12 +188,21 @@ msgstr ""
 msgid "Scatter Plots"
 msgstr ""
 
+#. Heading for a list of states in India. See this message on https://datacommons.org/place
+msgid "States, India"
+msgstr ""
+
 #. Heading for a list of states in the US. See this message on https://datacommons.org/place
 msgid "States, United States"
 msgstr "States, United States"
 
-#. The name of a tool that provides observation and import information about statistical variables.
+#. The name of a tool that provides observation and import information about statistical             variables.
+#. The name of a tool that provides observation and import information about statistical                 variables.
 msgid "Statistical Variable Explorer"
+msgstr ""
+
+#. The label for a link to site terms of use.
+msgid "Terms Of Use"
 msgstr ""
 
 #. The label for a link to site terms and conditions.
@@ -251,6 +277,10 @@ msgid "CHART_TITLE-Bachelors_degree_rate_gender"
 msgstr "Rate of bachelor's degree attainment by gender"
 
 #. The category for a group of statistical charts.
+msgid "CHART_TITLE-CHART_CATEGORY-Air"
+msgstr "Air"
+
+#. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Crime"
 msgstr "Crime"
 
@@ -259,12 +289,20 @@ msgid "CHART_TITLE-CHART_CATEGORY-Demographics"
 msgstr "Demographics"
 
 #. The category for a group of statistical charts.
+msgid "CHART_TITLE-CHART_CATEGORY-Disasters"
+msgstr "Disasters"
+
+#. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Economics"
 msgstr "Economics"
 
 #. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Education"
 msgstr "Education"
+
+#. The category for a group of statistical charts.
+msgid "CHART_TITLE-CHART_CATEGORY-Emissions"
+msgstr "Emissions"
 
 #. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Energy"
@@ -287,8 +325,24 @@ msgid "CHART_TITLE-CHART_CATEGORY-Housing"
 msgstr "Housing"
 
 #. The category for a group of statistical charts.
+msgid "CHART_TITLE-CHART_CATEGORY-Income"
+msgstr "Income"
+
+#. The category for a group of statistical charts.
 msgid "CHART_TITLE-CHART_CATEGORY-Overview"
 msgstr "Overview"
+
+#. The category for a group of statistical charts.
+msgid "CHART_TITLE-CHART_CATEGORY-Poverty"
+msgstr "Poverty"
+
+#. The category for a group of statistical charts.
+msgid "CHART_TITLE-CHART_CATEGORY-Temperature"
+msgstr "Temperature"
+
+#. The category for a group of statistical charts.
+msgid "CHART_TITLE-CHART_CATEGORY-Water"
+msgstr "Water"
 
 #. Title of a place chart: Number of children who are employed
 msgid "CHART_TITLE-Children_employed"
@@ -877,6 +931,50 @@ msgstr "Nitrous oxide emissions (non-biogenic)"
 #. Title of a place chart: Water withdrawal rate
 msgid "CHART_TITLE-water_withdrawal_rate"
 msgstr "Water withdrawal rate"
+
+#. Place containment. Gives context for where a place is located.
+msgid "%(placeType)s in %(parentPlaces)s"
+msgstr "%(placeType)s in %(parentPlaces)s"
+
+#. Place Types
+msgid "singular_administrative_area"
+msgstr "Administrative Area"
+
+msgid "singular_administrative_area_level"
+msgstr "Administrative Area %(level)s Place"
+
+msgid "singular_borough"
+msgstr "Borough"
+
+msgid "singular_city"
+msgstr "City"
+
+msgid "singular_country"
+msgstr "Country"
+
+msgid "singular_county"
+msgstr "County"
+
+msgid "singular_eurostat_nuts"
+msgstr "Eurostat NUTS %(level)s Place"
+
+msgid "singular_neighborhood"
+msgstr "Neighborhood"
+
+msgid "singular_place"
+msgstr "Place"
+
+msgid "singular_state"
+msgstr "State"
+
+msgid "singular_town"
+msgstr "Town"
+
+msgid "singular_village"
+msgstr "Village"
+
+msgid "singular_zip_code"
+msgstr "ZIP Code"
 
 #~ msgid "CHART_TITLE-nitrous_oxide_emissions_nonbiogenic"
 #~ msgstr "Nitrous oxide emissions (non-biogenic)"

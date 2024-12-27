@@ -1,0 +1,1961 @@
+{
+  "client": "test_detect-and-fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person"
+                    ],
+                    "title": "Median Age of Population in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person"
+                    ],
+                    "title": "Median Age of Population in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Population in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person"
+                    ],
+                    "title": "Median Age of Population in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age of Population in California",
+                    "statVarKey": [
+                      "Median_Age_Person"
+                    ],
+                    "title": "Median Age of Population in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Female"
+                    ],
+                    "title": "Women's Median Age in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Female"
+                    ],
+                    "title": "Women's Median Age in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Women's Median Age in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Male"
+                    ],
+                    "title": "Men's Median Age in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Male"
+                    ],
+                    "title": "Men's Median Age in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Men's Median Age in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Female",
+                      "Median_Age_Person_Male"
+                    ],
+                    "title": "Median Age by Gender in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_1To4Years"
+                    ],
+                    "title": "Population: 1-4 Years in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_1To4Years"
+                    ],
+                    "title": "Population: 1-4 Years in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 1-4 Years in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_5To17Years"
+                    ],
+                    "title": "Population Aged 5 to 17 in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_5To17Years"
+                    ],
+                    "title": "Population Aged 5 to 17 in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Aged 5 to 17 in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "geoId/06"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_1To4Years_multiple_place_bar_block",
+                      "Count_Person_5To17Years_multiple_place_bar_block",
+                      "Count_Person_18To24Years_multiple_place_bar_block",
+                      "Count_Person_25To34Years_multiple_place_bar_block",
+                      "Count_Person_35To44Years_multiple_place_bar_block",
+                      "Count_Person_45To54Years_multiple_place_bar_block",
+                      "Count_Person_55To64Years_multiple_place_bar_block",
+                      "Count_Person_65To74Years_multiple_place_bar_block",
+                      "Count_Person_75OrMoreYears_multiple_place_bar_block"
+                    ],
+                    "title": "Age Distribution in California (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Age Distribution"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_85OrMoreYears_Female"
+                    ],
+                    "title": "Women Over 85 in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_85OrMoreYears_Female"
+                    ],
+                    "title": "Women Over 85 in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Women Over 85 in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_85OrMoreYears_Male"
+                    ],
+                    "title": "Men Over 85 in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_85OrMoreYears_Male"
+                    ],
+                    "title": "Men Over 85 in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Men Over 85 in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_85OrMoreYears_Female",
+                      "Count_Person_85OrMoreYears_Male"
+                    ],
+                    "title": "Population 85 or Over by Gender in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population 85 or Over by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_0To4Years_Female"
+                    ],
+                    "title": "Girls (4 and Under) in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_0To4Years_Female"
+                    ],
+                    "title": "Girls (4 and Under) in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Girls (4 and Under) in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_0To4Years_Male"
+                    ],
+                    "title": "Boys (4 and Under) in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_0To4Years_Male"
+                    ],
+                    "title": "Boys (4 and Under) in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Boys (4 and Under) in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_0To4Years_Female",
+                      "Count_Person_0To4Years_Male"
+                    ],
+                    "title": "Children Population by Gender in California",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Children Population by Gender"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_TwoOrMoreRaces"
+                    ],
+                    "title": "Median Age of Multiracial Population in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_TwoOrMoreRaces"
+                    ],
+                    "title": "Median Age of Multiracial Population in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Multiracial Population in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_TwoOrMoreRaces"
+                    ],
+                    "title": "Median Age of Multiracial Population in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age of Multiracial Population in California",
+                    "statVarKey": [
+                      "Median_Age_Person_TwoOrMoreRaces"
+                    ],
+                    "title": "Median Age of Multiracial Population in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Multiracial Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_AsianAlone"
+                    ],
+                    "title": "Median Age of Asian Population in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_AsianAlone"
+                    ],
+                    "title": "Median Age of Asian Population in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Asian Population in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_AsianAlone"
+                    ],
+                    "title": "Median Age of Asian Population in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age of Asian Population in California",
+                    "statVarKey": [
+                      "Median_Age_Person_AsianAlone"
+                    ],
+                    "title": "Median Age of Asian Population in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Asian Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_WhiteAlone"
+                    ],
+                    "title": "Median Age of White Population in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_WhiteAlone"
+                    ],
+                    "title": "Median Age of White Population in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of White Population in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_WhiteAlone"
+                    ],
+                    "title": "Median Age of White Population in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age of White Population in California",
+                    "statVarKey": [
+                      "Median_Age_Person_WhiteAlone"
+                    ],
+                    "title": "Median Age of White Population in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of White Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Median Age of Black or African American Population in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Median Age of Black or African American Population in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Black or African American Population in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Median Age of Black or African American Population in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age of Black or African American Population in California",
+                    "statVarKey": [
+                      "Median_Age_Person_BlackOrAfricanAmericanAlone"
+                    ],
+                    "title": "Median Age of Black or African American Population in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Black or African American Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Native"
+                    ],
+                    "title": "Median Age: Native in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Native"
+                    ],
+                    "title": "Median Age: Native in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age: Native in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Native"
+                    ],
+                    "title": "Median Age: Native in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age: Native in California",
+                    "statVarKey": [
+                      "Median_Age_Person_Native"
+                    ],
+                    "title": "Median Age: Native in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age: Native"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_ForeignBorn"
+                    ],
+                    "title": "Median Age: Foreign Born in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_ForeignBorn"
+                    ],
+                    "title": "Median Age: Foreign Born in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age: Foreign Born in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_ForeignBorn"
+                    ],
+                    "title": "Median Age: Foreign Born in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age: Foreign Born in California",
+                    "statVarKey": [
+                      "Median_Age_Person_ForeignBorn"
+                    ],
+                    "title": "Median Age: Foreign Born in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age: Foreign Born"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Male_WhiteAlone"
+                    ],
+                    "title": "Median Age of White Men in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Male_WhiteAlone"
+                    ],
+                    "title": "Median Age of White Men in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of White Men in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Male_WhiteAlone"
+                    ],
+                    "title": "Median Age of White Men in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age of White Men in California",
+                    "statVarKey": [
+                      "Median_Age_Person_Male_WhiteAlone"
+                    ],
+                    "title": "Median Age of White Men in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of White Men"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Male_Native"
+                    ],
+                    "title": "Median Age of Men Born in the United States in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Male_Native"
+                    ],
+                    "title": "Median Age of Men Born in the United States in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Men Born in the United States in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Male_Native"
+                    ],
+                    "title": "Median Age of Men Born in the United States in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age of Men Born in the United States in California",
+                    "statVarKey": [
+                      "Median_Age_Person_Male_Native"
+                    ],
+                    "title": "Median Age of Men Born in the United States in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Men Born in the United States"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Female_WhiteAlone"
+                    ],
+                    "title": "Median Age of White Women in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_Female_WhiteAlone"
+                    ],
+                    "title": "Median Age of White Women in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of White Women in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_Female_WhiteAlone"
+                    ],
+                    "title": "Median Age of White Women in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age of White Women in California",
+                    "statVarKey": [
+                      "Median_Age_Person_Female_WhiteAlone"
+                    ],
+                    "title": "Median Age of White Women in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of White Women"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_NoHealthInsurance"
+                    ],
+                    "title": "Median Age of Population With No Health Insurance in Counties of California (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person_NoHealthInsurance"
+                    ],
+                    "title": "Median Age of Population With No Health Insurance in Counties of California (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Population With No Health Insurance in Counties of California"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person_NoHealthInsurance"
+                    ],
+                    "title": "Median Age of Population With No Health Insurance in California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age of Population With No Health Insurance in California",
+                    "statVarKey": [
+                      "Median_Age_Person_NoHealthInsurance"
+                    ],
+                    "title": "Median Age of Population With No Health Insurance in California",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Population With No Health Insurance"
+          }
+        ],
+        "statVarSpec": {
+          "Count_Person_0To4Years_Female": {
+            "name": "Girls (4 and under)",
+            "statVar": "Count_Person_0To4Years_Female"
+          },
+          "Count_Person_0To4Years_Male": {
+            "name": "Boys (4 and under)",
+            "statVar": "Count_Person_0To4Years_Male"
+          },
+          "Count_Person_18To24Years_multiple_place_bar_block": {
+            "name": "Population Aged 18 to 24 Years",
+            "statVar": "Count_Person_18To24Years"
+          },
+          "Count_Person_1To4Years": {
+            "name": "Population: 1 - 4 Years",
+            "statVar": "Count_Person_1To4Years"
+          },
+          "Count_Person_1To4Years_multiple_place_bar_block": {
+            "name": "Population: 1 - 4 Years",
+            "statVar": "Count_Person_1To4Years"
+          },
+          "Count_Person_25To34Years_multiple_place_bar_block": {
+            "name": "Population Aged 25 to 34 Years",
+            "statVar": "Count_Person_25To34Years"
+          },
+          "Count_Person_35To44Years_multiple_place_bar_block": {
+            "name": "Population Aged 35 to 44",
+            "statVar": "Count_Person_35To44Years"
+          },
+          "Count_Person_45To54Years_multiple_place_bar_block": {
+            "name": "Population Aged 45 to 54",
+            "statVar": "Count_Person_45To54Years"
+          },
+          "Count_Person_55To64Years_multiple_place_bar_block": {
+            "name": "Population: 55 - 64 Years",
+            "statVar": "Count_Person_55To64Years"
+          },
+          "Count_Person_5To17Years": {
+            "name": "Population Aged 5 to 17",
+            "statVar": "Count_Person_5To17Years"
+          },
+          "Count_Person_5To17Years_multiple_place_bar_block": {
+            "name": "Population Aged 5 to 17",
+            "statVar": "Count_Person_5To17Years"
+          },
+          "Count_Person_65To74Years_multiple_place_bar_block": {
+            "name": "Population Aged 65 to 74",
+            "statVar": "Count_Person_65To74Years"
+          },
+          "Count_Person_75OrMoreYears_multiple_place_bar_block": {
+            "name": "Population Aged 75 and Up",
+            "statVar": "Count_Person_75OrMoreYears"
+          },
+          "Count_Person_85OrMoreYears_Female": {
+            "name": "Women over 85",
+            "statVar": "Count_Person_85OrMoreYears_Female"
+          },
+          "Count_Person_85OrMoreYears_Male": {
+            "name": "Men over 85",
+            "statVar": "Count_Person_85OrMoreYears_Male"
+          },
+          "Median_Age_Person": {
+            "name": "Median Age of Population",
+            "statVar": "Median_Age_Person"
+          },
+          "Median_Age_Person_AsianAlone": {
+            "name": "Median Age of Asian Population",
+            "statVar": "Median_Age_Person_AsianAlone"
+          },
+          "Median_Age_Person_BlackOrAfricanAmericanAlone": {
+            "name": "Median Age of Black or African American Population",
+            "statVar": "Median_Age_Person_BlackOrAfricanAmericanAlone"
+          },
+          "Median_Age_Person_Female": {
+            "name": "Women's Median Age",
+            "statVar": "Median_Age_Person_Female"
+          },
+          "Median_Age_Person_Female_WhiteAlone": {
+            "name": "Median Age of White Women",
+            "statVar": "Median_Age_Person_Female_WhiteAlone"
+          },
+          "Median_Age_Person_ForeignBorn": {
+            "name": "Median Age: Foreign Born",
+            "statVar": "Median_Age_Person_ForeignBorn"
+          },
+          "Median_Age_Person_Male": {
+            "name": "Men's Median Age",
+            "statVar": "Median_Age_Person_Male"
+          },
+          "Median_Age_Person_Male_Native": {
+            "name": "Median Age of Men Born in the United States",
+            "statVar": "Median_Age_Person_Male_Native"
+          },
+          "Median_Age_Person_Male_WhiteAlone": {
+            "name": "Median Age of White Men",
+            "statVar": "Median_Age_Person_Male_WhiteAlone"
+          },
+          "Median_Age_Person_Native": {
+            "name": "Median Age: Native",
+            "statVar": "Median_Age_Person_Native"
+          },
+          "Median_Age_Person_NoHealthInsurance": {
+            "name": "Median Age of Population With No Health Insurance",
+            "statVar": "Median_Age_Person_NoHealthInsurance"
+          },
+          "Median_Age_Person_TwoOrMoreRaces": {
+            "name": "Median Age of Multiracial Population",
+            "statVar": "Median_Age_Person_TwoOrMoreRaces"
+          },
+          "Median_Age_Person_WhiteAlone": {
+            "name": "Median Age of White Population",
+            "statVar": "Median_Age_Person_WhiteAlone"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "containedPlaceTypes": {
+        "State": "County"
+      },
+      "placeDcid": [
+        "geoId/06"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "entities": [],
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "geoId/06",
+    "name": "California",
+    "place_type": "State"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "geoId/06",
+      "name": "California",
+      "place_type": "State"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {
+      "County": [
+        {
+          "dcid": "geoId/06001",
+          "name": "Alameda",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06003",
+          "name": "Alpine",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06005",
+          "name": "Amador",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06007",
+          "name": "Butte",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06009",
+          "name": "Calaveras",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06011",
+          "name": "Colusa",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06013",
+          "name": "Contra Costa",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06015",
+          "name": "Del Norte",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06017",
+          "name": "El Dorado",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06019",
+          "name": "Fresno",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06021",
+          "name": "Glenn",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06023",
+          "name": "Humboldt",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06025",
+          "name": "Imperial",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06027",
+          "name": "Inyo",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06029",
+          "name": "Kern",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06031",
+          "name": "Kings",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06033",
+          "name": "Lake",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06035",
+          "name": "Lassen",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06037",
+          "name": "Los Angeles",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06039",
+          "name": "Madera",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06041",
+          "name": "Marin",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06043",
+          "name": "Mariposa",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06045",
+          "name": "Mendocino",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06047",
+          "name": "Merced",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06049",
+          "name": "Modoc",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06051",
+          "name": "Mono",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06053",
+          "name": "Monterey",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06055",
+          "name": "Napa",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06057",
+          "name": "Nevada",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06059",
+          "name": "Orange",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06061",
+          "name": "Placer",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06063",
+          "name": "Plumas",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06065",
+          "name": "Riverside",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06067",
+          "name": "Sacramento",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06069",
+          "name": "San Benito",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06071",
+          "name": "San Bernardino",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06073",
+          "name": "San Diego",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06075",
+          "name": "San Francisco",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06077",
+          "name": "San Joaquin",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06079",
+          "name": "San Luis Obispo",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06081",
+          "name": "San Mateo",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06083",
+          "name": "Santa Barbara",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06085",
+          "name": "Santa Clara",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06087",
+          "name": "Santa Cruz",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06089",
+          "name": "Shasta",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06091",
+          "name": "Sierra",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06093",
+          "name": "Siskiyou",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06095",
+          "name": "Solano",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06097",
+          "name": "Sonoma",
+          "types": [
+            "County"
+          ]
+        },
+        {
+          "dcid": "geoId/06099",
+          "name": "Stanislaus",
+          "types": [
+            "County"
+          ]
+        }
+      ]
+    },
+    "childTopics": [],
+    "exploreMore": {
+      "Count_Person_0To4Years_Female": {
+        "race": [
+          "Count_Person_0To4Years_Female_AmericanIndianAndAlaskaNativeAlone",
+          "Count_Person_0To4Years_Female_AsianAlone",
+          "Count_Person_0To4Years_Female_BlackOrAfricanAmericanAlone",
+          "Count_Person_0To4Years_Female_HispanicOrLatino",
+          "Count_Person_0To4Years_Female_HispanicOrLatino_AmericanIndianAndAlaskaNativeAlone",
+          "Count_Person_0To4Years_Female_HispanicOrLatino_AsianAlone",
+          "Count_Person_0To4Years_Female_HispanicOrLatino_AsianOrPacificIslander",
+          "Count_Person_0To4Years_Female_HispanicOrLatino_BlackOrAfricanAmericanAlone",
+          "Count_Person_0To4Years_Female_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAlone",
+          "Count_Person_0To4Years_Female_HispanicOrLatino_TwoOrMoreRaces",
+          "Count_Person_0To4Years_Female_HispanicOrLatino_WhiteAlone",
+          "Count_Person_0To4Years_Female_NativeHawaiianAndOtherPacificIslanderAlone",
+          "Count_Person_0To4Years_Female_NotHispanicOrLatino",
+          "Count_Person_0To4Years_Female_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAlone",
+          "Count_Person_0To4Years_Female_NotHispanicOrLatino_AsianAlone",
+          "Count_Person_0To4Years_Female_NotHispanicOrLatino_AsianOrPacificIslander",
+          "Count_Person_0To4Years_Female_NotHispanicOrLatino_BlackOrAfricanAmericanAlone",
+          "Count_Person_0To4Years_Female_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAlone",
+          "Count_Person_0To4Years_Female_NotHispanicOrLatino_TwoOrMoreRaces",
+          "Count_Person_0To4Years_Female_TwoOrMoreRaces",
+          "Count_Person_0To4Years_Female_WhiteAlone",
+          "Count_Person_0To4Years_Female_WhiteAloneNotHispanicOrLatino"
+        ]
+      },
+      "Count_Person_0To4Years_Male": {
+        "race": [
+          "Count_Person_0To4Years_Male_AmericanIndianAndAlaskaNativeAlone",
+          "Count_Person_0To4Years_Male_AsianAlone",
+          "Count_Person_0To4Years_Male_BlackOrAfricanAmericanAlone",
+          "Count_Person_0To4Years_Male_HispanicOrLatino",
+          "Count_Person_0To4Years_Male_HispanicOrLatino_AmericanIndianAndAlaskaNativeAlone",
+          "Count_Person_0To4Years_Male_HispanicOrLatino_AsianAlone",
+          "Count_Person_0To4Years_Male_HispanicOrLatino_AsianOrPacificIslander",
+          "Count_Person_0To4Years_Male_HispanicOrLatino_BlackOrAfricanAmericanAlone",
+          "Count_Person_0To4Years_Male_HispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAlone",
+          "Count_Person_0To4Years_Male_HispanicOrLatino_TwoOrMoreRaces",
+          "Count_Person_0To4Years_Male_HispanicOrLatino_WhiteAlone",
+          "Count_Person_0To4Years_Male_NativeHawaiianAndOtherPacificIslanderAlone",
+          "Count_Person_0To4Years_Male_NotHispanicOrLatino",
+          "Count_Person_0To4Years_Male_NotHispanicOrLatino_AmericanIndianAndAlaskaNativeAlone",
+          "Count_Person_0To4Years_Male_NotHispanicOrLatino_AsianAlone",
+          "Count_Person_0To4Years_Male_NotHispanicOrLatino_AsianOrPacificIslander",
+          "Count_Person_0To4Years_Male_NotHispanicOrLatino_BlackOrAfricanAmericanAlone",
+          "Count_Person_0To4Years_Male_NotHispanicOrLatino_NativeHawaiianAndOtherPacificIslanderAlone",
+          "Count_Person_0To4Years_Male_NotHispanicOrLatino_TwoOrMoreRaces",
+          "Count_Person_0To4Years_Male_TwoOrMoreRaces",
+          "Count_Person_0To4Years_Male_WhiteAlone",
+          "Count_Person_0To4Years_Male_WhiteAloneNotHispanicOrLatino"
+        ]
+      },
+      "Median_Age_Person": {
+        "gender": [
+          "Median_Age_Person_Female",
+          "Median_Age_Person_Male"
+        ],
+        "nativity": [
+          "Median_Age_Person_ForeignBorn",
+          "Median_Age_Person_Native"
+        ],
+        "race": [
+          "Median_Age_Person_AsianAlone",
+          "Median_Age_Person_BlackOrAfricanAmericanAlone",
+          "Median_Age_Person_TwoOrMoreRaces",
+          "Median_Age_Person_WhiteAlone"
+        ]
+      },
+      "Median_Age_Person_WhiteAlone": {
+        "gender": [
+          "Median_Age_Person_Female_WhiteAlone",
+          "Median_Age_Person_Male_WhiteAlone"
+        ]
+      }
+    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/AgeMedians",
+        "name": "Age Medians",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Age",
+        "name": "Age",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [
+      {
+        "dcid": "geoId/01",
+        "name": "Alabama",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/02",
+        "name": "Alaska",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/04",
+        "name": "Arizona",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/05",
+        "name": "Arkansas",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/08",
+        "name": "Colorado",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/09",
+        "name": "Connecticut",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/10",
+        "name": "Delaware",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/11",
+        "name": "District of Columbia",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/12",
+        "name": "Florida",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/13",
+        "name": "Georgia",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/15",
+        "name": "Hawaii",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/16",
+        "name": "Idaho",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/17",
+        "name": "Illinois",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/18",
+        "name": "Indiana",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/19",
+        "name": "Iowa",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/20",
+        "name": "Kansas",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/21",
+        "name": "Kentucky",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/22",
+        "name": "Louisiana",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/23",
+        "name": "Maine",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/24",
+        "name": "Maryland",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/25",
+        "name": "Massachusetts",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/26",
+        "name": "Michigan",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/27",
+        "name": "Minnesota",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/28",
+        "name": "Mississippi",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/29",
+        "name": "Missouri",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/30",
+        "name": "Montana",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/31",
+        "name": "Nebraska",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/32",
+        "name": "Nevada",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/33",
+        "name": "New Hampshire",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/34",
+        "name": "New Jersey",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/35",
+        "name": "New Mexico",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/36",
+        "name": "New York",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/37",
+        "name": "North Carolina",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/38",
+        "name": "North Dakota",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/39",
+        "name": "Ohio",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/40",
+        "name": "Oklahoma",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/41",
+        "name": "Oregon",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/42",
+        "name": "Pennsylvania",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/72",
+        "name": "Puerto Rico",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/44",
+        "name": "Rhode Island",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/45",
+        "name": "South Carolina",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/46",
+        "name": "South Dakota",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/47",
+        "name": "Tennessee",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/48",
+        "name": "Texas",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/49",
+        "name": "Utah",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/50",
+        "name": "Vermont",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/51",
+        "name": "Virginia",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/53",
+        "name": "Washington",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/54",
+        "name": "West Virginia",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      },
+      {
+        "dcid": "geoId/55",
+        "name": "Wisconsin",
+        "types": [
+          "AdministrativeArea1"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/AgeDistribution",
+        "name": "Age Distribution",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/VeryOldAndVeryYoungPopulation",
+        "name": "Very Old and Very Young Population",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
+  "svSource": "CURRENT_QUERY",
+  "userMessages": []
+}

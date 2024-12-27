@@ -20,30 +20,23 @@ import _ from "lodash";
 import {
   EARTH_NAMED_TYPED_PLACE,
   IPCC_PLACE_50_TYPE_DCID,
+  THING_PLACE_TYPE,
 } from "../shared/constants";
-import { NamedPlace, NamedTypedPlace } from "../shared/types";
+import { DisplayNameApiResponse } from "../shared/stat_types";
+import {
+  ChildPlacesByType,
+  NamedPlace,
+  NamedTypedPlace,
+} from "../shared/types";
 import { ALL_MAP_PLACE_TYPES } from "../tools/map/util";
-import { stringifyFn } from "./axios";
 
 let ps: google.maps.places.PlacesService;
 
 const DEFAULT_SAMPLE_SIZE = 50;
-const CURATED_SAMPLE_PLACES = {
-  [EARTH_NAMED_TYPED_PLACE.dcid]: {
-    Country: [
-      { dcid: "country/USA", name: "United States of America" },
-      { dcid: "country/MEX", name: "Mexico" },
-      { dcid: "country/BRA", name: "Brazil" },
-      { dcid: "country/DEU", name: "Germany" },
-      { dcid: "country/POL", name: "Poland" },
-      { dcid: "country/RUS", name: "Russia" },
-      { dcid: "country/ZAF", name: "South Africa" },
-      { dcid: "country/ZWE", name: "Zimbabwe" },
-      { dcid: "country/CHN", name: "People's Republic of China" },
-      { dcid: "country/IND", name: "India" },
-      { dcid: "country/AUS", name: "Australia" },
-    ],
-  },
+// Place and place type combinations where all children places should be
+// returned as sample places.
+const SAMPLE_PLACES_ALL = {
+  [EARTH_NAMED_TYPED_PLACE.dcid]: new Set(["Country"]),
 };
 
 export const ENCLOSED_PLACE_TYPE_NAMES = {
@@ -65,10 +58,10 @@ export function getSamplePlaces(
   sampleSize?: number
 ): Array<NamedPlace> {
   if (
-    parentPlace in CURATED_SAMPLE_PLACES &&
-    childPlaceType in CURATED_SAMPLE_PLACES[parentPlace]
+    parentPlace in SAMPLE_PLACES_ALL &&
+    SAMPLE_PLACES_ALL[parentPlace].has(childPlaceType)
   ) {
-    return CURATED_SAMPLE_PLACES[parentPlace][childPlaceType];
+    return childrenPlaces;
   }
   return _.sampleSize(childrenPlaces, sampleSize || DEFAULT_SAMPLE_SIZE);
 }
@@ -78,22 +71,18 @@ export function getSamplePlaces(
  * @param placeDcid the place to get parent places for
  */
 export function getParentPlacesPromise(
-  placeDcid: string
+  placeDcid: string,
+  apiRoot?: string
 ): Promise<Array<NamedTypedPlace>> {
   return axios
-    .get(`/api/place/parent/${placeDcid}`)
+    .get(`${apiRoot || ""}/api/place/parent?dcid=${placeDcid}`)
     .then((resp) => {
       const parentsData = resp.data;
       const filteredParentsData = parentsData.filter((parent) => {
-        for (const type of parent.types) {
-          if (type in ALL_MAP_PLACE_TYPES) {
-            return true;
-          }
-        }
-        return false;
+        return parent.type in ALL_MAP_PLACE_TYPES;
       });
       const parentPlaces = filteredParentsData.map((parent) => {
-        return { dcid: parent.dcid, name: parent.name, types: parent.types };
+        return { dcid: parent.dcid, name: parent.name, types: [parent.type] };
       });
       if (placeDcid !== EARTH_NAMED_TYPED_PLACE.dcid) {
         parentPlaces.push(EARTH_NAMED_TYPED_PLACE);
@@ -101,6 +90,23 @@ export function getParentPlacesPromise(
       return parentPlaces;
     })
     .catch(() => []);
+}
+
+/**
+ * Used to get child places (filtered by wanted place type list).
+ * Returns lists of NamedPopPlace keyed by place type.
+ */
+export function getChildPlacesPromise(
+  placeDcid: string
+): Promise<ChildPlacesByType> {
+  return axios
+    .get(`/api/place/child/${placeDcid}`)
+    .then((resp) => {
+      return resp.data;
+    })
+    .catch(() => {
+      return {};
+    });
 }
 
 /**
@@ -113,7 +119,9 @@ export function getEnclosedPlacesPromise(
   childPlaceType: string
 ): Promise<Array<NamedPlace>> {
   return axios
-    .get(`/api/place/places-in?dcid=${placeDcid}&placeType=${childPlaceType}`)
+    .get(
+      `/api/place/descendent?dcids=${placeDcid}&descendentType=${childPlaceType}`
+    )
     .then((resp) => {
       const enclosedPlaces = resp.data[placeDcid];
       if (_.isEmpty(enclosedPlaces)) {
@@ -121,7 +129,7 @@ export function getEnclosedPlacesPromise(
       }
       return enclosedPlaces.map((dcid) => {
         return {
-          dcid: dcid,
+          dcid,
           name: dcid,
         };
       });
@@ -162,20 +170,77 @@ export function getNamedTypedPlace(
  * names
  */
 export function getPlaceNames(
-  dcids: string[]
+  dcids: string[],
+  options?: {
+    apiRoot?: string;
+    prop?: string;
+    signal?: AbortSignal;
+  }
 ): Promise<{ [key: string]: string }> {
   if (!dcids.length) {
     return Promise.resolve({});
   }
+  const requestOptions = options?.signal ? { signal: options.signal } : {};
   return axios
-    .get("/api/place/name", {
-      params: {
-        dcids: dcids,
+    .post(
+      `${options?.apiRoot || ""}/api/place/name`,
+      {
+        dcids,
+        prop: options?.prop,
       },
-      paramsSerializer: stringifyFn,
-    })
+      requestOptions
+    )
     .then((resp) => {
       return resp.data;
+    });
+}
+
+/**
+ * Fetches the place type for the given DCID
+ * names
+ */
+export async function getPlaceType(
+  dcid: string,
+  apiRoot?: string
+): Promise<string> {
+  if (!dcid) {
+    return THING_PLACE_TYPE;
+  }
+  try {
+    const response = await axios.get(`${apiRoot || ""}/api/place/type/${dcid}`);
+    return response.data;
+  } catch (e) {
+    return THING_PLACE_TYPE;
+  }
+}
+
+/**
+ * Given a list of place dcids, returns a promise with a map of dcids to place
+ * display names (display names are different from place names because they
+ * will have the state code at the end of the name if state code is available)
+ */
+export function getPlaceDisplayNames(
+  dcids: string[],
+  options?: {
+    apiRoot?: string;
+    signal?: AbortSignal;
+  }
+): Promise<DisplayNameApiResponse> {
+  if (!dcids.length) {
+    return Promise.resolve({});
+  }
+  const requestOptions = options?.signal ? { signal: options.signal } : {};
+  return axios
+    .post(
+      `${options?.apiRoot || ""}/api/place/displayname`,
+      { dcids },
+      requestOptions
+    )
+    .then((resp) => {
+      return resp.data;
+    })
+    .catch(() => {
+      return {};
     });
 }
 
@@ -226,8 +291,8 @@ export function getPlaceIdsFromNames(
   }
   return Promise.all(names.map(getPlaceId)).then((places) => {
     const result = {};
-    for (const [name, place_id] of places) {
-      result[name] = place_id;
+    for (const [name, placeId] of places) {
+      result[name] = placeId;
     }
     return result;
   });

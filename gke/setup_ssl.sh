@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2020 Google LLC
+# Copyright 2024 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,10 +13,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-PROJECT_ID=$(yq eval '.project' config.yaml)
-DOMAIN=$(yq eval '.domain' config.yaml)
+CONFIG_YAML="../deploy/helm_charts/envs/$1.yaml"
+
+PROJECT_ID=$(yq eval '.project' $CONFIG_YAML)
+DOMAIN=$(yq eval '.domain' $CONFIG_YAML)
 
 echo $PROJECT_ID
 gcloud config set project $PROJECT_ID
 
-gcloud compute ssl-certificates create website-certificate --domains=$DOMAIN --global
+gcloud compute ssl-certificates create dc-website-cert --domains=$DOMAIN --global

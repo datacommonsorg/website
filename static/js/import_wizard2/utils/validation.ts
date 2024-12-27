@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import _, { mapValues } from "lodash";
+import _ from "lodash";
 
 import {
   MAPPED_THING_NAMES,
@@ -38,6 +38,7 @@ import {
  * (6) PLACE must specify placeProperty
  * (7) VALUE, if it appears, has to be COLUMN
  * (8) PLACE should not be CONSTANT (its atypical and not exposed in UI)
+ * (9) For COLUMN_HEADER mapping, each column should only be seen at most once
  *
  * TODO: Consider returning enum + string pair for error categories
  *
@@ -78,6 +79,26 @@ export function checkMappings(mappings: Mapping): Array<string> {
       if (mval.headers == null || mval.headers.length === 0) {
         // Check #1
         errors.push(mthingName + ": missing value for COLUMN_HEADER type");
+      } else {
+        const seenHeaders = new Set();
+        for (const header of mval.headers) {
+          if (!header) {
+            // Check #1
+            errors.push(
+              mthingName + ": incomplete value for COLUMN_HEADER type"
+            );
+            break;
+          }
+          if (seenHeaders.has(header.columnIdx)) {
+            // Check # 9
+            errors.push(
+              mthingName +
+                ": found duplicate column in the value for COLUMN_HEADER type"
+            );
+            break;
+          }
+          seenHeaders.add(header.columnIdx);
+        }
       }
       if (mthing === MappedThing.PLACE) {
         if (_.isEmpty(mval.placeProperty)) {
@@ -132,4 +153,13 @@ export function checkMappings(mappings: Mapping): Array<string> {
   }
 
   return errors;
+}
+
+/**
+ * Returns whether a variable is valid.
+ * @param variable the variable to check
+ */
+export function isValidVariable(variable: string): boolean {
+  // checks that there are no spaces within the string.
+  return !/\s/.test(variable.trim());
 }

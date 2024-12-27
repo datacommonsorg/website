@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+/* eslint-disable camelcase */
+
 import { MAX_DATE, MAX_YEAR } from "./constants";
 import { getCappedStatVarDate, isDateTooFar } from "./util";
 
@@ -45,5 +47,7 @@ test("getCappedStatVarDate", () => {
   };
   for (const sv in data) {
     expect(getCappedStatVarDate(sv)).toEqual(data[sv]);
+    // Setting a default date should always return the default
+    expect(getCappedStatVarDate(sv, "1995")).toEqual("1995");
   }
 });

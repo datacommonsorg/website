@@ -19,12 +19,9 @@ import { intl } from "../i18n/i18n";
 import { USA_PLACE_DCID } from "../shared/constants";
 
 /**
- * Given a list of parent places, return true if the place is in USA.
+ * Given a list of parent places, return true if one of them is the USA country DCID.
  */
-export function isPlaceInUsa(dcid: string, parentPlaces: string[]): boolean {
-  if (dcid === USA_PLACE_DCID) {
-    return true;
-  }
+export function isPlaceContainedInUsa(parentPlaces: string[]): boolean {
   for (const parent of parentPlaces) {
     if (parent === USA_PLACE_DCID) {
       return true;
@@ -32,6 +29,13 @@ export function isPlaceInUsa(dcid: string, parentPlaces: string[]): boolean {
   }
   return false;
 }
+/**
+ * Given a DCID and list of parent places, returns whether this dcid is the USA, or contained in the USA.
+ */
+export function isPlaceInUsa(dcid: string, parentPlaces: string[]): boolean {
+  return dcid === USA_PLACE_DCID || isPlaceContainedInUsa(parentPlaces);
+}
+
 /**
  * A set of place types to render a choropleth for.
  */
@@ -205,7 +209,7 @@ export function displayNameForPlaceType(
           description:
             "Label used for a collection of places, of type Administrative Area {level} (an administrative division of certain level, akin to definition here https://en.wikipedia.org/wiki/Administrative_division). {level} are numbers from 1-5. Synonyms for 'places' include locations / towns / cities. An example use is 'Administrative Area 1 Places in Europe'. An equivalent is Administrative Areas of Level 1 in Europe. Please maintain capitalization.",
         },
-        { level: level }
+        { level }
       );
     }
     return intl.formatMessage(
@@ -215,7 +219,7 @@ export function displayNameForPlaceType(
         description:
           "Label used for a single place, of type Administrative Area {level} (an administrative division of a certain level, akin to definition here https://en.wikipedia.org/wiki/Administrative_division). {level} are numbers from 1-5. An example use is 'Administrative Area in Europe' to describe 'France'. Please maintain capitalization.",
       },
-      { level: level }
+      { level }
     );
   }
 
@@ -229,7 +233,7 @@ export function displayNameForPlaceType(
           description:
             "Label used for a collection of places, of type Eurostat NUTS {level} (an administrative division using the Eurostat nomenclature of a certain level, akin to definition here https://ec.europa.eu/eurostat/web/nuts/background). {level} are numbers from 1-3. An example use is 'Eurostat NUTS 1 Places in Europe' to describe 'France'. Please maintain capitalization.",
         },
-        { level: level }
+        { level }
       );
     }
     return intl.formatMessage(
@@ -239,7 +243,7 @@ export function displayNameForPlaceType(
         description:
           "Label used for a single place, of type Eurostat NUTS {level} (an administrative division using the Eurostat nomenclature of a certain level, akin to definition here https://ec.europa.eu/eurostat/web/nuts/background). {level} are numbers from 1-3. An example use is 'Eurostat NUTS 1 Place in Europe' to describe 'France'. Please maintain capitalization.",
       },
-      { level: level }
+      { level }
     );
   }
 

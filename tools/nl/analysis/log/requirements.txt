@@ -1,0 +1,2 @@
+absl-py
+google-cloud-bigtable==2.23.0

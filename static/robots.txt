@@ -11,6 +11,7 @@ Sitemap: https://datacommons.org/sitemap/CensusCoreBasedStatisticalArea.0.txt
 Sitemap: https://datacommons.org/sitemap/StateComponent.0.txt
 Sitemap: https://datacommons.org/sitemap/AdministrativeArea2.0.txt
 Sitemap: https://datacommons.org/sitemap/AdministrativeArea2.1.txt
+Sitemap: https://datacommons.org/sitemap/PriorityPlaces.0.txt
 Sitemap: https://datacommons.org/sitemap/AdministrativeArea4.3.txt
 Sitemap: https://datacommons.org/sitemap/AdministrativeArea4.2.txt
 Sitemap: https://datacommons.org/sitemap/Continent.0.txt

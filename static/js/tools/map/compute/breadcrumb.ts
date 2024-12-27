@@ -32,7 +32,7 @@ import { getPlaceChartData } from "../util";
 export function useComputeBreadcrumbValues(
   chartStore: ChartStore,
   dispatchChartStore: Dispatch<ChartStoreAction>
-) {
+): void {
   const { dateCtx, statVar, placeInfo } = useContext(Context);
   const breadcrumbStatReady = useBreadcrumbStatReady(chartStore);
   const breadcrumbDenomStatReady = useBreadcrumbDenomStatReady(chartStore);

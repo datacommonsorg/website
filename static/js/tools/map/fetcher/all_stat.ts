@@ -28,10 +28,10 @@ import {
   EntityObservationListWrapper,
   PointAllApiResponse,
 } from "../../../shared/stat_types";
+import { getCappedStatVarDate } from "../../../shared/util";
 import { stringifyFn } from "../../../utils/axios";
 import { ChartDataType, ChartStoreAction } from "../chart_store";
 import { Context } from "../context";
-import { getDate } from "../util";
 
 export function useFetchAllStat(dispatch: Dispatch<ChartStoreAction>): void {
   const { dateCtx, placeInfo, statVar } = useContext(Context);
@@ -60,13 +60,13 @@ export function useFetchAllStat(dispatch: Dispatch<ChartStoreAction>): void {
       },
       error: null,
     };
-    const date = getDate(statVar.value.dcid, dateCtx.value);
+    const date = getCappedStatVarDate(statVar.value.dcid, dateCtx.value);
     axios
       .get<PointAllApiResponse>("/api/observations/point/within/all", {
         params: {
-          child_type: placeInfo.value.enclosedPlaceType,
-          date: date,
-          parent_entity: placeInfo.value.enclosingPlace.dcid,
+          childType: placeInfo.value.enclosedPlaceType,
+          date,
+          parentEntity: placeInfo.value.enclosingPlace.dcid,
           variables: [statVar.value.dcid],
         },
         paramsSerializer: stringifyFn,

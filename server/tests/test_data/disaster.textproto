@@ -37,7 +37,9 @@ metadata {
       name: "Earthquake"
       event_type_dcids: "EarthquakeEvent"
       color: "#930000"
-      severity_props: "magnitude"
+      default_severity_filter {
+        prop: "magnitude"
+      }
     }
   }
   event_type_spec {
@@ -92,11 +94,11 @@ categories {
       tiles {
         type: DISASTER_EVENT_MAP
         disaster_event_map_tile_spec: {
-          event_type_keys: "earthquake"
-          event_type_keys: "flood"
-          event_type_keys: "fire"
-          event_type_keys: "storm"
-          event_type_keys: "drought"
+          point_event_type_key: "earthquake"
+          point_event_type_key: "flood"
+          point_event_type_key: "fire"
+          point_event_type_key: "storm"
+          point_event_type_key: "drought"
         }
       }
     }

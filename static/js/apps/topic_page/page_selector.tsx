@@ -18,10 +18,8 @@
  * Component for selecting topic and place.
  */
 
-import axios from "axios";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
-import { CustomInput } from "reactstrap";
 
 import { NamedTypedPlace } from "../../shared/types";
 import { TopicsSummary } from "../../types/app/topic_page_types";
@@ -29,6 +27,7 @@ import { getPlaceNames } from "../../utils/place_utils";
 
 interface PageSelectorPropType {
   selectedPlace: NamedTypedPlace;
+  morePlaces: string[];
   selectedTopic: string;
   topicsSummary: TopicsSummary;
 }
@@ -38,19 +37,32 @@ export function PageSelector(props: PageSelectorPropType): JSX.Element {
     Record<string, string> | undefined
   >({});
 
+  const [morePlaces, setMorePlaces] = useState<NamedTypedPlace[] | undefined>(
+    []
+  );
+
   useEffect(() => {
     getPlaceOptions(props.selectedTopic, props.topicsSummary, setPlaceOptions);
+  }, [props]);
+
+  useEffect(() => {
+    getMorePlaces(props.morePlaces, setMorePlaces);
   }, [props]);
 
   const topicName =
     props.topicsSummary.topicNameMap[props.selectedTopic] ||
     props.selectedTopic;
 
+  const allNames = [props.selectedPlace.name];
+  for (const item of morePlaces) {
+    allNames.push(item.name);
+  }
+
   return (
     <div className="page-selector-container">
       <div className="page-selector-section">
         <h1>
-          {topicName} in {props.selectedPlace.name}
+          {topicName} in {allNames.join(", ")}
         </h1>
         {/* <div>
           <CustomInput
@@ -125,6 +137,22 @@ function getPlaceOptions(
       placeOptionDcids.forEach((place) => (placeOptions[place] = place));
       setPlaceOptions(placeOptions);
     });
+}
+
+function getMorePlaces(
+  placeDcids: string[],
+  setMorePlaces: (places: NamedTypedPlace[]) => void
+): void {
+  getPlaceNames(placeDcids).then((placeNames) => {
+    const res: NamedTypedPlace[] = [];
+    for (const dcid in placeNames)
+      res.push({
+        dcid,
+        name: placeNames[dcid],
+        types: [],
+      });
+    setMorePlaces(res);
+  });
 }
 
 function selectPlace(

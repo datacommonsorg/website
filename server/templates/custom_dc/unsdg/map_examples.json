@@ -1,0 +1,26 @@
+{
+  "map": [
+    {
+      "header": "Proportion of fish stocks within biologically sustainable levels",
+      "preposition": "across",
+      "examples": [{
+        "text": "countries in the world",
+        "url": "/tools/visualization#visType%3Dmap%26place%3DEarth%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22sdg%2FER_H2O_FWTL%22%7D"
+      }]
+    }, {
+      "header": "Annual growth rate of real GDP per employed person",
+      "preposition": "across",
+      "examples": [{
+        "text": "countries in Africa",
+        "url": "/tools/visualization#visType%3Dmap%26place%3Dafrica%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22sdg%2FSL_EMP_PCAP%22%7D"
+      }]
+    }, {
+      "header": "Container port traffic, maritime transport",
+      "preposition": "across",
+      "examples": [{
+        "text": "countries in Asia",
+        "url": "/tools/visualization#visType%3Dmap%26place%3Dasia%26placeType%3DCountry%26sv%3D%7B%22dcid%22%3A%22sdg%2FIS_RDP_PORFVOL.MODE_OF_TRANSPORTATION--MOT_SEA%22%7D"
+      }]
+    }
+  ]
+}

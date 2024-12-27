@@ -9,7 +9,7 @@
   --iitm-section-text: #0d0952;
   --dc-primary: #80296e;
   --link-color: #80296e;
-  --footer-bg: #0b1434;
+  --footer-background: #0b1434;
 }
 
 header.masthead {
@@ -47,6 +47,19 @@ header.masthead p {
 @media (min-width: 1200px) {
   header.masthead h1 {
     font-size: 4rem;
+  }
+}
+
+#main-header {
+  background-color: var(--dc-primary);
+
+  .navbar-brand a {
+    color: #fff;
+  }
+
+  .nav-item .nav-link,
+  #main-nav .navbar-brand .sep {
+    color: rgba(255, 255, 255, 0.5);
   }
 }
 
@@ -185,11 +198,6 @@ a.linked-text:hover {
   text-underline-offset: 0.5em;
 }
 
-.footer-links {
-  color: hsl(0, 0%, 85%);
-  font-weight: 500;
-}
-
 footer ul a:hover {
   text-decoration: none;
 }
@@ -198,10 +206,6 @@ hr {
   max-width: 100% !important;
   border-width: 1px !important;
   border-color: #9cabe0 !important;
-}
-
-div.footer-links {
-  font-size: 14px;
 }
 
 .no-decoration {
@@ -220,6 +224,16 @@ div.footer-links {
 /* #main-header{
   background-color:#80296E!important;
 } */
+
+#iitm-india #main-footer a {
+  color: hsl(0, 0%, 85%);
+  font-weight: 500;
+  font-size: 14px;
+}
+
+#iitm-india #main-footer a:hover {
+  color: var(--link-color);
+}
 
 #iitm-india #main-footer #sub-footer {
   padding-top: 0.5rem;

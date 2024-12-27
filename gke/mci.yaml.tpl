@@ -19,7 +19,7 @@ metadata:
   namespace: website
   annotations:
     # multi-domain is the certificate name, it is set in setup_ssl.sh
-    networking.gke.io/pre-shared-certs: website-certificate
+    networking.gke.io/pre-shared-certs: dc-website-cert
     networking.gke.io/static-ip: <IP>
 spec:
   template:
@@ -27,3 +27,14 @@ spec:
       backend:
         serviceName: website-mcs
         servicePort: 8080
+      rules:
+      - http:
+          paths:
+          - path: /
+            backend:
+                serviceName: website-mcs
+                servicePort: 8080
+          - path: /nodejs/*
+            backend:
+                serviceName: website-nodejs-mcs
+                servicePort: 8080

@@ -22,9 +22,30 @@
 export interface RankingPoint {
   placeDcid: string;
   placeName?: string;
-  value: number;
+  // Only one of value or values should be set. If values are set, then multi-col is rendered.
+  value?: number;
+  values?: number[];
   /**
    * If not provided, the component will calculate the rank based on the order of the input points.
    */
   rank?: number;
+  date?: string;
+}
+
+export interface RankingGroup {
+  points: RankingPoint[];
+  // If only value is used in RankingPoint - then there will only be one unit,
+  // scaling, and svName set. Otherwise, will match the order of values[].
+  unit: string[];
+  scaling: number[];
+  svName: string[];
+  sources: Set<string>;
+  numDataPoints?: number;
+  dateRange: string;
+  // Optional for storing the processed rankingData
+  rankingData?: { lowest: RankingPoint[]; highest: RankingPoint[] };
+}
+
+export interface RankingData {
+  [statVarDcid: string]: RankingGroup;
 }

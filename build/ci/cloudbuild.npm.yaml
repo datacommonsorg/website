@@ -14,7 +14,7 @@
 
 steps:
   - id: "client-test"
-    name: gcr.io/datcom-ci/node:2022-07-18
+    name: gcr.io/datcom-ci/node:2023-04-18
     entrypoint: /bin/bash
     waitFor: ["-"]
     args:
@@ -27,7 +27,10 @@ steps:
         cp -r /resources/node_modules -d static/
 
         # ./run_test.sh -lbc will run lint test, build client packages, and run client tests.
-        ./run_test.sh -lbc
+        set -e
+        ./run_test.sh -l
+        ./run_test.sh -b
+        ./run_test.sh -c
 
 options:
   machineType: "N1_HIGHCPU_8"

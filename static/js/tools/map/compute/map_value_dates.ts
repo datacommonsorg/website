@@ -40,7 +40,7 @@ export function useComputeMapValueAndDate(
   dispatchChartStore: Dispatch<ChartStoreAction>,
   dispatchSources: Dispatch<Set<string>>,
   dispatchMetadata: Dispatch<Record<string, DataPointMetadata>>
-) {
+): void {
   const { statVar, placeInfo, dateCtx } = useContext(Context);
   const allStatReady = useAllStatReady(chartStore);
   const defaultStatReady = useDefaultStatReady(chartStore);
@@ -67,11 +67,14 @@ export function useComputeMapValueAndDate(
     const metadata = {};
     const facets = Object.assign(
       {},
-      chartStore.defaultStat.data.facets,
+      chartStore.defaultStat.data ? chartStore.defaultStat.data.facets : {},
       chartStore.denomStat.data ? chartStore.denomStat.data.facets : {},
       chartStore.allStat.data ? chartStore.allStat.data.facets : {}
     );
-    let wantedFacetData = chartStore.defaultStat.data.data;
+    let wantedFacetData: EntityObservation;
+    if (chartStore.defaultStat.data) {
+      wantedFacetData = chartStore.defaultStat.data.data;
+    }
     if (statVar.value.metahash) {
       wantedFacetData = filterAllFacetData(
         chartStore.allStat.data.data,
@@ -81,6 +84,7 @@ export function useComputeMapValueAndDate(
     if (_.isEmpty(wantedFacetData)) {
       return;
     }
+    let unit = "";
     for (const placeDcid in wantedFacetData) {
       const placeChartData = getPlaceChartData(
         wantedFacetData,
@@ -102,6 +106,7 @@ export function useComputeMapValueAndDate(
           sources.add(source);
         }
       });
+      unit = unit || placeChartData.unit;
     }
     dispatchSources(sources);
     dispatchMetadata(metadata);
@@ -112,7 +117,7 @@ export function useComputeMapValueAndDate(
         statVar: _.cloneDeep(statVar.value),
         placeInfo: _.cloneDeep(placeInfo.value),
       },
-      payload: { mapValues, mapDates },
+      payload: { mapValues, mapDates, unit },
     });
   }, [
     dateCtx.value,

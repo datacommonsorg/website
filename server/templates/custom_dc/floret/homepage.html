@@ -1,0 +1,199 @@
+{#
+  Copyright 2023 Google LLC
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ #}
+
+ {%- extends BASE_HTML -%}
+
+ {% set main_id = 'homepage' %}
+ {% set page_id = 'page-homepage' %}
+
+ {% block head %}
+ <link rel="stylesheet" href={{url_for('static', filename='css/homepage.min.css', t=config['VERSION'])}}>
+ <script src="/datacommons.js"></script>
+<link
+  rel="icon"
+  href="https://datacommons.org/images/favicon.png"
+  type="image/png"
+/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+{% endblock %}
+
+{% block footer %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+{% endblock %}
+
+ {% block content %}
+ <div class="bg-dark text-secondary px-4 py-5 text-center">
+  <div class="py-5">
+    <h1 class="display-5 fw-bold text-white">FLORET + Data Commons</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="fs-5 mb-4">
+        Combines extensive data collection, sophisticated economic modeling,
+        and the power of open-source knowledge sharing.
+      </p>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <a
+          href="#charts"
+          role="button"
+          class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold"
+        >
+          Charts
+        </a>
+        <a
+          href="https://floret.datacommons.org/tools/statvar"
+          role="button"
+          class="btn btn-outline-light btn-lg px-4"
+        >
+          Custom Data Commons
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="section" id="charts">
+  <div class="container">
+    <h2>A platform for experts, policymakers, and inquisitive minds</h2>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <datacommons-map
+          apiRoot="/"
+          title="Country Risk Map (Higher numbers have lower risk)"
+          parentPlace="Earth"
+          childPlaceType="Country"
+          variable="country_risk"
+        ></datacommons-map>
+      </div>
+      <div class="col-lg-6">
+        <datacommons-ranking
+          apiRoot="/"
+          header="Countries with the highest risk"
+          parentPlace="Earth"
+          childPlaceType="Country"
+          variable="country_risk"
+          rankingCount="20"
+          showLowest
+        ></datacommons-ranking>
+      </div>
+      <div class="col-lg-6">
+        <datacommons-ranking
+          apiRoot="/"
+          header="Countries with the lowest risk"
+          parentPlace="Earth"
+          childPlaceType="Country"
+          variable="country_risk"
+          rankingCount="20"
+          showHighest
+        ></datacommons-ranking>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section odd">
+  <div class="container">
+    <h2>Bridge the gap between raw data and informed decision-making</h2>
+    <div class="row">
+      <div class="col-lg-6">
+        <datacommons-bar
+          apiRoot="/"
+          header="BRICS countries risk"
+          places="country/BRA country/RUS country/IND country/CHN country/ZAF"
+          variables="country_risk"
+          sort="descending"
+        ></datacommons-bar>
+      </div>
+      <div class="col-lg-6">
+        <datacommons-scatter
+          apiRoot="/"
+          header="Country risk vs GDP per capita"
+          variables="country_risk Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
+          parentPlace="Earth"
+          childPlaceType="Country"
+        ></datacommons-scatter>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="container">
+    <h2>
+      Redefine the assessment of corporate risk, industry-specific
+      vulnerabilities, and geopolitical dynamics
+    </h2>
+    <div class="row">
+      <div class="col-lg-12">
+        <datacommons-ranking
+          apiRoot="/"
+          header="Sectors by Estimated Risk Level"
+          parentPlace="NAICSEnum"
+          childPlaceType="NAICSEnum"
+          variable="sector_risk"
+          rankingCount="20"
+          showHighest
+        ></datacommons-ranking>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <datacommons-scatter
+          apiRoot="/"
+          header="Company risk vs Number of Employees"
+          variables="company_risk log_employee_count"
+          parentPlace="Company"
+          childPlaceType="Company"
+        ></datacommons-scatter>
+      </div>
+      <div class="col-lg-6">
+        <datacommons-scatter
+          apiRoot="/"
+          header="Company Risk vs Total Sales"
+          variables="company_risk log_total_sales"
+          parentPlace="Company"
+          childPlaceType="Company"
+        ></datacommons-scatter>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="container">
+  <footer
+    class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"
+  >
+    <p class="mb-0">
+      <a
+        href="https://datacommons.org"
+        target="_blank"
+        rel="noreferrer"
+        class="nav-link px-2 text-muted"
+        >Powered by Google's Data Commons</a
+      >
+    </p>
+
+    <ul class="nav">
+      <li class="nav-item">
+        <a
+          href="https://floret.datacommons.org/tools/statvar"
+          class="nav-link px-2 text-muted"
+          >Floret Data Commons</a
+        >
+      </li>
+    </ul>
+  </footer>
+</div>
+ {% endblock %}

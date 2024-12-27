@@ -43,6 +43,7 @@ export enum ChartDataType {
   BREADCRUMB_VALUES = "breadcrumbValues",
   MAP_POINT_VALUES = "mapPointValues",
   MAP_VALUES_DATES = "mapValuesDates",
+  BORDER_GEO_JSON = "borderGeoJson",
 }
 
 // ChartStore holds the raw data and corresponding context.
@@ -108,6 +109,7 @@ export interface ChartStore {
     data: {
       mapValues: { [dcid: string]: number };
       mapDates: Set<string>;
+      unit?: string;
     };
     context?: DataContext;
   };
@@ -118,6 +120,12 @@ export interface ChartStore {
   breadcrumbValues: {
     data: { [dcid: string]: number };
     context?: DataContext;
+  };
+  // Store geojsons of containing place's borders
+  borderGeoJson: {
+    data: GeoJsonData;
+    context?: DataContext;
+    error?: string;
   };
 }
 
@@ -174,6 +182,10 @@ export const emptyChartStore = {
   },
   breadcrumbValues: {
     data: null,
+  },
+  borderGeoJson: {
+    data: null,
+    error: null,
   },
 };
 

@@ -15,15 +15,18 @@
  */
 
 jest.mock("axios");
-jest.mock("../../chart/draw");
+jest.mock("../../chart/draw_bar");
+jest.mock("../../chart/draw_histogram");
+jest.mock("../../chart/draw_line");
+jest.mock("../../chart/draw_utils");
 
 import { waitFor } from "@testing-library/react";
+import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 import Enzyme, { mount, ReactWrapper } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
 import pretty from "pretty";
 import React from "react";
 
-import { axios_mock, drawGroupLineChart_mock } from "./mock_functions";
+import { axiosMock, drawGroupLineChartMock } from "./mock_functions";
 import { Page } from "./page";
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -32,10 +35,10 @@ const globalAny: any = global;
 
 beforeEach(() => {
   // Mock the info config object that is used for the landing page.
-  window.infoConfig = [];
+  window.infoConfig = {};
 });
 
-async function waitForComponentUpdates(wrapper: ReactWrapper) {
+async function waitForComponentUpdates(wrapper: ReactWrapper): Promise<void> {
   // Wait for state updates
   await waitFor(() => {
     expect(wrapper.text()).toContain("");
@@ -60,9 +63,9 @@ test("Single place and single stat var", async () => {
   });
   // Mock drawGroupLineChart() as getComputedTextLength can has issue with jest
   // and jsdom.
-  drawGroupLineChart_mock();
+  drawGroupLineChartMock();
   // Mock all the async axios call
-  axios_mock();
+  axiosMock();
   // Do the actual render!
   const wrapper = mount(<Page />);
   await waitForComponentUpdates(wrapper);
@@ -136,9 +139,9 @@ test("statVar not in PV-tree", async () => {
   });
   // Mock drawGroupLineChart() as getComputedTextLength can has issue with jest
   // and jsdom.
-  drawGroupLineChart_mock();
+  drawGroupLineChartMock();
   // mock all the async axios call
-  axios_mock();
+  axiosMock();
   // Do the actual render!
   const wrapper = mount(<Page />);
   await waitForComponentUpdates(wrapper);
@@ -163,26 +166,26 @@ test("chart options", async () => {
 
   // Mock drawGroupLineChart() as getComputedTextLength can has issue with jest
   // and jsdom.
-  drawGroupLineChart_mock();
+  drawGroupLineChartMock();
   // mock all the async axios call
-  axios_mock();
+  axiosMock();
 
   // Do the actual render!
   const wrapper = mount(<Page />);
   await waitForComponentUpdates(wrapper);
   // Set per capita to true
-  wrapper.find("#count-ratio").at(0).simulate("change");
+  wrapper.find("#count-none-ratio").at(0).simulate("change");
   await waitForComponentUpdates(wrapper);
   // Check that url hash is updated
   window.location.hash = "#" + window.location.hash;
   expect(window.location.hash).toBe(
-    "#place=geoId%2F05&statsVar=Count_Person&chart=%7B%22count%22%3A%7B%22pc%22%3Atrue%7D%7D"
+    "#place=geoId%2F05&statsVar=Count_Person&chart=%7B%22count-none%22%3A%7B%22pc%22%3Atrue%7D%7D"
   );
   // Hack to trigger hashchange event to fire
   window.dispatchEvent(
     new HashChangeEvent("hashchange", {
       newURL:
-        "#place=geoId%2F05&statsVar=Count_Person&chart=%7B%22count%22%3A%7B%22pc%22%3Atrue%7D%7D",
+        "#place=geoId%2F05&statsVar=Count_Person&chart=%7B%22count-none%22%3A%7B%22pc%22%3Atrue%7D%7D",
       oldURL: "#&place=geoId/05&statsVar=Count_Person",
     })
   );
@@ -206,6 +209,6 @@ test("chart options", async () => {
   // Check that the url hash is updated
   window.location.hash = "#" + window.location.hash;
   expect(window.location.hash).toBe(
-    "#place=geoId%2F05&statsVar=&chart=%7B%22count%22%3A%7B%22pc%22%3Atrue%7D%7D"
+    "#place=geoId%2F05&statsVar=&chart=%7B%22count-none%22%3A%7B%22pc%22%3Atrue%7D%7D"
   );
 });

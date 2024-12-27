@@ -19,8 +19,17 @@ import React from "react";
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
 import { wrap } from "../chart/base";
+import {
+  ASYNC_ELEMENT_CLASS,
+  ASYNC_ELEMENT_HOLDER_CLASS,
+} from "../constants/css_constants";
 import { intl } from "../i18n/i18n";
-import { randDomId, saveToFile, urlToDomain } from "../shared/util";
+import {
+  GA_EVENT_TILE_DOWNLOAD_CSV,
+  GA_EVENT_TILE_DOWNLOAD_IMG,
+  triggerGAEvent,
+} from "../shared/ga_events";
+import { randDomId, saveToFile, urlToDisplayText } from "../shared/util";
 
 // SVG adjustment related constants
 const TITLE_Y = 20;
@@ -30,23 +39,31 @@ const CHART_PADDING = 10;
 const SVGNS = "http://www.w3.org/2000/svg";
 const XLINKNS = "http://www.w3.org/1999/xlink";
 
+interface ChartEmbedPropsType {
+  container?: HTMLElement;
+}
 interface ChartEmbedStateType {
   modal: boolean;
   svgXml: string;
   dataCsv: string;
-  chartWidth: number;
-  chartHeight: number;
-  chartTitle: string;
   chartDate: string;
+  chartHeight: number;
+  chartHtml: string;
+  chartTitle: string;
+  chartWidth: number;
   sources: string[];
   chartDownloadXml: string;
+  getDataCsv?: () => Promise<string>;
 }
 
 /**
  * A component to include with each Chart, that displays embed information and data for a chart
  * in a Modal
  */
-class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
+class ChartEmbed extends React.Component<
+  ChartEmbedPropsType,
+  ChartEmbedStateType
+> {
   private modalId: string;
   private svgContainerElement: React.RefObject<HTMLDivElement>;
   private textareaElement: React.RefObject<HTMLTextAreaElement>;
@@ -57,12 +74,14 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
       modal: false,
       svgXml: "",
       dataCsv: "",
-      chartWidth: 0,
-      chartHeight: 0,
-      chartTitle: "",
       chartDate: "",
+      chartHeight: 0,
+      chartHtml: "",
+      chartTitle: "",
+      chartWidth: 0,
       sources: [],
       chartDownloadXml: "",
+      getDataCsv: undefined,
     };
     this.modalId = randDomId();
     this.svgContainerElement = React.createRef();
@@ -89,23 +108,117 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
    */
   public show(
     svgXml: string,
-    dataCsv: string,
+    getDataCsv: () => Promise<string>,
     chartWidth: number,
     chartHeight: number,
+    chartHtml: string,
     chartTitle: string,
     chartDate: string,
     sources: string[]
   ): void {
     this.setState({
+      chartWidth,
+      chartHeight,
+      chartHtml,
+      chartTitle,
+      chartDate,
+      // Clear cached dataCSV to force CSV to refresh
+      dataCsv: "",
+      getDataCsv,
       modal: true,
-      svgXml: svgXml,
-      dataCsv: dataCsv,
-      chartWidth: chartWidth,
-      chartHeight: chartHeight,
-      chartTitle: chartTitle,
-      chartDate: chartDate,
-      sources: sources,
+      sources,
+      svgXml,
     });
+  }
+
+  /**
+   * Decorates chartHtml with title and provenance information embeded in an enclosing
+   * SVG node. Returns the SVG contents as a string.
+   */
+  private decorateChartHtml(): string {
+    // TODO: Merge this function with decorateSvgChart for less code duplication
+    const container = this.svgContainerElement.current;
+    container.innerHTML = "";
+    const chartWidth = this.state.chartWidth + 2 * CHART_PADDING;
+
+    // Decorate a hidden chart svg with title and provenance
+    const svg = d3
+      .select(container)
+      .append("svg")
+      .attr("xmlns", SVGNS)
+      .attr("xmlns:xlink", XLINKNS)
+      .attr("width", chartWidth);
+
+    const title = svg
+      .append("g")
+      .append("text")
+      .style("font-family", "sans-serif")
+      .style("fill", "#3b3b3b")
+      .style("font-size", ".85rem")
+      .style("font-weight", "bold")
+      .style("text-anchor", "middle")
+      .text(`${this.state.chartTitle} ${this.state.chartDate}`)
+      .call(wrap, this.state.chartWidth);
+    const titleHeight = title.node().getBBox().height;
+    title.attr("transform", `translate(${chartWidth / 2}, ${TITLE_Y})`);
+
+    svg
+      .append("g")
+      .attr(
+        "transform",
+        `translate(${CHART_PADDING}, ${titleHeight + TITLE_MARGIN})`
+      )
+      .append("svg")
+      .append("foreignObject")
+      .attr("width", chartWidth)
+      .attr("height", 500)
+      .append("xhtml:div")
+      .style("font", "14px 'Helvetica Neue'")
+      .html(this.state.chartHtml);
+
+    const sources = svg
+      .append("g")
+      .attr(
+        "transform",
+        `translate(${CHART_PADDING}, ${
+          titleHeight + TITLE_MARGIN + this.state.chartHeight + SOURCES_MARGIN
+        })`
+      )
+      .append("text")
+      .style("fill", "#3b3b3b")
+      .style("font-family", "sans-serif")
+      .style("font-size", ".7rem")
+      .text(
+        intl.formatMessage(
+          {
+            id: "embed_citation",
+            defaultMessage: "Data from {sources} via Data Commons",
+            description:
+              'Used to cite where the data is from, but that it was provided through Data Commons. For example, "Data from {nytimes.com} via Data Commons" or "Data from {census.gov, nytimes.com} via Data Commons". Please keep the name "Data Commons".',
+          },
+          {
+            sources: this.state.sources
+              .map((s) => urlToDisplayText(s))
+              .join(", "),
+          }
+        )
+      )
+      .call(wrap, this.state.chartWidth);
+
+    const sourcesHeight = sources.node().getBBox().height;
+    svg.attr(
+      "height",
+      this.state.chartHeight +
+        titleHeight +
+        TITLE_MARGIN +
+        sourcesHeight +
+        SOURCES_MARGIN
+    );
+    const s = new XMLSerializer();
+    const svgXml = s.serializeToString(svg.node());
+    container.innerHTML = "";
+
+    return svgXml;
   }
 
   /**
@@ -167,7 +280,11 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
             description:
               'Used to cite where the data is from, but that it was provided through Data Commons. For example, "Data from {nytimes.com} via Data Commons" or "Data from {census.gov, nytimes.com} via Data Commons". Please keep the name "Data Commons".',
           },
-          { sources: this.state.sources.map((s) => urlToDomain(s)).join(", ") }
+          {
+            sources: this.state.sources
+              .map((s) => urlToDisplayText(s))
+              .join(", "),
+          }
         )
       )
       .call(wrap, this.state.chartWidth);
@@ -181,7 +298,6 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
         sourcesHeight +
         SOURCES_MARGIN
     );
-
     const s = new XMLSerializer();
     const svgXml = s.serializeToString(svg.node());
     container.innerHTML = "";
@@ -201,21 +317,43 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
         this.state.chartWidth + CHART_PADDING * 2 + "px";
     }
 
+    if (this.state.chartHtml) {
+      const chartDownloadXml = this.decorateChartHtml();
+      const imageElement = document.createElement("img");
+      const chartBase64 =
+        "data:image/svg+xml," + encodeURIComponent(chartDownloadXml);
+      imageElement.src = chartBase64;
+      this.svgContainerElement.current.append(imageElement);
+      imageElement.className = ASYNC_ELEMENT_CLASS;
+      this.setState({ chartDownloadXml });
+    }
+
     if (this.state.svgXml) {
       const chartDownloadXml = this.decorateSvgChart();
       const imageElement = document.createElement("img");
       const chartBase64 =
         "data:image/svg+xml," + encodeURIComponent(chartDownloadXml);
       imageElement.src = chartBase64;
+      imageElement.className = ASYNC_ELEMENT_CLASS;
       this.svgContainerElement.current.append(imageElement);
       this.setState({ chartDownloadXml });
     }
   }
 
   /**
-   * On click handler on the text area - auto-selects all the text.
+   * On click handler on the text area.
+   * - If the user clicks on the text area and doesn't drag the mouse,
+   *   select all of the text (to help them copy and paste)
+   * - If the user clicks and drags, don't select all of the text and allow them
+   *   to make their selection
    */
   public onClickTextarea(): void {
+    const selection = window.getSelection().toString();
+    // User is trying to select specific text.
+    if (selection) {
+      return;
+    }
+    // User single-clicked without dragging. Select the entire CSV text
     this.textareaElement.current.focus();
     this.textareaElement.current.setSelectionRange(
       0,
@@ -227,14 +365,39 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
    * On click handler for "Copy SVG to clipboard button".
    */
   public onDownloadSvg(): void {
-    saveToFile("chart.svg", this.state.chartDownloadXml);
+    triggerGAEvent(GA_EVENT_TILE_DOWNLOAD_IMG, {});
+    const basename = this.state.chartTitle || "chart";
+    saveToFile(`${basename}.svg`, this.state.chartDownloadXml);
   }
 
   /**
    * On click handler for "Download Data" button.
    */
   public onDownloadData(): void {
-    saveToFile("export.csv", this.state.dataCsv);
+    triggerGAEvent(GA_EVENT_TILE_DOWNLOAD_CSV, {});
+    const basename = this.state.chartTitle || "export";
+    saveToFile(`${basename}.csv`, this.state.dataCsv);
+  }
+
+  async componentDidUpdate(): Promise<void> {
+    if (!this.state.dataCsv && this.state.getDataCsv) {
+      try {
+        const dataCsv = await this.state.getDataCsv();
+        if (!dataCsv) {
+          this.setState({
+            dataCsv: "Error fetching CSV",
+          });
+          return;
+        }
+        this.setState({
+          dataCsv,
+        });
+      } catch (e) {
+        this.setState({
+          dataCsv: "Error fetching CSV",
+        });
+      }
+    }
   }
 
   public render(): JSX.Element {
@@ -243,6 +406,7 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
         isOpen={this.state.modal}
         toggle={this.toggle}
         className="modal-dialog-centered modal-lg"
+        container={this.props.container}
         onOpened={this.onOpened}
         id={this.modalId}
       >
@@ -257,10 +421,10 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
         <ModalBody>
           <div
             ref={this.svgContainerElement}
-            className="modal-chart-container"
+            className={`modal-chart-container ${ASYNC_ELEMENT_HOLDER_CLASS}`}
           ></div>
           <textarea
-            className="copy-svg mt-3"
+            className="copy-svg modal-textarea mt-3"
             value={this.state.dataCsv}
             readOnly
             ref={this.textareaElement}
@@ -280,7 +444,11 @@ class ChartEmbed extends React.Component<unknown, ChartEmbedStateType> {
               </Button>{" "}
             </>
           )}
-          <Button color="primary" onClick={this.onDownloadData}>
+          <Button
+            color="primary"
+            onClick={this.onDownloadData}
+            disabled={!this.state.dataCsv}
+          >
             {intl.formatMessage({
               id: "embed_download_csv_link",
               defaultMessage: "Download Data as CSV",

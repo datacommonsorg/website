@@ -1,0 +1,16 @@
+{
+  "blocked": true,
+  "client": "test_detect-and-fulfill",
+  "config": {},
+  "context": {},
+  "debug": {},
+  "failure": "Sorry, could not complete your request.",
+  "place": {
+    "dcid": "",
+    "name": "",
+    "place_type": ""
+  },
+  "userMessages": [
+    "Sorry, could not complete your request."
+  ]
+}

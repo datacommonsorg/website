@@ -18,11 +18,19 @@
  * Styling for ranking unit component.
  */
 
+.ranking-tile {
+  .chart-footnote {
+    font-weight: 500;
+    margin: 8px 0 0 0;
+    padding: 0 24px;
+  }
+}
+
 .ranking-list {
   width: 100%;
 
   td {
-    font-size: .9rem;
+    font-size: 0.9rem;
     vertical-align: top;
   }
 
@@ -35,10 +43,21 @@
   }
 
   td.stat {
-    width: 25%;
+    text-align: right;
   }
-  
+
   .bold {
     font-weight: 600;
+  }
+
+  td.ranking-date-cell {
+    color: var(--gm-3-ref-neutral-neutral-60);
+    max-width: 85px;
+    overflow: hidden;
+    padding-left: 8px;
+    text-align: right;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+    width: 85px;
   }
 }

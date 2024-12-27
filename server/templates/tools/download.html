@@ -17,8 +17,6 @@
 {%- extends BASE_HTML -%}
 
 {% set is_hide_full_footer = true %}
-{% set subpage_title = "Download" %}
-{% set subpage_url = url_for('tools.download') %}
 {% set title = "Download Tool" %}
 {% set main_id = 'main-download' %}
 {% set page_id = 'page-download' %}
@@ -35,9 +33,5 @@
 
 {% block footer %}
   <script src={{url_for('static', filename='download.js', t=config['VERSION'])}}></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key={{maps_api_key}}&libraries=places" async defer></script>
-{% endblock %}
-
-{% block subfooter_extra %}
-<button id="bq-link" class="btn-subfooter btn btn-primary" style="display: none">Get BigQuery SQL</button>
+  <script src="https://maps.googleapis.com/maps/api/js?key={{maps_api_key}}&libraries=places&loading=async" async defer></script>
 {% endblock %}

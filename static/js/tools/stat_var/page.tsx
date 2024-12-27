@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,19 +22,21 @@ import axios from "axios";
 import React, { Component } from "react";
 import { Button } from "reactstrap";
 
+import { PropertyValues } from "../../shared/api_response_types";
 import {
   NamedNode,
+  NamedTypedNode,
   StatVarHierarchyType,
   StatVarSummary,
 } from "../../shared/types";
 import { stringifyFn } from "../../utils/axios";
+import { getUrlToken, updateHash } from "../../utils/url_utils";
 import { StatVarWidget } from "../shared/stat_var_widget";
 import { DatasetSelector } from "./dataset_selector";
 import { Explorer } from "./explorer";
 import { Info } from "./info";
-import { getUrlToken, SV_URL_PARAMS, updateHash } from "./util";
-
-const SVG_URL_PREFIX = "/api/variable-group/info?dcid=dc/g/Root&entities=";
+import { SV_URL_PARAMS } from "./stat_var_constants";
+import { STAT_VAR_HIERARCHY_CONFIG } from "./stat_var_hierarchy_config";
 
 interface PageStateType {
   // DCID of selected dataset.
@@ -49,7 +51,7 @@ interface PageStateType {
   // DCID of selected source.
   source: string;
   // DCID and name of sources.
-  sources: NamedNode[];
+  sources: NamedTypedNode[];
   statVar: string;
   summary: StatVarSummary;
   urls: Record<string, string>;
@@ -57,6 +59,9 @@ interface PageStateType {
   showSvHierarchyModal: boolean;
 }
 
+// TODO: Add webdriver tests for the stat var explorer, including when
+//       various stat var properties are missing as could be possible in
+//       custom DC.
 class Page extends Component<unknown, PageStateType> {
   constructor(props: unknown) {
     super(props);
@@ -77,7 +82,7 @@ class Page extends Component<unknown, PageStateType> {
     this.toggleSvHierarchyModal = this.toggleSvHierarchyModal.bind(this);
   }
 
-  private handleHashChange = () => {
+  private handleHashChange = (): void => {
     const dataset = getUrlToken(SV_URL_PARAMS.DATASET);
     const source = getUrlToken(SV_URL_PARAMS.SOURCE);
     const sv = getUrlToken(SV_URL_PARAMS.STAT_VAR);
@@ -112,14 +117,18 @@ class Page extends Component<unknown, PageStateType> {
           collapsible={false}
           svHierarchyType={StatVarHierarchyType.STAT_VAR}
           sampleEntities={entities}
-          deselectSVs={() => updateHash({ [SV_URL_PARAMS.STAT_VAR]: "" })}
+          deselectSVs={(): void => updateHash({ [SV_URL_PARAMS.STAT_VAR]: "" })}
           selectedSVs={svs}
-          selectSV={(sv) => updateHash({ [SV_URL_PARAMS.STAT_VAR]: sv })}
+          selectSV={(sv): void => updateHash({ [SV_URL_PARAMS.STAT_VAR]: sv })}
           disableAlert={true}
         />
         <div id="plot-container">
           <div className="container">
-            <h1 className="mb-4">Statistical Variable Explorer</h1>
+            <h1 className="tool-header">Statistical Variable Explorer</h1>
+            <p className="tool-description">
+              The Statistical Variable Explorer provides information about each
+              statistical variable, such as metadata, observations, etc.
+            </p>
             <DatasetSelector
               dataset={this.state.dataset}
               datasets={this.state.datasets}
@@ -172,46 +181,36 @@ class Page extends Component<unknown, PageStateType> {
    */
   private fetchSources(): void {
     axios
-      .get("/api/browser/propvals/typeOf/Source")
+      .get<Record<string, NamedTypedNode[]>>(
+        "/api/node/propvals/in?prop=typeOf&dcids=Source"
+      )
       .then((resp) => {
-        const sourcePromises = [];
-        if (!resp.data.values.in) {
+        if (!resp.data["Source"]) {
           return;
         }
-        for (const source of resp.data.values.in) {
-          const url = SVG_URL_PREFIX + source.dcid;
-          sourcePromises.push(axios.get(url).then((resp) => resp));
-        }
-        if (sourcePromises.length === 0) {
-          return;
-        }
-        Promise.all(sourcePromises).then((sourceResults) => {
-          const sourceDcids = [];
-          for (const result of sourceResults) {
-            // Filter out all sources which have no stat vars in the main hierarchy (e.g. BMDC).
-            // TODO: Use ENTITY in schema to identify sources with stats
-            if (result.data.descendentStatVarCount) {
-              sourceDcids.push(
-                result?.config?.url.replace([SVG_URL_PREFIX], "")
-              );
-            }
-          }
-          if (sourceDcids.length === 0) {
-            return;
-          }
-          axios
-            .get(`/api/stats/propvals/name/${sourceDcids.join("^")}`)
-            .then((resp) => {
-              const sources = [];
-              for (const dcid in resp.data) {
-                sources.push({
-                  dcid,
-                  name: resp.data[dcid][0],
-                });
-              }
-              this.setState({ sources });
+        const sources = resp.data["Source"];
+        const variables = STAT_VAR_HIERARCHY_CONFIG.nodes.map((n) => n.dcid);
+        axios
+          .post("/api/observation/existence", {
+            entities: resp.data["Source"].map((s) => s.dcid),
+            variables,
+          })
+          .then((exResp) => {
+            const filteredSources: NamedTypedNode[] = [];
+            const sourcesSeen = new Set<string>();
+            variables.forEach((variable) => {
+              const existence = exResp.data[variable];
+              const variableSources = sources.filter((s) => existence[s.dcid]);
+              variableSources.forEach((variableSource) => {
+                if (sourcesSeen.has(variableSource.dcid)) {
+                  return;
+                }
+                sourcesSeen.add(variableSource.dcid);
+                filteredSources.push(variableSource);
+              });
             });
-        });
+            this.setState({ sources: filteredSources });
+          });
       })
       .catch(() => {
         alert("Error fetching data.");
@@ -234,14 +233,16 @@ class Page extends Component<unknown, PageStateType> {
       return;
     }
     axios
-      .get(`/api/browser/propvals/isPartOf/${source}`)
+      .get<PropertyValues>(
+        `/api/node/propvals/in?prop=isPartOf&dcids=${source}`
+      )
       .then((resp) => {
         const currentDatasets = [];
         const datasetSet = new Set();
-        if (!resp.data.values.in) {
+        if (!resp.data[source]) {
           return;
         }
-        for (const dataset of resp.data.values.in) {
+        for (const dataset of resp.data[source]) {
           // Remove duplicates.
           if (datasetSet.has(dataset.dcid)) {
             continue;
@@ -260,9 +261,12 @@ class Page extends Component<unknown, PageStateType> {
           dcid = dataset;
         }
         axios
-          .get(`/api/stats/propvals/name/${dcid}`)
+          .get<PropertyValues>("/api/node/propvals/out", {
+            params: { dcids: [dcid], prop: "name" },
+            paramsSerializer: stringifyFn,
+          })
           .then((resp) => {
-            const name = resp.data[dcid][0];
+            const name = resp.data[dcid][0]["value"];
             this.setState({
               dataset,
               datasets: currentDatasets,
@@ -309,10 +313,16 @@ class Page extends Component<unknown, PageStateType> {
       return;
     }
     const descriptionPromise = axios
-      .get(`/api/stats/propvals/description/${sv}`)
+      .get<PropertyValues>("/api/node/propvals/out", {
+        params: { dcids: [sv], prop: "description" },
+        paramsSerializer: stringifyFn,
+      })
       .then((resp) => resp.data);
     const displayNamePromise = axios
-      .get(`/api/stats/propvals/name/${sv}`)
+      .get<PropertyValues>("/api/node/propvals/out", {
+        params: { dcids: [sv], prop: "name" },
+        paramsSerializer: stringifyFn,
+      })
       .then((resp) => resp.data);
     const summaryPromise = axios
       .get("/api/variable/info", {
@@ -324,28 +334,41 @@ class Page extends Component<unknown, PageStateType> {
       .then((resp) => resp.data);
     Promise.all([descriptionPromise, displayNamePromise, summaryPromise])
       .then(([descriptionResult, displayNameResult, summaryResult]) => {
+        const description =
+          descriptionResult[sv].length > 0
+            ? descriptionResult[sv][0].value
+            : "";
+        let displayName =
+          displayNameResult[sv].length > 0
+            ? displayNameResult[sv][0].value
+            : "";
+        displayName = displayName || description;
+        const urlMap = {};
         const provIds = [];
         for (const provId in summaryResult[sv]?.provenanceSummary) {
           provIds.push(provId);
         }
-        if (provIds.length === 0) {
-          return;
-        }
-        axios
-          .get(`/api/stats/propvals/url/${provIds.join("^")}`)
-          .then((resp) => {
-            this.setState({
-              description:
-                descriptionResult[sv].length > 0
-                  ? descriptionResult[sv][0]
-                  : "",
-              displayName: displayNameResult[sv][0],
-              error: false,
-              statVar: sv,
-              summary: summaryResult[sv],
-              urls: resp.data,
+        if (provIds.length > 0) {
+          axios
+            .get<PropertyValues>("/api/node/propvals/out", {
+              params: { dcids: provIds, prop: "url" },
+              paramsSerializer: stringifyFn,
+            })
+            .then((resp) => {
+              for (const dcid in resp.data) {
+                urlMap[dcid] =
+                  resp.data[dcid].length > 0 ? resp.data[dcid][0].value : "";
+              }
             });
-          });
+        }
+        this.setState({
+          description,
+          displayName,
+          error: false,
+          statVar: sv,
+          summary: summaryResult[sv],
+          urls: urlMap,
+        });
       })
       .catch(() => {
         this.setState({

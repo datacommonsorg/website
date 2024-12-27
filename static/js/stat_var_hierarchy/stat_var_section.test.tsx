@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
+import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 import Enzyme, { shallow } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
-import _ from "lodash";
 import React from "react";
 
 import { StatVarInfo } from "../shared/types";
@@ -36,7 +35,7 @@ test("getPrefix", () => {
       data={[]}
       pathToSelection={[]}
       entities={[]}
-      highlightedStatVar={null}
+      highlightedStatVar={React.createRef()}
     />
   );
   const cases: {
@@ -81,7 +80,9 @@ test("getPrefix", () => {
     },
   ];
   for (const c of cases) {
-    const resultPrefix = wrapper.instance().getPrefix(c.svList);
+    const resultPrefix = (wrapper.instance() as StatVarSection).getPrefix(
+      c.svList
+    );
     try {
       expect(resultPrefix).toEqual(c.wantPrefix);
     } catch (e) {

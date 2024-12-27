@@ -22,10 +22,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { DevPage } from "./dev_page";
+import { loadLocaleData } from "./i18n/i18n";
 
-window.onload = () => {
-  ReactDOM.render(
-    React.createElement(DevPage),
-    document.getElementById("charts-container")
+window.addEventListener("load", (): void => {
+  loadLocaleData("en", [import("./i18n/compiled-lang/en/units.json")]).then(
+    () => {
+      ReactDOM.render(
+        React.createElement(DevPage),
+        document.getElementById("charts-container")
+      );
+    }
   );
-};
+});

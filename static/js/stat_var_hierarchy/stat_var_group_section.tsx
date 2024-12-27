@@ -35,6 +35,10 @@ interface StatVarGroupSectionPropType {
   entities: NamedNode[];
   showAllSV: boolean;
   expandedPath: string[];
+  // Number of entities that should have data for each stat var (group) shown
+  numEntitiesExistence?: number;
+  // Source constraint for the node
+  dataSource?: string;
 }
 
 export class StatVarGroupSection extends React.Component<StatVarGroupSectionPropType> {
@@ -77,6 +81,8 @@ export class StatVarGroupSection extends React.Component<StatVarGroupSectionProp
                   isSelected={this.props.pathToSelection.length === 1}
                   showAllSV={this.props.showAllSV}
                   expandedPath={this.props.expandedPath.slice(1)}
+                  numEntitiesExistence={this.props.numEntitiesExistence}
+                  dataSource={this.props.dataSource}
                 />
               </div>
             );

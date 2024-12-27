@@ -50,13 +50,11 @@ class Places extends Component<PlacesPropType, unknown> {
                 <tr key={element.placeType}>
                   <td className="type-column">{element.placeType}</td>
                   <td className="number-column">
-                    {formatNumber(element.summary.placeCount, undefined, true)}
+                    {formatNumber(element.summary.placeCount, "", true)}
                   </td>
                   <td>
                     {element.summary.topPlaces.map((place, index) => {
-                      const url =
-                        "/tools/timeline#" +
-                        `statsVar=${this.props.statVar}&place=${place.dcid}`;
+                      const url = `/browser/${place.dcid}?statVar=${this.props.statVar}`;
                       const name = place.name || place.dcid;
                       const delimiter =
                         index < element.summary.topPlaces.length - 1

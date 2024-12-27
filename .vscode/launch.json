@@ -1,0 +1,77 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Jest Tests",
+      "type": "node",
+      "request": "launch",
+      "args": [],
+      "cwd": "${workspaceFolder}/static",
+      "console": "integratedTerminal",
+      "program": "${workspaceFolder}/static/node_modules/jest/bin/jest"
+    },
+    {
+      "name": "Flask (with NL)",
+      "type": "debugpy",
+      "request": "launch",
+      "stopOnEntry": false,
+      "python": "${workspaceFolder}/.env/bin/python3",
+      "program": "${workspaceRoot}/web_app.py",
+      "env": {
+        "FLASK_APP": "${workspaceRoot}/web_app.py",
+        "FLASK_ENV": "local",
+        "ENV_PREFIX": "DC",
+        "FLASK_DEBUG": "1",
+        "ENABLE_MODEL": "true",
+        "GOOGLE_CLOUD_PROJECT": "datcom-website-dev"
+      },
+      "args": ["8080", "--no-debugger"],
+      "cwd": "${workspaceRoot}",
+      "envFile": "${workspaceFolder}/.env",
+      "jinja": true,
+      "console": "internalConsole"
+    },
+    {
+      "name": "Flask (without NL)",
+      "type": "debugpy",
+      "request": "launch",
+      "stopOnEntry": false,
+      "python": "${workspaceFolder}/.env/bin/python3",
+      "program": "${workspaceRoot}/web_app.py",
+      "env": {
+        "FLASK_APP": "${workspaceRoot}/web_app.py",
+        "FLASK_ENV": "local",
+        "ENV_PREFIX": "DC",
+        "FLASK_DEBUG": "1",
+        "ENABLE_MODEL": "false",
+        "GOOGLE_CLOUD_PROJECT": "datcom-website-dev"
+      },
+      "args": ["8080", "--no-debugger"],
+      "cwd": "${workspaceRoot}",
+      "envFile": "${workspaceFolder}/.env",
+      "jinja": true,
+      "console": "internalConsole"
+    },
+    {
+      "name": "Flask (Custom DC with NL)",
+      "type": "debugpy",
+      "justMyCode": false,
+      "request": "launch",
+      "stopOnEntry": false,
+      "python": "${workspaceFolder}/.env/bin/python3",
+      "program": "${workspaceRoot}/web_app.py",
+      "env": {
+        "FLASK_APP": "${workspaceRoot}/web_app.py",
+        "FLASK_ENV": "custom",
+        "ENV_PREFIX": "Local",
+        "FLASK_DEBUG": "1",
+        "ENABLE_MODEL": "true"
+      },
+      "args": ["8080", "--no-debugger"],
+      "cwd": "${workspaceRoot}",
+      "envFile": "${workspaceFolder}/.vscode/.env",
+      "jinja": true,
+      "console": "internalConsole"
+    }
+  ]
+}

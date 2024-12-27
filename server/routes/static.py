@@ -14,59 +14,97 @@
 """Data Commons static content routes."""
 
 from datetime import date
-from flask import Blueprint, render_template, g
-import babel.dates as babel_dates
+import json
+import os
+
+from flask import Blueprint
+from flask import current_app
+from flask import redirect
+from flask import render_template
+from flask import request
+
+import server.lib.render as lib_render
+from server.services import datacommons as dc
 
 bp = Blueprint('static', __name__)
 
 
 @bp.route('/')
 def homepage():
-  if g.env_name == 'FEEDINGAMERICA':
-    return render_template('custom_dc/feedingamerica/homepage.html')
-  if g.env_name == 'IITM':
-    return render_template('custom_dc/iitm/homepage.html')
-  if g.env_name == 'STANFORD':
-    return render_template('custom_dc/stanford/homepage.html')
-  if g.env_name == 'STANFORD-STAGING':
-    return render_template('custom_dc/stanford/homepage.html')
-  if g.env_name == 'CUSTOM':
-    return render_template('custom_dc/default/homepage.html')
-  blog_date = babel_dates.format_date(date(2021, 7, 26),
-                                      format='long',
-                                      locale=g.locale)
-  return render_template('static/homepage.html', blog_date=blog_date)
+  # Return old homepage if hiding revamp changes
+  # http since the ssl happens in GCP load balancer.
+  if request.url == 'http://unsdg.datacommons.org/':
+    return redirect('https://unstats.un.org/UNSDWebsite/undatacommons/sdgs',
+                    code=302)
+  return lib_render.render_page(
+      "static/homepage.html",
+      "homepage.html",
+      topics=json.dumps(current_app.config.get('HOMEPAGE_TOPICS', [])),
+      partners_list=current_app.config.get('HOMEPAGE_PARTNERS', []),
+      partners=json.dumps(current_app.config.get('HOMEPAGE_PARTNERS', [])),
+      sample_questions=json.dumps(
+          current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])))
 
 
 @bp.route('/about')
 def about():
-  if g.env_name == 'FEEDINGAMERICA':
-    return render_template('custom_dc/feedingamerica/about.html')
-  if g.env_name == 'IITM':
-    return render_template('custom_dc/iitm/about.html')
-  return render_template('static/about.html')
+  return lib_render.render_page("static/about.html", "about.html")
+
+
+@bp.route('/build')
+def build():
+  return lib_render.render_page(
+      "static/build.html",
+      "build.html",
+      partners=json.dumps(current_app.config.get('HOMEPAGE_PARTNERS', [])))
 
 
 @bp.route('/faq')
 def faq():
   current_date = date.today().strftime('%-d %b %Y')
   current_year = date.today().strftime('%Y')
-  if g.env_name == 'IITM':
-    return render_template('custom_dc/iitm/faq.html',
-                           current_date=current_date,
-                           current_year=current_year)
-  return render_template('static/faq.html',
-                         current_date=current_date,
-                         current_year=current_year)
+  return lib_render.render_page("static/faq.html",
+                                "faq.html",
+                                current_date=current_date,
+                                current_year=current_year)
 
 
 @bp.route('/disclaimers')
 def disclaimers():
-  return render_template('static/disclaimers.html')
+  return lib_render.render_page("static/disclaimers.html", "disclaimers.html")
 
 
 @bp.route('/feedback')
 def feedback():
-  if g.env_name == 'IITM':
-    return render_template('custom_dc/iitm/feedback.html')
-  return render_template('static/feedback.html')
+  return lib_render.render_page("static/feedback.html", "feedback.html")
+
+
+@bp.route('/healthz')
+def healthz():
+  return "very healthy"
+
+
+# Alternate health check route in case /healthz is intercepted by infrastructure
+# (e.g. when running as a Cloud Run service)
+@bp.route('/health')
+def health():
+  return "super healthy"
+
+
+# TODO(beets): Move this to a separate handler so it won't be installed on all apps.
+@bp.route('/mcf_playground')
+def mcf_playground():
+  return render_template('mcf_playground.html')
+
+
+# TODO(shifucun): get branch cache version from mixer
+@bp.route('/version')
+def version():
+  mixer_version = dc.version()
+  return render_template('version.html',
+                         website_hash=os.environ.get("WEBSITE_HASH"),
+                         mixer_hash=mixer_version.get('gitHash', ''),
+                         tables=mixer_version.get('tables', ''),
+                         bigquery=mixer_version.get('bigquery', ''),
+                         remote_mixer_domain=mixer_version.get(
+                             'remoteMixerDomain', ''))

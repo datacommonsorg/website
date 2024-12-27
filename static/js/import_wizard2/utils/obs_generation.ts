@@ -17,7 +17,6 @@
 import _ from "lodash";
 
 import {
-  Column,
   CsvData,
   MappedThing,
   Mapping,
@@ -38,6 +37,8 @@ interface ObsGenMaps {
   thing2Const: Map<MappedThing, string>;
   // Column Index -> Mapped thing -> constant value
   col2Const: Map<number, Map<MappedThing, string>>;
+  // Column Index -> header value to use
+  col2HdrVal: Map<number, string>;
 }
 
 function hasRequiredProps(obs: Observation): boolean {
@@ -54,7 +55,11 @@ function hasRequiredProps(obs: Observation): boolean {
   return true;
 }
 
-function getCellVal(row: Array<string>, colIdx: number, valueMap: ValueMap) {
+function getCellVal(
+  row: Array<string>,
+  colIdx: number,
+  valueMap: ValueMap
+): string {
   const cellVal = row[colIdx];
   if (cellVal in valueMap) {
     return valueMap[cellVal];
@@ -64,7 +69,6 @@ function getCellVal(row: Array<string>, colIdx: number, valueMap: ValueMap) {
 
 function generateObservationsInRow(
   row: Array<string>,
-  orderedColumns: Array<Column>,
   obsGenMaps: ObsGenMaps,
   valueMap: ValueMap
 ): Array<Observation> {
@@ -86,7 +90,7 @@ function generateObservationsInRow(
     }
     // If this is a COLUMN_HEADER case, get the corresponding header value.
     if (hdrThing !== MappedThing.VALUE) {
-      obs.set(hdrThing, orderedColumns[valColIdx].header);
+      obs.set(hdrThing, obsGenMaps.col2HdrVal.get(valColIdx));
     }
     for (const mthing of Array.from(obsGenMaps.thing2Col.keys())) {
       const colIdx = obsGenMaps.thing2Col.get(mthing);
@@ -125,12 +129,14 @@ export function generateRowObservations(
     thing2Col: new Map<MappedThing, number>(),
     thing2Const: new Map<MappedThing, string>(),
     col2Const: new Map<number, Map<MappedThing, string>>(),
+    col2HdrVal: new Map<number, string>(),
   };
   for (const mthing of Array.from(mappings.keys())) {
     const mval: MappingVal = mappings.get(mthing);
     if (mval.type === MappingType.COLUMN_HEADER) {
       for (const hdr of mval.headers) {
         obsGenMaps.valCol2Hdr.set(hdr.columnIdx, mthing);
+        obsGenMaps.col2HdrVal.set(hdr.columnIdx, hdr.header);
       }
     } else if (mval.type === MappingType.COLUMN) {
       if (mthing === MappedThing.VALUE) {
@@ -154,12 +160,7 @@ export function generateRowObservations(
   const rowObs: RowObservations = new Map();
   for (const idx of Array.from(csvData.rowsForDisplay.keys())) {
     const row = csvData.rowsForDisplay.get(idx);
-    const obs = generateObservationsInRow(
-      row,
-      csvData.orderedColumns,
-      obsGenMaps,
-      valueMap
-    );
+    const obs = generateObservationsInRow(row, obsGenMaps, valueMap);
     if (obs.length > 0) {
       rowObs.set(idx, obs);
     }

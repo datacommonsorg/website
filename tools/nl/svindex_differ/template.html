@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SV Index Differ</title>
+    <script>
+      function showDetails(sectionId) {
+        var table = document.getElementById("table-" + sectionId)
+        var detailSections = table.querySelectorAll('details');
+        detailSections.forEach(function(section) {
+          section.setAttribute('open', 'open')
+        })
+        document.getElementById("show-button-" + sectionId).classList.toggle("button-hidden")
+        document.getElementById("hide-button-" + sectionId).classList.toggle("button-hidden")
+      }
+
+      function hideDetails(sectionId) {
+        var table = document.getElementById("table-" + sectionId)
+        var detailSections = table.querySelectorAll('details');
+        detailSections.forEach(function(section) {
+          section.removeAttribute('open')
+        })
+        document.getElementById("show-button-" + sectionId).classList.toggle("button-hidden")
+        document.getElementById("hide-button-" + sectionId).classList.toggle("button-hidden")
+      }
+    </script>
+  </head>
+  <style type="text/css">
+    .diff_add {
+        background-color: #aaffaa;
+    }
+    .diff_chg {
+        background-color: #ffff77;
+    }
+    .diff_sub {
+        background-color: #ffaaaa;
+    }
+    .diff_header {
+        background-color: #f0f0f0;
+        font-weight: bold;
+    }
+    table, th, td {
+        border-collapse: collapse;
+        border: 1px solid black;
+    }
+
+    td {
+        padding: 5px;
+        vertical-align: top;
+    }
+
+    td.add {
+        background-color: #aaffaa;
+    }
+
+    td.del {
+        background-color: #ffaaaa;
+    }
+
+    .button-hidden {
+      display: none;
+    }
+  </style>
+  <body>
+    <h1>Queries with Diffs</h1>
+    <pre>Test: {{test_file}}</pre>
+    <pre>Base: {{base_file}}</pre>
+    {% if diffs %}
+      <ul>
+      {% for query, diff_table_rows in diffs %}
+        <li><a href="#{{ loop.index }}">{{ loop.index }}. {{query}}</a></li>
+      {% endfor %}
+      </ul>
+
+      {% for query, diff_table_rows in diffs %}
+        <h2 id="{{ loop.index }}">{{ loop.index }}: {{query}}</h2>
+        <button id="show-button-{{ loop.index }}" onclick="showDetails('{{ loop.index }}')">show details</button>
+        <button id="hide-button-{{ loop.index }}" class="button-hidden" onclick="hideDetails('{{ loop.index }}')">hide details</button>
+        <table id="table-{{ loop.index }}">
+          {% for base, test in diff_table_rows %}
+          <tr>
+            <td style="background-color: {{ base.color }};"> 
+              <div>
+                {% if base.sv %}
+                <summary >
+                  <div>
+                    {{ base.rank }}. {{ base.sv }}
+                  </div>
+                  <div>
+                    <b>Name</b>: {{ base.name }}
+                  </div>
+                </summary>
+                <details>
+                  <div><b>score:</b>&nbsp; {{ base.score }}</div>
+                  <div><b>sentence scores:</b></br>
+                    <ul>
+                      {% for sentence_score in base.sentence_scores %}
+                      <li>{{sentence_score}}</li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </details>
+                {% endif %}
+              </div>
+            </td>
+            <td style="background-color: {{ test.color }};"> 
+              <div>
+                {% if test.sv %}
+                <summary >
+                  <div>
+                    {{ test.rank }}. {{ test.sv }}
+                  </div>
+                  <div>
+                    <b>Name</b>: {{ test.name }}
+                  </div>
+                </summary>
+                <details>
+                  <div><b>score:</b>&nbsp; {{ test.score }}</div>
+                  <div><b>sentence scores:</b>
+                    <ul>
+                      {% for sentence_score in test.sentence_scores %}
+                      <li>{{sentence_score}}</li>
+                      {% endfor %}</ul>
+                  </div>
+                </details>
+                {% endif %}
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+      {% endfor %}
+    {% else %}
+      <h2>No diffs found!</h2>
+    {% endif %}
+  </body>
+</html>

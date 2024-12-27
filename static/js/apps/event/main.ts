@@ -18,25 +18,57 @@
  * Disaster events
  */
 
+import "../../i18n/compiled-lang/en/units.json";
+
 import React from "react";
 import ReactDOM from "react-dom";
 
+import { loadLocaleData } from "../../i18n/i18n";
+import { getFilteredParentPlaces } from "../../utils/app/disaster_dashboard_utils";
 import { App } from "./app";
 
-window.onload = () => {
-  renderPage();
-};
+window.addEventListener("load", (): void => {
+  loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
+    () => {
+      renderPage();
+    }
+  );
+});
 
 function renderPage(): void {
+  // Event
   const dcid = document.getElementById("node").dataset.dcid;
   const nodeName = document.getElementById("node").dataset.nn;
-  const properties = JSON.parse(document.getElementById("node").dataset.pv);
+  const properties = JSON.parse(
+    document.getElementById("node").dataset.pv || "{}"
+  );
+  const provenance = JSON.parse(
+    document.getElementById("node").dataset.provenance || "[]"
+  );
+
+  // Event place
+  const placeDcid = document.getElementById("place").dataset.dcid;
+  const placeName = document.getElementById("place").dataset.name || placeDcid;
+  const placeTypes =
+    JSON.parse(document.getElementById("place").dataset.types) || [];
+  const place = { dcid: placeDcid, name: placeName, types: placeTypes };
+  const parentPlaces = JSON.parse(
+    document.getElementById("place").dataset.parents || "[]"
+  );
+  const subjectConfig = JSON.parse(
+    document.getElementById("subject-config").dataset.config || "{}"
+  );
+
   ReactDOM.render(
     React.createElement(App, {
-      dcid: dcid,
+      dcid,
       name: nodeName,
-      properties: properties,
+      properties,
+      provenance,
+      place,
+      subjectConfig,
+      parentPlaces: getFilteredParentPlaces(parentPlaces, place),
     }),
-    document.getElementById("node")
+    document.getElementById("main-pane")
   );
 }

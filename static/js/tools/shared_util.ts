@@ -17,7 +17,7 @@
 import _ from "lodash";
 
 import { IPCC_PLACE_50_TYPE_DCID } from "../shared/constants";
-import { Observation, StatMetadata } from "../shared/stat_types";
+import { Observation } from "../shared/stat_types";
 import { NamedPlace, NamedTypedPlace } from "../shared/types";
 import { USA_PLACE_HIERARCHY } from "./map/util";
 
@@ -46,24 +46,6 @@ export function getMatchingObservation(
     }
   }
   return series[series.length - 1];
-}
-
-/**
- * Helper function to get units given a list of observations
- */
-export function getUnit(
-  obsList: Observation[],
-  metadataMap: Record<string, StatMetadata>
-): string {
-  for (const obs of obsList) {
-    const facetId = obs.facet;
-    if (facetId in metadataMap) {
-      if (metadataMap[facetId].unit) {
-        return metadataMap[facetId].unit;
-      }
-    }
-  }
-  return "";
 }
 
 /**
@@ -164,6 +146,15 @@ export function isChildPlaceOf(
 }
 
 /**
+ * Check whether a place is USA city or county.
+ * @param dcid The dcid of a place
+ * @returns boolean
+ */
+export function isUSACountyOrCity(dcid: string): boolean {
+  return dcid.startsWith("geoId/") && (dcid.length === 11 || dcid.length == 13);
+}
+
+/**
  * Transforms a string to Title Case.
  * @param str the string to transform.
  */
@@ -187,20 +178,21 @@ export function computeRatio(
   denom: Observation[],
   scaling = 1
 ): Observation[] {
-  if (!denom) {
+  if (_.isEmpty(denom)) {
     return [];
   }
   const result: Observation[] = [];
   let j = 0; // denominator position
   for (let i = 0; i < num.length; i++) {
     const numDate = Date.parse(num[i].date);
-    const denomDate = Date.parse(denom[j].date);
+    let denomDate = Date.parse(denom[j].date);
     while (j < denom.length - 1 && numDate > denomDate) {
       const denomDateNext = Date.parse(denom[j + 1].date);
       const nextBetter =
         Math.abs(denomDateNext - numDate) < Math.abs(denomDate - numDate);
       if (nextBetter) {
         j++;
+        denomDate = Date.parse(denom[j].date);
       } else {
         break;
       }

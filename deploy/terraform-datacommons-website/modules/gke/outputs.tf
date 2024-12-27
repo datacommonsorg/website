@@ -15,3 +15,7 @@
 output "name" {
   value = local.cluster_name
 }
+
+output "location" {
+  value = var.location
+}

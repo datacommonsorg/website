@@ -28,6 +28,8 @@ import {
   StatMetadata,
 } from "../../shared/stat_types";
 import { stringifyFn } from "../../utils/axios";
+import { getSeries } from "../../utils/data_fetch_utils";
+import { getPlaceDisplayNames } from "../../utils/place_utils";
 import { computeRatio } from "../shared_util";
 
 export interface StatData {
@@ -162,23 +164,10 @@ export function fetchRawData(
     facets: {},
   });
   if (denom) {
-    denomDataPromise = axios
-      .get("/api/observations/series", {
-        params: {
-          entities: places,
-          variables: [denom],
-        },
-        paramsSerializer: stringifyFn,
-      })
-      .then((resp) => {
-        return resp.data;
-      });
+    denomDataPromise = getSeries("", places, [denom]);
   }
-  const displayNamesPromise: Promise<DisplayNameApiResponse> = axios
-    .get(`/api/place/displayname?dcid=${places.join("&dcid=")}`)
-    .then((resp) => {
-      return resp.data;
-    });
+  const displayNamesPromise: Promise<DisplayNameApiResponse> =
+    getPlaceDisplayNames(places);
 
   const statAllDataPromise: Promise<SeriesAllApiResponse> = axios
     .get("/api/observations/series/all", {
@@ -235,8 +224,8 @@ export function getStatData(
   scaling = 1
 ): StatData {
   const result: StatData = {
-    places: places,
-    statVars: statVars,
+    places,
+    statVars,
     dates: [],
     data: {},
     sources: new Set(),
@@ -392,7 +381,7 @@ export function statDataFromModels(
       const means: Observation[] = [];
       for (const date in dateVals) {
         means.push({
-          date: date,
+          date,
           value: _.mean(dateVals[date]),
         });
       }
@@ -409,8 +398,26 @@ export function statDataFromModels(
     }
   }
   mainStatData.sources = modelData.sources;
-  mainStatData.measurementMethods.add("Mean across models");
-  // Main stat data is mean of multiple facets, so unset facets here.
+  mainStatData.measurementMethods = new Set(["Mean across models"]);
+  // mainStatData only has sources, measurementMethods, and facets relevant for
+  // model stat vars. Go through all the data in mainStatData to add information
+  // for the non model stat vars.
+  for (const svData of Object.values(mainStatData.data)) {
+    for (const series of Object.values(svData)) {
+      const facetId = series.facet;
+      const metadata = allFacets[facetId];
+      if (!metadata) {
+        continue;
+      }
+      mainStatData.facets[facetId] = metadata;
+      if (metadata.provenanceUrl) {
+        mainStatData.sources.add(metadata.provenanceUrl);
+      }
+      if (metadata.measurementMethod) {
+        mainStatData.measurementMethods.add(metadata.measurementMethod);
+      }
+    }
+  }
   modelData.statVars = Array.from(new Set(modelData.statVars));
   modelData.dates = mainStatData.dates;
   return [mainStatData, modelData];

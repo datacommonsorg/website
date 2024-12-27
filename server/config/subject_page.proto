@@ -26,6 +26,8 @@ package datacommons;
 
 message SeverityFilter {
   string prop = 1;
+  // Display string to use for the prop.
+  string display_name = 5;
   string unit = 2;
   double lower_limit = 3;
   double upper_limit = 4;
@@ -42,6 +44,21 @@ message EventTypeSpec {
   string color = 4;
   // Default severity filter to use for this event type.
   SeverityFilter default_severity_filter = 5;
+  // Severity filter overrides, keyed by place type.
+  map<string, SeverityFilter> place_type_severity_filter = 10;
+  // Properties to display from the propVals object of an event (in tooltips, ranking, etc).
+  message DisplayProp {
+    string prop = 1;
+    string display_name = 2;
+    string unit = 3;
+  }
+  repeated DisplayProp display_prop = 6;
+  // List of props that could be used to hold the end date for this event type
+  repeated string end_date_prop = 7;
+  // The prop to use to get the polygon geojson for this event type
+  string polygon_geo_json_prop = 8;
+  // The prop to use to get the path geojson for this event type
+  string path_geo_json_prop = 9;
 }
 
 message PageMetadata {
@@ -55,6 +72,14 @@ message PageMetadata {
   // Event type information to be used by this config. The key is the event
   // type id and the value is the spec for that event type.
   map<string, EventTypeSpec> event_type_spec = 5;
+
+  // A group of places characterized by place type and parent place
+  message PlaceGroup {
+    string parent_place = 1;
+    string place_type = 2;
+  }
+  // List of place groups supported by this config.
+  repeated PlaceGroup place_group = 6;
 }
 
 message StatVarSpec {
@@ -68,79 +93,356 @@ message StatVarSpec {
   bool log = 5;
   // The name to use for the stat var in labels and titles.
   string name = 6;
+  // [Optional] The date to use when getting data for the stat var. Will use the
+  // latest date if not set. Only enabled in map, ranking, scatter, and highlight tiles.
+  string date = 7;
+  // [Optional] Whether to prevent this variable from being shown per capita. 
+  bool no_per_capita = 8;
+  // [Optional] If set, only get data from facet with this id.
+  string facet_id = 9;
 }
 
+// This ranks across child places for a single stat var.
 message RankingTileSpec {
   bool show_highest = 1;
   bool show_lowest = 2;
-  bool show_increase = 3;
-  bool show_decrease = 4;
 
   string diff_base_date = 5; // For comparisons
 
-  // Titles can include the ${statVar} placeholder.
+  // Titles can include the ${statVar} and ${date} placeholder.
   string highest_title = 6;
   string lowest_title = 7;
-  string increase_title = 8;
-  string decrease_title = 9;
+
+  // Number of items to show in the ranking tile. If not set, 5 items will be
+  // shown.
+  int32 ranking_count = 10;
+
+  // If true, all highest and lowest sv's will be grouped into a single, multi-column table.
+  // Ranking is done by the last specified SV for the tile.
+  bool show_multi_column = 11;
+
+  // If true, will show a single list with ranking_count top points and
+  // ranking_count bottom points separated by "...". If true, show_highest
+  // and show_lowest will be ignored.
+  bool show_highest_lowest = 12;
 }
 
 message DisasterEventMapTileSpec {
-  // Keys for event type specs defined in the PageMetadata that should be displayed
-  repeated string event_type_keys = 1;
+  // Keys for event type specs defined in the PageMetadata that should be displayed as points on the map
+  repeated string point_event_type_key = 1;
+  // Keys for event type specs defined in the PageMetadata that should be displayed as polygons on the map
+  repeated string polygon_event_type_key = 2;
+  // Keys for event type specs defined in the PageMetadata that should be displayed as paths on the map
+  repeated string path_event_type_key = 3;
+}
+
+message HistogramTileSpec {
+  // Key for event type specs defined in the PageMetadata that should be displayed
+  string event_type_key = 1;
+  // Property of the events to aggregate. If blank, defaults to count.
+  string prop = 2;
+}
+
+message TopEventTileSpec {
+  // Key for event type specs defined in the PageMetadata that should be displayed
+  // Ranked by severity prop.
+  string event_type_key = 1;
+  // Event properties to display. Uses the display string from EventTypeSpec.
+  repeated string display_prop = 2;
+  bool show_start_date = 3;
+  bool show_end_date = 4;
+  bool reverse_sort = 5;
+
+  // Number of items to show in the ranking tile. If not set, 10 items will be
+  // shown.
+  int32 ranking_count = 6;
+}
+
+message ScatterTileSpec {
+  bool highlight_top_right = 1;
+  bool highlight_top_left = 2;
+  bool highlight_bottom_right = 3;
+  bool highlight_bottom_left = 4;
+  bool show_place_labels = 5;
+  bool show_quadrants = 6;
+}
+
+message BarTileSpec {
+  enum SortType {
+    TYPE_UNSPECIFIED = 0;
+    ASCENDING = 1;
+    DESCENDING = 2;
+    ASCENDING_POPULATION = 3;
+    DESCENDING_POPULATION = 4;
+  }
+  // [optional] The root url to use for labels in the x-axis. If not specified,
+  // labels in the x-axis will link to Place Explorer.
+  string x_label_link_root = 1;
+  // Bar height for horizontal bar charts
+  double bar_height = 2;
+  // specific colors to use, as a list of CSS-compatible color strings
+  repeated string colors = 3;
+  // whether to plot bars horizontally.
+  bool horizontal = 4;
+  // maximum number of places to display
+  int32 max_places = 5;
+  // maximum number of variables to display
+  int32 max_variables = 6;
+  // bar sort order
+  // default: SORT_DESCENDING_POPULATION
+  SortType sort = 7;
+  // whether to stack bars instead of grouping them
+  bool stacked = 8;
+  // whether to draw lollipops instead of bars
+  bool use_lollipop = 9;
+  // y-axis margin
+  double y_axis_margin = 10;
+  // [optional] Replace the variable name display with the first match from
+  // this regular expression. For example, if the variableNameRegex is 
+  // "(.*?)(?=:)", only the part before a ":" will be used for variable names.
+  // So "variable 1: test" will become "variable 1".
+  string variable_name_regex = 11;
+  // [optional] default variable name used with variableNameRegex. If provided
+  // and no variable name can be extracted using variableNameRegex, use this 
+  // as the variable name.
+  string default_variable_name = 12;
+}
+
+message GaugeTileSpec {
+  message Range {
+    double min = 1;
+    double max = 2;
+  }
+  // Range of values represented by the gauge
+  Range range = 1;
+  // specific colors to use, as a list of CSS-compatible color strings
+  repeated string colors = 2;
+}
+
+message DonutTileSpec {
+  // specific colors to use, as a list of CSS-compatible color strings
+  repeated string colors = 1;
+  // whether to draw as full pie chart instead of a donut
+  bool pie = 2;
+}
+
+message LineTileSpec {
+  enum TimeScaleType {
+    TYPE_UNSPECIFIED = 0;
+    MONTH = 1;
+    YEAR = 2;
+    DAY = 3;
+  }
+  // specific colors to use, as a list of CSS-compatible color strings
+  repeated string colors = 1;
+  // [optional] Use a specific time scale for this chart.
+  TimeScaleType timeScale = 2;
+  // [optional] Replace the variable name display with the first match from
+  // this regular expression. For example, if the variableNameRegex is 
+  // "(.*?)(?=:)", only the part before a ":" will be used for variable names.
+  // So "variable 1: test" will become "variable 1".
+  string variable_name_regex = 3;
+  // [optional] default variable name used with variableNameRegex. If provided
+  // and no variable name can be extracted using variableNameRegex, use this 
+  // as the variable name.
+  string default_variable_name = 4;
+  // [optional] Earliest date to show on the chart.
+  string start_date = 5;
+  // [optional] Latest date to show on the chart.
+  string end_date = 6;
+  // [optional] date to highlight on the chart.
+  string highlight_date = 7;
+}
+
+message MapTileSpec {
+  // specific colors to use, as a list of CSS-compatible color strings
+  repeated string colors = 2;
+  // [optional] knowledge graph property containing the place GeoJSON
+  string geo_json_prop = 3;
+}
+
+// Spec for just displaying a value
+message DisplayValueSpec {
+  // The value(s) to display
+  repeated string values = 1;
+  // The source(s) of the values
+  repeated string sources = 2;
+}
+
+message AnswerMessageTileSpec {
+  // The answer to display in the tile
+  oneof answer {
+    // Relation expression that describes a property
+    // (https://docs.datacommons.org/api/rest/v2#relation-expressions)
+    string property_expr = 1;
+    DisplayValueSpec display_value = 2;
+  }
+}
+
+message AnswerTableTileSpec {
+  // A single column in a table
+  message TableColumn {
+    // The header to use for the column
+    string header = 1;
+    // Relation expression that describes a property
+    // (https://docs.datacommons.org/api/rest/v2#relation-expressions)
+    string property_expr = 2;
+  }
+  // List of columns to show in the tile
+  repeated TableColumn columns = 1;
 }
 
 message Tile {
-  // When adding a new TileType, make sure to update verify_tile in subject_page_configs_test.py
-  // with any required fields for your new TileType.
+  // When adding a new TileType:
+  // - make sure to update verify_tile in subject_page_config_content_test.py
+  //   with any required fields for your new TileType.
+  // - specify what block types can render the tiles.
+  // - update *_FILTER_TILE_TYPES in lib/subject_page_config.py
   enum TileType {
     TYPE_NONE = 0;
+    // allowed in BlockTypes: TYPE_NONE
     LINE = 1;
+    // allowed in BlockTypes: TYPE_NONE
     BAR = 2;
+    // allowed in BlockTypes: TYPE_NONE
     MAP = 3;
+    // allowed in BlockTypes: TYPE_NONE
     SCATTER = 4;
+    // allowed in BlockTypes: TYPE_NONE
     BIVARIATE = 5;
+    // allowed in BlockTypes: TYPE_NONE
     RANKING = 6;
+    // allowed in BlockTypes: TYPE_NONE
     HIGHLIGHT = 7;
+    // allowed in BlockTypes: TYPE_NONE
     DESCRIPTION = 8;
-    DISASTER_EVENT_MAP = 9;
+    // allowed in BlockTypes: TYPE_NONE
+    GAUGE = 13;
+    // allowed in BlockTypes: TYPE_NONE
+    DONUT = 14;
+    // allowed in BlockTypes: TYPE_NONE
     HISTOGRAM = 10;
+    // allowed in BlockTypes: TYPE_NONE
+    PLACE_OVERVIEW = 11;
+    // allowed in BlockTypes: DISASTER_EVENT
+    TOP_EVENT = 12;
+    // allowed in BlockTypes: DISASTER_EVENT
+    DISASTER_EVENT_MAP = 9;
+    // allowed in BlockTypes: TYPE_NONE
+    ENTITY_OVERVIEW = 15;
+    // allowed in BlockTypes: TYPE_NONE
+    ANSWER_MESSAGE = 16;
+    // allowed in BlockTypes: TYPE_NONE
+    ANSWER_TABLE = 17;
   }
-  // Must be specified for all visual tiles
+  // Must be specified for all visual tiles. Supports ${statVar}, ${placeName} placeholders.
+  // For map, bar, ranking: supports ${date} placeholder.
+  // For scatter: supports ${xDate} and ${yDate} placeholder.
   string title = 1;
-  // Must be set for HIHGLIGHT tiles
+  // Must be set for HIGHLIGHT tiles
   string description = 2;
   TileType type = 3;
   // Key for a StatVarSpec defined in the containing Category
   repeated string stat_var_key = 4;
-  // [optional] a list of place dcids used for this tile.
+  // [optional] a list of place dcids used for this tile. Can also be "self" to
+  // use the main place id of the page. Only used for BAR and LINE tiles.
   repeated string comparison_places = 7;
+  // [optional] If set, used instead of main place for the page.
+  string place_dcid_override = 11;
+  // [optional] used only in ranking tiles
+  // set to true to hide the footer with download / explore more link
+  bool hide_footer = 17;
+  // [optional] Tile subtitle
+  string subtitle = 18;
+  // [optional] knowledge graph property containing the place name
+  string place_name_prop = 19;
+  // List of entities to use in the tile.
+  // Only used in ANSWER_MESSAGE, ANSWER_TABLE, and ENTITY_OVERVIEW for now.
+  // TODO: use this for all other tile types as well.
+  repeated string entities = 22;
 
   // specs for specific tile types
   oneof tile_type_spec {
     RankingTileSpec ranking_tile_spec = 5;
     DisasterEventMapTileSpec disaster_event_map_tile_spec = 6;
+    TopEventTileSpec top_event_tile_spec = 8;
+    ScatterTileSpec scatter_tile_spec = 9;
+    HistogramTileSpec histogram_tile_spec = 10;
+    BarTileSpec bar_tile_spec = 12;
+    GaugeTileSpec gauge_tile_spec = 13;
+    DonutTileSpec donut_tile_spec = 14;
+    LineTileSpec line_tile_spec = 15;
+    MapTileSpec map_tile_spec = 16;
+    AnswerMessageTileSpec answer_message_tile_spec = 20;
+    AnswerTableTileSpec answer_table_tile_spec = 21;
+  }
+}
+
+message DisasterBlockSpec {
+  enum DateRange {
+    TYPE_NONE = 0;
+    THIRTY_DAYS = 1;
+    SIX_MONTHS = 2;
+    ONE_YEAR = 3;
+    THREE_YEARS = 4;
+  }
+  // [optional] If set, use as default date. Otherwise, default date is
+  // THREE_YEARS for all places except for Earth, which defaults to ONE_YEAR.
+  oneof default_date {
+    DateRange date_range = 1;
+    string date = 2;
   }
 }
 
 message Block {
+  // Title and description can include ${placeName} and ${place_dcid} placeholder strings.
   string title = 1;
   string description = 2;
+  // Footnote that goes across the bottom of each block. Multiple footnotes can
+  // be added, separated by "\n\n".
+  string footnote = 5;
 
   message Column {
     repeated Tile tiles = 1;
   }
   repeated Column columns = 3;
+
+  // When adding a new BlockType, make sure to update BLOCK_TYPE_ALLOWED_TILES
+  // in subject_page_config_content_test.py with allowed TileTypes for the new
+  // BlockType.
+  enum BlockType {
+    TYPE_NONE = 0;
+    DISASTER_EVENT = 1;
+  }
+  BlockType type = 4;
+  // If denom is set, adds a per capita toggle on the block. If per capita is
+  // toggled on, all tiles in the block will use this denom to calculate per
+  // capita.
+  string denom = 6;
+  // Whether or not the block should use the denom when first rendered. Only
+  // used if denom is set. Defaults to false.
+  bool start_with_denom = 7;
+  // specs for specific block types
+  oneof block_type_spec {
+    DisasterBlockSpec disaster_block_spec = 8;
+  }
+  // Message to be displayed to the user
+  string info_message = 9;
 }
 
 message Category {
+  // Title and description can include ${placeName} and ${place_dcid} placeholder strings.
   string title = 1;
+  // Description can also have markdown.
   string description = 2;
   map<string, StatVarSpec> stat_var_spec = 4;
   repeated Block blocks = 3;
+  // If the category corresponds to an entity (like topic) this includes the dcid.
+  string dcid = 5;
 }
 
 message SubjectPageConfig {
   PageMetadata metadata = 1;
   repeated Category categories = 2;
+  reserved 3;
 }

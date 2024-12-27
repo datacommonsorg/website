@@ -111,7 +111,7 @@ class Page extends Component<unknown, PageStateType> {
     });
   }
 
-  private onSvHierarchyModalOpened() {
+  private onSvHierarchyModalOpened(): void {
     if (
       this.svHierarchyModalRef.current &&
       this.svHierarchyContainerRef.current
@@ -122,7 +122,7 @@ class Page extends Component<unknown, PageStateType> {
     }
   }
 
-  private onSvHierarchyModalClosed() {
+  private onSvHierarchyModalClosed(): void {
     document
       .getElementById("explore")
       .appendChild(this.svHierarchyContainerRef.current);
@@ -142,7 +142,7 @@ class Page extends Component<unknown, PageStateType> {
       sv.includes("|") ? sv.split("|")[0] : sv
     );
 
-    const deselectSVs = (svList: string[]) => {
+    const deselectSVs = (svList: string[]): void => {
       const availableSVs = statVars.filter((sv) => svList.indexOf(sv) === -1);
       const statVarTokenInfo = {
         name: TIMELINE_URL_PARAM_KEYS.STAT_VAR,
@@ -157,7 +157,6 @@ class Page extends Component<unknown, PageStateType> {
       svToSvInfo[sv] =
         sv in this.state.statVarInfo ? this.state.statVarInfo[sv] : {};
     }
-
     return (
       <>
         <StatVarWidget
@@ -168,13 +167,20 @@ class Page extends Component<unknown, PageStateType> {
           sampleEntities={namedPlaces}
           deselectSVs={deselectSVs}
           selectedSVs={svToSvInfo}
-          selectSV={(sv) =>
+          selectSV={(sv): void =>
             addToken(TIMELINE_URL_PARAM_KEYS.STAT_VAR, statVarSep, sv)
           }
         />
         <div id="plot-container">
           <Container fluid={true}>
-            {numPlaces === 0 && <h1 className="mb-4">Timelines Explorer</h1>}
+            {numPlaces === 0 && (
+              <div className="app-header">
+                <h1 className="mb-4">Timelines Explorer</h1>
+                <a href="/tools/visualization#visType%3Dtimeline">
+                  Go back to the new Data Commons
+                </a>
+              </div>
+            )}
             <Card id="place-search">
               <Row>
                 <Col sm={12}>
@@ -183,13 +189,13 @@ class Page extends Component<unknown, PageStateType> {
                 <Col sm={12}>
                   <SearchBar
                     places={this.state.placeName}
-                    addPlace={(place) => {
+                    addPlace={(place): void => {
                       addToken(TIMELINE_URL_PARAM_KEYS.PLACE, placeSep, place);
                       triggerGAEvent(GA_EVENT_TOOL_PLACE_ADD, {
                         [GA_PARAM_PLACE_DCID]: place,
                       });
                     }}
-                    removePlace={(place) => {
+                    removePlace={(place): void => {
                       removeToken(
                         TIMELINE_URL_PARAM_KEYS.PLACE,
                         placeSep,

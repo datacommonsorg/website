@@ -19,7 +19,7 @@ import React from "react";
 
 import { PageHighlight } from "../chart/types";
 import { intl } from "../i18n/i18n";
-import { urlToDomain } from "../shared/util";
+import { urlToDisplayText } from "../shared/util";
 
 interface PlaceHighlightPropsType {
   dcid: string;
@@ -49,10 +49,10 @@ class PlaceHighlight extends React.Component<PlaceHighlightPropsType> {
       const factStatVar = Object.keys(factData)[0];
       const factValue = factData[factStatVar];
       const sourcesJsx = factSnapshot.sources.map((source, index) => {
-        const domain = urlToDomain(source);
+        const sourceText = urlToDisplayText(source);
         return (
           <span key={source}>
-            <a href={source}>{domain}</a>
+            <a href={source}>{sourceText}</a>
             {index < factSnapshot.sources.length - 1 ? ", " : ""}
           </span>
         );

@@ -1,0 +1,711 @@
+{
+  "client": "test_fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Countries That Have Conducted at Least One Population and Housing Census in the Last 10 Years in the World",
+                    "statVarKey": [
+                      "sdg/SG_REG_CENSUSN"
+                    ],
+                    "title": "Countries That Have Conducted at Least One Population and Housing Census in the Last 10 Years in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: demographic and social statistics branch, united nations statistics division (UNSD), department of economic and social affairs, united nations.",
+            "title": "Countries That Have Conducted at Least One Population and Housing Census in the Last 10 Years"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SG_REG_CENSUSN"
+                    ],
+                    "title": "Countries That Have Conducted at Least One Population and Housing Census in the Last 10 Years in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: demographic and social statistics branch, united nations statistics division (UNSD), department of economic and social affairs, united nations.",
+            "title": "Countries That Have Conducted at Least One Population and Housing Census in the Last 10 Years in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Countries With Birth Registration Data That Are at Least 90 Percent Complete in the World",
+                    "statVarKey": [
+                      "sdg/SG_REG_BRTH90N"
+                    ],
+                    "title": "Countries With Birth Registration Data That Are at Least 90 Percent Complete in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SG_REG_BRTH90N"
+                    ],
+                    "title": "Countries With Birth Registration Data That Are at Least 90 Percent Complete in the World",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: demographic and social statistics branch, united nations statistics division (UNSD), department of economic and social affairs, united nations.",
+            "title": "Countries With Birth Registration Data That Are at Least 90 Percent Complete"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SG_REG_BRTH90N"
+                    ],
+                    "title": "Countries With Birth Registration Data That Are at Least 90 Percent Complete in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: demographic and social statistics branch, united nations statistics division (UNSD), department of economic and social affairs, united nations.",
+            "title": "Countries With Birth Registration Data That Are at Least 90 Percent Complete in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Countries With Death Registration Data That Are at Least 75 Percent Complete in the World",
+                    "statVarKey": [
+                      "sdg/SG_REG_DETH75N"
+                    ],
+                    "title": "Countries With Death Registration Data That Are at Least 75 Percent Complete in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SG_REG_DETH75N"
+                    ],
+                    "title": "Countries With Death Registration Data That Are at Least 75 Percent Complete in the World",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: demographic and social statistics branch, united nations statistics division (UNSD), department of economic and social affairs, united nations.",
+            "title": "Countries With Death Registration Data That Are at Least 75 Percent Complete"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SG_REG_DETH75N"
+                    ],
+                    "title": "Countries With Death Registration Data That Are at Least 75 Percent Complete in the World (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: demographic and social statistics branch, united nations statistics division (UNSD), department of economic and social affairs, united nations.",
+            "title": "Countries With Death Registration Data That Are at Least 75 Percent Complete in the World"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Proportion of Countries That Have Conducted at Least One Population and Housing Census in the Last 10 Years in the World",
+                    "statVarKey": [
+                      "sdg/SG_REG_CENSUS"
+                    ],
+                    "title": "Proportion of Countries That Have Conducted at Least One Population and Housing Census in the Last 10 Years in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: demographic and social statistics branch, united nations statistics division (UNSD), department of economic and social affairs, united nations.",
+            "title": "Proportion of Countries That Have Conducted at Least One Population and Housing Census in the Last 10 Years"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Proportion of Countries With Birth Registration Data That Are at Least 90 Percent Complete in the World",
+                    "statVarKey": [
+                      "sdg/SG_REG_BRTH90"
+                    ],
+                    "title": "Proportion of Countries With Birth Registration Data That Are at Least 90 Percent Complete in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SG_REG_BRTH90"
+                    ],
+                    "title": "Proportion of Countries With Birth Registration Data That Are at Least 90 Percent Complete in the World",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: demographic and social statistics branch, united nations statistics division (UNSD), department of economic and social affairs, united nations.",
+            "title": "Proportion of Countries With Birth Registration Data That Are at Least 90 Percent Complete"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Proportion of Countries With Death Registration Data That Are at Least 75 Percent Complete in the World",
+                    "statVarKey": [
+                      "sdg/SG_REG_DETH75"
+                    ],
+                    "title": "Proportion of Countries With Death Registration Data That Are at Least 75 Percent Complete in the World",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SG_REG_DETH75"
+                    ],
+                    "title": "Proportion of Countries With Death Registration Data That Are at Least 75 Percent Complete in the World",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: demographic and social statistics branch, united nations statistics division (UNSD), department of economic and social affairs, united nations.",
+            "title": "Proportion of Countries With Death Registration Data That Are at Least 75 Percent Complete"
+          }
+        ],
+        "statVarSpec": {
+          "sdg/SG_REG_BRTH90": {
+            "name": "Proportion of countries with birth registration data that are at least 90 percent complete",
+            "statVar": "sdg/SG_REG_BRTH90"
+          },
+          "sdg/SG_REG_BRTH90N": {
+            "name": "Countries with birth registration data that are at least 90 percent complete",
+            "statVar": "sdg/SG_REG_BRTH90N"
+          },
+          "sdg/SG_REG_CENSUS": {
+            "name": "Proportion of countries that have conducted at least one population and housing census in the last 10 years",
+            "statVar": "sdg/SG_REG_CENSUS"
+          },
+          "sdg/SG_REG_CENSUSN": {
+            "name": "Countries that have conducted at least one population and housing census in the last 10 years",
+            "statVar": "sdg/SG_REG_CENSUSN"
+          },
+          "sdg/SG_REG_DETH75": {
+            "name": "Proportion of countries with death registration data that are at least 75 percent complete",
+            "statVar": "sdg/SG_REG_DETH75"
+          },
+          "sdg/SG_REG_DETH75N": {
+            "name": "Countries with death registration data that are at least 75 percent complete",
+            "statVar": "sdg/SG_REG_DETH75N"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "containedPlaceTypes": {
+        "Place": "Country"
+      },
+      "placeDcid": [
+        "Earth"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "entities": [],
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "Earth",
+    "name": "World",
+    "place_type": "Place"
+  },
+  "placeFallback": {},
+  "placeSource": "UNKNOWN",
+  "places": [
+    {
+      "dcid": "Earth",
+      "name": "World",
+      "place_type": "Place"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {
+      "Country": [
+        {
+          "dcid": "country/ABW",
+          "name": "Aruba",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AFG",
+          "name": "Afghanistan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AGO",
+          "name": "Angola",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AIA",
+          "name": "Anguilla",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ALA",
+          "name": "\u00c5land Islands",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ALB",
+          "name": "Albania",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AND",
+          "name": "Andorra",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ANT",
+          "name": "Netherlands Antilles",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ARE",
+          "name": "United Arab Emirates",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ARG",
+          "name": "Argentina",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ARM",
+          "name": "Armenia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ASM",
+          "name": "American Samoa",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATA",
+          "name": "Antarctica",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATB",
+          "name": "British Antarctic Territory",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATF",
+          "name": "French Southern Territories",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATG",
+          "name": "Antigua and Barbuda",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/ATN",
+          "name": "Dronning Maud Land",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AUS",
+          "name": "Australia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AUT",
+          "name": "Austria",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/AZE",
+          "name": "Azerbaijan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BDI",
+          "name": "Burundi",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BEL",
+          "name": "Belgium",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BEN",
+          "name": "Benin",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BES",
+          "name": "Bonaire, Sint Eustatius and Saba",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BFA",
+          "name": "Burkina Faso",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BGD",
+          "name": "Bangladesh",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BGR",
+          "name": "Bulgaria",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BHR",
+          "name": "Bahrain",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BHS",
+          "name": "Bahamas",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BIH",
+          "name": "Bosnia and Herzegovina",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BLM",
+          "name": "Saint Barth\u00e9lemy",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BLR",
+          "name": "Belarus",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BLZ",
+          "name": "Belize",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BMU",
+          "name": "Bermuda",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BOL",
+          "name": "Bolivia",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BRA",
+          "name": "Brazil",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BRB",
+          "name": "Barbados",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BRN",
+          "name": "Brunei",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BTN",
+          "name": "Bhutan",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BVT",
+          "name": "Bouvet Island",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/BWA",
+          "name": "Botswana",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CAF",
+          "name": "Central African Republic",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CAN",
+          "name": "Canada",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CCK",
+          "name": "Cocos (Keeling) Islands",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CHE",
+          "name": "Switzerland",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CHL",
+          "name": "Chile",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CHN",
+          "name": "China",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CIV",
+          "name": "C\u00f4te d'Ivoire",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/CMR",
+          "name": "Cameroon",
+          "types": [
+            "Country"
+          ]
+        },
+        {
+          "dcid": "country/COD",
+          "name": "Congo [DRC]",
+          "types": [
+            "Country"
+          ]
+        }
+      ]
+    },
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/sdg_17.19.2",
+        "name": "17.19.2: Proportion of countries that (a) have conducted at least one population and housing census in the last 10 years; and (b) have achieved 100 per cent birth registration and 80 per cent death registration",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/sdg_17.19",
+        "name": "17.19: By 2030, build on existing initiatives to develop measurements of progress on sustainable development that complement gross domestic product, and support statistical capacity-building in developing countries",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/sdg_17.19.1",
+        "name": "17.19.1: Dollar value of all resources made available to strengthen statistical capacity in developing countries",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "varToTopics": {
+      "sdg/SG_REG_BRTH90": [
+        {
+          "dcid": "dc/topic/sdg_17.19.2",
+          "name": "17.19.2: Proportion of countries that (a) have conducted at least one population and housing census in the last 10 years; and (b) have achieved 100 per cent birth registration and 80 per cent death registration",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SG_REG_BRTH90N": [
+        {
+          "dcid": "dc/topic/sdg_17.19.2",
+          "name": "17.19.2: Proportion of countries that (a) have conducted at least one population and housing census in the last 10 years; and (b) have achieved 100 per cent birth registration and 80 per cent death registration",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SG_REG_CENSUS": [
+        {
+          "dcid": "dc/topic/sdg_17.19.2",
+          "name": "17.19.2: Proportion of countries that (a) have conducted at least one population and housing census in the last 10 years; and (b) have achieved 100 per cent birth registration and 80 per cent death registration",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SG_REG_CENSUSN": [
+        {
+          "dcid": "dc/topic/sdg_17.19.2",
+          "name": "17.19.2: Proportion of countries that (a) have conducted at least one population and housing census in the last 10 years; and (b) have achieved 100 per cent birth registration and 80 per cent death registration",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SG_REG_DETH75": [
+        {
+          "dcid": "dc/topic/sdg_17.19.2",
+          "name": "17.19.2: Proportion of countries that (a) have conducted at least one population and housing census in the last 10 years; and (b) have achieved 100 per cent birth registration and 80 per cent death registration",
+          "types": [
+            "Topic"
+          ]
+        }
+      ],
+      "sdg/SG_REG_DETH75N": [
+        {
+          "dcid": "dc/topic/sdg_17.19.2",
+          "name": "17.19.2: Proportion of countries that (a) have conducted at least one population and housing census in the last 10 years; and (b) have achieved 100 per cent birth registration and 80 per cent death registration",
+          "types": [
+            "Topic"
+          ]
+        }
+      ]
+    }
+  },
+  "svSource": "UNKNOWN",
+  "userMessages": []
+}

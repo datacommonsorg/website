@@ -13,6 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+terraform {
+  backend "gcs" {}
+}
+
+provider "google" {
+  project               = var.project_id
+  billing_project       = var.project_id
+  user_project_override = true
+}
+
 locals {
   resource_suffix    = var.use_resource_suffix ? format("-%s", var.resource_suffix) : ""
   web_robot_sa_email = (
@@ -54,6 +64,7 @@ module "apikeys" {
   source                   =  "../../modules/apikeys"
   project_id               = var.project_id
   dc_website_domain        = var.dc_website_domain
+  location                 = var.location
 
   resource_suffix          = local.resource_suffix
 }
@@ -61,12 +72,13 @@ module "apikeys" {
 module "esp" {
   source                   =  "../../modules/esp"
   project_id               = var.project_id
+  mixer_githash            = var.mixer_githash
 }
 
 module "cluster" {
   source                   =  "../../modules/gke"
   project_id               = var.project_id
-  region                   = var.region
+  location                 = var.location
   cluster_name_prefix      = var.cluster_name_prefix
   web_robot_sa_email       = local.web_robot_sa_email
 
@@ -80,61 +92,16 @@ module "cluster" {
 }
 
 resource "google_compute_managed_ssl_certificate" "dc_website_cert" {
-  name    = format("dc-website-cert%s", local.resource_suffix)
+  # Must match ingress annotation in ingress.yaml
+  name    = "dc-website-cert"
   project = var.project_id
+
+  # https://github.com/hashicorp/terraform-provider-google/issues/5356
+  lifecycle {
+    create_before_destroy = true
+  }
 
   managed {
     domains = [format("%s.", var.dc_website_domain)]
   }
-}
-
-data "google_container_cluster" "dc_web_cluster" {
-  name = module.cluster.name
-  location = var.region
-  project = var.project_id
-
-  depends_on = [module.cluster]
-}
-
-data "google_client_config" "default" {}
-
-provider "kubernetes" {
-  alias = "datcom"
-  host  = "https://${data.google_container_cluster.dc_web_cluster.endpoint}"
-  token = data.google_client_config.default.access_token
-  cluster_ca_certificate = base64decode(
-    data.google_container_cluster.dc_web_cluster.master_auth[0].cluster_ca_certificate
-  )
-}
-
-provider "helm" {
-  alias = "datcom"
-  kubernetes {
-    host                   = "https://${data.google_container_cluster.dc_web_cluster.endpoint}"
-    token                  = data.google_client_config.default.access_token
-    cluster_ca_certificate = base64decode(
-      data.google_container_cluster.dc_web_cluster.master_auth[0].cluster_ca_certificate
-    )
-  }
-}
-
-module "k8s_resources" {
-  providers = {
-    kubernetes = kubernetes.datcom
-    helm       = helm.datcom
-  }
-
-  source                   =  "../../modules/helm"
-  project_id               = var.project_id
-
-  cluster_name             = module.cluster.name
-  cluster_region           = var.region
-  dc_website_domain        = var.dc_website_domain
-  global_static_ip_name    = format("dc-website-ip%s", local.resource_suffix)
-  managed_cert_name        = google_compute_managed_ssl_certificate.dc_website_cert.name
-
-  depends_on = [
-    google_compute_managed_ssl_certificate.dc_website_cert,
-    module.cluster
-  ]
 }

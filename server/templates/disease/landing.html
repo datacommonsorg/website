@@ -19,8 +19,6 @@
    {% set main_id = 'bio_disease_landing' %}
    {% set page_id = 'page-bio_disease_landing' %}
    {% set title = 'Disease Explorer' %}
-   {% set subpage_title = 'Disease Explorer' %}
-   {% set subpage_url = url_for('disease.main') %}
    
    {% block head %}
      <link rel="stylesheet" href={{url_for('static', filename='css/disease.min.css', t=config['VERSION'])}} >
@@ -35,7 +33,7 @@
        <ul>
          <li class="type-list">
            <strong>Disease</strong>:
-           <a href="/bio/disease/bio/DOID_0080600">A Coronavirus infection that is characterized by fever
+           <a href={{url_for('disease.node', dcid='bio/DOID_0080600')}}>A Coronavirus infection that is characterized by fever
             cough and shortness of breath and that has material basis in SARS-CoV-2.</a>
          </li>
        </ul>

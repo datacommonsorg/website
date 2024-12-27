@@ -1,0 +1,160 @@
+{
+  "client": "test_detect-and-fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/CHN",
+                      "country/IND"
+                    ],
+                    "statVarKey": [
+                      "sdg/DT_DOD_DECT_GN_ZS_multiple_place_bar_block"
+                    ],
+                    "title": "External Debt Stocks as a Proportion of GNI (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: world bank, international debt statistics.",
+            "title": "External Debt Stocks as a Proportion of GNI"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/CHN",
+                      "country/IND"
+                    ],
+                    "statVarKey": [
+                      "sdg/DT_TDS_DECT_multiple_place_bar_block"
+                    ],
+                    "title": "Debt Service as a Proportion of Exports of Goods and Services (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: world bank, international debt statistics.",
+            "title": "Debt Service as a Proportion of Exports of Goods and Services"
+          }
+        ],
+        "statVarSpec": {
+          "sdg/DT_DOD_DECT_GN_ZS_multiple_place_bar_block": {
+            "name": "External debt stocks as a proportion of GNI",
+            "statVar": "sdg/DT_DOD_DECT_GN_ZS"
+          },
+          "sdg/DT_TDS_DECT_multiple_place_bar_block": {
+            "name": "Debt service as a proportion of exports of goods and services",
+            "statVar": "sdg/DT_TDS_DECT"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "country/CHN"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "entities": [],
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "country/CHN",
+    "name": "China",
+    "place_type": "Country"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "country/CHN",
+      "name": "China",
+      "place_type": "Country"
+    },
+    {
+      "dcid": "country/IND",
+      "name": "India",
+      "place_type": "Country"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/Debt",
+        "name": "Debt",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/GlobalEconomicActivity",
+        "name": "Global Economic Activity",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/GDP",
+        "name": "GDP",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/EducationExpenditure",
+        "name": "Education Expenditure",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/HealthcareExpenditure",
+        "name": "Healthcare Expenditure",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/Remittance",
+        "name": "Remittance",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
+  "svSource": "CURRENT_QUERY",
+  "userMessages": [
+    "Data for \"Germany\" is currently unavailable. See the following statistics on the other places."
+  ]
+}

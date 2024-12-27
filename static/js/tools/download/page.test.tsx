@@ -14,19 +14,20 @@
  * limitations under the License.
  */
 
+/* eslint-disable camelcase */
 jest.mock("axios");
 jest.setTimeout(100000);
 
 import { waitFor } from "@testing-library/react";
+import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 import axios from "axios";
 import Enzyme, { mount, ReactWrapper } from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
 import pretty from "pretty";
 import React from "react";
 
 import * as SharedUtil from "../../shared/util";
 import { InfoPlace } from "./info";
-import { axios_mock } from "./mock_functions";
+import { axiosMock } from "./mock_functions";
 import { Page } from "./page";
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -38,9 +39,9 @@ const INFO_PLACES: [InfoPlace, InfoPlace] = [
   { name: "Place 2", dcid: "dcid/2" },
 ];
 
-async function waitForComponentUpdates(wrapper: ReactWrapper) {
+async function waitForComponentUpdates(wrapper: ReactWrapper): Promise<void> {
   // Wait for state updates
-  await waitFor(() => {
+  await waitFor((): void => {
     expect(wrapper.text()).toContain("");
   });
   // Wait for stat var info and place info fetching
@@ -60,7 +61,7 @@ test("Loading options from URL", async () => {
     },
   });
   // Mock all the async axios calls
-  axios_mock();
+  axiosMock();
   // Render the component
   const wrapper = mount(<Page infoPlaces={INFO_PLACES} />);
   await waitForComponentUpdates(wrapper);
@@ -104,7 +105,7 @@ test("Manually updating options", async () => {
     },
   });
   // Mock all the async axios calls
-  axios_mock();
+  axiosMock();
   // Render the component
   const wrapper = mount(<Page infoPlaces={INFO_PLACES} />);
   await waitForComponentUpdates(wrapper);
@@ -115,7 +116,7 @@ test("Manually updating options", async () => {
     .simulate("change", { target: { value: "County" } });
   await waitFor(() => {
     expect(axios.get).toHaveBeenCalledWith(
-      "/api/place/places-in?dcid=geoId/06&placeType=County"
+      "/api/place/descendent?dcids=geoId/06&descendentType=County"
     );
   });
   await waitForComponentUpdates(wrapper);

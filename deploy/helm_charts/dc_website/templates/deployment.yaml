@@ -1,17 +1,3 @@
-# Copyright 2022 Google LLC
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     https://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 # Website App Kubernetes Deployment config. (https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
 # This is to be extended by the dev/autopush/staging/prod overlay.
 # The deployment contains Flask web server container , gRPC mixer container and ESP container that transcodes grpc to JSON.
@@ -19,49 +5,83 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "dc-website.fullname" . }}
+  name: website-app
   namespace: {{ .Values.namespace.name }}
-  labels:
-    webInstance: {{ include "dc-website.fullname" . }}
-    {{- include "dc-website.selectorLabels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.replicas.default }}
+  replicas: {{ .Values.website.replicas }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
+      {{- if eq .Values.website.flaskEnv "custom" }}
+      # Custom DCs can be completely unavailable for the short
+      # period of time while new deployments become ready.
+      # In return, we don't need extra compute resources
+      # just for new pods during deployment.
+      maxSurge: 50%
+      maxUnavailable: 100%
+      {{ else }}
       # maximum number of Pods that can be created over the desired number of Pods
       # 25% of default pods (+1 in case default < 4)
-      maxSurge: {{ div .Values.replicas.default 4 | add 1 }}
+      maxSurge: {{ div .Values.website.replicas 4 | add 1 }}
       # Maximum number of pods that can be unavailable during the update process
       # 25% of default pods (+1 in case default < 4)
-      maxUnavailable: {{ div .Values.replicas.default 4 | add 1 }}
+      maxUnavailable: {{ div .Values.website.replicas 4 | add 1 }}
+      {{- end }}
   selector:
     matchLabels:
-      webInstance: {{ include "dc-website.fullname" . }}
-      {{- include "dc-website.selectorLabels" . | nindent 6 }}
+      app: website-app
   template:
     metadata:
       labels:
-        webInstance: {{ include "dc-website.fullname" . }}
-        {{- include "dc-website.selectorLabels" . | nindent 8 }}
+        app: website-app
+      annotations:
+        timestamp: {{ now | quote }}
     spec:
+      {{- if .Values.website.nodePool }}
+      nodeSelector:
+        cloud.google.com/gke-nodepool: {{ .Values.website.nodePool }}
+      {{- end }}
       serviceAccountName: {{ .Values.serviceAccount.name }}
       volumes:
-        - name: ai-config
+        - name: ingress-config
           configMap:
-            name: {{ include "dc-website.fullname" . }}-ai-config
-        # - name: ingress-config
-        #   configMap:
-        #     name: website-dev-mixer-ingress-config-for-website
-        - name: memdb-config
+            name: ingress-config
+        {{- if .Values.nl.enabled }}
+        - name: nl-config
           configMap:
-            name: {{ include "dc-website.fullname" . }}-memdb-config
-        - name: schema-mapping
+            name: nl-config
+        {{- end }}
+        {{- if .Values.website.redis.enabled }}
+        - name: redis-config
           configMap:
-            name: {{ include "dc-website.fullname" . }}-schema-mapping
+            name: redis-config
+        {{- end }}
+        - name: blocklist-svg
+          configMap:
+            name: blocklist-svg
+        {{- if .Values.website.placeSummary.enabled }}
+        - name: place-summary-config-country
+          configMap:
+            name: place-summary-config-country
+        - name: place-summary-config-geoid-0-2
+          configMap:
+            name: place-summary-config-geoid-0-2
+        - name: place-summary-config-geoid-3-5
+          configMap:
+            name: place-summary-config-geoid-3-5
+        - name: place-summary-config-geoid-6-9
+          configMap:
+            name: place-summary-config-geoid-6-9
+        - name: place-summary-config-wikidataid
+          configMap:
+            name: place-summary-config-wikidataid
+        - name: place-summary-config-others
+          configMap:
+            name: place-summary-config-others
+        {{- end }}
       containers:
         - name: website
-          image:  "{{ .Values.website.image.repository }}:{{ .Values.website.image.tag | default .Chart.AppVersion }}"
+          image:  "gcr.io/{{ .Values.website.image.project }}/datacommons-website:{{ .Values.website.image.tag }}"
           imagePullPolicy: {{ .Values.website.image.pullPolicy }}
           args: []
           ports:
@@ -80,143 +100,161 @@ spec:
             periodSeconds: 10
           resources:
             limits:
-              memory: "8G"
+              memory: "3G"
             requests:
-              memory: "8G"
+              memory: "3G"
           volumeMounts:
-            - name: ai-config
-              mountPath: /datacommons/ai
-            # - name: ingress-config
-            #   mountPath: /datacommons/ingress
+            - name: ingress-config
+              mountPath: /datacommons/ingress
+            {{- if .Values.website.redis.enabled }}
+            - name: redis-config
+              mountPath: /datacommons/redis
+            {{- end }}
+            - name: blocklist-svg
+              mountPath: /datacommons/svg
+            {{- if .Values.website.placeSummary.enabled }}
+            - name: place-summary-config-country
+              mountPath: /datacommons/place-summary/country_
+            - name: place-summary-config-geoid-0-2
+              mountPath: /datacommons/place-summary/geoId_0-2
+            - name: place-summary-config-geoid-3-5
+              mountPath: /datacommons/place-summary/geoId_3-5
+            - name: place-summary-config-geoid-6-9
+              mountPath: /datacommons/place-summary/geoId_6-9
+            - name: place-summary-config-wikidataid
+              mountPath: /datacommons/place-summary/wikidataId_
+            - name: place-summary-config-others
+              mountPath: /datacommons/place-summary/others
+            {{- end }}
           env:
             - name: FLASK_ENV
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "dc-website.fullname" . }}-website-config
-                  key: flaskEnv
-            # This is the GCP project that holds the secrets: api key, etc...
-            - name: SECRET_PROJECT
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "dc-website.fullname" . }}-website-config
-                  key: secretProject
+              value: {{ required "Missing: website.flaskEnv" .Values.website.flaskEnv }}
             - name: WEBSITE_HASH
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "dc-website.fullname" . }}-githash
-                  key: website_hash.txt
-            - name: BIG_QUERY
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "dc-website.fullname" . }}-store-config
-                  key: bigquery.version
-            # - name: INGRESS_CONFIG_PATH
-            #   value: /datacommons/ingress/rules
+              value: {{ .Values.website.githash | quote }}
+            - name: ENABLE_MODEL
+              value: {{ .Values.nl.enabled | quote }}
+            - name: ENABLE_EVAL_TOOL
+              value: {{ .Values.website.evalTool.enabled | quote }}
+            - name: INGRESS_CONFIG_PATH
+              value: /datacommons/ingress/rules
             # A dummy config used to bounce the server without any docker image
             # or data config change.
             - name: BOUNCE
               value: "dummy"
-        - name: mixer
-          image:  "{{ .Values.mixer.image.repository }}:{{ .Values.mixer.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.mixer.image.pullPolicy }}
+        {{- if .Values.nl.enabled }}
+        - name: nl
+          image: gcr.io/datcom-ci/datacommons-nl:{{ .Values.website.image.tag }}
           resources:
             limits:
-              memory: "8G"
+              memory: {{ .Values.nl.memory }}
             requests:
-              memory: "8G"
-          args:
-
-            - --base_bigtable_info=$(BASE_BIGTABLE_INFO)
-            - --custom_bigtable_info=$(CUSTOM_BIGTABLE_INFO)
-            - --mixer_project=$(MIXER_PROJECT)
-            - --bq_dataset=$(BIGQUERY)
-            - --schema_path=/datacommons/mapping
-            - --memdb_path=/datacommons/memdb
-            {{- if eq $.Values.mixer.useTMCFCSVData true }}
-            - --use_tmcf_csv_data=true
-            - --tmcf_csv_bucket={{ $.Values.mixer.tmcfCSVBucket }}
-            - --tmcf_csv_folder={{ $.Values.mixer.tmcfCSVFolder }}
-            {{- end }}
-          volumeMounts:
-            - name: schema-mapping
-              mountPath: /datacommons/mapping
-            - name: memdb-config
-              mountPath: /datacommons/memdb
+              memory: {{ .Values.nl.memory }}
           env:
-            - name: BASE_BIGTABLE_INFO
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "dc-website.fullname" . }}-store-config
-                  key: base_bigtable_info.yaml
-            - name: CUSTOM_BIGTABLE_INFO
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "dc-website.fullname" $ }}-store-config
-                  key: custom_bigtable_info.yaml
-            - name: MIXER_PROJECT
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "dc-website.fullname" . }}-mixer-config
-                  key: mixerProject
-            - name: BIG_QUERY
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "dc-website.fullname" . }}-store-config
-                  key: bigquery.version
-            - name: MIXER_HASH
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "dc-website.fullname" . }}-githash
-                  key: mixer_hash.txt
-          ports:
-            - containerPort: 12345
+            - name: FLASK_ENV
+              value: {{ required "Missing: website.flaskEnv" .Values.website.flaskEnv }}
+            - name: NUM_WORKERS
+              value: {{ .Values.nl.workers | quote }}
+          volumeMounts:
+            - name: nl-config
+              mountPath: /datacommons/nl
           startupProbe:
-            exec:
-              command: ["/bin/grpc_health_probe", "-addr=:12345"]
+            httpGet:
+              path: /healthz
+              port: 6060
+            failureThreshold: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 6060
+            # long timeout here (and in the liveness probe) because NL server
+            # can only take NUM_WORKERS number of requests at a time, so when
+            # there's already NUM_WORKERS number of requests, need to wait
+            # before /healthz can be served.
+            timeoutSeconds: 300
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 6060
+            timeoutSeconds: 300
+            periodSeconds: 10
+          ports:
+            - containerPort: 6060
+        {{- end }}
+
+{{- if .Values.nodejs.enabled }}
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: website-nodejs-app
+  namespace: {{ .Values.namespace.name }}
+spec:
+  replicas: {{ .Values.nodejs.replicas}}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      # maximum number of Pods that can be created over the desired number of Pods
+      # 25% of default pods (+1 in case default < 4)
+      maxSurge: {{ div .Values.nodejs.replicas 4 | add 1 }}
+      # Maximum number of pods that can be unavailable during the update process
+      # 25% of default pods (+1 in case default < 4)
+      maxUnavailable: {{ div .Values.nodejs.replicas 4 | add 1 }}
+  selector:
+    matchLabels:
+      app: website-nodejs-app
+  template:
+    metadata:
+      labels:
+        app: website-nodejs-app
+      annotations:
+        timestamp: {{ now | quote }}
+    spec:
+      {{- if .Values.nodejs.nodePool }}
+      nodeSelector:
+        cloud.google.com/gke-nodepool: {{ .Values.nodejs.nodePool }}
+      {{- end }}
+      serviceAccountName: {{ .Values.serviceAccount.name }}
+      containers:
+        - name: nodejs
+          image:  "gcr.io/{{ .Values.website.image.project }}/datacommons-nodejs:{{ .Values.website.image.tag }}"
+          imagePullPolicy: {{ .Values.website.image.pullPolicy }}
+          args: []
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              memory: "2G"
+            requests:
+              memory: "2G"
+          env:
+            - name: WEBSITE_HASH
+              value: {{ .Values.website.githash | quote }}
+            - name: NODE_ENV
+              value: {{ .Values.nodejs.env }}
+            - name: API_ROOT
+              value: {{ .Values.nodejs.apiRoot }}
+            # A dummy config used to bounce the server without any docker image
+            # or data config change.
+            - name: BOUNCE
+              value: "dummy"
+          startupProbe:
+            httpGet:
+              path: /nodejs/healthz
+              port: 8080
             failureThreshold: 30
             periodSeconds: 10
           readinessProbe:
-            exec:
-              command: ["/bin/grpc_health_probe", "-addr=:12345"]
+            httpGet:
+              path: /nodejs/healthz
+              port: 8080
+            failureThreshold: 1
             periodSeconds: 10
           livenessProbe:
-            exec:
-              command: ["/bin/grpc_health_probe", "-addr=:12345"]
-            periodSeconds: 10
-            initialDelaySeconds: 10
-        - name: esp
-          image:  "{{ .Values.esp.image.repository }}:{{ .Values.esp.image.tag | default .Chart.AppVersion }}"
-          imagePullPolicy: {{ .Values.esp.image.pullPolicy }}
-          args:
-            - --service=$(SERVICE_NAME)
-            - --rollout_strategy=managed
-            - --http_port=8081
-            - --backend=grpc://127.0.0.1:12345
-            - --cors_preset=basic
-            - --healthz=healthz
-          env:
-            - name: SERVICE_NAME
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "dc-website.fullname" . }}-mixer-config
-                  key: serviceName
-          resources:
-            limits:
-              memory: "2G"
-            requests:
-              memory: "2G"
-          readinessProbe:
             httpGet:
-              path: /healthz
-              port: 8081
-            periodSeconds: 5
-          livenessProbe:
-            httpGet:
-              path: /healthz
-              port: 8081
-            periodSeconds: 5
-            initialDelaySeconds: 5
-          ports:
-            - containerPort: 8081
-
-
+              path: /nodejs/healthz
+              port: 8080
+{{- end }}

@@ -55,18 +55,17 @@ variable "managed_cert_name" {
   description = "Name of the managed certificate in GCP for dc_website_domain."
 }
 
-# Githash is currently required parameter for both the
-# website and mixer containers. The value of the githashes may be irrelevant for
-# custom DC instances until there is a detailed release strategy. Constants are fine
-# for now.
 variable "website_githash" {
   type        = string
   description = "website githash"
-  default     = "80dc931"
 }
 
 variable "mixer_githash" {
   type        = string
   description = "Mixer githash"
-  default     = "0515f78"
+}
+
+variable "resource_suffix" {
+  type        = string
+  description = "Resource suffix to pass in to the Helm chart"
 }

@@ -1,0 +1,43 @@
+{
+  "childEntityType": "",
+  "classifications": [
+    {
+      "type": 100
+    }
+  ],
+  "client": "test_detect",
+  "comparisonEntities": [
+    "geoId/06001"
+  ],
+  "comparisonVariables": [],
+  "context": {},
+  "debug": {},
+  "entities": [
+    "geoId/06085"
+  ],
+  "nonPlaceEntities": [],
+  "properties": [],
+  "sessionId": "007_999999999",
+  "variables": [
+    "Median_Income_Person",
+    "Median_Earnings_Person",
+    "Median_Income_Household",
+    "Median_Income_Person_15OrMoreYears_Male_WithIncome",
+    "Median_Income_Household_FamilyHousehold",
+    "Median_Income_Person_25OrMoreYears_EducationalAttainmentLessThanHighSchoolGraduate_WithIncome",
+    "Median_Income_Person_15OrMoreYears_Female_WithIncome",
+    "Median_Income_Household_NonfamilyHousehold",
+    "Median_Earnings_Person_Male",
+    "dc/topic/MedianHouseholdIncomeByGender",
+    "dc/topic/MedianHouseholdIncomeByRace",
+    "Median_Income_Person_25OrMoreYears_EducationalAttainmentGraduateOrProfessionalDegree_WithIncome",
+    "Mean_Income_Household",
+    "Median_Income_Person_18OrMoreYears_Civilian_WithIncome",
+    "Median_Earnings_Person_Female",
+    "Median_Income_Person_25OrMoreYears_EducationalAttainmentSomeCollegeOrAssociatesDegree_WithIncome",
+    "Median_Income_Household_MarriedCoupleFamilyHousehold",
+    "Median_Income_Person_15OrMoreYears_WithIncome_ForeignBorn",
+    "Median_Income_Household_HouseholderRaceTwoOrMoreRaces",
+    "Median_Income_Household_HouseholderRaceWhiteAlone"
+  ]
+}

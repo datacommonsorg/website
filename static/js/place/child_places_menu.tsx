@@ -42,24 +42,28 @@ class ChildPlace extends React.Component<ChildPlacePropType> {
             { placeName: this.props.placeName }
           )}
         </span>
-        {Object.keys(this.props.childPlaces).map((placeType) => (
-          <div key={placeType} className="child-place-group">
-            <div className="child-place-type">
-              {displayNameForPlaceType(placeType, true /* isPlural */)}
+        {Object.keys(this.props.childPlaces)
+          .sort()
+          .map((placeType) => (
+            <div key={placeType} className="child-place-group">
+              <div className="child-place-type">
+                {displayNameForPlaceType(placeType, true /* isPlural */)}
+              </div>
+              {this.props.childPlaces[placeType].map((place, i) => (
+                <LocalizedLink
+                  key={place.dcid}
+                  className="child-place-link"
+                  href={"/place/" + place.dcid}
+                  text={
+                    (place.name || place.dcid) +
+                    (i < this.props.childPlaces[placeType].length - 1
+                      ? ","
+                      : "")
+                  }
+                />
+              ))}
             </div>
-            {this.props.childPlaces[placeType].map((place, i) => (
-              <LocalizedLink
-                key={place.dcid}
-                className="child-place-link"
-                href={"/place/" + place.dcid}
-                text={
-                  (place.name || place.dcid) +
-                  (i < this.props.childPlaces[placeType].length - 1 ? "," : "")
-                }
-              />
-            ))}
-          </div>
-        ))}
+          ))}
       </React.Fragment>
     );
   }

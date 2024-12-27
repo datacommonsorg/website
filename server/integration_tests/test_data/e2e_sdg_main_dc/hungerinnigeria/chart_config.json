@@ -1,0 +1,553 @@
+{
+  "client": "test_detect-and-fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESMSN"
+                    ],
+                    "title": "Population With Moderate or Severe Food Insecurity in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population With Moderate or Severe Food Insecurity in Nigeria",
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESMSN"
+                    ],
+                    "title": "Population With Moderate or Severe Food Insecurity in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO); national entity.",
+            "title": "Population With Moderate or Severe Food Insecurity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--F",
+                      "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--M"
+                    ],
+                    "title": "Number of Moderately or Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People) in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Number of Moderately or Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESSN"
+                    ],
+                    "title": "Population With Severe Food Insecurity in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population With Severe Food Insecurity in Nigeria",
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESSN"
+                    ],
+                    "title": "Population With Severe Food Insecurity in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO); national entity.",
+            "title": "Population With Severe Food Insecurity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--F",
+                      "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--M"
+                    ],
+                    "title": "Number of Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People) in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Number of Severely Food Insecure People 15 Years Old and Over, by Sex (Thousands of People)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESMS"
+                    ],
+                    "title": "Moderate or Severe Food Insecurity in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Moderate or Severe Food Insecurity in Nigeria",
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESMS"
+                    ],
+                    "title": "Moderate or Severe Food Insecurity in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO); national entity.",
+            "title": "Moderate or Severe Food Insecurity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--F",
+                      "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--M"
+                    ],
+                    "title": "Prevalence of Moderate or Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%) in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence of Moderate or Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESS"
+                    ],
+                    "title": "Severe Food Insecurity in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Severe Food Insecurity in Nigeria",
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESS"
+                    ],
+                    "title": "Severe Food Insecurity in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO); national entity.",
+            "title": "Severe Food Insecurity"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--F",
+                      "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--M"
+                    ],
+                    "title": "Prevalence of Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%) in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              }
+            ],
+            "title": "Prevalence of Severe Food Insecurity Among Population 15 Years Old and Over, by Sex (%)"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SN_ITK_DEFC"
+                    ],
+                    "title": "Undernourishment in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Undernourishment in Nigeria",
+                    "statVarKey": [
+                      "sdg/SN_ITK_DEFC"
+                    ],
+                    "title": "Undernourishment in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: food and agriculture organization of the united nations (FAO).",
+            "title": "Undernourishment"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "description": "Mortality Rate Attributed to Unsafe Water, Unsafe Sanitation and Lack of Hygiene From Diarrhoea, Intestinal Nematode Infections, Malnutrition and Acute Respiratory Infections in Nigeria",
+                    "statVarKey": [
+                      "sdg/SH_STA_WASHARI"
+                    ],
+                    "title": "Mortality Rate Attributed to Unsafe Water, Unsafe Sanitation and Lack of Hygiene From Diarrhoea, Intestinal Nematode Infections, Malnutrition and Acute Respiratory Infections in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: global health observatory (GHO), world health organisation (WHO).",
+            "title": "Mortality Rate Attributed to Unsafe Water, Unsafe Sanitation and Lack of Hygiene From Diarrhoea, Intestinal Nematode Infections, Malnutrition and Acute Respiratory Infections"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_STNTN.AGE--Y0T4"
+                    ],
+                    "title": "Children Under 5 With Moderate or Severe Stunting in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Children Under 5 With Moderate or Severe Stunting in Nigeria",
+                    "statVarKey": [
+                      "sdg/SH_STA_STNTN.AGE--Y0T4"
+                    ],
+                    "title": "Children Under 5 With Moderate or Severe Stunting in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: source: joint child malnutrition estimates (2023 edition), united nations Children's fund (UNICEF), world health organisation (WHO) and the world bank group.",
+            "title": "Children Under 5 With Moderate or Severe Stunting"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "sdg/SH_STA_STNT.AGE--Y0T4"
+                    ],
+                    "title": "Moderate or Severe Stunting in Population Under 5 in Nigeria",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Moderate or Severe Stunting in Population Under 5 in Nigeria",
+                    "statVarKey": [
+                      "sdg/SH_STA_STNT.AGE--Y0T4"
+                    ],
+                    "title": "Moderate or Severe Stunting in Population Under 5 in Nigeria",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "footnote": "Includes data from the following sources: source: joint child malnutrition estimates (2023 edition), united nations Children's fund (UNICEF), world health organisation (WHO) and the world bank group.",
+            "title": "Moderate or Severe Stunting in Population Under 5"
+          }
+        ],
+        "statVarSpec": {
+          "sdg/AG_PRD_FIESMS": {
+            "name": "Moderate or Severe Food Insecurity",
+            "statVar": "sdg/AG_PRD_FIESMS"
+          },
+          "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--F": {
+            "name": "Moderate or Severe Food Insecurity in Women Age 15 or Older",
+            "statVar": "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--F"
+          },
+          "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--M": {
+            "name": "Moderate or Severe Food Insecurity in Men Age 15 or Older",
+            "statVar": "sdg/AG_PRD_FIESMS.AGE--Y_GE15__SEX--M"
+          },
+          "sdg/AG_PRD_FIESMSN": {
+            "name": "Population With Moderate or Severe Food Insecurity",
+            "statVar": "sdg/AG_PRD_FIESMSN"
+          },
+          "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--F": {
+            "name": "Women Age 15 and Over With Moderate or Severe Food Insecurity",
+            "statVar": "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--F"
+          },
+          "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--M": {
+            "name": "Men Age 15 and Over With Moderate or Severe Food Insecurity",
+            "statVar": "sdg/AG_PRD_FIESMSN.AGE--Y_GE15__SEX--M"
+          },
+          "sdg/AG_PRD_FIESS": {
+            "name": "Severe Food Insecurity",
+            "statVar": "sdg/AG_PRD_FIESS"
+          },
+          "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--F": {
+            "name": "Severe Food Insecurity in Women Age 15 or Older",
+            "statVar": "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--F"
+          },
+          "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--M": {
+            "name": "Severe Food Insecurity in Men Age 15 or Older",
+            "statVar": "sdg/AG_PRD_FIESS.AGE--Y_GE15__SEX--M"
+          },
+          "sdg/AG_PRD_FIESSN": {
+            "name": "Population With Severe Food Insecurity",
+            "statVar": "sdg/AG_PRD_FIESSN"
+          },
+          "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--F": {
+            "name": "Women Age 15 and Over With Severe Food Insecurity",
+            "statVar": "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--F"
+          },
+          "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--M": {
+            "name": "Men Age 15 and Over With Severe Food Insecurity",
+            "statVar": "sdg/AG_PRD_FIESSN.AGE--Y_GE15__SEX--M"
+          },
+          "sdg/SH_STA_STNT.AGE--Y0T4": {
+            "name": "Moderate or Severe Stunting in Population Under 5",
+            "statVar": "sdg/SH_STA_STNT.AGE--Y0T4"
+          },
+          "sdg/SH_STA_STNTN.AGE--Y0T4": {
+            "name": "Children Under 5 With Moderate or Severe Stunting",
+            "statVar": "sdg/SH_STA_STNTN.AGE--Y0T4"
+          },
+          "sdg/SH_STA_WASHARI": {
+            "name": "Mortality rate attributed to unsafe water, unsafe sanitation and lack of hygiene from diarrhoea, intestinal nematode infections, malnutrition and acute respiratory infections",
+            "statVar": "sdg/SH_STA_WASHARI"
+          },
+          "sdg/SN_ITK_DEFC": {
+            "name": "Undernourishment",
+            "statVar": "sdg/SN_ITK_DEFC"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "placeDcid": [
+        "country/NGA"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "entities": [],
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "country/NGA",
+    "name": "Nigeria",
+    "place_type": "Country"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "country/NGA",
+      "name": "Nigeria",
+      "place_type": "Country"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {},
+    "childTopics": [
+      {
+        "dcid": "dc/topic/sdgAGPRDFIESMSN",
+        "name": "Population With Moderate or Severe Food Insecurity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdgAGPRDFIESSN",
+        "name": "Population With Severe Food Insecurity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdgAGPRDFIESMS",
+        "name": "Moderate or Severe Food Insecurity",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/sdgAGPRDFIESS",
+        "name": "Severe Food Insecurity",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "exploreMore": {},
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/sdg_2.1.2",
+        "name": "Food Insecurity",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/sdg_2.1",
+        "name": "End Hunger by 2030",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [
+      {
+        "dcid": "country/BRA",
+        "name": "Brazil",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CAN",
+        "name": "Canada",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/CHN",
+        "name": "China",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/EGY",
+        "name": "Egypt",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/FRA",
+        "name": "France",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/DEU",
+        "name": "Germany",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/IND",
+        "name": "India",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/JPN",
+        "name": "Japan",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/MYS",
+        "name": "Malaysia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/NZL",
+        "name": "New Zealand",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/PER",
+        "name": "Peru",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/RUS",
+        "name": "Russia",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/GBR",
+        "name": "United Kingdom",
+        "types": [
+          "Country"
+        ]
+      },
+      {
+        "dcid": "country/USA",
+        "name": "United States",
+        "types": [
+          "Country"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/sdg_2.1.1",
+        "name": "Undernourishment",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
+  "svSource": "CURRENT_QUERY",
+  "userMessages": []
+}

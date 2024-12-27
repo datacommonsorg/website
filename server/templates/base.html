@@ -1,33 +1,37 @@
 {#-
-Copyright 2020 Google LLC
+  Copyright 2024 Google LLC
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+  http://www.apache.org/licenses/LICENSE-2.0
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
--#}
-{#-
-Required variables:
-title: page title
-main_id: DOM Element ID for the main content block
-page_id: DOM Element ID for the html element
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -#}
+  {#-
+  Required variables:
+  title: page title
+  main_id: DOM Element ID for the main content block
+  page_id: DOM Element ID for the html element
 
-Optional variables:
-is_hide_full_footer: boolean, if true, hides the full expanded footer. Default false
-is_hide_sub_footer: boolean, if true, hides the sub footer. Default false
-subpage_title: string, if specified, will be displayed in the header next to Data Commons
-locale: string, value for html lang attr
+  Optional variables:
 
-Blocks to override:
-head - additional head elements
-content - main page content
+  is_hide_header_search_bar: boolean, if true, the header will not contain a search bar. Default false.
+  is_hide_full_footer: boolean, if true, hides the full expanded footer. Default false
+  is_hide_sub_footer: boolean, if true, hides the sub footer. Default false
+  locale: string, value for html lang attr
+  brand_logo_light: boolean, if true, use the light colored logo in the footer. Default false which uses the dark colored logo.
+  manual_ga_pageview: boolean, if true, will set the Google Analytics config to
+      stop pageview tracking, relying on the app to do all pageview tracking.
+
+  Blocks to override:
+  head - additional head elements
+  content - main page content
 -#}
 <!DOCTYPE html>
 
@@ -35,200 +39,119 @@ content - main page content
 
 <head>
   {# Enable Google Analytics with cookieless tracking. #}
-  {% if GA_ACCOUNT %}
-  <script async src="https://www.googletagmanager.com/gtag/js?id={{ GA_ACCOUNT }}"></script>
+  {% if GOOGLE_ANALYTICS_TAG_ID %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_ANALYTICS_TAG_ID }}"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-    gtag('config', '{{ GA_ACCOUNT }}', {
-      client_storage: 'none', anonymize_ip: true, {{ ("place_category: '{}'"|safe).format(place_category) if place_category is defined else ""}}
+    gtag('config', '{{ GOOGLE_ANALYTICS_TAG_ID }}', {
+      client_storage: 'none',
+      anonymize_ip: true,
+      {{ ("place_category: '{}',"|safe).format(place_category) if place_category is defined else "" }}
+      {{ ("send_page_view: false,"|safe) if manual_ga_pageview else "" }}
     });
-
   </script>
   {% endif %}
-  <title>{{ title }} - Data Commons</title>
+
+  <title>{{ title }}{{' - ' if title else ''}}Data Commons</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="icon" href="/favicon.ico" type="image/x-icon">
-  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;600&family=Roboto&display=swap"
+
+  {% block meta %}
+  <meta property="og:type" content="website" />
+  {% if title == "Home" %}
+  <meta property="og:title" content="Data Commons" />
+  {% else %}
+  <meta property="og:title" content="{{ title }}{{' - ' if title else ''}}Data Commons" />
+  {% endif %}
+  <meta property="twitter:card" content="summary" />
+  <meta property="og:description" content="Data Commons aggregates and harmonizes global, open data, giving everyone the power to uncover insights with natural language questions" />
+  <meta property="og:image" content="https://datacommons.org/images/dc-logo.png" />
+  {% endblock %}
+
+  {% if config['LOCAL'] %}
+  <link rel="icon" href="/images/favicon-local.png" type="image/png">
+  {% else %}
+  <link rel="icon" href="/images/favicon.png" type="image/png">
+  {% endif %}
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500;700&family=Google+Sans+Text:wght@300;400;500;700&display=swap"
     rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined&display=block">
+  <link rel="stylesheet" href={{url_for('static', filename='css/core.min.css', t=config['VERSION'])}}>
   {% block head %}
   {% endblock %}
+  {% if OVERRIDE_CSS_PATH %}
+  <link href="{{ OVERRIDE_CSS_PATH }}" rel="stylesheet">
+  {% endif %}
+  <script>
+    globalThis.isCustomDC = {{ config['CUSTOM']|int }};
+    globalThis.STAT_VAR_HIERARCHY_CONFIG = {{ config['STAT_VAR_HIERARCHY_CONFIG'] | tojson }};
+    globalThis.enableBQ = {{ config['ENABLE_BQ']|int }};
+  </script>
+  <script>
+    // This script is to allow embedding the website as an iframe and allow the
+    // parent to request the iframe's URL. This is used by the /dev/diff tool.
+    window.addEventListener('message', function(event) {
+      // The parent should send a postMessage event.
+      // MUST verify the origin to be autopush DC
+      if (event.origin === 'https://autopush.datacommons.org') {
+        // Send the iframe's URL back to the parent
+        if (event.data === 'Request URL') {
+          event.source.postMessage(
+            { type: 'URLResponse', url: window.location.href },
+            event.origin
+          );
+        }
+      }
+    });
+  </script>
 </head>
 
-<body>
-  <div id="main">
-    <header id="main-header">
-      <nav class="navbar navbar-dark navbar-expand-lg col" id="main-nav">
-        <div class="container-fluid">
-          <div class="navbar-brand">
-            <a href="{{ url_for('static.homepage') }}">{{ NAME }}</a>
-            {% if subpage_title %}
-            <span>
-              {% if subpage_url %}<a href="{{ subpage_url }}">{% endif %}
-                {{ subpage_title }}
-                {% if subpage_url %}</a>{% endif %}
-            </span>
-            {% endif %}
-            </a>
-          </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dc-main-nav">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse justify-content-md-end" id="dc-main-nav">
-            <ul class="navbar-nav float-md-right">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="nav-explore-dropdown" role="button"
-                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  {% trans %}Explore{% endtrans %}
-                </a>
-                <div class="dropdown-menu" aria-labelledby="nav-explore-dropdown">
-                  <a class="dropdown-item" href="{{ url_for('place.place') }}">{% trans %}Place Explorer{% endtrans
-                    %}</a>
-                  <a class="dropdown-item" href="{{ url_for('browser.browser_main') }}">{% trans %}Graph Browser{%
-                    endtrans %}</a>
-                  <a class="dropdown-item" href="{{ url_for('tools.timeline') }}">{% trans %}Timelines Explorer{%
-                    endtrans %}</a>
-                  <a class="dropdown-item" href="{{ url_for('tools.scatter') }}">{% trans %}Scatter Plot Explorer{%
-                    endtrans %}</a>
-                  <a class="dropdown-item" href="{{ url_for('tools.map') }}">{% trans %}Map Explorer{% endtrans %}</a>
-                  <a class="dropdown-item" href="{{ url_for('tools.stat_var') }}">{% trans %}Statistical Variable Explorer{% endtrans %}</a>
-                  <a class="dropdown-item" href="{{ url_for('tools.download') }}">{% trans %}Data Download Tool{% endtrans %}</a>
-                </div>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="nav-doc-dropdown" role="button" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="false">{% trans %}Documentation{% endtrans %}</a>
-                <div class="dropdown-menu" aria-labelledby="nav-doc-dropdown">
-                  <a class="dropdown-item" href="http://docs.datacommons.org">{% trans %}Documentation{% endtrans %}</a>
-                  <a class="dropdown-item" href="http://docs.datacommons.org/api">{% trans %}APIs{% endtrans %}</a>
-                  {# TODO: UNCOMMENT TO RE-ENABLE BIGQUERY #}
-                  {#<a class="dropdown-item" href="http://docs.datacommons.org/bigquery">{% trans %}BigQuery{% endtrans
-                    %}</a>#}
-                  <a class="dropdown-item" href="http://docs.datacommons.org/tutorials">{% trans %}Tutorials{% endtrans
-                    %}</a>
-                  <a class="dropdown-item" href="https://docs.datacommons.org/contributing/">{% trans %}Contribute{%
-                    endtrans %}</a>
-                </div>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="nav-about-dropdown" role="button"
-                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  {% trans %}About{% endtrans %}
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="nav-about-dropdown">
-                  <a class="dropdown-item" href="{{ url_for('static.about') }}">{% trans %}About Data Commons{% endtrans
-                    %}</a>
-                  <a class="dropdown-item" href="https://docs.datacommons.org/blog.html">{% trans %}Blog{% endtrans
-                    %}</a>
-                  <a class="dropdown-item" href="https://docs.datacommons.org/datasets/">{% trans %}Data Sources{%
-                    endtrans %}</a>
-                  <a class="dropdown-item" href="{{ url_for('static.faq') }}">{% trans %}FAQ{% endtrans %}</a>
-                  <a class="dropdown-item" href="{{ url_for('static.feedback') }}">{% trans %}Feedback{% endtrans %}</a>
-                </div>
-              </li>
-              <li id="navbar-search-icon">
-                <a href="{{ url_for('search.search') }}">
-                  <img src="/images/icon-search-navbar.svg" />
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
+<body {% if is_hide_header_search_bar %}class="no-header-search-bar"{% endif %}>
 
-    <main id="{{ main_id }}" class="main-content">
-      {% block content %}
-      {% endblock %}
-    </main>
+<div id="metadata-base" class="d-none"
+  data-header="{{ HEADER_MENU_V2 }}"
+  data-footer="{{ FOOTER_MENU }}"
+  data-logo-path="{{ LOGO_PATH }}"
+  data-logo-width="{{ LOGO_WIDTH }}"
+  data-name="{{ NAME }}"
+  data-show-disaster="{{ SHOW_DISASTER }}"
+  data-show-sustainability="{{ SHOW_SUSTAINABILITY }}"
+  data-hide-header-search-bar="{{ is_hide_header_search_bar }}"
+  data-ga-value-search-source="{{ ga_value_search_source }}"
+  data-search-bar-hash-mode="{{ is_search_bar_hash_mode }}"
+  data-hide-full-footer="{{ is_hide_full_footer }}"
+  data-hide-sub-footer="{{ is_hide_sub_footer }}"
+  data-subfooter-extra="{{ subfooter_extra_content|safe }}"
+  data-brand-logo-light="{{ brand_logo_light }}"
+  data-locale="{{ locale }}"
+>
+</div>
 
-    <footer id="main-footer">
-      <div class="container">
-        {% if not is_hide_full_footer %}
-        <div class="row">
-          <section class="col-12 col-sm-6 col-md-4">
-            {# TRANSLATORS: The label for a collection of exploration tools. #}
-            <h6>{% trans %}Explore{% endtrans %}</h6>
-            {# TRANSLATORS: The name of a tool to browse statistics about a place. #}
-            <a href="{{ url_for('place.place') }}">{% trans %}Place Explorer{% endtrans %}</a>
-            {# TRANSLATORS: The name of a tool to browse the Data Commons knowledge graph. #}
-            <a href="{{ url_for('browser.browser_main') }}">{% trans %}Graph Browser{% endtrans %}</a>
-            {# TRANSLATORS: The name of a tool to explore timeline charts of statistical variables for places. #}
-            <a href="{{ url_for('tools.timeline') }}">{% trans %}Timelines Explorer{% endtrans %}</a>
-            {# TRANSLATORS: The name of a tool to explore scatter plots of statistical variables for places. #}
-            <a href="{{ url_for('tools.scatter') }}">{% trans %}Scatter Plot Explorer{% endtrans %}</a>
-            {# TRANSLATORS: The name of a tool to explore maps of statistical variables for places. #}
-            <a href="{{ url_for('tools.map') }}">{% trans %}Map Explorer{% endtrans %}</a>
-            {# TRANSLATORS: The name of a tool that provides observation and import information about statistical
-            variables. #}
-            <a href="{{ url_for('tools.stat_var') }}">{% trans %}Statistical Variable Explorer{% endtrans %}</a>
-            {# TRANSLATORS: The name of a tool that allows users to download data. #}
-            <a href="{{ url_for('tools.download') }}">{% trans %}Data Download Tool{% endtrans %}</a>
-          </section>
-          <section class="col-12 col-sm-6 col-md-4">
-            {# TRANSLATORS: The label for a list of documentation links. #}
-            <h6>{% trans %}Documentation{% endtrans %}</h6>
-            {# TRANSLATORS: The label for a link to our documentation site. #}
-            <a href="http://docs.datacommons.org">{% trans %}Documentation{% endtrans %}</a>
-            {# TRANSLATORS: The label for a link to our API documentation. #}
-            <a href="http://docs.datacommons.org/api">{% trans %}APIs{% endtrans %}</a>
-            {# TODO: UNCOMMENT TO RE-ENABLE BIGQUERY #}
-            {# TRANSLATORS: The label for a link to BigQuery integration starter docs. #}
-            {#<a href="http://docs.datacommons.org/bigquery">{% trans %}BigQuery{% endtrans %}</a>#}
-            {# TRANSLATORS: The label for a link to our API tutorials. #}
-            <a href="http://docs.datacommons.org/tutorials">{% trans %}Tutorials{% endtrans %}</a>
-            {# TRANSLATORS: The label for a link to instructions about contributing to the project. #}
-            <a href="https://docs.datacommons.org/contributing/">{% trans %}Contribute{% endtrans %}</a>
-            {# TRANSLATORS: The label for a link to the project's github repository (for open sourced code). #}
-            <a href="http://github.com/datacommonsorg">{% trans %}Github Repository{% endtrans %}</a>
-          </section>
-          <section class="col-12 col-sm-6 col-md-4">
-            {# TRANSLATORS: The label for a link to informational pages about the Data Commons project. #}
-            <h6>{% trans %}Data Commons{% endtrans %}</h6>
-            {# TRANSLATORS: The label for a link to the project's about page. #}
-            <a href="{{ url_for('static.about') }}">{% trans %}About Data Commons{% endtrans %}</a>
-            {# TRANSLATORS: The label for a link to the project's blog. #}
-            <a href="https://docs.datacommons.org/blog.html">{% trans %}Blog{% endtrans %}</a>
-            {# TRANSLATORS: The label for a link to data sources included in the Data Commons knowledge graph. #}
-            <a href="https://docs.datacommons.org/datasets/">{% trans %}Data Sources{% endtrans %}</a>
-            {# TRANSLATORS: The label for a link to instructions about sending feedback. #}
-            <a href="{{ url_for('static.feedback') }}">{% trans %}Feedback{% endtrans %}</a>
-            {# TRANSLATORS: The label for a link to project FAQ page. #}
-            <a href="{{ url_for('static.faq') }}">{% trans %}Frequently Asked Questions{% endtrans %}</a>
-          </section>
-        </div>
-        {% endif %}
-        {% if not is_hide_sub_footer %}
-        <div class="row">
-          <div id="sub-footer" class="col-12">
-            <!-- {% set homepage_url = "<a href={href}>Data Commons</a>".format(href=url_for('static.homepage'))  %} -->
-            {# TRANSLATORS: The label for a link to project homepage. #}
-            <span>{% trans project="Data Commons" %}{{ project }} is a Google supported project{% endtrans %}</span>
+{% include 'metadata/labels.html' %}
+{% include 'metadata/routes.html' %}
 
-            <div class="float-md-right mt-3 mt-md-0">
-              {% block subfooter_extra %}{% endblock %}
-              {# TRANSLATORS: The label for a link to site terms and conditions. #}
-              <a href="https://policies.google.com/terms">{% trans %}Terms and Conditions{% endtrans %}</a>
-              {# TRANSLATORS: The label for a link to site privacy policy. #}
-              <a href="https://policies.google.com/privacy?hl=en-US">{% trans %}Privacy Policy{% endtrans %}</a>
-              {# TRANSLATORS: The label for a link to site disclaimers. #}
-              <a href="{{ url_for('static.disclaimers') }}">{% trans %}Disclaimers{% endtrans %}</a>
-            </div>
-          </div>
-        </div>
-        {% endif %}
-      </div>
-    </footer>
-  </div>
-  {# Compile this down (or manually implement). Used only for nav bar so far #}
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
-  {% block footer %}
-  {% endblock %}
+<script src={{url_for('static', filename='queryStore.js', t=config['VERSION'])}} async></script>
+<script src={{url_for('static', filename='base.js', t=config['VERSION'])}} async></script>
+
+<div id="main">
+  <header id="main-header">
+  </header>
+  <main id="{{ main_id }}" class="main-content">
+    {% block content %}
+    {% endblock %}
+  </main>
+  <footer id="main-footer"></footer>
+</div>
+
+{# Compile this down (or manually implement). Used only for nav bar so far #}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+  crossorigin="anonymous"></script>
+{% block footer %}
+{% endblock %}
 </body>
 
 </html>

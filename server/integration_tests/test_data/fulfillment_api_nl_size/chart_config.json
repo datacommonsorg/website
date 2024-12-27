@@ -1,0 +1,733 @@
+{
+  "client": "test_fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Student"
+                    ],
+                    "title": "Number of Students in Public Schools of Redwood City (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Number of Students in Public Schools of Redwood City"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Count_Teacher"
+                    ],
+                    "title": "Number of Teachers in Public Schools of Redwood City (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Number of Teachers in Public Schools of Redwood City"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 10,
+                      "showHighest": true
+                    },
+                    "statVarKey": [
+                      "Percent_Student_AsAFractionOf_Count_Teacher"
+                    ],
+                    "title": "Student-Teacher Ratio in Public Schools of Redwood City (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Student-Teacher Ratio in Public Schools of Redwood City"
+          }
+        ],
+        "statVarSpec": {
+          "Count_Student": {
+            "name": "Number of Students",
+            "statVar": "Count_Student"
+          },
+          "Count_Teacher": {
+            "name": "Number of Teachers",
+            "statVar": "Count_Teacher"
+          },
+          "Percent_Student_AsAFractionOf_Count_Teacher": {
+            "name": "Student-Teacher Ratio",
+            "statVar": "Percent_Student_AsAFractionOf_Count_Teacher",
+            "unit": "%"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "containedPlaceTypes": {
+        "City": "PublicSchool"
+      },
+      "placeDcid": [
+        "geoId/0660102"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "entities": [],
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "geoId/0660102",
+    "name": "Redwood City",
+    "place_type": "City"
+  },
+  "placeFallback": {},
+  "placeSource": "UNKNOWN",
+  "places": [
+    {
+      "dcid": "geoId/0660102",
+      "name": "Redwood City",
+      "place_type": "City"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {
+      "PublicSchool": [
+        {
+          "dcid": "nces/060014211433",
+          "name": "San Mateo County Rop",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/060179313923",
+          "name": "Rocketship Redwood City",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/060228711981",
+          "name": "Summit Preparatory Charter High",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/060232413774",
+          "name": "Design Tech High",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/060453007417",
+          "name": "Sandpiper Elementary",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/060453012574",
+          "name": "Redwood Shores Elementary",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/063213004963",
+          "name": "Roy Cloud Elementary",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/063213004966",
+          "name": "Hawes Elementary",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/063213004967",
+          "name": "Henry Ford Elementary",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/063213004968",
+          "name": "Hoover Elementary",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/063213004969",
+          "name": "John Gill Elementary",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/063213004970",
+          "name": "John F. Kennedy Middle",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/063213004971",
+          "name": "Mckinley Institute Of Technology",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/063213004972",
+          "name": "Roosevelt Elementary",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/063213004974",
+          "name": "Taft Elementary",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/063213007421",
+          "name": "Adelante Spanish Immersion",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/063213007422",
+          "name": "North Star Academy",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/063213008182",
+          "name": "Orion Alternative",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/063213013874",
+          "name": "Kipp Excelencia Community Preparatory",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/063213013923",
+          "name": "Rocketship Redwood City",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/063498013774",
+          "name": "Design Tech High",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/063639006196",
+          "name": "Redwood High",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/063639006198",
+          "name": "Sequoia High",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/063639011981",
+          "name": "Summit Preparatory Charter High",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/063639013050",
+          "name": "Sequoia Union High Independent Study",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/069103309043",
+          "name": "San Mateo County Special Education",
+          "types": [
+            "PublicSchool"
+          ]
+        },
+        {
+          "dcid": "nces/069103311963",
+          "name": "Central Community",
+          "types": [
+            "PublicSchool"
+          ]
+        }
+      ]
+    },
+    "childTopics": [],
+    "exploreMore": {},
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/StudentPopulationDemographics",
+        "name": "Student Population Demographics",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/StudentPopulation",
+        "name": "Student Population",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [
+      {
+        "dcid": "geoId/3502000",
+        "name": "Albuquerque",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0203000",
+        "name": "Anchorage municipality",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2603000",
+        "name": "Ann Arbor",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1304000",
+        "name": "Atlanta",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4805000",
+        "name": "Austin",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2404000",
+        "name": "Baltimore",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1608830",
+        "name": "Boise",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2507000",
+        "name": "Boston",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4513330",
+        "name": "Charleston",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3712000",
+        "name": "Charlotte",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1714000",
+        "name": "Chicago",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3915000",
+        "name": "Cincinnati",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3916000",
+        "name": "Cleveland",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3918000",
+        "name": "Columbus",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4819000",
+        "name": "Dallas",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0820000",
+        "name": "Denver",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2622000",
+        "name": "Detroit",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4824000",
+        "name": "El Paso",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0937000",
+        "name": "Hartford",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4835000",
+        "name": "Houston",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1836003",
+        "name": "Indianapolis",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2836000",
+        "name": "Jackson",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1235000",
+        "name": "Jacksonville",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2938000",
+        "name": "Kansas City",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3240000",
+        "name": "Las Vegas",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0541000",
+        "name": "Little Rock",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0644000",
+        "name": "Los Angeles",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2148006",
+        "name": "Louisville/Jefferson County metro government (balance)",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/5548000",
+        "name": "Madison",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4748000",
+        "name": "Memphis",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1245000",
+        "name": "Miami",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/5553000",
+        "name": "Milwaukee",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2743000",
+        "name": "Minneapolis",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0649670",
+        "name": "Mountain View",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4752006",
+        "name": "Nashville-Davidson metropolitan government (balance)",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0952000",
+        "name": "New Haven",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/2255000",
+        "name": "New Orleans",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/3651000",
+        "name": "New York",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0653000",
+        "name": "Oakland",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4055000",
+        "name": "Oklahoma City",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/3137000",
+        "name": "Omaha",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/1253000",
+        "name": "Orlando",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0655282",
+        "name": "Palo Alto",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4260000",
+        "name": "Philadelphia",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/0455000",
+        "name": "Phoenix",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4261000",
+        "name": "Pittsburgh",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4159000",
+        "name": "Portland",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/5167000",
+        "name": "Richmond",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/0664000",
+        "name": "Sacramento",
+        "types": [
+          "City"
+        ]
+      },
+      {
+        "dcid": "geoId/4967000",
+        "name": "Salt Lake City",
+        "types": [
+          "City"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/StudentEnrollmentLevels",
+        "name": "Student Enrollment Levels",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/StudentsInKindergarten",
+        "name": "Students in Kindergarten",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/StudentsInPrimarySchool",
+        "name": "Students in Primary School",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/StudentsInMiddleSchool",
+        "name": "Students in Middle School",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/StudentsInHighSchool",
+        "name": "Students in High School",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/StudentsInCollege",
+        "name": "Students in College",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/StudentsInGraduateOrProfessionalSchool",
+        "name": "Students in Graduate or Professional School",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
+  "svSource": "UNKNOWN",
+  "userMessages": []
+}

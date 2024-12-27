@@ -16,7 +16,11 @@
 
 import React from "react";
 
-import { Map } from "./map";
+import { PageHighlight } from "../chart/types";
+import { GoogleMap } from "../components/google_map";
+import { ASYNC_ELEMENT_HOLDER_CLASS } from "../constants/css_constants";
+import { PlaceHighlight } from "./place_highlight";
+import { PlaceSummary } from "./place_summary";
 import { Ranking } from "./ranking";
 
 interface OverviewPropType {
@@ -28,22 +32,71 @@ interface OverviewPropType {
    * The locale of the page.
    */
   locale: string;
+  /**
+   * Whether to show ranking.
+   */
+  showRanking: boolean;
+  /**
+   * Data to highlight in the tile.
+   */
+  highlight?: PageHighlight;
+  /**
+   * Mapping of DCID -> place names to show
+   */
+  names?: { [key: string]: string };
+  /**
+   * Type of place, e.g. State, County
+   */
+  placeType?: string;
+  /**
+   * Text summary of the place
+   */
+  summaryText?: string;
 }
 
 class Overview extends React.Component<OverviewPropType> {
   render(): JSX.Element {
     return (
-      <section className="factoid col-12">
-        <div className="row">
-          <div className="col-12 col-md-4">
-            <Map dcid={this.props.dcid}></Map>
+      <section
+        className={`factoid col-12 ${
+          this.props.showRanking && `overview-with-ranking`
+        }`}
+      >
+        <div className="overview-tile">
+          {this.props.summaryText && (
+            <div className="row">
+              <div className="col-12">
+                <PlaceSummary summary={this.props.summaryText} />
+              </div>
+            </div>
+          )}
+          <div className="row">
+            <div className={`col-12 ${this.props.showRanking && "col-md-4"}`}>
+              <GoogleMap dcid={this.props.dcid}></GoogleMap>
+            </div>
+            {this.props.showRanking && (
+              <div className={`col-12 col-md-8 ${ASYNC_ELEMENT_HOLDER_CLASS}`}>
+                <Ranking
+                  dcid={this.props.dcid}
+                  locale={this.props.locale}
+                ></Ranking>
+              </div>
+            )}
           </div>
-          <div className="col-12 col-md-8">
-            <Ranking
-              dcid={this.props.dcid}
-              locale={this.props.locale}
-            ></Ranking>
-          </div>
+          {this.props.highlight && (
+            <>
+              <hr />
+              <div
+                id="place-highlight-in-overview"
+                className="place-highlight-container"
+              >
+                <PlaceHighlight
+                  dcid={this.props.dcid}
+                  highlight={this.props.highlight}
+                />
+              </div>
+            </>
+          )}
         </div>
       </section>
     );

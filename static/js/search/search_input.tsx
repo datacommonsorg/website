@@ -61,16 +61,16 @@ export function SearchInput(props: SearchInputPropType): JSX.Element {
     <>
       <div
         className="search-input-section"
-        onBlur={(event) => {
+        onBlur={(event): void => {
           if (!event.currentTarget.contains(event.relatedTarget as Node)) {
             setShowResults(false);
           }
         }}
-        onKeyDown={(event) => handleKeydownEvent(event)}
+        onKeyDown={(event): void => handleKeydownEvent(event)}
       >
         <div className="search-input-wrapper">
           <form
-            onSubmit={(event) => {
+            onSubmit={(event): void => {
               event.preventDefault();
               redirectAction(inputText, "", "");
             }}
@@ -80,14 +80,14 @@ export function SearchInput(props: SearchInputPropType): JSX.Element {
               className="search-input-box"
               type="text"
               value={inputText}
-              onChange={(event) => onInputChanged(event.target.value)}
+              onChange={(event): void => onInputChanged(event.target.value)}
               placeholder="Search for places, variables, and more on Data Commons"
             />
           </form>
           {!_.isEmpty(inputText) && (
             <span
               className="material-icons-outlined search-input-box-clear"
-              onClick={() => onInputChanged("")}
+              onClick={(): void => onInputChanged("")}
             >
               clear
             </span>
@@ -99,7 +99,7 @@ export function SearchInput(props: SearchInputPropType): JSX.Element {
               className={`search-input-result ${
                 0 === hoveredIdx ? "search-input-result-highlighted" : ""
               }`}
-              onClick={() => redirectAction(inputText, "", "")}
+              onClick={(): void => redirectAction(inputText, "", "")}
               key={"search-input-result-0"}
             >
               {inputText}
@@ -114,7 +114,9 @@ export function SearchInput(props: SearchInputPropType): JSX.Element {
                         : ""
                     }`}
                     key={"search-input-result-" + result.dcid}
-                    onClick={() => redirectAction(result.name, result.dcid, "")}
+                    onClick={(): void =>
+                      redirectAction(result.name, result.dcid, "")
+                    }
                   >
                     {getHighlightedJSX(result.dcid, result.name, matches)}
                   </div>
@@ -129,7 +131,9 @@ export function SearchInput(props: SearchInputPropType): JSX.Element {
                         ? "search-input-result-highlighted"
                         : ""
                     }`}
-                    onClick={() => redirectAction(result.name, "", result.dcid)}
+                    onClick={(): void =>
+                      redirectAction(result.name, "", result.dcid)
+                    }
                     key={"search-input-result-" + result.dcid}
                   >
                     {getHighlightedJSX(result.dcid, result.name, matches)}
@@ -141,7 +145,7 @@ export function SearchInput(props: SearchInputPropType): JSX.Element {
       </div>
       <span
         className="search-input-search-button"
-        onClick={() => redirectAction(inputText, "", "")}
+        onClick={(): void => redirectAction(inputText, "", "")}
       >
         <img src="/images/icon-search.svg" />
       </span>

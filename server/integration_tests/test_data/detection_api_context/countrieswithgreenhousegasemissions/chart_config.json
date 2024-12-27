@@ -1,0 +1,43 @@
+{
+  "childEntityType": "Country",
+  "classifications": [
+    {
+      "contained_in_place_type": "Country",
+      "had_default_type": false,
+      "type": 4
+    }
+  ],
+  "client": "test_detect",
+  "comparisonEntities": [],
+  "comparisonVariables": [],
+  "context": {},
+  "debug": {},
+  "entities": [
+    "Earth"
+  ],
+  "nonPlaceEntities": [],
+  "properties": [],
+  "sessionId": "007_999999999",
+  "variables": [
+    "Annual_Emissions_GreenhouseGas",
+    "dc/topic/GreenhouseGasEmissions",
+    "dc/topic/CO2Emissions",
+    "dc/topic/sdg_13.2.2",
+    "dc/topic/Emissions",
+    "Annual_Emissions_GreenhouseGas_OilAndGas",
+    "dc/topic/TransportationEmissionsByGas",
+    "Annual_Emissions_GreenhouseGas_Agriculture",
+    "Annual_Emissions_GreenhouseGas_Transportation",
+    "Annual_Emissions_GreenhouseGas_StationaryCombustion_NonBiogenic",
+    "Annual_Emissions_GreenhouseGas_RiceCultivation",
+    "Annual_Emissions_GreenhouseGas_OilAndGasProduction",
+    "dc/topic/PowerEmissionsByGas",
+    "dc/topic/ManufacturingEmissionsByGas",
+    "Annual_Emissions_GreenhouseGas_NonBiogenic",
+    "Annual_Emissions_GreenhouseGas_FuelCombustionForCooking",
+    "Annual_Emissions_GreenhouseGas_FuelCombustionInBuildings",
+    "Annual_Emissions_GreenhouseGas_HydrogenProduction_NonBiogenic",
+    "Annual_Amount_Emissions_SCC_27_NaturalSources",
+    "dc/topic/AgricultureEmissionsByGas"
+  ]
+}

@@ -1,0 +1,847 @@
+{
+  "client": "test_detect-and-fulfill",
+  "config": {
+    "categories": [
+      {
+        "blocks": [
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "geoId/22035"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_1To4Years_multiple_place_bar_block",
+                      "Count_Person_5To17Years_multiple_place_bar_block",
+                      "Count_Person_18To24Years_multiple_place_bar_block",
+                      "Count_Person_25To34Years_multiple_place_bar_block",
+                      "Count_Person_35To44Years_multiple_place_bar_block",
+                      "Count_Person_45To54Years_multiple_place_bar_block",
+                      "Count_Person_55To64Years_multiple_place_bar_block",
+                      "Count_Person_65To74Years_multiple_place_bar_block",
+                      "Count_Person_75OrMoreYears_multiple_place_bar_block"
+                    ],
+                    "title": "Age Distribution in East Carroll Parish (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Age Distribution"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_1To4Years"
+                    ],
+                    "title": "Population: 1-4 Years in Cities of East Carroll Parish (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_1To4Years"
+                    ],
+                    "title": "Population: 1-4 Years in Cities of East Carroll Parish (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 1-4 Years in Cities of East Carroll Parish"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_5To17Years"
+                    ],
+                    "title": "Population Aged 5 to 17 in Cities of East Carroll Parish (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_5To17Years"
+                    ],
+                    "title": "Population Aged 5 to 17 in Cities of East Carroll Parish (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population Aged 5 to 17 in Cities of East Carroll Parish"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15
+                    },
+                    "comparisonPlaces": [
+                      "geoId/22035"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_IncomeOfUpto9999USDollar_multiple_place_bar_block",
+                      "Count_Person_IncomeOf10000To14999USDollar_multiple_place_bar_block",
+                      "Count_Person_IncomeOf25000To34999USDollar_multiple_place_bar_block",
+                      "Count_Person_IncomeOf35000To49999USDollar_multiple_place_bar_block",
+                      "Count_Person_IncomeOf50000To64999USDollar_multiple_place_bar_block",
+                      "Count_Person_IncomeOf65000To74999USDollar_multiple_place_bar_block",
+                      "Count_Person_IncomeOf75000OrMoreUSDollar_multiple_place_bar_block"
+                    ],
+                    "title": "Population by Income Level in East Carroll Parish (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population by Income Level"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_IncomeOfUpto9999USDollar"
+                    ],
+                    "title": "Number of People Earning Up to $9,999 in Cities of East Carroll Parish (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_IncomeOfUpto9999USDollar"
+                    ],
+                    "title": "Number of People Earning Up to $9,999 in Cities of East Carroll Parish (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Number of People Earning Up to $9,999 in Cities of East Carroll Parish"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_IncomeOf10000To14999USDollar"
+                    ],
+                    "title": "Number of People Earning $10,000 and $14,999 in Cities of East Carroll Parish (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_IncomeOf10000To14999USDollar"
+                    ],
+                    "title": "Number of People Earning $10,000 and $14,999 in Cities of East Carroll Parish (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Number of People Earning $10,000 and $14,999 in Cities of East Carroll Parish"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_18OrMoreYears"
+                    ],
+                    "title": "Population: 18 Years or More in East Carroll Parish",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: 18 Years or More in East Carroll Parish",
+                    "statVarKey": [
+                      "Count_Person_18OrMoreYears"
+                    ],
+                    "title": "Population: 18 Years or More in East Carroll Parish",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 18 Years or More"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_18OrMoreYears"
+                    ],
+                    "title": "Population: 18 Years or More in Cities of East Carroll Parish (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_18OrMoreYears"
+                    ],
+                    "title": "Population: 18 Years or More in Cities of East Carroll Parish (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 18 Years or More in Cities of East Carroll Parish"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person"
+                    ],
+                    "title": "Population in East Carroll Parish",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population in East Carroll Parish",
+                    "statVarKey": [
+                      "Count_Person"
+                    ],
+                    "title": "Population in East Carroll Parish",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person"
+                    ],
+                    "title": "Population in Cities of East Carroll Parish (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person"
+                    ],
+                    "title": "Population in Cities of East Carroll Parish (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Population in Cities of East Carroll Parish"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person"
+                    ],
+                    "title": "Median Age of Population in East Carroll Parish",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Median Age of Population in East Carroll Parish",
+                    "statVarKey": [
+                      "Median_Age_Person"
+                    ],
+                    "title": "Median Age of Population in East Carroll Parish",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Population"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Median_Age_Person"
+                    ],
+                    "title": "Median Age of Population in Cities of East Carroll Parish (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Median_Age_Person"
+                    ],
+                    "title": "Median Age of Population in Cities of East Carroll Parish (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "title": "Median Age of Population in Cities of East Carroll Parish"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Upto18Years"
+                    ],
+                    "title": "Population: 18 Years or Less in East Carroll Parish",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Population: 18 Years or Less in East Carroll Parish",
+                    "statVarKey": [
+                      "Count_Person_Upto18Years"
+                    ],
+                    "title": "Population: 18 Years or Less in East Carroll Parish",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 18 Years or Less"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Upto18Years"
+                    ],
+                    "title": "Population: 18 Years or Less in Cities of East Carroll Parish (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Upto18Years"
+                    ],
+                    "title": "Population: 18 Years or Less in Cities of East Carroll Parish (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: 18 Years or Less in Cities of East Carroll Parish"
+          }
+        ],
+        "statVarSpec": {
+          "Count_Person": {
+            "name": "Population",
+            "statVar": "Count_Person"
+          },
+          "Count_Person_18OrMoreYears": {
+            "name": "Population: 18 Years or More",
+            "statVar": "Count_Person_18OrMoreYears"
+          },
+          "Count_Person_18To24Years_multiple_place_bar_block": {
+            "name": "Population Aged 18 to 24 Years",
+            "statVar": "Count_Person_18To24Years"
+          },
+          "Count_Person_1To4Years": {
+            "name": "Population: 1 - 4 Years",
+            "statVar": "Count_Person_1To4Years"
+          },
+          "Count_Person_1To4Years_multiple_place_bar_block": {
+            "name": "Population: 1 - 4 Years",
+            "statVar": "Count_Person_1To4Years"
+          },
+          "Count_Person_25To34Years_multiple_place_bar_block": {
+            "name": "Population Aged 25 to 34 Years",
+            "statVar": "Count_Person_25To34Years"
+          },
+          "Count_Person_35To44Years_multiple_place_bar_block": {
+            "name": "Population Aged 35 to 44",
+            "statVar": "Count_Person_35To44Years"
+          },
+          "Count_Person_45To54Years_multiple_place_bar_block": {
+            "name": "Population Aged 45 to 54",
+            "statVar": "Count_Person_45To54Years"
+          },
+          "Count_Person_55To64Years_multiple_place_bar_block": {
+            "name": "Population: 55 - 64 Years",
+            "statVar": "Count_Person_55To64Years"
+          },
+          "Count_Person_5To17Years": {
+            "name": "Population Aged 5 to 17",
+            "statVar": "Count_Person_5To17Years"
+          },
+          "Count_Person_5To17Years_multiple_place_bar_block": {
+            "name": "Population Aged 5 to 17",
+            "statVar": "Count_Person_5To17Years"
+          },
+          "Count_Person_65To74Years_multiple_place_bar_block": {
+            "name": "Population Aged 65 to 74",
+            "statVar": "Count_Person_65To74Years"
+          },
+          "Count_Person_75OrMoreYears_multiple_place_bar_block": {
+            "name": "Population Aged 75 and Up",
+            "statVar": "Count_Person_75OrMoreYears"
+          },
+          "Count_Person_IncomeOf10000To14999USDollar": {
+            "name": "Number of People Earning $10,000 and $14,999",
+            "statVar": "Count_Person_IncomeOf10000To14999USDollar"
+          },
+          "Count_Person_IncomeOf10000To14999USDollar_multiple_place_bar_block": {
+            "name": "Number of People Earning $10,000 and $14,999",
+            "statVar": "Count_Person_IncomeOf10000To14999USDollar"
+          },
+          "Count_Person_IncomeOf25000To34999USDollar_multiple_place_bar_block": {
+            "name": "Number of People Earning $25,000 and $34,999",
+            "statVar": "Count_Person_IncomeOf25000To34999USDollar"
+          },
+          "Count_Person_IncomeOf35000To49999USDollar_multiple_place_bar_block": {
+            "name": "Number of People Earning $35,000 and $49,999",
+            "statVar": "Count_Person_IncomeOf35000To49999USDollar"
+          },
+          "Count_Person_IncomeOf50000To64999USDollar_multiple_place_bar_block": {
+            "name": "Number of People Earning Between $50,000 and $64,999",
+            "statVar": "Count_Person_IncomeOf50000To64999USDollar"
+          },
+          "Count_Person_IncomeOf65000To74999USDollar_multiple_place_bar_block": {
+            "name": "Number of People Earning Between $65,000 and $74,999",
+            "statVar": "Count_Person_IncomeOf65000To74999USDollar"
+          },
+          "Count_Person_IncomeOf75000OrMoreUSDollar_multiple_place_bar_block": {
+            "name": "Number of People Earning $75,000 or More",
+            "statVar": "Count_Person_IncomeOf75000OrMoreUSDollar"
+          },
+          "Count_Person_IncomeOfUpto9999USDollar": {
+            "name": "Number of People Earning Up to $9,999",
+            "statVar": "Count_Person_IncomeOfUpto9999USDollar"
+          },
+          "Count_Person_IncomeOfUpto9999USDollar_multiple_place_bar_block": {
+            "name": "Number of People Earning Up to $9,999",
+            "statVar": "Count_Person_IncomeOfUpto9999USDollar"
+          },
+          "Count_Person_Upto18Years": {
+            "name": "Population: 18 Years or Less",
+            "statVar": "Count_Person_Upto18Years"
+          },
+          "Median_Age_Person": {
+            "name": "Median Age of Population",
+            "statVar": "Median_Age_Person"
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "containedPlaceTypes": {
+        "County": "City"
+      },
+      "placeDcid": [
+        "geoId/22035"
+      ]
+    }
+  },
+  "context": {},
+  "debug": {},
+  "entities": [],
+  "pastSourceContext": "",
+  "place": {
+    "dcid": "geoId/22035",
+    "name": "East Carroll Parish",
+    "place_type": "County"
+  },
+  "placeFallback": {},
+  "placeSource": "CURRENT_QUERY",
+  "places": [
+    {
+      "dcid": "geoId/22035",
+      "name": "East Carroll Parish",
+      "place_type": "County"
+    }
+  ],
+  "relatedThings": {
+    "childPlaces": {
+      "City": [
+        {
+          "dcid": "geoId/2241400",
+          "name": "Lake Providence",
+          "types": [
+            "City"
+          ]
+        },
+        {
+          "dcid": "geoId/5022035",
+          "name": "Lake Providence",
+          "types": [
+            "City"
+          ]
+        }
+      ]
+    },
+    "childTopics": [],
+    "exploreMore": {
+      "Count_Person": {
+        "age": [
+          "Count_Person_18OrMoreYears",
+          "Count_Person_18To24Years",
+          "Count_Person_1To4Years",
+          "Count_Person_25To34Years",
+          "Count_Person_35To44Years",
+          "Count_Person_45To54Years",
+          "Count_Person_55To64Years",
+          "Count_Person_5To17Years",
+          "Count_Person_65To74Years",
+          "Count_Person_75OrMoreYears",
+          "Count_Person_Upto18Years"
+        ],
+        "income": [
+          "Count_Person_IncomeOf10000To14999USDollar",
+          "Count_Person_IncomeOf25000To34999USDollar",
+          "Count_Person_IncomeOf35000To49999USDollar",
+          "Count_Person_IncomeOf50000To64999USDollar",
+          "Count_Person_IncomeOf65000To74999USDollar",
+          "Count_Person_IncomeOf75000OrMoreUSDollar",
+          "Count_Person_IncomeOfUpto9999USDollar"
+        ]
+      }
+    },
+    "mainTopics": [
+      {
+        "dcid": "dc/topic/AgeDistribution",
+        "name": "Age Distribution",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "parentPlaces": [],
+    "parentTopics": [
+      {
+        "dcid": "dc/topic/Age",
+        "name": "Age",
+        "types": [
+          "Topic"
+        ]
+      }
+    ],
+    "peerPlaces": [
+      {
+        "dcid": "geoId/06001",
+        "name": "Alameda",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/36005",
+        "name": "Bronx",
+        "types": [
+          "County"
+        ]
+      },
+      {
+        "dcid": "geoId/06013",
+        "name": "Contra Costa",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/17031",
+        "name": "Cook",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/39035",
+        "name": "Cuyahoga",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/48113",
+        "name": "Dallas",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/12031",
+        "name": "Duval",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/08041",
+        "name": "El Paso",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/51059",
+        "name": "Fairfax",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/13121",
+        "name": "Fulton",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/48201",
+        "name": "Harris",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/12057",
+        "name": "Hillsborough",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/15003",
+        "name": "Honolulu",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/08059",
+        "name": "Jefferson",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06029",
+        "name": "Kern",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/53033",
+        "name": "King",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06037",
+        "name": "Los Angeles",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/04013",
+        "name": "Maricopa",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/37119",
+        "name": "Mecklenburg",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/12086",
+        "name": "Miami-Dade",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06059",
+        "name": "Orange",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/36081",
+        "name": "Queens",
+        "types": [
+          "County"
+        ]
+      },
+      {
+        "dcid": "geoId/06065",
+        "name": "Riverside",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06071",
+        "name": "San Bernardino",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06073",
+        "name": "San Diego",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06075",
+        "name": "San Francisco",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/06085",
+        "name": "Santa Clara",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      },
+      {
+        "dcid": "geoId/24047",
+        "name": "Worcester",
+        "types": [
+          "AdministrativeArea2"
+        ]
+      }
+    ],
+    "peerTopics": [
+      {
+        "dcid": "dc/topic/AgeMedians",
+        "name": "Age Medians",
+        "types": [
+          "Topic"
+        ]
+      },
+      {
+        "dcid": "dc/topic/VeryOldAndVeryYoungPopulation",
+        "name": "Very Old and Very Young Population",
+        "types": [
+          "Topic"
+        ]
+      }
+    ]
+  },
+  "svSource": "CURRENT_QUERY",
+  "userMessages": []
+}

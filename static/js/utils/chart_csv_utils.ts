@@ -18,10 +18,15 @@
  * Util functions for getting csv for charts.
  */
 
+import _ from "lodash";
+import Papa from "papaparse";
+
 import { DataGroup, DataPoint } from "../chart/base";
 import { Point } from "../chart/draw_scatter";
-import { GeoJsonData } from "../chart/types";
+import { MapLayerData } from "../components/tiles/map_tile";
 import { RankingPoint } from "../types/ranking_unit_types";
+
+const DEFAULT_LABEL_HEADER = "label";
 
 // TODO(beets): Create DataPoints class and add this to that class.
 /**
@@ -45,7 +50,10 @@ function findDataPointOrNull(
  * Gets the csv (as a string) for a  list of data groups.
  * @param dataGroups data groups to get the csv for
  */
-export function dataGroupsToCsv(dataGroups: DataGroup[]): string {
+export function dataGroupsToCsv(
+  dataGroups: DataGroup[],
+  labelHeaderOverride?: string
+): string {
   if (!dataGroups || dataGroups.length == 0) {
     return "";
   }
@@ -55,14 +63,15 @@ export function dataGroupsToCsv(dataGroups: DataGroup[]): string {
     const dates = dg.value.map((dp) => dp.label);
     allLabels = new Set([...Array.from(allLabels), ...dates]);
   }
-  // Create the the header row.
-  const header = ["label"];
+  const labelHeader = labelHeaderOverride || DEFAULT_LABEL_HEADER;
+  // Get the header row.
+  const header = [labelHeader];
   for (const dg of dataGroups) {
-    header.push(`"${dg.label}"`);
+    header.push(dg.label);
   }
 
   // Iterate each year, group, place, stats var to populate data
-  const rows: string[][] = [];
+  const data: string[][] = [];
   for (const label of Array.from(allLabels)) {
     const row: string[] = [label];
     for (const dg of dataGroups) {
@@ -73,14 +82,10 @@ export function dataGroupsToCsv(dataGroups: DataGroup[]): string {
         row.push("");
       }
     }
-    rows.push(row);
+    data.push(row);
   }
-  const headerRow = header.join(",") + "\n";
-  let result = headerRow;
-  for (const row of rows) {
-    result += row.join(",") + "\n";
-  }
-  return result;
+  const result = [header, ...data];
+  return Papa.unparse(result);
 }
 
 /**
@@ -98,35 +103,46 @@ export function scatterDataToCsv(
   yDenom: string,
   scatterPoints: { [placeDcid: string]: Point }
 ): string {
-  const rows = [];
   // Headers
-  let header =
-    "placeName," +
-    "placeDcid," +
-    "xDate," +
-    `xValue-${xStatVar},` +
-    "yDate," +
-    `yValue-${yStatVar}`;
+  const header = [
+    "placeName",
+    "placeDcid",
+    "xDate",
+    `xValue-${xStatVar}`,
+    "yDate",
+    `yValue-${yStatVar}`,
+  ];
   if (xDenom) {
-    header += `,xPopulation-${xDenom}`;
+    header.push(`xPopulation-${xDenom}`);
   }
   if (yDenom) {
-    header += `,yPopulation-${yDenom}`;
+    header.push(`yPopulation-${yDenom}`);
   }
-  rows.push(header);
+
   // Data
-  for (const place of Object.keys(scatterPoints)) {
+  const data = [];
+  // Sort places alphabetically
+  const sortedPlaces = Object.keys(scatterPoints).sort();
+  for (const place of sortedPlaces) {
     const point = scatterPoints[place];
-    let dataRow = `${point.place.name},${point.place.dcid},${point.xDate},${point.xVal},${point.yDate},${point.yVal}`;
+    const dataRow = [
+      point.place.name,
+      point.place.dcid,
+      point.xDate,
+      point.xVal,
+      point.yDate,
+      point.yVal,
+    ];
     if (xDenom) {
-      dataRow += `,${point.xPop || "N/A"}`;
+      dataRow.push(`${point.xPopVal || "N/A"}`);
     }
     if (yDenom) {
-      dataRow += `,${point.yPop || "N/A"}`;
+      dataRow.push(`${point.yPopVal || "N/A"}`);
     }
-    rows.push(dataRow);
+    data.push(dataRow);
   }
-  return rows.join("\n");
+  const rows = [header, ...data];
+  return Papa.unparse(rows);
 }
 
 /**
@@ -134,44 +150,83 @@ export function scatterDataToCsv(
  * @param dataPoints data points to get the csv for
  */
 export function dataPointsToCsv(dataPoints: DataPoint[]): string {
-  const rows = ["label,data"];
+  const header = ["label", "data"];
+  const data = [];
   for (const datapoint of dataPoints) {
-    rows.push(`${datapoint.label},${datapoint.value}`);
+    data.push([datapoint.label, datapoint.value]);
   }
-  return rows.join("\n");
+  const rows = [header, ...data];
+  return Papa.unparse(rows);
 }
 
 /**
  * Gets the csv (as a string) for a map chart data
- * @param geoJson GeoJson used for the map
- * @param dataValues data values used in the map
+ * @param layerData geoJsons + data values plotted by the map
  */
-export function mapDataToCsv(
-  geoJson: GeoJsonData,
-  dataValues: { [placeDcid: string]: number }
-): string {
-  const rows = ["label,data"];
-  for (const geo of geoJson.features) {
-    if (!geo.id) {
-      continue;
+export function mapDataToCsv(layerData: MapLayerData[]): string {
+  // check if at least one layer has a variable field provided
+  const hasVariable = layerData.some((layer) => layer.variable);
+  const data = [];
+  for (const layer of layerData) {
+    for (const geo of layer.geoJson.features) {
+      if (!geo.id) {
+        continue;
+      }
+      const value =
+        geo.id in layer.dataValues ? layer.dataValues[geo.id] || "N/A" : "N/A";
+      const name = geo.properties.name || geo.id;
+      // only add variable column if a variable field is in layer data.
+      if (hasVariable) {
+        const variable = layer.variable
+          ? layer.variable.name || layer.variable.statVar
+          : "N/A";
+        data.push([name, variable, value]);
+      } else {
+        data.push([name, value]);
+      }
     }
-    const value = geo.id in dataValues ? dataValues[geo.id] : "N/A";
-    const name = geo.properties.name || geo.id;
-    rows.push(`${name},${value}`);
   }
-  return rows.join("\n");
+  // sort data by label column (alphabetically)
+  data.sort((a, b) => {
+    if (_.isEmpty(a)) {
+      return -1;
+    } else if (_.isEmpty(b)) {
+      return 1;
+    } else {
+      return a[0] > b[0] ? 1 : -1;
+    }
+  });
+  const header = hasVariable
+    ? ["place", "variable", "data"]
+    : ["place", "data"];
+  const rows = [header, ...data];
+  return Papa.unparse(rows);
 }
 
 /**
  * Gets the csv (as a string) for a list of ranking points
  * @param rankingPoints ranking points to get the csv for
+ * @param dataHeaders headers for each of the data columns. If each ranking
+ *        ranking point has multiple values, the order of the  values should
+ *        correspond to the order of the headers.
  */
-export function rankingPointsToCsv(rankingPoints: RankingPoint[]): string {
-  const rows = ["rank,place,data"];
+export function rankingPointsToCsv(
+  rankingPoints: RankingPoint[],
+  dataHeaders: string[]
+): string {
+  const header = ["rank", "place", ...dataHeaders];
+  const data = [];
   rankingPoints.forEach((point, idx) => {
     const placeName = point.placeName || point.placeDcid;
     const rank = point.rank || idx + 1;
-    rows.push(`${rank},${placeName},${point.value}`);
+    const row = [rank, placeName];
+    if (!_.isEmpty(point.values)) {
+      point.values.forEach((val) => row.push(val));
+    } else {
+      row.push(point.value);
+    }
+    data.push(row);
   });
-  return rows.join("\n");
+  const rows = [header, ...data];
+  return Papa.unparse(rows);
 }

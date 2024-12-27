@@ -1,4 +1,4 @@
-# Copyright 2020 Google LLC
+# Copyright 2023 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,203 +15,281 @@
 import json
 import logging
 import os
-import time
-import tempfile
-import urllib.request
-import urllib.error
 
-from flask import Flask, request, g
+from flask import Flask
+from flask import g
+from flask import redirect
+from flask import request
 from flask_babel import Babel
-
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import firestore
-
-from google_auth_oauthlib.flow import Flow
+import flask_cors
 from google.cloud import secretmanager
-from opencensus.ext.flask.flask_middleware import FlaskMiddleware
-from opencensus.ext.stackdriver.trace_exporter import StackdriverExporter
-from opencensus.trace.propagation import google_cloud_format
-from opencensus.trace.samplers import AlwaysOnSampler
-import lib.config as libconfig
-import lib.i18n as i18n
-import lib.util as libutil
-from services.discovery import get_health_check_urls
+import google.cloud.logging
 
-propagator = google_cloud_format.GoogleCloudFormatPropagator()
+from server.lib import topic_cache
+import server.lib.cache as lib_cache
+import server.lib.config as lib_config
+from server.lib.disaster_dashboard import get_disaster_dashboard_data
+import server.lib.i18n as i18n
+from server.lib.nl.common.bad_words import EMPTY_BANNED_WORDS
+from server.lib.nl.common.bad_words import load_bad_words
+from server.lib.nl.detection import llm_prompt
+import server.lib.util as libutil
+import server.services.bigtable as bt
+from server.services.discovery import configure_endpoints_from_ingress
+from server.services.discovery import get_health_check_urls
+from shared.lib import gcp as lib_gcp
+from shared.lib import utils as lib_utils
 
-nl_model_cache_key = 'nl_model'
-nl_model_cache_path = '~/.datacommons/'
-nl_model_cache_expire = 3600 * 24  # Cache for 1 day
+BLOCKLIST_SVG_FILE = "/datacommons/svg/blocklist_svg.json"
 
-
-def createMiddleWare(app, exporter):
-  # Configure a flask middleware that listens for each request and applies
-  # automatic tracing. This needs to be set up before the application starts.
-  middleware = FlaskMiddleware(app,
-                               exporter=exporter,
-                               propagator=propagator,
-                               sampler=AlwaysOnSampler())
-  return middleware
+DEFAULT_NL_ROOT = "http://127.0.0.1:6060"
 
 
 def register_routes_base_dc(app):
   # apply the blueprints for all apps
-  from routes import (
-      dev,
-      disease,
-      import_wizard,
-      placelist,
-      protein,
-      redirects,
-      special_announcement,
-      topic_page,
-  )
-  app.register_blueprint(dev.bp)
-  app.register_blueprint(disease.bp)
-  app.register_blueprint(placelist.bp)
-  app.register_blueprint(protein.bp)
-  app.register_blueprint(redirects.bp)
-  app.register_blueprint(special_announcement.bp)
-  app.register_blueprint(topic_page.bp)
+  from server.routes.dev import html as dev_html
+  app.register_blueprint(dev_html.bp)
 
-  from routes.api import (protein as protein_api)
-  from routes.api import (disease as disease_api)
-  from routes.api.import_detection import (detection as detection_api)
+  from server.routes.import_wizard import html as import_wizard_html
+  app.register_blueprint(import_wizard_html.bp)
+
+  from server.routes.place_list import html as place_list_html
+  app.register_blueprint(place_list_html.bp)
+
+  from server.routes import redirects
+  app.register_blueprint(redirects.bp)
+
+  from server.routes.screenshot import html as screenshot_html
+  app.register_blueprint(screenshot_html.bp)
+
+  from server.routes.special_announcement import \
+      html as special_announcement_html
+  app.register_blueprint(special_announcement_html.bp)
+
+  from server.routes.topic_page import html as topic_page_html
+  app.register_blueprint(topic_page_html.bp)
+
+  from server.routes.import_detection import detection as detection_api
   app.register_blueprint(detection_api.bp)
+
+  from server.routes.disaster import api as disaster_api
+  app.register_blueprint(disaster_api.bp)
+
+
+def register_routes_biomedical_dc(app):
+  # Apply the blueprints specific to biomedical dc
+  from server.routes.biomedical import html as bio_html
+  app.register_blueprint(bio_html.bp)
+
+  from server.routes.disease import api as disease_api
   app.register_blueprint(disease_api.bp)
-  app.register_blueprint(import_wizard.bp)
+
+  from server.routes.disease import html as disease_html
+  app.register_blueprint(disease_html.bp)
+
+  from server.routes.protein import api as protein_api
   app.register_blueprint(protein_api.bp)
 
-
-def register_routes_custom_dc(app):
-  ## apply the blueprints for custom dc instances
-  pass
+  from server.routes.protein import html as protein_html
+  app.register_blueprint(protein_html.bp)
 
 
-def register_routes_stanford_dc(app, is_test):
-  # Install blueprints specific to Stanford DC
-  from routes import (disasters, event)
-  from routes.api import (disaster_api)
-  app.register_blueprint(disasters.bp)
-  app.register_blueprint(disaster_api.bp)
-  app.register_blueprint(event.bp)
+def register_routes_disasters(app):
+  # Install blueprints specific to disasters
+  from server.routes.disaster import html as disaster_html
+  app.register_blueprint(disaster_html.bp)
 
-  if not is_test:
-    # load disaster dashboard configs
-    disaster_dashboard_configs = libutil.get_disaster_dashboard_configs()
-    app.config['DISASTER_DASHBOARD_CONFIGS'] = disaster_dashboard_configs
+  from server.routes.event import html as event_html
+  app.register_blueprint(event_html.bp)
+
+  if app.config['TEST']:
+    return
+
+  # load disaster dashboard configs
+  app.config[
+      'DISASTER_DASHBOARD_CONFIG'] = libutil.get_disaster_dashboard_config()
+  app.config['DISASTER_EVENT_CONFIG'] = libutil.get_disaster_event_config()
+
+  if app.config['INTEGRATION']:
+    return
+
+  # load disaster json data
+  if os.environ.get('ENABLE_DISASTER_JSON') == 'true':
+    disaster_dashboard_data = get_disaster_dashboard_data(
+        app.config['GCS_BUCKET'])
+    app.config['DISASTER_DASHBOARD_DATA'] = disaster_dashboard_data
+
+
+def register_routes_sustainability(app):
+  # Install blueprint for sustainability page
+  from server.routes.sustainability import html as sustainability_html
+  app.register_blueprint(sustainability_html.bp)
+  if app.config['TEST']:
+    return
+  # load sustainability config
+  app.config[
+      'DISASTER_SUSTAINABILITY_CONFIG'] = libutil.get_disaster_sustainability_config(
+      )
 
 
 def register_routes_admin(app):
-  from routes import (user)
-  app.register_blueprint(user.bp)
-  from routes.api import (user as user_api)
-  app.register_blueprint(user_api.bp)
+  from server.routes.admin import html as admin_html
+  app.register_blueprint(admin_html.bp)
 
 
 def register_routes_common(app):
-  # apply the blueprints for main app
-  from routes import (
-      browser,
-      factcheck,
-      nl_interface,
-      place,
-      ranking,
-      search,
-      static,
-      tools,
-  )
-  app.register_blueprint(browser.bp)
-  app.register_blueprint(nl_interface.bp)
-  app.register_blueprint(place.bp)
-  app.register_blueprint(ranking.bp)
-  app.register_blueprint(search.bp)
+  # apply blueprints for main app
+  from server.routes import static
   app.register_blueprint(static.bp)
-  app.register_blueprint(tools.bp)
+
+  from server.routes.browser import html as browser_html
+  app.register_blueprint(browser_html.bp)
+
+  from server.routes.factcheck import html as factcheck_html
+  app.register_blueprint(factcheck_html.bp)
+
+  from server.routes.explore import html as explore_html
+  app.register_blueprint(explore_html.bp)
+
+  from server.routes.nl import html as nl_html
+  app.register_blueprint(nl_html.bp)
+
+  from server.routes.place import html as place_html
+  app.register_blueprint(place_html.bp)
+
+  from server.routes.dev_place import api as dev_place_api
+  app.register_blueprint(dev_place_api.bp)
+
+  from server.routes.ranking import html as ranking_html
+  app.register_blueprint(ranking_html.bp)
+
+  from server.routes.search import html as search_html
+  app.register_blueprint(search_html.bp)
+
+  from server.routes.tools import html as tools_html
+  app.register_blueprint(tools_html.bp)
+
   # TODO: Extract more out to base_dc
-  from routes.api import (
-      browser as browser_api,
-      choropleth,
-      csv,
-      facets,
-      landing_page,
-      node,
-      observation_dates,
-      observation_existence,
-      place as place_api,
-      point,
-      ranking as ranking_api,
-      series,
-      stats,
-      translator,
-      variable,
-      variable_group,
-  )
+  from server.routes.browser import api as browser_api
   app.register_blueprint(browser_api.bp)
-  app.register_blueprint(choropleth.bp)
-  app.register_blueprint(csv.bp)
-  app.register_blueprint(facets.bp)
-  app.register_blueprint(factcheck.bp)
-  app.register_blueprint(landing_page.bp)
-  app.register_blueprint(node.bp)
-  app.register_blueprint(observation_dates.bp)
-  app.register_blueprint(observation_existence.bp)
+
+  from server.routes.place import api as place_api
   app.register_blueprint(place_api.bp)
-  app.register_blueprint(point.bp)
+
+  from server.routes.ranking import api as ranking_api
   app.register_blueprint(ranking_api.bp)
-  app.register_blueprint(series.bp)
-  app.register_blueprint(stats.bp)
-  app.register_blueprint(translator.bp)
-  app.register_blueprint(variable.bp)
-  app.register_blueprint(variable_group.bp)
+
+  from server.routes.nl import api as nl_api
+  app.register_blueprint(nl_api.bp)
+
+  from server.routes.explore import api as explore_api
+  app.register_blueprint(explore_api.bp)
+
+  from server.routes.shared_api import choropleth as shared_choropleth
+  app.register_blueprint(shared_choropleth.bp)
+
+  from server.routes.shared_api import csv as shared_csv
+  app.register_blueprint(shared_csv.bp)
+
+  from server.routes.shared_api import facets as shared_facets
+  app.register_blueprint(shared_facets.bp)
+
+  from server.routes.shared_api import node as shared_node
+  app.register_blueprint(shared_node.bp)
+
+  from server.routes.shared_api import place as shared_place
+  app.register_blueprint(shared_place.bp)
+
+  from server.routes.shared_api import stats as shared_stats
+  app.register_blueprint(shared_stats.bp)
+
+  from server.routes.shared_api.autocomplete import \
+      autocomplete as shared_autocomplete
+  app.register_blueprint(shared_autocomplete.bp)
+
+  from server.routes.shared_api import variable as shared_variable
+  app.register_blueprint(shared_variable.bp)
+
+  from server.routes.shared_api import variable_group as shared_variable_group
+  app.register_blueprint(shared_variable_group.bp)
+
+  from server.routes.shared_api.observation import date as observation_date
+  app.register_blueprint(observation_date.bp)
+
+  from server.routes.shared_api.observation import \
+      existence as observation_existence
+  app.register_blueprint(observation_existence.bp)
+
+  from server.routes.shared_api.observation import point as observation_point
+  app.register_blueprint(observation_point.bp)
+
+  from server.routes.shared_api.observation import series as observation_series
+  app.register_blueprint(observation_series.bp)
+
+  # register OEmbed blueprints
+  from server.routes.oembed import chart as oembed_chart
+  app.register_blueprint(oembed_chart.bp)
+
+  from server.routes.oembed import oembed as oembed
+  app.register_blueprint(oembed.bp)
 
 
-def create_app():
+def create_app(nl_root=DEFAULT_NL_ROOT):
   app = Flask(__name__, static_folder='dist', static_url_path='')
 
-  if os.environ.get('FLASK_ENV') in ['production', 'staging', 'autopush']:
-    createMiddleWare(app, StackdriverExporter())
-    import googlecloudprofiler
-    # Profiler initialization. It starts a daemon thread which continuously
-    # collects and uploads profiles. Best done as early as possible.
-    try:
-      # service and service_version can be automatically inferred when
-      # running on GCP.
-      googlecloudprofiler.start(verbose=3)
-    except (ValueError, NotImplementedError) as exc:
-      logging.error(exc)
+  cfg = lib_config.get_config()
+
+  if lib_gcp.in_google_network() and not lib_utils.is_test_env():
+    client = google.cloud.logging.Client()
+    client.setup_logging()
+  else:
+    logging.basicConfig(
+        level=logging.INFO,
+        format=
+        "[%(asctime)s][%(levelname)-8s][%(filename)s:%(lineno)s] %(message)s ",
+        datefmt="%H:%M:%S",
+    )
+
+  log_level = logging.WARNING
+  if lib_utils.is_debug_mode():
+    log_level = logging.INFO
+  logging.getLogger('werkzeug').setLevel(log_level)
 
   # Setup flask config
-  cfg = libconfig.get_config()
   app.config.from_object(cfg)
 
-  # Init extentions
-  from cache import cache
-  # For some instance with fast updated data, we may not want to use memcache.
-  if app.config['USE_MEMCACHE']:
-    cache.init_app(app)
-  else:
-    cache.init_app(app, {'CACHE_TYPE': 'null'})
+  # Check DC_API_KEY is set for local dev.
+  if cfg.CUSTOM and cfg.LOCAL and not os.environ.get('DC_API_KEY'):
+    raise Exception(
+        'Set environment variable DC_API_KEY for local custom DC development')
+
+  # Use NL_SERVICE_ROOT if it's set, otherwise use nl_root argument
+  app.config['NL_ROOT'] = os.environ.get("NL_SERVICE_ROOT_URL", nl_root)
+  app.config['ENABLE_ADMIN'] = os.environ.get('ENABLE_ADMIN', '') == 'true'
+
+  lib_cache.cache.init_app(app)
+  lib_cache.model_cache.init_app(app)
+
+  # Configure ingress
+  # See deployment yamls.
+  ingress_config_path = os.environ.get('INGRESS_CONFIG_PATH')
+  if ingress_config_path:
+    configure_endpoints_from_ingress(ingress_config_path)
+
+  if os.environ.get('FLASK_ENV') == 'biomedical':
+    register_routes_biomedical_dc(app)
 
   register_routes_common(app)
-  if cfg.CUSTOM:
-    register_routes_custom_dc(app)
-  if cfg.ENV_NAME == 'STANFORD' or os.environ.get(
-      'FLASK_ENV') == 'autopush' or cfg.LOCAL:
-    register_routes_stanford_dc(app, cfg.TEST)
-  if cfg.TEST:
-    # disaster dashboard tests require stanford's routes to be registered.
-    register_routes_base_dc(app)
-    register_routes_stanford_dc(app, cfg.TEST)
-  else:
-    register_routes_base_dc(app)
-  if cfg.ADMIN:
+  register_routes_base_dc(app)
+
+  if cfg.SHOW_DISASTER:
+    register_routes_disasters(app)
+
+  if cfg.SHOW_SUSTAINABILITY:
+    register_routes_sustainability(app)
+
+  if app.config['ENABLE_ADMIN']:
     register_routes_admin(app)
-    cred = credentials.ApplicationDefault()
-    firebase_admin.initialize_app(cred)
-    user_db = firestore.client()
-    app.config['USER_DB'] = user_db
 
   # Load topic page config
   topic_page_configs = libutil.get_topic_page_config()
@@ -228,116 +306,112 @@ def create_app():
     if 'relatedChart' in chart and 'denominator' in chart['relatedChart']:
       ranked_statvars.add(chart['relatedChart']['denominator'])
   app.config['RANKED_STAT_VARS'] = ranked_statvars
+  app.config['CACHED_GEOJSONS'] = libutil.get_cached_geojsons()
+  app.config['HOMEPAGE_TOPICS'] = libutil.get_json(
+      "config/home_page/topics.json")
+  app.config['HOMEPAGE_PARTNERS'] = libutil.get_json(
+      "config/home_page/partners.json")
+  app.config['HOMEPAGE_SAMPLE_QUESTIONS'] = libutil.get_json(
+      "config/home_page/sample_questions.json")
 
-  if not cfg.TEST and not cfg.LITE:
-    secret_client = secretmanager.SecretManagerServiceClient()
-    secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
-                                                    'maps-api-key', 'latest')
-    secret_response = secret_client.access_secret_version(name=secret_name)
-    app.config['MAPS_API_KEY'] = secret_response.payload.data.decode('UTF-8')
+  if cfg.TEST or cfg.LITE:
+    app.config['MAPS_API_KEY'] = ''
+  else:
+    # Get the API key from environment first.
+    if os.environ.get('MAPS_API_KEY'):
+      app.config['MAPS_API_KEY'] = os.environ.get('MAPS_API_KEY')
+    elif os.environ.get('maps_api_key'):
+      app.config['MAPS_API_KEY'] = os.environ.get('maps_api_key')
+    else:
+      secret_client = secretmanager.SecretManagerServiceClient()
+      secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
+                                                      'maps-api-key', 'latest')
+      secret_response = secret_client.access_secret_version(name=secret_name)
+      app.config['MAPS_API_KEY'] = secret_response.payload.data.decode('UTF-8')
 
-  if cfg.ADMIN:
-    secret_client = secretmanager.SecretManagerServiceClient()
-    secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
-                                                    'oauth-client', 'latest')
-    secret_response = secret_client.access_secret_version(name=secret_name)
-    oauth_string = secret_response.payload.data.decode('UTF-8')
-    oauth_json = json.loads(oauth_string)
-    app.config['GOOGLE_CLIENT_ID'] = oauth_json['web']['client_id']
-    tf = tempfile.NamedTemporaryFile()
-    with open(tf.name, 'w') as f:
-      f.write(oauth_string)
-    app.config['OAUTH_FLOW'] = Flow.from_client_secrets_file(
-        client_secrets_file=tf.name,
-        redirect_uri=oauth_json['web']['redirect_uris'][0],
-        scopes=[
-            'https://www.googleapis.com/auth/userinfo.profile',
-            'https://www.googleapis.com/auth/userinfo.email',
-            'openid',
-        ])
+  if app.config['ENABLE_ADMIN']:
+    app.config['ADMIN_SECRET'] = os.environ.get('ADMIN_SECRET', '')
 
-  if app.config['LOCAL']:
-    os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+  if cfg.LOCAL:
+    app.config['LOCAL'] = True
 
-  if app.config['API_PROJECT']:
-    secret_client = secretmanager.SecretManagerServiceClient()
-    secret_name = secret_client.secret_version_path(cfg.API_PROJECT,
-                                                    'mixer-api-key', 'latest')
-    secret_response = secret_client.access_secret_version(name=secret_name)
-    app.config['DC_API_KEY'] = secret_response.payload.data.decode('UTF-8')
+  # Need to fetch the API key for non gcp environment.
+  if cfg.LOCAL or cfg.WEBDRIVER or cfg.INTEGRATION:
+    # Get the API key from environment first.
+    if os.environ.get('DC_API_KEY'):
+      app.config['DC_API_KEY'] = os.environ.get('DC_API_KEY')
+    elif os.environ.get('dc_api_key'):
+      app.config['DC_API_KEY'] = os.environ.get('dc_api_key')
+    else:
+      secret_client = secretmanager.SecretManagerServiceClient()
+      secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
+                                                      'mixer-api-key', 'latest')
+      secret_response = secret_client.access_secret_version(name=secret_name)
+      app.config['DC_API_KEY'] = secret_response.payload.data.decode(
+          'UTF-8').replace('\n', '')
 
   # Initialize translations
   babel = Babel(app, default_domain='all')
   app.config['BABEL_DEFAULT_LOCALE'] = i18n.DEFAULT_LOCALE
   app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'i18n'
 
-  def load_model():
-    # import services.ai as ai
-    # app.config['AI_CONTEXT'] = ai.Context()
-
-    # In local dev, cache the model in disk so each hot reload won't download
-    # the model again.
-    if app.config['LOCAL']:
-      from diskcache import Cache
-      cache = Cache(nl_model_cache_path)
-      cache.expire()
-      nl_model = cache.get(nl_model_cache_key)
-      app.config['NL_MODEL'] = nl_model
-      if nl_model:
-        logging.info("Use cached model in: " + cache.directory)
-        return
-    # Some specific imports for the NL Interface.
-    import en_core_web_md
-    import lib.nl_training as libnl
-    import services.nl as nl
-    # For the classification types available, check lib.nl_training (libnl).
-    classification_types = [
-        'ranking', 'temporal', 'contained_in', 'correlation'
-    ]
-    nl_model = nl.Model(en_core_web_md.load(), libnl.CLASSIFICATION_INFO,
-                        classification_types)
-    app.config['NL_MODEL'] = nl_model
-    if app.config['LOCAL']:
-      with Cache(cache.directory) as reference:
-        reference.set(nl_model_cache_key,
-                      nl_model,
-                      expire=nl_model_cache_expire)
-
-  # Initialize the AI module.
+  # Enable the NL model.
   if os.environ.get('ENABLE_MODEL') == 'true':
-    load_model()
+    libutil.check_backend_ready([app.config['NL_ROOT'] + '/healthz'])
 
-  def is_up(url: str):
-    if not url.lower().startswith('http'):
-      raise ValueError(f'Invalid scheme in {url}. Expected http(s)://.')
+    # This also requires disaster and event routes.
+    app.config['NL_DISASTER_CONFIG'] = libutil.get_nl_disaster_config()
+    if app.config['LOG_QUERY']:
+      app.config['NL_TABLE'] = bt.get_nl_table()
+    else:
+      app.config['NL_TABLE'] = None
 
-    try:
-      # Disable Bandit security check 310. http scheme is already checked above.
-      # Codacity still calls out the error so disable the check.
-      # https://bandit.readthedocs.io/en/latest/blacklists/blacklist_calls.html#b310-urllib-urlopen
-      urllib.request.urlopen(url)  # nosec B310
-      return True
-    except urllib.error.URLError:
-      return False
+    # Get the API key from environment first.
+    if cfg.USE_LLM:
+      app.config['LLM_PROMPT_TEXT'] = llm_prompt.get_prompts()
+      if os.environ.get('LLM_API_KEY'):
+        app.config['LLM_API_KEY'] = os.environ.get('LLM_API_KEY')
+      else:
+        secret_client = secretmanager.SecretManagerServiceClient()
+        secret_name = secret_client.secret_version_path(cfg.SECRET_PROJECT,
+                                                        'palm-api-key',
+                                                        'latest')
+        secret_response = secret_client.access_secret_version(name=secret_name)
+        app.config['LLM_API_KEY'] = secret_response.payload.data.decode('UTF-8')
+    app.config[
+        'NL_BAD_WORDS'] = EMPTY_BANNED_WORDS if cfg.CUSTOM else load_bad_words(
+        )
+    app.config['NL_CHART_TITLES'] = libutil.get_nl_chart_titles()
+    app.config['TOPIC_CACHE'] = topic_cache.load(app.config['NL_CHART_TITLES'])
+    app.config['SDG_PERCENT_VARS'] = libutil.get_sdg_percent_vars()
+    app.config['SPECIAL_DC_NON_COUNTRY_ONLY_VARS'] = \
+      libutil.get_special_dc_non_countery_only_vars()
+    # TODO: need to handle singular vs plural in the titles
+    app.config['NL_PROP_TITLES'] = libutil.get_nl_prop_titles()
+
+  # Get and save the list of variables that we should not allow per capita for.
+  app.config['NOPC_VARS'] = libutil.get_nl_no_percapita_vars()
+
+  # Set custom dc template folder if set, otherwise use the environment name
+  custom_dc_template_folder = app.config.get(
+      'CUSTOM_DC_TEMPLATE_FOLDER', None) or app.config.get('ENV', None)
+
+  # Get and save the blocklisted svgs.
+  blocklist_svg = []
+  if os.path.isfile(BLOCKLIST_SVG_FILE):
+    with open(BLOCKLIST_SVG_FILE) as f:
+      blocklist_svg = json.load(f) or []
+  else:
+    blocklist_svg = ["dc/g/Uncategorized", "oecd/g/OECD"]
+  app.config['BLOCKLIST_SVG'] = blocklist_svg
+
+  # Set whether to filter stat vars with low geographic coverage in the
+  # map and scatter tools.
+  app.config['MIN_STAT_VAR_GEO_COVERAGE'] = cfg.MIN_STAT_VAR_GEO_COVERAGE
 
   if not cfg.TEST:
-    timeout = 5 * 60  # seconds
-    sleep_seconds = 10
-    total_sleep_seconds = 0
     urls = get_health_check_urls()
-    up_status = {url: False for url in urls}
-    while not all(up_status.values()):
-      for url in urls:
-        if up_status[url]:
-          continue
-        up_status[url] = is_up(url)
-
-      if all(up_status.values()):
-        break
-      time.sleep(sleep_seconds)
-      total_sleep_seconds += sleep_seconds
-      if total_sleep_seconds > timeout:
-        raise RuntimeError('Mixer not ready after %s second' % timeout)
+    libutil.check_backend_ready(urls)
 
   # Add variables to the per-request global context.
   @app.before_request
@@ -346,9 +420,16 @@ def create_app():
     requested_locale = request.args.get('hl', i18n.DEFAULT_LOCALE)
     g.locale_choices = i18n.locale_choices(requested_locale)
     g.locale = g.locale_choices[0]
-
     # Add commonly used config flags.
-    g.env_name = app.config.get('ENV_NAME', None)
+    g.env = app.config.get('ENV', None)
+    g.custom = app.config.get('CUSTOM', False)
+    g.custom_dc_template_folder = custom_dc_template_folder
+
+    scheme = request.headers.get('X-Forwarded-Proto')
+    if scheme and scheme == 'http' and request.url.startswith('http://'):
+      url = request.url.replace('http://', 'https://', 1)
+      code = 301
+      return redirect(url, code=code)
 
   @babel.localeselector
   def get_locale():
@@ -361,14 +442,57 @@ def create_app():
       return
     values['hl'] = g.locale
 
-  # Provides locale parameter in all templates
+  # Provides locale and other common parameters in all templates
   @app.context_processor
-  def inject_locale():
-    return dict(locale=get_locale())
+  def inject_common_parameters():
+    common_variables = {
+        #TODO: replace HEADER_MENU with V2
+        'HEADER_MENU':
+            json.dumps(libutil.get_json("config/base/header.json")),
+        'FOOTER_MENU':
+            json.dumps(libutil.get_json("config/base/footer.json")),
+        'HEADER_MENU_V2':
+            json.dumps(libutil.get_json("config/base/header_v2.json")),
+    }
+    locale_variable = dict(locale=get_locale())
+    return {**common_variables, **locale_variable}
 
   @app.teardown_request
   def log_unhandled(e):
     if e is not None:
-      logging.error('Error thrown for request: %s, error: %s', request, e)
+      app.logger.error('Error thrown for request: %s\nerror: %s', request.url,
+                       e)
 
+  # Attempt to retrieve the Google Analytics Tag ID (GOOGLE_ANALYTICS_TAG_ID):
+  # 1. First, check the environment variables for 'GOOGLE_ANALYTICS_TAG_ID'.
+  # 2. If not found, fallback to the application configuration ('GOOGLE_ANALYTICS_TAG_ID' in app.config).
+  # 3. If still not found, fallback to the deprecated application configuration ('GA_ACCOUNT' in app.config).
+  config_deprecated_ga_account = app.config['GA_ACCOUNT']
+  if config_deprecated_ga_account:
+    logging.warn(
+        "Use of GA_ACCOUNT is deprecated. Use the GOOGLE_ANALYTICS_TAG_ID environment variable instead."
+    )
+  config_google_analytics_tag_id = app.config['GOOGLE_ANALYTICS_TAG_ID']
+  google_analytics_tag_id = os.environ.get(
+      'GOOGLE_ANALYTICS_TAG_ID', config_google_analytics_tag_id or
+      config_deprecated_ga_account)
+
+  # Jinja env
+  app.jinja_env.globals['GOOGLE_ANALYTICS_TAG_ID'] = google_analytics_tag_id
+  app.jinja_env.globals['NAME'] = app.config['NAME']
+  app.jinja_env.globals['LOGO_PATH'] = app.config['LOGO_PATH']
+  app.jinja_env.globals['LOGO_WIDTH'] = app.config['LOGO_WIDTH']
+  app.jinja_env.globals['OVERRIDE_CSS_PATH'] = app.config['OVERRIDE_CSS_PATH']
+  app.secret_key = os.urandom(24)
+
+  app.jinja_env.globals['BASE_HTML'] = 'base.html'
+  if cfg.CUSTOM:
+    custom_path = os.path.join('custom_dc', custom_dc_template_folder,
+                               'base.html')
+    if os.path.exists(os.path.join(app.root_path, 'templates', custom_path)):
+      app.jinja_env.globals['BASE_HTML'] = custom_path
+    else:
+      app.jinja_env.globals['BASE_HTML'] = os.path.join('custom_dc/custom',
+                                                        'base.html')
+  flask_cors.CORS(app)
   return app

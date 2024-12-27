@@ -12,8 +12,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+# Region is like "us-central1", zone is like "us-central1-a"
+if [[ $LOCATION =~ ^[a-z]+-[a-z0-9]+$ ]]; then
+  REGION=$LOCATION
+else
+  ZONE=$LOCATION
+fi
 gcloud container clusters get-credentials $CLUSTER_NAME \
-  --region $REGION --project=$PROJECT_ID
+  ${REGION:+--region=$REGION} ${ZONE:+--zone=$ZONE} --project=$PROJECT_ID
 
 # Create namespace if it does not exist.
 kubectl create namespace website \

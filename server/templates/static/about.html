@@ -1,5 +1,5 @@
 {#
- Copyright 2020 Google LLC
+ Copyright 2024 Google LLC
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -20,69 +20,13 @@
 {% set title = 'About Us' %}
 
 {% block head %}
-<link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['VERSION'])}}>
+<link rel="stylesheet" href={{url_for('static', filename='css/about.min.css', t=config['VERSION'])}}>
+<script src={{url_for('static', filename='about.js', t=config['VERSION'])}} async></script>
 {% endblock %}
 
 {% block content %}
-<div class="container">
-  <h1>About Data Commons</h1>
-  <section>
-    <h2>Why Data Commons</h2>
-    <p>
-      Publicly available data from open sources (census.gov, cdc.gov,
-      data.gov, etc.) are vital resources for students and researchers in a
-      variety of disciplines. Unfortunately, processing these datasets is
-      often tedious and cumbersome. Organizations follow distinctive
-      practices for codifying datasets. Combining data from different sources
-      requires mapping common entities (city, county, etc.) and resolving
-      different types of keys/identifiers. This process is time consuming,
-      tedious and done over and over. Our goal with Data Commons is to
-      address this problem.
-    </p>
-    <p>
-      Data Commons synthesizes a single graph from
-      these different data sources. It links references to the same entities
-      (such
-      as cities, counties, organizations, etc.) across different datasets to
-      nodes
-      on the graph, so that users can access data about a particular entity
-      aggregated from different sources without data cleaning or joining. We
-      hope the data
-      contained within Data Commons will be useful to students, researchers, and
-      enthusiasts across different disciplines.
-    </p>
-  </section>
-  <section>
-    <h2>Who can use it?</h2>
-    <p>
-      Data Commons can be accessed by anyone via the tools available on
-      datacommons.org. Students, researchers and developers can use the
-      <a href="https://docs.datacommons.org/api/" target="_blank">REST, Python and Google Sheets APIs</a>, all of which are free for educational,
-      academic and journalistic research purposes.
-    </p>
-  </section>
-  <section>
-    <h2>Collaborations</h2>
-    <p>
-      Data Commons has benefited greatly from many collaborations. In
-      addition to help from US Department of Commerce (notably the
-      Census Bureau), we have received help from our many academic
-      collaborations, including, UC San Francisco, Stanford University,
-      UC Berkeley and Harvard.
-    </p>
-    <p>
-      We are looking for more collaborators, both for adding new data to
-      Data Commons and for building new and interesting applications of Data
-      Commons. Contact us if you are interested in working with us.
-    </p>
-  </section>
 
-  <section>
-    <h3>See also</h3>
-    <ul>
-      <li><a href="https://docs.datacommons.org/datasets/">Data Sources</a>
-      <li><a href="{{ url_for('static.disclaimers') }}">Disclaimers</a>
-      <li><a href="{{ url_for('static.faq') }}">Frequently Asked Questions</a>
-    </ul>
-  </section>
+<div id="app-container">
+</div>
+
   {% endblock %}

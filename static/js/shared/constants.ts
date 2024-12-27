@@ -19,9 +19,18 @@ import { NamedTypedPlace } from "./types";
 export const USA_PLACE_DCID = "country/USA";
 export const INDIA_PLACE_DCID = "country/IND";
 export const BANGLADESH_PLACE_DCID = "country/BGD";
+export const BRAZIL_PLACE_DCID = "country/BRA";
 export const NEPAL_PLACE_DCID = "country/NPL";
 export const PAKISTAN_PLACE_DCID = "country/PAK";
 export const CHINA_PLACE_DCID = "country/CHN";
+export const NORTH_AMERICA_DCID = "northamerica";
+export const OCEANIA_DCID = "oceania";
+export const AUSTRALIA_NEW_ZEALAND_DCID = "AustraliaAndNewZealand";
+export const NORTHERN_EUROPE_DCID = "NorthernEurope";
+export const EASTERN_EUROPE_DCID = "EasternEurope";
+export const WESTERN_EUROPE_DCID = "WesternEurope";
+export const EU_DCID = "EuropeanUnion";
+export const MELANESIA_DCID = "Melanesia";
 export const ASIA_NAMED_TYPED_PLACE: NamedTypedPlace = {
   dcid: "asia",
   name: "Asia",
@@ -51,3 +60,98 @@ export const DEFAULT_POPULATION_DCID = "Count_Person";
 
 export const DENOM_INPUT_PLACEHOLDER =
   "Enter a variable dcid e.g. Count_Person";
+
+export const SOURCE_DISPLAY_NAME = {
+  "https://unstats.un.org/sdgs/dataportal": "Global SDG Database",
+};
+
+export const THING_PLACE_TYPE = "Thing";
+
+export const PLACE_TYPES = new Set([
+  "Continent",
+  "OceanicBasin",
+  "Country",
+  "State",
+  "County",
+  "City",
+  "Town",
+  "Village",
+  "School",
+  "PublicSchool",
+  "PrivateSchool",
+  "ElementarySchool",
+  "HighSchool",
+  "MiddleSchool",
+  "SecondarySchool",
+  "SchoolDistrict",
+  "Borough",
+  "StateComponent",
+  "CollegeOrUniversity",
+  "CensusRegion",
+  "CensusDivision",
+  "CensusCountyDivision",
+  "CensusZipCodeTabulationArea",
+  "CongressionalDistrict",
+  "ElementarySchoolDistrict",
+  "HighSchoolDistrict",
+  "EurostatNUTS1",
+  "EurostatNUTS2",
+  "EurostatNUTS3",
+  "AdministrativeArea1",
+  "AdministrativeArea2",
+  "AdministrativeArea3",
+  "AdministrativeArea4",
+  "AdministrativeArea5",
+  "AdministrativeArea",
+  "Neighborhood",
+  "CensusCoreBasedStatisticalArea",
+  "USMetropolitanDivision",
+  "CommutingZone",
+  "PowerPlant",
+  "PowerPlantUnit",
+  "PublicUtility",
+  "ElectricUtility",
+  "CensusTract",
+  "CensusBlockGroup",
+  "AirQualitySite",
+  "WaterQualitySite",
+  "SuperfundSite",
+  "SuperfundMeasurementSite",
+  "EpaReportingFacility",
+  "EpaParentCompany",
+  "UDISEDistrict",
+  "FoodEstablishment",
+  "UDISEBlock",
+  "IPCCPlace_50",
+  "S2CellLevel7",
+  "S2CellLevel8",
+  "S2CellLevel9",
+  "S2CellLevel10",
+  "S2CellLevel11",
+  "S2CellLevel13",
+  "Glacier",
+  "TideGaugeStation",
+  "GeoGridPlace_1Deg",
+  "GeoGridPlace_0.25Deg",
+  "GeoGridPlace_4KM",
+  "ContinentalUnion",
+  "GeoRegion",
+  "UNGeoRegion",
+  "UsdaSummerMealSite",
+]);
+
+/**
+ * date query param value for requesting latest overall available for
+ * /api/observations/point/* endpoints
+ */
+export const DATE_HIGHEST_COVERAGE = "HIGHEST_COVERAGE";
+
+/**
+ * date query param value for requesting latest observations from REST v2 API
+ */
+export const DATE_LATEST = "LATEST";
+
+/**
+ * AbortController cancelled code
+ */
+export const ABORT_CONTROLLER_CANCELLED = "ERR_CANCELED";
