@@ -27,7 +27,7 @@ const TYPE_OF_UNKNOWN = "Unknown";
 const TYPE_OF_STAT_VAR = "StatisticalVariable";
 const TYPE_OF_OBSERVATION = "StatVarObservation";
 
-window.onload = () => {
+window.addEventListener("load", (): void => {
   const dcid = document.getElementById("node").dataset.dcid;
   const nodeName = document.getElementById("node").dataset.nn;
   const urlParams = new URLSearchParams(window.location.search);
@@ -75,7 +75,7 @@ window.onload = () => {
         document.getElementById("node")
       );
     });
-};
+});
 
 function getNodeTypes(
   dcid: string,

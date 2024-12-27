@@ -471,7 +471,7 @@
   "entities": [
     {
       "dcid": "bio/DOID_114",
-      "name": "heart disease",
+      "name": "Heart disease",
       "type": ""
     }
   ],
@@ -1328,6 +1328,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "",
   "userMessages": []
 }

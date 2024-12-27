@@ -135,7 +135,7 @@ export function TimeSlider(props: TimeSliderProps): JSX.Element {
           {props.currentDate}
         </span>
         <div className="time-slider-break"></div>
-        <div className="time-slider-left" onClick={() => setPlay(!play)}>
+        <div className="time-slider-left" onClick={(): void => setPlay(!play)}>
           {!play && (
             <i className="material-icons time-slider-play-button">play_arrow</i>
           )}

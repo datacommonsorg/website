@@ -149,8 +149,7 @@
                   {
                     "barTileSpec": {
                       "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
+                      "maxVariables": 15
                     },
                     "comparisonPlaces": [
                       "geoId/12"
@@ -1283,7 +1282,6 @@
     ]
   },
   "svSource": "PAST_QUERY",
-  "userMessage": "See relevant statistics based on the previous query.",
   "userMessages": [
     "See relevant statistics based on the previous query."
   ]

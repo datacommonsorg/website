@@ -137,7 +137,7 @@ export function MappingSection(props: MappingSectionProps): JSX.Element {
         <MappingTable
           csvData={props.csvData}
           selectedColumn={columnState.selectedColumn}
-          onColumnSelected={(colIdx) =>
+          onColumnSelected={(colIdx): void =>
             setColumnState({ ...columnState, selectedColumn: colIdx })
           }
           columnInfo={columnState.columns}
@@ -146,7 +146,7 @@ export function MappingSection(props: MappingSectionProps): JSX.Element {
         <div className="selected-column-container">
           <MappingColumnOptions
             column={selectedColumnInfo}
-            onColumnUpdated={(columnInfo: ColumnInfo) =>
+            onColumnUpdated={(columnInfo: ColumnInfo): void =>
               onColumnInfoUpdated(columnState.selectedColumn, columnInfo)
             }
             validPlaceTypeProperties={validPlaceTypeProperties.current}
@@ -155,7 +155,7 @@ export function MappingSection(props: MappingSectionProps): JSX.Element {
           <div className="column-navigation-buttons">
             {/* button to select previous column */}
             <Button
-              onClick={() => {
+              onClick={(): void => {
                 const prevCol = Math.max(0, columnState.selectedColumn - 1);
                 setColumnState({ ...columnState, selectedColumn: prevCol });
               }}
@@ -166,7 +166,7 @@ export function MappingSection(props: MappingSectionProps): JSX.Element {
             </Button>
             {/* button to select next column */}
             <Button
-              onClick={() => {
+              onClick={(): void => {
                 const nextCol = Math.min(
                   props.csvData.orderedColumns.length,
                   columnState.selectedColumn + 1
@@ -186,7 +186,7 @@ export function MappingSection(props: MappingSectionProps): JSX.Element {
       </div>
       <MappingConstantsSection
         constantVals={constantVals}
-        onConstantValUpdated={(thing: string, val: string) => {
+        onConstantValUpdated={(thing: string, val: string): void => {
           setConstantVals((prev) => {
             return { ...prev, [thing]: val };
           });
@@ -194,7 +194,7 @@ export function MappingSection(props: MappingSectionProps): JSX.Element {
       />
       {showConfirmationButton && (
         <div className="confirmation-button">
-          <Button onClick={() => onConfirmationClicked()}>Next</Button>
+          <Button onClick={(): void => onConfirmationClicked()}>Next</Button>
         </div>
       )}
       {!_.isEmpty(errorList) && (

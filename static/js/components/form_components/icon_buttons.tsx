@@ -80,7 +80,7 @@ function IconButton(props: ButtonProps): JSX.Element {
     return () => clearTimeout(timerRef.current);
   }, [isClicked]);
 
-  const onClickHandler = () => {
+  const onClickHandler = (): void => {
     props.onClick();
     setIsClicked(true);
   };
@@ -112,7 +112,9 @@ export function CopyButton(props: CopyButtonProps): JSX.Element {
     <IconButton
       icon="file_copy"
       iconWhenClicked="done"
-      onClick={() => navigator.clipboard.writeText(props.textToCopy)}
+      onClick={(): Promise<void> =>
+        navigator.clipboard.writeText(props.textToCopy)
+      }
       label="Copy"
     ></IconButton>
   );
@@ -132,7 +134,7 @@ export function DownloadButton(props: DownloadButtonProps): JSX.Element {
     <IconButton
       icon="download"
       iconWhenClicked="download_done"
-      onClick={() => saveToFile(props.filename, props.content)}
+      onClick={(): void => saveToFile(props.filename, props.content)}
       label="Download"
     ></IconButton>
   );

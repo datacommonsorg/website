@@ -67,7 +67,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
       "download-link"
     ) as HTMLAnchorElement;
     if (this.downloadLink) {
-      this.downloadLink.onclick = () => {
+      this.downloadLink.onclick = (): void => {
         saveToFile("export.csv", this.createDataCsv(this.props.placeName));
       };
     }
@@ -75,7 +75,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
       "bulk-download-link"
     ) as HTMLAnchorElement;
     if (this.bulkDownloadLink) {
-      this.bulkDownloadLink.onclick = () => {
+      this.bulkDownloadLink.onclick = (): void => {
         // Carry over hash params, which is used by the bulk download tool for
         // stat var parsing.
         window.location.href = window.location.href.replace(
@@ -114,7 +114,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
               denom={chartGroupInfo.chartIdToOptions[mprop].denom}
               delta={chartGroupInfo.chartIdToOptions[mprop].delta}
               onDataUpdate={this.onDataUpdate.bind(this)}
-              removeStatVar={(statVar) => {
+              removeStatVar={(statVar): void => {
                 removeToken("statsVar", statVarSep, statVar);
                 setMetahash({ [statVar]: "" });
               }}
@@ -122,7 +122,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
                 getMetahash(),
                 chartGroupInfo.chartIdToStatVars[mprop]
               )}
-              onMetadataMapUpdate={(metadataMap) => {
+              onMetadataMapUpdate={(metadataMap): void => {
                 this.metadataMap = { ...this.metadataMap, ...metadataMap };
               }}
             ></Chart>
@@ -132,7 +132,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     );
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     if (this.downloadLink) {
       this.downloadLink.style.display = "none";
     }
@@ -141,7 +141,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     }
   }
 
-  private onDataUpdate(groupId: string, data: StatData) {
+  private onDataUpdate(groupId: string, data: StatData): void {
     this.allStatData[groupId] = data;
     const displayStyle =
       Object.keys(this.allStatData).length > 0 ? "inline-block" : "none";
@@ -184,7 +184,7 @@ class ChartRegion extends Component<ChartRegionPropsType> {
     };
   }
 
-  private createDataCsv(placeNames: Record<string, string>) {
+  private createDataCsv(placeNames: Record<string, string>): string {
     // Get all the dates
     let allDates = new Set<string>();
     for (const mprop in this.allStatData) {

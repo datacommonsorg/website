@@ -115,29 +115,29 @@ export function AppContextProvider(
     samplePlaces,
     isContextLoading,
     displayOptions,
-    setPlaces: (places) => {
+    setPlaces: (places): void => {
       shouldUpdateHash.current.push(true);
       setChildPlaceTypes(null);
       setSamplePlaces(null);
       setPlaces(places);
     },
-    setEnclosedPlaceType: (placeType) => {
+    setEnclosedPlaceType: (placeType): void => {
       shouldUpdateHash.current.push(true);
       setSamplePlaces(null);
       setEnclosedPlaceType(placeType);
     },
-    setStatVars: (statVars) => {
+    setStatVars: (statVars): void => {
       shouldUpdateHash.current.push(true);
       setStatVars(statVars);
     },
-    setVisType: (visType) => {
+    setVisType: (visType): void => {
       trackPageview(visType);
       shouldUpdateHash.current.push(true);
       setChildPlaceTypes(null);
       setSamplePlaces(null);
       setVisType(visType);
     },
-    setDisplayOptions: (displayOptions) => {
+    setDisplayOptions: (displayOptions): void => {
       shouldUpdateHash.current.push(true);
       setDisplayOptions(displayOptions);
     },
@@ -152,11 +152,13 @@ export function AppContextProvider(
     return params.get(paramKey) || "";
   }
 
-  function trackPageview(visType: string) {
+  function trackPageview(visType: string): void {
+    /* eslint-disable camelcase */
     triggerGAEvent(GA_EVENT_PAGE_VIEW, {
       page_title: `${visType} - ${document.title}`,
       page_location: `${window.location.pathname}/${visType}${window.location.hash}`,
     });
+    /* eslint-enable camelcase */
   }
 
   useEffect(() => {

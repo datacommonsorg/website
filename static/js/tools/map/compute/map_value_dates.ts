@@ -40,7 +40,7 @@ export function useComputeMapValueAndDate(
   dispatchChartStore: Dispatch<ChartStoreAction>,
   dispatchSources: Dispatch<Set<string>>,
   dispatchMetadata: Dispatch<Record<string, DataPointMetadata>>
-) {
+): void {
   const { statVar, placeInfo, dateCtx } = useContext(Context);
   const allStatReady = useAllStatReady(chartStore);
   const defaultStatReady = useDefaultStatReady(chartStore);

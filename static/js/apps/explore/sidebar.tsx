@@ -58,7 +58,7 @@ export function Sidebar(props: SidebarPropType): JSX.Element {
                   }`}
                   key={idx}
                   href={url}
-                  onClick={() => {
+                  onClick={(): void => {
                     props.setQuery("");
                   }}
                 >
@@ -78,7 +78,7 @@ export function Sidebar(props: SidebarPropType): JSX.Element {
                         key={randDomId()}
                         className={childClassName}
                         href={url}
-                        onClick={() => {
+                        onClick={(): void => {
                           props.setQuery("");
                         }}
                       >

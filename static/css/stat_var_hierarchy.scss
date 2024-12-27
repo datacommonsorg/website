@@ -24,7 +24,6 @@ $small-font-size: 0.75rem;
   font-size: 14px;
   font-weight: 700;
   line-height: 28px;
-  min-height: 20rem;
   padding: 0 10px;
 }
 
@@ -58,10 +57,12 @@ $small-font-size: 0.75rem;
 }
 
 .node-title {
-  align-items: center;
   display: flex;
   margin-bottom: 4px;
-  white-space: nowrap;
+}
+
+.node-title input {
+  margin-top: 0.4rem;
 }
 
 .node-title .bullet + .title {

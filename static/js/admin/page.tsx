@@ -56,13 +56,13 @@ export function Page(): JSX.Element {
           type="text"
           id="admin-secret"
           name="admin-secret"
-          onChange={(event) => onEditSecret(event.target.value)}
+          onChange={(event): void => onEditSecret(event.target.value)}
         ></input>
         <Button
           id="load-data-buttom"
           size="sm"
           color="light"
-          onClick={() => onLoadData()}
+          onClick={(): void => onLoadData()}
         >
           Load Data
         </Button>

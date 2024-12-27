@@ -157,8 +157,8 @@ def register_routes_common(app):
   from server.routes.place import html as place_html
   app.register_blueprint(place_html.bp)
 
-  from server.routes.dev_place import html as dev_place_html
-  app.register_blueprint(dev_place_html.bp)
+  from server.routes.dev_place import api as dev_place_api
+  app.register_blueprint(dev_place_api.bp)
 
   from server.routes.ranking import html as ranking_html
   app.register_blueprint(ranking_html.bp)
@@ -178,9 +178,6 @@ def register_routes_common(app):
 
   from server.routes.ranking import api as ranking_api
   app.register_blueprint(ranking_api.bp)
-
-  from server.routes.translator import api as translator_api
-  app.register_blueprint(translator_api.bp)
 
   from server.routes.nl import api as nl_api
   app.register_blueprint(nl_api.bp)
@@ -205,6 +202,10 @@ def register_routes_common(app):
 
   from server.routes.shared_api import stats as shared_stats
   app.register_blueprint(shared_stats.bp)
+
+  from server.routes.shared_api.autocomplete import \
+      autocomplete as shared_autocomplete
+  app.register_blueprint(shared_autocomplete.bp)
 
   from server.routes.shared_api import variable as shared_variable
   app.register_blueprint(shared_variable.bp)
@@ -310,6 +311,8 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
       "config/home_page/topics.json")
   app.config['HOMEPAGE_PARTNERS'] = libutil.get_json(
       "config/home_page/partners.json")
+  app.config['HOMEPAGE_SAMPLE_QUESTIONS'] = libutil.get_json(
+      "config/home_page/sample_questions.json")
 
   if cfg.TEST or cfg.LITE:
     app.config['MAPS_API_KEY'] = ''
@@ -439,10 +442,20 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
       return
     values['hl'] = g.locale
 
-  # Provides locale parameter in all templates
+  # Provides locale and other common parameters in all templates
   @app.context_processor
-  def inject_locale():
-    return dict(locale=get_locale())
+  def inject_common_parameters():
+    common_variables = {
+        #TODO: replace HEADER_MENU with V2
+        'HEADER_MENU':
+            json.dumps(libutil.get_json("config/base/header.json")),
+        'FOOTER_MENU':
+            json.dumps(libutil.get_json("config/base/footer.json")),
+        'HEADER_MENU_V2':
+            json.dumps(libutil.get_json("config/base/header_v2.json")),
+    }
+    locale_variable = dict(locale=get_locale())
+    return {**common_variables, **locale_variable}
 
   @app.teardown_request
   def log_unhandled(e):
@@ -468,6 +481,7 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   app.jinja_env.globals['GOOGLE_ANALYTICS_TAG_ID'] = google_analytics_tag_id
   app.jinja_env.globals['NAME'] = app.config['NAME']
   app.jinja_env.globals['LOGO_PATH'] = app.config['LOGO_PATH']
+  app.jinja_env.globals['LOGO_WIDTH'] = app.config['LOGO_WIDTH']
   app.jinja_env.globals['OVERRIDE_CSS_PATH'] = app.config['OVERRIDE_CSS_PATH']
   app.secret_key = os.urandom(24)
 

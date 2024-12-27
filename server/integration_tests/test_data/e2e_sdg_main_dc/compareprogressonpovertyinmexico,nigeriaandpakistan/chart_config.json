@@ -300,13 +300,6 @@
     "peerPlaces": [],
     "peerTopics": [
       {
-        "dcid": "dc/topic/Employment",
-        "name": "Employment",
-        "types": [
-          "Topic"
-        ]
-      },
-      {
         "dcid": "dc/topic/GlobalEconomicActivity",
         "name": "Global Economic Activity",
         "types": [
@@ -316,6 +309,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "",
   "userMessages": []
 }

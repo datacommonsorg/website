@@ -174,7 +174,7 @@ export class StatVarHierarchy extends React.Component<
                     className={`material-icons-outlined ${
                       this.state.showAllSV ? "toggle-on" : "toggle-off"
                     }`}
-                    onClick={() =>
+                    onClick={(): void =>
                       this.setState({ showAllSV: !this.state.showAllSV })
                     }
                   >
@@ -185,7 +185,7 @@ export class StatVarHierarchy extends React.Component<
                 <div id="tree-widget-info">
                   <i
                     onMouseOver={this.onMouseOverInfoIcon}
-                    onMouseOut={() => hideTooltip()}
+                    onMouseOut={(): void => hideTooltip()}
                     className="material-icons-outlined"
                   >
                     info
@@ -344,6 +344,7 @@ export class StatVarHierarchy extends React.Component<
         searchSelectionCleared,
         expandedPath: searchSelectionCleared ? this.state.focusPath : [],
       });
+      this.togglePath(selection, path);
     });
   }
 
@@ -386,7 +387,7 @@ export class StatVarHierarchy extends React.Component<
       });
   }
 
-  private onMouseOverInfoIcon = () => {
+  private onMouseOverInfoIcon = (): void => {
     const html =
       "<ul><li>The number in parentheses represents the number of stat vars " +
       "within the group where we have data for the chosen place(s).</li>" +

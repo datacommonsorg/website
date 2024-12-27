@@ -41,7 +41,7 @@ import {
   getHighlightTileDescription,
   getTileEventTypeSpecs,
 } from "../js/utils/tile_utils";
-import { BARD_CLIENT_URL_PARAM } from "./constants";
+import { BARD_CLIENT_URL_PARAM, TOOLFORMER_RIG_MODE } from "./constants";
 import { getBarTileResult } from "./tiles/bar_tile";
 import { getDisasterMapTileResult } from "./tiles/disaster_map_tile";
 import { getHighlightTileResult } from "./tiles/highlight_tile";
@@ -54,8 +54,10 @@ import { QueryResult, TileResult } from "./types";
 const NS_TO_MS_SCALE_FACTOR = BigInt(1000000);
 const MS_TO_S_SCALE_FACTOR = 1000;
 const QUERY_MAX_RESULTS = 3;
-// Allowed chart types if client is Bard.
+// Allowed chart types if mode is Bard.
 const BARD_ALLOWED_CHARTS = new Set(["LINE", "BAR", "RANKING", "SCATTER"]);
+// Allowed chart types if mode is toolformer rig
+const TOOLFORMER_RIG_ALLOWED_CHARTS = new Set(["LINE", "HIGHLIGHT"]);
 // The root to use to form the dc link in the tile results
 // TODO: update this to use bard.datacommons.org
 const DC_URL_ROOT = "https://datacommons.org/explore#q=";
@@ -173,10 +175,7 @@ function getBlockTileResults(
               place.dcid,
               enclosedPlaceType,
               tileSvSpec,
-              apiRoot,
-              urlRoot,
-              useChartUrl,
-              apikey
+              apiRoot
             )
           );
           break;
@@ -296,10 +295,15 @@ export async function getQueryResult(
   idx?: string
 ): Promise<QueryResult> {
   const startTime = process.hrtime.bigint();
-  // if mode is empty or mode=bard, use BARD_ALLOWED_CHARTS, otherwise, no
-  // restriction on allowed chart types
-  const allowedTileTypes =
-    mode && mode !== BARD_CLIENT_URL_PARAM ? null : BARD_ALLOWED_CHARTS;
+
+  let allowedTileTypes = null;
+  // if mode is empty or mode=bard, use BARD_ALLOWED_CHARTS
+  // if mode=toolformer_rig, use TOOLFORMER_RIG_ALLOWED_CHARTS
+  if (!mode || mode === BARD_CLIENT_URL_PARAM) {
+    allowedTileTypes = BARD_ALLOWED_CHARTS;
+  } else if (mode === TOOLFORMER_RIG_MODE) {
+    allowedTileTypes = TOOLFORMER_RIG_ALLOWED_CHARTS;
+  }
 
   // Get the nl detect-and-fulfill result for the query
   // TODO: only generate related things when we need to generate related question

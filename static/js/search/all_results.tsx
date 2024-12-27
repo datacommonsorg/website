@@ -22,7 +22,6 @@
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 
-import { NamedNode } from "../shared/types";
 import { getPlaceDcids } from "../utils/place_utils";
 import { getStatVarSearchResults } from "../utils/search_utils";
 import { PlaceResults } from "./place_results";

@@ -1,0 +1,50 @@
+name: Release branch checks
+
+on:
+  pull_request:
+    branches: [ "customdc_stable" ]
+  # Required for merge queue to work: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue#triggering-merge-group-checks-with-github-actions
+  merge_group:
+    branches: [ "customdc_stable" ]
+
+jobs:
+  verify_all_commits_are_already_in_master:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Fetch all history for accurate comparison
+          fetch-depth: 0
+          # Check out the PR branch
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+
+      - name: Verify that all commits are already in the master branch
+        run: |
+          git remote add dc https://github.com/datacommonsorg/website.git
+          git fetch dc
+          MASTER_BRANCH="dc/master"
+
+          # Get the list of commits in the source branch that are not in the master branch.
+          # Exclude merge commits only if this is the final run in the merge queue.
+          # This way the only merge commits that end up in the final commit history
+          # are the ones added by GitHub when merging PRs.
+          if [[ ${{ github.event_name }}  == 'merge_group' ]]; then
+            MISSING_COMMITS=$(git log --pretty="%H - %s" --no-merges $MASTER_BRANCH..HEAD --)
+          else
+            MISSING_COMMITS=$(git log --pretty="%H - %s" $MASTER_BRANCH..HEAD --)
+          fi
+
+          if [[ -n "$MISSING_COMMITS" ]]; then
+            echo ""
+            echo "ERROR: The following commits are not present in $MASTER_BRANCH:"
+            echo ""
+            echo "$MISSING_COMMITS"
+            echo ""
+            echo "PRs to release branches should only contain commits that are already in master."
+            echo "To fix this PR, reset its branch locally to a commit at or behind https://github.com/datacommonsorg/website/commits/master/ and then force-push it."
+            echo "Note that a release branch PR should be based on master and not the previous version of the release branch, which contains merge commits."
+            exit 1
+          fi
+
+          echo "All commits are present in $MASTER_BRANCH"

@@ -1,5 +1,5 @@
 {#
- Copyright 2020 Google LLC
+ Copyright 2024 Google LLC
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -20,103 +20,13 @@
 {% set title = 'About Us' %}
 
 {% block head %}
-<link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['VERSION'])}}>
+<link rel="stylesheet" href={{url_for('static', filename='css/about.min.css', t=config['VERSION'])}}>
+<script src={{url_for('static', filename='about.js', t=config['VERSION'])}} async></script>
 {% endblock %}
 
 {% block content %}
-<div class="container">
-  <h1>About Data Commons</h1>
-  <section class="text-center">
-    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/O6iVsS-RDYI?si=IDm6OhBRr6i5nZsM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-  </section>
-  <section>
-    <h2>Why Data Commons</h2>
-    <p>
-      Many of the big challenges we face — climate change, increasing
-      inequities, epidemics of diabetes and other health conditions — will
-      need deep insights to solve. These insights will need to be firmly
-      grounded in data. Fortunately, a lot of this data is already publicly
-      available.  Unfortunately, there is a difference between data being public
-      and data being easily usable by those who need access to it. It is this
-      gap that we are trying to bridge.
-    </p>
-    <p>
-      Google has organized and made easily accessible many kinds of information
-      — web pages, images, maps, videos and so on. Now we are doing this for
-      publicly available data. We have organized the core of this data from a
-      wide range of sources, ranging from governmental statistical organizations
-      like census bureaus to organizations like the World Bank and the United
-      Nations.
-    </p>
-    <p>
-      And recent advances in AI have enabled us to go much farther than we had
-      thought possible in making this data easily accessible - now you can use
-      natural language to access the data. Still early days, but we are very
-      bullish on it.
-    </p>
-    <p>
-      Data Commons synthesizes a single graph from
-      these different data sources. It links references to the same entities
-      (such
-      as cities, counties, organizations, etc.) across different datasets to
-      nodes
-      on the graph, so that users can access data about a particular entity
-      aggregated from different sources without data cleaning or joining. We
-      hope the data
-      contained within Data Commons will be useful to students, researchers, and
-      enthusiasts across different disciplines.
-    </p>
-  </section>
-  <section>
-    <h2>Who can use it?</h2>
-    <p>
-      Data Commons can be accessed by anyone at <a
-      href="https://datacommons.org" target="_blank">Datacommons.org</a>! There
-      are tools available for students, researchers, journalists, non profits,
-      policymakers, and private enterprises that allow you to manipulate and
-      make decisions based on data without the need to know how to code.
-      Software developers can use the <a
-      href="https://docs.datacommons.org/api/" target="_blank">REST, Python and
-      Google Sheets APIs</a>, all of which are free for educational, academic
-      and journalistic research purposes.
-    </p>
-  </section>
-  <section>
-    <h2>Collaborations</h2>
-    <p>
-      Data Commons has benefited greatly from many collaborations. In addition
-      to help from US Department of Commerce (notably the Census Bureau), we
-      have received help from our many academic collaborations, including,
-      University of California San Francisco, Stanford University, University of
-      California Berkeley, Harvard University and Indian Institute of Technology
-      Madras. We have also collaborated with nonprofits such as Techsoup,
-      Feeding America, and Resources for the Future.
-    </p>
-    <p>
-      We are looking for more collaborators, both for adding new data to Data
-      Commons and for building new and interesting applications of Data Commons.
-      Please <a
-      href="https://docs.google.com/forms/d/e/1FAIpQLSeVCR95YOZ56ABsPwdH1tPAjjIeVDtisLF-8oDYlOxYmNZ7LQ/viewform?usp=published_options"
-      target="_blank">fill out this form</a> if you are interested in working
-      with us.
-    </p>
-  </section>
-  <section>
-    <h2>Stay in touch</h2>
-    <p>
-      Sign up for our announcement mailing list to stay up to date with our
-      latest developments. Join the list by <a
-      href="https://groups.google.com/g/datacommons-announce"
-      target="_blank">clicking here</a>, then clicking the “Join group” button.
-    </p>
-  </section>
 
-  <section>
-    <h3>See also</h3>
-    <ul>
-      <li><a href="https://docs.datacommons.org/datasets/">Data Sources</a>
-      <li><a href="{{ url_for('static.disclaimers') }}">Disclaimers</a>
-      <li><a href="{{ url_for('static.faq') }}">Frequently Asked Questions</a>
-    </ul>
-  </section>
+<div id="app-container">
+</div>
+
   {% endblock %}

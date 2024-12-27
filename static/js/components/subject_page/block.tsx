@@ -666,6 +666,7 @@ function renderTiles(
           </p>
         );
       case "PLACE_OVERVIEW":
+        // TODO(gmechali): Switch to server-side redirection
         return <PlaceOverviewTile key={id} place={place} />;
       case "ANSWER_MESSAGE":
         return (
@@ -697,6 +698,17 @@ function renderTiles(
         console.log("Tile type not supported:" + tile.type);
     }
   });
+  if (tilesJsx.length > 1) {
+    return (
+      <div className="row">
+        {tilesJsx.map((tileJsx, tileJsxIndex) => (
+          <div key={tileJsxIndex} className="col-xl-6">
+            {tileJsx}
+          </div>
+        ))}
+      </div>
+    );
+  }
   return <>{tilesJsx}</>;
 }
 

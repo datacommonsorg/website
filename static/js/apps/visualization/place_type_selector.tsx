@@ -60,7 +60,7 @@ export function PlaceTypeSelector(
                     type="radio"
                     name="childPlaceType"
                     checked={type === selectedPlaceType}
-                    onChange={() => {
+                    onChange={(): void => {
                       if (props.selectOnContinue) {
                         setSelectedPlaceType(type);
                       } else {
@@ -82,7 +82,7 @@ export function PlaceTypeSelector(
         <div className="selector-footer">
           <div
             className="primary-button continue-button"
-            onClick={() => {
+            onClick={(): void => {
               setEnclosedPlaceType(selectedPlaceType);
               if (props.onNewSelection) {
                 props.onNewSelection();
