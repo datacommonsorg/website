@@ -55,7 +55,6 @@ interface StatVarWidgetPropsType {
 export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
   // Set up refs for sv widget modal. Widget is tied to the LHS menu but
   // reattached to the modal when it is opened on small screens.
-  const svHierarchyModalRef = createRef<HTMLDivElement>();
   const svHierarchyContainerRef = createRef<HTMLDivElement>();
   const sidebarRef = useRef<HTMLDivElement>(null);
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -127,7 +126,7 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
             selectedSVs={Object.keys(props.selectedSVs)}
             selectSV={props.selectSV}
             searchLabel={"Statistical variables"}
-            deselectSV={(sv) => props.deselectSVs([sv])}
+            deselectSV={(sv): void => props.deselectSVs([sv])}
             numEntitiesExistence={getNumEntitiesExistence()}
           />
         </div>
@@ -157,7 +156,7 @@ export function StatVarWidget(props: StatVarWidgetPropsType): JSX.Element {
             selectedSVs={Object.keys(props.selectedSVs)}
             selectSV={props.selectSV}
             searchLabel={"Statistical variables"}
-            deselectSV={(sv) => props.deselectSVs([sv])}
+            deselectSV={(sv): void => props.deselectSVs([sv])}
             numEntitiesExistence={getNumEntitiesExistence()}
           />
         </ModalBody>

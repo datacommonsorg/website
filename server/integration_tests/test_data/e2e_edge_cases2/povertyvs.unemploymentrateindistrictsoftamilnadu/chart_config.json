@@ -10,63 +10,6 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Population Below Poverty Line in Tamil Nadu",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Population Below Poverty Line in Tamil Nadu",
-                    "statVarKey": [
-                      "Count_Person_BelowPovertyLevelInThePast12Months"
-                    ],
-                    "title": "Population Below Poverty Line in Tamil Nadu",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Population Below Poverty Line"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "UnemploymentRate_Person"
-                    ],
-                    "title": "Unemployment Rate in Tamil Nadu",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Unemployment Rate in Tamil Nadu",
-                    "statVarKey": [
-                      "UnemploymentRate_Person"
-                    ],
-                    "title": "Unemployment Rate in Tamil Nadu",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Unemployment Rate"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
                       "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
                     ],
                     "title": "Population Below Poverty Line (Per Capita) in Tamil Nadu",
@@ -91,17 +34,9 @@
           }
         ],
         "statVarSpec": {
-          "Count_Person_BelowPovertyLevelInThePast12Months": {
-            "name": "Population Below poverty line",
-            "statVar": "Count_Person_BelowPovertyLevelInThePast12Months"
-          },
           "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person": {
             "name": "Population Below poverty line (Per Capita)",
             "statVar": "Count_Person_BelowPovertyLevelInThePast12Months_AsFractionOf_Count_Person"
-          },
-          "UnemploymentRate_Person": {
-            "name": "Unemployment Rate",
-            "statVar": "UnemploymentRate_Person"
           }
         }
       }
@@ -148,15 +83,7 @@
   ],
   "relatedThings": {
     "childPlaces": {},
-    "childTopics": [
-      {
-        "dcid": "dc/topic/PovertyByResidency",
-        "name": "Poverty by Residency",
-        "types": [
-          "Topic"
-        ]
-      }
-    ],
+    "childTopics": [],
     "exploreMore": {},
     "mainTopics": [
       {
@@ -179,13 +106,6 @@
     ],
     "peerPlaces": [],
     "peerTopics": [
-      {
-        "dcid": "dc/topic/Employment",
-        "name": "Employment",
-        "types": [
-          "Topic"
-        ]
-      },
       {
         "dcid": "dc/topic/GlobalEconomicActivity",
         "name": "Global Economic Activity",
@@ -211,7 +131,6 @@
   },
   "svSource": "CURRENT_QUERY",
   "test": "filter_test",
-  "userMessage": "Sorry, there were no relevant statistics for administrative area 2 places in Tamil Nadu. See results for Tamil Nadu.",
   "userMessages": [
     "Sorry, there were no relevant statistics for administrative area 2 places in Tamil Nadu. See results for Tamil Nadu."
   ]

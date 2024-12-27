@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { ContextType } from "./context";
+import { ContextType, DisplayOptions, PlaceInfo, StatVar } from "./context";
 import { observationDates } from "./test_data";
 import {
   applyHashDisplay,
@@ -86,7 +86,8 @@ test("updateHashDisplay", () => {
 
 test("applyHashPlaceInfo", () => {
   const context = { statVar: {}, placeInfo: {} } as ContextType;
-  context.placeInfo.set = (value) => (context.placeInfo.value = value);
+  context.placeInfo.set = (value): PlaceInfo =>
+    (context.placeInfo.value = value);
   const urlParams = new URLSearchParams(
     decodeURIComponent(
       "#%26sv%3DCount_Person%26svn%3DPeople%26pc%3D0%26pd%3DgeoId%2F10&ept=County"
@@ -106,7 +107,7 @@ test("applyHashPlaceInfo", () => {
 
 test("applyHashStatVarInfo", () => {
   const context = { statVar: {}, placeInfo: {} } as ContextType;
-  context.statVar.set = (value) => (context.statVar.value = value);
+  context.statVar.set = (value): StatVar => (context.statVar.value = value);
   const urlParams = new URLSearchParams(
     decodeURIComponent(
       "#%26sv%3DCount_Person%26svn%3DPeople%26pc%3D0%26denom%3DCount_Person%26pd%3DgeoId%2F10%26pn%3DDelaware%26pt%3DCounty"
@@ -118,7 +119,8 @@ test("applyHashStatVarInfo", () => {
 
 test("applyHashDisplay", () => {
   const context = { statVar: {}, placeInfo: {}, display: {} } as ContextType;
-  context.display.set = (value) => (context.display.value = value);
+  context.display.set = (value): DisplayOptions =>
+    (context.display.value = value);
   const urlParams = new URLSearchParams(
     decodeURIComponent("%23%26domain%3D-10%3A50%3A100%26color%3Dred").replace(
       "#",

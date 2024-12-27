@@ -194,7 +194,7 @@ const onMouseMove =
     containerElement: HTMLDivElement,
     getTooltipHtml: (place: NamedPlace) => string
   ) =>
-  (geo: GeoJsonFeature) => {
+  (geo: GeoJsonFeature): void => {
     const placeDcid = geo.properties.geoDcid;
     mouseHoverAction(
       containerElement,
@@ -216,7 +216,7 @@ const onMapClick =
     containerElement: HTMLDivElement,
     redirectAction: (properties: GeoJsonFeatureProperties) => void
   ) =>
-  (geo: GeoJsonFeature) => {
+  (geo: GeoJsonFeature): void => {
     if (!canClickRegion(geo.properties.geoDcid)) return;
     redirectAction(geo.properties);
     mouseOutAction(containerElement, geo.properties.geoDcid, [
@@ -407,7 +407,7 @@ function getValue(
   dataValues: {
     [placeDcid: string]: number;
   }
-) {
+): number {
   // returns undefined if there is no value
   if (
     !_.isEmpty(dataValues) &&

@@ -147,7 +147,7 @@ export function Preview(props: PreviewProps): JSX.Element {
     };
   }
 
-  function onDownloadClicked() {
+  function onDownloadClicked(): void {
     if (_.isEmpty(csvReqPayload.current)) {
       return;
     }

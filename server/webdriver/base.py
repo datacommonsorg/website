@@ -11,11 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-import multiprocessing
-import os
-import sys
-
 from server.webdriver import shared
 from server.webdriver.base_utils import create_driver
 from shared.lib.test_server import NLWebServerTestCase
@@ -24,9 +19,9 @@ from shared.lib.test_setup import set_up_macos_for_tests
 set_up_macos_for_tests()
 
 
-# Base test class to setup the server.
 # Please refer to README.md to see the order of method execution during test.
 class WebdriverBaseTest(NLWebServerTestCase):
+  """Base test class to setup the server."""
 
   def setUp(self, preferences=None):
     """Runs at the beginning of every individual test."""

@@ -612,11 +612,11 @@
                       "startDate": "2014"
                     },
                     "statVarKey": [
-                      "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces_1647577208",
-                      "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces_1647577208",
-                      "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces_1647577208",
-                      "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces_1647577208",
-                      "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces_1647577208"
+                      "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881",
+                      "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881",
+                      "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881",
+                      "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881",
+                      "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881"
                     ],
                     "title": "Monoracial/multiracial Breakdown in California",
                     "type": "LINE"
@@ -1418,8 +1418,8 @@
             "name": "American Indian and Alaska Native Population, Monoracial/Multiracial",
             "statVar": "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces"
           },
-          "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces_1647577208": {
-            "facetId": "1647577208",
+          "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881": {
+            "facetId": "3935616881",
             "name": "American Indian and Alaska Native Population, Monoracial/Multiracial",
             "statVar": "Count_Person_AmericanIndianAndAlaskaNativeAloneOrInCombinationWithOneOrMoreOtherRaces"
           },
@@ -1431,8 +1431,8 @@
             "name": "Asian Population, Monoracial/Multiracial",
             "statVar": "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces"
           },
-          "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces_1647577208": {
-            "facetId": "1647577208",
+          "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881": {
+            "facetId": "3935616881",
             "name": "Asian Population, Monoracial/Multiracial",
             "statVar": "Count_Person_AsianAloneOrInCombinationWithOneOrMoreOtherRaces"
           },
@@ -1448,8 +1448,8 @@
             "name": "Black Monoracial Population",
             "statVar": "Count_Person_BlackOrAfricanAmericanAlone"
           },
-          "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces_1647577208": {
-            "facetId": "1647577208",
+          "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881": {
+            "facetId": "3935616881",
             "name": "Black Population, Monoracial/Multiracial",
             "statVar": "Count_Person_BlackOrAfricanAmericanAloneOrInCombinationWithOneOrMoreOtherRaces"
           },
@@ -1536,8 +1536,8 @@
             "name": "Men",
             "statVar": "Count_Person_Male"
           },
-          "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces_1647577208": {
-            "facetId": "1647577208",
+          "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881": {
+            "facetId": "3935616881",
             "name": "Native Hawaiian and Other Pacific Islander Population, Monoracial/Multiracial",
             "statVar": "Count_Person_NativeHawaiianAndOtherPacificIslanderAloneOrInCombinationWithOneOrMoreOtherRaces"
           },
@@ -1614,8 +1614,8 @@
             "name": "White Hispanic Monoracial Population",
             "statVar": "Count_Person_WhiteAloneNotHispanicOrLatino"
           },
-          "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces_1647577208": {
-            "facetId": "1647577208",
+          "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces_3935616881": {
+            "facetId": "3935616881",
             "name": "White Population, Monoracial/Multiracial",
             "statVar": "Count_Person_WhiteAloneOrInCombinationWithOneOrMoreOtherRaces"
           },
@@ -2635,6 +2635,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "",
   "userMessages": []
 }

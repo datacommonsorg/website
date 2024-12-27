@@ -71,6 +71,7 @@ experimental/sdg-static/datacommons/nl_interface.min.css
 
 # Custom DC data
 dc-data/
+custom_dc/env.list
 
 # Topic cache
 gen_ordered_list_for_topics.mcf

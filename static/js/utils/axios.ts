@@ -16,11 +16,11 @@
 
 import { stringify } from "qs";
 
-export const stringifyFn = (params) => {
+export const stringifyFn = (params): string => {
   return stringify(params, { arrayFormat: "repeat" });
 };
 
-export const getRoot = () => {
+export const getRoot = (): string => {
   if (globalThis.datacommons) {
     return globalThis.datacommons.root || "";
   }

@@ -19,7 +19,6 @@
  */
 
 import axios from "axios";
-import _ from "lodash";
 import { Dispatch, useContext, useEffect } from "react";
 
 import { MapPoint } from "../../../chart/types";

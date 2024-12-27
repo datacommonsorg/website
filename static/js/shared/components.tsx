@@ -25,7 +25,7 @@ const IconPlaceholderContainer = styled.div<{ $height?: number }>`
   align-items: center;
   background: var(--gm-3-ref-neutral-neutral-90);
   display: flex;
-  height: ${(p) => `${p.$height || ICON_PLACEHOLDER_DEFAULT_HEIGHT}px`};
+  height: ${(p): string => `${p.$height || ICON_PLACEHOLDER_DEFAULT_HEIGHT}px`};
   justify-content: center;
   width: 100%;
   .material-icons-outlined {
@@ -35,7 +35,7 @@ const IconPlaceholderContainer = styled.div<{ $height?: number }>`
 export const IconPlaceholder = (props: {
   height?: number;
   iconName: string;
-}) => {
+}): React.JSX.Element => {
   return (
     <IconPlaceholderContainer $height={props.height}>
       <span className="material-icons-outlined">{props.iconName}</span>

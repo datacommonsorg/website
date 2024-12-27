@@ -201,8 +201,7 @@ export function getPlaceNames(
  */
 export async function getPlaceType(
   dcid: string,
-  apiRoot?: string,
-  prop?: string
+  apiRoot?: string
 ): Promise<string> {
   if (!dcid) {
     return THING_PLACE_TYPE;

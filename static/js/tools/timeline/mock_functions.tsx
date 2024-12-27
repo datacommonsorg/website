@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+/* eslint-disable camelcase */
+
 jest.mock("axios");
 
 import { expect } from "@jest/globals";

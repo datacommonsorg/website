@@ -90,7 +90,7 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
     }
   }, [statVar.value]);
 
-  const deselectSVs = (svList: string[]) => {
+  const deselectSVs = (svList: string[]): void => {
     if (!_.isEmpty(svList)) {
       // map tool can only have one stat var selected at a time so if a stat var
       // is deselected, just set the selected stat var to empty.
@@ -109,7 +109,7 @@ export function StatVarChooser(props: StatVarChooserProps): JSX.Element {
       sampleEntities={samplePlaces}
       deselectSVs={deselectSVs}
       selectedSVs={selectedSVs}
-      selectSV={(svDcid) =>
+      selectSV={(svDcid): void =>
         selectStatVar(dateCtx, statVar, display, placeInfo, svDcid)
       }
     />

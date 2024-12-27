@@ -23,7 +23,7 @@ class TestStaticPage(unittest.TestCase):
   def test_browser_static(self):
     response = app.test_client().get('/browser/')
     assert response.status_code == 200
-    assert b"The Data Commons Knowledge Graph is constructed by" in response.data
+    assert b'<div id="app-container">' in response.data
 
   @patch('server.routes.shared_api.place.names')
   def test_browser_node(self, mock_names):
