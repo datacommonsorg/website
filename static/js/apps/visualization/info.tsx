@@ -18,7 +18,6 @@
  * Landing Page for Visualization Tool.
  */
 
-import _ from "lodash";
 import React, { useContext } from "react";
 
 import { AppContext } from "./app_context";

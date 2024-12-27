@@ -213,7 +213,7 @@ export const TopEventTile = memo(function TopEventTile(
             </table>
           )}
           <ChartFooter
-            handleEmbed={showChart ? () => handleEmbed(topEvents) : null}
+            handleEmbed={showChart ? (): void => handleEmbed(topEvents) : null}
             exploreLink={
               props.showExploreMore
                 ? {
@@ -398,14 +398,14 @@ export const TopEventTile = memo(function TopEventTile(
     );
   }
 
-  function isUnnamedEvent(name: string) {
+  function isUnnamedEvent(name: string): boolean {
     return (
       name.indexOf("started on") > 0 ||
       (name.indexOf("Event at") > 0 && name.indexOf(" on ") > 0)
     );
   }
 
-  function getEventName(event: DisasterEventPoint) {
+  function getEventName(event: DisasterEventPoint): string {
     let name = event.placeName;
     if (isUnnamedEvent(name)) {
       const eventTypeName = props.eventTypeSpec.name;

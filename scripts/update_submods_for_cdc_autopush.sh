@@ -23,9 +23,6 @@
 set -e
 set -x
 
-# Get the website short commit hash before it changes due to a temp commit.
-website_rev="$(git rev-parse --short HEAD)"
-
 # Initialize all submodules, then merge them with their masters and update
 # their pinned versions (locally only).
 ./scripts/update_git_submodules.sh
@@ -36,8 +33,4 @@ git config user.email "$(gcloud auth list --filter=status:ACTIVE --format='value
 
 git commit --allow-empty -am "DO NOT PUSH: Temp commit to update pinned submod versions (empty if submods are already up-to-date)"
 
-mixer_rev="$(git rev-parse --short HEAD:mixer)"
-import_rev="$(git rev-parse --short HEAD:import)"
-image_label="${website_rev}-${mixer_rev}-${import_rev}"
-
-echo "$image_label"
+./scripts/get_commits_label.sh --head-is-temporary

@@ -57,7 +57,7 @@ export function SearchSection(props: {
   return (
     <NlSearchBar
       inputId="query-search-input"
-      onSearch={(q) => {
+      onSearch={(q): void => {
         triggerGAEvent(GA_EVENT_NL_SEARCH, {
           [GA_PARAM_QUERY]: q,
           [GA_PARAM_SOURCE]: GA_VALUE_SEARCH_SOURCE_EXPLORE,

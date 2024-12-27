@@ -59,29 +59,36 @@ export class InArcSection extends React.Component<
   }
 
   render(): JSX.Element {
-    if (!_.isEmpty(this.state.errorMessage)) {
-      return <div className="error-message">{this.state.errorMessage}</div>;
+    if (_.isEmpty(this.state.parentTypes)) {
+      return null;
     }
     return (
-      <div id={LOADING_CONTAINER_ID} className="loading-spinner-container">
-        {this.state.parentTypes.map((parentType) => {
-          const arcsByPredicate = this.state.data[parentType];
-          return Object.keys(arcsByPredicate).map((predicate) => {
-            return (
-              <InArcSubsection
-                nodeName={this.props.nodeName}
-                parentType={parentType}
-                property={predicate}
-                arcValues={arcsByPredicate[predicate]}
-                provDomain={this.props.provDomain}
-                key={parentType + predicate}
-              />
-            );
-          });
-        })}
-        <div id="browser-screen" className="screen">
-          <div id="spinner"></div>
-        </div>
+      <div className="table-page-section">
+        <h3>In Arcs</h3>
+        {!_.isEmpty(this.state.errorMessage) ? (
+          <div className="error-message">{this.state.errorMessage}</div>
+        ) : (
+          <div id={LOADING_CONTAINER_ID} className="loading-spinner-container">
+            {this.state.parentTypes.map((parentType) => {
+              const arcsByPredicate = this.state.data[parentType];
+              return Object.keys(arcsByPredicate).map((predicate) => {
+                return (
+                  <InArcSubsection
+                    nodeName={this.props.nodeName}
+                    parentType={parentType}
+                    property={predicate}
+                    arcValues={arcsByPredicate[predicate]}
+                    provDomain={this.props.provDomain}
+                    key={parentType + predicate}
+                  />
+                );
+              });
+            })}
+            <div id="browser-screen" className="screen">
+              <div id="spinner"></div>
+            </div>
+          </div>
+        )}
       </div>
     );
   }

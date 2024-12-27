@@ -132,7 +132,7 @@ export class PlaceDetector {
   /**
    * Processes columnToTypePropertyMapping to set the placeTypesAndProperties attribute.
    */
-  setValidPlaceTypesAndProperties() {
+  setValidPlaceTypesAndProperties(): void {
     // Process the PLACE_TYPES.
     this.placeTypes = new Map<string, DCType>();
     for (const t of PLACE_TYPES) {
@@ -182,7 +182,7 @@ export class PlaceDetector {
   /**
    * Process the countriesJSON object to generate the required sets.
    */
-  preProcessCountries() {
+  preProcessCountries(): void {
     // TODO: verify that country names do not have special chars. If they do,
     // work out a separate solution.
     this.countryNames = new Set<string>();
@@ -212,7 +212,7 @@ export class PlaceDetector {
   /**
    * Process the statesJSON object to generate the required sets.
    */
-  preProcessUSStates() {
+  preProcessUSStates(): void {
     this.stateNames = new Set<string>();
     this.stateISO = new Set<string>();
     this.stateFipsAlpha = new Set<string>();

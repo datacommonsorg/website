@@ -43,7 +43,7 @@ export function UploadSection(props: UploadSectionProps): JSX.Element {
         <input
           type="file"
           accept=".csv"
-          onChange={(event) => onFileUpload(event.target.files)}
+          onChange={(event): void => onFileUpload(event.target.files)}
         />
       </div>
       <div id="screen" style={{ display: isProcessingData ? "block" : "none" }}>

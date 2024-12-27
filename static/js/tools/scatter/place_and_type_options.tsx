@@ -107,7 +107,7 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
               ? "selected-chart-option"
               : "chart-type-option"
           }`}
-          onClick={() => display.setChartType(ScatterChartType.SCATTER)}
+          onClick={(): void => display.setChartType(ScatterChartType.SCATTER)}
         >
           <i className="material-icons-outlined">scatter_plot</i>
         </div>
@@ -117,7 +117,7 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
               ? "selected-chart-option"
               : "chart-type-option"
           }`}
-          onClick={() => display.setChartType(ScatterChartType.MAP)}
+          onClick={(): void => display.setChartType(ScatterChartType.MAP)}
         >
           <i className="material-icons-outlined">public</i>
         </div>

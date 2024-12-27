@@ -95,39 +95,6 @@
                       "wikidataId/Q22048"
                     ],
                     "statVarKey": [
-                      "Count_Person_Illiterate_AsAFractionOf_Count_Person_multiple_place_bar_block"
-                    ],
-                    "title": "Population: Illiterate (Per Capita) (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Population: Illiterate (Per Capita)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "wikidataId/Q1165",
-                      "wikidataId/Q1184",
-                      "wikidataId/Q1168",
-                      "wikidataId/Q1498",
-                      "wikidataId/Q1193",
-                      "wikidataId/Q1188",
-                      "wikidataId/Q1195",
-                      "wikidataId/Q1164",
-                      "wikidataId/Q1437",
-                      "wikidataId/Q22048"
-                    ],
-                    "statVarKey": [
                       "Count_Person_Literate_Urban_multiple_place_bar_block"
                     ],
                     "title": "Population: Literate, Urban (${date})",
@@ -546,9 +513,47 @@
             ],
             "denom": "Count_Person",
             "title": "Population: Houseless, Literate, Rural"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "wikidataId/Q1165",
+                      "wikidataId/Q1184",
+                      "wikidataId/Q1168",
+                      "wikidataId/Q1498",
+                      "wikidataId/Q1193",
+                      "wikidataId/Q1188",
+                      "wikidataId/Q1195",
+                      "wikidataId/Q1164",
+                      "wikidataId/Q1437",
+                      "wikidataId/Q22048"
+                    ],
+                    "statVarKey": [
+                      "Count_Person_Houseless_Illiterate_Rural_multiple_place_bar_block"
+                    ],
+                    "title": "Population: Houseless, Illiterate, Rural (${date})",
+                    "type": "BAR"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Population: Houseless, Illiterate, Rural"
           }
         ],
         "statVarSpec": {
+          "Count_Person_Houseless_Illiterate_Rural_multiple_place_bar_block": {
+            "name": "Population: Houseless, Illiterate, Rural",
+            "statVar": "Count_Person_Houseless_Illiterate_Rural"
+          },
           "Count_Person_Houseless_Illiterate_Urban_multiple_place_bar_block": {
             "name": "Population: Houseless, Illiterate, Urban",
             "statVar": "Count_Person_Houseless_Illiterate_Urban"
@@ -568,10 +573,6 @@
           "Count_Person_Houseless_Literate_multiple_place_bar_block": {
             "name": "Population: Houseless, Literate",
             "statVar": "Count_Person_Houseless_Literate"
-          },
-          "Count_Person_Illiterate_AsAFractionOf_Count_Person_multiple_place_bar_block": {
-            "name": "Population: Illiterate (Per Capita)",
-            "statVar": "Count_Person_Illiterate_AsAFractionOf_Count_Person"
           },
           "Count_Person_Illiterate_Female_multiple_place_bar_block": {
             "name": "Population: Female, Illiterate",
@@ -689,6 +690,18 @@
     "childPlaces": {},
     "childTopics": [],
     "exploreMore": {
+      "Count_Person_Houseless_Illiterate": {
+        "placeOfResidenceClassification": [
+          "Count_Person_Houseless_Illiterate_Rural",
+          "Count_Person_Houseless_Illiterate_Urban"
+        ]
+      },
+      "Count_Person_Houseless_Illiterate_Rural": {
+        "gender": [
+          "Count_Person_Houseless_Illiterate_Rural_Female",
+          "Count_Person_Houseless_Illiterate_Rural_Male"
+        ]
+      },
       "Count_Person_Houseless_Illiterate_Urban": {
         "gender": [
           "Count_Person_Houseless_Illiterate_Urban_Female",
@@ -782,7 +795,6 @@
     "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "See relevant statistics based on the previous query.",
   "userMessages": [
     "See relevant statistics based on the previous query."
   ]

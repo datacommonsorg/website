@@ -1,17 +1,17 @@
 {#
- Copyright 2023 Google LLC
+Copyright 2023 Google LLC
 
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-      http://www.apache.org/licenses/LICENSE-2.0
+http://www.apache.org/licenses/LICENSE-2.0
 
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 #}
 {%- extends BASE_HTML -%}
 
@@ -20,7 +20,7 @@
 {% set title = 'Frequently Asked Questions' %}
 
 {% block head %}
-  <link rel="stylesheet" href={{url_for('static', filename='css/static.min.css', t=config['VERSION'])}} >
+<link rel="stylesheet" href={{url_for('static', filename='css/static.min.css' , t=config['VERSION'])}}>
 {% endblock %}
 
 {% block content %}
@@ -31,7 +31,7 @@
     <dd>Data Commons, an open source initiative from Google, organizes the
       world’s publicly available information and makes it more accessible and
       useful. Learn more on <a href="{{ url_for('static.about') }}">About Data
-      Commons</a>.
+        Commons</a>.
 
     <dt>Q: Who can use Data Commons?
     <dd>Data Commons is available for anyone to use. Our goal is to make the
@@ -43,96 +43,15 @@
     <dd>There is no cost for the publicly available data, which is hosted on
       Google Cloud by Data Commons. For individuals or organizations who exceed
       the free usage limits, pricing will be in line with the <a
-      href="https://cloud.google.com/bigquery/public-data">BigQuery public dataset
-      program</a>.
-
-    <dt>Q: What is the new Explore interface to Data Commons?
-    <dd>Data Commons has a new Explore interface that uses large language models
-      (LLMs) to map your natural language question to the public data sets to
-      extract the right visualizations to your question. We do not use LLMs to
-      generate any data or visualizations; all responses are based on real data
-      with sourced provenance from Data Commons.
-
-    <dt>Q: How do you choose which dataset to show in the Explore interface?
-    <dd>The LLMs powering Data Commons’ Explore interface use generative AI to
-      identify the most likely response to your query. As we continue to improve
-      the interface, we will look to provide more options that allow the user to
-      select sources themselves. For now, you can always click the “Explore in …”
-      Tool setting to change the source of data.
-
-    <dt>Q: Can I submit or suggest data I think should be added to Data Commons?
-    <dd>Yes, Data Commons is meant to be for the community, by the community and
-      we welcome new submissions or suggestions. If you’d like to submit data,
-      please review <a
-      href="https://github.com/datacommonsorg/data/tree/master/docs">these
-      resources</a> and follow <a
-      href="https://github.com/datacommonsorg/data">this development
-      process</a>. If you have a suggestion, please use <a
-      href="https://docs.google.com/forms/d/17BlSP8xLadDJFiimPvJQmoPWI_XV52ujhS59rW1lq3w/edit">this
-      Google Form</a>.
-
-    <dt>Q: How can we access data in Data Commons?
-    <dd>The data in knowledge graph can be accessed through the
-      <a href="{{ url_for('browser.browser_main') }}">Data Commons Knowledge Graph</a>,
-      <a href="{{ url_for('tools.visualization')}}">Data Commons Visualization tools</a>,
-      and APIs for
-      <a href="https://docs.datacommons.org/api/python">Python</a>,
-      <a href="https://docs.datacommons.org/api/rest/v2">REST</a> and
-      <a href="https://docs.datacommons.org/api/sheets">Google Sheets</a>.
-
-    <dt>Q: Where can I download all the data?
-    <dd>Given the size and evolving nature of the Data Commons knowledge graph,
-      we prefer you access it via the APIs. If your project needs local access to
-      a large fraction of the Data Commons Knowledge Graph, please <a
-      href="https://docs.google.com/forms/d/17XRFdbXHomz5cwAwSAg1jUj3r3TxGT_HABgXhSM1204/edit?resourcekey=0-yJ9nT9ST-TfoKNtmGIws-g">fill
-      out this form</a>.
-
-    <dt>Q: How do we know if the data is accurate?
-    <dd>Data Commons provides an access mechanism to data, but cannot ensure
-      accuracy. To provide as much context as possible, answers to queries will
-      include the provenance (source of the data). The choice of which data to use
-      is up to individuals. If you find something you think is in error, we would
-      love to <a href="{{ url_for('static.feedback') }}">hear from you</a>.
-
-    <dt>Q: How often is the data refreshed?
-    <dd>Different data sources refresh at different frequencies. We try to keep
-      the data updated as the sources publish new versions of their data. If you
-      see something out of date, please file an <a href="https://github.com/datacommonsorg/data/issues">issue on Github</a>.
-
-    <dt>Q: What are the SLAs / Performance levels we can expect?
-    <dd>The service is provided on an as-is basis with no SLA or commitments on availability or uptime.
-
-    <dt>Q: How do I cite datacommons.org?
-    <dd>To cite charts and tools on this site, please use the following format.
-      <blockquote>
-      Data Commons {{ current_year }}, <i>Data Commons</i>, viewed {{ current_date }}, &#60;https://datacommons.org&#62;.
-      </blockquote>
-
-      <p>
-        If citing data from a particular dataset, e.g. CDC Places, then use:
-      </p>
-
-      <blockquote>
-      Data Commons {{ current_year }}, CDC Places, electronic dataset, <i>Data Commons</i>, viewed {{ current_date }}, &#60;https://datacommons.org&#62;.
-      </blockquote>
-      <p>
-        In both cases, please use the date you viewed the site (in the examples above, we used {{ current_date }}).
-      </p>
+        href="https://cloud.google.com/bigquery/public-data">BigQuery public dataset program</a>.
 
     <dt>Q: What is the difference between Data Commons and other other public dataset projects?
     <dd>Many public dataset projects provide a great service by aggregating
       topical open data sets. However, using those data sets to answer specific
       questions often involves 'foraging' — finding the data, cleaning the data,
       reconciling different formats and schemas, figuring out how to merge data
-      about the same entity from different sources, etc. This error prone and
-      tedious process is repeated, once (or more) by each organization working on
-      an issue. This is a challenge in almost every area of study involving data,
-      from the social sciences and physical sciences to public policy.  Data
-      Commons does this work once, on a large scale, and provides cloud accessible
-      APIs to the cleaned, normalized and joined data. While there are millions of
-      datasets in every domain, some collections of data get used more frequently
-      than others. We have started with a core set of these (over 120) in the hope
-      that useful applications can be built on top of them.
+      about the same entity from different sources, etc. This error-prone and
+      tedious process is repeated, once (or more) by each organization working on an issue. This is a challenge in almost every area of study involving data, from the social sciences and physical sciences to public policy. Data Commons does this work once, on a large scale, and provides cloud-accessible APIs to the cleaned, normalized and joined data. While there are millions of datasets in every domain, some collections of data get used more frequently than others.
 
     <dt>Q: What is the difference between Data Commons and Wikidata?
     <dd>The focus in Data Commons is on aggregating external, already available
@@ -142,46 +61,89 @@
     <dt>Q: What is the relation between DataCommons.org and Schema.org?
     <dd>DataCommons.org builds upon the vocabularies defined by Schema.org, with
       additional terms defined to cover concepts (e.g. "citizenship") that are
-      important to the data in Data Commons but which have not been a priority for
-      Schema.org-based Web markup. The Data Commons schemas constitute an
-      "external extension" to Schema.org, similar to that provided by <a
-      href="http://blog.schema.org/2016/02/gs1-milestone-first-schemaorg-external.html">GS1</a>.
-      Some schemas could migrate into Schema.org if the community finds value in
-      them.
+      important to the data in Data Commons but which have not been a priority for Schema.org-based Web markup. The Data Commons schemas constitute an
+      "external extension" to Schema.org, similar to that provided by <a href="http://blog.schema.org/2016/02/gs1-milestone-first-schemaorg-external.html">GS1</a>. Some schemas could migrate into Schema.org if the community finds value in them.
+
+    <dt>Q: What is the new Explore interface to Data Commons?
+    <dd>Data Commons has a new Explore interface that uses large language models
+      (LLMs) to map your natural-language question to the public data sets to
+      extract the right visualizations to your question. We do not use LLMs to
+      generate any data or visualizations; all responses are based on real data
+      with sourced provenance from Data Commons.
+
+    <dt>Q: How do you choose which dataset to show in the Explore interface?
+    <dd>The LLMs powering Data Commons’ Explore interface use generative AI to
+      identify the most likely response to your query. As we continue to improve
+      the interface, we will look to provide more options that allow users to
+      select sources themselves.
+
+    <dt><a id="fit">Q: Is my data suitable for adding to Data Commons?</a></dt>
+    <dd>Data Commons is intended for public, statistical, macro data that benefits from being joined with other macrodata to derive new insights. Your data is a good fit for Data Commons if it meets the following criteria:
+      <ul>
+        <li>It can be licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons BY</a> (CC BY) agreement.</li>
+        <li>It is pre-aggregated up to a minimal level that is common to other datasets; for example, an administrative area (place).</li>
+      </ul>
+      You can run your own Data Commons instance for data that is private and not appropriate for CC BY licensing. However, micro data, i.e. individual-level data, cannot currently be aggregated by Data Commons. In general, if there is no way to join your data with existing Data Commons datasets, on a common entity such as an administrative area or institution, there isn't much benefit to using Data Commons.
+      To determine whether your data is best served by the base Data Commons (Google-run datacommons.org) or by a custom instance that you run yourself, see the <a href="https://docs.datacommons.org/custom_dc/faq.html" target="_blank">Custom Data Commons FAQ</a>.
+    </dd>
+
+    <dt>Q: How can I suggest adding my data to Data Commons?
+    <dd>Data Commons is meant to be for the community, by the community and
+      we welcome new submissions or suggestions. If you are interested in importing your data to Data Commons, please file a <a href="https://issuetracker.google.com/issues/new?component=1660823&template=2053232"
+        target="_blank">data request</a> in our issue tracker.
+
+    <dt>Q: Where can I download all the data?
+    <dd>Given the size and evolving nature of the Data Commons knowledge graph,
+      you cannot download <em>all</em> the data. You can download all the data pertaining to a specific subset of metrics (variables). You can use the <a href="https://datacommons.org/tools/download">Data Download Tool</a> to
+      download CSV files, or you can use the <a href="https://docs.datacommons.org/api/" target="_blank">APIs</a> to programmatically retrieve data in JSON format.
+
+    <dt>Q: How do we know if the data is accurate?
+    <dd>Data Commons provides an access mechanism to data, but cannot ensure
+      accuracy. To provide as much context as possible, answers to queries will
+      include the provenance (source of the data). The choice of which data to use is up to individuals. If you find something you think is in error, please file a <a href="https://b.corp.google.com/issues/new?component=1659535&template=2053231" target="_blank">bug</a> in our
+      issue tracker.
+
+    <dt>Q: How often is the data refreshed?
+    <dd>Different data sources refresh at different frequencies. We try to keep
+      the data updated as the sources publish new versions of their data. If you
+      see something out of date, please file a <a href="https://b.corp.google.com/issues/new?component=1659535&template=2053231" target="_blank">bug</a> in our issue tracker.
+
+    <dt>Q: What are the SLAs / performance levels we can expect?
+    <dd>The service is provided on an as-is basis with no SLA or commitments on availability or uptime.
+
+    <dt>Q: How do I cite datacommons.org?
+    <dd>To cite charts and tools on this site, please use the following format.
+      <blockquote>
+        Data Commons {{ current_year }}, <i>Data Commons</i>, viewed {{ current_date }},
+        &#60;https://datacommons.org&#62;.
+      </blockquote>
+
+      <p>
+        If citing data from a particular dataset, e.g. CDC Places, then use:
+      </p>
+
+      <blockquote>
+        Data Commons {{ current_year }}, CDC Places, electronic dataset, <i>Data Commons</i>, viewed {{ current_date }},
+        &#60;https://datacommons.org&#62;.
+      </blockquote>
+      <p>
+        In both cases, please use the date you viewed the site (in the examples above, we used {{ current_date }}).
+      </p>
 
     <dt>Q: What are the usage rights of the data in Data Commons?
     <dd>The Data Commons knowledge graph, and the compilation of the datasets is
       licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC
-      BY</a>. The Data Commons REST API and the R, Python Libraries are released
-      under <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License
-      2.0</a>. The data included in Data Commons come from different sources. The
-      data provenance is provided for all the data, including a link to the
-      source. While we make every effort to obtain data from sources offering
-      unrestricted usage of underlying data, terms of use of data may be subject
-      to different licenses and terms of use,  specified in linked source of the
-      data.
+      BY</a>. The Data Commons REST API and the R, Python Libraries are released under <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License 2.0</a>. The data included in Data Commons come from different sources. The data provenance is provided for all the data, including a link to the source. While we make every effort to obtain data from sources offering unrestricted usage of underlying data, terms of use of data may be subject to different licenses and terms of use, specified in the linked source of the data.
 
-    <dt>Q: Can my educational institution use Data Commons while complying with the Family 
-      Educational Rights Privacy Act 
-      (<a href="https://www2.ed.gov/policy/gen/guid/fpco/ferpa/index.html">FERPA</a>) 
-      and/or similar state privacy requirements?
-    <dd> Data Commons collects no personal information (PII), records, or private 
-      information from users and can be used in compliance with 
-      <a href="https://www2.ed.gov/policy/gen/guid/fpco/ferpa/index.html">FERPA</a>. 
-      For specific questions about FERPA compliance, please contact your organization’s 
-      legal counsel for advice. 
+    <dt>Q: Can my educational institution use Data Commons while complying with the Family Educational Rights Privacy Act
+      (<a href="https://www2.ed.gov/policy/gen/guid/fpco/ferpa/index.html">FERPA</a>) and/or similar state privacy
+      requirements?
+    <dd> Data Commons collects no personal information (PII), records, or       private information from users and can be used in compliance with <a href="https://www2.ed.gov/policy/gen/guid/fpco/ferpa/index.html">FERPA</a>. For specific questions about FERPA compliance, please contact your organization’s legal counsel for advice.
 
     <dt>Q: What data do you collect about me?
     <dd>Data Commons uses Google Analytics to collect non-identifiable usage
       data to improve the product. We log all queries asked in the Search tool,
       but do not associate IP address or any other identifiers with the queries.
       We do use in-session cookies to be able to manage state.
-
-    <dt>Q: How do I ask a question or offer feedback on Data Commons?
-    <dd>You can post your question on the <a
-      href="https://github.com/datacommonsorg/docsite/issues">GitHub forum</a> or
-      fill out <a
-      href="https://docs.google.com/forms/d/1pqliyxlfb4Mle2a77TLdl_LPxRKdQF5uG86pKC9MDu4/edit">this
-      feedback form</a>.
   </dl>
-{% endblock %}
+  {% endblock %}

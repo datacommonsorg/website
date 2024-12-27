@@ -45,6 +45,12 @@ function loadLocaleData(
   modules: Promise<Record<any, any>>[]
 ): Promise<void> {
   const allMessages = {};
+  // If no i18n modules are provided, just set the locale and return.
+  if (modules.length === 0) {
+    intl = createIntl({ locale, messages: {} }, intlCache);
+    return Promise.resolve();
+  }
+  // Otherwise, set the locale and load the i18n modules.
   return Promise.all(modules)
     .then((messages) => {
       for (const msg of messages) {

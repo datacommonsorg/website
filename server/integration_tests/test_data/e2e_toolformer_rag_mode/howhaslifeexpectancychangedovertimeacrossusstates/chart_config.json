@@ -11,56 +11,56 @@
                   {
                     "comparisonPlaces": [
                       "geoId/11",
+                      "geoId/06",
+                      "geoId/36",
                       "geoId/15",
                       "geoId/53",
-                      "geoId/41",
-                      "geoId/16",
-                      "geoId/33",
                       "geoId/51",
-                      "geoId/23",
+                      "geoId/41",
+                      "geoId/33",
                       "geoId/25",
-                      "geoId/49",
-                      "geoId/13",
                       "geoId/50",
-                      "geoId/44",
-                      "geoId/42",
-                      "geoId/37",
-                      "geoId/30",
-                      "geoId/10",
-                      "geoId/08",
-                      "geoId/02",
                       "geoId/32",
-                      "geoId/06",
-                      "geoId/40",
-                      "geoId/12",
-                      "geoId/56",
-                      "geoId/48",
-                      "geoId/27",
+                      "geoId/34",
                       "geoId/24",
-                      "geoId/31",
+                      "geoId/13",
+                      "geoId/10",
+                      "geoId/17",
+                      "geoId/02",
+                      "geoId/44",
+                      "geoId/12",
+                      "geoId/37",
+                      "geoId/16",
+                      "geoId/09",
+                      "geoId/23",
+                      "geoId/42",
+                      "geoId/48",
+                      "geoId/08",
+                      "geoId/27",
                       "geoId/45",
                       "geoId/26",
-                      "geoId/19",
-                      "geoId/17",
-                      "geoId/05",
-                      "geoId/01",
+                      "geoId/49",
                       "geoId/55",
-                      "geoId/20",
-                      "geoId/09",
-                      "geoId/29",
-                      "geoId/47",
-                      "geoId/39",
-                      "geoId/21",
-                      "geoId/38",
-                      "geoId/18",
-                      "geoId/54",
-                      "geoId/22",
-                      "geoId/46",
-                      "geoId/36",
-                      "geoId/34",
-                      "geoId/28",
+                      "geoId/31",
+                      "geoId/30",
+                      "geoId/19",
                       "geoId/04",
-                      "geoId/35"
+                      "geoId/56",
+                      "geoId/22",
+                      "geoId/39",
+                      "geoId/29",
+                      "geoId/46",
+                      "geoId/20",
+                      "geoId/18",
+                      "geoId/01",
+                      "geoId/47",
+                      "geoId/05",
+                      "geoId/38",
+                      "geoId/21",
+                      "geoId/40",
+                      "geoId/28",
+                      "geoId/35",
+                      "geoId/54"
                     ],
                     "statVarKey": [
                       "LifeExpectancy_Person51"
@@ -90,6 +90,30 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "geoId/06",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_abs"
+                    ],
+                    "title": "California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/36",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_abs"
+                    ],
+                    "title": "New York",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "geoId/15",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_abs"
@@ -114,11 +138,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/41",
+                    "placeDcidOverride": "geoId/51",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_abs"
                     ],
-                    "title": "Oregon",
+                    "title": "Virginia",
                     "type": "LINE"
                   }
                 ]
@@ -126,11 +150,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/16",
+                    "placeDcidOverride": "geoId/41",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_abs"
                     ],
-                    "title": "Idaho",
+                    "title": "Oregon",
                     "type": "LINE"
                   }
                 ]
@@ -150,59 +174,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/51",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Virginia",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/23",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Maine",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "geoId/25",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_abs"
                     ],
                     "title": "Massachusetts",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/49",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Utah",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/13",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Georgia",
                     "type": "LINE"
                   }
                 ]
@@ -222,90 +198,6 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/44",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Rhode Island",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/42",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Pennsylvania",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/37",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "North Carolina",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/30",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Montana",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/10",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Delaware",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/08",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Colorado",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/02",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Alaska",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "geoId/32",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_abs"
@@ -318,71 +210,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/06",
+                    "placeDcidOverride": "geoId/34",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_abs"
                     ],
-                    "title": "California",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/40",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Oklahoma",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/12",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Florida",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/56",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Wyoming",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/48",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Texas",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/27",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Minnesota",
+                    "title": "New Jersey",
                     "type": "LINE"
                   }
                 ]
@@ -402,11 +234,167 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/31",
+                    "placeDcidOverride": "geoId/13",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_abs"
                     ],
-                    "title": "Nebraska",
+                    "title": "Georgia",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/10",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_abs"
+                    ],
+                    "title": "Delaware",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/17",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_abs"
+                    ],
+                    "title": "Illinois",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/02",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_abs"
+                    ],
+                    "title": "Alaska",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/44",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_abs"
+                    ],
+                    "title": "Rhode Island",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/12",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_abs"
+                    ],
+                    "title": "Florida",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/37",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_abs"
+                    ],
+                    "title": "North Carolina",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/16",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_abs"
+                    ],
+                    "title": "Idaho",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/09",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_abs"
+                    ],
+                    "title": "Connecticut",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/23",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_abs"
+                    ],
+                    "title": "Maine",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/42",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_abs"
+                    ],
+                    "title": "Pennsylvania",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/48",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_abs"
+                    ],
+                    "title": "Texas",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/08",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_abs"
+                    ],
+                    "title": "Colorado",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/27",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_abs"
+                    ],
+                    "title": "Minnesota",
                     "type": "LINE"
                   }
                 ]
@@ -438,47 +426,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/19",
+                    "placeDcidOverride": "geoId/49",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_abs"
                     ],
-                    "title": "Iowa",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/17",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Illinois",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/05",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Arkansas",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/01",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Alabama",
+                    "title": "Utah",
                     "type": "LINE"
                   }
                 ]
@@ -498,11 +450,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/20",
+                    "placeDcidOverride": "geoId/31",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_abs"
                     ],
-                    "title": "Kansas",
+                    "title": "Nebraska",
                     "type": "LINE"
                   }
                 ]
@@ -510,11 +462,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/09",
+                    "placeDcidOverride": "geoId/30",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_abs"
                     ],
-                    "title": "Connecticut",
+                    "title": "Montana",
                     "type": "LINE"
                   }
                 ]
@@ -522,143 +474,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/29",
+                    "placeDcidOverride": "geoId/19",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_abs"
                     ],
-                    "title": "Missouri",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/47",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Tennessee",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/39",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Ohio",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/21",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Kentucky",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/38",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "North Dakota",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/18",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Indiana",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/54",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "West Virginia",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/22",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Louisiana",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/46",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "South Dakota",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/36",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "New York",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/34",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "New Jersey",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/28",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_abs"
-                    ],
-                    "title": "Mississippi",
+                    "title": "Iowa",
                     "type": "LINE"
                   }
                 ]
@@ -678,11 +498,191 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "geoId/56",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_abs"
+                    ],
+                    "title": "Wyoming",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/22",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_abs"
+                    ],
+                    "title": "Louisiana",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/39",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_abs"
+                    ],
+                    "title": "Ohio",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/29",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_abs"
+                    ],
+                    "title": "Missouri",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/46",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_abs"
+                    ],
+                    "title": "South Dakota",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/20",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_abs"
+                    ],
+                    "title": "Kansas",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/18",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_abs"
+                    ],
+                    "title": "Indiana",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/01",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_abs"
+                    ],
+                    "title": "Alabama",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/47",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_abs"
+                    ],
+                    "title": "Tennessee",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/05",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_abs"
+                    ],
+                    "title": "Arkansas",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/38",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_abs"
+                    ],
+                    "title": "North Dakota",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/21",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_abs"
+                    ],
+                    "title": "Kentucky",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/40",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_abs"
+                    ],
+                    "title": "Oklahoma",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/28",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_abs"
+                    ],
+                    "title": "Mississippi",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "geoId/35",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_abs"
                     ],
                     "title": "New Mexico",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/54",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_abs"
+                    ],
+                    "title": "West Virginia",
                     "type": "LINE"
                   }
                 ]
@@ -707,11 +707,47 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "geoId/06",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_pct"
+                    ],
+                    "title": "California",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/36",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_pct"
+                    ],
+                    "title": "New York",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "geoId/15",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_pct"
                     ],
                     "title": "Hawaii",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/51",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_pct"
+                    ],
+                    "title": "Virginia",
                     "type": "LINE"
                   }
                 ]
@@ -743,47 +779,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/16",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Idaho",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "geoId/33",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_pct"
                     ],
                     "title": "New Hampshire",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/23",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Maine",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/51",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Virginia",
                     "type": "LINE"
                   }
                 ]
@@ -803,131 +803,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/49",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Utah",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/13",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Georgia",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
                     "placeDcidOverride": "geoId/50",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_pct"
                     ],
                     "title": "Vermont",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/08",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Colorado",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/44",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Rhode Island",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/42",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Pennsylvania",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/30",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Montana",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/10",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Delaware",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/02",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Alaska",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/37",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "North Carolina",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/06",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "California",
                     "type": "LINE"
                   }
                 ]
@@ -947,11 +827,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/40",
+                    "placeDcidOverride": "geoId/34",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_pct"
                     ],
-                    "title": "Oklahoma",
+                    "title": "New Jersey",
                     "type": "LINE"
                   }
                 ]
@@ -959,23 +839,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/12",
+                    "placeDcidOverride": "geoId/13",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_pct"
                     ],
-                    "title": "Florida",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/27",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Minnesota",
+                    "title": "Georgia",
                     "type": "LINE"
                   }
                 ]
@@ -995,47 +863,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/48",
+                    "placeDcidOverride": "geoId/10",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_pct"
                     ],
-                    "title": "Texas",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/56",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Wyoming",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/31",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Nebraska",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/19",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Iowa",
+                    "title": "Delaware",
                     "type": "LINE"
                   }
                 ]
@@ -1055,11 +887,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/26",
+                    "placeDcidOverride": "geoId/02",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_pct"
                     ],
-                    "title": "Michigan",
+                    "title": "Alaska",
                     "type": "LINE"
                   }
                 ]
@@ -1067,11 +899,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/45",
+                    "placeDcidOverride": "geoId/12",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_pct"
                     ],
-                    "title": "South Carolina",
+                    "title": "Florida",
                     "type": "LINE"
                   }
                 ]
@@ -1079,11 +911,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/55",
+                    "placeDcidOverride": "geoId/37",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_pct"
                     ],
-                    "title": "Wisconsin",
+                    "title": "North Carolina",
                     "type": "LINE"
                   }
                 ]
@@ -1091,11 +923,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/05",
+                    "placeDcidOverride": "geoId/44",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_pct"
                     ],
-                    "title": "Arkansas",
+                    "title": "Rhode Island",
                     "type": "LINE"
                   }
                 ]
@@ -1103,23 +935,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/01",
+                    "placeDcidOverride": "geoId/16",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_pct"
                     ],
-                    "title": "Alabama",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "placeDcidOverride": "geoId/20",
-                    "statVarKey": [
-                      "LifeExpectancy_Person_growth_pct"
-                    ],
-                    "title": "Kansas",
+                    "title": "Idaho",
                     "type": "LINE"
                   }
                 ]
@@ -1139,11 +959,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/29",
+                    "placeDcidOverride": "geoId/23",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_pct"
                     ],
-                    "title": "Missouri",
+                    "title": "Maine",
                     "type": "LINE"
                   }
                 ]
@@ -1151,11 +971,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/39",
+                    "placeDcidOverride": "geoId/42",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_pct"
                     ],
-                    "title": "Ohio",
+                    "title": "Pennsylvania",
                     "type": "LINE"
                   }
                 ]
@@ -1163,11 +983,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/38",
+                    "placeDcidOverride": "geoId/48",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_pct"
                     ],
-                    "title": "North Dakota",
+                    "title": "Texas",
                     "type": "LINE"
                   }
                 ]
@@ -1175,11 +995,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/47",
+                    "placeDcidOverride": "geoId/45",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_pct"
                     ],
-                    "title": "Tennessee",
+                    "title": "South Carolina",
                     "type": "LINE"
                   }
                 ]
@@ -1187,11 +1007,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/21",
+                    "placeDcidOverride": "geoId/08",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_pct"
                     ],
-                    "title": "Kentucky",
+                    "title": "Colorado",
                     "type": "LINE"
                   }
                 ]
@@ -1199,11 +1019,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/18",
+                    "placeDcidOverride": "geoId/27",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_pct"
                     ],
-                    "title": "Indiana",
+                    "title": "Minnesota",
                     "type": "LINE"
                   }
                 ]
@@ -1211,11 +1031,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/22",
+                    "placeDcidOverride": "geoId/26",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_pct"
                     ],
-                    "title": "Louisiana",
+                    "title": "Michigan",
                     "type": "LINE"
                   }
                 ]
@@ -1223,11 +1043,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/54",
+                    "placeDcidOverride": "geoId/49",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_pct"
                     ],
-                    "title": "West Virginia",
+                    "title": "Utah",
                     "type": "LINE"
                   }
                 ]
@@ -1235,11 +1055,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/36",
+                    "placeDcidOverride": "geoId/55",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_pct"
                     ],
-                    "title": "New York",
+                    "title": "Wisconsin",
                     "type": "LINE"
                   }
                 ]
@@ -1247,11 +1067,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/34",
+                    "placeDcidOverride": "geoId/31",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_pct"
                     ],
-                    "title": "New Jersey",
+                    "title": "Nebraska",
                     "type": "LINE"
                   }
                 ]
@@ -1259,11 +1079,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/46",
+                    "placeDcidOverride": "geoId/30",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_pct"
                     ],
-                    "title": "South Dakota",
+                    "title": "Montana",
                     "type": "LINE"
                   }
                 ]
@@ -1271,11 +1091,11 @@
               {
                 "tiles": [
                   {
-                    "placeDcidOverride": "geoId/28",
+                    "placeDcidOverride": "geoId/19",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_pct"
                     ],
-                    "title": "Mississippi",
+                    "title": "Iowa",
                     "type": "LINE"
                   }
                 ]
@@ -1295,11 +1115,191 @@
               {
                 "tiles": [
                   {
+                    "placeDcidOverride": "geoId/56",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_pct"
+                    ],
+                    "title": "Wyoming",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/22",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_pct"
+                    ],
+                    "title": "Louisiana",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/39",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_pct"
+                    ],
+                    "title": "Ohio",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/29",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_pct"
+                    ],
+                    "title": "Missouri",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/46",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_pct"
+                    ],
+                    "title": "South Dakota",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/20",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_pct"
+                    ],
+                    "title": "Kansas",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/18",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_pct"
+                    ],
+                    "title": "Indiana",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/01",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_pct"
+                    ],
+                    "title": "Alabama",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/47",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_pct"
+                    ],
+                    "title": "Tennessee",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/05",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_pct"
+                    ],
+                    "title": "Arkansas",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/38",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_pct"
+                    ],
+                    "title": "North Dakota",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/21",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_pct"
+                    ],
+                    "title": "Kentucky",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/40",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_pct"
+                    ],
+                    "title": "Oklahoma",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/28",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_pct"
+                    ],
+                    "title": "Mississippi",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
                     "placeDcidOverride": "geoId/35",
                     "statVarKey": [
                       "LifeExpectancy_Person_growth_pct"
                     ],
                     "title": "New Mexico",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "placeDcidOverride": "geoId/54",
+                    "statVarKey": [
+                      "LifeExpectancy_Person_growth_pct"
+                    ],
+                    "title": "West Virginia",
                     "type": "LINE"
                   }
                 ]
@@ -1849,6 +1849,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "",
   "userMessages": []
 }

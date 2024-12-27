@@ -35,7 +35,7 @@ export function EvalList(props: EvalListPropType): JSX.Element {
   const { sessionQueryId, setSessionQueryId } = useContext(SessionContext);
 
   const [modalOpen, setModalOpen] = useState(false);
-  const toggleModal = () => void setModalOpen(!modalOpen);
+  const toggleModal = (): void => setModalOpen(!modalOpen);
 
   // Keys are query IDs and values are true if query eval is complete.
   const [queryCompletionStatus, setQueryCompletionStatus] = useState<
@@ -44,7 +44,7 @@ export function EvalList(props: EvalListPropType): JSX.Element {
 
   const [completedCount, setCompletedCount] = useState<number>(0);
 
-  const openModal = () => {
+  const openModal = (): void => {
     setModalOpen(true);
     getRatedQueryIds(
       props.leftSheetId,
@@ -92,7 +92,7 @@ export function EvalList(props: EvalListPropType): JSX.Element {
                   `${completed ? " completed" : ""}` +
                   `${sessionQueryId === queryId ? " current" : ""}`
                 }
-                onClick={() => {
+                onClick={(): void => {
                   setModalOpen(false);
                   setSessionQueryId(queryId);
                 }}
@@ -110,7 +110,7 @@ export function EvalList(props: EvalListPropType): JSX.Element {
         </div>
         <div className="footer">
           <Button
-            onClick={() => setModalOpen(false)}
+            onClick={(): void => setModalOpen(false)}
             className="btn-transparent"
           >
             <div>Close</div>

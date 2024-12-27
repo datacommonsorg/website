@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-import _ from "lodash";
-
 import { MappedThing, Mapping, MappingType, MappingVal } from "../types";
 
 const FIXED_CSV_TABLE = "CSVTable";
