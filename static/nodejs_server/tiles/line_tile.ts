@@ -104,7 +104,7 @@ export async function getLineTileResult(
     );
     const csvLabelHeader = mode === TOOLFORMER_RAG_MODE ? "date" : undefined;
     const result: TileResult = {
-      data_csv: dataGroupsToCsv(chartData.dataGroup, csvLabelHeader),
+      dataCsv: dataGroupsToCsv(chartData.dataGroup, csvLabelHeader),
       legend: chartData.dataGroup.map((dg) => dg.label || "A"),
       places: tileProp.comparisonPlaces || [place.dcid],
       srcs: getSources(chartData.sources),

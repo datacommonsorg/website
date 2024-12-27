@@ -30,7 +30,7 @@ import { getGeoJsonDataFeatures, MANUAL_GEOJSON_DISTANCES } from "../util";
 export function useUpdateGeoJson(
   chartStore: ChartStore,
   dispatch: Dispatch<ChartStoreAction>
-) {
+): void {
   const { placeInfo } = useContext(Context);
   const defaultStatReady = useDefaultStatReady(chartStore);
 

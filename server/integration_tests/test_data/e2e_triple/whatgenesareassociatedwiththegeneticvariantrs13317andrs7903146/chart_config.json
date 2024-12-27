@@ -9,26 +9,28 @@
               {
                 "tiles": [
                   {
-                    "answerTableTileSpec": {
-                      "columns": [
-                        {
-                          "header": "associated gene",
-                          "propertyExpr": "<-referenceSNPClusterID{typeOf:GeneticVariantGeneAssociation}->geneSymbol"
-                        }
-                      ]
+                    "answerMessageTileSpec": {
+                      "propertyExpr": "<-geneticVariantID{typeOf:DiseaseGeneticVariantAssociation}->diseaseID"
                     },
                     "entities": [
-                      "bio/D012873",
-                      "bio/D014178",
-                      "bio/D020022",
-                      "bio/D020132",
-                      "bio/D007562",
-                      "bio/D020326",
-                      "bio/rs13317",
                       "bio/rs7903146"
                     ],
-                    "title": "The associated genes for Genetic, Genetic Predisposition to Disease and 5 more others are",
-                    "type": "ANSWER_TABLE"
+                    "title": "The associated diseases for rs7903146 are",
+                    "type": "ANSWER_MESSAGE"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "entities": [
+                      "bio/rs7903146"
+                    ],
+                    "type": "ENTITY_OVERVIEW"
                   }
                 ]
               }
@@ -41,41 +43,6 @@
   "context": {},
   "debug": {},
   "entities": [
-    {
-      "dcid": "bio/D012873",
-      "name": "Genetic",
-      "type": ""
-    },
-    {
-      "dcid": "bio/D014178",
-      "name": "Genetic",
-      "type": ""
-    },
-    {
-      "dcid": "bio/D020022",
-      "name": "Genetic Predisposition to Disease",
-      "type": ""
-    },
-    {
-      "dcid": "bio/D020132",
-      "name": "Anticipation",
-      "type": ""
-    },
-    {
-      "dcid": "bio/D007562",
-      "name": "Creutzfeldt-Jakob Syndrome",
-      "type": ""
-    },
-    {
-      "dcid": "bio/D020326",
-      "name": "Migraine without Aura",
-      "type": ""
-    },
-    {
-      "dcid": "bio/rs13317",
-      "name": "rs13317",
-      "type": ""
-    },
     {
       "dcid": "bio/rs7903146",
       "name": "rs7903146",
@@ -97,8 +64,7 @@
     "peerPlaces": [],
     "peerTopics": []
   },
-  "svSource": "CURRENT_QUERY",
-  "userMessage": "Low confidence in understanding your query. Displaying the closest results.",
+  "svSource": "UNKNOWN",
   "userMessages": [
     "Low confidence in understanding your query. Displaying the closest results."
   ]

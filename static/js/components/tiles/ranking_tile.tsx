@@ -86,7 +86,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
     if (props.lazyLoad && !shouldLoad) {
       return;
     }
-    (async () => {
+    (async (): Promise<void> => {
       try {
         setIsLoading(true);
         const rankingData = await fetchData(props);

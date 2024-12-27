@@ -119,12 +119,22 @@ class ExploreTest(NLWebServerTestCase):
     # TODO: Proper fix should be to make NL server more deterministic
     if 'variables' in resp:
       resp_var_to_score = {}
+      dbg['sv_matching']['CosineScore'] = _format_scores(
+          dbg['sv_matching']['CosineScore'])
       for i, sv in enumerate(dbg['sv_matching']['SV']):
-        score = dbg['sv_matching']['CosineScore'][i]
-        resp_var_to_score[sv] = float("{:.6f}".format(score))
+        resp_var_to_score[sv] = dbg['sv_matching']['CosineScore'][i]
       sorted_variables = sorted(resp['variables'],
                                 key=lambda x: (-resp_var_to_score.get(x, 0), x))
       resp['variables'] = sorted_variables
+
+    # Truncate CosineScores to 6 decimals to reduce noisy diffs.
+    for candidate in dbg['sv_matching']['MultiSV'].get('Candidates', []):
+      for part in candidate.get('Parts', []):
+        if multisv_scores := part.get('CosineScore', []):
+          part['CosineScore'] = _format_scores(multisv_scores)
+
+    if props_scores := dbg['props_matching'].get('CosineScore', []):
+      dbg['props_matching']['CosineScore'] = _format_scores(props_scores)
 
     resp['debug'] = {}
     resp['context'] = {}
@@ -751,14 +761,17 @@ class ExploreTestEE2(ExploreTest):
     self.run_detect_and_fulfill(
         'e2e_triple',
         [
+            # ----- Context Based Queries -----
             # Should have 'out' properties as answer
             'What strand orientation does FGFR1 have?',
             # Should use context for the entity
-            'what transcripts does it have',
+            'what genomic coordinates does it have',
             # Should use context for the property
-            'how about for P53',
+            'how about for PQLC3',
             # Should not use context because no entity or property found
             'what animal is that found in',
+
+            # ----- Singleton Queries -----
             # Should have 'in' properties as answer
             'What is Betacoronavirus 1 the species of',
             # Should have a chained property in the answer
@@ -793,3 +806,8 @@ def _del_field(d: dict, path: str):
         del tmp[p]
       else:
         tmp = tmp[p]
+
+
+# Helper function to consistently format float scores.
+def _format_scores(scores):
+  return [float("{:.6f}".format(score)) for score in scores]

@@ -46,6 +46,8 @@ interface SubjectPageMainPanePropType {
   showExploreMore?: boolean;
   // Whether to to render tiles as web components
   showWebComponents?: boolean;
+  // Default enclosed place type
+  defaultEnclosedPlaceType?: string;
 }
 
 export const SubjectPageMainPane = memo(function SubjectPageMainPane(
@@ -56,7 +58,7 @@ export const SubjectPageMainPane = memo(function SubjectPageMainPane(
   // TODO(shifucun): Further clean up default place type, child place type etc
   // from subject page client components. The component should respect whatever
   // the input prop is.
-  let enclosedPlaceType = "";
+  let enclosedPlaceType = props.defaultEnclosedPlaceType || "";
   for (const placeType of props.place.types) {
     if (
       props.pageConfig.metadata &&

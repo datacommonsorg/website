@@ -91,7 +91,7 @@ export function Page(props: PagePropType): JSX.Element {
   // request object used to get facetListPromise
   const facetsReqObj = useRef({});
   const [isSvModalOpen, updateSvModalOpen] = useState(false);
-  const toggleSvModalCallback = () => updateSvModalOpen(!isSvModalOpen);
+  const toggleSvModalCallback = (): void => updateSvModalOpen(!isSvModalOpen);
 
   useEffect(() => {
     if (showPreview) {
@@ -191,12 +191,12 @@ export function Page(props: PagePropType): JSX.Element {
           <PlaceSelector
             selectedPlace={selectedOptions.selectedPlace}
             enclosedPlaceType={selectedOptions.enclosedPlaceType}
-            onPlaceSelected={(place) =>
+            onPlaceSelected={(place): void =>
               setSelectedOptions((prev) => {
                 return { ...prev, selectedPlace: place, enclosedPlaceType: "" };
               })
             }
-            onEnclosedPlaceTypeSelected={(enclosedPlaceType) =>
+            onEnclosedPlaceTypeSelected={(enclosedPlaceType): void =>
               setSelectedOptions((prev) => {
                 return { ...prev, enclosedPlaceType };
               })
@@ -215,7 +215,7 @@ export function Page(props: PagePropType): JSX.Element {
                       defaultChecked={
                         selectedOptions.dateType === DownloadDateTypes.LATEST
                       }
-                      onClick={() =>
+                      onClick={(): void =>
                         setSelectedOptions((prev) => {
                           return {
                             ...prev,
@@ -236,7 +236,7 @@ export function Page(props: PagePropType): JSX.Element {
                       defaultChecked={
                         selectedOptions.dateType === DownloadDateTypes.ALL
                       }
-                      onClick={() =>
+                      onClick={(): void =>
                         setSelectedOptions((prev) => {
                           return { ...prev, dateType: DownloadDateTypes.ALL };
                         })
@@ -254,7 +254,7 @@ export function Page(props: PagePropType): JSX.Element {
                       defaultChecked={
                         selectedOptions.dateType === DownloadDateTypes.RANGE
                       }
-                      onClick={() =>
+                      onClick={(): void =>
                         setSelectedOptions((prev) => {
                           return { ...prev, dateType: DownloadDateTypes.RANGE };
                         })
@@ -275,7 +275,7 @@ export function Page(props: PagePropType): JSX.Element {
                                 : ""
                             }`}
                             type="text"
-                            onChange={(e) => {
+                            onChange={(e): void => {
                               const date = e.target.value;
                               setSelectedOptions((prev) => {
                                 return { ...prev, minDate: date };
@@ -286,7 +286,9 @@ export function Page(props: PagePropType): JSX.Element {
                               DownloadDateTypes.RANGE
                             }
                             value={selectedOptions.minDate}
-                            onBlur={(e) => validateDate(e.target.value, true)}
+                            onBlur={(e): void =>
+                              validateDate(e.target.value, true)
+                            }
                           />
                         </FormGroup>
                       </div>
@@ -302,7 +304,7 @@ export function Page(props: PagePropType): JSX.Element {
                                 : ""
                             }`}
                             type="text"
-                            onChange={(e) => {
+                            onChange={(e): void => {
                               const date = e.target.value;
                               setSelectedOptions((prev) => {
                                 return { ...prev, maxDate: date };
@@ -313,7 +315,9 @@ export function Page(props: PagePropType): JSX.Element {
                               DownloadDateTypes.RANGE
                             }
                             value={selectedOptions.maxDate}
-                            onBlur={(e) => validateDate(e.target.value, false)}
+                            onBlur={(e): void =>
+                              validateDate(e.target.value, false)
+                            }
                           />
                         </FormGroup>
                       </div>
@@ -356,7 +360,7 @@ export function Page(props: PagePropType): JSX.Element {
                 <FacetSelector
                   svFacetId={selectedOptions.selectedFacets}
                   facetListPromise={facetListPromise}
-                  onSvFacetIdUpdated={(svFacetId) => {
+                  onSvFacetIdUpdated={(svFacetId): void => {
                     setSelectedOptions((prev) => {
                       return { ...prev, selectedFacets: svFacetId };
                     });

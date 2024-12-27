@@ -68,7 +68,7 @@ export function downloadFile(fileName: string, file: Blob | File): void {
   const url = window.URL.createObjectURL(file);
   link.setAttribute("href", url);
   link.setAttribute("download", fileName);
-  link.onclick = () => {
+  link.onclick = (): void => {
     setTimeout(() => window.URL.revokeObjectURL(url));
   };
   link.click();
@@ -177,4 +177,19 @@ export function removeSpinner(containerId: string): void {
       browserScreens[0].classList.remove("d-block");
     }
   }
+}
+
+/**
+ * Removes the pattern parameter from the query if that substring is present at the end.
+ * @param query the string from which to remove the pattern
+ * @param pattern a string which we want to find and remove from the query.
+ * @returns the query with the pattern removed if it was found.
+ */
+export function stripPatternFromQuery(query: string, pattern: string): string {
+  const regex = new RegExp("(?:.(?!" + pattern + "))+([,;\\s])?$", "i");
+
+  // Returns the query without the pattern parameter.
+  // E.g.: query: "population of Calif", pattern: "Calif",
+  // returns "population of "
+  return query.replace(regex, "");
 }

@@ -41,7 +41,7 @@ export function PlaceSearch(props: PlaceSearchPropType): JSX.Element {
       <div
         id="change-place-toggle-text"
         className="toggle-text"
-        onClick={() => setShowSearchBar(true)}
+        onClick={(): void => setShowSearchBar(true)}
         style={{ display: `${showSearchBar ? "none" : ""}` }}
       >
         {toggleText}
@@ -61,7 +61,10 @@ export function PlaceSearch(props: PlaceSearchPropType): JSX.Element {
             />
           </div>
         </div>
-        <div className="close-icon" onClick={() => setShowSearchBar(false)}>
+        <div
+          className="close-icon"
+          onClick={(): void => setShowSearchBar(false)}
+        >
           <span className="material-symbols-outlined">cancel</span>
         </div>
       </div>

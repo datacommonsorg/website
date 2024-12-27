@@ -347,34 +347,6 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "UnemploymentRate_Person_Female"
-                    ],
-                    "title": "Unemployment Rate of Females in United States",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Unemployment Rate of Females in United States",
-                    "statVarKey": [
-                      "UnemploymentRate_Person_Female"
-                    ],
-                    "title": "Unemployment Rate of Females in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Unemployment Rate of Females"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "barTileSpec": {
                       "maxPlaces": 15,
                       "maxVariables": 15,
@@ -655,18 +627,40 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "Amount_EconomicActivity_GrossDomesticProduction_RealValue",
-                      "Amount_EconomicActivity_GrossValueAdded_RealValue"
+                    "barTileSpec": {
+                      "maxPlaces": 15,
+                      "maxVariables": 15,
+                      "sort": "DESCENDING"
+                    },
+                    "comparisonPlaces": [
+                      "country/USA"
                     ],
-                    "title": "GDP (Real Value) and Amount of Economic Activity (Real Value): Gross Value Added in United States",
-                    "type": "LINE"
+                    "statVarKey": [
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSConstruction_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSAccommodationFoodServices_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSAdministrativeSupportWasteManagementRemediationServices_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSAgricultureForestryFishingHunting_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSArtsEntertainmentRecreation_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSEducationalServices_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSFinanceInsurance_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSHealthCareSocialAssistance_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSInformation_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSManagementOfCompaniesEnterprises_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSMiningQuarryingOilGasExtraction_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSOtherServices_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSProfessionalScientificTechnicalServices_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSRetailTrade_RealValue_multiple_place_bar_block",
+                      "Amount_EconomicActivity_GrossDomesticProduction_NAICSTransportationWarehousing_RealValue_multiple_place_bar_block"
+                    ],
+                    "title": "GDP of the Construction Industry and More in United States (${date})",
+                    "type": "BAR"
                   }
                 ]
               }
             ],
             "denom": "Count_Person",
-            "title": "Related: GDP (Real Value) and Amount of Economic Activity (Real Value): Gross Value Added"
+            "title": "Related: GDP of the Construction Industry and More"
           }
         ],
         "statVarSpec": {
@@ -726,6 +720,14 @@
             "name": "GDP of the Real Estate and Rental and Leasing Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSRealEstateRentalLeasing_RealValue"
           },
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSRetailTrade_RealValue_multiple_place_bar_block": {
+            "name": "Amount of Economic Activity (Real Value): Gross Domestic Production, Retail Trade (NAICS/44-45)",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSRetailTrade_RealValue"
+          },
+          "Amount_EconomicActivity_GrossDomesticProduction_NAICSTransportationWarehousing_RealValue_multiple_place_bar_block": {
+            "name": "Amount of Economic Activity (Real Value): Gross Domestic Production, Transportation And Warehousing (NAICS/48-49)",
+            "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSTransportationWarehousing_RealValue"
+          },
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue_multiple_place_bar_block": {
             "name": "GDP of the Utilities Industry",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_NAICSUtilities_RealValue"
@@ -745,10 +747,6 @@
           "Amount_EconomicActivity_GrossDomesticProduction_RealValue": {
             "name": "GDP (Real Value)",
             "statVar": "Amount_EconomicActivity_GrossDomesticProduction_RealValue"
-          },
-          "Amount_EconomicActivity_GrossValueAdded_RealValue": {
-            "name": "Amount of Economic Activity (Real Value): Gross Value Added",
-            "statVar": "Amount_EconomicActivity_GrossValueAdded_RealValue"
           },
           "Area_Farm": {
             "name": "Total Farm Area",
@@ -1014,10 +1012,6 @@
             "name": "Unemployment Rate",
             "statVar": "UnemploymentRate_Person"
           },
-          "UnemploymentRate_Person_Female": {
-            "name": "Unemployment Rate of Females",
-            "statVar": "UnemploymentRate_Person_Female"
-          },
           "dc/1j7jmy39fwhw5_multiple_place_bar_block": {
             "name": "Establishments in Agriculture, Forestry, Fishing And Hunting",
             "statVar": "dc/1j7jmy39fwhw5"
@@ -1242,17 +1236,6 @@
           "Amount_EconomicActivity_GrossDomesticProduction_NAICSWholesaleTrade_RealValue"
         ]
       },
-      "Amount_EconomicActivity_GrossValueAdded_RealValue": {
-        "isic": [
-          "Amount_EconomicActivity_GrossValueAdded_ISICAgricultureHuntingForestryFishing_RealValue",
-          "Amount_EconomicActivity_GrossValueAdded_ISICConstruction_RealValue",
-          "Amount_EconomicActivity_GrossValueAdded_ISICManufacturing_RealValue",
-          "Amount_EconomicActivity_GrossValueAdded_ISICMiningManufacturingUtilities_RealValue",
-          "Amount_EconomicActivity_GrossValueAdded_ISICOtherActivities_RealValue",
-          "Amount_EconomicActivity_GrossValueAdded_ISICTransportStorageCommunications_RealValue",
-          "Amount_EconomicActivity_GrossValueAdded_ISICWholesaleRetailTradeRestaurantsHotels_RealValue"
-        ]
-      },
       "dc/1wf1h5esex2d": {
         "establishmentOwnership": [
           "dc/n1mgflew2xqm8",
@@ -1413,6 +1396,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "",
   "userMessages": []
 }

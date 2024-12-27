@@ -18,7 +18,10 @@ import { loadLocaleData } from "../i18n/i18n";
 import { initSearchAutocomplete } from "../shared/place_autocomplete";
 
 window.addEventListener("load", (): void => {
-  const locale = document.getElementById("locale").dataset.lc;
+  // Get locale from metadata
+  const metadataContainer = document.getElementById("metadata-base");
+  const locale = metadataContainer.dataset.locale;
+
   loadLocaleData(locale, [
     import(`../i18n/compiled-lang/${locale}/place.json`),
   ]).then(() => {

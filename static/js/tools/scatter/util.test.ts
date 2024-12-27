@@ -14,7 +14,13 @@
  * limitations under the License.
  */
 
-import { ContextType, SHOW_POPULATION_LINEAR } from "./context";
+import {
+  Axis,
+  ContextType,
+  PlaceInfo,
+  PointScaleState,
+  SHOW_POPULATION_LINEAR,
+} from "./context";
 import { applyHash, ScatterChartType, updateHash } from "./util";
 
 const TestContext = {
@@ -87,17 +93,20 @@ test("updateHash", () => {
 
 test("applyHash", () => {
   const context = { x: {}, y: {}, place: {}, display: {} } as ContextType;
-  context.x.set = (value) => (context.x.value = value);
-  context.y.set = (value) => (context.y.value = value);
-  context.place.set = (value) => (context.place.value = value);
-  context.display.setQuadrants = (value) =>
+  context.x.set = (value): Axis => (context.x.value = value);
+  context.y.set = (value): Axis => (context.y.value = value);
+  context.place.set = (value): PlaceInfo => (context.place.value = value);
+  context.display.setQuadrants = (value): boolean =>
     (context.display.showQuadrants = value);
-  context.display.setLabels = (value) => (context.display.showLabels = value);
-  context.display.setChartType = (value) => (context.display.chartType = value);
-  context.display.setDensity = (value) => (context.display.showDensity = value);
-  context.display.setRegression = (value) =>
+  context.display.setLabels = (value): boolean =>
+    (context.display.showLabels = value);
+  context.display.setChartType = (value): ScatterChartType =>
+    (context.display.chartType = value);
+  context.display.setDensity = (value): boolean =>
+    (context.display.showDensity = value);
+  context.display.setRegression = (value): boolean =>
     (context.display.showRegression = value);
-  context.display.setPopulation = (value) =>
+  context.display.setPopulation = (value): PointScaleState =>
     (context.display.showPopulation = value);
   location.hash = Hash;
   applyHash(context);

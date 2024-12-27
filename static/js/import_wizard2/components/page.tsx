@@ -18,7 +18,6 @@
  * Main component for the import wizard.
  */
 
-import _ from "lodash";
 import React, { useEffect, useState } from "react";
 
 import { TEMPLATE_OPTIONS, TEMPLATE_PREDICTION_VALIDATION } from "../templates";
@@ -74,11 +73,11 @@ export function Page(): JSX.Element {
   return (
     <>
       {currPageType === PageType.INFO && (
-        <Info onStartClicked={() => setCurrPage(currPage + 1)} />
+        <Info onStartClicked={(): void => setCurrPage(currPage + 1)} />
       )}
       {currPageType === PageType.TEMPLATE && (
         <TemplateSelectionPage
-          onContinueClicked={() => {
+          onContinueClicked={(): void => {
             setCurrPage((prev) => prev + 1);
           }}
           selectedTemplate={templateId}
@@ -92,8 +91,8 @@ export function Page(): JSX.Element {
           uploadedFile={uploadedFile}
           csvData={csvData}
           onCsvDataUpdated={setCsvData}
-          onBackClicked={() => setCurrPage((prev) => prev - 1)}
-          onContinueClicked={() => setCurrPage((prev) => prev + 1)}
+          onBackClicked={(): void => setCurrPage((prev) => prev - 1)}
+          onContinueClicked={(): void => setCurrPage((prev) => prev + 1)}
         />
       )}
       {currPageType === PageType.MAPPING && (
@@ -102,8 +101,8 @@ export function Page(): JSX.Element {
           onUserMappingUpdated={setUserMapping}
           csvData={csvData}
           selectedTemplate={templateId}
-          onBackClicked={() => setCurrPage((prev) => prev - 1)}
-          onContinueClicked={() => setCurrPage((prev) => prev + 1)}
+          onBackClicked={(): void => setCurrPage((prev) => prev - 1)}
+          onContinueClicked={(): void => setCurrPage((prev) => prev + 1)}
         />
       )}
       {currPageType === PageType.DOWNLOAD && (
@@ -113,7 +112,7 @@ export function Page(): JSX.Element {
           correctedMapping={userMapping}
           csvData={csvData}
           valueMap={valueMap}
-          onBackClicked={() => setCurrPage((prev) => prev - 1)}
+          onBackClicked={(): void => setCurrPage((prev) => prev - 1)}
         />
       )}
     </>

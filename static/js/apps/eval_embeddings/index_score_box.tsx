@@ -67,7 +67,7 @@ function IndexScoreBox(props: IndexScoreBoxProps): JSX.Element {
 
   useEffect(() => {
     loadSpinner(elemId);
-    (async () => {
+    (async (): Promise<void> => {
       if (!props.sentence) {
         removeSpinner(elemId);
         return;

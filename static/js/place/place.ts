@@ -20,44 +20,20 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import { PageData } from "../chart/types";
-import { NlSearchBar } from "../components/nl_search_bar";
 import { loadLocaleData } from "../i18n/i18n";
-import {
-  GA_EVENT_NL_SEARCH,
-  GA_PARAM_QUERY,
-  GA_PARAM_SOURCE,
-  GA_VALUE_SEARCH_SOURCE_PLACE_PAGE,
-  triggerGAEvent,
-} from "../shared/ga_events";
 import { ChildPlace } from "./child_places_menu";
 import { MainPane, showOverview } from "./main_pane";
 import { Menu } from "./menu";
 import { PageSubtitle } from "./page_subtitle";
 import { PlaceHighlight } from "./place_highlight";
-import { PlaceSearch } from "./place_search";
 import { isPlaceInUsa } from "./util";
-
-// Temporarily hide NL search bar on frontend until backend pipelines are
-// implemented.
-const SHOW_NL_SEARCH_BAR = false;
 
 // Window scroll position to start fixing the sidebar.
 let yScrollLimit = 0;
-// Max top position for the sidebar, relative to #sidebar-outer.
-let sidebarTopMax = 0;
-// Only trigger fixed sidebar beyond this window width.
-const Y_SCROLL_WINDOW_BREAKPOINT = 992;
-// Margin to apply to the fixed sidebar top.
-const Y_SCROLL_MARGIN = 100;
 
 window.addEventListener("load", (): void => {
   try {
     renderPage();
-    // Disable sidebar pinning.
-    // TODO(beets): Delete this code.
-    // updatePageLayoutState();
-    // maybeToggleFixedSidebar();
-    // window.onresize = maybeToggleFixedSidebar;
   } catch (e) {
     return;
   }
@@ -70,51 +46,6 @@ function updatePageLayoutState(): void {
   yScrollLimit = document.getElementById("place-summary").offsetTop;
   document.getElementById("sidebar-top-spacer").style.height =
     yScrollLimit + "px";
-  const sidebarOuterHeight =
-    document.getElementById("sidebar-outer").offsetHeight;
-  const sidebarRegionHeight =
-    document.getElementById("sidebar-region").offsetHeight;
-  const footerHeight = document.getElementById("main-footer").offsetHeight;
-  sidebarTopMax =
-    sidebarOuterHeight - sidebarRegionHeight - Y_SCROLL_MARGIN - footerHeight;
-}
-
-/**
- *  Toggle fixed sidebar based on window width.
- */
-function maybeToggleFixedSidebar(): void {
-  if (window.innerWidth < Y_SCROLL_WINDOW_BREAKPOINT) {
-    document.removeEventListener("scroll", adjustMenuPosition);
-    document.getElementById("sidebar-region").classList.remove("fixed");
-    return;
-  }
-  document.addEventListener("scroll", adjustMenuPosition);
-  document.getElementById("sidebar-region").style.width =
-    document.getElementById("sidebar-top-spacer").offsetWidth + "px";
-  adjustMenuPosition();
-}
-
-/**
- * Update fixed sidebar based on the window scroll.
- */
-function adjustMenuPosition(): void {
-  const topicsEl = document.getElementById("sidebar-region");
-  if (window.scrollY > yScrollLimit) {
-    const calcTop = window.scrollY - yScrollLimit - Y_SCROLL_MARGIN;
-    if (calcTop > sidebarTopMax) {
-      topicsEl.style.top = sidebarTopMax + "px";
-      topicsEl.classList.remove("fixed");
-      return;
-    }
-    topicsEl.classList.add("fixed");
-    if (topicsEl.style.top != "0") {
-      topicsEl.style.top = "0";
-      topicsEl.scrollTop = 0;
-    }
-  } else {
-    topicsEl.classList.remove("fixed");
-    topicsEl.style.top = "0";
-  }
 }
 
 /**
@@ -133,18 +64,6 @@ async function getLandingPageData(
     .then((resp) => {
       return resp.data;
     });
-}
-
-/**
- * Handler for NL search bar
- * @param q search query entered by user
- */
-function onSearch(q: string): void {
-  triggerGAEvent(GA_EVENT_NL_SEARCH, {
-    [GA_PARAM_QUERY]: q,
-    [GA_PARAM_SOURCE]: GA_VALUE_SEARCH_SOURCE_PLACE_PAGE,
-  });
-  window.location.href = `/explore#q=${encodeURIComponent(q)}`;
 }
 
 /**
@@ -169,12 +88,20 @@ function renderPage(): void {
   // Get category and render menu.
   const category = urlParams.get("category") || "Overview";
   const seed = urlParams.get("seed") || "0";
+
+  // Get place data
   const dcid = document.getElementById("title").dataset.dcid;
   const placeName = document.getElementById("place-name").dataset.pn;
   const placeType = document.getElementById("place-type").dataset.pt;
-  const locale = document.getElementById("locale").dataset.lc;
+
+  // Get locale
+  const metadataContainer = document.getElementById("metadata-base");
+  const locale = metadataContainer.dataset.locale;
+
+  // Get landing page data
   const landingPagePromise = getLandingPageData(dcid, category, locale, seed);
 
+  // Load locale data
   Promise.all([
     landingPagePromise,
     loadLocaleData(locale, [
@@ -190,30 +117,13 @@ function renderPage(): void {
         return;
       }
       const loadingElem = document.getElementById("page-loading");
+      const sidebarElem = document.getElementById("sidebar-outer");
+      const mainPaneElem = document.getElementById("main-pane");
       loadingElem.style.display = "none";
+      sidebarElem.style.opacity = "1";
+      mainPaneElem.style.opacity = "1";
       const data: PageData = landingPageData;
       const isUsaPlace = isPlaceInUsa(dcid, data.parentPlaces);
-
-      if (SHOW_NL_SEARCH_BAR) {
-        ReactDOM.render(
-          React.createElement(NlSearchBar, {
-            initialValue: "",
-            inputId: "query-search-input",
-            onSearch,
-            placeholder: `Enter a question to explore`,
-            shouldAutoFocus: false,
-          }),
-          document.getElementById("nl-search-bar")
-        );
-      } else {
-        // when NL search bar is hidden, need to adjust spacing
-        document.getElementById("nl-search-bar").style.height = "2rem";
-      }
-
-      ReactDOM.render(
-        React.createElement(PlaceSearch, {}),
-        document.getElementById("place-search-container")
-      );
 
       ReactDOM.render(
         React.createElement(Menu, {

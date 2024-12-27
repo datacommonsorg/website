@@ -27,28 +27,35 @@ import { FooterApp } from "./footer_app";
 import { HeaderApp } from "./header_app";
 import { extractLabels, extractRoutes } from "./utilities/utilities";
 
-window.addEventListener("load", (): void => {
-  loadLocaleData("en", [import("../../i18n/compiled-lang/en/units.json")]).then(
-    () => {
-      renderPage();
-    }
-  );
+window.addEventListener("load", async (): Promise<void> => {
+  // Load locale data
+  const metadataContainer = document.getElementById("metadata-base");
+  const locale = metadataContainer.dataset.locale;
+  await loadLocaleData(locale, [
+    import(`../../i18n/compiled-lang/${locale}/units.json`),
+  ]);
+
+  // Render the page
+  renderPage(metadataContainer);
 });
 
-function renderPage(): void {
-  const metadataContainer = document.getElementById("metadata-base");
-
+async function renderPage(metadataContainer: HTMLElement): Promise<void> {
   const headerMenu = JSON.parse(
     metadataContainer.dataset.header
   ) as HeaderMenu[];
 
   //TODO: once confirmed, remove the footer menu json and types.
-
   const name = metadataContainer.dataset.name;
   const logoPath = metadataContainer.dataset.logoPath;
   const logoWidth = metadataContainer.dataset.logoWidth;
-  const showHeaderSearchBar =
-    metadataContainer.dataset.showHeaderSearchBar.toLowerCase() === "true";
+  const hideHeaderSearchBar =
+    metadataContainer.dataset.hideHeaderSearchBar.toLowerCase() === "true";
+  const searchBarHashMode =
+    metadataContainer.dataset.searchBarHashMode.toLowerCase() === "true";
+  const gaValueSearchSource =
+    metadataContainer.dataset.gaValueSearchSource.trim() === ""
+      ? null
+      : metadataContainer.dataset.gaValueSearchSource.toLowerCase();
   const brandLogoLight =
     metadataContainer.dataset.brandLogoLight.toLowerCase() === "true";
 
@@ -62,7 +69,9 @@ function renderPage(): void {
       logoPath,
       logoWidth,
       headerMenu,
-      showHeaderSearchBar,
+      hideHeaderSearchBar,
+      searchBarHashMode,
+      gaValueSearchSource,
       labels,
       routes,
     }),
@@ -73,7 +82,6 @@ function renderPage(): void {
     React.createElement(FooterApp, {
       brandLogoLight,
       labels,
-      routes,
     }),
     document.getElementById("main-footer")
   );

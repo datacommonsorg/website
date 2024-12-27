@@ -57,7 +57,7 @@ function getFacetSelector(appContext: AppContextType): JSX.Element {
   const onSvFacetIdUpdated = (
     svFacetId: Record<string, string>,
     metadataMap: Record<string, StatMetadata>
-  ) => {
+  ): void => {
     if (
       svFacetId[statVar.dcid] === statVar.facetId ||
       _.isEmpty(appContext.statVars)
@@ -87,7 +87,7 @@ export function getChartArea(
     ? [
         {
           isChecked: appContext.statVars[0].isPerCapita,
-          onUpdated: (isChecked: boolean) => {
+          onUpdated: (isChecked: boolean): void => {
             const newStatVars = _.cloneDeep(appContext.statVars);
             newStatVars[0].isPerCapita = isChecked;
             appContext.setStatVars(newStatVars);
@@ -132,7 +132,7 @@ export function getChartArea(
             lowestTitle: "Bottom Places",
           }}
           hideFooter={true}
-          onHoverToggled={(placeDcid, hover) => {
+          onHoverToggled={(placeDcid, hover): void => {
             highlightPlaceToggle(
               document.getElementById("vis-tool-map"),
               placeDcid,

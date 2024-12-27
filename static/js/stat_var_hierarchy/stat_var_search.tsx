@@ -105,7 +105,7 @@ export class StatVarHierarchySearch extends React.Component<
     return (
       <div
         className="statvar-hierarchy-search-section"
-        onBlur={(event) => {
+        onBlur={(event): void => {
           if (!event.currentTarget.contains(event.relatedTarget as Node)) {
             this.setState({ showResults: false });
           }
@@ -195,7 +195,9 @@ export class StatVarHierarchySearch extends React.Component<
     return result;
   }
 
-  private onInputChanged = (event) => {
+  private onInputChanged = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     this.setState({ showResults: true });
     const query = event.target.value;
     // When the seach text is fully removed, should call onSelectChange to
@@ -215,7 +217,7 @@ export class StatVarHierarchySearch extends React.Component<
     }
   };
 
-  private search = (query: string) => () => {
+  private search = (query: string) => (): void => {
     getStatVarSearchResults(query, this.props.entities, false)
       .then((data) => {
         const currQuery = this.state.query;
@@ -241,7 +243,7 @@ export class StatVarHierarchySearch extends React.Component<
       });
   };
 
-  private onInputClear = () => {
+  private onInputClear = (): void => {
     this.props.onSelectionChange("");
     this.setState({
       query: "",
@@ -252,7 +254,7 @@ export class StatVarHierarchySearch extends React.Component<
     });
   };
 
-  private onResultSelected = (selectedID: string) => () => {
+  private onResultSelected = (selectedID: string) => (): void => {
     this.props.onSelectionChange(selectedID);
     let displayName = "";
     if (this.state.svResults) {
