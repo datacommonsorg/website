@@ -39,14 +39,24 @@ def homepage():
   return lib_render.render_page(
       "static/homepage.html",
       "homepage.html",
-      topics=current_app.config.get('HOMEPAGE_TOPICS', []),
+      topics=json.dumps(current_app.config.get('HOMEPAGE_TOPICS', [])),
       partners_list=current_app.config.get('HOMEPAGE_PARTNERS', []),
-      partners=json.dumps(current_app.config.get('HOMEPAGE_PARTNERS', [])))
+      partners=json.dumps(current_app.config.get('HOMEPAGE_PARTNERS', [])),
+      sample_questions=json.dumps(
+          current_app.config.get('HOMEPAGE_SAMPLE_QUESTIONS', [])))
 
 
 @bp.route('/about')
 def about():
   return lib_render.render_page("static/about.html", "about.html")
+
+
+@bp.route('/build')
+def build():
+  return lib_render.render_page(
+      "static/build.html",
+      "build.html",
+      partners=json.dumps(current_app.config.get('HOMEPAGE_PARTNERS', [])))
 
 
 @bp.route('/faq')
@@ -69,15 +79,16 @@ def feedback():
   return lib_render.render_page("static/feedback.html", "feedback.html")
 
 
-# TODO(beets): Move this to a separate handler so it won't be installed on all apps.
-@bp.route('/translator')
-def translator_handler():
-  return render_template('translator.html')
-
-
 @bp.route('/healthz')
 def healthz():
   return "very healthy"
+
+
+# Alternate health check route in case /healthz is intercepted by infrastructure
+# (e.g. when running as a Cloud Run service)
+@bp.route('/health')
+def health():
+  return "super healthy"
 
 
 # TODO(beets): Move this to a separate handler so it won't be installed on all apps.

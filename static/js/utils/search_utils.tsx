@@ -28,14 +28,13 @@ export function getStatVarSearchResults(
   places: string[],
   svOnly: boolean
 ): Promise<StatVarSearchResult> {
-  let url = `/api/stats/stat-var-search?query=${query}`;
-  for (const place of places) {
-    url += `&places=${place}`;
-  }
-  if (svOnly) {
-    url += `&svOnly=1`;
-  }
-  return axios.get(url).then((resp) => {
+  const url = "/api/stats/stat-var-search";
+  const payload = {
+    query,
+    places,
+    svOnly,
+  };
+  return axios.post(url, payload).then((resp) => {
     const data = resp.data;
     return {
       matches: data.matches || [],

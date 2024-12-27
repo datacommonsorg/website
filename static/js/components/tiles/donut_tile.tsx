@@ -18,7 +18,6 @@
  * Component for rendering a donut tile.
  */
 
-import { DataCommonsClient } from "@datacommonsorg/client";
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 
@@ -29,17 +28,18 @@ import { useLazyLoad } from "../../shared/hooks";
 import { PointApiResponse, SeriesApiResponse } from "../../shared/stat_types";
 import { NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { RankingPoint } from "../../types/ranking_unit_types";
+import { getDataCommonsClient } from "../../utils/data_commons_client";
 import { getPoint, getSeries } from "../../utils/data_fetch_utils";
 import { getPlaceNames } from "../../utils/place_utils";
 import { getDateRange } from "../../utils/string_utils";
 import {
+  clearContainer,
   getDenomInfo,
   getFirstCappedStatVarSpecDate,
   getNoDataErrorMsg,
   getStatFormat,
   getStatVarNames,
   ReplacementStrings,
-  showError,
   transformCsvHeader,
 } from "../../utils/tile_utils";
 import { ChartTileContainer } from "./chart_tile";
@@ -131,7 +131,7 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
       allowEmbed={true}
       getDataCsv={getDataCsvCallback(props)}
       isInitialLoading={_.isNull(donutChartData)}
-      hasErrorMsg={donutChartData && !!donutChartData.errorMsg}
+      errorMsg={donutChartData && donutChartData.errorMsg}
       footnote={props.footnote}
       forwardRef={containerRef}
       statVarSpecs={props.statVarSpec}
@@ -139,7 +139,10 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
       <div
         id={props.id}
         className="svg-container"
-        style={{ minHeight: props.svgChartHeight }}
+        style={{
+          minHeight: props.svgChartHeight,
+          display: donutChartData && donutChartData.errorMsg ? "none" : "block",
+        }}
         ref={chartContainerRef}
       ></div>
     </ChartTileContainer>
@@ -153,7 +156,7 @@ export function DonutTile(props: DonutTilePropType): JSX.Element {
  */
 function getDataCsvCallback(props: DonutTilePropType): () => Promise<string> {
   return () => {
-    const dataCommonsClient = new DataCommonsClient({ apiRoot: props.apiRoot });
+    const dataCommonsClient = getDataCommonsClient(props.apiRoot);
     // Assume all variables will have the same date
     // TODO: Update getCsv to handle different dates for different variables
     const date = getFirstCappedStatVarSpecDate(props.statVarSpec);
@@ -312,7 +315,7 @@ export function draw(
   svgWidth?: number
 ): void {
   if (chartData.errorMsg) {
-    showError(chartData.errorMsg, svgContainer);
+    clearContainer(svgContainer);
     return;
   }
   drawDonutChart(

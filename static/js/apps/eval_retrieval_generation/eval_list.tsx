@@ -40,13 +40,15 @@ export function EvalList(): JSX.Element {
   const [modalOpen, setModalOpen] = useState(false);
   const [queryCompletionStatus, setQueryCompletionStatus] = useState({});
 
+  const toggleModal = (): void => setModalOpen(!modalOpen);
+
   const orderedQueries: Query[] = Object.keys(allQuery)
     .sort((a, b) => {
       return Number(a) - Number(b);
     })
     .map((queryId) => allQuery[queryId]);
 
-  const openModal = () => {
+  const openModal = (): void => {
     setModalOpen(true);
     const queryFeedbackPromises = Promise.all(
       orderedQueries.map((query) => getAllFields(getPath(sheetId, query.id)))
@@ -93,7 +95,11 @@ export function EvalList(): JSX.Element {
           Evaluation list
         </div>
       </Button>
-      <Modal isOpen={modalOpen} className="eval-list-modal">
+      <Modal
+        className="eval-list-modal"
+        isOpen={modalOpen}
+        toggle={toggleModal}
+      >
         <div className="header">
           <div className="title">Choose a query to start evaluating from</div>
           <div className="subtitle">
@@ -105,7 +111,7 @@ export function EvalList(): JSX.Element {
               <Input
                 type="checkbox"
                 checked={userEvalsOnly}
-                onChange={() => {
+                onChange={(): void => {
                   setUserEvalsOnly(!userEvalsOnly);
                 }}
               />
@@ -122,7 +128,7 @@ export function EvalList(): JSX.Element {
             return (
               <div
                 className={`eval-list-query${completed ? " completed" : ""}`}
-                onClick={() => {
+                onClick={(): void => {
                   setFeedbackStage(getFirstFeedbackStage(evalType));
                   setSessionQueryId(query.id);
                   setSessionCallId(NEW_QUERY_CALL_ID);
@@ -143,7 +149,7 @@ export function EvalList(): JSX.Element {
         </div>
         <div className="footer">
           <Button
-            onClick={() => setModalOpen(false)}
+            onClick={(): void => setModalOpen(false)}
             className="btn-transparent"
           >
             <div>Close</div>

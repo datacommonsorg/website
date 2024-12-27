@@ -47,7 +47,6 @@ const DEFAULT_PC_SCALING = 100;
 const DEFAULT_PC_UNIT = "%";
 const ERROR_MSG_PC = "Sorry, could not calculate per capita.";
 const ERROR_MSG_DEFAULT = "Sorry, we do not have this data.";
-const NUM_FRACTION_DIGITS = 1;
 const SUPER_SCRIPT_DIGITS = "⁰¹²³⁴⁵⁶⁷⁸⁹";
 
 /**
@@ -365,7 +364,7 @@ export function TileSources(props: {
           rel="noreferrer"
           target="_blank"
           title={sourceUrl}
-          onClick={(event) => {
+          onClick={(): boolean => {
             triggerGAEvent(GA_EVENT_TILE_EXPLORE_MORE, {
               [GA_PARAM_URL]: sourceUrl,
             });
@@ -380,7 +379,8 @@ export function TileSources(props: {
   });
   return (
     <div className="sources" {...{ part: "source" }}>
-      Source: <span {...{ part: "source-links" }}>{sourcesJsx}</span>
+      {sourcesJsx.length > 1 ? "Sources" : "Source"}:{" "}
+      <span {...{ part: "source-links" }}>{sourcesJsx}</span>
       {statVarSpecs && statVarSpecs.length > 0 && (
         <>
           <span {...{ part: "source-separator" }}> • </span>
@@ -420,11 +420,11 @@ export function getStatFormat(
   svSpec: StatVarSpec,
   statPointData?: PointApiResponse,
   statSeriesData?: SeriesApiResponse
-): { unit: string; scaling: number; numFractionDigits: number } {
+): { unit: string; scaling: number; numFractionDigits?: number } {
   const result = {
     unit: svSpec.unit,
     scaling: svSpec.scaling || 1,
-    numFractionDigits: NUM_FRACTION_DIGITS,
+    numFractionDigits: undefined,
   };
   // If unit was specified in the svSpec, use that unit
   if (result.unit) {
@@ -535,16 +535,13 @@ export function getNoDataErrorMsg(statVarSpec: StatVarSpec[]): string {
 }
 
 /**
- * Shows an error message in a container div
- * @param errorMsg the message to show
+ * Removes content from specified container
  * @param container the container div to show the message
  */
-export function showError(errorMsg: string, container: HTMLDivElement): void {
+export function clearContainer(container: HTMLDivElement): void {
   // Remove contents of the container
   const containerSelection = d3.select(container);
   containerSelection.selectAll("*").remove();
-  // Show error message in the container
-  containerSelection.html(errorMsg);
 }
 
 /**
@@ -572,7 +569,7 @@ export function getComparisonPlaces(
  * @param columnHeader CSV column header
  * @returns capitalized column header
  */
-export function transformCsvHeader(columnHeader: string) {
+export function transformCsvHeader(columnHeader: string): string {
   if (columnHeader.length === 0) {
     return columnHeader;
   }
@@ -594,12 +591,13 @@ export function transformCsvHeader(columnHeader: string) {
  * @returns first date found or undefined if stat var spec list is empty
  */
 export function getFirstCappedStatVarSpecDate(
-  variables: StatVarSpec[]
+  variables: StatVarSpec[],
+  date?: string
 ): string {
   if (variables.length === 0) {
     return "";
   }
-  return getCappedStatVarDate(variables[0].statVar, variables[0].date);
+  return getCappedStatVarDate(variables[0].statVar, date || variables[0].date);
 }
 
 /**

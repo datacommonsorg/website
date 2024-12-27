@@ -21,9 +21,11 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 
-import { ANSWER_COL, QA_SHEET } from "./constants";
 import { DcCallInfo, DcCalls, EvalType, FeedbackStage, Query } from "./types";
-import { processText } from "./util";
+import { getAnswerFromQueryAndAnswerSheet, processText } from "./util";
+
+const ANSWER_LOADING_MESSAGE = "Loading answer...";
+const ACTIVE_ANNOTATION_CLASSNAME = "annotation-active";
 
 interface AnswerMetadata {
   evalType: EvalType;
@@ -67,20 +69,6 @@ function getAnswerFromRagCalls(
   return answers.join("\n\n");
 }
 
-function getAnswerFromQueryAndAnswerSheet(
-  doc: GoogleSpreadsheet,
-  query: Query
-): Promise<string> {
-  const sheet = doc.sheetsByTitle[QA_SHEET];
-  const rowIdx = query.rowIndex;
-  return sheet.getRows({ offset: rowIdx - 1, limit: 1 }).then((rows) => {
-    const row = rows[0];
-    if (row) {
-      return row.get(ANSWER_COL) || "";
-    }
-  });
-}
-
 function getAnswer(
   doc: GoogleSpreadsheet,
   query: Query,
@@ -99,10 +87,11 @@ function getAnswer(
     (feedbackStage === FeedbackStage.CALLS ||
       feedbackStage === FeedbackStage.OVERALL_QUESTIONS)
   ) {
-    answerPromise = () =>
+    answerPromise = (): Promise<string> =>
       Promise.resolve(getAnswerFromRagCalls(allCall, query.id));
   } else {
-    answerPromise = () => getAnswerFromQueryAndAnswerSheet(doc, query);
+    answerPromise = (): Promise<string> =>
+      getAnswerFromQueryAndAnswerSheet(doc, query);
   }
   if (!answerPromise) {
     return Promise.resolve({ answer: "", metadata });
@@ -117,6 +106,70 @@ function getAnswer(
     });
 }
 
+/**
+ * Absolutely positions the tooltip within the given annotation so it fits
+ * within the parent query section.
+ */
+function adjustTooltipPosition(annotationEl: Element): void {
+  const tooltipEl = annotationEl.querySelector(
+    ".dc-stat-tooltip"
+  ) as HTMLDivElement;
+  const parentSection = annotationEl.closest("#query-section");
+  const sectionRect = parentSection.getBoundingClientRect();
+  const sectionBorderWidth = 1;
+
+  // Limit tooltip width to section width.
+  if (
+    tooltipEl.getBoundingClientRect().width >
+    sectionRect.width - 2 * sectionBorderWidth
+  ) {
+    tooltipEl.style.maxWidth = `${
+      sectionRect.width - 2 * sectionBorderWidth
+    }px`;
+  }
+
+  // Re-calculate since tooltip width may have changed.
+  const tooltipRect = tooltipEl.getBoundingClientRect();
+  const tooltipWidth = tooltipRect.width;
+
+  // All tooltip positioning is relative to the annotation el's left edge.
+  const annotationRect = annotationEl.getBoundingClientRect();
+  const tooltipReferencePoint = annotationRect.left;
+
+  // By default, center tooltip over annotation.
+  let newTooltipLeft = -0.5 * (tooltipWidth - annotationRect.width);
+  if (
+    newTooltipLeft + tooltipReferencePoint <
+    sectionRect.left + sectionBorderWidth
+  ) {
+    // Shift tooltip if it is cut off by the left edge of the section.
+    newTooltipLeft =
+      sectionRect.left + sectionBorderWidth - tooltipReferencePoint;
+  } else if (
+    newTooltipLeft + tooltipReferencePoint + tooltipWidth >
+    sectionRect.right - sectionBorderWidth
+  ) {
+    // Shift tooltip if it is cut off by the right edge of the section.
+    newTooltipLeft =
+      sectionRect.right -
+      sectionBorderWidth -
+      tooltipWidth -
+      tooltipReferencePoint;
+  }
+  tooltipEl.style.left = `${newTooltipLeft}px`;
+}
+
+/**
+ * Removes any absolute positioning applied by adjustTooltipPosition.
+ */
+function resetTooltipPosition(annotationEl: Element): void {
+  const tooltipEl = annotationEl.querySelector(
+    ".dc-stat-tooltip"
+  ) as HTMLDivElement;
+  tooltipEl.style.left = null;
+  tooltipEl.style.maxWidth = null;
+}
+
 interface QuerySectionPropType {
   doc: GoogleSpreadsheet;
   evalType: EvalType;
@@ -128,9 +181,51 @@ interface QuerySectionPropType {
 }
 
 export function QuerySection(props: QuerySectionPropType): JSX.Element {
-  const [answer, setAnswer] = useState<string>("");
+  const [displayedAnswer, setDisplayedAnswer] = useState<string>(
+    ANSWER_LOADING_MESSAGE
+  );
   const prevHighlightedRef = useRef<HTMLSpanElement | null>(null);
   const answerMetadata = useRef<AnswerMetadata>(null);
+
+  // Add window-level click handling for showing/hiding annotation tooltips.
+  useEffect(() => {
+    // Only show tooltips for RIG evals.
+    if (props.evalType !== EvalType.RIG) return;
+
+    const onClick = (e: MouseEvent): void => {
+      const clickedEl = e.target as Element;
+
+      // Don't change active annotation if the tooltip itself is clicked.
+      if (clickedEl.closest(".dc-stat-tooltip")) return;
+
+      const activeAnnotationEl = document.querySelector(
+        `.${ACTIVE_ANNOTATION_CLASSNAME}`
+      ) as HTMLSpanElement | null;
+
+      // Deactivate any active annotation.
+      if (activeAnnotationEl) {
+        activeAnnotationEl.classList.remove(ACTIVE_ANNOTATION_CLASSNAME);
+        resetTooltipPosition(activeAnnotationEl);
+      }
+
+      // If the previously active annotation was clicked, don't reactivate it.
+      if (clickedEl === activeAnnotationEl) return;
+
+      // Otherwise, if an annotation was clicked, activate it.
+      if (clickedEl.classList.contains("annotation")) {
+        clickedEl.classList.add(ACTIVE_ANNOTATION_CLASSNAME);
+        adjustTooltipPosition(clickedEl);
+      }
+    };
+
+    window.addEventListener("click", onClick);
+
+    // Remove the event listener when the component unmounts.
+    return () => {
+      if (props.evalType !== EvalType.RIG) return;
+      window.removeEventListener("click", onClick);
+    };
+  }, []);
 
   useEffect(() => {
     // Remove highlight from previous annotation
@@ -151,19 +246,20 @@ export function QuerySection(props: QuerySectionPropType): JSX.Element {
       newHighlighted.classList.add("highlight");
       prevHighlightedRef.current = newHighlighted;
     }
-  }, [answer, props.callId, props.feedbackStage]);
+  }, [displayedAnswer, props.callId, props.feedbackStage]);
 
   useEffect(() => {
-    setAnswer("");
     if (!props.query) {
+      setDisplayedAnswer("");
       return;
     }
-    setAnswer("Loading answer...");
+    setDisplayedAnswer(ANSWER_LOADING_MESSAGE);
     answerMetadata.current = {
       evalType: props.evalType,
       feedbackStage: props.feedbackStage,
       queryId: props.query.id,
     };
+    let subscribed = true;
     getAnswer(
       props.doc,
       props.query,
@@ -172,12 +268,16 @@ export function QuerySection(props: QuerySectionPropType): JSX.Element {
       props.feedbackStage
     )
       .then(({ answer, metadata }) => {
+        if (!subscribed) return;
         // Only set answer if it matches the current answer metadata
         if (_.isEqual(answerMetadata.current, metadata)) {
-          setAnswer(answer);
+          const calls =
+            props.query && props.allCall ? props.allCall[props.query.id] : null;
+          setDisplayedAnswer(processText(answer, calls));
         }
       })
-      .catch(() => void setAnswer("Failed to load answer."));
+      .catch(() => void setDisplayedAnswer("Failed to load answer."));
+    return () => void (subscribed = false);
   }, [props]);
 
   if (!props.query) {
@@ -190,8 +290,6 @@ export function QuerySection(props: QuerySectionPropType): JSX.Element {
     props.feedbackStage === FeedbackStage.OVERALL_QUESTIONS
       ? "Questions to Data Commons"
       : "Answer";
-  const calls =
-    props.query && props.allCall ? props.allCall[props.query.id] : null;
 
   return (
     <div id="query-section">
@@ -202,7 +300,7 @@ export function QuerySection(props: QuerySectionPropType): JSX.Element {
         rehypePlugins={[rehypeRaw as any]}
         remarkPlugins={[remarkGfm]}
       >
-        {processText(answer, calls)}
+        {displayedAnswer}
       </ReactMarkdown>
     </div>
   );

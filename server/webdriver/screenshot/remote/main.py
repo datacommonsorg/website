@@ -35,7 +35,7 @@ parser.add_argument("-u",
                     "--url",
                     help="Base url to use to take the screenshots",
                     type=str,
-                    required=True,
+                    required=False,
                     default="")
 
 logging.getLogger().setLevel(logging.WARNING)

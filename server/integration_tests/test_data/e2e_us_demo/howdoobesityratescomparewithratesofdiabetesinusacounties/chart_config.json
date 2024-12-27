@@ -91,23 +91,6 @@
               {
                 "tiles": [
                   {
-                    "statVarKey": [
-                      "WHO/NCD_BMI_30A",
-                      "Percent_Person_WithDiabetes"
-                    ],
-                    "title": "% Obesity Among Adults, BMI >= 30 and Diabetes in United States",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "% Obesity Among Adults, BMI >= 30 and Diabetes"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
                     "scatterTileSpec": {
                       "highlightTopRight": true
                     },
@@ -173,6 +156,7 @@
               }
             ],
             "denom": "Count_Person",
+            "startWithDenom": true,
             "title": "Prevalence: Male, Obesity vs. Diabetes"
           },
           {
@@ -229,10 +213,6 @@
             "noPerCapita": true,
             "statVar": "Percent_Person_WithDiabetes",
             "unit": "%"
-          },
-          "WHO/NCD_BMI_30A": {
-            "name": "% Obesity Among Adults, BMI >= 30",
-            "statVar": "WHO/NCD_BMI_30A"
           },
           "dc/4lvmzr1h1ylk1": {
             "name": "Prevalence: Female, Obesity",
@@ -852,6 +832,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "",
   "userMessages": []
 }

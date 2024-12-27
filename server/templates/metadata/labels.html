@@ -1,0 +1,114 @@
+{#-
+Copyright 2024 Google LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-#}
+
+{% macro render_metadata_label(label, trans_block=None) %}
+  {% set translation_value = trans_block if trans_block else label %}
+<div data-label="{{ label }}" data-value="{% trans %}{{ translation_value }}{% endtrans %}"></div>
+{% endmacro %}
+
+<div id="metadata-labels" class="d-none">
+  {# TRANSLATORS: The label for a link to informational pages about the Data Commons project. #}
+  {{ render_metadata_label('Data Commons') }}
+
+  {# TRANSLATORS: The label for a link back to the homepage with a project-specific name. #}
+  {{ render_metadata_label('Back to homepage', 'Back to {{ NAME }} homepage') }}
+
+  {{ render_metadata_label('Show site navigation') }}
+  {{ render_metadata_label('Show exploration tools') }}
+  {{ render_metadata_label('Explore') }}
+
+  {# TRANSLATORS: The name of a tool to browse statistics about a place. #}
+  {{ render_metadata_label('Place Explorer') }}
+
+  {# TRANSLATORS: The name of a tool to browse the Data Commons knowledge graph. #}
+  {{ render_metadata_label('Knowledge Graph') }}
+
+  {# TRANSLATORS: The name of a tool to explore timeline charts of statistical variables for places. #}
+  {{ render_metadata_label('Timelines Explorer') }}
+
+  {# TRANSLATORS: The name of a tool to explore scatter plots of statistical variables for places. #}
+  {{ render_metadata_label('Scatter Plot Explorer') }}
+
+  {# TRANSLATORS: The name of a tool to explore maps of statistical variables for places. #}
+  {{ render_metadata_label('Map Explorer') }}
+
+  {# TRANSLATORS: The name of a tool that provides observation and import information about statistical variables. #}
+  {{ render_metadata_label('Statistical Variable Explorer') }}
+
+  {# TRANSLATORS: The name of a tool that allows users to download data. #}
+  {{ render_metadata_label('Data Download Tool') }}
+
+  {# TRANSLATORS: The name of a dashboard that shows information about natural disasters. #}
+  {{ render_metadata_label('Natural Disaster Dashboard') }}
+
+  {{ render_metadata_label('Sustainability Explorer') }}
+  {{ render_metadata_label('Show documentation links') }}
+
+  {# TRANSLATORS: The label for a list of documentation links. #}
+  {{ render_metadata_label('Documentation') }}
+
+  {# TRANSLATORS: The label for a link to our API documentation. #}
+  {{ render_metadata_label('APIs') }}
+
+  {# TRANSLATORS: The label for a link to BigQuery integration starter docs. #}
+  {{ render_metadata_label('BigQuery') }}
+
+  {# TRANSLATORS: The label for a link to our API tutorials. #}
+  {{ render_metadata_label('Tutorials') }}
+
+  {# TRANSLATORS: The label for a link to instructions about contributing to the project. #}
+  {{ render_metadata_label('Contribute') }}
+
+  {# TRANSLATORS: The label for a link to the project's GitHub repository (for open sourced code). #}
+  {{ render_metadata_label('Github Repository') }}
+
+  {{ render_metadata_label('Show about links') }}
+  {{ render_metadata_label('About') }}
+
+  {# TRANSLATORS: The label for a link to the project's about page. #}
+  {{ render_metadata_label('About Data Commons') }}
+
+  {# TRANSLATORS: The label for a link to the project's blog. #}
+  {{ render_metadata_label('Blog') }}
+
+  {# TRANSLATORS: The label for a link to data sources included in the Data Commons knowledge graph. #}
+  {{ render_metadata_label('Data Sources') }}
+
+  {# TRANSLATORS: The label for a link to project FAQ page (abbreviated version). #}
+  {{ render_metadata_label('FAQ') }}
+
+  {# TRANSLATORS: The label for a link to project FAQ page. #}
+  {{ render_metadata_label('Frequently Asked Questions') }}
+
+  {# TRANSLATORS: The label for a link to instructions about sending feedback. #}
+  {{ render_metadata_label('Feedback') }}
+
+  {# TRANSLATORS: The label for a collection of exploration tools. #}
+  {{ render_metadata_label('Tools') }}
+
+  {# TRANSLATORS: The label for the Google branding byline. #}
+  {{ render_metadata_label('An initiative from') }}
+
+  {# TRANSLATORS: The label for a link to site terms and conditions. #}
+  {{ render_metadata_label('Terms and Conditions') }}
+
+  {# TRANSLATORS: The label for a link to site privacy policy. #}
+  {{ render_metadata_label('Privacy Policy') }}
+
+  {# TRANSLATORS: The label for a link to site disclaimers. #}
+  {{ render_metadata_label('Disclaimers') }}
+</div>
+

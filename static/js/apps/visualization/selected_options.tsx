@@ -41,7 +41,7 @@ export function SelectedOptions(): JSX.Element {
 
   useEffect(() => {
     // collapse dropdowns when click outside the dropdown
-    function handleClickEvent(e: MouseEvent) {
+    function handleClickEvent(e: MouseEvent): void {
       if (
         placeSelectorRef.current &&
         !placeSelectorRef.current.contains(e.target)
@@ -95,7 +95,7 @@ export function SelectedOptions(): JSX.Element {
                       {visTypeConfig.singlePlace ? (
                         <span
                           className="material-icons-outlined action"
-                          onClick={(e) => {
+                          onClick={(e): void => {
                             e.stopPropagation();
                             setShowPlaceSelector(!showPlaceSelector);
                             setShowPlaceTypeSelector(false);
@@ -106,7 +106,7 @@ export function SelectedOptions(): JSX.Element {
                       ) : (
                         <span
                           className="material-icons-outlined action"
-                          onClick={() =>
+                          onClick={(): void =>
                             setPlaces(
                               places.filter(
                                 (p) =>
@@ -135,21 +135,23 @@ export function SelectedOptions(): JSX.Element {
                         <div className="header-controls">
                           <span
                             className="material-icons-outlined action"
-                            onClick={() => setShowPlaceSelector(false)}
+                            onClick={(): void => setShowPlaceSelector(false)}
                           >
                             close
                           </span>
                         </div>
                         <PlaceSelector
                           hideSelections={true}
-                          onNewSelection={() => setShowPlaceSelector(false)}
+                          onNewSelection={(): void =>
+                            setShowPlaceSelector(false)
+                          }
                         />
                       </div>
                     </div>
                   ) : (
                     <span
                       className="material-icons-outlined action"
-                      onClick={(e) => {
+                      onClick={(e): void => {
                         e.stopPropagation();
                         setShowPlaceSelector(true);
                         setShowPlaceTypeSelector(false);
@@ -166,7 +168,7 @@ export function SelectedOptions(): JSX.Element {
                 <div className="place-selector-dropdown" ref={placeSelectorRef}>
                   <PlaceSelector
                     hideSelections={true}
-                    onNewSelection={() => setShowPlaceSelector(false)}
+                    onNewSelection={(): void => setShowPlaceSelector(false)}
                   />
                 </div>
               </div>
@@ -185,7 +187,7 @@ export function SelectedOptions(): JSX.Element {
                   <span>{enclosedPlaceType}</span>
                   <span
                     className="material-icons-outlined action"
-                    onClick={(e) => {
+                    onClick={(e): void => {
                       e.stopPropagation();
                       setShowPlaceTypeSelector(!showPlaceTypeSelector);
                       setShowPlaceSelector(false);
@@ -203,7 +205,7 @@ export function SelectedOptions(): JSX.Element {
                   ref={placeTypeSelectorRef}
                 >
                   <PlaceTypeSelector
-                    onNewSelection={() => setShowPlaceTypeSelector(false)}
+                    onNewSelection={(): void => setShowPlaceTypeSelector(false)}
                   />
                 </div>
               </div>

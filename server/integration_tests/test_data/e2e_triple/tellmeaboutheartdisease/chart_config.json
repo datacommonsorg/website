@@ -27,7 +27,7 @@
   "entities": [
     {
       "dcid": "bio/DOID_114",
-      "name": "heart disease",
+      "name": "Heart disease",
       "type": ""
     }
   ],
@@ -47,6 +47,5 @@
     "peerTopics": []
   },
   "svSource": "PAST_QUERY",
-  "userMessage": "",
   "userMessages": []
 }

@@ -4,8 +4,13 @@ datasets==2.18.0
 google-cloud-aiplatform==1.42.1
 google-cloud-storage==2.15.0
 lancedb==0.6.8
-pandas==2.1.0
+pandas==2.1.1
 scikit-learn==1.5.0
 sentence-transformers==2.2.2
 spacy==3.7.4
 torchvision==0.17.2
+# TODO: this is pinned because latest huggingface_hub is not compatible with
+# sentence-transformers v2.2.2. Look into upgrading sentence-transformers to
+# v2.3.0 or newer
+huggingface_hub==0.25.2
+transformers==4.45.2

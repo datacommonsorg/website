@@ -23,11 +23,11 @@ import { styled } from "styled-components";
 import { BREAKPOINTS } from "./constants";
 
 export const SectionWithBackground = styled.section`
-  background: ${(props) => props.theme.highlightColors.light};
+  background: ${(props): string => props.theme.highlightColors.light};
 `;
 
 export const ContentContainer = styled.div`
-  color: ${(props) => props.theme.text.textColor};
+  color: ${(props): string => props.theme.text.textColor};
   display: flex;
   flex-direction: column;
   font-size: 22px;
@@ -42,11 +42,11 @@ export const ContentContainer = styled.div`
   }
 
   a {
-    color: ${(props) => props.theme.highlightColors.dark};
+    color: ${(props): string => props.theme.highlightColors.dark};
   }
 
   h2 {
-    color: ${(props) => props.theme.header.textColor};
+    color: ${(props): string => props.theme.header.textColor};
     font-size: 32px;
     font-weight: 400;
     line-height: 40px;

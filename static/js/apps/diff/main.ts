@@ -23,9 +23,9 @@ import ReactDOM from "react-dom";
 
 import { App } from "./app";
 
-window.onload = () => {
+window.addEventListener("load", (): void => {
   ReactDOM.render(
     React.createElement(App),
     document.getElementById("diff-page")
   );
-};
+});

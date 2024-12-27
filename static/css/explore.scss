@@ -45,7 +45,7 @@
 
 #explore.main-content {
   flex-grow: 1;
-  padding-top: 64px;
+  padding-top: 40px;
 }
 
 #insight-lhs {
@@ -275,10 +275,9 @@
     position: relative;
   }
 
-  .debug-info-toggle {
-    top: -0.5rem;
-    right: 1.5rem;
-    padding: 0;
+  .debug-info-open {
+    top: 20px!important;
+    right: -10px!important;
   }
 }
 
@@ -305,27 +304,6 @@
     width: 30px;
     background-size: contain;
   }
-}
-
-.nl-query-result-debug-info {
-  position: absolute;
-  z-index: 20;
-  height: calc(100vh - 100px);
-  overflow-y: scroll;
-  max-width: 100%;
-}
-
-.nl-query-result-debug-info .row {
-  margin-top: 3px;
-}
-
-.nl-query-result-debug-info table {
-  width: 100%;
-}
-
-.nl-query-result-debug-info .highlight {
-  color: blue;
-  font-weight: bold;
 }
 
 #ranking-table-container {

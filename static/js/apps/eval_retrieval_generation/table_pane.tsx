@@ -16,6 +16,7 @@
 
 /* Component to display a table */
 
+import { GoogleSpreadsheet } from "google-spreadsheet";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import Collapsible from "react-collapsible";
@@ -23,8 +24,8 @@ import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 
-import { DcCallInfo, DcCalls } from "./types";
-import { processTableText } from "./util";
+import { DcCallInfo, DcCalls, Query } from "./types";
+import { getAnswerFromQueryAndAnswerSheet, processTableText } from "./util";
 
 interface TableInfo {
   id: number;
@@ -45,8 +46,34 @@ function getTableTrigger(tableInfo: TableInfo, opened: boolean): JSX.Element {
   );
 }
 
+// Get all table ids present in the answer of a query
+function getTablesInAnswer(
+  doc: GoogleSpreadsheet,
+  query: Query
+): Promise<Set<string>> {
+  return getAnswerFromQueryAndAnswerSheet(doc, query).then((answer) => {
+    // Assume tables are all referenced with the form [Table <id>]
+    const matches = answer.match(/\[Table\s(\d+)\]/g);
+    const tables = new Set<string>();
+    if (matches) {
+      Array.from(matches).forEach((match) => {
+        const id = match.match(/\d+/)[0];
+        tables.add(id);
+      });
+    }
+    return tables;
+  });
+}
+
 interface TablePanePropType {
+  // All the DC calls we want to show tables for
   calls: DcCalls;
+  // Only display tables that are present in the answer of the query
+  onlyShowAnswerTables?: boolean;
+  // Query that we are showing tables for
+  query?: Query;
+  // Google spreadsheet we are showing tables from
+  doc?: GoogleSpreadsheet;
 }
 
 export function TablePane(props: TablePanePropType): JSX.Element {
@@ -57,22 +84,33 @@ export function TablePane(props: TablePanePropType): JSX.Element {
       setTables([]);
       return;
     }
-    const tableIds = Object.keys(props.calls).sort(
-      (a, b) => Number(a) - Number(b)
-    );
-    const tableList = [];
-    tableIds.forEach((tableId) => {
-      const tableInfo: DcCallInfo | null = props.calls[tableId];
 
-      if (tableInfo) {
-        tableList.push({
-          content: tableInfo.dcStat,
-          id: tableId,
-          title: tableInfo.dcResponse,
-        });
-      }
+    // Set of all table ids we want to display
+    const allowedTableIdsPromise = props.onlyShowAnswerTables
+      ? getTablesInAnswer(props.doc, props.query)
+      : Promise.resolve(new Set(Object.keys(props.calls)));
+
+    allowedTableIdsPromise.then((allowedIds) => {
+      const tableIds = Object.keys(props.calls).sort(
+        (a, b) => Number(a) - Number(b)
+      );
+      const tableList = [];
+      tableIds.forEach((tableId) => {
+        if (!allowedIds.has(tableId)) {
+          return;
+        }
+        const tableInfo: DcCallInfo | null = props.calls[tableId];
+
+        if (tableInfo) {
+          tableList.push({
+            content: tableInfo.dcStat,
+            id: tableId,
+            title: tableInfo.dcResponse,
+          });
+        }
+      });
+      setTables(tableList);
     });
-    setTables(tableList);
   }, [props]);
 
   // We only want to show tables that actually have content

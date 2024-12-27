@@ -35,13 +35,13 @@
 
 <head>
   {# Enable Google Analytics with cookieless tracking. #}
-  {% if GA_ACCOUNT %}
-  <script async src="https://www.googletagmanager.com/gtag/js?id={{ GA_ACCOUNT }}"></script>
+  {% if GOOGLE_ANALYTICS_TAG_ID %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ GOOGLE_ANALYTICS_TAG_ID }}"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-    gtag('config', '{{ GA_ACCOUNT }}', {
+    gtag('config', '{{ GOOGLE_ANALYTICS_TAG_ID }}', {
       client_storage: 'none',
       anonymize_ip: true,
       {{ ("place_category: '{}'"|safe).format(place_category) if place_category is defined else ""}}
@@ -64,9 +64,12 @@
   {% if OVERRIDE_CSS_PATH %}
   <link href="{{ OVERRIDE_CSS_PATH }}" rel="stylesheet">
   {% endif %}
+  <script src={{url_for('static', filename='queryStore.js', t=config['VERSION'])}} async></script>
 </head>
 
 <body>
+  {# Set page locale. #}
+  <div id="metadata-base" class="d-none" data-locale="{{ locale }}"></div>
   <div id="main">
     <header id="main-header">
       <nav class="navbar navbar-dark navbar-expand-lg col" id="main-nav">
@@ -232,8 +235,6 @@
                 <a href="https://policies.google.com/terms">{% trans %}Terms and Conditions{% endtrans %}</a>
                 {# TRANSLATORS: The label for a link to site privacy policy. #}
                 <a href="https://policies.google.com/privacy?hl=en-US">{% trans %}Privacy Policy{% endtrans %}</a>
-                {# TRANSLATORS: The label for a link to site disclaimers. #}
-                <a href="{{ url_for('static.disclaimers') }}">{% trans %}Disclaimers{% endtrans %}</a>
               </div>
             </div>
           </div>

@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-/* data used for mock functions for nodejs server tests. */
+/* eslint-disable camelcase */
 
+/* data used for mock functions for nodejs server tests. */
 export const TIMELINE_NL_RESP = {
   data: {
     client: "ui_query",
@@ -679,7 +680,6 @@ export const BAR_NL_RESP = {
                       barTileSpec: {
                         maxPlaces: 15,
                         maxVariables: 15,
-                        sort: "DESCENDING",
                       },
                       comparisonPlaces: ["geoId/06085"],
                       statVarKey: [

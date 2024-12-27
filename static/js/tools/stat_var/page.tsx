@@ -82,7 +82,7 @@ class Page extends Component<unknown, PageStateType> {
     this.toggleSvHierarchyModal = this.toggleSvHierarchyModal.bind(this);
   }
 
-  private handleHashChange = () => {
+  private handleHashChange = (): void => {
     const dataset = getUrlToken(SV_URL_PARAMS.DATASET);
     const source = getUrlToken(SV_URL_PARAMS.SOURCE);
     const sv = getUrlToken(SV_URL_PARAMS.STAT_VAR);
@@ -117,16 +117,16 @@ class Page extends Component<unknown, PageStateType> {
           collapsible={false}
           svHierarchyType={StatVarHierarchyType.STAT_VAR}
           sampleEntities={entities}
-          deselectSVs={() => updateHash({ [SV_URL_PARAMS.STAT_VAR]: "" })}
+          deselectSVs={(): void => updateHash({ [SV_URL_PARAMS.STAT_VAR]: "" })}
           selectedSVs={svs}
-          selectSV={(sv) => updateHash({ [SV_URL_PARAMS.STAT_VAR]: sv })}
+          selectSV={(sv): void => updateHash({ [SV_URL_PARAMS.STAT_VAR]: sv })}
           disableAlert={true}
         />
         <div id="plot-container">
           <div className="container">
-            <h1 className="tool-header">Statistical variable explorer</h1>
+            <h1 className="tool-header">Statistical Variable Explorer</h1>
             <p className="tool-description">
-              The statistical variable explorer provides information about each
+              The Statistical Variable Explorer provides information about each
               statistical variable, such as metadata, observations, etc.
             </p>
             <DatasetSelector

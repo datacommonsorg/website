@@ -19,15 +19,24 @@
   "test": "unittest",
   "variables": [
     "dc/topic/ILOEMPPIFLNB",
-    "dc/topic/ILOEMPNORMNB",
-    "dc/topic/ILOEMPSTATNB",
-    "dc/topic/ILOEMPPIFLRT",
-    "dc/topic/ILOLUUXLUXNB",
-    "dc/topic/ILOEMPNIFLRT",
-    "dc/topic/ILOEMP5NIFNB",
-    "dc/topic/ILOEMP5PIFRT",
     "dc/topic/ILOEMP5PIFNB",
-    "dc/topic/ILOLUUXLUXRT",
-    "dc/topic/ILOLAIINSPNB"
+    "dc/topic/ILOEMPPIFLRT",
+    "dc/topic/ILOEMP5PIFRT",
+    "dc/topic/ILOEMPTEMPNB",
+    "dc/topic/ILOEMP5EMPNB",
+    "dc/topic/ILOEMPSPIFRT",
+    "dc/topic/ILOEMPSTEMNB",
+    "dc/topic/ILOEMPNIFLNB",
+    "dc/topic/ILOEMPSNIFRT",
+    "dc/topic/ILOEMPDWAPRT",
+    "dc/topic/ILOEMP5NIFNB",
+    "dc/topic/ILOHOWTEMPNB",
+    "dc/topic/ILOEMPNORMNB",
+    "dc/topic/ILOEESTEESNB",
+    "dc/topic/ILOEMPCPIFRT",
+    "dc/topic/ILOEMPSTATNB",
+    "dc/topic/ILOEMP5WAPRT",
+    "dc/topic/ILOEMPNIFLRT",
+    "dc/topic/ILOEMPPUBLNB"
   ]
 }

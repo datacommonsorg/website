@@ -42,7 +42,7 @@ export interface TileResult {
   // List of legend labels
   legend?: string[];
   // The data for the chart in the tile as a csv string
-  data_csv?: string;
+  dataCsv?: string;
   // The url to get the chart in the tile. One of chartUrl or svg should be set.
   chartUrl?: string;
   // The svg for the chart in the tile as an xml string. One of chartUrl or svg should be set.
@@ -60,18 +60,29 @@ export interface TileResult {
 
 // Properties to use for drawing a single chart
 export interface ChartProps {
+  // DCID of the place shown in the chart. If it's a chart that shows children
+  // places such as map or ranking, this is the DCID of the parent place.
   place: string;
+  // Type of place shown in the chart if it's a chart that shows children places
   enclosedPlaceType: string;
+  // Details about the variables to show in the chart including their DCIDs,
+  // units, denominators, etc.
   statVarSpec: StatVarSpec[];
+  // Details about the chart including the title, type of chart, etc.
   tileConfig: TileConfig;
+  // Event type information to be used by this chart. The key is the event
+  // type id and the value is the spec for that event type.
   eventTypeSpec: Record<string, EventTypeSpec>;
 }
 
 // Debug info to return in /nodejs/query response
 export interface DebugInfo {
   timing: {
+    // The time it took to generate the chart configurations for a given query
     getNlResult: number;
+    // The time it took to generate results given the chart configurations
     getTileResults: number;
+    // The total time it took to get from query to the results
     total: number;
   };
   // debug info from detect-and-fulfill endpoint

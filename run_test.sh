@@ -25,6 +25,42 @@ function setup_python {
   deactivate
 }
 
+# Start website and NL servers in a subprocess and ensure they are stopped
+# if the test script exits before stop_servers is called.
+function start_servers() {
+  # Kill forked processes, then exit with the status code stored in a variable.
+  # Called on exit via trap, configured below.
+  function cleanup() {
+    pkill -P $$ || true
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+      deactivate
+    fi
+    exit $exit_with
+  }
+# On exit, assign status code to a variable and call cleanup.
+  trap 'exit_with=$?; cleanup' EXIT
+  ./run_servers.sh &
+  # Store the ID of the subprocess that is running website and NL servers.
+  SERVERS_PID=$!
+  # Wait a few seconds and make sure the server script subprocess hasn't failed.
+  # Tests will time out eventually if health checks for website and NL servers
+  # don't pass, but this is quicker if the servers fail to start up immediately.
+  sleep 3
+  if ! ps -p $SERVERS_PID > /dev/null; then
+    echo "Server script not running after 3 seconds."
+    exit 1
+  fi
+}
+
+# Stop the subprocess that is running website and NL servers and remove the
+# configuration for cleaning them up on exit.
+function stop_servers() {
+  if ps -p $SERVERS_PID > /dev/null; then
+    kill $SERVERS_PID
+  fi
+  trap - EXIT
+}
+
 # Run test for client side code.
 function run_npm_test {
   cd packages/web-components
@@ -100,14 +136,14 @@ function run_py_test {
   export FLASK_ENV=test
   export TOKENIZERS_PARALLELISM=false
   # Disabled nodejs e2e test to avoid dependency on dev
-  python3 -m pytest server/tests/ -s --ignore=server/tests/nodejs_e2e_test.py ${@}
-  python3 -m pytest shared/tests/ -s ${@}
-  python3 -m pytest nl_server/tests/ -s ${@}
+  python3 -m pytest -n auto server/tests/ -s --ignore=server/tests/nodejs_e2e_test.py ${@}
+  python3 -m pytest -n auto shared/tests/ -s ${@}
+  python3 -m pytest -n auto nl_server/tests/ -s ${@}
 
   # Tests within tools/nl/embeddings
   echo "Running tests within tools/nl/embeddings:"
   pip3 install -r tools/nl/embeddings/requirements.txt -q
-  python3 -m pytest tools/nl/embeddings/ -s ${@}
+  python3 -m pytest -n auto tools/nl/embeddings/ -s ${@}
 
   pip3 install yapf==0.40.2 -q
   if ! command -v isort &> /dev/null
@@ -129,16 +165,18 @@ function run_py_test {
 
 # Run test for webdriver automation test codes.
 function run_webdriver_test {
-  source .env/bin/activate
-  printf '\n\e[1;35m%-6s\e[m\n\n' "!!! Have you generated the prod client packages? Run './run_test.sh -b' first to do so"
   if [ ! -d server/dist  ]
   then
     echo "no dist folder, please run ./run_test.sh -b to build js first."
     exit 1
   fi
   export FLASK_ENV=webdriver
+  export ENABLE_MODEL=true
   export GOOGLE_CLOUD_PROJECT=datcom-website-dev
-  python3 -m pytest -n 5 --reruns 2 server/webdriver/tests/ ${@}
+  source .env/bin/activate
+  start_servers
+  python3 -m pytest -n auto --reruns 2 server/webdriver/tests/ ${@}
+  stop_servers
   deactivate
 }
 
@@ -156,7 +194,7 @@ function run_screenshot_test {
   export ENABLE_MODEL=true
   export DC_API_KEY=
   export LLM_API_KEY=
-  python3 -m pytest --reruns 2 server/webdriver/screenshot/ ${@}
+  python3 -m pytest -n auto --reruns 2 server/webdriver/screenshot/ ${@}
   deactivate
 }
 
@@ -175,8 +213,9 @@ function run_integration_test {
   export GOOGLE_CLOUD_PROJECT=datcom-website-staging
   export TEST_MODE=test
   export ENABLE_EVAL_TOOL=false
-
-  python3 -m pytest -vv --reruns 2 server/integration_tests/$1 ${@:2}
+  start_servers
+  python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/$1 ${@:2}
+  stop_servers
   deactivate
 }
 
@@ -195,11 +234,12 @@ function update_integration_test_golden {
     export ENV_PREFIX=Staging
   fi
   echo "Using ENV_PREFIX=$ENV_PREFIX"
-
+  start_servers
   # Should update topic cache first as it's used by the following tests.
-  python3 -m pytest -vv --reruns 2 server/integration_tests/topic_cache
-
-  python3 -m pytest -vv -n 5 --reruns 2 server/integration_tests/ ${@}
+  python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/topic_cache
+  python3 -m pytest -vv -n auto --reruns 2 server/integration_tests/ ${@}
+  stop_servers
+  deactivate
 }
 
 function run_all_tests {

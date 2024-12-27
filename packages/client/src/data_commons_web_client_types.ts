@@ -144,3 +144,47 @@ export type ObservationDatesApiResponse = {
     };
   };
 };
+
+type ChartType = "BAR" | "LINE" | "MAP" | "RANKING";
+export interface Chart {
+  type: ChartType;
+  title: string;
+  category: string;
+  description: string;
+  statisticalVariableDcids: string[];
+  topicDcids: string[];
+  denominator?: string; // Optional
+  unit?: string; // Optional
+  scaling?: number; // Optional
+}
+
+export interface Place {
+  dcid: string;
+  name: string;
+  types: string[];
+}
+
+/**
+ * Website API response for /api/dev-place/charts/<place_dcid>
+ */
+export interface PlaceChartsApiResponse {
+  charts: Chart[];
+  childPlaceType: string;
+  childPlaces: Place[];
+  nearbyPlaces: Place[];
+  place: Place;
+  similarPlaces: Place[];
+  translatedCategoryStrings: Record<string, string>;
+}
+
+/**
+ * Website API response for /api/dev-place/related-places/<place_dcid>
+ */
+export interface RelatedPlacesApiResponse {
+  childPlaceType: string;
+  childPlaces: Place[];
+  nearbyPlaces: Place[];
+  place: Place;
+  similarPlaces: Place[];
+  parentPlaces: Place[];
+}

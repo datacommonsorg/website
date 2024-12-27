@@ -20,6 +20,8 @@
 
 import React from "react";
 
+import { URI_PREFIX } from "../../browser/constants";
+
 interface EntityOverviewTilePropType {
   entity: string;
 }
@@ -34,7 +36,8 @@ export function EntityOverviewTile(
   return (
     <>
       <div className="chart-container entity-overview-tile">
-        Entity overview tile for {props.entity}
+        Entity overview tile for&nbsp;
+        <a href={URI_PREFIX + props.entity}>{props.entity}</a>
       </div>
     </>
   );

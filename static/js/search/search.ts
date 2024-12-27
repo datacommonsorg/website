@@ -21,7 +21,7 @@ import ReactDOM from "react-dom";
 import { AllResults } from "./all_results";
 import { SearchInput } from "./search_input";
 
-window.onload = () => {
+window.addEventListener("load", (): void => {
   const searchParams = new URLSearchParams(location.search);
   const query = document.getElementById("search-input-container").dataset.query;
   const selectedPlace = searchParams.get("placeDcid") || "";
@@ -40,4 +40,4 @@ window.onload = () => {
       document.getElementById("search-results-container")
     );
   }
-};
+});

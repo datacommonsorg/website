@@ -211,6 +211,38 @@
                 "tiles": [
                   {
                     "statVarKey": [
+                      "Count_Death_Female"
+                    ],
+                    "title": "Count of Mortality Event: Female in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death_Female"
+                    ],
+                    "title": "Count of Mortality Event: Female in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Count of Mortality Event: Female in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
                       "Count_Person_Female_TwoOrMoreRaces"
                     ],
                     "title": "Women Identifying as Multiracial in United States of America",
@@ -326,65 +358,6 @@
             ],
             "denom": "Count_Person",
             "title": "Population: Female, Enrolled in School in States of United States of America"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_Female_AsAFractionOf_Count_Person_Female"
-                    ],
-                    "title": "Count of Mortality Event: Female (As Fraction of Count Person Female) in United States of America",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Count of Mortality Event: Female (As Fraction of Count Person Female) in United States of America",
-                    "statVarKey": [
-                      "Count_Death_Female_AsAFractionOf_Count_Person_Female"
-                    ],
-                    "title": "Count of Mortality Event: Female (As Fraction of Count Person Female) in United States of America",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Count of Mortality Event: Female (As Fraction of Count Person Female)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_Female_AsAFractionOf_Count_Person_Female"
-                    ],
-                    "title": "Count of Mortality Event: Female (As Fraction of Count Person Female) in States of United States of America (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 5,
-                      "showHighestLowest": true
-                    },
-                    "statVarKey": [
-                      "Count_Death_Female_AsAFractionOf_Count_Person_Female"
-                    ],
-                    "title": "Count of Mortality Event: Female (As Fraction of Count Person Female) in States of United States of America (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              }
-            ],
-            "title": "Count of Mortality Event: Female (As Fraction of Count Person Female) in States of United States of America"
           },
           {
             "columns": [
@@ -860,16 +833,73 @@
             ],
             "denom": "Count_Person",
             "title": "Bachelors, Women in States of United States of America"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_ForeignBorn"
+                    ],
+                    "title": "Foreign Born Women in United States of America",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Foreign Born Women in United States of America",
+                    "statVarKey": [
+                      "Count_Person_Female_ForeignBorn"
+                    ],
+                    "title": "Foreign Born Women in United States of America",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Foreign Born Women"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Person_Female_ForeignBorn"
+                    ],
+                    "title": "Foreign Born Women in States of United States of America (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Person_Female_ForeignBorn"
+                    ],
+                    "title": "Foreign Born Women in States of United States of America (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Foreign Born Women in States of United States of America"
           }
         ],
         "statVarSpec": {
           "Count_Death_Female": {
             "name": "Count of Mortality Event: Female",
             "statVar": "Count_Death_Female"
-          },
-          "Count_Death_Female_AsAFractionOf_Count_Person_Female": {
-            "name": "Count of Mortality Event: Female (As Fraction of Count Person Female)",
-            "statVar": "Count_Death_Female_AsAFractionOf_Count_Person_Female"
           },
           "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female": {
             "name": "Population: Bachelors Degree or Higher, Female",
@@ -890,6 +920,10 @@
           "Count_Person_Female_AsianAlone": {
             "name": "Asian Monoracial Women",
             "statVar": "Count_Person_Female_AsianAlone"
+          },
+          "Count_Person_Female_ForeignBorn": {
+            "name": "Foreign Born Women",
+            "statVar": "Count_Person_Female_ForeignBorn"
           },
           "Count_Person_Female_FullTimeYearRoundWorker": {
             "name": "Population: 16 - 64 Years, Female, Full Time Year Round Worker",
@@ -1354,29 +1388,6 @@
           "Count_MortalityEvent_AorticAneurysmAndDissection_Female"
         ]
       },
-      "Count_Death_Female_AsAFractionOf_Count_Person_Female": {
-        "causeOfDeath": [
-          "Count_Death_IntentionalSelfHarm_Female_AsFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AIDS_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AccidentalDischargeOfFirearms_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AccidentalDrowningAndSubmersion_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AccidentalExposureToSmokeFireAndFlames_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AccidentalPoisoningAndExposureToNoxiousSubstances_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_Accidents(UnintentionalInjuries)_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AcuteAndRapidlyProgressiveNephriticAndNephroticSyndrome_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AcuteAndSubacuteEndocarditis_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AcuteBronchitisAndBronchiolitis_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AcuteMyocardialInfarction_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AcuteRheumaticFeverAndChronicRheumaticHeartDiseases_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AlcoholicLiverDisease_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AllOtherAndUnspecifiedMalignantNeoplasms_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AllOtherDiseases(Residual)_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AllOtherFormsOfChronicIschemicHeartDisease_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AllOtherFormsOfHeartDisease_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AlzheimersDisease_Female_AsAFractionOf_Count_Person_Female",
-          "Count_MortalityEvent_AorticAneurysmAndDissection_Female_AsAFractionOf_Count_Person_Female"
-        ]
-      },
       "Count_Person_25OrMoreYears_EducationalAttainmentBachelorsDegreeOrHigher_Female": {
         "age": [
           "Count_Person_18To24Years_EducationalAttainmentBachelorsDegreeOrHigher_Female",
@@ -1647,6 +1658,7 @@
         "age": [
           "Count_Person_0To4Years_Female_WhiteAlone",
           "Count_Person_0Years_Female_WhiteAlone",
+          "Count_Person_100Years_Female_WhiteAlone",
           "Count_Person_10To14Years_Female_WhiteAlone",
           "Count_Person_10Years_Female_WhiteAlone",
           "Count_Person_11Years_Female_WhiteAlone",
@@ -1749,7 +1761,22 @@
           "Count_Person_83Years_Female_WhiteAlone",
           "Count_Person_84Years_Female_WhiteAlone",
           "Count_Person_85OrMoreYears_Female_WhiteAlone",
+          "Count_Person_85Years_Female_WhiteAlone",
+          "Count_Person_86Years_Female_WhiteAlone",
+          "Count_Person_87Years_Female_WhiteAlone",
+          "Count_Person_88Years_Female_WhiteAlone",
+          "Count_Person_89Years_Female_WhiteAlone",
           "Count_Person_8Years_Female_WhiteAlone",
+          "Count_Person_90Years_Female_WhiteAlone",
+          "Count_Person_91Years_Female_WhiteAlone",
+          "Count_Person_92Years_Female_WhiteAlone",
+          "Count_Person_93Years_Female_WhiteAlone",
+          "Count_Person_94Years_Female_WhiteAlone",
+          "Count_Person_95Years_Female_WhiteAlone",
+          "Count_Person_96Years_Female_WhiteAlone",
+          "Count_Person_97Years_Female_WhiteAlone",
+          "Count_Person_98Years_Female_WhiteAlone",
+          "Count_Person_99Years_Female_WhiteAlone",
           "Count_Person_9Years_Female_WhiteAlone"
         ]
       },
@@ -1953,7 +1980,6 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "Could not recognize any place in the query. See relevant statistics for United States of America.",
   "userMessages": [
     "Could not recognize any place in the query. See relevant statistics for United States of America."
   ]

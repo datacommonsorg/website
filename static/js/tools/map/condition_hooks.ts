@@ -21,7 +21,7 @@ import { useContext, useMemo } from "react";
 import { Context } from "./context";
 
 // Custom hook to check if needs to compute ratio for the stat.
-export function useIfRatio() {
+export function useIfRatio(): boolean {
   const { statVar } = useContext(Context);
   return useMemo(() => {
     return !!statVar.value.perCapita && !!statVar.value.denom;

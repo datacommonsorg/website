@@ -347,7 +347,7 @@
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: source = ILO modelled estimates, nov.2022.",
+            "footnote": "Includes data from the following sources: ILO modelled estimates, nov.2023.",
             "title": "Employed Population Aged 15 or Over Below International Poverty Line"
           },
           {
@@ -379,7 +379,7 @@
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: source = ILO modelled estimates, nov.2022.",
+            "footnote": "Includes data from the following sources: ILO modelled estimates, nov.2023.",
             "title": "Employed Population Aged 15 or Over Below International Poverty Line in Countries of Africa"
           },
           {
@@ -428,7 +428,7 @@
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: source = ILO modelled estimates, nov.2022.",
+            "footnote": "Includes data from the following sources: ILO modelled estimates, nov.2023.",
             "title": "Employed Women Aged 15 or Over Below International Poverty Line in Countries of Africa"
           },
           {
@@ -460,7 +460,7 @@
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: source = ILO modelled estimates, nov.2022.",
+            "footnote": "Includes data from the following sources: ILO modelled estimates, nov.2023.",
             "title": "Employed Men Aged 15 or Over Below International Poverty Line in Countries of Africa"
           }
         ],
@@ -922,6 +922,5 @@
     "peerTopics": []
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "",
   "userMessages": []
 }

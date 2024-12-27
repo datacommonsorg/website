@@ -70,8 +70,7 @@ def download_blob(bucket_name: str,
       local_file_path = os.path.join(local_path, relative_path)
     # Create the directory if it doesn't exist.
     local_dir = os.path.dirname(local_file_path)
-    if not os.path.exists(local_dir):
-      os.makedirs(local_dir)
+    os.makedirs(local_dir, exist_ok=True)
     # Download the file.
     blob.download_to_filename(local_file_path)
     count += 1
@@ -159,3 +158,21 @@ def upload_by_path(local_path: str, gcs_path: str, timeout: int = 60):
         blob.upload_from_filename(file_path, timeout=timeout)
         logging.info("Uploaded %s to gs://%s/%s", file_path, bucket_name,
                      blob_name)
+
+
+def read_to_string(gcs_path: str) -> str:
+  """Read the contents of a GCS file to string
+  
+  Args:
+    gcs_path: The full GCS path to a file
+  
+  Returns:
+    Contents of the file as a text string
+  """
+  if not is_gcs_path(gcs_path):
+    raise ValueError(f"Invalid GCS path: {gcs_path}")
+
+  bucket_name, base_blob_name = get_path_parts(gcs_path)
+  bucket = storage.Client().bucket(bucket_name)
+  blob = bucket.get_blob(base_blob_name)
+  return blob.download_as_text()

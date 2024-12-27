@@ -15,6 +15,8 @@
  #}
  {%- extends BASE_HTML -%}
 
+ {% set is_search_bar_hash_mode = true %}
+ {% set ga_value_search_source = 'explore' %}
  {% set is_hide_full_footer = true %}
  {% set main_id = 'explore' %}
  {% set page_id = 'explore-page' %}
@@ -33,4 +35,6 @@
 
  {% block footer %}
  <script src={{url_for('static', filename='explore.js', t=config['VERSION'])}}></script>
+ <script src="https://maps.googleapis.com/maps/api/js?key={{maps_api_key}}&libraries=places&language={{locale}}&loading=async" async
+  defer></script>
  {% endblock %}

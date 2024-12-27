@@ -149,6 +149,38 @@
               {
                 "tiles": [
                   {
+                    "statVarKey": [
+                      "Count_Death"
+                    ],
+                    "title": "Number of Deaths in Administrative Area 1 Places of China (${date})",
+                    "type": "MAP"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "rankingTileSpec": {
+                      "rankingCount": 5,
+                      "showHighestLowest": true
+                    },
+                    "statVarKey": [
+                      "Count_Death"
+                    ],
+                    "title": "Number of Deaths in Administrative Area 1 Places of China (${date})",
+                    "type": "RANKING"
+                  }
+                ]
+              }
+            ],
+            "denom": "Count_Person",
+            "title": "Number of Deaths in Administrative Area 1 Places of China"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
                     "description": "Number of Deaths in China",
                     "statVarKey": [
                       "Count_Death"
@@ -275,7 +307,7 @@
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: united nations Inter-agency group for child mortality estimation (UN IGME), 2023.",
+            "footnote": "Includes data from the following sources: united nations Inter-agency group for child mortality estimation (UN IGME), 2024.",
             "title": "Neonatal Mortality Rate"
           },
           {
@@ -294,66 +326,6 @@
               }
             ],
             "title": "Infant Mortality Rate by Gender"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "WHO/CM_01",
-                      "WHO/CM_02",
-                      "WHO/CM_03"
-                    ],
-                    "title": "Child Mortality in China",
-                    "type": "LINE"
-                  }
-                ]
-              }
-            ],
-            "title": "Child Mortality"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/CHN"
-                    ],
-                    "statVarKey": [
-                      "WHO/SA_0000001418_multiple_place_bar_block",
-                      "WHO/SA_0000001419_multiple_place_bar_block",
-                      "WHO/SA_0000001420_multiple_place_bar_block",
-                      "WHO/SA_0000001421_multiple_place_bar_block",
-                      "WHO/SA_0000001422_multiple_place_bar_block",
-                      "WHO/SA_0000001423_multiple_place_bar_block",
-                      "WHO/SA_0000001424_multiple_place_bar_block",
-                      "WHO/SA_0000001425_multiple_place_bar_block",
-                      "WHO/SA_0000001426_multiple_place_bar_block",
-                      "WHO/SA_0000001427_multiple_place_bar_block",
-                      "WHO/SA_0000001429_multiple_place_bar_block",
-                      "WHO/SA_0000001430_multiple_place_bar_block",
-                      "WHO/SA_0000001431_multiple_place_bar_block",
-                      "WHO/SA_0000001432_multiple_place_bar_block",
-                      "WHO/SA_0000001433_multiple_place_bar_block",
-                      "WHO/SA_0000001434_multiple_place_bar_block",
-                      "WHO/SA_0000001435_multiple_place_bar_block",
-                      "WHO/SA_0000001436_multiple_place_bar_block",
-                      "WHO/SA_0000001689_multiple_place_bar_block"
-                    ],
-                    "title": "Disability-Adjusted Life-Years in China (${date})",
-                    "type": "BAR"
-                  }
-                ]
-              }
-            ],
-            "title": "Disability-Adjusted Life-Years"
           },
           {
             "columns": [
@@ -390,9 +362,9 @@
                 "tiles": [
                   {
                     "statVarKey": [
-                      "WHO/MORT_MATERNALNUM"
+                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
                     ],
-                    "title": "Number of Maternal Deaths in China",
+                    "title": "Infant Mortality Rate in China",
                     "type": "LINE"
                   }
                 ]
@@ -400,65 +372,56 @@
               {
                 "tiles": [
                   {
-                    "description": "Number of Maternal Deaths in China",
+                    "description": "Infant Mortality Rate in China",
                     "statVarKey": [
-                      "WHO/MORT_MATERNALNUM"
+                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
                     ],
-                    "title": "Number of Maternal Deaths in China",
+                    "title": "Infant Mortality Rate in China",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Number of Maternal Deaths"
+            "description": "Infant mortality rate is the number of infants dying before reaching one year of age, per 1,000 live births in a given year. Estimates developed by the UN Inter-agency group for child mortality estimation (UNICEF, WHO, world bank, UN DESA population division) at www.Childmortality.Org.",
+            "title": "Infant Mortality Rate"
           },
           {
             "columns": [
               {
                 "tiles": [
                   {
-                    "barTileSpec": {
-                      "maxPlaces": 15,
-                      "maxVariables": 15,
-                      "sort": "DESCENDING"
-                    },
-                    "comparisonPlaces": [
-                      "country/CHN"
-                    ],
                     "statVarKey": [
-                      "WHO/SA_0000001437_multiple_place_bar_block",
-                      "WHO/SA_0000001438_multiple_place_bar_block",
-                      "WHO/SA_0000001439_multiple_place_bar_block",
-                      "WHO/SA_0000001440_multiple_place_bar_block",
-                      "WHO/SA_0000001441_multiple_place_bar_block",
-                      "WHO/SA_0000001442_multiple_place_bar_block",
-                      "WHO/SA_0000001443_multiple_place_bar_block",
-                      "WHO/SA_0000001444_multiple_place_bar_block",
-                      "WHO/SA_0000001445_multiple_place_bar_block",
-                      "WHO/SA_0000001446_multiple_place_bar_block",
-                      "WHO/SA_0000001448_multiple_place_bar_block",
-                      "WHO/SA_0000001449_multiple_place_bar_block",
-                      "WHO/SA_0000001450_multiple_place_bar_block",
-                      "WHO/SA_0000001451_multiple_place_bar_block",
-                      "WHO/SA_0000001452_multiple_place_bar_block",
-                      "WHO/SA_0000001453_multiple_place_bar_block",
-                      "WHO/SA_0000001454_multiple_place_bar_block",
-                      "WHO/SA_0000001455_multiple_place_bar_block",
-                      "WHO/SA_0000001690_multiple_place_bar_block"
+                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
                     ],
-                    "title": "Mortality Rates by Causes in China (${date})",
-                    "type": "BAR"
+                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in China",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in China",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+                    ],
+                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in China",
+                    "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Mortality Rates by Causes"
+            "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)"
           }
         ],
         "statVarSpec": {
           "Count_Death": {
             "name": "Number of Deaths",
             "statVar": "Count_Death"
+          },
+          "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": {
+            "name": "Infant Mortality Rate",
+            "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
           },
           "Count_Death_AsAFractionOfCount_Person": {
             "name": "Deaths Per Capita",
@@ -467,6 +430,10 @@
           "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person": {
             "name": "% of Suicide Events",
             "statVar": "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
+          },
+          "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent": {
+            "name": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)",
+            "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
           },
           "LifeExpectancy_Person": {
             "name": "Life Expectancy",
@@ -479,174 +446,6 @@
           "LifeExpectancy_Person_Male": {
             "name": "Male Life Expectancy",
             "statVar": "LifeExpectancy_Person_Male"
-          },
-          "WHO/CM_01": {
-            "name": "Number Of Under-Five Deaths",
-            "statVar": "WHO/CM_01"
-          },
-          "WHO/CM_02": {
-            "name": "Number Of Infant Deaths",
-            "statVar": "WHO/CM_02"
-          },
-          "WHO/CM_03": {
-            "name": "Number Of Neonatal Deaths",
-            "statVar": "WHO/CM_03"
-          },
-          "WHO/MORT_MATERNALNUM": {
-            "name": "Number Of Maternal Deaths",
-            "statVar": "WHO/MORT_MATERNALNUM"
-          },
-          "WHO/SA_0000001418_multiple_place_bar_block": {
-            "name": "Alcohol Use Disorders, Per 100,000",
-            "statVar": "WHO/SA_0000001418"
-          },
-          "WHO/SA_0000001419_multiple_place_bar_block": {
-            "name": "Breast Cancer, Per 100,000",
-            "statVar": "WHO/SA_0000001419"
-          },
-          "WHO/SA_0000001420_multiple_place_bar_block": {
-            "name": "Colon And Rectum Cancers, Per 100,000",
-            "statVar": "WHO/SA_0000001420"
-          },
-          "WHO/SA_0000001421_multiple_place_bar_block": {
-            "name": "Diabetes Mellitus, Per 100,000",
-            "statVar": "WHO/SA_0000001421"
-          },
-          "WHO/SA_0000001422_multiple_place_bar_block": {
-            "name": "Drownings, Per 100,000",
-            "statVar": "WHO/SA_0000001422"
-          },
-          "WHO/SA_0000001423_multiple_place_bar_block": {
-            "name": "Falls, Per 100,000",
-            "statVar": "WHO/SA_0000001423"
-          },
-          "WHO/SA_0000001424_multiple_place_bar_block": {
-            "name": "Fires, Per 100,000",
-            "statVar": "WHO/SA_0000001424"
-          },
-          "WHO/SA_0000001425_multiple_place_bar_block": {
-            "name": "Ischaemic Heart Disease, Per 100,000",
-            "statVar": "WHO/SA_0000001425"
-          },
-          "WHO/SA_0000001426_multiple_place_bar_block": {
-            "name": "Liver Cancer, Per 100,000",
-            "statVar": "WHO/SA_0000001426"
-          },
-          "WHO/SA_0000001427_multiple_place_bar_block": {
-            "name": "Liver Cirrhosis, Per 100,000",
-            "statVar": "WHO/SA_0000001427"
-          },
-          "WHO/SA_0000001429_multiple_place_bar_block": {
-            "name": "Mouth And Oropharynx Cancer, Per 100,000",
-            "statVar": "WHO/SA_0000001429"
-          },
-          "WHO/SA_0000001430_multiple_place_bar_block": {
-            "name": "Oesophagus Cancer, Per 100,000",
-            "statVar": "WHO/SA_0000001430"
-          },
-          "WHO/SA_0000001431_multiple_place_bar_block": {
-            "name": "Poisoning, Per 100,000",
-            "statVar": "WHO/SA_0000001431"
-          },
-          "WHO/SA_0000001432_multiple_place_bar_block": {
-            "name": "Prematurity And Low Birth Rate, Per 100,000",
-            "statVar": "WHO/SA_0000001432"
-          },
-          "WHO/SA_0000001433_multiple_place_bar_block": {
-            "name": "Road Traffic Accidents, Per 100,000",
-            "statVar": "WHO/SA_0000001433"
-          },
-          "WHO/SA_0000001434_multiple_place_bar_block": {
-            "name": "Self-Inflicted Injury, Per 100,000",
-            "statVar": "WHO/SA_0000001434"
-          },
-          "WHO/SA_0000001435_multiple_place_bar_block": {
-            "name": "Other Unintentional Injuries, Per 100,000",
-            "statVar": "WHO/SA_0000001435"
-          },
-          "WHO/SA_0000001436_multiple_place_bar_block": {
-            "name": "Violence, Per 100,000",
-            "statVar": "WHO/SA_0000001436"
-          },
-          "WHO/SA_0000001437_multiple_place_bar_block": {
-            "name": "Age-Standardized Death Rates, Alcohol Use Disorders, Per 100,000",
-            "statVar": "WHO/SA_0000001437"
-          },
-          "WHO/SA_0000001438_multiple_place_bar_block": {
-            "name": "Age-Standardized Death Rates, Breast Cancer, Per 100,000",
-            "statVar": "WHO/SA_0000001438"
-          },
-          "WHO/SA_0000001439_multiple_place_bar_block": {
-            "name": "Age-Standardized Death Rates, Colon And Rectum Cancers, Per 100,000",
-            "statVar": "WHO/SA_0000001439"
-          },
-          "WHO/SA_0000001440_multiple_place_bar_block": {
-            "name": "Age-Standardized Death Rates, Diabetes Mellitus, Per 100,000",
-            "statVar": "WHO/SA_0000001440"
-          },
-          "WHO/SA_0000001441_multiple_place_bar_block": {
-            "name": "Age-Standardized Death Rates, Drownings, Per 100,000",
-            "statVar": "WHO/SA_0000001441"
-          },
-          "WHO/SA_0000001442_multiple_place_bar_block": {
-            "name": "Age-Standardized Death Rates, Falls, Per 100,000",
-            "statVar": "WHO/SA_0000001442"
-          },
-          "WHO/SA_0000001443_multiple_place_bar_block": {
-            "name": "Age-Standardized Death Rates, Fires, Per 100,000",
-            "statVar": "WHO/SA_0000001443"
-          },
-          "WHO/SA_0000001444_multiple_place_bar_block": {
-            "name": "Age-Standardized Death Rates, Ischaemic Heart Disease, Per 100,000",
-            "statVar": "WHO/SA_0000001444"
-          },
-          "WHO/SA_0000001445_multiple_place_bar_block": {
-            "name": "Age-Standardized Death Rates, Liver Cancer, Per 100,000",
-            "statVar": "WHO/SA_0000001445"
-          },
-          "WHO/SA_0000001446_multiple_place_bar_block": {
-            "name": "Age-Standardized Death Rates, Liver Cirrhosis, Per 100,000",
-            "statVar": "WHO/SA_0000001446"
-          },
-          "WHO/SA_0000001448_multiple_place_bar_block": {
-            "name": "Age-Standardized Death Rates, Mouth And Oropharynx Cancer, Per 100,000",
-            "statVar": "WHO/SA_0000001448"
-          },
-          "WHO/SA_0000001449_multiple_place_bar_block": {
-            "name": "Age-Standardized Death Rates, Oesophagus Cancer, Per 100,000",
-            "statVar": "WHO/SA_0000001449"
-          },
-          "WHO/SA_0000001450_multiple_place_bar_block": {
-            "name": "Age-Standardized Death Rates, Poisoning, Per 100,000",
-            "statVar": "WHO/SA_0000001450"
-          },
-          "WHO/SA_0000001451_multiple_place_bar_block": {
-            "name": "Age-Standardized Death Rates, Prematurity And Low Birth Rate, Per 100,000",
-            "statVar": "WHO/SA_0000001451"
-          },
-          "WHO/SA_0000001452_multiple_place_bar_block": {
-            "name": "Age-Standardized Death Rates, Road Traffic Accidents, Per 100,000",
-            "statVar": "WHO/SA_0000001452"
-          },
-          "WHO/SA_0000001453_multiple_place_bar_block": {
-            "name": "Age-Standardized Death Rates, Self-Inflicted Injury, Per 100,000",
-            "statVar": "WHO/SA_0000001453"
-          },
-          "WHO/SA_0000001454_multiple_place_bar_block": {
-            "name": "Age-Standardized Death Rates, Other Unintentional Injuries, Per 100,000",
-            "statVar": "WHO/SA_0000001454"
-          },
-          "WHO/SA_0000001455_multiple_place_bar_block": {
-            "name": "Age-Standardized Death Rates, Violence, Per 100,000",
-            "statVar": "WHO/SA_0000001455"
-          },
-          "WHO/SA_0000001689_multiple_place_bar_block": {
-            "name": "Cerebrovascular Disease, Per 100,000",
-            "statVar": "WHO/SA_0000001689"
-          },
-          "WHO/SA_0000001690_multiple_place_bar_block": {
-            "name": "Age-Standardized Death Rates, Cerebrovascular Disease, Per 100,000",
-            "statVar": "WHO/SA_0000001690"
           },
           "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F": {
             "name": "Infant mortality rate",
@@ -1076,6 +875,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "",
   "userMessages": []
 }

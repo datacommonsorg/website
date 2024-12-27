@@ -176,7 +176,7 @@ function getGeoJsonFeature(
   eventDcid: string,
   geoJsonProp: string,
   propVals: { [prop: string]: { vals: string[] } }
-) {
+): string {
   let geoJson = null;
   if (propVals[geoJsonProp] && !_.isEmpty(propVals[geoJsonProp].vals)) {
     // Remove any extra backslashes that that are in the prop val string.
@@ -465,7 +465,9 @@ export function onPointClicked(
   const infoCard = d3.select(infoCardElement);
   ReactDOM.render(
     <DisasterEventMapInfoCard
-      onClose={() => d3.select(infoCardElement).style("visibility", "hidden")}
+      onClose={(): d3.Selection<HTMLDivElement, unknown, null, undefined> =>
+        d3.select(infoCardElement).style("visibility", "hidden")
+      }
       eventData={point}
     />,
     infoCardElement

@@ -37,6 +37,12 @@ def point():
   if not variables:
     return 'error: must provide a `variables` field', 400
   date = request.args.get('date') or DATE_LATEST
+  # Fetch recent observations with the highest entity coverage
+  if date == DATE_HIGHEST_COVERAGE:
+    return fetch_highest_coverage(entities=entities,
+                                  variables=variables,
+                                  all_facets=False)
+  # Fetch observations from a specific date or date = 'LATEST'
   return fetch.point_core(entities, variables, date, False)
 
 
@@ -51,6 +57,12 @@ def point_all():
   if not variables:
     return 'error: must provide a `variables` field', 400
   date = request.args.get('date') or DATE_LATEST
+  # Fetch recent observations with the highest entity coverage
+  if date == DATE_HIGHEST_COVERAGE:
+    return fetch_highest_coverage(entities=entities,
+                                  variables=variables,
+                                  all_facets=True)
+  # Fetch observations from a specific date or date = 'LATEST'
   return fetch.point_core(entities, variables, date, True)
 
 

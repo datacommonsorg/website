@@ -386,7 +386,7 @@
                 ]
               }
             ],
-            "footnote": "Includes data from the following sources: united nations Inter-agency group for child mortality estimation (UN IGME), 2023.",
+            "footnote": "Includes data from the following sources: united nations Inter-agency group for child mortality estimation (UN IGME), 2024.",
             "title": "Neonatal Mortality Rate"
           },
           {
@@ -592,17 +592,57 @@
               {
                 "tiles": [
                   {
-                    "description": "Diabetes Mellitus, Per 100,000 in United States",
                     "statVarKey": [
-                      "WHO/SA_0000001421"
+                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
                     ],
-                    "title": "Diabetes Mellitus, Per 100,000 in United States",
+                    "title": "Infant Mortality Rate in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Infant Mortality Rate in United States",
+                    "statVarKey": [
+                      "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
+                    ],
+                    "title": "Infant Mortality Rate in United States",
                     "type": "HIGHLIGHT"
                   }
                 ]
               }
             ],
-            "title": "Diabetes Mellitus, Per 100,000"
+            "description": "Infant mortality rate is the number of infants dying before reaching one year of age, per 1,000 live births in a given year. Estimates developed by the UN Inter-agency group for child mortality estimation (UNICEF, WHO, world bank, UN DESA population division) at www.Childmortality.Org.",
+            "title": "Infant Mortality Rate"
+          },
+          {
+            "columns": [
+              {
+                "tiles": [
+                  {
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+                    ],
+                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in United States",
+                    "type": "LINE"
+                  }
+                ]
+              },
+              {
+                "tiles": [
+                  {
+                    "description": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in United States",
+                    "statVarKey": [
+                      "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+                    ],
+                    "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event) in United States",
+                    "type": "HIGHLIGHT"
+                  }
+                ]
+              }
+            ],
+            "title": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)"
           },
           {
             "columns": [
@@ -631,29 +671,16 @@
               }
             ],
             "title": "Female Mortality Rate (Age Adjusted)"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "description": "Ischaemic Heart Disease, Per 100,000 in United States",
-                    "statVarKey": [
-                      "WHO/SA_0000001425"
-                    ],
-                    "title": "Ischaemic Heart Disease, Per 100,000 in United States",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Ischaemic Heart Disease, Per 100,000"
           }
         ],
         "statVarSpec": {
           "Count_Death": {
             "name": "Number of Deaths",
             "statVar": "Count_Death"
+          },
+          "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth": {
+            "name": "Infant Mortality Rate",
+            "statVar": "Count_Death_0Years_AsFractionOf_Count_BirthEvent_LiveBirth"
           },
           "Count_Death_AbnormalNotClassfied_Female": {
             "name": "Female Deaths Due To Symptoms, Signs And Abnormal Clinical And Laboratory Findings, Not Elsewhere Classified",
@@ -735,6 +762,10 @@
             "name": "% of Suicide Events",
             "statVar": "Count_Death_IntentionalSelfHarm_AsFractionOf_Count_Person"
           },
+          "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent": {
+            "name": "Count of Mortality Event: 1 Years or Less (As Fraction of Count Birth Event)",
+            "statVar": "Count_Death_LessThan1Year_AsAFractionOf_Count_BirthEvent"
+          },
           "Count_Death_Male_AgeAdjusted_AsAFractionOf_Count_Person_Male": {
             "name": "Male Mortality Rate (Age Adjusted)",
             "statVar": "Count_Death_Male_AgeAdjusted_AsAFractionOf_Count_Person_Male"
@@ -806,14 +837,6 @@
           "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth": {
             "name": "Average interval in months since last live birth",
             "statVar": "Mean_IntervalSinceLastBirth_BirthEvent_LiveBirth"
-          },
-          "WHO/SA_0000001421": {
-            "name": "Diabetes Mellitus, Per 100,000",
-            "statVar": "WHO/SA_0000001421"
-          },
-          "WHO/SA_0000001425": {
-            "name": "Ischaemic Heart Disease, Per 100,000",
-            "statVar": "WHO/SA_0000001425"
           },
           "sdg/SH_DYN_IMRT.AGE--Y0__SEX--F": {
             "name": "Infant mortality rate",
@@ -1408,6 +1431,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "",
   "userMessages": []
 }

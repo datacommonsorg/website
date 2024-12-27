@@ -24,7 +24,7 @@ import { AppContext, SessionContext } from "./context";
 import { OverallFeedback } from "./overall_feedback";
 import { QuerySection } from "./query_section";
 import { RagAnsFeedback } from "./rag_ans_feedback";
-import { DcCalls, EvalType, FeedbackStage, Query } from "./types";
+import { AllQuery, DcCalls, EvalType, FeedbackStage, Query } from "./types";
 import { getDocInfo, getFirstFeedbackStage } from "./util";
 
 interface AppPropType {
@@ -33,10 +33,7 @@ interface AppPropType {
 
 // Get first query to show which should be the first question of this user or a
 // question with no user.
-function getFirstQuery(
-  allQuery: Record<number, Query>,
-  userEmail: string
-): number {
+function getFirstQuery(allQuery: AllQuery, userEmail: string): number {
   let queryId: number = null;
   let nullQueryId: number = null;
   const sortedQueryIds = Object.keys(allQuery)
@@ -75,7 +72,10 @@ export function App(props: AppPropType): JSX.Element {
   const [allCall, setAllCall] = useState<Record<number, DcCalls>>(null);
   const [evalType, setEvalType] = useState<EvalType>(null);
 
-  async function handleUserSignIn(user: User, credential: OAuthCredential) {
+  async function handleUserSignIn(
+    user: User,
+    credential: OAuthCredential
+  ): Promise<void> {
     if (credential.accessToken) {
       setUser(user); // Set the user state to the signed-in user
       const doc = new GoogleSpreadsheet(props.sheetId, {

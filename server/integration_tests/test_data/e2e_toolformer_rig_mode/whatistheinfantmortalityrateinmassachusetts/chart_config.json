@@ -115,6 +115,7 @@
               }
             ],
             "denom": "Count_Person",
+            "startWithDenom": true,
             "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period)"
           },
           {
@@ -147,35 +148,8 @@
               }
             ],
             "denom": "Count_Person",
+            "startWithDenom": true,
             "title": "Mortality Events (1 Years or Less): Certain Conditions Originating in the Perinatal Period) in Counties of Massachusetts"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years"
-                    ],
-                    "title": "Count of Mortality Event: 14 Years or Less (As Fraction of Count Person Upto 14 Years) in Massachusetts",
-                    "type": "LINE"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "description": "Count of Mortality Event: 14 Years or Less (As Fraction of Count Person Upto 14 Years) in Massachusetts",
-                    "statVarKey": [
-                      "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years"
-                    ],
-                    "title": "Count of Mortality Event: 14 Years or Less (As Fraction of Count Person Upto 14 Years) in Massachusetts",
-                    "type": "HIGHLIGHT"
-                  }
-                ]
-              }
-            ],
-            "title": "Count of Mortality Event: 14 Years or Less (As Fraction of Count Person Upto 14 Years)"
           },
           {
             "columns": [
@@ -204,6 +178,7 @@
               }
             ],
             "denom": "Count_Person",
+            "startWithDenom": true,
             "title": "Mortality Events (1 Years or Less): Diseases of the Circulatory System"
           },
           {
@@ -233,6 +208,7 @@
               }
             ],
             "denom": "Count_Person",
+            "startWithDenom": true,
             "title": "Mortality Events (1 Years or Less): Q00-Q99 ( Congenital Malformations, Deformations and Chromosomal Abnormalities)"
           },
           {
@@ -265,6 +241,7 @@
               }
             ],
             "denom": "Count_Person",
+            "startWithDenom": true,
             "title": "Mortality Events (1 Years or Less): Q00-Q99 ( Congenital Malformations, Deformations and Chromosomal Abnormalities) in Counties of Massachusetts"
           }
         ],
@@ -280,10 +257,6 @@
           "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male": {
             "name": "Count of Mortality Event: 1 Years or Less, Male (As Fraction of Count Birth Event Male)",
             "statVar": "Count_Death_LessThan1Year_Male_AsAFractionOf_Count_BirthEvent_Male"
-          },
-          "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years": {
-            "name": "Count of Mortality Event: 14 Years or Less (As Fraction of Count Person Upto 14 Years)",
-            "statVar": "Count_Death_Upto14Years_AsAFractionOf_Count_Person_Upto14Years"
           },
           "Count_Death_Upto1Years_CertainConditionsOriginatingInThePerinatalPeriod": {
             "name": "Mortality Events (1 Years or Less): Certain Conditions Originating in The Perinatal Period)",
@@ -835,6 +808,5 @@
     ]
   },
   "svSource": "CURRENT_QUERY",
-  "userMessage": "",
   "userMessages": []
 }
