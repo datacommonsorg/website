@@ -143,7 +143,7 @@ class PlaceSearchBar extends Component<PlaceSearchBarPropType> {
         const result = (
           <div
             className="pac-item"
-            onMouseDown={() => onMouseDown({ name: dcid })}
+            onMouseDown={(): void => onMouseDown({ name: dcid })}
           >
             <span className="pac-icon pac-icon-marker"></span>
             <span className="pac-item-query">
@@ -158,7 +158,10 @@ class PlaceSearchBar extends Component<PlaceSearchBarPropType> {
     }
   }
 
-  private getPlaceAndRender(customPlace: { name: string; place_id?: string }) {
+  private getPlaceAndRender(customPlace: {
+    name: string;
+    place_id?: string;
+  }): void {
     // Unmount all the custom items
     const containers = document.getElementsByClassName("pac-container");
     Array.from(containers).forEach((container) => {

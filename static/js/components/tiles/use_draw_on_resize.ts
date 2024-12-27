@@ -19,7 +19,10 @@ import { useEffect } from "react";
 // Number of ms to debounce re-draws when chart is resized
 export const RESIZE_DEBOUNCE_INTERVAL_MS = 10;
 
-export function useDrawOnResize(drawFn: () => void, chartContainer: Element) {
+export function useDrawOnResize(
+  drawFn: () => void,
+  chartContainer: Element
+): void {
   useEffect(() => {
     if (!chartContainer) {
       return;
@@ -27,7 +30,7 @@ export function useDrawOnResize(drawFn: () => void, chartContainer: Element) {
     const debouncedHandler = _.debounce(drawFn, RESIZE_DEBOUNCE_INTERVAL_MS);
     const resizeObserver = new ResizeObserver(debouncedHandler);
     resizeObserver.observe(chartContainer);
-    return () => {
+    return (): void => {
       resizeObserver.unobserve(chartContainer);
       debouncedHandler.cancel();
     };

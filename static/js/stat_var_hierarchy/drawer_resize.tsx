@@ -64,7 +64,7 @@ export function DrawerResize(props: {
       {!isCollapsed && (
         <div
           className="stat-var-resize-handle"
-          onMouseDown={(e) => {
+          onMouseDown={(e): void => {
             e.preventDefault();
             startResizing();
           }}
@@ -74,7 +74,7 @@ export function DrawerResize(props: {
       {collapsible && (
         <button
           id="explore-menu-toggle"
-          onClick={() => {
+          onClick={(): void => {
             setIsCollapsed(!isCollapsed);
           }}
         >
