@@ -162,7 +162,7 @@ const PlaceHeader = (props: {
   category: string;
   place: NamedTypedPlace;
   placeSubheader: string;
-}) => {
+}): React.JSX.Element => {
   const { category, place, placeSubheader } = props;
   return (
     <div className="title-section">
@@ -201,7 +201,7 @@ const PlaceTopicTabs = ({
   forceDevPlaces: boolean;
   category: string;
   place: NamedTypedPlace;
-}) => {
+}): React.JSX.Element => {
   return (
     <div className="explore-topics-box">
       <span className="explore-relevant-topics">Relevant topics</span>
@@ -307,13 +307,15 @@ const PlaceTopicTabs = ({
  * @param props.placeDcid The DCID of the place to show statistics for
  * @returns A table component showing key demographic statistics, or null if data not loaded
  */
-const PlaceOverviewTable = (props: { placeDcid: string }) => {
+const PlaceOverviewTable = (props: {
+  placeDcid: string;
+}): React.JSX.Element => {
   const { placeDcid } = props;
   const [dataRows, setDataRows] = useState<DataRow[]>([]);
   const containerRef = useRef(null);
   // Fetch key demographic statistics for the place when it changes
   useEffect(() => {
-    (async () => {
+    (async (): Promise<void> => {
       const placeOverviewDataRows = await defaultDataCommonsClient.getDataRows({
         entities: [placeDcid],
         variables: [
@@ -409,7 +411,7 @@ const PlaceOverview = (props: {
   place: NamedTypedPlace;
   placeSummary: string;
   parentPlaces: NamedTypedPlace[];
-}) => {
+}): React.JSX.Element => {
   const { place, placeSummary, parentPlaces } = props;
   const isInUsa = isPlaceContainedInUsa(
     parentPlaces.map((place) => place.dcid)
@@ -446,7 +448,7 @@ const PlaceOverview = (props: {
 const RelatedPlaces = (props: {
   place: NamedTypedPlace;
   childPlaces: NamedTypedPlace[];
-}) => {
+}): React.JSX.Element => {
   const [isCollapsed, setIsCollapsed] = useState(true);
   const { place, childPlaces } = props;
   if (!childPlaces || childPlaces.length === 0) {
@@ -458,7 +460,7 @@ const RelatedPlaces = (props: {
   const truncatedPlaces = childPlaces.slice(0, NUM_PLACES);
   const numPlacesCollapsed = childPlaces.length - NUM_PLACES;
 
-  const toggleShowMore = () => {
+  const toggleShowMore = (): void => {
     setIsCollapsed(!isCollapsed);
   };
 
@@ -502,7 +504,7 @@ const PlaceCharts = (props: {
   childPlaceType: string;
   place: NamedTypedPlace;
   pageConfig: SubjectPageConfig;
-}) => {
+}): React.JSX.Element => {
   const { childPlaceType, place, pageConfig } = props;
   return (
     <div className="charts-container">
@@ -521,7 +523,7 @@ const PlaceCharts = (props: {
  * Main component for the dev place page. Manages state and data fetching for place information,
  * related places, and chart data.
  */
-export const DevPlaceMain = () => {
+export const DevPlaceMain = (): React.JSX.Element => {
   // Core place data
   const [place, setPlace] = useState<NamedTypedPlace>();
   const [placeSummary, setPlaceSummary] = useState<string>();
@@ -570,7 +572,7 @@ export const DevPlaceMain = () => {
     if (!place) {
       return;
     }
-    (async () => {
+    (async (): Promise<void> => {
       const [placeChartsApiResponse, relatedPlacesApiResponse] =
         await Promise.all([
           defaultDataCommonsWebClient.getPlaceCharts({

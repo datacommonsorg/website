@@ -18,7 +18,6 @@
  * Wrapper for selectors used in the selector pane.
  */
 
-import _ from "lodash";
 import React from "react";
 
 interface SelectorWrapperPropType {

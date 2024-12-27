@@ -58,7 +58,7 @@ export function TemplateSelectionPage(
           return (
             <Card
               key={templateId}
-              onClick={() => props.onTemplateChanged(templateId)}
+              onClick={(): void => props.onTemplateChanged(templateId)}
               className={`template-option${
                 templateId === props.selectedTemplate ? "-selected" : ""
               }`}
@@ -73,11 +73,11 @@ export function TemplateSelectionPage(
                   {TEMPLATE_OPTIONS[templateId].table}
                   <span
                     className={"material-icons-outlined info-button"}
-                    onMouseEnter={(e) => {
+                    onMouseEnter={(e): void => {
                       onInfoToggled(templateId);
                       e.stopPropagation();
                     }}
-                    onMouseLeave={(e) => {
+                    onMouseLeave={(e): void => {
                       onInfoToggled(templateId);
                       e.stopPropagation();
                     }}
@@ -113,7 +113,7 @@ export function TemplateSelectionPage(
           id="file-upload-input"
           type="file"
           accept=".csv"
-          onChange={(event) => {
+          onChange={(event): void => {
             const files = event.target.files;
             if (files.length < 1) {
               // TODO: handle malformed csv
@@ -128,7 +128,10 @@ export function TemplateSelectionPage(
         </span>
       </div>
       {props.uploadedFile && (
-        <Button onClick={() => props.onContinueClicked()} className="nav-btn">
+        <Button
+          onClick={(): void => props.onContinueClicked()}
+          className="nav-btn"
+        >
           Continue
         </Button>
       )}

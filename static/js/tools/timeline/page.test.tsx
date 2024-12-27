@@ -38,7 +38,7 @@ beforeEach(() => {
   window.infoConfig = {};
 });
 
-async function waitForComponentUpdates(wrapper: ReactWrapper) {
+async function waitForComponentUpdates(wrapper: ReactWrapper): Promise<void> {
   // Wait for state updates
   await waitFor(() => {
     expect(wrapper.text()).toContain("");

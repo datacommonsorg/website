@@ -18,13 +18,11 @@
  * Component for the mapping section for the multiVarCol template
  */
 
-import _ from "lodash";
 import React from "react";
 
 import { INVALID_VARIABLE_MSG } from "../../constants";
 import { MappingTemplateProps } from "../../templates";
 import {
-  Column,
   MAPPED_THING_NAMES,
   MappedThing,
   MappingType,
@@ -41,7 +39,7 @@ export function MultiVarCol(props: MappingTemplateProps): JSX.Element {
       <MappingPlaceInput
         mappingType={MappingType.COLUMN}
         mappingVal={props.userMapping.get(MappedThing.PLACE)}
-        onMappingValUpdate={(mappingVal: MappingVal) =>
+        onMappingValUpdate={(mappingVal: MappingVal): void =>
           props.onMappingValUpdate(MappedThing.PLACE, mappingVal, false)
         }
         orderedColumns={props.csvData.orderedColumns}
@@ -49,7 +47,7 @@ export function MultiVarCol(props: MappingTemplateProps): JSX.Element {
       <MappingColumnInput
         mappedThing={MappedThing.DATE}
         mappingVal={props.userMapping.get(MappedThing.DATE)}
-        onMappingValUpdate={(mappingVal: MappingVal) =>
+        onMappingValUpdate={(mappingVal: MappingVal): void =>
           props.onMappingValUpdate(MappedThing.DATE, mappingVal, false)
         }
         orderedColumns={props.csvData.orderedColumns}
@@ -60,7 +58,10 @@ export function MultiVarCol(props: MappingTemplateProps): JSX.Element {
           MAPPED_THING_NAMES[MappedThing.STAT_VAR] || MappedThing.STAT_VAR
         }
         mappingVal={props.userMapping.get(MappedThing.STAT_VAR)}
-        onMappingValUpdate={(mappingVal: MappingVal, hasInputErrors: boolean) =>
+        onMappingValUpdate={(
+          mappingVal: MappingVal,
+          hasInputErrors: boolean
+        ): void =>
           props.onMappingValUpdate(
             MappedThing.STAT_VAR,
             mappingVal,
@@ -74,7 +75,7 @@ export function MultiVarCol(props: MappingTemplateProps): JSX.Element {
       <MappingColumnInput
         mappedThing={MappedThing.UNIT}
         mappingVal={props.userMapping.get(MappedThing.UNIT)}
-        onMappingValUpdate={(mappingVal) =>
+        onMappingValUpdate={(mappingVal): void =>
           props.onMappingValUpdate(MappedThing.UNIT, mappingVal, false)
         }
         orderedColumns={props.csvData.orderedColumns}

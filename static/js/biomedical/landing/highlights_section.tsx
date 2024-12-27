@@ -65,7 +65,7 @@ const Label = styled.div`
 `;
 
 const Highlight = styled.div`
-  color: ${(props) => props.theme.highlightColors.dark};
+  color: ${(props): string => props.theme.highlightColors.dark};
   font-size: 45px;
   font-weight: 400;
   line-height: 52px;

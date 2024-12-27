@@ -53,5 +53,5 @@ test("getUnit", () => {
     unit: testUnit,
     unitDisplayName: shortUnit,
   };
-  expect(getUnit(sourceSeriesWithUnitAndScalingFactor) === shortUnit);
+  expect(getUnit(sourceSeriesWithUnitDisplayName) === shortUnit);
 });

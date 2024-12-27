@@ -373,7 +373,7 @@ export function computePlotParams(
 }
 
 export function shouldFillInValues(series: number[][]): boolean {
-  const defined = (d) => {
+  const defined = (d): boolean => {
     return d[1] !== null;
   };
   const n = series.length;

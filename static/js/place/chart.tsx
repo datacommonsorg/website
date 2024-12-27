@@ -248,7 +248,16 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
       );
     });
     return (
-      <div className="col">
+      <div
+        className="col"
+        data-testclass={`${
+          this.props.trend
+            ? "is-trend"
+            : this.props.snapshot
+            ? "is-snapshot"
+            : ""
+        } chart-type-${this.props.chartType}`}
+      >
         <div
           className={`chart-container ${ASYNC_ELEMENT_HOLDER_CLASS}`}
           ref={this.chartElement}
@@ -445,7 +454,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
             entities,
             fieldDelimiter: CSV_FIELD_DELIMITER,
             transformHeader: transformCsvHeader,
-            variables: this.props.statsVars,
+            variables: this.statsVars,
           });
         } else if (this.props.parentPlaceDcid && this.props.enclosedPlaceType) {
           // Ranking & map charts set parentPlaceDcid and rankingPlaceType
@@ -455,7 +464,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
             fieldDelimiter: CSV_FIELD_DELIMITER,
             parentEntity: this.props.parentPlaceDcid,
             transformHeader: transformCsvHeader,
-            variables: this.props.statsVars,
+            variables: this.statsVars,
           });
         }
         // All other charts should fetch data about specific entities and
@@ -465,7 +474,7 @@ class Chart extends React.Component<ChartPropType, ChartStateType> {
           entities,
           fieldDelimiter: CSV_FIELD_DELIMITER,
           transformHeader: transformCsvHeader,
-          variables: this.props.statsVars,
+          variables: this.statsVars,
         });
       },
       this.svgContainerElement.current.offsetWidth,

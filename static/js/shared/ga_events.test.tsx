@@ -189,8 +189,8 @@ const MAP_PROPS = {
   ],
   sampleDates: [],
   metahash: "",
-  onPlay: () => null,
-  updateDate: () => null,
+  onPlay: (): null => null,
+  updateDate: (): null => null,
   geoRaster: null,
   mapType: MAP_TYPE.D3,
   children: null,
@@ -201,11 +201,11 @@ const TIMELINE_PROPS = {
   denom: "",
   delta: false,
   chartId: "",
-  onDataUpdate: () => null,
-  onMetadataMapUpdate: () => null,
+  onDataUpdate: (): null => null,
+  onMetadataMapUpdate: (): null => null,
   placeNameMap: { [PLACE_DCID]: PLACE_NAME },
   pc: false,
-  removeStatVar: () => null,
+  removeStatVar: (): null => null,
   statVarInfos: { [STAT_VAR_1]: { title: "" } } as Record<string, StatVarInfo>,
   svFacetId: { [STAT_VAR_1]: "" },
 };
@@ -257,13 +257,13 @@ const SCATTER_PROPS = {
       metadataMap: {},
     },
   ],
-  onSvFacetIdUpdated: () => null,
+  onSvFacetIdUpdated: (): null => null,
 };
 
 const MAP_CONTEXT = {
   dateCtx: {
     value: "",
-    set: () => null,
+    set: (): null => null,
   },
   isLoading: {} as MapIsLoadingWrapper,
   display: {
@@ -395,8 +395,8 @@ const STAT_VAR_HIERARCHY_PROPS = {
   type: StatVarHierarchyType.TIMELINE,
   entities: [{ name: PLACE_NAME, dcid: PLACE_DCID }],
   selectedSVs: [STAT_VAR_2],
-  selectSV: () => null,
-  deselectSV: () => null,
+  selectSV: (): null => null,
+  deselectSV: (): null => null,
 };
 
 beforeEach(() => {
@@ -867,8 +867,8 @@ describe("test ga event tool place add", () => {
         types: null,
       } as NamedTypedPlace,
       enclosedPlaceType: "",
-      onPlaceSelected: () => null,
-      onEnclosedPlaceTypeSelected: () => null,
+      onPlaceSelected: (): null => null,
+      onEnclosedPlaceTypeSelected: (): null => null,
     };
     // Mock gtag.
     const mockgtag = jest.fn();
@@ -879,10 +879,10 @@ describe("test ga event tool place add", () => {
         places: {
           Autocomplete: jest.fn().mockImplementation((elem) => {
             return {
-              addListener: (_placeChanged, callback) => {
+              addListener: (_placeChanged, callback): void => {
                 elem.addEventListener("change", callback);
               },
-              getPlace: () => {
+              getPlace: (): { name: string } => {
                 return { name: PLACE_ADDED };
               },
             };
@@ -925,7 +925,7 @@ describe("test ga event tool stat var search no result", () => {
     // Render the component.
     const props = {
       entities: [""],
-      onSelectionChange: () => null,
+      onSelectionChange: (): null => null,
     };
     const statVarSearch = render(<StatVarHierarchySearch {...props} />);
 
