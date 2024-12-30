@@ -30,6 +30,16 @@ if [[ "$1" == "--verbose" ]]; then
   VERBOSE=true
 fi
 
+export FLASK_ENV="${FLASK_ENV:-integration_test}"
+export ENV_PREFIX="${ENV_PREFIX:-Staging}"
+export GOOGLE_CLOUD_PROJECT="${GOOGLE_CLOUD_PROJECT:-datcom-website-staging}"
+export ENABLE_MODEL="${ENABLE_MODEL:-true}"
+
+echo "FLASK_ENV=$FLASK_ENV"
+echo "ENV_PREFIX=$ENV_PREFIX"
+echo "GOOGLE_CLOUD_PROJECT=$GOOGLE_CLOUD_PROJECT"
+echo "ENABLE_MODEL=$ENABLE_MODEL"
+
 exit_with=0
 
 # Kill forked processes, then exit with the status code stored in a variable.
