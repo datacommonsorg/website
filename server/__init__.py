@@ -132,11 +132,6 @@ def register_routes_sustainability(app):
       )
 
 
-def register_routes_admin(app):
-  from server.routes.admin import html as admin_html
-  app.register_blueprint(admin_html.bp)
-
-
 def register_routes_common(app):
   # apply blueprints for main app
   from server.routes import static
@@ -265,7 +260,6 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   # Use NL_SERVICE_ROOT if it's set, otherwise use nl_root argument
   app.config['NL_ROOT'] = os.environ.get("NL_SERVICE_ROOT_URL", nl_root)
-  app.config['ENABLE_ADMIN'] = os.environ.get('ENABLE_ADMIN', '') == 'true'
 
   lib_cache.cache.init_app(app)
   lib_cache.model_cache.init_app(app)
@@ -287,9 +281,6 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
 
   if cfg.SHOW_SUSTAINABILITY:
     register_routes_sustainability(app)
-
-  if app.config['ENABLE_ADMIN']:
-    register_routes_admin(app)
 
   # Load topic page config
   topic_page_configs = libutil.get_topic_page_config()
@@ -328,9 +319,6 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
                                                       'maps-api-key', 'latest')
       secret_response = secret_client.access_secret_version(name=secret_name)
       app.config['MAPS_API_KEY'] = secret_response.payload.data.decode('UTF-8')
-
-  if app.config['ENABLE_ADMIN']:
-    app.config['ADMIN_SECRET'] = os.environ.get('ADMIN_SECRET', '')
 
   if cfg.LOCAL:
     app.config['LOCAL'] = True
