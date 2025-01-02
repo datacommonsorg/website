@@ -211,10 +211,6 @@ def get_i18n_name(dcids, should_resolve_all=True):
   locales = i18n.locale_choices(g.locale)
   for dcid in dcids:
     values = response.get(dcid, [])
-    # If there is no nameWithLanguage for this dcid, fall back to name.
-    if not values:
-      dcids_default_name.append(dcid)
-      continue
     result[dcid] = ''
     for locale in locales:
       for entry in values:
@@ -223,6 +219,11 @@ def get_i18n_name(dcids, should_resolve_all=True):
           break
       if result[dcid]:
         break
+
+    if not result[dcid]:
+        # if there is no name with language, default to name.
+        dcids_default_name.append(dcid)
+
   if dcids_default_name:
     if should_resolve_all:
       default_names = names(dcids_default_name)
