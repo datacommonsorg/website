@@ -66,8 +66,9 @@ def get_parent_places(dcid: str) -> List[Place]:
       dcid, [])
   all_parents = []
   for parent in parents_resp:
-    all_parents.append(
-        Place(dcid=parent['dcid'], name=parent['name'], types=parent['type']))
+    if 'type' in parent and 'name' in parent and 'type' in parent:
+      all_parents.append(
+          Place(dcid=parent['dcid'], name=parent['name'], types=parent['type']))
 
   return all_parents
 
@@ -330,7 +331,7 @@ PLACE_TYPES_TO_CHILD_PLACE_TYPES = {
     "Continent": ["Country"],
     "GeoRegion": ["Country", "City"],
     "Country": [
-        "State", "EurostatNUTS1", "EurostatNUTS2", "AdministrativeArea1"
+        "State", "AdministrativeArea1", "EurostatNUTS1", "EurostatNUTS2",
     ],
     "State": ["County", "AdministrativeArea2"],
     "AdministrativeArea1": ["County", "AdministrativeArea2"],
