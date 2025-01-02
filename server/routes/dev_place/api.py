@@ -138,6 +138,7 @@ def related_places(place_dcid: str):
   - Place details (name, type, etc.)
   - Lists of nearby, similar, and child places
   """
+  print("We just a call in dev place api relalted places.")
   # Fetch place info
   place = place_utils.fetch_place(place_dcid, locale=g.locale)
 
