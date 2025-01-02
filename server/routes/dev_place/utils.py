@@ -331,7 +331,10 @@ PLACE_TYPES_TO_CHILD_PLACE_TYPES = {
     "Continent": ["Country"],
     "GeoRegion": ["Country", "City"],
     "Country": [
-        "State", "AdministrativeArea1", "EurostatNUTS1", "EurostatNUTS2",
+        "State",
+        "AdministrativeArea1",
+        "EurostatNUTS1",
+        "EurostatNUTS2",
     ],
     "State": ["County", "AdministrativeArea2"],
     "AdministrativeArea1": ["County", "AdministrativeArea2"],
