@@ -221,8 +221,8 @@ def get_i18n_name(dcids, should_resolve_all=True):
         break
 
     if not result[dcid]:
-        # if there is no name with language, default to name.
-        dcids_default_name.append(dcid)
+      # if there is no name with language, default to name.
+      dcids_default_name.append(dcid)
 
   if dcids_default_name:
     if should_resolve_all:

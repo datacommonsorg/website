@@ -291,7 +291,8 @@ DEV_PLACE_EXPERIMENT_US_STATE_DCIDS: List[str] = [
     'geoId/56', 'geoId/04', 'geoId/41', 'geoId/20', 'geoId/37'
 ]
 DEV_PLACE_EXPERIMENT_CONTINENT_DCIDS: List[str] = [
-    'northamerica', 'southamerica', 'europe', 'africa', 'asia', 'antarctica', 'oceania'
+    'northamerica', 'southamerica', 'europe', 'africa', 'asia', 'antarctica',
+    'oceania'
 ]
 DEV_PLACE_EXPERIMENT_DCIDS: Set[str] = set(DEV_PLACE_EXPERIMENT_COUNTRY_DCIDS +
                                            DEV_PLACE_EXPERIMENT_US_STATE_DCIDS +
