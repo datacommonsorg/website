@@ -13,8 +13,7 @@
 # limitations under the License.
 
 import csv
-from datetime import date
-from datetime import datetime
+import datetime
 from functools import wraps
 import gzip
 import hashlib
@@ -472,11 +471,11 @@ def hash_id(user_id):
 def parse_date(date_string):
   parts = date_string.split("-")
   if len(parts) == 1:
-    return datetime.strptime(date_string, "%Y")
+    return datetime.datetime.strptime(date_string, "%Y")
   elif len(parts) == 2:
-    return datetime.strptime(date_string, "%Y-%m")
+    return datetime.datetime.strptime(date_string, "%Y-%m")
   elif len(parts) == 3:
-    return datetime.strptime(date_string, "%Y-%m-%d")
+    return datetime.datetime.strptime(date_string, "%Y-%m-%d")
   else:
     raise ValueError("Invalid date: %s", date_string)
 
@@ -808,7 +807,7 @@ def _get_recent_date_counts(observation_entity_counts_by_date,
   # TODO: Remove this check once data is corrected in b/327667797
   if observation_entity_counts_by_date[
       'variable'] in FILTER_FUTURE_OBSERVATIONS_FROM_VARIABLES:
-    todays_date = str(date.today())
+    todays_date = str(datetime.date.today())
     descending_observation_dates = [
         observation_date for observation_date in descending_observation_dates
         if observation_date['date'] < todays_date
@@ -818,7 +817,7 @@ def _get_recent_date_counts(observation_entity_counts_by_date,
   # Heuristic to fetch the "max_dates_to_check" most recent
   # observation dates or observation dates going back
   # "max_years_to_check" years, whichever is greater
-  cutoff_year = str(date.today().year - max_years_to_check)
+  cutoff_year = str(datetime.date.today().year - max_years_to_check)
   latest_observation_dates_from_year = [
       o for o in descending_observation_dates if o['date'] > cutoff_year
   ]
