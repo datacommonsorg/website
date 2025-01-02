@@ -40,7 +40,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "startDate": "2023"
+                      "startDate": "2024"
                     },
                     "statVarKey": [
                       "Count_FireEvent_285042123"
@@ -102,7 +102,7 @@
                 "tiles": [
                   {
                     "lineTileSpec": {
-                      "startDate": "2023"
+                      "startDate": "2024"
                     },
                     "statVarKey": [
                       "Count_WildfireEvent_2519150620"
@@ -126,45 +126,9 @@
               }
             ],
             "title": "Wildfires"
-          },
-          {
-            "columns": [
-              {
-                "tiles": [
-                  {
-                    "rankingTileSpec": {
-                      "rankingCount": 10,
-                      "showHighest": true
-                    },
-                    "statVarKey": [
-                      "Annual_ExpectedLoss_NaturalHazardImpact_WildfireEvent"
-                    ],
-                    "title": "Annual Expected Loss From Natural Hazard Impact: Wildfire in Counties of California (${date})",
-                    "type": "RANKING"
-                  }
-                ]
-              },
-              {
-                "tiles": [
-                  {
-                    "statVarKey": [
-                      "Annual_ExpectedLoss_NaturalHazardImpact_WildfireEvent"
-                    ],
-                    "title": "Annual Expected Loss From Natural Hazard Impact: Wildfire in Counties of California (${date})",
-                    "type": "MAP"
-                  }
-                ]
-              }
-            ],
-            "denom": "Count_Person",
-            "title": "Annual Expected Loss From Natural Hazard Impact: Wildfire in Counties of California"
           }
         ],
         "statVarSpec": {
-          "Annual_ExpectedLoss_NaturalHazardImpact_WildfireEvent": {
-            "name": "Annual Expected Loss from Natural Hazard Impact: Wildfire",
-            "statVar": "Annual_ExpectedLoss_NaturalHazardImpact_WildfireEvent"
-          },
           "Count_FireEvent": {
             "name": "Count of Fire Event",
             "statVar": "Count_FireEvent"
