@@ -332,9 +332,9 @@ PLACE_TYPES_TO_CHILD_PLACE_TYPES = {
     "GeoRegion": ["Country", "City"],
     "Country": [
         "State",
-        "AdministrativeArea1",
         "EurostatNUTS1",
         "EurostatNUTS2",
+        "AdministrativeArea1",
     ],
     "State": ["County", "AdministrativeArea2"],
     "AdministrativeArea1": ["County", "AdministrativeArea2"],
@@ -383,6 +383,25 @@ def get_child_place_type(place: Place) -> str | None:
   Returns:
       str | None: The primary child place type for the given place, or None if no match is found.
   """
+  child_place_types = get_child_place_types(place)
+  if child_place_types:
+    return child_place_types[0]
+  return None
+
+
+def get_child_place_types(place: Place) -> list[str] | None:
+  """
+  Determines the primary child place type for a given place.
+
+  This function uses custom matching rules and fallback hierarchies to decide
+  the most relevant child place type for a given place.
+
+  Args:
+      place (Place): The place object to analyze.
+
+  Returns:
+      str | None: The primary child place type for the given place, or None if no match is found.
+  """
   # Attempt to directly match a child place type using the custom expressions.
   for f in PLACE_MATCH_EXPRESSIONS:
     matched_child_place_type = f(place)
@@ -405,10 +424,14 @@ def get_child_place_type(place: Place) -> str | None:
   for raw_property_value in raw_property_values_response.get(place.dcid, []):
     child_place_types.update(raw_property_value.get("types", []))
 
+  child_place_type_candidates = []
   # Return the first child place type that matches the ordered list of possible child types.
-  for primary_place_type_candidate in ordered_child_place_types:
-    if primary_place_type_candidate in child_place_types:
-      return primary_place_type_candidate
+  for place_type_candidate in ordered_child_place_types:
+    if place_type_candidate in child_place_types:
+      child_place_type_candidates.append(place_type_candidate)
+
+  if child_place_type_candidates:
+    return child_place_type_candidates
 
   # If no matching child place type is found, return None.
   return None

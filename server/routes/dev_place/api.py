@@ -146,10 +146,14 @@ def related_places(place_dcid: str):
                                                             locale=g.locale)
   similar_place_dcids = place_utils.fetch_similar_place_dcids(place,
                                                               locale=g.locale)
-  child_place_type = place_utils.get_child_place_type(place)
-  child_place_dcids = place_utils.fetch_child_place_dcids(place,
-                                                          child_place_type,
-                                                          locale=g.locale)
+  ordered_child_place_types = place_utils.get_child_place_types(place)
+  primary_child_place_type = ordered_child_place_types[0] if ordered_child_place_types else None
+  child_place_dcids = list({
+    dcid
+    for child_place_type in ordered_child_place_types
+    for dcid in place_utils.fetch_child_place_dcids(place, child_place_type, locale=g.locale)
+  })
+
   parent_places = place_utils.get_parent_places(place.dcid)
 
   # Fetch all place objects in one request to reduce latency (includes name and typeOf)
@@ -176,7 +180,7 @@ def related_places(place_dcid: str):
       if not all_place_by_dcid[dcid].dissolved
   ]
 
-  response = RelatedPlacesApiResponse(childPlaceType=child_place_type,
+  response = RelatedPlacesApiResponse(childPlaceType=primary_child_place_type,
                                       childPlaces=child_places,
                                       nearbyPlaces=nearby_places,
                                       place=place,
