@@ -13,7 +13,9 @@
 # limitations under the License.
 """Tests for quantity_parser."""
 
+from datetime import date as datetime_date  # Rename to avoid conflict
 import unittest
+from unittest import mock
 
 from parameterized import parameterized
 
@@ -41,7 +43,9 @@ class TestDateParser(unittest.TestCase):
       ("Female population in California a decade ago", [Date('in', 2014)]),
       ('Female population in California 15 years ago', [Date('in', 2009)])
   ])
-  def test_main(self, query, expected):
+  @mock.patch('datetime.date')
+  def test_main(self, query, expected, mock_date):
+    mock_date.today.return_value = datetime_date(2024, 12, 1)
     ctr = Counters()
     attr = date.parse_date(query, ctr)
     if attr:
