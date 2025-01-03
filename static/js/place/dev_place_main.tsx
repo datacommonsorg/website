@@ -262,7 +262,7 @@ const PlaceTopicTabs = ({
   if (!topics || topics.length == 0) {
     return <></>;
   }
-  
+
   return (
     <div className="explore-topics-box">
       <span className="explore-relevant-topics">Relevant topics</span>
@@ -590,7 +590,9 @@ export const DevPlaceMain = (): React.JSX.Element => {
         categories.add(chart.category);
       });
       setCategories(
-        ["Overview"].concat(Object.values(placeChartsApiResponse.translatedCategoryStrings))
+        ["Overview"].concat(
+          Object.values(placeChartsApiResponse.translatedCategoryStrings)
+        )
       );
     }
   }, [placeChartsApiResponse, setPlaceChartsApiResponse, setCategories]);
