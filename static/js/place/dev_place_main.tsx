@@ -20,7 +20,7 @@ import {
   PlaceChartsApiResponse,
   RelatedPlacesApiResponse,
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
-import _, { over } from "lodash";
+import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 import { RawIntlProvider } from "react-intl";
 
@@ -562,7 +562,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
       console.error("Error loading place page metadata element");
       return;
     }
-    if (
+    if (!isLoading &&
       pageMetadata.dataset.placeDcid != "" &&
       pageMetadata.dataset.placeName === ""
     ) {
