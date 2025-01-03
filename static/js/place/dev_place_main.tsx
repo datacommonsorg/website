@@ -185,6 +185,56 @@ const PlaceHeader = (props: {
 };
 
 /**
+ * Component that renders the individual topic navigation buttons.
+ * Shows buttons for the topics created and highlights the currently selected category.
+ *
+ * @param props.category The category for the current button
+ * @param props.selectedCategory The currently selected category
+ * @param props.forceDevPlaces Whether the flag to force dev places should be propagated.
+ * @param props.place The place object containing the DCID for generating URLs
+ * @returns Button component for the current topic
+ */
+const TopicItem = (props: {
+  category: string;
+  selectedCategory: string;
+  forceDevPlaces: boolean;
+  place: NamedTypedPlace;
+}): React.JSX.Element => {
+  const { category, selectedCategory, forceDevPlaces, place } = props;
+
+  const createHref = (
+    category: string,
+    forceDevPlaces: boolean,
+    place: NamedTypedPlace
+  ): string => {
+    const href = `/place/${place.dcid}`;
+    const params = new URLSearchParams();
+    const isOverview = category === "Overview";
+
+    if (!isOverview) {
+      params.set("category", category);
+    }
+    if (forceDevPlaces) {
+      params.set("force_dev_places", "true");
+    }
+    return params.size > 0 ? `${href}?${params.toString()}` : href;
+  };
+
+  return (
+    <div className="item-list-item">
+      <a
+        href={createHref(category, forceDevPlaces, place)}
+        className={`item-list-text  + ${
+          selectedCategory === category ? " selected" : ""
+        }`}
+      >
+        {category}
+      </a>
+    </div>
+  );
+};
+
+/**
  * Component that renders the topic navigation tabs.
  * Shows tabs for Overview and different categories like Economics, Health, etc.
  * Highlights the currently selected category.
@@ -194,103 +244,34 @@ const PlaceHeader = (props: {
  * @returns Navigation component with topic tabs
  */
 const PlaceTopicTabs = ({
+  topics,
   forceDevPlaces,
   category,
   place,
 }: {
+  topics: string[];
   forceDevPlaces: boolean;
   category: string;
   place: NamedTypedPlace;
 }): React.JSX.Element => {
+  if (!topics || topics.length == 0) {
+    return <></>;
+  }
+
   return (
     <div className="explore-topics-box">
       <span className="explore-relevant-topics">Relevant topics</span>
       <div className="item-list-container">
         <div className="item-list-inner">
-          <div className="item-list-item">
-            <a
-              className={`item-list-text ${
-                category === "Overview" ? "selected" : ""
-              }`}
-              href={`/place/${place.dcid}${
-                forceDevPlaces ? "?force_dev_places=true" : ""
-              }`}
-            >
-              Overview
-            </a>
-          </div>
-          <div className="item-list-item">
-            <a
-              className={`item-list-text ${
-                category === "Economics" ? "selected" : ""
-              }`}
-              href={`/place/${place.dcid}?category=Economics${
-                forceDevPlaces ? "&force_dev_places=true" : ""
-              }`}
-            >
-              Economics
-            </a>
-          </div>
-          <div className="item-list-item">
-            <a
-              className={`item-list-text ${
-                category === "Health" ? "selected" : ""
-              }`}
-              href={`/place/${place.dcid}?category=Health${
-                forceDevPlaces ? "&force_dev_places=true" : ""
-              }`}
-            >
-              Health
-            </a>
-          </div>
-          <div className="item-list-item">
-            <a
-              className={`item-list-text ${
-                category === "Equity" ? "selected" : ""
-              }`}
-              href={`/place/${place.dcid}?category=Equity${
-                forceDevPlaces ? "&force_dev_places=true" : ""
-              }`}
-            >
-              Equity
-            </a>
-          </div>
-          <div className="item-list-item">
-            <a
-              className={`item-list-text ${
-                category === "Demographics" ? "selected" : ""
-              }`}
-              href={`/place/${place.dcid}?category=Demographics${
-                forceDevPlaces ? "&force_dev_places=true" : ""
-              }`}
-            >
-              Demographics
-            </a>
-          </div>
-          <div className="item-list-item">
-            <a
-              className={`item-list-text ${
-                category === "Environment" ? "selected" : ""
-              }`}
-              href={`/place/${place.dcid}?category=Environment${
-                forceDevPlaces ? "&force_dev_places=true" : ""
-              }`}
-            >
-              Environment
-            </a>
-          </div>
-          <div className="item-list-item">
-            <a
-              className={`item-list-text ${
-                category === "Energy" ? "selected" : ""
-              }`}
-              href={`/place/${place.dcid}?category=Energy${
-                forceDevPlaces ? "&force_dev_places=true" : ""
-              }`}
-            >
-              Energy
-            </a>
-          </div>
+          {topics.map((topic) => (
+            <TopicItem
+              key={topic}
+              category={topic}
+              selectedCategory={category}
+              forceDevPlaces={forceDevPlaces}
+              place={place}
+            />
+          ))}
         </div>
       </div>
     </div>
@@ -540,6 +521,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
   const [childPlaces, setChildPlaces] = useState<NamedTypedPlace[]>([]);
   const [parentPlaces, setParentPlaces] = useState<NamedTypedPlace[]>([]);
   const [pageConfig, setPageConfig] = useState<SubjectPageConfig>();
+  const [categories, setCategories] = useState<string[]>();
 
   const urlParams = new URLSearchParams(window.location.search);
   const category = urlParams.get("category") || "Overview";
@@ -586,15 +568,28 @@ export const DevPlaceMain = (): React.JSX.Element => {
 
       setPlaceChartsApiResponse(placeChartsApiResponse);
       setRelatedPlacesApiResponse(relatedPlacesApiResponse);
-      const pageConfig = placeChartsApiResponsesToPageConfig(
+      const config = placeChartsApiResponsesToPageConfig(
         placeChartsApiResponse
       );
       setChildPlaceType(relatedPlacesApiResponse.childPlaceType);
       setChildPlaces(relatedPlacesApiResponse.childPlaces);
       setParentPlaces(relatedPlacesApiResponse.parentPlaces);
-      setPageConfig(pageConfig);
+      setPageConfig(config);
     })();
   }, [place]);
+
+  useEffect(() => {
+    if (placeChartsApiResponse && placeChartsApiResponse.charts) {
+      // TODO(gmechali): Refactor this to use the translations correctly.
+      // Move overview to be added in the response with translations. Use the
+      // translation in the tabs, but the english version in the URL.
+      setCategories(
+        ["Overview"].concat(
+          Object.values(placeChartsApiResponse.translatedCategoryStrings)
+        )
+      );
+    }
+  }, [placeChartsApiResponse, setPlaceChartsApiResponse, setCategories]);
 
   if (!place) {
     return <div>Loading...</div>;
@@ -607,6 +602,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
         placeSubheader={placeSubheader}
       />
       <PlaceTopicTabs
+        topics={categories}
         category={category}
         place={place}
         forceDevPlaces={forceDevPlaces}

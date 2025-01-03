@@ -90,8 +90,9 @@ def place_charts(place_dcid: str):
   full_chart_config = copy.deepcopy(current_app.config['CHART_CONFIG'])
 
   # Filter chart config by category
+  overview_chart_config = [c for c in full_chart_config if c.get("isOverview")]
   if place_category == OVERVIEW_CATEGORY:
-    chart_config = [c for c in full_chart_config if c.get("isOverview")]
+    chart_config = overview_chart_config
   else:
     chart_config = [
         c for c in full_chart_config if c["category"] == place_category
@@ -103,6 +104,14 @@ def place_charts(place_dcid: str):
       place_dcid=place_dcid,
       child_place_type=child_place_type)
 
+  # Always execute the call for the overview category to fetch the valid categories.
+  filtered_chart_config_for_category = (
+      filtered_chart_config if place_category == OVERVIEW_CATEGORY else
+      place_utils.filter_chart_config_by_place_dcid(
+          chart_config=overview_chart_config,
+          place_dcid=place_dcid,
+          child_place_type=child_place_type))
+
   # Translate chart config titles
   translated_chart_config = place_utils.translate_chart_config(
       filtered_chart_config)
@@ -113,7 +122,7 @@ def place_charts(place_dcid: str):
 
   # Translate category strings
   translated_category_strings = place_utils.get_translated_category_strings(
-      filtered_chart_config)
+      filtered_chart_config_for_category)
 
   response = PlaceChartsApiResponse(
       charts=charts,
