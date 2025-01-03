@@ -378,22 +378,26 @@ export function TileSources(props: {
     );
   });
   return (
-    <div className="sources" {...{ part: "source" }}>
-      {sourcesJsx.length > 1 ? "Sources" : "Source"}:{" "}
-      <span {...{ part: "source-links" }}>{sourcesJsx}</span>
-      {statVarSpecs && statVarSpecs.length > 0 && (
-        <>
-          <span {...{ part: "source-separator" }}> • </span>
-          <span {...{ part: "source-show-metadata-link" }}>
-            <TileMetadataModal
-              apiRoot={props.apiRoot}
-              containerRef={props.containerRef}
-              statVarSpecs={statVarSpecs}
-            ></TileMetadataModal>
-          </span>
-        </>
+    <>
+      {sourcesJsx.length > 0 && (
+        <div className="sources" {...{ part: "source" }}>
+          {sourcesJsx.length > 1 ? "Sources" : "Source"}:{" "}
+          <span {...{ part: "source-links" }}>{sourcesJsx}</span>
+          {statVarSpecs && statVarSpecs.length > 0 && (
+            <>
+              <span {...{ part: "source-separator" }}> • </span>
+              <span {...{ part: "source-show-metadata-link" }}>
+                <TileMetadataModal
+                  apiRoot={props.apiRoot}
+                  containerRef={props.containerRef}
+                  statVarSpecs={statVarSpecs}
+                ></TileMetadataModal>
+              </span>
+            </>
+          )}
+        </div>
       )}
-    </div>
+    </>
   );
 }
 
