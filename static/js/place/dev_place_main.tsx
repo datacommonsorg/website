@@ -541,7 +541,6 @@ export const DevPlaceMain = (): React.JSX.Element => {
     });
     setPlaceSummary(pageMetadata.dataset.placeSummary);
     setPlaceSubheader(pageMetadata.dataset.placeSubheader);
-    console.log("So I think we reset??");
   }, []);
 
   /**
@@ -566,18 +565,17 @@ export const DevPlaceMain = (): React.JSX.Element => {
 
       setPlaceChartsApiResponse(placeChartsApiResponse);
       setRelatedPlacesApiResponse(relatedPlacesApiResponse);
-      const pageConfig = placeChartsApiResponsesToPageConfig(
+      const config = placeChartsApiResponsesToPageConfig(
         placeChartsApiResponse
       );
       setChildPlaceType(relatedPlacesApiResponse.childPlaceType);
       setChildPlaces(relatedPlacesApiResponse.childPlaces);
       setParentPlaces(relatedPlacesApiResponse.parentPlaces);
-      setPageConfig(pageConfig);
+      setPageConfig(config);
     })();
   }, [place]);
 
   useEffect(() => {
-    console.log("Categories are:" + category);
     if (category === "Overview" && placeChartsApiResponse && placeChartsApiResponse.charts) {
       const categories = new Set<string>();
       placeChartsApiResponse.charts.forEach((chart) => {
