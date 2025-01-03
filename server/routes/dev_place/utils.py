@@ -367,25 +367,6 @@ DEFAULT_CHILD_PLACE_TYPES = set([
 ])
 
 
-def get_child_place_type(place: Place) -> str | None:
-  """
-  Determines the primary child place type for a given place.
-
-  This function uses custom matching rules and fallback hierarchies to decide
-  the most relevant child place type for a given place.
-
-  Args:
-      place (Place): The place object to analyze.
-
-  Returns:
-      str | None: The primary child place type for the given place, or None if no match is found.
-  """
-  child_place_types = get_child_place_types(place)
-  if child_place_types:
-    return child_place_types[0]
-  return None
-
-
 def get_child_place_types(place: Place) -> list[str]:
   """
   Determines the primary child place type for a given place.
