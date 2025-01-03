@@ -108,15 +108,9 @@ def place_charts(place_dcid: str):
   filtered_chart_config_for_category = (
       filtered_chart_config if place_category == OVERVIEW_CATEGORY else
       place_utils.filter_chart_config_by_place_dcid(
-          chart_config=[c for c in full_chart_config if c.get("isOverview")],
+          chart_config=overview_chart_config,
           place_dcid=place_dcid,
           child_place_type=child_place_type))
-
-  # Extract valid categories from the filtered chart config
-  valid_categories = []
-  for config in filtered_chart_config_for_category:
-    if config['category'] not in valid_categories:
-      valid_categories.append(config['category'])
 
   # Translate chart config titles
   translated_chart_config = place_utils.translate_chart_config(
@@ -128,13 +122,12 @@ def place_charts(place_dcid: str):
 
   # Translate category strings
   translated_category_strings = place_utils.get_translated_category_strings(
-      filtered_chart_config)
+      filtered_chart_config_for_category)
 
   response = PlaceChartsApiResponse(
       charts=charts,
       place=place,
-      translatedCategoryStrings=translated_category_strings,
-      validCategories=valid_categories)
+      translatedCategoryStrings=translated_category_strings)
   return jsonify(response)
 
 

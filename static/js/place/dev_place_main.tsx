@@ -582,16 +582,13 @@ export const DevPlaceMain = (): React.JSX.Element => {
   }, [place]);
 
   useEffect(() => {
-    console.log(
-      "placeChartsApiResponse: " + JSON.stringify(placeChartsApiResponse)
-    );
     if (placeChartsApiResponse && placeChartsApiResponse.charts) {
       const categories = new Set<string>();
       placeChartsApiResponse.charts.forEach((chart) => {
         categories.add(chart.category);
       });
       setCategories(
-        ["Overview"].concat(Array.from(placeChartsApiResponse.validCategories))
+        ["Overview"].concat(Object.values(placeChartsApiResponse.translatedCategoryStrings))
       );
     }
   }, [placeChartsApiResponse, setPlaceChartsApiResponse, setCategories]);
