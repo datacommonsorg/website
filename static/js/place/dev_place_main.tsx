@@ -24,9 +24,9 @@ import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 import { RawIntlProvider } from "react-intl";
 
-import { LoadingHeader } from "../components/tiles/loading_header";
 import { GoogleMap } from "../components/google_map";
 import { SubjectPageMainPane } from "../components/subject_page/main_pane";
+import { LoadingHeader } from "../components/tiles/loading_header";
 import { intl } from "../i18n/i18n";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
 import {
@@ -525,7 +525,7 @@ const PlaceCharts = (props: {
  * related places, and chart data.
  */
 export const DevPlaceMain = (): React.JSX.Element => {
-  const overview_string = "Overview";
+  const overviewString = "Overview";
   // Core place data
   const [place, setPlace] = useState<NamedTypedPlace>();
   const [placeSummary, setPlaceSummary] = useState<string>();
@@ -546,11 +546,13 @@ export const DevPlaceMain = (): React.JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const urlParams = new URLSearchParams(window.location.search);
-  const category = urlParams.get("category") || overview_string;
-  const isOverview = category === overview_string;
+  const category = urlParams.get("category") || overviewString;
+  const isOverview = category === overviewString;
   const forceDevPlaces = urlParams.get("force_dev_places") === "true";
-  const hasPlaceCharts = place && pageConfig && pageConfig.categories.length > 0;
-  const hasNoCharts = place && pageConfig && pageConfig.categories.length == 0 && !isLoading;
+  const hasPlaceCharts =
+    place && pageConfig && pageConfig.categories.length > 0;
+  const hasNoCharts =
+    place && pageConfig && pageConfig.categories.length == 0 && !isLoading;
 
   /**
    * On initial load, get place metadata from the page's metadata element
@@ -562,7 +564,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
       console.error("Error loading place page metadata element");
       return;
     }
-    if (!isLoading &&
+    if (
       pageMetadata.dataset.placeDcid != "" &&
       pageMetadata.dataset.placeName === ""
     ) {
@@ -609,7 +611,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
       setPageConfig(pageConfig);
       setIsLoading(false);
     })();
-  }, [place]);
+  }, [place, category]);
 
   if (!place) {
     return <div>Loading...</div>;
@@ -649,7 +651,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
       )}
       {hasNoCharts && (
         <div>
-          No {category === overview_string ? "" : category} data found for{" "}
+          No {category === overviewString ? "" : category} data found for{" "}
           {place.name}.
         </div>
       )}
