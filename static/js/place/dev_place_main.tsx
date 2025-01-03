@@ -20,7 +20,7 @@ import {
   PlaceChartsApiResponse,
   RelatedPlacesApiResponse,
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
-import _ from "lodash";
+import _, { over } from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 import { RawIntlProvider } from "react-intl";
 
@@ -524,6 +524,7 @@ const PlaceCharts = (props: {
  * related places, and chart data.
  */
 export const DevPlaceMain = (): React.JSX.Element => {
+  const overview_string = "Overview";
   // Core place data
   const [place, setPlace] = useState<NamedTypedPlace>();
   const [placeSummary, setPlaceSummary] = useState<string>();
@@ -540,9 +541,11 @@ export const DevPlaceMain = (): React.JSX.Element => {
   const [childPlaces, setChildPlaces] = useState<NamedTypedPlace[]>([]);
   const [parentPlaces, setParentPlaces] = useState<NamedTypedPlace[]>([]);
   const [pageConfig, setPageConfig] = useState<SubjectPageConfig>();
+  const [hasError, setHasError] = useState<boolean>(false);
 
   const urlParams = new URLSearchParams(window.location.search);
-  const category = urlParams.get("category") || "Overview";
+  const category = urlParams.get("category") || overview_string;
+  const isOverview = category === overview_string;
   const forceDevPlaces = urlParams.get("force_dev_places") === "true";
 
   /**
@@ -554,6 +557,12 @@ export const DevPlaceMain = (): React.JSX.Element => {
     if (!pageMetadata) {
       console.error("Error loading place page metadata element");
       return;
+    }
+    if (
+      pageMetadata.dataset.placeDcid != "" &&
+      pageMetadata.dataset.placeName === ""
+    ) {
+      setHasError(true);
     }
     setPlace({
       name: pageMetadata.dataset.placeName,
@@ -599,6 +608,9 @@ export const DevPlaceMain = (): React.JSX.Element => {
   if (!place) {
     return <div>Loading...</div>;
   }
+  if (hasError) {
+    return <div>Place &quot;{place.dcid}&quot; not found.</div>;
+  }
   return (
     <RawIntlProvider value={intl}>
       <PlaceHeader
@@ -611,18 +623,28 @@ export const DevPlaceMain = (): React.JSX.Element => {
         place={place}
         forceDevPlaces={forceDevPlaces}
       />
-      <PlaceOverview
-        place={place}
-        placeSummary={placeSummary}
-        parentPlaces={parentPlaces}
-      />
-      <RelatedPlaces place={place} childPlaces={childPlaces} />
-      {place && pageConfig && (
+      {isOverview && placeSummary != "" && (
+        <PlaceOverview
+          place={place}
+          placeSummary={placeSummary}
+          parentPlaces={parentPlaces}
+        />
+      )}
+      {isOverview && childPlaces.length > 0 && (
+        <RelatedPlaces place={place} childPlaces={childPlaces} />
+      )}
+      {place && pageConfig && pageConfig.categories.length > 0 && (
         <PlaceCharts
           place={place}
           childPlaceType={childPlaceType}
           pageConfig={pageConfig}
         />
+      )}
+      {place && pageConfig && pageConfig.categories.length == 0 && (
+        <div>
+          No {category === overview_string ? "" : category} data found for{" "}
+          {place.name}.
+        </div>
       )}
     </RawIntlProvider>
   );
