@@ -130,7 +130,7 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
   return ''
 
 
-@cache.cached(timeout=TIMEOUT, query_string=True)
+@cache.memoize(timeout=TIMEOUT)
 def filter_chart_config_by_place_dcid(chart_config: List[Dict],
                                       place_dcid: str,
                                       child_place_type=str):

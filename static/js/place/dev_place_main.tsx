@@ -207,23 +207,18 @@ const TopicItem = (props: {
     forceDevPlaces: boolean,
     place: NamedTypedPlace
   ): string => {
+    const href = `/place/${place.dcid}`;
+    const params = new URLSearchParams();
     const isOverview = category === "Overview";
 
-    let href = `/place/${place.dcid}`;
-    if (!isOverview || forceDevPlaces) {
-      href += "?";
-    }
     if (!isOverview) {
-      href += `category=${category}`;
-    }
-    if (forceDevPlaces && !isOverview) {
-      href += "&";
+      params.set("category", category);
     }
     if (forceDevPlaces) {
-      href += "force_dev_places=true";
+      params.set("force_dev_places", "true");
     }
-    return href;
-  };
+    return params.size > 0 ? `${href}?${params.toString()}` : href;
+  }
 
   return (
     <div className="item-list-item">
@@ -585,10 +580,9 @@ export const DevPlaceMain = (): React.JSX.Element => {
 
   useEffect(() => {
     if (placeChartsApiResponse && placeChartsApiResponse.charts) {
-      const categories = new Set<string>();
-      placeChartsApiResponse.charts.forEach((chart) => {
-        categories.add(chart.category);
-      });
+      // TODO(gmechali): Refactor this to use the translations correctly.
+      // Move overview to be added in the response with translations. Use the
+      // translation in the tabs, but the english version in the URL.
       setCategories(
         ["Overview"].concat(
           Object.values(placeChartsApiResponse.translatedCategoryStrings)
