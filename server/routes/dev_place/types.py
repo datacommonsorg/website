@@ -57,6 +57,7 @@ class PlaceChartsApiResponse:
   charts: List[Chart]
   place: Place
   translatedCategoryStrings: Dict[str, str]
+  validCategories: List[str]
 
 
 @dataclass

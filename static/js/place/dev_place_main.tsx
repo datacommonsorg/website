@@ -227,8 +227,12 @@ const TopicItem = (props: {
 
   return (
     <div className="item-list-item">
-      <a href={createHref(category, forceDevPlaces, place)}
-        className={`item-list-text  + ${selectedCategory === category ? " selected" : ""}`}>
+      <a
+        href={createHref(category, forceDevPlaces, place)}
+        className={`item-list-text  + ${
+          selectedCategory === category ? " selected" : ""
+        }`}
+      >
         {category}
       </a>
     </div>
@@ -260,7 +264,7 @@ const PlaceTopicTabs = ({
       <span className="explore-relevant-topics">Relevant topics</span>
       <div className="item-list-container">
         <div className="item-list-inner">
-        {topics.map((topic) => (
+          {topics.map((topic) => (
             <TopicItem
               key={topic}
               category={topic}
@@ -272,7 +276,9 @@ const PlaceTopicTabs = ({
         </div>
       </div>
     </div>
-  ) : <></>;
+  ) : (
+    <></>
+  );
 };
 
 /**
@@ -576,12 +582,17 @@ export const DevPlaceMain = (): React.JSX.Element => {
   }, [place]);
 
   useEffect(() => {
-    if (category === "Overview" && placeChartsApiResponse && placeChartsApiResponse.charts) {
+    console.log(
+      "placeChartsApiResponse: " + JSON.stringify(placeChartsApiResponse)
+    );
+    if (placeChartsApiResponse && placeChartsApiResponse.charts) {
       const categories = new Set<string>();
       placeChartsApiResponse.charts.forEach((chart) => {
         categories.add(chart.category);
       });
-      setCategories(["Overview"].concat(Array.from(categories)));
+      setCategories(
+        ["Overview"].concat(Array.from(placeChartsApiResponse.validCategories))
+      );
     }
   }, [placeChartsApiResponse, setPlaceChartsApiResponse, setCategories]);
 
