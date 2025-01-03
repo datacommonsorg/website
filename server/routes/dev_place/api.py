@@ -103,7 +103,6 @@ def place_charts(place_dcid: str):
       child_place_type=child_place_type)
 
   # Always execute the call for the overview category to fetch the valid categories.
-  valid_categories = []
   filtered_chart_config_for_category = (
       filtered_chart_config if place_category == OVERVIEW_CATEGORY else
       place_utils.filter_chart_config_by_place_dcid(
@@ -112,6 +111,7 @@ def place_charts(place_dcid: str):
           child_place_type=child_place_type))
 
   # Extract valid categories from the filtered chart config
+  valid_categories = []
   for config in filtered_chart_config_for_category:
     if config['category'] not in valid_categories:
       valid_categories.append(config['category'])
