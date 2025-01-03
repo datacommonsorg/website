@@ -82,7 +82,9 @@ def place_charts(place_dcid: str):
   place = place_utils.fetch_place(place_dcid, locale=g.locale)
 
   # Determine child place type
-  child_place_type = place_utils.get_child_place_type(place)
+  ordered_child_place_types = place_utils.get_child_place_types(place)
+  child_place_type = ordered_child_place_types[
+      0] if ordered_child_place_types else None
 
   # Retrieve available place page charts
   full_chart_config = copy.deepcopy(current_app.config['CHART_CONFIG'])
@@ -146,10 +148,23 @@ def related_places(place_dcid: str):
                                                             locale=g.locale)
   similar_place_dcids = place_utils.fetch_similar_place_dcids(place,
                                                               locale=g.locale)
-  child_place_type = place_utils.get_child_place_type(place)
-  child_place_dcids = place_utils.fetch_child_place_dcids(place,
-                                                          child_place_type,
-                                                          locale=g.locale)
+  ordered_child_place_types = place_utils.get_child_place_types(place)
+  primary_child_place_type = ordered_child_place_types[
+      0] if ordered_child_place_types else None
+
+  child_place_dcids = []
+  seen_dcids = set(
+  )  # Keep track of seen DCIDs to prevent dupes but keep ordering.
+
+  # TODO(gmechali): Refactor this into async calls.
+  for child_place_type in ordered_child_place_types:
+    for dcid in place_utils.fetch_child_place_dcids(place,
+                                                    child_place_type,
+                                                    locale=g.locale):
+      if dcid not in seen_dcids:
+        child_place_dcids.append(dcid)
+        seen_dcids.add(dcid)
+
   parent_places = place_utils.get_parent_places(place.dcid)
 
   # Fetch all place objects in one request to reduce latency (includes name and typeOf)
@@ -176,7 +191,7 @@ def related_places(place_dcid: str):
       if not all_place_by_dcid[dcid].dissolved
   ]
 
-  response = RelatedPlacesApiResponse(childPlaceType=child_place_type,
+  response = RelatedPlacesApiResponse(childPlaceType=primary_child_place_type,
                                       childPlaces=child_places,
                                       nearbyPlaces=nearby_places,
                                       place=place,
