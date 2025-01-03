@@ -331,10 +331,7 @@ PLACE_TYPES_TO_CHILD_PLACE_TYPES = {
     "Continent": ["Country"],
     "GeoRegion": ["Country", "City"],
     "Country": [
-        "State",
-        "EurostatNUTS1",
-        "EurostatNUTS2",
-        "AdministrativeArea1",
+        "State", "EurostatNUTS1", "EurostatNUTS2", "AdministrativeArea1"
     ],
     "State": ["County", "AdministrativeArea2"],
     "AdministrativeArea1": ["County", "AdministrativeArea2"],
@@ -406,7 +403,7 @@ def get_child_place_types(place: Place) -> list[str] | None:
   for f in PLACE_MATCH_EXPRESSIONS:
     matched_child_place_type = f(place)
     if matched_child_place_type:
-      return matched_child_place_type
+      return [matched_child_place_type]
 
   # Fetch all possible child places for the given place using its containment property.
   raw_property_values_response = fetch.raw_property_values(
