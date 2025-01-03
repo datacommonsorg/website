@@ -24,6 +24,7 @@ import _, { over } from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 import { RawIntlProvider } from "react-intl";
 
+import { LoadingHeader } from "../components/tiles/loading_header";
 import { GoogleMap } from "../components/google_map";
 import { SubjectPageMainPane } from "../components/subject_page/main_pane";
 import { intl } from "../i18n/i18n";
@@ -542,11 +543,14 @@ export const DevPlaceMain = (): React.JSX.Element => {
   const [parentPlaces, setParentPlaces] = useState<NamedTypedPlace[]>([]);
   const [pageConfig, setPageConfig] = useState<SubjectPageConfig>();
   const [hasError, setHasError] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const urlParams = new URLSearchParams(window.location.search);
   const category = urlParams.get("category") || overview_string;
   const isOverview = category === overview_string;
   const forceDevPlaces = urlParams.get("force_dev_places") === "true";
+  const hasPlaceCharts = place && pageConfig && pageConfig.categories.length > 0;
+  const hasNoCharts = place && pageConfig && pageConfig.categories.length == 0 && !isLoading;
 
   /**
    * On initial load, get place metadata from the page's metadata element
@@ -581,6 +585,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
     if (!place) {
       return;
     }
+    setIsLoading(true);
     (async (): Promise<void> => {
       const [placeChartsApiResponse, relatedPlacesApiResponse] =
         await Promise.all([
@@ -602,6 +607,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
       setChildPlaces(relatedPlacesApiResponse.childPlaces);
       setParentPlaces(relatedPlacesApiResponse.parentPlaces);
       setPageConfig(pageConfig);
+      setIsLoading(false);
     })();
   }, [place]);
 
@@ -633,14 +639,15 @@ export const DevPlaceMain = (): React.JSX.Element => {
       {isOverview && childPlaces.length > 0 && (
         <RelatedPlaces place={place} childPlaces={childPlaces} />
       )}
-      {place && pageConfig && pageConfig.categories.length > 0 && (
+      {isLoading && <LoadingHeader isLoading={true} />}
+      {hasPlaceCharts && (
         <PlaceCharts
           place={place}
           childPlaceType={childPlaceType}
           pageConfig={pageConfig}
         />
       )}
-      {place && pageConfig && pageConfig.categories.length == 0 && (
+      {hasNoCharts && (
         <div>
           No {category === overview_string ? "" : category} data found for{" "}
           {place.name}.
