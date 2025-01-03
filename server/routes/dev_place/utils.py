@@ -369,16 +369,16 @@ DEFAULT_CHILD_PLACE_TYPES = set([
 
 def get_child_place_types(place: Place) -> list[str]:
   """
-  Determines the primary child place type for a given place.
+  Determines the child place types for a given place.
 
   This function uses custom matching rules and fallback hierarchies to decide
-  the most relevant child place type for a given place.
+  the ordered child place types for a given place.
 
   Args:
       place (Place): The place object to analyze.
 
   Returns:
-      str | None: The primary child place type for the given place, or None if no match is found.
+      list[str]: The child place types for the given place, or empty list if no match is found.
   """
   # Attempt to directly match a child place type using the custom expressions.
   for f in PLACE_MATCH_EXPRESSIONS:

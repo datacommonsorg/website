@@ -156,6 +156,7 @@ def related_places(place_dcid: str):
   seen_dcids = set(
   )  # Keep track of seen DCIDs to prevent dupes but keep ordering.
 
+  # TODO(gmechali): Refactor this into async calls.
   for child_place_type in ordered_child_place_types:
     for dcid in place_utils.fetch_child_place_dcids(place,
                                                     child_place_type,
