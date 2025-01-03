@@ -218,7 +218,7 @@ const TopicItem = (props: {
       params.set("force_dev_places", "true");
     }
     return params.size > 0 ? `${href}?${params.toString()}` : href;
-  }
+  };
 
   return (
     <div className="item-list-item">
