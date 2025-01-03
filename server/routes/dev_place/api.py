@@ -153,11 +153,13 @@ def related_places(place_dcid: str):
       0] if ordered_child_place_types else None
 
   child_place_dcids = []
-  seen_dcids = set()  # Keep track of seen DCIDs to prevent dupes but keep ordering.
+  seen_dcids = set(
+  )  # Keep track of seen DCIDs to prevent dupes but keep ordering.
 
   for child_place_type in ordered_child_place_types:
-    for dcid in place_utils.fetch_child_place_dcids(
-        place, child_place_type, locale=g.locale):
+    for dcid in place_utils.fetch_child_place_dcids(place,
+                                                    child_place_type,
+                                                    locale=g.locale):
       if dcid not in seen_dcids:
         child_place_dcids.append(dcid)
         seen_dcids.add(dcid)

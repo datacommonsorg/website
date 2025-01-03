@@ -386,7 +386,7 @@ def get_child_place_type(place: Place) -> str | None:
   return None
 
 
-def get_child_place_types(place: Place) -> list[str] | None:
+def get_child_place_types(place: Place) -> list[str]:
   """
   Determines the primary child place type for a given place.
 
@@ -430,8 +430,8 @@ def get_child_place_types(place: Place) -> list[str] | None:
   if child_place_type_candidates:
     return child_place_type_candidates
 
-  # If no matching child place type is found, return None.
-  return None
+  # If no matching child place type is found, return empty.
+  return []
 
 
 def fetch_child_place_dcids(place: Place,

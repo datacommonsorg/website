@@ -469,7 +469,7 @@ class TestPlaceUtils(unittest.TestCase):
         },]
     }
     place = Place(dcid="geoId/06001", name="Alameda County", types=["County"])
-    self.assertIsNone(place_utils.get_child_place_types(place))
+    self.assertEqual(place_utils.get_child_place_types(place), [])
 
   @patch('server.routes.dev_place.utils.fetch.raw_property_values')
   def test_default_child_type(self, mock_raw_property_values):
