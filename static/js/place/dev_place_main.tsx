@@ -259,7 +259,11 @@ const PlaceTopicTabs = ({
   category: string;
   place: NamedTypedPlace;
 }): React.JSX.Element => {
-  return topics ? (
+  if (!topics || topics.length == 0) {
+    return <></>;
+  }
+  
+  return (
     <div className="explore-topics-box">
       <span className="explore-relevant-topics">Relevant topics</span>
       <div className="item-list-container">
@@ -276,8 +280,6 @@ const PlaceTopicTabs = ({
         </div>
       </div>
     </div>
-  ) : (
-    <></>
   );
 };
 
