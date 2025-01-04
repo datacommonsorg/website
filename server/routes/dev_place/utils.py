@@ -20,7 +20,9 @@ import flask
 from flask_babel import gettext
 
 from server.lib import fetch
+from server.lib.cache import cache
 from server.lib.i18n import DEFAULT_LOCALE
+from server.routes import TIMEOUT
 from server.routes.dev_place.types import Chart
 from server.routes.dev_place.types import Place
 import server.routes.shared_api.place as place_api
@@ -128,6 +130,7 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
   return ''
 
 
+@cache.memoize(timeout=TIMEOUT)
 def filter_chart_config_by_place_dcid(chart_config: List[Dict],
                                       place_dcid: str,
                                       child_place_type=str):
