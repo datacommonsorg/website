@@ -597,7 +597,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
       setChildPlaceType(relatedPlacesApiResponse.childPlaceType);
       setChildPlaces(relatedPlacesApiResponse.childPlaces);
       setParentPlaces(relatedPlacesApiResponse.parentPlaces);
-      setPageConfig(pageConfig);
+      setPageConfig(config);
       setIsLoading(false);
     })();
   }, [place, category]);
@@ -613,7 +613,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
         )
       );
     }
-  }, [placeChartsApiResponse, setPlaceChartsApiResponse, setCategories]);
+  }, [placeChartsApiResponse, setPlaceChartsApiResponse]);
 
   if (!place) {
     return <div>Loading...</div>;
