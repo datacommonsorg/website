@@ -565,7 +565,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
    */
   useEffect(() => {
     const loadingElem = document.getElementById("page-loading");
-    loadingElem.style.display = isLoading ? '' : 'none';
+    loadingElem.style.display = isLoading ? "" : "none";
   }, [isLoading, setIsLoading]);
 
   /**
