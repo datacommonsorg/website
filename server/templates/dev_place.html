@@ -14,6 +14,8 @@
   limitations under the License.
   #}
   {%- extends BASE_HTML -%}
+
+  {% from 'macros/icons.html' import inline_svg %}
   
   {% set main_id = 'dc-places' %}
   {% set page_id = 'page-dc-places' %}
@@ -52,6 +54,11 @@
     ></div>
     <div id="plage-page-main" class="container">
       <div id="place-page-content" class="page-content-container">
+      </div>
+      <div id="page-loading" class="mt-4" style="display:none;">
+        {{ inline_svg('progress_activity') }}
+        {# TRANSLATORS: A message shown on the page while the content is loading. #}
+        <p>{% trans %}Loading{% endtrans %}</p>
       </div>
     </div>
   </div>
