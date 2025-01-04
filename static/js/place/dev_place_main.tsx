@@ -26,7 +26,6 @@ import { RawIntlProvider } from "react-intl";
 
 import { GoogleMap } from "../components/google_map";
 import { SubjectPageMainPane } from "../components/subject_page/main_pane";
-import { LoadingHeader } from "../components/tiles/loading_header";
 import { intl } from "../i18n/i18n";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
 import {
@@ -562,6 +561,14 @@ export const DevPlaceMain = (): React.JSX.Element => {
   }, []);
 
   /**
+   * Set the visibility on the loading indicator on loading changes.
+   */
+  useEffect(() => {
+    const loadingElem = document.getElementById("page-loading");
+    loadingElem.style.display = isLoading ? '' : 'none';
+  }, [isLoading, setIsLoading]);
+
+  /**
    * Once we have place data, fetch chart and related places data from the API.
    * Updates state with API responses and derived data.
    */
@@ -637,7 +644,6 @@ export const DevPlaceMain = (): React.JSX.Element => {
       {isOverview && childPlaces.length > 0 && (
         <RelatedPlaces place={place} childPlaces={childPlaces} />
       )}
-      {isLoading && <LoadingHeader isLoading={true} />}
       {hasPlaceCharts && (
         <PlaceCharts
           place={place}
