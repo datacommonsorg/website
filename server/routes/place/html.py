@@ -61,7 +61,8 @@ CANONICAL_DOMAIN = 'datacommons.org'
 PLACE_SUMMARY_DIR = "/datacommons/place-summary/"
 
 # Parent place types to include in listing of containing places at top of page
-PARENT_PLACE_TYPES_TO_HIGHLIGHT = {
+# Keep sorted!
+PARENT_PLACE_TYPES_TO_HIGHLIGHT = [
     'County',
     'AdministrativeArea2',
     'EurostatNUTS2',
@@ -70,7 +71,7 @@ PARENT_PLACE_TYPES_TO_HIGHLIGHT = {
     'EurostatNUTS1',
     'Country',
     'Continent',
-}
+]
 
 # Location of manually written templates for SEO experimentation in GCS bucket
 SEO_EXPERIMENT_HTML_GCS_DIR = "seo_experiments/active"
@@ -222,6 +223,16 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
       parent for parent in all_parents
       if parent['type'] in PARENT_PLACE_TYPES_TO_HIGHLIGHT
   ]
+
+  # Create a dictionary mapping parent types to their order in the highlight list
+  type_order = {
+      parent_type: i
+      for i, parent_type in enumerate(PARENT_PLACE_TYPES_TO_HIGHLIGHT)
+  }
+
+  # Sort the parents_to_include list using the type_order dictionary
+  parents_to_include.sort(key=lambda parent: type_order.get(parent['type']))
+
   parent_dcids = [parent['dcid'] for parent in parents_to_include]
   localized_names = place_api.get_i18n_name(parent_dcids)
   places_with_names = [
@@ -279,8 +290,13 @@ DEV_PLACE_EXPERIMENT_COUNTRY_DCIDS: List[str] = [
 DEV_PLACE_EXPERIMENT_US_STATE_DCIDS: List[str] = [
     'geoId/56', 'geoId/04', 'geoId/41', 'geoId/20', 'geoId/37'
 ]
+DEV_PLACE_EXPERIMENT_CONTINENT_DCIDS: List[str] = [
+    'northamerica', 'southamerica', 'europe', 'africa', 'asia', 'antarctica',
+    'oceania'
+]
 DEV_PLACE_EXPERIMENT_DCIDS: Set[str] = set(DEV_PLACE_EXPERIMENT_COUNTRY_DCIDS +
-                                           DEV_PLACE_EXPERIMENT_US_STATE_DCIDS)
+                                           DEV_PLACE_EXPERIMENT_US_STATE_DCIDS +
+                                           DEV_PLACE_EXPERIMENT_CONTINENT_DCIDS)
 
 
 def is_dev_place_experiment_enabled(place_dcid: str, locale: str,

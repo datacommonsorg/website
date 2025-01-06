@@ -42,7 +42,7 @@ export interface TileResult {
   // List of legend labels
   legend?: string[];
   // The data for the chart in the tile as a csv string
-  data_csv?: string;
+  dataCsv?: string;
   // The url to get the chart in the tile. One of chartUrl or svg should be set.
   chartUrl?: string;
   // The svg for the chart in the tile as an xml string. One of chartUrl or svg should be set.

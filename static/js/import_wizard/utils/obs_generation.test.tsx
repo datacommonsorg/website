@@ -221,10 +221,14 @@ test("GenerateRowObservations_SingleValueColumn_ValueMap", () => {
       [1000, ["CHN", "Count_Dog", "2022", "100000001"]],
     ]),
   };
+
+  /* eslint-disable camelcase */
   const valueMap = {
     USA: "CAN",
     Count_Person: "Count_Person_Female",
   };
+  /* eslint-enable camelcase */
+
   // NOTE: Row 2 only has no entry because value is empty.
   const expected: Map<RowNumber, Array<string>> = new Map([
     [1, ["Value of Count_Person_Female for CAN in 2022 is 329000000 USDollar"]],

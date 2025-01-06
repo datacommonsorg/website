@@ -42,7 +42,7 @@ import {
 
 function App(): JSX.Element {
   const [isSvModalOpen, updateSvModalOpen] = useState(false);
-  const toggleSvModalCallback = () => updateSvModalOpen(!isSvModalOpen);
+  const toggleSvModalCallback = (): void => updateSvModalOpen(!isSvModalOpen);
 
   return (
     <React.StrictMode>
@@ -77,7 +77,7 @@ export function AppWithContext(): JSX.Element {
   const store = useInitialContext(params);
 
   useEffect(() => updateHash(store), [store]);
-  window.onhashchange = () => applyHash(store);
+  window.onhashchange = (): void => applyHash(store);
 
   return (
     <Context.Provider value={store}>

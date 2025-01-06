@@ -56,7 +56,7 @@ function updateTooltip(
   tooltipLayer: Layer,
   latLng: LatLng,
   placeName?: string
-) {
+): void {
   const val = geoblaze.identify(geoRaster, [latLng.lng, latLng.lat]);
   if (val && val.length > GEORASTER_DATA_BAND) {
     tooltipLayer.setTooltipContent(

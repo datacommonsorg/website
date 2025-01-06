@@ -20,14 +20,16 @@ import flask
 from flask_babel import gettext
 
 from server.lib import fetch
+from server.lib.cache import cache
 from server.lib.i18n import DEFAULT_LOCALE
+from server.routes import TIMEOUT
 from server.routes.dev_place.types import Chart
 from server.routes.dev_place.types import Place
 import server.routes.shared_api.place as place_api
 from server.services import datacommons as dc
 
 # Parent place types to include in listing of containing places at top of page
-PARENT_PLACE_TYPES_TO_HIGHLIGHT = {
+PARENT_PLACE_TYPES_TO_HIGHLIGHT = [
     'County',
     'AdministrativeArea2',
     'EurostatNUTS2',
@@ -36,7 +38,7 @@ PARENT_PLACE_TYPES_TO_HIGHLIGHT = {
     'EurostatNUTS1',
     'Country',
     'Continent',
-}
+]
 
 
 def get_place_html_link(place_dcid: str, place_name: str) -> str:
@@ -66,8 +68,9 @@ def get_parent_places(dcid: str) -> List[Place]:
       dcid, [])
   all_parents = []
   for parent in parents_resp:
-    all_parents.append(
-        Place(dcid=parent['dcid'], name=parent['name'], types=parent['type']))
+    if 'type' in parent and 'name' in parent and 'type' in parent:
+      all_parents.append(
+          Place(dcid=parent['dcid'], name=parent['name'], types=parent['type']))
 
   return all_parents
 
@@ -95,6 +98,15 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
       if parent.types in PARENT_PLACE_TYPES_TO_HIGHLIGHT
   ]
 
+  # Create a dictionary mapping parent types to their order in the highlight list
+  type_order = {
+      parent_type: i
+      for i, parent_type in enumerate(PARENT_PLACE_TYPES_TO_HIGHLIGHT)
+  }
+
+  # Sort the parents_to_include list using the type_order dictionary
+  parents_to_include.sort(key=lambda parent: type_order.get(parent.types))
+
   # Fetch the localized names of the parents
   parent_dcids = [parent.dcid for parent in parents_to_include]
   localized_names = place_api.get_i18n_name(parent_dcids)
@@ -118,6 +130,7 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
   return ''
 
 
+@cache.memoize(timeout=TIMEOUT)
 def filter_chart_config_by_place_dcid(chart_config: List[Dict],
                                       place_dcid: str,
                                       child_place_type=str):
@@ -357,24 +370,24 @@ DEFAULT_CHILD_PLACE_TYPES = set([
 ])
 
 
-def get_child_place_type(place: Place) -> str | None:
+def get_child_place_types(place: Place) -> list[str]:
   """
-  Determines the primary child place type for a given place.
+  Determines the child place types for a given place.
 
   This function uses custom matching rules and fallback hierarchies to decide
-  the most relevant child place type for a given place.
+  the ordered child place types for a given place.
 
   Args:
       place (Place): The place object to analyze.
 
   Returns:
-      str | None: The primary child place type for the given place, or None if no match is found.
+      list[str]: The child place types for the given place, or empty list if no match is found.
   """
   # Attempt to directly match a child place type using the custom expressions.
   for f in PLACE_MATCH_EXPRESSIONS:
     matched_child_place_type = f(place)
     if matched_child_place_type:
-      return matched_child_place_type
+      return [matched_child_place_type]
 
   # Fetch all possible child places for the given place using its containment property.
   raw_property_values_response = fetch.raw_property_values(
@@ -392,13 +405,17 @@ def get_child_place_type(place: Place) -> str | None:
   for raw_property_value in raw_property_values_response.get(place.dcid, []):
     child_place_types.update(raw_property_value.get("types", []))
 
+  child_place_type_candidates = []
   # Return the first child place type that matches the ordered list of possible child types.
-  for primary_place_type_candidate in ordered_child_place_types:
-    if primary_place_type_candidate in child_place_types:
-      return primary_place_type_candidate
+  for place_type_candidate in ordered_child_place_types:
+    if place_type_candidate in child_place_types:
+      child_place_type_candidates.append(place_type_candidate)
 
-  # If no matching child place type is found, return None.
-  return None
+  if child_place_type_candidates:
+    return child_place_type_candidates
+
+  # If no matching child place type is found, return empty.
+  return []
 
 
 def fetch_child_place_dcids(place: Place,

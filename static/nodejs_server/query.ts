@@ -175,10 +175,7 @@ function getBlockTileResults(
               place.dcid,
               enclosedPlaceType,
               tileSvSpec,
-              apiRoot,
-              urlRoot,
-              useChartUrl,
-              apikey
+              apiRoot
             )
           );
           break;

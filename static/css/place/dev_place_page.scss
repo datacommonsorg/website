@@ -20,6 +20,8 @@
 @import "../base";
 @import "../explore";
 
+@import "../shared/tiles.scss";
+
 // Border styling used to create a horizontal divider between sections
 $horizontal-divider-style: 1px solid rgba(0, 0, 0, 0.12);
 

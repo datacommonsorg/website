@@ -56,7 +56,7 @@ export class ChartHeader extends React.Component<ChartHeaderPropType> {
           <LocalizedLink
             href={`/place/${this.props.place}?category=${this.props.text}`}
             text={this.props.categoryStrings[this.props.text]}
-            handleClick={() =>
+            handleClick={(): void =>
               triggerGAEvent(GA_EVENT_PLACE_CATEGORY_CLICK, {
                 [GA_PARAM_PLACE_CATEGORY_CLICK]: this.props.text,
                 [GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE]:
@@ -75,7 +75,7 @@ export class ChartHeader extends React.Component<ChartHeaderPropType> {
                     "Link to explore more charts about a particular domain, such as Education or Health.",
                 }) + " ›"
               }
-              handleClick={() =>
+              handleClick={(): void =>
                 triggerGAEvent(GA_EVENT_PLACE_CATEGORY_CLICK, {
                   [GA_PARAM_PLACE_CATEGORY_CLICK]: this.props.text,
                   [GA_PARAM_PLACE_CATEGORY_CLICK_SOURCE]:

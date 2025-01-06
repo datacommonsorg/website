@@ -121,7 +121,9 @@ export function DownloadPage(props: DownloadPagePropType): JSX.Element {
                 </span>
               )}
               <div
-                onClick={() => onDownload(fileKey, fileContentPromise[fileKey])}
+                onClick={(): void =>
+                  onDownload(fileKey, fileContentPromise[fileKey])
+                }
                 className="file-download-button"
               >
                 <span

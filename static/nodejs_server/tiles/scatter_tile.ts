@@ -91,7 +91,7 @@ export async function getScatterTileResult(
       getReplacementStrings(tileProp, chartData)
     );
     const result: TileResult = {
-      data_csv: scatterDataToCsv(
+      dataCsv: scatterDataToCsv(
         chartData.xStatVar.statVar,
         chartData.xStatVar.denom,
         chartData.yStatVar.statVar,

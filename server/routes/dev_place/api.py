@@ -82,14 +82,17 @@ def place_charts(place_dcid: str):
   place = place_utils.fetch_place(place_dcid, locale=g.locale)
 
   # Determine child place type
-  child_place_type = place_utils.get_child_place_type(place)
+  ordered_child_place_types = place_utils.get_child_place_types(place)
+  child_place_type = ordered_child_place_types[
+      0] if ordered_child_place_types else None
 
   # Retrieve available place page charts
   full_chart_config = copy.deepcopy(current_app.config['CHART_CONFIG'])
 
   # Filter chart config by category
+  overview_chart_config = [c for c in full_chart_config if c.get("isOverview")]
   if place_category == OVERVIEW_CATEGORY:
-    chart_config = [c for c in full_chart_config if c.get("isOverview")]
+    chart_config = overview_chart_config
   else:
     chart_config = [
         c for c in full_chart_config if c["category"] == place_category
@@ -101,6 +104,14 @@ def place_charts(place_dcid: str):
       place_dcid=place_dcid,
       child_place_type=child_place_type)
 
+  # Always execute the call for the overview category to fetch the valid categories.
+  filtered_chart_config_for_category = (
+      filtered_chart_config if place_category == OVERVIEW_CATEGORY else
+      place_utils.filter_chart_config_by_place_dcid(
+          chart_config=overview_chart_config,
+          place_dcid=place_dcid,
+          child_place_type=child_place_type))
+
   # Translate chart config titles
   translated_chart_config = place_utils.translate_chart_config(
       filtered_chart_config)
@@ -111,7 +122,7 @@ def place_charts(place_dcid: str):
 
   # Translate category strings
   translated_category_strings = place_utils.get_translated_category_strings(
-      filtered_chart_config)
+      filtered_chart_config_for_category)
 
   response = PlaceChartsApiResponse(
       charts=charts,
@@ -146,10 +157,23 @@ def related_places(place_dcid: str):
                                                             locale=g.locale)
   similar_place_dcids = place_utils.fetch_similar_place_dcids(place,
                                                               locale=g.locale)
-  child_place_type = place_utils.get_child_place_type(place)
-  child_place_dcids = place_utils.fetch_child_place_dcids(place,
-                                                          child_place_type,
-                                                          locale=g.locale)
+  ordered_child_place_types = place_utils.get_child_place_types(place)
+  primary_child_place_type = ordered_child_place_types[
+      0] if ordered_child_place_types else None
+
+  child_place_dcids = []
+  seen_dcids = set(
+  )  # Keep track of seen DCIDs to prevent dupes but keep ordering.
+
+  # TODO(gmechali): Refactor this into async calls.
+  for child_place_type in ordered_child_place_types:
+    for dcid in place_utils.fetch_child_place_dcids(place,
+                                                    child_place_type,
+                                                    locale=g.locale):
+      if dcid not in seen_dcids:
+        child_place_dcids.append(dcid)
+        seen_dcids.add(dcid)
+
   parent_places = place_utils.get_parent_places(place.dcid)
 
   # Fetch all place objects in one request to reduce latency (includes name and typeOf)
@@ -176,7 +200,7 @@ def related_places(place_dcid: str):
       if not all_place_by_dcid[dcid].dissolved
   ]
 
-  response = RelatedPlacesApiResponse(childPlaceType=child_place_type,
+  response = RelatedPlacesApiResponse(childPlaceType=primary_child_place_type,
                                       childPlaces=child_places,
                                       nearbyPlaces=nearby_places,
                                       place=place,

@@ -131,7 +131,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
                   title={this.props.statVarInfos[statVar].title}
                   color={color}
                   removeChip={this.props.removeStatVar}
-                  onTextClick={() =>
+                  onTextClick={(): WindowProxy | null =>
                     window.open(`/tools/statvar#sv=${statVar}`)
                   }
                 />
@@ -152,10 +152,10 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
           }
           svFacetId={svFacetId}
           facetList={facetList}
-          onSvFacetIdUpdated={(svFacetId) => setMetahash(svFacetId)}
+          onSvFacetIdUpdated={(svFacetId): void => setMetahash(svFacetId)}
           hideIsRatio={false}
           isPerCapita={this.props.pc}
-          onIsPerCapitaUpdated={(isPerCapita: boolean) =>
+          onIsPerCapitaUpdated={(isPerCapita: boolean): void =>
             setChartOption(this.props.chartId, "pc", isPerCapita)
           }
         >
@@ -167,7 +167,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
                   className="is-delta-input"
                   type="checkbox"
                   checked={this.props.delta}
-                  onChange={() => {
+                  onChange={(): void => {
                     setChartOption(
                       this.props.chartId,
                       "delta",
@@ -247,7 +247,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     this.processData();
   }
 
-  private handleWindowResize() {
+  private handleWindowResize(): void {
     if (!this.svgContainer.current) {
       return;
     }
@@ -271,7 +271,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
     });
   }
 
-  private loadRawData() {
+  private loadRawData(): void {
     const places = Object.keys(this.props.placeNameMap);
     const statVars = Object.keys(this.props.statVarInfos);
     fetchRawData(places, statVars, this.props.denom)
@@ -284,7 +284,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
       });
   }
 
-  private processData() {
+  private processData(): void {
     if (!this.state.rawData) {
       return;
     }
@@ -351,7 +351,7 @@ class Chart extends Component<ChartPropsType, ChartStateType> {
   /**
    * Draw chart in current svg container based on stats data.
    */
-  private drawChart() {
+  private drawChart(): void {
     const dataGroupsDict = {};
     if (!this.state.statData) {
       return;

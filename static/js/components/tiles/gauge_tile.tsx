@@ -99,7 +99,7 @@ export function GaugeTile(props: GaugeTilePropType): JSX.Element {
     }
     // fetch data
     if (!gaugeData || !_.isEqual(gaugeData.props, props)) {
-      (async () => {
+      (async (): Promise<void> => {
         const data = await fetchData(props);
         setGaugeData(data);
       })();
@@ -171,7 +171,7 @@ const fetchData = async (props: GaugeTilePropType) => {
       props.apiRoot
     );
 
-    const { unit, scaling } = getStatFormat(props.statVarSpec, statResp);
+    const scaling = getStatFormat(props.statVarSpec, statResp).scaling;
     const sources = new Set<string>();
     const statData = statResp.data[props.statVarSpec.statVar][props.place.dcid];
     if (statResp.facets[statData.facet]) {

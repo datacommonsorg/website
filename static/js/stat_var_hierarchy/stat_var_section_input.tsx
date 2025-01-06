@@ -167,7 +167,7 @@ export class StatVarSectionInput extends React.Component<
           }
           htmlFor={sectionId}
           onMouseMove={this.mouseMoveAction(this.props.statVar.hasData)}
-          onMouseOut={() => hideTooltip()}
+          onMouseOut={(): void => hideTooltip()}
         >
           {displayName}
         </label>
@@ -257,18 +257,20 @@ export class StatVarSectionInput extends React.Component<
     return html;
   }
 
-  private mouseMoveAction = (hasData: boolean) => (e) => {
-    const html = this.getTooltipHtml(hasData);
-    if (_.isEmpty(html)) {
-      return;
-    }
-    const containerClientRect = (
-      d3.select(`#${SV_HIERARCHY_SECTION_ID}`).node() as HTMLElement
-    ).getBoundingClientRect();
-    const top = e.pageY - containerClientRect.y + TOOLTIP_TOP_OFFSET;
-    const left = e.pageX - containerClientRect.x;
-    showTooltip(html, { left, top });
-  };
+  private mouseMoveAction =
+    (hasData: boolean) =>
+    (e): void => {
+      const html = this.getTooltipHtml(hasData);
+      if (_.isEmpty(html)) {
+        return;
+      }
+      const containerClientRect = (
+        d3.select(`#${SV_HIERARCHY_SECTION_ID}`).node() as HTMLElement
+      ).getBoundingClientRect();
+      const top = e.pageY - containerClientRect.y + TOOLTIP_TOP_OFFSET;
+      const left = e.pageX - containerClientRect.x;
+      showTooltip(html, { left, top });
+    };
 }
 
 StatVarSectionInput.contextType = Context;

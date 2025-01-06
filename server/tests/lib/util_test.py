@@ -1482,10 +1482,12 @@ class TestFetchHighestCoverage(unittest.TestCase):
                                     entities=entities)
     mock_point_core.assert_called_with(entities, variables, '2021', False)
 
+  @patch('server.lib.util.datetime.date')
   @patch('server.lib.fetch.point_core')
   @patch('server.services.datacommons.obs_series')
   def test_fetch_highest_coverage_with_entities_multi_variable(
-      self, mock_obs_series, mock_point_core):
+      self, mock_obs_series, mock_point_core, mock_date):
+    mock_date.today.return_value = datetime.date(2024, 12, 1)
     variables = ['Count_Person_InLaborForce', 'sdg/SI_POV_DAY1']
     entities = ['country/USA', 'country/RUS', 'country/MEX']
     mock_obs_series_response = {

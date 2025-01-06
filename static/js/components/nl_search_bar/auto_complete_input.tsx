@@ -50,8 +50,8 @@ const LOCATION_SEARCH = "location_search";
 
 export interface AutoCompleteResult {
   dcid: string;
-  match_type: string;
-  matched_query: string;
+  matchType: string;
+  matchedQuery: string;
   name: string;
 }
 
@@ -66,6 +66,17 @@ interface AutoCompleteInputPropType {
   feedbackLink: string;
   shouldAutoFocus: boolean;
   barType: string;
+}
+
+function convertJSONToAutoCompleteResults(
+  json: object[]
+): AutoCompleteResult[] {
+  return json.map((json) => ({
+    dcid: json["dcid"],
+    matchType: json["match_type"],
+    matchedQuery: json["matched_query"],
+    name: json["name"],
+  }));
 }
 
 export function AutoCompleteInput(
@@ -206,7 +217,9 @@ export function AutoCompleteInput(
       .then((response) => {
         if (!controller.current.signal.aborted) {
           setResults({
-            placeResults: response["data"]["predictions"],
+            placeResults: convertJSONToAutoCompleteResults(
+              response["data"]["predictions"]
+            ),
             svResults: [],
           });
         }
@@ -259,7 +272,7 @@ export function AutoCompleteInput(
     query: string,
     result: AutoCompleteResult
   ): string {
-    return stripPatternFromQuery(query, result.matched_query) + result.name;
+    return stripPatternFromQuery(query, result.matchedQuery) + result.name;
   }
 
   function processArrowKey(selectedIndex: number): void {
@@ -281,10 +294,10 @@ export function AutoCompleteInput(
     });
 
     if (
-      result["match_type"] == LOCATION_SEARCH &&
-      stripPatternFromQuery(baseInput, result.matched_query).trim() === ""
+      result.matchType == LOCATION_SEARCH &&
+      stripPatternFromQuery(baseInput, result.matchedQuery).trim() === ""
     ) {
-      // If this is a location result, and the matched_query matches the base input
+      // If this is a location result, and the matchedQuery matches the base input
       // then that means there are no other parts of the query, so it's a place only
       // redirection.
       if (result.dcid) {

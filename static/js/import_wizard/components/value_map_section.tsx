@@ -69,14 +69,14 @@ export function ValueMapSection(props: ValueMapSectionProps): JSX.Element {
             {/*TODO: make this into a toggle switch like in scatter tool*/}
             <div
               className={`header-tab${showFileUpload ? "" : "-selected"}`}
-              onClick={() => setShowFileUpload(false)}
+              onClick={(): void => setShowFileUpload(false)}
             >
               Enter values to remap
             </div>
             <span>|</span>
             <div
               className={`header-tab${showFileUpload ? "-selected" : ""}`}
-              onClick={() => setShowFileUpload(true)}
+              onClick={(): void => setShowFileUpload(true)}
             >
               Upload file
             </div>
@@ -111,7 +111,7 @@ export function ValueMapSection(props: ValueMapSectionProps): JSX.Element {
             <input
               type="file"
               accept=".txt"
-              onChange={(event) => {
+              onChange={(event): void => {
                 if (event.target.files.length < 1) {
                   setUploadedFile(null);
                 }
@@ -138,7 +138,7 @@ export function ValueMapSection(props: ValueMapSectionProps): JSX.Element {
                     <Input
                       className="value-map-input"
                       type="text"
-                      onChange={(e) =>
+                      onChange={(e): void =>
                         onMappingInputChanged(id, e.target.value, true)
                       }
                       value={mappingInput[id].originalVal}
@@ -146,14 +146,14 @@ export function ValueMapSection(props: ValueMapSectionProps): JSX.Element {
                     <Input
                       className="value-map-input"
                       type="text"
-                      onChange={(e) =>
+                      onChange={(e): void =>
                         onMappingInputChanged(id, e.target.value, false)
                       }
                       value={mappingInput[id].newVal}
                     />
                     <i
                       className="material-icons-outlined"
-                      onClick={() => {
+                      onClick={(): void => {
                         setMappingInput((prev) => {
                           const newMappingInput = _.cloneDeep(prev);
                           delete newMappingInput[id];
@@ -175,7 +175,7 @@ export function ValueMapSection(props: ValueMapSectionProps): JSX.Element {
             })}
             <div
               className="value-map-add-entry"
-              onClick={() => {
+              onClick={(): void => {
                 const nextId = _.isEmpty(mappingInputOrderedList)
                   ? 0
                   : Number(
@@ -220,7 +220,7 @@ export function ValueMapSection(props: ValueMapSectionProps): JSX.Element {
   function onConfirmationClicked(): void {
     if (showFileUpload && !_.isNull(uploadedFile)) {
       const reader = new FileReader();
-      reader.onload = (e) => {
+      reader.onload = (e): void => {
         const rows = Papa.parse(e.target.result as string).data;
         const { skippedRows, valueMap } = processValueMapFile(rows);
         props.onValueMapSubmitted(valueMap);

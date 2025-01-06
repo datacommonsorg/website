@@ -33,6 +33,7 @@ export function StatVarQueries({ queries }: StatVarQueriesProps): ReactElement {
     id: query.url,
     title: query.title,
     url: query.url,
+    variant: "flat",
   }));
 
   if (queries.length === 0) {
@@ -40,7 +41,6 @@ export function StatVarQueries({ queries }: StatVarQueriesProps): ReactElement {
   }
   return (
     <LinkChips
-      variant="flat"
       header={
         "Explore statistical variables around the world in the Timeline explorer tool"
       }

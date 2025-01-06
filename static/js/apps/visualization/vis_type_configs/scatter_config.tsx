@@ -76,7 +76,7 @@ function getDisplayInputs(appContext: AppContextType): InputInfo[] {
   return [
     {
       isChecked: appContext.displayOptions.scatterQuadrants,
-      onUpdated: (isChecked: boolean) => {
+      onUpdated: (isChecked: boolean): void => {
         const newDisplayOptions = _.cloneDeep(appContext.displayOptions);
         newDisplayOptions.scatterQuadrants = isChecked;
         appContext.setDisplayOptions(newDisplayOptions);
@@ -86,7 +86,7 @@ function getDisplayInputs(appContext: AppContextType): InputInfo[] {
     },
     {
       isChecked: appContext.displayOptions.scatterPlaceLabels,
-      onUpdated: (isChecked: boolean) => {
+      onUpdated: (isChecked: boolean): void => {
         const newDisplayOptions = _.cloneDeep(appContext.displayOptions);
         newDisplayOptions.scatterPlaceLabels = isChecked;
         appContext.setDisplayOptions(newDisplayOptions);
@@ -122,7 +122,7 @@ function getFacetSelector(appContext: AppContextType): JSX.Element {
       };
     });
   });
-  const onSvFacetIdUpdated = (svFacetId: Record<string, string>) => {
+  const onSvFacetIdUpdated = (svFacetId: Record<string, string>): void => {
     const facetsChanged = statVars.filter(
       (sv) => sv.facetId !== svFacetId[sv.dcid]
     );

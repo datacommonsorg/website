@@ -25,7 +25,7 @@ import React, { ReactElement } from "react";
 
 import { HeroColumns } from "../../../components/content/hero_columns";
 import { LinkChips } from "../../../components/content/link_chips";
-import { Link, LinkChip } from "../../../components/elements/link_chip";
+import { Link } from "../../../components/elements/link_chip";
 
 interface HomeHeroProps {
   //an array of links to be rendered by the component
@@ -34,6 +34,14 @@ interface HomeHeroProps {
 
 export const HomeHero = ({ linkChips }: HomeHeroProps): ReactElement => {
   const theme = useTheme();
+
+  linkChips.push({
+    id: "data-sources",
+    title: "See all available data sources",
+    url: "https://docs.datacommons.org/datasets/",
+    variant: "flat",
+  });
+
   return (
     <HeroColumns>
       <HeroColumns.Left>
@@ -42,8 +50,8 @@ export const HomeHero = ({ linkChips }: HomeHeroProps): ReactElement => {
             ${theme.typography.heading.lg}
           `}
         >
-          Data Commons brings together the world&apos;s public data, harmonized
-          for your exploration
+          Data Commons brings together the world&apos;s public data, making it
+          simple to explore
         </h1>
       </HeroColumns.Left>
       <HeroColumns.Right>
@@ -53,20 +61,6 @@ export const HomeHero = ({ linkChips }: HomeHeroProps): ReactElement => {
           section="topic"
           linkChips={linkChips}
         />
-        <div
-          css={css`
-            margin-top: ${theme.spacing.xxl}px;
-          `}
-        >
-          <LinkChip
-            variant="flat"
-            linkChip={{
-              id: "data-sources",
-              title: "See all available data sources",
-              url: "https://docs.datacommons.org/datasets/",
-            }}
-          />
-        </div>
       </HeroColumns.Right>
     </HeroColumns>
   );
