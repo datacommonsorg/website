@@ -584,6 +584,10 @@ export const DevPlaceMain = (): React.JSX.Element => {
   const hasNoCharts =
     place && pageConfig && pageConfig.categories.length == 0 && !isLoading;
   const placeTypesForCharts = new Set<string>(['Continent', 'Country', 'AdministrativeArea1', 'EurostatNUTS1']);
+  const hasPlaceCharts =
+    place && pageConfig && pageConfig.categories.length > 0;
+  const hasNoCharts =
+    place && pageConfig && pageConfig.categories.length == 0 && !isLoading;
 
   function filterForCharts(places: NamedTypedPlace[]): NamedTypedPlace[] {
     return places.filter((p) =>  p.types.some(item => placeTypesForCharts.has(item)));
