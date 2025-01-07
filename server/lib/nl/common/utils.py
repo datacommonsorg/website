@@ -30,7 +30,7 @@ import server.lib.nl.detection.date
 import server.lib.nl.detection.types as types
 from server.lib.nl.fulfillment.types import Sv2Place2Date
 import server.lib.nl.fulfillment.utils as futils
-import server.services.datacommons as dc
+import server.lib.util as util
 import shared.lib.constants as shared_constants
 
 # TODO: Consider tweaking/reducing this
@@ -268,7 +268,8 @@ def get_contained_in_latest_date(places: List[str],
       date_range)
   for place in places:
     place_key = get_place_key(place, child_type)
-    series_dates = dc.get_series_dates(place, child_type, svs)
+    series_dates = util.get_series_dates_from_entities_within(
+        place, child_type, svs)
     for dates_by_variable in series_dates.get('datesByVariable', []):
       sv = dates_by_variable.get('variable', '')
       if sv not in sv_place_latest_date:

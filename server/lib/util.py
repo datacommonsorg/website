@@ -755,6 +755,44 @@ def get_series_dates_from_entities(entities: List[str], variables: List[str]):
   return result
 
 
+def get_series_dates_from_entities_within(parent_entity: str, child_type: str,
+                                          variables: List[str]):
+  """
+  Get observation series dates by place DCIDs and variables.
+
+  This function retrieves observation series data for the specified parent_entity, child_type, and variables,
+  flattens the data, and then organizes it by variable, date, and facet. The result includes
+  the grouped observation dates and the facets information from the observation series response.
+
+  Parameters:
+  parent_entity (str): The containing entity.
+  child_type (str): The type of the child entities. 
+  variables (List[str]): A list of variable names to retrieve data for.
+
+  Returns:
+  dict: A dictionary with two keys:
+        - 'datesByVariable' (List[dict]): A list of dictionaries where each dictionary contains:
+            - 'variable' (str): The variable dcid.
+            - 'observationDates' (List[dict]): A list of dictionaries for each date, each containing:
+                - 'date' (str): The date of the observation.
+                - 'entityCount' (List[dict]): A list of dictionaries for each facet, each containing:
+                    - 'facet' (str): The facet ID.
+                    - 'count' (int): The number of entities for this facet on this date.
+        - 'facets' (dict): The facets information from the observation series response.
+  """
+  obs_series_response = dc.obs_series_within(parent_entity, child_type,
+                                             variables)
+  flattened_observations = flatten_obs_series_response(obs_series_response)
+  dates_by_variable = flattened_observations_to_dates_by_variable(
+      flattened_observations)
+
+  result = {
+      'datesByVariable': dates_by_variable,
+      'facets': obs_series_response.get('facets', {})
+  }
+  return result
+
+
 def _get_highest_coverage_date(observation_dates_by_variable,
                                facet_ids: Set[str], max_dates_to_check: int,
                                max_years_to_check: int) -> str | None:
@@ -880,8 +918,8 @@ def fetch_highest_coverage(variables: List[str],
   if entities is not None:
     series_dates_response = get_series_dates_from_entities(entities, variables)
   else:
-    series_dates_response = dc.get_series_dates(parent_entity, child_type,
-                                                variables)
+    series_dates_response = get_series_dates_from_entities_within(
+        parent_entity, child_type, variables)
   facet_ids_set = set(facet_ids or [])
 
   observation_dates_by_variable = series_dates_response['datesByVariable']
