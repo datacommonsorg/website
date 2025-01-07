@@ -9,7 +9,7 @@
     ],
     "isOverview": true,
     "isChoropleth": true,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "scale": false
     }
@@ -23,7 +23,7 @@
       "GrowthRate_Count_Person"
     ],
     "isOverview": true,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "unit": "%",
     "relatedChart": {
       "scale": false
@@ -39,7 +39,7 @@
     ],
     "nonDividable": true,
     "isOverview": true,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "scale": false
     }
@@ -175,7 +175,7 @@
     ],
     "isOverview": true,
     "isChoropleth": true,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "scale": false
     }
@@ -266,7 +266,7 @@
       "FertilityRate_Person_Female"
     ],
     "isOverview": true,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "scale": false
     }

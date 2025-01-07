@@ -10,7 +10,7 @@
     ],
     "isOverview": true,
     "isChoropleth": true,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "scale": false
     }
@@ -26,7 +26,7 @@
     ],
     "unit": "celsius",
     "isOverview": false,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "scale": false
     }
@@ -42,7 +42,7 @@
     ],
     "unit": "celsius",
     "isOverview": false,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "scale": false
     }
@@ -58,7 +58,7 @@
     ],
     "unit": "celsius",
     "isOverview": false,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "scale": false
     }
@@ -74,7 +74,7 @@
     ],
     "unit": "celsius",
     "isOverview": false,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "scale": false
     }
@@ -90,7 +90,7 @@
     ],
     "unit": "μg/m³",
     "isOverview": true,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "scale": false
     },
@@ -108,7 +108,7 @@
     "unit": "ppb",
     "isOverview": false,
     "isChoropleth": true,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "scale": false
     }
@@ -125,7 +125,7 @@
     "unit": "μg/m³",
     "isOverview": false,
     "isChoropleth": true,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "scale": false
     }
@@ -140,7 +140,7 @@
       "PalmerDroughtSeverityIndex_Atmosphere"
     ],
     "isChoropleth": true,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "scale": false
     }
@@ -156,7 +156,7 @@
     ],
     "unit": "MTCO2e",
     "isChoropleth": true,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "scale": false
     }
@@ -171,7 +171,7 @@
       "Annual_Emissions_CarbonDioxide_NonBiogenic"
     ],
     "unit": "t",
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "scale": false
     }
@@ -186,7 +186,7 @@
       "Annual_Emissions_Methane_NonBiogenic"
     ],
     "unit": "MTCO2e",
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "scale": false
     }
@@ -201,7 +201,7 @@
       "Annual_Emissions_NitrousOxide_NonBiogenic"
     ],
     "unit": "MTCO2e",
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "scale": false
     }
@@ -216,7 +216,7 @@
       "WithdrawalRate_Water"
     ],
     "unit": "mgd",
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "scale": false
     }
@@ -232,7 +232,7 @@
     ],
     "unit": "per-million",
     "isChoropleth": true,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "scale": false
     }
@@ -248,7 +248,7 @@
     ],
     "unit": "t",
     "isOverview": true,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "scale": false
     }
@@ -262,7 +262,7 @@
     "statsVars": [
       "Count_EarthquakeEvent"
     ],
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "scale": false
     }
@@ -276,7 +276,7 @@
     "statsVars": [
       "Count_CycloneEvent"
     ],
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "scale": false
     }

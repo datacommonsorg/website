@@ -62,7 +62,7 @@
       "Count_CriminalActivities_Arson"
     ],
     "isOverview": true,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "titleId": "CHART_TITLE-Arson_rate",
       "title": "Arsons per 100,000 people",
@@ -81,7 +81,7 @@
       "Count_CriminalIncidents_IsHateCrime"
     ],
     "isOverview": true,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "titleId": "CHART_TITLE-Hate_Crime_rate",
       "title": "Hate crimes per 100,000 people",
@@ -100,7 +100,7 @@
       "Count_CriminalIncidents_BiasMotivationGender_IsHateCrime"
     ],
     "isOverview": false,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "titleId": "CHART_TITLE-Hate_Crime_Gender_rate",
       "title": "Hate crimes motivated by gender per 100,000 people",
@@ -119,7 +119,7 @@
       "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime"
     ],
     "isOverview": false,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "titleId": "CHART_TITLE-Hate_Crime_Race_rate",
       "title": "Hate crimes motivated by race per 100,000 people",
@@ -138,7 +138,7 @@
       "Count_CriminalIncidents_BiasMotivationReligion_IsHateCrime"
     ],
     "isOverview": false,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "titleId": "CHART_TITLE-Hate_Crime_Religion_rate",
       "title": "Hate crimes motivated by religion per 100,000 people",
@@ -157,7 +157,7 @@
       "Count_CriminalIncidents_BiasMotivationEthnicity_IsHateCrime"
     ],
     "isOverview": false,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "titleId": "CHART_TITLE-Hate_Crime_Ethnicity_rate",
       "title": "Hate crimes motivated by ethnicity per 100,000 people",
@@ -176,7 +176,7 @@
       "Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime"
     ],
     "isOverview": false,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "titleId": "CHART_TITLE-Hate_Crime_Sexual_Orientation_rate",
       "title": "Hate crimes motivated by sexual orientation per 100,000 people",
@@ -195,7 +195,7 @@
       "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime"
     ],
     "isOverview": false,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "titleId": "CHART_TITLE-Hate_Crime_Disability_rate",
       "title": "Hate crimes motivated by disability per 100,000 people",

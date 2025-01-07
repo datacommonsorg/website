@@ -90,6 +90,9 @@ def build_spec(chart_config, target_category, i18n=True):
     # we need charts from different categories to create overview page.
     if target_category not in [conf['category'], "Overview"]:
       continue
+    if "placePageType" in conf and "v2025" in conf['placePageType']:
+      # Skip configurations for charts not intended for the revamped place page.
+      continue
     config = copy.deepcopy(conf)
     if i18n:
       config = fill_translation(config)

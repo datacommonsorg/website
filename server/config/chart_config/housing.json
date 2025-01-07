@@ -8,7 +8,7 @@
       "Count_HousingUnit"
     ],
     "isOverview": true,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "titleId": "CHART_TITLE-Housing_units_per_capita",
       "title": "Housing units per capita",

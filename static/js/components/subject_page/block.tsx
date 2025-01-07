@@ -496,6 +496,8 @@ function renderTiles(
           />
         );
       case "RANKING":
+        let parentPlace = tile.rankingTileSpec?.showContainedInParent ? props.parentPlaces[0].dcid : place.dcid;
+        const placeTypeUp = {"Country": "Continent", "State": "Country", "EurostatNUTS1": "Country", "AdministrativeArea1": "Country"};
         return (
           <RankingTile
             key={id}
@@ -503,8 +505,8 @@ function renderTiles(
             lazyLoad={true}
             lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN}
             title={title}
-            parentPlace={place.dcid}
-            enclosedPlaceType={enclosedPlaceType}
+            parentPlace={parentPlace}
+            enclosedPlaceType={enclosedPlaceType in placeTypeUp ? placeTypeUp[enclosedPlaceType] : enclosedPlaceType}
             variables={props.statVarProvider.getSpecList(tile.statVarKey, {
               blockDate,
               blockDenom,

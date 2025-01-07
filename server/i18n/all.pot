@@ -445,6 +445,11 @@ msgstr "Gross domestic product per capita"
 msgid "CHART_TITLE-Gini_index"
 msgstr "Gini index"
 
+#. Title of a place chart: The Gini index is a measure of inequality, see https://stats.oecd.org/glossary/detail.asp?ID=4842
+msgid "CHART_TITLE-Gini_index-other-countries"
+msgstr "Gini index: other countries"
+
+
 #. Title of a place chart: Gross national income, converted using purchasing power parity rates
 msgid "CHART_TITLE-Gni"
 msgstr "Gross national income (purchasing power parity)"

@@ -8,7 +8,7 @@
       "LifeExpectancy_Person"
     ],
     "isOverview": true,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "scale": false
     }
@@ -23,7 +23,7 @@
     ],
     "isOverview": true,
     "isChoropleth": true,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "titleId": "CHART_TITLE-Covid_cases_per_capita",
       "title": "COVID-19 cumulative cases per capita",
@@ -44,7 +44,7 @@
     ],
     "isOverview": true,
     "isChoropleth": true,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "titleId": "CHART_TITLE-Covid_deaths_per_capita",
       "title": "COVID-19 cumulative deaths per capita",
@@ -89,7 +89,7 @@
     "scaling": 0.1,
     "unit": "%",
     "isOverview": true,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "scale": false
     }
@@ -119,7 +119,7 @@
     ],
     "unit": "%",
     "isOverview": true,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "scale": false
     }
@@ -148,7 +148,7 @@
     ],
     "unit": "%",
     "isOverview": true,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "scale": false
     }
@@ -236,7 +236,7 @@
     ],
     "unit": "L",
     "isOverview": true,
-    "isRankingChart": true,
+    "isRankingChart": false,
     "relatedChart": {
       "scale": false
     }
