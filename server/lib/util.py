@@ -758,7 +758,7 @@ def get_series_dates_from_entities(entities: List[str], variables: List[str]):
 def get_series_dates_from_entities_within(parent_entity: str, child_type: str,
                                           variables: List[str]):
   """
-  Get observation series dates by place DCIDs and variables.
+  Get observation series dates by for child places and variables.
 
   This function retrieves observation series data for the specified parent_entity, child_type, and variables,
   flattens the data, and then organizes it by variable, date, and facet. The result includes
