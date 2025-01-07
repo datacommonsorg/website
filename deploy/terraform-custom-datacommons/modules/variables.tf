@@ -151,6 +151,18 @@ variable "dc_web_service_memory" {
   default     = "16G"
 }
 
+variable "dc_web_service_min_instance_count" {
+  description = "Minimum number of instances for the Data Commons service"
+  type        = number
+  default     = 1
+}
+
+variable "dc_web_service_max_instance_count" {
+  description = "Maximum number of instances for the Data Commons service"
+  type        = number
+  default     = 1
+}
+
 variable "make_dc_web_service_public" {
   description = "Whether to make the Data Commons Cloud Run service publicly accessible"
   type        = bool

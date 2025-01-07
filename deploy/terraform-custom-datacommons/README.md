@@ -80,8 +80,45 @@ Generate credentials for Google Cloud:
 gcloud auth application-default login --project $PROJECT_ID
 gcloud auth login
 ```
+### 4. (Optional) Provision a docker artifact registry and push custom Data Commons images
 
-### 4. Initialize Terraform
+An artifact registry can optionally be used to store custom Docker images for the Data Commons services and data loading job.
+
+Create a new artifact repository named `$PROJECT_ID-artifacts` in the `us-central1` region:
+
+```bash
+./create_artifact_repository.sh $PROJECT_ID
+```
+
+Follow [these instructions to build custom Data Commons docker images](https://docs.datacommons.org/custom_dc/build_image.html).
+
+For example, to build a custom CDC web service image:
+
+```bash
+docker build --platform linux/amd64  -f build/cdc_services/Dockerfile \
+  --tag custom-cdc-services \
+  .
+```
+
+Then, to push a new image to the artifact registry:
+
+```bash
+PROJECT_ID=your-gcp-project
+docker tag custom-cdc-services:latest \
+  us-central1-docker.pkg.dev/$PROJECT_ID/$PROJECT_ID-artifacts/custom-cdc-services:latest
+docker push \
+  us-central1-docker.pkg.dev/$PROJECT_ID/$PROJECT_ID-artifacts/custom-cdc-services:latest
+```
+
+To use this custom image in your Terraform deployment, set the `dc_web_service_image` variable to `us-central1-docker.pkg.dev/your-gcp-project/your-gcp-project-artifacts/custom-cdc-services:latest`.
+
+Example:
+
+```
+dc_web_service_image = "us-central1-docker.pkg.dev/my-gcp-project/datcom-website-dev-artifacts/custom-cdc-services:latest"
+```
+
+### 5. Initialize Terraform
 
 ```bash
 cd modules
@@ -111,7 +148,7 @@ terraform init
 terraform plan
 ```
 
-### 5. Provision and run Data Commons in GCP
+### 6. Provision and run Data Commons in GCP
 
 Deploy custom Data Commons instance (takes about 15 minutes):
 
