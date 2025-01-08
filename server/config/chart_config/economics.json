@@ -212,7 +212,7 @@
     "isRankingChart": true
   },{
     "category": "Economics",
-    "titleId": "CHART_TITLE-Gdp-Other-Countries",
+    "titleId": "CHART_TITLE-Gdp-other-countries",
     "title": "Gross domestic product Other Countries",
     "description": "Gross domestic product other countries, see https://en.wikipedia.org/wiki/Gross_domestic_product",
     "statsVars": [
@@ -228,8 +228,8 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Gdp-Other-Countries-rankings",
-    "title": "Gross domestic product Other Countries rankings",
+    "titleId": "CHART_TITLE-Gdp-other-countries-ranking",
+    "title": "Gross domestic product Other Countries ranking",
     "description": "Gross domestic product other countries, see https://en.wikipedia.org/wiki/Gross_domestic_product",
     "statsVars": [
       "Amount_EconomicActivity_GrossDomesticProduction_Nominal"

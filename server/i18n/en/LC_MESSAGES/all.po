@@ -416,6 +416,10 @@ msgstr "Education attainment rate"
 msgid "CHART_TITLE-Electricity_consumption_per_capita"
 msgstr "Electricity consumption per capita"
 
+#. Title of a place chart: Energy source
+msgid "CHART_TITLE-EnergySource"
+msgstr "Energy source"
+
 #. Title of a place chart: Annual net electricity generation, all fuels, all sectors
 msgid "CHART_TITLE-Electricity_generation"
 msgstr "Electricity generation per capita"
@@ -439,6 +443,19 @@ msgstr "Gross domestic product growth rate"
 #. Title of a place chart: Gross domestic product (nominal) per capita, see https://en.wikipedia.org/wiki/Gross_domestic_product
 msgid "CHART_TITLE-Gdp_per_capita"
 msgstr "Gross domestic product per capita"
+
+#. Title of a place chart: Gross domestic product (nominal), see https://en.wikipedia.org/wiki/Gross_domestic_product
+msgid "CHART_TITLE-Gdp"
+msgstr "Gross domestic product"
+
+#. Title of a place chart: Gross domestic product (nominal): other countries, see https://en.wikipedia.org/wiki/Gross_domestic_product
+msgid "CHART_TITLE-Gdp-other-countries"
+msgstr "Gross domestic product: other countries"
+
+#. Title of a place chart: Gross domestic product (nominal): other countries ranking, see https://en.wikipedia.org/wiki/Gross_domestic_product
+msgid "CHART_TITLE-Gdp-other-countries-ranking"
+msgstr "Gross domestic product: other countries ranking"
+
 
 #. Title of a place chart: The Gini index is a measure of inequality, see https://stats.oecd.org/glossary/detail.asp?ID=4842
 msgid "CHART_TITLE-Gini_index"
