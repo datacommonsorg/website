@@ -53,25 +53,6 @@
   {
     "category": "Equity",
     "topic": "Income",
-    "titleId": "CHART_TITLE-Median-household-income-by-race",
-    "title": "Median household income by race",
-    "description": "The Gini index is a measure of inequality, see https://stats.oecd.org/glossary/detail.asp?ID=4842",
-    "statsVars": [
-      "Median_Income_Person_15OrMoreYears_Male_WithIncome", "Median_Income_Person_15OrMoreYears_Female_WithIncome"
-    ],
-    "barTileSpec": {
-      "maxPlaces": 5
-    },
-    "isOverview": true,
-    "chartType": "BAR",
-    "comparisonPlaceType": "CHILD",
-    "relatedChart": {
-      "scale": false
-    }
-  },
-  {
-    "category": "Equity",
-    "topic": "Income",
     "titleId": "CHART_TITLE-Median_household_income_race",
     "title": "Median household income by race",
     "description": "Median incomes of households, broken down by race",

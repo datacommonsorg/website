@@ -88,13 +88,17 @@ function getComparisonPlaces(
       break;
   }
 
-  let comparisonPlacesCount = 5; // default
+  let comparisonPlacesCount; // default
   switch (chart.type) {
     case "BAR":
-      comparisonPlacesCount = chart.barTileSpec?.maxPlaces;
+      if ("barTileSpec" in chart && "maxPlaces" in chart.barTileSpec) {
+        comparisonPlacesCount = chart.barTileSpec ? chart.barTileSpec?.maxPlaces : 5;
+      }
       break;
     case "RANKING":
-      comparisonPlacesCount = chart.rankingTileSpec?.rankingCount;
+      if ("rankingTileSpec" in chart && "rankingCount" in chart.rankingTileSpec) {
+        comparisonPlacesCount = chart.rankingTileSpec ? chart.rankingTileSpec?.rankingCount : 5;
+      }
       break;
   }
 
@@ -142,18 +146,18 @@ function placeChartsApiResponsesToPageConfig(
             }
           ),
         };
-        if (chart.comparisonPlaceType) {
-          chartConfiguration["comparisonPlaceType"] = chart.comparisonPlaceType;
+        if ("comparisonPlaceType" in chart) {
+        chartConfiguration["comparisonPlaceType"] = chart.comparisonPlaceType;
           chartConfiguration["comparisonPlaces"] = getComparisonPlaces(
             chart,
             relatedPlacesApiResponse,
             place.dcid
           );
         }
-        if (chart.barTileSpec) {
+        if ("barTileSpec" in chart) {
           chartConfiguration["barTileSpec"] = chart.barTileSpec;
         }
-        if (chart.rankingTileSpec) {
+        if ("rankingTileSpec" in chart) {
           chartConfiguration["rankingTileSpec"] = chart.rankingTileSpec;
         }
         return chartConfiguration;

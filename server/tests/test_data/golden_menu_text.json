@@ -3,6 +3,7 @@
     "Economics": [
       "Children in employment",
       "Government debt",
+      "Gross domestic product",
       "Gross domestic product per capita",
       "Labor force participation rate",
       "Market capitalization of domestic companies",
@@ -72,6 +73,9 @@
       "Government expenditures on education (% of government expenditure)",
       "Government expenditures on military",
       "Government expenditures on military (% of GDP)",
+      "Gross domestic product",
+      "Gross domestic product Other Countries",
+      "Gross domestic product Other Countries rankings",
       "Gross domestic product growth rate",
       "Gross domestic product per capita",
       "Gross national income (purchasing power parity)",
@@ -213,6 +217,7 @@
       "Electricity consumption per capita",
       "Electricity generation per capita",
       "Electricity price",
+      "Electricity source",
       "Energy use (kg of oil equivalent per capita)"
     ]
   }
