@@ -18,6 +18,9 @@
  * Main component for the Data Sources page
  */
 
+/** @jsxImportSource @emotion/react */
+
+import { css } from "@emotion/react";
 import { ThemeProvider } from "@emotion/react";
 import React, { ReactElement } from "react";
 
@@ -33,15 +36,29 @@ import { DataSources } from "./components/data_sources";
 export function App(): ReactElement {
   return (
     <ThemeProvider theme={theme}>
-      <Section>
+      <Section variant="compact">
         <IntroText>
-          <header>
-            <h1>Data sources</h1>
-            <p>
-              Data Commons search Enter your question, keywords, or places
-              search Overview Tools Documentation About Feedback
-            </p>
-          </header>
+          <>
+            {" "}
+            <h1
+              css={css`
+                ${theme.typography.family.heading};
+                ${theme.typography.heading.md};
+              `}
+            >
+              Data sources
+            </h1>
+            <h3
+              css={css`
+                ${theme.typography.family.text};
+                ${theme.typography.text.lg};
+              `}
+            >
+              Data Commons harmonizes public data from many places around the
+              world, including surveys. These sources are organized into
+              categories below. Not all data may be available yet.
+            </h3>
+          </>
         </IntroText>
       </Section>
       <Section>

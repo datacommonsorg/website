@@ -19,6 +19,8 @@
  */
 
 /** @jsxImportSource @emotion/react */
+
+import { css, useTheme } from "@emotion/react";
 import React, { ReactElement, ReactNode } from "react";
 
 import { useTabsContext } from "./TabsContext";
@@ -32,6 +34,7 @@ interface TabPanelProps {
 
 const TabPanel = ({ value, children }: TabPanelProps): ReactElement => {
   const { value: selectedValue } = useTabsContext();
+  const theme = useTheme();
 
   if (selectedValue !== value) {
     return null;
@@ -42,6 +45,9 @@ const TabPanel = ({ value, children }: TabPanelProps): ReactElement => {
       role="tabpanel"
       id={`tabpanel-${value}`}
       aria-labelledby={`tab-${value}`}
+      css={css`
+        padding: ${theme.spacing.xl}px 0;
+      `}
     >
       {children}
     </div>
