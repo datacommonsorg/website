@@ -61,22 +61,5 @@
     "relatedChart": {
       "scale": false
     }
-  },
-  {
-    "category": "Energy",
-    "titleId": "CHART_TITLE-EnergySource",
-    "title": "Energy source",
-    "description": "Sources for energy production",
-    "statsVars": [
-      "Amount_Production_ElectricityFromNuclearSources_AsFractionOf_Amount_Production_Energy",
-      "Amount_Production_ElectricityFromOilGasOrCoalSources_AsFractionOf_Amount_Production_Energy",
-      "Amount_Consumption_RenewableEnergy_AsFractionOf_Amount_Consumption_Energy"
-    ],
-    "unit":"%",
-    "nonDividable": true,
-    "isRankingChart": true,
-    "relatedChart": {
-      "scale": false
-    }
   }
 ]
