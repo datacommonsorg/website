@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-import { BarTileSpec, RankingTileSpec } from "../../../static/js/types/subject_page_proto_types";
-
 /**
  * Interface definitions supporting DataCommonsWebClient
  */
@@ -146,6 +144,33 @@ export type ObservationDatesApiResponse = {
     };
   };
 };
+
+export interface RankingTileSpec {
+  showHighest: boolean;
+  showLowest: boolean;
+
+  highestTitle?: string;
+  lowestTitle?: string;
+  rankingCount?: number;
+
+  showMultiColumn: boolean;
+  showHighestLowest?: boolean;
+}
+
+export interface BarTileSpec {
+  xLabelLinkRoot?: string;
+  barHeight?: number;
+  colors?: string[];
+  horizontal?: boolean;
+  maxPlaces?: number;
+  maxVariables?: number;
+  sort?: string;
+  stacked?: boolean;
+  useLollipop?: boolean;
+  yAxisMargin?: number;
+  variableNameRegex?: string;
+  defaultVariableName?: string;
+}
 
 type ChartType = "BAR" | "LINE" | "MAP" | "RANKING";
 export interface Chart {
