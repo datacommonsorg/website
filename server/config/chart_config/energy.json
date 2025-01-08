@@ -9,7 +9,7 @@
     ],
     "unit": "¢/kWh",
     "isOverview": true,
-    "isRankingChart": false,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -42,7 +42,7 @@
     ],
     "unit": "kg",
     "isOverview": true,
-    "isRankingChart": false,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -57,7 +57,7 @@
     ],
     "unit": "kWh",
     "nonDividable": true,
-    "isRankingChart": false,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -74,7 +74,7 @@
     ],
     "unit":"%",
     "nonDividable": true,
-    "isRankingChart": false,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }

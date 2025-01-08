@@ -8,7 +8,7 @@
       "Count_Person_Employed"
     ],
     "isOverview": true,
-    "isRankingChart": false,
+    "isRankingChart": true,
     "relatedChart": {
       "titleId": "CHART_TITLE-Percentage_employed",
       "title": "Percentage of people employed",
@@ -27,7 +27,7 @@
     "statsVars": [
       "Count_Person_InLaborForce"
     ],
-    "isRankingChart": false,
+    "isRankingChart": true,
     "relatedChart": {
       "titleId": "CHART_TITLE-Labor_force_rate",
       "title": "Labor force participation rate",
@@ -47,7 +47,7 @@
       "Count_Person_15To64Years_InLaborForce_AsFractionOf_Count_Person_15To64Years"
     ],
     "isOverview": true,
-    "isRankingChart": false,
+    "isRankingChart": true,
     "unit": "%",
     "scaling": 100,
     "relatedChart": {
@@ -65,7 +65,7 @@
     "unit": "%",
     "isOverview": true,
     "isChoropleth": true,
-    "isRankingChart": false,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -131,7 +131,7 @@
       "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance"
     ],
     "isOverview": true,
-    "isRankingChart": false,
+    "isRankingChart": true,
     "relatedChart": {
       "titleId": "CHART_TITLE-State_unemployment_claims_rate",
       "title": "State unemployment insurance claims rate",
@@ -152,7 +152,7 @@
     ],
     "unit": "%",
     "isOverview": true,
-    "isRankingChart": false,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -195,7 +195,7 @@
     ],
     "unit": "$",
     "isOverview": true,
-    "isRankingChart": false,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -209,7 +209,7 @@
     ],
     "unit": "$",
     "isOverview": true,
-    "isRankingChart": false
+    "isRankingChart": true
   },{
     "category": "Economics",
     "titleId": "CHART_TITLE-Gdp-Other-Countries",
@@ -220,7 +220,7 @@
     ],
     "unit": "$",
     "isOverview": false,
-    "isRankingChart": false,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": true
     }
@@ -234,7 +234,7 @@
       "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
     ],
     "unit": "%",
-    "isRankingChart": false,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -248,7 +248,7 @@
       "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
     ],
     "unit": "$",
-    "isRankingChart": false,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -262,7 +262,7 @@
       "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity"
     ],
     "unit": "$",
-    "isRankingChart": false,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -277,7 +277,7 @@
     ],
     "unit": "$",
     "isOverview": true,
-    "isRankingChart": false,
+    "isRankingChart": true,
     "relatedChart": {
       "titleId": "CHART_TITLE-Government_debt_per_capita",
       "title": "Government debt per capita",
@@ -295,7 +295,7 @@
       "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government"
     ],
     "unit": "%",
-    "isRankingChart": false,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -309,7 +309,7 @@
       "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
     ],
     "unit": "%",
-    "isRankingChart": false,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -323,7 +323,7 @@
       "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government"
     ],
     "unit": "$",
-    "isRankingChart": false,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -337,7 +337,7 @@
       "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
     ],
     "unit": "%",
-    "isRankingChart": false,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -351,7 +351,7 @@
     ],
     "unit": "$",
     "isOverview": true,
-    "isRankingChart": false,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -365,7 +365,7 @@
       "Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
     ],
     "unit": "%",
-    "isRankingChart": false,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -379,7 +379,7 @@
       "Amount_Remittance_InwardRemittance"
     ],
     "unit": "$",
-    "isRankingChart": false,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -393,7 +393,7 @@
       "Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
     ],
     "unit": "%",
-    "isRankingChart": false,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -407,7 +407,7 @@
       "Amount_Remittance_OutwardRemittance"
     ],
     "unit": "$",
-    "isRankingChart": false,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -421,7 +421,7 @@
     ],
     "unit": "$",
     "isOverview": true,
-    "isRankingChart": false,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     },
@@ -462,7 +462,7 @@
     ],
     "unit": "$",
     "isChoropleth": true,
-    "isRankingChart": false,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -504,7 +504,7 @@
       "Mean_WagesDaily_Worker"
     ],
     "unit": "₹",
-    "isRankingChart": false,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
@@ -518,7 +518,7 @@
       "Mean_WagesMonthly_Worker"
     ],
     "unit": "₹",
-    "isRankingChart": false,
+    "isRankingChart": true,
     "relatedChart": {
       "scale": false
     }
