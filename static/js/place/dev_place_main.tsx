@@ -92,12 +92,19 @@ function getComparisonPlaces(
   switch (chart.type) {
     case "BAR":
       if ("barTileSpec" in chart && "maxPlaces" in chart.barTileSpec) {
-        comparisonPlacesCount = chart.barTileSpec ? chart.barTileSpec?.maxPlaces : 5;
+        comparisonPlacesCount = chart.barTileSpec
+          ? chart.barTileSpec?.maxPlaces
+          : 5;
       }
       break;
     case "RANKING":
-      if ("rankingTileSpec" in chart && "rankingCount" in chart.rankingTileSpec) {
-        comparisonPlacesCount = chart.rankingTileSpec ? chart.rankingTileSpec?.rankingCount : 5;
+      if (
+        "rankingTileSpec" in chart &&
+        "rankingCount" in chart.rankingTileSpec
+      ) {
+        comparisonPlacesCount = chart.rankingTileSpec
+          ? chart.rankingTileSpec?.rankingCount
+          : 5;
       }
       break;
   }
@@ -147,7 +154,7 @@ function placeChartsApiResponsesToPageConfig(
           ),
         };
         if ("comparisonPlaceType" in chart) {
-        chartConfiguration["comparisonPlaceType"] = chart.comparisonPlaceType;
+          chartConfiguration["comparisonPlaceType"] = chart.comparisonPlaceType;
           chartConfiguration["comparisonPlaces"] = getComparisonPlaces(
             chart,
             relatedPlacesApiResponse,
