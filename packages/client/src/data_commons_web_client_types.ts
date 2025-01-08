@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import { BarTileSpec, RankingTileSpec } from "../../../static/js/types/subject_page_proto_types";
+
 /**
  * Interface definitions supporting DataCommonsWebClient
  */
@@ -155,6 +157,8 @@ export interface Chart {
   topicDcids: string[];
   denominator?: string; // Optional
   unit?: string; // Optional
+  rankingTileSpec?: RankingTileSpec; // Optional
+  barTileSpec?: BarTileSpec; // Optional
   comparisonPlaceType?: string; // Optional
   scaling?: number; // Optional
 }
