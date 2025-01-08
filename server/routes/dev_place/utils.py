@@ -70,7 +70,9 @@ def get_parent_places(dcid: str) -> List[Place]:
   for parent in parents_resp:
     if 'type' in parent and 'name' in parent and 'type' in parent:
       all_parents.append(
-          Place(dcid=parent['dcid'], name=parent['name'], types=[parent['type']]))
+          Place(dcid=parent['dcid'],
+                name=parent['name'],
+                types=[parent['type']]))
 
   return all_parents
 
@@ -295,7 +297,8 @@ def chart_config_to_overview_charts(chart_config, child_place_type: str):
         statisticalVariableDcids=page_config_item.get("statsVars", []),
         title=page_config_item.get("title"),
         topicDcids=[],
-        type="MAP" if is_map_chart else page_config_item.get("chartType", "LINE"),
+        type="MAP" if is_map_chart else page_config_item.get(
+            "chartType", "LINE"),
         rankingTileSpec=page_config_item.get("rankingTileSpec", None),
         barTileSpec=page_config_item.get("barTileSpec", None),
         comparisonPlaceType=page_config_item.get("comparisonPlaceType", None),

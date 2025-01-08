@@ -38,7 +38,12 @@ import {
 } from "../../constants/subject_page_constants";
 import { intl } from "../../i18n/i18n";
 import { DATE_HIGHEST_COVERAGE, DATE_LATEST } from "../../shared/constants";
-import { NamedNode, NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import {
+  NamedNode,
+  NamedPlace,
+  NamedTypedPlace,
+  StatVarSpec,
+} from "../../shared/types";
 import { ColumnConfig, TileConfig } from "../../types/subject_page_proto_types";
 import { highestCoverageDatesEqualLatestDates } from "../../utils/app/explore_utils";
 import { stringifyFn } from "../../utils/axios";
@@ -386,18 +391,55 @@ export function Block(props: BlockPropType): JSX.Element {
     expandoRef.current.hidden = true;
   }
 }
-function getParentPlaceDcid(comparisonPlaceType: string, parentPlaces: NamedNode[], place: NamedTypedPlace): string {
-  switch(comparisonPlaceType) {
-    case "SIMILAR":
-    case "SIMILAR_IN_PARENT": 
-      if (parentPlaces) {
-        return parentPlaces[0].dcid;
-      }
-      // fall through
-    case "CHILD":
-    default:
-      return place.dcid
+/**
+ * Find the correct place to consider the parent place for the current component. This will depend on the current place, parent places and the comparisonPlaceType.
+ *
+ * @param comparisonPlaceType String representing the type of comparison places.
+ * @param parentPlaces List of all possible parent places. We usually pick the first one.
+ * @param place The current place to evaluate.
+ * @returns The place dcid for the place to consider the parent for the component, it can be a parentPlace, or the current place.
+ */
+function getParentPlaceDcid(
+  comparisonPlaceType: string,
+  parentPlaces: NamedNode[],
+  place: NamedTypedPlace
+): string {
+  if (
+    parentPlaces &&
+    parentPlaces.length > 0 &&
+    ["SIMILAR", "SIMILAR_IN_PARENT"].includes(comparisonPlaceType)
+  ) {
+    return parentPlaces[0].dcid;
   }
+  return place.dcid;
+}
+
+/**
+ * Determined the expected enclosed place type based on the enclosed place type from the current place, and the comparison place type expected in the rankings tile.
+ * It will either be the original enclosed place type, or one level up from it.
+ * @param enclosedPlaceType specified enclosed place type for the current place.
+ * @param comparisonPlaceType represents the type of comparison places expected.
+ * @returns the place type expected in the ranking tile
+ */
+function getEnclosedPlaceType(
+  enclosedPlaceType: string,
+  comparisonPlaceType: string
+): string {
+  if (!["SIMILAR", "SIMILAR_IN_PARENT"].includes(comparisonPlaceType)) {
+    return enclosedPlaceType; 
+  }
+
+  const placeTypeLevelUp = {
+    Country: "Continent",
+    State: "Country",
+    EurostatNUTS1: "Country",
+    AdministrativeArea1: "Country",
+    County: "State"
+  };
+
+  return enclosedPlaceType in placeTypeLevelUp
+      ? placeTypeLevelUp[enclosedPlaceType]
+      : enclosedPlaceType;
 }
 
 function renderTiles(
@@ -509,8 +551,6 @@ function renderTiles(
           />
         );
       case "RANKING":
-        const placeTypeUp = {"Country": "Continent", "State": "Country", "EurostatNUTS1": "Country", "AdministrativeArea1": "Country"};
-        let enclosedPlaceTypeRanking = tile.comparisonPlaceType === "SIMILAR_IN_PARENT" && enclosedPlaceType in placeTypeUp ? placeTypeUp[enclosedPlaceType] : enclosedPlaceType;
         return (
           <RankingTile
             key={id}
@@ -518,8 +558,15 @@ function renderTiles(
             lazyLoad={true}
             lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN}
             title={title}
-            parentPlace={getParentPlaceDcid(tile.comparisonPlaceType, props.parentPlaces, place)}
-            enclosedPlaceType={enclosedPlaceTypeRanking}
+            parentPlace={getParentPlaceDcid(
+              tile.comparisonPlaceType,
+              props.parentPlaces,
+              place
+            )}
+            enclosedPlaceType={getEnclosedPlaceType(
+              enclosedPlaceType,
+              tile.comparisonPlaceType
+            )}
             variables={props.statVarProvider.getSpecList(tile.statVarKey, {
               blockDate,
               blockDenom,

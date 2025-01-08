@@ -20,6 +20,7 @@ from typing import Dict, List, Optional
 
 CHART_TYPES = {"BAR", "LINE", "MAP", "RANKING"}
 
+
 @dataclass
 class RankingTileSpec:
   showHighest: bool = False
@@ -29,6 +30,7 @@ class RankingTileSpec:
   rankingCount: Optional[int] = None
   showMultiColumn: bool = False
   showHighestLowest: Optional[bool] = None
+
 
 @dataclass
 class BarTileSpec:

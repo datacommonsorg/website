@@ -17,9 +17,9 @@
 import { DataRow } from "@datacommonsorg/client";
 import {
   Chart,
+  Place,
   PlaceChartsApiResponse,
   RelatedPlacesApiResponse,
-  Place,
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
@@ -63,30 +63,44 @@ function getStatVarKey(
 }
 
 /**
- * Fetches the correct comparison places given the chart configuration. 
- * 
+ * Fetches the correct comparison places given the chart configuration.
+ *
  * @param chart metadata
  * @param relatedPlacesApiResponse Api response containing all related places
  * @param placeDcid for the current place
  * @returns list of places to evaluate, prepends the current place
  */
-function getComparisonPlaces(chart: Chart, relatedPlacesApiResponse: RelatedPlacesApiResponse, placeDcid: string): string[] {
+function getComparisonPlaces(
+  chart: Chart,
+  relatedPlacesApiResponse: RelatedPlacesApiResponse,
+  placeDcid: string
+): string[] {
   if (chart.comparisonPlaceType === "") {
     return null;
   }
   let comparisonPlaces = [];
-  switch(chart.comparisonPlaceType) {
-    case "SIMILAR": comparisonPlaces = relatedPlacesApiResponse.similarPlaces; break;
-    case "CHILD": comparisonPlaces = relatedPlacesApiResponse.childPlaces; break;
+  switch (chart.comparisonPlaceType) {
+    case "SIMILAR":
+      comparisonPlaces = relatedPlacesApiResponse.similarPlaces;
+      break;
+    case "CHILD":
+      comparisonPlaces = relatedPlacesApiResponse.childPlaces;
+      break;
   }
 
   let comparisonPlacesCount = 5; // default
-  switch(chart.type) {
-    case "BAR": comparisonPlacesCount = chart.barTileSpec?.maxPlaces; break;
-    case "RANKING": comparisonPlacesCount = chart.rankingTileSpec?.rankingCount; break;
+  switch (chart.type) {
+    case "BAR":
+      comparisonPlacesCount = chart.barTileSpec?.maxPlaces;
+      break;
+    case "RANKING":
+      comparisonPlacesCount = chart.rankingTileSpec?.rankingCount;
+      break;
   }
-  
-  let allPlaces = [placeDcid].concat(comparisonPlaces.map((place) => place.dcid));
+
+  const allPlaces = [placeDcid].concat(
+    comparisonPlaces.map((place) => place.dcid)
+  );
   return allPlaces.slice(0, Math.min(allPlaces.length, comparisonPlacesCount));
 }
 
@@ -112,25 +126,29 @@ function placeChartsApiResponsesToPageConfig(
       const charts = chartsByCategory[categoryName];
 
       const tiles: TileConfig[] = charts.map((chart) => {
-        let chartConfiguration = {
+        const chartConfiguration = {
           description: chart.description,
           title: chart.title,
           type: chart.type,
           statVarKey: chart.statisticalVariableDcids.map(
             (variableDcid, variableIdx) => {
               const denom =
-              chart.denominator &&
-              chart.denominator.length ===
-              chart.statisticalVariableDcids.length
-              ? chart.denominator[variableIdx]
-              : undefined;
+                chart.denominator &&
+                chart.denominator.length ===
+                  chart.statisticalVariableDcids.length
+                  ? chart.denominator[variableIdx]
+                  : undefined;
               return getStatVarKey(chart, variableDcid, denom);
             }
           ),
         };
         if (chart.comparisonPlaceType) {
           chartConfiguration["comparisonPlaceType"] = chart.comparisonPlaceType;
-          chartConfiguration["comparisonPlaces"] = getComparisonPlaces(chart, relatedPlacesApiResponse, place.dcid);
+          chartConfiguration["comparisonPlaces"] = getComparisonPlaces(
+            chart,
+            relatedPlacesApiResponse,
+            place.dcid
+          );
         }
         if (chart.barTileSpec) {
           chartConfiguration["barTileSpec"] = chart.barTileSpec;
@@ -574,15 +592,22 @@ export const DevPlaceMain = (): React.JSX.Element => {
   const category = urlParams.get("category") || overviewString;
   const isOverview = category === overviewString;
   const forceDevPlaces = urlParams.get("force_dev_places") === "true";
-  
+
   const hasPlaceCharts =
     place && pageConfig && pageConfig.categories.length > 0;
   const hasNoCharts =
     place && pageConfig && pageConfig.categories.length == 0 && !isLoading;
-  const placeTypesForCharts = new Set<string>(['Continent', 'Country', 'AdministrativeArea1', 'EurostatNUTS1']);
+  const placeTypesForCharts = new Set<string>([
+    "Continent",
+    "Country",
+    "AdministrativeArea1",
+    "EurostatNUTS1",
+  ]);
 
   function filterForCharts(places: NamedTypedPlace[]): NamedTypedPlace[] {
-    return places.filter((p) =>  p.types.some(item => placeTypesForCharts.has(item)));
+    return places.filter((p) =>
+      p.types.some((item) => placeTypesForCharts.has(item))
+    );
   }
 
   /**
