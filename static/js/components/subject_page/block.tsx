@@ -426,7 +426,7 @@ function getEnclosedPlaceType(
   comparisonPlaceType: string
 ): string {
   if (!["SIMILAR", "SIMILAR_IN_PARENT"].includes(comparisonPlaceType)) {
-    return enclosedPlaceType; 
+    return enclosedPlaceType;
   }
 
   const placeTypeLevelUp = {
@@ -434,12 +434,12 @@ function getEnclosedPlaceType(
     State: "Country",
     EurostatNUTS1: "Country",
     AdministrativeArea1: "Country",
-    County: "State"
+    County: "State",
   };
 
   return enclosedPlaceType in placeTypeLevelUp
-      ? placeTypeLevelUp[enclosedPlaceType]
-      : enclosedPlaceType;
+    ? placeTypeLevelUp[enclosedPlaceType]
+    : enclosedPlaceType;
 }
 
 function renderTiles(

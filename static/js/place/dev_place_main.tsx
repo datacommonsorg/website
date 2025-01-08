@@ -75,7 +75,7 @@ function getComparisonPlaces(
   relatedPlacesApiResponse: RelatedPlacesApiResponse,
   placeDcid: string
 ): string[] {
-  if (chart.comparisonPlaceType === "") {
+  if (!chart.comparisonPlaceType) {
     return null;
   }
   let comparisonPlaces = [];
