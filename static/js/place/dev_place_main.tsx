@@ -71,11 +71,11 @@ function getStatVarKey(
  * @returns list of places to evaluate, prepends the current place
  */
 function getComparisonPlaces(chart: Chart, relatedPlacesApiResponse: RelatedPlacesApiResponse, placeDcid: string): string[] {
-  if (chart.showComparisonPlaces === "") {
+  if (chart.comparisonPlaceType === "") {
     return null;
   }
   let comparisonPlaces = [];
-  switch(chart.showComparisonPlaces) {
+  switch(chart.comparisonPlaceType) {
     case "SIMILAR": comparisonPlaces = relatedPlacesApiResponse.similarPlaces; break;
     case "CHILD": comparisonPlaces = relatedPlacesApiResponse.childPlaces; break;
   }
@@ -128,7 +128,8 @@ function placeChartsApiResponsesToPageConfig(
             }
           ),
         };
-        if (chart.showComparisonPlaces) {
+        if (chart.comparisonPlaceType) {
+          chartConfiguration["comparisonPlaceType"] = chart.comparisonPlaceType;
           chartConfiguration["comparisonPlaces"] = getComparisonPlaces(chart, relatedPlacesApiResponse, place.dcid);
         }
         if (chart.barTileSpec) {

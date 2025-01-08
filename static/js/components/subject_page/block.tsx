@@ -38,7 +38,7 @@ import {
 } from "../../constants/subject_page_constants";
 import { intl } from "../../i18n/i18n";
 import { DATE_HIGHEST_COVERAGE, DATE_LATEST } from "../../shared/constants";
-import { NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
+import { NamedNode, NamedPlace, NamedTypedPlace, StatVarSpec } from "../../shared/types";
 import { ColumnConfig, TileConfig } from "../../types/subject_page_proto_types";
 import { highestCoverageDatesEqualLatestDates } from "../../utils/app/explore_utils";
 import { stringifyFn } from "../../utils/axios";
@@ -386,6 +386,19 @@ export function Block(props: BlockPropType): JSX.Element {
     expandoRef.current.hidden = true;
   }
 }
+function getParentPlaceDcid(comparisonPlaceType: string, parentPlaces: NamedNode[], place: NamedTypedPlace): string {
+  switch(comparisonPlaceType) {
+    case "SIMILAR":
+    case "SIMILAR_IN_PARENT": 
+      if (parentPlaces) {
+        return parentPlaces[0].dcid;
+      }
+      // fall through
+    case "CHILD":
+    default:
+      return place.dcid
+  }
+}
 
 function renderTiles(
   tiles: TileConfig[],
@@ -496,9 +509,8 @@ function renderTiles(
           />
         );
       case "RANKING":
-        let parentPlace = tile.rankingTileSpec?.showContainedInParent ? props.parentPlaces[0].dcid : place.dcid;
         const placeTypeUp = {"Country": "Continent", "State": "Country", "EurostatNUTS1": "Country", "AdministrativeArea1": "Country"};
-        let enclosedPlaceTypeRanking = tile.rankingTileSpec?.showContainedInParent && enclosedPlaceType in placeTypeUp ? placeTypeUp[enclosedPlaceType] : enclosedPlaceType;
+        let enclosedPlaceTypeRanking = tile.comparisonPlaceType === "SIMILAR_IN_PARENT" && enclosedPlaceType in placeTypeUp ? placeTypeUp[enclosedPlaceType] : enclosedPlaceType;
         return (
           <RankingTile
             key={id}
@@ -506,7 +518,7 @@ function renderTiles(
             lazyLoad={true}
             lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN}
             title={title}
-            parentPlace={parentPlace}
+            parentPlace={getParentPlaceDcid(tile.comparisonPlaceType, props.parentPlaces, place)}
             enclosedPlaceType={enclosedPlaceTypeRanking}
             variables={props.statVarProvider.getSpecList(tile.statVarKey, {
               blockDate,

@@ -298,7 +298,7 @@ def chart_config_to_overview_charts(chart_config, child_place_type: str):
         type="MAP" if is_map_chart else page_config_item.get("chartType", "LINE"),
         rankingTileSpec=page_config_item.get("rankingTileSpec", None),
         barTileSpec=page_config_item.get("barTileSpec", None),
-        showComparisonPlaces=page_config_item.get("showComparisonPlaces", None),
+        comparisonPlaceType=page_config_item.get("comparisonPlaceType", None),
         unit=page_config_item.get("unit"),
     )
     if denominator:

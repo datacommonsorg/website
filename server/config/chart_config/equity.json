@@ -28,7 +28,7 @@
     },
     "isOverview": true,
     "chartType": "BAR",
-    "showComparisonPlaces": "SIMILAR",
+    "comparisonPlaceType": "SIMILAR",
     "placePageType": "v2025"
   },
   {
@@ -43,10 +43,10 @@
     "rankingTileSpec": {
       "rankingCount": 5,
       "showHighestLowest": true,
-      "showMultiColumn": false,
-      "showContainedInParent": true
+      "showMultiColumn": false
     },
     "isOverview": true,
+    "comparisonPlaceType": "SIMILAR_IN_PARENT",
     "chartType": "RANKING",
     "placePageType": "v2025"
   },
@@ -64,7 +64,7 @@
     },
     "isOverview": true,
     "chartType": "BAR",
-    "showComparisonPlaces": "CHILD",
+    "comparisonPlaceType": "CHILD",
     "relatedChart": {
       "scale": false
     }

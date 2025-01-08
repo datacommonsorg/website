@@ -66,8 +66,6 @@ export interface RankingTileSpec {
 
   showMultiColumn: boolean;
   showHighestLowest?: boolean;
-
-  showContainedInParent?: boolean;
 }
 
 export interface DisasterEventMapTileSpec {
@@ -167,6 +165,7 @@ export interface TileConfig {
   type: string;
   statVarKey: string[];
   comparisonPlaces?: string[];
+  comparisonPlaceType?: string;
   placeDcidOverride?: string;
   hideFooter?: boolean;
   subtitle?: string;
