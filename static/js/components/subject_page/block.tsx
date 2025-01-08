@@ -419,7 +419,7 @@ function getParentPlaceDcid(
  * Determined the expected enclosed place type based on the enclosed place type from the current place, and the
  * comparison place type expected in the rankings tile. It will either be the original enclosed place type, or one
  * level up from it.
- * 
+ *
  * @param enclosedPlaceType specified enclosed place type for the current place.
  * @param comparisonPlaceType represents the type of comparison places expected.
  * @returns the place type expected in the ranking tile
