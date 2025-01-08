@@ -155,6 +155,7 @@ export interface Chart {
   topicDcids: string[];
   denominator?: string; // Optional
   unit?: string; // Optional
+  comparisonPlaceType?: string; // Optional
   scaling?: number; // Optional
 }
 
