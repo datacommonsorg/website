@@ -65,8 +65,8 @@
   {
     "category": "Energy",
     "titleId": "CHART_TITLE-EnergySource",
-    "title": "Electricity source",
-    "description": "Total amount of electricitysource",
+    "title": "Energy source",
+    "description": "Sources for energy production",
     "statsVars": [
       "Amount_Production_ElectricityFromNuclearSources_AsFractionOf_Amount_Production_Energy",
       "Amount_Production_ElectricityFromOilGasOrCoalSources_AsFractionOf_Amount_Production_Energy",
