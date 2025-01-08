@@ -88,13 +88,11 @@ function getComparisonPlaces(
       break;
   }
 
-  let comparisonPlacesCount; // default
+  let comparisonPlacesCount = 5; // default
   switch (chart.type) {
     case "BAR":
       if ("barTileSpec" in chart && "maxPlaces" in chart.barTileSpec) {
-        comparisonPlacesCount = chart.barTileSpec
-          ? chart.barTileSpec?.maxPlaces
-          : 5;
+        comparisonPlacesCount = chart.barTileSpec?.maxPlaces;
       }
       break;
     case "RANKING":
@@ -102,9 +100,7 @@ function getComparisonPlaces(
         "rankingTileSpec" in chart &&
         "rankingCount" in chart.rankingTileSpec
       ) {
-        comparisonPlacesCount = chart.rankingTileSpec
-          ? chart.rankingTileSpec?.rankingCount
-          : 5;
+        comparisonPlacesCount = chart.rankingTileSpec?.rankingCount;
       }
       break;
   }
