@@ -34,7 +34,7 @@
   {
     "category": "Equity",
     "topic": "Income",
-    "titleId": "CHART_TITLE-Gini_index-other-countries-ranking",
+    "titleId": "CHART_TITLE-Gini_index-other-countries-rankings",
     "title": "Gini index Ranking",
     "description": "The Gini index is a measure of inequality, see https://stats.oecd.org/glossary/detail.asp?ID=4842",
     "statsVars": [
