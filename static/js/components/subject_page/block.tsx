@@ -392,12 +392,13 @@ export function Block(props: BlockPropType): JSX.Element {
   }
 }
 /**
- * Find the correct place to consider the parent place for the current component. This will depend on the current place, parent places and the comparisonPlaceType.
+ * Find the correct place to consider the parent place for the current component. This will depend on the current
+ * place, parent places and the comparisonPlaceType.
  *
  * @param comparisonPlaceType String representing the type of comparison places.
  * @param parentPlaces List of all possible parent places. We usually pick the first one.
  * @param place The current place to evaluate.
- * @returns The place dcid for the place to consider the parent for the component, it can be a parentPlace, or the current place.
+ * @returns The place dcid for the place to consider the parent, it can be a parentPlace, or the current place.
  */
 function getParentPlaceDcid(
   comparisonPlaceType: string,
@@ -415,8 +416,10 @@ function getParentPlaceDcid(
 }
 
 /**
- * Determined the expected enclosed place type based on the enclosed place type from the current place, and the comparison place type expected in the rankings tile.
- * It will either be the original enclosed place type, or one level up from it.
+ * Determined the expected enclosed place type based on the enclosed place type from the current place, and the
+ * comparison place type expected in the rankings tile. It will either be the original enclosed place type, or one
+ * level up from it.
+ * 
  * @param enclosedPlaceType specified enclosed place type for the current place.
  * @param comparisonPlaceType represents the type of comparison places expected.
  * @returns the place type expected in the ranking tile
