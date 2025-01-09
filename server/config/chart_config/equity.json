@@ -28,7 +28,7 @@
     },
     "isOverview": true,
     "chartType": "BAR",
-    "comparisonPlaceType": "SIMILAR",
+    "comparisonPlacesRelationshipType": "SIMILAR",
     "placePageType": "v2025"
   },
   {
@@ -46,7 +46,7 @@
       "showMultiColumn": false
     },
     "isOverview": true,
-    "comparisonPlaceType": "SIMILAR_IN_PARENT",
+    "comparisonPlacesRelationshipType": "SIMILAR_IN_PARENT",
     "chartType": "RANKING",
     "placePageType": "v2025"
   },

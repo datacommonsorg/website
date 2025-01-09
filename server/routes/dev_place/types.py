@@ -62,7 +62,7 @@ class Chart:
   childPlaceType: Optional[str] = None
   rankingTileSpec: Optional[RankingTileSpec] = None
   barTileSpec: Optional[BarTileSpec] = None
-  comparisonPlaceType: Optional[str] = None
+  comparisonPlacesRelationshipType: Optional[str] = None
 
   def __post_init__(self):
     # Custom validator for the `type` field

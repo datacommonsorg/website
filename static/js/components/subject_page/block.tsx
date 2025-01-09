@@ -393,22 +393,22 @@ export function Block(props: BlockPropType): JSX.Element {
 }
 /**
  * Find the correct place to consider the parent place for the current component. This will depend on the current
- * place, parent places and the comparisonPlaceType.
+ * place, parent places and the comparisonPlacesRelationshipType.
  *
- * @param comparisonPlaceType String representing the type of comparison places.
+ * @param comparisonPlacesRelationshipType String representing the type of comparison places.
  * @param parentPlaces List of all possible parent places. We usually pick the first one.
  * @param place The current place to evaluate.
  * @returns The place dcid for the place to consider the parent, it can be a parentPlace, or the current place.
  */
 function getParentPlaceDcid(
-  comparisonPlaceType: string,
+  comparisonPlacesRelationshipType: string,
   parentPlaces: NamedNode[],
   place: NamedTypedPlace
 ): string {
   if (
     parentPlaces &&
     parentPlaces.length > 0 &&
-    ["SIMILAR", "SIMILAR_IN_PARENT"].includes(comparisonPlaceType)
+    ["SIMILAR", "SIMILAR_IN_PARENT"].includes(comparisonPlacesRelationshipType)
   ) {
     return parentPlaces[0].dcid;
   }
@@ -417,18 +417,18 @@ function getParentPlaceDcid(
 
 /**
  * Determined the expected enclosed place type based on the enclosed place type from the current place, and the
- * comparison place type expected in the rankings tile. It will either be the original enclosed place type, or one
+ * comparison place relationship type expected in the rankings tile. It will either be the original enclosed place type, or one
  * level up from it.
  *
  * @param enclosedPlaceType specified enclosed place type for the current place.
- * @param comparisonPlaceType represents the type of comparison places expected.
+ * @param comparisonPlacesRelationshipType represents the type of comparison places expected.
  * @returns the place type expected in the ranking tile
  */
 function getEnclosedPlaceType(
   enclosedPlaceType: string,
-  comparisonPlaceType: string
+  comparisonPlacesRelationshipType: string
 ): string {
-  if (!["SIMILAR", "SIMILAR_IN_PARENT"].includes(comparisonPlaceType)) {
+  if (!["SIMILAR", "SIMILAR_IN_PARENT"].includes(comparisonPlacesRelationshipType)) {
     return enclosedPlaceType;
   }
 
@@ -562,13 +562,13 @@ function renderTiles(
             lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN}
             title={title}
             parentPlace={getParentPlaceDcid(
-              tile.comparisonPlaceType,
+              tile.comparisonPlacesRelationshipType,
               props.parentPlaces,
               place
             )}
             enclosedPlaceType={getEnclosedPlaceType(
               enclosedPlaceType,
-              tile.comparisonPlaceType
+              tile.comparisonPlacesRelationshipType
             )}
             variables={props.statVarProvider.getSpecList(tile.statVarKey, {
               blockDate,

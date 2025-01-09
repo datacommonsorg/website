@@ -221,7 +221,7 @@
     "unit": "$",
     "isOverview": false,
     "chartType": "BAR",
-    "comparisonPlaceType": "SIMILAR",
+    "comparisonPlacesRelationshipType": "SIMILAR",
     "barTileSpec": {
       "maxPlaces": 5
     }
@@ -237,7 +237,7 @@
     "unit": "$",
     "isOverview": false,
     "chartType": "RANKING",
-    "comparisonPlaceType": "SIMILAR_IN_PARENT",
+    "comparisonPlacesRelationshipType": "SIMILAR_IN_PARENT",
     "rankingTileSpec": {
       "rankingCount": 5,
       "showHighestLowest": true,

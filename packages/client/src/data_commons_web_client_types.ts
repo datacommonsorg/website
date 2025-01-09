@@ -173,6 +173,7 @@ export interface BarTileSpec {
 }
 
 type ChartType = "BAR" | "LINE" | "MAP" | "RANKING";
+type ComparisonPlacesRelationshipType = "SIMILAR" | "SIMILAR_IN_PARENT" | "CHILD";
 export interface Chart {
   type: ChartType;
   title: string;
@@ -184,7 +185,7 @@ export interface Chart {
   unit?: string; // Optional
   rankingTileSpec?: RankingTileSpec; // Optional
   barTileSpec?: BarTileSpec; // Optional
-  comparisonPlaceType?: string; // Optional
+  comparisonPlacesRelationshipType?: ComparisonPlacesRelationshipType; // Optional
   scaling?: number; // Optional
 }
 

@@ -75,11 +75,11 @@ function getComparisonPlaces(
   relatedPlacesApiResponse: RelatedPlacesApiResponse,
   placeDcid: string
 ): string[] {
-  if (!chart.comparisonPlaceType) {
+  if (!chart.comparisonPlacesRelationshipType) {
     return null;
   }
   let comparisonPlaces = [];
-  switch (chart.comparisonPlaceType) {
+  switch (chart.comparisonPlacesRelationshipType) {
     case "SIMILAR":
       comparisonPlaces = relatedPlacesApiResponse.similarPlaces;
       break;
@@ -149,8 +149,8 @@ function placeChartsApiResponsesToPageConfig(
             }
           ),
         };
-        if ("comparisonPlaceType" in chart) {
-          chartConfiguration["comparisonPlaceType"] = chart.comparisonPlaceType;
+        if ("comparisonPlacesRelationshipType" in chart) {
+          chartConfiguration["comparisonPlacesRelationshipType"] = chart.comparisonPlacesRelationshipType;
           chartConfiguration["comparisonPlaces"] = getComparisonPlaces(
             chart,
             relatedPlacesApiResponse,
