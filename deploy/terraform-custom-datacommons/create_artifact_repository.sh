@@ -15,7 +15,7 @@
 
 # One-time setup script for creating a GCR artifact repository
 
-# Takes a single argument: the GCP project ID.
+# Takes two arguments: the GCP project ID and optionally the region.
 set -e
 
 # Define color codes
@@ -34,14 +34,29 @@ fi
 # First argument is the GCP project
 PROJECT_ID=$1
 
+# Check if region is provided, otherwise default to us-central1
+if [ -z "$2" ]; then
+    REGION="us-central1"
+else
+    REGION="$2"
+fi
+
+# Validate region format
+if ! [[ $REGION =~ ^[a-z]+-[a-z0-9]+$ ]]; then
+    echo -e "${RED}Error: Invalid region format.${NC}"
+    echo -e "${YELLOW}Region should be in format like 'us-central1'${NC}"
+    exit 1
+fi
+
+
 # Enable the Artifact Registry API
 gcloud services enable artifactregistry.googleapis.com --project $PROJECT_ID
 
 # Create the artifact repository
 gcloud artifacts repositories create $PROJECT_ID-artifacts \
   --repository-format=docker \
-  --location=us-central1 \
+  --location=$REGION \
   --description="Artifact repository for $PROJECT_ID"
 
 
-  
+echo -e "${GREEN}Artifact repository created successfully.${NC}"

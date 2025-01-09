@@ -139,18 +139,6 @@ variable "dc_web_service_image" {
   default     = "gcr.io/datcom-ci/datacommons-services:stable"
 }
 
-variable "dc_web_service_cpu" {
-  description = "CPU limit for the Data Commons service container"
-  type        = string
-  default     = "4"
-}
-
-variable "dc_web_service_memory" {
-  description = "Memory limit for the Data Commons service container"
-  type        = string
-  default     = "16G"
-}
-
 variable "dc_web_service_min_instance_count" {
   description = "Minimum number of instances for the Data Commons service"
   type        = number
@@ -161,6 +149,18 @@ variable "dc_web_service_max_instance_count" {
   description = "Maximum number of instances for the Data Commons service"
   type        = number
   default     = 1
+}
+
+variable "dc_web_service_cpu" {
+  description = "CPU limit for the Data Commons service container"
+  type        = string
+  default     = "4"
+}
+
+variable "dc_web_service_memory" {
+  description = "Memory limit for the Data Commons service container"
+  type        = string
+  default     = "16G"
 }
 
 variable "make_dc_web_service_public" {
