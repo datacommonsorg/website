@@ -428,7 +428,9 @@ function getEnclosedPlaceType(
   enclosedPlaceType: string,
   comparisonPlacesRelationshipType: string
 ): string {
-  if (!["SIMILAR", "SIMILAR_IN_PARENT"].includes(comparisonPlacesRelationshipType)) {
+  if (
+    !["SIMILAR", "SIMILAR_IN_PARENT"].includes(comparisonPlacesRelationshipType)
+  ) {
     return enclosedPlaceType;
   }
 

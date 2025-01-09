@@ -39,7 +39,7 @@ import {
   defaultDataCommonsWebClient,
 } from "../utils/data_commons_client";
 import { TileSources } from "../utils/tile_utils";
-import { isPlaceContainedInUsa } from "./util";
+import { filterForCharts, isPlaceContainedInUsa } from "./util";
 
 /**
  * Returns the stat var key for a chart.
@@ -133,7 +133,7 @@ function placeChartsApiResponsesToPageConfig(
       const charts = chartsByCategory[categoryName];
 
       const tiles: TileConfig[] = charts.map((chart) => {
-        const chartConfiguration : TileConfig = {
+        const chartConfiguration: TileConfig = {
           description: chart.description,
           title: chart.title,
           type: chart.type,
@@ -150,7 +150,8 @@ function placeChartsApiResponsesToPageConfig(
           ),
         };
         if ("comparisonPlacesRelationshipType" in chart) {
-          chartConfiguration["comparisonPlacesRelationshipType"] = chart.comparisonPlacesRelationshipType;
+          chartConfiguration["comparisonPlacesRelationshipType"] =
+            chart.comparisonPlacesRelationshipType;
           chartConfiguration["comparisonPlaces"] = getComparisonPlaces(
             chart,
             relatedPlacesApiResponse,
@@ -604,18 +605,6 @@ export const DevPlaceMain = (): React.JSX.Element => {
     place && pageConfig && pageConfig.categories.length > 0;
   const hasNoCharts =
     place && pageConfig && pageConfig.categories.length == 0 && !isLoading;
-  const placeTypesForCharts = new Set<string>([
-    "Continent",
-    "Country",
-    "AdministrativeArea1",
-    "EurostatNUTS1",
-  ]);
-
-  function filterForCharts(places: NamedTypedPlace[]): NamedTypedPlace[] {
-    return places.filter((p) =>
-      p.types.some((item) => placeTypesForCharts.has(item))
-    );
-  }
 
   /**
    * On initial load, get place metadata from the page's metadata element

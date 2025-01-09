@@ -302,7 +302,8 @@ def chart_config_to_overview_charts(chart_config, child_place_type: str):
             "chartType", "LINE"),
         rankingTileSpec=page_config_item.get("rankingTileSpec", None),
         barTileSpec=page_config_item.get("barTileSpec", None),
-        comparisonPlacesRelationshipType=page_config_item.get("comparisonPlacesRelationshipType", None),
+        comparisonPlacesRelationshipType=page_config_item.get(
+            "comparisonPlacesRelationshipType", None),
         unit=page_config_item.get("unit"),
     )
     if denominator:
