@@ -505,6 +505,7 @@ const PlaceCharts = (props: {
  * related places, and chart data.
  */
 export const DevPlaceMain = (): React.JSX.Element => {
+  const overviewString = "Overview";
   // Core place data
   const [place, setPlace] = useState<NamedTypedPlace>();
   const [placeSummary, setPlaceSummary] = useState<string>();
@@ -521,11 +522,18 @@ export const DevPlaceMain = (): React.JSX.Element => {
   const [childPlaces, setChildPlaces] = useState<NamedTypedPlace[]>([]);
   const [parentPlaces, setParentPlaces] = useState<NamedTypedPlace[]>([]);
   const [pageConfig, setPageConfig] = useState<SubjectPageConfig>();
+  const [hasError, setHasError] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [categories, setCategories] = useState<string[]>();
 
   const urlParams = new URLSearchParams(window.location.search);
-  const category = urlParams.get("category") || "Overview";
+  const category = urlParams.get("category") || overviewString;
+  const isOverview = category === overviewString;
   const forceDevPlaces = urlParams.get("force_dev_places") === "true";
+  const hasPlaceCharts =
+    place && pageConfig && pageConfig.categories.length > 0;
+  const hasNoCharts =
+    place && pageConfig && pageConfig.categories.length == 0 && !isLoading;
 
   /**
    * On initial load, get place metadata from the page's metadata element
@@ -537,6 +545,12 @@ export const DevPlaceMain = (): React.JSX.Element => {
       console.error("Error loading place page metadata element");
       return;
     }
+    if (
+      pageMetadata.dataset.placeDcid != "" &&
+      pageMetadata.dataset.placeName === ""
+    ) {
+      setHasError(true);
+    }
     setPlace({
       name: pageMetadata.dataset.placeName,
       dcid: pageMetadata.dataset.placeDcid,
@@ -547,6 +561,14 @@ export const DevPlaceMain = (): React.JSX.Element => {
   }, []);
 
   /**
+   * Set the visibility on the loading indicator on loading changes.
+   */
+  useEffect(() => {
+    const loadingElem = document.getElementById("page-loading");
+    loadingElem.style.display = isLoading ? "" : "none";
+  }, [isLoading, setIsLoading]);
+
+  /**
    * Once we have place data, fetch chart and related places data from the API.
    * Updates state with API responses and derived data.
    */
@@ -554,6 +576,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
     if (!place) {
       return;
     }
+    setIsLoading(true);
     (async (): Promise<void> => {
       const [placeChartsApiResponse, relatedPlacesApiResponse] =
         await Promise.all([
@@ -575,8 +598,9 @@ export const DevPlaceMain = (): React.JSX.Element => {
       setChildPlaces(relatedPlacesApiResponse.childPlaces);
       setParentPlaces(relatedPlacesApiResponse.parentPlaces);
       setPageConfig(config);
+      setIsLoading(false);
     })();
-  }, [place]);
+  }, [place, category]);
 
   useEffect(() => {
     if (placeChartsApiResponse && placeChartsApiResponse.charts) {
@@ -589,10 +613,13 @@ export const DevPlaceMain = (): React.JSX.Element => {
         )
       );
     }
-  }, [placeChartsApiResponse, setPlaceChartsApiResponse, setCategories]);
+  }, [placeChartsApiResponse, setPlaceChartsApiResponse]);
 
   if (!place) {
     return <div>Loading...</div>;
+  }
+  if (hasError) {
+    return <div>Place &quot;{place.dcid}&quot; not found.</div>;
   }
   return (
     <RawIntlProvider value={intl}>
@@ -607,18 +634,28 @@ export const DevPlaceMain = (): React.JSX.Element => {
         place={place}
         forceDevPlaces={forceDevPlaces}
       />
-      <PlaceOverview
-        place={place}
-        placeSummary={placeSummary}
-        parentPlaces={parentPlaces}
-      />
-      <RelatedPlaces place={place} childPlaces={childPlaces} />
-      {place && pageConfig && (
+      {isOverview && placeSummary != "" && (
+        <PlaceOverview
+          place={place}
+          placeSummary={placeSummary}
+          parentPlaces={parentPlaces}
+        />
+      )}
+      {isOverview && childPlaces.length > 0 && (
+        <RelatedPlaces place={place} childPlaces={childPlaces} />
+      )}
+      {hasPlaceCharts && (
         <PlaceCharts
           place={place}
           childPlaceType={childPlaceType}
           pageConfig={pageConfig}
         />
+      )}
+      {hasNoCharts && (
+        <div>
+          No {category === overviewString ? "" : category} data found for{" "}
+          {place.name}.
+        </div>
       )}
     </RawIntlProvider>
   );

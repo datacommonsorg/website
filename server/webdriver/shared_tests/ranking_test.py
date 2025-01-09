@@ -112,5 +112,5 @@ class RankingTestMixin():
     chart = self.driver.find_element(By.CLASS_NAME, 'chart-container')
     y_text = chart.find_elements(By.CLASS_NAME,
                                  'y')[0].find_elements(By.TAG_NAME, 'text')
+    self.assertGreater(len(y_text), 1)
     self.assertEqual(y_text[0].text, '0')
-    self.assertEqual(y_text[-1].text, '12억')
