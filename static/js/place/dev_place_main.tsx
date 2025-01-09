@@ -133,7 +133,7 @@ function placeChartsApiResponsesToPageConfig(
       const charts = chartsByCategory[categoryName];
 
       const tiles: TileConfig[] = charts.map((chart) => {
-        const chartConfiguration = {
+        const chartConfiguration : TileConfig = {
           description: chart.description,
           title: chart.title,
           type: chart.type,

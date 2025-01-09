@@ -450,7 +450,7 @@ msgstr "Gross domestic product: other countries"
 
 #. Title of a place chart: Gross domestic product (nominal): other countries ranking, see https://en.wikipedia.org/wiki/Gross_domestic_product
 msgid "CHART_TITLE-Gdp-other-countries-ranking"
-msgstr "Gross domestic product: other countries ranking"
+msgstr "Gross domestic product: other countries"
 
 
 #. Title of a place chart: The Gini index is a measure of inequality, see https://stats.oecd.org/glossary/detail.asp?ID=4842
@@ -467,7 +467,7 @@ msgstr "Median household income by race"
 
 #. Title of a place chart: The Gini index is a measure of inequality, see https://stats.oecd.org/glossary/detail.asp?ID=4842
 msgid "CHART_TITLE-Gini_index-other-countries-rankings"
-msgstr "Gini index: other countries ranking"
+msgstr "Gini index: other countries"
 
 #. Title of a place chart: Gross national income, converted using purchasing power parity rates
 msgid "CHART_TITLE-Gni"
