@@ -289,8 +289,8 @@ resource "google_cloud_run_v2_service" "dc_web_service" {
       egress = "PRIVATE_RANGES_ONLY"
     }
     scaling {
-      min_instance_count = 1
-      max_instance_count = 1
+      min_instance_count = var.dc_web_service_min_instance_count
+      max_instance_count = var.dc_web_service_max_instance_count
     }
     service_account = google_service_account.datacommons_service_account.email
   }
