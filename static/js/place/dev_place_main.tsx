@@ -17,6 +17,7 @@
 import { DataRow } from "@datacommonsorg/client";
 import {
   PlaceChartsApiResponse,
+  Place,
   RelatedPlacesApiResponse,
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
 import React, { useEffect, useRef, useState } from "react";

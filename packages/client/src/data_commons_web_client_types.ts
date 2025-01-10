@@ -173,6 +173,7 @@ export interface BlockConfig {
   denominator?: string; // Optional
   unit?: string; // Optional
   scaling?: number; // Optional
+  placeScope?: string;
 }
 
 /**
