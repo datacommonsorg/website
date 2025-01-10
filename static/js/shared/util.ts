@@ -29,11 +29,7 @@ export const placeExplorerCategories = [
   "housing",
   "environment",
   "energy",
-  "health_new",
   "energy_new",
-  "crime_new",
-  "demographics_new",
-  "economics_new",
 ];
 
 const NO_DATE_CAP_RCP_STATVARS = [
