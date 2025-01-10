@@ -18,7 +18,7 @@ Place API dataclass types
 from dataclasses import dataclass
 from typing import Dict, List, Optional
 
-CHART_TYPES = {"BAR", "LINE", "MAP", "RANKING"}
+CHART_TYPES = {"BAR", "LINE", "MAP", "RANKING", "HIGHLIGHT"}
 
 
 @dataclass
@@ -54,7 +54,7 @@ class PlaceChartsApiResponse:
   """
   API Response for /api/dev-place/charts/<place_dcid>
   """
-  charts: List[Chart]
+  charts: List[List[Chart]]
   place: Place
   translatedCategoryStrings: Dict[str, str]
 

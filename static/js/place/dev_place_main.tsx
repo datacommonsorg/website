@@ -18,6 +18,7 @@ import { DataRow } from "@datacommonsorg/client";
 import {
   Chart,
   PlaceChartsApiResponse,
+  Place,
   RelatedPlacesApiResponse,
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
 import _ from "lodash";
@@ -70,7 +71,8 @@ function getStatVarKey(
  * @returns A SubjectPageConfig object with categories, tiles, and stat var specs
  */
 function placeChartsApiResponsesToPageConfig(
-  placeChartsApiResponse: PlaceChartsApiResponse
+  placeChartsApiResponse: PlaceChartsApiResponse,
+  parentPlaces: Place[]
 ): SubjectPageConfig {
   const chartsByCategory = _.groupBy(
     placeChartsApiResponse.charts,
@@ -81,10 +83,11 @@ function placeChartsApiResponsesToPageConfig(
       const charts = chartsByCategory[categoryName];
 
       const tiles: TileConfig[] = charts.map((chart) => {
-        return {
+        const tileConfig = {
           description: chart.description,
           title: chart.title,
           type: chart.type,
+          
           statVarKey: chart.statisticalVariableDcids.map(
             (variableDcid, variableIdx) => {
               const denom =
@@ -97,6 +100,10 @@ function placeChartsApiResponsesToPageConfig(
             }
           ),
         };
+        if (chart.placeScope === "PEER_PLACES_WITHIN_PARENT") {
+          tileConfig["placeDcidOverride"] = parentPlaces[0].dcid;
+        }
+        return tileConfig
       });
 
       const statVarSpec: Record<string, StatVarSpec> = {};
@@ -145,6 +152,7 @@ function placeChartsApiResponsesToPageConfig(
     metadata: undefined,
     categories: categoryConfig,
   };
+  console.log("page config " + JSON.stringify(pageConfig)); 
   return pageConfig;
 }
 
@@ -591,14 +599,15 @@ export const DevPlaceMain = (): React.JSX.Element => {
 
       setPlaceChartsApiResponse(placeChartsApiResponse);
       setRelatedPlacesApiResponse(relatedPlacesApiResponse);
-      const config = placeChartsApiResponsesToPageConfig(
-        placeChartsApiResponse
-      );
       setChildPlaceType(relatedPlacesApiResponse.childPlaceType);
       setChildPlaces(relatedPlacesApiResponse.childPlaces);
       setParentPlaces(relatedPlacesApiResponse.parentPlaces);
-      setPageConfig(config);
       setIsLoading(false);
+      const config = placeChartsApiResponsesToPageConfig(
+        placeChartsApiResponse,
+        relatedPlacesApiResponse.parentPlaces
+      );
+      setPageConfig(config);
     })();
   }, [place, category]);
 

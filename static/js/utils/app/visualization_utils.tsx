@@ -331,7 +331,7 @@ export function getHash(
 ): string {
   const params = {
     [URL_PARAMS.VIS_TYPE]: visType,
-    [URL_PARAMS.PLACE]: places.join(PARAM_VALUE_SEP),
+    [URL_PARAMS.PLACE]: places ? places.join(PARAM_VALUE_SEP) : "",
     [URL_PARAMS.ENCLOSED_PLACE_TYPE]: enclosedPlaceType,
     [URL_PARAMS.STAT_VAR]: statVars
       .map((sv) => {

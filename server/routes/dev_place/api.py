@@ -46,6 +46,7 @@ CATEGORIES = {
     "Housing",
     "Environment",
     "Energy",
+    "EnergyNew",
 }
 
 # Define blueprint
@@ -88,6 +89,8 @@ def place_charts(place_dcid: str):
 
   # Retrieve available place page charts
   full_chart_config = copy.deepcopy(current_app.config['CHART_CONFIG'])
+  full_chart_config = [c for c in full_chart_config if c.get("blocks")]
+  print(full_chart_config)
 
   # Filter chart config by category
   overview_chart_config = [c for c in full_chart_config if c.get("isOverview")]
@@ -123,7 +126,7 @@ def place_charts(place_dcid: str):
   # Translate category strings
   translated_category_strings = place_utils.get_translated_category_strings(
       filtered_chart_config_for_category)
-
+  print(charts)
   response = PlaceChartsApiResponse(
       charts=charts,
       place=place,

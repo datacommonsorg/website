@@ -174,7 +174,7 @@ export class DatacommonsRankingComponent extends LitElement {
         showHighest: !this.showLowest && !this.showHighestLowest,
         showHighestLowest: this.showHighestLowest,
         showLowest: this.showLowest,
-        showMultiColumn: this.showMultiColumn,
+        showMultiColumn: this.showMultiColumn || false,
       },
       showExploreMore: this.showExploreMore,
       sources: this.sources,

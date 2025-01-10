@@ -145,7 +145,7 @@ export type ObservationDatesApiResponse = {
   };
 };
 
-type ChartType = "BAR" | "LINE" | "MAP" | "RANKING";
+type ChartType = "BAR" | "LINE" | "MAP" | "RANKING" | "HIGHLIGHT";
 export interface Chart {
   type: ChartType;
   title: string;
@@ -156,6 +156,7 @@ export interface Chart {
   denominator?: string; // Optional
   unit?: string; // Optional
   scaling?: number; // Optional
+  placeScope?: string;
 }
 
 export interface Place {
