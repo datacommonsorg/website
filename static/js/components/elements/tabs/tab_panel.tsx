@@ -23,7 +23,7 @@
 import { css, useTheme } from "@emotion/react";
 import React, { ReactElement, ReactNode } from "react";
 
-import { useTabsContext } from "./TabsContext";
+import { useTabContext } from "./tab_context";
 
 interface TabPanelProps {
   //the value of the tab component - used to connect tab panels with their tab selector buttons
@@ -33,7 +33,7 @@ interface TabPanelProps {
 }
 
 export const TabPanel = ({ value, children }: TabPanelProps): ReactElement => {
-  const { value: selectedValue } = useTabsContext();
+  const { value: selectedValue } = useTabContext();
   const theme = useTheme();
 
   if (selectedValue !== value) {

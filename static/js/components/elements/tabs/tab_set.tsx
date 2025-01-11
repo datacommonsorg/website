@@ -30,8 +30,8 @@ import React, {
   useState,
 } from "react";
 
-import { TabProps } from "./Tab";
-import { useTabsContext } from "./TabsContext";
+import { TabProps } from "./tab";
+import { useTabContext } from "./tab_context";
 
 interface TabSetProps {
   //The children, which are <Tab> components, the tab buttons that switch the panels
@@ -40,7 +40,7 @@ interface TabSetProps {
 
 export const TabSet = ({ children }: TabSetProps): ReactElement => {
   const theme = useTheme();
-  const { value: selectedValue, onChange } = useTabsContext();
+  const { value: selectedValue, onChange } = useTabContext();
   const tabSetRef = useRef<HTMLDivElement>(null);
 
   const [indicatorStyle, setIndicatorStyle] = useState<{

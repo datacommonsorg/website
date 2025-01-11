@@ -46,10 +46,10 @@
 
 import React, { ReactElement, ReactNode, useState } from "react";
 
-import { Tab } from "./Tab";
-import { TabPanel } from "./TabPanel";
-import TabsContext from "./TabsContext";
-import { TabSet } from "./TabSet";
+import { Tab } from "./tab";
+import { TabContext } from "./tab_context";
+import { TabPanel } from "./tab_panel";
+import { TabSet } from "./tab_set";
 
 // An interface representing the definition of a tab.
 // An array of these are sent into the tab component.
@@ -72,7 +72,7 @@ export function Tabs({ tabs, defaultValue }: TabsProps): ReactElement {
   const [activeTab, setActiveTab] = useState(defaultValue || firstTabValue);
 
   return (
-    <TabsContext.Provider
+    <TabContext.Provider
       value={{
         value: activeTab,
         onChange: (val: string | number): void => setActiveTab(String(val)),
@@ -89,6 +89,6 @@ export function Tabs({ tabs, defaultValue }: TabsProps): ReactElement {
           {t.content}
         </TabPanel>
       ))}
-    </TabsContext.Provider>
+    </TabContext.Provider>
   );
 }

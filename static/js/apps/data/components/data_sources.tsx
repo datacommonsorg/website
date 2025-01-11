@@ -21,7 +21,7 @@
 
 import React, { ReactElement } from "react";
 
-import { Tabs } from "../../../components/elements/tabs/Tabs";
+import { Tabs } from "../../../components/elements/tabs/tabs";
 import { DemographicDataSources } from "./demographic_data_sources";
 
 const demographicTabs = [

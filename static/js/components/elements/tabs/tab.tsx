@@ -25,7 +25,7 @@
 import { css, useTheme } from "@emotion/react";
 import React, { ReactElement, useRef } from "react";
 
-import { useTabsContext } from "./TabsContext";
+import { useTabContext } from "./tab_context";
 
 export interface TabProps {
   //the label that displays at the top of the tab component
@@ -37,7 +37,7 @@ export interface TabProps {
 export const Tab = ({ label, value }: TabProps): ReactElement => {
   const theme = useTheme();
 
-  const { value: selectedValue, onChange } = useTabsContext();
+  const { value: selectedValue, onChange } = useTabContext();
   const tabRef = useRef<HTMLButtonElement>(null);
 
   const tabValue = value !== undefined ? value : label;
