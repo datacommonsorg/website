@@ -176,13 +176,22 @@ export interface BlockConfig {
   placeScope?: string;
 }
 
+export interface BlockConfig {
+  charts: Chart[]
+  childPlaceType: string;
+  childPlaces: Place[];
+  nearbyPlaces: Place[];
+  place: Place;
+  translatedCategoryStrings: Record<string, string>;
+  placeScope: string
+
+}
+
 /**
  * Website API response for /api/dev-place/charts/<place_dcid>
  */
 export interface PlaceChartsApiResponse {
   blocks: BlockConfig[];
-  place: Place;
-  translatedCategoryStrings: Record<string, string>;
 }
 
 /**
