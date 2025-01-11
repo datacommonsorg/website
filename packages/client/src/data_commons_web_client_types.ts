@@ -183,6 +183,15 @@ export interface PlaceChartsApiResponse {
   blocks: BlockConfig[];
   place: Place;
   translatedCategoryStrings: Record<string, string>;
+  placeScope: string
+
+}
+
+/**
+ * Website API response for /api/dev-place/charts/<place_dcid>
+ */
+export interface PlaceChartsApiResponse {
+  blocks: BlockConfig[];
 }
 
 /**

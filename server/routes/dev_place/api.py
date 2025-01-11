@@ -107,7 +107,8 @@ def place_charts(place_dcid: str):
   # Translate category strings
   translated_category_strings = place_utils.get_translated_category_strings(
       filtered_chart_config_for_category)
-  print(charts)
+
+  print(blocks)
   response = PlaceChartsApiResponse(
       blocks=blocks,
       place=place,
