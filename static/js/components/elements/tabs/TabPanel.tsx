@@ -32,7 +32,7 @@ interface TabPanelProps {
   children: ReactNode;
 }
 
-const TabPanel = ({ value, children }: TabPanelProps): ReactElement => {
+export const TabPanel = ({ value, children }: TabPanelProps): ReactElement => {
   const { value: selectedValue } = useTabsContext();
   const theme = useTheme();
 
@@ -53,5 +53,3 @@ const TabPanel = ({ value, children }: TabPanelProps): ReactElement => {
     </div>
   );
 };
-
-export default TabPanel;

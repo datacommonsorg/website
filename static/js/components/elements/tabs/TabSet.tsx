@@ -38,7 +38,7 @@ interface TabSetProps {
   children: ReactElement<TabProps> | ReactElement<TabProps>[];
 }
 
-const TabSet = ({ children }: TabSetProps): ReactElement => {
+export const TabSet = ({ children }: TabSetProps): ReactElement => {
   const theme = useTheme();
   const { value: selectedValue, onChange } = useTabsContext();
   const tabSetRef = useRef<HTMLDivElement>(null);
@@ -169,5 +169,3 @@ const TabSet = ({ children }: TabSetProps): ReactElement => {
     </div>
   );
 };
-
-export default TabSet;

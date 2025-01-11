@@ -16,8 +16,9 @@
 
 /**
  * A tab component that represents a single tab button within a tab-set.
+ *
  * This must be used within a TabSet component which must in turn
- * be inside a Tabs component
+ * be inside a Tabs component.
  */
 
 /** @jsxImportSource @emotion/react */
@@ -33,7 +34,7 @@ export interface TabProps {
   value: string | number;
 }
 
-const Tab = ({ label, value }: TabProps): ReactElement => {
+export const Tab = ({ label, value }: TabProps): ReactElement => {
   const theme = useTheme();
 
   const { value: selectedValue, onChange } = useTabsContext();
@@ -76,5 +77,3 @@ const Tab = ({ label, value }: TabProps): ReactElement => {
     </button>
   );
 };
-
-export default Tab;

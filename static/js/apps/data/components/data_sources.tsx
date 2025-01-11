@@ -19,169 +19,29 @@
  */
 /** @jsxImportSource @emotion/react */
 
-import { css, useTheme } from "@emotion/react";
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement } from "react";
 
-import Tab from "../../../components/elements/tabs/Tab";
-import TabPanel from "../../../components/elements/tabs/TabPanel";
-import Tabs from "../../../components/elements/tabs/Tabs";
-import TabSet from "../../../components/elements/tabs/TabSet";
+import { Tabs } from "../../../components/elements/tabs/Tabs";
+import { DemographicDataSources } from "./demographic_data_sources";
+
+const demographicTabs = [
+  {
+    value: "demographics",
+    label: "Demographics",
+    content: <DemographicDataSources />,
+  },
+  {
+    value: "economy",
+    label: "Economy",
+    content: <div>Some economy info</div>,
+  },
+  {
+    value: "crime",
+    label: "Crime",
+    content: <div>Some crime info</div>,
+  },
+];
 
 export const DataSources = (): ReactElement => {
-  const theme = useTheme();
-  const [value, setValue] = useState<string | number>("one");
-
-  const handleChange = (newValue: string | number): void => {
-    setValue(newValue);
-  };
-
-  return (
-    <Tabs value={value} onChange={handleChange}>
-      <TabSet>
-        <Tab value="one" label="Item One" />
-        <Tab value="two" label="Item Two" />
-        <Tab value="three" label="Item Three" />
-      </TabSet>
-
-      <TabPanel value="one">
-        <h3
-          css={css`
-            ${theme.typography.family.heading};
-            ${theme.typography.heading.sm};
-            margin-bottom: ${theme.spacing.xl}px;
-          `}
-        >
-          Content for Item One
-        </h3>
-        <div
-          css={css`
-            padding: ${theme.spacing.sm}px 0;
-            display: grid;
-            gap: ${theme.spacing.huge}px;
-            grid-template-columns: 1fr 2fr;
-
-            @media (max-width: ${theme.breakpoints.md}px) {
-              grid-template-columns: 1fr;
-              gap: ${theme.spacing.sm}px;
-              border-top: 1px solid ${theme.colors.border.primary.light};
-              padding-top: ${theme.spacing.lg}px;
-              margin-top: ${theme.spacing.lg}px;
-            }
-          `}
-        >
-          <p
-            css={css`
-              ${theme.typography.family.text};
-              ${theme.typography.text.md};
-            `}
-          >
-            Open Data for Africa
-          </p>
-          <ul
-            css={css`
-              ${theme.typography.family.text};
-              ${theme.typography.text.md};
-            `}
-          >
-            <li>Kenya Census</li>
-            <li>Nigeria Statistics</li>
-            <li>SouthAfrica Census</li>
-            <li>Uganda Bureau of Statistics (UBOS)</li>
-          </ul>
-        </div>
-        <div
-          css={css`
-            padding: ${theme.spacing.sm}px 0;
-            display: grid;
-            gap: ${theme.spacing.huge}px;
-            grid-template-columns: 1fr 2fr;
-
-            @media (max-width: ${theme.breakpoints.md}px) {
-              grid-template-columns: 1fr;
-              gap: ${theme.spacing.sm}px;
-              border-top: 1px solid ${theme.colors.border.primary.light};
-              padding-top: ${theme.spacing.lg}px;
-              margin-top: ${theme.spacing.lg}px;
-            }
-          `}
-        >
-          <p
-            css={css`
-              ${theme.typography.family.text};
-              ${theme.typography.text.md};
-            `}
-          >
-            U.S. Department of Housing and Urban Development (HUD)
-          </p>
-          <ul
-            css={css`
-              ${theme.typography.family.text};
-              ${theme.typography.text.md};
-            `}
-          >
-            <li>Income Limits</li>
-          </ul>
-        </div>
-        <div
-          css={css`
-            padding: ${theme.spacing.sm}px 0;
-            display: grid;
-            gap: ${theme.spacing.huge}px;
-            grid-template-columns: 1fr 2fr;
-
-            @media (max-width: ${theme.breakpoints.md}px) {
-              grid-template-columns: 1fr;
-              gap: ${theme.spacing.sm}px;
-              border-top: 1px solid ${theme.colors.border.primary.light};
-              padding-top: ${theme.spacing.lg}px;
-              margin-top: ${theme.spacing.lg}px;
-            }
-          `}
-        >
-          <p
-            css={css`
-              ${theme.typography.family.text};
-              ${theme.typography.text.md};
-            `}
-          >
-            U.S. Center for Disease Control and Prevention (CDC)
-          </p>
-          <ul
-            css={css`
-              ${theme.typography.family.text};
-              ${theme.typography.text.md};
-            `}
-          >
-            <li>BRFSS-NCHS Asthma Prevalence</li>
-            <li>National Notifiable Diseases Surveillance System (NNDSS)</li>
-            <li>Wonder: Compressed Mortality</li>
-            <li>Wonder: Mortality, Underlying Cause Of Death</li>
-            <li>Wonder: Natality</li>
-          </ul>
-        </div>
-      </TabPanel>
-      <TabPanel value="two">
-        <h3
-          css={css`
-            ${theme.typography.family.heading};
-            ${theme.typography.heading.sm};
-            margin-bottom: ${theme.spacing.xl}px;
-          `}
-        >
-          Content for Item 2
-        </h3>
-      </TabPanel>
-      <TabPanel value="three">
-        <h3
-          css={css`
-            ${theme.typography.family.heading};
-            ${theme.typography.heading.sm};
-            margin-bottom: ${theme.spacing.xl}px;
-          `}
-        >
-          Content for Item 3
-        </h3>
-      </TabPanel>
-    </Tabs>
-  );
+  return <Tabs tabs={demographicTabs} defaultValue="demographics" />;
 };
