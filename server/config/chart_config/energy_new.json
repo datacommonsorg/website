@@ -6,7 +6,6 @@
     "variables": [
       "Count_Person"
     ],
-    "unit": "$",
     "denominator": [],
     "nonDividable": true,
     "scale": true,

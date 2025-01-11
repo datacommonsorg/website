@@ -120,15 +120,16 @@ def place_charts(place_dcid: str):
       filtered_chart_config)
 
   # Extract charts to Chart objects used in PlaceChartsApiResponse object
-  charts = place_utils.chart_config_to_overview_charts(translated_chart_config,
+  blocks = place_utils.chart_config_to_overview_charts(translated_chart_config,
                                                        child_place_type)
 
   # Translate category strings
   translated_category_strings = place_utils.get_translated_category_strings(
       filtered_chart_config_for_category)
-  print(charts)
+
+  print(blocks)
   response = PlaceChartsApiResponse(
-      charts=charts,
+      blocks=blocks,
       place=place,
       translatedCategoryStrings=translated_category_strings)
   return jsonify(response)

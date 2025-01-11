@@ -293,8 +293,10 @@ def create_app(nl_root=DEFAULT_NL_ROOT):
   app.config['CHART_CONFIG'] = chart_config
   ranked_statvars = set()
   for chart in chart_config:
-    ranked_statvars = ranked_statvars.union(chart['statsVars']) if 'statsVars' in chart else ranked_statvars
-    ranked_statvars = ranked_statvars.union(chart['variables']) if 'variables' in chart else ranked_statvars
+    ranked_statvars = ranked_statvars.union(
+        chart['statsVars']) if 'statsVars' in chart else ranked_statvars
+    ranked_statvars = ranked_statvars.union(
+        chart['variables']) if 'variables' in chart else ranked_statvars
     if 'relatedChart' in chart and 'denominator' in chart['relatedChart']:
       ranked_statvars.add(chart['relatedChart']['denominator'])
   app.config['RANKED_STAT_VARS'] = ranked_statvars

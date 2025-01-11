@@ -413,6 +413,13 @@ function renderTiles(
     const place = tile.placeDcidOverride
       ? overridePlaces[tile.placeDcidOverride]
       : props.place;
+    console.log(
+      "So the place is : " +
+        JSON.stringify(props.place) +
+        "; " +
+        JSON.stringify(tile.placeDcidOverride)
+    );
+    console.log("Therefore : " + JSON.stringify(place));
     const comparisonPlaces = getComparisonPlaces(tile, place);
     const className = classNameList.join(" ");
     // TODO(beets): Fix this for ranking tiles with highest/lowest title set.

@@ -165,17 +165,23 @@ export interface Place {
   types: string[];
 }
 
-/**
- * Website API response for /api/dev-place/charts/<place_dcid>
- */
-export interface PlaceChartsApiResponse {
-  charts: Chart[];
+export interface BlockConfig {
+  charts: Chart[]
   childPlaceType: string;
   childPlaces: Place[];
   nearbyPlaces: Place[];
   place: Place;
   similarPlaces: Place[];
   translatedCategoryStrings: Record<string, string>;
+  placeScope: string
+
+}
+
+/**
+ * Website API response for /api/dev-place/charts/<place_dcid>
+ */
+export interface PlaceChartsApiResponse {
+  blocks: BlockConfig[];
 }
 
 /**

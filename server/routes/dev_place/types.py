@@ -24,15 +24,6 @@ CHART_TYPES = {"BAR", "LINE", "MAP", "RANKING", "HIGHLIGHT"}
 @dataclass
 class Chart:
   type: str  # Restricted to CHART_TYPES
-  title: str
-  category: str
-  description: str
-  statisticalVariableDcids: List[str]
-  topicDcids: List[str]
-  denominator: Optional[List[str]] = None
-  unit: Optional[str] = None
-  scaling: Optional[float] = None
-  childPlaceType: Optional[str] = None
 
   def __post_init__(self):
     # Custom validator for the `type` field
@@ -40,6 +31,19 @@ class Chart:
       raise ValueError(
           f"Invalid type '{self.type}'. Expected one of {CHART_TYPES}")
 
+@dataclass
+class BlockConfig:
+  charts: List[Chart]
+  category: str
+  title: str
+  topicDcids: List[str]
+  description: str
+  denominator: Optional[List[str]] = None
+  statisticalVariableDcids: Optional[List[str]] = None
+  unit: Optional[str] = None
+  scaling: Optional[float] = None
+  childPlaceType: Optional[str] = None
+  placeScope: Optional[str] = None
 
 @dataclass
 class Place:
@@ -54,7 +58,7 @@ class PlaceChartsApiResponse:
   """
   API Response for /api/dev-place/charts/<place_dcid>
   """
-  charts: List[List[Chart]]
+  blocks: List[BlockConfig]
   place: Place
   translatedCategoryStrings: Dict[str, str]
 

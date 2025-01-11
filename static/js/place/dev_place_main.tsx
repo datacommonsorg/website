@@ -17,9 +17,10 @@
 import { DataRow } from "@datacommonsorg/client";
 import {
   Chart,
-  PlaceChartsApiResponse,
   Place,
+  PlaceChartsApiResponse,
   RelatedPlacesApiResponse,
+  BlockConfig,
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
@@ -53,13 +54,13 @@ import { isPlaceContainedInUsa } from "./util";
  * @returns The stat var key
  */
 function getStatVarKey(
-  chart: Chart,
+  block: BlockConfig,
   variableDcid: string,
   denom?: string
 ): string {
   return `${variableDcid}_denom_${denom}_log_${false}_scaling_${
-    chart.scaling
-  }_unit_${chart.unit}`;
+    block.scaling
+  }_unit_${block.unit}`;
 }
 
 /**
@@ -74,73 +75,83 @@ function placeChartsApiResponsesToPageConfig(
   placeChartsApiResponse: PlaceChartsApiResponse,
   parentPlaces: Place[]
 ): SubjectPageConfig {
-  const chartsByCategory = _.groupBy(
-    placeChartsApiResponse.charts,
+  const blocksByCategory = _.groupBy(
+    placeChartsApiResponse.blocks,
     (item) => item.category
   );
-  const categoryConfig: CategoryConfig[] = Object.keys(chartsByCategory).map(
+  let new_blocks = [];
+
+  const categoryConfig: CategoryConfig[] = Object.keys(blocksByCategory).map(
     (categoryName) => {
-      const charts = chartsByCategory[categoryName];
-
-      const tiles: TileConfig[] = charts.map((chart) => {
-        const tileConfig = {
-          description: chart.description,
-          title: chart.title,
-          type: chart.type,
-          
-          statVarKey: chart.statisticalVariableDcids.map(
-            (variableDcid, variableIdx) => {
-              const denom =
-                chart.denominator &&
-                chart.denominator.length ===
-                  chart.statisticalVariableDcids.length
-                  ? chart.denominator[variableIdx]
-                  : undefined;
-              return getStatVarKey(chart, variableDcid, denom);
-            }
-          ),
-        };
-        if (chart.placeScope === "PEER_PLACES_WITHIN_PARENT") {
-          tileConfig["placeDcidOverride"] = parentPlaces[0].dcid;
-        }
-        return tileConfig
-      });
-
-      const statVarSpec: Record<string, StatVarSpec> = {};
-      charts.forEach((chart) => {
-        chart.statisticalVariableDcids.forEach((variableDcid, variableIdx) => {
-          const denom =
-            chart.denominator &&
-            chart.denominator.length === chart.statisticalVariableDcids.length
-              ? chart.denominator[variableIdx]
-              : undefined;
-          const statVarKey = getStatVarKey(chart, variableDcid, denom);
-          statVarSpec[statVarKey] = {
-            denom,
-            log: false,
-            scaling: chart.scaling,
-            statVar: variableDcid,
-            unit: chart.unit,
+      const blocks = blocksByCategory[categoryName];
+      // for (var block in blocks) {
+        //   for (var chart in block.char)
+        // }
+        blocks.forEach((block: BlockConfig) => {
+        let tiles = []
+        block.charts.forEach((chart: Chart) => {
+          const tileConfig = {
+            description: block.description,
+            title: block.title,
+            type: chart.type,
+  
+            statVarKey: block.statisticalVariableDcids.map(
+              (variableDcid, variableIdx) => {
+                const denom =
+                  block.denominator &&
+                  block.denominator.length ===
+                  block.statisticalVariableDcids.length
+                    ? block.denominator[variableIdx]
+                    : undefined;
+                return getStatVarKey(block, variableDcid, denom);
+              }
+            ),
           };
+          console.log("block.placeScope" + block.placeScope);
+          if (block.placeScope === "PEER_PLACES_WITHIN_PARENT") {
+            tileConfig["placeDcidOverride"] = parentPlaces[1].dcid;
+            // Add override for the enclosed Place TYpe.
+          }
+          tiles.push(tileConfig);
+        });
+
+         // Group tiles into pairs to show a two-column layout
+        const column1Tiles: TileConfig[] = [];
+        const column2Tiles: TileConfig[] = [];
+        tiles.forEach((tile, index) => {
+          if (index % 2 === 0) {
+            column1Tiles.push(tile);
+          } else {
+            column2Tiles.push(tile);
+          }
+        });
+        new_blocks.push({
+          columns: [{ tiles }],
+        })
+       })
+        
+        const statVarSpec: Record<string, StatVarSpec> = {};
+        blocks.forEach((block) => {
+          block.statisticalVariableDcids.forEach((variableDcid, variableIdx) => {
+            const denom =
+            block.denominator &&
+            block.denominator.length === block.statisticalVariableDcids.length
+            ? block.denominator[variableIdx]
+            : undefined;
+            const statVarKey = getStatVarKey(block, variableDcid, denom);
+            statVarSpec[statVarKey] = {
+              denom,
+              log: false,
+              scaling: block.scaling,
+              statVar: variableDcid,
+              unit: block.unit,
+            };
         });
       });
 
-      // Group tiles into pairs to show a two-column layout
-      const column1Tiles: TileConfig[] = [];
-      const column2Tiles: TileConfig[] = [];
-      tiles.forEach((tile, index) => {
-        if (index % 2 === 0) {
-          column1Tiles.push(tile);
-        } else {
-          column2Tiles.push(tile);
-        }
-      });
+     
       const category: CategoryConfig = {
-        blocks: [
-          {
-            columns: [{ tiles }],
-          },
-        ],
+        blocks: new_blocks,
         statVarSpec,
         title: categoryName,
       };
@@ -152,7 +163,6 @@ function placeChartsApiResponsesToPageConfig(
     metadata: undefined,
     categories: categoryConfig,
   };
-  console.log("page config " + JSON.stringify(pageConfig)); 
   return pageConfig;
 }
 

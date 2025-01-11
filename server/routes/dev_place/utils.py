@@ -23,6 +23,7 @@ from server.lib import fetch
 from server.lib.cache import cache
 from server.lib.i18n import DEFAULT_LOCALE
 from server.routes import TIMEOUT
+from server.routes.dev_place.types import BlockConfig
 from server.routes.dev_place.types import Chart
 from server.routes.dev_place.types import Place
 import server.routes.shared_api.place as place_api
@@ -128,6 +129,7 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
                    placeType=place_type_display_name,
                    parentPlaces=', '.join(links))
   return ''
+
 
 @cache.memoize(timeout=TIMEOUT)
 def filter_chart_config_by_place_dcid(chart_config: List[Dict],
@@ -280,27 +282,33 @@ def chart_config_to_overview_charts(chart_config, child_place_type: str):
                                   each containing metadata like 'category', 'variables', 'title', etc.
 
   Returns:
-      List[Chart]: A list of Chart objects created from the chart configuration.
+      List[BlockConfig]: A list of Chart objects created from the chart configuration.
   """
-  charts = []
+  blocks = []
   for page_config_item in chart_config:
     denominator = page_config_item.get("denominator", None)
+    print(page_config_item)
     for block in page_config_item["blocks"]:
+      charts = []
       for chart in block["charts"]:
-        this_chart = Chart(
-          category=page_config_item.get("category"),
-          description=page_config_item.get("description"),
-          scaling=page_config_item.get("scaling"),
-          statisticalVariableDcids=page_config_item.get("variables", []),
-          title=page_config_item.get("title"),
-          topicDcids=[],
-          type=chart.get("type"),
-          unit=page_config_item.get("unit"))
-        if denominator:
-          this_chart.denominator = denominator
-        this_chart.childPlaceType = child_place_type
+        this_chart = Chart(type=chart.get("type"))
         charts.append(this_chart)
-  return charts
+
+      this_block = BlockConfig(charts=charts,
+                               category=page_config_item.get("category"),
+                               description=page_config_item.get("description"),
+                               scaling=page_config_item.get("scaling"),
+                               statisticalVariableDcids=page_config_item.get(
+                                   "variables", []),
+                               title=page_config_item.get("title"),
+                               placeScope=block.get("placeScope"),
+                               topicDcids=[],
+                               unit=page_config_item.get("unit"))
+      if denominator:
+        this_block.denominator = denominator
+      this_block.childPlaceType = child_place_type
+      blocks.append(this_block)
+  return blocks
 
 
 # Maps each parent place type to a list of valid child place types.
