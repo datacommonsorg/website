@@ -22,32 +22,45 @@
 import React, { ReactElement } from "react";
 
 import { Tabs } from "../../../components/elements/tabs/tabs";
-import { DemographicDataSources } from "./demographic_data_sources";
+import { DataSourceDetails } from "./data_source_details";
 
-const demographicTabs = [
-  {
-    value: "demographics",
-    label: "Demographics",
-    content: <DemographicDataSources />,
-  },
-  {
-    value: "economy",
-    label: "Economy",
-    content: <div>Some economy info</div>,
-  },
-  {
-    value: "crime",
-    label: "Crime",
-    content: <div>Some crime info</div>,
-  },
-];
+interface DataSource {
+  label: string;
+  url: string;
+  description?: string;
+}
 
-export const DataSources = (): ReactElement => {
+export interface DataSourceGroup {
+  label: string;
+  url: string;
+  description?: string;
+  dataSources: DataSource[];
+}
+
+export interface DataSourceTopic {
+  title: string;
+  slug: string;
+  dataSourceGroups: DataSourceGroup[];
+}
+
+interface DataSourcesProps {
+  dataSources: DataSourceTopic[];
+}
+
+export const DataSources = ({
+  dataSources,
+}: DataSourcesProps): ReactElement => {
+  const dataSourceTabs = dataSources.map((topic) => ({
+    value: topic.slug,
+    label: topic.title,
+    content: <DataSourceDetails dataSourceTopic={topic} />,
+  }));
+  console.log(dataSources);
   return (
     <Tabs
       mode="routed"
       basePath="/data"
-      tabs={demographicTabs}
+      tabs={dataSourceTabs}
       defaultValue="demographics"
     />
   );

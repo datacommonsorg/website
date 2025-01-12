@@ -1,5 +1,5 @@
 /**
- * Copyright 2024 Google LLC
+ * Copyright 2025 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,10 @@ import React, { ReactElement } from "react";
 import { IntroText } from "../../components/content/intro_text";
 import { Section } from "../../components/elements/layout/section";
 import theme from "../../theme/theme";
-import { DataSources } from "./components/data_sources";
+import { DataSources, DataSourceTopic } from "./components/data_sources";
+import dataSourceData from "./data_sources.json";
+
+const dataSources: DataSourceTopic[] = dataSourceData;
 
 /**
  * Application container
@@ -62,7 +65,7 @@ export function App(): ReactElement {
         </IntroText>
       </Section>
       <Section>
-        <DataSources />
+        <DataSources dataSources={dataSources} />
       </Section>
     </ThemeProvider>
   );
