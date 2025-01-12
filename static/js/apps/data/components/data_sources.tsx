@@ -55,7 +55,6 @@ export const DataSources = ({
     label: topic.title,
     content: <DataSourceDetails dataSourceTopic={topic} />,
   }));
-  console.log(dataSources);
   return (
     <Tabs
       mode="routed"

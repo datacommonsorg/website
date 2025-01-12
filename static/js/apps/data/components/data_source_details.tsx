@@ -36,7 +36,6 @@ interface DataSourceDetailsProps {
 export const DataSourceDetails = ({
   dataSourceTopic,
 }: DataSourceDetailsProps): ReactElement => {
-  console.log(dataSourceTopic);
   const theme = useTheme();
   return (
     <div>
