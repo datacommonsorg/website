@@ -60,7 +60,7 @@ export const DataSources = ({
       mode="routed"
       basePath="/data"
       tabs={dataSourceTabs}
-      defaultValue="demographics"
+      defaultValue={dataSourceTabs[0].value}
     />
   );
 };
