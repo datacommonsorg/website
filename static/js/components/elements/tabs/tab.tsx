@@ -65,7 +65,6 @@ export const Tab = ({ label, value }: TabProps): ReactElement => {
           ? theme.colors.tabs.selected
           : theme.colors.tabs.unselected};
         cursor: pointer;
-        margin-right: 2px;
         transition: color 0.3s ease;
       `}
       onClick={(): void => onChange(tabValue)}
