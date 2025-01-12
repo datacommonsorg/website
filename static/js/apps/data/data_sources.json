@@ -4,6 +4,23 @@
     "slug": "demographics",
     "dataSourceGroups": [
       {
+        "label": "Australian Bureau of Statistics",
+        "url": "https://www.abs.gov.au/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Australia Statistics",
+            "url": "https://www.abs.gov.au/statistics",
+            "description": "Australia Demographics, Health, Economy statistics at country,state,territories and 4 levels of statistial areas."
+          },
+          {
+            "label": "Australia Subnational Administrative Boundaries",
+            "url": "https://maps.abs.gov.au/",
+            "description": "Administrative boundaries for regions within Australia"
+          }
+        ]
+      },
+      {
         "label": "Brazil VISDATA",
         "url": "https://aplicacoes.cidadania.gov.br/",
         "description": "Brazil VISDATA",
@@ -607,6 +624,18 @@
     "slug": "economy",
     "dataSourceGroups": [
       {
+        "label": "Australian Bureau of Statistics",
+        "url": "https://www.abs.gov.au/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Australia Statistics",
+            "url": "https://www.abs.gov.au/statistics",
+            "description": "Australia Demographics, Health, Economy statistics at country,state,territories and 4 levels of statistial areas."
+          }
+        ]
+      },
+      {
         "label": "Brazilian Institute of Geography and Statistics (IBGE)",
         "url": "https://www.ibge.gov.br/en/home-eng.html",
         "description": null,
@@ -944,6 +973,18 @@
     "slug": "crime",
     "dataSourceGroups": [
       {
+        "label": "U.S. Bureau of Justice Statistics (BJS)",
+        "url": "https://bjs.ojp.gov/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "National Prisoner Statistics (NPS) Program",
+            "url": "https://bjs.ojp.gov/data-collection/national-prisoner-statistics-nps-program",
+            "description": "Data on jurisdiction, custody, admission, and dischange for prisoners incarcerated in state and federal prisons.\n\n[Terms of Service](https://www.bjs.gov/developer/ncvs/termsofservice.cfm)."
+          }
+        ]
+      },
+      {
         "label": "U.S. Federal Bureau of Investigation (FBI)",
         "url": "https://www.fbi.gov/",
         "description": null,
@@ -966,6 +1007,28 @@
     "title": "Energy",
     "slug": "energy",
     "dataSourceGroups": [
+      {
+        "label": "U.S. Energy Information Administration (EIA)",
+        "url": "https://www.eia.gov/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Commercial Buildings Energy Consumption Survey (CBECS)",
+            "url": "https://www.eia.gov/consumption/commercial/",
+            "description": "Energy consumption and expenditures for U.S. commercial buildings including energy sources across U.S. census regions and divisions."
+          },
+          {
+            "label": "Form EIA-860",
+            "url": "https://www.eia.gov/electricity/data/eia860/",
+            "description": "Survey form collects generator-level data about electric power plants."
+          },
+          {
+            "label": "Open Data",
+            "url": "https://www.eia.gov/opendata/qb.php",
+            "description": "County, state, and plant-level data on generation, consumption, and sales for different energy sources and “sectors” (residential, commercial, etc). Data Commons has imported data about coal, electricity, natural gas, nuclear outages, and petroleum.\n\n[Copyrights and Reuse](https://www.eia.gov/about/copyrights_reuse.php)."
+          }
+        ]
+      },
       {
         "label": "U.S. National Renewable Energy Laboratory (NREL)",
         "url": "https://www.nrel.gov/",
@@ -1013,6 +1076,18 @@
     "title": "Environment",
     "slug": "environment",
     "dataSourceGroups": [
+      {
+        "label": "Brazil INPE - National Institute for Space Research",
+        "url": "https://www.gov.br/inpe/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "BRAZIL INPE Fire Event Count",
+            "url": "https://www.gov.br/inpe/pt-br/acesso-a-informacao/dados-abertos/",
+            "description": "This dataset represents count of occurrence of fire event in Brazil.Data available for Country and state level."
+          }
+        ]
+      },
       {
         "label": "Climate TRACE",
         "url": "https://climatetrace.org/",
@@ -1319,6 +1394,23 @@
     "slug": "agriculture",
     "dataSourceGroups": [
       {
+        "label": "U.S. Department of Agriculture (USDA)",
+        "url": "https://www.usda.gov/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Agricultural Survey",
+            "url": "https://quickstats.nass.usda.gov/",
+            "description": "Conducted by the National Agricultural Statistics Service, this survey contains information about agricultural production, economics, demographics and the environment."
+          },
+          {
+            "label": "Census of Agriculture",
+            "url": "https://www.nass.usda.gov/AgCensus/",
+            "description": "The Census of Agriculture contains information about land use, operators, production, and finances of US farms and ranches. Data Commons contains several of the Census tables relating to crop production and operator demographics from the 2017 Census.\n\n[Policies and Links](https://www.usda.gov/policies-and-links)."
+          }
+        ]
+      },
+      {
         "label": "United Nations Office for the Coordination of Humanitarian Affairs(UN OCHA)",
         "url": "https://www.unocha.org/",
         "description": null,
@@ -1336,6 +1428,18 @@
     "title": "Education",
     "slug": "education",
     "dataSourceGroups": [
+      {
+        "label": "Brazilian Institute of Geography and Statistics (IBGE)",
+        "url": "https://www.ibge.gov.br/en/home-eng.html",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Brazil Census",
+            "url": "https://www.ibge.gov.br/en/statistics/social/population.html",
+            "description": "Population Census and Statistics for Brazil."
+          }
+        ]
+      },
       {
         "label": "California Assessment of Student Performance and Progress",
         "url": "https://caaspp-elpac.ets.org/elpac/",
@@ -1563,12 +1667,42 @@
   {
     "title": "Housing",
     "slug": "housing",
-    "dataSourceGroups": []
+    "dataSourceGroups": [
+      {
+        "label": "U.S. Census Bureau",
+        "url": "https://www.census.gov/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "American Community Survey (ACS)",
+            "url": "https://www.census.gov/programs-surveys/acs",
+            "description": "The American Community Survey covers a broad range of topics about social, economic, demographic, and housing characteristics of the U.S. population. The ACS 5-year (and 1-year) estimates are updated every year, based on the last 5 years (1 year) of collected data. Data Commons includes thousands of variables across the full range of ACS topics at the country, state, county, city, zip code tabulation area, school district, census tract levels, and more."
+          },
+          {
+            "label": "US Decennial Census - Redistricting data",
+            "url": "https://www.census.gov",
+            "description": "Basic population, race demographics and housing statistics from the redistricting data release of US Decennial Census mapped down to block-group level.\n[U.S. Census Terms of Service](https://www.census.gov/data/developers/about/terms-of-service.html)."
+          }
+        ]
+      }
+    ]
   },
   {
     "title": "Health",
     "slug": "health",
     "dataSourceGroups": [
+      {
+        "label": "Australian Bureau of Statistics",
+        "url": "https://www.abs.gov.au/",
+        "description": null,
+        "dataSources": [
+          {
+            "label": "Australia Statistics",
+            "url": "https://www.abs.gov.au/statistics",
+            "description": "Australia Demographics, Health, Economy statistics at country,state,territories and 4 levels of statistial areas."
+          }
+        ]
+      },
       {
         "label": "Central Bureau of Statistics (CBS), Israel",
         "url": "https://www.cbs.gov.il/he/Pages/default.aspx",

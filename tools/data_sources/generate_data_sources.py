@@ -96,7 +96,9 @@ def parse_page(url: str) -> Optional[DataSourceTopic]:
         return data_source_topic
 
     current_group = None
-    for tag in first_h3.find_all_next():
+    tags = [first_h3] + list(first_h3.find_all_next())
+
+    for tag in tags:
         if isinstance(tag, Tag):
             if tag.name == 'h3':
                 # each h3 represents a data source group, the highest level category
