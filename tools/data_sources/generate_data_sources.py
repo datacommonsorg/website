@@ -18,7 +18,7 @@
 #
 # A note that this script may be temporary, as the data sources could
 # eventually be compiled into JSON from source and copied into this
-# respository.
+# repository.
 
 import os
 import requests
@@ -149,7 +149,7 @@ def parse_page(url: str) -> Optional[DataSourceTopic]:
                     description=None
                 )
 
-                # as with the data source group, the content of the data source
+                # As with the data source group, the content of the data source
                 # lies between it and either the next data source (h4) or the
                 # next data source group (h3).
                 content_elements = []
