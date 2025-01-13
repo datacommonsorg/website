@@ -35,8 +35,8 @@
             ]
           },
           {
-            "isOverview": false,
-            "placeScope": "SIMILAR_PLACES",
+            "isOverview": true,
+            "placeScope": "PEER_PLACES_WITHIN_PARENT",
             "charts": [
               {
                 "type": "BAR",

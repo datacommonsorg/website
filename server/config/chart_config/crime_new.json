@@ -7,7 +7,7 @@
       "Count_CriminalActivities_CombinedCrime"
     ],
     "denominator": [],
-    "nonDividable": true,
+    "nonDividable": false,
     "scale": true,
     "blocks":[
       {
@@ -35,14 +35,11 @@
         ]
       },
       {
-        "isOverview": false,
+        "isOverview": true,
         "placeScope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
-            "type": "MAP"
-          },
-          {
-            "type": "RANKING"
+            "type": "BAR"
           }
         ]
       }

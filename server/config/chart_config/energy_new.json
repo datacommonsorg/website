@@ -90,14 +90,11 @@
       ]
     },
     {
-      "isOverview": false,
+      "isOverview": true,
       "placeScope": "PEER_PLACES_WITHIN_PARENT",
       "charts": [
         {
-          "type": "MAP"
-        },
-        {
-          "type": "RANKING",
+          "type": "BAR",
           "maxPlaces": 5
         }
       ]

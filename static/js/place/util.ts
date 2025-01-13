@@ -140,6 +140,17 @@ function getEnclosedPlaceTypeOverride(placeScope: string, place: Place): string 
   return lowestIndexType;
 }
 
+function getTitle(title: string, placeScope: string): string {
+  if (placeScope === "PEER_PLACES_WITHIN_PARENT") {
+    return title + ": Peer places within parent";
+  } else if (placeScope === "CHILD_PLACES") {
+    return title + ": places within";
+  } else if (placeScope === "SIMILAR_PLACES") {
+    return title + ": other places";
+  }
+  return title;
+}
+
 /**
  * Helper to process the dev Place page API response
  * Converts the API response from getPlaceCharts into a SubjectPageConfig object.
@@ -171,7 +182,7 @@ export function placeChartsApiResponsesToPageConfig(
         block.charts.forEach((chart: Chart) => {
           const tileConfig: TileConfig = {
             description: block.description,
-            title: block.title,
+            title: getTitle(block.title, block.placeScope),
             type: chart.type,
 
             statVarKey: block.statisticalVariableDcids.map(
@@ -197,14 +208,7 @@ export function placeChartsApiResponsesToPageConfig(
             tileConfig.enclosedPlaceTypeOverride = lowestIndexType;
           }
 
-          if (block.placeScope === "PEER_PLACES_WITHIN_PARENT") {
-
-            tileConfig.title += ": Peer places within parent";
-          } else if (block.placeScope === "CHILD_PLACES") {
-            tileConfig.title += ": places within";
-          } else if (block.placeScope === "SIMILAR_PLACES") {
-            tileConfig.title += ": other places";
-
+          if (block.placeScope === "SIMILAR_PLACES") {
             if (similarPlaces.length > 0) {
               tileConfig.comparisonPlaces = [place.dcid].concat(
                 similarPlaces.map((p) => p.dcid)
@@ -240,9 +244,10 @@ export function placeChartsApiResponsesToPageConfig(
                   : undefined;
               const statVarKey = getStatVarKey(block, variableDcid, denom);
               statVarSpec[statVarKey] = {
-                denom,
+                denom: undefined,
                 log: false,
                 scaling: block.scaling,
+                noPerCapita: false,
                 statVar: variableDcid,
                 unit: block.unit,
               };
@@ -257,7 +262,6 @@ export function placeChartsApiResponsesToPageConfig(
         });
       });
 
-      console.log("STat var Spec " + JSON.stringify(statVarSpec));
       const category: CategoryConfig = {
         blocks: newblocks,
         statVarSpec,

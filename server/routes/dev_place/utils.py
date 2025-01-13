@@ -98,7 +98,7 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
   # Filter parents to only the types desired
   parents_to_include = [
       parent for parent in all_parents
-      if parent.types[0] in PARENT_PLACE_TYPES_TO_HIGHLIGHT
+      if any(p_type in PARENT_PLACE_TYPES_TO_HIGHLIGHT for p_type in parent.types)
   ]
 
   # Create a dictionary mapping parent types to their order in the highlight list
@@ -108,7 +108,8 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
   }
 
   # Sort the parents_to_include list using the type_order dictionary
-  parents_to_include.sort(key=lambda parent: type_order.get(parent.types[0]))
+  parents_to_include.sort(key=lambda parent: min(type_order.get(t) for t in parent.types))
+
 
   # Fetch the localized names of the parents
   parent_dcids = [parent.dcid for parent in parents_to_include]
@@ -307,8 +308,8 @@ def chart_config_to_overview_charts(chart_config, child_place_type: str):
                                unit=page_config_item.get("unit"))
       if denominator:
         this_block.denominator = denominator
-      # elif not page_config_item.get("nonDividable", False):
-      #   this_block.denominator = ["Count_Person"]
+      elif not page_config_item.get("nonDividable", False):
+        this_block.denominator = ["Count_Person"]
 
       this_block.childPlaceType = child_place_type
       blocks.append(this_block)
