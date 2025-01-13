@@ -31,6 +31,7 @@ class Chart:
       raise ValueError(
           f"Invalid type '{self.type}'. Expected one of {CHART_TYPES}")
 
+
 @dataclass
 class BlockConfig:
   charts: List[Chart]
@@ -44,6 +45,7 @@ class BlockConfig:
   scaling: Optional[float] = None
   childPlaceType: Optional[str] = None
   placeScope: Optional[str] = None
+
 
 @dataclass
 class Place:

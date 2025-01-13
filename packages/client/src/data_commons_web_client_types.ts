@@ -163,7 +163,6 @@ export interface BlockConfig {
   nearbyPlaces: Place[];
   place: Place;
   similarPlaces: Place[];
-  translatedCategoryStrings: Record<string, string>;
   placeScope?: string
   title: string;
   category: string;
@@ -180,6 +179,8 @@ export interface BlockConfig {
  */
 export interface PlaceChartsApiResponse {
   blocks: BlockConfig[];
+  translatedCategoryStrings: Record<string, string>;
+  place: Place;
 }
 
 /**

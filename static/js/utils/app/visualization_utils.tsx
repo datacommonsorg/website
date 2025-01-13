@@ -264,7 +264,7 @@ export function getStatVarSpec(
 
 export function getContextStatVar(svSpec: StatVarSpec): ContextStatVar {
   return {
-    dcid: svSpec.statVar,
+    dcid: svSpec.statVar || "",
     info: null,
     isPerCapita: !!svSpec.denom,
     isLog: svSpec.log,

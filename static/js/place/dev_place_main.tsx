@@ -16,11 +16,11 @@
 
 import { DataRow } from "@datacommonsorg/client";
 import {
+  BlockConfig,
   Chart,
   Place,
   PlaceChartsApiResponse,
   RelatedPlacesApiResponse,
-  BlockConfig,
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
 import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
@@ -74,67 +74,74 @@ function getStatVarKey(
 function placeChartsApiResponsesToPageConfig(
   placeChartsApiResponse: PlaceChartsApiResponse,
   parentPlaces: Place[],
+  similarPlaces: Place[],
   place: Place
 ): SubjectPageConfig {
   const blocksByCategory = _.groupBy(
     placeChartsApiResponse.blocks,
     (item) => item.category
   );
-  let new_blocks = [];
+  const new_blocks = [];
 
   const categoryConfig: CategoryConfig[] = Object.keys(blocksByCategory).map(
     (categoryName) => {
       const blocks = blocksByCategory[categoryName];
       // for (var block in blocks) {
-        //   for (var chart in block.char)
-        // }
-        blocks.forEach((block: BlockConfig) => {
-        let tiles = []
+      //   for (var chart in block.char)
+      // }
+      blocks.forEach((block: BlockConfig) => {
+        console.log("Block " + block.category + "; " + block.title);
+        const tiles = [];
         block.charts.forEach((chart: Chart) => {
           const tileConfig: TileConfig = {
             description: block.description,
             title: block.title,
             type: chart.type,
-  
+
             statVarKey: block.statisticalVariableDcids.map(
               (variableDcid, variableIdx) => {
                 const denom =
                   block.denominator &&
                   block.denominator.length ===
-                  block.statisticalVariableDcids.length
+                    block.statisticalVariableDcids.length
                     ? block.denominator[variableIdx]
                     : undefined;
                 return getStatVarKey(block, variableDcid, denom);
               }
             ),
           };
-          let parentPlaceTypes = [
-              'County',
-              'AdministrativeArea2',
-              'EurostatNUTS2',
-              'State',
-              'AdministrativeArea1',
-              'EurostatNUTS1',
-              'Country',
-              'Continent',
-          ]
-          let uplevelPlaceTypes = {"County": "State", "State": "Country", "Country": "Continent"};
+          const parentPlaceTypes = [
+            "County",
+            "AdministrativeArea2",
+            "EurostatNUTS2",
+            "State",
+            "AdministrativeArea1",
+            "EurostatNUTS1",
+            "Country",
+            "Continent",
+          ];
+          const uplevelPlaceTypes = {
+            County: "State",
+            State: "Country",
+            Country: "Continent",
+          };
           if (block.placeScope === "PEER_PLACES_WITHIN_PARENT") {
-            let placeOverride = parentPlaces.find(place => 
-              place.types.some(type => parentPlaceTypes.includes(type))
+            const placeOverride = parentPlaces.find((place) =>
+              place.types.some((type) => parentPlaceTypes.includes(type))
             ).dcid;
             tileConfig["placeDcidOverride"] = placeOverride;
             tileConfig.enclosedPlaceTypeOverride = place.types[1];
             tileConfig.title += ": Peer places within parent";
-          } else if (block.placeScope === "CHILD_PLACES"){
+          } else if (block.placeScope === "CHILD_PLACES") {
             tileConfig.title += ": places within";
-          } else if (block.placeScope === "SIMILAR_PLACES"){
-            let placeOverride = parentPlaces.find(place => 
-              place.types.some(type => parentPlaceTypes.includes(type))
+          } else if (block.placeScope === "SIMILAR_PLACES") {
+            const placeOverride = parentPlaces.find((place) =>
+              place.types.some((type) => parentPlaceTypes.includes(type))
             ).dcid;
             tileConfig["placeDcidOverride"] = placeOverride;
             tileConfig.title += ": other places";
             tileConfig.enclosedPlaceTypeOverride = place.types[1];
+            tileConfig.comparisonPlaces = [place.dcid].concat(similarPlaces.map((p) => p.dcid));
           }
 
           if (tileConfig.type === "RANKING") {
@@ -143,16 +150,16 @@ function placeChartsApiResponsesToPageConfig(
               showLowest: false,
               showHighestLowest: true,
               showMultiColumn: false,
-            }
+            };
           } else if (tileConfig.type === "BAR") {
             tileConfig.barTileSpec = {
               maxPlaces: 5,
-            }
+            };
           }
           tiles.push(tileConfig);
         });
 
-         // Group tiles into pairs to show a two-column layout
+        // Group tiles into pairs to show a two-column layout
         const column1Tiles: TileConfig[] = [];
         const column2Tiles: TileConfig[] = [];
         tiles.forEach((tile, index) => {
@@ -166,17 +173,19 @@ function placeChartsApiResponsesToPageConfig(
           title: tiles[0].title,
           denom: block.denominator,
           columns: [{ tiles }],
-        })
-       })
-        
-        const statVarSpec: Record<string, StatVarSpec> = {};
-        blocks.forEach((block) => {
-          block.statisticalVariableDcids.flat().forEach((variableDcid, variableIdx) => {
+        });
+      });
+
+      const statVarSpec: Record<string, StatVarSpec> = {};
+      blocks.forEach((block) => {
+        block.statisticalVariableDcids
+          .flat()
+          .forEach((variableDcid, variableIdx) => {
             const denom =
-            block.denominator &&
-            block.denominator.length === block.statisticalVariableDcids.length
-            ? block.denominator[variableIdx]
-            : undefined;
+              block.denominator &&
+              block.denominator.length === block.statisticalVariableDcids.length
+                ? block.denominator[variableIdx]
+                : undefined;
             const statVarKey = getStatVarKey(block, variableDcid, denom);
             statVarSpec[statVarKey] = {
               denom,
@@ -186,9 +195,8 @@ function placeChartsApiResponsesToPageConfig(
               unit: block.unit,
             };
           });
-        });
+      });
 
-     
       const category: CategoryConfig = {
         blocks: new_blocks,
         statVarSpec,
@@ -655,6 +663,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
       const config = placeChartsApiResponsesToPageConfig(
         placeChartsApiResponse,
         relatedPlacesApiResponse.parentPlaces,
+        relatedPlacesApiResponse.similarPlaces,
         relatedPlacesApiResponse.place
       );
       setPageConfig(config);
@@ -668,7 +677,10 @@ export const DevPlaceMain = (): React.JSX.Element => {
       // translation in the tabs, but the english version in the URL.
       setCategories(
         ["Overview"].concat(
-          Object.values(placeChartsApiResponse.blocks.map((b) => b.translatedCategoryStrings).flat))
+          Object.values(
+            placeChartsApiResponse.translatedCategoryStrings
+          )
+        )
       );
     }
   }, [placeChartsApiResponse, setPlaceChartsApiResponse]);

@@ -69,5 +69,150 @@
             ]
         }
     ]
-  }
+  },
+  {
+  "category": "Demographics",
+  "titleId": "CHART_TITLE-Electricity_price",
+  "title": "Electricity_price",
+  "description": "Electricity_price",
+  "variables": [
+    "Annual_Average_RetailPrice_Electricity"
+  ],
+  "denominator": [],
+  "nonDividable": true,
+  "scale": true,
+  "unit": "¢/kWh",
+  "blocks":[
+        {
+          "isOverview": true,
+          "placeScope": "PLACE",
+          "charts": [
+            {
+              "type": "LINE"
+            },
+            {
+              "type": "HIGHLIGHT"
+            }
+          ]
+        },
+        {
+          "isOverview": true,
+          "placeScope": "CHILD_PLACES",
+          "charts": [
+            {
+              "type": "MAP"
+            },
+            {
+              "type": "RANKING"
+            }
+          ]
+        },
+        {
+          "isOverview": true,
+          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "charts": [
+            {
+              "type": "MAP"
+            },
+            {
+              "type": "RANKING",
+              "maxPlaces": 5
+            }
+          ]
+        },
+        {
+          "isOverview": true,
+          "placeScope": "CHILD_PLACES",
+          "charts": [
+            {
+              "type": "BAR",
+              "maxPlaces": 5
+            }
+          ]
+        },
+        {
+          "isOverview": true,
+          "placeScope": "SIMILAR_PLACES",
+          "charts": [
+            {
+              "type": "BAR",
+              "maxPlaces": 5
+            }
+          ]
+      }
+  ]
+},
+{
+  "category": "Demographics",
+  "titleId": "CHART_TITLE-Electricity_generation",
+  "title": "Electricity_generation",
+  "description": "Electricity_generation",
+  "variables": [
+    "Annual_Generation_Electricity"
+  ],
+  "denominator": [],
+  "nonDividable": true,
+  "scale": true,
+  "scaling": 100,
+  "unit": "kWh",
+  "blocks":[
+        {
+          "isOverview": true,
+          "placeScope": "PLACE",
+          "charts": [
+            {
+              "type": "LINE"
+            },
+            {
+              "type": "HIGHLIGHT"
+            }
+          ]
+        },
+        {
+          "isOverview": true,
+          "placeScope": "CHILD_PLACES",
+          "charts": [
+            {
+              "type": "MAP"
+            },
+            {
+              "type": "RANKING"
+            }
+          ]
+        },
+        {
+          "isOverview": true,
+          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "charts": [
+            {
+              "type": "MAP"
+            },
+            {
+              "type": "RANKING",
+              "maxPlaces": 5
+            }
+          ]
+        },
+        {
+          "isOverview": true,
+          "placeScope": "CHILD_PLACES",
+          "charts": [
+            {
+              "type": "BAR",
+              "maxPlaces": 5
+            }
+          ]
+        },
+        {
+          "isOverview": true,
+          "placeScope": "SIMILAR_PLACES",
+          "charts": [
+            {
+              "type": "BAR",
+              "maxPlaces": 5
+            }
+          ]
+      }
+  ]
+}
 ]

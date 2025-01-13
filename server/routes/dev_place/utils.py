@@ -71,7 +71,9 @@ def get_parent_places(dcid: str) -> List[Place]:
   for parent in parents_resp:
     if 'type' in parent and 'name' in parent and 'type' in parent:
       all_parents.append(
-          Place(dcid=parent['dcid'], name=parent['name'], types=[parent['type']]))
+          Place(dcid=parent['dcid'],
+                name=parent['name'],
+                types=[parent['type']]))
 
   return all_parents
 
