@@ -504,8 +504,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
       // translation in the tabs, but the english version in the URL.
       setCategories(
         ["Overview"].concat(
-          Object.values(placeChartsApiResponse.translatedCategoryStrings)
-        )
+          Object.values(placeChartsApiResponse.blocks.map((b) => b.translatedCategoryStrings).flat))
       );
     }
   }, [placeChartsApiResponse, setPlaceChartsApiResponse]);

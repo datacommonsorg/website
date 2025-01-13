@@ -164,6 +164,7 @@ export interface BlockConfig {
   nearbyPlaces: Place[];
   place: Place;
   similarPlaces: Place[];
+  translatedCategoryStrings: Record<string, string>;
   placeScope?: string
   title: string;
   category: string;
@@ -173,18 +174,6 @@ export interface BlockConfig {
   denominator?: string; // Optional
   unit?: string; // Optional
   scaling?: number; // Optional
-  placeScope?: string;
-}
-
-export interface BlockConfig {
-  charts: Chart[]
-  childPlaceType: string;
-  childPlaces: Place[];
-  nearbyPlaces: Place[];
-  place: Place;
-  translatedCategoryStrings: Record<string, string>;
-  placeScope: string
-
 }
 
 /**
