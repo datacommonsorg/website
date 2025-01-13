@@ -16,11 +16,11 @@
 
 import { DataRow } from "@datacommonsorg/client";
 import {
+  BlockConfig,
   Chart,
   Place,
   PlaceChartsApiResponse,
   RelatedPlacesApiResponse,
-  BlockConfig,
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
 import React, { useEffect, useRef, useState } from "react";
 import { RawIntlProvider } from "react-intl";
@@ -504,7 +504,10 @@ export const DevPlaceMain = (): React.JSX.Element => {
       // translation in the tabs, but the english version in the URL.
       setCategories(
         ["Overview"].concat(
-          Object.values(placeChartsApiResponse.blocks.map((b) => b.translatedCategoryStrings).flat))
+          Object.values(
+            placeChartsApiResponse.translatedCategoryStrings
+          )
+        )
       );
     }
   }, [placeChartsApiResponse, setPlaceChartsApiResponse]);
