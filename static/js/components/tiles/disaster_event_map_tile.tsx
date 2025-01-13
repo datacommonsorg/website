@@ -241,7 +241,7 @@ export const DisasterEventMapTile = memo(function DisasterEventMapTile(
                     <div
                       className={`${CSS_SELECTOR_PREFIX}-legend-entry`}
                       key={`${props.id}-legend-${spec.id}`}
-                      onClick={() => toggleEventTypeSelection(spec.id)}
+                      onClick={(): void => toggleEventTypeSelection(spec.id)}
                     >
                       <div
                         className={`${CSS_SELECTOR_PREFIX}-legend-color`}

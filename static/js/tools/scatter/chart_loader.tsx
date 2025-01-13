@@ -93,7 +93,7 @@ export function ChartLoader(): JSX.Element {
     cache.allStatVarsData,
     cache.metadataMap
   );
-  const onSvFacetIdUpdated = (update) => {
+  const onSvFacetIdUpdated = (update): void => {
     for (const sv of Object.keys(update)) {
       if (x.value.statVarDcid === sv) {
         x.setMetahash(update[sv]);
@@ -268,7 +268,7 @@ function useChartData(cache: Cache): ChartData {
     const downloadButton = document.getElementById("download-link");
     if (downloadButton) {
       downloadButton.style.display = "inline-block";
-      downloadButton.onclick = () =>
+      downloadButton.onclick = (): void =>
         downloadData(xVal, yVal, placeVal, chartData.points);
     }
   }, [cache, xVal, yVal, placeVal, display.chartType]);

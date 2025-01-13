@@ -149,7 +149,7 @@ export function OverallFeedback(): JSX.Element {
       })
       .finally(() => removeSpinner(FEEDBACK_PANE_ID));
     return () => void (subscribed = false);
-  }, [sheetId, sessionQueryId, sessionCallId, feedbackStage]);
+  }, [sheetId, sessionQueryId, sessionCallId, feedbackStage, evalType]);
 
   const checkAndSubmit = async (): Promise<boolean> => {
     if (isSubmitted) {
