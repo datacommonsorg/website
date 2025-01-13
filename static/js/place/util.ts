@@ -109,33 +109,30 @@ function getPlaceOverride(placeScope: string, parentPlaces: Place[]): string {
   });
   if (placeOverride) {
     return placeOverride.dcid;
-  };
+  }
 
   return undefined;
 }
 
-
-function getEnclosedPlaceTypeOverride(placeScope: string, place: Place): string {
+function getEnclosedPlaceTypeOverride(
+  placeScope: string,
+  place: Place
+): string {
   if (!["PEER_PLACES_WITHIN_PARENT", "SIMILAR_PLACES"].includes(placeScope)) {
     return "";
   }
-  const lowestIndexType = place.types.reduce(
-    (lowestType, currentType) => {
-      const lowestIndex =
-        PARENT_PLACE_TYPES_TO_HIGHLIGHT.indexOf(lowestType);
-      const currentIndex =
-        PARENT_PLACE_TYPES_TO_HIGHLIGHT.indexOf(currentType);
+  const lowestIndexType = place.types.reduce((lowestType, currentType) => {
+    const lowestIndex = PARENT_PLACE_TYPES_TO_HIGHLIGHT.indexOf(lowestType);
+    const currentIndex = PARENT_PLACE_TYPES_TO_HIGHLIGHT.indexOf(currentType);
 
-      if (
-        currentIndex !== -1 &&
-        (lowestIndex === -1 || currentIndex < lowestIndex)
-      ) {
-        return currentType;
-      }
-      return lowestType;
-    },
-    ""
-  ); // Initialize with an empty string
+    if (
+      currentIndex !== -1 &&
+      (lowestIndex === -1 || currentIndex < lowestIndex)
+    ) {
+      return currentType;
+    }
+    return lowestType;
+  }, ""); // Initialize with an empty string
 
   return lowestIndexType;
 }
@@ -197,13 +194,19 @@ export function placeChartsApiResponsesToPageConfig(
               }
             ),
           };
-          
-          const placeOverride: string = getPlaceOverride(block.placeScope, parentPlaces);
+
+          const placeOverride: string = getPlaceOverride(
+            block.placeScope,
+            parentPlaces
+          );
           if (placeOverride) {
             tileConfig["placeDcidOverride"] = placeOverride;
           }
 
-          const lowestIndexType = getEnclosedPlaceTypeOverride(block.placeScope, place);
+          const lowestIndexType = getEnclosedPlaceTypeOverride(
+            block.placeScope,
+            place
+          );
           if (lowestIndexType) {
             tileConfig.enclosedPlaceTypeOverride = lowestIndexType;
           }
