@@ -36,17 +36,8 @@ import server.services.datacommons as dc
 
 OVERVIEW_CATEGORY = "Overview"
 CATEGORIES = {
-    OVERVIEW_CATEGORY,
-    "Economics",
-    "Health",
-    "Equity",
-    "Crime",
-    "Education",
-    "Demographics",
-    "Housing",
-    "Environment",
-    "Energy",
-    "EnergyNew",
+    OVERVIEW_CATEGORY, "Economics", "Health", "Equity", "Crime", "Education",
+    "Demographics", "Housing", "Environment", "Energy"
 }
 
 # Define blueprint
@@ -91,10 +82,18 @@ def place_charts(place_dcid: str):
   full_chart_config = copy.deepcopy(current_app.config['CHART_CONFIG'])
   full_chart_config = [c for c in full_chart_config if c.get("blocks")]
 
-  # Filter chart config by category
-  overview_chart_config = [c for c in full_chart_config if c.get("isOverview")]
+  overview_chart_configs = [
+      {
+          **c,  # Keep all the original keys and values of the configuration
+          'blocks': [block
+                     for block in c['blocks']
+                     if block['isOverview']]  # Filter the blocks
+      }
+      for c in full_chart_config
+  ]
+
   if place_category == OVERVIEW_CATEGORY:
-    chart_config = overview_chart_config
+    chart_config = overview_chart_configs
   else:
     chart_config = [
         c for c in full_chart_config if c["category"] == place_category
@@ -108,9 +107,8 @@ def place_charts(place_dcid: str):
 
   # Always execute the call for the overview category to fetch the valid categories.
   filtered_chart_config_for_category = (
-      filtered_chart_config if place_category == OVERVIEW_CATEGORY else
       place_utils.filter_chart_config_by_place_dcid(
-          chart_config=overview_chart_config,
+          chart_config=full_chart_config,
           place_dcid=place_dcid,
           child_place_type=child_place_type))
 
@@ -126,8 +124,6 @@ def place_charts(place_dcid: str):
   translated_category_strings = place_utils.get_translated_category_strings(
       filtered_chart_config_for_category)
 
-  print("BLocks ")
-  print(blocks)
   response = PlaceChartsApiResponse(
       blocks=blocks,
       place=place,

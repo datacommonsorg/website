@@ -1,77 +1,6 @@
-[{
-    "category": "Demographics",
-    "titleId": "CHART_TITLE-Population",
-    "title": "Population",
-    "description": "Population",
-    "variables": [
-      "Count_Person"
-    ],
-    "denominator": [],
-    "nonDividable": true,
-    "scale": true,
-    "isOverview": true,
-    "blocks":[
-          {
-            "isOverview": true,
-            "placeScope": "PLACE",
-            "charts": [
-              {
-                "type": "LINE"
-              },
-              {
-                "type": "HIGHLIGHT"
-              }
-            ]
-          },
-          {
-            "isOverview": true,
-            "placeScope": "CHILD_PLACES",
-            "charts": [
-              {
-                "type": "MAP"
-              },
-              {
-                "type": "RANKING"
-              }
-            ]
-          },
-          {
-            "isOverview": true,
-            "placeScope": "PEER_PLACES_WITHIN_PARENT",
-            "charts": [
-              {
-                "type": "MAP"
-              },
-              {
-                "type": "RANKING",
-                "maxPlaces": 5
-              }
-            ]
-          },
-          {
-            "isOverview": true,
-            "placeScope": "CHILD_PLACES",
-            "charts": [
-              {
-                "type": "BAR",
-                "maxPlaces": 5
-              }
-            ]
-          },
-          {
-            "isOverview": true,
-            "placeScope": "SIMILAR_PLACES",
-            "charts": [
-              {
-                "type": "BAR",
-                "maxPlaces": 5
-              }
-            ]
-        }
-    ]
-  },
+[
   {
-  "category": "Demographics",
+  "category": "Energy",
   "titleId": "CHART_TITLE-Electricity_price",
   "title": "Electricity_price",
   "description": "Electricity_price",
@@ -96,7 +25,7 @@
           ]
         },
         {
-          "isOverview": true,
+          "isOverview": false,
           "placeScope": "CHILD_PLACES",
           "charts": [
             {
@@ -108,7 +37,7 @@
           ]
         },
         {
-          "isOverview": true,
+          "isOverview": false,
           "placeScope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
@@ -121,7 +50,7 @@
           ]
         },
         {
-          "isOverview": true,
+          "isOverview": false,
           "placeScope": "CHILD_PLACES",
           "charts": [
             {
@@ -131,7 +60,7 @@
           ]
         },
         {
-          "isOverview": true,
+          "isOverview": false,
           "placeScope": "SIMILAR_PLACES",
           "charts": [
             {
@@ -143,7 +72,7 @@
   ]
 },
 {
-  "category": "Demographics",
+  "category": "Energy",
   "titleId": "CHART_TITLE-Electricity_generation",
   "title": "Electricity_generation",
   "description": "Electricity_generation",
@@ -151,9 +80,8 @@
     "Annual_Generation_Electricity"
   ],
   "denominator": [],
-  "nonDividable": true,
+  "nonDividable": false,
   "scale": true,
-  "scaling": 100,
   "unit": "kWh",
   "blocks":[
         {
@@ -169,7 +97,7 @@
           ]
         },
         {
-          "isOverview": true,
+          "isOverview": false,
           "placeScope": "CHILD_PLACES",
           "charts": [
             {
@@ -181,7 +109,7 @@
           ]
         },
         {
-          "isOverview": true,
+          "isOverview": false,
           "placeScope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
@@ -194,7 +122,7 @@
           ]
         },
         {
-          "isOverview": true,
+          "isOverview": false,
           "placeScope": "CHILD_PLACES",
           "charts": [
             {
@@ -204,7 +132,7 @@
           ]
         },
         {
-          "isOverview": true,
+          "isOverview": false,
           "placeScope": "SIMILAR_PLACES",
           "charts": [
             {

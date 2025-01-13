@@ -1,10 +1,10 @@
 [{
-    "category": "Economics",
-    "titleId": "CHART_TITLE-Gdp",
-    "title": "GDP",
-    "description": "GDP",
+    "category": "Demographics",
+    "titleId": "CHART_TITLE-Population",
+    "title": "Population",
+    "description": "Population",
     "variables": [
-      "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+      "Count_Person"
     ],
     "denominator": [],
     "nonDividable": true,
@@ -43,7 +43,7 @@
               },
               {
                 "type": "RANKING",
-                "maxPlaces": 5
+                "maxPlaces": 10
               }
             ]
           },
@@ -53,7 +53,7 @@
             "charts": [
               {
                 "type": "BAR",
-                "maxPlaces": 5
+                "maxPlaces": 10
               }
             ]
           },

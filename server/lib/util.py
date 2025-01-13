@@ -50,6 +50,9 @@ PLACE_EXPLORER_CATEGORIES = [
     "environment",
     "energy",
     "energy_new",
+    "health_new",
+    "crime_new",
+    "demographics_new",
     "economics_new",
 ]
 

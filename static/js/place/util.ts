@@ -13,10 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import {
+  BlockConfig,
+  Chart,
+  Place,
+  PlaceChartsApiResponse,
+} from "@datacommonsorg/client/dist/data_commons_web_client_types";
+import _ from "lodash";
 import { defineMessages } from "react-intl";
 
 import { intl } from "../i18n/i18n";
 import { USA_PLACE_DCID } from "../shared/constants";
+import { StatVarSpec } from "../shared/types";
+import {
+  BlockConfig as SubjectPageBlockConfig,
+  CategoryConfig,
+  SubjectPageConfig,
+  TileConfig,
+} from "../types/subject_page_proto_types";
 
 /**
  * Given a list of parent places, return true if one of them is the USA country DCID.
@@ -44,6 +58,223 @@ export const USA_PLACE_TYPES_WITH_CHOROPLETH = new Set([
   "State",
   "County",
 ]);
+
+/**
+ * Returns the stat var key for a chart.
+ *
+ * A stat var key is a unique identifier for a statistical variable for the
+ * given chart, including its DCID, denominator, log, scaling, and unit.
+ *
+ * @param chart The chart object
+ * @param variableDcid The variable DCID
+ * @param denom The denominator DCID
+ * @returns The stat var key
+ */
+function getStatVarKey(
+  block: BlockConfig,
+  variableDcid: string,
+  denom?: string
+): string {
+  return `${variableDcid}_denom_${denom}_log_${false}_scaling_${
+    block.scaling
+  }_unit_${block.unit}`;
+}
+
+/**
+ * Helper to process the dev Place page API response
+ * Converts the API response from getPlaceCharts into a SubjectPageConfig object.
+ * Groups charts by category and creates the necessary configuration objects for
+ * rendering the subject page.
+ *
+ * @param placeChartsApiResponse The API response containing chart data
+ * @returns A SubjectPageConfig object with categories, tiles, and stat var specs
+ */
+export function placeChartsApiResponsesToPageConfig(
+  placeChartsApiResponse: PlaceChartsApiResponse,
+  parentPlaces: Place[],
+  similarPlaces: Place[],
+  place: Place
+): SubjectPageConfig {
+  const blocksByCategory = _.groupBy(
+    placeChartsApiResponse.blocks,
+    (item) => item.category
+  );
+
+  const categoryConfig: CategoryConfig[] = Object.keys(blocksByCategory).map(
+    (categoryName) => {
+      const blocks = blocksByCategory[categoryName];
+      const newblocks: SubjectPageBlockConfig[] = [];
+      const statVarSpec: Record<string, StatVarSpec> = {};
+
+      blocks.forEach((block: BlockConfig) => {
+        const tiles = [];
+        block.charts.forEach((chart: Chart) => {
+          const tileConfig: TileConfig = {
+            description: block.description,
+            title: block.title,
+            type: chart.type,
+
+            statVarKey: block.statisticalVariableDcids.map(
+              (variableDcid, variableIdx) => {
+                const denom =
+                  block.denominator &&
+                  block.denominator.length ===
+                    block.statisticalVariableDcids.length
+                    ? block.denominator[variableIdx]
+                    : undefined;
+                return getStatVarKey(block, variableDcid, denom);
+              }
+            ),
+          };
+          const parentPlaceTypesToHighlight = [
+            "County",
+            "AdministrativeArea2",
+            "EurostatNUTS2",
+            "State",
+            "AdministrativeArea1",
+            "EurostatNUTS1",
+            "Country",
+            "Continent",
+          ];
+          // const uplevelPlaceTypes = {
+          //   County: "State",
+          //   State: "Country",
+          //   Country: "Continent",
+          // };
+          if (block.placeScope === "PEER_PLACES_WITHIN_PARENT") {
+            const placeOverride = parentPlaces.find((place) => {
+              const lowestIndex = Math.min(
+                ...place.types
+                  .map((type) => parentPlaceTypesToHighlight.indexOf(type))
+                  .filter((index) => index !== -1)
+              );
+              return lowestIndex !== Infinity;
+            }).dcid;
+            tileConfig["placeDcidOverride"] = placeOverride;
+
+            const lowestIndexType = place.types.reduce(
+              (lowestType, currentType) => {
+                const lowestIndex =
+                  parentPlaceTypesToHighlight.indexOf(lowestType);
+                const currentIndex =
+                  parentPlaceTypesToHighlight.indexOf(currentType);
+
+                if (
+                  currentIndex !== -1 &&
+                  (lowestIndex === -1 || currentIndex < lowestIndex)
+                ) {
+                  return currentType;
+                }
+                return lowestType;
+              },
+              ""
+            ); // Initialize with an empty string
+
+            tileConfig.enclosedPlaceTypeOverride =
+              lowestIndexType || place.types[0];
+
+            tileConfig.title += ": Peer places within parent";
+          } else if (block.placeScope === "CHILD_PLACES") {
+            tileConfig.title += ": places within";
+          } else if (block.placeScope === "SIMILAR_PLACES") {
+            const placeOverride = parentPlaces.find((place) => {
+              const lowestIndex = Math.min(
+                ...place.types
+                  .map((type) => parentPlaceTypesToHighlight.indexOf(type))
+                  .filter((index) => index !== -1)
+              );
+              return lowestIndex !== Infinity;
+            }).dcid;
+            tileConfig["placeDcidOverride"] = placeOverride;
+            tileConfig.title += ": other places";
+
+            const lowestIndexType = place.types.reduce(
+              (lowestType, currentType) => {
+                const lowestIndex =
+                  parentPlaceTypesToHighlight.indexOf(lowestType);
+                const currentIndex =
+                  parentPlaceTypesToHighlight.indexOf(currentType);
+
+                if (
+                  currentIndex !== -1 &&
+                  (lowestIndex === -1 || currentIndex < lowestIndex)
+                ) {
+                  return currentType;
+                }
+                return lowestType;
+              },
+              ""
+            ); // Initialize with an empty string
+
+            tileConfig.enclosedPlaceTypeOverride =
+              lowestIndexType || place.types[0];
+
+            tileConfig.comparisonPlaces = [place.dcid].concat(
+              similarPlaces.map((p) => p.dcid)
+            );
+          }
+
+          if (tileConfig.type === "RANKING") {
+            tileConfig.rankingTileSpec = {
+              showHighest: false,
+              showLowest: false,
+              showHighestLowest: true,
+              showMultiColumn: false,
+              rankingCount: chart.maxPlaces ? chart.maxPlaces : 5,
+            };
+          } else if (tileConfig.type === "BAR") {
+            tileConfig.barTileSpec = {
+              maxPlaces: chart.maxPlaces ? chart.maxPlaces : 5,
+            };
+          }
+          tiles.push(tileConfig);
+        });
+
+        blocks.forEach((block) => {
+          block.statisticalVariableDcids
+            .flat()
+            .forEach((variableDcid, variableIdx) => {
+              const denom =
+                block.denominator &&
+                block.denominator.length ===
+                  block.statisticalVariableDcids.length
+                  ? block.denominator[variableIdx]
+                  : undefined;
+              const statVarKey = getStatVarKey(block, variableDcid, denom);
+              statVarSpec[statVarKey] = {
+                denom,
+                log: false,
+                scaling: block.scaling,
+                statVar: variableDcid,
+                unit: block.unit,
+              };
+            });
+        });
+
+        newblocks.push({
+          title: tiles[0].title,
+          denom: block.denominator?.length > 0 ? block.denominator[0] : "",
+          startWithDenom: false,
+          columns: [{ tiles }],
+        });
+      });
+
+      console.log("STat var Spec " + JSON.stringify(statVarSpec));
+      const category: CategoryConfig = {
+        blocks: newblocks,
+        statVarSpec,
+        title: categoryName,
+      };
+      return category;
+    }
+  );
+
+  const pageConfig: SubjectPageConfig = {
+    metadata: undefined,
+    categories: categoryConfig,
+  };
+  return pageConfig;
+}
 
 const singularPlaceTypeMessages = defineMessages({
   Country: {

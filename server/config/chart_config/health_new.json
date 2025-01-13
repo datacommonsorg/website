@@ -1,0 +1,49 @@
+[
+    {
+    "category": "Health",
+    "titleId": "CHART_TITLE-Health_behaviors",
+    "title": "Health_behaviors",
+    "description": "Health_behaviors",
+    "variables": [
+      "Percent_Person_SleepLessThan7Hours",
+      "Percent_Person_BingeDrinking",
+      "Percent_Person_PhysicalInactivity",
+      "Percent_Person_Smoking"
+    ],
+    "denominator": [],
+    "nonDividable": true,
+    "scale": true,
+    "unit": "%",
+    "blocks":[
+          {
+            "isOverview": true,
+            "placeScope": "PLACE",
+            "charts": [
+              {
+                "type": "LINE"
+              }
+            ]
+          },
+          {
+            "isOverview": false,
+            "placeScope": "CHILD_PLACES",
+            "charts": [
+              {
+                "type": "BAR",
+                "maxPlaces": 5
+              }
+            ]
+          },
+          {
+            "isOverview": false,
+            "placeScope": "SIMILAR_PLACES",
+            "charts": [
+              {
+                "type": "BAR",
+                "maxPlaces": 5
+              }
+            ]
+        }
+    ]
+  }
+]

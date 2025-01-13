@@ -148,6 +148,7 @@ export type ObservationDatesApiResponse = {
 type ChartType = "BAR" | "LINE" | "MAP" | "RANKING" | "HIGHLIGHT";
 export interface Chart {
   type: ChartType;
+  maxPlaces?: number; 
 }
 
 export interface Place {
@@ -179,8 +180,8 @@ export interface BlockConfig {
  */
 export interface PlaceChartsApiResponse {
   blocks: BlockConfig[];
-  translatedCategoryStrings: Record<string, string>;
   place: Place;
+  translatedCategoryStrings: Record<string, string>;
 }
 
 /**

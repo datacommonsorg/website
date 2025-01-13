@@ -289,7 +289,6 @@ def chart_config_to_overview_charts(chart_config, child_place_type: str):
   blocks = []
   for page_config_item in chart_config:
     denominator = page_config_item.get("denominator", None)
-    print(page_config_item)
     for block in page_config_item["blocks"]:
       charts = []
       for chart in block["charts"]:
