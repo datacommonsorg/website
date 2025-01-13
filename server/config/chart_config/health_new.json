@@ -30,7 +30,7 @@
             "charts": [
               {
                 "type": "BAR",
-                "maxPlaces": 5
+                "maxPlaces": 7
               }
             ]
           },
@@ -40,7 +40,7 @@
             "charts": [
               {
                 "type": "BAR",
-                "maxPlaces": 5
+                "maxPlaces": 7
               }
             ]
         }

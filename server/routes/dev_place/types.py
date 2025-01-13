@@ -24,6 +24,7 @@ CHART_TYPES = {"BAR", "LINE", "MAP", "RANKING", "HIGHLIGHT"}
 @dataclass
 class Chart:
   type: str  # Restricted to CHART_TYPES
+  maxPlaces: int
 
   def __post_init__(self):
     # Custom validator for the `type` field

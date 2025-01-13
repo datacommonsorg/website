@@ -10,63 +10,51 @@
     "nonDividable": true,
     "scale": true,
     "blocks":[
+      {
+        "isOverview": true,
+        "placeScope": "PLACE",
+        "charts": [
           {
-            "isOverview": true,
-            "placeScope": "PLACE",
-            "charts": [
-              {
-                "type": "LINE"
-              },
-              {
-                "type": "HIGHLIGHT"
-              }
-            ]
+            "type": "LINE"
           },
           {
-            "isOverview": false,
-            "placeScope": "CHILD_PLACES",
-            "charts": [
-              {
-                "type": "MAP"
-              },
-              {
-                "type": "RANKING"
-              }
-            ]
+            "type": "HIGHLIGHT"
+          }
+        ]
+      },
+      {
+        "isOverview": false,
+        "placeScope": "CHILD_PLACES",
+        "charts": [
+          {
+            "type": "MAP"
           },
           {
-            "isOverview": false,
-            "placeScope": "PEER_PLACES_WITHIN_PARENT",
-            "charts": [
-              {
-                "type": "MAP"
-              },
-              {
-                "type": "RANKING",
-                "maxPlaces": 10
-              }
-            ]
+            "type": "RANKING"
+          }
+        ]
+      },
+      {
+        "isOverview": false,
+        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "charts": [
+          {
+            "type": "MAP"
           },
           {
-            "isOverview": false,
-            "placeScope": "CHILD_PLACES",
-            "charts": [
-              {
-                "type": "BAR",
-                "maxPlaces": 10
-              }
-            ]
-          },
+            "type": "RANKING"
+          }
+        ]
+      },
+      {
+        "isOverview": false,
+        "placeScope": "SIMILAR_PLACES",
+        "charts": [
           {
-            "isOverview": false,
-            "placeScope": "SIMILAR_PLACES",
-            "charts": [
-              {
-                "type": "BAR",
-                "maxPlaces": 5
-              }
-            ]
-        }
+            "type": "BAR"
+          }
+        ]
+      }
     ]
   }
 ]

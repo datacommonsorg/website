@@ -98,7 +98,7 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
   # Filter parents to only the types desired
   parents_to_include = [
       parent for parent in all_parents
-      if parent.types in PARENT_PLACE_TYPES_TO_HIGHLIGHT
+      if parent.types[0] in PARENT_PLACE_TYPES_TO_HIGHLIGHT
   ]
 
   # Create a dictionary mapping parent types to their order in the highlight list
@@ -108,7 +108,7 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
   }
 
   # Sort the parents_to_include list using the type_order dictionary
-  parents_to_include.sort(key=lambda parent: type_order.get(parent.types))
+  parents_to_include.sort(key=lambda parent: type_order.get(parent.types[0]))
 
   # Fetch the localized names of the parents
   parent_dcids = [parent.dcid for parent in parents_to_include]
@@ -292,7 +292,7 @@ def chart_config_to_overview_charts(chart_config, child_place_type: str):
     for block in page_config_item["blocks"]:
       charts = []
       for chart in block["charts"]:
-        this_chart = Chart(type=chart.get("type"))
+        this_chart = Chart(type=chart.get("type"), maxPlaces=chart.get("maxPlaces"))
         charts.append(this_chart)
 
       this_block = BlockConfig(charts=charts,

@@ -60,6 +60,20 @@ export const USA_PLACE_TYPES_WITH_CHOROPLETH = new Set([
 ]);
 
 /**
+ * An ordered list of place types for which to highlight child places.
+ */
+const PARENT_PLACE_TYPES_TO_HIGHLIGHT = [
+  "County",
+  "AdministrativeArea2",
+  "EurostatNUTS2",
+  "State",
+  "AdministrativeArea1",
+  "EurostatNUTS1",
+  "Country",
+  "Continent",
+];
+
+/**
  * Returns the stat var key for a chart.
  *
  * A stat var key is a unique identifier for a statistical variable for the
@@ -78,6 +92,52 @@ function getStatVarKey(
   return `${variableDcid}_denom_${denom}_log_${false}_scaling_${
     block.scaling
   }_unit_${block.unit}`;
+}
+
+function getPlaceOverride(placeScope: string, parentPlaces: Place[]): string {
+  if (!["PEER_PLACES_WITHIN_PARENT", "SIMILAR_PLACES"].includes(placeScope)) {
+    return "";
+  }
+
+  const placeOverride = parentPlaces.find((place) => {
+    const lowestIndex = Math.min(
+      ...place.types
+        .map((type) => PARENT_PLACE_TYPES_TO_HIGHLIGHT.indexOf(type))
+        .filter((index) => index !== -1)
+    );
+    return lowestIndex !== Infinity;
+  });
+  if (placeOverride) {
+    return placeOverride.dcid;
+  };
+
+  return undefined;
+}
+
+
+function getEnclosedPlaceTypeOverride(placeScope: string, place: Place): string {
+  if (!["PEER_PLACES_WITHIN_PARENT", "SIMILAR_PLACES"].includes(placeScope)) {
+    return "";
+  }
+  const lowestIndexType = place.types.reduce(
+    (lowestType, currentType) => {
+      const lowestIndex =
+        PARENT_PLACE_TYPES_TO_HIGHLIGHT.indexOf(lowestType);
+      const currentIndex =
+        PARENT_PLACE_TYPES_TO_HIGHLIGHT.indexOf(currentType);
+
+      if (
+        currentIndex !== -1 &&
+        (lowestIndex === -1 || currentIndex < lowestIndex)
+      ) {
+        return currentType;
+      }
+      return lowestType;
+    },
+    ""
+  ); // Initialize with an empty string
+
+  return lowestIndexType;
 }
 
 /**
@@ -126,92 +186,30 @@ export function placeChartsApiResponsesToPageConfig(
               }
             ),
           };
-          const parentPlaceTypesToHighlight = [
-            "County",
-            "AdministrativeArea2",
-            "EurostatNUTS2",
-            "State",
-            "AdministrativeArea1",
-            "EurostatNUTS1",
-            "Country",
-            "Continent",
-          ];
-          // const uplevelPlaceTypes = {
-          //   County: "State",
-          //   State: "Country",
-          //   Country: "Continent",
-          // };
-          if (block.placeScope === "PEER_PLACES_WITHIN_PARENT") {
-            const placeOverride = parentPlaces.find((place) => {
-              const lowestIndex = Math.min(
-                ...place.types
-                  .map((type) => parentPlaceTypesToHighlight.indexOf(type))
-                  .filter((index) => index !== -1)
-              );
-              return lowestIndex !== Infinity;
-            }).dcid;
+          
+          const placeOverride: string = getPlaceOverride(block.placeScope, parentPlaces);
+          if (placeOverride) {
             tileConfig["placeDcidOverride"] = placeOverride;
+          }
 
-            const lowestIndexType = place.types.reduce(
-              (lowestType, currentType) => {
-                const lowestIndex =
-                  parentPlaceTypesToHighlight.indexOf(lowestType);
-                const currentIndex =
-                  parentPlaceTypesToHighlight.indexOf(currentType);
+          const lowestIndexType = getEnclosedPlaceTypeOverride(block.placeScope, place);
+          if (lowestIndexType) {
+            tileConfig.enclosedPlaceTypeOverride = lowestIndexType;
+          }
 
-                if (
-                  currentIndex !== -1 &&
-                  (lowestIndex === -1 || currentIndex < lowestIndex)
-                ) {
-                  return currentType;
-                }
-                return lowestType;
-              },
-              ""
-            ); // Initialize with an empty string
-
-            tileConfig.enclosedPlaceTypeOverride =
-              lowestIndexType || place.types[0];
+          if (block.placeScope === "PEER_PLACES_WITHIN_PARENT") {
 
             tileConfig.title += ": Peer places within parent";
           } else if (block.placeScope === "CHILD_PLACES") {
             tileConfig.title += ": places within";
           } else if (block.placeScope === "SIMILAR_PLACES") {
-            const placeOverride = parentPlaces.find((place) => {
-              const lowestIndex = Math.min(
-                ...place.types
-                  .map((type) => parentPlaceTypesToHighlight.indexOf(type))
-                  .filter((index) => index !== -1)
-              );
-              return lowestIndex !== Infinity;
-            }).dcid;
-            tileConfig["placeDcidOverride"] = placeOverride;
             tileConfig.title += ": other places";
 
-            const lowestIndexType = place.types.reduce(
-              (lowestType, currentType) => {
-                const lowestIndex =
-                  parentPlaceTypesToHighlight.indexOf(lowestType);
-                const currentIndex =
-                  parentPlaceTypesToHighlight.indexOf(currentType);
-
-                if (
-                  currentIndex !== -1 &&
-                  (lowestIndex === -1 || currentIndex < lowestIndex)
-                ) {
-                  return currentType;
-                }
-                return lowestType;
-              },
-              ""
-            ); // Initialize with an empty string
-
-            tileConfig.enclosedPlaceTypeOverride =
-              lowestIndexType || place.types[0];
-
-            tileConfig.comparisonPlaces = [place.dcid].concat(
-              similarPlaces.map((p) => p.dcid)
-            );
+            if (similarPlaces.length > 0) {
+              tileConfig.comparisonPlaces = [place.dcid].concat(
+                similarPlaces.map((p) => p.dcid)
+              );
+            }
           }
 
           if (tileConfig.type === "RANKING") {
@@ -224,7 +222,7 @@ export function placeChartsApiResponsesToPageConfig(
             };
           } else if (tileConfig.type === "BAR") {
             tileConfig.barTileSpec = {
-              maxPlaces: chart.maxPlaces ? chart.maxPlaces : 5,
+              maxPlaces: chart.maxPlaces ? chart.maxPlaces : 15,
             };
           }
           tiles.push(tileConfig);
