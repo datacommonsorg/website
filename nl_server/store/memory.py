@@ -13,6 +13,7 @@
 # limitations under the License.
 """In-memory Embeddings store."""
 
+import csv
 import logging
 from typing import List
 
@@ -25,6 +26,7 @@ from nl_server.config import MemoryIndexConfig
 from nl_server.embeddings import EmbeddingsMatch
 from nl_server.embeddings import EmbeddingsResult
 from nl_server.embeddings import EmbeddingsStore
+from nl_server.embeddings import NoEmbeddingsException
 from shared.lib.custom_dc_util import use_anonymous_gcs_client
 from shared.lib.gcs import is_gcs_path
 from shared.lib.gcs import maybe_download
@@ -52,6 +54,10 @@ class MemoryEmbeddingsStore(EmbeddingsStore):
       raise AssertionError(
           f'"embeddings_path" path must start with `/` or `gs://`: {idx_info.embeddings_path}'
       )
+
+    # Raise no embeddings exception if the embeddings path does not have any embeddings.
+    if _is_csv_empty_or_header_only(embeddings_path):
+      raise NoEmbeddingsException()
 
     self.dataset_embeddings: torch.Tensor = None
     self.dcids: List[str] = []
@@ -99,3 +105,27 @@ class MemoryEmbeddingsStore(EmbeddingsStore):
       results.append(matches)
 
     return results
+
+
+def _is_csv_empty_or_header_only(file_path):
+  """
+  Checks if a CSV file is empty or only contains the header row.
+
+  Args:
+    file_path: The path to the CSV file.
+
+  Returns:
+    True if the CSV file is empty or has only the header, False otherwise.
+  """
+  with open(file_path, 'r', newline='') as csvfile:
+    reader = csv.reader(csvfile)
+    try:
+      # Read the first row (header)
+      next(reader)
+      # Try reading the second row
+      next(reader)
+      # If no exception is raised, there are more rows than just the header
+      return False
+    except StopIteration:
+      # StopIteration is raised if there are no more rows to read
+      return True
