@@ -95,3 +95,8 @@ class Embeddings:
 
     # Turn this into a map:
     return {k: v for k, v in zip(queries, results)}
+
+
+class NoEmbeddingsException(Exception):
+  """Custom exception raised when no embeddings are found in the embeddings csv."""
+  pass
