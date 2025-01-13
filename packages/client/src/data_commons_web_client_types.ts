@@ -148,15 +148,6 @@ export type ObservationDatesApiResponse = {
 type ChartType = "BAR" | "LINE" | "MAP" | "RANKING" | "HIGHLIGHT";
 export interface Chart {
   type: ChartType;
-  title: string;
-  category: string;
-  description: string;
-  statisticalVariableDcids: string[];
-  topicDcids: string[];
-  denominator?: string; // Optional
-  unit?: string; // Optional
-  scaling?: number; // Optional
-  placeScope?: string;
 }
 
 export interface Place {
@@ -173,8 +164,15 @@ export interface BlockConfig {
   place: Place;
   similarPlaces: Place[];
   translatedCategoryStrings: Record<string, string>;
-  placeScope: string
-
+  placeScope?: string
+  title: string;
+  category: string;
+  description: string;
+  statisticalVariableDcids: string[];
+  topicDcids: string[];
+  denominator?: string; // Optional
+  unit?: string; // Optional
+  scaling?: number; // Optional
 }
 
 /**

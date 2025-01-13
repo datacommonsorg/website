@@ -225,6 +225,18 @@ export function Block(props: BlockPropType): JSX.Element {
       setOverridePlaceTypes({});
       return;
     }
+
+    const transformedOverridePlaces: {[dcid: string]: NamedTypedPlace} = {}; 
+    overridePlaces.forEach((place) => {
+      if (!transformedOverridePlaces[place["dcid"]]) { 
+        transformedOverridePlaces[place["dcid"]] = {
+          name: place["name"],
+          types: place["types"],
+          dcid: place["dcid"],
+        };
+      }
+    })
+    setOverridePlaceTypes(transformedOverridePlaces);
     // TODO: Use getNamedTypedPlace and add support for multiple places there.
     axios
       .get("/api/place/named_typed", {
@@ -413,13 +425,9 @@ function renderTiles(
     const place = tile.placeDcidOverride
       ? overridePlaces[tile.placeDcidOverride]
       : props.place;
-    console.log(
-      "So the place is : " +
-        JSON.stringify(props.place) +
-        "; " +
-        JSON.stringify(tile.placeDcidOverride)
-    );
-    console.log("Therefore : " + JSON.stringify(place));
+    if (!place) {
+      return;
+    }
     const comparisonPlaces = getComparisonPlaces(tile, place);
     const className = classNameList.join(" ");
     // TODO(beets): Fix this for ranking tiles with highest/lowest title set.
@@ -449,7 +457,7 @@ function renderTiles(
             title={title}
             subtitle={tile.subtitle}
             place={place}
-            enclosedPlaceType={enclosedPlaceType}
+            enclosedPlaceType={tile.enclosedPlaceTypeOverride ? tile.enclosedPlaceTypeOverride : enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0], {
               blockDate,
               blockDenom,
@@ -511,7 +519,7 @@ function renderTiles(
             lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN}
             title={title}
             parentPlace={place.dcid}
-            enclosedPlaceType={enclosedPlaceType}
+            enclosedPlaceType={tile.enclosedPlaceTypeOverride ? tile.enclosedPlaceTypeOverride : enclosedPlaceType}
             variables={props.statVarProvider.getSpecList(tile.statVarKey, {
               blockDate,
               blockDenom,
@@ -530,12 +538,15 @@ function renderTiles(
           />
         );
       case "BAR":
+        console.log("Enclosed Place Type in BAR" + tile.enclosedPlaceTypeOverride + JSON.stringify(comparisonPlaces));
+        console.log("And place in bar? " + JSON.stringify(place));
+        console.log("tile.placeDcidOverride " + tile.placeDcidOverride)
         return (
           <BarTile
             barHeight={tile.barTileSpec?.barHeight}
             colors={tile.barTileSpec?.colors}
             className={className}
-            enclosedPlaceType={enclosedPlaceType}
+            enclosedPlaceType={tile.enclosedPlaceTypeOverride ? tile.enclosedPlaceTypeOverride : enclosedPlaceType}
             footnote={props.footnote}
             horizontal={tile.barTileSpec?.horizontal}
             id={id}
@@ -584,7 +595,7 @@ function renderTiles(
             title={title}
             subtitle={tile.subtitle}
             place={place}
-            enclosedPlaceType={enclosedPlaceType}
+            enclosedPlaceType={tile.enclosedPlaceTypeOverride ? tile.enclosedPlaceTypeOverride : enclosedPlaceType}
             statVarSpec={statVarSpec}
             svgChartHeight={
               isNlInterface() ? props.svgChartHeight * 2 : props.svgChartHeight
@@ -614,7 +625,7 @@ function renderTiles(
             lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN}
             title={title}
             place={place}
-            enclosedPlaceType={enclosedPlaceType}
+            enclosedPlaceType={tile.enclosedPlaceTypeOverride ? tile.enclosedPlaceTypeOverride : enclosedPlaceType}
             statVarSpec={statVarSpec}
             svgChartHeight={props.svgChartHeight}
             className={className}
@@ -745,6 +756,7 @@ function renderWebComponents(
     const place = tile.placeDcidOverride
       ? overridePlaces[tile.placeDcidOverride]
       : props.place;
+      console.log("SO THE PLACE IS " + JSON.stringify(place) + "because " + tile.placeDcidOverride);
     const comparisonPlaces = getComparisonPlaces(tile, place);
     const className = classNameList.join(" ");
     // TODO(beets): Fix this for ranking tiles with highest/lowest title set.
@@ -878,7 +890,7 @@ function renderWebComponents(
               ? { colors: tile.barTileSpec?.colors.join(" ") }
               : {})}
             className={className}
-            childPlaceType={enclosedPlaceType}
+            childPlaceType={tile.enclosedPlaceTypeOverride ? tile.enclosedPlaceTypeOverride : enclosedPlaceType}
             horizontal={tile.barTileSpec?.horizontal}
             id={id}
             key={id}

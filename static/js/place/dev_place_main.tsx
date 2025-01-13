@@ -73,7 +73,8 @@ function getStatVarKey(
  */
 function placeChartsApiResponsesToPageConfig(
   placeChartsApiResponse: PlaceChartsApiResponse,
-  parentPlaces: Place[]
+  parentPlaces: Place[],
+  place: Place
 ): SubjectPageConfig {
   const blocksByCategory = _.groupBy(
     placeChartsApiResponse.blocks,
@@ -90,7 +91,7 @@ function placeChartsApiResponsesToPageConfig(
         blocks.forEach((block: BlockConfig) => {
         let tiles = []
         block.charts.forEach((chart: Chart) => {
-          const tileConfig = {
+          const tileConfig: TileConfig = {
             description: block.description,
             title: block.title,
             type: chart.type,
@@ -107,10 +108,46 @@ function placeChartsApiResponsesToPageConfig(
               }
             ),
           };
-          console.log("block.placeScope" + block.placeScope);
+          let parentPlaceTypes = [
+              'County',
+              'AdministrativeArea2',
+              'EurostatNUTS2',
+              'State',
+              'AdministrativeArea1',
+              'EurostatNUTS1',
+              'Country',
+              'Continent',
+          ]
+          let uplevelPlaceTypes = {"County": "State", "State": "Country", "Country": "Continent"};
           if (block.placeScope === "PEER_PLACES_WITHIN_PARENT") {
-            tileConfig["placeDcidOverride"] = parentPlaces[1].dcid;
-            // Add override for the enclosed Place TYpe.
+            let placeOverride = parentPlaces.find(place => 
+              place.types.some(type => parentPlaceTypes.includes(type))
+            ).dcid;
+            tileConfig["placeDcidOverride"] = placeOverride;
+            tileConfig.enclosedPlaceTypeOverride = place.types[1];
+            tileConfig.title += ": Peer places within parent";
+          } else if (block.placeScope === "CHILD_PLACES"){
+            tileConfig.title += ": places within";
+          } else if (block.placeScope === "SIMILAR_PLACES"){
+            let placeOverride = parentPlaces.find(place => 
+              place.types.some(type => parentPlaceTypes.includes(type))
+            ).dcid;
+            tileConfig["placeDcidOverride"] = placeOverride;
+            tileConfig.title += ": other places";
+            tileConfig.enclosedPlaceTypeOverride = place.types[1];
+          }
+
+          if (tileConfig.type === "RANKING") {
+            tileConfig.rankingTileSpec = {
+              showHighest: false,
+              showLowest: false,
+              showHighestLowest: true,
+              showMultiColumn: false,
+            }
+          } else if (tileConfig.type === "BAR") {
+            tileConfig.barTileSpec = {
+              maxPlaces: 5,
+            }
           }
           tiles.push(tileConfig);
         });
@@ -126,13 +163,15 @@ function placeChartsApiResponsesToPageConfig(
           }
         });
         new_blocks.push({
+          title: tiles[0].title,
+          denom: block.denominator,
           columns: [{ tiles }],
         })
        })
         
         const statVarSpec: Record<string, StatVarSpec> = {};
         blocks.forEach((block) => {
-          block.statisticalVariableDcids.forEach((variableDcid, variableIdx) => {
+          block.statisticalVariableDcids.flat().forEach((variableDcid, variableIdx) => {
             const denom =
             block.denominator &&
             block.denominator.length === block.statisticalVariableDcids.length
@@ -146,8 +185,8 @@ function placeChartsApiResponsesToPageConfig(
               statVar: variableDcid,
               unit: block.unit,
             };
+          });
         });
-      });
 
      
       const category: CategoryConfig = {
@@ -615,21 +654,21 @@ export const DevPlaceMain = (): React.JSX.Element => {
       setIsLoading(false);
       const config = placeChartsApiResponsesToPageConfig(
         placeChartsApiResponse,
-        relatedPlacesApiResponse.parentPlaces
+        relatedPlacesApiResponse.parentPlaces,
+        relatedPlacesApiResponse.place
       );
       setPageConfig(config);
     })();
   }, [place, category]);
 
   useEffect(() => {
-    if (placeChartsApiResponse && placeChartsApiResponse.charts) {
+    if (placeChartsApiResponse && placeChartsApiResponse.blocks) {
       // TODO(gmechali): Refactor this to use the translations correctly.
       // Move overview to be added in the response with translations. Use the
       // translation in the tabs, but the english version in the URL.
       setCategories(
         ["Overview"].concat(
-          Object.values(placeChartsApiResponse.translatedCategoryStrings)
-        )
+          Object.values(placeChartsApiResponse.blocks.map((b) => b.translatedCategoryStrings).flat))
       );
     }
   }, [placeChartsApiResponse, setPlaceChartsApiResponse]);

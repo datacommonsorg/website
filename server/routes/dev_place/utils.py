@@ -71,7 +71,7 @@ def get_parent_places(dcid: str) -> List[Place]:
   for parent in parents_resp:
     if 'type' in parent and 'name' in parent and 'type' in parent:
       all_parents.append(
-          Place(dcid=parent['dcid'], name=parent['name'], types=parent['type']))
+          Place(dcid=parent['dcid'], name=parent['name'], types=[parent['type']]))
 
   return all_parents
 
@@ -306,6 +306,9 @@ def chart_config_to_overview_charts(chart_config, child_place_type: str):
                                unit=page_config_item.get("unit"))
       if denominator:
         this_block.denominator = denominator
+      # elif not page_config_item.get("nonDividable", False):
+      #   this_block.denominator = ["Count_Person"]
+
       this_block.childPlaceType = child_place_type
       blocks.append(this_block)
   return blocks

@@ -90,6 +90,7 @@ def place_charts(place_dcid: str):
   # Retrieve available place page charts
   full_chart_config = copy.deepcopy(current_app.config['CHART_CONFIG'])
   full_chart_config = [c for c in full_chart_config if c.get("blocks")]
+  print("HELLOOOOO")
   print(full_chart_config)
 
   # Filter chart config by category
@@ -107,6 +108,8 @@ def place_charts(place_dcid: str):
       place_dcid=place_dcid,
       child_place_type=child_place_type)
 
+  print("overview_chart_config\n\n")
+  print(overview_chart_config)
   # Always execute the call for the overview category to fetch the valid categories.
   filtered_chart_config_for_category = (
       filtered_chart_config if place_category == OVERVIEW_CATEGORY else
