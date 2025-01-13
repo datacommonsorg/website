@@ -401,6 +401,7 @@ function renderTiles(
   if (!tiles || !overridePlaces) {
     return <></>;
   }
+  console.log("Block DEnominator: " + JSON.stringify(blockDenom));
   const tilesJsx = tiles.map((tile, i) => {
     const id = getId(columnId, TILE_ID_PREFIX, i);
     const enclosedPlaceType = tile.enclosedPlaceTypeOverride
