@@ -258,8 +258,6 @@ def api_i18n_name():
 def get_named_typed_place():
   """Returns data for NamedTypedPlace, a dictionary of key -> NamedTypedPlace."""
   dcids = request.args.getlist('dcids')
-  print("DCIDS:::")
-  print(dcids)
   place2type = get_place_type(dcids)
   place_names = names(dcids)
   ret = {}

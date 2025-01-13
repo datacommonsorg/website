@@ -199,6 +199,8 @@ export interface PlaceChartsApiResponse {
  */
 export interface PlaceChartsApiResponse {
   blocks: BlockConfig[];
+  translatedCategoryStrings: Record<string, string>;
+  place: Place;
 }
 
 /**
