@@ -183,8 +183,15 @@ export interface PlaceChartsApiResponse {
   blocks: BlockConfig[];
   place: Place;
   translatedCategoryStrings: Record<string, string>;
-  placeScope: string
-
+  placeScope?: string
+  title: string;
+  category: string;
+  description: string;
+  statisticalVariableDcids: string[];
+  topicDcids: string[];
+  denominator?: string; // Optional
+  unit?: string; // Optional
+  scaling?: number; // Optional
 }
 
 /**
