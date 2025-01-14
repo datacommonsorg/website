@@ -98,7 +98,7 @@ export function addGeotiffLayer(
   const geotiffLayer = new GeoRasterLayer({
     georaster: geoRaster,
     opacity: 1,
-    pixelValuesToColorFn: (value) => {
+    pixelValuesToColorFn: (value: { number: number }): string => {
       if (value[GEORASTER_DATA_BAND] === NO_DATA_VALUE) {
         return null;
       } else {

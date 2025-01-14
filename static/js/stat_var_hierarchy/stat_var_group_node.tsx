@@ -215,7 +215,7 @@ export class StatVarGroupNode extends React.Component<
           trigger={getTrigger(false)}
           triggerWhenOpen={getTrigger(true)}
           open={shouldOpen}
-          handleTriggerClick={() => {
+          handleTriggerClick={(): void => {
             this.setState({ isOpen: !this.state.isOpen });
           }}
           transitionTime={200}

@@ -19,7 +19,13 @@
  * data fetches.
  */
 
-import React, { createContext, useCallback, useMemo, useRef } from "react";
+import React, {
+  createContext,
+  ReactElement,
+  useCallback,
+  useMemo,
+  useRef,
+} from "react";
 
 interface DataFetchContextType {
   // A function to use to fetch data with a given cache key and data promise.
@@ -40,7 +46,7 @@ interface DataFetchContextProviderPropType {
 
 export function DataFetchContextProvider(
   props: DataFetchContextProviderPropType
-) {
+): ReactElement {
   // Map of key to data promise that holds all pairs of cacheKey and dataPromise
   // that have been used when calling fetchData.
   const fetchingCache = useRef<Record<string, Promise<any>>>({});

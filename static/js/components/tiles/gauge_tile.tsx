@@ -151,7 +151,7 @@ export function GaugeTile(props: GaugeTilePropType): JSX.Element {
   );
 }
 
-const fetchData = async (props: GaugeTilePropType) => {
+const fetchData = async (props: GaugeTilePropType): Promise<GaugeChartData> => {
   try {
     const statResp = await getPoint(
       props.apiRoot,
@@ -199,7 +199,7 @@ const fetchData = async (props: GaugeTilePropType) => {
       _.isNull(value) || _.isUndefined(value)
         ? getNoDataErrorMsg([props.statVarSpec])
         : "";
-    return {
+    const gaugeChartData: GaugeChartData = {
       value,
       date: statData.date,
       sources,
@@ -209,6 +209,7 @@ const fetchData = async (props: GaugeTilePropType) => {
       props,
       errorMsg,
     };
+    return gaugeChartData;
   } catch (error) {
     console.log(error);
     return null;
