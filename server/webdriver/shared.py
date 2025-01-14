@@ -122,6 +122,7 @@ def safe_url_open(url):
 
 
 def assert_topics(self, driver, path_to_topics, classname, expected_topics):
+  """Assert the topics on the place page."""
   # Locate the 'explore-topics-box' div first
   for path_classname in path_to_topics:
     explore_topics_box = WebDriverWait(driver, TIMEOUT).until(

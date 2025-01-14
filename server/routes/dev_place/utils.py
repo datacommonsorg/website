@@ -158,6 +158,9 @@ def filter_chart_config_by_place_dcid(chart_config: List[Dict],
           map_stat_var_dcids.extend(config["variables"])
         else:
           non_map_stat_var_dcids.extend(config["variables"])
+        denominator = config.get('denominator', None)
+        if denominator:
+          non_map_stat_var_dcids.extend(denominator)
 
   # Find non-map stat vars that have data for our place dcid
   obs_point_response = dc.obs_point(entities=[place_dcid],

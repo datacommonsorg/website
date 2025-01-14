@@ -493,12 +493,12 @@ SAMPLE_PLACE_PAGE_CHART_CONFIG = [{
         "CHART_TITLE-Educational_attainment",
     "title":
         "Education attainment",
-    "description":
-        "Total number of criminal incidents",
     "denominator": [
         "Sample_Denominator_1", "Sample_Denominator_2", "Sample_Denominator_3",
         "Sample_Denominator_4", "Sample_Denominator_5"
     ],
+    "description":
+        "Number of people who have attained various educational milestones, e.g. completed high school or have a bachelor's degree",
     "nonDividable":
         False,
     "scale":

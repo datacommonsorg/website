@@ -226,17 +226,6 @@ export function Block(props: BlockPropType): JSX.Element {
       return;
     }
 
-    const transformedOverridePlaces: { [dcid: string]: NamedTypedPlace } = {};
-    overridePlaces.forEach((place) => {
-      if (!transformedOverridePlaces[place["dcid"]]) {
-        transformedOverridePlaces[place["dcid"]] = {
-          name: place["name"],
-          types: place["types"],
-          dcid: place["dcid"],
-        };
-      }
-    });
-    setOverridePlaceTypes(transformedOverridePlaces);
     // TODO: Use getNamedTypedPlace and add support for multiple places there.
     axios
       .get("/api/place/named_typed", {
@@ -414,7 +403,9 @@ function renderTiles(
   }
   const tilesJsx = tiles.map((tile, i) => {
     const id = getId(columnId, TILE_ID_PREFIX, i);
-    const enclosedPlaceType = props.enclosedPlaceType;
+    const enclosedPlaceType = tile.enclosedPlaceTypeOverride
+      ? tile.enclosedPlaceTypeOverride
+      : props.enclosedPlaceType;
     const classNameList = [];
     if (tileClassName) {
       classNameList.push(tileClassName);
@@ -425,9 +416,6 @@ function renderTiles(
     const place = tile.placeDcidOverride
       ? overridePlaces[tile.placeDcidOverride]
       : props.place;
-    if (!place) {
-      return;
-    }
     const comparisonPlaces = getComparisonPlaces(tile, place);
     const className = classNameList.join(" ");
     // TODO(beets): Fix this for ranking tiles with highest/lowest title set.
@@ -457,11 +445,7 @@ function renderTiles(
             title={title}
             subtitle={tile.subtitle}
             place={place}
-            enclosedPlaceType={
-              tile.enclosedPlaceTypeOverride
-                ? tile.enclosedPlaceTypeOverride
-                : enclosedPlaceType
-            }
+            enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0], {
               blockDate,
               blockDenom,
@@ -523,11 +507,7 @@ function renderTiles(
             lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN}
             title={title}
             parentPlace={place.dcid}
-            enclosedPlaceType={
-              tile.enclosedPlaceTypeOverride
-                ? tile.enclosedPlaceTypeOverride
-                : enclosedPlaceType
-            }
+            enclosedPlaceType={enclosedPlaceType}
             variables={props.statVarProvider.getSpecList(tile.statVarKey, {
               blockDate,
               blockDenom,
@@ -551,11 +531,7 @@ function renderTiles(
             barHeight={tile.barTileSpec?.barHeight}
             colors={tile.barTileSpec?.colors}
             className={className}
-            enclosedPlaceType={
-              tile.enclosedPlaceTypeOverride
-                ? tile.enclosedPlaceTypeOverride
-                : enclosedPlaceType
-            }
+            enclosedPlaceType={enclosedPlaceType}
             footnote={props.footnote}
             horizontal={tile.barTileSpec?.horizontal}
             id={id}
@@ -604,11 +580,7 @@ function renderTiles(
             title={title}
             subtitle={tile.subtitle}
             place={place}
-            enclosedPlaceType={
-              tile.enclosedPlaceTypeOverride
-                ? tile.enclosedPlaceTypeOverride
-                : enclosedPlaceType
-            }
+            enclosedPlaceType={enclosedPlaceType}
             statVarSpec={statVarSpec}
             svgChartHeight={
               isNlInterface() ? props.svgChartHeight * 2 : props.svgChartHeight
@@ -638,11 +610,7 @@ function renderTiles(
             lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN}
             title={title}
             place={place}
-            enclosedPlaceType={
-              tile.enclosedPlaceTypeOverride
-                ? tile.enclosedPlaceTypeOverride
-                : enclosedPlaceType
-            }
+            enclosedPlaceType={enclosedPlaceType}
             statVarSpec={statVarSpec}
             svgChartHeight={props.svgChartHeight}
             className={className}
@@ -762,7 +730,9 @@ function renderWebComponents(
   }
   const tilesJsx = tiles.map((tile, i) => {
     const id = getId(columnId, TILE_ID_PREFIX, i);
-    const enclosedPlaceType = props.enclosedPlaceType;
+    const enclosedPlaceType = tile.enclosedPlaceTypeOverride
+      ? tile.enclosedPlaceTypeOverride
+      : props.enclosedPlaceType;
     const classNameList = [];
     if (tileClassName) {
       classNameList.push(tileClassName);
@@ -906,11 +876,7 @@ function renderWebComponents(
               ? { colors: tile.barTileSpec?.colors.join(" ") }
               : {})}
             className={className}
-            childPlaceType={
-              tile.enclosedPlaceTypeOverride
-                ? tile.enclosedPlaceTypeOverride
-                : enclosedPlaceType
-            }
+            childPlaceType={enclosedPlaceType}
             horizontal={tile.barTileSpec?.horizontal}
             id={id}
             key={id}

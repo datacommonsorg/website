@@ -94,6 +94,12 @@ function getStatVarKey(
   }_unit_${block.unit}`;
 }
 
+/**
+ * Selects the appropriate place to return given the placeScope and parent places.
+ * @param placeScope string representing scope of places we want to show
+ * @param parentPlaces All possible parent places to choose from
+ * @returns string for the selected place dcid or undefined.
+ */
 function getPlaceOverride(placeScope: string, parentPlaces: Place[]): string {
   if (!["PEER_PLACES_WITHIN_PARENT", "SIMILAR_PLACES"].includes(placeScope)) {
     return "";
@@ -107,36 +113,41 @@ function getPlaceOverride(placeScope: string, parentPlaces: Place[]): string {
     );
     return lowestIndex !== Infinity;
   });
-  if (placeOverride) {
-    return placeOverride.dcid;
-  }
-
-  return undefined;
+  return placeOverride ? placeOverride.dcid : undefined;
 }
 
+/**
+ * Selects the appropriate enclosed place type to return given the placeScope and parent places.
+ * @param placeScope string representing scope of places we want to show
+ * @param place Current place
+ * @returns string for the selected enclosed place type.
+ */
 function getEnclosedPlaceTypeOverride(
   placeScope: string,
   place: Place
 ): string {
+  // If the scope is not one of the allowed values, return an empty string.
   if (!["PEER_PLACES_WITHIN_PARENT", "SIMILAR_PLACES"].includes(placeScope)) {
     return "";
   }
-  const lowestIndexType = place.types.reduce((lowestType, currentType) => {
-    const lowestIndex = PARENT_PLACE_TYPES_TO_HIGHLIGHT.indexOf(lowestType);
+
+  // Find the most important type from the place's types.
+  let highlightedType = "";
+  let lowestIndex = Infinity; // Start with a very high index
+
+  for (const currentType of place.types) {
     const currentIndex = PARENT_PLACE_TYPES_TO_HIGHLIGHT.indexOf(currentType);
 
-    if (
-      currentIndex !== -1 &&
-      (lowestIndex === -1 || currentIndex < lowestIndex)
-    ) {
-      return currentType;
+    if (currentIndex !== -1 && currentIndex < lowestIndex) {
+      highlightedType = currentType;
+      lowestIndex = currentIndex;
     }
-    return lowestType;
-  }, ""); // Initialize with an empty string
+  }
 
-  return lowestIndexType;
+  return highlightedType;
 }
 
+// TODO(gmechali): Fix this once we decide what to do with i18n.
 function getTitle(title: string, placeScope: string): string {
   if (placeScope === "PEER_PLACES_WITHIN_PARENT") {
     return title + ": Peer places within parent";
@@ -212,6 +223,7 @@ export function placeChartsApiResponsesToPageConfig(
           }
 
           if (block.placeScope === "SIMILAR_PLACES") {
+            // TODO(gmechali): Eventually get rid of this.
             if (similarPlaces.length > 0) {
               tileConfig.comparisonPlaces = [place.dcid].concat(
                 similarPlaces.map((p) => p.dcid)

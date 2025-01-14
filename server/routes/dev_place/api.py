@@ -30,7 +30,6 @@ from server.routes import TIMEOUT
 from server.routes.dev_place import utils as place_utils
 from server.routes.dev_place.types import PlaceChartsApiResponse
 from server.routes.dev_place.types import RelatedPlacesApiResponse
-import server.services.datacommons as dc
 
 # from server.lib.cache import cache
 
@@ -80,20 +79,19 @@ def place_charts(place_dcid: str):
 
   # Retrieve available place page charts
   full_chart_config = copy.deepcopy(current_app.config['CHART_CONFIG'])
+
+  # Blocks is only an attribute on the new chart configs, and is required.
   full_chart_config = [c for c in full_chart_config if c.get("blocks")]
 
-  overview_chart_configs = [
-      {
-          **c,  # Keep all the original keys and values of the configuration
-          'blocks': [block
-                     for block in c['blocks']
-                     if block['isOverview']]  # Filter the blocks
-      }
-      for c in full_chart_config
-  ]
-
   if place_category == OVERVIEW_CATEGORY:
-    chart_config = overview_chart_configs
+    chart_config = [{
+        **c, 'blocks': [
+            block
+            for block in c['blocks']
+            if 'isOverview' in block and block['isOverview']
+        ]
+    }
+                    for c in full_chart_config]
   else:
     chart_config = [
         c for c in full_chart_config if c["category"] == place_category
@@ -105,7 +103,7 @@ def place_charts(place_dcid: str):
       place_dcid=place_dcid,
       child_place_type=child_place_type)
 
-  # Always execute the call for the overview category to fetch the valid categories.
+  # Always execute the full chart config to fetch all categories with data.
   filtered_chart_config_for_category = (
       place_utils.filter_chart_config_by_place_dcid(
           chart_config=full_chart_config,
