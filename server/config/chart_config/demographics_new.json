@@ -57,6 +57,7 @@
     "denominator": [],
     "nonDividable": true,
     "scale": true,
+    "scaling": 100,
     "unit": "%",
     "blocks": [
       {

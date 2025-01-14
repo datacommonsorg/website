@@ -137,7 +137,9 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
 @cache.memoize(timeout=TIMEOUT)
 def filter_chart_config_by_place_dcid(chart_config: List[Dict],
                                       place_dcid: str,
-                                      child_place_type=str):
+                                      place_type: str,
+                                      child_place_type=str,
+                                      parent_place_dcid=str):
   """
   Filters the chart configuration to only include charts that have data for a specific place DCID.
   
@@ -149,49 +151,64 @@ def filter_chart_config_by_place_dcid(chart_config: List[Dict],
       List[Dict]: A filtered list of chart configurations where at least one statistical variable has data for the specified place.
   """
   # Get a flat list of all statistical variable dcids in the chart config
-  non_map_stat_var_dcids = []
-  map_stat_var_dcids = []
+  current_place_stat_var_dcids = []
+  child_places_stat_var_dcids = []
+  peer_places_stat_var_dcids = []
   for config in chart_config:
-    has_map = False
-    has_non_map = True
-    for block in config["blocks"]:
-      for chart in block["charts"]:
-        if chart.get("type") == "MAP":
-          has_map = True
-          break
+    needs_child_data = False
+    needs_current_place_data = False
+    needs_peer_places_data = False
 
-    if has_map:
-      map_stat_var_dcids.extend(config["variables"])
-    if has_non_map:
-      non_map_stat_var_dcids.extend(config["variables"])
+    for block in config["blocks"]:
+      needs_current_place_data |= block['placeScope'] == "PLACE"
+      needs_child_data |= block['placeScope'] == "CHILD_PLACES"
+      needs_peer_places_data |= block[
+          'placeScope'] == "PEER_PLACES_WITHIN_PARENT"
+
+    if needs_child_data:
+      child_places_stat_var_dcids.extend(config["variables"])
+    if needs_current_place_data:
+      current_place_stat_var_dcids.extend(config["variables"])
       denominator = config.get('denominator', None)
       if denominator:
-        non_map_stat_var_dcids.extend(denominator)
+        current_place_stat_var_dcids.extend(denominator)
+    if needs_peer_places_data:
+      peer_places_stat_var_dcids.extend(config["variables"])
 
-  print("So did we find too many non_map_stat_var_dcids???" + str(len(non_map_stat_var_dcids)))
-
-  # Find non-map stat vars that have data for our place dcid
-  obs_point_response = dc.obs_point(entities=[place_dcid],
-                                    variables=non_map_stat_var_dcids)
-  non_map_stat_vars_with_observations = [
-      stat_var_dcid for stat_var_dcid in non_map_stat_var_dcids
-      if obs_point_response["byVariable"].get(stat_var_dcid, {}).get(
-          "byEntity", {}).get(place_dcid, {})
+  # Find stat vars that have data for our place dcid
+  current_place_obs_point_response = dc.obs_point(
+      entities=[place_dcid], variables=current_place_stat_var_dcids)
+  current_place_stat_vars_with_observations = [
+      stat_var_dcid for stat_var_dcid in current_place_stat_var_dcids
+      if current_place_obs_point_response["byVariable"].get(
+          stat_var_dcid, {}).get("byEntity", {}).get(place_dcid, {})
   ]
 
-  # Find map stat vars that have data for our child places
-  obs_point_within_response = dc.obs_point_within(place_dcid,
-                                                  child_place_type,
-                                                  variables=map_stat_var_dcids)
-  map_stat_vars_with_observations = [
-      stat_var_dcid for stat_var_dcid in map_stat_var_dcids
-      if obs_point_within_response["byVariable"].get(stat_var_dcid, {}).get(
-          "byEntity", {})
+  # Find stat vars that have data for our child places
+  child_places_obs_point_response = dc.obs_point_within(
+      place_dcid, child_place_type, variables=child_places_stat_var_dcids)
+  child_places_stat_vars_with_observations = [
+      stat_var_dcid for stat_var_dcid in child_places_stat_var_dcids
+      if child_places_obs_point_response["byVariable"].get(
+          stat_var_dcid, {}).get("byEntity", {})
+  ]
+
+  # find stat vars that have data for our peer places.
+  peer_places_obs_point_response = dc.obs_point_within(
+      parent_place_dcid, place_type, variables=peer_places_stat_var_dcids)
+  peer_places_stat_vars_with_observations = [
+      stat_var_dcid for stat_var_dcid in peer_places_stat_var_dcids
+      if peer_places_obs_point_response["byVariable"].get(
+          stat_var_dcid, {}).get("byEntity", {})
   ]
 
   # Build set of all stat vars that have data for our place & children places
-  stat_vars_with_observations_set = set(non_map_stat_vars_with_observations)
-  stat_vars_with_observations_set.update(map_stat_vars_with_observations)
+  stat_vars_with_observations_set = set(
+      current_place_stat_vars_with_observations)
+  stat_vars_with_observations_set.update(
+      child_places_stat_vars_with_observations)
+  stat_vars_with_observations_set.update(
+      peer_places_stat_vars_with_observations)
 
   # Filter out chart config entries that don't have any data
   filtered_chart_config = [
@@ -204,16 +221,20 @@ def filter_chart_config_by_place_dcid(chart_config: List[Dict],
     updated_blocks = []
     for block in config["blocks"]:
       if block["placeScope"] == "CHILD_PLACES":
-        has_child_data = any(var in map_stat_vars_with_observations for var in config["variables"])
+        has_child_data = any(var in child_places_stat_vars_with_observations
+                             for var in config["variables"])
         if has_child_data:
           updated_blocks.append(block)
       elif block["placeScope"] == "PLACE":
-        has_data = any(var in non_map_stat_vars_with_observations for var in config["variables"])
+        has_data = any(var in current_place_stat_vars_with_observations
+                       for var in config["variables"])
         if has_data:
           updated_blocks.append(block)
       elif block["placeScope"] == "PEER_PLACES_WITHIN_PARENT":
-        # TODO(gmechali): Add filtering here, and a default case.
-        updated_blocks.append(block)
+        has_peer_data = any(var in peer_places_stat_vars_with_observations
+                            for var in config["variables"])
+        if has_peer_data:
+          updated_blocks.append(block)
     config["blocks"] = updated_blocks
 
   return filtered_chart_config

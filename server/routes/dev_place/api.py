@@ -64,6 +64,7 @@ def place_charts(place_dcid: str):
   """
   # Ensure category is valid
   place_category = request.args.get("category", OVERVIEW_CATEGORY)
+  parent_place_dcid = request.args.get("parentPlaceDcid", None)
   if place_category not in CATEGORIES:
     return error_response(
         f"Argument 'category' {place_category} must be one of: {', '.join(CATEGORIES)}"
@@ -101,13 +102,17 @@ def place_charts(place_dcid: str):
   filtered_chart_config = place_utils.filter_chart_config_by_place_dcid(
       chart_config=chart_config,
       place_dcid=place_dcid,
-      child_place_type=child_place_type)
+      place_type=place.types[0],
+      child_place_type=child_place_type,
+      parent_place_dcid=parent_place_dcid)
 
   # Always execute the full chart config to fetch all categories with data.
   filtered_chart_config_for_category = place_utils.filter_chart_config_by_place_dcid(
       chart_config=full_chart_config,
       place_dcid=place_dcid,
-      child_place_type=child_place_type)
+      place_type=place.types[0],
+      child_place_type=child_place_type,
+      parent_place_dcid=parent_place_dcid)
 
   # Translate chart config titles
   translated_chart_config = place_utils.translate_chart_config(

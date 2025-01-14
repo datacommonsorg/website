@@ -215,10 +215,11 @@ class DataCommonsWebClient {
   async getPlaceCharts(params: {
     category?: string;
     placeDcid: string;
+    parentPlaceDcid?: string;
   }): Promise<PlaceChartsApiResponse> {
     const url = `${this.apiRoot || ""}/api/dev-place/charts/${
       params.placeDcid
-    }${params.category ? "?category=" + params.category : ""}`;
+    }${params.category ? "?category=" + params.category : ""}${params.parentPlaceDcid ? "&parentPlaceDcid=" + params.parentPlaceDcid : ""}`;
     const response = await fetch(url);
     return (await response.json()) as PlaceChartsApiResponse;
   }
