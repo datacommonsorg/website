@@ -611,7 +611,7 @@
       "Amount_Consumption_Alcohol_15OrMoreYears_AsFractionOf_Count_Person_15OrMoreYears"
     ],
     "denominator": [],
-    "nonDividable": false,
+    "nonDividable": true,
     "scale": true,
     "unit": "L",
     "blocks": [

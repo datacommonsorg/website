@@ -377,7 +377,7 @@
       "Count_Person_7To14Years_Employed_AsFractionOf_Count_Person_7To14Years"
     ],
     "denominator": [],
-    "nonDividable": false,
+    "nonDividable": true,
     "scale": true,
     "unit": "%",
     "blocks": [

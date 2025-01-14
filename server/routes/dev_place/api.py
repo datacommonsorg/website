@@ -89,7 +89,8 @@ def place_charts(place_dcid: str):
         **c, 'blocks': [
             block
             for block in c['blocks']
-            if 'isOverview' in block and block['isOverview']
+            if 'isOverview' in block and block['isOverview'] or
+            'Continent' in place.types
         ]
     }
                     for c in full_chart_config]
