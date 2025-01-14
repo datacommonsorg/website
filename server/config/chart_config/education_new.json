@@ -1,0 +1,93 @@
+[
+    {
+      "category": "Education",
+      "titleId": "CHART_TITLE-Educational_attainment",
+      "title": "Education attainment",
+      "description": "Number of people who have attained various educational milestones, e.g. completed high school or have a bachelor's degree",
+      "variables": [
+        "Count_Person_EducationalAttainmentNoSchoolingCompleted",
+        "Count_Person_EducationalAttainmentRegularHighSchoolDiploma",
+        "Count_Person_EducationalAttainmentBachelorsDegree",
+        "Count_Person_EducationalAttainmentMastersDegree",
+        "Count_Person_EducationalAttainmentDoctorateDegree"
+      ],
+      "denominator": [
+        "Count_Person_25OrMoreYears"
+      ],
+      "nonDividable": false,
+      "scale": true,
+      "blocks": [
+        {
+          "isOverview": true,
+          "placeScope": "PLACE",
+          "charts": [
+            {
+              "type": "LINE"
+            }
+          ]
+        },
+        {
+          "isOverview": false,
+          "placeScope": "CHILD_PLACES",
+          "charts": [
+            {
+              "type": "BAR"
+            }
+          ]
+        },
+        {
+          "isOverview": true,
+          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "charts": [
+            {
+              "type": "BAR"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Education",
+      "titleId": "CHART_TITLE-School_enrollment",
+      "title": "School enrollment",
+      "description": "Number of people who are enrolled in school, vs not enrolled in school",
+      "variables": [
+        "Count_Person_EnrolledInSchool",
+        "Count_Person_NotEnrolledInSchool"
+      ],
+      "denominator": [
+        "Count_Person_3OrMoreYears"
+      ],
+      "nonDividable": false,
+      "scale": true,
+      "blocks": [
+        {
+          "isOverview": true,
+          "placeScope": "PLACE",
+          "charts": [
+            {
+              "type": "LINE"
+            }
+          ]
+        },
+        {
+          "isOverview": false,
+          "placeScope": "CHILD_PLACES",
+          "charts": [
+            {
+              "type": "BAR"
+            }
+          ]
+        },
+        {
+          "isOverview": true,
+          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "charts": [
+            {
+              "type": "BAR"
+            }
+          ]
+        }
+      ]
+    }
+  ]
