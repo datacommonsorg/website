@@ -98,7 +98,7 @@ export function DisasterEventMapFilters(
                   <span>min: </span>
                   <Input
                     type="number"
-                    onChange={(e) =>
+                    onChange={(e): void =>
                       onFilterInputChanged(
                         disasterType,
                         Number(e.target.value),
@@ -106,15 +106,17 @@ export function DisasterEventMapFilters(
                       )
                     }
                     value={severityFilter.lowerLimit}
-                    onBlur={() => updateFilter()}
-                    onKeyPress={(e) => e.key === "Enter" && updateFilter()}
+                    onBlur={(): void => updateFilter()}
+                    onKeyPress={(e): void =>
+                      e.key === "Enter" && updateFilter()
+                    }
                   />
                 </div>
                 <div className="prop-filter-input">
                   <span>max: </span>
                   <Input
                     type="number"
-                    onChange={(e) =>
+                    onChange={(e): void =>
                       onFilterInputChanged(
                         disasterType,
                         Number(e.target.value),
@@ -122,8 +124,10 @@ export function DisasterEventMapFilters(
                       )
                     }
                     value={severityFilter.upperLimit}
-                    onBlur={() => updateFilter()}
-                    onKeyPress={(e) => e.key === "Enter" && updateFilter()}
+                    onBlur={(): void => updateFilter()}
+                    onKeyPress={(e): void =>
+                      e.key === "Enter" && updateFilter()
+                    }
                   />
                 </div>
               </div>

@@ -21,7 +21,7 @@
 import React, { useEffect, useState } from "react";
 
 import { TEMPLATE_OPTIONS, TEMPLATE_PREDICTION_VALIDATION } from "../templates";
-import { Mapping, ValueMap } from "../types";
+import { Mapping } from "../types";
 import { DownloadPage } from "./download_page";
 import { Info } from "./info";
 import { MappingPage } from "./mapping_page";
@@ -54,8 +54,7 @@ export function Page(): JSX.Element {
   // TODO: call detection API to get predicted mappings
   const [predictedMapping, setPredictedMapping] = useState<Mapping>(new Map());
   const [userMapping, setUserMapping] = useState<Mapping>(new Map());
-  // TODO: get valueMap from MappingSectionComponent
-  const [valueMap, setValueMap] = useState<ValueMap>({});
+  // TODO(chejennifer): Get the valueMap from MappingSectionComponent
 
   const currPageType = ORDERED_PAGES[currPage];
 
@@ -111,7 +110,7 @@ export function Page(): JSX.Element {
           predictedMapping={predictedMapping}
           correctedMapping={userMapping}
           csvData={csvData}
-          valueMap={valueMap}
+          valueMap={{}} // TODO(chejennifer): Pass in the real ValueMap
           onBackClicked={(): void => setCurrPage((prev) => prev - 1)}
         />
       )}

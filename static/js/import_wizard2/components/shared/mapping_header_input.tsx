@@ -96,7 +96,7 @@ export function MappingHeaderInput(
                       className="column-option-dropdown"
                       type="select"
                       value={col ? col.columnIdx : ""}
-                      onChange={(e) =>
+                      onChange={(e): void =>
                         onColumnSelectionChange(e.target.value, idx)
                       }
                     >
@@ -121,7 +121,7 @@ export function MappingHeaderInput(
                         hasHeaderError ? "-error" : ""
                       }`}
                       type="text"
-                      onChange={(e) => {
+                      onChange={(e): void => {
                         onHeaderNameChange(e.target.value, idx);
                       }}
                       placeholder=""
@@ -138,7 +138,7 @@ export function MappingHeaderInput(
               </div>
               {headers.length > 1 && (
                 <span
-                  onClick={() => {
+                  onClick={(): void => {
                     const updatedMappingVal = _.cloneDeep(props.mappingVal);
                     updatedMappingVal.headers.splice(idx, 1);
                     onMappingValUpdate(updatedMappingVal);
@@ -153,7 +153,7 @@ export function MappingHeaderInput(
           );
         })}
         <div
-          onClick={() => {
+          onClick={(): void => {
             onColumnSelectionChange("", headers.length);
           }}
           className="mapping-header-input-add"

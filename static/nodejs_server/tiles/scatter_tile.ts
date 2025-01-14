@@ -18,7 +18,8 @@
  * Functions for getting results for the scatter tile
  */
 
-// This import is unused in this file, but needed for draw functions
+// Canvas import is needed to support the draw functions in this file.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import * as Canvas from "canvas";
 
 import {
