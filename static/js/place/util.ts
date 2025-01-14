@@ -13,10 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import {
+  BlockConfig,
+  Chart,
+  Place,
+  PlaceChartsApiResponse,
+} from "@datacommonsorg/client/dist/data_commons_web_client_types";
+import _ from "lodash";
 import { defineMessages } from "react-intl";
 
 import { intl } from "../i18n/i18n";
 import { USA_PLACE_DCID } from "../shared/constants";
+import { StatVarSpec } from "../shared/types";
+import {
+  BlockConfig as SubjectPageBlockConfig,
+  CategoryConfig,
+  SubjectPageConfig,
+  TileConfig,
+} from "../types/subject_page_proto_types";
 
 /**
  * Given a list of parent places, return true if one of them is the USA country DCID.
@@ -44,6 +58,240 @@ export const USA_PLACE_TYPES_WITH_CHOROPLETH = new Set([
   "State",
   "County",
 ]);
+
+/**
+ * An ordered list of place types for which to highlight child places.
+ */
+const PARENT_PLACE_TYPES_TO_HIGHLIGHT = [
+  "County",
+  "AdministrativeArea2",
+  "EurostatNUTS2",
+  "State",
+  "AdministrativeArea1",
+  "EurostatNUTS1",
+  "Country",
+  "Continent",
+];
+
+/**
+ * Returns the stat var key for a chart.
+ *
+ * A stat var key is a unique identifier for a statistical variable for the
+ * given chart, including its DCID, denominator, log, scaling, and unit.
+ *
+ * @param chart The chart object
+ * @param variableDcid The variable DCID
+ * @param denom The denominator DCID
+ * @returns The stat var key
+ */
+function getStatVarKey(
+  block: BlockConfig,
+  variableDcid: string,
+  denom?: string
+): string {
+  return `${variableDcid}_denom_${denom}_log_${false}_scaling_${
+    block.scaling
+  }_unit_${block.unit}`;
+}
+
+/**
+ * Selects the appropriate place to return given the placeScope and parent places.
+ * @param placeScope string representing scope of places we want to show
+ * @param parentPlaces All possible parent places to choose from
+ * @returns string for the selected place dcid or undefined.
+ */
+function getPlaceOverride(placeScope: string, parentPlaces: Place[]): string {
+  if (!["PEER_PLACES_WITHIN_PARENT", "SIMILAR_PLACES"].includes(placeScope)) {
+    return "";
+  }
+
+  const placeOverride = parentPlaces.find((place) => {
+    const lowestIndex = Math.min(
+      ...place.types
+        .map((type) => PARENT_PLACE_TYPES_TO_HIGHLIGHT.indexOf(type))
+        .filter((index) => index !== -1)
+    );
+    return lowestIndex !== Infinity;
+  });
+  return placeOverride ? placeOverride.dcid : undefined;
+}
+
+/**
+ * Selects the appropriate enclosed place type to return given the placeScope and parent places.
+ * @param placeScope string representing scope of places we want to show
+ * @param place Current place
+ * @returns string for the selected enclosed place type.
+ */
+function getEnclosedPlaceTypeOverride(
+  placeScope: string,
+  place: Place
+): string {
+  // If the scope is not one of the allowed values, return an empty string.
+  if (!["PEER_PLACES_WITHIN_PARENT", "SIMILAR_PLACES"].includes(placeScope)) {
+    return "";
+  }
+
+  // Find the most important type from the place's types.
+  let highlightedType = "";
+  let lowestIndex = Infinity; // Start with a very high index
+
+  for (const currentType of place.types) {
+    const currentIndex = PARENT_PLACE_TYPES_TO_HIGHLIGHT.indexOf(currentType);
+
+    if (currentIndex !== -1 && currentIndex < lowestIndex) {
+      highlightedType = currentType;
+      lowestIndex = currentIndex;
+    }
+  }
+
+  return highlightedType;
+}
+
+// TODO(gmechali): Fix this once we decide what to do with i18n.
+function getTitle(title: string, placeScope: string): string {
+  if (placeScope === "PEER_PLACES_WITHIN_PARENT") {
+    return title + ": Peer places within parent";
+  } else if (placeScope === "CHILD_PLACES") {
+    return title + ": places within";
+  } else if (placeScope === "SIMILAR_PLACES") {
+    return title + ": other places";
+  }
+  return title;
+}
+
+/**
+ * Helper to process the dev Place page API response
+ * Converts the API response from getPlaceCharts into a SubjectPageConfig object.
+ * Groups charts by category and creates the necessary configuration objects for
+ * rendering the subject page.
+ *
+ * @param placeChartsApiResponse The API response containing chart data
+ * @returns A SubjectPageConfig object with categories, tiles, and stat var specs
+ */
+export function placeChartsApiResponsesToPageConfig(
+  placeChartsApiResponse: PlaceChartsApiResponse,
+  parentPlaces: Place[],
+  similarPlaces: Place[],
+  place: Place
+): SubjectPageConfig {
+  const blocksByCategory = _.groupBy(
+    placeChartsApiResponse.blocks,
+    (item) => item.category
+  );
+
+  const categoryConfig: CategoryConfig[] = Object.keys(blocksByCategory).map(
+    (categoryName) => {
+      const blocks = blocksByCategory[categoryName];
+      const newblocks: SubjectPageBlockConfig[] = [];
+      const statVarSpec: Record<string, StatVarSpec> = {};
+
+      blocks.forEach((block: BlockConfig) => {
+        const tiles = [];
+        block.charts.forEach((chart: Chart) => {
+          const tileConfig: TileConfig = {
+            description: block.description,
+            title: getTitle(block.title, block.placeScope),
+            type: chart.type,
+
+            statVarKey: block.statisticalVariableDcids.map(
+              (variableDcid, variableIdx) => {
+                const denom =
+                  block.denominator &&
+                  block.denominator.length ===
+                    block.statisticalVariableDcids.length
+                    ? block.denominator[variableIdx]
+                    : undefined;
+                return getStatVarKey(block, variableDcid, denom);
+              }
+            ),
+          };
+
+          const placeOverride: string = getPlaceOverride(
+            block.placeScope,
+            parentPlaces
+          );
+          if (placeOverride) {
+            tileConfig["placeDcidOverride"] = placeOverride;
+          }
+
+          const lowestIndexType = getEnclosedPlaceTypeOverride(
+            block.placeScope,
+            place
+          );
+          if (lowestIndexType) {
+            tileConfig.enclosedPlaceTypeOverride = lowestIndexType;
+          }
+
+          if (block.placeScope === "SIMILAR_PLACES") {
+            // TODO(gmechali): Eventually get rid of this.
+            if (similarPlaces.length > 0) {
+              tileConfig.comparisonPlaces = [place.dcid].concat(
+                similarPlaces.map((p) => p.dcid)
+              );
+            }
+          }
+
+          if (tileConfig.type === "RANKING") {
+            tileConfig.rankingTileSpec = {
+              showHighest: false,
+              showLowest: false,
+              showHighestLowest: true,
+              showMultiColumn: false,
+              rankingCount: chart.maxPlaces ? chart.maxPlaces : 5,
+            };
+          } else if (tileConfig.type === "BAR") {
+            tileConfig.barTileSpec = {
+              maxPlaces: chart.maxPlaces ? chart.maxPlaces : 15,
+            };
+          }
+          tiles.push(tileConfig);
+        });
+
+        blocks.forEach((block) => {
+          block.statisticalVariableDcids
+            .flat()
+            .forEach((variableDcid, variableIdx) => {
+              const denom =
+                block.denominator &&
+                block.denominator.length ===
+                  block.statisticalVariableDcids.length
+                  ? block.denominator[variableIdx]
+                  : undefined;
+              const statVarKey = getStatVarKey(block, variableDcid, denom);
+              statVarSpec[statVarKey] = {
+                denom: undefined,
+                log: false,
+                scaling: block.scaling,
+                noPerCapita: false,
+                statVar: variableDcid,
+                unit: block.unit,
+              };
+            });
+        });
+
+        newblocks.push({
+          title: tiles[0].title,
+          denom: block.denominator?.length > 0 ? block.denominator[0] : "",
+          startWithDenom: false,
+          columns: [{ tiles }],
+        });
+      });
+
+      const category: CategoryConfig = {
+        blocks: newblocks,
+        statVarSpec,
+        title: categoryName,
+      };
+      return category;
+    }
+  );
+
+  const pageConfig: SubjectPageConfig = {
+    metadata: undefined,
+    categories: categoryConfig,
+  };
+  return pageConfig;
+}
 
 const singularPlaceTypeMessages = defineMessages({
   Country: {

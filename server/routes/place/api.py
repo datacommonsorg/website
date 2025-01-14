@@ -408,8 +408,9 @@ def data(dcid):
   if not target_category:
     return "No 'category' specified", 400
 
-  spec_and_stat = build_spec(current_app.config['CHART_CONFIG'],
-                             target_category)
+  spec_and_stat = build_spec(
+      [c for c in current_app.config['CHART_CONFIG'] if 'statsVars' in c],
+      target_category)
   new_stat_vars = current_app.config['NEW_STAT_VARS']
 
   # Place landing page mixer API takes a parameter "seed" to randomly pick
@@ -519,7 +520,9 @@ def data(dcid):
     cat_data = dc.get_landing_page_data(dcid, category, new_stat_vars)
     total_charts = 0
     cat_stats = cat_data['statVarSeries']
-    cat_spec_and_stat = build_spec(current_app.config['CHART_CONFIG'], category)
+    cat_spec_and_stat = build_spec(
+        [c for c in current_app.config['CHART_CONFIG'] if 'statsVars' in c],
+        category)
     for topic in list(cat_spec_and_stat[category].keys()):
       filtered_charts = []
       for chart in cat_spec_and_stat[category][topic]:
@@ -567,7 +570,9 @@ def data(dcid):
   ordered_category_dict[OVERVIEW] = gettext(
       f'CHART_TITLE-CHART_CATEGORY-{OVERVIEW}')
 
-  for conf in current_app.config['CHART_CONFIG']:
+  for conf in [
+      c for c in current_app.config['CHART_CONFIG'] if 'statsVars' in c
+  ]:
     category = conf['category']
     if category in all_categories:
       ordered_category_dict[category] = gettext(

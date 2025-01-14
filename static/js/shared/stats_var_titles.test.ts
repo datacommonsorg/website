@@ -27,7 +27,10 @@ test("stats var label: marked for translation", async () => {
 
     for (const chart of chartConfig) {
       if (!("aggregate" in chart)) {
-        for (const statsVar of chart.statsVars) {
+        const variables = file.endsWith("_new")
+          ? chart.variables
+          : chart.statsVars;
+        for (const statsVar of variables) {
           expect(Boolean(enTitles[statsVar])).toBe(true);
         }
       }
@@ -44,7 +47,10 @@ test("stats var label: compiled to en", async () => {
     ).default;
     for (const chart of chartConfig) {
       if (!("aggregate" in chart)) {
-        for (const statsVar of chart.statsVars) {
+        const variables = file.endsWith("_new")
+          ? chart.variables
+          : chart.statsVars;
+        for (const statsVar of variables) {
           const label = getStatsVarTitle(statsVar);
           expect(label).not.toEqual(statsVar);
         }
@@ -68,7 +74,10 @@ test("stats var label: compiled to es", async () => {
 
     for (const chart of chartConfig) {
       if (!("aggregate" in chart)) {
-        for (const statsVar of chart.statsVars) {
+        const variables = file.endsWith("_new")
+          ? chart.variables
+          : chart.statsVars;
+        for (const statsVar of variables) {
           const label = getStatsVarTitle(statsVar);
           expect(label).not.toEqual(statsVar);
         }
