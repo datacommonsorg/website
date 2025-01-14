@@ -180,16 +180,18 @@ class PlaceExplorerTestMixin():
     # Assert 200 HTTP code: successful page load.
     self.assertEqual(shared.safe_url_open(self.driver.current_url), 200)
 
-    # Assert page title is correct, and that the query string is set in the url.
-    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
-        EC.title_contains('United States of America'))
-    self.assertTrue("place/country/USA?q=United+States+Of+America" in
+    # Wait for redirect and page load.
+    redirect_finished = EC.url_changes(start_url)
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(redirect_finished)
+    shared.wait_for_loading(self.driver)
+
+    # Assert redirected URL is correct and contains the query string.
+    self.assertTrue('place/country/USA?q=United+States+Of+America' in
                     self.driver.current_url)
 
-    # Ensure the query string is set in the NL Search Bar.
-    search_bar = self.driver.find_element(By.ID, "query-search-input")
-    self.assertEqual(search_bar.get_attribute("value"),
-                     "United States Of America")
+    # Assert page title is correct.
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(
+        EC.title_contains('United States of America'))
 
   def test_ranking_chart_present(self):
     """Test basic ranking chart."""

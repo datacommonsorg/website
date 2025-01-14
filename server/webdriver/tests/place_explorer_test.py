@@ -61,3 +61,26 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
                                               'explore-in-outlink',
                                               self.TIMEOUT_SEC)
     self.assertTrue('Explore in' in explore_in_link_el.text)
+
+  def test_explorer_redirect_place_explorer_populates_search_bar(self):
+    """Test the redirection from explore to place explore for single place queries populates the search bar from the URL query"""
+    usa_explore = '/explore#q=United%20States%20Of%20America'
+
+    start_url = self.url_ + usa_explore
+    self.driver.get(start_url)
+
+    # Assert 200 HTTP code: successful page load.
+    self.assertEqual(shared.safe_url_open(self.driver.current_url), 200)
+
+    # Wait for redirect and page load
+    redirect_finished = EC.url_changes(start_url)
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(redirect_finished)
+    shared.wait_for_loading(self.driver)
+
+    # Ensure the query string is set in the NL Search Bar.
+    search_bar_present = EC.presence_of_element_located(
+        (By.ID, 'query-search-input'))
+    WebDriverWait(self.driver, self.TIMEOUT_SEC).until(search_bar_present)
+    search_bar = self.driver.find_element(By.ID, 'query-search-input')
+    self.assertEqual(search_bar.get_attribute('value'),
+                     'United States Of America')
