@@ -125,7 +125,14 @@ export function Preview(props: PreviewProps): JSX.Element {
     </Card>
   );
 
-  function getCsvReqPayload() {
+  function getCsvReqPayload(): {
+    parentPlace: string;
+    childType: string;
+    statVars: string[];
+    facetMap: Record<string, string>;
+    minDate: string;
+    maxDate: string;
+  } {
     // When both minDate and maxDate are set as "latest", the api will get the
     // data for the latest date.
     let minDate = props.selectedOptions.minDate;

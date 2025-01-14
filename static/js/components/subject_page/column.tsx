@@ -58,7 +58,7 @@ export function Column(props: ColumnPropType): JSX.Element {
       {isNlInterface() && props.config.tiles.length > NL_NUM_TILES_SHOWN && (
         <a
           className="show-more-expando"
-          onClick={(e) => {
+          onClick={(e): void => {
             onShowMore();
             e.preventDefault();
           }}

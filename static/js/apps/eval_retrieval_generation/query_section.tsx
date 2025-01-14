@@ -225,7 +225,7 @@ export function QuerySection(props: QuerySectionPropType): JSX.Element {
       if (props.evalType !== EvalType.RIG) return;
       window.removeEventListener("click", onClick);
     };
-  }, []);
+  }, [props.evalType]);
 
   useEffect(() => {
     // Remove highlight from previous annotation

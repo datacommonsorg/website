@@ -98,7 +98,7 @@ function renderItem(
     <li
       key={randDomId()}
       className={`nav-item ${isCategory ? "category" : ""}`}
-      onClick={() => {
+      onClick={(): void => {
         const target = document.getElementById(redirectItemId);
         if (target) {
           // Calculate the scroll position of the target section
@@ -136,7 +136,7 @@ export function SdgSubjectPageSidebar(
                     data-bs-target={`#collapse${idx}`}
                     aria-expanded="false"
                     aria-controls={`collapse${idx}`}
-                    onClick={() => setSdgIndex(idx)}
+                    onClick={(): void => setSdgIndex(idx)}
                   >
                     <div className="sidebar-link">
                       <div className="sidebar-link-icon">
