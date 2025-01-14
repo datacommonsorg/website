@@ -125,8 +125,7 @@ def assert_topics(self, driver, path_to_topics, classname, expected_topics):
   # Locate the 'explore-topics-box' div first
   for path_classname in path_to_topics:
     explore_topics_box = WebDriverWait(driver, TIMEOUT).until(
-        EC.presence_of_element_located((By.CLASS_NAME, path_classname))
-    )
+        EC.presence_of_element_located((By.CLASS_NAME, path_classname)))
 
   # Locate all 'item-list-item' elements within the 'explore-topics-box'
   item_list_items = explore_topics_box.find_elements(By.CLASS_NAME, classname)
@@ -138,6 +137,4 @@ def assert_topics(self, driver, path_to_topics, classname, expected_topics):
 
   # Iterate through the elements and assert their text content
   for item, expected_text in zip(item_list_items, expected_topics):
-      self.assertEqual(item.text, expected_text) 
-
-
+    self.assertEqual(item.text, expected_text)
