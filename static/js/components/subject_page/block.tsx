@@ -416,9 +416,6 @@ function renderTiles(
     const place = tile.placeDcidOverride
       ? overridePlaces[tile.placeDcidOverride]
       : props.place;
-    if (!place) {
-      return;
-    }
     const comparisonPlaces = getComparisonPlaces(tile, place);
     const className = classNameList.join(" ");
     // TODO(beets): Fix this for ranking tiles with highest/lowest title set.
@@ -448,11 +445,7 @@ function renderTiles(
             title={title}
             subtitle={tile.subtitle}
             place={place}
-            enclosedPlaceType={
-              tile.enclosedPlaceTypeOverride
-                ? tile.enclosedPlaceTypeOverride
-                : enclosedPlaceType
-            }
+            enclosedPlaceType={enclosedPlaceType}
             statVarSpec={props.statVarProvider.getSpec(tile.statVarKey[0], {
               blockDate,
               blockDenom,
@@ -514,11 +507,7 @@ function renderTiles(
             lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN}
             title={title}
             parentPlace={place.dcid}
-            enclosedPlaceType={
-              tile.enclosedPlaceTypeOverride
-                ? tile.enclosedPlaceTypeOverride
-                : enclosedPlaceType
-            }
+            enclosedPlaceType={enclosedPlaceType}
             variables={props.statVarProvider.getSpecList(tile.statVarKey, {
               blockDate,
               blockDenom,
@@ -542,11 +531,7 @@ function renderTiles(
             barHeight={tile.barTileSpec?.barHeight}
             colors={tile.barTileSpec?.colors}
             className={className}
-            enclosedPlaceType={
-              tile.enclosedPlaceTypeOverride
-                ? tile.enclosedPlaceTypeOverride
-                : enclosedPlaceType
-            }
+            enclosedPlaceType={enclosedPlaceType}
             footnote={props.footnote}
             horizontal={tile.barTileSpec?.horizontal}
             id={id}
@@ -595,11 +580,7 @@ function renderTiles(
             title={title}
             subtitle={tile.subtitle}
             place={place}
-            enclosedPlaceType={
-              tile.enclosedPlaceTypeOverride
-                ? tile.enclosedPlaceTypeOverride
-                : enclosedPlaceType
-            }
+            enclosedPlaceType={enclosedPlaceType}
             statVarSpec={statVarSpec}
             svgChartHeight={
               isNlInterface() ? props.svgChartHeight * 2 : props.svgChartHeight
@@ -629,11 +610,7 @@ function renderTiles(
             lazyLoadMargin={EXPLORE_LAZY_LOAD_MARGIN}
             title={title}
             place={place}
-            enclosedPlaceType={
-              tile.enclosedPlaceTypeOverride
-                ? tile.enclosedPlaceTypeOverride
-                : enclosedPlaceType
-            }
+            enclosedPlaceType={enclosedPlaceType}
             statVarSpec={statVarSpec}
             svgChartHeight={props.svgChartHeight}
             className={className}
@@ -899,11 +876,7 @@ function renderWebComponents(
               ? { colors: tile.barTileSpec?.colors.join(" ") }
               : {})}
             className={className}
-            childPlaceType={
-              tile.enclosedPlaceTypeOverride
-                ? tile.enclosedPlaceTypeOverride
-                : enclosedPlaceType
-            }
+            childPlaceType={enclosedPlaceType}
             horizontal={tile.barTileSpec?.horizontal}
             id={id}
             key={id}
