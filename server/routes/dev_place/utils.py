@@ -152,15 +152,23 @@ def filter_chart_config_by_place_dcid(chart_config: List[Dict],
   non_map_stat_var_dcids = []
   map_stat_var_dcids = []
   for config in chart_config:
+    has_map = False
+    has_non_map = True
     for block in config["blocks"]:
       for chart in block["charts"]:
         if chart.get("type") == "MAP":
-          map_stat_var_dcids.extend(config["variables"])
-        else:
-          non_map_stat_var_dcids.extend(config["variables"])
-        denominator = config.get('denominator', None)
-        if denominator:
-          non_map_stat_var_dcids.extend(denominator)
+          has_map = True
+          break
+
+    if has_map:
+      map_stat_var_dcids.extend(config["variables"])
+    if has_non_map:
+      non_map_stat_var_dcids.extend(config["variables"])
+      denominator = config.get('denominator', None)
+      if denominator:
+        non_map_stat_var_dcids.extend(denominator)
+
+  print("So did we find too many non_map_stat_var_dcids???" + str(len(non_map_stat_var_dcids)))
 
   # Find non-map stat vars that have data for our place dcid
   obs_point_response = dc.obs_point(entities=[place_dcid],
@@ -191,6 +199,23 @@ def filter_chart_config_by_place_dcid(chart_config: List[Dict],
       # Set intersection to see if this chart has any variables with observations for our place_dcid
       if set(config["variables"]) & stat_vars_with_observations_set
   ]
+
+  for config in chart_config:
+    updated_blocks = []
+    for block in config["blocks"]:
+      if block["placeScope"] == "CHILD_PLACES":
+        has_child_data = any(var in map_stat_vars_with_observations for var in config["variables"])
+        if has_child_data:
+          updated_blocks.append(block)
+      elif block["placeScope"] == "PLACE":
+        has_data = any(var in non_map_stat_vars_with_observations for var in config["variables"])
+        if has_data:
+          updated_blocks.append(block)
+      elif block["placeScope"] == "PEER_PLACES_WITHIN_PARENT":
+        # TODO(gmechali): Add filtering here, and a default case.
+        updated_blocks.append(block)
+    config["blocks"] = updated_blocks
+
   return filtered_chart_config
 
 

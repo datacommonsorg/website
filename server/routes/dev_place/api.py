@@ -104,11 +104,10 @@ def place_charts(place_dcid: str):
       child_place_type=child_place_type)
 
   # Always execute the full chart config to fetch all categories with data.
-  filtered_chart_config_for_category = (
-      place_utils.filter_chart_config_by_place_dcid(
-          chart_config=full_chart_config,
-          place_dcid=place_dcid,
-          child_place_type=child_place_type))
+  filtered_chart_config_for_category = place_utils.filter_chart_config_by_place_dcid(
+      chart_config=full_chart_config,
+      place_dcid=place_dcid,
+      child_place_type=child_place_type)
 
   # Translate chart config titles
   translated_chart_config = place_utils.translate_chart_config(
