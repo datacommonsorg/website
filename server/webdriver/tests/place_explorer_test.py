@@ -20,6 +20,9 @@ from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
 from server.webdriver.shared_tests.place_explorer_test import \
     PlaceExplorerTestMixin
 
+from server.webdriver import shared
+from server.webdriver import base_utils
+
 
 class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
   """Class to test place explorer page. Tests come from PlaceExplorerTestMixin."""
@@ -28,24 +31,23 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
     """Ensure experimental dev place page content loads"""
     self.driver.get(self.url_ + '/place/geoId/06?force_dev_places=true')
 
+    expected_topics = ["Overview", "Crime", "Demographics", "Energy", "Health"]
+    shared.assert_topics(self, self.driver, path_to_topics=['explore-topics-box'], classname='item-list-item', expected_topics=expected_topics)
+
+    # Assert the subheader contains the parent places.
+    place_subheader_callout_el = base_utils.wait_elem(self.driver, By.CLASS_NAME, 'subheader', self.TIMEOUT_SEC)
+    self.assertEqual(place_subheader_callout_el.text, 'State in United States of America, North America')
+    
     # For the dev place page, the related places callout is under the
     # .related-places-callout div.
-    related_places_callout_el_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'related-places-callout'))
-    related_places_callout_el = WebDriverWait(
-        self.driver, self.TIMEOUT_SEC).until(related_places_callout_el_present)
+    related_places_callout_el = base_utils.wait_elem(self.driver, By.CLASS_NAME, 'related-places-callout', self.TIMEOUT_SEC)
     self.assertEqual(related_places_callout_el.text, 'Places in California')
 
     # Assert the "Download" link is present in charts
-    download_link_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'download-outlink'))
-    download_link_el = WebDriverWait(
-        self.driver, self.TIMEOUT_SEC).until(download_link_present)
+    download_link_el = base_utils.wait_elem(self.driver, By.CLASS_NAME, 'download-outlink', self.TIMEOUT_SEC)
     self.assertTrue('Download' in download_link_el.text)
 
     # Assert the "Explore in ... Tool" link is present in charts
-    explore_in_link_present = EC.presence_of_element_located(
-        (By.CLASS_NAME, 'explore-in-outlink'))
-    explore_in_link_el = WebDriverWait(
-        self.driver, self.TIMEOUT_SEC).until(explore_in_link_present)
+    explore_in_link_el = base_utils.wait_elem(self.driver, By.CLASS_NAME, 'explore-in-outlink', self.TIMEOUT_SEC)
     self.assertTrue('Explore in' in explore_in_link_el.text)
+

@@ -63,19 +63,22 @@ class TestPlaceAPI(unittest.TestCase):
 
       # Check that the response data contains expected fields
       response_json = response.get_json()
-      self.assertIn('charts', response_json)
+      self.assertIn('blocks', response_json)
       self.assertIn('place', response_json)
       self.assertIn('translatedCategoryStrings', response_json)
+      self.assertIn('charts', response_json['blocks'][0])
 
       # Check that the 'charts' field contains the expected number of charts
       # Two charts have data (Crime and one Education stat var), and each has a
       # related chart, so we expect four charts
-      self.assertEqual(len(response_json['charts']), 4)
+      self.assertEqual(
+          sum(len(block.get('charts',)) for block in response_json['blocks']),
+          4)
 
       # Optionally, check that the charts have the correct titles
-      chart_titles = [chart['title'] for chart in response_json['charts']]
-      self.assertIn('Total crime', chart_titles)
-      self.assertIn('Education attainment', chart_titles)
+      block_titles = [block['title'] for block in response_json['blocks']]
+      self.assertIn('Total crime', block_titles)
+      self.assertIn('Education attainment', block_titles)
 
       # Check that the 'place' field contains correct place information
       self.assertEqual(response_json['place']['dcid'], place_dcid)
@@ -87,10 +90,8 @@ class TestPlaceAPI(unittest.TestCase):
       self.assertIn('Education', response_json['translatedCategoryStrings'])
 
       # Ensure the denominator is present in chart results
-      self.assertEqual(None, response_json["charts"][0]["denominator"])
-      self.assertEqual(1, len(response_json["charts"][1]["denominator"]))
-      self.assertEqual(5, len(response_json["charts"][2]["denominator"]))
-      self.assertEqual(5, len(response_json["charts"][3]["denominator"]))
+      self.assertEqual(1, len(response_json["blocks"][0]["denominator"]))
+      self.assertEqual(5, len(response_json["blocks"][1]["denominator"]))
 
   @patch('server.routes.shared_api.place.parent_places')
   @patch('server.routes.dev_place.utils.fetch.raw_property_values')
