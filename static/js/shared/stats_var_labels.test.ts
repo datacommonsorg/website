@@ -28,7 +28,7 @@ test("stats var label: marked for translation", async () => {
     for (const chart of chartConfig) {
       expect(chart.category).toBe(category);
       if (!("aggregate" in chart)) {
-        const variables = file.endsWith("_new.json")
+        const variables = file.endsWith("_new")
           ? chart.variables
           : chart.statsVars;
         for (const statsVars of variables) {
@@ -49,7 +49,7 @@ test("stats var label: compiled to en", async () => {
     ).default;
     for (const chart of chartConfig) {
       if (!("aggregate" in chart)) {
-        const variables = file.endsWith("_new.json")
+        const variables = file.endsWith("_new")
           ? chart.variables
           : chart.statsVars;
         for (const statsVar of variables) {
@@ -75,7 +75,7 @@ test("stats var label: compiled to es", async () => {
     ).default;
     for (const chart of chartConfig) {
       if (!("aggregate" in chart)) {
-        const variables = file.endsWith("_new.json")
+        const variables = file.endsWith("_new")
           ? chart.variables
           : chart.statsVars;
         for (const statsVar of variables) {
