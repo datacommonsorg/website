@@ -17,6 +17,7 @@
 import { DataRow } from "@datacommonsorg/client";
 import {
   Chart,
+  Place,
   PlaceChartsApiResponse,
   RelatedPlacesApiResponse,
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
@@ -38,7 +39,7 @@ import {
   defaultDataCommonsWebClient,
 } from "../utils/data_commons_client";
 import { TileSources } from "../utils/tile_utils";
-import { isPlaceContainedInUsa } from "./util";
+import { filterForCharts, isPlaceContainedInUsa } from "./util";
 
 /**
  * Returns the stat var key for a chart.
@@ -62,6 +63,55 @@ function getStatVarKey(
 }
 
 /**
+ * Fetches the correct comparison places given the chart configuration.
+ *
+ * @param chart metadata
+ * @param relatedPlacesApiResponse Api response containing all related places
+ * @param placeDcid for the current place
+ * @returns list of places to evaluate, prepends the current place
+ */
+function getComparisonPlaces(
+  chart: Chart,
+  relatedPlacesApiResponse: RelatedPlacesApiResponse,
+  placeDcid: string
+): string[] {
+  if (!chart.comparisonPlacesRelationshipType) {
+    return null;
+  }
+  let comparisonPlaces = [];
+  switch (chart.comparisonPlacesRelationshipType) {
+    case "SIMILAR":
+      comparisonPlaces = relatedPlacesApiResponse.similarPlaces;
+      break;
+    case "CHILD":
+      comparisonPlaces = relatedPlacesApiResponse.childPlaces;
+      break;
+  }
+
+  let comparisonPlacesCount = 5; // default
+  switch (chart.type) {
+    case "BAR":
+      if ("barTileSpec" in chart && "maxPlaces" in chart.barTileSpec) {
+        comparisonPlacesCount = chart.barTileSpec?.maxPlaces;
+      }
+      break;
+    case "RANKING":
+      if (
+        "rankingTileSpec" in chart &&
+        "rankingCount" in chart.rankingTileSpec
+      ) {
+        comparisonPlacesCount = chart.rankingTileSpec?.rankingCount;
+      }
+      break;
+  }
+
+  const allPlaces = [placeDcid].concat(
+    comparisonPlaces.map((place) => place.dcid)
+  );
+  return allPlaces.slice(0, Math.min(allPlaces.length, comparisonPlacesCount));
+}
+
+/**
  * Converts the API response from getPlaceCharts into a SubjectPageConfig object.
  * Groups charts by category and creates the necessary configuration objects for
  * rendering the subject page.
@@ -70,7 +120,9 @@ function getStatVarKey(
  * @returns A SubjectPageConfig object with categories, tiles, and stat var specs
  */
 function placeChartsApiResponsesToPageConfig(
-  placeChartsApiResponse: PlaceChartsApiResponse
+  placeChartsApiResponse: PlaceChartsApiResponse,
+  relatedPlacesApiResponse: RelatedPlacesApiResponse,
+  place: Place
 ): SubjectPageConfig {
   const chartsByCategory = _.groupBy(
     placeChartsApiResponse.charts,
@@ -81,7 +133,7 @@ function placeChartsApiResponsesToPageConfig(
       const charts = chartsByCategory[categoryName];
 
       const tiles: TileConfig[] = charts.map((chart) => {
-        return {
+        const chartConfiguration: TileConfig = {
           description: chart.description,
           title: chart.title,
           type: chart.type,
@@ -97,6 +149,22 @@ function placeChartsApiResponsesToPageConfig(
             }
           ),
         };
+        if ("comparisonPlacesRelationshipType" in chart) {
+          chartConfiguration["comparisonPlacesRelationshipType"] =
+            chart.comparisonPlacesRelationshipType;
+          chartConfiguration["comparisonPlaces"] = getComparisonPlaces(
+            chart,
+            relatedPlacesApiResponse,
+            place.dcid
+          );
+        }
+        if ("barTileSpec" in chart) {
+          chartConfiguration["barTileSpec"] = chart.barTileSpec;
+        }
+        if ("rankingTileSpec" in chart) {
+          chartConfiguration["rankingTileSpec"] = chart.rankingTileSpec;
+        }
+        return chartConfiguration;
       });
 
       const statVarSpec: Record<string, StatVarSpec> = {};
@@ -483,6 +551,7 @@ const RelatedPlaces = (props: {
  */
 const PlaceCharts = (props: {
   childPlaceType: string;
+  parentPlaces: Place[];
   place: NamedTypedPlace;
   pageConfig: SubjectPageConfig;
 }): React.JSX.Element => {
@@ -493,6 +562,7 @@ const PlaceCharts = (props: {
         defaultEnclosedPlaceType={childPlaceType}
         id="place-subject-page"
         pageConfig={pageConfig}
+        parentPlaces={props.parentPlaces}
         place={place}
         showExploreMore={true}
       />
@@ -530,6 +600,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
   const category = urlParams.get("category") || overviewString;
   const isOverview = category === overviewString;
   const forceDevPlaces = urlParams.get("force_dev_places") === "true";
+
   const hasPlaceCharts =
     place && pageConfig && pageConfig.categories.length > 0;
   const hasNoCharts =
@@ -588,15 +659,18 @@ export const DevPlaceMain = (): React.JSX.Element => {
             placeDcid: place.dcid,
           }),
         ]);
-
       setPlaceChartsApiResponse(placeChartsApiResponse);
       setRelatedPlacesApiResponse(relatedPlacesApiResponse);
       const config = placeChartsApiResponsesToPageConfig(
-        placeChartsApiResponse
+        placeChartsApiResponse,
+        relatedPlacesApiResponse,
+        place
       );
       setChildPlaceType(relatedPlacesApiResponse.childPlaceType);
       setChildPlaces(relatedPlacesApiResponse.childPlaces);
       setParentPlaces(relatedPlacesApiResponse.parentPlaces);
+      place.types = relatedPlacesApiResponse.place.types;
+      setPlace(place);
       setPageConfig(config);
       setIsLoading(false);
     })();
@@ -648,6 +722,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
         <PlaceCharts
           place={place}
           childPlaceType={childPlaceType}
+          parentPlaces={filterForCharts(parentPlaces)}
           pageConfig={pageConfig}
         />
       )}

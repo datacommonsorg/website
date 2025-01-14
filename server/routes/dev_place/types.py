@@ -22,6 +22,33 @@ CHART_TYPES = {"BAR", "LINE", "MAP", "RANKING"}
 
 
 @dataclass
+class RankingTileSpec:
+  showHighest: bool = False
+  showLowest: bool = False
+  highestTitle: Optional[str] = None
+  lowestTitle: Optional[str] = None
+  rankingCount: Optional[int] = None
+  showMultiColumn: bool = False
+  showHighestLowest: Optional[bool] = None
+
+
+@dataclass
+class BarTileSpec:
+  xLabelLinkRoot: Optional[str]
+  barHeight: Optional[int]
+  colors: Optional[List[str]]
+  horizontal: Optional[bool]
+  maxPlaces: Optional[int]
+  maxVariables: Optional[int]
+  sort: Optional[str]
+  stacked: Optional[bool]
+  useLollipop: Optional[bool]
+  yAxisMargin: Optional[int]
+  variableNameRegex: Optional[str]
+  defaultVariableName: Optional[str]
+
+
+@dataclass
 class Chart:
   type: str  # Restricted to CHART_TYPES
   title: str
@@ -33,6 +60,9 @@ class Chart:
   unit: Optional[str] = None
   scaling: Optional[float] = None
   childPlaceType: Optional[str] = None
+  rankingTileSpec: Optional[RankingTileSpec] = None
+  barTileSpec: Optional[BarTileSpec] = None
+  comparisonPlacesRelationshipType: Optional[str] = None
 
   def __post_init__(self):
     # Custom validator for the `type` field

@@ -199,6 +199,50 @@
     "relatedChart": {
       "scale": false
     }
+  },{
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Gdp",
+    "title": "Gross domestic product",
+    "description": "Gross domestic product, see https://en.wikipedia.org/wiki/Gross_domestic_product",
+    "statsVars": [
+      "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+    ],
+    "unit": "$",
+    "isOverview": true,
+    "isRankingChart": true
+  },{
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Gdp-other-countries",
+    "title": "Gross domestic product Other Countries",
+    "description": "Gross domestic product other countries, see https://en.wikipedia.org/wiki/Gross_domestic_product",
+    "statsVars": [
+      "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+    ],
+    "unit": "$",
+    "isOverview": false,
+    "chartType": "BAR",
+    "comparisonPlacesRelationshipType": "SIMILAR",
+    "barTileSpec": {
+      "maxPlaces": 5
+    }
+  },
+  {
+    "category": "Economics",
+    "titleId": "CHART_TITLE-Gdp-other-countries-ranking",
+    "title": "Gross domestic product Other Countries ranking",
+    "description": "Gross domestic product other countries, see https://en.wikipedia.org/wiki/Gross_domestic_product",
+    "statsVars": [
+      "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
+    ],
+    "unit": "$",
+    "isOverview": false,
+    "chartType": "RANKING",
+    "comparisonPlacesRelationshipType": "SIMILAR_IN_PARENT",
+    "rankingTileSpec": {
+      "rankingCount": 5,
+      "showHighestLowest": true,
+      "showMultiColumn": false
+    }
   },
   {
     "category": "Economics",

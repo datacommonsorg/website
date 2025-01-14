@@ -165,6 +165,7 @@ export interface TileConfig {
   type: string;
   statVarKey: string[];
   comparisonPlaces?: string[];
+  comparisonPlacesRelationshipType?: string;
   placeDcidOverride?: string;
   hideFooter?: boolean;
   subtitle?: string;

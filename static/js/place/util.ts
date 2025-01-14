@@ -17,6 +17,7 @@ import { defineMessages } from "react-intl";
 
 import { intl } from "../i18n/i18n";
 import { USA_PLACE_DCID } from "../shared/constants";
+import { NamedTypedPlace } from "../shared/types";
 
 /**
  * Given a list of parent places, return true if one of them is the USA country DCID.
@@ -34,6 +35,29 @@ export function isPlaceContainedInUsa(parentPlaces: string[]): boolean {
  */
 export function isPlaceInUsa(dcid: string, parentPlaces: string[]): boolean {
   return dcid === USA_PLACE_DCID || isPlaceContainedInUsa(parentPlaces);
+}
+
+const parentPlaceTypesToHighlight = new Set<string>([
+  "County",
+  "AdministrativeArea2",
+  "EurostatNUTS2",
+  "State",
+  "AdministrativeArea1",
+  "EurostatNUTS1",
+  "Country",
+  "Continent",
+]);
+
+/**
+ * Only keeps the places of types to highlight.
+ *
+ * @param places All parent places
+ * @returns filtered places only of types to highlight
+ */
+export function filterForCharts(places: NamedTypedPlace[]): NamedTypedPlace[] {
+  return places.filter((p) =>
+    p.types.some((item) => parentPlaceTypesToHighlight.has(item))
+  );
 }
 
 /**

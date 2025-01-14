@@ -145,7 +145,35 @@ export type ObservationDatesApiResponse = {
   };
 };
 
+export interface RankingTileSpec {
+  showHighest: boolean;
+  showLowest: boolean;
+
+  highestTitle?: string;
+  lowestTitle?: string;
+  rankingCount?: number;
+
+  showMultiColumn: boolean;
+  showHighestLowest?: boolean;
+}
+
+export interface BarTileSpec {
+  xLabelLinkRoot?: string;
+  barHeight?: number;
+  colors?: string[];
+  horizontal?: boolean;
+  maxPlaces?: number;
+  maxVariables?: number;
+  sort?: string;
+  stacked?: boolean;
+  useLollipop?: boolean;
+  yAxisMargin?: number;
+  variableNameRegex?: string;
+  defaultVariableName?: string;
+}
+
 type ChartType = "BAR" | "LINE" | "MAP" | "RANKING";
+type ComparisonPlacesRelationshipType = "SIMILAR" | "SIMILAR_IN_PARENT" | "CHILD";
 export interface Chart {
   type: ChartType;
   title: string;
@@ -155,6 +183,9 @@ export interface Chart {
   topicDcids: string[];
   denominator?: string; // Optional
   unit?: string; // Optional
+  rankingTileSpec?: RankingTileSpec; // Optional
+  barTileSpec?: BarTileSpec; // Optional
+  comparisonPlacesRelationshipType?: ComparisonPlacesRelationshipType; // Optional
   scaling?: number; // Optional
 }
 

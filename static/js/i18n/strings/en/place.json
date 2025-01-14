@@ -3,6 +3,22 @@
     "defaultMessage": "Sorry, but we don't have any data about {placeName}",
     "description": "Text for an alert that we show when user tries to navigate to a place with no data. For example, \"Sorry, but we don't have any data about {Hong Kong Island, Hong Kong}\"."
   },
+  "chart-title-with-per-capita-and-date": {
+    "defaultMessage": "{variableName} (Per Capita in {date})",
+    "description": "Chart title for a chart with variable values that are per capita for a specific date"
+  },
+  "chart-title-with-per-capita-no-date": {
+    "defaultMessage": "{variableName} (Per Capita)",
+    "description": "Chart title for a chart with variable values that are per capita"
+  },
+  "chart-title-with-two-variables": {
+    "defaultMessage": "{variable1} Vs. {variable2}",
+    "description": "Chart title for a chart comparing two different variables. For example, this could be Obesity Rate vs. Median Income."
+  },
+  "chart-title-with-two-variables-and-location": {
+    "defaultMessage": "{variable1} Vs. {variable2} in {placeType} of {place}",
+    "description": "Chart title for a chart comparing two different variables, for places of a specific type within a place. For example, this could be Obesity Rate Vs. Income in States of USA, or Housing vs Poverty in Countries of Europe."
+  },
   "chart_clause-other_placeType": {
     "defaultMessage": "{chartTitle}: other {placeType}",
     "description": "Used to describe other places. Like \"Educational Attainment in other {countries}\"."
@@ -199,6 +215,14 @@
     "defaultMessage": "Top {rankSize} {pluralPlaceType} in {placeName}, per capita",
     "description": "Subtitle of the page, which shows ranking of the top / highest {rankSize} contained places of a type within a place, computed on a per capita basis, where {rankSize} will be replaced by a number, {pluralPlaceType} will be replaced by the place type of the contained places (could be cities, countries, counties), and {placeName} is the containing place. Please maintain the {rankSize}, {placeName} and {pluralPlaceType} as is in the final translation, and use a gender neutral structure that conveys the same meaning (e.g. dashes to separate)."
   },
+  "ranking-tile-latest-data-available-footer": {
+    "defaultMessage": "Ranking based on latest data available. Some places may be missing due to incomplete reporting that year.",
+    "description": "Description of a chart that shows the most recently available data."
+  },
+  "ranking-tile-latest-data-footer": {
+    "defaultMessage": "This ranking includes data from several years for a comprehensive view of places.",
+    "description": "Description of a chart that shows data points from various years."
+  },
   "ranking_table-header_rank": {
     "defaultMessage": "Rank",
     "description": "Column header for a ranking table. Column includes values associated with the numerical rank of a place."
@@ -262,6 +286,18 @@
   "singular_zip_code": {
     "defaultMessage": "ZIP Code",
     "description": "A ZIP Code area. Some examples, we say that 94539 is \"_ZIP Code_ in Alameda County, California, United States of America, North America\"."
+  },
+  "snap-to-latest-data-checkbox-label": {
+    "defaultMessage": "Snap to date with highest coverage",
+    "description": "Checkbox label for an option that tells a chart visualization to show the latest data available"
+  },
+  "snap-to-latest-data-help-tooltip": {
+    "defaultMessage": "'Snap to date with highest coverage' shows the most recent data with maximal coverage. Some places might be missing due to incomplete reporting that year.",
+    "description": "Informational message for a checkbox titled 'Snap to date with highest coverage' that adjusts what data is displayed in a chart."
+  },
+  "snap-to-latest-data-overlap-help-tooltip": {
+    "defaultMessage": "The highest coverage data is also the latest data available for this chart.",
+    "description": "Informational message for a disabled checkbox titled 'Snap to date with highest coverage' that adjusts what data is displayed in a chart. The message is explaining that the checkbox is disabled because the highest coverage data overlaps with the most recent data available."
   },
   "the_world": {
     "defaultMessage": "the World",
