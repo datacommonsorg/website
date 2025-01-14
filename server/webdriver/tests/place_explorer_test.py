@@ -22,9 +22,6 @@ from server.webdriver.base_dc_webdriver import BaseDcWebdriverTest
 from server.webdriver.shared_tests.place_explorer_test import \
     PlaceExplorerTestMixin
 
-from server.webdriver import shared
-from server.webdriver import base_utils
-
 
 class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
   """Class to test place explorer page. Tests come from PlaceExplorerTestMixin."""
