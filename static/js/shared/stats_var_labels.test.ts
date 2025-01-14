@@ -28,8 +28,9 @@ test("stats var label: marked for translation", async () => {
     for (const chart of chartConfig) {
       expect(chart.category).toBe(category);
       if (!("aggregate" in chart)) {
-        for (const statsVar of chart.statsVars) {
-          expect(Boolean(enLabels[statsVar])).toBe(true);
+        const variables = file.endsWith('_new.json') ? chart.variables : chart.statsVars;
+        for (const variable of variables) {
+          expect(Boolean(enLabels[variable])).toBe(true);
         }
       }
     }
