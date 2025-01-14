@@ -99,12 +99,22 @@ const theme: Theme = {
         dark: DC_BLUE_DARK,
         light: DC_WHITE,
       },
+      secondary: {
+        base: DC_GRAY,
+        dark: DC_GRAY_LIGHT,
+        light: DC_GRAY_PILL_BCKG,
+      },
     },
     background: {
       primary: {
         base: DC_WHITE,
         dark: DC_BLUE_DARK,
         light: DC_BLUE_WHITE,
+      },
+      secondary: {
+        base: DC_BONE,
+        dark: DC_GRAY,
+        light: DC_GRAY_LIGHT,
       },
     },
     border: {

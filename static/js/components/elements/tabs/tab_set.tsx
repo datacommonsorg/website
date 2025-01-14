@@ -223,7 +223,6 @@ export const TabSet = ({ children }: TabSetProps): ReactElement => {
     <div
       css={css`
         position: relative;
-        height: 48px;
         border-bottom: 1px solid ${theme.colors.tabs.lining};
       `}
       onKeyDown={handleKeyDown}
@@ -259,7 +258,7 @@ export const TabSet = ({ children }: TabSetProps): ReactElement => {
         css={css`
           position: relative;
           height: 100%;
-          margin: 0 8px;
+          margin: 0;
           overflow-x: auto;
           white-space: nowrap;
           scroll-behavior: smooth;

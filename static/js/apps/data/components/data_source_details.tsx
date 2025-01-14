@@ -56,26 +56,82 @@ export const DataSourceDetails = ({
             display: grid;
             gap: ${theme.spacing.huge}px;
             grid-template-columns: 1fr 2fr;
+            transition: background ease-in-out 0.3s;
+            padding: ${theme.spacing.md}px;
+            &:nth-of-type(odd) {
+              background: ${theme.colors.background.secondary.base};
+            }
 
             @media (max-width: ${theme.breakpoints.md}px) {
               grid-template-columns: 1fr;
               gap: ${theme.spacing.sm}px;
-              border-top: 1px solid ${theme.colors.border.primary.light};
-              padding-top: ${theme.spacing.lg}px;
-              margin-top: ${theme.spacing.lg}px;
             }
           `}
         >
-          <div
-            css={css`
-              ${theme.typography.family.text};
-              ${theme.typography.text.md};
-            `}
-          >
-            {dataSourceGroup.label}
+          <div>
+            <h3
+              css={css`
+                ${theme.typography.family.text};
+                ${theme.typography.text.md};
+                @media (max-width: ${theme.breakpoints.md}px) {
+                  ${theme.typography.text.lg};
+                  font-weight: 900;
+                }
+              `}
+            >
+              {dataSourceGroup.url ? (
+                <a href={dataSourceGroup.url}>{dataSourceGroup.label}</a>
+              ) : (
+                dataSourceGroup.label
+              )}
+            </h3>
+          </div>
+
+          <div>
             {dataSourceGroup.dataSources.map((dataSourceGroup) => (
-              <div key={dataSourceGroup.label}>
-                {dataSourceGroup.label}
+              <div
+                key={dataSourceGroup.label}
+                css={css`
+                  ${theme.typography.family.text};
+                  ${theme.typography.text.md};
+                  margin-bottom: ${theme.spacing.md}px;
+                  &:first-of-type,
+                  &:last-of-type {
+                    margin-bottom: 0;
+                  }
+                  p {
+                    color: ${theme.colors.text.secondary.base};
+                  }
+                  p,
+                  li {
+                    word-break: break-word;
+                  }
+                  ul,
+                  ol {
+                    padding: 0;
+                    margin-left: ${theme.spacing.md}px;
+                    li {
+                      margin-bottom: ${theme.spacing.sm}px;
+                    }
+                  }
+                  @media (max-width: ${theme.breakpoints.md}px) {
+                    margin-left: ${theme.spacing.md}px;
+                  }
+                `}
+              >
+                <h4
+                  css={css`
+                    ${theme.typography.family.text};
+                    ${theme.typography.text.md};
+                    display: list-item;
+                  `}
+                >
+                  {dataSourceGroup.url ? (
+                    <a href={dataSourceGroup.url}>{dataSourceGroup.label}</a>
+                  ) : (
+                    dataSourceGroup.label
+                  )}
+                </h4>
                 {dataSourceGroup.description && (
                   <ReactMarkdown>{dataSourceGroup.description}</ReactMarkdown>
                 )}
@@ -84,112 +140,6 @@ export const DataSourceDetails = ({
           </div>
         </div>
       ))}
-      <div
-        css={css`
-          padding: ${theme.spacing.sm}px 0;
-          display: grid;
-          gap: ${theme.spacing.huge}px;
-          grid-template-columns: 1fr 2fr;
-
-          @media (max-width: ${theme.breakpoints.md}px) {
-            grid-template-columns: 1fr;
-            gap: ${theme.spacing.sm}px;
-            border-top: 1px solid ${theme.colors.border.primary.light};
-            padding-top: ${theme.spacing.lg}px;
-            margin-top: ${theme.spacing.lg}px;
-          }
-        `}
-      >
-        <p
-          css={css`
-            ${theme.typography.family.text};
-            ${theme.typography.text.md};
-          `}
-        >
-          Open Data for Africa
-        </p>
-        <ul
-          css={css`
-            ${theme.typography.family.text};
-            ${theme.typography.text.md};
-          `}
-        >
-          <li>Kenya Census</li>
-          <li>Nigeria Statistics</li>
-          <li>SouthAfrica Census</li>
-          <li>Uganda Bureau of Statistics (UBOS)</li>
-        </ul>
-      </div>
-      <div
-        css={css`
-          padding: ${theme.spacing.sm}px 0;
-          display: grid;
-          gap: ${theme.spacing.huge}px;
-          grid-template-columns: 1fr 2fr;
-
-          @media (max-width: ${theme.breakpoints.md}px) {
-            grid-template-columns: 1fr;
-            gap: ${theme.spacing.sm}px;
-            border-top: 1px solid ${theme.colors.border.primary.light};
-            padding-top: ${theme.spacing.lg}px;
-            margin-top: ${theme.spacing.lg}px;
-          }
-        `}
-      >
-        <p
-          css={css`
-            ${theme.typography.family.text};
-            ${theme.typography.text.md};
-          `}
-        >
-          U.S. Department of Housing and Urban Development (HUD)
-        </p>
-        <ul
-          css={css`
-            ${theme.typography.family.text};
-            ${theme.typography.text.md};
-          `}
-        >
-          <li>Income Limits</li>
-        </ul>
-      </div>
-      <div
-        css={css`
-          padding: ${theme.spacing.sm}px 0;
-          display: grid;
-          gap: ${theme.spacing.huge}px;
-          grid-template-columns: 1fr 2fr;
-
-          @media (max-width: ${theme.breakpoints.md}px) {
-            grid-template-columns: 1fr;
-            gap: ${theme.spacing.sm}px;
-            border-top: 1px solid ${theme.colors.border.primary.light};
-            padding-top: ${theme.spacing.lg}px;
-            margin-top: ${theme.spacing.lg}px;
-          }
-        `}
-      >
-        <p
-          css={css`
-            ${theme.typography.family.text};
-            ${theme.typography.text.md};
-          `}
-        >
-          U.S. Center for Disease Control and Prevention (CDC)
-        </p>
-        <ul
-          css={css`
-            ${theme.typography.family.text};
-            ${theme.typography.text.md};
-          `}
-        >
-          <li>BRFSS-NCHS Asthma Prevalence</li>
-          <li>National Notifiable Diseases Surveillance System (NNDSS)</li>
-          <li>Wonder: Compressed Mortality</li>
-          <li>Wonder: Mortality, Underlying Cause Of Death</li>
-          <li>Wonder: Natality</li>
-        </ul>
-      </div>
     </div>
   );
 };

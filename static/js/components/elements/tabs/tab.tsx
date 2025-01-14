@@ -58,7 +58,8 @@ export const Tab = ({ label, value }: TabProps): ReactElement => {
       aria-controls={`tabpanel-${tabValue}`}
       id={`tab-${tabValue}`}
       css={css`
-        padding: 10px 20px;
+        padding: ${theme.spacing.md}px 0;
+        margin: 0 ${theme.spacing.lg}px;
         border: none;
         background: transparent;
         color: ${isSelected
