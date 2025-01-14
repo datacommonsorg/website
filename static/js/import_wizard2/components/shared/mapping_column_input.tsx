@@ -68,7 +68,7 @@ export function MappingColumnInput(
               ? props.mappingVal.column.columnIdx
               : ""
           }
-          onChange={(e) => onSelectionChange(e.target.value)}
+          onChange={(e): void => onSelectionChange(e.target.value)}
         >
           <option value="" key="">
             Select a column title
