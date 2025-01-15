@@ -113,15 +113,17 @@ resource "google_storage_bucket" "dc_gcs_data_bucket" {
   uniform_bucket_level_access = true
 }
 
+# Input 'folder' for the data loading job. Initialized as an empty blob
 resource "google_storage_bucket_object" "dc_gcs_data_bucket_input_folder" {
   name          = "${var.dc_gcs_data_bucket_input_folder}/"
-  content       = "Input 'folder' for the data loading job. Initialized as an empty blob"
+  content       = ""
   bucket        = "${google_storage_bucket.dc_gcs_data_bucket.name}"
 }
 
+# Output 'folder' for the data loading job. Initialized as an empty blob
 resource "google_storage_bucket_object" "dc_gcs_data_bucket_output_folder" {
   name          = "${var.dc_gcs_data_bucket_output_folder}/"
-  content       = "Output 'folder' for the data loading job. Initialized as an empty blob"
+  content       = ""
   bucket        = "${google_storage_bucket.dc_gcs_data_bucket.name}"
 }
 
