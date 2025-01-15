@@ -30,7 +30,10 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
     """Ensure experimental dev place page content loads"""
     self.driver.get(self.url_ + '/place/geoId/06?force_dev_places=true')
 
-    expected_topics = ["Overview", "Crime", "Demographics", "Energy", "Health"]
+    expected_topics = [
+        "Overview", "Crime", "Demographics", "Energy", "Economics", "Education",
+        "Energy", "Environment", "Equity", "Health", "Housing"
+    ]
     shared.assert_topics(self,
                          self.driver,
                          path_to_topics=['explore-topics-box'],
