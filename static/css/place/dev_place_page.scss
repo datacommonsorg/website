@@ -66,14 +66,19 @@ main {
           padding: 0;
 
           .col-xl-6 {
-            flex-basis: calc(50% - #{$chart-horizontal-spacing/2});
+            flex-basis: auto;
             flex-grow: 1;
             flex-shrink: 1;
             padding: 0;
+            width: 100%;
 
             .chart-container {
               height: 100%;
               margin: 0;
+            }
+
+            @include media-breakpoint-up(md) {
+              width: calc(50% - #{$chart-horizontal-spacing/2});
             }
           }
 
