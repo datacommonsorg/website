@@ -26,11 +26,11 @@ from server.lib.cache import cache
 from server.lib.i18n import DEFAULT_LOCALE
 from server.routes import TIMEOUT
 from server.routes.dev_place.types import BlockConfig
-from server.routes.dev_place.types import ServerChartMetadata
-from server.routes.dev_place.types import ServerChartConfiguration
-from server.routes.dev_place.types import ServerBlockMetadata
 from server.routes.dev_place.types import Chart
 from server.routes.dev_place.types import Place
+from server.routes.dev_place.types import ServerBlockMetadata
+from server.routes.dev_place.types import ServerChartConfiguration
+from server.routes.dev_place.types import ServerChartMetadata
 import server.routes.shared_api.place as place_api
 from server.services import datacommons as dc
 
@@ -139,16 +139,17 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
   return ''
 
 
-def filter_chart_configs_for_category(place_category: str, chart_config: List[ServerChartConfiguration]) -> List[ServerChartConfiguration]:
+def filter_chart_configs_for_category(
+    place_category: str, chart_config: List[ServerChartConfiguration]
+) -> List[ServerChartConfiguration]:
   """Only returns the appropriate"""
   filtered_chart_config = []
   if place_category == "Overview":
     for server_chart_config in chart_config:
-        server_chart_config.blocks = [
-          block
-          for block in server_chart_config.blocks
-          if block.is_overview]
-        filtered_chart_config.append(server_chart_config)
+      server_chart_config.blocks = [
+          block for block in server_chart_config.blocks if block.is_overview
+      ]
+      filtered_chart_config.append(server_chart_config)
   else:
     filtered_chart_config = [
         c for c in chart_config if c.category == place_category
@@ -157,9 +158,10 @@ def filter_chart_configs_for_category(place_category: str, chart_config: List[Se
 
 
 @cache.memoize(timeout=TIMEOUT)
-def filter_chart_config_by_place_dcid(chart_config: List[ServerChartConfiguration],
-                                      place_dcid: str,
-                                      child_place_type=str):
+def filter_chart_config_by_place_dcid(
+    chart_config: List[ServerChartConfiguration],
+    place_dcid: str,
+    child_place_type=str):
   """
   Filters the chart configuration to only include charts that have data for a specific place DCID.
   
@@ -180,7 +182,7 @@ def filter_chart_config_by_place_dcid(chart_config: List[ServerChartConfiguratio
           map_stat_var_dcids.extend(config.variables)
         else:
           non_map_stat_var_dcids.extend(config.variables)
-        
+
         if config.denominator:
           non_map_stat_var_dcids.extend(config.denominator)
 
@@ -301,7 +303,8 @@ def fetch_places(place_dcids: List[str], locale=DEFAULT_LOCALE) -> List[Place]:
   return places
 
 
-def chart_config_to_overview_charts(chart_config: List[ServerChartConfiguration], child_place_type: str):
+def chart_config_to_overview_charts(
+    chart_config: List[ServerChartConfiguration], child_place_type: str):
   """
   Converts the given chart configuration into a list of Chart objects for API responses.
 
@@ -318,19 +321,19 @@ def chart_config_to_overview_charts(chart_config: List[ServerChartConfiguration]
     for block in page_config_item.blocks:
       charts = []
       for chart in block.charts:
-        this_chart = Chart(type=chart.type,
-                           maxPlaces=chart.max_places)
+        this_chart = Chart(type=chart.type, maxPlaces=chart.max_places)
         charts.append(this_chart)
 
-      this_block = BlockConfig(charts=charts,
-                               category=page_config_item.category,
-                               description=page_config_item.description,
-                               scaling=page_config_item.scaling,
-                               statisticalVariableDcids=page_config_item.variables,
-                               title=page_config_item.title,
-                               placeScope=block.place_scope,
-                               topicDcids=[],
-                               unit=page_config_item.unit)
+      this_block = BlockConfig(
+          charts=charts,
+          category=page_config_item.category,
+          description=page_config_item.description,
+          scaling=page_config_item.scaling,
+          statisticalVariableDcids=page_config_item.variables,
+          title=page_config_item.title,
+          placeScope=block.place_scope,
+          topicDcids=[],
+          unit=page_config_item.unit)
       if denominator:
         this_block.denominator = denominator
       elif not page_config_item.non_dividable:
@@ -445,12 +448,12 @@ def read_chart_configs() -> List[ServerChartConfiguration]:
     for raw_block in raw_config.get('blocks', []):
       server_block_config = ServerBlockMetadata(**raw_block)
       server_block_config.charts = [
-        ServerChartMetadata(**raw_chart)
-        for raw_chart in raw_block.get('charts', [])]
+          ServerChartMetadata(**raw_chart)
+          for raw_chart in raw_block.get('charts', [])
+      ]
       server_block_configs.append(server_block_config)
 
     server_chart_config = ServerChartConfiguration(**raw_config)
-
 
     server_chart_config.blocks = server_block_configs
     server_chart_configs.append(server_chart_config)
@@ -489,7 +492,8 @@ def translate_chart_config(chart_config: List[ServerChartConfiguration]):
   return translated_chart_config
 
 
-def get_translated_category_strings(chart_config: List[ServerChartConfiguration]) -> Dict[str, str]:
+def get_translated_category_strings(
+    chart_config: List[ServerChartConfiguration]) -> Dict[str, str]:
   translated_category_strings: Dict[str, str] = {}
 
   for page_config_item in chart_config:

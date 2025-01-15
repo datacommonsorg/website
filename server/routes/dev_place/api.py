@@ -75,7 +75,8 @@ def place_charts(place_dcid: str):
   # Retrieve available place page charts
   full_chart_config = place_utils.read_chart_configs()
 
-  chart_config_for_category = place_utils.filter_chart_configs_for_category(place_category, full_chart_config)
+  chart_config_for_category = place_utils.filter_chart_configs_for_category(
+      place_category, full_chart_config)
 
   # Filter out place page charts that don't have any data for the current place_dcid
   filtered_chart_config = place_utils.filter_chart_config_by_place_dcid(
