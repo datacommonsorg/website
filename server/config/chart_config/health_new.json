@@ -1,5 +1,5 @@
 [
-  {
+    {
     "category": "Health",
     "title_id": "CHART_TITLE-Life_expectancy",
     "title": "Life expectancy (years)",
@@ -515,7 +515,6 @@
     "description": "Percentage of people who report certain negative health behaviors, e.g. obesity, smoking or binge drinking",
     "variables": [
       "Percent_Person_SleepLessThan7Hours",
-      "Percent_Person_Obesity",
       "Percent_Person_BingeDrinking",
       "Percent_Person_PhysicalInactivity",
       "Percent_Person_Smoking"

@@ -1,11 +1,10 @@
-[
-  {
+[{
     "category": "Economics",
     "title_id": "CHART_TITLE-Total_employed",
     "title": "Number of people employed",
     "description": "Number of people employed",
     "variables": [
-      "Count_Person_Employed"
+      "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
     ],
     "denominator": [],
     "non_dividable": false,

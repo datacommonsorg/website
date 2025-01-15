@@ -1,16 +1,15 @@
-[
-  {
+[{
     "category": "Demographics",
     "title_id": "CHART_TITLE-Population",
     "title": "Population",
-    "description": "Total number of individuals",
+    "description": "Population",
     "variables": [
       "Count_Person"
     ],
     "denominator": [],
     "non_dividable": true,
     "scale": true,
-    "blocks": [
+    "blocks":[
       {
         "is_overview": true,
         "place_scope": "PLACE",

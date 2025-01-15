@@ -58,6 +58,10 @@ PLACE_EXPLORER_CATEGORIES = [
     "environment_new",
     "energy",
     "energy_new",
+    "health_new",
+    "crime_new",
+    "demographics_new",
+    "economics_new",
 ]
 
 # key is topic_id, which should match the folder name under config/topic_page

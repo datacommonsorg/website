@@ -500,7 +500,7 @@ SAMPLE_PLACE_PAGE_CHART_CONFIG = [{
     ],
     "description":
         "Number of people who have attained various educational milestones, e.g. completed high school or have a bachelor's degree",
-    "nonDividable":
+    "non_dividable":
         False,
     "scale":
         True,
@@ -626,3 +626,4 @@ MULTIPLE_PROPERTY_VALUES_RESPONSE_WITH_LANGUAGES = {
         'nameWithLanguage': []
     }
 }
+
