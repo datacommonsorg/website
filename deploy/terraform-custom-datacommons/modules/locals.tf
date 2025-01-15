@@ -16,7 +16,7 @@
 
 locals {
   # Data Commons Data Bucket
-  dc_gcs_data_bucket_path = var.dc_gcs_data_bucket_path_override != "" ? var.dc_gcs_data_bucket_path_override : "${var.namespace}-datacommons-data-${var.project_id}"
+  gcs_data_bucket_name = var.gcs_data_bucket_name != "" ? var.gcs_data_bucket_name : "${var.namespace}-datacommons-data-${var.project_id}"
   # VPC Connector CIDR block
   vpc_connector_cidr = cidrsubnet(var.vpc_base_cidr_block, 4, 0)  # Generates the first /28 subnet from the /24 block
 
@@ -56,7 +56,7 @@ locals {
     },
     {
       name  = "OUTPUT_DIR"
-      value = "gs://${local.dc_gcs_data_bucket_path}/${var.dc_gcs_data_bucket_output_folder}"
+      value = "gs://${local.gcs_data_bucket_name}/${var.gcs_data_bucket_output_folder}"
     },
     {
       name  = "FORCE_RESTART"

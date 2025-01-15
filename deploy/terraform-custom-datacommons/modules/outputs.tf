@@ -44,8 +44,8 @@ output "mysql_user_password" {
   sensitive   = true
 }
 
-output "dc_gcs_data_bucket_path" {
-  value = local.dc_gcs_data_bucket_path
+output "gcs_data_bucket_name" {
+  value = local.gcs_data_bucket_name
 }
 
 output "cloud_run_service_name" {
