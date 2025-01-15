@@ -210,13 +210,13 @@ export function RankingUnit(props: RankingUnitPropType): JSX.Element {
                                 apiRoot={props.apiRoot}
                               ></PlaceName>
                             }
-                            onMouseEnter={() => {
+                            onMouseEnter={(): void => {
                               if (!props.onHoverToggled) {
                                 return;
                               }
                               props.onHoverToggled(point.placeDcid, true);
                             }}
-                            onMouseLeave={() => {
+                            onMouseLeave={(): void => {
                               if (!props.onHoverToggled) {
                                 return;
                               }

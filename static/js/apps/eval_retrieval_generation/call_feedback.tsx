@@ -86,7 +86,7 @@ export function CallFeedback(): JSX.Element {
         setStatus(FormStatus.NotStarted);
       }
     });
-  }, [sheetId, sessionQueryId, sessionCallId, applyToNext]);
+  }, [sheetId, sessionQueryId, sessionCallId, applyToNext, evalType]);
 
   useEffect(() => {
     if (!(sessionQueryId in allCall)) {
@@ -106,7 +106,7 @@ export function CallFeedback(): JSX.Element {
     } else {
       setEvalInfo(null);
     }
-  }, [doc, allCall, sessionQueryId, sessionCallId]);
+  }, [doc, allCall, sessionQueryId, sessionCallId, evalType]);
 
   const checkAndSubmit = async (): Promise<boolean> => {
     if (status === FormStatus.InProgress) {
