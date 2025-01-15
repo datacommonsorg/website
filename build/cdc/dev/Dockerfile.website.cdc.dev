@@ -22,7 +22,7 @@ WORKDIR /app
 
 # Install dependencies and protoc
 RUN apt-get update && apt-get install -y wget unzip
-RUN wget https://github.com/protocolbuffers/protobuf/releases/download/v23.3/protoc-23.3-linux-x86_64.zip -O protoc.zip \
+RUN wget https://github.com/protocolbuffers/protobuf/releases/download/v21.12/protoc-21.12-linux-x86_64.zip -O protoc.zip \
     && unzip protoc.zip -d /usr/local \
     && rm protoc.zip \
     && apt-get clean \
