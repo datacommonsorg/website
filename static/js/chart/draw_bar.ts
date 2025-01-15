@@ -24,7 +24,7 @@ import _ from "lodash";
 import { ASYNC_ELEMENT_CLASS } from "../constants/css_constants";
 import { formatNumber } from "../i18n/i18n";
 import { Boundary } from "../shared/types";
-import { DataGroup, getColorFn } from "./base";
+import { DataGroup, DataPoint, getColorFn } from "./base";
 import {
   AXIS_TEXT_FILL,
   HIGHLIGHT_TIMEOUT,
@@ -548,7 +548,18 @@ function drawHorizontalGroupedBars(
   unit?: string
 ): void {
   const numGroups = dataGroups[0].value.length;
-  const setData = (dg: DataGroup) => {
+  const setData = (
+    dg: DataGroup
+  ): {
+    dataGroupValue: DataPoint;
+    label: string;
+    statVar: string;
+    value: number;
+    place: string;
+    date: string;
+    index: number;
+    unit: string;
+  }[] => {
     return dg.value.map((dgv, index) => ({
       dataGroupValue: dgv,
       label: dg.label,
@@ -829,7 +840,16 @@ function drawLollipops(
   legendKeyFn: (l: string) => string,
   unit?: string
 ): void {
-  const setData = (dg: DataGroup) => {
+  const setData = (
+    dg: DataGroup
+  ): {
+    statVar: string;
+    value: number;
+    dcid: string;
+    place: string;
+    date: string;
+    unit: string;
+  }[] => {
     return dg.value.map((dp) => ({
       statVar: dp.label,
       value: dp.value,

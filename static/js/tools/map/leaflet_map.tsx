@@ -59,7 +59,6 @@ const DEBOUNCE_INTERVAL_MS = 30;
 export function LeafletMap(props: LeafletMapProps): JSX.Element {
   const { placeInfo, statVar, display } = useContext(Context);
 
-  const [errorMessage, setErrorMessage] = useState("");
   const chartContainerRef = useRef<HTMLDivElement>();
   const legendContainerRef = useRef<HTMLDivElement>(null);
   const leafletMap = useRef(null);
@@ -165,20 +164,16 @@ export function LeafletMap(props: LeafletMapProps): JSX.Element {
     }
   }, [props.geoRaster, plot]);
 
-  if (errorMessage) {
-    return <div className="error-message">{errorMessage}</div>;
-  } else {
-    return (
-      <div className="map-section-container leaflet-map-container">
-        <div
-          id={CHART_CONTAINER_ID}
-          ref={chartContainerRef}
-          style={{ height: chartHeight }}
-        >
-          <div id={MAP_CONTAINER_ID}></div>
-          <div id={LEGEND_CONTAINER_ID} ref={legendContainerRef}></div>
-        </div>
+  return (
+    <div className="map-section-container leaflet-map-container">
+      <div
+        id={CHART_CONTAINER_ID}
+        ref={chartContainerRef}
+        style={{ height: chartHeight }}
+      >
+        <div id={MAP_CONTAINER_ID}></div>
+        <div id={LEGEND_CONTAINER_ID} ref={legendContainerRef}></div>
       </div>
-    );
-  }
+    </div>
+  );
 }

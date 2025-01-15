@@ -749,7 +749,8 @@ test("all functionalities", async () => {
     app.find("#swap-axes").at(0).simulate("click");
   });
   await app.update();
-  const expectTitle = (title: string) => expect(app.text()).toContain(title);
+  const expectTitle = (title: string): void =>
+    expect(app.text()).toContain(title);
   expectTitle("Employed (2016)vsHousing Units (2016)");
   expectCircles(3, app);
 

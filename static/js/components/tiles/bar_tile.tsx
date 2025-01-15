@@ -148,7 +148,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
       !_.isEqual(barChartData.props, props) ||
       !_.isEqual(barChartData.dateOverride, dateOverride)
     ) {
-      (async () => {
+      (async (): Promise<void> => {
         try {
           setIsLoading(true);
           const data = await fetchData(props, dateOverride);
@@ -174,7 +174,7 @@ export function BarTile(props: BarTilePropType): JSX.Element {
    * component
    */
   useEffect(() => {
-    const eventHandler = (e: CustomEvent<ChartEventDetail>) => {
+    const eventHandler = (e: CustomEvent<ChartEventDetail>): void => {
       if (e.detail.property === "date") {
         setDateOverride(e.detail.value);
       }
@@ -283,7 +283,7 @@ export function getReplacementStrings(
 export const fetchData = async (
   props: BarTilePropType,
   dateOverride?: string
-) => {
+): Promise<BarChartData> => {
   const statSvs = props.variables
     .map((spec) => spec.statVar)
     .filter((sv) => !!sv);

@@ -18,7 +18,6 @@
  * Component for inputting a constant for the file mapping
  */
 
-import _ from "lodash";
 import React from "react";
 import { Input } from "reactstrap";
 
@@ -57,7 +56,7 @@ export function MappingConstantInput(
         <Input
           className={`constant-value-input${isInvalidInput ? "-error" : ""}`}
           type="text"
-          onChange={(e) => {
+          onChange={(e): void => {
             const fileConstant = e.target.value;
             const mappingVal = {
               type: MappingType.FILE_CONSTANT,

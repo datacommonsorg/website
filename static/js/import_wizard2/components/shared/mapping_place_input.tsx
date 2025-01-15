@@ -79,7 +79,7 @@ export function MappingPlaceInput(props: MappingPlaceInputProps): JSX.Element {
                   ? props.mappingVal.placeType.dcid
                   : ""
               }
-              onChange={(e) => {
+              onChange={(e): void => {
                 const placeType = placeTypes.find(
                   (type) => type.dcid === e.target.value
                 );
@@ -106,7 +106,7 @@ export function MappingPlaceInput(props: MappingPlaceInputProps): JSX.Element {
                   ? props.mappingVal.placeProperty.dcid
                   : ""
               }
-              onChange={(e) => {
+              onChange={(e): void => {
                 const placeProperty = validPlaceProperties.find(
                   (prop) => prop.dcid === e.target.value
                 );

@@ -62,7 +62,7 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
     if (isPlacePicked(place.value) && _.isEmpty(place.value.enclosedPlaces)) {
       loadEnclosedPlaces(place, isLoading);
     }
-  }, [place.value]);
+  }, [place, isLoading]);
 
   /**
    * If map view is selected, check that map view is possible before rendering
@@ -86,7 +86,7 @@ function PlaceAndTypeOptions(props: PlaceAndTypeOptionsProps): JSX.Element {
         );
       }
     }
-  }, [place.value, display.chartType]);
+  }, [place.value, display]);
 
   return (
     <PlaceSelector
