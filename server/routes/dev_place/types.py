@@ -18,27 +18,34 @@ Place API dataclass types
 from dataclasses import dataclass
 from typing import Dict, List, Optional
 
-CHART_TYPES = {"BAR", "LINE", "MAP", "RANKING"}
+CHART_TYPES = {"BAR", "LINE", "MAP", "RANKING", "HIGHLIGHT"}
 
 
 @dataclass
 class Chart:
   type: str  # Restricted to CHART_TYPES
-  title: str
-  category: str
-  description: str
-  statisticalVariableDcids: List[str]
-  topicDcids: List[str]
-  denominator: Optional[List[str]] = None
-  unit: Optional[str] = None
-  scaling: Optional[float] = None
-  childPlaceType: Optional[str] = None
+  maxPlaces: int
 
   def __post_init__(self):
     # Custom validator for the `type` field
     if self.type not in CHART_TYPES:
       raise ValueError(
           f"Invalid type '{self.type}'. Expected one of {CHART_TYPES}")
+
+
+@dataclass
+class BlockConfig:
+  charts: List[Chart]
+  category: str
+  title: str
+  topicDcids: List[str]
+  description: str
+  denominator: Optional[List[str]] = None
+  statisticalVariableDcids: Optional[List[str]] = None
+  unit: Optional[str] = None
+  scaling: Optional[float] = None
+  childPlaceType: Optional[str] = None
+  placeScope: Optional[str] = None
 
 
 @dataclass
@@ -54,7 +61,7 @@ class PlaceChartsApiResponse:
   """
   API Response for /api/dev-place/charts/<place_dcid>
   """
-  charts: List[Chart]
+  blocks: List[BlockConfig]
   place: Place
   translatedCategoryStrings: Dict[str, str]
 

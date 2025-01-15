@@ -64,7 +64,7 @@ export interface RankingTileSpec {
   lowestTitle?: string;
   rankingCount?: number;
 
-  showMultiColumn: boolean;
+  showMultiColumn?: boolean;
   showHighestLowest?: boolean;
 }
 
@@ -166,6 +166,7 @@ export interface TileConfig {
   statVarKey: string[];
   comparisonPlaces?: string[];
   placeDcidOverride?: string;
+  enclosedPlaceTypeOverride?: string;
   hideFooter?: boolean;
   subtitle?: string;
   placeNameProp?: string;

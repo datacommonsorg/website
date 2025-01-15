@@ -75,7 +75,10 @@ class TestBuildSpec(unittest.TestCase):
         assert expected == result
 
   def test_menu_hierarchy(self):
+    # Only return the legacy charts from this. Place page revamp charts have a different format.
     chart_config = libutil.get_chart_config()
+    chart_config = [c for c in chart_config if 'statsVars' in c]
+
     spec = api.build_spec(chart_config, "Overview", False)
     got = {}
     for category, topic_data in spec.items():
