@@ -1,20 +1,20 @@
 [
   {
   "category": "Energy",
-  "titleId": "CHART_TITLE-Electricity_price",
+  "title_id": "CHART_TITLE-Electricity_price",
   "title": "Electricity_price",
   "description": "Electricity_price",
   "variables": [
     "Annual_Average_RetailPrice_Electricity"
   ],
   "denominator": [],
-  "nonDividable": true,
+  "non_dividable": true,
   "scale": true,
   "unit": "¢/kWh",
   "blocks":[
     {
-      "isOverview": true,
-      "placeScope": "PLACE",
+      "is_overview": true,
+      "place_scope": "PLACE",
       "charts": [
         {
           "type": "LINE"
@@ -25,28 +25,28 @@
       ]
     },
     {
-      "isOverview": false,
-      "placeScope": "CHILD_PLACES",
+      "is_overview": false,
+      "place_scope": "CHILD_PLACES",
       "charts": [
         {
           "type": "MAP"
         },
         {
           "type": "RANKING",
-          "maxPlaces": 10
+          "max_places": 10
         }
       ]
     },
     {
-      "isOverview": false,
-      "placeScope": "PEER_PLACES_WITHIN_PARENT",
+      "is_overview": false,
+      "place_scope": "PEER_PLACES_WITHIN_PARENT",
       "charts": [
         {
           "type": "MAP"
         },
         {
           "type": "RANKING",
-          "maxPlaces": 5
+          "max_places": 5
         }
       ]
     }
@@ -54,20 +54,20 @@
 },
 {
   "category": "Energy",
-  "titleId": "CHART_TITLE-Electricity_generation",
+  "title_id": "CHART_TITLE-Electricity_generation",
   "title": "Electricity_generation",
   "description": "Electricity_generation",
   "variables": [
     "Annual_Generation_Electricity"
   ],
   "denominator": [],
-  "nonDividable": false,
+  "non_dividable": false,
   "scale": true,
   "unit": "kWh",
   "blocks":[
     {
-      "isOverview": true,
-      "placeScope": "PLACE",
+      "is_overview": true,
+      "place_scope": "PLACE",
       "charts": [
         {
           "type": "LINE"
@@ -78,8 +78,8 @@
       ]
     },
     {
-      "isOverview": false,
-      "placeScope": "CHILD_PLACES",
+      "is_overview": false,
+      "place_scope": "CHILD_PLACES",
       "charts": [
         {
           "type": "MAP"
@@ -90,12 +90,12 @@
       ]
     },
     {
-      "isOverview": true,
-      "placeScope": "PEER_PLACES_WITHIN_PARENT",
+      "is_overview": true,
+      "place_scope": "PEER_PLACES_WITHIN_PARENT",
       "charts": [
         {
           "type": "BAR",
-          "maxPlaces": 5
+          "max_places": 5
         }
       ]
     }

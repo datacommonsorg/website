@@ -13,10 +13,12 @@
 # limitations under the License.
 """Helper functions for place page routes"""
 
+import copy
 import re
 from typing import Callable, Dict, List, Set
 
 import flask
+from flask import current_app
 from flask_babel import gettext
 
 from server.lib import fetch
@@ -24,6 +26,9 @@ from server.lib.cache import cache
 from server.lib.i18n import DEFAULT_LOCALE
 from server.routes import TIMEOUT
 from server.routes.dev_place.types import BlockConfig
+from server.routes.dev_place.types import ServerChartMetadata
+from server.routes.dev_place.types import ServerChartConfiguration
+from server.routes.dev_place.types import ServerBlockMetadata
 from server.routes.dev_place.types import Chart
 from server.routes.dev_place.types import Place
 import server.routes.shared_api.place as place_api
@@ -134,8 +139,25 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
   return ''
 
 
+def filter_chart_configs_for_category(place_category: str, chart_config: List[ServerChartConfiguration]) -> List[ServerChartConfiguration]:
+  """Only returns the appropriate"""
+  filtered_chart_config = []
+  if place_category == "Overview":
+    for server_chart_config in chart_config:
+        server_chart_config.blocks = [
+          block
+          for block in server_chart_config.blocks
+          if block.is_overview]
+        filtered_chart_config.append(server_chart_config)
+  else:
+    filtered_chart_config = [
+        c for c in chart_config if c.category == place_category
+    ]
+  return filtered_chart_config
+
+
 @cache.memoize(timeout=TIMEOUT)
-def filter_chart_config_by_place_dcid(chart_config: List[Dict],
+def filter_chart_config_by_place_dcid(chart_config: List[ServerChartConfiguration],
                                       place_dcid: str,
                                       child_place_type=str):
   """
@@ -152,15 +174,15 @@ def filter_chart_config_by_place_dcid(chart_config: List[Dict],
   non_map_stat_var_dcids = []
   map_stat_var_dcids = []
   for config in chart_config:
-    for block in config["blocks"]:
-      for chart in block["charts"]:
-        if chart.get("type") == "MAP":
-          map_stat_var_dcids.extend(config["variables"])
+    for block in config.blocks:
+      for chart in block.charts:
+        if chart.type == "MAP":
+          map_stat_var_dcids.extend(config.variables)
         else:
-          non_map_stat_var_dcids.extend(config["variables"])
-        denominator = config.get('denominator', None)
-        if denominator:
-          non_map_stat_var_dcids.extend(denominator)
+          non_map_stat_var_dcids.extend(config.variables)
+        
+        if config.denominator:
+          non_map_stat_var_dcids.extend(config.denominator)
 
   # Find non-map stat vars that have data for our place dcid
   obs_point_response = dc.obs_point(entities=[place_dcid],
@@ -189,7 +211,7 @@ def filter_chart_config_by_place_dcid(chart_config: List[Dict],
   filtered_chart_config = [
       config for config in chart_config
       # Set intersection to see if this chart has any variables with observations for our place_dcid
-      if set(config["variables"]) & stat_vars_with_observations_set
+      if set(config.variables) & stat_vars_with_observations_set
   ]
   return filtered_chart_config
 
@@ -279,7 +301,7 @@ def fetch_places(place_dcids: List[str], locale=DEFAULT_LOCALE) -> List[Place]:
   return places
 
 
-def chart_config_to_overview_charts(chart_config, child_place_type: str):
+def chart_config_to_overview_charts(chart_config: List[ServerChartConfiguration], child_place_type: str):
   """
   Converts the given chart configuration into a list of Chart objects for API responses.
 
@@ -292,27 +314,26 @@ def chart_config_to_overview_charts(chart_config, child_place_type: str):
   """
   blocks = []
   for page_config_item in chart_config:
-    denominator = page_config_item.get("denominator", None)
-    for block in page_config_item["blocks"]:
+    denominator = page_config_item.denominator
+    for block in page_config_item.blocks:
       charts = []
-      for chart in block["charts"]:
-        this_chart = Chart(type=chart.get("type"),
-                           maxPlaces=chart.get("maxPlaces"))
+      for chart in block.charts:
+        this_chart = Chart(type=chart.type,
+                           maxPlaces=chart.max_places)
         charts.append(this_chart)
 
       this_block = BlockConfig(charts=charts,
-                               category=page_config_item.get("category"),
-                               description=page_config_item.get("description"),
-                               scaling=page_config_item.get("scaling"),
-                               statisticalVariableDcids=page_config_item.get(
-                                   "variables", []),
-                               title=page_config_item.get("title"),
-                               placeScope=block.get("placeScope"),
+                               category=page_config_item.category,
+                               description=page_config_item.description,
+                               scaling=page_config_item.scaling,
+                               statisticalVariableDcids=page_config_item.variables,
+                               title=page_config_item.title,
+                               placeScope=block.place_scope,
                                topicDcids=[],
-                               unit=page_config_item.get("unit"))
+                               unit=page_config_item.unit)
       if denominator:
         this_block.denominator = denominator
-      elif not page_config_item.get("nonDividable", False):
+      elif not page_config_item.non_dividable:
         this_block.denominator = ["Count_Person"]
 
       this_block.childPlaceType = child_place_type
@@ -410,6 +431,32 @@ def get_child_place_types(place: Place) -> list[str]:
   return []
 
 
+def read_chart_configs() -> List[ServerChartConfiguration]:
+  """Reads the raw chart configs from app settings and parses them into the appropriate dataclasses."""
+  raw_chart_configs = copy.deepcopy(current_app.config['CHART_CONFIG'])
+
+  server_chart_configs = []
+  for raw_config in raw_chart_configs:
+    if 'variables' not in raw_config:
+      # Legacy charts should get filtered out.
+      continue
+
+    server_block_configs = []
+    for raw_block in raw_config.get('blocks', []):
+      server_block_config = ServerBlockMetadata(**raw_block)
+      server_block_config.charts = [
+        ServerChartMetadata(**raw_chart)
+        for raw_chart in raw_block.get('charts', [])]
+      server_block_configs.append(server_block_config)
+
+    server_chart_config = ServerChartConfiguration(**raw_config)
+
+
+    server_chart_config.blocks = server_block_configs
+    server_chart_configs.append(server_chart_config)
+  return server_chart_configs
+
+
 def fetch_child_place_dcids(place: Place,
                             child_place_type: str,
                             locale=DEFAULT_LOCALE) -> List[str]:
@@ -420,7 +467,7 @@ def fetch_child_place_dcids(place: Place,
   return child_place_dcids
 
 
-def translate_chart_config(chart_config: List[Dict]):
+def translate_chart_config(chart_config: List[ServerChartConfiguration]):
   """
   Translates the 'titleId' field in each chart configuration item into a readable 'title'
   using the gettext function.
@@ -435,18 +482,18 @@ def translate_chart_config(chart_config: List[Dict]):
   """
   translated_chart_config = []
   for page_config_item in chart_config:
-    translated_item = {**page_config_item}
-    if translated_item.get("titleId"):
-      translated_item["title"] = gettext(translated_item.get("titleId"))
+    translated_item = copy.deepcopy(page_config_item)
+    if translated_item.title_id:
+      translated_item.title = gettext(translated_item.title_id)
     translated_chart_config.append(translated_item)
   return translated_chart_config
 
 
-def get_translated_category_strings(chart_config: List[Dict]) -> Dict[str, str]:
+def get_translated_category_strings(chart_config: List[ServerChartConfiguration]) -> Dict[str, str]:
   translated_category_strings: Dict[str, str] = {}
 
   for page_config_item in chart_config:
-    category = page_config_item["category"]
+    category = page_config_item.category
     if category in translated_category_strings:
       continue
     translated_category_strings[category] = gettext(

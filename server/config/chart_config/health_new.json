@@ -1,7 +1,7 @@
 [
     {
     "category": "Health",
-    "titleId": "CHART_TITLE-Health_behaviors",
+    "title_id": "CHART_TITLE-Health_behaviors",
     "title": "Health_behaviors",
     "description": "Health_behaviors",
     "variables": [
@@ -11,13 +11,13 @@
       "Percent_Person_Smoking"
     ],
     "denominator": [],
-    "nonDividable": true,
+    "non_dividable": true,
     "scale": true,
     "unit": "%",
     "blocks":[
           {
-            "isOverview": true,
-            "placeScope": "PLACE",
+            "is_overview": true,
+            "place_scope": "PLACE",
             "charts": [
               {
                 "type": "LINE"
@@ -25,22 +25,22 @@
             ]
           },
           {
-            "isOverview": false,
-            "placeScope": "CHILD_PLACES",
+            "is_overview": false,
+            "place_scope": "CHILD_PLACES",
             "charts": [
               {
                 "type": "BAR",
-                "maxPlaces": 7
+                "max_places": 7
               }
             ]
           },
           {
-            "isOverview": true,
-            "placeScope": "PEER_PLACES_WITHIN_PARENT",
+            "is_overview": true,
+            "place_scope": "PEER_PLACES_WITHIN_PARENT",
             "charts": [
               {
                 "type": "BAR",
-                "maxPlaces": 7
+                "max_places": 7
               }
             ]
         }

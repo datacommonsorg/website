@@ -1,18 +1,18 @@
 [{
     "category": "Crime",
-    "titleId": "CHART_TITLE-Total_crime",
+    "title_id": "CHART_TITLE-Total_crime",
     "title": "Total crime",
     "description": "Total number of criminal incidents",
     "variables": [
       "Count_CriminalActivities_CombinedCrime"
     ],
     "denominator": [],
-    "nonDividable": false,
+    "non_dividable": false,
     "scale": true,
     "blocks":[
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -23,8 +23,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -35,8 +35,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"

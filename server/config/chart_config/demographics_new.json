@@ -1,18 +1,18 @@
 [{
     "category": "Demographics",
-    "titleId": "CHART_TITLE-Population",
+    "title_id": "CHART_TITLE-Population",
     "title": "Population",
     "description": "Population",
     "variables": [
       "Count_Person"
     ],
     "denominator": [],
-    "nonDividable": true,
+    "non_dividable": true,
     "scale": true,
     "blocks":[
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -23,8 +23,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -35,8 +35,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": false,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "MAP"
@@ -47,8 +47,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"

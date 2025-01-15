@@ -1,18 +1,18 @@
 [{
     "category": "Economics",
-    "titleId": "CHART_TITLE-Gdp",
+    "title_id": "CHART_TITLE-Gdp",
     "title": "GDP",
     "description": "GDP",
     "variables": [
       "Amount_EconomicActivity_GrossDomesticProduction_Nominal"
     ],
     "denominator": [],
-    "nonDividable": true,
+    "non_dividable": true,
     "scale": true,
     "blocks":[
           {
-            "isOverview": true,
-            "placeScope": "PLACE",
+            "is_overview": true,
+            "place_scope": "PLACE",
             "charts": [
               {
                 "type": "LINE"
@@ -23,8 +23,8 @@
             ]
           },
           {
-            "isOverview": false,
-            "placeScope": "CHILD_PLACES",
+            "is_overview": false,
+            "place_scope": "CHILD_PLACES",
             "charts": [
               {
                 "type": "MAP"
@@ -35,35 +35,35 @@
             ]
           },
           {
-            "isOverview": false,
-            "placeScope": "PEER_PLACES_WITHIN_PARENT",
+            "is_overview": false,
+            "place_scope": "PEER_PLACES_WITHIN_PARENT",
             "charts": [
               {
                 "type": "MAP"
               },
               {
                 "type": "RANKING",
-                "maxPlaces": 5
+                "max_places": 5
               }
             ]
           },
           {
-            "isOverview": false,
-            "placeScope": "CHILD_PLACES",
+            "is_overview": false,
+            "place_scope": "CHILD_PLACES",
             "charts": [
               {
                 "type": "BAR",
-                "maxPlaces": 5
+                "max_places": 5
               }
             ]
           },
           {
-            "isOverview": true,
-            "placeScope": "PEER_PLACES_WITHIN_PARENT",
+            "is_overview": true,
+            "place_scope": "PEER_PLACES_WITHIN_PARENT",
             "charts": [
               {
                 "type": "BAR",
-                "maxPlaces": 5
+                "max_places": 5
               }
             ]
         }
