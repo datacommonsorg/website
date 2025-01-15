@@ -77,3 +77,35 @@ class RelatedPlacesApiResponse:
   place: Place
   similarPlaces: List[Place]
   parentPlaces: List[Place] = None
+
+
+@dataclass
+class ServerChartMetadata:
+  """Chart metadata for the server configuration for charts"""
+  type: str
+  max_places: Optional[int] = None
+
+
+@dataclass
+class ServerBlockMetadata:
+  """Block metadata for the server configuration for blocks"""
+  place_scope: str
+  charts: List[ServerChartMetadata]
+  is_overview: bool = False
+
+
+@dataclass
+class ServerChartConfiguration:
+  """Configuration of hardcoded charts in server/config/chart_config"""
+  # Note that this is only for the revamped place page chart format.
+  category: str
+  title_id: str
+  title: str
+  description: str
+  variables: List[str]
+  denominator: Optional[List[str]]
+  blocks: List[ServerBlockMetadata]
+  unit: Optional[str] = None
+  scaling: Optional[int] = None
+  non_dividable: bool = False
+  scale: bool = False

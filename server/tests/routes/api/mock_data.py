@@ -466,7 +466,7 @@ MAPS_PREDICTIONS_VALUES = [
 SAMPLE_PLACE_PAGE_CHART_CONFIG = [{
     "category":
         "Crime",
-    "titleId":
+    "title_id":
         "CHART_TITLE-Total_crime",
     "title":
         "Total crime",
@@ -474,12 +474,13 @@ SAMPLE_PLACE_PAGE_CHART_CONFIG = [{
         "Total number of criminal incidents",
     "variables": ["Count_CriminalActivities_CombinedCrime"],
     "denominator": [],
-    "nonDividable":
+    "non_dividable":
         False,
     "scale":
         True,
     "blocks": [{
-        "isOverview": True,
+        "is_overview": True,
+        "place_scope": "PLACE",
         "charts": [{
             "type": "LINE"
         }, {
@@ -489,7 +490,7 @@ SAMPLE_PLACE_PAGE_CHART_CONFIG = [{
 }, {
     "category":
         "Education",
-    "titleId":
+    "title_id":
         "CHART_TITLE-Educational_attainment",
     "title":
         "Education attainment",
@@ -499,7 +500,7 @@ SAMPLE_PLACE_PAGE_CHART_CONFIG = [{
     ],
     "description":
         "Number of people who have attained various educational milestones, e.g. completed high school or have a bachelor's degree",
-    "nonDividable":
+    "non_dividable":
         False,
     "scale":
         True,
@@ -511,7 +512,8 @@ SAMPLE_PLACE_PAGE_CHART_CONFIG = [{
         "Count_Person_EducationalAttainmentDoctorateDegree"
     ],
     "blocks": [{
-        "isOverview": True,
+        "is_overview": True,
+        "place_scope": "PLACE",
         "charts": [{
             "type": "LINE"
         }, {
@@ -624,3 +626,4 @@ MULTIPLE_PROPERTY_VALUES_RESPONSE_WITH_LANGUAGES = {
         'nameWithLanguage': []
     }
 }
+
