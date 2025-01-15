@@ -26,7 +26,6 @@ from server.lib.cache import cache
 from server.lib.i18n import DEFAULT_LOCALE
 from server.routes import TIMEOUT
 from server.routes.dev_place.types import BlockConfig
-from server.routes.dev_place.types import BlockConfig
 from server.routes.dev_place.types import Chart
 from server.routes.dev_place.types import Place
 from server.routes.dev_place.types import ServerBlockMetadata
@@ -167,7 +166,6 @@ def filter_chart_config_by_place_dcid(
   Filters the chart configuration to only include charts that have data for a specific place DCID.
   
   Args:
-      chart_config (List[Dict]): A list of chart configurations, where each configuration includes statistical variable DCIDs under the key 'variables'.
       chart_config (List[Dict]): A list of chart configurations, where each configuration includes statistical variable DCIDs under the key 'variables'.
       place_dcid (str): dcid for the place of interest.
 
@@ -313,14 +311,12 @@ def chart_config_to_overview_charts(
   Args:
       chart_config (List[Dict]): A list of chart configuration dictionaries, 
                                   each containing metadata like 'category', 'variables', 'title', etc.
-                                  each containing metadata like 'category', 'variables', 'title', etc.
 
   Returns:
       List[BlockConfig]: A list of Chart objects created from the chart configuration.
-      List[BlockConfig]: A list of Chart objects created from the chart configuration.
   """
   blocks = []
-  blocks = []
+
   for page_config_item in chart_config:
     denominator = page_config_item.denominator
     for block in page_config_item.blocks:

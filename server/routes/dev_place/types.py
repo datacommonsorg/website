@@ -19,7 +19,6 @@ from dataclasses import dataclass
 from typing import Dict, List, Optional
 
 CHART_TYPES = {"BAR", "LINE", "MAP", "RANKING", "HIGHLIGHT"}
-CHART_TYPES = {"BAR", "LINE", "MAP", "RANKING", "HIGHLIGHT"}
 
 
 @dataclass
