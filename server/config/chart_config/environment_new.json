@@ -1,7 +1,6 @@
 [
     {
       "category": "Environment",
-      "topic": "Air",
       "title_id": "CHART_TITLE-Air_quality_index",
       "title": "Air quality index",
       "description": "Air quality index",
@@ -52,7 +51,6 @@
     },
     {
       "category": "Environment",
-      "topic": "Temperature",
       "title_id": "CHART_TITLE-Projected_temperature_change_under_rcp26_based_on_year_2006",
       "title": "Projected max temperature change under RCP 2.6 (based on year 2006)",
       "description": "Projected max temperature change under RCP 2.6 (based on year 2006)",
@@ -104,7 +102,6 @@
     },
     {
       "category": "Environment",
-      "topic": "Temperature",
       "title_id": "CHART_TITLE-Projected_temperature_change_under_rcp45_based_on_year_2006",
       "title": "Projected max temperature change under RCP 4.5 (based on year 2006)",
       "description": "Projected max temperature change under RCP 4.5 (based on year 2006)",
@@ -156,7 +153,6 @@
     },
     {
       "category": "Environment",
-      "topic": "Temperature",
       "title_id": "CHART_TITLE-Projected_temperature_change_under_rcp60_based_on_year_2006",
       "title": "Projected max temperature change under RCP 6.0 (based on year 2006)",
       "description": "Projected max temperature change under RCP 6.0 (based on year 2006)",
@@ -208,7 +204,6 @@
     },
     {
       "category": "Environment",
-      "topic": "Temperature",
       "title_id": "CHART_TITLE-Projected_temperature_change_under_rcp85_based_on_year_2006",
       "title": "Projected max temperature change under RCP 8.5 (based on year 2006)",
       "description": "Projected max temperature change under RCP 8.5 (based on year 2006)",
@@ -260,7 +255,6 @@
     },
     {
       "category": "Environment",
-      "topic": "Air",
       "title_id": "CHART_TITLE-Mean_concentration_PM2.5",
       "title": "Mean PM2.5 concentration",
       "description": "Used to quantify air quality with measures of concentrations of fine inhalable particles, with diameters that are generally 2.5 micrometers and smaller in the air. Also see https://www.epa.gov/air-trends/particulate-matter-pm25-trends",
@@ -312,7 +306,6 @@
     },
     {
       "category": "Environment",
-      "topic": "Air",
       "title_id": "CHART_TITLE-Mean_concentration_Ozone",
       "title": "Mean ozone concentration",
       "description": "Used to quantify air quality with measures of concentrations of ozone in air",
@@ -364,7 +357,6 @@
     },
     {
       "category": "Environment",
-      "topic": "Air",
       "title_id": "CHART_TITLE-Mean_concentration_DieselPM",
       "title": "Mean diesel PM concentration",
       "description": "Annual mean Diesel PM concentration in air measured from EPA NATA",
@@ -416,7 +408,6 @@
     },
     {
       "category": "Environment",
-      "topic": "Water",
       "title_id": "CHART_TITLE-Palmer_drought_severity_index",
       "title": "Palmer drought severity index",
       "description": "The Palmer Drought Severity Index (PDSI) uses readily available temperature and precipitation data to estimate relative dryness. See more details from https://climatedataguide.ucar.edu/climate-data/palmer-drought-severity-index-pdsi",
@@ -467,7 +458,6 @@
     },
     {
       "category": "Environment",
-      "topic": "Emissions",
       "title_id": "CHART_TITLE-Annual_emissions_greenhouse_gas",
       "title": "Annual greenhouse gas emissions (large facilities, non-biogenic)",
       "description": "Measures the total annual greenhouse gas emissions (large facilities, non-biogenic)",
@@ -519,7 +509,6 @@
     },
     {
       "category": "Environment",
-      "topic": "Emissions",
       "title_id": "CHART_TITLE-carbon_dioxide_emissions_nonbiogenic",
       "title": "Carbon dioxide emissions (large facilities, non-biogenic)",
       "description": "Annual amount of carbon dioxide emissions (large facilities, non-biogenic)",
@@ -571,7 +560,6 @@
     },
     {
       "category": "Environment",
-      "topic": "Emissions",
       "title_id": "CHART_TITLE-methane_emissions_nonbiogenic",
       "title": "Methane emissions (large facilities, non-biogenic)",
       "description": "Annual amount of methane emissions (large facilities, non-biogenic)",
@@ -620,7 +608,6 @@
     },
     {
       "category": "Environment",
-      "topic": "Emissions",
       "title_id": "CHART_TITLE-nitrous_oxide_emissions_non_biogenic",
       "title": "Nitrous oxide emissions (large facilities, non-biogenic)",
       "description": "Annual amount of nitrous oxide emissions (large facilities, non-biogenic)",
@@ -669,7 +656,6 @@
     },
     {
       "category": "Environment",
-      "topic": "Water",
       "title_id": "CHART_TITLE-water_withdrawal_rate",
       "title": "Water withdrawal rate",
       "description": "Water withdrawal rate",
@@ -718,7 +704,6 @@
     },
     {
       "category": "Environment",
-      "topic": "Air",
       "title_id": "CHART_TITLE-Air pollutant cancer risk",
       "title": "Lifetime air toxics cancer risk",
       "description": "Probability of contracting cancer over a 70 year lifetime due to air pollutant exposure",
@@ -767,7 +752,6 @@
     },
     {
       "category": "Environment",
-      "topic": "Air",
       "title_id": "CHART_TITLE-carbon_dioxide_emissions_per_capita",
       "title": "Carbon dioxide emissions per capita",
       "description": "Total amount of carbon dioxide emissions per person",
@@ -816,7 +800,6 @@
     },
     {
       "category": "Environment",
-      "topic": "Disasters",
       "title_id": "CHART_TITLE-Earthquakes",
       "title": "Earthquakes",
       "description": "Total number of earthquakes that occured",
@@ -864,7 +847,6 @@
     },
     {
       "category": "Environment",
-      "topic": "Disasters",
       "title_id": "CHART_TITLE-Cyclones",
       "title": "Cyclones",
       "description": "Total number of cyclones that occured",

@@ -1,7 +1,6 @@
 [
     {
       "category": "Equity",
-      "topic": "Income",
       "title_id": "CHART_TITLE-Gini_index",
       "title": "Gini index",
       "description": "The Gini index is a measure of inequality, see https://stats.oecd.org/glossary/detail.asp?ID=4842",
@@ -52,7 +51,6 @@
     },
     {
       "category": "Equity",
-      "topic": "Income",
       "title_id": "CHART_TITLE-Median_household_income_race",
       "title": "Median household income by race",
       "description": "Median incomes of households, broken down by race",
@@ -100,7 +98,6 @@
     },
     {
       "category": "Equity",
-      "topic": "Income",
       "title_id": "CHART_TITLE-Median_income_gender",
       "title": "Median income by gender",
       "description": "Median incomes of individuals, broken down by gender",
@@ -144,7 +141,6 @@
     },
     {
       "category": "Equity",
-      "topic": "Poverty",
       "title_id": "CHART_TITLE-Poverty_rate_race",
       "title": "Poverty rate by race",
       "description": "Percentage of the population below the poverty level, broken down by race",
@@ -199,7 +195,6 @@
     },
     {
       "category": "Equity",
-      "topic": "Poverty",
       "title_id": "CHART_TITLE-Poverty_rate_gender",
       "title": "Poverty rate by gender",
       "description": "Percentage of the population below the poverty level, broken down by gender",
@@ -247,7 +242,6 @@
     },
     {
       "category": "Equity",
-      "topic": "Poverty",
       "title_id": "CHART_TITLE-Urban vs rural poverty population",
       "title": "Urban vs rural poverty population",
       "description": "Population below the poverty level, in urban and rural areas",
@@ -292,7 +286,6 @@
     },
     {
       "category": "Equity",
-      "topic": "Poverty",
       "title_id": "CHART_TITLE-Urban vs rural homeless population",
       "title": "Urban vs rural homeless population",
       "description": "Homeless population in urban and rural areas",
@@ -337,7 +330,6 @@
     },
     {
       "category": "Equity",
-      "topic": "Poverty",
       "title_id": "CHART_TITLE-Unemployment_rate_gender",
       "title": "Unemployment rate by gender",
       "description": "Percentage of the population, of working age, who are unemployed, broken down by gender",
@@ -381,7 +373,6 @@
     },
     {
       "category": "Equity",
-      "topic": "Poverty",
       "title_id": "CHART_TITLE-Percent_without_health_insurance_race",
       "title": "Percentage of people without health insurance by race",
       "description": "Percentage of the population, of working age, who have no health insurance, broken down by race",
@@ -426,7 +417,6 @@
     },
     {
       "category": "Equity",
-      "topic": "Poverty",
       "title_id": "CHART_TITLE-Percent_without_health_insurance_gender",
       "title": "Percentage of people without health insurance by gender",
       "description": "Percentage of the population, of working age, who have no health insurance, broken down by gender",
@@ -470,7 +460,6 @@
     },
     {
       "category": "Equity",
-      "topic": "Education",
       "title_id": "CHART_TITLE-Associate_degree_rate_gender",
       "title": "Rate of associate degree attainment by gender",
       "description": "Percentage of young adults who have an associate degree, broken down by gender",
@@ -518,7 +507,6 @@
     },
     {
       "category": "Equity",
-      "topic": "Education",
       "title_id": "CHART_TITLE-Bachelors_degree_rate_gender",
       "title": "Rate of bachelor's degree attainment by gender",
       "description": "Percentage of young adults who have an bachelor's degree, broken down by gender",
@@ -566,7 +554,6 @@
     },
     {
       "category": "Equity",
-      "topic": "Education",
       "title_id": "CHART_TITLE-Graduate_or_professional_degree_rate_gender",
       "title": "Rate of graduate or professional degree attainment by gender",
       "description": "Percentage of young adults who have a graduate or professional degree, broken down by gender",

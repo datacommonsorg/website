@@ -278,8 +278,8 @@
   {
     "category": "Economics",
     "title_id": "CHART_TITLE-Poverty_rate",
-    "description": "Percentage of the population below poverty",
     "title": "Poverty rate",
+    "description": "Percentage of the population below poverty",
     "variables": [
       "Count_Person_BelowPovertyLevelInThePast12Months"
     ],
@@ -938,6 +938,7 @@
     "category": "Economics",
     "title_id": "CHART_TITLE-Market_capitalization",
     "title": "Market capitalization of domestic companies",
+    "description": "Market capitalization of domestic companies (as a percentage of GDP)",
     "variables": [
       "Amount_Stock"
     ],
