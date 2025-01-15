@@ -24,7 +24,7 @@ steps:
 
   # Run Website screenshot
   - id: screenshot
-    name: gcr.io/datcom-ci/webdriver-chrome:2024-06-05
+    name: gcr.io/datcom-ci/webdriver-chrome:2025-01-15
     entrypoint: /bin/bash
     args:
       - -c
@@ -36,7 +36,7 @@ steps:
 
   # Run Website sanity
   - id: website_sanity
-    name: gcr.io/datcom-ci/webdriver-chrome:2024-06-05
+    name: gcr.io/datcom-ci/webdriver-chrome:2025-01-15
     entrypoint: /bin/bash
     args:
       - -c
@@ -48,7 +48,7 @@ steps:
 
   # Run Website adversarial
   - id: website_adversarial
-    name: gcr.io/datcom-ci/webdriver-chrome:2024-06-05
+    name: gcr.io/datcom-ci/webdriver-chrome:2025-01-15
     entrypoint: /bin/bash
     args:
       - -c
