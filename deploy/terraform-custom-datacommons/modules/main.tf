@@ -107,10 +107,24 @@ resource "google_sql_user" "mysql_user" {
 }
 
 # Data commons storage bucket
-resource "google_storage_bucket" "dc_gcs_data_bucket" {
-  name     = local.dc_gcs_data_bucket_path
-  location = var.dc_gcs_data_bucket_location
+resource "google_storage_bucket" "gcs_data_bucket" {
+  name     = local.gcs_data_bucket_name
+  location = var.gcs_data_bucket_location
   uniform_bucket_level_access = true
+}
+
+# Input 'folder' for the data loading job.
+resource "google_storage_bucket_object" "gcs_data_bucket_input_folder" {
+  name          = "${var.gcs_data_bucket_input_folder}/"
+  content       = "Input folder"
+  bucket        = "${google_storage_bucket.gcs_data_bucket.name}"
+}
+
+# Output 'folder' for the data loading job.
+resource "google_storage_bucket_object" "gcs_data_bucket_output_folder" {
+  name          = "${var.gcs_data_bucket_output_folder}/"
+  content       = "Output folder"
+  bucket        = "${google_storage_bucket.gcs_data_bucket.name}"
 }
 
 # Generate a random suffix to append to api keys.
@@ -360,7 +374,7 @@ resource "google_cloud_run_v2_job" "dc_data_job" {
 
         env {
           name  = "INPUT_DIR"
-          value = "gs://${local.dc_gcs_data_bucket_path}/input"
+          value = "gs://${local.gcs_data_bucket_name}/${var.gcs_data_bucket_input_folder}"
         }
       }
       execution_environment = "EXECUTION_ENVIRONMENT_GEN2"

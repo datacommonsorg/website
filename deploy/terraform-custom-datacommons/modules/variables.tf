@@ -67,13 +67,25 @@ variable "google_analytics_tag_id" {
 # Data Commons Cloud Storage bucket variables
 
 # If not set, the default is <namespace>-datacommons-data-<project_id>
-variable "dc_gcs_data_bucket_path_override" {
-  description = "Custom GCS data bucket path."
+variable "gcs_data_bucket_name" {
+  description = "Custom GCS data bucket name."
   type        = string
   default     = ""
 }
 
-variable "dc_gcs_data_bucket_location" {
+variable "gcs_data_bucket_input_folder" {
+  description = "Input data folder in the GCS data bucket"
+  type        = string
+  default     = "input"
+}
+
+variable "gcs_data_bucket_output_folder" {
+  description = "Output data folder in the GCS data bucket"
+  type        = string
+  default     = "output"
+}
+
+variable "gcs_data_bucket_location" {
   description = "Data Commons GCS data bucket location"
   type        = string
   default     = "US"

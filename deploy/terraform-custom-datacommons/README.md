@@ -167,7 +167,7 @@ Once the deployment is complete, terraform should output something like:
 cloud_run_service_name = "<namespace>-datacommons-web-service"
 cloud_run_service_url = "https://<namespace>-datacommons-web-service-abc123-uc.a.run.app"
 dc_api_key = <sensitive>
-dc_gcs_data_bucket_path = "<namespace>-datacommons-data-<project-id>"
+gcs_data_bucket_name = "<namespace>-datacommons-data-<project-id>"
 maps_api_key = <sensitive>
 mysql_instance_connection_name = "<project-id>:us-central1:<namespace>-datacommons-mysql-instance"
 mysql_instance_public_ip = "<mysql_ip>"
@@ -178,7 +178,7 @@ redis_instance_port = 6379
 
 ### 6. Load custom data
 
-Upload custom sample data to the GCS bucket specified by the terraform output `dc_gcs_data_bucket_path` (`gs://<your-namespace>-datacommons-data-<your-project-id>`).
+Upload custom sample data to the GCS bucket specified by the terraform output `gcs_data_bucket_name` (`gs://<your-namespace>-datacommons-data-<your-project-id>`).
 From the `website` repository's root directory, run:
 
 ```
