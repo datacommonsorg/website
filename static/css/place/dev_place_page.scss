@@ -246,3 +246,25 @@ main {
     padding-top: 16px;
   }
 }
+
+#page-loading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  svg {
+    font-size: 24px;
+    animation: rotating 2s linear infinite;
+  }
+  p {
+    margin: 3px 0 0 0;
+  }
+}
+
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

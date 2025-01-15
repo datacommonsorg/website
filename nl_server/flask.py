@@ -58,8 +58,15 @@ def create_app():
     if not lib_utils.is_test_env():
       # Below is a safe check to ensure that the model and embedding is loaded.
       server_config = reg.server_config()
-      idx_type = server_config.default_indexes[0]
-      embeddings = reg.get_index(idx_type)
+
+      def _get_first_available_embeddings():
+        for idx in server_config.default_indexes:
+          embeddings = reg.get_index(idx)
+          if embeddings:
+            return (idx, embeddings)
+        raise ValueError('No embeddings found')
+
+      idx_type, embeddings = _get_first_available_embeddings()
       query = server_config.indexes[idx_type].healthcheck_query
       result = search.search_vars([embeddings], [query]).get(query)
       if not result or not result.svs:
