@@ -64,6 +64,13 @@ def click_sv_group(driver, svg_name):
       break
 
 
+def click_el(driver, element_locator):
+  """Wait for an element with the given locator to be clickable, then click it."""
+  element_clickable = EC.element_to_be_clickable(element_locator)
+  WebDriverWait(driver, TIMEOUT).until(element_clickable)
+  driver.find_element(*element_locator).click()
+
+
 def select_source(driver, source_name, sv_dcid):
   """With the source selector modal open, choose the source with name
     source_name for variable with dcid sv_dcid"""
