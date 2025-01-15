@@ -16,11 +16,9 @@
 
 import { DataRow } from "@datacommonsorg/client";
 import {
-  Chart,
   PlaceChartsApiResponse,
   RelatedPlacesApiResponse,
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
-import _ from "lodash";
 import React, { useEffect, useRef, useState } from "react";
 import { RawIntlProvider } from "react-intl";
 
@@ -28,125 +26,16 @@ import { GoogleMap } from "../components/google_map";
 import { SubjectPageMainPane } from "../components/subject_page/main_pane";
 import { intl } from "../i18n/i18n";
 import { NamedTypedPlace, StatVarSpec } from "../shared/types";
-import {
-  CategoryConfig,
-  SubjectPageConfig,
-  TileConfig,
-} from "../types/subject_page_proto_types";
+import { SubjectPageConfig } from "../types/subject_page_proto_types";
 import {
   defaultDataCommonsClient,
   defaultDataCommonsWebClient,
 } from "../utils/data_commons_client";
 import { TileSources } from "../utils/tile_utils";
-import { isPlaceContainedInUsa } from "./util";
-
-/**
- * Returns the stat var key for a chart.
- *
- * A stat var key is a unique identifier for a statistical variable for the
- * given chart, including its DCID, denominator, log, scaling, and unit.
- *
- * @param chart The chart object
- * @param variableDcid The variable DCID
- * @param denom The denominator DCID
- * @returns The stat var key
- */
-function getStatVarKey(
-  chart: Chart,
-  variableDcid: string,
-  denom?: string
-): string {
-  return `${variableDcid}_denom_${denom}_log_${false}_scaling_${
-    chart.scaling
-  }_unit_${chart.unit}`;
-}
-
-/**
- * Converts the API response from getPlaceCharts into a SubjectPageConfig object.
- * Groups charts by category and creates the necessary configuration objects for
- * rendering the subject page.
- *
- * @param placeChartsApiResponse The API response containing chart data
- * @returns A SubjectPageConfig object with categories, tiles, and stat var specs
- */
-function placeChartsApiResponsesToPageConfig(
-  placeChartsApiResponse: PlaceChartsApiResponse
-): SubjectPageConfig {
-  const chartsByCategory = _.groupBy(
-    placeChartsApiResponse.charts,
-    (item) => item.category
-  );
-  const categoryConfig: CategoryConfig[] = Object.keys(chartsByCategory).map(
-    (categoryName) => {
-      const charts = chartsByCategory[categoryName];
-
-      const tiles: TileConfig[] = charts.map((chart) => {
-        return {
-          description: chart.description,
-          title: chart.title,
-          type: chart.type,
-          statVarKey: chart.statisticalVariableDcids.map(
-            (variableDcid, variableIdx) => {
-              const denom =
-                chart.denominator &&
-                chart.denominator.length ===
-                  chart.statisticalVariableDcids.length
-                  ? chart.denominator[variableIdx]
-                  : undefined;
-              return getStatVarKey(chart, variableDcid, denom);
-            }
-          ),
-        };
-      });
-
-      const statVarSpec: Record<string, StatVarSpec> = {};
-      charts.forEach((chart) => {
-        chart.statisticalVariableDcids.forEach((variableDcid, variableIdx) => {
-          const denom =
-            chart.denominator &&
-            chart.denominator.length === chart.statisticalVariableDcids.length
-              ? chart.denominator[variableIdx]
-              : undefined;
-          const statVarKey = getStatVarKey(chart, variableDcid, denom);
-          statVarSpec[statVarKey] = {
-            denom,
-            log: false,
-            scaling: chart.scaling,
-            statVar: variableDcid,
-            unit: chart.unit,
-          };
-        });
-      });
-
-      // Group tiles into pairs to show a two-column layout
-      const column1Tiles: TileConfig[] = [];
-      const column2Tiles: TileConfig[] = [];
-      tiles.forEach((tile, index) => {
-        if (index % 2 === 0) {
-          column1Tiles.push(tile);
-        } else {
-          column2Tiles.push(tile);
-        }
-      });
-      const category: CategoryConfig = {
-        blocks: [
-          {
-            columns: [{ tiles }],
-          },
-        ],
-        statVarSpec,
-        title: categoryName,
-      };
-      return category;
-    }
-  );
-
-  const pageConfig: SubjectPageConfig = {
-    metadata: undefined,
-    categories: categoryConfig,
-  };
-  return pageConfig;
-}
+import {
+  isPlaceContainedInUsa,
+  placeChartsApiResponsesToPageConfig,
+} from "./util";
 
 /**
  * Component that renders the header section of a place page.
@@ -591,19 +480,22 @@ export const DevPlaceMain = (): React.JSX.Element => {
 
       setPlaceChartsApiResponse(placeChartsApiResponse);
       setRelatedPlacesApiResponse(relatedPlacesApiResponse);
-      const config = placeChartsApiResponsesToPageConfig(
-        placeChartsApiResponse
-      );
       setChildPlaceType(relatedPlacesApiResponse.childPlaceType);
       setChildPlaces(relatedPlacesApiResponse.childPlaces);
       setParentPlaces(relatedPlacesApiResponse.parentPlaces);
-      setPageConfig(config);
       setIsLoading(false);
+      const config = placeChartsApiResponsesToPageConfig(
+        placeChartsApiResponse,
+        relatedPlacesApiResponse.parentPlaces,
+        relatedPlacesApiResponse.similarPlaces,
+        relatedPlacesApiResponse.place
+      );
+      setPageConfig(config);
     })();
   }, [place, category]);
 
   useEffect(() => {
-    if (placeChartsApiResponse && placeChartsApiResponse.charts) {
+    if (placeChartsApiResponse && placeChartsApiResponse.blocks) {
       // TODO(gmechali): Refactor this to use the translations correctly.
       // Move overview to be added in the response with translations. Use the
       // translation in the tabs, but the english version in the URL.
