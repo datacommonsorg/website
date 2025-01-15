@@ -626,4 +626,3 @@ MULTIPLE_PROPERTY_VALUES_RESPONSE_WITH_LANGUAGES = {
         'nameWithLanguage': []
     }
 }
-

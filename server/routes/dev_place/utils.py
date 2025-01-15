@@ -316,7 +316,6 @@ def chart_config_to_overview_charts(
       List[BlockConfig]: A list of Chart objects created from the chart configuration.
   """
   blocks = []
-
   for page_config_item in chart_config:
     denominator = page_config_item.denominator
     for block in page_config_item.blocks:

@@ -102,7 +102,7 @@ export function RankingTile(props: RankingTilePropType): JSX.Element {
     rankingData,
     props.variables
   );
-  const rankingCount = props.rankingMetadata?.rankingCount || RANKING_COUNT;
+  const rankingCount = props.rankingMetadata.rankingCount || RANKING_COUNT;
   // TODO: have a better way of calculating the loading placeholder height
   const placeHolderHeight =
     PER_RANKING_HEIGHT * rankingCount + FOOTER_HEIGHT + HEADING_HEIGHT;
@@ -389,21 +389,21 @@ function getNumRankingLists(
   rankingData: { [sv: string]: RankingGroup },
   statVarSpecs: StatVarSpec[]
 ): number {
-  if (rankingTileSpec && rankingTileSpec.showMultiColumn) {
+  if (rankingTileSpec.showMultiColumn) {
     return [rankingTileSpec.showHighest, rankingTileSpec.showLowest].filter(
       Boolean
     ).length;
   }
   let numListsPerSv = 0;
-  if (rankingTileSpec && rankingTileSpec.showHighest) {
+  if (rankingTileSpec.showHighest) {
     numListsPerSv++;
   }
-  if (rankingTileSpec && rankingTileSpec.showLowest) {
+  if (rankingTileSpec.showLowest) {
     numListsPerSv++;
   }
   // if showHighestLowest is set, will show a single list and ignore
   // showHighest/showLowest.
-  if (rankingTileSpec && rankingTileSpec.showHighestLowest) {
+  if (rankingTileSpec.showHighestLowest) {
     numListsPerSv = 1;
   }
   if (!rankingData) {
