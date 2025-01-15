@@ -1,18 +1,18 @@
 [{
     "category": "Crime",
-    "titleId": "CHART_TITLE-Total_crime",
+    "title_id": "CHART_TITLE-Total_crime",
     "title": "Total crime",
     "description": "Total number of criminal incidents",
     "variables": [
       "Count_CriminalActivities_CombinedCrime"
     ],
     "denominator": [],
-    "nonDividable": false,
+    "non_dividable": false,
     "scale": true,
     "blocks":[
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -23,8 +23,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -35,8 +35,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -47,19 +47,19 @@
   },
   {
     "category": "Crime",
-    "titleId": "CHART_TITLE-Violent_crime",
+    "title_id": "CHART_TITLE-Violent_crime",
     "title": "Violent crime",
     "description": "Total number of violent incidents",
     "variables": [
       "Count_CriminalActivities_ViolentCrime"
     ],
     "denominator": [],
-    "nonDividable": false,
+    "non_dividable": false,
     "scale": true,
     "blocks":[
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -70,8 +70,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -82,8 +82,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -94,19 +94,19 @@
   },
   {
     "category": "Crime",
-    "titleId": "CHART_TITLE-Property_crime",
+    "title_id": "CHART_TITLE-Property_crime",
     "title": "Property crime",
     "description": "Total number of property crime incidents",
     "variables": [
       "Count_CriminalActivities_PropertyCrime"
     ],
     "denominator": [],
-    "nonDividable": false,
+    "non_dividable": false,
     "scale": true,
     "blocks":[
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -117,8 +117,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -129,8 +129,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -141,19 +141,19 @@
   },
   {
     "category": "Crime",
-    "titleId": "CHART_TITLE-Arson_crime",
+    "title_id": "CHART_TITLE-Arson_crime",
     "title": "Arson crime",
     "description": "Total number of arson crime incidents",
     "variables": [
       "Count_CriminalActivities_Arson"
     ],
     "denominator": [],
-    "nonDividable": false,
+    "non_dividable": false,
     "scale": true,
     "blocks":[
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -164,8 +164,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -176,8 +176,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -188,19 +188,19 @@
   },
   {
     "category": "Crime",
-    "titleId": "CHART_TITLE-Hate_Crime",
+    "title_id": "CHART_TITLE-Hate_Crime",
     "title": "Hate crime",
     "description": "Total number of hate crime incidents",
     "variables": [
       "Count_CriminalIncidents_IsHateCrime"
     ],
     "denominator": [],
-    "nonDividable": false,
+    "non_dividable": false,
     "scale": true,
     "blocks":[
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -211,8 +211,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -223,8 +223,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -235,19 +235,19 @@
   },
   {
     "category": "Crime",
-    "titleId": "CHART_TITLE-Hate_Crime_Gender",
+    "title_id": "CHART_TITLE-Hate_Crime_Gender",
     "title": "Hate crime motivated by gender",
     "description": "Total number of hate crime incidents motivated by gender",
     "variables": [
       "Count_CriminalIncidents_BiasMotivationGender_IsHateCrime"
     ],
     "denominator": [],
-    "nonDividable": false,
+    "non_dividable": false,
     "scale": true,
     "blocks":[
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -258,8 +258,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -270,8 +270,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -282,19 +282,19 @@
   },
   {
     "category": "Crime",
-    "titleId": "CHART_TITLE-Hate_Crime_Race",
+    "title_id": "CHART_TITLE-Hate_Crime_Race",
     "title": "Hate crime motivated by race",
     "description": "Total number of hate crime incidents motivated by race",
     "variables": [
       "Count_CriminalIncidents_BiasMotivationRace_IsHateCrime"
     ],
     "denominator": [],
-    "nonDividable": false,
+    "non_dividable": false,
     "scale": true,
     "blocks":[
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -305,8 +305,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -317,8 +317,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -329,19 +329,19 @@
   },
   {
     "category": "Crime",
-    "titleId": "CHART_TITLE-Hate_Crime_Religion",
+    "title_id": "CHART_TITLE-Hate_Crime_Religion",
     "title": "Hate crime motivated by religion",
     "description": "Total number of hate crime incidents motivated by religion",
     "variables": [
       "Count_CriminalIncidents_BiasMotivationReligion_IsHateCrime"
     ],
     "denominator": [],
-    "nonDividable": false,
+    "non_dividable": false,
     "scale": true,
     "blocks":[
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -352,8 +352,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -364,8 +364,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -376,19 +376,19 @@
   },
   {
     "category": "Crime",
-    "titleId": "CHART_TITLE-Hate_Crime_Ethnicity",
+    "title_id": "CHART_TITLE-Hate_Crime_Ethnicity",
     "title": "Hate crime motivated by ethnicity",
     "description": "Total number of hate crime incidents motivated by ethnicity",
     "variables": [
       "Count_CriminalIncidents_BiasMotivationEthnicity_IsHateCrime"
     ],
     "denominator": [],
-    "nonDividable": false,
+    "non_dividable": false,
     "scale": true,
     "blocks":[
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -399,8 +399,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -411,8 +411,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -423,19 +423,19 @@
   },
   {
     "category": "Crime",
-   "titleId": "CHART_TITLE-Hate_Crime_Sexual_Orientation",
+   "title_id": "CHART_TITLE-Hate_Crime_Sexual_Orientation",
     "title": "Hate crime motivated by sexual orientation",
     "description": "Total number of hate crime incidents motivated by sexual orientation",
     "variables": [
       "Count_CriminalIncidents_BiasMotivationSexualOrientation_IsHateCrime"
     ],
     "denominator": [],
-    "nonDividable": false,
+    "non_dividable": false,
     "scale": true,
     "blocks":[
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -446,8 +446,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -458,8 +458,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -470,19 +470,19 @@
   },
   {
     "category": "Crime",
-    "titleId": "CHART_TITLE-Hate_Crime_Disability",
+    "title_id": "CHART_TITLE-Hate_Crime_Disability",
     "title": "Hate crime motivated by disability",
     "description": "Total number of hate crime incidents motivated by disability",
     "variables": [
       "Count_CriminalIncidents_BiasMotivationDisabilityStatus_IsHateCrime"
     ],
     "denominator": [],
-    "nonDividable": false,
+    "non_dividable": false,
     "scale": true,
     "blocks":[
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -493,8 +493,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -505,8 +505,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"

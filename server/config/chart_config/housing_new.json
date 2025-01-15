@@ -1,19 +1,19 @@
 [
     {
       "category": "Housing",
-      "titleId": "CHART_TITLE-Housing_units",
+      "title_id": "CHART_TITLE-Housing_units",
       "title": "Housing units",
       "description": "Total number of housing units available",
       "variables": [
         "Count_HousingUnit"
       ],
       "denominator": [],
-      "nonDividable": false,
+      "non_dividable": false,
       "scale": true,
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -24,8 +24,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "MAP"
@@ -36,8 +36,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "BAR"
@@ -48,7 +48,7 @@
     },
     {
       "category": "Housing",
-      "titleId": "CHART_TITLE-Housing_units_race",
+      "title_id": "CHART_TITLE-Housing_units_race",
       "title": "Housing units by householder race",
       "description": "Total number of housing units occupied by members of various races",
       "variables": [
@@ -64,12 +64,12 @@
       "denominator": [
         "Count_HousingUnit"
       ],
-      "nonDividable": false,
+      "non_dividable": false,
       "scale": true,
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -77,8 +77,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "BAR"
@@ -86,8 +86,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "BAR"
@@ -98,7 +98,7 @@
     },
     {
       "category": "Housing",
-      "titleId": "CHART_TITLE-Housing_units_price",
+      "title_id": "CHART_TITLE-Housing_units_price",
       "title": "Housing units by price",
       "description": "Number of occupied housing units by price",
       "variables": [
@@ -132,12 +132,12 @@
       "denominator": [
         "Count_HousingUnit"
       ],
-      "nonDividable": false,
+      "non_dividable": false,
       "scale": true,
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -145,8 +145,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "BAR"
@@ -154,8 +154,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "BAR"
@@ -166,7 +166,7 @@
     },
     {
       "category": "Housing",
-      "titleId": "CHART_TITLE-Housing_units_date_built",
+      "title_id": "CHART_TITLE-Housing_units_date_built",
       "title": "Housing units by date built",
       "description": "Number of available housing units by date built",
       "variables": [
@@ -183,12 +183,12 @@
       "denominator": [
         "Count_HousingUnit"
       ],
-      "nonDividable": false,
+      "non_dividable": false,
       "scale": true,
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -196,8 +196,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "BAR"
@@ -205,8 +205,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "BAR"
@@ -217,7 +217,7 @@
     },
     {
       "category": "Housing",
-      "titleId": "CHART_TITLE-Housing_units_rental_status",
+      "title_id": "CHART_TITLE-Housing_units_rental_status",
       "title": "Housing units by rental status",
       "description": "Number of housing units occupied by owner vs renter",
       "variables": [
@@ -227,12 +227,12 @@
       "denominator": [
         "Count_HousingUnit"
       ],
-      "nonDividable": false,
+      "non_dividable": false,
       "scale": true,
       "blocks": [
         {
-          "isOverview": true,
-          "placeScope": "PLACE",
+          "is_overview": true,
+          "place_scope": "PLACE",
           "charts": [
             {
               "type": "LINE"
@@ -240,8 +240,8 @@
           ]
         },
         {
-          "isOverview": false,
-          "placeScope": "CHILD_PLACES",
+          "is_overview": false,
+          "place_scope": "CHILD_PLACES",
           "charts": [
             {
               "type": "BAR"
@@ -249,8 +249,8 @@
           ]
         },
         {
-          "isOverview": true,
-          "placeScope": "PEER_PLACES_WITHIN_PARENT",
+          "is_overview": true,
+          "place_scope": "PEER_PLACES_WITHIN_PARENT",
           "charts": [
             {
               "type": "BAR"

@@ -1,20 +1,20 @@
 [
   {
     "category": "Energy",
-    "titleId": "CHART_TITLE-Electricity_price",
+    "title_id": "CHART_TITLE-Electricity_price",
     "title": "Electricity price",
     "description": "Annual average retail price of electricity, all sectors",
     "variables": [
       "Annual_Average_RetailPrice_Electricity"
     ],
     "denominator": [],
-    "nonDividable": true,
+    "non_dividable": true,
     "scale": true,
     "unit": "¢/kWh",
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -25,8 +25,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -37,8 +37,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -49,7 +49,7 @@
   },
   {
     "category": "Energy",
-    "titleId": "CHART_TITLE-Electricity_generation",
+    "title_id": "CHART_TITLE-Electricity_generation",
     "title": "Electricity generation per capita",
     "description": "Annual net electricity generation, all fuels, all sectors",
     "variables": [
@@ -58,14 +58,14 @@
     "denominator": [
       "Count_Person"
     ],
-    "nonDividable": false,
+    "non_dividable": false,
     "scale": true,
     "unit": "kWh",
     "scaling": 100,
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -76,8 +76,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -88,8 +88,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -100,20 +100,20 @@
   },
   {
     "category": "Energy",
-    "titleId": "CHART_TITLE-Energy_use",
+    "title_id": "CHART_TITLE-Energy_use",
     "title": "Energy use (kg of oil equivalent per capita)",
     "description": "Total amount of energy consumed per person, measured by kilogram of oil equivalent",
     "variables": [
       "Amount_Consumption_Energy_PerCapita"
     ],
     "denominator": [],
-    "nonDividable": true,
+    "non_dividable": true,
     "scale": true,
     "unit": "kg",
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -124,8 +124,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -136,8 +136,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -148,20 +148,20 @@
   },
   {
     "category": "Energy",
-    "titleId": "CHART_TITLE-Electricity_consumption_per_capita",
+    "title_id": "CHART_TITLE-Electricity_consumption_per_capita",
     "title": "Electricity consumption per capita",
     "description": "Total amount of electricity consumed per person",
     "variables": [
       "Amount_Consumption_Electricity_PerCapita"
     ],
     "denominator": [],
-    "nonDividable": true,
+    "non_dividable": true,
     "scale": true,
     "unit": "kWh",
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -172,8 +172,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -184,8 +184,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"

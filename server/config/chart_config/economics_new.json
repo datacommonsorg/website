@@ -1,19 +1,19 @@
 [
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Total_employed",
+    "title_id": "CHART_TITLE-Total_employed",
     "title": "Number of people employed",
     "description": "Number of people employed",
     "variables": [
       "Count_Person_Employed"
     ],
     "denominator": [],
-    "nonDividable": false,
+    "non_dividable": false,
     "scale": true,
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -24,8 +24,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -36,8 +36,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -48,19 +48,19 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Labor_force",
+    "title_id": "CHART_TITLE-Labor_force",
     "title": "Labor force",
     "description": "Count of people in the labor force, see https://data.oecd.org/emp/labour-force.htm",
     "variables": [
       "Count_Person_InLaborForce"
     ],
     "denominator": ["Count_Person_15To64Years"],
-    "nonDividable": false,
+    "non_dividable": false,
     "scale": true,
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -71,8 +71,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -83,8 +83,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -95,21 +95,21 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Labor_force_rate",
+    "title_id": "CHART_TITLE-Labor_force_rate",
     "title": "Labor force participation rate",
     "description": "Percentage of the population, of working age, in the labor force, see https://data.oecd.org/emp/labour-force.htm",
     "variables": [
       "Count_Person_15To64Years_InLaborForce_AsFractionOf_Count_Person_15To64Years"
     ],
     "denominator": [],
-    "nonDividable": true,
+    "non_dividable": true,
     "scale": true,
     "unit": "%",
     "scaling": 100,
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -120,8 +120,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -132,8 +132,8 @@
         ]
       },
       {
-        "isOverview": true,
-       "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+       "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -144,20 +144,20 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Unemployment_rate",
+    "title_id": "CHART_TITLE-Unemployment_rate",
     "title": "Unemployment rate",
     "description": "Percentage of the population, of working age, who are unemployed.",
     "variables": [
       "UnemploymentRate_Person"
     ],
     "denominator": [],
-    "nonDividable": true,
+    "non_dividable": true,
     "scale": true,
     "unit": "%",
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -168,8 +168,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -180,8 +180,8 @@
         ]
       },
       {
-        "isOverview": true,
-       "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+       "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -192,7 +192,7 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Unemployment_rate-urban-v-rural",
+    "title_id": "CHART_TITLE-Unemployment_rate-urban-v-rural",
     "title": "Unemployment rate: urban vs rural",
     "description": "Percentage of the working age population that is unemployed in urban vs. rural areas.",
     "variables": [
@@ -200,13 +200,13 @@
       "UnemploymentRate_Person_Urban"
     ],
     "denominator": [],
-    "nonDividable": false,
+    "non_dividable": false,
     "scale": true,
     "unit": "%",
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -214,8 +214,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "BAR"
@@ -223,8 +223,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -235,7 +235,7 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Worker-vs-nonworker-population",
+    "title_id": "CHART_TITLE-Worker-vs-nonworker-population",
     "title": "Worker vs nonworker population",
     "description": "Compares worker vs nonworker population in an area",
     "variables": [
@@ -243,12 +243,12 @@
       "Count_Person_NonWorker"
     ],
     "denominator": [],
-    "nonDividable": false,
+    "non_dividable": false,
     "scale": true,
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -256,8 +256,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "BAR"
@@ -265,8 +265,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -277,18 +277,18 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Poverty_rate",
+    "title_id": "CHART_TITLE-Poverty_rate",
     "description": "Percentage of the population below poverty",
     "title": "Poverty rate",
     "variables": [
       "Count_Person_BelowPovertyLevelInThePast12Months"
     ],
     "denominator": ["Count_Person"],
-    "nonDividable": true,
+    "non_dividable": true,
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -299,8 +299,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -311,8 +311,8 @@
         ]
       },
       {
-        "isOverview": true,
-       "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+       "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -323,19 +323,19 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-State_unemployment_claims",
+    "title_id": "CHART_TITLE-State_unemployment_claims",
     "title": "State unemployment insurance claims",
     "description": "Number of unemployment insurance claims filed with a US state",
     "variables": [
       "Count_UnemploymentInsuranceClaim_StateUnemploymentInsurance"
     ],
     "denominator": [],
-    "nonDividable": false,
+    "non_dividable": false,
     "scale": true,
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -346,8 +346,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -358,8 +358,8 @@
         ]
       },
       {
-        "isOverview": true,
-       "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+       "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -370,20 +370,20 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Children_employed",
+    "title_id": "CHART_TITLE-Children_employed",
     "title": "Children in employment",
     "description": "Number of children who are employed",
     "variables": [
       "Count_Person_7To14Years_Employed_AsFractionOf_Count_Person_7To14Years"
     ],
     "denominator": [],
-    "nonDividable": false,
+    "non_dividable": false,
     "scale": true,
     "unit": "%",
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -394,8 +394,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -406,8 +406,8 @@
         ]
       },
       {
-        "isOverview": true,
-       "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+       "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -418,7 +418,7 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Children_employed_gender",
+    "title_id": "CHART_TITLE-Children_employed_gender",
     "title": "Children in employment by gender",
     "description": "Number of children who are employed, broken down by gender",
     "variables": [
@@ -426,13 +426,13 @@
       "Count_Person_7To14Years_Male_Employed_AsFractionOf_Count_Person_7To14Years_Male"
     ],
     "denominator": [],
-    "nonDividable": false,
+    "non_dividable": false,
     "scale": true,
     "unit": "%",
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -440,8 +440,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "BAR"
@@ -449,8 +449,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -461,7 +461,7 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Unemployment_rate_gender",
+    "title_id": "CHART_TITLE-Unemployment_rate_gender",
     "title": "Unemployment rate by gender",
     "description": "Percentage of the population, of working age, who are unemployed. Broken down by gender",
     "variables": [
@@ -469,13 +469,13 @@
       "UnemploymentRate_Person_Female"
     ],
     "denominator": [],
-    "nonDividable": false,
+    "non_dividable": false,
     "scale": true,
     "unit": "%",
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -483,8 +483,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "BAR"
@@ -492,8 +492,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -504,20 +504,20 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Gdp_per_capita",
+    "title_id": "CHART_TITLE-Gdp_per_capita",
     "title": "Gross domestic product per capita",
     "description": "Gross domestic product (nominal) per capita, see https://en.wikipedia.org/wiki/Gross_domestic_product",
     "variables": [
       "Amount_EconomicActivity_GrossDomesticProduction_Nominal_PerCapita"
     ],
     "denominator": [],
-    "nonDividable": true,
+    "non_dividable": true,
     "scale": true,
     "unit": "$",
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -528,8 +528,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -540,8 +540,8 @@
         ]
       },
       {
-        "isOverview": true,
-       "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+       "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -552,20 +552,20 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Gdp_growth_rate",
+    "title_id": "CHART_TITLE-Gdp_growth_rate",
     "title": "Gross domestic product growth rate",
     "description": "Annual percentage growth rate of GDP at market prices based on constant local currency",
     "variables": [
       "GrowthRate_Amount_EconomicActivity_GrossDomesticProduction"
     ],
     "denominator": [],
-    "nonDividable": true,
+    "non_dividable": true,
     "scale": true,
     "unit": "%",
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -576,8 +576,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -588,8 +588,8 @@
         ]
       },
       {
-        "isOverview": true,
-       "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+       "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -600,20 +600,20 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Gni_per_capita",
+    "title_id": "CHART_TITLE-Gni_per_capita",
     "title": "Gross national income per capita (purchasing power parity)",
     "description": "Gross national income, divided by population, converted using purchasing power parity rates",
     "variables": [
       "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity_PerCapita"
     ],
     "denominator": [],
-    "nonDividable": true,
+    "non_dividable": true,
     "scale": true,
     "unit": "$",
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -624,8 +624,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -636,8 +636,8 @@
         ]
       },
       {
-        "isOverview": true,
-       "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+       "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -648,20 +648,20 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Gni",
+    "title_id": "CHART_TITLE-Gni",
     "title": "Gross national income (purchasing power parity)",
     "description": "Gross national income, converted using purchasing power parity rates",
     "variables": [
       "Amount_EconomicActivity_GrossNationalIncome_PurchasingPowerParity"
     ],
     "denominator": [],
-    "nonDividable": false,
+    "non_dividable": false,
     "scale": true,
     "unit": "$",
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -672,8 +672,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -684,8 +684,8 @@
         ]
       },
       {
-        "isOverview": true,
-       "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+       "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -696,20 +696,20 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Government_debt",
+    "title_id": "CHART_TITLE-Government_debt",
     "title": "Government debt",
     "description": "Amount of government debt",
     "variables": [
       "Amount_Debt_Government"
     ],
     "denominator": [],
-    "nonDividable": false,
+    "non_dividable": false,
     "scale": true,
     "unit": "$",
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -720,8 +720,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -732,8 +732,8 @@
         ]
       },
       {
-        "isOverview": true,
-       "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+       "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -744,20 +744,20 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Government_expenditures_education",
+    "title_id": "CHART_TITLE-Government_expenditures_education",
     "title": "Government expenditures on education (% of government expenditure)",
     "description": "Government expenditures on education as a percentage of government expenditure",
     "variables": [
       "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_ExpenditureActivity_Government"
     ],
     "denominator": [],
-    "nonDividable": true,
+    "non_dividable": true,
     "scale": true,
     "unit": "%",
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -768,8 +768,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -780,8 +780,8 @@
         ]
       },
       {
-        "isOverview": true,
-       "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+       "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -792,20 +792,20 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Government_expenditures_education_gdp",
+    "title_id": "CHART_TITLE-Government_expenditures_education_gdp",
     "title": "Government expenditures on education (% of GDP)",
     "description": "Government expenditures on education as a percentage of GDP",
     "variables": [
       "Amount_EconomicActivity_ExpenditureActivity_EducationExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
     ],
     "denominator": [],
-    "nonDividable": true,
+    "non_dividable": true,
     "scale": true,
     "unit": "%",
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -816,8 +816,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -828,8 +828,8 @@
         ]
       },
       {
-        "isOverview": true,
-       "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+       "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -840,20 +840,20 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Government_expenditures_military",
+    "title_id": "CHART_TITLE-Government_expenditures_military",
     "title": "Government expenditures on military",
     "description": "Amount spent by a government on the military",
     "variables": [
       "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government"
     ],
     "denominator": [],
-    "nonDividable": false,
+    "non_dividable": false,
     "scale": true,
     "unit": "$",
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -864,8 +864,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -876,8 +876,8 @@
         ]
       },
       {
-        "isOverview": true,
-       "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+       "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -888,20 +888,20 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Government_expenditures_military_per_gdp",
+    "title_id": "CHART_TITLE-Government_expenditures_military_per_gdp",
     "title": "Government expenditures on military (% of GDP)",
     "description": "Amount spent by a government on the military as a percentage of GDP",
     "variables": [
       "Amount_EconomicActivity_ExpenditureActivity_MilitaryExpenditure_Government_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
     ],
     "denominator": [],
-    "nonDividable": true,
+    "non_dividable": true,
     "scale": true,
     "unit": "%",
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -912,8 +912,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -924,8 +924,8 @@
         ]
       },
       {
-        "isOverview": true,
-       "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+       "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -936,19 +936,19 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Market_capitalization",
+    "title_id": "CHART_TITLE-Market_capitalization",
     "title": "Market capitalization of domestic companies",
     "variables": [
       "Amount_Stock"
     ],
     "denominator": [],
-    "nonDividable": true,
+    "non_dividable": true,
     "scale": true,
     "unit": "$",
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -959,8 +959,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -971,8 +971,8 @@
         ]
       },
       {
-        "isOverview": true,
-       "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+       "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -983,20 +983,20 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Market_capitalization_per_gdp",
+    "title_id": "CHART_TITLE-Market_capitalization_per_gdp",
     "title": "Market capitalization of domestic companies (% of GDP)",
     "description": "Market capitalization of domestic companies (as a percentage of GDP)",
     "variables": [
       "Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
     ],
     "denominator": [],
-    "nonDividable": true,
+    "non_dividable": true,
     "scale": true,
     "unit": "%",
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -1007,8 +1007,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -1019,8 +1019,8 @@
         ]
       },
       {
-        "isOverview": true,
-       "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+       "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -1031,20 +1031,20 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Inward_remittance",
+    "title_id": "CHART_TITLE-Inward_remittance",
     "title": "Inward remittance",
     "description": "Total amount of inward remittance into a place",
     "variables": [
       "Amount_Remittance_InwardRemittance"
     ],
     "denominator": [],
-    "nonDividable": true,
+    "non_dividable": true,
     "scale": true,
     "unit": "$",
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -1055,8 +1055,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -1067,8 +1067,8 @@
         ]
       },
       {
-        "isOverview": true,
-       "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+       "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -1079,20 +1079,20 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Inward_remittance_per_gdp",
+    "title_id": "CHART_TITLE-Inward_remittance_per_gdp",
     "title": "Inward remittance (% of GDP)",
     "description": "Total amount of inward remittance into a place (as a percentage of GDP)",
     "variables": [
       "Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal"
     ],
     "denominator": [],
-    "nonDividable": true,
+    "non_dividable": true,
     "scale": true,
     "unit": "%",
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -1103,8 +1103,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -1115,8 +1115,8 @@
         ]
       },
       {
-        "isOverview": true,
-       "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+       "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -1127,20 +1127,20 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Outward_remittance_per_gdp",
+    "title_id": "CHART_TITLE-Outward_remittance_per_gdp",
     "title": "Outward remittance",
     "description": "Total amount of outward remittance from a place",
     "variables": [
       "Amount_Remittance_OutwardRemittance"
     ],
     "denominator": [],
-    "nonDividable": true,
+    "non_dividable": true,
     "scale": true,
     "unit": "$",
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -1151,8 +1151,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -1163,8 +1163,8 @@
         ]
       },
       {
-        "isOverview": true,
-       "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+       "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -1175,7 +1175,7 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Individual_income",
+    "title_id": "CHART_TITLE-Individual_income",
     "title": "Individual income",
     "description": "Count of people whose individual incomes are in certain buckets",
     "variables": [
@@ -1191,12 +1191,12 @@
     "denominator": [
       "Count_Person_15OrMoreYears"
     ],
-    "nonDividable": false,
+    "non_dividable": false,
     "scale": true,
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -1204,8 +1204,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "BAR"
@@ -1213,8 +1213,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -1225,20 +1225,20 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Median_household_income",
+    "title_id": "CHART_TITLE-Median_household_income",
     "title": "Median household income",
     "description": "Median incomes of households",
     "variables": [
       "Median_Income_Household"
     ],
     "denominator": [],
-    "nonDividable": true,
+    "non_dividable": true,
     "scale": true,
     "unit": "$",
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -1249,8 +1249,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -1261,8 +1261,8 @@
         ]
       },
       {
-        "isOverview": true,
-       "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+       "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -1273,7 +1273,7 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Household_income",
+    "title_id": "CHART_TITLE-Household_income",
     "title": "Household income",
     "description": "Count of households whose combined incomes fall in certain buckets",
     "variables": [
@@ -1292,12 +1292,12 @@
     "denominator": [
       "Count_Household"
     ],
-    "nonDividable": true,
+    "non_dividable": true,
     "scale": true,
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -1305,8 +1305,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "BAR"
@@ -1314,8 +1314,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -1326,20 +1326,20 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Worker wages (daily)",
+    "title_id": "CHART_TITLE-Worker wages (daily)",
     "title": "Worker wages (daily)",
     "description": "Mean daily worker wages",
     "variables": [
       "Mean_WagesDaily_Worker"
     ],
     "denominator": [],
-    "nonDividable": true,
+    "non_dividable": true,
     "scale": true,
     "unit": "₹",
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -1350,8 +1350,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -1362,8 +1362,8 @@
         ]
       },
       {
-        "isOverview": true,
-       "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+       "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -1374,20 +1374,20 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Worker wages (monthly)",
+    "title_id": "CHART_TITLE-Worker wages (monthly)",
     "title": "Worker wages (monthly)",
     "description": "Mean monthly worker wages",
     "variables": [
       "Mean_WagesMonthly_Worker"
     ],
     "denominator": [],
-    "nonDividable": true,
+    "non_dividable": true,
     "scale": true,
     "unit": "₹",
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -1398,8 +1398,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -1410,8 +1410,8 @@
         ]
       },
       {
-        "isOverview": true,
-       "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+       "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -1422,7 +1422,7 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Worker wages (monthly): urban vs rural",
+    "title_id": "CHART_TITLE-Worker wages (monthly): urban vs rural",
     "title": "Worker wages (monthly): urban vs rural",
     "description": "Mean monthly wages in urban vs. rural areas.",
     "variables": [
@@ -1430,13 +1430,13 @@
       "Mean_WagesMonthly_Worker_Rural"
     ],
     "denominator": [],
-    "nonDividable": true,
+    "non_dividable": true,
     "scale": true,
     "unit": "₹",
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -1444,8 +1444,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "BAR"
@@ -1453,8 +1453,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -1465,7 +1465,7 @@
   },
   {
     "category": "Economics",
-    "titleId": "CHART_TITLE-Worker wages (monthly): female vs male",
+    "title_id": "CHART_TITLE-Worker wages (monthly): female vs male",
     "title": "Worker wages (monthly): female vs male",
     "description": "Mean monthly wages by gender.",
     "variables": [
@@ -1473,13 +1473,13 @@
       "Mean_WagesMonthly_Worker_Male"
     ],
     "denominator": [],
-    "nonDividable": true,
+    "non_dividable": true,
     "scale": true,
     "unit": "₹",
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -1487,8 +1487,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "BAR"
@@ -1496,8 +1496,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"

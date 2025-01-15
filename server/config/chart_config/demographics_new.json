@@ -1,19 +1,19 @@
 [
   {
     "category": "Demographics",
-    "titleId": "CHART_TITLE-Population",
+    "title_id": "CHART_TITLE-Population",
     "title": "Population",
     "description": "Total number of individuals",
     "variables": [
       "Count_Person"
     ],
     "denominator": [],
-    "nonDividable": true,
+    "non_dividable": true,
     "scale": true,
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -24,8 +24,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -36,8 +36,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -48,20 +48,20 @@
   },
   {
     "category": "Demographics",
-    "titleId": "CHART_TITLE-Population_growth_rate",
+    "title_id": "CHART_TITLE-Population_growth_rate",
     "title": "Population growth rate",
     "description": "Increase in the number of individuals",
     "variables": [
       "GrowthRate_Count_Person"
     ],
     "denominator": [],
-    "nonDividable": true,
+    "non_dividable": true,
     "scale": true,
     "unit": "%",
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -72,8 +72,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -84,8 +84,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -96,19 +96,19 @@
   },
   {
     "category": "Demographics",
-    "titleId": "CHART_TITLE-Population_density",
+    "title_id": "CHART_TITLE-Population_density",
     "title": "Population density (people per km²)",
     "description": "Measurement of people per km²",
     "variables": [
       "Count_Person_PerArea"
     ],
     "denominator": [],
-    "nonDividable": true,
+    "non_dividable": true,
     "scale": true,
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -119,8 +119,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -131,8 +131,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -143,7 +143,7 @@
   },
   {
     "category": "Demographics",
-    "titleId": "CHART_TITLE-Urban_v_rural_population",
+    "title_id": "CHART_TITLE-Urban_v_rural_population",
     "title": "Urban and rural population",
     "description": "Total number of individuals in rural vs urban parts of a place",
     "variables": [
@@ -151,12 +151,12 @@
       "Count_Person_Rural"
     ],
     "denominator": [],
-    "nonDividable": false,
+    "non_dividable": false,
     "scale": true,
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -164,8 +164,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "BAR"
@@ -173,8 +173,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -185,7 +185,7 @@
   },
   {
     "category": "Demographics",
-    "titleId": "CHART_TITLE-Urban and rural households",
+    "title_id": "CHART_TITLE-Urban and rural households",
     "title": "Urban and rural households",
     "description": "Total number of households in rural vs urban parts of a place",
     "variables": [
@@ -195,12 +195,12 @@
     "denominator": [
       "Count_Household"
     ],
-    "nonDividable": false,
+    "non_dividable": false,
     "scale": true,
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -208,8 +208,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "BAR"
@@ -217,8 +217,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -229,7 +229,7 @@
   },
   {
     "category": "Demographics",
-    "titleId": "CHART_TITLE-Population_age",
+    "title_id": "CHART_TITLE-Population_age",
     "title": "Population by age",
     "description": "Number of individuals who fall within various age buckets",
     "variables": [
@@ -263,12 +263,12 @@
     "denominator": [
       "Count_Person"
     ],
-    "nonDividable": false,
+    "non_dividable": false,
     "scale": true,
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -276,8 +276,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "BAR"
@@ -285,8 +285,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -297,7 +297,7 @@
   },
   {
     "category": "Demographics",
-    "titleId": "CHART_TITLE-Population_gender",
+    "title_id": "CHART_TITLE-Population_gender",
     "title": "Population by gender",
     "description": "Total number of individuals, broken down by gender",
     "variables": [
@@ -307,12 +307,12 @@
     "denominator": [
       "Count_Person"
     ],
-    "nonDividable": false,
+    "non_dividable": false,
     "scale": true,
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -320,8 +320,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "BAR"
@@ -329,8 +329,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -341,7 +341,7 @@
   },
   {
     "category": "Demographics",
-    "titleId": "CHART_TITLE-Population_race",
+    "title_id": "CHART_TITLE-Population_race",
     "title": "Population by race",
     "description": "Total number of individuals, broken down by race",
     "variables": [
@@ -357,12 +357,12 @@
     "denominator": [
       "Count_Person"
     ],
-    "nonDividable": false,
+    "non_dividable": false,
     "scale": true,
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -370,8 +370,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "BAR"
@@ -379,8 +379,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -391,19 +391,19 @@
   },
   {
     "category": "Demographics",
-    "titleId": "CHART_TITLE-Median_age",
+    "title_id": "CHART_TITLE-Median_age",
     "title": "Median Age",
     "description": "The median age of the population",
     "variables": [
       "Median_Age_Person"
     ],
     "denominator": [],
-    "nonDividable": true,
+    "non_dividable": true,
     "scale": true,
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -414,8 +414,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "MAP"
@@ -426,8 +426,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -438,7 +438,7 @@
   },
   {
     "category": "Demographics",
-    "titleId": "CHART_TITLE-Median_age_gender",
+    "title_id": "CHART_TITLE-Median_age_gender",
     "title": "Median age by gender",
     "description": "The median age of the population, broken down by gender",
     "variables": [
@@ -446,12 +446,12 @@
       "Median_Age_Person_Male"
     ],
     "denominator": [],
-    "nonDividable": false,
+    "non_dividable": false,
     "scale": true,
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -459,8 +459,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "BAR"
@@ -468,8 +468,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -480,7 +480,7 @@
   },
   {
     "category": "Demographics",
-    "titleId": "CHART_TITLE-Median_age_race",
+    "title_id": "CHART_TITLE-Median_age_race",
     "title": "Median age by race",
     "description": "The median age of the population, broken down by race",
     "variables": [
@@ -494,12 +494,12 @@
       "Median_Age_Person_WhiteAlone"
     ],
     "denominator": [],
-    "nonDividable": true,
+    "non_dividable": true,
     "scale": true,
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -507,8 +507,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "BAR"
@@ -516,8 +516,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
@@ -528,7 +528,7 @@
   },
   {
     "category": "Demographics",
-    "titleId": "CHART_TITLE-Citizenship",
+    "title_id": "CHART_TITLE-Citizenship",
     "title": "Citizenship status",
     "description": "Total number of individuals, broken down by citizenship status",
     "variables": [
@@ -540,12 +540,12 @@
     "denominator": [
       "Count_Person"
     ],
-    "nonDividable": false,
+    "non_dividable": false,
     "scale": true,
     "blocks": [
       {
-        "isOverview": true,
-        "placeScope": "PLACE",
+        "is_overview": true,
+        "place_scope": "PLACE",
         "charts": [
           {
             "type": "LINE"
@@ -553,8 +553,8 @@
         ]
       },
       {
-        "isOverview": false,
-        "placeScope": "CHILD_PLACES",
+        "is_overview": false,
+        "place_scope": "CHILD_PLACES",
         "charts": [
           {
             "type": "BAR"
@@ -562,8 +562,8 @@
         ]
       },
       {
-        "isOverview": true,
-        "placeScope": "PEER_PLACES_WITHIN_PARENT",
+        "is_overview": true,
+        "place_scope": "PEER_PLACES_WITHIN_PARENT",
         "charts": [
           {
             "type": "BAR"
