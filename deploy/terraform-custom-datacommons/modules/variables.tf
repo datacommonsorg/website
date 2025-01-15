@@ -73,6 +73,18 @@ variable "dc_gcs_data_bucket_path_override" {
   default     = ""
 }
 
+variable "dc_gcs_data_bucket_input_folder" {
+  description = "Input data folder in the GCS data bucket"
+  type        = string
+  default     = "input"
+}
+
+variable "dc_gcs_data_bucket_output_folder" {
+  description = "Output data folder in the GCS data bucket"
+  type        = string
+  default     = "output"
+}
+
 variable "dc_gcs_data_bucket_location" {
   description = "Data Commons GCS data bucket location"
   type        = string

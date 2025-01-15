@@ -113,6 +113,18 @@ resource "google_storage_bucket" "dc_gcs_data_bucket" {
   uniform_bucket_level_access = true
 }
 
+resource "google_storage_bucket_object" "input_folder" {
+  name          = "${var.dc_gcs_data_bucket_input_folder}/"
+  content       = "Input 'folder' for the data loading job. Initialized as an empty blob"
+  bucket        = "${google_storage_bucket.dc_gcs_data_bucket.name}"
+}
+
+resource "google_storage_bucket_object" "output_folder" {
+  name          = "${var.dc_gcs_data_bucket_output_folder}/"
+  content       = "Output 'folder' for the data loading job. Initialized as an empty blob"
+  bucket        = "${google_storage_bucket.dc_gcs_data_bucket.name}"
+}
+
 # Generate a random suffix to append to api keys.
 # A deleted API key fully expires 30 days after deletion, and in the 30-day
 # window the ID remains taken. This suffix allows terraform to give API
@@ -360,7 +372,7 @@ resource "google_cloud_run_v2_job" "dc_data_job" {
 
         env {
           name  = "INPUT_DIR"
-          value = "gs://${local.dc_gcs_data_bucket_path}/input"
+          value = "gs://${local.dc_gcs_data_bucket_path}/${var.dc_gcs_data_bucket_input_folder}"
         }
       }
       execution_environment = "EXECUTION_ENVIRONMENT_GEN2"

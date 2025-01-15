@@ -56,7 +56,7 @@ locals {
     },
     {
       name  = "OUTPUT_DIR"
-      value = "gs://${local.dc_gcs_data_bucket_path}/output"
+      value = "gs://${local.dc_gcs_data_bucket_path}/${var.dc_gcs_data_bucket_output_folder}"
     },
     {
       name  = "FORCE_RESTART"
