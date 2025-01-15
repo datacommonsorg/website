@@ -80,9 +80,6 @@ def get_parent_places(dcid: str) -> List[Place]:
           Place(dcid=parent['dcid'],
                 name=parent['name'],
                 types=[parent['type']]))
-          Place(dcid=parent['dcid'],
-                name=parent['name'],
-                types=[parent['type']]))
 
   return all_parents
 
@@ -108,8 +105,6 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
   parents_to_include = [
       parent for parent in all_parents if any(
           p_type in PARENT_PLACE_TYPES_TO_HIGHLIGHT for p_type in parent.types)
-      parent for parent in all_parents if any(
-          p_type in PARENT_PLACE_TYPES_TO_HIGHLIGHT for p_type in parent.types)
   ]
 
   # Create a dictionary mapping parent types to their order in the highlight list
@@ -119,8 +114,6 @@ def get_place_type_with_parent_places_links(dcid: str) -> str:
   }
 
   # Sort the parents_to_include list using the type_order dictionary
-  parents_to_include.sort(
-      key=lambda parent: min(type_order.get(t) for t in parent.types))
   parents_to_include.sort(
       key=lambda parent: min(type_order.get(t) for t in parent.types))
 

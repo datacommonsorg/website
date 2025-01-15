@@ -32,8 +32,6 @@ OVERVIEW_CATEGORY = "Overview"
 CATEGORIES = {
     OVERVIEW_CATEGORY, "Economics", "Health", "Equity", "Crime", "Education",
     "Demographics", "Housing", "Environment", "Energy"
-    OVERVIEW_CATEGORY, "Economics", "Health", "Equity", "Crime", "Education",
-    "Demographics", "Housing", "Environment", "Energy"
 }
 
 # Define blueprint
@@ -91,7 +89,6 @@ def place_charts(place_dcid: str):
   filtered_chart_config_for_category = (
       place_utils.filter_chart_config_by_place_dcid(
           chart_config=full_chart_config,
-          chart_config=full_chart_config,
           place_dcid=place_dcid,
           child_place_type=child_place_type))
 
@@ -101,7 +98,6 @@ def place_charts(place_dcid: str):
 
   # Extract charts to Chart objects used in PlaceChartsApiResponse object
   blocks = place_utils.chart_config_to_overview_charts(translated_chart_config,
-  blocks = place_utils.chart_config_to_overview_charts(translated_chart_config,
                                                        child_place_type)
 
   # Translate category strings
@@ -109,7 +105,6 @@ def place_charts(place_dcid: str):
       filtered_chart_config_for_category)
 
   response = PlaceChartsApiResponse(
-      blocks=blocks,
       blocks=blocks,
       place=place,
       translatedCategoryStrings=translated_category_strings)
