@@ -100,7 +100,7 @@ function getStatVarKey(
  * @param parentPlaces All possible parent places to choose from
  * @returns string for the selected place dcid or undefined.
  */
-function getPlaceOverride(placeScope: string, parentPlaces: Place[]): string {
+export function getPlaceOverride(placeScope: string, parentPlaces: Place[]): string {
   if (!["PEER_PLACES_WITHIN_PARENT", "SIMILAR_PLACES"].includes(placeScope)) {
     return "";
   }

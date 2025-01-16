@@ -34,6 +34,7 @@ import {
 import { TileSources } from "../utils/tile_utils";
 import {
   isPlaceContainedInUsa,
+  getPlaceOverride,
   placeChartsApiResponsesToPageConfig,
 } from "./util";
 
@@ -467,16 +468,19 @@ export const DevPlaceMain = (): React.JSX.Element => {
     }
     setIsLoading(true);
     (async (): Promise<void> => {
-      const [placeChartsApiResponse, relatedPlacesApiResponse] =
-        await Promise.all([
-          defaultDataCommonsWebClient.getPlaceCharts({
-            category,
-            placeDcid: place.dcid,
-          }),
-          defaultDataCommonsWebClient.getRelatedPLaces({
-            placeDcid: place.dcid,
-          }),
-        ]);
+      const relatedPlacesApiResponse =
+        await defaultDataCommonsWebClient.getRelatedPLaces({
+          placeDcid: place.dcid,
+        });
+      const placeChartsApiResponse =
+        await defaultDataCommonsWebClient.getPlaceCharts({
+          category,
+          placeDcid: place.dcid,
+          parentPlaceDcid: getPlaceOverride(
+            "PEER_PLACES_WITHIN_PARENT",
+            relatedPlacesApiResponse.parentPlaces
+          ),
+        });
 
       setPlaceChartsApiResponse(placeChartsApiResponse);
       setRelatedPlacesApiResponse(relatedPlacesApiResponse);
