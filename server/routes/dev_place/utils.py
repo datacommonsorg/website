@@ -26,6 +26,7 @@ from server.lib.cache import cache
 from server.lib.i18n import DEFAULT_LOCALE
 from server.routes import TIMEOUT
 from server.routes.dev_place.types import BlockConfig
+from server.routes.dev_place.types import Category
 from server.routes.dev_place.types import Chart
 from server.routes.dev_place.types import Place
 from server.routes.dev_place.types import ServerBlockMetadata
@@ -45,6 +46,14 @@ PARENT_PLACE_TYPES_TO_HIGHLIGHT = [
     'Country',
     'Continent',
 ]
+
+# Place page categories
+OVERVIEW_CATEGORY = "Overview"
+ORDERED_CATEGORIES = [
+    OVERVIEW_CATEGORY, "Economics", "Health", "Equity", "Crime", "Education",
+    "Demographics", "Housing", "Environment", "Energy"
+]
+CATEGORIES = set(ORDERED_CATEGORIES)
 
 
 def get_place_html_link(place_dcid: str, place_name: str) -> str:
@@ -572,18 +581,43 @@ def translate_chart_config(chart_config: List[ServerChartConfiguration]):
   return translated_chart_config
 
 
-def get_translated_category_strings(
+def get_categories_with_translations(
     chart_config: List[ServerChartConfiguration]) -> Dict[str, str]:
-  translated_category_strings: Dict[str, str] = {}
+  """
+  Returns a list of categories with their translated names from the chart config.
 
+  Args:
+      chart_config (List[ServerChartConfiguration]): The chart configuration to use for determining categories.
+
+  Returns:
+      List[Category]: A list of categories with their translated names.
+  """
+  categories: List[Category] = []
+
+  overview_category = Category(
+      name=OVERVIEW_CATEGORY,
+      translatedName=get_translated_category_string(OVERVIEW_CATEGORY))
+  categories.append(overview_category)
+
+  categories_set: Set[str] = set()
   for page_config_item in chart_config:
     category = page_config_item.category
-    if category in translated_category_strings:
+    if category in categories_set:
       continue
-    translated_category_strings[category] = gettext(
-        f'CHART_TITLE-CHART_CATEGORY-{category}')
+    categories_set.add(category)
 
-  return translated_category_strings
+  for category in ORDERED_CATEGORIES:
+    if not category in categories_set:
+      continue
+    category = Category(name=category,
+                        translatedName=get_translated_category_string(category))
+    categories.append(category)
+
+  return categories
+
+
+def get_translated_category_string(category: str) -> str:
+  return gettext(f'CHART_TITLE-CHART_CATEGORY-{category}')
 
 
 def get_place_cohort(place: Place) -> str:

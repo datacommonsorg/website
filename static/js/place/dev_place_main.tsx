@@ -16,6 +16,7 @@
 
 import { DataRow } from "@datacommonsorg/client";
 import {
+  Category,
   PlaceChartsApiResponse,
   RelatedPlacesApiResponse,
 } from "@datacommonsorg/client/dist/data_commons_web_client_types";
@@ -84,8 +85,8 @@ const PlaceHeader = (props: {
  * @param props.place The place object containing the DCID for generating URLs
  * @returns Button component for the current topic
  */
-const TopicItem = (props: {
-  category: string;
+const CategoryItem = (props: {
+  category: Category;
   selectedCategory: string;
   forceDevPlaces: boolean;
   place: NamedTypedPlace;
@@ -113,12 +114,12 @@ const TopicItem = (props: {
   return (
     <div className="item-list-item">
       <a
-        href={createHref(category, forceDevPlaces, place)}
+        href={createHref(category.name, forceDevPlaces, place)}
         className={`item-list-text  + ${
-          selectedCategory === category ? " selected" : ""
+          selectedCategory === category.name ? " selected" : ""
         }`}
       >
-        {category}
+        {category.translatedName}
       </a>
     </div>
   );
@@ -133,18 +134,18 @@ const TopicItem = (props: {
  * @param props.place The place object containing the DCID for generating URLs
  * @returns Navigation component with topic tabs
  */
-const PlaceTopicTabs = ({
-  topics,
+const PlaceCategoryTabs = ({
+  categories,
   forceDevPlaces,
-  category,
+  selectedCategory,
   place,
 }: {
-  topics: string[];
+  categories: Category[];
   forceDevPlaces: boolean;
-  category: string;
+  selectedCategory: string;
   place: NamedTypedPlace;
 }): React.JSX.Element => {
-  if (!topics || topics.length == 0) {
+  if (!categories || categories.length == 0) {
     return <></>;
   }
 
@@ -153,11 +154,11 @@ const PlaceTopicTabs = ({
       <span className="explore-relevant-topics">Relevant topics</span>
       <div className="item-list-container">
         <div className="item-list-inner">
-          {topics.map((topic) => (
-            <TopicItem
-              key={topic}
-              category={topic}
-              selectedCategory={category}
+          {categories.map((category) => (
+            <CategoryItem
+              key={category.name}
+              category={category}
+              selectedCategory={selectedCategory}
               forceDevPlaces={forceDevPlaces}
               place={place}
             />
@@ -418,7 +419,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
   const [pageConfig, setPageConfig] = useState<SubjectPageConfig>();
   const [hasError, setHasError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [categories, setCategories] = useState<string[]>();
+  const [categories, setCategories] = useState<Category[]>();
 
   // Get locale
   const metadataContainer = document.getElementById("metadata-base");
@@ -507,14 +508,7 @@ export const DevPlaceMain = (): React.JSX.Element => {
 
   useEffect(() => {
     if (placeChartsApiResponse && placeChartsApiResponse.blocks) {
-      // TODO(gmechali): Refactor this to use the translations correctly.
-      // Move overview to be added in the response with translations. Use the
-      // translation in the tabs, but the english version in the URL.
-      setCategories(
-        ["Overview"].concat(
-          Object.values(placeChartsApiResponse.translatedCategoryStrings)
-        )
-      );
+      setCategories(placeChartsApiResponse.categories);
     }
   }, [placeChartsApiResponse, setPlaceChartsApiResponse]);
 
@@ -531,9 +525,9 @@ export const DevPlaceMain = (): React.JSX.Element => {
         place={place}
         placeSubheader={placeSubheader}
       />
-      <PlaceTopicTabs
-        topics={categories}
-        category={category}
+      <PlaceCategoryTabs
+        categories={categories}
+        selectedCategory={category}
         place={place}
         forceDevPlaces={forceDevPlaces}
       />

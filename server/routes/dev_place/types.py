@@ -57,13 +57,19 @@ class Place:
 
 
 @dataclass
+class Category:
+  name: str
+  translatedName: str
+
+
+@dataclass
 class PlaceChartsApiResponse:
   """
   API Response for /api/dev-place/charts/<place_dcid>
   """
   blocks: List[BlockConfig]
   place: Place
-  translatedCategoryStrings: Dict[str, str]
+  categories: List[Category]
 
 
 @dataclass

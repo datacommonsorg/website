@@ -26,8 +26,8 @@ import { intl } from "../i18n/i18n";
 import { USA_PLACE_DCID } from "../shared/constants";
 import { StatVarSpec } from "../shared/types";
 import {
-  CategoryConfig,
   BlockConfig as SubjectPageBlockConfig,
+  CategoryConfig,
   SubjectPageConfig,
   TileConfig,
 } from "../types/subject_page_proto_types";
@@ -179,6 +179,13 @@ export function placeChartsApiResponsesToPageConfig(
     (item) => item.category
   );
 
+  const categoryNameToTranslatedName = _.fromPairs(
+    placeChartsApiResponse.categories.map((category) => [
+      category.name,
+      category.translatedName,
+    ])
+  );
+
   const categoryConfig: CategoryConfig[] = Object.keys(blocksByCategory).map(
     (categoryName) => {
       const blocks = blocksByCategory[categoryName];
@@ -188,9 +195,11 @@ export function placeChartsApiResponsesToPageConfig(
       blocks.forEach((block: BlockConfig) => {
         const tiles = [];
         block.charts.forEach((chart: Chart) => {
+          const title = getTitle(block.title, block.placeScope);
           const tileConfig: TileConfig = {
-            description: block.description,
-            title: getTitle(block.title, block.placeScope),
+            /** Highlight charts use title as description */
+            description: title,
+            title,
             type: chart.type,
 
             statVarKey: block.statisticalVariableDcids.map(
@@ -280,7 +289,7 @@ export function placeChartsApiResponsesToPageConfig(
       const category: CategoryConfig = {
         blocks: newblocks,
         statVarSpec,
-        title: categoryName,
+        title: categoryNameToTranslatedName[categoryName] || categoryName,
       };
       return category;
     }
