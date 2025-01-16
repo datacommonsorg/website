@@ -34,6 +34,7 @@ import {
 import { TileSources } from "../utils/tile_utils";
 import {
   isPlaceContainedInUsa,
+  pageMessages,
   placeChartsApiResponsesToPageConfig,
 } from "./util";
 
@@ -336,7 +337,11 @@ const RelatedPlaces = (props: {
 
   return (
     <div className="related-places">
-      <div className="related-places-callout">Places in {place.name}</div>
+      <div className="related-places-callout">
+        {intl.formatMessage(pageMessages.placesInPlace, {
+          placeName: place.name,
+        })}
+      </div>
       <div className="item-list-container">
         <div className="item-list-inner">
           {(isCollapsed ? truncatedPlaces : childPlaces).map((place) => (
@@ -415,6 +420,10 @@ export const DevPlaceMain = (): React.JSX.Element => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [categories, setCategories] = useState<string[]>();
 
+  // Get locale
+  const metadataContainer = document.getElementById("metadata-base");
+  const locale = metadataContainer.dataset.locale;
+
   const urlParams = new URLSearchParams(window.location.search);
   const category = urlParams.get("category") || overviewString;
   const isOverview = category === overviewString;
@@ -471,9 +480,11 @@ export const DevPlaceMain = (): React.JSX.Element => {
         await Promise.all([
           defaultDataCommonsWebClient.getPlaceCharts({
             category,
+            locale,
             placeDcid: place.dcid,
           }),
           defaultDataCommonsWebClient.getRelatedPLaces({
+            locale,
             placeDcid: place.dcid,
           }),
         ]);

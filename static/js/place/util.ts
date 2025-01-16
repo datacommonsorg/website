@@ -26,8 +26,8 @@ import { intl } from "../i18n/i18n";
 import { USA_PLACE_DCID } from "../shared/constants";
 import { StatVarSpec } from "../shared/types";
 import {
-  BlockConfig as SubjectPageBlockConfig,
   CategoryConfig,
+  BlockConfig as SubjectPageBlockConfig,
   SubjectPageConfig,
   TileConfig,
 } from "../types/subject_page_proto_types";
@@ -416,6 +416,15 @@ const pluralPlaceTypeMessages = defineMessages({
     defaultMessage: "Places",
     description:
       'General collection of places. It is used when we don"t have a specific place type. Some examples: "_Places_ in Russia" as a header for a section with links to many places contained in Russia, as chart titles, such as "Median Age: _Places_ near Paris" or "Median Age: Other _Places_", or "Ranking for All _Places_ in Russia".',
+  },
+});
+
+export const pageMessages = defineMessages({
+  placesInPlace: {
+    id: "child_places_menu-places_in_place",
+    defaultMessage: "Places in {placeName}",
+    description:
+      'Used for the child places navigation sidebar. Shows a list of place contained in the current place. For example, the sidebar for the Austria place page shows links to child places under the header "Places in {Austria}".',
   },
 });
 

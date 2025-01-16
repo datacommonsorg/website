@@ -32,6 +32,8 @@ export interface DatacommonsWebClientParams {
   apiRoot?: string;
 }
 
+const LOCALE_PARAM = "hl";
+
 class DataCommonsWebClient {
   /** Website API root */
   apiRoot?: string;
@@ -214,11 +216,19 @@ class DataCommonsWebClient {
    */
   async getPlaceCharts(params: {
     category?: string;
+    locale?: string;
     placeDcid: string;
   }): Promise<PlaceChartsApiResponse> {
+    const urlQueryParams = new URLSearchParams();
+    if (params.locale) {
+      urlQueryParams.set(LOCALE_PARAM, params.locale);
+    }
+    if (params.category) {
+      urlQueryParams.set("category", params.category);
+    }
     const url = `${this.apiRoot || ""}/api/dev-place/charts/${
       params.placeDcid
-    }${params.category ? "?category=" + params.category : ""}`;
+    }${urlQueryParams.size ? "?" + urlQueryParams.toString() : ""}`;
     const response = await fetch(url);
     return (await response.json()) as PlaceChartsApiResponse;
   }
@@ -229,11 +239,16 @@ class DataCommonsWebClient {
    * @param params.placeDcid place dcid to fetch data for
    */
   async getRelatedPLaces(params: {
+    locale?: string;
     placeDcid: string;
   }): Promise<RelatedPlacesApiResponse> {
+    const urlQueryParams = new URLSearchParams();
+    if (params.locale) {
+      urlQueryParams.set(LOCALE_PARAM, params.locale);
+    }
     const url = `${this.apiRoot || ""}/api/dev-place/related-places/${
       params.placeDcid
-    }`;
+    }${urlQueryParams.size ? "?" + urlQueryParams.toString() : ""}`;
     const response = await fetch(url);
     return (await response.json()) as RelatedPlacesApiResponse;
   }
