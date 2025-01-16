@@ -155,19 +155,22 @@ def place_type_to_highlight(place_types: List[str]) -> str:
 
 
 def get_place_override(parent_places: List[Place]) -> str:
-    place_override = None
-    for place in parent_places:
-        # Python's way to achieve the same logic as your TypeScript code
-        try:
-            lowest_index = min(PARENT_PLACE_TYPES_TO_HIGHLIGHT.index(type) for type in place.types if type in PARENT_PLACE_TYPES_TO_HIGHLIGHT)
-        except ValueError:  # No matching types found
-            lowest_index = float('inf')  # Equivalent to Infinity in this context
+  place_override = None
+  for place in parent_places:
+    # Python's way to achieve the same logic as your TypeScript code
+    try:
+      lowest_index = min(
+          PARENT_PLACE_TYPES_TO_HIGHLIGHT.index(type)
+          for type in place.types
+          if type in PARENT_PLACE_TYPES_TO_HIGHLIGHT)
+    except ValueError:  # No matching types found
+      lowest_index = float('inf')  # Equivalent to Infinity in this context
 
-        if lowest_index != float('inf'):
-            place_override = place
-            break  # Exit the loop once a match is found
+    if lowest_index != float('inf'):
+      place_override = place
+      break  # Exit the loop once a match is found
 
-    return place_override.dcid if place_override else None  # Use None instead of undefined
+  return place_override.dcid if place_override else None  # Use None instead of undefined
 
 
 def filter_chart_configs_for_category(

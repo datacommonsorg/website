@@ -468,15 +468,15 @@ export const DevPlaceMain = (): React.JSX.Element => {
     setIsLoading(true);
     (async (): Promise<void> => {
       const [placeChartsApiResponse, relatedPlacesApiResponse] =
-      await Promise.all([
-        defaultDataCommonsWebClient.getPlaceCharts({
-          category,
-          placeDcid: place.dcid,
-        }),
-        defaultDataCommonsWebClient.getRelatedPLaces({
-          placeDcid: place.dcid,
-        }),
-      ]);
+        await Promise.all([
+          defaultDataCommonsWebClient.getPlaceCharts({
+            category,
+            placeDcid: place.dcid,
+          }),
+          defaultDataCommonsWebClient.getRelatedPLaces({
+            placeDcid: place.dcid,
+          }),
+        ]);
 
       setPlaceChartsApiResponse(placeChartsApiResponse);
       setRelatedPlacesApiResponse(relatedPlacesApiResponse);
