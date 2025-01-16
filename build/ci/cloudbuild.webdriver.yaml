@@ -42,7 +42,7 @@ steps:
 
   # Run the webdriver tests
   - id: flask_webdriver_test
-    name: gcr.io/datcom-ci/webdriver-chrome:2024-06-05
+    name: gcr.io/datcom-ci/webdriver-chrome:2025-01-15
     entrypoint: /bin/sh
     waitFor: ["package_js", "setup_python"]
     args:
