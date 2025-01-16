@@ -163,11 +163,11 @@ def filter_chart_configs_for_category(
 
 
 @cache.memoize(timeout=TIMEOUT)
-def filter_chart_config_by_place_dcid(
-    chart_config: List[ServerChartConfiguration],
-    place_dcid: str,
-    place_type: str,
-    child_place_type=str):
+def filter_chart_config_by_place_dcid(chart_config: List[ServerChartConfiguration],
+                                      place_dcid: str,
+                                      place_type: str,
+                                      child_place_type=str,
+                                      parent_place_dcid=str):
   """
   Filters the chart configuration to only include charts that have data for a specific place DCID.
   

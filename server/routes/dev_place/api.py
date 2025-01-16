@@ -93,6 +93,7 @@ def place_charts(place_dcid: str):
       place_utils.filter_chart_config_by_place_dcid(
           chart_config=full_chart_config,
           place_dcid=place_dcid,
+          place_type=place.types[0],
           child_place_type=child_place_type))
 
   # Translate chart config titles
