@@ -360,6 +360,8 @@ message Tile {
   // Only used in ANSWER_MESSAGE, ANSWER_TABLE, and ENTITY_OVERVIEW for now.
   // TODO: use this for all other tile types as well.
   repeated string entities = 22;
+  // [optional] If set, used instead of main enclosed place type for the page.
+  string enclosed_place_type_override = 23;
 
   // specs for specific tile types
   oneof tile_type_spec {

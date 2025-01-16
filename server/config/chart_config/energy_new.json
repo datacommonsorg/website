@@ -1,0 +1,104 @@
+[
+  {
+  "category": "Energy",
+  "title_id": "CHART_TITLE-Electricity_price",
+  "title": "Electricity_price",
+  "description": "Electricity_price",
+  "variables": [
+    "Annual_Average_RetailPrice_Electricity"
+  ],
+  "denominator": [],
+  "non_dividable": true,
+  "scale": true,
+  "unit": "¢/kWh",
+  "blocks":[
+    {
+      "is_overview": true,
+      "place_scope": "PLACE",
+      "charts": [
+        {
+          "type": "LINE"
+        },
+        {
+          "type": "HIGHLIGHT"
+        }
+      ]
+    },
+    {
+      "is_overview": false,
+      "place_scope": "CHILD_PLACES",
+      "charts": [
+        {
+          "type": "MAP"
+        },
+        {
+          "type": "RANKING",
+          "max_places": 10
+        }
+      ]
+    },
+    {
+      "is_overview": false,
+      "place_scope": "PEER_PLACES_WITHIN_PARENT",
+      "charts": [
+        {
+          "type": "MAP"
+        },
+        {
+          "type": "RANKING",
+          "max_places": 5
+        }
+      ]
+    }
+  ]
+},
+{
+  "category": "Energy",
+  "title_id": "CHART_TITLE-Electricity_generation",
+  "title": "Electricity_generation",
+  "description": "Electricity_generation",
+  "variables": [
+    "Annual_Generation_Electricity"
+  ],
+  "denominator": [],
+  "non_dividable": false,
+  "scale": true,
+  "unit": "kWh",
+  "blocks":[
+    {
+      "is_overview": true,
+      "place_scope": "PLACE",
+      "charts": [
+        {
+          "type": "LINE"
+        },
+        {
+          "type": "HIGHLIGHT"
+        }
+      ]
+    },
+    {
+      "is_overview": false,
+      "place_scope": "CHILD_PLACES",
+      "charts": [
+        {
+          "type": "MAP"
+        },
+        {
+          "type": "RANKING"
+        }
+      ]
+    },
+    {
+      "is_overview": true,
+      "place_scope": "PEER_PLACES_WITHIN_PARENT",
+      "charts": [
+        {
+          "type": "BAR",
+          "max_places": 5
+        }
+      ]
+    }
+  ]
+}
+]
