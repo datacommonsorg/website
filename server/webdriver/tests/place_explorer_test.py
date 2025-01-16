@@ -31,8 +31,8 @@ class TestPlaceExplorer(PlaceExplorerTestMixin, BaseDcWebdriverTest):
     self.driver.get(self.url_ + '/place/geoId/06?force_dev_places=true')
 
     expected_topics = [
-        "Overview", "Crime", "Demographics", "Economics", "Education",
-        "Energy", "Environment", "Equity", "Health", "Housing"
+        "Overview", "Crime", "Demographics", "Economics", "Education", "Energy",
+        "Environment", "Equity", "Health", "Housing"
     ]
     shared.assert_topics(self,
                          self.driver,
