@@ -67,7 +67,7 @@ Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDom
 Amount_Remittance_OutwardRemittance,Total Amount of Outward Remittances
 Amount_Stock,Total Stock Value
 Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal,Stock Value as a Percentage of Nominal Gross Domestic Production (GDP)
-Amout_FarmInventory_CornForGrain,Amount of Corn for Grain Grown
+Amount_FarmInventory_CornForGrain,Amount of Corn for Grain Grown
 AnnualChange_Stocks_Fuel_AviationGasoline,Stocks of Aviation Gasoline
 AnnualChange_Stocks_Fuel_BituminousCoal,Stocks of Bituminous Coal
 AnnualChange_Stocks_Fuel_BrownCoal,Annual Brown Coal Stocks Change

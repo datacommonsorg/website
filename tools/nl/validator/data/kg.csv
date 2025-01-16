@@ -147,9 +147,9 @@ Amount_Remittance_InwardRemittance_AsFractionOf_Amount_EconomicActivity_GrossDom
 Amount_Remittance_OutwardRemittance,Country,country/BRB,Outward Remittances,Barbados
 Amount_Stock,Country,country/SWE,Stock Value,Sweden
 Amount_Stock_AsFractionOf_Amount_EconomicActivity_GrossDomesticProduction_Nominal,Country,country/CHL,Stock Value as a Percentage of Nominal GDP,Chile
-Amout_FarmInventory_CornForGrain,Country,country/USA,Corn Grown,United States
-Amout_FarmInventory_CornForGrain,County,geoId/26101,Corn Grown,Manistee County
-Amout_FarmInventory_CornForGrain,State,geoId/34,Corn Grown,New Jersey
+Amount_FarmInventory_CornForGrain,Country,country/USA,Corn Grown,United States
+Amount_FarmInventory_CornForGrain,County,geoId/26101,Corn Grown,Manistee County
+Amount_FarmInventory_CornForGrain,State,geoId/34,Corn Grown,New Jersey
 AnnualChange_Stocks_Fuel_AviationGasoline,Country,country/GUY,Stocks of Fuel (Annual Change): Aviation Gasoline,Guyana
 AnnualChange_Stocks_Fuel_BituminousCoal,Country,country/IDN,Stocks of Fuel (Annual Change): EIA_Bituminous Coal,Indonesia
 AnnualChange_Stocks_Fuel_BrownCoal,Country,country/HRV,Stocks of Fuel (Annual Change): Brown Coal,Croatia
