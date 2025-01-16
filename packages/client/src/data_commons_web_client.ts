@@ -217,16 +217,17 @@ class DataCommonsWebClient {
     placeDcid: string;
     parentPlaceDcid?: string;
   }): Promise<PlaceChartsApiResponse> {
-    const url = new URL(`${this.apiRoot || ""}/api/dev-place/charts/${params.placeDcid}`);
+    const url = `${this.apiRoot || ""}/api/dev-place/charts/${params.placeDcid}?`;
+
+    const sp = new URLSearchParams();
     if (params.category) {
-      url.searchParams.append('category', params.category);
+      sp.append('category', params.category);
     }
 
     if (params.parentPlaceDcid) {
-      url.searchParams.append('parentPlaceDcid', params.parentPlaceDcid);
+      sp.append('parentPlaceDcid', params.parentPlaceDcid);
     }
-
-    const response = await fetch(url.toString());
+    const response = await fetch(url + sp.toString());
     return (await response.json()) as PlaceChartsApiResponse;
   }
 
