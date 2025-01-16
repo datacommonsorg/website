@@ -28,13 +28,14 @@ from web_app import app
 
 class TestPlaceAPI(unittest.TestCase):
 
+  @patch('server.routes.shared_api.place.parent_places')
   @patch('server.lib.fetch.raw_property_values')
   @patch('server.lib.fetch.multiple_property_values')
   @patch('server.services.datacommons.obs_point')
   @patch('server.services.datacommons.obs_point_within')
   def test_dev_place_charts(self, mock_obs_point_within, mock_obs_point,
                             mock_multiple_property_values,
-                            mock_raw_property_values):
+                            mock_raw_property_values, mock_parent_places):
     """Test the place_charts endpoint."""
 
     with app.app_context():
@@ -54,6 +55,14 @@ class TestPlaceAPI(unittest.TestCase):
 
       # Mock fetch.raw_property_values to return empty lists (no nearby or similar places)
       mock_raw_property_values.return_value = {place_dcid: []}
+
+      mock_parent_places.return_value = {
+          'dcid': 'northamerica',
+          'parents': [{
+              'type': 'Continent',
+              'dcid': 'northamerica'
+          }]
+      }
 
       # Send a GET request to the new endpoint
       response = app.test_client().get(f'/api/dev-place/charts/{place_dcid}')
